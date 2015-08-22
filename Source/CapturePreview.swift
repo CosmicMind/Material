@@ -21,28 +21,28 @@ import AVFoundation
 
 @objc(PreviewDelegate)
 public protocol PreviewDelegate {
-	optional func preview(preview: Preview!, tappedToFocusAt point: CGPoint)
-	optional func preview(preview: Preview!, tappedToExposeAt point: CGPoint)
-	optional func preview(preview: Preview!, tappedToReset focus: UIView!, exposure: UIView!)
+	optional func previewTappedToFocusAt(preview: Preview, point: CGPoint)
+	optional func previewTappedToExposeAt(preview: Preview, point: CGPoint)
+	optional func previewTappedToReset(preview: Preview, focus: UIView, exposure: UIView)
 }
 
 public class Preview: UIView {
 	/**
-	* boxBounds
-	* A static property that sets the initial size of the focusBox and exposureBox properties.
+		:name:	boxBounds
+		:description:	A static property that sets the initial size of the focusBox and exposureBox properties.
 	*/
 	static public var boxBounds: CGRect = CGRectMake(0, 0, 150, 150)
 	
 	/**
-	* delegate
-	* An optional instance of PreviewDelegate to handle events that are triggered during various
-	* stages of engagement.
+		:name:	delegate
+		:description:	An optional instance of PreviewDelegate to handle events that are triggered during various
+		stages of engagement.
 	*/
 	public weak var delegate: PreviewDelegate?
 	
 	/**
-	* tapToFocusEnabled
-	* A mutator and accessor that enables and disables tap to focus gesture.
+		:name:	tapToFocusEnabled
+		:description:	A mutator and accessor that enables and disables tap to focus gesture.
 	*/
 	public var tapToFocusEnabled: Bool {
 		get {
@@ -54,8 +54,8 @@ public class Preview: UIView {
 	}
 	
 	/**
-	* tapToExposeEnabled
-	* A mutator and accessor that enables and disables tap to expose gesture.
+		:name:	tapToExposeEnabled
+		:description:	A mutator and accessor that enables and disables tap to expose gesture.
 	*/
 	public var tapToExposeEnabled: Bool {
 		get {
@@ -66,9 +66,9 @@ public class Preview: UIView {
 		}
 	}
 	
-	/**
-	* override for layerClass
-	*/
+	//
+	//	override for layerClass
+	//
 	override public class func layerClass() -> AnyClass {
 		return AVCaptureVideoPreviewLayer.self
 	}
@@ -142,7 +142,7 @@ public class Preview: UIView {
 	internal func handleSingleTap(recognizer: UIGestureRecognizer) {
 		let point: CGPoint = recognizer.locationInView(self)
 		runBoxAnimationOnView(focusBox, point: point)
-		delegate?.preview?(self, tappedToFocusAt: captureDevicePointForPoint(point))
+		delegate?.previewTappedToFocusAt?(self, point: captureDevicePointForPoint(point))
 	}
 	
 	/**
@@ -153,7 +153,7 @@ public class Preview: UIView {
 	internal func handleDoubleTap(recognizer: UIGestureRecognizer) {
 		let point: CGPoint = recognizer.locationInView(self)
 		runBoxAnimationOnView(exposureBox, point: point)
-		delegate?.preview?(self, tappedToExposeAt: captureDevicePointForPoint(point))
+		delegate?.previewTappedToExposeAt?(self, point: captureDevicePointForPoint(point))
 	}
 	
 	/**
@@ -270,7 +270,7 @@ public class Preview: UIView {
 				self.exposureBox!.hidden = true
 				self.focusBox!.transform = CGAffineTransformIdentity
 				self.exposureBox!.transform = CGAffineTransformIdentity
-				self.delegate?.preview?(self, tappedToReset: self.focusBox!, exposure: self.exposureBox!)
+				self.delegate?.previewTappedToReset?(self, focus: self.focusBox!, exposure: self.exposureBox!)
 			}
 		}
 	}

@@ -18,7 +18,7 @@
 
 import UIKit
 
-class FabButton : UIButton {
+public class FabButton : UIButton {
     
     var lineWidth: CGFloat = 2.0
     
@@ -29,20 +29,24 @@ class FabButton : UIButton {
     private var hLine: UIView?
     private var backgroundColorView: UIView?
     private var pulseView: UIView?
-    
-    override func drawRect(rect: CGRect) {
+	
+	public convenience init() {
+		self.init(frame: CGRectZero)
+	}
+	
+    public override func drawRect(rect: CGRect) {
         setupContext(rect)
         setupBackgroundColorView()
         setupPlus()
     }
     
-    required init(coder aDecoder: NSCoder) {
+    public required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         initialize()
         applyShadow()
     }
     
-    required override init(frame: CGRect) {
+    public required override init(frame: CGRect) {
         super.init(frame: frame)
         initialize()
         applyShadow()
@@ -67,11 +71,11 @@ class FabButton : UIButton {
     // so the pulse doesn't animate off the button
     func setupBackgroundColorView() {
         backgroundColorView = UIView()
-        backgroundColorView!.frame = self.bounds
-        backgroundColorView!.layer.cornerRadius = boundsW() / 2.0
+        backgroundColorView!.frame = bounds
+        backgroundColorView!.layer.cornerRadius = bounds.width / 2.0
         backgroundColorView!.backgroundColor = color
         backgroundColorView!.layer.masksToBounds = true
-        self.insertSubview(backgroundColorView!, atIndex: 0)
+        insertSubview(backgroundColorView!, atIndex: 0)
     }
     
     // I make the + with two views because
@@ -103,12 +107,14 @@ class FabButton : UIButton {
         layer.shadowRadius = 5
     }
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-        pulseTouches(touches)
+    override public func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+		super.touchesBegan(touches, withEvent: event)
+		pulseTouches(touches)
     }
     
-    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
-        shrink()
+    override public func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+		super.touchesEnded(touches, withEvent: event)
+		shrink()
         removePulse()
     }
     
@@ -116,8 +122,8 @@ class FabButton : UIButton {
         let touch = touches.allObjects.last as! UITouch
         let touchLocation = touch.locationInView(self)
         pulseView = UIView()
-        pulseView!.frame = CGRectMake(0, 0, boundsW(), boundsH())
-        pulseView!.layer.cornerRadius = boundsW() / 2.0
+        pulseView!.frame = CGRectMake(0, 0, bounds.width, bounds.height)
+        pulseView!.layer.cornerRadius = bounds.width / 2.0
         pulseView!.center = touchLocation
         pulseView!.backgroundColor = pulseColor!.colorWithAlphaComponent(0.5)
         backgroundColorView!.addSubview(pulseView!)
@@ -134,7 +140,7 @@ class FabButton : UIButton {
     }
     
     func removePulse() {
-        UIView.animateWithDuration(0.3, animations: { () -> Void in
+        UIView.animateWithDuration(0.3, animations: { _ in
             self.pulseView?.alpha = 0.0
         }) { (finished) -> Void in
             self.pulseView?.removeFromSuperview()

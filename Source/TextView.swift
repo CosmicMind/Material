@@ -22,16 +22,16 @@ private var defaultTextColor: UIColor = UIColor(red: 33/255, green: 33/255, blue
 private var defaultPlaceholderColor: UIColor = UIColor(red: 159/255, green: 160/255, blue: 164/255, alpha: 1)
 
 public class TextView: UITextView {
-	/**
-	* label
-	* Placeholder label.
-	*/
+	//
+	//	:name:	label
+	//	:description: Placeholder label.
+	//
 	private lazy var label: UILabel = UILabel()
 	
-	/**
-	* labelConstraints
-	* Autoresize constraints for the placeholder label.
-	*/
+	//
+	//	:name:	labelConstraints
+	//	:description:	Autoresize constraints for the placeholder label.
+	//
 	private var labelConstraints: Array<NSLayoutConstraint>?
 	
 	required public init(coder aDecoder: NSCoder) {
@@ -47,17 +47,17 @@ public class TextView: UITextView {
 		setupView()
 	}
 	
-	/**
-	* deinit
-	* Notification observer removed from UITextView.
-	*/
+	//
+	//	:name:	deinit
+	//	:description:	Notification observer removed from UITextView.
+	//	
 	deinit {
 		NSNotificationCenter.defaultCenter().removeObserver(self, name: UITextViewTextDidChangeNotification, object: nil)
 	}
 	
 	/**
-	* placeholder
-	* The placeholder label string.
+		:name:	placeholder
+		:description:	The placeholder label string.
 	*/
 	public var placeholder: String = "" {
 		didSet {
@@ -66,8 +66,8 @@ public class TextView: UITextView {
 	}
 	
 	/**
-	* placeholderColor
-	* The placeholder color.
+		:name:	placeholderColor
+		:description:	The placeholder color.
 	*/
 	public var placeholderColor: UIColor = defaultPlaceholderColor {
 		didSet {
@@ -76,8 +76,8 @@ public class TextView: UITextView {
 	}
 	
 	/**
-	* font
-	* Font to use for placeholder based on UITextView font.
+		:name:	font
+		:description:	Font to use for placeholder based on UITextView font.
 	*/
 	override public var font: UIFont! {
 		didSet {
@@ -86,8 +86,8 @@ public class TextView: UITextView {
 	}
 	
 	/**
-	* textAlignment
-	* Sets placeholder textAlignment based on UITextView textAlignment.
+		:name:	textAlignment
+		:description:	Sets placeholder textAlignment based on UITextView textAlignment.
 	*/
 	override public var textAlignment: NSTextAlignment {
 		didSet {
@@ -96,8 +96,8 @@ public class TextView: UITextView {
 	}
 	
 	/**
-	* text
-	* When set, updates the placeholder text.
+		:name:	text
+		:description:	When set, updates the placeholder text.
 	*/
 	override public var text: String! {
 		didSet {
@@ -106,8 +106,8 @@ public class TextView: UITextView {
 	}
 	
 	/**
-	* attributedText
-	* When set, updates the placeholder attributedText.
+		:name:	attributedText
+		:description:	When set, updates the placeholder attributedText.
 	*/
 	override public var attributedText: NSAttributedString! {
 		didSet {
@@ -116,8 +116,8 @@ public class TextView: UITextView {
 	}
 	
 	/**
-	* textContainerInset
-	* When set, updates the placeholder constraints.
+		:name:	textContainerInset
+		:description:	When set, updates the placeholder constraints.
 	*/
 	override public var textContainerInset: UIEdgeInsets {
 		didSet {
@@ -130,18 +130,18 @@ public class TextView: UITextView {
 		label.preferredMaxLayoutWidth = textContainer.size.width - textContainer.lineFragmentPadding * 2.0
 	}
 	
-	/**
-	* textViewTextDidChange
-	* Updates the label visibility when text is empty or not.
-	*/
+	//
+	//	:name:	textViewTextDidChange
+	//	:description:	Updates the label visibility when text is empty or not.
+	//
 	internal func textViewTextDidChange() {
 		label.hidden = !text.isEmpty
 	}
 	
-	/**
-	* setupView
-	* Sets up the common initilized values.
-	*/
+	//
+	//	:name:	setupView
+	//	:description:	Sets up the common initilized values.
+	//
 	private func setupView() {
 		backgroundColor = .clearColor()
 		textColor = defaultTextColor
@@ -162,10 +162,10 @@ public class TextView: UITextView {
 		updateLabelConstraints()
 	}
 	
-	/**
-	* updateLabelConstraints
-	* Updates the placeholder constraints.
-	*/
+	//
+	//	:name:	updateLabelConstraints
+	//	:description:	Updates the placeholder constraints.
+	//	
 	private func updateLabelConstraints() {
 		if nil != labelConstraints {
 			removeConstraints(labelConstraints!)

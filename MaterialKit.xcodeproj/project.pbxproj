@@ -7,20 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		963832421B88DFD80015F710 /* FocusKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963832361B88DFD80015F710 /* FocusKit.framework */; };
-		963832561B88E30F0015F710 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 963832541B88E30F0015F710 /* Info.plist */; };
+		963832421B88DFD80015F710 /* MaterialKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963832361B88DFD80015F710 /* MaterialKit.framework */; };
 		9638325A1B88E31A0015F710 /* FocusKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963832581B88E31A0015F710 /* FocusKitTests.swift */; };
-		9638325B1B88E31A0015F710 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 963832591B88E31A0015F710 /* Info.plist */; };
 		963832691B88E5BF0015F710 /* Capture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9638325E1B88E5BF0015F710 /* Capture.swift */; };
 		9638326A1B88E5BF0015F710 /* CapturePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9638325F1B88E5BF0015F710 /* CapturePreview.swift */; };
 		9638326B1B88E5BF0015F710 /* FabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963832601B88E5BF0015F710 /* FabButton.swift */; };
 		9638326C1B88E5BF0015F710 /* FlatButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963832611B88E5BF0015F710 /* FlatButton.swift */; };
 		9638326E1B88E5BF0015F710 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 963832631B88E5BF0015F710 /* LICENSE */; };
-		9638326F1B88E5BF0015F710 /* MaterialKit+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963832641B88E5BF0015F710 /* MaterialKit+UIView.swift */; };
 		963832701B88E5BF0015F710 /* RaisedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963832651B88E5BF0015F710 /* RaisedButton.swift */; };
 		963832711B88E5BF0015F710 /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963832661B88E5BF0015F710 /* Text.swift */; };
 		963832721B88E5BF0015F710 /* TextStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963832671B88E5BF0015F710 /* TextStorage.swift */; };
 		963832731B88E5BF0015F710 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963832681B88E5BF0015F710 /* TextView.swift */; };
+		9638327E1B89070E0015F710 /* Text.swift in Headers */ = {isa = PBXBuildFile; fileRef = 963832661B88E5BF0015F710 /* Text.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		9638327F1B89070E0015F710 /* TextStorage.swift in Headers */ = {isa = PBXBuildFile; fileRef = 963832671B88E5BF0015F710 /* TextStorage.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		963832801B89070E0015F710 /* TextView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 963832681B88E5BF0015F710 /* TextView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		963832811B89070E0015F710 /* FabButton.swift in Headers */ = {isa = PBXBuildFile; fileRef = 963832601B88E5BF0015F710 /* FabButton.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		963832821B89070E0015F710 /* FlatButton.swift in Headers */ = {isa = PBXBuildFile; fileRef = 963832611B88E5BF0015F710 /* FlatButton.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		963832831B89070E0015F710 /* RaisedButton.swift in Headers */ = {isa = PBXBuildFile; fileRef = 963832651B88E5BF0015F710 /* RaisedButton.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		963832841B89070E0015F710 /* Capture.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9638325E1B88E5BF0015F710 /* Capture.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		963832851B89070E0015F710 /* CapturePreview.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9638325F1B88E5BF0015F710 /* CapturePreview.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		963832881B8908180015F710 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963832871B8908180015F710 /* Layout.swift */; };
+		963832891B89097D0015F710 /* Layout.swift in Headers */ = {isa = PBXBuildFile; fileRef = 963832871B8908180015F710 /* Layout.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,8 +41,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		963832361B88DFD80015F710 /* FocusKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FocusKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		963832411B88DFD80015F710 /* FocusKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FocusKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		963832361B88DFD80015F710 /* MaterialKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MaterialKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		963832411B88DFD80015F710 /* MaterialKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MaterialKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		963832541B88E30F0015F710 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		963832581B88E31A0015F710 /* FocusKitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusKitTests.swift; sourceTree = "<group>"; };
 		963832591B88E31A0015F710 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -44,11 +51,11 @@
 		963832601B88E5BF0015F710 /* FabButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FabButton.swift; sourceTree = "<group>"; };
 		963832611B88E5BF0015F710 /* FlatButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlatButton.swift; sourceTree = "<group>"; };
 		963832631B88E5BF0015F710 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		963832641B88E5BF0015F710 /* MaterialKit+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MaterialKit+UIView.swift"; sourceTree = "<group>"; };
 		963832651B88E5BF0015F710 /* RaisedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RaisedButton.swift; sourceTree = "<group>"; };
 		963832661B88E5BF0015F710 /* Text.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
 		963832671B88E5BF0015F710 /* TextStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextStorage.swift; sourceTree = "<group>"; };
 		963832681B88E5BF0015F710 /* TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
+		963832871B8908180015F710 /* Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,7 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				963832421B88DFD80015F710 /* FocusKit.framework in Frameworks */,
+				963832421B88DFD80015F710 /* MaterialKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,8 +89,8 @@
 		963832371B88DFD80015F710 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				963832361B88DFD80015F710 /* FocusKit.framework */,
-				963832411B88DFD80015F710 /* FocusKitTests.xctest */,
+				963832361B88DFD80015F710 /* MaterialKit.framework */,
+				963832411B88DFD80015F710 /* MaterialKitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -92,10 +99,11 @@
 			isa = PBXGroup;
 			children = (
 				9638325C1B88E3420015F710 /* Supporting Files */,
-				963832761B88E8990015F710 /* Text */,
-				963832751B88E87B0015F710 /* Material */,
-				963832741B88E86B0015F710 /* Capture */,
 				963832631B88E5BF0015F710 /* LICENSE */,
+				963832861B8907FE0015F710 /* Layout */,
+				963832761B88E8990015F710 /* Text */,
+				963832751B88E87B0015F710 /* Button */,
+				963832741B88E86B0015F710 /* Capture */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -134,15 +142,14 @@
 			name = Capture;
 			sourceTree = "<group>";
 		};
-		963832751B88E87B0015F710 /* Material */ = {
+		963832751B88E87B0015F710 /* Button */ = {
 			isa = PBXGroup;
 			children = (
-				963832641B88E5BF0015F710 /* MaterialKit+UIView.swift */,
 				963832601B88E5BF0015F710 /* FabButton.swift */,
 				963832611B88E5BF0015F710 /* FlatButton.swift */,
 				963832651B88E5BF0015F710 /* RaisedButton.swift */,
 			);
-			name = Material;
+			name = Button;
 			sourceTree = "<group>";
 		};
 		963832761B88E8990015F710 /* Text */ = {
@@ -155,6 +162,14 @@
 			name = Text;
 			sourceTree = "<group>";
 		};
+		963832861B8907FE0015F710 /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				963832871B8908180015F710 /* Layout.swift */,
+			);
+			name = Layout;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -162,15 +177,24 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9638327E1B89070E0015F710 /* Text.swift in Headers */,
+				9638327F1B89070E0015F710 /* TextStorage.swift in Headers */,
+				963832801B89070E0015F710 /* TextView.swift in Headers */,
+				963832811B89070E0015F710 /* FabButton.swift in Headers */,
+				963832821B89070E0015F710 /* FlatButton.swift in Headers */,
+				963832831B89070E0015F710 /* RaisedButton.swift in Headers */,
+				963832841B89070E0015F710 /* Capture.swift in Headers */,
+				963832851B89070E0015F710 /* CapturePreview.swift in Headers */,
+				963832891B89097D0015F710 /* Layout.swift in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		963832351B88DFD80015F710 /* FocusKit */ = {
+		963832351B88DFD80015F710 /* MaterialKit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9638324C1B88DFD80015F710 /* Build configuration list for PBXNativeTarget "FocusKit" */;
+			buildConfigurationList = 9638324C1B88DFD80015F710 /* Build configuration list for PBXNativeTarget "MaterialKit" */;
 			buildPhases = (
 				963832311B88DFD80015F710 /* Sources */,
 				963832321B88DFD80015F710 /* Frameworks */,
@@ -181,14 +205,14 @@
 			);
 			dependencies = (
 			);
-			name = FocusKit;
+			name = MaterialKit;
 			productName = FocusKit;
-			productReference = 963832361B88DFD80015F710 /* FocusKit.framework */;
+			productReference = 963832361B88DFD80015F710 /* MaterialKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		963832401B88DFD80015F710 /* FocusKitTests */ = {
+		963832401B88DFD80015F710 /* MaterialKitTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9638324F1B88DFD80015F710 /* Build configuration list for PBXNativeTarget "FocusKitTests" */;
+			buildConfigurationList = 9638324F1B88DFD80015F710 /* Build configuration list for PBXNativeTarget "MaterialKitTests" */;
 			buildPhases = (
 				9638323D1B88DFD80015F710 /* Sources */,
 				9638323E1B88DFD80015F710 /* Frameworks */,
@@ -199,9 +223,9 @@
 			dependencies = (
 				963832441B88DFD80015F710 /* PBXTargetDependency */,
 			);
-			name = FocusKitTests;
+			name = MaterialKitTests;
 			productName = FocusKitTests;
-			productReference = 963832411B88DFD80015F710 /* FocusKitTests.xctest */;
+			productReference = 963832411B88DFD80015F710 /* MaterialKitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -221,7 +245,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 963832301B88DFD80015F710 /* Build configuration list for PBXProject "FocusKit" */;
+			buildConfigurationList = 963832301B88DFD80015F710 /* Build configuration list for PBXProject "MaterialKit" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -233,8 +257,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				963832351B88DFD80015F710 /* FocusKit */,
-				963832401B88DFD80015F710 /* FocusKitTests */,
+				963832351B88DFD80015F710 /* MaterialKit */,
+				963832401B88DFD80015F710 /* MaterialKitTests */,
 			);
 		};
 /* End PBXProject section */
@@ -245,7 +269,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9638326E1B88E5BF0015F710 /* LICENSE in Resources */,
-				963832561B88E30F0015F710 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,7 +276,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9638325B1B88E31A0015F710 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,8 +290,8 @@
 				9638326B1B88E5BF0015F710 /* FabButton.swift in Sources */,
 				9638326C1B88E5BF0015F710 /* FlatButton.swift in Sources */,
 				963832711B88E5BF0015F710 /* Text.swift in Sources */,
-				9638326F1B88E5BF0015F710 /* MaterialKit+UIView.swift in Sources */,
 				9638326A1B88E5BF0015F710 /* CapturePreview.swift in Sources */,
+				963832881B8908180015F710 /* Layout.swift in Sources */,
 				963832731B88E5BF0015F710 /* TextView.swift in Sources */,
 				963832721B88E5BF0015F710 /* TextStorage.swift in Sources */,
 				963832701B88E5BF0015F710 /* RaisedButton.swift in Sources */,
@@ -289,7 +311,7 @@
 /* Begin PBXTargetDependency section */
 		963832441B88DFD80015F710 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 963832351B88DFD80015F710 /* FocusKit */;
+			target = 963832351B88DFD80015F710 /* MaterialKit */;
 			targetProxy = 963832431B88DFD80015F710 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -332,7 +354,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -374,7 +396,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -395,7 +417,7 @@
 				INFOPLIST_FILE = Source/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = MaterialKit;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -412,7 +434,7 @@
 				INFOPLIST_FILE = Source/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = MaterialKit;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -430,7 +452,7 @@
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = MaterialKitTests;
 			};
 			name = Debug;
 		};
@@ -443,14 +465,14 @@
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = MaterialKitTests;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		963832301B88DFD80015F710 /* Build configuration list for PBXProject "FocusKit" */ = {
+		963832301B88DFD80015F710 /* Build configuration list for PBXProject "MaterialKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9638324A1B88DFD80015F710 /* Debug */,
@@ -459,7 +481,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9638324C1B88DFD80015F710 /* Build configuration list for PBXNativeTarget "FocusKit" */ = {
+		9638324C1B88DFD80015F710 /* Build configuration list for PBXNativeTarget "MaterialKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9638324D1B88DFD80015F710 /* Debug */,
@@ -468,7 +490,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9638324F1B88DFD80015F710 /* Build configuration list for PBXNativeTarget "FocusKitTests" */ = {
+		9638324F1B88DFD80015F710 /* Build configuration list for PBXNativeTarget "MaterialKitTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				963832501B88DFD80015F710 /* Debug */,

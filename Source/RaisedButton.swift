@@ -18,7 +18,7 @@
 
 import UIKit
 
-class RaisedButton : UIButton {
+public class RaisedButton : UIButton {
 	
 	var color: UIColor?
 	var pulseColor: UIColor?
@@ -28,18 +28,18 @@ class RaisedButton : UIButton {
 	private var backgroundColorView: UIView = UIView()
 	private var pulseView: UIView?
 	
-	override func drawRect(rect: CGRect) {
+	public override func drawRect(rect: CGRect) {
 		setupContext(rect)
 		setupBackgroundColorView()
 	}
 	
-	required init(coder aDecoder: NSCoder) {
+	public required init(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 		initialize()
 		applyShadow()
 	}
 	
-	required override init(frame: CGRect) {
+	public required override init(frame: CGRect) {
 		super.init(frame: frame)
 		initialize()
 		applyShadow()
@@ -76,11 +76,11 @@ class RaisedButton : UIButton {
 		layer.shadowRadius = 5
 	}
 	
-	override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+	public override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
 		pulseTouches(touches)
 	}
 	
-	override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+	public override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
 		shrink()
 		removePulse()
 	}
@@ -90,7 +90,7 @@ class RaisedButton : UIButton {
 		let touchLocation = touch.locationInView(self)
 		pulseView = UIView()
 		pulseView!.frame = CGRectMake(0, 0, self.bounds.size.height, self.bounds.size.height)
-		pulseView!.layer.cornerRadius = boundsH() / 2.0
+		pulseView!.layer.cornerRadius = bounds.height / 2.0
 		pulseView!.center = touchLocation
 		pulseView!.backgroundColor = pulseColor!.colorWithAlphaComponent(0.5)
 		backgroundColorView.addSubview(pulseView!)

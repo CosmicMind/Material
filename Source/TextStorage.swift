@@ -23,28 +23,28 @@ internal typealias TextStorageDidProcessEdit = (TextStorage!, NSTextCheckingResu
 
 public class TextStorage: NSTextStorage {
 	/**
-	* store
-	* Acts as the model, storing the string value.
+		:name:	store
+		:description:	Acts as the model, storing the string value.
 	*/
 	private lazy var store: NSMutableAttributedString = NSMutableAttributedString()
 	
 	/**
-	* searchExpression
-	* Matches text within the TextStorage string property.
+		:name:	searchExpression
+		:description:	Matches text within the TextStorage string property.
 	*/
 	internal var searchExpression: NSRegularExpression?
 	
 	/**
-	* textStorageWillProcessEdit
-	* If set, this block callback executes when there is a change in the TextStorage
-	* string value.
+		:name:	textStorageWillProcessEdit
+		:description:	If set, this block callback executes when there is a change in the TextStorage
+		string value.
 	*/
 	internal var textStorageWillProcessEdit: TextStorageWillProcessEdit?
 	
 	/**
-	* textStorageDidProcessEdit
-	* If set, this block callback executes when a match is detected after a change in
-	* the TextStorage string value.
+		:name:	textStorageDidProcessEdit
+		:description:	If set, this block callback executes when a match is detected after a change in
+		the TextStorage string value.
 	*/
 	internal var textStorageDidProcessEdit: TextStorageDidProcessEdit?
 	
@@ -57,8 +57,8 @@ public class TextStorage: NSTextStorage {
 	}
 	
 	/**
-	* string
-	* Managed string value.
+		:name:	string
+		:description:	Managed string value.
 	*/
 	override public var string: String {
 		get {
