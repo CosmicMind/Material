@@ -13,24 +13,21 @@ public struct Roboto {
     public static func lightWithSize(size: CGFloat) -> UIFont {
         if let light = UIFont(name: "Roboto-Light", size: size) {
             return light
-        } else {
-            return UIFont.systemFontOfSize(size)
         }
+		return UIFont.systemFontOfSize(size)
     }
     
     public static func mediumWithSize(size: CGFloat) -> UIFont {
         if let light = UIFont(name: "Roboto-Medium", size: size) {
             return light
-        } else {
-            return UIFont.systemFontOfSize(size)
         }
+		return UIFont.systemFontOfSize(size)
     }
     
     public static func regularWithSize(size: CGFloat) -> UIFont {
         if let light = UIFont(name: "Roboto-Regular", size: size) {
             return light
-        } else {
-            return UIFont.systemFontOfSize(size)
         }
+		return UIFont.systemFontOfSize(size)
     }
 }

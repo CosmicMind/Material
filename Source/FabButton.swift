@@ -75,6 +75,7 @@ public class FabButton : UIButton {
         backgroundColorView!.layer.cornerRadius = bounds.width / 2.0
         backgroundColorView!.backgroundColor = color
         backgroundColorView!.layer.masksToBounds = true
+		backgroundColorView!.userInteractionEnabled = false
         insertSubview(backgroundColorView!, atIndex: 0)
     }
     
