@@ -74,8 +74,8 @@ public class Preview: UIView {
 	}
 	
 	/**
-	* session
-	* A mutator and accessor for the preview AVCaptureSession value.
+		:name:	session
+		:description:	A mutator and accessor for the preview AVCaptureSession value.
 	*/
 	public var session: AVCaptureSession {
 		get {
@@ -87,35 +87,35 @@ public class Preview: UIView {
 	}
 	
 	/**
-	* focusBox
-	* An optional UIView for the focusBox animation. This is used when the 
-	* tapToFocusEnabled property is set to true.
+		:name:	focusBox
+		:description:	An optional UIView for the focusBox animation. This is used when the
+		tapToFocusEnabled property is set to true.
 	*/
 	public var focusBox: UIView?
 	
 	/**
-	* exposureBox
-	* An optional UIView for the exposureBox animation. This is used when the
-	* tapToExposeEnabled property is set to true.
+		:name:	exposureBox
+		:description:	An optional UIView for the exposureBox animation. This is used when the
+		tapToExposeEnabled property is set to true.
 	*/
 	public var exposureBox: UIView?
 	
-	/**
-	* singleTapRecognizer
-	* Gesture recognizer for single tap.
-	*/
+	//
+	//	:name:	singleTapRecognizer
+	//	:description:	Gesture recognizer for single tap.
+	//
 	private var singleTapRecognizer: UITapGestureRecognizer?
 	
-	/**
-	* doubleTapRecognizer
-	* Gesture recognizer for double tap.
-	*/
+	//
+	//	:name:	doubleTapRecognizer
+	//	:description:	Gesture recognizer for double tap.
+	//
 	private var doubleTapRecognizer: UITapGestureRecognizer?
 	
-	/**
-	* doubleDoubleTapRecognizer
-	* Gesture recognizer for double/double tap.
-	*/
+	//
+	//	:name:	doubleDoubleTapRecognizer
+	//	:description:	Gesture recognizer for double/double tap.
+	//
 	private var doubleDoubleTapRecognizer: UITapGestureRecognizer?
 	
 	required public init(coder aDecoder: NSCoder) {
@@ -123,7 +123,7 @@ public class Preview: UIView {
 		setupView()
 	}
 	
-	override public init(frame: CGRect) {
+	public override init(frame: CGRect) {
 		super.init(frame: frame)
 		setupView()
 	}
@@ -134,40 +134,35 @@ public class Preview: UIView {
 		setupView()
 	}
 	
-	/**
-	* handleSingleTap
-	* @param		recognizer: UIGestureRecognizer
-	* @delegate		Calls preview(preview: Preview!, tappedToFocusAt point: CGPoint)
-	*/
+	//
+	//	:name:	handleSingleTap
+	//
 	internal func handleSingleTap(recognizer: UIGestureRecognizer) {
 		let point: CGPoint = recognizer.locationInView(self)
 		runBoxAnimationOnView(focusBox, point: point)
 		delegate?.previewTappedToFocusAt?(self, point: captureDevicePointForPoint(point))
 	}
 	
-	/**
-	* handleDoubleTap
-	* @param		recognizer: UIGestureRecognizer
-	* @delegate		Calls preview(preview: Preview!, tappedToExposeAt point: CGPoint)
-	*/
+	//
+	//	:name:	handleDoubleTap
+	//	
 	internal func handleDoubleTap(recognizer: UIGestureRecognizer) {
 		let point: CGPoint = recognizer.locationInView(self)
 		runBoxAnimationOnView(exposureBox, point: point)
 		delegate?.previewTappedToExposeAt?(self, point: captureDevicePointForPoint(point))
 	}
 	
-	/**
-	* handleDoubleDoubleTap
-	* @param		recognizer: UIGestureRecognizer
-	*/
+	//
+	//	:name:	handleDoubleDoubleTap
+	//	
 	internal func handleDoubleDoubleTap(recognizer: UIGestureRecognizer) {
 		runResetAnimation()
 	}
 	
-	/**
-	* setupView
-	* Common setup for view.
-	*/
+	//
+	//	:name:	setupView
+	//	:description:	Common setup for view.
+	//	
 	private func setupView() {
 		let captureLayer: AVCaptureVideoPreviewLayer = layer as! AVCaptureVideoPreviewLayer
 		captureLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
@@ -193,12 +188,10 @@ public class Preview: UIView {
 		addSubview(exposureBox!)
 	}
 	
-	/**
-	* viewWithColor
-	* Initializes a UIView with a set UIColor.
-	* @param		color: UIColor
-	* @return		Initialized UIView
-	*/
+	//
+	//	:name:	viewWithColor
+	//	:description:	Initializes a UIView with a set UIColor.
+	//	
 	private func viewWithColor(color: UIColor) -> UIView {
 		let view: UIView = UIView(frame: Preview.boxBounds)
 		view.backgroundColor = .clearColor()
@@ -208,13 +201,11 @@ public class Preview: UIView {
 		return view
 	}
 	
-	/**
-	* runBoxAnimationOnView
-	* Runs the animation used for focusBox and exposureBox on single and double
-	* taps respectively at a given point.
-	* @param		view: UIView!
-	* @param		point: CGPoint
-	*/
+	//
+	//	:name:	runBoxAnimationOnView
+	//	:description:	Runs the animation used for focusBox and exposureBox on single and double
+	//	taps respectively at a given point.
+	//	
 	private func runBoxAnimationOnView(view: UIView!, point: CGPoint) {
 		view.center = point
 		view.hidden = false
@@ -230,22 +221,19 @@ public class Preview: UIView {
 		}
 	}
 	
-	/**
-	* captureDevicePointForPoint
-	* Interprets the correct point from touch to preview layer.
-	* @param		point: CGPoint
-	* @return		A translated CGPoint value.
-	*/
+	//
+	//	:name:	captureDevicePointForPoint
+	//	:description:	Interprets the correct point from touch to preview layer.
+	//	
 	private func captureDevicePointForPoint(point: CGPoint) -> CGPoint {
 		let previewLayer: AVCaptureVideoPreviewLayer = layer as! AVCaptureVideoPreviewLayer
 		return previewLayer.captureDevicePointOfInterestForPoint(point)
 	}
 	
-	/**
-	* runResetAnimation
-	* Executes the reset animation for focus and exposure.
-	* @delegate		Calls preview(preview: Preview!, tappedToReset focus: UIView!, exposure: UIView!)
-	*/
+	//
+	//	:name:	runResetAnimation
+	//	:description:	Executes the reset animation for focus and exposure.
+	//	
 	private func runResetAnimation() {
 		if !tapToFocusEnabled && !tapToExposeEnabled {
 			return

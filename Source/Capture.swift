@@ -29,42 +29,42 @@ public protocol CaptureDelegate {
 }
 
 public class Capture: NSObject, AVCaptureFileOutputRecordingDelegate {
-	/**
-	* activeVideoInput
-	* The video input that is currently active.
-	*/
+	//
+	//	:name:	activeVideoInput
+	//	:description:	The video input that is currently active.
+	//	
 	private var activeVideoInput: AVCaptureDeviceInput?
 	
-	/**
-	* imageOutput
-	* When the session is taking a photo, this is the output manager.
-	*/
+	//
+	//	:name:	imageOutput
+	//	:description:	When the session is taking a photo, this is the output manager.
+	//	
 	private lazy var imageOutput: AVCaptureStillImageOutput = AVCaptureStillImageOutput()
 	
-	/**
-	* movieOutput
-	* When the session is shooting a video, this is the output manager.
-	*/
+	//
+	//	:name:	movieOutput
+	//	:description:	When the session is shooting a video, this is the output manager.
+	//	
 	private lazy var movieOutput: AVCaptureMovieFileOutput = AVCaptureMovieFileOutput()
 	
-	/**
-	* movieOutputURL
-	* The output URL of the movie file.
-	*/
+	//
+	//	:name:	movieOutputURL
+	//	:description:	The output URL of the movie file.
+	//	
 	private var movieOutputURL: NSURL?
 	
-	/**
-	* queue
-	* Async job queue.
-	*/
+	//
+	//	:name:	queue
+	//	:description:	Async job queue.
+	//	
 	private lazy var queue: dispatch_queue_t = {
 		return dispatch_queue_create("io.graphkit.Capture", nil)
 	}()
 	
-	/**
-	* CaptureAdjustingExposureContext
-	* Used for KVO observation context.
-	*/
+	//
+	//	:name:	CaptureAdjustingExposureContext
+	//	:description:	Used for KVO observation context.
+	//	
 	public var CaptureAdjustingExposureContext: NSString?
 	
 	/**
