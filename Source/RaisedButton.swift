@@ -20,8 +20,8 @@ import UIKit
 
 public class RaisedButton : UIButton {
 	
-	var color: UIColor?
-	var pulseColor: UIColor?
+	public var color: UIColor?
+	public var pulseColor: UIColor?
 	
 	private var vLine: UIView = UIView()
 	private var hLine: UIView = UIView()

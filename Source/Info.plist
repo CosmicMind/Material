@@ -22,5 +22,11 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>NSPrincipalClass</key>
 	<string></string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Roboto-Medium.ttf</string>
+		<string>Roboto-Regular.ttf</string>
+		<string>Roboto-Light.ttf</string>
+	</array>
 </dict>
 </plist>

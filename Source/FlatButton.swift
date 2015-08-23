@@ -20,8 +20,8 @@ import UIKit
 
 public class FlatButton : UIButton {
     
-    var textColor: UIColor?
-    var pulseColor: UIColor?
+    public var textColor: UIColor?
+    public var pulseColor: UIColor?
     
     private var vLine: UIView = UIView()
     private var hLine: UIView = UIView()
