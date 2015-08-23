@@ -19,7 +19,7 @@
 import UIKit
 import QuartzCore
 
-public class BasicCard : PulseView {
+public class BasicCard : MaterialPulseView {
     
     public var cancelButton: FlatButton = FlatButton()
     public var otherButton: FlatButton = FlatButton()
