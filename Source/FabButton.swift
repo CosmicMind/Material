@@ -133,9 +133,16 @@ public class FabButton : MaterialButton {
     }
     
     func shrink() {
-        UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 0.2, initialSpringVelocity: 10, options: nil, animations: {
-            self.transform = CGAffineTransformIdentity
-        }, completion: nil)
+        UIView.animateWithDuration(0.3,
+			delay: 0.0,
+			usingSpringWithDamping: 0.2,
+			initialSpringVelocity: 10,
+			options: nil,
+			animations: {
+				self.transform = CGAffineTransformIdentity
+			},
+			completion: nil
+		)
     }
     
     func removePulse() {
