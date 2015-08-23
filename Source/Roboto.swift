@@ -9,7 +9,6 @@
 import UIKit
 
 public struct Roboto {
-
     public static func lightWithSize(size: CGFloat) -> UIFont {
         if let light = UIFont(name: "Roboto-Light", size: size) {
             return light
