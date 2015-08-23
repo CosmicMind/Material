@@ -18,19 +18,11 @@
 
 import UIKit
 
-public class FabButton : UIButton {
+public class FabButton : MaterialButton {
     
     var lineWidth: CGFloat = 2.0
-    
-    var color: UIColor?
-    var pulseColor: UIColor?
-    
-    private var vLine: UIView?
-    private var hLine: UIView?
-    private var backgroundColorView: UIView?
-    private var pulseView: UIView?
 	
-	public convenience init() {
+    public convenience init() {
 		self.init(frame: CGRectZero)
 	}
 	
@@ -88,17 +80,17 @@ public class FabButton : UIButton {
     }
     
     func setupVerticalLine() {
-        vLine = UIView(frame: CGRectMake(0, 0, lineWidth, CGRectGetHeight(backgroundColorView!.frame) / 3.0))
-        vLine!.backgroundColor = UIColor.whiteColor()
-        vLine!.center = backgroundColorView!.center
-        backgroundColorView!.addSubview(vLine!)
+        verticalLine = UIView(frame: CGRectMake(0, 0, lineWidth, CGRectGetHeight(backgroundColorView!.frame) / 3.0))
+        verticalLine!.backgroundColor = UIColor.whiteColor()
+        verticalLine!.center = backgroundColorView!.center
+        backgroundColorView!.addSubview(verticalLine!)
     }
     
     func setupHorizontalLine() {
-        hLine = UIView(frame: CGRectMake(0, 0, CGRectGetWidth(backgroundColorView!.frame) / 3.0, lineWidth))
-        hLine!.backgroundColor = UIColor.whiteColor()
-        hLine!.center = backgroundColorView!.center
-        backgroundColorView!.addSubview(hLine!)
+        horizontalLine = UIView(frame: CGRectMake(0, 0, CGRectGetWidth(backgroundColorView!.frame) / 3.0, lineWidth))
+        horizontalLine!.backgroundColor = UIColor.whiteColor()
+        horizontalLine!.center = backgroundColorView!.center
+        backgroundColorView!.addSubview(horizontalLine!)
     }
     
     func applyShadow() {

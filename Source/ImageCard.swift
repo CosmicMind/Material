@@ -19,7 +19,6 @@
 import UIKit
 
 public class ImageCard : MaterialPulseView {
-
     public lazy var imageView: UIImageView = UIImageView()
     
     public required init(coder aDecoder: NSCoder) {
@@ -34,19 +33,19 @@ public class ImageCard : MaterialPulseView {
         setupImageView()
         super.initialize()
     }
-    
-    func setupImageView() {
+	
+	internal override func constrainSubviews() {
+		super.constrainSubviews()
+		addConstraints(Layout.constraint("H:|[imageView]|", options: nil, metrics: nil, views: views))
+		addConstraints(Layout.constraint("V:|[imageView]|", options: nil, metrics: nil, views: views))
+	}
+	
+    private func setupImageView() {
         imageView.setTranslatesAutoresizingMaskIntoConstraints(false)
         imageView.contentMode = .ScaleAspectFill
         imageView.userInteractionEnabled = false
         imageView.clipsToBounds = true
         addSubview(imageView)
-        views.setObject(imageView, forKey: "imageView")
-    }
-    
-    internal override func constrainSubviews() {
-        super.constrainSubviews()
-        addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[imageView]|", options: nil, metrics: nil, views: views as [NSObject : AnyObject]))
-        addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[imageView]|", options: nil, metrics: nil, views: views as [NSObject : AnyObject]))
+        views["imageView"] = imageView
     }
 }

@@ -20,7 +20,7 @@ import UIKit
 
 public class MaterialPulseView : MaterialView {
 
-    internal lazy var views: NSMutableDictionary = NSMutableDictionary()
+    internal lazy var views: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
     
     public var backgroundColorView: UIView?
     public var pulseView: UIView?
@@ -37,14 +37,33 @@ public class MaterialPulseView : MaterialView {
         super.init(frame: frame)
         initialize()
     }
-    
+	
+	public override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+		pulseTouches(touches)
+	}
+	
+	public override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+		shrink()
+		removePulse()
+	}
+	
+	public override func touchesCancelled(touches: Set<NSObject>!, withEvent event: UIEvent!) {
+		shrink()
+		removePulse()
+	}
+	
     internal func initialize() {
         setupSelf()
         setupLayer()
         setupBackgroundColorView()
         constrainSubviews()
     }
-    
+	
+	internal func constrainSubviews() {
+		addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[backgroundColorView]|", options: nil, metrics: nil, views: views))
+		addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[backgroundColorView]|", options: nil, metrics: nil, views: views))
+	}
+	
     private func setupSelf() {
         color = UIColor.clearColor()
         pulseColor = UIColor.whiteColor()
@@ -62,7 +81,7 @@ public class MaterialPulseView : MaterialView {
     
     // We need this view so we can use the masksToBounds
     // so the pulse doesn't animate off the button
-    func setupBackgroundColorView() {
+    private func setupBackgroundColorView() {
         backgroundColorView = UIView()
         backgroundColorView?.userInteractionEnabled = false
         backgroundColorView!.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -70,29 +89,10 @@ public class MaterialPulseView : MaterialView {
         backgroundColorView!.backgroundColor = color
         backgroundColorView!.layer.masksToBounds = true
         addSubview(backgroundColorView!)
-        views.setObject(backgroundColorView!, forKey: "bgView")
+        views["backgroundColorView"] = backgroundColorView
     }
-    
-    internal func constrainSubviews() {
-        addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(0)-[bgView]-(0)-|", options: nil, metrics: nil, views: views as [NSObject : AnyObject]))
-        addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(0)-[bgView]-(0)-|", options: nil, metrics: nil, views: views as [NSObject : AnyObject]))
-    }
-    
-    public override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-        pulseTouches(touches)
-    }
-    
-    public override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
-        shrink()
-        removePulse()
-    }
-    
-    public override func touchesCancelled(touches: Set<NSObject>!, withEvent event: UIEvent!) {
-        shrink()
-        removePulse()
-    }
-    
-    func pulseTouches(touches: NSSet) {
+	
+    private func pulseTouches(touches: NSSet) {
         let touch = touches.allObjects.last as! UITouch
         let touchLocation = touch.locationInView(self)
         pulseView = UIView()
@@ -109,13 +109,13 @@ public class MaterialPulseView : MaterialView {
         }, completion: nil)
     }
     
-    func shrink() {
+    private func shrink() {
         UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 0.2, initialSpringVelocity: 10, options: nil, animations: {
             self.transform = CGAffineTransformIdentity
             }, completion: nil)
     }
     
-    func removePulse() {
+    private func removePulse() {
         UIView.animateWithDuration(0.3, animations: { () -> Void in
             self.pulseView?.alpha = 0.0
             }) { (finished) -> Void in

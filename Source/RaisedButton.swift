@@ -18,16 +18,7 @@
 
 import UIKit
 
-public class RaisedButton : UIButton {
-	
-	public var color: UIColor?
-	public var pulseColor: UIColor?
-	
-	private var vLine: UIView = UIView()
-	private var hLine: UIView = UIView()
-	private var backgroundColorView: UIView = UIView()
-	private var pulseView: UIView?
-	
+public class RaisedButton : MaterialButton {
 	public override func drawRect(rect: CGRect) {
 		setupContext(rect)
 		setupBackgroundColorView()
@@ -47,34 +38,9 @@ public class RaisedButton : UIButton {
 	
 	func initialize() {
 		color = UIColor.redColor()
+		backgroundColorView = UIView()
 		pulseColor = UIColor.whiteColor()
 		setTranslatesAutoresizingMaskIntoConstraints(false)
-	}
-	
-	func setupContext(rect: CGRect) {
-		let context = UIGraphicsGetCurrentContext()
-		CGContextSaveGState(context);
-		CGContextSetFillColorWithColor(context, UIColor.clearColor().CGColor)
-		CGContextFillPath(context)
-		CGContextRestoreGState(context);
-	}
-	
-	// We need this view so we can use the masksToBounds
-	// so the pulse doesn't animate off the button
-	func setupBackgroundColorView() {
-		backgroundColorView.frame = self.bounds
-		backgroundColorView.layer.cornerRadius = 3.0
-		backgroundColorView.backgroundColor = color
-		backgroundColorView.layer.masksToBounds = true
-		backgroundColorView.userInteractionEnabled = false
-		self.insertSubview(backgroundColorView, atIndex: 0)
-	}
-	
-	func applyShadow() {
-		layer.shadowOffset = CGSizeMake(1, 1)
-		layer.shadowColor = UIColor.blackColor().CGColor
-		layer.shadowOpacity = 0.5
-		layer.shadowRadius = 5
 	}
 	
 	public override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
@@ -94,7 +60,33 @@ public class RaisedButton : UIButton {
 		removePulse()
 	}
 	
-	func pulseTouches(touches: NSSet) {
+	private func setupContext(rect: CGRect) {
+		let context = UIGraphicsGetCurrentContext()
+		CGContextSaveGState(context);
+		CGContextSetFillColorWithColor(context, UIColor.clearColor().CGColor)
+		CGContextFillPath(context)
+		CGContextRestoreGState(context);
+	}
+	
+	// We need this view so we can use the masksToBounds
+	// so the pulse doesn't animate off the button
+	private func setupBackgroundColorView() {
+		backgroundColorView!.frame = self.bounds
+		backgroundColorView!.layer.cornerRadius = 3.0
+		backgroundColorView!.backgroundColor = color!
+		backgroundColorView!.layer.masksToBounds = true
+		backgroundColorView!.userInteractionEnabled = false
+		self.insertSubview(backgroundColorView!, atIndex: 0)
+	}
+	
+	private func applyShadow() {
+		layer.shadowOffset = CGSizeMake(1, 1)
+		layer.shadowColor = UIColor.blackColor().CGColor
+		layer.shadowOpacity = 0.5
+		layer.shadowRadius = 5
+	}
+	
+	private func pulseTouches(touches: NSSet) {
 		let touch = touches.allObjects.last as! UITouch
 		let touchLocation = touch.locationInView(self)
 		pulseView = UIView()
@@ -102,25 +94,36 @@ public class RaisedButton : UIButton {
 		pulseView!.layer.cornerRadius = bounds.height / 2.0
 		pulseView!.center = touchLocation
 		pulseView!.backgroundColor = pulseColor!.colorWithAlphaComponent(0.5)
-		backgroundColorView.addSubview(pulseView!)
-		UIView.animateWithDuration(0.3, animations: {
-			self.pulseView!.transform = CGAffineTransformMakeScale(10, 10)
-			self.transform = CGAffineTransformMakeScale(1.05, 1.1)
-			}, completion: nil)
+		backgroundColorView!.addSubview(pulseView!)
+		UIView.animateWithDuration(0.3,
+			animations: {
+				self.pulseView!.transform = CGAffineTransformMakeScale(10, 10)
+				self.transform = CGAffineTransformMakeScale(1.05, 1.1)
+			},
+			completion: nil
+		)
 	}
 	
-	func shrink() {
-		UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 0.2, initialSpringVelocity: 10, options: nil, animations: {
-			self.transform = CGAffineTransformIdentity
-			}, completion: nil)
+	private func shrink() {
+		UIView.animateWithDuration(0.3,
+			delay: 0.0,
+			usingSpringWithDamping: 0.2,
+			initialSpringVelocity: 10,
+			options: nil,
+			animations: {
+				self.transform = CGAffineTransformIdentity
+			},
+			completion: nil
+		)
 	}
 	
-	func removePulse() {
-		UIView.animateWithDuration(0.3, animations: { () -> Void in
-			self.pulseView!.alpha = 0.0
-			}) { (finished) -> Void in
-				self.pulseView!.removeFromSuperview()
-				self.pulseView = nil
+	private func removePulse() {
+		UIView.animateWithDuration(0.3,
+			animations: { () -> Void in
+				self.pulseView!.alpha = 0.0
+			}) { _ in
+			self.pulseView!.removeFromSuperview()
+			self.pulseView = nil
 		}
 	}
 }

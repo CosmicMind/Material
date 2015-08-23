@@ -20,14 +20,12 @@ import UIKit
 import QuartzCore
 
 public class BasicCard : MaterialPulseView {
-    
-    public var cancelButton: FlatButton = FlatButton()
-    public var otherButton: FlatButton = FlatButton()
-  
-    public var titleLabel: UILabel = UILabel()
-    public var detailTextLabel: UILabel = UILabel()
-    
-    public var horizontalSeparator: UIView = UIView()
+    public lazy var cancelButton: FlatButton = FlatButton()
+    public lazy var otherButton: FlatButton = FlatButton()
+	public lazy var buttonColor: UIColor = UIColor(red: 255.0/255.0, green: 156.0/255.0, blue: 38.0/255.0, alpha: 1.0)
+    public lazy var titleLabel: UILabel = UILabel()
+    public lazy var detailTextLabel: UILabel = UILabel()
+    public lazy var horizontalSeparator: UIView = UIView()
     
     public required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -44,17 +42,27 @@ public class BasicCard : MaterialPulseView {
         setupButtons()
         super.initialize()
     }
-    
-    func setupTitleLabel() {
+	
+	internal override func constrainSubviews() {
+		super.constrainSubviews()
+		addConstraints(Layout.constraint("H:|-(20)-[titleLabel]-(20)-|", options: nil, metrics: nil, views: views))
+		addConstraints(Layout.constraint("H:|-(20)-[detailTextLabel]-(20)-|", options: nil, metrics: nil, views: views))
+		addConstraints(Layout.constraint("H:|[horizontalSeparator]|", options: nil, metrics: nil, views: views))
+		addConstraints(Layout.constraint("H:|-(10)-[cancelButton(80)]-(10)-[otherButton(80)]", options: nil, metrics: nil, views: views))
+		addConstraints(Layout.constraint("V:|-(20)-[titleLabel(22)]-(10)-[detailTextLabel]-(20)-[line(1)]-(10)-[cancelButton]-(10)-|", options: nil, metrics: nil, views: views))
+		addConstraints(Layout.constraint("V:|-(20)-[titleLabel(22)]-(10)-[detailTextLabel]-(20)-[line(1)]-(10)-[otherButton]-(10)-|", options: nil, metrics: nil, views: views))
+	}
+	
+    private func setupTitleLabel() {
         titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         titleLabel.font = Roboto.regularWithSize(22.0)
         titleLabel.textColor = UIColor.whiteColor()
         titleLabel.text = "Card Title"
         addSubview(titleLabel)
-        views.setObject(titleLabel, forKey: "titleLabel")
+        views["titleLabel"] = titleLabel
     }
     
-    func setupDetailTextLabel() {
+    private func setupDetailTextLabel() {
         detailTextLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         detailTextLabel.font = Roboto.lightWithSize(16.0)
         detailTextLabel.textColor = UIColor.whiteColor()
@@ -62,56 +70,37 @@ public class BasicCard : MaterialPulseView {
         detailTextLabel.numberOfLines = 0
         detailTextLabel.lineBreakMode = NSLineBreakMode.ByWordWrapping
         addSubview(detailTextLabel)
-        views.setObject(detailTextLabel, forKey: "detailTextLabel")
+        views["detailTextLabel"] = detailTextLabel
     }
     
-    func setupHorizontalLineSeparator() {
+    private func setupHorizontalLineSeparator() {
         horizontalSeparator.setTranslatesAutoresizingMaskIntoConstraints(false)
         horizontalSeparator.backgroundColor = UIColor.whiteColor()
         horizontalSeparator.alpha = 0.2
         addSubview(horizontalSeparator)
-        views.setObject(horizontalSeparator, forKey: "line")
+        views["horizontalSeparator"] = horizontalSeparator
     }
     
-    func setupButtons() {
+    private func setupButtons() {
         setupCancelButton()
         setupOtherButton()
     }
     
-    func setupCancelButton() {
-        cancelButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+    private func setupCancelButton() {
+		cancelButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         cancelButton.setTitle("Cancel", forState: .Normal)
-        var orange = UIColor(red: 255.0/255.0, green: 156.0/255.0, blue: 38.0/255.0, alpha: 1.0)
-        cancelButton.setTitleColor(orange, forState: .Normal)
-        cancelButton.pulseColor = orange
+        cancelButton.setTitleColor(buttonColor, forState: .Normal)
+        cancelButton.pulseColor = buttonColor
         addSubview(cancelButton)
-        views.setObject(cancelButton, forKey: "cancelButton")
+        views["cancelButton"] = cancelButton
     }
     
-    func setupOtherButton() {
-        otherButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+    private func setupOtherButton() {
+		otherButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         otherButton.setTitle("Confirm", forState: .Normal)
-        var orange = UIColor(red: 255.0/255.0, green: 156.0/255.0, blue: 38.0/255.0, alpha: 1.0)
-        otherButton.setTitleColor(orange, forState: .Normal)
-        otherButton.pulseColor = orange
+		otherButton.setTitleColor(buttonColor, forState: .Normal)
+        otherButton.pulseColor = buttonColor
         addSubview(otherButton)
-        views.setObject(otherButton, forKey: "otherButton")
-    }
-    
-    internal override func constrainSubviews() {
-        super.constrainSubviews()
-        // Title & Detail Text Label
-        addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(20)-[titleLabel]-(20)-|", options: nil, metrics: nil, views: views as [NSObject : AnyObject]))
-        addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(20)-[detailTextLabel]-(20)-|", options: nil, metrics: nil, views: views as [NSObject : AnyObject]))
-        
-        // Horizontal line
-        addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(0)-[line]-(0)-|", options: nil, metrics: nil, views: views as [NSObject : AnyObject]))
-        
-        // Cancel & Other Button
-        addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(10)-[cancelButton(80)]-(10)-[otherButton(80)]", options: nil, metrics: nil, views: views as [NSObject : AnyObject]))
-        
-        addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(20)-[titleLabel(22)]-(10)-[detailTextLabel]-(20)-[line(1)]-(10)-[cancelButton]-(10)-|", options: nil, metrics: nil, views: views as [NSObject : AnyObject]))
-        
-        addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(20)-[titleLabel(22)]-(10)-[detailTextLabel]-(20)-[line(1)]-(10)-[otherButton]-(10)-|", options: nil, metrics: nil, views: views as [NSObject : AnyObject]))
+        views["otherButton"] = otherButton
     }
 }
