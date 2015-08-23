@@ -18,32 +18,32 @@
 
 import UIKit
 
-public class MaterialViewController : UIViewController {
+public class MaterialView : UIView {
 	/**
 		:name:	topLeft
 	*/
 	public func topLeft(child: UIView, top: CGFloat, left: CGFloat) {
-		Layout.alignFromTopLeft(view, child: child, top: top, left: left)
+		Layout.alignFromTopLeft(self, child: child, top: top, left: left)
 	}
 	
 	/**
 		:name:	topRight
 	*/
 	public func topRight(child: UIView, top: CGFloat, right: CGFloat) {
-		Layout.alignFromTopRight(view, child: child, top: top, right: right)
+		Layout.alignFromTopRight(self, child: child, top: top, right: right)
 	}
 	
 	/**
 		:name:	bottomLeft
 	*/
 	public func bottomLeft(child: UIView, bottom: CGFloat, left: CGFloat) {
-		Layout.alignFromBottomLeft(view, child: child, bottom: bottom, left: left)
+		Layout.alignFromBottomLeft(self, child: child, bottom: bottom, left: left)
 	}
 	
 	/**
 		:name:	bottomRight
 	*/
 	public func bottomRight(child: UIView, bottom: CGFloat, right: CGFloat) {
-		Layout.alignFromBottomRight(view, child: child, bottom: bottom, right: right)
+		Layout.alignFromBottomRight(self, child: child, bottom: bottom, right: right)
 	}
 }

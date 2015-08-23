@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		65B965721B8A578D0055B139 /* MaterialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B965711B8A578D0055B139 /* MaterialViewController.swift */; };
+		65B965751B8A60A00055B139 /* MaterialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B965741B8A60A00055B139 /* MaterialView.swift */; };
 		963832421B88DFD80015F710 /* MaterialKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963832361B88DFD80015F710 /* MaterialKit.framework */; };
 		9638325A1B88E31A0015F710 /* MaterialKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963832581B88E31A0015F710 /* MaterialKitTests.swift */; };
 		963832691B88E5BF0015F710 /* Capture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9638325E1B88E5BF0015F710 /* Capture.swift */; };
@@ -50,6 +51,7 @@
 
 /* Begin PBXFileReference section */
 		65B965711B8A578D0055B139 /* MaterialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialViewController.swift; sourceTree = "<group>"; };
+		65B965741B8A60A00055B139 /* MaterialView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialView.swift; sourceTree = "<group>"; };
 		963832361B88DFD80015F710 /* MaterialKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MaterialKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		963832411B88DFD80015F710 /* MaterialKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MaterialKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		963832541B88E30F0015F710 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 		65B965731B8A58E60055B139 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				65B965741B8A60A00055B139 /* MaterialView.swift */,
 				65B965711B8A578D0055B139 /* MaterialViewController.swift */,
 			);
 			name = View;
@@ -338,6 +341,7 @@
 				963832691B88E5BF0015F710 /* Capture.swift in Sources */,
 				9638326B1B88E5BF0015F710 /* FabButton.swift in Sources */,
 				9638326C1B88E5BF0015F710 /* FlatButton.swift in Sources */,
+				65B965751B8A60A00055B139 /* MaterialView.swift in Sources */,
 				963832711B88E5BF0015F710 /* Text.swift in Sources */,
 				9638326A1B88E5BF0015F710 /* CapturePreview.swift in Sources */,
 				65B965721B8A578D0055B139 /* MaterialViewController.swift in Sources */,
