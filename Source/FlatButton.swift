@@ -23,9 +23,9 @@ public class FlatButton : UIButton {
     public var textColor: UIColor?
     public var pulseColor: UIColor?
     
-    private var vLine: UIView = UIView()
-    private var hLine: UIView = UIView()
-    private var backgroundColorView: UIView = UIView()
+    private lazy var vLine: UIView = UIView()
+    private lazy var hLine: UIView = UIView()
+    private lazy var backgroundColorView: UIView = UIView()
     private var pulseView: UIView?
     
     public override func drawRect(rect: CGRect) {
@@ -65,6 +65,7 @@ public class FlatButton : UIButton {
         backgroundColorView.layer.cornerRadius = 3.0
         backgroundColorView.backgroundColor = UIColor.clearColor()
         backgroundColorView.layer.masksToBounds = true
+		backgroundColorView.userInteractionEnabled = false
         self.insertSubview(backgroundColorView, atIndex: 0)
     }
     

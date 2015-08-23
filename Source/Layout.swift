@@ -19,43 +19,81 @@
 import UIKit
 
 public struct Layout {
-	public static func topRight(parent: UIView, child: UIView, width: CGFloat, height: CGFloat, top: CGFloat, right: CGFloat) {
-		parent.addSubview(child)
-		var metrics = ["width" : width, "height" : height, "top" : top, "right" : right]
-		var views = ["view" : child]
-		var viewBindingsDict: NSMutableDictionary = NSMutableDictionary()
-		viewBindingsDict.setValue(child, forKey: "child")
-		parent.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[child(width)]-(right)-|", options: nil, metrics: metrics, views: viewBindingsDict as [NSObject : AnyObject]))
-		parent.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(top)-[child(height)]", options: nil, metrics: metrics, views: viewBindingsDict as [NSObject : AnyObject]))
+	/**
+		:name:	width
+	*/
+	public static func width(parent: UIView, child: UIView, width: CGFloat) {
+		let metrics: Dictionary<String, AnyObject> = ["width" : width]
+		let views: Dictionary<String, AnyObject> = ["child" : child]
+		parent.addConstraints(constraint(parent, constraint: "H:[child(width)]", options: nil, metrics: metrics, views: views))
 	}
 	
-	public static func topLeft(parent: UIView, child: UIView, width: CGFloat, height: CGFloat, top: CGFloat, left: CGFloat) {
-		parent.addSubview(child)
-		var metrics = ["width" : width, "height" : height, "top" : top, "left" : left]
-		var views = ["view" : child]
-		var viewBindingsDict: NSMutableDictionary = NSMutableDictionary()
-		viewBindingsDict.setValue(child, forKey: "child")
-		parent.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(left)-[child(width)]", options: nil, metrics: metrics, views: viewBindingsDict as [NSObject : AnyObject]))
-		parent.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(top)-[child(height)]", options: nil, metrics: metrics, views: viewBindingsDict as [NSObject : AnyObject]))
+	/**
+		:name:	height
+	*/
+	public static func height(parent: UIView, child: UIView, height: CGFloat) {
+		let metrics: Dictionary<String, AnyObject> = ["height" : height]
+		let views: Dictionary<String, AnyObject> = ["child" : child]
+		parent.addConstraints(constraint(parent, constraint: "V:[child(height)]", options: nil, metrics: metrics, views: views))
 	}
 	
-	public static func bottomRight(parent: UIView, child: UIView, width: CGFloat, height: CGFloat, bottom: CGFloat, right: CGFloat) {
-		parent.addSubview(child)
-		var metrics = ["width" : width, "height" : height, "bottom" : bottom, "right" : right]
-		var views = ["view" : child]
-		var viewBindingsDict: NSMutableDictionary = NSMutableDictionary()
-		viewBindingsDict.setValue(child, forKey: "child")
-		parent.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[child(width)]-(right)-|", options: nil, metrics: metrics, views: viewBindingsDict as [NSObject : AnyObject]))
-		parent.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[child(height)]-(bottom)-|", options: nil, metrics: metrics, views: viewBindingsDict as [NSObject : AnyObject]))
+	/**
+		:name:	size
+	*/
+	public static func size(parent: UIView, child: UIView, width: CGFloat, height: CGFloat) {
+		Layout.width(parent, child: child, width: width)
+		Layout.height(parent, child: child, height: height)
 	}
 	
-	public static func bottomLeft(parent: UIView, child: UIView, width: CGFloat, height: CGFloat, bottom: CGFloat, left: CGFloat) {
-		parent.addSubview(child)
-		var metrics = ["width" : width, "height" : height, "bottom" : bottom, "left" : left]
-		var views = ["view" : child]
-		var viewBindingsDict: NSMutableDictionary = NSMutableDictionary()
-		viewBindingsDict.setValue(child, forKey: "child")
-		parent.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(left)-[child(width)]", options: nil, metrics: metrics, views: viewBindingsDict as [NSObject : AnyObject]))
-		parent.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[child(height)]-(bottom)-|", options: nil, metrics: metrics, views: viewBindingsDict as [NSObject : AnyObject]))
+	/**
+		:name:	alignFromTopLeft
+	*/
+	public static func alignFromTopLeft(parent: UIView, child: UIView, top: CGFloat, left: CGFloat) {
+		let metrics: Dictionary<String, AnyObject> = ["top" : top, "left" : left]
+		let views: Dictionary<String, AnyObject> = ["child" : child]
+		parent.addConstraints(constraint(parent, constraint: "H:|-(left)-[child]", options: nil, metrics: metrics, views: views))
+		parent.addConstraints(constraint(parent, constraint: "V:|-(top)-[child]", options: nil, metrics: metrics, views: views))
+	}
+	
+	/**
+		:name:	alignFromTopRight
+	*/
+	public static func alignFromTopRight(parent: UIView, child: UIView, top: CGFloat, right: CGFloat) {
+		let metrics: Dictionary<String, AnyObject> = ["top" : top, "right" : right]
+		let views: Dictionary<String, AnyObject> = ["child" : child]
+		parent.addConstraints(constraint(parent, constraint: "H:[child]-(right)-|", options: nil, metrics: metrics, views: views))
+		parent.addConstraints(constraint(parent, constraint: "V:|-(top)-[child]", options: nil, metrics: metrics, views: views))
+	}
+	
+	/**
+		:name:	alignFromBottomLeft
+	*/
+	public static func alignFromBottomLeft(parent: UIView, child: UIView, bottom: CGFloat, left: CGFloat) {
+		let metrics: Dictionary<String, AnyObject> = ["bottom" : bottom, "left" : left]
+		let views: Dictionary<String, AnyObject> = ["child" : child]
+		parent.addConstraints(constraint(parent, constraint: "H:|-(left)-[child]", options: nil, metrics: metrics, views: views))
+		parent.addConstraints(constraint(parent, constraint: "V:[child]-(bottom)-|", options: nil, metrics: metrics, views: views))
+	}
+	
+	/**
+		:name:	alignFromBottomRight
+	*/
+	public static func alignFromBottomRight(parent: UIView, child: UIView, bottom: CGFloat, right: CGFloat) {
+		let metrics: Dictionary<String, AnyObject> = ["bottom" : bottom, "right" : right]
+		let views: Dictionary<String, AnyObject> = ["child" : child]
+		parent.addConstraints(constraint(parent, constraint: "H:[child]-(right)-|", options: nil, metrics: metrics, views: views))
+		parent.addConstraints(constraint(parent, constraint: "V:[child]-(bottom)-|", options: nil, metrics: metrics, views: views))
+	}
+	
+	/**
+		:name:	constraint
+	*/
+	public static func constraint(parent: UIView, constraint: String, options: NSLayoutFormatOptions, metrics: Dictionary<String, AnyObject>, views: Dictionary<String, AnyObject>) -> Array<NSLayoutConstraint> {
+		return NSLayoutConstraint.constraintsWithVisualFormat(
+			constraint,
+			options: options,
+			metrics: metrics,
+			views: views
+		) as! Array<NSLayoutConstraint>
 	}
 }
