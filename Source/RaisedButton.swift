@@ -84,6 +84,11 @@ public class RaisedButton : UIButton {
 		shrink()
 		removePulse()
 	}
+    
+    public override func touchesCancelled(touches: Set<NSObject>!, withEvent event: UIEvent!) {
+        shrink()
+        removePulse()
+    }
 	
 	func pulseTouches(touches: NSSet) {
 		let touch = touches.allObjects.last as! UITouch
