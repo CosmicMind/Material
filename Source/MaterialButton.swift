@@ -19,7 +19,6 @@
 import UIKit
 
 public class MaterialButton : UIButton {
-	
 	public var color: UIColor?
 	public var pulseColor: UIColor?
 	

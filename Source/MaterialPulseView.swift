@@ -19,7 +19,6 @@
 import UIKit
 
 public class MaterialPulseView : MaterialView {
-
     internal lazy var views: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
     
     public var backgroundColorView: UIView?
@@ -39,15 +38,18 @@ public class MaterialPulseView : MaterialView {
     }
 	
 	public override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+		super.touchesBegan(touches, withEvent: event)
 		pulseTouches(touches)
 	}
 	
 	public override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+		super.touchesEnded(touches, withEvent: event)
 		shrink()
 		removePulse()
 	}
 	
 	public override func touchesCancelled(touches: Set<NSObject>!, withEvent event: UIEvent!) {
+		super.touchesCancelled(touches, withEvent: event)
 		shrink()
 		removePulse()
 	}
@@ -119,8 +121,8 @@ public class MaterialPulseView : MaterialView {
         UIView.animateWithDuration(0.3, animations: { () -> Void in
             self.pulseView?.alpha = 0.0
             }) { (finished) -> Void in
-                self.pulseView?.removeFromSuperview()
-                self.pulseView = nil
+			self.pulseView?.removeFromSuperview()
+			self.pulseView = nil
         }
     }
 }
