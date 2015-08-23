@@ -1,2 +1,2 @@
 
-![Material Kit iOS](https://github.com/GraphKit/MaterialKit/blob/development/MaterialKitLogo.png)
+![MaterialKit](https://github.com/GraphKit/MaterialKit/blob/development/MaterialKitLogo.png)
