@@ -78,18 +78,21 @@ public class RaisedButton : UIButton {
 	}
 	
 	public override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+		super.touchesBegan(touches, withEvent: event)
 		pulseTouches(touches)
 	}
 	
 	public override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+		super.touchesEnded(touches, withEvent: event)
 		shrink()
 		removePulse()
 	}
-    
-    public override func touchesCancelled(touches: Set<NSObject>!, withEvent event: UIEvent!) {
-        shrink()
-        removePulse()
-    }
+	
+	public override func touchesCancelled(touches: Set<NSObject>!, withEvent event: UIEvent!) {
+		super.touchesCancelled(touches, withEvent: event)
+		shrink()
+		removePulse()
+	}
 	
 	func pulseTouches(touches: NSSet) {
 		let touch = touches.allObjects.last as! UITouch

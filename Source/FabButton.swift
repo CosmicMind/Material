@@ -108,22 +108,23 @@ public class FabButton : UIButton {
         layer.shadowRadius = 5
     }
     
-    override public func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+	public override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
 		super.touchesBegan(touches, withEvent: event)
 		pulseTouches(touches)
-    }
-    
-    override public func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+	}
+	
+	public override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
 		super.touchesEnded(touches, withEvent: event)
 		shrink()
-        removePulse()
-    }
-    
-    public override func touchesCancelled(touches: Set<NSObject>!, withEvent event: UIEvent!) {
-        shrink()
-        removePulse()
-    }
-    
+		removePulse()
+	}
+	
+	public override func touchesCancelled(touches: Set<NSObject>!, withEvent event: UIEvent!) {
+		super.touchesCancelled(touches, withEvent: event)
+		shrink()
+		removePulse()
+	}
+	
     func pulseTouches(touches: NSSet) {
         let touch = touches.allObjects.last as! UITouch
         let touchLocation = touch.locationInView(self)
