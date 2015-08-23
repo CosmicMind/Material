@@ -126,10 +126,13 @@ public class FabButton : MaterialButton {
         pulseView!.center = touchLocation
         pulseView!.backgroundColor = pulseColor!.colorWithAlphaComponent(0.5)
         backgroundColorView!.addSubview(pulseView!)
-        UIView.animateWithDuration(0.3, animations: {
-           self.pulseView!.transform = CGAffineTransformMakeScale(3, 3)
-           self.transform = CGAffineTransformMakeScale(1.1, 1.1)
-        }, completion: nil)
+        UIView.animateWithDuration(0.3,
+			animations: {
+				self.pulseView!.transform = CGAffineTransformMakeScale(3, 3)
+				self.transform = CGAffineTransformMakeScale(1.1, 1.1)
+			},
+			completion: nil
+		)
     }
     
     func shrink() {
