@@ -20,7 +20,7 @@ import UIKit
 import XCTest
 import MaterialKit
 
-class FocusKitTests: XCTestCase {
+class MaterialKitTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
