@@ -66,6 +66,7 @@ public class RaisedButton : UIButton {
 		backgroundColorView.layer.cornerRadius = 3.0
 		backgroundColorView.backgroundColor = color
 		backgroundColorView.layer.masksToBounds = true
+		backgroundColorView.userInteractionEnabled = false
 		self.insertSubview(backgroundColorView, atIndex: 0)
 	}
 	
