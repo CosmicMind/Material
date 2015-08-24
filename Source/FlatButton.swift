@@ -18,16 +18,9 @@
 
 import UIKit
 
-public class FlatButton : UIButton {
-    
+public class FlatButton : MaterialButton {
     public var textColor: UIColor?
-    public var pulseColor: UIColor?
-    
-    private var vLine: UIView = UIView()
-    private var hLine: UIView = UIView()
-    private var backgroundColorView: UIView = UIView()
-    private var pulseView: UIView?
-    
+	
     public override func drawRect(rect: CGRect) {
         setupContext(rect)
         setupBackgroundColorView()
@@ -46,6 +39,7 @@ public class FlatButton : UIButton {
     }
     
     func initialize() {
+		backgroundColorView = UIView()
         pulseColor = UIColor.whiteColor()
         setTranslatesAutoresizingMaskIntoConstraints(false)
     }
@@ -61,11 +55,12 @@ public class FlatButton : UIButton {
     // We need this view so we can use the masksToBounds
     // so the pulse doesn't animate off the button
     func setupBackgroundColorView() {
-        backgroundColorView.frame = self.bounds
-        backgroundColorView.layer.cornerRadius = 3.0
-        backgroundColorView.backgroundColor = UIColor.clearColor()
-        backgroundColorView.layer.masksToBounds = true
-        self.insertSubview(backgroundColorView, atIndex: 0)
+        backgroundColorView!.frame = self.bounds
+        backgroundColorView!.layer.cornerRadius = 3.0
+        backgroundColorView!.backgroundColor = UIColor.clearColor()
+        backgroundColorView!.layer.masksToBounds = true
+		backgroundColorView!.userInteractionEnabled = false
+        self.insertSubview(backgroundColorView!, atIndex: 0)
     }
     
     func applyShadow() {
@@ -76,11 +71,19 @@ public class FlatButton : UIButton {
     }
     
     public override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-        pulseTouches(touches)
+		super.touchesBegan(touches, withEvent: event)
+		pulseTouches(touches)
     }
     
     public override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
-        shrink()
+		super.touchesEnded(touches, withEvent: event)
+		shrink()
+		removePulse()
+    }
+    
+    public override func touchesCancelled(touches: Set<NSObject>!, withEvent event: UIEvent!) {
+		super.touchesCancelled(touches, withEvent: event)
+		shrink()
         removePulse()
     }
     
@@ -92,7 +95,7 @@ public class FlatButton : UIButton {
         pulseView!.layer.cornerRadius = bounds.height / 2.0
         pulseView!.center = touchLocation
         pulseView!.backgroundColor = pulseColor!.colorWithAlphaComponent(0.5)
-        backgroundColorView.addSubview(pulseView!)
+        backgroundColorView!.addSubview(pulseView!)
         textColor = self.titleLabel?.textColor
         UIView.animateWithDuration(0.3, animations: {
             self.pulseView!.transform = CGAffineTransformMakeScale(10, 10)

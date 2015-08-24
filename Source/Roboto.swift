@@ -9,19 +9,24 @@
 import UIKit
 
 public struct Roboto {
-
     public static func lightWithSize(size: CGFloat) -> UIFont {
-        return UIFont(name: "Roboto-Light", size: size)!
+        if let light = UIFont(name: "Roboto-Light", size: size) {
+            return light
+        }
+		return UIFont.systemFontOfSize(size)
     }
     
     public static func mediumWithSize(size: CGFloat) -> UIFont {
-        return UIFont(name: "Roboto-Medium", size: size)!
+        if let light = UIFont(name: "Roboto-Medium", size: size) {
+            return light
+        }
+		return UIFont.systemFontOfSize(size)
     }
     
     public static func regularWithSize(size: CGFloat) -> UIFont {
-        var fonts = UIFont.fontNamesForFamilyName("Roboto")
-        println(fonts)
-        
-        return UIFont(name: "Arial", size: size)!
+        if let light = UIFont(name: "Roboto-Regular", size: size) {
+            return light
+        }
+		return UIFont.systemFontOfSize(size)
     }
 }

@@ -18,19 +18,11 @@
 
 import UIKit
 
-public class FabButton : UIButton {
+public class FabButton : MaterialButton {
     
     var lineWidth: CGFloat = 2.0
-    
-    var color: UIColor?
-    var pulseColor: UIColor?
-    
-    private var vLine: UIView?
-    private var hLine: UIView?
-    private var backgroundColorView: UIView?
-    private var pulseView: UIView?
 	
-	public convenience init() {
+    public convenience init() {
 		self.init(frame: CGRectZero)
 	}
 	
@@ -75,6 +67,7 @@ public class FabButton : UIButton {
         backgroundColorView!.layer.cornerRadius = bounds.width / 2.0
         backgroundColorView!.backgroundColor = color
         backgroundColorView!.layer.masksToBounds = true
+		backgroundColorView!.userInteractionEnabled = false
         insertSubview(backgroundColorView!, atIndex: 0)
     }
     
@@ -87,17 +80,17 @@ public class FabButton : UIButton {
     }
     
     func setupVerticalLine() {
-        vLine = UIView(frame: CGRectMake(0, 0, lineWidth, CGRectGetHeight(backgroundColorView!.frame) / 3.0))
-        vLine!.backgroundColor = UIColor.whiteColor()
-        vLine!.center = backgroundColorView!.center
-        backgroundColorView!.addSubview(vLine!)
+        verticalLine = UIView(frame: CGRectMake(0, 0, lineWidth, CGRectGetHeight(backgroundColorView!.frame) / 3.0))
+        verticalLine!.backgroundColor = UIColor.whiteColor()
+        verticalLine!.center = backgroundColorView!.center
+        backgroundColorView!.addSubview(verticalLine!)
     }
     
     func setupHorizontalLine() {
-        hLine = UIView(frame: CGRectMake(0, 0, CGRectGetWidth(backgroundColorView!.frame) / 3.0, lineWidth))
-        hLine!.backgroundColor = UIColor.whiteColor()
-        hLine!.center = backgroundColorView!.center
-        backgroundColorView!.addSubview(hLine!)
+        horizontalLine = UIView(frame: CGRectMake(0, 0, CGRectGetWidth(backgroundColorView!.frame) / 3.0, lineWidth))
+        horizontalLine!.backgroundColor = UIColor.whiteColor()
+        horizontalLine!.center = backgroundColorView!.center
+        backgroundColorView!.addSubview(horizontalLine!)
     }
     
     func applyShadow() {
@@ -107,17 +100,23 @@ public class FabButton : UIButton {
         layer.shadowRadius = 5
     }
     
-    override public func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+	public override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
 		super.touchesBegan(touches, withEvent: event)
 		pulseTouches(touches)
-    }
-    
-    override public func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+	}
+	
+	public override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
 		super.touchesEnded(touches, withEvent: event)
 		shrink()
-        removePulse()
-    }
-    
+		removePulse()
+	}
+	
+	public override func touchesCancelled(touches: Set<NSObject>!, withEvent event: UIEvent!) {
+		super.touchesCancelled(touches, withEvent: event)
+		shrink()
+		removePulse()
+	}
+	
     func pulseTouches(touches: NSSet) {
         let touch = touches.allObjects.last as! UITouch
         let touchLocation = touch.locationInView(self)
@@ -127,16 +126,26 @@ public class FabButton : UIButton {
         pulseView!.center = touchLocation
         pulseView!.backgroundColor = pulseColor!.colorWithAlphaComponent(0.5)
         backgroundColorView!.addSubview(pulseView!)
-        UIView.animateWithDuration(0.3, animations: {
-           self.pulseView!.transform = CGAffineTransformMakeScale(3, 3)
-           self.transform = CGAffineTransformMakeScale(1.1, 1.1)
-        }, completion: nil)
+        UIView.animateWithDuration(0.3,
+			animations: {
+				self.pulseView!.transform = CGAffineTransformMakeScale(3, 3)
+				self.transform = CGAffineTransformMakeScale(1.1, 1.1)
+			},
+			completion: nil
+		)
     }
     
     func shrink() {
-        UIView.animateWithDuration(0.3, delay: 0.0, usingSpringWithDamping: 0.2, initialSpringVelocity: 10, options: nil, animations: {
-            self.transform = CGAffineTransformIdentity
-        }, completion: nil)
+        UIView.animateWithDuration(0.3,
+			delay: 0.0,
+			usingSpringWithDamping: 0.2,
+			initialSpringVelocity: 10,
+			options: nil,
+			animations: {
+				self.transform = CGAffineTransformIdentity
+			},
+			completion: nil
+		)
     }
     
     func removePulse() {
