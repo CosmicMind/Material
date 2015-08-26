@@ -54,5 +54,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SideNavDelegate {
 ### Contributors
 
 
-[Daniel Dahan](https://github.com/danieldahan)
-[Adam Dahan](https://github.com/adamdahan)
+* [Daniel Dahan](https://github.com/danieldahan)
+* [Adam Dahan](https://github.com/adamdahan)
