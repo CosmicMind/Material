@@ -11,25 +11,25 @@ MaterialKit is now on CocoaPods under the name [MK](https://cocoapods.org/?q=MK)
 ![MaterialKitPreview](http://www.materialkit.io/MaterialKitPreview.gif)
 
 
-### A Floating Action Button
+### Floating Action Button
 
 ```swift
 var button: FabButton = FabButton()
 ```
 
-### A Flat Button
+### Flat Button
 
 ```swift
 var button: FlatButton = FlatButton()
 ```
 
-### A Raised Button
+### Raised Button
 
 ```swift
 var button: RaisedButton = RaisedButton()
 ```
 
-### A Side Navigation Controller
+### Side Navigation Controller
 
 ```swift
 class AppDelegate: UIResponder, UIApplicationDelegate, SideNavDelegate {
