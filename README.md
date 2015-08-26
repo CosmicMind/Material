@@ -8,7 +8,7 @@
 MaterialKit is now on CocoaPods under the name [MK](https://cocoapods.org/?q=MK).
 
 
-![MaterialKitPreview](http://www.materialkit.io/MaterialKitPreview.gif)
+![MaterialKitPreview](http://www.materialkit.io/MaterialKitPreview.gif =320)
 
 
 ### A Floating Action Button
