@@ -77,16 +77,19 @@ public class FlatButton : UIButton {
     }
     
     public override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-        pulseTouches(touches)
+		super.touchesBegan(touches, withEvent: event)
+		pulseTouches(touches)
     }
     
     public override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
-        shrink()
-        removePulse()
+		super.touchesEnded(touches, withEvent: event)
+		shrink()
+		removePulse()
     }
     
     public override func touchesCancelled(touches: Set<NSObject>!, withEvent event: UIEvent!) {
-        shrink()
+		super.touchesCancelled(touches, withEvent: event)
+		shrink()
         removePulse()
     }
     

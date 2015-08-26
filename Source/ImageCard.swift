@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class ImageCard : PulseView {
+public class ImageCard : MaterialView {
 
     public lazy var imageView: UIImageView = UIImageView()
     

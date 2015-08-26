@@ -46,4 +46,11 @@ public class MaterialViewController : UIViewController {
 	public func bottomRight(child: UIView, bottom: CGFloat, right: CGFloat) {
 		Layout.alignFromBottomRight(view, child: child, bottom: bottom, right: right)
 	}
+    
+    /**
+    :name:	fullScreen
+    */
+    public func fullScreen(child: UIView) {
+        Layout.alignAllSides(view, child: child)
+    }
 }
