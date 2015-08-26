@@ -10,6 +10,7 @@
 		65B965721B8A578D0055B139 /* MaterialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B965711B8A578D0055B139 /* MaterialViewController.swift */; };
 		65B965751B8A60A00055B139 /* MaterialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B965741B8A60A00055B139 /* MaterialView.swift */; };
 		65B9657E1B8A7C330055B139 /* MaterialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B9657D1B8A7C330055B139 /* MaterialButton.swift */; };
+		65B965871B8BEEC60055B139 /* SideNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B965861B8BEEC60055B139 /* SideNavController.swift */; };
 		963832421B88DFD80015F710 /* MaterialKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963832361B88DFD80015F710 /* MaterialKit.framework */; };
 		9638325A1B88E31A0015F710 /* MaterialKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963832581B88E31A0015F710 /* MaterialKitTests.swift */; };
 		963832691B88E5BF0015F710 /* Capture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9638325E1B88E5BF0015F710 /* Capture.swift */; };
@@ -56,6 +57,7 @@
 		65B965711B8A578D0055B139 /* MaterialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialViewController.swift; sourceTree = "<group>"; };
 		65B965741B8A60A00055B139 /* MaterialView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialView.swift; sourceTree = "<group>"; };
 		65B9657D1B8A7C330055B139 /* MaterialButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialButton.swift; sourceTree = "<group>"; };
+		65B965861B8BEEC60055B139 /* SideNavController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideNavController.swift; sourceTree = "<group>"; };
 		963832361B88DFD80015F710 /* MaterialKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MaterialKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		963832411B88DFD80015F710 /* MaterialKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MaterialKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		963832541B88E30F0015F710 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -109,6 +111,14 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		65B965851B8BEEB00055B139 /* Nav */ = {
+			isa = PBXGroup;
+			children = (
+				65B965861B8BEEC60055B139 /* SideNavController.swift */,
+			);
+			name = Nav;
+			sourceTree = "<group>";
+		};
 		9638322C1B88DFD80015F710 = {
 			isa = PBXGroup;
 			children = (
@@ -135,6 +145,7 @@
 				9AAC38521B89553800FE6B2D /* Font */,
 				963832861B8907FE0015F710 /* Layout */,
 				65B965731B8A58E60055B139 /* View */,
+				65B965851B8BEEB00055B139 /* Nav */,
 				963832761B88E8990015F710 /* Text */,
 				963832751B88E87B0015F710 /* Button */,
 				9AAC384B1B89524E00FE6B2D /* Card */,
@@ -351,6 +362,7 @@
 				9A94D10B1B8A485C00F586A5 /* ImageCard.swift in Sources */,
 				9638326B1B88E5BF0015F710 /* FabButton.swift in Sources */,
 				9A94D1091B8A3F5100F586A5 /* MaterialPulseView.swift in Sources */,
+				65B965871B8BEEC60055B139 /* SideNavController.swift in Sources */,
 				9638326C1B88E5BF0015F710 /* FlatButton.swift in Sources */,
 				65B965751B8A60A00055B139 /* MaterialView.swift in Sources */,
 				963832711B88E5BF0015F710 /* Text.swift in Sources */,
