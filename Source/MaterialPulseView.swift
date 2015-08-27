@@ -78,6 +78,7 @@ public class MaterialPulseView : MaterialView {
         layer.shadowOffset = CGSizeMake(0.5, 0.5)
         layer.shadowRadius = 5.0
         layer.shadowOpacity = 0.4
+        layer.shadowPath = UIBezierPath(rect: bounds).CGPath
         layer.cornerRadius = 2.0
     }
     
