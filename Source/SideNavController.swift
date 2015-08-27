@@ -316,7 +316,7 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
     }
     
     /**
-    :name:	init
+        :name:	init
     */
     public convenience init(mainViewController: UIViewController, leftViewController: UIViewController, bottomViewController: UIViewController, rightViewController: UIViewController) {
         self.init()
@@ -326,6 +326,19 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
         self.rightViewController = rightViewController
         setupView()
         setupLeftView()
+        setupBottomView()
+        setupRightView()
+    }
+    
+    /**
+    :name:	init
+    */
+    public convenience init(mainViewController: UIViewController, bottomViewController: UIViewController, rightViewController: UIViewController) {
+        self.init()
+        self.mainViewController = mainViewController
+        self.bottomViewController = bottomViewController
+        self.rightViewController = rightViewController
+        setupView()
         setupBottomView()
         setupRightView()
     }
