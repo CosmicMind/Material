@@ -30,6 +30,15 @@ public class MaterialButton : UIButton {
 	internal var pulseView: UIView?
 	
 	/**
+		:name:	backgroundColor
+	*/
+	public override var backgroundColor: UIColor? {
+		didSet {
+			backgroundColorView.backgroundColor = backgroundColor
+		}
+	}
+	
+	/**
 		:name:	pulseColor
 	*/
 	public var pulseColor: UIColor?
@@ -120,8 +129,8 @@ public class MaterialButton : UIButton {
 	// We need this view so we can use the masksToBounds
 	// so the pulse doesn't animate off the button
 	private func prepareBackgroundColorView() {
-		backgroundColorView.backgroundColor = backgroundColor
 		backgroundColorView.layer.masksToBounds = true
+		backgroundColorView.clipsToBounds = true
 		backgroundColorView.userInteractionEnabled = false
 		insertSubview(backgroundColorView, atIndex: 0)
 	}
