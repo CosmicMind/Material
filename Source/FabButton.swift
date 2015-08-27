@@ -24,16 +24,17 @@ public class FabButton : MaterialButton {
 	//
 	internal override func prepareButton() {
 		super.prepareButton()
+		prepareShadow()
 		backgroundColor = .redColor()
         pulseColor = .whiteColor()
 		backgroundColorView.layer.cornerRadius = bounds.width / 2
     }
 	
 	//
-	//	:name:	pulseTouches
+	//	:name:	pulseBegan
 	//
-	internal override func pulseTouches(touches: Set<NSObject>) {
-		super.pulseTouches(touches)
+	internal override func pulseBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+		super.pulseBegan(touches, withEvent: event)
 		UIView.animateWithDuration(0.3, animations: {
 			self.pulseView!.transform = CGAffineTransformMakeScale(3, 3)
 			self.transform = CGAffineTransformMakeScale(1.1, 1.1)

@@ -18,14 +18,26 @@
 
 import UIKit
 
-public class FlatButton : RaisedButton {
+public class FlatButton : MaterialButton {
 	//
 	//	:name:	prepareButton
 	//
 	internal override func prepareButton() {
 		super.prepareButton()
+		setTitleColor(UIColor.purpleColor(), forState: .Normal)
+		pulseColor = .purpleColor()
 		backgroundColor = .clearColor()
-		pulseColor = .whiteColor()
 		backgroundColorView.layer.cornerRadius = 3
+	}
+	
+	//
+	//	:name:	pulseBegan
+	//
+	internal override func pulseBegan(touches: Set<NSObject>, withEvent event: UIEvent)  {
+		super.pulseBegan(touches, withEvent: event)
+		UIView.animateWithDuration(0.3, animations: {
+			self.pulseView!.transform = CGAffineTransformMakeScale(10, 10)
+			self.transform = CGAffineTransformMakeScale(1.05, 1.1)
+		})
 	}
 }
