@@ -256,6 +256,7 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 	//	:name:	viewWillLayoutSubviews
 	//
 	public override func viewWillLayoutSubviews() {
+		super.viewWillLayoutSubviews()
 		prepareContainedViewController(mainViewContainer, viewController: mainViewController)
 		prepareContainedViewController(leftViewContainer, viewController: leftViewController)
 		prepareContainedViewController(rightViewContainer, viewController: rightViewController)
