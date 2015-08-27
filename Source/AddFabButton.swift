@@ -19,8 +19,8 @@
 import UIKit
 
 public class AddFabButton : FabButton {
-	private lazy var verticalLine: UIView = UIView()
-	private lazy var horizontalLine: UIView = UIView()
+	private var verticalLine: UIView!
+	private var horizontalLine: UIView!
 	
 	//
 	//	:name:	prepareButton

@@ -31,35 +31,17 @@ public class FabButton : MaterialButton {
 		super.prepareButton()
 		color = .redColor()
         pulseColor = .whiteColor()
-    }
-	
-	//
-	//	:name: prepareBackgroundColorView
-	//
-	internal override func prepareBackgroundColorView() {
-		super.prepareBackgroundColorView()
 		backgroundColorView.layer.cornerRadius = bounds.width / 2
-	}
+    }
 	
 	//
 	//	:name:	pulseTouches
 	//
 	internal override func pulseTouches(touches: Set<NSObject>) {
 		super.pulseTouches(touches)
-		let touch = touches.first as! UITouch
-		let touchLocation = touch.locationInView(self)
-		pulseView = UIView()
-		pulseView!.frame = CGRectMake(0, 0, bounds.width, bounds.height)
-		pulseView!.layer.cornerRadius = bounds.width / 2
-		pulseView!.center = touchLocation
-		pulseView!.backgroundColor = pulseColor?.colorWithAlphaComponent(0.5)
-		backgroundColorView.addSubview(pulseView!)
-		UIView.animateWithDuration(0.3,
-			animations: {
-				self.pulseView!.transform = CGAffineTransformMakeScale(3, 3)
-				self.transform = CGAffineTransformMakeScale(1.1, 1.1)
-			},
-			completion: nil
-		)
+		UIView.animateWithDuration(0.3, animations: {
+			self.pulseView!.transform = CGAffineTransformMakeScale(3, 3)
+			self.transform = CGAffineTransformMakeScale(1.1, 1.1)
+		})
 	}
 }

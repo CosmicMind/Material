@@ -30,13 +30,6 @@ public class FlatButton : MaterialButton {
 	internal override func prepareButton() {
 		super.prepareButton()
 		pulseColor = .whiteColor()
-	}
-	
-	//
-	//	:name: prepareBackgroundColorView
-	//
-	internal override func prepareBackgroundColorView() {
-		super.prepareBackgroundColorView()
 		backgroundColorView.layer.cornerRadius = 3
 	}
 	
@@ -45,15 +38,7 @@ public class FlatButton : MaterialButton {
 	//
 	internal override func pulseTouches(touches: Set<NSObject>) {
 		super.pulseTouches(touches)
-		let touch = touches.first as! UITouch
-		let touchLocation = touch.locationInView(self)
-		pulseView = UIView()
-		pulseView!.frame = CGRectMake(0, 0, self.bounds.size.height, self.bounds.size.height)
-		pulseView!.layer.cornerRadius = bounds.height / 2.0
-		pulseView!.center = touchLocation
-		pulseView!.backgroundColor = pulseColor!.colorWithAlphaComponent(0.5)
-		backgroundColorView.addSubview(pulseView!)
-		textColor = self.titleLabel?.textColor
+		textColor = titleLabel?.textColor
 		UIView.animateWithDuration(0.3, animations: {
 			self.pulseView!.transform = CGAffineTransformMakeScale(10, 10)
 			self.transform = CGAffineTransformMakeScale(1.05, 1.1)

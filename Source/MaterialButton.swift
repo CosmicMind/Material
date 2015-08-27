@@ -93,20 +93,31 @@ public class MaterialButton : UIButton {
 	*/
 	final public override func drawRect(rect: CGRect) {
 		prepareContext(rect)
-		prepareButton()
 		prepareShadow()
+		prepareButton()
 		prepareBackgroundColorView()
 	}
 	
 	//
 	//	:name:	prepareButton
 	//
-	internal func prepareButton() {}
+	internal func prepareButton() {
+		backgroundColorView.frame = bounds
+	}
 	
 	//
 	//	:name:	pulseTouches
 	//
-	internal func pulseTouches(touches: Set<NSObject>) {}
+	internal func pulseTouches(touches: Set<NSObject>) {
+		let touch = touches.first as! UITouch
+		let touchLocation = touch.locationInView(self)
+		pulseView = UIView()
+		pulseView!.frame = CGRectMake(0, 0, bounds.width, bounds.height)
+		pulseView!.layer.cornerRadius = bounds.width / 2
+		pulseView!.center = touchLocation
+		pulseView!.backgroundColor = pulseColor?.colorWithAlphaComponent(0.5)
+		backgroundColorView.addSubview(pulseView!)
+	}
 	
 	//
 	//	:name: prepareBackgroundColorView
@@ -114,7 +125,6 @@ public class MaterialButton : UIButton {
 	// We need this view so we can use the masksToBounds
 	// so the pulse doesn't animate off the button
 	internal func prepareBackgroundColorView() {
-		backgroundColorView.frame = bounds
 		backgroundColorView.backgroundColor = color
 		backgroundColorView.layer.masksToBounds = true
 		backgroundColorView.userInteractionEnabled = false
