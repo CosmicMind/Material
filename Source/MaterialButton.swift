@@ -124,7 +124,7 @@ public class MaterialButton : UIButton {
 	//
 	// We need this view so we can use the masksToBounds
 	// so the pulse doesn't animate off the button
-	internal func prepareBackgroundColorView() {
+	private func prepareBackgroundColorView() {
 		backgroundColorView.backgroundColor = color
 		backgroundColorView.layer.masksToBounds = true
 		backgroundColorView.userInteractionEnabled = false
