@@ -530,9 +530,9 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 	//
 	internal func handleLeftPanGesture(gesture: UIPanGestureRecognizer) {
 		if isRightContainerOpened { return }
-		if .Began == gesture.state {
-			if let vc = leftViewContainer {
-				if let c = leftContainer {
+		if let vc = leftViewContainer {
+			if let c = leftContainer {
+				if .Began == gesture.state {
 					leftViewController?.beginAppearanceTransition(!isLeftContainerOpened, animated: true)
 					addShadow(&leftViewContainer)
 					toggleWindow(shouldOpen: true)
@@ -540,11 +540,7 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 					c.point = gesture.locationInView(view)
 					c.frame = vc.frame
 					delegate?.sideNavDidBeginLeftPan?(self, container: c)
-				}
-			}
-		} else if .Changed == gesture.state {
-			if let vc = leftViewContainer {
-				if let c = leftContainer {
+				} else if .Changed == gesture.state {
 					c.point = gesture.translationInView(gesture.view!)
 					let r = (vc.frame.origin.x - leftOriginX) / vc.frame.size.width
 					let s: CGFloat = 1 - (1 - options.contentViewScale) * r
@@ -553,11 +549,7 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 					backdropViewContainer?.layer.opacity = Float(r * options.contentViewOpacity)
 					mainViewContainer?.transform = CGAffineTransformMakeScale(s, s)
 					delegate?.sideNavDidChangeLeftPan?(self, container: c)
-				}
-			}
-		} else {
-			if let vc = leftViewContainer {
-				if let c = leftContainer {
+				} else {
 					c.point = gesture.velocityInView(gesture.view)
 					let x: CGFloat = c.point.x >= 1000 || c.point.x <= -1000 ? c.point.x : 0
 					c.state = vc.frame.origin.x <= CGFloat(floor(leftOriginX)) + options.pointOfNoReturnWidth || c.point.x <= -1000 ? .Closed : .Opened
@@ -587,21 +579,17 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 	//
 	internal func handleRightPanGesture(gesture: UIPanGestureRecognizer) {
 		if isLeftContainerOpened { return }
-		if .Began == gesture.state {
-			if let vc = rightViewContainer {
-				if let c = rightContainer {
+		if let vc = rightViewContainer {
+			if let c = rightContainer {
+				if .Began == gesture.state {
+					c.point = gesture.locationInView(view)
+					c.state = isRightContainerOpened ? .Opened : .Closed
+					c.frame = vc.frame
 					rightViewController?.beginAppearanceTransition(!isRightContainerOpened, animated: true)
 					addShadow(&rightViewContainer)
 					toggleWindow(shouldOpen: true)
-					c.state = isRightContainerOpened ? .Opened : .Closed
-					c.point = gesture.locationInView(view)
-					c.frame = vc.frame
 					delegate?.sideNavDidBeginRightPan?(self, container: c)
-				}
-			}
-		} else if .Changed == gesture.state {
-			if let vc = rightViewContainer {
-				if let c = rightContainer {
+				} else if .Changed == gesture.state {
 					c.point = gesture.translationInView(gesture.view!)
 					let r = (rightOriginX - vc.frame.origin.x) / vc.frame.size.width
 					let s: CGFloat = 1 - (1 - options.contentViewScale) * r
@@ -611,11 +599,7 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 					backdropViewContainer?.layer.opacity = Float(r * options.contentViewOpacity)
 					mainViewContainer?.transform = CGAffineTransformMakeScale(s, s)
 					delegate?.sideNavDidChangeRightPan?(self, container: c)
-				}
-			}
-		} else {
-			if let vc = rightViewContainer {
-				if let c = rightContainer {
+				} else {
 					c.point = gesture.velocityInView(gesture.view)
 					let x: CGFloat = c.point.x <= -1000 || c.point.x >= 1000 ? c.point.x : 0
 					c.state = vc.frame.origin.x >= CGFloat(floor(rightOriginX) - options.pointOfNoReturnWidth) || c.point.x >= 1000 ? .Closed : .Opened
