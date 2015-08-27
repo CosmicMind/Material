@@ -30,7 +30,7 @@ public class ImageCard : MaterialPulseView {
     }
     
     internal override func initialize() {
-        setupImageView()
+        prepareImageView()
         super.initialize()
     }
 	
@@ -40,7 +40,7 @@ public class ImageCard : MaterialPulseView {
 		addConstraints(Layout.constraint("V:|[imageView]|", options: nil, metrics: nil, views: views))
 	}
 	
-    private func setupImageView() {
+    private func prepareImageView() {
         imageView.setTranslatesAutoresizingMaskIntoConstraints(false)
         imageView.contentMode = .ScaleAspectFill
         imageView.userInteractionEnabled = false

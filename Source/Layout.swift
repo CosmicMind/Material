@@ -84,7 +84,16 @@ public struct Layout {
 		parent.addConstraints(constraint("H:[child]-(right)-|", options: nil, metrics: metrics, views: views))
 		parent.addConstraints(constraint("V:[child]-(bottom)-|", options: nil, metrics: metrics, views: views))
 	}
-	
+    
+    /**
+    :name:	alignAllSides
+    */
+    public static func alignAllSides(parent: UIView, child: UIView) {
+        let views: Dictionary<String, AnyObject> = ["child" : child]
+        parent.addConstraints(constraint("H:|[child]|", options: nil, metrics: nil, views: views))
+        parent.addConstraints(constraint("V:|[child]|", options: nil, metrics: nil, views: views))
+    }
+    
 	/**
 		:name:	constraint
 	*/

@@ -49,8 +49,8 @@ public class BasicCard : MaterialPulseView {
 		addConstraints(Layout.constraint("H:|-(20)-[detailTextLabel]-(20)-|", options: nil, metrics: nil, views: views))
 		addConstraints(Layout.constraint("H:|[horizontalSeparator]|", options: nil, metrics: nil, views: views))
 		addConstraints(Layout.constraint("H:|-(10)-[cancelButton(80)]-(10)-[otherButton(80)]", options: nil, metrics: nil, views: views))
-		addConstraints(Layout.constraint("V:|-(20)-[titleLabel(22)]-(10)-[detailTextLabel]-(20)-[line(1)]-(10)-[cancelButton]-(10)-|", options: nil, metrics: nil, views: views))
-		addConstraints(Layout.constraint("V:|-(20)-[titleLabel(22)]-(10)-[detailTextLabel]-(20)-[line(1)]-(10)-[otherButton]-(10)-|", options: nil, metrics: nil, views: views))
+		addConstraints(Layout.constraint("V:|-(20)-[titleLabel(22)]-(10)-[detailTextLabel]-(20)-[horizontalSeparator(1)]-(10)-[cancelButton]-(10)-|", options: nil, metrics: nil, views: views))
+		addConstraints(Layout.constraint("V:|-(20)-[titleLabel(22)]-(10)-[detailTextLabel]-(20)-[horizontalSeparator(1)]-(10)-[otherButton]-(10)-|", options: nil, metrics: nil, views: views))
 	}
 	
     private func setupTitleLabel() {
