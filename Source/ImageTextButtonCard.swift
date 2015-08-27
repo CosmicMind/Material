@@ -1,5 +1,5 @@
 //
-//  ImageTextCard.swift
+//  ImageTextButtonCard.swift
 //  MaterialKit
 //
 //  Created by Adam Dahan on 2015-08-26.
@@ -8,14 +8,13 @@
 
 import UIKit
 
-public class ImageTextCard : MaterialPulseView {
+public class ImageTextButtonCard : MaterialPulseView {
     public lazy var imageView: UIImageView = UIImageView()
     public lazy var titleLabel: UILabel = UILabel()
     public lazy var descriptionContainerView: UIView = UIView()
     public lazy var descriptionLabel: UILabel = UILabel()
     public lazy var horizontalSeparator: UIView = UIView()
-    public lazy var ctaButton: FlatButton = FlatButton()
-    public lazy var showsCTA: Bool = false
+    public lazy var button: FlatButton = FlatButton()
     
     public required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -30,10 +29,8 @@ public class ImageTextCard : MaterialPulseView {
         prepareTitleLabel()
         prepareDescriptionContainerView()
         prepareDescriptionLabel()
-        if showsCTA {
-            prepareHorizontalSeparator()
-            prepareCTAButton()
-        }
+        prepareHorizontalSeparator()
+        prepareButton()
         super.initialize()
     }
     
@@ -44,12 +41,10 @@ public class ImageTextCard : MaterialPulseView {
         imageView.addConstraints(Layout.constraint("V:[titleLabel(45)]|", options: nil, metrics: nil, views: views))
         addConstraints(Layout.constraint("H:|[descriptionContainerView]|", options: nil, metrics: nil, views: views))
         descriptionContainerView.addConstraints(Layout.constraint("H:|-20-[descriptionLabel]-(20)-|", options: nil, metrics: nil, views: views))
-        descriptionContainerView.addConstraints(Layout.constraint("V:|-(20)-[descriptionLabel]-(20)-|", options: nil, metrics: nil, views: views))
-        addConstraints(Layout.constraint("V:|[imageView][descriptionContainerView(120)]|", options: nil, metrics: nil, views: views))
-        if showsCTA {
-            descriptionContainerView.addConstraints(Layout.constraint("H:|[horizontalSeparator]|", options: nil, metrics: nil, views: views))
-            descriptionContainerView.addConstraints(Layout.constraint("V:|-(20)-[descriptionLabel]-(20)-[horizontalSeparator(1)]-(20)-|", options: nil, metrics: nil, views: views))
-        }
+        addConstraints(Layout.constraint("V:|[imageView][descriptionContainerView(160)]|", options: nil, metrics: nil, views: views))
+        descriptionContainerView.addConstraints(Layout.constraint("H:|[horizontalSeparator]|", options: nil, metrics: nil, views: views))
+        descriptionContainerView.addConstraints(Layout.constraint("H:|-(10)-[button(70)]", options: nil, metrics: nil, views: views))
+        descriptionContainerView.addConstraints(Layout.constraint("V:|-(20)-[descriptionLabel]-(20)-[horizontalSeparator(1)]-(10)-[button(30)]-(10)-|", options: nil, metrics: nil, views: views))
     }
     
     private func prepareImageView() {
@@ -93,13 +88,20 @@ public class ImageTextCard : MaterialPulseView {
     
     private func prepareHorizontalSeparator() {
         horizontalSeparator.setTranslatesAutoresizingMaskIntoConstraints(false)
-        horizontalSeparator.backgroundColor = UIColor.whiteColor()
+        horizontalSeparator.backgroundColor = UIColor.darkGrayColor()
         horizontalSeparator.alpha = 0.2
         descriptionContainerView.addSubview(horizontalSeparator)
         views["horizontalSeparator"] = horizontalSeparator
     }
     
-    private func prepareCTAButton() {
-        
-    } 
+    private func prepareButton() {
+        button.setTranslatesAutoresizingMaskIntoConstraints(false)
+        button.setTitle("Cancel", forState: .Normal)
+        button.setTitleColor(UIColor(red: 255.0/255.0, green: 156.0/255.0, blue: 38.0/255.0, alpha: 1.0), forState: .Normal)
+        button.layer.shadowOpacity = 0
+        button.titleLabel!.font = Roboto.lightWithSize(16.0)
+        button.pulseColor = UIColor(red: 255.0/255.0, green: 156.0/255.0, blue: 38.0/255.0, alpha: 1.0)
+        descriptionContainerView.addSubview(button)
+        views["button"] = button
+    }
 }

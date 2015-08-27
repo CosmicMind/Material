@@ -36,10 +36,10 @@ public class BasicCard : MaterialPulseView {
     }
     
     internal override func initialize() {
-        setupTitleLabel()
-        setupDetailTextLabel()
-        setupHorizontalLineSeparator()
-        setupButtons()
+        prepareTitleLabel()
+        prepareDetailTextLabel()
+        prepareHorizontalSeparator()
+        prepareButtons()
         super.initialize()
     }
 	
@@ -53,7 +53,7 @@ public class BasicCard : MaterialPulseView {
 		addConstraints(Layout.constraint("V:|-(20)-[titleLabel(22)]-(10)-[detailTextLabel]-(20)-[horizontalSeparator(1)]-(10)-[otherButton]-(10)-|", options: nil, metrics: nil, views: views))
 	}
 	
-    private func setupTitleLabel() {
+    private func prepareTitleLabel() {
         titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         titleLabel.font = Roboto.regularWithSize(22.0)
         titleLabel.textColor = UIColor.whiteColor()
@@ -62,7 +62,7 @@ public class BasicCard : MaterialPulseView {
         views["titleLabel"] = titleLabel
     }
     
-    private func setupDetailTextLabel() {
+    private func prepareDetailTextLabel() {
         detailTextLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         detailTextLabel.font = Roboto.lightWithSize(16.0)
         detailTextLabel.textColor = UIColor.whiteColor()
@@ -73,7 +73,7 @@ public class BasicCard : MaterialPulseView {
         views["detailTextLabel"] = detailTextLabel
     }
     
-    private func setupHorizontalLineSeparator() {
+    private func prepareHorizontalSeparator() {
         horizontalSeparator.setTranslatesAutoresizingMaskIntoConstraints(false)
         horizontalSeparator.backgroundColor = UIColor.whiteColor()
         horizontalSeparator.alpha = 0.2
@@ -81,12 +81,12 @@ public class BasicCard : MaterialPulseView {
         views["horizontalSeparator"] = horizontalSeparator
     }
     
-    private func setupButtons() {
-        setupCancelButton()
-        setupOtherButton()
+    private func prepareButtons() {
+        prepareCancelButton()
+        prepareOtherButton()
     }
     
-    private func setupCancelButton() {
+    private func prepareCancelButton() {
 		cancelButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         cancelButton.setTitle("Cancel", forState: .Normal)
         cancelButton.setTitleColor(buttonColor, forState: .Normal)
@@ -95,7 +95,7 @@ public class BasicCard : MaterialPulseView {
         views["cancelButton"] = cancelButton
     }
     
-    private func setupOtherButton() {
+    private func prepareOtherButton() {
 		otherButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         otherButton.setTitle("Confirm", forState: .Normal)
 		otherButton.setTitleColor(buttonColor, forState: .Normal)
