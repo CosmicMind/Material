@@ -82,7 +82,7 @@ public class MaterialButton : UIButton {
 	/**
 		:name:	touchesCancelled
 	*/
-	public override func touchesCancelled(touches: Set<NSObject>!, withEvent event: UIEvent!) {
+	public override func touchesCancelled(touches: Set<NSObject>, withEvent event: UIEvent!) {
 		super.touchesCancelled(touches, withEvent: event)
 		shrink()
 		removePulse()
