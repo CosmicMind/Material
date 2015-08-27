@@ -30,9 +30,13 @@ public class MaterialButton : UIButton {
 	internal var pulseView: UIView?
 	
 	/**
-		:name:	color
+		:name:	backgroundColor
 	*/
-	public var color: UIColor?
+	public override var backgroundColor: UIColor? {
+		didSet {
+			backgroundColorView.backgroundColor = backgroundColor
+		}
+	}
 	
 	/**
 		:name:	pulseColor
@@ -67,7 +71,7 @@ public class MaterialButton : UIButton {
 	*/
 	public override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
 		super.touchesBegan(touches, withEvent: event)
-		pulseTouches(touches)
+		pulseBegan(touches, withEvent: event)
 	}
 	
 	/**
@@ -76,16 +80,16 @@ public class MaterialButton : UIButton {
 	public override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
 		super.touchesEnded(touches, withEvent: event)
 		shrink()
-		removePulse()
+		pulseEnded(touches, withEvent: event)
 	}
 	
 	/**
 		:name:	touchesCancelled
 	*/
-	public override func touchesCancelled(touches: Set<NSObject>, withEvent event: UIEvent!) {
+	public override func touchesCancelled(touches: Set<NSObject>!, withEvent event: UIEvent!) {
 		super.touchesCancelled(touches, withEvent: event)
 		shrink()
-		removePulse()
+		pulseEnded(touches, withEvent: event)
 	}
 	
 	/**
@@ -93,7 +97,6 @@ public class MaterialButton : UIButton {
 	*/
 	final public override func drawRect(rect: CGRect) {
 		prepareContext(rect)
-		prepareShadow()
 		prepareButton()
 		prepareBackgroundColorView()
 	}
@@ -106,17 +109,41 @@ public class MaterialButton : UIButton {
 	}
 	
 	//
-	//	:name:	pulseTouches
+	//	:name:	pulseBegan
 	//
-	internal func pulseTouches(touches: Set<NSObject>) {
+	internal func pulseBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
 		let touch = touches.first as! UITouch
 		let touchLocation = touch.locationInView(self)
 		pulseView = UIView()
-		pulseView!.frame = CGRectMake(0, 0, bounds.width, bounds.height)
-		pulseView!.layer.cornerRadius = bounds.width / 2
+		pulseView!.frame = CGRectMake(0, 0, bounds.height, bounds.height)
+		pulseView!.layer.cornerRadius = bounds.height / 2
 		pulseView!.center = touchLocation
 		pulseView!.backgroundColor = pulseColor?.colorWithAlphaComponent(0.5)
 		backgroundColorView.addSubview(pulseView!)
+	}
+	
+	//
+	//	:name:	pulseEnded
+	//
+	internal func pulseEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+		UIView.animateWithDuration(0.3,
+			animations: { _ in
+				self.pulseView?.alpha = 0
+			}
+		) { _ in
+			self.pulseView?.removeFromSuperview()
+			self.pulseView = nil
+		}
+	}
+	
+	//
+	//	:name:	prepareShadow
+	//
+	internal func prepareShadow() {
+		layer.shadowOffset = CGSizeMake(1, 1)
+		layer.shadowColor = UIColor.blackColor().CGColor
+		layer.shadowOpacity = 0.5
+		layer.shadowRadius = 5
 	}
 	
 	//
@@ -125,8 +152,8 @@ public class MaterialButton : UIButton {
 	// We need this view so we can use the masksToBounds
 	// so the pulse doesn't animate off the button
 	private func prepareBackgroundColorView() {
-		backgroundColorView.backgroundColor = color
 		backgroundColorView.layer.masksToBounds = true
+		backgroundColorView.clipsToBounds = true
 		backgroundColorView.userInteractionEnabled = false
 		insertSubview(backgroundColorView, atIndex: 0)
 	}
@@ -136,16 +163,6 @@ public class MaterialButton : UIButton {
 	//
 	private func prepareView() {
 		setTranslatesAutoresizingMaskIntoConstraints(false)
-	}
-	
-	//
-	//	:name:	prepareShadow
-	//
-	private func prepareShadow() {
-		layer.shadowOffset = CGSizeMake(1, 1)
-		layer.shadowColor = UIColor.blackColor().CGColor
-		layer.shadowOpacity = 0.5
-		layer.shadowRadius = 5
 	}
 	
 	//
@@ -174,19 +191,5 @@ public class MaterialButton : UIButton {
 			},
 			completion: nil
 		)
-	}
-	
-	//
-	//	:name:	removePulse
-	//
-	private func removePulse() {
-		UIView.animateWithDuration(0.3,
-			animations: { _ in
-				self.pulseView?.alpha = 0
-			}
-		) { _ in
-			self.pulseView?.removeFromSuperview()
-			self.pulseView = nil
-		}
 	}
 }

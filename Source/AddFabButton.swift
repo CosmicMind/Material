@@ -19,7 +19,19 @@
 import UIKit
 
 public class AddFabButton : FabButton {
+	/**
+		:name:	lineWidth
+	*/
+	public var lineWidth: CGFloat = 2
+	
+	//
+	//	:name:	verticalLine
+	//
 	private var verticalLine: UIView!
+	
+	//
+	//	:name:	horizontalLine
+	//
 	private var horizontalLine: UIView!
 	
 	//

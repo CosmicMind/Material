@@ -56,6 +56,14 @@ public protocol SideNavDelegate {
 	optional func sideNavDidOpenRightViewContainer(nav: SideNavController, container: SideNavContainer)
 	optional func sideNavDidCloseRightViewContainer(nav: SideNavController, container: SideNavContainer)
 	optional func sideNavDidTapRight(nav: SideNavController, container: SideNavContainer)
+    
+    // bottom
+    optional func sideNavDidBeginBottomPan(nav: SideNavController, container: SideNavContainer)
+    optional func sideNavDidChangeBottomPan(nav: SideNavController, container: SideNavContainer)
+    optional func sideNavDidEndBottomPan(nav: SideNavController, container: SideNavContainer)
+    optional func sideNavDidOpenBottomViewContainer(nav: SideNavController, container: SideNavContainer)
+    optional func sideNavDidCloseBottomViewContainer(nav: SideNavController, container: SideNavContainer)
+    optional func sideNavDidTapBottom(nav: SideNavController, container: SideNavContainer)
 }
 
 @objc(SideNavController)
@@ -69,16 +77,20 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 		public static var shadowOffset: CGSize = CGSizeZero
 		public static var contentViewScale: CGFloat = 1
 		public static var contentViewOpacity: CGFloat = 0.4
-		public static var shouldHideStatusBar: Bool = true
+		public static var hideStatusBar: Bool = true
 		public static var pointOfNoReturnWidth: CGFloat = 48
+        public static var pointOfNoReturnheight: CGFloat = 48
 		public static var backdropViewContainerBackgroundColor: UIColor = .blackColor()
 		public static var animationDuration: CGFloat = 0.5
 		public static var leftBezelWidth: CGFloat = 16
-		public static var leftViewContainerWidth: CGFloat = 270
+		public static var leftViewContainerWidth: CGFloat = 240
 		public static var leftPanFromBezel: Bool = true
 		public static var rightBezelWidth: CGFloat = 16
-		public static var rightViewContainerWidth: CGFloat = 270
+		public static var rightViewContainerWidth: CGFloat = 240
 		public static var rightPanFromBezel: Bool = true
+        public static var bottomBezelHeight: CGFloat = 48
+        public static var bottomViewContainerHeight: CGFloat = 240
+        public static var bottomPanFromBezel: Bool = true
 	}
 	
 	/**
@@ -96,8 +108,11 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 	/**
 		:name:	isLeftContainerOpened
 	*/
-	public var isLeftContainerOpened: Bool {
-		return 0 == leftViewContainer?.frame.origin.x
+    public var isLeftContainerOpened: Bool {
+        if let c = leftViewContainer {
+            return c.frame.origin.x != leftOriginX
+        }
+        return false
 	}
 	
 	/**
@@ -105,15 +120,25 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 	*/
 	public var isRightContainerOpened: Bool {
 		if let c = rightViewContainer {
-			return c.frame.origin.x == rightOriginX - c.frame.size.width
+			return c.frame.origin.x != rightOriginX
 		}
 		return false
 	}
+    
+    /**
+        :name:	isBottomContainerOpened
+    */
+    public var isBottomContainerOpened: Bool {
+        if let c = bottomViewContainer {
+            return c.frame.origin.y != bottomOriginY
+        }
+        return false
+    }
 	
 	/**
 		:name:	isUserInteractionEnabled
 	*/
-	public private(set) var isUserInteractionEnabled: Bool {
+	public var isUserInteractionEnabled: Bool {
 		get {
 			return mainViewContainer!.userInteractionEnabled
 		}
@@ -141,6 +166,11 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 		:name:	rightViewContainer
 	*/
 	public private(set) var rightViewContainer: UIView?
+    
+    /**
+        :name:	bottomViewContainer
+    */
+    public private(set) var bottomViewContainer: UIView?
 	
 	/**
 		:name:	leftContainer
@@ -151,6 +181,11 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 		:name:	rightContainer
 	*/
 	public private(set) var rightContainer: SideNavContainer?
+    
+    /**
+    :name:	bottomContainer
+    */
+    public private(set) var bottomContainer: SideNavContainer?
 	
 	/**
 		:name:	mainViewController
@@ -166,6 +201,11 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 		:name:	rightViewController
 	*/
 	public var rightViewController: UIViewController?
+    
+    /**
+    :name:	leftViewController
+    */
+    public var bottomViewController: UIViewController?
 
 	/**
 		:name:	leftPanGesture
@@ -177,16 +217,25 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 	*/
 	public var leftTapGesture: UITapGestureRecognizer?
 	
+    /**
+        :name:	rightTapGesture
+    */
+    public var rightTapGesture: UITapGestureRecognizer?
+    
+    /**
+        :name:	rightTapGesture
+    */
+    public var bottomTapGesture: UITapGestureRecognizer?
+    
 	/**
 		:name:	rightPanGesture
 	*/
 	public var rightPanGesture: UIPanGestureRecognizer?
-
-	
-	/**
-		:name:	rightTapGesture
-	*/
-	public var rightTapGesture: UITapGestureRecognizer?
+    
+    /**
+        :name:	rightPanGesture
+    */
+    public var bottomPanGesture: UIPanGestureRecognizer?
 	
 	//
 	//	:name:	leftOriginX
@@ -201,6 +250,13 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 	private var rightOriginX: CGFloat {
 		return view.bounds.width
 	}
+    
+    //
+    //	:name:	bottomOriginY
+    //
+    private var bottomOriginY: CGFloat {
+        return view.bounds.height
+    }
 	
 	/**
 		:name:	init
@@ -223,8 +279,8 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
         self.init()
         self.mainViewController = mainViewController
         self.leftViewController = leftViewController
-		setupView()
-		setupLeftView()
+		prepareView()
+		prepareLeftView()
     }
 	
 	/**
@@ -234,8 +290,19 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
         self.init()
         self.mainViewController = mainViewController
         self.rightViewController = rightViewController
-		setupView()
-		setupRightView()
+		prepareView()
+		prepareRightView()
+    }
+    
+    /**
+        :name:	init
+    */
+    public convenience init(mainViewController: UIViewController, bottomViewController: UIViewController) {
+        self.init()
+        self.mainViewController = mainViewController
+        self.bottomViewController = bottomViewController
+        prepareView()
+        prepareBottomView()
     }
 	
 	/**
@@ -246,9 +313,37 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
         self.mainViewController = mainViewController
         self.leftViewController = leftViewController
         self.rightViewController = rightViewController
-        setupView()
-		setupLeftView()
-		setupRightView()
+        prepareView()
+		prepareLeftView()
+		prepareRightView()
+    }
+    
+    /**
+        :name:	init
+    */
+    public convenience init(mainViewController: UIViewController, leftViewController: UIViewController, bottomViewController: UIViewController, rightViewController: UIViewController) {
+        self.init()
+        self.mainViewController = mainViewController
+        self.leftViewController = leftViewController
+        self.bottomViewController = bottomViewController
+        self.rightViewController = rightViewController
+        prepareView()
+        prepareLeftView()
+        prepareBottomView()
+        prepareRightView()
+    }
+    
+    /**
+    :name:	init
+    */
+    public convenience init(mainViewController: UIViewController, bottomViewController: UIViewController, rightViewController: UIViewController) {
+        self.init()
+        self.mainViewController = mainViewController
+        self.bottomViewController = bottomViewController
+        self.rightViewController = rightViewController
+        prepareView()
+        prepareBottomView()
+        prepareRightView()
     }
 	
 	//
@@ -267,38 +362,9 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 		prepareContainedViewController(&mainViewContainer, viewController: &mainViewController)
 		prepareContainedViewController(&leftViewContainer, viewController: &leftViewController)
 		prepareContainedViewController(&rightViewContainer, viewController: &rightViewController)
+        prepareContainedViewController(&bottomViewContainer, viewController: &bottomViewController)
 	}
-	
-	//
-	//	:name:	viewWillTransitionToSize
-	//
-    public override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-        mainViewContainer?.transform = CGAffineTransformMakeScale(1, 1)
-        leftViewContainer?.hidden = true
-        rightViewContainer?.hidden = true
-        coordinator.animateAlongsideTransition(nil) { _ in
-			self.toggleWindow()
-			self.backdropViewContainer?.layer.opacity = 0
-			self.mainViewContainer?.transform = CGAffineTransformMakeScale(1, 1)
-			self.isUserInteractionEnabled = true
-			
-			if let vc = self.leftViewContainer {
-				vc.frame.origin.x = self.leftOriginX
-				vc.hidden = false
-				self.removeShadow(&self.leftViewContainer)
-				self.prepareLeftGestures()
-			}
-			
-			if let vc = self.rightViewContainer {
-				vc.frame.origin.x = self.rightOriginX
-				vc.hidden = false
-				self.removeShadow(&self.rightViewContainer)
-				self.prepareRightGestures()
-			}
-        }
-    }
-	
+		
 	/**
 		:name:	toggleLeftViewContainer
 	*/
@@ -330,7 +396,6 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 					}
 				) { _ in
 					self.isUserInteractionEnabled = false
-					self.leftViewController?.endAppearanceTransition()
 				}
 				c.state = .Opened
 				delegate?.sideNavDidOpenLeftViewContainer?(self, container: c)
@@ -355,13 +420,36 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 					}
 				) { _ in
 					self.isUserInteractionEnabled = false
-					self.rightViewController?.endAppearanceTransition()
 				}
 				c.state = .Opened
 				delegate?.sideNavDidOpenRightViewContainer?(self, container: c)
 			}
 		}
 	}
+    
+    /**
+    :name:	openRightViewContainer
+    */
+    public func openBottomViewContainer(velocity: CGFloat = 0) {
+        if let vc = bottomViewContainer {
+            if let c = bottomContainer {
+                prepareContainerToOpen(&bottomViewController, viewContainer: &bottomViewContainer, state: c.state)
+                UIView.animateWithDuration(Double(0 == velocity ? options.animationDuration : fmax(0.1, fmin(1, Double(fabs(vc.frame.origin.y - bottomOriginY) / velocity)))),
+                    delay: 0,
+                    options: .CurveEaseInOut,
+                    animations: { _ in
+                        vc.frame.origin.y = self.bottomOriginY - vc.frame.size.height
+                        self.backdropViewContainer?.layer.opacity = Float(options.contentViewOpacity)
+                        self.mainViewContainer?.transform = CGAffineTransformMakeScale(options.contentViewScale, options.contentViewScale)
+                    }
+                    ) { _ in
+                        self.isUserInteractionEnabled = false
+                }
+                c.state = .Opened
+                delegate?.sideNavDidOpenRightViewContainer?(self, container: c)
+            }
+        }
+    }
 	
 	/**
 		:name:	closeLeftViewContainer
@@ -381,7 +469,6 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 				) { _ in
 					self.removeShadow(&self.leftViewContainer)
 					self.isUserInteractionEnabled = true
-					self.leftViewController?.endAppearanceTransition()
 				}
 				c.state = .Closed
 				delegate?.sideNavDidCloseLeftViewContainer?(self, container: c)
@@ -407,14 +494,39 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 				) { _ in
 					self.removeShadow(&self.rightViewContainer)
 					self.isUserInteractionEnabled = true
-					self.rightViewController?.endAppearanceTransition()
 				}
 				c.state = .Closed
 				delegate?.sideNavDidCloseRightViewContainer?(self, container: c)
 			}
 		}
 	}
-	
+
+    /**
+        :name:	closeRightViewContainer
+    */
+    public func closeBottomViewContainer(velocity: CGFloat = 0) {
+        if let vc = bottomViewContainer {
+            if let c = bottomContainer {
+                prepareContainerToClose(&bottomViewController, state: c.state)
+                UIView.animateWithDuration(Double(0 == velocity ? options.animationDuration : fmax(0.1, fmin(1, fabs(vc.frame.origin.y - bottomOriginY) / velocity))),
+                    delay: 0,
+                    options: .CurveEaseInOut,
+                    animations: { _ in
+                        vc.frame.origin.y = self.bottomOriginY
+                        self.backdropViewContainer?.layer.opacity = 0
+                        self.mainViewContainer?.transform = CGAffineTransformMakeScale(1, 1)
+                    }
+                    ) { _ in
+                        self.removeShadow(&self.bottomViewContainer)
+                        self.isUserInteractionEnabled = true
+                }
+                c.state = .Closed
+                delegate?.sideNavDidCloseBottomViewContainer?(self, container: c)
+            }
+        }
+    }
+
+    
 	/**
 		:name:	switchMainViewController
 	*/
@@ -451,6 +563,18 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 			closeRightViewContainer()
 		}
 	}
+    
+    /**
+        :name:	switchBottomViewController
+    */
+    public func switchBottomViewController(viewController: UIViewController, closeBottomViewContainerViewContainer: Bool) {
+        removeViewController(&rightViewController)
+        rightViewController = viewController
+        prepareContainedViewController(&rightViewContainer, viewController: &rightViewController)
+        if closeBottomViewContainerViewContainer {
+            closeBottomViewContainer()
+        }
+    }
 	
 	//
 	//	:name:	gestureRecognizer
@@ -462,38 +586,52 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 		if gestureRecognizer == rightPanGesture {
 			return gesturePanRightViewController(gestureRecognizer, withTouchPoint: touch.locationInView(view))
 		}
+        if gestureRecognizer == bottomPanGesture {
+            return gesturePanBottomViewController(gestureRecognizer, withTouchPoint: touch.locationInView(view))
+        }
 		if gestureRecognizer == leftTapGesture {
 			return isLeftContainerOpened && !isPointContainedWithinViewController(&leftViewContainer, point: touch.locationInView(view))
 		}
 		if gestureRecognizer == rightTapGesture {
 			return isRightContainerOpened && !isPointContainedWithinViewController(&rightViewContainer, point: touch.locationInView(view))
 		}
+        if gestureRecognizer == bottomTapGesture {
+            return isBottomContainerOpened && !isPointContainedWithinViewController(&bottomViewContainer, point: touch.locationInView(view))
+        }
 		return true
 	}
 	
 	//
-	//	:name:	setupView
+	//	:name:	prepareView
 	//
-	internal func setupView() {
+	internal func prepareView() {
 		prepareMainContainer()
 		prepareBackdropContainer()
 	}
 	
 	//
-	//	:name:	setupLeftView
+	//	:name:	prepareLeftView
 	//
-	internal func setupLeftView() {
-		prepareContainer(&leftContainer, viewContainer: &leftViewContainer, originX: leftOriginX, width: options.leftViewContainerWidth)
+	internal func prepareLeftView() {
+        	prepareContainer(&leftContainer, viewContainer: &leftViewContainer, originX: leftOriginX, originY: 0, width: options.leftViewContainerWidth, height: view.bounds.size.height)
 		prepareLeftGestures()
 	}
 	
 	//
-	//	:name:	setupRightView
+	//	:name:	prepareRightView
 	//
-	internal func setupRightView() {
-		prepareContainer(&rightContainer, viewContainer: &rightViewContainer, originX: rightOriginX, width: options.rightViewContainerWidth)
+	internal func prepareRightView() {
+        	prepareContainer(&rightContainer, viewContainer: &rightViewContainer, originX: rightOriginX, originY: 0, width: options.rightViewContainerWidth, height: view.bounds.size.height)
 		prepareRightGestures()
 	}
+    
+    //
+    //	:name:	prepareBottomView
+    //
+    internal func prepareBottomView() {
+        prepareContainer(&bottomContainer, viewContainer: &bottomViewContainer, originX: 0, originY: bottomOriginY, width: view.bounds.size.width, height: options.bottomViewContainerHeight)
+        prepareBottomGestures()
+    }
 	
 	//
 	//	:name:	addGestures
@@ -530,21 +668,16 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 	//
 	internal func handleLeftPanGesture(gesture: UIPanGestureRecognizer) {
 		if isRightContainerOpened { return }
-		if .Began == gesture.state {
-			if let vc = leftViewContainer {
-				if let c = leftContainer {
-					leftViewController?.beginAppearanceTransition(!isLeftContainerOpened, animated: true)
+		if let vc = leftViewContainer {
+			if let c = leftContainer {
+				if .Began == gesture.state {
 					addShadow(&leftViewContainer)
-					toggleWindow(shouldOpen: true)
+					toggleStatusBar(hide: true)
 					c.state = isLeftContainerOpened ? .Opened : .Closed
 					c.point = gesture.locationInView(view)
 					c.frame = vc.frame
 					delegate?.sideNavDidBeginLeftPan?(self, container: c)
-				}
-			}
-		} else if .Changed == gesture.state {
-			if let vc = leftViewContainer {
-				if let c = leftContainer {
+				} else if .Changed == gesture.state {
 					c.point = gesture.translationInView(gesture.view!)
 					let r = (vc.frame.origin.x - leftOriginX) / vc.frame.size.width
 					let s: CGFloat = 1 - (1 - options.contentViewScale) * r
@@ -553,11 +686,7 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 					backdropViewContainer?.layer.opacity = Float(r * options.contentViewOpacity)
 					mainViewContainer?.transform = CGAffineTransformMakeScale(s, s)
 					delegate?.sideNavDidChangeLeftPan?(self, container: c)
-				}
-			}
-		} else {
-			if let vc = leftViewContainer {
-				if let c = leftContainer {
+				} else {
 					c.point = gesture.velocityInView(gesture.view)
 					let x: CGFloat = c.point.x >= 1000 || c.point.x <= -1000 ? c.point.x : 0
 					c.state = vc.frame.origin.x <= CGFloat(floor(leftOriginX)) + options.pointOfNoReturnWidth || c.point.x <= -1000 ? .Closed : .Opened
@@ -587,21 +716,16 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 	//
 	internal func handleRightPanGesture(gesture: UIPanGestureRecognizer) {
 		if isLeftContainerOpened { return }
-		if .Began == gesture.state {
-			if let vc = rightViewContainer {
-				if let c = rightContainer {
-					rightViewController?.beginAppearanceTransition(!isRightContainerOpened, animated: true)
-					addShadow(&rightViewContainer)
-					toggleWindow(shouldOpen: true)
-					c.state = isRightContainerOpened ? .Opened : .Closed
+		if let vc = rightViewContainer {
+			if let c = rightContainer {
+				if .Began == gesture.state {
 					c.point = gesture.locationInView(view)
+					c.state = isRightContainerOpened ? .Opened : .Closed
 					c.frame = vc.frame
+					addShadow(&rightViewContainer)
+					toggleStatusBar(hide: true)
 					delegate?.sideNavDidBeginRightPan?(self, container: c)
-				}
-			}
-		} else if .Changed == gesture.state {
-			if let vc = rightViewContainer {
-				if let c = rightContainer {
+				} else if .Changed == gesture.state {
 					c.point = gesture.translationInView(gesture.view!)
 					let r = (rightOriginX - vc.frame.origin.x) / vc.frame.size.width
 					let s: CGFloat = 1 - (1 - options.contentViewScale) * r
@@ -611,11 +735,7 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 					backdropViewContainer?.layer.opacity = Float(r * options.contentViewOpacity)
 					mainViewContainer?.transform = CGAffineTransformMakeScale(s, s)
 					delegate?.sideNavDidChangeRightPan?(self, container: c)
-				}
-			}
-		} else {
-			if let vc = rightViewContainer {
-				if let c = rightContainer {
+				} else {
 					c.point = gesture.velocityInView(gesture.view)
 					let x: CGFloat = c.point.x <= -1000 || c.point.x >= 1000 ? c.point.x : 0
 					c.state = vc.frame.origin.x >= CGFloat(floor(rightOriginX) - options.pointOfNoReturnWidth) || c.point.x >= 1000 ? .Closed : .Opened
@@ -639,6 +759,63 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 			closeRightViewContainer()
 		}
 	}
+    
+    //
+    //	:name:	handleRightPanGesture
+    //
+    internal func handleBottomPanGesture(gesture: UIPanGestureRecognizer) {
+        if  isLeftContainerOpened || isRightContainerOpened { return }
+        if .Began == gesture.state {
+            if let vc = bottomViewContainer {
+                if let c = bottomContainer {
+                    addShadow(&bottomViewContainer)
+                    toggleStatusBar(hide: true)
+                    c.state = isBottomContainerOpened ? .Opened : .Closed
+                    c.point = gesture.locationInView(view)
+                    c.frame = vc.frame
+                    delegate?.sideNavDidBeginBottomPan?(self, container: c)
+                }
+            }
+        } else if .Changed == gesture.state {
+            if let vc = bottomViewContainer {
+                if let c = bottomContainer {
+                    c.point = gesture.translationInView(gesture.view!)
+                    let r = (bottomOriginY - vc.frame.origin.y) / vc.frame.size.height
+                    let s: CGFloat = 1 - (1 - options.contentViewScale) * r
+                    let m: CGFloat = bottomOriginY - vc.frame.size.height
+                    let y: CGFloat = c.frame.origin.y + c.point.y
+                    vc.frame.origin.y = y > bottomOriginY ? bottomOriginY : y < m ? m : y
+                    backdropViewContainer?.layer.opacity = Float(r * options.contentViewOpacity)
+                    mainViewContainer?.transform = CGAffineTransformMakeScale(s, s)
+                    delegate?.sideNavDidChangeBottomPan?(self, container: c)
+                }
+            }
+        } else {
+            if let vc = bottomViewContainer {
+                if let c = bottomContainer {
+                    c.point = gesture.velocityInView(gesture.view)
+                    let y: CGFloat = c.point.y <= -1000 || c.point.y >= 1000 ? c.point.y : 0
+                    c.state = vc.frame.origin.y >= CGFloat(floor(bottomOriginY) - options.pointOfNoReturnheight) || c.point.y >= 1000 ? .Closed : .Opened
+                    if .Closed == c.state {
+                        closeBottomViewContainer(velocity: y)
+                    } else {
+                        openBottomViewContainer(velocity: y)
+                    }
+                    delegate?.sideNavDidEndBottomPan?(self, container: c)
+                }
+            }
+        }
+    }
+    
+    //
+    //	:name:	handleRightTapGesture
+    //
+    internal func handleBottomTapGesture(gesture: UIPanGestureRecognizer) {
+        if let c = bottomContainer {
+            delegate?.sideNavDidTapBottom?(self, container: c)
+            closeBottomViewContainer()
+        }
+    }
 	
 	//
 	//	:name:	addShadow
@@ -664,16 +841,16 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
     }
 	
 	//
-	//	:name:	toggleWindow
+	//	:name:	toggleStatusBar
 	//
-	private func toggleWindow(shouldOpen: Bool = false) {
-        if options.shouldHideStatusBar {
+	private func toggleStatusBar(hide: Bool = false) {
+        if options.hideStatusBar {
             if isViewBasedAppearance {
-                UIApplication.sharedApplication().setStatusBarHidden(shouldOpen, withAnimation: .Slide)
+                UIApplication.sharedApplication().setStatusBarHidden(hide, withAnimation: .Slide)
 			} else {
 				dispatch_async(dispatch_get_main_queue(), {
 					if let w = UIApplication.sharedApplication().keyWindow {
-						w.windowLevel = UIWindowLevelStatusBar + (shouldOpen ? 1 : 0)
+                        w.windowLevel = hide ? UIWindowLevelStatusBar + 1 : 0
 					}
 				})
 			}
@@ -697,6 +874,20 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
     private func gesturePanLeftViewController(gesture: UIGestureRecognizer, withTouchPoint point: CGPoint) -> Bool {
         return isLeftContainerOpened || options.leftPanFromBezel && isLeftPointContainedWithinRect(point)
     }
+    
+    //
+    //	:name:	gesturePanRightViewController
+    //
+    private func gesturePanRightViewController(gesture: UIGestureRecognizer, withTouchPoint point: CGPoint) -> Bool {
+        return isRightContainerOpened || options.rightPanFromBezel && isRightPointContainedWithinRect(point)
+    }
+    
+    //
+    //	:name:	gesturePanRightViewController
+    //
+    private func gesturePanBottomViewController(gesture: UIGestureRecognizer, withTouchPoint point: CGPoint) -> Bool {
+        return isBottomContainerOpened || options.bottomPanFromBezel && isBottomPointContainedWithinRect(point)
+    }
 	
 	//
 	//	:name:	isLeftPointContainedWithinRect
@@ -710,13 +901,6 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
     }
     
 	//
-	//	:name:	gesturePanRightViewController
-	//
-	private func gesturePanRightViewController(gesture: UIGestureRecognizer, withTouchPoint point: CGPoint) -> Bool {
-        return isRightContainerOpened || options.rightPanFromBezel && isRightPointContainedWithinRect(point)
-    }
-	
-	//
 	//	:name:	isRightPointContainedWithinRect
 	//
     private func isRightPointContainedWithinRect(point: CGPoint) -> Bool {
@@ -724,6 +908,17 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
         var t: CGRect = CGRectZero
         let w: CGFloat = rightOriginX - options.rightBezelWidth
         CGRectDivide(view.bounds, &t, &r, w, .MinXEdge)
+        return CGRectContainsPoint(r, point)
+    }
+    
+    //
+    //	:name:	isBottomPointContainedWithinRect
+    //
+    private func isBottomPointContainedWithinRect(point: CGPoint) -> Bool {
+        var r: CGRect = CGRectZero
+        var t: CGRect = CGRectZero
+        let h: CGFloat = bottomOriginY - options.bottomBezelHeight
+        CGRectDivide(view.bounds, &t, &r, h, .MinYEdge)
         return CGRectContainsPoint(r, point)
     }
 	
@@ -765,15 +960,33 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 		removeGestures(&leftPanGesture, tap: &leftTapGesture)
 		addGestures(&leftPanGesture, panSelector: "handleLeftPanGesture:", tap: &leftTapGesture, tapSelector: "handleLeftTapGesture:")
 	}
+    
+    //
+    //	:name:	prepareRightGestures
+    //
+    private func prepareRightGestures() {
+        removeGestures(&rightPanGesture, tap: &rightTapGesture)
+        addGestures(&rightPanGesture, panSelector: "handleRightPanGesture:", tap: &rightTapGesture, tapSelector: "handleRightTapGesture:")
+    }
+    
+    //
+    //	:name:	prepareBottomGestures
+    //
+    private func prepareBottomGestures() {
+        removeGestures(&bottomPanGesture, tap: &bottomTapGesture)
+        addGestures(&bottomPanGesture, panSelector: "handleBottomPanGesture:", tap: &bottomTapGesture, tapSelector: "handleBottomTapGesture:")
+    }
 	
 	//
 	//	:name:	prepareContainer
 	//
-	private func prepareContainer(inout container: SideNavContainer?, inout viewContainer: UIView?, originX: CGFloat, width: CGFloat) {
+    private func prepareContainer(inout container: SideNavContainer?, inout viewContainer: UIView?, originX: CGFloat, originY: CGFloat, width: CGFloat, height: CGFloat) {
 		container = SideNavContainer(state: .Closed, point: CGPointZero, frame: CGRectZero)
 		var b: CGRect = view.bounds
 		b.size.width = width
+        b.size.height = height
 		b.origin.x = originX
+        b.origin.y = originY
 		viewContainer = UIView(frame: b)
 		viewContainer!.backgroundColor = .clearColor()
 		viewContainer!.autoresizingMask = .FlexibleHeight
@@ -781,28 +994,18 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 	}
 	
 	//
-	//	:name:	prepareRightGestures
-	//
-	private func prepareRightGestures() {
-		removeGestures(&rightPanGesture, tap: &rightTapGesture)
-		addGestures(&rightPanGesture, panSelector: "handleRightPanGesture:", tap: &rightTapGesture, tapSelector: "handleRightTapGesture:")
-	}
-	
-	//
 	//	:name:	prepareContainerToOpen
 	//
 	private func prepareContainerToOpen(inout viewController: UIViewController?, inout viewContainer: UIView?, state: SideNavState) {
-		viewController?.beginAppearanceTransition(.Opened == state, animated: true)
 		addShadow(&viewContainer)
-		toggleWindow(shouldOpen: true)
+		toggleStatusBar(hide: true)
 	}
 	
 	//
 	//	:name:	prepareContainerToClose
 	//
 	private func prepareContainerToClose(inout viewController: UIViewController?, state: SideNavState) {
-		viewController?.beginAppearanceTransition(.Opened == state, animated: true)
-		toggleWindow()
+		toggleStatusBar()
 	}
 	
 	//
