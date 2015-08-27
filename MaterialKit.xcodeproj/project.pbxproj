@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		657CD0291B8EE0D3008C0029 /* MaterialView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65B965741B8A60A00055B139 /* MaterialView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		657CD02A1B8EE0D3008C0029 /* MaterialPulseView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9A94D1081B8A3F5100F586A5 /* MaterialPulseView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		657CD02B1B8EE0D3008C0029 /* MaterialViewController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65B965711B8A578D0055B139 /* MaterialViewController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		657CD02C1B8EE0D3008C0029 /* SideNavController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65B965861B8BEEC60055B139 /* SideNavController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		657CD02D1B8EE0D3008C0029 /* MaterialButton.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65B9657D1B8A7C330055B139 /* MaterialButton.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		657CD02E1B8EE0D3008C0029 /* AddFabButton.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9638329D1B8EC34D0015F710 /* AddFabButton.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		657CD02F1B8EE0D3008C0029 /* ImageCard.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9A94D10A1B8A485C00F586A5 /* ImageCard.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		65B965721B8A578D0055B139 /* MaterialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B965711B8A578D0055B139 /* MaterialViewController.swift */; };
 		65B965751B8A60A00055B139 /* MaterialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B965741B8A60A00055B139 /* MaterialView.swift */; };
 		65B9657E1B8A7C330055B139 /* MaterialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B9657D1B8A7C330055B139 /* MaterialButton.swift */; };
@@ -258,6 +265,13 @@
 				9A94D0F91B895C8C00F586A5 /* Roboto.swift in Headers */,
 				963832851B89070E0015F710 /* CapturePreview.swift in Headers */,
 				963832891B89097D0015F710 /* Layout.swift in Headers */,
+				657CD0291B8EE0D3008C0029 /* MaterialView.swift in Headers */,
+				657CD02A1B8EE0D3008C0029 /* MaterialPulseView.swift in Headers */,
+				657CD02B1B8EE0D3008C0029 /* MaterialViewController.swift in Headers */,
+				657CD02C1B8EE0D3008C0029 /* SideNavController.swift in Headers */,
+				657CD02D1B8EE0D3008C0029 /* MaterialButton.swift in Headers */,
+				657CD02E1B8EE0D3008C0029 /* AddFabButton.swift in Headers */,
+				657CD02F1B8EE0D3008C0029 /* ImageCard.swift in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
