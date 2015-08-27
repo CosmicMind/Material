@@ -19,19 +19,35 @@
 import UIKit
 
 public class RaisedButton : MaterialButton {
-	public required init(coder aDecoder: NSCoder) {
-		super.init(coder: aDecoder)
-		initialize()
-	}
-	
-	public required init(frame: CGRect) {
-		super.init(frame: frame)
-		initialize()
-	}
-	
-	func initialize() {
+	//
+	//	:name:	prepareButton
+	//
+	internal override func prepareButton() {
+		super.prepareButton()
 		color = .redColor()
 		pulseColor = .whiteColor()
 	}
+	
+	//
+	//	:name:	pulseTouches
+	//
+//	public override func pulseTouches(touches: Set<NSObject>) {
+//		super.pulseTouches(touches)
+//		let touch = touches.first as! UITouch
+//		let touchLocation = touch.locationInView(self)
+//		pulseView = UIView()
+//		pulseView!.frame = CGRectMake(0, 0, self.bounds.size.height, self.bounds.size.height)
+//		pulseView!.layer.cornerRadius = bounds.height / 2.0
+//		pulseView!.center = touchLocation
+//		pulseView!.backgroundColor = pulseColor!.colorWithAlphaComponent(0.5)
+//		backgroundColorView.addSubview(pulseView!)
+//		UIView.animateWithDuration(0.3,
+//			animations: {
+//				self.pulseView!.transform = CGAffineTransformMakeScale(10, 10)
+//				self.transform = CGAffineTransformMakeScale(1.05, 1.1)
+//			},
+//			completion: nil
+//		)
+//	}
 }
 

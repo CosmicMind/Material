@@ -22,21 +22,11 @@ public class AddFabButton : FabButton {
 	private lazy var verticalLine: UIView = UIView()
 	private lazy var horizontalLine: UIView = UIView()
 	
-	/**
-		:name:	prepareButton
-	*/
+	//
+	//	:name:	prepareButton
+	//
 	public override func prepareButton() {
 		super.prepareButton()
-		preparePlus()
-	}
-	
-	//
-	//	:name: preparePlus
-	//
-	//	I make the + with two views because
-	//	The label is not actually vertically and horizontally aligned
-	//	Quick hack instead of subclassing UILabel and override drawTextInRect
-	private func preparePlus() {
 		prepareVerticalLine()
 		prepareHorizontalLine()
 	}

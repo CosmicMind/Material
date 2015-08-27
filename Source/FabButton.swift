@@ -29,7 +29,6 @@ public class FabButton : MaterialButton {
 	*/
 	public required init(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
-		initialize()
 	}
 	
 	/**
@@ -37,14 +36,43 @@ public class FabButton : MaterialButton {
 	*/
 	public required init(frame: CGRect) {
 		super.init(frame: frame)
-		initialize()
+	}
+	
+	/**
+		:name:	init
+	*/
+	public convenience init() {
+		self.init(frame: CGRectZero)
 	}
 	
 	//
-	//	:name:	initialize
+	//	:name:	prepareButton
 	//
-    internal func initialize() {
-        color = .redColor()
+	internal override func prepareButton() {
+		super.prepareButton()
+		color = .redColor()
         pulseColor = .whiteColor()
     }
+	
+	//
+	//	:name:	pulseTouches
+	//
+//	public override func pulseTouches(touches: Set<NSObject>) {
+//		super.pulseTouches(touches)
+//		let touch = touches.first as! UITouch
+//		let touchLocation = touch.locationInView(self)
+//		pulseView = UIView()
+//		pulseView!.frame = CGRectMake(0, 0, bounds.width, bounds.height)
+//		pulseView!.layer.cornerRadius = bounds.width / 2.0
+//		pulseView!.center = touchLocation
+//		pulseView!.backgroundColor = pulseColor?.colorWithAlphaComponent(0.5)
+//		backgroundColorView.addSubview(pulseView!)
+//		UIView.animateWithDuration(0.3,
+//			animations: {
+//				self.pulseView!.transform = CGAffineTransformMakeScale(3, 3)
+//				self.transform = CGAffineTransformMakeScale(1.1, 1.1)
+//			},
+//			completion: nil
+//		)
+//	}
 }

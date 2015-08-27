@@ -19,8 +19,8 @@
 import UIKit
 
 public class MaterialButton : UIButton {
-	private lazy var pulseView: UIView = UIView()
 	internal lazy var backgroundColorView: UIView = UIView()
+	internal var pulseView: UIView?
 	
 	public var color: UIColor?
 	public var pulseColor: UIColor?
@@ -31,7 +31,6 @@ public class MaterialButton : UIButton {
 	public required init(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 		prepareView()
-		prepareShadow()
 	}
 	
 	/**
@@ -40,7 +39,6 @@ public class MaterialButton : UIButton {
 	public required override init(frame: CGRect) {
 		super.init(frame: frame)
 		prepareView()
-		prepareShadow()
 	}
 	
 	/**
@@ -82,14 +80,19 @@ public class MaterialButton : UIButton {
 	final public override func drawRect(rect: CGRect) {
 		prepareContext(rect)
 		prepareButton()
-	}
-	
-	/**
-		:name:	prepareButton
-	*/
-	public func prepareButton() {
+		prepareShadow()
 		prepareBackgroundColorView()
 	}
+	
+	//
+	//	:name:	prepareButton
+	//
+	internal func prepareButton() {}
+	
+	//
+	//	:name:	pulseTouches
+	//
+	internal func pulseTouches(touches: Set<NSObject>) {}
 	
 	//
 	//	:name:	prepareView
@@ -135,26 +138,6 @@ public class MaterialButton : UIButton {
 	}
 	
 	//
-	//	:name:	pulseTouches
-	//
-	internal func pulseTouches(touches: NSSet) {
-		let touch = touches.allObjects.last as! UITouch
-		let touchLocation = touch.locationInView(self)
-		pulseView.frame = CGRectMake(0, 0, bounds.width, bounds.height)
-		pulseView.layer.cornerRadius = bounds.width / 2.0
-		pulseView.center = touchLocation
-		pulseView.backgroundColor = pulseColor?.colorWithAlphaComponent(0.5)
-		backgroundColorView.addSubview(pulseView)
-		UIView.animateWithDuration(0.3,
-			animations: {
-				self.pulseView.transform = CGAffineTransformMakeScale(3, 3)
-				self.transform = CGAffineTransformMakeScale(1.1, 1.1)
-			},
-			completion: nil
-		)
-	}
-	
-	//
 	//	:name:	shrink
 	//
 	internal func shrink() {
@@ -176,10 +159,11 @@ public class MaterialButton : UIButton {
 	internal func removePulse() {
 		UIView.animateWithDuration(0.3,
 			animations: { _ in
-				self.pulseView.alpha = 0.0
+				self.pulseView?.alpha = 0.0
 			}
 		) { _ in
-			self.pulseView.removeFromSuperview()
+			self.pulseView?.removeFromSuperview()
+			self.pulseView = nil
 		}
 	}
 }
