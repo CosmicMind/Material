@@ -40,73 +40,11 @@ public class FabButton : MaterialButton {
 		initialize()
 	}
 	
-	/**
-		:name:	drawRect
-	*/
-    public override func drawRect(rect: CGRect) {
-        prepareContext(rect)
-        prepareBackgroundColorView()
-        preparePlus()
-    }
-	
 	//
 	//	:name:	initialize
 	//
     internal func initialize() {
         color = .redColor()
         pulseColor = .whiteColor()
-        setTranslatesAutoresizingMaskIntoConstraints(false)
-    }
-	
-	//
-	//	:name:	prepareContext
-	//
-    private func prepareContext(rect: CGRect) {
-        let context = UIGraphicsGetCurrentContext()
-        CGContextSaveGState(context);
-        CGContextAddEllipseInRect(context, rect)
-        CGContextSetFillColorWithColor(context, UIColor.clearColor().CGColor)
-        CGContextFillPath(context)
-        CGContextRestoreGState(context);
-    }
-	
-	//
-	//	:name: prepareBackgroundColorView
-	//
-    // We need this view so we can use the masksToBounds
-    // so the pulse doesn't animate off the button
-    func prepareBackgroundColorView() {
-        backgroundColorView = UIView()
-        backgroundColorView!.frame = bounds
-        backgroundColorView!.layer.cornerRadius = bounds.width / 2.0
-        backgroundColorView!.backgroundColor = color
-        backgroundColorView!.layer.masksToBounds = true
-		backgroundColorView!.userInteractionEnabled = false
-        insertSubview(backgroundColorView!, atIndex: 0)
-    }
-	
-	//
-	//	:name: preparePlus
-	//
-    // I make the + with two views because
-    // The label is not actually vertically and horizontally aligned
-    // Quick hack instead of subclassing UILabel and override drawTextInRect
-    private func preparePlus() {
-        prepareVerticalLine()
-        prepareHorizontalLine()
-    }
-    
-    private func prepareVerticalLine() {
-        verticalLine = UIView(frame: CGRectMake(0, 0, lineWidth, CGRectGetHeight(backgroundColorView!.frame) / 3.0))
-        verticalLine!.backgroundColor = UIColor.whiteColor()
-        verticalLine!.center = backgroundColorView!.center
-        backgroundColorView!.addSubview(verticalLine!)
-    }
-    
-    private func prepareHorizontalLine() {
-        horizontalLine = UIView(frame: CGRectMake(0, 0, CGRectGetWidth(backgroundColorView!.frame) / 3.0, lineWidth))
-        horizontalLine!.backgroundColor = UIColor.whiteColor()
-        horizontalLine!.center = backgroundColorView!.center
-        backgroundColorView!.addSubview(horizontalLine!)
     }
 }
