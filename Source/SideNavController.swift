@@ -104,7 +104,7 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 		:name:	isRightContainerOpened
 	*/
 	public var isRightContainerOpened: Bool {
-		return rightViewContainer.frame.origin.x == rightOriginX - rightViewContainer.frame.size.width
+		return rightViewContainer.frame.origin.x == rightOrigin - rightViewContainer.frame.size.width
 	}
 	
 	/**
@@ -170,9 +170,9 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
     public var leftPanGesture: UIPanGestureRecognizer?
 	
 	/**
-		:name:	leftTapGesture
+		:name:	leftTapGetsture
 	*/
-	public var leftTapGesture: UITapGestureRecognizer?
+	public var leftTapGetsture: UITapGestureRecognizer?
 	
 	/**
 		:name:	rightPanGesture
@@ -186,16 +186,16 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 	public var rightTapGesture: UITapGestureRecognizer?
 	
 	//
-	//	:name:	leftOriginX
+	//	:name:	leftOrigin
 	//
-	private var leftOriginX: CGFloat {
+	private var leftOrigin: CGFloat {
 		return -options.leftViewContainerWidth
 	}
 	
 	//
-	//	:name:	rightOriginX
+	//	:name:	rightOrigin
 	//
-	private var rightOriginX: CGFloat {
+	private var rightOrigin: CGFloat {
 		return view.bounds.width
 	}
 	
@@ -270,17 +270,17 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
         leftViewContainer.hidden = true
         rightViewContainer.hidden = true
         coordinator.animateAlongsideTransition(nil) { _ in
-			self.toggleWindow()
+			self.closeWindow()
 			self.backdropViewContainer.layer.opacity = 0
 			self.mainViewContainer.transform = CGAffineTransformMakeScale(1, 1)
 			self.isUserInteractionEnabled = true
 			
-			self.leftViewContainer.frame.origin.x = self.leftOriginX
+			self.leftViewContainer.frame.origin.x = self.leftOrigin
 			self.leftViewContainer.hidden = false
 			self.removeShadow(self.leftViewContainer)
 			self.prepareLeftGestures()
 			
-			self.rightViewContainer.frame.origin.x = self.rightOriginX
+			self.rightViewContainer.frame.origin.x = self.rightOrigin
 			self.rightViewContainer.hidden = false
 			self.removeShadow(self.rightViewContainer)
 			self.prepareRightGestures()
@@ -305,7 +305,7 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 		:name:	openLeftViewContainer
 	*/
 	public func openLeftViewContainer(velocity: CGFloat = 0) {
-		prepareContainerToOpen(&leftViewController, viewContainer: &leftViewContainer, state: leftContainer.state)
+		prepareLeftContainerToOpen()
 		UIView.animateWithDuration(Double(0 == velocity ? options.animationDuration : fmax(0.1, fmin(1, Double(leftViewContainer.frame.origin.x / velocity)))),
 			delay: 0,
 			options: .CurveEaseInOut,
@@ -326,12 +326,12 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 		:name:	openRightViewContainer
 	*/
 	public func openRightViewContainer(velocity: CGFloat = 0) {
-		prepareContainerToOpen(&rightViewController, viewContainer: &rightViewContainer, state: rightContainer.state)
-		UIView.animateWithDuration(Double(0 == velocity ? options.animationDuration : fmax(0.1, fmin(1, Double(fabs(rightViewContainer.frame.origin.x - rightOriginX) / velocity)))),
+		prepareRightContainerToOpen()
+		UIView.animateWithDuration(Double(0 == velocity ? options.animationDuration : fmax(0.1, fmin(1, Double(fabs(rightViewContainer.frame.origin.x - rightOrigin) / velocity)))),
 			delay: 0,
 			options: .CurveEaseInOut,
 			animations: { _ in
-				self.rightViewContainer.frame.origin.x = self.rightOriginX - self.rightViewContainer.frame.size.width
+				self.rightViewContainer.frame.origin.x = self.rightOrigin - self.rightViewContainer.frame.size.width
 				self.backdropViewContainer.layer.opacity = Float(options.contentViewOpacity)
 				self.mainViewContainer.transform = CGAffineTransformMakeScale(options.contentViewScale, options.contentViewScale)
 			}
@@ -347,12 +347,12 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 		:name:	closeLeftViewContainer
 	*/
 	public func closeLeftViewContainer(velocity: CGFloat = 0) {
-		prepareContainerToClose(&leftViewController, state: leftContainer.state)
-		UIView.animateWithDuration(Double(0 == velocity ? options.animationDuration : fmax(0.1, fmin(1, fabs(leftViewContainer.frame.origin.x - leftOriginX) / velocity))),
+		prepareLeftContainerToClose()
+		UIView.animateWithDuration(Double(0 == velocity ? options.animationDuration : fmax(0.1, fmin(1, fabs(leftViewContainer.frame.origin.x - leftOrigin) / velocity))),
 			delay: 0,
 			options: .CurveEaseInOut,
 			animations: { _ in
-				self.leftViewContainer.frame.origin.x = self.leftOriginX
+				self.leftViewContainer.frame.origin.x = self.leftOrigin
 				self.backdropViewContainer.layer.opacity = 0
 				self.mainViewContainer.transform = CGAffineTransformMakeScale(1, 1)
 			}
@@ -369,12 +369,12 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 		:name:	closeRightViewContainer
 	*/
 	public func closeRightViewContainer(velocity: CGFloat = 0) {
-		prepareContainerToClose(&rightViewController, state: rightContainer.state)
-		UIView.animateWithDuration(Double(0 == velocity ? options.animationDuration : fmax(0.1, fmin(1, fabs(rightViewContainer.frame.origin.x - rightOriginX) / velocity))),
+		prepareRightContainerToClose()
+		UIView.animateWithDuration(Double(0 == velocity ? options.animationDuration : fmax(0.1, fmin(1, fabs(rightViewContainer.frame.origin.x - rightOrigin) / velocity))),
 			delay: 0,
 			options: .CurveEaseInOut,
 			animations: { _ in
-				self.rightViewContainer.frame.origin.x = self.rightOriginX
+				self.rightViewContainer.frame.origin.x = self.rightOrigin
 				self.backdropViewContainer.layer.opacity = 0
 				self.mainViewContainer.transform = CGAffineTransformMakeScale(1, 1)
 			}
@@ -429,16 +429,16 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 	//
 	public func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
 		if gestureRecognizer == leftPanGesture {
-			return gesturePanLeftViewController(gestureRecognizer, withTouchPoint: touch.locationInView(view))
+			return gesturePanLeftViewController(gestureRecognizer, point: touch.locationInView(view))
 		}
 		if gestureRecognizer == rightPanGesture {
 			return gesturePanRightViewController(gestureRecognizer, withTouchPoint: touch.locationInView(view))
 		}
-		if gestureRecognizer == leftTapGesture {
-			return isLeftContainerOpened && !isPointContainedWithinViewController(&leftViewContainer, point: touch.locationInView(view))
+		if gestureRecognizer == leftTapGetsture {
+			return isLeftContainerOpened && !isPointContainedWithinLeftRectViewController(touch.locationInView(view))
 		}
 		if gestureRecognizer == rightTapGesture {
-			return isRightContainerOpened && !isPointContainedWithinViewController(&rightViewContainer, point: touch.locationInView(view))
+			return isRightContainerOpened && !isPointContainedWithinRightViewController(touch.locationInView(view))
 		}
 		return true
 	}
@@ -450,40 +450,70 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 		prepareMainContainer()
 		prepareBackdropContainer()
 		
-		prepareContainer(&leftContainer, viewContainer: &leftViewContainer, originX: leftOriginX, width: options.leftViewContainerWidth)
+		prepareLeftContainer()
 		prepareLeftGestures()
 		
-		prepareContainer(&rightContainer, viewContainer: &rightViewContainer, originX: rightOriginX, width: options.rightViewContainerWidth)
+		prepareRightContainer()
 		prepareRightGestures()
 	}
 	
 	//
-	//	:name:	addGestures
+	//	:name:	addLeftGestures
 	//
-	private func addGestures(inout pan: UIPanGestureRecognizer?, panSelector: Selector, inout tap: UITapGestureRecognizer?, tapSelector: Selector) {
-        if nil == pan {
-			pan = UIPanGestureRecognizer(target: self, action: panSelector)
-			pan!.delegate = self
-			view.addGestureRecognizer(pan!)
+    private func addLeftGestures() {
+        if nil == leftPanGesture {
+			leftPanGesture = UIPanGestureRecognizer(target: self, action: "handleLeftPanGesture:")
+			leftPanGesture!.delegate = self
+			view.addGestureRecognizer(leftPanGesture!)
 		}
-		if nil == tap {
-			tap = UITapGestureRecognizer(target: self, action: tapSelector)
-			tap!.delegate = self
-			view.addGestureRecognizer(tap!)
+		if nil == leftTapGetsture {
+			leftTapGetsture = UITapGestureRecognizer(target: self, action: "handleLeftTapGesture:")
+			leftTapGetsture!.delegate = self
+			view.addGestureRecognizer(leftTapGetsture!)
 		}
     }
 	
 	//
-	//	:name:	removeGestures
+	//	:name:	addRightGestures
 	//
-	private func removeGestures(inout pan: UIPanGestureRecognizer?, inout tap: UITapGestureRecognizer?) {
-        if let g = pan {
-            view.removeGestureRecognizer(g)
-            pan = nil
+    private func addRightGestures() {
+        if nil == rightPanGesture {
+			rightPanGesture = UIPanGestureRecognizer(target: self, action: "handleRightPanGesture:")
+			rightPanGesture!.delegate = self
+			view.addGestureRecognizer(rightPanGesture!)
+		}
+		if nil == rightTapGesture {
+			rightTapGesture = UITapGestureRecognizer(target: self, action: "handleRightTapGesture:")
+			rightTapGesture!.delegate = self
+			view.addGestureRecognizer(rightTapGesture!)
+		}
+    }
+	
+	//
+	//	:name:	removeLeftGestures
+	//
+    private func removeLeftGestures() {
+        if let l = leftPanGesture {
+            view.removeGestureRecognizer(l)
+            leftPanGesture = nil
         }
-        if let g = tap {
-            view.removeGestureRecognizer(g)
-            tap = nil
+        if let l = leftTapGetsture {
+            view.removeGestureRecognizer(l)
+            leftTapGetsture = nil
+        }
+    }
+	
+	//
+	//	:name:	removeRightGestures
+	//
+    private func removeRightGestures() {
+        if let r = rightPanGesture {
+            view.removeGestureRecognizer(r)
+            rightPanGesture = nil
+        }
+        if let r = rightTapGesture {
+            view.removeGestureRecognizer(r)
+            rightTapGesture = nil
         }
     }
 	
@@ -499,13 +529,13 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 			delegate?.sideNavDidBeginLeftPan?(self, container: leftContainer)
 			leftViewController?.beginAppearanceTransition(!isLeftContainerOpened, animated: true)
 			addShadow(leftViewContainer)
-			toggleWindow(shouldOpen: true)
+			openWindow()
 		} else if .Changed == gesture.state {
 			let v: CGPoint = gesture.translationInView(gesture.view!)
-			let r = (leftViewContainer.frame.origin.x - leftOriginX) / leftViewContainer.frame.size.width
+			let r = (leftViewContainer.frame.origin.x - leftOrigin) / leftViewContainer.frame.size.width
 			let s: CGFloat = 1 - (1 - options.contentViewScale) * r
 			let x: CGFloat = leftContainer.frame.origin.x + v.x
-			leftViewContainer.frame.origin.x = x < leftOriginX ? leftOriginX : x > 0 ? 0 : x
+			leftViewContainer.frame.origin.x = x < leftOrigin ? leftOrigin : x > 0 ? 0 : x
 			backdropViewContainer.layer.opacity = Float(r * options.contentViewOpacity)
 			mainViewContainer.transform = CGAffineTransformMakeScale(s, s)
 			if nil != delegate?.sideNavDidChangeLeftPan {
@@ -514,7 +544,7 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 		} else {
 			let v: CGPoint = gesture.velocityInView(gesture.view)
 			let x: CGFloat = v.x >= 1000 || v.x <= -1000 ? v.x : 0
-			let s: SideNavState = leftViewContainer.frame.origin.x <= CGFloat(floor(leftOriginX)) + options.pointOfNoReturnWidth || v.x <= -1000 ? .Closed : .Opened
+			let s: SideNavState = leftViewContainer.frame.origin.x <= CGFloat(floor(leftOrigin)) + options.pointOfNoReturnWidth || v.x <= -1000 ? .Closed : .Opened
 			if .Closed == s {
 				closeLeftViewContainer(velocity: x)
 			} else {
@@ -546,15 +576,15 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 			delegate?.sideNavDidBeginRightPan?(self, container: rightContainer)
 			rightViewController?.beginAppearanceTransition(!isRightContainerOpened, animated: true)
 			addShadow(rightViewContainer)
-			toggleWindow(shouldOpen: true)
+			openWindow()
 		} else if .Changed == gesture.state {
 			let v: CGPoint = gesture.translationInView(gesture.view!)
 			
-			let r = (rightOriginX - rightViewContainer.frame.origin.x) / rightViewContainer.frame.size.width
+			let r = (rightOrigin - rightViewContainer.frame.origin.x) / rightViewContainer.frame.size.width
 			let s: CGFloat = 1 - (1 - options.contentViewScale) * r
-			let m: CGFloat = rightOriginX - rightViewContainer.frame.size.width
+			let m: CGFloat = rightOrigin - rightViewContainer.frame.size.width
 			let x: CGFloat = rightContainer.frame.origin.x + gesture.translationInView(gesture.view!).x
-			rightViewContainer.frame.origin.x = x > rightOriginX ? rightOriginX : x < m ? m : x
+			rightViewContainer.frame.origin.x = x > rightOrigin ? rightOrigin : x < m ? m : x
 			backdropViewContainer.layer.opacity = Float(r * options.contentViewOpacity)
 			mainViewContainer.transform = CGAffineTransformMakeScale(s, s)
 			if nil != delegate?.sideNavDidChangeRightPan {
@@ -563,7 +593,7 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 		} else {
 			let v: CGPoint = gesture.velocityInView(gesture.view)
 			let x: CGFloat = v.x <= -1000 || v.x >= 1000 ? v.x : 0
-			let s: SideNavState = rightViewContainer.frame.origin.x >= CGFloat(floor(rightOriginX) - options.pointOfNoReturnWidth) || v.x >= 1000 ? .Closed : .Opened
+			let s: SideNavState = rightViewContainer.frame.origin.x >= CGFloat(floor(rightOrigin) - options.pointOfNoReturnWidth) || v.x >= 1000 ? .Closed : .Opened
 			if .Closed == s {
 				closeRightViewContainer(velocity: x)
 			} else {
@@ -603,16 +633,33 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
     }
 	
 	//
-	//	:name:	toggleWindow
+	//	:name:	openWindow
 	//
-	private func toggleWindow(shouldOpen: Bool = false) {
+    private func openWindow() {
         if options.shouldHideStatusBar {
             if isViewBasedAppearance {
-                UIApplication.sharedApplication().setStatusBarHidden(shouldOpen, withAnimation: .Slide)
+                UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .Slide)
 			} else {
 				dispatch_async(dispatch_get_main_queue(), {
 					if let w = UIApplication.sharedApplication().keyWindow {
-						w.windowLevel = UIWindowLevelStatusBar + (shouldOpen ? 1 : 0)
+						w.windowLevel = UIWindowLevelStatusBar + 1
+					}
+				})
+			}
+        }
+    }
+	
+	//
+	//	:name:	closeWindow
+	//
+    private func closeWindow() {
+        if options.shouldHideStatusBar {
+            if isViewBasedAppearance {
+                UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .Slide)
+			} else {
+				dispatch_async(dispatch_get_main_queue(), {
+					if let w = UIApplication.sharedApplication().keyWindow {
+						w.windowLevel = UIWindowLevelNormal
 					}
 				})
 			}
@@ -633,14 +680,14 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 	//
 	//	:name:	gesturePanLeftViewController
 	//
-    private func gesturePanLeftViewController(gesture: UIGestureRecognizer, withTouchPoint point: CGPoint) -> Bool {
+    private func gesturePanLeftViewController(gesture: UIGestureRecognizer, point: CGPoint) -> Bool {
         return isLeftContainerOpened || options.leftPanFromBezel && isLeftPointContainedWithinRect(point)
     }
 	
 	//
 	//	:name:	isLeftPointContainedWithinRect
 	//
-    private func isLeftPointContainedWithinRect(point: CGPoint) -> Bool {
+    private func isLeftPointContainedWithinRect(point: CGPoint) -> Bool{
         var r: CGRect = CGRectZero
         var t: CGRect = CGRectZero
         let w: CGFloat = options.leftBezelWidth
@@ -661,17 +708,24 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
     private func isRightPointContainedWithinRect(point: CGPoint) -> Bool {
         var r: CGRect = CGRectZero
         var t: CGRect = CGRectZero
-        let w: CGFloat = rightOriginX - options.rightBezelWidth
+        let w: CGFloat = rightOrigin - options.rightBezelWidth
         CGRectDivide(view.bounds, &t, &r, w, .MinXEdge)
         return CGRectContainsPoint(r, point)
     }
 	
 	//
-	//	:name:	isPointContainedWithinViewController
+	//	:name:	isPointContainedWithinLeftRectViewController
 	//
-	private func isPointContainedWithinViewController(inout viewContainer: UIView!, point: CGPoint) -> Bool {
-		return CGRectContainsPoint(viewContainer.frame, point)
+	private func isPointContainedWithinLeftRectViewController(point: CGPoint) -> Bool {
+		return CGRectContainsPoint(leftViewContainer.frame, point)
 	}
+	
+	//
+	//	:name:	isPointContainedWithinRightViewController
+	//
+    private func isPointContainedWithinRightViewController(point: CGPoint) -> Bool {
+        return CGRectContainsPoint(rightViewContainer.frame, point)
+    }
 	
 	//
 	//	:name:	prepareMainContainer
@@ -695,54 +749,81 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 	}
 	
 	//
-	//	:name:	prepareLeftGestures
+	//	:name:	prepareLeftContainer
 	//
-	private func prepareLeftGestures() {
-		removeGestures(&leftPanGesture, tap: &leftTapGesture)
-		addGestures(&leftPanGesture, panSelector: "handleLeftPanGesture:", tap: &leftTapGesture, tapSelector: "handleLeftTapGesture:")
+	private func prepareLeftContainer() {
+		leftContainer = SideNavContainer(state: .Closed, point: CGPointZero, frame: CGRectZero)
+		var b: CGRect = view.bounds
+		b.size.width = options.leftViewContainerWidth
+		b.origin.x = leftOrigin
+		leftViewContainer = UIView(frame: b)
+		leftViewContainer.backgroundColor = .clearColor()
+		leftViewContainer.autoresizingMask = .FlexibleHeight
+		view.addSubview(leftViewContainer)
 	}
 	
 	//
-	//	:name:	prepareContainer
+	//	:name:	prepareLeftContainerToOpen
 	//
-	private func prepareContainer(inout container: SideNavContainer!, inout viewContainer: UIView!, originX: CGFloat, width: CGFloat) {
-		container = SideNavContainer(state: .Closed, point: CGPointZero, frame: CGRectZero)
+	private func prepareLeftContainerToOpen() {
+		leftViewController?.beginAppearanceTransition(!isLeftContainerOpened, animated: true)
+		addShadow(leftViewContainer)
+		openWindow()
+	}
+	
+	//
+	//	:name:	prepareLeftContainerToClose
+	//
+	private func prepareLeftContainerToClose() {
+		leftViewController?.beginAppearanceTransition(isLeftContainerOpened, animated: true)
+		closeWindow()
+	}
+	
+	//
+	//	:name:	prepareLeftGestures
+	//
+	private func prepareLeftGestures() {
+		removeLeftGestures()
+		addLeftGestures()
+	}
+	
+	//
+	//	:name:	prepareRightContainer
+	//
+	private func prepareRightContainer() {
+		rightContainer = SideNavContainer(state: .Closed, point: CGPointZero, frame: CGRectZero)
 		var b: CGRect = view.bounds
-		b.size.width = width
-		b.origin.x = originX
-		viewContainer = UIView(frame: b)
-		viewContainer.backgroundColor = .clearColor()
-		viewContainer.autoresizingMask = .FlexibleHeight
-		view.addSubview(viewContainer)
+		b.size.width = options.rightViewContainerWidth
+		b.origin.x = rightOrigin
+		rightViewContainer = UIView(frame: b)
+		rightViewContainer.backgroundColor = .clearColor()
+		rightViewContainer.autoresizingMask = .FlexibleHeight
+		view.addSubview(rightViewContainer)
+	}
+	
+	//
+	//	:name:	prepareRightContainerToOpen
+	//
+	private func prepareRightContainerToOpen() {
+		rightViewController?.beginAppearanceTransition(!isRightContainerOpened, animated: true)
+		addShadow(rightViewContainer)
+		openWindow()
+	}
+	
+	//
+	//	:name:	prepareRightContainerToClose
+	//
+	private func prepareRightContainerToClose() {
+		rightViewController?.beginAppearanceTransition(isRightContainerOpened, animated: true)
+		closeWindow()
 	}
 	
 	//
 	//	:name:	prepareRightGestures
 	//
 	private func prepareRightGestures() {
-		removeGestures(&rightPanGesture, tap: &rightTapGesture)
-		addGestures(&rightPanGesture, panSelector: "handleRightPanGesture:", tap: &rightTapGesture, tapSelector: "handleRightTapGesture:")
-	}
-	
-	//
-	//	:name:	prepareContainerToOpen
-	//
-	private func prepareContainerToOpen(inout viewController: UIViewController?, inout viewContainer: UIView!, state: SideNavState) {
-		if let vc = viewController {
-			vc.beginAppearanceTransition(.Opened == state, animated: true)
-			addShadow(viewContainer)
-			toggleWindow(shouldOpen: true)
-		}
-	}
-	
-	//
-	//	:name:	prepareContainerToClose
-	//
-	private func prepareContainerToClose(inout viewController: UIViewController?, state: SideNavState) {
-		if let vc = viewController {
-			vc.beginAppearanceTransition(.Opened == state, animated: true)
-			toggleWindow()
-		}
+		removeRightGestures()
+		addRightGestures()
 	}
 	
 	//
