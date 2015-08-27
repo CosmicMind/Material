@@ -74,10 +74,10 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 		public static var backdropViewContainerBackgroundColor: UIColor = .blackColor()
 		public static var animationDuration: CGFloat = 0.5
 		public static var leftBezelWidth: CGFloat = 16
-		public static var leftViewContainerWidth: CGFloat = 270
+		public static var leftViewContainerWidth: CGFloat = 240
 		public static var leftPanFromBezel: Bool = true
 		public static var rightBezelWidth: CGFloat = 16
-		public static var rightViewContainerWidth: CGFloat = 270
+		public static var rightViewContainerWidth: CGFloat = 240
 		public static var rightPanFromBezel: Bool = true
 	}
 	
@@ -113,7 +113,7 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 	/**
 		:name:	isUserInteractionEnabled
 	*/
-	public private(set) var isUserInteractionEnabled: Bool {
+	public var isUserInteractionEnabled: Bool {
 		get {
 			return mainViewContainer!.userInteractionEnabled
 		}
@@ -223,8 +223,8 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
         self.init()
         self.mainViewController = mainViewController
         self.leftViewController = leftViewController
-		setupView()
-		setupLeftView()
+		prepareView()
+		prepareLeftView()
     }
 	
 	/**
@@ -234,8 +234,8 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
         self.init()
         self.mainViewController = mainViewController
         self.rightViewController = rightViewController
-		setupView()
-		setupRightView()
+		prepareView()
+		prepareRightView()
     }
 	
 	/**
@@ -246,9 +246,9 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
         self.mainViewController = mainViewController
         self.leftViewController = leftViewController
         self.rightViewController = rightViewController
-        setupView()
-		setupLeftView()
-		setupRightView()
+        prepareView()
+		prepareLeftView()
+		prepareRightView()
     }
 	
 	//
@@ -472,25 +472,25 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 	}
 	
 	//
-	//	:name:	setupView
+	//	:name:	prepareView
 	//
-	internal func setupView() {
+	internal func prepareView() {
 		prepareMainContainer()
 		prepareBackdropContainer()
 	}
 	
 	//
-	//	:name:	setupLeftView
+	//	:name:	prepareLeftView
 	//
-	internal func setupLeftView() {
+	internal func prepareLeftView() {
 		prepareContainer(&leftContainer, viewContainer: &leftViewContainer, originX: leftOriginX, width: options.leftViewContainerWidth)
 		prepareLeftGestures()
 	}
 	
 	//
-	//	:name:	setupRightView
+	//	:name:	prepareRightView
 	//
-	internal func setupRightView() {
+	internal func prepareRightView() {
 		prepareContainer(&rightContainer, viewContainer: &rightViewContainer, originX: rightOriginX, width: options.rightViewContainerWidth)
 		prepareRightGestures()
 	}
