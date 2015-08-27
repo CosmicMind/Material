@@ -22,7 +22,7 @@ public class FabButton : MaterialButton {
 	/**
 		:name:	lineWidth
 	*/
-	public var lineWidth: CGFloat = 2.0
+	public var lineWidth: CGFloat = 2
 	
 	//
 	//	:name:	prepareButton
@@ -34,6 +34,14 @@ public class FabButton : MaterialButton {
     }
 	
 	//
+	//	:name: prepareBackgroundColorView
+	//
+	internal override func prepareBackgroundColorView() {
+		super.prepareBackgroundColorView()
+		backgroundColorView.layer.cornerRadius = bounds.width / 2
+	}
+	
+	//
 	//	:name:	pulseTouches
 	//
 	internal override func pulseTouches(touches: Set<NSObject>) {
@@ -42,7 +50,7 @@ public class FabButton : MaterialButton {
 		let touchLocation = touch.locationInView(self)
 		pulseView = UIView()
 		pulseView!.frame = CGRectMake(0, 0, bounds.width, bounds.height)
-		pulseView!.layer.cornerRadius = bounds.width / 2.0
+		pulseView!.layer.cornerRadius = bounds.width / 2
 		pulseView!.center = touchLocation
 		pulseView!.backgroundColor = pulseColor?.colorWithAlphaComponent(0.5)
 		backgroundColorView.addSubview(pulseView!)

@@ -19,10 +19,24 @@
 import UIKit
 
 public class MaterialButton : UIButton {
+	//
+	//	:name:	backgroundColorView
+	//
 	internal lazy var backgroundColorView: UIView = UIView()
+	
+	//
+	//	:name:	pulseView
+	//
 	internal var pulseView: UIView?
 	
+	/**
+		:name:	color
+	*/
 	public var color: UIColor?
+	
+	/**
+		:name:	pulseColor
+	*/
 	public var pulseColor: UIColor?
 	
 	/**
@@ -95,16 +109,29 @@ public class MaterialButton : UIButton {
 	internal func pulseTouches(touches: Set<NSObject>) {}
 	
 	//
+	//	:name: prepareBackgroundColorView
+	//
+	// We need this view so we can use the masksToBounds
+	// so the pulse doesn't animate off the button
+	internal func prepareBackgroundColorView() {
+		backgroundColorView.frame = bounds
+		backgroundColorView.backgroundColor = color
+		backgroundColorView.layer.masksToBounds = true
+		backgroundColorView.userInteractionEnabled = false
+		insertSubview(backgroundColorView, atIndex: 0)
+	}
+	
+	//
 	//	:name:	prepareView
 	//
-	internal func prepareView() {
+	private func prepareView() {
 		setTranslatesAutoresizingMaskIntoConstraints(false)
 	}
 	
 	//
 	//	:name:	prepareShadow
 	//
-	internal func prepareShadow() {
+	private func prepareShadow() {
 		layer.shadowOffset = CGSizeMake(1, 1)
 		layer.shadowColor = UIColor.blackColor().CGColor
 		layer.shadowOpacity = 0.5
@@ -114,7 +141,7 @@ public class MaterialButton : UIButton {
 	//
 	//	:name:	prepareContext
 	//
-	internal func prepareContext(rect: CGRect) {
+	private func prepareContext(rect: CGRect) {
 		let context = UIGraphicsGetCurrentContext()
 		CGContextSaveGState(context);
 		CGContextAddEllipseInRect(context, rect)
@@ -124,25 +151,11 @@ public class MaterialButton : UIButton {
 	}
 	
 	//
-	//	:name: prepareBackgroundColorView
-	//
-	// We need this view so we can use the masksToBounds
-	// so the pulse doesn't animate off the button
-	internal func prepareBackgroundColorView() {
-		backgroundColorView.frame = bounds
-		backgroundColorView.layer.cornerRadius = bounds.width / 2.0
-		backgroundColorView.backgroundColor = color
-		backgroundColorView.layer.masksToBounds = true
-		backgroundColorView.userInteractionEnabled = false
-		insertSubview(backgroundColorView, atIndex: 0)
-	}
-	
-	//
 	//	:name:	shrink
 	//
-	internal func shrink() {
+	private func shrink() {
 		UIView.animateWithDuration(0.3,
-			delay: 0.0,
+			delay: 0,
 			usingSpringWithDamping: 0.2,
 			initialSpringVelocity: 10,
 			options: nil,
@@ -156,10 +169,10 @@ public class MaterialButton : UIButton {
 	//
 	//	:name:	removePulse
 	//
-	internal func removePulse() {
+	private func removePulse() {
 		UIView.animateWithDuration(0.3,
 			animations: { _ in
-				self.pulseView?.alpha = 0.0
+				self.pulseView?.alpha = 0
 			}
 		) { _ in
 			self.pulseView?.removeFromSuperview()

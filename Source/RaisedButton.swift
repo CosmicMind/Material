@@ -29,6 +29,14 @@ public class RaisedButton : MaterialButton {
 	}
 	
 	//
+	//	:name: prepareBackgroundColorView
+	//
+	internal override func prepareBackgroundColorView() {
+		super.prepareBackgroundColorView()
+		backgroundColorView.layer.cornerRadius = 3
+	}
+	
+	//
 	//	:name:	pulseTouches
 	//
 	internal override func pulseTouches(touches: Set<NSObject>) {
@@ -37,14 +45,14 @@ public class RaisedButton : MaterialButton {
 		let touchLocation = touch.locationInView(self)
 		pulseView = UIView()
 		pulseView!.frame = CGRectMake(0, 0, self.bounds.size.height, self.bounds.size.height)
-		pulseView!.layer.cornerRadius = bounds.height / 2.0
+		pulseView!.layer.cornerRadius = bounds.height / 2
 		pulseView!.center = touchLocation
 		pulseView!.backgroundColor = pulseColor!.colorWithAlphaComponent(0.5)
 		backgroundColorView.addSubview(pulseView!)
 		UIView.animateWithDuration(0.3,
 			animations: {
 				self.pulseView!.transform = CGAffineTransformMakeScale(10, 10)
-				self.transform = CGAffineTransformMakeScale(1.05, 1.1)
+				self.transform = CGAffineTransformMakeScale(15, 1.1)
 			},
 			completion: nil
 		)

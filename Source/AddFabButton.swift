@@ -35,7 +35,7 @@ public class AddFabButton : FabButton {
 	//	:name:	prepareVerticalLine
 	//
 	private func prepareVerticalLine() {
-		verticalLine = UIView(frame: CGRectMake(0, 0, lineWidth, CGRectGetHeight(backgroundColorView.frame) / 3.0))
+		verticalLine = UIView(frame: CGRectMake(0, 0, lineWidth, CGRectGetHeight(backgroundColorView.frame) / 3))
 		verticalLine.backgroundColor = .whiteColor()
 		verticalLine.center = backgroundColorView.center
 		backgroundColorView.addSubview(verticalLine)
@@ -45,7 +45,7 @@ public class AddFabButton : FabButton {
 	//	:name:	prepareHorizontalLine
 	//
 	private func prepareHorizontalLine() {
-		horizontalLine = UIView(frame: CGRectMake(0, 0, CGRectGetWidth(backgroundColorView.frame) / 3.0, lineWidth))
+		horizontalLine = UIView(frame: CGRectMake(0, 0, CGRectGetWidth(backgroundColorView.frame) / 3, lineWidth))
 		horizontalLine.backgroundColor = .whiteColor()
 		horizontalLine.center = backgroundColorView.center
 		backgroundColorView.addSubview(horizontalLine)
