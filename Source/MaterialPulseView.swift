@@ -78,8 +78,12 @@ public class MaterialPulseView : MaterialView {
         layer.shadowOffset = CGSizeMake(0.5, 0.5)
         layer.shadowRadius = 5.0
         layer.shadowOpacity = 0.4
-        layer.shadowPath = UIBezierPath(rect: bounds).CGPath
         layer.cornerRadius = 2.0
+    }
+    
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        layer.shadowPath = UIBezierPath(rect: bounds).CGPath
     }
     
     // We need this view so we can use the masksToBounds
