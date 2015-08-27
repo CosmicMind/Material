@@ -19,17 +19,12 @@
 import UIKit
 
 public class FabButton : MaterialButton {
-	/**
-		:name:	lineWidth
-	*/
-	public var lineWidth: CGFloat = 2
-	
 	//
 	//	:name:	prepareButton
 	//
 	internal override func prepareButton() {
 		super.prepareButton()
-		color = .redColor()
+		backgroundColor = .redColor()
         pulseColor = .whiteColor()
 		backgroundColorView.layer.cornerRadius = bounds.width / 2
     }

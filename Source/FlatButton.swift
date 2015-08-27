@@ -20,9 +20,18 @@ import UIKit
 
 public class FlatButton : MaterialButton {
 	/**
-		:name:	textColor
+		:name:	pulseTitleColor
 	*/
-	public var textColor: UIColor?
+	public var pulseTitleColor: UIColor?
+	
+	/**
+	:name:	titleColor
+	*/
+	public var titleColor: UIColor? {
+		didSet {
+			setTitleColor(titleColor, forState: .Normal)
+		}
+	}
 	
 	//
 	//	:name:	prepareButton
@@ -38,11 +47,18 @@ public class FlatButton : MaterialButton {
 	//
 	internal override func pulseTouches(touches: Set<NSObject>) {
 		super.pulseTouches(touches)
-		textColor = titleLabel?.textColor
 		UIView.animateWithDuration(0.3, animations: {
 			self.pulseView!.transform = CGAffineTransformMakeScale(10, 10)
 			self.transform = CGAffineTransformMakeScale(1.05, 1.1)
-			self.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-		})
+			if let c = self.pulseTitleColor {
+				self.setTitleColor(c, forState: .Normal)
+			}
+		}) { _ in
+			if let c = self.titleColor {
+				UIView.animateWithDuration(0.3, animations: {
+					self.setTitleColor(c, forState: .Normal)
+				})
+			}
+		}
 	}
 }
