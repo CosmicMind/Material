@@ -18,31 +18,36 @@
 
 import UIKit
 
-public class FlatButton : MaterialButton {
-	/**
-		:name:	textColor
-	*/
-	public var textColor: UIColor?
+public class AddFabButton : FabButton {
+	private var verticalLine: UIView!
+	private var horizontalLine: UIView!
 	
 	//
 	//	:name:	prepareButton
 	//
-	internal override func prepareButton() {
+	public override func prepareButton() {
 		super.prepareButton()
-		pulseColor = .whiteColor()
-		backgroundColorView.layer.cornerRadius = 3
+		prepareVerticalLine()
+		prepareHorizontalLine()
 	}
 	
 	//
-	//	:name:	pulseTouches
+	//	:name:	prepareVerticalLine
 	//
-	internal override func pulseTouches(touches: Set<NSObject>) {
-		super.pulseTouches(touches)
-		textColor = titleLabel?.textColor
-		UIView.animateWithDuration(0.3, animations: {
-			self.pulseView!.transform = CGAffineTransformMakeScale(10, 10)
-			self.transform = CGAffineTransformMakeScale(1.05, 1.1)
-			self.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-		})
+	private func prepareVerticalLine() {
+		verticalLine = UIView(frame: CGRectMake(0, 0, lineWidth, CGRectGetHeight(backgroundColorView.frame) / 3))
+		verticalLine.backgroundColor = .whiteColor()
+		verticalLine.center = backgroundColorView.center
+		backgroundColorView.addSubview(verticalLine)
+	}
+	
+	//
+	//	:name:	prepareHorizontalLine
+	//
+	private func prepareHorizontalLine() {
+		horizontalLine = UIView(frame: CGRectMake(0, 0, CGRectGetWidth(backgroundColorView.frame) / 3, lineWidth))
+		horizontalLine.backgroundColor = .whiteColor()
+		horizontalLine.center = backgroundColorView.center
+		backgroundColorView.addSubview(horizontalLine)
 	}
 }
