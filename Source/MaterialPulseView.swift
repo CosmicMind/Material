@@ -81,6 +81,11 @@ public class MaterialPulseView : MaterialView {
         layer.cornerRadius = 2.0
     }
     
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        layer.shadowPath = UIBezierPath(rect: bounds).CGPath
+    }
+    
     // We need this view so we can use the masksToBounds
     // so the pulse doesn't animate off the button
     private func setupBackgroundColorView() {
