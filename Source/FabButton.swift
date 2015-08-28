@@ -25,8 +25,8 @@ public class FabButton : MaterialButton {
 	internal override func prepareButton() {
 		super.prepareButton()
 		prepareShadow()
-		backgroundColor = .redColor()
-        pulseColor = .whiteColor()
+		backgroundColor = MaterialTheme.red.darken1
+        pulseColor = MaterialTheme.white.base
 		backgroundColorView.layer.cornerRadius = bounds.width / 2
     }
 	
