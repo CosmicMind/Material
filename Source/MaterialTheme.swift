@@ -82,4 +82,22 @@ public struct MaterialTheme {
 		public static let accent3: UIColor = UIColor(red: 213/255, green: 0/255, blue: 249/255, alpha: 1)
 		public static let accent4: UIColor = UIColor(red: 170/255, green: 0/255, blue: 255/255, alpha: 1)
 	}
+	
+	// deepPurple
+	public struct deepPurple {
+		public static let lighten5: UIColor = UIColor(red: 237/255, green: 231/255, blue: 246/255, alpha: 1)
+		public static let lighten4: UIColor = UIColor(red: 209/255, green: 196/255, blue: 233/255, alpha: 1)
+		public static let lighten3: UIColor = UIColor(red: 179/255, green: 157/255, blue: 219/255, alpha: 1)
+		public static let lighten2: UIColor = UIColor(red: 149/255, green: 117/255, blue: 205/255, alpha: 1)
+		public static let lighten1: UIColor = UIColor(red: 126/255, green: 87/255, blue: 194/255, alpha: 1)
+		public static let color: UIColor = UIColor(red: 103/255, green: 58/255, blue: 183/255, alpha: 1)
+		public static let darken1: UIColor = UIColor(red: 94/255, green: 53/255, blue: 177/255, alpha: 1)
+		public static let darken2: UIColor = UIColor(red: 81/255, green: 45/255, blue: 168/255, alpha: 1)
+		public static let darken3: UIColor = UIColor(red: 69/255, green: 39/255, blue: 160/255, alpha: 1)
+		public static let darken4: UIColor = UIColor(red: 49/255, green: 27/255, blue: 146/255, alpha: 1)
+		public static let accent1: UIColor = UIColor(red: 179/255, green: 136/255, blue: 255/255, alpha: 1)
+		public static let accent2: UIColor = UIColor(red: 124/255, green: 77/255, blue: 255/255, alpha: 1)
+		public static let accent3: UIColor = UIColor(red: 101/255, green: 31/255, blue: 255/255, alpha: 1)
+		public static let accent4: UIColor = UIColor(red: 98/255, green: 0/255, blue: 234/255, alpha: 1)
+	}
 }
