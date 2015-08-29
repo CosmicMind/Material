@@ -33,8 +33,11 @@ public class MaterialCard : UIView {
 		:name:	backgroundColor
 	*/
 	public override var backgroundColor: UIColor? {
-		didSet {
-			backgroundColorView.backgroundColor = backgroundColor
+		get {
+			return backgroundColorView.backgroundColor
+		}
+		set(value) {
+			backgroundColorView.backgroundColor = value
 		}
 	}
 	
@@ -66,14 +69,6 @@ public class MaterialCard : UIView {
 		self.init(frame: CGRectZero)
 	}
 	
-	//
-	//	:name:	prepareView
-	//
-	private func prepareView() {
-		setTranslatesAutoresizingMaskIntoConstraints(false)
-		prepareCard()
-	}
-	
 	/**
 		:name:	touchesBegan
 	*/
@@ -101,11 +96,18 @@ public class MaterialCard : UIView {
 	}
 	
 	//
+	//	:name:	prepareView
+	//
+	internal func prepareView() {
+		setTranslatesAutoresizingMaskIntoConstraints(false)
+		prepareBackgroundColorView()
+		prepareCard()
+	}
+	
+	//
 	//	:name:	prepareCard
 	//
-	internal func prepareCard() {
-		prepareBackgroundColorView()
-	}
+	internal func prepareCard() {}
 	
 	//
 	//	:name:	prepareShadow
@@ -166,6 +168,7 @@ public class MaterialCard : UIView {
 		backgroundColorView.setTranslatesAutoresizingMaskIntoConstraints(false)
 		backgroundColorView.layer.cornerRadius = 2
 		backgroundColorView.layer.masksToBounds = true
+		backgroundColorView.clipsToBounds = true
 		backgroundColorView.userInteractionEnabled = false
 		insertSubview(backgroundColorView, atIndex: 0)
 		Layout.expandToParentSize(self, child: backgroundColorView)

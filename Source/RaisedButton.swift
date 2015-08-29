@@ -22,11 +22,18 @@ public class RaisedButton : MaterialButton {
 	//
 	//	:name:	prepareButton
 	//
-	internal override func prepareButton() {
-		super.prepareButton()
-		prepareShadow()
+	internal override func prepareView()  {
+		super.prepareView()
 		setTitleColor(MaterialTheme.white.color, forState: .Normal)
 		backgroundColor = MaterialTheme.indigo.darken1
+	}
+	
+	//
+	//	:name:	prepareButton
+	//
+	internal override func prepareButton()  {
+		super.prepareButton()
+		prepareShadow()
 		backgroundColorView.layer.cornerRadius = 3
 	}
 	
@@ -36,8 +43,8 @@ public class RaisedButton : MaterialButton {
 	internal override func pulseBegan(touches: Set<NSObject>, withEvent event: UIEvent)  {
 		super.pulseBegan(touches, withEvent: event)
 		UIView.animateWithDuration(0.3, animations: {
-			self.pulseView!.transform = CGAffineTransformMakeScale(10, 10)
-			self.transform = CGAffineTransformMakeScale(1.05, 1.1)
+			self.pulseView!.transform = CGAffineTransformMakeScale(4, 4)
+			self.transform = CGAffineTransformMakeScale(1.05, 1.05)
 		})
 	}
 }

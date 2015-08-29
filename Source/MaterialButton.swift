@@ -33,15 +33,18 @@ public class MaterialButton : UIButton {
 		:name:	backgroundColor
 	*/
 	public override var backgroundColor: UIColor? {
-		didSet {
-			backgroundColorView.backgroundColor = backgroundColor
+		get {
+			return backgroundColorView.backgroundColor
+		}
+		set(value) {
+			backgroundColorView.backgroundColor = value
 		}
 	}
 	
 	/**
 		:name:	pulseColor
 	*/
-	public var pulseColor: UIColor = MaterialTheme.white.color
+	public var pulseColor: UIColor? = MaterialTheme.white.color
 	
 	/**
 		:name:	init
@@ -64,14 +67,6 @@ public class MaterialButton : UIButton {
 	*/
 	public convenience init() {
 		self.init(frame: CGRectZero)
-	}
-	
-	//
-	//	:name:	prepareView
-	//
-	private func prepareView() {
-		setTranslatesAutoresizingMaskIntoConstraints(false)
-		prepareBackgroundColorView()
 	}
 	
 	/**
@@ -109,11 +104,17 @@ public class MaterialButton : UIButton {
 	}
 	
 	//
-	//	:name:	prepareButton
+	//	:name:	prepareView
 	//
-	internal func prepareButton() {
+	internal func prepareView() {
+		setTranslatesAutoresizingMaskIntoConstraints(false)
 		prepareBackgroundColorView()
 	}
+	
+	//
+	//	:name:	prepareButton
+	//
+	internal func prepareButton() {}
 	
 	//
 	//	:name:	prepareShadow
@@ -132,7 +133,7 @@ public class MaterialButton : UIButton {
 		pulseView = UIView(frame: CGRectMake(0, 0, bounds.height, bounds.height))
 		pulseView!.layer.cornerRadius = bounds.height / 2
 		pulseView!.center = (touches.first as! UITouch).locationInView(self)
-		pulseView!.backgroundColor = pulseColor.colorWithAlphaComponent(0.5)
+		pulseView!.backgroundColor = pulseColor?.colorWithAlphaComponent(0.5)
 		backgroundColorView.addSubview(pulseView!)
 	}
 	
@@ -157,7 +158,7 @@ public class MaterialButton : UIButton {
 		let context = UIGraphicsGetCurrentContext()
 		CGContextSaveGState(context);
 		CGContextAddEllipseInRect(context, rect)
-		CGContextSetFillColorWithColor(context, UIColor.clearColor().CGColor)
+		CGContextSetFillColorWithColor(context, MaterialTheme.clear.color.CGColor)
 		CGContextFillPath(context)
 		CGContextRestoreGState(context);
 	}

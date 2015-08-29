@@ -20,13 +20,20 @@ import UIKit
 
 public class FlatButton : MaterialButton {
 	//
-	//	:name:	prepareButton
+	//	:name:	prepareView
 	//
-	internal override func prepareButton() {
-		super.prepareButton()
+	internal override func prepareView() {
+		super.prepareView()
 		setTitleColor(MaterialTheme.indigo.darken1, forState: .Normal)
 		pulseColor = MaterialTheme.indigo.darken1
 		backgroundColor = MaterialTheme.clear.color
+	}
+	
+	//
+	//	:name:	prepareButton
+	//
+	internal override func prepareButton()  {
+		super.prepareButton()
 		backgroundColorView.layer.cornerRadius = 3
 	}
 	
@@ -36,8 +43,8 @@ public class FlatButton : MaterialButton {
 	internal override func pulseBegan(touches: Set<NSObject>, withEvent event: UIEvent)  {
 		super.pulseBegan(touches, withEvent: event)
 		UIView.animateWithDuration(0.3, animations: {
-			self.pulseView!.transform = CGAffineTransformMakeScale(10, 10)
-			self.transform = CGAffineTransformMakeScale(1.05, 1.1)
+			self.pulseView!.transform = CGAffineTransformMakeScale(4, 4)
+			self.transform = CGAffineTransformMakeScale(1.05, 1.05)
 		})
 	}
 }
