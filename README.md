@@ -1,4 +1,4 @@
-![MaterialKit](http://materialkit.io/MaterialKitLogo.png)
+### MaterialKit
 
 # Build Beautiful Software
 
@@ -7,6 +7,49 @@
 ### CocoaPods Support
 MaterialKit is now on CocoaPods under the name [MK](https://cocoapods.org/?q=MK).
 
+### Floating Action Button
+
+Make a call to action with a Floating Action Button.
+
+![MaterialKitPreview](http://www.materialkit.io/fabbuttonpreview.gif)
+
+```swift
+var button: FabButton = FabButton()
+button.setTitle("+", forState: .Normal)
+button.titleLabel!.font = UIFont(name: "Arial", size: 32)
+view.addSubview(button)
+
+Layout.size(view, child: button, width: 60, height: 60)
+```
+
+### Raised Button
+
+Use a Raised Button to capture attention.
+
+![MaterialKitPreview](http://www.materialkit.io/raisedbuttonpreview.gif)
+
+```swift
+var button: RaisedButton = RaisedButton()
+button.setTitle("Raised", forState: .Normal)
+view.addSubview(button)
+
+Layout.size(view, child: button, width: 200, height: 60)
+```
+
+### Flat Button
+
+Keep it simple and elegant with a Flat Button.
+
+![MaterialKitPreview](http://www.materialkit.io/flatbuttonpreview.gif)
+
+```swift
+var button: RaisedButton = RaisedButton()
+button.setTitle("Flat", forState: .Normal)
+view.addSubview(button)
+
+Layout.alignFromTopRight(view, child: button, top: 100, right: 100)
+Layout.size(view, child: button, width: 200, height: 60)
+```
 
 ### Basic Card
 
@@ -44,36 +87,19 @@ card.buttons = [cancelButton, okButton]
 view.addSubview(card)
 ```
 
-### Flat Button
-
-```swift
-var button: FlatButton = FlatButton()
-```
-
-### Raised Button
-
-```swift
-var button: RaisedButton = RaisedButton()
-```
-
 ### Side Navigation Controller
 
+Add a sleek Side Navigation to give your users a wonderful experience.
+
 ```swift
-class AppDelegate: UIResponder, UIApplicationDelegate, SideNavDelegate {
-	var window: UIWindow?
-	var sideNav: SideNavController?
-	private lazy var graph: Graph = Graph()
-
-
-	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-		sideNav = SideNavController(mainViewController: MainViewController(), leftViewController: LeftViewController(), rightViewController: RightViewController())
-		sideNav!.delegate = self
-		window = UIWindow(frame: UIScreen.mainScreen().bounds)
-		window!.rootViewController = sideNav
-		window!.makeKeyAndVisible()
-		return true
-	}
-...
+func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+	sideNav = SideNavController(mainViewController: AppViewController(), leftViewController: FilterViewController(), rightViewController: FilterViewController())
+	sideNav!.delegate = self
+	window = UIWindow(frame: UIScreen.mainScreen().bounds)
+	window!.rootViewController = sideNav
+	window!.makeKeyAndVisible()
+	return true
+}
 ```
 
 ### License
