@@ -91,6 +91,8 @@ view.addSubview(card)
 
 Add a sleek Side Navigation to give your users a wonderful experience.
 
+![MaterialKitPreview](http://www.materialkit.io/sidenavpreview.gif)
+
 ```swift
 func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 	sideNav = SideNavController(mainViewController: AppViewController(), leftViewController: FilterViewController(), rightViewController: FilterViewController())
