@@ -107,7 +107,7 @@ func application(application: UIApplication, didFinishLaunchingWithOptions launc
 
 Beautify your app with color. All Material Design color palettes are supported.
 
-[Color Palette](http://www.google.com/design/spec/style/color.html)
+[Color Palettes](http://www.google.com/design/spec/style/color.html)
 
 ```swift
 var button: RaisedButton = RaisedButton()
