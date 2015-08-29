@@ -78,9 +78,9 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 		public static var contentViewScale: CGFloat = 1
 		public static var contentViewOpacity: CGFloat = 0.4
 		public static var hideStatusBar: Bool = true
-		public static var pointOfNoReturnWidth: CGFloat = 48
-        public static var pointOfNoReturnheight: CGFloat = 48
-		public static var backdropViewContainerBackgroundColor: UIColor = .blackColor()
+		public static var horizontalThreshold: CGFloat = 48
+        public static var verticalThreshold: CGFloat = 48
+		public static var backdropBackgroundColor: UIColor = .blackColor()
 		public static var animationDuration: CGFloat = 0.5
 		public static var leftBezelWidth: CGFloat = 16
 		public static var leftViewContainerWidth: CGFloat = 240
@@ -689,7 +689,7 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 				} else {
 					c.point = gesture.velocityInView(gesture.view)
 					let x: CGFloat = c.point.x >= 1000 || c.point.x <= -1000 ? c.point.x : 0
-					c.state = vc.frame.origin.x <= CGFloat(floor(leftOriginX)) + options.pointOfNoReturnWidth || c.point.x <= -1000 ? .Closed : .Opened
+					c.state = vc.frame.origin.x <= CGFloat(floor(leftOriginX)) + options.horizontalThreshold || c.point.x <= -1000 ? .Closed : .Opened
 					if .Closed == c.state {
 						closeLeftViewContainer(velocity: x)
 					} else {
@@ -738,7 +738,7 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 				} else {
 					c.point = gesture.velocityInView(gesture.view)
 					let x: CGFloat = c.point.x <= -1000 || c.point.x >= 1000 ? c.point.x : 0
-					c.state = vc.frame.origin.x >= CGFloat(floor(rightOriginX) - options.pointOfNoReturnWidth) || c.point.x >= 1000 ? .Closed : .Opened
+					c.state = vc.frame.origin.x >= CGFloat(floor(rightOriginX) - options.horizontalThreshold) || c.point.x >= 1000 ? .Closed : .Opened
 					if .Closed == c.state {
 						closeRightViewContainer(velocity: x)
 					} else {
@@ -795,7 +795,7 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
                 if let c = bottomContainer {
                     c.point = gesture.velocityInView(gesture.view)
                     let y: CGFloat = c.point.y <= -1000 || c.point.y >= 1000 ? c.point.y : 0
-                    c.state = vc.frame.origin.y >= CGFloat(floor(bottomOriginY) - options.pointOfNoReturnheight) || c.point.y >= 1000 ? .Closed : .Opened
+                    c.state = vc.frame.origin.y >= CGFloat(floor(bottomOriginY) - options.verticalThreshold) || c.point.y >= 1000 ? .Closed : .Opened
                     if .Closed == c.state {
                         closeBottomViewContainer(velocity: y)
                     } else {
@@ -947,7 +947,7 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 	//
 	private func prepareBackdropContainer() {
 		backdropViewContainer = UIView(frame: view.bounds)
-		backdropViewContainer!.backgroundColor = options.backdropViewContainerBackgroundColor
+		backdropViewContainer!.backgroundColor = options.backdropBackgroundColor
 		backdropViewContainer!.autoresizingMask = .FlexibleHeight | .FlexibleWidth
 		backdropViewContainer!.layer.opacity = 0
 		view.addSubview(backdropViewContainer!)
