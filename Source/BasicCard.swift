@@ -36,7 +36,7 @@ public class BasicCard : MaterialCard {
 	public var divider: UIView? {
 		didSet {
 			divider!.setTranslatesAutoresizingMaskIntoConstraints(false)
-			divider!.backgroundColor = MaterialTheme.indigo.lighten1
+			divider!.backgroundColor = MaterialTheme.blueGrey.color
 			addSubview(divider!)
 			prepareCard()
 		}
@@ -118,9 +118,9 @@ public class BasicCard : MaterialCard {
 		if nil != buttons {
 			// divider
 			if nil != divider {
-//				layoutConstraints += Layout.constraint("H:|-(0)-[divider(2)]-(0)-|", options: nil, metrics: nil, views: ["divider": divider!])
-//				views["divider"] = divider!
-//				verticalFormat += "-(10)-[divider]"
+				layoutConstraints += Layout.constraint("H:|[divider]|", options: nil, metrics: nil, views: ["divider": divider!])
+				views["divider"] = divider!
+				verticalFormat += "-(20)-[divider(1)]"
 			}
 			// buttons
 			var horizontalFormat: String = "H:|"
@@ -131,11 +131,11 @@ public class BasicCard : MaterialCard {
 				buttonViews["button\(i)"] = button
 				views["button\(i)"] = button as AnyObject
 				horizontalFormat += "-(10)-[button\(i)]"
-				layoutConstraints += Layout.constraint(verticalFormat + "-(5)-[button\(i)]-(10)-|", options: nil, metrics: nil, views: views)
+				layoutConstraints += Layout.constraint(verticalFormat + "-(10)-[button\(i)]-(10)-|", options: nil, metrics: nil, views: views)
 			}
 			layoutConstraints += Layout.constraint(horizontalFormat, options: nil, metrics: nil, views: buttonViews)
 		} else {
-			verticalFormat += "-(10)-|"
+			verticalFormat += "-(20)-|"
 		}
 		
 		if 0 < layoutConstraints.count {

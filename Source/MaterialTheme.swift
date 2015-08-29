@@ -367,7 +367,7 @@ public struct MaterialTheme {
         public static let lighten3: UIColor = UIColor(red: 159/255, green: 168/255, blue: 218/255, alpha: 1)
         public static let lighten2: UIColor = UIColor(red: 121/255, green: 134/255, blue: 203/255, alpha: 1)
         public static let lighten1: UIColor = UIColor(red: 92/255, green: 107/255, blue: 192/255, alpha: 1)
-        public static let color: UIColor = UIColor(red: 63/255, green: 81/255, blue: 181/255, alpha: 1)
+        public static let color: UIColor = UIColor(red: 96/255, green: 125/255, blue: 139/255, alpha: 1)
         public static let darken1: UIColor = UIColor(red: 84/255, green: 110/255, blue: 122/255, alpha: 1)
         public static let darken2: UIColor = UIColor(red: 48/255, green: 63/255, blue: 159/255, alpha: 1)
         public static let darken3: UIColor = UIColor(red: 55/255, green: 71/255, blue: 79/255, alpha: 1)
