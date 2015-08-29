@@ -8,13 +8,40 @@
 MaterialKit is now on CocoaPods under the name [MK](https://cocoapods.org/?q=MK).
 
 
-![MaterialKitPreview](http://www.materialkit.io/MaterialKitPreview.gif)
+### Basic Card
 
+Easily make cards with fully customizable components.
 
-### Floating Action Button
+![MaterialKitPreview](http://sandbox.local:3000/basiccardpreview.gif)
 
 ```swift
-var button: FabButton = FabButton()
+var card: BasicCard = BasicCard()
+
+// add a title
+card.titleLabel = UILabel()
+card.titleLabel!.text = "Card Title"
+
+// add a body of text
+card.detailTextLabel = UILabel()
+card.detailTextLabel!.text = "I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively."
+
+// add a divider for buttons
+card.divider = UIView()
+
+// add a couple buttons
+var cancelButton: FlatButton = FlatButton()
+cancelButton.pulseColor = MaterialTheme.blueGrey.darken3
+cancelButton.setTitle("Cancel", forState: .Normal)
+cancelButton.setTitleColor(MaterialTheme.yellow.darken3, forState: .Normal)
+
+var okButton: FlatButton = FlatButton()
+okButton.pulseColor = MaterialTheme.blueGrey.darken3
+okButton.setTitle("Okay", forState: .Normal)
+okButton.setTitleColor(MaterialTheme.yellow.darken3, forState: .Normal)
+
+card.buttons = [cancelButton, okButton]
+
+view.addSubview(card)
 ```
 
 ### Flat Button

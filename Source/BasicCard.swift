@@ -122,6 +122,7 @@ public class BasicCard : MaterialCard {
 				views["divider"] = divider!
 				verticalFormat += "-(20)-[divider(1)]"
 			}
+			
 			// buttons
 			var horizontalFormat: String = "H:|"
 			var buttonViews: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
@@ -133,11 +134,14 @@ public class BasicCard : MaterialCard {
 				horizontalFormat += "-(10)-[button\(i)]"
 				layoutConstraints += Layout.constraint(verticalFormat + "-(10)-[button\(i)]-(10)-|", options: nil, metrics: nil, views: views)
 			}
+			
 			layoutConstraints += Layout.constraint(horizontalFormat, options: nil, metrics: nil, views: buttonViews)
+			
 		} else {
 			verticalFormat += "-(20)-|"
 		}
 		
+		// combine constraints
 		if 0 < layoutConstraints.count {
 			layoutConstraints += Layout.constraint(verticalFormat, options: nil, metrics: nil, views: views)
 			NSLayoutConstraint.activateConstraints(layoutConstraints)
