@@ -76,12 +76,12 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 		public static var shadowRadius: CGFloat = 0
 		public static var shadowOffset: CGSize = CGSizeZero
 		public static var contentViewScale: CGFloat = 1
-		public static var contentViewOpacity: CGFloat = 0.4
+		public static var contentViewOpacity: CGFloat = 0.5
 		public static var hideStatusBar: Bool = true
 		public static var horizontalThreshold: CGFloat = 48
         public static var verticalThreshold: CGFloat = 48
-		public static var backdropBackgroundColor: UIColor = .blackColor()
-		public static var animationDuration: CGFloat = 0.5
+		public static var backdropBackgroundColor: UIColor = MaterialTheme.black.color
+		public static var animationDuration: CGFloat = 0.3
 		public static var leftBezelWidth: CGFloat = 16
 		public static var leftViewContainerWidth: CGFloat = 240
 		public static var leftPanFromBezel: Bool = true
