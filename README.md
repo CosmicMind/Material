@@ -88,7 +88,7 @@ view.addSubview(card)
 
 ### Image Card
 
-Add photos with an ImageCard.
+Add photos with an Image Card.
 
 ![MaterialKitPreview](http://www.materialkit.io/imagecardpreview.gif)
 

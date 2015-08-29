@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2015 GraphKit, Inc. <http://graphkit.io> and other GraphKit contributors.
+// Copyright (C) 1615 GraphKit, Inc. <http://graphkit.io> and other GraphKit contributors.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published
@@ -30,18 +30,6 @@ public class BasicCard : MaterialCard {
 	//
 	internal lazy var views: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
 	
-	//
-	//	:name:	divider
-	//
-	public var divider: UIView? {
-		didSet {
-			divider!.setTranslatesAutoresizingMaskIntoConstraints(false)
-			divider!.backgroundColor = MaterialTheme.blueGrey.color
-			addSubview(divider!)
-			prepareCard()
-		}
-	}
-	
 	/**
 		:name:	titleLabel
 	*/
@@ -66,6 +54,18 @@ public class BasicCard : MaterialCard {
 			detailTextLabel!.numberOfLines = 0
 			detailTextLabel!.lineBreakMode = .ByWordWrapping
 			addSubview(detailTextLabel!)
+			prepareCard()
+		}
+	}
+	
+	/**
+		:name:	divider
+	*/
+	public var divider: UIView? {
+		didSet {
+			divider!.setTranslatesAutoresizingMaskIntoConstraints(false)
+			divider!.backgroundColor = MaterialTheme.blueGrey.color
+			addSubview(divider!)
 			prepareCard()
 		}
 	}
@@ -102,15 +102,15 @@ public class BasicCard : MaterialCard {
 		
 		// title
 		if nil != titleLabel {
-			layoutConstraints += Layout.constraint("H:|-(20)-[titleLabel]-(20)-|", options: nil, metrics: nil, views: ["titleLabel": titleLabel!])
-			verticalFormat += "-(20)-[titleLabel(22)]"
+			layoutConstraints += Layout.constraint("H:|-(16)-[titleLabel]-(16)-|", options: nil, metrics: nil, views: ["titleLabel": titleLabel!])
+			verticalFormat += "-(16)-[titleLabel(22)]"
 			views["titleLabel"] = titleLabel!
 		}
 		
 		// details
 		if nil != detailTextLabel {
-			layoutConstraints += Layout.constraint("H:|-(20)-[detailTextLabel]-(20)-|", options: nil, metrics: nil, views: ["detailTextLabel": detailTextLabel!])
-			verticalFormat += "-(20)-[detailTextLabel]"
+			layoutConstraints += Layout.constraint("H:|-(16)-[detailTextLabel]-(16)-|", options: nil, metrics: nil, views: ["detailTextLabel": detailTextLabel!])
+			verticalFormat += "-(16)-[detailTextLabel]"
 			views["detailTextLabel"] = detailTextLabel!
 		}
 		
@@ -119,7 +119,7 @@ public class BasicCard : MaterialCard {
 			if nil != divider {
 				layoutConstraints += Layout.constraint("H:|[divider]|", options: nil, metrics: nil, views: ["divider": divider!])
 				views["divider"] = divider!
-				verticalFormat += "-(20)-[divider(1)]"
+				verticalFormat += "-(16)-[divider(1)]"
 			}
 			
 			// buttons
@@ -130,14 +130,14 @@ public class BasicCard : MaterialCard {
 				addSubview(button)
 				buttonViews["button\(i)"] = button
 				views["button\(i)"] = button as AnyObject
-				horizontalFormat += "-(10)-[button\(i)]"
-				layoutConstraints += Layout.constraint(verticalFormat + "-(10)-[button\(i)]-(10)-|", options: nil, metrics: nil, views: views)
+				horizontalFormat += "-(8)-[button\(i)]"
+				layoutConstraints += Layout.constraint(verticalFormat + "-(8)-[button\(i)]-(8)-|", options: nil, metrics: nil, views: views)
 			}
 			
 			layoutConstraints += Layout.constraint(horizontalFormat, options: nil, metrics: nil, views: buttonViews)
 			
 		} else {
-			verticalFormat += "-(20)-|"
+			verticalFormat += "-(16)-|"
 		}
 		
 		// combine constraints

@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2015 GraphKit, Inc. <http://graphkit.io> and other GraphKit contributors.
+// Copyright (C) 1615 GraphKit, Inc. <http://graphkit.io> and other GraphKit contributors.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published
@@ -29,6 +29,11 @@ public class ImageCard : MaterialCard {
 	//
 	internal lazy var views: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
 	
+	//
+	//	:name:	detailTextContainer
+	//
+	internal var detailTextContainer: UIView?
+	
 	/**
 		:name:	imageView
 	*/
@@ -39,6 +44,70 @@ public class ImageCard : MaterialCard {
 			imageView!.userInteractionEnabled = false
 			imageView!.clipsToBounds = true
 			insertSubview(imageView!, belowSubview: backgroundColorView)
+			if nil != titleLabel {
+				titleLabel!.removeFromSuperview()
+				imageView!.addSubview(titleLabel!)
+			}
+			prepareCard()
+		}
+	}
+	
+	/**
+		:name:	titleLabel
+	*/
+	public var titleLabel: UILabel? {
+		didSet {
+			titleLabel!.setTranslatesAutoresizingMaskIntoConstraints(false)
+			titleLabel!.textColor = MaterialTheme.white.color
+			titleLabel!.font = Roboto.regularWithSize(22.0)
+			if nil == imageView {
+				addSubview(titleLabel!)
+			} else {
+				imageView!.addSubview(titleLabel!)
+			}
+			prepareCard()
+		}
+	}
+	
+	/**
+		:name:	detailTextLabel
+	*/
+	public var detailTextLabel: UILabel? {
+		didSet {
+			// container
+			detailTextContainer = UIView()
+			detailTextContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
+			detailTextContainer!.backgroundColor = MaterialTheme.white.color
+			addSubview(detailTextContainer!)
+			
+			// text
+			detailTextContainer!.addSubview(detailTextLabel!)
+			detailTextLabel!.setTranslatesAutoresizingMaskIntoConstraints(false)
+			detailTextLabel!.textColor = MaterialTheme.black.color
+			detailTextLabel!.font = Roboto.lightWithSize(16.0)
+			detailTextLabel!.numberOfLines = 0
+			detailTextLabel!.lineBreakMode = .ByWordWrapping
+			prepareCard()
+		}
+	}
+	
+	/**
+		:name:	divider
+	*/
+	public var divider: UIView? {
+		didSet {
+			divider!.setTranslatesAutoresizingMaskIntoConstraints(false)
+			divider!.backgroundColor = MaterialTheme.blueGrey.color
+			addSubview(divider!)
+			prepareCard()
+		}
+	}
+	
+	/**
+		:name:	buttons
+	*/
+	public var buttons: Array<MaterialButton>? {
+		didSet {
 			prepareCard()
 		}
 	}
@@ -66,11 +135,57 @@ public class ImageCard : MaterialCard {
 		
 		if nil != imageView {
 			layoutConstraints += Layout.constraint("H:|[imageView]|", options: nil, metrics: nil, views: ["imageView": imageView!])
-			verticalFormat += "[imageView]"
+			verticalFormat += "[imageView(200)]"
 			views["imageView"] = imageView!
 		}
 		
-		verticalFormat += "|"
+		// title
+		if nil != titleLabel {
+			if nil == imageView {
+				layoutConstraints += Layout.constraint("H:|-(16)-[titleLabel]-(16)-|", options: nil, metrics: nil, views: ["titleLabel": titleLabel!])
+				verticalFormat += "-(16)-[titleLabel(22)]"
+			} else {
+				layoutConstraints += Layout.constraint("H:[titleLabel]-(16)-|", options: nil, metrics: nil, views: ["titleLabel": titleLabel!])
+				Layout.alignFromBottomLeft(imageView!, child: titleLabel!, bottom: 16, left: 16)
+			}
+			views["titleLabel"] = titleLabel!
+		}
+		
+		// details
+		if nil != detailTextContainer && nil != detailTextLabel {
+			layoutConstraints += Layout.constraint("H:|[detailTextContainer]|", options: nil, metrics: nil, views: ["detailTextContainer": detailTextContainer!])
+			verticalFormat += "-(0)-[detailTextContainer]"
+			views["detailTextContainer"] = detailTextContainer!
+			layoutConstraints += Layout.constraint("H:|-(16)-[detailTextLabel]-(16)-|", options: nil, metrics: nil, views: ["detailTextLabel": detailTextLabel!])
+			layoutConstraints += Layout.constraint("V:|-(16)-[detailTextLabel(<=128)]-(16)-|", options: nil, metrics: nil, views: ["detailTextLabel": detailTextLabel!])
+			views["detailTextLabel"] = detailTextLabel!
+		}
+		
+		if nil != buttons {
+			// divider
+			if nil != divider {
+				layoutConstraints += Layout.constraint("H:|[divider]|", options: nil, metrics: nil, views: ["divider": divider!])
+				views["divider"] = divider!
+				verticalFormat += "-(16)-[divider(1)]"
+			}
+			
+			// buttons
+			var horizontalFormat: String = "H:|"
+			var buttonViews: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
+			for var i: Int = 0, l: Int = buttons!.count; i < l; ++i {
+				let button: MaterialButton = buttons![i]
+				addSubview(button)
+				buttonViews["button\(i)"] = button
+				views["button\(i)"] = button as AnyObject
+				horizontalFormat += "-(8)-[button\(i)]"
+				layoutConstraints += Layout.constraint(verticalFormat + "-(8)-[button\(i)]-(8)-|", options: nil, metrics: nil, views: views)
+			}
+			
+			layoutConstraints += Layout.constraint(horizontalFormat, options: nil, metrics: nil, views: buttonViews)
+			
+		} else {
+			verticalFormat += "|"
+		}
 		
 		// combine constraints
 		if 0 < layoutConstraints.count {
