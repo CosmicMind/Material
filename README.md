@@ -1,6 +1,6 @@
-### MaterialKit
+# MaterialKit
 
-# Build Beautiful Software
+### Build Beautiful Software
 
 * [CocoaPods (MK)](https://cocoapods.org/?q=MK)
 
