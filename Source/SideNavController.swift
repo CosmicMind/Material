@@ -1172,32 +1172,28 @@ public class SideNavController: UIViewController, UIGestureRecognizerDelegate {
 	//	:name:	isLeftPointContainedWithinRect
 	//
     private func isLeftPointContainedWithinRect(point: CGPoint) -> Bool {
-        let r = CGRectMake(0.0, 0.0, options.leftBezelWidth, view.bounds.size.height)
-        return CGRectContainsPoint(r, point)
+        return CGRectContainsPoint(CGRectMake(0, 0, options.leftBezelWidth, view.bounds.size.height), point)
     }
     
 	//
 	//	:name:	isRightPointContainedWithinRect
 	//
     private func isRightPointContainedWithinRect(point: CGPoint) -> Bool {
-        let r = CGRectMake(CGRectGetMaxX(view.bounds) - options.rightBezelWidth, 0.0, options.rightBezelWidth, view.bounds.size.height)
-        return CGRectContainsPoint(r, point)
+        return CGRectContainsPoint(CGRectMake(CGRectGetMaxX(view.bounds) - options.rightBezelWidth, 0, options.rightBezelWidth, view.bounds.size.height), point)
     }
     
     //
     //	:name:	isBottomPointContainedWithinRect
     //
     private func isBottomPointContainedWithinRect(point: CGPoint) -> Bool {
-        let r = CGRectMake(0.0, CGRectGetMaxY(view.bounds) - options.bottomBezelHeight, view.bounds.size.width, options.bottomBezelHeight)
-        return CGRectContainsPoint(r, point)
+        return CGRectContainsPoint(CGRectMake(0, CGRectGetMaxY(view.bounds) - options.bottomBezelHeight, view.bounds.size.width, options.bottomBezelHeight), point)
     }
     
     //
     //	:name:	isTopPointContainedWithinRect
     //
     private func isTopPointContainedWithinRect(point: CGPoint) -> Bool {
-        let r = CGRectMake(0.0, 0.0, view.bounds.size.width, options.topBezelHeight)
-        return CGRectContainsPoint(r, point)
+        return CGRectContainsPoint(CGRectMake(0, 0, view.bounds.size.width, options.topBezelHeight), point)
     }
 	
 	//
