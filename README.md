@@ -86,6 +86,20 @@ card.buttons = [cancelButton, okButton]
 view.addSubview(card)
 ```
 
+### Image Card
+
+Add photos with an ImageCard.
+
+![MaterialKitPreview](http://www.materialkit.io/imagecardpreview.gif)
+
+```swift
+var card: ImageCard = ImageCard()
+card.imageView = UIImageView(image: UIImage(named: "photo.jpg"))
+view.addSubview(card)
+
+Layout.size(view, child: card, width: 300, height: 175)
+```
+
 ### Side Navigation
 
 Add a sleek Side Navigation to give your users a wonderful experience.

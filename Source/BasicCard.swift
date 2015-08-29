@@ -84,6 +84,7 @@ public class BasicCard : MaterialCard {
 	//
 	internal override func prepareView() {
 		super.prepareView()
+		prepareShadow()
 		backgroundColor = MaterialTheme.blueGrey.darken1
 	}
 	
@@ -92,8 +93,6 @@ public class BasicCard : MaterialCard {
 	//
 	internal override func prepareCard() {
 		super.prepareCard()
-		prepareShadow()
-		
 		// deactivate and clear all constraints
 		NSLayoutConstraint.deactivateConstraints(layoutConstraints)
 		layoutConstraints.removeAll(keepCapacity: false)
