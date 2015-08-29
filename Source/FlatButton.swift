@@ -24,9 +24,9 @@ public class FlatButton : MaterialButton {
 	//
 	internal override func prepareButton() {
 		super.prepareButton()
-		setTitleColor(UIColor.purpleColor(), forState: .Normal)
-		pulseColor = MaterialTheme.purple.darken1
-		backgroundColor = .clearColor()
+		setTitleColor(MaterialTheme.indigo.darken1, forState: .Normal)
+		pulseColor = MaterialTheme.indigo.darken1
+		backgroundColor = MaterialTheme.clear.color
 		backgroundColorView.layer.cornerRadius = 3
 	}
 	

@@ -19,6 +19,11 @@
 import UIKit
 
 public struct MaterialTheme {
+	// clear
+	public struct clear {
+		public static let color: UIColor = UIColor.clearColor()
+	}
+	
 	// white
 	public struct white {
 		public static let color: UIColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)

@@ -25,8 +25,8 @@ public class RaisedButton : MaterialButton {
 	internal override func prepareButton() {
 		super.prepareButton()
 		prepareShadow()
-		setTitleColor(UIColor.whiteColor(), forState: .Normal)
-		backgroundColor = MaterialTheme.purple.darken1
+		setTitleColor(MaterialTheme.white.color, forState: .Normal)
+		backgroundColor = MaterialTheme.indigo.darken1
 		backgroundColorView.layer.cornerRadius = 3
 	}
 	

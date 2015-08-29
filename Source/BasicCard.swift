@@ -34,13 +34,12 @@ public class BasicCard : MaterialCard {
         prepareDetailTextLabel()
         prepareHorizontalSeparator()
         prepareButtons()
-//		super.constrainSubviews()
-//		addConstraints(Layout.constraint("H:|-(20)-[titleLabel]-(20)-|", options: nil, metrics: nil, views: views))
-//		addConstraints(Layout.constraint("H:|-(20)-[detailTextLabel]-(20)-|", options: nil, metrics: nil, views: views))
-//		addConstraints(Layout.constraint("H:|[horizontalSeparator]|", options: nil, metrics: nil, views: views))
-//		addConstraints(Layout.constraint("H:|-(10)-[cancelButton(80)]-(10)-[otherButton(80)]", options: nil, metrics: nil, views: views))
-//		addConstraints(Layout.constraint("V:|-(20)-[titleLabel(22)]-(10)-[detailTextLabel]-(20)-[horizontalSeparator(1)]-(10)-[cancelButton]-(10)-|", options: nil, metrics: nil, views: views))
-//		addConstraints(Layout.constraint("V:|-(20)-[titleLabel(22)]-(10)-[detailTextLabel]-(20)-[horizontalSeparator(1)]-(10)-[otherButton]-(10)-|", options: nil, metrics: nil, views: views))
+		addConstraints(Layout.constraint("H:|-(20)-[titleLabel]-(20)-|", options: nil, metrics: nil, views: ["titleLabel": titleLabel]))
+		addConstraints(Layout.constraint("H:|-(20)-[detailTextLabel]-(20)-|", options: nil, metrics: nil, views: ["detailTextLabel": detailTextLabel]))
+		addConstraints(Layout.constraint("H:|[horizontalSeparator]|", options: nil, metrics: nil, views: ["horizontalSeparator": horizontalSeparator]))
+		addConstraints(Layout.constraint("H:|-(10)-[cancelButton(80)]-(10)-[otherButton(80)]", options: nil, metrics: nil, views: ["cancelButton": cancelButton, "otherButton": otherButton]))
+		addConstraints(Layout.constraint("V:|-(20)-[titleLabel(22)]-(10)-[detailTextLabel]-(20)-[horizontalSeparator(1)]-(10)-[cancelButton]-(10)-|", options: nil, metrics: nil, views: ["titleLabel": titleLabel, "detailTextLabel": detailTextLabel, "horizontalSeparator": horizontalSeparator, "cancelButton": cancelButton, "otherButton": otherButton]))
+		addConstraints(Layout.constraint("V:|-(20)-[titleLabel(22)]-(10)-[detailTextLabel]-(20)-[horizontalSeparator(1)]-(10)-[otherButton]-(10)-|", options: nil, metrics: nil, views: ["titleLabel": titleLabel, "detailTextLabel": detailTextLabel, "horizontalSeparator": horizontalSeparator, "otherButton": otherButton]))
 	}
 	
     private func prepareTitleLabel() {
@@ -49,7 +48,6 @@ public class BasicCard : MaterialCard {
         titleLabel.textColor = UIColor.whiteColor()
         titleLabel.text = "Card Title"
         addSubview(titleLabel)
-        views["titleLabel"] = titleLabel
     }
     
     private func prepareDetailTextLabel() {
@@ -60,7 +58,6 @@ public class BasicCard : MaterialCard {
         detailTextLabel.numberOfLines = 0
         detailTextLabel.lineBreakMode = NSLineBreakMode.ByWordWrapping
         addSubview(detailTextLabel)
-        views["detailTextLabel"] = detailTextLabel
     }
     
     private func prepareHorizontalSeparator() {
@@ -68,7 +65,6 @@ public class BasicCard : MaterialCard {
         horizontalSeparator.backgroundColor = UIColor.whiteColor()
         horizontalSeparator.alpha = 0.2
         addSubview(horizontalSeparator)
-        views["horizontalSeparator"] = horizontalSeparator
     }
     
     private func prepareButtons() {
@@ -82,7 +78,6 @@ public class BasicCard : MaterialCard {
         cancelButton.setTitleColor(buttonColor, forState: .Normal)
         cancelButton.pulseColor = buttonColor
         addSubview(cancelButton)
-        views["cancelButton"] = cancelButton
     }
     
     private func prepareOtherButton() {
@@ -91,6 +86,5 @@ public class BasicCard : MaterialCard {
 		otherButton.setTitleColor(buttonColor, forState: .Normal)
         otherButton.pulseColor = buttonColor
         addSubview(otherButton)
-        views["otherButton"] = otherButton
     }
 }
