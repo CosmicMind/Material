@@ -33,7 +33,8 @@ public class BasicCard : MaterialCard {
 		prepareTitleLabel()
         prepareDetailTextLabel()
         prepareHorizontalSeparator()
-        prepareButtons()
+		prepareCancelButton()
+		prepareOtherButton()
 		addConstraints(Layout.constraint("H:|-(20)-[titleLabel]-(20)-|", options: nil, metrics: nil, views: ["titleLabel": titleLabel]))
 		addConstraints(Layout.constraint("H:|-(20)-[detailTextLabel]-(20)-|", options: nil, metrics: nil, views: ["detailTextLabel": detailTextLabel]))
 		addConstraints(Layout.constraint("H:|[horizontalSeparator]|", options: nil, metrics: nil, views: ["horizontalSeparator": horizontalSeparator]))
@@ -66,12 +67,7 @@ public class BasicCard : MaterialCard {
         horizontalSeparator.alpha = 0.2
         addSubview(horizontalSeparator)
     }
-    
-    private func prepareButtons() {
-        prepareCancelButton()
-        prepareOtherButton()
-    }
-    
+	
     private func prepareCancelButton() {
 		cancelButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         cancelButton.setTitle("Cancel", forState: .Normal)

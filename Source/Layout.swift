@@ -55,6 +55,15 @@ public struct Layout {
 	}
 	
 	/**
+		:name:	expandToParentSizeWithPad
+	*/
+	public static func expandToParentSizeWithPad(parent: UIView, child: UIView, left: CGFloat, bottom: CGFloat, right: CGFloat, top: CGFloat) {
+		let views: Dictionary<String, AnyObject> = ["child" : child]
+		parent.addConstraints(constraint("H:|-(left)-[child]-(right)-|", options: nil, metrics: ["left": left, "right": right], views: views))
+		parent.addConstraints(constraint("V:|-(top)-[child]-(bottom)-|", options: nil, metrics: ["bottom": bottom, "top": top], views: views))
+	}
+	
+	/**
 		:name:	alignFromTopLeft
 	*/
 	public static func alignFromTopLeft(parent: UIView, child: UIView, top: CGFloat, left: CGFloat) {

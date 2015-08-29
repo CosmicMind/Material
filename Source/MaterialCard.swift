@@ -136,8 +136,8 @@ public class MaterialCard : UIView {
 		pulseView!.backgroundColor = pulseColor.colorWithAlphaComponent(0.5)
 		backgroundColorView.addSubview(pulseView!)
         UIView.animateWithDuration(0.3, animations: {
-            self.pulseView!.transform = CGAffineTransformMakeScale(3, 3)
-            self.transform = CGAffineTransformMakeScale(15, 15)
+			self.pulseView!.transform = CGAffineTransformMakeScale(3, 3)
+			self.transform = CGAffineTransformMakeScale(1.05, 1.05)
         }, completion: nil)
     }
 	
@@ -165,7 +165,6 @@ public class MaterialCard : UIView {
 		backgroundColorView.setTranslatesAutoresizingMaskIntoConstraints(false)
 		backgroundColorView.layer.cornerRadius = 2
 		backgroundColorView.layer.masksToBounds = true
-		backgroundColorView.clipsToBounds = true
 		backgroundColorView.userInteractionEnabled = false
 		insertSubview(backgroundColorView, atIndex: 0)
 		Layout.expandToParentSize(self, child: backgroundColorView)
