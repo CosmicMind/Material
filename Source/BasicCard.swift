@@ -19,7 +19,7 @@
 import UIKit
 import QuartzCore
 
-public class BasicCard : MaterialPulseView {
+public class BasicCard : MaterialCard {
     public lazy var cancelButton: FlatButton = FlatButton()
     public lazy var otherButton: FlatButton = FlatButton()
 	public lazy var buttonColor: UIColor = UIColor(red: 255.0/255.0, green: 156.0/255.0, blue: 38.0/255.0, alpha: 1.0)
@@ -27,30 +27,20 @@ public class BasicCard : MaterialPulseView {
     public lazy var detailTextLabel: UILabel = UILabel()
     public lazy var horizontalSeparator: UIView = UIView()
     
-    public required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
-    public required init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    internal override func initialize() {
-        prepareTitleLabel()
+	internal override func prepareCard() {
+		super.prepareCard()
+		prepareShadow()
+		prepareTitleLabel()
         prepareDetailTextLabel()
         prepareHorizontalSeparator()
         prepareButtons()
-        super.initialize()
-    }
-	
-	internal override func constrainSubviews() {
-		super.constrainSubviews()
-		addConstraints(Layout.constraint("H:|-(20)-[titleLabel]-(20)-|", options: nil, metrics: nil, views: views))
-		addConstraints(Layout.constraint("H:|-(20)-[detailTextLabel]-(20)-|", options: nil, metrics: nil, views: views))
-		addConstraints(Layout.constraint("H:|[horizontalSeparator]|", options: nil, metrics: nil, views: views))
-		addConstraints(Layout.constraint("H:|-(10)-[cancelButton(80)]-(10)-[otherButton(80)]", options: nil, metrics: nil, views: views))
-		addConstraints(Layout.constraint("V:|-(20)-[titleLabel(22)]-(10)-[detailTextLabel]-(20)-[horizontalSeparator(1)]-(10)-[cancelButton]-(10)-|", options: nil, metrics: nil, views: views))
-		addConstraints(Layout.constraint("V:|-(20)-[titleLabel(22)]-(10)-[detailTextLabel]-(20)-[horizontalSeparator(1)]-(10)-[otherButton]-(10)-|", options: nil, metrics: nil, views: views))
+//		super.constrainSubviews()
+//		addConstraints(Layout.constraint("H:|-(20)-[titleLabel]-(20)-|", options: nil, metrics: nil, views: views))
+//		addConstraints(Layout.constraint("H:|-(20)-[detailTextLabel]-(20)-|", options: nil, metrics: nil, views: views))
+//		addConstraints(Layout.constraint("H:|[horizontalSeparator]|", options: nil, metrics: nil, views: views))
+//		addConstraints(Layout.constraint("H:|-(10)-[cancelButton(80)]-(10)-[otherButton(80)]", options: nil, metrics: nil, views: views))
+//		addConstraints(Layout.constraint("V:|-(20)-[titleLabel(22)]-(10)-[detailTextLabel]-(20)-[horizontalSeparator(1)]-(10)-[cancelButton]-(10)-|", options: nil, metrics: nil, views: views))
+//		addConstraints(Layout.constraint("V:|-(20)-[titleLabel(22)]-(10)-[detailTextLabel]-(20)-[horizontalSeparator(1)]-(10)-[otherButton]-(10)-|", options: nil, metrics: nil, views: views))
 	}
 	
     private func prepareTitleLabel() {

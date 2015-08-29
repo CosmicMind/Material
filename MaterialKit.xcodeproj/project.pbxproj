@@ -34,7 +34,6 @@
 		963832851B89070E0015F710 /* CapturePreview.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9638325F1B88E5BF0015F710 /* CapturePreview.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		963832881B8908180015F710 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963832871B8908180015F710 /* Layout.swift */; };
 		963832891B89097D0015F710 /* Layout.swift in Headers */ = {isa = PBXBuildFile; fileRef = 963832871B8908180015F710 /* Layout.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		96B57D4B1B90A88F00DE7BBB /* AddFabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B57D4A1B90A88F00DE7BBB /* AddFabButton.swift */; };
 		96B57D4E1B90AF7D00DE7BBB /* MaterialTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B57D4D1B90AF7D00DE7BBB /* MaterialTheme.swift */; };
 		9A3A3B6A1B8E992F005F16BC /* ImageTextCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3A3B691B8E992F005F16BC /* ImageTextCard.swift */; };
 		9A3A3B6E1B8EA7A5005F16BC /* ImageTextButtonCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3A3B6D1B8EA7A5005F16BC /* ImageTextButtonCard.swift */; };
@@ -79,7 +78,6 @@
 		963832671B88E5BF0015F710 /* TextStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextStorage.swift; sourceTree = "<group>"; };
 		963832681B88E5BF0015F710 /* TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		963832871B8908180015F710 /* Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
-		96B57D4A1B90A88F00DE7BBB /* AddFabButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFabButton.swift; sourceTree = "<group>"; };
 		96B57D4D1B90AF7D00DE7BBB /* MaterialTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialTheme.swift; sourceTree = "<group>"; };
 		9A3A3B691B8E992F005F16BC /* ImageTextCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTextCard.swift; sourceTree = "<group>"; };
 		9A3A3B6D1B8EA7A5005F16BC /* ImageTextButtonCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTextButtonCard.swift; sourceTree = "<group>"; };
@@ -204,7 +202,6 @@
 				963832601B88E5BF0015F710 /* FabButton.swift */,
 				963832611B88E5BF0015F710 /* FlatButton.swift */,
 				963832651B88E5BF0015F710 /* RaisedButton.swift */,
-				96B57D4A1B90A88F00DE7BBB /* AddFabButton.swift */,
 			);
 			name = Button;
 			sourceTree = "<group>";
@@ -399,7 +396,6 @@
 				9A3A3B6E1B8EA7A5005F16BC /* ImageTextButtonCard.swift in Sources */,
 				9AAC38541B89559900FE6B2D /* Roboto.swift in Sources */,
 				65B9657E1B8A7C330055B139 /* MaterialButton.swift in Sources */,
-				96B57D4B1B90A88F00DE7BBB /* AddFabButton.swift in Sources */,
 				963832881B8908180015F710 /* Layout.swift in Sources */,
 				9AAC384D1B89528900FE6B2D /* BasicCard.swift in Sources */,
 				963832731B88E5BF0015F710 /* TextView.swift in Sources */,
