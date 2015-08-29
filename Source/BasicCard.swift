@@ -31,9 +31,16 @@ public class BasicCard : MaterialCard {
 	internal lazy var views: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
 	
 	//
-	//	:name:	horizontalSeparator
+	//	:name:	divider
 	//
-	public lazy var horizontalSeparator: UIView = UIView()
+	public var divider: UIView? {
+		didSet {
+			divider!.setTranslatesAutoresizingMaskIntoConstraints(false)
+			divider!.backgroundColor = MaterialTheme.indigo.lighten1
+			addSubview(divider!)
+			prepareCard()
+		}
+	}
 	
 	/**
 		:name:	titleLabel
@@ -73,6 +80,14 @@ public class BasicCard : MaterialCard {
 	}
 	
 	//
+	//	:name:	prepareView
+	//
+	internal override func prepareView() {
+		super.prepareView()
+		backgroundColor = MaterialTheme.blueGrey.darken1
+	}
+	
+	//
 	//	:name:	prepareCard
 	//
 	internal override func prepareCard() {
@@ -101,6 +116,13 @@ public class BasicCard : MaterialCard {
 		}
 		
 		if nil != buttons {
+			// divider
+			if nil != divider {
+//				layoutConstraints += Layout.constraint("H:|-(0)-[divider(2)]-(0)-|", options: nil, metrics: nil, views: ["divider": divider!])
+//				views["divider"] = divider!
+//				verticalFormat += "-(10)-[divider]"
+			}
+			// buttons
 			var horizontalFormat: String = "H:|"
 			var buttonViews: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
 			for var i: Int = 0, l: Int = buttons!.count; i < l; ++i {
@@ -108,21 +130,15 @@ public class BasicCard : MaterialCard {
 				addSubview(button)
 				buttonViews["button\(i)"] = button
 				views["button\(i)"] = button as AnyObject
-				horizontalFormat += "-(20)-[button\(i)]"
-				verticalFormat += "-(20)-[button\(i)]"
+				horizontalFormat += "-(10)-[button\(i)]"
+				layoutConstraints += Layout.constraint(verticalFormat + "-(5)-[button\(i)]-(10)-|", options: nil, metrics: nil, views: views)
 			}
 			layoutConstraints += Layout.constraint(horizontalFormat, options: nil, metrics: nil, views: buttonViews)
+		} else {
+			verticalFormat += "-(10)-|"
 		}
 		
-//		addConstraints(Layout.constraint("H:|-(20)-[detailTextLabel]-(20)-|", options: nil, metrics: nil, views: ["detailTextLabel": detailTextLabel]))
-//		addConstraints(Layout.constraint("H:|[horizontalSeparator]|", options: nil, metrics: nil, views: ["horizontalSeparator": horizontalSeparator]))
-//		addConstraints(Layout.constraint("H:|-(10)-[cancelButton(80)]-(10)-[otherButton(80)]", options: nil, metrics: nil, views: ["cancelButton": cancelButton, "otherButton": otherButton]))
-//		addConstraints(Layout.constraint("V:|-(20)-[titleLabel(22)]-(10)-[detailTextLabel]-(20)-[horizontalSeparator(1)]-(10)-[cancelButton]-(10)-|", options: nil, metrics: nil, views: ["titleLabel": titleLabel, "detailTextLabel": detailTextLabel, "horizontalSeparator": horizontalSeparator, "cancelButton": cancelButton, "otherButton": otherButton]))
-//		addConstraints(Layout.constraint("V:|-(20)-[titleLabel(22)]-(10)-[detailTextLabel]-(20)-[horizontalSeparator(1)]-(10)-[otherButton]-(10)-|", options: nil, metrics: nil, views: ["titleLabel": titleLabel, "detailTextLabel": detailTextLabel, "horizontalSeparator": horizontalSeparator, "otherButton": otherButton]))
-		
-		
 		if 0 < layoutConstraints.count {
-			verticalFormat += "-(20)-|"
 			layoutConstraints += Layout.constraint(verticalFormat, options: nil, metrics: nil, views: views)
 			NSLayoutConstraint.activateConstraints(layoutConstraints)
 		}

@@ -164,7 +164,6 @@ public class MaterialCard : UIView {
 	// We need this view so we can use the masksToBounds
 	// so the pulse doesn't animate off the button
 	private func prepareBackgroundColorView() {
-		backgroundColor = MaterialTheme.blueGrey.color
 		backgroundColorView.setTranslatesAutoresizingMaskIntoConstraints(false)
 		backgroundColorView.layer.cornerRadius = 2
 		backgroundColorView.layer.masksToBounds = true
