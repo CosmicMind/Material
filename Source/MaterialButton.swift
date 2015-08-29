@@ -112,7 +112,7 @@ public class MaterialButton : UIButton {
 	//	:name:	prepareButton
 	//
 	internal func prepareButton() {
-		Layout.expandToParentSize(self, child: backgroundColorView)
+		prepareBackgroundColorView()
 	}
 	
 	//
@@ -173,6 +173,7 @@ public class MaterialButton : UIButton {
 		backgroundColorView.clipsToBounds = true
 		backgroundColorView.userInteractionEnabled = false
 		insertSubview(backgroundColorView, atIndex: 0)
+		Layout.expandToParentSize(self, child: backgroundColorView)
 	}
 	
 	//

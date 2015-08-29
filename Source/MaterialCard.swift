@@ -71,7 +71,6 @@ public class MaterialCard : UIView {
 	//
 	private func prepareView() {
 		setTranslatesAutoresizingMaskIntoConstraints(false)
-		prepareBackgroundColorView()
 		prepareCard()
 	}
 	
@@ -104,7 +103,9 @@ public class MaterialCard : UIView {
 	//
 	//	:name:	prepareCard
 	//
-	internal func prepareCard() {}
+	internal func prepareCard() {
+		prepareBackgroundColorView()
+	}
 	
 	//
 	//	:name:	prepareShadow
