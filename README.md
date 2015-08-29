@@ -47,7 +47,6 @@ var button: RaisedButton = RaisedButton()
 button.setTitle("Flat", forState: .Normal)
 view.addSubview(button)
 
-Layout.alignFromTopRight(view, child: button, top: 100, right: 100)
 Layout.size(view, child: button, width: 200, height: 60)
 ```
 
