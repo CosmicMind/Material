@@ -12,7 +12,7 @@ MaterialKit is now on CocoaPods under the name [MK](https://cocoapods.org/?q=MK)
 
 Easily make cards with fully customizable components.
 
-![MaterialKitPreview](http://sandbox.local:3000/basiccardpreview.gif)
+![MaterialKitPreview](http://www.materialkit.io/basiccardpreview.gif)
 
 ```swift
 var card: BasicCard = BasicCard()
