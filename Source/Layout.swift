@@ -46,6 +46,15 @@ public struct Layout {
 	}
 	
 	/**
+		:name:	expandToParentSize
+	*/
+	public static func expandToParentSize(parent: UIView, child: UIView) {
+		let views: Dictionary<String, AnyObject> = ["child" : child]
+		parent.addConstraints(constraint("H:|[child]|", options: nil, metrics: nil, views: views))
+		parent.addConstraints(constraint("V:|[child]|", options: nil, metrics: nil, views: views))
+	}
+	
+	/**
 		:name:	alignFromTopLeft
 	*/
 	public static func alignFromTopLeft(parent: UIView, child: UIView, top: CGFloat, left: CGFloat) {

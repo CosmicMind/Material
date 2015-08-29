@@ -67,7 +67,7 @@ public protocol SideNavDelegate {
 }
 
 @objc(SideNavController)
-public class SideNavController: MaterialViewController, UIGestureRecognizerDelegate {
+public class SideNavController: UIViewController, UIGestureRecognizerDelegate {
 	/**
 		:name:	options
 	*/
@@ -1014,9 +1014,10 @@ public class SideNavController: MaterialViewController, UIGestureRecognizerDeleg
 	private func prepareContainedViewController(inout viewContainer: UIView?, inout viewController: UIViewController?) {
 		if let vc = viewController {
 			if let c = viewContainer {
+				vc.view.setTranslatesAutoresizingMaskIntoConstraints(false)
 				addChildViewController(vc)
-				vc.view.frame = c.bounds
 				c.addSubview(vc.view)
+				Layout.expandToParentSize(c, child: vc.view)
 				vc.didMoveToParentViewController(self)
 			}
 		}

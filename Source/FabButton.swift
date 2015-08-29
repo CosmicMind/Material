@@ -26,8 +26,7 @@ public class FabButton : MaterialButton {
 		super.prepareButton()
 		prepareShadow()
 		backgroundColor = MaterialTheme.red.darken1
-        pulseColor = MaterialTheme.white.color
-		backgroundColorView.layer.cornerRadius = bounds.width / 2
+        backgroundColorView.layer.cornerRadius = bounds.width / 2
     }
 	
 	//

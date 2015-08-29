@@ -26,7 +26,6 @@ public class RaisedButton : MaterialButton {
 		super.prepareButton()
 		prepareShadow()
 		setTitleColor(UIColor.whiteColor(), forState: .Normal)
-		pulseColor = MaterialTheme.white.color
 		backgroundColor = MaterialTheme.purple.darken1
 		backgroundColorView.layer.cornerRadius = 3
 	}
