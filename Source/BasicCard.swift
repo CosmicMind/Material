@@ -19,88 +19,132 @@
 import UIKit
 import QuartzCore
 
-public class BasicCard : MaterialPulseView {
-    public lazy var cancelButton: FlatButton = FlatButton()
-    public lazy var otherButton: FlatButton = FlatButton()
-	public lazy var buttonColor: UIColor = UIColor(red: 255.0/255.0, green: 156.0/255.0, blue: 38.0/255.0, alpha: 1.0)
-    public lazy var titleLabel: UILabel = UILabel()
-    public lazy var detailTextLabel: UILabel = UILabel()
-    public lazy var horizontalSeparator: UIView = UIView()
-    
-    public required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
-    public required init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    internal override func initialize() {
-        setupTitleLabel()
-        setupDetailTextLabel()
-        setupHorizontalLineSeparator()
-        setupButtons()
-        super.initialize()
-    }
+public class BasicCard : MaterialCard {
+	//
+	//	:name:	layoutConstraints
+	//
+	internal lazy var layoutConstraints: Array<NSLayoutConstraint> = Array<NSLayoutConstraint>()
 	
-	internal override func constrainSubviews() {
-		super.constrainSubviews()
-		addConstraints(Layout.constraint("H:|-(20)-[titleLabel]-(20)-|", options: nil, metrics: nil, views: views))
-		addConstraints(Layout.constraint("H:|-(20)-[detailTextLabel]-(20)-|", options: nil, metrics: nil, views: views))
-		addConstraints(Layout.constraint("H:|[horizontalSeparator]|", options: nil, metrics: nil, views: views))
-		addConstraints(Layout.constraint("H:|-(10)-[cancelButton(80)]-(10)-[otherButton(80)]", options: nil, metrics: nil, views: views))
-		addConstraints(Layout.constraint("V:|-(20)-[titleLabel(22)]-(10)-[detailTextLabel]-(20)-[line(1)]-(10)-[cancelButton]-(10)-|", options: nil, metrics: nil, views: views))
-		addConstraints(Layout.constraint("V:|-(20)-[titleLabel(22)]-(10)-[detailTextLabel]-(20)-[line(1)]-(10)-[otherButton]-(10)-|", options: nil, metrics: nil, views: views))
+	//
+	//	:name:	views
+	//
+	internal lazy var views: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
+	
+	//
+	//	:name:	divider
+	//
+	public var divider: UIView? {
+		didSet {
+			divider!.setTranslatesAutoresizingMaskIntoConstraints(false)
+			divider!.backgroundColor = MaterialTheme.blueGrey.color
+			addSubview(divider!)
+			prepareCard()
+		}
 	}
 	
-    private func setupTitleLabel() {
-        titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        titleLabel.font = Roboto.regularWithSize(22.0)
-        titleLabel.textColor = UIColor.whiteColor()
-        titleLabel.text = "Card Title"
-        addSubview(titleLabel)
-        views["titleLabel"] = titleLabel
-    }
-    
-    private func setupDetailTextLabel() {
-        detailTextLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        detailTextLabel.font = Roboto.lightWithSize(16.0)
-        detailTextLabel.textColor = UIColor.whiteColor()
-        detailTextLabel.text = "I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively."
-        detailTextLabel.numberOfLines = 0
-        detailTextLabel.lineBreakMode = NSLineBreakMode.ByWordWrapping
-        addSubview(detailTextLabel)
-        views["detailTextLabel"] = detailTextLabel
-    }
-    
-    private func setupHorizontalLineSeparator() {
-        horizontalSeparator.setTranslatesAutoresizingMaskIntoConstraints(false)
-        horizontalSeparator.backgroundColor = UIColor.whiteColor()
-        horizontalSeparator.alpha = 0.2
-        addSubview(horizontalSeparator)
-        views["horizontalSeparator"] = horizontalSeparator
-    }
-    
-    private func setupButtons() {
-        setupCancelButton()
-        setupOtherButton()
-    }
-    
-    private func setupCancelButton() {
-		cancelButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        cancelButton.setTitle("Cancel", forState: .Normal)
-        cancelButton.setTitleColor(buttonColor, forState: .Normal)
-        cancelButton.pulseColor = buttonColor
-        addSubview(cancelButton)
-        views["cancelButton"] = cancelButton
-    }
-    
-    private func setupOtherButton() {
-		otherButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        otherButton.setTitle("Confirm", forState: .Normal)
-		otherButton.setTitleColor(buttonColor, forState: .Normal)
-        otherButton.pulseColor = buttonColor
-        addSubview(otherButton)
-        views["otherButton"] = otherButton
-    }
+	/**
+		:name:	titleLabel
+	*/
+	public var titleLabel: UILabel? {
+		didSet {
+			titleLabel!.setTranslatesAutoresizingMaskIntoConstraints(false)
+			titleLabel!.textColor = MaterialTheme.white.color
+			titleLabel!.font = Roboto.regularWithSize(22.0)
+			addSubview(titleLabel!)
+			prepareCard()
+		}
+	}
+	
+	/**
+		:name:	detailTextLabel
+	*/
+	public var detailTextLabel: UILabel? {
+		didSet {
+			detailTextLabel!.setTranslatesAutoresizingMaskIntoConstraints(false)
+			detailTextLabel!.textColor = MaterialTheme.white.color
+			detailTextLabel!.font = Roboto.lightWithSize(16.0)
+			detailTextLabel!.numberOfLines = 0
+			detailTextLabel!.lineBreakMode = .ByWordWrapping
+			addSubview(detailTextLabel!)
+			prepareCard()
+		}
+	}
+	
+	/**
+		:name:	buttons
+	*/
+	public var buttons: Array<MaterialButton>? {
+		didSet {
+			prepareCard()
+		}
+	}
+	
+	//
+	//	:name:	prepareView
+	//
+	internal override func prepareView() {
+		super.prepareView()
+		backgroundColor = MaterialTheme.blueGrey.darken1
+	}
+	
+	//
+	//	:name:	prepareCard
+	//
+	internal override func prepareCard() {
+		super.prepareCard()
+		prepareShadow()
+		
+		// deactivate and clear all constraints
+		NSLayoutConstraint.deactivateConstraints(layoutConstraints)
+		layoutConstraints.removeAll(keepCapacity: false)
+		
+		// detect all components and create constraints
+		var verticalFormat: String = "V:|"
+		
+		// title
+		if nil != titleLabel {
+			layoutConstraints += Layout.constraint("H:|-(20)-[titleLabel]-(20)-|", options: nil, metrics: nil, views: ["titleLabel": titleLabel!])
+			verticalFormat += "-(20)-[titleLabel(22)]"
+			views["titleLabel"] = titleLabel!
+		}
+		
+		// details
+		if nil != detailTextLabel {
+			layoutConstraints += Layout.constraint("H:|-(20)-[detailTextLabel]-(20)-|", options: nil, metrics: nil, views: ["detailTextLabel": detailTextLabel!])
+			verticalFormat += "-(20)-[detailTextLabel]"
+			views["detailTextLabel"] = detailTextLabel!
+		}
+		
+		if nil != buttons {
+			// divider
+			if nil != divider {
+				layoutConstraints += Layout.constraint("H:|[divider]|", options: nil, metrics: nil, views: ["divider": divider!])
+				views["divider"] = divider!
+				verticalFormat += "-(20)-[divider(1)]"
+			}
+			
+			// buttons
+			var horizontalFormat: String = "H:|"
+			var buttonViews: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
+			for var i: Int = 0, l: Int = buttons!.count; i < l; ++i {
+				let button: MaterialButton = buttons![i]
+				addSubview(button)
+				buttonViews["button\(i)"] = button
+				views["button\(i)"] = button as AnyObject
+				horizontalFormat += "-(10)-[button\(i)]"
+				layoutConstraints += Layout.constraint(verticalFormat + "-(10)-[button\(i)]-(10)-|", options: nil, metrics: nil, views: views)
+			}
+			
+			layoutConstraints += Layout.constraint(horizontalFormat, options: nil, metrics: nil, views: buttonViews)
+			
+		} else {
+			verticalFormat += "-(20)-|"
+		}
+		
+		// combine constraints
+		if 0 < layoutConstraints.count {
+			layoutConstraints += Layout.constraint(verticalFormat, options: nil, metrics: nil, views: views)
+			NSLayoutConstraint.activateConstraints(layoutConstraints)
+		}
+	}
 }

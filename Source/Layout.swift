@@ -46,6 +46,24 @@ public struct Layout {
 	}
 	
 	/**
+		:name:	expandToParentSize
+	*/
+	public static func expandToParentSize(parent: UIView, child: UIView) {
+		let views: Dictionary<String, AnyObject> = ["child" : child]
+		parent.addConstraints(constraint("H:|[child]|", options: nil, metrics: nil, views: views))
+		parent.addConstraints(constraint("V:|[child]|", options: nil, metrics: nil, views: views))
+	}
+	
+	/**
+		:name:	expandToParentSizeWithPad
+	*/
+	public static func expandToParentSizeWithPad(parent: UIView, child: UIView, left: CGFloat, bottom: CGFloat, right: CGFloat, top: CGFloat) {
+		let views: Dictionary<String, AnyObject> = ["child" : child]
+		parent.addConstraints(constraint("H:|-(left)-[child]-(right)-|", options: nil, metrics: ["left": left, "right": right], views: views))
+		parent.addConstraints(constraint("V:|-(top)-[child]-(bottom)-|", options: nil, metrics: ["bottom": bottom, "top": top], views: views))
+	}
+	
+	/**
 		:name:	alignFromTopLeft
 	*/
 	public static func alignFromTopLeft(parent: UIView, child: UIView, top: CGFloat, left: CGFloat) {
@@ -84,11 +102,23 @@ public struct Layout {
 		parent.addConstraints(constraint("H:[child]-(right)-|", options: nil, metrics: metrics, views: views))
 		parent.addConstraints(constraint("V:[child]-(bottom)-|", options: nil, metrics: metrics, views: views))
 	}
-	
+    
+    /**
+    :name:	alignAllSides
+    */
+    public static func alignAllSides(parent: UIView, child: UIView) {
+        let views: Dictionary<String, AnyObject> = ["child" : child]
+        parent.addConstraints(constraint("H:|[child]|", options: nil, metrics: nil, views: views))
+        parent.addConstraints(constraint("V:|[child]|", options: nil, metrics: nil, views: views))
+    }
+    
 	/**
 		:name:	constraint
 	*/
 	public static func constraint(format: String, options: NSLayoutFormatOptions, metrics: Dictionary<String, AnyObject>?, views: Dictionary<String, AnyObject>) -> Array<NSLayoutConstraint> {
+		for (_, v) in views {
+			v.setTranslatesAutoresizingMaskIntoConstraints(false)
+		}
 		return NSLayoutConstraint.constraintsWithVisualFormat(
 			format,
 			options: options,
