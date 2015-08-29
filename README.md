@@ -86,7 +86,7 @@ card.buttons = [cancelButton, okButton]
 view.addSubview(card)
 ```
 
-### Side Navigation Controller
+### Side Navigation
 
 Add a sleek Side Navigation to give your users a wonderful experience.
 
@@ -103,6 +103,20 @@ func application(application: UIApplication, didFinishLaunchingWithOptions launc
 }
 ```
 
+### Material Themes
+
+Beautify your app with color. All Material Design color palettes are supported.
+
+[Color Palette](http://www.google.com/design/spec/style/color.html)
+
+```swift
+var button: RaisedButton = RaisedButton()
+button.setTitle("Raised", forState: .Normal)
+button.setTitleColor(MaterialTheme.blue.darken3, forState: .Normal)
+button.backgroundColor = MaterialTheme.yellow.darken3
+button.pulseColor = MaterialTheme.blueGrey.color
+```
+
 ### License
 
 
@@ -114,3 +128,4 @@ func application(application: UIApplication, didFinishLaunchingWithOptions launc
 
 * [Daniel Dahan](https://github.com/danieldahan)
 * [Adam Dahan](https://github.com/adamdahan)
+* [Michael Reyder](https://github.com/mishaGK)
