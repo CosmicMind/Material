@@ -41,6 +41,7 @@ public class BasicCard : MaterialCard {
 	public var titleLabel: UILabel? {
 		didSet {
 			titleLabel!.setTranslatesAutoresizingMaskIntoConstraints(false)
+			titleLabel!.textColor = MaterialTheme.white.color
 			titleLabel!.font = Roboto.regularWithSize(22.0)
 			addSubview(titleLabel!)
 			prepareCard()
@@ -53,6 +54,7 @@ public class BasicCard : MaterialCard {
 	public var detailTextLabel: UILabel? {
 		didSet {
 			detailTextLabel!.setTranslatesAutoresizingMaskIntoConstraints(false)
+			detailTextLabel!.textColor = MaterialTheme.white.color
 			detailTextLabel!.font = Roboto.lightWithSize(16.0)
 			detailTextLabel!.numberOfLines = 0
 			detailTextLabel!.lineBreakMode = .ByWordWrapping
@@ -109,7 +111,6 @@ public class BasicCard : MaterialCard {
 				horizontalFormat += "-(20)-[button\(i)]"
 				verticalFormat += "-(20)-[button\(i)]"
 			}
-			horizontalFormat += "-(20)-|"
 			layoutConstraints += Layout.constraint(horizontalFormat, options: nil, metrics: nil, views: buttonViews)
 		}
 		
