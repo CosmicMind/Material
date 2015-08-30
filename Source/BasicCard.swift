@@ -37,7 +37,7 @@ public class BasicCard : MaterialCard {
 		didSet {
 			titleLabel!.setTranslatesAutoresizingMaskIntoConstraints(false)
 			titleLabel!.textColor = MaterialTheme.white.color
-			titleLabel!.font = Roboto.regularWithSize(22.0)
+			titleLabel!.font = Roboto.regularWithSize(22)
 			addSubview(titleLabel!)
 			prepareCard()
 		}
@@ -50,7 +50,7 @@ public class BasicCard : MaterialCard {
 		didSet {
 			detailTextLabel!.setTranslatesAutoresizingMaskIntoConstraints(false)
 			detailTextLabel!.textColor = MaterialTheme.white.color
-			detailTextLabel!.font = Roboto.lightWithSize(16.0)
+			detailTextLabel!.font = Roboto.lightWithSize(16)
 			detailTextLabel!.numberOfLines = 0
 			detailTextLabel!.lineBreakMode = .ByWordWrapping
 			addSubview(detailTextLabel!)

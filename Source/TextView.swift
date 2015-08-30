@@ -124,7 +124,7 @@ public class TextView: UITextView {
 	
 	override public func layoutSubviews() {
 		super.layoutSubviews()
-		label.preferredMaxLayoutWidth = textContainer.size.width - textContainer.lineFragmentPadding * 2.0
+		label.preferredMaxLayoutWidth = textContainer.size.width - textContainer.lineFragmentPadding * 2
 	}
 	
 	//

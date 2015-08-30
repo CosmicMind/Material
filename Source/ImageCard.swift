@@ -64,7 +64,7 @@ public class ImageCard : MaterialCard {
 		didSet {
 			titleLabel!.setTranslatesAutoresizingMaskIntoConstraints(false)
 			titleLabel!.textColor = MaterialTheme.white.color
-			titleLabel!.font = Roboto.regularWithSize(22.0)
+			titleLabel!.font = Roboto.regularWithSize(22)
 			if nil == imageView {
 				addSubview(titleLabel!)
 			} else {
@@ -91,7 +91,7 @@ public class ImageCard : MaterialCard {
 			detailTextContainer!.addSubview(detailTextLabel!)
 			detailTextLabel!.setTranslatesAutoresizingMaskIntoConstraints(false)
 			detailTextLabel!.textColor = MaterialTheme.black.color
-			detailTextLabel!.font = Roboto.lightWithSize(16.0)
+			detailTextLabel!.font = Roboto.lightWithSize(16)
 			detailTextLabel!.numberOfLines = 0
 			detailTextLabel!.lineBreakMode = .ByWordWrapping
 			prepareCard()
