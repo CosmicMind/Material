@@ -18,9 +18,6 @@
 
 import UIKit
 
-private var defaultTextColor: UIColor = UIColor(red: 33/255, green: 33/255, blue: 33/255, alpha: 1)
-private var defaultPlaceholderColor: UIColor = UIColor(red: 159/255, green: 160/255, blue: 164/255, alpha: 1)
-
 public class TextView: UITextView {
 	//
 	//	:name:	label
@@ -69,7 +66,7 @@ public class TextView: UITextView {
 		:name:	placeholderColor
 		:description:	The placeholder color.
 	*/
-	public var placeholderColor: UIColor = defaultPlaceholderColor {
+	public var placeholderColor: UIColor = MaterialTheme.blueGrey.lighten3 {
 		didSet {
 			label.textColor = placeholderColor
 		}
@@ -144,9 +141,9 @@ public class TextView: UITextView {
 	//
 	private func setupView() {
 		backgroundColor = .clearColor()
-		textColor = defaultTextColor
+		textColor = MaterialTheme.black.color
 		label.font = font
-		label.textColor = defaultPlaceholderColor
+		label.textColor = MaterialTheme.blueGrey.lighten3
 		label.textAlignment = textAlignment
 		label.text = placeholder
 		label.numberOfLines = 0
