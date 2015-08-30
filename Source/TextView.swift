@@ -140,14 +140,14 @@ public class TextView: UITextView {
 	//	:description:	Sets up the common initilized values.
 	//
 	private func setupView() {
-		backgroundColor = .clearColor()
+		backgroundColor = MaterialTheme.clear.color
 		textColor = MaterialTheme.black.color
 		label.font = font
 		label.textColor = MaterialTheme.blueGrey.lighten3
 		label.textAlignment = textAlignment
 		label.text = placeholder
 		label.numberOfLines = 0
-		label.backgroundColor = UIColor.clearColor()
+		label.backgroundColor = MaterialTheme.clear.color
 		label.setTranslatesAutoresizingMaskIntoConstraints(false)
 		addSubview(label)
 		

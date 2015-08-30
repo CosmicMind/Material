@@ -1213,7 +1213,7 @@ public class SideNavController: UIViewController, UIGestureRecognizerDelegate {
 	//
 	private func prepareMainContainer() {
 		mainViewContainer = UIView(frame: view.bounds)
-		mainViewContainer!.backgroundColor = .clearColor()
+		mainViewContainer!.backgroundColor = MaterialTheme.clear.color
 		mainViewContainer!.autoresizingMask = .FlexibleHeight | .FlexibleWidth
 		view.addSubview(mainViewContainer!)
 	}
@@ -1272,7 +1272,7 @@ public class SideNavController: UIViewController, UIGestureRecognizerDelegate {
 		b.origin.x = originX
         b.origin.y = originY
 		viewContainer = UIView(frame: b)
-		viewContainer!.backgroundColor = .clearColor()
+		viewContainer!.backgroundColor = MaterialTheme.clear.color
 		viewContainer!.autoresizingMask = .FlexibleHeight
 		view.addSubview(viewContainer!)
 	}

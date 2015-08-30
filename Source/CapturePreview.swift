@@ -194,7 +194,7 @@ public class Preview: UIView {
 	//	
 	private func viewWithColor(color: UIColor) -> UIView {
 		let view: UIView = UIView(frame: Preview.boxBounds)
-		view.backgroundColor = .clearColor()
+		view.backgroundColor = MaterialTheme.clear.color
 		view.layer.borderColor = color.CGColor
 		view.layer.borderWidth = 5
 		view.hidden = true
