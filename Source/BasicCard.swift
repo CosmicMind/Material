@@ -64,7 +64,7 @@ public class BasicCard : MaterialCard {
 	public var divider: UIView? {
 		didSet {
 			divider!.setTranslatesAutoresizingMaskIntoConstraints(false)
-			divider!.backgroundColor = MaterialTheme.blueGrey.color
+			divider!.backgroundColor = MaterialTheme.blueGrey.darken2
 			addSubview(divider!)
 			prepareCard()
 		}
@@ -133,7 +133,6 @@ public class BasicCard : MaterialCard {
 				horizontalFormat += "-(8)-[button\(i)]"
 				layoutConstraints += Layout.constraint(verticalFormat + "-(8)-[button\(i)]-(8)-|", options: nil, metrics: nil, views: views)
 			}
-			
 			layoutConstraints += Layout.constraint(horizontalFormat, options: nil, metrics: nil, views: buttonViews)
 			
 		} else {

@@ -84,6 +84,9 @@ okButton.setTitleColor(MaterialTheme.yellow.darken3, forState: .Normal)
 card.buttons = [cancelButton, okButton]
 
 view.addSubview(card)
+
+view.addConstraints(Layout.constraint("H:|-(pad)-[child]-(pad)-|", options: nil, metrics: ["pad": 20], views: ["child": card]))
+view.addConstraints(Layout.constraint("V:|-(pad)-[child]", options: nil, metrics: ["pad": 100], views: ["child": card]))
 ```
 
 ### Image Card
@@ -98,6 +101,44 @@ card.imageView = UIImageView(image: UIImage(named: "photo.jpg"))
 view.addSubview(card)
 
 Layout.size(view, child: card, width: 300, height: 175)
+```
+
+Allow the Image Card to really shine by adding a title, some details, and buttons.
+
+![MaterialKitPreview](http://www.materialkit.io/imagecardfullpreview.gif)
+
+```swift
+var card: ImageCard = ImageCard()
+card.imageView = UIImageView(image: UIImage(named: "photo.jpg"))
+
+// add a title
+card.titleLabel = UILabel()
+card.titleLabel!.text = "Card Title"
+
+// add a body of text
+card.detailTextLabel = UILabel()
+card.detailTextLabel!.text = "I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively."
+
+// add a divider for buttons
+card.divider = UIView()
+
+// add a couple buttons
+var cancelButton: FlatButton = FlatButton()
+cancelButton.pulseColor = MaterialTheme.blueGrey.darken3
+cancelButton.setTitle("Cancel", forState: .Normal)
+cancelButton.setTitleColor(MaterialTheme.yellow.darken3, forState: .Normal)
+
+var okButton: FlatButton = FlatButton()
+okButton.pulseColor = MaterialTheme.blueGrey.darken3
+okButton.setTitle("Okay", forState: .Normal)
+okButton.setTitleColor(MaterialTheme.yellow.darken3, forState: .Normal)
+
+card.buttons = [cancelButton, okButton]
+
+view.addSubview(card)
+
+view.addConstraints(Layout.constraint("H:|-(pad)-[child]-(pad)-|", options: nil, metrics: ["pad": 20], views: ["child": card]))
+view.addConstraints(Layout.constraint("V:|-(pad)-[child]", options: nil, metrics: ["pad": 100], views: ["child": card]))
 ```
 
 ### Side Navigation

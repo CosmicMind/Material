@@ -34,6 +34,11 @@ public class ImageCard : MaterialCard {
 	//
 	internal var detailTextContainer: UIView?
 	
+	//
+	//	:name:	buttonsContainer
+	//
+	internal var buttonsContainer: UIView?
+	
 	/**
 		:name:	imageView
 	*/
@@ -75,10 +80,12 @@ public class ImageCard : MaterialCard {
 	public var detailTextLabel: UILabel? {
 		didSet {
 			// container
-			detailTextContainer = UIView()
-			detailTextContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
-			detailTextContainer!.backgroundColor = MaterialTheme.white.color
-			addSubview(detailTextContainer!)
+			if nil == detailTextContainer {
+				detailTextContainer = UIView()
+				detailTextContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
+				detailTextContainer!.backgroundColor = MaterialTheme.white.color
+				addSubview(detailTextContainer!)
+			}
 			
 			// text
 			detailTextContainer!.addSubview(detailTextLabel!)
@@ -97,7 +104,7 @@ public class ImageCard : MaterialCard {
 	public var divider: UIView? {
 		didSet {
 			divider!.setTranslatesAutoresizingMaskIntoConstraints(false)
-			divider!.backgroundColor = MaterialTheme.blueGrey.color
+			divider!.backgroundColor = MaterialTheme.blueGrey.lighten4
 			addSubview(divider!)
 			prepareCard()
 		}
@@ -108,6 +115,12 @@ public class ImageCard : MaterialCard {
 	*/
 	public var buttons: Array<MaterialButton>? {
 		didSet {
+			if nil == buttonsContainer {
+				buttonsContainer = UIView()
+				buttonsContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
+				buttonsContainer!.backgroundColor = MaterialTheme.white.color
+				addSubview(buttonsContainer!)
+			}
 			prepareCard()
 		}
 	}
@@ -153,34 +166,41 @@ public class ImageCard : MaterialCard {
 		
 		// details
 		if nil != detailTextContainer && nil != detailTextLabel {
+			// container
 			layoutConstraints += Layout.constraint("H:|[detailTextContainer]|", options: nil, metrics: nil, views: ["detailTextContainer": detailTextContainer!])
 			verticalFormat += "-(0)-[detailTextContainer]"
 			views["detailTextContainer"] = detailTextContainer!
+			
+			// text
 			layoutConstraints += Layout.constraint("H:|-(16)-[detailTextLabel]-(16)-|", options: nil, metrics: nil, views: ["detailTextLabel": detailTextLabel!])
 			layoutConstraints += Layout.constraint("V:|-(16)-[detailTextLabel(<=128)]-(16)-|", options: nil, metrics: nil, views: ["detailTextLabel": detailTextLabel!])
 			views["detailTextLabel"] = detailTextLabel!
 		}
 		
-		if nil != buttons {
+		if nil != buttons && nil != buttonsContainer {
 			// divider
 			if nil != divider {
 				layoutConstraints += Layout.constraint("H:|[divider]|", options: nil, metrics: nil, views: ["divider": divider!])
 				views["divider"] = divider!
-				verticalFormat += "-(16)-[divider(1)]"
+				verticalFormat += "-(0)-[divider(1)]"
 			}
+			
+			//container
+			layoutConstraints += Layout.constraint("H:|[buttonsContainer]|", options: nil, metrics: nil, views: ["buttonsContainer": buttonsContainer!])
+			verticalFormat += "-(0)-[buttonsContainer]|"
+			views["buttonsContainer"] = buttonsContainer!
 			
 			// buttons
 			var horizontalFormat: String = "H:|"
 			var buttonViews: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
 			for var i: Int = 0, l: Int = buttons!.count; i < l; ++i {
 				let button: MaterialButton = buttons![i]
-				addSubview(button)
+				buttonsContainer!.addSubview(button)
 				buttonViews["button\(i)"] = button
 				views["button\(i)"] = button as AnyObject
 				horizontalFormat += "-(8)-[button\(i)]"
-				layoutConstraints += Layout.constraint(verticalFormat + "-(8)-[button\(i)]-(8)-|", options: nil, metrics: nil, views: views)
+				layoutConstraints += Layout.constraint("V:|-(8)-[button\(i)]-(8)-|", options: nil, metrics: nil, views: views)
 			}
-			
 			layoutConstraints += Layout.constraint(horizontalFormat, options: nil, metrics: nil, views: buttonViews)
 			
 		} else {
