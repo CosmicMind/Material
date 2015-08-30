@@ -11,7 +11,9 @@ MaterialKit is now on CocoaPods under the name [MK](https://cocoapods.org/?q=MK)
 
 Make a call to action with a Floating Action Button.
 
+
 ![MaterialKitPreview](http://www.materialkit.io/fabbuttonpreview.gif)
+
 
 ```swift
 var button: FabButton = FabButton()
@@ -26,7 +28,9 @@ Layout.size(view, child: button, width: 60, height: 60)
 
 Use a Raised Button to capture attention.
 
+
 ![MaterialKitPreview](http://www.materialkit.io/raisedbuttonpreview.gif)
+
 
 ```swift
 var button: RaisedButton = RaisedButton()
@@ -40,7 +44,9 @@ Layout.size(view, child: button, width: 200, height: 60)
 
 Keep it simple and elegant with a Flat Button.
 
+
 ![MaterialKitPreview](http://www.materialkit.io/flatbuttonpreview.gif)
+
 
 ```swift
 var button: RaisedButton = RaisedButton()
@@ -54,7 +60,9 @@ Layout.size(view, child: button, width: 200, height: 60)
 
 Easily make cards with fully customizable components.
 
+
 ![MaterialKitPreview](http://www.materialkit.io/basiccardpreview.gif)
+
 
 ```swift
 var card: BasicCard = BasicCard()
@@ -84,13 +92,76 @@ okButton.setTitleColor(MaterialTheme.yellow.darken3, forState: .Normal)
 card.buttons = [cancelButton, okButton]
 
 view.addSubview(card)
+
+view.addConstraints(Layout.constraint("H:|-(pad)-[child]-(pad)-|", options: nil, metrics: ["pad": 20], views: ["child": card]))
+view.addConstraints(Layout.constraint("V:|-(pad)-[child]", options: nil, metrics: ["pad": 100], views: ["child": card]))
+```
+
+### Image Card
+
+Add photos with an Image Card.
+
+
+![MaterialKitPreview](http://www.materialkit.io/imagecardpreview.gif)
+
+
+```swift
+var card: ImageCard = ImageCard()
+card.imageView = UIImageView(image: UIImage(named: "photo.jpg"))
+view.addSubview(card)
+
+Layout.size(view, child: card, width: 300, height: 175)
+```
+
+### Full Image Card
+
+Allow the Image Card to really shine by adding a title, some details, and buttons.
+
+
+![MaterialKitPreview](http://www.materialkit.io/imagecardfullpreview.gif)
+
+
+```swift
+var card: ImageCard = ImageCard()
+card.imageView = UIImageView(image: UIImage(named: "photo.jpg"))
+
+// add a title
+card.titleLabel = UILabel()
+card.titleLabel!.text = "Card Title"
+
+// add a body of text
+card.detailTextLabel = UILabel()
+card.detailTextLabel!.text = "I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively."
+
+// add a divider for buttons
+card.divider = UIView()
+
+// add a couple buttons
+var cancelButton: FlatButton = FlatButton()
+cancelButton.pulseColor = MaterialTheme.blueGrey.darken3
+cancelButton.setTitle("Cancel", forState: .Normal)
+cancelButton.setTitleColor(MaterialTheme.yellow.darken3, forState: .Normal)
+
+var okButton: FlatButton = FlatButton()
+okButton.pulseColor = MaterialTheme.blueGrey.darken3
+okButton.setTitle("Okay", forState: .Normal)
+okButton.setTitleColor(MaterialTheme.yellow.darken3, forState: .Normal)
+
+card.buttons = [cancelButton, okButton]
+
+view.addSubview(card)
+
+view.addConstraints(Layout.constraint("H:|-(pad)-[child]-(pad)-|", options: nil, metrics: ["pad": 20], views: ["child": card]))
+view.addConstraints(Layout.constraint("V:|-(pad)-[child]", options: nil, metrics: ["pad": 100], views: ["child": card]))
 ```
 
 ### Side Navigation
 
 Add a sleek Side Navigation to give your users a wonderful experience.
 
+
 ![MaterialKitPreview](http://www.materialkit.io/sidenavpreview.gif)
+
 
 ```swift
 func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
