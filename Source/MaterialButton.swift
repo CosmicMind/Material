@@ -174,7 +174,7 @@ public class MaterialButton : UIButton {
 		backgroundColorView.clipsToBounds = true
 		backgroundColorView.userInteractionEnabled = false
 		insertSubview(backgroundColorView, atIndex: 0)
-		Layout.expandToParentSize(self, child: backgroundColorView)
+		Layout.expandToParent(self, child: backgroundColorView)
 	}
 	
 	//

@@ -322,7 +322,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0640;
-				ORGANIZATIONNAME = "GraphKit Inc.";
+				ORGANIZATIONNAME = "GraphKit, Inc.";
 				TargetAttributes = {
 					963832351B88DFD80015F710 = {
 						CreatedOnToolsVersion = 6.4;

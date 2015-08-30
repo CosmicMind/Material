@@ -46,18 +46,32 @@ public struct Layout {
 	}
 	
 	/**
-		:name:	expandToParentSize
+		:name:	expandToParent
 	*/
-	public static func expandToParentSize(parent: UIView, child: UIView) {
+	public static func expandToParent(parent: UIView, child: UIView) {
 		let views: Dictionary<String, AnyObject> = ["child" : child]
 		parent.addConstraints(constraint("H:|[child]|", options: nil, metrics: nil, views: views))
 		parent.addConstraints(constraint("V:|[child]|", options: nil, metrics: nil, views: views))
 	}
 	
 	/**
-		:name:	expandToParentSizeWithPad
+		:name:	expandToParentHorizontallyWithPad
 	*/
-	public static func expandToParentSizeWithPad(parent: UIView, child: UIView, left: CGFloat, bottom: CGFloat, right: CGFloat, top: CGFloat) {
+	public static func expandToParentHorizontallyWithPad(parent: UIView, child: UIView, left: CGFloat, right: CGFloat) {
+		parent.addConstraints(constraint("H:|-(left)-[child]-(right)-|", options: nil, metrics: ["left": left, "right": right], views: ["child" : child]))
+	}
+	
+	/**
+		:name:	expandToParentVerticallyWithPad
+	*/
+	public static func expandToParentVerticallyWithPad(parent: UIView, child: UIView, top: CGFloat, bottom: CGFloat) {
+		parent.addConstraints(constraint("V:|-(top)-[child]-(bottom)-|", options: nil, metrics: ["bottom": bottom, "top": top], views: ["child" : child]))
+	}
+	
+	/**
+		:name:	expandToParentWithPad
+	*/
+	public static func expandToParentWithPad(parent: UIView, child: UIView, left: CGFloat, bottom: CGFloat, right: CGFloat, top: CGFloat) {
 		let views: Dictionary<String, AnyObject> = ["child" : child]
 		parent.addConstraints(constraint("H:|-(left)-[child]-(right)-|", options: nil, metrics: ["left": left, "right": right], views: views))
 		parent.addConstraints(constraint("V:|-(top)-[child]-(bottom)-|", options: nil, metrics: ["bottom": bottom, "top": top], views: views))
