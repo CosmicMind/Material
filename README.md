@@ -113,6 +113,7 @@ view.addSubview(card)
 Layout.size(view, child: card, width: 300, height: 175)
 ```
 
+### Full Image Card
 
 Allow the Image Card to really shine by adding a title, some details, and buttons.
 
