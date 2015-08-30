@@ -17,7 +17,6 @@
 //
 
 import UIKit
-import QuartzCore
 
 public class BasicCard : MaterialCard {
 	//
@@ -30,51 +29,76 @@ public class BasicCard : MaterialCard {
 	//
 	internal lazy var views: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
 	
+	//
+	//	:name:	detailTextContainer
+	//
+	internal var detailTextContainer: UIView?
+	
+	//
+	//	:name:	buttonsContainer
+	//
+	internal var buttonsContainer: UIView?
+	
 	/**
-		:name:	titleLabel
+	:name:	titleLabel
 	*/
 	public var titleLabel: UILabel? {
 		didSet {
 			titleLabel!.setTranslatesAutoresizingMaskIntoConstraints(false)
 			titleLabel!.textColor = MaterialTheme.white.color
-			titleLabel!.font = Roboto.regularWithSize(22)
+			titleLabel!.font = Roboto.regularWithSize(24)
 			addSubview(titleLabel!)
 			prepareCard()
 		}
 	}
 	
 	/**
-		:name:	detailTextLabel
+	:name:	detailTextLabel
 	*/
 	public var detailTextLabel: UILabel? {
 		didSet {
+			// container
+			if nil == detailTextContainer {
+				detailTextContainer = UIView()
+				detailTextContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
+				detailTextContainer!.backgroundColor = MaterialTheme.white.color
+				addSubview(detailTextContainer!)
+			}
+			
+			// text
+			detailTextContainer!.addSubview(detailTextLabel!)
 			detailTextLabel!.setTranslatesAutoresizingMaskIntoConstraints(false)
-			detailTextLabel!.textColor = MaterialTheme.white.color
-			detailTextLabel!.font = Roboto.lightWithSize(16)
+			detailTextLabel!.textColor = MaterialTheme.black.color
+			detailTextLabel!.font = Roboto.lightWithSize(14)
 			detailTextLabel!.numberOfLines = 0
 			detailTextLabel!.lineBreakMode = .ByWordWrapping
-			addSubview(detailTextLabel!)
 			prepareCard()
 		}
 	}
 	
 	/**
-		:name:	divider
+	:name:	divider
 	*/
 	public var divider: UIView? {
 		didSet {
 			divider!.setTranslatesAutoresizingMaskIntoConstraints(false)
-			divider!.backgroundColor = MaterialTheme.blueGrey.darken2
+			divider!.backgroundColor = MaterialTheme.blueGrey.lighten4
 			addSubview(divider!)
 			prepareCard()
 		}
 	}
 	
 	/**
-		:name:	buttons
+	:name:	buttons
 	*/
 	public var buttons: Array<MaterialButton>? {
 		didSet {
+			if nil == buttonsContainer {
+				buttonsContainer = UIView()
+				buttonsContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
+				buttonsContainer!.backgroundColor = MaterialTheme.white.color
+				addSubview(buttonsContainer!)
+			}
 			prepareCard()
 		}
 	}
@@ -85,7 +109,7 @@ public class BasicCard : MaterialCard {
 	internal override func prepareView() {
 		super.prepareView()
 		prepareShadow()
-		backgroundColor = MaterialTheme.blueGrey.darken1
+		backgroundColor = MaterialTheme.clear.color
 	}
 	
 	//
@@ -103,41 +127,50 @@ public class BasicCard : MaterialCard {
 		// title
 		if nil != titleLabel {
 			layoutConstraints += Layout.constraint("H:|-(16)-[titleLabel]-(16)-|", options: nil, metrics: nil, views: ["titleLabel": titleLabel!])
-			verticalFormat += "-(16)-[titleLabel(22)]"
+			verticalFormat += "-(16)-[titleLabel(24)]"
 			views["titleLabel"] = titleLabel!
 		}
 		
 		// details
-		if nil != detailTextLabel {
-			layoutConstraints += Layout.constraint("H:|-(16)-[detailTextLabel]-(16)-|", options: nil, metrics: nil, views: ["detailTextLabel": detailTextLabel!])
-			verticalFormat += "-(16)-[detailTextLabel]"
-			views["detailTextLabel"] = detailTextLabel!
+		if nil != detailTextContainer && nil != detailTextLabel {
+			// container
+			layoutConstraints += Layout.constraint("H:|[detailTextContainer]|", options: nil, metrics: nil, views: ["detailTextContainer": detailTextContainer!])
+			verticalFormat += "[detailTextContainer]"
+			views["detailTextContainer"] = detailTextContainer!
+			
+			// text
+			detailTextContainer!.addConstraints(Layout.constraint("H:|-(16)-[detailTextLabel]-(16)-|", options: nil, metrics: nil, views: ["detailTextLabel": detailTextLabel!]))
+			detailTextContainer!.addConstraints(Layout.constraint("V:|-(16)-[detailTextLabel(<=128)]|", options: nil, metrics: nil, views: ["detailTextLabel": detailTextLabel!]))
 		}
 		
-		if nil != buttons {
+		if nil != buttons && nil != buttonsContainer {
 			// divider
 			if nil != divider {
 				layoutConstraints += Layout.constraint("H:|[divider]|", options: nil, metrics: nil, views: ["divider": divider!])
 				views["divider"] = divider!
-				verticalFormat += "-(16)-[divider(1)]"
+				verticalFormat += "[divider(1)]"
 			}
+			
+			//container
+			layoutConstraints += Layout.constraint("H:|[buttonsContainer]|", options: nil, metrics: nil, views: ["buttonsContainer": buttonsContainer!])
+			verticalFormat += "[buttonsContainer]"
+			views["buttonsContainer"] = buttonsContainer!
 			
 			// buttons
 			var horizontalFormat: String = "H:|"
 			var buttonViews: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
 			for var i: Int = 0, l: Int = buttons!.count; i < l; ++i {
 				let button: MaterialButton = buttons![i]
-				addSubview(button)
+				buttonsContainer!.addSubview(button)
 				buttonViews["button\(i)"] = button
-				views["button\(i)"] = button as AnyObject
 				horizontalFormat += "-(8)-[button\(i)]"
-				layoutConstraints += Layout.constraint(verticalFormat + "-(8)-[button\(i)]-(8)-|", options: nil, metrics: nil, views: views)
+				Layout.expandToParentVerticallyWithPad(buttonsContainer!, child: button, top: 8, bottom: 8)
+				buttonsContainer!.addConstraints(Layout.constraint(horizontalFormat, options: nil, metrics: nil, views: buttonViews))
 			}
 			layoutConstraints += Layout.constraint(horizontalFormat, options: nil, metrics: nil, views: buttonViews)
-			
-		} else {
-			verticalFormat += "-(16)-|"
 		}
+		
+		verticalFormat += "|"
 		
 		// combine constraints
 		if 0 < layoutConstraints.count {
