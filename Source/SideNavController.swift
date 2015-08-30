@@ -25,13 +25,32 @@ public enum SideNavState {
 
 @objc(SideNavContainer)
 public class SideNavContainer : Printable {
+	/**
+		:name:	state
+	*/
 	public private(set) var state: SideNavState
+	
+	/**
+		:name:	point
+	*/
 	public private(set) var point: CGPoint
+	
+	/**
+		:name:	frame
+	*/
 	public private(set) var frame: CGRect
+	
+	/**
+		:name:	description
+	*/
 	public var description: String {
 		let s: String = .Opened == state ? "Opened" : "Closed"
 		return "(state: \(s), point: \(point), frame: \(frame))"
 	}
+	
+	/**
+		:name:	init
+	*/
 	public init(state: SideNavState, point: CGPoint, frame: CGRect) {
 		self.state = state
 		self.point = point
@@ -76,9 +95,8 @@ public protocol SideNavDelegate {
 
 @objc(SideNavController)
 public class SideNavController: UIViewController, UIGestureRecognizerDelegate {
-    
     /**
-    :name:	default options
+		:name:	default options
     */
     public struct defaultOptions {
         public static var bezelWidth: CGFloat = 48
@@ -161,7 +179,7 @@ public class SideNavController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     /**
-    :name:	isTopContainerOpened
+		:name:	isTopContainerOpened
     */
     public var isTopContainerOpened: Bool {
         if let c = topViewContainer {
@@ -208,7 +226,7 @@ public class SideNavController: UIViewController, UIGestureRecognizerDelegate {
     public private(set) var bottomViewContainer: UIView?
     
     /**
-    :name:	bottomViewContainer
+		:name:	bottomViewContainer
     */
     public private(set) var topViewContainer: UIView?
 	
@@ -223,12 +241,12 @@ public class SideNavController: UIViewController, UIGestureRecognizerDelegate {
 	public private(set) var rightContainer: SideNavContainer?
     
     /**
-    :name:	bottomContainer
+		:name:	bottomContainer
     */
     public private(set) var bottomContainer: SideNavContainer?
     
     /**
-    :name:	topContainer
+		:name:	topContainer
     */
     public private(set) var topContainer: SideNavContainer?
 	
@@ -248,12 +266,12 @@ public class SideNavController: UIViewController, UIGestureRecognizerDelegate {
 	public var rightViewController: UIViewController?
     
     /**
-    :name:	leftViewController
+		:name:	leftViewController
     */
     public var bottomViewController: UIViewController?
     
     /**
-    :name:	topViewController
+		:name:	topViewController
     */
     public var topViewController: UIViewController?
 
@@ -278,7 +296,7 @@ public class SideNavController: UIViewController, UIGestureRecognizerDelegate {
     public var bottomTapGesture: UITapGestureRecognizer?
     
     /**
-    :name:	topTapGesture
+		:name:	topTapGesture
     */
     public var topTapGesture: UITapGestureRecognizer?
     
@@ -293,7 +311,7 @@ public class SideNavController: UIViewController, UIGestureRecognizerDelegate {
     public var bottomPanGesture: UIPanGestureRecognizer?
     
     /**
-    :name:	rightPanGesture
+		:name:	rightPanGesture
     */
     public var topPanGesture: UIPanGestureRecognizer?
 	
@@ -373,7 +391,7 @@ public class SideNavController: UIViewController, UIGestureRecognizerDelegate {
     }
 
     /**
-    :name:	init
+		:name:	init
     */
     public convenience init(mainViewController: UIViewController, topViewController: UIViewController) {
         self.init()
@@ -412,7 +430,7 @@ public class SideNavController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     /**
-    :name:	init
+		:name:	init
     */
     public convenience init(mainViewController: UIViewController, leftViewController: UIViewController, bottomViewController: UIViewController, rightViewController: UIViewController, topViewController: UIViewController) {
         self.init()
@@ -429,7 +447,7 @@ public class SideNavController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     /**
-    :name:	init
+		:name:	init
     */
     public convenience init(mainViewController: UIViewController, bottomViewController: UIViewController, rightViewController: UIViewController) {
         self.init()
@@ -442,7 +460,7 @@ public class SideNavController: UIViewController, UIGestureRecognizerDelegate {
     }
 
     /**
-    :name:	init
+		:name:	init
     */
     public convenience init(mainViewController: UIViewController, bottomViewController: UIViewController, topViewController: UIViewController) {
         self.init()
@@ -455,7 +473,7 @@ public class SideNavController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     /**
-    :name:	init
+		:name:	init
     */
     public convenience init(mainViewController: UIViewController, rightViewController: UIViewController, topViewController: UIViewController) {
         self.init()
@@ -512,14 +530,14 @@ public class SideNavController: UIViewController, UIGestureRecognizerDelegate {
 	}
     
     /**
-    :name:	toggleBottomViewContainer
+		:name:	toggleBottomViewContainer
     */
     public func toggleBottomViewContainer(velocity: CGFloat = 0) {
         isBottomContainerOpened ? closeBottomViewContainer(velocity: velocity) : openBottomViewContainer(velocity: velocity)
     }
     
     /**
-    :name:	toggleTopViewContainer
+		:name:	toggleTopViewContainer
     */
     public func toggleTopViewContainer(velocity: CGFloat = 0) {
         isTopContainerOpened ? closeTopViewContainer(velocity: velocity) : openTopViewContainer(velocity: velocity)
@@ -574,7 +592,7 @@ public class SideNavController: UIViewController, UIGestureRecognizerDelegate {
 	}
     
     /**
-    :name:	openBottomViewContainer
+		:name:	openBottomViewContainer
     */
     public func openBottomViewContainer(velocity: CGFloat = 0) {
         if let vc = bottomViewContainer {
@@ -598,7 +616,7 @@ public class SideNavController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     /**
-    :name:	openTopViewContainer
+		:name:	openTopViewContainer
     */
     public func openTopViewContainer(velocity: CGFloat = 0) {
         if let vc = topViewContainer {
@@ -697,7 +715,7 @@ public class SideNavController: UIViewController, UIGestureRecognizerDelegate {
     }
 
     /**
-    :name:	closeBottomViewContainer
+		:name:	closeBottomViewContainer
     */
     public func closeTopViewContainer(velocity: CGFloat = 0) {
         if let vc = topViewContainer {
@@ -772,7 +790,7 @@ public class SideNavController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     /**
-    :name:	switchTopViewController
+		:name:	switchTopViewController
     */
     public func switchTopViewController(viewController: UIViewController, closeTopViewContainerViewContainer: Bool) {
         removeViewController(&topViewController)
@@ -984,44 +1002,36 @@ public class SideNavController: UIViewController, UIGestureRecognizerDelegate {
     //
     internal func handleBottomPanGesture(gesture: UIPanGestureRecognizer) {
         if  isLeftContainerOpened || isRightContainerOpened || isTopContainerOpened { return }
-        if .Began == gesture.state {
-            if let vc = bottomViewContainer {
-                if let c = bottomContainer {
-                    addShadow(&bottomViewContainer)
-                    toggleStatusBar(hide: true)
-                    c.state = isBottomContainerOpened ? .Opened : .Closed
-                    c.point = gesture.locationInView(view)
-                    c.frame = vc.frame
-                    delegate?.sideNavDidBeginBottomPan?(self, container: c)
-                }
-            }
-        } else if .Changed == gesture.state {
-            if let vc = bottomViewContainer {
-                if let c = bottomContainer {
-                    c.point = gesture.translationInView(gesture.view!)
-                    let r = (bottomOriginY - vc.frame.origin.y) / vc.frame.size.height
-                    let m: CGFloat = bottomOriginY - vc.frame.size.height
-                    let y: CGFloat = c.frame.origin.y + c.point.y
-                    vc.frame.origin.y = y > bottomOriginY ? bottomOriginY : y < m ? m : y
-                    backdropViewContainer?.layer.opacity = Float(r * options.backdropOpacity)
-                    delegate?.sideNavDidChangeBottomPan?(self, container: c)
-                }
-            }
-        } else {
-            if let vc = bottomViewContainer {
-                if let c = bottomContainer {
-                    c.point = gesture.velocityInView(gesture.view)
-                    let y: CGFloat = c.point.y <= -1000 || c.point.y >= 1000 ? c.point.y : 0
-                    c.state = vc.frame.origin.y >= CGFloat(floor(bottomOriginY) - options.verticalThreshold) || c.point.y >= 1000 ? .Closed : .Opened
-                    if .Closed == c.state {
-                        closeBottomViewContainer(velocity: y)
-                    } else {
-                        openBottomViewContainer(velocity: y)
-                    }
-                    delegate?.sideNavDidEndBottomPan?(self, container: c)
-                }
-            }
-        }
+		if let vc = bottomViewContainer {
+			if let c = bottomContainer {
+				if .Began == gesture.state {
+					addShadow(&bottomViewContainer)
+					toggleStatusBar(hide: true)
+					c.state = isBottomContainerOpened ? .Opened : .Closed
+					c.point = gesture.locationInView(view)
+					c.frame = vc.frame
+					delegate?.sideNavDidBeginBottomPan?(self, container: c)
+				} else if .Changed == gesture.state {
+					c.point = gesture.translationInView(gesture.view!)
+					let r = (bottomOriginY - vc.frame.origin.y) / vc.frame.size.height
+					let m: CGFloat = bottomOriginY - vc.frame.size.height
+					let y: CGFloat = c.frame.origin.y + c.point.y
+					vc.frame.origin.y = y > bottomOriginY ? bottomOriginY : y < m ? m : y
+					backdropViewContainer?.layer.opacity = Float(r * options.backdropOpacity)
+					delegate?.sideNavDidChangeBottomPan?(self, container: c)
+				} else {
+					c.point = gesture.velocityInView(gesture.view)
+					let y: CGFloat = c.point.y <= -1000 || c.point.y >= 1000 ? c.point.y : 0
+					c.state = vc.frame.origin.y >= CGFloat(floor(bottomOriginY) - options.verticalThreshold) || c.point.y >= 1000 ? .Closed : .Opened
+					if .Closed == c.state {
+						closeBottomViewContainer(velocity: y)
+					} else {
+						openBottomViewContainer(velocity: y)
+					}
+					delegate?.sideNavDidEndBottomPan?(self, container: c)
+				}
+			}
+		}
     }
     
     //
@@ -1039,44 +1049,36 @@ public class SideNavController: UIViewController, UIGestureRecognizerDelegate {
     //
     internal func handleTopPanGesture(gesture: UIPanGestureRecognizer) {
         if  isLeftContainerOpened || isRightContainerOpened || isBottomContainerOpened { return }
-        if .Began == gesture.state {
-            if let vc = topViewContainer {
-                if let c = topContainer {
-                    addShadow(&topViewContainer)
-                    toggleStatusBar(hide: true)
-                    c.state = isTopContainerOpened ? .Opened : .Closed
-                    c.point = gesture.locationInView(view)
-                    c.frame = vc.frame
-                    delegate?.sideNavDidBeginTopPan?(self, container: c)
-                }
-            }
-        } else if .Changed == gesture.state {
-            if let vc = topViewContainer {
-                if let c = topContainer {
-                    c.point = gesture.translationInView(gesture.view!)
-                    let r = (topOriginY - vc.frame.origin.y) / vc.frame.size.height
-                    let m: CGFloat = topOriginY + vc.frame.size.height
-                    let y: CGFloat = c.frame.origin.y + c.point.y // increase origin y
-                    vc.frame.origin.y = y < topOriginY ? topOriginY : y < m ? y : m
-                    backdropViewContainer?.layer.opacity = Float(abs(r) * options.backdropOpacity)
-                    delegate?.sideNavDidChangeTopPan?(self, container: c)
-                }
-            }
-        } else {
-            if let vc = topViewContainer {
-                if let c = topContainer {
-                    c.point = gesture.velocityInView(gesture.view)
-                    let y: CGFloat = c.point.y <= -1000 || c.point.y >= 1000 ? c.point.y : 0
-                    c.state = vc.frame.origin.y >= CGFloat(floor(topOriginY) + options.verticalThreshold) || c.point.y >= 1000 ? .Opened : .Closed
-                    if .Closed == c.state {
-                        closeTopViewContainer(velocity: y)
-                    } else {
-                        openTopViewContainer(velocity: y)
-                    }
-                    delegate?.sideNavDidEndTopPan?(self, container: c)
-                }
-            }
-        }
+		if let vc = topViewContainer {
+			if let c = topContainer {
+				if .Began == gesture.state {
+					addShadow(&topViewContainer)
+					toggleStatusBar(hide: true)
+					c.state = isTopContainerOpened ? .Opened : .Closed
+					c.point = gesture.locationInView(view)
+					c.frame = vc.frame
+					delegate?.sideNavDidBeginTopPan?(self, container: c)
+				} else if .Changed == gesture.state {
+					c.point = gesture.translationInView(gesture.view!)
+					let r = (topOriginY - vc.frame.origin.y) / vc.frame.size.height
+					let m: CGFloat = topOriginY + vc.frame.size.height
+					let y: CGFloat = c.frame.origin.y + c.point.y // increase origin y
+					vc.frame.origin.y = y < topOriginY ? topOriginY : y < m ? y : m
+					backdropViewContainer?.layer.opacity = Float(abs(r) * options.backdropOpacity)
+					delegate?.sideNavDidChangeTopPan?(self, container: c)
+				} else {
+					c.point = gesture.velocityInView(gesture.view)
+					let y: CGFloat = c.point.y <= -1000 || c.point.y >= 1000 ? c.point.y : 0
+					c.state = vc.frame.origin.y >= CGFloat(floor(topOriginY) + options.verticalThreshold) || c.point.y >= 1000 ? .Opened : .Closed
+					if .Closed == c.state {
+						closeTopViewContainer(velocity: y)
+					} else {
+						openTopViewContainer(velocity: y)
+					}
+					delegate?.sideNavDidEndTopPan?(self, container: c)
+				}
+			}
+		}
     }
     
     //
@@ -1299,7 +1301,7 @@ public class SideNavController: UIViewController, UIGestureRecognizerDelegate {
 				vc.view.setTranslatesAutoresizingMaskIntoConstraints(false)
 				addChildViewController(vc)
 				c.addSubview(vc.view)
-				Layout.expandToParentSize(c, child: vc.view)
+				Layout.expandToParent(c, child: vc.view)
 				vc.didMoveToParentViewController(self)
 			}
 		}
