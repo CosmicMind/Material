@@ -75,7 +75,6 @@ public class BasicCard : MaterialCard {
 				t.font = Roboto.mediumWithSize(18)
 				t.numberOfLines = 1
 			} else {
-				titleLabel?.removeFromSuperview()
 				titleLabelContainer?.removeFromSuperview()
 			}
 		}
@@ -110,7 +109,6 @@ public class BasicCard : MaterialCard {
 				l.lineBreakMode = .ByWordWrapping
 				prepareCard()
 			} else {
-				detailLabel?.removeFromSuperview()
 				detailLabelContainer?.removeFromSuperview()
 			}
 		}
