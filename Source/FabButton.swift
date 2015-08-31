@@ -26,6 +26,7 @@ public class FabButton : MaterialButton {
 		super.prepareView()
 		setTitleColor(MaterialTheme.white.color, forState: .Normal)
 		backgroundColor = MaterialTheme.red.darken1
+		contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0)
 	}
 	
 	//
