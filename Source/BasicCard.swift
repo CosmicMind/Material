@@ -58,21 +58,26 @@ public class BasicCard : MaterialCard {
 	*/
 	public var titleLabel: UILabel? {
 		didSet {
-			// container
-			if nil == titleLabelContainer {
-				titleLabelContainer = UIView()
-				titleLabelContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
-				titleLabelContainer!.backgroundColor = MaterialTheme.clear.color
-				addSubview(titleLabelContainer!)
+			if let t = titleLabel {
+				// container
+				if nil == titleLabelContainer {
+					titleLabelContainer = UIView()
+					titleLabelContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
+					titleLabelContainer!.backgroundColor = MaterialTheme.clear.color
+					addSubview(titleLabelContainer!)
+				}
+				
+				// text
+				titleLabelContainer!.addSubview(t)
+				t.setTranslatesAutoresizingMaskIntoConstraints(false)
+				t.textColor = MaterialTheme.white.color
+				t.backgroundColor = MaterialTheme.clear.color
+				t.font = Roboto.mediumWithSize(18)
+				t.numberOfLines = 1
+			} else {
+				titleLabel?.removeFromSuperview()
+				titleLabelContainer?.removeFromSuperview()
 			}
-			
-			// text
-			titleLabelContainer!.addSubview(titleLabel!)
-			titleLabel!.setTranslatesAutoresizingMaskIntoConstraints(false)
-			titleLabel!.textColor = MaterialTheme.white.color
-			titleLabel!.backgroundColor = MaterialTheme.clear.color
-			titleLabel!.font = Roboto.mediumWithSize(18)
-			titleLabel!.numberOfLines = 1
 		}
 	}
 	
@@ -86,23 +91,28 @@ public class BasicCard : MaterialCard {
 	*/
 	public var detailLabel: UILabel? {
 		didSet {
-			// container
-			if nil == detailLabelContainer {
-				detailLabelContainer = UIView()
-				detailLabelContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
-				detailLabelContainer!.backgroundColor = MaterialTheme.clear.color
-				addSubview(detailLabelContainer!)
+			if let l = detailLabel {
+				// container
+				if nil == detailLabelContainer {
+					detailLabelContainer = UIView()
+					detailLabelContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
+					detailLabelContainer!.backgroundColor = MaterialTheme.clear.color
+					addSubview(detailLabelContainer!)
+				}
+				
+				// text
+				detailLabelContainer!.addSubview(l)
+				l.setTranslatesAutoresizingMaskIntoConstraints(false)
+				l.textColor = MaterialTheme.white.color
+				l.backgroundColor = MaterialTheme.clear.color
+				l.font = Roboto.lightWithSize(12)
+				l.numberOfLines = 0
+				l.lineBreakMode = .ByWordWrapping
+				prepareCard()
+			} else {
+				detailLabel?.removeFromSuperview()
+				detailLabelContainer?.removeFromSuperview()
 			}
-			
-			// text
-			detailLabelContainer!.addSubview(detailLabel!)
-			detailLabel!.setTranslatesAutoresizingMaskIntoConstraints(false)
-			detailLabel!.textColor = MaterialTheme.white.color
-			detailLabel!.backgroundColor = MaterialTheme.clear.color
-			detailLabel!.font = Roboto.lightWithSize(12)
-			detailLabel!.numberOfLines = 0
-			detailLabel!.lineBreakMode = .ByWordWrapping
-			prepareCard()
 		}
 	}
 	
@@ -111,10 +121,14 @@ public class BasicCard : MaterialCard {
 	*/
 	public var divider: UIView? {
 		didSet {
-			divider!.setTranslatesAutoresizingMaskIntoConstraints(false)
-			divider!.backgroundColor = MaterialTheme.blueGrey.color
-			addSubview(divider!)
-			prepareCard()
+			if let d = divider {
+				d.setTranslatesAutoresizingMaskIntoConstraints(false)
+				d.backgroundColor = MaterialTheme.blueGrey.color
+				addSubview(d)
+				prepareCard()
+			} else {
+				divider?.removeFromSuperview()
+			}
 		}
 	}
 	
@@ -128,13 +142,17 @@ public class BasicCard : MaterialCard {
 	*/
 	public var leftButtons: Array<MaterialButton>? {
 		didSet {
-			if nil == buttonsContainer {
-				buttonsContainer = UIView()
-				buttonsContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
-				buttonsContainer!.backgroundColor = MaterialTheme.clear.color
-				addSubview(buttonsContainer!)
+			if let b = leftButtons {
+				if nil == buttonsContainer {
+					buttonsContainer = UIView()
+					buttonsContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
+					buttonsContainer!.backgroundColor = MaterialTheme.clear.color
+					addSubview(buttonsContainer!)
+				}
+				prepareCard()
+			} else {
+				buttonsContainer?.removeFromSuperview()
 			}
-			prepareCard()
 		}
 	}
 	
@@ -143,13 +161,17 @@ public class BasicCard : MaterialCard {
 	*/
 	public var rightButtons: Array<MaterialButton>? {
 		didSet {
-			if nil == buttonsContainer {
-				buttonsContainer = UIView()
-				buttonsContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
-				buttonsContainer!.backgroundColor = MaterialTheme.clear.color
-				addSubview(buttonsContainer!)
+			if let b = rightButtons {
+				if nil == buttonsContainer {
+					buttonsContainer = UIView()
+					buttonsContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
+					buttonsContainer!.backgroundColor = MaterialTheme.clear.color
+					addSubview(buttonsContainer!)
+				}
+				prepareCard()
+			} else {
+				buttonsContainer?.removeFromSuperview()
 			}
-			prepareCard()
 		}
 	}
 	
