@@ -115,9 +115,24 @@ public class BasicCard : MaterialCard {
 	public private(set) var buttonsContainer: UIView?
 	
 	/**
-		:name:	buttons
+		:name:	leftButtons
 	*/
-	public var buttons: Array<MaterialButton>? {
+	public var leftButtons: Array<MaterialButton>? {
+		didSet {
+			if nil == buttonsContainer {
+				buttonsContainer = UIView()
+				buttonsContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
+				buttonsContainer!.backgroundColor = MaterialTheme.clear.color
+				addSubview(buttonsContainer!)
+			}
+			prepareCard()
+		}
+	}
+	
+	/**
+	:name:	rightButtons
+	*/
+	public var rightButtons: Array<MaterialButton>? {
 		didSet {
 			if nil == buttonsContainer {
 				buttonsContainer = UIView()
@@ -175,7 +190,7 @@ public class BasicCard : MaterialCard {
 			detailLabelContainer!.addConstraints(Layout.constraint("V:|-(verticalSpace)-[detailLabel(<=maximumDetailHeight)]-(verticalSpace)-|", options: nil, metrics: ["verticalSpace": verticalSpace, "maximumDetailHeight": maximumDetailHeight], views: ["detailLabel": detailLabel!]))
 		}
 		
-		if nil != buttonsContainer && nil != buttons {
+		if nil != buttonsContainer && (nil != leftButtons || nil != rightButtons) {
 			// divider
 			if nil != divider {
 				layoutConstraints += Layout.constraint("H:|[divider]|", options: nil, metrics: nil, views: ["divider": divider!])
@@ -188,17 +203,33 @@ public class BasicCard : MaterialCard {
 			verticalFormat += "[buttonsContainer]"
 			views["buttonsContainer"] = buttonsContainer!
 			
-			// buttons
-			var horizontalFormat: String = "H:|"
-			var buttonViews: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
-			for var i: Int = 0, l: Int = buttons!.count; i < l; ++i {
-				let button: MaterialButton = buttons![i]
-				buttonsContainer!.addSubview(button)
-				buttonViews["button\(i)"] = button
-				horizontalFormat += "-(verticalSpace)-[button\(i)]"
-				Layout.expandToParentVerticallyWithPad(buttonsContainer!, child: button, top: verticalSpace, bottom: verticalSpace)
+			// leftButtons
+			if nil != leftButtons {
+				var horizontalFormat: String = "H:|"
+				var buttonViews: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
+				for var i: Int = 0, l: Int = leftButtons!.count; i < l; ++i {
+					let button: MaterialButton = leftButtons![i]
+					buttonsContainer!.addSubview(button)
+					buttonViews["button\(i)"] = button
+					horizontalFormat += "-(verticalSpace)-[button\(i)]"
+					Layout.expandToParentVerticallyWithPad(buttonsContainer!, child: button, top: verticalSpace, bottom: verticalSpace)
+				}
+				buttonsContainer!.addConstraints(Layout.constraint(horizontalFormat, options: nil, metrics: ["verticalSpace": verticalSpace], views: buttonViews))
 			}
-			buttonsContainer!.addConstraints(Layout.constraint(horizontalFormat, options: nil, metrics: ["verticalSpace": verticalSpace], views: buttonViews))
+			
+			// rightButtons
+			if nil != rightButtons {
+				var horizontalFormat: String = "H:"
+				var buttonViews: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
+				for var i: Int = 0, l: Int = rightButtons!.count; i < l; ++i {
+					let button: MaterialButton = rightButtons![i]
+					buttonsContainer!.addSubview(button)
+					buttonViews["button\(i)"] = button
+					horizontalFormat += "[button\(i)]-(verticalSpace)-"
+					Layout.expandToParentVerticallyWithPad(buttonsContainer!, child: button, top: verticalSpace, bottom: verticalSpace)
+				}
+				buttonsContainer!.addConstraints(Layout.constraint(horizontalFormat + "|", options: nil, metrics: ["verticalSpace": verticalSpace], views: buttonViews))
+			}
 		}
 		
 		verticalFormat += "|"

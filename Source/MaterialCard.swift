@@ -117,7 +117,6 @@ public class MaterialCard : UIView {
 		layer.shadowOffset = CGSizeMake(0.05, 0.05)
 		layer.shadowOpacity = 0.1
 		layer.shadowRadius = 3
-		layer.shadowPath = UIBezierPath(rect: bounds).CGPath
     }
 	
 	//
@@ -125,6 +124,7 @@ public class MaterialCard : UIView {
 	//
     public override func layoutSubviews() {
         super.layoutSubviews()
+		layer.shadowPath = UIBezierPath(rect: bounds).CGPath
     }
     
     //
