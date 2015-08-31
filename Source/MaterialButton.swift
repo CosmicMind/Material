@@ -100,6 +100,7 @@ public class MaterialButton : UIButton {
 	*/
 	final public override func drawRect(rect: CGRect) {
 		prepareContext(rect)
+		prepareBackgroundColorView()
 		prepareButton()
 	}
 	
@@ -108,7 +109,6 @@ public class MaterialButton : UIButton {
 	//
 	internal func prepareView() {
 		setTranslatesAutoresizingMaskIntoConstraints(false)
-		prepareBackgroundColorView()
 	}
 	
 	//
@@ -166,8 +166,6 @@ public class MaterialButton : UIButton {
 	//
 	//	:name: prepareBackgroundColorView
 	//
-	// We need this view so we can use the masksToBounds
-	// so the pulse doesn't animate off the button
 	private func prepareBackgroundColorView() {
 		backgroundColorView.setTranslatesAutoresizingMaskIntoConstraints(false)
 		backgroundColorView.layer.masksToBounds = true
