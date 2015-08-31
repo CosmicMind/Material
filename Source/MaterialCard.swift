@@ -120,6 +120,16 @@ public class MaterialCard : UIView {
     }
 	
 	//
+	//	:name:	removeShadow
+	//
+	internal func removeShadow() {
+		layer.shadowColor = MaterialTheme.clear.color.CGColor
+		layer.shadowOffset = CGSizeMake(0, 0)
+		layer.shadowOpacity = 0
+		layer.shadowRadius = 0
+	}
+	
+	//
 	//	:name:	layoutSubviews
 	//
     public override func layoutSubviews() {

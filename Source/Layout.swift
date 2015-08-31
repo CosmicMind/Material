@@ -55,10 +55,24 @@ public struct Layout {
 	}
 	
 	/**
+		:name:	expandToParentHorizontally
+	*/
+	public static func expandToParentHorizontally(parent: UIView, child: UIView) {
+		expandToParentHorizontallyWithPad(parent, child: child, left: 0, right: 0)
+	}
+	
+	/**
 		:name:	expandToParentHorizontallyWithPad
 	*/
 	public static func expandToParentHorizontallyWithPad(parent: UIView, child: UIView, left: CGFloat = 0, right: CGFloat = 0) {
 		parent.addConstraints(constraint("H:|-(left)-[child]-(right)-|", options: nil, metrics: ["left": left, "right": right], views: ["child" : child]))
+	}
+	
+	/**
+		:name:	expandToParentVertically
+	*/
+	public static func expandToParentVertically(parent: UIView, child: UIView) {
+		expandToParentVerticallyWithPad(parent, child: child, top: 0, bottom: 0)
 	}
 	
 	/**

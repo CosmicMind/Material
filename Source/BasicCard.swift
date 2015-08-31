@@ -45,6 +45,15 @@ public class BasicCard : MaterialCard {
 	public private(set) var titleLabelContainer: UIView?
 	
 	/**
+		:name:	shadow
+	*/
+	public var shadow: Bool = true {
+		didSet {
+			false == shadow ? removeShadow() : prepareShadow()
+		}
+	}
+	
+	/**
 		:name:	titleLabel
 	*/
 	public var titleLabel: UILabel? {
@@ -175,7 +184,7 @@ public class BasicCard : MaterialCard {
 			
 			// text
 			titleLabelContainer!.addConstraints(Layout.constraint("H:|-(verticalSpace)-[titleLabel]-(verticalSpace)-|", options: nil, metrics: ["verticalSpace": verticalSpace], views: ["titleLabel": titleLabel!]))
-			titleLabelContainer!.addConstraints(Layout.constraint("V:|-(verticalSpace)-[titleLabel]-(verticalSpace)-|", options: nil, metrics: ["verticalSpace": verticalSpace], views: ["titleLabel": titleLabel!]))
+			titleLabelContainer!.addConstraints(Layout.constraint("V:|-(verticalSpace)-[titleLabel(height)]-(verticalSpace)-|", options: nil, metrics: ["verticalSpace": verticalSpace, "height": titleLabel!.font.pointSize], views: ["titleLabel": titleLabel!]))
 		}
 		
 		// detail
