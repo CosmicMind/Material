@@ -62,7 +62,7 @@ public class BasicCard : MaterialCard {
 			titleLabel!.setTranslatesAutoresizingMaskIntoConstraints(false)
 			titleLabel!.textColor = MaterialTheme.white.color
 			titleLabel!.backgroundColor = MaterialTheme.clear.color
-			titleLabel!.font = Roboto.regularWithSize(18)
+			titleLabel!.font = Roboto.mediumWithSize(18)
 			titleLabel!.numberOfLines = 1
 		}
 	}
@@ -90,7 +90,7 @@ public class BasicCard : MaterialCard {
 			detailLabel!.setTranslatesAutoresizingMaskIntoConstraints(false)
 			detailLabel!.textColor = MaterialTheme.white.color
 			detailLabel!.backgroundColor = MaterialTheme.clear.color
-			detailLabel!.font = Roboto.lightWithSize(14)
+			detailLabel!.font = Roboto.lightWithSize(12)
 			detailLabel!.numberOfLines = 0
 			detailLabel!.lineBreakMode = .ByWordWrapping
 			prepareCard()
