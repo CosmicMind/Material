@@ -10,7 +10,6 @@
 		657CD02A1B8EE0D3008C0029 /* MaterialCard.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9A94D1081B8A3F5100F586A5 /* MaterialCard.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		657CD02C1B8EE0D3008C0029 /* SideNavController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65B965861B8BEEC60055B139 /* SideNavController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		657CD02D1B8EE0D3008C0029 /* MaterialButton.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65B9657D1B8A7C330055B139 /* MaterialButton.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		657CD02E1B8EE0D3008C0029 /* (null) in Headers */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (Public, ); }; };
 		657CD02F1B8EE0D3008C0029 /* ImageCard.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9A94D10A1B8A485C00F586A5 /* ImageCard.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		65B9657E1B8A7C330055B139 /* MaterialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B9657D1B8A7C330055B139 /* MaterialButton.swift */; };
 		65B965871B8BEEC60055B139 /* SideNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B965861B8BEEC60055B139 /* SideNavController.swift */; };
@@ -35,6 +34,8 @@
 		963832881B8908180015F710 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963832871B8908180015F710 /* Layout.swift */; };
 		963832891B89097D0015F710 /* Layout.swift in Headers */ = {isa = PBXBuildFile; fileRef = 963832871B8908180015F710 /* Layout.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96B57D4E1B90AF7D00DE7BBB /* MaterialTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B57D4D1B90AF7D00DE7BBB /* MaterialTheme.swift */; };
+		96C910ED1B95804B00E7CE5C /* MaterialTheme.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96B57D4D1B90AF7D00DE7BBB /* MaterialTheme.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96C910EE1B95804B00E7CE5C /* ImageRevealCard.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9A3A3B6F1B8EB582005F16BC /* ImageRevealCard.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9A3A3B701B8EB582005F16BC /* ImageRevealCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3A3B6F1B8EB582005F16BC /* ImageRevealCard.swift */; };
 		9A94D0F91B895C8C00F586A5 /* Roboto.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9AAC38531B89559900FE6B2D /* Roboto.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9A94D0FA1B895EA500F586A5 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 963832631B88E5BF0015F710 /* LICENSE */; };
@@ -271,7 +272,8 @@
 				657CD02A1B8EE0D3008C0029 /* MaterialCard.swift in Headers */,
 				657CD02C1B8EE0D3008C0029 /* SideNavController.swift in Headers */,
 				657CD02D1B8EE0D3008C0029 /* MaterialButton.swift in Headers */,
-				657CD02E1B8EE0D3008C0029 /* (null) in Headers */,
+				96C910ED1B95804B00E7CE5C /* MaterialTheme.swift in Headers */,
+				96C910EE1B95804B00E7CE5C /* ImageRevealCard.swift in Headers */,
 				657CD02F1B8EE0D3008C0029 /* ImageCard.swift in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

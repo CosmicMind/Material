@@ -18,7 +18,7 @@
 
 import UIKit
 
-public class BasicCard : MaterialCard {
+public class BasicCard : MaterialCard, Comparable, Equatable {
 	//
 	//	:name:	layoutConstraints
 	//
@@ -104,7 +104,7 @@ public class BasicCard : MaterialCard {
 				l.setTranslatesAutoresizingMaskIntoConstraints(false)
 				l.textColor = MaterialTheme.white.color
 				l.backgroundColor = MaterialTheme.clear.color
-				l.font = Roboto.lightWithSize(12)
+				l.font = Roboto.lightWithSize(16)
 				l.numberOfLines = 0
 				l.lineBreakMode = .ByWordWrapping
 				prepareCard()
@@ -204,7 +204,7 @@ public class BasicCard : MaterialCard {
 			
 			// text
 			titleLabelContainer!.addConstraints(Layout.constraint("H:|-(verticalSpace)-[titleLabel]-(verticalSpace)-|", options: nil, metrics: ["verticalSpace": verticalSpace], views: ["titleLabel": titleLabel!]))
-			titleLabelContainer!.addConstraints(Layout.constraint("V:|-(verticalSpace)-[titleLabel(height)]-(verticalSpace)-|", options: nil, metrics: ["verticalSpace": verticalSpace, "height": titleLabel!.font.pointSize], views: ["titleLabel": titleLabel!]))
+			titleLabelContainer!.addConstraints(Layout.constraint("V:|-(verticalSpace)-[titleLabel(height)]-(verticalSpace)-|", options: nil, metrics: ["verticalSpace": verticalSpace, "height": titleLabel!.font.pointSize + verticalSpace], views: ["titleLabel": titleLabel!]))
 		}
 		
 		// detail
@@ -269,4 +269,24 @@ public class BasicCard : MaterialCard {
 			NSLayoutConstraint.activateConstraints(layoutConstraints)
 		}
 	}
+}
+
+public func ==(lhs: BasicCard, rhs: BasicCard) -> Bool {
+	return lhs.tag == rhs.tag
+}
+
+public func <=(lhs: BasicCard, rhs: BasicCard) -> Bool {
+	return lhs.tag <= rhs.tag
+}
+
+public func >=(lhs: BasicCard, rhs: BasicCard) -> Bool {
+	return lhs.tag >= rhs.tag
+}
+
+public func >(lhs: BasicCard, rhs: BasicCard) -> Bool {
+	return lhs.tag > rhs.tag
+}
+
+public func <(lhs: BasicCard, rhs: BasicCard) -> Bool {
+	return lhs.tag < rhs.tag
 }
