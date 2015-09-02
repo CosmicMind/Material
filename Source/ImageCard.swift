@@ -115,9 +115,7 @@ public class ImageCard : MaterialCard, Comparable, Equatable {
 				t.backgroundColor = MaterialTheme.clear.color
 				t.font = Roboto.mediumWithSize(18)
 				t.numberOfLines = 1
-				if nil == imageView {
-					titleLabelContainer!.addSubview(t)
-				} else {
+				if nil != imageView {
 					titleLabelContainer!.removeFromSuperview()
 					imageViewContainer!.addSubview(titleLabelContainer!)
 				}
@@ -269,16 +267,19 @@ public class ImageCard : MaterialCard, Comparable, Equatable {
 				views["titleLabelContainer"] = titleLabelContainer!
 				
 				// text
-				titleLabelContainer!.addConstraints(Layout.constraint("H:|-(horizontalSpace)-[titleLabel]-(horizontalSpace)-|", options: nil, metrics: ["horizontalSpace": horizontalSpace], views: ["titleLabel": titleLabel!]))
 				titleLabelContainer!.addConstraints(Layout.constraint("V:|-(verticalSpace)-[titleLabel(height)]-(verticalSpace)-|", options: nil, metrics: ["verticalSpace": verticalSpace, "height": titleLabel!.font.pointSize + verticalSpace], views: ["titleLabel": titleLabel!]))
 			} else {
 				//container
-				Layout.expandToParent(imageViewContainer!, child: titleLabelContainer!)
+//				Layout.expandToParent(imageViewContainer!, child: titleLabelContainer!)
+				Layout.alignFromBottomLeft(imageViewContainer!, child: titleLabelContainer!)
+				Layout.height(titleLabelContainer!, child: titleLabel!, height: titleLabel!.font.pointSize + verticalSpace)
 				
 				// text
-				titleLabelContainer!.addConstraints(Layout.constraint("H:|-(horizontalSpace)-[titleLabel]-(horizontalSpace)-|", options: nil, metrics: ["horizontalSpace": horizontalSpace], views: ["titleLabel": titleLabel!]))
-				titleLabelContainer!.addConstraints(Layout.constraint("V:[titleLabel(height)]-(verticalSpace)-|", options: nil, metrics: ["verticalSpace": verticalSpace, "height": titleLabel!.font.pointSize + verticalSpace], views: ["titleLabel": titleLabel!]))
+				titleLabelContainer!.addConstraints(Layout.constraint("V:|-(verticalSpace)-[titleLabel(height)]-(verticalSpace)-|", options: nil, metrics: ["verticalSpace": verticalSpace, "height": titleLabel!.font.pointSize + verticalSpace], views: ["titleLabel": titleLabel!]))
 			}
+			
+			// common text
+			titleLabelContainer!.addConstraints(Layout.constraint("H:|-(horizontalSpace)-[titleLabel]-(horizontalSpace)-|", options: nil, metrics: ["horizontalSpace": horizontalSpace], views: ["titleLabel": titleLabel!]))
 		}
 		
 		// detail
