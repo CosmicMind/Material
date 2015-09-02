@@ -27,7 +27,7 @@ public class FlatButton : MaterialButton {
 		setTitleColor(MaterialTheme.indigo.darken1, forState: .Normal)
 		pulseColor = MaterialTheme.indigo.darken1
 		backgroundColor = MaterialTheme.clear.color
-		contentEdgeInsets = UIEdgeInsetsMake(4, 4, 4, 4)
+		contentEdgeInsets = UIEdgeInsetsMake(4, 16, 4, 16)
 	}
 	
 	//

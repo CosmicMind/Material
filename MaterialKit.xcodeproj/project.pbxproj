@@ -35,8 +35,6 @@
 		963832891B89097D0015F710 /* Layout.swift in Headers */ = {isa = PBXBuildFile; fileRef = 963832871B8908180015F710 /* Layout.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96B57D4E1B90AF7D00DE7BBB /* MaterialTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B57D4D1B90AF7D00DE7BBB /* MaterialTheme.swift */; };
 		96C910ED1B95804B00E7CE5C /* MaterialTheme.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96B57D4D1B90AF7D00DE7BBB /* MaterialTheme.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		96C910EE1B95804B00E7CE5C /* ImageRevealCard.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9A3A3B6F1B8EB582005F16BC /* ImageRevealCard.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		9A3A3B701B8EB582005F16BC /* ImageRevealCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3A3B6F1B8EB582005F16BC /* ImageRevealCard.swift */; };
 		9A94D0F91B895C8C00F586A5 /* Roboto.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9AAC38531B89559900FE6B2D /* Roboto.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9A94D0FA1B895EA500F586A5 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 963832631B88E5BF0015F710 /* LICENSE */; };
 		9A94D0FB1B895EA500F586A5 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9AAC38591B8956E300FE6B2D /* Roboto-Regular.ttf */; };
@@ -78,7 +76,6 @@
 		963832681B88E5BF0015F710 /* TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		963832871B8908180015F710 /* Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
 		96B57D4D1B90AF7D00DE7BBB /* MaterialTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialTheme.swift; sourceTree = "<group>"; };
-		9A3A3B6F1B8EB582005F16BC /* ImageRevealCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageRevealCard.swift; sourceTree = "<group>"; };
 		9A94D1081B8A3F5100F586A5 /* MaterialCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialCard.swift; sourceTree = "<group>"; };
 		9A94D10A1B8A485C00F586A5 /* ImageCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCard.swift; sourceTree = "<group>"; };
 		9AAC384C1B89528900FE6B2D /* BasicCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicCard.swift; sourceTree = "<group>"; };
@@ -235,7 +232,6 @@
 				9A94D1081B8A3F5100F586A5 /* MaterialCard.swift */,
 				9AAC384C1B89528900FE6B2D /* BasicCard.swift */,
 				9A94D10A1B8A485C00F586A5 /* ImageCard.swift */,
-				9A3A3B6F1B8EB582005F16BC /* ImageRevealCard.swift */,
 			);
 			name = Card;
 			sourceTree = "<group>";
@@ -273,7 +269,6 @@
 				657CD02C1B8EE0D3008C0029 /* SideNavController.swift in Headers */,
 				657CD02D1B8EE0D3008C0029 /* MaterialButton.swift in Headers */,
 				96C910ED1B95804B00E7CE5C /* MaterialTheme.swift in Headers */,
-				96C910EE1B95804B00E7CE5C /* ImageRevealCard.swift in Headers */,
 				657CD02F1B8EE0D3008C0029 /* ImageCard.swift in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -383,7 +378,6 @@
 				96B57D4E1B90AF7D00DE7BBB /* MaterialTheme.swift in Sources */,
 				9638326B1B88E5BF0015F710 /* FabButton.swift in Sources */,
 				9A94D1091B8A3F5100F586A5 /* MaterialCard.swift in Sources */,
-				9A3A3B701B8EB582005F16BC /* ImageRevealCard.swift in Sources */,
 				65B965871B8BEEC60055B139 /* SideNavController.swift in Sources */,
 				9638326C1B88E5BF0015F710 /* FlatButton.swift in Sources */,
 				963832711B88E5BF0015F710 /* Text.swift in Sources */,
