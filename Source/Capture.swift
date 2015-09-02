@@ -89,12 +89,12 @@ public class Capture: NSObject, AVCaptureFileOutputRecordingDelegate {
 	public weak var delegate: CaptureDelegate?
 	
 	/**
-	* setupSession
+	* prepareSession
 	* A helper method that prepares the session with the various available inputs and outputs.
 	* @param		preset: String, default: AVCaptureSessionPresetHigh
 	* @return		A boolean value, true if successful, false otherwise.
 	*/
-	public func setupSession(preset: String = AVCaptureSessionPresetHigh) -> Bool {
+	public func prepareSession(preset: String = AVCaptureSessionPresetHigh) -> Bool {
 		session.sessionPreset = preset
 		
 		var error: NSError?

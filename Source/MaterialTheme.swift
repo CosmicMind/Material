@@ -21,7 +21,7 @@ import UIKit
 public struct MaterialTheme {
 	// clear
 	public struct clear {
-		public static let color: UIColor = white.color.colorWithAlphaComponent(0)
+		public static let color: UIColor = UIColor.clearColor()
 	}
 	
 	// white

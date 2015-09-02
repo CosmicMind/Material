@@ -20,10 +20,11 @@ import UIKit
 
 @objc(TextDelegate)
 public protocol TextDelegate {
-	optional func textStorageWillProcessEdit(text: Text!, textStorage: TextStorage!, string: String!, range: NSRange)
-	optional func textStorageDidProcessEdit(text: Text!, textStorage: TextStorage!, string: String!, result: NSTextCheckingResult!, flags: NSMatchingFlags, stop: UnsafeMutablePointer<ObjCBool>)
+	optional func textStorageWillProcessEdit(text: Text, textStorage: TextStorage, string: String, range: NSRange)
+	optional func textStorageDidProcessEdit(text: Text, textStorage: TextStorage, string: String, result: NSTextCheckingResult, flags: NSMatchingFlags, stop: UnsafeMutablePointer<ObjCBool>)
 }
 
+@objc(Text)
 public class Text: NSObject {
 	/**
 		:name:	searchPattern
@@ -49,14 +50,17 @@ public class Text: NSObject {
 	*/
 	public weak var delegate: TextDelegate?
 	
+	/**
+		:name:	init
+	*/
 	override public init() {
 		textStorage = TextStorage()
 		super.init()
 		textStorage.searchExpression = NSRegularExpression(pattern: searchPattern, options: nil, error: nil)
-		textStorage.textStorageWillProcessEdit = { (textStorage: TextStorage!, string: String!, range: NSRange) -> Void in
+		textStorage.textStorageWillProcessEdit = { (textStorage: TextStorage, string: String, range: NSRange) -> Void in
 			self.delegate?.textStorageWillProcessEdit?(self, textStorage: textStorage, string: string, range: range)
 		}
-		textStorage.textStorageDidProcessEdit = { (textStorage: TextStorage!, result: NSTextCheckingResult!, flags: NSMatchingFlags, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
+		textStorage.textStorageDidProcessEdit = { (textStorage: TextStorage, result: NSTextCheckingResult, flags: NSMatchingFlags, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
 			self.delegate?.textStorageDidProcessEdit?(self, textStorage: textStorage, string: textStorage.string, result: result, flags: flags, stop: stop)
 		}
 	}

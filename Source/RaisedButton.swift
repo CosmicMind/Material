@@ -26,7 +26,7 @@ public class RaisedButton : MaterialButton {
 		super.prepareView()
 		setTitleColor(MaterialTheme.white.color, forState: .Normal)
 		backgroundColor = MaterialTheme.indigo.darken1
-		contentEdgeInsets = UIEdgeInsetsMake(10, 20, 10, 20)
+		contentEdgeInsets = UIEdgeInsetsMake(4, 16, 4, 16)
 	}
 	
 	//

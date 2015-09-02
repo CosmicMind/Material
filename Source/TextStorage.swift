@@ -18,8 +18,8 @@
 
 import UIKit
 
-internal typealias TextStorageWillProcessEdit = (TextStorage!, String!, NSRange) -> Void
-internal typealias TextStorageDidProcessEdit = (TextStorage!, NSTextCheckingResult!, NSMatchingFlags, UnsafeMutablePointer<ObjCBool>) -> Void
+internal typealias TextStorageWillProcessEdit = (TextStorage, String, NSRange) -> Void
+internal typealias TextStorageDidProcessEdit = (TextStorage, NSTextCheckingResult, NSMatchingFlags, UnsafeMutablePointer<ObjCBool>) -> Void
 
 public class TextStorage: NSTextStorage {
 	/**

@@ -25,6 +25,11 @@ public class MaterialCard : UIView {
 	internal lazy var backgroundColorView: UIView = UIView()
 	
 	//
+	//	:name:	pulseViewContainer
+	//
+	internal lazy var pulseViewContainer: UIView = UIView()
+	
+	//
 	//	:name:	pulseView
 	//
 	internal var pulseView: UIView?
@@ -44,7 +49,7 @@ public class MaterialCard : UIView {
 	/**
 		:name:	pulseColor
 	*/
-	public var pulseColor: UIColor = MaterialTheme.white.color
+	public var pulseColor: UIColor = MaterialTheme.blueGrey.lighten3
 	
 	/**
 		:name:	init
@@ -101,6 +106,7 @@ public class MaterialCard : UIView {
 	internal func prepareView() {
 		setTranslatesAutoresizingMaskIntoConstraints(false)
 		prepareBackgroundColorView()
+		preparePulseViewContainer()
 		prepareCard()
 	}
 	
@@ -114,18 +120,27 @@ public class MaterialCard : UIView {
 	//
     internal func prepareShadow() {
 		layer.shadowColor = MaterialTheme.black.color.CGColor
-		layer.shadowOffset = CGSizeMake(0.5, 0.5)
-		layer.shadowOpacity = 0.5
-		layer.shadowRadius = 5
-        layer.cornerRadius = 2
+		layer.shadowOffset = CGSizeMake(0.05, 0.05)
+		layer.shadowOpacity = 0.1
+		layer.shadowRadius = 3
     }
+	
+	//
+	//	:name:	removeShadow
+	//
+	internal func removeShadow() {
+		layer.shadowColor = MaterialTheme.clear.color.CGColor
+		layer.shadowOffset = CGSizeMake(0, 0)
+		layer.shadowOpacity = 0
+		layer.shadowRadius = 0
+	}
 	
 	//
 	//	:name:	layoutSubviews
 	//
     public override func layoutSubviews() {
         super.layoutSubviews()
-        layer.shadowPath = UIBezierPath(rect: bounds).CGPath
+		layer.shadowPath = UIBezierPath(rect: bounds).CGPath
     }
     
     //
@@ -136,8 +151,10 @@ public class MaterialCard : UIView {
 		pulseView = UIView(frame: CGRectMake(0, 0, width, width))
 		pulseView!.layer.cornerRadius = width / 2
 		pulseView!.center = (touches.first as! UITouch).locationInView(self)
-		pulseView!.backgroundColor = pulseColor.colorWithAlphaComponent(0.5)
-		backgroundColorView.addSubview(pulseView!)
+		pulseView!.backgroundColor = pulseColor.colorWithAlphaComponent(0.3)
+		addSubview(pulseViewContainer)
+		Layout.expandToParent(self, child: pulseViewContainer)
+		pulseViewContainer.addSubview(pulseView!)
         UIView.animateWithDuration(0.3, animations: {
 			self.pulseView!.transform = CGAffineTransformMakeScale(3, 3)
 			self.transform = CGAffineTransformMakeScale(1.05, 1.05)
@@ -153,6 +170,7 @@ public class MaterialCard : UIView {
 				self.pulseView?.alpha = 0
 			}
 		) { _ in
+			self.pulseViewContainer.removeFromSuperview()
 			self.pulseView?.removeFromSuperview()
 			self.pulseView = nil
 		}
@@ -170,7 +188,20 @@ public class MaterialCard : UIView {
 		backgroundColorView.clipsToBounds = true
 		backgroundColorView.userInteractionEnabled = false
 		insertSubview(backgroundColorView, atIndex: 0)
-		Layout.expandToParentSize(self, child: backgroundColorView)
+		Layout.expandToParent(self, child: backgroundColorView)
+	}
+	
+	//
+	//	:name: preparePulseViewContainer
+	//
+	// We need this view so we can use the masksToBounds
+	// so the pulse doesn't animate off the button
+	private func preparePulseViewContainer() {
+		pulseViewContainer.setTranslatesAutoresizingMaskIntoConstraints(false)
+		pulseViewContainer.layer.cornerRadius = 2
+		pulseViewContainer.layer.masksToBounds = true
+		pulseViewContainer.clipsToBounds = true
+		pulseViewContainer.userInteractionEnabled = false
 	}
 	
 	//

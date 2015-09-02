@@ -18,9 +18,6 @@
 
 import UIKit
 
-private var defaultTextColor: UIColor = UIColor(red: 33/255, green: 33/255, blue: 33/255, alpha: 1)
-private var defaultPlaceholderColor: UIColor = UIColor(red: 159/255, green: 160/255, blue: 164/255, alpha: 1)
-
 public class TextView: UITextView {
 	//
 	//	:name:	label
@@ -36,7 +33,7 @@ public class TextView: UITextView {
 	
 	required public init(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
-		setupView()
+		prepareView()
 	}
 	
 	override public init(frame: CGRect, textContainer: NSTextContainer?) {
@@ -44,7 +41,7 @@ public class TextView: UITextView {
 		if CGRectZero == frame {
 			setTranslatesAutoresizingMaskIntoConstraints(false)
 		}
-		setupView()
+		prepareView()
 	}
 	
 	//
@@ -69,7 +66,7 @@ public class TextView: UITextView {
 		:name:	placeholderColor
 		:description:	The placeholder color.
 	*/
-	public var placeholderColor: UIColor = defaultPlaceholderColor {
+	public var placeholderColor: UIColor = MaterialTheme.blueGrey.lighten1 {
 		didSet {
 			label.textColor = placeholderColor
 		}
@@ -127,7 +124,7 @@ public class TextView: UITextView {
 	
 	override public func layoutSubviews() {
 		super.layoutSubviews()
-		label.preferredMaxLayoutWidth = textContainer.size.width - textContainer.lineFragmentPadding * 2.0
+		label.preferredMaxLayoutWidth = textContainer.size.width - textContainer.lineFragmentPadding * 2
 	}
 	
 	//
@@ -139,18 +136,18 @@ public class TextView: UITextView {
 	}
 	
 	//
-	//	:name:	setupView
+	//	:name:	prepareView
 	//	:description:	Sets up the common initilized values.
 	//
-	private func setupView() {
-		backgroundColor = .clearColor()
-		textColor = defaultTextColor
+	private func prepareView() {
+		backgroundColor = MaterialTheme.clear.color
+		textColor = MaterialTheme.black.color
 		label.font = font
-		label.textColor = defaultPlaceholderColor
+		label.textColor = placeholderColor
 		label.textAlignment = textAlignment
 		label.text = placeholder
 		label.numberOfLines = 0
-		label.backgroundColor = UIColor.clearColor()
+		label.backgroundColor = MaterialTheme.clear.color
 		label.setTranslatesAutoresizingMaskIntoConstraints(false)
 		addSubview(label)
 		

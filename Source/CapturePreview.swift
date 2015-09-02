@@ -120,18 +120,18 @@ public class Preview: UIView {
 	
 	required public init(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
-		setupView()
+		prepareView()
 	}
 	
 	public override init(frame: CGRect) {
 		super.init(frame: frame)
-		setupView()
+		prepareView()
 	}
 	
 	public init() {
 		super.init(frame: CGRectZero)
 		setTranslatesAutoresizingMaskIntoConstraints(false)
-		setupView()
+		prepareView()
 	}
 	
 	//
@@ -160,10 +160,10 @@ public class Preview: UIView {
 	}
 	
 	//
-	//	:name:	setupView
+	//	:name:	prepareView
 	//	:description:	Common setup for view.
 	//	
-	private func setupView() {
+	private func prepareView() {
 		let captureLayer: AVCaptureVideoPreviewLayer = layer as! AVCaptureVideoPreviewLayer
 		captureLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
 		
@@ -194,7 +194,7 @@ public class Preview: UIView {
 	//	
 	private func viewWithColor(color: UIColor) -> UIView {
 		let view: UIView = UIView(frame: Preview.boxBounds)
-		view.backgroundColor = .clearColor()
+		view.backgroundColor = MaterialTheme.clear.color
 		view.layer.borderColor = color.CGColor
 		view.layer.borderWidth = 5
 		view.hidden = true
@@ -210,7 +210,7 @@ public class Preview: UIView {
 		view.center = point
 		view.hidden = false
 		UIView.animateWithDuration(0.15, delay: 0, options: .CurveEaseInOut, animations: { _ in
-			view.layer.transform = CATransform3DMakeScale(0.5, 0.5, 1.0)
+			view.layer.transform = CATransform3DMakeScale(0.5, 0.5, 1)
 		}) { _ in
 			let delayInSeconds: Double = 0.5
 			let popTime: dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(delayInSeconds * Double(NSEC_PER_SEC)))
@@ -248,8 +248,8 @@ public class Preview: UIView {
 		exposureBox!.hidden = false
 		
 		UIView.animateWithDuration(0.15, delay: 0, options: .CurveEaseInOut, animations: { _ in
-			self.focusBox!.layer.transform = CATransform3DMakeScale(0.5, 0.5, 1.0)
-			self.exposureBox!.layer.transform = CATransform3DMakeScale(0.7, 0.7, 1.0)
+			self.focusBox!.layer.transform = CATransform3DMakeScale(0.5, 0.5, 1)
+			self.exposureBox!.layer.transform = CATransform3DMakeScale(0.7, 0.7, 1)
 		}) { _ in
 			let delayInSeconds: Double = 0.5
 			let popTime: dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(delayInSeconds * Double(NSEC_PER_SEC)))
