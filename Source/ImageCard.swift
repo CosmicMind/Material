@@ -79,6 +79,8 @@ public class ImageCard : MaterialCard, Comparable, Equatable {
 				t.userInteractionEnabled = false
 				t.clipsToBounds = true
 				if nil != titleLabel {
+					titleLabelContainer!.backgroundColor = MaterialTheme.clear.color
+					titleLabel!.textColor = MaterialTheme.white.color
 					titleLabelContainer!.removeFromSuperview()
 					imageViewContainer!.addSubview(titleLabelContainer!)
 				}
@@ -104,18 +106,21 @@ public class ImageCard : MaterialCard, Comparable, Equatable {
 				if nil == titleLabelContainer {
 					titleLabelContainer = UIView()
 					titleLabelContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
-					titleLabelContainer!.backgroundColor = MaterialTheme.clear.color
 					addSubview(titleLabelContainer!)
 				}
 				
 				// text
 				titleLabelContainer!.addSubview(t)
 				t.setTranslatesAutoresizingMaskIntoConstraints(false)
-				t.textColor = MaterialTheme.white.color
 				t.backgroundColor = MaterialTheme.clear.color
 				t.font = Roboto.mediumWithSize(18)
 				t.numberOfLines = 1
-				if nil != imageView {
+				if nil == imageView {
+					titleLabelContainer!.backgroundColor = MaterialTheme.white.color
+					t.textColor = MaterialTheme.black.color
+				} else {
+					titleLabelContainer!.backgroundColor = MaterialTheme.clear.color
+					t.textColor = MaterialTheme.white.color
 					titleLabelContainer!.removeFromSuperview()
 					imageViewContainer!.addSubview(titleLabelContainer!)
 				}
@@ -270,8 +275,8 @@ public class ImageCard : MaterialCard, Comparable, Equatable {
 				titleLabelContainer!.addConstraints(Layout.constraint("V:|-(verticalSpace)-[titleLabel(height)]-(verticalSpace)-|", options: nil, metrics: ["verticalSpace": verticalSpace, "height": titleLabel!.font.pointSize + verticalSpace], views: ["titleLabel": titleLabel!]))
 			} else {
 				//container
-//				Layout.expandToParent(imageViewContainer!, child: titleLabelContainer!)
 				Layout.alignFromBottomLeft(imageViewContainer!, child: titleLabelContainer!)
+				Layout.expandToParentHorizontally(imageViewContainer!, child: titleLabelContainer!)
 				Layout.height(titleLabelContainer!, child: titleLabel!, height: titleLabel!.font.pointSize + verticalSpace)
 				
 				// text
