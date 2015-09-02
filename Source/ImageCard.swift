@@ -69,7 +69,7 @@ public class ImageCard : MaterialCard, Comparable, Equatable {
 					imageViewContainer = UIView()
 					imageViewContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
 					imageViewContainer!.backgroundColor = MaterialTheme.clear.color
-					insertSubview(imageViewContainer!, belowSubview: backgroundColorView)
+					addSubview(imageViewContainer!)
 				}
 				
 				// text
