@@ -120,18 +120,18 @@ public class Preview: UIView {
 	
 	required public init(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
-		setupView()
+		prepareView()
 	}
 	
 	public override init(frame: CGRect) {
 		super.init(frame: frame)
-		setupView()
+		prepareView()
 	}
 	
 	public init() {
 		super.init(frame: CGRectZero)
 		setTranslatesAutoresizingMaskIntoConstraints(false)
-		setupView()
+		prepareView()
 	}
 	
 	//
@@ -160,10 +160,10 @@ public class Preview: UIView {
 	}
 	
 	//
-	//	:name:	setupView
+	//	:name:	prepareView
 	//	:description:	Common setup for view.
 	//	
-	private func setupView() {
+	private func prepareView() {
 		let captureLayer: AVCaptureVideoPreviewLayer = layer as! AVCaptureVideoPreviewLayer
 		captureLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
 		

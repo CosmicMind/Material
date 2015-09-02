@@ -24,6 +24,7 @@ public protocol TextDelegate {
 	optional func textStorageDidProcessEdit(text: Text, textStorage: TextStorage, string: String, result: NSTextCheckingResult, flags: NSMatchingFlags, stop: UnsafeMutablePointer<ObjCBool>)
 }
 
+@objc(Text)
 public class Text: NSObject {
 	/**
 		:name:	searchPattern

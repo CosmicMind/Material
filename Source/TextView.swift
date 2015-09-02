@@ -33,7 +33,7 @@ public class TextView: UITextView {
 	
 	required public init(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
-		setupView()
+		prepareView()
 	}
 	
 	override public init(frame: CGRect, textContainer: NSTextContainer?) {
@@ -41,7 +41,7 @@ public class TextView: UITextView {
 		if CGRectZero == frame {
 			setTranslatesAutoresizingMaskIntoConstraints(false)
 		}
-		setupView()
+		prepareView()
 	}
 	
 	//
@@ -136,10 +136,10 @@ public class TextView: UITextView {
 	}
 	
 	//
-	//	:name:	setupView
+	//	:name:	prepareView
 	//	:description:	Sets up the common initilized values.
 	//
-	private func setupView() {
+	private func prepareView() {
 		backgroundColor = MaterialTheme.clear.color
 		textColor = MaterialTheme.black.color
 		label.font = font
