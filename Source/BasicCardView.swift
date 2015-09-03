@@ -18,7 +18,7 @@
 
 import UIKit
 
-public class ImageCard : MaterialCard, Comparable, Equatable {
+public class BasicCardView : MaterialCardView, Comparable, Equatable {
 	//
 	//	:name:	layoutConstraints
 	//
@@ -40,6 +40,11 @@ public class ImageCard : MaterialCard, Comparable, Equatable {
 	public var horizontalSpace: CGFloat = 8
 	
 	/**
+		:name:	titleLabelContainer
+	*/
+	public private(set) var titleLabelContainer: UIView?
+	
+	/**
 		:name:	shadow
 	*/
 	public var shadow: Bool = true {
@@ -47,54 +52,6 @@ public class ImageCard : MaterialCard, Comparable, Equatable {
 			false == shadow ? removeShadow() : prepareShadow()
 		}
 	}
-	
-	/**
-		:name:	maximumImageViewHeight
-	*/
-	public var maximumImageViewHeight: CGFloat = 200
-	
-	/**
-		:name:	imageViewContainer
-	*/
-	public private(set) var imageViewContainer: UIView?
-	
-	/**
-		:name:	imageView
-	*/
-	public var imageView: UIImageView? {
-		didSet {
-			if let t = imageView {
-				// container
-				if nil == imageViewContainer {
-					imageViewContainer = UIView()
-					imageViewContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
-					imageViewContainer!.backgroundColor = MaterialTheme.clear.color
-					addSubview(imageViewContainer!)
-				}
-				
-				// text
-				imageViewContainer!.addSubview(t)
-				t.setTranslatesAutoresizingMaskIntoConstraints(false)
-				t.contentMode = .ScaleAspectFill
-				t.userInteractionEnabled = false
-				t.clipsToBounds = true
-				if nil != titleLabel {
-					titleLabelContainer!.backgroundColor = MaterialTheme.clear.color
-					titleLabel!.textColor = MaterialTheme.white.color
-					titleLabelContainer!.removeFromSuperview()
-					imageViewContainer!.addSubview(titleLabelContainer!)
-				}
-				prepareCard()
-			} else {
-				imageViewContainer?.removeFromSuperview()
-			}
-		}
-	}
-	
-	/**
-		:name:	titleLabelContainer
-	*/
-	public private(set) var titleLabelContainer: UIView?
 	
 	/**
 		:name:	titleLabel
@@ -106,24 +63,17 @@ public class ImageCard : MaterialCard, Comparable, Equatable {
 				if nil == titleLabelContainer {
 					titleLabelContainer = UIView()
 					titleLabelContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
+					titleLabelContainer!.backgroundColor = MaterialTheme.clear.color
 					addSubview(titleLabelContainer!)
 				}
 				
 				// text
 				titleLabelContainer!.addSubview(t)
 				t.setTranslatesAutoresizingMaskIntoConstraints(false)
+				t.textColor = MaterialTheme.white.color
 				t.backgroundColor = MaterialTheme.clear.color
 				t.font = Roboto.mediumWithSize(18)
 				t.numberOfLines = 1
-				if nil == imageView {
-					titleLabelContainer!.backgroundColor = MaterialTheme.white.color
-					t.textColor = MaterialTheme.black.color
-				} else {
-					titleLabelContainer!.backgroundColor = MaterialTheme.clear.color
-					t.textColor = MaterialTheme.white.color
-					titleLabelContainer!.removeFromSuperview()
-					imageViewContainer!.addSubview(titleLabelContainer!)
-				}
 				prepareCard()
 			} else {
 				titleLabelContainer?.removeFromSuperview()
@@ -151,14 +101,14 @@ public class ImageCard : MaterialCard, Comparable, Equatable {
 				if nil == detailLabelContainer {
 					detailLabelContainer = UIView()
 					detailLabelContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
-					detailLabelContainer!.backgroundColor = MaterialTheme.white.color
+					detailLabelContainer!.backgroundColor = MaterialTheme.clear.color
 					addSubview(detailLabelContainer!)
 				}
 				
 				// text
 				detailLabelContainer!.addSubview(l)
 				l.setTranslatesAutoresizingMaskIntoConstraints(false)
-				l.textColor = MaterialTheme.black.color
+				l.textColor = MaterialTheme.white.color
 				l.backgroundColor = MaterialTheme.clear.color
 				l.font = Roboto.lightWithSize(16)
 				l.numberOfLines = 0
@@ -177,7 +127,7 @@ public class ImageCard : MaterialCard, Comparable, Equatable {
 		didSet {
 			if let d = divider {
 				d.setTranslatesAutoresizingMaskIntoConstraints(false)
-				d.backgroundColor = MaterialTheme.blueGrey.lighten5
+				d.backgroundColor = MaterialTheme.blueGrey.color
 				addSubview(d)
 				prepareCard()
 			} else {
@@ -192,7 +142,7 @@ public class ImageCard : MaterialCard, Comparable, Equatable {
 	public private(set) var buttonsContainer: UIView?
 	
 	/**
-	:name:	leftButtons
+		:name:	leftButtons
 	*/
 	public var leftButtons: Array<MaterialButton>? {
 		didSet {
@@ -200,7 +150,7 @@ public class ImageCard : MaterialCard, Comparable, Equatable {
 				if nil == buttonsContainer {
 					buttonsContainer = UIView()
 					buttonsContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
-					buttonsContainer!.backgroundColor = MaterialTheme.white.color
+					buttonsContainer!.backgroundColor = MaterialTheme.clear.color
 					addSubview(buttonsContainer!)
 				}
 				prepareCard()
@@ -211,7 +161,7 @@ public class ImageCard : MaterialCard, Comparable, Equatable {
 	}
 	
 	/**
-		:name:	rightButtons
+	:name:	rightButtons
 	*/
 	public var rightButtons: Array<MaterialButton>? {
 		didSet {
@@ -219,7 +169,7 @@ public class ImageCard : MaterialCard, Comparable, Equatable {
 				if nil == buttonsContainer {
 					buttonsContainer = UIView()
 					buttonsContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
-					buttonsContainer!.backgroundColor = MaterialTheme.white.color
+					buttonsContainer!.backgroundColor = MaterialTheme.clear.color
 					addSubview(buttonsContainer!)
 				}
 				prepareCard()
@@ -235,7 +185,7 @@ public class ImageCard : MaterialCard, Comparable, Equatable {
 	internal override func prepareView() {
 		super.prepareView()
 		prepareShadow()
-		backgroundColor = MaterialTheme.clear.color
+		backgroundColor = MaterialTheme.blueGrey.darken1
 	}
 	
 	//
@@ -251,40 +201,16 @@ public class ImageCard : MaterialCard, Comparable, Equatable {
 		// detect all components and create constraints
 		var verticalFormat: String = "V:|"
 		
-		// image
-		if nil != imageViewContainer && nil != imageView {
-			// container
-			layoutConstraints += Layout.constraint("H:|[imageViewContainer]|", options: nil, metrics: nil, views: ["imageViewContainer": imageViewContainer!])
-			verticalFormat += "[imageViewContainer]"
-			views["imageViewContainer"] = imageViewContainer!
-			
-			// text
-			imageViewContainer!.addConstraints(Layout.constraint("H:|[imageView]|", options: nil, metrics: nil, views: ["imageView": imageView!]))
-			imageViewContainer!.addConstraints(Layout.constraint("V:|[imageView(maximumImageViewHeight)]|", options: nil, metrics: ["maximumImageViewHeight": maximumImageViewHeight], views: ["imageView": imageView!]))
-		}
-		
 		// title
 		if nil != titleLabelContainer && nil != titleLabel {
-			if nil == imageView {
-				// container
-				layoutConstraints += Layout.constraint("H:|[titleLabelContainer]|", options: nil, metrics: nil, views: ["titleLabelContainer": titleLabelContainer!])
-				verticalFormat += "[titleLabelContainer]"
-				views["titleLabelContainer"] = titleLabelContainer!
-				
-				// text
-				titleLabelContainer!.addConstraints(Layout.constraint("V:|-(verticalSpace)-[titleLabel(height)]-(verticalSpace)-|", options: nil, metrics: ["verticalSpace": verticalSpace, "height": titleLabel!.font.pointSize + verticalSpace], views: ["titleLabel": titleLabel!]))
-			} else {
-				//container
-				Layout.alignFromBottomLeft(imageViewContainer!, child: titleLabelContainer!)
-				Layout.expandToParentHorizontally(imageViewContainer!, child: titleLabelContainer!)
-				Layout.height(titleLabelContainer!, child: titleLabel!, height: titleLabel!.font.pointSize + verticalSpace)
-				
-				// text
-				titleLabelContainer!.addConstraints(Layout.constraint("V:|-(verticalSpace)-[titleLabel(height)]-(verticalSpace)-|", options: nil, metrics: ["verticalSpace": verticalSpace, "height": titleLabel!.font.pointSize + verticalSpace], views: ["titleLabel": titleLabel!]))
-			}
+			// container
+			layoutConstraints += Layout.constraint("H:|[titleLabelContainer]|", options: nil, metrics: nil, views: ["titleLabelContainer": titleLabelContainer!])
+			verticalFormat += "[titleLabelContainer]"
+			views["titleLabelContainer"] = titleLabelContainer!
 			
-			// common text
+			// text
 			titleLabelContainer!.addConstraints(Layout.constraint("H:|-(horizontalSpace)-[titleLabel]-(horizontalSpace)-|", options: nil, metrics: ["horizontalSpace": horizontalSpace], views: ["titleLabel": titleLabel!]))
+			titleLabelContainer!.addConstraints(Layout.constraint("V:|-(verticalSpace)-[titleLabel(height)]-(verticalSpace)-|", options: nil, metrics: ["verticalSpace": verticalSpace, "height": titleLabel!.font.pointSize + verticalSpace], views: ["titleLabel": titleLabel!]))
 		}
 		
 		// detail
@@ -321,7 +247,7 @@ public class ImageCard : MaterialCard, Comparable, Equatable {
 					buttonsContainer!.addSubview(button)
 					buttonViews["button\(i)"] = button
 					horizontalFormat += "-(horizontalSpace)-[button\(i)]"
-					Layout.expandToParentVerticallyWithPad(buttonsContainer!, child: button, top: verticalSpace, bottom: verticalSpace)
+					Layout.expandToParentVerticallyWithPad(buttonsContainer!, child: button, top: horizontalSpace, bottom: verticalSpace)
 				}
 				buttonsContainer!.addConstraints(Layout.constraint(horizontalFormat, options: nil, metrics: ["horizontalSpace": horizontalSpace], views: buttonViews))
 			}
@@ -335,7 +261,7 @@ public class ImageCard : MaterialCard, Comparable, Equatable {
 					buttonsContainer!.addSubview(button)
 					buttonViews["button\(i)"] = button
 					horizontalFormat += "[button\(i)]-(horizontalSpace)-"
-					Layout.expandToParentVerticallyWithPad(buttonsContainer!, child: button, top: verticalSpace, bottom: verticalSpace)
+					Layout.expandToParentVerticallyWithPad(buttonsContainer!, child: button, top: horizontalSpace, bottom: verticalSpace)
 				}
 				buttonsContainer!.addConstraints(Layout.constraint(horizontalFormat + "|", options: nil, metrics: ["horizontalSpace": horizontalSpace], views: buttonViews))
 			}
@@ -351,22 +277,22 @@ public class ImageCard : MaterialCard, Comparable, Equatable {
 	}
 }
 
-public func ==(lhs: ImageCard, rhs: ImageCard) -> Bool {
+public func ==(lhs: BasicCardView, rhs: BasicCardView) -> Bool {
 	return lhs.tag == rhs.tag
 }
 
-public func <=(lhs: ImageCard, rhs: ImageCard) -> Bool {
+public func <=(lhs: BasicCardView, rhs: BasicCardView) -> Bool {
 	return lhs.tag <= rhs.tag
 }
 
-public func >=(lhs: ImageCard, rhs: ImageCard) -> Bool {
+public func >=(lhs: BasicCardView, rhs: BasicCardView) -> Bool {
 	return lhs.tag >= rhs.tag
 }
 
-public func >(lhs: ImageCard, rhs: ImageCard) -> Bool {
+public func >(lhs: BasicCardView, rhs: BasicCardView) -> Bool {
 	return lhs.tag > rhs.tag
 }
 
-public func <(lhs: ImageCard, rhs: ImageCard) -> Bool {
+public func <(lhs: BasicCardView, rhs: BasicCardView) -> Bool {
 	return lhs.tag < rhs.tag
 }

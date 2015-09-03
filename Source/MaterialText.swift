@@ -18,14 +18,14 @@
 
 import UIKit
 
-@objc(TextDelegate)
+@objc(MaterialTextDelegate)
 public protocol TextDelegate {
-	optional func textStorageWillProcessEdit(text: Text, textStorage: TextStorage, string: String, range: NSRange)
-	optional func textStorageDidProcessEdit(text: Text, textStorage: TextStorage, string: String, result: NSTextCheckingResult, flags: NSMatchingFlags, stop: UnsafeMutablePointer<ObjCBool>)
+	optional func textStorageWillProcessEdit(text: MaterialText, textStorage: MaterialTextStorage, string: String, range: NSRange)
+	optional func textStorageDidProcessEdit(text: MaterialText, textStorage: MaterialTextStorage, string: String, result: NSTextCheckingResult, flags: NSMatchingFlags, stop: UnsafeMutablePointer<ObjCBool>)
 }
 
-@objc(Text)
-public class Text: NSObject {
+@objc(MaterialText)
+public class MaterialText: NSObject {
 	/**
 		:name:	searchPattern
 		:description:	A string representation of the regular expression that matches text within
@@ -42,7 +42,7 @@ public class Text: NSObject {
 		:name:	textStorage
 		:description:	Reference to wrapped NSTextStorage
 	*/
-	public let textStorage: TextStorage
+	public let textStorage: MaterialTextStorage
 	
 	/**
 		:name:	delegate
@@ -53,14 +53,14 @@ public class Text: NSObject {
 	/**
 		:name:	init
 	*/
-	override public init() {
-		textStorage = TextStorage()
+	public override init() {
+		textStorage = MaterialTextStorage()
 		super.init()
 		textStorage.searchExpression = NSRegularExpression(pattern: searchPattern, options: nil, error: nil)
-		textStorage.textStorageWillProcessEdit = { (textStorage: TextStorage, string: String, range: NSRange) -> Void in
+		textStorage.textStorageWillProcessEdit = { (textStorage: MaterialTextStorage, string: String, range: NSRange) -> Void in
 			self.delegate?.textStorageWillProcessEdit?(self, textStorage: textStorage, string: string, range: range)
 		}
-		textStorage.textStorageDidProcessEdit = { (textStorage: TextStorage, result: NSTextCheckingResult, flags: NSMatchingFlags, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
+		textStorage.textStorageDidProcessEdit = { (textStorage: MaterialTextStorage, result: NSTextCheckingResult, flags: NSMatchingFlags, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
 			self.delegate?.textStorageDidProcessEdit?(self, textStorage: textStorage, string: textStorage.string, result: result, flags: flags, stop: stop)
 		}
 	}

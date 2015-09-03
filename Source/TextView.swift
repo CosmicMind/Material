@@ -20,23 +20,22 @@ import UIKit
 
 public class TextView: UITextView {
 	//
-	//	:name:	label
-	//	:description: Placeholder label.
+	//	:name:	layoutConstraints
 	//
-	private lazy var label: UILabel = UILabel()
+	internal lazy var layoutConstraints: Array<NSLayoutConstraint> = Array<NSLayoutConstraint>()
 	
-	//
-	//	:name:	labelConstraints
-	//	:description:	Autoresize constraints for the placeholder label.
-	//
-	private var labelConstraints: Array<NSLayoutConstraint>?
-	
-	required public init(coder aDecoder: NSCoder) {
+	/**
+		:name:	init
+	*/
+	public required init(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 		prepareView()
 	}
 	
-	override public init(frame: CGRect, textContainer: NSTextContainer?) {
+	/**
+		:name:	init
+	*/
+	public override init(frame: CGRect, textContainer: NSTextContainer?) {
 		super.init(frame: frame, textContainer: textContainer)
 		if CGRectZero == frame {
 			setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -56,47 +55,27 @@ public class TextView: UITextView {
 		:name:	placeholder
 		:description:	The placeholder label string.
 	*/
-	public var placeholder: String = "" {
+	public var placeholderLabel: UILabel? {
 		didSet {
-			label.text = placeholder
+			if let p = placeholderLabel {
+				p.setTranslatesAutoresizingMaskIntoConstraints(false)
+				p.font = font
+				p.textAlignment = textAlignment
+				p.numberOfLines = 0
+				p.backgroundColor = MaterialTheme.clear.color
+				addSubview(p)
+				updateLabelConstraints()
+				textViewTextDidChange()
+			}
 		}
 	}
 	
-	/**
-		:name:	placeholderColor
-		:description:	The placeholder color.
-	*/
-	public var placeholderColor: UIColor = MaterialTheme.blueGrey.lighten1 {
-		didSet {
-			label.textColor = placeholderColor
-		}
-	}
-	
-	/**
-		:name:	font
-		:description:	Font to use for placeholder based on UITextView font.
-	*/
-	override public var font: UIFont! {
-		didSet {
-			label.font = font
-		}
-	}
-	
-	/**
-		:name:	textAlignment
-		:description:	Sets placeholder textAlignment based on UITextView textAlignment.
-	*/
-	override public var textAlignment: NSTextAlignment {
-		didSet {
-			label.textAlignment = textAlignment
-		}
-	}
 	
 	/**
 		:name:	text
 		:description:	When set, updates the placeholder text.
 	*/
-	override public var text: String! {
+	public override var text: String! {
 		didSet {
 			textViewTextDidChange()
 		}
@@ -106,7 +85,7 @@ public class TextView: UITextView {
 		:name:	attributedText
 		:description:	When set, updates the placeholder attributedText.
 	*/
-	override public var attributedText: NSAttributedString! {
+	public override var attributedText: NSAttributedString! {
 		didSet {
 			textViewTextDidChange()
 		}
@@ -116,15 +95,15 @@ public class TextView: UITextView {
 		:name:	textContainerInset
 		:description:	When set, updates the placeholder constraints.
 	*/
-	override public var textContainerInset: UIEdgeInsets {
+	public override var textContainerInset: UIEdgeInsets {
 		didSet {
 			updateLabelConstraints()
 		}
 	}
 	
-	override public func layoutSubviews() {
+	public override func layoutSubviews() {
 		super.layoutSubviews()
-		label.preferredMaxLayoutWidth = textContainer.size.width - textContainer.lineFragmentPadding * 2
+		placeholderLabel?.preferredMaxLayoutWidth = textContainer.size.width - textContainer.lineFragmentPadding * 2
 	}
 	
 	//
@@ -132,7 +111,9 @@ public class TextView: UITextView {
 	//	:description:	Updates the label visibility when text is empty or not.
 	//
 	internal func textViewTextDidChange() {
-		label.hidden = !text.isEmpty
+		if let p = placeholderLabel {
+			p.hidden = !text.isEmpty
+		}
 	}
 	
 	//
@@ -140,21 +121,10 @@ public class TextView: UITextView {
 	//	:description:	Sets up the common initilized values.
 	//
 	private func prepareView() {
-		backgroundColor = MaterialTheme.clear.color
-		textColor = MaterialTheme.black.color
-		label.font = font
-		label.textColor = placeholderColor
-		label.textAlignment = textAlignment
-		label.text = placeholder
-		label.numberOfLines = 0
-		label.backgroundColor = MaterialTheme.clear.color
-		label.setTranslatesAutoresizingMaskIntoConstraints(false)
-		addSubview(label)
-		
 		// label needs to be added to the view
 		// hierarchy before setting insets
 		textContainerInset = UIEdgeInsetsMake(16, 16, 16, 16)
-		
+		backgroundColor = MaterialTheme.clear.color
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "textViewTextDidChange", name: UITextViewTextDidChangeNotification, object: nil)
 		updateLabelConstraints()
 	}
@@ -164,15 +134,27 @@ public class TextView: UITextView {
 	//	:description:	Updates the placeholder constraints.
 	//	
 	private func updateLabelConstraints() {
-		if nil != labelConstraints {
-			removeConstraints(labelConstraints!)
+		if let p = placeholderLabel {
+			NSLayoutConstraint.deactivateConstraints(layoutConstraints)
+			layoutConstraints = Layout.constraint("H:|-(left)-[placeholderLabel]-(right)-|",
+									options: nil,
+									metrics: [
+										"left": textContainerInset.left + textContainer.lineFragmentPadding,
+										"right": textContainerInset.right + textContainer.lineFragmentPadding
+									], views: [
+										"placeholderLabel": p
+									])
+				
+			layoutConstraints += Layout.constraint("V:|-(top)-[placeholderLabel]-(>=bottom)-|",
+									options: nil,
+									metrics: [
+										"top": textContainerInset.top,
+										"bottom": textContainerInset.bottom
+									],
+									views: [
+										"placeholderLabel": p
+									])
+			NSLayoutConstraint.activateConstraints(layoutConstraints)
 		}
-		
-		var constraints: Array<NSLayoutConstraint> = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(left)-[placeholder]-(right)-|", options: nil, metrics: ["left": textContainerInset.left + textContainer.lineFragmentPadding, "right": textContainerInset.right + textContainer.lineFragmentPadding], views: ["placeholder": label]) as! Array<NSLayoutConstraint>
-		
-		constraints += NSLayoutConstraint.constraintsWithVisualFormat("V:|-(top)-[placeholder]-(>=bottom)-|", options: nil, metrics: ["top": textContainerInset.top, "bottom": textContainerInset.bottom], views: ["placeholder": label]) as! Array<NSLayoutConstraint>
-		
-		labelConstraints = constraints
-		addConstraints(constraints)
 	}
 }

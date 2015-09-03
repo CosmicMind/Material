@@ -18,7 +18,7 @@
 
 import UIKit
 
-public class MaterialCard : UIView {
+public class MaterialCardView : UIView {
 	//
 	//	:name:	backgroundColorView
 	//
