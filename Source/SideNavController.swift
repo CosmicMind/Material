@@ -415,6 +415,19 @@ public class SideNavController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     /**
+    :name:	init
+    */
+    public convenience init(mainViewController: UIViewController, leftViewController: UIViewController, bottomViewController: UIViewController) {
+        self.init()
+        self.mainViewController = mainViewController
+        self.leftViewController = leftViewController
+        self.bottomViewController = bottomViewController
+        prepareView()
+        prepareLeftView()
+        prepareBottomView()
+    }
+    
+    /**
         :name:	init
     */
     public convenience init(mainViewController: UIViewController, leftViewController: UIViewController, bottomViewController: UIViewController, rightViewController: UIViewController) {
