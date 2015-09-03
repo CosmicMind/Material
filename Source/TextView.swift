@@ -20,10 +20,9 @@ import UIKit
 
 public class TextView: UITextView {
 	//
-	//	:name:	placeholderconstraints
-	//	:description:	Autoresize constraints for the placeholder label.
+	//	:name:	layoutConstraints
 	//
-	private var placeholderconstraints: Array<NSLayoutConstraint>?
+	internal lazy var layoutConstraints: Array<NSLayoutConstraint> = Array<NSLayoutConstraint>()
 	
 	/**
 		:name:	init
@@ -129,11 +128,9 @@ public class TextView: UITextView {
 	//	:description:	Updates the placeholder constraints.
 	//	
 	private func updateLabelConstraints() {
-		if nil != placeholderconstraints {
-			NSLayoutConstraint.deactivateConstraints(placeholderconstraints!)
-		}
+		NSLayoutConstraint.deactivateConstraints(layoutConstraints)
 		
-		placeholderconstraints = Layout.constraint("H:|-(left)-[placeholder]-(right)-|",
+		layoutConstraints = Layout.constraint("H:|-(left)-[placeholder]-(right)-|",
 								options: nil,
 								metrics: [
 									"left": textContainerInset.left + textContainer.lineFragmentPadding,
@@ -142,7 +139,7 @@ public class TextView: UITextView {
 									"placeholder": placeholderLabel!
 								])
 			
-		placeholderconstraints += Layout.constraint("V:|-(top)-[placeholder]-(>=bottom)-|",
+		layoutConstraints += Layout.constraint("V:|-(top)-[placeholder]-(>=bottom)-|",
 								options: nil,
 								metrics: [
 									"top": textContainerInset.top,
@@ -152,6 +149,6 @@ public class TextView: UITextView {
 									"placeholder": placeholderLabel!
 								])
 		
-		NSLayoutConstraint.activateConstraints(placeholderconstraints!)
+		NSLayoutConstraint.activateConstraints(layoutConstraints)
 	}
 }
