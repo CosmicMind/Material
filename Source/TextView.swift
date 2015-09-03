@@ -66,7 +66,7 @@ public class TextView: UITextView {
 		:name:	placeholderColor
 		:description:	The placeholder color.
 	*/
-	public var placeholderColor: UIColor = MaterialTheme.blueGrey.lighten1 {
+	public var placeholderColor: UIColor = MaterialTheme.indigo.lighten1 {
 		didSet {
 			label.textColor = placeholderColor
 		}
