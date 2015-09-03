@@ -25,7 +25,7 @@ public class RaisedButton : MaterialButton {
 	internal override func prepareView()  {
 		super.prepareView()
 		setTitleColor(MaterialTheme.white.color, forState: .Normal)
-		backgroundColor = MaterialTheme.blue.darken1
+		backgroundColor = MaterialTheme.blueGrey.darken1
 		contentEdgeInsets = UIEdgeInsetsMake(4, 16, 4, 16)
 	}
 	

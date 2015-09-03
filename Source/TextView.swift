@@ -57,12 +57,16 @@ public class TextView: UITextView {
 	*/
 	public var placeholderLabel: UILabel? {
 		didSet {
-			placeholderLabel!.setTranslatesAutoresizingMaskIntoConstraints(false)
-			placeholderLabel!.font = font
-			placeholderLabel!.textAlignment = textAlignment
-			placeholderLabel!.numberOfLines = 0
-			placeholderLabel!.backgroundColor = MaterialTheme.clear.color
-			addSubview(placeholderLabel!)
+			if let p = placeholderLabel {
+				p.setTranslatesAutoresizingMaskIntoConstraints(false)
+				p.font = font
+				p.textAlignment = textAlignment
+				p.numberOfLines = 0
+				p.backgroundColor = MaterialTheme.clear.color
+				addSubview(p)
+				updateLabelConstraints()
+				textViewTextDidChange()
+			}
 		}
 	}
 	
@@ -107,7 +111,9 @@ public class TextView: UITextView {
 	//	:description:	Updates the label visibility when text is empty or not.
 	//
 	internal func textViewTextDidChange() {
-		placeholderLabel?.hidden = !text.isEmpty
+		if let p = placeholderLabel {
+			p.hidden = !text.isEmpty
+		}
 	}
 	
 	//
@@ -118,7 +124,7 @@ public class TextView: UITextView {
 		// label needs to be added to the view
 		// hierarchy before setting insets
 		textContainerInset = UIEdgeInsetsMake(16, 16, 16, 16)
-		
+		backgroundColor = MaterialTheme.clear.color
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "textViewTextDidChange", name: UITextViewTextDidChangeNotification, object: nil)
 		updateLabelConstraints()
 	}
@@ -128,27 +134,26 @@ public class TextView: UITextView {
 	//	:description:	Updates the placeholder constraints.
 	//	
 	private func updateLabelConstraints() {
-		if nil != placeholderLabel {
+		if let p = placeholderLabel {
 			NSLayoutConstraint.deactivateConstraints(layoutConstraints)
-			layoutConstraints = Layout.constraint("H:|-(left)-[placeholder]-(right)-|",
+			layoutConstraints = Layout.constraint("H:|-(left)-[placeholderLabel]-(right)-|",
 									options: nil,
 									metrics: [
 										"left": textContainerInset.left + textContainer.lineFragmentPadding,
 										"right": textContainerInset.right + textContainer.lineFragmentPadding
 									], views: [
-										"placeholder": placeholderLabel!
+										"placeholderLabel": p
 									])
 				
-			layoutConstraints += Layout.constraint("V:|-(top)-[placeholder]-(>=bottom)-|",
+			layoutConstraints += Layout.constraint("V:|-(top)-[placeholderLabel]-(>=bottom)-|",
 									options: nil,
 									metrics: [
 										"top": textContainerInset.top,
 										"bottom": textContainerInset.bottom
 									],
 									views: [
-										"placeholder": placeholderLabel!
+										"placeholderLabel": p
 									])
-			
 			NSLayoutConstraint.activateConstraints(layoutConstraints)
 		}
 	}
