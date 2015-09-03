@@ -44,7 +44,7 @@ public class MaterialButton : UIButton {
 	/**
 		:name:	pulseColor
 	*/
-	public var pulseColor: UIColor? = MaterialTheme.indigo.lighten3
+	public var pulseColor: UIColor? = MaterialTheme.blue.lighten3
 	
 	/**
 		:name:	init

@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		657CD02A1B8EE0D3008C0029 /* MaterialCard.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9A94D1081B8A3F5100F586A5 /* MaterialCard.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		657CD02A1B8EE0D3008C0029 /* MaterialCardView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9A94D1081B8A3F5100F586A5 /* MaterialCardView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		657CD02C1B8EE0D3008C0029 /* SideNavController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65B965861B8BEEC60055B139 /* SideNavController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		657CD02D1B8EE0D3008C0029 /* MaterialButton.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65B9657D1B8A7C330055B139 /* MaterialButton.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		657CD02F1B8EE0D3008C0029 /* ImageCard.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9A94D10A1B8A485C00F586A5 /* ImageCard.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		657CD02F1B8EE0D3008C0029 /* ImageCardView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9A94D10A1B8A485C00F586A5 /* ImageCardView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		65B9657E1B8A7C330055B139 /* MaterialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B9657D1B8A7C330055B139 /* MaterialButton.swift */; };
 		65B965871B8BEEC60055B139 /* SideNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B965861B8BEEC60055B139 /* SideNavController.swift */; };
 		963832421B88DFD80015F710 /* MaterialKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963832361B88DFD80015F710 /* MaterialKit.framework */; };
@@ -20,11 +20,11 @@
 		9638326B1B88E5BF0015F710 /* FabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963832601B88E5BF0015F710 /* FabButton.swift */; };
 		9638326C1B88E5BF0015F710 /* FlatButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963832611B88E5BF0015F710 /* FlatButton.swift */; };
 		963832701B88E5BF0015F710 /* RaisedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963832651B88E5BF0015F710 /* RaisedButton.swift */; };
-		963832711B88E5BF0015F710 /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963832661B88E5BF0015F710 /* Text.swift */; };
-		963832721B88E5BF0015F710 /* TextStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963832671B88E5BF0015F710 /* TextStorage.swift */; };
+		963832711B88E5BF0015F710 /* MaterialText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963832661B88E5BF0015F710 /* MaterialText.swift */; };
+		963832721B88E5BF0015F710 /* MaterialTextStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963832671B88E5BF0015F710 /* MaterialTextStorage.swift */; };
 		963832731B88E5BF0015F710 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963832681B88E5BF0015F710 /* TextView.swift */; };
-		9638327E1B89070E0015F710 /* Text.swift in Headers */ = {isa = PBXBuildFile; fileRef = 963832661B88E5BF0015F710 /* Text.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		9638327F1B89070E0015F710 /* TextStorage.swift in Headers */ = {isa = PBXBuildFile; fileRef = 963832671B88E5BF0015F710 /* TextStorage.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		9638327E1B89070E0015F710 /* MaterialText.swift in Headers */ = {isa = PBXBuildFile; fileRef = 963832661B88E5BF0015F710 /* MaterialText.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		9638327F1B89070E0015F710 /* MaterialTextStorage.swift in Headers */ = {isa = PBXBuildFile; fileRef = 963832671B88E5BF0015F710 /* MaterialTextStorage.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		963832801B89070E0015F710 /* TextView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 963832681B88E5BF0015F710 /* TextView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		963832811B89070E0015F710 /* FabButton.swift in Headers */ = {isa = PBXBuildFile; fileRef = 963832601B88E5BF0015F710 /* FabButton.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		963832821B89070E0015F710 /* FlatButton.swift in Headers */ = {isa = PBXBuildFile; fileRef = 963832611B88E5BF0015F710 /* FlatButton.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -40,11 +40,11 @@
 		9A94D0FB1B895EA500F586A5 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9AAC38591B8956E300FE6B2D /* Roboto-Regular.ttf */; };
 		9A94D0FC1B895EA500F586A5 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9AAC38571B8956CF00FE6B2D /* Roboto-Medium.ttf */; };
 		9A94D0FD1B895EA500F586A5 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9AAC38551B8956C500FE6B2D /* Roboto-Light.ttf */; };
-		9A94D1091B8A3F5100F586A5 /* MaterialCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A94D1081B8A3F5100F586A5 /* MaterialCard.swift */; };
-		9A94D10B1B8A485C00F586A5 /* ImageCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A94D10A1B8A485C00F586A5 /* ImageCard.swift */; };
-		9AAC384D1B89528900FE6B2D /* BasicCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAC384C1B89528900FE6B2D /* BasicCard.swift */; };
+		9A94D1091B8A3F5100F586A5 /* MaterialCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A94D1081B8A3F5100F586A5 /* MaterialCardView.swift */; };
+		9A94D10B1B8A485C00F586A5 /* ImageCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A94D10A1B8A485C00F586A5 /* ImageCardView.swift */; };
+		9AAC384D1B89528900FE6B2D /* BasicCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAC384C1B89528900FE6B2D /* BasicCardView.swift */; };
 		9AAC38541B89559900FE6B2D /* Roboto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAC38531B89559900FE6B2D /* Roboto.swift */; };
-		9AAC385F1B8957A200FE6B2D /* BasicCard.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9AAC384C1B89528900FE6B2D /* BasicCard.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		9AAC385F1B8957A200FE6B2D /* BasicCardView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9AAC384C1B89528900FE6B2D /* BasicCardView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,14 +71,14 @@
 		963832611B88E5BF0015F710 /* FlatButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlatButton.swift; sourceTree = "<group>"; };
 		963832631B88E5BF0015F710 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		963832651B88E5BF0015F710 /* RaisedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RaisedButton.swift; sourceTree = "<group>"; };
-		963832661B88E5BF0015F710 /* Text.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
-		963832671B88E5BF0015F710 /* TextStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextStorage.swift; sourceTree = "<group>"; };
+		963832661B88E5BF0015F710 /* MaterialText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialText.swift; sourceTree = "<group>"; };
+		963832671B88E5BF0015F710 /* MaterialTextStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialTextStorage.swift; sourceTree = "<group>"; };
 		963832681B88E5BF0015F710 /* TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		963832871B8908180015F710 /* Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
 		96B57D4D1B90AF7D00DE7BBB /* MaterialTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialTheme.swift; sourceTree = "<group>"; };
-		9A94D1081B8A3F5100F586A5 /* MaterialCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialCard.swift; sourceTree = "<group>"; };
-		9A94D10A1B8A485C00F586A5 /* ImageCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCard.swift; sourceTree = "<group>"; };
-		9AAC384C1B89528900FE6B2D /* BasicCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicCard.swift; sourceTree = "<group>"; };
+		9A94D1081B8A3F5100F586A5 /* MaterialCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialCardView.swift; sourceTree = "<group>"; };
+		9A94D10A1B8A485C00F586A5 /* ImageCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCardView.swift; sourceTree = "<group>"; };
+		9AAC384C1B89528900FE6B2D /* BasicCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicCardView.swift; sourceTree = "<group>"; };
 		9AAC38531B89559900FE6B2D /* Roboto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Roboto.swift; sourceTree = "<group>"; };
 		9AAC38551B8956C500FE6B2D /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
 		9AAC38571B8956CF00FE6B2D /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
@@ -203,8 +203,8 @@
 		963832761B88E8990015F710 /* Text */ = {
 			isa = PBXGroup;
 			children = (
-				963832661B88E5BF0015F710 /* Text.swift */,
-				963832671B88E5BF0015F710 /* TextStorage.swift */,
+				963832661B88E5BF0015F710 /* MaterialText.swift */,
+				963832671B88E5BF0015F710 /* MaterialTextStorage.swift */,
 				963832681B88E5BF0015F710 /* TextView.swift */,
 			);
 			name = Text;
@@ -229,9 +229,9 @@
 		9AAC384B1B89524E00FE6B2D /* Card */ = {
 			isa = PBXGroup;
 			children = (
-				9A94D1081B8A3F5100F586A5 /* MaterialCard.swift */,
-				9AAC384C1B89528900FE6B2D /* BasicCard.swift */,
-				9A94D10A1B8A485C00F586A5 /* ImageCard.swift */,
+				9A94D1081B8A3F5100F586A5 /* MaterialCardView.swift */,
+				9AAC384C1B89528900FE6B2D /* BasicCardView.swift */,
+				9A94D10A1B8A485C00F586A5 /* ImageCardView.swift */,
 			);
 			name = Card;
 			sourceTree = "<group>";
@@ -254,9 +254,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9AAC385F1B8957A200FE6B2D /* BasicCard.swift in Headers */,
-				9638327E1B89070E0015F710 /* Text.swift in Headers */,
-				9638327F1B89070E0015F710 /* TextStorage.swift in Headers */,
+				9AAC385F1B8957A200FE6B2D /* BasicCardView.swift in Headers */,
+				9638327E1B89070E0015F710 /* MaterialText.swift in Headers */,
+				9638327F1B89070E0015F710 /* MaterialTextStorage.swift in Headers */,
 				963832801B89070E0015F710 /* TextView.swift in Headers */,
 				963832811B89070E0015F710 /* FabButton.swift in Headers */,
 				963832821B89070E0015F710 /* FlatButton.swift in Headers */,
@@ -265,11 +265,11 @@
 				9A94D0F91B895C8C00F586A5 /* Roboto.swift in Headers */,
 				963832851B89070E0015F710 /* CapturePreview.swift in Headers */,
 				963832891B89097D0015F710 /* Layout.swift in Headers */,
-				657CD02A1B8EE0D3008C0029 /* MaterialCard.swift in Headers */,
+				657CD02A1B8EE0D3008C0029 /* MaterialCardView.swift in Headers */,
 				657CD02C1B8EE0D3008C0029 /* SideNavController.swift in Headers */,
 				657CD02D1B8EE0D3008C0029 /* MaterialButton.swift in Headers */,
 				96C910ED1B95804B00E7CE5C /* MaterialTheme.swift in Headers */,
-				657CD02F1B8EE0D3008C0029 /* ImageCard.swift in Headers */,
+				657CD02F1B8EE0D3008C0029 /* ImageCardView.swift in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -374,20 +374,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				963832691B88E5BF0015F710 /* Capture.swift in Sources */,
-				9A94D10B1B8A485C00F586A5 /* ImageCard.swift in Sources */,
+				9A94D10B1B8A485C00F586A5 /* ImageCardView.swift in Sources */,
 				96B57D4E1B90AF7D00DE7BBB /* MaterialTheme.swift in Sources */,
 				9638326B1B88E5BF0015F710 /* FabButton.swift in Sources */,
-				9A94D1091B8A3F5100F586A5 /* MaterialCard.swift in Sources */,
+				9A94D1091B8A3F5100F586A5 /* MaterialCardView.swift in Sources */,
 				65B965871B8BEEC60055B139 /* SideNavController.swift in Sources */,
 				9638326C1B88E5BF0015F710 /* FlatButton.swift in Sources */,
-				963832711B88E5BF0015F710 /* Text.swift in Sources */,
+				963832711B88E5BF0015F710 /* MaterialText.swift in Sources */,
 				9638326A1B88E5BF0015F710 /* CapturePreview.swift in Sources */,
 				9AAC38541B89559900FE6B2D /* Roboto.swift in Sources */,
 				65B9657E1B8A7C330055B139 /* MaterialButton.swift in Sources */,
 				963832881B8908180015F710 /* Layout.swift in Sources */,
-				9AAC384D1B89528900FE6B2D /* BasicCard.swift in Sources */,
+				9AAC384D1B89528900FE6B2D /* BasicCardView.swift in Sources */,
 				963832731B88E5BF0015F710 /* TextView.swift in Sources */,
-				963832721B88E5BF0015F710 /* TextStorage.swift in Sources */,
+				963832721B88E5BF0015F710 /* MaterialTextStorage.swift in Sources */,
 				963832701B88E5BF0015F710 /* RaisedButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

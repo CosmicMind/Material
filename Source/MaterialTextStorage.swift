@@ -18,10 +18,10 @@
 
 import UIKit
 
-internal typealias TextStorageWillProcessEdit = (TextStorage, String, NSRange) -> Void
-internal typealias TextStorageDidProcessEdit = (TextStorage, NSTextCheckingResult, NSMatchingFlags, UnsafeMutablePointer<ObjCBool>) -> Void
+internal typealias MaterialTextStorageWillProcessEdit = (MaterialTextStorage, String, NSRange) -> Void
+internal typealias MaterialTextStorageDidProcessEdit = (MaterialTextStorage, NSTextCheckingResult, NSMatchingFlags, UnsafeMutablePointer<ObjCBool>) -> Void
 
-public class TextStorage: NSTextStorage {
+public class MaterialTextStorage: NSTextStorage {
 	/**
 		:name:	store
 		:description:	Acts as the model, storing the string value.
@@ -39,14 +39,14 @@ public class TextStorage: NSTextStorage {
 		:description:	If set, this block callback executes when there is a change in the TextStorage
 		string value.
 	*/
-	internal var textStorageWillProcessEdit: TextStorageWillProcessEdit?
+	internal var textStorageWillProcessEdit: MaterialTextStorageWillProcessEdit?
 	
 	/**
 		:name:	textStorageDidProcessEdit
 		:description:	If set, this block callback executes when a match is detected after a change in
 		the TextStorage string value.
 	*/
-	internal var textStorageDidProcessEdit: TextStorageDidProcessEdit?
+	internal var textStorageDidProcessEdit: MaterialTextStorageDidProcessEdit?
 	
 	required public init(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
