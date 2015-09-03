@@ -24,7 +24,7 @@ public class FlatButton : MaterialButton {
 	//
 	internal override func prepareView() {
 		super.prepareView()
-		setTitleColor(MaterialTheme.blueGrey.darken1, forState: .Normal)
+		setTitleColor(MaterialTheme.blue.accent2, forState: .Normal)
 		backgroundColor = MaterialTheme.clear.color
 		contentEdgeInsets = UIEdgeInsetsMake(4, 16, 4, 16)
 	}
