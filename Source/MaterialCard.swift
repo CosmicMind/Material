@@ -49,7 +49,7 @@ public class MaterialCard : UIView {
 	/**
 		:name:	pulseColor
 	*/
-	public var pulseColor: UIColor = MaterialTheme.blueGrey.lighten3
+	public var pulseColor: UIColor = MaterialTheme.indigo.lighten3
 	
 	/**
 		:name:	init
