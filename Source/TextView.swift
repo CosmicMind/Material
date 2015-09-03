@@ -128,27 +128,28 @@ public class TextView: UITextView {
 	//	:description:	Updates the placeholder constraints.
 	//	
 	private func updateLabelConstraints() {
-		NSLayoutConstraint.deactivateConstraints(layoutConstraints)
-		
-		layoutConstraints = Layout.constraint("H:|-(left)-[placeholder]-(right)-|",
-								options: nil,
-								metrics: [
-									"left": textContainerInset.left + textContainer.lineFragmentPadding,
-									"right": textContainerInset.right + textContainer.lineFragmentPadding
-								], views: [
-									"placeholder": placeholderLabel!
-								])
+		if nil != placeholderLabel {
+			NSLayoutConstraint.deactivateConstraints(layoutConstraints)
+			layoutConstraints = Layout.constraint("H:|-(left)-[placeholder]-(right)-|",
+									options: nil,
+									metrics: [
+										"left": textContainerInset.left + textContainer.lineFragmentPadding,
+										"right": textContainerInset.right + textContainer.lineFragmentPadding
+									], views: [
+										"placeholder": placeholderLabel!
+									])
+				
+			layoutConstraints += Layout.constraint("V:|-(top)-[placeholder]-(>=bottom)-|",
+									options: nil,
+									metrics: [
+										"top": textContainerInset.top,
+										"bottom": textContainerInset.bottom
+									],
+									views: [
+										"placeholder": placeholderLabel!
+									])
 			
-		layoutConstraints += Layout.constraint("V:|-(top)-[placeholder]-(>=bottom)-|",
-								options: nil,
-								metrics: [
-									"top": textContainerInset.top,
-									"bottom": textContainerInset.bottom
-								],
-								views: [
-									"placeholder": placeholderLabel!
-								])
-		
-		NSLayoutConstraint.activateConstraints(layoutConstraints)
+			NSLayoutConstraint.activateConstraints(layoutConstraints)
+		}
 	}
 }

@@ -68,7 +68,7 @@ Easily make cards with fully customizable components.
 
 
 ```swift
-var card: BasicCard = BasicCard()
+var card: BasicCardView = BasicCardView()
 
 // title
 card.titleLabel = UILabel()
@@ -109,7 +109,7 @@ Add photos with an Image Card.
 
 
 ```swift
-var card: ImageCard = ImageCard()
+var card: ImageCardView = ImageCardView()
 card.imageView = UIImageView(image: UIImage(named: "photo.jpg"))
 
 // layout
@@ -127,7 +127,7 @@ Allow the Image Card to really shine by adding a title, some details, and button
 
 
 ```swift
-var card: ImageCard = ImageCard()
+var card: ImageCardView = ImageCardView()
 card.imageView = UIImageView(image: UIImage(named: "photo.jpg"))
 
 // title
