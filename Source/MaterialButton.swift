@@ -121,9 +121,9 @@ public class MaterialButton : UIButton {
 	//
 	internal func prepareShadow() {
 		layer.shadowColor = MaterialTheme.black.color.CGColor
-		layer.shadowOffset = CGSizeMake(0.5, 0.5)
-		layer.shadowOpacity = 0.5
-		layer.shadowRadius = 5
+		layer.shadowOffset = CGSizeMake(0.1, 0.1)
+		layer.shadowOpacity = 0.4
+		layer.shadowRadius = 2
 	}
 	
 	//

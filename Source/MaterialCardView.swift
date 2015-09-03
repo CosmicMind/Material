@@ -120,9 +120,9 @@ public class MaterialCardView : UIView {
 	//
     internal func prepareShadow() {
 		layer.shadowColor = MaterialTheme.black.color.CGColor
-		layer.shadowOffset = CGSizeMake(0.05, 0.05)
+		layer.shadowOffset = CGSizeMake(0, 0.1)
 		layer.shadowOpacity = 0.1
-		layer.shadowRadius = 3
+		layer.shadowRadius = 1
     }
 	
 	//
