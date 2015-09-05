@@ -123,7 +123,7 @@ public class MaterialButton : UIButton {
 		layer.shadowColor = MaterialTheme.black.color.CGColor
 		layer.shadowOffset = CGSizeMake(0.1, 0.1)
 		layer.shadowOpacity = 0.4
-		layer.shadowRadius = 3
+		layer.shadowRadius = 2
 	}
 	
 	//

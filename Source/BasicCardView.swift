@@ -74,6 +74,7 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 				t.backgroundColor = MaterialTheme.clear.color
 				t.font = Roboto.medium
 				t.numberOfLines = 1
+				t.lineBreakMode = .ByTruncatingTail
 				prepareCard()
 			} else {
 				titleLabelContainer?.removeFromSuperview()
@@ -112,7 +113,7 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 				l.backgroundColor = MaterialTheme.clear.color
 				l.font = Roboto.light
 				l.numberOfLines = 0
-				l.lineBreakMode = .ByWordWrapping
+				l.lineBreakMode = .ByTruncatingTail
 				prepareCard()
 			} else {
 				detailLabelContainer?.removeFromSuperview()
@@ -189,7 +190,7 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	init
 	*/
-	public convenience init(titleLabel: UILabel? = nil, detailLabel: UILabel? = nil, divider: UIView? = nil, leftButtons: Array<MaterialButton>? = nil, rightButtons: Array<MaterialButton>? = nil) {
+	public convenience init?(titleLabel: UILabel? = nil, detailLabel: UILabel? = nil, divider: UIView? = nil, leftButtons: Array<MaterialButton>? = nil, rightButtons: Array<MaterialButton>? = nil) {
 		self.init(frame: CGRectZero)
 		prepareProperties(titleLabel, detailLabel: detailLabel, divider: divider, leftButtons: leftButtons, rightButtons: rightButtons)
 	}
@@ -255,8 +256,8 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 			views["detailLabelContainer"] = detailLabelContainer!
 			
 			// text
-			Layout.expandToParentVerticallyWithPad(detailLabelContainer!, child: detailLabel!, top: verticalSpace, bottom: verticalSpace)
 			Layout.expandToParentHorizontallyWithPad(detailLabelContainer!, child: detailLabel!, left: horizontalSpace, right: horizontalSpace)
+			detailLabelContainer!.addConstraints(Layout.constraint("V:|-(verticalSpace)-[detailLabel(<=maximumDetailLabelHeight)]-(verticalSpace)-|", options: nil, metrics: ["verticalSpace": verticalSpace, "maximumDetailLabelHeight": maximumDetailLabelHeight], views: ["detailLabel": detailLabel!]))
 		}
 		
 		// buttons
@@ -282,7 +283,7 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 					buttonsContainer!.addSubview(button)
 					buttonViews["button\(i)"] = button
 					horizontalFormat += "-(horizontalSpace)-[button\(i)]"
-					Layout.expandToParentVerticallyWithPad(buttonsContainer!, child: button, top: verticalSpace / 2, bottom: verticalSpace / 2)
+					Layout.expandToParentVerticallyWithPad(buttonsContainer!, child: button, top: verticalSpace, bottom: verticalSpace)
 				}
 				buttonsContainer!.addConstraints(Layout.constraint(horizontalFormat, options: nil, metrics: ["horizontalSpace": horizontalSpace], views: buttonViews))
 			}
@@ -296,7 +297,7 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 					buttonsContainer!.addSubview(button)
 					buttonViews["button\(i)"] = button
 					horizontalFormat += "[button\(i)]-(horizontalSpace)-"
-					Layout.expandToParentVerticallyWithPad(buttonsContainer!, child: button, top: verticalSpace / 2, bottom: verticalSpace / 2)
+					Layout.expandToParentVerticallyWithPad(buttonsContainer!, child: button, top: verticalSpace, bottom: verticalSpace)
 				}
 				buttonsContainer!.addConstraints(Layout.constraint(horizontalFormat + "|", options: nil, metrics: ["horizontalSpace": horizontalSpace], views: buttonViews))
 			}
