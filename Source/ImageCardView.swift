@@ -32,12 +32,12 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	verticalSpace
 	*/
-	public var verticalSpace: CGFloat = 8
+	public var verticalSpace: CGFloat = MaterialTheme.verticalSpace
 	
 	/**
 		:name:	horizontalSpace
 	*/
-	public var horizontalSpace: CGFloat = 8
+	public var horizontalSpace: CGFloat = MaterialTheme.horizontalSpace
 	
 	/**
 		:name:	shadow

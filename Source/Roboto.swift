@@ -19,24 +19,88 @@
 import UIKit
 
 public struct Roboto {
+	/**
+		:name:	thin
+	*/
+	public static var thin: UIFont {
+		return thinWithSize(MaterialTheme.textFontSize)
+	}
+	
+	/**
+		:name:	thinWithSize
+	*/
+	public static func thinWithSize(size: CGFloat) -> UIFont {
+		if let f = UIFont(name: "Roboto-Thin", size: size) {
+			return f
+		}
+		return UIFont.systemFontOfSize(size)
+	}
+	
+	/**
+		:name:	light
+	*/
+	public static var light: UIFont {
+		return lightWithSize(MaterialTheme.textFontSize)
+	}
+	
+	/**
+		:name:	lightWithSize
+	*/
     public static func lightWithSize(size: CGFloat) -> UIFont {
         if let f = UIFont(name: "Roboto-Light", size: size) {
             return f
         }
 		return UIFont.systemFontOfSize(size)
     }
-    
+	
+	/**
+		:name:	regular
+	*/
+	public static var regular: UIFont {
+		return regularWithSize(MaterialTheme.textFontSize)
+	}
+	
+	/**
+		:name:	mediumWithSize
+	*/
     public static func mediumWithSize(size: CGFloat) -> UIFont {
         if let f = UIFont(name: "Roboto-Medium", size: size) {
             return f
         }
 		return UIFont.systemFontOfSize(size)
     }
-    
+	
+	/**
+		:name:	medium
+	*/
+	public static var medium: UIFont {
+		return mediumWithSize(MaterialTheme.textFontSize)
+	}
+	
+	/**
+		:name:	regularWithSize
+	*/
     public static func regularWithSize(size: CGFloat) -> UIFont {
         if let f = UIFont(name: "Roboto-Regular", size: size) {
             return f
         }
 		return UIFont.systemFontOfSize(size)
     }
+	
+	/**
+		:name:	bold
+	*/
+	public static var bold: UIFont {
+		return boldWithSize(MaterialTheme.textFontSize)
+	}
+	
+	/**
+		:name:	boldWithSize
+	*/
+	public static func boldWithSize(size: CGFloat) -> UIFont {
+		if let f = UIFont(name: "Roboto-Regular", size: size) {
+			return f
+		}
+		return UIFont.systemFontOfSize(size)
+	}
 }
