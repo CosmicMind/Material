@@ -18,6 +18,19 @@
 
 import UIKit
 
+extension UIViewController {
+    public func sideNavController() -> SideNavController? {
+        var viewController: UIViewController? = self
+        while viewController != nil {
+            if viewController is SideNavController {
+                return viewController as? SideNavController
+            }
+            viewController = viewController?.parentViewController
+        }
+        return nil;
+    }
+}
+
 public enum SideNavState {
 	case Opened
 	case Closed
