@@ -241,9 +241,10 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 			verticalFormat += "[titleLabelContainer]"
 			views["titleLabelContainer"] = titleLabelContainer!
 			
-			// text
-			titleLabelContainer!.addConstraints(Layout.constraint("H:|-(horizontalSpace)-[titleLabel]-(horizontalSpace)-|", options: nil, metrics: ["horizontalSpace": horizontalSpace], views: ["titleLabel": titleLabel!]))
-			titleLabelContainer!.addConstraints(Layout.constraint("V:|-(verticalSpace)-[titleLabel(height)]-(verticalSpace)-|", options: nil, metrics: ["verticalSpace": verticalSpace, "height": 1.5 * titleLabel!.font.pointSize], views: ["titleLabel": titleLabel!]))
+			// common text
+			Layout.height(titleLabelContainer!, child: titleLabel!, height: 1.5 * titleLabel!.font.pointSize)
+			Layout.expandToParentVerticallyWithPad(titleLabelContainer!, child: titleLabel!, top: verticalSpace, bottom: verticalSpace)
+			Layout.expandToParentHorizontallyWithPad(titleLabelContainer!, child: titleLabel!, left: horizontalSpace, right: horizontalSpace)
 		}
 		
 		// detail
