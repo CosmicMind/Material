@@ -8,11 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		657CD02A1B8EE0D3008C0029 /* MaterialCardView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9A94D1081B8A3F5100F586A5 /* MaterialCardView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		657CD02C1B8EE0D3008C0029 /* SideNavController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65B965861B8BEEC60055B139 /* SideNavController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		657CD02C1B8EE0D3008C0029 /* SideNavigationViewController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65B965861B8BEEC60055B139 /* SideNavigationViewController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		657CD02D1B8EE0D3008C0029 /* MaterialButton.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65B9657D1B8A7C330055B139 /* MaterialButton.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		657CD02F1B8EE0D3008C0029 /* ImageCardView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9A94D10A1B8A485C00F586A5 /* ImageCardView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		65B9657E1B8A7C330055B139 /* MaterialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B9657D1B8A7C330055B139 /* MaterialButton.swift */; };
-		65B965871B8BEEC60055B139 /* SideNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B965861B8BEEC60055B139 /* SideNavController.swift */; };
+		65B965871B8BEEC60055B139 /* SideNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B965861B8BEEC60055B139 /* SideNavigationViewController.swift */; };
 		65DBE4201B9A9244000C804F /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 65DBE41E1B9A9244000C804F /* Roboto-Bold.ttf */; };
 		65DBE4211B9A9244000C804F /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 65DBE41F1B9A9244000C804F /* Roboto-Thin.ttf */; };
 		963832421B88DFD80015F710 /* MaterialKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963832361B88DFD80015F710 /* MaterialKit.framework */; };
@@ -61,7 +61,7 @@
 
 /* Begin PBXFileReference section */
 		65B9657D1B8A7C330055B139 /* MaterialButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialButton.swift; sourceTree = "<group>"; };
-		65B965861B8BEEC60055B139 /* SideNavController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideNavController.swift; sourceTree = "<group>"; };
+		65B965861B8BEEC60055B139 /* SideNavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideNavigationViewController.swift; sourceTree = "<group>"; };
 		65DBE41E1B9A9244000C804F /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		65DBE41F1B9A9244000C804F /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		963832361B88DFD80015F710 /* MaterialKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MaterialKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,12 +115,12 @@
 			name = View;
 			sourceTree = "<group>";
 		};
-		65B965851B8BEEB00055B139 /* Nav */ = {
+		65B965851B8BEEB00055B139 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
-				65B965861B8BEEC60055B139 /* SideNavController.swift */,
+				65B965861B8BEEC60055B139 /* SideNavigationViewController.swift */,
 			);
-			name = Nav;
+			name = Navigation;
 			sourceTree = "<group>";
 		};
 		9638322C1B88DFD80015F710 = {
@@ -150,7 +150,7 @@
 				9AAC38521B89553800FE6B2D /* Font */,
 				963832861B8907FE0015F710 /* Layout */,
 				65B965731B8A58E60055B139 /* View */,
-				65B965851B8BEEB00055B139 /* Nav */,
+				65B965851B8BEEB00055B139 /* Navigation */,
 				963832761B88E8990015F710 /* Text */,
 				963832751B88E87B0015F710 /* Button */,
 				9AAC384B1B89524E00FE6B2D /* Card */,
@@ -272,7 +272,7 @@
 				963832851B89070E0015F710 /* CapturePreview.swift in Headers */,
 				963832891B89097D0015F710 /* Layout.swift in Headers */,
 				657CD02A1B8EE0D3008C0029 /* MaterialCardView.swift in Headers */,
-				657CD02C1B8EE0D3008C0029 /* SideNavController.swift in Headers */,
+				657CD02C1B8EE0D3008C0029 /* SideNavigationViewController.swift in Headers */,
 				657CD02D1B8EE0D3008C0029 /* MaterialButton.swift in Headers */,
 				96C910ED1B95804B00E7CE5C /* MaterialTheme.swift in Headers */,
 				657CD02F1B8EE0D3008C0029 /* ImageCardView.swift in Headers */,
@@ -386,7 +386,7 @@
 				96B57D4E1B90AF7D00DE7BBB /* MaterialTheme.swift in Sources */,
 				9638326B1B88E5BF0015F710 /* FabButton.swift in Sources */,
 				9A94D1091B8A3F5100F586A5 /* MaterialCardView.swift in Sources */,
-				65B965871B8BEEC60055B139 /* SideNavController.swift in Sources */,
+				65B965871B8BEEC60055B139 /* SideNavigationViewController.swift in Sources */,
 				9638326C1B88E5BF0015F710 /* FlatButton.swift in Sources */,
 				963832711B88E5BF0015F710 /* MaterialText.swift in Sources */,
 				9638326A1B88E5BF0015F710 /* CapturePreview.swift in Sources */,

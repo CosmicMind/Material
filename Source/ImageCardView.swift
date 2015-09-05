@@ -229,6 +229,42 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 		}
 	}
 	
+	/**
+		:name:	init
+	*/
+	public required init(coder aDecoder: NSCoder) {
+		super.init(coder: aDecoder)
+	}
+	
+	/**
+		:name:	init
+	*/
+	public convenience init() {
+		self.init(frame: CGRectZero)
+	}
+	
+	/**
+		:name:	init
+	*/
+	public convenience init(imageView: UIImageView? = nil, titleLabel: UILabel? = nil, detailLabel: UILabel? = nil, divider: UIView? = nil, leftButtons: Array<MaterialButton>? = nil, rightButtons: Array<MaterialButton>? = nil) {
+		self.init(frame: CGRectZero)
+		self.imageView = imageView
+		self.titleLabel = titleLabel
+		self.detailLabel = detailLabel
+		self.leftButtons = leftButtons
+		self.rightButtons = rightButtons
+	}
+	
+	/**
+		:name:	init
+	*/
+	public required init(frame: CGRect) {
+		super.init(frame: frame)
+		if CGRectZero == frame {
+			setTranslatesAutoresizingMaskIntoConstraints(false)
+		}
+	}
+	
 	//
 	//	:name:	prepareView
 	//
