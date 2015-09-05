@@ -72,7 +72,7 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 				t.setTranslatesAutoresizingMaskIntoConstraints(false)
 				t.textColor = MaterialTheme.white.color
 				t.backgroundColor = MaterialTheme.clear.color
-				t.font = Roboto.mediumWithSize(18)
+				t.font = Roboto.medium
 				t.numberOfLines = 1
 				prepareCard()
 			} else {
@@ -110,7 +110,7 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 				l.setTranslatesAutoresizingMaskIntoConstraints(false)
 				l.textColor = MaterialTheme.white.color
 				l.backgroundColor = MaterialTheme.clear.color
-				l.font = Roboto.lightWithSize(16)
+				l.font = Roboto.light
 				l.numberOfLines = 0
 				l.lineBreakMode = .ByWordWrapping
 				prepareCard()
@@ -161,7 +161,7 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 	}
 	
 	/**
-	:name:	rightButtons
+		:name:	rightButtons
 	*/
 	public var rightButtons: Array<MaterialButton>? {
 		didSet {
@@ -189,29 +189,16 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	init
 	*/
-	public convenience init() {
-		self.init(frame: CGRectZero)
-	}
-	
-	/**
-		:name:	init
-	*/
 	public convenience init(titleLabel: UILabel? = nil, detailLabel: UILabel? = nil, divider: UIView? = nil, leftButtons: Array<MaterialButton>? = nil, rightButtons: Array<MaterialButton>? = nil) {
 		self.init(frame: CGRectZero)
-		self.titleLabel = titleLabel
-		self.detailLabel = detailLabel
-		self.leftButtons = leftButtons
-		self.rightButtons = rightButtons
+		prepareProperties(detailLabel)
 	}
 
 	/**
 		:name:	init
 	*/
 	public required init(frame: CGRect) {
-		super.init(frame: frame)
-		if CGRectZero == frame {
-			setTranslatesAutoresizingMaskIntoConstraints(false)
-		}
+		super.init(frame: CGRectZero)
 	}
 
 	//
@@ -221,6 +208,13 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 		super.prepareView()
 		prepareShadow()
 		backgroundColor = MaterialTheme.blueGrey.darken1
+	}
+	
+	//
+	//	:name:	prepareProperties
+	//
+	internal func prepareProperties(detailLabel: UILabel?) {
+		self.detailLabel = detailLabel
 	}
 	
 	//

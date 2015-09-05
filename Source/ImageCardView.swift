@@ -113,7 +113,7 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 				titleLabelContainer!.addSubview(t)
 				t.setTranslatesAutoresizingMaskIntoConstraints(false)
 				t.backgroundColor = MaterialTheme.clear.color
-				t.font = Roboto.mediumWithSize(18)
+				t.font = Roboto.medium
 				t.numberOfLines = 1
 				if nil == imageView {
 					titleLabelContainer!.backgroundColor = MaterialTheme.white.color
@@ -160,7 +160,7 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 				l.setTranslatesAutoresizingMaskIntoConstraints(false)
 				l.textColor = MaterialTheme.black.color
 				l.backgroundColor = MaterialTheme.clear.color
-				l.font = Roboto.lightWithSize(16)
+				l.font = Roboto.light
 				l.numberOfLines = 0
 				l.lineBreakMode = .ByWordWrapping
 				prepareCard()
@@ -192,7 +192,7 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 	public private(set) var buttonsContainer: UIView?
 	
 	/**
-	:name:	leftButtons
+		:name:	leftButtons
 	*/
 	public var leftButtons: Array<MaterialButton>? {
 		didSet {

@@ -132,12 +132,10 @@ public struct Layout {
 	}
     
     /**
-    :name:	alignAllSides
+		:name:	alignAllSides
     */
     public static func alignAllSides(parent: UIView, child: UIView) {
-        let views: Dictionary<String, AnyObject> = ["child" : child]
-        parent.addConstraints(constraint("H:|[child]|", options: nil, metrics: nil, views: views))
-        parent.addConstraints(constraint("V:|[child]|", options: nil, metrics: nil, views: views))
+        expandToParent(parent, child: child)
     }
     
 	/**
