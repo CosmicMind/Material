@@ -191,7 +191,7 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 	*/
 	public convenience init(titleLabel: UILabel? = nil, detailLabel: UILabel? = nil, divider: UIView? = nil, leftButtons: Array<MaterialButton>? = nil, rightButtons: Array<MaterialButton>? = nil) {
 		self.init(frame: CGRectZero)
-		prepareProperties(detailLabel)
+		prepareProperties(titleLabel, detailLabel: detailLabel, divider: divider, leftButtons: leftButtons, rightButtons: rightButtons)
 	}
 
 	/**
@@ -213,8 +213,12 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 	//
 	//	:name:	prepareProperties
 	//
-	internal func prepareProperties(detailLabel: UILabel?) {
+	internal func prepareProperties(titleLabel: UILabel?, detailLabel: UILabel?, divider: UIView?, leftButtons: Array<MaterialButton>?, rightButtons: Array<MaterialButton>?) {
+		self.titleLabel = titleLabel
 		self.detailLabel = detailLabel
+		self.divider = divider
+		self.leftButtons = leftButtons
+		self.rightButtons = rightButtons
 	}
 	
 	//
@@ -239,7 +243,7 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 			
 			// text
 			titleLabelContainer!.addConstraints(Layout.constraint("H:|-(horizontalSpace)-[titleLabel]-(horizontalSpace)-|", options: nil, metrics: ["horizontalSpace": horizontalSpace], views: ["titleLabel": titleLabel!]))
-			titleLabelContainer!.addConstraints(Layout.constraint("V:|-(verticalSpace)-[titleLabel(height)]-(verticalSpace)-|", options: nil, metrics: ["verticalSpace": verticalSpace, "height": titleLabel!.font.pointSize + verticalSpace], views: ["titleLabel": titleLabel!]))
+			titleLabelContainer!.addConstraints(Layout.constraint("V:|-(verticalSpace)-[titleLabel(height)]|", options: nil, metrics: ["verticalSpace": verticalSpace, "height": titleLabel!.font.pointSize + verticalSpace], views: ["titleLabel": titleLabel!]))
 		}
 		
 		// detail
@@ -250,8 +254,8 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 			views["detailLabelContainer"] = detailLabelContainer!
 			
 			// text
-			detailLabelContainer!.addConstraints(Layout.constraint("H:|-(horizontalSpace)-[detailLabel]-(horizontalSpace)-|", options: nil, metrics: ["horizontalSpace": horizontalSpace], views: ["detailLabel": detailLabel!]))
-			detailLabelContainer!.addConstraints(Layout.constraint("V:|-(verticalSpace)-[detailLabel(<=maximumDetailLabelHeight)]-(verticalSpace)-|", options: nil, metrics: ["verticalSpace": verticalSpace, "maximumDetailLabelHeight": maximumDetailLabelHeight], views: ["detailLabel": detailLabel!]))
+			Layout.expandToParentVerticallyWithPad(detailLabelContainer!, child: detailLabel!, top: verticalSpace, bottom: verticalSpace)
+			Layout.expandToParentHorizontallyWithPad(detailLabelContainer!, child: detailLabel!, left: horizontalSpace, right: horizontalSpace)
 		}
 		
 		if nil != buttonsContainer && (nil != leftButtons || nil != rightButtons) {
@@ -276,7 +280,7 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 					buttonsContainer!.addSubview(button)
 					buttonViews["button\(i)"] = button
 					horizontalFormat += "-(horizontalSpace)-[button\(i)]"
-					Layout.expandToParentVerticallyWithPad(buttonsContainer!, child: button, top: horizontalSpace, bottom: verticalSpace)
+					Layout.expandToParentVerticallyWithPad(buttonsContainer!, child: button, top: verticalSpace / 2, bottom: verticalSpace / 2)
 				}
 				buttonsContainer!.addConstraints(Layout.constraint(horizontalFormat, options: nil, metrics: ["horizontalSpace": horizontalSpace], views: buttonViews))
 			}
@@ -290,7 +294,7 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 					buttonsContainer!.addSubview(button)
 					buttonViews["button\(i)"] = button
 					horizontalFormat += "[button\(i)]-(horizontalSpace)-"
-					Layout.expandToParentVerticallyWithPad(buttonsContainer!, child: button, top: horizontalSpace, bottom: verticalSpace)
+					Layout.expandToParentVerticallyWithPad(buttonsContainer!, child: button, top: verticalSpace / 2, bottom: verticalSpace / 2)
 				}
 				buttonsContainer!.addConstraints(Layout.constraint(horizontalFormat + "|", options: nil, metrics: ["horizontalSpace": horizontalSpace], views: buttonViews))
 			}
