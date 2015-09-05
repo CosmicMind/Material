@@ -202,15 +202,6 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 	}
 
 	//
-	//	:name:	prepareView
-	//
-	internal override func prepareView() {
-		super.prepareView()
-		prepareShadow()
-		backgroundColor = MaterialTheme.blueGrey.darken1
-	}
-	
-	//
 	//	:name:	prepareProperties
 	//
 	internal func prepareProperties(titleLabel: UILabel?, detailLabel: UILabel?, divider: UIView?, leftButtons: Array<MaterialButton>?, rightButtons: Array<MaterialButton>?) {
@@ -219,6 +210,15 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 		self.divider = divider
 		self.leftButtons = leftButtons
 		self.rightButtons = rightButtons
+	}
+	
+	//
+	//	:name:	prepareView
+	//
+	internal override func prepareView() {
+		super.prepareView()
+		prepareShadow()
+		backgroundColor = MaterialTheme.blueGrey.darken1
 	}
 	
 	//
@@ -243,7 +243,7 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 			
 			// text
 			titleLabelContainer!.addConstraints(Layout.constraint("H:|-(horizontalSpace)-[titleLabel]-(horizontalSpace)-|", options: nil, metrics: ["horizontalSpace": horizontalSpace], views: ["titleLabel": titleLabel!]))
-			titleLabelContainer!.addConstraints(Layout.constraint("V:|-(verticalSpace)-[titleLabel(height)]|", options: nil, metrics: ["verticalSpace": verticalSpace, "height": titleLabel!.font.pointSize + verticalSpace], views: ["titleLabel": titleLabel!]))
+			titleLabelContainer!.addConstraints(Layout.constraint("V:|-(verticalSpace)-[titleLabel(height)]-(verticalSpace)-|", options: nil, metrics: ["verticalSpace": verticalSpace, "height": 1.5 * titleLabel!.font.pointSize], views: ["titleLabel": titleLabel!]))
 		}
 		
 		// detail
@@ -258,6 +258,7 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 			Layout.expandToParentHorizontallyWithPad(detailLabelContainer!, child: detailLabel!, left: horizontalSpace, right: horizontalSpace)
 		}
 		
+		// buttons
 		if nil != buttonsContainer && (nil != leftButtons || nil != rightButtons) {
 			// divider
 			if nil != divider {
