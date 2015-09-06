@@ -24,9 +24,11 @@ public class FlatButton : MaterialButton {
 	//
 	internal override func prepareView() {
 		super.prepareView()
-		setTitleColor(MaterialTheme.blue.accent2, forState: .Normal)
+		titleLabel!.font = Roboto.medium
+		setTitleColor(MaterialTheme.blueGrey.darken4, forState: .Normal)
+		pulseColor = MaterialTheme.blueGrey.lighten3
 		backgroundColor = MaterialTheme.clear.color
-		contentEdgeInsets = UIEdgeInsetsMake(4, 16, 4, 16)
+		contentEdgeInsets = UIEdgeInsetsMake(6, 16, 6, 16)
 	}
 	
 	//
