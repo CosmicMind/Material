@@ -32,12 +32,12 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	verticalSpace
 	*/
-	public var verticalSpace: CGFloat = 8
+	public var verticalSpace: CGFloat = MaterialTheme.verticalSpace
 	
 	/**
 		:name:	horizontalSpace
 	*/
-	public var horizontalSpace: CGFloat = 8
+	public var horizontalSpace: CGFloat = MaterialTheme.horizontalSpace
 	
 	/**
 		:name:	shadow
@@ -113,8 +113,9 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 				titleLabelContainer!.addSubview(t)
 				t.setTranslatesAutoresizingMaskIntoConstraints(false)
 				t.backgroundColor = MaterialTheme.clear.color
-				t.font = Roboto.mediumWithSize(18)
+				t.font = Roboto.medium
 				t.numberOfLines = 1
+				t.lineBreakMode = .ByTruncatingTail
 				if nil == imageView {
 					titleLabelContainer!.backgroundColor = MaterialTheme.white.color
 					t.textColor = MaterialTheme.black.color
@@ -160,9 +161,9 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 				l.setTranslatesAutoresizingMaskIntoConstraints(false)
 				l.textColor = MaterialTheme.black.color
 				l.backgroundColor = MaterialTheme.clear.color
-				l.font = Roboto.lightWithSize(16)
+				l.font = Roboto.light
 				l.numberOfLines = 0
-				l.lineBreakMode = .ByWordWrapping
+				l.lineBreakMode = .ByTruncatingTail
 				prepareCard()
 			} else {
 				detailLabelContainer?.removeFromSuperview()
@@ -192,7 +193,7 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 	public private(set) var buttonsContainer: UIView?
 	
 	/**
-	:name:	leftButtons
+		:name:	leftButtons
 	*/
 	public var leftButtons: Array<MaterialButton>? {
 		didSet {
@@ -227,6 +228,40 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 				buttonsContainer?.removeFromSuperview()
 			}
 		}
+	}
+	
+	/**
+		:name:	init
+	*/
+	public required init(coder aDecoder: NSCoder) {
+		super.init(coder: aDecoder)
+	}
+	
+	/**
+		:name:	init
+	*/
+	public convenience init?(imageView: UIImageView? = nil, titleLabel: UILabel? = nil, detailLabel: UILabel? = nil, divider: UIView? = nil, leftButtons: Array<MaterialButton>? = nil, rightButtons: Array<MaterialButton>? = nil) {
+		self.init(frame: CGRectZero)
+		prepareProperties(imageView, titleLabel: titleLabel, detailLabel: detailLabel, divider: divider, leftButtons: leftButtons, rightButtons: rightButtons)
+	}
+	
+	/**
+		:name:	init
+	*/
+	public required init(frame: CGRect) {
+		super.init(frame: CGRectZero)
+	}
+	
+	//
+	//	:name:	prepareProperties
+	//
+	internal func prepareProperties(imageView: UIImageView?, titleLabel: UILabel?, detailLabel: UILabel?, divider: UIView?, leftButtons: Array<MaterialButton>?, rightButtons: Array<MaterialButton>?) {
+		self.imageView = imageView
+		self.titleLabel = titleLabel
+		self.detailLabel = detailLabel
+		self.divider = divider
+		self.leftButtons = leftButtons
+		self.rightButtons = rightButtons
 	}
 	
 	//
@@ -270,21 +305,16 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 				layoutConstraints += Layout.constraint("H:|[titleLabelContainer]|", options: nil, metrics: nil, views: ["titleLabelContainer": titleLabelContainer!])
 				verticalFormat += "[titleLabelContainer]"
 				views["titleLabelContainer"] = titleLabelContainer!
-				
-				// text
-				titleLabelContainer!.addConstraints(Layout.constraint("V:|-(verticalSpace)-[titleLabel(height)]-(verticalSpace)-|", options: nil, metrics: ["verticalSpace": verticalSpace, "height": titleLabel!.font.pointSize + verticalSpace], views: ["titleLabel": titleLabel!]))
 			} else {
 				//container
 				Layout.alignFromBottomLeft(imageViewContainer!, child: titleLabelContainer!)
 				Layout.expandToParentHorizontally(imageViewContainer!, child: titleLabelContainer!)
-				Layout.height(titleLabelContainer!, child: titleLabel!, height: titleLabel!.font.pointSize + verticalSpace)
-				
-				// text
-				titleLabelContainer!.addConstraints(Layout.constraint("V:|-(verticalSpace)-[titleLabel(height)]-(verticalSpace)-|", options: nil, metrics: ["verticalSpace": verticalSpace, "height": titleLabel!.font.pointSize + verticalSpace], views: ["titleLabel": titleLabel!]))
 			}
 			
 			// common text
-			titleLabelContainer!.addConstraints(Layout.constraint("H:|-(horizontalSpace)-[titleLabel]-(horizontalSpace)-|", options: nil, metrics: ["horizontalSpace": horizontalSpace], views: ["titleLabel": titleLabel!]))
+			Layout.height(titleLabelContainer!, child: titleLabel!, height: 1.5 * titleLabel!.font.pointSize)
+			Layout.expandToParentVerticallyWithPad(titleLabelContainer!, child: titleLabel!, top: verticalSpace, bottom: verticalSpace)
+			Layout.expandToParentHorizontallyWithPad(titleLabelContainer!, child: titleLabel!, left: horizontalSpace, right: horizontalSpace)
 		}
 		
 		// detail
@@ -295,10 +325,11 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 			views["detailLabelContainer"] = detailLabelContainer!
 			
 			// text
-			detailLabelContainer!.addConstraints(Layout.constraint("H:|-(horizontalSpace)-[detailLabel]-(horizontalSpace)-|", options: nil, metrics: ["horizontalSpace": horizontalSpace], views: ["detailLabel": detailLabel!]))
+			Layout.expandToParentHorizontallyWithPad(detailLabelContainer!, child: detailLabel!, left: horizontalSpace, right: horizontalSpace)
 			detailLabelContainer!.addConstraints(Layout.constraint("V:|-(verticalSpace)-[detailLabel(<=maximumDetailLabelHeight)]-(verticalSpace)-|", options: nil, metrics: ["verticalSpace": verticalSpace, "maximumDetailLabelHeight": maximumDetailLabelHeight], views: ["detailLabel": detailLabel!]))
 		}
 		
+		// buttons
 		if nil != buttonsContainer && (nil != leftButtons || nil != rightButtons) {
 			// divider
 			if nil != divider {

@@ -18,17 +18,33 @@
 
 import UIKit
 
-public enum SideNavState {
+extension UIViewController {
+	/**
+		:name:	sideNavigationViewController
+	*/
+	public var sideNavigationViewController: SideNavigationViewController? {
+        var viewController: UIViewController? = self
+        while nil != viewController {
+            if viewController is SideNavigationViewController {
+                return viewController as? SideNavigationViewController
+            }
+            viewController = viewController?.parentViewController
+        }
+        return nil
+    }
+}
+
+public enum SideNavigationViewState {
 	case Opened
 	case Closed
 }
 
-@objc(SideNavContainer)
-public class SideNavContainer : Printable {
+@objc(SideNavigationViewContainer)
+public class SideNavigationViewContainer : Printable {
 	/**
 		:name:	state
 	*/
-	public private(set) var state: SideNavState
+	public private(set) var state: SideNavigationViewState
 	
 	/**
 		:name:	point
@@ -51,50 +67,50 @@ public class SideNavContainer : Printable {
 	/**
 		:name:	init
 	*/
-	public init(state: SideNavState, point: CGPoint, frame: CGRect) {
+	public init(state: SideNavigationViewState, point: CGPoint, frame: CGRect) {
 		self.state = state
 		self.point = point
 		self.frame = frame
 	}
 }
 
-@objc(SideNavDelegate)
-public protocol SideNavDelegate {
+@objc(SideNavigationViewDelegate)
+public protocol SideNavigationViewDelegate {
 	// left
-	optional func sideNavDidBeginLeftPan(nav: SideNavController, container: SideNavContainer)
-	optional func sideNavDidChangeLeftPan(nav: SideNavController, container: SideNavContainer)
-	optional func sideNavDidEndLeftPan(nav: SideNavController, container: SideNavContainer)
-	optional func sideNavDidOpenLeftViewContainer(nav: SideNavController, container: SideNavContainer)
-	optional func sideNavDidCloseLeftViewContainer(nav: SideNavController, container: SideNavContainer)
-	optional func sideNavDidTapLeft(nav: SideNavController, container: SideNavContainer)
+	optional func sideNavDidBeginLeftPan(nav: SideNavigationViewController, container: SideNavigationViewContainer)
+	optional func sideNavDidChangeLeftPan(nav: SideNavigationViewController, container: SideNavigationViewContainer)
+	optional func sideNavDidEndLeftPan(nav: SideNavigationViewController, container: SideNavigationViewContainer)
+	optional func sideNavDidOpenLeftViewContainer(nav: SideNavigationViewController, container: SideNavigationViewContainer)
+	optional func sideNavDidCloseLeftViewContainer(nav: SideNavigationViewController, container: SideNavigationViewContainer)
+	optional func sideNavDidTapLeft(nav: SideNavigationViewController, container: SideNavigationViewContainer)
 	
 	// right
-	optional func sideNavDidBeginRightPan(nav: SideNavController, container: SideNavContainer)
-	optional func sideNavDidChangeRightPan(nav: SideNavController, container: SideNavContainer)
-	optional func sideNavDidEndRightPan(nav: SideNavController, container: SideNavContainer)
-	optional func sideNavDidOpenRightViewContainer(nav: SideNavController, container: SideNavContainer)
-	optional func sideNavDidCloseRightViewContainer(nav: SideNavController, container: SideNavContainer)
-	optional func sideNavDidTapRight(nav: SideNavController, container: SideNavContainer)
+	optional func sideNavDidBeginRightPan(nav: SideNavigationViewController, container: SideNavigationViewContainer)
+	optional func sideNavDidChangeRightPan(nav: SideNavigationViewController, container: SideNavigationViewContainer)
+	optional func sideNavDidEndRightPan(nav: SideNavigationViewController, container: SideNavigationViewContainer)
+	optional func sideNavDidOpenRightViewContainer(nav: SideNavigationViewController, container: SideNavigationViewContainer)
+	optional func sideNavDidCloseRightViewContainer(nav: SideNavigationViewController, container: SideNavigationViewContainer)
+	optional func sideNavDidTapRight(nav: SideNavigationViewController, container: SideNavigationViewContainer)
     
     // bottom
-    optional func sideNavDidBeginBottomPan(nav: SideNavController, container: SideNavContainer)
-    optional func sideNavDidChangeBottomPan(nav: SideNavController, container: SideNavContainer)
-    optional func sideNavDidEndBottomPan(nav: SideNavController, container: SideNavContainer)
-    optional func sideNavDidOpenBottomViewContainer(nav: SideNavController, container: SideNavContainer)
-    optional func sideNavDidCloseBottomViewContainer(nav: SideNavController, container: SideNavContainer)
-    optional func sideNavDidTapBottom(nav: SideNavController, container: SideNavContainer)
+    optional func sideNavDidBeginBottomPan(nav: SideNavigationViewController, container: SideNavigationViewContainer)
+    optional func sideNavDidChangeBottomPan(nav: SideNavigationViewController, container: SideNavigationViewContainer)
+    optional func sideNavDidEndBottomPan(nav: SideNavigationViewController, container: SideNavigationViewContainer)
+    optional func sideNavDidOpenBottomViewContainer(nav: SideNavigationViewController, container: SideNavigationViewContainer)
+    optional func sideNavDidCloseBottomViewContainer(nav: SideNavigationViewController, container: SideNavigationViewContainer)
+    optional func sideNavDidTapBottom(nav: SideNavigationViewController, container: SideNavigationViewContainer)
     
     // top
-    optional func sideNavDidBeginTopPan(nav: SideNavController, container: SideNavContainer)
-    optional func sideNavDidChangeTopPan(nav: SideNavController, container: SideNavContainer)
-    optional func sideNavDidEndTopPan(nav: SideNavController, container: SideNavContainer)
-    optional func sideNavDidOpenTopViewContainer(nav: SideNavController, container: SideNavContainer)
-    optional func sideNavDidCloseTopViewContainer(nav: SideNavController, container: SideNavContainer)
-    optional func sideNavDidTapTop(nav: SideNavController, container: SideNavContainer)
+    optional func sideNavDidBeginTopPan(nav: SideNavigationViewController, container: SideNavigationViewContainer)
+    optional func sideNavDidChangeTopPan(nav: SideNavigationViewController, container: SideNavigationViewContainer)
+    optional func sideNavDidEndTopPan(nav: SideNavigationViewController, container: SideNavigationViewContainer)
+    optional func sideNavDidOpenTopViewContainer(nav: SideNavigationViewController, container: SideNavigationViewContainer)
+    optional func sideNavDidCloseTopViewContainer(nav: SideNavigationViewController, container: SideNavigationViewContainer)
+    optional func sideNavDidTapTop(nav: SideNavigationViewController, container: SideNavigationViewContainer)
 }
 
-@objc(SideNavController)
-public class SideNavController: UIViewController, UIGestureRecognizerDelegate {
+@objc(SideNavigationViewController)
+public class SideNavigationViewController: UIViewController, UIGestureRecognizerDelegate {
     /**
 		:name:	default options
     */
@@ -139,7 +155,7 @@ public class SideNavController: UIViewController, UIGestureRecognizerDelegate {
 	/**
 		:name:	delegate
 	*/
-	public weak var delegate: SideNavDelegate?
+	public weak var delegate: SideNavigationViewDelegate?
 	
 	/**
 		:name:	isViewBasedAppearance
@@ -233,22 +249,22 @@ public class SideNavController: UIViewController, UIGestureRecognizerDelegate {
 	/**
 		:name:	leftContainer
 	*/
-	public private(set) var leftContainer: SideNavContainer?
+	public private(set) var leftContainer: SideNavigationViewContainer?
 	
 	/**
 		:name:	rightContainer
 	*/
-	public private(set) var rightContainer: SideNavContainer?
+	public private(set) var rightContainer: SideNavigationViewContainer?
     
     /**
 		:name:	bottomContainer
     */
-    public private(set) var bottomContainer: SideNavContainer?
+    public private(set) var bottomContainer: SideNavigationViewContainer?
     
     /**
 		:name:	topContainer
     */
-    public private(set) var topContainer: SideNavContainer?
+    public private(set) var topContainer: SideNavigationViewContainer?
 	
 	/**
 		:name:	mainViewController
@@ -412,6 +428,19 @@ public class SideNavController: UIViewController, UIGestureRecognizerDelegate {
         prepareView()
 		prepareLeftView()
 		prepareRightView()
+    }
+    
+    /**
+    :name:	init
+    */
+    public convenience init(mainViewController: UIViewController, leftViewController: UIViewController, bottomViewController: UIViewController) {
+        self.init()
+        self.mainViewController = mainViewController
+        self.leftViewController = leftViewController
+        self.bottomViewController = bottomViewController
+        prepareView()
+        prepareLeftView()
+        prepareBottomView()
     }
     
     /**
@@ -1264,8 +1293,8 @@ public class SideNavController: UIViewController, UIGestureRecognizerDelegate {
 	//
 	//	:name:	prepareContainer
 	//
-    private func prepareContainer(inout container: SideNavContainer?, inout viewContainer: UIView?, originX: CGFloat, originY: CGFloat, width: CGFloat, height: CGFloat) {
-		container = SideNavContainer(state: .Closed, point: CGPointZero, frame: CGRectZero)
+    private func prepareContainer(inout container: SideNavigationViewContainer?, inout viewContainer: UIView?, originX: CGFloat, originY: CGFloat, width: CGFloat, height: CGFloat) {
+		container = SideNavigationViewContainer(state: .Closed, point: CGPointZero, frame: CGRectZero)
 		var b: CGRect = view.bounds
 		b.size.width = width
         b.size.height = height
@@ -1280,7 +1309,7 @@ public class SideNavController: UIViewController, UIGestureRecognizerDelegate {
 	//
 	//	:name:	prepareContainerToOpen
 	//
-	private func prepareContainerToOpen(inout viewController: UIViewController?, inout viewContainer: UIView?, state: SideNavState) {
+	private func prepareContainerToOpen(inout viewController: UIViewController?, inout viewContainer: UIView?, state: SideNavigationViewState) {
 		addShadow(&viewContainer)
 		toggleStatusBar(hide: true)
 	}
@@ -1288,7 +1317,7 @@ public class SideNavController: UIViewController, UIGestureRecognizerDelegate {
 	//
 	//	:name:	prepareContainerToClose
 	//
-	private func prepareContainerToClose(inout viewController: UIViewController?, state: SideNavState) {
+	private func prepareContainerToClose(inout viewController: UIViewController?, state: SideNavigationViewState) {
 		toggleStatusBar()
 	}
 	

@@ -18,7 +18,10 @@
 
 import UIKit
 
-public struct MaterialTheme {
+public struct MaterialTheme {}
+
+// colors
+extension MaterialTheme {
 	// clear
 	public struct clear {
 		public static let color: UIColor = UIColor.clearColor()
@@ -365,4 +368,15 @@ public struct MaterialTheme {
         public static let darken3: UIColor = UIColor(red: 55/255, green: 71/255, blue: 79/255, alpha: 1)
         public static let darken4: UIColor = UIColor(red: 38/255, green: 50/255, blue: 56/255, alpha: 1)
     }
+}
+
+// spacing
+extension MaterialTheme {
+	public static var verticalSpace: CGFloat = 8
+	public static var horizontalSpace: CGFloat = 2 * verticalSpace
+}
+
+// fonts
+extension MaterialTheme {
+	public static var textFontSize: CGFloat = 16
 }

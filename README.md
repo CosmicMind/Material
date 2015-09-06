@@ -170,7 +170,7 @@ Add a sleek Side Navigation to give your users a wonderful experience.
 
 ```swift
 func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-	sideNav = SideNavController(mainViewController: MainViewController(), leftViewController: LeftViewController(), rightViewController: RightViewController())
+	sideNav = SideNavigationViewController(mainViewController: MainViewController(), leftViewController: LeftViewController(), rightViewController: RightViewController())
 	sideNav!.delegate = self
 	window = UIWindow(frame: UIScreen.mainScreen().bounds)
 	window!.rootViewController = sideNav
