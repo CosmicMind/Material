@@ -357,8 +357,7 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 			
 			// common text
 			Layout.height(titleLabelContainer!, child: titleLabel!, height: 1.5 * titleLabel!.font.pointSize)
-			Layout.expandToParentVerticallyWithPad(titleLabelContainer!, child: titleLabel!, top: titleLabelTopInset, bottom: titleLabelBottomInset)
-			Layout.expandToParentHorizontallyWithPad(titleLabelContainer!, child: titleLabel!, left: titleLabelLeftInset, right: titleLabelRightInset)
+			Layout.expandToParentWithPad(titleLabelContainer!, child: titleLabel!, top: titleLabelTopInset, left: titleLabelLeftInset, bottom: titleLabelBottomInset, right: titleLabelRightInset)
 		}
 		
 		// detail
