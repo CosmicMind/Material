@@ -30,38 +30,124 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 	internal lazy var views: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
 	
 	/**
-		:name:	verticalTitleLabelSpace
+		:name:	titleLabelVerticalInset
 	*/
-	public var verticalTitleLabelSpace: CGFloat = MaterialTheme.verticalSpace
+	public var titleLabelVerticalInset: CGFloat = MaterialTheme.verticalInset {
+		didSet {
+			titleLabelTopInset = titleLabelVerticalInset
+			titleLabelBottomInset = titleLabelVerticalInset
+		}
+	}
 	
 	/**
-		:name:	horizontalTitleLabelSpace
+		:name:	titleLabelTopInset
 	*/
-	public var horizontalTitleLabelSpace: CGFloat = MaterialTheme.horizontalSpace
+	public var titleLabelTopInset: CGFloat = MaterialTheme.verticalInset
 	
 	/**
-		:name:	verticalDetailLabelSpace
+		:name:	titleLabelBottomInset
 	*/
-	public var verticalDetailLabelSpace: CGFloat = MaterialTheme.verticalSpace
+	public var titleLabelBottomInset: CGFloat = MaterialTheme.verticalInset
 	
 	/**
-		:name:	horizontalDetailLabelSpace
+		:name:	titleLabelHorizontalInset
 	*/
-	public var horizontalDetailLabelSpace: CGFloat = MaterialTheme.horizontalSpace
+	public var titleLabelHorizontalInset: CGFloat = MaterialTheme.horizontalInset {
+		didSet {
+			titleLabelLeftInset = titleLabelHorizontalInset
+			titleLabelRightInset = titleLabelHorizontalInset
+		}
+	}
 	
 	/**
-		:name:	verticalButtonSpace
+		:name:	titleLabelLeftInset
 	*/
-	public var verticalButtonSpace: CGFloat = MaterialTheme.verticalSpace
+	public var titleLabelLeftInset: CGFloat = MaterialTheme.horizontalInset
 	
 	/**
-		:name:	horizontalButtonSpace
+		:name:	titleLabelRightInset
 	*/
-	public var horizontalButtonSpace: CGFloat = MaterialTheme.horizontalSpace
+	public var titleLabelRightInset: CGFloat = MaterialTheme.horizontalInset
 	
 	/**
-		:name:	horizontalButtonSpace
+		:name:	detailLabelVerticalInset
 	*/
+	public var detailLabelVerticalInset: CGFloat = MaterialTheme.verticalInset {
+		didSet {
+			detailLabelTopInset = detailLabelVerticalInset
+			detailLabelBottomInset = detailLabelVerticalInset
+		}
+	}
+	
+	/**
+		:name:	detailLabelTopInset
+	*/
+	public var detailLabelTopInset: CGFloat = MaterialTheme.verticalInset
+	
+	/**
+		:name:	detailLabelBottomInset
+	*/
+	public var detailLabelBottomInset: CGFloat = MaterialTheme.verticalInset
+	
+	/**
+		:name:	detailLabelHorizontalInset
+	*/
+	public var detailLabelHorizontalInset: CGFloat = MaterialTheme.horizontalInset {
+		didSet {
+			detailLabelLeftInset = detailLabelHorizontalInset
+			detailLabelRightInset = detailLabelHorizontalInset
+		}
+	}
+	
+	/**
+		:name:	detailLabelLeftInset
+	*/
+	public var detailLabelLeftInset: CGFloat = MaterialTheme.horizontalInset
+	
+	/**
+		:name:	detailLabelRightInset
+	*/
+	public var detailLabelRightInset: CGFloat = MaterialTheme.horizontalInset
+	
+	/**
+		:name:	buttonVerticalInset
+	*/
+	public var buttonVerticalInset: CGFloat = MaterialTheme.verticalInset {
+		didSet {
+			buttonTopInset = buttonVerticalInset
+			buttonBottomInset = buttonVerticalInset
+		}
+	}
+	
+	/**
+		:name:	buttonTopInset
+	*/
+	public var buttonTopInset: CGFloat = MaterialTheme.verticalInset
+	
+	/**
+		:name:	buttonBottomInset
+	*/
+	public var buttonBottomInset: CGFloat = MaterialTheme.verticalInset
+	
+	/**
+		:name:	buttonHorizontalInset
+	*/
+	public var buttonHorizontalInset: CGFloat = MaterialTheme.horizontalInset {
+		didSet {
+			buttonLeftInset = buttonHorizontalInset
+			buttonRightInset = buttonHorizontalInset
+		}
+	}
+	
+	/**
+		:name:	buttonLeftInset
+	*/
+	public var buttonLeftInset: CGFloat = MaterialTheme.horizontalInset
+	
+	/**
+		:name:	buttonRightInset
+	*/
+	public var buttonRightInset: CGFloat = MaterialTheme.horizontalInset
 	
 	/**
 		:name:	titleLabelContainer
@@ -271,8 +357,8 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 			
 			// common text
 			Layout.height(titleLabelContainer!, child: titleLabel!, height: 1.5 * titleLabel!.font.pointSize)
-			Layout.expandToParentVerticallyWithPad(titleLabelContainer!, child: titleLabel!, top: verticalTitleLabelSpace, bottom: verticalTitleLabelSpace)
-			Layout.expandToParentHorizontallyWithPad(titleLabelContainer!, child: titleLabel!, left: horizontalTitleLabelSpace, right: horizontalTitleLabelSpace)
+			Layout.expandToParentVerticallyWithPad(titleLabelContainer!, child: titleLabel!, top: titleLabelTopInset, bottom: titleLabelBottomInset)
+			Layout.expandToParentHorizontallyWithPad(titleLabelContainer!, child: titleLabel!, left: titleLabelLeftInset, right: titleLabelRightInset)
 		}
 		
 		// detail
@@ -286,8 +372,8 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 			views["detailLabelContainer"] = detailLabelContainer!
 			
 			// text
-			Layout.expandToParentHorizontallyWithPad(detailLabelContainer!, child: detailLabel!, left: horizontalDetailLabelSpace, right: horizontalDetailLabelSpace)
-			detailLabelContainer!.addConstraints(Layout.constraint("V:|-(verticalDetailLabelSpace)-[detailLabel(<=maximumDetailLabelHeight)]-(verticalDetailLabelSpace)-|", options: nil, metrics: ["verticalDetailLabelSpace": verticalDetailLabelSpace, "maximumDetailLabelHeight": maximumDetailLabelHeight], views: ["detailLabel": detailLabel!]))
+			Layout.expandToParentHorizontallyWithPad(detailLabelContainer!, child: detailLabel!, left: detailLabelLeftInset, right: detailLabelRightInset)
+			detailLabelContainer!.addConstraints(Layout.constraint("V:|-(detailLabelTopInset)-[detailLabel(<=maximumDetailLabelHeight)]-(detailLabelBottomInset)-|", options: nil, metrics: ["detailLabelTopInset": detailLabelTopInset, "detailLabelBottomInset": detailLabelBottomInset, "maximumDetailLabelHeight": maximumDetailLabelHeight], views: ["detailLabel": detailLabel!]))
 		}
 		
 		// buttons
@@ -315,10 +401,10 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 					let button: MaterialButton = leftButtons![i]
 					buttonsContainer!.addSubview(button)
 					buttonViews["button\(i)"] = button
-					horizontalFormat += "-(horizontalButtonSpace)-[button\(i)]"
-					Layout.expandToParentVerticallyWithPad(buttonsContainer!, child: button, top: verticalButtonSpace, bottom: verticalButtonSpace)
+					horizontalFormat += "-(buttonLeftInset)-[button\(i)]"
+					Layout.expandToParentVerticallyWithPad(buttonsContainer!, child: button, top: buttonTopInset, bottom: buttonBottomInset)
 				}
-				buttonsContainer!.addConstraints(Layout.constraint(horizontalFormat, options: nil, metrics: ["horizontalButtonSpace": horizontalButtonSpace], views: buttonViews))
+				buttonsContainer!.addConstraints(Layout.constraint(horizontalFormat, options: nil, metrics: ["buttonLeftInset": buttonLeftInset], views: buttonViews))
 			}
 			
 			// rightButtons
@@ -329,10 +415,10 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 					let button: MaterialButton = rightButtons![i]
 					buttonsContainer!.addSubview(button)
 					buttonViews["button\(i)"] = button
-					horizontalFormat += "[button\(i)]-(horizontalButtonSpace)-"
-					Layout.expandToParentVerticallyWithPad(buttonsContainer!, child: button, top: verticalButtonSpace, bottom: verticalButtonSpace)
+					horizontalFormat += "[button\(i)]-(buttonRightInset)-"
+					Layout.expandToParentVerticallyWithPad(buttonsContainer!, child: button, top: buttonTopInset, bottom: buttonBottomInset)
 				}
-				buttonsContainer!.addConstraints(Layout.constraint(horizontalFormat + "|", options: nil, metrics: ["horizontalButtonSpace": horizontalButtonSpace], views: buttonViews))
+				buttonsContainer!.addConstraints(Layout.constraint(horizontalFormat + "|", options: nil, metrics: ["buttonRightInset": buttonRightInset], views: buttonViews))
 			}
 		}
 		
