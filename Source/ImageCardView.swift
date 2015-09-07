@@ -30,44 +30,158 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 	internal lazy var views: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
 	
 	/**
-		:name:	verticalImageViewSpace
+		:name:	imageViewVerticalInset
 	*/
-	public var verticalImageViewSpace: CGFloat = 0
+	public var imageViewVerticalInset: CGFloat = 0 {
+		didSet {
+			imageViewTopInset = imageViewVerticalInset
+			imageViewBottomInset = imageViewVerticalInset
+		}
+	}
 	
 	/**
-		:name:	horizontalImageViewSpace
+		:name:	imageViewTopInset
 	*/
-	public var horizontalImageViewSpace: CGFloat = 0
+	public var imageViewTopInset: CGFloat = 0
 	
 	/**
-		:name:	verticalTitleLabelSpace
+		:name:	imageViewBottomInset
 	*/
-	public var verticalTitleLabelSpace: CGFloat = MaterialTheme.verticalSpace
+	public var imageViewBottomInset: CGFloat = 0
 	
 	/**
-		:name:	horizontalTitleLabelSpace
+		:name:	imageViewHorizontalInset
 	*/
-	public var horizontalTitleLabelSpace: CGFloat = MaterialTheme.horizontalSpace
+	public var imageViewHorizontalInset: CGFloat = 0 {
+		didSet {
+			imageViewLeftInset = imageViewHorizontalInset
+			imageViewRightInset = imageViewHorizontalInset
+		}
+	}
 	
 	/**
-		:name:	verticalDetailLabelSpace
+		:name:	imageViewLeftInset
 	*/
-	public var verticalDetailLabelSpace: CGFloat = MaterialTheme.verticalSpace
+	public var imageViewLeftInset: CGFloat = 0
 	
 	/**
-		:name:	horizontalDetailLabelSpace
+		:name:	imageViewRightInset
 	*/
-	public var horizontalDetailLabelSpace: CGFloat = MaterialTheme.horizontalSpace
+	public var imageViewRightInset: CGFloat = 0
 	
 	/**
-		:name:	verticalButtonSpace
+		:name:	titleLabelVerticalInset
 	*/
-	public var verticalButtonSpace: CGFloat = MaterialTheme.verticalSpace
+	public var titleLabelVerticalInset: CGFloat = MaterialTheme.verticalInset {
+		didSet {
+			titleLabelBottomInset = titleLabelVerticalInset
+		}
+	}
 	
 	/**
-		:name:	horizontalButtonSpace
+		:name:	titleLabelBottomInset
 	*/
-	public var horizontalButtonSpace: CGFloat = MaterialTheme.horizontalSpace
+	public var titleLabelBottomInset: CGFloat = MaterialTheme.verticalInset
+	
+	/**
+		:name:	titleLabelHorizontalInset
+	*/
+	public var titleLabelHorizontalInset: CGFloat = MaterialTheme.horizontalInset {
+		didSet {
+			titleLabelLeftInset = titleLabelHorizontalInset
+			titleLabelRightInset = titleLabelHorizontalInset
+		}
+	}
+	
+	/**
+		:name:	titleLabelLeftInset
+	*/
+	public var titleLabelLeftInset: CGFloat = MaterialTheme.horizontalInset
+	
+	/**
+		:name:	titleLabelRightInset
+	*/
+	public var titleLabelRightInset: CGFloat = MaterialTheme.horizontalInset
+	
+	/**
+		:name:	detailLabelVerticalInset
+	*/
+	public var detailLabelVerticalInset: CGFloat = MaterialTheme.verticalInset {
+		didSet {
+			detailLabelTopInset = detailLabelVerticalInset
+			detailLabelBottomInset = detailLabelVerticalInset
+		}
+	}
+	
+	/**
+		:name:	detailLabelTopInset
+	*/
+	public var detailLabelTopInset: CGFloat = MaterialTheme.verticalInset
+	
+	/**
+		:name:	detailLabelBottomInset
+	*/
+	public var detailLabelBottomInset: CGFloat = MaterialTheme.verticalInset
+	
+	/**
+		:name:	detailLabelHorizontalInset
+	*/
+	public var detailLabelHorizontalInset: CGFloat = MaterialTheme.horizontalInset {
+		didSet {
+			detailLabelLeftInset = detailLabelHorizontalInset
+			detailLabelRightInset = detailLabelHorizontalInset
+		}
+	}
+	
+	/**
+		:name:	detailLabelLeftInset
+	*/
+	public var detailLabelLeftInset: CGFloat = MaterialTheme.horizontalInset
+	
+	/**
+		:name:	detailLabelRightInset
+	*/
+	public var detailLabelRightInset: CGFloat = MaterialTheme.horizontalInset
+	
+	/**
+		:name:	buttonVerticalInset
+	*/
+	public var buttonVerticalInset: CGFloat = MaterialTheme.verticalInset {
+		didSet {
+			buttonTopInset = buttonVerticalInset
+			buttonBottomInset = buttonVerticalInset
+		}
+	}
+	
+	/**
+		:name:	buttonTopInset
+	*/
+	public var buttonTopInset: CGFloat = MaterialTheme.verticalInset
+	
+	/**
+		:name:	buttonBottomInset
+	*/
+	public var buttonBottomInset: CGFloat = MaterialTheme.verticalInset
+	
+	/**
+		:name:	buttonHorizontalInset
+	*/
+	public var buttonHorizontalInset: CGFloat = MaterialTheme.horizontalInset {
+		didSet {
+			buttonLeftInset = buttonHorizontalInset
+			buttonRightInset = buttonHorizontalInset
+		}
+	}
+	
+	/**
+		:name:	buttonLeftInset
+	*/
+	public var buttonLeftInset: CGFloat = MaterialTheme.horizontalInset
+	
+	/**
+		:name:	buttonRightInset
+	*/
+	public var buttonRightInset: CGFloat = MaterialTheme.horizontalInset
 	
 	/**
 		:name:	shadow
@@ -327,8 +441,8 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 			views["imageViewContainer"] = imageViewContainer!
 			
 			// text
-			imageViewContainer!.addConstraints(Layout.constraint("H:|-(horizontalImageViewSpace)-[imageView]-(horizontalImageViewSpace)-|", options: nil, metrics: ["horizontalImageViewSpace": horizontalImageViewSpace], views: ["imageView": imageView!]))
-			imageViewContainer!.addConstraints(Layout.constraint("V:|-(verticalImageViewSpace)-[imageView(maximumImageViewHeight)]-(verticalImageViewSpace)-|", options: nil, metrics: ["verticalImageViewSpace": verticalImageViewSpace, "maximumImageViewHeight": maximumImageViewHeight], views: ["imageView": imageView!]))
+			Layout.expandToParentHorizontallyWithPad(imageViewContainer!, child: imageView!, left: imageViewLeftInset, right: imageViewRightInset)
+			imageViewContainer!.addConstraints(Layout.constraint("V:|-(imageViewTopInset)-[imageView(maximumImageViewHeight)]-(imageViewBottomInset)-|", options: nil, metrics: ["imageViewTopInset": imageViewTopInset, "imageViewBottomInset": imageViewBottomInset, "maximumImageViewHeight": maximumImageViewHeight], views: ["imageView": imageView!]))
 		}
 		
 		// title
@@ -349,8 +463,7 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 			
 			// common text
 			Layout.height(titleLabelContainer!, child: titleLabel!, height: 1.5 * titleLabel!.font.pointSize)
-			Layout.expandToParentVerticallyWithPad(titleLabelContainer!, child: titleLabel!, top: verticalTitleLabelSpace, bottom: verticalTitleLabelSpace)
-			Layout.expandToParentHorizontallyWithPad(titleLabelContainer!, child: titleLabel!, left: horizontalTitleLabelSpace, right: horizontalTitleLabelSpace)
+			Layout.expandToParentWithPad(titleLabelContainer!, child: titleLabel!, left: titleLabelLeftInset, bottom: titleLabelBottomInset, right: titleLabelRightInset)
 		}
 		
 		// detail
@@ -364,8 +477,8 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 			views["detailLabelContainer"] = detailLabelContainer!
 			
 			// text
-			Layout.expandToParentHorizontallyWithPad(detailLabelContainer!, child: detailLabel!, left: horizontalDetailLabelSpace, right: horizontalDetailLabelSpace)
-			detailLabelContainer!.addConstraints(Layout.constraint("V:|-(verticalDetailLabelSpace)-[detailLabel(<=maximumDetailLabelHeight)]-(verticalDetailLabelSpace)-|", options: nil, metrics: ["verticalDetailLabelSpace": verticalDetailLabelSpace, "maximumDetailLabelHeight": maximumDetailLabelHeight], views: ["detailLabel": detailLabel!]))
+			Layout.expandToParentHorizontallyWithPad(detailLabelContainer!, child: detailLabel!, left: detailLabelLeftInset, right: detailLabelRightInset)
+			detailLabelContainer!.addConstraints(Layout.constraint("V:|-(detailLabelTopInset)-[detailLabel(<=maximumDetailLabelHeight)]-(detailLabelBottomInset)-|", options: nil, metrics: ["detailLabelTopInset": detailLabelTopInset, "detailLabelBottomInset": detailLabelBottomInset, "maximumDetailLabelHeight": maximumDetailLabelHeight], views: ["detailLabel": detailLabel!]))
 		}
 		
 		// buttons
@@ -393,10 +506,10 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 					let button: MaterialButton = leftButtons![i]
 					buttonsContainer!.addSubview(button)
 					buttonViews["button\(i)"] = button
-					horizontalFormat += "-(horizontalButtonSpace)-[button\(i)]"
-					Layout.expandToParentVerticallyWithPad(buttonsContainer!, child: button, top: verticalButtonSpace, bottom: verticalButtonSpace)
+					horizontalFormat += "-(buttonLeftInset)-[button\(i)]"
+					Layout.expandToParentVerticallyWithPad(buttonsContainer!, child: button, top: buttonTopInset, bottom: buttonBottomInset)
 				}
-				buttonsContainer!.addConstraints(Layout.constraint(horizontalFormat, options: nil, metrics: ["horizontalButtonSpace": horizontalButtonSpace], views: buttonViews))
+				buttonsContainer!.addConstraints(Layout.constraint(horizontalFormat, options: nil, metrics: ["buttonLeftInset": buttonLeftInset], views: buttonViews))
 			}
 			
 			// rightButtons
@@ -407,10 +520,10 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 					let button: MaterialButton = rightButtons![i]
 					buttonsContainer!.addSubview(button)
 					buttonViews["button\(i)"] = button
-					horizontalFormat += "[button\(i)]-(horizontalButtonSpace)-"
-					Layout.expandToParentVerticallyWithPad(buttonsContainer!, child: button, top: verticalButtonSpace, bottom: verticalButtonSpace)
+					horizontalFormat += "[button\(i)]-(buttonRightInset)-"
+					Layout.expandToParentVerticallyWithPad(buttonsContainer!, child: button, top: buttonTopInset, bottom: buttonBottomInset)
 				}
-				buttonsContainer!.addConstraints(Layout.constraint(horizontalFormat + "|", options: nil, metrics: ["horizontalButtonSpace": horizontalButtonSpace], views: buttonViews))
+				buttonsContainer!.addConstraints(Layout.constraint(horizontalFormat + "|", options: nil, metrics: ["buttonRightInset": buttonRightInset], views: buttonViews))
 			}
 		}
 		

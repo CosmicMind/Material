@@ -372,8 +372,8 @@ extension MaterialTheme {
 
 // spacing
 extension MaterialTheme {
-	public static var verticalSpace: CGFloat = 8
-	public static var horizontalSpace: CGFloat = 2 * verticalSpace
+	public static var verticalInset: CGFloat = 8
+	public static var horizontalInset: CGFloat = 2 * verticalInset
 }
 
 // fonts
