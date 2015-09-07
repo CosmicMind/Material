@@ -327,7 +327,7 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 			views["imageViewContainer"] = imageViewContainer!
 			
 			// text
-			imageViewContainer!.addConstraints(Layout.constraint("H:|-(horizontalImageViewSpace)-[imageView]-(horizontalImageViewSpace)-|", options: nil, metrics: ["horizontalImageViewSpace": horizontalImageViewSpace], views: ["imageView": imageView!]))
+			Layout.expandToParentHorizontallyWithPad(imageViewContainer!, child: imageView!, left: horizontalImageViewSpace, right: horizontalImageViewSpace)
 			imageViewContainer!.addConstraints(Layout.constraint("V:|-(verticalImageViewSpace)-[imageView(maximumImageViewHeight)]-(verticalImageViewSpace)-|", options: nil, metrics: ["verticalImageViewSpace": verticalImageViewSpace, "maximumImageViewHeight": maximumImageViewHeight], views: ["imageView": imageView!]))
 		}
 		
