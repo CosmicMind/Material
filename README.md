@@ -51,7 +51,7 @@ Keep it simple and elegant with a Flat Button.
 
 
 ```swift
-var button: RaisedButton = RaisedButton()
+var button: FlatButton = FlatButton()
 button.setTitle("Flat", forState: .Normal)
 
 // layout
