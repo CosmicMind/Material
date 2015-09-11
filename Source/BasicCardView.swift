@@ -240,7 +240,7 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 				if nil == titleLabelContainer {
 					titleLabelContainer = UIView()
 					titleLabelContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
-					titleLabelContainer!.backgroundColor = MaterialTheme.blueGrey.color
+					titleLabelContainer!.backgroundColor = MaterialTheme.clear.color
 					addSubview(titleLabelContainer!)
 				}
 				
@@ -283,7 +283,7 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 				if nil == detailLabelContainer {
 					detailLabelContainer = UIView()
 					detailLabelContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
-					detailLabelContainer!.backgroundColor = MaterialTheme.blueGrey.color
+					detailLabelContainer!.backgroundColor = MaterialTheme.clear.color
 					addSubview(detailLabelContainer!)
 				}
 				
@@ -332,7 +332,7 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 				if nil == buttonsContainer {
 					buttonsContainer = UIView()
 					buttonsContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
-					buttonsContainer!.backgroundColor = MaterialTheme.blueGrey.color
+					buttonsContainer!.backgroundColor = MaterialTheme.clear.color
 					addSubview(buttonsContainer!)
 				}
 			} else {
@@ -351,7 +351,7 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 				if nil == buttonsContainer {
 					buttonsContainer = UIView()
 					buttonsContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
-					buttonsContainer!.backgroundColor = MaterialTheme.blueGrey.color
+					buttonsContainer!.backgroundColor = MaterialTheme.clear.color
 					addSubview(buttonsContainer!)
 				}
 			} else {
@@ -400,7 +400,7 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 	internal override func prepareView() {
 		super.prepareView()
 		prepareShadow()
-		backgroundColor = MaterialTheme.clear.color
+		backgroundColor = MaterialTheme.blueGrey.color
 	}
 	
 	//

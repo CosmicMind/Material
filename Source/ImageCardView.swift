@@ -345,11 +345,11 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 				t.numberOfLines = 0
 				t.lineBreakMode = .ByTruncatingTail
 				if nil == imageView {
-					titleLabelContainer!.backgroundColor = MaterialTheme.white.color
+					titleLabelContainer!.backgroundColor = MaterialTheme.clear.color
 					t.textColor = MaterialTheme.black.color
 				} else {
 					titleLabelContainer!.backgroundColor = MaterialTheme.clear.color
-					t.textColor = MaterialTheme.white.color
+					t.textColor = MaterialTheme.clear.color
 					titleLabelContainer!.removeFromSuperview()
 					imageViewContainer!.addSubview(titleLabelContainer!)
 				}
@@ -384,7 +384,7 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 				if nil == detailLabelContainer {
 					detailLabelContainer = UIView()
 					detailLabelContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
-					detailLabelContainer!.backgroundColor = MaterialTheme.white.color
+					detailLabelContainer!.backgroundColor = MaterialTheme.clear.color
 					addSubview(detailLabelContainer!)
 				}
 				
@@ -433,7 +433,7 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 				if nil == buttonsContainer {
 					buttonsContainer = UIView()
 					buttonsContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
-					buttonsContainer!.backgroundColor = MaterialTheme.white.color
+					buttonsContainer!.backgroundColor = MaterialTheme.clear.color
 					addSubview(buttonsContainer!)
 				}
 			} else {
@@ -452,7 +452,7 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 				if nil == buttonsContainer {
 					buttonsContainer = UIView()
 					buttonsContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
-					buttonsContainer!.backgroundColor = MaterialTheme.white.color
+					buttonsContainer!.backgroundColor = MaterialTheme.clear.color
 					addSubview(buttonsContainer!)
 				}
 			} else {
@@ -502,7 +502,7 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 	internal override func prepareView() {
 		super.prepareView()
 		prepareShadow()
-		backgroundColor = MaterialTheme.clear.color
+		backgroundColor = MaterialTheme.white.color
 	}
 	
 	//
