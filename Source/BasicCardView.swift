@@ -208,15 +208,6 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 	}
 	
 	/**
-		:name:	maximumImageViewHeight
-	*/
-	public var maximumImageViewHeight: CGFloat = 200 {
-		didSet {
-			prepareCard()
-		}
-	}
-	
-	/**
 		:name:	maximumTitleLabelHeight
 	*/
 	public var maximumTitleLabelHeight: CGFloat = 0 {
@@ -262,7 +253,7 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	maximumDetailLabelHeight
 	*/
-	public var maximumDetailLabelHeight: CGFloat = 144 {
+	public var maximumDetailLabelHeight: CGFloat = 0 {
 		didSet {
 			prepareCard()
 		}
@@ -443,10 +434,13 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 			layoutConstraints += Layout.constraint("H:|[detailLabelContainer]|", options: nil, metrics: nil, views: ["detailLabelContainer": detailLabelContainer!])
 			verticalFormat += "[detailLabelContainer]"
 			views["detailLabelContainer"] = detailLabelContainer!
-			
-			// text
-			Layout.expandToParentHorizontallyWithPad(detailLabelContainer!, child: detailLabel!, left: detailLabelLeftInset, right: detailLabelRightInset)
-			detailLabelContainer!.addConstraints(Layout.constraint("V:|-(detailLabelTopInset)-[detailLabel(<=maximumDetailLabelHeight)]-(detailLabelBottomInset)-|", options: nil, metrics: ["detailLabelTopInset": detailLabelTopInset, "detailLabelBottomInset": detailLabelBottomInset, "maximumDetailLabelHeight": maximumDetailLabelHeight], views: ["detailLabel": detailLabel!]))
+
+			if 0 == maximumDetailLabelHeight {
+				Layout.expandToParentWithPad(detailLabelContainer!, child: detailLabel!, top: detailLabelTopInset, left: detailLabelLeftInset, bottom: detailLabelBottomInset, right: detailLabelRightInset)
+			} else {
+				Layout.expandToParentHorizontallyWithPad(detailLabelContainer!, child: detailLabel!, left: detailLabelLeftInset, right: detailLabelRightInset)
+				detailLabelContainer!.addConstraints(Layout.constraint("V:|-(detailLabelTopInset)-[detailLabel(<=maximumDetailLabelHeight)]-(detailLabelBottomInset)-|", options: nil, metrics: ["detailLabelTopInset": detailLabelTopInset, "detailLabelBottomInset": detailLabelBottomInset, "maximumDetailLabelHeight": maximumDetailLabelHeight], views: ["detailLabel": detailLabel!]))
+			}
 		}
 		
 		// buttons

@@ -363,7 +363,7 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	maximumDetailLabelHeight
 	*/
-	public var maximumDetailLabelHeight: CGFloat = 144 {
+	public var maximumDetailLabelHeight: CGFloat = 0 {
 		didSet {
 			prepareCard()
 		}
@@ -568,8 +568,12 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 			views["detailLabelContainer"] = detailLabelContainer!
 			
 			// text
-			Layout.expandToParentHorizontallyWithPad(detailLabelContainer!, child: detailLabel!, left: detailLabelLeftInset, right: detailLabelRightInset)
-			detailLabelContainer!.addConstraints(Layout.constraint("V:|-(detailLabelTopInset)-[detailLabel(<=maximumDetailLabelHeight)]-(detailLabelBottomInset)-|", options: nil, metrics: ["detailLabelTopInset": detailLabelTopInset, "detailLabelBottomInset": detailLabelBottomInset, "maximumDetailLabelHeight": maximumDetailLabelHeight], views: ["detailLabel": detailLabel!]))
+			if 0 == maximumDetailLabelHeight {
+				Layout.expandToParentWithPad(detailLabelContainer!, child: detailLabel!, top: detailLabelTopInset, left: detailLabelLeftInset, bottom: detailLabelBottomInset, right: detailLabelRightInset)
+			} else {
+				Layout.expandToParentHorizontallyWithPad(detailLabelContainer!, child: detailLabel!, left: detailLabelLeftInset, right: detailLabelRightInset)
+				detailLabelContainer!.addConstraints(Layout.constraint("V:|-(detailLabelTopInset)-[detailLabel(<=maximumDetailLabelHeight)]-(detailLabelBottomInset)-|", options: nil, metrics: ["detailLabelTopInset": detailLabelTopInset, "detailLabelBottomInset": detailLabelBottomInset, "maximumDetailLabelHeight": maximumDetailLabelHeight], views: ["detailLabel": detailLabel!]))
+			}
 		}
 		
 		// buttons
