@@ -22,8 +22,11 @@ public struct MaterialTheme {}
 
 // spacing
 extension MaterialTheme {
-	public static var verticalInset: CGFloat = 16
-	public static var horizontalInset: CGFloat = 16
+	public static var cardVerticalInset: CGFloat = 16
+	public static var cardHorizontalInset: CGFloat = 16
+	
+	public static var buttonVerticalInset: CGFloat = 6
+	public static var buttonHorizontalInset: CGFloat = 16
 }
 
 // fonts

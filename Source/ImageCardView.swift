@@ -88,7 +88,7 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	titleLabelVerticalInset
 	*/
-	public var titleLabelVerticalInset: CGFloat = MaterialTheme.verticalInset {
+	public var titleLabelVerticalInset: CGFloat = MaterialTheme.cardVerticalInset {
 		didSet {
 			titleLabelTopInset = titleLabelVerticalInset
 			titleLabelBottomInset = titleLabelVerticalInset
@@ -98,7 +98,7 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	titleLabelTopInset
 	*/
-	public var titleLabelTopInset: CGFloat = MaterialTheme.verticalInset {
+	public var titleLabelTopInset: CGFloat = MaterialTheme.cardVerticalInset {
 		didSet {
 			prepareCard()
 		}
@@ -107,7 +107,7 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	titleLabelBottomInset
 	*/
-	public var titleLabelBottomInset: CGFloat = MaterialTheme.verticalInset {
+	public var titleLabelBottomInset: CGFloat = MaterialTheme.cardVerticalInset {
 		didSet {
 			prepareCard()
 		}
@@ -116,7 +116,7 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	titleLabelHorizontalInset
 	*/
-	public var titleLabelHorizontalInset: CGFloat = MaterialTheme.horizontalInset {
+	public var titleLabelHorizontalInset: CGFloat = MaterialTheme.cardHorizontalInset {
 		didSet {
 			titleLabelLeftInset = titleLabelHorizontalInset
 			titleLabelRightInset = titleLabelHorizontalInset
@@ -126,7 +126,7 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	titleLabelLeftInset
 	*/
-	public var titleLabelLeftInset: CGFloat = MaterialTheme.horizontalInset {
+	public var titleLabelLeftInset: CGFloat = MaterialTheme.cardHorizontalInset {
 		didSet {
 			prepareCard()
 		}
@@ -135,7 +135,7 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	titleLabelRightInset
 	*/
-	public var titleLabelRightInset: CGFloat = MaterialTheme.horizontalInset {
+	public var titleLabelRightInset: CGFloat = MaterialTheme.cardHorizontalInset {
 		didSet {
 			prepareCard()
 		}
@@ -144,7 +144,7 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	detailLabelVerticalInset
 	*/
-	public var detailLabelVerticalInset: CGFloat = MaterialTheme.verticalInset {
+	public var detailLabelVerticalInset: CGFloat = MaterialTheme.cardVerticalInset {
 		didSet {
 			detailLabelTopInset = detailLabelVerticalInset
 			detailLabelBottomInset = detailLabelVerticalInset
@@ -154,7 +154,7 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	detailLabelTopInset
 	*/
-	public var detailLabelTopInset: CGFloat = MaterialTheme.verticalInset {
+	public var detailLabelTopInset: CGFloat = MaterialTheme.cardVerticalInset {
 		didSet {
 			prepareCard()
 		}
@@ -163,7 +163,7 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	detailLabelBottomInset
 	*/
-	public var detailLabelBottomInset: CGFloat = MaterialTheme.verticalInset {
+	public var detailLabelBottomInset: CGFloat = MaterialTheme.cardVerticalInset {
 		didSet {
 			prepareCard()
 		}
@@ -172,7 +172,7 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	detailLabelHorizontalInset
 	*/
-	public var detailLabelHorizontalInset: CGFloat = MaterialTheme.horizontalInset {
+	public var detailLabelHorizontalInset: CGFloat = MaterialTheme.cardHorizontalInset {
 		didSet {
 			detailLabelLeftInset = detailLabelHorizontalInset
 			detailLabelRightInset = detailLabelHorizontalInset
@@ -182,7 +182,7 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	detailLabelLeftInset
 	*/
-	public var detailLabelLeftInset: CGFloat = MaterialTheme.horizontalInset {
+	public var detailLabelLeftInset: CGFloat = MaterialTheme.cardHorizontalInset {
 		didSet {
 			prepareCard()
 		}
@@ -191,7 +191,7 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	detailLabelRightInset
 	*/
-	public var detailLabelRightInset: CGFloat = MaterialTheme.horizontalInset {
+	public var detailLabelRightInset: CGFloat = MaterialTheme.cardHorizontalInset {
 		didSet {
 			prepareCard()
 		}
@@ -200,7 +200,7 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	buttonVerticalInset
 	*/
-	public var buttonVerticalInset: CGFloat = MaterialTheme.verticalInset {
+	public var buttonVerticalInset: CGFloat = MaterialTheme.cardVerticalInset {
 		didSet {
 			buttonTopInset = buttonVerticalInset
 			buttonBottomInset = buttonVerticalInset
@@ -210,7 +210,7 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	buttonTopInset
 	*/
-	public var buttonTopInset: CGFloat = MaterialTheme.verticalInset / 2 {
+	public var buttonTopInset: CGFloat = MaterialTheme.cardVerticalInset / 2 {
 		didSet {
 			prepareCard()
 		}
@@ -219,7 +219,7 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	buttonBottomInset
 	*/
-	public var buttonBottomInset: CGFloat = MaterialTheme.verticalInset / 2 {
+	public var buttonBottomInset: CGFloat = MaterialTheme.cardVerticalInset / 2 {
 		didSet {
 			prepareCard()
 		}
@@ -228,7 +228,7 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	buttonHorizontalInset
 	*/
-	public var buttonHorizontalInset: CGFloat = MaterialTheme.horizontalInset {
+	public var buttonHorizontalInset: CGFloat = MaterialTheme.cardHorizontalInset {
 		didSet {
 			buttonLeftInset = buttonHorizontalInset
 			buttonRightInset = buttonHorizontalInset
@@ -238,7 +238,7 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	buttonLeftInset
 	*/
-	public var buttonLeftInset: CGFloat = MaterialTheme.horizontalInset / 2 {
+	public var buttonLeftInset: CGFloat = MaterialTheme.cardHorizontalInset / 2 {
 		didSet {
 			prepareCard()
 		}
@@ -247,7 +247,7 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	buttonRightInset
 	*/
-	public var buttonRightInset: CGFloat = MaterialTheme.horizontalInset / 2 {
+	public var buttonRightInset: CGFloat = MaterialTheme.cardHorizontalInset / 2 {
 		didSet {
 			prepareCard()
 		}
@@ -341,7 +341,7 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 				titleLabelContainer!.addSubview(t)
 				t.setTranslatesAutoresizingMaskIntoConstraints(false)
 				t.backgroundColor = MaterialTheme.clear.color
-				t.font = Roboto.medium
+				t.font = Roboto.regular
 				t.numberOfLines = 0
 				t.lineBreakMode = .ByTruncatingTail
 				if nil == imageView {
