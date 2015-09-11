@@ -42,12 +42,20 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	imageViewTopInset
 	*/
-	public var imageViewTopInset: CGFloat = 0
+	public var imageViewTopInset: CGFloat = 0 {
+		didSet {
+			prepareCard()
+		}
+	}
 	
 	/**
 		:name:	imageViewBottomInset
 	*/
-	public var imageViewBottomInset: CGFloat = 0
+	public var imageViewBottomInset: CGFloat = 0 {
+		didSet {
+			prepareCard()
+		}
+	}
 	
 	/**
 		:name:	imageViewHorizontalInset
@@ -62,26 +70,48 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	imageViewLeftInset
 	*/
-	public var imageViewLeftInset: CGFloat = 0
+	public var imageViewLeftInset: CGFloat = 0 {
+		didSet {
+			prepareCard()
+		}
+	}
 	
 	/**
 		:name:	imageViewRightInset
 	*/
-	public var imageViewRightInset: CGFloat = 0
+	public var imageViewRightInset: CGFloat = 0 {
+		didSet {
+			prepareCard()
+		}
+	}
 	
 	/**
 		:name:	titleLabelVerticalInset
 	*/
 	public var titleLabelVerticalInset: CGFloat = MaterialTheme.verticalInset {
 		didSet {
+			titleLabelTopInset = titleLabelVerticalInset
 			titleLabelBottomInset = titleLabelVerticalInset
+		}
+	}
+	
+	/**
+		:name:	titleLabelTopInset
+	*/
+	public var titleLabelTopInset: CGFloat = MaterialTheme.verticalInset {
+		didSet {
+			prepareCard()
 		}
 	}
 	
 	/**
 		:name:	titleLabelBottomInset
 	*/
-	public var titleLabelBottomInset: CGFloat = MaterialTheme.verticalInset
+	public var titleLabelBottomInset: CGFloat = MaterialTheme.verticalInset {
+		didSet {
+			prepareCard()
+		}
+	}
 	
 	/**
 		:name:	titleLabelHorizontalInset
@@ -96,12 +126,20 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	titleLabelLeftInset
 	*/
-	public var titleLabelLeftInset: CGFloat = MaterialTheme.horizontalInset
+	public var titleLabelLeftInset: CGFloat = MaterialTheme.horizontalInset {
+		didSet {
+			prepareCard()
+		}
+	}
 	
 	/**
 		:name:	titleLabelRightInset
 	*/
-	public var titleLabelRightInset: CGFloat = MaterialTheme.horizontalInset
+	public var titleLabelRightInset: CGFloat = MaterialTheme.horizontalInset {
+		didSet {
+			prepareCard()
+		}
+	}
 	
 	/**
 		:name:	detailLabelVerticalInset
@@ -116,12 +154,20 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	detailLabelTopInset
 	*/
-	public var detailLabelTopInset: CGFloat = MaterialTheme.verticalInset
+	public var detailLabelTopInset: CGFloat = MaterialTheme.verticalInset {
+		didSet {
+			prepareCard()
+		}
+	}
 	
 	/**
 		:name:	detailLabelBottomInset
 	*/
-	public var detailLabelBottomInset: CGFloat = MaterialTheme.verticalInset
+	public var detailLabelBottomInset: CGFloat = MaterialTheme.verticalInset {
+		didSet {
+			prepareCard()
+		}
+	}
 	
 	/**
 		:name:	detailLabelHorizontalInset
@@ -136,12 +182,20 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	detailLabelLeftInset
 	*/
-	public var detailLabelLeftInset: CGFloat = MaterialTheme.horizontalInset
+	public var detailLabelLeftInset: CGFloat = MaterialTheme.horizontalInset {
+		didSet {
+			prepareCard()
+		}
+	}
 	
 	/**
 		:name:	detailLabelRightInset
 	*/
-	public var detailLabelRightInset: CGFloat = MaterialTheme.horizontalInset
+	public var detailLabelRightInset: CGFloat = MaterialTheme.horizontalInset {
+		didSet {
+			prepareCard()
+		}
+	}
 	
 	/**
 		:name:	buttonVerticalInset
@@ -156,12 +210,20 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	buttonTopInset
 	*/
-	public var buttonTopInset: CGFloat = MaterialTheme.verticalInset
+	public var buttonTopInset: CGFloat = MaterialTheme.verticalInset / 2 {
+		didSet {
+			prepareCard()
+		}
+	}
 	
 	/**
 		:name:	buttonBottomInset
 	*/
-	public var buttonBottomInset: CGFloat = MaterialTheme.verticalInset
+	public var buttonBottomInset: CGFloat = MaterialTheme.verticalInset / 2 {
+		didSet {
+			prepareCard()
+		}
+	}
 	
 	/**
 		:name:	buttonHorizontalInset
@@ -176,12 +238,20 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	buttonLeftInset
 	*/
-	public var buttonLeftInset: CGFloat = MaterialTheme.horizontalInset
+	public var buttonLeftInset: CGFloat = MaterialTheme.horizontalInset / 2 {
+		didSet {
+			prepareCard()
+		}
+	}
 	
 	/**
 		:name:	buttonRightInset
 	*/
-	public var buttonRightInset: CGFloat = MaterialTheme.horizontalInset
+	public var buttonRightInset: CGFloat = MaterialTheme.horizontalInset / 2 {
+		didSet {
+			prepareCard()
+		}
+	}
 	
 	/**
 		:name:	shadow
@@ -189,13 +259,18 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 	public var shadow: Bool = true {
 		didSet {
 			false == shadow ? removeShadow() : prepareShadow()
+			prepareCard()
 		}
 	}
 	
 	/**
 		:name:	maximumImageViewHeight
 	*/
-	public var maximumImageViewHeight: CGFloat = 200
+	public var maximumImageViewHeight: CGFloat = 200 {
+		didSet {
+			prepareCard()
+		}
+	}
 	
 	/**
 		:name:	imageViewContainer
@@ -228,10 +303,19 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 					titleLabelContainer!.removeFromSuperview()
 					imageViewContainer!.addSubview(titleLabelContainer!)
 				}
-				prepareCard()
 			} else {
 				imageViewContainer?.removeFromSuperview()
 			}
+			prepareCard()
+		}
+	}
+	
+	/**
+		:name:	maximumTitleLabelHeight
+	*/
+	public var maximumTitleLabelHeight: CGFloat = 0 {
+		didSet {
+			prepareCard()
 		}
 	}
 	
@@ -258,28 +342,32 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 				t.setTranslatesAutoresizingMaskIntoConstraints(false)
 				t.backgroundColor = MaterialTheme.clear.color
 				t.font = Roboto.medium
-				t.numberOfLines = 1
+				t.numberOfLines = 0
 				t.lineBreakMode = .ByTruncatingTail
 				if nil == imageView {
-					titleLabelContainer!.backgroundColor = MaterialTheme.white.color
+					titleLabelContainer!.backgroundColor = MaterialTheme.clear.color
 					t.textColor = MaterialTheme.black.color
 				} else {
 					titleLabelContainer!.backgroundColor = MaterialTheme.clear.color
-					t.textColor = MaterialTheme.white.color
+					t.textColor = MaterialTheme.clear.color
 					titleLabelContainer!.removeFromSuperview()
 					imageViewContainer!.addSubview(titleLabelContainer!)
 				}
-				prepareCard()
 			} else {
 				titleLabelContainer?.removeFromSuperview()
 			}
+			prepareCard()
 		}
 	}
 	
 	/**
 		:name:	maximumDetailLabelHeight
 	*/
-	public var maximumDetailLabelHeight: CGFloat = 144
+	public var maximumDetailLabelHeight: CGFloat = 0 {
+		didSet {
+			prepareCard()
+		}
+	}
 	
 	/**
 		:name:	detailLabelContainer
@@ -296,7 +384,7 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 				if nil == detailLabelContainer {
 					detailLabelContainer = UIView()
 					detailLabelContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
-					detailLabelContainer!.backgroundColor = MaterialTheme.white.color
+					detailLabelContainer!.backgroundColor = MaterialTheme.clear.color
 					addSubview(detailLabelContainer!)
 				}
 				
@@ -308,10 +396,10 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 				l.font = Roboto.light
 				l.numberOfLines = 0
 				l.lineBreakMode = .ByTruncatingTail
-				prepareCard()
 			} else {
 				detailLabelContainer?.removeFromSuperview()
 			}
+			prepareCard()
 		}
 	}
 	
@@ -324,10 +412,10 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 				d.setTranslatesAutoresizingMaskIntoConstraints(false)
 				d.backgroundColor = MaterialTheme.blueGrey.lighten5
 				addSubview(d)
-				prepareCard()
 			} else {
 				divider?.removeFromSuperview()
 			}
+			prepareCard()
 		}
 	}
 	
@@ -345,13 +433,13 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 				if nil == buttonsContainer {
 					buttonsContainer = UIView()
 					buttonsContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
-					buttonsContainer!.backgroundColor = MaterialTheme.white.color
+					buttonsContainer!.backgroundColor = MaterialTheme.clear.color
 					addSubview(buttonsContainer!)
 				}
-				prepareCard()
 			} else {
 				buttonsContainer?.removeFromSuperview()
 			}
+			prepareCard()
 		}
 	}
 	
@@ -364,13 +452,13 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 				if nil == buttonsContainer {
 					buttonsContainer = UIView()
 					buttonsContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
-					buttonsContainer!.backgroundColor = MaterialTheme.white.color
+					buttonsContainer!.backgroundColor = MaterialTheme.clear.color
 					addSubview(buttonsContainer!)
 				}
-				prepareCard()
 			} else {
 				buttonsContainer?.removeFromSuperview()
 			}
+			prepareCard()
 		}
 	}
 	
@@ -414,7 +502,7 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 	internal override func prepareView() {
 		super.prepareView()
 		prepareShadow()
-		backgroundColor = MaterialTheme.clear.color
+		backgroundColor = MaterialTheme.white.color
 	}
 	
 	//
@@ -422,8 +510,7 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 	//
 	internal override func prepareCard() {
 		super.prepareCard()
-		
-		// deactivate and clear all constraints
+		// clear all constraints
 		NSLayoutConstraint.deactivateConstraints(layoutConstraints)
 		layoutConstraints.removeAll(keepCapacity: false)
 		
@@ -462,8 +549,12 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 			}
 			
 			// common text
-			Layout.height(titleLabelContainer!, child: titleLabel!, height: 1.5 * titleLabel!.font.pointSize)
-			Layout.expandToParentWithPad(titleLabelContainer!, child: titleLabel!, left: titleLabelLeftInset, bottom: titleLabelBottomInset, right: titleLabelRightInset)
+			if 0 == maximumTitleLabelHeight {
+				Layout.expandToParentWithPad(titleLabelContainer!, child: titleLabel!, top: titleLabelTopInset, left: titleLabelLeftInset, bottom: titleLabelBottomInset, right: titleLabelRightInset)
+			} else {
+				Layout.expandToParentHorizontallyWithPad(titleLabelContainer!, child: titleLabel!, left: titleLabelLeftInset, right: titleLabelRightInset)
+				titleLabelContainer!.addConstraints(Layout.constraint("V:|-(titleLabelTopInset)-[titleLabel(<=maximumTitleLabelHeight)]-(titleLabelBottomInset)-|", options: nil, metrics: ["titleLabelTopInset": titleLabelTopInset, "titleLabelBottomInset": titleLabelBottomInset, "maximumTitleLabelHeight": maximumTitleLabelHeight], views: ["titleLabel": titleLabel!]))
+			}
 		}
 		
 		// detail
@@ -477,8 +568,12 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 			views["detailLabelContainer"] = detailLabelContainer!
 			
 			// text
-			Layout.expandToParentHorizontallyWithPad(detailLabelContainer!, child: detailLabel!, left: detailLabelLeftInset, right: detailLabelRightInset)
-			detailLabelContainer!.addConstraints(Layout.constraint("V:|-(detailLabelTopInset)-[detailLabel(<=maximumDetailLabelHeight)]-(detailLabelBottomInset)-|", options: nil, metrics: ["detailLabelTopInset": detailLabelTopInset, "detailLabelBottomInset": detailLabelBottomInset, "maximumDetailLabelHeight": maximumDetailLabelHeight], views: ["detailLabel": detailLabel!]))
+			if 0 == maximumDetailLabelHeight {
+				Layout.expandToParentWithPad(detailLabelContainer!, child: detailLabel!, top: detailLabelTopInset, left: detailLabelLeftInset, bottom: detailLabelBottomInset, right: detailLabelRightInset)
+			} else {
+				Layout.expandToParentHorizontallyWithPad(detailLabelContainer!, child: detailLabel!, left: detailLabelLeftInset, right: detailLabelRightInset)
+				detailLabelContainer!.addConstraints(Layout.constraint("V:|-(detailLabelTopInset)-[detailLabel(<=maximumDetailLabelHeight)]-(detailLabelBottomInset)-|", options: nil, metrics: ["detailLabelTopInset": detailLabelTopInset, "detailLabelBottomInset": detailLabelBottomInset, "maximumDetailLabelHeight": maximumDetailLabelHeight], views: ["detailLabel": detailLabel!]))
+			}
 		}
 		
 		// buttons
