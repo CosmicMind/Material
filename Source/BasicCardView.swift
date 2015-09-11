@@ -51,7 +51,7 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	titleLabelBottomInset
 	*/
-	public var titleLabelBottomInset: CGFloat = 0 {
+	public var titleLabelBottomInset: CGFloat = MaterialTheme.verticalInset {
 		didSet {
 			prepareCard()
 		}
