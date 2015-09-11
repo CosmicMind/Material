@@ -51,7 +51,7 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	titleLabelBottomInset
 	*/
-	public var titleLabelBottomInset: CGFloat = MaterialTheme.verticalInset {
+	public var titleLabelBottomInset: CGFloat = 0 {
 		didSet {
 			prepareCard()
 		}
@@ -154,7 +154,7 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	buttonTopInset
 	*/
-	public var buttonTopInset: CGFloat = MaterialTheme.verticalInset {
+	public var buttonTopInset: CGFloat = MaterialTheme.verticalInset / 2 {
 		didSet {
 			prepareCard()
 		}
@@ -163,7 +163,7 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	buttonBottomInset
 	*/
-	public var buttonBottomInset: CGFloat = MaterialTheme.verticalInset {
+	public var buttonBottomInset: CGFloat = MaterialTheme.verticalInset / 2 {
 		didSet {
 			prepareCard()
 		}
@@ -182,7 +182,7 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	buttonLeftInset
 	*/
-	public var buttonLeftInset: CGFloat = MaterialTheme.horizontalInset {
+	public var buttonLeftInset: CGFloat = MaterialTheme.horizontalInset / 2 {
 		didSet {
 			prepareCard()
 		}
@@ -191,7 +191,7 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	buttonRightInset
 	*/
-	public var buttonRightInset: CGFloat = MaterialTheme.horizontalInset {
+	public var buttonRightInset: CGFloat = MaterialTheme.horizontalInset / 2 {
 		didSet {
 			prepareCard()
 		}
@@ -240,7 +240,7 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 				if nil == titleLabelContainer {
 					titleLabelContainer = UIView()
 					titleLabelContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
-					titleLabelContainer!.backgroundColor = MaterialTheme.white.color
+					titleLabelContainer!.backgroundColor = MaterialTheme.blueGrey.color
 					addSubview(titleLabelContainer!)
 				}
 				
@@ -251,7 +251,7 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 				t.font = Roboto.medium
 				t.numberOfLines = 0
 				t.lineBreakMode = .ByTruncatingTail
-				t.textColor = MaterialTheme.black.color
+				t.textColor = MaterialTheme.white.color
 			} else {
 				titleLabelContainer?.removeFromSuperview()
 			}
@@ -283,14 +283,14 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 				if nil == detailLabelContainer {
 					detailLabelContainer = UIView()
 					detailLabelContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
-					detailLabelContainer!.backgroundColor = MaterialTheme.white.color
+					detailLabelContainer!.backgroundColor = MaterialTheme.blueGrey.color
 					addSubview(detailLabelContainer!)
 				}
 				
 				// text
 				detailLabelContainer!.addSubview(l)
 				l.setTranslatesAutoresizingMaskIntoConstraints(false)
-				l.textColor = MaterialTheme.black.color
+				l.textColor = MaterialTheme.white.color
 				l.backgroundColor = MaterialTheme.clear.color
 				l.font = Roboto.light
 				l.numberOfLines = 0
@@ -309,7 +309,7 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 		didSet {
 			if let d = divider {
 				d.setTranslatesAutoresizingMaskIntoConstraints(false)
-				d.backgroundColor = MaterialTheme.blueGrey.lighten5
+				d.backgroundColor = MaterialTheme.blueGrey.darken1
 				addSubview(d)
 			} else {
 				divider?.removeFromSuperview()
@@ -332,7 +332,7 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 				if nil == buttonsContainer {
 					buttonsContainer = UIView()
 					buttonsContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
-					buttonsContainer!.backgroundColor = MaterialTheme.white.color
+					buttonsContainer!.backgroundColor = MaterialTheme.blueGrey.color
 					addSubview(buttonsContainer!)
 				}
 			} else {
@@ -351,7 +351,7 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 				if nil == buttonsContainer {
 					buttonsContainer = UIView()
 					buttonsContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
-					buttonsContainer!.backgroundColor = MaterialTheme.white.color
+					buttonsContainer!.backgroundColor = MaterialTheme.blueGrey.color
 					addSubview(buttonsContainer!)
 				}
 			} else {

@@ -210,7 +210,7 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	buttonTopInset
 	*/
-	public var buttonTopInset: CGFloat = MaterialTheme.verticalInset {
+	public var buttonTopInset: CGFloat = MaterialTheme.verticalInset / 2 {
 		didSet {
 			prepareCard()
 		}
@@ -219,7 +219,7 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	buttonBottomInset
 	*/
-	public var buttonBottomInset: CGFloat = MaterialTheme.verticalInset {
+	public var buttonBottomInset: CGFloat = MaterialTheme.verticalInset / 2 {
 		didSet {
 			prepareCard()
 		}
@@ -238,7 +238,7 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	buttonLeftInset
 	*/
-	public var buttonLeftInset: CGFloat = MaterialTheme.horizontalInset {
+	public var buttonLeftInset: CGFloat = MaterialTheme.horizontalInset / 2 {
 		didSet {
 			prepareCard()
 		}
@@ -247,7 +247,7 @@ public class ImageCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	buttonRightInset
 	*/
-	public var buttonRightInset: CGFloat = MaterialTheme.horizontalInset {
+	public var buttonRightInset: CGFloat = MaterialTheme.horizontalInset / 2 {
 		didSet {
 			prepareCard()
 		}
