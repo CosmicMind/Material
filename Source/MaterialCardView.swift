@@ -49,7 +49,7 @@ public class MaterialCardView : UIView {
 	/**
 		:name:	pulseColor
 	*/
-	public var pulseColor: UIColor = MaterialTheme.blueGrey.lighten3
+	public var pulseColor: UIColor? = MaterialTheme.blueGrey.lighten3
 	
 	/**
 		:name:	init
@@ -151,7 +151,7 @@ public class MaterialCardView : UIView {
 		pulseView = UIView(frame: CGRectMake(0, 0, width, width))
 		pulseView!.layer.cornerRadius = width / 2
 		pulseView!.center = (touches.first as! UITouch).locationInView(self)
-		pulseView!.backgroundColor = pulseColor.colorWithAlphaComponent(0.3)
+		pulseView!.backgroundColor = pulseColor?.colorWithAlphaComponent(0.3)
 		addSubview(pulseViewContainer)
 		Layout.expandToParent(self, child: pulseViewContainer)
 		pulseViewContainer.addSubview(pulseView!)
