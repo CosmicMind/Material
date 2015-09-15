@@ -97,11 +97,9 @@ public class Capture: NSObject, AVCaptureFileOutputRecordingDelegate {
 	public func prepareSession(preset: String = AVCaptureSessionPresetHigh) -> Bool {
 		session.sessionPreset = preset
 		
-		var error: NSError?
-		
 		// setup default camera device
 		let videoDevice: AVCaptureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
-		let videoInput: AVCaptureDeviceInput? = AVCaptureDeviceInput.deviceInputWithDevice(videoDevice) as? AVCaptureDeviceInput
+		let videoInput: AVCaptureDeviceInput? = try? AVCaptureDeviceInput(device: videoDevice)
 		
 		if nil == videoInput {
 			return false
@@ -113,7 +111,7 @@ public class Capture: NSObject, AVCaptureFileOutputRecordingDelegate {
 		}
 		
 		let audioDevice: AVCaptureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeAudio)
-		let audioInput: AVCaptureDeviceInput? = AVCaptureDeviceInput.deviceInputWithDevice(audioDevice) as? AVCaptureDeviceInput
+		let audioInput: AVCaptureDeviceInput? = try? AVCaptureDeviceInput(device: audioDevice)
 		
 		if nil == audioInput {
 			return false
@@ -218,9 +216,8 @@ public class Capture: NSObject, AVCaptureFileOutputRecordingDelegate {
 			return false
 		}
 		
-		let error: NSError?
 		let videoDevice: AVCaptureDevice? = inactiveCamera
-		let videoInput: AVCaptureDeviceInput? = AVCaptureDeviceInput.deviceInputWithDevice(videoDevice) as? AVCaptureDeviceInput
+		let videoInput: AVCaptureDeviceInput? = try? AVCaptureDeviceInput(device: videoDevice)
 		
 		if nil == videoInput {
 			session.beginConfiguration()
@@ -234,7 +231,7 @@ public class Capture: NSObject, AVCaptureFileOutputRecordingDelegate {
 			
 			session.commitConfiguration()
 		} else {
-			delegate?.captureDeviceConfigurationFailed?(self, error: error)
+			delegate?.captureDeviceConfigurationFailed?(self, error: nil)
 			return false
 		}
 		
@@ -391,14 +388,14 @@ public class Capture: NSObject, AVCaptureFileOutputRecordingDelegate {
 			let device: AVCaptureDevice = object as! AVCaptureDevice
 			
 			if device.adjustingExposure && device.isExposureModeSupported(.Locked) {
-				object.removeObserver(self, forKeyPath: "adjustingExposure", context: &CaptureAdjustingExposureContext)
+				object!.removeObserver(self, forKeyPath: "adjustingExposure", context: &CaptureAdjustingExposureContext)
 				dispatch_async(queue) {
 					var error: NSError?
 					do {
 						try device.lockForConfiguration()
 						device.unlockForConfiguration()
-					} catch var error1 as NSError {
-						error = error1
+					} catch let e as NSError {
+						error = e
 						self.delegate?.captureDeviceConfigurationFailed?(self, error: error)
 					} catch {
 						fatalError()
@@ -560,15 +557,12 @@ public class Capture: NSObject, AVCaptureFileOutputRecordingDelegate {
 	* @return		An optional NSURL value.
 	*/
 	private var uniqueURL: NSURL? {
-		var error: NSError?
 		let fileManager: NSFileManager = NSFileManager.defaultManager()
 		let tempDirectoryTemplate: String = (NSTemporaryDirectory() as NSString).stringByAppendingPathComponent("FocusLibrary")
 		do {
 			try fileManager.createDirectoryAtPath(tempDirectoryTemplate, withIntermediateDirectories: true, attributes: nil)
 			return NSURL.fileURLWithPath(tempDirectoryTemplate + "/test.mov")
-		} catch let error1 as NSError {
-			error = error1
-		}
+		} catch {}
 		return nil
 	}
 	
@@ -630,17 +624,19 @@ public class Capture: NSObject, AVCaptureFileOutputRecordingDelegate {
 	*/
 	private func generateThumbnailForVideoAtURL(videoURL: NSURL!) {
 		dispatch_async(queue) {
-			let asset: AVAsset = AVAsset.assetWithURL(videoURL) 
-			let imageGenerator: AVAssetImageGenerator = AVAssetImageGenerator(asset: asset)
-			imageGenerator.maximumSize = CGSizeMake(100, 0)
-			imageGenerator.appliesPreferredTrackTransform = true
-			
-			let imageRef: CGImageRef = try? imageGenerator.copyCGImageAtTime(kCMTimeZero, actualTime: nil)
-			let image: UIImage = UIImage(CGImage: imageRef)
-			
-			dispatch_async(dispatch_get_main_queue()) {
-				self.postAssetLibraryNotification(image)
-			}
+			do {
+				let asset: AVAsset = AVAsset(URL: videoURL)
+				let imageGenerator: AVAssetImageGenerator = AVAssetImageGenerator(asset: asset)
+				imageGenerator.maximumSize = CGSizeMake(100, 0)
+				imageGenerator.appliesPreferredTrackTransform = true
+				
+				let imageRef: CGImageRef = try imageGenerator.copyCGImageAtTime(kCMTimeZero, actualTime: nil)
+				let image: UIImage = UIImage(CGImage: imageRef)
+				
+				dispatch_async(dispatch_get_main_queue()) {
+					self.postAssetLibraryNotification(image)
+				}
+			} catch {}
 		}
 	}
 	

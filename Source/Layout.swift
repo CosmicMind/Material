@@ -142,9 +142,6 @@ public struct Layout {
 		:name:	constraint
 	*/
 	public static func constraint(format: String, options: NSLayoutFormatOptions, metrics: Dictionary<String, AnyObject>?, views: Dictionary<String, AnyObject>) -> Array<NSLayoutConstraint> {
-		for (_, v) in views {
-			v.setTranslatesAutoresizingMaskIntoConstraints(false)
-		}
 		return NSLayoutConstraint.constraintsWithVisualFormat(
 			format,
 			options: options,

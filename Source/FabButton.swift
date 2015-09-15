@@ -41,7 +41,7 @@ public class FabButton : MaterialButton {
 	//
 	//	:name:	pulseBegan
 	//
-	internal override func pulseBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+	internal override func pulseBegan(touches: Set<NSObject>, withEvent event: UIEvent?) {
 		super.pulseBegan(touches, withEvent: event)
 		UIView.animateWithDuration(0.3, animations: {
 			self.pulseView!.transform = CGAffineTransformMakeScale(3, 3)

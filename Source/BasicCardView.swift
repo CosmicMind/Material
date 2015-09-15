@@ -18,7 +18,7 @@
 
 import UIKit
 
-public class BasicCardView : MaterialCardView, Comparable, Equatable {
+public class BasicCardView : MaterialCardView, Comparable {
 	//
 	//	:name:	layoutConstraints
 	//
@@ -319,15 +319,13 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 	*/
 	public var leftButtons: Array<MaterialButton>? {
 		didSet {
-			if let b = leftButtons {
-				if nil == buttonsContainer {
-					buttonsContainer = UIView()
-					buttonsContainer!.translatesAutoresizingMaskIntoConstraints = false
-					buttonsContainer!.backgroundColor = MaterialTheme.clear.color
-					addSubview(buttonsContainer!)
-				}
-			} else {
+			if nil == rightButtons && nil == leftButtons {
 				buttonsContainer?.removeFromSuperview()
+			} else if nil == buttonsContainer {
+				buttonsContainer = UIView()
+				buttonsContainer!.translatesAutoresizingMaskIntoConstraints = false
+				buttonsContainer!.backgroundColor = MaterialTheme.clear.color
+				addSubview(buttonsContainer!)
 			}
 			prepareCard()
 		}
@@ -338,15 +336,13 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 	*/
 	public var rightButtons: Array<MaterialButton>? {
 		didSet {
-			if let b = rightButtons {
-				if nil == buttonsContainer {
-					buttonsContainer = UIView()
-					buttonsContainer!.translatesAutoresizingMaskIntoConstraints = false
-					buttonsContainer!.backgroundColor = MaterialTheme.clear.color
-					addSubview(buttonsContainer!)
-				}
-			} else {
+			if nil == rightButtons && nil == leftButtons {
 				buttonsContainer?.removeFromSuperview()
+			} else if nil == buttonsContainer {
+				buttonsContainer = UIView()
+				buttonsContainer!.translatesAutoresizingMaskIntoConstraints = false
+				buttonsContainer!.backgroundColor = MaterialTheme.clear.color
+				addSubview(buttonsContainer!)
 			}
 			prepareCard()
 		}
@@ -497,10 +493,16 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 			NSLayoutConstraint.activateConstraints(layoutConstraints)
 		}
 	}
-}
-
-public func ==(lhs: BasicCardView, rhs: BasicCardView) -> Bool {
-	return lhs.tag == rhs.tag
+	
+	/**
+		:name:	isEqual
+	*/
+	public override func isEqual(object: AnyObject?) -> Bool {
+		if let rhs = object as? BasicCardView {
+			return tag == rhs.tag
+		}
+		return false
+	}
 }
 
 public func <=(lhs: BasicCardView, rhs: BasicCardView) -> Bool {

@@ -19,7 +19,7 @@
 import UIKit
 
 internal typealias MaterialTextStorageWillProcessEdit = (MaterialTextStorage, String, NSRange) -> Void
-internal typealias MaterialTextStorageDidProcessEdit = (MaterialTextStorage, NSTextCheckingResult, NSMatchingFlags, UnsafeMutablePointer<ObjCBool>) -> Void
+internal typealias MaterialTextStorageDidProcessEdit = (MaterialTextStorage, NSTextCheckingResult?, NSMatchingFlags, UnsafeMutablePointer<ObjCBool>) -> Void
 
 public class MaterialTextStorage: NSTextStorage {
 	/**
@@ -48,11 +48,17 @@ public class MaterialTextStorage: NSTextStorage {
 	*/
 	internal var textStorageDidProcessEdit: MaterialTextStorageDidProcessEdit?
 	
-	required public init?(coder aDecoder: NSCoder) {
+	/**
+		:name:	init
+	*/
+	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
 	
-	override public init() {
+	/**
+		:name:	init
+	*/
+	public override init() {
 		super.init()
 	}
 	
@@ -66,25 +72,37 @@ public class MaterialTextStorage: NSTextStorage {
 		}
 	}
 	
-	override public func processEditing() {
+	/**
+		:name:	processEditing
+	*/
+	public override func processEditing() {
 		let range: NSRange = (string as NSString).paragraphRangeForRange(editedRange)
 		textStorageWillProcessEdit?(self, string, range)
-		searchExpression!.enumerateMatchesInString(string, options: [], range: range) { (result: NSTextCheckingResult!, flags: NSMatchingFlags, stop: UnsafeMutablePointer<ObjCBool>) in
-			self.textStorageDidProcessEdit?(self, result, flags, stop)
+		searchExpression!.enumerateMatchesInString(string, options: [], range: range) { (result: NSTextCheckingResult?, flags: NSMatchingFlags, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
+				self.textStorageDidProcessEdit?(self, result, flags, stop)
 		}
 		super.processEditing()
 	}
 	
-	override public func attributesAtIndex(location: Int, effectiveRange range: NSRangePointer) -> [String : AnyObject] {
+	/**
+		:name:	attributesAtIndex
+	*/
+	public override func attributesAtIndex(location: Int, effectiveRange range: NSRangePointer) -> [String : AnyObject] {
 		return store.attributesAtIndex(location, effectiveRange: range)
 	}
 	
-	override public func replaceCharactersInRange(range: NSRange, withString str: String) {
+	/**
+		:name:	replaceCharactersInRange
+	*/
+	public override func replaceCharactersInRange(range: NSRange, withString str: String) {
 		store.replaceCharactersInRange(range, withString: str)
 		edited(NSTextStorageEditActions.EditedCharacters, range: range, changeInLength: str.utf16.count - range.length)
 	}
 	
-	override public func setAttributes(attrs: [String : AnyObject]?, range: NSRange) {
+	/**
+		:name:	setAttributes
+	*/
+	public override func setAttributes(attrs: [String : AnyObject]?, range: NSRange) {
 		store.setAttributes(attrs, range: range)
 		edited(NSTextStorageEditActions.EditedAttributes, range: range, changeInLength: 0)
 	}

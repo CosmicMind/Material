@@ -21,7 +21,7 @@ import UIKit
 @objc(MaterialTextDelegate)
 public protocol TextDelegate {
 	optional func textStorageWillProcessEdit(text: MaterialText, textStorage: MaterialTextStorage, string: String, range: NSRange)
-	optional func textStorageDidProcessEdit(text: MaterialText, textStorage: MaterialTextStorage, string: String, result: NSTextCheckingResult, flags: NSMatchingFlags, stop: UnsafeMutablePointer<ObjCBool>)
+	optional func textStorageDidProcessEdit(text: MaterialText, textStorage: MaterialTextStorage, string: String, result: NSTextCheckingResult?, flags: NSMatchingFlags, stop: UnsafeMutablePointer<ObjCBool>)
 }
 
 @objc(MaterialText)
@@ -60,7 +60,7 @@ public class MaterialText: NSObject {
 		textStorage.textStorageWillProcessEdit = { (textStorage: MaterialTextStorage, string: String, range: NSRange) -> Void in
 			self.delegate?.textStorageWillProcessEdit?(self, textStorage: textStorage, string: string, range: range)
 		}
-		textStorage.textStorageDidProcessEdit = { (textStorage: MaterialTextStorage, result: NSTextCheckingResult, flags: NSMatchingFlags, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
+		textStorage.textStorageDidProcessEdit = { (textStorage: MaterialTextStorage, result: NSTextCheckingResult?, flags: NSMatchingFlags, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
 			self.delegate?.textStorageDidProcessEdit?(self, textStorage: textStorage, string: textStorage.string, result: result, flags: flags, stop: stop)
 		}
 	}

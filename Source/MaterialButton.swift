@@ -129,7 +129,7 @@ public class MaterialButton : UIButton {
 	//
 	//	:name:	pulseBegan
 	//
-	internal func pulseBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+	internal func pulseBegan(touches: Set<NSObject>, withEvent event: UIEvent?) {
 		pulseView = UIView(frame: CGRectMake(0, 0, bounds.height, bounds.height))
 		pulseView!.layer.cornerRadius = bounds.height / 2
 		pulseView!.center = (touches.first as! UITouch).locationInView(self)
@@ -140,7 +140,7 @@ public class MaterialButton : UIButton {
 	//
 	//	:name:	pulseEnded
 	//
-	internal func pulseEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+	internal func pulseEnded(touches: Set<NSObject>?, withEvent event: UIEvent?) {
 		UIView.animateWithDuration(0.3,
 			animations: { _ in
 				self.pulseView?.alpha = 0
