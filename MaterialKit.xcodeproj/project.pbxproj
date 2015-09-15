@@ -324,6 +324,8 @@
 		9638322D1B88DFD80015F710 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0710;
+				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = "GraphKit, Inc.";
 				TargetAttributes = {

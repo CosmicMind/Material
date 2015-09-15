@@ -118,7 +118,7 @@ public class Preview: UIView {
 	//
 	private var doubleDoubleTapRecognizer: UITapGestureRecognizer?
 	
-	required public init(coder aDecoder: NSCoder) {
+	required public init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 		prepareView()
 	}
@@ -130,7 +130,7 @@ public class Preview: UIView {
 	
 	public init() {
 		super.init(frame: CGRectZero)
-		setTranslatesAutoresizingMaskIntoConstraints(false)
+		translatesAutoresizingMaskIntoConstraints = false
 		prepareView()
 	}
 	

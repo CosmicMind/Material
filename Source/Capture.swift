@@ -101,7 +101,7 @@ public class Capture: NSObject, AVCaptureFileOutputRecordingDelegate {
 		
 		// setup default camera device
 		let videoDevice: AVCaptureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
-		var videoInput: AVCaptureDeviceInput? = AVCaptureDeviceInput.deviceInputWithDevice(videoDevice, error: &error) as? AVCaptureDeviceInput
+		let videoInput: AVCaptureDeviceInput? = AVCaptureDeviceInput.deviceInputWithDevice(videoDevice) as? AVCaptureDeviceInput
 		
 		if nil == videoInput {
 			return false
@@ -113,7 +113,7 @@ public class Capture: NSObject, AVCaptureFileOutputRecordingDelegate {
 		}
 		
 		let audioDevice: AVCaptureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeAudio)
-		var audioInput: AVCaptureDeviceInput? = AVCaptureDeviceInput.deviceInputWithDevice(audioDevice, error: &error) as? AVCaptureDeviceInput
+		let audioInput: AVCaptureDeviceInput? = AVCaptureDeviceInput.deviceInputWithDevice(audioDevice) as? AVCaptureDeviceInput
 		
 		if nil == audioInput {
 			return false
@@ -218,9 +218,9 @@ public class Capture: NSObject, AVCaptureFileOutputRecordingDelegate {
 			return false
 		}
 		
-		var error: NSError?
-		var videoDevice: AVCaptureDevice? = inactiveCamera
-		var videoInput: AVCaptureDeviceInput? = AVCaptureDeviceInput.deviceInputWithDevice(videoDevice, error: &error) as? AVCaptureDeviceInput
+		let error: NSError?
+		let videoDevice: AVCaptureDevice? = inactiveCamera
+		let videoInput: AVCaptureDeviceInput? = AVCaptureDeviceInput.deviceInputWithDevice(videoDevice) as? AVCaptureDeviceInput
 		
 		if nil == videoInput {
 			session.beginConfiguration()
@@ -263,10 +263,12 @@ public class Capture: NSObject, AVCaptureFileOutputRecordingDelegate {
 			let device: AVCaptureDevice = activeCamera
 			if flashMode != device.flashMode && device.isFlashModeSupported(flashMode) {
 				var error: NSError?
-				if device.lockForConfiguration(&error) {
+				do {
+					try device.lockForConfiguration()
 					device.flashMode = flashMode
 					device.unlockForConfiguration()
-				} else {
+				} catch let error1 as NSError {
+					error = error1
 					delegate?.captureDeviceConfigurationFailed?(self, error: error)
 				}
 			}
@@ -297,10 +299,12 @@ public class Capture: NSObject, AVCaptureFileOutputRecordingDelegate {
 			let device: AVCaptureDevice = activeCamera
 			if torchMode != device.torchMode && device.isTorchModeSupported(torchMode) {
 				var error: NSError?
-				if device.lockForConfiguration(&error) {
+				do {
+					try device.lockForConfiguration()
 					device.torchMode = torchMode
 					device.unlockForConfiguration()
-				} else {
+				} catch let error1 as NSError {
+					error = error1
 					delegate?.captureDeviceConfigurationFailed?(self, error: error)
 				}
 			}
@@ -328,11 +332,13 @@ public class Capture: NSObject, AVCaptureFileOutputRecordingDelegate {
 		let device: AVCaptureDevice = activeCamera
 		if device.focusPointOfInterestSupported && device.isFocusModeSupported(.AutoFocus) {
 			var error: NSError?
-			if device.lockForConfiguration(&error) {
+			do {
+				try device.lockForConfiguration()
 				device.focusPointOfInterest = point
 				device.focusMode = .AutoFocus
 				device.unlockForConfiguration()
-			} else {
+			} catch let error1 as NSError {
+				error = error1
 				delegate?.captureDeviceConfigurationFailed?(self, error: error)
 			}
 		}
@@ -356,11 +362,12 @@ public class Capture: NSObject, AVCaptureFileOutputRecordingDelegate {
 	*/
 	public func exposeAtPoint(point: CGPoint) {
 		let device: AVCaptureDevice = activeCamera
-		var exposureMode: AVCaptureExposureMode = .ContinuousAutoExposure
+		let exposureMode: AVCaptureExposureMode = .ContinuousAutoExposure
 		
 		if device.exposurePointOfInterestSupported && device.isExposureModeSupported(exposureMode) {
 			var error: NSError?
-			if device.lockForConfiguration(&error) {
+			do {
+				try device.lockForConfiguration()
 				device.exposurePointOfInterest = point
 				device.exposureMode = exposureMode
 				
@@ -368,7 +375,8 @@ public class Capture: NSObject, AVCaptureFileOutputRecordingDelegate {
 					device.addObserver(self, forKeyPath: "adjustingExposure", options: .New, context: &CaptureAdjustingExposureContext)
 				}
 				device.unlockForConfiguration()
-			} else {
+			} catch let error1 as NSError {
+				error = error1
 				delegate?.captureDeviceConfigurationFailed?(self, error: error)
 			}
 		}
@@ -378,7 +386,7 @@ public class Capture: NSObject, AVCaptureFileOutputRecordingDelegate {
 	* override to set observeValueForKeyPath and handle exposure observance.
 	* @delegate		If the configuration fails, the capture(capture: Capture!, deviceConfigurationFailed error: NSError!) is called.
 	*/
-	override public func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
+	override public func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
 		if context == &CaptureAdjustingExposureContext {
 			let device: AVCaptureDevice = object as! AVCaptureDevice
 			
@@ -386,10 +394,14 @@ public class Capture: NSObject, AVCaptureFileOutputRecordingDelegate {
 				object.removeObserver(self, forKeyPath: "adjustingExposure", context: &CaptureAdjustingExposureContext)
 				dispatch_async(queue) {
 					var error: NSError?
-					if device.lockForConfiguration(&error) {
+					do {
+						try device.lockForConfiguration()
 						device.unlockForConfiguration()
-					} else {
+					} catch var error1 as NSError {
+						error = error1
 						self.delegate?.captureDeviceConfigurationFailed?(self, error: error)
+					} catch {
+						fatalError()
 					}
 				}
 			} else {
@@ -406,16 +418,17 @@ public class Capture: NSObject, AVCaptureFileOutputRecordingDelegate {
 	public func resetFocusAndExposureModes() {
 		let device: AVCaptureDevice = activeCamera
 		
-		var exposureMode: AVCaptureExposureMode = .ContinuousAutoExposure
+		let exposureMode: AVCaptureExposureMode = .ContinuousAutoExposure
 		let canResetExposure: Bool = device.focusPointOfInterestSupported && device.isExposureModeSupported(exposureMode)
 		
-		var focusMode: AVCaptureFocusMode = .ContinuousAutoFocus
+		let focusMode: AVCaptureFocusMode = .ContinuousAutoFocus
 		let canResetFocus: Bool = device.focusPointOfInterestSupported && device.isFocusModeSupported(focusMode)
 		
 		let centerPoint: CGPoint = CGPointMake(0.5, 0.5)
 		
 		var error: NSError?
-		if device.lockForConfiguration(&error) {
+		do {
+			try device.lockForConfiguration()
 			if canResetFocus {
 				device.focusMode = focusMode
 				device.focusPointOfInterest = centerPoint
@@ -425,7 +438,8 @@ public class Capture: NSObject, AVCaptureFileOutputRecordingDelegate {
 				device.exposurePointOfInterest = centerPoint
 			}
 			device.unlockForConfiguration()
-		} else {
+		} catch let error1 as NSError {
+			error = error1
 			delegate?.captureDeviceConfigurationFailed?(self, error: error)
 		}
 	}
@@ -437,7 +451,7 @@ public class Capture: NSObject, AVCaptureFileOutputRecordingDelegate {
 	* @delegate		If failure, capture(capture: Capture!, assetLibraryWriteFailed error: NSError!) is called.
 	*/
 	public func captureStillImage() {
-		var connection: AVCaptureConnection = imageOutput.connectionWithMediaType(AVMediaTypeVideo)
+		let connection: AVCaptureConnection = imageOutput.connectionWithMediaType(AVMediaTypeVideo)
 		if connection.supportsVideoOrientation {
 			connection.videoOrientation = currentVideoOrientation
 		}
@@ -482,10 +496,12 @@ public class Capture: NSObject, AVCaptureFileOutputRecordingDelegate {
 			
 			if device.smoothAutoFocusSupported {
 				var error: NSError?
-				if device.lockForConfiguration(&error) {
+				do {
+					try device.lockForConfiguration()
 					device.smoothAutoFocusEnabled = false
 					device.unlockForConfiguration()
-				} else {
+				} catch let error1 as NSError {
+					error = error1
 					delegate?.captureDeviceConfigurationFailed?(self, error: error)
 				}
 			}
@@ -546,9 +562,12 @@ public class Capture: NSObject, AVCaptureFileOutputRecordingDelegate {
 	private var uniqueURL: NSURL? {
 		var error: NSError?
 		let fileManager: NSFileManager = NSFileManager.defaultManager()
-		let tempDirectoryTemplate: String = NSTemporaryDirectory().stringByAppendingPathComponent("FocusLibrary")
-		if fileManager.createDirectoryAtPath(tempDirectoryTemplate, withIntermediateDirectories: true, attributes: nil, error: &error) {
+		let tempDirectoryTemplate: String = (NSTemporaryDirectory() as NSString).stringByAppendingPathComponent("FocusLibrary")
+		do {
+			try fileManager.createDirectoryAtPath(tempDirectoryTemplate, withIntermediateDirectories: true, attributes: nil)
 			return NSURL.fileURLWithPath(tempDirectoryTemplate + "/test.mov")
+		} catch let error1 as NSError {
+			error = error1
 		}
 		return nil
 	}
@@ -611,13 +630,13 @@ public class Capture: NSObject, AVCaptureFileOutputRecordingDelegate {
 	*/
 	private func generateThumbnailForVideoAtURL(videoURL: NSURL!) {
 		dispatch_async(queue) {
-			let asset: AVAsset = AVAsset.assetWithURL(videoURL) as! AVAsset
+			let asset: AVAsset = AVAsset.assetWithURL(videoURL) 
 			let imageGenerator: AVAssetImageGenerator = AVAssetImageGenerator(asset: asset)
 			imageGenerator.maximumSize = CGSizeMake(100, 0)
 			imageGenerator.appliesPreferredTrackTransform = true
 			
-			let imageRef: CGImageRef = imageGenerator.copyCGImageAtTime(kCMTimeZero, actualTime: nil, error: nil)
-			let image: UIImage = UIImage(CGImage: imageRef)!
+			let imageRef: CGImageRef = try? imageGenerator.copyCGImageAtTime(kCMTimeZero, actualTime: nil)
+			let image: UIImage = UIImage(CGImage: imageRef)
 			
 			dispatch_async(dispatch_get_main_queue()) {
 				self.postAssetLibraryNotification(image)

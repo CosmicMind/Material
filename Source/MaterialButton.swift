@@ -49,7 +49,7 @@ public class MaterialButton : UIButton {
 	/**
 		:name:	init
 	*/
-	public required init(coder aDecoder: NSCoder) {
+	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 		prepareView()
 	}
@@ -72,7 +72,7 @@ public class MaterialButton : UIButton {
 	/**
 		:name:	touchesBegan
 	*/
-	public override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesBegan(touches, withEvent: event)
 		pulseBegan(touches, withEvent: event)
 	}
@@ -80,7 +80,7 @@ public class MaterialButton : UIButton {
 	/**
 		:name:	touchesEnded
 	*/
-	public override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+	public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesEnded(touches, withEvent: event)
 		shrink()
 		pulseEnded(touches, withEvent: event)
@@ -89,7 +89,7 @@ public class MaterialButton : UIButton {
 	/**
 		:name:	touchesCancelled
 	*/
-	public override func touchesCancelled(touches: Set<NSObject>!, withEvent event: UIEvent!) {
+	public override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
 		super.touchesCancelled(touches, withEvent: event)
 		shrink()
 		pulseEnded(touches, withEvent: event)
@@ -108,7 +108,7 @@ public class MaterialButton : UIButton {
 	//	:name:	prepareView
 	//
 	internal func prepareView() {
-		setTranslatesAutoresizingMaskIntoConstraints(false)
+		translatesAutoresizingMaskIntoConstraints = false
 	}
 	
 	//
@@ -167,7 +167,7 @@ public class MaterialButton : UIButton {
 	//	:name: prepareBackgroundColorView
 	//
 	private func prepareBackgroundColorView() {
-		backgroundColorView.setTranslatesAutoresizingMaskIntoConstraints(false)
+		backgroundColorView.translatesAutoresizingMaskIntoConstraints = false
 		backgroundColorView.layer.masksToBounds = true
 		backgroundColorView.clipsToBounds = true
 		backgroundColorView.userInteractionEnabled = false
@@ -183,7 +183,7 @@ public class MaterialButton : UIButton {
 			delay: 0,
 			usingSpringWithDamping: 0.2,
 			initialSpringVelocity: 10,
-			options: nil,
+			options: [],
 			animations: {
 				self.transform = CGAffineTransformIdentity
 			},

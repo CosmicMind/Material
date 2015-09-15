@@ -40,7 +40,7 @@ public enum SideNavigationViewState {
 }
 
 @objc(SideNavigationViewContainer)
-public class SideNavigationViewContainer : Printable {
+public class SideNavigationViewContainer : NSObject {
 	/**
 		:name:	state
 	*/
@@ -59,7 +59,7 @@ public class SideNavigationViewContainer : Printable {
 	/**
 		:name:	description
 	*/
-	public var description: String {
+	public override var description: String {
 		let s: String = .Opened == state ? "Opened" : "Closed"
 		return "(state: \(s), point: \(point), frame: \(frame))"
 	}
@@ -362,7 +362,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	/**
 		:name:	init
 	*/
-    public required init(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 	
@@ -548,28 +548,28 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		:name:	toggleLeftViewContainer
 	*/
 	public func toggleLeftViewContainer(velocity: CGFloat = 0) {
-		isLeftContainerOpened ? closeLeftViewContainer(velocity: velocity) : openLeftViewContainer(velocity: velocity)
+		isLeftContainerOpened ? closeLeftViewContainer(velocity) : openLeftViewContainer(velocity)
 	}
 	
 	/**
 		:name:	toggleRightViewContainer
 	*/
 	public func toggleRightViewContainer(velocity: CGFloat = 0) {
-		isRightContainerOpened ? closeRightViewContainer(velocity: velocity) : openRightViewContainer(velocity: velocity)
+		isRightContainerOpened ? closeRightViewContainer(velocity) : openRightViewContainer(velocity)
 	}
     
     /**
 		:name:	toggleBottomViewContainer
     */
     public func toggleBottomViewContainer(velocity: CGFloat = 0) {
-        isBottomContainerOpened ? closeBottomViewContainer(velocity: velocity) : openBottomViewContainer(velocity: velocity)
+        isBottomContainerOpened ? closeBottomViewContainer(velocity) : openBottomViewContainer(velocity)
     }
     
     /**
 		:name:	toggleTopViewContainer
     */
     public func toggleTopViewContainer(velocity: CGFloat = 0) {
-        isTopContainerOpened ? closeTopViewContainer(velocity: velocity) : openTopViewContainer(velocity: velocity)
+        isTopContainerOpened ? closeTopViewContainer(velocity) : openTopViewContainer(velocity)
     }
 	
 	/**
@@ -940,7 +940,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			if let c = leftContainer {
 				if .Began == gesture.state {
 					addShadow(&leftViewContainer)
-					toggleStatusBar(hide: true)
+					toggleStatusBar(true)
 					c.state = isLeftContainerOpened ? .Opened : .Closed
 					c.point = gesture.locationInView(view)
 					c.frame = vc.frame
@@ -959,9 +959,9 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 					let x: CGFloat = c.point.x >= 1000 || c.point.x <= -1000 ? c.point.x : 0
 					c.state = vc.frame.origin.x <= CGFloat(floor(leftOriginX)) + options.horizontalThreshold || c.point.x <= -1000 ? .Closed : .Opened
 					if .Closed == c.state {
-						closeLeftViewContainer(velocity: x)
+						closeLeftViewContainer(x)
 					} else {
-						openLeftViewContainer(velocity: x)
+						openLeftViewContainer(x)
 					}
 					delegate?.sideNavDidEndLeftPan?(self, container: c)
 				}
@@ -991,7 +991,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 					c.state = isRightContainerOpened ? .Opened : .Closed
 					c.frame = vc.frame
 					addShadow(&rightViewContainer)
-					toggleStatusBar(hide: true)
+					toggleStatusBar(true)
 					delegate?.sideNavDidBeginRightPan?(self, container: c)
 				} else if .Changed == gesture.state {
 					c.point = gesture.translationInView(gesture.view!)
@@ -1006,9 +1006,9 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 					let x: CGFloat = c.point.x <= -1000 || c.point.x >= 1000 ? c.point.x : 0
 					c.state = vc.frame.origin.x >= CGFloat(floor(rightOriginX) - options.horizontalThreshold) || c.point.x >= 1000 ? .Closed : .Opened
 					if .Closed == c.state {
-						closeRightViewContainer(velocity: x)
+						closeRightViewContainer(x)
 					} else {
-						openRightViewContainer(velocity: x)
+						openRightViewContainer(x)
 					}
 					delegate?.sideNavDidEndRightPan?(self, container: c)
 				}
@@ -1035,7 +1035,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			if let c = bottomContainer {
 				if .Began == gesture.state {
 					addShadow(&bottomViewContainer)
-					toggleStatusBar(hide: true)
+					toggleStatusBar(true)
 					c.state = isBottomContainerOpened ? .Opened : .Closed
 					c.point = gesture.locationInView(view)
 					c.frame = vc.frame
@@ -1053,9 +1053,9 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 					let y: CGFloat = c.point.y <= -1000 || c.point.y >= 1000 ? c.point.y : 0
 					c.state = vc.frame.origin.y >= CGFloat(floor(bottomOriginY) - options.verticalThreshold) || c.point.y >= 1000 ? .Closed : .Opened
 					if .Closed == c.state {
-						closeBottomViewContainer(velocity: y)
+						closeBottomViewContainer(y)
 					} else {
-						openBottomViewContainer(velocity: y)
+						openBottomViewContainer(y)
 					}
 					delegate?.sideNavDidEndBottomPan?(self, container: c)
 				}
@@ -1082,7 +1082,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			if let c = topContainer {
 				if .Began == gesture.state {
 					addShadow(&topViewContainer)
-					toggleStatusBar(hide: true)
+					toggleStatusBar(true)
 					c.state = isTopContainerOpened ? .Opened : .Closed
 					c.point = gesture.locationInView(view)
 					c.frame = vc.frame
@@ -1100,9 +1100,9 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 					let y: CGFloat = c.point.y <= -1000 || c.point.y >= 1000 ? c.point.y : 0
 					c.state = vc.frame.origin.y >= CGFloat(floor(topOriginY) + options.verticalThreshold) || c.point.y >= 1000 ? .Opened : .Closed
 					if .Closed == c.state {
-						closeTopViewContainer(velocity: y)
+						closeTopViewContainer(y)
 					} else {
-						openTopViewContainer(velocity: y)
+						openTopViewContainer(y)
 					}
 					delegate?.sideNavDidEndTopPan?(self, container: c)
 				}
@@ -1243,7 +1243,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	private func prepareMainContainer() {
 		mainViewContainer = UIView(frame: view.bounds)
 		mainViewContainer!.backgroundColor = MaterialTheme.clear.color
-		mainViewContainer!.autoresizingMask = .FlexibleHeight | .FlexibleWidth
+		mainViewContainer!.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
 		view.addSubview(mainViewContainer!)
 	}
 	
@@ -1253,7 +1253,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	private func prepareBackdropContainer() {
 		backdropViewContainer = UIView(frame: view.bounds)
 		backdropViewContainer!.backgroundColor = options.backdropBackgroundColor
-		backdropViewContainer!.autoresizingMask = .FlexibleHeight | .FlexibleWidth
+		backdropViewContainer!.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
 		backdropViewContainer!.layer.opacity = 0
 		view.addSubview(backdropViewContainer!)
 	}
@@ -1311,7 +1311,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	//
 	private func prepareContainerToOpen(inout viewController: UIViewController?, inout viewContainer: UIView?, state: SideNavigationViewState) {
 		addShadow(&viewContainer)
-		toggleStatusBar(hide: true)
+		toggleStatusBar(true)
 	}
 	
 	//
@@ -1327,7 +1327,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	private func prepareContainedViewController(inout viewContainer: UIView?, inout viewController: UIViewController?) {
 		if let vc = viewController {
 			if let c = viewContainer {
-				vc.view.setTranslatesAutoresizingMaskIntoConstraints(false)
+				vc.view.translatesAutoresizingMaskIntoConstraints = false
 				addChildViewController(vc)
 				c.addSubview(vc.view)
 				Layout.expandToParent(c, child: vc.view)

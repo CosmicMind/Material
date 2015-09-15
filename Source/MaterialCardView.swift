@@ -54,7 +54,7 @@ public class MaterialCardView : UIView {
 	/**
 		:name:	init
 	*/
-	public required init(coder aDecoder: NSCoder) {
+	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 		prepareView()
 	}
@@ -77,7 +77,7 @@ public class MaterialCardView : UIView {
 	/**
 		:name:	touchesBegan
 	*/
-	public override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesBegan(touches, withEvent: event)
 		pulseBegan(touches, withEvent: event)
 	}
@@ -85,7 +85,7 @@ public class MaterialCardView : UIView {
 	/**
 		:name:	touchesEnded
 	*/
-	public override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+	public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesEnded(touches, withEvent: event)
 		shrink()
 		pulseEnded(touches, withEvent: event)
@@ -94,7 +94,7 @@ public class MaterialCardView : UIView {
 	/**
 		:name:	touchesCancelled
 	*/
-	public override func touchesCancelled(touches: Set<NSObject>!, withEvent event: UIEvent!) {
+	public override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
 		super.touchesCancelled(touches, withEvent: event)
 		shrink()
 		pulseEnded(touches, withEvent: event)
@@ -104,7 +104,7 @@ public class MaterialCardView : UIView {
 	//	:name:	prepareView
 	//
 	internal func prepareView() {
-		setTranslatesAutoresizingMaskIntoConstraints(false)
+		translatesAutoresizingMaskIntoConstraints = false
 		prepareBackgroundColorView()
 		preparePulseViewContainer()
 		prepareCard()
@@ -146,7 +146,7 @@ public class MaterialCardView : UIView {
     //
 	//	:name:	pulseBegan
 	//
-	internal func pulseBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+	internal func pulseBegan(touches: Set<NSObject>, withEvent event: UIEvent?) {
 		let width: CGFloat = bounds.size.width / 3
 		pulseView = UIView(frame: CGRectMake(0, 0, width, width))
 		pulseView!.layer.cornerRadius = width / 2
@@ -164,7 +164,7 @@ public class MaterialCardView : UIView {
 	//
 	//	:name:	pulseEnded
 	//
-	internal func pulseEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+	internal func pulseEnded(touches: Set<NSObject>?, withEvent event: UIEvent?) {
 		UIView.animateWithDuration(0.3,
 			animations: { _ in
 				self.pulseView?.alpha = 0
@@ -182,7 +182,7 @@ public class MaterialCardView : UIView {
 	// We need this view so we can use the masksToBounds
 	// so the pulse doesn't animate off the button
 	private func prepareBackgroundColorView() {
-		backgroundColorView.setTranslatesAutoresizingMaskIntoConstraints(false)
+		backgroundColorView.translatesAutoresizingMaskIntoConstraints = false
 		backgroundColorView.layer.cornerRadius = 2
 		backgroundColorView.layer.masksToBounds = true
 		backgroundColorView.clipsToBounds = true
@@ -197,7 +197,7 @@ public class MaterialCardView : UIView {
 	// We need this view so we can use the masksToBounds
 	// so the pulse doesn't animate off the button
 	private func preparePulseViewContainer() {
-		pulseViewContainer.setTranslatesAutoresizingMaskIntoConstraints(false)
+		pulseViewContainer.translatesAutoresizingMaskIntoConstraints = false
 		pulseViewContainer.layer.cornerRadius = 2
 		pulseViewContainer.layer.masksToBounds = true
 		pulseViewContainer.clipsToBounds = true
@@ -212,7 +212,7 @@ public class MaterialCardView : UIView {
 			delay: 0,
 			usingSpringWithDamping: 0.2,
 			initialSpringVelocity: 10,
-			options: nil,
+			options: [],
 			animations: {
 				self.transform = CGAffineTransformIdentity
 			},

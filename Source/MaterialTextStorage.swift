@@ -48,7 +48,7 @@ public class MaterialTextStorage: NSTextStorage {
 	*/
 	internal var textStorageDidProcessEdit: MaterialTextStorageDidProcessEdit?
 	
-	required public init(coder aDecoder: NSCoder) {
+	required public init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
 	
@@ -69,22 +69,22 @@ public class MaterialTextStorage: NSTextStorage {
 	override public func processEditing() {
 		let range: NSRange = (string as NSString).paragraphRangeForRange(editedRange)
 		textStorageWillProcessEdit?(self, string, range)
-		searchExpression!.enumerateMatchesInString(string, options: nil, range: range) { (result: NSTextCheckingResult!, flags: NSMatchingFlags, stop: UnsafeMutablePointer<ObjCBool>) in
+		searchExpression!.enumerateMatchesInString(string, options: [], range: range) { (result: NSTextCheckingResult!, flags: NSMatchingFlags, stop: UnsafeMutablePointer<ObjCBool>) in
 			self.textStorageDidProcessEdit?(self, result, flags, stop)
 		}
 		super.processEditing()
 	}
 	
-	override public func attributesAtIndex(location: Int, effectiveRange range: NSRangePointer) -> [NSObject : AnyObject] {
+	override public func attributesAtIndex(location: Int, effectiveRange range: NSRangePointer) -> [String : AnyObject] {
 		return store.attributesAtIndex(location, effectiveRange: range)
 	}
 	
 	override public func replaceCharactersInRange(range: NSRange, withString str: String) {
 		store.replaceCharactersInRange(range, withString: str)
-		edited(NSTextStorageEditActions.EditedCharacters, range: range, changeInLength: count(str.utf16) - range.length)
+		edited(NSTextStorageEditActions.EditedCharacters, range: range, changeInLength: str.utf16.count - range.length)
 	}
 	
-	override public func setAttributes(attrs: [NSObject : AnyObject]?, range: NSRange) {
+	override public func setAttributes(attrs: [String : AnyObject]?, range: NSRange) {
 		store.setAttributes(attrs, range: range)
 		edited(NSTextStorageEditActions.EditedAttributes, range: range, changeInLength: 0)
 	}

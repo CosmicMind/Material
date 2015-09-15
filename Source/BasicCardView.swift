@@ -230,14 +230,14 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 				// container
 				if nil == titleLabelContainer {
 					titleLabelContainer = UIView()
-					titleLabelContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
+					titleLabelContainer!.translatesAutoresizingMaskIntoConstraints = false
 					titleLabelContainer!.backgroundColor = MaterialTheme.clear.color
 					addSubview(titleLabelContainer!)
 				}
 				
 				// text
 				titleLabelContainer!.addSubview(t)
-				t.setTranslatesAutoresizingMaskIntoConstraints(false)
+				t.translatesAutoresizingMaskIntoConstraints = false
 				t.backgroundColor = MaterialTheme.clear.color
 				t.font = Roboto.regular
 				t.numberOfLines = 0
@@ -273,14 +273,14 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 				// container
 				if nil == detailLabelContainer {
 					detailLabelContainer = UIView()
-					detailLabelContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
+					detailLabelContainer!.translatesAutoresizingMaskIntoConstraints = false
 					detailLabelContainer!.backgroundColor = MaterialTheme.clear.color
 					addSubview(detailLabelContainer!)
 				}
 				
 				// text
 				detailLabelContainer!.addSubview(l)
-				l.setTranslatesAutoresizingMaskIntoConstraints(false)
+				l.translatesAutoresizingMaskIntoConstraints = false
 				l.textColor = MaterialTheme.white.color
 				l.backgroundColor = MaterialTheme.clear.color
 				l.font = Roboto.light
@@ -299,7 +299,7 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 	public var divider: UIView? {
 		didSet {
 			if let d = divider {
-				d.setTranslatesAutoresizingMaskIntoConstraints(false)
+				d.translatesAutoresizingMaskIntoConstraints = false
 				d.backgroundColor = MaterialTheme.blueGrey.darken1
 				addSubview(d)
 			} else {
@@ -322,7 +322,7 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 			if let b = leftButtons {
 				if nil == buttonsContainer {
 					buttonsContainer = UIView()
-					buttonsContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
+					buttonsContainer!.translatesAutoresizingMaskIntoConstraints = false
 					buttonsContainer!.backgroundColor = MaterialTheme.clear.color
 					addSubview(buttonsContainer!)
 				}
@@ -341,7 +341,7 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 			if let b = rightButtons {
 				if nil == buttonsContainer {
 					buttonsContainer = UIView()
-					buttonsContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
+					buttonsContainer!.translatesAutoresizingMaskIntoConstraints = false
 					buttonsContainer!.backgroundColor = MaterialTheme.clear.color
 					addSubview(buttonsContainer!)
 				}
@@ -355,7 +355,7 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	init
 	*/
-	public required init(coder aDecoder: NSCoder) {
+	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
 	
@@ -409,10 +409,10 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 		// title
 		if nil != titleLabelContainer && nil != titleLabel {
 			// clear for updated constraints
-			titleLabelContainer!.removeConstraints(titleLabelContainer!.constraints())
+			titleLabelContainer!.removeConstraints(titleLabelContainer!.constraints)
 			
 			// container
-			layoutConstraints += Layout.constraint("H:|[titleLabelContainer]|", options: nil, metrics: nil, views: ["titleLabelContainer": titleLabelContainer!])
+			layoutConstraints += Layout.constraint("H:|[titleLabelContainer]|", options: [], metrics: nil, views: ["titleLabelContainer": titleLabelContainer!])
 			verticalFormat += "[titleLabelContainer]"
 			views["titleLabelContainer"] = titleLabelContainer!
 		
@@ -421,17 +421,17 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 				Layout.expandToParentWithPad(titleLabelContainer!, child: titleLabel!, top: titleLabelTopInset, left: titleLabelLeftInset, bottom: titleLabelBottomInset, right: titleLabelRightInset)
 			} else {
 				Layout.expandToParentHorizontallyWithPad(titleLabelContainer!, child: titleLabel!, left: titleLabelLeftInset, right: titleLabelRightInset)
-				titleLabelContainer!.addConstraints(Layout.constraint("V:|-(titleLabelTopInset)-[titleLabel(<=maximumTitleLabelHeight)]-(titleLabelBottomInset)-|", options: nil, metrics: ["titleLabelTopInset": titleLabelTopInset, "titleLabelBottomInset": titleLabelBottomInset, "maximumTitleLabelHeight": maximumTitleLabelHeight], views: ["titleLabel": titleLabel!]))
+				titleLabelContainer!.addConstraints(Layout.constraint("V:|-(titleLabelTopInset)-[titleLabel(<=maximumTitleLabelHeight)]-(titleLabelBottomInset)-|", options: [], metrics: ["titleLabelTopInset": titleLabelTopInset, "titleLabelBottomInset": titleLabelBottomInset, "maximumTitleLabelHeight": maximumTitleLabelHeight], views: ["titleLabel": titleLabel!]))
 			}
 		}
 		
 		// detail
 		if nil != detailLabelContainer && nil != detailLabel {
 			// clear for updated constraints
-			detailLabelContainer!.removeConstraints(detailLabelContainer!.constraints())
+			detailLabelContainer!.removeConstraints(detailLabelContainer!.constraints)
 			
 			// container
-			layoutConstraints += Layout.constraint("H:|[detailLabelContainer]|", options: nil, metrics: nil, views: ["detailLabelContainer": detailLabelContainer!])
+			layoutConstraints += Layout.constraint("H:|[detailLabelContainer]|", options: [], metrics: nil, views: ["detailLabelContainer": detailLabelContainer!])
 			verticalFormat += "[detailLabelContainer]"
 			views["detailLabelContainer"] = detailLabelContainer!
 
@@ -439,24 +439,24 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 				Layout.expandToParentWithPad(detailLabelContainer!, child: detailLabel!, top: detailLabelTopInset, left: detailLabelLeftInset, bottom: detailLabelBottomInset, right: detailLabelRightInset)
 			} else {
 				Layout.expandToParentHorizontallyWithPad(detailLabelContainer!, child: detailLabel!, left: detailLabelLeftInset, right: detailLabelRightInset)
-				detailLabelContainer!.addConstraints(Layout.constraint("V:|-(detailLabelTopInset)-[detailLabel(<=maximumDetailLabelHeight)]-(detailLabelBottomInset)-|", options: nil, metrics: ["detailLabelTopInset": detailLabelTopInset, "detailLabelBottomInset": detailLabelBottomInset, "maximumDetailLabelHeight": maximumDetailLabelHeight], views: ["detailLabel": detailLabel!]))
+				detailLabelContainer!.addConstraints(Layout.constraint("V:|-(detailLabelTopInset)-[detailLabel(<=maximumDetailLabelHeight)]-(detailLabelBottomInset)-|", options: [], metrics: ["detailLabelTopInset": detailLabelTopInset, "detailLabelBottomInset": detailLabelBottomInset, "maximumDetailLabelHeight": maximumDetailLabelHeight], views: ["detailLabel": detailLabel!]))
 			}
 		}
 		
 		// buttons
 		if nil != buttonsContainer && (nil != leftButtons || nil != rightButtons) {
 			// clear for updated constraints
-			buttonsContainer!.removeConstraints(buttonsContainer!.constraints())
+			buttonsContainer!.removeConstraints(buttonsContainer!.constraints)
 			
 			// divider
 			if nil != divider {
-				layoutConstraints += Layout.constraint("H:|[divider]|", options: nil, metrics: nil, views: ["divider": divider!])
+				layoutConstraints += Layout.constraint("H:|[divider]|", options: [], metrics: nil, views: ["divider": divider!])
 				views["divider"] = divider!
 				verticalFormat += "[divider(1)]"
 			}
 			
 			//container
-			layoutConstraints += Layout.constraint("H:|[buttonsContainer]|", options: nil, metrics: nil, views: ["buttonsContainer": buttonsContainer!])
+			layoutConstraints += Layout.constraint("H:|[buttonsContainer]|", options: [], metrics: nil, views: ["buttonsContainer": buttonsContainer!])
 			verticalFormat += "[buttonsContainer]"
 			views["buttonsContainer"] = buttonsContainer!
 			
@@ -471,7 +471,7 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 					horizontalFormat += "-(buttonLeftInset)-[button\(i)]"
 					Layout.expandToParentVerticallyWithPad(buttonsContainer!, child: button, top: buttonTopInset, bottom: buttonBottomInset)
 				}
-				buttonsContainer!.addConstraints(Layout.constraint(horizontalFormat, options: nil, metrics: ["buttonLeftInset": buttonLeftInset], views: buttonViews))
+				buttonsContainer!.addConstraints(Layout.constraint(horizontalFormat, options: [], metrics: ["buttonLeftInset": buttonLeftInset], views: buttonViews))
 			}
 			
 			// rightButtons
@@ -485,7 +485,7 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 					horizontalFormat += "[button\(i)]-(buttonRightInset)-"
 					Layout.expandToParentVerticallyWithPad(buttonsContainer!, child: button, top: buttonTopInset, bottom: buttonBottomInset)
 				}
-				buttonsContainer!.addConstraints(Layout.constraint(horizontalFormat + "|", options: nil, metrics: ["buttonRightInset": buttonRightInset], views: buttonViews))
+				buttonsContainer!.addConstraints(Layout.constraint(horizontalFormat + "|", options: [], metrics: ["buttonRightInset": buttonRightInset], views: buttonViews))
 			}
 		}
 		
@@ -493,7 +493,7 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 		
 		// combine constraints
 		if 0 < layoutConstraints.count {
-			layoutConstraints += Layout.constraint(verticalFormat, options: nil, metrics: nil, views: views)
+			layoutConstraints += Layout.constraint(verticalFormat, options: [], metrics: nil, views: views)
 			NSLayoutConstraint.activateConstraints(layoutConstraints)
 		}
 	}
