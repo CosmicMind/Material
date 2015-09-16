@@ -305,6 +305,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 				}
 			} else {
 				imageViewContainer?.removeFromSuperview()
+				imageViewContainer = nil
 			}
 			prepareCard()
 		}
@@ -355,6 +356,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 				}
 			} else {
 				titleLabelContainer?.removeFromSuperview()
+				titleLabelContainer = nil
 			}
 			prepareCard()
 		}
@@ -398,6 +400,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 				l.lineBreakMode = .ByTruncatingTail
 			} else {
 				detailLabelContainer?.removeFromSuperview()
+				detailLabelContainer = nil
 			}
 			prepareCard()
 		}
@@ -431,6 +434,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 		didSet {
 			if nil == rightButtons && nil == leftButtons {
 				buttonsContainer?.removeFromSuperview()
+				buttonsContainer = nil
 			} else if nil == buttonsContainer {
 				buttonsContainer = UIView()
 				buttonsContainer!.translatesAutoresizingMaskIntoConstraints = false
@@ -448,6 +452,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 		didSet {
 			if nil == rightButtons && nil == leftButtons {
 				buttonsContainer?.removeFromSuperview()
+				buttonsContainer = nil
 			} else if nil == buttonsContainer {
 				buttonsContainer = UIView()
 				buttonsContainer!.translatesAutoresizingMaskIntoConstraints = false

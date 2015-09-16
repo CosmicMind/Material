@@ -245,6 +245,7 @@ public class BasicCardView : MaterialCardView, Comparable {
 				t.textColor = MaterialTheme.white.color
 			} else {
 				titleLabelContainer?.removeFromSuperview()
+				titleLabelContainer = nil
 			}
 			prepareCard()
 		}
@@ -288,6 +289,7 @@ public class BasicCardView : MaterialCardView, Comparable {
 				l.lineBreakMode = .ByTruncatingTail
 			} else {
 				detailLabelContainer?.removeFromSuperview()
+				detailLabelContainer = nil
 			}
 			prepareCard()
 		}
@@ -321,6 +323,7 @@ public class BasicCardView : MaterialCardView, Comparable {
 		didSet {
 			if nil == rightButtons && nil == leftButtons {
 				buttonsContainer?.removeFromSuperview()
+				buttonsContainer = nil
 			} else if nil == buttonsContainer {
 				buttonsContainer = UIView()
 				buttonsContainer!.translatesAutoresizingMaskIntoConstraints = false
@@ -338,6 +341,7 @@ public class BasicCardView : MaterialCardView, Comparable {
 		didSet {
 			if nil == rightButtons && nil == leftButtons {
 				buttonsContainer?.removeFromSuperview()
+				buttonsContainer = nil
 			} else if nil == buttonsContainer {
 				buttonsContainer = UIView()
 				buttonsContainer!.translatesAutoresizingMaskIntoConstraints = false
