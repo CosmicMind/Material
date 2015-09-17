@@ -130,6 +130,34 @@ public struct Layout {
 		parent.addConstraints(constraint("H:[child]-(right)-|", options: [], metrics: metrics, views: views))
 		parent.addConstraints(constraint("V:[child]-(bottom)-|", options: [], metrics: metrics, views: views))
 	}
+	
+	/**
+		:name:	alignFromTop
+	*/
+	public static func alignFromTop(parent: UIView, child: UIView, top: CGFloat = 0) {
+		parent.addConstraints(constraint("V:|-(top)-[child]", options: [], metrics: ["top" : top], views: ["child" : child]))
+	}
+	
+	/**
+		:name:	alignFromLeft
+	*/
+	public static func alignFromLeft(parent: UIView, child: UIView, left: CGFloat = 0) {
+		parent.addConstraints(constraint("H:|-(left)-[child]", options: [], metrics: ["left" : left], views: ["child" : child]))
+	}
+	
+	/**
+		:name:	alignFromBottom
+	*/
+	public static func alignFromBottom(parent: UIView, child: UIView, bottom: CGFloat = 0) {
+		parent.addConstraints(constraint("V:[child]-(bottom)-|", options: [], metrics: ["bottom" : bottom], views: ["child" : child]))
+	}
+	
+	/**
+		:name:	alignFromRight
+	*/
+	public static func alignFromRight(parent: UIView, child: UIView, right: CGFloat = 0) {
+		parent.addConstraints(constraint("H:[child]-(right)-|", options: [], metrics: ["right" : right], views: ["child" : child]))
+	}
     
     /**
 		:name:	alignAllSides
