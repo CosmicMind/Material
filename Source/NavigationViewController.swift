@@ -25,6 +25,7 @@ public class NavigationViewController: UIViewController {
 	public var titleLabel: UILabel? {
 		didSet {
 			if let v = titleLabel {
+				v.translatesAutoresizingMaskIntoConstraints = false
 				view.addSubview(v)
 			}
 		}
@@ -36,6 +37,7 @@ public class NavigationViewController: UIViewController {
 	public var leftButton: FlatButton? {
 		didSet {
 			if let v = leftButton {
+				v.translatesAutoresizingMaskIntoConstraints = false
 				view.addSubview(v)
 			}
 		}
@@ -47,6 +49,7 @@ public class NavigationViewController: UIViewController {
 	public var rightButton: FlatButton? {
 		didSet {
 			if let v = rightButton {
+				v.translatesAutoresizingMaskIntoConstraints = false
 				view.addSubview(v)
 			}
 		}

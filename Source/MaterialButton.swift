@@ -99,7 +99,6 @@ public class MaterialButton : UIButton {
 		:name:	drawRect
 	*/
 	final public override func drawRect(rect: CGRect) {
-		prepareContext(rect)
 		prepareBackgroundColorView()
 		prepareButton()
 	}
@@ -149,18 +148,6 @@ public class MaterialButton : UIButton {
 			self.pulseView?.removeFromSuperview()
 			self.pulseView = nil
 		}
-	}
-	
-	//
-	//	:name:	prepareContext
-	//
-	private func prepareContext(rect: CGRect) {
-		let context = UIGraphicsGetCurrentContext()
-		CGContextSaveGState(context);
-		CGContextAddEllipseInRect(context, rect)
-		CGContextSetFillColorWithColor(context, MaterialTheme.clear.color.CGColor)
-		CGContextFillPath(context)
-		CGContextRestoreGState(context);
 	}
 	
 	//
