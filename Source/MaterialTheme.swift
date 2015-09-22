@@ -27,6 +27,9 @@ extension MaterialTheme {
 	
 	public static var buttonVerticalInset: CGFloat = 6
 	public static var buttonHorizontalInset: CGFloat = 16
+	
+	public static var navigationVerticalInset: CGFloat = 8
+	public static var navigationHorizontalInset: CGFloat = 8
 }
 
 // fonts

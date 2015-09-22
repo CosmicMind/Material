@@ -24,11 +24,6 @@ public class ImageCardView : MaterialCardView, Comparable {
 	//
 	internal lazy var layoutConstraints: Array<NSLayoutConstraint> = Array<NSLayoutConstraint>()
 	
-	//
-	//	:name:	views
-	//
-	internal lazy var views: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
-	
 	/**
 		:name:	imageViewVerticalInset
 	*/
@@ -517,6 +512,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 		
 		// detect all components and create constraints
 		var verticalFormat: String = "V:|"
+		var views: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
 		
 		// image
 		if nil != imageViewContainer && nil != imageView {

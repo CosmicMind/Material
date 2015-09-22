@@ -24,11 +24,6 @@ public class BasicCardView : MaterialCardView, Comparable {
 	//
 	internal lazy var layoutConstraints: Array<NSLayoutConstraint> = Array<NSLayoutConstraint>()
 	
-	//
-	//	:name:	views
-	//
-	internal lazy var views: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
-	
 	/**
 		:name:	titleLabelVerticalInset
 	*/
@@ -405,6 +400,7 @@ public class BasicCardView : MaterialCardView, Comparable {
 		
 		// detect all components and create constraints
 		var verticalFormat: String = "V:|"
+		var views: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
 		
 		// title
 		if nil != titleLabelContainer && nil != titleLabel {
