@@ -234,13 +234,13 @@ public class NavigationBarView: UIView {
 		if nil != leftButtons && nil != titleLabel {
 			layoutConstraints += Layout.constraint("H:|[leftButtonsContainer]-(inset)-[titleLabelContainer]", options: [], metrics: ["inset": horizontalInset], views: ["leftButtonsContainer": leftButtonsContainer!, "titleLabelContainer": titleLabelContainer!])
 			Layout.alignFromBottom(self, child: leftButtonsContainer!, bottom: horizontalInset)
-			Layout.alignFromBottom(self, child: titleLabelContainer!, bottom: horizontalInset + leftButtons!.first!.contentEdgeInsets.bottom - 1)
+			Layout.alignFromBottom(self, child: titleLabelContainer!, bottom: horizontalInset + MaterialTheme.buttonVerticalInset - 1)
 		} else if nil != leftButtons {
 			layoutConstraints += Layout.constraint("H:|[leftButtonsContainer]", options: [], metrics: ["inset": horizontalInset], views: ["leftButtonsContainer": leftButtonsContainer!])
 			Layout.alignFromBottom(self, child: leftButtonsContainer!, bottom: horizontalInset)
 		} else if nil != titleLabel {
 			layoutConstraints += Layout.constraint("H:|-(inset)-[titleLabelContainer]", options: [], metrics: ["inset": horizontalInset], views: ["titleLabelContainer": titleLabelContainer!])
-			Layout.alignFromBottom(self, child: titleLabelContainer!, bottom: horizontalInset)
+			Layout.alignFromBottom(self, child: titleLabelContainer!, bottom: horizontalInset + MaterialTheme.buttonVerticalInset - 1)
 		}
 		
 		if nil != rightButtons {
