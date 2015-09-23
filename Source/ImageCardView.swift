@@ -515,7 +515,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 		var views: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
 		
 		// image
-		if nil != imageViewContainer && nil != imageView {
+		if nil != imageView {
 			// clear for updated constraints
 			imageViewContainer!.removeConstraints(imageViewContainer!.constraints)
 			
@@ -530,7 +530,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 		}
 		
 		// title
-		if nil != titleLabelContainer && nil != titleLabel {
+		if nil != titleLabel {
 			// clear for updated constraints
 			titleLabelContainer!.removeConstraints(titleLabelContainer!.constraints)
 			
@@ -555,7 +555,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 		}
 		
 		// detail
-		if nil != detailLabelContainer && nil != detailLabel {
+		if nil != detailLabel {
 			// clear for updated constraints
 			detailLabelContainer!.removeConstraints(detailLabelContainer!.constraints)
 			
@@ -574,7 +574,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 		}
 		
 		// buttons
-		if nil != buttonsContainer && (nil != leftButtons || nil != rightButtons) {
+		if nil != leftButtons || nil != rightButtons {
 			// clear for updated constraints
 			buttonsContainer!.removeConstraints(buttonsContainer!.constraints)
 			

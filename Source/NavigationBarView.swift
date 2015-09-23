@@ -18,16 +18,16 @@
 
 import UIKit
 
-public class NavigationViewController: UIViewController {
+public class NavigationBarView: UIView {
 	//
 	//	:name:	layoutConstraints
 	//
 	internal lazy var layoutConstraints: Array<NSLayoutConstraint> = Array<NSLayoutConstraint>()
 	
-	/**
-		:name:	maximumTitleLabelHeight
-	*/
-	public var maximumTitleLabelHeight: CGFloat = 0 {
+	//
+	//	:name:	horizontalInset
+	//
+	public var horizontalInset: CGFloat = MaterialTheme.cardHorizontalInset / 2 {
 		didSet {
 			prepareNavigation()
 		}
@@ -49,7 +49,7 @@ public class NavigationViewController: UIViewController {
 					titleLabelContainer = UIView()
 					titleLabelContainer!.translatesAutoresizingMaskIntoConstraints = false
 					titleLabelContainer!.backgroundColor = MaterialTheme.clear.color
-					view.addSubview(titleLabelContainer!)
+					addSubview(titleLabelContainer!)
 				}
 				
 				// text
@@ -57,7 +57,7 @@ public class NavigationViewController: UIViewController {
 				t.translatesAutoresizingMaskIntoConstraints = false
 				t.backgroundColor = MaterialTheme.clear.color
 				t.font = Roboto.regular
-				t.numberOfLines = 0
+				t.numberOfLines = 1
 				t.lineBreakMode = .ByTruncatingTail
 				t.textColor = MaterialTheme.white.color
 			} else {
@@ -85,7 +85,7 @@ public class NavigationViewController: UIViewController {
 				leftButtonsContainer = UIView()
 				leftButtonsContainer!.translatesAutoresizingMaskIntoConstraints = false
 				leftButtonsContainer!.backgroundColor = MaterialTheme.clear.color
-				view.addSubview(leftButtonsContainer!)
+				addSubview(leftButtonsContainer!)
 			}
 			prepareNavigation()
 		}
@@ -108,7 +108,7 @@ public class NavigationViewController: UIViewController {
 				rightButtonsContainer = UIView()
 				rightButtonsContainer!.translatesAutoresizingMaskIntoConstraints = false
 				rightButtonsContainer!.backgroundColor = MaterialTheme.clear.color
-				view.addSubview(rightButtonsContainer!)
+				addSubview(rightButtonsContainer!)
 			}
 			prepareNavigation()
 		}
@@ -124,15 +124,23 @@ public class NavigationViewController: UIViewController {
 	/**
 		:name:	init
 	*/
-	public init() {
-		super.init(nibName: nil, bundle: nil)
+	public override init(frame: CGRect) {
+		super.init(frame: frame)
+		prepareView()
 	}
 	
 	/**
 		:name:	init
 	*/
-	public init?(titleLabel: UILabel? = nil, leftButtons: Array<MaterialButton>? = nil, rightButtons: Array<MaterialButton>? = nil) {
-		super.init(nibName: nil, bundle: nil)
+	public convenience init() {
+		self.init(frame: CGRect.null)
+	}
+	
+	/**
+		:name:	init
+	*/
+	public convenience init?(titleLabel: UILabel? = nil, leftButtons: Array<MaterialButton>? = nil, rightButtons: Array<MaterialButton>? = nil) {
+		self.init(frame: CGRect.null)
 		prepareProperties(titleLabel, leftButtons: leftButtons, rightButtons: rightButtons)
 	}
 	
@@ -146,38 +154,15 @@ public class NavigationViewController: UIViewController {
 	}
 	
 	//
-	//	:name:	viewDidLoad
-	//
-	public override func viewDidLoad() {
-		super.viewDidLoad()
-		prepareView()
-		prepareNavigation()
-	}
-	
-	/**
-		:name:	viewWillAppear
-	*/
-	public override func viewWillAppear(animated: Bool) {
-		super.viewWillAppear(animated)
-	}
-	
-	/**
-		:name:	viewDidDisappear
-	*/
-	public override func viewDidDisappear(animated: Bool) {
-		super.viewDidDisappear(animated)
-	}
-	
-	//
 	//	:name:	prepareView
 	//
 	private func prepareView() {
-		view.translatesAutoresizingMaskIntoConstraints = false
-		view.layer.shadowColor = MaterialTheme.blueGrey.darken4.CGColor
-		view.layer.shadowOffset = CGSizeMake(0.2, 0.2)
-		view.layer.shadowOpacity = 0.5
-		view.layer.shadowRadius = 1
-		view.clipsToBounds = false
+		translatesAutoresizingMaskIntoConstraints = false
+		layer.shadowColor = MaterialTheme.blueGrey.darken4.CGColor
+		layer.shadowOffset = CGSizeMake(0.2, 0.2)
+		layer.shadowOpacity = 0.5
+		layer.shadowRadius = 1
+		clipsToBounds = false
 	}
 	
 	//
@@ -189,18 +174,14 @@ public class NavigationViewController: UIViewController {
 		layoutConstraints.removeAll(keepCapacity: false)
 		
 		// detect all components and create constraints
-		var verticalFormat: String = "V:|"
-		var horizontalFormat: String = "H:|"
 		var views: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
 		
 		// left buttons
-		if nil != leftButtonsContainer && (nil != leftButtons) {
+		if nil != leftButtons {
 			// clear for updated constraints
 			leftButtonsContainer!.removeConstraints(leftButtonsContainer!.constraints)
 			
 			//container
-			verticalFormat += "[leftButtonsContainer]"
-			horizontalFormat += "|[leftButtonsContainer]"
 			views["leftButtonsContainer"] = leftButtonsContainer!
 			
 			// leftButtons
@@ -210,61 +191,64 @@ public class NavigationViewController: UIViewController {
 				let button: MaterialButton = leftButtons![i]
 				leftButtonsContainer!.addSubview(button)
 				buttonViews["button\(i)"] = button
-				hFormat += "-(buttonLeftInset)-[button\(i)]"
-				Layout.expandToParentVerticallyWithPad(leftButtonsContainer!, child: button, top: 8, bottom: 8)
+				hFormat += "-(horizontalInset)-[button\(i)]"
+				Layout.expandToParentVerticallyWithPad(leftButtonsContainer!, child: button)
 			}
-			leftButtonsContainer!.addConstraints(Layout.constraint(hFormat, options: [], metrics: ["buttonLeftInset": 8], views: buttonViews))
+			leftButtonsContainer!.addConstraints(Layout.constraint(hFormat + "|", options: [], metrics: ["horizontalInset": horizontalInset], views: buttonViews))
 		}
 		
 		// title
-		if nil != titleLabelContainer && nil != titleLabel {
+		if nil != titleLabel {
 			// clear for updated constraints
 			titleLabelContainer!.removeConstraints(titleLabelContainer!.constraints)
 			
 			// container
-			verticalFormat += "[titleLabelContainer]"
-			horizontalFormat += "[titleLabelContainer]"
 			views["titleLabelContainer"] = titleLabelContainer!
 			
 			// common text
-			if 0 == maximumTitleLabelHeight {
-				Layout.expandToParentWithPad(titleLabelContainer!, child: titleLabel!, top: 8, left: 8, bottom: 8, right: 8)
-			} else {
-				Layout.expandToParentHorizontallyWithPad(titleLabelContainer!, child: titleLabel!, left: 8, right: 8)
-				titleLabelContainer!.addConstraints(Layout.constraint("V:|-(titleLabelTopInset)-[titleLabel(<=maximumTitleLabelHeight)]-(titleLabelBottomInset)-|", options: [], metrics: ["titleLabelTopInset": 8, "titleLabelBottomInset": 8, "maximumTitleLabelHeight": maximumTitleLabelHeight], views: ["titleLabel": titleLabel!]))
-			}
+			Layout.expandToParentVerticallyWithPad(titleLabelContainer!, child: titleLabel!)
+			Layout.expandToParentHorizontallyWithPad(titleLabelContainer!, child: titleLabel!)
 		}
 		
-		// left buttons
-		if nil != rightButtonsContainer && (nil != leftButtons) {
+		// right buttons
+		if nil != rightButtons {
 			// clear for updated constraints
 			rightButtonsContainer!.removeConstraints(rightButtonsContainer!.constraints)
 			
 			//container
-			verticalFormat += "[rightButtonsContainer]"
-			horizontalFormat += "[rightButtonsContainer]|"
 			views["rightButtonsContainer"] = rightButtonsContainer!
 			
 			// leftButtons
-			var hFormat: String = "H:"
+			var hFormat: String = "H:|"
 			var buttonViews: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
-			for var i: Int = 0, l: Int = leftButtons!.count; i < l; ++i {
-				let button: MaterialButton = leftButtons![i]
+			for var i: Int = 0, l: Int = rightButtons!.count; i < l; ++i {
+				let button: MaterialButton = rightButtons![i]
 				rightButtonsContainer!.addSubview(button)
 				buttonViews["button\(i)"] = button
-				hFormat += "[button\(i)]-(buttonLeftInset)-"
-				Layout.expandToParentVerticallyWithPad(rightButtonsContainer!, child: button, top: 8, bottom: 8)
+				hFormat += "[button\(i)]-(horizontalInset)-"
+				Layout.expandToParentVerticallyWithPad(rightButtonsContainer!, child: button)
 			}
-			rightButtonsContainer!.addConstraints(Layout.constraint(hFormat + "|", options: [], metrics: ["buttonLeftInset": 8], views: buttonViews))
+			rightButtonsContainer!.addConstraints(Layout.constraint(hFormat + "|", options: [], metrics: ["horizontalInset": horizontalInset], views: buttonViews))
 		}
 		
-		verticalFormat += "|"
-		
-		// combine constraints
-		if 0 < layoutConstraints.count {
-			layoutConstraints += Layout.constraint(verticalFormat, options: [], metrics: nil, views: views)
-			layoutConstraints += Layout.constraint(horizontalFormat, options: [], metrics: nil, views: views)
-			NSLayoutConstraint.activateConstraints(layoutConstraints)
+		if nil != leftButtons && nil != titleLabel {
+			layoutConstraints += Layout.constraint("H:|[leftButtonsContainer]-(inset)-[titleLabelContainer]", options: [], metrics: ["inset": horizontalInset], views: ["leftButtonsContainer": leftButtonsContainer!, "titleLabelContainer": titleLabelContainer!])
+			Layout.alignFromBottom(self, child: leftButtonsContainer!, bottom: horizontalInset)
+			Layout.alignFromBottom(self, child: titleLabelContainer!, bottom: horizontalInset + leftButtons!.first!.contentEdgeInsets.bottom - 1)
+		} else if nil != leftButtons {
+			layoutConstraints += Layout.constraint("H:|[leftButtonsContainer]", options: [], metrics: ["inset": horizontalInset], views: ["leftButtonsContainer": leftButtonsContainer!])
+			Layout.alignFromBottom(self, child: leftButtonsContainer!, bottom: horizontalInset)
+		} else if nil != titleLabel {
+			layoutConstraints += Layout.constraint("H:|-(inset)-[titleLabelContainer]", options: [], metrics: ["inset": horizontalInset], views: ["titleLabelContainer": titleLabelContainer!])
+			Layout.alignFromBottom(self, child: titleLabelContainer!, bottom: horizontalInset)
 		}
+		
+		if nil != rightButtons {
+			layoutConstraints += Layout.constraint("H:[rightButtonsContainer]|", options: [], metrics: ["inset": horizontalInset], views: ["rightButtonsContainer": rightButtonsContainer!])
+			Layout.alignFromBottom(self, child: rightButtonsContainer!, bottom: horizontalInset)
+		}
+		
+		// constraints
+		NSLayoutConstraint.activateConstraints(layoutConstraints)
 	}
 }
