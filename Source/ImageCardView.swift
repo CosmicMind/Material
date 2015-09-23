@@ -39,7 +39,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 	*/
 	public var imageViewTopInset: CGFloat = 0 {
 		didSet {
-			prepareCard()
+			reloadView()
 		}
 	}
 	
@@ -48,7 +48,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 	*/
 	public var imageViewBottomInset: CGFloat = 0 {
 		didSet {
-			prepareCard()
+			reloadView()
 		}
 	}
 	
@@ -67,7 +67,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 	*/
 	public var imageViewLeftInset: CGFloat = 0 {
 		didSet {
-			prepareCard()
+			reloadView()
 		}
 	}
 	
@@ -76,7 +76,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 	*/
 	public var imageViewRightInset: CGFloat = 0 {
 		didSet {
-			prepareCard()
+			reloadView()
 		}
 	}
 	
@@ -95,7 +95,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 	*/
 	public var titleLabelTopInset: CGFloat = MaterialTheme.cardVerticalInset {
 		didSet {
-			prepareCard()
+			reloadView()
 		}
 	}
 	
@@ -104,7 +104,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 	*/
 	public var titleLabelBottomInset: CGFloat = MaterialTheme.cardVerticalInset {
 		didSet {
-			prepareCard()
+			reloadView()
 		}
 	}
 	
@@ -123,7 +123,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 	*/
 	public var titleLabelLeftInset: CGFloat = MaterialTheme.cardHorizontalInset {
 		didSet {
-			prepareCard()
+			reloadView()
 		}
 	}
 	
@@ -132,7 +132,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 	*/
 	public var titleLabelRightInset: CGFloat = MaterialTheme.cardHorizontalInset {
 		didSet {
-			prepareCard()
+			reloadView()
 		}
 	}
 	
@@ -151,7 +151,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 	*/
 	public var detailLabelTopInset: CGFloat = MaterialTheme.cardVerticalInset {
 		didSet {
-			prepareCard()
+			reloadView()
 		}
 	}
 	
@@ -160,7 +160,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 	*/
 	public var detailLabelBottomInset: CGFloat = MaterialTheme.cardVerticalInset {
 		didSet {
-			prepareCard()
+			reloadView()
 		}
 	}
 	
@@ -179,7 +179,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 	*/
 	public var detailLabelLeftInset: CGFloat = MaterialTheme.cardHorizontalInset {
 		didSet {
-			prepareCard()
+			reloadView()
 		}
 	}
 	
@@ -188,7 +188,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 	*/
 	public var detailLabelRightInset: CGFloat = MaterialTheme.cardHorizontalInset {
 		didSet {
-			prepareCard()
+			reloadView()
 		}
 	}
 	
@@ -207,7 +207,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 	*/
 	public var buttonTopInset: CGFloat = MaterialTheme.cardVerticalInset / 2 {
 		didSet {
-			prepareCard()
+			reloadView()
 		}
 	}
 	
@@ -216,7 +216,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 	*/
 	public var buttonBottomInset: CGFloat = MaterialTheme.cardVerticalInset / 2 {
 		didSet {
-			prepareCard()
+			reloadView()
 		}
 	}
 	
@@ -235,7 +235,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 	*/
 	public var buttonLeftInset: CGFloat = MaterialTheme.cardHorizontalInset / 2 {
 		didSet {
-			prepareCard()
+			reloadView()
 		}
 	}
 	
@@ -244,7 +244,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 	*/
 	public var buttonRightInset: CGFloat = MaterialTheme.cardHorizontalInset / 2 {
 		didSet {
-			prepareCard()
+			reloadView()
 		}
 	}
 	
@@ -254,7 +254,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 	public var shadow: Bool = true {
 		didSet {
 			false == shadow ? removeShadow() : prepareShadow()
-			prepareCard()
+			reloadView()
 		}
 	}
 	
@@ -263,7 +263,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 	*/
 	public var maximumImageViewHeight: CGFloat = 200 {
 		didSet {
-			prepareCard()
+			reloadView()
 		}
 	}
 	
@@ -302,7 +302,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 				imageViewContainer?.removeFromSuperview()
 				imageViewContainer = nil
 			}
-			prepareCard()
+			reloadView()
 		}
 	}
 	
@@ -311,7 +311,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 	*/
 	public var maximumTitleLabelHeight: CGFloat = 0 {
 		didSet {
-			prepareCard()
+			reloadView()
 		}
 	}
 	
@@ -353,7 +353,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 				titleLabelContainer?.removeFromSuperview()
 				titleLabelContainer = nil
 			}
-			prepareCard()
+			reloadView()
 		}
 	}
 	
@@ -362,7 +362,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 	*/
 	public var maximumDetailLabelHeight: CGFloat = 0 {
 		didSet {
-			prepareCard()
+			reloadView()
 		}
 	}
 	
@@ -397,7 +397,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 				detailLabelContainer?.removeFromSuperview()
 				detailLabelContainer = nil
 			}
-			prepareCard()
+			reloadView()
 		}
 	}
 	
@@ -413,7 +413,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 			} else {
 				divider?.removeFromSuperview()
 			}
-			prepareCard()
+			reloadView()
 		}
 	}
 	
@@ -436,7 +436,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 				buttonsContainer!.backgroundColor = MaterialTheme.clear.color
 				addSubview(buttonsContainer!)
 			}
-			prepareCard()
+			reloadView()
 		}
 	}
 	
@@ -454,7 +454,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 				buttonsContainer!.backgroundColor = MaterialTheme.clear.color
 				addSubview(buttonsContainer!)
 			}
-			prepareCard()
+			reloadView()
 		}
 	}
 	
@@ -480,32 +480,20 @@ public class ImageCardView : MaterialCardView, Comparable {
 		super.init(frame: CGRectZero)
 	}
 	
-	//
-	//	:name:	prepareProperties
-	//
-	internal func prepareProperties(imageView: UIImageView?, titleLabel: UILabel?, detailLabel: UILabel?, divider: UIView?, leftButtons: Array<MaterialButton>?, rightButtons: Array<MaterialButton>?) {
-		self.imageView = imageView
-		self.titleLabel = titleLabel
-		self.detailLabel = detailLabel
-		self.divider = divider
-		self.leftButtons = leftButtons
-		self.rightButtons = rightButtons
+	/**
+		:name:	isEqual
+	*/
+	public override func isEqual(object: AnyObject?) -> Bool {
+		if let rhs = object as? ImageCardView {
+			return tag == rhs.tag
+		}
+		return false
 	}
 	
-	//
-	//	:name:	prepareView
-	//
-	internal override func prepareView() {
-		super.prepareView()
-		prepareShadow()
-		backgroundColor = MaterialTheme.white.color
-	}
-	
-	//
-	//	:name:	prepareCard
-	//
-	internal override func prepareCard() {
-		super.prepareCard()
+	/**
+		:name:	reloadView
+	*/
+	public func reloadView() {
 		// clear all constraints
 		NSLayoutConstraint.deactivateConstraints(layoutConstraints)
 		layoutConstraints.removeAll(keepCapacity: false)
@@ -628,14 +616,25 @@ public class ImageCardView : MaterialCardView, Comparable {
 		}
 	}
 	
-	/**
-		:name:	isEqual
-	*/
-	public override func isEqual(object: AnyObject?) -> Bool {
-		if let rhs = object as? ImageCardView {
-			return tag == rhs.tag
-		}
-		return false
+	//
+	//	:name:	prepareProperties
+	//
+	internal func prepareProperties(imageView: UIImageView?, titleLabel: UILabel?, detailLabel: UILabel?, divider: UIView?, leftButtons: Array<MaterialButton>?, rightButtons: Array<MaterialButton>?) {
+		self.imageView = imageView
+		self.titleLabel = titleLabel
+		self.detailLabel = detailLabel
+		self.divider = divider
+		self.leftButtons = leftButtons
+		self.rightButtons = rightButtons
+	}
+	
+	//
+	//	:name:	prepareView
+	//
+	internal override func prepareView() {
+		super.prepareView()
+		prepareShadow()
+		backgroundColor = MaterialTheme.white.color
 	}
 }
 

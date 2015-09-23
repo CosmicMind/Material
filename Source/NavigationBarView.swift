@@ -29,7 +29,7 @@ public class NavigationBarView: UIView {
 	//
 	public var horizontalInset: CGFloat = MaterialTheme.cardHorizontalInset / 2 {
 		didSet {
-			prepareNavigation()
+			reloadView()
 		}
 	}
 	
@@ -64,7 +64,7 @@ public class NavigationBarView: UIView {
 				titleLabelContainer?.removeFromSuperview()
 				titleLabelContainer = nil
 			}
-			prepareNavigation()
+			reloadView()
 		}
 	}
 	
@@ -87,7 +87,7 @@ public class NavigationBarView: UIView {
 				leftButtonsContainer!.backgroundColor = MaterialTheme.clear.color
 				addSubview(leftButtonsContainer!)
 			}
-			prepareNavigation()
+			reloadView()
 		}
 	}
 	
@@ -110,7 +110,7 @@ public class NavigationBarView: UIView {
 				rightButtonsContainer!.backgroundColor = MaterialTheme.clear.color
 				addSubview(rightButtonsContainer!)
 			}
-			prepareNavigation()
+			reloadView()
 		}
 	}
 	
@@ -144,31 +144,10 @@ public class NavigationBarView: UIView {
 		prepareProperties(titleLabel, leftButtons: leftButtons, rightButtons: rightButtons)
 	}
 	
-	//
-	//	:name:	prepareProperties
-	//
-	internal func prepareProperties(titleLabel: UILabel?, leftButtons: Array<MaterialButton>?, rightButtons: Array<MaterialButton>?) {
-		self.titleLabel = titleLabel
-		self.leftButtons = leftButtons
-		self.rightButtons = rightButtons
-	}
-	
-	//
-	//	:name:	prepareView
-	//
-	private func prepareView() {
-		translatesAutoresizingMaskIntoConstraints = false
-		layer.shadowColor = MaterialTheme.blueGrey.darken4.CGColor
-		layer.shadowOffset = CGSizeMake(0.2, 0.2)
-		layer.shadowOpacity = 0.5
-		layer.shadowRadius = 1
-		clipsToBounds = false
-	}
-	
-	//
-	//	:name:	prepareNavigation
-	//
-	internal func prepareNavigation() {
+	/**
+		:name:	reloadView
+	*/
+	public func reloadView() {
 		// clear all constraints
 		NSLayoutConstraint.deactivateConstraints(layoutConstraints)
 		layoutConstraints.removeAll(keepCapacity: false)
@@ -250,5 +229,26 @@ public class NavigationBarView: UIView {
 		
 		// constraints
 		NSLayoutConstraint.activateConstraints(layoutConstraints)
+	}
+	
+	//
+	//	:name:	prepareProperties
+	//
+	internal func prepareProperties(titleLabel: UILabel?, leftButtons: Array<MaterialButton>?, rightButtons: Array<MaterialButton>?) {
+		self.titleLabel = titleLabel
+		self.leftButtons = leftButtons
+		self.rightButtons = rightButtons
+	}
+	
+	//
+	//	:name:	prepareView
+	//
+	private func prepareView() {
+		translatesAutoresizingMaskIntoConstraints = false
+		layer.shadowColor = MaterialTheme.blueGrey.darken4.CGColor
+		layer.shadowOffset = CGSizeMake(0.2, 0.2)
+		layer.shadowOpacity = 0.5
+		layer.shadowRadius = 1
+		clipsToBounds = false
 	}
 }

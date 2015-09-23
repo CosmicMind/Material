@@ -107,13 +107,7 @@ public class MaterialCardView : UIView {
 		translatesAutoresizingMaskIntoConstraints = false
 		prepareBackgroundColorView()
 		preparePulseViewContainer()
-		prepareCard()
 	}
-	
-	//
-	//	:name:	prepareCard
-	//
-	internal func prepareCard() {}
 	
 	//
 	//	:name:	prepareShadow
