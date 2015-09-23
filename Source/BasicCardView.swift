@@ -324,6 +324,10 @@ public class BasicCardView : MaterialCardView, Comparable {
 				buttonsContainer!.translatesAutoresizingMaskIntoConstraints = false
 				buttonsContainer!.backgroundColor = MaterialTheme.clear.color
 				addSubview(buttonsContainer!)
+			} else {
+				for v in buttonsContainer!.subviews {
+					v.removeFromSuperview()
+				}
 			}
 			reloadView()
 		}

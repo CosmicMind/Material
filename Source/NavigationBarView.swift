@@ -86,6 +86,10 @@ public class NavigationBarView: UIView {
 				leftButtonsContainer!.translatesAutoresizingMaskIntoConstraints = false
 				leftButtonsContainer!.backgroundColor = MaterialTheme.clear.color
 				addSubview(leftButtonsContainer!)
+			} else {
+				for v in leftButtonsContainer!.subviews {
+					v.removeFromSuperview()
+				}
 			}
 			reloadView()
 		}
@@ -109,6 +113,10 @@ public class NavigationBarView: UIView {
 				rightButtonsContainer!.translatesAutoresizingMaskIntoConstraints = false
 				rightButtonsContainer!.backgroundColor = MaterialTheme.clear.color
 				addSubview(rightButtonsContainer!)
+			} else {
+				for v in rightButtonsContainer!.subviews {
+					v.removeFromSuperview()
+				}
 			}
 			reloadView()
 		}
