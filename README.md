@@ -16,13 +16,14 @@ Make a call to action with a Floating Action Button.
 
 
 ```swift
-var button: FabButton = FabButton()
+let button: FabButton = FabButton()
 button.setTitle("+", forState: .Normal)
 button.titleLabel!.font = Roboto.lightWithSize(16)
 
 // layout
 view.addSubview(button)
 Layout.size(view, child: button, width: 60, height: 60)
+Layout.alignFromBottomRight(view, child: button, bottom: 20, right: 20)
 ```
 
 ### Raised Button
@@ -34,12 +35,13 @@ Use a Raised Button to capture attention.
 
 
 ```swift
-var button: RaisedButton = RaisedButton()
+let button: RaisedButton = RaisedButton()
 button.setTitle("Raised", forState: .Normal)
 
 // layout
 view.addSubview(button)
 Layout.size(view, child: button, width: 200, height: 60)
+Layout.alignFromBottomRight(view, child: button, bottom: 20, right: 20)
 ```
 
 ### Flat Button
@@ -51,12 +53,13 @@ Keep it simple and elegant with a Flat Button.
 
 
 ```swift
-var button: FlatButton = FlatButton()
+let button: FlatButton = FlatButton()
 button.setTitle("Flat", forState: .Normal)
 
 // layout
 view.addSubview(button)
 Layout.size(view, child: button, width: 200, height: 60)
+Layout.alignFromBottomRight(view, child: button, bottom: 20, right: 20)
 ```
 
 ### Basic Card
@@ -68,7 +71,7 @@ Easily make cards with fully customizable components.
 
 
 ```swift
-var card: BasicCardView = BasicCardView()
+let card: BasicCardView = BasicCardView()
 
 // title
 card.titleLabel = UILabel()
@@ -82,12 +85,12 @@ card.detailLabel!.text = "I am a very simple card. I am good at containing small
 card.divider = UIView()
 
 // buttons
-var cancelButton: FlatButton = FlatButton()
+let cancelButton: FlatButton = FlatButton()
 cancelButton.pulseColor = MaterialTheme.blueGrey.darken3
 cancelButton.setTitle("Cancel", forState: .Normal)
 cancelButton.setTitleColor(MaterialTheme.yellow.darken3, forState: .Normal)
 
-var okButton: FlatButton = FlatButton()
+let okButton: FlatButton = FlatButton()
 okButton.pulseColor = MaterialTheme.blueGrey.darken3
 okButton.setTitle("Okay", forState: .Normal)
 okButton.setTitleColor(MaterialTheme.yellow.darken3, forState: .Normal)
@@ -96,8 +99,8 @@ card.leftButtons = [cancelButton, okButton]
 
 // layout
 view.addSubview(card)
-view.addConstraints(Layout.constraint("H:|-(pad)-[child]-(pad)-|", options: nil, metrics: ["pad": 20], views: ["child": card]))
-view.addConstraints(Layout.constraint("V:|-(pad)-[child]", options: nil, metrics: ["pad": 100], views: ["child": card]))
+view.addConstraints(Layout.constraint("H:|-(pad)-[child]-(pad)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: ["pad": 20], views: ["child": card]))
+view.addConstraints(Layout.constraint("V:|-(pad)-[child]", options: NSLayoutFormatOptions(rawValue: 0), metrics: ["pad": 100], views: ["child": card]))
 ```
 
 ### Image Card
@@ -109,13 +112,13 @@ Add photos with an Image Card.
 
 
 ```swift
-var card: ImageCardView = ImageCardView()
+let card: ImageCardView = ImageCardView()
 card.imageView = UIImageView(image: UIImage(named: "photo.jpg"))
 
 // layout
 view.addSubview(card)
-view.addConstraints(Layout.constraint("H:|-(pad)-[child]-(pad)-|", options: nil, metrics: ["pad": 20], views: ["child": card]))
-view.addConstraints(Layout.constraint("V:|-(pad)-[child]", options: nil, metrics: ["pad": 100], views: ["child": card]))
+view.addConstraints(Layout.constraint("H:|-(pad)-[child]-(pad)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: ["pad": 20], views: ["child": card]))
+view.addConstraints(Layout.constraint("V:|-(pad)-[child]", options: NSLayoutFormatOptions(rawValue: 0), metrics: ["pad": 100], views: ["child": card]))
 ```
 
 ### Full Image Card
@@ -127,7 +130,7 @@ Allow the Image Card to really shine by adding a title, some details, and button
 
 
 ```swift
-var card: ImageCardView = ImageCardView()
+let card: ImageCardView = ImageCardView()
 card.imageView = UIImageView(image: UIImage(named: "photo.jpg"))
 
 // title
@@ -142,12 +145,12 @@ card.detailLabel!.text = "I am a very simple card. I am good at containing small
 card.divider = UIView()
 
 // buttons
-var cancelButton: FlatButton = FlatButton()
+let cancelButton: FlatButton = FlatButton()
 cancelButton.pulseColor = MaterialTheme.blueGrey.darken3
 cancelButton.setTitle("Cancel", forState: .Normal)
 cancelButton.setTitleColor(MaterialTheme.yellow.darken3, forState: .Normal)
 
-var okButton: FlatButton = FlatButton()
+let okButton: FlatButton = FlatButton()
 okButton.pulseColor = MaterialTheme.blueGrey.darken3
 okButton.setTitle("Okay", forState: .Normal)
 okButton.setTitleColor(MaterialTheme.yellow.darken3, forState: .Normal)
@@ -156,8 +159,8 @@ card.leftButtons = [cancelButton, okButton]
 
 // layout
 view.addSubview(card)
-view.addConstraints(Layout.constraint("H:|-(pad)-[child]-(pad)-|", options: nil, metrics: ["pad": 20], views: ["child": card]))
-view.addConstraints(Layout.constraint("V:|-(pad)-[child]", options: nil, metrics: ["pad": 100], views: ["child": card]))
+view.addConstraints(Layout.constraint("H:|-(pad)-[child]-(pad)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: ["pad": 20], views: ["child": card]))
+view.addConstraints(Layout.constraint("V:|-(pad)-[child]", options: NSLayoutFormatOptions(rawValue: 0), metrics: ["pad": 100], views: ["child": card]))
 ```
 
 ### Side Navigation
@@ -170,11 +173,9 @@ Add a sleek Side Navigation to give your users a wonderful experience.
 
 ```swift
 func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-	sideNav = SideNavigationViewController(mainViewController: MainViewController(), leftViewController: LeftViewController(), rightViewController: RightViewController())
-	sideNav!.delegate = self
-	window = UIWindow(frame: UIScreen.mainScreen().bounds)
-	window!.rootViewController = sideNav
-	window!.makeKeyAndVisible()
+    let sideNavigationController = SideNavigationViewController(mainViewController: ViewController(), leftViewController: LeftViewController(), bottomViewController: BottomViewController(), rightViewController: RightViewController(), topViewController: TopViewController())
+    self.window?.rootViewController = sideNavigationController
+    self.window?.makeKeyAndVisible()
 	return true
 }
 ```
@@ -186,11 +187,14 @@ Beautify your app with color. All Material Design color palettes are supported.
 [Color Palettes](http://www.google.com/design/spec/style/color.html)
 
 ```swift
-var button: RaisedButton = RaisedButton()
+let button: RaisedButton = RaisedButton()
 button.setTitle("Raised", forState: .Normal)
 button.setTitleColor(MaterialTheme.blue.darken3, forState: .Normal)
 button.backgroundColor = MaterialTheme.yellow.darken3
 button.pulseColor = MaterialTheme.blueGrey.color
+view.addSubview(button)
+Layout.size(view, child: button, width: 100, height: 60)
+Layout.alignFromBottomRight(view, child: button, bottom: 20, right: 20)
 ```
 
 ### License
