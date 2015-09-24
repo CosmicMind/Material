@@ -187,11 +187,14 @@ Beautify your app with color. All Material Design color palettes are supported.
 [Color Palettes](http://www.google.com/design/spec/style/color.html)
 
 ```swift
-var button: RaisedButton = RaisedButton()
+let button: RaisedButton = RaisedButton()
 button.setTitle("Raised", forState: .Normal)
 button.setTitleColor(MaterialTheme.blue.darken3, forState: .Normal)
 button.backgroundColor = MaterialTheme.yellow.darken3
 button.pulseColor = MaterialTheme.blueGrey.color
+view.addSubview(button)
+Layout.size(view, child: button, width: 100, height: 60)
+Layout.alignFromBottomRight(view, child: button, bottom: 20, right: 20)
 ```
 
 ### License
