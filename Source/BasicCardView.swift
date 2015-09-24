@@ -370,7 +370,7 @@ public class BasicCardView : MaterialCardView, Comparable {
 		:name:	init
 	*/
 	public required init(frame: CGRect) {
-		super.init(frame: CGRectZero)
+		super.init(frame: frame)
 	}
 
 	/**
