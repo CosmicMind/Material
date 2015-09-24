@@ -16,13 +16,14 @@ Make a call to action with a Floating Action Button.
 
 
 ```swift
-var button: FabButton = FabButton()
+let button: FabButton = FabButton()
 button.setTitle("+", forState: .Normal)
 button.titleLabel!.font = Roboto.lightWithSize(16)
 
 // layout
 view.addSubview(button)
 Layout.size(view, child: button, width: 60, height: 60)
+Layout.alignFromBottomRight(view, child: button, bottom: 20, right: 20)
 ```
 
 ### Raised Button
