@@ -25,6 +25,15 @@ public class NavigationBarView: UIView {
 	internal lazy var layoutConstraints: Array<NSLayoutConstraint> = Array<NSLayoutConstraint>()
 	
 	//
+	//	:name:	lightContentStatusBar
+	//
+	public var lightContentStatusBar: Bool = false {
+		didSet {
+			UIApplication.sharedApplication().setStatusBarStyle(lightContentStatusBar ? .LightContent : .Default, animated: true)
+		}
+	}
+	
+	//
 	//	:name:	horizontalInset
 	//
 	public var horizontalInset: CGFloat = MaterialTheme.cardHorizontalInset / 2 {
