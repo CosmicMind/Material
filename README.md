@@ -112,13 +112,13 @@ Add photos with an Image Card.
 
 
 ```swift
-var card: ImageCardView = ImageCardView()
+let card: ImageCardView = ImageCardView()
 card.imageView = UIImageView(image: UIImage(named: "photo.jpg"))
 
 // layout
 view.addSubview(card)
-view.addConstraints(Layout.constraint("H:|-(pad)-[child]-(pad)-|", options: nil, metrics: ["pad": 20], views: ["child": card]))
-view.addConstraints(Layout.constraint("V:|-(pad)-[child]", options: nil, metrics: ["pad": 100], views: ["child": card]))
+view.addConstraints(Layout.constraint("H:|-(pad)-[child]-(pad)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: ["pad": 20], views: ["child": card]))
+view.addConstraints(Layout.constraint("V:|-(pad)-[child]", options: NSLayoutFormatOptions(rawValue: 0), metrics: ["pad": 100], views: ["child": card]))
 ```
 
 ### Full Image Card
