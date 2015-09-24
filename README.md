@@ -71,7 +71,7 @@ Easily make cards with fully customizable components.
 
 
 ```swift
-var card: BasicCardView = BasicCardView()
+let card: BasicCardView = BasicCardView()
 
 // title
 card.titleLabel = UILabel()
@@ -85,12 +85,12 @@ card.detailLabel!.text = "I am a very simple card. I am good at containing small
 card.divider = UIView()
 
 // buttons
-var cancelButton: FlatButton = FlatButton()
+let cancelButton: FlatButton = FlatButton()
 cancelButton.pulseColor = MaterialTheme.blueGrey.darken3
 cancelButton.setTitle("Cancel", forState: .Normal)
 cancelButton.setTitleColor(MaterialTheme.yellow.darken3, forState: .Normal)
 
-var okButton: FlatButton = FlatButton()
+let okButton: FlatButton = FlatButton()
 okButton.pulseColor = MaterialTheme.blueGrey.darken3
 okButton.setTitle("Okay", forState: .Normal)
 okButton.setTitleColor(MaterialTheme.yellow.darken3, forState: .Normal)
@@ -99,8 +99,8 @@ card.leftButtons = [cancelButton, okButton]
 
 // layout
 view.addSubview(card)
-view.addConstraints(Layout.constraint("H:|-(pad)-[child]-(pad)-|", options: nil, metrics: ["pad": 20], views: ["child": card]))
-view.addConstraints(Layout.constraint("V:|-(pad)-[child]", options: nil, metrics: ["pad": 100], views: ["child": card]))
+view.addConstraints(Layout.constraint("H:|-(pad)-[child]-(pad)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: ["pad": 20], views: ["child": card]))
+view.addConstraints(Layout.constraint("V:|-(pad)-[child]", options: NSLayoutFormatOptions(rawValue: 0), metrics: ["pad": 100], views: ["child": card]))
 ```
 
 ### Image Card
