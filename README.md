@@ -35,12 +35,13 @@ Use a Raised Button to capture attention.
 
 
 ```swift
-var button: RaisedButton = RaisedButton()
+let button: RaisedButton = RaisedButton()
 button.setTitle("Raised", forState: .Normal)
 
 // layout
 view.addSubview(button)
 Layout.size(view, child: button, width: 200, height: 60)
+Layout.alignFromBottomRight(view, child: button, bottom: 20, right: 20)
 ```
 
 ### Flat Button
