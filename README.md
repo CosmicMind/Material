@@ -53,12 +53,13 @@ Keep it simple and elegant with a Flat Button.
 
 
 ```swift
-var button: FlatButton = FlatButton()
+let button: FlatButton = FlatButton()
 button.setTitle("Flat", forState: .Normal)
 
 // layout
 view.addSubview(button)
 Layout.size(view, child: button, width: 200, height: 60)
+Layout.alignFromBottomRight(view, child: button, bottom: 20, right: 20)
 ```
 
 ### Basic Card
