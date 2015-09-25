@@ -29,24 +29,6 @@ public class NavigationBarView: MaterialView {
 	}
 	
 	/**
-		:name:	imageGravity
-	*/
-	public override var imageGravity: String? {
-		didSet {
-			layer.contentsGravity = nil == imageGravity ? MaterialTheme.navigation.imageGravity : imageGravity!
-		}
-	}
-	
-	/**
-		:name:	imageContentsRect
-	*/
-	public override var imageContentsRect: CGRect? {
-		didSet {
-			layer.contentsRect = nil == imageContentsRect ? MaterialTheme.navigation.imageContentsRect : imageContentsRect!
-		}
-	}
-	
-	/**
 		:name:	init
 	*/
 	public convenience init() {
@@ -69,7 +51,9 @@ public class NavigationBarView: MaterialView {
 		:name:	prepareLayer
 	*/
 	internal override func prepareLayer() {
-		layer.contentsScale = MaterialTheme.navigation.contentScale
+		contentsScale = MaterialTheme.navigation.contentsScale
+		contentsGravity = MaterialTheme.navigation.contentsGravity
+		contentsRect = MaterialTheme.navigation.contentsRect
 		shadowColor = MaterialTheme.navigation.shadowColor
 		shadowOffset = MaterialTheme.navigation.shadowOffset
 		shadowOpacity = MaterialTheme.navigation.shadowOpacity

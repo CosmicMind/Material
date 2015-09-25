@@ -37,7 +37,6 @@ public extension MaterialTheme.view {
 	public static let shadowOffset: CGSize = CGSizeMake(0.2, 0.2)
 	public static let shadowOpacity: Float = 0.5
 	public static let shadowRadius: CGFloat = 1
-	public static let contentScale: CGFloat = UIScreen.mainScreen().scale
 	public static let masksToBounds: Bool = false
 	
 	// color
@@ -47,8 +46,9 @@ public extension MaterialTheme.view {
 	public static let userInteractionEnabled: Bool = true
 	
 	// image
-	public static let imageGravity: String = kCAGravityCenter
-	public static let imageContentsRect: CGRect = CGRectMake(0, 0, 1, 1)
+	public static let contentsGravity: String = kCAGravityResizeAspectFill
+	public static let contentsRect: CGRect = CGRectMake(0, 0, 1, 1)
+	public static let contentsScale: CGFloat = UIScreen.mainScreen().scale
 }
 
 // navigation
@@ -64,7 +64,6 @@ public extension MaterialTheme.navigation {
 	public static let shadowOffset: CGSize = MaterialTheme.view.shadowOffset
 	public static let shadowOpacity: Float = MaterialTheme.view.shadowOpacity
 	public static let shadowRadius: CGFloat = MaterialTheme.view.shadowRadius
-	public static let contentScale: CGFloat = MaterialTheme.view.contentScale
 	public static let masksToBounds: Bool = MaterialTheme.view.masksToBounds
 	
 	// color
@@ -75,7 +74,8 @@ public extension MaterialTheme.navigation {
 	public static let userInteractionEnabled: Bool = false
 	
 	// image
-	public static let imageGravity: String = MaterialTheme.view.imageGravity
-	public static let imageContentsRect: CGRect = MaterialTheme.view.imageContentsRect
+	public static let contentsGravity: String = MaterialTheme.view.contentsGravity
+	public static let contentsRect: CGRect = MaterialTheme.view.contentsRect
+	public static let contentsScale: CGFloat = MaterialTheme.view.contentsScale
 }
 

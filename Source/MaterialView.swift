@@ -30,20 +30,29 @@ public class MaterialView: UIView {
 	}
 	
 	/**
-		:name:	imageGravity
+		:name:	contentsGravity
 	*/
-	public var imageGravity: String? {
+	public var contentsGravity: String! {
 		didSet {
-			layer.contentsGravity = nil == imageGravity ? MaterialTheme.view.imageGravity : imageGravity!
+			layer.contentsGravity = contentsGravity
 		}
 	}
 	
 	/**
-		:name:	imageContentsRect
+		:name:	contentsRect
 	*/
-	public var imageContentsRect: CGRect? {
+	public var contentsRect: CGRect! {
 		didSet {
-			layer.contentsRect = nil == imageContentsRect ? MaterialTheme.view.imageContentsRect : imageContentsRect!
+			layer.contentsRect = contentsRect
+		}
+	}
+	
+	/**
+		:name:	contentsScale
+	*/
+	public var contentsScale: CGFloat! {
+		didSet {
+			layer.contentsScale = contentsScale
 		}
 	}
 	
@@ -189,7 +198,9 @@ public class MaterialView: UIView {
 		:name:	prepareLayer
 	*/
 	internal func prepareLayer() {
-		layer.contentsScale = MaterialTheme.view.contentScale
+		contentsScale = MaterialTheme.view.contentsScale
+		contentsGravity = MaterialTheme.view.contentsGravity
+		contentsRect = MaterialTheme.view.contentsRect
 		shadowColor = MaterialTheme.view.shadowColor
 		shadowOffset = MaterialTheme.view.shadowOffset
 		shadowOpacity = MaterialTheme.view.shadowOpacity
