@@ -30,15 +30,6 @@ public class MaterialView: UIView {
 	}
 	
 	/**
-		:name:	contentsGravity
-	*/
-	public var contentsGravity: MaterialGravity! {
-		didSet {
-			layer.contentsGravity = MaterialGravityToString(contentsGravity)
-		}
-	}
-	
-	/**
 		:name:	contentsRect
 	*/
 	public var contentsRect: CGRect! {
@@ -48,11 +39,29 @@ public class MaterialView: UIView {
 	}
 	
 	/**
+		:name:	contentsCenter
+	*/
+	public var contentsCenter: CGRect! {
+		didSet {
+			layer.contentsCenter = contentsCenter
+		}
+	}
+	
+	/**
 		:name:	contentsScale
 	*/
 	public var contentsScale: CGFloat! {
 		didSet {
 			layer.contentsScale = contentsScale
+		}
+	}
+	
+	/**
+		:name:	contentsGravity
+	*/
+	public var contentsGravity: MaterialGravity! {
+		didSet {
+			layer.contentsGravity = MaterialGravityToString(contentsGravity)
 		}
 	}
 	
@@ -198,9 +207,10 @@ public class MaterialView: UIView {
 		:name:	prepareLayer
 	*/
 	internal func prepareLayer() {
+		contentsRect = MaterialTheme.view.contentsRect
+		contentsCenter = MaterialTheme.view.contentsCenter
 		contentsScale = MaterialTheme.view.contentsScale
 		contentsGravity = MaterialTheme.view.contentsGravity
-		contentsRect = MaterialTheme.view.contentsRect
 		shadowColor = MaterialTheme.view.shadowColor
 		shadowOffset = MaterialTheme.view.shadowOffset
 		shadowOpacity = MaterialTheme.view.shadowOpacity

@@ -39,7 +39,7 @@ public extension MaterialTheme.view {
 	public static let masksToBounds: Bool = false
 	
 	// color
-	public static let backgroudColor: UIColor = MaterialColor.white.color
+	public static let backgroudColor: UIColor = MaterialColor.white
 	
 	// interaction
 	public static let userInteractionEnabled: Bool = true
@@ -67,7 +67,7 @@ public extension MaterialTheme.navigation {
 	public static let masksToBounds: Bool = MaterialTheme.view.masksToBounds
 	
 	// color
-	public static let backgroudColor: UIColor = MaterialColor.blue.accent2
+	public static let backgroudColor: UIColor = MaterialColor.blue.accent3
 	public static let lightContentStatusBar: Bool = true
 	
 	// interaction

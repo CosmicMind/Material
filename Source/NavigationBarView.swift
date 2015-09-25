@@ -51,9 +51,10 @@ public class NavigationBarView: MaterialView {
 		:name:	prepareLayer
 	*/
 	internal override func prepareLayer() {
+		contentsRect = MaterialTheme.navigation.contentsRect
+		contentsCenter = MaterialTheme.navigation.contentsCenter
 		contentsScale = MaterialTheme.navigation.contentsScale
 		contentsGravity = MaterialTheme.navigation.contentsGravity
-		contentsRect = MaterialTheme.navigation.contentsRect
 		shadowColor = MaterialTheme.navigation.shadowColor
 		shadowOffset = MaterialTheme.navigation.shadowOffset
 		shadowOpacity = MaterialTheme.navigation.shadowOpacity
