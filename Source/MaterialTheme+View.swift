@@ -18,6 +18,56 @@
 
 import UIKit
 
+/**
+	:name:	MaterialGravity
+*/
+public enum MaterialGravity {
+	case Center
+	case Top
+	case Bottom
+	case Left
+	case Right
+	case TopLeft
+	case TopRight
+	case BottomLeft
+	case BottomRight
+	case Resize
+	case ResizeAspect
+	case ResizeAspectFill
+}
+
+/**
+	:name:	MaterialGravityToString
+*/
+public func MaterialGravityToString(gravity: MaterialGravity) -> String {
+	switch gravity {
+	case .Center:
+		return kCAGravityCenter
+	case .Top:
+		return kCAGravityTop
+	case .Bottom:
+		return kCAGravityBottom
+	case .Left:
+		return kCAGravityLeft
+	case .Right:
+		return kCAGravityRight
+	case .TopLeft:
+		return kCAGravityTopLeft
+	case .TopRight:
+		return kCAGravityTopRight
+	case .BottomLeft:
+		return kCAGravityBottomLeft
+	case .BottomRight:
+		return kCAGravityBottomRight
+	case .Resize:
+		return kCAGravityResize
+	case .ResizeAspect:
+		return kCAGravityResizeAspect
+	case .ResizeAspectFill:
+		return kCAGravityResizeAspectFill
+	}
+}
+
 // MaterialTheme
 public extension MaterialTheme {
 	public struct view {}
@@ -46,7 +96,7 @@ public extension MaterialTheme.view {
 	public static let userInteractionEnabled: Bool = true
 	
 	// image
-	public static let contentsGravity: String = kCAGravityResizeAspectFill
+	public static let contentsGravity: MaterialGravity = .ResizeAspectFill
 	public static let contentsRect: CGRect = CGRectMake(0, 0, 1, 1)
 	public static let contentsScale: CGFloat = UIScreen.mainScreen().scale
 }
@@ -74,7 +124,7 @@ public extension MaterialTheme.navigation {
 	public static let userInteractionEnabled: Bool = false
 	
 	// image
-	public static let contentsGravity: String = MaterialTheme.view.contentsGravity
+	public static let contentsGravity: MaterialGravity = MaterialTheme.view.contentsGravity
 	public static let contentsRect: CGRect = MaterialTheme.view.contentsRect
 	public static let contentsScale: CGFloat = MaterialTheme.view.contentsScale
 }

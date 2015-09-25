@@ -32,9 +32,9 @@ public class MaterialView: UIView {
 	/**
 		:name:	contentsGravity
 	*/
-	public var contentsGravity: String! {
+	public var contentsGravity: MaterialGravity! {
 		didSet {
-			layer.contentsGravity = contentsGravity
+			layer.contentsGravity = MaterialGravityToString(contentsGravity)
 		}
 	}
 	
