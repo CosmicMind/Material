@@ -33,7 +33,7 @@ public extension MaterialTheme.view {
 	public static let height: CGFloat = UIScreen.mainScreen().bounds.height
 	
 	// layer
-	public static let shadowColor: UIColor = MaterialTheme.blueGrey.darken4
+	public static let shadowColor: UIColor = MaterialTheme.color.blueGrey.darken4
 	public static let shadowOffset: CGSize = CGSizeMake(0.2, 0.2)
 	public static let shadowOpacity: Float = 0.5
 	public static let shadowRadius: CGFloat = 1
@@ -41,13 +41,14 @@ public extension MaterialTheme.view {
 	public static let masksToBounds: Bool = false
 	
 	// color
-	public static let backgroudColor: UIColor = MaterialTheme.white.color
+	public static let backgroudColor: UIColor = MaterialTheme.color.white.base
 	
 	// interaction
 	public static let userInteractionEnabled: Bool = true
 	
 	// image
 	public static let imageGravity: String = kCAGravityCenter
+	public static let imageContentsRect: CGRect = CGRectMake(0, 0, 1, 1)
 }
 
 // navigation
@@ -67,7 +68,7 @@ public extension MaterialTheme.navigation {
 	public static let masksToBounds: Bool = MaterialTheme.view.masksToBounds
 	
 	// color
-	public static let backgroudColor: UIColor = MaterialTheme.blue.accent2
+	public static let backgroudColor: UIColor = MaterialTheme.color.blue.accent2
 	public static let lightContentStatusBar: Bool = true
 	
 	// interaction
@@ -75,5 +76,6 @@ public extension MaterialTheme.navigation {
 	
 	// image
 	public static let imageGravity: String = MaterialTheme.view.imageGravity
+	public static let imageContentsRect: CGRect = MaterialTheme.view.imageContentsRect
 }
 

@@ -44,7 +44,7 @@ public class MaterialButton : UIButton {
 	/**
 		:name:	pulseColor
 	*/
-	public var pulseColor: UIColor? = MaterialTheme.white.color
+	public var pulseColor: UIColor? = MaterialTheme.color.white.base
 	
 	/**
 		:name:	init
@@ -119,7 +119,7 @@ public class MaterialButton : UIButton {
 	//	:name:	prepareShadow
 	//
 	internal func prepareShadow() {
-		layer.shadowColor = MaterialTheme.black.color.CGColor
+		layer.shadowColor = MaterialTheme.color.black.base.CGColor
 		layer.shadowOffset = CGSizeMake(0.1, 0.1)
 		layer.shadowOpacity = 0.4
 		layer.shadowRadius = 2

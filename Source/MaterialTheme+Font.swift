@@ -18,16 +18,9 @@
 
 import UIKit
 
-public struct MaterialTheme {}
-
-// spacing
+// font
 public extension MaterialTheme {
-	public static var cardVerticalInset: CGFloat = 16
-	public static var cardHorizontalInset: CGFloat = 16
-	
-	public static var buttonVerticalInset: CGFloat = 6
-	public static var buttonHorizontalInset: CGFloat = 16
-	
-	public static var navigationVerticalInset: CGFloat = 8
-	public static var navigationHorizontalInset: CGFloat = 8
+	public struct font {
+		public static var pointSize: CGFloat = 16
+	}
 }

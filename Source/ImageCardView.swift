@@ -282,7 +282,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 				if nil == imageViewContainer {
 					imageViewContainer = UIView()
 					imageViewContainer!.translatesAutoresizingMaskIntoConstraints = false
-					imageViewContainer!.backgroundColor = MaterialTheme.clear.color
+					imageViewContainer!.backgroundColor = MaterialTheme.color.clear.base
 					addSubview(imageViewContainer!)
 				}
 				
@@ -293,8 +293,8 @@ public class ImageCardView : MaterialCardView, Comparable {
 				t.userInteractionEnabled = false
 				t.clipsToBounds = true
 				if nil != titleLabel {
-					titleLabelContainer!.backgroundColor = MaterialTheme.clear.color
-					titleLabel!.textColor = MaterialTheme.white.color
+					titleLabelContainer!.backgroundColor = MaterialTheme.color.clear.base
+					titleLabel!.textColor = MaterialTheme.color.white.base
 					titleLabelContainer!.removeFromSuperview()
 					imageViewContainer!.addSubview(titleLabelContainer!)
 				}
@@ -336,16 +336,16 @@ public class ImageCardView : MaterialCardView, Comparable {
 				// text
 				titleLabelContainer!.addSubview(t)
 				t.translatesAutoresizingMaskIntoConstraints = false
-				t.backgroundColor = MaterialTheme.clear.color
+				t.backgroundColor = MaterialTheme.color.clear.base
 				t.font = Roboto.regular
 				t.numberOfLines = 0
 				t.lineBreakMode = .ByTruncatingTail
 				if nil == imageView {
-					titleLabelContainer!.backgroundColor = MaterialTheme.clear.color
-					t.textColor = MaterialTheme.black.color
+					titleLabelContainer!.backgroundColor = MaterialTheme.color.clear.base
+					t.textColor = MaterialTheme.color.black.base
 				} else {
-					titleLabelContainer!.backgroundColor = MaterialTheme.clear.color
-					t.textColor = MaterialTheme.clear.color
+					titleLabelContainer!.backgroundColor = MaterialTheme.color.clear.base
+					t.textColor = MaterialTheme.color.clear.base
 					titleLabelContainer!.removeFromSuperview()
 					imageViewContainer!.addSubview(titleLabelContainer!)
 				}
@@ -381,15 +381,15 @@ public class ImageCardView : MaterialCardView, Comparable {
 				if nil == detailLabelContainer {
 					detailLabelContainer = UIView()
 					detailLabelContainer!.translatesAutoresizingMaskIntoConstraints = false
-					detailLabelContainer!.backgroundColor = MaterialTheme.clear.color
+					detailLabelContainer!.backgroundColor = MaterialTheme.color.clear.base
 					addSubview(detailLabelContainer!)
 				}
 				
 				// text
 				detailLabelContainer!.addSubview(l)
 				l.translatesAutoresizingMaskIntoConstraints = false
-				l.textColor = MaterialTheme.black.color
-				l.backgroundColor = MaterialTheme.clear.color
+				l.textColor = MaterialTheme.color.black.base
+				l.backgroundColor = MaterialTheme.color.clear.base
 				l.font = Roboto.light
 				l.numberOfLines = 0
 				l.lineBreakMode = .ByTruncatingTail
@@ -408,7 +408,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 		didSet {
 			if let d = divider {
 				d.translatesAutoresizingMaskIntoConstraints = false
-				d.backgroundColor = MaterialTheme.blueGrey.lighten5
+				d.backgroundColor = MaterialTheme.color.blueGrey.lighten5
 				addSubview(d)
 			} else {
 				divider?.removeFromSuperview()
@@ -433,7 +433,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 			} else if nil == buttonsContainer {
 				buttonsContainer = UIView()
 				buttonsContainer!.translatesAutoresizingMaskIntoConstraints = false
-				buttonsContainer!.backgroundColor = MaterialTheme.clear.color
+				buttonsContainer!.backgroundColor = MaterialTheme.color.clear.base
 				addSubview(buttonsContainer!)
 			}
 			reloadView()
@@ -451,7 +451,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 			} else if nil == buttonsContainer {
 				buttonsContainer = UIView()
 				buttonsContainer!.translatesAutoresizingMaskIntoConstraints = false
-				buttonsContainer!.backgroundColor = MaterialTheme.clear.color
+				buttonsContainer!.backgroundColor = MaterialTheme.color.clear.base
 				addSubview(buttonsContainer!)
 			} else {
 				for v in buttonsContainer!.subviews {
@@ -638,7 +638,7 @@ public class ImageCardView : MaterialCardView, Comparable {
 	internal override func prepareView() {
 		super.prepareView()
 		prepareShadow()
-		backgroundColor = MaterialTheme.white.color
+		backgroundColor = MaterialTheme.color.white.base
 	}
 }
 

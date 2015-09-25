@@ -25,9 +25,9 @@ public class FlatButton : MaterialButton {
 	internal override func prepareView() {
 		super.prepareView()
 		titleLabel!.font = Roboto.regular
-		setTitleColor(MaterialTheme.blueGrey.darken4, forState: .Normal)
-		pulseColor = MaterialTheme.blueGrey.lighten3
-		backgroundColor = MaterialTheme.clear.color
+		setTitleColor(MaterialTheme.color.blueGrey.darken4, forState: .Normal)
+		pulseColor = MaterialTheme.color.blueGrey.lighten3
+		backgroundColor = MaterialTheme.color.clear.base
 		contentEdgeInsets = UIEdgeInsetsMake(MaterialTheme.buttonVerticalInset, MaterialTheme.buttonHorizontalInset, MaterialTheme.buttonVerticalInset, MaterialTheme.buttonHorizontalInset)
 	}
 	

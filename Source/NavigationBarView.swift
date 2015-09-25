@@ -29,13 +29,31 @@ public class NavigationBarView: MaterialView {
 	}
 	
 	/**
+		:name:	imageGravity
+	*/
+	public override var imageGravity: String? {
+		didSet {
+			layer.contentsGravity = nil == imageGravity ? MaterialTheme.navigation.imageGravity : imageGravity!
+		}
+	}
+	
+	/**
+		:name:	imageContentsRect
+	*/
+	public override var imageContentsRect: CGRect? {
+		didSet {
+			layer.contentsRect = nil == imageContentsRect ? MaterialTheme.navigation.imageContentsRect : imageContentsRect!
+		}
+	}
+	
+	/**
 		:name:	init
 	*/
 	public convenience init() {
 		self.init(frame: CGRectMake(MaterialTheme.navigation.x, MaterialTheme.navigation.y, MaterialTheme.navigation.width, MaterialTheme.navigation.height))
 		prepareView()
-		prepareFrame()
 		prepareLayer()
+		prepareBounds()
 	}
 	
 	/**

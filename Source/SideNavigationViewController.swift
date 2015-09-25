@@ -136,7 +136,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		public static var hideStatusBar: Bool = true
 		public static var horizontalThreshold: CGFloat = defaultOptions.threshold
         public static var verticalThreshold: CGFloat = defaultOptions.threshold
-		public static var backdropBackgroundColor: UIColor = MaterialTheme.black.color
+		public static var backdropBackgroundColor: UIColor = MaterialTheme.color.black.base
 		public static var animationDuration: CGFloat = defaultOptions.defaultAnimationDuration
 		public static var leftBezelWidth: CGFloat = defaultOptions.bezelWidth
 		public static var leftViewContainerWidth: CGFloat = defaultOptions.containerWidth
@@ -1242,7 +1242,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	//
 	private func prepareMainContainer() {
 		mainViewContainer = UIView(frame: view.bounds)
-		mainViewContainer!.backgroundColor = MaterialTheme.clear.color
+		mainViewContainer!.backgroundColor = MaterialTheme.color.clear.base
 		mainViewContainer!.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
 		view.addSubview(mainViewContainer!)
 	}
@@ -1301,7 +1301,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		b.origin.x = originX
         b.origin.y = originY
 		viewContainer = UIView(frame: b)
-		viewContainer!.backgroundColor = MaterialTheme.clear.color
+		viewContainer!.backgroundColor = MaterialTheme.color.clear.base
 		viewContainer!.autoresizingMask = .FlexibleHeight
 		view.addSubview(viewContainer!)
 	}

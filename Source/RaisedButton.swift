@@ -25,8 +25,8 @@ public class RaisedButton : MaterialButton {
 	internal override func prepareView()  {
 		super.prepareView()
 		titleLabel!.font = Roboto.regular
-		setTitleColor(MaterialTheme.white.color, forState: .Normal)
-		backgroundColor = MaterialTheme.blue.accent2
+		setTitleColor(MaterialTheme.color.white.base, forState: .Normal)
+		backgroundColor = MaterialTheme.color.blue.accent2
 		contentEdgeInsets = UIEdgeInsetsMake(MaterialTheme.buttonVerticalInset, MaterialTheme.buttonHorizontalInset, MaterialTheme.buttonVerticalInset, MaterialTheme.buttonHorizontalInset)
 	}
 	

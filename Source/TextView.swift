@@ -62,7 +62,7 @@ public class TextView: UITextView {
 				p.font = font
 				p.textAlignment = textAlignment
 				p.numberOfLines = 0
-				p.backgroundColor = MaterialTheme.clear.color
+				p.backgroundColor = MaterialTheme.color.clear.base
 				addSubview(p)
 				updateLabelConstraints()
 				textViewTextDidChange()
@@ -124,7 +124,7 @@ public class TextView: UITextView {
 		// label needs to be added to the view
 		// hierarchy before setting insets
 		textContainerInset = UIEdgeInsetsMake(16, 16, 16, 16)
-		backgroundColor = MaterialTheme.clear.color
+		backgroundColor = MaterialTheme.color.clear.base
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "textViewTextDidChange", name: UITextViewTextDidChangeNotification, object: nil)
 		updateLabelConstraints()
 	}

@@ -15,6 +15,8 @@
 		65B965871B8BEEC60055B139 /* SideNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B965861B8BEEC60055B139 /* SideNavigationViewController.swift */; };
 		65BDD1451BB5B8B8006F7F2B /* MaterialTheme+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1441BB5B8B8006F7F2B /* MaterialTheme+View.swift */; settings = {ASSET_TAGS = (); }; };
 		65BDD1471BB5B916006F7F2B /* MaterialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1461BB5B916006F7F2B /* MaterialView.swift */; settings = {ASSET_TAGS = (); }; };
+		65BDD1491BB5DC98006F7F2B /* MaterialTheme+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1481BB5DC98006F7F2B /* MaterialTheme+Color.swift */; settings = {ASSET_TAGS = (); }; };
+		65BDD14B1BB5DD02006F7F2B /* MaterialTheme+Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD14A1BB5DD02006F7F2B /* MaterialTheme+Font.swift */; settings = {ASSET_TAGS = (); }; };
 		65DBE4201B9A9244000C804F /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 65DBE41E1B9A9244000C804F /* Roboto-Bold.ttf */; };
 		65DBE4211B9A9244000C804F /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 65DBE41F1B9A9244000C804F /* Roboto-Thin.ttf */; };
 		962F3E531BACA68C0004B8AD /* NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962F3E521BACA68C0004B8AD /* NavigationBarView.swift */; };
@@ -68,6 +70,8 @@
 		65B965861B8BEEC60055B139 /* SideNavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideNavigationViewController.swift; sourceTree = "<group>"; };
 		65BDD1441BB5B8B8006F7F2B /* MaterialTheme+View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MaterialTheme+View.swift"; sourceTree = "<group>"; };
 		65BDD1461BB5B916006F7F2B /* MaterialView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialView.swift; sourceTree = "<group>"; };
+		65BDD1481BB5DC98006F7F2B /* MaterialTheme+Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MaterialTheme+Color.swift"; sourceTree = "<group>"; };
+		65BDD14A1BB5DD02006F7F2B /* MaterialTheme+Font.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MaterialTheme+Font.swift"; sourceTree = "<group>"; };
 		65DBE41E1B9A9244000C804F /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		65DBE41F1B9A9244000C804F /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		962F3E521BACA68C0004B8AD /* NavigationBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = "<group>"; };
@@ -228,6 +232,8 @@
 			children = (
 				96B57D4D1B90AF7D00DE7BBB /* MaterialTheme.swift */,
 				65BDD1441BB5B8B8006F7F2B /* MaterialTheme+View.swift */,
+				65BDD1481BB5DC98006F7F2B /* MaterialTheme+Color.swift */,
+				65BDD14A1BB5DD02006F7F2B /* MaterialTheme+Font.swift */,
 			);
 			name = Theme;
 			sourceTree = "<group>";
@@ -394,10 +400,12 @@
 				9638326B1B88E5BF0015F710 /* FabButton.swift in Sources */,
 				9A94D1091B8A3F5100F586A5 /* MaterialCardView.swift in Sources */,
 				65B965871B8BEEC60055B139 /* SideNavigationViewController.swift in Sources */,
+				65BDD14B1BB5DD02006F7F2B /* MaterialTheme+Font.swift in Sources */,
 				65BDD1451BB5B8B8006F7F2B /* MaterialTheme+View.swift in Sources */,
 				9638326C1B88E5BF0015F710 /* FlatButton.swift in Sources */,
 				963832711B88E5BF0015F710 /* MaterialText.swift in Sources */,
 				9638326A1B88E5BF0015F710 /* CapturePreview.swift in Sources */,
+				65BDD1491BB5DC98006F7F2B /* MaterialTheme+Color.swift in Sources */,
 				9AAC38541B89559900FE6B2D /* Roboto.swift in Sources */,
 				65B9657E1B8A7C330055B139 /* MaterialButton.swift in Sources */,
 				963832881B8908180015F710 /* Layout.swift in Sources */,

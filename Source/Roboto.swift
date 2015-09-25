@@ -23,7 +23,7 @@ public struct Roboto {
 		:name:	thin
 	*/
 	public static var thin: UIFont {
-		return thinWithSize(MaterialTheme.textFontSize)
+		return thinWithSize(MaterialTheme.font.pointSize)
 	}
 	
 	/**
@@ -40,7 +40,7 @@ public struct Roboto {
 		:name:	light
 	*/
 	public static var light: UIFont {
-		return lightWithSize(MaterialTheme.textFontSize)
+		return lightWithSize(MaterialTheme.font.pointSize)
 	}
 	
 	/**
@@ -57,7 +57,7 @@ public struct Roboto {
 		:name:	regular
 	*/
 	public static var regular: UIFont {
-		return regularWithSize(MaterialTheme.textFontSize)
+		return regularWithSize(MaterialTheme.font.pointSize)
 	}
 	
 	/**
@@ -74,7 +74,7 @@ public struct Roboto {
 		:name:	medium
 	*/
 	public static var medium: UIFont {
-		return mediumWithSize(MaterialTheme.textFontSize)
+		return mediumWithSize(MaterialTheme.font.pointSize)
 	}
 	
 	/**
@@ -91,7 +91,7 @@ public struct Roboto {
 		:name:	bold
 	*/
 	public static var bold: UIFont {
-		return boldWithSize(MaterialTheme.textFontSize)
+		return boldWithSize(MaterialTheme.font.pointSize)
 	}
 	
 	/**

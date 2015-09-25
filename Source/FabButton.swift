@@ -24,8 +24,8 @@ public class FabButton : MaterialButton {
 	//
 	internal override func prepareView() {
 		super.prepareView()
-		setTitleColor(MaterialTheme.white.color, forState: .Normal)
-		backgroundColor = MaterialTheme.red.darken1
+		setTitleColor(MaterialTheme.color.white.base, forState: .Normal)
+		backgroundColor = MaterialTheme.color.red.darken1
 		contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0)
 	}
 	

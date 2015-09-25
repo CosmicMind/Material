@@ -226,18 +226,18 @@ public class BasicCardView : MaterialCardView, Comparable {
 				if nil == titleLabelContainer {
 					titleLabelContainer = UIView()
 					titleLabelContainer!.translatesAutoresizingMaskIntoConstraints = false
-					titleLabelContainer!.backgroundColor = MaterialTheme.clear.color
+					titleLabelContainer!.backgroundColor = MaterialTheme.color.clear.base
 					addSubview(titleLabelContainer!)
 				}
 				
 				// text
 				titleLabelContainer!.addSubview(t)
 				t.translatesAutoresizingMaskIntoConstraints = false
-				t.backgroundColor = MaterialTheme.clear.color
+				t.backgroundColor = MaterialTheme.color.clear.base
 				t.font = Roboto.regular
 				t.numberOfLines = 0
 				t.lineBreakMode = .ByTruncatingTail
-				t.textColor = MaterialTheme.white.color
+				t.textColor = MaterialTheme.color.white.base
 			} else {
 				titleLabelContainer?.removeFromSuperview()
 				titleLabelContainer = nil
@@ -270,15 +270,15 @@ public class BasicCardView : MaterialCardView, Comparable {
 				if nil == detailLabelContainer {
 					detailLabelContainer = UIView()
 					detailLabelContainer!.translatesAutoresizingMaskIntoConstraints = false
-					detailLabelContainer!.backgroundColor = MaterialTheme.clear.color
+					detailLabelContainer!.backgroundColor = MaterialTheme.color.clear.base
 					addSubview(detailLabelContainer!)
 				}
 				
 				// text
 				detailLabelContainer!.addSubview(l)
 				l.translatesAutoresizingMaskIntoConstraints = false
-				l.textColor = MaterialTheme.white.color
-				l.backgroundColor = MaterialTheme.clear.color
+				l.textColor = MaterialTheme.color.white.base
+				l.backgroundColor = MaterialTheme.color.clear.base
 				l.font = Roboto.light
 				l.numberOfLines = 0
 				l.lineBreakMode = .ByTruncatingTail
@@ -297,7 +297,7 @@ public class BasicCardView : MaterialCardView, Comparable {
 		didSet {
 			if let d = divider {
 				d.translatesAutoresizingMaskIntoConstraints = false
-				d.backgroundColor = MaterialTheme.blueGrey.darken1
+				d.backgroundColor = MaterialTheme.color.blueGrey.darken1
 				addSubview(d)
 			} else {
 				divider?.removeFromSuperview()
@@ -322,7 +322,7 @@ public class BasicCardView : MaterialCardView, Comparable {
 			} else if nil == buttonsContainer {
 				buttonsContainer = UIView()
 				buttonsContainer!.translatesAutoresizingMaskIntoConstraints = false
-				buttonsContainer!.backgroundColor = MaterialTheme.clear.color
+				buttonsContainer!.backgroundColor = MaterialTheme.color.clear.base
 				addSubview(buttonsContainer!)
 			} else {
 				for v in buttonsContainer!.subviews {
@@ -344,7 +344,7 @@ public class BasicCardView : MaterialCardView, Comparable {
 			} else if nil == buttonsContainer {
 				buttonsContainer = UIView()
 				buttonsContainer!.translatesAutoresizingMaskIntoConstraints = false
-				buttonsContainer!.backgroundColor = MaterialTheme.clear.color
+				buttonsContainer!.backgroundColor = MaterialTheme.color.clear.base
 				addSubview(buttonsContainer!)
 			}
 			reloadView()
@@ -504,7 +504,7 @@ public class BasicCardView : MaterialCardView, Comparable {
 	internal override func prepareView() {
 		super.prepareView()
 		prepareShadow()
-		backgroundColor = MaterialTheme.blueGrey.color
+		backgroundColor = MaterialTheme.color.blueGrey.base
 	}
 }
 

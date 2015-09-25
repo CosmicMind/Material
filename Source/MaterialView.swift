@@ -19,6 +19,7 @@
 import UIKit
 
 public class MaterialView: UIView {
+	
 	/**
 		:name:	image
 	*/
@@ -33,7 +34,16 @@ public class MaterialView: UIView {
 	*/
 	public var imageGravity: String? {
 		didSet {
-			layer.contentsGravity = nil == imageGravity ? MaterialTheme.navigation.imageGravity : imageGravity!
+			layer.contentsGravity = nil == imageGravity ? MaterialTheme.view.imageGravity : imageGravity!
+		}
+	}
+	
+	/**
+		:name:	imageContentsRect
+	*/
+	public var imageContentsRect: CGRect? {
+		didSet {
+			layer.contentsRect = nil == imageContentsRect ? MaterialTheme.view.imageContentsRect : imageContentsRect!
 		}
 	}
 	
@@ -142,6 +152,9 @@ public class MaterialView: UIView {
 	*/
 	public override init(frame: CGRect) {
 		super.init(frame: frame)
+		prepareView()
+		prepareLayer()
+		prepareBounds()
 	}
 	
 	/**
@@ -150,8 +163,8 @@ public class MaterialView: UIView {
 	public convenience init() {
 		self.init(frame: CGRectMake(MaterialTheme.view.x, MaterialTheme.view.y, MaterialTheme.view.width, MaterialTheme.view.height))
 		prepareView()
-		prepareFrame()
 		prepareLayer()
+		prepareBounds()
 	}
 	
 	/**
@@ -163,13 +176,13 @@ public class MaterialView: UIView {
 	}
 	
 	/**
-		:name:	prepareFrame
+		:name:	prepareBounds
 	*/
-	internal func prepareFrame() {
-		x = frame.origin.x
-		y = frame.origin.y
-		width = frame.size.width
-		height = frame.size.height
+	internal func prepareBounds() {
+		self.x = frame.origin.x
+		self.y = frame.origin.y
+		self.width = frame.size.width
+		self.height = frame.size.height
 	}
 	
 	/**

@@ -49,7 +49,7 @@ public class MaterialCardView : UIView {
 	/**
 		:name:	pulseColor
 	*/
-	public var pulseColor: UIColor? = MaterialTheme.blueGrey.lighten3
+	public var pulseColor: UIColor? = MaterialTheme.color.blueGrey.lighten3
 	
 	/**
 		:name:	init
@@ -113,7 +113,7 @@ public class MaterialCardView : UIView {
 	//	:name:	prepareShadow
 	//
     internal func prepareShadow() {
-		layer.shadowColor = MaterialTheme.black.color.CGColor
+		layer.shadowColor = MaterialTheme.color.black.base.CGColor
 		layer.shadowOffset = CGSizeMake(0.1, 0.1)
 		layer.shadowOpacity = 0.4
 		layer.shadowRadius = 2
@@ -123,7 +123,7 @@ public class MaterialCardView : UIView {
 	//	:name:	removeShadow
 	//
 	internal func removeShadow() {
-		layer.shadowColor = MaterialTheme.clear.color.CGColor
+		layer.shadowColor = MaterialTheme.color.clear.base.CGColor
 		layer.shadowOffset = CGSizeMake(0, 0)
 		layer.shadowOpacity = 0
 		layer.shadowRadius = 0
