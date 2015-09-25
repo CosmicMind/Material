@@ -18,12 +18,18 @@
 
 import UIKit
 
-public struct Roboto {
+// font
+public struct MaterialFont {
+	/**
+		:name:	pointSize
+	*/
+	public static var pointSize: CGFloat = 16
+	
 	/**
 		:name:	thin
 	*/
 	public static var thin: UIFont {
-		return thinWithSize(MaterialTheme.font.pointSize)
+		return thinWithSize(MaterialFont.pointSize)
 	}
 	
 	/**
@@ -40,58 +46,58 @@ public struct Roboto {
 		:name:	light
 	*/
 	public static var light: UIFont {
-		return lightWithSize(MaterialTheme.font.pointSize)
+		return lightWithSize(MaterialFont.pointSize)
 	}
 	
 	/**
 		:name:	lightWithSize
 	*/
-    public static func lightWithSize(size: CGFloat) -> UIFont {
-        if let f = UIFont(name: "Roboto-Light", size: size) {
-            return f
-        }
+	public static func lightWithSize(size: CGFloat) -> UIFont {
+		if let f = UIFont(name: "Roboto-Light", size: size) {
+			return f
+		}
 		return UIFont.systemFontOfSize(size)
-    }
+	}
 	
 	/**
 		:name:	regular
 	*/
 	public static var regular: UIFont {
-		return regularWithSize(MaterialTheme.font.pointSize)
+		return regularWithSize(MaterialFont.pointSize)
 	}
 	
 	/**
 		:name:	mediumWithSize
 	*/
-    public static func mediumWithSize(size: CGFloat) -> UIFont {
-        if let f = UIFont(name: "Roboto-Medium", size: size) {
-            return f
-        }
+	public static func mediumWithSize(size: CGFloat) -> UIFont {
+		if let f = UIFont(name: "Roboto-Medium", size: size) {
+			return f
+		}
 		return UIFont.systemFontOfSize(size)
-    }
+	}
 	
 	/**
 		:name:	medium
 	*/
 	public static var medium: UIFont {
-		return mediumWithSize(MaterialTheme.font.pointSize)
+		return mediumWithSize(MaterialFont.pointSize)
 	}
 	
 	/**
 		:name:	regularWithSize
 	*/
-    public static func regularWithSize(size: CGFloat) -> UIFont {
-        if let f = UIFont(name: "Roboto-Regular", size: size) {
-            return f
-        }
+	public static func regularWithSize(size: CGFloat) -> UIFont {
+		if let f = UIFont(name: "Roboto-Regular", size: size) {
+			return f
+		}
 		return UIFont.systemFontOfSize(size)
-    }
+	}
 	
 	/**
 		:name:	bold
 	*/
 	public static var bold: UIFont {
-		return boldWithSize(MaterialTheme.font.pointSize)
+		return boldWithSize(MaterialFont.pointSize)
 	}
 	
 	/**

@@ -18,16 +18,65 @@
 
 import UIKit
 
-public struct MaterialTheme {}
-
-// spacing
-public extension MaterialTheme {
-	public static var cardVerticalInset: CGFloat = 16
-	public static var cardHorizontalInset: CGFloat = 16
-	
-	public static var buttonVerticalInset: CGFloat = 6
-	public static var buttonHorizontalInset: CGFloat = 16
-	
-	public static var navigationVerticalInset: CGFloat = 8
-	public static var navigationHorizontalInset: CGFloat = 8
+public struct MaterialTheme {
+	public struct view {}
+	public struct navigation {}
 }
+
+// view
+public extension MaterialTheme.view {
+	// frame
+	public static var x: CGFloat = 0
+	public static let y: CGFloat = 0
+	public static let width: CGFloat = UIScreen.mainScreen().bounds.width
+	public static let height: CGFloat = UIScreen.mainScreen().bounds.height
+	
+	// layer
+	public static let shadowColor: UIColor = MaterialColor.blueGrey.darken4
+	public static let shadowOffset: CGSize = CGSizeMake(0.2, 0.2)
+	public static let shadowOpacity: Float = 0.5
+	public static let shadowRadius: CGFloat = 1
+	public static let masksToBounds: Bool = false
+	
+	// color
+	public static let backgroudColor: UIColor = MaterialColor.white.color
+	
+	// interaction
+	public static let userInteractionEnabled: Bool = true
+	
+	// image
+	public static let contentsRect: CGRect = CGRectMake(0, 0, 1, 1)
+	public static let contentsCenter: CGRect = CGRectMake(0, 0, 1, 1)
+	public static let contentsScale: CGFloat = UIScreen.mainScreen().scale
+	public static let contentsGravity: MaterialGravity = .ResizeAspectFill
+}
+
+// navigation
+public extension MaterialTheme.navigation {
+	// frame
+	public static let x: CGFloat = MaterialTheme.view.x
+	public static let y: CGFloat = MaterialTheme.view.y
+	public static let width: CGFloat = MaterialTheme.view.width
+	public static let height: CGFloat = 70
+	
+	// layer
+	public static let shadowColor: UIColor = MaterialTheme.view.shadowColor
+	public static let shadowOffset: CGSize = MaterialTheme.view.shadowOffset
+	public static let shadowOpacity: Float = MaterialTheme.view.shadowOpacity
+	public static let shadowRadius: CGFloat = MaterialTheme.view.shadowRadius
+	public static let masksToBounds: Bool = MaterialTheme.view.masksToBounds
+	
+	// color
+	public static let backgroudColor: UIColor = MaterialColor.blue.accent2
+	public static let lightContentStatusBar: Bool = true
+	
+	// interaction
+	public static let userInteractionEnabled: Bool = false
+	
+	// image
+	public static let contentsRect: CGRect = MaterialTheme.view.contentsRect
+	public static let contentsCenter: CGRect = MaterialTheme.view.contentsCenter
+	public static let contentsScale: CGFloat = MaterialTheme.view.contentsScale
+	public static let contentsGravity: MaterialGravity = MaterialTheme.view.contentsGravity
+}
+
