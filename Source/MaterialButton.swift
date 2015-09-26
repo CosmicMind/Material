@@ -18,52 +18,7 @@
 
 import UIKit
 
-public class MaterialView: UIView {
-	/**
-		:name:	image
-	*/
-	public var image: UIImage? {
-		didSet {
-			layer.contents = image?.CGImage
-		}
-	}
-	
-	/**
-		:name:	contentsRect
-	*/
-	public var contentsRect: CGRect! {
-		didSet {
-			layer.contentsRect = contentsRect
-		}
-	}
-	
-	/**
-		:name:	contentsCenter
-	*/
-	public var contentsCenter: CGRect! {
-		didSet {
-			layer.contentsCenter = contentsCenter
-		}
-	}
-	
-	/**
-		:name:	contentsScale
-	*/
-	public var contentsScale: CGFloat! {
-		didSet {
-			layer.contentsScale = contentsScale
-		}
-	}
-	
-	/**
-		:name:	contentsGravity
-	*/
-	public var contentsGravity: MaterialGravity! {
-		didSet {
-			layer.contentsGravity = MaterialGravityToString(contentsGravity)
-		}
-	}
-	
+public class MaterialButton : UIButton {
 	/**
 		:name:	backgroundColor
 	*/
@@ -179,6 +134,11 @@ public class MaterialView: UIView {
 	}
 	
 	/**
+		:name:	pulseColor
+	*/
+	public var pulseColor: UIColor? = MaterialColor.white
+	
+	/**
 		:name:	init
 	*/
 	public required init?(coder aDecoder: NSCoder) {
@@ -195,19 +155,36 @@ public class MaterialView: UIView {
 		prepareBounds()
 	}
 	
-	/**
-		:name:	init
-	*/
 	public convenience init() {
-		self.init(frame: CGRectMake(MaterialTheme.view.x, MaterialTheme.view.y, MaterialTheme.view.width, MaterialTheme.view.height))
+		self.init(frame: CGRectMake(0, 0, 100, 100))
+	}
+	
+	/**
+		:name:	touchesBegan
+	*/
+	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+		super.touchesBegan(touches, withEvent: event)
+	}
+	
+	/**
+		:name:	touchesEnded
+	*/
+	public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+		super.touchesEnded(touches, withEvent: event)
+	}
+	
+	/**
+		:name:	touchesCancelled
+	*/
+	public override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
+		super.touchesCancelled(touches, withEvent: event)
 	}
 	
 	//
 	//	:name:	prepareView
 	//
 	internal func prepareView() {
-		userInteractionEnabled = MaterialTheme.view.userInteractionEnabled
-		backgroundColor = MaterialTheme.view.backgroudColor
+		userInteractionEnabled = MaterialTheme.button.userInteractionEnabled
 	}
 	
 	//
@@ -224,14 +201,6 @@ public class MaterialView: UIView {
 	//	:name:	prepareLayer
 	//
 	internal func prepareLayer() {
-		contentsRect = MaterialTheme.view.contentsRect
-		contentsCenter = MaterialTheme.view.contentsCenter
-		contentsScale = MaterialTheme.view.contentsScale
-		contentsGravity = MaterialTheme.view.contentsGravity
-		shadow = MaterialTheme.view.shadow
-		shadowColor = MaterialTheme.view.shadowColor
-		zPosition = MaterialTheme.view.zPosition
-		masksToBounds = MaterialTheme.view.masksToBounds
+		
 	}
 }
-

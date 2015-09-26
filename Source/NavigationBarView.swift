@@ -33,30 +33,30 @@ public class NavigationBarView: MaterialView {
 	*/
 	public convenience init() {
 		self.init(frame: CGRectMake(MaterialTheme.navigation.x, MaterialTheme.navigation.y, MaterialTheme.navigation.width, MaterialTheme.navigation.height))
-		prepareView()
-		prepareLayer()
-		prepareBounds()
 	}
 	
-	/**
-		:name:	prepareView
-	*/
+	//
+	//	:name:	prepareView
+	//
 	internal override func prepareView() {
+		super.prepareView()
 		userInteractionEnabled = MaterialTheme.navigation.userInteractionEnabled
 		backgroundColor = MaterialTheme.navigation.backgroudColor
 		lightContentStatusBar = MaterialTheme.navigation.lightContentStatusBar
 	}
 	
-	/**
-		:name:	prepareLayer
-	*/
+	//
+	//	:name:	prepareLayer
+	//
 	internal override func prepareLayer() {
+		super.prepareLayer()
 		contentsRect = MaterialTheme.navigation.contentsRect
 		contentsCenter = MaterialTheme.navigation.contentsCenter
 		contentsScale = MaterialTheme.navigation.contentsScale
 		contentsGravity = MaterialTheme.navigation.contentsGravity
 		shadow = MaterialTheme.navigation.shadow
 		shadowColor = MaterialTheme.navigation.shadowColor
+		zPosition = MaterialTheme.navigation.zPosition
 		masksToBounds = MaterialTheme.navigation.masksToBounds
 	}
 }

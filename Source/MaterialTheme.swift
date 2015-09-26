@@ -21,6 +21,11 @@ import UIKit
 public struct MaterialTheme {
 	public struct view {}
 	public struct navigation {}
+	public struct button {
+		public struct fab {}
+		public struct flat {}
+		public struct raised {}
+	}
 }
 
 // view
@@ -47,6 +52,9 @@ public extension MaterialTheme.view {
 	public static let contentsCenter: CGRect = CGRectMake(0, 0, 1, 1)
 	public static let contentsScale: CGFloat = UIScreen.mainScreen().scale
 	public static let contentsGravity: MaterialGravity = .ResizeAspectFill
+	
+	// position
+	public static let zPosition: CGFloat = 0
 }
 
 // navigation
@@ -74,5 +82,59 @@ public extension MaterialTheme.navigation {
 	public static let contentsCenter: CGRect = MaterialTheme.view.contentsCenter
 	public static let contentsScale: CGFloat = MaterialTheme.view.contentsScale
 	public static let contentsGravity: MaterialGravity = MaterialTheme.view.contentsGravity
+	
+	// position
+	public static let zPosition: CGFloat = 100
 }
 
+// button
+public extension MaterialTheme.button {
+	// shadow
+	public static let shadow: MaterialShadow = .Depth0
+	public static let shadowColor: UIColor = MaterialTheme.view.shadowColor
+	public static let masksToBounds: Bool = MaterialTheme.view.masksToBounds
+	
+	// color
+	public static let backgroudColor: UIColor = MaterialColor.clear
+	public static let titleLabelColorForNormalState: UIColor = MaterialColor.blueGrey.darken4
+	
+	// interaction
+	public static let userInteractionEnabled: Bool = true
+	
+	// position
+	public static let zPosition: CGFloat = 200
+	
+	// font
+	public static let titleLabelFont: UIFont = RobotoFont.regular
+}
+
+// button.flat
+public extension MaterialTheme.button.flat {
+	// shadow
+	public static let shadow: MaterialShadow = MaterialTheme.button.shadow
+	public static let shadowColor: UIColor = MaterialTheme.button.shadowColor
+	public static let masksToBounds: Bool = MaterialTheme.button.masksToBounds
+	
+	// color
+	public static let backgroudColor: UIColor = MaterialTheme.button.backgroudColor
+	public static let titleLabelColorForNormalState: UIColor = MaterialTheme.button.titleLabelColorForNormalState
+	
+	// interaction
+	public static let userInteractionEnabled: Bool = MaterialTheme.button.userInteractionEnabled
+	
+	// position
+	public static let zPosition: CGFloat = MaterialTheme.button.zPosition
+	
+	// font
+	public static let titleLabelFont: UIFont = RobotoFont.regular
+}
+
+// button.fab
+public extension MaterialTheme.button.fab {
+	
+}
+
+// button.raised
+public extension MaterialTheme.button.raised {
+	
+}
