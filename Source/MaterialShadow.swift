@@ -18,6 +18,8 @@
 
 import UIKit
 
+public typealias MaterialShadowType = (offset: CGSize, opacity: Float, radius: CGFloat)
+
 public enum MaterialShadow {
 	case Depth0
 	case Depth1
@@ -30,7 +32,7 @@ public enum MaterialShadow {
 /**
 	:name:	MaterialShadowToValues
 */
-public func MaterialShadowToValues(shadow: MaterialShadow) -> (offset: CGSize, opacity: Float, radius: CGFloat) {
+public func MaterialShadowToValues(shadow: MaterialShadow) -> MaterialShadowType {
 	switch shadow {
 	case .Depth0:
 		return (offset: CGSizeZero, opacity: 0, radius: 0)

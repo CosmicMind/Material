@@ -18,6 +18,17 @@
 		65BDD1591BB6FE3E006F7F2B /* FlatButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1581BB6FE3E006F7F2B /* FlatButton.swift */; settings = {ASSET_TAGS = (); }; };
 		65BDD15B1BB7095E006F7F2B /* MaterialRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD15A1BB7095E006F7F2B /* MaterialRadius.swift */; settings = {ASSET_TAGS = (); }; };
 		65BDD15D1BB70D60006F7F2B /* MaterialInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD15C1BB70D60006F7F2B /* MaterialInsets.swift */; settings = {ASSET_TAGS = (); }; };
+		65BDD15E1BB7111E006F7F2B /* MaterialTheme.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65BDD14C1BB5ED9F006F7F2B /* MaterialTheme.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		65BDD15F1BB7111E006F7F2B /* MaterialColor.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65BDD1481BB5DC98006F7F2B /* MaterialColor.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		65BDD1601BB7111E006F7F2B /* MaterialGravity.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65BDD14E1BB5EE4A006F7F2B /* MaterialGravity.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		65BDD1611BB7111E006F7F2B /* MaterialShadow.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65BDD1531BB6F473006F7F2B /* MaterialShadow.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		65BDD1621BB7111E006F7F2B /* MaterialRadius.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65BDD15A1BB7095E006F7F2B /* MaterialRadius.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		65BDD1631BB7111E006F7F2B /* MaterialInsets.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65BDD15C1BB70D60006F7F2B /* MaterialInsets.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		65BDD1641BB7111E006F7F2B /* MaterialFont.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65BDD14A1BB5DD02006F7F2B /* MaterialFont.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		65BDD1651BB7111E006F7F2B /* RobotoFont.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65BDD1511BB6EE7C006F7F2B /* RobotoFont.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		65BDD1661BB7111E006F7F2B /* MaterialView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65BDD1461BB5B916006F7F2B /* MaterialView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		65BDD1671BB7111E006F7F2B /* MaterialButton.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65BDD1561BB6FC82006F7F2B /* MaterialButton.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		65BDD1681BB7111E006F7F2B /* FlatButton.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65BDD1581BB6FE3E006F7F2B /* FlatButton.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		65DBE4201B9A9244000C804F /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 65DBE41E1B9A9244000C804F /* Roboto-Bold.ttf */; };
 		65DBE4211B9A9244000C804F /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 65DBE41F1B9A9244000C804F /* Roboto-Thin.ttf */; };
 		962F3E531BACA68C0004B8AD /* NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962F3E521BACA68C0004B8AD /* NavigationBarView.swift */; };
@@ -202,6 +213,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				962F3E541BACA7FB0004B8AD /* NavigationBarView.swift in Headers */,
+				65BDD15E1BB7111E006F7F2B /* MaterialTheme.swift in Headers */,
+				65BDD15F1BB7111E006F7F2B /* MaterialColor.swift in Headers */,
+				65BDD1601BB7111E006F7F2B /* MaterialGravity.swift in Headers */,
+				65BDD1611BB7111E006F7F2B /* MaterialShadow.swift in Headers */,
+				65BDD1621BB7111E006F7F2B /* MaterialRadius.swift in Headers */,
+				65BDD1631BB7111E006F7F2B /* MaterialInsets.swift in Headers */,
+				65BDD1641BB7111E006F7F2B /* MaterialFont.swift in Headers */,
+				65BDD1651BB7111E006F7F2B /* RobotoFont.swift in Headers */,
+				65BDD1661BB7111E006F7F2B /* MaterialView.swift in Headers */,
+				65BDD1671BB7111E006F7F2B /* MaterialButton.swift in Headers */,
+				65BDD1681BB7111E006F7F2B /* FlatButton.swift in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

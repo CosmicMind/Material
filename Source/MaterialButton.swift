@@ -133,7 +133,7 @@ public class MaterialButton : UIButton {
 	*/
 	public var shadow: MaterialShadow! {
 		didSet {
-			let value: (offset: CGSize, opacity: Float, radius: CGFloat) = MaterialShadowToValues(shadow)
+			let value: MaterialShadowType = MaterialShadowToValues(shadow)
 			shadowOffset = value.offset
 			shadowOpacity = value.opacity
 			shadowRadius = value.radius
@@ -154,8 +154,8 @@ public class MaterialButton : UIButton {
 	*/
 	public var contentInsets: MaterialInsets! {
 		didSet {
-			let inset: (top: CGFloat, left: CGFloat, bottom: CGFloat, right: CGFloat) = MaterialInsetsToValues(contentInsets)
-			contentEdgeInsets = UIEdgeInsetsMake(inset.top, inset.left, inset.bottom, inset.right)
+			let value: MaterialInsetsType = MaterialInsetsToValues(contentInsets)
+			contentEdgeInsets = UIEdgeInsetsMake(value.top, value.left, value.bottom, value.right)
 		}
 	}
 	

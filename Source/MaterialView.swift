@@ -178,7 +178,7 @@ public class MaterialView: UIView {
 	*/
 	public var shadow: MaterialShadow! {
 		didSet {
-			let value: (offset: CGSize, opacity: Float, radius: CGFloat) = MaterialShadowToValues(shadow)
+			let value: MaterialShadowType = MaterialShadowToValues(shadow)
 			shadowOffset = value.offset
 			shadowOpacity = value.opacity
 			shadowRadius = value.radius
