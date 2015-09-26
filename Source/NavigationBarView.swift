@@ -54,7 +54,7 @@ public class NavigationBarView: MaterialView {
 		contentsCenter = MaterialTheme.navigation.contentsCenter
 		contentsScale = MaterialTheme.navigation.contentsScale
 		contentsGravity = MaterialTheme.navigation.contentsGravity
-		shadow = MaterialTheme.navigation.shadow
+		shadowDepth = MaterialTheme.navigation.shadowDepth
 		shadowColor = MaterialTheme.navigation.shadowColor
 		zPosition = MaterialTheme.navigation.zPosition
 		masksToBounds = MaterialTheme.navigation.masksToBounds

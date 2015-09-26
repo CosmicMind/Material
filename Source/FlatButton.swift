@@ -38,7 +38,7 @@ public class FlatButton : MaterialButton {
 	//
 	internal override func prepareLayer() {
 		super.prepareLayer()
-		shadow = MaterialTheme.button.flat.shadow
+		shadowDepth = MaterialTheme.button.flat.shadowDepth
 		shadowColor = MaterialTheme.button.flat.shadowColor
 		zPosition = MaterialTheme.button.flat.zPosition
 		masksToBounds = MaterialTheme.button.flat.masksToBounds

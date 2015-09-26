@@ -190,11 +190,11 @@ public class MaterialView: UIView {
 	}
 	
 	/**
-		:name:	shadow
+		:name:	shadowDepth
 	*/
-	public var shadow: MaterialShadow! {
+	public var shadowDepth: MaterialShadow! {
 		didSet {
-			let value: MaterialShadowType = MaterialShadowToValue(shadow)
+			let value: MaterialShadowType = MaterialShadowToValue(shadowDepth)
 			shadowOffset = value.offset
 			shadowOpacity = value.opacity
 			shadowRadius = value.radius
@@ -260,7 +260,7 @@ public class MaterialView: UIView {
 		contentsCenter = MaterialTheme.view.contentsCenter
 		contentsScale = MaterialTheme.view.contentsScale
 		contentsGravity = MaterialTheme.view.contentsGravity
-		shadow = MaterialTheme.view.shadow
+		shadowDepth = MaterialTheme.view.shadowDepth
 		shadowColor = MaterialTheme.view.shadowColor
 		zPosition = MaterialTheme.view.zPosition
 		masksToBounds = MaterialTheme.view.masksToBounds

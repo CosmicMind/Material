@@ -37,7 +37,7 @@ public extension MaterialTheme.view {
 	public static let height: CGFloat = UIScreen.mainScreen().bounds.height
 	
 	// shadow
-	public static let shadow: MaterialShadow = .Depth0
+	public static let shadowDepth: MaterialShadow = .Depth0
 	public static let shadowColor: UIColor = MaterialColor.blueGrey.darken4
 	
 	// shape
@@ -73,7 +73,7 @@ public extension MaterialTheme.navigation {
 	public static let height: CGFloat = 70
 	
 	// shadow
-	public static let shadow: MaterialShadow = .Depth1
+	public static let shadowDepth: MaterialShadow = .Depth1
 	public static let shadowColor: UIColor = MaterialTheme.view.shadowColor
 	
 	// shape
@@ -104,7 +104,7 @@ public extension MaterialTheme.navigation {
 // button
 public extension MaterialTheme.button {
 	// shadow
-	public static let shadow: MaterialShadow = .Depth0
+	public static let shadowDepth: MaterialShadow = .Depth0
 	public static let shadowColor: UIColor = MaterialTheme.view.shadowColor
 	
 	// shape
@@ -133,7 +133,7 @@ public extension MaterialTheme.button {
 // button.flat
 public extension MaterialTheme.button.flat {
 	// shadow
-	public static let shadow: MaterialShadow = MaterialTheme.button.shadow
+	public static let shadowDepth: MaterialShadow = MaterialTheme.button.shadowDepth
 	public static let shadowColor: UIColor = MaterialTheme.button.shadowColor
 	
 	// shape
