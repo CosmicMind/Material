@@ -13,6 +13,7 @@
 		65BDD14D1BB5ED9F006F7F2B /* MaterialTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD14C1BB5ED9F006F7F2B /* MaterialTheme.swift */; settings = {ASSET_TAGS = (); }; };
 		65BDD14F1BB5EE4A006F7F2B /* MaterialGravity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD14E1BB5EE4A006F7F2B /* MaterialGravity.swift */; settings = {ASSET_TAGS = (); }; };
 		65BDD1521BB6EE7C006F7F2B /* RobotoFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1511BB6EE7C006F7F2B /* RobotoFont.swift */; settings = {ASSET_TAGS = (); }; };
+		65BDD1541BB6F473006F7F2B /* MaterialShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1531BB6F473006F7F2B /* MaterialShadow.swift */; settings = {ASSET_TAGS = (); }; };
 		65DBE4201B9A9244000C804F /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 65DBE41E1B9A9244000C804F /* Roboto-Bold.ttf */; };
 		65DBE4211B9A9244000C804F /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 65DBE41F1B9A9244000C804F /* Roboto-Thin.ttf */; };
 		962F3E531BACA68C0004B8AD /* NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962F3E521BACA68C0004B8AD /* NavigationBarView.swift */; };
@@ -42,6 +43,7 @@
 		65BDD14C1BB5ED9F006F7F2B /* MaterialTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialTheme.swift; sourceTree = "<group>"; };
 		65BDD14E1BB5EE4A006F7F2B /* MaterialGravity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialGravity.swift; sourceTree = "<group>"; };
 		65BDD1511BB6EE7C006F7F2B /* RobotoFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RobotoFont.swift; sourceTree = "<group>"; };
+		65BDD1531BB6F473006F7F2B /* MaterialShadow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialShadow.swift; sourceTree = "<group>"; };
 		65DBE41E1B9A9244000C804F /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		65DBE41F1B9A9244000C804F /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		962F3E521BACA68C0004B8AD /* NavigationBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				65BDD14C1BB5ED9F006F7F2B /* MaterialTheme.swift */,
 				65BDD1481BB5DC98006F7F2B /* MaterialColor.swift */,
 				65BDD14E1BB5EE4A006F7F2B /* MaterialGravity.swift */,
+				65BDD1531BB6F473006F7F2B /* MaterialShadow.swift */,
 			);
 			name = Theme;
 			sourceTree = "<group>";
@@ -290,6 +293,7 @@
 				65BDD1521BB6EE7C006F7F2B /* RobotoFont.swift in Sources */,
 				962F3E531BACA68C0004B8AD /* NavigationBarView.swift in Sources */,
 				65BDD14F1BB5EE4A006F7F2B /* MaterialGravity.swift in Sources */,
+				65BDD1541BB6F473006F7F2B /* MaterialShadow.swift in Sources */,
 				65BDD14B1BB5DD02006F7F2B /* MaterialFont.swift in Sources */,
 				65BDD1491BB5DC98006F7F2B /* MaterialColor.swift in Sources */,
 				65BDD14D1BB5ED9F006F7F2B /* MaterialTheme.swift in Sources */,

@@ -158,6 +158,18 @@ public class MaterialView: UIView {
 	}
 	
 	/**
+		:name:	shadow
+	*/
+	public var shadow: MaterialShadow! {
+		didSet {
+			let value: (offset: CGSize, opacity: Float, radius: CGFloat) = MaterialShadowToValues(shadow)
+			shadowOffset = value.offset
+			shadowOpacity = value.opacity
+			shadowRadius = value.radius
+		}
+	}
+	
+	/**
 		:name:	init
 	*/
 	public required init?(coder aDecoder: NSCoder) {
@@ -210,10 +222,8 @@ public class MaterialView: UIView {
 		contentsCenter = MaterialTheme.view.contentsCenter
 		contentsScale = MaterialTheme.view.contentsScale
 		contentsGravity = MaterialTheme.view.contentsGravity
+		shadow = MaterialTheme.view.shadow
 		shadowColor = MaterialTheme.view.shadowColor
-		shadowOffset = MaterialTheme.view.shadowOffset
-		shadowOpacity = MaterialTheme.view.shadowOpacity
-		shadowRadius = MaterialTheme.view.shadowRadius
 		masksToBounds = MaterialTheme.view.masksToBounds
 	}
 }

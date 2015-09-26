@@ -31,11 +31,9 @@ public extension MaterialTheme.view {
 	public static let width: CGFloat = UIScreen.mainScreen().bounds.width
 	public static let height: CGFloat = UIScreen.mainScreen().bounds.height
 	
-	// layer
+	// shadow
+	public static let shadow: MaterialShadow = .Depth0
 	public static let shadowColor: UIColor = MaterialColor.blueGrey.darken4
-	public static let shadowOffset: CGSize = CGSizeMake(0.2, 0.2)
-	public static let shadowOpacity: Float = 0.5
-	public static let shadowRadius: CGFloat = 1
 	public static let masksToBounds: Bool = false
 	
 	// color
@@ -59,11 +57,9 @@ public extension MaterialTheme.navigation {
 	public static let width: CGFloat = MaterialTheme.view.width
 	public static let height: CGFloat = 70
 	
-	// layer
+	// shadow
+	public static let shadow: MaterialShadow = .Depth1
 	public static let shadowColor: UIColor = MaterialTheme.view.shadowColor
-	public static let shadowOffset: CGSize = MaterialTheme.view.shadowOffset
-	public static let shadowOpacity: Float = MaterialTheme.view.shadowOpacity
-	public static let shadowRadius: CGFloat = MaterialTheme.view.shadowRadius
 	public static let masksToBounds: Bool = MaterialTheme.view.masksToBounds
 	
 	// color
