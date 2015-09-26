@@ -29,6 +29,7 @@ public class FlatButton : MaterialButton {
 		backgroundColor = MaterialColor.red.base //MaterialTheme.button.flat.backgroudColor
 		cornerRadius = MaterialTheme.button.flat.cornerRadius
 		contentInsets = MaterialTheme.button.flat.contentInsets
+		border = MaterialTheme.button.flat.border
 	}
 	
 	//

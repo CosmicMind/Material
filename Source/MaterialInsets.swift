@@ -30,9 +30,9 @@ public enum MaterialInsets {
 }
 
 /**
-	:name:	MaterialInsetsToValues
+	:name:	MaterialInsetsToValue
 */
-public func MaterialInsetsToValues(inset: MaterialInsets) -> MaterialInsetsType {
+public func MaterialInsetsToValue(inset: MaterialInsets) -> MaterialInsetsType {
 	switch inset {
 	case .Inset0:
 		return (top: 0, left: 0, bottom: 0, right: 0)

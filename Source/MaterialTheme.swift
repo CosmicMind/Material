@@ -44,6 +44,9 @@ public extension MaterialTheme.view {
 	public static let masksToBounds: Bool = false
 	public static let cornerRadius: MaterialRadius = .Square
 	
+	// border
+	public static let border: MaterialBorder = .None
+	
 	// color
 	public static let backgroudColor: UIColor = MaterialColor.white
 	
@@ -76,6 +79,9 @@ public extension MaterialTheme.navigation {
 	public static let masksToBounds: Bool = MaterialTheme.view.masksToBounds
 	public static let cornerRadius: MaterialRadius = MaterialTheme.view.cornerRadius
 	
+	// border
+	public static let border: MaterialBorder = MaterialTheme.view.border
+	
 	// color
 	public static let backgroudColor: UIColor = MaterialColor.blue.accent3
 	public static let lightContentStatusBar: Bool = true
@@ -101,8 +107,11 @@ public extension MaterialTheme.button {
 	
 	// shape
 	public static let masksToBounds: Bool = MaterialTheme.view.masksToBounds
-	public static let cornerRadius: MaterialRadius = .Smooth
+	public static let cornerRadius: MaterialRadius = .Light
 	public static let contentInsets: MaterialInsets = .Inset2
+	
+	// border
+	public static let border: MaterialBorder = MaterialTheme.view.border
 	
 	// color
 	public static let backgroudColor: UIColor = MaterialColor.clear
@@ -128,6 +137,9 @@ public extension MaterialTheme.button.flat {
 	public static let masksToBounds: Bool = MaterialTheme.button.masksToBounds
 	public static let cornerRadius: MaterialRadius = MaterialTheme.button.cornerRadius
 	public static let contentInsets: MaterialInsets = MaterialTheme.button.contentInsets
+	
+	// border
+	public static let border: MaterialBorder = MaterialTheme.button.border
 	
 	// color
 	public static let backgroudColor: UIColor = MaterialTheme.button.backgroudColor

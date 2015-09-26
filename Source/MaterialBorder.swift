@@ -18,33 +18,33 @@
 
 import UIKit
 
-public typealias MaterialShadowType = (offset: CGSize, opacity: Float, radius: CGFloat)
+public typealias MaterialBorderType = CGFloat
 
-public enum MaterialShadow {
-	case Depth0
-	case Depth1
-	case Depth2
-	case Depth3
-	case Depth4
-	case Depth5
+public enum MaterialBorder : MaterialBorderType {
+	case None
+	case Thin
+	case Light
+	case Regular
+	case Medium
+	case Thick
 }
 
 /**
-	:name:	MaterialShadowToValue
+	:name:	MaterialBorderToValue
 */
-public func MaterialShadowToValue(shadow: MaterialShadow) -> MaterialShadowType {
-	switch shadow {
-	case .Depth0:
-		return (offset: CGSizeZero, opacity: 0, radius: 0)
-	case .Depth1:
-		return (offset: CGSizeMake(0.2, 0.2), opacity: 0.5, radius: 1)
-	case .Depth2:
-		return (offset: CGSizeMake(0.4, 0.4), opacity: 0.5, radius: 2)
-	case .Depth3:
-		return (offset: CGSizeMake(0.6, 0.6), opacity: 0.5, radius: 3)
-	case .Depth4:
-		return (offset: CGSizeMake(0.8, 0.8), opacity: 0.5, radius: 4)
-	case .Depth5:
-		return (offset: CGSizeMake(1, 1), opacity: 0.5, radius: 5)
+public func MaterialBorderToValue(border: MaterialBorder) -> MaterialBorderType {
+	switch border {
+	case .None:
+		return 0
+	case .Thin:
+		return 0.5
+	case .Light:
+		return 1
+	case .Regular:
+		return 2
+	case .Medium:
+		return 3
+	case .Thick:
+		return 4
 	}
 }

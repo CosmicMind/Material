@@ -163,13 +163,20 @@ public class MaterialView: UIView {
 	public var cornerRadius: MaterialRadius! {
 		didSet {
 			switch cornerRadius! {
-			case .Square:
-				layer.cornerRadius = 0
-			case .Smooth:
-				layer.cornerRadius = 4
+			case .Square, .Light, .Regular, .Medium, .Heavy:
+				layer.cornerRadius = MaterialRadiusToValue(cornerRadius!)
 			case .Round:
 				layer.cornerRadius = bounds.width / 2
 			}
+		}
+	}
+	
+	/**
+		:name:	border
+	*/
+	public var border: MaterialBorder! {
+		didSet {
+			layer.borderWidth = MaterialBorderToValue(border)
 		}
 	}
 	
@@ -178,7 +185,7 @@ public class MaterialView: UIView {
 	*/
 	public var shadow: MaterialShadow! {
 		didSet {
-			let value: MaterialShadowType = MaterialShadowToValues(shadow)
+			let value: MaterialShadowType = MaterialShadowToValue(shadow)
 			shadowOffset = value.offset
 			shadowOpacity = value.opacity
 			shadowRadius = value.radius
