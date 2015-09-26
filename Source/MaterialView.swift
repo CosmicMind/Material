@@ -90,7 +90,7 @@ public class MaterialView: UIView {
 	*/
 	public var y: CGFloat! {
 		didSet {
-			layer.bounds.origin = CGPointMake(x, y)
+			layer.bounds.origin.y = y
 		}
 	}
 	

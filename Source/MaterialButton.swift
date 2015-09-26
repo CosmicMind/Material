@@ -45,7 +45,7 @@ public class MaterialButton : UIButton {
 	*/
 	public var y: CGFloat! {
 		didSet {
-			layer.bounds.origin = CGPointMake(x, y)
+			layer.bounds.origin.y = y
 		}
 	}
 	

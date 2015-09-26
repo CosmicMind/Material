@@ -38,7 +38,7 @@ public extension MaterialTheme.view {
 	
 	// shadow
 	public static let shadowDepth: MaterialShadow = .Depth0
-	public static let shadowColor: UIColor = MaterialColor.blueGrey.darken4
+	public static let shadowColor: UIColor = MaterialColor.black
 	
 	// shape
 	public static let masksToBounds: Bool = false
