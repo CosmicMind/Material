@@ -113,6 +113,22 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
+		:name:	cornerRadius
+	*/
+	public var cornerRadius: MaterialRadius! {
+		didSet {
+			switch cornerRadius! {
+			case .Square:
+				layer.cornerRadius = 0
+			case .Smooth:
+				layer.cornerRadius = 4
+			case .Round:
+				layer.cornerRadius = bounds.width / 2
+			}
+		}
+	}
+	
+	/**
 		:name:	shadow
 	*/
 	public var shadow: MaterialShadow! {
@@ -130,6 +146,16 @@ public class MaterialButton : UIButton {
 	public var zPosition: CGFloat! {
 		didSet {
 			layer.zPosition = zPosition
+		}
+	}
+	
+	/**
+		:name:	contentInsets
+	*/
+	public var contentInsets: MaterialInsets! {
+		didSet {
+			let inset: (top: CGFloat, left: CGFloat, bottom: CGFloat, right: CGFloat) = MaterialInsetsToValues(contentInsets)
+			contentEdgeInsets = UIEdgeInsetsMake(inset.top, inset.left, inset.bottom, inset.right)
 		}
 	}
 	

@@ -18,27 +18,31 @@
 
 import UIKit
 
-public class FlatButton : MaterialButton {
-	//
-	//	:name:	prepareView
-	//
-	internal override func prepareView() {
-		super.prepareView()
-		setTitleColor(MaterialTheme.button.flat.titleLabelColorForNormalState, forState: .Normal)
-		titleLabel!.font = MaterialTheme.button.flat.titleLabelFont
-		backgroundColor = MaterialColor.red.base //MaterialTheme.button.flat.backgroudColor
-		cornerRadius = MaterialTheme.button.flat.cornerRadius
-		contentInsets = MaterialTheme.button.flat.contentInsets
-	}
-	
-	//
-	//	:name:	prepareLayer
-	//
-	internal override func prepareLayer() {
-		super.prepareLayer()
-		shadow = MaterialTheme.button.flat.shadow
-		shadowColor = MaterialTheme.button.flat.shadowColor
-		zPosition = MaterialTheme.button.flat.zPosition
-		masksToBounds = MaterialTheme.button.flat.masksToBounds
+public enum MaterialInsets {
+	case Inset0
+	case Inset1
+	case Inset2
+	case Inset3
+	case Inset4
+	case Inset5
+}
+
+/**
+	:name:	MaterialInsetsToValues
+*/
+public func MaterialInsetsToValues(inset: MaterialInsets) -> (top: CGFloat, left: CGFloat, bottom: CGFloat, right: CGFloat) {
+	switch inset {
+	case .Inset0:
+		return (top: 0, left: 0, bottom: 0, right: 0)
+	case .Inset1:
+		return (top: 4, left: 4, bottom: 4, right: 4)
+	case .Inset2:
+		return (top: 8, left: 8, bottom: 8, right: 8)
+	case .Inset3:
+		return (top: 12, left: 12, bottom: 12, right: 12)
+	case .Inset4:
+		return (top: 16, left: 16, bottom: 16, right: 16)
+	case .Inset5:
+		return (top: 20, left: 18, bottom: 20, right: 20)
 	}
 }

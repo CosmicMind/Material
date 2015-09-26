@@ -39,7 +39,10 @@ public extension MaterialTheme.view {
 	// shadow
 	public static let shadow: MaterialShadow = .Depth0
 	public static let shadowColor: UIColor = MaterialColor.blueGrey.darken4
+	
+	// shape
 	public static let masksToBounds: Bool = false
+	public static let cornerRadius: MaterialRadius = .Square
 	
 	// color
 	public static let backgroudColor: UIColor = MaterialColor.white
@@ -68,7 +71,10 @@ public extension MaterialTheme.navigation {
 	// shadow
 	public static let shadow: MaterialShadow = .Depth1
 	public static let shadowColor: UIColor = MaterialTheme.view.shadowColor
+	
+	// shape
 	public static let masksToBounds: Bool = MaterialTheme.view.masksToBounds
+	public static let cornerRadius: MaterialRadius = MaterialTheme.view.cornerRadius
 	
 	// color
 	public static let backgroudColor: UIColor = MaterialColor.blue.accent3
@@ -92,7 +98,11 @@ public extension MaterialTheme.button {
 	// shadow
 	public static let shadow: MaterialShadow = .Depth0
 	public static let shadowColor: UIColor = MaterialTheme.view.shadowColor
+	
+	// shape
 	public static let masksToBounds: Bool = MaterialTheme.view.masksToBounds
+	public static let cornerRadius: MaterialRadius = .Smooth
+	public static let contentInsets: MaterialInsets = .Inset2
 	
 	// color
 	public static let backgroudColor: UIColor = MaterialColor.clear
@@ -113,7 +123,11 @@ public extension MaterialTheme.button.flat {
 	// shadow
 	public static let shadow: MaterialShadow = MaterialTheme.button.shadow
 	public static let shadowColor: UIColor = MaterialTheme.button.shadowColor
+	
+	// shape
 	public static let masksToBounds: Bool = MaterialTheme.button.masksToBounds
+	public static let cornerRadius: MaterialRadius = MaterialTheme.button.cornerRadius
+	public static let contentInsets: MaterialInsets = MaterialTheme.button.contentInsets
 	
 	// color
 	public static let backgroudColor: UIColor = MaterialTheme.button.backgroudColor

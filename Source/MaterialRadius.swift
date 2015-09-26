@@ -16,29 +16,8 @@
 // in a file called LICENSE.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-import UIKit
-
-public class FlatButton : MaterialButton {
-	//
-	//	:name:	prepareView
-	//
-	internal override func prepareView() {
-		super.prepareView()
-		setTitleColor(MaterialTheme.button.flat.titleLabelColorForNormalState, forState: .Normal)
-		titleLabel!.font = MaterialTheme.button.flat.titleLabelFont
-		backgroundColor = MaterialColor.red.base //MaterialTheme.button.flat.backgroudColor
-		cornerRadius = MaterialTheme.button.flat.cornerRadius
-		contentInsets = MaterialTheme.button.flat.contentInsets
-	}
-	
-	//
-	//	:name:	prepareLayer
-	//
-	internal override func prepareLayer() {
-		super.prepareLayer()
-		shadow = MaterialTheme.button.flat.shadow
-		shadowColor = MaterialTheme.button.flat.shadowColor
-		zPosition = MaterialTheme.button.flat.zPosition
-		masksToBounds = MaterialTheme.button.flat.masksToBounds
-	}
+public enum MaterialRadius {
+	case Square
+	case Smooth
+	case Round
 }

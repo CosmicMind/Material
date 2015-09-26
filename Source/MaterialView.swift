@@ -158,6 +158,22 @@ public class MaterialView: UIView {
 	}
 	
 	/**
+		:name:	cornerRadius
+	*/
+	public var cornerRadius: MaterialRadius! {
+		didSet {
+			switch cornerRadius! {
+			case .Square:
+				layer.cornerRadius = 0
+			case .Smooth:
+				layer.cornerRadius = 4
+			case .Round:
+				layer.cornerRadius = bounds.width / 2
+			}
+		}
+	}
+	
+	/**
 		:name:	shadow
 	*/
 	public var shadow: MaterialShadow! {
@@ -232,6 +248,7 @@ public class MaterialView: UIView {
 		shadowColor = MaterialTheme.view.shadowColor
 		zPosition = MaterialTheme.view.zPosition
 		masksToBounds = MaterialTheme.view.masksToBounds
+		cornerRadius = MaterialTheme.view.cornerRadius
 	}
 }
 
