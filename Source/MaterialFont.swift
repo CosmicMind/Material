@@ -18,95 +18,32 @@
 
 import UIKit
 
-// font
-public struct MaterialFont {
+public protocol MaterialFontType {}
+
+public struct MaterialFont : MaterialFontType {
 	/**
 		:name:	pointSize
 	*/
-	public static var pointSize: CGFloat = 16
+	public static let pointSize: CGFloat = 16
 	
 	/**
-		:name:	thin
+		:name:	systemFontWithSize
 	*/
-	public static var thin: UIFont {
-		return thinWithSize(MaterialFont.pointSize)
-	}
-	
-	/**
-		:name:	thinWithSize
-	*/
-	public static func thinWithSize(size: CGFloat) -> UIFont {
-		if let f = UIFont(name: "Roboto-Thin", size: size) {
-			return f
-		}
+	public static func systemFontWithSize(size: CGFloat) -> UIFont {
 		return UIFont.systemFontOfSize(size)
 	}
 	
 	/**
-		:name:	light
+		:name:	boldSystemFontWithSize
 	*/
-	public static var light: UIFont {
-		return lightWithSize(MaterialFont.pointSize)
+	public static func boldSystemFontWithSize(size: CGFloat) -> UIFont {
+		return UIFont.boldSystemFontOfSize(size)
 	}
 	
 	/**
-		:name:	lightWithSize
+		:name:	italicSystemFontWithSize
 	*/
-	public static func lightWithSize(size: CGFloat) -> UIFont {
-		if let f = UIFont(name: "Roboto-Light", size: size) {
-			return f
-		}
-		return UIFont.systemFontOfSize(size)
-	}
-	
-	/**
-		:name:	regular
-	*/
-	public static var regular: UIFont {
-		return regularWithSize(MaterialFont.pointSize)
-	}
-	
-	/**
-		:name:	mediumWithSize
-	*/
-	public static func mediumWithSize(size: CGFloat) -> UIFont {
-		if let f = UIFont(name: "Roboto-Medium", size: size) {
-			return f
-		}
-		return UIFont.systemFontOfSize(size)
-	}
-	
-	/**
-		:name:	medium
-	*/
-	public static var medium: UIFont {
-		return mediumWithSize(MaterialFont.pointSize)
-	}
-	
-	/**
-		:name:	regularWithSize
-	*/
-	public static func regularWithSize(size: CGFloat) -> UIFont {
-		if let f = UIFont(name: "Roboto-Regular", size: size) {
-			return f
-		}
-		return UIFont.systemFontOfSize(size)
-	}
-	
-	/**
-		:name:	bold
-	*/
-	public static var bold: UIFont {
-		return boldWithSize(MaterialFont.pointSize)
-	}
-	
-	/**
-		:name:	boldWithSize
-	*/
-	public static func boldWithSize(size: CGFloat) -> UIFont {
-		if let f = UIFont(name: "Roboto-Regular", size: size) {
-			return f
-		}
-		return UIFont.systemFontOfSize(size)
+	public static func italicSystemFontWithSize(size: CGFloat) -> UIFont {
+		return UIFont.italicSystemFontOfSize(size)
 	}
 }

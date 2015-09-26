@@ -19,7 +19,6 @@
 import UIKit
 
 public class MaterialView: UIView {
-	
 	/**
 		:name:	image
 	*/
@@ -197,10 +196,10 @@ public class MaterialView: UIView {
 		:name:	prepareBounds
 	*/
 	internal func prepareBounds() {
-		self.x = frame.origin.x
-		self.y = frame.origin.y
-		self.width = frame.size.width
-		self.height = frame.size.height
+		x = frame.origin.x
+		y = frame.origin.y
+		width = frame.size.width
+		height = frame.size.height
 	}
 	
 	/**

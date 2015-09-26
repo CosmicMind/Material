@@ -12,6 +12,7 @@
 		65BDD14B1BB5DD02006F7F2B /* MaterialFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD14A1BB5DD02006F7F2B /* MaterialFont.swift */; settings = {ASSET_TAGS = (); }; };
 		65BDD14D1BB5ED9F006F7F2B /* MaterialTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD14C1BB5ED9F006F7F2B /* MaterialTheme.swift */; settings = {ASSET_TAGS = (); }; };
 		65BDD14F1BB5EE4A006F7F2B /* MaterialGravity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD14E1BB5EE4A006F7F2B /* MaterialGravity.swift */; settings = {ASSET_TAGS = (); }; };
+		65BDD1521BB6EE7C006F7F2B /* RobotoFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1511BB6EE7C006F7F2B /* RobotoFont.swift */; settings = {ASSET_TAGS = (); }; };
 		65DBE4201B9A9244000C804F /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 65DBE41E1B9A9244000C804F /* Roboto-Bold.ttf */; };
 		65DBE4211B9A9244000C804F /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 65DBE41F1B9A9244000C804F /* Roboto-Thin.ttf */; };
 		962F3E531BACA68C0004B8AD /* NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962F3E521BACA68C0004B8AD /* NavigationBarView.swift */; };
@@ -40,6 +41,7 @@
 		65BDD14A1BB5DD02006F7F2B /* MaterialFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialFont.swift; sourceTree = "<group>"; };
 		65BDD14C1BB5ED9F006F7F2B /* MaterialTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialTheme.swift; sourceTree = "<group>"; };
 		65BDD14E1BB5EE4A006F7F2B /* MaterialGravity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialGravity.swift; sourceTree = "<group>"; };
+		65BDD1511BB6EE7C006F7F2B /* RobotoFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RobotoFont.swift; sourceTree = "<group>"; };
 		65DBE41E1B9A9244000C804F /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		65DBE41F1B9A9244000C804F /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		962F3E521BACA68C0004B8AD /* NavigationBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = "<group>"; };
@@ -80,6 +82,19 @@
 				962F3E521BACA68C0004B8AD /* NavigationBarView.swift */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		65BDD1501BB6EE5C006F7F2B /* Roboto */ = {
+			isa = PBXGroup;
+			children = (
+				65BDD1511BB6EE7C006F7F2B /* RobotoFont.swift */,
+				65DBE41E1B9A9244000C804F /* Roboto-Bold.ttf */,
+				65DBE41F1B9A9244000C804F /* Roboto-Thin.ttf */,
+				9AAC38591B8956E300FE6B2D /* Roboto-Regular.ttf */,
+				9AAC38571B8956CF00FE6B2D /* Roboto-Medium.ttf */,
+				9AAC38551B8956C500FE6B2D /* Roboto-Light.ttf */,
+			);
+			name = Roboto;
 			sourceTree = "<group>";
 		};
 		9638322C1B88DFD80015F710 = {
@@ -142,7 +157,6 @@
 			children = (
 				65BDD14C1BB5ED9F006F7F2B /* MaterialTheme.swift */,
 				65BDD1481BB5DC98006F7F2B /* MaterialColor.swift */,
-				65BDD14A1BB5DD02006F7F2B /* MaterialFont.swift */,
 				65BDD14E1BB5EE4A006F7F2B /* MaterialGravity.swift */,
 			);
 			name = Theme;
@@ -151,11 +165,8 @@
 		9AAC38521B89553800FE6B2D /* Font */ = {
 			isa = PBXGroup;
 			children = (
-				65DBE41E1B9A9244000C804F /* Roboto-Bold.ttf */,
-				65DBE41F1B9A9244000C804F /* Roboto-Thin.ttf */,
-				9AAC38591B8956E300FE6B2D /* Roboto-Regular.ttf */,
-				9AAC38571B8956CF00FE6B2D /* Roboto-Medium.ttf */,
-				9AAC38551B8956C500FE6B2D /* Roboto-Light.ttf */,
+				65BDD14A1BB5DD02006F7F2B /* MaterialFont.swift */,
+				65BDD1501BB6EE5C006F7F2B /* Roboto */,
 			);
 			name = Font;
 			sourceTree = "<group>";
@@ -276,6 +287,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				65BDD1471BB5B916006F7F2B /* MaterialView.swift in Sources */,
+				65BDD1521BB6EE7C006F7F2B /* RobotoFont.swift in Sources */,
 				962F3E531BACA68C0004B8AD /* NavigationBarView.swift in Sources */,
 				65BDD14F1BB5EE4A006F7F2B /* MaterialGravity.swift in Sources */,
 				65BDD14B1BB5DD02006F7F2B /* MaterialFont.swift in Sources */,
