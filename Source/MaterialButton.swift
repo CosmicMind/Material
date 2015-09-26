@@ -127,11 +127,20 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
-		:name:	border
+		:name:	borderWidth
 	*/
-	public var border: MaterialBorder! {
+	public var borderWidth: MaterialBorder! {
 		didSet {
-			layer.borderWidth = MaterialBorderToValue(border)
+			layer.borderWidth = MaterialBorderToValue(borderWidth)
+		}
+	}
+	
+	/**
+		:name:	borderColor
+	*/
+	public var borderColor: UIColor! {
+		didSet {
+			layer.borderColor = borderColor.CGColor
 		}
 	}
 	

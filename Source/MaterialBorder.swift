@@ -32,8 +32,8 @@ public enum MaterialBorder : MaterialBorderType {
 /**
 	:name:	MaterialBorderToValue
 */
-public func MaterialBorderToValue(border: MaterialBorder) -> MaterialBorderType {
-	switch border {
+public func MaterialBorderToValue(width: MaterialBorder) -> MaterialBorderType {
+	switch width {
 	case .None:
 		return 0
 	case .Thin:

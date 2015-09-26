@@ -45,7 +45,8 @@ public extension MaterialTheme.view {
 	public static let cornerRadius: MaterialRadius = .Square
 	
 	// border
-	public static let border: MaterialBorder = .None
+	public static let borderWidth: MaterialBorder = .None
+	public static let bordercolor: UIColor = MaterialColor.black
 	
 	// color
 	public static let backgroudColor: UIColor = MaterialColor.white
@@ -80,7 +81,8 @@ public extension MaterialTheme.navigation {
 	public static let cornerRadius: MaterialRadius = MaterialTheme.view.cornerRadius
 	
 	// border
-	public static let border: MaterialBorder = MaterialTheme.view.border
+	public static let borderWidth: MaterialBorder = MaterialTheme.view.borderWidth
+	public static let bordercolor: UIColor = MaterialTheme.view.bordercolor
 	
 	// color
 	public static let backgroudColor: UIColor = MaterialColor.blue.accent3
@@ -111,7 +113,8 @@ public extension MaterialTheme.button {
 	public static let contentInsets: MaterialInsets = .Inset2
 	
 	// border
-	public static let border: MaterialBorder = MaterialTheme.view.border
+	public static let borderWidth: MaterialBorder = MaterialTheme.view.borderWidth
+	public static let bordercolor: UIColor = MaterialTheme.view.bordercolor
 	
 	// color
 	public static let backgroudColor: UIColor = MaterialColor.clear
@@ -139,7 +142,8 @@ public extension MaterialTheme.button.flat {
 	public static let contentInsets: MaterialInsets = MaterialTheme.button.contentInsets
 	
 	// border
-	public static let border: MaterialBorder = MaterialTheme.button.border
+	public static let borderWidth: MaterialBorder = MaterialTheme.button.borderWidth
+	public static let bordercolor: UIColor = MaterialTheme.button.bordercolor
 	
 	// color
 	public static let backgroudColor: UIColor = MaterialTheme.button.backgroudColor
