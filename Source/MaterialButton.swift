@@ -35,8 +35,11 @@ public class MaterialButton : UIButton {
 		:name:	x
 	*/
 	public var x: CGFloat! {
-		didSet {
-			layer.bounds.origin.x = x
+		get {
+			return layer.bounds.origin.x
+		}
+		set(value) {
+			layer.bounds.origin.x = value
 		}
 	}
 	
@@ -44,8 +47,11 @@ public class MaterialButton : UIButton {
 		:name:	y
 	*/
 	public var y: CGFloat! {
-		didSet {
-			layer.bounds.origin.y = y
+		get {
+			return layer.bounds.origin.y
+		}
+		set(value) {
+			layer.bounds.origin.y = value
 		}
 	}
 	
@@ -53,8 +59,11 @@ public class MaterialButton : UIButton {
 		:name:	width
 	*/
 	public var width: CGFloat! {
-		didSet {
-			layer.bounds.size.width = width
+		get {
+			return layer.bounds.size.width
+		}
+		set(value) {
+			layer.bounds.size.width = value
 		}
 	}
 	
@@ -62,8 +71,11 @@ public class MaterialButton : UIButton {
 		:name:	height
 	*/
 	public var height: CGFloat! {
-		didSet {
-			layer.bounds.size.height = height
+		get {
+			return layer.bounds.size.height
+		}
+		set(value) {
+			layer.bounds.size.height = value
 		}
 	}
 	
@@ -117,11 +129,20 @@ public class MaterialButton : UIButton {
 	*/
 	public var cornerRadius: MaterialRadius! {
 		didSet {
-			switch cornerRadius! {
-			case .Square, .Light, .Regular, .Medium, .Heavy:
-				layer.cornerRadius = MaterialRadiusToValue(cornerRadius!)
-			case .Round:
-				layer.cornerRadius = bounds.width / 2
+			layer.cornerRadius = MaterialRadiusToValue(cornerRadius!)
+		}
+	}
+	
+	/**
+		:name:	shape
+	*/
+	public var shape: MaterialShape! {
+		didSet {
+			switch shape! {
+			case .Square:
+				layer.cornerRadius = 0
+			case .Circle:
+				layer.cornerRadius = width / 2
 			}
 		}
 	}
@@ -194,11 +215,10 @@ public class MaterialButton : UIButton {
 		super.init(frame: frame)
 		prepareView()
 		prepareLayer()
-		prepareBounds()
 	}
 	
 	public convenience init() {
-		self.init(frame: CGRectMake(0, 0, 100, 100))
+		self.init(frame: CGRectZero)
 	}
 	
 	/**
@@ -227,16 +247,6 @@ public class MaterialButton : UIButton {
 	//
 	internal func prepareView() {
 		userInteractionEnabled = MaterialTheme.button.userInteractionEnabled
-	}
-	
-	//
-	//	:name:	prepareBounds
-	//
-	internal func prepareBounds() {
-		x = frame.origin.x
-		y = frame.origin.y
-		width = frame.size.width
-		height = frame.size.height
 	}
 	
 	//

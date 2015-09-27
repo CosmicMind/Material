@@ -42,7 +42,8 @@ public extension MaterialTheme.view {
 	
 	// shape
 	public static let masksToBounds: Bool = false
-	public static let cornerRadius: MaterialRadius = .Square
+	public static let cornerRadius: MaterialRadius = .None
+	public static let shape: MaterialShape = .Square
 	
 	// border
 	public static let borderWidth: MaterialBorder = .None
@@ -79,6 +80,7 @@ public extension MaterialTheme.navigation {
 	// shape
 	public static let masksToBounds: Bool = MaterialTheme.view.masksToBounds
 	public static let cornerRadius: MaterialRadius = MaterialTheme.view.cornerRadius
+	public static let shape: MaterialShape = MaterialTheme.view.shape
 	
 	// border
 	public static let borderWidth: MaterialBorder = MaterialTheme.view.borderWidth
@@ -110,6 +112,7 @@ public extension MaterialTheme.button {
 	// shape
 	public static let masksToBounds: Bool = MaterialTheme.view.masksToBounds
 	public static let cornerRadius: MaterialRadius = .Light
+	public static let shape: MaterialShape = MaterialTheme.view.shape
 	public static let contentInsets: MaterialInsets = .Inset2
 	
 	// border
@@ -139,6 +142,7 @@ public extension MaterialTheme.button.flat {
 	// shape
 	public static let masksToBounds: Bool = MaterialTheme.button.masksToBounds
 	public static let cornerRadius: MaterialRadius = MaterialTheme.button.cornerRadius
+	public static let shape: MaterialShape = MaterialTheme.button.shape
 	public static let contentInsets: MaterialInsets = MaterialTheme.button.contentInsets
 	
 	// border

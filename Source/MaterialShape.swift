@@ -16,32 +16,7 @@
 // in a file called LICENSE.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-import UIKit
-
-public typealias MaterialRadiusType = CGFloat
-
-public enum MaterialRadius {
-	case None
-	case Light
-	case Regular
-	case Medium
-	case Heavy
-}
-
-/**
-	:name:	MaterialRadiusToValue
-*/
-public func MaterialRadiusToValue(radius: MaterialRadius) -> MaterialRadiusType {
-	switch radius {
-	case .None:
-		return 0
-	case .Light:
-		return 4
-	case .Regular:
-		return 8
-	case .Medium:
-		return 16
-	case .Heavy:
-		return 20
-	}
+public enum MaterialShape {
+	case Square
+	case Circle
 }

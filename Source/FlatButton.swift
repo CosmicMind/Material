@@ -26,11 +26,6 @@ public class FlatButton : MaterialButton {
 		super.prepareView()
 		setTitleColor(MaterialTheme.button.flat.titleLabelColorForNormalState, forState: .Normal)
 		titleLabel!.font = MaterialTheme.button.flat.titleLabelFont
-		backgroundColor = MaterialColor.red.base //MaterialTheme.button.flat.backgroudColor
-		cornerRadius = MaterialTheme.button.flat.cornerRadius
-		contentInsets = MaterialTheme.button.flat.contentInsets
-		borderWidth = MaterialTheme.button.flat.borderWidth
-		borderColor = MaterialTheme.button.flat.bordercolor
 	}
 	
 	//
@@ -42,5 +37,11 @@ public class FlatButton : MaterialButton {
 		shadowColor = MaterialTheme.button.flat.shadowColor
 		zPosition = MaterialTheme.button.flat.zPosition
 		masksToBounds = MaterialTheme.button.flat.masksToBounds
+		shape = MaterialTheme.button.flat.shape
+		cornerRadius = MaterialTheme.button.flat.cornerRadius
+		borderWidth = MaterialTheme.button.flat.borderWidth
+		borderColor = MaterialTheme.button.flat.bordercolor
+		contentInsets = MaterialTheme.button.flat.contentInsets
+		backgroundColor = MaterialTheme.button.flat.backgroudColor
 	}
 }

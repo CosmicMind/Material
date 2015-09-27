@@ -80,8 +80,11 @@ public class MaterialView: UIView {
 		:name:	x
 	*/
 	public var x: CGFloat! {
-		didSet {
-			layer.bounds.origin.x = x
+		get {
+			return layer.bounds.origin.x
+		}
+		set(value) {
+			layer.bounds.origin.x = value
 		}
 	}
 	
@@ -89,8 +92,11 @@ public class MaterialView: UIView {
 		:name:	y
 	*/
 	public var y: CGFloat! {
-		didSet {
-			layer.bounds.origin.y = y
+		get {
+			return layer.bounds.origin.y
+		}
+		set(value) {
+			layer.bounds.origin.y = value
 		}
 	}
 	
@@ -98,8 +104,11 @@ public class MaterialView: UIView {
 		:name:	width
 	*/
 	public var width: CGFloat! {
-		didSet {
-			layer.bounds.size.width = width
+		get {
+			return layer.bounds.size.width
+		}
+		set(value) {
+			layer.bounds.size.width = value
 		}
 	}
 	
@@ -107,8 +116,11 @@ public class MaterialView: UIView {
 		:name:	height
 	*/
 	public var height: CGFloat! {
-		didSet {
-			layer.bounds.size.height = height
+		get {
+			return layer.bounds.size.height
+		}
+		set(value) {
+			layer.bounds.size.height = value
 		}
 	}
 	
@@ -162,11 +174,20 @@ public class MaterialView: UIView {
 	*/
 	public var cornerRadius: MaterialRadius! {
 		didSet {
-			switch cornerRadius! {
-			case .Square, .Light, .Regular, .Medium, .Heavy:
-				layer.cornerRadius = MaterialRadiusToValue(cornerRadius!)
-			case .Round:
-				layer.cornerRadius = bounds.width / 2
+			layer.cornerRadius = MaterialRadiusToValue(cornerRadius!)
+		}
+	}
+	
+	/**
+		:name:	shape
+	*/
+	public var shape: MaterialShape! {
+		didSet {
+			switch shape! {
+			case .Square:
+				layer.cornerRadius = 0
+			case .Circle:
+				layer.cornerRadius = width / 2
 			}
 		}
 	}
@@ -176,7 +197,7 @@ public class MaterialView: UIView {
 	*/
 	public var borderWidth: MaterialBorder! {
 		didSet {
-			layer.borderWidth = MaterialBorderToValue(borderWidth)
+			layer.borderWidth = MaterialBorderToValue(borderWidth!)
 		}
 	}
 	
@@ -194,7 +215,7 @@ public class MaterialView: UIView {
 	*/
 	public var shadowDepth: MaterialShadow! {
 		didSet {
-			let value: MaterialShadowType = MaterialShadowToValue(shadowDepth)
+			let value: MaterialShadowType = MaterialShadowToValue(shadowDepth!)
 			shadowOffset = value.offset
 			shadowOpacity = value.opacity
 			shadowRadius = value.radius
@@ -224,7 +245,6 @@ public class MaterialView: UIView {
 		super.init(frame: frame)
 		prepareView()
 		prepareLayer()
-		prepareBounds()
 	}
 	
 	/**
@@ -243,16 +263,6 @@ public class MaterialView: UIView {
 	}
 	
 	//
-	//	:name:	prepareBounds
-	//
-	internal func prepareBounds() {
-		x = frame.origin.x
-		y = frame.origin.y
-		width = frame.size.width
-		height = frame.size.height
-	}
-	
-	//
 	//	:name:	prepareLayer
 	//
 	internal func prepareLayer() {
@@ -264,8 +274,9 @@ public class MaterialView: UIView {
 		shadowColor = MaterialTheme.view.shadowColor
 		zPosition = MaterialTheme.view.zPosition
 		masksToBounds = MaterialTheme.view.masksToBounds
+		shape = MaterialTheme.view.shape
 		cornerRadius = MaterialTheme.view.cornerRadius
-		borderWidth = .None
+		borderWidth = MaterialTheme.view.borderWidth
 		borderColor = MaterialTheme.view.bordercolor
 	}
 }
