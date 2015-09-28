@@ -27,11 +27,20 @@ Let's expand on the basic MaterialView and use an animated MaterialPulseView. In
 ```swift
 let v: MaterialPulseView = MaterialPulseView(frame: CGRectMake(0, 0, 100, 100))
 v.shape = .Square
+v.cornerRadius = .Radius1
 v.shadowDepth = .Depth2
 v.borderWidth = .Border3
 v.borderColor = MaterialColor.red.darken1
-v.cornerRadius = .Radius1
 v.image = UIImage(named: "swift")
+```
+
+### Simple FlatButton
+
+A FlatButton is the best place to start when introducing MaterialKit buttons. It is simple, clean, and very effective. Below is an example of a FlatButton in action.
+
+```swift
+let v: FlatButton = FlatButton(frame: CGRectMake(0, 0, 100, 32))
+v.setTitle("Flat", forState: .Normal)
 ```
 
 ### License
