@@ -38,7 +38,7 @@ public class MaterialView: UIView {
 	*/
 	public var contentsRect: CGRect! {
 		didSet {
-			visualLayer.contentsRect = contentsRect
+			visualLayer.contentsRect = nil == contentsRect ? CGRectMake(0, 0, 1, 1) : contentsRect!
 		}
 	}
 	
@@ -47,7 +47,7 @@ public class MaterialView: UIView {
 	*/
 	public var contentsCenter: CGRect! {
 		didSet {
-			visualLayer.contentsCenter = contentsCenter
+			visualLayer.contentsCenter = nil == contentsCenter ? CGRectMake(0, 0, 1, 1) : contentsCenter!
 		}
 	}
 	
@@ -56,7 +56,7 @@ public class MaterialView: UIView {
 	*/
 	public var contentsScale: CGFloat! {
 		didSet {
-			visualLayer.contentsScale = contentsScale
+			visualLayer.contentsScale = nil == contentsScale ? UIScreen.mainScreen().scale : contentsScale!
 		}
 	}
 	
@@ -65,7 +65,7 @@ public class MaterialView: UIView {
 	*/
 	public var contentsGravity: MaterialGravity! {
 		didSet {
-			visualLayer.contentsGravity = MaterialGravityToString(contentsGravity)
+			visualLayer.contentsGravity = MaterialGravityToString(nil == contentsGravity ? .ResizeAspectFill : contentsGravity!)
 		}
 	}
 	
@@ -86,10 +86,10 @@ public class MaterialView: UIView {
 	*/
 	public var x: CGFloat {
 		get {
-			return layer.frame.origin.x
+			return frame.origin.x
 		}
 		set(value) {
-			layer.frame.origin.x = value
+			frame.origin.x = value
 		}
 	}
 	
@@ -98,10 +98,10 @@ public class MaterialView: UIView {
 	*/
 	public var y: CGFloat {
 		get {
-			return layer.frame.origin.y
+			return frame.origin.y
 		}
 		set(value) {
-			layer.frame.origin.y = value
+			frame.origin.y = value
 		}
 	}
 	
@@ -110,12 +110,14 @@ public class MaterialView: UIView {
 	*/
 	public var width: CGFloat {
 		get {
-			return visualLayer.frame.size.width
+			return frame.size.width
 		}
 		set(value) {
-			layer.frame.size.width = value
-			visualLayer.frame.size.width = value
-			prepareShape()
+			frame.size.width = value
+			if nil != shape {
+				frame.size.height = value
+				prepareShape()
+			}
 		}
 	}
 	
@@ -124,12 +126,14 @@ public class MaterialView: UIView {
 	*/
 	public var height: CGFloat {
 		get {
-			return visualLayer.frame.size.height
+			return frame.size.height
 		}
 		set(value) {
-			layer.frame.size.height = value
-			visualLayer.frame.size.height = value
-			prepareShape()
+			frame.size.height = value
+			if nil != shape {
+				frame.size.width = value
+				prepareShape()
+			}
 		}
 	}
 	
@@ -138,7 +142,7 @@ public class MaterialView: UIView {
 	*/
 	public var shadowColor: UIColor! {
 		didSet {
-			layer.shadowColor = shadowColor.CGColor
+			layer.shadowColor = nil == shadowColor ? MaterialColor.clear.CGColor : shadowColor!.CGColor
 		}
 	}
 	
@@ -147,7 +151,7 @@ public class MaterialView: UIView {
 	*/
 	public var shadowOffset: CGSize! {
 		didSet {
-			layer.shadowOffset = shadowOffset
+			layer.shadowOffset = nil == shadowOffset ? CGSizeMake(0, 0) : shadowOffset!
 		}
 	}
 	
@@ -156,7 +160,7 @@ public class MaterialView: UIView {
 	*/
 	public var shadowOpacity: Float! {
 		didSet {
-			layer.shadowOpacity = shadowOpacity
+			layer.shadowOpacity = nil == shadowOpacity ? 0 : shadowOpacity!
 		}
 	}
 	
@@ -165,7 +169,7 @@ public class MaterialView: UIView {
 	*/
 	public var shadowRadius: CGFloat! {
 		didSet {
-			layer.shadowRadius = shadowRadius
+			layer.shadowRadius = nil == shadowRadius ? 0 : shadowRadius!
 		}
 	}
 	
@@ -174,7 +178,7 @@ public class MaterialView: UIView {
 	*/
 	public var masksToBounds: Bool! {
 		didSet {
-			visualLayer.masksToBounds = masksToBounds
+			visualLayer.masksToBounds = nil == masksToBounds ? false : masksToBounds!
 		}
 	}
 	
@@ -183,7 +187,8 @@ public class MaterialView: UIView {
 	*/
 	public var cornerRadius: MaterialRadius! {
 		didSet {
-			visualLayer.cornerRadius = MaterialRadiusToValue(cornerRadius!)
+			visualLayer.cornerRadius = MaterialRadiusToValue(nil == cornerRadius ? .None : cornerRadius!)
+			shape = nil
 		}
 	}
 	
@@ -192,7 +197,14 @@ public class MaterialView: UIView {
 	*/
 	public var shape: MaterialShape? {
 		didSet {
-			prepareShape()
+			if nil != shape {
+				if width < height {
+					frame.size.width = height
+				} else {
+					frame.size.height = width
+				}
+				prepareShape()
+			}
 		}
 	}
 	
@@ -201,7 +213,7 @@ public class MaterialView: UIView {
 	*/
 	public var borderWidth: MaterialBorder! {
 		didSet {
-			visualLayer.borderWidth = MaterialBorderToValue(borderWidth!)
+			visualLayer.borderWidth = MaterialBorderToValue(nil == borderWidth ? .None : borderWidth!)
 		}
 	}
 	
@@ -210,7 +222,7 @@ public class MaterialView: UIView {
 	*/
 	public var borderColor: UIColor! {
 		didSet {
-			visualLayer.borderColor = borderColor.CGColor
+			visualLayer.borderColor = nil == borderColor ? MaterialColor.clear.CGColor : borderColor!.CGColor
 		}
 	}
 	
@@ -265,6 +277,14 @@ public class MaterialView: UIView {
 		return CAShapeLayer.self
 	}
 	
+	/**
+		:name:	layoutSubviews
+	*/
+	public override func layoutSubviews() {
+		super.layoutSubviews()
+		visualLayer.frame = bounds
+	}
+	
 	//
 	//	:name:	prepareView
 	//
@@ -290,7 +310,6 @@ public class MaterialView: UIView {
 		borderColor = MaterialTheme.view.bordercolor
 		
 		// visualLayer
-		visualLayer.bounds = CGRectMake(0, 0, width, height)
 		layer.addSublayer(visualLayer)
 	}
 	
@@ -298,17 +317,7 @@ public class MaterialView: UIView {
 	//	:name:	prepareShape
 	//
 	internal func prepareShape() {
-		if nil != shape {
-			if width < height {
-				layer.frame.size.width = height
-				visualLayer.frame.size.width = height
-			} else {
-				layer.frame.size.height = width
-				visualLayer.frame.size.height = width
-			}
-			layer.cornerRadius = .Square == shape ? 0 : layer.frame.size.width / 2
-			visualLayer.cornerRadius = layer.cornerRadius
-		}
+		visualLayer.cornerRadius = .Square == shape ? 0 : width / 2
 	}
 }
 
