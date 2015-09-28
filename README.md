@@ -45,6 +45,19 @@ let v: FlatButton = FlatButton(frame: CGRectMake(0, 0, 100, 32))
 v.setTitle("Flat", forState: .Normal)
 ```
 
+### Noticeable RaisedButton
+
+A RaisedButton is sure to get attention. The following example modifies the background color and pulse color of the button.
+
+![MaterialKitPreview](http://www.materialkit.io/github/img4.gif)
+
+```swift
+let v: RaisedButton = RaisedButton(frame: CGRectMake(0, 0, 100, 32))
+v.setTitle("Raised", forState: .Normal)
+v.backgroundColor = MaterialColor.green.darken3
+v.pulseColor = MaterialColor.green.base
+```
+
 ### License
 
 [AGPLv3](http://choosealicense.com/licenses/agpl-3.0/)
