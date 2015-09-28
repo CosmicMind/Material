@@ -37,7 +37,6 @@ public class FlatButton : MaterialButton {
 		shadowColor = MaterialTheme.button.flat.shadowColor
 		zPosition = MaterialTheme.button.flat.zPosition
 		masksToBounds = MaterialTheme.button.flat.masksToBounds
-		shape = MaterialTheme.button.flat.shape
 		cornerRadius = MaterialTheme.button.flat.cornerRadius
 		borderWidth = MaterialTheme.button.flat.borderWidth
 		borderColor = MaterialTheme.button.flat.bordercolor

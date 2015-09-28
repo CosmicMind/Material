@@ -34,48 +34,48 @@ public class MaterialButton : UIButton {
 	/**
 		:name:	x
 	*/
-	public var x: CGFloat! {
+	public var x: CGFloat {
 		get {
-			return layer.bounds.origin.x
+			return layer.frame.origin.x
 		}
 		set(value) {
-			layer.bounds.origin.x = value
+			layer.frame.origin.x = value
 		}
 	}
 	
 	/**
 		:name:	y
 	*/
-	public var y: CGFloat! {
+	public var y: CGFloat {
 		get {
-			return layer.bounds.origin.y
+			return layer.frame.origin.y
 		}
 		set(value) {
-			layer.bounds.origin.y = value
+			layer.frame.origin.y = value
 		}
 	}
 	
 	/**
 		:name:	width
 	*/
-	public var width: CGFloat! {
+	public var width: CGFloat {
 		get {
-			return layer.bounds.size.width
+			return layer.frame.size.width
 		}
 		set(value) {
-			layer.bounds.size.width = value
+			layer.frame.size.width = value
 		}
 	}
 	
 	/**
 		:name:	height
 	*/
-	public var height: CGFloat! {
+	public var height: CGFloat {
 		get {
-			return layer.bounds.size.height
+			return layer.frame.size.height
 		}
 		set(value) {
-			layer.bounds.size.height = value
+			layer.frame.size.height = value
 		}
 	}
 	
@@ -136,8 +136,13 @@ public class MaterialButton : UIButton {
 	/**
 		:name:	shape
 	*/
-	public var shape: MaterialShape! {
+	public var shape: MaterialShape? {
 		didSet {
+			if width < height {
+				width = height
+			} else {
+				height = width
+			}
 			switch shape! {
 			case .Square:
 				layer.cornerRadius = 0

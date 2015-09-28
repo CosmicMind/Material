@@ -20,6 +20,7 @@ import UIKit
 
 public struct MaterialTheme {
 	public struct view {}
+	public struct pulseView {}
 	public struct navigation {}
 	public struct button {
 		public struct fab {}
@@ -43,7 +44,6 @@ public extension MaterialTheme.view {
 	// shape
 	public static let masksToBounds: Bool = false
 	public static let cornerRadius: MaterialRadius = .None
-	public static let shape: MaterialShape = .Square
 	
 	// border
 	public static let borderWidth: MaterialBorder = .None
@@ -65,6 +65,42 @@ public extension MaterialTheme.view {
 	public static let zPosition: CGFloat = 0
 }
 
+// pulseView
+public extension MaterialTheme.pulseView {
+	// frame
+	public static let x: CGFloat = MaterialTheme.view.x
+	public static let y: CGFloat = MaterialTheme.view.y
+	public static let width: CGFloat = MaterialTheme.view.width
+	public static let height: CGFloat = MaterialTheme.view.height
+	
+	// shadow
+	public static let shadowDepth: MaterialShadow = MaterialTheme.view.shadowDepth
+	public static let shadowColor: UIColor = MaterialTheme.view.shadowColor
+	
+	// shape
+	public static let masksToBounds: Bool = MaterialTheme.view.masksToBounds
+	public static let cornerRadius: MaterialRadius = MaterialTheme.view.cornerRadius
+	
+	// border
+	public static let borderWidth: MaterialBorder = MaterialTheme.view.borderWidth
+	public static let bordercolor: UIColor = MaterialTheme.view.bordercolor
+	
+	// color
+	public static let backgroudColor: UIColor = MaterialColor.clear
+	
+	// interaction
+	public static let userInteractionEnabled: Bool = MaterialTheme.view.userInteractionEnabled
+	
+	// image
+	public static let contentsRect: CGRect = MaterialTheme.view.contentsRect
+	public static let contentsCenter: CGRect = MaterialTheme.view.contentsCenter
+	public static let contentsScale: CGFloat = MaterialTheme.view.contentsScale
+	public static let contentsGravity: MaterialGravity = MaterialTheme.view.contentsGravity
+	
+	// position
+	public static let zPosition: CGFloat = MaterialTheme.view.zPosition
+}
+
 // navigation
 public extension MaterialTheme.navigation {
 	// frame
@@ -80,7 +116,6 @@ public extension MaterialTheme.navigation {
 	// shape
 	public static let masksToBounds: Bool = MaterialTheme.view.masksToBounds
 	public static let cornerRadius: MaterialRadius = MaterialTheme.view.cornerRadius
-	public static let shape: MaterialShape = MaterialTheme.view.shape
 	
 	// border
 	public static let borderWidth: MaterialBorder = MaterialTheme.view.borderWidth
@@ -112,7 +147,6 @@ public extension MaterialTheme.button {
 	// shape
 	public static let masksToBounds: Bool = MaterialTheme.view.masksToBounds
 	public static let cornerRadius: MaterialRadius = .Light
-	public static let shape: MaterialShape = MaterialTheme.view.shape
 	public static let contentInsets: MaterialInsets = .Inset2
 	
 	// border
@@ -142,7 +176,6 @@ public extension MaterialTheme.button.flat {
 	// shape
 	public static let masksToBounds: Bool = MaterialTheme.button.masksToBounds
 	public static let cornerRadius: MaterialRadius = MaterialTheme.button.cornerRadius
-	public static let shape: MaterialShape = MaterialTheme.button.shape
 	public static let contentInsets: MaterialInsets = MaterialTheme.button.contentInsets
 	
 	// border

@@ -79,48 +79,50 @@ public class MaterialView: UIView {
 	/**
 		:name:	x
 	*/
-	public var x: CGFloat! {
+	public var x: CGFloat {
 		get {
-			return layer.bounds.origin.x
+			return layer.frame.origin.x
 		}
 		set(value) {
-			layer.bounds.origin.x = value
+			layer.frame.origin.x = value
 		}
 	}
 	
 	/**
 		:name:	y
 	*/
-	public var y: CGFloat! {
+	public var y: CGFloat {
 		get {
-			return layer.bounds.origin.y
+			return layer.frame.origin.y
 		}
 		set(value) {
-			layer.bounds.origin.y = value
+			layer.frame.origin.y = value
 		}
 	}
 	
 	/**
 		:name:	width
 	*/
-	public var width: CGFloat! {
+	public var width: CGFloat {
 		get {
-			return layer.bounds.size.width
+			return layer.frame.size.width
 		}
 		set(value) {
-			layer.bounds.size.width = value
+			layer.frame.size.width = value
+			prepareShape()
 		}
 	}
 	
 	/**
 		:name:	height
 	*/
-	public var height: CGFloat! {
+	public var height: CGFloat {
 		get {
-			return layer.bounds.size.height
+			return layer.frame.size.height
 		}
 		set(value) {
-			layer.bounds.size.height = value
+			layer.frame.size.height = value
+			prepareShape()
 		}
 	}
 	
@@ -181,14 +183,9 @@ public class MaterialView: UIView {
 	/**
 		:name:	shape
 	*/
-	public var shape: MaterialShape! {
+	public var shape: MaterialShape? {
 		didSet {
-			switch shape! {
-			case .Square:
-				layer.cornerRadius = 0
-			case .Circle:
-				layer.cornerRadius = width / 2
-			}
+			prepareShape()
 		}
 	}
 	
@@ -274,10 +271,23 @@ public class MaterialView: UIView {
 		shadowColor = MaterialTheme.view.shadowColor
 		zPosition = MaterialTheme.view.zPosition
 		masksToBounds = MaterialTheme.view.masksToBounds
-		shape = MaterialTheme.view.shape
 		cornerRadius = MaterialTheme.view.cornerRadius
 		borderWidth = MaterialTheme.view.borderWidth
 		borderColor = MaterialTheme.view.bordercolor
+	}
+	
+	//
+	//	:name:	prepareShape
+	//
+	internal func prepareShape() {
+		if nil != shape {
+			if width < height {
+				layer.frame.size.width = height
+			} else {
+				layer.frame.size.height = width
+			}
+			layer.cornerRadius = .Square == shape ? 0 : width / 2
+		}
 	}
 }
 

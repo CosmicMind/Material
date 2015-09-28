@@ -58,7 +58,6 @@ public class NavigationBarView: MaterialView {
 		shadowColor = MaterialTheme.navigation.shadowColor
 		zPosition = MaterialTheme.navigation.zPosition
 		masksToBounds = MaterialTheme.navigation.masksToBounds
-		shape = MaterialTheme.navigation.shape
 		cornerRadius = MaterialTheme.navigation.cornerRadius
 		borderWidth = MaterialTheme.navigation.borderWidth
 		borderColor = MaterialTheme.navigation.bordercolor
