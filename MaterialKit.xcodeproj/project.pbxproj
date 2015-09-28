@@ -13,7 +13,7 @@
 		65BDD14D1BB5ED9F006F7F2B /* MaterialTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD14C1BB5ED9F006F7F2B /* MaterialTheme.swift */; settings = {ASSET_TAGS = (); }; };
 		65BDD14F1BB5EE4A006F7F2B /* MaterialGravity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD14E1BB5EE4A006F7F2B /* MaterialGravity.swift */; settings = {ASSET_TAGS = (); }; };
 		65BDD1521BB6EE7C006F7F2B /* RobotoFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1511BB6EE7C006F7F2B /* RobotoFont.swift */; settings = {ASSET_TAGS = (); }; };
-		65BDD1541BB6F473006F7F2B /* MaterialShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1531BB6F473006F7F2B /* MaterialShadow.swift */; settings = {ASSET_TAGS = (); }; };
+		65BDD1541BB6F473006F7F2B /* MaterialDepth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1531BB6F473006F7F2B /* MaterialDepth.swift */; settings = {ASSET_TAGS = (); }; };
 		65BDD1571BB6FC82006F7F2B /* MaterialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1561BB6FC82006F7F2B /* MaterialButton.swift */; settings = {ASSET_TAGS = (); }; };
 		65BDD1591BB6FE3E006F7F2B /* FlatButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1581BB6FE3E006F7F2B /* FlatButton.swift */; settings = {ASSET_TAGS = (); }; };
 		65BDD15B1BB7095E006F7F2B /* MaterialRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD15A1BB7095E006F7F2B /* MaterialRadius.swift */; settings = {ASSET_TAGS = (); }; };
@@ -21,7 +21,7 @@
 		65BDD15E1BB7111E006F7F2B /* MaterialTheme.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65BDD14C1BB5ED9F006F7F2B /* MaterialTheme.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		65BDD15F1BB7111E006F7F2B /* MaterialColor.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65BDD1481BB5DC98006F7F2B /* MaterialColor.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		65BDD1601BB7111E006F7F2B /* MaterialGravity.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65BDD14E1BB5EE4A006F7F2B /* MaterialGravity.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		65BDD1611BB7111E006F7F2B /* MaterialShadow.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65BDD1531BB6F473006F7F2B /* MaterialShadow.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		65BDD1611BB7111E006F7F2B /* MaterialDepth.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65BDD1531BB6F473006F7F2B /* MaterialDepth.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		65BDD1621BB7111E006F7F2B /* MaterialRadius.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65BDD15A1BB7095E006F7F2B /* MaterialRadius.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		65BDD1631BB7111E006F7F2B /* MaterialInsets.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65BDD15C1BB70D60006F7F2B /* MaterialInsets.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		65BDD1641BB7111E006F7F2B /* MaterialFont.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65BDD14A1BB5DD02006F7F2B /* MaterialFont.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -34,6 +34,9 @@
 		65BDD16E1BB899F2006F7F2B /* MaterialPulseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD16D1BB899F2006F7F2B /* MaterialPulseView.swift */; settings = {ASSET_TAGS = (); }; };
 		65BDD1721BB8CD77006F7F2B /* MaterialLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1711BB8CD77006F7F2B /* MaterialLabel.swift */; settings = {ASSET_TAGS = (); }; };
 		65BDD1741BB8D443006F7F2B /* MaterialAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1731BB8D443006F7F2B /* MaterialAnimation.swift */; settings = {ASSET_TAGS = (); }; };
+		65BDD1771BB98E31006F7F2B /* MaterialSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1761BB98E31006F7F2B /* MaterialSize.swift */; settings = {ASSET_TAGS = (); }; };
+		65BDD1791BB99C0F006F7F2B /* RaisedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1781BB99C0F006F7F2B /* RaisedButton.swift */; settings = {ASSET_TAGS = (); }; };
+		65BDD17C1BB99E29006F7F2B /* FabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD17B1BB99E29006F7F2B /* FabButton.swift */; settings = {ASSET_TAGS = (); }; };
 		65DBE4201B9A9244000C804F /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 65DBE41E1B9A9244000C804F /* Roboto-Bold.ttf */; };
 		65DBE4211B9A9244000C804F /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 65DBE41F1B9A9244000C804F /* Roboto-Thin.ttf */; };
 		962F3E531BACA68C0004B8AD /* NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962F3E521BACA68C0004B8AD /* NavigationBarView.swift */; };
@@ -63,7 +66,7 @@
 		65BDD14C1BB5ED9F006F7F2B /* MaterialTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialTheme.swift; sourceTree = "<group>"; };
 		65BDD14E1BB5EE4A006F7F2B /* MaterialGravity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialGravity.swift; sourceTree = "<group>"; };
 		65BDD1511BB6EE7C006F7F2B /* RobotoFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RobotoFont.swift; sourceTree = "<group>"; };
-		65BDD1531BB6F473006F7F2B /* MaterialShadow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialShadow.swift; sourceTree = "<group>"; };
+		65BDD1531BB6F473006F7F2B /* MaterialDepth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialDepth.swift; sourceTree = "<group>"; };
 		65BDD1561BB6FC82006F7F2B /* MaterialButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialButton.swift; sourceTree = "<group>"; };
 		65BDD1581BB6FE3E006F7F2B /* FlatButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlatButton.swift; sourceTree = "<group>"; };
 		65BDD15A1BB7095E006F7F2B /* MaterialRadius.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialRadius.swift; sourceTree = "<group>"; };
@@ -73,6 +76,9 @@
 		65BDD16D1BB899F2006F7F2B /* MaterialPulseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialPulseView.swift; sourceTree = "<group>"; };
 		65BDD1711BB8CD77006F7F2B /* MaterialLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialLabel.swift; sourceTree = "<group>"; };
 		65BDD1731BB8D443006F7F2B /* MaterialAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialAnimation.swift; sourceTree = "<group>"; };
+		65BDD1761BB98E31006F7F2B /* MaterialSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialSize.swift; sourceTree = "<group>"; };
+		65BDD1781BB99C0F006F7F2B /* RaisedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RaisedButton.swift; sourceTree = "<group>"; };
+		65BDD17B1BB99E29006F7F2B /* FabButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FabButton.swift; sourceTree = "<group>"; };
 		65DBE41E1B9A9244000C804F /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		65DBE41F1B9A9244000C804F /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		962F3E521BACA68C0004B8AD /* NavigationBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = "<group>"; };
@@ -133,6 +139,8 @@
 			children = (
 				65BDD1561BB6FC82006F7F2B /* MaterialButton.swift */,
 				65BDD1581BB6FE3E006F7F2B /* FlatButton.swift */,
+				65BDD1781BB99C0F006F7F2B /* RaisedButton.swift */,
+				65BDD17B1BB99E29006F7F2B /* FabButton.swift */,
 			);
 			name = Button;
 			sourceTree = "<group>";
@@ -226,11 +234,12 @@
 				65BDD14C1BB5ED9F006F7F2B /* MaterialTheme.swift */,
 				65BDD1481BB5DC98006F7F2B /* MaterialColor.swift */,
 				65BDD14E1BB5EE4A006F7F2B /* MaterialGravity.swift */,
-				65BDD1531BB6F473006F7F2B /* MaterialShadow.swift */,
+				65BDD1531BB6F473006F7F2B /* MaterialDepth.swift */,
 				65BDD15A1BB7095E006F7F2B /* MaterialRadius.swift */,
 				65BDD15C1BB70D60006F7F2B /* MaterialInsets.swift */,
 				65BDD1691BB7146B006F7F2B /* MaterialBorder.swift */,
 				65BDD16B1BB88D1A006F7F2B /* MaterialShape.swift */,
+				65BDD1761BB98E31006F7F2B /* MaterialSize.swift */,
 			);
 			name = Theme;
 			sourceTree = "<group>";
@@ -255,7 +264,7 @@
 				65BDD15E1BB7111E006F7F2B /* MaterialTheme.swift in Headers */,
 				65BDD15F1BB7111E006F7F2B /* MaterialColor.swift in Headers */,
 				65BDD1601BB7111E006F7F2B /* MaterialGravity.swift in Headers */,
-				65BDD1611BB7111E006F7F2B /* MaterialShadow.swift in Headers */,
+				65BDD1611BB7111E006F7F2B /* MaterialDepth.swift in Headers */,
 				65BDD1621BB7111E006F7F2B /* MaterialRadius.swift in Headers */,
 				65BDD1631BB7111E006F7F2B /* MaterialInsets.swift in Headers */,
 				65BDD1641BB7111E006F7F2B /* MaterialFont.swift in Headers */,
@@ -375,10 +384,13 @@
 				65BDD16C1BB88D1A006F7F2B /* MaterialShape.swift in Sources */,
 				65BDD1521BB6EE7C006F7F2B /* RobotoFont.swift in Sources */,
 				65BDD1591BB6FE3E006F7F2B /* FlatButton.swift in Sources */,
+				65BDD1791BB99C0F006F7F2B /* RaisedButton.swift in Sources */,
 				962F3E531BACA68C0004B8AD /* NavigationBarView.swift in Sources */,
 				65BDD14F1BB5EE4A006F7F2B /* MaterialGravity.swift in Sources */,
-				65BDD1541BB6F473006F7F2B /* MaterialShadow.swift in Sources */,
+				65BDD1771BB98E31006F7F2B /* MaterialSize.swift in Sources */,
+				65BDD1541BB6F473006F7F2B /* MaterialDepth.swift in Sources */,
 				65BDD1571BB6FC82006F7F2B /* MaterialButton.swift in Sources */,
+				65BDD17C1BB99E29006F7F2B /* FabButton.swift in Sources */,
 				65BDD16E1BB899F2006F7F2B /* MaterialPulseView.swift in Sources */,
 				65BDD1741BB8D443006F7F2B /* MaterialAnimation.swift in Sources */,
 				65BDD14B1BB5DD02006F7F2B /* MaterialFont.swift in Sources */,

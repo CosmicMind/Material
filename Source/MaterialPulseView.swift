@@ -60,7 +60,7 @@ public class MaterialPulseView: MaterialView {
 			// expand
 			CATransaction.begin()
 			CATransaction.setAnimationDuration(0.3)
-			pulseLayer.transform = CATransform3DMakeScale(2, 2, 2)
+			pulseLayer.transform = CATransform3DMakeScale(2.5, 2.5, 2.5)
 			visualLayer.transform = CATransform3DMakeScale(1.05, 1.05, 1.05)
 			CATransaction.commit()
 		}
@@ -71,13 +71,7 @@ public class MaterialPulseView: MaterialView {
 	*/
 	public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesEnded(touches, withEvent: event)
-		// contract
-		CATransaction.begin()
-		CATransaction.setAnimationDuration(0.3)
-		pulseLayer.hidden = true
-		pulseLayer.transform = CATransform3DIdentity
-		visualLayer.transform = CATransform3DIdentity
-		CATransaction.commit()
+		shrink()
 	}
 	
 	/**
@@ -85,6 +79,7 @@ public class MaterialPulseView: MaterialView {
 	*/
 	public override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
 		super.touchesCancelled(touches, withEvent: event)
+		shrink()
 	}
 	
 	//
@@ -95,13 +90,7 @@ public class MaterialPulseView: MaterialView {
 		userInteractionEnabled = MaterialTheme.pulseView.userInteractionEnabled
 		backgroundColor = MaterialTheme.pulseView.backgroudColor
 		pulseColor = MaterialTheme.pulseView.pulseColor
-	}
-	
-	//
-	//	:name:	prepareLayer
-	//
-	internal override func prepareLayer() {
-		super.prepareLayer()
+		
 		contentsRect = MaterialTheme.pulseView.contentsRect
 		contentsCenter = MaterialTheme.pulseView.contentsCenter
 		contentsScale = MaterialTheme.pulseView.contentsScale
@@ -117,5 +106,18 @@ public class MaterialPulseView: MaterialView {
 		// pulseLayer
 		pulseLayer.hidden = true
 		visualLayer.insertSublayer(pulseLayer, atIndex: 1000)
+	}
+	
+	//
+	//	:name:	shrink
+	//
+	internal func shrink() {
+		// contract
+		CATransaction.begin()
+		CATransaction.setAnimationDuration(0.3)
+		pulseLayer.hidden = true
+		pulseLayer.transform = CATransform3DIdentity
+		visualLayer.transform = CATransform3DIdentity
+		CATransaction.commit()
 	}
 }

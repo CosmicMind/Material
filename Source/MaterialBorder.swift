@@ -20,31 +20,28 @@ import UIKit
 
 public typealias MaterialBorderType = CGFloat
 
-public enum MaterialBorder : MaterialBorderType {
-	case None
-	case Thin
-	case Light
-	case Regular
-	case Medium
-	case Thick
+public enum MaterialBorder {
+	case Border0
+	case Border1
+	case Border2
+	case Border3
+	case Border4
 }
 
 /**
 	:name:	MaterialBorderToValue
 */
-public func MaterialBorderToValue(width: MaterialBorder) -> MaterialBorderType {
-	switch width {
-	case .None:
+public func MaterialBorderToValue(border: MaterialBorder) -> MaterialBorderType {
+	switch border {
+	case .Border0:
 		return 0
-	case .Thin:
+	case .Border1:
 		return 0.5
-	case .Light:
+	case .Border2:
 		return 1
-	case .Regular:
+	case .Border3:
 		return 2
-	case .Medium:
+	case .Border4:
 		return 3
-	case .Thick:
-		return 4
 	}
 }

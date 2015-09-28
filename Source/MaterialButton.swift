@@ -19,15 +19,34 @@
 import UIKit
 
 public class MaterialButton : UIButton {
+	//
+	//	:name:	visualLayer
+	//
+	public private(set) lazy var visualLayer: CAShapeLayer = CAShapeLayer()
+	
+	//
+	//	:name:	pulseLayer
+	//
+	internal lazy var pulseLayer: CAShapeLayer = CAShapeLayer()
+	
+	/**
+		:name:	pulseColor
+	*/
+	public var pulseColor: UIColor? {
+		didSet {
+			pulseLayer.backgroundColor = pulseColor?.colorWithAlphaComponent(0.5).CGColor
+		}
+	}
+	
 	/**
 		:name:	backgroundColor
 	*/
 	public override var backgroundColor: UIColor? {
 		get {
-			return nil == layer.backgroundColor ? nil : UIColor(CGColor: layer.backgroundColor!)
+			return nil == visualLayer.backgroundColor ? nil : UIColor(CGColor: visualLayer.backgroundColor!)
 		}
 		set(value) {
-			layer.backgroundColor = value?.CGColor
+			visualLayer.backgroundColor = value?.CGColor
 		}
 	}
 	
@@ -36,10 +55,10 @@ public class MaterialButton : UIButton {
 	*/
 	public var x: CGFloat {
 		get {
-			return layer.frame.origin.x
+			return frame.origin.x
 		}
 		set(value) {
-			layer.frame.origin.x = value
+			frame.origin.x = value
 		}
 	}
 	
@@ -48,10 +67,10 @@ public class MaterialButton : UIButton {
 	*/
 	public var y: CGFloat {
 		get {
-			return layer.frame.origin.y
+			return frame.origin.y
 		}
 		set(value) {
-			layer.frame.origin.y = value
+			frame.origin.y = value
 		}
 	}
 	
@@ -60,10 +79,14 @@ public class MaterialButton : UIButton {
 	*/
 	public var width: CGFloat {
 		get {
-			return layer.frame.size.width
+			return frame.size.width
 		}
 		set(value) {
-			layer.frame.size.width = value
+			frame.size.width = value
+			if nil != shape {
+				frame.size.height = value
+				prepareShape()
+			}
 		}
 	}
 	
@@ -72,10 +95,14 @@ public class MaterialButton : UIButton {
 	*/
 	public var height: CGFloat {
 		get {
-			return layer.frame.size.height
+			return frame.size.height
 		}
 		set(value) {
-			layer.frame.size.height = value
+			frame.size.height = value
+			if nil != shape {
+				frame.size.width = value
+				prepareShape()
+			}
 		}
 	}
 	
@@ -84,7 +111,7 @@ public class MaterialButton : UIButton {
 	*/
 	public var shadowColor: UIColor! {
 		didSet {
-			layer.shadowColor = shadowColor.CGColor
+			layer.shadowColor = nil == shadowColor ? MaterialColor.clear.CGColor : shadowColor!.CGColor
 		}
 	}
 	
@@ -93,7 +120,7 @@ public class MaterialButton : UIButton {
 	*/
 	public var shadowOffset: CGSize! {
 		didSet {
-			layer.shadowOffset = shadowOffset
+			layer.shadowOffset = nil == shadowOffset ? CGSizeMake(0, 0) : shadowOffset!
 		}
 	}
 	
@@ -102,7 +129,7 @@ public class MaterialButton : UIButton {
 	*/
 	public var shadowOpacity: Float! {
 		didSet {
-			layer.shadowOpacity = shadowOpacity
+			layer.shadowOpacity = nil == shadowOpacity ? 0 : shadowOpacity!
 		}
 	}
 	
@@ -111,7 +138,7 @@ public class MaterialButton : UIButton {
 	*/
 	public var shadowRadius: CGFloat! {
 		didSet {
-			layer.shadowRadius = shadowRadius
+			layer.shadowRadius = nil == shadowRadius ? 0 : shadowRadius!
 		}
 	}
 	
@@ -120,7 +147,7 @@ public class MaterialButton : UIButton {
 	*/
 	public var masksToBounds: Bool! {
 		didSet {
-			layer.masksToBounds = masksToBounds
+			visualLayer.masksToBounds = nil == masksToBounds ? false : masksToBounds!
 		}
 	}
 	
@@ -129,7 +156,8 @@ public class MaterialButton : UIButton {
 	*/
 	public var cornerRadius: MaterialRadius! {
 		didSet {
-			layer.cornerRadius = MaterialRadiusToValue(cornerRadius!)
+			visualLayer.cornerRadius = MaterialRadiusToValue(nil == cornerRadius ? .Radius0 : cornerRadius!)
+			shape = nil
 		}
 	}
 	
@@ -138,16 +166,13 @@ public class MaterialButton : UIButton {
 	*/
 	public var shape: MaterialShape? {
 		didSet {
-			if width < height {
-				width = height
-			} else {
-				height = width
-			}
-			switch shape! {
-			case .Square:
-				layer.cornerRadius = 0
-			case .Circle:
-				layer.cornerRadius = width / 2
+			if nil != shape {
+				if width < height {
+					frame.size.width = height
+				} else {
+					frame.size.height = width
+				}
+				prepareShape()
 			}
 		}
 	}
@@ -157,7 +182,7 @@ public class MaterialButton : UIButton {
 	*/
 	public var borderWidth: MaterialBorder! {
 		didSet {
-			layer.borderWidth = MaterialBorderToValue(borderWidth)
+			visualLayer.borderWidth = MaterialBorderToValue(nil == borderWidth ? .Border0 : borderWidth!)
 		}
 	}
 	
@@ -166,16 +191,16 @@ public class MaterialButton : UIButton {
 	*/
 	public var borderColor: UIColor! {
 		didSet {
-			layer.borderColor = borderColor.CGColor
+			visualLayer.borderColor = nil == borderColor ? MaterialColor.clear.CGColor : borderColor!.CGColor
 		}
 	}
 	
 	/**
 		:name:	shadowDepth
 	*/
-	public var shadowDepth: MaterialShadow! {
+	public var shadowDepth: MaterialDepth! {
 		didSet {
-			let value: MaterialShadowType = MaterialShadowToValue(shadowDepth)
+			let value: MaterialDepthType = MaterialDepthToValue(shadowDepth!)
 			shadowOffset = value.offset
 			shadowOpacity = value.opacity
 			shadowRadius = value.radius
@@ -196,15 +221,10 @@ public class MaterialButton : UIButton {
 	*/
 	public var contentInsets: MaterialInsets! {
 		didSet {
-			let value: MaterialInsetsType = MaterialInsetsToValue(contentInsets)
+			let value: MaterialInsetsType = MaterialInsetsToValue(nil == contentInsets ? .Inset0 : contentInsets)
 			contentEdgeInsets = UIEdgeInsetsMake(value.top, value.left, value.bottom, value.right)
 		}
 	}
-	
-	/**
-		:name:	pulseColor
-	*/
-	public var pulseColor: UIColor? = MaterialColor.white
 	
 	/**
 		:name:	init
@@ -219,11 +239,27 @@ public class MaterialButton : UIButton {
 	public override init(frame: CGRect) {
 		super.init(frame: frame)
 		prepareView()
-		prepareLayer()
+	}
+	/**
+		:name:	init
+	*/
+	public convenience init() {
+		self.init(frame: CGRectMake(MaterialTheme.view.x, MaterialTheme.view.y, MaterialTheme.view.width, MaterialTheme.view.height))
+	}
+
+	/**
+		:name:	layerClass
+	*/
+	public override class func layerClass() -> AnyClass {
+		return CAShapeLayer.self
 	}
 	
-	public convenience init() {
-		self.init(frame: CGRectZero)
+	/**
+		:name:	layoutSubviews
+	*/
+	public override func layoutSubviews() {
+		super.layoutSubviews()
+		visualLayer.frame = bounds
 	}
 	
 	/**
@@ -231,6 +267,25 @@ public class MaterialButton : UIButton {
 	*/
 	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesBegan(touches, withEvent: event)
+		let point: CGPoint = touches.first!.locationInView(self)
+		if nil != visualLayer.presentationLayer()?.hitTest(point) {
+			// set start position
+			CATransaction.begin()
+			CATransaction.setAnimationDuration(0)
+			let w: CGFloat = width / 2
+			pulseLayer.hidden = false
+			pulseLayer.position = point
+			pulseLayer.bounds = CGRectMake(0, 0, w, w)
+			pulseLayer.cornerRadius = CGFloat(w / 2)
+			CATransaction.commit()
+			
+			// expand
+			CATransaction.begin()
+			CATransaction.setAnimationDuration(0.3)
+			pulseLayer.transform = CATransform3DMakeScale(2.5, 2.5, 2.5)
+			visualLayer.transform = CATransform3DMakeScale(1.05, 1.05, 1.05)
+			CATransaction.commit()
+		}
 	}
 	
 	/**
@@ -238,6 +293,7 @@ public class MaterialButton : UIButton {
 	*/
 	public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesEnded(touches, withEvent: event)
+		shrink()
 	}
 	
 	/**
@@ -245,19 +301,38 @@ public class MaterialButton : UIButton {
 	*/
 	public override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
 		super.touchesCancelled(touches, withEvent: event)
+		shrink()
 	}
 	
 	//
 	//	:name:	prepareView
 	//
 	internal func prepareView() {
-		userInteractionEnabled = MaterialTheme.button.userInteractionEnabled
+		// visualLayer
+		layer.addSublayer(visualLayer)
+		
+		// pulseLayer
+		pulseLayer.hidden = true
+		visualLayer.insertSublayer(pulseLayer, atIndex: 1000)
 	}
 	
 	//
-	//	:name:	prepareLayer
+	//	:name:	prepareShape
 	//
-	internal func prepareLayer() {
-		
+	internal func prepareShape() {
+		visualLayer.cornerRadius = .Square == shape ? 0 : width / 2
+	}
+	
+	//
+	//	:name:	shrink
+	//
+	internal func shrink() {
+		// contract
+		CATransaction.begin()
+		CATransaction.setAnimationDuration(0.3)
+		pulseLayer.hidden = true
+		pulseLayer.transform = CATransform3DIdentity
+		visualLayer.transform = CATransform3DIdentity
+		CATransaction.commit()
 	}
 }

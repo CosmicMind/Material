@@ -18,30 +18,30 @@
 
 import UIKit
 
-public typealias MaterialInsetsType = (top: CGFloat, left: CGFloat, bottom: CGFloat, right: CGFloat)
+public typealias MaterialSizeType = CGFloat
 
-public enum MaterialInsets {
-	case Inset0
-	case Inset1
-	case Inset2
-	case Inset3
-	case Inset4
+public enum MaterialSize {
+	case Size0
+	case Size1
+	case Size2
+	case Size3
+	case Size4
 }
 
 /**
-	:name:	MaterialInsetsToValue
+	:name:	MaterialSizeToValue
 */
-public func MaterialInsetsToValue(inset: MaterialInsets) -> MaterialInsetsType {
-	switch inset {
-	case .Inset0:
-		return (top: 0, left: 0, bottom: 0, right: 0)
-	case .Inset1:
-		return (top: 4, left: 4, bottom: 4, right: 4)
-	case .Inset2:
-		return (top: 8, left: 8, bottom: 8, right: 8)
-	case .Inset3:
-		return (top: 16, left: 16, bottom: 16, right: 16)
-	case .Inset4:
-		return (top: 32, left: 32, bottom: 32, right: 32)
+public func MaterialSizeToValue(size: MaterialSize) -> MaterialSizeType {
+	switch size {
+	case .Size0:
+		return 0
+	case .Size1:
+		return 0.5
+	case .Size2:
+		return 1
+	case .Size3:
+		return 2
+	case .Size4:
+		return 3
 	}
 }

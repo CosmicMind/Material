@@ -187,7 +187,7 @@ public class MaterialView: UIView {
 	*/
 	public var cornerRadius: MaterialRadius! {
 		didSet {
-			visualLayer.cornerRadius = MaterialRadiusToValue(nil == cornerRadius ? .None : cornerRadius!)
+			visualLayer.cornerRadius = MaterialRadiusToValue(nil == cornerRadius ? .Radius0 : cornerRadius!)
 			shape = nil
 		}
 	}
@@ -213,7 +213,7 @@ public class MaterialView: UIView {
 	*/
 	public var borderWidth: MaterialBorder! {
 		didSet {
-			visualLayer.borderWidth = MaterialBorderToValue(nil == borderWidth ? .None : borderWidth!)
+			visualLayer.borderWidth = MaterialBorderToValue(nil == borderWidth ? .Border0 : borderWidth!)
 		}
 	}
 	
@@ -229,9 +229,9 @@ public class MaterialView: UIView {
 	/**
 		:name:	shadowDepth
 	*/
-	public var shadowDepth: MaterialShadow! {
+	public var shadowDepth: MaterialDepth! {
 		didSet {
-			let value: MaterialShadowType = MaterialShadowToValue(shadowDepth!)
+			let value: MaterialDepthType = MaterialDepthToValue(shadowDepth!)
 			shadowOffset = value.offset
 			shadowOpacity = value.opacity
 			shadowRadius = value.radius
@@ -260,7 +260,6 @@ public class MaterialView: UIView {
 	public override init(frame: CGRect) {
 		super.init(frame: frame)
 		prepareView()
-		prepareLayer()
 	}
 	
 	/**
@@ -291,12 +290,7 @@ public class MaterialView: UIView {
 	internal func prepareView() {
 		userInteractionEnabled = MaterialTheme.view.userInteractionEnabled
 		backgroundColor = MaterialTheme.view.backgroudColor
-	}
-	
-	//
-	//	:name:	prepareLayer
-	//
-	internal func prepareLayer() {
+		
 		contentsRect = MaterialTheme.view.contentsRect
 		contentsCenter = MaterialTheme.view.contentsCenter
 		contentsScale = MaterialTheme.view.contentsScale

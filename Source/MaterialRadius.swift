@@ -21,11 +21,11 @@ import UIKit
 public typealias MaterialRadiusType = CGFloat
 
 public enum MaterialRadius {
-	case None
-	case Light
-	case Regular
-	case Medium
-	case Heavy
+	case Radius0
+	case Radius1
+	case Radius2
+	case Radius3
+	case Radius4
 }
 
 /**
@@ -33,15 +33,15 @@ public enum MaterialRadius {
 */
 public func MaterialRadiusToValue(radius: MaterialRadius) -> MaterialRadiusType {
 	switch radius {
-	case .None:
+	case .Radius0:
 		return 0
-	case .Light:
+	case .Radius1:
 		return 4
-	case .Regular:
+	case .Radius2:
 		return 8
-	case .Medium:
+	case .Radius3:
 		return 16
-	case .Heavy:
-		return 20
+	case .Radius4:
+		return 32
 	}
 }

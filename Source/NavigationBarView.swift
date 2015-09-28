@@ -43,13 +43,7 @@ public class NavigationBarView: MaterialView {
 		userInteractionEnabled = MaterialTheme.navigation.userInteractionEnabled
 		backgroundColor = MaterialTheme.navigation.backgroudColor
 		lightContentStatusBar = MaterialTheme.navigation.lightContentStatusBar
-	}
-	
-	//
-	//	:name:	prepareLayer
-	//
-	internal override func prepareLayer() {
-		super.prepareLayer()
+		
 		contentsRect = MaterialTheme.navigation.contentsRect
 		contentsCenter = MaterialTheme.navigation.contentsCenter
 		contentsScale = MaterialTheme.navigation.contentsScale

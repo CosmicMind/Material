@@ -18,7 +18,6 @@
 
 import UIKit
 
-// color
 public struct MaterialColor {
 	// clear
 	public static let clear: UIColor = UIColor.clearColor()

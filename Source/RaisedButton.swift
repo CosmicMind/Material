@@ -18,27 +18,27 @@
 
 import UIKit
 
-public class FlatButton : MaterialButton {
+public class RaisedButton : MaterialButton {
 	//
 	//	:name:	prepareView
 	//
 	internal override func prepareView() {
 		super.prepareView()
-		setTitleColor(MaterialTheme.button.flat.titleLabelColorForNormalState, forState: .Normal)
-		titleLabel!.font = MaterialTheme.button.flat.titleLabelFont
+		setTitleColor(MaterialTheme.button.raised.titleLabelColorForNormalState, forState: .Normal)
+		titleLabel!.font = MaterialTheme.button.raised.titleLabelFont
 		
-		userInteractionEnabled = MaterialTheme.button.flat.userInteractionEnabled
-		backgroundColor = MaterialTheme.button.flat.backgroudColor
-		pulseColor = MaterialTheme.button.flat.pulseColor
+		userInteractionEnabled = MaterialTheme.button.raised.userInteractionEnabled
+		backgroundColor = MaterialTheme.button.raised.backgroudColor
+		pulseColor = MaterialTheme.button.raised.pulseColor
 		
-		shadowDepth = MaterialTheme.button.flat.shadowDepth
-		shadowColor = MaterialTheme.button.flat.shadowColor
-		zPosition = MaterialTheme.button.flat.zPosition
-		masksToBounds = MaterialTheme.button.flat.masksToBounds
-		cornerRadius = MaterialTheme.button.flat.cornerRadius
-		borderWidth = MaterialTheme.button.flat.borderWidth
-		borderColor = MaterialTheme.button.flat.bordercolor
-		contentInsets = MaterialTheme.button.flat.contentInsets
-		shape = MaterialTheme.button.flat.shape
+		shadowDepth = MaterialTheme.button.raised.shadowDepth
+		shadowColor = MaterialTheme.button.raised.shadowColor
+		zPosition = MaterialTheme.button.raised.zPosition
+		masksToBounds = MaterialTheme.button.raised.masksToBounds
+		cornerRadius = MaterialTheme.button.raised.cornerRadius
+		borderWidth = MaterialTheme.button.raised.borderWidth
+		borderColor = MaterialTheme.button.raised.bordercolor
+		contentInsets = MaterialTheme.button.raised.contentInsets
+		shape = MaterialTheme.button.raised.shape
 	}
 }
