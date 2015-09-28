@@ -19,57 +19,6 @@
 import UIKit
 
 public class MaterialPulseView: MaterialView {
-	/**
-		:name:	width
-	*/
-	public override var width: CGFloat {
-		get {
-			return super.width
-		}
-		set(value) {
-			super.width = value
-			pulseLayer.frame.size.width = value
-			if nil != shape {
-				pulseLayer.frame.size.height = height
-			}
-		}
-	}
-	
-	/**
-		:name:	height
-	*/
-	public override var height: CGFloat {
-		get {
-			return super.height
-		}
-		set(value) {
-			super.height = value
-			pulseLayer.frame.size.height = value
-			if nil != shape {
-				pulseLayer.frame.size.width = width
-			}
-		}
-	}
-	
-	/**
-		:name:	cornerRadius
-	*/
-	public override var cornerRadius: MaterialRadius! {
-		didSet {
-			super.cornerRadius = cornerRadius
-			pulseLayer.cornerRadius = layer.cornerRadius
-		}
-	}
-	
-	/**
-		:name:	shape
-	*/
-	public override var shape: MaterialShape! {
-		didSet {
-			prepareShape()
-		}
-	}
-	
 	//
 	//	:name:	pulseLayer
 	//
@@ -87,11 +36,22 @@ public class MaterialPulseView: MaterialView {
 	*/
 	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesBegan(touches, withEvent: event)
-//		pulseLayer.hidden = false
-//		let point: CGPoint = touches.first!.locationInView(self)
-//		let pulse: CAShapeLayer = CAShapeLayer()
-//		pulse.bounds = CGRectMake(point.x, point.y, 0, 0)
-//		pulse.backgroundColor = MaterialColor.white.CGColor
+		let point: CGPoint = touches.first!.locationInView(self)
+		if nil != visualLayer.presentationLayer()?.hitTest(point) {
+			CATransaction.begin()
+			CATransaction.setAnimationDuration(0)
+			pulseLayer.hidden = false
+			pulseLayer.position = point
+			pulseLayer.frame = CGRectMake(0, 0, width, height)
+			pulseLayer.cornerRadius = visualLayer.cornerRadius
+			CATransaction.commit()
+			
+			CATransaction.begin()
+			CATransaction.setAnimationDuration(0.3)
+			pulseLayer.transform = CATransform3DMakeScale(3, 3, 3)
+			visualLayer.transform = CATransform3DMakeScale(1.1, 1.1, 1.1)
+			CATransaction.commit()
+		}
 	}
 	
 	/**
@@ -99,8 +59,12 @@ public class MaterialPulseView: MaterialView {
 	*/
 	public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesEnded(touches, withEvent: event)
-//		pulseLayer.hidden = true
-		MaterialAnimation.rotate(visualLayer, duration: 1)
+		CATransaction.begin()
+		CATransaction.setAnimationDuration(0.3)
+		pulseLayer.hidden = true
+		pulseLayer.transform = CATransform3DIdentity
+		visualLayer.transform = CATransform3DIdentity
+		CATransaction.commit()
 	}
 	
 	/**
@@ -137,22 +101,8 @@ public class MaterialPulseView: MaterialView {
 		borderColor = MaterialTheme.pulseView.bordercolor
 		
 		// pulseLayer
-		pulseLayer.frame = CGRectMake(0, 0, width, height)
-		pulseLayer.masksToBounds = true
 		pulseLayer.hidden = true
-		pulseLayer.backgroundColor = MaterialColor.red.base.CGColor
+		pulseLayer.backgroundColor = MaterialColor.white.colorWithAlphaComponent(0.5).CGColor
 		visualLayer.addSublayer(pulseLayer)
-	}
-	
-	//
-	//	:name:	prepareShape
-	//
-	internal override func prepareShape() {
-		super.prepareShape()
-		if nil != shape {
-			pulseLayer.frame.size.width = width
-			pulseLayer.frame.size.height = height
-			pulseLayer.cornerRadius = layer.cornerRadius
-		}
 	}
 }
