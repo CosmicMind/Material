@@ -45,16 +45,16 @@ public class MaterialPulseView: MaterialView {
 		if nil != visualLayer.presentationLayer()?.hitTest(point) {
 			CATransaction.begin()
 			CATransaction.setAnimationDuration(0)
-			pulseLayer.position = point
 			let w: CGFloat = width / 2
+			pulseLayer.hidden = false
+			pulseLayer.position = point
 			pulseLayer.bounds = CGRectMake(0, 0, w, w)
-			pulseLayer.cornerRadius = w
+			pulseLayer.cornerRadius = CGFloat(w / 2)
 			CATransaction.commit()
 			
 			CATransaction.begin()
 			CATransaction.setAnimationDuration(0.3)
-			pulseLayer.hidden = false
-			pulseLayer.transform = CATransform3DMakeScale(3, 3, 3)
+			pulseLayer.transform = CATransform3DMakeScale(2, 2, 2)
 			visualLayer.transform = CATransform3DMakeScale(1.05, 1.05, 1.05)
 			CATransaction.commit()
 		}
