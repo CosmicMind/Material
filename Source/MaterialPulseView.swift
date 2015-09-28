@@ -112,7 +112,6 @@ public class MaterialPulseView: MaterialView {
 	//	:name:	shrink
 	//
 	internal func shrink() {
-		// contract
 		CATransaction.begin()
 		CATransaction.setAnimationDuration(0.3)
 		pulseLayer.hidden = true
