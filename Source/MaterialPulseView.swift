@@ -41,6 +41,14 @@ public class MaterialPulseView: MaterialView {
 	}
 	
 	/**
+		:name:	layoutSubviews
+	*/
+	public override func layoutSubviews() {
+		super.layoutSubviews()
+		pulseLayer.zPosition = 1000
+	}
+	
+	/**
 		:name:	touchesBegan
 	*/
 	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {

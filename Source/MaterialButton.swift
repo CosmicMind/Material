@@ -260,6 +260,8 @@ public class MaterialButton : UIButton {
 	public override func layoutSubviews() {
 		super.layoutSubviews()
 		visualLayer.frame = bounds
+		visualLayer.zPosition = -1
+		pulseLayer.zPosition = 1000
 	}
 	
 	/**
@@ -309,7 +311,7 @@ public class MaterialButton : UIButton {
 	//
 	internal func prepareView() {
 		// visualLayer
-		layer.addSublayer(visualLayer)
+		layer.insertSublayer(visualLayer, atIndex: 0)
 		
 		// pulseLayer
 		pulseLayer.hidden = true

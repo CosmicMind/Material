@@ -58,6 +58,18 @@ v.backgroundColor = MaterialColor.green.darken3
 v.pulseColor = MaterialColor.green.base
 ```
 
+### Actionable FabButton
+
+A FabButton is essential to Material Design's overall look. I leave this example as simple as possible to showcase its beauty.
+
+![MaterialKitPreview](http://www.materialkit.io/github/img5.gif)
+
+```swift
+let v: FabButton = FabButton(frame: CGRectMake(0, 0, 64, 64))
+v.setImage(UIImage(named: "ic_create_white"), forState: .Normal)
+v.setImage(UIImage(named: "ic_create_white"), forState: .Highlighted)
+```
+
 ### License
 
 [AGPLv3](http://choosealicense.com/licenses/agpl-3.0/)
