@@ -110,7 +110,7 @@ public class MaterialView: UIView {
 	*/
 	public var width: CGFloat {
 		get {
-			return layer.frame.size.width
+			return visualLayer.frame.size.width
 		}
 		set(value) {
 			layer.frame.size.width = value
@@ -124,7 +124,7 @@ public class MaterialView: UIView {
 	*/
 	public var height: CGFloat {
 		get {
-			return layer.frame.size.height
+			return visualLayer.frame.size.height
 		}
 		set(value) {
 			layer.frame.size.height = value
@@ -290,7 +290,7 @@ public class MaterialView: UIView {
 		borderColor = MaterialTheme.view.bordercolor
 		
 		// visualLayer
-		visualLayer.frame = CGRectMake(0, 0, width, height)
+		visualLayer.bounds = CGRectMake(0, 0, width, height)
 		layer.addSublayer(visualLayer)
 	}
 	

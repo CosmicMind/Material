@@ -25,6 +25,11 @@ public class MaterialPulseView: MaterialView {
 	internal lazy var pulseLayer: CAShapeLayer = CAShapeLayer()
 	
 	/**
+		:name:	pulseColor
+	*/
+	public var pulseColor: UIColor?
+	
+	/**
 		:name:	init
 	*/
 	public convenience init() {
@@ -40,16 +45,17 @@ public class MaterialPulseView: MaterialView {
 		if nil != visualLayer.presentationLayer()?.hitTest(point) {
 			CATransaction.begin()
 			CATransaction.setAnimationDuration(0)
-			pulseLayer.hidden = false
 			pulseLayer.position = point
-			pulseLayer.frame = CGRectMake(0, 0, width, height)
-			pulseLayer.cornerRadius = visualLayer.cornerRadius
+			let w: CGFloat = width / 2
+			pulseLayer.bounds = CGRectMake(0, 0, w, w)
+			pulseLayer.cornerRadius = w
 			CATransaction.commit()
 			
 			CATransaction.begin()
 			CATransaction.setAnimationDuration(0.3)
+			pulseLayer.hidden = false
 			pulseLayer.transform = CATransform3DMakeScale(3, 3, 3)
-			visualLayer.transform = CATransform3DMakeScale(1.1, 1.1, 1.1)
+			visualLayer.transform = CATransform3DMakeScale(1.05, 1.05, 1.05)
 			CATransaction.commit()
 		}
 	}
@@ -81,6 +87,7 @@ public class MaterialPulseView: MaterialView {
 		super.prepareView()
 		userInteractionEnabled = MaterialTheme.pulseView.userInteractionEnabled
 		backgroundColor = MaterialTheme.pulseView.backgroudColor
+		pulseColor = MaterialColor.white
 	}
 	
 	//
@@ -102,7 +109,7 @@ public class MaterialPulseView: MaterialView {
 		
 		// pulseLayer
 		pulseLayer.hidden = true
-		pulseLayer.backgroundColor = MaterialColor.white.colorWithAlphaComponent(0.5).CGColor
+		pulseLayer.backgroundColor = pulseColor?.colorWithAlphaComponent(0.5).CGColor
 		visualLayer.addSublayer(pulseLayer)
 	}
 }
