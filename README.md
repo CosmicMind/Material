@@ -1,25 +1,37 @@
 # MaterialKit
 
-### Build Beautiful Software
-
-* [CocoaPods (MK)](https://cocoapods.org/?q=MK)
-
 ### CocoaPods Support
 
 MaterialKit is on CocoaPods under the name [MK](https://cocoapods.org/?q=MK).
 
-### A Basic MaterialView
+### Basic MaterialView
 
 To get started, we will introduce MaterialView, a lightweight UIView Object that has flexibility in mind. Common controls have been added to make things easier. For example, let's make a circle view that has a shadow, border, and image.
 
 ![MaterialKitPreview](http://www.materialkit.io/github/img1.png)
 
 ```swift
-let view1: MaterialView = MaterialView(frame: CGRectMake(0, 0, 100, 100))
-view1.shape = .Circle
-view1.shadowDepth = .Depth2
-view1.borderWidth = .Border1
-view1.image = UIImage(named: "swift")
+let v: MaterialView = MaterialView(frame: CGRectMake(0, 0, 100, 100))
+v.shape = .Circle
+v.shadowDepth = .Depth2
+v.borderWidth = .Border1
+v.image = UIImage(named: "swift")
+```
+
+### Animated MaterialPulseView
+
+Let's expand on the basic MaterialView and use an animated MaterialPulseView. In this example, we will make the shape a square with some rounded corners, and change the color of the border.
+
+![MaterialKitPreview](http://www.materialkit.io/github/img2.gif)
+
+```swift
+let v: MaterialPulseView = MaterialPulseView(frame: CGRectMake(0, 0, 100, 100))
+v.shape = .Square
+v.shadowDepth = .Depth2
+v.borderWidth = .Border3
+v.borderColor = MaterialColor.red.darken1
+v.cornerRadius = .Radius1
+v.image = UIImage(named: "swift")
 ```
 
 ### License
