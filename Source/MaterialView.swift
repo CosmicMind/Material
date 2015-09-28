@@ -282,7 +282,6 @@ public class MaterialView: UIView {
 	public override func layoutSubviews() {
 		super.layoutSubviews()
 		visualLayer.frame = bounds
-		visualLayer.zPosition = -1
 	}
 	
 	//
@@ -305,7 +304,8 @@ public class MaterialView: UIView {
 		borderColor = MaterialTheme.view.bordercolor
 		
 		// visualLayer
-		layer.insertSublayer(visualLayer, atIndex: 0)
+		layer.addSublayer(visualLayer)
+		visualLayer.zPosition = -1
 	}
 	
 	//

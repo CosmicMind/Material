@@ -29,6 +29,7 @@ public class RaisedButton : MaterialButton {
 		
 		userInteractionEnabled = MaterialTheme.button.raised.userInteractionEnabled
 		backgroundColor = MaterialTheme.button.raised.backgroudColor
+		pulseColorOpacity = MaterialTheme.button.raised.pulseColorOpacity
 		pulseColor = MaterialTheme.button.raised.pulseColor
 		
 		shadowDepth = MaterialTheme.button.raised.shadowDepth

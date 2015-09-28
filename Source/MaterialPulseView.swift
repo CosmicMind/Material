@@ -29,7 +29,7 @@ public class MaterialPulseView: MaterialView {
 	*/
 	public var pulseColor: UIColor? {
 		didSet {
-			pulseLayer.backgroundColor = pulseColor?.colorWithAlphaComponent(0.5).CGColor
+			pulseLayer.backgroundColor = pulseColor?.colorWithAlphaComponent(MaterialTheme.pulseView.pulseColorOpacity).CGColor
 		}
 	}
 	
@@ -38,14 +38,6 @@ public class MaterialPulseView: MaterialView {
 	*/
 	public convenience init() {
 		self.init(frame: CGRectMake(MaterialTheme.pulseView.x, MaterialTheme.pulseView.y, MaterialTheme.pulseView.width, MaterialTheme.pulseView.height))
-	}
-	
-	/**
-		:name:	layoutSubviews
-	*/
-	public override func layoutSubviews() {
-		super.layoutSubviews()
-		pulseLayer.zPosition = 1000
 	}
 	
 	/**
@@ -113,7 +105,8 @@ public class MaterialPulseView: MaterialView {
 		
 		// pulseLayer
 		pulseLayer.hidden = true
-		visualLayer.insertSublayer(pulseLayer, atIndex: 1000)
+		visualLayer.addSublayer(pulseLayer)
+		pulseLayer.zPosition = 1000
 	}
 	
 	//

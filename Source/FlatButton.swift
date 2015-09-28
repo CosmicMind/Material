@@ -29,6 +29,7 @@ public class FlatButton : MaterialButton {
 		
 		userInteractionEnabled = MaterialTheme.button.flat.userInteractionEnabled
 		backgroundColor = MaterialTheme.button.flat.backgroudColor
+		pulseColorOpacity = MaterialTheme.button.flat.pulseColorOpacity
 		pulseColor = MaterialTheme.button.flat.pulseColor
 		
 		shadowDepth = MaterialTheme.button.flat.shadowDepth

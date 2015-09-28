@@ -29,12 +29,17 @@ public class MaterialButton : UIButton {
 	//
 	internal lazy var pulseLayer: CAShapeLayer = CAShapeLayer()
 	
+	//
+	//	:name:	pulseColorOpacity
+	//
+	internal var pulseColorOpacity: CGFloat!
+	
 	/**
 		:name:	pulseColor
 	*/
 	public var pulseColor: UIColor? {
 		didSet {
-			pulseLayer.backgroundColor = pulseColor?.colorWithAlphaComponent(0.5).CGColor
+			pulseLayer.backgroundColor = pulseColor?.colorWithAlphaComponent(pulseColorOpacity!).CGColor
 		}
 	}
 	
@@ -260,8 +265,6 @@ public class MaterialButton : UIButton {
 	public override func layoutSubviews() {
 		super.layoutSubviews()
 		visualLayer.frame = bounds
-		visualLayer.zPosition = -1
-		pulseLayer.zPosition = 1000
 	}
 	
 	/**
@@ -311,11 +314,13 @@ public class MaterialButton : UIButton {
 	//
 	internal func prepareView() {
 		// visualLayer
-		layer.insertSublayer(visualLayer, atIndex: 0)
+		layer.addSublayer(visualLayer)
+		visualLayer.zPosition = -1
 		
 		// pulseLayer
 		pulseLayer.hidden = true
-		visualLayer.insertSublayer(pulseLayer, atIndex: 1000)
+		visualLayer.addSublayer(pulseLayer)
+		pulseLayer.zPosition = 1000
 	}
 	
 	//

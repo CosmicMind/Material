@@ -88,6 +88,7 @@ public extension MaterialTheme.pulseView {
 	// color
 	public static let backgroudColor: UIColor = MaterialColor.clear
 	public static let pulseColor: UIColor = MaterialColor.white
+	public static let pulseColorOpacity: CGFloat = 0.5
 	
 	// interaction
 	public static let userInteractionEnabled: Bool = MaterialTheme.view.userInteractionEnabled
@@ -158,6 +159,7 @@ public extension MaterialTheme.button.flat {
 	// color
 	public static let backgroudColor: UIColor = MaterialColor.clear
 	public static let pulseColor: UIColor = MaterialColor.blue.accent3
+	public static let pulseColorOpacity: CGFloat = MaterialTheme.pulseView.pulseColorOpacity
 	public static let titleLabelColorForNormalState: UIColor = MaterialColor.blue.accent3
 	
 	// interaction
@@ -189,6 +191,7 @@ public extension MaterialTheme.button.raised {
 	// color
 	public static let backgroudColor: UIColor = MaterialColor.blue.accent3
 	public static let pulseColor: UIColor = MaterialColor.white
+	public static let pulseColorOpacity: CGFloat = MaterialTheme.pulseView.pulseColorOpacity
 	public static let titleLabelColorForNormalState: UIColor = MaterialColor.white
 	
 	// interaction
@@ -221,6 +224,7 @@ public extension MaterialTheme.button.fab {
 	// color
 	public static let backgroudColor: UIColor = MaterialColor.red.darken1
 	public static let pulseColor: UIColor = MaterialColor.white
+	public static let pulseColorOpacity: CGFloat = MaterialTheme.pulseView.pulseColorOpacity
 	public static let titleLabelColorForNormalState: UIColor = MaterialColor.white
 	
 	// interaction

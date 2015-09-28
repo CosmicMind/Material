@@ -29,6 +29,7 @@ public class FabButton : MaterialButton {
 		
 		userInteractionEnabled = MaterialTheme.button.fab.userInteractionEnabled
 		backgroundColor = MaterialTheme.button.fab.backgroudColor
+		pulseColorOpacity = MaterialTheme.button.fab.pulseColorOpacity
 		pulseColor = MaterialTheme.button.fab.pulseColor
 		
 		shadowDepth = MaterialTheme.button.fab.shadowDepth
