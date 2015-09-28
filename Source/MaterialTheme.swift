@@ -42,7 +42,7 @@ public extension MaterialTheme.view {
 	public static let shadowColor: UIColor = MaterialColor.black
 	
 	// shape
-	public static let masksToBounds: Bool = false
+	public static let masksToBounds: Bool = true
 	public static let cornerRadius: MaterialRadius = .Radius0
 	
 	// border
