@@ -73,7 +73,7 @@ public class MaterialPulseView: MaterialView {
 	//
 	//	:name:	pulseLayer
 	//
-	internal lazy var pulseLayer: CALayer = CALayer()
+	internal lazy var pulseLayer: CAShapeLayer = CAShapeLayer()
 	
 	/**
 		:name:	init
@@ -87,7 +87,11 @@ public class MaterialPulseView: MaterialView {
 	*/
 	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesBegan(touches, withEvent: event)
-		layer.addSublayer(pulseLayer)
+//		pulseLayer.hidden = false
+//		let point: CGPoint = touches.first!.locationInView(self)
+//		let pulse: CAShapeLayer = CAShapeLayer()
+//		pulse.bounds = CGRectMake(point.x, point.y, 0, 0)
+//		pulse.backgroundColor = MaterialColor.white.CGColor
 	}
 	
 	/**
@@ -95,7 +99,8 @@ public class MaterialPulseView: MaterialView {
 	*/
 	public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesEnded(touches, withEvent: event)
-		pulseLayer.removeFromSuperlayer()
+//		pulseLayer.hidden = true
+		MaterialAnimation.rotate(visualLayer, duration: 1)
 	}
 	
 	/**
@@ -134,7 +139,9 @@ public class MaterialPulseView: MaterialView {
 		// pulseLayer
 		pulseLayer.frame = CGRectMake(0, 0, width, height)
 		pulseLayer.masksToBounds = true
-		pulseLayer.backgroundColor = MaterialColor.blue.accent3.CGColor
+		pulseLayer.hidden = true
+		pulseLayer.backgroundColor = MaterialColor.red.base.CGColor
+		visualLayer.addSublayer(pulseLayer)
 	}
 	
 	//

@@ -19,12 +19,17 @@
 import UIKit
 
 public class MaterialView: UIView {
+	//
+	//	:name:	visualLayer
+	//
+	public private(set) lazy var visualLayer: CAShapeLayer = CAShapeLayer()
+	
 	/**
 		:name:	image
 	*/
 	public var image: UIImage? {
 		didSet {
-			layer.contents = image?.CGImage
+			visualLayer.contents = image?.CGImage
 		}
 	}
 	
@@ -33,7 +38,7 @@ public class MaterialView: UIView {
 	*/
 	public var contentsRect: CGRect! {
 		didSet {
-			layer.contentsRect = contentsRect
+			visualLayer.contentsRect = contentsRect
 		}
 	}
 	
@@ -42,7 +47,7 @@ public class MaterialView: UIView {
 	*/
 	public var contentsCenter: CGRect! {
 		didSet {
-			layer.contentsCenter = contentsCenter
+			visualLayer.contentsCenter = contentsCenter
 		}
 	}
 	
@@ -51,7 +56,7 @@ public class MaterialView: UIView {
 	*/
 	public var contentsScale: CGFloat! {
 		didSet {
-			layer.contentsScale = contentsScale
+			visualLayer.contentsScale = contentsScale
 		}
 	}
 	
@@ -60,7 +65,7 @@ public class MaterialView: UIView {
 	*/
 	public var contentsGravity: MaterialGravity! {
 		didSet {
-			layer.contentsGravity = MaterialGravityToString(contentsGravity)
+			visualLayer.contentsGravity = MaterialGravityToString(contentsGravity)
 		}
 	}
 	
@@ -69,10 +74,10 @@ public class MaterialView: UIView {
 	*/
 	public override var backgroundColor: UIColor? {
 		get {
-			return nil == layer.backgroundColor ? nil : UIColor(CGColor: layer.backgroundColor!)
+			return nil == visualLayer.backgroundColor ? nil : UIColor(CGColor: visualLayer.backgroundColor!)
 		}
 		set(value) {
-			layer.backgroundColor = value?.CGColor
+			visualLayer.backgroundColor = value?.CGColor
 		}
 	}
 	
@@ -109,6 +114,7 @@ public class MaterialView: UIView {
 		}
 		set(value) {
 			layer.frame.size.width = value
+			visualLayer.frame.size.width = value
 			prepareShape()
 		}
 	}
@@ -122,6 +128,7 @@ public class MaterialView: UIView {
 		}
 		set(value) {
 			layer.frame.size.height = value
+			visualLayer.frame.size.height = value
 			prepareShape()
 		}
 	}
@@ -167,7 +174,7 @@ public class MaterialView: UIView {
 	*/
 	public var masksToBounds: Bool! {
 		didSet {
-			layer.masksToBounds = masksToBounds
+			visualLayer.masksToBounds = masksToBounds
 		}
 	}
 	
@@ -176,7 +183,7 @@ public class MaterialView: UIView {
 	*/
 	public var cornerRadius: MaterialRadius! {
 		didSet {
-			layer.cornerRadius = MaterialRadiusToValue(cornerRadius!)
+			visualLayer.cornerRadius = MaterialRadiusToValue(cornerRadius!)
 		}
 	}
 	
@@ -194,7 +201,7 @@ public class MaterialView: UIView {
 	*/
 	public var borderWidth: MaterialBorder! {
 		didSet {
-			layer.borderWidth = MaterialBorderToValue(borderWidth!)
+			visualLayer.borderWidth = MaterialBorderToValue(borderWidth!)
 		}
 	}
 	
@@ -203,7 +210,7 @@ public class MaterialView: UIView {
 	*/
 	public var borderColor: UIColor! {
 		didSet {
-			layer.borderColor = borderColor.CGColor
+			visualLayer.borderColor = borderColor.CGColor
 		}
 	}
 	
@@ -251,6 +258,13 @@ public class MaterialView: UIView {
 		self.init(frame: CGRectMake(MaterialTheme.view.x, MaterialTheme.view.y, MaterialTheme.view.width, MaterialTheme.view.height))
 	}
 	
+	/**
+		:name:	layerClass
+	*/
+	public override class func layerClass() -> AnyClass {
+		return CAShapeLayer.self
+	}
+	
 	//
 	//	:name:	prepareView
 	//
@@ -274,6 +288,10 @@ public class MaterialView: UIView {
 		cornerRadius = MaterialTheme.view.cornerRadius
 		borderWidth = MaterialTheme.view.borderWidth
 		borderColor = MaterialTheme.view.bordercolor
+		
+		// visualLayer
+		visualLayer.frame = CGRectMake(0, 0, width, height)
+		layer.addSublayer(visualLayer)
 	}
 	
 	//
@@ -283,10 +301,13 @@ public class MaterialView: UIView {
 		if nil != shape {
 			if width < height {
 				layer.frame.size.width = height
+				visualLayer.frame.size.width = height
 			} else {
 				layer.frame.size.height = width
+				visualLayer.frame.size.height = width
 			}
-			layer.cornerRadius = .Square == shape ? 0 : width / 2
+			layer.cornerRadius = .Square == shape ? 0 : layer.frame.size.width / 2
+			visualLayer.cornerRadius = layer.cornerRadius
 		}
 	}
 }
