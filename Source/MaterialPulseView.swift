@@ -94,7 +94,7 @@ public class MaterialPulseView: MaterialView {
 		super.prepareView()
 		userInteractionEnabled = MaterialTheme.pulseView.userInteractionEnabled
 		backgroundColor = MaterialTheme.pulseView.backgroudColor
-		pulseColor = MaterialColor.white
+		pulseColor = MaterialTheme.pulseView.pulseColor
 	}
 	
 	//

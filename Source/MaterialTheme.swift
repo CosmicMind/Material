@@ -78,7 +78,7 @@ public extension MaterialTheme.pulseView {
 	public static let shadowColor: UIColor = MaterialTheme.view.shadowColor
 	
 	// shape
-	public static let masksToBounds: Bool = MaterialTheme.view.masksToBounds
+	public static let masksToBounds: Bool = true
 	public static let cornerRadius: MaterialRadius = MaterialTheme.view.cornerRadius
 	
 	// border
@@ -87,6 +87,7 @@ public extension MaterialTheme.pulseView {
 	
 	// color
 	public static let backgroudColor: UIColor = MaterialColor.clear
+	public static let pulseColor: UIColor = MaterialColor.white
 	
 	// interaction
 	public static let userInteractionEnabled: Bool = MaterialTheme.view.userInteractionEnabled
