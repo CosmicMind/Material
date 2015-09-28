@@ -38,6 +38,8 @@ v.image = UIImage(named: "swift")
 
 A FlatButton is the best place to start when introducing MaterialKit buttons. It is simple, clean, and very effective. Below is an example of a FlatButton in action.
 
+![MaterialKitPreview](http://www.materialkit.io/github/img3.gif)
+
 ```swift
 let v: FlatButton = FlatButton(frame: CGRectMake(0, 0, 100, 32))
 v.setTitle("Flat", forState: .Normal)
