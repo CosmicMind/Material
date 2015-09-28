@@ -20,24 +20,13 @@ import UIKit
 
 public struct MaterialAnimation {
 	/**
-		:name:	rotate
+		:name:	spin
 	*/
-	public static func rotate(layer: CALayer, duration: CFTimeInterval, completion: (() -> Void)? = nil) {
-		CATransaction.begin()
-		CATransaction.setAnimationDuration(duration)
-		let transform: CGAffineTransform = CGAffineTransformRotate(layer.affineTransform(), CGFloat(M_PI))
-		layer.setAffineTransform(transform)
-		CATransaction.setCompletionBlock(completion)
-		CATransaction.commit()
-	}
-	
-	/**
-		:name:	pulse
-	*/
-	public static func pulse(layer: CALayer, duraction: CFTimeInterval, completion: (() -> Void)? = nil) {
-		CATransaction.begin()
-		CATransaction.setAnimationDuration(1.0)
-		
-		CATransaction.commit()
+	public static func spin(layer: CALayer, duration: CFTimeInterval, rotations: Int = 1, completion: (() -> Void)? = nil) {
+		let a: CABasicAnimation = CABasicAnimation()
+		a.keyPath = "transform.rotation"
+		a.duration = duration
+		a.byValue = M_PI * 2 * Double(rotations)
+		layer.addAnimation(a, forKey: nil)
 	}
 }

@@ -27,7 +27,11 @@ public class MaterialPulseView: MaterialView {
 	/**
 		:name:	pulseColor
 	*/
-	public var pulseColor: UIColor?
+	public var pulseColor: UIColor? {
+		didSet {
+			pulseLayer.backgroundColor = pulseColor?.colorWithAlphaComponent(0.5).CGColor
+		}
+	}
 	
 	/**
 		:name:	init
@@ -43,6 +47,7 @@ public class MaterialPulseView: MaterialView {
 		super.touchesBegan(touches, withEvent: event)
 		let point: CGPoint = touches.first!.locationInView(self)
 		if nil != visualLayer.presentationLayer()?.hitTest(point) {
+			// set start position
 			CATransaction.begin()
 			CATransaction.setAnimationDuration(0)
 			let w: CGFloat = width / 2
@@ -52,6 +57,7 @@ public class MaterialPulseView: MaterialView {
 			pulseLayer.cornerRadius = CGFloat(w / 2)
 			CATransaction.commit()
 			
+			// expand
 			CATransaction.begin()
 			CATransaction.setAnimationDuration(0.3)
 			pulseLayer.transform = CATransform3DMakeScale(2, 2, 2)
@@ -65,6 +71,7 @@ public class MaterialPulseView: MaterialView {
 	*/
 	public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesEnded(touches, withEvent: event)
+		// contract
 		CATransaction.begin()
 		CATransaction.setAnimationDuration(0.3)
 		pulseLayer.hidden = true
@@ -109,7 +116,6 @@ public class MaterialPulseView: MaterialView {
 		
 		// pulseLayer
 		pulseLayer.hidden = true
-		pulseLayer.backgroundColor = pulseColor?.colorWithAlphaComponent(0.5).CGColor
-		visualLayer.addSublayer(pulseLayer)
+		visualLayer.insertSublayer(pulseLayer, atIndex: 1000)
 	}
 }
