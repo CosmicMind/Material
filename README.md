@@ -11,27 +11,25 @@ To get started, we will introduce MaterialView, a lightweight UIView Object that
 ![MaterialKitPreview](http://www.materialkit.io/github/img1.png)
 
 ```swift
-let v: MaterialView = MaterialView(frame: CGRectMake(0, 0, 100, 100))
+let v: MaterialView = MaterialView(frame: CGRectMake(0, 0, 200, 200))
 v.shape = .Circle
 v.shadowDepth = .Depth2
 v.borderWidth = .Border1
-v.image = UIImage(named: "swift")
+v.image = UIImage(named: "focus")
 ```
 
 ### Animated MaterialPulseView
 
-Let's expand on the basic MaterialView and use an animated MaterialPulseView. In this example, we will make the shape a square with some rounded corners, and change the color of the border.
+Let's expand on the basic MaterialView and use an animated MaterialPulseView. In this example, we will make the shape a square with some rounded corners.
 
 ![MaterialKitPreview](http://www.materialkit.io/github/img2.gif)
 
 ```swift
-let v: MaterialPulseView = MaterialPulseView(frame: CGRectMake(0, 0, 100, 100))
+let v: MaterialPulseView = MaterialPulseView(frame: CGRectMake(0, 0, 200, 200))
 v.shape = .Square
-v.cornerRadius = .Radius1
+v.cornerRadius = .Radius2
 v.shadowDepth = .Depth2
-v.borderWidth = .Border3
-v.borderColor = MaterialColor.red.darken1
-v.image = UIImage(named: "swift")
+v.image = UIImage(named: "focus")
 ```
 
 ### Simple FlatButton
