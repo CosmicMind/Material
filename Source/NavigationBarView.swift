@@ -34,19 +34,20 @@ public class NavigationBarView: MaterialView {
 	}
 	
 	/**
-		:name:	contentInsets
+		:name:	titleInsets
 	*/
-	public var contentInsets: MaterialInsets? {
+	public var titleInsets: MaterialInsets? {
 		didSet {
-			contentInsetsRef = MaterialInsetsToValue(nil == contentInsets ? .Inset0 : contentInsets!)
+			titleInsetsRef = MaterialInsetsToValue(nil == titleInsets ? .Inset0 : titleInsets!)
 		}
 	}
 	
 	/**
-		:name:	contentInsetsRef
+		:name:	titleInsetsRef
 	*/
-	public var contentInsetsRef: MaterialInsetsType! {
+	public var titleInsetsRef: MaterialInsetsType! {
 		didSet {
+			titleInsetsRef = nil == titleInsetsRef ? MaterialTheme.navigation.titleInsetsRef : titleInsetsRef!
 			reloadView()
 		}
 	}
@@ -58,7 +59,72 @@ public class NavigationBarView: MaterialView {
 		didSet {
 			if let v = titleLabel {
 				v.translatesAutoresizingMaskIntoConstraints = false
-				addSubview(v)
+			}
+			reloadView()
+		}
+	}
+	
+	/**
+		:name:	leftButtonsInsets
+	*/
+	public var leftButtonsInsets: MaterialInsets? {
+		didSet {
+			leftButtonsInsetsRef = MaterialInsetsToValue(nil == leftButtonsInsets ? .Inset0 : leftButtonsInsets!)
+		}
+	}
+	
+	/**
+		:name:	leftButtonsInsetsRef
+	*/
+	public var leftButtonsInsetsRef: MaterialInsetsType! {
+		didSet {
+			leftButtonsInsetsRef = nil == leftButtonsInsetsRef ? MaterialTheme.navigation.leftButtonsInsetsRef : leftButtonsInsetsRef!
+			reloadView()
+		}
+	}
+	
+	/**
+		:name:	leftButtons
+	*/
+	public var leftButtons: Array<MaterialButton>? {
+		didSet {
+			if let v = leftButtons {
+				for b in v {
+					b.translatesAutoresizingMaskIntoConstraints = false
+				}
+			}
+			reloadView()
+		}
+	}
+	
+	/**
+		:name:	rightButtonsInsets
+	*/
+	public var rightButtonsInsets: MaterialInsets? {
+		didSet {
+			rightButtonsInsetsRef = MaterialInsetsToValue(nil == rightButtonsInsets ? .Inset0 : rightButtonsInsets!)
+		}
+	}
+	
+	/**
+		:name:	rightButtonsInsetsRef
+	*/
+	public var rightButtonsInsetsRef: MaterialInsetsType! {
+		didSet {
+			rightButtonsInsetsRef = nil == rightButtonsInsetsRef ? MaterialTheme.navigation.rightButtonsInsetsRef : rightButtonsInsetsRef!
+			reloadView()
+		}
+	}
+	
+	/**
+		:name:	rightButtons
+	*/
+	public var rightButtons: Array<MaterialButton>? {
+		didSet {
+			if let v = rightButtons {
+				for b in v {
+					b.translatesAutoresizingMaskIntoConstraints = false
+				}
 			}
 			reloadView()
 		}
@@ -88,35 +154,71 @@ public class NavigationBarView: MaterialView {
 	/**
 		:name:	init
 	*/
-	public convenience init?(titleLabel: UILabel? = nil) {
+	public convenience init?(titleLabel: UILabel? = nil, leftButtons: Array<MaterialButton>? = nil, rightButtons: Array<MaterialButton>? = nil) {
 		self.init(frame: CGRectMake(MaterialTheme.navigation.x, MaterialTheme.navigation.y, MaterialTheme.navigation.width, MaterialTheme.navigation.height))
-		self.prepareProperties(titleLabel)
+		self.prepareProperties(titleLabel, leftButtons: leftButtons, rightButtons: rightButtons)
 	}
 	
 	/**
 		:name:	reloadView
 	*/
 	public func reloadView() {
-		if false == isLoading && nil != contentInsetsRef {
-			isLoading = true
-			
-			// clear constraints so new ones do not conflict
-			removeConstraints(constraints)
-			
-			if nil != titleLabel {
-				MaterialLayout.alignToParentHorizontallyWithPad(self, child: titleLabel!, left: contentInsetsRef!.left, right: contentInsetsRef!.right)
-				MaterialLayout.alignFromBottom(self, child: titleLabel!, bottom: contentInsetsRef!.bottom)
-			}
+		// clear constraints so new ones do not conflict
+		removeConstraints(constraints)
+		for v in subviews {
+			v.removeFromSuperview()
+		}
 		
-			isLoading = false
+		if let v = leftButtons {
+			var h: String = "H:|"
+			var d: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
+			var i: Int = 0
+			
+			for b in v {
+				let k: String = "b\(i++)"
+				d[k] = b
+				h += "-(left)-[\(k)]"
+				
+				insertSubview(b, atIndex: 1)
+				MaterialLayout.alignFromBottom(self, child: b, bottom: leftButtonsInsetsRef!.bottom)
+			}
+			
+			addConstraints(MaterialLayout.constraint(h, options: [], metrics: ["left" : leftButtonsInsetsRef!.left], views: d))
+		}
+		
+		// title
+		if let v = titleLabel {
+			insertSubview(v, atIndex: 0)
+			MaterialLayout.alignToParentHorizontallyWithInsets(self, child: v, left: titleInsetsRef!.left, right: titleInsetsRef!.right)
+			MaterialLayout.alignFromBottom(self, child: v, bottom: titleInsetsRef!.bottom)
+		}
+		
+		// rightButtons
+		if let v = rightButtons {
+			var h: String = "H:"
+			var d: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
+			var i: Int = 0
+			
+			for b in v {
+				let k: String = "b\(i++)"
+				d[k] = b
+				h += "[\(k)]-(right)-"
+				
+				insertSubview(b, atIndex: 1)
+				MaterialLayout.alignFromBottom(self, child: b, bottom: rightButtonsInsetsRef!.bottom)
+			}
+			
+			addConstraints(MaterialLayout.constraint(h + "|", options: [], metrics: ["right" : rightButtonsInsetsRef!.right], views: d))
 		}
 	}
 	
 	//
 	//	:name:	prepareProperties
 	//
-	internal func prepareProperties(titleLabel: UILabel?) {
+	internal func prepareProperties(titleLabel: UILabel?, leftButtons: Array<MaterialButton>?, rightButtons: Array<MaterialButton>?) {
 		self.titleLabel = titleLabel
+		self.leftButtons = leftButtons
+		self.rightButtons = rightButtons
 	}
 	
 	//
@@ -127,7 +229,9 @@ public class NavigationBarView: MaterialView {
 		userInteractionEnabled = MaterialTheme.navigation.userInteractionEnabled
 		backgroundColor = MaterialTheme.navigation.backgroudColor
 		statusBarStyle = MaterialTheme.navigation.statusBarStyle
-		contentInsets = .Inset3
+		titleInsetsRef = MaterialTheme.navigation.titleInsetsRef
+		leftButtonsInsetsRef = MaterialTheme.navigation.leftButtonsInsetsRef
+		rightButtonsInsetsRef = MaterialTheme.navigation.rightButtonsInsetsRef
 		
 		contentsRect = MaterialTheme.navigation.contentsRect
 		contentsCenter = MaterialTheme.navigation.contentsCenter

@@ -58,13 +58,13 @@ public struct MaterialLayout {
 		:name:	alignToParentHorizontally
 	*/
 	public static func alignToParentHorizontally(parent: UIView, child: UIView) {
-		alignToParentHorizontallyWithPad(parent, child: child, left: 0, right: 0)
+		alignToParentHorizontallyWithInsets(parent, child: child, left: 0, right: 0)
 	}
 	
 	/**
-		:name:	alignToParentHorizontallyWithPad
+		:name:	alignToParentHorizontallyWithInsets
 	*/
-	public static func alignToParentHorizontallyWithPad(parent: UIView, child: UIView, left: CGFloat = 0, right: CGFloat = 0) {
+	public static func alignToParentHorizontallyWithInsets(parent: UIView, child: UIView, left: CGFloat = 0, right: CGFloat = 0) {
 		parent.addConstraints(constraint("H:|-(left)-[child]-(right)-|", options: [], metrics: ["left": left, "right": right], views: ["child" : child]))
 	}
 	
@@ -72,20 +72,20 @@ public struct MaterialLayout {
 		:name:	alignToParentVertically
 	*/
 	public static func alignToParentVertically(parent: UIView, child: UIView) {
-		alignToParentVerticallyWithPad(parent, child: child, top: 0, bottom: 0)
+		alignToParentVerticallyWithInsets(parent, child: child, top: 0, bottom: 0)
 	}
 	
 	/**
-		:name:	alignToParentVerticallyWithPad
+		:name:	alignToParentVerticallyWithInsets
 	*/
-	public static func alignToParentVerticallyWithPad(parent: UIView, child: UIView, top: CGFloat = 0, bottom: CGFloat = 0) {
+	public static func alignToParentVerticallyWithInsets(parent: UIView, child: UIView, top: CGFloat = 0, bottom: CGFloat = 0) {
 		parent.addConstraints(constraint("V:|-(top)-[child]-(bottom)-|", options: [], metrics: ["bottom": bottom, "top": top], views: ["child" : child]))
 	}
 	
 	/**
-		:name:	alignToParentWithPad
+		:name:	alignToParentWithInsets
 	*/
-	public static func alignToParentWithPad(parent: UIView, child: UIView, top: CGFloat = 0, left: CGFloat = 0, bottom: CGFloat = 0, right: CGFloat = 0) {
+	public static func alignToParentWithInsets(parent: UIView, child: UIView, top: CGFloat = 0, left: CGFloat = 0, bottom: CGFloat = 0, right: CGFloat = 0) {
 		let views: Dictionary<String, AnyObject> = ["child" : child]
 		parent.addConstraints(constraint("H:|-(left)-[child]-(right)-|", options: [], metrics: ["left": left, "right": right], views: views))
 		parent.addConstraints(constraint("V:|-(top)-[child]-(bottom)-|", options: [], metrics: ["bottom": bottom, "top": top], views: views))
