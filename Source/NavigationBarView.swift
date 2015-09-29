@@ -92,7 +92,7 @@ public class NavigationBarView: MaterialView {
 		if nil != contentInsetsRef {
 			removeConstraints(constraints)
 			MaterialLayout.alignToParentHorizontallyWithPad(self, child: titleLabel!, left: contentInsetsRef!.left, right: contentInsetsRef!.right)
-			MaterialLayout.alignFromBottom(self, child: titleLabel!, bottom: contentInsetsRef!.bottom)
+			MaterialLayout.alignToParentVerticallyWithPad(self, child: titleLabel!, top: contentInsetsRef!.top, bottom: contentInsetsRef!.bottom)
 		}
 	}
 	
