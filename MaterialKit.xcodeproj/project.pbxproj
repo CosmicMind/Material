@@ -45,6 +45,18 @@
 		9638325A1B88E31A0015F710 /* MaterialKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963832581B88E31A0015F710 /* MaterialKitTests.swift */; };
 		964B17B41BBA447F002A9CA0 /* MaterialLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B17B31BBA447F002A9CA0 /* MaterialLayout.swift */; settings = {ASSET_TAGS = (); }; };
 		964B17B61BBA4BEA002A9CA0 /* MaterialStatusBarStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B17B51BBA4BEA002A9CA0 /* MaterialStatusBarStyle.swift */; settings = {ASSET_TAGS = (); }; };
+		964B17CB1BBB30B0002A9CA0 /* SideNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B17CA1BBB30B0002A9CA0 /* SideNavigationViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		964B17CC1BBB31C2002A9CA0 /* MaterialBorder.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65BDD1691BB7146B006F7F2B /* MaterialBorder.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		964B17CD1BBB31C2002A9CA0 /* MaterialShape.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65BDD16B1BB88D1A006F7F2B /* MaterialShape.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		964B17CE1BBB31C2002A9CA0 /* MaterialSize.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65BDD1761BB98E31006F7F2B /* MaterialSize.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		964B17CF1BBB31C2002A9CA0 /* MaterialStatusBarStyle.swift in Headers */ = {isa = PBXBuildFile; fileRef = 964B17B51BBA4BEA002A9CA0 /* MaterialStatusBarStyle.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		964B17D01BBB31C2002A9CA0 /* MaterialPulseView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65BDD16D1BB899F2006F7F2B /* MaterialPulseView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		964B17D11BBB31C2002A9CA0 /* SideNavigationViewController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 964B17CA1BBB30B0002A9CA0 /* SideNavigationViewController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		964B17D21BBB31C2002A9CA0 /* MaterialLabel.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65BDD1711BB8CD77006F7F2B /* MaterialLabel.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		964B17D31BBB31C2002A9CA0 /* RaisedButton.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65BDD1781BB99C0F006F7F2B /* RaisedButton.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		964B17D41BBB31C2002A9CA0 /* FabButton.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65BDD17B1BB99E29006F7F2B /* FabButton.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		964B17D51BBB31C2002A9CA0 /* MaterialAnimation.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65BDD1731BB8D443006F7F2B /* MaterialAnimation.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		964B17D61BBB31C2002A9CA0 /* MaterialLayout.swift in Headers */ = {isa = PBXBuildFile; fileRef = 964B17B31BBA447F002A9CA0 /* MaterialLayout.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9A94D0FA1B895EA500F586A5 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 963832631B88E5BF0015F710 /* LICENSE */; };
 		9A94D0FB1B895EA500F586A5 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9AAC38591B8956E300FE6B2D /* Roboto-Regular.ttf */; };
 		9A94D0FC1B895EA500F586A5 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9AAC38571B8956CF00FE6B2D /* Roboto-Medium.ttf */; };
@@ -92,6 +104,7 @@
 		963832631B88E5BF0015F710 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		964B17B31BBA447F002A9CA0 /* MaterialLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialLayout.swift; sourceTree = "<group>"; };
 		964B17B51BBA4BEA002A9CA0 /* MaterialStatusBarStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialStatusBarStyle.swift; sourceTree = "<group>"; };
+		964B17CA1BBB30B0002A9CA0 /* SideNavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideNavigationViewController.swift; sourceTree = "<group>"; };
 		9AAC38551B8956C500FE6B2D /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
 		9AAC38571B8956CF00FE6B2D /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		9AAC38591B8956E300FE6B2D /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
@@ -153,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				962F3E521BACA68C0004B8AD /* NavigationBarView.swift */,
+				964B17CA1BBB30B0002A9CA0 /* SideNavigationViewController.swift */,
 			);
 			name = Navigation;
 			sourceTree = "<group>";
@@ -286,6 +300,17 @@
 				65BDD1661BB7111E006F7F2B /* MaterialView.swift in Headers */,
 				65BDD1671BB7111E006F7F2B /* MaterialButton.swift in Headers */,
 				65BDD1681BB7111E006F7F2B /* FlatButton.swift in Headers */,
+				964B17CC1BBB31C2002A9CA0 /* MaterialBorder.swift in Headers */,
+				964B17CD1BBB31C2002A9CA0 /* MaterialShape.swift in Headers */,
+				964B17CE1BBB31C2002A9CA0 /* MaterialSize.swift in Headers */,
+				964B17CF1BBB31C2002A9CA0 /* MaterialStatusBarStyle.swift in Headers */,
+				964B17D01BBB31C2002A9CA0 /* MaterialPulseView.swift in Headers */,
+				964B17D11BBB31C2002A9CA0 /* SideNavigationViewController.swift in Headers */,
+				964B17D21BBB31C2002A9CA0 /* MaterialLabel.swift in Headers */,
+				964B17D31BBB31C2002A9CA0 /* RaisedButton.swift in Headers */,
+				964B17D41BBB31C2002A9CA0 /* FabButton.swift in Headers */,
+				964B17D51BBB31C2002A9CA0 /* MaterialAnimation.swift in Headers */,
+				964B17D61BBB31C2002A9CA0 /* MaterialLayout.swift in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -394,6 +419,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				65BDD15D1BB70D60006F7F2B /* MaterialInsets.swift in Sources */,
+				964B17CB1BBB30B0002A9CA0 /* SideNavigationViewController.swift in Sources */,
 				65BDD1471BB5B916006F7F2B /* MaterialView.swift in Sources */,
 				65BDD16C1BB88D1A006F7F2B /* MaterialShape.swift in Sources */,
 				65BDD1521BB6EE7C006F7F2B /* RobotoFont.swift in Sources */,

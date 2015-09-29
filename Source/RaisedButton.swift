@@ -24,22 +24,22 @@ public class RaisedButton : MaterialButton {
 	//
 	internal override func prepareView() {
 		super.prepareView()
-		setTitleColor(MaterialTheme.button.raised.titleLabelColorForNormalState, forState: .Normal)
-		titleLabel!.font = MaterialTheme.button.raised.titleLabelFont
+		setTitleColor(MaterialTheme.raisedButton.titleLabelColorForNormalState, forState: .Normal)
+		titleLabel!.font = MaterialTheme.raisedButton.titleLabelFont
 		
-		userInteractionEnabled = MaterialTheme.button.raised.userInteractionEnabled
-		backgroundColor = MaterialTheme.button.raised.backgroudColor
-		pulseColorOpacity = MaterialTheme.button.raised.pulseColorOpacity
-		pulseColor = MaterialTheme.button.raised.pulseColor
+		userInteractionEnabled = MaterialTheme.raisedButton.userInteractionEnabled
+		backgroundColor = MaterialTheme.raisedButton.backgroudColor
+		pulseColorOpacity = MaterialTheme.raisedButton.pulseColorOpacity
+		pulseColor = MaterialTheme.raisedButton.pulseColor
 		
-		shadowDepth = MaterialTheme.button.raised.shadowDepth
-		shadowColor = MaterialTheme.button.raised.shadowColor
-		zPosition = MaterialTheme.button.raised.zPosition
-		masksToBounds = MaterialTheme.button.raised.masksToBounds
-		cornerRadius = MaterialTheme.button.raised.cornerRadius
-		borderWidth = MaterialTheme.button.raised.borderWidth
-		borderColor = MaterialTheme.button.raised.bordercolor
-		contentInsets = MaterialTheme.button.raised.contentInsets
-		shape = MaterialTheme.button.raised.shape
+		shadowDepth = MaterialTheme.raisedButton.shadowDepth
+		shadowColor = MaterialTheme.raisedButton.shadowColor
+		zPosition = MaterialTheme.raisedButton.zPosition
+		masksToBounds = MaterialTheme.raisedButton.masksToBounds
+		cornerRadius = MaterialTheme.raisedButton.cornerRadius
+		borderWidth = MaterialTheme.raisedButton.borderWidth
+		borderColor = MaterialTheme.raisedButton.bordercolor
+		contentInsets = MaterialTheme.raisedButton.contentInsets
+		shape = MaterialTheme.raisedButton.shape
 	}
 }

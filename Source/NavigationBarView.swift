@@ -143,14 +143,14 @@ public class NavigationBarView: MaterialView {
 		:name:	init
 	*/
 	public convenience init() {
-		self.init(frame: CGRectMake(MaterialTheme.navigation.x, MaterialTheme.navigation.y, MaterialTheme.navigation.width, MaterialTheme.navigation.height))
+		self.init(frame: CGRectMake(MaterialTheme.navigationBarView.x, MaterialTheme.navigationBarView.y, MaterialTheme.navigationBarView.width, MaterialTheme.navigationBarView.height))
 	}
 	
 	/**
 		:name:	init
 	*/
 	public convenience init?(titleLabel: UILabel? = nil, leftButtons: Array<MaterialButton>? = nil, rightButtons: Array<MaterialButton>? = nil) {
-		self.init(frame: CGRectMake(MaterialTheme.navigation.x, MaterialTheme.navigation.y, MaterialTheme.navigation.width, MaterialTheme.navigation.height))
+		self.init(frame: CGRectMake(MaterialTheme.navigationBarView.x, MaterialTheme.navigationBarView.y, MaterialTheme.navigationBarView.width, MaterialTheme.navigationBarView.height))
 		self.prepareProperties(titleLabel, leftButtons: leftButtons, rightButtons: rightButtons)
 	}
 	
@@ -222,23 +222,23 @@ public class NavigationBarView: MaterialView {
 	//
 	internal override func prepareView() {
 		super.prepareView()
-		userInteractionEnabled = MaterialTheme.navigation.userInteractionEnabled
-		backgroundColor = MaterialTheme.navigation.backgroudColor
-		statusBarStyle = MaterialTheme.navigation.statusBarStyle
-		titleInsetsRef = MaterialTheme.navigation.titleInsetsRef
-		leftButtonsInsetsRef = MaterialTheme.navigation.leftButtonsInsetsRef
-		rightButtonsInsetsRef = MaterialTheme.navigation.rightButtonsInsetsRef
+		userInteractionEnabled = MaterialTheme.navigationBarView.userInteractionEnabled
+		backgroundColor = MaterialTheme.navigationBarView.backgroudColor
+		statusBarStyle = MaterialTheme.navigationBarView.statusBarStyle
+		titleInsetsRef = MaterialTheme.navigationBarView.titleInsetsRef
+		leftButtonsInsetsRef = MaterialTheme.navigationBarView.leftButtonsInsetsRef
+		rightButtonsInsetsRef = MaterialTheme.navigationBarView.rightButtonsInsetsRef
 		
-		contentsRect = MaterialTheme.navigation.contentsRect
-		contentsCenter = MaterialTheme.navigation.contentsCenter
-		contentsScale = MaterialTheme.navigation.contentsScale
-		contentsGravity = MaterialTheme.navigation.contentsGravity
-		shadowDepth = MaterialTheme.navigation.shadowDepth
-		shadowColor = MaterialTheme.navigation.shadowColor
-		zPosition = MaterialTheme.navigation.zPosition
-		masksToBounds = MaterialTheme.navigation.masksToBounds
-		cornerRadius = MaterialTheme.navigation.cornerRadius
-		borderWidth = MaterialTheme.navigation.borderWidth
-		borderColor = MaterialTheme.navigation.bordercolor
+		contentsRect = MaterialTheme.navigationBarView.contentsRect
+		contentsCenter = MaterialTheme.navigationBarView.contentsCenter
+		contentsScale = MaterialTheme.navigationBarView.contentsScale
+		contentsGravity = MaterialTheme.navigationBarView.contentsGravity
+		shadowDepth = MaterialTheme.navigationBarView.shadowDepth
+		shadowColor = MaterialTheme.navigationBarView.shadowColor
+		zPosition = MaterialTheme.navigationBarView.zPosition
+		masksToBounds = MaterialTheme.navigationBarView.masksToBounds
+		cornerRadius = MaterialTheme.navigationBarView.cornerRadius
+		borderWidth = MaterialTheme.navigationBarView.borderWidth
+		borderColor = MaterialTheme.navigationBarView.bordercolor
 	}
 }

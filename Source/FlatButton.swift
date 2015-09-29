@@ -24,22 +24,22 @@ public class FlatButton : MaterialButton {
 	//
 	internal override func prepareView() {
 		super.prepareView()
-		setTitleColor(MaterialTheme.button.flat.titleLabelColorForNormalState, forState: .Normal)
-		titleLabel!.font = MaterialTheme.button.flat.titleLabelFont
+		setTitleColor(MaterialTheme.flatButton.titleLabelColorForNormalState, forState: .Normal)
+		titleLabel!.font = MaterialTheme.flatButton.titleLabelFont
 		
-		userInteractionEnabled = MaterialTheme.button.flat.userInteractionEnabled
-		backgroundColor = MaterialTheme.button.flat.backgroudColor
-		pulseColorOpacity = MaterialTheme.button.flat.pulseColorOpacity
-		pulseColor = MaterialTheme.button.flat.pulseColor
+		userInteractionEnabled = MaterialTheme.flatButton.userInteractionEnabled
+		backgroundColor = MaterialTheme.flatButton.backgroudColor
+		pulseColorOpacity = MaterialTheme.flatButton.pulseColorOpacity
+		pulseColor = MaterialTheme.flatButton.pulseColor
 		
-		shadowDepth = MaterialTheme.button.flat.shadowDepth
-		shadowColor = MaterialTheme.button.flat.shadowColor
-		zPosition = MaterialTheme.button.flat.zPosition
-		masksToBounds = MaterialTheme.button.flat.masksToBounds
-		cornerRadius = MaterialTheme.button.flat.cornerRadius
-		borderWidth = MaterialTheme.button.flat.borderWidth
-		borderColor = MaterialTheme.button.flat.bordercolor
-		contentInsets = MaterialTheme.button.flat.contentInsets
-		shape = MaterialTheme.button.flat.shape
+		shadowDepth = MaterialTheme.flatButton.shadowDepth
+		shadowColor = MaterialTheme.flatButton.shadowColor
+		zPosition = MaterialTheme.flatButton.zPosition
+		masksToBounds = MaterialTheme.flatButton.masksToBounds
+		cornerRadius = MaterialTheme.flatButton.cornerRadius
+		borderWidth = MaterialTheme.flatButton.borderWidth
+		borderColor = MaterialTheme.flatButton.bordercolor
+		contentInsets = MaterialTheme.flatButton.contentInsets
+		shape = MaterialTheme.flatButton.shape
 	}
 }

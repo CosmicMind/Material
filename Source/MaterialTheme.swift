@@ -21,13 +21,11 @@ import UIKit
 public struct MaterialTheme {
 	public struct view {}
 	public struct pulseView {}
-	public struct navigation {}
+	public struct navigationBarView {}
 	public struct label {}
-	public struct button {
-		public struct flat {}
-		public struct raised {}
-		public struct fab {}
-	}
+	public struct flatButton {}
+	public struct raisedButton {}
+	public struct fabButton {}
 }
 
 // view
@@ -104,8 +102,8 @@ public extension MaterialTheme.pulseView {
 	public static var zPosition: CGFloat = MaterialTheme.view.zPosition
 }
 
-// navigation
-public extension MaterialTheme.navigation {
+// navigationBarView
+public extension MaterialTheme.navigationBarView {
 	// frame
 	public static var x: CGFloat = MaterialTheme.view.x
 	public static var y: CGFloat = MaterialTheme.view.y
@@ -157,8 +155,8 @@ public extension MaterialTheme.label {
 	public static var font: UIFont = RobotoFont.regularWithSize(20)
 }
 
-// button.flat
-public extension MaterialTheme.button.flat {
+// flatButton
+public extension MaterialTheme.flatButton {
 	// shadow
 	public static var shadowDepth: MaterialDepth = .Depth0
 	public static var shadowColor: UIColor = MaterialTheme.view.shadowColor
@@ -189,8 +187,8 @@ public extension MaterialTheme.button.flat {
 	public static var titleLabelFont: UIFont = RobotoFont.regular
 }
 
-// button.raised
-public extension MaterialTheme.button.raised {
+// raisedButton
+public extension MaterialTheme.raisedButton {
 	// shadow
 	public static var shadowDepth: MaterialDepth = .Depth2
 	public static var shadowColor: UIColor = MaterialTheme.view.shadowColor
@@ -222,8 +220,8 @@ public extension MaterialTheme.button.raised {
 }
 
 
-// button.fab
-public extension MaterialTheme.button.fab {
+// fabButton
+public extension MaterialTheme.fabButton {
 	// shadow
 	public static var shadowDepth: MaterialDepth = .Depth2
 	public static var shadowColor: UIColor = MaterialTheme.view.shadowColor
