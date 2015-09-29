@@ -128,7 +128,7 @@ public extension MaterialTheme.navigation {
 	public static let lightContentStatusBar: Bool = true
 	
 	// interaction
-	public static let userInteractionEnabled: Bool = false
+	public static let userInteractionEnabled: Bool = true
 	
 	// image
 	public static let contentsRect: CGRect = MaterialTheme.view.contentsRect

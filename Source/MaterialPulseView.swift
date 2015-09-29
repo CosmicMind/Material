@@ -20,6 +20,11 @@ import UIKit
 
 public class MaterialPulseView: MaterialView {
 	//
+	//	:name:	touchesLayer
+	//
+	internal lazy var touchesLayer: CAShapeLayer = CAShapeLayer()
+	
+	//
 	//	:name:	pulseLayer
 	//
 	internal lazy var pulseLayer: CAShapeLayer = CAShapeLayer()
@@ -41,29 +46,37 @@ public class MaterialPulseView: MaterialView {
 	}
 	
 	/**
+		:name:	layoutSubviews
+	*/
+	public override func layoutSubviews() {
+		super.layoutSubviews()
+		touchesLayer.frame = bounds
+		touchesLayer.cornerRadius = layer.cornerRadius
+	}
+	
+	/**
 		:name:	touchesBegan
 	*/
 	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesBegan(touches, withEvent: event)
 		let point: CGPoint = touches.first!.locationInView(self)
-		if nil != visualLayer.presentationLayer()?.hitTest(point) {
-			// set start position
-			CATransaction.begin()
-			CATransaction.setAnimationDuration(0)
-			let w: CGFloat = width / 2
-			pulseLayer.hidden = false
-			pulseLayer.position = point
-			pulseLayer.bounds = CGRectMake(0, 0, w, w)
-			pulseLayer.cornerRadius = CGFloat(w / 2)
-			CATransaction.commit()
-			
-			// expand
-			CATransaction.begin()
-			CATransaction.setAnimationDuration(0.3)
-			pulseLayer.transform = CATransform3DMakeScale(2.5, 2.5, 2.5)
-			visualLayer.transform = CATransform3DMakeScale(1.05, 1.05, 1.05)
-			CATransaction.commit()
-		}
+		
+		// set start position
+		CATransaction.begin()
+		CATransaction.setAnimationDuration(0)
+		let w: CGFloat = width / 2
+		pulseLayer.hidden = false
+		pulseLayer.position = point
+		pulseLayer.bounds = CGRectMake(0, 0, w, w)
+		pulseLayer.cornerRadius = CGFloat(w / 2)
+		CATransaction.commit()
+		
+		// expand
+		CATransaction.begin()
+		CATransaction.setAnimationDuration(0.3)
+		pulseLayer.transform = CATransform3DMakeScale(2.5, 2.5, 2.5)
+		layer.transform = CATransform3DMakeScale(1.05, 1.05, 1.05)
+		CATransaction.commit()
 	}
 	
 	/**
@@ -80,6 +93,13 @@ public class MaterialPulseView: MaterialView {
 	public override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
 		super.touchesCancelled(touches, withEvent: event)
 		shrink()
+	}
+	
+	/**
+		:name:	actionForLayer
+	*/
+	public override func actionForLayer(layer: CALayer, forKey event: String) -> CAAction? {
+		return nil // returning nil enables the animations for the layer property that are normally disabled.
 	}
 	
 	//
@@ -103,10 +123,13 @@ public class MaterialPulseView: MaterialView {
 		borderWidth = MaterialTheme.pulseView.borderWidth
 		borderColor = MaterialTheme.pulseView.bordercolor
 		
-		// pulseLayer
+		// touchesLayer
+		touchesLayer.zPosition = 1000
+		touchesLayer.masksToBounds = true
+		layer.addSublayer(touchesLayer)
+		
 		pulseLayer.hidden = true
-		visualLayer.addSublayer(pulseLayer)
-		pulseLayer.zPosition = 1000
+		touchesLayer.addSublayer(pulseLayer)
 	}
 	
 	//
@@ -117,7 +140,7 @@ public class MaterialPulseView: MaterialView {
 		CATransaction.setAnimationDuration(0.3)
 		pulseLayer.hidden = true
 		pulseLayer.transform = CATransform3DIdentity
-		visualLayer.transform = CATransform3DIdentity
+		layer.transform = CATransform3DIdentity
 		CATransaction.commit()
 	}
 }

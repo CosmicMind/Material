@@ -187,7 +187,7 @@ public class MaterialView: UIView {
 	*/
 	public var cornerRadius: MaterialRadius! {
 		didSet {
-			visualLayer.cornerRadius = MaterialRadiusToValue(nil == cornerRadius ? .Radius0 : cornerRadius!)
+			layer.cornerRadius = MaterialRadiusToValue(nil == cornerRadius ? .Radius0 : cornerRadius!)
 			shape = nil
 		}
 	}
@@ -213,7 +213,7 @@ public class MaterialView: UIView {
 	*/
 	public var borderWidth: MaterialBorder! {
 		didSet {
-			visualLayer.borderWidth = MaterialBorderToValue(nil == borderWidth ? .Border0 : borderWidth!)
+			layer.borderWidth = MaterialBorderToValue(nil == borderWidth ? .Border0 : borderWidth!)
 		}
 	}
 	
@@ -222,7 +222,7 @@ public class MaterialView: UIView {
 	*/
 	public var borderColor: UIColor! {
 		didSet {
-			visualLayer.borderColor = nil == borderColor ? MaterialColor.clear.CGColor : borderColor!.CGColor
+			layer.borderColor = nil == borderColor ? MaterialColor.clear.CGColor : borderColor!.CGColor
 		}
 	}
 	
@@ -282,6 +282,7 @@ public class MaterialView: UIView {
 	public override func layoutSubviews() {
 		super.layoutSubviews()
 		visualLayer.frame = bounds
+		visualLayer.cornerRadius = layer.cornerRadius
 	}
 	
 	//
@@ -304,15 +305,15 @@ public class MaterialView: UIView {
 		borderColor = MaterialTheme.view.bordercolor
 		
 		// visualLayer
-		layer.addSublayer(visualLayer)
 		visualLayer.zPosition = -1
+		layer.addSublayer(visualLayer)
 	}
 	
 	//
 	//	:name:	prepareShape
 	//
 	internal func prepareShape() {
-		visualLayer.cornerRadius = .Square == shape ? 0 : width / 2
+		layer.cornerRadius = .Square == shape ? 0 : width / 2
 	}
 }
 
