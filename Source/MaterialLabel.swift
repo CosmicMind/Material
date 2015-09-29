@@ -64,6 +64,26 @@ public class MaterialLabel : UILabel {
 	}
 	
 	/**
+		:name:	textAlignment
+	*/
+	public override var textAlignment: NSTextAlignment {
+		didSet {
+			switch textAlignment {
+			case .Left:
+				textLayer.alignmentMode = kCAAlignmentLeft
+			case .Center:
+				textLayer.alignmentMode = kCAAlignmentCenter
+			case .Right:
+				textLayer.alignmentMode = kCAAlignmentRight
+			case .Justified:
+				textLayer.alignmentMode = kCAAlignmentJustified
+			case .Natural:
+				textLayer.alignmentMode = kCAAlignmentNatural
+			}
+		}
+	}
+	
+	/**
 		:name:	init
 	*/
 	public required init?(coder aDecoder: NSCoder) {

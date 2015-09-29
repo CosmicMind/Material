@@ -19,6 +19,11 @@
 import UIKit
 
 public class NavigationBarView: MaterialView {
+	//
+	//	:name:	isLoading
+	//
+	internal lazy var isLoading: Bool = false
+	
 	/**
 		:name:	statusBarStyle
 	*/
@@ -40,17 +45,22 @@ public class NavigationBarView: MaterialView {
 	/**
 		:name:	contentInsetsRef
 	*/
-	public var contentInsetsRef: MaterialInsetsType!
+	public var contentInsetsRef: MaterialInsetsType! {
+		didSet {
+			reloadView()
+		}
+	}
 	
 	/**
 		:name:	titleLabel
 	*/
-	public var titleLabel: MaterialLabel? {
+	public var titleLabel: UILabel? {
 		didSet {
 			if let v = titleLabel {
 				v.translatesAutoresizingMaskIntoConstraints = false
 				addSubview(v)
 			}
+			reloadView()
 		}
 	}
 	
@@ -78,28 +88,36 @@ public class NavigationBarView: MaterialView {
 	/**
 		:name:	init
 	*/
-	public convenience init?(titleLabel: MaterialLabel? = nil) {
+	public convenience init?(titleLabel: UILabel? = nil) {
 		self.init(frame: CGRectMake(MaterialTheme.navigation.x, MaterialTheme.navigation.y, MaterialTheme.navigation.width, MaterialTheme.navigation.height))
 		self.prepareProperties(titleLabel)
 	}
 	
 	/**
-		:name:	layoutSubviews
+		:name:	reloadView
 	*/
-	public override func layoutSubviews() {
-		super.layoutSubviews()
-		
-		if nil != contentInsetsRef {
+	public func reloadView() {
+		if false == isLoading && nil != contentInsetsRef {
+			isLoading = true
+			
+			// clear constraints so new ones do not conflict
 			removeConstraints(constraints)
-			MaterialLayout.alignToParentHorizontallyWithPad(self, child: titleLabel!, left: contentInsetsRef!.left, right: contentInsetsRef!.right)
-			MaterialLayout.alignFromBottom(self, child: titleLabel!, bottom: contentInsetsRef!.bottom)
+			
+			if nil != titleLabel {
+				MaterialLayout.alignToParentHorizontallyWithPad(self, child: titleLabel!, left: contentInsetsRef!.left, right: contentInsetsRef!.right)
+				MaterialLayout.alignFromBottom(self, child: titleLabel!, bottom: contentInsetsRef!.bottom)
+			}
+			
+			
+			
+			isLoading = false
 		}
 	}
 	
 	//
 	//	:name:	prepareProperties
 	//
-	internal func prepareProperties(titleLabel: MaterialLabel?) {
+	internal func prepareProperties(titleLabel: UILabel?) {
 		self.titleLabel = titleLabel
 	}
 	
