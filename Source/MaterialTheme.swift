@@ -33,206 +33,206 @@ public struct MaterialTheme {
 public extension MaterialTheme.view {
 	// frame
 	public static var x: CGFloat = 0
-	public static let y: CGFloat = 0
-	public static let width: CGFloat = UIScreen.mainScreen().bounds.width
-	public static let height: CGFloat = UIScreen.mainScreen().bounds.height
+	public static var y: CGFloat = 0
+	public static var width: CGFloat = UIScreen.mainScreen().bounds.width
+	public static var height: CGFloat = UIScreen.mainScreen().bounds.height
 	
 	// shadow
-	public static let shadowDepth: MaterialDepth = .Depth0
-	public static let shadowColor: UIColor = MaterialColor.black
+	public static var shadowDepth: MaterialDepth = .Depth0
+	public static var shadowColor: UIColor = MaterialColor.black
 	
 	// shape
-	public static let masksToBounds: Bool = true
-	public static let cornerRadius: MaterialRadius = .Radius0
+	public static var masksToBounds: Bool = true
+	public static var cornerRadius: MaterialRadius = .Radius0
 	
 	// border
-	public static let borderWidth: MaterialBorder = .Border0
-	public static let bordercolor: UIColor = MaterialColor.black
+	public static var borderWidth: MaterialBorder = .Border0
+	public static var bordercolor: UIColor = MaterialColor.black
 	
 	// color
-	public static let backgroudColor: UIColor = MaterialColor.white
+	public static var backgroudColor: UIColor = MaterialColor.white
 	
 	// interaction
-	public static let userInteractionEnabled: Bool = true
+	public static var userInteractionEnabled: Bool = true
 	
 	// image
-	public static let contentsRect: CGRect = CGRectMake(0, 0, 1, 1)
-	public static let contentsCenter: CGRect = CGRectMake(0, 0, 1, 1)
-	public static let contentsScale: CGFloat = UIScreen.mainScreen().scale
-	public static let contentsGravity: MaterialGravity = .ResizeAspectFill
+	public static var contentsRect: CGRect = CGRectMake(0, 0, 1, 1)
+	public static var contentsCenter: CGRect = CGRectMake(0, 0, 1, 1)
+	public static var contentsScale: CGFloat = UIScreen.mainScreen().scale
+	public static var contentsGravity: MaterialGravity = .ResizeAspectFill
 	
 	// position
-	public static let zPosition: CGFloat = 0
+	public static var zPosition: CGFloat = 0
 }
 
 // pulseView
 public extension MaterialTheme.pulseView {
 	// frame
-	public static let x: CGFloat = MaterialTheme.view.x
-	public static let y: CGFloat = MaterialTheme.view.y
-	public static let width: CGFloat = MaterialTheme.view.width
-	public static let height: CGFloat = MaterialTheme.view.height
+	public static var x: CGFloat = MaterialTheme.view.x
+	public static var y: CGFloat = MaterialTheme.view.y
+	public static var width: CGFloat = MaterialTheme.view.width
+	public static var height: CGFloat = MaterialTheme.view.height
 	
 	// shadow
-	public static let shadowDepth: MaterialDepth = MaterialTheme.view.shadowDepth
-	public static let shadowColor: UIColor = MaterialTheme.view.shadowColor
+	public static var shadowDepth: MaterialDepth = MaterialTheme.view.shadowDepth
+	public static var shadowColor: UIColor = MaterialTheme.view.shadowColor
 	
 	// shape
-	public static let masksToBounds: Bool = true
-	public static let cornerRadius: MaterialRadius = MaterialTheme.view.cornerRadius
+	public static var masksToBounds: Bool = true
+	public static var cornerRadius: MaterialRadius = MaterialTheme.view.cornerRadius
 	
 	// border
-	public static let borderWidth: MaterialBorder = MaterialTheme.view.borderWidth
-	public static let bordercolor: UIColor = MaterialTheme.view.bordercolor
+	public static var borderWidth: MaterialBorder = MaterialTheme.view.borderWidth
+	public static var bordercolor: UIColor = MaterialTheme.view.bordercolor
 	
 	// color
-	public static let backgroudColor: UIColor = MaterialColor.clear
-	public static let pulseColor: UIColor = MaterialColor.white
-	public static let pulseColorOpacity: CGFloat = 0.5
+	public static var backgroudColor: UIColor = MaterialColor.clear
+	public static var pulseColor: UIColor = MaterialColor.white
+	public static var pulseColorOpacity: CGFloat = 0.5
 	
 	// interaction
-	public static let userInteractionEnabled: Bool = MaterialTheme.view.userInteractionEnabled
+	public static var userInteractionEnabled: Bool = MaterialTheme.view.userInteractionEnabled
 	
 	// image
-	public static let contentsRect: CGRect = MaterialTheme.view.contentsRect
-	public static let contentsCenter: CGRect = MaterialTheme.view.contentsCenter
-	public static let contentsScale: CGFloat = MaterialTheme.view.contentsScale
-	public static let contentsGravity: MaterialGravity = MaterialTheme.view.contentsGravity
+	public static var contentsRect: CGRect = MaterialTheme.view.contentsRect
+	public static var contentsCenter: CGRect = MaterialTheme.view.contentsCenter
+	public static var contentsScale: CGFloat = MaterialTheme.view.contentsScale
+	public static var contentsGravity: MaterialGravity = MaterialTheme.view.contentsGravity
 	
 	// position
-	public static let zPosition: CGFloat = MaterialTheme.view.zPosition
+	public static var zPosition: CGFloat = MaterialTheme.view.zPosition
 }
 
 // navigation
 public extension MaterialTheme.navigation {
 	// frame
-	public static let x: CGFloat = MaterialTheme.view.x
-	public static let y: CGFloat = MaterialTheme.view.y
-	public static let width: CGFloat = MaterialTheme.view.width
-	public static let height: CGFloat = 70
+	public static var x: CGFloat = MaterialTheme.view.x
+	public static var y: CGFloat = MaterialTheme.view.y
+	public static var width: CGFloat = MaterialTheme.view.width
+	public static var height: CGFloat = 70
 	
 	// shadow
-	public static let shadowDepth: MaterialDepth = .Depth1
-	public static let shadowColor: UIColor = MaterialTheme.view.shadowColor
+	public static var shadowDepth: MaterialDepth = .Depth1
+	public static var shadowColor: UIColor = MaterialTheme.view.shadowColor
 	
 	// shape
-	public static let masksToBounds: Bool = MaterialTheme.view.masksToBounds
-	public static let cornerRadius: MaterialRadius = MaterialTheme.view.cornerRadius
+	public static var masksToBounds: Bool = MaterialTheme.view.masksToBounds
+	public static var cornerRadius: MaterialRadius = MaterialTheme.view.cornerRadius
 	
 	// border
-	public static let borderWidth: MaterialBorder = MaterialTheme.view.borderWidth
-	public static let bordercolor: UIColor = MaterialTheme.view.bordercolor
+	public static var borderWidth: MaterialBorder = MaterialTheme.view.borderWidth
+	public static var bordercolor: UIColor = MaterialTheme.view.bordercolor
 	
 	// color
-	public static let backgroudColor: UIColor = MaterialColor.blue.accent3
-	public static let lightContentStatusBar: Bool = true
+	public static var backgroudColor: UIColor = MaterialColor.blue.accent3
+	public static var lightContentStatusBar: Bool = true
 	
 	// interaction
-	public static let userInteractionEnabled: Bool = true
+	public static var userInteractionEnabled: Bool = true
 	
 	// image
-	public static let contentsRect: CGRect = MaterialTheme.view.contentsRect
-	public static let contentsCenter: CGRect = MaterialTheme.view.contentsCenter
-	public static let contentsScale: CGFloat = MaterialTheme.view.contentsScale
-	public static let contentsGravity: MaterialGravity = MaterialTheme.view.contentsGravity
+	public static var contentsRect: CGRect = MaterialTheme.view.contentsRect
+	public static var contentsCenter: CGRect = MaterialTheme.view.contentsCenter
+	public static var contentsScale: CGFloat = MaterialTheme.view.contentsScale
+	public static var contentsGravity: MaterialGravity = MaterialTheme.view.contentsGravity
 	
 	// position
-	public static let zPosition: CGFloat = 100
+	public static var zPosition: CGFloat = 100
 }
 
 // button.flat
 public extension MaterialTheme.button.flat {
 	// shadow
-	public static let shadowDepth: MaterialDepth = .Depth0
-	public static let shadowColor: UIColor = MaterialTheme.view.shadowColor
+	public static var shadowDepth: MaterialDepth = .Depth0
+	public static var shadowColor: UIColor = MaterialTheme.view.shadowColor
 	
 	// shape
-	public static let masksToBounds: Bool = true
-	public static let cornerRadius: MaterialRadius = .Radius1
-	public static let contentInsets: MaterialInsets = .Inset2
-	public static let shape: MaterialShape? = nil
+	public static var masksToBounds: Bool = true
+	public static var cornerRadius: MaterialRadius = .Radius1
+	public static var contentInsets: MaterialInsets = .Inset2
+	public static var shape: MaterialShape? = nil
 	
 	// border
-	public static let borderWidth: MaterialBorder = MaterialTheme.view.borderWidth
-	public static let bordercolor: UIColor = MaterialTheme.view.bordercolor
+	public static var borderWidth: MaterialBorder = MaterialTheme.view.borderWidth
+	public static var bordercolor: UIColor = MaterialTheme.view.bordercolor
 	
 	// color
-	public static let backgroudColor: UIColor = MaterialColor.clear
-	public static let pulseColor: UIColor = MaterialColor.blue.accent3
-	public static let pulseColorOpacity: CGFloat = MaterialTheme.pulseView.pulseColorOpacity
-	public static let titleLabelColorForNormalState: UIColor = MaterialColor.blue.accent3
+	public static var backgroudColor: UIColor = MaterialColor.clear
+	public static var pulseColor: UIColor = MaterialColor.blue.accent3
+	public static var pulseColorOpacity: CGFloat = MaterialTheme.pulseView.pulseColorOpacity
+	public static var titleLabelColorForNormalState: UIColor = MaterialColor.blue.accent3
 	
 	// interaction
-	public static let userInteractionEnabled: Bool = true
+	public static var userInteractionEnabled: Bool = true
 	
 	// position
-	public static let zPosition: CGFloat = 200
+	public static var zPosition: CGFloat = 200
 	
 	// font
-	public static let titleLabelFont: UIFont = RobotoFont.regular
+	public static var titleLabelFont: UIFont = RobotoFont.regular
 }
 
 // button.raised
 public extension MaterialTheme.button.raised {
 	// shadow
-	public static let shadowDepth: MaterialDepth = .Depth2
-	public static let shadowColor: UIColor = MaterialTheme.view.shadowColor
+	public static var shadowDepth: MaterialDepth = .Depth2
+	public static var shadowColor: UIColor = MaterialTheme.view.shadowColor
 	
 	// shape
-	public static let masksToBounds: Bool = true
-	public static let cornerRadius: MaterialRadius = .Radius1
-	public static let contentInsets: MaterialInsets = .Inset2
-	public static let shape: MaterialShape? = nil
+	public static var masksToBounds: Bool = true
+	public static var cornerRadius: MaterialRadius = .Radius1
+	public static var contentInsets: MaterialInsets = .Inset2
+	public static var shape: MaterialShape? = nil
 	
 	// border
-	public static let borderWidth: MaterialBorder = MaterialTheme.view.borderWidth
-	public static let bordercolor: UIColor = MaterialTheme.view.bordercolor
+	public static var borderWidth: MaterialBorder = MaterialTheme.view.borderWidth
+	public static var bordercolor: UIColor = MaterialTheme.view.bordercolor
 	
 	// color
-	public static let backgroudColor: UIColor = MaterialColor.blue.accent3
-	public static let pulseColor: UIColor = MaterialColor.white
-	public static let pulseColorOpacity: CGFloat = MaterialTheme.pulseView.pulseColorOpacity
-	public static let titleLabelColorForNormalState: UIColor = MaterialColor.white
+	public static var backgroudColor: UIColor = MaterialColor.blue.accent3
+	public static var pulseColor: UIColor = MaterialColor.white
+	public static var pulseColorOpacity: CGFloat = MaterialTheme.pulseView.pulseColorOpacity
+	public static var titleLabelColorForNormalState: UIColor = MaterialColor.white
 	
 	// interaction
-	public static let userInteractionEnabled: Bool = true
+	public static var userInteractionEnabled: Bool = true
 	
 	// position
-	public static let zPosition: CGFloat = 200
+	public static var zPosition: CGFloat = 200
 	
 	// font
-	public static let titleLabelFont: UIFont = RobotoFont.regular
+	public static var titleLabelFont: UIFont = RobotoFont.regular
 }
 
 
 // button.fab
 public extension MaterialTheme.button.fab {
 	// shadow
-	public static let shadowDepth: MaterialDepth = .Depth2
-	public static let shadowColor: UIColor = MaterialTheme.view.shadowColor
+	public static var shadowDepth: MaterialDepth = .Depth2
+	public static var shadowColor: UIColor = MaterialTheme.view.shadowColor
 	
 	// shape
-	public static let masksToBounds: Bool = true
-	public static let cornerRadius: MaterialRadius = .Radius0
-	public static let contentInsets: MaterialInsets = .Inset0
-	public static let shape: MaterialShape? = .Circle
+	public static var masksToBounds: Bool = true
+	public static var cornerRadius: MaterialRadius = .Radius0
+	public static var contentInsets: MaterialInsets = .Inset0
+	public static var shape: MaterialShape? = .Circle
 	
 	// border
-	public static let borderWidth: MaterialBorder = MaterialTheme.view.borderWidth
-	public static let bordercolor: UIColor = MaterialTheme.view.bordercolor
+	public static var borderWidth: MaterialBorder = MaterialTheme.view.borderWidth
+	public static var bordercolor: UIColor = MaterialTheme.view.bordercolor
 	
 	// color
-	public static let backgroudColor: UIColor = MaterialColor.red.darken1
-	public static let pulseColor: UIColor = MaterialColor.white
-	public static let pulseColorOpacity: CGFloat = MaterialTheme.pulseView.pulseColorOpacity
-	public static let titleLabelColorForNormalState: UIColor = MaterialColor.white
+	public static var backgroudColor: UIColor = MaterialColor.red.darken1
+	public static var pulseColor: UIColor = MaterialColor.white
+	public static var pulseColorOpacity: CGFloat = MaterialTheme.pulseView.pulseColorOpacity
+	public static var titleLabelColorForNormalState: UIColor = MaterialColor.white
 	
 	// interaction
-	public static let userInteractionEnabled: Bool = true
+	public static var userInteractionEnabled: Bool = true
 	
 	// position
-	public static let zPosition: CGFloat = 200
+	public static var zPosition: CGFloat = 200
 	
 	// font
-	public static let titleLabelFont: UIFont = RobotoFont.regular
+	public static var titleLabelFont: UIFont = RobotoFont.regular
 }

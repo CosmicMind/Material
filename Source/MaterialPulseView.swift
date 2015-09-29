@@ -30,11 +30,20 @@ public class MaterialPulseView: MaterialView {
 	internal lazy var pulseLayer: CAShapeLayer = CAShapeLayer()
 	
 	/**
+		:name:	pulseColorOpacity
+	*/
+	public var pulseColorOpacity: CGFloat! {
+		didSet {
+			pulseColorOpacity = nil == pulseColorOpacity ? 0.5 : pulseColorOpacity!
+		}
+	}
+	
+	/**
 		:name:	pulseColor
 	*/
 	public var pulseColor: UIColor? {
 		didSet {
-			pulseLayer.backgroundColor = pulseColor?.colorWithAlphaComponent(MaterialTheme.pulseView.pulseColorOpacity).CGColor
+			pulseLayer.backgroundColor = pulseColor?.colorWithAlphaComponent(pulseColorOpacity!).CGColor
 		}
 	}
 	
@@ -109,6 +118,7 @@ public class MaterialPulseView: MaterialView {
 		super.prepareView()
 		userInteractionEnabled = MaterialTheme.pulseView.userInteractionEnabled
 		backgroundColor = MaterialTheme.pulseView.backgroudColor
+		pulseColorOpacity = MaterialTheme.pulseView.pulseColorOpacity
 		pulseColor = MaterialTheme.pulseView.pulseColor
 		
 		contentsRect = MaterialTheme.pulseView.contentsRect
@@ -128,6 +138,7 @@ public class MaterialPulseView: MaterialView {
 		touchesLayer.masksToBounds = true
 		layer.addSublayer(touchesLayer)
 		
+		// pulseLayer
 		pulseLayer.hidden = true
 		touchesLayer.addSublayer(pulseLayer)
 	}

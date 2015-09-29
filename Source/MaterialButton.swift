@@ -25,14 +25,23 @@ public class MaterialButton : UIButton {
 	public private(set) lazy var visualLayer: CAShapeLayer = CAShapeLayer()
 	
 	//
+	//	:name:	touchesLayer
+	//
+	internal lazy var touchesLayer: CAShapeLayer = CAShapeLayer()
+	
+	//
 	//	:name:	pulseLayer
 	//
 	internal lazy var pulseLayer: CAShapeLayer = CAShapeLayer()
 	
-	//
-	//	:name:	pulseColorOpacity
-	//
-	internal var pulseColorOpacity: CGFloat!
+	/**
+		:name:	pulseColorOpacity
+	*/
+	public var pulseColorOpacity: CGFloat! {
+		didSet {
+			pulseColorOpacity = nil == pulseColorOpacity ? 0.5 : pulseColorOpacity!
+		}
+	}
 	
 	/**
 		:name:	pulseColor
@@ -161,7 +170,7 @@ public class MaterialButton : UIButton {
 	*/
 	public var cornerRadius: MaterialRadius! {
 		didSet {
-			visualLayer.cornerRadius = MaterialRadiusToValue(nil == cornerRadius ? .Radius0 : cornerRadius!)
+			layer.cornerRadius = MaterialRadiusToValue(nil == cornerRadius ? .Radius0 : cornerRadius!)
 			shape = nil
 		}
 	}
@@ -187,7 +196,7 @@ public class MaterialButton : UIButton {
 	*/
 	public var borderWidth: MaterialBorder! {
 		didSet {
-			visualLayer.borderWidth = MaterialBorderToValue(nil == borderWidth ? .Border0 : borderWidth!)
+			layer.borderWidth = MaterialBorderToValue(nil == borderWidth ? .Border0 : borderWidth!)
 		}
 	}
 	
@@ -196,7 +205,7 @@ public class MaterialButton : UIButton {
 	*/
 	public var borderColor: UIColor! {
 		didSet {
-			visualLayer.borderColor = nil == borderColor ? MaterialColor.clear.CGColor : borderColor!.CGColor
+			layer.borderColor = nil == borderColor ? MaterialColor.clear.CGColor : borderColor!.CGColor
 		}
 	}
 	
@@ -265,6 +274,10 @@ public class MaterialButton : UIButton {
 	public override func layoutSubviews() {
 		super.layoutSubviews()
 		visualLayer.frame = bounds
+		visualLayer.cornerRadius = layer.cornerRadius
+		
+		touchesLayer.frame = bounds
+		touchesLayer.cornerRadius = layer.cornerRadius
 	}
 	
 	/**
@@ -323,17 +336,21 @@ public class MaterialButton : UIButton {
 		visualLayer.zPosition = -1
 		layer.addSublayer(visualLayer)
 		
+		// touchesLayer
+		touchesLayer.zPosition = 1000
+		touchesLayer.masksToBounds = true
+		layer.addSublayer(touchesLayer)
+		
 		// pulseLayer
 		pulseLayer.hidden = true
-		pulseLayer.zPosition = 1000
-		visualLayer.addSublayer(pulseLayer)
+		touchesLayer.addSublayer(pulseLayer)
 	}
 	
 	//
 	//	:name:	prepareShape
 	//
 	internal func prepareShape() {
-		visualLayer.cornerRadius = .Square == shape ? 0 : width / 2
+		layer.cornerRadius = .Square == shape ? 0 : width / 2
 	}
 	
 	//
