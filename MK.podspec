@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.social_media_url = 'https://www.facebook.com/graphkit'
   s.authors = { 'GraphKit, Inc.' => 'support@graphkit.io' }
   s.source = { :git => 'https://github.com/GraphKit/MaterialKit.git', :tag => s.version }
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '8.0'
   s.source_files = 'Source/*.swift'
   s.requires_arc = true
 end
