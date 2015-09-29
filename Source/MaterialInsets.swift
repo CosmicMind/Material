@@ -36,12 +36,12 @@ public func MaterialInsetsToValue(inset: MaterialInsets) -> MaterialInsetsType {
 	case .Inset0:
 		return (top: 0, left: 0, bottom: 0, right: 0)
 	case .Inset1:
-		return (top: 4, left: 4, bottom: 4, right: 4)
+		return (top: 2, left: 4, bottom: 2, right: 4)
 	case .Inset2:
-		return (top: 8, left: 8, bottom: 8, right: 8)
+		return (top: 4, left: 8, bottom: 4, right: 8)
 	case .Inset3:
-		return (top: 16, left: 16, bottom: 16, right: 16)
+		return (top: 8, left: 16, bottom: 8, right: 16)
 	case .Inset4:
-		return (top: 32, left: 32, bottom: 32, right: 32)
+		return (top: 16, left: 32, bottom: 16, right: 32)
 	}
 }

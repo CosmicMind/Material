@@ -29,10 +29,85 @@ public class NavigationBarView: MaterialView {
 	}
 	
 	/**
+		:name:	contentInsets
+	*/
+	public var contentInsets: MaterialInsets? {
+		didSet {
+			contentInsetsRef = MaterialInsetsToValue(nil == contentInsets ? .Inset0 : contentInsets!)
+		}
+	}
+	
+	/**
+		:name:	contentInsetsRef
+	*/
+	public var contentInsetsRef: MaterialInsetsType! {
+		didSet {
+			layoutSubviews()
+		}
+	}
+	
+	/**
+		:name:	titleLabel
+	*/
+	public var titleLabel: MaterialLabel? {
+		didSet {
+			if let v = titleLabel {
+				v.translatesAutoresizingMaskIntoConstraints = false
+				addSubview(v)
+			}
+		}
+	}
+	
+	/**
+		:name:	init
+	*/
+	public required init?(coder aDecoder: NSCoder) {
+		super.init(coder: aDecoder)
+	}
+	
+	/**
+		:name:	init
+	*/
+	public override init(frame: CGRect) {
+		super.init(frame: frame)
+		contentInsets = .Inset3
+	}
+	
+	/**
 		:name:	init
 	*/
 	public convenience init() {
 		self.init(frame: CGRectMake(MaterialTheme.navigation.x, MaterialTheme.navigation.y, MaterialTheme.navigation.width, MaterialTheme.navigation.height))
+		contentInsets = .Inset3
+	}
+	
+	/**
+		:name:	init
+	*/
+	public convenience init?(titleLabel: MaterialLabel? = nil) {
+		self.init(frame: CGRectMake(MaterialTheme.navigation.x, MaterialTheme.navigation.y, MaterialTheme.navigation.width, MaterialTheme.navigation.height))
+		self.prepareProperties(titleLabel)
+		
+	}
+	
+	/**
+		:name:	layoutSubviews
+	*/
+	public override func layoutSubviews() {
+		super.layoutSubviews()
+		
+		if nil != contentInsetsRef {
+			removeConstraints(constraints)
+			MaterialLayout.alignToParentHorizontallyWithPad(self, child: titleLabel!, left: contentInsetsRef!.left, right: contentInsetsRef!.right)
+			MaterialLayout.alignFromBottom(self, child: titleLabel!, bottom: contentInsetsRef!.bottom)
+		}
+	}
+	
+	//
+	//	:name:	prepareProperties
+	//
+	internal func prepareProperties(titleLabel: MaterialLabel?) {
+		self.titleLabel = titleLabel
 	}
 	
 	//

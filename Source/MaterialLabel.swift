@@ -25,4 +25,57 @@ public class MaterialLabel : UILabel {
 	public override class func layerClass() -> AnyClass {
 		return CATextLayer.self
 	}
+	
+	/**
+		:name:	textLayer
+	*/
+	public var textLayer: CATextLayer {
+		return layer as! CATextLayer
+	}
+	
+	/**
+		:name:	text
+	*/
+	public override var text: String? {
+		didSet {
+			textLayer.string = text
+		}
+	}
+	
+	/**
+		:name:	textColor
+	*/
+	public override var textColor: UIColor? {
+		didSet {
+			textLayer.foregroundColor = textColor?.CGColor
+		}
+	}
+	
+	/**
+		:name:	font
+	*/
+	public override var font: UIFont? {
+		didSet {
+			if let v = font {
+				textLayer.font = CGFontCreateWithFontName(v.fontName as CFStringRef)!
+				textLayer.fontSize = v.pointSize
+			}
+		}
+	}
+	
+	/**
+		:name:	init
+	*/
+	public required init?(coder aDecoder: NSCoder) {
+		super.init(coder: aDecoder)
+	}
+	
+	/**
+		:name:	init
+	*/
+	public override init(frame: CGRect) {
+		super.init(frame: frame)
+		textLayer.wrapped = true
+		textLayer.contentsScale = UIScreen.mainScreen().scale
+	}
 }
