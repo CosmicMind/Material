@@ -119,7 +119,7 @@ public extension MaterialTheme.navigation {
 	// shape
 	public static var masksToBounds: Bool = MaterialTheme.view.masksToBounds
 	public static var cornerRadius: MaterialRadius = MaterialTheme.view.cornerRadius
-	public static var titleInsetsRef: MaterialInsetsType = (top: 0, left: 8, bottom: 12, right: 8)
+	public static var titleInsetsRef: MaterialInsetsType = (top: 0, left: 8, bottom: 10, right: 8)
 	public static var leftButtonsInsetsRef: MaterialInsetsType = (top: 0, left: 8, bottom: 8, right: 0)
 	public static var rightButtonsInsetsRef: MaterialInsetsType = (top: 0, left: 0, bottom: 8, right: 8)
 	
@@ -149,9 +149,12 @@ public extension MaterialTheme.label {
 	// scale
 	public static var contentsScale: CGFloat = UIScreen.mainScreen().scale
 	
-	// text
+	// alignment
 	public static var wrapped: Bool = true
 	public static var textAlignment: NSTextAlignment = .Left
+	
+	// font
+	public static var font: UIFont = RobotoFont.regularWithSize(20)
 }
 
 // button.flat

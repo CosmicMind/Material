@@ -164,6 +164,7 @@ public class NavigationBarView: MaterialView {
 			v.removeFromSuperview()
 		}
 		
+		// leftButtons
 		if let v = leftButtons {
 			var h: String = "H:|"
 			var d: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()

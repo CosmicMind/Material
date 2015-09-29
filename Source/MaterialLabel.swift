@@ -58,8 +58,17 @@ public class MaterialLabel : UILabel {
 		didSet {
 			if let v = font {
 				textLayer.font = CGFontCreateWithFontName(v.fontName as CFStringRef)!
-				textLayer.fontSize = v.pointSize
+				pointSize = v.pointSize
 			}
+		}
+	}
+	
+	/**
+		:name:	pointSize
+	*/
+	public var pointSize: CGFloat! {
+		didSet {
+			textLayer.fontSize = pointSize
 		}
 	}
 	
@@ -102,6 +111,34 @@ public class MaterialLabel : UILabel {
 	}
 	
 	/**
+		:name:	lineBreakMode
+	*/
+	public override var lineBreakMode: NSLineBreakMode {
+		didSet {
+			switch lineBreakMode {
+			case .ByWordWrapping: // Wrap at word boundaries, default
+				wrapped = true
+				textLayer.truncationMode = kCATruncationNone
+			case .ByCharWrapping: // Wrap at character boundaries
+				wrapped = true
+				textLayer.truncationMode = kCATruncationNone
+			case .ByClipping: // Simply clip
+				wrapped = false
+				textLayer.truncationMode = kCATruncationNone
+			case .ByTruncatingHead: // Truncate at head of line: "...wxyz"
+				wrapped = false
+				textLayer.truncationMode = kCATruncationStart
+			case .ByTruncatingTail: // Truncate at tail of line: "abcd..."
+				wrapped = false
+				textLayer.truncationMode = kCATruncationEnd
+			case .ByTruncatingMiddle: // Truncate middle of line:  "ab...yz"
+				wrapped = false
+				textLayer.truncationMode = kCATruncationMiddle
+			}
+		}
+	}
+	
+	/**
 		:name:	init
 	*/
 	public required init?(coder aDecoder: NSCoder) {
@@ -130,5 +167,6 @@ public class MaterialLabel : UILabel {
 		textAlignment = MaterialTheme.label.textAlignment
 		wrapped = MaterialTheme.label.wrapped
 		contentsScale = MaterialTheme.label.contentsScale
+		font = MaterialTheme.label.font
 	}
 }
