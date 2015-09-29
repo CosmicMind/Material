@@ -19,11 +19,6 @@
 import UIKit
 
 public class NavigationBarView: MaterialView {
-	//
-	//	:name:	isLoading
-	//
-	internal lazy var isLoading: Bool = false
-	
 	/**
 		:name:	statusBarStyle
 	*/
@@ -38,7 +33,7 @@ public class NavigationBarView: MaterialView {
 	*/
 	public var titleInsets: MaterialInsets? {
 		didSet {
-			titleInsetsRef = MaterialInsetsToValue(nil == titleInsets ? .Inset0 : titleInsets!)
+			titleInsetsRef = nil == titleInsets ? nil : MaterialInsetsToValue(titleInsets!)
 		}
 	}
 	
@@ -47,7 +42,7 @@ public class NavigationBarView: MaterialView {
 	*/
 	public var titleInsetsRef: MaterialInsetsType! {
 		didSet {
-			titleInsetsRef = nil == titleInsetsRef ? MaterialTheme.navigation.titleInsetsRef : titleInsetsRef!
+			titleInsetsRef = nil == titleInsetsRef ? (top: 0, left: 0, bottom: 0, right: 0) : titleInsetsRef!
 			reloadView()
 		}
 	}
@@ -69,7 +64,7 @@ public class NavigationBarView: MaterialView {
 	*/
 	public var leftButtonsInsets: MaterialInsets? {
 		didSet {
-			leftButtonsInsetsRef = MaterialInsetsToValue(nil == leftButtonsInsets ? .Inset0 : leftButtonsInsets!)
+			leftButtonsInsetsRef = nil == leftButtonsInsets ? nil : MaterialInsetsToValue(leftButtonsInsets!)
 		}
 	}
 	
@@ -78,7 +73,7 @@ public class NavigationBarView: MaterialView {
 	*/
 	public var leftButtonsInsetsRef: MaterialInsetsType! {
 		didSet {
-			leftButtonsInsetsRef = nil == leftButtonsInsetsRef ? MaterialTheme.navigation.leftButtonsInsetsRef : leftButtonsInsetsRef!
+			leftButtonsInsetsRef = nil == leftButtonsInsetsRef ? (top: 0, left: 0, bottom: 0, right: 0) : leftButtonsInsetsRef!
 			reloadView()
 		}
 	}
@@ -102,7 +97,7 @@ public class NavigationBarView: MaterialView {
 	*/
 	public var rightButtonsInsets: MaterialInsets? {
 		didSet {
-			rightButtonsInsetsRef = MaterialInsetsToValue(nil == rightButtonsInsets ? .Inset0 : rightButtonsInsets!)
+			rightButtonsInsetsRef = nil == rightButtonsInsets ? nil : MaterialInsetsToValue(rightButtonsInsets!)
 		}
 	}
 	
@@ -111,7 +106,7 @@ public class NavigationBarView: MaterialView {
 	*/
 	public var rightButtonsInsetsRef: MaterialInsetsType! {
 		didSet {
-			rightButtonsInsetsRef = nil == rightButtonsInsetsRef ? MaterialTheme.navigation.rightButtonsInsetsRef : rightButtonsInsetsRef!
+			rightButtonsInsetsRef = nil == rightButtonsInsetsRef ? (top: 0, left: 0, bottom: 0, right: 0) : rightButtonsInsetsRef!
 			reloadView()
 		}
 	}
