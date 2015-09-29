@@ -39,21 +39,21 @@ A FlatButton is the best place to start when introducing MaterialKit buttons. It
 ![MaterialKitPreview](http://www.materialkit.io/github/img3.gif)
 
 ```swift
-let v: FlatButton = FlatButton(frame: CGRectMake(0, 0, 100, 32))
+let v: FlatButton = FlatButton(frame: CGRectMake(0, 0, 200, 64))
 v.setTitle("Flat", forState: .Normal)
+v.titleLabel!.font = RobotoFont.mediumWithSize(32)
 ```
 
 ### Noticeable RaisedButton
 
-A RaisedButton is sure to get attention. The following example modifies the background color and pulse color of the button.
+A RaisedButton is sure to get attention. Take a look at the following code sample.
 
 ![MaterialKitPreview](http://www.materialkit.io/github/img4.gif)
 
 ```swift
-let v: RaisedButton = RaisedButton(frame: CGRectMake(0, 0, 100, 32))
+let v: RaisedButton = RaisedButton(frame: CGRectMake(0, 0, 200, 64))
 v.setTitle("Raised", forState: .Normal)
-v.backgroundColor = MaterialColor.green.darken3
-v.pulseColor = MaterialColor.green.base
+v.titleLabel!.font = RobotoFont.mediumWithSize(32)
 ```
 
 ### Actionable FabButton
