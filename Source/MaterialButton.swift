@@ -49,7 +49,7 @@ public class MaterialButton : UIButton {
 	/**
 		:name:	init
 	*/
-	public required init(coder aDecoder: NSCoder) {
+	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 		prepareView()
 	}
@@ -72,7 +72,7 @@ public class MaterialButton : UIButton {
 	/**
 		:name:	touchesBegan
 	*/
-	public override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesBegan(touches, withEvent: event)
 		pulseBegan(touches, withEvent: event)
 	}
@@ -80,7 +80,7 @@ public class MaterialButton : UIButton {
 	/**
 		:name:	touchesEnded
 	*/
-	public override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+	public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesEnded(touches, withEvent: event)
 		shrink()
 		pulseEnded(touches, withEvent: event)
@@ -89,7 +89,7 @@ public class MaterialButton : UIButton {
 	/**
 		:name:	touchesCancelled
 	*/
-	public override func touchesCancelled(touches: Set<NSObject>!, withEvent event: UIEvent!) {
+	public override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
 		super.touchesCancelled(touches, withEvent: event)
 		shrink()
 		pulseEnded(touches, withEvent: event)
@@ -99,7 +99,6 @@ public class MaterialButton : UIButton {
 		:name:	drawRect
 	*/
 	final public override func drawRect(rect: CGRect) {
-		prepareContext(rect)
 		prepareBackgroundColorView()
 		prepareButton()
 	}
@@ -108,7 +107,7 @@ public class MaterialButton : UIButton {
 	//	:name:	prepareView
 	//
 	internal func prepareView() {
-		setTranslatesAutoresizingMaskIntoConstraints(false)
+		translatesAutoresizingMaskIntoConstraints = false
 	}
 	
 	//
@@ -129,18 +128,18 @@ public class MaterialButton : UIButton {
 	//
 	//	:name:	pulseBegan
 	//
-	internal func pulseBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+	internal func pulseBegan(touches: Set<NSObject>, withEvent event: UIEvent?) {
 		pulseView = UIView(frame: CGRectMake(0, 0, bounds.height, bounds.height))
 		pulseView!.layer.cornerRadius = bounds.height / 2
 		pulseView!.center = (touches.first as! UITouch).locationInView(self)
-		pulseView!.backgroundColor = pulseColor?.colorWithAlphaComponent(0.5)
+		pulseView!.backgroundColor = pulseColor?.colorWithAlphaComponent(0.3)
 		backgroundColorView.addSubview(pulseView!)
 	}
 	
 	//
 	//	:name:	pulseEnded
 	//
-	internal func pulseEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+	internal func pulseEnded(touches: Set<NSObject>?, withEvent event: UIEvent?) {
 		UIView.animateWithDuration(0.3,
 			animations: { _ in
 				self.pulseView?.alpha = 0
@@ -152,22 +151,10 @@ public class MaterialButton : UIButton {
 	}
 	
 	//
-	//	:name:	prepareContext
-	//
-	private func prepareContext(rect: CGRect) {
-		let context = UIGraphicsGetCurrentContext()
-		CGContextSaveGState(context);
-		CGContextAddEllipseInRect(context, rect)
-		CGContextSetFillColorWithColor(context, MaterialTheme.clear.color.CGColor)
-		CGContextFillPath(context)
-		CGContextRestoreGState(context);
-	}
-	
-	//
 	//	:name: prepareBackgroundColorView
 	//
 	private func prepareBackgroundColorView() {
-		backgroundColorView.setTranslatesAutoresizingMaskIntoConstraints(false)
+		backgroundColorView.translatesAutoresizingMaskIntoConstraints = false
 		backgroundColorView.layer.masksToBounds = true
 		backgroundColorView.clipsToBounds = true
 		backgroundColorView.userInteractionEnabled = false
@@ -183,7 +170,7 @@ public class MaterialButton : UIButton {
 			delay: 0,
 			usingSpringWithDamping: 0.2,
 			initialSpringVelocity: 10,
-			options: nil,
+			options: [],
 			animations: {
 				self.transform = CGAffineTransformIdentity
 			},

@@ -24,10 +24,10 @@ public class RaisedButton : MaterialButton {
 	//
 	internal override func prepareView()  {
 		super.prepareView()
-		titleLabel!.font = Roboto.medium
+		titleLabel!.font = Roboto.regular
 		setTitleColor(MaterialTheme.white.color, forState: .Normal)
 		backgroundColor = MaterialTheme.blue.accent2
-		contentEdgeInsets = UIEdgeInsetsMake(6, 16, 6, 16)
+		contentEdgeInsets = UIEdgeInsetsMake(MaterialTheme.buttonVerticalInset, MaterialTheme.buttonHorizontalInset, MaterialTheme.buttonVerticalInset, MaterialTheme.buttonHorizontalInset)
 	}
 	
 	//
@@ -42,7 +42,7 @@ public class RaisedButton : MaterialButton {
 	//
 	//	:name:	pulseBegan
 	//
-	internal override func pulseBegan(touches: Set<NSObject>, withEvent event: UIEvent)  {
+	internal override func pulseBegan(touches: Set<NSObject>, withEvent event: UIEvent?)  {
 		super.pulseBegan(touches, withEvent: event)
 		UIView.animateWithDuration(0.3, animations: {
 			self.pulseView!.transform = CGAffineTransformMakeScale(4, 4)

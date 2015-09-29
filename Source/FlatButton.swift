@@ -24,11 +24,11 @@ public class FlatButton : MaterialButton {
 	//
 	internal override func prepareView() {
 		super.prepareView()
-		titleLabel!.font = Roboto.medium
+		titleLabel!.font = Roboto.regular
 		setTitleColor(MaterialTheme.blueGrey.darken4, forState: .Normal)
 		pulseColor = MaterialTheme.blueGrey.lighten3
 		backgroundColor = MaterialTheme.clear.color
-		contentEdgeInsets = UIEdgeInsetsMake(6, 16, 6, 16)
+		contentEdgeInsets = UIEdgeInsetsMake(MaterialTheme.buttonVerticalInset, MaterialTheme.buttonHorizontalInset, MaterialTheme.buttonVerticalInset, MaterialTheme.buttonHorizontalInset)
 	}
 	
 	//
@@ -42,7 +42,7 @@ public class FlatButton : MaterialButton {
 	//
 	//	:name:	pulseBegan
 	//
-	internal override func pulseBegan(touches: Set<NSObject>, withEvent event: UIEvent)  {
+	internal override func pulseBegan(touches: Set<NSObject>, withEvent event: UIEvent?)  {
 		super.pulseBegan(touches, withEvent: event)
 		UIView.animateWithDuration(0.3, animations: {
 			self.pulseView!.transform = CGAffineTransformMakeScale(4, 4)

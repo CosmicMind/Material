@@ -18,21 +18,16 @@
 
 import UIKit
 
-public class BasicCardView : MaterialCardView, Comparable, Equatable {
+public class BasicCardView : MaterialCardView, Comparable {
 	//
 	//	:name:	layoutConstraints
 	//
 	internal lazy var layoutConstraints: Array<NSLayoutConstraint> = Array<NSLayoutConstraint>()
 	
-	//
-	//	:name:	views
-	//
-	internal lazy var views: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
-	
 	/**
 		:name:	titleLabelVerticalInset
 	*/
-	public var titleLabelVerticalInset: CGFloat = MaterialTheme.verticalInset {
+	public var titleLabelVerticalInset: CGFloat = MaterialTheme.cardVerticalInset {
 		didSet {
 			titleLabelTopInset = titleLabelVerticalInset
 			titleLabelBottomInset = titleLabelVerticalInset
@@ -42,17 +37,25 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	titleLabelTopInset
 	*/
-	public var titleLabelTopInset: CGFloat = MaterialTheme.verticalInset
+	public var titleLabelTopInset: CGFloat = MaterialTheme.cardVerticalInset {
+		didSet {
+			reloadView()
+		}
+	}
 	
 	/**
 		:name:	titleLabelBottomInset
 	*/
-	public var titleLabelBottomInset: CGFloat = MaterialTheme.verticalInset
+	public var titleLabelBottomInset: CGFloat = MaterialTheme.cardVerticalInset {
+		didSet {
+			reloadView()
+		}
+	}
 	
 	/**
 		:name:	titleLabelHorizontalInset
 	*/
-	public var titleLabelHorizontalInset: CGFloat = MaterialTheme.horizontalInset {
+	public var titleLabelHorizontalInset: CGFloat = MaterialTheme.cardHorizontalInset {
 		didSet {
 			titleLabelLeftInset = titleLabelHorizontalInset
 			titleLabelRightInset = titleLabelHorizontalInset
@@ -62,17 +65,25 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	titleLabelLeftInset
 	*/
-	public var titleLabelLeftInset: CGFloat = MaterialTheme.horizontalInset
+	public var titleLabelLeftInset: CGFloat = MaterialTheme.cardHorizontalInset {
+		didSet {
+			reloadView()
+		}
+	}
 	
 	/**
 		:name:	titleLabelRightInset
 	*/
-	public var titleLabelRightInset: CGFloat = MaterialTheme.horizontalInset
+	public var titleLabelRightInset: CGFloat = MaterialTheme.cardHorizontalInset {
+		didSet {
+			reloadView()
+		}
+	}
 	
 	/**
 		:name:	detailLabelVerticalInset
 	*/
-	public var detailLabelVerticalInset: CGFloat = MaterialTheme.verticalInset {
+	public var detailLabelVerticalInset: CGFloat = MaterialTheme.cardVerticalInset {
 		didSet {
 			detailLabelTopInset = detailLabelVerticalInset
 			detailLabelBottomInset = detailLabelVerticalInset
@@ -82,17 +93,25 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	detailLabelTopInset
 	*/
-	public var detailLabelTopInset: CGFloat = MaterialTheme.verticalInset
+	public var detailLabelTopInset: CGFloat = MaterialTheme.cardVerticalInset {
+		didSet {
+			reloadView()
+		}
+	}
 	
 	/**
 		:name:	detailLabelBottomInset
 	*/
-	public var detailLabelBottomInset: CGFloat = MaterialTheme.verticalInset
+	public var detailLabelBottomInset: CGFloat = MaterialTheme.cardVerticalInset {
+		didSet {
+			reloadView()
+		}
+	}
 	
 	/**
 		:name:	detailLabelHorizontalInset
 	*/
-	public var detailLabelHorizontalInset: CGFloat = MaterialTheme.horizontalInset {
+	public var detailLabelHorizontalInset: CGFloat = MaterialTheme.cardHorizontalInset {
 		didSet {
 			detailLabelLeftInset = detailLabelHorizontalInset
 			detailLabelRightInset = detailLabelHorizontalInset
@@ -102,17 +121,25 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	detailLabelLeftInset
 	*/
-	public var detailLabelLeftInset: CGFloat = MaterialTheme.horizontalInset
+	public var detailLabelLeftInset: CGFloat = MaterialTheme.cardHorizontalInset {
+		didSet {
+			reloadView()
+		}
+	}
 	
 	/**
 		:name:	detailLabelRightInset
 	*/
-	public var detailLabelRightInset: CGFloat = MaterialTheme.horizontalInset
+	public var detailLabelRightInset: CGFloat = MaterialTheme.cardHorizontalInset {
+		didSet {
+			reloadView()
+		}
+	}
 	
 	/**
 		:name:	buttonVerticalInset
 	*/
-	public var buttonVerticalInset: CGFloat = MaterialTheme.verticalInset {
+	public var buttonVerticalInset: CGFloat = MaterialTheme.cardVerticalInset {
 		didSet {
 			buttonTopInset = buttonVerticalInset
 			buttonBottomInset = buttonVerticalInset
@@ -122,17 +149,25 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	buttonTopInset
 	*/
-	public var buttonTopInset: CGFloat = MaterialTheme.verticalInset
+	public var buttonTopInset: CGFloat = MaterialTheme.cardVerticalInset / 2 {
+		didSet {
+			reloadView()
+		}
+	}
 	
 	/**
 		:name:	buttonBottomInset
 	*/
-	public var buttonBottomInset: CGFloat = MaterialTheme.verticalInset
+	public var buttonBottomInset: CGFloat = MaterialTheme.cardVerticalInset / 2 {
+		didSet {
+			reloadView()
+		}
+	}
 	
 	/**
 		:name:	buttonHorizontalInset
 	*/
-	public var buttonHorizontalInset: CGFloat = MaterialTheme.horizontalInset {
+	public var buttonHorizontalInset: CGFloat = MaterialTheme.cardHorizontalInset {
 		didSet {
 			buttonLeftInset = buttonHorizontalInset
 			buttonRightInset = buttonHorizontalInset
@@ -142,17 +177,20 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 	/**
 		:name:	buttonLeftInset
 	*/
-	public var buttonLeftInset: CGFloat = MaterialTheme.horizontalInset
+	public var buttonLeftInset: CGFloat = MaterialTheme.cardHorizontalInset / 2 {
+		didSet {
+			reloadView()
+		}
+	}
 	
 	/**
 		:name:	buttonRightInset
 	*/
-	public var buttonRightInset: CGFloat = MaterialTheme.horizontalInset
-	
-	/**
-		:name:	titleLabelContainer
-	*/
-	public private(set) var titleLabelContainer: UIView?
+	public var buttonRightInset: CGFloat = MaterialTheme.cardHorizontalInset / 2 {
+		didSet {
+			reloadView()
+		}
+	}
 	
 	/**
 		:name:	shadow
@@ -160,8 +198,23 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 	public var shadow: Bool = true {
 		didSet {
 			false == shadow ? removeShadow() : prepareShadow()
+			reloadView()
 		}
 	}
+	
+	/**
+		:name:	maximumTitleLabelHeight
+	*/
+	public var maximumTitleLabelHeight: CGFloat = 0 {
+		didSet {
+			reloadView()
+		}
+	}
+	
+	/**
+		:name:	titleLabelContainer
+	*/
+	public private(set) var titleLabelContainer: UIView?
 	
 	/**
 		:name:	titleLabel
@@ -172,30 +225,35 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 				// container
 				if nil == titleLabelContainer {
 					titleLabelContainer = UIView()
-					titleLabelContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
+					titleLabelContainer!.translatesAutoresizingMaskIntoConstraints = false
 					titleLabelContainer!.backgroundColor = MaterialTheme.clear.color
 					addSubview(titleLabelContainer!)
 				}
 				
 				// text
 				titleLabelContainer!.addSubview(t)
-				t.setTranslatesAutoresizingMaskIntoConstraints(false)
-				t.textColor = MaterialTheme.white.color
+				t.translatesAutoresizingMaskIntoConstraints = false
 				t.backgroundColor = MaterialTheme.clear.color
-				t.font = Roboto.medium
-				t.numberOfLines = 1
+				t.font = Roboto.regular
+				t.numberOfLines = 0
 				t.lineBreakMode = .ByTruncatingTail
-				prepareCard()
+				t.textColor = MaterialTheme.white.color
 			} else {
 				titleLabelContainer?.removeFromSuperview()
+				titleLabelContainer = nil
 			}
+			reloadView()
 		}
 	}
 	
 	/**
 		:name:	maximumDetailLabelHeight
 	*/
-	public var maximumDetailLabelHeight: CGFloat = 144
+	public var maximumDetailLabelHeight: CGFloat = 0 {
+		didSet {
+			reloadView()
+		}
+	}
 	
 	/**
 		:name:	detailLabelContainer
@@ -211,23 +269,24 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 				// container
 				if nil == detailLabelContainer {
 					detailLabelContainer = UIView()
-					detailLabelContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
+					detailLabelContainer!.translatesAutoresizingMaskIntoConstraints = false
 					detailLabelContainer!.backgroundColor = MaterialTheme.clear.color
 					addSubview(detailLabelContainer!)
 				}
 				
 				// text
 				detailLabelContainer!.addSubview(l)
-				l.setTranslatesAutoresizingMaskIntoConstraints(false)
+				l.translatesAutoresizingMaskIntoConstraints = false
 				l.textColor = MaterialTheme.white.color
 				l.backgroundColor = MaterialTheme.clear.color
 				l.font = Roboto.light
 				l.numberOfLines = 0
 				l.lineBreakMode = .ByTruncatingTail
-				prepareCard()
 			} else {
 				detailLabelContainer?.removeFromSuperview()
+				detailLabelContainer = nil
 			}
+			reloadView()
 		}
 	}
 	
@@ -237,13 +296,13 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 	public var divider: UIView? {
 		didSet {
 			if let d = divider {
-				d.setTranslatesAutoresizingMaskIntoConstraints(false)
-				d.backgroundColor = MaterialTheme.blueGrey.color
+				d.translatesAutoresizingMaskIntoConstraints = false
+				d.backgroundColor = MaterialTheme.blueGrey.darken1
 				addSubview(d)
-				prepareCard()
 			} else {
 				divider?.removeFromSuperview()
 			}
+			reloadView()
 		}
 	}
 	
@@ -257,17 +316,20 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 	*/
 	public var leftButtons: Array<MaterialButton>? {
 		didSet {
-			if let b = leftButtons {
-				if nil == buttonsContainer {
-					buttonsContainer = UIView()
-					buttonsContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
-					buttonsContainer!.backgroundColor = MaterialTheme.clear.color
-					addSubview(buttonsContainer!)
-				}
-				prepareCard()
-			} else {
+			if nil == rightButtons && nil == leftButtons {
 				buttonsContainer?.removeFromSuperview()
+				buttonsContainer = nil
+			} else if nil == buttonsContainer {
+				buttonsContainer = UIView()
+				buttonsContainer!.translatesAutoresizingMaskIntoConstraints = false
+				buttonsContainer!.backgroundColor = MaterialTheme.clear.color
+				addSubview(buttonsContainer!)
+			} else {
+				for v in buttonsContainer!.subviews {
+					v.removeFromSuperview()
+				}
 			}
+			reloadView()
 		}
 	}
 	
@@ -276,24 +338,23 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 	*/
 	public var rightButtons: Array<MaterialButton>? {
 		didSet {
-			if let b = rightButtons {
-				if nil == buttonsContainer {
-					buttonsContainer = UIView()
-					buttonsContainer!.setTranslatesAutoresizingMaskIntoConstraints(false)
-					buttonsContainer!.backgroundColor = MaterialTheme.clear.color
-					addSubview(buttonsContainer!)
-				}
-				prepareCard()
-			} else {
+			if nil == rightButtons && nil == leftButtons {
 				buttonsContainer?.removeFromSuperview()
+				buttonsContainer = nil
+			} else if nil == buttonsContainer {
+				buttonsContainer = UIView()
+				buttonsContainer!.translatesAutoresizingMaskIntoConstraints = false
+				buttonsContainer!.backgroundColor = MaterialTheme.clear.color
+				addSubview(buttonsContainer!)
 			}
+			reloadView()
 		}
 	}
 	
 	/**
 		:name:	init
 	*/
-	public required init(coder aDecoder: NSCoder) {
+	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
 	
@@ -304,14 +365,128 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 		self.init(frame: CGRectZero)
 		prepareProperties(titleLabel, detailLabel: detailLabel, divider: divider, leftButtons: leftButtons, rightButtons: rightButtons)
 	}
-
+	
 	/**
 		:name:	init
 	*/
 	public required init(frame: CGRect) {
-		super.init(frame: CGRectZero)
+		super.init(frame: frame)
 	}
 
+	/**
+		:name:	isEqual
+	*/
+	public override func isEqual(object: AnyObject?) -> Bool {
+		if let rhs = object as? BasicCardView {
+			return tag == rhs.tag
+		}
+		return false
+	}
+	
+	/**
+		:name:	reloadView
+	*/
+	public func reloadView() {
+		// clear all constraints
+		NSLayoutConstraint.deactivateConstraints(layoutConstraints)
+		layoutConstraints.removeAll(keepCapacity: false)
+		
+		// detect all components and create constraints
+		var verticalFormat: String = "V:|"
+		var views: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
+		
+		// title
+		if nil != titleLabel {
+			// clear for updated constraints
+			titleLabelContainer!.removeConstraints(titleLabelContainer!.constraints)
+			
+			// container
+			layoutConstraints += Layout.constraint("H:|[titleLabelContainer]|", options: [], metrics: nil, views: ["titleLabelContainer": titleLabelContainer!])
+			verticalFormat += "[titleLabelContainer]"
+			views["titleLabelContainer"] = titleLabelContainer!
+			
+			// common text
+			if 0 == maximumTitleLabelHeight {
+				Layout.expandToParentWithPad(titleLabelContainer!, child: titleLabel!, top: titleLabelTopInset, left: titleLabelLeftInset, bottom: titleLabelBottomInset, right: titleLabelRightInset)
+			} else {
+				Layout.expandToParentHorizontallyWithPad(titleLabelContainer!, child: titleLabel!, left: titleLabelLeftInset, right: titleLabelRightInset)
+				titleLabelContainer!.addConstraints(Layout.constraint("V:|-(titleLabelTopInset)-[titleLabel(<=maximumTitleLabelHeight)]-(titleLabelBottomInset)-|", options: [], metrics: ["titleLabelTopInset": titleLabelTopInset, "titleLabelBottomInset": titleLabelBottomInset, "maximumTitleLabelHeight": maximumTitleLabelHeight], views: ["titleLabel": titleLabel!]))
+			}
+		}
+		
+		// detail
+		if nil != detailLabel {
+			// clear for updated constraints
+			detailLabelContainer!.removeConstraints(detailLabelContainer!.constraints)
+			
+			// container
+			layoutConstraints += Layout.constraint("H:|[detailLabelContainer]|", options: [], metrics: nil, views: ["detailLabelContainer": detailLabelContainer!])
+			verticalFormat += "[detailLabelContainer]"
+			views["detailLabelContainer"] = detailLabelContainer!
+			
+			if 0 == maximumDetailLabelHeight {
+				Layout.expandToParentWithPad(detailLabelContainer!, child: detailLabel!, top: detailLabelTopInset, left: detailLabelLeftInset, bottom: detailLabelBottomInset, right: detailLabelRightInset)
+			} else {
+				Layout.expandToParentHorizontallyWithPad(detailLabelContainer!, child: detailLabel!, left: detailLabelLeftInset, right: detailLabelRightInset)
+				detailLabelContainer!.addConstraints(Layout.constraint("V:|-(detailLabelTopInset)-[detailLabel(<=maximumDetailLabelHeight)]-(detailLabelBottomInset)-|", options: [], metrics: ["detailLabelTopInset": detailLabelTopInset, "detailLabelBottomInset": detailLabelBottomInset, "maximumDetailLabelHeight": maximumDetailLabelHeight], views: ["detailLabel": detailLabel!]))
+			}
+		}
+		
+		// buttons
+		if nil != leftButtons || nil != rightButtons {
+			// clear for updated constraints
+			buttonsContainer!.removeConstraints(buttonsContainer!.constraints)
+			
+			// divider
+			if nil != divider {
+				layoutConstraints += Layout.constraint("H:|[divider]|", options: [], metrics: nil, views: ["divider": divider!])
+				views["divider"] = divider!
+				verticalFormat += "[divider(1)]"
+			}
+			
+			//container
+			layoutConstraints += Layout.constraint("H:|[buttonsContainer]|", options: [], metrics: nil, views: ["buttonsContainer": buttonsContainer!])
+			verticalFormat += "[buttonsContainer]"
+			views["buttonsContainer"] = buttonsContainer!
+			
+			// leftButtons
+			if nil != leftButtons {
+				var horizontalFormat: String = "H:|"
+				var buttonViews: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
+				for var i: Int = 0, l: Int = leftButtons!.count; i < l; ++i {
+					let button: MaterialButton = leftButtons![i]
+					buttonsContainer!.addSubview(button)
+					buttonViews["button\(i)"] = button
+					horizontalFormat += "-(buttonLeftInset)-[button\(i)]"
+					Layout.expandToParentVerticallyWithPad(buttonsContainer!, child: button, top: buttonTopInset, bottom: buttonBottomInset)
+				}
+				buttonsContainer!.addConstraints(Layout.constraint(horizontalFormat, options: [], metrics: ["buttonLeftInset": buttonLeftInset], views: buttonViews))
+			}
+			
+			// rightButtons
+			if nil != rightButtons {
+				var horizontalFormat: String = "H:"
+				var buttonViews: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
+				for var i: Int = 0, l: Int = rightButtons!.count; i < l; ++i {
+					let button: MaterialButton = rightButtons![i]
+					buttonsContainer!.addSubview(button)
+					buttonViews["button\(i)"] = button
+					horizontalFormat += "[button\(i)]-(buttonRightInset)-"
+					Layout.expandToParentVerticallyWithPad(buttonsContainer!, child: button, top: buttonTopInset, bottom: buttonBottomInset)
+				}
+				buttonsContainer!.addConstraints(Layout.constraint(horizontalFormat + "|", options: [], metrics: ["buttonRightInset": buttonRightInset], views: buttonViews))
+			}
+		}
+		
+		verticalFormat += "|"
+		
+		// combine constraints
+		if 0 < layoutConstraints.count {
+			layoutConstraints += Layout.constraint(verticalFormat, options: [], metrics: nil, views: views)
+			NSLayoutConstraint.activateConstraints(layoutConstraints)
+		}
+	}
+	
 	//
 	//	:name:	prepareProperties
 	//
@@ -329,110 +504,8 @@ public class BasicCardView : MaterialCardView, Comparable, Equatable {
 	internal override func prepareView() {
 		super.prepareView()
 		prepareShadow()
-		backgroundColor = MaterialTheme.blueGrey.darken1
+		backgroundColor = MaterialTheme.blueGrey.color
 	}
-	
-	//
-	//	:name:	prepareCard
-	//
-	internal override func prepareCard() {
-		super.prepareCard()
-		
-		// deactivate and clear all constraints
-		NSLayoutConstraint.deactivateConstraints(layoutConstraints)
-		layoutConstraints.removeAll(keepCapacity: false)
-		
-		// detect all components and create constraints
-		var verticalFormat: String = "V:|"
-		
-		// title
-		if nil != titleLabelContainer && nil != titleLabel {
-			// clear for updated constraints
-			titleLabelContainer!.removeConstraints(titleLabelContainer!.constraints())
-			
-			// container
-			layoutConstraints += Layout.constraint("H:|[titleLabelContainer]|", options: nil, metrics: nil, views: ["titleLabelContainer": titleLabelContainer!])
-			verticalFormat += "[titleLabelContainer]"
-			views["titleLabelContainer"] = titleLabelContainer!
-			
-			// common text
-			Layout.height(titleLabelContainer!, child: titleLabel!, height: 1.5 * titleLabel!.font.pointSize)
-			Layout.expandToParentWithPad(titleLabelContainer!, child: titleLabel!, top: titleLabelTopInset, left: titleLabelLeftInset, bottom: titleLabelBottomInset, right: titleLabelRightInset)
-		}
-		
-		// detail
-		if nil != detailLabelContainer && nil != detailLabel {
-			// clear for updated constraints
-			detailLabelContainer!.removeConstraints(detailLabelContainer!.constraints())
-			
-			// container
-			layoutConstraints += Layout.constraint("H:|[detailLabelContainer]|", options: nil, metrics: nil, views: ["detailLabelContainer": detailLabelContainer!])
-			verticalFormat += "[detailLabelContainer]"
-			views["detailLabelContainer"] = detailLabelContainer!
-			
-			// text
-			Layout.expandToParentHorizontallyWithPad(detailLabelContainer!, child: detailLabel!, left: detailLabelLeftInset, right: detailLabelRightInset)
-			detailLabelContainer!.addConstraints(Layout.constraint("V:|-(detailLabelTopInset)-[detailLabel(<=maximumDetailLabelHeight)]-(detailLabelBottomInset)-|", options: nil, metrics: ["detailLabelTopInset": detailLabelTopInset, "detailLabelBottomInset": detailLabelBottomInset, "maximumDetailLabelHeight": maximumDetailLabelHeight], views: ["detailLabel": detailLabel!]))
-		}
-		
-		// buttons
-		if nil != buttonsContainer && (nil != leftButtons || nil != rightButtons) {
-			// clear for updated constraints
-			buttonsContainer!.removeConstraints(buttonsContainer!.constraints())
-			
-			// divider
-			if nil != divider {
-				layoutConstraints += Layout.constraint("H:|[divider]|", options: nil, metrics: nil, views: ["divider": divider!])
-				views["divider"] = divider!
-				verticalFormat += "[divider(1)]"
-			}
-			
-			//container
-			layoutConstraints += Layout.constraint("H:|[buttonsContainer]|", options: nil, metrics: nil, views: ["buttonsContainer": buttonsContainer!])
-			verticalFormat += "[buttonsContainer]"
-			views["buttonsContainer"] = buttonsContainer!
-			
-			// leftButtons
-			if nil != leftButtons {
-				var horizontalFormat: String = "H:|"
-				var buttonViews: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
-				for var i: Int = 0, l: Int = leftButtons!.count; i < l; ++i {
-					let button: MaterialButton = leftButtons![i]
-					buttonsContainer!.addSubview(button)
-					buttonViews["button\(i)"] = button
-					horizontalFormat += "-(buttonLeftInset)-[button\(i)]"
-					Layout.expandToParentVerticallyWithPad(buttonsContainer!, child: button, top: buttonTopInset, bottom: buttonBottomInset)
-				}
-				buttonsContainer!.addConstraints(Layout.constraint(horizontalFormat, options: nil, metrics: ["buttonLeftInset": buttonLeftInset], views: buttonViews))
-			}
-			
-			// rightButtons
-			if nil != rightButtons {
-				var horizontalFormat: String = "H:"
-				var buttonViews: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
-				for var i: Int = 0, l: Int = rightButtons!.count; i < l; ++i {
-					let button: MaterialButton = rightButtons![i]
-					buttonsContainer!.addSubview(button)
-					buttonViews["button\(i)"] = button
-					horizontalFormat += "[button\(i)]-(buttonRightInset)-"
-					Layout.expandToParentVerticallyWithPad(buttonsContainer!, child: button, top: buttonTopInset, bottom: buttonBottomInset)
-				}
-				buttonsContainer!.addConstraints(Layout.constraint(horizontalFormat + "|", options: nil, metrics: ["buttonRightInset": buttonRightInset], views: buttonViews))
-			}
-		}
-		
-		verticalFormat += "|"
-		
-		// combine constraints
-		if 0 < layoutConstraints.count {
-			layoutConstraints += Layout.constraint(verticalFormat, options: nil, metrics: nil, views: views)
-			NSLayoutConstraint.activateConstraints(layoutConstraints)
-		}
-	}
-}
-
-public func ==(lhs: BasicCardView, rhs: BasicCardView) -> Bool {
-	return lhs.tag == rhs.tag
 }
 
 public func <=(lhs: BasicCardView, rhs: BasicCardView) -> Bool {

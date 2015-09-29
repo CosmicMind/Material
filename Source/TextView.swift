@@ -27,7 +27,7 @@ public class TextView: UITextView {
 	/**
 		:name:	init
 	*/
-	public required init(coder aDecoder: NSCoder) {
+	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 		prepareView()
 	}
@@ -38,7 +38,7 @@ public class TextView: UITextView {
 	public override init(frame: CGRect, textContainer: NSTextContainer?) {
 		super.init(frame: frame, textContainer: textContainer)
 		if CGRectZero == frame {
-			setTranslatesAutoresizingMaskIntoConstraints(false)
+			translatesAutoresizingMaskIntoConstraints = false
 		}
 		prepareView()
 	}
@@ -58,7 +58,7 @@ public class TextView: UITextView {
 	public var placeholderLabel: UILabel? {
 		didSet {
 			if let p = placeholderLabel {
-				p.setTranslatesAutoresizingMaskIntoConstraints(false)
+				p.translatesAutoresizingMaskIntoConstraints = false
 				p.font = font
 				p.textAlignment = textAlignment
 				p.numberOfLines = 0
@@ -137,7 +137,7 @@ public class TextView: UITextView {
 		if let p = placeholderLabel {
 			NSLayoutConstraint.deactivateConstraints(layoutConstraints)
 			layoutConstraints = Layout.constraint("H:|-(left)-[placeholderLabel]-(right)-|",
-									options: nil,
+									options: [],
 									metrics: [
 										"left": textContainerInset.left + textContainer.lineFragmentPadding,
 										"right": textContainerInset.right + textContainer.lineFragmentPadding
@@ -146,7 +146,7 @@ public class TextView: UITextView {
 									])
 				
 			layoutConstraints += Layout.constraint("V:|-(top)-[placeholderLabel]-(>=bottom)-|",
-									options: nil,
+									options: [],
 									metrics: [
 										"top": textContainerInset.top,
 										"bottom": textContainerInset.bottom

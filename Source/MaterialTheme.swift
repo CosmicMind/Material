@@ -20,6 +20,23 @@ import UIKit
 
 public struct MaterialTheme {}
 
+// spacing
+extension MaterialTheme {
+	public static var cardVerticalInset: CGFloat = 16
+	public static var cardHorizontalInset: CGFloat = 16
+	
+	public static var buttonVerticalInset: CGFloat = 6
+	public static var buttonHorizontalInset: CGFloat = 16
+	
+	public static var navigationVerticalInset: CGFloat = 8
+	public static var navigationHorizontalInset: CGFloat = 8
+}
+
+// fonts
+extension MaterialTheme {
+	public static var textFontSize: CGFloat = 16
+}
+
 // colors
 extension MaterialTheme {
 	// clear
@@ -368,15 +385,4 @@ extension MaterialTheme {
         public static let darken3: UIColor = UIColor(red: 55/255, green: 71/255, blue: 79/255, alpha: 1)
         public static let darken4: UIColor = UIColor(red: 38/255, green: 50/255, blue: 56/255, alpha: 1)
     }
-}
-
-// spacing
-extension MaterialTheme {
-	public static var verticalInset: CGFloat = 8
-	public static var horizontalInset: CGFloat = 2 * verticalInset
-}
-
-// fonts
-extension MaterialTheme {
-	public static var textFontSize: CGFloat = 16
 }
