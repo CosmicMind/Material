@@ -8,7 +8,7 @@ MaterialKit is on CocoaPods under the name [MK](https://cocoapods.org/?q=MK).
 
 To get started, we will introduce MaterialView, a lightweight UIView Object that has flexibility in mind. Common controls have been added to make things easier. For example, let's make a circle view that has a shadow, border, and image.
 
-![MaterialKitPreview](http://www.materialkit.io/github/img1.png)
+![MaterialKitPreview](http://www.materialkit.io/github/img1.png =468x432)
 
 ```swift
 let v: MaterialView = MaterialView(frame: CGRectMake(0, 0, 100, 100))
