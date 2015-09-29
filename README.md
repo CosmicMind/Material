@@ -1,206 +1,115 @@
 # MaterialKit
 
-### Build Beautiful Software
-
-* [CocoaPods (MK)](https://cocoapods.org/?q=MK)
-
 ### CocoaPods Support
-MaterialKit is now on CocoaPods under the name [MK](https://cocoapods.org/?q=MK).
 
-### Floating Action Button
+MaterialKit is on CocoaPods under the name [MK](https://cocoapods.org/?q=MK).
 
-Make a call to action with a Floating Action Button.
+### Basic MaterialView
 
+To get started, let's introduce MaterialView, a lightweight UIView Object that has flexibility in mind. Common controls have been added to make things easier. For example, let's make a circle view that has a shadow, border, and image.
 
-![MaterialKitPreview](http://www.materialkit.io/fabbuttonpreview.gif)
-
+![MaterialKitPreview](http://www.materialkit.io/github/img1.png)
 
 ```swift
-var button: FabButton = FabButton()
-button.setTitle("+", forState: .Normal)
-button.titleLabel!.font = Roboto.lightWithSize(16)
-
-// layout
-view.addSubview(button)
-Layout.size(view, child: button, width: 60, height: 60)
+let v: MaterialView = MaterialView(frame: CGRectMake(0, 0, 200, 200))
+v.shape = .Circle
+v.shadowDepth = .Depth2
+v.borderWidth = .Border1
+v.image = UIImage(named: "focus")
 ```
 
-### Raised Button
+### Animated MaterialPulseView
 
-Use a Raised Button to capture attention.
+Let's expand on the basic MaterialView and use an animated MaterialPulseView. In this example, we will make the shape a square with some rounded corners.
 
-
-![MaterialKitPreview](http://www.materialkit.io/raisedbuttonpreview.gif)
-
+![MaterialKitPreview](http://www.materialkit.io/github/img2.gif)
 
 ```swift
-var button: RaisedButton = RaisedButton()
-button.setTitle("Raised", forState: .Normal)
-
-// layout
-view.addSubview(button)
-Layout.size(view, child: button, width: 200, height: 60)
+let v: MaterialPulseView = MaterialPulseView(frame: CGRectMake(0, 0, 200, 200))
+v.shape = .Square
+v.cornerRadius = .Radius2
+v.shadowDepth = .Depth2
+v.image = UIImage(named: "focus")
 ```
 
-### Flat Button
+### Simple FlatButton
 
-Keep it simple and elegant with a Flat Button.
+A FlatButton is the best place to start when introducing MaterialKit buttons. It is simple, clean, and very effective. Below is an example of a FlatButton in action.
 
-
-![MaterialKitPreview](http://www.materialkit.io/flatbuttonpreview.gif)
-
+![MaterialKitPreview](http://www.materialkit.io/github/img3.gif)
 
 ```swift
-var button: RaisedButton = RaisedButton()
-button.setTitle("Flat", forState: .Normal)
-
-// layout
-view.addSubview(button)
-Layout.size(view, child: button, width: 200, height: 60)
+let v: FlatButton = FlatButton(frame: CGRectMake(0, 0, 200, 64))
+v.setTitle("Flat", forState: .Normal)
+v.titleLabel!.font = RobotoFont.mediumWithSize(32)
 ```
 
-### Basic Card
+### Noticeable RaisedButton
 
-Easily make cards with fully customizable components.
+A RaisedButton is sure to get attention. Take a look at the following code sample.
 
-
-![MaterialKitPreview](http://www.materialkit.io/basiccardpreview.gif)
-
+![MaterialKitPreview](http://www.materialkit.io/github/img4.gif)
 
 ```swift
-var card: BasicCardView = BasicCardView()
-
-// title
-card.titleLabel = UILabel()
-card.titleLabel!.text = "Card Title"
-
-// details
-card.detailLabel = UILabel()
-card.detailLabel!.text = "I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively."
-
-// divider
-card.divider = UIView()
-
-// buttons
-var cancelButton: FlatButton = FlatButton()
-cancelButton.pulseColor = MaterialTheme.blueGrey.darken3
-cancelButton.setTitle("Cancel", forState: .Normal)
-cancelButton.setTitleColor(MaterialTheme.yellow.darken3, forState: .Normal)
-
-var okButton: FlatButton = FlatButton()
-okButton.pulseColor = MaterialTheme.blueGrey.darken3
-okButton.setTitle("Okay", forState: .Normal)
-okButton.setTitleColor(MaterialTheme.yellow.darken3, forState: .Normal)
-
-card.leftButtons = [cancelButton, okButton]
-
-// layout
-view.addSubview(card)
-view.addConstraints(Layout.constraint("H:|-(pad)-[child]-(pad)-|", options: nil, metrics: ["pad": 20], views: ["child": card]))
-view.addConstraints(Layout.constraint("V:|-(pad)-[child]", options: nil, metrics: ["pad": 100], views: ["child": card]))
+let v: RaisedButton = RaisedButton(frame: CGRectMake(0, 0, 200, 64))
+v.setTitle("Raised", forState: .Normal)
+v.titleLabel!.font = RobotoFont.mediumWithSize(32)
 ```
 
-### Image Card
+### Actionable FabButton
 
-Add photos with an Image Card.
+A FabButton is essential to Material Design's overall look. I leave this example as simple as possible to showcase its beauty.
 
-
-![MaterialKitPreview](http://www.materialkit.io/imagecardpreview.gif)
-
+![MaterialKitPreview](http://www.materialkit.io/github/img5.gif)
 
 ```swift
-var card: ImageCardView = ImageCardView()
-card.imageView = UIImageView(image: UIImage(named: "photo.jpg"))
-
-// layout
-view.addSubview(card)
-view.addConstraints(Layout.constraint("H:|-(pad)-[child]-(pad)-|", options: nil, metrics: ["pad": 20], views: ["child": card]))
-view.addConstraints(Layout.constraint("V:|-(pad)-[child]", options: nil, metrics: ["pad": 100], views: ["child": card]))
+let v: FabButton = FabButton(frame: CGRectMake(0, 0, 64, 64))
+v.setImage(UIImage(named: "ic_create_white"), forState: .Normal)
+v.setImage(UIImage(named: "ic_create_white"), forState: .Highlighted)
 ```
 
-### Full Image Card
+### Sleek NavigationBarView
 
-Allow the Image Card to really shine by adding a title, some details, and buttons.
+A NavigationBarView is a very common UI element and the more presentable it is, the better. The following example shows how to setup a NavigationBarView on the fly. 
 
-
-![MaterialKitPreview](http://www.materialkit.io/imagecardfullpreview.gif)
-
+![MaterialKitPreview](http://www.materialkit.io/github/img6.gif)
 
 ```swift
-var card: ImageCardView = ImageCardView()
-card.imageView = UIImageView(image: UIImage(named: "photo.jpg"))
+let v: NavigationBarView = NavigationBarView(titleLabel: MaterialLabel())!
+v.titleLabel!.text = "Title"
+v.titleLabel!.textAlignment = .Center
+v.titleLabel!.textColor = MaterialColor.white
 
-// title
-card.titleLabel = UILabel()
-card.titleLabel!.text = "Card Title"
+let b1: FlatButton = FlatButton()
+b1.setTitle("B1", forState: .Normal)
+b1.setTitleColor(MaterialColor.white, forState: .Normal)
+b1.pulseColor = MaterialColor.white
 
-// details
-card.detailLabel = UILabel()
-card.detailLabel!.text = "I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively."
+let b2: FlatButton = FlatButton()
+b2.setTitle("B2", forState: .Normal)
+b2.setTitleColor(MaterialColor.white, forState: .Normal)
+b2.pulseColor = MaterialColor.white
 
-// divider
-card.divider = UIView()
+v.leftButtons = [b1, b2]
 
-// buttons
-var cancelButton: FlatButton = FlatButton()
-cancelButton.pulseColor = MaterialTheme.blueGrey.darken3
-cancelButton.setTitle("Cancel", forState: .Normal)
-cancelButton.setTitleColor(MaterialTheme.yellow.darken3, forState: .Normal)
+let b3: FlatButton = FlatButton()
+b3.setTitle("B3", forState: .Normal)
+b3.setTitleColor(MaterialColor.white, forState: .Normal)
+b3.pulseColor = MaterialColor.white
 
-var okButton: FlatButton = FlatButton()
-okButton.pulseColor = MaterialTheme.blueGrey.darken3
-okButton.setTitle("Okay", forState: .Normal)
-okButton.setTitleColor(MaterialTheme.yellow.darken3, forState: .Normal)
+let b4: FlatButton = FlatButton()
+b4.setTitle("B4", forState: .Normal)
+b4.setTitleColor(MaterialColor.white, forState: .Normal)
+b4.pulseColor = MaterialColor.white
 
-card.leftButtons = [cancelButton, okButton]
-
-// layout
-view.addSubview(card)
-view.addConstraints(Layout.constraint("H:|-(pad)-[child]-(pad)-|", options: nil, metrics: ["pad": 20], views: ["child": card]))
-view.addConstraints(Layout.constraint("V:|-(pad)-[child]", options: nil, metrics: ["pad": 100], views: ["child": card]))
-```
-
-### Side Navigation
-
-Add a sleek Side Navigation to give your users a wonderful experience.
-
-
-![MaterialKitPreview](http://www.materialkit.io/sidenavpreview.gif)
-
-
-```swift
-func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-	sideNav = SideNavigationViewController(mainViewController: MainViewController(), leftViewController: LeftViewController(), rightViewController: RightViewController())
-	sideNav!.delegate = self
-	window = UIWindow(frame: UIScreen.mainScreen().bounds)
-	window!.rootViewController = sideNav
-	window!.makeKeyAndVisible()
-	return true
-}
-```
-
-### Material Themes
-
-Beautify your app with color. All Material Design color palettes are supported.
-
-[Color Palettes](http://www.google.com/design/spec/style/color.html)
-
-```swift
-var button: RaisedButton = RaisedButton()
-button.setTitle("Raised", forState: .Normal)
-button.setTitleColor(MaterialTheme.blue.darken3, forState: .Normal)
-button.backgroundColor = MaterialTheme.yellow.darken3
-button.pulseColor = MaterialTheme.blueGrey.color
+v.rightButtons = [b3, b4]
 ```
 
 ### License
 
-
 [AGPLv3](http://choosealicense.com/licenses/agpl-3.0/)
 
-
 ### Contributors
-
 
 * [Daniel Dahan](https://github.com/danieldahan)
 * [Adam Dahan](https://github.com/adamdahan)

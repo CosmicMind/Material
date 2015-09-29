@@ -20,34 +20,26 @@ import UIKit
 
 public class RaisedButton : MaterialButton {
 	//
-	//	:name:	prepareButton
+	//	:name:	prepareView
 	//
-	internal override func prepareView()  {
+	internal override func prepareView() {
 		super.prepareView()
-		titleLabel!.font = Roboto.medium
-		setTitleColor(MaterialTheme.white.color, forState: .Normal)
-		backgroundColor = MaterialTheme.blue.accent2
-		contentEdgeInsets = UIEdgeInsetsMake(6, 16, 6, 16)
-	}
-	
-	//
-	//	:name:	prepareButton
-	//
-	internal override func prepareButton()  {
-		super.prepareButton()
-		prepareShadow()
-		backgroundColorView.layer.cornerRadius = 3
-	}
-	
-	//
-	//	:name:	pulseBegan
-	//
-	internal override func pulseBegan(touches: Set<NSObject>, withEvent event: UIEvent)  {
-		super.pulseBegan(touches, withEvent: event)
-		UIView.animateWithDuration(0.3, animations: {
-			self.pulseView!.transform = CGAffineTransformMakeScale(4, 4)
-			self.transform = CGAffineTransformMakeScale(1.05, 1.05)
-		})
+		setTitleColor(MaterialTheme.button.raised.titleLabelColorForNormalState, forState: .Normal)
+		titleLabel!.font = MaterialTheme.button.raised.titleLabelFont
+		
+		userInteractionEnabled = MaterialTheme.button.raised.userInteractionEnabled
+		backgroundColor = MaterialTheme.button.raised.backgroudColor
+		pulseColorOpacity = MaterialTheme.button.raised.pulseColorOpacity
+		pulseColor = MaterialTheme.button.raised.pulseColor
+		
+		shadowDepth = MaterialTheme.button.raised.shadowDepth
+		shadowColor = MaterialTheme.button.raised.shadowColor
+		zPosition = MaterialTheme.button.raised.zPosition
+		masksToBounds = MaterialTheme.button.raised.masksToBounds
+		cornerRadius = MaterialTheme.button.raised.cornerRadius
+		borderWidth = MaterialTheme.button.raised.borderWidth
+		borderColor = MaterialTheme.button.raised.bordercolor
+		contentInsets = MaterialTheme.button.raised.contentInsets
+		shape = MaterialTheme.button.raised.shape
 	}
 }
-

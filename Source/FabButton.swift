@@ -20,32 +20,26 @@ import UIKit
 
 public class FabButton : MaterialButton {
 	//
-	//	:name:	prepareButton
+	//	:name:	prepareView
 	//
 	internal override func prepareView() {
 		super.prepareView()
-		setTitleColor(MaterialTheme.white.color, forState: .Normal)
-		backgroundColor = MaterialTheme.red.darken1
-		contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0)
-	}
-	
-	//
-	//	:name:	prepareButton
-	//
-	internal override func prepareButton() {
-		super.prepareButton()
-		prepareShadow()
-		backgroundColorView.layer.cornerRadius = bounds.width / 2
-    }
-	
-	//
-	//	:name:	pulseBegan
-	//
-	internal override func pulseBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-		super.pulseBegan(touches, withEvent: event)
-		UIView.animateWithDuration(0.3, animations: {
-			self.pulseView!.transform = CGAffineTransformMakeScale(3, 3)
-			self.transform = CGAffineTransformMakeScale(1.1, 1.1)
-		})
+		setTitleColor(MaterialTheme.button.fab.titleLabelColorForNormalState, forState: .Normal)
+		titleLabel!.font = MaterialTheme.button.fab.titleLabelFont
+		
+		userInteractionEnabled = MaterialTheme.button.fab.userInteractionEnabled
+		backgroundColor = MaterialTheme.button.fab.backgroudColor
+		pulseColorOpacity = MaterialTheme.button.fab.pulseColorOpacity
+		pulseColor = MaterialTheme.button.fab.pulseColor
+		
+		shadowDepth = MaterialTheme.button.fab.shadowDepth
+		shadowColor = MaterialTheme.button.fab.shadowColor
+		zPosition = MaterialTheme.button.fab.zPosition
+		masksToBounds = MaterialTheme.button.fab.masksToBounds
+		cornerRadius = MaterialTheme.button.fab.cornerRadius
+		borderWidth = MaterialTheme.button.fab.borderWidth
+		borderColor = MaterialTheme.button.fab.bordercolor
+		contentInsets = MaterialTheme.button.fab.contentInsets
+		shape = MaterialTheme.button.fab.shape
 	}
 }

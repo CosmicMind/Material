@@ -24,29 +24,22 @@ public class FlatButton : MaterialButton {
 	//
 	internal override func prepareView() {
 		super.prepareView()
-		titleLabel!.font = Roboto.medium
-		setTitleColor(MaterialTheme.blueGrey.darken4, forState: .Normal)
-		pulseColor = MaterialTheme.blueGrey.lighten3
-		backgroundColor = MaterialTheme.clear.color
-		contentEdgeInsets = UIEdgeInsetsMake(6, 16, 6, 16)
-	}
-	
-	//
-	//	:name:	prepareButton
-	//
-	internal override func prepareButton()  {
-		super.prepareButton()
-		backgroundColorView.layer.cornerRadius = 3
-	}
-	
-	//
-	//	:name:	pulseBegan
-	//
-	internal override func pulseBegan(touches: Set<NSObject>, withEvent event: UIEvent)  {
-		super.pulseBegan(touches, withEvent: event)
-		UIView.animateWithDuration(0.3, animations: {
-			self.pulseView!.transform = CGAffineTransformMakeScale(4, 4)
-			self.transform = CGAffineTransformMakeScale(1.05, 1.05)
-		})
+		setTitleColor(MaterialTheme.button.flat.titleLabelColorForNormalState, forState: .Normal)
+		titleLabel!.font = MaterialTheme.button.flat.titleLabelFont
+		
+		userInteractionEnabled = MaterialTheme.button.flat.userInteractionEnabled
+		backgroundColor = MaterialTheme.button.flat.backgroudColor
+		pulseColorOpacity = MaterialTheme.button.flat.pulseColorOpacity
+		pulseColor = MaterialTheme.button.flat.pulseColor
+		
+		shadowDepth = MaterialTheme.button.flat.shadowDepth
+		shadowColor = MaterialTheme.button.flat.shadowColor
+		zPosition = MaterialTheme.button.flat.zPosition
+		masksToBounds = MaterialTheme.button.flat.masksToBounds
+		cornerRadius = MaterialTheme.button.flat.cornerRadius
+		borderWidth = MaterialTheme.button.flat.borderWidth
+		borderColor = MaterialTheme.button.flat.bordercolor
+		contentInsets = MaterialTheme.button.flat.contentInsets
+		shape = MaterialTheme.button.flat.shape
 	}
 }

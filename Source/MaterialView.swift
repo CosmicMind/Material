@@ -18,37 +18,54 @@
 
 import UIKit
 
-public class MaterialButton : UIButton {
+public class MaterialView: UIView {
 	//
 	//	:name:	visualLayer
 	//
 	public private(set) lazy var visualLayer: CAShapeLayer = CAShapeLayer()
 	
-	//
-	//	:name:	touchesLayer
-	//
-	internal lazy var touchesLayer: CAShapeLayer = CAShapeLayer()
-	
-	//
-	//	:name:	pulseLayer
-	//
-	internal lazy var pulseLayer: CAShapeLayer = CAShapeLayer()
-	
 	/**
-		:name:	pulseColorOpacity
+		:name:	image
 	*/
-	public var pulseColorOpacity: CGFloat! {
+	public var image: UIImage? {
 		didSet {
-			pulseColorOpacity = nil == pulseColorOpacity ? 0.5 : pulseColorOpacity!
+			visualLayer.contents = image?.CGImage
 		}
 	}
 	
 	/**
-		:name:	pulseColor
+		:name:	contentsRect
 	*/
-	public var pulseColor: UIColor? {
+	public var contentsRect: CGRect! {
 		didSet {
-			pulseLayer.backgroundColor = pulseColor?.colorWithAlphaComponent(pulseColorOpacity!).CGColor
+			visualLayer.contentsRect = nil == contentsRect ? CGRectMake(0, 0, 1, 1) : contentsRect!
+		}
+	}
+	
+	/**
+		:name:	contentsCenter
+	*/
+	public var contentsCenter: CGRect! {
+		didSet {
+			visualLayer.contentsCenter = nil == contentsCenter ? CGRectMake(0, 0, 1, 1) : contentsCenter!
+		}
+	}
+	
+	/**
+		:name:	contentsScale
+	*/
+	public var contentsScale: CGFloat! {
+		didSet {
+			visualLayer.contentsScale = nil == contentsScale ? UIScreen.mainScreen().scale : contentsScale!
+		}
+	}
+	
+	/**
+		:name:	contentsGravity
+	*/
+	public var contentsGravity: MaterialGravity! {
+		didSet {
+			visualLayer.contentsGravity = MaterialGravityToString(nil == contentsGravity ? .ResizeAspectFill : contentsGravity!)
 		}
 	}
 	
@@ -231,16 +248,6 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
-		:name:	contentInsets
-	*/
-	public var contentInsets: MaterialInsets! {
-		didSet {
-			let value: MaterialInsetsType = MaterialInsetsToValue(nil == contentInsets ? .Inset0 : contentInsets)
-			contentEdgeInsets = UIEdgeInsetsMake(value.top, value.left, value.bottom, value.right)
-		}
-	}
-	
-	/**
 		:name:	init
 	*/
 	public required init?(coder aDecoder: NSCoder) {
@@ -254,13 +261,14 @@ public class MaterialButton : UIButton {
 		super.init(frame: frame)
 		prepareView()
 	}
+	
 	/**
 		:name:	init
 	*/
 	public convenience init() {
 		self.init(frame: CGRectMake(MaterialTheme.view.x, MaterialTheme.view.y, MaterialTheme.view.width, MaterialTheme.view.height))
 	}
-
+	
 	/**
 		:name:	layerClass
 	*/
@@ -275,75 +283,30 @@ public class MaterialButton : UIButton {
 		super.layoutSubviews()
 		visualLayer.frame = bounds
 		visualLayer.cornerRadius = layer.cornerRadius
-		
-		touchesLayer.frame = bounds
-		touchesLayer.cornerRadius = layer.cornerRadius
-	}
-	
-	/**
-		:name:	touchesBegan
-	*/
-	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-		super.touchesBegan(touches, withEvent: event)
-		let point: CGPoint = touches.first!.locationInView(self)
-		
-		// set start position
-		CATransaction.begin()
-		CATransaction.setAnimationDuration(0)
-		let w: CGFloat = width / 2
-		pulseLayer.hidden = false
-		pulseLayer.position = point
-		pulseLayer.bounds = CGRectMake(0, 0, w, w)
-		pulseLayer.cornerRadius = CGFloat(w / 2)
-		CATransaction.commit()
-		
-		// expand
-		CATransaction.begin()
-		CATransaction.setAnimationDuration(0.3)
-		pulseLayer.transform = CATransform3DMakeScale(2.5, 2.5, 2.5)
-		layer.transform = CATransform3DMakeScale(1.05, 1.05, 1.05)
-		CATransaction.commit()
-	}
-	
-	/**
-		:name:	touchesEnded
-	*/
-	public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-		super.touchesEnded(touches, withEvent: event)
-		shrink()
-	}
-	
-	/**
-		:name:	touchesCancelled
-	*/
-	public override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
-		super.touchesCancelled(touches, withEvent: event)
-		shrink()
-	}
-	
-	/**
-		:name:	actionForLayer
-	*/
-	public override func actionForLayer(layer: CALayer, forKey event: String) -> CAAction? {
-		return nil // returning nil enables the animations for the layer property that are normally disabled.
 	}
 	
 	//
 	//	:name:	prepareView
 	//
 	internal func prepareView() {
+		userInteractionEnabled = MaterialTheme.view.userInteractionEnabled
+		backgroundColor = MaterialTheme.view.backgroudColor
+		
+		contentsRect = MaterialTheme.view.contentsRect
+		contentsCenter = MaterialTheme.view.contentsCenter
+		contentsScale = MaterialTheme.view.contentsScale
+		contentsGravity = MaterialTheme.view.contentsGravity
+		shadowDepth = MaterialTheme.view.shadowDepth
+		shadowColor = MaterialTheme.view.shadowColor
+		zPosition = MaterialTheme.view.zPosition
+		masksToBounds = MaterialTheme.view.masksToBounds
+		cornerRadius = MaterialTheme.view.cornerRadius
+		borderWidth = MaterialTheme.view.borderWidth
+		borderColor = MaterialTheme.view.bordercolor
+		
 		// visualLayer
 		visualLayer.zPosition = -1
 		layer.addSublayer(visualLayer)
-		
-		// touchesLayer
-		touchesLayer.zPosition = 1000
-		touchesLayer.masksToBounds = true
-		layer.addSublayer(touchesLayer)
-		
-		// pulseLayer
-		pulseLayer.hidden = true
-		touchesLayer.addSublayer(pulseLayer)
 	}
 	
 	//
@@ -352,16 +315,5 @@ public class MaterialButton : UIButton {
 	internal func prepareShape() {
 		layer.cornerRadius = .Square == shape ? 0 : width / 2
 	}
-	
-	//
-	//	:name:	shrink
-	//
-	internal func shrink() {
-		CATransaction.begin()
-		CATransaction.setAnimationDuration(0.3)
-		pulseLayer.hidden = true
-		pulseLayer.transform = CATransform3DIdentity
-		layer.transform = CATransform3DIdentity
-		CATransaction.commit()
-	}
 }
+
