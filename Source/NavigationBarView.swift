@@ -20,11 +20,11 @@ import UIKit
 
 public class NavigationBarView: MaterialView {
 	/**
-		:name:	lightContentStatusBar
+		:name:	statusBarStyle
 	*/
-	public var lightContentStatusBar: Bool = MaterialTheme.navigation.lightContentStatusBar {
+	public var statusBarStyle: MaterialStatusBarStyle! {
 		didSet {
-			UIApplication.sharedApplication().setStatusBarStyle(lightContentStatusBar ? .LightContent : .Default, animated: true)
+			UIApplication.sharedApplication().setStatusBarStyle(.LightContent == statusBarStyle ? .LightContent : .Default, animated: true)
 		}
 	}
 	
@@ -40,11 +40,7 @@ public class NavigationBarView: MaterialView {
 	/**
 		:name:	contentInsetsRef
 	*/
-	public var contentInsetsRef: MaterialInsetsType! {
-		didSet {
-			layoutSubviews()
-		}
-	}
+	public var contentInsetsRef: MaterialInsetsType!
 	
 	/**
 		:name:	titleLabel
@@ -70,7 +66,6 @@ public class NavigationBarView: MaterialView {
 	*/
 	public override init(frame: CGRect) {
 		super.init(frame: frame)
-		contentInsets = .Inset3
 	}
 	
 	/**
@@ -78,7 +73,6 @@ public class NavigationBarView: MaterialView {
 	*/
 	public convenience init() {
 		self.init(frame: CGRectMake(MaterialTheme.navigation.x, MaterialTheme.navigation.y, MaterialTheme.navigation.width, MaterialTheme.navigation.height))
-		contentInsets = .Inset3
 	}
 	
 	/**
@@ -87,7 +81,6 @@ public class NavigationBarView: MaterialView {
 	public convenience init?(titleLabel: MaterialLabel? = nil) {
 		self.init(frame: CGRectMake(MaterialTheme.navigation.x, MaterialTheme.navigation.y, MaterialTheme.navigation.width, MaterialTheme.navigation.height))
 		self.prepareProperties(titleLabel)
-		
 	}
 	
 	/**
@@ -117,7 +110,8 @@ public class NavigationBarView: MaterialView {
 		super.prepareView()
 		userInteractionEnabled = MaterialTheme.navigation.userInteractionEnabled
 		backgroundColor = MaterialTheme.navigation.backgroudColor
-		lightContentStatusBar = MaterialTheme.navigation.lightContentStatusBar
+		statusBarStyle = MaterialTheme.navigation.statusBarStyle
+		contentInsets = .Inset3
 		
 		contentsRect = MaterialTheme.navigation.contentsRect
 		contentsCenter = MaterialTheme.navigation.contentsCenter

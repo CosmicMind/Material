@@ -125,7 +125,7 @@ public extension MaterialTheme.navigation {
 	
 	// color
 	public static var backgroudColor: UIColor = MaterialColor.blue.accent3
-	public static var lightContentStatusBar: Bool = true
+	public static var statusBarStyle: MaterialStatusBarStyle = .LightContent
 	
 	// interaction
 	public static var userInteractionEnabled: Bool = true
