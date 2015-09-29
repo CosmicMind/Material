@@ -107,9 +107,7 @@ public class NavigationBarView: MaterialView {
 				MaterialLayout.alignToParentHorizontallyWithPad(self, child: titleLabel!, left: contentInsetsRef!.left, right: contentInsetsRef!.right)
 				MaterialLayout.alignFromBottom(self, child: titleLabel!, bottom: contentInsetsRef!.bottom)
 			}
-			
-			
-			
+		
 			isLoading = false
 		}
 	}
