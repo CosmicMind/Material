@@ -91,6 +91,9 @@ A NavigationBarView is a very common UI element and the more presentable it is, 
 
 ```swift
 let v: NavigationBarView = NavigationBarView(titleLabel: MaterialLabel())!
+v.backgroundColor = MaterialColor.blue.accent3
+v.statusBarStyle = .LightContent
+
 v.titleLabel!.text = "Title"
 v.titleLabel!.textAlignment = .Center
 v.titleLabel!.textColor = MaterialColor.white
@@ -132,15 +135,32 @@ A BasicCardView is super flexible with all its options - including a title, deta
 
 ```swift
 let v: BasicCardView = BasicCardView(titleLabel: UILabel(), detailLabel: UILabel())!
+v.backgroundColor = MaterialColor.blueGrey.darken1
+v.dividerColor = MaterialColor.blueGrey.base
+
+v.titleLabel!.lineBreakMode = .ByWordWrapping
+v.titleLabel!.numberOfLines = 0
+v.titleLabel!.textColor = MaterialColor.white
+v.titleLabel!.font = RobotoFont.regularWithSize(18)
 v.titleLabel!.text = "Card Title"
 
+v.detailLabel!.lineBreakMode = .ByWordWrapping
+v.detailLabel!.numberOfLines = 0
+v.detailLabel!.textColor = MaterialColor.white
+v.detailLabel!.font = RobotoFont.regularWithSize(14)
 v.detailLabel!.text = "I am a very simple card. I am good at containing small bits of information. I am convenient because I require little code to use effectively."
 
 let b1: FlatButton = FlatButton()
 b1.setTitle("Button 1", forState: .Normal)
+b1.setTitleColor(MaterialColor.amber.darken1, forState: .Normal)
+b1.setTitleColor(MaterialColor.amber.lighten1, forState: .Highlighted)
+b1.pulseColor = MaterialColor.white
 
 let b2: FlatButton = FlatButton()
 b2.setTitle("Button 2", forState: .Normal)
+b2.setTitleColor(MaterialColor.amber.darken1, forState: .Normal)
+b2.setTitleColor(MaterialColor.amber.lighten1, forState: .Highlighted)
+b2.pulseColor = MaterialColor.white
 
 v.leftButtons = [b1, b2]
 
@@ -161,8 +181,16 @@ let v: BasicCardView = BasicCardView(titleLabel: UILabel(), detailLabel: UILabel
 
 v.image = UIImage(named: "forest")
 
+v.titleLabel!.lineBreakMode = .ByWordWrapping
+v.titleLabel!.numberOfLines = 0
+v.titleLabel!.textColor = MaterialColor.white
+v.titleLabel!.font = RobotoFont.regularWithSize(18)
 v.titleLabel!.text = "Card Title"
 
+v.detailLabel!.lineBreakMode = .ByWordWrapping
+v.detailLabel!.numberOfLines = 0
+v.detailLabel!.textColor = MaterialColor.white
+v.detailLabel!.font = RobotoFont.regularWithSize(14)
 v.detailLabel!.text = "I am a very simple card. I am good at containing small bits of information. I am convenient because I require little code to use effectively."
 
 // Add to UIViewController

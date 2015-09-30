@@ -28,7 +28,7 @@ public class RaisedButton : MaterialButton {
 		titleLabel!.font = MaterialTheme.raisedButton.titleLabelFont
 		
 		userInteractionEnabled = MaterialTheme.raisedButton.userInteractionEnabled
-		backgroundColor = MaterialTheme.raisedButton.backgroudColor
+		backgroundColor = MaterialTheme.raisedButton.backgroundColor
 		pulseColorOpacity = MaterialTheme.raisedButton.pulseColorOpacity
 		pulseColor = MaterialTheme.raisedButton.pulseColor
 		

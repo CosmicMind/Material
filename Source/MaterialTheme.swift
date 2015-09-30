@@ -44,7 +44,7 @@ public extension MaterialTheme.view {
 	public static var bordercolor: UIColor = MaterialColor.black
 	
 	// color
-	public static var backgroudColor: UIColor = MaterialColor.white
+	public static var backgroundColor: UIColor = MaterialColor.white
 	
 	// interaction
 	public static var userInteractionEnabled: Bool = true
@@ -74,7 +74,7 @@ public extension MaterialTheme.pulseView {
 	public static var bordercolor: UIColor = MaterialColor.black
 	
 	// color
-	public static var backgroudColor: UIColor = MaterialColor.clear
+	public static var backgroundColor: UIColor = MaterialColor.clear
 	public static var pulseColor: UIColor = MaterialColor.white
 	public static var pulseColorOpacity: CGFloat = 0.25
 	
@@ -111,7 +111,7 @@ public extension MaterialTheme.basicCardView {
 	public static var bordercolor: UIColor = MaterialColor.black
 	
 	// color
-	public static var backgroudColor: UIColor = MaterialColor.blueGrey.darken1
+	public static var backgroundColor: UIColor = MaterialColor.white
 	public static var pulseColor: UIColor = MaterialColor.white
 	public static var pulseColorOpacity: CGFloat = 0.25
 	
@@ -129,7 +129,7 @@ public extension MaterialTheme.basicCardView {
 	
 	// divider
 	public static var divider: Bool = true
-	public static var dividerColor: UIColor = MaterialColor.blueGrey.base
+	public static var dividerColor: UIColor = MaterialColor.blueGrey.lighten5
 }
 
 // navigationBarView
@@ -156,8 +156,8 @@ public extension MaterialTheme.navigationBarView {
 	public static var bordercolor: UIColor = MaterialColor.black
 	
 	// color
-	public static var backgroudColor: UIColor = MaterialColor.blue.accent3
-	public static var statusBarStyle: MaterialStatusBarStyle = .LightContent
+	public static var backgroundColor: UIColor = MaterialColor.white
+	public static var statusBarStyle: MaterialStatusBarStyle = .Default
 	
 	// interaction
 	public static var userInteractionEnabled: Bool = true
@@ -202,7 +202,7 @@ public extension MaterialTheme.flatButton {
 	public static var bordercolor: UIColor = MaterialColor.black
 	
 	// color
-	public static var backgroudColor: UIColor = MaterialColor.clear
+	public static var backgroundColor: UIColor = MaterialColor.clear
 	public static var pulseColor: UIColor = MaterialColor.blue.accent3
 	public static var pulseColorOpacity: CGFloat = 0.25
 	public static var titleLabelColorForNormalState: UIColor = MaterialColor.blue.accent3
@@ -234,7 +234,7 @@ public extension MaterialTheme.raisedButton {
 	public static var bordercolor: UIColor = MaterialColor.black
 	
 	// color
-	public static var backgroudColor: UIColor = MaterialColor.blue.accent3
+	public static var backgroundColor: UIColor = MaterialColor.blue.accent3
 	public static var pulseColor: UIColor = MaterialColor.white
 	public static var pulseColorOpacity: CGFloat = 0.25
 	public static var titleLabelColorForNormalState: UIColor = MaterialColor.white
@@ -267,7 +267,7 @@ public extension MaterialTheme.fabButton {
 	public static var bordercolor: UIColor = MaterialColor.black
 	
 	// color
-	public static var backgroudColor: UIColor = MaterialColor.red.darken1
+	public static var backgroundColor: UIColor = MaterialColor.red.darken1
 	public static var pulseColor: UIColor = MaterialColor.white
 	public static var pulseColorOpacity: CGFloat = 0.25
 	public static var titleLabelColorForNormalState: UIColor = MaterialColor.white

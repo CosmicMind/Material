@@ -28,7 +28,7 @@ public class FlatButton : MaterialButton {
 		titleLabel!.font = MaterialTheme.flatButton.titleLabelFont
 		
 		userInteractionEnabled = MaterialTheme.flatButton.userInteractionEnabled
-		backgroundColor = MaterialTheme.flatButton.backgroudColor
+		backgroundColor = MaterialTheme.flatButton.backgroundColor
 		pulseColorOpacity = MaterialTheme.flatButton.pulseColorOpacity
 		pulseColor = MaterialTheme.flatButton.pulseColor
 		

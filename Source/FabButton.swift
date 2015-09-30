@@ -28,7 +28,7 @@ public class FabButton : MaterialButton {
 		titleLabel!.font = MaterialTheme.fabButton.titleLabelFont
 		
 		userInteractionEnabled = MaterialTheme.fabButton.userInteractionEnabled
-		backgroundColor = MaterialTheme.fabButton.backgroudColor
+		backgroundColor = MaterialTheme.fabButton.backgroundColor
 		pulseColorOpacity = MaterialTheme.fabButton.pulseColorOpacity
 		pulseColor = MaterialTheme.fabButton.pulseColor
 		

@@ -290,7 +290,7 @@ public class MaterialView: UIView {
 	//
 	internal func prepareView() {
 		userInteractionEnabled = MaterialTheme.view.userInteractionEnabled
-		backgroundColor = MaterialTheme.view.backgroudColor
+		backgroundColor = MaterialTheme.view.backgroundColor
 		
 		contentsRect = MaterialTheme.view.contentsRect
 		contentsCenter = MaterialTheme.view.contentsCenter

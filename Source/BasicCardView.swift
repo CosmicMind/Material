@@ -88,10 +88,6 @@ public class BasicCardView: MaterialPulseView {
 		didSet {
 			if let v = titleLabel {
 				v.translatesAutoresizingMaskIntoConstraints = false
-				v.lineBreakMode = .ByWordWrapping
-				v.numberOfLines = 0
-				v.textColor = MaterialColor.white
-				v.font = RobotoFont.regularWithSize(18)
 			}
 			reloadView()
 		}
@@ -123,10 +119,6 @@ public class BasicCardView: MaterialPulseView {
 		didSet {
 			if let v = detailLabel {
 				v.translatesAutoresizingMaskIntoConstraints = false
-				v.lineBreakMode = .ByWordWrapping
-				v.numberOfLines = 0
-				v.textColor = MaterialColor.white
-				v.font = RobotoFont.regularWithSize(14)
 			}
 			reloadView()
 		}
@@ -159,9 +151,6 @@ public class BasicCardView: MaterialPulseView {
 			if let v = leftButtons {
 				for b in v {
 					b.translatesAutoresizingMaskIntoConstraints = false
-					b.setTitleColor(MaterialColor.amber.darken1, forState: .Normal)
-					b.setTitleColor(MaterialColor.amber.lighten1, forState: .Highlighted)
-					b.pulseColor = nil
 				}
 			}
 			reloadView()
@@ -195,9 +184,6 @@ public class BasicCardView: MaterialPulseView {
 			if let v = rightButtons {
 				for b in v {
 					b.translatesAutoresizingMaskIntoConstraints = false
-					b.setTitleColor(MaterialColor.amber.darken1, forState: .Normal)
-					b.setTitleColor(MaterialColor.amber.lighten1, forState: .Highlighted)
-					b.pulseColor = nil
 				}
 			}
 			reloadView()
@@ -405,7 +391,7 @@ public class BasicCardView: MaterialPulseView {
 	internal override func prepareView() {
 		super.prepareView()
 		userInteractionEnabled = MaterialTheme.basicCardView.userInteractionEnabled
-		backgroundColor = MaterialTheme.basicCardView.backgroudColor
+		backgroundColor = MaterialTheme.basicCardView.backgroundColor
 		contentInsetsRef = MaterialTheme.basicCardView.contentInsetsRef
 		titleLabelInsetsRef = MaterialTheme.basicCardView.titleLabelInsetsRef
 		detailLabelInsetsRef = MaterialTheme.basicCardView.detailLabelInsetsRef

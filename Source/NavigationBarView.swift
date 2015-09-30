@@ -229,7 +229,7 @@ public class NavigationBarView: MaterialView {
 	internal override func prepareView() {
 		super.prepareView()
 		userInteractionEnabled = MaterialTheme.navigationBarView.userInteractionEnabled
-		backgroundColor = MaterialTheme.navigationBarView.backgroudColor
+		backgroundColor = MaterialTheme.navigationBarView.backgroundColor
 		statusBarStyle = MaterialTheme.navigationBarView.statusBarStyle
 		titleLabelInsetsRef = MaterialTheme.navigationBarView.titleLabelInsetsRef
 		leftButtonsInsetsRef = MaterialTheme.navigationBarView.leftButtonsInsetsRef
