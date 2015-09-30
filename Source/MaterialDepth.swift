@@ -21,7 +21,7 @@ import UIKit
 public typealias MaterialDepthType = (offset: CGSize, opacity: Float, radius: CGFloat)
 
 public enum MaterialDepth {
-	case Depth0
+	case None
 	case Depth1
 	case Depth2
 	case Depth3
@@ -34,7 +34,7 @@ public enum MaterialDepth {
 */
 public func MaterialDepthToValue(depth: MaterialDepth) -> MaterialDepthType {
 	switch depth {
-	case .Depth0:
+	case .None:
 		return (offset: CGSizeZero, opacity: 0, radius: 0)
 	case .Depth1:
 		return (offset: CGSizeMake(0.2, 0.2), opacity: 0.5, radius: 1)

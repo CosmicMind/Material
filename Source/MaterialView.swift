@@ -187,7 +187,7 @@ public class MaterialView: UIView {
 	*/
 	public var cornerRadius: MaterialRadius! {
 		didSet {
-			layer.cornerRadius = MaterialRadiusToValue(nil == cornerRadius ? .Radius0 : cornerRadius!)
+			layer.cornerRadius = MaterialRadiusToValue(nil == cornerRadius ? .None : cornerRadius!)
 			shape = nil
 		}
 	}
@@ -213,7 +213,7 @@ public class MaterialView: UIView {
 	*/
 	public var borderWidth: MaterialBorder! {
 		didSet {
-			layer.borderWidth = MaterialBorderToValue(nil == borderWidth ? .Border0 : borderWidth!)
+			layer.borderWidth = MaterialBorderToValue(nil == borderWidth ? .None : borderWidth!)
 		}
 	}
 	

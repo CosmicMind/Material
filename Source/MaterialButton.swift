@@ -171,7 +171,7 @@ public class MaterialButton : UIButton {
 	*/
 	public var cornerRadius: MaterialRadius! {
 		didSet {
-			layer.cornerRadius = MaterialRadiusToValue(nil == cornerRadius ? .Radius0 : cornerRadius!)
+			layer.cornerRadius = MaterialRadiusToValue(nil == cornerRadius ? .None : cornerRadius!)
 			shape = nil
 		}
 	}
@@ -197,7 +197,7 @@ public class MaterialButton : UIButton {
 	*/
 	public var borderWidth: MaterialBorder! {
 		didSet {
-			layer.borderWidth = MaterialBorderToValue(nil == borderWidth ? .Border0 : borderWidth!)
+			layer.borderWidth = MaterialBorderToValue(nil == borderWidth ? .None : borderWidth!)
 		}
 	}
 	
@@ -236,7 +236,7 @@ public class MaterialButton : UIButton {
 	*/
 	public var contentInsets: MaterialInsets! {
 		didSet {
-			let value: MaterialInsetsType = MaterialInsetsToValue(nil == contentInsets ? .Rectangle0 : contentInsets)
+			let value: MaterialInsetsType = MaterialInsetsToValue(nil == contentInsets ? .None : contentInsets)
 			contentEdgeInsets = UIEdgeInsetsMake(value.top, value.left, value.bottom, value.right)
 		}
 	}

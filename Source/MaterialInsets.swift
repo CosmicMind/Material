@@ -21,12 +21,11 @@ import UIKit
 public typealias MaterialInsetsType = (top: CGFloat, left: CGFloat, bottom: CGFloat, right: CGFloat)
 
 public enum MaterialInsets {
-	case Square0
+	case None
 	case Square1
 	case Square2
 	case Square3
 	case Square4
-	case Rectangle0
 	case Rectangle1
 	case Rectangle2
 	case Rectangle3
@@ -38,7 +37,7 @@ public enum MaterialInsets {
 */
 public func MaterialInsetsToValue(inset: MaterialInsets) -> MaterialInsetsType {
 	switch inset {
-	case .Square0:
+	case .None:
 		return (top: 0, left: 0, bottom: 0, right: 0)
 	case .Square1:
 		return (top: 4, left: 4, bottom: 4, right: 4)
@@ -48,8 +47,6 @@ public func MaterialInsetsToValue(inset: MaterialInsets) -> MaterialInsetsType {
 		return (top: 16, left: 16, bottom: 16, right: 16)
 	case .Square4:
 		return (top: 32, left: 32, bottom: 32, right: 32)
-	case .Rectangle0:
-		return (top: 0, left: 0, bottom: 0, right: 0)
 	case .Rectangle1:
 		return (top: 2, left: 4, bottom: 2, right: 4)
 	case .Rectangle2:

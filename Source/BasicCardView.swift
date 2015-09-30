@@ -19,6 +19,30 @@
 import UIKit
 
 public class BasicCardView: MaterialPulseView {
+	//
+	//	:name:	dividerLayer
+	//
+	internal var dividerLayer: CAShapeLayer?
+	
+	//
+	//	:name:	dividerColor
+	//
+	public var dividerColor: UIColor? {
+		didSet {
+			dividerLayer?.backgroundColor = dividerColor?.CGColor
+			reloadView()
+		}
+	}
+	
+	/**
+		:name:	divider
+	*/
+	public var divider: Bool = MaterialTheme.basicCardView.divider {
+		didSet {
+			reloadView()
+		}
+	}
+	
 	/**
 		:name:	contentInsets
 	*/
@@ -135,6 +159,9 @@ public class BasicCardView: MaterialPulseView {
 			if let v = leftButtons {
 				for b in v {
 					b.translatesAutoresizingMaskIntoConstraints = false
+					b.setTitleColor(MaterialColor.amber.darken1, forState: .Normal)
+					b.setTitleColor(MaterialColor.amber.lighten1, forState: .Highlighted)
+					b.pulseColor = nil
 				}
 			}
 			reloadView()
@@ -168,6 +195,9 @@ public class BasicCardView: MaterialPulseView {
 			if let v = rightButtons {
 				for b in v {
 					b.translatesAutoresizingMaskIntoConstraints = false
+					b.setTitleColor(MaterialColor.amber.darken1, forState: .Normal)
+					b.setTitleColor(MaterialColor.amber.lighten1, forState: .Highlighted)
+					b.pulseColor = nil
 				}
 			}
 			reloadView()
@@ -204,6 +234,28 @@ public class BasicCardView: MaterialPulseView {
 	}
 	
 	/**
+		:name:	layoutSubviews
+	*/
+	public override func layoutSubviews() {
+		super.layoutSubviews()
+		// divider
+		if true == divider {
+			var y: CGFloat = 0
+			if 0 < leftButtons?.count {
+				y += contentInsetsRef!.bottom + leftButtonsInsetsRef!.top + leftButtonsInsetsRef!.bottom + leftButtons![0].height
+			} else if 0 < rightButtons?.count {
+				y += contentInsetsRef!.bottom + rightButtonsInsetsRef!.top + rightButtonsInsetsRef!.bottom + rightButtons![0].height
+			}
+			if 0 < y {
+				prepareDivider(bounds.size.height - y - 0.5, width: bounds.size.width)
+			}
+		} else {
+			dividerLayer?.removeFromSuperlayer()
+			dividerLayer = nil
+		}
+	}
+	
+	/**
 		:name:	reloadView
 	*/
 	public func reloadView() {
@@ -213,16 +265,22 @@ public class BasicCardView: MaterialPulseView {
 			v.removeFromSuperview()
 		}
 		
-		var verticalFormat: String = "V:|-(insetTop)"
+		var verticalFormat: String = "V:|"
 		var views: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
-		var metrics: Dictionary<String, AnyObject> = ["insetTop": contentInsetsRef!.top, "insetBottom": contentInsetsRef!.bottom]
+		var metrics: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
+		
+		if nil != titleLabel {
+			verticalFormat += "-(insetTop)"
+			metrics["insetTop"] = contentInsetsRef!.top + titleLabelInsetsRef!.top
+		} else if nil != detailLabel {
+			verticalFormat += "-(insetTop)"
+			metrics["insetTop"] = contentInsetsRef!.top + detailLabelInsetsRef!.top
+		}
 		
 		// title
 		if let v = titleLabel {
 			verticalFormat += "-[titleLabel]"
 			views["titleLabel"] = v
-			
-			metrics["insetTop"] = titleLabelInsetsRef!.top
 			
 			addSubview(v)
 			v.layer.zPosition = 2000
@@ -231,9 +289,7 @@ public class BasicCardView: MaterialPulseView {
 		
 		// detail
 		if let v = detailLabel {
-			if nil == titleLabel {
-				metrics["insetTop"] = detailLabelInsetsRef!.top
-			} else {
+			if nil != titleLabel {
 				verticalFormat += "-(insetB)"
 				metrics["insetB"] = titleLabelInsetsRef!.bottom + detailLabelInsetsRef!.top
 			}
@@ -260,7 +316,7 @@ public class BasicCardView: MaterialPulseView {
 					
 					addSubview(b)
 					b.layer.zPosition = 2000
-					MaterialLayout.alignFromBottom(self, child: b, bottom: leftButtonsInsetsRef!.bottom)
+					MaterialLayout.alignFromBottom(self, child: b, bottom: contentInsetsRef!.bottom + leftButtonsInsetsRef!.bottom)
 				}
 				
 				addConstraints(MaterialLayout.constraint(h, options: [], metrics: ["left" : leftButtonsInsetsRef!.left], views: d))
@@ -281,38 +337,55 @@ public class BasicCardView: MaterialPulseView {
 					
 					addSubview(b)
 					b.layer.zPosition = 2000
-					MaterialLayout.alignFromBottom(self, child: b, bottom: rightButtonsInsetsRef!.bottom)
+					MaterialLayout.alignFromBottom(self, child: b, bottom: contentInsetsRef!.bottom + rightButtonsInsetsRef!.bottom)
 				}
 				
 				addConstraints(MaterialLayout.constraint(h + "|", options: [], metrics: ["right" : rightButtonsInsetsRef!.right], views: d))
 			}
 		}
 		
-		if nil != titleLabel {
-			metrics["insetTop"] = (metrics["insetTop"] as! CGFloat) + titleLabelInsetsRef!.top
-		} else if nil != detailLabel {
-			metrics["insetTop"] = (metrics["insetTop"] as! CGFloat) + detailLabelInsetsRef!.top
+		if 0 < leftButtons?.count {
+			verticalFormat += "-(insetC)-[button]"
+			views["button"] = leftButtons![0]
+			metrics["insetC"] = leftButtonsInsetsRef!.top
+			metrics["insetBottom"] = contentInsetsRef!.bottom + leftButtonsInsetsRef!.bottom
+		} else if 0 < rightButtons?.count {
+			verticalFormat += "-(insetC)-[button]"
+			views["button"] = rightButtons![0]
+			metrics["insetC"] = rightButtonsInsetsRef!.top
+			metrics["insetBottom"] = contentInsetsRef!.bottom + rightButtonsInsetsRef!.bottom
 		}
 		
 		if nil != detailLabel {
-			metrics["insetBottom"] = (metrics["insetBottom"] as! CGFloat) + detailLabelInsetsRef!.bottom
+			if nil == metrics["insetC"] {
+				metrics["insetBottom"] = contentInsetsRef!.bottom + detailLabelInsetsRef!.bottom
+			} else {
+				metrics["insetC"] = (metrics["insetC"] as! CGFloat) + detailLabelInsetsRef!.bottom
+			}
 		} else if nil != titleLabel {
-			metrics["insetBottom"] = (metrics["insetBottom"] as! CGFloat) + titleLabelInsetsRef!.bottom
-		}
-		
-		if 0 < leftButtons?.count {
-			verticalFormat += "-[button]-|"
-			views["button"] = leftButtons![0]
-		} else if 0 < rightButtons?.count {
-			verticalFormat += "-[button]-|"
-			views["button"] = rightButtons![0]
-		} else {
-			verticalFormat += "-(insetBottom)-|"
+			if nil == metrics["insetC"] {
+				metrics["insetBottom"] = contentInsetsRef!.bottom + titleLabelInsetsRef!.bottom
+			} else {
+				metrics["insetC"] = (metrics["insetC"] as! CGFloat) + titleLabelInsetsRef!.bottom
+			}
 		}
 		
 		if 0 < views.count {
-			
+			verticalFormat += "-(insetBottom)-|"
 			addConstraints(MaterialLayout.constraint(verticalFormat, options: [], metrics: metrics, views: views))
+		}
+	}
+	
+	//
+	//	:name:	prepareDivider
+	//
+	internal func prepareDivider(y: CGFloat, width: CGFloat) {
+		if nil == dividerLayer {
+			dividerLayer = CAShapeLayer()
+			dividerLayer!.backgroundColor = dividerColor?.CGColor
+			dividerLayer!.frame = CGRectMake(0, y, width, 1)
+			dividerLayer!.zPosition = 900
+			visualLayer.addSublayer(dividerLayer!)
 		}
 	}
 	
@@ -350,5 +423,6 @@ public class BasicCardView: MaterialPulseView {
 		cornerRadius = MaterialTheme.basicCardView.cornerRadius
 		borderWidth = MaterialTheme.basicCardView.borderWidth
 		borderColor = MaterialTheme.basicCardView.bordercolor
+		dividerColor = MaterialTheme.basicCardView.dividerColor
 	}
 }

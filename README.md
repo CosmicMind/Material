@@ -11,11 +11,14 @@ To get started, let's introduce MaterialView, a lightweight UIView Object that h
 ![MaterialKitPreview](http://www.materialkit.io/github/img1.png)
 
 ```swift
-let v: MaterialView = MaterialView(frame: CGRectMake(0, 0, 200, 200))
+let v: MaterialView = MaterialView(frame: CGRectMake(100, 100, 200, 200))
 v.shape = .Circle
 v.shadowDepth = .Depth2
 v.borderWidth = .Border1
 v.image = UIImage(named: "focus")
+
+// Add to UIViewController
+view.addSubview(v)
 ```
 
 ### Animated MaterialPulseView
@@ -25,11 +28,14 @@ Let's expand on the basic MaterialView and use an animated MaterialPulseView. In
 ![MaterialKitPreview](http://www.materialkit.io/github/img2.gif)
 
 ```swift
-let v: MaterialPulseView = MaterialPulseView(frame: CGRectMake(0, 0, 200, 200))
+let v: MaterialPulseView = MaterialPulseView(frame: CGRectMake(100, 100, 200, 200))
 v.shape = .Square
 v.cornerRadius = .Radius2
 v.shadowDepth = .Depth2
 v.image = UIImage(named: "focus")
+
+// Add to UIViewController
+view.addSubview(v)
 ```
 
 ### Simple FlatButton
@@ -39,9 +45,12 @@ A FlatButton is the best place to start when introducing MaterialKit buttons. It
 ![MaterialKitPreview](http://www.materialkit.io/github/img3.gif)
 
 ```swift
-let v: FlatButton = FlatButton(frame: CGRectMake(0, 0, 200, 64))
+let v: FlatButton = FlatButton(frame: CGRectMake(100, 100, 200, 64))
 v.setTitle("Flat", forState: .Normal)
 v.titleLabel!.font = RobotoFont.mediumWithSize(32)
+
+// Add to UIViewController
+view.addSubview(v)
 ```
 
 ### Noticeable RaisedButton
@@ -51,9 +60,12 @@ A RaisedButton is sure to get attention. Take a look at the following code sampl
 ![MaterialKitPreview](http://www.materialkit.io/github/img4.gif)
 
 ```swift
-let v: RaisedButton = RaisedButton(frame: CGRectMake(0, 0, 200, 64))
+let v: RaisedButton = RaisedButton(frame: CGRectMake(100, 100, 200, 64))
 v.setTitle("Raised", forState: .Normal)
 v.titleLabel!.font = RobotoFont.mediumWithSize(32)
+
+// Add to UIViewController
+view.addSubview(v)
 ```
 
 ### Actionable FabButton
@@ -63,14 +75,17 @@ A FabButton is essential to Material Design's overall look. I leave this example
 ![MaterialKitPreview](http://www.materialkit.io/github/img5.gif)
 
 ```swift
-let v: FabButton = FabButton(frame: CGRectMake(0, 0, 64, 64))
+let v: FabButton = FabButton(frame: CGRectMake(100, 100, 64, 64))
 v.setImage(UIImage(named: "ic_create_white"), forState: .Normal)
 v.setImage(UIImage(named: "ic_create_white"), forState: .Highlighted)
+
+// Add to UIViewController
+view.addSubview(v)
 ```
 
 ### Sleek NavigationBarView
 
-A NavigationBarView is a very common UI element and the more presentable it is, the better. The following example shows how to setup a NavigationBarView on the fly. 
+A NavigationBarView is a very common UI element and the more presentable it is, the better. The following example shows how to setup a NavigationBarView on the fly.
 
 ![MaterialKitPreview](http://www.materialkit.io/github/img6.gif)
 
@@ -79,6 +94,7 @@ let v: NavigationBarView = NavigationBarView(titleLabel: MaterialLabel())!
 v.titleLabel!.text = "Title"
 v.titleLabel!.textAlignment = .Center
 v.titleLabel!.textColor = MaterialColor.white
+v.titleLabel!.font = RobotoFont.regularWithSize(20)
 
 let b1: FlatButton = FlatButton()
 b1.setTitle("B1", forState: .Normal)
@@ -103,6 +119,57 @@ b4.setTitleColor(MaterialColor.white, forState: .Normal)
 b4.pulseColor = MaterialColor.white
 
 v.rightButtons = [b3, b4]
+
+// Add to UIViewController
+view.addSubview(v)
+```
+
+### Flexible BasicCardView
+
+A BasicCardView is super flexible with all its options - including a title, detail, left buttons, and right buttons. Below is an example of a simple setup.
+
+![MaterialKitPreview](http://www.materialkit.io/github/img7.gif)
+
+```swift
+let v: BasicCardView = BasicCardView(titleLabel: UILabel(), detailLabel: UILabel())!
+v.titleLabel!.text = "Card Title"
+
+v.detailLabel!.text = "I am a very simple card. I am good at containing small bits of information. I am convenient because I require little code to use effectively."
+
+let b1: FlatButton = FlatButton()
+b1.setTitle("Button 1", forState: .Normal)
+
+let b2: FlatButton = FlatButton()
+b2.setTitle("Button 2", forState: .Normal)
+
+v.leftButtons = [b1, b2]
+
+// Add to UIViewController
+view.addSubview(v)
+v.translatesAutoresizingMaskIntoConstraints = false
+MaterialLayout.alignToParentHorizontallyWithInsets(view, child: v, left: 20, right: 20)
+MaterialLayout.alignFromTop(view, child: v, top: 100)
+```
+
+A BasicCardView can easily add an image as its background, below is the code that shows how to do this.
+
+![MaterialKitPreview](http://www.materialkit.io/github/img8.gif)
+
+```swift
+let v: BasicCardView = BasicCardView(titleLabel: UILabel(), detailLabel: UILabel())!
+
+v.image = UIImage(named: "forest")
+
+v.titleLabel!.text = "Card Title"
+
+v.detailLabel!.text = "I am a very simple card. I am good at containing small bits of information. I am convenient because I require little code to use effectively."
+
+// Add to UIViewController
+view.addSubview(v)
+v.translatesAutoresizingMaskIntoConstraints = false
+
+MaterialLayout.alignToParentHorizontallyWithInsets(view, child: v, left: 20, right: 20)
+MaterialLayout.alignFromTop(view, child: v, top: 100)
 ```
 
 ### License
