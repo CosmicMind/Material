@@ -21,6 +21,7 @@ import UIKit
 public struct MaterialTheme {
 	public struct view {}
 	public struct pulseView {}
+	public struct basicCardView {}
 	public struct navigationBarView {}
 	public struct label {}
 	public struct flatButton {}
@@ -87,7 +88,48 @@ public extension MaterialTheme.pulseView {
 	// color
 	public static var backgroudColor: UIColor = MaterialColor.clear
 	public static var pulseColor: UIColor = MaterialColor.white
-	public static var pulseColorOpacity: CGFloat = 0.5
+	public static var pulseColorOpacity: CGFloat = 0.25
+	
+	// interaction
+	public static var userInteractionEnabled: Bool = MaterialTheme.view.userInteractionEnabled
+	
+	// image
+	public static var contentsRect: CGRect = MaterialTheme.view.contentsRect
+	public static var contentsCenter: CGRect = MaterialTheme.view.contentsCenter
+	public static var contentsScale: CGFloat = MaterialTheme.view.contentsScale
+	public static var contentsGravity: MaterialGravity = MaterialTheme.view.contentsGravity
+	
+	// position
+	public static var zPosition: CGFloat = MaterialTheme.view.zPosition
+}
+
+// basicCardView
+public extension MaterialTheme.basicCardView {
+	// frame
+	public static var x: CGFloat = MaterialTheme.view.x
+	public static var y: CGFloat = MaterialTheme.view.y
+	public static var width: CGFloat = MaterialTheme.view.width
+	public static var height: CGFloat = MaterialTheme.view.height
+	
+	// shadow
+	public static var shadowDepth: MaterialDepth = MaterialTheme.view.shadowDepth
+	public static var shadowColor: UIColor = MaterialTheme.view.shadowColor
+	
+	// shape
+	public static var masksToBounds: Bool = true
+	public static var cornerRadius: MaterialRadius = MaterialTheme.view.cornerRadius
+	public static var titleInsetsRef: MaterialInsetsType = (top: 0, left: 8, bottom: 10, right: 8)
+	public static var leftButtonsInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
+	public static var rightButtonsInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
+	
+	// border
+	public static var borderWidth: MaterialBorder = MaterialTheme.view.borderWidth
+	public static var bordercolor: UIColor = MaterialTheme.view.bordercolor
+	
+	// color
+	public static var backgroudColor: UIColor = MaterialColor.clear
+	public static var pulseColor: UIColor = MaterialColor.white
+	public static var pulseColorOpacity: CGFloat = 0.25
 	
 	// interaction
 	public static var userInteractionEnabled: Bool = MaterialTheme.view.userInteractionEnabled
@@ -117,9 +159,9 @@ public extension MaterialTheme.navigationBarView {
 	// shape
 	public static var masksToBounds: Bool = MaterialTheme.view.masksToBounds
 	public static var cornerRadius: MaterialRadius = MaterialTheme.view.cornerRadius
-	public static var titleInsetsRef: MaterialInsetsType = (top: 0, left: 8, bottom: 10, right: 8)
-	public static var leftButtonsInsetsRef: MaterialInsetsType = (top: 0, left: 8, bottom: 8, right: 0)
-	public static var rightButtonsInsetsRef: MaterialInsetsType = (top: 0, left: 0, bottom: 8, right: 8)
+	public static var titleInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
+	public static var leftButtonsInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
+	public static var rightButtonsInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
 	
 	// border
 	public static var borderWidth: MaterialBorder = MaterialTheme.view.borderWidth
@@ -164,7 +206,7 @@ public extension MaterialTheme.flatButton {
 	// shape
 	public static var masksToBounds: Bool = true
 	public static var cornerRadius: MaterialRadius = .Radius1
-	public static var contentInsets: MaterialInsets = .Inset2
+	public static var contentInsets: MaterialInsets = .Rectangle2
 	public static var shape: MaterialShape? = nil
 	
 	// border
@@ -196,7 +238,7 @@ public extension MaterialTheme.raisedButton {
 	// shape
 	public static var masksToBounds: Bool = true
 	public static var cornerRadius: MaterialRadius = .Radius1
-	public static var contentInsets: MaterialInsets = .Inset2
+	public static var contentInsets: MaterialInsets = .Rectangle2
 	public static var shape: MaterialShape? = nil
 	
 	// border
@@ -229,7 +271,7 @@ public extension MaterialTheme.fabButton {
 	// shape
 	public static var masksToBounds: Bool = true
 	public static var cornerRadius: MaterialRadius = .Radius0
-	public static var contentInsets: MaterialInsets = .Inset0
+	public static var contentInsets: MaterialInsets = .Rectangle0
 	public static var shape: MaterialShape? = .Circle
 	
 	// border

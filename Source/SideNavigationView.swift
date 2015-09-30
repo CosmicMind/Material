@@ -18,23 +18,23 @@
 
 import UIKit
 
-public extension UIViewController {
+public extension UIView {
 	/**
-		:name:	sideNavigationViewController
+		:name:	sideNavigationView
 	*/
-	public var sideNavigationViewController: SideNavigationViewController? {
-		var viewController: UIViewController? = self
-		while nil != viewController {
-			if viewController is SideNavigationViewController {
-				return viewController as? SideNavigationViewController
+	public var sideNavigationView: SideNavigationView? {
+		var v: UIView? = self
+		while nil != v {
+			if v is SideNavigationView {
+				return v as? SideNavigationView
 			}
-			viewController = viewController?.parentViewController
+			v = v?.superview
 		}
 		return nil
 	}
 }
 
-@objc(SideNavigationViewController)
-public class SideNavigationViewController: UIViewController, UIGestureRecognizerDelegate {
+@objc(SideNavigationView)
+public class SideNavigationView: MaterialView, UIGestureRecognizerDelegate {
 
 }

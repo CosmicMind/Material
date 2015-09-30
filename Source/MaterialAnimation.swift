@@ -22,7 +22,7 @@ public struct MaterialAnimation {
 	/**
 		:name:	spin
 	*/
-	public static func spin(view: UIView, duration: CFTimeInterval, rotations: Int = 1, completion: (() -> Void)? = nil) {
+	public static func spin(view: UIView, duration: CFTimeInterval = 1, rotations: Int = 1, completion: (() -> Void)? = nil) {
 		let a: CABasicAnimation = CABasicAnimation()
 		a.keyPath = "transform.rotation"
 		a.duration = duration

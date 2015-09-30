@@ -34,7 +34,8 @@ public class MaterialPulseView: MaterialView {
 	*/
 	public var pulseColorOpacity: CGFloat! {
 		didSet {
-			pulseColorOpacity = nil == pulseColorOpacity ? 0.5 : pulseColorOpacity!
+			pulseColorOpacity = nil == pulseColorOpacity ? 0.25 : pulseColorOpacity!
+			preparePulseLayer()
 		}
 	}
 	
@@ -44,6 +45,7 @@ public class MaterialPulseView: MaterialView {
 	public var pulseColor: UIColor? {
 		didSet {
 			pulseLayer.backgroundColor = pulseColor?.colorWithAlphaComponent(pulseColorOpacity!).CGColor
+			preparePulseLayer()
 		}
 	}
 	
@@ -82,8 +84,8 @@ public class MaterialPulseView: MaterialView {
 		
 		// expand
 		CATransaction.begin()
-		CATransaction.setAnimationDuration(0.3)
-		pulseLayer.transform = CATransform3DMakeScale(2.5, 2.5, 2.5)
+		CATransaction.setAnimationDuration(0.25)
+		pulseLayer.transform = CATransform3DMakeScale(3, 3, 3)
 		layer.transform = CATransform3DMakeScale(1.05, 1.05, 1.05)
 		CATransaction.commit()
 	}
@@ -144,11 +146,18 @@ public class MaterialPulseView: MaterialView {
 	}
 	
 	//
+	//	:name:	preparePulseLayer
+	//
+	internal func preparePulseLayer() {
+		pulseLayer.backgroundColor = pulseColor?.colorWithAlphaComponent(pulseColorOpacity!).CGColor
+	}
+	
+	//
 	//	:name:	shrink
 	//
 	internal func shrink() {
 		CATransaction.begin()
-		CATransaction.setAnimationDuration(0.3)
+		CATransaction.setAnimationDuration(0.25)
 		pulseLayer.hidden = true
 		pulseLayer.transform = CATransform3DIdentity
 		layer.transform = CATransform3DIdentity

@@ -39,7 +39,8 @@ public class MaterialButton : UIButton {
 	*/
 	public var pulseColorOpacity: CGFloat! {
 		didSet {
-			pulseColorOpacity = nil == pulseColorOpacity ? 0.5 : pulseColorOpacity!
+			pulseColorOpacity = nil == pulseColorOpacity ? 0.25 : pulseColorOpacity!
+			preparePulseLayer()
 		}
 	}
 	
@@ -48,7 +49,7 @@ public class MaterialButton : UIButton {
 	*/
 	public var pulseColor: UIColor? {
 		didSet {
-			pulseLayer.backgroundColor = pulseColor?.colorWithAlphaComponent(pulseColorOpacity!).CGColor
+			preparePulseLayer()
 		}
 	}
 	
@@ -235,7 +236,7 @@ public class MaterialButton : UIButton {
 	*/
 	public var contentInsets: MaterialInsets! {
 		didSet {
-			let value: MaterialInsetsType = MaterialInsetsToValue(nil == contentInsets ? .Inset0 : contentInsets)
+			let value: MaterialInsetsType = MaterialInsetsToValue(nil == contentInsets ? .Rectangle0 : contentInsets)
 			contentEdgeInsets = UIEdgeInsetsMake(value.top, value.left, value.bottom, value.right)
 		}
 	}
@@ -299,8 +300,8 @@ public class MaterialButton : UIButton {
 		
 		// expand
 		CATransaction.begin()
-		CATransaction.setAnimationDuration(0.3)
-		pulseLayer.transform = CATransform3DMakeScale(2.5, 2.5, 2.5)
+		CATransaction.setAnimationDuration(0.25)
+		pulseLayer.transform = CATransform3DMakeScale(3, 3, 3)
 		layer.transform = CATransform3DMakeScale(1.05, 1.05, 1.05)
 		CATransaction.commit()
 	}
@@ -337,7 +338,7 @@ public class MaterialButton : UIButton {
 		layer.addSublayer(visualLayer)
 		
 		// touchesLayer
-		touchesLayer.zPosition = 1000
+		touchesLayer.zPosition = -1
 		touchesLayer.masksToBounds = true
 		layer.addSublayer(touchesLayer)
 		
@@ -354,11 +355,18 @@ public class MaterialButton : UIButton {
 	}
 	
 	//
+	//	:name:	preparePulseLayer
+	//
+	internal func preparePulseLayer() {
+		pulseLayer.backgroundColor = pulseColor?.colorWithAlphaComponent(pulseColorOpacity!).CGColor
+	}
+	
+	//
 	//	:name:	shrink
 	//
 	internal func shrink() {
 		CATransaction.begin()
-		CATransaction.setAnimationDuration(0.3)
+		CATransaction.setAnimationDuration(0.25)
 		pulseLayer.hidden = true
 		pulseLayer.transform = CATransform3DIdentity
 		layer.transform = CATransform3DIdentity

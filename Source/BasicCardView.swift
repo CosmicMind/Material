@@ -18,16 +18,7 @@
 
 import UIKit
 
-public class NavigationBarView: MaterialView {
-	/**
-		:name:	statusBarStyle
-	*/
-	public var statusBarStyle: MaterialStatusBarStyle! {
-		didSet {
-			UIApplication.sharedApplication().setStatusBarStyle(.LightContent == statusBarStyle ? .LightContent : .Default, animated: true)
-		}
-	}
-	
+public class BasicCardView: MaterialPulseView {
 	/**
 		:name:	titleInsets
 	*/
@@ -106,6 +97,7 @@ public class NavigationBarView: MaterialView {
 	*/
 	public var rightButtonsInsetsRef: MaterialInsetsType! {
 		didSet {
+			rightButtonsInsetsRef = nil == rightButtonsInsetsRef ? (top: 0, left: 0, bottom: 0, right: 0) : rightButtonsInsetsRef!
 			reloadView()
 		}
 	}
@@ -142,14 +134,14 @@ public class NavigationBarView: MaterialView {
 		:name:	init
 	*/
 	public convenience init() {
-		self.init(frame: CGRectMake(MaterialTheme.navigationBarView.x, MaterialTheme.navigationBarView.y, MaterialTheme.navigationBarView.width, MaterialTheme.navigationBarView.height))
+		self.init(frame: CGRectZero)
 	}
 	
 	/**
 		:name:	init
 	*/
 	public convenience init?(titleLabel: UILabel? = nil, leftButtons: Array<MaterialButton>? = nil, rightButtons: Array<MaterialButton>? = nil) {
-		self.init(frame: CGRectMake(MaterialTheme.navigationBarView.x, MaterialTheme.navigationBarView.y, MaterialTheme.navigationBarView.width, MaterialTheme.navigationBarView.height))
+		self.init(frame: CGRectZero)
 		self.prepareProperties(titleLabel, leftButtons: leftButtons, rightButtons: rightButtons)
 	}
 	
@@ -161,6 +153,22 @@ public class NavigationBarView: MaterialView {
 		removeConstraints(constraints)
 		for v in subviews {
 			v.removeFromSuperview()
+		}
+		
+		var verticalFormat: String = "V:|"
+		var views: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
+		var metrics: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
+		
+		// title
+		if let v = titleLabel {
+			verticalFormat += "-(titleLabelTopInset)-[titleLabel]-(titleLabelBottomInset)-"
+			views["titleLabel"] = titleLabel
+			metrics["titleLabelTopInset"] = titleInsetsRef!.top
+			metrics["titleLabelBottomInset"] = titleInsetsRef!.bottom
+			
+			addSubview(v)
+			v.layer.zPosition = 2000
+			MaterialLayout.alignToParentHorizontallyWithInsets(self, child: v, left: titleInsetsRef!.left, right: titleInsetsRef!.right)
 		}
 		
 		// leftButtons
@@ -181,13 +189,6 @@ public class NavigationBarView: MaterialView {
 			addConstraints(MaterialLayout.constraint(h, options: [], metrics: ["left" : leftButtonsInsetsRef!.left], views: d))
 		}
 		
-		// title
-		if let v = titleLabel {
-			insertSubview(v, atIndex: 0)
-			MaterialLayout.alignToParentHorizontallyWithInsets(self, child: v, left: titleInsetsRef!.left, right: titleInsetsRef!.right)
-			MaterialLayout.alignFromBottom(self, child: v, bottom: titleInsetsRef!.bottom)
-		}
-		
 		// rightButtons
 		if let v = rightButtons {
 			var h: String = "H:"
@@ -205,6 +206,12 @@ public class NavigationBarView: MaterialView {
 			
 			addConstraints(MaterialLayout.constraint(h + "|", options: [], metrics: ["right" : rightButtonsInsetsRef!.right], views: d))
 		}
+		
+		if 0 < views.count {
+			verticalFormat += "|"
+			
+			addConstraints(MaterialLayout.constraint(verticalFormat, options: [], metrics: metrics, views: views))
+		}
 	}
 	
 	//
@@ -221,23 +228,22 @@ public class NavigationBarView: MaterialView {
 	//
 	internal override func prepareView() {
 		super.prepareView()
-		userInteractionEnabled = MaterialTheme.navigationBarView.userInteractionEnabled
-		backgroundColor = MaterialTheme.navigationBarView.backgroudColor
-		statusBarStyle = MaterialTheme.navigationBarView.statusBarStyle
-		titleInsetsRef = MaterialTheme.navigationBarView.titleInsetsRef
-		leftButtonsInsetsRef = MaterialTheme.navigationBarView.leftButtonsInsetsRef
-		rightButtonsInsetsRef = MaterialTheme.navigationBarView.rightButtonsInsetsRef
+		userInteractionEnabled = MaterialTheme.basicCardView.userInteractionEnabled
+		backgroundColor = MaterialTheme.basicCardView.backgroudColor
+		titleInsetsRef = MaterialTheme.basicCardView.titleInsetsRef
+		leftButtonsInsetsRef = MaterialTheme.basicCardView.leftButtonsInsetsRef
+		rightButtonsInsetsRef = MaterialTheme.basicCardView.rightButtonsInsetsRef
 		
-		contentsRect = MaterialTheme.navigationBarView.contentsRect
-		contentsCenter = MaterialTheme.navigationBarView.contentsCenter
-		contentsScale = MaterialTheme.navigationBarView.contentsScale
-		contentsGravity = MaterialTheme.navigationBarView.contentsGravity
-		shadowDepth = MaterialTheme.navigationBarView.shadowDepth
-		shadowColor = MaterialTheme.navigationBarView.shadowColor
-		zPosition = MaterialTheme.navigationBarView.zPosition
-		masksToBounds = MaterialTheme.navigationBarView.masksToBounds
-		cornerRadius = MaterialTheme.navigationBarView.cornerRadius
-		borderWidth = MaterialTheme.navigationBarView.borderWidth
-		borderColor = MaterialTheme.navigationBarView.bordercolor
+		contentsRect = MaterialTheme.basicCardView.contentsRect
+		contentsCenter = MaterialTheme.basicCardView.contentsCenter
+		contentsScale = MaterialTheme.basicCardView.contentsScale
+		contentsGravity = MaterialTheme.basicCardView.contentsGravity
+		shadowDepth = MaterialTheme.basicCardView.shadowDepth
+		shadowColor = MaterialTheme.basicCardView.shadowColor
+		zPosition = MaterialTheme.basicCardView.zPosition
+		masksToBounds = MaterialTheme.basicCardView.masksToBounds
+		cornerRadius = MaterialTheme.basicCardView.cornerRadius
+		borderWidth = MaterialTheme.basicCardView.borderWidth
+		borderColor = MaterialTheme.basicCardView.bordercolor
 	}
 }
