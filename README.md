@@ -168,7 +168,6 @@ v.detailLabel!.text = "I am a very simple card. I am good at containing small bi
 // Add to UIViewController
 view.addSubview(v)
 v.translatesAutoresizingMaskIntoConstraints = false
-
 MaterialLayout.alignToParentHorizontallyWithInsets(view, child: v, left: 20, right: 20)
 MaterialLayout.alignFromTop(view, child: v, top: 100)
 ```
