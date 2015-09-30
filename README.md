@@ -151,6 +151,7 @@ MaterialLayout.alignToParentHorizontallyWithInsets(view, child: v, left: 20, rig
 MaterialLayout.alignFromTop(view, child: v, top: 100)
 ```
 
+
 A BasicCardView can easily add an image as its background, below is the code that shows how to do this.
 
 ![MaterialKitPreview](http://www.materialkit.io/github/img8.gif)
