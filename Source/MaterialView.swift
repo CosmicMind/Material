@@ -266,7 +266,7 @@ public class MaterialView: UIView {
 		:name:	init
 	*/
 	public convenience init() {
-		self.init(frame: CGRectMake(MaterialTheme.view.x, MaterialTheme.view.y, MaterialTheme.view.width, MaterialTheme.view.height))
+		self.init(frame: CGRectZero)
 	}
 	
 	/**

@@ -53,7 +53,7 @@ public class MaterialPulseView: MaterialView {
 		:name:	init
 	*/
 	public convenience init() {
-		self.init(frame: CGRectMake(MaterialTheme.pulseView.x, MaterialTheme.pulseView.y, MaterialTheme.pulseView.width, MaterialTheme.pulseView.height))
+		self.init(frame: CGRectZero)
 	}
 	
 	/**

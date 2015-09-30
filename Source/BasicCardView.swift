@@ -64,6 +64,10 @@ public class BasicCardView: MaterialPulseView {
 		didSet {
 			if let v = titleLabel {
 				v.translatesAutoresizingMaskIntoConstraints = false
+				v.lineBreakMode = .ByWordWrapping
+				v.numberOfLines = 0
+				v.textColor = MaterialColor.white
+				v.font = RobotoFont.regularWithSize(18)
 			}
 			reloadView()
 		}
@@ -95,6 +99,10 @@ public class BasicCardView: MaterialPulseView {
 		didSet {
 			if let v = detailLabel {
 				v.translatesAutoresizingMaskIntoConstraints = false
+				v.lineBreakMode = .ByWordWrapping
+				v.numberOfLines = 0
+				v.textColor = MaterialColor.white
+				v.font = RobotoFont.regularWithSize(14)
 			}
 			reloadView()
 		}

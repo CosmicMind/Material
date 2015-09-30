@@ -31,12 +31,6 @@ public struct MaterialTheme {
 
 // view
 public extension MaterialTheme.view {
-	// frame
-	public static var x: CGFloat = 0
-	public static var y: CGFloat = 0
-	public static var width: CGFloat = UIScreen.mainScreen().bounds.width
-	public static var height: CGFloat = UIScreen.mainScreen().bounds.height
-	
 	// shadow
 	public static var shadowDepth: MaterialDepth = .Depth0
 	public static var shadowColor: UIColor = MaterialColor.black
@@ -67,12 +61,6 @@ public extension MaterialTheme.view {
 
 // pulseView
 public extension MaterialTheme.pulseView {
-	// frame
-	public static var x: CGFloat = MaterialTheme.view.x
-	public static var y: CGFloat = MaterialTheme.view.y
-	public static var width: CGFloat = MaterialTheme.view.width
-	public static var height: CGFloat = MaterialTheme.view.height
-	
 	// shadow
 	public static var shadowDepth: MaterialDepth = MaterialTheme.view.shadowDepth
 	public static var shadowColor: UIColor = MaterialTheme.view.shadowColor
@@ -105,19 +93,13 @@ public extension MaterialTheme.pulseView {
 
 // basicCardView
 public extension MaterialTheme.basicCardView {
-	// frame
-	public static var x: CGFloat = MaterialTheme.view.x
-	public static var y: CGFloat = MaterialTheme.view.y
-	public static var width: CGFloat = MaterialTheme.view.width
-	public static var height: CGFloat = MaterialTheme.view.height
-	
 	// shadow
-	public static var shadowDepth: MaterialDepth = MaterialTheme.view.shadowDepth
+	public static var shadowDepth: MaterialDepth = .Depth2
 	public static var shadowColor: UIColor = MaterialTheme.view.shadowColor
 	
 	// shape
 	public static var masksToBounds: Bool = true
-	public static var cornerRadius: MaterialRadius = MaterialTheme.view.cornerRadius
+	public static var cornerRadius: MaterialRadius = .Radius1
 	public static var contentInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
 	public static var titleLabelInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
 	public static var detailLabelInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
@@ -129,7 +111,7 @@ public extension MaterialTheme.basicCardView {
 	public static var bordercolor: UIColor = MaterialTheme.view.bordercolor
 	
 	// color
-	public static var backgroudColor: UIColor = MaterialColor.clear
+	public static var backgroudColor: UIColor = MaterialColor.blueGrey.darken1
 	public static var pulseColor: UIColor = MaterialColor.white
 	public static var pulseColorOpacity: CGFloat = 0.25
 	
@@ -149,13 +131,13 @@ public extension MaterialTheme.basicCardView {
 // navigationBarView
 public extension MaterialTheme.navigationBarView {
 	// frame
-	public static var x: CGFloat = MaterialTheme.view.x
-	public static var y: CGFloat = MaterialTheme.view.y
-	public static var width: CGFloat = MaterialTheme.view.width
+	public static var x: CGFloat = 0
+	public static var y: CGFloat = 0
+	public static var width: CGFloat = UIScreen.mainScreen().bounds.width
 	public static var height: CGFloat = 70
 	
 	// shadow
-	public static var shadowDepth: MaterialDepth = .Depth1
+	public static var shadowDepth: MaterialDepth = .Depth2
 	public static var shadowColor: UIColor = MaterialTheme.view.shadowColor
 	
 	// shape
