@@ -118,7 +118,9 @@ public extension MaterialTheme.basicCardView {
 	// shape
 	public static var masksToBounds: Bool = true
 	public static var cornerRadius: MaterialRadius = MaterialTheme.view.cornerRadius
-	public static var titleInsetsRef: MaterialInsetsType = (top: 0, left: 8, bottom: 10, right: 8)
+	public static var contentInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
+	public static var titleLabelInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
+	public static var detailLabelInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
 	public static var leftButtonsInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
 	public static var rightButtonsInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
 	
@@ -159,7 +161,8 @@ public extension MaterialTheme.navigationBarView {
 	// shape
 	public static var masksToBounds: Bool = MaterialTheme.view.masksToBounds
 	public static var cornerRadius: MaterialRadius = MaterialTheme.view.cornerRadius
-	public static var titleInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
+	public static var contentInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
+	public static var titleLabelInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
 	public static var leftButtonsInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
 	public static var rightButtonsInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
 	

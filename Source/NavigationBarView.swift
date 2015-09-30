@@ -29,20 +29,20 @@ public class NavigationBarView: MaterialView {
 	}
 	
 	/**
-		:name:	titleInsets
+		:name:	titleLabelInsets
 	*/
-	public var titleInsets: MaterialInsets? {
+	public var titleLabelInsets: MaterialInsets? {
 		didSet {
-			titleInsetsRef = nil == titleInsets ? nil : MaterialInsetsToValue(titleInsets!)
+			titleLabelInsetsRef = nil == titleLabelInsets ? nil : MaterialInsetsToValue(titleLabelInsets!)
 		}
 	}
 	
 	/**
-		:name:	titleInsetsRef
+		:name:	titleLabelInsetsRef
 	*/
-	public var titleInsetsRef: MaterialInsetsType! {
+	public var titleLabelInsetsRef: MaterialInsetsType! {
 		didSet {
-			titleInsetsRef = nil == titleInsetsRef ? (top: 0, left: 0, bottom: 0, right: 0) : titleInsetsRef!
+			titleLabelInsetsRef = nil == titleLabelInsetsRef ? (top: 0, left: 0, bottom: 0, right: 0) : titleLabelInsetsRef!
 			reloadView()
 		}
 	}
@@ -184,8 +184,8 @@ public class NavigationBarView: MaterialView {
 		// title
 		if let v = titleLabel {
 			insertSubview(v, atIndex: 0)
-			MaterialLayout.alignToParentHorizontallyWithInsets(self, child: v, left: titleInsetsRef!.left, right: titleInsetsRef!.right)
-			MaterialLayout.alignFromBottom(self, child: v, bottom: titleInsetsRef!.bottom)
+			MaterialLayout.alignToParentHorizontallyWithInsets(self, child: v, left: titleLabelInsetsRef!.left, right: titleLabelInsetsRef!.right)
+			MaterialLayout.alignFromBottom(self, child: v, bottom: titleLabelInsetsRef!.bottom)
 		}
 		
 		// rightButtons
@@ -224,7 +224,7 @@ public class NavigationBarView: MaterialView {
 		userInteractionEnabled = MaterialTheme.navigationBarView.userInteractionEnabled
 		backgroundColor = MaterialTheme.navigationBarView.backgroudColor
 		statusBarStyle = MaterialTheme.navigationBarView.statusBarStyle
-		titleInsetsRef = MaterialTheme.navigationBarView.titleInsetsRef
+		titleLabelInsetsRef = MaterialTheme.navigationBarView.titleLabelInsetsRef
 		leftButtonsInsetsRef = MaterialTheme.navigationBarView.leftButtonsInsetsRef
 		rightButtonsInsetsRef = MaterialTheme.navigationBarView.rightButtonsInsetsRef
 		

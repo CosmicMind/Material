@@ -20,20 +20,39 @@ import UIKit
 
 public class BasicCardView: MaterialPulseView {
 	/**
-		:name:	titleInsets
+		:name:	contentInsets
 	*/
-	public var titleInsets: MaterialInsets? {
+	public var contentInsets: MaterialInsets? {
 		didSet {
-			titleInsetsRef = nil == titleInsets ? nil : MaterialInsetsToValue(titleInsets!)
+			contentInsetsRef = nil == contentInsets ? nil : MaterialInsetsToValue(contentInsets!)
 		}
 	}
 	
 	/**
-		:name:	titleInsetsRef
+		:name:	contentInsetsRef
 	*/
-	public var titleInsetsRef: MaterialInsetsType! {
+	public var contentInsetsRef: MaterialInsetsType! {
 		didSet {
-			titleInsetsRef = nil == titleInsetsRef ? (top: 0, left: 0, bottom: 0, right: 0) : titleInsetsRef!
+			contentInsetsRef = nil == contentInsetsRef ? (top: 0, left: 0, bottom: 0, right: 0) : contentInsetsRef!
+			reloadView()
+		}
+	}
+	
+	/**
+		:name:	titleLabelInsets
+	*/
+	public var titleLabelInsets: MaterialInsets? {
+		didSet {
+			titleLabelInsetsRef = nil == titleLabelInsets ? nil : MaterialInsetsToValue(titleLabelInsets!)
+		}
+	}
+	
+	/**
+		:name:	titleLabelInsetsRef
+	*/
+	public var titleLabelInsetsRef: MaterialInsetsType! {
+		didSet {
+			titleLabelInsetsRef = nil == titleLabelInsetsRef ? (top: 0, left: 0, bottom: 0, right: 0) : titleLabelInsetsRef!
 			reloadView()
 		}
 	}
@@ -44,6 +63,37 @@ public class BasicCardView: MaterialPulseView {
 	public var titleLabel: UILabel? {
 		didSet {
 			if let v = titleLabel {
+				v.translatesAutoresizingMaskIntoConstraints = false
+			}
+			reloadView()
+		}
+	}
+	
+	/**
+		:name:	detailLabelInsets
+	*/
+	public var detailLabelInsets: MaterialInsets? {
+		didSet {
+			detailLabelInsetsRef = nil == detailLabelInsets ? nil : MaterialInsetsToValue(detailLabelInsets!)
+		}
+	}
+	
+	/**
+		:name:	detailLabelInsetsRef
+	*/
+	public var detailLabelInsetsRef: MaterialInsetsType! {
+		didSet {
+			detailLabelInsetsRef = nil == detailLabelInsetsRef ? (top: 0, left: 0, bottom: 0, right: 0) : detailLabelInsetsRef!
+			reloadView()
+		}
+	}
+	
+	/**
+		:name:	detailLabel
+	*/
+	public var detailLabel: UILabel? {
+		didSet {
+			if let v = detailLabel {
 				v.translatesAutoresizingMaskIntoConstraints = false
 			}
 			reloadView()
@@ -140,9 +190,9 @@ public class BasicCardView: MaterialPulseView {
 	/**
 		:name:	init
 	*/
-	public convenience init?(titleLabel: UILabel? = nil, leftButtons: Array<MaterialButton>? = nil, rightButtons: Array<MaterialButton>? = nil) {
+	public convenience init?(titleLabel: UILabel? = nil, detailLabel: UILabel? = nil, leftButtons: Array<MaterialButton>? = nil, rightButtons: Array<MaterialButton>? = nil) {
 		self.init(frame: CGRectZero)
-		self.prepareProperties(titleLabel, leftButtons: leftButtons, rightButtons: rightButtons)
+		self.prepareProperties(titleLabel, detailLabel: detailLabel, leftButtons: leftButtons, rightButtons: rightButtons)
 	}
 	
 	/**
@@ -155,20 +205,37 @@ public class BasicCardView: MaterialPulseView {
 			v.removeFromSuperview()
 		}
 		
-		var verticalFormat: String = "V:|"
+		var verticalFormat: String = "V:|-(insetTop)"
 		var views: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
-		var metrics: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
+		var metrics: Dictionary<String, AnyObject> = ["insetTop": contentInsetsRef!.top, "insetBottom": contentInsetsRef!.bottom]
 		
 		// title
 		if let v = titleLabel {
-			verticalFormat += "-(titleLabelTopInset)-[titleLabel]-(titleLabelBottomInset)-"
-			views["titleLabel"] = titleLabel
-			metrics["titleLabelTopInset"] = titleInsetsRef!.top
-			metrics["titleLabelBottomInset"] = titleInsetsRef!.bottom
+			verticalFormat += "-[titleLabel]"
+			views["titleLabel"] = v
+			
+			metrics["insetTop"] = titleLabelInsetsRef!.top
 			
 			addSubview(v)
 			v.layer.zPosition = 2000
-			MaterialLayout.alignToParentHorizontallyWithInsets(self, child: v, left: titleInsetsRef!.left, right: titleInsetsRef!.right)
+			MaterialLayout.alignToParentHorizontallyWithInsets(self, child: v, left: contentInsetsRef!.left + titleLabelInsetsRef!.left, right: contentInsetsRef!.right + titleLabelInsetsRef!.right)
+		}
+		
+		// detail
+		if let v = detailLabel {
+			if nil == titleLabel {
+				metrics["insetTop"] = detailLabelInsetsRef!.top
+			} else {
+				verticalFormat += "-(insetB)"
+				metrics["insetB"] = titleLabelInsetsRef!.bottom + detailLabelInsetsRef!.top
+			}
+			
+			verticalFormat += "-[detailLabel]"
+			views["detailLabel"] = v
+			
+			addSubview(v)
+			v.layer.zPosition = 2000
+			MaterialLayout.alignToParentHorizontallyWithInsets(self, child: v, left: contentInsetsRef!.left + detailLabelInsetsRef!.left, right: contentInsetsRef!.right + detailLabelInsetsRef!.right)
 		}
 		
 		// leftButtons
@@ -207,8 +274,20 @@ public class BasicCardView: MaterialPulseView {
 			addConstraints(MaterialLayout.constraint(h + "|", options: [], metrics: ["right" : rightButtonsInsetsRef!.right], views: d))
 		}
 		
+		if nil != titleLabel {
+			metrics["insetTop"] = (metrics["insetTop"] as! CGFloat) + titleLabelInsetsRef!.top
+		} else if nil != detailLabel {
+			metrics["insetTop"] = (metrics["insetTop"] as! CGFloat) + detailLabelInsetsRef!.top
+		}
+		
+		if nil != detailLabel {
+			metrics["insetBottom"] = (metrics["insetBottom"] as! CGFloat) + detailLabelInsetsRef!.bottom
+		} else if nil != titleLabel {
+			metrics["insetBottom"] = (metrics["insetBottom"] as! CGFloat) + titleLabelInsetsRef!.bottom
+		}
+		
 		if 0 < views.count {
-			verticalFormat += "|"
+			verticalFormat += "-(insetBottom)-|"
 			
 			addConstraints(MaterialLayout.constraint(verticalFormat, options: [], metrics: metrics, views: views))
 		}
@@ -217,8 +296,9 @@ public class BasicCardView: MaterialPulseView {
 	//
 	//	:name:	prepareProperties
 	//
-	internal func prepareProperties(titleLabel: UILabel?, leftButtons: Array<MaterialButton>?, rightButtons: Array<MaterialButton>?) {
+	internal func prepareProperties(titleLabel: UILabel?, detailLabel: UILabel?, leftButtons: Array<MaterialButton>?, rightButtons: Array<MaterialButton>?) {
 		self.titleLabel = titleLabel
+		self.detailLabel = detailLabel
 		self.leftButtons = leftButtons
 		self.rightButtons = rightButtons
 	}
@@ -230,7 +310,9 @@ public class BasicCardView: MaterialPulseView {
 		super.prepareView()
 		userInteractionEnabled = MaterialTheme.basicCardView.userInteractionEnabled
 		backgroundColor = MaterialTheme.basicCardView.backgroudColor
-		titleInsetsRef = MaterialTheme.basicCardView.titleInsetsRef
+		contentInsetsRef = MaterialTheme.basicCardView.contentInsetsRef
+		titleLabelInsetsRef = MaterialTheme.basicCardView.titleLabelInsetsRef
+		detailLabelInsetsRef = MaterialTheme.basicCardView.detailLabelInsetsRef
 		leftButtonsInsetsRef = MaterialTheme.basicCardView.leftButtonsInsetsRef
 		rightButtonsInsetsRef = MaterialTheme.basicCardView.rightButtonsInsetsRef
 		
