@@ -165,45 +165,52 @@ public class NavigationBarView: MaterialView {
 		
 		// leftButtons
 		if let v = leftButtons {
-			var h: String = "H:|"
-			var d: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
-			var i: Int = 0
-			
-			for b in v {
-				let k: String = "b\(i++)"
-				d[k] = b
-				h += "-(left)-[\(k)]"
+			if 0 < v.count {
+				var h: String = "H:|"
+				var d: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
+				var i: Int = 0
 				
-				insertSubview(b, atIndex: 1)
-				MaterialLayout.alignFromBottom(self, child: b, bottom: leftButtonsInsetsRef!.bottom)
+				for b in v {
+					let k: String = "b\(i++)"
+					d[k] = b
+					h += "-(left)-[\(k)]"
+					
+					addSubview(b)
+					b.layer.zPosition = 2000
+					MaterialLayout.alignFromBottom(self, child: b, bottom: leftButtonsInsetsRef!.bottom)
+				}
+				
+				addConstraints(MaterialLayout.constraint(h, options: [], metrics: ["left" : leftButtonsInsetsRef!.left], views: d))
 			}
-			
-			addConstraints(MaterialLayout.constraint(h, options: [], metrics: ["left" : leftButtonsInsetsRef!.left], views: d))
 		}
 		
 		// title
 		if let v = titleLabel {
-			insertSubview(v, atIndex: 0)
+			addSubview(v)
+			v.layer.zPosition = 1500
 			MaterialLayout.alignToParentHorizontallyWithInsets(self, child: v, left: titleLabelInsetsRef!.left, right: titleLabelInsetsRef!.right)
 			MaterialLayout.alignFromBottom(self, child: v, bottom: titleLabelInsetsRef!.bottom)
 		}
 		
 		// rightButtons
 		if let v = rightButtons {
-			var h: String = "H:"
-			var d: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
-			var i: Int = 0
-			
-			for b in v {
-				let k: String = "b\(i++)"
-				d[k] = b
-				h += "[\(k)]-(right)-"
+			if 0 < v.count {
+				var h: String = "H:"
+				var d: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
+				var i: Int = 0
 				
-				insertSubview(b, atIndex: 1)
-				MaterialLayout.alignFromBottom(self, child: b, bottom: rightButtonsInsetsRef!.bottom)
+				for b in v {
+					let k: String = "b\(i++)"
+					d[k] = b
+					h += "[\(k)]-(right)-"
+					
+					addSubview(b)
+					b.layer.zPosition = 2000
+					MaterialLayout.alignFromBottom(self, child: b, bottom: rightButtonsInsetsRef!.bottom)
+				}
+				
+				addConstraints(MaterialLayout.constraint(h + "|", options: [], metrics: ["right" : rightButtonsInsetsRef!.right], views: d))
 			}
-			
-			addConstraints(MaterialLayout.constraint(h + "|", options: [], metrics: ["right" : rightButtonsInsetsRef!.right], views: d))
 		}
 	}
 	

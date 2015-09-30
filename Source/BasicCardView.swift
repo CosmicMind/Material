@@ -248,38 +248,44 @@ public class BasicCardView: MaterialPulseView {
 		
 		// leftButtons
 		if let v = leftButtons {
-			var h: String = "H:|"
-			var d: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
-			var i: Int = 0
-			
-			for b in v {
-				let k: String = "b\(i++)"
-				d[k] = b
-				h += "-(left)-[\(k)]"
+			if 0 < v.count {
+				var h: String = "H:|"
+				var d: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
+				var i: Int = 0
 				
-				insertSubview(b, atIndex: 1)
-				MaterialLayout.alignFromBottom(self, child: b, bottom: leftButtonsInsetsRef!.bottom)
+				for b in v {
+					let k: String = "b\(i++)"
+					d[k] = b
+					h += "-(left)-[\(k)]"
+					
+					addSubview(b)
+					b.layer.zPosition = 2000
+					MaterialLayout.alignFromBottom(self, child: b, bottom: leftButtonsInsetsRef!.bottom)
+				}
+				
+				addConstraints(MaterialLayout.constraint(h, options: [], metrics: ["left" : leftButtonsInsetsRef!.left], views: d))
 			}
-			
-			addConstraints(MaterialLayout.constraint(h, options: [], metrics: ["left" : leftButtonsInsetsRef!.left], views: d))
 		}
 		
 		// rightButtons
 		if let v = rightButtons {
-			var h: String = "H:"
-			var d: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
-			var i: Int = 0
-			
-			for b in v {
-				let k: String = "b\(i++)"
-				d[k] = b
-				h += "[\(k)]-(right)-"
+			if 0 < v.count {
+				var h: String = "H:"
+				var d: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
+				var i: Int = 0
 				
-				insertSubview(b, atIndex: 1)
-				MaterialLayout.alignFromBottom(self, child: b, bottom: rightButtonsInsetsRef!.bottom)
+				for b in v {
+					let k: String = "b\(i++)"
+					d[k] = b
+					h += "[\(k)]-(right)-"
+					
+					addSubview(b)
+					b.layer.zPosition = 2000
+					MaterialLayout.alignFromBottom(self, child: b, bottom: rightButtonsInsetsRef!.bottom)
+				}
+				
+				addConstraints(MaterialLayout.constraint(h + "|", options: [], metrics: ["right" : rightButtonsInsetsRef!.right], views: d))
 			}
-			
-			addConstraints(MaterialLayout.constraint(h + "|", options: [], metrics: ["right" : rightButtonsInsetsRef!.right], views: d))
 		}
 		
 		if nil != titleLabel {
@@ -294,8 +300,17 @@ public class BasicCardView: MaterialPulseView {
 			metrics["insetBottom"] = (metrics["insetBottom"] as! CGFloat) + titleLabelInsetsRef!.bottom
 		}
 		
-		if 0 < views.count {
+		if 0 < leftButtons?.count {
+			verticalFormat += "-[button]-|"
+			views["button"] = leftButtons![0]
+		} else if 0 < rightButtons?.count {
+			verticalFormat += "-[button]-|"
+			views["button"] = rightButtons![0]
+		} else {
 			verticalFormat += "-(insetBottom)-|"
+		}
+		
+		if 0 < views.count {
 			
 			addConstraints(MaterialLayout.constraint(verticalFormat, options: [], metrics: metrics, views: views))
 		}
