@@ -19,6 +19,16 @@
 import UIKit
 
 public class FabButton : MaterialButton {
+	/**
+		:name:	layoutSubviews
+	*/
+	public override func layoutSubviews() {
+		super.layoutSubviews()
+		if false == translatesAutoresizingMaskIntoConstraints {
+			prepareShape()
+		}
+	}
+	
 	//
 	//	:name:	prepareView
 	//
