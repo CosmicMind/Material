@@ -200,4 +200,4 @@ MaterialLayout.alignFromTop(view, child: v, top: 100)
 
 * [Daniel Dahan](https://github.com/danieldahan)
 * [Adam Dahan](https://github.com/adamdahan)
-* [Michael Reyder](https://github.com/mishaGK)
+* [Michael Reyder](https://github.com/michaelReyder)
