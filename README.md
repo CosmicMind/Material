@@ -138,14 +138,10 @@ let v: BasicCardView = BasicCardView(titleLabel: UILabel(), detailLabel: UILabel
 v.backgroundColor = MaterialColor.blueGrey.darken1
 v.dividerColor = MaterialColor.blueGrey.base
 
-v.titleLabel!.lineBreakMode = .ByWordWrapping
-v.titleLabel!.numberOfLines = 0
 v.titleLabel!.textColor = MaterialColor.white
 v.titleLabel!.font = RobotoFont.regularWithSize(18)
 v.titleLabel!.text = "Card Title"
 
-v.detailLabel!.lineBreakMode = .ByWordWrapping
-v.detailLabel!.numberOfLines = 0
 v.detailLabel!.textColor = MaterialColor.white
 v.detailLabel!.font = RobotoFont.regularWithSize(14)
 v.detailLabel!.text = "I am a very simple card. I am good at containing small bits of information. I am convenient because I require little code to use effectively."
@@ -181,14 +177,10 @@ let v: BasicCardView = BasicCardView(titleLabel: UILabel(), detailLabel: UILabel
 
 v.image = UIImage(named: "forest")
 
-v.titleLabel!.lineBreakMode = .ByWordWrapping
-v.titleLabel!.numberOfLines = 0
 v.titleLabel!.textColor = MaterialColor.white
 v.titleLabel!.font = RobotoFont.regularWithSize(18)
 v.titleLabel!.text = "Card Title"
 
-v.detailLabel!.lineBreakMode = .ByWordWrapping
-v.detailLabel!.numberOfLines = 0
 v.detailLabel!.textColor = MaterialColor.white
 v.detailLabel!.font = RobotoFont.regularWithSize(14)
 v.detailLabel!.text = "I am a very simple card. I am good at containing small bits of information. I am convenient because I require little code to use effectively."

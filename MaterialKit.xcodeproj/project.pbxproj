@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6585D21A1BBCDFBF00426D22 /* BasicCardView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 964B17D81BBB3911002A9CA0 /* BasicCardView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		65BDD1471BB5B916006F7F2B /* MaterialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1461BB5B916006F7F2B /* MaterialView.swift */; settings = {ASSET_TAGS = (); }; };
 		65BDD1491BB5DC98006F7F2B /* MaterialColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1481BB5DC98006F7F2B /* MaterialColor.swift */; settings = {ASSET_TAGS = (); }; };
 		65BDD14B1BB5DD02006F7F2B /* MaterialFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD14A1BB5DD02006F7F2B /* MaterialFont.swift */; settings = {ASSET_TAGS = (); }; };
@@ -312,6 +313,7 @@
 				964B17D41BBB31C2002A9CA0 /* FabButton.swift in Headers */,
 				964B17D51BBB31C2002A9CA0 /* MaterialAnimation.swift in Headers */,
 				964B17D61BBB31C2002A9CA0 /* MaterialLayout.swift in Headers */,
+				6585D21A1BBCDFBF00426D22 /* BasicCardView.swift in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -215,7 +215,7 @@ public class MaterialButton : UIButton {
 	*/
 	public var shadowDepth: MaterialDepth! {
 		didSet {
-			let value: MaterialDepthType = MaterialDepthToValue(shadowDepth!)
+			let value: MaterialDepthType = MaterialDepthToValue(nil == shadowDepth ? .None : shadowDepth!)
 			shadowOffset = value.offset
 			shadowOpacity = value.opacity
 			shadowRadius = value.radius
