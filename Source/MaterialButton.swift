@@ -100,7 +100,6 @@ public class MaterialButton : UIButton {
 			frame.size.width = value
 			if nil != shape {
 				frame.size.height = value
-				prepareShape()
 			}
 		}
 	}
@@ -116,7 +115,6 @@ public class MaterialButton : UIButton {
 			frame.size.height = value
 			if nil != shape {
 				frame.size.width = value
-				prepareShape()
 			}
 		}
 	}
@@ -172,7 +170,9 @@ public class MaterialButton : UIButton {
 	public var cornerRadius: MaterialRadius! {
 		didSet {
 			layer.cornerRadius = MaterialRadiusToValue(nil == cornerRadius ? .None : cornerRadius!)
-			shape = nil
+			if .Circle == shape {
+				shape = nil
+			}
 		}
 	}
 	
@@ -187,7 +187,6 @@ public class MaterialButton : UIButton {
 				} else {
 					frame.size.height = width
 				}
-				prepareShape()
 			}
 		}
 	}
@@ -274,6 +273,8 @@ public class MaterialButton : UIButton {
 	*/
 	public override func layoutSubviews() {
 		super.layoutSubviews()
+		prepareShape()
+		
 		visualLayer.frame = bounds
 		visualLayer.cornerRadius = layer.cornerRadius
 		
@@ -291,7 +292,7 @@ public class MaterialButton : UIButton {
 		// set start position
 		CATransaction.begin()
 		CATransaction.setAnimationDuration(0)
-		let w: CGFloat = width / 2
+		let w: CGFloat = (width < height ? height : width) / 2
 		pulseLayer.hidden = false
 		pulseLayer.position = point
 		pulseLayer.bounds = CGRectMake(0, 0, w, w)
@@ -351,7 +352,9 @@ public class MaterialButton : UIButton {
 	//	:name:	prepareShape
 	//
 	internal func prepareShape() {
-		layer.cornerRadius = .Square == shape ? 0 : width / 2
+		if .Circle == shape {
+			layer.cornerRadius = width / 2
+		}
 	}
 	
 	//

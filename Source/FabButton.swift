@@ -24,9 +24,6 @@ public class FabButton : MaterialButton {
 	*/
 	public override func layoutSubviews() {
 		super.layoutSubviews()
-		if false == translatesAutoresizingMaskIntoConstraints {
-			prepareShape()
-		}
 	}
 	
 	//

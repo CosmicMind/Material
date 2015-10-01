@@ -86,49 +86,40 @@ public struct MaterialLayout {
 		:name:	alignToParentWithInsets
 	*/
 	public static func alignToParentWithInsets(parent: UIView, child: UIView, top: CGFloat = 0, left: CGFloat = 0, bottom: CGFloat = 0, right: CGFloat = 0) {
-		let views: Dictionary<String, AnyObject> = ["child" : child]
-		parent.addConstraints(constraint("H:|-(left)-[child]-(right)-|", options: [], metrics: ["left": left, "right": right], views: views))
-		parent.addConstraints(constraint("V:|-(top)-[child]-(bottom)-|", options: [], metrics: ["bottom": bottom, "top": top], views: views))
+		alignToParentHorizontallyWithInsets(parent, child: child, left: left, right: right)
+		alignToParentVerticallyWithInsets(parent, child: child, top: top, bottom: bottom)
 	}
 	
 	/**
 		:name:	alignFromTopLeft
 	*/
 	public static func alignFromTopLeft(parent: UIView, child: UIView, top: CGFloat = 0, left: CGFloat = 0) {
-		let metrics: Dictionary<String, AnyObject> = ["top" : top, "left" : left]
-		let views: Dictionary<String, AnyObject> = ["child" : child]
-		parent.addConstraints(constraint("H:|-(left)-[child]", options: [], metrics: metrics, views: views))
-		parent.addConstraints(constraint("V:|-(top)-[child]", options: [], metrics: metrics, views: views))
+		alignFromTop(parent, child: child, top: top)
+		alignFromLeft(parent, child: child, left: left)
 	}
 	
 	/**
 		:name:	alignFromTopRight
 	*/
 	public static func alignFromTopRight(parent: UIView, child: UIView, top: CGFloat = 0, right: CGFloat = 0) {
-		let metrics: Dictionary<String, AnyObject> = ["top" : top, "right" : right]
-		let views: Dictionary<String, AnyObject> = ["child" : child]
-		parent.addConstraints(constraint("H:[child]-(right)-|", options: [], metrics: metrics, views: views))
-		parent.addConstraints(constraint("V:|-(top)-[child]", options: [], metrics: metrics, views: views))
+		alignFromTop(parent, child: child, top: top)
+		alignFromRight(parent, child: child, right: right)
 	}
 	
 	/**
 		:name:	alignFromBottomLeft
 	*/
 	public static func alignFromBottomLeft(parent: UIView, child: UIView, bottom: CGFloat = 0, left: CGFloat = 0) {
-		let metrics: Dictionary<String, AnyObject> = ["bottom" : bottom, "left" : left]
-		let views: Dictionary<String, AnyObject> = ["child" : child]
-		parent.addConstraints(constraint("H:|-(left)-[child]", options: [], metrics: metrics, views: views))
-		parent.addConstraints(constraint("V:[child]-(bottom)-|", options: [], metrics: metrics, views: views))
+		alignFromBottom(parent, child: child, bottom: bottom)
+		alignFromLeft(parent, child: child, left: left)
 	}
 	
 	/**
 		:name:	alignFromBottomRight
 	*/
 	public static func alignFromBottomRight(parent: UIView, child: UIView, bottom: CGFloat = 0, right: CGFloat = 0) {
-		let metrics: Dictionary<String, AnyObject> = ["bottom" : bottom, "right" : right]
-		let views: Dictionary<String, AnyObject> = ["child" : child]
-		parent.addConstraints(constraint("H:[child]-(right)-|", options: [], metrics: metrics, views: views))
-		parent.addConstraints(constraint("V:[child]-(bottom)-|", options: [], metrics: metrics, views: views))
+		alignFromBottom(parent, child: child, bottom: bottom)
+		alignFromRight(parent, child: child, right: right)
 	}
 	
 	/**

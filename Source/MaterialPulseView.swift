@@ -75,7 +75,7 @@ public class MaterialPulseView: MaterialView {
 		// set start position
 		CATransaction.begin()
 		CATransaction.setAnimationDuration(0)
-		let w: CGFloat = width / 2
+		let w: CGFloat = (width < height ? height : width) / 2
 		pulseLayer.hidden = false
 		pulseLayer.position = point
 		pulseLayer.bounds = CGRectMake(0, 0, w, w)

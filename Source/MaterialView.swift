@@ -116,7 +116,6 @@ public class MaterialView: UIView {
 			frame.size.width = value
 			if nil != shape {
 				frame.size.height = value
-				prepareShape()
 			}
 		}
 	}
@@ -132,7 +131,6 @@ public class MaterialView: UIView {
 			frame.size.height = value
 			if nil != shape {
 				frame.size.width = value
-				prepareShape()
 			}
 		}
 	}
@@ -188,7 +186,9 @@ public class MaterialView: UIView {
 	public var cornerRadius: MaterialRadius! {
 		didSet {
 			layer.cornerRadius = MaterialRadiusToValue(nil == cornerRadius ? .None : cornerRadius!)
-			shape = nil
+			if .Circle == shape {
+				shape = nil
+			}
 		}
 	}
 	
@@ -203,7 +203,6 @@ public class MaterialView: UIView {
 				} else {
 					frame.size.height = width
 				}
-				prepareShape()
 			}
 		}
 	}
@@ -281,6 +280,8 @@ public class MaterialView: UIView {
 	*/
 	public override func layoutSubviews() {
 		super.layoutSubviews()
+		prepareShape()
+		
 		visualLayer.frame = bounds
 		visualLayer.cornerRadius = layer.cornerRadius
 	}
@@ -313,7 +314,9 @@ public class MaterialView: UIView {
 	//	:name:	prepareShape
 	//
 	internal func prepareShape() {
-		layer.cornerRadius = .Square == shape ? 0 : width / 2
+		if .Circle == shape {
+			layer.cornerRadius = width / 2
+		}
 	}
 }
 
