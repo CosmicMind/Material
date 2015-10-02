@@ -20,53 +20,106 @@ import UIKit
 
 public extension MaterialAnimation {
 	/**
+		:name:	backgroundColorAnimation
+	*/
+	public static func backgroundColorAnimation(color: UIColor) -> CABasicAnimation {
+		let animation: CABasicAnimation = CABasicAnimation()
+		animation.keyPath = "backgroundColor"
+		animation.toValue = color.CGColor
+		return animation
+	}
+	
+	/**
+		:name:	backgroundColor
+	*/
+	public static func backgroundColor(view: UIView, color: UIColor, duration: CFTimeInterval = 0.25, completion: (() -> Void)? = nil) {
+		backgroundColor(view.layer, color: color, duration: duration, completion: completion)
+	}
+	
+	/**
 		:name:	backgroundColor
 	*/
 	public static func backgroundColor(layer: CALayer, color: UIColor, duration: CFTimeInterval = 0.25, completion: (() -> Void)? = nil) {
-		let animation: CABasicAnimation = CABasicAnimation()
-		animation.keyPath = "backgroundColor"
+		let animation: CABasicAnimation = backgroundColorAnimation(color)
 		animation.duration = duration
-		animation.toValue = color.CGColor
 		applyBasicAnimation(animation, toLayer: layer, completion: completion)
 	}
 	
 	/**
-		:name:	rotate
+		:name:	rotationAnimation
 	*/
-	public static func rotate(view: UIView, rotations: Int = 1, duration: CFTimeInterval = 0.5, completion: (() -> Void)? = nil) {
-		rotate(view.layer, rotations: rotations, duration: duration, completion: completion)
-	}
-	
-	/**
-		:name:	rotate
-	*/
-	public static func rotate(layer: CALayer, rotations: Int = 1, duration: CFTimeInterval = 0.5, completion: (() -> Void)? = nil) {
+	public static func rotationAnimation(rotations: Int = 1) -> CABasicAnimation {
 		let animation: CABasicAnimation = CABasicAnimation()
 		animation.keyPath = "transform.rotation"
-		animation.duration = duration
 		animation.byValue = M_PI * 2 * Double(rotations)
+		return animation
+	}
+	
+	/**
+		:name:	rotation
+	*/
+	public static func rotation(view: UIView, rotations: Int = 1, duration: CFTimeInterval = 0.5, completion: (() -> Void)? = nil) {
+		rotation(view.layer, rotations: rotations, duration: duration, completion: completion)
+	}
+	
+	/**
+		:name:	rotation
+	*/
+	public static func rotation(layer: CALayer, rotations: Int = 1, duration: CFTimeInterval = 0.5, completion: (() -> Void)? = nil) {
+		let animation: CABasicAnimation = rotationAnimation(rotations)
+		animation.duration = duration
 		applyBasicAnimation(animation, toLayer: layer, completion: completion)
+	}
+	
+	/**
+		:name:	transformAnimation
+	*/
+	public static func transformAnimation(scale: CATransform3D) -> CABasicAnimation {
+		let animation: CABasicAnimation = CABasicAnimation()
+		animation.keyPath = "transform"
+		animation.toValue = NSValue(CATransform3D: scale)
+		return animation
+	}
+	
+	/**
+		:name:	transform
+	*/
+	public static func transform(view: UIView, rotations: Int = 1, duration: CFTimeInterval = 0.25, completion: (() -> Void)? = nil) {
+		rotation(view.layer, rotations: rotations, duration: duration, completion: completion)
 	}
 	
 	/**
 		:name:	transform
 	*/
 	public static func transform(layer: CALayer, scale: CATransform3D, duration: CFTimeInterval = 0.25, completion: (() -> Void)? = nil) {
-		let animation: CABasicAnimation = CABasicAnimation()
-		animation.keyPath = "transform"
+		let animation: CABasicAnimation = transformAnimation(scale)
 		animation.duration = duration
-		animation.toValue = NSValue(CATransform3D: scale)
 		applyBasicAnimation(animation, toLayer: layer, completion: completion)
+	}
+	
+	/**
+		:name:	cornerRadiusAnimation
+	*/
+	public static func cornerRadiusAnimation(radius: CGFloat) -> CABasicAnimation {
+		let animation: CABasicAnimation = CABasicAnimation()
+		animation.keyPath = "cornerRadius"
+		animation.toValue = radius
+		return animation
+	}
+	
+	/**
+		:name:	cornerRadius
+	*/
+	public static func cornerRadius(view: UIView, radius: CGFloat, duration: CFTimeInterval = 0.25, completion: (() -> Void)? = nil) {
+		cornerRadius(view.layer, radius: radius, duration: duration, completion: completion)
 	}
 	
 	/**
 		:name:	cornerRadius
 	*/
 	public static func cornerRadius(layer: CALayer, radius: CGFloat, duration: CFTimeInterval = 0.25, completion: (() -> Void)? = nil) {
-		let animation: CABasicAnimation = CABasicAnimation()
-		animation.keyPath = "cornerRadius"
+		let animation: CABasicAnimation = cornerRadiusAnimation(radius)
 		animation.duration = duration
-		animation.byValue = radius
 		applyBasicAnimation(animation, toLayer: layer, completion: completion)
 	}
 }

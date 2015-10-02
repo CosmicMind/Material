@@ -30,9 +30,26 @@ public struct MaterialAnimation {
 	}
 	
 	/**
+		:name:	groupAnimation
+	*/
+	public static func groupAnimation(view: UIView, animations: Array<CAAnimation>, duration: NSTimeInterval = 0.5) {
+		return groupAnimation(view.layer, animations: animations, duration: duration)
+	}
+	
+	/**
+		:name:	groupAnimation
+	*/
+	public static func groupAnimation(layer: CALayer, animations: Array<CAAnimation>, duration: NSTimeInterval = 0.5) {
+		let group: CAAnimationGroup = CAAnimationGroup()
+		group.animations = animations
+		group.duration = duration
+		layer.addAnimation(group, forKey: nil)
+	}
+	
+	/**
 		:name:	applyBasicAnimation
 	*/
-	public static func applyBasicAnimation(animation: CABasicAnimation, toLayer layer: CALayer, completion: (() -> Void)? = nil) {
+	internal static func applyBasicAnimation(animation: CABasicAnimation, toLayer layer: CALayer, completion: (() -> Void)? = nil) {
 		// use presentation layer if available
 		animation.fromValue = (nil == layer.presentationLayer() ? layer : layer.presentationLayer() as! CALayer).valueForKeyPath(animation.keyPath!)
 		CATransaction.begin()
@@ -50,8 +67,9 @@ public struct MaterialAnimation {
 	/**
 		:name:	applyKeyframeAnimation
 	*/
-	public static func applyKeyframeAnimation(animation: CAKeyframeAnimation, toLayer layer: CALayer, completion: (() -> Void)? = nil) {
+	internal static func applyKeyframeAnimation(animation: CAKeyframeAnimation, toLayer layer: CALayer) {
 		// use presentation layer if available
 		(nil == layer.presentationLayer() ? layer : layer.presentationLayer() as! CALayer).addAnimation(animation, forKey: nil)
+		
 	}
 }
