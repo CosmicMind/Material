@@ -55,13 +55,10 @@ public struct MaterialAnimation {
 		CATransaction.begin()
 		CATransaction.setDisableActions(true)
 		CATransaction.setCompletionBlock(completion)
-		if let v = animation.toValue {
-			layer.setValue(v, forKey: animation.keyPath!)
-		} else if let v = animation.byValue {
-			layer.setValue(v, forKey: animation.keyPath!)
-		}
+		layer.setValue(nil == animation.toValue ? animation.byValue : animation.toValue, forKey: animation.keyPath!)
 		CATransaction.commit()
-		layer.addAnimation(animation, forKey: nil)
+		layer.addAnimation(animation, forKey: animation.keyPath!)
+		animation.delegate = self as? AnyObject
 	}
 	
 	/**
@@ -69,7 +66,10 @@ public struct MaterialAnimation {
 	*/
 	internal static func applyKeyframeAnimation(animation: CAKeyframeAnimation, toLayer layer: CALayer) {
 		// use presentation layer if available
-		(nil == layer.presentationLayer() ? layer : layer.presentationLayer() as! CALayer).addAnimation(animation, forKey: nil)
-		
+		(nil == layer.presentationLayer() ? layer : layer.presentationLayer() as! CALayer).addAnimation(animation, forKey: animation.keyPath!)
+	}
+	
+	internal func animationDidStop(anim: CAAnimation, finished flag: Bool) {
+		print("HERE")
 	}
 }

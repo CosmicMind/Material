@@ -80,8 +80,8 @@ public class MaterialPulseView : MaterialView {
 		})
 		
 		pulseLayer.hidden = false
-		MaterialAnimation.transform(pulseLayer, scale: CATransform3DMakeScale(3, 3, 3))
-		MaterialAnimation.transform(layer, scale: CATransform3DMakeScale(1.05, 1.05, 1.05))
+		pulseLayer.transform = CATransform3DMakeScale(3, 3, 3)
+		layer.transform = CATransform3DMakeScale(1.05, 1.05, 1.05)
 	}
 	
 	/**
@@ -151,7 +151,7 @@ public class MaterialPulseView : MaterialView {
 	//
 	internal func shrink() {
 		pulseLayer.hidden = true
-		MaterialAnimation.transform(pulseLayer, scale: CATransform3DIdentity)
-		MaterialAnimation.transform(layer, scale: CATransform3DIdentity)
+		pulseLayer.transform = CATransform3DIdentity
+		layer.transform = CATransform3DIdentity
 	}
 }

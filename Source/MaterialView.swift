@@ -238,6 +238,18 @@ public class MaterialView : UIView {
 	}
 	
 	/**
+		:name:	position
+	*/
+	public var position: CGPoint {
+		get {
+			return layer.position
+		}
+		set(value) {
+			layer.position = value
+		}
+	}
+	
+	/**
 		:name:	zPosition
 	*/
 	public var zPosition: CGFloat! {

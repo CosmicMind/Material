@@ -42,28 +42,28 @@ public func MaterialAnimationRotationModeToValue(mode: MaterialAnimationRotation
 
 public extension MaterialAnimation {
 	/**
-		:name:	positionAnimation
+		:name:	path
 	*/
-	public static func positionAnimation(path: UIBezierPath, mode: MaterialAnimationRotationMode = .Auto) -> CAKeyframeAnimation {
+	public static func pathAnimation(bezierPath: UIBezierPath, mode: MaterialAnimationRotationMode = .Auto) -> CAKeyframeAnimation {
 		let animation: CAKeyframeAnimation = CAKeyframeAnimation()
 		animation.keyPath = "position"
-		animation.path = path.CGPath
+		animation.path = bezierPath.CGPath
 		animation.rotationMode = MaterialAnimationRotationModeToValue(mode)
 		return animation
 	}
 	
 	/**
-		:name: position
+		:name: path
 	*/
-	public static func position(view: UIView, path: UIBezierPath, mode: MaterialAnimationRotationMode = .Auto, duration: CFTimeInterval = 1) {
-		position(view.layer, path: path, mode: mode, duration: duration)
+	public static func path(view: UIView, bezierPath: UIBezierPath, mode: MaterialAnimationRotationMode = .Auto, duration: CFTimeInterval = 1) {
+		path(view.layer, bezierPath: bezierPath, mode: mode, duration: duration)
 	}
 	
 	/**
-		:name: position
+		:name: path
 	*/
-	public static func position(layer: CALayer, path: UIBezierPath, mode: MaterialAnimationRotationMode = .Auto, duration: CFTimeInterval = 1) {
-		let animation: CAKeyframeAnimation = positionAnimation(path, mode: mode)
+	public static func path(layer: CALayer, bezierPath: UIBezierPath, mode: MaterialAnimationRotationMode = .Auto, duration: CFTimeInterval = 1) {
+		let animation: CAKeyframeAnimation = pathAnimation(bezierPath, mode: mode)
 		animation.duration = duration
 		applyKeyframeAnimation(animation, toLayer: layer)
 	}
