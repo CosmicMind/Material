@@ -37,6 +37,8 @@
 		65BDD1741BB8D443006F7F2B /* MaterialAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1731BB8D443006F7F2B /* MaterialAnimation.swift */; settings = {ASSET_TAGS = (); }; };
 		65BDD1791BB99C0F006F7F2B /* RaisedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1781BB99C0F006F7F2B /* RaisedButton.swift */; settings = {ASSET_TAGS = (); }; };
 		65BDD17C1BB99E29006F7F2B /* FabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD17B1BB99E29006F7F2B /* FabButton.swift */; settings = {ASSET_TAGS = (); }; };
+		65D2BEC71BBED1E400800B7B /* MaterialBasicAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D2BEC61BBED1E400800B7B /* MaterialBasicAnimation.swift */; settings = {ASSET_TAGS = (); }; };
+		65D2BEC91BBED1FA00800B7B /* MaterialKeyframeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D2BEC81BBED1FA00800B7B /* MaterialKeyframeAnimation.swift */; settings = {ASSET_TAGS = (); }; };
 		65DBE4201B9A9244000C804F /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 65DBE41E1B9A9244000C804F /* Roboto-Bold.ttf */; };
 		65DBE4211B9A9244000C804F /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 65DBE41F1B9A9244000C804F /* Roboto-Thin.ttf */; };
 		962F3E531BACA68C0004B8AD /* NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962F3E521BACA68C0004B8AD /* NavigationBarView.swift */; };
@@ -90,6 +92,8 @@
 		65BDD1731BB8D443006F7F2B /* MaterialAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialAnimation.swift; sourceTree = "<group>"; };
 		65BDD1781BB99C0F006F7F2B /* RaisedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RaisedButton.swift; sourceTree = "<group>"; };
 		65BDD17B1BB99E29006F7F2B /* FabButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FabButton.swift; sourceTree = "<group>"; };
+		65D2BEC61BBED1E400800B7B /* MaterialBasicAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialBasicAnimation.swift; sourceTree = "<group>"; };
+		65D2BEC81BBED1FA00800B7B /* MaterialKeyframeAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialKeyframeAnimation.swift; sourceTree = "<group>"; };
 		65DBE41E1B9A9244000C804F /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		65DBE41F1B9A9244000C804F /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		962F3E521BACA68C0004B8AD /* NavigationBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = "<group>"; };
@@ -179,6 +183,8 @@
 			isa = PBXGroup;
 			children = (
 				65BDD1731BB8D443006F7F2B /* MaterialAnimation.swift */,
+				65D2BEC61BBED1E400800B7B /* MaterialBasicAnimation.swift */,
+				65D2BEC81BBED1FA00800B7B /* MaterialKeyframeAnimation.swift */,
 			);
 			name = Animation;
 			sourceTree = "<group>";
@@ -442,6 +448,8 @@
 				65BDD15B1BB7095E006F7F2B /* MaterialRadius.swift in Sources */,
 				65BDD1721BB8CD77006F7F2B /* MaterialLabel.swift in Sources */,
 				65BDD1491BB5DC98006F7F2B /* MaterialColor.swift in Sources */,
+				65D2BEC91BBED1FA00800B7B /* MaterialKeyframeAnimation.swift in Sources */,
+				65D2BEC71BBED1E400800B7B /* MaterialBasicAnimation.swift in Sources */,
 				65BDD14D1BB5ED9F006F7F2B /* MaterialTheme.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

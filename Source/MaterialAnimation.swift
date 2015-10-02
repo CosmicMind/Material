@@ -20,64 +20,19 @@ import UIKit
 
 public struct MaterialAnimation {
 	/**
-		:name:	backgroundColor
+		:name:	disableAnimation
 	*/
-	public static func backgroundColor(layer: CALayer, color: UIColor, duration: CFTimeInterval = 0.25, completion: (() -> Void)? = nil) {
-		let animation: CABasicAnimation = CABasicAnimation()
-		animation.keyPath = "backgroundColor"
-		animation.duration = duration
-		animation.toValue = color.CGColor
-		applyBasicAnimation(animation, layer: layer, completion: completion)
-	}
-	
-	/**
-		:name:	rotate
-	*/
-	public static func rotate(layer: CALayer, rotations: Int = 1, duration: CFTimeInterval = 0.5, completion: (() -> Void)? = nil) {
-		let animation: CABasicAnimation = CABasicAnimation()
-		animation.keyPath = "transform.rotation"
-		animation.duration = duration
-		animation.byValue = M_PI * 2 * Double(rotations)
-		applyBasicAnimation(animation, layer: layer, completion: completion)
-	}
-	
-	/**
-		:name:	transform
-	*/
-	public static func transform(layer: CALayer, scale: CATransform3D, duration: CFTimeInterval = 0.25, completion: (() -> Void)? = nil) {
-		let animation: CABasicAnimation = CABasicAnimation()
-		animation.keyPath = "transform"
-		animation.duration = duration
-		animation.toValue = NSValue(CATransform3D: scale)
-		applyBasicAnimation(animation, layer: layer, completion: completion)
-	}
-	
-	/**
-		:name:	position
-	*/
-	public static func position(layer: CALayer, point: CGPoint, duration: CFTimeInterval = 0.25, completion: (() -> Void)? = nil) {
-		let animation: CABasicAnimation = CABasicAnimation()
-		animation.keyPath = "position"
-		animation.duration = duration
-		animation.toValue = NSValue(CGPoint: point)
-		applyBasicAnimation(animation, layer: layer, completion: completion)
-	}
-	
-	/**
-		:name:	cornerRadius
-	*/
-	public static func cornerRadius(layer: CALayer, radius: CGFloat, duration: CFTimeInterval = 0.25, completion: (() -> Void)? = nil) {
-		let animation: CABasicAnimation = CABasicAnimation()
-		animation.keyPath = "cornerRadius"
-		animation.duration = duration
-		animation.toValue = radius
-		applyBasicAnimation(animation, layer: layer, completion: completion)
+	public static func disableAnimation(block: (() -> Void)) {
+		CATransaction.begin()
+		CATransaction.setAnimationDuration(0)
+		block()
+		CATransaction.commit()
 	}
 	
 	/**
 		:name:	applyBasicAnimation
 	*/
-	public static func applyBasicAnimation(animation: CABasicAnimation, layer: CALayer, completion: (() -> Void)? = nil) {
+	public static func applyBasicAnimation(animation: CABasicAnimation, toLayer layer: CALayer, completion: (() -> Void)? = nil) {
 		// use presentation layer if available
 		animation.fromValue = (nil == layer.presentationLayer() ? layer : layer.presentationLayer() as! CALayer).valueForKeyPath(animation.keyPath!)
 		CATransaction.begin()
@@ -93,12 +48,10 @@ public struct MaterialAnimation {
 	}
 	
 	/**
-		:name:	disableAnimation
+		:name:	applyKeyframeAnimation
 	*/
-	public static func disableAnimation(block: (() -> Void)) {
-		CATransaction.begin()
-		CATransaction.setAnimationDuration(0)
-		block()
-		CATransaction.commit()
+	public static func applyKeyframeAnimation(animation: CAKeyframeAnimation, toLayer layer: CALayer, completion: (() -> Void)? = nil) {
+		// use presentation layer if available
+		(nil == layer.presentationLayer() ? layer : layer.presentationLayer() as! CALayer).addAnimation(animation, forKey: nil)
 	}
 }
