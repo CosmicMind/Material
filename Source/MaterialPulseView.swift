@@ -18,7 +18,7 @@
 
 import UIKit
 
-public class MaterialPulseView: MaterialView {
+public class MaterialPulseView : MaterialView {
 	//
 	//	:name:	touchesLayer
 	//
@@ -53,7 +53,7 @@ public class MaterialPulseView: MaterialView {
 		:name:	init
 	*/
 	public convenience init() {
-		self.init(frame: CGRectZero)
+		self.init(frame: CGRectNull)
 	}
 	
 	/**
@@ -71,23 +71,17 @@ public class MaterialPulseView: MaterialView {
 	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesBegan(touches, withEvent: event)
 		let point: CGPoint = touches.first!.locationInView(self)
-		
-		// set start position
-		CATransaction.begin()
-		CATransaction.setAnimationDuration(0)
 		let w: CGFloat = (width < height ? height : width) / 2
-		pulseLayer.hidden = false
-		pulseLayer.position = point
-		pulseLayer.bounds = CGRectMake(0, 0, w, w)
-		pulseLayer.cornerRadius = CGFloat(w / 2)
-		CATransaction.commit()
 		
-		// expand
-		CATransaction.begin()
-		CATransaction.setAnimationDuration(0.25)
+		MaterialAnimation.disableAnimation({ _ in
+			self.pulseLayer.bounds = CGRectMake(0, 0, w, w)
+			self.pulseLayer.position = point
+			self.pulseLayer.cornerRadius = CGFloat(w / 2)
+		})
+		
+		pulseLayer.hidden = false
 		pulseLayer.transform = CATransform3DMakeScale(3, 3, 3)
 		layer.transform = CATransform3DMakeScale(1.05, 1.05, 1.05)
-		CATransaction.commit()
 	}
 	
 	/**
@@ -156,11 +150,8 @@ public class MaterialPulseView: MaterialView {
 	//	:name:	shrink
 	//
 	internal func shrink() {
-		CATransaction.begin()
-		CATransaction.setAnimationDuration(0.25)
 		pulseLayer.hidden = true
 		pulseLayer.transform = CATransform3DIdentity
 		layer.transform = CATransform3DIdentity
-		CATransaction.commit()
 	}
 }

@@ -70,10 +70,10 @@ public class MaterialButton : UIButton {
 	*/
 	public var x: CGFloat {
 		get {
-			return frame.origin.x
+			return layer.frame.origin.x
 		}
 		set(value) {
-			frame.origin.x = value
+			layer.frame.origin.x = value
 		}
 	}
 	
@@ -82,10 +82,10 @@ public class MaterialButton : UIButton {
 	*/
 	public var y: CGFloat {
 		get {
-			return frame.origin.y
+			return layer.frame.origin.y
 		}
 		set(value) {
-			frame.origin.y = value
+			layer.frame.origin.y = value
 		}
 	}
 	
@@ -94,12 +94,12 @@ public class MaterialButton : UIButton {
 	*/
 	public var width: CGFloat {
 		get {
-			return frame.size.width
+			return layer.frame.size.width
 		}
 		set(value) {
-			frame.size.width = value
+			layer.frame.size.width = value
 			if nil != shape {
-				frame.size.height = value
+				layer.frame.size.height = value
 			}
 		}
 	}
@@ -109,12 +109,12 @@ public class MaterialButton : UIButton {
 	*/
 	public var height: CGFloat {
 		get {
-			return frame.size.height
+			return layer.frame.size.height
 		}
 		set(value) {
-			frame.size.height = value
+			layer.frame.size.height = value
 			if nil != shape {
-				frame.size.width = value
+				layer.frame.size.width = value
 			}
 		}
 	}
@@ -183,9 +183,9 @@ public class MaterialButton : UIButton {
 		didSet {
 			if nil != shape {
 				if width < height {
-					frame.size.width = height
+					layer.frame.size.width = height
 				} else {
-					frame.size.height = width
+					layer.frame.size.height = width
 				}
 			}
 		}
@@ -258,7 +258,7 @@ public class MaterialButton : UIButton {
 		:name:	init
 	*/
 	public convenience init() {
-		self.init(frame: CGRectZero)
+		self.init(frame: CGRectNull)
 	}
 
 	/**
@@ -288,23 +288,17 @@ public class MaterialButton : UIButton {
 	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesBegan(touches, withEvent: event)
 		let point: CGPoint = touches.first!.locationInView(self)
-		
-		// set start position
-		CATransaction.begin()
-		CATransaction.setAnimationDuration(0)
 		let w: CGFloat = (width < height ? height : width) / 2
-		pulseLayer.hidden = false
-		pulseLayer.position = point
-		pulseLayer.bounds = CGRectMake(0, 0, w, w)
-		pulseLayer.cornerRadius = CGFloat(w / 2)
-		CATransaction.commit()
 		
-		// expand
-		CATransaction.begin()
-		CATransaction.setAnimationDuration(0.25)
-		pulseLayer.transform = CATransform3DMakeScale(3, 3, 3)
-		layer.transform = CATransform3DMakeScale(1.05, 1.05, 1.05)
-		CATransaction.commit()
+		MaterialAnimation.disableAnimation({ _ in
+			self.pulseLayer.bounds = CGRectMake(0, 0, w, w)
+			self.pulseLayer.position = point
+			self.pulseLayer.cornerRadius = CGFloat(w / 2)
+		})
+		
+		pulseLayer.hidden = false
+		MaterialAnimation.transform(pulseLayer, scale: CATransform3DMakeScale(3, 3, 3))
+		MaterialAnimation.transform(layer, scale: CATransform3DMakeScale(1.05, 1.05, 1.05))
 	}
 	
 	/**
@@ -368,11 +362,8 @@ public class MaterialButton : UIButton {
 	//	:name:	shrink
 	//
 	internal func shrink() {
-		CATransaction.begin()
-		CATransaction.setAnimationDuration(0.25)
 		pulseLayer.hidden = true
-		pulseLayer.transform = CATransform3DIdentity
-		layer.transform = CATransform3DIdentity
-		CATransaction.commit()
+		MaterialAnimation.transform(pulseLayer, scale: CATransform3DIdentity)
+		MaterialAnimation.transform(layer, scale: CATransform3DIdentity)
 	}
 }

@@ -18,7 +18,7 @@
 
 import UIKit
 
-public class BasicCardView: MaterialPulseView {
+public class BasicCardView : MaterialPulseView {
 	//
 	//	:name:	dividerLayer
 	//
@@ -208,14 +208,14 @@ public class BasicCardView: MaterialPulseView {
 		:name:	init
 	*/
 	public convenience init() {
-		self.init(frame: CGRectZero)
+		self.init(frame: CGRectNull)
 	}
 	
 	/**
 		:name:	init
 	*/
 	public convenience init?(titleLabel: UILabel? = nil, detailLabel: UILabel? = nil, leftButtons: Array<MaterialButton>? = nil, rightButtons: Array<MaterialButton>? = nil) {
-		self.init(frame: CGRectZero)
+		self.init(frame: CGRectNull)
 		self.prepareProperties(titleLabel, detailLabel: detailLabel, leftButtons: leftButtons, rightButtons: rightButtons)
 	}
 	

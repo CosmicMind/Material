@@ -18,7 +18,7 @@
 
 import UIKit
 
-public class MaterialView: UIView {
+public class MaterialView : UIView {
 	//
 	//	:name:	visualLayer
 	//
@@ -86,10 +86,10 @@ public class MaterialView: UIView {
 	*/
 	public var x: CGFloat {
 		get {
-			return frame.origin.x
+			return layer.frame.origin.x
 		}
 		set(value) {
-			frame.origin.x = value
+			layer.frame.origin.x = value
 		}
 	}
 	
@@ -98,10 +98,10 @@ public class MaterialView: UIView {
 	*/
 	public var y: CGFloat {
 		get {
-			return frame.origin.y
+			return layer.frame.origin.y
 		}
 		set(value) {
-			frame.origin.y = value
+			layer.frame.origin.y = value
 		}
 	}
 	
@@ -110,12 +110,12 @@ public class MaterialView: UIView {
 	*/
 	public var width: CGFloat {
 		get {
-			return frame.size.width
+			return layer.frame.size.width
 		}
 		set(value) {
-			frame.size.width = value
+			layer.frame.size.width = value
 			if nil != shape {
-				frame.size.height = value
+				layer.frame.size.height = value
 			}
 		}
 	}
@@ -125,12 +125,12 @@ public class MaterialView: UIView {
 	*/
 	public var height: CGFloat {
 		get {
-			return frame.size.height
+			return layer.frame.size.height
 		}
 		set(value) {
-			frame.size.height = value
+			layer.frame.size.height = value
 			if nil != shape {
-				frame.size.width = value
+				layer.frame.size.width = value
 			}
 		}
 	}
@@ -199,9 +199,9 @@ public class MaterialView: UIView {
 		didSet {
 			if nil != shape {
 				if width < height {
-					frame.size.width = height
+					layer.frame.size.width = height
 				} else {
-					frame.size.height = width
+					layer.frame.size.height = width
 				}
 			}
 		}
@@ -265,7 +265,7 @@ public class MaterialView: UIView {
 		:name:	init
 	*/
 	public convenience init() {
-		self.init(frame: CGRectZero)
+		self.init(frame: CGRectNull)
 	}
 	
 	/**

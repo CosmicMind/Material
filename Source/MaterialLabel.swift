@@ -157,7 +157,7 @@ public class MaterialLabel : UILabel {
 		:name:	init
 	*/
 	public convenience init() {
-		self.init(frame: CGRectZero)
+		self.init(frame: CGRectNull)
 	}
 	
 	//

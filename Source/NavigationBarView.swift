@@ -18,7 +18,7 @@
 
 import UIKit
 
-public class NavigationBarView: MaterialView {
+public class NavigationBarView : MaterialView {
 	/**
 		:name:	statusBarStyle
 	*/
