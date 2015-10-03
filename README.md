@@ -208,7 +208,7 @@ v.backgroundColor = MaterialColor.blue.accent3
 view.addSubview(v)
 
 // Play a group of animations.
-v.animation(MaterialAnimation.groupAnimation([
+v.animation(MaterialAnimation.animationGroup([
 	MaterialAnimation.rotation(3),
 	MaterialAnimation.position(CGPointMake(225, 400)),
 	MaterialAnimation.cornerRadius(30),

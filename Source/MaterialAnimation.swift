@@ -55,9 +55,9 @@ public struct MaterialAnimation {
 	}
 	
 	/**
-		:name:	groupAnimation
+		:name:	animationGroup
 	*/
-	public static func groupAnimation(animations: Array<CAAnimation>, duration: NSTimeInterval = 0.5) -> CAAnimationGroup {
+	public static func animationGroup(animations: Array<CAAnimation>, duration: NSTimeInterval = 0.5) -> CAAnimationGroup {
 		let group: CAAnimationGroup = CAAnimationGroup()
 		group.fillMode = MaterialAnimationFillModeToValue(.Forwards)
 		group.removedOnCompletion = false
