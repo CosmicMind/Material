@@ -299,21 +299,21 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-		:name:	addAnimation
+		:name:	animation
 	*/
-	public func addAnimation(animation: CAAnimation) {
-		if let a = animation as? CABasicAnimation {
+	public func animation(animation: CAAnimation) {
+		animation.delegate = self
+		if let a: CABasicAnimation = animation as? CABasicAnimation {
 			a.fromValue = (nil == layer.presentationLayer() ? layer : layer.presentationLayer() as! CALayer).valueForKeyPath(a.keyPath!)
-			a.delegate = self
+		}
+		if let a: CAPropertyAnimation = animation as? CAPropertyAnimation {
 			layer.addAnimation(a, forKey: a.keyPath!)
-			visualLayer.addAnimation(a, forKey: a.keyPath!)
-		} else if let a = animation as? CAKeyframeAnimation {
-			a.delegate = self
-			layer.addAnimation(a, forKey: a.keyPath!)
-			visualLayer.addAnimation(a, forKey: a.keyPath!)
-		} else if let a = animation as? CAAnimationGroup {
-			a.delegate = self
+			if true == filterAnimations(a) {
+				visualLayer.addAnimation(a, forKey: a.keyPath!)
+			}
+		} else if let a: CAAnimationGroup = animation as? CAAnimationGroup {
 			layer.addAnimation(a, forKey: nil)
+			filterAnimations(a)
 			visualLayer.addAnimation(a, forKey: nil)
 		}
 	}
@@ -321,23 +321,42 @@ public class MaterialView : UIView {
 	/**
 		:name:	animationDidStart
 	*/
-	public override func animationDidStart(anim: CAAnimation) {
-		print("STARTED")
-	}
+	public override func animationDidStart(anim: CAAnimation) {}
 	
 	/**
 		:name:	animationDidStop
 	*/
 	public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
-		if let a = anim as? CABasicAnimation {
+		if let a: CAPropertyAnimation = anim as? CAPropertyAnimation {
+			if let b: CABasicAnimation = a as? CABasicAnimation {
+				CATransaction.begin()
+				CATransaction.setDisableActions(true)
+				layer.setValue(nil == b.toValue ? b.byValue : b.toValue, forKey: b.keyPath!)
+				CATransaction.commit()
+			}
+			layer.removeAnimationForKey(a.keyPath!)
 			visualLayer.removeAnimationForKey(a.keyPath!)
-		} else if let a = anim as? CAKeyframeAnimation {
-			visualLayer.removeAnimationForKey(a.keyPath!)
-		} else if let a = anim as? CAAnimationGroup {
+		} else if let a: CAAnimationGroup = anim as? CAAnimationGroup {
 			for x in a.animations! {
 				animationDidStop(x, finished: true)
 			}
 		}
+	}
+	
+	//
+	//	:name:	filterAnimations
+	//
+	internal func filterAnimations(animation: CAAnimation) -> Bool? {
+		if let a: CAPropertyAnimation = animation as? CAPropertyAnimation {
+			return "position" != a.keyPath
+		} else if let a: CAAnimationGroup = animation as? CAAnimationGroup {
+			for var i: Int = a.animations!.count - 1; 0 <= i; --i {
+				if false == filterAnimations(a.animations![i]) {
+					a.animations!.removeAtIndex(i)
+				}
+			}
+		}
+		return nil
 	}
 	
 	//

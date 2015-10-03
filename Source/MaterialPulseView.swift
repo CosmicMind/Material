@@ -20,11 +20,6 @@ import UIKit
 
 public class MaterialPulseView : MaterialView {
 	//
-	//	:name:	touchesLayer
-	//
-	internal lazy var touchesLayer: CAShapeLayer = CAShapeLayer()
-	
-	//
 	//	:name:	pulseLayer
 	//
 	internal lazy var pulseLayer: CAShapeLayer = CAShapeLayer()
@@ -50,31 +45,25 @@ public class MaterialPulseView : MaterialView {
 	}
 	
 	/**
-		:name:	layoutSubviews
-	*/
-	public override func layoutSubviews() {
-		super.layoutSubviews()
-		touchesLayer.frame = bounds
-		touchesLayer.cornerRadius = layer.cornerRadius
-	}
-	
-	/**
 		:name:	touchesBegan
 	*/
 	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesBegan(touches, withEvent: event)
-		let point: CGPoint = touches.first!.locationInView(self)
-		let s: CGFloat = (width < height ? height : width) / 2
-		
-		MaterialAnimation.disableAnimation({
-			self.pulseLayer.bounds = CGRectMake(0, 0, s, s)
-			self.pulseLayer.position = point
-			self.pulseLayer.cornerRadius = s / 2
-		})
-		
-		pulseLayer.hidden = false
-		pulseLayer.transform = CATransform3DMakeScale(3, 3, 3)
-		layer.transform = CATransform3DMakeScale(1.05, 1.05, 1.05)
+		var point: CGPoint = touches.first!.locationInView(self)
+		point = layer.convertPoint(point, fromLayer: layer)
+		if true == layer.containsPoint(point) {
+			let s: CGFloat = (width < height ? height : width) / 2
+				
+			MaterialAnimation.disableAnimation({
+				self.pulseLayer.bounds = CGRectMake(0, 0, s, s)
+				self.pulseLayer.position = point
+				self.pulseLayer.cornerRadius = s / 2
+			})
+				
+			pulseLayer.hidden = false
+			pulseLayer.transform = CATransform3DMakeScale(3, 3, 3)
+			layer.transform = CATransform3DMakeScale(1.05, 1.05, 1.05)
+		}
 	}
 	
 	/**
@@ -100,20 +89,6 @@ public class MaterialPulseView : MaterialView {
 		return nil // returning nil enables the animations for the layer property that are normally disabled.
 	}
 	
-	/**
-		:name:	addAnimation
-	*/
-	public override func addAnimation(animation: CAAnimation) {
-		super.addAnimation(animation)
-		if let a = animation as? CABasicAnimation {
-			touchesLayer.addAnimation(a, forKey: a.keyPath!)
-		} else if let a = animation as? CAKeyframeAnimation {
-			touchesLayer.addAnimation(a, forKey: a.keyPath!)
-		} else if let a = animation as? CAAnimationGroup {
-			touchesLayer.addAnimation(a, forKey: nil)
-		}
-	}
-	
 	//
 	//	:name:	prepareView
 	//
@@ -136,14 +111,10 @@ public class MaterialPulseView : MaterialView {
 		borderWidth = MaterialTheme.pulseView.borderWidth
 		borderColor = MaterialTheme.pulseView.bordercolor
 		
-		// touchesLayer
-		touchesLayer.zPosition = 1000
-		touchesLayer.masksToBounds = true
-		layer.addSublayer(touchesLayer)
-		
 		// pulseLayer
 		pulseLayer.hidden = true
-		touchesLayer.addSublayer(pulseLayer)
+		pulseLayer.zPosition = 1
+		visualLayer.addSublayer(pulseLayer)
 	}
 	
 	//
