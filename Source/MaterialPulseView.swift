@@ -50,13 +50,6 @@ public class MaterialPulseView : MaterialView {
 	}
 	
 	/**
-		:name:	init
-	*/
-	public convenience init() {
-		self.init(frame: CGRectNull)
-	}
-	
-	/**
 		:name:	layoutSubviews
 	*/
 	public override func layoutSubviews() {

@@ -49,8 +49,12 @@ public struct MaterialAnimation {
 	/**
 		:name:	applyBasicAnimation
 	*/
-	internal static func applyBasicAnimation(animation: CABasicAnimation, toLayer layer: CALayer, completion: (() -> Void)? = nil) {
-		groupAnimation(layer, animations: [animation], duration: animation.duration)
+	internal static func applyBasicAnimation(animation: CABasicAnimation, toLayer layer: CALayer) {
+//		groupAnimation(layer, animations: [animation], duration: animation.duration)
+//		CATransaction.begin()
+//		CATransaction.setAnimationDuration(animation.duration)
+//		layer.setValue(nil == animation.toValue ? animation.byValue : animation.toValue, forKey: animation.keyPath!)
+//		CATransaction.commit()
 	}
 	
 	/**

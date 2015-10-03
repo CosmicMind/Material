@@ -298,6 +298,41 @@ public class MaterialView : UIView {
 		visualLayer.cornerRadius = layer.cornerRadius
 	}
 	
+	/**
+		:name:	addAnimation
+	*/
+	public func addAnimation(animation: CAAnimation) {
+		if let a = animation as? CABasicAnimation {
+			a.fromValue = (nil == layer.presentationLayer() ? layer : layer.presentationLayer() as! CALayer).valueForKeyPath(a.keyPath!)
+			a.delegate = self
+			a.fillMode = kCAFillModeForwards
+			a.removedOnCompletion = false
+			layer.addAnimation(animation, forKey: a.keyPath!)
+		} else if let a = animation as? CAKeyframeAnimation {
+			a.delegate = self
+			a.fillMode = kCAFillModeForwards
+			a.removedOnCompletion = false
+			layer.addAnimation(animation, forKey: a.keyPath!)
+		}
+	}
+	
+	/**
+		:name:	animationDidStart
+	*/
+	public override func animationDidStart(anim: CAAnimation) {}
+	
+	/**
+		:name:	animationDidStop
+	*/
+	public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
+		if let a = anim as? CABasicAnimation {
+			layer.setValue(nil == a.toValue ? a.byValue : a.toValue, forKey: a.keyPath!)
+			layer.removeAnimationForKey(a.keyPath!)
+		} else if let a = anim as? CAKeyframeAnimation {
+			layer.removeAnimationForKey(a.keyPath!)
+		}
+	}
+	
 	//
 	//	:name:	prepareView
 	//
