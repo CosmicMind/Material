@@ -20,14 +20,23 @@ import UIKit
 
 public class MaterialLayer : CAShapeLayer {
 
+	/**
+		:name: init
+	*/
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
 	
+	/**
+		:name: init
+	*/
 	public override init(layer: AnyObject) {
 		super.init(layer: layer)
 	}
 	
+	/**
+		:name: init
+	*/
 	public override init() {
 		super.init()
 	}

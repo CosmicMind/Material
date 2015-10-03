@@ -58,20 +58,16 @@ public class MaterialPulseView : MaterialView {
 		if true == layer.containsPoint(point) {
 			let s: CGFloat = (width < height ? height : width) / 2
 			let f: CGFloat = 3
-			var v: CGFloat = s / f
+			let v: CGFloat = s / f
+			let d: CGFloat = 2 * f
 			MaterialAnimation.animationDisabled({
 				self.pulseLayer.hidden = false
 				self.pulseLayer.bounds = CGRectMake(0, 0, v, v)
 				self.pulseLayer.position = point
-				self.pulseLayer.cornerRadius = s / 6
+				self.pulseLayer.cornerRadius = s / d
 			})
-			
-			v = 2 * f
-			MaterialAnimation.animationWithDuration(0.4, animations: {
-				self.pulseLayer.transform = CATransform3DMakeScale(v, v, v)
-			})
-			
 			MaterialAnimation.animationWithDuration(0.25, animations: {
+				self.pulseLayer.transform = CATransform3DMakeScale(d, d, d)
 				self.layer.transform = CATransform3DMakeScale(1.05, 1.05, 1.05)
 			})
 		}
