@@ -32,17 +32,18 @@ public extension MaterialAnimation {
 	/**
 		:name:	backgroundColor
 	*/
-	public static func backgroundColor(view: UIView, color: UIColor, duration: CFTimeInterval = 0.25, completion: (() -> Void)? = nil) {
-		backgroundColor(view.layer, color: color, duration: duration, completion: completion)
+	public static func backgroundColor(view: UIView, color: UIColor, duration: CFTimeInterval = 0.25, completion: (() -> Void)? = nil) -> CABasicAnimation {
+		return backgroundColor(view.layer, color: color, duration: duration, completion: completion)
 	}
 	
 	/**
 		:name:	backgroundColor
 	*/
-	public static func backgroundColor(layer: CALayer, color: UIColor, duration: CFTimeInterval = 0.25, completion: (() -> Void)? = nil) {
+	public static func backgroundColor(layer: CALayer, color: UIColor, duration: CFTimeInterval = 0.25, completion: (() -> Void)? = nil) -> CABasicAnimation {
 		let animation: CABasicAnimation = backgroundColorAnimation(color)
 		animation.duration = duration
 		applyBasicAnimation(animation, toLayer: layer, completion: completion)
+		return animation
 	}
 	
 	/**
@@ -58,17 +59,18 @@ public extension MaterialAnimation {
 	/**
 		:name:	cornerRadius
 	*/
-	public static func cornerRadius(view: UIView, radius: CGFloat, duration: CFTimeInterval = 0.25, completion: (() -> Void)? = nil) {
-		cornerRadius(view.layer, radius: radius, duration: duration, completion: completion)
+	public static func cornerRadius(view: UIView, radius: CGFloat, duration: CFTimeInterval = 0.25, completion: (() -> Void)? = nil) -> CABasicAnimation {
+		return cornerRadius(view.layer, radius: radius, duration: duration, completion: completion)
 	}
 	
 	/**
 		:name:	cornerRadius
 	*/
-	public static func cornerRadius(layer: CALayer, radius: CGFloat, duration: CFTimeInterval = 0.25, completion: (() -> Void)? = nil) {
+	public static func cornerRadius(layer: CALayer, radius: CGFloat, duration: CFTimeInterval = 0.25, completion: (() -> Void)? = nil) -> CABasicAnimation {
 		let animation: CABasicAnimation = cornerRadiusAnimation(radius)
 		animation.duration = duration
 		applyBasicAnimation(animation, toLayer: layer, completion: completion)
+		return animation
 	}
 	
 	/**
@@ -84,17 +86,18 @@ public extension MaterialAnimation {
 	/**
 		:name:	rotation
 	*/
-	public static func rotation(view: UIView, rotations: Int = 1, duration: CFTimeInterval = 0.5, completion: (() -> Void)? = nil) {
-		rotation(view.layer, rotations: rotations, duration: duration, completion: completion)
+	public static func rotation(view: UIView, rotations: Int = 1, duration: CFTimeInterval = 0.5, completion: (() -> Void)? = nil) -> CABasicAnimation {
+		return rotation(view.layer, rotations: rotations, duration: duration, completion: completion)
 	}
 	
 	/**
 		:name:	rotation
 	*/
-	public static func rotation(layer: CALayer, rotations: Int = 1, duration: CFTimeInterval = 0.5, completion: (() -> Void)? = nil) {
+	public static func rotation(layer: CALayer, rotations: Int = 1, duration: CFTimeInterval = 0.5, completion: (() -> Void)? = nil) -> CABasicAnimation {
 		let animation: CABasicAnimation = rotationAnimation(rotations)
 		animation.duration = duration
 		applyBasicAnimation(animation, toLayer: layer, completion: completion)
+		return animation
 	}
 	
 	/**
@@ -102,7 +105,7 @@ public extension MaterialAnimation {
 	*/
 	public static func scaleAnimation(transform: CATransform3D) -> CABasicAnimation {
 		let animation: CABasicAnimation = CABasicAnimation()
-		animation.keyPath = "transform.scale"
+		animation.keyPath = "transform"
 		animation.toValue = NSValue(CATransform3D: transform)
 		return animation
 	}
@@ -110,16 +113,44 @@ public extension MaterialAnimation {
 	/**
 		:name:	scale
 	*/
-	public static func scale(view: UIView, transform: CATransform3D, duration: CFTimeInterval = 0.25, completion: (() -> Void)? = nil) {
-		scale(view.layer, transform: transform, duration: duration, completion: completion)
+	public static func scale(view: UIView, transform: CATransform3D, duration: CFTimeInterval = 0.25, completion: (() -> Void)? = nil) -> CABasicAnimation {
+		return scale(view.layer, transform: transform, duration: duration, completion: completion)
 	}
 	
 	/**
 		:name:	scale
 	*/
-	public static func scale(layer: CALayer, transform: CATransform3D, duration: CFTimeInterval = 0.25, completion: (() -> Void)? = nil) {
+	public static func scale(layer: CALayer, transform: CATransform3D, duration: CFTimeInterval = 0.25, completion: (() -> Void)? = nil) -> CABasicAnimation {
 		let animation: CABasicAnimation = scaleAnimation(transform)
 		animation.duration = duration
 		applyBasicAnimation(animation, toLayer: layer, completion: completion)
+		return animation
+	}
+	
+	/**
+		:name:	positionAnimation
+	*/
+	public static func positionAnimation(point: CGPoint) -> CABasicAnimation {
+		let animation: CABasicAnimation = CABasicAnimation()
+		animation.keyPath = "position"
+		animation.toValue = NSValue(CGPoint: point)
+		return animation
+	}
+	
+	/**
+		:name:	position
+	*/
+	public static func position(view: UIView, point: CGPoint, duration: CFTimeInterval = 0.5, completion: (() -> Void)? = nil) -> CABasicAnimation {
+		return position(view.layer, point: point, duration: duration, completion: completion)
+	}
+	
+	/**
+		:name:	position
+	*/
+	public static func position(layer: CALayer, point: CGPoint, duration: CFTimeInterval = 0.5, completion: (() -> Void)? = nil) -> CABasicAnimation {
+		let animation: CABasicAnimation = positionAnimation(point)
+		animation.duration = duration
+		applyBasicAnimation(animation, toLayer: layer, completion: completion)
+		return animation
 	}
 }

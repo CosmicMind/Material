@@ -33,7 +33,7 @@ public struct MaterialAnimation {
 		:name:	groupAnimation
 	*/
 	public static func groupAnimation(view: UIView, animations: Array<CAAnimation>, duration: NSTimeInterval = 0.5) {
-		return groupAnimation(view.layer, animations: animations, duration: duration)
+		groupAnimation(view.layer, animations: animations, duration: duration)
 	}
 	
 	/**
@@ -50,15 +50,7 @@ public struct MaterialAnimation {
 		:name:	applyBasicAnimation
 	*/
 	internal static func applyBasicAnimation(animation: CABasicAnimation, toLayer layer: CALayer, completion: (() -> Void)? = nil) {
-		// use presentation layer if available
-		animation.fromValue = (nil == layer.presentationLayer() ? layer : layer.presentationLayer() as! CALayer).valueForKeyPath(animation.keyPath!)
-		CATransaction.begin()
-		CATransaction.setDisableActions(true)
-		CATransaction.setCompletionBlock(completion)
-		layer.setValue(nil == animation.toValue ? animation.byValue : animation.toValue, forKey: animation.keyPath!)
-		CATransaction.commit()
-		layer.addAnimation(animation, forKey: animation.keyPath!)
-		animation.delegate = self as? AnyObject
+		groupAnimation(layer, animations: [animation], duration: animation.duration)
 	}
 	
 	/**
@@ -67,9 +59,5 @@ public struct MaterialAnimation {
 	internal static func applyKeyframeAnimation(animation: CAKeyframeAnimation, toLayer layer: CALayer) {
 		// use presentation layer if available
 		(nil == layer.presentationLayer() ? layer : layer.presentationLayer() as! CALayer).addAnimation(animation, forKey: animation.keyPath!)
-	}
-	
-	internal func animationDidStop(anim: CAAnimation, finished flag: Bool) {
-		print("HERE")
 	}
 }
