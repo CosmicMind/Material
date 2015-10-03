@@ -329,10 +329,9 @@ public class MaterialView : UIView {
 	public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
 		if let a: CAPropertyAnimation = anim as? CAPropertyAnimation {
 			if let b: CABasicAnimation = a as? CABasicAnimation {
-				CATransaction.begin()
-				CATransaction.setDisableActions(true)
-				layer.setValue(nil == b.toValue ? b.byValue : b.toValue, forKey: b.keyPath!)
-				CATransaction.commit()
+				MaterialAnimation.animationDisabled({
+					self.layer.setValue(nil == b.toValue ? b.byValue : b.toValue, forKey: b.keyPath!)
+				})
 			}
 			layer.removeAnimationForKey(a.keyPath!)
 			visualLayer.removeAnimationForKey(a.keyPath!)

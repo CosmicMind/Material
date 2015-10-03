@@ -194,7 +194,7 @@ public extension MaterialTheme.flatButton {
 	// shape
 	public static var masksToBounds: Bool = true
 	public static var cornerRadius: MaterialRadius = .Radius1
-	public static var contentInsets: MaterialInsets = .Rectangle2
+	public static var contentInsets: MaterialInsets = .Rectangle3
 	public static var shape: MaterialShape? = nil
 	
 	// border

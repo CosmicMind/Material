@@ -30,6 +30,16 @@ public class MaterialPulseView : MaterialView {
 	public private(set) lazy var pulseLayer: CAShapeLayer = CAShapeLayer()
 	
 	/**
+		:name:	pulseScale
+	*/
+	public lazy var pulseScale: Bool = true
+	
+	/**
+		:name:	pulseFill
+	*/
+	public lazy var pulseFill: Bool = false
+	
+	/**
 		:name:	pulseColorOpacity
 	*/
 	public var pulseColorOpacity: CGFloat! {
@@ -59,7 +69,7 @@ public class MaterialPulseView : MaterialView {
 			let s: CGFloat = (width < height ? height : width) / 2
 			let f: CGFloat = 3
 			let v: CGFloat = s / f
-			let d: CGFloat = 2 * f
+			let d: CGFloat = pulseFill ? 5 * f : 2 * f
 			MaterialAnimation.animationDisabled({
 				self.pulseLayer.hidden = false
 				self.pulseLayer.bounds = CGRectMake(0, 0, v, v)
@@ -68,7 +78,9 @@ public class MaterialPulseView : MaterialView {
 			})
 			MaterialAnimation.animationWithDuration(0.25, animations: {
 				self.pulseLayer.transform = CATransform3DMakeScale(d, d, d)
-				self.layer.transform = CATransform3DMakeScale(1.05, 1.05, 1.05)
+				if self.pulseScale {
+					self.layer.transform = CATransform3DMakeScale(1.05, 1.05, 1.05)
+				}
 			})
 		}
 	}
@@ -153,7 +165,9 @@ public class MaterialPulseView : MaterialView {
 		MaterialAnimation.animationWithDuration(0.25, animations: {
 			self.pulseLayer.hidden = true
 			self.pulseLayer.transform = CATransform3DIdentity
-			self.layer.transform = CATransform3DIdentity
+			if self.pulseScale {
+				self.layer.transform = CATransform3DIdentity
+			}
 		})
 	}
 }
