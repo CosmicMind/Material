@@ -20,97 +20,67 @@ import UIKit
 
 public extension MaterialAnimation {
 	/**
-		:name:	backgroundColorAnimation
+		:name:	backgroundColor
 	*/
-	public static func backgroundColorAnimation(color: UIColor) -> CABasicAnimation {
+	public static func backgroundColor(color: UIColor, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation: CABasicAnimation = CABasicAnimation()
 		animation.keyPath = "backgroundColor"
 		animation.toValue = color.CGColor
-		return animation
-	}
-	
-	/**
-		:name:	backgroundColor
-	*/
-	public static func backgroundColor(color: UIColor, duration: CFTimeInterval = 0.25) -> CABasicAnimation {
-		let animation: CABasicAnimation = backgroundColorAnimation(color)
-		animation.duration = duration
-		return animation
-	}
-	
-	/**
-		:name:	cornerRadiusAnimation
-	*/
-	public static func cornerRadiusAnimation(radius: CGFloat) -> CABasicAnimation {
-		let animation: CABasicAnimation = CABasicAnimation()
-		animation.keyPath = "cornerRadius"
-		animation.toValue = radius
+		if let d = duration {
+			animation.duration = d
+		}
 		return animation
 	}
 	
 	/**
 		:name:	cornerRadius
 	*/
-	public static func cornerRadius(radius: CGFloat, duration: CFTimeInterval = 0.25) -> CABasicAnimation {
-		let animation: CABasicAnimation = cornerRadiusAnimation(radius)
-		animation.duration = duration
-		return animation
-	}
-	
-	/**
-		:name:	rotationAnimation
-	*/
-	public static func rotationAnimation(rotations: Int = 1) -> CABasicAnimation {
+	public static func cornerRadius(radius: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation: CABasicAnimation = CABasicAnimation()
-		animation.keyPath = "transform.rotation"
-		animation.byValue = M_PI * 2 * Double(rotations)
+		animation.keyPath = "cornerRadius"
+		animation.toValue = radius
+		if let d = duration {
+			animation.duration = d
+		}
 		return animation
 	}
 	
 	/**
 		:name:	rotation
 	*/
-	public static func rotation(rotations: Int = 1, duration: CFTimeInterval = 0.5) -> CABasicAnimation {
-		let animation: CABasicAnimation = rotationAnimation(rotations)
-		animation.duration = duration
-		return animation
-	}
-	
-	/**
-		:name:	scaleAnimation
-	*/
-	public static func scaleAnimation(transform: CATransform3D) -> CABasicAnimation {
+	public static func rotation(rotations: Int = 1, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation: CABasicAnimation = CABasicAnimation()
-		animation.keyPath = "transform"
-		animation.toValue = NSValue(CATransform3D: transform)
+		animation.keyPath = "transform.rotation"
+		animation.byValue = M_PI * 2 * Double(rotations)
+		if let d = duration {
+			animation.duration = d
+		}
 		return animation
 	}
-	
+
 	/**
 		:name:	scale
 	*/
-	public static func scale(transform: CATransform3D, duration: CFTimeInterval = 0.25) -> CABasicAnimation {
-		let animation: CABasicAnimation = scaleAnimation(transform)
-		animation.duration = duration
-		return animation
-	}
-	
-	/**
-		:name:	positionAnimation
-	*/
-	public static func positionAnimation(point: CGPoint) -> CABasicAnimation {
+	public static func scale(transform: CATransform3D, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation: CABasicAnimation = CABasicAnimation()
-		animation.keyPath = "position"
-		animation.toValue = NSValue(CGPoint: point)
+		animation.keyPath = "transform"
+		animation.toValue = NSValue(CATransform3D: transform)
+		if let d = duration {
+			animation.duration = d
+		}
 		return animation
 	}
 	
 	/**
 		:name:	position
 	*/
-	public static func position(point: CGPoint, duration: CFTimeInterval = 0.5) -> CABasicAnimation {
-		let animation: CABasicAnimation = positionAnimation(point)
-		animation.duration = duration
+	public static func position(point: CGPoint, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+		let animation: CABasicAnimation = CABasicAnimation()
+		animation.keyPath = "position"
+		animation.toValue = NSValue(CGPoint: point)
+		if let d = duration {
+			animation.duration = d
+		}
 		return animation
 	}
 }

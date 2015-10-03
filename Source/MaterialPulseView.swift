@@ -64,12 +64,12 @@ public class MaterialPulseView : MaterialView {
 	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesBegan(touches, withEvent: event)
 		let point: CGPoint = touches.first!.locationInView(self)
-		let w: CGFloat = (width < height ? height : width) / 2
+		let s: CGFloat = (width < height ? height : width) / 2
 		
-		MaterialAnimation.disableAnimation({ _ in
-			self.pulseLayer.bounds = CGRectMake(0, 0, w, w)
+		MaterialAnimation.disableAnimation({
+			self.pulseLayer.bounds = CGRectMake(0, 0, s, s)
 			self.pulseLayer.position = point
-			self.pulseLayer.cornerRadius = CGFloat(w / 2)
+			self.pulseLayer.cornerRadius = s / 2
 		})
 		
 		pulseLayer.hidden = false
@@ -100,6 +100,20 @@ public class MaterialPulseView : MaterialView {
 		return nil // returning nil enables the animations for the layer property that are normally disabled.
 	}
 	
+	/**
+		:name:	addAnimation
+	*/
+	public override func addAnimation(animation: CAAnimation) {
+		super.addAnimation(animation)
+		if let a = animation as? CABasicAnimation {
+			touchesLayer.addAnimation(a, forKey: a.keyPath!)
+		} else if let a = animation as? CAKeyframeAnimation {
+			touchesLayer.addAnimation(a, forKey: a.keyPath!)
+		} else if let a = animation as? CAAnimationGroup {
+			touchesLayer.addAnimation(a, forKey: nil)
+		}
+	}
+	
 	//
 	//	:name:	prepareView
 	//
@@ -109,7 +123,7 @@ public class MaterialPulseView : MaterialView {
 		backgroundColor = MaterialTheme.pulseView.backgroundColor
 		pulseColorOpacity = MaterialTheme.pulseView.pulseColorOpacity
 		pulseColor = MaterialTheme.pulseView.pulseColor
-		
+
 		contentsRect = MaterialTheme.pulseView.contentsRect
 		contentsCenter = MaterialTheme.pulseView.contentsCenter
 		contentsScale = MaterialTheme.pulseView.contentsScale

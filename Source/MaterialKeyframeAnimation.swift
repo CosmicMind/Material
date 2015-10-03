@@ -42,22 +42,16 @@ public func MaterialAnimationRotationModeToValue(mode: MaterialAnimationRotation
 
 public extension MaterialAnimation {
 	/**
-		:name:	path
+		:name: path
 	*/
-	public static func pathAnimation(bezierPath: UIBezierPath, mode: MaterialAnimationRotationMode = .Auto) -> CAKeyframeAnimation {
+	public static func path(bezierPath: UIBezierPath, duration: CFTimeInterval?, mode: MaterialAnimationRotationMode = .Auto) -> CAKeyframeAnimation {
 		let animation: CAKeyframeAnimation = CAKeyframeAnimation()
 		animation.keyPath = "position"
 		animation.path = bezierPath.CGPath
 		animation.rotationMode = MaterialAnimationRotationModeToValue(mode)
-		return animation
-	}
-	
-	/**
-		:name: path
-	*/
-	public static func path(bezierPath: UIBezierPath, mode: MaterialAnimationRotationMode = .Auto, duration: CFTimeInterval = 1) -> CAKeyframeAnimation {
-		let animation: CAKeyframeAnimation = pathAnimation(bezierPath, mode: mode)
-		animation.duration = duration
+		if let d = duration {
+			animation.duration = d
+		}
 		return animation
 	}
 }

@@ -18,6 +18,31 @@
 
 import UIKit
 
+public typealias MaterialAnimationFillModeType = String
+
+public enum MaterialAnimationFillMode {
+	case Forwards
+	case Backwards
+	case Both
+	case Removed
+}
+
+/**
+	:name:	MaterialAnimationFillModeToValue
+*/
+public func MaterialAnimationFillModeToValue(mode: MaterialAnimationFillMode) -> MaterialAnimationFillModeType {
+	switch mode {
+	case .Forwards:
+		return kCAFillModeForwards
+	case .Backwards:
+		return kCAFillModeBackwards
+	case .Both:
+		return kCAFillModeBoth
+	case .Removed:
+		return kCAFillModeRemoved
+	}
+}
+
 public struct MaterialAnimation {
 	/**
 		:name:	disableAnimation
@@ -32,36 +57,12 @@ public struct MaterialAnimation {
 	/**
 		:name:	groupAnimation
 	*/
-	public static func groupAnimation(view: UIView, animations: Array<CAAnimation>, duration: NSTimeInterval = 0.5) {
-		groupAnimation(view.layer, animations: animations, duration: duration)
-	}
-	
-	/**
-		:name:	groupAnimation
-	*/
-	public static func groupAnimation(layer: CALayer, animations: Array<CAAnimation>, duration: NSTimeInterval = 0.5) {
+	public static func groupAnimation(animations: Array<CAAnimation>, duration: NSTimeInterval = 0.5) -> CAAnimationGroup {
 		let group: CAAnimationGroup = CAAnimationGroup()
+		group.fillMode = MaterialAnimationFillModeToValue(.Forwards)
+		group.removedOnCompletion = false
 		group.animations = animations
 		group.duration = duration
-		layer.addAnimation(group, forKey: nil)
-	}
-	
-	/**
-		:name:	applyBasicAnimation
-	*/
-	internal static func applyBasicAnimation(animation: CABasicAnimation, toLayer layer: CALayer) {
-//		groupAnimation(layer, animations: [animation], duration: animation.duration)
-//		CATransaction.begin()
-//		CATransaction.setAnimationDuration(animation.duration)
-//		layer.setValue(nil == animation.toValue ? animation.byValue : animation.toValue, forKey: animation.keyPath!)
-//		CATransaction.commit()
-	}
-	
-	/**
-		:name:	applyKeyframeAnimation
-	*/
-	internal static func applyKeyframeAnimation(animation: CAKeyframeAnimation, toLayer layer: CALayer) {
-		// use presentation layer if available
-		(nil == layer.presentationLayer() ? layer : layer.presentationLayer() as! CALayer).addAnimation(animation, forKey: animation.keyPath!)
+		return group
 	}
 }
