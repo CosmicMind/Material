@@ -167,7 +167,6 @@ MaterialLayout.alignToParentHorizontallyWithInsets(view, child: v, left: 20, rig
 MaterialLayout.alignFromTop(view, child: v, top: 100)
 ```
 
-
 A BasicCardView can easily add an image as its background, below is the code that shows how to do this.
 
 ![MaterialKitPreview](http://www.materialkit.io/github/img8.gif)
@@ -190,6 +189,31 @@ view.addSubview(v)
 v.translatesAutoresizingMaskIntoConstraints = false
 MaterialLayout.alignToParentHorizontallyWithInsets(view, child: v, left: 20, right: 20)
 MaterialLayout.alignFromTop(view, child: v, top: 100)
+```
+
+### Easy MaterialAnimation
+
+Animations are a wonderful way to add life to your application. MaterialAnimation is a lightweight API for constructing complex animations. Below is an example of an animation.
+
+![MaterialKitPreview](http://www.materialkit.io/github/img9.gif)
+
+```swift
+let v: MaterialPulseView = MaterialPulseView(frame: CGRectMake(50, 50, 200, 200))
+v.shape = .Circle
+v.shadowDepth = .Depth2
+v.borderWidth = .Border1
+v.backgroundColor = MaterialColor.blue.accent3
+
+// Add to UIViewController
+view.addSubview(v)
+
+// Play a group of animations.
+v.animation(MaterialAnimation.groupAnimation([
+	MaterialAnimation.rotation(3),
+	MaterialAnimation.position(CGPointMake(225, 400)),
+	MaterialAnimation.cornerRadius(30),
+	MaterialAnimation.backgroundColor(MaterialColor.red.darken1)
+], duration: 1))
 ```
 
 ### License

@@ -74,10 +74,10 @@ public class MaterialView : UIView {
 	*/
 	public override var backgroundColor: UIColor? {
 		get {
-			return nil == visualLayer.backgroundColor ? nil : UIColor(CGColor: visualLayer.backgroundColor!)
+			return nil == layer.backgroundColor ? nil : UIColor(CGColor: layer.backgroundColor!)
 		}
 		set(value) {
-			visualLayer.backgroundColor = value?.CGColor
+			layer.backgroundColor = value?.CGColor
 		}
 	}
 	
@@ -320,8 +320,8 @@ public class MaterialView : UIView {
 	
 	/**
 		:name:	animationDidStart
+		public override func animationDidStart(anim: CAAnimation) {}
 	*/
-	public override func animationDidStart(anim: CAAnimation) {}
 	
 	/**
 		:name:	animationDidStop
@@ -348,11 +348,13 @@ public class MaterialView : UIView {
 	//
 	internal func filterAnimations(animation: CAAnimation) -> Bool? {
 		if let a: CAPropertyAnimation = animation as? CAPropertyAnimation {
-			return "position" != a.keyPath
+			return "position" != a.keyPath && "transform" != a.keyPath && "backgroundColor" != a.keyPath
 		} else if let a: CAAnimationGroup = animation as? CAAnimationGroup {
 			for var i: Int = a.animations!.count - 1; 0 <= i; --i {
-				if false == filterAnimations(a.animations![i]) {
-					a.animations!.removeAtIndex(i)
+				if let b: CAPropertyAnimation = a.animations![i] as? CAPropertyAnimation {
+					if false == filterAnimations(b) {
+						a.animations!.removeAtIndex(i)
+					}
 				}
 			}
 		}

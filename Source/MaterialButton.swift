@@ -25,11 +25,6 @@ public class MaterialButton : UIButton {
 	public private(set) lazy var visualLayer: CAShapeLayer = CAShapeLayer()
 	
 	//
-	//	:name:	touchesLayer
-	//
-	internal lazy var touchesLayer: CAShapeLayer = CAShapeLayer()
-	
-	//
 	//	:name:	pulseLayer
 	//
 	internal lazy var pulseLayer: CAShapeLayer = CAShapeLayer()
@@ -58,10 +53,10 @@ public class MaterialButton : UIButton {
 	*/
 	public override var backgroundColor: UIColor? {
 		get {
-			return nil == visualLayer.backgroundColor ? nil : UIColor(CGColor: visualLayer.backgroundColor!)
+			return nil == layer.backgroundColor ? nil : UIColor(CGColor: layer.backgroundColor!)
 		}
 		set(value) {
-			visualLayer.backgroundColor = value?.CGColor
+			layer.backgroundColor = value?.CGColor
 		}
 	}
 	
@@ -289,9 +284,69 @@ public class MaterialButton : UIButton {
 		
 		visualLayer.frame = bounds
 		visualLayer.cornerRadius = layer.cornerRadius
-		
-		touchesLayer.frame = bounds
-		touchesLayer.cornerRadius = layer.cornerRadius
+	}
+	
+	/**
+		:name:	animation
+	*/
+	public func animation(animation: CAAnimation) {
+		animation.delegate = self
+		if let a: CABasicAnimation = animation as? CABasicAnimation {
+			a.fromValue = (nil == layer.presentationLayer() ? layer : layer.presentationLayer() as! CALayer).valueForKeyPath(a.keyPath!)
+		}
+		if let a: CAPropertyAnimation = animation as? CAPropertyAnimation {
+			layer.addAnimation(a, forKey: a.keyPath!)
+			if true == filterAnimations(a) {
+				visualLayer.addAnimation(a, forKey: a.keyPath!)
+			}
+		} else if let a: CAAnimationGroup = animation as? CAAnimationGroup {
+			layer.addAnimation(a, forKey: nil)
+			filterAnimations(a)
+			visualLayer.addAnimation(a, forKey: nil)
+		}
+	}
+	
+	/**
+		:name:	animationDidStart
+		public override func animationDidStart(anim: CAAnimation) {}
+	*/
+	
+	/**
+		:name:	animationDidStop
+	*/
+	public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
+		if let a: CAPropertyAnimation = anim as? CAPropertyAnimation {
+			if let b: CABasicAnimation = a as? CABasicAnimation {
+				CATransaction.begin()
+				CATransaction.setDisableActions(true)
+				layer.setValue(nil == b.toValue ? b.byValue : b.toValue, forKey: b.keyPath!)
+				CATransaction.commit()
+			}
+			layer.removeAnimationForKey(a.keyPath!)
+			visualLayer.removeAnimationForKey(a.keyPath!)
+		} else if let a: CAAnimationGroup = anim as? CAAnimationGroup {
+			for x in a.animations! {
+				animationDidStop(x, finished: true)
+			}
+		}
+	}
+	
+	//
+	//	:name:	filterAnimations
+	//
+	internal func filterAnimations(animation: CAAnimation) -> Bool? {
+		if let a: CAPropertyAnimation = animation as? CAPropertyAnimation {
+			return "position" != a.keyPath && "transform" != a.keyPath && "backgroundColor" != a.keyPath
+		} else if let a: CAAnimationGroup = animation as? CAAnimationGroup {
+			for var i: Int = a.animations!.count - 1; 0 <= i; --i {
+				if let b: CAPropertyAnimation = a.animations![i] as? CAPropertyAnimation {
+					if false == filterAnimations(b) {
+						a.animations!.removeAtIndex(i)
+					}
+				}
+			}
+		}
+		return nil
 	}
 	
 	/**
@@ -299,18 +354,18 @@ public class MaterialButton : UIButton {
 	*/
 	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesBegan(touches, withEvent: event)
-		let point: CGPoint = touches.first!.locationInView(self)
-		let w: CGFloat = (width < height ? height : width) / 2
-		
-		MaterialAnimation.disableAnimation({ _ in
-			self.pulseLayer.bounds = CGRectMake(0, 0, w, w)
-			self.pulseLayer.position = point
-			self.pulseLayer.cornerRadius = CGFloat(w / 2)
-		})
-		
-		pulseLayer.hidden = false
-		pulseLayer.transform = CATransform3DMakeScale(3, 3, 3)
-		layer.transform = CATransform3DMakeScale(1.05, 1.05, 1.05)
+		let point: CGPoint = layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer)
+		if true == layer.containsPoint(point) {
+			let s: CGFloat = (width < height ? height : width) / 2
+			MaterialAnimation.disableAnimation({
+				self.pulseLayer.bounds = CGRectMake(0, 0, s, s)
+				self.pulseLayer.position = point
+				self.pulseLayer.cornerRadius = s / 2
+			})
+			pulseLayer.hidden = false
+			pulseLayer.transform = CATransform3DMakeScale(3, 3, 3)
+			layer.transform = CATransform3DMakeScale(1.05, 1.05, 1.05)
+		}
 	}
 	
 	/**
@@ -344,14 +399,10 @@ public class MaterialButton : UIButton {
 		visualLayer.zPosition = -1
 		layer.addSublayer(visualLayer)
 		
-		// touchesLayer
-		touchesLayer.zPosition = -1
-		touchesLayer.masksToBounds = true
-		layer.addSublayer(touchesLayer)
-		
 		// pulseLayer
 		pulseLayer.hidden = true
-		touchesLayer.addSublayer(pulseLayer)
+		pulseLayer.zPosition = 1
+		visualLayer.addSublayer(pulseLayer)
 	}
 	
 	//

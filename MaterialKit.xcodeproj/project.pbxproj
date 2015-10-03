@@ -220,7 +220,6 @@
 				65BDD1701BB8CD56006F7F2B /* Label */,
 				65BDD1551BB6FC60006F7F2B /* Button */,
 				65BDD1751BB8D44B006F7F2B /* Animation */,
-				96CEE8BE1BBF56E700DF9844 /* Dynamics */,
 				964B17B21BBA445D002A9CA0 /* Layout */,
 			);
 			path = Source;
@@ -281,13 +280,6 @@
 				964B17B51BBA4BEA002A9CA0 /* MaterialStatusBarStyle.swift */,
 			);
 			name = Theme;
-			sourceTree = "<group>";
-		};
-		96CEE8BE1BBF56E700DF9844 /* Dynamics */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Dynamics;
 			sourceTree = "<group>";
 		};
 		9AAC38521B89553800FE6B2D /* Font */ = {

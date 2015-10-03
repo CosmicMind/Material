@@ -26,6 +26,8 @@ public extension MaterialAnimation {
 		let animation: CABasicAnimation = CABasicAnimation()
 		animation.keyPath = "backgroundColor"
 		animation.toValue = color.CGColor
+		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
+		animation.removedOnCompletion = false
 		if let d = duration {
 			animation.duration = d
 		}
@@ -39,6 +41,8 @@ public extension MaterialAnimation {
 		let animation: CABasicAnimation = CABasicAnimation()
 		animation.keyPath = "cornerRadius"
 		animation.toValue = radius
+		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
+		animation.removedOnCompletion = false
 		if let d = duration {
 			animation.duration = d
 		}
@@ -52,6 +56,8 @@ public extension MaterialAnimation {
 		let animation: CABasicAnimation = CABasicAnimation()
 		animation.keyPath = "transform.rotation"
 		animation.byValue = M_PI * 2 * Double(rotations)
+		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
+		animation.removedOnCompletion = false
 		if let d = duration {
 			animation.duration = d
 		}
@@ -65,6 +71,8 @@ public extension MaterialAnimation {
 		let animation: CABasicAnimation = CABasicAnimation()
 		animation.keyPath = "transform"
 		animation.toValue = NSValue(CATransform3D: transform)
+		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
+		animation.removedOnCompletion = false
 		if let d = duration {
 			animation.duration = d
 		}
@@ -78,6 +86,8 @@ public extension MaterialAnimation {
 		let animation: CABasicAnimation = CABasicAnimation()
 		animation.keyPath = "position"
 		animation.toValue = NSValue(CGPoint: point)
+		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
+		animation.removedOnCompletion = false
 		if let d = duration {
 			animation.duration = d
 		}

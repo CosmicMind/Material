@@ -49,17 +49,14 @@ public class MaterialPulseView : MaterialView {
 	*/
 	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesBegan(touches, withEvent: event)
-		var point: CGPoint = touches.first!.locationInView(self)
-		point = layer.convertPoint(point, fromLayer: layer)
+		let point: CGPoint = layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer)
 		if true == layer.containsPoint(point) {
 			let s: CGFloat = (width < height ? height : width) / 2
-				
 			MaterialAnimation.disableAnimation({
 				self.pulseLayer.bounds = CGRectMake(0, 0, s, s)
 				self.pulseLayer.position = point
 				self.pulseLayer.cornerRadius = s / 2
 			})
-				
 			pulseLayer.hidden = false
 			pulseLayer.transform = CATransform3DMakeScale(3, 3, 3)
 			layer.transform = CATransform3DMakeScale(1.05, 1.05, 1.05)
