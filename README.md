@@ -17,7 +17,7 @@ v.shadowDepth = .Depth2
 v.borderWidth = .Border1
 v.image = UIImage(named: "focus")
 
-// Add to UIViewController
+// Add to UIViewController.
 view.addSubview(v)
 ```
 
@@ -34,7 +34,7 @@ v.cornerRadius = .Radius2
 v.shadowDepth = .Depth2
 v.image = UIImage(named: "focus")
 
-// Add to UIViewController
+// Add to UIViewController.
 view.addSubview(v)
 ```
 
@@ -49,7 +49,7 @@ let v: FlatButton = FlatButton(frame: CGRectMake(100, 100, 200, 64))
 v.setTitle("Flat", forState: .Normal)
 v.titleLabel!.font = RobotoFont.mediumWithSize(32)
 
-// Add to UIViewController
+// Add to UIViewController.
 view.addSubview(v)
 ```
 
@@ -64,7 +64,7 @@ let v: RaisedButton = RaisedButton(frame: CGRectMake(100, 100, 200, 64))
 v.setTitle("Raised", forState: .Normal)
 v.titleLabel!.font = RobotoFont.mediumWithSize(32)
 
-// Add to UIViewController
+// Add to UIViewController.
 view.addSubview(v)
 ```
 
@@ -79,7 +79,7 @@ let v: FabButton = FabButton(frame: CGRectMake(100, 100, 64, 64))
 v.setImage(UIImage(named: "ic_create_white"), forState: .Normal)
 v.setImage(UIImage(named: "ic_create_white"), forState: .Highlighted)
 
-// Add to UIViewController
+// Add to UIViewController.
 view.addSubview(v)
 ```
 
@@ -123,7 +123,7 @@ b4.pulseColor = MaterialColor.white
 
 v.rightButtons = [b3, b4]
 
-// Add to UIViewController
+// Add to UIViewController.
 view.addSubview(v)
 ```
 
@@ -160,7 +160,7 @@ b2.pulseColor = MaterialColor.white
 
 v.leftButtons = [b1, b2]
 
-// Add to UIViewController
+// Add to UIViewController.
 view.addSubview(v)
 v.translatesAutoresizingMaskIntoConstraints = false
 MaterialLayout.alignToParentHorizontallyWithInsets(view, child: v, left: 20, right: 20)
@@ -184,7 +184,7 @@ v.detailLabel!.textColor = MaterialColor.white
 v.detailLabel!.font = RobotoFont.regularWithSize(14)
 v.detailLabel!.text = "I am a very simple card. I am good at containing small bits of information. I am convenient because I require little code to use effectively."
 
-// Add to UIViewController
+// Add to UIViewController.
 view.addSubview(v)
 v.translatesAutoresizingMaskIntoConstraints = false
 MaterialLayout.alignToParentHorizontallyWithInsets(view, child: v, left: 20, right: 20)
@@ -204,7 +204,7 @@ v.shadowDepth = .Depth2
 v.borderWidth = .Border1
 v.backgroundColor = MaterialColor.blue.accent3
 
-// Add to UIViewController
+// Add to UIViewController.
 view.addSubview(v)
 
 // Play a group of animations.
