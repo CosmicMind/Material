@@ -371,7 +371,7 @@ public class BasicCardView : MaterialPulseView {
 			dividerLayer!.backgroundColor = dividerColor?.CGColor
 			dividerLayer!.frame = CGRectMake(0, y, width, 1)
 			dividerLayer!.zPosition = 900
-			visualLayer.addSublayer(dividerLayer!)
+			layer.addSublayer(dividerLayer!)
 		}
 	}
 	

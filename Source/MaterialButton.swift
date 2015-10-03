@@ -19,15 +19,20 @@
 import UIKit
 
 public class MaterialButton : UIButton {
-	//
-	//	:name:	visualLayer
-	//
-	public private(set) lazy var visualLayer: CAShapeLayer = CAShapeLayer()
+	/**
+		:name:	spotlight
+	*/
+	public lazy var spotlight: Bool = false
 	
-	//
-	//	:name:	pulseLayer
-	//
-	internal lazy var pulseLayer: CAShapeLayer = CAShapeLayer()
+	/**
+		:name:	visualLayer
+	*/
+	public private(set) lazy var visualLayer: MaterialLayer = MaterialLayer()
+	
+	/**
+		:name:	pulseLayer
+	*/
+	public private(set) lazy var pulseLayer: CAShapeLayer = CAShapeLayer()
 	
 	/**
 		:name:	pulseColorOpacity
@@ -272,7 +277,7 @@ public class MaterialButton : UIButton {
 		:name:	layerClass
 	*/
 	public override class func layerClass() -> AnyClass {
-		return CAShapeLayer.self
+		return MaterialLayer.self
 	}
 	
 	/**
@@ -357,14 +362,38 @@ public class MaterialButton : UIButton {
 		let point: CGPoint = layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer)
 		if true == layer.containsPoint(point) {
 			let s: CGFloat = (width < height ? height : width) / 2
-			MaterialAnimation.disableAnimation({
-				self.pulseLayer.bounds = CGRectMake(0, 0, s, s)
+			let f: CGFloat = 3
+			var v: CGFloat = s / f
+			MaterialAnimation.animationDisabled({
+				self.pulseLayer.hidden = false
+				self.pulseLayer.bounds = CGRectMake(0, 0, v, v)
 				self.pulseLayer.position = point
-				self.pulseLayer.cornerRadius = s / 2
+				self.pulseLayer.cornerRadius = s / 6
 			})
-			pulseLayer.hidden = false
-			pulseLayer.transform = CATransform3DMakeScale(3, 3, 3)
-			layer.transform = CATransform3DMakeScale(1.05, 1.05, 1.05)
+			
+			v = 2 * f
+			MaterialAnimation.animationWithDuration(0.4, animations: {
+				self.pulseLayer.transform = CATransform3DMakeScale(v, v, v)
+			})
+			
+			MaterialAnimation.animationWithDuration(0.25, animations: {
+				self.layer.transform = CATransform3DMakeScale(1.05, 1.05, 1.05)
+			})
+		}
+	}
+	
+	/**
+		:name:	touchesMoved
+	*/
+	public override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+		super.touchesMoved(touches, withEvent: event)
+		if spotlight {
+			let point: CGPoint = layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer)
+			if true == layer.containsPoint(point) {
+				MaterialAnimation.animationDisabled({
+					self.pulseLayer.position = point
+				})
+			}
 		}
 	}
 	
@@ -425,8 +454,10 @@ public class MaterialButton : UIButton {
 	//	:name:	shrink
 	//
 	internal func shrink() {
-		pulseLayer.hidden = true
-		pulseLayer.transform = CATransform3DIdentity
-		layer.transform = CATransform3DIdentity
+		MaterialAnimation.animationWithDuration(0.25, animations: {
+			self.pulseLayer.hidden = true
+			self.pulseLayer.transform = CATransform3DIdentity
+			self.layer.transform = CATransform3DIdentity
+		})
 	}
 }

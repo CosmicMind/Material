@@ -45,12 +45,20 @@ public func MaterialAnimationFillModeToValue(mode: MaterialAnimationFillMode) ->
 
 public struct MaterialAnimation {
 	/**
-		:name:	disableAnimation
+		:name:	animationDisabled
 	*/
-	public static func disableAnimation(block: (() -> Void)) {
+	public static func animationDisabled(animations: (() -> Void)) {
+		animationWithDuration(0, animations: animations)
+	}
+	
+	/**
+		:name:	animationWithDuration
+	*/
+	public static func animationWithDuration(duration: NSTimeInterval, animations: (() -> Void), completion: (() -> Void)? = nil) {
 		CATransaction.begin()
-		CATransaction.setAnimationDuration(0)
-		block()
+		CATransaction.setAnimationDuration(duration)
+		CATransaction.setCompletionBlock(completion)
+		animations()
 		CATransaction.commit()
 	}
 	

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6585D21A1BBCDFBF00426D22 /* BasicCardView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 964B17D81BBB3911002A9CA0 /* BasicCardView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		65AD15EA1BC05B3A0068AF9C /* MaterialLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AD15E91BC05B3A0068AF9C /* MaterialLayer.swift */; settings = {ASSET_TAGS = (); }; };
 		65BDD1471BB5B916006F7F2B /* MaterialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1461BB5B916006F7F2B /* MaterialView.swift */; settings = {ASSET_TAGS = (); }; };
 		65BDD1491BB5DC98006F7F2B /* MaterialColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1481BB5DC98006F7F2B /* MaterialColor.swift */; settings = {ASSET_TAGS = (); }; };
 		65BDD14B1BB5DD02006F7F2B /* MaterialFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD14A1BB5DD02006F7F2B /* MaterialFont.swift */; settings = {ASSET_TAGS = (); }; };
@@ -74,6 +75,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		65AD15E91BC05B3A0068AF9C /* MaterialLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialLayer.swift; sourceTree = "<group>"; };
 		65BDD1461BB5B916006F7F2B /* MaterialView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialView.swift; sourceTree = "<group>"; };
 		65BDD1481BB5DC98006F7F2B /* MaterialColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialColor.swift; sourceTree = "<group>"; };
 		65BDD14A1BB5DD02006F7F2B /* MaterialFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialFont.swift; sourceTree = "<group>"; };
@@ -130,6 +132,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		65AD15E81BC05B0E0068AF9C /* Layer */ = {
+			isa = PBXGroup;
+			children = (
+				65AD15E91BC05B3A0068AF9C /* MaterialLayer.swift */,
+			);
+			name = Layer;
+			sourceTree = "<group>";
+		};
 		65B965851B8BEEB00055B139 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -214,6 +224,7 @@
 				9638325C1B88E3420015F710 /* Supporting Files */,
 				96B57D4C1B90AF6A00DE7BBB /* Theme */,
 				9AAC38521B89553800FE6B2D /* Font */,
+				65AD15E81BC05B0E0068AF9C /* Layer */,
 				65B965851B8BEEB00055B139 /* View */,
 				65BDD16F1BB89A01006F7F2B /* Navigation */,
 				964B17D71BBB38E2002A9CA0 /* Card */,
@@ -430,6 +441,7 @@
 				65BDD15D1BB70D60006F7F2B /* MaterialInsets.swift in Sources */,
 				65BDD1471BB5B916006F7F2B /* MaterialView.swift in Sources */,
 				65BDD16C1BB88D1A006F7F2B /* MaterialShape.swift in Sources */,
+				65AD15EA1BC05B3A0068AF9C /* MaterialLayer.swift in Sources */,
 				65BDD1521BB6EE7C006F7F2B /* RobotoFont.swift in Sources */,
 				964B17D91BBB3911002A9CA0 /* BasicCardView.swift in Sources */,
 				65BDD1591BB6FE3E006F7F2B /* FlatButton.swift in Sources */,
