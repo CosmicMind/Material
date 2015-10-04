@@ -27,7 +27,7 @@ public class MaterialButton : UIButton {
 	/**
 		:name:	visualLayer
 	*/
-	public private(set) lazy var visualLayer: MaterialLayer = MaterialLayer()
+	public private(set) lazy var visualLayer: CAShapeLayer = CAShapeLayer()
 	
 	/**
 		:name:	pulseLayer
