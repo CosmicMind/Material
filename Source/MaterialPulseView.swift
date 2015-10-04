@@ -42,9 +42,8 @@ public class MaterialPulseView : MaterialView {
 	/**
 		:name:	pulseColorOpacity
 	*/
-	public var pulseColorOpacity: CGFloat! {
+	public var pulseColorOpacity: CGFloat = MaterialTheme.pulseView.pulseColorOpacity {
 		didSet {
-			pulseColorOpacity = nil == pulseColorOpacity ? 0.25 : pulseColorOpacity!
 			preparePulseLayer()
 		}
 	}
@@ -54,7 +53,6 @@ public class MaterialPulseView : MaterialView {
 	*/
 	public var pulseColor: UIColor? {
 		didSet {
-			pulseLayer.backgroundColor = pulseColor?.colorWithAlphaComponent(pulseColorOpacity!).CGColor
 			preparePulseLayer()
 		}
 	}
@@ -130,7 +128,6 @@ public class MaterialPulseView : MaterialView {
 		super.prepareView()
 		userInteractionEnabled = MaterialTheme.pulseView.userInteractionEnabled
 		backgroundColor = MaterialTheme.pulseView.backgroundColor
-		pulseColorOpacity = MaterialTheme.pulseView.pulseColorOpacity
 		pulseColor = MaterialTheme.pulseView.pulseColor
 
 		contentsRect = MaterialTheme.pulseView.contentsRect
@@ -155,7 +152,7 @@ public class MaterialPulseView : MaterialView {
 	//	:name:	preparePulseLayer
 	//
 	internal func preparePulseLayer() {
-		pulseLayer.backgroundColor = pulseColor?.colorWithAlphaComponent(pulseColorOpacity!).CGColor
+		pulseLayer.backgroundColor = pulseColor?.colorWithAlphaComponent(pulseColorOpacity).CGColor
 	}
 	
 	//

@@ -86,9 +86,7 @@ public class BasicCardView : MaterialPulseView {
 	*/
 	public var titleLabel: UILabel? {
 		didSet {
-			if let v = titleLabel {
-				v.translatesAutoresizingMaskIntoConstraints = false
-			}
+			titleLabel?.translatesAutoresizingMaskIntoConstraints = false
 			reloadView()
 		}
 	}
@@ -117,9 +115,7 @@ public class BasicCardView : MaterialPulseView {
 	*/
 	public var detailLabel: UILabel? {
 		didSet {
-			if let v = detailLabel {
-				v.translatesAutoresizingMaskIntoConstraints = false
-			}
+			detailLabel?.translatesAutoresizingMaskIntoConstraints = false
 			reloadView()
 		}
 	}
@@ -216,7 +212,7 @@ public class BasicCardView : MaterialPulseView {
 	*/
 	public convenience init?(titleLabel: UILabel? = nil, detailLabel: UILabel? = nil, leftButtons: Array<MaterialButton>? = nil, rightButtons: Array<MaterialButton>? = nil) {
 		self.init(frame: CGRectNull)
-		self.prepareProperties(titleLabel, detailLabel: detailLabel, leftButtons: leftButtons, rightButtons: rightButtons)
+		prepareProperties(titleLabel, detailLabel: detailLabel, leftButtons: leftButtons, rightButtons: rightButtons)
 	}
 	
 	/**
@@ -269,7 +265,6 @@ public class BasicCardView : MaterialPulseView {
 			views["titleLabel"] = v
 			
 			addSubview(v)
-			v.layer.zPosition = 2000
 			MaterialLayout.alignToParentHorizontallyWithInsets(self, child: v, left: contentInsetsRef!.left + titleLabelInsetsRef!.left, right: contentInsetsRef!.right + titleLabelInsetsRef!.right)
 		}
 		
@@ -284,7 +279,6 @@ public class BasicCardView : MaterialPulseView {
 			views["detailLabel"] = v
 			
 			addSubview(v)
-			v.layer.zPosition = 2000
 			MaterialLayout.alignToParentHorizontallyWithInsets(self, child: v, left: contentInsetsRef!.left + detailLabelInsetsRef!.left, right: contentInsetsRef!.right + detailLabelInsetsRef!.right)
 		}
 		
@@ -294,18 +288,24 @@ public class BasicCardView : MaterialPulseView {
 				var h: String = "H:|"
 				var d: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
 				var i: Int = 0
-				
 				for b in v {
-					let k: String = "b\(i++)"
+					let k: String = "b\(i)"
+					
 					d[k] = b
-					h += "-(left)-[\(k)]"
+					
+					if 0 == i++ {
+						h += "-(left)-"
+					} else {
+						h += "-(left_right)-"
+					}
+					
+					h += "[\(k)]"
 					
 					addSubview(b)
-					b.layer.zPosition = 2000
 					MaterialLayout.alignFromBottom(self, child: b, bottom: contentInsetsRef!.bottom + leftButtonsInsetsRef!.bottom)
 				}
 				
-				addConstraints(MaterialLayout.constraint(h, options: [], metrics: ["left" : leftButtonsInsetsRef!.left], views: d))
+				addConstraints(MaterialLayout.constraint(h, options: [], metrics: ["left" : leftButtonsInsetsRef!.left, "left_right" : leftButtonsInsetsRef!.left + leftButtonsInsetsRef!.right], views: d))
 			}
 		}
 		
@@ -317,16 +317,23 @@ public class BasicCardView : MaterialPulseView {
 				var i: Int = 0
 				
 				for b in v {
-					let k: String = "b\(i++)"
+					let k: String = "b\(i)"
+					
 					d[k] = b
-					h += "[\(k)]-(right)-"
+					
+					h += "[\(k)]"
+					
+					if 0 == i++ {
+						h += "-(right_left)-"
+					} else {
+						h += "-(right)-"
+					}
 					
 					addSubview(b)
-					b.layer.zPosition = 2000
 					MaterialLayout.alignFromBottom(self, child: b, bottom: contentInsetsRef!.bottom + rightButtonsInsetsRef!.bottom)
 				}
 				
-				addConstraints(MaterialLayout.constraint(h + "|", options: [], metrics: ["right" : rightButtonsInsetsRef!.right], views: d))
+				addConstraints(MaterialLayout.constraint(h + "|", options: [], metrics: ["right" : rightButtonsInsetsRef!.right, "right_left" : rightButtonsInsetsRef!.right + rightButtonsInsetsRef!.left], views: d))
 			}
 		}
 		
@@ -370,7 +377,7 @@ public class BasicCardView : MaterialPulseView {
 			dividerLayer = CAShapeLayer()
 			dividerLayer!.backgroundColor = dividerColor?.CGColor
 			dividerLayer!.frame = CGRectMake(0, y, width, 1)
-			dividerLayer!.zPosition = 900
+			dividerLayer!.zPosition = 0
 			layer.addSublayer(dividerLayer!)
 		}
 	}

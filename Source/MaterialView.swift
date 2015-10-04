@@ -36,36 +36,36 @@ public class MaterialView : UIView {
 	/**
 		:name:	contentsRect
 	*/
-	public var contentsRect: CGRect! {
+	public var contentsRect: CGRect {
 		didSet {
-			visualLayer.contentsRect = nil == contentsRect ? CGRectMake(0, 0, 1, 1) : contentsRect!
+			visualLayer.contentsRect = contentsRect
 		}
 	}
 	
 	/**
 		:name:	contentsCenter
 	*/
-	public var contentsCenter: CGRect! {
+	public var contentsCenter: CGRect {
 		didSet {
-			visualLayer.contentsCenter = nil == contentsCenter ? CGRectMake(0, 0, 1, 1) : contentsCenter!
+			visualLayer.contentsCenter = contentsCenter
 		}
 	}
 	
 	/**
 		:name:	contentsScale
 	*/
-	public var contentsScale: CGFloat! {
+	public var contentsScale: CGFloat {
 		didSet {
-			visualLayer.contentsScale = nil == contentsScale ? UIScreen.mainScreen().scale : contentsScale!
+			visualLayer.contentsScale = contentsScale
 		}
 	}
 	
 	/**
 		:name:	contentsGravity
 	*/
-	public var contentsGravity: MaterialGravity! {
+	public var contentsGravity: MaterialGravity {
 		didSet {
-			visualLayer.contentsGravity = MaterialGravityToString(nil == contentsGravity ? .ResizeAspectFill : contentsGravity!)
+			visualLayer.contentsGravity = MaterialGravityToString(contentsGravity)
 		}
 	}
 	
@@ -73,11 +73,8 @@ public class MaterialView : UIView {
 		:name:	backgroundColor
 	*/
 	public override var backgroundColor: UIColor? {
-		get {
-			return nil == layer.backgroundColor ? nil : UIColor(CGColor: layer.backgroundColor!)
-		}
-		set(value) {
-			layer.backgroundColor = value?.CGColor
+		didSet {
+			layer.backgroundColor = backgroundColor?.CGColor
 		}
 	}
 	
@@ -114,7 +111,7 @@ public class MaterialView : UIView {
 		}
 		set(value) {
 			layer.frame.size.width = value
-			if nil != shape {
+			if .None != shape {
 				layer.frame.size.height = value
 			}
 		}
@@ -129,7 +126,7 @@ public class MaterialView : UIView {
 		}
 		set(value) {
 			layer.frame.size.height = value
-			if nil != shape {
+			if .None != shape {
 				layer.frame.size.width = value
 			}
 		}
@@ -138,56 +135,70 @@ public class MaterialView : UIView {
 	/**
 		:name:	shadowColor
 	*/
-	public var shadowColor: UIColor! {
+	public var shadowColor: UIColor? {
 		didSet {
-			layer.shadowColor = nil == shadowColor ? MaterialColor.clear.CGColor : shadowColor!.CGColor
+			layer.shadowColor = shadowColor?.CGColor
 		}
 	}
 	
 	/**
 		:name:	shadowOffset
 	*/
-	public var shadowOffset: CGSize! {
-		didSet {
-			layer.shadowOffset = nil == shadowOffset ? CGSizeMake(0, 0) : shadowOffset!
+	public var shadowOffset: CGSize {
+		get {
+			return layer.shadowOffset
+		}
+		set(value) {
+			layer.shadowOffset = value
 		}
 	}
 	
 	/**
 		:name:	shadowOpacity
 	*/
-	public var shadowOpacity: Float! {
-		didSet {
-			layer.shadowOpacity = nil == shadowOpacity ? 0 : shadowOpacity!
+	public var shadowOpacity: Float {
+		get {
+			return layer.shadowOpacity
+		}
+		set(value) {
+			layer.shadowOpacity = value
 		}
 	}
 	
 	/**
 		:name:	shadowRadius
 	*/
-	public var shadowRadius: CGFloat! {
-		didSet {
-			layer.shadowRadius = nil == shadowRadius ? 0 : shadowRadius!
+	public var shadowRadius: CGFloat {
+		get {
+			return layer.shadowRadius
+		}
+		set(value) {
+			layer.shadowRadius = value
 		}
 	}
 	
 	/**
 		:name:	masksToBounds
 	*/
-	public var masksToBounds: Bool! {
-		didSet {
-			visualLayer.masksToBounds = nil == masksToBounds ? false : masksToBounds!
+	public var masksToBounds: Bool {
+		get {
+			return visualLayer.masksToBounds
+		}
+		set(value) {
+			visualLayer.masksToBounds = value
 		}
 	}
 	
 	/**
 		:name:	cornerRadius
 	*/
-	public var cornerRadius: MaterialRadius! {
+	public var cornerRadius: MaterialRadius? {
 		didSet {
-			layer.cornerRadius = MaterialRadiusToValue(nil == cornerRadius ? .None : cornerRadius!)
-			if .Circle == shape {
-				shape = nil
+			if let v: MaterialRadius = cornerRadius {
+				layer.cornerRadius = MaterialRadiusToValue(v)
+				if .Circle == shape {
+					shape = .None
+				}
 			}
 		}
 	}
@@ -195,9 +206,9 @@ public class MaterialView : UIView {
 	/**
 		:name:	shape
 	*/
-	public var shape: MaterialShape? {
+	public var shape: MaterialShape {
 		didSet {
-			if nil != shape {
+			if .None != shape {
 				if width < height {
 					layer.frame.size.width = height
 				} else {
@@ -210,27 +221,27 @@ public class MaterialView : UIView {
 	/**
 		:name:	borderWidth
 	*/
-	public var borderWidth: MaterialBorder! {
+	public var borderWidth: MaterialBorder {
 		didSet {
-			layer.borderWidth = MaterialBorderToValue(nil == borderWidth ? .None : borderWidth!)
+			layer.borderWidth = MaterialBorderToValue(borderWidth)
 		}
 	}
 	
 	/**
 		:name:	borderColor
 	*/
-	public var borderColor: UIColor! {
+	public var borderColor: UIColor? {
 		didSet {
-			layer.borderColor = nil == borderColor ? MaterialColor.clear.CGColor : borderColor!.CGColor
+			layer.borderColor = borderColor?.CGColor
 		}
 	}
 	
 	/**
 		:name:	shadowDepth
 	*/
-	public var shadowDepth: MaterialDepth! {
+	public var shadowDepth: MaterialDepth {
 		didSet {
-			let value: MaterialDepthType = MaterialDepthToValue(nil == shadowDepth ? .None : shadowDepth!)
+			let value: MaterialDepthType = MaterialDepthToValue(shadowDepth)
 			shadowOffset = value.offset
 			shadowOpacity = value.opacity
 			shadowRadius = value.radius
@@ -252,9 +263,12 @@ public class MaterialView : UIView {
 	/**
 		:name:	zPosition
 	*/
-	public var zPosition: CGFloat! {
-		didSet {
-			layer.zPosition = zPosition
+	public var zPosition: CGFloat {
+		get {
+			return layer.zPosition
+		}
+		set(value) {
+			layer.zPosition = value
 		}
 	}
 	
@@ -262,6 +276,13 @@ public class MaterialView : UIView {
 		:name:	init
 	*/
 	public required init?(coder aDecoder: NSCoder) {
+		contentsRect = MaterialTheme.view.contentsRect
+		contentsCenter = MaterialTheme.view.contentsCenter
+		contentsScale = MaterialTheme.view.contentsScale
+		contentsGravity = MaterialTheme.view.contentsGravity
+		borderWidth = MaterialTheme.view.borderWidth
+		shadowDepth = .None
+		shape = .None
 		super.init(coder: aDecoder)
 	}
 	
@@ -269,6 +290,13 @@ public class MaterialView : UIView {
 		:name:	init
 	*/
 	public override init(frame: CGRect) {
+		contentsRect = MaterialTheme.view.contentsRect
+		contentsCenter = MaterialTheme.view.contentsCenter
+		contentsScale = MaterialTheme.view.contentsScale
+		contentsGravity = MaterialTheme.view.contentsGravity
+		borderWidth = MaterialTheme.view.borderWidth
+		shadowDepth = .None
+		shape = .None
 		super.init(frame: frame)
 		prepareView()
 	}
@@ -367,16 +395,11 @@ public class MaterialView : UIView {
 		userInteractionEnabled = MaterialTheme.view.userInteractionEnabled
 		backgroundColor = MaterialTheme.view.backgroundColor
 
-		contentsRect = MaterialTheme.view.contentsRect
-		contentsCenter = MaterialTheme.view.contentsCenter
-		contentsScale = MaterialTheme.view.contentsScale
-		contentsGravity = MaterialTheme.view.contentsGravity
 		shadowDepth = MaterialTheme.view.shadowDepth
 		shadowColor = MaterialTheme.view.shadowColor
 		zPosition = MaterialTheme.view.zPosition
 		masksToBounds = MaterialTheme.view.masksToBounds
 		cornerRadius = MaterialTheme.view.cornerRadius
-		borderWidth = MaterialTheme.view.borderWidth
 		borderColor = MaterialTheme.view.bordercolor
 		
 		// visualLayer

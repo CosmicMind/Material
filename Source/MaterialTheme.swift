@@ -103,8 +103,8 @@ public extension MaterialTheme.basicCardView {
 	public static var contentInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square3)
 	public static var titleLabelInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
 	public static var detailLabelInsetsRef: MaterialInsetsType = (top: 0, left: 8, bottom: 16, right: 8)
-	public static var leftButtonsInsetsRef: MaterialInsetsType = (top: 8, left: 16, bottom: -8, right: 0)
-	public static var rightButtonsInsetsRef: MaterialInsetsType = (top: 8, left: 0, bottom: -8, right: 16)
+	public static var leftButtonsInsetsRef: MaterialInsetsType = (top: 8, left: 8, bottom: -8, right: 0)
+	public static var rightButtonsInsetsRef: MaterialInsetsType = (top: 8, left: 0, bottom: -8, right: 8)
 	
 	// border
 	public static var borderWidth: MaterialBorder = .None
@@ -147,9 +147,11 @@ public extension MaterialTheme.navigationBarView {
 	// shape
 	public static var masksToBounds: Bool = true
 	public static var cornerRadius: MaterialRadius = .None
-	public static var titleLabelInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Rectangle3)
-	public static var leftButtonsInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
-	public static var rightButtonsInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
+	public static var contentInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
+	public static var titleLabelInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.None)
+	public static var detailLabelInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.None)
+	public static var leftButtonsInsetsRef: MaterialInsetsType = (top: 8, left: 8, bottom: 0, right: 0)
+	public static var rightButtonsInsetsRef: MaterialInsetsType = (top: 8, left: 0, bottom: 0, right: 8)
 	
 	// border
 	public static var borderWidth: MaterialBorder = .None
@@ -195,7 +197,7 @@ public extension MaterialTheme.flatButton {
 	public static var masksToBounds: Bool = true
 	public static var cornerRadius: MaterialRadius = .Radius1
 	public static var contentInsets: MaterialInsets = .Rectangle3
-	public static var shape: MaterialShape? = nil
+	public static var shape: MaterialShape = .None
 	
 	// border
 	public static var borderWidth: MaterialBorder = .None
@@ -227,7 +229,7 @@ public extension MaterialTheme.raisedButton {
 	public static var masksToBounds: Bool = true
 	public static var cornerRadius: MaterialRadius = .Radius1
 	public static var contentInsets: MaterialInsets = .Rectangle2
-	public static var shape: MaterialShape? = nil
+	public static var shape: MaterialShape = .None
 	
 	// border
 	public static var borderWidth: MaterialBorder = .None
@@ -260,7 +262,7 @@ public extension MaterialTheme.fabButton {
 	public static var masksToBounds: Bool = true
 	public static var cornerRadius: MaterialRadius = .None
 	public static var contentInsets: MaterialInsets = .None
-	public static var shape: MaterialShape? = .Circle
+	public static var shape: MaterialShape = .Circle
 	
 	// border
 	public static var borderWidth: MaterialBorder = .None

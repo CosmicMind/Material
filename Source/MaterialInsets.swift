@@ -26,10 +26,12 @@ public enum MaterialInsets {
 	case Square2
 	case Square3
 	case Square4
+	case Square5
 	case Rectangle1
 	case Rectangle2
 	case Rectangle3
 	case Rectangle4
+	case Rectangle5
 }
 
 /**
@@ -47,6 +49,8 @@ public func MaterialInsetsToValue(inset: MaterialInsets) -> MaterialInsetsType {
 		return (top: 16, left: 16, bottom: 16, right: 16)
 	case .Square4:
 		return (top: 32, left: 32, bottom: 32, right: 32)
+	case .Square5:
+		return (top: 64, left: 64, bottom: 64, right: 64)
 	case .Rectangle1:
 		return (top: 2, left: 4, bottom: 2, right: 4)
 	case .Rectangle2:
@@ -55,5 +59,7 @@ public func MaterialInsetsToValue(inset: MaterialInsets) -> MaterialInsetsType {
 		return (top: 8, left: 16, bottom: 8, right: 16)
 	case .Rectangle4:
 		return (top: 16, left: 32, bottom: 16, right: 32)
+	case .Rectangle5:
+		return (top: 32, left: 64, bottom: 32, right: 64)
 	}
 }

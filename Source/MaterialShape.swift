@@ -17,6 +17,7 @@
 //
 
 public enum MaterialShape {
+	case None
 	case Square
 	case Circle
 }

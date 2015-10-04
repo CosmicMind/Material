@@ -47,9 +47,8 @@ public class MaterialButton : UIButton {
 	/**
 		:name:	pulseColorOpacity
 	*/
-	public var pulseColorOpacity: CGFloat! {
+	public var pulseColorOpacity: CGFloat = MaterialTheme.pulseView.pulseColorOpacity {
 		didSet {
-			pulseColorOpacity = nil == pulseColorOpacity ? 0.25 : pulseColorOpacity!
 			preparePulseLayer()
 		}
 	}
@@ -67,11 +66,8 @@ public class MaterialButton : UIButton {
 		:name:	backgroundColor
 	*/
 	public override var backgroundColor: UIColor? {
-		get {
-			return nil == layer.backgroundColor ? nil : UIColor(CGColor: layer.backgroundColor!)
-		}
-		set(value) {
-			layer.backgroundColor = value?.CGColor
+		didSet {
+			layer.backgroundColor = backgroundColor?.CGColor
 		}
 	}
 	
@@ -108,7 +104,7 @@ public class MaterialButton : UIButton {
 		}
 		set(value) {
 			layer.frame.size.width = value
-			if nil != shape {
+			if .None != shape {
 				layer.frame.size.height = value
 			}
 		}
@@ -123,7 +119,7 @@ public class MaterialButton : UIButton {
 		}
 		set(value) {
 			layer.frame.size.height = value
-			if nil != shape {
+			if .None != shape {
 				layer.frame.size.width = value
 			}
 		}
@@ -132,56 +128,70 @@ public class MaterialButton : UIButton {
 	/**
 		:name:	shadowColor
 	*/
-	public var shadowColor: UIColor! {
+	public var shadowColor: UIColor? {
 		didSet {
-			layer.shadowColor = nil == shadowColor ? MaterialColor.clear.CGColor : shadowColor!.CGColor
+			layer.shadowColor = shadowColor?.CGColor
 		}
 	}
 	
 	/**
 		:name:	shadowOffset
 	*/
-	public var shadowOffset: CGSize! {
-		didSet {
-			layer.shadowOffset = nil == shadowOffset ? CGSizeMake(0, 0) : shadowOffset!
+	public var shadowOffset: CGSize {
+		get {
+			return layer.shadowOffset
+		}
+		set(value) {
+			layer.shadowOffset = value
 		}
 	}
 	
 	/**
 		:name:	shadowOpacity
 	*/
-	public var shadowOpacity: Float! {
-		didSet {
-			layer.shadowOpacity = nil == shadowOpacity ? 0 : shadowOpacity!
+	public var shadowOpacity: Float {
+		get {
+			return layer.shadowOpacity
+		}
+		set(value) {
+			layer.shadowOpacity = value
 		}
 	}
 	
 	/**
 		:name:	shadowRadius
 	*/
-	public var shadowRadius: CGFloat! {
-		didSet {
-			layer.shadowRadius = nil == shadowRadius ? 0 : shadowRadius!
+	public var shadowRadius: CGFloat {
+		get {
+			return layer.shadowRadius
+		}
+		set(value) {
+			layer.shadowRadius = value
 		}
 	}
 	
 	/**
 		:name:	masksToBounds
 	*/
-	public var masksToBounds: Bool! {
-		didSet {
-			visualLayer.masksToBounds = nil == masksToBounds ? false : masksToBounds!
+	public var masksToBounds: Bool {
+		get {
+			return visualLayer.masksToBounds
+		}
+		set(value) {
+			visualLayer.masksToBounds = value
 		}
 	}
 	
 	/**
 		:name:	cornerRadius
 	*/
-	public var cornerRadius: MaterialRadius! {
+	public var cornerRadius: MaterialRadius? {
 		didSet {
-			layer.cornerRadius = MaterialRadiusToValue(nil == cornerRadius ? .None : cornerRadius!)
-			if .Circle == shape {
-				shape = nil
+			if let v: MaterialRadius = cornerRadius {
+				layer.cornerRadius = MaterialRadiusToValue(v)
+				if .Circle == shape {
+					shape = .None
+				}
 			}
 		}
 	}
@@ -189,9 +199,9 @@ public class MaterialButton : UIButton {
 	/**
 		:name:	shape
 	*/
-	public var shape: MaterialShape? {
+	public var shape: MaterialShape {
 		didSet {
-			if nil != shape {
+			if .None != shape {
 				if width < height {
 					layer.frame.size.width = height
 				} else {
@@ -204,27 +214,27 @@ public class MaterialButton : UIButton {
 	/**
 		:name:	borderWidth
 	*/
-	public var borderWidth: MaterialBorder! {
+	public var borderWidth: MaterialBorder {
 		didSet {
-			layer.borderWidth = MaterialBorderToValue(nil == borderWidth ? .None : borderWidth!)
+			layer.borderWidth = MaterialBorderToValue(borderWidth)
 		}
 	}
 	
 	/**
 		:name:	borderColor
 	*/
-	public var borderColor: UIColor! {
+	public var borderColor: UIColor? {
 		didSet {
-			layer.borderColor = nil == borderColor ? MaterialColor.clear.CGColor : borderColor!.CGColor
+			layer.borderColor = borderColor?.CGColor
 		}
 	}
 	
 	/**
 		:name:	shadowDepth
 	*/
-	public var shadowDepth: MaterialDepth! {
+	public var shadowDepth: MaterialDepth {
 		didSet {
-			let value: MaterialDepthType = MaterialDepthToValue(nil == shadowDepth ? .None : shadowDepth!)
+			let value: MaterialDepthType = MaterialDepthToValue(shadowDepth)
 			shadowOffset = value.offset
 			shadowOpacity = value.opacity
 			shadowRadius = value.radius
@@ -246,18 +256,21 @@ public class MaterialButton : UIButton {
 	/**
 		:name:	zPosition
 	*/
-	public var zPosition: CGFloat! {
-		didSet {
-			layer.zPosition = zPosition
+	public var zPosition: CGFloat {
+		get {
+			return layer.zPosition
+		}
+		set(value) {
+			layer.zPosition = value
 		}
 	}
 	
 	/**
 		:name:	contentInsets
 	*/
-	public var contentInsets: MaterialInsets! {
+	public var contentInsets: MaterialInsets {
 		didSet {
-			let value: MaterialInsetsType = MaterialInsetsToValue(nil == contentInsets ? .None : contentInsets)
+			let value: MaterialInsetsType = MaterialInsetsToValue(contentInsets)
 			contentEdgeInsets = UIEdgeInsetsMake(value.top, value.left, value.bottom, value.right)
 		}
 	}
@@ -266,6 +279,10 @@ public class MaterialButton : UIButton {
 		:name:	init
 	*/
 	public required init?(coder aDecoder: NSCoder) {
+		borderWidth = .None
+		shadowDepth = .None
+		shape = .None
+		contentInsets = .None
 		super.init(coder: aDecoder)
 	}
 	
@@ -273,6 +290,10 @@ public class MaterialButton : UIButton {
 		:name:	init
 	*/
 	public override init(frame: CGRect) {
+		borderWidth = .None
+		shadowDepth = .None
+		shape = .None
+		contentInsets = .None
 		super.init(frame: frame)
 		prepareView()
 	}
@@ -373,7 +394,7 @@ public class MaterialButton : UIButton {
 			let s: CGFloat = (width < height ? height : width) / 2
 			let f: CGFloat = 3
 			let v: CGFloat = s / f
-			let d: CGFloat = pulseFill ? 5 * f : 2 * f
+			let d: CGFloat = pulseFill ? 5 * f : 2.5 * f
 			MaterialAnimation.animationDisabled({
 				self.pulseLayer.hidden = false
 				self.pulseLayer.bounds = CGRectMake(0, 0, v, v)
@@ -434,7 +455,7 @@ public class MaterialButton : UIButton {
 		// visualLayer
 		visualLayer.zPosition = -1
 		layer.addSublayer(visualLayer)
-		
+
 		// pulseLayer
 		pulseLayer.hidden = true
 		pulseLayer.zPosition = 1
@@ -454,7 +475,7 @@ public class MaterialButton : UIButton {
 	//	:name:	preparePulseLayer
 	//
 	internal func preparePulseLayer() {
-		pulseLayer.backgroundColor = pulseColor?.colorWithAlphaComponent(pulseColorOpacity!).CGColor
+		pulseLayer.backgroundColor = pulseColor?.colorWithAlphaComponent(pulseColorOpacity).CGColor
 	}
 	
 	//
