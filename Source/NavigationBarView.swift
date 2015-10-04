@@ -127,7 +127,7 @@ public class NavigationBarView : MaterialView {
 	/**
 		:name:	leftButtons
 	*/
-	public var leftButtons: Array<MaterialButton>? {
+	public var leftButtons: Array<UIButton>? {
 		didSet {
 			if let v = leftButtons {
 				for b in v {
@@ -160,7 +160,7 @@ public class NavigationBarView : MaterialView {
 	/**
 		:name:	rightButtons
 	*/
-	public var rightButtons: Array<MaterialButton>? {
+	public var rightButtons: Array<UIButton>? {
 		didSet {
 			if let v = rightButtons {
 				for b in v {
@@ -189,13 +189,13 @@ public class NavigationBarView : MaterialView {
 		:name:	init
 	*/
 	public convenience init() {
-		self.init(frame: CGRectNull)
+		self.init(frame: CGRectMake(MaterialTheme.navigationBarView.x, MaterialTheme.navigationBarView.y, MaterialTheme.navigationBarView.width, MaterialTheme.navigationBarView.height))
 	}
 	
 	/**
 		:name:	init
 	*/
-	public convenience init?(titleLabel: UILabel? = nil, detailLabel: UILabel? = nil, leftButtons: Array<MaterialButton>? = nil, rightButtons: Array<MaterialButton>? = nil) {
+	public convenience init?(titleLabel: UILabel? = nil, detailLabel: UILabel? = nil, leftButtons: Array<UIButton>? = nil, rightButtons: Array<UIButton>? = nil) {
 		self.init(frame: CGRectNull)
 		prepareProperties(titleLabel, detailLabel: detailLabel, leftButtons: leftButtons, rightButtons: rightButtons)
 	}
@@ -323,7 +323,7 @@ public class NavigationBarView : MaterialView {
 	//
 	//	:name:	prepareProperties
 	//
-	internal func prepareProperties(titleLabel: UILabel?, detailLabel: UILabel?, leftButtons: Array<MaterialButton>?, rightButtons: Array<MaterialButton>?) {
+	internal func prepareProperties(titleLabel: UILabel?, detailLabel: UILabel?, leftButtons: Array<UIButton>?, rightButtons: Array<UIButton>?) {
 		self.titleLabel = titleLabel
 		self.detailLabel = detailLabel
 		self.leftButtons = leftButtons

@@ -142,7 +142,7 @@ public class BasicCardView : MaterialPulseView {
 	/**
 		:name:	leftButtons
 	*/
-	public var leftButtons: Array<MaterialButton>? {
+	public var leftButtons: Array<UIButton>? {
 		didSet {
 			if let v = leftButtons {
 				for b in v {
@@ -175,7 +175,7 @@ public class BasicCardView : MaterialPulseView {
 	/**
 		:name:	rightButtons
 	*/
-	public var rightButtons: Array<MaterialButton>? {
+	public var rightButtons: Array<UIButton>? {
 		didSet {
 			if let v = rightButtons {
 				for b in v {
@@ -210,7 +210,7 @@ public class BasicCardView : MaterialPulseView {
 	/**
 		:name:	init
 	*/
-	public convenience init?(titleLabel: UILabel? = nil, detailLabel: UILabel? = nil, leftButtons: Array<MaterialButton>? = nil, rightButtons: Array<MaterialButton>? = nil) {
+	public convenience init?(titleLabel: UILabel? = nil, detailLabel: UILabel? = nil, leftButtons: Array<UIButton>? = nil, rightButtons: Array<UIButton>? = nil) {
 		self.init(frame: CGRectNull)
 		prepareProperties(titleLabel, detailLabel: detailLabel, leftButtons: leftButtons, rightButtons: rightButtons)
 	}
@@ -224,9 +224,9 @@ public class BasicCardView : MaterialPulseView {
 		if true == divider {
 			var y: CGFloat = 0
 			if 0 < leftButtons?.count {
-				y += contentInsetsRef!.bottom + leftButtonsInsetsRef!.top + leftButtonsInsetsRef!.bottom + leftButtons![0].height
+				y += contentInsetsRef!.bottom + leftButtonsInsetsRef!.top + leftButtonsInsetsRef!.bottom + leftButtons![0].frame.size.height
 			} else if 0 < rightButtons?.count {
-				y += contentInsetsRef!.bottom + rightButtonsInsetsRef!.top + rightButtonsInsetsRef!.bottom + rightButtons![0].height
+				y += contentInsetsRef!.bottom + rightButtonsInsetsRef!.top + rightButtonsInsetsRef!.bottom + rightButtons![0].frame.size.height
 			}
 			if 0 < y {
 				prepareDivider(bounds.size.height - y - 0.5, width: bounds.size.width)
@@ -385,7 +385,7 @@ public class BasicCardView : MaterialPulseView {
 	//
 	//	:name:	prepareProperties
 	//
-	internal func prepareProperties(titleLabel: UILabel?, detailLabel: UILabel?, leftButtons: Array<MaterialButton>?, rightButtons: Array<MaterialButton>?) {
+	internal func prepareProperties(titleLabel: UILabel?, detailLabel: UILabel?, leftButtons: Array<UIButton>?, rightButtons: Array<UIButton>?) {
 		self.titleLabel = titleLabel
 		self.detailLabel = detailLabel
 		self.leftButtons = leftButtons

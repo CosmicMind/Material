@@ -309,13 +309,6 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-		:name:	layerClass
-	*/
-	public override class func layerClass() -> AnyClass {
-		return CAShapeLayer.self
-	}
-	
-	/**
 		:name:	layoutSubviews
 	*/
 	public override func layoutSubviews() {

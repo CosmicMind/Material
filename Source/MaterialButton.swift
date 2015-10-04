@@ -305,13 +305,6 @@ public class MaterialButton : UIButton {
 	}
 
 	/**
-		:name:	layerClass
-	*/
-	public override class func layerClass() -> AnyClass {
-		return MaterialLayer.self
-	}
-	
-	/**
 		:name:	layoutSubviews
 	*/
 	public override func layoutSubviews() {

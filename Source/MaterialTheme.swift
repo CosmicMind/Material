@@ -148,10 +148,10 @@ public extension MaterialTheme.navigationBarView {
 	public static var masksToBounds: Bool = true
 	public static var cornerRadius: MaterialRadius = .None
 	public static var contentInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
-	public static var titleLabelInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.None)
+	public static var titleLabelInsetsRef: MaterialInsetsType = (top: 20, left: 0, bottom: 0, right: 0)
 	public static var detailLabelInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.None)
-	public static var leftButtonsInsetsRef: MaterialInsetsType = (top: 8, left: 8, bottom: 0, right: 0)
-	public static var rightButtonsInsetsRef: MaterialInsetsType = (top: 8, left: 0, bottom: 0, right: 8)
+	public static var leftButtonsInsetsRef: MaterialInsetsType = (top: 8, left: 8, bottom: 0, right: -8)
+	public static var rightButtonsInsetsRef: MaterialInsetsType = (top: 8, left: -8, bottom: 0, right: 8)
 	
 	// border
 	public static var borderWidth: MaterialBorder = .None
