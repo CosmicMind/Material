@@ -155,21 +155,37 @@ v.titleLabel!.text = "Card Title"
 
 v.detailLabel!.textColor = MaterialColor.white
 v.detailLabel!.font = RobotoFont.regularWithSize(14)
+v.detailLabel!.lineBreakMode = .ByWordWrapping
+v.detailLabel!.numberOfLines = 0
 v.detailLabel!.text = "I am a very simple card. I am good at containing small bits of information. I am convenient because I require little code to use effectively."
 
 let b1: FlatButton = FlatButton()
-b1.setTitle("Button 1", forState: .Normal)
+b1.setTitle("Btn 1", forState: .Normal)
 b1.setTitleColor(MaterialColor.amber.darken1, forState: .Normal)
 b1.setTitleColor(MaterialColor.amber.lighten1, forState: .Highlighted)
 b1.pulseColor = MaterialColor.white
 
 let b2: FlatButton = FlatButton()
-b2.setTitle("Button 2", forState: .Normal)
+b2.setTitle("Btn 2", forState: .Normal)
 b2.setTitleColor(MaterialColor.amber.darken1, forState: .Normal)
 b2.setTitleColor(MaterialColor.amber.lighten1, forState: .Highlighted)
 b2.pulseColor = MaterialColor.white
 
 v.leftButtons = [b1, b2]
+
+let b3: FlatButton = FlatButton()
+b3.setTitle("Btn 3", forState: .Normal)
+b3.setTitleColor(MaterialColor.amber.darken1, forState: .Normal)
+b3.setTitleColor(MaterialColor.amber.lighten1, forState: .Highlighted)
+b3.pulseColor = MaterialColor.white
+
+let b4: FlatButton = FlatButton()
+b4.setTitle("Btn 4", forState: .Normal)
+b4.setTitleColor(MaterialColor.amber.darken1, forState: .Normal)
+b4.setTitleColor(MaterialColor.amber.lighten1, forState: .Highlighted)
+b4.pulseColor = MaterialColor.white
+
+v.rightButtons = [b3, b4]
 
 // Add to UIViewController.
 view.addSubview(v)
