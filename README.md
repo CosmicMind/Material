@@ -201,8 +201,8 @@ A BasicCardView can easily add an image as its background, below is the code tha
 
 ```swift
 let v: BasicCardView = BasicCardView(titleLabel: UILabel(), detailLabel: UILabel())!
-
-v.image = UIImage(named: "space")
+v.spotlight = true
+v.image = UIImage(named: "img3")
 
 v.titleLabel!.textColor = MaterialColor.white
 v.titleLabel!.font = RobotoFont.regularWithSize(18)
@@ -214,7 +214,8 @@ v.detailLabel!.lineBreakMode = .ByWordWrapping
 v.detailLabel!.numberOfLines = 0
 v.detailLabel!.text = "I am a very simple card. I am good at containing small bits of information. I am convenient because I require little code to use effectively."
 
-// Add to UIViewController.
+
+// Add to UIViewController
 view.addSubview(v)
 v.translatesAutoresizingMaskIntoConstraints = false
 MaterialLayout.alignToParentHorizontallyWithInsets(view, child: v, left: 20, right: 20)
