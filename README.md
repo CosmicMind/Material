@@ -200,9 +200,9 @@ A BasicCardView can easily add an image as its background, below is the code tha
 ![MKPreview](http://www.materialkit.io/github/img8.gif)
 
 ```swift
-let v: BasicCardView = BasicCardView(titleLabel: UILabel(), detailLabel: UILabel())!
+let v: BasicCardView = BasicCardView(titleLabel: MaterialLabel(), detailLabel: MaterialLabel())!
 v.spotlight = true
-v.image = UIImage(named: "img3")
+v.image = UIImage(named: "img4")
 
 v.titleLabel!.textColor = MaterialColor.white
 v.titleLabel!.font = RobotoFont.regularWithSize(18)
@@ -229,11 +229,9 @@ An ImageCardView is a great way to enclose many components into a single and pre
 ![MKPreview](http://www.materialkit.io/github/img10.gif)
 
 ```swift
-let v: ImageCardView = ImageCardView()
+let v: ImageCardView = ImageCardView(image: UIImage(named: "img4"))!
 v.pulseColor = MaterialColor.blueGrey.lighten4
 v.pulseFill = true
-
-v.image = UIImage(named: "space")
 
 v.titleLabel = MaterialLabel()
 v.titleLabel!.textColor = MaterialColor.white
