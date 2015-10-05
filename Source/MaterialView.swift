@@ -336,6 +336,8 @@ public class MaterialView : UIView {
 			layer.addAnimation(a, forKey: nil)
 			filterAnimations(a)
 			visualLayer.addAnimation(a, forKey: nil)
+		} else if let a: CATransition = animation as? CATransition {
+			layer.addAnimation(a, forKey: kCATransition)
 		}
 	}
 	

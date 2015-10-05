@@ -275,6 +275,7 @@ Animations are a wonderful way to add life to your application. MaterialAnimatio
 
 ```swift
 let v: MaterialPulseView = MaterialPulseView(frame: CGRectMake(50, 50, 200, 200))
+v.spotlight = true
 v.shape = .Circle
 v.shadowDepth = .Depth2
 v.borderWidth = .Border1
