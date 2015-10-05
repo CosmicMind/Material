@@ -11,11 +11,12 @@ To get started, let's introduce MaterialView, a lightweight UIView Object that h
 ![MKPreview](http://www.materialkit.io/github/img1.gif)
 
 ```swift
-let v: MaterialView = MaterialView(frame: CGRectMake(20, 20, view.frame.size.width - 40, 200))
+let v: MaterialView = MaterialView(frame: CGRectMake(87.5, 87.5, 200, 200))
 v.shape = .Circle
-v.shadowDepth = .Depth2
-v.borderWidth = .Border1
-v.image = UIImage(named: "space")
+v.shadowDepth = .Depth3
+v.borderWidth = .Border4
+v.borderColor = MaterialColor.blue.accent3
+v.image = UIImage(named: "img1")
 
 // Add to UIViewController.
 view.addSubview(v)

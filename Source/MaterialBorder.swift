@@ -26,6 +26,11 @@ public enum MaterialBorder {
 	case Border2
 	case Border3
 	case Border4
+	case Border5
+	case Border6
+	case Border7
+	case Border8
+	case Border9
 }
 
 /**
@@ -43,5 +48,15 @@ public func MaterialBorderToValue(border: MaterialBorder) -> MaterialBorderType 
 		return 2
 	case .Border4:
 		return 3
+	case .Border5:
+		return 4
+	case .Border6:
+		return 5
+	case .Border7:
+		return 6
+	case .Border8:
+		return 7
+	case .Border9:
+		return 8
 	}
 }
