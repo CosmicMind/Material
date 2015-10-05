@@ -68,17 +68,22 @@ public class MaterialPulseView : MaterialView {
 			let f: CGFloat = 3
 			let v: CGFloat = s / f
 			let d: CGFloat = pulseFill ? 5 * f : 2 * f
+			let r: CGFloat = 1.05
+			let a: CFTimeInterval = 0.25
+			
 			MaterialAnimation.animationDisabled({
 				self.pulseLayer.hidden = false
 				self.pulseLayer.bounds = CGRectMake(0, 0, v, v)
 				self.pulseLayer.position = point
 				self.pulseLayer.cornerRadius = s / d
 			})
-			MaterialAnimation.animationWithDuration(0.25, animations: {
+			
+			if pulseScale {
+				layer.addAnimation(MaterialAnimation.scale(CATransform3DMakeScale(r, r, r), duration: a), forKey: nil)
+			}
+			
+			MaterialAnimation.animationWithDuration(a, animations: {
 				self.pulseLayer.transform = CATransform3DMakeScale(d, d, d)
-				if self.pulseScale {
-					self.layer.transform = CATransform3DMakeScale(1.05, 1.05, 1.05)
-				}
 			})
 		}
 	}
@@ -162,9 +167,7 @@ public class MaterialPulseView : MaterialView {
 		MaterialAnimation.animationWithDuration(0.25, animations: {
 			self.pulseLayer.hidden = true
 			self.pulseLayer.transform = CATransform3DIdentity
-			if self.pulseScale {
-				self.layer.transform = CATransform3DIdentity
-			}
 		})
+		self.layer.addAnimation(MaterialAnimation.scale(CATransform3DIdentity), forKey: nil)
 	}
 }
