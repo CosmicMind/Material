@@ -70,6 +70,18 @@ public class MaterialView : UIView {
 	}
 	
 	/**
+		:name:	masksToBounds
+	*/
+	public var masksToBounds: Bool {
+		get {
+			return visualLayer.masksToBounds
+		}
+		set(value) {
+			visualLayer.masksToBounds = value
+		}
+	}
+	
+	/**
 		:name:	backgroundColor
 	*/
 	public override var backgroundColor: UIColor? {
@@ -83,10 +95,10 @@ public class MaterialView : UIView {
 	*/
 	public var x: CGFloat {
 		get {
-			return layer.frame.origin.x
+			return frame.origin.x
 		}
 		set(value) {
-			layer.frame.origin.x = value
+			frame.origin.x = value
 		}
 	}
 	
@@ -95,10 +107,10 @@ public class MaterialView : UIView {
 	*/
 	public var y: CGFloat {
 		get {
-			return layer.frame.origin.y
+			return frame.origin.y
 		}
 		set(value) {
-			layer.frame.origin.y = value
+			frame.origin.y = value
 		}
 	}
 	
@@ -107,12 +119,12 @@ public class MaterialView : UIView {
 	*/
 	public var width: CGFloat {
 		get {
-			return layer.frame.size.width
+			return frame.size.width
 		}
 		set(value) {
-			layer.frame.size.width = value
+			frame.size.width = value
 			if .None != shape {
-				layer.frame.size.height = value
+				frame.size.height = value
 			}
 		}
 	}
@@ -122,12 +134,12 @@ public class MaterialView : UIView {
 	*/
 	public var height: CGFloat {
 		get {
-			return layer.frame.size.height
+			return frame.size.height
 		}
 		set(value) {
-			layer.frame.size.height = value
+			frame.size.height = value
 			if .None != shape {
-				layer.frame.size.width = value
+				frame.size.width = value
 			}
 		}
 	}
@@ -178,18 +190,6 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-		:name:	masksToBounds
-	*/
-	public var masksToBounds: Bool {
-		get {
-			return visualLayer.masksToBounds
-		}
-		set(value) {
-			visualLayer.masksToBounds = value
-		}
-	}
-	
-	/**
 		:name:	cornerRadius
 	*/
 	public var cornerRadius: MaterialRadius? {
@@ -210,9 +210,9 @@ public class MaterialView : UIView {
 		didSet {
 			if .None != shape {
 				if width < height {
-					layer.frame.size.width = height
+					frame.size.width = height
 				} else {
-					layer.frame.size.height = width
+					frame.size.height = width
 				}
 			}
 		}

@@ -20,6 +20,107 @@ import UIKit
 
 public class ImageCardView : MaterialPulseView {
 	//
+	//	:name:	imageLayer
+	//
+	public private(set) var imageLayer: CAShapeLayer?
+	
+	/**
+		:name:	image
+	*/
+	public override var image: UIImage? {
+		get {
+			return nil == imageLayer?.contents ? nil : UIImage(CGImage: imageLayer!.contents as! CGImage)
+		}
+		set(value) {
+			if let v = value {
+				prepareImageLayer()
+				imageLayer!.contents = v.CGImage
+				if 0 == imageLayer!.frame.size.height {
+					imageLayer!.frame.size.height = 200
+				}
+			}
+			else {
+				imageLayer?.frame = CGRectZero
+				imageLayer?.removeFromSuperlayer()
+				imageLayer = nil
+			}
+			reloadView()
+		}
+	}
+	
+	/**
+		:name:	contentsRect
+	*/
+	public override var contentsRect: CGRect {
+		didSet {
+			prepareImageLayer()
+			if let v = imageLayer {
+				v.contentsRect = contentsRect
+				if nil != imageLayer?.contents {
+					reloadView()
+				}
+			}
+		}
+	}
+	
+	/**
+		:name:	contentsCenter
+	*/
+	public override var contentsCenter: CGRect {
+		didSet {
+			prepareImageLayer()
+			if let v = imageLayer {
+				v.contentsCenter = contentsCenter
+				if nil != imageLayer?.contents {
+					reloadView()
+				}
+			}
+		}
+	}
+	
+	/**
+		:name:	contentsScale
+	*/
+	public override var contentsScale: CGFloat {
+		didSet {
+			prepareImageLayer()
+			if let v = imageLayer {
+				v.contentsScale = contentsScale
+				if nil != imageLayer?.contents {
+					reloadView()
+				}
+			}
+		}
+	}
+	
+	/**
+		:name:	contentsGravity
+	*/
+	public override var contentsGravity: MaterialGravity {
+		didSet {
+			prepareImageLayer()
+			if let v = imageLayer {
+				v.contentsGravity = MaterialGravityToString(contentsGravity)
+				if nil != imageLayer?.contents {
+					reloadView()
+				}
+			}
+		}
+	}
+	
+	/**
+		:name:	masksToBounds
+	*/
+	public override var masksToBounds: Bool {
+		get {
+			return nil == imageLayer?.masksToBounds ? false : imageLayer!.masksToBounds
+		}
+		set(value) {
+			imageLayer?.masksToBounds = value
+		}
+	}
+	
+	//
 	//	:name:	dividerLayer
 	//
 	internal var dividerLayer: CAShapeLayer?
@@ -220,6 +321,13 @@ public class ImageCardView : MaterialPulseView {
 	*/
 	public override func layoutSubviews() {
 		super.layoutSubviews()
+		// image
+		let h: CGFloat? = imageLayer?.frame.size.height
+		imageLayer?.frame = bounds
+		if 0 < h {
+			imageLayer?.frame.size.height = h!
+		}
+		
 		// divider
 		if true == divider {
 			var y: CGFloat = 0
@@ -257,6 +365,12 @@ public class ImageCardView : MaterialPulseView {
 		} else if nil != detailLabel {
 			verticalFormat += "-(insetTop)"
 			metrics["insetTop"] = contentInsetsRef!.top + detailLabelInsetsRef!.top
+		}
+		
+		// image
+		if 0 < imageLayer?.frame.size.height {
+			metrics["insetTop"] = (metrics["insetTop"] as! CGFloat) + imageLayer!.frame.size.height - (nil == titleLabel ? 0 : titleLabel!.frame.size.height)
+			print(titleLabel!.frame.size.height)
 		}
 		
 		// title
@@ -370,6 +484,17 @@ public class ImageCardView : MaterialPulseView {
 	}
 	
 	//
+	//	:name:	prepareImageLayer
+	//
+	internal func prepareImageLayer() {
+		if nil == imageLayer {
+			imageLayer = CAShapeLayer()
+			imageLayer!.zPosition = 0
+			visualLayer.addSublayer(imageLayer!)
+		}
+	}
+	
+	//
 	//	:name:	prepareDivider
 	//
 	internal func prepareDivider(y: CGFloat, width: CGFloat) {
@@ -417,5 +542,7 @@ public class ImageCardView : MaterialPulseView {
 		borderWidth = MaterialTheme.imageCardView.borderWidth
 		borderColor = MaterialTheme.imageCardView.bordercolor
 		dividerColor = MaterialTheme.imageCardView.dividerColor
+		
+		visualLayer.masksToBounds = true
 	}
 }
