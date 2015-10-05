@@ -22,6 +22,7 @@ public struct MaterialTheme {
 	public struct view {}
 	public struct pulseView {}
 	public struct basicCardView {}
+	public struct imageCardView {}
 	public struct navigationBarView {}
 	public struct label {}
 	public struct flatButton {}
@@ -93,6 +94,47 @@ public extension MaterialTheme.pulseView {
 
 // basicCardView
 public extension MaterialTheme.basicCardView {
+	// shadow
+	public static var shadowDepth: MaterialDepth = .Depth2
+	public static var shadowColor: UIColor = MaterialColor.black
+	
+	// shape
+	public static var masksToBounds: Bool = true
+	public static var cornerRadius: MaterialRadius = .None
+	public static var contentInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square3)
+	public static var titleLabelInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
+	public static var detailLabelInsetsRef: MaterialInsetsType = (top: 0, left: 8, bottom: 16, right: 8)
+	public static var leftButtonsInsetsRef: MaterialInsetsType = (top: 8, left: 8, bottom: -8, right: 0)
+	public static var rightButtonsInsetsRef: MaterialInsetsType = (top: 8, left: 0, bottom: -8, right: 8)
+	
+	// border
+	public static var borderWidth: MaterialBorder = .None
+	public static var bordercolor: UIColor = MaterialColor.black
+	
+	// color
+	public static var backgroundColor: UIColor = MaterialColor.white
+	public static var pulseColor: UIColor = MaterialColor.white
+	public static var pulseColorOpacity: CGFloat = 0.25
+	
+	// interaction
+	public static var userInteractionEnabled: Bool = true
+	
+	// image
+	public static var contentsRect: CGRect = CGRectMake(0, 0, 1, 1)
+	public static var contentsCenter: CGRect = CGRectMake(0, 0, 1, 1)
+	public static var contentsScale: CGFloat = UIScreen.mainScreen().scale
+	public static var contentsGravity: MaterialGravity = .ResizeAspectFill
+	
+	// position
+	public static var zPosition: CGFloat = 0
+	
+	// divider
+	public static var divider: Bool = true
+	public static var dividerColor: UIColor = MaterialColor.blueGrey.lighten5
+}
+
+// imageCardView
+public extension MaterialTheme.imageCardView {
 	// shadow
 	public static var shadowDepth: MaterialDepth = .Depth2
 	public static var shadowColor: UIColor = MaterialColor.black

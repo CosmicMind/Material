@@ -20,11 +20,6 @@ import UIKit
 
 public class MaterialButton : UIButton {
 	/**
-		:name:	spotlight
-	*/
-	public lazy var spotlight: Bool = false
-	
-	/**
 		:name:	visualLayer
 	*/
 	public private(set) lazy var visualLayer: CAShapeLayer = CAShapeLayer()
@@ -40,9 +35,26 @@ public class MaterialButton : UIButton {
 	public lazy var pulseScale: Bool = true
 	
 	/**
+		:name:	spotlight
+	*/
+	public var spotlight: Bool = false {
+		didSet {
+			if spotlight {
+				pulseFill = false
+			}
+		}
+	}
+	
+	/**
 		:name:	pulseFill
 	*/
-	public lazy var pulseFill: Bool = false
+	public var pulseFill: Bool = false {
+		didSet {
+			if pulseFill {
+				spotlight = false
+			}
+		}
+	}
 	
 	/**
 		:name:	pulseColorOpacity
@@ -385,26 +397,25 @@ public class MaterialButton : UIButton {
 		let point: CGPoint = layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer)
 		if true == layer.containsPoint(point) {
 			let s: CGFloat = (width < height ? height : width) / 2
-			let f: CGFloat = 3
+			let f: CGFloat = 4
 			let v: CGFloat = s / f
-			let d: CGFloat = pulseFill ? 5 * f : 2 * f
+			let d: CGFloat = 2 * f
 			let r: CGFloat = 1.05
-			let a: CFTimeInterval = 0.25
+			let t: CFTimeInterval = 0.25
 			
-			MaterialAnimation.animationDisabled({
-				self.pulseLayer.hidden = false
-				self.pulseLayer.bounds = CGRectMake(0, 0, v, v)
-				self.pulseLayer.position = point
-				self.pulseLayer.cornerRadius = s / d
-			})
-			
-			if pulseScale {
-				layer.addAnimation(MaterialAnimation.scale(CATransform3DMakeScale(r, r, r), duration: a), forKey: nil)
+			if nil != pulseColor && 0 < pulseColorOpacity {
+				MaterialAnimation.animationDisabled({
+					self.pulseLayer.hidden = false
+					self.pulseLayer.bounds = CGRectMake(0, 0, v, v)
+					self.pulseLayer.position = point
+					self.pulseLayer.cornerRadius = s / d
+				})
+				pulseLayer.addAnimation(MaterialAnimation.scale(pulseFill ? 3 * d : 1.5 * d, duration: t), forKey: nil)
 			}
 			
-			MaterialAnimation.animationWithDuration(a, animations: {
-				self.pulseLayer.transform = CATransform3DMakeScale(d, d, d)
-			})
+			if pulseScale {
+				layer.addAnimation(MaterialAnimation.scale(r, duration: t), forKey: nil)
+			}
 		}
 	}
 	
@@ -480,10 +491,17 @@ public class MaterialButton : UIButton {
 	//	:name:	shrink
 	//
 	internal func shrink() {
-		MaterialAnimation.animationWithDuration(0.25, animations: {
-			self.pulseLayer.hidden = true
-			self.pulseLayer.transform = CATransform3DIdentity
-		})
-		self.layer.addAnimation(MaterialAnimation.scale(CATransform3DIdentity), forKey: nil)
+		let t: CFTimeInterval = 0.25
+		
+		if nil != pulseColor && 0 < pulseColorOpacity {
+			MaterialAnimation.animationWithDuration(t, animations: {
+				self.pulseLayer.hidden = true
+			})
+			pulseLayer.addAnimation(MaterialAnimation.scale(1, duration: t), forKey: nil)
+		}
+		
+		if pulseScale {
+			layer.addAnimation(MaterialAnimation.scale(1, duration: t), forKey: nil)
+		}
 	}
 }

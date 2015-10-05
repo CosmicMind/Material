@@ -67,10 +67,115 @@ public extension MaterialAnimation {
 	/**
 		:name:	scale
 	*/
-	public static func scale(transform: CATransform3D, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+	public static func scale(scale: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation: CABasicAnimation = CABasicAnimation()
-		animation.keyPath = "transform"
-		animation.toValue = NSValue(CATransform3D: transform)
+		animation.keyPath = "transform.scale"
+		animation.toValue = scale as NSNumber
+		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
+		animation.removedOnCompletion = false
+		if let d = duration {
+			animation.duration = d
+		}
+		return animation
+	}
+	
+	/**
+		:name:	scaleX
+	*/
+	public static func scaleX(scale: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+		let animation: CABasicAnimation = CABasicAnimation()
+		animation.keyPath = "transform.scale.x"
+		animation.toValue = scale as NSNumber
+		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
+		animation.removedOnCompletion = false
+		if let d = duration {
+			animation.duration = d
+		}
+		return animation
+	}
+	
+	/**
+		:name:	scaleY
+	*/
+	public static func scaleY(scale: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+		let animation: CABasicAnimation = CABasicAnimation()
+		animation.keyPath = "transform.scale.y"
+		animation.toValue = scale as NSNumber
+		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
+		animation.removedOnCompletion = false
+		if let d = duration {
+			animation.duration = d
+		}
+		return animation
+	}
+	
+	/**
+		:name:	scaleZ
+	*/
+	public static func scaleZ(scale: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+		let animation: CABasicAnimation = CABasicAnimation()
+		animation.keyPath = "transform.scale.z"
+		animation.toValue = scale as NSNumber
+		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
+		animation.removedOnCompletion = false
+		if let d = duration {
+			animation.duration = d
+		}
+		return animation
+	}
+	
+	/**
+		:name:	translation
+	*/
+	public static func translation(translation: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+		let animation: CABasicAnimation = CABasicAnimation()
+		animation.keyPath = "transform.translation"
+		animation.toValue = translation as NSNumber
+		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
+		animation.removedOnCompletion = false
+		if let d = duration {
+			animation.duration = d
+		}
+		return animation
+	}
+	
+	/**
+		:name:	translationX
+	*/
+	public static func translationX(translation: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+		let animation: CABasicAnimation = CABasicAnimation()
+		animation.keyPath = "transform.translation.x"
+		animation.toValue = translation as NSNumber
+		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
+		animation.removedOnCompletion = false
+		if let d = duration {
+			animation.duration = d
+		}
+		return animation
+	}
+	
+	/**
+		:name:	translationY
+	*/
+	public static func translationY(translation: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+		let animation: CABasicAnimation = CABasicAnimation()
+		animation.keyPath = "transform.translation.y"
+		animation.toValue = translation as NSNumber
+		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
+		animation.removedOnCompletion = false
+		if let d = duration {
+			animation.duration = d
+		}
+		return animation
+	}
+	
+	/**
+		:name:	translationZ
+	*/
+	public static func translationZ(translation: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+		let animation: CABasicAnimation = CABasicAnimation()
+		animation.keyPath = "transform.translation.z"
+		animation.toValue = translation as NSNumber
 		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
 		animation.removedOnCompletion = false
 		if let d = duration {
