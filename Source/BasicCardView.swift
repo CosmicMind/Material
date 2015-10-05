@@ -30,7 +30,6 @@ public class BasicCardView : MaterialPulseView {
 	public var dividerColor: UIColor? {
 		didSet {
 			dividerLayer?.backgroundColor = dividerColor?.CGColor
-			reloadView()
 		}
 	}
 	

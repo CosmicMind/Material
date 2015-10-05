@@ -22,27 +22,25 @@ public class ImageCardView : MaterialPulseView {
 	//
 	//	:name:	imageLayer
 	//
-	public private(set) var imageLayer: CAShapeLayer?
+	public private(set) lazy var imageLayer: CAShapeLayer = CAShapeLayer()
 	
 	/**
 		:name:	image
 	*/
 	public override var image: UIImage? {
 		get {
-			return nil == imageLayer?.contents ? nil : UIImage(CGImage: imageLayer!.contents as! CGImage)
+			return nil == imageLayer.contents ? nil : UIImage(CGImage: imageLayer.contents as! CGImage)
 		}
 		set(value) {
 			if let v = value {
-				prepareImageLayer()
-				imageLayer!.contents = v.CGImage
-				if 0 == imageLayer!.frame.size.height {
-					imageLayer!.frame.size.height = 200
+				imageLayer.contents = v.CGImage
+				if 0 == imageLayer.frame.size.height {
+					imageLayer.frame.size.height = 200
 				}
 			}
 			else {
-				imageLayer?.frame = CGRectZero
-				imageLayer?.removeFromSuperlayer()
-				imageLayer = nil
+				imageLayer.frame = CGRectZero
+				imageLayer.removeFromSuperlayer()
 			}
 			reloadView()
 		}
@@ -53,13 +51,7 @@ public class ImageCardView : MaterialPulseView {
 	*/
 	public override var contentsRect: CGRect {
 		didSet {
-			prepareImageLayer()
-			if let v = imageLayer {
-				v.contentsRect = contentsRect
-				if nil != imageLayer?.contents {
-					reloadView()
-				}
-			}
+			imageLayer.contentsRect = contentsRect
 		}
 	}
 	
@@ -68,13 +60,7 @@ public class ImageCardView : MaterialPulseView {
 	*/
 	public override var contentsCenter: CGRect {
 		didSet {
-			prepareImageLayer()
-			if let v = imageLayer {
-				v.contentsCenter = contentsCenter
-				if nil != imageLayer?.contents {
-					reloadView()
-				}
-			}
+			imageLayer.contentsCenter = contentsCenter
 		}
 	}
 	
@@ -83,13 +69,7 @@ public class ImageCardView : MaterialPulseView {
 	*/
 	public override var contentsScale: CGFloat {
 		didSet {
-			prepareImageLayer()
-			if let v = imageLayer {
-				v.contentsScale = contentsScale
-				if nil != imageLayer?.contents {
-					reloadView()
-				}
-			}
+			imageLayer.contentsScale = contentsScale
 		}
 	}
 	
@@ -98,13 +78,7 @@ public class ImageCardView : MaterialPulseView {
 	*/
 	public override var contentsGravity: MaterialGravity {
 		didSet {
-			prepareImageLayer()
-			if let v = imageLayer {
-				v.contentsGravity = MaterialGravityToString(contentsGravity)
-				if nil != imageLayer?.contents {
-					reloadView()
-				}
-			}
+			imageLayer.contentsGravity = MaterialGravityToString(contentsGravity)
 		}
 	}
 	
@@ -113,10 +87,10 @@ public class ImageCardView : MaterialPulseView {
 	*/
 	public override var masksToBounds: Bool {
 		get {
-			return nil == imageLayer?.masksToBounds ? false : imageLayer!.masksToBounds
+			return imageLayer.masksToBounds
 		}
 		set(value) {
-			imageLayer?.masksToBounds = value
+			imageLayer.masksToBounds = value
 		}
 	}
 	
@@ -131,7 +105,6 @@ public class ImageCardView : MaterialPulseView {
 	public var dividerColor: UIColor? {
 		didSet {
 			dividerLayer?.backgroundColor = dividerColor?.CGColor
-			reloadView()
 		}
 	}
 	
@@ -292,6 +265,7 @@ public class ImageCardView : MaterialPulseView {
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
+		prepareImageLayer()
 	}
 	
 	/**
@@ -299,6 +273,7 @@ public class ImageCardView : MaterialPulseView {
 	*/
 	public override init(frame: CGRect) {
 		super.init(frame: frame)
+		prepareImageLayer()
 	}
 	
 	/**
@@ -322,10 +297,10 @@ public class ImageCardView : MaterialPulseView {
 	public override func layoutSubviews() {
 		super.layoutSubviews()
 		// image
-		let h: CGFloat? = imageLayer?.frame.size.height
-		imageLayer?.frame = bounds
-		if 0 < h {
-			imageLayer?.frame.size.height = h!
+		let h: CGFloat = imageLayer.frame.size.height
+		imageLayer.frame = bounds
+		if 0 < h && nil != imageLayer.contents {
+			imageLayer.frame.size.height = h
 		}
 		
 		// divider
@@ -359,7 +334,10 @@ public class ImageCardView : MaterialPulseView {
 		var views: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
 		var metrics: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
 		
-		if nil != titleLabel {
+		if nil != imageLayer.contents {
+			verticalFormat += "-(insetTop)"
+			metrics["insetTop"] = contentInsetsRef!.top + imageLayer.frame.size.height
+		} else if nil != titleLabel {
 			verticalFormat += "-(insetTop)"
 			metrics["insetTop"] = contentInsetsRef!.top + titleLabelInsetsRef!.top
 		} else if nil != detailLabel {
@@ -367,24 +345,21 @@ public class ImageCardView : MaterialPulseView {
 			metrics["insetTop"] = contentInsetsRef!.top + detailLabelInsetsRef!.top
 		}
 		
-		// image
-		if 0 < imageLayer?.frame.size.height {
-			metrics["insetTop"] = (metrics["insetTop"] as! CGFloat) + imageLayer!.frame.size.height - (nil == titleLabel ? 0 : titleLabel!.frame.size.height)
-			print(titleLabel!.frame.size.height)
-		}
-		
 		// title
 		if let v = titleLabel {
-			verticalFormat += "-[titleLabel]"
-			views["titleLabel"] = v
-			
 			addSubview(v)
+			if nil == imageLayer.contents {
+				verticalFormat += "-[titleLabel]"
+				views["titleLabel"] = v
+			} else {
+				MaterialLayout.alignFromTop(self, child: v, top: contentInsetsRef!.top + titleLabelInsetsRef!.top)
+			}
 			MaterialLayout.alignToParentHorizontallyWithInsets(self, child: v, left: contentInsetsRef!.left + titleLabelInsetsRef!.left, right: contentInsetsRef!.right + titleLabelInsetsRef!.right)
 		}
 		
 		// detail
 		if let v = detailLabel {
-			if nil != titleLabel {
+			if nil == imageLayer.contents && nil != titleLabel {
 				verticalFormat += "-(insetB)"
 				metrics["insetB"] = titleLabelInsetsRef!.bottom + detailLabelInsetsRef!.top
 			}
@@ -487,11 +462,9 @@ public class ImageCardView : MaterialPulseView {
 	//	:name:	prepareImageLayer
 	//
 	internal func prepareImageLayer() {
-		if nil == imageLayer {
-			imageLayer = CAShapeLayer()
-			imageLayer!.zPosition = 0
-			visualLayer.addSublayer(imageLayer!)
-		}
+		imageLayer = CAShapeLayer()
+		imageLayer.zPosition = 0
+		visualLayer.addSublayer(imageLayer)
 	}
 	
 	//

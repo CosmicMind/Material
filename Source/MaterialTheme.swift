@@ -143,8 +143,8 @@ public extension MaterialTheme.imageCardView {
 	public static var masksToBounds: Bool = true
 	public static var cornerRadius: MaterialRadius = .None
 	public static var contentInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square3)
-	public static var titleLabelInsetsRef: MaterialInsetsType = (top: 0, left: 0, bottom: 0, right: 0)
-	public static var detailLabelInsetsRef: MaterialInsetsType = (top: 16, left: 8, bottom: 16, right: 8)
+	public static var titleLabelInsetsRef: MaterialInsetsType = (top: 0, left: 8, bottom: 0, right: 8)
+	public static var detailLabelInsetsRef: MaterialInsetsType = (top: 0, left: 8, bottom: 16, right: 8)
 	public static var leftButtonsInsetsRef: MaterialInsetsType = (top: 8, left: 8, bottom: -8, right: 0)
 	public static var rightButtonsInsetsRef: MaterialInsetsType = (top: 8, left: 0, bottom: -8, right: 8)
 	

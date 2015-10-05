@@ -8,14 +8,14 @@ MaterialKit is on CocoaPods under the name [MK](https://cocoapods.org/?q=MK).
 
 To get started, let's introduce MaterialView, a lightweight UIView Object that has flexibility in mind. Common controls have been added to make things easier. For example, let's make a circle view that has a shadow, border, and image.
 
-![MaterialKitPreview](http://www.materialkit.io/github/img1.png)
+![MaterialKitPreview](http://www.materialkit.io/github/img1.gif)
 
 ```swift
-let v: MaterialView = MaterialView(frame: CGRectMake(100, 100, 200, 200))
+let v: MaterialView = MaterialView(frame: CGRectMake(20, 20, view.frame.size.width - 40, 200))
 v.shape = .Circle
 v.shadowDepth = .Depth2
 v.borderWidth = .Border1
-v.image = UIImage(named: "focus")
+v.image = UIImage(named: "space")
 
 // Add to UIViewController.
 view.addSubview(v)
@@ -28,11 +28,10 @@ Let's expand on the basic MaterialView and use an animated MaterialPulseView. In
 ![MaterialKitPreview](http://www.materialkit.io/github/img2.gif)
 
 ```swift
-let v: MaterialPulseView = MaterialPulseView(frame: CGRectMake(100, 100, 200, 200))
-v.shape = .Square
+let v: MaterialPulseView = MaterialPulseView(frame: CGRectMake(20, 20, view.frame.size.width - 40, 200))
 v.cornerRadius = .Radius2
 v.shadowDepth = .Depth2
-v.image = UIImage(named: "focus")
+v.image = UIImage(named: "space")
 
 // Add to UIViewController.
 view.addSubview(v)
@@ -201,7 +200,7 @@ A BasicCardView can easily add an image as its background, below is the code tha
 ```swift
 let v: BasicCardView = BasicCardView(titleLabel: UILabel(), detailLabel: UILabel())!
 
-v.image = UIImage(named: "forest")
+v.image = UIImage(named: "space")
 
 v.titleLabel!.textColor = MaterialColor.white
 v.titleLabel!.font = RobotoFont.regularWithSize(18)
@@ -212,6 +211,53 @@ v.detailLabel!.font = RobotoFont.regularWithSize(14)
 v.detailLabel!.lineBreakMode = .ByWordWrapping
 v.detailLabel!.numberOfLines = 0
 v.detailLabel!.text = "I am a very simple card. I am good at containing small bits of information. I am convenient because I require little code to use effectively."
+
+// Add to UIViewController.
+view.addSubview(v)
+v.translatesAutoresizingMaskIntoConstraints = false
+MaterialLayout.alignToParentHorizontallyWithInsets(view, child: v, left: 20, right: 20)
+MaterialLayout.alignFromTop(view, child: v, top: 100)
+```
+
+### Wonderful ImageCardView
+
+An ImageCardView is a great way to enclose many components into a single and presentable layout. Below is an example of setting one up.
+
+![MaterialKitPreview](http://www.materialkit.io/github/img10.gif)
+
+```swift
+let v: ImageCardView = ImageCardView()
+v.pulseColor = MaterialColor.blueGrey.lighten4
+v.pulseFill = true
+
+v.image = UIImage(named: "space")
+
+v.titleLabel = MaterialLabel()
+v.titleLabel!.textColor = MaterialColor.white
+v.titleLabel!.font = RobotoFont.regularWithSize(24)
+v.titleLabel!.text = "Card Title"
+v.titleLabelInsetsRef!.top = 136
+
+v.detailLabel = MaterialLabel()
+v.detailLabel!.font = RobotoFont.regularWithSize(14)
+v.detailLabel!.lineBreakMode = .ByWordWrapping
+v.detailLabel!.numberOfLines = 0
+v.detailLabel!.text = "I am a very simple card. I am good at containing small bits of information. I am convenient because I require little code to use effectively."
+
+let b1: FlatButton = FlatButton()
+b1.setTitle("Btn 1", forState: .Normal)
+
+let b2: FlatButton = FlatButton()
+b2.setTitle("Btn 2", forState: .Normal)
+
+v.leftButtons = [b1, b2]
+
+let b3: FlatButton = FlatButton()
+b3.setImage(UIImage(named:  "ic_star_blue_grey"), forState: .Normal)
+b3.setImage(UIImage(named:  "ic_star_blue_grey"), forState: .Highlighted)
+b3.pulseColor = MaterialColor.blueGrey.darken4
+
+v.rightButtons = [b3]
 
 // Add to UIViewController.
 view.addSubview(v)
