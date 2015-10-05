@@ -26,13 +26,14 @@ view.addSubview(v)
 
 Let's expand on the basic MaterialView and use an animated MaterialPulseView. In this example, we will make the shape a square with some rounded corners.
 
-![MKPreview](http://www.materialkit.io/github/img12.gif)
+![MKPreview](http://www.materialkit.io/github/img2.gif)
 
 ```swift
-let v: MaterialPulseView = MaterialPulseView(frame: CGRectMake(20, 20, view.frame.size.width - 40, 200))
-v.cornerRadius = .Radius2
-v.shadowDepth = .Depth2
-v.image = UIImage(named: "space")
+let v: MaterialPulseView = MaterialPulseView(frame: CGRectMake(87.5, 87.5, 200, 200))
+v.shape = .Square
+v.shadowDepth = .Depth3
+v.cornerRadius = .Radius3
+v.image = UIImage(named: "img2")
 
 // Add to UIViewController.
 view.addSubview(v)
