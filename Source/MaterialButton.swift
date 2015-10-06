@@ -18,6 +18,20 @@
 
 import UIKit
 
+@objc(MaterialButtonDelegate)
+public protocol MaterialButtonDelegate {
+	/**
+	:name:	animationDidStart
+	*/
+	optional func animationDidStart(materialButton: MaterialButton, animation: CAAnimation)
+	
+	/**
+	:name:	animationDidStop
+	*/
+	optional func animationDidStop(materialButton: MaterialButton, animation: CAAnimation, finished flag: Bool)
+}
+
+@objc(MaterialButton)
 public class MaterialButton : UIButton {
 	/**
 		:name:	visualLayer
@@ -28,6 +42,11 @@ public class MaterialButton : UIButton {
 		:name:	pulseLayer
 	*/
 	public private(set) lazy var pulseLayer: CAShapeLayer = CAShapeLayer()
+	
+	/**
+		:name:	delegate
+	*/
+	public weak var delegate: MaterialButtonDelegate?
 	
 	/**
 		:name:	pulseScale
@@ -349,8 +368,10 @@ public class MaterialButton : UIButton {
 	
 	/**
 		:name:	animationDidStart
-		public override func animationDidStart(anim: CAAnimation) {}
 	*/
+	public override func animationDidStart(anim: CAAnimation) {
+		delegate?.animationDidStart?(self, animation: anim)
+	}
 	
 	/**
 		:name:	animationDidStop
@@ -369,6 +390,8 @@ public class MaterialButton : UIButton {
 				animationDidStop(x, finished: true)
 			}
 		}
+		
+		delegate?.animationDidStop?(self, animation: anim, finished: flag)
 	}
 	
 	//

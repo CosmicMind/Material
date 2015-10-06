@@ -18,11 +18,30 @@
 
 import UIKit
 
+@objc(MaterialViewDelegate)
+public protocol MaterialViewDelegate {
+	/**
+		:name:	animationDidStart
+	*/
+	optional func animationDidStart(materialView: MaterialView, animation: CAAnimation)
+	
+	/**
+		:name:	animationDidStop
+	*/
+	optional func animationDidStop(materialView: MaterialView, animation: CAAnimation, finished flag: Bool)
+}
+
+@objc(MaterialView)
 public class MaterialView : UIView {
 	//
 	//	:name:	visualLayer
 	//
 	public private(set) lazy var visualLayer: CAShapeLayer = CAShapeLayer()
+	
+	/**
+		:name:	visualLayer
+	*/
+	public weak var delegate: MaterialViewDelegate?
 	
 	/**
 		:name:	image
@@ -343,8 +362,10 @@ public class MaterialView : UIView {
 	
 	/**
 		:name:	animationDidStart
-		public override func animationDidStart(anim: CAAnimation) {}
 	*/
+	public override func animationDidStart(anim: CAAnimation) {
+		delegate?.animationDidStart?(self, animation: anim)
+	}
 	
 	/**
 		:name:	animationDidStop
@@ -363,6 +384,8 @@ public class MaterialView : UIView {
 				animationDidStop(x, finished: true)
 			}
 		}
+		
+		delegate?.animationDidStop?(self, animation: anim, finished: flag)
 	}
 	
 	//
