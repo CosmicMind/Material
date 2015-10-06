@@ -50,6 +50,21 @@ public extension MaterialAnimation {
 	}
 	
 	/**
+		:name:	translation
+	*/
+	public static func transform(transform: CATransform3D, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+		let animation: CABasicAnimation = CABasicAnimation()
+		animation.keyPath = "transform"
+		animation.toValue = NSValue(CATransform3D: transform)
+		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
+		animation.removedOnCompletion = false
+		if let d = duration {
+			animation.duration = d
+		}
+		return animation
+	}
+	
+	/**
 		:name:	rotation
 	*/
 	public static func rotation(rotations: Int = 1, duration: CFTimeInterval? = nil) -> CABasicAnimation {
@@ -127,10 +142,10 @@ public extension MaterialAnimation {
 	/**
 		:name:	translation
 	*/
-	public static func translation(translation: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+	public static func translation(translation: CGSize, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation: CABasicAnimation = CABasicAnimation()
 		animation.keyPath = "transform.translation"
-		animation.toValue = translation as NSNumber
+		animation.toValue = NSValue(CGSize: translation)
 		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
 		animation.removedOnCompletion = false
 		if let d = duration {

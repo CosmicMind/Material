@@ -175,7 +175,7 @@ public class MaterialPulseView : MaterialView {
 	//	:name:	shrink
 	//
 	internal func shrink() {
-		let t: NSTimeInterval = 0.25
+		let t: CFTimeInterval = 0.25
 		
 		if nil != pulseColor && 0 < pulseColorOpacity {
 			MaterialAnimation.animationWithDuration(t, animations: {

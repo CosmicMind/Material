@@ -54,7 +54,7 @@ public struct MaterialAnimation {
 	/**
 		:name:	animationWithDuration
 	*/
-	public static func animationWithDuration(duration: NSTimeInterval, animations: (() -> Void), completion: (() -> Void)? = nil) {
+	public static func animationWithDuration(duration: CFTimeInterval, animations: (() -> Void), completion: (() -> Void)? = nil) {
 		CATransaction.begin()
 		CATransaction.setAnimationDuration(duration)
 		CATransaction.setCompletionBlock(completion)
@@ -65,7 +65,7 @@ public struct MaterialAnimation {
 	/**
 		:name:	animationGroup
 	*/
-	public static func animationGroup(animations: Array<CAAnimation>, duration: NSTimeInterval = 0.5) -> CAAnimationGroup {
+	public static func animationGroup(animations: Array<CAAnimation>, duration: CFTimeInterval = 0.5) -> CAAnimationGroup {
 		let group: CAAnimationGroup = CAAnimationGroup()
 		group.fillMode = MaterialAnimationFillModeToValue(.Forwards)
 		group.removedOnCompletion = false
