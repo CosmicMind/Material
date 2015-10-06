@@ -370,7 +370,23 @@ public class MaterialView : UIView {
 	//
 	internal func filterAnimations(animation: CAAnimation) -> Bool? {
 		if let a: CAPropertyAnimation = animation as? CAPropertyAnimation {
-			return "position" != a.keyPath && "transform" != a.keyPath && "backgroundColor" != a.keyPath
+			switch a.keyPath! {
+			case "position",
+				 "transform",
+				 "backgroundColor",
+				 "transform.rotation",
+				 "transform.scale",
+				 "transform.scale.x",
+				 "transform.scale.y",
+				 "transform.scale.z",
+				 "transform.translation",
+				 "transform.translation.x",
+				 "transform.translation.y",
+				 "transform.translation.z":
+				 return false
+			default:
+				return true
+			}
 		} else if let a: CAAnimationGroup = animation as? CAAnimationGroup {
 			for var i: Int = a.animations!.count - 1; 0 <= i; --i {
 				if let b: CAPropertyAnimation = a.animations![i] as? CAPropertyAnimation {
