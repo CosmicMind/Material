@@ -18,6 +18,19 @@
 
 import UIKit
 
+@objc(MaterialAnimationDelegate)
+public protocol MaterialAnimationDelegate {
+	/**
+		:name:	materialAnimationDidStart
+	*/
+	optional func materialAnimationDidStart(animation: CAAnimation)
+	
+	/**
+		:name:	materialAnimationDidStop
+	*/
+	optional func materialAnimationDidStop(animation: CAAnimation, finished flag: Bool)
+}
+
 public typealias MaterialAnimationFillModeType = String
 
 public enum MaterialAnimationFillMode {

@@ -18,19 +18,6 @@
 
 import UIKit
 
-@objc(MaterialButtonDelegate)
-public protocol MaterialButtonDelegate {
-	/**
-	:name:	animationDidStart
-	*/
-	optional func animationDidStart(materialButton: MaterialButton, animation: CAAnimation)
-	
-	/**
-	:name:	animationDidStop
-	*/
-	optional func animationDidStop(materialButton: MaterialButton, animation: CAAnimation, finished flag: Bool)
-}
-
 @objc(MaterialButton)
 public class MaterialButton : UIButton {
 	/**
@@ -46,7 +33,7 @@ public class MaterialButton : UIButton {
 	/**
 		:name:	delegate
 	*/
-	public weak var delegate: MaterialButtonDelegate?
+	public weak var delegate: MaterialAnimationDelegate?
 	
 	/**
 		:name:	pulseScale
@@ -343,6 +330,7 @@ public class MaterialButton : UIButton {
 		prepareShape()
 		
 		visualLayer.frame = bounds
+		visualLayer.position = CGPointMake(width / 2, height / 2)
 		visualLayer.cornerRadius = layer.cornerRadius
 	}
 	
@@ -356,13 +344,10 @@ public class MaterialButton : UIButton {
 		}
 		if let a: CAPropertyAnimation = animation as? CAPropertyAnimation {
 			layer.addAnimation(a, forKey: a.keyPath!)
-			if true == filterAnimations(a) {
-				visualLayer.addAnimation(a, forKey: a.keyPath!)
-			}
 		} else if let a: CAAnimationGroup = animation as? CAAnimationGroup {
 			layer.addAnimation(a, forKey: nil)
-			filterAnimations(a)
-			visualLayer.addAnimation(a, forKey: nil)
+		} else if let a: CATransition = animation as? CATransition {
+			layer.addAnimation(a, forKey: kCATransition)
 		}
 	}
 	
@@ -370,7 +355,7 @@ public class MaterialButton : UIButton {
 		:name:	animationDidStart
 	*/
 	public override func animationDidStart(anim: CAAnimation) {
-		delegate?.animationDidStart?(self, animation: anim)
+		delegate?.materialAnimationDidStart?(anim)
 	}
 	
 	/**
@@ -382,16 +367,14 @@ public class MaterialButton : UIButton {
 				MaterialAnimation.animationDisabled({
 					self.layer.setValue(nil == b.toValue ? b.byValue : b.toValue, forKey: b.keyPath!)
 				})
+				delegate?.materialAnimationDidStop?(anim, finished: flag)
 			}
 			layer.removeAnimationForKey(a.keyPath!)
-			visualLayer.removeAnimationForKey(a.keyPath!)
 		} else if let a: CAAnimationGroup = anim as? CAAnimationGroup {
 			for x in a.animations! {
 				animationDidStop(x, finished: true)
 			}
 		}
-		
-		delegate?.animationDidStop?(self, animation: anim, finished: flag)
 	}
 	
 	//
