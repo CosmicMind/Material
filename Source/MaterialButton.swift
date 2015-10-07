@@ -367,8 +367,8 @@ public class MaterialButton : UIButton {
 				MaterialAnimation.animationDisabled({
 					self.layer.setValue(nil == b.toValue ? b.byValue : b.toValue, forKey: b.keyPath!)
 				})
-				delegate?.materialAnimationDidStop?(anim, finished: flag)
 			}
+			delegate?.materialAnimationDidStop?(anim, finished: flag)
 			layer.removeAnimationForKey(a.keyPath!)
 		} else if let a: CAAnimationGroup = anim as? CAAnimationGroup {
 			for x in a.animations! {
