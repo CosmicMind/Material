@@ -23,14 +23,14 @@ public class MaterialLabel : UILabel {
 		:name:	layerClass
 	*/
 	public override class func layerClass() -> AnyClass {
-		return CATextLayer.self
+		return MaterialTextLayer.self
 	}
 	
 	/**
 		:name:	textLayer
 	*/
-	public var textLayer: CATextLayer {
-		return layer as! CATextLayer
+	public var textLayer: MaterialTextLayer {
+		return layer as! MaterialTextLayer
 	}
 	
 	/**
@@ -38,7 +38,7 @@ public class MaterialLabel : UILabel {
 	*/
 	public override var text: String? {
 		didSet {
-			textLayer.string = text
+			textLayer.text = text
 		}
 	}
 	
@@ -47,28 +47,16 @@ public class MaterialLabel : UILabel {
 	*/
 	public override var textColor: UIColor? {
 		didSet {
-			textLayer.foregroundColor = textColor?.CGColor
+			textLayer.textColor = textColor
 		}
 	}
 	
 	/**
 		:name:	font
 	*/
-	public override var font: UIFont? {
+	public override var font: UIFont! {
 		didSet {
-			if let v = font {
-				textLayer.font = CGFontCreateWithFontName(v.fontName as CFStringRef)!
-				pointSize = v.pointSize
-			}
-		}
-	}
-	
-	/**
-		:name:	pointSize
-	*/
-	public var pointSize: CGFloat! {
-		didSet {
-			textLayer.fontSize = pointSize
+			textLayer.font = font
 		}
 	}
 	
@@ -77,18 +65,7 @@ public class MaterialLabel : UILabel {
 	*/
 	public override var textAlignment: NSTextAlignment {
 		didSet {
-			switch textAlignment {
-			case .Left:
-				textLayer.alignmentMode = kCAAlignmentLeft
-			case .Center:
-				textLayer.alignmentMode = kCAAlignmentCenter
-			case .Right:
-				textLayer.alignmentMode = kCAAlignmentRight
-			case .Justified:
-				textLayer.alignmentMode = kCAAlignmentJustified
-			case .Natural:
-				textLayer.alignmentMode = kCAAlignmentNatural
-			}
+			textLayer.textAlignment = textAlignment
 		}
 	}
 	
@@ -115,26 +92,7 @@ public class MaterialLabel : UILabel {
 	*/
 	public override var lineBreakMode: NSLineBreakMode {
 		didSet {
-			switch lineBreakMode {
-			case .ByWordWrapping: // Wrap at word boundaries, default
-				wrapped = true
-				textLayer.truncationMode = kCATruncationNone
-			case .ByCharWrapping: // Wrap at character boundaries
-				wrapped = true
-				textLayer.truncationMode = kCATruncationNone
-			case .ByClipping: // Simply clip
-				wrapped = false
-				textLayer.truncationMode = kCATruncationNone
-			case .ByTruncatingHead: // Truncate at head of line: "...wxyz"
-				wrapped = false
-				textLayer.truncationMode = kCATruncationStart
-			case .ByTruncatingTail: // Truncate at tail of line: "abcd..."
-				wrapped = false
-				textLayer.truncationMode = kCATruncationEnd
-			case .ByTruncatingMiddle: // Truncate middle of line:  "ab...yz"
-				wrapped = false
-				textLayer.truncationMode = kCATruncationMiddle
-			}
+			textLayer.lineBreakMode = lineBreakMode
 		}
 	}
 	
