@@ -19,7 +19,10 @@
 import UIKit
 
 public extension UIFont {
-	func sizeOfString(string: String, constrainedToWidth width: Double) -> CGSize {
+	/**
+		:name:	sizeOfString
+	*/
+	public func sizeOfString(string: String, constrainedToWidth width: Double) -> CGSize {
 		return string.boundingRectWithSize(CGSize(width: width, height: DBL_MAX),
 			options: NSStringDrawingOptions.UsesLineFragmentOrigin,
 			attributes: [NSFontAttributeName: self],
@@ -28,17 +31,14 @@ public extension UIFont {
 }
 
 public class MaterialTextLayer : CATextLayer {
-	/**
-		:name:	text
-	*/
-	public var text: String? {
-		didSet {
-			string = text as? AnyObject
-		}
-	}
-	
+	//
+	//	:name:	internalFont
+	//
 	private var internalFont: UIFont?
 	
+	/**
+		:name:	font
+	*/
 	public override var font: AnyObject? {
 		get {
 			return internalFont
@@ -53,6 +53,15 @@ public class MaterialTextLayer : CATextLayer {
 	}
 	
 	/**
+		:name:	text
+	*/
+	public var text: String? {
+		didSet {
+			string = text as? AnyObject
+		}
+	}
+	
+	/**
 		:name:	pointSize
 	*/
 	public var pointSize: CGFloat = 10 {
@@ -60,18 +69,6 @@ public class MaterialTextLayer : CATextLayer {
 			fontSize = pointSize
 		}
 	}
-	
-	/**
-		:name:	font
-	*/
-//	public override var font: AnyObject? {
-////		didSet {
-////			if let v = font as? UIFont {
-////				super.font = CGFontCreateWithFontName(v.fontName as CFStringRef)!
-////				pointSize = v.pointSize
-////			}
-////		}
-//	}
 	
 	/**
 		:name:	textColor
@@ -169,11 +166,12 @@ public class MaterialTextLayer : CATextLayer {
 	//	:name:	prepareLayer
 	//
 	internal func prepareLayer() {
-		textColor = MaterialColor.black
-		textAlignment = MaterialTheme.label.textAlignment
-		wrapped = MaterialTheme.label.wrapped
-		contentsScale = MaterialTheme.label.contentsScale
-		font = MaterialTheme.label.font
+		textColor = MaterialTheme.textLayer.textColor
+		textAlignment = MaterialTheme.textLayer.textAlignment
+		wrapped = MaterialTheme.textLayer.wrapped
+		contentsScale = MaterialTheme.textLayer.contentsScale
+		font = MaterialTheme.textLayer.font
+		lineBreakMode = MaterialTheme.textLayer.lineBreakMode
 	}
 }
 

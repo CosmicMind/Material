@@ -24,6 +24,7 @@ public struct MaterialTheme {
 	public struct basicCardView {}
 	public struct imageCardView {}
 	public struct navigationBarView {}
+	public struct textLayer {}
 	public struct label {}
 	public struct flatButton {}
 	public struct raisedButton {}
@@ -216,6 +217,23 @@ public extension MaterialTheme.navigationBarView {
 	public static var zPosition: CGFloat = 100
 }
 
+// textLayer
+public extension MaterialTheme.textLayer {
+	// scale
+	public static var contentsScale: CGFloat = UIScreen.mainScreen().scale
+	
+	// alignment
+	public static var wrapped: Bool = true
+	public static var textAlignment: NSTextAlignment = .Left
+	public static var lineBreakMode: NSLineBreakMode = .ByWordWrapping
+	
+	// font
+	public static var font: UIFont = RobotoFont.regular
+	
+	// color
+	public static var textColor: UIColor = MaterialColor.black
+}
+
 // label
 public extension MaterialTheme.label {
 	// scale
@@ -226,7 +244,7 @@ public extension MaterialTheme.label {
 	public static var textAlignment: NSTextAlignment = .Left
 	
 	// font
-	public static var font: UIFont = RobotoFont.regularWithSize(20)
+	public static var font: UIFont = RobotoFont.regular
 }
 
 // flatButton

@@ -19,7 +19,6 @@
 import UIKit
 
 public class MaterialLayer : CAShapeLayer {
-
 	/**
 		:name: init
 	*/
