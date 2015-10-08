@@ -116,6 +116,14 @@ public class MaterialLabel : UILabel {
 	*/
 	public convenience init() {
 		self.init(frame: CGRectNull)
+		prepareView()
+	}
+	
+	/**
+		:name:	stringSize
+	*/
+	public func stringSize(constrainedToWidth width: Double) -> CGSize {
+		return textLayer.stringSize(constrainedToWidth: width)
 	}
 	
 	//

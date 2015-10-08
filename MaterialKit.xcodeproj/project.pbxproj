@@ -59,6 +59,7 @@
 		964B17D61BBB31C2002A9CA0 /* MaterialLayout.swift in Headers */ = {isa = PBXBuildFile; fileRef = 964B17B31BBA447F002A9CA0 /* MaterialLayout.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		964B17D91BBB3911002A9CA0 /* BasicCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B17D81BBB3911002A9CA0 /* BasicCardView.swift */; settings = {ASSET_TAGS = (); }; };
 		9699879C1BC5FE49006D678E /* MaterialTextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9699879B1BC5FE49006D678E /* MaterialTextLayer.swift */; settings = {ASSET_TAGS = (); }; };
+		969987A81BC6147B006D678E /* MaterialCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969987A71BC6147B006D678E /* MaterialCollectionViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		96C4FABE1BC3168900E4FFC3 /* MaterialTransitionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C4FABD1BC3168900E4FFC3 /* MaterialTransitionAnimation.swift */; settings = {ASSET_TAGS = (); }; };
 		96D26BFD1BC23649006478BD /* ImageCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D26BFC1BC23649006478BD /* ImageCardView.swift */; settings = {ASSET_TAGS = (); }; };
 		9A94D0FA1B895EA500F586A5 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 963832631B88E5BF0015F710 /* LICENSE */; };
@@ -112,6 +113,7 @@
 		964B17B51BBA4BEA002A9CA0 /* MaterialStatusBarStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialStatusBarStyle.swift; sourceTree = "<group>"; };
 		964B17D81BBB3911002A9CA0 /* BasicCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicCardView.swift; sourceTree = "<group>"; };
 		9699879B1BC5FE49006D678E /* MaterialTextLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialTextLayer.swift; sourceTree = "<group>"; };
+		969987A71BC6147B006D678E /* MaterialCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialCollectionViewCell.swift; sourceTree = "<group>"; };
 		96C4FABD1BC3168900E4FFC3 /* MaterialTransitionAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialTransitionAnimation.swift; sourceTree = "<group>"; };
 		96D26BFC1BC23649006478BD /* ImageCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCardView.swift; sourceTree = "<group>"; };
 		9AAC38551B8956C500FE6B2D /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				65BDD1461BB5B916006F7F2B /* MaterialView.swift */,
 				65BDD16D1BB899F2006F7F2B /* MaterialPulseView.swift */,
 				962F3E521BACA68C0004B8AD /* NavigationBarView.swift */,
+				969987A71BC6147B006D678E /* MaterialCollectionViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -459,6 +462,7 @@
 				65BDD1741BB8D443006F7F2B /* MaterialAnimation.swift in Sources */,
 				65BDD14B1BB5DD02006F7F2B /* MaterialFont.swift in Sources */,
 				9699879C1BC5FE49006D678E /* MaterialTextLayer.swift in Sources */,
+				969987A81BC6147B006D678E /* MaterialCollectionViewCell.swift in Sources */,
 				65BDD16A1BB7146B006F7F2B /* MaterialBorder.swift in Sources */,
 				65BDD15B1BB7095E006F7F2B /* MaterialRadius.swift in Sources */,
 				65BDD1721BB8CD77006F7F2B /* MaterialLabel.swift in Sources */,

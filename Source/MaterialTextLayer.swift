@@ -29,11 +29,26 @@ public extension UIFont {
 
 public class MaterialTextLayer : CATextLayer {
 	/**
-		:name:	pointSize
+		:name:	text
 	*/
 	public var text: String? {
 		didSet {
-			string = text
+			string = text as? AnyObject
+		}
+	}
+	
+	private var internalFont: UIFont?
+	
+	public override var font: AnyObject? {
+		get {
+			return internalFont
+		}
+		set(value) {
+			internalFont = value as? UIFont
+			if let v: UIFont = internalFont {
+				super.font = CGFontCreateWithFontName(v.fontName as CFStringRef)!
+				pointSize = v.pointSize
+			}
 		}
 	}
 	
@@ -49,17 +64,14 @@ public class MaterialTextLayer : CATextLayer {
 	/**
 		:name:	font
 	*/
-	public override var font: AnyObject? {
-		get {
-			return super.font
-		}
-		set(value) {
-			if let v = value as? UIFont {
-				super.font = CGFontCreateWithFontName(v.fontName as CFStringRef)!
-				pointSize = v.pointSize
-			}
-		}
-	}
+//	public override var font: AnyObject? {
+////		didSet {
+////			if let v = font as? UIFont {
+////				super.font = CGFontCreateWithFontName(v.fontName as CFStringRef)!
+////				pointSize = v.pointSize
+////			}
+////		}
+//	}
 	
 	/**
 		:name:	textColor
@@ -145,9 +157,10 @@ public class MaterialTextLayer : CATextLayer {
 		:name:	stringSize
 	*/
 	public func stringSize(constrainedToWidth width: Double) -> CGSize {
-		if let v: UIFont = font as? UIFont {
-			if let s: String = string as? String {
-				return v.sizeOfString(s, constrainedToWidth: width)
+		if let v:UIFont = internalFont {
+			if 0 < text?.utf16.count {
+				print(v.sizeOfString(text!, constrainedToWidth: width))
+				return v.sizeOfString(text!, constrainedToWidth: width)
 			}
 		}
 		return CGSizeZero
@@ -158,6 +171,10 @@ public class MaterialTextLayer : CATextLayer {
 	//
 	internal func prepareLayer() {
 		textColor = MaterialColor.black
+		textAlignment = MaterialTheme.label.textAlignment
+		wrapped = MaterialTheme.label.wrapped
+		contentsScale = MaterialTheme.label.contentsScale
+		font = MaterialTheme.label.font
 	}
 }
 
