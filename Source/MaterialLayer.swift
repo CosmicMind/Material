@@ -249,14 +249,24 @@ public class MaterialLayer : CAShapeLayer {
 	public func animation(animation: CAAnimation) {
 		animation.delegate = self
 		if let a: CABasicAnimation = animation as? CABasicAnimation {
-			a.fromValue = (nil == visualLayer.presentationLayer() ? self : visualLayer.presentationLayer() as! CALayer).valueForKeyPath(a.keyPath!)
+			a.fromValue = (nil == presentationLayer() ? self : presentationLayer() as! CALayer).valueForKeyPath(a.keyPath!)
 		}
 		if let a: CAPropertyAnimation = animation as? CAPropertyAnimation {
-			visualLayer.addAnimation(a, forKey: a.keyPath!)
+			addAnimation(a, forKey: a.keyPath!)
+			if "cornerRadius" == a.keyPath {
+				visualLayer.addAnimation(a, forKey: "cornerRadius")
+			}
 		} else if let a: CAAnimationGroup = animation as? CAAnimationGroup {
-			visualLayer.addAnimation(a, forKey: nil)
+			addAnimation(a, forKey: nil)
+			for x in a.animations! {
+				if let b: CABasicAnimation = x as? CABasicAnimation {
+					if "cornerRadius" == b.keyPath {
+						visualLayer.addAnimation(b, forKey: "cornerRadius")
+					}
+				}
+			}
 		} else if let a: CATransition = animation as? CATransition {
-			visualLayer.addAnimation(a, forKey: kCATransition)
+			addAnimation(a, forKey: kCATransition)
 		}
 	}
 	
@@ -274,11 +284,11 @@ public class MaterialLayer : CAShapeLayer {
 		if let a: CAPropertyAnimation = anim as? CAPropertyAnimation {
 			if let b: CABasicAnimation = a as? CABasicAnimation {
 				MaterialAnimation.animationDisabled({
-					self.visualLayer.setValue(nil == b.toValue ? b.byValue : b.toValue, forKey: b.keyPath!)
+					self.setValue(nil == b.toValue ? b.byValue : b.toValue, forKey: b.keyPath!)
 				})
 			}
 			animationDelegate?.materialAnimationDidStop?(anim, finished: flag)
-			visualLayer.removeAnimationForKey(a.keyPath!)
+			removeAnimationForKey(a.keyPath!)
 		} else if let a: CAAnimationGroup = anim as? CAAnimationGroup {
 			for x in a.animations! {
 				animationDidStop(x, finished: true)
