@@ -137,10 +137,10 @@ public class MaterialPulseView : MaterialView {
 		return nil // returning nil enables the animations for the layer property that are normally disabled.
 	}
 	
-	//
-	//	:name:	prepareView
-	//
-	internal override func prepareView() {
+	/**
+		:name:	prepareView
+	*/
+	public override func prepareView() {
 		super.prepareView()
 		userInteractionEnabled = MaterialTheme.pulseView.userInteractionEnabled
 		backgroundColor = MaterialTheme.pulseView.backgroundColor

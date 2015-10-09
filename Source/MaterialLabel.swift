@@ -126,10 +126,10 @@ public class MaterialLabel : UILabel {
 		return textLayer.stringSize(constrainedToWidth: width)
 	}
 	
-	//
-	//	:name:	prepareView
-	//
-	internal func prepareView() {
+	/**
+		:name:	prepareView
+	*/
+	public func prepareView() {
 		textAlignment = MaterialTheme.label.textAlignment
 		wrapped = MaterialTheme.label.wrapped
 		contentsScale = MaterialTheme.label.contentsScale

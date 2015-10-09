@@ -201,6 +201,33 @@ public class NavigationBarView : MaterialView {
 	}
 	
 	/**
+		:name:	prepareView
+	*/
+	public override func prepareView() {
+		super.prepareView()
+		userInteractionEnabled = MaterialTheme.navigationBarView.userInteractionEnabled
+		backgroundColor = MaterialTheme.navigationBarView.backgroundColor
+		statusBarStyle = MaterialTheme.navigationBarView.statusBarStyle
+		contentInsetsRef = MaterialTheme.navigationBarView.contentInsetsRef
+		titleLabelInsetsRef = MaterialTheme.navigationBarView.titleLabelInsetsRef
+		detailLabelInsetsRef = MaterialTheme.navigationBarView.detailLabelInsetsRef
+		leftButtonsInsetsRef = MaterialTheme.navigationBarView.leftButtonsInsetsRef
+		rightButtonsInsetsRef = MaterialTheme.navigationBarView.rightButtonsInsetsRef
+		
+		contentsRect = MaterialTheme.navigationBarView.contentsRect
+		contentsCenter = MaterialTheme.navigationBarView.contentsCenter
+		contentsScale = MaterialTheme.navigationBarView.contentsScale
+		contentsGravity = MaterialTheme.navigationBarView.contentsGravity
+		shadowDepth = MaterialTheme.navigationBarView.shadowDepth
+		shadowColor = MaterialTheme.navigationBarView.shadowColor
+		zPosition = MaterialTheme.navigationBarView.zPosition
+		masksToBounds = MaterialTheme.navigationBarView.masksToBounds
+		cornerRadius = MaterialTheme.navigationBarView.cornerRadius
+		borderWidth = MaterialTheme.navigationBarView.borderWidth
+		borderColor = MaterialTheme.navigationBarView.bordercolor
+	}
+	
+	/**
 		:name:	reloadView
 	*/
 	public func reloadView() {
@@ -328,32 +355,5 @@ public class NavigationBarView : MaterialView {
 		self.detailLabel = detailLabel
 		self.leftButtons = leftButtons
 		self.rightButtons = rightButtons
-	}
-	
-	//
-	//	:name:	prepareView
-	//
-	internal override func prepareView() {
-		super.prepareView()
-		userInteractionEnabled = MaterialTheme.navigationBarView.userInteractionEnabled
-		backgroundColor = MaterialTheme.navigationBarView.backgroundColor
-		statusBarStyle = MaterialTheme.navigationBarView.statusBarStyle
-		contentInsetsRef = MaterialTheme.navigationBarView.contentInsetsRef
-		titleLabelInsetsRef = MaterialTheme.navigationBarView.titleLabelInsetsRef
-		detailLabelInsetsRef = MaterialTheme.navigationBarView.detailLabelInsetsRef
-		leftButtonsInsetsRef = MaterialTheme.navigationBarView.leftButtonsInsetsRef
-		rightButtonsInsetsRef = MaterialTheme.navigationBarView.rightButtonsInsetsRef
-		
-		contentsRect = MaterialTheme.navigationBarView.contentsRect
-		contentsCenter = MaterialTheme.navigationBarView.contentsCenter
-		contentsScale = MaterialTheme.navigationBarView.contentsScale
-		contentsGravity = MaterialTheme.navigationBarView.contentsGravity
-		shadowDepth = MaterialTheme.navigationBarView.shadowDepth
-		shadowColor = MaterialTheme.navigationBarView.shadowColor
-		zPosition = MaterialTheme.navigationBarView.zPosition
-		masksToBounds = MaterialTheme.navigationBarView.masksToBounds
-		cornerRadius = MaterialTheme.navigationBarView.cornerRadius
-		borderWidth = MaterialTheme.navigationBarView.borderWidth
-		borderColor = MaterialTheme.navigationBarView.bordercolor
 	}
 }

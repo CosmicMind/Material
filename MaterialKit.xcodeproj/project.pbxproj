@@ -60,6 +60,11 @@
 		964B17D91BBB3911002A9CA0 /* BasicCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B17D81BBB3911002A9CA0 /* BasicCardView.swift */; settings = {ASSET_TAGS = (); }; };
 		965C17C51BC8273D00B1059A /* MaterialCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965C17C41BC8273D00B1059A /* MaterialCollectionViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		965C17C71BC8279F00B1059A /* BasicCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965C17C61BC8279F00B1059A /* BasicCollectionViewCell.swift */; settings = {ASSET_TAGS = (); }; };
+		965C17C81BC82FEF00B1059A /* MaterialLayer.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65AD15E91BC05B3A0068AF9C /* MaterialLayer.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		965C17C91BC82FEF00B1059A /* MaterialTextLayer.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9699879B1BC5FE49006D678E /* MaterialTextLayer.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		965C17CA1BC82FEF00B1059A /* ImageCardView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96D26BFC1BC23649006478BD /* ImageCardView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		965C17CB1BC82FEF00B1059A /* MaterialCollectionViewCell.swift in Headers */ = {isa = PBXBuildFile; fileRef = 965C17C41BC8273D00B1059A /* MaterialCollectionViewCell.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		965C17CC1BC82FEF00B1059A /* BasicCollectionViewCell.swift in Headers */ = {isa = PBXBuildFile; fileRef = 965C17C61BC8279F00B1059A /* BasicCollectionViewCell.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9699879C1BC5FE49006D678E /* MaterialTextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9699879B1BC5FE49006D678E /* MaterialTextLayer.swift */; settings = {ASSET_TAGS = (); }; };
 		96C4FABE1BC3168900E4FFC3 /* MaterialTransitionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C4FABD1BC3168900E4FFC3 /* MaterialTransitionAnimation.swift */; settings = {ASSET_TAGS = (); }; };
 		96D26BFD1BC23649006478BD /* ImageCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D26BFC1BC23649006478BD /* ImageCardView.swift */; settings = {ASSET_TAGS = (); }; };
@@ -354,6 +359,11 @@
 				964B17D51BBB31C2002A9CA0 /* MaterialAnimation.swift in Headers */,
 				964B17D61BBB31C2002A9CA0 /* MaterialLayout.swift in Headers */,
 				6585D21A1BBCDFBF00426D22 /* BasicCardView.swift in Headers */,
+				965C17C81BC82FEF00B1059A /* MaterialLayer.swift in Headers */,
+				965C17C91BC82FEF00B1059A /* MaterialTextLayer.swift in Headers */,
+				965C17CA1BC82FEF00B1059A /* ImageCardView.swift in Headers */,
+				965C17CB1BC82FEF00B1059A /* MaterialCollectionViewCell.swift in Headers */,
+				965C17CC1BC82FEF00B1059A /* BasicCollectionViewCell.swift in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

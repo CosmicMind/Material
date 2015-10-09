@@ -237,6 +237,33 @@ public class BasicCardView : MaterialPulseView {
 	}
 	
 	/**
+		:name:	prepareView
+	*/
+	public override func prepareView() {
+		super.prepareView()
+		userInteractionEnabled = MaterialTheme.basicCardView.userInteractionEnabled
+		backgroundColor = MaterialTheme.basicCardView.backgroundColor
+		contentInsetsRef = MaterialTheme.basicCardView.contentInsetsRef
+		titleLabelInsetsRef = MaterialTheme.basicCardView.titleLabelInsetsRef
+		detailLabelInsetsRef = MaterialTheme.basicCardView.detailLabelInsetsRef
+		leftButtonsInsetsRef = MaterialTheme.basicCardView.leftButtonsInsetsRef
+		rightButtonsInsetsRef = MaterialTheme.basicCardView.rightButtonsInsetsRef
+		
+		contentsRect = MaterialTheme.basicCardView.contentsRect
+		contentsCenter = MaterialTheme.basicCardView.contentsCenter
+		contentsScale = MaterialTheme.basicCardView.contentsScale
+		contentsGravity = MaterialTheme.basicCardView.contentsGravity
+		shadowDepth = MaterialTheme.basicCardView.shadowDepth
+		shadowColor = MaterialTheme.basicCardView.shadowColor
+		zPosition = MaterialTheme.basicCardView.zPosition
+		masksToBounds = MaterialTheme.basicCardView.masksToBounds
+		cornerRadius = MaterialTheme.basicCardView.cornerRadius
+		borderWidth = MaterialTheme.basicCardView.borderWidth
+		borderColor = MaterialTheme.basicCardView.bordercolor
+		dividerColor = MaterialTheme.basicCardView.dividerColor
+	}
+	
+	/**
 		:name:	reloadView
 	*/
 	public func reloadView() {
@@ -389,32 +416,5 @@ public class BasicCardView : MaterialPulseView {
 		self.detailLabel = detailLabel
 		self.leftButtons = leftButtons
 		self.rightButtons = rightButtons
-	}
-	
-	//
-	//	:name:	prepareView
-	//
-	internal override func prepareView() {
-		super.prepareView()
-		userInteractionEnabled = MaterialTheme.basicCardView.userInteractionEnabled
-		backgroundColor = MaterialTheme.basicCardView.backgroundColor
-		contentInsetsRef = MaterialTheme.basicCardView.contentInsetsRef
-		titleLabelInsetsRef = MaterialTheme.basicCardView.titleLabelInsetsRef
-		detailLabelInsetsRef = MaterialTheme.basicCardView.detailLabelInsetsRef
-		leftButtonsInsetsRef = MaterialTheme.basicCardView.leftButtonsInsetsRef
-		rightButtonsInsetsRef = MaterialTheme.basicCardView.rightButtonsInsetsRef
-		
-		contentsRect = MaterialTheme.basicCardView.contentsRect
-		contentsCenter = MaterialTheme.basicCardView.contentsCenter
-		contentsScale = MaterialTheme.basicCardView.contentsScale
-		contentsGravity = MaterialTheme.basicCardView.contentsGravity
-		shadowDepth = MaterialTheme.basicCardView.shadowDepth
-		shadowColor = MaterialTheme.basicCardView.shadowColor
-		zPosition = MaterialTheme.basicCardView.zPosition
-		masksToBounds = MaterialTheme.basicCardView.masksToBounds
-		cornerRadius = MaterialTheme.basicCardView.cornerRadius
-		borderWidth = MaterialTheme.basicCardView.borderWidth
-		borderColor = MaterialTheme.basicCardView.bordercolor
-		dividerColor = MaterialTheme.basicCardView.dividerColor
 	}
 }

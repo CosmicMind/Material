@@ -445,10 +445,10 @@ public class MaterialButton : UIButton {
 		return nil // returning nil enables the animations for the layer property that are normally disabled.
 	}
 	
-	//
-	//	:name:	prepareView
-	//
-	internal func prepareView() {
+	/**
+		:name:	prepareView
+	*/
+	public func prepareView() {
 		// visualLayer
 		visualLayer.zPosition = -1
 		layer.addSublayer(visualLayer)

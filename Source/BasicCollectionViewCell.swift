@@ -39,10 +39,10 @@ public class BasicCollectionViewCell : MaterialCollectionViewCell {
 	*/
 	public private(set) lazy var rightLayer: MaterialLayer = MaterialLayer()
 	
-	//
-	//	:name:	prepareView
-	//
-	internal override func prepareView() {
+	/**
+		:name:	prepareView
+	*/
+	public override func prepareView() {
 		super.prepareView()
 		
 		// title

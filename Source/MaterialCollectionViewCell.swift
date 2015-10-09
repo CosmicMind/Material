@@ -424,6 +424,39 @@ public class MaterialCollectionViewCell : UICollectionViewCell, UIGestureRecogni
 		return false
 	}
 	
+	/**
+		:name:	prepareView
+	*/
+	public func prepareView() {
+		userInteractionEnabled = MaterialTheme.flatButton.userInteractionEnabled
+		backgroundColor = MaterialTheme.flatButton.backgroundColor
+		pulseColorOpacity = MaterialTheme.flatButton.pulseColorOpacity
+		pulseColor = MaterialTheme.flatButton.pulseColor
+		
+		shadowDepth = MaterialTheme.flatButton.shadowDepth
+		shadowColor = MaterialTheme.flatButton.shadowColor
+		zPosition = MaterialTheme.flatButton.zPosition
+		masksToBounds = MaterialTheme.flatButton.masksToBounds
+		cornerRadius = MaterialTheme.flatButton.cornerRadius
+		borderWidth = MaterialTheme.flatButton.borderWidth
+		borderColor = MaterialTheme.flatButton.bordercolor
+		shape = MaterialTheme.flatButton.shape
+		
+		// visualLayer
+		visualLayer.zPosition = -1
+		layer.addSublayer(visualLayer)
+		
+		// pulseLayer
+		pulseLayer.hidden = true
+		pulseLayer.zPosition = 1
+		visualLayer.addSublayer(pulseLayer)
+		
+		// gesture
+		panRecognizer = UIPanGestureRecognizer(target: self, action: "handlePanGesture:")
+		panRecognizer.delegate = self
+		addGestureRecognizer(panRecognizer)
+	}
+	
 	//
 	//	:name:	handlePanGesture
 	//
@@ -458,39 +491,6 @@ public class MaterialCollectionViewCell : UICollectionViewCell, UIGestureRecogni
 		default:
 			break
 		}
-	}
-	
-	//
-	//	:name:	prepareView
-	//
-	internal func prepareView() {
-		userInteractionEnabled = MaterialTheme.flatButton.userInteractionEnabled
-		backgroundColor = MaterialTheme.flatButton.backgroundColor
-		pulseColorOpacity = MaterialTheme.flatButton.pulseColorOpacity
-		pulseColor = MaterialTheme.flatButton.pulseColor
-		
-		shadowDepth = MaterialTheme.flatButton.shadowDepth
-		shadowColor = MaterialTheme.flatButton.shadowColor
-		zPosition = MaterialTheme.flatButton.zPosition
-		masksToBounds = MaterialTheme.flatButton.masksToBounds
-		cornerRadius = MaterialTheme.flatButton.cornerRadius
-		borderWidth = MaterialTheme.flatButton.borderWidth
-		borderColor = MaterialTheme.flatButton.bordercolor
-		shape = MaterialTheme.flatButton.shape
-		
-		// visualLayer
-		visualLayer.zPosition = -1
-		layer.addSublayer(visualLayer)
-		
-		// pulseLayer
-		pulseLayer.hidden = true
-		pulseLayer.zPosition = 1
-		visualLayer.addSublayer(pulseLayer)
-		
-		// gesture
-		panRecognizer = UIPanGestureRecognizer(target: self, action: "handlePanGesture:")
-		panRecognizer.delegate = self
-		addGestureRecognizer(panRecognizer)
 	}
 	
 	//
