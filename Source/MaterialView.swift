@@ -20,15 +20,36 @@ import UIKit
 
 @objc(MaterialView)
 public class MaterialView : UIView {
-	//
-	//	:name:	visualLayer
-	//
-	public private(set) lazy var visualLayer: CAShapeLayer = CAShapeLayer()
+	/**
+		:name:	layerClass
+	*/
+	public override class func layerClass() -> AnyClass {
+		return MaterialLayer.self
+	}
+	
+	/**
+		:name:	materialLayer
+	*/
+	public var materialLayer: MaterialLayer {
+		return layer as! MaterialLayer
+	}
 	
 	/**
 		:name:	visualLayer
 	*/
-	public weak var delegate: MaterialAnimationDelegate?
+	public private(set) lazy var visualLayer: CAShapeLayer = CAShapeLayer()
+	
+	/**
+		:name:	delegate
+	*/
+	public weak var delegate: MaterialAnimationDelegate? {
+		get {
+			return materialLayer.animationDelegate
+		}
+		set(value) {
+			materialLayer.animationDelegate = delegate
+		}
+	}
 	
 	/**
 		:name:	image
@@ -330,43 +351,7 @@ public class MaterialView : UIView {
 		:name:	animation
 	*/
 	public func animation(animation: CAAnimation) {
-		animation.delegate = self
-		if let a: CABasicAnimation = animation as? CABasicAnimation {
-			a.fromValue = (nil == layer.presentationLayer() ? layer : layer.presentationLayer() as! CALayer).valueForKeyPath(a.keyPath!)
-		}
-		if let a: CAPropertyAnimation = animation as? CAPropertyAnimation {
-			layer.addAnimation(a, forKey: a.keyPath!)
-		} else if let a: CAAnimationGroup = animation as? CAAnimationGroup {
-			layer.addAnimation(a, forKey: nil)
-		} else if let a: CATransition = animation as? CATransition {
-			layer.addAnimation(a, forKey: kCATransition)
-		}
-	}
-	
-	/**
-		:name:	animationDidStart
-	*/
-	public override func animationDidStart(anim: CAAnimation) {
-		delegate?.materialAnimationDidStart?(anim)
-	}
-	
-	/**
-		:name:	animationDidStop
-	*/
-	public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
-		if let a: CAPropertyAnimation = anim as? CAPropertyAnimation {
-			if let b: CABasicAnimation = a as? CABasicAnimation {
-				MaterialAnimation.animationDisabled({
-					self.layer.setValue(nil == b.toValue ? b.byValue : b.toValue, forKey: b.keyPath!)
-				})
-			}
-			delegate?.materialAnimationDidStop?(anim, finished: flag)
-			layer.removeAnimationForKey(a.keyPath!)
-		} else if let a: CAAnimationGroup = anim as? CAAnimationGroup {
-			for x in a.animations! {
-				animationDidStop(x, finished: true)
-			}
-		}
+		materialLayer.animation(animation)
 	}
 	
 	//
