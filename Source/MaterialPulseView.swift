@@ -152,8 +152,6 @@ public class MaterialPulseView : MaterialView {
 		borderColor = MaterialTheme.pulseView.bordercolor
 		
 		// pulseLayer
-		pulseLayer.hidden = true
-		pulseLayer.zPosition = 1
 		materialLayer.visualLayer.addSublayer(pulseLayer)
 	}
 	

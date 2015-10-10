@@ -418,8 +418,6 @@ public class MaterialButton : UIButton {
 	*/
 	public func prepareView() {
 		// pulseLayer
-		pulseLayer.hidden = true
-		pulseLayer.zPosition = 1
 		materialLayer.visualLayer.addSublayer(pulseLayer)
 	}
 	

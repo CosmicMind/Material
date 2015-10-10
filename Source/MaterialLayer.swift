@@ -304,9 +304,9 @@ public class MaterialLayer : CAShapeLayer {
 	*/
 	public func prepareLayer() {
 		// visualLayer
-//		masksToBounds = true
-//		visualLayer.zPosition = -1
-//		addSublayer(visualLayer)
+		masksToBounds = true
+		visualLayer.zPosition = -1
+		addSublayer(visualLayer)
 	}
 	
 	//
