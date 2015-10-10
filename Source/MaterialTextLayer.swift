@@ -154,7 +154,7 @@ public class MaterialTextLayer : CATextLayer {
 		:name:	stringSize
 	*/
 	public func stringSize(constrainedToWidth width: Double) -> CGSize {
-		if let v:UIFont = internalFont {
+		if let v: UIFont = internalFont {
 			if 0 < text?.utf16.count {
 				return v.sizeOfString(text!, constrainedToWidth: width)
 			}
