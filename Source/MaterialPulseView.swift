@@ -131,6 +131,13 @@ public class MaterialPulseView : MaterialView {
 	}
 	
 	/**
+		:name:	actionForLayer
+	*/
+	public override func actionForLayer(layer: CALayer, forKey event: String) -> CAAction? {
+		return nil // returning nil enables the animations for the layer property that are normally disabled.
+	}
+	
+	/**
 		:name:	prepareView
 	*/
 	public override func prepareView() {
@@ -138,7 +145,7 @@ public class MaterialPulseView : MaterialView {
 		userInteractionEnabled = MaterialTheme.pulseView.userInteractionEnabled
 		backgroundColor = MaterialTheme.pulseView.backgroundColor
 		pulseColor = MaterialTheme.pulseView.pulseColor
-
+		
 		contentsRect = MaterialTheme.pulseView.contentsRect
 		contentsCenter = MaterialTheme.pulseView.contentsCenter
 		contentsScale = MaterialTheme.pulseView.contentsScale
@@ -152,7 +159,9 @@ public class MaterialPulseView : MaterialView {
 		borderColor = MaterialTheme.pulseView.bordercolor
 		
 		// pulseLayer
-		materialLayer.visualLayer.addSublayer(pulseLayer)
+		pulseLayer.hidden = true
+		pulseLayer.zPosition = 1
+		visualLayer.addSublayer(pulseLayer)
 	}
 	
 	//

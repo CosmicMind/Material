@@ -21,20 +21,6 @@ import UIKit
 @objc(MaterialButton)
 public class MaterialButton : UIButton {
 	/**
-		:name:	layerClass
-	*/
-	public override class func layerClass() -> AnyClass {
-		return MaterialLayer.self
-	}
-	
-	/**
-		:name:	materialLayer
-	*/
-	public var materialLayer: MaterialLayer {
-		return layer as! MaterialLayer
-	}
-	
-	/**
 		:name:	visualLayer
 	*/
 	public private(set) lazy var visualLayer: CAShapeLayer = CAShapeLayer()
@@ -47,14 +33,7 @@ public class MaterialButton : UIButton {
 	/**
 		:name:	delegate
 	*/
-	public weak var delegate: MaterialAnimationDelegate? {
-		get {
-			return materialLayer.animationDelegate
-		}
-		set(value) {
-			materialLayer.animationDelegate = delegate
-		}
-	}
+	public weak var delegate: MaterialAnimationDelegate?
 	
 	/**
 		:name:	pulseScale
@@ -102,23 +81,11 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
-		:name:	masksToBounds
-	*/
-	public var masksToBounds: Bool {
-		get {
-			return materialLayer.masksToBounds
-		}
-		set(value) {
-			materialLayer.masksToBounds = value
-		}
-	}
-	
-	/**
 		:name:	backgroundColor
 	*/
 	public override var backgroundColor: UIColor? {
 		didSet {
-			materialLayer.backgroundColor = backgroundColor?.CGColor
+			layer.backgroundColor = backgroundColor?.CGColor
 		}
 	}
 	
@@ -127,10 +94,10 @@ public class MaterialButton : UIButton {
 	*/
 	public var x: CGFloat {
 		get {
-			return materialLayer.x
+			return frame.origin.x
 		}
 		set(value) {
-			materialLayer.x = value
+			frame.origin.x = value
 		}
 	}
 	
@@ -139,10 +106,10 @@ public class MaterialButton : UIButton {
 	*/
 	public var y: CGFloat {
 		get {
-			return materialLayer.y
+			return frame.origin.y
 		}
 		set(value) {
-			materialLayer.y = value
+			frame.origin.y = value
 		}
 	}
 	
@@ -151,10 +118,13 @@ public class MaterialButton : UIButton {
 	*/
 	public var width: CGFloat {
 		get {
-			return materialLayer.width
+			return frame.size.width
 		}
 		set(value) {
-			materialLayer.width = value
+			frame.size.width = value
+			if .None != shape {
+				frame.size.height = value
+			}
 		}
 	}
 	
@@ -163,10 +133,13 @@ public class MaterialButton : UIButton {
 	*/
 	public var height: CGFloat {
 		get {
-			return materialLayer.height
+			return frame.size.height
 		}
 		set(value) {
-			materialLayer.height = value
+			frame.size.height = value
+			if .None != shape {
+				frame.size.width = value
+			}
 		}
 	}
 	
@@ -216,11 +189,28 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
+		:name:	masksToBounds
+	*/
+	public var masksToBounds: Bool {
+		get {
+			return visualLayer.masksToBounds
+		}
+		set(value) {
+			visualLayer.masksToBounds = value
+		}
+	}
+	
+	/**
 		:name:	cornerRadius
 	*/
-	public var cornerRadius: MaterialRadius {
+	public var cornerRadius: MaterialRadius? {
 		didSet {
-			materialLayer.cornerRadius = MaterialRadiusToValue(cornerRadius)
+			if let v: MaterialRadius = cornerRadius {
+				layer.cornerRadius = MaterialRadiusToValue(v)
+				if .Circle == shape {
+					shape = .None
+				}
+			}
 		}
 	}
 	
@@ -231,9 +221,9 @@ public class MaterialButton : UIButton {
 		didSet {
 			if .None != shape {
 				if width < height {
-					width = height
+					frame.size.width = height
 				} else {
-					height = width
+					frame.size.height = width
 				}
 			}
 		}
@@ -244,7 +234,7 @@ public class MaterialButton : UIButton {
 	*/
 	public var borderWidth: MaterialBorder {
 		didSet {
-			materialLayer.borderWidth = MaterialBorderToValue(borderWidth)
+			layer.borderWidth = MaterialBorderToValue(borderWidth)
 		}
 	}
 	
@@ -253,7 +243,7 @@ public class MaterialButton : UIButton {
 	*/
 	public var borderColor: UIColor? {
 		didSet {
-			materialLayer.borderColor = borderColor?.CGColor
+			layer.borderColor = borderColor?.CGColor
 		}
 	}
 	
@@ -311,7 +301,6 @@ public class MaterialButton : UIButton {
 		shadowDepth = .None
 		shape = .None
 		contentInsets = .None
-		cornerRadius = .None
 		super.init(coder: aDecoder)
 	}
 	
@@ -323,21 +312,9 @@ public class MaterialButton : UIButton {
 		shadowDepth = .None
 		shape = .None
 		contentInsets = .None
-		cornerRadius = .None
 		super.init(frame: frame)
 		prepareView()
 	}
-	
-	/**
-		:name:	layoutSublayersOfLayer
-	*/
-	public override func layoutSublayersOfLayer(layer: CALayer) {
-		super.layoutSublayersOfLayer(layer)
-		if self.layer == layer {
-			prepareShape()
-		}
-	}
-	
 	/**
 		:name:	init
 	*/
@@ -346,10 +323,58 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
+		:name:	layoutSubviews
+	*/
+	public override func layoutSubviews() {
+		super.layoutSubviews()
+		prepareShape()
+		
+		visualLayer.frame = bounds
+		visualLayer.position = CGPointMake(width / 2, height / 2)
+		visualLayer.cornerRadius = layer.cornerRadius
+	}
+	
+	/**
 		:name:	animation
 	*/
 	public func animation(animation: CAAnimation) {
-		materialLayer.animation(animation)
+		animation.delegate = self
+		if let a: CABasicAnimation = animation as? CABasicAnimation {
+			a.fromValue = (nil == layer.presentationLayer() ? layer : layer.presentationLayer() as! CALayer).valueForKeyPath(a.keyPath!)
+		}
+		if let a: CAPropertyAnimation = animation as? CAPropertyAnimation {
+			layer.addAnimation(a, forKey: a.keyPath!)
+		} else if let a: CAAnimationGroup = animation as? CAAnimationGroup {
+			layer.addAnimation(a, forKey: nil)
+		} else if let a: CATransition = animation as? CATransition {
+			layer.addAnimation(a, forKey: kCATransition)
+		}
+	}
+	
+	/**
+		:name:	animationDidStart
+	*/
+	public override func animationDidStart(anim: CAAnimation) {
+		delegate?.materialAnimationDidStart?(anim)
+	}
+	
+	/**
+		:name:	animationDidStop
+	*/
+	public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
+		if let a: CAPropertyAnimation = anim as? CAPropertyAnimation {
+			if let b: CABasicAnimation = a as? CABasicAnimation {
+				MaterialAnimation.animationDisabled({
+					self.layer.setValue(nil == b.toValue ? b.byValue : b.toValue, forKey: b.keyPath!)
+				})
+			}
+			delegate?.materialAnimationDidStop?(anim, finished: flag)
+			layer.removeAnimationForKey(a.keyPath!)
+		} else if let a: CAAnimationGroup = anim as? CAAnimationGroup {
+			for x in a.animations! {
+				animationDidStop(x, finished: true)
+			}
+		}
 	}
 	
 	/**
@@ -414,11 +439,24 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
+		:name:	actionForLayer
+	*/
+	public override func actionForLayer(layer: CALayer, forKey event: String) -> CAAction? {
+		return nil // returning nil enables the animations for the layer property that are normally disabled.
+	}
+	
+	/**
 		:name:	prepareView
 	*/
 	public func prepareView() {
+		// visualLayer
+		visualLayer.zPosition = -1
+		layer.addSublayer(visualLayer)
+		
 		// pulseLayer
-		materialLayer.visualLayer.addSublayer(pulseLayer)
+		pulseLayer.hidden = true
+		pulseLayer.zPosition = 1
+		visualLayer.addSublayer(pulseLayer)
 	}
 	
 	//
@@ -426,7 +464,7 @@ public class MaterialButton : UIButton {
 	//
 	internal func prepareShape() {
 		if .Circle == shape {
-			materialLayer.cornerRadius = width / 2
+			layer.cornerRadius = width / 2
 		}
 	}
 	
