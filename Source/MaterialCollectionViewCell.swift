@@ -18,6 +18,17 @@
 
 import UIKit
 
+@objc(MaterialCollectionViewCellDelegate)
+public protocol MaterialCollectionViewCellDelegate : MaterialDelegate {
+	optional func materialCollectionViewCellWillRevealLeftLayer(cell: MaterialCollectionViewCell)
+	optional func materialCollectionViewCellWillRevealRightLayer(cell: MaterialCollectionViewCell)
+	optional func materialCollectionViewCellDidRevealLeftLayer(cell: MaterialCollectionViewCell)
+	optional func materialCollectionViewCellDidRevealRightLayer(cell: MaterialCollectionViewCell)
+	optional func materialCollectionViewCellDidCloseLeftLayer(cell: MaterialCollectionViewCell)
+	optional func materialCollectionViewCellDidCloseRightLayer(cell: MaterialCollectionViewCell)
+}
+
+@objc(MaterialCollectionViewCell)
 public class MaterialCollectionViewCell : UICollectionViewCell, UIGestureRecognizerDelegate {
 	//
 	//	:name:	panRecognizer
@@ -50,9 +61,14 @@ public class MaterialCollectionViewCell : UICollectionViewCell, UIGestureRecogni
 	public private(set) lazy var pulseLayer: CAShapeLayer = CAShapeLayer()
 	
 	/**
+		:name:	revealed
+	*/
+	public private(set) lazy var revealed: Bool = false
+	
+	/**
 		:name:	delegate
 	*/
-	public weak var delegate: MaterialAnimationDelegate?
+	public weak var delegate: MaterialDelegate?
 	
 	/**
 		:name:	pulseScale
@@ -341,7 +357,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell, UIGestureRecogni
 		:name:	animationDidStart
 	*/
 	public override func animationDidStart(anim: CAAnimation) {
-		delegate?.materialAnimationDidStart?(anim)
+		(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStart?(anim)
 	}
 	
 	/**
@@ -354,7 +370,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell, UIGestureRecogni
 					self.layer.setValue(nil == b.toValue ? b.byValue : b.toValue, forKey: b.keyPath!)
 				})
 			}
-			delegate?.materialAnimationDidStop?(anim, finished: flag)
+			(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStop?(anim, finished: flag)
 			layer.removeAnimationForKey(a.keyPath!)
 		} else if let a: CAAnimationGroup = anim as? CAAnimationGroup {
 			for x in a.animations! {
@@ -477,17 +493,35 @@ public class MaterialCollectionViewCell : UICollectionViewCell, UIGestureRecogni
 			rightOnDragRelease = x < -width / 2
 			leftOnDragRelease = x > width / 2
 			
+			if !revealed && (leftOnDragRelease || rightOnDragRelease) {
+				revealed = true
+				if leftOnDragRelease {
+					(delegate as? MaterialCollectionViewCellDelegate)?.materialCollectionViewCellWillRevealLeftLayer?(self)
+				} else if rightOnDragRelease {
+					(delegate as? MaterialCollectionViewCellDelegate)?.materialCollectionViewCellWillRevealRightLayer?(self)
+				}
+			}
+			
+			if leftOnDragRelease {
+				(delegate as? MaterialCollectionViewCellDelegate)?.materialCollectionViewCellDidRevealLeftLayer?(self)
+			} else if rightOnDragRelease {
+				(delegate as? MaterialCollectionViewCellDelegate)?.materialCollectionViewCellDidRevealRightLayer?(self)
+			}
+			
 		case .Ended:
+			revealed = false
+			
 			// snap back
 			let a: CABasicAnimation = MaterialAnimation.position(CGPointMake(width / 2, y + height / 2), duration: 0.25)
 			a.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
 			animation(a)
 			
-			if rightOnDragRelease {
-				
-			} else if leftOnDragRelease {
-				
+			if leftOnDragRelease {
+				(delegate as? MaterialCollectionViewCellDelegate)?.materialCollectionViewCellDidCloseLeftLayer?(self)
+			} else if rightOnDragRelease {
+				(delegate as? MaterialCollectionViewCellDelegate)?.materialCollectionViewCellDidCloseRightLayer?(self)
 			}
+			
 		default:
 			break
 		}

@@ -28,7 +28,7 @@ public class MaterialView : UIView {
 	/**
 		:name:	visualLayer
 	*/
-	public weak var delegate: MaterialAnimationDelegate?
+	public weak var delegate: MaterialDelegate?
 	
 	/**
 		:name:	image
@@ -347,7 +347,7 @@ public class MaterialView : UIView {
 		:name:	animationDidStart
 	*/
 	public override func animationDidStart(anim: CAAnimation) {
-		delegate?.materialAnimationDidStart?(anim)
+		(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStart?(anim)
 	}
 	
 	/**
@@ -360,7 +360,7 @@ public class MaterialView : UIView {
 					self.layer.setValue(nil == b.toValue ? b.byValue : b.toValue, forKey: b.keyPath!)
 				})
 			}
-			delegate?.materialAnimationDidStop?(anim, finished: flag)
+			(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStop?(anim, finished: flag)
 			layer.removeAnimationForKey(a.keyPath!)
 		} else if let a: CAAnimationGroup = anim as? CAAnimationGroup {
 			for x in a.animations! {

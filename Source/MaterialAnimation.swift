@@ -19,7 +19,7 @@
 import UIKit
 
 @objc(MaterialAnimationDelegate)
-public protocol MaterialAnimationDelegate {
+public protocol MaterialAnimationDelegate : MaterialDelegate {
 	/**
 		:name:	materialAnimationDidStart
 	*/
