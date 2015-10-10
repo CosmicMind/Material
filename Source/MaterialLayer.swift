@@ -289,6 +289,9 @@ public class MaterialLayer : CAShapeLayer {
 			}
 			animationDelegate?.materialAnimationDidStop?(anim, finished: flag)
 			removeAnimationForKey(a.keyPath!)
+			if "cornerRadius" == a.keyPath {
+				visualLayer.addAnimation(a, forKey: "cornerRadius")
+			}
 		} else if let a: CAAnimationGroup = anim as? CAAnimationGroup {
 			for x in a.animations! {
 				animationDidStop(x, finished: true)
@@ -301,9 +304,9 @@ public class MaterialLayer : CAShapeLayer {
 	*/
 	public func prepareLayer() {
 		// visualLayer
-		masksToBounds = true
-		visualLayer.zPosition = -1
-		addSublayer(visualLayer)
+//		masksToBounds = true
+//		visualLayer.zPosition = -1
+//		addSublayer(visualLayer)
 	}
 	
 	//

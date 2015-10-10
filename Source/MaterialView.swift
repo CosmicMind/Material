@@ -210,10 +210,10 @@ public class MaterialView : UIView {
 	*/
 	public var shadowRadius: CGFloat {
 		get {
-			return materialLayer.shadowRadius
+			return layer.shadowRadius
 		}
 		set(value) {
-			materialLayer.shadowRadius = value
+			layer.shadowRadius = value
 		}
 	}
 	
@@ -338,13 +338,6 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-		:name:	actionForLayer
-	*/
-	public override func actionForLayer(layer: CALayer, forKey event: String) -> CAAction? {
-		return nil // returning nil enables the animations for the layer property that are normally disabled.
-	}
-	
-	/**
 		:name:	animation
 	*/
 	public func animation(animation: CAAnimation) {
@@ -375,7 +368,7 @@ public class MaterialView : UIView {
 	//
 	internal func prepareShape() {
 		if .Circle == shape {
-			layer.cornerRadius = width / 2
+			materialLayer.cornerRadius = width / 2
 		}
 	}
 }

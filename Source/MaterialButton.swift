@@ -102,11 +102,23 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
+		:name:	masksToBounds
+	*/
+	public var masksToBounds: Bool {
+		get {
+			return materialLayer.masksToBounds
+		}
+		set(value) {
+			materialLayer.masksToBounds = value
+		}
+	}
+	
+	/**
 		:name:	backgroundColor
 	*/
 	public override var backgroundColor: UIColor? {
 		didSet {
-			layer.backgroundColor = backgroundColor?.CGColor
+			materialLayer.backgroundColor = backgroundColor?.CGColor
 		}
 	}
 	
@@ -115,10 +127,10 @@ public class MaterialButton : UIButton {
 	*/
 	public var x: CGFloat {
 		get {
-			return frame.origin.x
+			return materialLayer.x
 		}
 		set(value) {
-			frame.origin.x = value
+			materialLayer.x = value
 		}
 	}
 	
@@ -127,10 +139,10 @@ public class MaterialButton : UIButton {
 	*/
 	public var y: CGFloat {
 		get {
-			return frame.origin.y
+			return materialLayer.y
 		}
 		set(value) {
-			frame.origin.y = value
+			materialLayer.y = value
 		}
 	}
 	
@@ -139,13 +151,10 @@ public class MaterialButton : UIButton {
 	*/
 	public var width: CGFloat {
 		get {
-			return frame.size.width
+			return materialLayer.width
 		}
 		set(value) {
-			frame.size.width = value
-			if .None != shape {
-				frame.size.height = value
-			}
+			materialLayer.width = value
 		}
 	}
 	
@@ -154,13 +163,10 @@ public class MaterialButton : UIButton {
 	*/
 	public var height: CGFloat {
 		get {
-			return frame.size.height
+			return materialLayer.height
 		}
 		set(value) {
-			frame.size.height = value
-			if .None != shape {
-				frame.size.width = value
-			}
+			materialLayer.height = value
 		}
 	}
 	
@@ -210,28 +216,11 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
-		:name:	masksToBounds
-	*/
-	public var masksToBounds: Bool {
-		get {
-			return visualLayer.masksToBounds
-		}
-		set(value) {
-			visualLayer.masksToBounds = value
-		}
-	}
-	
-	/**
 		:name:	cornerRadius
 	*/
-	public var cornerRadius: MaterialRadius? {
+	public var cornerRadius: MaterialRadius {
 		didSet {
-			if let v: MaterialRadius = cornerRadius {
-				layer.cornerRadius = MaterialRadiusToValue(v)
-				if .Circle == shape {
-					shape = .None
-				}
-			}
+			materialLayer.cornerRadius = MaterialRadiusToValue(cornerRadius)
 		}
 	}
 	
@@ -242,9 +231,9 @@ public class MaterialButton : UIButton {
 		didSet {
 			if .None != shape {
 				if width < height {
-					frame.size.width = height
+					width = height
 				} else {
-					frame.size.height = width
+					height = width
 				}
 			}
 		}
@@ -255,7 +244,7 @@ public class MaterialButton : UIButton {
 	*/
 	public var borderWidth: MaterialBorder {
 		didSet {
-			layer.borderWidth = MaterialBorderToValue(borderWidth)
+			materialLayer.borderWidth = MaterialBorderToValue(borderWidth)
 		}
 	}
 	
@@ -264,7 +253,7 @@ public class MaterialButton : UIButton {
 	*/
 	public var borderColor: UIColor? {
 		didSet {
-			layer.borderColor = borderColor?.CGColor
+			materialLayer.borderColor = borderColor?.CGColor
 		}
 	}
 	
@@ -322,6 +311,7 @@ public class MaterialButton : UIButton {
 		shadowDepth = .None
 		shape = .None
 		contentInsets = .None
+		cornerRadius = .None
 		super.init(coder: aDecoder)
 	}
 	
@@ -333,26 +323,26 @@ public class MaterialButton : UIButton {
 		shadowDepth = .None
 		shape = .None
 		contentInsets = .None
+		cornerRadius = .None
 		super.init(frame: frame)
 		prepareView()
 	}
+	
+	/**
+		:name:	layoutSublayersOfLayer
+	*/
+	public override func layoutSublayersOfLayer(layer: CALayer) {
+		super.layoutSublayersOfLayer(layer)
+		if self.layer == layer {
+			prepareShape()
+		}
+	}
+	
 	/**
 		:name:	init
 	*/
 	public convenience init() {
 		self.init(frame: CGRectNull)
-	}
-
-	/**
-		:name:	layoutSubviews
-	*/
-	public override func layoutSubviews() {
-		super.layoutSubviews()
-		prepareShape()
-		
-		visualLayer.frame = bounds
-		visualLayer.position = CGPointMake(width / 2, height / 2)
-		visualLayer.cornerRadius = layer.cornerRadius
 	}
 	
 	/**
@@ -424,24 +414,13 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
-		:name:	actionForLayer
-	*/
-	public override func actionForLayer(layer: CALayer, forKey event: String) -> CAAction? {
-		return nil // returning nil enables the animations for the layer property that are normally disabled.
-	}
-	
-	/**
 		:name:	prepareView
 	*/
 	public func prepareView() {
-		// visualLayer
-		visualLayer.zPosition = -1
-		layer.addSublayer(visualLayer)
-
 		// pulseLayer
 		pulseLayer.hidden = true
 		pulseLayer.zPosition = 1
-		visualLayer.addSublayer(pulseLayer)
+		materialLayer.visualLayer.addSublayer(pulseLayer)
 	}
 	
 	//
@@ -449,7 +428,7 @@ public class MaterialButton : UIButton {
 	//
 	internal func prepareShape() {
 		if .Circle == shape {
-			layer.cornerRadius = width / 2
+			materialLayer.cornerRadius = width / 2
 		}
 	}
 	
