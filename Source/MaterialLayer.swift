@@ -24,7 +24,7 @@ public class MaterialLayer : CAShapeLayer {
 		:name:	visualLayer
 	*/
 	public private(set) lazy var visualLayer: CAShapeLayer = CAShapeLayer()
-	
+
 	/**
 		:name:	x
 	*/
@@ -292,7 +292,7 @@ public class MaterialLayer : CAShapeLayer {
 	}
 	
 	//
-	//		:name:	prepareShape
+	//	:name:	prepareShape
 	//
 	internal func prepareShape() {
 		if .Circle == shape {

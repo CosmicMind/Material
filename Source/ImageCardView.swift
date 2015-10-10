@@ -345,8 +345,6 @@ public class ImageCardView : MaterialPulseView {
 		borderWidth = MaterialTheme.imageCardView.borderWidth
 		borderColor = MaterialTheme.imageCardView.bordercolor
 		dividerColor = MaterialTheme.imageCardView.dividerColor
-		
-		visualLayer.masksToBounds = true
 	}
 	
 	/**
@@ -493,7 +491,7 @@ public class ImageCardView : MaterialPulseView {
 	internal func prepareImageLayer() {
 		imageLayer = CAShapeLayer()
 		imageLayer.zPosition = 0
-		visualLayer.addSublayer(imageLayer)
+		materialLayer.visualLayer.addSublayer(imageLayer)
 	}
 	
 	//
