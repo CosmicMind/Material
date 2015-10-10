@@ -249,7 +249,7 @@ public class MaterialLayer : CAShapeLayer {
 	public func animation(animation: CAAnimation) {
 		animation.delegate = self
 		if let a: CABasicAnimation = animation as? CABasicAnimation {
-			a.fromValue = (nil == presentationLayer() ? self : presentationLayer() as! CALayer).valueForKeyPath(a.keyPath!)
+			a.fromValue = valueForKey(a.keyPath!)
 		}
 		if let a: CAPropertyAnimation = animation as? CAPropertyAnimation {
 			addAnimation(a, forKey: a.keyPath!)
