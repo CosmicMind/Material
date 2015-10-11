@@ -303,7 +303,7 @@ public class NavigationBarView : MaterialView {
 			if 0 < v.count {
 				var h: String = "H:"
 				var d: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
-				var i: Int = 0
+				var i: Int = v.count - 1
 				
 				for b in v {
 					let k: String = "b\(i)"
@@ -312,10 +312,10 @@ public class NavigationBarView : MaterialView {
 					
 					h += "[\(k)]"
 					
-					if 0 == i++ {
-						h += "-(right_left)-"
-					} else {
+					if 0 == i-- {
 						h += "-(right)-"
+					} else {
+						h += "-(right_left)-"
 					}
 					
 					addSubview(b)
