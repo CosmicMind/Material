@@ -18,18 +18,6 @@
 
 import UIKit
 
-public extension UIFont {
-	/**
-		:name:	sizeOfString
-	*/
-	public func sizeOfString(string: String, constrainedToWidth width: Double) -> CGSize {
-		return string.boundingRectWithSize(CGSize(width: width, height: DBL_MAX),
-			options: NSStringDrawingOptions.UsesLineFragmentOrigin,
-			attributes: [NSFontAttributeName: self],
-			context: nil).size
-	}
-}
-
 public class MaterialTextLayer : CATextLayer {
 	//
 	//	:name:	internalFont
@@ -150,7 +138,7 @@ public class MaterialTextLayer : CATextLayer {
 	public func stringSize(constrainedToWidth width: Double) -> CGSize {
 		if let v: UIFont = internalFont {
 			if 0 < text?.utf16.count {
-				return v.sizeOfString(text!, constrainedToWidth: width)
+				return v.stringSize(text!, constrainedToWidth: width)
 			}
 		}
 		return CGSizeZero
