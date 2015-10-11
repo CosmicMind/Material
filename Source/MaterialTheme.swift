@@ -202,7 +202,6 @@ public extension MaterialTheme.navigationBarView {
 	
 	// color
 	public static var backgroundColor: UIColor = MaterialColor.white
-	public static var statusBarStyle: MaterialStatusBarStyle = .Default
 	
 	// interaction
 	public static var userInteractionEnabled: Bool = true

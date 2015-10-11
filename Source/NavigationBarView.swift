@@ -207,7 +207,6 @@ public class NavigationBarView : MaterialView {
 		super.prepareView()
 		userInteractionEnabled = MaterialTheme.navigationBarView.userInteractionEnabled
 		backgroundColor = MaterialTheme.navigationBarView.backgroundColor
-		statusBarStyle = MaterialTheme.navigationBarView.statusBarStyle
 		contentInsetsRef = MaterialTheme.navigationBarView.contentInsetsRef
 		titleLabelInsetsRef = MaterialTheme.navigationBarView.titleLabelInsetsRef
 		detailLabelInsetsRef = MaterialTheme.navigationBarView.detailLabelInsetsRef
