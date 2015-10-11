@@ -331,7 +331,7 @@ public class BasicCardView : MaterialPulseView {
 					MaterialLayout.alignFromBottom(self, child: b, bottom: contentInsetsRef!.bottom + leftButtonsInsetsRef!.bottom)
 				}
 				
-				addConstraints(MaterialLayout.constraint(h, options: [], metrics: ["left" : leftButtonsInsetsRef!.left, "left_right" : leftButtonsInsetsRef!.left + leftButtonsInsetsRef!.right], views: d))
+				addConstraints(MaterialLayout.constraint(h, options: [], metrics: ["left" : contentInsetsRef!.left + leftButtonsInsetsRef!.left, "left_right" : leftButtonsInsetsRef!.left + leftButtonsInsetsRef!.right], views: d))
 			}
 		}
 		
@@ -340,7 +340,7 @@ public class BasicCardView : MaterialPulseView {
 			if 0 < v.count {
 				var h: String = "H:"
 				var d: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
-				var i: Int = 0
+				var i: Int = v.count - 1
 				
 				for b in v {
 					let k: String = "b\(i)"
@@ -349,17 +349,17 @@ public class BasicCardView : MaterialPulseView {
 					
 					h += "[\(k)]"
 					
-					if 0 == i++ {
-						h += "-(right_left)-"
-					} else {
+					if 0 == i-- {
 						h += "-(right)-"
+					} else {
+						h += "-(right_left)-"
 					}
 					
 					addSubview(b)
 					MaterialLayout.alignFromBottom(self, child: b, bottom: contentInsetsRef!.bottom + rightButtonsInsetsRef!.bottom)
 				}
 				
-				addConstraints(MaterialLayout.constraint(h + "|", options: [], metrics: ["right" : rightButtonsInsetsRef!.right, "right_left" : rightButtonsInsetsRef!.right + rightButtonsInsetsRef!.left], views: d))
+				addConstraints(MaterialLayout.constraint(h + "|", options: [], metrics: ["right" : contentInsetsRef!.right + rightButtonsInsetsRef!.right, "right_left" : rightButtonsInsetsRef!.right + rightButtonsInsetsRef!.left], views: d))
 			}
 		}
 		

@@ -106,22 +106,16 @@ public class MaterialTextLayer : CATextLayer {
 		didSet {
 			switch lineBreakMode {
 			case .ByWordWrapping: // Wrap at word boundaries, default
-				wrapped = true
 				truncationMode = kCATruncationNone
 			case .ByCharWrapping: // Wrap at character boundaries
-				wrapped = true
 				truncationMode = kCATruncationNone
 			case .ByClipping: // Simply clip
-				wrapped = false
 				truncationMode = kCATruncationNone
 			case .ByTruncatingHead: // Truncate at head of line: "...wxyz"
-				wrapped = false
 				truncationMode = kCATruncationStart
 			case .ByTruncatingTail: // Truncate at tail of line: "abcd..."
-				wrapped = false
 				truncationMode = kCATruncationEnd
 			case .ByTruncatingMiddle: // Truncate middle of line:  "ab...yz"
-				wrapped = false
 				truncationMode = kCATruncationMiddle
 			}
 		}
