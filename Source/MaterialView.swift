@@ -327,6 +327,13 @@ public class MaterialView : UIView {
 	}
 	
 	/**
+		:name:	actionForLayer
+	*/
+	public override func actionForLayer(layer: CALayer, forKey event: String) -> CAAction? {
+		return nil
+	}
+	
+	/**
 		:name:	animation
 	*/
 	public func animation(animation: CAAnimation) {

@@ -20,8 +20,8 @@ import UIKit
 
 @objc(MaterialCollectionViewCellDelegate)
 public protocol MaterialCollectionViewCellDelegate : MaterialDelegate {
-	optional func materialCollectionViewCellWillRevealLeftLayer(cell: MaterialCollectionViewCell)
-	optional func materialCollectionViewCellWillRevealRightLayer(cell: MaterialCollectionViewCell)
+	optional func materialCollectionViewCellWillPassThresholdForLeftLayer(cell: MaterialCollectionViewCell)
+	optional func materialCollectionViewCellWillPassThresholdForRightLayer(cell: MaterialCollectionViewCell)
 	optional func materialCollectionViewCellDidRevealLeftLayer(cell: MaterialCollectionViewCell)
 	optional func materialCollectionViewCellDidRevealRightLayer(cell: MaterialCollectionViewCell)
 	optional func materialCollectionViewCellDidCloseLeftLayer(cell: MaterialCollectionViewCell)
@@ -68,7 +68,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell, UIGestureRecogni
 	/**
 		:name:	delegate
 	*/
-	public weak var delegate: MaterialDelegate?
+	public weak var delegate: MaterialCollectionViewCellDelegate?
 	
 	/**
 		:name:	pulseScale
@@ -496,16 +496,16 @@ public class MaterialCollectionViewCell : UICollectionViewCell, UIGestureRecogni
 			if !revealed && (leftOnDragRelease || rightOnDragRelease) {
 				revealed = true
 				if leftOnDragRelease {
-					(delegate as? MaterialCollectionViewCellDelegate)?.materialCollectionViewCellWillRevealLeftLayer?(self)
+					delegate?.materialCollectionViewCellWillPassThresholdForLeftLayer?(self)
 				} else if rightOnDragRelease {
-					(delegate as? MaterialCollectionViewCellDelegate)?.materialCollectionViewCellWillRevealRightLayer?(self)
+					delegate?.materialCollectionViewCellWillPassThresholdForRightLayer?(self)
 				}
 			}
 			
 			if leftOnDragRelease {
-				(delegate as? MaterialCollectionViewCellDelegate)?.materialCollectionViewCellDidRevealLeftLayer?(self)
+				delegate?.materialCollectionViewCellDidRevealLeftLayer?(self)
 			} else if rightOnDragRelease {
-				(delegate as? MaterialCollectionViewCellDelegate)?.materialCollectionViewCellDidRevealRightLayer?(self)
+				delegate?.materialCollectionViewCellDidRevealRightLayer?(self)
 			}
 			
 		case .Ended:
@@ -517,9 +517,9 @@ public class MaterialCollectionViewCell : UICollectionViewCell, UIGestureRecogni
 			animation(a)
 			
 			if leftOnDragRelease {
-				(delegate as? MaterialCollectionViewCellDelegate)?.materialCollectionViewCellDidCloseLeftLayer?(self)
+				delegate?.materialCollectionViewCellDidCloseLeftLayer?(self)
 			} else if rightOnDragRelease {
-				(delegate as? MaterialCollectionViewCellDelegate)?.materialCollectionViewCellDidCloseRightLayer?(self)
+				delegate?.materialCollectionViewCellDidCloseRightLayer?(self)
 			}
 			
 		default:
