@@ -110,6 +110,54 @@ public class MaterialTextLayer : CATextLayer {
 	}
 	
 	/**
+		:name:	x
+	*/
+	public var x: CGFloat {
+		get {
+			return frame.origin.x
+		}
+		set(value) {
+			frame.origin.x = value
+		}
+	}
+	
+	/**
+		:name:	y
+	*/
+	public var y: CGFloat {
+		get {
+			return frame.origin.y
+		}
+		set(value) {
+			frame.origin.y = value
+		}
+	}
+	
+	/**
+		:name:	width
+	*/
+	public var width: CGFloat {
+		get {
+			return frame.size.width
+		}
+		set(value) {
+			frame.size.width = value
+		}
+	}
+	
+	/**
+		:name:	height
+	*/
+	public var height: CGFloat {
+		get {
+			return frame.size.height
+		}
+		set(value) {
+			frame.size.height = value
+		}
+	}
+	
+	/**
 		:name: init
 	*/
 	public required init?(coder aDecoder: NSCoder) {
