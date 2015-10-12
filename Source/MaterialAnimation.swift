@@ -67,10 +67,11 @@ public struct MaterialAnimation {
 	/**
 		:name:	animationWithDuration
 	*/
-	public static func animationWithDuration(duration: CFTimeInterval, animations: (() -> Void), completion: (() -> Void)? = nil) {
+	public static func animationWithDuration(duration: CFTimeInterval, animations: (() -> Void), options: UIViewAnimationOptions? = nil, completion: (() -> Void)? = nil) {
 		CATransaction.begin()
 		CATransaction.setAnimationDuration(duration)
 		CATransaction.setCompletionBlock(completion)
+		CATransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut))
 		animations()
 		CATransaction.commit()
 	}

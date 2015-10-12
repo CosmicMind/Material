@@ -34,74 +34,23 @@ public extension UIViewController {
 	}
 }
 
-public enum SideNavigationViewState {
-	case Opened
-	case Closed
-}
-
-@objc(SideNavigationViewContainer)
-public class SideNavigationViewContainer : NSObject {
-	/**
-	:name:	state
-	*/
-	public private(set) var state: SideNavigationViewState
-	
-	/**
-	:name:	point
-	*/
-	public private(set) var point: CGPoint
-	
-	/**
-	:name:	frame
-	*/
-	public private(set) var frame: CGRect
-	
-	/**
-	:name:	description
-	*/
-	public override var description: String {
-		let s: String = .Opened == state ? "Opened" : "Closed"
-		return "(state: \(s), point: \(point), frame: \(frame))"
-	}
-	
-	/**
-	:name:	init
-	*/
-	public init(state: SideNavigationViewState, point: CGPoint, frame: CGRect) {
-		self.state = state
-		self.point = point
-		self.frame = frame
-	}
-}
-
-@objc(SideNavigationViewDelegate)
-public protocol SideNavigationViewDelegate {
-	// left
-	optional func sideNavDidBeginLeftPan(nav: SideNavigationViewController, container: SideNavigationViewContainer)
-	optional func sideNavDidChangeLeftPan(nav: SideNavigationViewController, container: SideNavigationViewContainer)
-	optional func sideNavDidEndLeftPan(nav: SideNavigationViewController, container: SideNavigationViewContainer)
-	optional func sideNavDidOpenLeftViewContainer(nav: SideNavigationViewController, container: SideNavigationViewContainer)
-	optional func sideNavDidCloseLeftViewContainer(nav: SideNavigationViewController, container: SideNavigationViewContainer)
-	optional func sideNavDidTapLeft(nav: SideNavigationViewController, container: SideNavigationViewContainer)
-}
-
 @objc(SideNavigationViewController)
 public class SideNavigationViewController: UIViewController, UIGestureRecognizerDelegate {
 	/**
-	:name:	default options
+		:name:	default options
 	*/
 	public struct defaultOptions {
 		public static var bezelWidth: CGFloat = 48
 		public static var bezelHeight: CGFloat = 48
 		public static var containerWidth: CGFloat = 240
 		public static var containerHeight: CGFloat = 240
-		public static var defaultAnimationDuration: CGFloat = 0.3
+		public static var defaultAnimationDuration: CGFloat = 0.25
 		public static var threshold: CGFloat = 48
 		public static var panningEnabled: Bool = true
 	}
 	
 	/**
-	:name:	options
+		:name:	options
 	*/
 	public struct options {
 		public static var shadowOpacity: Float = 0
@@ -120,19 +69,14 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	}
 	
 	/**
-	:name:	delegate
-	*/
-	public weak var delegate: SideNavigationViewDelegate?
-	
-	/**
-	:name:	isViewBasedAppearance
+		:name:	isViewBasedAppearance
 	*/
 	public var isViewBasedAppearance: Bool {
 		return 0 == NSBundle.mainBundle().objectForInfoDictionaryKey("UIViewControllerBasedStatusBarAppearance") as? Int
 	}
 	
 	/**
-	:name:	isLeftContainerOpened
+		:name:	isLeftContainerOpened
 	*/
 	public var isLeftContainerOpened: Bool {
 		if let c = leftViewContainer {
@@ -142,7 +86,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	}
 	
 	/**
-	:name:	isUserInteractionEnabled
+		:name:	isUserInteractionEnabled
 	*/
 	public var isUserInteractionEnabled: Bool {
 		get {
@@ -153,43 +97,48 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		}
 	}
 	
-	/**
-	:name:	backdropViewContainer
-	*/
-	public private(set) var backdropViewContainer: UIView?
+	//
+	//	:name:	originalPosition
+	//
+	private var originalPosition: CGPoint!
 	
 	/**
-	:name:	mainViewContainer
+		:name:	backdropLayer
 	*/
-	public private(set) var mainViewContainer: UIView?
+	public private(set) lazy var backdropLayer: MaterialLayer = MaterialLayer()
 	
 	/**
-	:name:	leftViewContainer
+		:name:	mainViewContainer
 	*/
-	public private(set) var leftViewContainer: UIView?
+	public private(set) var mainViewContainer: MaterialView?
 	
 	/**
-	:name:	leftContainer
+		:name:	leftViewContainer
 	*/
-	public private(set) var leftContainer: SideNavigationViewContainer?
+	public private(set) var leftViewContainer: MaterialView?
 	
 	/**
-	:name:	mainViewController
+		:name:	mainViewController
 	*/
 	public var mainViewController: UIViewController?
 	
 	/**
-	:name:	leftViewController
+		:name:	leftViewController
 	*/
 	public var leftViewController: UIViewController?
 	
 	/**
-	:name:	leftPanGesture
+		:name:	leftAnimation
+	*/
+	private var leftAnimation: CAAnimation?
+	
+	/**
+		:name:	leftPanGesture
 	*/
 	public var leftPanGesture: UIPanGestureRecognizer?
 	
 	/**
-	:name:	leftTapGesture
+		:name:	leftTapGesture
 	*/
 	public var leftTapGesture: UITapGestureRecognizer?
 	
@@ -201,21 +150,21 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	}
 	
 	/**
-	:name:	init
+		:name:	init
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
 	
 	/**
-	:name:	init
+		:name:	init
 	*/
 	public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 	}
 	
 	/**
-	:name:	init
+		:name:	init
 	*/
 	public convenience init(mainViewController: UIViewController) {
 		self.init()
@@ -224,7 +173,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	}
 	
 	/**
-	:name:	init
+		:name:	init
 	*/
 	public convenience init(mainViewController: UIViewController, leftViewController: UIViewController) {
 		self.init()
@@ -252,87 +201,57 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		}
 		
 		if nil != leftViewController {
-			prepareContainedViewController(&leftViewContainer, viewController: &leftViewController)
+//			prepareContainedViewController(&leftViewContainer, viewController: &leftViewController)
 		}
 	}
 	
 	/**
-	:name:	toggleLeftViewContainer
+		:name:	toggleLeftViewContainer
 	*/
 	public func toggleLeftViewContainer(velocity: CGFloat = 0) {
-		isLeftContainerOpened ? closeLeftViewContainer(velocity) : openLeftViewContainer(velocity)
+		openLeftViewContainer(velocity)
 	}
 	
 	/**
-	:name:	openLeftViewContainer
+		:name:	openLeftViewContainer
 	*/
 	public func openLeftViewContainer(velocity: CGFloat = 0) {
 		if let vc = leftViewContainer {
-			if let c = leftContainer {
-				prepareContainerToOpen(&leftViewController, viewContainer: &leftViewContainer, state: c.state)
-				UIView.animateWithDuration(Double(0 == velocity ? options.animationDuration : fmax(0.1, fmin(1, Double(vc.frame.origin.x / velocity)))),
-					delay: 0,
-					options: .CurveEaseInOut,
-					animations: { _ in
-						vc.frame.origin.x = 0
-						self.backdropViewContainer?.layer.opacity = Float(options.backdropOpacity)
-						self.mainViewContainer?.transform = CGAffineTransformMakeScale(options.backdropScale, options.backdropScale)
-					}
-					) { _ in
-						self.isUserInteractionEnabled = false
-				}
-				c.state = .Opened
-				delegate?.sideNavDidOpenLeftViewContainer?(self, container: c)
+			
+			let w: CGFloat = vc.width
+			let h: CGFloat = vc.height
+			let d: Double = Double(0 == velocity ? options.animationDuration : fmax(0.1, fmin(1, Double(vc.frame.origin.x / velocity))))
+			
+			vc.shadowDepth = .None
+			
+			MaterialAnimation.animationWithDuration(d, animations: {
+				vc.position = CGPointMake(w / 2, h / 2)
+				self.backdropLayer.opacity = Float(options.backdropOpacity)
+			}) {
+				self.isUserInteractionEnabled = false
+//					vc.shadowDepth = .Depth2
 			}
-		}
-	}
-	
-	/**
-	:name:	closeLeftViewContainer
-	*/
-	public func closeLeftViewContainer(velocity: CGFloat = 0) {
-		if let vc = leftViewContainer {
-			if let c = leftContainer {
-				prepareContainerToClose(&leftViewController, state: c.state)
-				UIView.animateWithDuration(Double(0 == velocity ? options.animationDuration : fmax(0.1, fmin(1, fabs(vc.frame.origin.x - leftOriginX) / velocity))),
-					delay: 0,
-					options: .CurveEaseInOut,
-					animations: { _ in
-						vc.frame.origin.x = self.leftOriginX
-						self.backdropViewContainer?.layer.opacity = 0
-						self.mainViewContainer?.transform = CGAffineTransformMakeScale(1, 1)
-					}
-					) { _ in
-						self.removeShadow(&self.leftViewContainer)
-						self.isUserInteractionEnabled = true
-				}
-				c.state = .Closed
-				delegate?.sideNavDidCloseLeftViewContainer?(self, container: c)
-			}
-		}
-	}
-	
-	/**
-	:name:	switchMainViewController
-	*/
-	public func switchMainViewController(viewController: UIViewController, closeViewContainers: Bool) {
-		removeViewController(&mainViewController)
-		mainViewController = viewController
-		prepareContainedViewController(&mainViewContainer, viewController: &mainViewController)
-		if closeViewContainers {
-			closeLeftViewContainer()
-		}
-	}
-	
-	/**
-	:name:	switchLeftViewController
-	*/
-	public func switchLeftViewController(viewController: UIViewController, closeLeftViewContainerViewContainer: Bool) {
-		removeViewController(&leftViewController)
-		leftViewController = viewController
-		prepareContainedViewController(&leftViewContainer, viewController: &leftViewController)
-		if closeLeftViewContainerViewContainer {
-			closeLeftViewContainer()
+			
+//				print(vc.frame)
+//				let a: CABasicAnimation = MaterialAnimation.position(CGPointMake(w / 2, h / 2), duration: d)
+//				a.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+//				vc.animation(a)
+//				
+////				
+//				UIView.animateWithDuration(d,
+//					delay: 0,
+//					options: .CurveEaseInOut,
+//					animations: { _ in
+//						vc.frame.origin.x = 0
+//						self.backdropViewContainer?.layer.opacity = Float(options.backdropOpacity)
+//						self.mainViewContainer?.transform = CGAffineTransformMakeScale(options.backdropScale, options.backdropScale)
+//					}
+//					) { _ in
+//						self.isUserInteractionEnabled = false
+//				}
+//				c.state = .Opened
+//				delegate?.sideNavDidOpenLeftViewContainer?(self, container: c)
+			
 		}
 	}
 	
@@ -361,8 +280,15 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	//	:name:	prepareLeftView
 	//
 	internal func prepareLeftView() {
-		prepareContainer(&leftContainer, viewContainer: &leftViewContainer, originX: leftOriginX, originY: 0, width: options.leftViewContainerWidth, height: view.bounds.size.height)
+		prepareContainer(&leftViewContainer, originX: leftOriginX, originY: 0, width: options.leftViewContainerWidth, height: view.bounds.size.height)
 		prepareLeftGestures()
+		
+//		leftViewContainer!.layer.speed = 0
+		let w: CGFloat = leftViewContainer!.width
+		let h: CGFloat = leftViewContainer!.height
+//		leftAnimation = MaterialAnimation.position(CGPointMake(w / 2, h / 2), duration: 1)
+//		leftViewContainer!.position = CGPointMake(-(w / 2), h / 2)
+//		leftViewContainer!.animation(leftAnimation!)
 	}
 	
 	//
@@ -398,36 +324,30 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	//
 	//	:name:	handleLeftPanGesture
 	//
-	internal func handleLeftPanGesture(gesture: UIPanGestureRecognizer) {
+	internal func handleLeftPanGesture(recognizer: UIPanGestureRecognizer) {
 		if let vc = leftViewContainer {
-			if let c = leftContainer {
-				if .Began == gesture.state {
-					addShadow(&leftViewContainer)
-					toggleStatusBar(true)
-					c.state = isLeftContainerOpened ? .Opened : .Closed
-					c.point = gesture.locationInView(view)
-					c.frame = vc.frame
-					delegate?.sideNavDidBeginLeftPan?(self, container: c)
-				} else if .Changed == gesture.state {
-					c.point = gesture.translationInView(gesture.view!)
-					let r = (vc.frame.origin.x - leftOriginX) / vc.frame.size.width
-					let s: CGFloat = 1 - (1 - options.backdropScale) * r
-					let x: CGFloat = c.frame.origin.x + c.point.x
-					vc.frame.origin.x = x < leftOriginX ? leftOriginX : x > 0 ? 0 : x
-					backdropViewContainer?.layer.opacity = Float(r * options.backdropOpacity)
-					mainViewContainer?.transform = CGAffineTransformMakeScale(s, s)
-					delegate?.sideNavDidChangeLeftPan?(self, container: c)
-				} else {
-					c.point = gesture.velocityInView(gesture.view)
-					let x: CGFloat = c.point.x >= 1000 || c.point.x <= -1000 ? c.point.x : 0
-					c.state = vc.frame.origin.x <= CGFloat(floor(leftOriginX)) + options.horizontalThreshold || c.point.x <= -1000 ? .Closed : .Opened
-					if .Closed == c.state {
-						closeLeftViewContainer(x)
-					} else {
-						openLeftViewContainer(x)
-					}
-					delegate?.sideNavDidEndLeftPan?(self, container: c)
-				}
+			switch recognizer.state {
+			case .Began:
+				originalPosition = vc.position
+				toggleStatusBar(true)
+			case .Changed:
+				let translation: CGPoint = recognizer.translationInView(vc)
+				let w: CGFloat = leftViewContainer!.width
+				
+				MaterialAnimation.animationDisabled({
+					vc.position.x = self.originalPosition.x + translation.x > (w / 2) ? (w / 2) : self.originalPosition.x + translation.x
+					self.backdropLayer.opacity = Float(vc.position.x / (w / 2)) / 2
+				})
+			case .Ended:
+				self.isUserInteractionEnabled = false
+				// snap back
+				let a: CABasicAnimation = MaterialAnimation.position(CGPointMake(vc.width / 2, vc.height / 2), duration: 0.25)
+				a.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+				vc.animation(a)
+				
+				break
+				
+			default:break
 			}
 		}
 	}
@@ -436,33 +356,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	//	:name:	handleLeftTapGesture
 	//
 	internal func handleLeftTapGesture(gesture: UIPanGestureRecognizer) {
-		if let c = leftContainer {
-			delegate?.sideNavDidTapLeft?(self, container: c)
-			closeLeftViewContainer()
-		}
-	}
-	
-	//
-	//	:name:	addShadow
-	//
-	private func addShadow(inout viewContainer: UIView?) {
-		if let vc = viewContainer {
-			vc.layer.shadowOffset = options.shadowOffset
-			vc.layer.shadowOpacity = options.shadowOpacity
-			vc.layer.shadowRadius = options.shadowRadius
-			vc.layer.shadowPath = UIBezierPath(rect: vc.bounds).CGPath
-			vc.layer.masksToBounds = false
-		}
-	}
-	
-	//
-	//	:name:	removeShadow
-	//
-	private func removeShadow(inout viewContainer: UIView?) {
-		if let vc = viewContainer {
-			vc.layer.opacity = 1
-			vc.layer.masksToBounds = true
-		}
+		
 	}
 	
 	//
@@ -510,7 +404,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	//
 	//	:name:	isPointContainedWithinViewController
 	//
-	private func isPointContainedWithinViewController(inout viewContainer: UIView?, point: CGPoint) -> Bool {
+	private func isPointContainedWithinViewController(inout viewContainer: MaterialView?, point: CGPoint) -> Bool {
 		if let vc = viewContainer {
 			return CGRectContainsPoint(vc.frame, point)
 		}
@@ -521,7 +415,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	//	:name:	prepareMainContainer
 	//
 	private func prepareMainContainer() {
-		mainViewContainer = UIView(frame: view.bounds)
+		mainViewContainer = MaterialView(frame: view.bounds)
 		mainViewContainer!.backgroundColor = MaterialColor.clear
 		mainViewContainer!.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
 		view.addSubview(mainViewContainer!)
@@ -531,11 +425,10 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	//	:name:	prepareBackdropContainer
 	//
 	private func prepareBackdropContainer() {
-		backdropViewContainer = UIView(frame: view.bounds)
-		backdropViewContainer!.backgroundColor = options.backdropBackgroundColor
-		backdropViewContainer!.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
-		backdropViewContainer!.layer.opacity = 0
-		view.addSubview(backdropViewContainer!)
+		backdropLayer.frame = view.bounds
+		backdropLayer.backgroundColor = options.backdropBackgroundColor.CGColor
+		backdropLayer.opacity = 0
+		view.layer.addSublayer(backdropLayer)
 	}
 	
 	//
@@ -549,33 +442,17 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	//
 	//	:name:	prepareContainer
 	//
-	private func prepareContainer(inout container: SideNavigationViewContainer?, inout viewContainer: UIView?, originX: CGFloat, originY: CGFloat, width: CGFloat, height: CGFloat) {
-		container = SideNavigationViewContainer(state: .Closed, point: CGPointZero, frame: CGRectZero)
-		viewContainer = UIView(frame: CGRectMake(originX, originY, width, height))
-		viewContainer!.backgroundColor = MaterialColor.clear
+	private func prepareContainer(inout viewContainer: MaterialView?, originX: CGFloat, originY: CGFloat, width: CGFloat, height: CGFloat) {
+		viewContainer = MaterialView(frame: CGRectMake(originX, originY, width, height))
+		viewContainer!.backgroundColor = MaterialColor.red.base
 		viewContainer!.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
 		view.addSubview(viewContainer!)
 	}
 	
 	//
-	//	:name:	prepareContainerToOpen
-	//
-	private func prepareContainerToOpen(inout viewController: UIViewController?, inout viewContainer: UIView?, state: SideNavigationViewState) {
-		addShadow(&viewContainer)
-		toggleStatusBar(true)
-	}
-	
-	//
-	//	:name:	prepareContainerToClose
-	//
-	private func prepareContainerToClose(inout viewController: UIViewController?, state: SideNavigationViewState) {
-		toggleStatusBar()
-	}
-	
-	//
 	//	:name:	prepareContainedViewController
 	//
-	private func prepareContainedViewController(inout viewContainer: UIView?, inout viewController: UIViewController?) {
+	private func prepareContainedViewController(inout viewContainer: MaterialView?, inout viewController: UIViewController?) {
 		if let vc = viewController {
 			if let c = viewContainer {
 				addChildViewController(vc)

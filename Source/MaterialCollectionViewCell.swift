@@ -521,9 +521,8 @@ public class MaterialCollectionViewCell : UICollectionViewCell, UIGestureRecogni
 			} else if rightOnDragRelease {
 				delegate?.materialCollectionViewCellDidCloseRightLayer?(self)
 			}
-			
-		default:
-			break
+
+		default:break
 		}
 	}
 	
