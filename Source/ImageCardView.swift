@@ -35,12 +35,14 @@ public class ImageCardView : MaterialPulseView {
 			if let v = value {
 				imageLayer.contents = v.CGImage
 				if 0 == imageLayer.frame.size.height {
-					imageLayer.frame.size.height = 200
+					imageLayer.frame.size.height = v.size.height
 				}
+				imageLayer.hidden = false
 			}
 			else {
+				imageLayer.contents = nil
 				imageLayer.frame = CGRectZero
-				imageLayer.removeFromSuperlayer()
+				imageLayer.hidden = true
 			}
 			reloadView()
 		}
