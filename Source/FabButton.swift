@@ -35,8 +35,6 @@ public class FabButton : MaterialButton {
 		shadowDepth = MaterialTheme.fabButton.shadowDepth
 		shadowColor = MaterialTheme.fabButton.shadowColor
 		zPosition = MaterialTheme.fabButton.zPosition
-		masksToBounds = MaterialTheme.fabButton.masksToBounds
-		cornerRadius = MaterialTheme.fabButton.cornerRadius
 		borderWidth = MaterialTheme.fabButton.borderWidth
 		borderColor = MaterialTheme.fabButton.bordercolor
 		contentInsets = MaterialTheme.fabButton.contentInsets

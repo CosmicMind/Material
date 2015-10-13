@@ -210,7 +210,7 @@ public class MaterialView : UIView {
 	/**
 		:name:	cornerRadius
 	*/
-	public var cornerRadius: MaterialRadius? {
+	public var cornerRadius: MaterialRadius {
 		didSet {
 			if let v: MaterialRadius = cornerRadius {
 				layer.cornerRadius = MaterialRadiusToValue(v)
@@ -289,6 +289,7 @@ public class MaterialView : UIView {
 		borderWidth = MaterialTheme.view.borderWidth
 		shadowDepth = .None
 		shape = .None
+		cornerRadius = .None
 		super.init(coder: aDecoder)
 	}
 	
@@ -303,6 +304,7 @@ public class MaterialView : UIView {
 		borderWidth = MaterialTheme.view.borderWidth
 		shadowDepth = .None
 		shape = .None
+		cornerRadius = .None
 		super.init(frame: frame)
 		prepareView()
 	}
@@ -315,15 +317,14 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-		:name:	layoutSubviews
+		:name:	layoutSublayersOfLayer
 	*/
-	public override func layoutSubviews() {
-		super.layoutSubviews()
-		prepareShape()
-		
-		visualLayer.frame = bounds
-		visualLayer.position = CGPointMake(width / 2, height / 2)
-		visualLayer.cornerRadius = layer.cornerRadius
+	public override func layoutSublayersOfLayer(layer: CALayer) {
+		super.layoutSublayersOfLayer(layer)
+		if self.layer == layer {
+			prepareShape()
+			prepareVisualLayer()
+		}
 	}
 	
 	/**
@@ -374,6 +375,7 @@ public class MaterialView : UIView {
 				animationDidStop(x, finished: true)
 			}
 		}
+		prepareVisualLayer()
 	}
 	
 	//
@@ -386,8 +388,6 @@ public class MaterialView : UIView {
 		shadowDepth = MaterialTheme.view.shadowDepth
 		shadowColor = MaterialTheme.view.shadowColor
 		zPosition = MaterialTheme.view.zPosition
-		masksToBounds = MaterialTheme.view.masksToBounds
-		cornerRadius = MaterialTheme.view.cornerRadius
 		borderColor = MaterialTheme.view.bordercolor
 		
 		// visualLayer
@@ -403,5 +403,14 @@ public class MaterialView : UIView {
 		if .Circle == shape {
 			layer.cornerRadius = width / 2
 		}
+	}
+	
+	//
+	//	:name:	prepareVisualLayer
+	//
+	internal func prepareVisualLayer() {
+		visualLayer.frame = bounds
+		visualLayer.position = CGPointMake(width / 2, height / 2)
+		visualLayer.cornerRadius = layer.cornerRadius
 	}
 }

@@ -158,11 +158,7 @@ public class MaterialLayer : CAShapeLayer {
 		:name:	cornerRadius
 	*/
 	public override var cornerRadius: CGFloat {
-		get {
-			return visualLayer.cornerRadius
-		}
-		set(value) {
-			visualLayer.cornerRadius = value
+		didSet {
 			if .Circle == shape {
 				shape = .None
 			}
@@ -224,10 +220,8 @@ public class MaterialLayer : CAShapeLayer {
 	
 	public override func layoutSublayers() {
 		super.layoutSublayers()
-		visualLayer.frame = bounds
-		visualLayer.masksToBounds = true
-		visualLayer.position = CGPointMake(width / 2, height / 2)
 		prepareShape()
+		prepareVisualLayer()
 	}
 	
 	/**
@@ -236,7 +230,7 @@ public class MaterialLayer : CAShapeLayer {
 	public func animation(animation: CAAnimation) {
 		animation.delegate = self
 		if let a: CABasicAnimation = animation as? CABasicAnimation {
-			a.fromValue = valueForKeyPath(a.keyPath!) //(nil == presentationLayer() ? self : presentationLayer() as! CALayer).valueForKeyPath(a.keyPath!)
+			a.fromValue = valueForKeyPath(a.keyPath!)
 		}
 		if let a: CAPropertyAnimation = animation as? CAPropertyAnimation {
 			addAnimation(a, forKey: a.keyPath!)
@@ -271,6 +265,7 @@ public class MaterialLayer : CAShapeLayer {
 				animationDidStop(x, finished: true)
 			}
 		}
+		prepareVisualLayer()
 	}
 	
 	/**
@@ -278,7 +273,7 @@ public class MaterialLayer : CAShapeLayer {
 	*/
 	public func prepareLayer() {
 		// visualLayer
-		masksToBounds = true
+		visualLayer.masksToBounds = true
 		visualLayer.zPosition = -1
 		addSublayer(visualLayer)
 	}
@@ -290,5 +285,14 @@ public class MaterialLayer : CAShapeLayer {
 		if .Circle == shape {
 			cornerRadius = width / 2
 		}
+	}
+	
+	//
+	//	:name:	prepareVisualLayer
+	//
+	internal func prepareVisualLayer() {
+		visualLayer.frame = bounds
+		visualLayer.position = CGPointMake(width / 2, height / 2)
+		visualLayer.cornerRadius = cornerRadius
 	}
 }

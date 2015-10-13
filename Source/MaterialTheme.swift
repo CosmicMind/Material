@@ -21,8 +21,7 @@ import UIKit
 public struct MaterialTheme {
 	public struct view {}
 	public struct pulseView {}
-	public struct basicCardView {}
-	public struct imageCardView {}
+	public struct cardView {}
 	public struct navigationBarView {}
 	public struct textLayer {}
 	public struct label {}
@@ -36,10 +35,6 @@ public extension MaterialTheme.view {
 	// shadow
 	public static var shadowDepth: MaterialDepth = .None
 	public static var shadowColor: UIColor = MaterialColor.black
-	
-	// shape
-	public static var masksToBounds: Bool = false
-	public static var cornerRadius: MaterialRadius = .None
 	
 	// border
 	public static var borderWidth: MaterialBorder = .None
@@ -67,10 +62,6 @@ public extension MaterialTheme.pulseView {
 	public static var shadowDepth: MaterialDepth = .None
 	public static var shadowColor: UIColor = MaterialColor.black
 	
-	// shape
-	public static var masksToBounds: Bool = false
-	public static var cornerRadius: MaterialRadius = .None
-	
 	// border
 	public static var borderWidth: MaterialBorder = .None
 	public static var bordercolor: UIColor = MaterialColor.black
@@ -93,63 +84,19 @@ public extension MaterialTheme.pulseView {
 	public static var zPosition: CGFloat = 0
 }
 
-// basicCardView
-public extension MaterialTheme.basicCardView {
+// cardView
+public extension MaterialTheme.cardView {
 	// shadow
 	public static var shadowDepth: MaterialDepth = .Depth2
 	public static var shadowColor: UIColor = MaterialColor.black
 	
 	// shape
-	public static var masksToBounds: Bool = false
-	public static var cornerRadius: MaterialRadius = .None
 	public static var contentInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
 	public static var titleLabelInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
 	public static var detailLabelInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
 	public static var leftButtonsInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.None)
 	public static var rightButtonsInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.None)
-	public static var dividerInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.None)
-	
-	// border
-	public static var borderWidth: MaterialBorder = .None
-	public static var bordercolor: UIColor = MaterialColor.black
-	
-	// color
-	public static var backgroundColor: UIColor = MaterialColor.white
-	public static var pulseColor: UIColor = MaterialColor.blueGrey.lighten4
-	public static var pulseColorOpacity: CGFloat = 0.25
-	
-	// interaction
-	public static var userInteractionEnabled: Bool = true
-	
-	// image
-	public static var contentsRect: CGRect = CGRectMake(0, 0, 1, 1)
-	public static var contentsCenter: CGRect = CGRectMake(0, 0, 1, 1)
-	public static var contentsScale: CGFloat = UIScreen.mainScreen().scale
-	public static var contentsGravity: MaterialGravity = .ResizeAspectFill
-	
-	// position
-	public static var zPosition: CGFloat = 0
-	
-	// divider
-	public static var divider: Bool = true
-	public static var dividerColor: UIColor = MaterialColor.blueGrey.lighten5
-}
-
-// imageCardView
-public extension MaterialTheme.imageCardView {
-	// shadow
-	public static var shadowDepth: MaterialDepth = .Depth2
-	public static var shadowColor: UIColor = MaterialColor.black
-	
-	// shape
-	public static var masksToBounds: Bool = false
-	public static var cornerRadius: MaterialRadius = .None
-	public static var contentInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
-	public static var titleLabelInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
-	public static var detailLabelInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
-	public static var leftButtonsInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.None)
-	public static var rightButtonsInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.None)
-	public static var dividerInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.None)
+	public static var dividerInsetsRef: MaterialInsetsType = (top: 8, left: 0, bottom: 8, right: 0)
 	
 	// border
 	public static var borderWidth: MaterialBorder = .None
@@ -190,8 +137,6 @@ public extension MaterialTheme.navigationBarView {
 	public static var shadowColor: UIColor = MaterialColor.black
 	
 	// shape
-	public static var masksToBounds: Bool = false
-	public static var cornerRadius: MaterialRadius = .None
 	public static var contentInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
 	public static var titleLabelInsetsRef: MaterialInsetsType = (top: 20, left: 0, bottom: 0, right: 0)
 	public static var detailLabelInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.None)
@@ -255,7 +200,6 @@ public extension MaterialTheme.flatButton {
 	public static var shadowColor: UIColor = MaterialColor.black
 	
 	// shape
-	public static var masksToBounds: Bool = false
 	public static var cornerRadius: MaterialRadius = .Radius1
 	public static var contentInsets: MaterialInsets = .Rectangle3
 	public static var shape: MaterialShape = .None
@@ -287,7 +231,6 @@ public extension MaterialTheme.raisedButton {
 	public static var shadowColor: UIColor = MaterialColor.black
 	
 	// shape
-	public static var masksToBounds: Bool = false
 	public static var cornerRadius: MaterialRadius = .Radius1
 	public static var contentInsets: MaterialInsets = .Rectangle2
 	public static var shape: MaterialShape = .None
@@ -320,8 +263,6 @@ public extension MaterialTheme.fabButton {
 	public static var shadowColor: UIColor = MaterialColor.black
 	
 	// shape
-	public static var masksToBounds: Bool = false
-	public static var cornerRadius: MaterialRadius = .None
 	public static var contentInsets: MaterialInsets = .None
 	public static var shape: MaterialShape = .Circle
 	

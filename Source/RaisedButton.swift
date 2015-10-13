@@ -35,7 +35,6 @@ public class RaisedButton : MaterialButton {
 		shadowDepth = MaterialTheme.raisedButton.shadowDepth
 		shadowColor = MaterialTheme.raisedButton.shadowColor
 		zPosition = MaterialTheme.raisedButton.zPosition
-		masksToBounds = MaterialTheme.raisedButton.masksToBounds
 		cornerRadius = MaterialTheme.raisedButton.cornerRadius
 		borderWidth = MaterialTheme.raisedButton.borderWidth
 		borderColor = MaterialTheme.raisedButton.bordercolor

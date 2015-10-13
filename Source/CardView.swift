@@ -18,7 +18,7 @@
 
 import UIKit
 
-public class BasicCardView : MaterialPulseView {
+public class CardView : MaterialPulseView {
 	//
 	//	:name:	dividerLayer
 	//
@@ -36,7 +36,7 @@ public class BasicCardView : MaterialPulseView {
 	/**
 		:name:	divider
 	*/
-	public var divider: Bool = MaterialTheme.basicCardView.divider {
+	public var divider: Bool = MaterialTheme.cardView.divider {
 		didSet {
 			reloadView()
 		}
@@ -58,6 +58,88 @@ public class BasicCardView : MaterialPulseView {
 		didSet {
 			dividerInsetsRef = nil == dividerInsetsRef ? MaterialInsetsToValue(.None) : dividerInsetsRef!
 			reloadView()
+		}
+	}
+	
+	/**
+		:name:	imageLayer
+	*/
+	public private(set) lazy var imageLayer: CAShapeLayer = CAShapeLayer()
+	
+	/**
+		:name:	image
+	*/
+	public override var image: UIImage? {
+		get {
+			return nil == imageLayer.contents ? nil : UIImage(CGImage: imageLayer.contents as! CGImage)
+		}
+		set(value) {
+			if let v = value {
+				imageLayer.contents = v.CGImage
+				if 0 == maxImageSize {
+					if 0 == imageLayer.frame.size.height {
+						imageLayer.frame.size.height = v.size.height
+					}
+				} else {
+					imageLayer.frame.size.height = maxImageSize
+				}
+				imageLayer.hidden = false
+			}
+			else {
+				imageLayer.contents = nil
+				imageLayer.frame = CGRectZero
+				imageLayer.hidden = true
+			}
+			reloadView()
+		}
+	}
+	
+	/**
+		:name:	maxImageSize
+	*/
+	public var maxImageSize: CGFloat = 0 {
+		didSet {
+			if 0 < maxImageSize {
+				imageLayer.frame.size.height = maxImageSize
+//				imageLayer.contentsGravity = MaterialGravityToString(contentsGravity)
+			}
+			reloadView()
+		}
+	}
+	
+	/**
+		:name:	contentsRect
+	*/
+	public override var contentsRect: CGRect {
+		didSet {
+			imageLayer.contentsRect = contentsRect
+		}
+	}
+	
+	/**
+		:name:	contentsCenter
+	*/
+	public override var contentsCenter: CGRect {
+		didSet {
+			imageLayer.contentsCenter = contentsCenter
+		}
+	}
+	
+	/**
+		:name:	contentsScale
+	*/
+	public override var contentsScale: CGFloat {
+		didSet {
+			imageLayer.contentsScale = contentsScale
+		}
+	}
+	
+	/**
+		:name:	contentsGravity
+	*/
+	public override var contentsGravity: MaterialGravity {
+		didSet {
+			imageLayer.contentsGravity = MaterialGravityToString(contentsGravity)
 		}
 	}
 	
@@ -209,6 +291,7 @@ public class BasicCardView : MaterialPulseView {
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
+		prepareImageLayer()
 	}
 	
 	/**
@@ -216,6 +299,7 @@ public class BasicCardView : MaterialPulseView {
 	*/
 	public override init(frame: CGRect) {
 		super.init(frame: frame)
+		prepareImageLayer()
 	}
 	
 	/**
@@ -228,9 +312,9 @@ public class BasicCardView : MaterialPulseView {
 	/**
 		:name:	init
 	*/
-	public convenience init?(titleLabel: UILabel? = nil, detailLabel: UILabel? = nil, leftButtons: Array<UIButton>? = nil, rightButtons: Array<UIButton>? = nil) {
+	public convenience init?(image: UIImage? = nil, titleLabel: UILabel? = nil, detailLabel: UILabel? = nil, leftButtons: Array<UIButton>? = nil, rightButtons: Array<UIButton>? = nil) {
 		self.init(frame: CGRectNull)
-		prepareProperties(titleLabel, detailLabel: detailLabel, leftButtons: leftButtons, rightButtons: rightButtons)
+		prepareProperties(image, titleLabel: titleLabel, detailLabel: detailLabel, leftButtons: leftButtons, rightButtons: rightButtons)
 	}
 	
 	/**
@@ -238,13 +322,16 @@ public class BasicCardView : MaterialPulseView {
 	*/
 	public override func layoutSubviews() {
 		super.layoutSubviews()
+		// image
+		imageLayer.frame.size.width = bounds.size.width
+		
 		// divider
-		if true == divider {
-			var y: CGFloat = 0
+		if divider {
+			var y: CGFloat = contentInsetsRef!.bottom + dividerInsetsRef!.bottom
 			if 0 < leftButtons?.count {
-				y += contentInsetsRef!.bottom + leftButtonsInsetsRef!.top + leftButtonsInsetsRef!.bottom + leftButtons![0].frame.size.height
+				y += leftButtonsInsetsRef!.top + leftButtonsInsetsRef!.bottom + leftButtons![0].frame.size.height
 			} else if 0 < rightButtons?.count {
-				y += contentInsetsRef!.bottom + rightButtonsInsetsRef!.top + rightButtonsInsetsRef!.bottom + rightButtons![0].frame.size.height
+				y += rightButtonsInsetsRef!.top + rightButtonsInsetsRef!.bottom + rightButtons![0].frame.size.height
 			}
 			if 0 < y {
 				prepareDivider(bounds.size.height - y - 0.5, width: bounds.size.width)
@@ -260,29 +347,27 @@ public class BasicCardView : MaterialPulseView {
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		userInteractionEnabled = MaterialTheme.basicCardView.userInteractionEnabled
-		backgroundColor = MaterialTheme.basicCardView.backgroundColor
-		pulseColor = MaterialTheme.basicCardView.pulseColor
+		userInteractionEnabled = MaterialTheme.cardView.userInteractionEnabled
+		backgroundColor = MaterialTheme.cardView.backgroundColor
+		pulseColor = MaterialTheme.cardView.pulseColor
 		
-		contentInsetsRef = MaterialTheme.basicCardView.contentInsetsRef
-		titleLabelInsetsRef = MaterialTheme.basicCardView.titleLabelInsetsRef
-		detailLabelInsetsRef = MaterialTheme.basicCardView.detailLabelInsetsRef
-		leftButtonsInsetsRef = MaterialTheme.basicCardView.leftButtonsInsetsRef
-		rightButtonsInsetsRef = MaterialTheme.basicCardView.rightButtonsInsetsRef
-		dividerInsetsRef = MaterialTheme.basicCardView.dividerInsetsRef
+		contentInsetsRef = MaterialTheme.cardView.contentInsetsRef
+		titleLabelInsetsRef = MaterialTheme.cardView.titleLabelInsetsRef
+		detailLabelInsetsRef = MaterialTheme.cardView.detailLabelInsetsRef
+		leftButtonsInsetsRef = MaterialTheme.cardView.leftButtonsInsetsRef
+		rightButtonsInsetsRef = MaterialTheme.cardView.rightButtonsInsetsRef
+		dividerInsetsRef = MaterialTheme.cardView.dividerInsetsRef
 		
-		contentsRect = MaterialTheme.basicCardView.contentsRect
-		contentsCenter = MaterialTheme.basicCardView.contentsCenter
-		contentsScale = MaterialTheme.basicCardView.contentsScale
-		contentsGravity = MaterialTheme.basicCardView.contentsGravity
-		shadowDepth = MaterialTheme.basicCardView.shadowDepth
-		shadowColor = MaterialTheme.basicCardView.shadowColor
-		zPosition = MaterialTheme.basicCardView.zPosition
-		masksToBounds = MaterialTheme.basicCardView.masksToBounds
-		cornerRadius = MaterialTheme.basicCardView.cornerRadius
-		borderWidth = MaterialTheme.basicCardView.borderWidth
-		borderColor = MaterialTheme.basicCardView.bordercolor
-		dividerColor = MaterialTheme.basicCardView.dividerColor
+		contentsRect = MaterialTheme.cardView.contentsRect
+		contentsCenter = MaterialTheme.cardView.contentsCenter
+		contentsScale = MaterialTheme.cardView.contentsScale
+		contentsGravity = MaterialTheme.cardView.contentsGravity
+		shadowDepth = MaterialTheme.cardView.shadowDepth
+		shadowColor = MaterialTheme.cardView.shadowColor
+		zPosition = MaterialTheme.cardView.zPosition
+		borderWidth = MaterialTheme.cardView.borderWidth
+		borderColor = MaterialTheme.cardView.bordercolor
+		dividerColor = MaterialTheme.cardView.dividerColor
 	}
 	
 	/**
@@ -299,7 +384,10 @@ public class BasicCardView : MaterialPulseView {
 		var views: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
 		var metrics: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
 		
-		if nil != titleLabel {
+		if nil != imageLayer.contents {
+			verticalFormat += "-(insetTop)"
+			metrics["insetTop"] = imageLayer.frame.size.height
+		} else if nil != titleLabel {
 			verticalFormat += "-(insetTop)"
 			metrics["insetTop"] = contentInsetsRef!.top + titleLabelInsetsRef!.top
 		} else if nil != detailLabel {
@@ -311,9 +399,12 @@ public class BasicCardView : MaterialPulseView {
 		if let v = titleLabel {
 			addSubview(v)
 			
-			verticalFormat += "-[titleLabel]"
-			views["titleLabel"] = v
-			
+			if nil == imageLayer.contents {
+				verticalFormat += "-[titleLabel]"
+				views["titleLabel"] = v
+			} else {
+				MaterialLayout.alignFromTop(self, child: v, top: contentInsetsRef!.top + titleLabelInsetsRef!.top)
+			}
 			MaterialLayout.alignToParentHorizontallyWithInsets(self, child: v, left: contentInsetsRef!.left + titleLabelInsetsRef!.left, right: contentInsetsRef!.right + titleLabelInsetsRef!.right)
 		}
 		
@@ -321,14 +412,16 @@ public class BasicCardView : MaterialPulseView {
 		if let v = detailLabel {
 			addSubview(v)
 			
-			if nil != titleLabel {
+			if nil == imageLayer.contents && nil != titleLabel {
 				verticalFormat += "-(insetB)"
 				metrics["insetB"] = titleLabelInsetsRef!.bottom + detailLabelInsetsRef!.top
+			} else {
+				metrics["insetTop"] = (metrics["insetTop"] as! CGFloat) + detailLabelInsetsRef!.top
 			}
 			
 			verticalFormat += "-[detailLabel]"
 			views["detailLabel"] = v
-		
+			
 			MaterialLayout.alignToParentHorizontallyWithInsets(self, child: v, left: contentInsetsRef!.left + detailLabelInsetsRef!.left, right: contentInsetsRef!.right + detailLabelInsetsRef!.right)
 		}
 		
@@ -401,18 +494,18 @@ public class BasicCardView : MaterialPulseView {
 		
 		if nil != detailLabel {
 			if nil == metrics["insetC"] {
-				metrics["insetBottom"] = contentInsetsRef!.bottom + detailLabelInsetsRef!.bottom
+				metrics["insetBottom"] = contentInsetsRef!.bottom + detailLabelInsetsRef!.bottom + (divider ? dividerInsetsRef!.top + dividerInsetsRef!.bottom : 0)
 			} else {
-				metrics["insetC"] = (metrics["insetC"] as! CGFloat) + detailLabelInsetsRef!.bottom
+				metrics["insetC"] = (metrics["insetC"] as! CGFloat) + detailLabelInsetsRef!.bottom + (divider ? dividerInsetsRef!.top + dividerInsetsRef!.bottom : 0)
 			}
 		} else if nil != titleLabel {
 			if nil == metrics["insetC"] {
-				metrics["insetBottom"] = contentInsetsRef!.bottom + titleLabelInsetsRef!.bottom
+				metrics["insetBottom"] = contentInsetsRef!.bottom + titleLabelInsetsRef!.bottom + (divider ? dividerInsetsRef!.top + dividerInsetsRef!.bottom : 0)
 			} else {
-				metrics["insetC"] = (metrics["insetC"] as! CGFloat) + titleLabelInsetsRef!.bottom
+				metrics["insetC"] = (metrics["insetC"] as! CGFloat) + titleLabelInsetsRef!.bottom + (divider ? dividerInsetsRef!.top + dividerInsetsRef!.bottom : 0)
 			}
 		} else if nil != metrics["insetC"] {
-			metrics["insetC"] = (metrics["insetC"] as! CGFloat) + contentInsetsRef!.top
+			metrics["insetC"] = (metrics["insetC"] as! CGFloat) + contentInsetsRef!.top + (divider ? dividerInsetsRef!.top + dividerInsetsRef!.bottom : 0)
 		}
 		
 		if 0 < views.count {
@@ -423,22 +516,32 @@ public class BasicCardView : MaterialPulseView {
 	}
 	
 	//
+	//	:name:	prepareImageLayer
+	//
+	internal func prepareImageLayer() {
+		imageLayer.masksToBounds = true
+		imageLayer.zPosition = 0
+		visualLayer.addSublayer(imageLayer)
+	}
+	
+	//
 	//	:name:	prepareDivider
 	//
 	internal func prepareDivider(y: CGFloat, width: CGFloat) {
 		if nil == dividerLayer {
 			dividerLayer = CAShapeLayer()
-			dividerLayer!.backgroundColor = dividerColor?.CGColor
-			dividerLayer!.frame = CGRectMake(0, y, width, 1)
 			dividerLayer!.zPosition = 0
 			layer.addSublayer(dividerLayer!)
 		}
+		dividerLayer?.backgroundColor = dividerColor?.CGColor
+		dividerLayer?.frame = CGRectMake(dividerInsetsRef!.left, y, width - dividerInsetsRef!.left - dividerInsetsRef!.right, 1)
 	}
 	
 	//
 	//	:name:	prepareProperties
 	//
-	internal func prepareProperties(titleLabel: UILabel?, detailLabel: UILabel?, leftButtons: Array<UIButton>?, rightButtons: Array<UIButton>?) {
+	internal func prepareProperties(image: UIImage?, titleLabel: UILabel?, detailLabel: UILabel?, leftButtons: Array<UIButton>?, rightButtons: Array<UIButton>?) {
+		self.image = image
 		self.titleLabel = titleLabel
 		self.detailLabel = detailLabel
 		self.leftButtons = leftButtons

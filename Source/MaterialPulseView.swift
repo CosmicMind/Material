@@ -153,8 +153,6 @@ public class MaterialPulseView : MaterialView {
 		shadowDepth = MaterialTheme.pulseView.shadowDepth
 		shadowColor = MaterialTheme.pulseView.shadowColor
 		zPosition = MaterialTheme.pulseView.zPosition
-		masksToBounds = MaterialTheme.pulseView.masksToBounds
-		cornerRadius = MaterialTheme.pulseView.cornerRadius
 		borderWidth = MaterialTheme.pulseView.borderWidth
 		borderColor = MaterialTheme.pulseView.bordercolor
 		
