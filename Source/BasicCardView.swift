@@ -18,7 +18,7 @@
 
 import UIKit
 
-public class CardView : MaterialPulseView {
+public class BasicCardView : MaterialPulseView {
 	//
 	//	:name:	dividerLayer
 	//
@@ -36,7 +36,7 @@ public class CardView : MaterialPulseView {
 	/**
 		:name:	divider
 	*/
-	public var divider: Bool = MaterialTheme.cardView.divider {
+	public var divider: Bool = MaterialTheme.basicCardView.divider {
 		didSet {
 			reloadView()
 		}
@@ -58,88 +58,6 @@ public class CardView : MaterialPulseView {
 		didSet {
 			dividerInsetsRef = nil == dividerInsetsRef ? MaterialInsetsToValue(.None) : dividerInsetsRef!
 			reloadView()
-		}
-	}
-	
-	/**
-		:name:	imageLayer
-	*/
-	public private(set) lazy var imageLayer: CAShapeLayer = CAShapeLayer()
-	
-	/**
-		:name:	image
-	*/
-	public override var image: UIImage? {
-		get {
-			return nil == imageLayer.contents ? nil : UIImage(CGImage: imageLayer.contents as! CGImage)
-		}
-		set(value) {
-			if let v = value {
-				imageLayer.contents = v.CGImage
-				if 0 == maxImageSize {
-					if 0 == imageLayer.frame.size.height {
-						imageLayer.frame.size.height = v.size.height
-					}
-				} else {
-					imageLayer.frame.size.height = maxImageSize
-				}
-				imageLayer.hidden = false
-			}
-			else {
-				imageLayer.contents = nil
-				imageLayer.frame = CGRectZero
-				imageLayer.hidden = true
-			}
-			reloadView()
-		}
-	}
-	
-	/**
-		:name:	maxImageSize
-	*/
-	public var maxImageSize: CGFloat = 0 {
-		didSet {
-			if 0 < maxImageSize {
-				imageLayer.frame.size.height = maxImageSize
-//				imageLayer.contentsGravity = MaterialGravityToString(contentsGravity)
-			}
-			reloadView()
-		}
-	}
-	
-	/**
-		:name:	contentsRect
-	*/
-	public override var contentsRect: CGRect {
-		didSet {
-			imageLayer.contentsRect = contentsRect
-		}
-	}
-	
-	/**
-		:name:	contentsCenter
-	*/
-	public override var contentsCenter: CGRect {
-		didSet {
-			imageLayer.contentsCenter = contentsCenter
-		}
-	}
-	
-	/**
-		:name:	contentsScale
-	*/
-	public override var contentsScale: CGFloat {
-		didSet {
-			imageLayer.contentsScale = contentsScale
-		}
-	}
-	
-	/**
-		:name:	contentsGravity
-	*/
-	public override var contentsGravity: MaterialGravity {
-		didSet {
-			imageLayer.contentsGravity = MaterialGravityToString(contentsGravity)
 		}
 	}
 	
@@ -291,7 +209,6 @@ public class CardView : MaterialPulseView {
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
-		prepareImageLayer()
 	}
 	
 	/**
@@ -299,7 +216,6 @@ public class CardView : MaterialPulseView {
 	*/
 	public override init(frame: CGRect) {
 		super.init(frame: frame)
-		prepareImageLayer()
 	}
 	
 	/**
@@ -318,27 +234,25 @@ public class CardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	layoutSubviews
+		:name:	layoutSublayersOfLayer
 	*/
-	public override func layoutSubviews() {
-		super.layoutSubviews()
-		// image
-		imageLayer.frame.size.width = bounds.size.width
-		
-		// divider
-		if divider {
-			var y: CGFloat = contentInsetsRef!.bottom + dividerInsetsRef!.bottom
-			if 0 < leftButtons?.count {
-				y += leftButtonsInsetsRef!.top + leftButtonsInsetsRef!.bottom + leftButtons![0].frame.size.height
-			} else if 0 < rightButtons?.count {
-				y += rightButtonsInsetsRef!.top + rightButtonsInsetsRef!.bottom + rightButtons![0].frame.size.height
+	public override func layoutSublayersOfLayer(layer: CALayer) {
+		super.layoutSublayersOfLayer(layer)
+		if self.layer == layer {
+			if divider {
+				var y: CGFloat = contentInsetsRef!.bottom + dividerInsetsRef!.bottom
+				if 0 < leftButtons?.count {
+					y += leftButtonsInsetsRef!.top + leftButtonsInsetsRef!.bottom + leftButtons![0].frame.size.height
+				} else if 0 < rightButtons?.count {
+					y += rightButtonsInsetsRef!.top + rightButtonsInsetsRef!.bottom + rightButtons![0].frame.size.height
+				}
+				if 0 < y {
+					prepareDivider(bounds.size.height - y - 0.5, width: bounds.size.width)
+				}
+			} else {
+				dividerLayer?.removeFromSuperlayer()
+				dividerLayer = nil
 			}
-			if 0 < y {
-				prepareDivider(bounds.size.height - y - 0.5, width: bounds.size.width)
-			}
-		} else {
-			dividerLayer?.removeFromSuperlayer()
-			dividerLayer = nil
 		}
 	}
 	
@@ -347,27 +261,27 @@ public class CardView : MaterialPulseView {
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		userInteractionEnabled = MaterialTheme.cardView.userInteractionEnabled
-		backgroundColor = MaterialTheme.cardView.backgroundColor
-		pulseColor = MaterialTheme.cardView.pulseColor
+		userInteractionEnabled = MaterialTheme.basicCardView.userInteractionEnabled
+		backgroundColor = MaterialTheme.basicCardView.backgroundColor
+		pulseColor = MaterialTheme.basicCardView.pulseColor
 		
-		contentInsetsRef = MaterialTheme.cardView.contentInsetsRef
-		titleLabelInsetsRef = MaterialTheme.cardView.titleLabelInsetsRef
-		detailLabelInsetsRef = MaterialTheme.cardView.detailLabelInsetsRef
-		leftButtonsInsetsRef = MaterialTheme.cardView.leftButtonsInsetsRef
-		rightButtonsInsetsRef = MaterialTheme.cardView.rightButtonsInsetsRef
-		dividerInsetsRef = MaterialTheme.cardView.dividerInsetsRef
+		contentInsetsRef = MaterialTheme.basicCardView.contentInsetsRef
+		titleLabelInsetsRef = MaterialTheme.basicCardView.titleLabelInsetsRef
+		detailLabelInsetsRef = MaterialTheme.basicCardView.detailLabelInsetsRef
+		leftButtonsInsetsRef = MaterialTheme.basicCardView.leftButtonsInsetsRef
+		rightButtonsInsetsRef = MaterialTheme.basicCardView.rightButtonsInsetsRef
+		dividerInsetsRef = MaterialTheme.basicCardView.dividerInsetsRef
 		
-		contentsRect = MaterialTheme.cardView.contentsRect
-		contentsCenter = MaterialTheme.cardView.contentsCenter
-		contentsScale = MaterialTheme.cardView.contentsScale
-		contentsGravity = MaterialTheme.cardView.contentsGravity
-		shadowDepth = MaterialTheme.cardView.shadowDepth
-		shadowColor = MaterialTheme.cardView.shadowColor
-		zPosition = MaterialTheme.cardView.zPosition
-		borderWidth = MaterialTheme.cardView.borderWidth
-		borderColor = MaterialTheme.cardView.bordercolor
-		dividerColor = MaterialTheme.cardView.dividerColor
+		contentsRect = MaterialTheme.basicCardView.contentsRect
+		contentsCenter = MaterialTheme.basicCardView.contentsCenter
+		contentsScale = MaterialTheme.basicCardView.contentsScale
+		contentsGravity = MaterialTheme.basicCardView.contentsGravity
+		shadowDepth = MaterialTheme.basicCardView.shadowDepth
+		shadowColor = MaterialTheme.basicCardView.shadowColor
+		zPosition = MaterialTheme.basicCardView.zPosition
+		borderWidth = MaterialTheme.basicCardView.borderWidth
+		borderColor = MaterialTheme.basicCardView.bordercolor
+		dividerColor = MaterialTheme.basicCardView.dividerColor
 	}
 	
 	/**
@@ -384,10 +298,7 @@ public class CardView : MaterialPulseView {
 		var views: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
 		var metrics: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
 		
-		if nil != imageLayer.contents {
-			verticalFormat += "-(insetTop)"
-			metrics["insetTop"] = imageLayer.frame.size.height
-		} else if nil != titleLabel {
+		if nil != titleLabel {
 			verticalFormat += "-(insetTop)"
 			metrics["insetTop"] = contentInsetsRef!.top + titleLabelInsetsRef!.top
 		} else if nil != detailLabel {
@@ -399,12 +310,9 @@ public class CardView : MaterialPulseView {
 		if let v = titleLabel {
 			addSubview(v)
 			
-			if nil == imageLayer.contents {
-				verticalFormat += "-[titleLabel]"
-				views["titleLabel"] = v
-			} else {
-				MaterialLayout.alignFromTop(self, child: v, top: contentInsetsRef!.top + titleLabelInsetsRef!.top)
-			}
+			verticalFormat += "-[titleLabel]"
+			views["titleLabel"] = v
+			
 			MaterialLayout.alignToParentHorizontallyWithInsets(self, child: v, left: contentInsetsRef!.left + titleLabelInsetsRef!.left, right: contentInsetsRef!.right + titleLabelInsetsRef!.right)
 		}
 		
@@ -412,11 +320,11 @@ public class CardView : MaterialPulseView {
 		if let v = detailLabel {
 			addSubview(v)
 			
-			if nil == imageLayer.contents && nil != titleLabel {
+			if nil == titleLabel {
+				metrics["insetTop"] = (metrics["insetTop"] as! CGFloat) + detailLabelInsetsRef!.top
+			} else {
 				verticalFormat += "-(insetB)"
 				metrics["insetB"] = titleLabelInsetsRef!.bottom + detailLabelInsetsRef!.top
-			} else {
-				metrics["insetTop"] = (metrics["insetTop"] as! CGFloat) + detailLabelInsetsRef!.top
 			}
 			
 			verticalFormat += "-[detailLabel]"
@@ -480,80 +388,39 @@ public class CardView : MaterialPulseView {
 			}
 		}
 		
-		if nil == imageLayer.contents {
-			if 0 < leftButtons?.count {
-				verticalFormat += "-(insetC)-[button]"
-				views["button"] = leftButtons![0]
-				metrics["insetC"] = leftButtonsInsetsRef!.top
-				metrics["insetBottom"] = contentInsetsRef!.bottom + leftButtonsInsetsRef!.bottom
-			} else if 0 < rightButtons?.count {
-				verticalFormat += "-(insetC)-[button]"
-				views["button"] = rightButtons![0]
-				metrics["insetC"] = rightButtonsInsetsRef!.top
-				metrics["insetBottom"] = contentInsetsRef!.bottom + rightButtonsInsetsRef!.bottom
-			}
-			
-			if nil != detailLabel {
-				if nil == metrics["insetC"] {
-					metrics["insetBottom"] = contentInsetsRef!.bottom + detailLabelInsetsRef!.bottom + (divider ? dividerInsetsRef!.top + dividerInsetsRef!.bottom : 0)
-				} else {
-					metrics["insetC"] = (metrics["insetC"] as! CGFloat) + detailLabelInsetsRef!.bottom + (divider ? dividerInsetsRef!.top + dividerInsetsRef!.bottom : 0)
-				}
-			} else if nil != titleLabel {
-				if nil == metrics["insetC"] {
-					metrics["insetBottom"] = contentInsetsRef!.bottom + titleLabelInsetsRef!.bottom + (divider ? dividerInsetsRef!.top + dividerInsetsRef!.bottom : 0)
-				} else {
-					metrics["insetC"] = (metrics["insetTop"] as! CGFloat) + titleLabelInsetsRef!.bottom + (divider ? dividerInsetsRef!.top + dividerInsetsRef!.bottom : 0)
-				}
-			} else if nil != metrics["insetC"] {
-				metrics["insetC"] = (metrics["insetC"] as! CGFloat) + contentInsetsRef!.top + (divider ? dividerInsetsRef!.top + dividerInsetsRef!.bottom : 0)
-			}
-		} else if nil != detailLabel {
-			if 0 < leftButtons?.count {
-				verticalFormat += "-(insetC)-[button]"
-				views["button"] = leftButtons![0]
-				metrics["insetC"] = leftButtonsInsetsRef!.top
-				metrics["insetBottom"] = contentInsetsRef!.bottom + leftButtonsInsetsRef!.bottom
-			} else if 0 < rightButtons?.count {
-				verticalFormat += "-(insetC)-[button]"
-				views["button"] = rightButtons![0]
-				metrics["insetC"] = rightButtonsInsetsRef!.top
-				metrics["insetBottom"] = contentInsetsRef!.bottom + rightButtonsInsetsRef!.bottom
-			}
-			
+		if 0 < leftButtons?.count {
+			verticalFormat += "-(insetC)-[button]"
+			views["button"] = leftButtons![0]
+			metrics["insetC"] = leftButtonsInsetsRef!.top
+			metrics["insetBottom"] = contentInsetsRef!.bottom + leftButtonsInsetsRef!.bottom
+		} else if 0 < rightButtons?.count {
+			verticalFormat += "-(insetC)-[button]"
+			views["button"] = rightButtons![0]
+			metrics["insetC"] = rightButtonsInsetsRef!.top
+			metrics["insetBottom"] = contentInsetsRef!.bottom + rightButtonsInsetsRef!.bottom
+		}
+		
+		if nil != detailLabel {
 			if nil == metrics["insetC"] {
 				metrics["insetBottom"] = contentInsetsRef!.bottom + detailLabelInsetsRef!.bottom + (divider ? dividerInsetsRef!.top + dividerInsetsRef!.bottom : 0)
 			} else {
 				metrics["insetC"] = (metrics["insetC"] as! CGFloat) + detailLabelInsetsRef!.bottom + (divider ? dividerInsetsRef!.top + dividerInsetsRef!.bottom : 0)
 			}
-		} else if nil == detailLabel {
-			if 0 < leftButtons?.count {
-				verticalFormat += "-[button]"
-				views["button"] = leftButtons![0]
-				metrics["insetTop"] = (metrics["insetTop"] as! CGFloat) + leftButtonsInsetsRef!.top + (divider ? dividerInsetsRef!.top + dividerInsetsRef!.bottom : 0)
-				metrics["insetBottom"] = contentInsetsRef!.bottom + leftButtonsInsetsRef!.bottom
-			} else if 0 < rightButtons?.count {
-				verticalFormat += "-[button]"
-				views["button"] = rightButtons![0]
-				metrics["insetTop"] = (metrics["insetTop"] as! CGFloat) + rightButtonsInsetsRef!.top + (divider ? dividerInsetsRef!.top + dividerInsetsRef!.bottom : 0)
-				metrics["insetBottom"] = contentInsetsRef!.bottom + rightButtonsInsetsRef!.bottom
+		} else if nil != titleLabel {
+			if nil == metrics["insetC"] {
+				metrics["insetBottom"] = contentInsetsRef!.bottom + titleLabelInsetsRef!.bottom + (divider ? dividerInsetsRef!.top + dividerInsetsRef!.bottom : 0)
+			} else {
+				metrics["insetC"] = (metrics["insetTop"] as! CGFloat) + titleLabelInsetsRef!.bottom + (divider ? dividerInsetsRef!.top + dividerInsetsRef!.bottom : 0)
 			}
+		} else if nil != metrics["insetC"] {
+			metrics["insetC"] = (metrics["insetC"] as! CGFloat) + contentInsetsRef!.top + (divider ? dividerInsetsRef!.top + dividerInsetsRef!.bottom : 0)
 		}
+		
 		
 		if 0 < views.count {
 			verticalFormat += "-(insetBottom)-|"
-			print(verticalFormat)
 			addConstraints(MaterialLayout.constraint(verticalFormat, options: [], metrics: metrics, views: views))
 		}
-	}
-	
-	//
-	//	:name:	prepareImageLayer
-	//
-	internal func prepareImageLayer() {
-		imageLayer.masksToBounds = true
-		imageLayer.zPosition = 0
-		visualLayer.addSublayer(imageLayer)
 	}
 	
 	//

@@ -21,7 +21,8 @@ import UIKit
 public struct MaterialTheme {
 	public struct view {}
 	public struct pulseView {}
-	public struct cardView {}
+	public struct basicCardView {}
+	public struct imageCardView {}
 	public struct navigationBarView {}
 	public struct textLayer {}
 	public struct label {}
@@ -84,8 +85,48 @@ public extension MaterialTheme.pulseView {
 	public static var zPosition: CGFloat = 0
 }
 
-// cardView
-public extension MaterialTheme.cardView {
+// basicCardView
+public extension MaterialTheme.basicCardView {
+	// shadow
+	public static var shadowDepth: MaterialDepth = .Depth2
+	public static var shadowColor: UIColor = MaterialColor.black
+	
+	// shape
+	public static var contentInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
+	public static var titleLabelInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
+	public static var detailLabelInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
+	public static var leftButtonsInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.None)
+	public static var rightButtonsInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.None)
+	public static var dividerInsetsRef: MaterialInsetsType = (top: 8, left: 0, bottom: 8, right: 0)
+	
+	// border
+	public static var borderWidth: MaterialBorder = .None
+	public static var bordercolor: UIColor = MaterialColor.black
+	
+	// color
+	public static var backgroundColor: UIColor = MaterialColor.white
+	public static var pulseColor: UIColor = MaterialColor.blueGrey.lighten4
+	public static var pulseColorOpacity: CGFloat = 0.25
+	
+	// interaction
+	public static var userInteractionEnabled: Bool = true
+	
+	// image
+	public static var contentsRect: CGRect = CGRectMake(0, 0, 1, 1)
+	public static var contentsCenter: CGRect = CGRectMake(0, 0, 1, 1)
+	public static var contentsScale: CGFloat = UIScreen.mainScreen().scale
+	public static var contentsGravity: MaterialGravity = .ResizeAspectFill
+	
+	// position
+	public static var zPosition: CGFloat = 0
+	
+	// divider
+	public static var divider: Bool = true
+	public static var dividerColor: UIColor = MaterialColor.blueGrey.lighten5
+}
+
+// imageCardView
+public extension MaterialTheme.imageCardView {
 	// shadow
 	public static var shadowDepth: MaterialDepth = .Depth2
 	public static var shadowColor: UIColor = MaterialColor.black
