@@ -20,6 +20,48 @@ import UIKit
 
 public class ImageCardView : MaterialPulseView {
 	//
+	//	:name:	dividerLayer
+	//
+	internal var dividerLayer: CAShapeLayer?
+	
+	//
+	//	:name:	dividerColor
+	//
+	public var dividerColor: UIColor? {
+		didSet {
+			dividerLayer?.backgroundColor = dividerColor?.CGColor
+		}
+	}
+	
+	/**
+		:name:	divider
+	*/
+	public var divider: Bool = MaterialTheme.basicCardView.divider {
+		didSet {
+			reloadView()
+		}
+	}
+	
+	/**
+		:name:	dividerInsets
+	*/
+	public var dividerInsets: MaterialInsets? {
+		didSet {
+			dividerInsetsRef = nil == dividerInsets ? nil : MaterialInsetsToValue(dividerInsets!)
+		}
+	}
+	
+	/**
+		:name:	dividerInsetsRef
+	*/
+	public var dividerInsetsRef: MaterialInsetsType! {
+		didSet {
+			dividerInsetsRef = nil == dividerInsetsRef ? MaterialInsetsToValue(.None) : dividerInsetsRef!
+			reloadView()
+		}
+	}
+	
+	//
 	//	:name:	imageLayer
 	//
 	public private(set) lazy var imageLayer: CAShapeLayer = CAShapeLayer()
@@ -102,41 +144,6 @@ public class ImageCardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	masksToBounds
-	*/
-	public override var masksToBounds: Bool {
-		get {
-			return imageLayer.masksToBounds
-		}
-		set(value) {
-			imageLayer.masksToBounds = value
-		}
-	}
-	
-	//
-	//	:name:	dividerLayer
-	//
-	internal var dividerLayer: CAShapeLayer?
-	
-	//
-	//	:name:	dividerColor
-	//
-	public var dividerColor: UIColor? {
-		didSet {
-			dividerLayer?.backgroundColor = dividerColor?.CGColor
-		}
-	}
-	
-	/**
-		:name:	divider
-	*/
-	public var divider: Bool = MaterialTheme.imageCardView.divider {
-		didSet {
-			reloadView()
-		}
-	}
-	
-	/**
 		:name:	contentInsets
 	*/
 	public var contentInsets: MaterialInsets? {
@@ -150,7 +157,7 @@ public class ImageCardView : MaterialPulseView {
 	*/
 	public var contentInsetsRef: MaterialInsetsType! {
 		didSet {
-			contentInsetsRef = nil == contentInsetsRef ? (top: 0, left: 0, bottom: 0, right: 0) : contentInsetsRef!
+			contentInsetsRef = nil == contentInsetsRef ? MaterialInsetsToValue(.None) : contentInsetsRef!
 			reloadView()
 		}
 	}
@@ -169,7 +176,7 @@ public class ImageCardView : MaterialPulseView {
 	*/
 	public var titleLabelInsetsRef: MaterialInsetsType! {
 		didSet {
-			titleLabelInsetsRef = nil == titleLabelInsetsRef ? (top: 0, left: 0, bottom: 0, right: 0) : titleLabelInsetsRef!
+			titleLabelInsetsRef = nil == titleLabelInsetsRef ? MaterialInsetsToValue(.None) : titleLabelInsetsRef!
 			reloadView()
 		}
 	}
@@ -198,7 +205,7 @@ public class ImageCardView : MaterialPulseView {
 	*/
 	public var detailLabelInsetsRef: MaterialInsetsType! {
 		didSet {
-			detailLabelInsetsRef = nil == detailLabelInsetsRef ? (top: 0, left: 0, bottom: 0, right: 0) : detailLabelInsetsRef!
+			detailLabelInsetsRef = nil == detailLabelInsetsRef ? MaterialInsetsToValue(.None) : detailLabelInsetsRef!
 			reloadView()
 		}
 	}
@@ -227,7 +234,7 @@ public class ImageCardView : MaterialPulseView {
 	*/
 	public var leftButtonsInsetsRef: MaterialInsetsType! {
 		didSet {
-			leftButtonsInsetsRef = nil == leftButtonsInsetsRef ? (top: 0, left: 0, bottom: 0, right: 0) : leftButtonsInsetsRef!
+			leftButtonsInsetsRef = nil == leftButtonsInsetsRef ? MaterialInsetsToValue(.None) : leftButtonsInsetsRef!
 			reloadView()
 		}
 	}
@@ -260,7 +267,7 @@ public class ImageCardView : MaterialPulseView {
 	*/
 	public var rightButtonsInsetsRef: MaterialInsetsType! {
 		didSet {
-			rightButtonsInsetsRef = nil == rightButtonsInsetsRef ? (top: 0, left: 0, bottom: 0, right: 0) : rightButtonsInsetsRef!
+			rightButtonsInsetsRef = nil == rightButtonsInsetsRef ? MaterialInsetsToValue(.None) : rightButtonsInsetsRef!
 			reloadView()
 		}
 	}
@@ -349,6 +356,7 @@ public class ImageCardView : MaterialPulseView {
 		detailLabelInsetsRef = MaterialTheme.imageCardView.detailLabelInsetsRef
 		leftButtonsInsetsRef = MaterialTheme.imageCardView.leftButtonsInsetsRef
 		rightButtonsInsetsRef = MaterialTheme.imageCardView.rightButtonsInsetsRef
+		dividerInsetsRef = MaterialTheme.imageCardView.dividerInsetsRef
 		
 		contentsRect = MaterialTheme.imageCardView.contentsRect
 		contentsCenter = MaterialTheme.imageCardView.contentsCenter
@@ -362,8 +370,6 @@ public class ImageCardView : MaterialPulseView {
 		borderWidth = MaterialTheme.imageCardView.borderWidth
 		borderColor = MaterialTheme.imageCardView.bordercolor
 		dividerColor = MaterialTheme.imageCardView.dividerColor
-		
-		visualLayer.masksToBounds = true
 	}
 	
 	/**

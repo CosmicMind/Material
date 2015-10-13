@@ -143,14 +143,14 @@ public class MaterialLayer : CAShapeLayer {
 	}
 	
 	/**
-		:name:	masksToBounds
+		:name:	shadowDepth
 	*/
-	public override var masksToBounds: Bool {
-		get {
-			return visualLayer.masksToBounds
-		}
-		set(value) {
-			visualLayer.masksToBounds = value
+	public var shadowDepth: MaterialDepth {
+		didSet {
+			let value: MaterialDepthType = MaterialDepthToValue(shadowDepth)
+			shadowOffset = value.offset
+			shadowOpacity = value.opacity
+			shadowRadius = value.radius
 		}
 	}
 	
@@ -181,18 +181,6 @@ public class MaterialLayer : CAShapeLayer {
 					height = width
 				}
 			}
-		}
-	}
-	
-	/**
-		:name:	shadowDepth
-	*/
-	public var shadowDepth: MaterialDepth {
-		didSet {
-			let value: MaterialDepthType = MaterialDepthToValue(shadowDepth)
-			shadowOffset = value.offset
-			shadowOpacity = value.opacity
-			shadowRadius = value.radius
 		}
 	}
 	
@@ -237,6 +225,7 @@ public class MaterialLayer : CAShapeLayer {
 	public override func layoutSublayers() {
 		super.layoutSublayers()
 		visualLayer.frame = bounds
+		visualLayer.masksToBounds = true
 		visualLayer.position = CGPointMake(width / 2, height / 2)
 		prepareShape()
 	}

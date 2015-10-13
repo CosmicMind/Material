@@ -43,6 +43,25 @@ public class BasicCardView : MaterialPulseView {
 	}
 	
 	/**
+		:name:	dividerInsets
+	*/
+	public var dividerInsets: MaterialInsets? {
+		didSet {
+			dividerInsetsRef = nil == dividerInsets ? nil : MaterialInsetsToValue(dividerInsets!)
+		}
+	}
+	
+	/**
+		:name:	dividerInsetsRef
+	*/
+	public var dividerInsetsRef: MaterialInsetsType! {
+		didSet {
+			dividerInsetsRef = nil == dividerInsetsRef ? MaterialInsetsToValue(.None) : dividerInsetsRef!
+			reloadView()
+		}
+	}
+	
+	/**
 		:name:	contentInsets
 	*/
 	public var contentInsets: MaterialInsets? {
@@ -56,7 +75,7 @@ public class BasicCardView : MaterialPulseView {
 	*/
 	public var contentInsetsRef: MaterialInsetsType! {
 		didSet {
-			contentInsetsRef = nil == contentInsetsRef ? (top: 0, left: 0, bottom: 0, right: 0) : contentInsetsRef!
+			contentInsetsRef = nil == contentInsetsRef ? MaterialInsetsToValue(.None) : contentInsetsRef!
 			reloadView()
 		}
 	}
@@ -75,7 +94,7 @@ public class BasicCardView : MaterialPulseView {
 	*/
 	public var titleLabelInsetsRef: MaterialInsetsType! {
 		didSet {
-			titleLabelInsetsRef = nil == titleLabelInsetsRef ? (top: 0, left: 0, bottom: 0, right: 0) : titleLabelInsetsRef!
+			titleLabelInsetsRef = nil == titleLabelInsetsRef ? MaterialInsetsToValue(.None) : titleLabelInsetsRef!
 			reloadView()
 		}
 	}
@@ -104,7 +123,7 @@ public class BasicCardView : MaterialPulseView {
 	*/
 	public var detailLabelInsetsRef: MaterialInsetsType! {
 		didSet {
-			detailLabelInsetsRef = nil == detailLabelInsetsRef ? (top: 0, left: 0, bottom: 0, right: 0) : detailLabelInsetsRef!
+			detailLabelInsetsRef = nil == detailLabelInsetsRef ? MaterialInsetsToValue(.None) : detailLabelInsetsRef!
 			reloadView()
 		}
 	}
@@ -133,7 +152,7 @@ public class BasicCardView : MaterialPulseView {
 	*/
 	public var leftButtonsInsetsRef: MaterialInsetsType! {
 		didSet {
-			leftButtonsInsetsRef = nil == leftButtonsInsetsRef ? (top: 0, left: 0, bottom: 0, right: 0) : leftButtonsInsetsRef!
+			leftButtonsInsetsRef = nil == leftButtonsInsetsRef ? MaterialInsetsToValue(.None) : leftButtonsInsetsRef!
 			reloadView()
 		}
 	}
@@ -166,7 +185,7 @@ public class BasicCardView : MaterialPulseView {
 	*/
 	public var rightButtonsInsetsRef: MaterialInsetsType! {
 		didSet {
-			rightButtonsInsetsRef = nil == rightButtonsInsetsRef ? (top: 0, left: 0, bottom: 0, right: 0) : rightButtonsInsetsRef!
+			rightButtonsInsetsRef = nil == rightButtonsInsetsRef ? MaterialInsetsToValue(.None) : rightButtonsInsetsRef!
 			reloadView()
 		}
 	}
@@ -250,6 +269,7 @@ public class BasicCardView : MaterialPulseView {
 		detailLabelInsetsRef = MaterialTheme.basicCardView.detailLabelInsetsRef
 		leftButtonsInsetsRef = MaterialTheme.basicCardView.leftButtonsInsetsRef
 		rightButtonsInsetsRef = MaterialTheme.basicCardView.rightButtonsInsetsRef
+		dividerInsetsRef = MaterialTheme.basicCardView.dividerInsetsRef
 		
 		contentsRect = MaterialTheme.basicCardView.contentsRect
 		contentsCenter = MaterialTheme.basicCardView.contentsCenter

@@ -38,7 +38,7 @@ public extension MaterialTheme.view {
 	public static var shadowColor: UIColor = MaterialColor.black
 	
 	// shape
-	public static var masksToBounds: Bool = true
+	public static var masksToBounds: Bool = false
 	public static var cornerRadius: MaterialRadius = .None
 	
 	// border
@@ -68,7 +68,7 @@ public extension MaterialTheme.pulseView {
 	public static var shadowColor: UIColor = MaterialColor.black
 	
 	// shape
-	public static var masksToBounds: Bool = true
+	public static var masksToBounds: Bool = false
 	public static var cornerRadius: MaterialRadius = .None
 	
 	// border
@@ -100,13 +100,14 @@ public extension MaterialTheme.basicCardView {
 	public static var shadowColor: UIColor = MaterialColor.black
 	
 	// shape
-	public static var masksToBounds: Bool = true
+	public static var masksToBounds: Bool = false
 	public static var cornerRadius: MaterialRadius = .None
 	public static var contentInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
 	public static var titleLabelInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
 	public static var detailLabelInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
 	public static var leftButtonsInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.None)
 	public static var rightButtonsInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.None)
+	public static var dividerInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.None)
 	
 	// border
 	public static var borderWidth: MaterialBorder = .None
@@ -141,13 +142,14 @@ public extension MaterialTheme.imageCardView {
 	public static var shadowColor: UIColor = MaterialColor.black
 	
 	// shape
-	public static var masksToBounds: Bool = true
+	public static var masksToBounds: Bool = false
 	public static var cornerRadius: MaterialRadius = .None
 	public static var contentInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
 	public static var titleLabelInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
 	public static var detailLabelInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
 	public static var leftButtonsInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.None)
 	public static var rightButtonsInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.None)
+	public static var dividerInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.None)
 	
 	// border
 	public static var borderWidth: MaterialBorder = .None
@@ -188,7 +190,7 @@ public extension MaterialTheme.navigationBarView {
 	public static var shadowColor: UIColor = MaterialColor.black
 	
 	// shape
-	public static var masksToBounds: Bool = true
+	public static var masksToBounds: Bool = false
 	public static var cornerRadius: MaterialRadius = .None
 	public static var contentInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
 	public static var titleLabelInsetsRef: MaterialInsetsType = (top: 20, left: 0, bottom: 0, right: 0)
@@ -253,7 +255,7 @@ public extension MaterialTheme.flatButton {
 	public static var shadowColor: UIColor = MaterialColor.black
 	
 	// shape
-	public static var masksToBounds: Bool = true
+	public static var masksToBounds: Bool = false
 	public static var cornerRadius: MaterialRadius = .Radius1
 	public static var contentInsets: MaterialInsets = .Rectangle3
 	public static var shape: MaterialShape = .None
@@ -285,7 +287,7 @@ public extension MaterialTheme.raisedButton {
 	public static var shadowColor: UIColor = MaterialColor.black
 	
 	// shape
-	public static var masksToBounds: Bool = true
+	public static var masksToBounds: Bool = false
 	public static var cornerRadius: MaterialRadius = .Radius1
 	public static var contentInsets: MaterialInsets = .Rectangle2
 	public static var shape: MaterialShape = .None
@@ -318,7 +320,7 @@ public extension MaterialTheme.fabButton {
 	public static var shadowColor: UIColor = MaterialColor.black
 	
 	// shape
-	public static var masksToBounds: Bool = true
+	public static var masksToBounds: Bool = false
 	public static var cornerRadius: MaterialRadius = .None
 	public static var contentInsets: MaterialInsets = .None
 	public static var shape: MaterialShape = .Circle

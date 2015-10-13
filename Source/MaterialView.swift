@@ -80,10 +80,10 @@ public class MaterialView : UIView {
 	*/
 	public var masksToBounds: Bool {
 		get {
-			return visualLayer.masksToBounds
+			return layer.masksToBounds
 		}
 		set(value) {
-			visualLayer.masksToBounds = value
+			layer.masksToBounds = value
 		}
 	}
 	
@@ -196,6 +196,18 @@ public class MaterialView : UIView {
 	}
 	
 	/**
+		:name:	shadowDepth
+	*/
+	public var shadowDepth: MaterialDepth {
+		didSet {
+			let value: MaterialDepthType = MaterialDepthToValue(shadowDepth)
+			shadowOffset = value.offset
+			shadowOpacity = value.opacity
+			shadowRadius = value.radius
+		}
+	}
+	
+	/**
 		:name:	cornerRadius
 	*/
 	public var cornerRadius: MaterialRadius? {
@@ -239,18 +251,6 @@ public class MaterialView : UIView {
 	public var borderColor: UIColor? {
 		didSet {
 			layer.borderColor = borderColor?.CGColor
-		}
-	}
-	
-	/**
-		:name:	shadowDepth
-	*/
-	public var shadowDepth: MaterialDepth {
-		didSet {
-			let value: MaterialDepthType = MaterialDepthToValue(shadowDepth)
-			shadowOffset = value.offset
-			shadowOpacity = value.opacity
-			shadowRadius = value.radius
 		}
 	}
 	
@@ -392,6 +392,7 @@ public class MaterialView : UIView {
 		
 		// visualLayer
 		visualLayer.zPosition = -1
+		visualLayer.masksToBounds = true
 		layer.addSublayer(visualLayer)
 	}
 	

@@ -42,7 +42,7 @@ public class NavigationBarView : MaterialView {
 	*/
 	public var contentInsetsRef: MaterialInsetsType! {
 		didSet {
-			contentInsetsRef = nil == contentInsetsRef ? (top: 0, left: 0, bottom: 0, right: 0) : contentInsetsRef!
+			contentInsetsRef = nil == contentInsetsRef ? MaterialInsetsToValue(.None) : contentInsetsRef!
 			reloadView()
 		}
 	}
@@ -61,7 +61,7 @@ public class NavigationBarView : MaterialView {
 	*/
 	public var titleLabelInsetsRef: MaterialInsetsType! {
 		didSet {
-			titleLabelInsetsRef = nil == titleLabelInsetsRef ? (top: 0, left: 0, bottom: 0, right: 0) : titleLabelInsetsRef!
+			titleLabelInsetsRef = nil == titleLabelInsetsRef ? MaterialInsetsToValue(.None) : titleLabelInsetsRef!
 			reloadView()
 		}
 	}
@@ -90,7 +90,7 @@ public class NavigationBarView : MaterialView {
 	*/
 	public var detailLabelInsetsRef: MaterialInsetsType! {
 		didSet {
-			detailLabelInsetsRef = nil == detailLabelInsetsRef ? (top: 0, left: 0, bottom: 0, right: 0) : detailLabelInsetsRef!
+			detailLabelInsetsRef = nil == detailLabelInsetsRef ? MaterialInsetsToValue(.None) : detailLabelInsetsRef!
 			reloadView()
 		}
 	}
@@ -119,7 +119,7 @@ public class NavigationBarView : MaterialView {
 	*/
 	public var leftButtonsInsetsRef: MaterialInsetsType! {
 		didSet {
-			leftButtonsInsetsRef = nil == leftButtonsInsetsRef ? (top: 0, left: 0, bottom: 0, right: 0) : leftButtonsInsetsRef!
+			leftButtonsInsetsRef = nil == leftButtonsInsetsRef ? MaterialInsetsToValue(.None) : leftButtonsInsetsRef!
 			reloadView()
 		}
 	}
@@ -152,7 +152,7 @@ public class NavigationBarView : MaterialView {
 	*/
 	public var rightButtonsInsetsRef: MaterialInsetsType! {
 		didSet {
-			rightButtonsInsetsRef = nil == rightButtonsInsetsRef ? (top: 0, left: 0, bottom: 0, right: 0) : rightButtonsInsetsRef!
+			rightButtonsInsetsRef = nil == rightButtonsInsetsRef ? MaterialInsetsToValue(.None) : rightButtonsInsetsRef!
 			reloadView()
 		}
 	}
