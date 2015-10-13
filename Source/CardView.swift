@@ -480,32 +480,64 @@ public class CardView : MaterialPulseView {
 			}
 		}
 		
-		if 0 < leftButtons?.count {
-			verticalFormat += "-(insetC)-[button]"
-			views["button"] = leftButtons![0]
-			metrics["insetC"] = leftButtonsInsetsRef!.top
-			metrics["insetBottom"] = contentInsetsRef!.bottom + leftButtonsInsetsRef!.bottom
-		} else if 0 < rightButtons?.count {
-			verticalFormat += "-(insetC)-[button]"
-			views["button"] = rightButtons![0]
-			metrics["insetC"] = rightButtonsInsetsRef!.top
-			metrics["insetBottom"] = contentInsetsRef!.bottom + rightButtonsInsetsRef!.bottom
-		}
-		
-		if nil != detailLabel {
+		if nil == imageLayer.contents {
+			if 0 < leftButtons?.count {
+				verticalFormat += "-(insetC)-[button]"
+				views["button"] = leftButtons![0]
+				metrics["insetC"] = leftButtonsInsetsRef!.top
+				metrics["insetBottom"] = contentInsetsRef!.bottom + leftButtonsInsetsRef!.bottom
+			} else if 0 < rightButtons?.count {
+				verticalFormat += "-(insetC)-[button]"
+				views["button"] = rightButtons![0]
+				metrics["insetC"] = rightButtonsInsetsRef!.top
+				metrics["insetBottom"] = contentInsetsRef!.bottom + rightButtonsInsetsRef!.bottom
+			}
+			
+			if nil != detailLabel {
+				if nil == metrics["insetC"] {
+					metrics["insetBottom"] = contentInsetsRef!.bottom + detailLabelInsetsRef!.bottom + (divider ? dividerInsetsRef!.top + dividerInsetsRef!.bottom : 0)
+				} else {
+					metrics["insetC"] = (metrics["insetC"] as! CGFloat) + detailLabelInsetsRef!.bottom + (divider ? dividerInsetsRef!.top + dividerInsetsRef!.bottom : 0)
+				}
+			} else if nil != titleLabel {
+				if nil == metrics["insetC"] {
+					metrics["insetBottom"] = contentInsetsRef!.bottom + titleLabelInsetsRef!.bottom + (divider ? dividerInsetsRef!.top + dividerInsetsRef!.bottom : 0)
+				} else {
+					metrics["insetC"] = (metrics["insetTop"] as! CGFloat) + titleLabelInsetsRef!.bottom + (divider ? dividerInsetsRef!.top + dividerInsetsRef!.bottom : 0)
+				}
+			} else if nil != metrics["insetC"] {
+				metrics["insetC"] = (metrics["insetC"] as! CGFloat) + contentInsetsRef!.top + (divider ? dividerInsetsRef!.top + dividerInsetsRef!.bottom : 0)
+			}
+		} else if nil != detailLabel {
+			if 0 < leftButtons?.count {
+				verticalFormat += "-(insetC)-[button]"
+				views["button"] = leftButtons![0]
+				metrics["insetC"] = leftButtonsInsetsRef!.top
+				metrics["insetBottom"] = contentInsetsRef!.bottom + leftButtonsInsetsRef!.bottom
+			} else if 0 < rightButtons?.count {
+				verticalFormat += "-(insetC)-[button]"
+				views["button"] = rightButtons![0]
+				metrics["insetC"] = rightButtonsInsetsRef!.top
+				metrics["insetBottom"] = contentInsetsRef!.bottom + rightButtonsInsetsRef!.bottom
+			}
+			
 			if nil == metrics["insetC"] {
 				metrics["insetBottom"] = contentInsetsRef!.bottom + detailLabelInsetsRef!.bottom + (divider ? dividerInsetsRef!.top + dividerInsetsRef!.bottom : 0)
 			} else {
 				metrics["insetC"] = (metrics["insetC"] as! CGFloat) + detailLabelInsetsRef!.bottom + (divider ? dividerInsetsRef!.top + dividerInsetsRef!.bottom : 0)
 			}
-		} else if nil != titleLabel {
-			if nil == metrics["insetC"] {
-				metrics["insetBottom"] = contentInsetsRef!.bottom + titleLabelInsetsRef!.bottom + (divider ? dividerInsetsRef!.top + dividerInsetsRef!.bottom : 0)
-			} else {
-				metrics["insetC"] = (metrics["insetC"] as! CGFloat) + titleLabelInsetsRef!.bottom + (divider ? dividerInsetsRef!.top + dividerInsetsRef!.bottom : 0)
+		} else if nil == detailLabel {
+			if 0 < leftButtons?.count {
+				verticalFormat += "-[button]"
+				views["button"] = leftButtons![0]
+				metrics["insetTop"] = (metrics["insetTop"] as! CGFloat) + leftButtonsInsetsRef!.top + (divider ? dividerInsetsRef!.top + dividerInsetsRef!.bottom : 0)
+				metrics["insetBottom"] = contentInsetsRef!.bottom + leftButtonsInsetsRef!.bottom
+			} else if 0 < rightButtons?.count {
+				verticalFormat += "-[button]"
+				views["button"] = rightButtons![0]
+				metrics["insetTop"] = (metrics["insetTop"] as! CGFloat) + rightButtonsInsetsRef!.top + (divider ? dividerInsetsRef!.top + dividerInsetsRef!.bottom : 0)
+				metrics["insetBottom"] = contentInsetsRef!.bottom + rightButtonsInsetsRef!.bottom
 			}
-		} else if nil != metrics["insetC"] {
-			metrics["insetC"] = (metrics["insetC"] as! CGFloat) + contentInsetsRef!.top + (divider ? dividerInsetsRef!.top + dividerInsetsRef!.bottom : 0)
 		}
 		
 		if 0 < views.count {
