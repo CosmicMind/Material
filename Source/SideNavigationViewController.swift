@@ -20,7 +20,7 @@ import UIKit
 
 public extension UIViewController {
 	/**
-	:name:	sideNavigationViewController
+		:name:	sideNavigationViewController
 	*/
 	public var sideNavigationViewController: SideNavigationViewController? {
 		var viewController: UIViewController? = self
@@ -37,7 +37,7 @@ public extension UIViewController {
 @objc(SideNavigationViewController)
 public class SideNavigationViewController: UIViewController, UIGestureRecognizerDelegate {
 	/**
-	:name:	default options
+		:name:	default options
 	*/
 	public struct defaultOptions {
 		public static var bezelWidth: CGFloat = 48
@@ -50,7 +50,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	}
 	
 	/**
-	:name:	options
+		:name:	options
 	*/
 	public struct options {
 		public static var shadowOpacity: Float = 0
@@ -69,14 +69,14 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	}
 	
 	/**
-	:name:	isViewBasedAppearance
+		:name:	isViewBasedAppearance
 	*/
 	public var isViewBasedAppearance: Bool {
 		return 0 == NSBundle.mainBundle().objectForInfoDictionaryKey("UIViewControllerBasedStatusBarAppearance") as? Int
 	}
 	
 	/**
-	:name:	isLeftContainerOpened
+		:name:	isLeftContainerOpened
 	*/
 	public var isLeftContainerOpened: Bool {
 		if let c = leftViewContainer {
@@ -86,7 +86,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	}
 	
 	/**
-	:name:	isUserInteractionEnabled
+		:name:	isUserInteractionEnabled
 	*/
 	public var isUserInteractionEnabled: Bool {
 		get {
@@ -103,42 +103,42 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	private var originalPosition: CGPoint!
 	
 	/**
-	:name:	backdropLayer
+		:name:	backdropLayer
 	*/
 	public private(set) lazy var backdropLayer: MaterialLayer = MaterialLayer()
 	
 	/**
-	:name:	mainViewContainer
+		:name:	mainViewContainer
 	*/
 	public private(set) var mainViewContainer: MaterialView?
 	
 	/**
-	:name:	leftViewContainer
+		:name:	leftViewContainer
 	*/
 	public private(set) var leftViewContainer: MaterialView?
 	
 	/**
-	:name:	mainViewController
+		:name:	mainViewController
 	*/
 	public var mainViewController: UIViewController?
 	
 	/**
-	:name:	leftViewController
+		:name:	leftViewController
 	*/
 	public var leftViewController: UIViewController?
 	
 	/**
-	:name:	leftAnimation
+		:name:	leftAnimation
 	*/
 	private var leftAnimation: CAAnimation?
 	
 	/**
-	:name:	leftPanGesture
+		:name:	leftPanGesture
 	*/
 	public var leftPanGesture: UIPanGestureRecognizer?
 	
 	/**
-	:name:	leftTapGesture
+		:name:	leftTapGesture
 	*/
 	public var leftTapGesture: UITapGestureRecognizer?
 	
@@ -150,21 +150,21 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	}
 	
 	/**
-	:name:	init
+		:name:	init
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
 	
 	/**
-	:name:	init
+		:name:	init
 	*/
 	public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 	}
 	
 	/**
-	:name:	init
+		:name:	init
 	*/
 	public convenience init(mainViewController: UIViewController) {
 		self.init()
@@ -173,7 +173,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	}
 	
 	/**
-	:name:	init
+		:name:	init
 	*/
 	public convenience init(mainViewController: UIViewController, leftViewController: UIViewController) {
 		self.init()
@@ -206,7 +206,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	}
 	
 	/**
-	:name:	toggleLeftViewContainer
+		:name:	toggleLeftViewContainer
 	*/
 	public func toggleLeftViewContainer(velocity: CGFloat = 0) {
 		openLeftViewContainer(velocity)

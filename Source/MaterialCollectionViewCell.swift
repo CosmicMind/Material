@@ -329,7 +329,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell, UIGestureRecogni
 	*/
 	public override func layoutSubviews() {
 		super.layoutSubviews()
-		prepareShape()
+		layoutShape()
 		
 		visualLayer.frame = bounds
 		visualLayer.position = CGPointMake(width / 2, height / 2)
@@ -526,12 +526,21 @@ public class MaterialCollectionViewCell : UICollectionViewCell, UIGestureRecogni
 	}
 	
 	//
-	//	:name:	prepareShape
+	//	:name:	layoutShape
 	//
-	internal func prepareShape() {
+	internal func layoutShape() {
 		if .Circle == shape {
 			layer.cornerRadius = width / 2
 		}
+	}
+	
+	//
+	//	:name:	layoutVisualLayer
+	//
+	internal func layoutVisualLayer() {
+		visualLayer.frame = bounds
+		visualLayer.position = CGPointMake(width / 2, height / 2)
+		visualLayer.cornerRadius = layer.cornerRadius
 	}
 	
 	//

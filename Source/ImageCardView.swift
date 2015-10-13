@@ -299,7 +299,6 @@ public class ImageCardView : MaterialPulseView {
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
-		prepareImageLayer()
 	}
 	
 	/**
@@ -307,7 +306,6 @@ public class ImageCardView : MaterialPulseView {
 	*/
 	public override init(frame: CGRect) {
 		super.init(frame: frame)
-		prepareImageLayer()
 	}
 	
 	/**
@@ -326,19 +324,15 @@ public class ImageCardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	layoutSubviews
-	*/
-	public override func layoutSubviews() {
-		super.layoutSubviews()
-		imageLayer?.frame.size.width = bounds.size.width
-	}
-	
-	/**
 		:name:	layoutSublayersOfLayer
 	*/
 	public override func layoutSublayersOfLayer(layer: CALayer) {
 		super.layoutSublayersOfLayer(layer)
 		if self.layer == layer {
+			// image
+			imageLayer?.frame.size.width = bounds.size.width
+			
+			// divider
 			if divider {
 				var y: CGFloat = contentInsetsRef!.bottom + dividerInsetsRef!.bottom
 				if 0 < leftButtons?.count {

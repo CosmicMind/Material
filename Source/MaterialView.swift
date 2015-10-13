@@ -26,7 +26,7 @@ public class MaterialView : UIView {
 	public private(set) lazy var visualLayer: CAShapeLayer = CAShapeLayer()
 	
 	/**
-		:name:	visualLayer
+		:name:	delegate
 	*/
 	public weak var delegate: MaterialDelegate?
 	
@@ -322,8 +322,8 @@ public class MaterialView : UIView {
 	public override func layoutSublayersOfLayer(layer: CALayer) {
 		super.layoutSublayersOfLayer(layer)
 		if self.layer == layer {
-			prepareShape()
-			prepareVisualLayer()
+			layoutShape()
+			layoutVisualLayer()
 		}
 	}
 	
@@ -375,7 +375,7 @@ public class MaterialView : UIView {
 				animationDidStop(x, finished: true)
 			}
 		}
-		prepareVisualLayer()
+		layoutVisualLayer()
 	}
 	
 	//
@@ -397,18 +397,18 @@ public class MaterialView : UIView {
 	}
 	
 	//
-	//	:name:	prepareShape
+	//	:name:	layoutShape
 	//
-	internal func prepareShape() {
+	internal func layoutShape() {
 		if .Circle == shape {
 			layer.cornerRadius = width / 2
 		}
 	}
 	
 	//
-	//	:name:	prepareVisualLayer
+	//	:name:	layoutVisualLayer
 	//
-	internal func prepareVisualLayer() {
+	internal func layoutVisualLayer() {
 		visualLayer.frame = bounds
 		visualLayer.position = CGPointMake(width / 2, height / 2)
 		visualLayer.cornerRadius = layer.cornerRadius

@@ -323,12 +323,14 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
-		:name:	layoutSubviews
+		:name:	layoutSublayersOfLayer
 	*/
-	public override func layoutSubviews() {
-		super.layoutSubviews()
-		prepareShape()
-		prepareVisualLayer()
+	public override func layoutSublayersOfLayer(layer: CALayer) {
+		super.layoutSublayersOfLayer(layer)
+		if self.layer == layer {
+			layoutShape()
+			layoutVisualLayer()
+		}
 	}
 	
 	/**
@@ -372,7 +374,7 @@ public class MaterialButton : UIButton {
 				animationDidStop(x, finished: true)
 			}
 		}
-		prepareVisualLayer()
+		layoutVisualLayer()
 	}
 	
 	/**
@@ -459,18 +461,18 @@ public class MaterialButton : UIButton {
 	}
 	
 	//
-	//	:name:	prepareShape
+	//	:name:	layoutShape
 	//
-	internal func prepareShape() {
+	internal func layoutShape() {
 		if .Circle == shape {
 			layer.cornerRadius = width / 2
 		}
 	}
 	
 	//
-	//	:name:	prepareVisualLayer
+	//	:name:	layoutVisualLayer
 	//
-	internal func prepareVisualLayer() {
+	internal func layoutVisualLayer() {
 		visualLayer.frame = bounds
 		visualLayer.position = CGPointMake(width / 2, height / 2)
 		visualLayer.cornerRadius = layer.cornerRadius
