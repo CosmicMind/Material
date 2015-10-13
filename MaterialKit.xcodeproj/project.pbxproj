@@ -56,17 +56,11 @@
 		964B17D41BBB31C2002A9CA0 /* FabButton.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65BDD17B1BB99E29006F7F2B /* FabButton.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		964B17D51BBB31C2002A9CA0 /* MaterialAnimation.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65BDD1731BB8D443006F7F2B /* MaterialAnimation.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		964B17D61BBB31C2002A9CA0 /* MaterialLayout.swift in Headers */ = {isa = PBXBuildFile; fileRef = 964B17B31BBA447F002A9CA0 /* MaterialLayout.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		965C17C51BC8273D00B1059A /* MaterialCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965C17C41BC8273D00B1059A /* MaterialCollectionViewCell.swift */; settings = {ASSET_TAGS = (); }; };
-		965C17C71BC8279F00B1059A /* BasicCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965C17C61BC8279F00B1059A /* BasicCollectionViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		965C17C81BC82FEF00B1059A /* MaterialLayer.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65AD15E91BC05B3A0068AF9C /* MaterialLayer.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		965C17C91BC82FEF00B1059A /* MaterialTextLayer.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9699879B1BC5FE49006D678E /* MaterialTextLayer.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		965C17CA1BC82FEF00B1059A /* ImageCardView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96D26BFC1BC23649006478BD /* ImageCardView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		965C17CB1BC82FEF00B1059A /* MaterialCollectionViewCell.swift in Headers */ = {isa = PBXBuildFile; fileRef = 965C17C41BC8273D00B1059A /* MaterialCollectionViewCell.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		965C17CC1BC82FEF00B1059A /* BasicCollectionViewCell.swift in Headers */ = {isa = PBXBuildFile; fileRef = 965C17C61BC8279F00B1059A /* BasicCollectionViewCell.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9693BF861BCB0E0A0087054A /* Material+UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693BF851BCB0E0A0087054A /* Material+UIFont.swift */; settings = {ASSET_TAGS = (); }; };
-		9693BF8A1BCB35520087054A /* SideNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693BF891BCB35520087054A /* SideNavigationViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		9693BF8B1BCB35910087054A /* Material+UIFont.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9693BF851BCB0E0A0087054A /* Material+UIFont.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		9693BF8C1BCB35910087054A /* SideNavigationViewController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9693BF891BCB35520087054A /* SideNavigationViewController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9693BF8D1BCB35910087054A /* MaterialBasicAnimation.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65D2BEC61BBED1E400800B7B /* MaterialBasicAnimation.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9693BF8E1BCB35910087054A /* MaterialKeyframeAnimation.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65D2BEC81BBED1FA00800B7B /* MaterialKeyframeAnimation.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9693BF8F1BCB35910087054A /* MaterialTransitionAnimation.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96C4FABD1BC3168900E4FFC3 /* MaterialTransitionAnimation.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -124,10 +118,7 @@
 		963832631B88E5BF0015F710 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		964B17B31BBA447F002A9CA0 /* MaterialLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialLayout.swift; sourceTree = "<group>"; };
 		964B17B51BBA4BEA002A9CA0 /* MaterialStatusBarStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialStatusBarStyle.swift; sourceTree = "<group>"; };
-		965C17C41BC8273D00B1059A /* MaterialCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialCollectionViewCell.swift; sourceTree = "<group>"; };
-		965C17C61BC8279F00B1059A /* BasicCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicCollectionViewCell.swift; sourceTree = "<group>"; };
 		9693BF851BCB0E0A0087054A /* Material+UIFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIFont.swift"; sourceTree = "<group>"; };
-		9693BF891BCB35520087054A /* SideNavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideNavigationViewController.swift; sourceTree = "<group>"; };
 		9693BF951BCCCB520087054A /* BasicCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicCardView.swift; sourceTree = "<group>"; };
 		9699879B1BC5FE49006D678E /* MaterialTextLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialTextLayer.swift; sourceTree = "<group>"; };
 		96C4FABD1BC3168900E4FFC3 /* MaterialTransitionAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialTransitionAnimation.swift; sourceTree = "<group>"; };
@@ -249,7 +240,6 @@
 				65BDD1551BB6FC60006F7F2B /* Button */,
 				65BDD1701BB8CD56006F7F2B /* Label */,
 				964B17D71BBB38E2002A9CA0 /* Card */,
-				965C17C31BC8272700B1059A /* Collection */,
 				65BDD1751BB8D44B006F7F2B /* Animation */,
 				964B17B21BBA445D002A9CA0 /* Layout */,
 			);
@@ -302,18 +292,8 @@
 			isa = PBXGroup;
 			children = (
 				962F3E521BACA68C0004B8AD /* NavigationBarView.swift */,
-				9693BF891BCB35520087054A /* SideNavigationViewController.swift */,
 			);
 			name = Navigation;
-			sourceTree = "<group>";
-		};
-		965C17C31BC8272700B1059A /* Collection */ = {
-			isa = PBXGroup;
-			children = (
-				965C17C41BC8273D00B1059A /* MaterialCollectionViewCell.swift */,
-				965C17C61BC8279F00B1059A /* BasicCollectionViewCell.swift */,
-			);
-			name = Collection;
 			sourceTree = "<group>";
 		};
 		9693BF841BCB0DEE0087054A /* Extensions */ = {
@@ -381,10 +361,7 @@
 				965C17C91BC82FEF00B1059A /* MaterialTextLayer.swift in Headers */,
 				9693BF971BCCCCB30087054A /* BasicCardView.swift in Headers */,
 				965C17CA1BC82FEF00B1059A /* ImageCardView.swift in Headers */,
-				965C17CB1BC82FEF00B1059A /* MaterialCollectionViewCell.swift in Headers */,
-				965C17CC1BC82FEF00B1059A /* BasicCollectionViewCell.swift in Headers */,
 				9693BF8B1BCB35910087054A /* Material+UIFont.swift in Headers */,
-				9693BF8C1BCB35910087054A /* SideNavigationViewController.swift in Headers */,
 				9693BF8D1BCB35910087054A /* MaterialBasicAnimation.swift in Headers */,
 				9693BF8E1BCB35910087054A /* MaterialKeyframeAnimation.swift in Headers */,
 				9693BF8F1BCB35910087054A /* MaterialTransitionAnimation.swift in Headers */,
@@ -515,13 +492,10 @@
 				65BDD1741BB8D443006F7F2B /* MaterialAnimation.swift in Sources */,
 				65BDD14B1BB5DD02006F7F2B /* MaterialFont.swift in Sources */,
 				9699879C1BC5FE49006D678E /* MaterialTextLayer.swift in Sources */,
-				965C17C51BC8273D00B1059A /* MaterialCollectionViewCell.swift in Sources */,
-				9693BF8A1BCB35520087054A /* SideNavigationViewController.swift in Sources */,
 				65BDD16A1BB7146B006F7F2B /* MaterialBorder.swift in Sources */,
 				65BDD15B1BB7095E006F7F2B /* MaterialRadius.swift in Sources */,
 				65BDD1721BB8CD77006F7F2B /* MaterialLabel.swift in Sources */,
 				65BDD1491BB5DC98006F7F2B /* MaterialColor.swift in Sources */,
-				965C17C71BC8279F00B1059A /* BasicCollectionViewCell.swift in Sources */,
 				9693BF861BCB0E0A0087054A /* Material+UIFont.swift in Sources */,
 				96C4FABE1BC3168900E4FFC3 /* MaterialTransitionAnimation.swift in Sources */,
 				65D2BEC91BBED1FA00800B7B /* MaterialKeyframeAnimation.swift in Sources */,
