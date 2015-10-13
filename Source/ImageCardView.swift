@@ -34,8 +34,12 @@ public class ImageCardView : MaterialPulseView {
 		set(value) {
 			if let v = value {
 				imageLayer.contents = v.CGImage
-				if 0 == imageLayer.frame.size.height {
-					imageLayer.frame.size.height = v.size.height
+				if 0 == maxImageSize {
+					if 0 == imageLayer.frame.size.height {
+						imageLayer.frame.size.height = v.size.height
+					}
+				} else {
+					imageLayer.frame.size.height = maxImageSize
 				}
 				imageLayer.hidden = false
 			}
@@ -43,6 +47,19 @@ public class ImageCardView : MaterialPulseView {
 				imageLayer.contents = nil
 				imageLayer.frame = CGRectZero
 				imageLayer.hidden = true
+			}
+			reloadView()
+		}
+	}
+	
+	/**
+		:name:	maxImageSize
+	*/
+	public var maxImageSize: CGFloat = 0 {
+		didSet {
+			if 0 < maxImageSize {
+				imageLayer.frame.size.height = maxImageSize
+//				imageLayer.contentsGravity = MaterialGravityToString(contentsGravity)
 			}
 			reloadView()
 		}
@@ -299,11 +316,7 @@ public class ImageCardView : MaterialPulseView {
 	public override func layoutSubviews() {
 		super.layoutSubviews()
 		// image
-		let h: CGFloat = imageLayer.frame.size.height
-		imageLayer.frame = bounds
-		if 0 < h && nil != imageLayer.contents {
-			imageLayer.frame.size.height = h
-		}
+		imageLayer.frame.size.width = bounds.size.width
 		
 		// divider
 		if true == divider {
@@ -329,6 +342,8 @@ public class ImageCardView : MaterialPulseView {
 		super.prepareView()
 		userInteractionEnabled = MaterialTheme.imageCardView.userInteractionEnabled
 		backgroundColor = MaterialTheme.imageCardView.backgroundColor
+		pulseColor = MaterialTheme.imageCardView.pulseColor
+		
 		contentInsetsRef = MaterialTheme.imageCardView.contentInsetsRef
 		titleLabelInsetsRef = MaterialTheme.imageCardView.titleLabelInsetsRef
 		detailLabelInsetsRef = MaterialTheme.imageCardView.detailLabelInsetsRef
@@ -367,7 +382,7 @@ public class ImageCardView : MaterialPulseView {
 		
 		if nil != imageLayer.contents {
 			verticalFormat += "-(insetTop)"
-			metrics["insetTop"] = contentInsetsRef!.top + imageLayer.frame.size.height
+			metrics["insetTop"] = imageLayer.frame.size.height
 		} else if nil != titleLabel {
 			verticalFormat += "-(insetTop)"
 			metrics["insetTop"] = contentInsetsRef!.top + titleLabelInsetsRef!.top
@@ -379,6 +394,7 @@ public class ImageCardView : MaterialPulseView {
 		// title
 		if let v = titleLabel {
 			addSubview(v)
+			
 			if nil == imageLayer.contents {
 				verticalFormat += "-[titleLabel]"
 				views["titleLabel"] = v
@@ -390,15 +406,18 @@ public class ImageCardView : MaterialPulseView {
 		
 		// detail
 		if let v = detailLabel {
+			addSubview(v)
+			
 			if nil == imageLayer.contents && nil != titleLabel {
 				verticalFormat += "-(insetB)"
 				metrics["insetB"] = titleLabelInsetsRef!.bottom + detailLabelInsetsRef!.top
+			} else {
+				metrics["insetTop"] = (metrics["insetTop"] as! CGFloat) + detailLabelInsetsRef!.top
 			}
 			
 			verticalFormat += "-[detailLabel]"
 			views["detailLabel"] = v
 			
-			addSubview(v)
 			MaterialLayout.alignToParentHorizontallyWithInsets(self, child: v, left: contentInsetsRef!.left + detailLabelInsetsRef!.left, right: contentInsetsRef!.right + detailLabelInsetsRef!.right)
 		}
 		
@@ -481,10 +500,13 @@ public class ImageCardView : MaterialPulseView {
 			} else {
 				metrics["insetC"] = (metrics["insetC"] as! CGFloat) + titleLabelInsetsRef!.bottom
 			}
+		} else if nil != metrics["insetC"] {
+			metrics["insetC"] = (metrics["insetC"] as! CGFloat) + contentInsetsRef!.top
 		}
 		
 		if 0 < views.count {
 			verticalFormat += "-(insetBottom)-|"
+			print(verticalFormat)
 			addConstraints(MaterialLayout.constraint(verticalFormat, options: [], metrics: metrics, views: views))
 		}
 	}
@@ -493,7 +515,7 @@ public class ImageCardView : MaterialPulseView {
 	//	:name:	prepareImageLayer
 	//
 	internal func prepareImageLayer() {
-		imageLayer = CAShapeLayer()
+		imageLayer.masksToBounds = true
 		imageLayer.zPosition = 0
 		visualLayer.addSublayer(imageLayer)
 	}

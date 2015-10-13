@@ -62,10 +62,10 @@ public enum MaterialInsets {
 */
 public func MaterialInsetsToValue(inset: MaterialInsets) -> MaterialInsetsType {
 	switch inset {
-		
-	// square
 	case .None:
 		return (top: 0, left: 0, bottom: 0, right: 0)
+	
+	// square
 	case .Square1:
 		return (top: 4, left: 4, bottom: 4, right: 4)
 	case .Square2:

@@ -243,6 +243,8 @@ public class BasicCardView : MaterialPulseView {
 		super.prepareView()
 		userInteractionEnabled = MaterialTheme.basicCardView.userInteractionEnabled
 		backgroundColor = MaterialTheme.basicCardView.backgroundColor
+		pulseColor = MaterialTheme.basicCardView.pulseColor
+		
 		contentInsetsRef = MaterialTheme.basicCardView.contentInsetsRef
 		titleLabelInsetsRef = MaterialTheme.basicCardView.titleLabelInsetsRef
 		detailLabelInsetsRef = MaterialTheme.basicCardView.detailLabelInsetsRef
@@ -287,15 +289,18 @@ public class BasicCardView : MaterialPulseView {
 		
 		// title
 		if let v = titleLabel {
+			addSubview(v)
+			
 			verticalFormat += "-[titleLabel]"
 			views["titleLabel"] = v
 			
-			addSubview(v)
 			MaterialLayout.alignToParentHorizontallyWithInsets(self, child: v, left: contentInsetsRef!.left + titleLabelInsetsRef!.left, right: contentInsetsRef!.right + titleLabelInsetsRef!.right)
 		}
 		
 		// detail
 		if let v = detailLabel {
+			addSubview(v)
+			
 			if nil != titleLabel {
 				verticalFormat += "-(insetB)"
 				metrics["insetB"] = titleLabelInsetsRef!.bottom + detailLabelInsetsRef!.top
@@ -303,8 +308,7 @@ public class BasicCardView : MaterialPulseView {
 			
 			verticalFormat += "-[detailLabel]"
 			views["detailLabel"] = v
-			
-			addSubview(v)
+		
 			MaterialLayout.alignToParentHorizontallyWithInsets(self, child: v, left: contentInsetsRef!.left + detailLabelInsetsRef!.left, right: contentInsetsRef!.right + detailLabelInsetsRef!.right)
 		}
 		
@@ -387,10 +391,13 @@ public class BasicCardView : MaterialPulseView {
 			} else {
 				metrics["insetC"] = (metrics["insetC"] as! CGFloat) + titleLabelInsetsRef!.bottom
 			}
+		} else if nil != metrics["insetC"] {
+			metrics["insetC"] = (metrics["insetC"] as! CGFloat) + contentInsetsRef!.top
 		}
 		
 		if 0 < views.count {
 			verticalFormat += "-(insetBottom)-|"
+			print(verticalFormat)
 			addConstraints(MaterialLayout.constraint(verticalFormat, options: [], metrics: metrics, views: views))
 		}
 	}

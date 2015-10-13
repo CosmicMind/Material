@@ -102,11 +102,11 @@ public extension MaterialTheme.basicCardView {
 	// shape
 	public static var masksToBounds: Bool = true
 	public static var cornerRadius: MaterialRadius = .None
-	public static var contentInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square3)
+	public static var contentInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
 	public static var titleLabelInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
-	public static var detailLabelInsetsRef: MaterialInsetsType = (top: 0, left: 8, bottom: 16, right: 8)
-	public static var leftButtonsInsetsRef: MaterialInsetsType = (top: 8, left: 8, bottom: -8, right: 0)
-	public static var rightButtonsInsetsRef: MaterialInsetsType = (top: 8, left: 0, bottom: -8, right: 8)
+	public static var detailLabelInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
+	public static var leftButtonsInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.None)
+	public static var rightButtonsInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.None)
 	
 	// border
 	public static var borderWidth: MaterialBorder = .None
@@ -114,7 +114,7 @@ public extension MaterialTheme.basicCardView {
 	
 	// color
 	public static var backgroundColor: UIColor = MaterialColor.white
-	public static var pulseColor: UIColor = MaterialColor.white
+	public static var pulseColor: UIColor = MaterialColor.blueGrey.lighten4
 	public static var pulseColorOpacity: CGFloat = 0.25
 	
 	// interaction
@@ -144,10 +144,10 @@ public extension MaterialTheme.imageCardView {
 	public static var masksToBounds: Bool = true
 	public static var cornerRadius: MaterialRadius = .None
 	public static var contentInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
-	public static var titleLabelInsetsRef: MaterialInsetsType = (top: 8, left: 16, bottom: 0, right: 16)
-	public static var detailLabelInsetsRef: MaterialInsetsType = (top: 8, left: 16, bottom: 16, right: 16)
-	public static var leftButtonsInsetsRef: MaterialInsetsType = (top: 8, left: 0, bottom: 0, right: 0)
-	public static var rightButtonsInsetsRef: MaterialInsetsType = (top: 8, left: 0, bottom: 0, right: 0)
+	public static var titleLabelInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
+	public static var detailLabelInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
+	public static var leftButtonsInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.None)
+	public static var rightButtonsInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.None)
 	
 	// border
 	public static var borderWidth: MaterialBorder = .None
@@ -155,7 +155,7 @@ public extension MaterialTheme.imageCardView {
 	
 	// color
 	public static var backgroundColor: UIColor = MaterialColor.white
-	public static var pulseColor: UIColor = MaterialColor.white
+	public static var pulseColor: UIColor = MaterialColor.blueGrey.lighten4
 	public static var pulseColorOpacity: CGFloat = 0.25
 	
 	// interaction

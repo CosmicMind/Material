@@ -282,13 +282,6 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	internal func prepareLeftView() {
 		prepareContainer(&leftViewContainer, originX: leftOriginX, originY: 0, width: options.leftViewContainerWidth, height: view.bounds.size.height)
 		prepareLeftGestures()
-		
-//		leftViewContainer!.layer.speed = 0
-		let w: CGFloat = leftViewContainer!.width
-		let h: CGFloat = leftViewContainer!.height
-//		leftAnimation = MaterialAnimation.position(CGPointMake(w / 2, h / 2), duration: 1)
-//		leftViewContainer!.position = CGPointMake(-(w / 2), h / 2)
-//		leftViewContainer!.animation(leftAnimation!)
 	}
 	
 	//
