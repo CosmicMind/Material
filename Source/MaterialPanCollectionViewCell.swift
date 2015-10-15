@@ -36,6 +36,11 @@ public class MaterialPanCollectionViewCell : MaterialPulseCollectionViewCell, UI
 	private var panRecognizer: UIPanGestureRecognizer!
 	
 	//
+	//	:name:	originalPosition
+	//
+	private var originalPosition: CGPoint!
+	
+	//
 	//	:name:	leftOnDragRelease
 	//
 	private lazy var leftOnDragRelease: Bool = false
@@ -44,11 +49,6 @@ public class MaterialPanCollectionViewCell : MaterialPulseCollectionViewCell, UI
 	//	:name:	rightOnDragRelease
 	//
 	private lazy var rightOnDragRelease: Bool = false
-	
-	//
-	//	:name:	originalPosition
-	//
-	private var originalPosition: CGPoint!
 	
 	/**
 		:name:	leftLayer
@@ -66,27 +66,6 @@ public class MaterialPanCollectionViewCell : MaterialPulseCollectionViewCell, UI
 	public private(set) lazy var revealed: Bool = false
 	
 	/**
-		:name:	init
-	*/
-	public required init?(coder aDecoder: NSCoder) {
-		super.init(coder: aDecoder)
-	}
-	
-	/**
-		:name:	init
-	*/
-	public override init(frame: CGRect) {
-		super.init(frame: frame)
-	}
-	
-	/**
-		:name:	init
-	*/
-	public convenience init() {
-		self.init(frame: CGRectNull)
-	}
-	
-	/**
 		:name:	gestureRecognizerShouldBegin
 	*/
 	public override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -101,6 +80,7 @@ public class MaterialPanCollectionViewCell : MaterialPulseCollectionViewCell, UI
 		:name:	prepareView
 	*/
 	public override func prepareView() {
+		super.prepareView()
 		userInteractionEnabled = MaterialTheme.flatButton.userInteractionEnabled
 		backgroundColor = MaterialTheme.flatButton.backgroundColor
 		pulseColorOpacity = MaterialTheme.flatButton.pulseColorOpacity
@@ -114,8 +94,6 @@ public class MaterialPanCollectionViewCell : MaterialPulseCollectionViewCell, UI
 		borderColor = MaterialTheme.flatButton.bordercolor
 		shape = MaterialTheme.flatButton.shape
 		
-		prepareVisualLayer()
-		preparePulseLayer()
 		prepareLeftLayer()
 		prepareRightLayer()
 		preparePanGesture()

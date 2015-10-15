@@ -53,7 +53,7 @@ public class MaterialPulseCollectionViewCell : UICollectionViewCell {
 	/**
 		:name:	pulseFill
 	*/
-	public var pulseFill: Bool = false {
+	public var pulseFill: Bool = true {
 		didSet {
 			if pulseFill {
 				spotlight = false
@@ -427,25 +427,22 @@ public class MaterialPulseCollectionViewCell : UICollectionViewCell {
 		super.touchesBegan(touches, withEvent: event)
 		let point: CGPoint = layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer)
 		if true == layer.containsPoint(point) {
-			let s: CGFloat = (width < height ? height : width) / 2
-			let f: CGFloat = 3
-			let v: CGFloat = s / f
-			let d: CGFloat = 2 * f
-			let r: CGFloat = 1.05
+			let w: CGFloat = width
+			let h: CGFloat = height
+			let s: CGFloat = 1.05
 			let t: CFTimeInterval = 0.25
 			
 			if nil != pulseColor && 0 < pulseColorOpacity {
 				MaterialAnimation.animationDisabled({
-					self.pulseLayer.hidden = false
-					self.pulseLayer.bounds = CGRectMake(0, 0, v, v)
-					self.pulseLayer.position = point
-					self.pulseLayer.cornerRadius = s / d
+					self.pulseLayer.bounds = CGRectMake(0, 0, 2 * w,  2 * h)
 				})
-				pulseLayer.addAnimation(MaterialAnimation.scale(pulseFill ? 3 * d : d, duration: t), forKey: nil)
+				MaterialAnimation.animationWithDuration(t, animations: {
+					self.pulseLayer.hidden = false
+				})
 			}
 			
 			if pulseScale {
-				layer.addAnimation(MaterialAnimation.scale(r, duration: t), forKey: nil)
+				layer.addAnimation(MaterialAnimation.scale(s, duration: t), forKey: nil)
 			}
 		}
 	}
@@ -457,7 +454,7 @@ public class MaterialPulseCollectionViewCell : UICollectionViewCell {
 		super.touchesMoved(touches, withEvent: event)
 		if spotlight {
 			let point: CGPoint = layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer)
-			if true == layer.containsPoint(point) {
+			if layer.containsPoint(point) {
 				MaterialAnimation.animationDisabled({
 					self.pulseLayer.position = point
 				})
@@ -544,16 +541,17 @@ public class MaterialPulseCollectionViewCell : UICollectionViewCell {
 	//
 	internal func shrink() {
 		let t: CFTimeInterval = 0.25
+		let s: CGFloat = 1
 		
 		if nil != pulseColor && 0 < pulseColorOpacity {
 			MaterialAnimation.animationWithDuration(t, animations: {
 				self.pulseLayer.hidden = true
 			})
-			pulseLayer.addAnimation(MaterialAnimation.scale(1, duration: t), forKey: nil)
+			pulseLayer.addAnimation(MaterialAnimation.scale(s, duration: t), forKey: nil)
 		}
 		
 		if pulseScale {
-			layer.addAnimation(MaterialAnimation.scale(1, duration: t), forKey: nil)
+			layer.addAnimation(MaterialAnimation.scale(s, duration: t), forKey: nil)
 		}
 	}
 }
