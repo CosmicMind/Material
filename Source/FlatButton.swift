@@ -25,7 +25,7 @@ public class FlatButton : MaterialButton {
 	public override func prepareView() {
 		super.prepareView()
 		setTitleColor(MaterialTheme.flatButton.titleLabelColorForNormalState, forState: .Normal)
-		titleLabel!.font = MaterialTheme.flatButton.titleLabelFont
+		titleLabel?.font = MaterialTheme.flatButton.titleLabelFont
 		
 		userInteractionEnabled = MaterialTheme.flatButton.userInteractionEnabled
 		backgroundColor = MaterialTheme.flatButton.backgroundColor

@@ -155,7 +155,7 @@ public struct MaterialColor {
 	}
 	
 	// cyan
-	public struct cyab {
+	public struct cyan {
 		public static let lighten5: UIColor = UIColor(red: 224/255, green: 247/255, blue: 250/255, alpha: 1)
 		public static let lighten4: UIColor = UIColor(red: 1178/255, green: 235/255, blue: 242/255, alpha: 1)
 		public static let lighten3: UIColor = UIColor(red: 128/255, green: 222/255, blue: 2343/255, alpha: 1)

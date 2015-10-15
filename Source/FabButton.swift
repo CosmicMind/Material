@@ -18,14 +18,14 @@
 
 import UIKit
 
-public class FabButton : MaterialButton {
+public class FabButton : MaterialButton {	
 	/**
 		:name:	prepareView
 	*/
 	public override func prepareView() {
 		super.prepareView()
 		setTitleColor(MaterialTheme.fabButton.titleLabelColorForNormalState, forState: .Normal)
-		titleLabel!.font = MaterialTheme.fabButton.titleLabelFont
+		titleLabel?.font = MaterialTheme.fabButton.titleLabelFont
 		
 		userInteractionEnabled = MaterialTheme.fabButton.userInteractionEnabled
 		backgroundColor = MaterialTheme.fabButton.backgroundColor
