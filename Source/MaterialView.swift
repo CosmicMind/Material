@@ -291,6 +291,7 @@ public class MaterialView : UIView {
 		shape = .None
 		cornerRadius = .None
 		super.init(coder: aDecoder)
+		prepareView()
 	}
 	
 	/**
@@ -390,19 +391,16 @@ public class MaterialView : UIView {
 		zPosition = MaterialTheme.view.zPosition
 		borderColor = MaterialTheme.view.bordercolor
 		
-		// visualLayer
-		visualLayer.zPosition = -1
-		visualLayer.masksToBounds = true
-		layer.addSublayer(visualLayer)
+		prepareVisualLayer()
 	}
 	
 	//
-	//	:name:	layoutShape
+	//	:name:	prepareVisualLayer
 	//
-	internal func layoutShape() {
-		if .Circle == shape {
-			layer.cornerRadius = width / 2
-		}
+	internal func prepareVisualLayer() {
+		visualLayer.zPosition = -1
+		visualLayer.masksToBounds = true
+		layer.addSublayer(visualLayer)
 	}
 	
 	//
@@ -412,5 +410,14 @@ public class MaterialView : UIView {
 		visualLayer.frame = bounds
 		visualLayer.position = CGPointMake(width / 2, height / 2)
 		visualLayer.cornerRadius = layer.cornerRadius
+	}
+	
+	//
+	//	:name:	layoutShape
+	//
+	internal func layoutShape() {
+		if .Circle == shape {
+			layer.cornerRadius = width / 2
+		}
 	}
 }

@@ -80,7 +80,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell, UIGestureRecogni
 	*/
 	public var pulseColorOpacity: CGFloat = MaterialTheme.pulseView.pulseColorOpacity {
 		didSet {
-			preparePulseLayer()
+			updatePulseLayer()
 		}
 	}
 	
@@ -89,7 +89,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell, UIGestureRecogni
 	*/
 	public var pulseColor: UIColor? {
 		didSet {
-			preparePulseLayer()
+			updatePulseLayer()
 		}
 	}
 	
@@ -304,6 +304,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell, UIGestureRecogni
 		shadowDepth = .None
 		shape = .None
 		super.init(coder: aDecoder)
+		prepareView()
 	}
 	
 	/**
@@ -325,15 +326,14 @@ public class MaterialCollectionViewCell : UICollectionViewCell, UIGestureRecogni
 	}
 	
 	/**
-		:name:	layoutSubviews
+		:name:	layoutSublayersOfLayer
 	*/
-	public override func layoutSubviews() {
-		super.layoutSubviews()
-		layoutShape()
-		
-		visualLayer.frame = bounds
-		visualLayer.position = CGPointMake(width / 2, height / 2)
-		visualLayer.cornerRadius = layer.cornerRadius
+	public override func layoutSublayersOfLayer(layer: CALayer) {
+		super.layoutSublayersOfLayer(layer)
+		if self.layer == layer {
+			layoutShape()
+			layoutVisualLayer()
+		}
 	}
 	
 	/**
@@ -457,20 +457,63 @@ public class MaterialCollectionViewCell : UICollectionViewCell, UIGestureRecogni
 		borderColor = MaterialTheme.flatButton.bordercolor
 		shape = MaterialTheme.flatButton.shape
 		
-		// visualLayer
+		prepareVisualLayer()
+		preparePulseLayer()
+		preparePanGesture()
+	}
+	
+	//
+	//	:name:	prepareVisualLayer
+	//
+	internal func prepareVisualLayer() {
 		visualLayer.zPosition = -1
+		visualLayer.masksToBounds = true
 		layer.addSublayer(visualLayer)
-		
-		// pulseLayer
+	}
+	
+	//
+	//	:name:	layoutVisualLayer
+	//
+	internal func layoutVisualLayer() {
+		visualLayer.frame = bounds
+		visualLayer.position = CGPointMake(width / 2, height / 2)
+		visualLayer.cornerRadius = layer.cornerRadius
+	}
+	
+	//
+	//	:name:	layoutShape
+	//
+	internal func layoutShape() {
+		if .Circle == shape {
+			layer.cornerRadius = width / 2
+		}
+	}
+	
+	//
+	//	:name:	preparePulseLayer
+	//
+	internal func preparePulseLayer() {
 		pulseLayer.hidden = true
 		pulseLayer.zPosition = 1
 		visualLayer.addSublayer(pulseLayer)
-		
-		// gesture
+	}
+	
+	//
+	//	:name:	updatePulseLayer
+	//
+	internal func updatePulseLayer() {
+		pulseLayer.backgroundColor = pulseColor?.colorWithAlphaComponent(pulseColorOpacity).CGColor
+	}
+	
+	//
+	//	:name:	preparePanGesture
+	//
+	internal func preparePanGesture() {
 		panRecognizer = UIPanGestureRecognizer(target: self, action: "handlePanGesture:")
 		panRecognizer.delegate = self
 		addGestureRecognizer(panRecognizer)
 	}
+	
 	
 	//
 	//	:name:	handlePanGesture
@@ -523,31 +566,6 @@ public class MaterialCollectionViewCell : UICollectionViewCell, UIGestureRecogni
 			
 		default:break
 		}
-	}
-	
-	//
-	//	:name:	layoutShape
-	//
-	internal func layoutShape() {
-		if .Circle == shape {
-			layer.cornerRadius = width / 2
-		}
-	}
-	
-	//
-	//	:name:	layoutVisualLayer
-	//
-	internal func layoutVisualLayer() {
-		visualLayer.frame = bounds
-		visualLayer.position = CGPointMake(width / 2, height / 2)
-		visualLayer.cornerRadius = layer.cornerRadius
-	}
-	
-	//
-	//	:name:	preparePulseLayer
-	//
-	internal func preparePulseLayer() {
-		pulseLayer.backgroundColor = pulseColor?.colorWithAlphaComponent(pulseColorOpacity).CGColor
 	}
 	
 	//

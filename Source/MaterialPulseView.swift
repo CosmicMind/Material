@@ -56,7 +56,7 @@ public class MaterialPulseView : MaterialView {
 	*/
 	public var pulseColorOpacity: CGFloat = MaterialTheme.pulseView.pulseColorOpacity {
 		didSet {
-			preparePulseLayer()
+			updatedPulseLayer()
 		}
 	}
 	
@@ -65,7 +65,7 @@ public class MaterialPulseView : MaterialView {
 	*/
 	public var pulseColor: UIColor? {
 		didSet {
-			preparePulseLayer()
+			updatedPulseLayer()
 		}
 	}
 	
@@ -156,16 +156,22 @@ public class MaterialPulseView : MaterialView {
 		borderWidth = MaterialTheme.pulseView.borderWidth
 		borderColor = MaterialTheme.pulseView.bordercolor
 		
-		// pulseLayer
-		pulseLayer.hidden = true
-		pulseLayer.zPosition = 1
-		visualLayer.addSublayer(pulseLayer)
+		preparePulseLayer()
 	}
 	
 	//
 	//	:name:	preparePulseLayer
 	//
 	internal func preparePulseLayer() {
+		pulseLayer.hidden = true
+		pulseLayer.zPosition = 1
+		visualLayer.addSublayer(pulseLayer)
+	}
+	
+	//
+	//	:name:	updatedPulseLayer
+	//
+	internal func updatedPulseLayer() {
 		pulseLayer.backgroundColor = pulseColor?.colorWithAlphaComponent(pulseColorOpacity).CGColor
 	}
 	

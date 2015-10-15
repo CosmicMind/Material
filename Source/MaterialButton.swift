@@ -67,7 +67,7 @@ public class MaterialButton : UIButton {
 	*/
 	public var pulseColorOpacity: CGFloat = MaterialTheme.pulseView.pulseColorOpacity {
 		didSet {
-			preparePulseLayer()
+			updatePulseLayer()
 		}
 	}
 	
@@ -76,7 +76,7 @@ public class MaterialButton : UIButton {
 	*/
 	public var pulseColor: UIColor? {
 		didSet {
-			preparePulseLayer()
+			updatePulseLayer()
 		}
 	}
 	
@@ -302,6 +302,7 @@ public class MaterialButton : UIButton {
 		shape = .None
 		contentInsets = .None
 		super.init(coder: aDecoder)
+		prepareView()
 	}
 	
 	/**
@@ -449,24 +450,17 @@ public class MaterialButton : UIButton {
 		:name:	prepareView
 	*/
 	public func prepareView() {
-		// visualLayer
-		visualLayer.zPosition = -1
-		visualLayer.masksToBounds = true
-		layer.addSublayer(visualLayer)
-		
-		// pulseLayer
-		pulseLayer.hidden = true
-		pulseLayer.zPosition = 1
-		visualLayer.addSublayer(pulseLayer)
+		prepareVisualLayer()
+		preparePulseLayer()
 	}
 	
 	//
-	//	:name:	layoutShape
+	//	:name:	prepareVisualLayer
 	//
-	internal func layoutShape() {
-		if .Circle == shape {
-			layer.cornerRadius = width / 2
-		}
+	internal func prepareVisualLayer() {
+		visualLayer.zPosition = -1
+		visualLayer.masksToBounds = true
+		layer.addSublayer(visualLayer)
 	}
 	
 	//
@@ -479,9 +473,27 @@ public class MaterialButton : UIButton {
 	}
 	
 	//
+	//	:name:	layoutShape
+	//
+	internal func layoutShape() {
+		if .Circle == shape {
+			layer.cornerRadius = width / 2
+		}
+	}
+	
+	//
 	//	:name:	preparePulseLayer
 	//
 	internal func preparePulseLayer() {
+		pulseLayer.hidden = true
+		pulseLayer.zPosition = 1
+		visualLayer.addSublayer(pulseLayer)
+	}
+	
+	//
+	//	:name:	updatePulseLayer
+	//
+	internal func updatePulseLayer() {
 		pulseLayer.backgroundColor = pulseColor?.colorWithAlphaComponent(pulseColorOpacity).CGColor
 	}
 	
