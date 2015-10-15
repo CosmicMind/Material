@@ -445,12 +445,12 @@ public class MaterialPulseCollectionViewCell : UICollectionViewCell {
 		:name:	prepareView
 	*/
 	public func prepareView() {
-		userInteractionEnabled = MaterialTheme.flatButton.userInteractionEnabled
-		backgroundColor = MaterialTheme.flatButton.backgroundColor
+		userInteractionEnabled = MaterialTheme.pulseCollectionView.userInteractionEnabled
+		backgroundColor = MaterialTheme.pulseCollectionView.backgroundColor
 		
-		shadowColor = MaterialTheme.flatButton.shadowColor
-		zPosition = MaterialTheme.flatButton.zPosition
-		borderColor = MaterialTheme.flatButton.bordercolor
+		shadowColor = MaterialTheme.pulseCollectionView.shadowColor
+		zPosition = MaterialTheme.pulseCollectionView.zPosition
+		borderColor = MaterialTheme.pulseCollectionView.bordercolor
 		
 		prepareVisualLayer()
 		preparePulseLayer()
