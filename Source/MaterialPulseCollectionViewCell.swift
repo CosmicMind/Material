@@ -40,28 +40,6 @@ public class MaterialPulseCollectionViewCell : UICollectionViewCell {
 	public lazy var pulseScale: Bool = true
 	
 	/**
-		:name:	spotlight
-	*/
-	public var spotlight: Bool = false {
-		didSet {
-			if spotlight {
-				pulseFill = false
-			}
-		}
-	}
-	
-	/**
-		:name:	pulseFill
-	*/
-	public var pulseFill: Bool = true {
-		didSet {
-			if pulseFill {
-				spotlight = false
-			}
-		}
-	}
-	
-	/**
 		:name:	pulseColorOpacity
 	*/
 	public var pulseColorOpacity: CGFloat = MaterialTheme.pulseView.pulseColorOpacity {
@@ -443,21 +421,6 @@ public class MaterialPulseCollectionViewCell : UICollectionViewCell {
 			
 			if pulseScale {
 				layer.addAnimation(MaterialAnimation.scale(s, duration: t), forKey: nil)
-			}
-		}
-	}
-	
-	/**
-		:name:	touchesMoved
-	*/
-	public override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-		super.touchesMoved(touches, withEvent: event)
-		if spotlight {
-			let point: CGPoint = layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer)
-			if layer.containsPoint(point) {
-				MaterialAnimation.animationDisabled({
-					self.pulseLayer.position = point
-				})
 			}
 		}
 	}
