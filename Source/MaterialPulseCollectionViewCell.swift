@@ -18,17 +18,66 @@
 
 import UIKit
 
-@objc(MaterialView)
-public class MaterialView : UIView {
-	//
-	//	:name:	visualLayer
-	//
+public class MaterialPulseCollectionViewCell : UICollectionViewCell {
+	/**
+		:name:	visualLayer
+	*/
 	public private(set) lazy var visualLayer: CAShapeLayer = CAShapeLayer()
+	
+	/**
+		:name:	pulseLayer
+	*/
+	public private(set) lazy var pulseLayer: CAShapeLayer = CAShapeLayer()
 	
 	/**
 		:name:	delegate
 	*/
 	public weak var delegate: MaterialDelegate?
+	
+	/**
+		:name:	pulseScale
+	*/
+	public lazy var pulseScale: Bool = true
+	
+	/**
+		:name:	spotlight
+	*/
+	public var spotlight: Bool = false {
+		didSet {
+			if spotlight {
+				pulseFill = false
+			}
+		}
+	}
+	
+	/**
+		:name:	pulseFill
+	*/
+	public var pulseFill: Bool = false {
+		didSet {
+			if pulseFill {
+				spotlight = false
+			}
+		}
+	}
+	
+	/**
+		:name:	pulseColorOpacity
+	*/
+	public var pulseColorOpacity: CGFloat = MaterialTheme.pulseView.pulseColorOpacity {
+		didSet {
+			updatePulseLayer()
+		}
+	}
+	
+	/**
+		:name:	pulseColor
+	*/
+	public var pulseColor: UIColor? {
+		didSet {
+			updatePulseLayer()
+		}
+	}
 	
 	/**
 		:name:	image
@@ -210,7 +259,7 @@ public class MaterialView : UIView {
 	/**
 		:name:	cornerRadius
 	*/
-	public var cornerRadius: MaterialRadius {
+	public var cornerRadius: MaterialRadius? {
 		didSet {
 			if let v: MaterialRadius = cornerRadius {
 				layer.cornerRadius = MaterialRadiusToValue(v)
@@ -282,12 +331,12 @@ public class MaterialView : UIView {
 		:name:	init
 	*/
 	public required init?(coder aDecoder: NSCoder) {
-		contentsRect = MaterialTheme.view.contentsRect
-		contentsCenter = MaterialTheme.view.contentsCenter
-		contentsScale = MaterialTheme.view.contentsScale
-		contentsGravity = MaterialTheme.view.contentsGravity
-		borderWidth = MaterialTheme.view.borderWidth
-		shadowDepth = MaterialTheme.view.shadowDepth
+		contentsRect = MaterialTheme.pulseCollectionView.contentsRect
+		contentsCenter = MaterialTheme.pulseCollectionView.contentsCenter
+		contentsScale = MaterialTheme.pulseCollectionView.contentsScale
+		contentsGravity = MaterialTheme.pulseCollectionView.contentsGravity
+		borderWidth = MaterialTheme.pulseCollectionView.borderWidth
+		shadowDepth = MaterialTheme.pulseCollectionView.shadowDepth
 		shape = .None
 		cornerRadius = .None
 		super.init(coder: aDecoder)
@@ -298,12 +347,12 @@ public class MaterialView : UIView {
 		:name:	init
 	*/
 	public override init(frame: CGRect) {
-		contentsRect = MaterialTheme.view.contentsRect
-		contentsCenter = MaterialTheme.view.contentsCenter
-		contentsScale = MaterialTheme.view.contentsScale
-		contentsGravity = MaterialTheme.view.contentsGravity
-		borderWidth = MaterialTheme.view.borderWidth
-		shadowDepth = MaterialTheme.view.shadowDepth
+		contentsRect = MaterialTheme.pulseCollectionView.contentsRect
+		contentsCenter = MaterialTheme.pulseCollectionView.contentsCenter
+		contentsScale = MaterialTheme.pulseCollectionView.contentsScale
+		contentsGravity = MaterialTheme.pulseCollectionView.contentsGravity
+		borderWidth = MaterialTheme.pulseCollectionView.borderWidth
+		shadowDepth = MaterialTheme.pulseCollectionView.shadowDepth
 		shape = .None
 		cornerRadius = .None
 		super.init(frame: frame)
@@ -326,13 +375,6 @@ public class MaterialView : UIView {
 			layoutShape()
 			layoutVisualLayer()
 		}
-	}
-	
-	/**
-		:name:	actionForLayer
-	*/
-	public override func actionForLayer(layer: CALayer, forKey event: String) -> CAAction? {
-		return nil
 	}
 	
 	/**
@@ -376,21 +418,82 @@ public class MaterialView : UIView {
 				animationDidStop(x, finished: true)
 			}
 		}
-		layoutVisualLayer()
 	}
 	
-	//
-	//	:name:	prepareView
-	//
+	/**
+		:name:	touchesBegan
+	*/
+	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+		super.touchesBegan(touches, withEvent: event)
+		let point: CGPoint = layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer)
+		if true == layer.containsPoint(point) {
+			let s: CGFloat = (width < height ? height : width) / 2
+			let f: CGFloat = 3
+			let v: CGFloat = s / f
+			let d: CGFloat = 2 * f
+			let r: CGFloat = 1.05
+			let t: CFTimeInterval = 0.25
+			
+			if nil != pulseColor && 0 < pulseColorOpacity {
+				MaterialAnimation.animationDisabled({
+					self.pulseLayer.hidden = false
+					self.pulseLayer.bounds = CGRectMake(0, 0, v, v)
+					self.pulseLayer.position = point
+					self.pulseLayer.cornerRadius = s / d
+				})
+				pulseLayer.addAnimation(MaterialAnimation.scale(pulseFill ? 3 * d : d, duration: t), forKey: nil)
+			}
+			
+			if pulseScale {
+				layer.addAnimation(MaterialAnimation.scale(r, duration: t), forKey: nil)
+			}
+		}
+	}
+	
+	/**
+		:name:	touchesMoved
+	*/
+	public override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+		super.touchesMoved(touches, withEvent: event)
+		if spotlight {
+			let point: CGPoint = layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer)
+			if true == layer.containsPoint(point) {
+				MaterialAnimation.animationDisabled({
+					self.pulseLayer.position = point
+				})
+			}
+		}
+	}
+	
+	/**
+		:name:	touchesEnded
+	*/
+	public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+		super.touchesEnded(touches, withEvent: event)
+		shrink()
+	}
+	
+	/**
+		:name:	touchesCancelled
+	*/
+	public override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
+		super.touchesCancelled(touches, withEvent: event)
+		shrink()
+	}
+	
+	/**
+		:name:	prepareView
+	*/
 	public func prepareView() {
-		userInteractionEnabled = MaterialTheme.view.userInteractionEnabled
-		backgroundColor = MaterialTheme.view.backgroundColor
+		userInteractionEnabled = MaterialTheme.flatButton.userInteractionEnabled
+		backgroundColor = MaterialTheme.flatButton.backgroundColor
 		
-		shadowColor = MaterialTheme.view.shadowColor
-		zPosition = MaterialTheme.view.zPosition
-		borderColor = MaterialTheme.view.bordercolor
+		shadowColor = MaterialTheme.flatButton.shadowColor
+		zPosition = MaterialTheme.flatButton.zPosition
+		borderColor = MaterialTheme.flatButton.bordercolor
 		
 		prepareVisualLayer()
+		preparePulseLayer()
 	}
 	
 	//
@@ -417,6 +520,40 @@ public class MaterialView : UIView {
 	internal func layoutShape() {
 		if .Circle == shape {
 			layer.cornerRadius = width / 2
+		}
+	}
+	
+	//
+	//	:name:	preparePulseLayer
+	//
+	internal func preparePulseLayer() {
+		pulseLayer.hidden = true
+		pulseLayer.zPosition = 1
+		visualLayer.addSublayer(pulseLayer)
+	}
+	
+	//
+	//	:name:	updatePulseLayer
+	//
+	internal func updatePulseLayer() {
+		pulseLayer.backgroundColor = pulseColor?.colorWithAlphaComponent(pulseColorOpacity).CGColor
+	}
+	
+	//
+	//	:name:	shrink
+	//
+	internal func shrink() {
+		let t: CFTimeInterval = 0.25
+		
+		if nil != pulseColor && 0 < pulseColorOpacity {
+			MaterialAnimation.animationWithDuration(t, animations: {
+				self.pulseLayer.hidden = true
+			})
+			pulseLayer.addAnimation(MaterialAnimation.scale(1, duration: t), forKey: nil)
+		}
+		
+		if pulseScale {
+			layer.addAnimation(MaterialAnimation.scale(1, duration: t), forKey: nil)
 		}
 	}
 }

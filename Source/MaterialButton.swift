@@ -81,6 +81,18 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
+		:name:	masksToBounds
+	*/
+	public var masksToBounds: Bool {
+		get {
+			return layer.masksToBounds
+		}
+		set(value) {
+			layer.masksToBounds = value
+		}
+	}
+	
+	/**
 		:name:	backgroundColor
 	*/
 	public override var backgroundColor: UIColor? {
@@ -197,18 +209,6 @@ public class MaterialButton : UIButton {
 			shadowOffset = value.offset
 			shadowOpacity = value.opacity
 			shadowRadius = value.radius
-		}
-	}
-	
-	/**
-		:name:	masksToBounds
-	*/
-	public var masksToBounds: Bool {
-		get {
-			return layer.masksToBounds
-		}
-		set(value) {
-			layer.masksToBounds = value
 		}
 	}
 	

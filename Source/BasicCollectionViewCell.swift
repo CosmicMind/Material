@@ -18,7 +18,7 @@
 
 import UIKit
 
-public class BasicCollectionViewCell : MaterialCollectionViewCell {
+public class BasicCollectionViewCell : MaterialPanCollectionViewCell {
 	/**
 		:name:	titleLayer
 	*/
@@ -28,16 +28,6 @@ public class BasicCollectionViewCell : MaterialCollectionViewCell {
 		:name:	detailLayer
 	*/
 	public private(set) lazy var detailLayer: MaterialTextLayer = MaterialTextLayer()
-	
-	/**
-		:name:	leftLayer
-	*/
-	public private(set) lazy var leftLayer: MaterialLayer = MaterialLayer()
-	
-	/**
-		:name:	rightLayer
-	*/
-	public private(set) lazy var rightLayer: MaterialLayer = MaterialLayer()
 	
 	/**
 		:name:	prepareView
@@ -50,13 +40,5 @@ public class BasicCollectionViewCell : MaterialCollectionViewCell {
 		
 		// detail
 		layer.addSublayer(detailLayer)
-		
-		// left
-		leftLayer.frame = CGRectMake(-width, 0, width, height)
-		layer.addSublayer(leftLayer)
-		
-		// right
-		rightLayer.frame = CGRectMake(width, 0, width, height)
-		layer.addSublayer(rightLayer)
 	}
 }

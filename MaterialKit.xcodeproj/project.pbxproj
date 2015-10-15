@@ -69,6 +69,7 @@
 		9693BF991BCDC1450087054A /* SideNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693BF981BCDC1450087054A /* SideNavigationViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		9693BF9C1BCDC16C0087054A /* MaterialCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693BF9B1BCDC16C0087054A /* MaterialCollectionViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		9693BF9E1BCDC1840087054A /* BasicCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693BF9D1BCDC1840087054A /* BasicCollectionViewCell.swift */; settings = {ASSET_TAGS = (); }; };
+		9693BFA01BCF36A40087054A /* MaterialPulseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693BF9F1BCF36A40087054A /* MaterialPulseCollectionViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		9699879C1BC5FE49006D678E /* MaterialTextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9699879B1BC5FE49006D678E /* MaterialTextLayer.swift */; settings = {ASSET_TAGS = (); }; };
 		96C4FABE1BC3168900E4FFC3 /* MaterialTransitionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C4FABD1BC3168900E4FFC3 /* MaterialTransitionAnimation.swift */; settings = {ASSET_TAGS = (); }; };
 		96D26BFD1BC23649006478BD /* ImageCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D26BFC1BC23649006478BD /* ImageCardView.swift */; settings = {ASSET_TAGS = (); }; };
@@ -126,6 +127,7 @@
 		9693BF981BCDC1450087054A /* SideNavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideNavigationViewController.swift; sourceTree = "<group>"; };
 		9693BF9B1BCDC16C0087054A /* MaterialCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialCollectionViewCell.swift; sourceTree = "<group>"; };
 		9693BF9D1BCDC1840087054A /* BasicCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicCollectionViewCell.swift; sourceTree = "<group>"; };
+		9693BF9F1BCF36A40087054A /* MaterialPulseCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialPulseCollectionViewCell.swift; sourceTree = "<group>"; };
 		9699879B1BC5FE49006D678E /* MaterialTextLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialTextLayer.swift; sourceTree = "<group>"; };
 		96C4FABD1BC3168900E4FFC3 /* MaterialTransitionAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialTransitionAnimation.swift; sourceTree = "<group>"; };
 		96D26BFC1BC23649006478BD /* ImageCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCardView.swift; sourceTree = "<group>"; };
@@ -315,6 +317,7 @@
 		9693BF9A1BCDC15C0087054A /* Collection */ = {
 			isa = PBXGroup;
 			children = (
+				9693BF9F1BCF36A40087054A /* MaterialPulseCollectionViewCell.swift */,
 				9693BF9B1BCDC16C0087054A /* MaterialCollectionViewCell.swift */,
 				9693BF9D1BCDC1840087054A /* BasicCollectionViewCell.swift */,
 			);
@@ -515,6 +518,7 @@
 				65BDD16A1BB7146B006F7F2B /* MaterialBorder.swift in Sources */,
 				65BDD15B1BB7095E006F7F2B /* MaterialRadius.swift in Sources */,
 				65BDD1721BB8CD77006F7F2B /* MaterialLabel.swift in Sources */,
+				9693BFA01BCF36A40087054A /* MaterialPulseCollectionViewCell.swift in Sources */,
 				65BDD1491BB5DC98006F7F2B /* MaterialColor.swift in Sources */,
 				9693BF861BCB0E0A0087054A /* Material+UIFont.swift in Sources */,
 				96C4FABE1BC3168900E4FFC3 /* MaterialTransitionAnimation.swift in Sources */,
