@@ -399,7 +399,7 @@ public class MaterialButton : UIButton {
 					self.pulseLayer.position = point
 					self.pulseLayer.cornerRadius = r / d
 				})
-				pulseLayer.addAnimation(MaterialAnimation.scale(pulseFill ? 3 * d : d, duration: t), forKey: nil)
+				pulseLayer.addAnimation(MaterialAnimation.scale(pulseFill ? 3 * d : 1.5 * d, duration: t), forKey: nil)
 			}
 			
 			if pulseScale {
