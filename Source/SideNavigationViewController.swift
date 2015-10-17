@@ -58,10 +58,10 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		return 0 == NSBundle.mainBundle().objectForInfoDictionaryKey("UIViewControllerBasedStatusBarAppearance") as? Int
 	}
 	
-	//
-	//	:name:	isUserInteractionEnabled
-	//
-	internal var isUserInteractionEnabled: Bool {
+	/**
+		:name:	userInteractionEnabled
+	*/
+	public var userInteractionEnabled: Bool {
 		get {
 			return mainViewController!.view.userInteractionEnabled
 		}
@@ -199,12 +199,12 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			let h: CGFloat = vc.height
 			let d: Double = Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(vc.x / velocity))))
 			
+			toggleStatusBar(true)
 			MaterialAnimation.animationWithDuration(d, animations: {
 				vc.position = CGPointMake(w / 2, h / 2)
 				self.backdropLayer.hidden = false
 			}) {
-				self.isUserInteractionEnabled = false
-				self.toggleStatusBar(true)
+				self.userInteractionEnabled = false
 			}
 		}
 	}
@@ -218,12 +218,12 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			let h: CGFloat = vc.height
 			let d: Double = Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(vc.x / velocity))))
 			
+			toggleStatusBar(false)
 			MaterialAnimation.animationWithDuration(d, animations: {
 				vc.position = CGPointMake(-w / 2, h / 2)
 				self.backdropLayer.hidden = true
 			}) {
-				self.isUserInteractionEnabled = true
-				self.toggleStatusBar(false)
+				self.userInteractionEnabled = true
 			}
 		}
 	}
@@ -270,7 +270,6 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		MaterialAnimation.animationDisabled({
 			self.leftView!.position = CGPointMake(-self.leftView!.width / 2, self.leftView!.height / 2)
 			self.leftView!.zPosition = 1000
-			self.leftView!.masksToBounds = true
 		})
 		
 		prepareViewControllerWithinContainer(leftViewController!, container: leftView!)
