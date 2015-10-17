@@ -44,12 +44,12 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	/**
 		:name:	horizontalThreshold
 	*/
-	public static let horizontalThreshold: CGFloat = 64
+	public lazy var horizontalThreshold: CGFloat = 64
 	
 	/**
 		:name:	animationDuration
 	*/
-	public static let animationDuration: CGFloat = 0.25
+	public lazy var animationDuration: CGFloat = 0.25
 	
 	//
 	//	:name:	enabled
@@ -64,12 +64,12 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	/**
 		:name:	backdropLayer
 	*/
-	public private(set) static var backdropLayer: CAShapeLayer = CAShapeLayer()
+	public private(set) lazy var backdropLayer: CAShapeLayer = CAShapeLayer()
 	
 	/**
 		:name:	backdropOpacity
 	*/
-	public static var backdropOpacity: CGFloat = 0.5 {
+	public var backdropOpacity: CGFloat = 0.5 {
 		didSet {
 			backdropLayer.backgroundColor = backdropColor?.colorWithAlphaComponent(backdropOpacity).CGColor
 		}
@@ -78,7 +78,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	/**
 		:name:	backdropColor
 	*/
-	public static var backdropColor: UIColor? {
+	public var backdropColor: UIColor? {
 		didSet {
 			backdropLayer.backgroundColor = backdropColor?.colorWithAlphaComponent(backdropOpacity).CGColor
 		}
@@ -96,7 +96,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	*/
 	public var isLeftContainerOpened: Bool {
 		if let v = leftView {
-			return v.x != leftOriginX
+			return v.x != -leftViewControllerWidth
 		}
 		return false
 	}
@@ -138,11 +138,16 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	*/
 	public var leftTapGesture: UITapGestureRecognizer?
 	
-	//
-	//	:name:	leftOriginX
-	//
-	private var leftOriginX: CGFloat {
-		return -240
+	/**
+		:name:	leftViewControllerWidth
+	*/
+	public var leftViewControllerWidth: CGFloat = 240 {
+		didSet {
+			leftView?.width = leftViewControllerWidth
+			MaterialAnimation.animationDisabled({
+				self.leftView!.position = CGPointMake(-self.leftView!.width / 2, self.leftView!.height / 2)
+			})
+		}
 	}
 	
 	/**
@@ -193,12 +198,12 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		if let vc = leftView {
 			let w: CGFloat = vc.width
 			let h: CGFloat = vc.height
-			let d: Double = Double(0 == velocity ? SideNavigationViewController.animationDuration : fmax(0.1, fmin(1, Double(vc.x / velocity))))
+			let d: Double = Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(vc.x / velocity))))
 			
 			MaterialAnimation.animationWithDuration(d, animations: {
 				vc.position = CGPointMake(w / 2, h / 2)
+				self.backdropLayer.hidden = false
 			}) {
-				SideNavigationViewController.backdropLayer.hidden = false
 				self.isUserInteractionEnabled = false
 				self.toggleStatusBar(true)
 			}
@@ -212,12 +217,12 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		if let vc = leftView {
 			let w: CGFloat = vc.width
 			let h: CGFloat = vc.height
-			let d: Double = Double(0 == velocity ? SideNavigationViewController.animationDuration : fmax(0.1, fmin(1, Double(vc.x / velocity))))
+			let d: Double = Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(vc.x / velocity))))
 			
 			MaterialAnimation.animationWithDuration(d, animations: {
 				vc.position = CGPointMake(-w / 2, h / 2)
+				self.backdropLayer.hidden = true
 			}) {
-				SideNavigationViewController.backdropLayer.hidden = true
 				self.isUserInteractionEnabled = true
 				self.toggleStatusBar(false)
 			}
@@ -244,7 +249,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	//	:name:	prepareView
 	//
 	internal func prepareView() {
-		SideNavigationViewController.backdropColor = MaterialColor.black
+		backdropColor = MaterialColor.black
 		prepareBackdropLayer()
 	}
 	
@@ -260,7 +265,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	//
 	internal func prepareLeftView() {
 		// container
-		leftView = MaterialView(frame: CGRectMake(0, 0, 240, view.frame.height))
+		leftView = MaterialView(frame: CGRectMake(0, 0, leftViewControllerWidth, view.frame.height))
 		view.addSubview(leftView!)
 		
 		MaterialAnimation.animationDisabled({
@@ -314,7 +319,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			case .Began:
 				originalPosition = v.position
 				toggleStatusBar(true)
-				SideNavigationViewController.backdropLayer.hidden = false
+				backdropLayer.hidden = false
 			case .Changed:
 				let translation: CGPoint = recognizer.translationInView(v)
 				let w: CGFloat = v.width
@@ -324,7 +329,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			case .Ended:
 				let point: CGPoint = recognizer.velocityInView(recognizer.view)
 				let x: CGFloat = point.x >= 1000 || point.x <= -1000 ? point.x : 0
-				if v.x <= CGFloat(floor(leftOriginX)) + SideNavigationViewController.horizontalThreshold || point.x <= -1000 {
+				if v.x <= CGFloat(floor(-leftViewControllerWidth)) + horizontalThreshold || point.x <= -1000 {
 					closeLeftViewContainer(x)
 				} else {
 					openLeftViewContainer(x)
@@ -380,7 +385,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	//	:name:	isLeftPointContainedWithinRect
 	//
 	private func isLeftPointContainedWithinRect(point: CGPoint) -> Bool {
-		return CGRectContainsPoint(CGRectMake(0, 0, SideNavigationViewController.horizontalThreshold, view.frame.height), point)
+		return CGRectContainsPoint(CGRectMake(0, 0, horizontalThreshold, view.frame.height), point)
 	}
 	
 	//
@@ -395,11 +400,11 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	//
 	private func prepareBackdropLayer() {
 		MaterialAnimation.animationDisabled({
-			SideNavigationViewController.backdropLayer.frame = self.view.bounds
-			SideNavigationViewController.backdropLayer.zPosition = 900
-			SideNavigationViewController.backdropLayer.hidden = true
+			self.backdropLayer.frame = self.view.bounds
+			self.backdropLayer.zPosition = 900
+			self.backdropLayer.hidden = true
 		})
-		view.layer.addSublayer(SideNavigationViewController.backdropLayer)
+		view.layer.addSublayer(backdropLayer)
 	}
 	
 	//
