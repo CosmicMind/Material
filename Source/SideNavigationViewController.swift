@@ -36,30 +36,15 @@ public extension UIViewController {
 
 @objc(SideNavigationViewController)
 public class SideNavigationViewController: UIViewController, UIGestureRecognizerDelegate {
-	/**
-		:name:	default options
-	*/
-	public struct defaultOptions {
-		public static var bezelWidth: CGFloat = 48
-		public static var bezelHeight: CGFloat = 48
-		public static var containerWidth: CGFloat = 240
-		public static var containerHeight: CGFloat = 240
-		public static var panningEnabled: Bool = true
-	}
-	
-	/**
-		:name:	options
-	*/
-	public struct options {
-		public static var leftBezelWidth: CGFloat = defaultOptions.bezelWidth
-		public static var leftViewContainerWidth: CGFloat = defaultOptions.containerWidth
-		public static var leftPanFromBezel: Bool = defaultOptions.panningEnabled
-	}
-	
 	//
 	//	:name:	originalPosition
 	//
 	private var originalPosition: CGPoint!
+	
+	//
+	//	:name:	enabled
+	//
+	public lazy var enabled: Bool = true
 	
 	/**
 		:name:	hideStatusBar
@@ -110,7 +95,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		:name:	isLeftContainerOpened
 	*/
 	public var isLeftContainerOpened: Bool {
-		if let c = leftViewContainer {
+		if let c = leftView {
 			return c.frame.origin.x != leftOriginX
 		}
 		return false
@@ -121,27 +106,17 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	*/
 	public private(set) var isUserInteractionEnabled: Bool {
 		get {
-			return mainViewController!.view.userInteractionEnabled
+			return view.userInteractionEnabled
 		}
 		set(value) {
-			mainViewController!.view.userInteractionEnabled = value
+			view.userInteractionEnabled = value
 		}
 	}
 	
 	/**
-		:name:	mainViewContainer
+		:name:	leftView
 	*/
-	public private(set) var mainViewContainer: MaterialView?
-	
-	/**
-		:name:	leftViewContainer
-	*/
-	public private(set) var leftViewContainer: MaterialView?
-	
-	/**
-		:name:	mainViewController
-	*/
-	public var mainViewController: UIViewController?
+	public private(set) var leftView: MaterialView?
 	
 	/**
 		:name:	leftViewController
@@ -167,7 +142,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	//	:name:	leftOriginX
 	//
 	private var leftOriginX: CGFloat {
-		return -options.leftViewContainerWidth
+		return -240
 	}
 	
 	/**
@@ -187,20 +162,17 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	/**
 		:name:	init
 	*/
-	public convenience init(mainViewController: UIViewController) {
-		self.init()
-		self.mainViewController = mainViewController
+	public init() {
+		super.init(nibName: nil, bundle: nil)
 		prepareView()
 	}
 	
 	/**
 		:name:	init
 	*/
-	public convenience init(mainViewController: UIViewController, leftViewController: UIViewController) {
+	public convenience init(leftViewController: UIViewController) {
 		self.init()
-		self.mainViewController = mainViewController
 		self.leftViewController = leftViewController
-		prepareView()
 		prepareLeftView()
 	}
 	
@@ -210,20 +182,6 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	public override func viewDidLoad() {
 		super.viewDidLoad()
 		edgesForExtendedLayout = .None
-	}
-	
-	//
-	//	:name:	viewWillLayoutSubviews
-	//
-	public override func viewWillLayoutSubviews() {
-		super.viewWillLayoutSubviews()
-		if nil != mainViewController {
-			prepareContainedViewController(&mainViewController)
-		}
-		
-		if nil != leftViewController {
-			//			prepareContainedViewController(&leftViewContainer, viewController: &leftViewController)
-		}
 	}
 	
 	/**
@@ -237,11 +195,11 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		:name:	openLeftViewContainer
 	*/
 	public func openLeftViewContainer(velocity: CGFloat = 0) {
-		if let vc = leftViewContainer {
+		if let vc = leftView {
 			let w: CGFloat = vc.width
 			let h: CGFloat = vc.height
-			let d: Double = Double(0 == velocity ? SideNavigationViewController.animationDuration : fmax(0.1, fmin(1, Double(vc.frame.origin.x / velocity))))
-
+			let d: Double = Double(0 == velocity ? SideNavigationViewController.animationDuration : fmax(0.1, fmin(1, Double(vc.x / velocity))))
+			
 			MaterialAnimation.animationWithDuration(d, animations: {
 				vc.position = CGPointMake(w / 2, h / 2)
 			}) {
@@ -256,10 +214,10 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		:name:	closeLeftViewContainer
 	*/
 	public func closeLeftViewContainer(velocity: CGFloat = 0) {
-		if let vc = leftViewContainer {
+		if let vc = leftView {
 			let w: CGFloat = vc.width
 			let h: CGFloat = vc.height
-			let d: Double = Double(0 == velocity ? SideNavigationViewController.animationDuration : fmax(0.1, fmin(1, Double(vc.frame.origin.x / velocity))))
+			let d: Double = Double(0 == velocity ? SideNavigationViewController.animationDuration : fmax(0.1, fmin(1, Double(vc.x / velocity))))
 			
 			MaterialAnimation.animationWithDuration(d, animations: {
 				vc.position = CGPointMake(-w / 2, h / 2)
@@ -279,7 +237,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			return gesturePanLeftViewController(gestureRecognizer, withTouchPoint: touch.locationInView(view))
 		}
 		if gestureRecognizer == leftTapGesture {
-			return isLeftContainerOpened && !isPointContainedWithinViewController(&leftViewContainer, point: touch.locationInView(view))
+			return isLeftContainerOpened && !isPointContainedWithinViewController(&leftView, point: touch.locationInView(view))
 		}
 		return true
 	}
@@ -296,7 +254,29 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	//	:name:	prepareLeftView
 	//
 	internal func prepareLeftView() {
-		prepareContainer(&leftViewContainer, originX: leftOriginX, originY: 0, width: options.leftViewContainerWidth, height: view.bounds.size.height)
+		let w: CGFloat = view.frame.width
+		let h: CGFloat = view.frame.height
+		
+		// container
+		leftView = MaterialView()
+		leftView!.translatesAutoresizingMaskIntoConstraints = false
+		view.addSubview(leftView!)
+		MaterialLayout.alignToParentVertically(view, child: leftView!)
+		MaterialLayout.width(view, child: leftView!, width: 240)
+		
+		MaterialAnimation.animationDisabled({
+			self.leftView!.position = CGPointMake(-w / 2, h / 2)
+			self.leftView!.zPosition = 1000
+			self.leftView!.masksToBounds = true
+		})
+		
+		// viewController
+		addChildViewController(leftViewController!)
+		leftView!.addSubview(leftViewController!.view)
+		leftViewController!.didMoveToParentViewController(self)
+		MaterialLayout.alignToParent(leftView!, child: leftViewController!.view)
+		
+		// gestures
 		prepareLeftGestures()
 	}
 	
@@ -334,7 +314,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	//	:name:	handleLeftPanGesture
 	//
 	internal func handleLeftPanGesture(recognizer: UIPanGestureRecognizer) {
-		if let vc = leftViewContainer {
+		if let vc = leftView {
 			switch recognizer.state {
 			case .Began:
 				originalPosition = vc.position
@@ -342,7 +322,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 				SideNavigationViewController.backdropLayer.hidden = false
 			case .Changed:
 				let translation: CGPoint = recognizer.translationInView(vc)
-				let w: CGFloat = leftViewContainer!.width
+				let w: CGFloat = vc.width
 				MaterialAnimation.animationDisabled({
 					vc.position.x = self.originalPosition.x + translation.x > (w / 2) ? (w / 2) : self.originalPosition.x + translation.x
 				})
@@ -350,9 +330,9 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 				// snap back
 				let translation: CGPoint = recognizer.translationInView(vc)
 				if SideNavigationViewController.horizontalThreshold <= translation.x {
-					openLeftViewContainer(recognizer.velocityInView(self.view).x)
+					openLeftViewContainer(recognizer.velocityInView(view).x)
 				} else {
-					closeLeftViewContainer(recognizer.velocityInView(self.view).x)
+					closeLeftViewContainer(recognizer.velocityInView(view).x)
 				}
 			default:break
 			}
@@ -363,7 +343,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	//	:name:	handleLeftTapGesture
 	//
 	internal func handleLeftTapGesture(gesture: UIPanGestureRecognizer) {
-		
+		closeLeftViewContainer()
 	}
 	
 	//
@@ -398,14 +378,14 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	//	:name:	gesturePanLeftViewController
 	//
 	private func gesturePanLeftViewController(gesture: UIGestureRecognizer, withTouchPoint point: CGPoint) -> Bool {
-		return isLeftContainerOpened || options.leftPanFromBezel && isLeftPointContainedWithinRect(point)
+		return isLeftContainerOpened || enabled && isLeftPointContainedWithinRect(point)
 	}
 	
 	//
 	//	:name:	isLeftPointContainedWithinRect
 	//
 	private func isLeftPointContainedWithinRect(point: CGPoint) -> Bool {
-		return CGRectContainsPoint(CGRectMake(0, 0, options.leftBezelWidth, view.bounds.size.height), point)
+		return CGRectContainsPoint(CGRectMake(0, 0, 64, view.frame.height), point)
 	}
 	
 	//
@@ -436,28 +416,5 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	private func prepareLeftGestures() {
 		removeGestures(&leftPanGesture, tap: &leftTapGesture)
 		prepareGestures(&leftPanGesture, panSelector: "handleLeftPanGesture:", tap: &leftTapGesture, tapSelector: "handleLeftTapGesture:")
-	}
-	
-	//
-	//	:name:	prepareContainer
-	//
-	private func prepareContainer(inout viewContainer: MaterialView?, originX: CGFloat, originY: CGFloat, width: CGFloat, height: CGFloat) {
-		viewContainer = MaterialView(frame: CGRectMake(originX, originY, width, height))
-		viewContainer!.backgroundColor = MaterialColor.red.base
-		viewContainer!.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
-		viewContainer!.zPosition = 1000
-		view.addSubview(viewContainer!)
-	}
-	
-	//
-	//	:name:	prepareContainedViewController
-	//
-	private func prepareContainedViewController(inout viewController: UIViewController?) {
-		if let vc = viewController {
-			addChildViewController(vc)
-			vc.view.frame = view.frame
-			view.addSubview(vc.view)
-			vc.didMoveToParentViewController(self)
-		}
 	}
 }
