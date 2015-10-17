@@ -41,6 +41,35 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	//
 	private var originalPosition: CGPoint!
 	
+	//
+	//	:name:	leftPanGesture
+	//
+	internal var leftPanGesture: UIPanGestureRecognizer?
+	
+	//
+	//	:name:	leftTapGesture
+	//
+	internal var leftTapGesture: UITapGestureRecognizer?
+	
+	//
+	//	:name:	isViewBasedAppearance
+	//
+	internal var isViewBasedAppearance: Bool {
+		return 0 == NSBundle.mainBundle().objectForInfoDictionaryKey("UIViewControllerBasedStatusBarAppearance") as? Int
+	}
+	
+	//
+	//	:name:	isUserInteractionEnabled
+	//
+	internal var isUserInteractionEnabled: Bool {
+		get {
+			return mainViewController!.view.userInteractionEnabled
+		}
+		set(value) {
+			mainViewController!.view.userInteractionEnabled = value
+		}
+	}
+	
 	/**
 		:name:	horizontalThreshold
 	*/
@@ -51,9 +80,9 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	*/
 	public lazy var animationDuration: CGFloat = 0.25
 	
-	//
-	//	:name:	enabled
-	//
+	/**
+		:name:	enabled
+	*/
 	public lazy var enabled: Bool = true
 	
 	/**
@@ -85,32 +114,10 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	}
 	
 	/**
-		:name:	isViewBasedAppearance
-	*/
-	public var isViewBasedAppearance: Bool {
-		return 0 == NSBundle.mainBundle().objectForInfoDictionaryKey("UIViewControllerBasedStatusBarAppearance") as? Int
-	}
-	
-	/**
 		:name:	isLeftContainerOpened
 	*/
 	public var isLeftContainerOpened: Bool {
-		if let v = leftView {
-			return v.x != -leftViewControllerWidth
-		}
-		return false
-	}
-	
-	/**
-		:name:	isUserInteractionEnabled
-	*/
-	public private(set) var isUserInteractionEnabled: Bool {
-		get {
-			return mainViewController!.view.userInteractionEnabled
-		}
-		set(value) {
-			mainViewController!.view.userInteractionEnabled = value
-		}
+		return leftView?.x != -leftViewControllerWidth
 	}
 	
 	/**
@@ -129,24 +136,16 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	public var leftViewController: UIViewController?
 	
 	/**
-		:name:	leftPanGesture
-	*/
-	public var leftPanGesture: UIPanGestureRecognizer?
-	
-	/**
-		:name:	leftTapGesture
-	*/
-	public var leftTapGesture: UITapGestureRecognizer?
-	
-	/**
 		:name:	leftViewControllerWidth
 	*/
 	public var leftViewControllerWidth: CGFloat = 240 {
 		didSet {
-			leftView?.width = leftViewControllerWidth
-			MaterialAnimation.animationDisabled({
-				self.leftView!.position = CGPointMake(-self.leftView!.width / 2, self.leftView!.height / 2)
-			})
+			if let v = leftView {
+				v.width = leftViewControllerWidth
+				MaterialAnimation.animationDisabled({
+					v.position = CGPointMake(-v.width / 2, v.height / 2)
+				})
+			}
 		}
 	}
 	
@@ -188,7 +187,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		:name:	toggleLeftViewContainer
 	*/
 	public func toggleLeftViewContainer(velocity: CGFloat = 0) {
-		openLeftViewContainer(velocity)
+		isLeftContainerOpened ? closeLeftViewContainer(velocity) : openLeftViewContainer(velocity)
 	}
 	
 	/**
@@ -281,36 +280,6 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	}
 	
 	//
-	//	:name:	prepareGestures
-	//
-	private func prepareGestures(inout pan: UIPanGestureRecognizer?, panSelector: Selector, inout tap: UITapGestureRecognizer?, tapSelector: Selector) {
-		if nil == pan {
-			pan = UIPanGestureRecognizer(target: self, action: panSelector)
-			pan!.delegate = self
-			view.addGestureRecognizer(pan!)
-		}
-		if nil == tap {
-			tap = UITapGestureRecognizer(target: self, action: tapSelector)
-			tap!.delegate = self
-			view.addGestureRecognizer(tap!)
-		}
-	}
-	
-	//
-	//	:name:	removeGestures
-	//
-	private func removeGestures(inout pan: UIPanGestureRecognizer?, inout tap: UITapGestureRecognizer?) {
-		if let g = pan {
-			view.removeGestureRecognizer(g)
-			pan = nil
-		}
-		if let g = tap {
-			view.removeGestureRecognizer(g)
-			tap = nil
-		}
-	}
-	
-	//
 	//	:name:	handleLeftPanGesture
 	//
 	internal func handleLeftPanGesture(recognizer: UIPanGestureRecognizer) {
@@ -345,6 +314,36 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	internal func handleLeftTapGesture(recognizer: UIPanGestureRecognizer) {
 		if let _ = leftView {
 			closeLeftViewContainer()
+		}
+	}
+	
+	//
+	//	:name:	prepareGestures
+	//
+	private func prepareGestures(inout pan: UIPanGestureRecognizer?, panSelector: Selector, inout tap: UITapGestureRecognizer?, tapSelector: Selector) {
+		if nil == pan {
+			pan = UIPanGestureRecognizer(target: self, action: panSelector)
+			pan!.delegate = self
+			view.addGestureRecognizer(pan!)
+		}
+		if nil == tap {
+			tap = UITapGestureRecognizer(target: self, action: tapSelector)
+			tap!.delegate = self
+			view.addGestureRecognizer(tap!)
+		}
+	}
+	
+	//
+	//	:name:	removeGestures
+	//
+	private func removeGestures(inout pan: UIPanGestureRecognizer?, inout tap: UITapGestureRecognizer?) {
+		if let g = pan {
+			view.removeGestureRecognizer(g)
+			pan = nil
+		}
+		if let g = tap {
+			view.removeGestureRecognizer(g)
+			tap = nil
 		}
 	}
 	
