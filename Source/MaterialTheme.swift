@@ -24,6 +24,7 @@ public struct MaterialTheme {
 	public struct basicCardView {}
 	public struct imageCardView {}
 	public struct navigationBarView {}
+	public struct searchBarView {}
 	public struct pulseCollectionView {}
 	public struct textLayer {}
 	public struct label {}
@@ -182,6 +183,44 @@ public extension MaterialTheme.navigationBarView {
 	public static var contentInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
 	public static var titleLabelInsetsRef: MaterialInsetsType = (top: 20, left: 0, bottom: 0, right: 0)
 	public static var detailLabelInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.None)
+	public static var leftButtonsInsetsRef: MaterialInsetsType = (top: 8, left: 0, bottom: 0, right: 0)
+	public static var rightButtonsInsetsRef: MaterialInsetsType = (top: 8, left: 0, bottom: 0, right: 0)
+	
+	// border
+	public static var borderWidth: MaterialBorder = .None
+	public static var bordercolor: UIColor = MaterialColor.black
+	
+	// color
+	public static var backgroundColor: UIColor = MaterialColor.white
+	
+	// interaction
+	public static var userInteractionEnabled: Bool = true
+	
+	// image
+	public static var contentsRect: CGRect = CGRectMake(0, 0, 1, 1)
+	public static var contentsCenter: CGRect = CGRectMake(0, 0, 1, 1)
+	public static var contentsScale: CGFloat = UIScreen.mainScreen().scale
+	public static var contentsGravity: MaterialGravity = .ResizeAspectFill
+	
+	// position
+	public static var zPosition: CGFloat = 100
+}
+
+// searchBarView
+public extension MaterialTheme.searchBarView {
+	// frame
+	public static var x: CGFloat = 0
+	public static var y: CGFloat = 0
+	public static var width: CGFloat = UIScreen.mainScreen().bounds.width
+	public static var height: CGFloat = 70
+	
+	// shadow
+	public static var shadowDepth: MaterialDepth = .Depth2
+	public static var shadowColor: UIColor = MaterialColor.black
+	
+	// shape
+	public static var contentInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
+	public static var textFieldInsetsRef: MaterialInsetsType = (top: 20, left: 0, bottom: 0, right: 0)
 	public static var leftButtonsInsetsRef: MaterialInsetsType = (top: 8, left: 0, bottom: 0, right: 0)
 	public static var rightButtonsInsetsRef: MaterialInsetsType = (top: 8, left: 0, bottom: 0, right: 0)
 	

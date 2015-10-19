@@ -18,7 +18,7 @@
 
 import UIKit
 
-public class NavigationBarView : MaterialView {
+public class SearchBarView : MaterialView, UITextFieldDelegate {
 	/**
 		:name:	statusBarStyle
 	*/
@@ -27,6 +27,11 @@ public class NavigationBarView : MaterialView {
 			UIApplication.sharedApplication().setStatusBarStyle(.LightContent == statusBarStyle ? .LightContent : .Default, animated: true)
 		}
 	}
+	
+	/**
+		:name:	textField
+	*/
+	public private(set) lazy var textField: UITextField = UITextField()
 	
 	/**
 		:name:	contentInsets
@@ -40,64 +45,26 @@ public class NavigationBarView : MaterialView {
 	/**
 		:name:	contentInsetsRef
 	*/
-	public var contentInsetsRef: MaterialInsetsType = MaterialTheme.navigationBarView.contentInsetsRef {
+	public var contentInsetsRef: MaterialInsetsType = MaterialTheme.searchBarView.contentInsetsRef {
 		didSet {
 			reloadView()
 		}
 	}
 	
 	/**
-		:name:	titleLabelInsets
+		:name:	textFieldInsets
 	*/
-	public var titleLabelInsets: MaterialInsets = .None {
+	public var textFieldInsets: MaterialInsets = .None {
 		didSet {
-			titleLabelInsetsRef = MaterialInsetsToValue(titleLabelInsets)
+			textFieldInsetsRef = MaterialInsetsToValue(textFieldInsets)
 		}
 	}
 	
 	/**
-		:name:	titleLabelInsetsRef
+		:name:	textFieldInsetsRef
 	*/
-	public var titleLabelInsetsRef: MaterialInsetsType = MaterialTheme.navigationBarView.titleLabelInsetsRef {
+	public var textFieldInsetsRef: MaterialInsetsType = MaterialTheme.searchBarView.textFieldInsetsRef {
 		didSet {
-			reloadView()
-		}
-	}
-	
-	/**
-		:name:	titleLabel
-	*/
-	public var titleLabel: UILabel? {
-		didSet {
-			titleLabel?.translatesAutoresizingMaskIntoConstraints = false
-			reloadView()
-		}
-	}
-	
-	/**
-		:name:	detailLabelInsets
-	*/
-	public var detailLabelInsets: MaterialInsets = .None {
-		didSet {
-			detailLabelInsetsRef = MaterialInsetsToValue(detailLabelInsets)
-		}
-	}
-	
-	/**
-		:name:	detailLabelInsetsRef
-	*/
-	public var detailLabelInsetsRef: MaterialInsetsType = MaterialTheme.navigationBarView.detailLabelInsetsRef {
-		didSet {
-			reloadView()
-		}
-	}
-	
-	/**
-		:name:	detailLabel
-	*/
-	public var detailLabel: UILabel? {
-		didSet {
-			detailLabel?.translatesAutoresizingMaskIntoConstraints = false
 			reloadView()
 		}
 	}
@@ -112,9 +79,9 @@ public class NavigationBarView : MaterialView {
 	}
 	
 	/**
-	:name:	leftButtonsInsetsRef
+		:name:	leftButtonsInsetsRef
 	*/
-	public var leftButtonsInsetsRef: MaterialInsetsType = MaterialTheme.navigationBarView.leftButtonsInsetsRef {
+	public var leftButtonsInsetsRef: MaterialInsetsType = MaterialTheme.searchBarView.leftButtonsInsetsRef {
 		didSet {
 			reloadView()
 		}
@@ -146,7 +113,7 @@ public class NavigationBarView : MaterialView {
 	/**
 		:name:	rightButtonsInsetsRef
 	*/
-	public var rightButtonsInsetsRef: MaterialInsetsType = MaterialTheme.navigationBarView.rightButtonsInsetsRef {
+	public var rightButtonsInsetsRef: MaterialInsetsType = MaterialTheme.searchBarView.rightButtonsInsetsRef {
 		didSet {
 			reloadView()
 		}
@@ -184,15 +151,15 @@ public class NavigationBarView : MaterialView {
 		:name:	init
 	*/
 	public convenience init() {
-		self.init(frame: CGRectMake(MaterialTheme.navigationBarView.x, MaterialTheme.navigationBarView.y, MaterialTheme.navigationBarView.width, MaterialTheme.navigationBarView.height))
+		self.init(frame: CGRectMake(MaterialTheme.searchBarView.x, MaterialTheme.searchBarView.y, MaterialTheme.searchBarView.width, MaterialTheme.searchBarView.height))
 	}
 	
 	/**
 		:name:	init
 	*/
-	public convenience init?(titleLabel: UILabel? = nil, detailLabel: UILabel? = nil, leftButtons: Array<UIButton>? = nil, rightButtons: Array<UIButton>? = nil) {
-		self.init(frame: CGRectMake(MaterialTheme.navigationBarView.x, MaterialTheme.navigationBarView.y, MaterialTheme.navigationBarView.width, MaterialTheme.navigationBarView.height))
-		prepareProperties(titleLabel, detailLabel: detailLabel, leftButtons: leftButtons, rightButtons: rightButtons)
+	public convenience init?(leftButtons: Array<UIButton>? = nil, rightButtons: Array<UIButton>? = nil) {
+		self.init(frame: CGRectMake(MaterialTheme.searchBarView.x, MaterialTheme.searchBarView.y, MaterialTheme.searchBarView.width, MaterialTheme.searchBarView.height))
+		prepareProperties(leftButtons, rightButtons: rightButtons)
 	}
 	
 	/**
@@ -200,18 +167,21 @@ public class NavigationBarView : MaterialView {
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		userInteractionEnabled = MaterialTheme.navigationBarView.userInteractionEnabled
-		backgroundColor = MaterialTheme.navigationBarView.backgroundColor
+		userInteractionEnabled = MaterialTheme.searchBarView.userInteractionEnabled
+		backgroundColor = MaterialTheme.searchBarView.backgroundColor
 		
-		contentsRect = MaterialTheme.navigationBarView.contentsRect
-		contentsCenter = MaterialTheme.navigationBarView.contentsCenter
-		contentsScale = MaterialTheme.navigationBarView.contentsScale
-		contentsGravity = MaterialTheme.navigationBarView.contentsGravity
-		shadowDepth = MaterialTheme.navigationBarView.shadowDepth
-		shadowColor = MaterialTheme.navigationBarView.shadowColor
-		zPosition = MaterialTheme.navigationBarView.zPosition
-		borderWidth = MaterialTheme.navigationBarView.borderWidth
-		borderColor = MaterialTheme.navigationBarView.bordercolor
+		contentsRect = MaterialTheme.searchBarView.contentsRect
+		contentsCenter = MaterialTheme.searchBarView.contentsCenter
+		contentsScale = MaterialTheme.searchBarView.contentsScale
+		contentsGravity = MaterialTheme.searchBarView.contentsGravity
+		shadowDepth = MaterialTheme.searchBarView.shadowDepth
+		shadowColor = MaterialTheme.searchBarView.shadowColor
+		zPosition = MaterialTheme.searchBarView.zPosition
+		borderWidth = MaterialTheme.searchBarView.borderWidth
+		borderColor = MaterialTheme.searchBarView.bordercolor
+		
+		prepareTextField()
+		reloadView()
 	}
 	
 	/**
@@ -228,36 +198,16 @@ public class NavigationBarView : MaterialView {
 		var views: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
 		var metrics: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
 		
-		if nil != titleLabel {
-			verticalFormat += "-(insetTop)"
-			metrics["insetTop"] = contentInsetsRef.top + titleLabelInsetsRef.top
-		} else if nil != detailLabel {
-			verticalFormat += "-(insetTop)"
-			metrics["insetTop"] = contentInsetsRef.top + detailLabelInsetsRef.top
-		}
+		verticalFormat += "-(insetTop)"
+		metrics["insetTop"] = contentInsetsRef.top + textFieldInsetsRef.top
 		
-		// title
-		if let v = titleLabel {
-			verticalFormat += "-[titleLabel]"
-			views["titleLabel"] = v
-			
-			addSubview(v)
-			MaterialLayout.alignToParentHorizontallyWithInsets(self, child: v, left: contentInsetsRef.left + titleLabelInsetsRef.left, right: contentInsetsRef.right + titleLabelInsetsRef.right)
-		}
+		// textField
+		verticalFormat += "-[textField]"
+		views["textField"] = textField
 		
-		// detail
-		if let v = detailLabel {
-			if nil != titleLabel {
-				verticalFormat += "-(insetB)"
-				metrics["insetB"] = titleLabelInsetsRef.bottom + detailLabelInsetsRef.top
-			}
-			
-			verticalFormat += "-[detailLabel]"
-			views["detailLabel"] = v
-			
-			addSubview(v)
-			MaterialLayout.alignToParentHorizontallyWithInsets(self, child: v, left: contentInsetsRef.left + detailLabelInsetsRef.left, right: contentInsetsRef.right + detailLabelInsetsRef.right)
-		}
+		addSubview(textField)
+		print(contentInsetsRef)
+		MaterialLayout.alignToParentHorizontallyWithInsets(self, child: textField, left: contentInsetsRef.left + textFieldInsetsRef.left, right: contentInsetsRef.right + textFieldInsetsRef.right)
 		
 		// leftButtons
 		if let v = leftButtons {
@@ -314,18 +264,10 @@ public class NavigationBarView : MaterialView {
 			}
 		}
 		
-		if nil != detailLabel {
-			if nil == metrics["insetC"] {
-				metrics["insetBottom"] = contentInsetsRef.bottom + detailLabelInsetsRef.bottom
-			} else {
-				metrics["insetC"] = (metrics["insetC"] as! CGFloat) + detailLabelInsetsRef.bottom
-			}
-		} else if nil != titleLabel {
-			if nil == metrics["insetC"] {
-				metrics["insetBottom"] = contentInsetsRef.bottom + titleLabelInsetsRef.bottom
-			} else {
-				metrics["insetC"] = (metrics["insetC"] as! CGFloat) + titleLabelInsetsRef.bottom
-			}
+		if nil == metrics["insetC"] {
+			metrics["insetBottom"] = contentInsetsRef.bottom + textFieldInsetsRef.bottom
+		} else {
+			metrics["insetC"] = (metrics["insetC"] as! CGFloat) + textFieldInsetsRef.bottom
 		}
 		
 		if 0 < views.count {
@@ -337,10 +279,27 @@ public class NavigationBarView : MaterialView {
 	//
 	//	:name:	prepareProperties
 	//
-	internal func prepareProperties(titleLabel: UILabel?, detailLabel: UILabel?, leftButtons: Array<UIButton>?, rightButtons: Array<UIButton>?) {
-		self.titleLabel = titleLabel
-		self.detailLabel = detailLabel
+	internal func prepareProperties(leftButtons: Array<UIButton>?, rightButtons: Array<UIButton>?) {
 		self.leftButtons = leftButtons
 		self.rightButtons = rightButtons
+	}
+	
+	//
+	//	:name:	prepareTextField
+	//
+	internal func prepareTextField() {
+		textField.translatesAutoresizingMaskIntoConstraints = false
+		textField.delegate = self
+		textField.placeholder = "Search"
+	}
+	
+	public func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+		backgroundColor = MaterialColor.white
+		return true
+	}
+
+	public func textFieldShouldEndEditing(textField: UITextField) -> Bool {
+		backgroundColor = MaterialColor.blue.accent3
+		return true
 	}
 }
