@@ -313,6 +313,7 @@ public class SearchBarView : MaterialView, UITextFieldDelegate {
 
 	public func textFieldShouldEndEditing(textField: UITextField) -> Bool {
 		backgroundColor = internalBackgroundColor
+		internalBackgroundColor = nil
 		return true
 	}
 }
