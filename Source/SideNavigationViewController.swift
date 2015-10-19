@@ -138,16 +138,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	/**
 		:name:	leftViewControllerWidth
 	*/
-	public var leftViewControllerWidth: CGFloat = 240 {
-		didSet {
-			if let v = leftView {
-				v.width = leftViewControllerWidth
-				MaterialAnimation.animationDisabled({
-					v.position = CGPointMake(-v.width / 2, v.height / 2)
-				})
-			}
-		}
-	}
+	public private(set) var leftViewControllerWidth: CGFloat = 240
 	
 	/**
 		:name:	init
@@ -181,6 +172,33 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	public override func viewDidLoad() {
 		super.viewDidLoad()
 		edgesForExtendedLayout = .None
+	}
+
+	public override func viewWillLayoutSubviews() {
+		super.viewWillLayoutSubviews()
+		layoutBackdropLayer()
+		if let v: MaterialView = leftView {
+			leftViewController?.view.frame = v.bounds
+		}
+	}
+	
+	/**
+		:name:	setLeftViewControllerWidth
+	*/
+	public func setLeftViewControllerWidth(width: CGFloat, hidden: Bool, animated: Bool, duration: CFTimeInterval = 0.25) {
+		leftViewControllerWidth = width
+		
+		MaterialAnimation.animationDisabled({
+			self.leftView!.width = width
+		})
+		
+		if animated {
+			leftView!.animation(MaterialAnimation.position(CGPointMake((hidden ? -width : width) / 2, leftView!.position.y), duration: duration))
+		} else {
+			MaterialAnimation.animationDisabled({
+				self.leftView!.position.x = (hidden ? -width : width) / 2
+			})
+		}
 	}
 	
 	/**
@@ -397,23 +415,28 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	//	:name:	prepareBackdropLayer
 	//
 	private func prepareBackdropLayer() {
+		view.layer.addSublayer(backdropLayer)
+	}
+	
+	//
+	//	:name:	layoutBackdropLayer
+	//
+	private func layoutBackdropLayer() {
 		MaterialAnimation.animationDisabled({
 			self.backdropLayer.frame = self.view.bounds
 			self.backdropLayer.zPosition = 900
 			self.backdropLayer.hidden = true
 		})
-		view.layer.addSublayer(backdropLayer)
 	}
 	
 	//
 	//	:name:	prepareViewControllerWithinContainer
 	//
 	private func prepareViewControllerWithinContainer(controller: UIViewController, container: UIView) {
-		controller.view.translatesAutoresizingMaskIntoConstraints = false
+		controller.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
 		addChildViewController(controller)
 		container.addSubview(controller.view)
 		controller.didMoveToParentViewController(self)
-		MaterialLayout.alignToParent(container, child: controller.view)
 	}
 	
 	//

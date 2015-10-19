@@ -106,10 +106,10 @@ public class MaterialButton : UIButton {
 	*/
 	public var x: CGFloat {
 		get {
-			return frame.origin.x
+			return layer.frame.origin.x
 		}
 		set(value) {
-			frame.origin.x = value
+			layer.frame.origin.x = value
 		}
 	}
 	
@@ -118,10 +118,10 @@ public class MaterialButton : UIButton {
 	*/
 	public var y: CGFloat {
 		get {
-			return frame.origin.y
+			return layer.frame.origin.y
 		}
 		set(value) {
-			frame.origin.y = value
+			layer.frame.origin.y = value
 		}
 	}
 	
@@ -130,12 +130,12 @@ public class MaterialButton : UIButton {
 	*/
 	public var width: CGFloat {
 		get {
-			return frame.size.width
+			return layer.frame.size.width
 		}
 		set(value) {
-			frame.size.width = value
+			layer.frame.size.width = value
 			if .None != shape {
-				frame.size.height = value
+				layer.frame.size.height = value
 			}
 		}
 	}
@@ -145,12 +145,12 @@ public class MaterialButton : UIButton {
 	*/
 	public var height: CGFloat {
 		get {
-			return frame.size.height
+			return layer.frame.size.height
 		}
 		set(value) {
-			frame.size.height = value
+			layer.frame.size.height = value
 			if .None != shape {
-				frame.size.width = value
+				layer.frame.size.width = value
 			}
 		}
 	}

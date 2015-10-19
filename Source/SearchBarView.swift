@@ -18,6 +18,13 @@
 
 import UIKit
 
+@objc(SearchBarViewDelegate)
+public protocol SearchBarViewDelegate : MaterialDelegate {
+	optional func materialSearchBarDidBeginEditing(searchBarView: SearchBarView)
+	optional func materialSearchBarDidEndEditing(searchBarView: SearchBarView)
+}
+
+@objc(SearchBarView)
 public class SearchBarView : MaterialView, UITextFieldDelegate {
 	/**
 		:name:	internalBackgroundColor
@@ -216,7 +223,7 @@ public class SearchBarView : MaterialView, UITextFieldDelegate {
 		views["textField"] = textField
 		
 		addSubview(textField)
-		print(contentInsetsRef)
+		
 		MaterialLayout.alignToParentHorizontallyWithInsets(self, child: textField, left: contentInsetsRef.left + textFieldInsetsRef.left, right: contentInsetsRef.right + textFieldInsetsRef.right)
 		
 		// leftButtons
@@ -300,20 +307,19 @@ public class SearchBarView : MaterialView, UITextFieldDelegate {
 	internal func prepareTextField() {
 		textField.translatesAutoresizingMaskIntoConstraints = false
 		textField.delegate = self
-		textField.placeholder = "Search"
 	}
 	
-	public func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+	public func textFieldDidBeginEditing(textField: UITextField) {
 		if let v: UIColor = editingBackgroundColor {
 			internalBackgroundColor = backgroundColor
 			backgroundColor = v
 		}
-		return true
+		(delegate as? SearchBarViewDelegate)?.materialSearchBarDidBeginEditing?(self)
 	}
 
-	public func textFieldShouldEndEditing(textField: UITextField) -> Bool {
+	public func textFieldDidEndEditing(textField: UITextField) {
 		backgroundColor = internalBackgroundColor
 		internalBackgroundColor = nil
-		return true
+		(delegate as? SearchBarViewDelegate)?.materialSearchBarDidEndEditing?(self)
 	}
 }

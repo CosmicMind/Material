@@ -20,14 +20,7 @@ import UIKit
 
 @objc(MaterialAnimationDelegate)
 public protocol MaterialAnimationDelegate : MaterialDelegate {
-	/**
-		:name:	materialAnimationDidStart
-	*/
 	optional func materialAnimationDidStart(animation: CAAnimation)
-	
-	/**
-		:name:	materialAnimationDidStop
-	*/
 	optional func materialAnimationDidStop(animation: CAAnimation, finished flag: Bool)
 }
 

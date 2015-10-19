@@ -27,7 +27,7 @@ public class MaterialTextView: UITextView {
 	internal lazy var layoutConstraints: Array<NSLayoutConstraint> = Array<NSLayoutConstraint>()
 	
 	/**
-	:name:	init
+		:name:	init
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
@@ -35,7 +35,7 @@ public class MaterialTextView: UITextView {
 	}
 	
 	/**
-	:name:	init
+		:name:	init
 	*/
 	public override init(frame: CGRect, textContainer: NSTextContainer?) {
 		super.init(frame: frame, textContainer: textContainer)
@@ -50,7 +50,7 @@ public class MaterialTextView: UITextView {
 	}
 	
 	/**
-	:name:	placeholder
+		:name:	placeholder
 	*/
 	public var placeholderLabel: UILabel? {
 		didSet {
@@ -69,7 +69,7 @@ public class MaterialTextView: UITextView {
 	
 	
 	/**
-	:name:	text
+		:name:	text
 	*/
 	public override var text: String! {
 		didSet {
@@ -78,7 +78,7 @@ public class MaterialTextView: UITextView {
 	}
 	
 	/**
-	:name:	attributedText
+		:name:	attributedText
 	*/
 	public override var attributedText: NSAttributedString! {
 		didSet {
@@ -87,7 +87,7 @@ public class MaterialTextView: UITextView {
 	}
 	
 	/**
-	:name:	textContainerInset
+		:name:	textContainerInset
 	*/
 	public override var textContainerInset: UIEdgeInsets {
 		didSet {
@@ -101,7 +101,7 @@ public class MaterialTextView: UITextView {
 	}
 	
 	/**
-	:name:	updateLabelConstraints
+		:name:	updateLabelConstraints
 	*/
 	internal func updateLabelConstraints() {
 		if let p = placeholderLabel {
