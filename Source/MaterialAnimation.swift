@@ -78,6 +78,7 @@ public struct MaterialAnimation {
 		group.removedOnCompletion = false
 		group.animations = animations
 		group.duration = duration
+		group.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
 		return group
 	}
 }

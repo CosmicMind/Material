@@ -179,24 +179,25 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		layoutBackdropLayer()
 		if let v: MaterialView = leftView {
 			leftViewController?.view.frame = v.bounds
+			leftViewController?.view.center = CGPointMake(v.width / 2, v.height / 2)
 		}
 	}
 	
 	/**
 		:name:	setLeftViewControllerWidth
 	*/
-	public func setLeftViewControllerWidth(width: CGFloat, hidden: Bool, animated: Bool, duration: CFTimeInterval = 0.25) {
+	public func setLeftViewControllerWidth(width: CGFloat, hidden: Bool, animated: Bool) {
 		leftViewControllerWidth = width
 		
-		MaterialAnimation.animationDisabled({
-			self.leftView!.width = width
-		})
+		let w: CGFloat = (hidden ? -width : width) / 2
 		
 		if animated {
-			leftView!.animation(MaterialAnimation.position(CGPointMake((hidden ? -width : width) / 2, leftView!.position.y), duration: duration))
+			self.leftView!.width = width
+			self.leftView!.position.x = w
 		} else {
 			MaterialAnimation.animationDisabled({
-				self.leftView!.position.x = (hidden ? -width : width) / 2
+				self.leftView!.width = width
+				self.leftView!.position.x = w
 			})
 		}
 	}
@@ -283,10 +284,11 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	internal func prepareLeftView() {
 		// container
 		leftView = MaterialView(frame: CGRectMake(0, 0, leftViewControllerWidth, view.frame.height))
+		leftView!.backgroundColor = MaterialColor.clear
 		view.addSubview(leftView!)
 		
 		MaterialAnimation.animationDisabled({
-			self.leftView!.position = CGPointMake(-self.leftView!.width / 2, self.leftView!.height / 2)
+			self.leftView!.position.x = -self.leftViewControllerWidth / 2
 			self.leftView!.zPosition = 1000
 		})
 		

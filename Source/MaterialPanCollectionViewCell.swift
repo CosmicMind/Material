@@ -164,9 +164,7 @@ public class MaterialPanCollectionViewCell : MaterialPulseCollectionViewCell, UI
 			revealed = false
 			
 			// snap back
-			let a: CABasicAnimation = MaterialAnimation.position(CGPointMake(width / 2, y + height / 2), duration: 0.25)
-			a.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-			animation(a)
+			animation(MaterialAnimation.position(CGPointMake(width / 2, y + height / 2), duration: 0.25))
 			
 			if leftOnDragRelease {
 				(delegate as? MaterialPanCollectionViewCellDelegate)?.materialCollectionViewCellDidCloseLeftLayer?(self)
