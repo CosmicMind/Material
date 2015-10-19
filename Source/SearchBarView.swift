@@ -20,6 +20,16 @@ import UIKit
 
 public class SearchBarView : MaterialView, UITextFieldDelegate {
 	/**
+		:name:	internalBackgroundColor
+	*/
+	internal var internalBackgroundColor: UIColor?
+	
+	/**
+		:name:	editingBackgroundColor
+	*/
+	public var editingBackgroundColor: UIColor?
+	
+	/**
 		:name:	statusBarStyle
 	*/
 	public var statusBarStyle: MaterialStatusBarStyle! {
@@ -294,12 +304,15 @@ public class SearchBarView : MaterialView, UITextFieldDelegate {
 	}
 	
 	public func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
-		backgroundColor = MaterialColor.white
+		if let v: UIColor = editingBackgroundColor {
+			internalBackgroundColor = backgroundColor
+			backgroundColor = v
+		}
 		return true
 	}
 
 	public func textFieldShouldEndEditing(textField: UITextField) -> Bool {
-		backgroundColor = MaterialColor.blue.accent3
+		backgroundColor = internalBackgroundColor
 		return true
 	}
 }
