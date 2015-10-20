@@ -224,7 +224,7 @@ public class SearchBarView : MaterialView, UITextFieldDelegate {
 		
 		addSubview(textField)
 		
-		MaterialLayout.alignToParentHorizontallyWithInsets(self, child: textField, left: contentInsetsRef.left + textFieldInsetsRef.left, right: contentInsetsRef.right + textFieldInsetsRef.right)
+		MaterialLayout.alignToParentHorizontally(self, child: textField, left: contentInsetsRef.left + textFieldInsetsRef.left, right: contentInsetsRef.right + textFieldInsetsRef.right)
 		
 		// leftButtons
 		if let v = leftButtons {

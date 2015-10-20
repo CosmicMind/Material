@@ -21,11 +21,6 @@ import UIKit
 public protocol MaterialTextViewDelegate : UITextViewDelegate {}
 
 public class MaterialTextView: UITextView {
-	//
-	//	:name:	layoutConstraints
-	//
-	internal lazy var layoutConstraints: Array<NSLayoutConstraint> = Array<NSLayoutConstraint>()
-	
 	/**
 		:name:	init
 	*/
@@ -105,26 +100,9 @@ public class MaterialTextView: UITextView {
 	*/
 	internal func updateLabelConstraints() {
 		if let p = placeholderLabel {
-			NSLayoutConstraint.deactivateConstraints(layoutConstraints)
-			layoutConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(left)-[placeholderLabel]-(right)-|",
-				options: [],
-				metrics: [
-					"left": textContainerInset.left + textContainer.lineFragmentPadding,
-					"right": textContainerInset.right + textContainer.lineFragmentPadding
-				], views: [
-					"placeholderLabel": p
-				])
-			
-			layoutConstraints += NSLayoutConstraint.constraintsWithVisualFormat("V:|-(top)-[placeholderLabel]-(>=bottom)-|",
-				options: [],
-				metrics: [
-					"top": textContainerInset.top,
-					"bottom": textContainerInset.bottom
-				],
-				views: [
-					"placeholderLabel": p
-				])
-			NSLayoutConstraint.activateConstraints(layoutConstraints)
+			removeConstraints(constraints)
+			MaterialLayout.alignToParentHorizontally(self, child: p, left: textContainerInset.left + textContainer.lineFragmentPadding, right: textContainerInset.right + textContainer.lineFragmentPadding)
+			MaterialLayout.alignToParentVertically(self, child: p, top: textContainerInset.top, bottom: textContainerInset.bottom)
 		}
 	}
 	
@@ -141,10 +119,10 @@ public class MaterialTextView: UITextView {
 	//	:name:	prepareView
 	//
 	private func prepareView() {
-		// label needs to be added to the view
-		// hierarchy before setting insets
 		textContainerInset = UIEdgeInsetsMake(16, 16, 16, 16)
-		backgroundColor = .clearColor()
+		backgroundColor = MaterialColor.clear
+		NSNotificationCenter.defaultCenter().removeObserver(self)
+		NSNotificationCenter.defaultCenter().removeObserver(self, name: UITextViewTextDidChangeNotification, object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "textViewTextDidChange", name: UITextViewTextDidChangeNotification, object: nil)
 		updateLabelConstraints()
 	}

@@ -242,7 +242,7 @@ public class NavigationBarView : MaterialView {
 			views["titleLabel"] = v
 			
 			addSubview(v)
-			MaterialLayout.alignToParentHorizontallyWithInsets(self, child: v, left: contentInsetsRef.left + titleLabelInsetsRef.left, right: contentInsetsRef.right + titleLabelInsetsRef.right)
+			MaterialLayout.alignToParentHorizontally(self, child: v, left: contentInsetsRef.left + titleLabelInsetsRef.left, right: contentInsetsRef.right + titleLabelInsetsRef.right)
 		}
 		
 		// detail
@@ -256,7 +256,7 @@ public class NavigationBarView : MaterialView {
 			views["detailLabel"] = v
 			
 			addSubview(v)
-			MaterialLayout.alignToParentHorizontallyWithInsets(self, child: v, left: contentInsetsRef.left + detailLabelInsetsRef.left, right: contentInsetsRef.right + detailLabelInsetsRef.right)
+			MaterialLayout.alignToParentHorizontally(self, child: v, left: contentInsetsRef.left + detailLabelInsetsRef.left, right: contentInsetsRef.right + detailLabelInsetsRef.right)
 		}
 		
 		// leftButtons

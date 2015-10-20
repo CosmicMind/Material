@@ -469,7 +469,7 @@ public class MaterialPulseCollectionViewCell : UICollectionViewCell {
 	//	:name:	layoutVisualLayer
 	//
 	internal func layoutVisualLayer() {
-		visualLayer.frame = bounds
+		visualLayer.bounds = bounds
 		visualLayer.position = CGPointMake(width / 2, height / 2)
 		visualLayer.cornerRadius = layer.cornerRadius
 	}

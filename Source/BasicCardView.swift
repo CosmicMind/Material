@@ -300,7 +300,7 @@ public class BasicCardView : MaterialPulseView {
 			verticalFormat += "-[titleLabel]"
 			views["titleLabel"] = v
 			
-			MaterialLayout.alignToParentHorizontallyWithInsets(self, child: v, left: contentInsetsRef.left + titleLabelInsetsRef.left, right: contentInsetsRef.right + titleLabelInsetsRef.right)
+			MaterialLayout.alignToParentHorizontally(self, child: v, left: contentInsetsRef.left + titleLabelInsetsRef.left, right: contentInsetsRef.right + titleLabelInsetsRef.right)
 		}
 		
 		// detail
@@ -317,7 +317,7 @@ public class BasicCardView : MaterialPulseView {
 			verticalFormat += "-[detailLabel]"
 			views["detailLabel"] = v
 			
-			MaterialLayout.alignToParentHorizontallyWithInsets(self, child: v, left: contentInsetsRef.left + detailLabelInsetsRef.left, right: contentInsetsRef.right + detailLabelInsetsRef.right)
+			MaterialLayout.alignToParentHorizontally(self, child: v, left: contentInsetsRef.left + detailLabelInsetsRef.left, right: contentInsetsRef.right + detailLabelInsetsRef.right)
 		}
 		
 		// leftButtons

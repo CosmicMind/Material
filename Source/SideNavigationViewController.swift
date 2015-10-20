@@ -192,8 +192,12 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		let w: CGFloat = (hidden ? -width : width) / 2
 		
 		if animated {
-			self.leftView!.width = width
-			self.leftView!.position.x = w
+			MaterialAnimation.animationWithDuration(0.25, animations: {
+				self.leftView!.width = width
+				self.leftView!.position.x = w
+			}) {
+				self.userInteractionEnabled = false
+			}
 		} else {
 			MaterialAnimation.animationDisabled({
 				self.leftView!.width = width
@@ -213,14 +217,14 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		:name:	openLeftViewContainer
 	*/
 	public func openLeftViewContainer(velocity: CGFloat = 0) {
-		if let vc = leftView {
-			let w: CGFloat = vc.width
-			let h: CGFloat = vc.height
-			let d: Double = Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(vc.x / velocity))))
+		if let v = leftView {
+			let w: CGFloat = v.width
+			let h: CGFloat = v.height
+			let d: Double = Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.x / velocity))))
 			
 			toggleStatusBar(true)
 			MaterialAnimation.animationWithDuration(d, animations: {
-				vc.position = CGPointMake(w / 2, h / 2)
+				v.position = CGPointMake(w / 2, h / 2)
 				self.backdropLayer.hidden = false
 			}) {
 				self.userInteractionEnabled = false
@@ -232,14 +236,14 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		:name:	closeLeftViewContainer
 	*/
 	public func closeLeftViewContainer(velocity: CGFloat = 0) {
-		if let vc = leftView {
-			let w: CGFloat = vc.width
-			let h: CGFloat = vc.height
-			let d: Double = Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(vc.x / velocity))))
+		if let v = leftView {
+			let w: CGFloat = v.width
+			let h: CGFloat = v.height
+			let d: Double = Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.x / velocity))))
 			
 			toggleStatusBar(false)
 			MaterialAnimation.animationWithDuration(d, animations: {
-				vc.position = CGPointMake(-w / 2, h / 2)
+				v.position = CGPointMake(-w / 2, h / 2)
 				self.backdropLayer.hidden = true
 			}) {
 				self.userInteractionEnabled = true
@@ -435,7 +439,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	//	:name:	prepareViewControllerWithinContainer
 	//
 	private func prepareViewControllerWithinContainer(controller: UIViewController, container: UIView) {
-		controller.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+		controller.view.clipsToBounds = true
 		addChildViewController(controller)
 		container.addSubview(controller.view)
 		controller.didMoveToParentViewController(self)
