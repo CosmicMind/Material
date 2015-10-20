@@ -81,22 +81,40 @@ public class MaterialPanCollectionViewCell : MaterialPulseCollectionViewCell, UI
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		userInteractionEnabled = MaterialTheme.flatButton.userInteractionEnabled
-		backgroundColor = MaterialTheme.flatButton.backgroundColor
-		pulseColorOpacity = MaterialTheme.flatButton.pulseColorOpacity
-		pulseColor = MaterialTheme.flatButton.pulseColor
 		
-		shadowDepth = MaterialTheme.flatButton.shadowDepth
-		shadowColor = MaterialTheme.flatButton.shadowColor
-		zPosition = MaterialTheme.flatButton.zPosition
-		cornerRadius = MaterialTheme.flatButton.cornerRadius
-		borderWidth = MaterialTheme.flatButton.borderWidth
-		borderColor = MaterialTheme.flatButton.bordercolor
-		shape = MaterialTheme.flatButton.shape
+		userInteractionEnabled = MaterialTheme.pulseCollectionView.userInteractionEnabled
+		backgroundColor = MaterialTheme.pulseCollectionView.backgroundColor
+		pulseColorOpacity = MaterialTheme.pulseCollectionView.pulseColorOpacity
+		pulseColor = MaterialTheme.pulseCollectionView.pulseColor
+		
+		shadowDepth = MaterialTheme.pulseCollectionView.shadowDepth
+		shadowColor = MaterialTheme.pulseCollectionView.shadowColor
+		zPosition = MaterialTheme.pulseCollectionView.zPosition
+		borderWidth = MaterialTheme.pulseCollectionView.borderWidth
+		borderColor = MaterialTheme.pulseCollectionView.bordercolor
+		masksToBounds = true
 		
 		prepareLeftLayer()
 		prepareRightLayer()
 		preparePanGesture()
+	}
+	
+	/**
+		:name:	animationDidStop
+	*/
+	public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
+		super.animationDidStop(anim, finished: flag)
+		
+		if let a: CABasicAnimation = anim as? CABasicAnimation {
+			if "position" == a.keyPath {
+				masksToBounds = true
+				if leftOnDragRelease {
+					(delegate as? MaterialPanCollectionViewCellDelegate)?.materialCollectionViewCellDidCloseLeftLayer?(self)
+				} else if rightOnDragRelease {
+					(delegate as? MaterialPanCollectionViewCellDelegate)?.materialCollectionViewCellDidCloseRightLayer?(self)
+				}
+			}
+		}
 	}
 	
 	//
@@ -124,7 +142,6 @@ public class MaterialPanCollectionViewCell : MaterialPulseCollectionViewCell, UI
 		addGestureRecognizer(panRecognizer)
 	}
 	
-	
 	//
 	//	:name:	handlePanGesture
 	//
@@ -132,7 +149,7 @@ public class MaterialPanCollectionViewCell : MaterialPulseCollectionViewCell, UI
 		switch recognizer.state {
 		case .Began:
 			originalPosition = position
-			
+			masksToBounds = false
 			rightOnDragRelease = x < -width / 2
 			leftOnDragRelease = x > width / 2
 			
@@ -162,15 +179,8 @@ public class MaterialPanCollectionViewCell : MaterialPulseCollectionViewCell, UI
 			
 		case .Ended:
 			revealed = false
-			
 			// snap back
 			animation(MaterialAnimation.position(CGPointMake(width / 2, y + height / 2), duration: 0.25))
-			
-			if leftOnDragRelease {
-				(delegate as? MaterialPanCollectionViewCellDelegate)?.materialCollectionViewCellDidCloseLeftLayer?(self)
-			} else if rightOnDragRelease {
-				(delegate as? MaterialPanCollectionViewCellDelegate)?.materialCollectionViewCellDidCloseRightLayer?(self)
-			}
 			
 		default:break
 		}

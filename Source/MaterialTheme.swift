@@ -256,6 +256,8 @@ public extension MaterialTheme.pulseCollectionView {
 	
 	// color
 	public static var backgroundColor: UIColor = MaterialColor.white
+	public static var pulseColor: UIColor = MaterialColor.blueGrey.lighten4
+	public static var pulseColorOpacity: CGFloat = 0.25
 	
 	// interaction
 	public static var userInteractionEnabled: Bool = true
