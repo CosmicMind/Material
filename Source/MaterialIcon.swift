@@ -108,6 +108,13 @@ public struct MaterialIcon {
 		}
 		
 		/**
+			:name:	inbox
+		*/
+		public static func inbox(size: MaterialIconSize = .Normal) -> UIImage? {
+			return MaterialIcon.iconWithSize("ic_inbox_white", size: size)
+		}
+		
+		/**
 			:name:	list
 		*/
 		public static func list(size: MaterialIconSize = .Normal) -> UIImage? {
@@ -221,6 +228,13 @@ public struct MaterialIcon {
 			*/
 			public static func delete(size: MaterialIconSize = .Normal) -> UIImage? {
 				return MaterialIcon.iconWithSize("ic_delete_blue_grey_darken_4", size: size)
+			}
+			
+			/**
+				:name:	inbox
+			*/
+			public static func inbox(size: MaterialIconSize = .Normal) -> UIImage? {
+				return MaterialIcon.iconWithSize("ic_inbox_blue_grey_darken_4", size: size)
 			}
 			
 			/**
