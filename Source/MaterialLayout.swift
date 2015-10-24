@@ -46,7 +46,7 @@ public struct MaterialLayout {
 	}
 	
 	/**
-		:name:	alignToParentHorizontallyWithInsets
+		:name:	alignToParentHorizontally
 	*/
 	public static func alignToParentHorizontally(parent: UIView, child: UIView, left: CGFloat = 0, right: CGFloat = 0) {
 		parent.addConstraints(constraint("H:|-(left)-[child]-(right)-|", options: [], metrics: ["left": left, "right": right], views: ["child" : child]))
