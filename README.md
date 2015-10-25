@@ -298,9 +298,3 @@ v.animation(MaterialAnimation.animationGroup([
 ### License
 
 [AGPL-3.0](http://choosealicense.com/licenses/agpl-3.0/)
-
-### Contributors
-
-* [Daniel Dahan](https://github.com/danieldahan)
-* [Adam Dahan](https://github.com/adamdahan)
-* [Michael Reyder](https://github.com/michaelReyder)
