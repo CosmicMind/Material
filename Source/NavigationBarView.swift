@@ -31,18 +31,17 @@ public class NavigationBarView : MaterialView {
 	/**
 		:name:	contentInsets
 	*/
-	public var contentInsets: MaterialInsets? {
+	public var contentInsets: MaterialInsets = .None {
 		didSet {
-			contentInsetsRef = nil == contentInsets ? nil : MaterialInsetsToValue(contentInsets!)
+			contentInsetsRef = MaterialInsetsToValue(contentInsets)
 		}
 	}
 	
 	/**
 		:name:	contentInsetsRef
 	*/
-	public var contentInsetsRef: MaterialInsetsType! {
+	public var contentInsetsRef: MaterialInsetsType = MaterialTheme.navigationBarView.contentInsetsRef {
 		didSet {
-			contentInsetsRef = nil == contentInsetsRef ? MaterialInsetsToValue(.None) : contentInsetsRef!
 			reloadView()
 		}
 	}
@@ -50,18 +49,17 @@ public class NavigationBarView : MaterialView {
 	/**
 		:name:	titleLabelInsets
 	*/
-	public var titleLabelInsets: MaterialInsets? {
+	public var titleLabelInsets: MaterialInsets = .None {
 		didSet {
-			titleLabelInsetsRef = nil == titleLabelInsets ? nil : MaterialInsetsToValue(titleLabelInsets!)
+			titleLabelInsetsRef = MaterialInsetsToValue(titleLabelInsets)
 		}
 	}
 	
 	/**
 		:name:	titleLabelInsetsRef
 	*/
-	public var titleLabelInsetsRef: MaterialInsetsType! {
+	public var titleLabelInsetsRef: MaterialInsetsType = MaterialTheme.navigationBarView.titleLabelInsetsRef {
 		didSet {
-			titleLabelInsetsRef = nil == titleLabelInsetsRef ? MaterialInsetsToValue(.None) : titleLabelInsetsRef!
 			reloadView()
 		}
 	}
@@ -79,18 +77,17 @@ public class NavigationBarView : MaterialView {
 	/**
 		:name:	detailLabelInsets
 	*/
-	public var detailLabelInsets: MaterialInsets? {
+	public var detailLabelInsets: MaterialInsets = .None {
 		didSet {
-			detailLabelInsetsRef = nil == detailLabelInsets ? nil : MaterialInsetsToValue(detailLabelInsets!)
+			detailLabelInsetsRef = MaterialInsetsToValue(detailLabelInsets)
 		}
 	}
 	
 	/**
 		:name:	detailLabelInsetsRef
 	*/
-	public var detailLabelInsetsRef: MaterialInsetsType! {
+	public var detailLabelInsetsRef: MaterialInsetsType = MaterialTheme.navigationBarView.detailLabelInsetsRef {
 		didSet {
-			detailLabelInsetsRef = nil == detailLabelInsetsRef ? MaterialInsetsToValue(.None) : detailLabelInsetsRef!
 			reloadView()
 		}
 	}
@@ -108,18 +105,17 @@ public class NavigationBarView : MaterialView {
 	/**
 		:name:	leftButtonsInsets
 	*/
-	public var leftButtonsInsets: MaterialInsets? {
+	public var leftButtonsInsets: MaterialInsets = .None {
 		didSet {
-			leftButtonsInsetsRef = nil == leftButtonsInsets ? nil : MaterialInsetsToValue(leftButtonsInsets!)
+			leftButtonsInsetsRef = MaterialInsetsToValue(leftButtonsInsets)
 		}
 	}
 	
 	/**
 	:name:	leftButtonsInsetsRef
 	*/
-	public var leftButtonsInsetsRef: MaterialInsetsType! {
+	public var leftButtonsInsetsRef: MaterialInsetsType = MaterialTheme.navigationBarView.leftButtonsInsetsRef {
 		didSet {
-			leftButtonsInsetsRef = nil == leftButtonsInsetsRef ? MaterialInsetsToValue(.None) : leftButtonsInsetsRef!
 			reloadView()
 		}
 	}
@@ -141,18 +137,17 @@ public class NavigationBarView : MaterialView {
 	/**
 		:name:	rightButtonsInsets
 	*/
-	public var rightButtonsInsets: MaterialInsets? {
+	public var rightButtonsInsets: MaterialInsets = .None {
 		didSet {
-			rightButtonsInsetsRef = nil == rightButtonsInsets ? nil : MaterialInsetsToValue(rightButtonsInsets!)
+			rightButtonsInsetsRef = MaterialInsetsToValue(rightButtonsInsets)
 		}
 	}
 	
 	/**
 		:name:	rightButtonsInsetsRef
 	*/
-	public var rightButtonsInsetsRef: MaterialInsetsType! {
+	public var rightButtonsInsetsRef: MaterialInsetsType = MaterialTheme.navigationBarView.rightButtonsInsetsRef {
 		didSet {
-			rightButtonsInsetsRef = nil == rightButtonsInsetsRef ? MaterialInsetsToValue(.None) : rightButtonsInsetsRef!
 			reloadView()
 		}
 	}
@@ -207,11 +202,6 @@ public class NavigationBarView : MaterialView {
 		super.prepareView()
 		userInteractionEnabled = MaterialTheme.navigationBarView.userInteractionEnabled
 		backgroundColor = MaterialTheme.navigationBarView.backgroundColor
-		contentInsetsRef = MaterialTheme.navigationBarView.contentInsetsRef
-		titleLabelInsetsRef = MaterialTheme.navigationBarView.titleLabelInsetsRef
-		detailLabelInsetsRef = MaterialTheme.navigationBarView.detailLabelInsetsRef
-		leftButtonsInsetsRef = MaterialTheme.navigationBarView.leftButtonsInsetsRef
-		rightButtonsInsetsRef = MaterialTheme.navigationBarView.rightButtonsInsetsRef
 		
 		contentsRect = MaterialTheme.navigationBarView.contentsRect
 		contentsCenter = MaterialTheme.navigationBarView.contentsCenter
@@ -240,10 +230,10 @@ public class NavigationBarView : MaterialView {
 		
 		if nil != titleLabel {
 			verticalFormat += "-(insetTop)"
-			metrics["insetTop"] = contentInsetsRef!.top + titleLabelInsetsRef!.top
+			metrics["insetTop"] = contentInsetsRef.top + titleLabelInsetsRef.top
 		} else if nil != detailLabel {
 			verticalFormat += "-(insetTop)"
-			metrics["insetTop"] = contentInsetsRef!.top + detailLabelInsetsRef!.top
+			metrics["insetTop"] = contentInsetsRef.top + detailLabelInsetsRef.top
 		}
 		
 		// title
@@ -252,21 +242,21 @@ public class NavigationBarView : MaterialView {
 			views["titleLabel"] = v
 			
 			addSubview(v)
-			MaterialLayout.alignToParentHorizontallyWithInsets(self, child: v, left: contentInsetsRef!.left + titleLabelInsetsRef!.left, right: contentInsetsRef!.right + titleLabelInsetsRef!.right)
+			MaterialLayout.alignToParentHorizontally(self, child: v, left: contentInsetsRef.left + titleLabelInsetsRef.left, right: contentInsetsRef.right + titleLabelInsetsRef.right)
 		}
 		
 		// detail
 		if let v = detailLabel {
 			if nil != titleLabel {
 				verticalFormat += "-(insetB)"
-				metrics["insetB"] = titleLabelInsetsRef!.bottom + detailLabelInsetsRef!.top
+				metrics["insetB"] = titleLabelInsetsRef.bottom + detailLabelInsetsRef.top
 			}
 			
 			verticalFormat += "-[detailLabel]"
 			views["detailLabel"] = v
 			
 			addSubview(v)
-			MaterialLayout.alignToParentHorizontallyWithInsets(self, child: v, left: contentInsetsRef!.left + detailLabelInsetsRef!.left, right: contentInsetsRef!.right + detailLabelInsetsRef!.right)
+			MaterialLayout.alignToParentHorizontally(self, child: v, left: contentInsetsRef.left + detailLabelInsetsRef.left, right: contentInsetsRef.right + detailLabelInsetsRef.right)
 		}
 		
 		// leftButtons
@@ -289,10 +279,10 @@ public class NavigationBarView : MaterialView {
 					h += "[\(k)]"
 					
 					addSubview(b)
-					MaterialLayout.alignFromBottom(self, child: b, bottom: contentInsetsRef!.bottom + leftButtonsInsetsRef!.bottom)
+					MaterialLayout.alignFromBottom(self, child: b, bottom: contentInsetsRef.bottom + leftButtonsInsetsRef.bottom)
 				}
 				
-				addConstraints(MaterialLayout.constraint(h, options: [], metrics: ["left" : contentInsetsRef!.left + leftButtonsInsetsRef!.left, "left_right" : leftButtonsInsetsRef!.left + leftButtonsInsetsRef!.right], views: d))
+				addConstraints(MaterialLayout.constraint(h, options: [], metrics: ["left" : contentInsetsRef.left + leftButtonsInsetsRef.left, "left_right" : leftButtonsInsetsRef.left + leftButtonsInsetsRef.right], views: d))
 			}
 		}
 		
@@ -317,24 +307,24 @@ public class NavigationBarView : MaterialView {
 					}
 					
 					addSubview(b)
-					MaterialLayout.alignFromBottom(self, child: b, bottom: contentInsetsRef!.bottom + rightButtonsInsetsRef!.bottom)
+					MaterialLayout.alignFromBottom(self, child: b, bottom: contentInsetsRef.bottom + rightButtonsInsetsRef.bottom)
 				}
 				
-				addConstraints(MaterialLayout.constraint(h + "|", options: [], metrics: ["right" : contentInsetsRef!.right + rightButtonsInsetsRef!.right, "right_left" : rightButtonsInsetsRef!.right + rightButtonsInsetsRef!.left], views: d))
+				addConstraints(MaterialLayout.constraint(h + "|", options: [], metrics: ["right" : contentInsetsRef.right + rightButtonsInsetsRef.right, "right_left" : rightButtonsInsetsRef.right + rightButtonsInsetsRef.left], views: d))
 			}
 		}
 		
 		if nil != detailLabel {
 			if nil == metrics["insetC"] {
-				metrics["insetBottom"] = contentInsetsRef!.bottom + detailLabelInsetsRef!.bottom
+				metrics["insetBottom"] = contentInsetsRef.bottom + detailLabelInsetsRef.bottom
 			} else {
-				metrics["insetC"] = (metrics["insetC"] as! CGFloat) + detailLabelInsetsRef!.bottom
+				metrics["insetC"] = (metrics["insetC"] as! CGFloat) + detailLabelInsetsRef.bottom
 			}
 		} else if nil != titleLabel {
 			if nil == metrics["insetC"] {
-				metrics["insetBottom"] = contentInsetsRef!.bottom + titleLabelInsetsRef!.bottom
+				metrics["insetBottom"] = contentInsetsRef.bottom + titleLabelInsetsRef.bottom
 			} else {
-				metrics["insetC"] = (metrics["insetC"] as! CGFloat) + titleLabelInsetsRef!.bottom
+				metrics["insetC"] = (metrics["insetC"] as! CGFloat) + titleLabelInsetsRef.bottom
 			}
 		}
 		

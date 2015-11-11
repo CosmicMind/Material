@@ -46,48 +46,25 @@ public struct MaterialLayout {
 	}
 	
 	/**
-		:name:	alignToParent
-	*/
-	public static func alignToParent(parent: UIView, child: UIView) {
-		let views: Dictionary<String, AnyObject> = ["child" : child]
-		parent.addConstraints(constraint("H:|[child]|", options: [], metrics: nil, views: views))
-		parent.addConstraints(constraint("V:|[child]|", options: [], metrics: nil, views: views))
-	}
-	
-	/**
 		:name:	alignToParentHorizontally
 	*/
-	public static func alignToParentHorizontally(parent: UIView, child: UIView) {
-		alignToParentHorizontallyWithInsets(parent, child: child, left: 0, right: 0)
-	}
-	
-	/**
-		:name:	alignToParentHorizontallyWithInsets
-	*/
-	public static func alignToParentHorizontallyWithInsets(parent: UIView, child: UIView, left: CGFloat = 0, right: CGFloat = 0) {
+	public static func alignToParentHorizontally(parent: UIView, child: UIView, left: CGFloat = 0, right: CGFloat = 0) {
 		parent.addConstraints(constraint("H:|-(left)-[child]-(right)-|", options: [], metrics: ["left": left, "right": right], views: ["child" : child]))
 	}
 	
 	/**
 		:name:	alignToParentVertically
 	*/
-	public static func alignToParentVertically(parent: UIView, child: UIView) {
-		alignToParentVerticallyWithInsets(parent, child: child, top: 0, bottom: 0)
-	}
-	
-	/**
-		:name:	alignToParentVerticallyWithInsets
-	*/
-	public static func alignToParentVerticallyWithInsets(parent: UIView, child: UIView, top: CGFloat = 0, bottom: CGFloat = 0) {
+	public static func alignToParentVertically(parent: UIView, child: UIView, top: CGFloat = 0, bottom: CGFloat = 0) {
 		parent.addConstraints(constraint("V:|-(top)-[child]-(bottom)-|", options: [], metrics: ["bottom": bottom, "top": top], views: ["child" : child]))
 	}
 	
 	/**
-		:name:	alignToParentWithInsets
+		:name:	alignToParent
 	*/
-	public static func alignToParentWithInsets(parent: UIView, child: UIView, top: CGFloat = 0, left: CGFloat = 0, bottom: CGFloat = 0, right: CGFloat = 0) {
-		alignToParentHorizontallyWithInsets(parent, child: child, left: left, right: right)
-		alignToParentVerticallyWithInsets(parent, child: child, top: top, bottom: bottom)
+	public static func alignToParent(parent: UIView, child: UIView, top: CGFloat = 0, left: CGFloat = 0, bottom: CGFloat = 0, right: CGFloat = 0) {
+		alignToParentHorizontally(parent, child: child, left: left, right: right)
+		alignToParentVertically(parent, child: child, top: top, bottom: bottom)
 	}
 	
 	/**

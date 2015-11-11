@@ -7,18 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		65AD15EA1BC05B3A0068AF9C /* MaterialLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AD15E91BC05B3A0068AF9C /* MaterialLayer.swift */; settings = {ASSET_TAGS = (); }; };
-		65BDD1471BB5B916006F7F2B /* MaterialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1461BB5B916006F7F2B /* MaterialView.swift */; settings = {ASSET_TAGS = (); }; };
-		65BDD1491BB5DC98006F7F2B /* MaterialColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1481BB5DC98006F7F2B /* MaterialColor.swift */; settings = {ASSET_TAGS = (); }; };
-		65BDD14B1BB5DD02006F7F2B /* MaterialFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD14A1BB5DD02006F7F2B /* MaterialFont.swift */; settings = {ASSET_TAGS = (); }; };
-		65BDD14D1BB5ED9F006F7F2B /* MaterialTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD14C1BB5ED9F006F7F2B /* MaterialTheme.swift */; settings = {ASSET_TAGS = (); }; };
-		65BDD14F1BB5EE4A006F7F2B /* MaterialGravity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD14E1BB5EE4A006F7F2B /* MaterialGravity.swift */; settings = {ASSET_TAGS = (); }; };
-		65BDD1521BB6EE7C006F7F2B /* RobotoFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1511BB6EE7C006F7F2B /* RobotoFont.swift */; settings = {ASSET_TAGS = (); }; };
-		65BDD1541BB6F473006F7F2B /* MaterialDepth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1531BB6F473006F7F2B /* MaterialDepth.swift */; settings = {ASSET_TAGS = (); }; };
-		65BDD1571BB6FC82006F7F2B /* MaterialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1561BB6FC82006F7F2B /* MaterialButton.swift */; settings = {ASSET_TAGS = (); }; };
-		65BDD1591BB6FE3E006F7F2B /* FlatButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1581BB6FE3E006F7F2B /* FlatButton.swift */; settings = {ASSET_TAGS = (); }; };
-		65BDD15B1BB7095E006F7F2B /* MaterialRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD15A1BB7095E006F7F2B /* MaterialRadius.swift */; settings = {ASSET_TAGS = (); }; };
-		65BDD15D1BB70D60006F7F2B /* MaterialInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD15C1BB70D60006F7F2B /* MaterialInsets.swift */; settings = {ASSET_TAGS = (); }; };
+		65AD15EA1BC05B3A0068AF9C /* MaterialLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AD15E91BC05B3A0068AF9C /* MaterialLayer.swift */; };
+		65BDD1471BB5B916006F7F2B /* MaterialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1461BB5B916006F7F2B /* MaterialView.swift */; };
+		65BDD1491BB5DC98006F7F2B /* MaterialColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1481BB5DC98006F7F2B /* MaterialColor.swift */; };
+		65BDD14B1BB5DD02006F7F2B /* MaterialFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD14A1BB5DD02006F7F2B /* MaterialFont.swift */; };
+		65BDD14D1BB5ED9F006F7F2B /* MaterialTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD14C1BB5ED9F006F7F2B /* MaterialTheme.swift */; };
+		65BDD14F1BB5EE4A006F7F2B /* MaterialGravity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD14E1BB5EE4A006F7F2B /* MaterialGravity.swift */; };
+		65BDD1521BB6EE7C006F7F2B /* RobotoFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1511BB6EE7C006F7F2B /* RobotoFont.swift */; };
+		65BDD1541BB6F473006F7F2B /* MaterialDepth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1531BB6F473006F7F2B /* MaterialDepth.swift */; };
+		65BDD1571BB6FC82006F7F2B /* MaterialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1561BB6FC82006F7F2B /* MaterialButton.swift */; };
+		65BDD1591BB6FE3E006F7F2B /* FlatButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1581BB6FE3E006F7F2B /* FlatButton.swift */; };
+		65BDD15B1BB7095E006F7F2B /* MaterialRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD15A1BB7095E006F7F2B /* MaterialRadius.swift */; };
+		65BDD15D1BB70D60006F7F2B /* MaterialInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD15C1BB70D60006F7F2B /* MaterialInsets.swift */; };
 		65BDD15E1BB7111E006F7F2B /* MaterialTheme.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65BDD14C1BB5ED9F006F7F2B /* MaterialTheme.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		65BDD15F1BB7111E006F7F2B /* MaterialColor.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65BDD1481BB5DC98006F7F2B /* MaterialColor.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		65BDD1601BB7111E006F7F2B /* MaterialGravity.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65BDD14E1BB5EE4A006F7F2B /* MaterialGravity.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -30,23 +30,25 @@
 		65BDD1661BB7111E006F7F2B /* MaterialView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65BDD1461BB5B916006F7F2B /* MaterialView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		65BDD1671BB7111E006F7F2B /* MaterialButton.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65BDD1561BB6FC82006F7F2B /* MaterialButton.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		65BDD1681BB7111E006F7F2B /* FlatButton.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65BDD1581BB6FE3E006F7F2B /* FlatButton.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		65BDD16A1BB7146B006F7F2B /* MaterialBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1691BB7146B006F7F2B /* MaterialBorder.swift */; settings = {ASSET_TAGS = (); }; };
-		65BDD16C1BB88D1A006F7F2B /* MaterialShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD16B1BB88D1A006F7F2B /* MaterialShape.swift */; settings = {ASSET_TAGS = (); }; };
-		65BDD16E1BB899F2006F7F2B /* MaterialPulseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD16D1BB899F2006F7F2B /* MaterialPulseView.swift */; settings = {ASSET_TAGS = (); }; };
-		65BDD1721BB8CD77006F7F2B /* MaterialLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1711BB8CD77006F7F2B /* MaterialLabel.swift */; settings = {ASSET_TAGS = (); }; };
-		65BDD1741BB8D443006F7F2B /* MaterialAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1731BB8D443006F7F2B /* MaterialAnimation.swift */; settings = {ASSET_TAGS = (); }; };
-		65BDD1791BB99C0F006F7F2B /* RaisedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1781BB99C0F006F7F2B /* RaisedButton.swift */; settings = {ASSET_TAGS = (); }; };
-		65BDD17C1BB99E29006F7F2B /* FabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD17B1BB99E29006F7F2B /* FabButton.swift */; settings = {ASSET_TAGS = (); }; };
-		65D2BEC71BBED1E400800B7B /* MaterialBasicAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D2BEC61BBED1E400800B7B /* MaterialBasicAnimation.swift */; settings = {ASSET_TAGS = (); }; };
-		65D2BEC91BBED1FA00800B7B /* MaterialKeyframeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D2BEC81BBED1FA00800B7B /* MaterialKeyframeAnimation.swift */; settings = {ASSET_TAGS = (); }; };
+		65BDD16A1BB7146B006F7F2B /* MaterialBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1691BB7146B006F7F2B /* MaterialBorder.swift */; };
+		65BDD16C1BB88D1A006F7F2B /* MaterialShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD16B1BB88D1A006F7F2B /* MaterialShape.swift */; };
+		65BDD16E1BB899F2006F7F2B /* MaterialPulseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD16D1BB899F2006F7F2B /* MaterialPulseView.swift */; };
+		65BDD1721BB8CD77006F7F2B /* MaterialLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1711BB8CD77006F7F2B /* MaterialLabel.swift */; };
+		65BDD1741BB8D443006F7F2B /* MaterialAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1731BB8D443006F7F2B /* MaterialAnimation.swift */; };
+		65BDD1791BB99C0F006F7F2B /* RaisedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD1781BB99C0F006F7F2B /* RaisedButton.swift */; };
+		65BDD17C1BB99E29006F7F2B /* FabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BDD17B1BB99E29006F7F2B /* FabButton.swift */; };
+		65D2BEC71BBED1E400800B7B /* MaterialBasicAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D2BEC61BBED1E400800B7B /* MaterialBasicAnimation.swift */; };
+		65D2BEC91BBED1FA00800B7B /* MaterialKeyframeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D2BEC81BBED1FA00800B7B /* MaterialKeyframeAnimation.swift */; };
 		65DBE4201B9A9244000C804F /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 65DBE41E1B9A9244000C804F /* Roboto-Bold.ttf */; };
 		65DBE4211B9A9244000C804F /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 65DBE41F1B9A9244000C804F /* Roboto-Thin.ttf */; };
+		9606E1C41BDE9F080013EA82 /* MaterialKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 9606E1C31BDE9F080013EA82 /* MaterialKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9612008B1BD5B0AE00C449A6 /* MaterialIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9612008A1BD5B0AE00C449A6 /* MaterialIcon.swift */; };
 		962F3E531BACA68C0004B8AD /* NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962F3E521BACA68C0004B8AD /* NavigationBarView.swift */; };
 		962F3E541BACA7FB0004B8AD /* NavigationBarView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 962F3E521BACA68C0004B8AD /* NavigationBarView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		963832421B88DFD80015F710 /* MaterialKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963832361B88DFD80015F710 /* MaterialKit.framework */; };
 		9638325A1B88E31A0015F710 /* MaterialKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963832581B88E31A0015F710 /* MaterialKitTests.swift */; };
-		964B17B41BBA447F002A9CA0 /* MaterialLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B17B31BBA447F002A9CA0 /* MaterialLayout.swift */; settings = {ASSET_TAGS = (); }; };
-		964B17B61BBA4BEA002A9CA0 /* MaterialStatusBarStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B17B51BBA4BEA002A9CA0 /* MaterialStatusBarStyle.swift */; settings = {ASSET_TAGS = (); }; };
+		964B17B41BBA447F002A9CA0 /* MaterialLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B17B31BBA447F002A9CA0 /* MaterialLayout.swift */; };
+		964B17B61BBA4BEA002A9CA0 /* MaterialStatusBarStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B17B51BBA4BEA002A9CA0 /* MaterialStatusBarStyle.swift */; };
 		964B17CC1BBB31C2002A9CA0 /* MaterialBorder.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65BDD1691BB7146B006F7F2B /* MaterialBorder.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		964B17CD1BBB31C2002A9CA0 /* MaterialShape.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65BDD16B1BB88D1A006F7F2B /* MaterialShape.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		964B17CF1BBB31C2002A9CA0 /* MaterialStatusBarStyle.swift in Headers */ = {isa = PBXBuildFile; fileRef = 964B17B51BBA4BEA002A9CA0 /* MaterialStatusBarStyle.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -59,16 +61,27 @@
 		965C17C81BC82FEF00B1059A /* MaterialLayer.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65AD15E91BC05B3A0068AF9C /* MaterialLayer.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		965C17C91BC82FEF00B1059A /* MaterialTextLayer.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9699879B1BC5FE49006D678E /* MaterialTextLayer.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		965C17CA1BC82FEF00B1059A /* ImageCardView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96D26BFC1BC23649006478BD /* ImageCardView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		9693BF861BCB0E0A0087054A /* Material+UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693BF851BCB0E0A0087054A /* Material+UIFont.swift */; settings = {ASSET_TAGS = (); }; };
+		9688D06D1BD4587200A70097 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9688D06C1BD4587200A70097 /* SearchBarView.swift */; };
+		9688D06F1BD45A5800A70097 /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9688D06E1BD45A5800A70097 /* Icons.xcassets */; };
+		9688D0701BD45B8C00A70097 /* SideNavigationViewController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9693BF981BCDC1450087054A /* SideNavigationViewController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		9688D0711BD45B8C00A70097 /* SearchBarView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9688D06C1BD4587200A70097 /* SearchBarView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		9688D0721BD45B8C00A70097 /* MaterialPulseCollectionViewCell.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9693BF9F1BCF36A40087054A /* MaterialPulseCollectionViewCell.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		9688D0731BD45B8C00A70097 /* MaterialPanCollectionViewCell.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9693BF9B1BCDC16C0087054A /* MaterialPanCollectionViewCell.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		9688D0741BD45B8C00A70097 /* BasicCollectionViewCell.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9693BF9D1BCDC1840087054A /* BasicCollectionViewCell.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		9693BF861BCB0E0A0087054A /* Material+UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693BF851BCB0E0A0087054A /* Material+UIFont.swift */; };
 		9693BF8B1BCB35910087054A /* Material+UIFont.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9693BF851BCB0E0A0087054A /* Material+UIFont.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9693BF8D1BCB35910087054A /* MaterialBasicAnimation.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65D2BEC61BBED1E400800B7B /* MaterialBasicAnimation.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9693BF8E1BCB35910087054A /* MaterialKeyframeAnimation.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65D2BEC81BBED1FA00800B7B /* MaterialKeyframeAnimation.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9693BF8F1BCB35910087054A /* MaterialTransitionAnimation.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96C4FABD1BC3168900E4FFC3 /* MaterialTransitionAnimation.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		9693BF961BCCCB520087054A /* BasicCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693BF951BCCCB520087054A /* BasicCardView.swift */; settings = {ASSET_TAGS = (); }; };
+		9693BF961BCCCB520087054A /* BasicCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693BF951BCCCB520087054A /* BasicCardView.swift */; };
 		9693BF971BCCCCB30087054A /* BasicCardView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9693BF951BCCCB520087054A /* BasicCardView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		9699879C1BC5FE49006D678E /* MaterialTextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9699879B1BC5FE49006D678E /* MaterialTextLayer.swift */; settings = {ASSET_TAGS = (); }; };
-		96C4FABE1BC3168900E4FFC3 /* MaterialTransitionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C4FABD1BC3168900E4FFC3 /* MaterialTransitionAnimation.swift */; settings = {ASSET_TAGS = (); }; };
-		96D26BFD1BC23649006478BD /* ImageCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D26BFC1BC23649006478BD /* ImageCardView.swift */; settings = {ASSET_TAGS = (); }; };
+		9693BF991BCDC1450087054A /* SideNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693BF981BCDC1450087054A /* SideNavigationViewController.swift */; };
+		9693BF9C1BCDC16C0087054A /* MaterialPanCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693BF9B1BCDC16C0087054A /* MaterialPanCollectionViewCell.swift */; };
+		9693BF9E1BCDC1840087054A /* BasicCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693BF9D1BCDC1840087054A /* BasicCollectionViewCell.swift */; };
+		9693BFA01BCF36A40087054A /* MaterialPulseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693BF9F1BCF36A40087054A /* MaterialPulseCollectionViewCell.swift */; };
+		9699879C1BC5FE49006D678E /* MaterialTextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9699879B1BC5FE49006D678E /* MaterialTextLayer.swift */; };
+		96C4FABE1BC3168900E4FFC3 /* MaterialTransitionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C4FABD1BC3168900E4FFC3 /* MaterialTransitionAnimation.swift */; };
+		96D26BFD1BC23649006478BD /* ImageCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D26BFC1BC23649006478BD /* ImageCardView.swift */; };
 		9A94D0FA1B895EA500F586A5 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 963832631B88E5BF0015F710 /* LICENSE */; };
 		9A94D0FB1B895EA500F586A5 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9AAC38591B8956E300FE6B2D /* Roboto-Regular.ttf */; };
 		9A94D0FC1B895EA500F586A5 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9AAC38571B8956CF00FE6B2D /* Roboto-Medium.ttf */; };
@@ -109,6 +122,8 @@
 		65D2BEC81BBED1FA00800B7B /* MaterialKeyframeAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialKeyframeAnimation.swift; sourceTree = "<group>"; };
 		65DBE41E1B9A9244000C804F /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		65DBE41F1B9A9244000C804F /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
+		9606E1C31BDE9F080013EA82 /* MaterialKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaterialKit.h; sourceTree = "<group>"; };
+		9612008A1BD5B0AE00C449A6 /* MaterialIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialIcon.swift; sourceTree = "<group>"; };
 		962F3E521BACA68C0004B8AD /* NavigationBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = "<group>"; };
 		963832361B88DFD80015F710 /* MaterialKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MaterialKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		963832411B88DFD80015F710 /* MaterialKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MaterialKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -118,8 +133,14 @@
 		963832631B88E5BF0015F710 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		964B17B31BBA447F002A9CA0 /* MaterialLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialLayout.swift; sourceTree = "<group>"; };
 		964B17B51BBA4BEA002A9CA0 /* MaterialStatusBarStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialStatusBarStyle.swift; sourceTree = "<group>"; };
+		9688D06C1BD4587200A70097 /* SearchBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
+		9688D06E1BD45A5800A70097 /* Icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Icons.xcassets; sourceTree = "<group>"; };
 		9693BF851BCB0E0A0087054A /* Material+UIFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIFont.swift"; sourceTree = "<group>"; };
 		9693BF951BCCCB520087054A /* BasicCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicCardView.swift; sourceTree = "<group>"; };
+		9693BF981BCDC1450087054A /* SideNavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideNavigationViewController.swift; sourceTree = "<group>"; };
+		9693BF9B1BCDC16C0087054A /* MaterialPanCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialPanCollectionViewCell.swift; sourceTree = "<group>"; };
+		9693BF9D1BCDC1840087054A /* BasicCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicCollectionViewCell.swift; sourceTree = "<group>"; };
+		9693BF9F1BCF36A40087054A /* MaterialPulseCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialPulseCollectionViewCell.swift; sourceTree = "<group>"; };
 		9699879B1BC5FE49006D678E /* MaterialTextLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialTextLayer.swift; sourceTree = "<group>"; };
 		96C4FABD1BC3168900E4FFC3 /* MaterialTransitionAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialTransitionAnimation.swift; sourceTree = "<group>"; };
 		96D26BFC1BC23649006478BD /* ImageCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCardView.swift; sourceTree = "<group>"; };
@@ -230,16 +251,21 @@
 			isa = PBXGroup;
 			children = (
 				963832631B88E5BF0015F710 /* LICENSE */,
-				9693BF841BCB0DEE0087054A /* Extensions */,
+				9688D06E1BD45A5800A70097 /* Icons.xcassets */,
 				9638325C1B88E3420015F710 /* Supporting Files */,
+				9606E1C31BDE9F080013EA82 /* MaterialKit.h */,
+				9693BF841BCB0DEE0087054A /* Extensions */,
 				96B57D4C1B90AF6A00DE7BBB /* Theme */,
 				9AAC38521B89553800FE6B2D /* Font */,
+				963C7A681BD4726900D175C5 /* Text */,
 				65AD15E81BC05B0E0068AF9C /* Layer */,
 				65B965851B8BEEB00055B139 /* View */,
 				965C17C21BC7258100B1059A /* Navigation */,
+				9688D06B1BD4585800A70097 /* Search */,
 				65BDD1551BB6FC60006F7F2B /* Button */,
 				65BDD1701BB8CD56006F7F2B /* Label */,
 				964B17D71BBB38E2002A9CA0 /* Card */,
+				9693BF9A1BCDC15C0087054A /* Collection */,
 				65BDD1751BB8D44B006F7F2B /* Animation */,
 				964B17B21BBA445D002A9CA0 /* Layout */,
 			);
@@ -271,6 +297,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		963C7A681BD4726900D175C5 /* Text */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Text;
+			sourceTree = "<group>";
+		};
 		964B17B21BBA445D002A9CA0 /* Layout */ = {
 			isa = PBXGroup;
 			children = (
@@ -292,8 +325,17 @@
 			isa = PBXGroup;
 			children = (
 				962F3E521BACA68C0004B8AD /* NavigationBarView.swift */,
+				9693BF981BCDC1450087054A /* SideNavigationViewController.swift */,
 			);
 			name = Navigation;
+			sourceTree = "<group>";
+		};
+		9688D06B1BD4585800A70097 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				9688D06C1BD4587200A70097 /* SearchBarView.swift */,
+			);
+			name = Search;
 			sourceTree = "<group>";
 		};
 		9693BF841BCB0DEE0087054A /* Extensions */ = {
@@ -304,10 +346,21 @@
 			name = Extensions;
 			sourceTree = "<group>";
 		};
+		9693BF9A1BCDC15C0087054A /* Collection */ = {
+			isa = PBXGroup;
+			children = (
+				9693BF9F1BCF36A40087054A /* MaterialPulseCollectionViewCell.swift */,
+				9693BF9B1BCDC16C0087054A /* MaterialPanCollectionViewCell.swift */,
+				9693BF9D1BCDC1840087054A /* BasicCollectionViewCell.swift */,
+			);
+			name = Collection;
+			sourceTree = "<group>";
+		};
 		96B57D4C1B90AF6A00DE7BBB /* Theme */ = {
 			isa = PBXGroup;
 			children = (
 				65BDD14C1BB5ED9F006F7F2B /* MaterialTheme.swift */,
+				9612008A1BD5B0AE00C449A6 /* MaterialIcon.swift */,
 				65BDD1481BB5DC98006F7F2B /* MaterialColor.swift */,
 				65BDD14E1BB5EE4A006F7F2B /* MaterialGravity.swift */,
 				65BDD1531BB6F473006F7F2B /* MaterialDepth.swift */,
@@ -352,6 +405,7 @@
 				964B17CD1BBB31C2002A9CA0 /* MaterialShape.swift in Headers */,
 				964B17CF1BBB31C2002A9CA0 /* MaterialStatusBarStyle.swift in Headers */,
 				964B17D01BBB31C2002A9CA0 /* MaterialPulseView.swift in Headers */,
+				9606E1C41BDE9F080013EA82 /* MaterialKit.h in Headers */,
 				964B17D21BBB31C2002A9CA0 /* MaterialLabel.swift in Headers */,
 				964B17D31BBB31C2002A9CA0 /* RaisedButton.swift in Headers */,
 				964B17D41BBB31C2002A9CA0 /* FabButton.swift in Headers */,
@@ -365,6 +419,11 @@
 				9693BF8D1BCB35910087054A /* MaterialBasicAnimation.swift in Headers */,
 				9693BF8E1BCB35910087054A /* MaterialKeyframeAnimation.swift in Headers */,
 				9693BF8F1BCB35910087054A /* MaterialTransitionAnimation.swift in Headers */,
+				9688D0701BD45B8C00A70097 /* SideNavigationViewController.swift in Headers */,
+				9688D0711BD45B8C00A70097 /* SearchBarView.swift in Headers */,
+				9688D0721BD45B8C00A70097 /* MaterialPulseCollectionViewCell.swift in Headers */,
+				9688D0731BD45B8C00A70097 /* MaterialPanCollectionViewCell.swift in Headers */,
+				9688D0741BD45B8C00A70097 /* BasicCollectionViewCell.swift in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -451,6 +510,7 @@
 			files = (
 				9A94D0FA1B895EA500F586A5 /* LICENSE in Resources */,
 				9A94D0FB1B895EA500F586A5 /* Roboto-Regular.ttf in Resources */,
+				9688D06F1BD45A5800A70097 /* Icons.xcassets in Resources */,
 				65DBE4211B9A9244000C804F /* Roboto-Thin.ttf in Resources */,
 				65DBE4201B9A9244000C804F /* Roboto-Bold.ttf in Resources */,
 				9A94D0FC1B895EA500F586A5 /* Roboto-Medium.ttf in Resources */,
@@ -473,16 +533,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				65BDD15D1BB70D60006F7F2B /* MaterialInsets.swift in Sources */,
+				9693BF9E1BCDC1840087054A /* BasicCollectionViewCell.swift in Sources */,
 				65BDD1471BB5B916006F7F2B /* MaterialView.swift in Sources */,
 				65BDD16C1BB88D1A006F7F2B /* MaterialShape.swift in Sources */,
 				65AD15EA1BC05B3A0068AF9C /* MaterialLayer.swift in Sources */,
 				65BDD1521BB6EE7C006F7F2B /* RobotoFont.swift in Sources */,
+				9688D06D1BD4587200A70097 /* SearchBarView.swift in Sources */,
+				9693BF991BCDC1450087054A /* SideNavigationViewController.swift in Sources */,
+				9612008B1BD5B0AE00C449A6 /* MaterialIcon.swift in Sources */,
 				9693BF961BCCCB520087054A /* BasicCardView.swift in Sources */,
 				96D26BFD1BC23649006478BD /* ImageCardView.swift in Sources */,
 				65BDD1591BB6FE3E006F7F2B /* FlatButton.swift in Sources */,
 				65BDD1791BB99C0F006F7F2B /* RaisedButton.swift in Sources */,
 				964B17B41BBA447F002A9CA0 /* MaterialLayout.swift in Sources */,
 				962F3E531BACA68C0004B8AD /* NavigationBarView.swift in Sources */,
+				9693BF9C1BCDC16C0087054A /* MaterialPanCollectionViewCell.swift in Sources */,
 				65BDD14F1BB5EE4A006F7F2B /* MaterialGravity.swift in Sources */,
 				65BDD1541BB6F473006F7F2B /* MaterialDepth.swift in Sources */,
 				65BDD1571BB6FC82006F7F2B /* MaterialButton.swift in Sources */,
@@ -495,6 +560,7 @@
 				65BDD16A1BB7146B006F7F2B /* MaterialBorder.swift in Sources */,
 				65BDD15B1BB7095E006F7F2B /* MaterialRadius.swift in Sources */,
 				65BDD1721BB8CD77006F7F2B /* MaterialLabel.swift in Sources */,
+				9693BFA01BCF36A40087054A /* MaterialPulseCollectionViewCell.swift in Sources */,
 				65BDD1491BB5DC98006F7F2B /* MaterialColor.swift in Sources */,
 				9693BF861BCB0E0A0087054A /* Material+UIFont.swift in Sources */,
 				96C4FABE1BC3168900E4FFC3 /* MaterialTransitionAnimation.swift in Sources */,

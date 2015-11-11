@@ -56,7 +56,7 @@ public class MaterialPulseView : MaterialView {
 	*/
 	public var pulseColorOpacity: CGFloat = MaterialTheme.pulseView.pulseColorOpacity {
 		didSet {
-			preparePulseLayer()
+			updatedPulseLayer()
 		}
 	}
 	
@@ -65,7 +65,7 @@ public class MaterialPulseView : MaterialView {
 	*/
 	public var pulseColor: UIColor? {
 		didSet {
-			preparePulseLayer()
+			updatedPulseLayer()
 		}
 	}
 	
@@ -76,11 +76,11 @@ public class MaterialPulseView : MaterialView {
 		super.touchesBegan(touches, withEvent: event)
 		let point: CGPoint = layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer)
 		if true == layer.containsPoint(point) {
-			let s: CGFloat = (width < height ? height : width) / 2
+			let r: CGFloat = (width < height ? height : width) / 2
 			let f: CGFloat = 3
-			let v: CGFloat = s / f
+			let v: CGFloat = r / f
 			let d: CGFloat = 2 * f
-			let r: CGFloat = 1.05
+			let s: CGFloat = 1.05
 			let t: CFTimeInterval = 0.25
 			
 			if nil != pulseColor && 0 < pulseColorOpacity {
@@ -88,13 +88,13 @@ public class MaterialPulseView : MaterialView {
 					self.pulseLayer.hidden = false
 					self.pulseLayer.bounds = CGRectMake(0, 0, v, v)
 					self.pulseLayer.position = point
-					self.pulseLayer.cornerRadius = s / d
+					self.pulseLayer.cornerRadius = r / d
 				})
 				pulseLayer.addAnimation(MaterialAnimation.scale(pulseFill ? 3 * d : d, duration: t), forKey: nil)
 			}
 			
 			if pulseScale {
-				layer.addAnimation(MaterialAnimation.scale(r, duration: t), forKey: nil)
+				layer.addAnimation(MaterialAnimation.scale(s, duration: t), forKey: nil)
 			}
 		}
 	}
@@ -106,7 +106,7 @@ public class MaterialPulseView : MaterialView {
 		super.touchesMoved(touches, withEvent: event)
 		if spotlight {
 			let point: CGPoint = layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer)
-			if true == layer.containsPoint(point) {
+			if layer.containsPoint(point) {
 				MaterialAnimation.animationDisabled({
 					self.pulseLayer.position = point
 				})
@@ -156,16 +156,22 @@ public class MaterialPulseView : MaterialView {
 		borderWidth = MaterialTheme.pulseView.borderWidth
 		borderColor = MaterialTheme.pulseView.bordercolor
 		
-		// pulseLayer
-		pulseLayer.hidden = true
-		pulseLayer.zPosition = 1
-		visualLayer.addSublayer(pulseLayer)
+		preparePulseLayer()
 	}
 	
 	//
 	//	:name:	preparePulseLayer
 	//
 	internal func preparePulseLayer() {
+		pulseLayer.hidden = true
+		pulseLayer.zPosition = 1
+		visualLayer.addSublayer(pulseLayer)
+	}
+	
+	//
+	//	:name:	updatedPulseLayer
+	//
+	internal func updatedPulseLayer() {
 		pulseLayer.backgroundColor = pulseColor?.colorWithAlphaComponent(pulseColorOpacity).CGColor
 	}
 	
@@ -174,16 +180,17 @@ public class MaterialPulseView : MaterialView {
 	//
 	internal func shrink() {
 		let t: CFTimeInterval = 0.25
+		let s: CGFloat = 1
 		
 		if nil != pulseColor && 0 < pulseColorOpacity {
 			MaterialAnimation.animationWithDuration(t, animations: {
 				self.pulseLayer.hidden = true
 			})
-			pulseLayer.addAnimation(MaterialAnimation.scale(1, duration: t), forKey: nil)
+			pulseLayer.addAnimation(MaterialAnimation.scale(s, duration: t), forKey: nil)
 		}
 		
 		if pulseScale {
-			layer.addAnimation(MaterialAnimation.scale(1, duration: t), forKey: nil)
+			layer.addAnimation(MaterialAnimation.scale(s, duration: t), forKey: nil)
 		}
 	}
 }

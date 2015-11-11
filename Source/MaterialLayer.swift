@@ -220,8 +220,8 @@ public class MaterialLayer : CAShapeLayer {
 	
 	public override func layoutSublayers() {
 		super.layoutSublayers()
-		prepareShape()
-		prepareVisualLayer()
+		layoutShape()
+		layoutVisualLayer()
 	}
 	
 	/**
@@ -265,7 +265,7 @@ public class MaterialLayer : CAShapeLayer {
 				animationDidStop(x, finished: true)
 			}
 		}
-		prepareVisualLayer()
+		layoutVisualLayer()
 	}
 	
 	/**
@@ -279,18 +279,18 @@ public class MaterialLayer : CAShapeLayer {
 	}
 	
 	//
-	//	:name:	prepareShape
+	//	:name:	layoutShape
 	//
-	internal func prepareShape() {
+	internal func layoutShape() {
 		if .Circle == shape {
 			cornerRadius = width / 2
 		}
 	}
 	
 	//
-	//	:name:	prepareVisualLayer
+	//	:name:	layoutVisualLayer
 	//
-	internal func prepareVisualLayer() {
+	internal func layoutVisualLayer() {
 		visualLayer.frame = bounds
 		visualLayer.position = CGPointMake(width / 2, height / 2)
 		visualLayer.cornerRadius = cornerRadius

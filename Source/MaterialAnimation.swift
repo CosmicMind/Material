@@ -20,14 +20,7 @@ import UIKit
 
 @objc(MaterialAnimationDelegate)
 public protocol MaterialAnimationDelegate : MaterialDelegate {
-	/**
-		:name:	materialAnimationDidStart
-	*/
 	optional func materialAnimationDidStart(animation: CAAnimation)
-	
-	/**
-		:name:	materialAnimationDidStop
-	*/
 	optional func materialAnimationDidStop(animation: CAAnimation, finished flag: Bool)
 }
 
@@ -85,6 +78,7 @@ public struct MaterialAnimation {
 		group.removedOnCompletion = false
 		group.animations = animations
 		group.duration = duration
+		group.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
 		return group
 	}
 }

@@ -45,18 +45,17 @@ public class BasicCardView : MaterialPulseView {
 	/**
 		:name:	dividerInsets
 	*/
-	public var dividerInsets: MaterialInsets? {
+	public var dividerInsets: MaterialInsets = .None {
 		didSet {
-			dividerInsetsRef = nil == dividerInsets ? nil : MaterialInsetsToValue(dividerInsets!)
+			dividerInsetsRef = MaterialInsetsToValue(dividerInsets)
 		}
 	}
 	
 	/**
 		:name:	dividerInsetsRef
 	*/
-	public var dividerInsetsRef: MaterialInsetsType! {
+	public var dividerInsetsRef: MaterialInsetsType = MaterialTheme.basicCardView.dividerInsetsRef {
 		didSet {
-			dividerInsetsRef = nil == dividerInsetsRef ? MaterialInsetsToValue(.None) : dividerInsetsRef!
 			reloadView()
 		}
 	}
@@ -64,18 +63,17 @@ public class BasicCardView : MaterialPulseView {
 	/**
 		:name:	contentInsets
 	*/
-	public var contentInsets: MaterialInsets? {
+	public var contentInsets: MaterialInsets = .None {
 		didSet {
-			contentInsetsRef = nil == contentInsets ? nil : MaterialInsetsToValue(contentInsets!)
+			contentInsetsRef = MaterialInsetsToValue(contentInsets)
 		}
 	}
 	
 	/**
 		:name:	contentInsetsRef
 	*/
-	public var contentInsetsRef: MaterialInsetsType! {
+	public var contentInsetsRef: MaterialInsetsType = MaterialTheme.basicCardView.contentInsetsRef {
 		didSet {
-			contentInsetsRef = nil == contentInsetsRef ? MaterialInsetsToValue(.None) : contentInsetsRef!
 			reloadView()
 		}
 	}
@@ -83,18 +81,17 @@ public class BasicCardView : MaterialPulseView {
 	/**
 		:name:	titleLabelInsets
 	*/
-	public var titleLabelInsets: MaterialInsets? {
+	public var titleLabelInsets: MaterialInsets = .None {
 		didSet {
-			titleLabelInsetsRef = nil == titleLabelInsets ? nil : MaterialInsetsToValue(titleLabelInsets!)
+			titleLabelInsetsRef = MaterialInsetsToValue(titleLabelInsets)
 		}
 	}
 	
 	/**
 		:name:	titleLabelInsetsRef
 	*/
-	public var titleLabelInsetsRef: MaterialInsetsType! {
+	public var titleLabelInsetsRef: MaterialInsetsType = MaterialTheme.basicCardView.titleLabelInsetsRef {
 		didSet {
-			titleLabelInsetsRef = nil == titleLabelInsetsRef ? MaterialInsetsToValue(.None) : titleLabelInsetsRef!
 			reloadView()
 		}
 	}
@@ -112,18 +109,17 @@ public class BasicCardView : MaterialPulseView {
 	/**
 		:name:	detailLabelInsets
 	*/
-	public var detailLabelInsets: MaterialInsets? {
+	public var detailLabelInsets: MaterialInsets = .None {
 		didSet {
-			detailLabelInsetsRef = nil == detailLabelInsets ? nil : MaterialInsetsToValue(detailLabelInsets!)
+			detailLabelInsetsRef = MaterialInsetsToValue(detailLabelInsets)
 		}
 	}
 	
 	/**
 		:name:	detailLabelInsetsRef
 	*/
-	public var detailLabelInsetsRef: MaterialInsetsType! {
+	public var detailLabelInsetsRef: MaterialInsetsType = MaterialTheme.basicCardView.detailLabelInsetsRef {
 		didSet {
-			detailLabelInsetsRef = nil == detailLabelInsetsRef ? MaterialInsetsToValue(.None) : detailLabelInsetsRef!
 			reloadView()
 		}
 	}
@@ -141,18 +137,17 @@ public class BasicCardView : MaterialPulseView {
 	/**
 		:name:	leftButtonsInsets
 	*/
-	public var leftButtonsInsets: MaterialInsets? {
+	public var leftButtonsInsets: MaterialInsets = .None {
 		didSet {
-			leftButtonsInsetsRef = nil == leftButtonsInsets ? nil : MaterialInsetsToValue(leftButtonsInsets!)
+			leftButtonsInsetsRef = MaterialInsetsToValue(leftButtonsInsets)
 		}
 	}
 	
 	/**
 		:name:	leftButtonsInsetsRef
 	*/
-	public var leftButtonsInsetsRef: MaterialInsetsType! {
+	public var leftButtonsInsetsRef: MaterialInsetsType = MaterialTheme.basicCardView.leftButtonsInsetsRef {
 		didSet {
-			leftButtonsInsetsRef = nil == leftButtonsInsetsRef ? MaterialInsetsToValue(.None) : leftButtonsInsetsRef!
 			reloadView()
 		}
 	}
@@ -174,18 +169,17 @@ public class BasicCardView : MaterialPulseView {
 	/**
 		:name:	rightButtonsInsets
 	*/
-	public var rightButtonsInsets: MaterialInsets? {
+	public var rightButtonsInsets: MaterialInsets = .None {
 		didSet {
-			rightButtonsInsetsRef = nil == rightButtonsInsets ? nil : MaterialInsetsToValue(rightButtonsInsets!)
+			rightButtonsInsetsRef = MaterialInsetsToValue(rightButtonsInsets)
 		}
 	}
 	
 	/**
 		:name:	rightButtonsInsetsRef
 	*/
-	public var rightButtonsInsetsRef: MaterialInsetsType! {
+	public var rightButtonsInsetsRef: MaterialInsetsType = MaterialTheme.basicCardView.rightButtonsInsetsRef {
 		didSet {
-			rightButtonsInsetsRef = nil == rightButtonsInsetsRef ? MaterialInsetsToValue(.None) : rightButtonsInsetsRef!
 			reloadView()
 		}
 	}
@@ -240,11 +234,11 @@ public class BasicCardView : MaterialPulseView {
 		super.layoutSublayersOfLayer(layer)
 		if self.layer == layer {
 			if divider {
-				var y: CGFloat = contentInsetsRef!.bottom + dividerInsetsRef!.bottom
+				var y: CGFloat = contentInsetsRef.bottom + dividerInsetsRef.bottom
 				if 0 < leftButtons?.count {
-					y += leftButtonsInsetsRef!.top + leftButtonsInsetsRef!.bottom + leftButtons![0].frame.size.height
+					y += leftButtonsInsetsRef.top + leftButtonsInsetsRef.bottom + leftButtons![0].frame.size.height
 				} else if 0 < rightButtons?.count {
-					y += rightButtonsInsetsRef!.top + rightButtonsInsetsRef!.bottom + rightButtons![0].frame.size.height
+					y += rightButtonsInsetsRef.top + rightButtonsInsetsRef.bottom + rightButtons![0].frame.size.height
 				}
 				if 0 < y {
 					prepareDivider(bounds.size.height - y - 0.5, width: bounds.size.width)
@@ -264,13 +258,6 @@ public class BasicCardView : MaterialPulseView {
 		userInteractionEnabled = MaterialTheme.basicCardView.userInteractionEnabled
 		backgroundColor = MaterialTheme.basicCardView.backgroundColor
 		pulseColor = MaterialTheme.basicCardView.pulseColor
-		
-		contentInsetsRef = MaterialTheme.basicCardView.contentInsetsRef
-		titleLabelInsetsRef = MaterialTheme.basicCardView.titleLabelInsetsRef
-		detailLabelInsetsRef = MaterialTheme.basicCardView.detailLabelInsetsRef
-		leftButtonsInsetsRef = MaterialTheme.basicCardView.leftButtonsInsetsRef
-		rightButtonsInsetsRef = MaterialTheme.basicCardView.rightButtonsInsetsRef
-		dividerInsetsRef = MaterialTheme.basicCardView.dividerInsetsRef
 		
 		contentsRect = MaterialTheme.basicCardView.contentsRect
 		contentsCenter = MaterialTheme.basicCardView.contentsCenter
@@ -300,10 +287,10 @@ public class BasicCardView : MaterialPulseView {
 		
 		if nil != titleLabel {
 			verticalFormat += "-(insetTop)"
-			metrics["insetTop"] = contentInsetsRef!.top + titleLabelInsetsRef!.top
+			metrics["insetTop"] = contentInsetsRef.top + titleLabelInsetsRef.top
 		} else if nil != detailLabel {
 			verticalFormat += "-(insetTop)"
-			metrics["insetTop"] = contentInsetsRef!.top + detailLabelInsetsRef!.top
+			metrics["insetTop"] = contentInsetsRef.top + detailLabelInsetsRef.top
 		}
 		
 		// title
@@ -313,7 +300,7 @@ public class BasicCardView : MaterialPulseView {
 			verticalFormat += "-[titleLabel]"
 			views["titleLabel"] = v
 			
-			MaterialLayout.alignToParentHorizontallyWithInsets(self, child: v, left: contentInsetsRef!.left + titleLabelInsetsRef!.left, right: contentInsetsRef!.right + titleLabelInsetsRef!.right)
+			MaterialLayout.alignToParentHorizontally(self, child: v, left: contentInsetsRef.left + titleLabelInsetsRef.left, right: contentInsetsRef.right + titleLabelInsetsRef.right)
 		}
 		
 		// detail
@@ -321,16 +308,16 @@ public class BasicCardView : MaterialPulseView {
 			addSubview(v)
 			
 			if nil == titleLabel {
-				metrics["insetTop"] = (metrics["insetTop"] as! CGFloat) + detailLabelInsetsRef!.top
+				metrics["insetTop"] = (metrics["insetTop"] as! CGFloat) + detailLabelInsetsRef.top
 			} else {
 				verticalFormat += "-(insetB)"
-				metrics["insetB"] = titleLabelInsetsRef!.bottom + detailLabelInsetsRef!.top
+				metrics["insetB"] = titleLabelInsetsRef.bottom + detailLabelInsetsRef.top
 			}
 			
 			verticalFormat += "-[detailLabel]"
 			views["detailLabel"] = v
 			
-			MaterialLayout.alignToParentHorizontallyWithInsets(self, child: v, left: contentInsetsRef!.left + detailLabelInsetsRef!.left, right: contentInsetsRef!.right + detailLabelInsetsRef!.right)
+			MaterialLayout.alignToParentHorizontally(self, child: v, left: contentInsetsRef.left + detailLabelInsetsRef.left, right: contentInsetsRef.right + detailLabelInsetsRef.right)
 		}
 		
 		// leftButtons
@@ -353,10 +340,10 @@ public class BasicCardView : MaterialPulseView {
 					h += "[\(k)]"
 					
 					addSubview(b)
-					MaterialLayout.alignFromBottom(self, child: b, bottom: contentInsetsRef!.bottom + leftButtonsInsetsRef!.bottom)
+					MaterialLayout.alignFromBottom(self, child: b, bottom: contentInsetsRef.bottom + leftButtonsInsetsRef.bottom)
 				}
 				
-				addConstraints(MaterialLayout.constraint(h, options: [], metrics: ["left" : contentInsetsRef!.left + leftButtonsInsetsRef!.left, "left_right" : leftButtonsInsetsRef!.left + leftButtonsInsetsRef!.right], views: d))
+				addConstraints(MaterialLayout.constraint(h, options: [], metrics: ["left" : contentInsetsRef.left + leftButtonsInsetsRef.left, "left_right" : leftButtonsInsetsRef.left + leftButtonsInsetsRef.right], views: d))
 			}
 		}
 		
@@ -381,39 +368,39 @@ public class BasicCardView : MaterialPulseView {
 					}
 					
 					addSubview(b)
-					MaterialLayout.alignFromBottom(self, child: b, bottom: contentInsetsRef!.bottom + rightButtonsInsetsRef!.bottom)
+					MaterialLayout.alignFromBottom(self, child: b, bottom: contentInsetsRef.bottom + rightButtonsInsetsRef.bottom)
 				}
 				
-				addConstraints(MaterialLayout.constraint(h + "|", options: [], metrics: ["right" : contentInsetsRef!.right + rightButtonsInsetsRef!.right, "right_left" : rightButtonsInsetsRef!.right + rightButtonsInsetsRef!.left], views: d))
+				addConstraints(MaterialLayout.constraint(h + "|", options: [], metrics: ["right" : contentInsetsRef.right + rightButtonsInsetsRef.right, "right_left" : rightButtonsInsetsRef.right + rightButtonsInsetsRef.left], views: d))
 			}
 		}
 		
 		if 0 < leftButtons?.count {
 			verticalFormat += "-(insetC)-[button]"
 			views["button"] = leftButtons![0]
-			metrics["insetC"] = leftButtonsInsetsRef!.top
-			metrics["insetBottom"] = contentInsetsRef!.bottom + leftButtonsInsetsRef!.bottom
+			metrics["insetC"] = leftButtonsInsetsRef.top
+			metrics["insetBottom"] = contentInsetsRef.bottom + leftButtonsInsetsRef.bottom
 		} else if 0 < rightButtons?.count {
 			verticalFormat += "-(insetC)-[button]"
 			views["button"] = rightButtons![0]
-			metrics["insetC"] = rightButtonsInsetsRef!.top
-			metrics["insetBottom"] = contentInsetsRef!.bottom + rightButtonsInsetsRef!.bottom
+			metrics["insetC"] = rightButtonsInsetsRef.top
+			metrics["insetBottom"] = contentInsetsRef.bottom + rightButtonsInsetsRef.bottom
 		}
 		
 		if nil != detailLabel {
 			if nil == metrics["insetC"] {
-				metrics["insetBottom"] = contentInsetsRef!.bottom + detailLabelInsetsRef!.bottom + (divider ? dividerInsetsRef!.top + dividerInsetsRef!.bottom : 0)
+				metrics["insetBottom"] = contentInsetsRef.bottom + detailLabelInsetsRef.bottom + (divider ? dividerInsetsRef.top + dividerInsetsRef.bottom : 0)
 			} else {
-				metrics["insetC"] = (metrics["insetC"] as! CGFloat) + detailLabelInsetsRef!.bottom + (divider ? dividerInsetsRef!.top + dividerInsetsRef!.bottom : 0)
+				metrics["insetC"] = (metrics["insetC"] as! CGFloat) + detailLabelInsetsRef.bottom + (divider ? dividerInsetsRef.top + dividerInsetsRef.bottom : 0)
 			}
 		} else if nil != titleLabel {
 			if nil == metrics["insetC"] {
-				metrics["insetBottom"] = contentInsetsRef!.bottom + titleLabelInsetsRef!.bottom + (divider ? dividerInsetsRef!.top + dividerInsetsRef!.bottom : 0)
+				metrics["insetBottom"] = contentInsetsRef.bottom + titleLabelInsetsRef.bottom + (divider ? dividerInsetsRef.top + dividerInsetsRef.bottom : 0)
 			} else {
-				metrics["insetC"] = (metrics["insetTop"] as! CGFloat) + titleLabelInsetsRef!.bottom + (divider ? dividerInsetsRef!.top + dividerInsetsRef!.bottom : 0)
+				metrics["insetC"] = (metrics["insetTop"] as! CGFloat) + titleLabelInsetsRef.bottom + (divider ? dividerInsetsRef.top + dividerInsetsRef.bottom : 0)
 			}
 		} else if nil != metrics["insetC"] {
-			metrics["insetC"] = (metrics["insetC"] as! CGFloat) + contentInsetsRef!.top + (divider ? dividerInsetsRef!.top + dividerInsetsRef!.bottom : 0)
+			metrics["insetC"] = (metrics["insetC"] as! CGFloat) + contentInsetsRef.top + (divider ? dividerInsetsRef.top + dividerInsetsRef.bottom : 0)
 		}
 		
 		
@@ -433,7 +420,7 @@ public class BasicCardView : MaterialPulseView {
 			layer.addSublayer(dividerLayer!)
 		}
 		dividerLayer?.backgroundColor = dividerColor?.CGColor
-		dividerLayer?.frame = CGRectMake(dividerInsetsRef!.left, y, width - dividerInsetsRef!.left - dividerInsetsRef!.right, 1)
+		dividerLayer?.frame = CGRectMake(dividerInsetsRef.left, y, width - dividerInsetsRef.left - dividerInsetsRef.right, 1)
 	}
 	
 	//

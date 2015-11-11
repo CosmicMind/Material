@@ -105,7 +105,7 @@ public struct RobotoFont : MaterialFontType {
 		:name:	boldWithSize
 	*/
 	public static func boldWithSize(size: CGFloat) -> UIFont {
-		if let f = UIFont(name: "Roboto-Regular", size: size) {
+		if let f = UIFont(name: "Roboto-Bold", size: size) {
 			return f
 		}
 		return MaterialFont.boldSystemFontWithSize(size)

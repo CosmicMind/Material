@@ -28,6 +28,7 @@ public extension MaterialAnimation {
 		animation.toValue = color.CGColor
 		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
 		animation.removedOnCompletion = false
+		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
 		if let d = duration {
 			animation.duration = d
 		}
@@ -43,6 +44,7 @@ public extension MaterialAnimation {
 		animation.toValue = radius
 		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
 		animation.removedOnCompletion = false
+		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
 		if let d = duration {
 			animation.duration = d
 		}
@@ -58,6 +60,7 @@ public extension MaterialAnimation {
 		animation.toValue = NSValue(CATransform3D: transform)
 		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
 		animation.removedOnCompletion = false
+		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
 		if let d = duration {
 			animation.duration = d
 		}
@@ -73,6 +76,7 @@ public extension MaterialAnimation {
 		animation.byValue = (M_PI * 2 * rotations) as NSNumber
 		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
 		animation.removedOnCompletion = false
+		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
 		if let d = duration {
 			animation.duration = d
 		}
@@ -88,6 +92,7 @@ public extension MaterialAnimation {
 		animation.byValue = (M_PI_4 * rotations) as NSNumber
 		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
 		animation.removedOnCompletion = false
+		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
 		if let d = duration {
 			animation.duration = d
 		}
@@ -103,6 +108,7 @@ public extension MaterialAnimation {
 		animation.byValue = (M_PI_4 * rotations) as NSNumber
 		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
 		animation.removedOnCompletion = false
+		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
 		if let d = duration {
 			animation.duration = d
 		}
@@ -118,6 +124,7 @@ public extension MaterialAnimation {
 		animation.byValue = (M_PI_4 * rotations) as NSNumber
 		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
 		animation.removedOnCompletion = false
+		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
 		if let d = duration {
 			animation.duration = d
 		}
@@ -133,6 +140,7 @@ public extension MaterialAnimation {
 		animation.toValue = scale as NSNumber
 		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
 		animation.removedOnCompletion = false
+		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
 		if let d = duration {
 			animation.duration = d
 		}
@@ -148,6 +156,7 @@ public extension MaterialAnimation {
 		animation.toValue = scale as NSNumber
 		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
 		animation.removedOnCompletion = false
+		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
 		if let d = duration {
 			animation.duration = d
 		}
@@ -163,6 +172,7 @@ public extension MaterialAnimation {
 		animation.toValue = scale as NSNumber
 		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
 		animation.removedOnCompletion = false
+		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
 		if let d = duration {
 			animation.duration = d
 		}
@@ -178,6 +188,7 @@ public extension MaterialAnimation {
 		animation.toValue = scale as NSNumber
 		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
 		animation.removedOnCompletion = false
+		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
 		if let d = duration {
 			animation.duration = d
 		}
@@ -193,6 +204,7 @@ public extension MaterialAnimation {
 		animation.toValue = NSValue(CGSize: translation)
 		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
 		animation.removedOnCompletion = false
+		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
 		if let d = duration {
 			animation.duration = d
 		}
@@ -208,6 +220,7 @@ public extension MaterialAnimation {
 		animation.toValue = translation as NSNumber
 		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
 		animation.removedOnCompletion = false
+		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
 		if let d = duration {
 			animation.duration = d
 		}
@@ -223,6 +236,7 @@ public extension MaterialAnimation {
 		animation.toValue = translation as NSNumber
 		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
 		animation.removedOnCompletion = false
+		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
 		if let d = duration {
 			animation.duration = d
 		}
@@ -238,6 +252,7 @@ public extension MaterialAnimation {
 		animation.toValue = translation as NSNumber
 		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
 		animation.removedOnCompletion = false
+		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
 		if let d = duration {
 			animation.duration = d
 		}
@@ -253,6 +268,7 @@ public extension MaterialAnimation {
 		animation.toValue = NSValue(CGPoint: point)
 		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
 		animation.removedOnCompletion = false
+		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
 		if let d = duration {
 			animation.duration = d
 		}

@@ -26,7 +26,7 @@ public class MaterialView : UIView {
 	public private(set) lazy var visualLayer: CAShapeLayer = CAShapeLayer()
 	
 	/**
-		:name:	visualLayer
+		:name:	delegate
 	*/
 	public weak var delegate: MaterialDelegate?
 	
@@ -113,10 +113,10 @@ public class MaterialView : UIView {
 	*/
 	public var y: CGFloat {
 		get {
-			return frame.origin.y
+			return layer.frame.origin.y
 		}
 		set(value) {
-			frame.origin.y = value
+			layer.frame.origin.y = value
 		}
 	}
 	
@@ -125,12 +125,12 @@ public class MaterialView : UIView {
 	*/
 	public var width: CGFloat {
 		get {
-			return frame.size.width
+			return layer.frame.size.width
 		}
 		set(value) {
-			frame.size.width = value
+			layer.frame.size.width = value
 			if .None != shape {
-				frame.size.height = value
+				layer.frame.size.height = value
 			}
 		}
 	}
@@ -140,12 +140,12 @@ public class MaterialView : UIView {
 	*/
 	public var height: CGFloat {
 		get {
-			return frame.size.height
+			return layer.frame.size.height
 		}
 		set(value) {
-			frame.size.height = value
+			layer.frame.size.height = value
 			if .None != shape {
-				frame.size.width = value
+				layer.frame.size.width = value
 			}
 		}
 	}
@@ -287,10 +287,11 @@ public class MaterialView : UIView {
 		contentsScale = MaterialTheme.view.contentsScale
 		contentsGravity = MaterialTheme.view.contentsGravity
 		borderWidth = MaterialTheme.view.borderWidth
-		shadowDepth = .None
+		shadowDepth = MaterialTheme.view.shadowDepth
 		shape = .None
 		cornerRadius = .None
 		super.init(coder: aDecoder)
+		prepareView()
 	}
 	
 	/**
@@ -302,7 +303,7 @@ public class MaterialView : UIView {
 		contentsScale = MaterialTheme.view.contentsScale
 		contentsGravity = MaterialTheme.view.contentsGravity
 		borderWidth = MaterialTheme.view.borderWidth
-		shadowDepth = .None
+		shadowDepth = MaterialTheme.view.shadowDepth
 		shape = .None
 		cornerRadius = .None
 		super.init(frame: frame)
@@ -322,8 +323,8 @@ public class MaterialView : UIView {
 	public override func layoutSublayersOfLayer(layer: CALayer) {
 		super.layoutSublayersOfLayer(layer)
 		if self.layer == layer {
-			prepareShape()
-			prepareVisualLayer()
+			layoutShape()
+			layoutVisualLayer()
 		}
 	}
 	
@@ -375,7 +376,7 @@ public class MaterialView : UIView {
 				animationDidStop(x, finished: true)
 			}
 		}
-		prepareVisualLayer()
+		layoutVisualLayer()
 	}
 	
 	//
@@ -385,32 +386,37 @@ public class MaterialView : UIView {
 		userInteractionEnabled = MaterialTheme.view.userInteractionEnabled
 		backgroundColor = MaterialTheme.view.backgroundColor
 		
-		shadowDepth = MaterialTheme.view.shadowDepth
 		shadowColor = MaterialTheme.view.shadowColor
 		zPosition = MaterialTheme.view.zPosition
 		borderColor = MaterialTheme.view.bordercolor
 		
-		// visualLayer
-		visualLayer.zPosition = -1
-		visualLayer.masksToBounds = true
-		layer.addSublayer(visualLayer)
-	}
-	
-	//
-	//	:name:	prepareShape
-	//
-	internal func prepareShape() {
-		if .Circle == shape {
-			layer.cornerRadius = width / 2
-		}
+		prepareVisualLayer()
 	}
 	
 	//
 	//	:name:	prepareVisualLayer
 	//
 	internal func prepareVisualLayer() {
+		visualLayer.zPosition = -1
+		visualLayer.masksToBounds = true
+		layer.addSublayer(visualLayer)
+	}
+	
+	//
+	//	:name:	layoutVisualLayer
+	//
+	internal func layoutVisualLayer() {
 		visualLayer.frame = bounds
 		visualLayer.position = CGPointMake(width / 2, height / 2)
 		visualLayer.cornerRadius = layer.cornerRadius
+	}
+	
+	//
+	//	:name:	layoutShape
+	//
+	internal func layoutShape() {
+		if .Circle == shape {
+			layer.cornerRadius = width / 2
+		}
 	}
 }
