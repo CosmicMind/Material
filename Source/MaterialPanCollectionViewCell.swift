@@ -167,9 +167,9 @@ public class MaterialPanCollectionViewCell : MaterialPulseCollectionViewCell, UI
 			
 		case .Changed:
 			let translation = recognizer.translationInView(self)
-			MaterialAnimation.animationDisabled({
+			MaterialAnimation.animationDisabled {
 				self.position.x = self.originalPosition.x + translation.x
-			})
+			}
 			
 			leftOnDragRelease = x > width / 2
 			rightOnDragRelease = x < -width / 2
