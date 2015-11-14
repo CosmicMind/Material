@@ -54,13 +54,13 @@ public struct MaterialAnimation {
 		:name:	animationDisabled
 	*/
 	public static func animationDisabled(animations: (() -> Void)) {
-		animationWithDuration(0, animations: animations)
+		animateWithDuration(0, animations: animations)
 	}
 	
 	/**
-		:name:	animationWithDuration
+		:name:	animateWithDuration
 	*/
-	public static func animationWithDuration(duration: CFTimeInterval, animations: (() -> Void), options: UIViewAnimationOptions? = nil, completion: (() -> Void)? = nil) {
+	public static func animateWithDuration(duration: CFTimeInterval, animations: (() -> Void), options: UIViewAnimationOptions? = nil, completion: (() -> Void)? = nil) {
 		CATransaction.begin()
 		CATransaction.setAnimationDuration(duration)
 		CATransaction.setCompletionBlock(completion)

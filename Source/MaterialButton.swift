@@ -505,7 +505,7 @@ public class MaterialButton : UIButton {
 		let s: CGFloat = 1
 		
 		if nil != pulseColor && 0 < pulseColorOpacity {
-			MaterialAnimation.animationWithDuration(t, animations: {
+			MaterialAnimation.animateWithDuration(t, animations: {
 				self.pulseLayer.hidden = true
 			})
 			pulseLayer.addAnimation(MaterialAnimation.scale(s, duration: t), forKey: nil)

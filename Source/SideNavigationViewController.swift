@@ -183,7 +183,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		let w: CGFloat = (hidden ? -width : width) / 2
 		
 		if animated {
-			MaterialAnimation.animationWithDuration(0.25, animations: {
+			MaterialAnimation.animateWithDuration(0.25, animations: {
 				self.sideView.width = width
 				self.sideView.position.x = w
 			}) {
@@ -210,7 +210,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	public func open(velocity: CGFloat = 0) {
 		toggleStatusBar(true)
 		backdropLayer.hidden = false
-		MaterialAnimation.animationWithDuration(Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(sideView.x / velocity)))),
+		MaterialAnimation.animateWithDuration(Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(sideView.x / velocity)))),
 		animations: {
 			self.sideView.position = CGPointMake(self.sideView.width / 2, self.sideView.height / 2)
 		}) {
@@ -224,7 +224,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	public func close(velocity: CGFloat = 0) {
 		toggleStatusBar(false)
 		backdropLayer.hidden = true
-		MaterialAnimation.animationWithDuration(Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(sideView.x / velocity)))),
+		MaterialAnimation.animateWithDuration(Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(sideView.x / velocity)))),
 		animations: {
 			self.sideView.position = CGPointMake(-self.sideView.width / 2, self.sideView.height / 2)
 		}) {
