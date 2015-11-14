@@ -166,10 +166,10 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	public override func viewWillLayoutSubviews() {
 		super.viewWillLayoutSubviews()
 		layoutBackdropLayer()
-		if let v: MaterialView = sideView {
-			sideViewController?.view.frame = v.bounds
-			sideViewController?.view.center = CGPointMake(v.width / 2, v.height / 2)
-		}
+		sideView.height = view.bounds.height
+		sideViewController.view.frame.size.width = sideView.width
+		sideViewController.view.frame.size.height = sideView.height
+		sideViewController.view.center = CGPointMake(sideView.width / 2, sideView.height / 2)
 	}
 	
 	/**
@@ -184,7 +184,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			MaterialAnimation.animationWithDuration(0.25, animations: {
 				self.sideView.width = width
 				self.sideView.position.x = w
-				}) {
+			}) {
 					self.userInteractionEnabled = false
 			}
 		} else {
@@ -206,13 +206,10 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		:name:	open
 	*/
 	public func open(velocity: CGFloat = 0) {
-		let w: CGFloat = sideView.width
-		let h: CGFloat = sideView.height
-		let d: Double = Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(sideView.x / velocity))))
-		
 		toggleStatusBar(true)
-		MaterialAnimation.animationWithDuration(d, animations: {
-			self.sideView.position = CGPointMake(w / 2, h / 2)
+		MaterialAnimation.animationWithDuration(Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(sideView.x / velocity)))),
+		animations: {
+			self.sideView.position = CGPointMake(self.sideView.width / 2, self.sideView.height / 2)
 			self.backdropLayer.hidden = false
 		}) {
 			self.userInteractionEnabled = false
@@ -223,13 +220,10 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		:name:	close
 	*/
 	public func close(velocity: CGFloat = 0) {
-		let w: CGFloat = sideView.width
-		let h: CGFloat = sideView.height
-		let d: Double = Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(sideView.x / velocity))))
-		
 		toggleStatusBar(false)
-		MaterialAnimation.animationWithDuration(d, animations: {
-			self.sideView.position = CGPointMake(-w / 2, h / 2)
+		MaterialAnimation.animationWithDuration(Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(sideView.x / velocity)))),
+		animations: {
+			self.sideView.position = CGPointMake(-self.sideView.width / 2, self.sideView.height / 2)
 			self.backdropLayer.hidden = true
 		}) {
 			self.userInteractionEnabled = true
@@ -281,6 +275,8 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	//
 	internal func prepareMainView() {
 		prepareViewControllerWithinContainer(mainViewController, container: view)
+		mainViewController.view.translatesAutoresizingMaskIntoConstraints = false
+		MaterialLayout.alignToParent(view, child: mainViewController.view)
 	}
 	
 	//
@@ -290,6 +286,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		// container
 		sideView.frame = CGRectMake(0, 0, sideViewControllerWidth, view.frame.height)
 		sideView.backgroundColor = MaterialColor.blue.accent3
+		sideView.autoresizesSubviews = true
 		view.addSubview(sideView)
 		
 		MaterialAnimation.animationDisabled({
@@ -297,7 +294,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			self.sideView.zPosition = 1000
 		})
 		
-		prepareViewControllerWithinContainer(sideViewController!, container: sideView)
+		prepareViewControllerWithinContainer(sideViewController, container: sideView)
 		
 		// gestures
 		prepareGestures()
@@ -422,7 +419,6 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	//	:name:	prepareViewControllerWithinContainer
 	//
 	private func prepareViewControllerWithinContainer(controller: UIViewController, container: UIView) {
-		controller.view.clipsToBounds = true
 		addChildViewController(controller)
 		container.addSubview(controller.view)
 		controller.didMoveToParentViewController(self)
