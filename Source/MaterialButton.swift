@@ -364,9 +364,9 @@ public class MaterialButton : UIButton {
 	public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
 		if let a: CAPropertyAnimation = anim as? CAPropertyAnimation {
 			if let b: CABasicAnimation = a as? CABasicAnimation {
-				MaterialAnimation.animationDisabled({
+				MaterialAnimation.animationDisabled {
 					self.layer.setValue(nil == b.toValue ? b.byValue : b.toValue, forKey: b.keyPath!)
-				})
+				}
 			}
 			(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStop?(anim, finished: flag)
 			layer.removeAnimationForKey(a.keyPath!)
@@ -393,12 +393,12 @@ public class MaterialButton : UIButton {
 			let t: CFTimeInterval = 0.25
 			
 			if nil != pulseColor && 0 < pulseColorOpacity {
-				MaterialAnimation.animationDisabled({
+				MaterialAnimation.animationDisabled {
 					self.pulseLayer.hidden = false
 					self.pulseLayer.bounds = CGRectMake(0, 0, v, v)
 					self.pulseLayer.position = point
 					self.pulseLayer.cornerRadius = r / d
-				})
+				}
 				pulseLayer.addAnimation(MaterialAnimation.scale(pulseFill ? 3 * d : 1.5 * d, duration: t), forKey: nil)
 			}
 			
@@ -416,9 +416,9 @@ public class MaterialButton : UIButton {
 		if spotlight {
 			let point: CGPoint = layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer)
 			if layer.containsPoint(point) {
-				MaterialAnimation.animationDisabled({
+				MaterialAnimation.animationDisabled {
 					self.pulseLayer.position = point
-				})
+				}
 			}
 		}
 	}

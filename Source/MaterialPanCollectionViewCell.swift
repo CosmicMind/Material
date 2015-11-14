@@ -51,19 +51,24 @@ public class MaterialPanCollectionViewCell : MaterialPulseCollectionViewCell, UI
 	private lazy var rightOnDragRelease: Bool = false
 	
 	/**
-		:name:	leftLayer
+		:name:	leftView
 	*/
-	public private(set) lazy var leftLayer: MaterialLayer = MaterialLayer()
+	public private(set) lazy var leftView: MaterialView = MaterialView()
 	
 	/**
-		:name:	rightLayer
+		:name:	rightView
 	*/
-	public private(set) lazy var rightLayer: MaterialLayer = MaterialLayer()
+	public private(set) lazy var rightView: MaterialView = MaterialView()
 	
 	/**
 		:name:	revealed
 	*/
 	public private(set) lazy var revealed: Bool = false
+	
+	/**
+		:name:	closeAutomatically
+	*/
+	public lazy var closeAutomatically: Bool = true
 	
 	/**
 		:name:	gestureRecognizerShouldBegin
@@ -94,8 +99,8 @@ public class MaterialPanCollectionViewCell : MaterialPulseCollectionViewCell, UI
 		borderColor = MaterialTheme.pulseCollectionView.bordercolor
 		masksToBounds = true
 		
-		prepareLeftLayer()
-		prepareRightLayer()
+		prepareLeftView()
+		prepareRightView()
 		preparePanGesture()
 	}
 	
@@ -117,20 +122,27 @@ public class MaterialPanCollectionViewCell : MaterialPulseCollectionViewCell, UI
 		}
 	}
 	
-	//
-	//	:name:	prepareLeftLayer
-	//
-	internal func prepareLeftLayer() {
-		leftLayer.frame = CGRectMake(-width, 0, width, height)
-		layer.addSublayer(leftLayer)
+	/**
+		:name:	close
+	*/
+	public func close() {
+		animation(MaterialAnimation.position(CGPointMake(width / 2, y + height / 2), duration: 0.25))
 	}
 	
 	//
-	//	:name:	prepareRightLayer
+	//	:name:	prepareLeftView
 	//
-	internal func prepareRightLayer() {
-		rightLayer.frame = CGRectMake(width, 0, width, height)
-		layer.addSublayer(rightLayer)
+	internal func prepareLeftView() {
+		leftView.frame = CGRectMake(-width, 0, width, height)
+		addSubview(leftView)
+	}
+	
+	//
+	//	:name:	prepareRightView
+	//
+	internal func prepareRightView() {
+		rightView.frame = CGRectMake(width, 0, width, height)
+		addSubview(rightView)
 	}
 	
 	//
@@ -150,17 +162,17 @@ public class MaterialPanCollectionViewCell : MaterialPulseCollectionViewCell, UI
 		case .Began:
 			originalPosition = position
 			masksToBounds = false
-			rightOnDragRelease = x < -width / 2
 			leftOnDragRelease = x > width / 2
+			rightOnDragRelease = x < -width / 2
 			
 		case .Changed:
 			let translation = recognizer.translationInView(self)
-			MaterialAnimation.animationDisabled({
+			MaterialAnimation.animationDisabled {
 				self.position.x = self.originalPosition.x + translation.x
-			})
+			}
 			
-			rightOnDragRelease = x < -width / 2
 			leftOnDragRelease = x > width / 2
+			rightOnDragRelease = x < -width / 2
 			
 			if !revealed && (leftOnDragRelease || rightOnDragRelease) {
 				revealed = true
@@ -180,7 +192,11 @@ public class MaterialPanCollectionViewCell : MaterialPulseCollectionViewCell, UI
 		case .Ended:
 			revealed = false
 			// snap back
-			animation(MaterialAnimation.position(CGPointMake(width / 2, y + height / 2), duration: 0.25))
+			if !leftOnDragRelease || !rightOnDragRelease {
+				close()
+			} else if closeAutomatically && (leftOnDragRelease || rightOnDragRelease) {
+				close()
+			}
 			
 		default:break
 		}

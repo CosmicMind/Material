@@ -385,9 +385,9 @@ public class MaterialPulseCollectionViewCell : UICollectionViewCell {
 	public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
 		if let a: CAPropertyAnimation = anim as? CAPropertyAnimation {
 			if let b: CABasicAnimation = a as? CABasicAnimation {
-				MaterialAnimation.animationDisabled({
+				MaterialAnimation.animationDisabled {
 					self.layer.setValue(nil == b.toValue ? b.byValue : b.toValue, forKey: b.keyPath!)
-				})
+				}
 			}
 			(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStop?(anim, finished: flag)
 			layer.removeAnimationForKey(a.keyPath!)
@@ -411,9 +411,9 @@ public class MaterialPulseCollectionViewCell : UICollectionViewCell {
 			let t: CFTimeInterval = 0.25
 			
 			if nil != pulseColor && 0 < pulseColorOpacity {
-				MaterialAnimation.animationDisabled({
+				MaterialAnimation.animationDisabled {
 					self.pulseLayer.bounds = CGRectMake(0, 0, 2 * w,  2 * h)
-				})
+				}
 				MaterialAnimation.animationWithDuration(t, animations: {
 					self.pulseLayer.hidden = false
 				})

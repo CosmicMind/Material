@@ -20,14 +20,14 @@ import UIKit
 
 public class BasicCollectionViewCell : MaterialPanCollectionViewCell {
 	/**
-		:name:	titleLayer
+		:name:	titleLabel
 	*/
-	public private(set) lazy var titleLayer: MaterialTextLayer = MaterialTextLayer()
+	public private(set) lazy var titleLabel: MaterialLabel = MaterialLabel()
 	
 	/**
-		:name:	detailLayer
+		:name:	detailLabel
 	*/
-	public private(set) lazy var detailLayer: MaterialTextLayer = MaterialTextLayer()
+	public private(set) lazy var detailLabel: MaterialLabel = MaterialLabel()
 	
 	/**
 		:name:	prepareView
@@ -36,9 +36,9 @@ public class BasicCollectionViewCell : MaterialPanCollectionViewCell {
 		super.prepareView()
 		
 		// title
-		layer.addSublayer(titleLayer)
+		addSubview(titleLabel)
 		
 		// detail
-		layer.addSublayer(detailLayer)
+		addSubview(detailLabel)
 	}
 }
