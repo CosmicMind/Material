@@ -276,7 +276,8 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			self.sideView.width = self.sideViewControllerWidth
 			self.sideView.height = self.view.bounds.height
 			self.sideView.position = CGPointMake((self.opened ? 1 : -1) * self.sideViewControllerWidth / 2, self.view.bounds.height / 2)
-//			self.sideViewController.view.frame = self.sideView.bounds
+			self.sideViewController.view.frame = self.sideView.bounds
+			self.sideViewController.view.center = CGPointMake(self.sideView.width / 2, self.sideView.height / 2)
 		}
 	}
 	
