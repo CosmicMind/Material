@@ -153,14 +153,6 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	}
 	
 	/**
-		:name:	viewDidLoad
-	*/
-	public override func viewDidLoad() {
-		super.viewDidLoad()
-		edgesForExtendedLayout = .None
-	}
-	
-	/**
 		:name:	viewWillLayoutSubviews
 	*/
 	public override func viewWillLayoutSubviews() {
@@ -276,8 +268,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	//
 	internal func prepareMainView() {
 		prepareViewControllerWithinContainer(mainViewController, container: view)
-		mainViewController.view.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignToParent(view, child: mainViewController.view)
+		mainViewController.view.frame = view.bounds
 	}
 	
 	//
