@@ -60,9 +60,7 @@
 		965C17C81BC82FEF00B1059A /* MaterialLayer.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65AD15E91BC05B3A0068AF9C /* MaterialLayer.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		965C17C91BC82FEF00B1059A /* MaterialTextLayer.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9699879B1BC5FE49006D678E /* MaterialTextLayer.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		965C17CA1BC82FEF00B1059A /* ImageCardView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96D26BFC1BC23649006478BD /* ImageCardView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		9688D06D1BD4587200A70097 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9688D06C1BD4587200A70097 /* SearchBarView.swift */; };
 		9688D0701BD45B8C00A70097 /* SideNavigationViewController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9693BF981BCDC1450087054A /* SideNavigationViewController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		9688D0711BD45B8C00A70097 /* SearchBarView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9688D06C1BD4587200A70097 /* SearchBarView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9693BF861BCB0E0A0087054A /* Material+UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693BF851BCB0E0A0087054A /* Material+UIFont.swift */; };
 		9693BF8B1BCB35910087054A /* Material+UIFont.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9693BF851BCB0E0A0087054A /* Material+UIFont.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9693BF8D1BCB35910087054A /* MaterialBasicAnimation.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65D2BEC61BBED1E400800B7B /* MaterialBasicAnimation.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -124,7 +122,6 @@
 		963832631B88E5BF0015F710 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		964B17B31BBA447F002A9CA0 /* MaterialLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialLayout.swift; sourceTree = "<group>"; };
 		964B17B51BBA4BEA002A9CA0 /* MaterialStatusBarStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialStatusBarStyle.swift; sourceTree = "<group>"; };
-		9688D06C1BD4587200A70097 /* SearchBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		9693BF851BCB0E0A0087054A /* Material+UIFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIFont.swift"; sourceTree = "<group>"; };
 		9693BF951BCCCB520087054A /* BasicCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicCardView.swift; sourceTree = "<group>"; };
 		9693BF981BCDC1450087054A /* SideNavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideNavigationViewController.swift; sourceTree = "<group>"; };
@@ -246,7 +243,6 @@
 				65AD15E81BC05B0E0068AF9C /* Layer */,
 				65B965851B8BEEB00055B139 /* View */,
 				965C17C21BC7258100B1059A /* Navigation */,
-				9688D06B1BD4585800A70097 /* Search */,
 				65BDD1551BB6FC60006F7F2B /* Button */,
 				65BDD1701BB8CD56006F7F2B /* Label */,
 				964B17D71BBB38E2002A9CA0 /* Card */,
@@ -305,14 +301,6 @@
 				9693BF981BCDC1450087054A /* SideNavigationViewController.swift */,
 			);
 			name = Navigation;
-			sourceTree = "<group>";
-		};
-		9688D06B1BD4585800A70097 /* Search */ = {
-			isa = PBXGroup;
-			children = (
-				9688D06C1BD4587200A70097 /* SearchBarView.swift */,
-			);
-			name = Search;
 			sourceTree = "<group>";
 		};
 		9693BF841BCB0DEE0087054A /* Extensions */ = {
@@ -386,7 +374,6 @@
 				9693BF8E1BCB35910087054A /* MaterialKeyframeAnimation.swift in Headers */,
 				9693BF8F1BCB35910087054A /* MaterialTransitionAnimation.swift in Headers */,
 				9688D0701BD45B8C00A70097 /* SideNavigationViewController.swift in Headers */,
-				9688D0711BD45B8C00A70097 /* SearchBarView.swift in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -499,7 +486,6 @@
 				65BDD16C1BB88D1A006F7F2B /* MaterialShape.swift in Sources */,
 				65AD15EA1BC05B3A0068AF9C /* MaterialLayer.swift in Sources */,
 				65BDD1521BB6EE7C006F7F2B /* RobotoFont.swift in Sources */,
-				9688D06D1BD4587200A70097 /* SearchBarView.swift in Sources */,
 				9693BF991BCDC1450087054A /* SideNavigationViewController.swift in Sources */,
 				9693BF961BCCCB520087054A /* BasicCardView.swift in Sources */,
 				96D26BFD1BC23649006478BD /* ImageCardView.swift in Sources */,
