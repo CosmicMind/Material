@@ -42,11 +42,6 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	private lazy var originalPosition: CGPoint = CGPointZero
 	
 	//
-	//	:name:	sideView
-	//
-	private lazy var sideView: MaterialView = MaterialView()
-	
-	//
 	//	:name:	sidePanGesture
 	//
 	internal var sidePanGesture: UIPanGestureRecognizer?
@@ -96,9 +91,36 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	public lazy var hideStatusBar: Bool = true
 	
 	/**
+		:name:	enableShadowDepth
+	*/
+	public var enableShadowDepth: Bool = true {
+		didSet {
+			if !enableShadowDepth {
+				sideView.shadowDepth = .None
+			}
+		}
+	}
+	
+	/**
+		:name:	shadowDepth
+	*/
+	public var shadowDepth: MaterialDepth = .Depth2 {
+		didSet {
+			if !enableShadowDepth && .None != sideView.shadowDepth {
+				sideView.shadowDepth = shadowDepth
+			}
+		}
+	}
+	
+	/**
 		:name:	backdropLayer
 	*/
 	public private(set) lazy var backdropLayer: CAShapeLayer = CAShapeLayer()
+	
+	/**
+		:name:	sideView
+	*/
+	public private(set) lazy var sideView: MaterialView = MaterialView()
 	
 	/**
 		:name:	backdropOpacity
@@ -207,6 +229,9 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			self.sideView.position = CGPointMake(self.sideView.width / 2, self.sideView.height / 2)
 		}) {
 			self.userInteractionEnabled = false
+			if self.enableShadowDepth {
+				self.sideView.shadowDepth = self.shadowDepth
+			}
 		}
 	}
 	
@@ -221,6 +246,9 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			self.sideView.position = CGPointMake(-self.sideView.width / 2, self.sideView.height / 2)
 		}) {
 			self.userInteractionEnabled = true
+			if self.enableShadowDepth {
+				self.sideView.shadowDepth = .None
+			}
 		}
 	}
 	
@@ -297,6 +325,9 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	internal func handlePanGesture(recognizer: UIPanGestureRecognizer) {
 		switch recognizer.state {
 		case .Began:
+			if enableShadowDepth {
+				sideView.shadowDepth = shadowDepth
+			}
 			backdropLayer.hidden = false
 			originalPosition = sideView.position
 			toggleStatusBar(true)
