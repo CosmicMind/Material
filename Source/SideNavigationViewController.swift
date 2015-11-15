@@ -313,6 +313,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			self.sideView.zPosition = 1000
 		}
 		
+		sideViewController.view.clipsToBounds = true
 		prepareViewControllerWithinContainer(sideViewController, container: sideView)
 		
 		// gestures
