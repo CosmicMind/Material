@@ -179,7 +179,7 @@ public extension MaterialTheme.navigationBarView {
 	
 	// shape
 	public static var contentInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
-	public static var titleLabelInsetsRef: MaterialInsetsType = (top: 20, left: 0, bottom: 0, right: 0)
+	public static var titleLabelInsetsRef: MaterialInsetsType = (top: 8, left: 0, bottom: 0, right: 0)
 	public static var detailLabelInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.None)
 	public static var leftButtonsInsetsRef: MaterialInsetsType = (top: 8, left: 0, bottom: 0, right: 0)
 	public static var rightButtonsInsetsRef: MaterialInsetsType = (top: 8, left: 0, bottom: 0, right: 0)

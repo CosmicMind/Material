@@ -272,15 +272,21 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	public func open(velocity: CGFloat = 0) {
 		toggleStatusBar(true)
 		backdropLayer.hidden = false
+		
 		delegate?.sideNavigationViewWillOpen?(self)
+		
 		MaterialAnimation.animateWithDuration(Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(sideView.x / velocity)))),
 		animations: {
 			self.sideView.position = CGPointMake(self.sideView.width / 2, self.sideView.height / 2)
 		}) {
 			self.userInteractionEnabled = false
+			
 			if self.enableShadowDepth {
-				self.sideView.shadowDepth = self.shadowDepth
+				MaterialAnimation.animationDisabled {
+					self.sideView.shadowDepth = self.shadowDepth
+				}
 			}
+			
 			self.delegate?.sideNavigationViewDidOpen?(self)
 		}
 	}
@@ -291,15 +297,21 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	public func close(velocity: CGFloat = 0) {
 		toggleStatusBar(false)
 		backdropLayer.hidden = true
+		
 		delegate?.sideNavigationViewWillClose?(self)
+		
 		MaterialAnimation.animateWithDuration(Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(sideView.x / velocity)))),
 		animations: {
 			self.sideView.position = CGPointMake(-self.sideView.width / 2, self.sideView.height / 2)
 		}) {
 			self.userInteractionEnabled = true
+			
 			if self.enableShadowDepth {
-				self.sideView.shadowDepth = .None
+				MaterialAnimation.animationDisabled {
+					self.sideView.shadowDepth = .None
+				}
 			}
+			
 			self.delegate?.sideNavigationViewDidClose?(self)
 		}
 	}
@@ -381,7 +393,9 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		switch recognizer.state {
 		case .Began:
 			if enableShadowDepth {
-				sideView.shadowDepth = shadowDepth
+				MaterialAnimation.animationDisabled {
+					self.sideView.shadowDepth = self.shadowDepth
+				}
 			}
 			backdropLayer.hidden = false
 			originalPosition = sideView.position
