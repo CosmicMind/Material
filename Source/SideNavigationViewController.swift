@@ -392,11 +392,6 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	internal func handlePanGesture(recognizer: UIPanGestureRecognizer) {
 		switch recognizer.state {
 		case .Began:
-			if enableShadowDepth {
-				MaterialAnimation.animationDisabled {
-					self.sideView.shadowDepth = self.shadowDepth
-				}
-			}
 			backdropLayer.hidden = false
 			originalPosition = sideView.position
 			toggleStatusBar(true)
