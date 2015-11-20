@@ -15,8 +15,8 @@ let v: MaterialView = MaterialView(frame: CGRectMake(107, 107, 200, 200))
 v.shape = .Circle
 v.shadowDepth = .Depth3
 v.borderWidth = .Border4
-v.borderColor = MaterialColor.blue.accent4
-v.image = UIImage(named: "img2")
+v.borderColor = MaterialColor.blue.darken4
+v.image = UIImage(named: "img1")
 
 // Add to UIViewController.
 view.addSubview(v)
@@ -33,7 +33,7 @@ let v: MaterialPulseView = MaterialPulseView(frame: CGRectMake(107, 107, 200, 20
 v.shape = .Square
 v.shadowDepth = .Depth3
 v.cornerRadius = .Radius3
-v.image = UIImage(named: "img2")
+v.image = UIImage(named: "img1")
 
 // Add to UIViewController.
 view.addSubview(v)
@@ -198,7 +198,7 @@ A BasicCardView can easily add an image as its background, below is the code tha
 ![MKPreview](http://www.materialkit.io/github/vid8.gif)
 
 ```swift
-let v: BasicCardView = BasicCardView(image: UIImage(named: "img2"), titleLabel: MaterialLabel(), detailLabel: MaterialLabel())!
+let v: BasicCardView = BasicCardView(image: UIImage(named: "img1"), titleLabel: MaterialLabel(), detailLabel: MaterialLabel())!
 v.spotlight = true
 v.divider = false
 
@@ -232,7 +232,7 @@ An ImageCardView is a great way to enclose many components into a single and pre
 ![MKPreview](http://www.materialkit.io/github/vid9.gif)
 
 ```swift
-let v: ImageCardView = ImageCardView(image: UIImage(named: "img2"))!
+let v: ImageCardView = ImageCardView(image: UIImage(named: "img1"))!
 v.pulseColor = MaterialColor.blueGrey.lighten4
 v.pulseFill = true
 
