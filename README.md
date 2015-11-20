@@ -268,6 +268,28 @@ MaterialLayout.alignToParentHorizontallyWithInsets(view, child: v, left: 20, rig
 MaterialLayout.alignFromTop(view, child: v, top: 100)
 ```
 
+### Sleek SideNavigationViewController
+
+Organization is essential. Easily add a SideNavigationViewController to your application. Below is an example of adding the controller to your AppDelegate.
+
+![MKPreview](http://www.materialkit.io/github/vid12.gif)
+
+```swift
+class AppDelegate: UIResponder, UIApplicationDelegate {
+	var window: UIWindow?
+
+	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+		window = UIWindow(frame: UIScreen.mainScreen().bounds)
+		window!.rootViewController = SideNavigationViewController(mainViewController: AppViewController(), sideViewController: TagViewController())
+		window!.makeKeyAndVisible()
+		return true
+	}
+
+	// ...
+
+}
+```
+
 ### Easy MaterialAnimation
 
 Animations are a wonderful way to add life to your application. MaterialAnimation is a lightweight API for constructing complex animations. Below is an example of an animation.
