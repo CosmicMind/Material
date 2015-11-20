@@ -195,7 +195,7 @@ MaterialLayout.alignFromTop(view, child: v, top: 100)
 
 A BasicCardView can easily add an image as its background, below is the code that shows how to do this.
 
-![MKPreview](http://www.materialkit.io/github/vid8.gif)
+![MKPreview](http://www.materialkit.io/github/vid11.gif)
 
 ```swift
 let v: BasicCardView = BasicCardView(image: UIImage(named: "img1"), titleLabel: MaterialLabel(), detailLabel: MaterialLabel())!
