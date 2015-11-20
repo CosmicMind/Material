@@ -272,7 +272,7 @@ MaterialLayout.alignFromTop(view, child: v, top: 100)
 
 Organization is essential. Easily add a SideNavigationViewController to your application. Below is an example of adding the controller to your AppDelegate.
 
-![MKPreview](http://www.materialkit.io/github/vid11.gif)
+![MKPreview](http://www.materialkit.io/github/vid12.gif)
 
 ```swift
 class AppDelegate: UIResponder, UIApplicationDelegate {
