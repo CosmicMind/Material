@@ -30,7 +30,7 @@ public class CapturePreviewView : MaterialView {
 	/**
 		:name:	capture
 	*/
-	public private(set) lazy var capture: MaterialCapture = MaterialCapture()
+	public private(set) lazy var captureSession: CaptureSession = CaptureSession()
 	
 	/**
 		:name:	prepareView
@@ -58,6 +58,6 @@ public class CapturePreviewView : MaterialView {
 	//	:name:	prepareSession
 	//
 	private func prepareSession() {
-		(layer as! AVCaptureVideoPreviewLayer).session = capture.session
+		(layer as! AVCaptureVideoPreviewLayer).session = captureSession.session
 	}
 }
