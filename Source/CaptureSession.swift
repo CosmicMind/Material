@@ -59,14 +59,14 @@ public class CaptureSession : NSObject {
 	private lazy var audioDevice: AVCaptureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeAudio)
 	
 	//
-	//	:name:	videoInput
+	//	:name:	activeVideoInput
 	//
-	private var videoInput: AVCaptureDeviceInput?
+	private var activeVideoInput: AVCaptureDeviceInput?
 	
 	//
-	//	:name:	audioInput
+	//	:name:	activeAudioInput
 	//
-	private var audioInput: AVCaptureDeviceInput?
+	private var activeAudioInput: AVCaptureDeviceInput?
 	
 	//
 	//	:name:	imageOutput
@@ -92,7 +92,7 @@ public class CaptureSession : NSObject {
 		:name:	activeCamera
 	*/
 	public var activeCamera: AVCaptureDevice? {
-		return videoInput?.device
+		return activeVideoInput?.device
 	}
 	
 	/**
@@ -111,7 +111,7 @@ public class CaptureSession : NSObject {
 		if 1 < cameraCount {
 			if activeCamera?.position == .Back {
 				device = cameraWithPosition(.Front)
-			} else if activeCamera?.position == .Front {
+			} else {
 				device = cameraWithPosition(.Back)
 			}
 		}
@@ -169,23 +169,26 @@ public class CaptureSession : NSObject {
 	/**
 		:name:	switchCameras
 	*/
-	public func switchCameras() -> Bool {
+	public func switchCameras() {
 		if canSwitchCameras {
-			do {
-				let vi: AVCaptureDeviceInput? = try AVCaptureDeviceInput(device: inactiveCamera!)
-				if session.canAddInput(vi) {
-					session.beginConfiguration()
-					session.removeInput(videoInput)
-					session.addInput(vi)
-					videoInput = vi
-					session.commitConfiguration()
-					return true
+			dispatch_async(videoQueue) {
+				do {
+					let videoInput: AVCaptureDeviceInput? = try AVCaptureDeviceInput(device: self.inactiveCamera!)
+					self.session.beginConfiguration()
+					self.session.removeInput(self.activeVideoInput)
+					
+					if self.session.canAddInput(videoInput) {
+						self.session.addInput(videoInput)
+						self.activeVideoInput = videoInput
+					} else {
+						self.session.addInput(self.activeVideoInput)
+					}
+					self.session.commitConfiguration()
+				} catch let e as NSError {
+					self.delegate?.captureSessionFailedWithError?(self, error: e)
 				}
-			} catch let e as NSError {
-				delegate?.captureSessionFailedWithError?(self, error: e)
 			}
 		}
-		return false
 	}
 	
 	//
@@ -204,9 +207,9 @@ public class CaptureSession : NSObject {
 	//
 	private func prepareVideoInput() {
 		do {
-			videoInput = try AVCaptureDeviceInput(device: videoDevice)
-			if session.canAddInput(videoInput) {
-				session.addInput(videoInput)
+			activeVideoInput = try AVCaptureDeviceInput(device: videoDevice)
+			if session.canAddInput(activeVideoInput) {
+				session.addInput(activeVideoInput)
 			}
 		} catch let e as NSError {
 			delegate?.captureSessionFailedWithError?(self, error: e)
@@ -218,9 +221,9 @@ public class CaptureSession : NSObject {
 	//
 	private func prepareAudioInput() {
 		do {
-			audioInput = try AVCaptureDeviceInput(device: audioDevice)
-			if session.canAddInput(audioInput) {
-				session.addInput(audioInput)
+			activeAudioInput = try AVCaptureDeviceInput(device: audioDevice)
+			if session.canAddInput(activeAudioInput) {
+				session.addInput(activeAudioInput)
 			}
 		} catch let e as NSError {
 			delegate?.captureSessionFailedWithError?(self, error: e)

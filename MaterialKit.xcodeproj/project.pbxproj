@@ -74,6 +74,7 @@
 		96D26BFD1BC23649006478BD /* ImageCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D26BFC1BC23649006478BD /* ImageCardView.swift */; };
 		96DF18211C02A2F7008A2D19 /* CaptureSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DF18201C02A2F7008A2D19 /* CaptureSession.swift */; };
 		96DF18231C02B813008A2D19 /* CapturePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DF18221C02B813008A2D19 /* CapturePreviewView.swift */; };
+		96DF58A91C03BD690020F65E /* BasicCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DF58A81C03BD690020F65E /* BasicCaptureView.swift */; };
 		9A94D0FA1B895EA500F586A5 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 963832631B88E5BF0015F710 /* LICENSE */; };
 		9A94D0FB1B895EA500F586A5 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9AAC38591B8956E300FE6B2D /* Roboto-Regular.ttf */; };
 		9A94D0FC1B895EA500F586A5 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9AAC38571B8956CF00FE6B2D /* Roboto-Medium.ttf */; };
@@ -132,6 +133,7 @@
 		96D26BFC1BC23649006478BD /* ImageCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCardView.swift; sourceTree = "<group>"; };
 		96DF18201C02A2F7008A2D19 /* CaptureSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureSession.swift; sourceTree = "<group>"; };
 		96DF18221C02B813008A2D19 /* CapturePreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CapturePreviewView.swift; sourceTree = "<group>"; };
+		96DF58A81C03BD690020F65E /* BasicCaptureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicCaptureView.swift; sourceTree = "<group>"; };
 		9AAC38551B8956C500FE6B2D /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
 		9AAC38571B8956CF00FE6B2D /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		9AAC38591B8956E300FE6B2D /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
@@ -337,6 +339,7 @@
 			children = (
 				96DF18201C02A2F7008A2D19 /* CaptureSession.swift */,
 				96DF18221C02B813008A2D19 /* CapturePreviewView.swift */,
+				96DF58A81C03BD690020F65E /* BasicCaptureView.swift */,
 			);
 			name = Capture;
 			sourceTree = "<group>";
@@ -509,6 +512,7 @@
 				964B17B41BBA447F002A9CA0 /* MaterialLayout.swift in Sources */,
 				962F3E531BACA68C0004B8AD /* NavigationBarView.swift in Sources */,
 				65BDD14F1BB5EE4A006F7F2B /* MaterialGravity.swift in Sources */,
+				96DF58A91C03BD690020F65E /* BasicCaptureView.swift in Sources */,
 				65BDD1541BB6F473006F7F2B /* MaterialDepth.swift in Sources */,
 				65BDD1571BB6FC82006F7F2B /* MaterialButton.swift in Sources */,
 				65BDD17C1BB99E29006F7F2B /* FabButton.swift in Sources */,
