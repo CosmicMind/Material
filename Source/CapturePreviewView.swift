@@ -21,11 +21,9 @@ import AVFoundation
 
 public class CapturePreviewView : MaterialView {
 	/**
-		:name:	layerClass
+		:name:	previewLayer
 	*/
-	public override class func layerClass() -> AnyClass {
-		return AVCaptureVideoPreviewLayer.self
-	}
+	public private(set) lazy var previewLayer: AVCaptureVideoPreviewLayer = AVCaptureVideoPreviewLayer()
 	
 	/**
 		:name:	capture
@@ -33,31 +31,51 @@ public class CapturePreviewView : MaterialView {
 	public private(set) lazy var captureSession: CaptureSession = CaptureSession()
 	
 	/**
+		:name:	layoutSublayersOfLayer
+	*/
+	public override func layoutSublayersOfLayer(layer: CALayer) {
+		super.layoutSublayersOfLayer(layer)
+		if self.layer == layer {
+			layoutPreviewLayer()
+		}
+	}
+	
+	/**
 		:name:	prepareView
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		prepareSession()
+		preparePreviewLayer()
 	}
 	
 	/**
 		:name:	captureDevicePointOfInterestForPoint
 	*/
 	public func captureDevicePointOfInterestForPoint(point: CGPoint) -> CGPoint {
-		return (layer as! AVCaptureVideoPreviewLayer).captureDevicePointOfInterestForPoint(point)
+		return previewLayer.captureDevicePointOfInterestForPoint(point)
 	}
 	
 	/**
 		:name:	pointForCaptureDevicePointOfInterest
 	*/
 	public func pointForCaptureDevicePointOfInterest(point: CGPoint) -> CGPoint {
-		return (layer as! AVCaptureVideoPreviewLayer).pointForCaptureDevicePointOfInterest(point)
+		return previewLayer.pointForCaptureDevicePointOfInterest(point)
 	}
 	
 	//
-	//	:name:	prepareSession
+	//	:name:	preparePreviewLayer
 	//
-	private func prepareSession() {
-		(layer as! AVCaptureVideoPreviewLayer).session = captureSession.session
+	private func preparePreviewLayer() {
+		previewLayer.session = captureSession.session
+		visualLayer.addSublayer(previewLayer)
+	}
+	
+	//
+	//	:name:	layoutPreviewLayer
+	//
+	internal func layoutPreviewLayer() {
+		previewLayer.frame = visualLayer.bounds
+		previewLayer.position = CGPointMake(width / 2, height / 2)
+		previewLayer.cornerRadius = visualLayer.cornerRadius
 	}
 }

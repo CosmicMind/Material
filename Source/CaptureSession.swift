@@ -19,6 +19,20 @@
 import UIKit
 import AVFoundation
 
+public enum CaptureSessionPreset {
+	case High
+}
+
+/**
+	:name:	CaptureSessionPresetToString
+*/
+public func CaptureSessionPresetToString(preset: CaptureSessionPreset) -> String {
+	switch preset {
+	case .High:
+		return AVCaptureSessionPresetHigh
+	}
+}
+
 @objc(CaptureSessionDelegate)
 public protocol CaptureSessionDelegate {
 	/**
@@ -64,15 +78,59 @@ public class CaptureSession : NSObject {
 	//
 	private lazy var movieOutput: AVCaptureMovieFileOutput = AVCaptureMovieFileOutput()
 	
-	/**
-		:name: session
-	*/
-	public private(set) lazy var session: AVCaptureSession = AVCaptureSession()
+	//
+	//	:name: session
+	//
+	internal lazy var session: AVCaptureSession = AVCaptureSession()
 	
 	/**
 		:name:	isRunning
 	*/
 	public private(set) lazy var isRunning: Bool = false
+	
+	/**
+		:name:	activeCamera
+	*/
+	public var activeCamera: AVCaptureDevice? {
+		return videoInput?.device
+	}
+	
+	/**
+		:name:	init
+	*/
+	public override init() {
+		super.init()
+		prepareSession()
+	}
+	
+	/**
+		:name:	inactiveCamera
+	*/
+	public var inactiveCamera: AVCaptureDevice? {
+		var device: AVCaptureDevice?
+		if 1 < cameraCount {
+			if activeCamera?.position == .Back {
+				device = cameraWithPosition(.Front)
+			} else if activeCamera?.position == .Front {
+				device = cameraWithPosition(.Back)
+			}
+		}
+		return device
+	}
+	
+	/**
+		:name:	cameraCount
+	*/
+	public var cameraCount: Int {
+		return AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo).count
+	}
+	
+	/**
+		:name:	canSwitchCameras
+	*/
+	public var canSwitchCameras: Bool {
+		return 1 < cameraCount
+	}
 	
 	/**
 		:name:	delegate
@@ -82,7 +140,7 @@ public class CaptureSession : NSObject {
 	/**
 		:name:	startSession
 	*/
-	public func startSesstion() {
+	public func startSession() {
 		if !isRunning {
 			dispatch_async(videoQueue) {
 				self.session.startRunning()
@@ -93,7 +151,7 @@ public class CaptureSession : NSObject {
 	/**
 		:name:	startSession
 	*/
-	public func stopSesstion() {
+	public func stopSession() {
 		if isRunning {
 			dispatch_async(videoQueue) {
 				self.session.stopRunning()
@@ -101,12 +159,40 @@ public class CaptureSession : NSObject {
 		}
 	}
 	
+	/**
+		:name:	sessionPreset
+	*/
+	public func sessionPreset(preset: CaptureSessionPreset) {
+		session.sessionPreset = CaptureSessionPresetToString(preset)
+	}
+	
+	/**
+		:name:	switchCameras
+	*/
+	public func switchCameras() -> Bool {
+		if canSwitchCameras {
+			do {
+				let vi: AVCaptureDeviceInput? = try AVCaptureDeviceInput(device: inactiveCamera!)
+				if session.canAddInput(vi) {
+					session.beginConfiguration()
+					session.removeInput(videoInput)
+					session.addInput(vi)
+					videoInput = vi
+					session.commitConfiguration()
+					return true
+				}
+			} catch let e as NSError {
+				delegate?.captureSessionFailedWithError?(self, error: e)
+			}
+		}
+		return false
+	}
+	
 	//
 	//	:name:	prepareSession
 	//
 	private func prepareSession() {
-		session.sessionPreset = AVCaptureSessionPresetHigh
-		
+		sessionPreset(.High)
 		prepareVideoInput()
 		prepareAudioInput()
 		prepareImageOutput()
@@ -158,5 +244,18 @@ public class CaptureSession : NSObject {
 		if session.canAddOutput(movieOutput) {
 			session.addOutput(movieOutput)
 		}
+	}
+	
+	//
+	//	:name:	cameraWithPosition
+	//
+	private func cameraWithPosition(position: AVCaptureDevicePosition) -> AVCaptureDevice? {
+		let devices: Array<AVCaptureDevice> = AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo) as! Array<AVCaptureDevice>
+		for device in devices {
+			if device.position == position {
+				return device
+			}
+		}
+		return nil
 	}
 }
