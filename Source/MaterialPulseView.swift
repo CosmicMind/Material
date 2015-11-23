@@ -131,13 +131,6 @@ public class MaterialPulseView : MaterialView {
 	}
 	
 	/**
-		:name:	actionForLayer
-	*/
-	public override func actionForLayer(layer: CALayer, forKey event: String) -> CAAction? {
-		return nil // returning nil enables the animations for the layer property that are normally disabled.
-	}
-	
-	/**
 		:name:	prepareView
 	*/
 	public override func prepareView() {
