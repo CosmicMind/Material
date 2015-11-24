@@ -212,7 +212,7 @@ public extension MaterialTheme.basicCaptureView {
 	public static var shadowColor: UIColor = MaterialColor.black
 	
 	// shape
-	public static var contentInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
+	public static var contentInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square3)
 	
 	// border
 	public static var borderWidth: MaterialBorder = .None

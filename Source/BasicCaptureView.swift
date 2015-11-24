@@ -57,7 +57,7 @@ public class BasicCaptureView : MaterialView, CaptureSessionDelegate {
 	/**
 		:name:	contentInsetsRef
 	*/
-	public var contentInsetsRef: MaterialInsetsType = MaterialTheme.basicCardView.contentInsetsRef {
+	public var contentInsetsRef: MaterialInsetsType = MaterialTheme.basicCaptureView.contentInsetsRef {
 		didSet {
 			reloadView()
 		}
@@ -122,7 +122,7 @@ public class BasicCaptureView : MaterialView, CaptureSessionDelegate {
 		
 		if let v: MaterialButton = switchCamerasButton {
 			addSubview(v)
-			MaterialLayout.alignFromBottomRight(self, child: v, bottom: 16, right: 16)
+			MaterialLayout.alignFromBottomRight(self, child: v, bottom: contentInsetsRef.bottom, right: contentInsetsRef.right)
 			MaterialLayout.size(self, child: v, width: switchCamerasButtonSize.width, height: switchCamerasButtonSize.height)
 			v.removeTarget(self, action: "handleSwitchCameras", forControlEvents: .TouchUpInside)
 			v.addTarget(self, action: "handleSwitchCameras", forControlEvents: .TouchUpInside)
@@ -140,6 +140,9 @@ public class BasicCaptureView : MaterialView, CaptureSessionDelegate {
 		print(error)
 	}
 	
+	//
+	//	:name:	handleSwitchCameras
+	//
 	internal func handleSwitchCameras() {
 		previewView.captureSession.switchCameras()
 	}
