@@ -548,7 +548,7 @@ public class ImageCardView : MaterialPulseView {
 		if nil == imageLayer {
 			imageLayer = CAShapeLayer()
 			imageLayer!.masksToBounds = true
-			imageLayer!.zPosition = -1
+			imageLayer!.zPosition = 0
 			visualLayer.addSublayer(imageLayer!)
 		}
 	}

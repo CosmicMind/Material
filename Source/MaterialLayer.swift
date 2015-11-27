@@ -187,7 +187,7 @@ public class MaterialLayer : CAShapeLayer {
 		shape = .None
 		shadowDepth = .None
 		super.init(coder: aDecoder)
-		prepareLayer()
+		prepareVisualLayer()
 	}
 	
 	/**
@@ -196,8 +196,8 @@ public class MaterialLayer : CAShapeLayer {
 	public override init(layer: AnyObject) {
 		shape = .None
 		shadowDepth = .None
-		super.init(layer: layer)
-		prepareLayer()
+		super.init()
+		prepareVisualLayer()
 	}
 	
 	/**
@@ -207,7 +207,7 @@ public class MaterialLayer : CAShapeLayer {
 		shape = .None
 		shadowDepth = .None
 		super.init()
-		prepareLayer()
+		prepareVisualLayer()
 	}
 	
 	/**
@@ -269,12 +269,12 @@ public class MaterialLayer : CAShapeLayer {
 	}
 	
 	/**
-		:name:	prepareLayer
+		:name:	prepareVisualLayer
 	*/
-	public func prepareLayer() {
+	public func prepareVisualLayer() {
 		// visualLayer
+		visualLayer.zPosition = 0
 		visualLayer.masksToBounds = true
-		visualLayer.zPosition = -1
 		addSublayer(visualLayer)
 	}
 	

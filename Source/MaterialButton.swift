@@ -458,7 +458,7 @@ public class MaterialButton : UIButton {
 	//	:name:	prepareVisualLayer
 	//
 	internal func prepareVisualLayer() {
-		visualLayer.zPosition = -1
+		visualLayer.zPosition = 0
 		visualLayer.masksToBounds = true
 		layer.addSublayer(visualLayer)
 	}
