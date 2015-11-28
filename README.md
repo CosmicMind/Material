@@ -1,10 +1,10 @@
+![MK](http://www.cosmicmind.io/MK/MaterialKit.gif)
+
 # MaterialKit
 
 ### CocoaPods Support
 
 MaterialKit is on CocoaPods under the name [MK](https://cocoapods.org/?q=MK).
-
-![MK](http://www.cosmicmind.io/MK/MaterialKit.gif)
 
 ### Basic MaterialView
 
