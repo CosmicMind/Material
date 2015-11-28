@@ -10,7 +10,7 @@ MaterialKit is on CocoaPods under the name [MK](https://cocoapods.org/?q=MK).
 
 To get started, let's introduce MaterialView, a lightweight UIView Object that has flexibility in mind. Common controls have been added to make things easier. For example, let's make a circle view that has a shadow, border, and image.
 
-![MKPreview](http://www.materialkit.io/github/vid1.gif)
+![MK](http://www.materialkit.io/github/vid1.gif)
 
 ```swift
 let v: MaterialView = MaterialView(frame: CGRectMake(107, 107, 200, 200))
@@ -28,7 +28,7 @@ view.addSubview(v)
 
 Let's expand on the basic MaterialView and use an animated MaterialPulseView. In this example, we will make the shape a square with some rounded corners.
 
-![MKPreview](http://www.materialkit.io/github/vid2.gif)
+![MK](http://www.materialkit.io/github/vid2.gif)
 
 ```swift
 let v: MaterialPulseView = MaterialPulseView(frame: CGRectMake(107, 107, 200, 200))
@@ -45,7 +45,7 @@ view.addSubview(v)
 
 A FlatButton is the best place to start when introducing MaterialKit buttons. It is simple, clean, and very effective. Below is an example of a FlatButton in action.
 
-![MKPreview](http://www.materialkit.io/github/vid3.gif)
+![MK](http://www.materialkit.io/github/vid3.gif)
 
 ```swift
 let v: FlatButton = FlatButton(frame: CGRectMake(107, 107, 200, 200))
@@ -60,7 +60,7 @@ view.addSubview(v)
 
 A RaisedButton is sure to get attention. Take a look at the following code sample.
 
-![MKPreview](http://www.materialkit.io/github/vid4.gif)
+![MK](http://www.materialkit.io/github/vid4.gif)
 
 ```swift
 let v: RaisedButton = RaisedButton(frame: CGRectMake(107, 107, 200, 200))
@@ -75,7 +75,7 @@ view.addSubview(v)
 
 A FabButton is essential to Material Design's overall look. I leave this example as simple as possible to showcase its beauty.
 
-![MKPreview](http://www.materialkit.io/github/vid5.gif)
+![MK](http://www.materialkit.io/github/vid5.gif)
 
 ```swift
 let v: FabButton = FabButton(frame: CGRectMake(175, 175, 64, 64))
@@ -90,7 +90,7 @@ view.addSubview(v)
 
 A NavigationBarView is a very common UI element and the more presentable it is, the better. The following example shows how to setup a NavigationBarView on the fly.
 
-![MKPreview](http://www.materialkit.io/github/vid6.gif)
+![MK](http://www.materialkit.io/github/vid6.gif)
 
 ```swift
 let v: NavigationBarView = NavigationBarView(titleLabel: MaterialLabel())!
@@ -144,7 +144,7 @@ view.addSubview(v)
 
 A BasicCardView is super flexible with all its options - including a title, detail, left buttons, and right buttons. Below is an example of a simple setup.
 
-![MKPreview](http://www.materialkit.io/github/vid7.gif)
+![MK](http://www.materialkit.io/github/vid7.gif)
 
 ```swift
 let v: BasicCardView = BasicCardView(titleLabel: UILabel(), detailLabel: UILabel())!
@@ -197,7 +197,7 @@ MaterialLayout.alignFromTop(view, child: v, top: 100)
 
 A BasicCardView can easily add an image as its background, below is the code that shows how to do this.
 
-![MKPreview](http://www.materialkit.io/github/vid8.gif)
+![MK](http://www.materialkit.io/github/vid8.gif)
 
 ```swift
 let v: BasicCardView = BasicCardView(image: UIImage(named: "img1"), titleLabel: MaterialLabel(), detailLabel: MaterialLabel())!
@@ -231,7 +231,7 @@ MaterialLayout.alignFromTop(view, child: v, top: 100)
 
 An ImageCardView is a great way to enclose many components into a single and presentable layout. Below is an example of setting one up.
 
-![MKPreview](http://www.materialkit.io/github/vid9.gif)
+![MK](http://www.materialkit.io/github/vid9.gif)
 
 ```swift
 let v: ImageCardView = ImageCardView(image: UIImage(named: "img1"))!
@@ -274,7 +274,7 @@ MaterialLayout.alignFromTop(view, child: v, top: 100)
 
 Organization is essential. Easily add a SideNavigationViewController to your application. Below is an example of adding the controller to your AppDelegate.
 
-![MKPreview](http://www.materialkit.io/github/vid12.gif)
+![MK](http://www.materialkit.io/github/vid12.gif)
 
 ```swift
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -296,7 +296,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 Animations are a wonderful way to add life to your application. MaterialAnimation is a lightweight API for constructing complex animations. Below is an example of an animation.
 
-![MKPreview](http://www.materialkit.io/github/vid10.gif)
+![MK](http://www.materialkit.io/github/vid10.gif)
 
 ```swift
 let v: MaterialPulseView = MaterialPulseView(frame: CGRectMake(107, 107, 200, 200))
