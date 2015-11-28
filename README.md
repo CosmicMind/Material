@@ -191,7 +191,7 @@ v.rightButtons = [b3, b4]
 // Add to UIViewController.
 view.addSubview(v)
 v.translatesAutoresizingMaskIntoConstraints = false
-MaterialLayout.alignToParentHorizontallyWithInsets(view, child: v, left: 20, right: 20)
+MaterialLayout.alignToParentHorizontally(view, child: v, left: 20, right: 20)
 MaterialLayout.alignFromTop(view, child: v, top: 100)
 ```
 
@@ -223,7 +223,7 @@ v.rightButtons = [b1]
 // Add to UIViewController
 view.addSubview(v)
 v.translatesAutoresizingMaskIntoConstraints = false
-MaterialLayout.alignToParentHorizontallyWithInsets(view, child: v, left: 20, right: 20)
+MaterialLayout.alignToParentHorizontally(view, child: v, left: 20, right: 20)
 MaterialLayout.alignFromTop(view, child: v, top: 100)
 ```
 
@@ -266,7 +266,7 @@ v.rightButtons = [b3]
 // Add to UIViewController.
 view.addSubview(v)
 v.translatesAutoresizingMaskIntoConstraints = false
-MaterialLayout.alignToParentHorizontallyWithInsets(view, child: v, left: 20, right: 20)
+MaterialLayout.alignToParentHorizontally(view, child: v, left: 20, right: 20)
 MaterialLayout.alignFromTop(view, child: v, top: 100)
 ```
 
