@@ -244,7 +244,8 @@
 				9638325C1B88E3420015F710 /* Supporting Files */,
 				9606E1C31BDE9F080013EA82 /* MaterialKit.h */,
 				9693BF841BCB0DEE0087054A /* Extensions */,
-				96B57D4C1B90AF6A00DE7BBB /* Theme */,
+				969D4D3A1C0A3EBA009D806C /* Theme */,
+				96B57D4C1B90AF6A00DE7BBB /* Types */,
 				9AAC38521B89553800FE6B2D /* Font */,
 				65AD15E81BC05B0E0068AF9C /* Layer */,
 				65B965851B8BEEB00055B139 /* View */,
@@ -318,10 +319,17 @@
 			name = Extensions;
 			sourceTree = "<group>";
 		};
-		96B57D4C1B90AF6A00DE7BBB /* Theme */ = {
+		969D4D3A1C0A3EBA009D806C /* Theme */ = {
 			isa = PBXGroup;
 			children = (
 				65BDD14C1BB5ED9F006F7F2B /* MaterialTheme.swift */,
+			);
+			name = Theme;
+			sourceTree = "<group>";
+		};
+		96B57D4C1B90AF6A00DE7BBB /* Types */ = {
+			isa = PBXGroup;
+			children = (
 				65BDD1481BB5DC98006F7F2B /* MaterialColor.swift */,
 				65BDD14E1BB5EE4A006F7F2B /* MaterialGravity.swift */,
 				65BDD1531BB6F473006F7F2B /* MaterialDepth.swift */,
@@ -331,7 +339,7 @@
 				65BDD16B1BB88D1A006F7F2B /* MaterialShape.swift */,
 				964B17B51BBA4BEA002A9CA0 /* MaterialStatusBarStyle.swift */,
 			);
-			name = Theme;
+			name = Types;
 			sourceTree = "<group>";
 		};
 		96DF181F1C02A2CB008A2D19 /* Capture */ = {
