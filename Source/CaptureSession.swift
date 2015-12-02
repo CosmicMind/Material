@@ -99,6 +99,7 @@ public class CaptureSession : NSObject {
 		:name:	init
 	*/
 	public override init() {
+		sessionPreset = .High
 		super.init()
 		prepareSession()
 	}
@@ -133,6 +134,40 @@ public class CaptureSession : NSObject {
 	}
 	
 	/**
+		:name:	focusMode
+	*/
+	public var focusMode: AVCaptureFocusMode {
+		get {
+			return videoDevice.focusMode
+		}
+		set(value) {
+			var error: NSError?
+			if isFocusModeSupported(focusMode) {
+				do {
+					try videoDevice.lockForConfiguration()
+					videoDevice.focusMode = focusMode
+					videoDevice.unlockForConfiguration()
+				} catch let e as NSError {
+					error = e
+				}
+				error = NSError(domain: "[MaterialKit Error: Unsupported focusMode.]", code: 0, userInfo: nil)
+			}
+			if let e: NSError = error {
+				delegate?.captureSessionFailedWithError?(self, error: e)
+			}
+		}
+	}
+	
+	/**
+		:name:	sessionPreset
+	*/
+	public var sessionPreset: CaptureSessionPreset {
+		didSet {
+			session.sessionPreset = CaptureSessionPresetToString(sessionPreset)
+		}
+	}
+	
+	/**
 		:name:	delegate
 	*/
 	public weak var delegate: CaptureSessionDelegate?
@@ -157,13 +192,6 @@ public class CaptureSession : NSObject {
 				self.session.stopRunning()
 			}
 		}
-	}
-	
-	/**
-		:name:	sessionPreset
-	*/
-	public func sessionPreset(preset: CaptureSessionPreset) {
-		session.sessionPreset = CaptureSessionPresetToString(preset)
 	}
 	
 	/**
@@ -209,7 +237,6 @@ public class CaptureSession : NSObject {
 	//	:name:	prepareSession
 	//
 	private func prepareSession() {
-		sessionPreset(.High)
 		prepareVideoInput()
 		prepareAudioInput()
 		prepareImageOutput()
