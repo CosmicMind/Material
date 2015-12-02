@@ -191,6 +191,20 @@ public class CaptureSession : NSObject {
 		}
 	}
 	
+	/**
+		:name:	isFocusModeSupported
+	*/
+	public func isFocusModeSupported(focusMode: AVCaptureFocusMode) -> Bool {
+		return videoDevice.isFocusModeSupported(focusMode)
+	}
+	
+	/**
+		:name:	isExposureModeSupported
+	*/
+	public func isExposureModeSupported(exposureMode: AVCaptureExposureMode) -> Bool {
+		return videoDevice.isExposureModeSupported(exposureMode)
+	}
+	
 	//
 	//	:name:	prepareSession
 	//
