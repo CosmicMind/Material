@@ -49,16 +49,6 @@ public class CaptureSession : NSObject {
 	private lazy var videoQueue: dispatch_queue_t = dispatch_queue_create("io.materialkit.CaptureSession", nil)
 	
 	//
-	//	:name:	videoDevice
-	//
-	private lazy var videoDevice: AVCaptureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
-	
-	//
-	//	:name:	audioDevice
-	//
-	private lazy var audioDevice: AVCaptureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeAudio)
-	
-	//
 	//	:name:	activeVideoInput
 	//
 	private var activeVideoInput: AVCaptureDeviceInput?
@@ -134,22 +124,31 @@ public class CaptureSession : NSObject {
 	}
 	
 	/**
+		:name:	cameraSupportsTapToFocus
+	*/
+	public var cameraSupportsTapToFocus: Bool {
+		return true
+	}
+	
+	/**
 		:name:	focusMode
 	*/
 	public var focusMode: AVCaptureFocusMode {
 		get {
-			return videoDevice.focusMode
+			return activeCamera!.focusMode
 		}
 		set(value) {
 			var error: NSError?
 			if isFocusModeSupported(focusMode) {
 				do {
-					try videoDevice.lockForConfiguration()
-					videoDevice.focusMode = focusMode
-					videoDevice.unlockForConfiguration()
+					let device: AVCaptureDevice = activeCamera!
+					try device.lockForConfiguration()
+					device.focusMode = focusMode
+					device.unlockForConfiguration()
 				} catch let e as NSError {
 					error = e
 				}
+			} else {
 				error = NSError(domain: "[MaterialKit Error: Unsupported focusMode.]", code: 0, userInfo: nil)
 			}
 			if let e: NSError = error {
@@ -223,14 +222,14 @@ public class CaptureSession : NSObject {
 		:name:	isFocusModeSupported
 	*/
 	public func isFocusModeSupported(focusMode: AVCaptureFocusMode) -> Bool {
-		return videoDevice.isFocusModeSupported(focusMode)
+		return activeVideoInput!.device.isFocusModeSupported(focusMode)
 	}
 	
 	/**
 		:name:	isExposureModeSupported
 	*/
 	public func isExposureModeSupported(exposureMode: AVCaptureExposureMode) -> Bool {
-		return videoDevice.isExposureModeSupported(exposureMode)
+		return activeVideoInput!.device.isExposureModeSupported(exposureMode)
 	}
 	
 	//
@@ -248,7 +247,7 @@ public class CaptureSession : NSObject {
 	//
 	private func prepareVideoInput() {
 		do {
-			activeVideoInput = try AVCaptureDeviceInput(device: videoDevice)
+			activeVideoInput = try AVCaptureDeviceInput(device: AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo))
 			if session.canAddInput(activeVideoInput) {
 				session.addInput(activeVideoInput)
 			}
@@ -262,7 +261,7 @@ public class CaptureSession : NSObject {
 	//
 	private func prepareAudioInput() {
 		do {
-			activeAudioInput = try AVCaptureDeviceInput(device: audioDevice)
+			activeAudioInput = try AVCaptureDeviceInput(device: AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeAudio))
 			if session.canAddInput(activeAudioInput) {
 				session.addInput(activeAudioInput)
 			}
