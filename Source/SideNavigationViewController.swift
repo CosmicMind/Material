@@ -87,17 +87,17 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	//
 	//	:name:	sidePanGesture
 	//
-	internal var sidePanGesture: UIPanGestureRecognizer?
+	private var sidePanGesture: UIPanGestureRecognizer?
 	
 	//
 	//	:name:	sideTapGesture
 	//
-	internal var sideTapGesture: UITapGestureRecognizer?
+	private var sideTapGesture: UITapGestureRecognizer?
 	
 	//
 	//	:name:	isViewBasedAppearance
 	//
-	internal var isViewBasedAppearance: Bool {
+	private var isViewBasedAppearance: Bool {
 		return 0 == NSBundle.mainBundle().objectForInfoDictionaryKey("UIViewControllerBasedStatusBarAppearance") as? Int
 	}
 	
@@ -334,22 +334,6 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		return false
 	}
 	
-	/**
-		:name:	prepareGestures
-	*/
-	private func prepareGestures(inout pan: UIPanGestureRecognizer?, panSelector: Selector, inout tap: UITapGestureRecognizer?, tapSelector: Selector) {
-		if nil == pan {
-			pan = UIPanGestureRecognizer(target: self, action: panSelector)
-			pan!.delegate = self
-			view.addGestureRecognizer(pan!)
-		}
-		if nil == tap {
-			tap = UITapGestureRecognizer(target: self, action: tapSelector)
-			tap!.delegate = self
-			view.addGestureRecognizer(tap!)
-		}
-	}
-	
 	//
 	//	:name:	prepareView
 	//
@@ -430,15 +414,31 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	}
 	
 	//
+	//	:name:	prepareGestures
+	//
+	private func prepareGestures(inout pan: UIPanGestureRecognizer?, panSelector: Selector, inout tap: UITapGestureRecognizer?, tapSelector: Selector) {
+		if nil == pan {
+			pan = UIPanGestureRecognizer(target: self, action: panSelector)
+			pan!.delegate = self
+			view.addGestureRecognizer(pan!)
+		}
+		if nil == tap {
+			tap = UITapGestureRecognizer(target: self, action: tapSelector)
+			tap!.delegate = self
+			view.addGestureRecognizer(tap!)
+		}
+	}
+	
+	//
 	//	:name:	removeGestures
 	//
 	private func removeGestures(inout pan: UIPanGestureRecognizer?, inout tap: UITapGestureRecognizer?) {
-		if let g = pan {
-			view.removeGestureRecognizer(g)
+		if let v: UIPanGestureRecognizer = pan {
+			view.removeGestureRecognizer(v)
 			pan = nil
 		}
-		if let g = tap {
-			view.removeGestureRecognizer(g)
+		if let v: UITapGestureRecognizer = tap {
+			view.removeGestureRecognizer(v)
 			tap = nil
 		}
 	}

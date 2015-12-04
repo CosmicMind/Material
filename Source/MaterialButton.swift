@@ -394,10 +394,10 @@ public class MaterialButton : UIButton {
 			
 			if nil != pulseColor && 0 < pulseColorOpacity {
 				MaterialAnimation.animationDisabled {
-					self.pulseLayer.hidden = false
 					self.pulseLayer.bounds = CGRectMake(0, 0, v, v)
 					self.pulseLayer.position = point
 					self.pulseLayer.cornerRadius = r / d
+					self.pulseLayer.hidden = false
 				}
 				pulseLayer.addAnimation(MaterialAnimation.scale(pulseFill ? 3 * d : 1.5 * d, duration: t), forKey: nil)
 			}

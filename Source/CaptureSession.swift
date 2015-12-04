@@ -124,10 +124,10 @@ public class CaptureSession : NSObject {
 	}
 	
 	/**
-		:name:	cameraSupportsTapToFocus
+		:name:	caneraSupportsTapToFocus
 	*/
 	public var cameraSupportsTapToFocus: Bool {
-		return true
+		return true == activeCamera?.focusPointOfInterestSupported
 	}
 	
 	/**
@@ -230,6 +230,29 @@ public class CaptureSession : NSObject {
 	*/
 	public func isExposureModeSupported(exposureMode: AVCaptureExposureMode) -> Bool {
 		return activeVideoInput!.device.isExposureModeSupported(exposureMode)
+	}
+	
+	/**
+		:name:	focusAtPoint
+	*/
+	public func focusAtPoint(point: CGPoint) {
+		var error: NSError?
+		let device: AVCaptureDevice = activeCamera!
+		if device.focusPointOfInterestSupported && isFocusModeSupported(.AutoFocus) {
+			do {
+				try device.lockForConfiguration()
+				device.focusPointOfInterest = point
+				device.focusMode = .AutoFocus
+				device.unlockForConfiguration()
+			} catch let e as NSError {
+				error = e
+			}
+		} else {
+			error = NSError(domain: "[MaterialKit Error: Unsupported focusAtPoint.]", code: 0, userInfo: nil)
+		}
+		if let e: NSError = error {
+			delegate?.captureSessionFailedWithError?(self, error: e)
+		}
 	}
 	
 	//

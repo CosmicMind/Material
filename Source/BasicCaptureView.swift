@@ -18,11 +18,16 @@
 
 import UIKit
 
-public class BasicCaptureView : MaterialView, CaptureSessionDelegate {
+public class BasicCaptureView : MaterialView, CaptureSessionDelegate, CapturePreviewViewDelegate {
 	/**
 		:name:	previewView
 	*/
 	public private(set) lazy var previewView: CapturePreviewView = CapturePreviewView()
+	
+	/**
+		:name:	focusLayer
+	*/
+	public private(set) lazy var focusLayer: MaterialLayer = MaterialLayer()
 	
 	/**
 		:name:	switchCamerasButton
@@ -66,20 +71,6 @@ public class BasicCaptureView : MaterialView, CaptureSessionDelegate {
 	/**
 		:name:	init
 	*/
-	public required init?(coder aDecoder: NSCoder) {
-		super.init(coder: aDecoder)
-	}
-	
-	/**
-		:name:	init
-	*/
-	public override init(frame: CGRect) {
-		super.init(frame: frame)
-	}
-	
-	/**
-		:name:	init
-	*/
 	public convenience init() {
 		self.init(frame: CGRectNull)
 	}
@@ -100,6 +91,7 @@ public class BasicCaptureView : MaterialView, CaptureSessionDelegate {
 	public override func prepareView() {
 		super.prepareView()
 		preparePreviewView()
+		prepareFocusLayer()
 		reloadView()
 	}
 	
@@ -140,6 +132,24 @@ public class BasicCaptureView : MaterialView, CaptureSessionDelegate {
 		print(error)
 	}
 	
+	/**
+		:name:	capturePreviewViewDidTapToFocusAtPoint
+	*/
+	public func capturePreviewViewDidTapToFocusAtPoint(capturePreviewView: CapturePreviewView, point: CGPoint) {
+		MaterialAnimation.animationDisabled {
+			self.focusLayer.position = point
+			self.focusLayer.hidden = false
+		}
+		MaterialAnimation.animateWithDuration(0.25, animations: {
+			self.focusLayer.transform = CATransform3DMakeScale(0, 0, 1)
+		}) {
+			MaterialAnimation.animationDisabled {
+				self.focusLayer.hidden = true
+				self.focusLayer.transform = CATransform3DIdentity
+			}
+		}
+	}
+	
 	//
 	//	:name:	handleSwitchCameras
 	//
@@ -153,6 +163,18 @@ public class BasicCaptureView : MaterialView, CaptureSessionDelegate {
 	private func preparePreviewView() {
 		previewView.translatesAutoresizingMaskIntoConstraints = false
 		previewView.captureSession.delegate = self
+		previewView.delegate = self
 		previewView.captureSession.startSession()
+	}
+	
+	//
+	//	:name:	prepareFocusLayer
+	//
+	private func prepareFocusLayer() {
+		focusLayer.hidden = true
+		focusLayer.backgroundColor = MaterialColor.white.colorWithAlphaComponent(0.25).CGColor
+		focusLayer.bounds = CGRectMake(0, 0, 150, 150)
+		focusLayer.cornerRadius = 75
+		previewView.layer.addSublayer(focusLayer)
 	}
 }

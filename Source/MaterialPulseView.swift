@@ -85,10 +85,10 @@ public class MaterialPulseView : MaterialView {
 			
 			if nil != pulseColor && 0 < pulseColorOpacity {
 				MaterialAnimation.animationDisabled {
-					self.pulseLayer.hidden = false
 					self.pulseLayer.bounds = CGRectMake(0, 0, v, v)
 					self.pulseLayer.position = point
 					self.pulseLayer.cornerRadius = r / d
+					self.pulseLayer.hidden = false
 				}
 				pulseLayer.addAnimation(MaterialAnimation.scale(pulseFill ? 3 * d : d, duration: t), forKey: nil)
 			}
