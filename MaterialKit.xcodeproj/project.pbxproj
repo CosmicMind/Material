@@ -241,7 +241,7 @@
 			isa = PBXGroup;
 			children = (
 				963832631B88E5BF0015F710 /* LICENSE */,
-				9638325C1B88E3420015F710 /* Supporting Files */,
+				963832541B88E30F0015F710 /* Info.plist */,
 				9606E1C31BDE9F080013EA82 /* MaterialKit.h */,
 				9693BF841BCB0DEE0087054A /* Extensions */,
 				969D4D3A1C0A3EBA009D806C /* Theme */,
@@ -263,26 +263,10 @@
 		963832571B88E31A0015F710 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				9638325D1B88E34B0015F710 /* Supporting Files */,
+				963832591B88E31A0015F710 /* Info.plist */,
 				963832581B88E31A0015F710 /* MaterialKitTests.swift */,
 			);
 			path = Tests;
-			sourceTree = "<group>";
-		};
-		9638325C1B88E3420015F710 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				963832541B88E30F0015F710 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		9638325D1B88E34B0015F710 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				963832591B88E31A0015F710 /* Info.plist */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		964B17B21BBA445D002A9CA0 /* Layout */ = {
@@ -450,7 +434,7 @@
 				LastSwiftMigration = 0710;
 				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0700;
-				ORGANIZATIONNAME = "GraphKit, Inc.";
+				ORGANIZATIONNAME = "CosmicMind, Inc.";
 				TargetAttributes = {
 					963832351B88DFD80015F710 = {
 						CreatedOnToolsVersion = 6.4;
@@ -664,7 +648,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "io.graphkit.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.MaterialKit;
 				PRODUCT_NAME = MaterialKit;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -684,7 +668,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "io.graphkit.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.MaterialKit;
 				PRODUCT_NAME = MaterialKit;
 				SKIP_INSTALL = YES;
 			};

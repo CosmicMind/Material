@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2015 GraphKit, Inc. <http://graphkit.io> and other GraphKit contributors.
+// Copyright (C) 2015 CosmicMind, Inc. <http://cosmicmind.io> and other CosmicMind contributors
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published
