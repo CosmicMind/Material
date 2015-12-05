@@ -18,7 +18,7 @@
 
 import UIKit
 
-public class BasicCaptureView : MaterialView, CaptureSessionDelegate, CapturePreviewViewDelegate {
+public class CaptureView : MaterialView, CaptureSessionDelegate, CapturePreviewViewDelegate {
 	/**
 		:name:	previewView
 	*/

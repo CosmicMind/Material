@@ -18,6 +18,12 @@ One of Material Design's greatest additions to UI is the NavigationBarView. In t
 
 ![MaterialKitNavigationBarView](http://www.materialkit.io/github/MaterialKitNavigationBarView.gif)
 
+### CardView
+
+Right out of the box to a fully customized configuration, CardView always stands out. Take a look at a few examples of the CardView in action and find more examples with code in the Examples directory.
+
+![MaterialKitCardView](http://www.materialkit.io/github/MaterialKitCardView.gif)
+
 ### License
 
 [AGPL-3.0](http://choosealicense.com/licenses/agpl-3.0/)

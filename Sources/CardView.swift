@@ -18,7 +18,7 @@
 
 import UIKit
 
-public class BasicCardView : MaterialPulseView {
+public class CardView : MaterialPulseView {
 	//
 	//	:name:	dividerLayer
 	//
