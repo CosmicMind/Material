@@ -27,7 +27,8 @@ class ViewController: UIViewController {
 		// Examples of using CardView.
 		// Uncomment different examples and read
 		// the comments below.
-		prepareGeneralCardView()
+//		prepareGeneralCardView()
+		prepareCardViewWithoutDivider()
 	}
 	
 	/**
@@ -83,6 +84,48 @@ class ViewController: UIViewController {
 		MaterialLayout.alignFromTop(view, child: cardView, top: 100)
 		MaterialLayout.alignToParentHorizontally(view, child: cardView, left: 20, right: 20)
 		
+	}
+	
+	/**
+	:name:	prepareCardViewWithoutDivider
+	:description:	An example of the CardView without the divider line between buttons.
+	*/
+	private func prepareCardViewWithoutDivider() {
+		let cardView: CardView = CardView()
+		cardView.divider = false
+		cardView.backgroundColor = MaterialColor.teal.darken1
+		
+		// Title label.
+		let titleLabel: UILabel = UILabel()
+		titleLabel.text = "Data-Driven"
+		titleLabel.textColor = MaterialColor.white
+		titleLabel.font = RobotoFont.mediumWithSize(24)
+		cardView.titleLabel = titleLabel
+		
+		// Detail label
+		let detailLabel: UILabel = UILabel()
+		detailLabel.text = "Build scalable data-driven apps with GraphKit."
+		detailLabel.textColor = MaterialColor.white
+		detailLabel.numberOfLines = 0
+		cardView.detailLabel = detailLabel
+		
+		// Favorite button.
+		let img1: UIImage? = UIImage(named: "ic_favorite_white")
+		let btn1: FlatButton = FlatButton()
+		btn1.pulseColor = MaterialColor.white
+		btn1.pulseFill = true
+		btn1.pulseScale = false
+		btn1.setImage(img1, forState: .Normal)
+		btn1.setImage(img1, forState: .Highlighted)
+		
+		// Add buttons to right side.
+		cardView.rightButtons = [btn1]
+		
+		// To support orientation changes, use MaterialLayout.
+		view.addSubview(cardView)
+		cardView.translatesAutoresizingMaskIntoConstraints = false
+		MaterialLayout.alignFromTop(view, child: cardView, top: 100)
+		MaterialLayout.alignToParentHorizontally(view, child: cardView, left: 20, right: 20)
 	}
 }
 

@@ -16,13 +16,15 @@ MaterialKit is on CocoaPods under the name [MK](https://cocoapods.org/?q=MK).
 
 One of Material Design's greatest additions to UI is the NavigationBarView. In the Examples folder, you can checkout some code to get you started with this wonderful component.
 
-![MaterialKitNavigationBarView](http://www.materialkit.io/github/MaterialKitNavigationBarView.gif)
+![MaterialKitNavigationBarView](http://www.materialkit.io/MK/MaterialKitNavigationBarView.gif)
 
 ### CardView
 
 Right out of the box to a fully customized configuration, CardView always stands out. Take a look at a few examples in action and find more in the Examples directory.
 
-![MaterialKitCardView](http://www.materialkit.io/github/MaterialKitCardView.gif)
+![MaterialKitCardView](http://www.materialkit.io/MK/MaterialKitCardView.gif)
+
+![MaterialKitCardViewDataDriven](http://www.materialkit.io/MK/MaterialKitCardViewDataDriven.gif)
 
 ### License
 
