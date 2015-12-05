@@ -19,6 +19,8 @@
 import UIKit
 import AVFoundation
 
+private var CaptureSessionAdjustingExposureContext: UInt8 = 1
+
 public enum CaptureSessionPreset {
 	case High
 }
@@ -131,6 +133,13 @@ public class CaptureSession : NSObject {
 	}
 	
 	/**
+		:name:	cameraSupportsTapToExpose
+	*/
+	public var cameraSupportsTapToExpose: Bool {
+		return true == activeCamera?.exposurePointOfInterestSupported
+	}
+	
+	/**
 		:name:	focusMode
 	*/
 	public var focusMode: AVCaptureFocusMode {
@@ -237,9 +246,9 @@ public class CaptureSession : NSObject {
 	*/
 	public func focusAtPoint(point: CGPoint) {
 		var error: NSError?
-		let device: AVCaptureDevice = activeCamera!
-		if device.focusPointOfInterestSupported && isFocusModeSupported(.AutoFocus) {
+		if cameraSupportsTapToFocus && isFocusModeSupported(.AutoFocus) {
 			do {
+				let device: AVCaptureDevice = activeCamera!
 				try device.lockForConfiguration()
 				device.focusPointOfInterest = point
 				device.focusMode = .AutoFocus
@@ -252,6 +261,55 @@ public class CaptureSession : NSObject {
 		}
 		if let e: NSError = error {
 			delegate?.captureSessionFailedWithError?(self, error: e)
+		}
+	}
+	
+	/**
+		:name:	exposeAtPoint
+	*/
+	public func exposeAtPoint(point: CGPoint) {
+		var error: NSError?
+		if cameraSupportsTapToExpose && isExposureModeSupported(.ContinuousAutoExposure) {
+			do {
+				let device: AVCaptureDevice = activeCamera!
+				try device.lockForConfiguration()
+				device.exposurePointOfInterest = point
+				device.exposureMode = .ContinuousAutoExposure
+				if device.isExposureModeSupported(.Locked) {
+					device.addObserver(self, forKeyPath: "adjustingExposure", options: .New, context: &CaptureSessionAdjustingExposureContext)
+				}
+				device.unlockForConfiguration()
+			} catch let e as NSError {
+				error = e
+			}
+		} else {
+			error = NSError(domain: "[MaterialKit Error: Unsupported exposeAtPoint.]", code: 0, userInfo: nil)
+		}
+		if let e: NSError = error {
+			delegate?.captureSessionFailedWithError?(self, error: e)
+		}
+	}
+	
+	/**
+		:name:	observeValueForKeyPath
+	*/
+	public override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+		if context == &CaptureSessionAdjustingExposureContext {
+			let device: AVCaptureDevice = object as! AVCaptureDevice
+			if !device.adjustingExposure && device.isExposureModeSupported(.Locked) {
+				object!.removeObserver(self, forKeyPath: "adjustingExposure", context: &CaptureSessionAdjustingExposureContext)
+				dispatch_async(dispatch_get_main_queue()) {
+					do {
+						try device.lockForConfiguration()
+						device.exposureMode = .Locked
+						device.unlockForConfiguration()
+					} catch let e as NSError {
+						self.delegate?.captureSessionFailedWithError?(self, error: e)
+					}
+				}
+			}
+		} else {
+			super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
 		}
 	}
 	

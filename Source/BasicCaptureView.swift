@@ -30,6 +30,11 @@ public class BasicCaptureView : MaterialView, CaptureSessionDelegate, CapturePre
 	public private(set) lazy var focusLayer: MaterialLayer = MaterialLayer()
 	
 	/**
+		:name:	exposureLayer
+	*/
+	public private(set) lazy var exposureLayer: MaterialLayer = MaterialLayer()
+	
+	/**
 		:name:	switchCamerasButton
 	*/
 	public var switchCamerasButton: MaterialButton? {
@@ -92,6 +97,7 @@ public class BasicCaptureView : MaterialView, CaptureSessionDelegate, CapturePre
 		super.prepareView()
 		preparePreviewView()
 		prepareFocusLayer()
+		prepareExposureLayer()
 		reloadView()
 	}
 	
@@ -150,6 +156,24 @@ public class BasicCaptureView : MaterialView, CaptureSessionDelegate, CapturePre
 		}
 	}
 	
+	/**
+		:name:	capturePreviewViewDidTapToExposeAtPoint
+	*/
+	public func capturePreviewViewDidTapToExposeAtPoint(capturePreviewView: CapturePreviewView, point: CGPoint) {
+		MaterialAnimation.animationDisabled {
+			self.exposureLayer.position = point
+			self.exposureLayer.hidden = false
+		}
+		MaterialAnimation.animateWithDuration(0.25, animations: {
+			self.exposureLayer.transform = CATransform3DMakeScale(0, 0, 1)
+		}) {
+			MaterialAnimation.animationDisabled {
+				self.exposureLayer.hidden = true
+				self.exposureLayer.transform = CATransform3DIdentity
+			}
+		}
+	}
+	
 	//
 	//	:name:	handleSwitchCameras
 	//
@@ -172,9 +196,20 @@ public class BasicCaptureView : MaterialView, CaptureSessionDelegate, CapturePre
 	//
 	private func prepareFocusLayer() {
 		focusLayer.hidden = true
-		focusLayer.backgroundColor = MaterialColor.white.colorWithAlphaComponent(0.25).CGColor
+		focusLayer.backgroundColor = MaterialColor.blue.base.colorWithAlphaComponent(0.25).CGColor
 		focusLayer.bounds = CGRectMake(0, 0, 150, 150)
 		focusLayer.cornerRadius = 75
 		previewView.layer.addSublayer(focusLayer)
+	}
+	
+	//
+	//	:name:	prepareExposureLayer
+	//
+	private func prepareExposureLayer() {
+		exposureLayer.hidden = true
+		exposureLayer.backgroundColor = MaterialColor.red.base.colorWithAlphaComponent(0.25).CGColor
+		exposureLayer.bounds = CGRectMake(0, 0, 150, 150)
+		exposureLayer.cornerRadius = 75
+		previewView.layer.addSublayer(exposureLayer)
 	}
 }
