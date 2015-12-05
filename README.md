@@ -1,4 +1,4 @@
-![MaterialKit](http://www.cosmicmind.io/MK/MaterialKit.png)
+![MaterialKit](http://www.materialkit.io/MK/MaterialKit.png)
 
 # MaterialKit
 
@@ -14,7 +14,7 @@ MaterialKit is on CocoaPods under the name [MK](https://cocoapods.org/?q=MK).
 
 ### NavigationBarView
 
-One of Material Design's greatest additions to UI is the NavigationBarView. In the examples folder, you can checkout some code to get you started with this wonderful component. 
+One of Material Design's greatest additions to UI is the NavigationBarView. In the examples folder, you can checkout some code to get you started with this wonderful component.
 
 ![MaterialKitNavigationBarView](http://www.materialkit.io/github/MaterialKitNavigationBarView.gif)
 
