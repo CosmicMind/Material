@@ -2,7 +2,7 @@
 
 # MaterialKit
 
-Welcome to MaterialKit for iOS. MaterialKit is not just another components library. We built everything using an underlying graphics and animation framework to ensure extensibility and fuel everyone's imagination. MaterialKit is a new and exciting project for us at CosmicMind. We hope you love it as much as we do.
+Welcome to MaterialKit for iOS. MaterialKit is not just another components library. We built everything using an underlying graphics and animation framework to ensure extensibility and to fuel everyone's imagination.
 
 ### Examples
 
@@ -14,13 +14,13 @@ MaterialKit is on CocoaPods under the name [MK](https://cocoapods.org/?q=MK).
 
 ### NavigationBarView
 
-One of Material Design's greatest additions to UI is the NavigationBarView. In the examples folder, you can checkout some code to get you started with this wonderful component.
+One of Material Design's greatest additions to UI is the NavigationBarView. In the Examples folder, you can checkout some code to get you started with this wonderful component.
 
 ![MaterialKitNavigationBarView](http://www.materialkit.io/github/MaterialKitNavigationBarView.gif)
 
 ### CardView
 
-Right out of the box to a fully customized configuration, CardView always stands out. Take a look at a few examples of the CardView in action and find more examples with code in the Examples directory.
+Right out of the box to a fully customized configuration, CardView always stands out. Take a look at a few examples in action and find more in the Examples directory.
 
 ![MaterialKitCardView](http://www.materialkit.io/github/MaterialKitCardView.gif)
 

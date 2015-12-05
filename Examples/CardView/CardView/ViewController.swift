@@ -55,7 +55,6 @@ class ViewController: UIViewController {
 		// Detail label
 		let detailLabel: UILabel = UILabel()
 		detailLabel.text = "It’s been a while, have you read any new books lately?"
-		detailLabel.textColor = MaterialColor.grey.darken1
 		detailLabel.numberOfLines = 0
 		cardView.detailLabel = detailLabel
 		
