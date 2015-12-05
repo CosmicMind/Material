@@ -60,6 +60,9 @@ public class CapturePreviewView : MaterialView, UIGestureRecognizerDelegate {
 		didSet {
 			if tapToFocusEnabled {
 				prepareTapGesture(&tapToFocusGesture, numberOfTapsRequired: 1, selector: "handleTapToFocusGesture:")
+				if let v: UITapGestureRecognizer = tapToExposeGesture {
+					tapToFocusGesture!.requireGestureRecognizerToFail(v)
+				}
 			} else {
 				removeTapGesture(&tapToFocusGesture)
 			}
@@ -73,6 +76,9 @@ public class CapturePreviewView : MaterialView, UIGestureRecognizerDelegate {
 		didSet {
 			if tapToExposeEnabled {
 				prepareTapGesture(&tapToExposeGesture, numberOfTapsRequired: 2, selector: "handleTapToExposeGesture:")
+				if let v: UITapGestureRecognizer = tapToFocusGesture {
+					v.requireGestureRecognizerToFail(tapToExposeGesture!)
+				}
 			} else {
 				removeTapGesture(&tapToExposeGesture)
 			}
