@@ -54,7 +54,7 @@ class ViewController: UIViewController {
 		navigationBarView.backgroundColor = MaterialColor.blue.darken1
 		
 		// To lighten the status bar add the "View controller-based status bar appearance = NO"
-		// to you info.plist file and set the following property.
+		// to your info.plist file and set the following property.
 		navigationBarView.statusBarStyle = .LightContent
 		
 		// Title label.
@@ -80,7 +80,7 @@ class ViewController: UIViewController {
 		navigationBarView.backgroundColor = MaterialColor.red.darken1
 		
 		// To lighten the status bar add the "View controller-based status bar appearance = NO"
-		// to you info.plist file and set the following property.
+		// to your info.plist file and set the following property.
 		navigationBarView.statusBarStyle = .LightContent
 		
 		// Title label.
@@ -111,7 +111,7 @@ class ViewController: UIViewController {
 		navigationBarView.backgroundColor = MaterialColor.purple.darken1
 		
 		// To lighten the status bar add the "View controller-based status bar appearance = NO"
-		// to you info.plist file and set the following property.
+		// to your info.plist file and set the following property.
 		navigationBarView.statusBarStyle = .LightContent
 		
 		// Title label.
@@ -150,7 +150,7 @@ class ViewController: UIViewController {
 		navigationBarView.contentsGravity = .ResizeAspectFill
 		
 		// To lighten the status bar add the "View controller-based status bar appearance = NO"
-		// to you info.plist file and set the following property.
+		// to your info.plist file and set the following property.
 		navigationBarView.statusBarStyle = .LightContent
 		
 		// Title label.
@@ -180,7 +180,7 @@ class ViewController: UIViewController {
 		navigationBarView.backgroundColor = MaterialColor.blueGrey.darken4
 		
 		// To lighten the status bar add the "View controller-based status bar appearance = NO"
-		// to you info.plist file and set the following property.
+		// to your info.plist file and set the following property.
 		navigationBarView.statusBarStyle = .LightContent
 		
 		// Title label.
@@ -243,7 +243,7 @@ class ViewController: UIViewController {
 		navigationBarView.backgroundColor = MaterialColor.indigo.darken1
 		
 		// To lighten the status bar add the "View controller-based status bar appearance = NO"
-		// to you info.plist file and set the following property.
+		// to your info.plist file and set the following property.
 		navigationBarView.statusBarStyle = .LightContent
 		
 		// Title label.
