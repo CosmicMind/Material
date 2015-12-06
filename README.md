@@ -42,6 +42,10 @@ Bold and attractive, ImageCardView is the next step from a CardView. In the Exam
 
 ![MaterialKitImageCardView](http://www.materialkit.io/MK/MaterialKitImageCardView.gif)
 
+Remove elements, such as the details to create fresh looks for your images.
+
+![MaterialKitImageCardViewBackgroundImage](http://www.materialkit.io/MK/MaterialKitImageCardViewBackgroundImage.gif)
+
 ### License
 
 [AGPL-3.0](http://choosealicense.com/licenses/agpl-3.0/)
