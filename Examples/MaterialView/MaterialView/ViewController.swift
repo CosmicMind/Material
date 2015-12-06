@@ -47,8 +47,7 @@ class ViewController: UIViewController {
 		materialView.shadowDepth = .Depth5
 		materialView.cornerRadius = .Radius3
 		
-		
-		// Add view to view controller.
+		// Add view to UIViewController.
 		view.addSubview(materialView)
 	}
 }

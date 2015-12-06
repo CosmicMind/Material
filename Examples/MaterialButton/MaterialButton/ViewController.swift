@@ -43,12 +43,12 @@ class ViewController: UIViewController {
 	:description:	FlatButton example.
 	*/
 	private func prepareFlatButtonExample() {
-		let v: FlatButton = FlatButton(frame: CGRectMake(107, 107, 200, 65))
-		v.setTitle("Flat", forState: .Normal)
-		v.titleLabel!.font = RobotoFont.mediumWithSize(32)
+		let button: FlatButton = FlatButton(frame: CGRectMake(107, 107, 200, 65))
+		button.setTitle("Flat", forState: .Normal)
+		button.titleLabel!.font = RobotoFont.mediumWithSize(32)
 		
 		// Add to UIViewController.
-		view.addSubview(v)
+		view.addSubview(button)
 	}
 	
 	/**
@@ -56,12 +56,12 @@ class ViewController: UIViewController {
 	:description:	RaisedButton example.
 	*/
 	private func prepareRaisedButtonExample() {
-		let v: RaisedButton = RaisedButton(frame: CGRectMake(107, 207, 200, 65))
-		v.setTitle("Raised", forState: .Normal)
-		v.titleLabel!.font = RobotoFont.mediumWithSize(32)
+		let button: RaisedButton = RaisedButton(frame: CGRectMake(107, 207, 200, 65))
+		button.setTitle("Raised", forState: .Normal)
+		button.titleLabel!.font = RobotoFont.mediumWithSize(32)
 		
 		// Add to UIViewController.
-		view.addSubview(v)
+		view.addSubview(button)
 	}
 	
 	/**
@@ -69,12 +69,13 @@ class ViewController: UIViewController {
 	:description:	FabButton example.
 	*/
 	private func prepareFabButtonExample() {
-		let v: FabButton = FabButton(frame: CGRectMake(175, 315, 64, 64))
-		v.setImage(UIImage(named: "ic_create_white"), forState: .Normal)
-		v.setImage(UIImage(named: "ic_create_white"), forState: .Highlighted)
+		let img: UIImage? = UIImage(named: "ic_create_white")
+		let button: FabButton = FabButton(frame: CGRectMake(175, 315, 64, 64))
+		button.setImage(img, forState: .Normal)
+		button.setImage(img, forState: .Highlighted)
 		
 		// Add to UIViewController.
-		view.addSubview(v)
+		view.addSubview(button)
 	}
 }
 

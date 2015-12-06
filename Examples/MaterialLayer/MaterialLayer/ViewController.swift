@@ -46,7 +46,7 @@ class ViewController: UIViewController {
 		materialLayer.shape = .Circle
 		materialLayer.shadowDepth = .Depth2
 		
-		// Add layer to view.
+		// Add layer to UIViewController.
 		view.layer.addSublayer(materialLayer)
 	}
 }

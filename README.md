@@ -19,6 +19,9 @@ let materialLayer: MaterialLayer = MaterialLayer(frame: CGRectMake(132, 132, 150
 materialLayer.image = UIImage(named: "BluePattern")
 materialLayer.shape = .Circle
 materialLayer.shadowDepth = .Depth2
+
+// Add layer to UIViewController.
+view.layer.addSublayer(materialLayer)
 ```
 
 ### MaterialView
@@ -33,11 +36,60 @@ materialView.image = UIImage(named: "Flower")
 materialView.shape = .Square
 materialView.shadowDepth = .Depth5
 materialView.cornerRadius = .Radius3
+
+// Add view to UIViewController.
+view.addSubview(materialView)
 ```
 
 ### MaterialPulseView
 
 MaterialPulseView is
+
+### FlatButton
+
+A FlatButton is the best place to start when introducing MaterialKit buttons. It is simple, clean, and very effective. Below is an example of a FlatButton in action.
+
+![MaterialKitFlatButton](http://www.materialkit.io/MK/MaterialKitFlatButton.gif)
+
+```swift
+let button: FlatButton = FlatButton(frame: CGRectMake(107, 107, 200, 65))
+button.setTitle("Flat", forState: .Normal)
+button.titleLabel!.font = RobotoFont.mediumWithSize(32)
+
+// Add to UIViewController.
+view.addSubview(button)
+```
+
+### RaisedButton
+
+A RaisedButton is sure to get attention. Take a look at the following animation example.
+
+![MaterialKitRaisedButton](http://www.materialkit.io/MK/MaterialKitRaisedButton.gif)
+
+```swift
+let button: RaisedButton = RaisedButton(frame: CGRectMake(107, 207, 200, 65))
+button.setTitle("Raised", forState: .Normal)
+button.titleLabel!.font = RobotoFont.mediumWithSize(32)
+
+// Add to UIViewController.
+view.addSubview(button)
+```
+
+### FabButton
+
+A FabButton is essential to Material Design's overall look. Below showcases its beauty.
+
+![MaterialKitFabButton](http://www.materialkit.io/MK/MaterialKitFabButton.gif)
+
+```swift
+let img: UIImage? = UIImage(named: "ic_create_white")
+let button: FabButton = FabButton(frame: CGRectMake(175, 315, 64, 64))
+button.setImage(img, forState: .Normal)
+button.setImage(img, forState: .Highlighted)
+
+// Add to UIViewController.
+view.addSubview(button)
+```
 
 ### NavigationBarView
 
@@ -313,24 +365,6 @@ Bold and attractive, ImageCardView is the next step from a CardView. In the Exam
 Remove elements, such as the details to create a fresh look for your images.
 
 ![MaterialKitImageCardViewBackgroundImage](http://www.materialkit.io/MK/MaterialKitImageCardViewBackgroundImage.gif)
-
-### FlatButton
-
-A FlatButton is the best place to start when introducing MaterialKit buttons. It is simple, clean, and very effective. Below is an example of a FlatButton in action.
-
-![MaterialKitFlatButton](http://www.materialkit.io/MK/MaterialKitFlatButton.gif)
-
-### RaisedButton
-
-A RaisedButton is sure to get attention. Take a look at the following animation example.
-
-![MaterialKitRaisedButton](http://www.materialkit.io/MK/MaterialKitRaisedButton.gif)
-
-### FabButton
-
-A FabButton is essential to Material Design's overall look. Below showcases its beauty.
-
-![MaterialKitFabButton](http://www.materialkit.io/MK/MaterialKitFabButton.gif)
 
 ### License
 
