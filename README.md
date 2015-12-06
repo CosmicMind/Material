@@ -32,7 +32,7 @@ MaterialView is the base UIView class used throughout MaterialKit. Like Material
 
 ```swift
 let materialView: MaterialView = MaterialView(frame: CGRectMake(107, 107, 200, 200))
-materialView.image = UIImage(named: "Flower")
+materialView.image = UIImage(named: "FocusAppIcon")
 materialView.shape = .Square
 materialView.shadowDepth = .Depth5
 materialView.cornerRadius = .Radius3
