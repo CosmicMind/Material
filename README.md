@@ -49,10 +49,9 @@ MaterialPulseView is at the heart of all pulse animations. Any view that subclas
 
 ```swift
 let materialPulseView: MaterialPulseView = MaterialPulseView(frame: CGRectMake(132, 132, 150, 150))
+materialPulseView.image = UIImage(named: "ContentAppIcon")
 materialPulseView.shape = .Circle
 materialPulseView.shadowDepth = .Depth2
-materialPulseView.image = UIImage(named: "ContentAppIcon")
-materialPulseView.backgroundColor = MaterialColor.teal.darken1
 
 // Add view to UIViewController.
 view.addSubview(materialPulseView)
@@ -181,7 +180,7 @@ MaterialLayout.height(view, child: navigationBarView, height: 70)
 
 ### CardView
 
-Right out of the box to a fully customized configuration, CardView always stands out. Take a look at a few examples in action and find more in the Examples directory.
+Right out of the box to a fully customizable configuration, CardView always stands out. Take a look at a few examples in action and find more in the Examples directory.
 
 ![MaterialKitCardView](http://www.materialkit.io/MK/MaterialKitCardView.gif)
 

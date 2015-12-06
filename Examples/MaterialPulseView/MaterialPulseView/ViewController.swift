@@ -42,10 +42,9 @@ class ViewController: UIViewController {
 	*/
 	private func prepareGeneralMaterialPulseViewExample() {
 		let materialPulseView: MaterialPulseView = MaterialPulseView(frame: CGRectMake(132, 132, 150, 150))
+		materialPulseView.image = UIImage(named: "ContentAppIcon")
 		materialPulseView.shape = .Circle
 		materialPulseView.shadowDepth = .Depth2
-		materialPulseView.image = UIImage(named: "ContentAppIcon")
-		materialPulseView.backgroundColor = MaterialColor.teal.darken1
 		
 		// Add view to UIViewController.
 		view.addSubview(materialPulseView)
