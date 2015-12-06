@@ -144,30 +144,31 @@ class ViewController: UIViewController {
 		cardView.dividerInsetsRef.left = 100
 		cardView.titleLabelInsetsRef.left = 100
 		cardView.detailLabelInsetsRef.left = 100
+		cardView.pulseColor = MaterialColor.teal.lighten4
 		
 		// Image.
-		cardView.image = UIImage(named: "MaterialKitCardViewBackgroundImage")?.resize(toWidth: 300)
+		cardView.image = UIImage(named: "GraphKit")?.resize(toWidth: 300)
 		cardView.contentsGravity = .TopLeft
 		
 		// Title label.
 		let titleLabel: UILabel = UILabel()
-		titleLabel.text = "Focus"
+		titleLabel.text = "GraphKit"
 		titleLabel.font = RobotoFont.mediumWithSize(24)
 		cardView.titleLabel = titleLabel
 		
 		// Detail label
 		let detailLabel: UILabel = UILabel()
-		detailLabel.text = "Easily organize your thoughts using hashtags."
+		detailLabel.text = "Build scalable data-driven apps."
 		detailLabel.numberOfLines = 0
 		cardView.detailLabel = detailLabel
 		
-		// ITUNES button.
+		// LEARN MORE button.
 		let btn1: FlatButton = FlatButton()
-		btn1.pulseColor = MaterialColor.blue.lighten1
+		btn1.pulseColor = MaterialColor.teal.lighten1
 		btn1.pulseFill = true
 		btn1.pulseScale = false
-		btn1.setTitle("ITUNES", forState: .Normal)
-		btn1.setTitleColor(MaterialColor.blue.darken1, forState: .Normal)
+		btn1.setTitle("LEARN MORE", forState: .Normal)
+		btn1.setTitleColor(MaterialColor.teal.darken1, forState: .Normal)
 		
 		// Add buttons to right side.
 		cardView.rightButtons = [btn1]

@@ -240,7 +240,7 @@ class ViewController: UIViewController {
 		let navigationBarView: NavigationBarView = NavigationBarView()
 		
 		// Stylize.
-		navigationBarView.backgroundColor = MaterialColor.indigo.darken1
+		navigationBarView.backgroundColor = MaterialColor.blue.darken1
 		
 		// To lighten the status bar add the "View controller-based status bar appearance = NO"
 		// to you info.plist file and set the following property.

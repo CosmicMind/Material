@@ -30,7 +30,7 @@ Easily remove the pulse animation and add a background image for an entirely new
 
 Adjust the alignment of the UI elements to create different configurations of the CardView.
 
-![MaterialKitCardViewFocus](http://www.materialkit.io/MK/MaterialKitCardViewFocus.gif)
+![MaterialKitCardViewDataDriven](http://www.materialkit.io/MK/MaterialKitCardViewDataDriven.gif)
 
 ### ImageCardView
 
