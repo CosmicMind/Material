@@ -6,6 +6,13 @@
    </FileRef>
    <Group
       location = "container:"
+      name = "MaterialLayer">
+      <FileRef
+         location = "group:MaterialLayer/MaterialLayer.xcodeproj">
+      </FileRef>
+   </Group>
+   <Group
+      location = "container:"
       name = "NavigationBarView">
       <FileRef
          location = "group:NavigationBarView/NavigationBarView.xcodeproj">

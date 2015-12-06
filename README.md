@@ -1,16 +1,26 @@
 ![MaterialKit](http://www.materialkit.io/MK/MaterialKit.png)
 
-# MaterialKit
+# Welcome to MaterialKit
 
-Welcome to MaterialKit for iOS. We built everything using an underlying graphics and animation framework to ensure extensibility and to fuel everyone's imagination.
-
-### Examples
-
-Checkout an ever growing catalog of example code, and soon enough, we are opening to the community to share and explore what others are doing with MaterialKit.
+MaterialKit is built as an animation and graphics framework. A major goal in the design of MaterialKit is to allow the creativity of others to easily be expressed. The following README is written to get you started, and is by no means a complete tutorial on all that is possible. Examples may be found in the Examples directory that go beyond the README documentation.
 
 ### CocoaPods Support
 
 MaterialKit is on CocoaPods under the name [MK](https://cocoapods.org/?q=MK).
+
+### MaterialLayer
+
+MaterialLayer is a core class used throughout MaterialKit. It is designed to easily take shape and depth. Below is an example demonstrating the ease of adding shape and depth to MaterialLayer.
+
+![MaterialKitMaterialLayer](http://www.materialkit.io/MK/MaterialKitMaterialLayer.gif)
+
+```swift
+let materialLayer: MaterialLayer = MaterialLayer(frame: CGRectMake(132, 132, 150, 150))
+materialLayer.shape = .Circle
+materialLayer.shadowDepth = .Depth2
+materialLayer.image = UIImage(named: "CosmicMind")
+materialLayer.backgroundColor = MaterialColor.blueGrey.darken3.CGColor
+```
 
 ### NavigationBarView
 
