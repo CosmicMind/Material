@@ -24,8 +24,8 @@ class ViewController: UIViewController {
 		super.viewDidLoad()
 		prepareView()
 		
-		// Examples of using MaterialLayer.
-		prepareGeneralMaterialLayerExample()
+		// Examples of using MaterialView.
+		prepareGeneralMaterialViewExample()
 	}
 	
 	/**
@@ -37,17 +37,18 @@ class ViewController: UIViewController {
 	}
 	
 	/**
-	:name:	prepareGeneralMaterialLayerExample
+	:name:	prepareGeneralMaterialViewExample
 	:description:	General usage example.
 	*/
-	private func prepareGeneralMaterialLayerExample() {
-		let materialLayer: MaterialLayer = MaterialLayer(frame: CGRectMake(132, 132, 150, 150))
-		materialLayer.shape = .Circle
-		materialLayer.shadowDepth = .Depth2
-		materialLayer.image = UIImage(named: "BluePattern")
+	private func prepareGeneralMaterialViewExample() {
+		let materialView: MaterialView = MaterialView(frame: CGRectMake(132, 132, 150, 150))
+		materialView.shape = .Circle
+		materialView.shadowDepth = .Depth2
+		materialView.image = UIImage(named: "CosmicMind")
+		materialView.backgroundColor = MaterialColor.teal.darken1
 		
-		// Add layer to view.
-		view.layer.addSublayer(materialLayer)
+		// Add view to view controller.
+		view.addSubview(materialView)
 	}
 }
 

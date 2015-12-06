@@ -37,7 +37,7 @@ class ViewController: UIViewController {
 		super.viewDidLoad()
 		prepareView()
 		
-		// Examples of using CardView.
+		// Examples of using ImageCardView.
 		// Uncomment different examples and read
 		// the comments below.
 //		prepareGeneralImageCardViewExample()

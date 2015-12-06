@@ -10,7 +10,7 @@ MaterialKit is on CocoaPods under the name [MK](https://cocoapods.org/?q=MK).
 
 ### MaterialLayer
 
-MaterialLayer is a core class used throughout MaterialKit. It is designed to easily take shape and depth. Below is an example demonstrating the ease of adding shape and depth to MaterialLayer.
+MaterialLayer is a lightweight CAShapeLayer used throughout MaterialKit. It is designed to easily take shape, depth, and animations. Below is an example demonstrating the ease of adding shape and depth to MaterialLayer.
 
 ![MaterialKitMaterialLayer](http://www.materialkit.io/MK/MaterialKitMaterialLayer.gif)
 
@@ -18,9 +18,16 @@ MaterialLayer is a core class used throughout MaterialKit. It is designed to eas
 let materialLayer: MaterialLayer = MaterialLayer(frame: CGRectMake(132, 132, 150, 150))
 materialLayer.shape = .Circle
 materialLayer.shadowDepth = .Depth2
-materialLayer.image = UIImage(named: "CosmicMind")
-materialLayer.backgroundColor = MaterialColor.blueGrey.darken3.CGColor
+materialLayer.image = UIImage(named: "BluePattern")
 ```
+
+### MaterialView
+
+MaterialView is the base UIView class used throughout MaterialKit. Like MaterialLayer, it is designed to easily take shape, depth, and animations. The major difference is that MaterialView has all the added features of the UIView class.
+
+### MaterialPulseView
+
+MaterialPulseView is
 
 ### NavigationBarView
 

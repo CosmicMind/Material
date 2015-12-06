@@ -13,6 +13,27 @@
    </Group>
    <Group
       location = "container:"
+      name = "MaterialView">
+      <FileRef
+         location = "group:MaterialView/MaterialView.xcodeproj">
+      </FileRef>
+   </Group>
+   <Group
+      location = "container:"
+      name = "MaterialPulseView">
+      <FileRef
+         location = "group:MaterialPulseView/MaterialPulseView.xcodeproj">
+      </FileRef>
+   </Group>
+   <Group
+      location = "container:"
+      name = "MaterialButton">
+      <FileRef
+         location = "group:MaterialButton/MaterialButton.xcodeproj">
+      </FileRef>
+   </Group>
+   <Group
+      location = "container:"
       name = "NavigationBarView">
       <FileRef
          location = "group:NavigationBarView/NavigationBarView.xcodeproj">
@@ -30,13 +51,6 @@
       name = "ImageCardView">
       <FileRef
          location = "group:ImageCardView/ImageCardView.xcodeproj">
-      </FileRef>
-   </Group>
-   <Group
-      location = "container:"
-      name = "Buttons">
-      <FileRef
-         location = "group:Buttons/Buttons.xcodeproj">
       </FileRef>
    </Group>
 </Workspace>

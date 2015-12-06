@@ -24,10 +24,7 @@ class ViewController: UIViewController {
 		super.viewDidLoad()
 		prepareView()
 		
-		// Examples of using CardView.
-		// Uncomment different examples and read
-		// the comments below.
-		//		prepareGeneralImageCardViewExample()
+		// Examples of using MaterialButton.
 		prepareFlatButtonExample()
 		prepareRaisedButtonExample()
 		prepareFabButtonExample()

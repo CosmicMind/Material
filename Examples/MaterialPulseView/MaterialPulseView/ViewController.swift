@@ -24,8 +24,8 @@ class ViewController: UIViewController {
 		super.viewDidLoad()
 		prepareView()
 		
-		// Examples of using MaterialLayer.
-		prepareGeneralMaterialLayerExample()
+		// Examples of using MaterialPulseView.
+		prepareGeneralMaterialPulseViewExample()
 	}
 	
 	/**
@@ -37,17 +37,18 @@ class ViewController: UIViewController {
 	}
 	
 	/**
-	:name:	prepareGeneralMaterialLayerExample
+	:name:	prepareGeneralMaterialPulseViewExample
 	:description:	General usage example.
 	*/
-	private func prepareGeneralMaterialLayerExample() {
-		let materialLayer: MaterialLayer = MaterialLayer(frame: CGRectMake(132, 132, 150, 150))
-		materialLayer.shape = .Circle
-		materialLayer.shadowDepth = .Depth2
-		materialLayer.image = UIImage(named: "BluePattern")
+	private func prepareGeneralMaterialPulseViewExample() {
+		let materialPulseView: MaterialPulseView = MaterialPulseView(frame: CGRectMake(132, 132, 150, 150))
+		materialPulseView.shape = .Circle
+		materialPulseView.shadowDepth = .Depth2
+		materialPulseView.image = UIImage(named: "CosmicMind")
+		materialPulseView.backgroundColor = MaterialColor.teal.darken1
 		
-		// Add layer to view.
-		view.layer.addSublayer(materialLayer)
+		// Add view to view controller.
+		view.addSubview(materialPulseView)
 	}
 }
 

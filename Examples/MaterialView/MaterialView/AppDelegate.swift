@@ -17,37 +17,23 @@
 //
 
 import UIKit
-import MaterialKit
 
-class ViewController: UIViewController {
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		prepareView()
-		
-		// Examples of using MaterialLayer.
-		prepareGeneralMaterialLayerExample()
+@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+	var window: UIWindow?
+	
+	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+		window = UIWindow(frame: UIScreen.mainScreen().bounds)
+		window!.rootViewController = ViewController()
+		window!.makeKeyAndVisible()
+		return true
 	}
 	
-	/**
-	:name:	prepareView
-	:description: General preparation statements.
-	*/
-	private func prepareView() {
-		view.backgroundColor = MaterialColor.white
-	}
+	func applicationWillResignActive(application: UIApplication) {}
+	func applicationDidEnterBackground(application: UIApplication) {}
+	func applicationWillEnterForeground(application: UIApplication) {}
+	func applicationDidBecomeActive(application: UIApplication) {}
+	func applicationWillTerminate(application: UIApplication) {}
 	
-	/**
-	:name:	prepareGeneralMaterialLayerExample
-	:description:	General usage example.
-	*/
-	private func prepareGeneralMaterialLayerExample() {
-		let materialLayer: MaterialLayer = MaterialLayer(frame: CGRectMake(132, 132, 150, 150))
-		materialLayer.shape = .Circle
-		materialLayer.shadowDepth = .Depth2
-		materialLayer.image = UIImage(named: "BluePattern")
-		
-		// Add layer to view.
-		view.layer.addSublayer(materialLayer)
-	}
 }
 
