@@ -42,7 +42,7 @@ class ViewController: UIViewController {
 	*/
 	private func prepareGeneralMaterialLayerExample() {
 		let materialLayer: MaterialLayer = MaterialLayer(frame: CGRectMake(132, 132, 150, 150))
-		materialLayer.image = UIImage(named: "BluePattern")
+		materialLayer.image = UIImage(named: "CosmicMindAppIcon")
 		materialLayer.shape = .Circle
 		materialLayer.shadowDepth = .Depth2
 		

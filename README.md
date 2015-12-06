@@ -16,7 +16,7 @@ MaterialLayer is a lightweight CAShapeLayer used throughout MaterialKit. It is d
 
 ```swift
 let materialLayer: MaterialLayer = MaterialLayer(frame: CGRectMake(132, 132, 150, 150))
-materialLayer.image = UIImage(named: "BluePattern")
+materialLayer.image = UIImage(named: "CosmicMindAppIcon")
 materialLayer.shape = .Circle
 materialLayer.shadowDepth = .Depth2
 
@@ -43,7 +43,7 @@ view.addSubview(materialView)
 
 ### MaterialPulseView
 
-MaterialPulseView is
+MaterialPulseView is at the heart of all pulse animations. Any view that subclasses MaterialPulseView instantly inherits the pulse animation with full customizability.
 
 ### FlatButton
 
