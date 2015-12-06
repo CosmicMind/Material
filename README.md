@@ -362,9 +362,108 @@ Bold and attractive, ImageCardView is the next step from a CardView. In the Exam
 
 ![MaterialKitImageCardView](http://www.materialkit.io/MK/MaterialKitImageCardView.gif)
 
-Remove elements, such as the details to create a fresh look for your images.
+```swift
+let imageCardView: ImageCardView = ImageCardView()
+
+// Image.
+imageCardView.image = UIImage.imageWithColor(MaterialColor.cyan.darken1, size: CGSizeMake(UIScreen.mainScreen().bounds.width - CGFloat(40), 150))
+
+// Title label.
+let titleLabel: UILabel = UILabel()
+titleLabel.text = "Welcome Back!"
+titleLabel.textColor = MaterialColor.white
+titleLabel.font = RobotoFont.mediumWithSize(24)
+imageCardView.titleLabel = titleLabel
+imageCardView.titleLabelInsetsRef.top = 100
+
+// Detail label
+let detailLabel: UILabel = UILabel()
+detailLabel.text = "It’s been a while, have you read any new books lately?"
+detailLabel.numberOfLines = 0
+imageCardView.detailLabel = detailLabel
+
+// Yes button.
+let btn1: FlatButton = FlatButton()
+btn1.pulseColor = MaterialColor.cyan.lighten1
+btn1.pulseFill = true
+btn1.pulseScale = false
+btn1.setTitle("YES", forState: .Normal)
+btn1.setTitleColor(MaterialColor.cyan.darken1, forState: .Normal)
+
+// No button.
+let btn2: FlatButton = FlatButton()
+btn2.pulseColor = MaterialColor.cyan.lighten1
+btn2.pulseFill = true
+btn2.pulseScale = false
+btn2.setTitle("NO", forState: .Normal)
+btn2.setTitleColor(MaterialColor.cyan.darken1, forState: .Normal)
+
+// Add buttons to left side.
+imageCardView.leftButtons = [btn1, btn2]
+
+// To support orientation changes, use MaterialLayout.
+view.addSubview(imageCardView)
+imageCardView.translatesAutoresizingMaskIntoConstraints = false
+MaterialLayout.alignFromTop(view, child: imageCardView, top: 100)
+MaterialLayout.alignToParentHorizontally(view, child: imageCardView, left: 20, right: 20)
+```
+
+Remove elements, such as details to create a fresh look for your images.
 
 ![MaterialKitImageCardViewBackgroundImage](http://www.materialkit.io/MK/MaterialKitImageCardViewBackgroundImage.gif)
+
+```swift
+let imageCardView: ImageCardView = ImageCardView()
+imageCardView.divider = false
+
+// Image.
+imageCardView.image = UIImage(named: "MaterialKitImageCardViewBackgroundImage")
+
+// Title label.
+let titleLabel: UILabel = UILabel()
+titleLabel.text = "Material Design"
+titleLabel.textColor = MaterialColor.white
+titleLabel.font = RobotoFont.regularWithSize(24)
+imageCardView.titleLabel = titleLabel
+imageCardView.titleLabelInsetsRef.top = 80
+
+// Check button.
+let img1: UIImage? = UIImage(named: "ic_check_blue_grey_darken_4")
+let btn1: FlatButton = FlatButton()
+btn1.pulseColor = MaterialColor.blueGrey.lighten1
+btn1.pulseFill = true
+btn1.pulseScale = false
+btn1.setImage(img1, forState: .Normal)
+btn1.setImage(img1, forState: .Highlighted)
+
+// Star button.
+let img2: UIImage? = UIImage(named: "ic_star_blue_grey_darken_4")
+let btn2: FlatButton = FlatButton()
+btn2.pulseColor = MaterialColor.blueGrey.lighten1
+btn2.pulseFill = true
+btn2.pulseScale = false
+btn2.setImage(img2, forState: .Normal)
+btn2.setImage(img2, forState: .Highlighted)
+
+// Delete button.
+let img3: UIImage? = UIImage(named: "ic_delete_blue_grey_darken_4")
+let btn3: FlatButton = FlatButton()
+btn3.pulseColor = MaterialColor.blueGrey.lighten1
+btn3.pulseFill = true
+btn3.pulseScale = false
+btn3.setImage(img3, forState: .Normal)
+btn3.setImage(img3, forState: .Highlighted)
+
+// Add buttons to right side.
+imageCardView.rightButtons = [btn1, btn2, btn3]
+imageCardView.rightButtonsInsetsRef.top = imageCardView.contentInsetsRef.top
+
+// To support orientation changes, use MaterialLayout.
+view.addSubview(imageCardView)
+imageCardView.translatesAutoresizingMaskIntoConstraints = false
+MaterialLayout.alignFromTop(view, child: imageCardView, top: 100)
+MaterialLayout.alignToParentHorizontally(view, child: imageCardView, left: 20, right: 20)
+```
 
 ### License
 

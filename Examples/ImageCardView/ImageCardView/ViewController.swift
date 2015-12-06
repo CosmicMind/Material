@@ -157,7 +157,6 @@ class ViewController: UIViewController {
 		imageCardView.translatesAutoresizingMaskIntoConstraints = false
 		MaterialLayout.alignFromTop(view, child: imageCardView, top: 100)
 		MaterialLayout.alignToParentHorizontally(view, child: imageCardView, left: 20, right: 20)
-		
 	}
 }
 
