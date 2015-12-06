@@ -23,18 +23,16 @@ materialLayer.shadowDepth = .Depth2
 
 ### MaterialView
 
-MaterialView is the base UIView class used throughout MaterialKit. Like MaterialLayer, it is designed to easily take shape, depth, and animations. The major difference is that MaterialView has all the added features of the UIView class. Below is an example of setting a MaterialView's cornerRadius, image position, shape, and depth.
+MaterialView is the base UIView class used throughout MaterialKit. Like MaterialLayer, it is designed to easily take shape, depth, and animations. The major difference is that MaterialView has all the added features of the UIView class. Below is an example of setting a MaterialView's cornerRadius, shape, and depth.
 
 ![MaterialKitMaterialView](http://www.materialkit.io/MK/MaterialKitMaterialView.gif)
 
 ```swift
-let materialView: MaterialView = MaterialView(frame: CGRectMake(7, 100, 400, 400))
-materialView.backgroundColor = MaterialColor.deepPurple.lighten1
-materialView.image = UIImage(named: "ChakraIcon")
-materialView.contentsGravity = .BottomRight
+let materialView: MaterialView = MaterialView(frame: CGRectMake(107, 107, 200, 200))
+materialView.image = UIImage(named: "Flower")
 materialView.shape = .Square
-materialView.shadowDepth = .Depth2
-materialView.cornerRadius = .Radius2
+materialView.shadowDepth = .Depth5
+materialView.cornerRadius = .Radius3
 ```
 
 ### MaterialPulseView

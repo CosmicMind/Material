@@ -41,13 +41,11 @@ class ViewController: UIViewController {
 	:description:	General usage example.
 	*/
 	private func prepareGeneralMaterialViewExample() {
-		let materialView: MaterialView = MaterialView(frame: CGRectMake(7, 100, 400, 400))
-		materialView.backgroundColor = MaterialColor.deepPurple.lighten1
-		materialView.image = UIImage(named: "ChakraIcon")
-		materialView.contentsGravity = .BottomRight
+		let materialView: MaterialView = MaterialView(frame: CGRectMake(107, 107, 200, 200))
+		materialView.image = UIImage(named: "Flower")
 		materialView.shape = .Square
-		materialView.shadowDepth = .Depth2
-		materialView.cornerRadius = .Radius2
+		materialView.shadowDepth = .Depth5
+		materialView.cornerRadius = .Radius3
 		
 		
 		// Add view to view controller.
