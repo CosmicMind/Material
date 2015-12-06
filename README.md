@@ -2,7 +2,7 @@
 
 # MaterialKit
 
-Welcome to MaterialKit for iOS. MaterialKit is not just another components library. We built everything using an underlying graphics and animation framework to ensure extensibility and to fuel everyone's imagination.
+Welcome to MaterialKit for iOS. We built everything using an underlying graphics and animation framework to ensure extensibility and to fuel everyone's imagination.
 
 ### Examples
 
