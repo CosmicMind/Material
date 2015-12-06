@@ -7,23 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		967513CA1C136BB7009F455A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967513C91C136BB7009F455A /* AppDelegate.swift */; };
-		967513CC1C136BB7009F455A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967513CB1C136BB7009F455A /* ViewController.swift */; };
-		967513D11C136BB7009F455A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 967513D01C136BB7009F455A /* Assets.xcassets */; };
-		967513D41C136BB7009F455A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 967513D21C136BB7009F455A /* LaunchScreen.storyboard */; };
-		967513DC1C136BE3009F455A /* MaterialKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 967513DB1C136BE3009F455A /* MaterialKit.framework */; };
-		967513DD1C136BE3009F455A /* MaterialKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 967513DB1C136BE3009F455A /* MaterialKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		967514061C13ED61009F455A /* ContentKit+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967514051C13ED61009F455A /* ContentKit+UIImage.swift */; };
+		967513EE1C13EB69009F455A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967513ED1C13EB69009F455A /* AppDelegate.swift */; };
+		967513F01C13EB69009F455A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967513EF1C13EB69009F455A /* ViewController.swift */; };
+		967513F51C13EB69009F455A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 967513F41C13EB69009F455A /* Assets.xcassets */; };
+		967513F81C13EB69009F455A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 967513F61C13EB69009F455A /* LaunchScreen.storyboard */; };
+		967514001C13ECC0009F455A /* MaterialKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 967513FF1C13ECC0009F455A /* MaterialKit.framework */; };
+		967514011C13ECC0009F455A /* MaterialKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 967513FF1C13ECC0009F455A /* MaterialKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		967514041C13ED3F009F455A /* ContentKit+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967514031C13ED3F009F455A /* ContentKit+UIImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		967513DE1C136BE3009F455A /* Embed Frameworks */ = {
+		967514021C13ECC1009F455A /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				967513DD1C136BE3009F455A /* MaterialKit.framework in Embed Frameworks */,
+				967514011C13ECC0009F455A /* MaterialKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -31,95 +31,95 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		967513C61C136BB7009F455A /* CardView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardView.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		967513C91C136BB7009F455A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		967513CB1C136BB7009F455A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		967513D01C136BB7009F455A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		967513D31C136BB7009F455A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		967513D51C136BB7009F455A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		967513DB1C136BE3009F455A /* MaterialKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = MaterialKit.framework; path = "/Users/danieldahan/Library/Developer/Xcode/DerivedData/MaterialKit-anypxbsecgdqqxevbavirvnffqxd/Build/Products/Debug-iphoneos/MaterialKit.framework"; sourceTree = "<absolute>"; };
-		967514051C13ED61009F455A /* ContentKit+UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ContentKit+UIImage.swift"; sourceTree = "<group>"; };
+		967513EA1C13EB69009F455A /* ImageCardView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageCardView.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		967513ED1C13EB69009F455A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		967513EF1C13EB69009F455A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		967513F41C13EB69009F455A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		967513F71C13EB69009F455A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		967513F91C13EB69009F455A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		967513FF1C13ECC0009F455A /* MaterialKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = MaterialKit.framework; path = "/Users/danieldahan/Library/Developer/Xcode/DerivedData/MaterialKit-anypxbsecgdqqxevbavirvnffqxd/Build/Products/Debug-iphoneos/MaterialKit.framework"; sourceTree = "<absolute>"; };
+		967514031C13ED3F009F455A /* ContentKit+UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ContentKit+UIImage.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		967513C31C136BB7009F455A /* Frameworks */ = {
+		967513E71C13EB69009F455A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				967513DC1C136BE3009F455A /* MaterialKit.framework in Frameworks */,
+				967514001C13ECC0009F455A /* MaterialKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		967513BD1C136BB7009F455A = {
+		967513E11C13EB69009F455A = {
 			isa = PBXGroup;
 			children = (
-				967513DB1C136BE3009F455A /* MaterialKit.framework */,
-				967513C81C136BB7009F455A /* CardView */,
-				967513C71C136BB7009F455A /* Products */,
+				967513FF1C13ECC0009F455A /* MaterialKit.framework */,
+				967513EC1C13EB69009F455A /* ImageCardView */,
+				967513EB1C13EB69009F455A /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		967513C71C136BB7009F455A /* Products */ = {
+		967513EB1C13EB69009F455A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				967513C61C136BB7009F455A /* CardView.app */,
+				967513EA1C13EB69009F455A /* ImageCardView.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		967513C81C136BB7009F455A /* CardView */ = {
+		967513EC1C13EB69009F455A /* ImageCardView */ = {
 			isa = PBXGroup;
 			children = (
-				967513C91C136BB7009F455A /* AppDelegate.swift */,
-				967513CB1C136BB7009F455A /* ViewController.swift */,
-				967513D01C136BB7009F455A /* Assets.xcassets */,
-				967513D21C136BB7009F455A /* LaunchScreen.storyboard */,
-				967513D51C136BB7009F455A /* Info.plist */,
-				967514051C13ED61009F455A /* ContentKit+UIImage.swift */,
+				967513ED1C13EB69009F455A /* AppDelegate.swift */,
+				967513EF1C13EB69009F455A /* ViewController.swift */,
+				967513F41C13EB69009F455A /* Assets.xcassets */,
+				967513F61C13EB69009F455A /* LaunchScreen.storyboard */,
+				967513F91C13EB69009F455A /* Info.plist */,
+				967514031C13ED3F009F455A /* ContentKit+UIImage.swift */,
 			);
-			path = CardView;
+			path = ImageCardView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		967513C51C136BB7009F455A /* CardView */ = {
+		967513E91C13EB69009F455A /* ImageCardView */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 967513D81C136BB7009F455A /* Build configuration list for PBXNativeTarget "CardView" */;
+			buildConfigurationList = 967513FC1C13EB69009F455A /* Build configuration list for PBXNativeTarget "ImageCardView" */;
 			buildPhases = (
-				967513C21C136BB7009F455A /* Sources */,
-				967513C31C136BB7009F455A /* Frameworks */,
-				967513C41C136BB7009F455A /* Resources */,
-				967513DE1C136BE3009F455A /* Embed Frameworks */,
+				967513E61C13EB69009F455A /* Sources */,
+				967513E71C13EB69009F455A /* Frameworks */,
+				967513E81C13EB69009F455A /* Resources */,
+				967514021C13ECC1009F455A /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = CardView;
-			productName = CardView;
-			productReference = 967513C61C136BB7009F455A /* CardView.app */;
+			name = ImageCardView;
+			productName = ImageCardView;
+			productReference = 967513EA1C13EB69009F455A /* ImageCardView.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		967513BE1C136BB7009F455A /* Project object */ = {
+		967513E21C13EB69009F455A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = "CosmicMind, Inc.";
 				TargetAttributes = {
-					967513C51C136BB7009F455A = {
+					967513E91C13EB69009F455A = {
 						CreatedOnToolsVersion = 7.1.1;
 					};
 				};
 			};
-			buildConfigurationList = 967513C11C136BB7009F455A /* Build configuration list for PBXProject "CardView" */;
+			buildConfigurationList = 967513E51C13EB69009F455A /* Build configuration list for PBXProject "ImageCardView" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -127,46 +127,46 @@
 				en,
 				Base,
 			);
-			mainGroup = 967513BD1C136BB7009F455A;
-			productRefGroup = 967513C71C136BB7009F455A /* Products */;
+			mainGroup = 967513E11C13EB69009F455A;
+			productRefGroup = 967513EB1C13EB69009F455A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				967513C51C136BB7009F455A /* CardView */,
+				967513E91C13EB69009F455A /* ImageCardView */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		967513C41C136BB7009F455A /* Resources */ = {
+		967513E81C13EB69009F455A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				967513D41C136BB7009F455A /* LaunchScreen.storyboard in Resources */,
-				967513D11C136BB7009F455A /* Assets.xcassets in Resources */,
+				967513F81C13EB69009F455A /* LaunchScreen.storyboard in Resources */,
+				967513F51C13EB69009F455A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		967513C21C136BB7009F455A /* Sources */ = {
+		967513E61C13EB69009F455A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				967514061C13ED61009F455A /* ContentKit+UIImage.swift in Sources */,
-				967513CC1C136BB7009F455A /* ViewController.swift in Sources */,
-				967513CA1C136BB7009F455A /* AppDelegate.swift in Sources */,
+				967514041C13ED3F009F455A /* ContentKit+UIImage.swift in Sources */,
+				967513F01C13EB69009F455A /* ViewController.swift in Sources */,
+				967513EE1C13EB69009F455A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		967513D21C136BB7009F455A /* LaunchScreen.storyboard */ = {
+		967513F61C13EB69009F455A /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				967513D31C136BB7009F455A /* Base */,
+				967513F71C13EB69009F455A /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -174,7 +174,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		967513D61C136BB7009F455A /* Debug */ = {
+		967513FA1C13EB69009F455A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -219,7 +219,7 @@
 			};
 			name = Debug;
 		};
-		967513D71C136BB7009F455A /* Release */ = {
+		967513FB1C13EB69009F455A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -257,24 +257,24 @@
 			};
 			name = Release;
 		};
-		967513D91C136BB7009F455A /* Debug */ = {
+		967513FD1C13EB69009F455A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = CardView/Info.plist;
+				INFOPLIST_FILE = ImageCardView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.CardView;
+				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.ImageCardView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
-		967513DA1C136BB7009F455A /* Release */ = {
+		967513FE1C13EB69009F455A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = CardView/Info.plist;
+				INFOPLIST_FILE = ImageCardView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.CardView;
+				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.ImageCardView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -282,25 +282,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		967513C11C136BB7009F455A /* Build configuration list for PBXProject "CardView" */ = {
+		967513E51C13EB69009F455A /* Build configuration list for PBXProject "ImageCardView" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				967513D61C136BB7009F455A /* Debug */,
-				967513D71C136BB7009F455A /* Release */,
+				967513FA1C13EB69009F455A /* Debug */,
+				967513FB1C13EB69009F455A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		967513D81C136BB7009F455A /* Build configuration list for PBXNativeTarget "CardView" */ = {
+		967513FC1C13EB69009F455A /* Build configuration list for PBXNativeTarget "ImageCardView" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				967513D91C136BB7009F455A /* Debug */,
-				967513DA1C136BB7009F455A /* Release */,
+				967513FD1C13EB69009F455A /* Debug */,
+				967513FE1C13EB69009F455A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 967513BE1C136BB7009F455A /* Project object */;
+	rootObject = 967513E21C13EB69009F455A /* Project object */;
 }

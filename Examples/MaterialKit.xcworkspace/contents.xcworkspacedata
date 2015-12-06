@@ -18,4 +18,11 @@
          location = "group:CardView/CardView.xcodeproj">
       </FileRef>
    </Group>
+   <Group
+      location = "container:"
+      name = "ImageCardView">
+      <FileRef
+         location = "group:ImageCardView/ImageCardView.xcodeproj">
+      </FileRef>
+   </Group>
 </Workspace>

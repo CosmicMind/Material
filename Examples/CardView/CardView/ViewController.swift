@@ -28,9 +28,9 @@ class ViewController: UIViewController {
 		// Uncomment different examples and read
 		// the comments below.
 //		prepareGeneralCardViewExample()
-//		prepareCardViewWithoutPulseBackgroundImageExample()
+		prepareCardViewWithoutPulseBackgroundImageExample()
 //		prepareCardViewWithAlteredAlignmentExample()
-		prepareCardViewButtonBar()
+//		prepareCardViewButtonBarExample()
 	}
 	
 	/**
@@ -182,10 +182,10 @@ class ViewController: UIViewController {
 	}
 	
 	/**
-	:name:	prepareCardViewButtonBar
+	:name:	prepareCardViewButtonBarExample
 	:description:	An example of the CardView with only buttons to create a button bar.
 	*/
-	private func prepareCardViewButtonBar() {
+	private func prepareCardViewButtonBarExample() {
 		let cardView: CardView = CardView()
 		cardView.divider = false
 		cardView.pulseColor = nil

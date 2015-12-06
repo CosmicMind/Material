@@ -38,7 +38,9 @@ CardViews are so flexible they create entirely new components by removing all bu
 
 ### ImageCardView
 
-Bold and attractive, ImageCardView is
+Bold and attractive, ImageCardView is the next step from a CardView. In the Examples folder you will find examples using the ImageCardView. Below are some animations to give you an idea of the possibilities the ImageCardView has to offer.
+
+![MaterialKitImageCardView](http://www.materialkit.io/MK/MaterialKitImageCardView.gif)
 
 ### License
 
