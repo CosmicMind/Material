@@ -42,10 +42,13 @@ class ViewController: UIViewController {
 	*/
 	private func prepareGeneralMaterialViewExample() {
 		let materialView: MaterialView = MaterialView(frame: CGRectMake(132, 132, 150, 150))
-		materialView.shape = .Circle
+		materialView.backgroundColor = MaterialColor.blueGrey.darken4
+		materialView.image = UIImage(named: "StarPattern")
+		materialView.contentsGravity = .BottomRight
+		materialView.shape = .Square
 		materialView.shadowDepth = .Depth2
-		materialView.image = UIImage(named: "CosmicMind")
-		materialView.backgroundColor = MaterialColor.teal.darken1
+		materialView.cornerRadius = .Radius2
+		
 		
 		// Add view to view controller.
 		view.addSubview(materialView)

@@ -16,14 +16,26 @@ MaterialLayer is a lightweight CAShapeLayer used throughout MaterialKit. It is d
 
 ```swift
 let materialLayer: MaterialLayer = MaterialLayer(frame: CGRectMake(132, 132, 150, 150))
+materialLayer.image = UIImage(named: "BluePattern")
 materialLayer.shape = .Circle
 materialLayer.shadowDepth = .Depth2
-materialLayer.image = UIImage(named: "BluePattern")
 ```
 
 ### MaterialView
 
-MaterialView is the base UIView class used throughout MaterialKit. Like MaterialLayer, it is designed to easily take shape, depth, and animations. The major difference is that MaterialView has all the added features of the UIView class.
+MaterialView is the base UIView class used throughout MaterialKit. Like MaterialLayer, it is designed to easily take shape, depth, and animations. The major difference is that MaterialView has all the added features of the UIView class. Below is an example of setting a MaterialView's cornerRadius, image position, shape, and depth.
+
+![MaterialKitMaterialView](http://www.materialkit.io/MK/MaterialKitMaterialView.gif)
+
+```swift
+let materialView: MaterialView = MaterialView(frame: CGRectMake(132, 132, 150, 150))
+materialView.backgroundColor = MaterialColor.blueGrey.darken4
+materialView.image = UIImage(named: "StarPattern")
+materialView.contentsGravity = .BottomRight
+materialView.shape = .Square
+materialView.shadowDepth = .Depth2
+materialView.cornerRadius = .Radius2
+```
 
 ### MaterialPulseView
 

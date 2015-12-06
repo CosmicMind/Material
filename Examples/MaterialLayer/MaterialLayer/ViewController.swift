@@ -42,9 +42,9 @@ class ViewController: UIViewController {
 	*/
 	private func prepareGeneralMaterialLayerExample() {
 		let materialLayer: MaterialLayer = MaterialLayer(frame: CGRectMake(132, 132, 150, 150))
+		materialLayer.image = UIImage(named: "BluePattern")
 		materialLayer.shape = .Circle
 		materialLayer.shadowDepth = .Depth2
-		materialLayer.image = UIImage(named: "BluePattern")
 		
 		// Add layer to view.
 		view.layer.addSublayer(materialLayer)
