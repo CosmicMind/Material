@@ -203,6 +203,7 @@
 				96D88C4D1C1329BB00B91418 /* Animation */,
 				96D88C4C1C1329AC00B91418 /* Theme */,
 				96D88C4B1C13296500B91418 /* Card */,
+				96DB1C751C14C11B00825BE6 /* Color */,
 				96D88C4A1C13294200B91418 /* Type */,
 				96D88C491C13292700B91418 /* Capture */,
 				96D88C471C1328F500B91418 /* Font */,
@@ -249,7 +250,6 @@
 				96D88C0E1C1328D800B91418 /* MaterialRadius.swift */,
 				96D88C0F1C1328D800B91418 /* MaterialShape.swift */,
 				96D88C011C1328D800B91418 /* MaterialBorder.swift */,
-				96D88C031C1328D800B91418 /* MaterialColor.swift */,
 				96D88C041C1328D800B91418 /* MaterialDepth.swift */,
 				96D88C061C1328D800B91418 /* MaterialGravity.swift */,
 				96D88C071C1328D800B91418 /* MaterialInsets.swift */,
@@ -345,6 +345,14 @@
 				96D88C1D1C1328D800B91418 /* SideNavigationViewController.swift */,
 			);
 			name = Navigation;
+			sourceTree = "<group>";
+		};
+		96DB1C751C14C11B00825BE6 /* Color */ = {
+			isa = PBXGroup;
+			children = (
+				96D88C031C1328D800B91418 /* MaterialColor.swift */,
+			);
+			name = Color;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

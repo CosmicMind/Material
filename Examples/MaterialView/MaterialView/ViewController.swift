@@ -41,9 +41,9 @@ class ViewController: UIViewController {
 	:description:	General usage example.
 	*/
 	private func prepareGeneralMaterialViewExample() {
-		let materialView: MaterialView = MaterialView(frame: CGRectMake(132, 132, 150, 150))
-		materialView.backgroundColor = MaterialColor.blueGrey.darken4
-		materialView.image = UIImage(named: "StarPattern")
+		let materialView: MaterialView = MaterialView(frame: CGRectMake(7, 100, 400, 400))
+		materialView.backgroundColor = MaterialColor.deepPurple.lighten1
+		materialView.image = UIImage(named: "ChakraIcon")
 		materialView.contentsGravity = .BottomRight
 		materialView.shape = .Square
 		materialView.shadowDepth = .Depth2
