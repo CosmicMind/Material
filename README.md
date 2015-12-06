@@ -42,9 +42,27 @@ Bold and attractive, ImageCardView is the next step from a CardView. In the Exam
 
 ![MaterialKitImageCardView](http://www.materialkit.io/MK/MaterialKitImageCardView.gif)
 
-Remove elements, such as the details to create fresh looks for your images.
+Remove elements, such as the details to create a fresh look for your images.
 
 ![MaterialKitImageCardViewBackgroundImage](http://www.materialkit.io/MK/MaterialKitImageCardViewBackgroundImage.gif)
+
+### FlatButton
+
+A FlatButton is the best place to start when introducing MaterialKit buttons. It is simple, clean, and very effective. Below is an example of a FlatButton in action.
+
+![MaterialKitFlatButton](http://www.materialkit.io/MK/MaterialKitFlatButton.gif)
+
+### RaisedButton
+
+A RaisedButton is sure to get attention. Take a look at the following code sample.
+
+![MaterialKitRaisedButton](http://www.materialkit.io/MK/MaterialKitRaisedButton.gif)
+
+### FabButton
+
+A FabButton is essential to Material Design's overall look. Below showcases its beauty.
+
+![MaterialKitFabButton](http://www.materialkit.io/MK/MaterialKitFabButton.gif)
 
 ### License
 
