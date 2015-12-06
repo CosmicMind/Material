@@ -27,9 +27,9 @@ class ViewController: UIViewController {
 		// Examples of using CardView.
 		// Uncomment different examples and read
 		// the comments below.
-//		prepareGeneralCardView()
-//		prepareCardViewWithoutDivider()
-		prepareCardViewWithBackgroundImage()
+//		prepareGeneralCardViewExample()
+//		prepareCardViewWithoutPulseBackgroundImageExample()
+		prepareCardViewWithAlteredAlignmentExample()
 	}
 	
 	/**
@@ -41,10 +41,10 @@ class ViewController: UIViewController {
 	}
 	
 	/**
-	:name:	prepareGeneralCardView
+	:name:	prepareGeneralCardViewExample
 	:description:	General usage example.
 	*/
-	private func prepareGeneralCardView() {
+	private func prepareGeneralCardViewExample() {
 		let cardView: CardView = CardView()
 		
 		// Title label.
@@ -88,24 +88,30 @@ class ViewController: UIViewController {
 	}
 	
 	/**
-	:name:	prepareCardViewWithoutDivider
-	:description:	An example of the CardView without the divider line between buttons.
+	:name:	prepareCardViewWithoutPulseBackgroundImageExample
+	:description:	An example of the CardView without the pulse animation and an added background image.
 	*/
-	private func prepareCardViewWithoutDivider() {
+	private func prepareCardViewWithoutPulseBackgroundImageExample() {
 		let cardView: CardView = CardView()
 		cardView.divider = false
-		cardView.backgroundColor = MaterialColor.teal.darken1
+		cardView.backgroundColor = MaterialColor.red.darken1
+		cardView.pulseScale = false
+		cardView.pulseColor = nil
+		
+		// Image.
+		cardView.image = UIImage(named: "iTunesArtwork")?.resize(toWidth: 400)
+		cardView.contentsGravity = .BottomRight
 		
 		// Title label.
 		let titleLabel: UILabel = UILabel()
-		titleLabel.text = "Data-Driven"
+		titleLabel.text = "MaterialKit"
 		titleLabel.textColor = MaterialColor.white
 		titleLabel.font = RobotoFont.mediumWithSize(24)
 		cardView.titleLabel = titleLabel
 		
 		// Detail label
 		let detailLabel: UILabel = UILabel()
-		detailLabel.text = "Build scalable data-driven apps with GraphKit."
+		detailLabel.text = "Build beautiful software."
 		detailLabel.textColor = MaterialColor.white
 		detailLabel.numberOfLines = 0
 		cardView.detailLabel = detailLabel
@@ -119,8 +125,8 @@ class ViewController: UIViewController {
 		btn1.setImage(img1, forState: .Normal)
 		btn1.setImage(img1, forState: .Highlighted)
 		
-		// Add buttons to right side.
-		cardView.rightButtons = [btn1]
+		// Add buttons to left side.
+		cardView.leftButtons = [btn1]
 		
 		// To support orientation changes, use MaterialLayout.
 		view.addSubview(cardView)
@@ -130,10 +136,10 @@ class ViewController: UIViewController {
 	}
 	
 	/**
-	:name:	prepareCardViewWithBackgroundImage
-	:description:	An example of the CardView with a background image.
+	:name:	prepareCardViewWithAlteredAlignmentExample
+	:description:	An example of the CardView with an altered alignment of the UI elements.
 	*/
-	private func prepareCardViewWithBackgroundImage() {
+	private func prepareCardViewWithAlteredAlignmentExample() {
 		let cardView: CardView = CardView()
 		cardView.dividerInsetsRef.left = 100
 		cardView.titleLabelInsetsRef.left = 100

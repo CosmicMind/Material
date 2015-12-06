@@ -24,9 +24,17 @@ Right out of the box to a fully customized configuration, CardView always stands
 
 ![MaterialKitCardView](http://www.materialkit.io/MK/MaterialKitCardView.gif)
 
-![MaterialKitCardViewDataDriven](http://www.materialkit.io/MK/MaterialKitCardViewDataDriven.gif)
+Easily remove the pulse animation and add a background image for an entirely new feel.
+
+![MaterialKitCardViewFavorite](http://www.materialkit.io/MK/MaterialKitCardViewFavorite.gif)
+
+Adjust the alignment of the UI elements to create different configurations of the CardView.
 
 ![MaterialKitCardViewFocus](http://www.materialkit.io/MK/MaterialKitCardViewFocus.gif)
+
+### ImageCardView
+
+Bold and attractive, ImageCardView is
 
 ### License
 
