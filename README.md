@@ -32,6 +32,10 @@ Adjust the alignment of the UI elements to create different configurations of th
 
 ![MaterialKitCardViewDataDriven](http://www.materialkit.io/MK/MaterialKitCardViewDataDriven.gif)
 
+CardViews are so flexible they create entirely new components by removing all but certain elements. For example, bellow is a button bar by only setting the button values of the CardView.
+
+![MaterialKitCardViewButtonBar](http://www.materialkit.io/MK/MaterialKitCardViewButtonBar.gif)
+
 ### ImageCardView
 
 Bold and attractive, ImageCardView is

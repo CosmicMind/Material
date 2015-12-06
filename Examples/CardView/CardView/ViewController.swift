@@ -29,7 +29,8 @@ class ViewController: UIViewController {
 		// the comments below.
 //		prepareGeneralCardViewExample()
 //		prepareCardViewWithoutPulseBackgroundImageExample()
-		prepareCardViewWithAlteredAlignmentExample()
+//		prepareCardViewWithAlteredAlignmentExample()
+		prepareCardViewButtonBar()
 	}
 	
 	/**
@@ -50,7 +51,7 @@ class ViewController: UIViewController {
 		// Title label.
 		let titleLabel: UILabel = UILabel()
 		titleLabel.text = "Welcome Back!"
-		titleLabel.textColor = MaterialColor.teal.darken1
+		titleLabel.textColor = MaterialColor.blue.darken1
 		titleLabel.font = RobotoFont.mediumWithSize(20)
 		cardView.titleLabel = titleLabel
 		
@@ -62,19 +63,19 @@ class ViewController: UIViewController {
 		
 		// Yes button.
 		let btn1: FlatButton = FlatButton()
-		btn1.pulseColor = MaterialColor.teal.lighten1
+		btn1.pulseColor = MaterialColor.blue.lighten1
 		btn1.pulseFill = true
 		btn1.pulseScale = false
 		btn1.setTitle("YES", forState: .Normal)
-		btn1.setTitleColor(MaterialColor.teal.darken1, forState: .Normal)
+		btn1.setTitleColor(MaterialColor.blue.darken1, forState: .Normal)
 		
 		// No button.
 		let btn2: FlatButton = FlatButton()
-		btn2.pulseColor = MaterialColor.teal.lighten1
+		btn2.pulseColor = MaterialColor.blue.lighten1
 		btn2.pulseFill = true
 		btn2.pulseScale = false
 		btn2.setTitle("NO", forState: .Normal)
-		btn2.setTitleColor(MaterialColor.teal.darken1, forState: .Normal)
+		btn2.setTitleColor(MaterialColor.blue.darken1, forState: .Normal)
 
 		// Add buttons to left side.
 		cardView.leftButtons = [btn1, btn2]
@@ -147,7 +148,7 @@ class ViewController: UIViewController {
 		cardView.pulseColor = MaterialColor.teal.lighten4
 		
 		// Image.
-		cardView.image = UIImage(named: "GraphKit")?.resize(toWidth: 300)
+		cardView.image = UIImage(named: "GraphKit")
 		cardView.contentsGravity = .TopLeft
 		
 		// Title label.
@@ -172,6 +173,55 @@ class ViewController: UIViewController {
 		
 		// Add buttons to right side.
 		cardView.rightButtons = [btn1]
+		
+		// To support orientation changes, use MaterialLayout.
+		view.addSubview(cardView)
+		cardView.translatesAutoresizingMaskIntoConstraints = false
+		MaterialLayout.alignFromTop(view, child: cardView, top: 100)
+		MaterialLayout.alignToParentHorizontally(view, child: cardView, left: 20, right: 20)
+	}
+	
+	/**
+	:name:	prepareCardViewButtonBar
+	:description:	An example of the CardView with only buttons to create a button bar.
+	*/
+	private func prepareCardViewButtonBar() {
+		let cardView: CardView = CardView()
+		cardView.divider = false
+		cardView.pulseColor = nil
+		cardView.pulseScale = false
+		cardView.backgroundColor = MaterialColor.blueGrey.darken4
+		
+		// Favorite button.
+		let img1: UIImage? = UIImage(named: "ic_search_white")
+		let btn1: FlatButton = FlatButton()
+		btn1.pulseColor = MaterialColor.white
+		btn1.pulseFill = true
+		btn1.pulseScale = false
+		btn1.setImage(img1, forState: .Normal)
+		btn1.setImage(img1, forState: .Highlighted)
+		
+		// BUTTON 1 button.
+		let btn2: FlatButton = FlatButton()
+		btn2.pulseColor = MaterialColor.teal.lighten3
+		btn2.pulseFill = true
+		btn2.pulseScale = false
+		btn2.setTitle("BUTTON 1", forState: .Normal)
+		btn2.setTitleColor(MaterialColor.teal.lighten3, forState: .Normal)
+		
+		// BUTTON 2 button.
+		let btn3: FlatButton = FlatButton()
+		btn3.pulseColor = MaterialColor.teal.lighten3
+		btn3.pulseFill = true
+		btn3.pulseScale = false
+		btn3.setTitle("BUTTON 2", forState: .Normal)
+		btn3.setTitleColor(MaterialColor.teal.lighten3, forState: .Normal)
+		
+		// Add buttons to left side.
+		cardView.leftButtons = [btn1]
+		
+		// Add buttons to right side.
+		cardView.rightButtons = [btn2, btn3]
 		
 		// To support orientation changes, use MaterialLayout.
 		view.addSubview(cardView)
