@@ -104,7 +104,7 @@ class ViewController: UIViewController {
 	
 	/**
 	:name:	prepareImageCardViewWithoutDetailLabelAndDividerExample
-	:description:	The following example removes the detailLabel to create a new look and feel to the general example.
+	:description:	The following example removes the detailLabel to create a new look and feel.
 	*/
 	private func prepareImageCardViewWithoutDetailLabelAndDividerExample() {
 		let imageCardView: ImageCardView = ImageCardView()

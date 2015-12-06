@@ -25,4 +25,11 @@
          location = "group:ImageCardView/ImageCardView.xcodeproj">
       </FileRef>
    </Group>
+   <Group
+      location = "container:"
+      name = "Buttons">
+      <FileRef
+         location = "group:Buttons/Buttons.xcodeproj">
+      </FileRef>
+   </Group>
 </Workspace>
