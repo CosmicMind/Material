@@ -28,7 +28,8 @@ class ViewController: UIViewController {
 		// Uncomment different examples and read
 		// the comments below.
 //		prepareGeneralCardView()
-		prepareCardViewWithoutDivider()
+//		prepareCardViewWithoutDivider()
+		prepareCardViewWithBackgroundImage()
 	}
 	
 	/**
@@ -117,6 +118,50 @@ class ViewController: UIViewController {
 		btn1.pulseScale = false
 		btn1.setImage(img1, forState: .Normal)
 		btn1.setImage(img1, forState: .Highlighted)
+		
+		// Add buttons to right side.
+		cardView.rightButtons = [btn1]
+		
+		// To support orientation changes, use MaterialLayout.
+		view.addSubview(cardView)
+		cardView.translatesAutoresizingMaskIntoConstraints = false
+		MaterialLayout.alignFromTop(view, child: cardView, top: 100)
+		MaterialLayout.alignToParentHorizontally(view, child: cardView, left: 20, right: 20)
+	}
+	
+	/**
+	:name:	prepareCardViewWithBackgroundImage
+	:description:	An example of the CardView with a background image.
+	*/
+	private func prepareCardViewWithBackgroundImage() {
+		let cardView: CardView = CardView()
+		cardView.dividerInsetsRef.left = 100
+		cardView.titleLabelInsetsRef.left = 100
+		cardView.detailLabelInsetsRef.left = 100
+		
+		// Image.
+		cardView.image = UIImage(named: "MaterialKitCardViewBackgroundImage")?.resize(toWidth: 300)
+		cardView.contentsGravity = .TopLeft
+		
+		// Title label.
+		let titleLabel: UILabel = UILabel()
+		titleLabel.text = "Focus"
+		titleLabel.font = RobotoFont.mediumWithSize(24)
+		cardView.titleLabel = titleLabel
+		
+		// Detail label
+		let detailLabel: UILabel = UILabel()
+		detailLabel.text = "Easily organize your thoughts using hashtags."
+		detailLabel.numberOfLines = 0
+		cardView.detailLabel = detailLabel
+		
+		// ITUNES button.
+		let btn1: FlatButton = FlatButton()
+		btn1.pulseColor = MaterialColor.blue.lighten1
+		btn1.pulseFill = true
+		btn1.pulseScale = false
+		btn1.setTitle("ITUNES", forState: .Normal)
+		btn1.setTitleColor(MaterialColor.blue.darken1, forState: .Normal)
 		
 		// Add buttons to right side.
 		cardView.rightButtons = [btn1]

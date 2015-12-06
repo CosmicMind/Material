@@ -51,13 +51,13 @@ public func MaterialGravityToString(gravity: MaterialGravity) -> String {
 	case .Right:
 		return kCAGravityRight
 	case .TopLeft:
-		return kCAGravityTopLeft
-	case .TopRight:
-		return kCAGravityTopRight
-	case .BottomLeft:
 		return kCAGravityBottomLeft
-	case .BottomRight:
+	case .TopRight:
 		return kCAGravityBottomRight
+	case .BottomLeft:
+		return kCAGravityTopLeft
+	case .BottomRight:
+		return kCAGravityTopRight
 	case .Resize:
 		return kCAGravityResize
 	case .ResizeAspect:

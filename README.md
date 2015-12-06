@@ -26,6 +26,8 @@ Right out of the box to a fully customized configuration, CardView always stands
 
 ![MaterialKitCardViewDataDriven](http://www.materialkit.io/MK/MaterialKitCardViewDataDriven.gif)
 
+![MaterialKitCardViewFocus](http://www.materialkit.io/MK/MaterialKitCardViewFocus.gif)
+
 ### License
 
 [AGPL-3.0](http://choosealicense.com/licenses/agpl-3.0/)
