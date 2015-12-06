@@ -54,7 +54,7 @@ A FlatButton is the best place to start when introducing MaterialKit buttons. It
 
 ### RaisedButton
 
-A RaisedButton is sure to get attention. Take a look at the following code sample.
+A RaisedButton is sure to get attention. Take a look at the following animation example.
 
 ![MaterialKitRaisedButton](http://www.materialkit.io/MK/MaterialKitRaisedButton.gif)
 
