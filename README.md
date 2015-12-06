@@ -45,6 +45,19 @@ view.addSubview(materialView)
 
 MaterialPulseView is at the heart of all pulse animations. Any view that subclasses MaterialPulseView instantly inherits the pulse animation with full customizability.
 
+![MaterialKitMaterialPulseView](http://www.materialkit.io/MK/MaterialKitMaterialPulseView.gif)
+
+```swift
+let materialPulseView: MaterialPulseView = MaterialPulseView(frame: CGRectMake(132, 132, 150, 150))
+materialPulseView.shape = .Circle
+materialPulseView.shadowDepth = .Depth2
+materialPulseView.image = UIImage(named: "ContentAppIcon")
+materialPulseView.backgroundColor = MaterialColor.teal.darken1
+
+// Add view to UIViewController.
+view.addSubview(materialPulseView)
+```
+
 ### FlatButton
 
 A FlatButton is the best place to start when introducing MaterialKit buttons. It is simple, clean, and very effective. Below is an example of a FlatButton in action.
