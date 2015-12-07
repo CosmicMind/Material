@@ -8,6 +8,24 @@ MaterialKit is built as an animation and graphics framework. A major goal in the
 
 MaterialKit is on CocoaPods under the name [MK](https://cocoapods.org/?q=MK).
 
+### Carthage Support
+
+Carthage is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks.
+
+You can install Carthage with Homebrew using the following command:
+
+```
+$ brew update
+$ brew install carthage
+```
+To integrate MaterialKit into your Xcode project using Carthage, specify it in your Cartfile:
+
+```
+github "CosmicMind/MaterialKit"
+```
+
+Run carthage to build the framework and drag the built MaterialKit.framework into your Xcode project.
+
 ### MaterialLayer
 
 MaterialLayer is a lightweight CAShapeLayer used throughout MaterialKit. It is designed to easily take shape, depth, and animations. Below is an example demonstrating the ease of adding shape and depth to MaterialLayer.
