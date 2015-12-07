@@ -40,8 +40,8 @@ class ViewController: UIViewController {
 		// Examples of using ImageCardView.
 		// Uncomment different examples and read
 		// the comments below.
-//		prepareGeneralImageCardViewExample()
-		prepareImageCardViewWithoutDetailLabelAndDividerExample()
+		prepareGeneralImageCardViewExample()
+//		prepareImageCardViewWithoutDetailLabelAndDividerExample()
 	}
 	
 	/**
