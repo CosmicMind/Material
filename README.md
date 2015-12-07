@@ -460,7 +460,7 @@ btn2.pulseScale = false
 btn2.setImage(img2, forState: .Normal)
 btn2.setImage(img2, forState: .Highlighted)
 
-// Delete button.
+// Share button.
 let img3: UIImage? = UIImage(named: "ic_share_grey_darken_2")
 let btn3: FlatButton = FlatButton()
 btn3.pulseColor = MaterialColor.blueGrey.lighten1
