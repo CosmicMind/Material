@@ -29,8 +29,8 @@ class ViewController: UIViewController {
 		// the comments below.
 //		prepareGeneralCardViewExample()
 //		prepareCardViewWithoutPulseBackgroundImageExample()
-		prepareCardViewWithAlteredAlignmentExample()
-//		prepareCardViewButtonBarExample()
+//		prepareCardViewWithAlteredAlignmentExample()
+		prepareCardViewButtonBarExample()
 	}
 	
 	/**
@@ -208,6 +208,7 @@ class ViewController: UIViewController {
 		btn2.pulseScale = false
 		btn2.setTitle("BUTTON 1", forState: .Normal)
 		btn2.setTitleColor(MaterialColor.teal.lighten3, forState: .Normal)
+		btn2.titleLabel!.font = RobotoFont.regularWithSize(20)
 		
 		// BUTTON 2 button.
 		let btn3: FlatButton = FlatButton()
@@ -216,6 +217,7 @@ class ViewController: UIViewController {
 		btn3.pulseScale = false
 		btn3.setTitle("BUTTON 2", forState: .Normal)
 		btn3.setTitleColor(MaterialColor.teal.lighten3, forState: .Normal)
+		btn3.titleLabel!.font = RobotoFont.regularWithSize(20)
 		
 		// Add buttons to left side.
 		cardView.leftButtons = [btn1]
