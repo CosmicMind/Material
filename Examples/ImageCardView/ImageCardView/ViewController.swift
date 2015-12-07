@@ -122,8 +122,8 @@ class ViewController: UIViewController {
 		imageCardView.titleLabel = titleLabel
 		imageCardView.titleLabelInsetsRef.top = 80
 		
-		// Check button.
-		let img1: UIImage? = UIImage(named: "ic_check_blue_grey_darken_4")
+		// Star button.
+		let img1: UIImage? = UIImage(named: "ic_star_grey_darken_2")
 		let btn1: FlatButton = FlatButton()
 		btn1.pulseColor = MaterialColor.blueGrey.lighten1
 		btn1.pulseFill = true
@@ -131,8 +131,8 @@ class ViewController: UIViewController {
 		btn1.setImage(img1, forState: .Normal)
 		btn1.setImage(img1, forState: .Highlighted)
 		
-		// Star button.
-		let img2: UIImage? = UIImage(named: "ic_star_blue_grey_darken_4")
+		// Favorite button.
+		let img2: UIImage? = UIImage(named: "ic_favorite_grey_darken_2")
 		let btn2: FlatButton = FlatButton()
 		btn2.pulseColor = MaterialColor.blueGrey.lighten1
 		btn2.pulseFill = true
@@ -141,7 +141,7 @@ class ViewController: UIViewController {
 		btn2.setImage(img2, forState: .Highlighted)
 		
 		// Delete button.
-		let img3: UIImage? = UIImage(named: "ic_delete_blue_grey_darken_4")
+		let img3: UIImage? = UIImage(named: "ic_share_grey_darken_2")
 		let btn3: FlatButton = FlatButton()
 		btn3.pulseColor = MaterialColor.blueGrey.lighten1
 		btn3.pulseFill = true

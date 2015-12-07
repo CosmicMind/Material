@@ -29,8 +29,8 @@ class ViewController: UIViewController {
 		// the comments below.
 //		prepareGeneralCardViewExample()
 //		prepareCardViewWithoutPulseBackgroundImageExample()
-//		prepareCardViewWithAlteredAlignmentExample()
-		prepareCardViewButtonBarExample()
+		prepareCardViewWithAlteredAlignmentExample()
+//		prepareCardViewButtonBarExample()
 	}
 	
 	/**
