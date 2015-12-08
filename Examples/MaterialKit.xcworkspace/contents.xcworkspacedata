@@ -6,51 +6,101 @@
    </FileRef>
    <Group
       location = "container:"
-      name = "MaterialLayer">
-      <FileRef
-         location = "group:MaterialLayer/MaterialLayer.xcodeproj">
-      </FileRef>
+      name = "Programmatic">
+      <Group
+         location = "container:"
+         name = "MaterialLayer">
+         <FileRef
+            location = "group:Programmatic/MaterialLayer/MaterialLayer.xcodeproj">
+         </FileRef>
+      </Group>
+      <Group
+         location = "container:"
+         name = "MaterialView">
+         <FileRef
+            location = "group:Programmatic/MaterialView/MaterialView.xcodeproj">
+         </FileRef>
+      </Group>
+      <Group
+         location = "container:"
+         name = "MaterialPulseView">
+         <FileRef
+            location = "group:Programmatic/MaterialPulseView/MaterialPulseView.xcodeproj">
+         </FileRef>
+      </Group>
+      <Group
+         location = "container:"
+         name = "MaterialButton">
+         <FileRef
+            location = "group:Programmatic/MaterialButton/MaterialButton.xcodeproj">
+         </FileRef>
+      </Group>
+      <Group
+         location = "container:"
+         name = "NavigationBarView">
+         <FileRef
+            location = "group:Programmatic/NavigationBarView/NavigationBarView.xcodeproj">
+         </FileRef>
+      </Group>
+      <Group
+         location = "container:"
+         name = "CardView">
+         <FileRef
+            location = "group:Programmatic/CardView/CardView.xcodeproj">
+         </FileRef>
+      </Group>
+      <Group
+         location = "container:"
+         name = "ImageCardView">
+         <FileRef
+            location = "group:Programmatic/ImageCardView/ImageCardView.xcodeproj">
+         </FileRef>
+      </Group>
    </Group>
    <Group
       location = "container:"
-      name = "MaterialView">
-      <FileRef
-         location = "group:MaterialView/MaterialView.xcodeproj">
-      </FileRef>
-   </Group>
-   <Group
-      location = "container:"
-      name = "MaterialPulseView">
-      <FileRef
-         location = "group:MaterialPulseView/MaterialPulseView.xcodeproj">
-      </FileRef>
-   </Group>
-   <Group
-      location = "container:"
-      name = "MaterialButton">
-      <FileRef
-         location = "group:MaterialButton/MaterialButton.xcodeproj">
-      </FileRef>
-   </Group>
-   <Group
-      location = "container:"
-      name = "NavigationBarView">
-      <FileRef
-         location = "group:NavigationBarView/NavigationBarView.xcodeproj">
-      </FileRef>
-   </Group>
-   <Group
-      location = "container:"
-      name = "CardView">
-      <FileRef
-         location = "group:CardView/CardView.xcodeproj">
-      </FileRef>
-   </Group>
-   <Group
-      location = "container:"
-      name = "ImageCardView">
-      <FileRef
-         location = "group:ImageCardView/ImageCardView.xcodeproj">
-      </FileRef>
+      name = "Storyboards">
+      <Group
+         location = "container:"
+         name = "MaterialPulseView">
+         <FileRef
+            location = "group:/Users/danieldahan/Dropbox/GraphKit/Technology/Repositories/MaterialKit/Examples/Storyboards/MaterialPulseView/MaterialPulseView.xcodeproj">
+         </FileRef>
+      </Group>
+      <Group
+         location = "container:"
+         name = "MaterialButton">
+         <FileRef
+            location = "group:/Users/danieldahan/Dropbox/GraphKit/Technology/Repositories/MaterialKit/Examples/Storyboards/MaterialButton/MaterialButton.xcodeproj">
+         </FileRef>
+      </Group>
+      <Group
+         location = "container:"
+         name = "NavigationBarView">
+         <FileRef
+            location = "group:Storyboards/NavigationBarView/NavigationBarView.xcodeproj">
+         </FileRef>
+      </Group>
+      <Group
+         location = "container:"
+         name = "CardView">
+         <FileRef
+            location = "group:Storyboards/CardView/CardView.xcodeproj">
+         </FileRef>
+      </Group>
+      <Group
+         location = "container:"
+         name = "ImageCardView">
+         <FileRef
+            location = "group:Storyboards/ImageCardView/ImageCardView.xcodeproj">
+         </FileRef>
+      </Group>
+      <Group
+         location = "container:"
+         name = "SideNavigationViewController">
+         <FileRef
+            location = "group:Storyboards/SideNavigationViewController/SideNavigationViewController.xcodeproj">
+         </FileRef>
+      </Group>
    </Group>
 </Workspace>
