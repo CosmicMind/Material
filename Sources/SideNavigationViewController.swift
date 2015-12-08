@@ -94,13 +94,6 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	//
 	private var sideTapGesture: UITapGestureRecognizer?
 	
-	//
-	//	:name:	isViewBasedAppearance
-	//
-	private var isViewBasedAppearance: Bool {
-		return 0 == NSBundle.mainBundle().objectForInfoDictionaryKey("UIViewControllerBasedStatusBarAppearance") as? Int
-	}
-	
 	/**
 		:name:	delegate
 	*/
@@ -448,15 +441,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	//
 	private func toggleStatusBar(hide: Bool = false) {
 		if hideStatusBar {
-			if isViewBasedAppearance {
-				UIApplication.sharedApplication().setStatusBarHidden(hide, withAnimation: .Slide)
-			} else {
-				dispatch_async(dispatch_get_main_queue(), {
-					if let w = UIApplication.sharedApplication().keyWindow {
-						w.windowLevel = hide ? UIWindowLevelStatusBar + 1 : 0
-					}
-				})
-			}
+			UIApplication.sharedApplication().statusBarHidden = hide
 		}
 	}
 	

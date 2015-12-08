@@ -9,6 +9,13 @@
       name = "Programmatic">
       <Group
          location = "container:"
+         name = "MaterialLayout">
+         <FileRef
+            location = "group:Programmatic/MaterialLayout/MaterialLayout.xcodeproj">
+         </FileRef>
+      </Group>
+      <Group
+         location = "container:"
          name = "MaterialLayer">
          <FileRef
             location = "group:Programmatic/MaterialLayer/MaterialLayer.xcodeproj">

@@ -236,12 +236,12 @@ public class CardView : MaterialPulseView {
 			if divider {
 				var y: CGFloat = contentInsetsRef.bottom + dividerInsetsRef.bottom
 				if 0 < leftButtons?.count {
-					y += leftButtonsInsetsRef.top + leftButtonsInsetsRef.bottom + leftButtons![0].frame.size.height
+					y += leftButtonsInsetsRef.top + leftButtonsInsetsRef.bottom + leftButtons![0].frame.height
 				} else if 0 < rightButtons?.count {
-					y += rightButtonsInsetsRef.top + rightButtonsInsetsRef.bottom + rightButtons![0].frame.size.height
+					y += rightButtonsInsetsRef.top + rightButtonsInsetsRef.bottom + rightButtons![0].frame.height
 				}
 				if 0 < y {
-					prepareDivider(bounds.size.height - y - 0.5, width: bounds.size.width)
+					prepareDivider(bounds.height - y - 0.5, width: bounds.width)
 				}
 			} else {
 				dividerLayer?.removeFromSuperlayer()

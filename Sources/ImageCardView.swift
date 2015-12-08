@@ -22,7 +22,7 @@ public class ImageCardView : MaterialPulseView {
 	//
 	//	:name:	dividerLayer
 	//
-	internal var dividerLayer: CAShapeLayer?
+	private var dividerLayer: CAShapeLayer?
 	
 	//
 	//	:name:	dividerColor
@@ -324,18 +324,18 @@ public class ImageCardView : MaterialPulseView {
 		super.layoutSublayersOfLayer(layer)
 		if self.layer == layer {
 			// image
-			imageLayer?.frame.size.width = bounds.size.width
+			imageLayer?.frame.size.width = bounds.width
 			
 			// divider
 			if divider {
 				var y: CGFloat = contentInsetsRef.bottom + dividerInsetsRef.bottom
 				if 0 < leftButtons?.count {
-					y += leftButtonsInsetsRef.top + leftButtonsInsetsRef.bottom + leftButtons![0].frame.size.height
+					y += leftButtonsInsetsRef.top + leftButtonsInsetsRef.bottom + leftButtons![0].frame.height
 				} else if 0 < rightButtons?.count {
-					y += rightButtonsInsetsRef.top + rightButtonsInsetsRef.bottom + rightButtons![0].frame.size.height
+					y += rightButtonsInsetsRef.top + rightButtonsInsetsRef.bottom + rightButtons![0].frame.height
 				}
 				if 0 < y {
-					prepareDivider(bounds.size.height - y - 0.5, width: bounds.size.width)
+					prepareDivider(bounds.height - y - 0.5, width: bounds.width)
 				}
 			} else {
 				dividerLayer?.removeFromSuperlayer()
@@ -381,7 +381,7 @@ public class ImageCardView : MaterialPulseView {
 		
 		if nil != imageLayer?.contents {
 			verticalFormat += "-(insetTop)"
-			metrics["insetTop"] = imageLayer?.frame.size.height
+			metrics["insetTop"] = contentInsetsRef.top + imageLayer!.frame.height
 		} else if nil != titleLabel {
 			verticalFormat += "-(insetTop)"
 			metrics["insetTop"] = contentInsetsRef.top + titleLabelInsetsRef.top
@@ -521,7 +521,7 @@ public class ImageCardView : MaterialPulseView {
 			} else {
 				metrics["insetC"] = (metrics["insetC"] as! CGFloat) + detailLabelInsetsRef.bottom + (divider ? dividerInsetsRef.top + dividerInsetsRef.bottom : 0)
 			}
-		} else if nil == detailLabel {
+		} else {
 			if 0 < leftButtons?.count {
 				verticalFormat += "-[button]"
 				views["button"] = leftButtons![0]

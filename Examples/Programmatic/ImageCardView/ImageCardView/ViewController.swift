@@ -40,8 +40,8 @@ class ViewController: UIViewController {
 		// Examples of using ImageCardView.
 		// Uncomment different examples and read
 		// the comments below.
-		prepareGeneralImageCardViewExample()
-//		prepareImageCardViewWithoutDetailLabelAndDividerExample()
+//		prepareGeneralImageCardViewExample()
+		prepareImageCardViewWithoutDetailLabelAndDividerExample()
 	}
 	
 	/**
@@ -121,7 +121,7 @@ class ViewController: UIViewController {
 		titleLabel.font = RobotoFont.regularWithSize(24)
 		imageCardView.titleLabel = titleLabel
 		imageCardView.titleLabelInsetsRef.top = 80
-		
+
 		// Star button.
 		let img1: UIImage? = UIImage(named: "ic_star_grey_darken_2")
 		let btn1: FlatButton = FlatButton()
@@ -130,7 +130,7 @@ class ViewController: UIViewController {
 		btn1.pulseScale = false
 		btn1.setImage(img1, forState: .Normal)
 		btn1.setImage(img1, forState: .Highlighted)
-		
+
 		// Favorite button.
 		let img2: UIImage? = UIImage(named: "ic_favorite_grey_darken_2")
 		let btn2: FlatButton = FlatButton()
@@ -150,7 +150,7 @@ class ViewController: UIViewController {
 		btn3.setImage(img3, forState: .Highlighted)
 		
 		// Add buttons to right side.
-		imageCardView.rightButtons = [btn1, btn2, btn3]
+		imageCardView.rightButtons = [btn1]
 		imageCardView.rightButtonsInsetsRef.top = imageCardView.contentInsetsRef.top
 		
 		// To support orientation changes, use MaterialLayout.

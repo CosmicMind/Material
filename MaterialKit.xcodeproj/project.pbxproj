@@ -332,8 +332,8 @@
 		96D88C531C132A6900B91418 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				96D88C0D1C1328D800B91418 /* MaterialPulseView.swift */,
 				96D88C141C1328D800B91418 /* MaterialView.swift */,
+				96D88C0D1C1328D800B91418 /* MaterialPulseView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
