@@ -25,7 +25,7 @@
 		96D88C2D1C1328D800B91418 /* MaterialDepth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D88C041C1328D800B91418 /* MaterialDepth.swift */; };
 		96D88C2E1C1328D800B91418 /* MaterialFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D88C051C1328D800B91418 /* MaterialFont.swift */; };
 		96D88C2F1C1328D800B91418 /* MaterialGravity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D88C061C1328D800B91418 /* MaterialGravity.swift */; };
-		96D88C301C1328D800B91418 /* MaterialInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D88C071C1328D800B91418 /* MaterialInsets.swift */; };
+		96D88C301C1328D800B91418 /* MaterialEdgeInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D88C071C1328D800B91418 /* MaterialEdgeInsets.swift */; };
 		96D88C311C1328D800B91418 /* MaterialKeyframeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D88C081C1328D800B91418 /* MaterialKeyframeAnimation.swift */; };
 		96D88C321C1328D800B91418 /* MaterialKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 96D88C091C1328D800B91418 /* MaterialKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		96D88C331C1328D800B91418 /* MaterialLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D88C0A1C1328D800B91418 /* MaterialLabel.swift */; };
@@ -59,7 +59,7 @@
 		96D88C5D1C132ABF00B91418 /* MaterialColor.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96D88C031C1328D800B91418 /* MaterialColor.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96D88C5E1C132ABF00B91418 /* MaterialDepth.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96D88C041C1328D800B91418 /* MaterialDepth.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96D88C5F1C132ABF00B91418 /* MaterialGravity.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96D88C061C1328D800B91418 /* MaterialGravity.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		96D88C601C132ABF00B91418 /* MaterialInsets.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96D88C071C1328D800B91418 /* MaterialInsets.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96D88C601C132ABF00B91418 /* MaterialEdgeInsets.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96D88C071C1328D800B91418 /* MaterialEdgeInsets.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96D88C611C132ABF00B91418 /* CaptureView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96D88BF51C1328D800B91418 /* CaptureView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96D88C621C132ABF00B91418 /* CapturePreviewView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96D88BF71C1328D800B91418 /* CapturePreviewView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96D88C631C132ABF00B91418 /* CaptureSession.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96D88BF81C1328D800B91418 /* CaptureSession.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -116,7 +116,7 @@
 		96D88C041C1328D800B91418 /* MaterialDepth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialDepth.swift; sourceTree = "<group>"; };
 		96D88C051C1328D800B91418 /* MaterialFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialFont.swift; sourceTree = "<group>"; };
 		96D88C061C1328D800B91418 /* MaterialGravity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialGravity.swift; sourceTree = "<group>"; };
-		96D88C071C1328D800B91418 /* MaterialInsets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialInsets.swift; sourceTree = "<group>"; };
+		96D88C071C1328D800B91418 /* MaterialEdgeInsets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialEdgeInsets.swift; sourceTree = "<group>"; };
 		96D88C081C1328D800B91418 /* MaterialKeyframeAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialKeyframeAnimation.swift; sourceTree = "<group>"; };
 		96D88C091C1328D800B91418 /* MaterialKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaterialKit.h; sourceTree = "<group>"; };
 		96D88C0A1C1328D800B91418 /* MaterialLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialLabel.swift; sourceTree = "<group>"; };
@@ -252,7 +252,7 @@
 				96D88C011C1328D800B91418 /* MaterialBorder.swift */,
 				96D88C041C1328D800B91418 /* MaterialDepth.swift */,
 				96D88C061C1328D800B91418 /* MaterialGravity.swift */,
-				96D88C071C1328D800B91418 /* MaterialInsets.swift */,
+				96D88C071C1328D800B91418 /* MaterialEdgeInsets.swift */,
 			);
 			name = Type;
 			sourceTree = "<group>";
@@ -389,7 +389,7 @@
 				96D88C5D1C132ABF00B91418 /* MaterialColor.swift in Headers */,
 				96D88C5E1C132ABF00B91418 /* MaterialDepth.swift in Headers */,
 				96D88C5F1C132ABF00B91418 /* MaterialGravity.swift in Headers */,
-				96D88C601C132ABF00B91418 /* MaterialInsets.swift in Headers */,
+				96D88C601C132ABF00B91418 /* MaterialEdgeInsets.swift in Headers */,
 				96D88C611C132ABF00B91418 /* CaptureView.swift in Headers */,
 				96D88C621C132ABF00B91418 /* CapturePreviewView.swift in Headers */,
 				96D88C631C132ABF00B91418 /* CaptureSession.swift in Headers */,
@@ -528,7 +528,7 @@
 				96D88C451C1328D800B91418 /* RobotoFont.swift in Sources */,
 				96D88C1F1C1328D800B91418 /* CardView.swift in Sources */,
 				96D88C2C1C1328D800B91418 /* MaterialColor.swift in Sources */,
-				96D88C301C1328D800B91418 /* MaterialInsets.swift in Sources */,
+				96D88C301C1328D800B91418 /* MaterialEdgeInsets.swift in Sources */,
 				96D88C211C1328D800B91418 /* CaptureSession.swift in Sources */,
 				96D88C341C1328D800B91418 /* MaterialLayer.swift in Sources */,
 				96D88C461C1328D800B91418 /* SideNavigationViewController.swift in Sources */,

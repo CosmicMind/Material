@@ -58,16 +58,16 @@ public class CaptureView : MaterialView, CaptureSessionDelegate, CapturePreviewV
 	/**
 		:name:	contentInsets
 	*/
-	public var contentInsets: MaterialInsets = .None {
+	public var contentInsets: MaterialEdgeInsets = .None {
 		didSet {
-			contentInsetsRef = MaterialInsetsToValue(contentInsets)
+			contentInsetsRef = MaterialEdgeInsetsToValue(contentInsets)
 		}
 	}
 	
 	/**
 		:name:	contentInsetsRef
 	*/
-	public var contentInsetsRef: MaterialInsetsType = MaterialTheme.basicCaptureView.contentInsetsRef {
+	public var contentInsetsRef: UIEdgeInsets = MaterialTheme.basicCaptureView.contentInsetsRef {
 		didSet {
 			reloadView()
 		}

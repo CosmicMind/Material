@@ -31,16 +31,16 @@ public class NavigationBarView : MaterialView {
 	/**
 		:name:	contentInsets
 	*/
-	public var contentInsets: MaterialInsets = .None {
+	public var contentInsets: MaterialEdgeInsets = .None {
 		didSet {
-			contentInsetsRef = MaterialInsetsToValue(contentInsets)
+			contentInsetsRef = MaterialEdgeInsetsToValue(contentInsets)
 		}
 	}
 	
 	/**
 		:name:	contentInsetsRef
 	*/
-	public var contentInsetsRef: MaterialInsetsType = MaterialTheme.navigationBarView.contentInsetsRef {
+	public var contentInsetsRef: UIEdgeInsets = MaterialTheme.navigationBarView.contentInsetsRef {
 		didSet {
 			reloadView()
 		}
@@ -49,16 +49,16 @@ public class NavigationBarView : MaterialView {
 	/**
 		:name:	titleLabelInsets
 	*/
-	public var titleLabelInsets: MaterialInsets = .None {
+	public var titleLabelInsets: MaterialEdgeInsets = .None {
 		didSet {
-			titleLabelInsetsRef = MaterialInsetsToValue(titleLabelInsets)
+			titleLabelInsetsRef = MaterialEdgeInsetsToValue(titleLabelInsets)
 		}
 	}
 	
 	/**
 		:name:	titleLabelInsetsRef
 	*/
-	public var titleLabelInsetsRef: MaterialInsetsType = MaterialTheme.navigationBarView.titleLabelInsetsRef {
+	public var titleLabelInsetsRef: UIEdgeInsets = MaterialTheme.navigationBarView.titleLabelInsetsRef {
 		didSet {
 			reloadView()
 		}
@@ -77,16 +77,16 @@ public class NavigationBarView : MaterialView {
 	/**
 		:name:	detailLabelInsets
 	*/
-	public var detailLabelInsets: MaterialInsets = .None {
+	public var detailLabelInsets: MaterialEdgeInsets = .None {
 		didSet {
-			detailLabelInsetsRef = MaterialInsetsToValue(detailLabelInsets)
+			detailLabelInsetsRef = MaterialEdgeInsetsToValue(detailLabelInsets)
 		}
 	}
 	
 	/**
 		:name:	detailLabelInsetsRef
 	*/
-	public var detailLabelInsetsRef: MaterialInsetsType = MaterialTheme.navigationBarView.detailLabelInsetsRef {
+	public var detailLabelInsetsRef: UIEdgeInsets = MaterialTheme.navigationBarView.detailLabelInsetsRef {
 		didSet {
 			reloadView()
 		}
@@ -105,16 +105,16 @@ public class NavigationBarView : MaterialView {
 	/**
 		:name:	leftButtonsInsets
 	*/
-	public var leftButtonsInsets: MaterialInsets = .None {
+	public var leftButtonsInsets: MaterialEdgeInsets = .None {
 		didSet {
-			leftButtonsInsetsRef = MaterialInsetsToValue(leftButtonsInsets)
+			leftButtonsInsetsRef = MaterialEdgeInsetsToValue(leftButtonsInsets)
 		}
 	}
 	
 	/**
 	:name:	leftButtonsInsetsRef
 	*/
-	public var leftButtonsInsetsRef: MaterialInsetsType = MaterialTheme.navigationBarView.leftButtonsInsetsRef {
+	public var leftButtonsInsetsRef: UIEdgeInsets = MaterialTheme.navigationBarView.leftButtonsInsetsRef {
 		didSet {
 			reloadView()
 		}
@@ -137,16 +137,16 @@ public class NavigationBarView : MaterialView {
 	/**
 		:name:	rightButtonsInsets
 	*/
-	public var rightButtonsInsets: MaterialInsets = .None {
+	public var rightButtonsInsets: MaterialEdgeInsets = .None {
 		didSet {
-			rightButtonsInsetsRef = MaterialInsetsToValue(rightButtonsInsets)
+			rightButtonsInsetsRef = MaterialEdgeInsetsToValue(rightButtonsInsets)
 		}
 	}
 	
 	/**
 		:name:	rightButtonsInsetsRef
 	*/
-	public var rightButtonsInsetsRef: MaterialInsetsType = MaterialTheme.navigationBarView.rightButtonsInsetsRef {
+	public var rightButtonsInsetsRef: UIEdgeInsets = MaterialTheme.navigationBarView.rightButtonsInsetsRef {
 		didSet {
 			reloadView()
 		}

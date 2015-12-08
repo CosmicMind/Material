@@ -93,12 +93,12 @@ public extension MaterialTheme.basicCardView {
 	public static var shadowColor: UIColor = MaterialColor.black
 	
 	// shape
-	public static var contentInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
-	public static var titleLabelInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
-	public static var detailLabelInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
-	public static var leftButtonsInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.None)
-	public static var rightButtonsInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.None)
-	public static var dividerInsetsRef: MaterialInsetsType = (top: 8, left: 0, bottom: 8, right: 0)
+	public static var contentInsetsRef: UIEdgeInsets = MaterialEdgeInsetsToValue(.Square2)
+	public static var titleLabelInsetsRef: UIEdgeInsets = MaterialEdgeInsetsToValue(.Square2)
+	public static var detailLabelInsetsRef: UIEdgeInsets = MaterialEdgeInsetsToValue(.Square2)
+	public static var leftButtonsInsetsRef: UIEdgeInsets = MaterialEdgeInsetsToValue(.None)
+	public static var rightButtonsInsetsRef: UIEdgeInsets = MaterialEdgeInsetsToValue(.None)
+	public static var dividerInsetsRef: UIEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
 	
 	// border
 	public static var borderWidth: MaterialBorder = .None
@@ -133,12 +133,12 @@ public extension MaterialTheme.imageCardView {
 	public static var shadowColor: UIColor = MaterialColor.black
 	
 	// shape
-	public static var contentInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
-	public static var titleLabelInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
-	public static var detailLabelInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
-	public static var leftButtonsInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.None)
-	public static var rightButtonsInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.None)
-	public static var dividerInsetsRef: MaterialInsetsType = (top: 8, left: 0, bottom: 8, right: 0)
+	public static var contentInsetsRef: UIEdgeInsets = MaterialEdgeInsetsToValue(.Square2)
+	public static var titleLabelInsetsRef: UIEdgeInsets = MaterialEdgeInsetsToValue(.Square2)
+	public static var detailLabelInsetsRef: UIEdgeInsets = MaterialEdgeInsetsToValue(.Square2)
+	public static var leftButtonsInsetsRef: UIEdgeInsets = MaterialEdgeInsetsToValue(.None)
+	public static var rightButtonsInsetsRef: UIEdgeInsets = MaterialEdgeInsetsToValue(.None)
+	public static var dividerInsetsRef: UIEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
 	
 	// border
 	public static var borderWidth: MaterialBorder = .None
@@ -179,11 +179,11 @@ public extension MaterialTheme.navigationBarView {
 	public static var shadowColor: UIColor = MaterialColor.black
 	
 	// shape
-	public static var contentInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square2)
-	public static var titleLabelInsetsRef: MaterialInsetsType = (top: 8, left: 0, bottom: 0, right: 0)
-	public static var detailLabelInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.None)
-	public static var leftButtonsInsetsRef: MaterialInsetsType = (top: 8, left: 0, bottom: 0, right: 0)
-	public static var rightButtonsInsetsRef: MaterialInsetsType = (top: 8, left: 0, bottom: 0, right: 0)
+	public static var contentInsetsRef: UIEdgeInsets = MaterialEdgeInsetsToValue(.Square2)
+	public static var titleLabelInsetsRef: UIEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0)
+	public static var detailLabelInsetsRef: UIEdgeInsets = MaterialEdgeInsetsToValue(.None)
+	public static var leftButtonsInsetsRef: UIEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0)
+	public static var rightButtonsInsetsRef: UIEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0)
 	
 	// border
 	public static var borderWidth: MaterialBorder = .None
@@ -212,7 +212,7 @@ public extension MaterialTheme.basicCaptureView {
 	public static var shadowColor: UIColor = MaterialColor.black
 	
 	// shape
-	public static var contentInsetsRef: MaterialInsetsType = MaterialInsetsToValue(.Square3)
+	public static var contentInsetsRef: UIEdgeInsets = MaterialEdgeInsetsToValue(.Square3)
 	
 	// border
 	public static var borderWidth: MaterialBorder = .None
@@ -266,7 +266,7 @@ public extension MaterialTheme.flatButton {
 	
 	// shape
 	public static var cornerRadius: MaterialRadius = .Radius1
-	public static var contentInsets: MaterialInsets = .Rectangle3
+	public static var contentInsets: MaterialEdgeInsets = .WideRectangle3
 	public static var shape: MaterialShape = .None
 	
 	// border
@@ -297,7 +297,7 @@ public extension MaterialTheme.raisedButton {
 	
 	// shape
 	public static var cornerRadius: MaterialRadius = .Radius1
-	public static var contentInsets: MaterialInsets = .Rectangle2
+	public static var contentInsets: MaterialEdgeInsets = .WideRectangle2
 	public static var shape: MaterialShape = .None
 	
 	// border
@@ -328,7 +328,7 @@ public extension MaterialTheme.fabButton {
 	public static var shadowColor: UIColor = MaterialColor.black
 	
 	// shape
-	public static var contentInsets: MaterialInsets = .None
+	public static var contentInsets: MaterialEdgeInsets = .None
 	public static var shape: MaterialShape = .Circle
 	
 	// border
