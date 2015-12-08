@@ -26,6 +26,12 @@ github "CosmicMind/MaterialKit"
 
 Run carthage to build the framework and drag the built MaterialKit.framework into your Xcode project.
 
+### SideNavigationViewController
+
+As elegant as is effective, the SideNavigationViewController is an excellent way to organize your app. Below is an animation of a simple example using this powerful component.
+
+![MaterialKitSideNavigationViewController](http://www.materialkit.io/MK/MaterialKitSideNavigationViewController.gif)
+
 ### MaterialLayer
 
 MaterialLayer is a lightweight CAShapeLayer used throughout MaterialKit. It is designed to easily take shape, depth, and animations. Below is an example demonstrating the ease of adding shape and depth to MaterialLayer.
