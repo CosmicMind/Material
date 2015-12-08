@@ -28,7 +28,7 @@ Run carthage to build the framework and drag the built MaterialKit.framework int
 
 ### SideNavigationViewController
 
-As elegant as is effective, the SideNavigationViewController is an excellent way to organize your app. Below is an animation of a simple example using this powerful component.
+As elegant as is effective, the SideNavigationViewController is an excellent way to organize your app. In the Examples directory, there is an example project using this wonderful component.
 
 ![MaterialKitSideNavigationViewController](http://www.materialkit.io/MK/MaterialKitSideNavigationViewController.gif)
 
