@@ -265,7 +265,7 @@ public extension MaterialTheme.flatButton {
 	public static var shadowColor: UIColor = MaterialColor.black
 	
 	// shape
-	public static var cornerRadius: MaterialRadius = .Radius1
+	public static var cornerRadius: MaterialCornerRadius = .Radius1
 	public static var contentInsets: MaterialEdgeInsets = .WideRectangle3
 	public static var shape: MaterialShape = .None
 	
@@ -296,7 +296,7 @@ public extension MaterialTheme.raisedButton {
 	public static var shadowColor: UIColor = MaterialColor.black
 	
 	// shape
-	public static var cornerRadius: MaterialRadius = .Radius1
+	public static var cornerRadius: MaterialCornerRadius = .Radius1
 	public static var contentInsets: MaterialEdgeInsets = .WideRectangle2
 	public static var shape: MaterialShape = .None
 	

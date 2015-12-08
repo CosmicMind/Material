@@ -22,9 +22,9 @@ public class NavigationBarView : MaterialView {
 	/**
 		:name:	statusBarStyle
 	*/
-	public var statusBarStyle: MaterialStatusBarStyle! {
+	public var statusBarStyle: UIStatusBarStyle = UIApplication.sharedApplication().statusBarStyle {
 		didSet {
-			UIApplication.sharedApplication().setStatusBarStyle(.LightContent == statusBarStyle ? .LightContent : .Default, animated: true)
+			UIApplication.sharedApplication().statusBarStyle = statusBarStyle
 		}
 	}
 	

@@ -16,7 +16,32 @@
 // in a file called LICENSE.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-public enum MaterialStatusBarStyle : Int {
-	case Default
-	case LightContent
+import UIKit
+
+public typealias MaterialCornerRadiusType = CGFloat
+
+public enum MaterialCornerRadius {
+	case None
+	case Radius1
+	case Radius2
+	case Radius3
+	case Radius4
+}
+
+/**
+	:name:	MaterialCornerRadiusToValue
+*/
+public func MaterialCornerRadiusToValue(radius: MaterialCornerRadius) -> MaterialCornerRadiusType {
+	switch radius {
+	case .None:
+		return 0
+	case .Radius1:
+		return 4
+	case .Radius2:
+		return 8
+	case .Radius3:
+		return 16
+	case .Radius4:
+		return 32
+	}
 }
