@@ -14,13 +14,13 @@ Carthage is a decentralized dependency manager that builds your dependencies and
 
 You can install Carthage with Homebrew using the following command:
 
-```
+```bash
 $ brew update
 $ brew install carthage
 ```
 To integrate MaterialKit into your Xcode project using Carthage, specify it in your Cartfile:
 
-```
+```bash
 github "CosmicMind/MaterialKit"
 ```
 
@@ -52,7 +52,7 @@ MaterialView is the base UIView class used throughout MaterialKit. Like Material
 let materialView: MaterialView = MaterialView(frame: CGRectMake(132, 132, 150, 150))
 materialView.image = UIImage(named: "FocusAppIcon")
 materialView.shape = .Square
-materialView.shadowDepth = .Depth5
+materialView.shadowDepth = .Depth2
 materialView.cornerRadius = .Radius3
 
 // Add view to UIViewController.

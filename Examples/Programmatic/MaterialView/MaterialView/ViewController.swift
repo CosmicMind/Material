@@ -44,7 +44,7 @@ class ViewController: UIViewController {
 		let materialView: MaterialView = MaterialView(frame: CGRectMake(132, 132, 150, 150))
 		materialView.image = UIImage(named: "FocusAppIcon")
 		materialView.shape = .Square
-		materialView.shadowDepth = .Depth5
+		materialView.shadowDepth = .Depth2
 		materialView.cornerRadius = .Radius3
 		
 		// Add view to UIViewController.
