@@ -261,7 +261,7 @@ cardView.backgroundColor = MaterialColor.red.darken1
 cardView.pulseScale = false
 cardView.pulseColor = nil
 
-// Image.
+// Image - resize method is located in ContentKit or Examples project.
 cardView.image = UIImage(named: "iTunesArtwork")?.resize(toWidth: 400)
 cardView.contentsGravity = .BottomRight
 
@@ -495,7 +495,6 @@ btn3.setImage(img3, forState: .Highlighted)
 
 // Add buttons to right side.
 imageCardView.rightButtons = [btn1, btn2, btn3]
-imageCardView.rightButtonsInsetsRef.top = imageCardView.contentInsetsRef.top
 
 // To support orientation changes, use MaterialLayout.
 view.addSubview(imageCardView)

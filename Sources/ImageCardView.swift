@@ -381,7 +381,7 @@ public class ImageCardView : MaterialPulseView {
 		
 		if nil != imageLayer?.contents {
 			verticalFormat += "-(insetTop)"
-			metrics["insetTop"] = contentInsetsRef.top + imageLayer!.frame.height
+			metrics["insetTop"] = imageLayer!.frame.height
 		} else if nil != titleLabel {
 			verticalFormat += "-(insetTop)"
 			metrics["insetTop"] = contentInsetsRef.top + titleLabelInsetsRef.top
@@ -498,7 +498,7 @@ public class ImageCardView : MaterialPulseView {
 				if nil == metrics["insetC"] {
 					metrics["insetBottom"] = contentInsetsRef.bottom + titleLabelInsetsRef.bottom + (divider ? dividerInsetsRef.top + dividerInsetsRef.bottom : 0)
 				} else {
-					metrics["insetC"] = (metrics["insetTop"] as! CGFloat) + titleLabelInsetsRef.bottom + (divider ? dividerInsetsRef.top + dividerInsetsRef.bottom : 0)
+					metrics["insetC"] = (metrics["insetC"] as! CGFloat) + titleLabelInsetsRef.bottom + (divider ? dividerInsetsRef.top + dividerInsetsRef.bottom : 0)
 				}
 			} else if nil != metrics["insetC"] {
 				metrics["insetC"] = (metrics["insetC"] as! CGFloat) + contentInsetsRef.top + (divider ? dividerInsetsRef.top + dividerInsetsRef.bottom : 0)
@@ -525,13 +525,19 @@ public class ImageCardView : MaterialPulseView {
 			if 0 < leftButtons?.count {
 				verticalFormat += "-[button]"
 				views["button"] = leftButtons![0]
-				metrics["insetTop"] = (metrics["insetTop"] as! CGFloat) + leftButtonsInsetsRef.top + (divider ? dividerInsetsRef.top + dividerInsetsRef.bottom : 0)
+				metrics["insetTop"] = (metrics["insetTop"] as! CGFloat) + contentInsetsRef.top + leftButtonsInsetsRef.top + (divider ? dividerInsetsRef.top + dividerInsetsRef.bottom : 0)
 				metrics["insetBottom"] = contentInsetsRef.bottom + leftButtonsInsetsRef.bottom
 			} else if 0 < rightButtons?.count {
 				verticalFormat += "-[button]"
 				views["button"] = rightButtons![0]
-				metrics["insetTop"] = (metrics["insetTop"] as! CGFloat) + rightButtonsInsetsRef.top + (divider ? dividerInsetsRef.top + dividerInsetsRef.bottom : 0)
+				metrics["insetTop"] = (metrics["insetTop"] as! CGFloat) + contentInsetsRef.top + rightButtonsInsetsRef.top + (divider ? dividerInsetsRef.top + dividerInsetsRef.bottom : 0)
 				metrics["insetBottom"] = contentInsetsRef.bottom + rightButtonsInsetsRef.bottom
+			} else {
+				if translatesAutoresizingMaskIntoConstraints {
+					addConstraints(MaterialLayout.constraint("V:[view(height)]", options: [], metrics: ["height": imageLayer!.frame.height], views: ["view": self]))
+				} else {
+					height = imageLayer!.frame.height
+				}
 			}
 		}
 		

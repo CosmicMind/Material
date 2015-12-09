@@ -40,8 +40,8 @@ class ViewController: UIViewController {
 		// Examples of using ImageCardView.
 		// Uncomment different examples and read
 		// the comments below.
-//		prepareGeneralImageCardViewExample()
-		prepareImageCardViewWithoutDetailLabelAndDividerExample()
+		prepareGeneralImageCardViewExample()
+//		prepareImageCardViewWithoutDetailLabelAndDividerExample()
 	}
 	
 	/**
@@ -150,8 +150,7 @@ class ViewController: UIViewController {
 		btn3.setImage(img3, forState: .Highlighted)
 		
 		// Add buttons to right side.
-		imageCardView.rightButtons = [btn1]
-		imageCardView.rightButtonsInsetsRef.top = imageCardView.contentInsetsRef.top
+		imageCardView.rightButtons = [btn1, btn2, btn3]
 		
 		// To support orientation changes, use MaterialLayout.
 		view.addSubview(imageCardView)

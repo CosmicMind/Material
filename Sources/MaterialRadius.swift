@@ -18,9 +18,7 @@
 
 import UIKit
 
-public typealias MaterialCornerRadiusType = CGFloat
-
-public enum MaterialCornerRadius {
+public enum MaterialRadius {
 	case None
 	case Radius1
 	case Radius2
@@ -29,9 +27,9 @@ public enum MaterialCornerRadius {
 }
 
 /**
-	:name:	MaterialCornerRadiusToValue
+	:name:	MaterialRadiusToValue
 */
-public func MaterialCornerRadiusToValue(radius: MaterialCornerRadius) -> MaterialCornerRadiusType {
+public func MaterialRadiusToValue(radius: MaterialRadius) -> CGFloat {
 	switch radius {
 	case .None:
 		return 0

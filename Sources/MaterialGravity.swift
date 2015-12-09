@@ -18,8 +18,6 @@
 
 import UIKit
 
-public typealias MaterialGravityType = String
-
 public enum MaterialGravity {
 	case Center
 	case Top

@@ -18,8 +18,6 @@
 
 import UIKit
 
-public typealias MaterialBorderType = CGFloat
-
 public enum MaterialBorder {
 	case None
 	case Border1
@@ -36,7 +34,7 @@ public enum MaterialBorder {
 /**
 	:name:	MaterialBorderToValue
 */
-public func MaterialBorderToValue(border: MaterialBorder) -> MaterialBorderType {
+public func MaterialBorderToValue(border: MaterialBorder) -> CGFloat {
 	switch border {
 	case .None:
 		return 0

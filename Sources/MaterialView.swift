@@ -210,10 +210,10 @@ public class MaterialView : UIView {
 	/**
 		:name:	cornerRadius
 	*/
-	public var cornerRadius: MaterialCornerRadius {
+	public var cornerRadius: MaterialRadius {
 		didSet {
-			if let v: MaterialCornerRadius = cornerRadius {
-				layer.cornerRadius = MaterialCornerRadiusToValue(v)
+			if let v: MaterialRadius = cornerRadius {
+				layer.cornerRadius = MaterialRadiusToValue(v)
 				if .Circle == shape {
 					shape = .None
 				}

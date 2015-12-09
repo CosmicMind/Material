@@ -99,7 +99,7 @@ class ViewController: UIViewController {
 		cardView.pulseScale = false
 		cardView.pulseColor = nil
 		
-		// Image.
+		// Image - resize method is located in ContentKit or Examples project.
 		cardView.image = UIImage(named: "iTunesArtwork")?.resize(toWidth: 400)
 		cardView.contentsGravity = .BottomRight
 		
