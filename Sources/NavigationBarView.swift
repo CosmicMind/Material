@@ -196,25 +196,6 @@ public class NavigationBarView : MaterialView {
 	}
 	
 	/**
-		:name:	prepareView
-	*/
-	public override func prepareView() {
-		super.prepareView()
-		userInteractionEnabled = MaterialTheme.navigationBarView.userInteractionEnabled
-		backgroundColor = MaterialTheme.navigationBarView.backgroundColor
-		
-		contentsRect = MaterialTheme.navigationBarView.contentsRect
-		contentsCenter = MaterialTheme.navigationBarView.contentsCenter
-		contentsScale = MaterialTheme.navigationBarView.contentsScale
-		contentsGravity = MaterialTheme.navigationBarView.contentsGravity
-		shadowDepth = MaterialTheme.navigationBarView.shadowDepth
-		shadowColor = MaterialTheme.navigationBarView.shadowColor
-		zPosition = MaterialTheme.navigationBarView.zPosition
-		borderWidth = MaterialTheme.navigationBarView.borderWidth
-		borderColor = MaterialTheme.navigationBarView.bordercolor
-	}
-	
-	/**
 		:name:	reloadView
 	*/
 	public func reloadView() {
@@ -332,6 +313,25 @@ public class NavigationBarView : MaterialView {
 			verticalFormat += "-(insetBottom)-|"
 			addConstraints(MaterialLayout.constraint(verticalFormat, options: [], metrics: metrics, views: views))
 		}
+	}
+	
+	//
+	//	:name:	prepareView
+	//
+	internal override func prepareView() {
+		super.prepareView()
+		userInteractionEnabled = MaterialTheme.navigationBarView.userInteractionEnabled
+		backgroundColor = MaterialTheme.navigationBarView.backgroundColor
+		
+		contentsRect = MaterialTheme.navigationBarView.contentsRect
+		contentsCenter = MaterialTheme.navigationBarView.contentsCenter
+		contentsScale = MaterialTheme.navigationBarView.contentsScale
+		contentsGravity = MaterialTheme.navigationBarView.contentsGravity
+		shadowDepth = MaterialTheme.navigationBarView.shadowDepth
+		shadowColor = MaterialTheme.navigationBarView.shadowColor
+		zPosition = MaterialTheme.navigationBarView.zPosition
+		borderWidth = MaterialTheme.navigationBarView.borderWidth
+		borderColor = MaterialTheme.navigationBarView.bordercolor
 	}
 	
 	//

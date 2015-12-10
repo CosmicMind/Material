@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9608ABCD1C190B8B0000BB93 /* StackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9608ABCC1C190B8B0000BB93 /* StackView.swift */; };
 		963832421B88DFD80015F710 /* MaterialKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963832361B88DFD80015F710 /* MaterialKit.framework */; };
 		9638325A1B88E31A0015F710 /* MaterialKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963832581B88E31A0015F710 /* MaterialKitTests.swift */; };
 		96D88C1E1C1328D800B91418 /* CaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D88BF51C1328D800B91418 /* CaptureView.swift */; };
@@ -92,6 +93,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9608ABCC1C190B8B0000BB93 /* StackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackView.swift; sourceTree = "<group>"; };
 		963832361B88DFD80015F710 /* MaterialKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MaterialKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		963832411B88DFD80015F710 /* MaterialKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MaterialKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		963832581B88E31A0015F710 /* MaterialKitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialKitTests.swift; sourceTree = "<group>"; };
@@ -157,6 +159,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9608ABCB1C190B7C0000BB93 /* Stack */ = {
+			isa = PBXGroup;
+			children = (
+				9608ABCC1C190B8B0000BB93 /* StackView.swift */,
+			);
+			name = Stack;
+			sourceTree = "<group>";
+		};
 		9638322C1B88DFD80015F710 = {
 			isa = PBXGroup;
 			children = (
@@ -204,6 +214,7 @@
 				96D88C4A1C13294200B91418 /* Type */,
 				96D88C491C13292700B91418 /* Capture */,
 				96D88C471C1328F500B91418 /* Font */,
+				9608ABCB1C190B7C0000BB93 /* Stack */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -520,6 +531,7 @@
 				96D88C331C1328D800B91418 /* MaterialLabel.swift in Sources */,
 				96D88C281C1328D800B91418 /* MaterialAnimation.swift in Sources */,
 				96D88C451C1328D800B91418 /* RobotoFont.swift in Sources */,
+				9608ABCD1C190B8B0000BB93 /* StackView.swift in Sources */,
 				96D88C1F1C1328D800B91418 /* CardView.swift in Sources */,
 				96D88C2C1C1328D800B91418 /* MaterialColor.swift in Sources */,
 				96D88C301C1328D800B91418 /* MaterialEdgeInsets.swift in Sources */,

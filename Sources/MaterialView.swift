@@ -382,7 +382,7 @@ public class MaterialView : UIView {
 	//
 	//	:name:	prepareView
 	//
-	public func prepareView() {
+	internal func prepareView() {
 		userInteractionEnabled = MaterialTheme.view.userInteractionEnabled
 		backgroundColor = MaterialTheme.view.backgroundColor
 		

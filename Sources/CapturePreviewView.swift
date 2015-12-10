@@ -121,16 +121,6 @@ public class CapturePreviewView : MaterialView, UIGestureRecognizerDelegate {
 	}
 	
 	/**
-		:name:	prepareView
-	*/
-	public override func prepareView() {
-		super.prepareView()
-		preparePreviewLayer()
-		tapToFocusEnabled = true
-		tapToExposeEnabled = true
-	}
-	
-	/**
 		:name:	captureDevicePointOfInterestForPoint
 	*/
 	public func captureDevicePointOfInterestForPoint(point: CGPoint) -> CGPoint {
@@ -142,6 +132,16 @@ public class CapturePreviewView : MaterialView, UIGestureRecognizerDelegate {
 	*/
 	public func pointForCaptureDevicePointOfInterest(point: CGPoint) -> CGPoint {
 		return previewLayer.pointForCaptureDevicePointOfInterest(point)
+	}
+	
+	//
+	//	:name:	prepareView
+	//
+	internal override func prepareView() {
+		super.prepareView()
+		preparePreviewLayer()
+		tapToFocusEnabled = true
+		tapToExposeEnabled = true
 	}
 	
 	//

@@ -251,27 +251,6 @@ public class CardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	prepareView
-	*/
-	public override func prepareView() {
-		super.prepareView()
-		userInteractionEnabled = MaterialTheme.basicCardView.userInteractionEnabled
-		backgroundColor = MaterialTheme.basicCardView.backgroundColor
-		pulseColor = MaterialTheme.basicCardView.pulseColor
-		
-		contentsRect = MaterialTheme.basicCardView.contentsRect
-		contentsCenter = MaterialTheme.basicCardView.contentsCenter
-		contentsScale = MaterialTheme.basicCardView.contentsScale
-		contentsGravity = MaterialTheme.basicCardView.contentsGravity
-		shadowDepth = MaterialTheme.basicCardView.shadowDepth
-		shadowColor = MaterialTheme.basicCardView.shadowColor
-		zPosition = MaterialTheme.basicCardView.zPosition
-		borderWidth = MaterialTheme.basicCardView.borderWidth
-		borderColor = MaterialTheme.basicCardView.bordercolor
-		dividerColor = MaterialTheme.basicCardView.dividerColor
-	}
-	
-	/**
 		:name:	reloadView
 	*/
 	public func reloadView() {
@@ -408,6 +387,27 @@ public class CardView : MaterialPulseView {
 			verticalFormat += "-(insetBottom)-|"
 			addConstraints(MaterialLayout.constraint(verticalFormat, options: [], metrics: metrics, views: views))
 		}
+	}
+	
+	//
+	//	:name:	prepareView
+	//
+	internal override func prepareView() {
+		super.prepareView()
+		userInteractionEnabled = MaterialTheme.basicCardView.userInteractionEnabled
+		backgroundColor = MaterialTheme.basicCardView.backgroundColor
+		pulseColor = MaterialTheme.basicCardView.pulseColor
+		
+		contentsRect = MaterialTheme.basicCardView.contentsRect
+		contentsCenter = MaterialTheme.basicCardView.contentsCenter
+		contentsScale = MaterialTheme.basicCardView.contentsScale
+		contentsGravity = MaterialTheme.basicCardView.contentsGravity
+		shadowDepth = MaterialTheme.basicCardView.shadowDepth
+		shadowColor = MaterialTheme.basicCardView.shadowColor
+		zPosition = MaterialTheme.basicCardView.zPosition
+		borderWidth = MaterialTheme.basicCardView.borderWidth
+		borderColor = MaterialTheme.basicCardView.bordercolor
+		dividerColor = MaterialTheme.basicCardView.dividerColor
 	}
 	
 	//

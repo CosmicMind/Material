@@ -63,6 +63,13 @@
             location = "group:Programmatic/ImageCardView/ImageCardView.xcodeproj">
          </FileRef>
       </Group>
+      <Group
+         location = "container:"
+         name = "StackView">
+         <FileRef
+            location = "group:Programmatic/StackView/StackView.xcodeproj">
+         </FileRef>
+      </Group>
    </Group>
    <Group
       location = "container:"

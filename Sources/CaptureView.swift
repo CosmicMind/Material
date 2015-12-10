@@ -91,17 +91,6 @@ public class CaptureView : MaterialView, CaptureSessionDelegate, CapturePreviewV
 	}
 	
 	/**
-		:name:	prepareView
-	*/
-	public override func prepareView() {
-		super.prepareView()
-		preparePreviewView()
-		prepareFocusLayer()
-		prepareExposureLayer()
-		reloadView()
-	}
-	
-	/**
 		:name:	reloadView
 	*/
 	public func reloadView() {
@@ -172,6 +161,17 @@ public class CaptureView : MaterialView, CaptureSessionDelegate, CapturePreviewV
 				self.exposureLayer.transform = CATransform3DIdentity
 			}
 		}
+	}
+	
+	//
+	//	:name:	prepareView
+	//
+	internal override func prepareView() {
+		super.prepareView()
+		preparePreviewView()
+		prepareFocusLayer()
+		prepareExposureLayer()
+		reloadView()
 	}
 	
 	//

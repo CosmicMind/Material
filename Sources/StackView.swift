@@ -18,26 +18,35 @@
 
 import UIKit
 
-public class FabButton : MaterialButton {	
+@available(iOS 9.0, *)
+public class StackView : UIStackView {
+	/**
+		:name:	init
+	*/
+	public required init?(coder aDecoder: NSCoder) {
+		super.init(coder: aDecoder)
+		prepareView()
+	}
+	
+	/**
+		:name:	init
+	*/
+	public override init(frame: CGRect) {
+		super.init(frame: frame)
+		prepareView()
+	}
+	
+	/**
+		:name:	init
+	*/
+	public convenience init() {
+		self.init(frame: CGRectNull)
+	}
+	
 	//
 	//	:name:	prepareView
 	//
-	internal override func prepareView() {
-		super.prepareView()
-		setTitleColor(MaterialTheme.fabButton.titleLabelColorForNormalState, forState: .Normal)
-		titleLabel?.font = MaterialTheme.fabButton.titleLabelFont
-		
-		userInteractionEnabled = MaterialTheme.fabButton.userInteractionEnabled
-		backgroundColor = MaterialTheme.fabButton.backgroundColor
-		pulseColorOpacity = MaterialTheme.fabButton.pulseColorOpacity
-		pulseColor = MaterialTheme.fabButton.pulseColor
-		
-		shadowDepth = MaterialTheme.fabButton.shadowDepth
-		shadowColor = MaterialTheme.fabButton.shadowColor
-		zPosition = MaterialTheme.fabButton.zPosition
-		borderWidth = MaterialTheme.fabButton.borderWidth
-		borderColor = MaterialTheme.fabButton.bordercolor
-		contentInsets = MaterialTheme.fabButton.contentInsets
-		shape = MaterialTheme.fabButton.shape
+	private func prepareView() {
+	
 	}
 }

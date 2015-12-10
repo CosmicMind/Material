@@ -446,10 +446,10 @@ public class MaterialButton : UIButton {
 		return nil // returning nil enables the animations for the layer property that are normally disabled.
 	}
 	
-	/**
-		:name:	prepareView
-	*/
-	public func prepareView() {
+	//
+	//	:name:	prepareView
+	//
+	internal func prepareView() {
 		prepareVisualLayer()
 		preparePulseLayer()
 	}
