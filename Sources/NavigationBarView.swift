@@ -318,7 +318,7 @@ public class NavigationBarView : MaterialView {
 	/**
 	:name:	prepareView
 	*/
-	internal override func prepareView() {
+	public override func prepareView() {
 		super.prepareView()
 		userInteractionEnabled = MaterialTheme.navigationBarView.userInteractionEnabled
 		backgroundColor = MaterialTheme.navigationBarView.backgroundColor

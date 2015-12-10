@@ -22,7 +22,7 @@ public class RaisedButton : MaterialButton {
 	/**
 	:name:	prepareView
 	*/
-	internal override func prepareView() {
+	public override func prepareView() {
 		super.prepareView()
 		setTitleColor(MaterialTheme.raisedButton.titleLabelColorForNormalState, forState: .Normal)
 		titleLabel!.font = MaterialTheme.raisedButton.titleLabelFont

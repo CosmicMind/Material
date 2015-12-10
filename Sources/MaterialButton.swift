@@ -449,7 +449,7 @@ public class MaterialButton : UIButton {
 	/**
 	:name:	prepareView
 	*/
-	internal func prepareView() {
+	public func prepareView() {
 		prepareVisualLayer()
 		preparePulseLayer()
 	}

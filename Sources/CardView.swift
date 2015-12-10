@@ -392,7 +392,7 @@ public class CardView : MaterialPulseView {
 	/**
 	:name:	prepareView
 	*/
-	internal override func prepareView() {
+	public override func prepareView() {
 		super.prepareView()
 		userInteractionEnabled = MaterialTheme.basicCardView.userInteractionEnabled
 		backgroundColor = MaterialTheme.basicCardView.backgroundColor

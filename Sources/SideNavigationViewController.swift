@@ -330,7 +330,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	/**
 	:name:	prepareView
 	*/
-	internal func prepareView() {
+	public func prepareView() {
 		prepareBackdropLayer()
 	}
 	

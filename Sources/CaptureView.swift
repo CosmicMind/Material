@@ -166,7 +166,7 @@ public class CaptureView : MaterialView, CaptureSessionDelegate, CapturePreviewV
 	/**
 	:name:	prepareView
 	*/
-	internal override func prepareView() {
+	public override func prepareView() {
 		super.prepareView()
 		preparePreviewView()
 		prepareFocusLayer()

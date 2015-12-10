@@ -137,7 +137,7 @@ public class CapturePreviewView : MaterialView, UIGestureRecognizerDelegate {
 	/**
 	:name:	prepareView
 	*/
-	internal override func prepareView() {
+	public override func prepareView() {
 		super.prepareView()
 		preparePreviewLayer()
 		tapToFocusEnabled = true

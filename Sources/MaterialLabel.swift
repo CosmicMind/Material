@@ -129,7 +129,7 @@ public class MaterialLabel : UILabel {
 	/**
 	:name:	prepareView
 	*/
-	internal func prepareView() {
+	public func prepareView() {
 		textAlignment = MaterialTheme.label.textAlignment
 		wrapped = MaterialTheme.label.wrapped
 		contentsScale = MaterialTheme.label.contentsScale

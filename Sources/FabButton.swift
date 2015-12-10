@@ -22,7 +22,7 @@ public class FabButton : MaterialButton {
 	/**
 	:name:	prepareView
 	*/
-	internal override func prepareView() {
+	public override func prepareView() {
 		super.prepareView()
 		setTitleColor(MaterialTheme.fabButton.titleLabelColorForNormalState, forState: .Normal)
 		titleLabel?.font = MaterialTheme.fabButton.titleLabelFont

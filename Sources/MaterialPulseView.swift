@@ -133,7 +133,7 @@ public class MaterialPulseView : MaterialView {
 	/**
 	:name:	prepareView
 	*/
-	internal override func prepareView() {
+	public override func prepareView() {
 		super.prepareView()
 		userInteractionEnabled = MaterialTheme.pulseView.userInteractionEnabled
 		backgroundColor = MaterialTheme.pulseView.backgroundColor
