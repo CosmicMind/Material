@@ -336,9 +336,9 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-	:name:	animation
+	:name:	animate
 	*/
-	public func animation(animation: CAAnimation) {
+	public func animate(animation: CAAnimation) {
 		animation.delegate = self
 		if let a: CABasicAnimation = animation as? CABasicAnimation {
 			a.fromValue = (nil == layer.presentationLayer() ? layer : layer.presentationLayer() as! CALayer).valueForKeyPath(a.keyPath!)

@@ -25,7 +25,8 @@ class ViewController: UIViewController {
 		prepareView()
 		
 		// Examples of using MaterialLayout.
-		prepareAlignCollectionToParentHorizontallyExample()
+		prepareAlignToParentHorizontallyExample()
+//		prepareAlignToParentVerticallyExample()
 	}
 	
 	/**
@@ -37,40 +38,105 @@ class ViewController: UIViewController {
 	}
 	
 	/**
-	:name:	prepareAlignCollectionToParentHorizontallyExample
-	:description:	General usage example.
+	:name:	prepareAlignToParentHorizontallyExample
+	:description:	Laying out views horizontally with equal width.
 	*/
-	private func prepareAlignCollectionToParentHorizontallyExample() {
-		let view1: MaterialView = MaterialView()
-		view1.translatesAutoresizingMaskIntoConstraints = false
-		view1.backgroundColor = MaterialColor.blueGrey.base
-		view.addSubview(view1)
+	private func prepareAlignToParentHorizontallyExample() {
+		let label1: UILabel = UILabel()
+		label1.translatesAutoresizingMaskIntoConstraints = false
+		label1.backgroundColor = MaterialColor.red.base
+		label1.text = "A"
+		label1.textAlignment = .Center
+		view.addSubview(label1)
 		
-		let view2: MaterialView = MaterialView()
-		view2.translatesAutoresizingMaskIntoConstraints = false
-		view2.backgroundColor = MaterialColor.blueGrey.darken1
-		view.addSubview(view2)
+		let label2: UILabel = UILabel()
+		label2.translatesAutoresizingMaskIntoConstraints = false
+		label2.backgroundColor = MaterialColor.green.base
+		label2.text = "B"
+		label2.textAlignment = .Center
+		view.addSubview(label2)
 		
-		let view3: MaterialView = MaterialView()
-		view3.translatesAutoresizingMaskIntoConstraints = false
-		view3.backgroundColor = MaterialColor.blueGrey.darken2
-		view.addSubview(view3)
+		let label3: UILabel = UILabel()
+		label3.translatesAutoresizingMaskIntoConstraints = false
+		label3.backgroundColor = MaterialColor.blue.base
+		label3.text = "C"
+		label3.textAlignment = .Center
+		view.addSubview(label3)
 		
-		let view4: MaterialView = MaterialView()
-		view4.translatesAutoresizingMaskIntoConstraints = false
-		view4.backgroundColor = MaterialColor.blueGrey.darken3
-		view.addSubview(view4)
+		let label4: UILabel = UILabel()
+		label4.translatesAutoresizingMaskIntoConstraints = false
+		label4.backgroundColor = MaterialColor.yellow.base
+		label4.text = "D"
+		label4.textAlignment = .Center
+		view.addSubview(label4)
 		
-		let view5: MaterialView = MaterialView()
-		view5.translatesAutoresizingMaskIntoConstraints = false
-		view5.backgroundColor = MaterialColor.blueGrey.darken4
-		view.addSubview(view5)
+		let children: Array<UIView> = [label1, label2, label3, label4]
 		
-//		let children: Array<UIView> = [view1, view2, view3, view4, view5]
-//		MaterialLayout.alignChildrenToParentHorizontally(view, children: children, left: 10, right: 10, options: [NSLayoutFormatOptions.AlignAllCenterX])
-//		for v in children {
-//			MaterialLayout.height(view, child: v, height: 100)
-//		}
+		// Align the labels horizontally with an equal width.
+		MaterialLayout.alignToParentHorizontally(view, children: children, left: 30, right: 30, spacing: 30)
+		
+		// Individually set the labels' vertical alignment.
+		// If this is left out, the intrinsic value is used for the view.
+		for v in children {
+			MaterialLayout.alignToParentVertically(view, child: v, top: 100, bottom: 100)
+		}
+		
+		// Print out the dimensions of the labels.
+		for v in children {
+			v.layoutIfNeeded()
+			print(v.frame)
+		}
+	}
+	
+	/**
+	:name:	prepareAlignToParentVerticallyExample
+	:description:	Laying out views vertically with equal height.
+	*/
+	private func prepareAlignToParentVerticallyExample() {
+		let label1: UILabel = UILabel()
+		label1.translatesAutoresizingMaskIntoConstraints = false
+		label1.backgroundColor = MaterialColor.red.base
+		label1.text = "A"
+		label1.textAlignment = .Center
+		view.addSubview(label1)
+		
+		let label2: UILabel = UILabel()
+		label2.translatesAutoresizingMaskIntoConstraints = false
+		label2.backgroundColor = MaterialColor.green.base
+		label2.text = "B"
+		label2.textAlignment = .Center
+		view.addSubview(label2)
+		
+		let label3: UILabel = UILabel()
+		label3.translatesAutoresizingMaskIntoConstraints = false
+		label3.backgroundColor = MaterialColor.blue.base
+		label3.text = "C"
+		label3.textAlignment = .Center
+		view.addSubview(label3)
+		
+		let label4: UILabel = UILabel()
+		label4.translatesAutoresizingMaskIntoConstraints = false
+		label4.backgroundColor = MaterialColor.yellow.base
+		label4.text = "D"
+		label4.textAlignment = .Center
+		view.addSubview(label4)
+		
+		let children: Array<UIView> = [label1, label2, label3, label4]
+		
+		// Align the labels vertically with an equal height.
+		MaterialLayout.alignToParentVertically(view, children: children, top: 100, bottom: 100, spacing: 100)
+		
+		// Individually set the labels' horizontal alignment.
+		// If this is left out, the intrinsic value is used for the view.
+		for v in children {
+			MaterialLayout.alignToParentHorizontally(view, child: v, left: 100, right: 100)
+		}
+		
+		// Print out the dimensions of the labels.
+		for v in children {
+			v.layoutIfNeeded()
+			print(v.frame)
+		}
 	}
 }
 

@@ -45,39 +45,39 @@ public struct MaterialLayout {
 		MaterialLayout.height(parent, child: child, height: height)
 	}
 	
-//	/**
-//	:name:	alignChildrenToParentHorizontally
-//	*/
-//	public static func alignChildrenToParentHorizontally(parent: UIView, children: Array<UIView>, left: CGFloat = 0, right: CGFloat = 0, minimumInteritemSpacing: CGFloat = 0, options: NSLayoutFormatOptions = []) {
-//		if 0 < children.count {
-//			var format: String = "H:"
-//			var i: Int = 1
-//			var views: Dictionary<String, UIView> = Dictionary<String, UIView>()
-//			for v in children {
-//				let k: String = "view\(i++)"
-//				views[k] = v
-//				format += i > children.count ? "[\(k)]" : "[\(k)]"
-//			}
-//			print(format)
-//			parent.addConstraints(constraint(format, options: options, metrics: ["left" : left, "right": right, "minimumInteritemSpacing": minimumInteritemSpacing], views: views))
-//		}
-//	}
-//	
-//	/**
-//	:name:	alignChildrenToParentVertically
-//	*/
-//	public static func alignChildrenToParentVertically(parent: UIView, children: Array<UIView>, top: CGFloat = 0, bottom: CGFloat = 0, minimumLineSpacing: CGFloat = 0, options: NSLayoutFormatOptions = []) {
-//		if 0 < children.count {
-//			var format: String = "V:|-(left)-"
-//			var i: Int = 1
-//			var views: Dictionary<String, UIView> = Dictionary<String, UIView>()
-//			for v in children {
-//				views["view\(i++)"] = v
-//				format += i == children.count ? "[view\(i++)]-(right)-|" : "[view\(i++)]-(>=minimumLineSpacing)-"
-//			}
-//			parent.addConstraints(constraint(format, options: options, metrics: ["top" : top, "bottom": bottom, "minimumLineSpacing": minimumLineSpacing], views: views))
-//		}
-//	}
+	/**
+	:name:	alignToParentHorizontally
+	*/
+	public static func alignToParentHorizontally(parent: UIView, children: Array<UIView>, left: CGFloat = 0, right: CGFloat = 0, spacing: CGFloat = 0, options: NSLayoutFormatOptions = []) {
+		if 0 < children.count {
+			var format: String = "H:|-(left)-"
+			var i: Int = 1
+			var views: Dictionary<String, UIView> = Dictionary<String, UIView>()
+			for v in children {
+				let k: String = "view\(i++)"
+				views[k] = v
+				format += i > children.count ? "[\(k)(==view1)]-(right)-|" : "[\(k)(==view1)]-(spacing)-"
+			}
+			parent.addConstraints(constraint(format, options: options, metrics: ["left" : left, "right": right, "spacing": spacing], views: views))
+		}
+	}
+	
+	/**
+	:name:	alignToParentVertically
+	*/
+	public static func alignToParentVertically(parent: UIView, children: Array<UIView>, top: CGFloat = 0, bottom: CGFloat = 0, spacing: CGFloat = 0, options: NSLayoutFormatOptions = []) {
+		if 0 < children.count {
+			var format: String = "V:|-(top)-"
+			var i: Int = 1
+			var views: Dictionary<String, UIView> = Dictionary<String, UIView>()
+			for v in children {
+				let k: String = "view\(i++)"
+				views[k] = v
+				format += i > children.count ? "[\(k)(==view1)]-(bottom)-|" : "[\(k)(==view1)]-(spacing)-"
+			}
+			parent.addConstraints(constraint(format, options: options, metrics: ["top" : top, "bottom": bottom, "spacing": spacing], views: views))
+		}
+	}
 	
 	/**
 	:name:	alignToParentHorizontally

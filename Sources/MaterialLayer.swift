@@ -225,9 +225,9 @@ public class MaterialLayer : CAShapeLayer {
 	}
 	
 	/**
-	:name:	animation
+	:name:	animate
 	*/
-	public func animation(animation: CAAnimation) {
+	public func animate(animation: CAAnimation) {
 		animation.delegate = self
 		if let a: CABasicAnimation = animation as? CABasicAnimation {
 			a.fromValue = valueForKeyPath(a.keyPath!)
