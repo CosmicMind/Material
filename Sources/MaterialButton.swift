@@ -21,27 +21,27 @@ import UIKit
 @objc(MaterialButton)
 public class MaterialButton : UIButton {
 	/**
-		:name:	visualLayer
+	:name:	visualLayer
 	*/
 	public private(set) lazy var visualLayer: CAShapeLayer = CAShapeLayer()
 	
 	/**
-		:name:	pulseLayer
+	:name:	pulseLayer
 	*/
 	public private(set) lazy var pulseLayer: CAShapeLayer = CAShapeLayer()
 	
 	/**
-		:name:	delegate
+	:name:	delegate
 	*/
 	public weak var delegate: MaterialDelegate?
 	
 	/**
-		:name:	pulseScale
+	:name:	pulseScale
 	*/
 	public lazy var pulseScale: Bool = true
 	
 	/**
-		:name:	spotlight
+	:name:	spotlight
 	*/
 	public var spotlight: Bool = false {
 		didSet {
@@ -52,7 +52,7 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
-		:name:	pulseFill
+	:name:	pulseFill
 	*/
 	public var pulseFill: Bool = false {
 		didSet {
@@ -63,7 +63,7 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
-		:name:	pulseColorOpacity
+	:name:	pulseColorOpacity
 	*/
 	public var pulseColorOpacity: CGFloat = MaterialTheme.pulseView.pulseColorOpacity {
 		didSet {
@@ -72,7 +72,7 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
-		:name:	pulseColor
+	:name:	pulseColor
 	*/
 	public var pulseColor: UIColor? {
 		didSet {
@@ -81,7 +81,7 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
-		:name:	masksToBounds
+	:name:	masksToBounds
 	*/
 	public var masksToBounds: Bool {
 		get {
@@ -93,7 +93,7 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
-		:name:	backgroundColor
+	:name:	backgroundColor
 	*/
 	public override var backgroundColor: UIColor? {
 		didSet {
@@ -102,7 +102,7 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
-		:name:	x
+	:name:	x
 	*/
 	public var x: CGFloat {
 		get {
@@ -114,7 +114,7 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
-		:name:	y
+	:name:	y
 	*/
 	public var y: CGFloat {
 		get {
@@ -126,7 +126,7 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
-		:name:	width
+	:name:	width
 	*/
 	public var width: CGFloat {
 		get {
@@ -141,7 +141,7 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
-		:name:	height
+	:name:	height
 	*/
 	public var height: CGFloat {
 		get {
@@ -156,7 +156,7 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
-		:name:	shadowColor
+	:name:	shadowColor
 	*/
 	public var shadowColor: UIColor? {
 		didSet {
@@ -165,7 +165,7 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
-		:name:	shadowOffset
+	:name:	shadowOffset
 	*/
 	public var shadowOffset: CGSize {
 		get {
@@ -177,7 +177,7 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
-		:name:	shadowOpacity
+	:name:	shadowOpacity
 	*/
 	public var shadowOpacity: Float {
 		get {
@@ -189,7 +189,7 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
-		:name:	shadowRadius
+	:name:	shadowRadius
 	*/
 	public var shadowRadius: CGFloat {
 		get {
@@ -201,7 +201,7 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
-		:name:	shadowDepth
+	:name:	shadowDepth
 	*/
 	public var shadowDepth: MaterialDepth {
 		didSet {
@@ -213,7 +213,7 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
-		:name:	cornerRadius
+	:name:	cornerRadius
 	*/
 	public var cornerRadius: MaterialRadius? {
 		didSet {
@@ -227,7 +227,7 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
-		:name:	shape
+	:name:	shape
 	*/
 	public var shape: MaterialShape {
 		didSet {
@@ -242,7 +242,7 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
-		:name:	borderWidth
+	:name:	borderWidth
 	*/
 	public var borderWidth: MaterialBorder {
 		didSet {
@@ -251,7 +251,7 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
-		:name:	borderColor
+	:name:	borderColor
 	*/
 	public var borderColor: UIColor? {
 		didSet {
@@ -260,7 +260,7 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
-		:name:	position
+	:name:	position
 	*/
 	public var position: CGPoint {
 		get {
@@ -272,7 +272,7 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
-		:name:	zPosition
+	:name:	zPosition
 	*/
 	public var zPosition: CGFloat {
 		get {
@@ -284,7 +284,7 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
-		:name:	contentInsets
+	:name:	contentInsets
 	*/
 	public var contentInsets: MaterialEdgeInsets {
 		didSet {
@@ -294,7 +294,7 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
-		:name:	init
+	:name:	init
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		borderWidth = .None
@@ -306,7 +306,7 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
-		:name:	init
+	:name:	init
 	*/
 	public override init(frame: CGRect) {
 		borderWidth = .None
@@ -317,14 +317,14 @@ public class MaterialButton : UIButton {
 		prepareView()
 	}
 	/**
-		:name:	init
+	:name:	init
 	*/
 	public convenience init() {
 		self.init(frame: CGRectNull)
 	}
 	
 	/**
-		:name:	layoutSublayersOfLayer
+	:name:	layoutSublayersOfLayer
 	*/
 	public override func layoutSublayersOfLayer(layer: CALayer) {
 		super.layoutSublayersOfLayer(layer)
@@ -335,7 +335,7 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
-		:name:	animation
+	:name:	animation
 	*/
 	public func animation(animation: CAAnimation) {
 		animation.delegate = self
@@ -352,14 +352,14 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
-		:name:	animationDidStart
+	:name:	animationDidStart
 	*/
 	public override func animationDidStart(anim: CAAnimation) {
 		(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStart?(anim)
 	}
 	
 	/**
-		:name:	animationDidStop
+	:name:	animationDidStop
 	*/
 	public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
 		if let a: CAPropertyAnimation = anim as? CAPropertyAnimation {
@@ -379,7 +379,7 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
-		:name:	touchesBegan
+	:name:	touchesBegan
 	*/
 	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesBegan(touches, withEvent: event)
@@ -409,7 +409,7 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
-		:name:	touchesMoved
+	:name:	touchesMoved
 	*/
 	public override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesMoved(touches, withEvent: event)
@@ -424,7 +424,7 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
-		:name:	touchesEnded
+	:name:	touchesEnded
 	*/
 	public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesEnded(touches, withEvent: event)
@@ -432,7 +432,7 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
-		:name:	touchesCancelled
+	:name:	touchesCancelled
 	*/
 	public override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
 		super.touchesCancelled(touches, withEvent: event)
@@ -440,66 +440,66 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
-		:name:	actionForLayer
+	:name:	actionForLayer
 	*/
 	public override func actionForLayer(layer: CALayer, forKey event: String) -> CAAction? {
 		return nil // returning nil enables the animations for the layer property that are normally disabled.
 	}
 	
-	//
-	//	:name:	prepareView
-	//
+	/**
+	:name:	prepareView
+	*/
 	internal func prepareView() {
 		prepareVisualLayer()
 		preparePulseLayer()
 	}
 	
-	//
-	//	:name:	prepareVisualLayer
-	//
+	/**
+	:name:	prepareVisualLayer
+	*/
 	internal func prepareVisualLayer() {
 		visualLayer.zPosition = 0
 		visualLayer.masksToBounds = true
 		layer.addSublayer(visualLayer)
 	}
 	
-	//
-	//	:name:	layoutVisualLayer
-	//
+	/**
+	:name:	layoutVisualLayer
+	*/
 	internal func layoutVisualLayer() {
 		visualLayer.frame = bounds
 		visualLayer.position = CGPointMake(width / 2, height / 2)
 		visualLayer.cornerRadius = layer.cornerRadius
 	}
 	
-	//
-	//	:name:	layoutShape
-	//
+	/**
+	:name:	layoutShape
+	*/
 	internal func layoutShape() {
 		if .Circle == shape {
 			layer.cornerRadius = width / 2
 		}
 	}
 	
-	//
-	//	:name:	preparePulseLayer
-	//
+	/**
+	:name:	preparePulseLayer
+	*/
 	internal func preparePulseLayer() {
 		pulseLayer.hidden = true
 		pulseLayer.zPosition = 1
 		visualLayer.addSublayer(pulseLayer)
 	}
 	
-	//
-	//	:name:	updatePulseLayer
-	//
+	/**
+	:name:	updatePulseLayer
+	*/
 	internal func updatePulseLayer() {
 		pulseLayer.backgroundColor = pulseColor?.colorWithAlphaComponent(pulseColorOpacity).CGColor
 	}
 	
-	//
-	//	:name:	shrink
-	//
+	/**
+	:name:	shrink
+	*/
 	internal func shrink() {
 		let t: CFTimeInterval = 0.25
 		let s: CGFloat = 1

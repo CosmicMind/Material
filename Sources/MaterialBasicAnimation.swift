@@ -20,7 +20,7 @@ import UIKit
 
 public extension MaterialAnimation {
 	/**
-		:name:	backgroundColor
+	:name:	backgroundColor
 	*/
 	public static func backgroundColor(color: UIColor, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation: CABasicAnimation = CABasicAnimation()
@@ -36,7 +36,7 @@ public extension MaterialAnimation {
 	}
 	
 	/**
-		:name:	cornerRadius
+	:name:	cornerRadius
 	*/
 	public static func cornerRadius(radius: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation: CABasicAnimation = CABasicAnimation()
@@ -52,7 +52,7 @@ public extension MaterialAnimation {
 	}
 	
 	/**
-		:name:	translation
+	:name:	translation
 	*/
 	public static func transform(transform: CATransform3D, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation: CABasicAnimation = CABasicAnimation()
@@ -68,7 +68,7 @@ public extension MaterialAnimation {
 	}
 	
 	/**
-		:name:	rotation
+	:name:	rotation
 	*/
 	public static func rotation(rotations: Double = 1, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation: CABasicAnimation = CABasicAnimation()
@@ -84,7 +84,7 @@ public extension MaterialAnimation {
 	}
 	
 	/**
-		:name:	rotationX
+	:name:	rotationX
 	*/
 	public static func rotationX(rotations: Double = 1, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation: CABasicAnimation = CABasicAnimation()
@@ -100,7 +100,7 @@ public extension MaterialAnimation {
 	}
 	
 	/**
-		:name:	rotationY
+	:name:	rotationY
 	*/
 	public static func rotationY(rotations: Double = 1, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation: CABasicAnimation = CABasicAnimation()
@@ -116,7 +116,7 @@ public extension MaterialAnimation {
 	}
 	
 	/**
-		:name:	rotationZ
+	:name:	rotationZ
 	*/
 	public static func rotationZ(rotations: Double = 1, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation: CABasicAnimation = CABasicAnimation()
@@ -132,7 +132,7 @@ public extension MaterialAnimation {
 	}
 
 	/**
-		:name:	scale
+	:name:	scale
 	*/
 	public static func scale(scale: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation: CABasicAnimation = CABasicAnimation()
@@ -148,7 +148,7 @@ public extension MaterialAnimation {
 	}
 	
 	/**
-		:name:	scaleX
+	:name:	scaleX
 	*/
 	public static func scaleX(scale: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation: CABasicAnimation = CABasicAnimation()
@@ -164,7 +164,7 @@ public extension MaterialAnimation {
 	}
 	
 	/**
-		:name:	scaleY
+	:name:	scaleY
 	*/
 	public static func scaleY(scale: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation: CABasicAnimation = CABasicAnimation()
@@ -180,7 +180,7 @@ public extension MaterialAnimation {
 	}
 	
 	/**
-		:name:	scaleZ
+	:name:	scaleZ
 	*/
 	public static func scaleZ(scale: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation: CABasicAnimation = CABasicAnimation()
@@ -196,7 +196,7 @@ public extension MaterialAnimation {
 	}
 	
 	/**
-		:name:	translation
+	:name:	translation
 	*/
 	public static func translation(translation: CGSize, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation: CABasicAnimation = CABasicAnimation()
@@ -212,7 +212,7 @@ public extension MaterialAnimation {
 	}
 	
 	/**
-		:name:	translationX
+	:name:	translationX
 	*/
 	public static func translationX(translation: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation: CABasicAnimation = CABasicAnimation()
@@ -228,7 +228,7 @@ public extension MaterialAnimation {
 	}
 	
 	/**
-		:name:	translationY
+	:name:	translationY
 	*/
 	public static func translationY(translation: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation: CABasicAnimation = CABasicAnimation()
@@ -244,7 +244,7 @@ public extension MaterialAnimation {
 	}
 	
 	/**
-		:name:	translationZ
+	:name:	translationZ
 	*/
 	public static func translationZ(translation: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation: CABasicAnimation = CABasicAnimation()
@@ -260,7 +260,7 @@ public extension MaterialAnimation {
 	}
 	
 	/**
-		:name:	position
+	:name:	position
 	*/
 	public static func position(point: CGPoint, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation: CABasicAnimation = CABasicAnimation()

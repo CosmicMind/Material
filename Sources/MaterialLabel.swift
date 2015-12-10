@@ -20,21 +20,21 @@ import UIKit
 
 public class MaterialLabel : UILabel {
 	/**
-		:name:	layerClass
+	:name:	layerClass
 	*/
 	public override class func layerClass() -> AnyClass {
 		return MaterialTextLayer.self
 	}
 	
 	/**
-		:name:	textLayer
+	:name:	textLayer
 	*/
 	public var textLayer: MaterialTextLayer {
 		return layer as! MaterialTextLayer
 	}
 	
 	/**
-		:name:	text
+	:name:	text
 	*/
 	public override var text: String? {
 		didSet {
@@ -43,7 +43,7 @@ public class MaterialLabel : UILabel {
 	}
 	
 	/**
-		:name:	textColor
+	:name:	textColor
 	*/
 	public override var textColor: UIColor? {
 		didSet {
@@ -52,7 +52,7 @@ public class MaterialLabel : UILabel {
 	}
 	
 	/**
-		:name:	font
+	:name:	font
 	*/
 	public override var font: UIFont! {
 		didSet {
@@ -61,7 +61,7 @@ public class MaterialLabel : UILabel {
 	}
 	
 	/**
-		:name:	textAlignment
+	:name:	textAlignment
 	*/
 	public override var textAlignment: NSTextAlignment {
 		didSet {
@@ -70,7 +70,7 @@ public class MaterialLabel : UILabel {
 	}
 	
 	/**
-		:name:	wrapped
+	:name:	wrapped
 	*/
 	public var wrapped: Bool! {
 		didSet {
@@ -79,7 +79,7 @@ public class MaterialLabel : UILabel {
 	}
 	
 	/**
-		:name:	contentsScale
+	:name:	contentsScale
 	*/
 	public var contentsScale: CGFloat! {
 		didSet {
@@ -88,7 +88,7 @@ public class MaterialLabel : UILabel {
 	}
 	
 	/**
-		:name:	lineBreakMode
+	:name:	lineBreakMode
 	*/
 	public override var lineBreakMode: NSLineBreakMode {
 		didSet {
@@ -97,14 +97,14 @@ public class MaterialLabel : UILabel {
 	}
 	
 	/**
-		:name:	init
+	:name:	init
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
 	
 	/**
-		:name:	init
+	:name:	init
 	*/
 	public override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -112,7 +112,7 @@ public class MaterialLabel : UILabel {
 	}
 	
 	/**
-		:name:	init
+	:name:	init
 	*/
 	public convenience init() {
 		self.init(frame: CGRectNull)
@@ -120,15 +120,15 @@ public class MaterialLabel : UILabel {
 	}
 	
 	/**
-		:name:	stringSize
+	:name:	stringSize
 	*/
 	public func stringSize(constrainedToWidth width: Double) -> CGSize {
 		return textLayer.stringSize(constrainedToWidth: width)
 	}
 	
-	//
-	//	:name:	prepareView
-	//
+	/**
+	:name:	prepareView
+	*/
 	internal func prepareView() {
 		textAlignment = MaterialTheme.label.textAlignment
 		wrapped = MaterialTheme.label.wrapped

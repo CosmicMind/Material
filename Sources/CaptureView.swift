@@ -20,22 +20,22 @@ import UIKit
 
 public class CaptureView : MaterialView, CaptureSessionDelegate, CapturePreviewViewDelegate {
 	/**
-		:name:	previewView
+	:name:	previewView
 	*/
 	public private(set) lazy var previewView: CapturePreviewView = CapturePreviewView()
 	
 	/**
-		:name:	focusLayer
+	:name:	focusLayer
 	*/
 	public private(set) lazy var focusLayer: MaterialLayer = MaterialLayer()
 	
 	/**
-		:name:	exposureLayer
+	:name:	exposureLayer
 	*/
 	public private(set) lazy var exposureLayer: MaterialLayer = MaterialLayer()
 	
 	/**
-		:name:	switchCamerasButton
+	:name:	switchCamerasButton
 	*/
 	public var switchCamerasButton: MaterialButton? {
 		didSet {
@@ -47,7 +47,7 @@ public class CaptureView : MaterialView, CaptureSessionDelegate, CapturePreviewV
 	}
 	
 	/**
-		:name:	switchCamerasButtonSize
+	:name:	switchCamerasButtonSize
 	*/
 	public var switchCamerasButtonSize: CGSize = CGSizeMake(48, 48) {
 		didSet {
@@ -56,7 +56,7 @@ public class CaptureView : MaterialView, CaptureSessionDelegate, CapturePreviewV
 	}
 	
 	/**
-		:name:	contentInsets
+	:name:	contentInsets
 	*/
 	public var contentInsets: MaterialEdgeInsets = .None {
 		didSet {
@@ -65,7 +65,7 @@ public class CaptureView : MaterialView, CaptureSessionDelegate, CapturePreviewV
 	}
 	
 	/**
-		:name:	contentInsetsRef
+	:name:	contentInsetsRef
 	*/
 	public var contentInsetsRef: UIEdgeInsets = MaterialTheme.basicCaptureView.contentInsetsRef {
 		didSet {
@@ -74,14 +74,14 @@ public class CaptureView : MaterialView, CaptureSessionDelegate, CapturePreviewV
 	}
 	
 	/**
-		:name:	init
+	:name:	init
 	*/
 	public convenience init() {
 		self.init(frame: CGRectNull)
 	}
 	
 	/**
-		:name:	layoutSublayersOfLayer
+	:name:	layoutSublayersOfLayer
 	*/
 	public override func layoutSublayersOfLayer(layer: CALayer) {
 		super.layoutSublayersOfLayer(layer)
@@ -91,7 +91,7 @@ public class CaptureView : MaterialView, CaptureSessionDelegate, CapturePreviewV
 	}
 	
 	/**
-		:name:	reloadView
+	:name:	reloadView
 	*/
 	public func reloadView() {
 		// clear constraints so new ones do not conflict
@@ -121,14 +121,14 @@ public class CaptureView : MaterialView, CaptureSessionDelegate, CapturePreviewV
 	}
 	
 	/**
-		:name:	captureSessionFailedWithError
+	:name:	captureSessionFailedWithError
 	*/
 	public func captureSessionFailedWithError(capture: CaptureSession, error: NSError) {
 		print(error)
 	}
 	
 	/**
-		:name:	capturePreviewViewDidTapToFocusAtPoint
+	:name:	capturePreviewViewDidTapToFocusAtPoint
 	*/
 	public func capturePreviewViewDidTapToFocusAtPoint(capturePreviewView: CapturePreviewView, point: CGPoint) {
 		MaterialAnimation.animationDisabled {
@@ -146,7 +146,7 @@ public class CaptureView : MaterialView, CaptureSessionDelegate, CapturePreviewV
 	}
 	
 	/**
-		:name:	capturePreviewViewDidTapToExposeAtPoint
+	:name:	capturePreviewViewDidTapToExposeAtPoint
 	*/
 	public func capturePreviewViewDidTapToExposeAtPoint(capturePreviewView: CapturePreviewView, point: CGPoint) {
 		MaterialAnimation.animationDisabled {
@@ -163,9 +163,9 @@ public class CaptureView : MaterialView, CaptureSessionDelegate, CapturePreviewV
 		}
 	}
 	
-	//
-	//	:name:	prepareView
-	//
+	/**
+	:name:	prepareView
+	*/
 	internal override func prepareView() {
 		super.prepareView()
 		preparePreviewView()
@@ -174,16 +174,16 @@ public class CaptureView : MaterialView, CaptureSessionDelegate, CapturePreviewV
 		reloadView()
 	}
 	
-	//
-	//	:name:	handleSwitchCameras
-	//
+	/**
+	:name:	handleSwitchCameras
+	*/
 	internal func handleSwitchCameras() {
 		previewView.captureSession.switchCameras()
 	}
 	
-	//
-	//	:name:	preparePreviewView
-	//
+	/**
+	:name:	preparePreviewView
+	*/
 	private func preparePreviewView() {
 		previewView.translatesAutoresizingMaskIntoConstraints = false
 		previewView.captureSession.delegate = self
@@ -191,9 +191,9 @@ public class CaptureView : MaterialView, CaptureSessionDelegate, CapturePreviewV
 		previewView.captureSession.startSession()
 	}
 	
-	//
-	//	:name:	prepareFocusLayer
-	//
+	/**
+	:name:	prepareFocusLayer
+	*/
 	private func prepareFocusLayer() {
 		focusLayer.hidden = true
 		focusLayer.backgroundColor = MaterialColor.blue.base.colorWithAlphaComponent(0.25).CGColor
@@ -202,9 +202,9 @@ public class CaptureView : MaterialView, CaptureSessionDelegate, CapturePreviewV
 		previewView.layer.addSublayer(focusLayer)
 	}
 	
-	//
-	//	:name:	prepareExposureLayer
-	//
+	/**
+	:name:	prepareExposureLayer
+	*/
 	private func prepareExposureLayer() {
 		exposureLayer.hidden = true
 		exposureLayer.backgroundColor = MaterialColor.red.base.colorWithAlphaComponent(0.25).CGColor

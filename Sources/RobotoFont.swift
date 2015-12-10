@@ -20,21 +20,21 @@ import UIKit
 
 public struct RobotoFont : MaterialFontType {
 	/**
-		:name:	pointSize
+	:name:	pointSize
 	*/
 	public static var pointSize: CGFloat {
 		return MaterialFont.pointSize
 	}
 
 	/**
-		:name:	thin
+	:name:	thin
 	*/
 	public static var thin: UIFont {
 		return thinWithSize(MaterialFont.pointSize)
 	}
 	
 	/**
-		:name:	thinWithSize
+	:name:	thinWithSize
 	*/
 	public static func thinWithSize(size: CGFloat) -> UIFont {
 		if let f = UIFont(name: "Roboto-Thin", size: size) {
@@ -44,14 +44,14 @@ public struct RobotoFont : MaterialFontType {
 	}
 	
 	/**
-		:name:	light
+	:name:	light
 	*/
 	public static var light: UIFont {
 		return lightWithSize(MaterialFont.pointSize)
 	}
 	
 	/**
-		:name:	lightWithSize
+	:name:	lightWithSize
 	*/
 	public static func lightWithSize(size: CGFloat) -> UIFont {
 		if let f = UIFont(name: "Roboto-Light", size: size) {
@@ -61,14 +61,14 @@ public struct RobotoFont : MaterialFontType {
 	}
 	
 	/**
-		:name:	regular
+	:name:	regular
 	*/
 	public static var regular: UIFont {
 		return regularWithSize(MaterialFont.pointSize)
 	}
 	
 	/**
-		:name:	regularWithSize
+	:name:	regularWithSize
 	*/
 	public static func regularWithSize(size: CGFloat) -> UIFont {
 		if let f = UIFont(name: "Roboto-Regular", size: size) {
@@ -78,7 +78,7 @@ public struct RobotoFont : MaterialFontType {
 	}
 	
 	/**
-		:name:	mediumWithSize
+	:name:	mediumWithSize
 	*/
 	public static func mediumWithSize(size: CGFloat) -> UIFont {
 		if let f = UIFont(name: "Roboto-Medium", size: size) {
@@ -88,21 +88,21 @@ public struct RobotoFont : MaterialFontType {
 	}
 	
 	/**
-		:name:	medium
+	:name:	medium
 	*/
 	public static var medium: UIFont {
 		return mediumWithSize(MaterialFont.pointSize)
 	}
 	
 	/**
-		:name:	bold
+	:name:	bold
 	*/
 	public static var bold: UIFont {
 		return boldWithSize(MaterialFont.pointSize)
 	}
 	
 	/**
-		:name:	boldWithSize
+	:name:	boldWithSize
 	*/
 	public static func boldWithSize(size: CGFloat) -> UIFont {
 		if let f = UIFont(name: "Roboto-Bold", size: size) {

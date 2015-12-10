@@ -24,12 +24,12 @@ public protocol MaterialDelegate {}
 @objc(MaterialLayer)
 public class MaterialLayer : CAShapeLayer {
 	/**
-		:name:	visualLayer
+	:name:	visualLayer
 	*/
 	public private(set) lazy var visualLayer: CAShapeLayer = CAShapeLayer()
 
 	/**
-		:name:	x
+	:name:	x
 	*/
 	public var x: CGFloat {
 		get {
@@ -41,7 +41,7 @@ public class MaterialLayer : CAShapeLayer {
 	}
 	
 	/**
-		:name:	y
+	:name:	y
 	*/
 	public var y: CGFloat {
 		get {
@@ -53,7 +53,7 @@ public class MaterialLayer : CAShapeLayer {
 	}
 	
 	/**
-		:name:	width
+	:name:	width
 	*/
 	public var width: CGFloat {
 		get {
@@ -68,7 +68,7 @@ public class MaterialLayer : CAShapeLayer {
 	}
 	
 	/**
-		:name:	height
+	:name:	height
 	*/
 	public var height: CGFloat {
 		get {
@@ -83,7 +83,7 @@ public class MaterialLayer : CAShapeLayer {
 	}
 	
 	/**
-		:name:	image
+	:name:	image
 	*/
 	public var image: UIImage? {
 		get {
@@ -95,7 +95,7 @@ public class MaterialLayer : CAShapeLayer {
 	}
 	
 	/**
-		:name:	contentsRect
+	:name:	contentsRect
 	*/
 	public override var contentsRect: CGRect {
 		get {
@@ -107,7 +107,7 @@ public class MaterialLayer : CAShapeLayer {
 	}
 	
 	/**
-		:name:	contentsCenter
+	:name:	contentsCenter
 	*/
 	public override var contentsCenter: CGRect {
 		get {
@@ -119,7 +119,7 @@ public class MaterialLayer : CAShapeLayer {
 	}
 	
 	/**
-		:name:	contentsScale
+	:name:	contentsScale
 	*/
 	public override var contentsScale: CGFloat {
 		get {
@@ -131,7 +131,7 @@ public class MaterialLayer : CAShapeLayer {
 	}
 	
 	/**
-		:name:	contentsGravity
+	:name:	contentsGravity
 	*/
 	public override var contentsGravity: String {
 		get {
@@ -143,7 +143,7 @@ public class MaterialLayer : CAShapeLayer {
 	}
 	
 	/**
-		:name:	shadowDepth
+	:name:	shadowDepth
 	*/
 	public var shadowDepth: MaterialDepth {
 		didSet {
@@ -155,7 +155,7 @@ public class MaterialLayer : CAShapeLayer {
 	}
 	
 	/**
-		:name:	cornerRadius
+	:name:	cornerRadius
 	*/
 	public override var cornerRadius: CGFloat {
 		didSet {
@@ -166,7 +166,7 @@ public class MaterialLayer : CAShapeLayer {
 	}
 	
 	/**
-		:name:	shape
+	:name:	shape
 	*/
 	public var shape: MaterialShape {
 		didSet {
@@ -181,7 +181,7 @@ public class MaterialLayer : CAShapeLayer {
 	}
 	
 	/**
-		:name: init
+	:name: init
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		shape = .None
@@ -191,7 +191,7 @@ public class MaterialLayer : CAShapeLayer {
 	}
 	
 	/**
-		:name: init
+	:name: init
 	*/
 	public override init(layer: AnyObject) {
 		shape = .None
@@ -201,7 +201,7 @@ public class MaterialLayer : CAShapeLayer {
 	}
 	
 	/**
-		:name: init
+	:name: init
 	*/
 	public override init() {
 		shape = .None
@@ -211,7 +211,7 @@ public class MaterialLayer : CAShapeLayer {
 	}
 	
 	/**
-		:name: init
+	:name: init
 	*/
 	public convenience init(frame: CGRect) {
 		self.init()
@@ -225,7 +225,7 @@ public class MaterialLayer : CAShapeLayer {
 	}
 	
 	/**
-		:name:	animation
+	:name:	animation
 	*/
 	public func animation(animation: CAAnimation) {
 		animation.delegate = self
@@ -242,14 +242,14 @@ public class MaterialLayer : CAShapeLayer {
 	}
 	
 	/**
-		:name:	animationDidStart
+	:name:	animationDidStart
 	*/
 	public override func animationDidStart(anim: CAAnimation) {
 		(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStart?(anim)
 	}
 	
 	/**
-		:name:	animationDidStop
+	:name:	animationDidStop
 	*/
 	public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
 		if let a: CAPropertyAnimation = anim as? CAPropertyAnimation {
@@ -269,7 +269,7 @@ public class MaterialLayer : CAShapeLayer {
 	}
 	
 	/**
-		:name:	prepareVisualLayer
+	:name:	prepareVisualLayer
 	*/
 	public func prepareVisualLayer() {
 		// visualLayer
@@ -278,18 +278,18 @@ public class MaterialLayer : CAShapeLayer {
 		addSublayer(visualLayer)
 	}
 	
-	//
-	//	:name:	layoutShape
-	//
+	/**
+	:name:	layoutShape
+	*/
 	internal func layoutShape() {
 		if .Circle == shape {
 			cornerRadius = width / 2
 		}
 	}
 	
-	//
-	//	:name:	layoutVisualLayer
-	//
+	/**
+	:name:	layoutVisualLayer
+	*/
 	internal func layoutVisualLayer() {
 		visualLayer.frame = bounds
 		visualLayer.position = CGPointMake(width / 2, height / 2)

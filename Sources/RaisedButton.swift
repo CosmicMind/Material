@@ -19,9 +19,9 @@
 import UIKit
 
 public class RaisedButton : MaterialButton {
-	//
-	//	:name:	prepareView
-	//
+	/**
+	:name:	prepareView
+	*/
 	internal override func prepareView() {
 		super.prepareView()
 		setTitleColor(MaterialTheme.raisedButton.titleLabelColorForNormalState, forState: .Normal)

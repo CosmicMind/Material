@@ -69,7 +69,7 @@ public func MaterialAnimationTransitionSubTypeToValue(direction: MaterialAnimati
 
 public extension MaterialAnimation {
 	/**
-		:name: transition
+	:name: transition
 	*/
 	public static func transition(type: MaterialAnimationTransition, direction: MaterialAnimationTransitionSubType? = nil, duration: CFTimeInterval? = nil) -> CATransition {
 		let animation: CATransition = CATransition()

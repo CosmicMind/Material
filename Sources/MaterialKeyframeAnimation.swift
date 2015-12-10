@@ -42,7 +42,7 @@ public func MaterialAnimationRotationModeToValue(mode: MaterialAnimationRotation
 
 public extension MaterialAnimation {
 	/**
-		:name: path
+	:name: path
 	*/
 	public static func path(bezierPath: UIBezierPath, mode: MaterialAnimationRotationMode = .Auto, duration: CFTimeInterval? = nil) -> CAKeyframeAnimation {
 		let animation: CAKeyframeAnimation = CAKeyframeAnimation()

@@ -19,13 +19,13 @@
 import UIKit
 
 public class MaterialTextLayer : CATextLayer {
-	//
-	//	:name:	internalFont
-	//
+	/**
+	:name:	internalFont
+	*/
 	private var internalFont: UIFont?
 	
 	/**
-		:name:	font
+	:name:	font
 	*/
 	public override var font: AnyObject? {
 		get {
@@ -41,7 +41,7 @@ public class MaterialTextLayer : CATextLayer {
 	}
 	
 	/**
-		:name:	text
+	:name:	text
 	*/
 	public var text: String? {
 		didSet {
@@ -50,7 +50,7 @@ public class MaterialTextLayer : CATextLayer {
 	}
 	
 	/**
-		:name:	pointSize
+	:name:	pointSize
 	*/
 	public var pointSize: CGFloat = 10 {
 		didSet {
@@ -59,7 +59,7 @@ public class MaterialTextLayer : CATextLayer {
 	}
 	
 	/**
-		:name:	textColor
+	:name:	textColor
 	*/
 	public var textColor: UIColor? {
 		didSet {
@@ -68,7 +68,7 @@ public class MaterialTextLayer : CATextLayer {
 	}
 	
 	/**
-		:name:	textAlignment
+	:name:	textAlignment
 	*/
 	public var textAlignment: NSTextAlignment = .Left {
 		didSet {
@@ -88,7 +88,7 @@ public class MaterialTextLayer : CATextLayer {
 	}
 	
 	/**
-		:name:	lineBreakMode
+	:name:	lineBreakMode
 	*/
 	public var lineBreakMode: NSLineBreakMode = .ByWordWrapping {
 		didSet {
@@ -110,7 +110,7 @@ public class MaterialTextLayer : CATextLayer {
 	}
 	
 	/**
-		:name:	x
+	:name:	x
 	*/
 	public var x: CGFloat {
 		get {
@@ -122,7 +122,7 @@ public class MaterialTextLayer : CATextLayer {
 	}
 	
 	/**
-		:name:	y
+	:name:	y
 	*/
 	public var y: CGFloat {
 		get {
@@ -134,7 +134,7 @@ public class MaterialTextLayer : CATextLayer {
 	}
 	
 	/**
-		:name:	width
+	:name:	width
 	*/
 	public var width: CGFloat {
 		get {
@@ -146,7 +146,7 @@ public class MaterialTextLayer : CATextLayer {
 	}
 	
 	/**
-		:name:	height
+	:name:	height
 	*/
 	public var height: CGFloat {
 		get {
@@ -158,14 +158,14 @@ public class MaterialTextLayer : CATextLayer {
 	}
 	
 	/**
-		:name: init
+	:name: init
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
 	
 	/**
-		:name: init
+	:name: init
 	*/
 	public override init(layer: AnyObject) {
 		super.init(layer: layer)
@@ -173,7 +173,7 @@ public class MaterialTextLayer : CATextLayer {
 	}
 	
 	/**
-		:name: init
+	:name: init
 	*/
 	public override init() {
 		super.init()
@@ -181,7 +181,7 @@ public class MaterialTextLayer : CATextLayer {
 	}
 	
 	/**
-		:name:	stringSize
+	:name:	stringSize
 	*/
 	public func stringSize(constrainedToWidth width: Double) -> CGSize {
 		if let v: UIFont = internalFont {
@@ -192,9 +192,9 @@ public class MaterialTextLayer : CATextLayer {
 		return CGSizeZero
 	}
 	
-	//
-	//	:name:	prepareLayer
-	//
+	/**
+	:name:	prepareLayer
+	*/
 	internal func prepareLayer() {
 		textColor = MaterialTheme.textLayer.textColor
 		textAlignment = MaterialTheme.textLayer.textAlignment
@@ -204,4 +204,3 @@ public class MaterialTextLayer : CATextLayer {
 		lineBreakMode = MaterialTheme.textLayer.lineBreakMode
 	}
 }
-

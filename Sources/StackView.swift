@@ -21,7 +21,7 @@ import UIKit
 @available(iOS 9.0, *)
 public class StackView : UIStackView {
 	/**
-		:name:	init
+	:name:	init
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
@@ -29,7 +29,7 @@ public class StackView : UIStackView {
 	}
 	
 	/**
-		:name:	init
+	:name:	init
 	*/
 	public override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -37,15 +37,15 @@ public class StackView : UIStackView {
 	}
 	
 	/**
-		:name:	init
+	:name:	init
 	*/
 	public convenience init() {
 		self.init(frame: CGRectNull)
 	}
 	
-	//
-	//	:name:	prepareView
-	//
+	/**
+	:name:	prepareView
+	*/
 	private func prepareView() {
 	
 	}

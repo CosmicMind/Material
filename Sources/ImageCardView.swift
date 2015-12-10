@@ -19,14 +19,14 @@
 import UIKit
 
 public class ImageCardView : MaterialPulseView {
-	//
-	//	:name:	dividerLayer
-	//
+	/**
+	:name:	dividerLayer
+	*/
 	private var dividerLayer: CAShapeLayer?
 	
-	//
-	//	:name:	dividerColor
-	//
+	/**
+	:name:	dividerColor
+	*/
 	public var dividerColor: UIColor? {
 		didSet {
 			dividerLayer?.backgroundColor = dividerColor?.CGColor
@@ -34,7 +34,7 @@ public class ImageCardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	divider
+	:name:	divider
 	*/
 	public var divider: Bool = MaterialTheme.imageCardView.divider {
 		didSet {
@@ -43,7 +43,7 @@ public class ImageCardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	dividerInsets
+	:name:	dividerInsets
 	*/
 	public var dividerInsets: MaterialEdgeInsets = .None {
 		didSet {
@@ -52,7 +52,7 @@ public class ImageCardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	dividerInsetsRef
+	:name:	dividerInsetsRef
 	*/
 	public var dividerInsetsRef: UIEdgeInsets = MaterialTheme.imageCardView.dividerInsetsRef {
 		didSet {
@@ -61,12 +61,12 @@ public class ImageCardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	imageLayer
+	:name:	imageLayer
 	*/
 	public private(set) var imageLayer: CAShapeLayer?
 	
 	/**
-		:name:	image
+	:name:	image
 	*/
 	public override var image: UIImage? {
 		get {
@@ -94,7 +94,7 @@ public class ImageCardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	maxImageHeight
+	:name:	maxImageHeight
 	*/
 	public var maxImageHeight: CGFloat = 0 {
 		didSet {
@@ -111,7 +111,7 @@ public class ImageCardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	contentsRect
+	:name:	contentsRect
 	*/
 	public override var contentsRect: CGRect {
 		didSet {
@@ -121,7 +121,7 @@ public class ImageCardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	contentsCenter
+	:name:	contentsCenter
 	*/
 	public override var contentsCenter: CGRect {
 		didSet {
@@ -131,7 +131,7 @@ public class ImageCardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	contentsScale
+	:name:	contentsScale
 	*/
 	public override var contentsScale: CGFloat {
 		didSet {
@@ -141,7 +141,7 @@ public class ImageCardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	contentsGravity
+	:name:	contentsGravity
 	*/
 	public override var contentsGravity: MaterialGravity {
 		didSet {
@@ -151,7 +151,7 @@ public class ImageCardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	contentInsets
+	:name:	contentInsets
 	*/
 	public var contentInsets: MaterialEdgeInsets = .None {
 		didSet {
@@ -160,7 +160,7 @@ public class ImageCardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	contentInsetsRef
+	:name:	contentInsetsRef
 	*/
 	public var contentInsetsRef: UIEdgeInsets = MaterialTheme.imageCardView.contentInsetsRef {
 		didSet {
@@ -169,7 +169,7 @@ public class ImageCardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	titleLabelInsets
+	:name:	titleLabelInsets
 	*/
 	public var titleLabelInsets: MaterialEdgeInsets = .None {
 		didSet {
@@ -178,7 +178,7 @@ public class ImageCardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	titleLabelInsetsRef
+	:name:	titleLabelInsetsRef
 	*/
 	public var titleLabelInsetsRef: UIEdgeInsets = MaterialTheme.imageCardView.titleLabelInsetsRef {
 		didSet {
@@ -187,7 +187,7 @@ public class ImageCardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	titleLabel
+	:name:	titleLabel
 	*/
 	public var titleLabel: UILabel? {
 		didSet {
@@ -197,7 +197,7 @@ public class ImageCardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	detailLabelInsets
+	:name:	detailLabelInsets
 	*/
 	public var detailLabelInsets: MaterialEdgeInsets = .None {
 		didSet {
@@ -206,7 +206,7 @@ public class ImageCardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	detailLabelInsetsRef
+	:name:	detailLabelInsetsRef
 	*/
 	public var detailLabelInsetsRef: UIEdgeInsets = MaterialTheme.imageCardView.detailLabelInsetsRef {
 		didSet {
@@ -215,7 +215,7 @@ public class ImageCardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	detailLabel
+	:name:	detailLabel
 	*/
 	public var detailLabel: UILabel? {
 		didSet {
@@ -225,7 +225,7 @@ public class ImageCardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	leftButtonsInsets
+	:name:	leftButtonsInsets
 	*/
 	public var leftButtonsInsets: MaterialEdgeInsets = .None {
 		didSet {
@@ -234,7 +234,7 @@ public class ImageCardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	leftButtonsInsetsRef
+	:name:	leftButtonsInsetsRef
 	*/
 	public var leftButtonsInsetsRef: UIEdgeInsets = MaterialTheme.imageCardView.leftButtonsInsetsRef {
 		didSet {
@@ -243,7 +243,7 @@ public class ImageCardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	leftButtons
+	:name:	leftButtons
 	*/
 	public var leftButtons: Array<UIButton>? {
 		didSet {
@@ -257,7 +257,7 @@ public class ImageCardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	rightButtonsInsets
+	:name:	rightButtonsInsets
 	*/
 	public var rightButtonsInsets: MaterialEdgeInsets = .None {
 		didSet {
@@ -266,7 +266,7 @@ public class ImageCardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	rightButtonsInsetsRef
+	:name:	rightButtonsInsetsRef
 	*/
 	public var rightButtonsInsetsRef: UIEdgeInsets = MaterialTheme.imageCardView.rightButtonsInsetsRef {
 		didSet {
@@ -275,7 +275,7 @@ public class ImageCardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	rightButtons
+	:name:	rightButtons
 	*/
 	public var rightButtons: Array<UIButton>? {
 		didSet {
@@ -289,28 +289,28 @@ public class ImageCardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	init
+	:name:	init
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
 	
 	/**
-		:name:	init
+	:name:	init
 	*/
 	public override init(frame: CGRect) {
 		super.init(frame: frame)
 	}
 	
 	/**
-		:name:	init
+	:name:	init
 	*/
 	public convenience init() {
 		self.init(frame: CGRectNull)
 	}
 	
 	/**
-		:name:	init
+	:name:	init
 	*/
 	public convenience init?(image: UIImage? = nil, titleLabel: UILabel? = nil, detailLabel: UILabel? = nil, leftButtons: Array<UIButton>? = nil, rightButtons: Array<UIButton>? = nil) {
 		self.init(frame: CGRectNull)
@@ -318,7 +318,7 @@ public class ImageCardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	layoutSublayersOfLayer
+	:name:	layoutSublayersOfLayer
 	*/
 	public override func layoutSublayersOfLayer(layer: CALayer) {
 		super.layoutSublayersOfLayer(layer)
@@ -345,7 +345,7 @@ public class ImageCardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	reloadView
+	:name:	reloadView
 	*/
 	public func reloadView() {
 		// clear constraints so new ones do not conflict
@@ -526,9 +526,9 @@ public class ImageCardView : MaterialPulseView {
 		}
 	}
 	
-	//
-	//	:name:	prepareView
-	//
+	/**
+	:name:	prepareView
+	*/
 	internal override func prepareView() {
 		super.prepareView()
 		userInteractionEnabled = MaterialTheme.imageCardView.userInteractionEnabled
@@ -547,9 +547,9 @@ public class ImageCardView : MaterialPulseView {
 		dividerColor = MaterialTheme.imageCardView.dividerColor
 	}
 	
-	//
-	//	:name:	prepareImageLayer
-	//
+	/**
+	:name:	prepareImageLayer
+	*/
 	internal func prepareImageLayer() {
 		if nil == imageLayer {
 			imageLayer = CAShapeLayer()
@@ -559,9 +559,9 @@ public class ImageCardView : MaterialPulseView {
 		}
 	}
 	
-	//
-	//	:name:	prepareDivider
-	//
+	/**
+	:name:	prepareDivider
+	*/
 	internal func prepareDivider(y: CGFloat, width: CGFloat) {
 		if nil == dividerLayer {
 			dividerLayer = CAShapeLayer()
@@ -572,9 +572,9 @@ public class ImageCardView : MaterialPulseView {
 		dividerLayer?.frame = CGRectMake(dividerInsetsRef.left, y, width - dividerInsetsRef.left - dividerInsetsRef.right, 1)
 	}
 	
-	//
-	//	:name:	prepareProperties
-	//
+	/**
+	:name:	prepareProperties
+	*/
 	internal func prepareProperties(image: UIImage?, titleLabel: UILabel?, detailLabel: UILabel?, leftButtons: Array<UIButton>?, rightButtons: Array<UIButton>?) {
 		self.image = image
 		self.titleLabel = titleLabel

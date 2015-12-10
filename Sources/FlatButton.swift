@@ -19,9 +19,9 @@
 import UIKit
 
 public class FlatButton : MaterialButton {
-	//
-	//	:name:	prepareView
-	//
+	/**
+	:name:	prepareView
+	*/
 	internal override func prepareView() {
 		super.prepareView()
 		setTitleColor(MaterialTheme.flatButton.titleLabelColorForNormalState, forState: .Normal)

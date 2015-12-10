@@ -39,7 +39,7 @@ class ViewController: UIViewController {
 	}
 	
 	/**
-	:name:	prepareGeneralImageCardViewExample
+	:name:	prepareGeneralStackViewExample
 	:description:	General usage example.
 	*/
 	private func prepareGeneralStackViewExample() {

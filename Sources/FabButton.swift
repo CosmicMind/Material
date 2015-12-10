@@ -19,9 +19,9 @@
 import UIKit
 
 public class FabButton : MaterialButton {	
-	//
-	//	:name:	prepareView
-	//
+	/**
+	:name:	prepareView
+	*/
 	internal override func prepareView() {
 		super.prepareView()
 		setTitleColor(MaterialTheme.fabButton.titleLabelColorForNormalState, forState: .Normal)

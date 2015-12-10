@@ -20,7 +20,7 @@ import UIKit
 
 public class NavigationBarView : MaterialView {
 	/**
-		:name:	statusBarStyle
+	:name:	statusBarStyle
 	*/
 	public var statusBarStyle: UIStatusBarStyle = UIApplication.sharedApplication().statusBarStyle {
 		didSet {
@@ -29,7 +29,7 @@ public class NavigationBarView : MaterialView {
 	}
 	
 	/**
-		:name:	contentInsets
+	:name:	contentInsets
 	*/
 	public var contentInsets: MaterialEdgeInsets = .None {
 		didSet {
@@ -38,7 +38,7 @@ public class NavigationBarView : MaterialView {
 	}
 	
 	/**
-		:name:	contentInsetsRef
+	:name:	contentInsetsRef
 	*/
 	public var contentInsetsRef: UIEdgeInsets = MaterialTheme.navigationBarView.contentInsetsRef {
 		didSet {
@@ -47,7 +47,7 @@ public class NavigationBarView : MaterialView {
 	}
 	
 	/**
-		:name:	titleLabelInsets
+	:name:	titleLabelInsets
 	*/
 	public var titleLabelInsets: MaterialEdgeInsets = .None {
 		didSet {
@@ -56,7 +56,7 @@ public class NavigationBarView : MaterialView {
 	}
 	
 	/**
-		:name:	titleLabelInsetsRef
+	:name:	titleLabelInsetsRef
 	*/
 	public var titleLabelInsetsRef: UIEdgeInsets = MaterialTheme.navigationBarView.titleLabelInsetsRef {
 		didSet {
@@ -65,7 +65,7 @@ public class NavigationBarView : MaterialView {
 	}
 	
 	/**
-		:name:	titleLabel
+	:name:	titleLabel
 	*/
 	public var titleLabel: UILabel? {
 		didSet {
@@ -75,7 +75,7 @@ public class NavigationBarView : MaterialView {
 	}
 	
 	/**
-		:name:	detailLabelInsets
+	:name:	detailLabelInsets
 	*/
 	public var detailLabelInsets: MaterialEdgeInsets = .None {
 		didSet {
@@ -84,7 +84,7 @@ public class NavigationBarView : MaterialView {
 	}
 	
 	/**
-		:name:	detailLabelInsetsRef
+	:name:	detailLabelInsetsRef
 	*/
 	public var detailLabelInsetsRef: UIEdgeInsets = MaterialTheme.navigationBarView.detailLabelInsetsRef {
 		didSet {
@@ -93,7 +93,7 @@ public class NavigationBarView : MaterialView {
 	}
 	
 	/**
-		:name:	detailLabel
+	:name:	detailLabel
 	*/
 	public var detailLabel: UILabel? {
 		didSet {
@@ -103,7 +103,7 @@ public class NavigationBarView : MaterialView {
 	}
 	
 	/**
-		:name:	leftButtonsInsets
+	:name:	leftButtonsInsets
 	*/
 	public var leftButtonsInsets: MaterialEdgeInsets = .None {
 		didSet {
@@ -121,7 +121,7 @@ public class NavigationBarView : MaterialView {
 	}
 	
 	/**
-		:name:	leftButtons
+	:name:	leftButtons
 	*/
 	public var leftButtons: Array<UIButton>? {
 		didSet {
@@ -135,7 +135,7 @@ public class NavigationBarView : MaterialView {
 	}
 	
 	/**
-		:name:	rightButtonsInsets
+	:name:	rightButtonsInsets
 	*/
 	public var rightButtonsInsets: MaterialEdgeInsets = .None {
 		didSet {
@@ -144,7 +144,7 @@ public class NavigationBarView : MaterialView {
 	}
 	
 	/**
-		:name:	rightButtonsInsetsRef
+	:name:	rightButtonsInsetsRef
 	*/
 	public var rightButtonsInsetsRef: UIEdgeInsets = MaterialTheme.navigationBarView.rightButtonsInsetsRef {
 		didSet {
@@ -153,7 +153,7 @@ public class NavigationBarView : MaterialView {
 	}
 	
 	/**
-		:name:	rightButtons
+	:name:	rightButtons
 	*/
 	public var rightButtons: Array<UIButton>? {
 		didSet {
@@ -167,28 +167,28 @@ public class NavigationBarView : MaterialView {
 	}
 	
 	/**
-		:name:	init
+	:name:	init
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
 	
 	/**
-		:name:	init
+	:name:	init
 	*/
 	public override init(frame: CGRect) {
 		super.init(frame: frame)
 	}
 	
 	/**
-		:name:	init
+	:name:	init
 	*/
 	public convenience init() {
 		self.init(frame: CGRectMake(MaterialTheme.navigationBarView.x, MaterialTheme.navigationBarView.y, MaterialTheme.navigationBarView.width, MaterialTheme.navigationBarView.height))
 	}
 	
 	/**
-		:name:	init
+	:name:	init
 	*/
 	public convenience init?(titleLabel: UILabel? = nil, detailLabel: UILabel? = nil, leftButtons: Array<UIButton>? = nil, rightButtons: Array<UIButton>? = nil) {
 		self.init(frame: CGRectMake(MaterialTheme.navigationBarView.x, MaterialTheme.navigationBarView.y, MaterialTheme.navigationBarView.width, MaterialTheme.navigationBarView.height))
@@ -196,7 +196,7 @@ public class NavigationBarView : MaterialView {
 	}
 	
 	/**
-		:name:	reloadView
+	:name:	reloadView
 	*/
 	public func reloadView() {
 		// clear constraints so new ones do not conflict
@@ -315,9 +315,9 @@ public class NavigationBarView : MaterialView {
 		}
 	}
 	
-	//
-	//	:name:	prepareView
-	//
+	/**
+	:name:	prepareView
+	*/
 	internal override func prepareView() {
 		super.prepareView()
 		userInteractionEnabled = MaterialTheme.navigationBarView.userInteractionEnabled
@@ -334,9 +334,9 @@ public class NavigationBarView : MaterialView {
 		borderColor = MaterialTheme.navigationBarView.bordercolor
 	}
 	
-	//
-	//	:name:	prepareProperties
-	//
+	/**
+	:name:	prepareProperties
+	*/
 	internal func prepareProperties(titleLabel: UILabel?, detailLabel: UILabel?, leftButtons: Array<UIButton>?, rightButtons: Array<UIButton>?) {
 		self.titleLabel = titleLabel
 		self.detailLabel = detailLabel

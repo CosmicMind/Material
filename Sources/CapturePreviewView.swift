@@ -22,39 +22,39 @@ import AVFoundation
 @objc(CapturePreviewViewDelegate)
 public protocol CapturePreviewViewDelegate : MaterialDelegate {
 	/**
-		:name:	capturePreviewViewDidTapToFocusAtPoint
+	:name:	capturePreviewViewDidTapToFocusAtPoint
 	*/
 	optional func capturePreviewViewDidTapToFocusAtPoint(capturePreviewView: CapturePreviewView, point: CGPoint)
 	
 	/**
-		:name:	capturePreviewViewDidTapToExposeAtPoint
+	:name:	capturePreviewViewDidTapToExposeAtPoint
 	*/
 	optional func capturePreviewViewDidTapToExposeAtPoint(capturePreviewView: CapturePreviewView, point: CGPoint)
 }
 
 public class CapturePreviewView : MaterialView, UIGestureRecognizerDelegate {
-	//
-	//	:name:	tapToFocusGesture
-	//
+	/**
+	:name:	tapToFocusGesture
+	*/
 	private var tapToFocusGesture: UITapGestureRecognizer?
 	
-	//
-	//	:name:	tapToExposeGesture
-	//
+	/**
+	:name:	tapToExposeGesture
+	*/
 	private var tapToExposeGesture: UITapGestureRecognizer?
 	
 	/**
-		:name:	previewLayer
+	:name:	previewLayer
 	*/
 	public private(set) lazy var previewLayer: AVCaptureVideoPreviewLayer = AVCaptureVideoPreviewLayer()
 	
 	/**
-		:name:	capture
+	:name:	capture
 	*/
 	public private(set) lazy var captureSession: CaptureSession = CaptureSession()
 	
 	/**
-		:name:	tapToFocusEnabled
+	:name:	tapToFocusEnabled
 	*/
 	public var tapToFocusEnabled: Bool {
 		didSet {
@@ -70,7 +70,7 @@ public class CapturePreviewView : MaterialView, UIGestureRecognizerDelegate {
 	}
 	
 	/**
-		:name:	tapToExposeEnabled
+	:name:	tapToExposeEnabled
 	*/
 	public var tapToExposeEnabled: Bool {
 		didSet {
@@ -86,7 +86,7 @@ public class CapturePreviewView : MaterialView, UIGestureRecognizerDelegate {
 	}
 	
 	/**
-		:name:	init
+	:name:	init
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		tapToFocusEnabled = true
@@ -95,7 +95,7 @@ public class CapturePreviewView : MaterialView, UIGestureRecognizerDelegate {
 	}
 	
 	/**
-		:name:	init
+	:name:	init
 	*/
 	public override init(frame: CGRect) {
 		tapToFocusEnabled = true
@@ -104,14 +104,14 @@ public class CapturePreviewView : MaterialView, UIGestureRecognizerDelegate {
 	}
 	
 	/**
-		:name:	init
+	:name:	init
 	*/
 	public convenience init() {
 		self.init(frame: CGRectNull)
 	}
 	
 	/**
-		:name:	layoutSublayersOfLayer
+	:name:	layoutSublayersOfLayer
 	*/
 	public override func layoutSublayersOfLayer(layer: CALayer) {
 		super.layoutSublayersOfLayer(layer)
@@ -121,22 +121,22 @@ public class CapturePreviewView : MaterialView, UIGestureRecognizerDelegate {
 	}
 	
 	/**
-		:name:	captureDevicePointOfInterestForPoint
+	:name:	captureDevicePointOfInterestForPoint
 	*/
 	public func captureDevicePointOfInterestForPoint(point: CGPoint) -> CGPoint {
 		return previewLayer.captureDevicePointOfInterestForPoint(point)
 	}
 	
 	/**
-		:name:	pointForCaptureDevicePointOfInterest
+	:name:	pointForCaptureDevicePointOfInterest
 	*/
 	public func pointForCaptureDevicePointOfInterest(point: CGPoint) -> CGPoint {
 		return previewLayer.pointForCaptureDevicePointOfInterest(point)
 	}
 	
-	//
-	//	:name:	prepareView
-	//
+	/**
+	:name:	prepareView
+	*/
 	internal override func prepareView() {
 		super.prepareView()
 		preparePreviewLayer()
@@ -144,9 +144,9 @@ public class CapturePreviewView : MaterialView, UIGestureRecognizerDelegate {
 		tapToExposeEnabled = true
 	}
 	
-	//
-	//	:name:	handleTapToFocusGesture
-	//
+	/**
+	:name:	handleTapToFocusGesture
+	*/
 	internal func handleTapToFocusGesture(recognizer: UITapGestureRecognizer) {
 		if tapToFocusEnabled && captureSession.cameraSupportsTapToFocus {
 			let point: CGPoint = recognizer.locationInView(self)
@@ -155,9 +155,9 @@ public class CapturePreviewView : MaterialView, UIGestureRecognizerDelegate {
 		}
 	}
 	
-	//
-	//	:name:	handleTapToExposeGesture
-	//
+	/**
+	:name:	handleTapToExposeGesture
+	*/
 	internal func handleTapToExposeGesture(recognizer: UITapGestureRecognizer) {
 		if tapToExposeEnabled && captureSession.cameraSupportsTapToExpose {
 			let point: CGPoint = recognizer.locationInView(self)
@@ -166,17 +166,17 @@ public class CapturePreviewView : MaterialView, UIGestureRecognizerDelegate {
 		}
 	}
 	
-	//
-	//	:name:	preparePreviewLayer
-	//
+	/**
+	:name:	preparePreviewLayer
+	*/
 	private func preparePreviewLayer() {
 		previewLayer.session = captureSession.session
 		visualLayer.addSublayer(previewLayer)
 	}
 	
-	//
-	//	:name:	layoutPreviewLayer
-	//
+	/**
+	:name:	layoutPreviewLayer
+	*/
 	private func layoutPreviewLayer() {
 		previewLayer.frame = visualLayer.bounds
 		previewLayer.position = CGPointMake(width / 2, height / 2)
@@ -184,9 +184,9 @@ public class CapturePreviewView : MaterialView, UIGestureRecognizerDelegate {
 		previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
 	}
 	
-	//
-	//	:name:	prepareTapGesture
-	//
+	/**
+	:name:	prepareTapGesture
+	*/
 	private func prepareTapGesture(inout gesture: UITapGestureRecognizer?, numberOfTapsRequired: Int, selector: Selector) {
 		gesture = UITapGestureRecognizer(target: self, action: selector)
 		gesture!.delegate = self
@@ -194,9 +194,9 @@ public class CapturePreviewView : MaterialView, UIGestureRecognizerDelegate {
 		addGestureRecognizer(gesture!)
 	}
 	
-	//
-	//	:name:	removeTapToFocusGesture
-	//
+	/**
+	:name:	removeTapToFocusGesture
+	*/
 	private func removeTapGesture(inout gesture: UITapGestureRecognizer?) {
 		if let v: UIGestureRecognizer = gesture {
 			removeGestureRecognizer(v)

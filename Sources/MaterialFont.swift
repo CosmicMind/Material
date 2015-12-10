@@ -22,26 +22,26 @@ public protocol MaterialFontType {}
 
 public struct MaterialFont : MaterialFontType {
 	/**
-		:name:	pointSize
+	:name:	pointSize
 	*/
 	public static let pointSize: CGFloat = 16
 	
 	/**
-		:name:	systemFontWithSize
+	:name:	systemFontWithSize
 	*/
 	public static func systemFontWithSize(size: CGFloat) -> UIFont {
 		return UIFont.systemFontOfSize(size)
 	}
 	
 	/**
-		:name:	boldSystemFontWithSize
+	:name:	boldSystemFontWithSize
 	*/
 	public static func boldSystemFontWithSize(size: CGFloat) -> UIFont {
 		return UIFont.boldSystemFontOfSize(size)
 	}
 	
 	/**
-		:name:	italicSystemFontWithSize
+	:name:	italicSystemFontWithSize
 	*/
 	public static func italicSystemFontWithSize(size: CGFloat) -> UIFont {
 		return UIFont.italicSystemFontOfSize(size)

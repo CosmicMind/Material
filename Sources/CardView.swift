@@ -19,14 +19,14 @@
 import UIKit
 
 public class CardView : MaterialPulseView {
-	//
-	//	:name:	dividerLayer
-	//
+	/**
+	:name:	dividerLayer
+	*/
 	internal var dividerLayer: CAShapeLayer?
 	
-	//
-	//	:name:	dividerColor
-	//
+	/**
+	:name:	dividerColor
+	*/
 	public var dividerColor: UIColor? {
 		didSet {
 			dividerLayer?.backgroundColor = dividerColor?.CGColor
@@ -34,7 +34,7 @@ public class CardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	divider
+	:name:	divider
 	*/
 	public var divider: Bool = MaterialTheme.basicCardView.divider {
 		didSet {
@@ -43,7 +43,7 @@ public class CardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	dividerInsets
+	:name:	dividerInsets
 	*/
 	public var dividerInsets: MaterialEdgeInsets = .None {
 		didSet {
@@ -52,7 +52,7 @@ public class CardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	dividerInsetsRef
+	:name:	dividerInsetsRef
 	*/
 	public var dividerInsetsRef: UIEdgeInsets = MaterialTheme.basicCardView.dividerInsetsRef {
 		didSet {
@@ -61,7 +61,7 @@ public class CardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	contentInsets
+	:name:	contentInsets
 	*/
 	public var contentInsets: MaterialEdgeInsets = .None {
 		didSet {
@@ -70,7 +70,7 @@ public class CardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	contentInsetsRef
+	:name:	contentInsetsRef
 	*/
 	public var contentInsetsRef: UIEdgeInsets = MaterialTheme.basicCardView.contentInsetsRef {
 		didSet {
@@ -79,7 +79,7 @@ public class CardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	titleLabelInsets
+	:name:	titleLabelInsets
 	*/
 	public var titleLabelInsets: MaterialEdgeInsets = .None {
 		didSet {
@@ -88,7 +88,7 @@ public class CardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	titleLabelInsetsRef
+	:name:	titleLabelInsetsRef
 	*/
 	public var titleLabelInsetsRef: UIEdgeInsets = MaterialTheme.basicCardView.titleLabelInsetsRef {
 		didSet {
@@ -97,7 +97,7 @@ public class CardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	titleLabel
+	:name:	titleLabel
 	*/
 	public var titleLabel: UILabel? {
 		didSet {
@@ -107,7 +107,7 @@ public class CardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	detailLabelInsets
+	:name:	detailLabelInsets
 	*/
 	public var detailLabelInsets: MaterialEdgeInsets = .None {
 		didSet {
@@ -116,7 +116,7 @@ public class CardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	detailLabelInsetsRef
+	:name:	detailLabelInsetsRef
 	*/
 	public var detailLabelInsetsRef: UIEdgeInsets = MaterialTheme.basicCardView.detailLabelInsetsRef {
 		didSet {
@@ -125,7 +125,7 @@ public class CardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	detailLabel
+	:name:	detailLabel
 	*/
 	public var detailLabel: UILabel? {
 		didSet {
@@ -135,7 +135,7 @@ public class CardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	leftButtonsInsets
+	:name:	leftButtonsInsets
 	*/
 	public var leftButtonsInsets: MaterialEdgeInsets = .None {
 		didSet {
@@ -144,7 +144,7 @@ public class CardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	leftButtonsInsetsRef
+	:name:	leftButtonsInsetsRef
 	*/
 	public var leftButtonsInsetsRef: UIEdgeInsets = MaterialTheme.basicCardView.leftButtonsInsetsRef {
 		didSet {
@@ -153,7 +153,7 @@ public class CardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	leftButtons
+	:name:	leftButtons
 	*/
 	public var leftButtons: Array<UIButton>? {
 		didSet {
@@ -167,7 +167,7 @@ public class CardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	rightButtonsInsets
+	:name:	rightButtonsInsets
 	*/
 	public var rightButtonsInsets: MaterialEdgeInsets = .None {
 		didSet {
@@ -176,7 +176,7 @@ public class CardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	rightButtonsInsetsRef
+	:name:	rightButtonsInsetsRef
 	*/
 	public var rightButtonsInsetsRef: UIEdgeInsets = MaterialTheme.basicCardView.rightButtonsInsetsRef {
 		didSet {
@@ -185,7 +185,7 @@ public class CardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	rightButtons
+	:name:	rightButtons
 	*/
 	public var rightButtons: Array<UIButton>? {
 		didSet {
@@ -199,28 +199,28 @@ public class CardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	init
+	:name:	init
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
 	
 	/**
-		:name:	init
+	:name:	init
 	*/
 	public override init(frame: CGRect) {
 		super.init(frame: frame)
 	}
 	
 	/**
-		:name:	init
+	:name:	init
 	*/
 	public convenience init() {
 		self.init(frame: CGRectNull)
 	}
 	
 	/**
-		:name:	init
+	:name:	init
 	*/
 	public convenience init?(image: UIImage? = nil, titleLabel: UILabel? = nil, detailLabel: UILabel? = nil, leftButtons: Array<UIButton>? = nil, rightButtons: Array<UIButton>? = nil) {
 		self.init(frame: CGRectNull)
@@ -228,7 +228,7 @@ public class CardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	layoutSublayersOfLayer
+	:name:	layoutSublayersOfLayer
 	*/
 	public override func layoutSublayersOfLayer(layer: CALayer) {
 		super.layoutSublayersOfLayer(layer)
@@ -251,7 +251,7 @@ public class CardView : MaterialPulseView {
 	}
 	
 	/**
-		:name:	reloadView
+	:name:	reloadView
 	*/
 	public func reloadView() {
 		// clear constraints so new ones do not conflict
@@ -389,9 +389,9 @@ public class CardView : MaterialPulseView {
 		}
 	}
 	
-	//
-	//	:name:	prepareView
-	//
+	/**
+	:name:	prepareView
+	*/
 	internal override func prepareView() {
 		super.prepareView()
 		userInteractionEnabled = MaterialTheme.basicCardView.userInteractionEnabled
@@ -410,9 +410,9 @@ public class CardView : MaterialPulseView {
 		dividerColor = MaterialTheme.basicCardView.dividerColor
 	}
 	
-	//
-	//	:name:	prepareDivider
-	//
+	/**
+	:name:	prepareDivider
+	*/
 	internal func prepareDivider(y: CGFloat, width: CGFloat) {
 		if nil == dividerLayer {
 			dividerLayer = CAShapeLayer()
@@ -423,9 +423,9 @@ public class CardView : MaterialPulseView {
 		dividerLayer?.frame = CGRectMake(dividerInsetsRef.left, y, width - dividerInsetsRef.left - dividerInsetsRef.right, 1)
 	}
 	
-	//
-	//	:name:	prepareProperties
-	//
+	/**
+	:name:	prepareProperties
+	*/
 	internal func prepareProperties(image: UIImage?, titleLabel: UILabel?, detailLabel: UILabel?, leftButtons: Array<UIButton>?, rightButtons: Array<UIButton>?) {
 		self.image = image
 		self.titleLabel = titleLabel

@@ -20,18 +20,18 @@ import UIKit
 
 @objc(MaterialView)
 public class MaterialView : UIView {
-	//
-	//	:name:	visualLayer
-	//
+	/**
+	:name:	visualLayer
+	*/
 	public private(set) lazy var visualLayer: CAShapeLayer = CAShapeLayer()
 	
 	/**
-		:name:	delegate
+	:name:	delegate
 	*/
 	public weak var delegate: MaterialDelegate?
 	
 	/**
-		:name:	image
+	:name:	image
 	*/
 	public var image: UIImage? {
 		didSet {
@@ -40,7 +40,7 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-		:name:	contentsRect
+	:name:	contentsRect
 	*/
 	public var contentsRect: CGRect {
 		didSet {
@@ -49,7 +49,7 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-		:name:	contentsCenter
+	:name:	contentsCenter
 	*/
 	public var contentsCenter: CGRect {
 		didSet {
@@ -58,7 +58,7 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-		:name:	contentsScale
+	:name:	contentsScale
 	*/
 	public var contentsScale: CGFloat {
 		didSet {
@@ -67,7 +67,7 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-		:name:	contentsGravity
+	:name:	contentsGravity
 	*/
 	public var contentsGravity: MaterialGravity {
 		didSet {
@@ -76,7 +76,7 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-		:name:	masksToBounds
+	:name:	masksToBounds
 	*/
 	public var masksToBounds: Bool {
 		get {
@@ -88,7 +88,7 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-		:name:	backgroundColor
+	:name:	backgroundColor
 	*/
 	public override var backgroundColor: UIColor? {
 		didSet {
@@ -97,7 +97,7 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-		:name:	x
+	:name:	x
 	*/
 	public var x: CGFloat {
 		get {
@@ -109,7 +109,7 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-		:name:	y
+	:name:	y
 	*/
 	public var y: CGFloat {
 		get {
@@ -121,7 +121,7 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-		:name:	width
+	:name:	width
 	*/
 	public var width: CGFloat {
 		get {
@@ -136,7 +136,7 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-		:name:	height
+	:name:	height
 	*/
 	public var height: CGFloat {
 		get {
@@ -151,7 +151,7 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-		:name:	shadowColor
+	:name:	shadowColor
 	*/
 	public var shadowColor: UIColor? {
 		didSet {
@@ -160,7 +160,7 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-		:name:	shadowOffset
+	:name:	shadowOffset
 	*/
 	public var shadowOffset: CGSize {
 		get {
@@ -172,7 +172,7 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-		:name:	shadowOpacity
+	:name:	shadowOpacity
 	*/
 	public var shadowOpacity: Float {
 		get {
@@ -184,7 +184,7 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-		:name:	shadowRadius
+	:name:	shadowRadius
 	*/
 	public var shadowRadius: CGFloat {
 		get {
@@ -196,7 +196,7 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-		:name:	shadowDepth
+	:name:	shadowDepth
 	*/
 	public var shadowDepth: MaterialDepth {
 		didSet {
@@ -208,7 +208,7 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-		:name:	cornerRadius
+	:name:	cornerRadius
 	*/
 	public var cornerRadius: MaterialRadius {
 		didSet {
@@ -222,7 +222,7 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-		:name:	shape
+	:name:	shape
 	*/
 	public var shape: MaterialShape {
 		didSet {
@@ -237,7 +237,7 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-		:name:	borderWidth
+	:name:	borderWidth
 	*/
 	public var borderWidth: MaterialBorder {
 		didSet {
@@ -246,7 +246,7 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-		:name:	borderColor
+	:name:	borderColor
 	*/
 	public var borderColor: UIColor? {
 		didSet {
@@ -255,7 +255,7 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-		:name:	position
+	:name:	position
 	*/
 	public var position: CGPoint {
 		get {
@@ -267,7 +267,7 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-		:name:	zPosition
+	:name:	zPosition
 	*/
 	public var zPosition: CGFloat {
 		get {
@@ -279,7 +279,7 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-		:name:	init
+	:name:	init
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		contentsRect = MaterialTheme.view.contentsRect
@@ -295,7 +295,7 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-		:name:	init
+	:name:	init
 	*/
 	public override init(frame: CGRect) {
 		contentsRect = MaterialTheme.view.contentsRect
@@ -311,14 +311,14 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-		:name:	init
+	:name:	init
 	*/
 	public convenience init() {
 		self.init(frame: CGRectNull)
 	}
 	
 	/**
-		:name:	layoutSublayersOfLayer
+	:name:	layoutSublayersOfLayer
 	*/
 	public override func layoutSublayersOfLayer(layer: CALayer) {
 		super.layoutSublayersOfLayer(layer)
@@ -329,14 +329,14 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-		:name:	actionForLayer
+	:name:	actionForLayer
 	*/
 	public override func actionForLayer(layer: CALayer, forKey event: String) -> CAAction? {
 		return nil
 	}
 	
 	/**
-		:name:	animation
+	:name:	animation
 	*/
 	public func animation(animation: CAAnimation) {
 		animation.delegate = self
@@ -353,14 +353,14 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-		:name:	animationDidStart
+	:name:	animationDidStart
 	*/
 	public override func animationDidStart(anim: CAAnimation) {
 		(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStart?(anim)
 	}
 	
 	/**
-		:name:	animationDidStop
+	:name:	animationDidStop
 	*/
 	public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
 		if let a: CAPropertyAnimation = anim as? CAPropertyAnimation {
@@ -379,9 +379,9 @@ public class MaterialView : UIView {
 		layoutVisualLayer()
 	}
 	
-	//
-	//	:name:	prepareView
-	//
+	/**
+	:name:	prepareView
+	*/
 	internal func prepareView() {
 		userInteractionEnabled = MaterialTheme.view.userInteractionEnabled
 		backgroundColor = MaterialTheme.view.backgroundColor
@@ -393,27 +393,27 @@ public class MaterialView : UIView {
 		prepareVisualLayer()
 	}
 	
-	//
-	//	:name:	prepareVisualLayer
-	//
+	/**
+	:name:	prepareVisualLayer
+	*/
 	internal func prepareVisualLayer() {
 		visualLayer.zPosition = 0
 		visualLayer.masksToBounds = true
 		layer.addSublayer(visualLayer)
 	}
 	
-	//
-	//	:name:	layoutVisualLayer
-	//
+	/**
+	:name:	layoutVisualLayer
+	*/
 	internal func layoutVisualLayer() {
 		visualLayer.frame = bounds
 		visualLayer.position = CGPointMake(width / 2, height / 2)
 		visualLayer.cornerRadius = layer.cornerRadius
 	}
 	
-	//
-	//	:name:	layoutShape
-	//
+	/**
+	:name:	layoutShape
+	*/
 	internal func layoutShape() {
 		if .Circle == shape {
 			layer.cornerRadius = width / 2

@@ -20,7 +20,7 @@ import UIKit
 
 public struct MaterialLayout {
 	/**
-		:name:	width
+	:name:	width
 	*/
 	public static func width(parent: UIView, child: UIView, width: CGFloat = 0, options: NSLayoutFormatOptions = []) {
 		let metrics: Dictionary<String, AnyObject> = ["width" : width]
@@ -29,7 +29,7 @@ public struct MaterialLayout {
 	}
 	
 	/**
-		:name:	height
+	:name:	height
 	*/
 	public static func height(parent: UIView, child: UIView, height: CGFloat = 0, options: NSLayoutFormatOptions = []) {
 		let metrics: Dictionary<String, AnyObject> = ["height" : height]
@@ -38,7 +38,7 @@ public struct MaterialLayout {
 	}
 	
 	/**
-		:name:	size
+	:name:	size
 	*/
 	public static func size(parent: UIView, child: UIView, width: CGFloat = 0, height: CGFloat = 0, options: NSLayoutFormatOptions = []) {
 		MaterialLayout.width(parent, child: child, width: width)
@@ -46,7 +46,7 @@ public struct MaterialLayout {
 	}
 	
 //	/**
-//		:name:	alignChildrenToParentHorizontally
+//	:name:	alignChildrenToParentHorizontally
 //	*/
 //	public static func alignChildrenToParentHorizontally(parent: UIView, children: Array<UIView>, left: CGFloat = 0, right: CGFloat = 0, minimumInteritemSpacing: CGFloat = 0, options: NSLayoutFormatOptions = []) {
 //		if 0 < children.count {
@@ -64,7 +64,7 @@ public struct MaterialLayout {
 //	}
 //	
 //	/**
-//		:name:	alignChildrenToParentVertically
+//	:name:	alignChildrenToParentVertically
 //	*/
 //	public static func alignChildrenToParentVertically(parent: UIView, children: Array<UIView>, top: CGFloat = 0, bottom: CGFloat = 0, minimumLineSpacing: CGFloat = 0, options: NSLayoutFormatOptions = []) {
 //		if 0 < children.count {
@@ -80,21 +80,21 @@ public struct MaterialLayout {
 //	}
 	
 	/**
-		:name:	alignToParentHorizontally
+	:name:	alignToParentHorizontally
 	*/
 	public static func alignToParentHorizontally(parent: UIView, child: UIView, left: CGFloat = 0, right: CGFloat = 0, options: NSLayoutFormatOptions = []) {
 		parent.addConstraints(constraint("H:|-(left)-[child]-(right)-|", options: options, metrics: ["left": left, "right": right], views: ["child" : child]))
 	}
 	
 	/**
-		:name:	alignToParentVertically
+	:name:	alignToParentVertically
 	*/
 	public static func alignToParentVertically(parent: UIView, child: UIView, top: CGFloat = 0, bottom: CGFloat = 0, options: NSLayoutFormatOptions = []) {
 		parent.addConstraints(constraint("V:|-(top)-[child]-(bottom)-|", options: options, metrics: ["bottom": bottom, "top": top], views: ["child" : child]))
 	}
 	
 	/**
-		:name:	alignToParent
+	:name:	alignToParent
 	*/
 	public static func alignToParent(parent: UIView, child: UIView, top: CGFloat = 0, left: CGFloat = 0, bottom: CGFloat = 0, right: CGFloat = 0, options: NSLayoutFormatOptions = []) {
 		alignToParentHorizontally(parent, child: child, left: left, right: right)
@@ -102,7 +102,7 @@ public struct MaterialLayout {
 	}
 	
 	/**
-		:name:	alignFromTopLeft
+	:name:	alignFromTopLeft
 	*/
 	public static func alignFromTopLeft(parent: UIView, child: UIView, top: CGFloat = 0, left: CGFloat = 0, options: NSLayoutFormatOptions = []) {
 		alignFromTop(parent, child: child, top: top)
@@ -110,7 +110,7 @@ public struct MaterialLayout {
 	}
 	
 	/**
-		:name:	alignFromTopRight
+	:name:	alignFromTopRight
 	*/
 	public static func alignFromTopRight(parent: UIView, child: UIView, top: CGFloat = 0, right: CGFloat = 0, options: NSLayoutFormatOptions = []) {
 		alignFromTop(parent, child: child, top: top)
@@ -118,7 +118,7 @@ public struct MaterialLayout {
 	}
 	
 	/**
-		:name:	alignFromBottomLeft
+	:name:	alignFromBottomLeft
 	*/
 	public static func alignFromBottomLeft(parent: UIView, child: UIView, bottom: CGFloat = 0, left: CGFloat = 0, options: NSLayoutFormatOptions = []) {
 		alignFromBottom(parent, child: child, bottom: bottom)
@@ -126,7 +126,7 @@ public struct MaterialLayout {
 	}
 	
 	/**
-		:name:	alignFromBottomRight
+	:name:	alignFromBottomRight
 	*/
 	public static func alignFromBottomRight(parent: UIView, child: UIView, bottom: CGFloat = 0, right: CGFloat = 0, options: NSLayoutFormatOptions = []) {
 		alignFromBottom(parent, child: child, bottom: bottom)
@@ -134,35 +134,35 @@ public struct MaterialLayout {
 	}
 	
 	/**
-		:name:	alignFromTop
+	:name:	alignFromTop
 	*/
 	public static func alignFromTop(parent: UIView, child: UIView, top: CGFloat = 0, options: NSLayoutFormatOptions = []) {
 		parent.addConstraints(constraint("V:|-(top)-[child]", options: options, metrics: ["top" : top], views: ["child" : child]))
 	}
 	
 	/**
-		:name:	alignFromLeft
+	:name:	alignFromLeft
 	*/
 	public static func alignFromLeft(parent: UIView, child: UIView, left: CGFloat = 0, options: NSLayoutFormatOptions = []) {
 		parent.addConstraints(constraint("H:|-(left)-[child]", options: options, metrics: ["left" : left], views: ["child" : child]))
 	}
 	
 	/**
-		:name:	alignFromBottom
+	:name:	alignFromBottom
 	*/
 	public static func alignFromBottom(parent: UIView, child: UIView, bottom: CGFloat = 0, options: NSLayoutFormatOptions = []) {
 		parent.addConstraints(constraint("V:[child]-(bottom)-|", options: options, metrics: ["bottom" : bottom], views: ["child" : child]))
 	}
 	
 	/**
-		:name:	alignFromRight
+	:name:	alignFromRight
 	*/
 	public static func alignFromRight(parent: UIView, child: UIView, right: CGFloat = 0, options: NSLayoutFormatOptions = []) {
 		parent.addConstraints(constraint("H:[child]-(right)-|", options: options, metrics: ["right" : right], views: ["child" : child]))
 	}
 	
 	/**
-		:name:	constraint
+	:name:	constraint
 	*/
 	public static func constraint(format: String, options: NSLayoutFormatOptions, metrics: Dictionary<String, AnyObject>?, views: Dictionary<String, AnyObject>) -> Array<NSLayoutConstraint> {
 		return NSLayoutConstraint.constraintsWithVisualFormat(

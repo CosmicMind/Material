@@ -51,14 +51,14 @@ public func MaterialAnimationFillModeToValue(mode: MaterialAnimationFillMode) ->
 
 public struct MaterialAnimation {
 	/**
-		:name:	animationDisabled
+	:name:	animationDisabled
 	*/
 	public static func animationDisabled(animations: (() -> Void)) {
 		animateWithDuration(0, animations: animations)
 	}
 	
 	/**
-		:name:	animateWithDuration
+	:name:	animateWithDuration
 	*/
 	public static func animateWithDuration(duration: CFTimeInterval, animations: (() -> Void), options: UIViewAnimationOptions? = nil, completion: (() -> Void)? = nil) {
 		CATransaction.begin()
@@ -70,7 +70,7 @@ public struct MaterialAnimation {
 	}
 	
 	/**
-		:name:	animationGroup
+	:name:	animationGroup
 	*/
 	public static func animationGroup(animations: Array<CAAnimation>, duration: CFTimeInterval = 0.5) -> CAAnimationGroup {
 		let group: CAAnimationGroup = CAAnimationGroup()

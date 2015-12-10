@@ -20,17 +20,17 @@ import UIKit
 
 public class MaterialPulseView : MaterialView {
 	/**
-		:name:	pulseLayer
+	:name:	pulseLayer
 	*/
 	public private(set) lazy var pulseLayer: CAShapeLayer = CAShapeLayer()
 	
 	/**
-		:name:	pulseScale
+	:name:	pulseScale
 	*/
 	public lazy var pulseScale: Bool = true
 	
 	/**
-		:name:	spotlight
+	:name:	spotlight
 	*/
 	public var spotlight: Bool = false {
 		didSet {
@@ -41,7 +41,7 @@ public class MaterialPulseView : MaterialView {
 	}
 	
 	/**
-		:name:	pulseFill
+	:name:	pulseFill
 	*/
 	public var pulseFill: Bool = false {
 		didSet {
@@ -52,7 +52,7 @@ public class MaterialPulseView : MaterialView {
 	}
 	
 	/**
-		:name:	pulseColorOpacity
+	:name:	pulseColorOpacity
 	*/
 	public var pulseColorOpacity: CGFloat = MaterialTheme.pulseView.pulseColorOpacity {
 		didSet {
@@ -61,7 +61,7 @@ public class MaterialPulseView : MaterialView {
 	}
 	
 	/**
-		:name:	pulseColor
+	:name:	pulseColor
 	*/
 	public var pulseColor: UIColor? {
 		didSet {
@@ -70,7 +70,7 @@ public class MaterialPulseView : MaterialView {
 	}
 	
 	/**
-		:name:	touchesBegan
+	:name:	touchesBegan
 	*/
 	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesBegan(touches, withEvent: event)
@@ -100,7 +100,7 @@ public class MaterialPulseView : MaterialView {
 	}
 	
 	/**
-		:name:	touchesMoved
+	:name:	touchesMoved
 	*/
 	public override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesMoved(touches, withEvent: event)
@@ -115,7 +115,7 @@ public class MaterialPulseView : MaterialView {
 	}
 	
 	/**
-		:name:	touchesEnded
+	:name:	touchesEnded
 	*/
 	public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesEnded(touches, withEvent: event)
@@ -123,16 +123,16 @@ public class MaterialPulseView : MaterialView {
 	}
 	
 	/**
-		:name:	touchesCancelled
+	:name:	touchesCancelled
 	*/
 	public override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
 		super.touchesCancelled(touches, withEvent: event)
 		shrink()
 	}
 	
-	//
-	//	:name:	prepareView
-	//
+	/**
+	:name:	prepareView
+	*/
 	internal override func prepareView() {
 		super.prepareView()
 		userInteractionEnabled = MaterialTheme.pulseView.userInteractionEnabled
@@ -152,25 +152,25 @@ public class MaterialPulseView : MaterialView {
 		preparePulseLayer()
 	}
 	
-	//
-	//	:name:	preparePulseLayer
-	//
+	/**
+	:name:	preparePulseLayer
+	*/
 	internal func preparePulseLayer() {
 		pulseLayer.hidden = true
 		pulseLayer.zPosition = 1
 		visualLayer.addSublayer(pulseLayer)
 	}
 	
-	//
-	//	:name:	updatedPulseLayer
-	//
+	/**
+	:name:	updatedPulseLayer
+	*/
 	internal func updatedPulseLayer() {
 		pulseLayer.backgroundColor = pulseColor?.colorWithAlphaComponent(pulseColorOpacity).CGColor
 	}
 	
-	//
-	//	:name:	shrink
-	//
+	/**
+	:name:	shrink
+	*/
 	internal func shrink() {
 		let t: CFTimeInterval = 0.25
 		let s: CGFloat = 1

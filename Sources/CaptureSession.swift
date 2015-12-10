@@ -38,57 +38,57 @@ public func CaptureSessionPresetToString(preset: CaptureSessionPreset) -> String
 @objc(CaptureSessionDelegate)
 public protocol CaptureSessionDelegate {
 	/**
-		:name:	captureSessionFailedWithError
+	:name:	captureSessionFailedWithError
 	*/
 	optional func captureSessionFailedWithError(capture: CaptureSession, error: NSError)
 }
 
 @objc(CaptureSession)
 public class CaptureSession : NSObject {
-	//
-	//	:name:	videoQueue
-	//
+	/**
+	:name:	videoQueue
+	*/
 	private lazy var videoQueue: dispatch_queue_t = dispatch_queue_create("io.materialkit.CaptureSession", nil)
 	
-	//
-	//	:name:	activeVideoInput
-	//
+	/**
+	:name:	activeVideoInput
+	*/
 	private var activeVideoInput: AVCaptureDeviceInput?
 	
-	//
-	//	:name:	activeAudioInput
-	//
+	/**
+	:name:	activeAudioInput
+	*/
 	private var activeAudioInput: AVCaptureDeviceInput?
 	
-	//
-	//	:name:	imageOutput
-	//
+	/**
+	:name:	imageOutput
+	*/
 	private lazy var imageOutput: AVCaptureStillImageOutput = AVCaptureStillImageOutput()
 	
-	//
-	//	:name:	movieOutput
-	//
+	/**
+	:name:	movieOutput
+	*/
 	private lazy var movieOutput: AVCaptureMovieFileOutput = AVCaptureMovieFileOutput()
 	
-	//
-	//	:name: session
-	//
+	/**
+	:name: session
+	*/
 	internal lazy var session: AVCaptureSession = AVCaptureSession()
 	
 	/**
-		:name:	isRunning
+	:name:	isRunning
 	*/
 	public private(set) lazy var isRunning: Bool = false
 	
 	/**
-		:name:	activeCamera
+	:name:	activeCamera
 	*/
 	public var activeCamera: AVCaptureDevice? {
 		return activeVideoInput?.device
 	}
 	
 	/**
-		:name:	init
+	:name:	init
 	*/
 	public override init() {
 		sessionPreset = .High
@@ -97,7 +97,7 @@ public class CaptureSession : NSObject {
 	}
 	
 	/**
-		:name:	inactiveCamera
+	:name:	inactiveCamera
 	*/
 	public var inactiveCamera: AVCaptureDevice? {
 		var device: AVCaptureDevice?
@@ -112,35 +112,35 @@ public class CaptureSession : NSObject {
 	}
 	
 	/**
-		:name:	cameraCount
+	:name:	cameraCount
 	*/
 	public var cameraCount: Int {
 		return AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo).count
 	}
 	
 	/**
-		:name:	canSwitchCameras
+	:name:	canSwitchCameras
 	*/
 	public var canSwitchCameras: Bool {
 		return 1 < cameraCount
 	}
 	
 	/**
-		:name:	caneraSupportsTapToFocus
+	:name:	caneraSupportsTapToFocus
 	*/
 	public var cameraSupportsTapToFocus: Bool {
 		return true == activeCamera?.focusPointOfInterestSupported
 	}
 	
 	/**
-		:name:	cameraSupportsTapToExpose
+	:name:	cameraSupportsTapToExpose
 	*/
 	public var cameraSupportsTapToExpose: Bool {
 		return true == activeCamera?.exposurePointOfInterestSupported
 	}
 	
 	/**
-		:name:	focusMode
+	:name:	focusMode
 	*/
 	public var focusMode: AVCaptureFocusMode {
 		get {
@@ -167,7 +167,7 @@ public class CaptureSession : NSObject {
 	}
 	
 	/**
-		:name:	sessionPreset
+	:name:	sessionPreset
 	*/
 	public var sessionPreset: CaptureSessionPreset {
 		didSet {
@@ -176,12 +176,12 @@ public class CaptureSession : NSObject {
 	}
 	
 	/**
-		:name:	delegate
+	:name:	delegate
 	*/
 	public weak var delegate: CaptureSessionDelegate?
 	
 	/**
-		:name:	startSession
+	:name:	startSession
 	*/
 	public func startSession() {
 		if !isRunning {
@@ -192,7 +192,7 @@ public class CaptureSession : NSObject {
 	}
 	
 	/**
-		:name:	startSession
+	:name:	startSession
 	*/
 	public func stopSession() {
 		if isRunning {
@@ -203,7 +203,7 @@ public class CaptureSession : NSObject {
 	}
 	
 	/**
-		:name:	switchCameras
+	:name:	switchCameras
 	*/
 	public func switchCameras() {
 		if canSwitchCameras {
@@ -228,21 +228,21 @@ public class CaptureSession : NSObject {
 	}
 	
 	/**
-		:name:	isFocusModeSupported
+	:name:	isFocusModeSupported
 	*/
 	public func isFocusModeSupported(focusMode: AVCaptureFocusMode) -> Bool {
 		return activeVideoInput!.device.isFocusModeSupported(focusMode)
 	}
 	
 	/**
-		:name:	isExposureModeSupported
+	:name:	isExposureModeSupported
 	*/
 	public func isExposureModeSupported(exposureMode: AVCaptureExposureMode) -> Bool {
 		return activeVideoInput!.device.isExposureModeSupported(exposureMode)
 	}
 	
 	/**
-		:name:	focusAtPoint
+	:name:	focusAtPoint
 	*/
 	public func focusAtPoint(point: CGPoint) {
 		var error: NSError?
@@ -265,7 +265,7 @@ public class CaptureSession : NSObject {
 	}
 	
 	/**
-		:name:	exposeAtPoint
+	:name:	exposeAtPoint
 	*/
 	public func exposeAtPoint(point: CGPoint) {
 		var error: NSError?
@@ -291,7 +291,7 @@ public class CaptureSession : NSObject {
 	}
 	
 	/**
-		:name:	observeValueForKeyPath
+	:name:	observeValueForKeyPath
 	*/
 	public override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
 		if context == &CaptureSessionAdjustingExposureContext {
@@ -313,9 +313,9 @@ public class CaptureSession : NSObject {
 		}
 	}
 	
-	//
-	//	:name:	prepareSession
-	//
+	/**
+	:name:	prepareSession
+	*/
 	private func prepareSession() {
 		prepareVideoInput()
 		prepareAudioInput()
@@ -323,9 +323,9 @@ public class CaptureSession : NSObject {
 		prepareMovieOutput()
 	}
 	
-	//
-	//	:name:	prepareVideoInput
-	//
+	/**
+	:name:	prepareVideoInput
+	*/
 	private func prepareVideoInput() {
 		do {
 			activeVideoInput = try AVCaptureDeviceInput(device: AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo))
@@ -337,9 +337,9 @@ public class CaptureSession : NSObject {
 		}
 	}
 	
-	//
-	//	:name:	prepareAudioInput
-	//
+	/**
+	:name:	prepareAudioInput
+	*/
 	private func prepareAudioInput() {
 		do {
 			activeAudioInput = try AVCaptureDeviceInput(device: AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeAudio))
@@ -351,9 +351,9 @@ public class CaptureSession : NSObject {
 		}
 	}
 	
-	//
-	//	:name:	prepareImageOutput
-	//
+	/**
+	:name:	prepareImageOutput
+	*/
 	private func prepareImageOutput() {
 		if session.canAddOutput(imageOutput) {
 			imageOutput.outputSettings = [AVVideoCodecKey: AVVideoCodecJPEG]
@@ -361,18 +361,18 @@ public class CaptureSession : NSObject {
 		}
 	}
 	
-	//
-	//	:name:	prepareMovieOutput
-	//
+	/**
+	:name:	prepareMovieOutput
+	*/
 	private func prepareMovieOutput() {
 		if session.canAddOutput(movieOutput) {
 			session.addOutput(movieOutput)
 		}
 	}
 	
-	//
-	//	:name:	cameraWithPosition
-	//
+	/**
+	:name:	cameraWithPosition
+	*/
 	private func cameraWithPosition(position: AVCaptureDevicePosition) -> AVCaptureDevice? {
 		let devices: Array<AVCaptureDevice> = AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo) as! Array<AVCaptureDevice>
 		for device in devices {
