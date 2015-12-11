@@ -191,12 +191,19 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	/**
 	:name:	maintViewController
 	*/
-	public var mainViewController: UIViewController!
+	public var mainViewController: UIViewController! {
+		didSet {
+			prepareMainViewController()
+			if let v: UIViewController = oldValue {
+				userInteractionEnabled = v.view.userInteractionEnabled
+			}
+		}
+	}
 	
 	/**
 	:name:	sideViewController
 	*/
-	public var sideViewController: UIViewController!
+	public private(set) var sideViewController: UIViewController!
 	
 	/**
 	:name:	sideViewControllerWidth
@@ -211,7 +218,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		self.mainViewController = mainViewController
 		self.sideViewController = sideViewController
 		prepareView()
-		prepareMainView()
+		prepareMainViewController()
 		prepareSideView()
 	}
 	
@@ -335,11 +342,19 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	}
 	
 	/**
-	:name:	prepareMainView
+	:name:	prepareMainViewController
 	*/
-	internal func prepareMainView() {
+	internal func prepareMainViewController() {
 		prepareViewControllerWithinContainer(mainViewController, container: view)
 		mainViewController.view.frame = view.bounds
+	}
+	
+	/**
+	:name:	prepareSideViewController
+	*/
+	internal func prepareSideViewController() {
+		sideViewController.view.clipsToBounds = true
+		prepareViewControllerWithinContainer(sideViewController, container: sideView)
 	}
 	
 	/**
@@ -356,10 +371,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			self.sideView.zPosition = 1000
 		}
 		
-		sideViewController.view.clipsToBounds = true
-		prepareViewControllerWithinContainer(sideViewController, container: sideView)
-		
-		// gestures
+		prepareSideViewController()
 		prepareGestures()
 	}
 	
@@ -498,6 +510,8 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	:name:	prepareViewControllerWithinContainer
 	*/
 	private func prepareViewControllerWithinContainer(controller: UIViewController, container: UIView) {
+		controller.willMoveToParentViewController(nil)
+		controller.removeFromParentViewController()
 		addChildViewController(controller)
 		container.addSubview(controller.view)
 		controller.didMoveToParentViewController(self)

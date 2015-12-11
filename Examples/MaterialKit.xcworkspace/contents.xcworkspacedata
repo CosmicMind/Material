@@ -70,6 +70,13 @@
             location = "group:Programmatic/Capture/Capture.xcodeproj">
          </FileRef>
       </Group>
+      <Group
+         location = "container:"
+         name = "SideNavigationViewController">
+         <FileRef
+            location = "group:Programmatic/SideNavigationViewController/SideNavigationViewController.xcodeproj">
+         </FileRef>
+      </Group>
    </Group>
    <Group
       location = "container:"
