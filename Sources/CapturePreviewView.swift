@@ -30,6 +30,11 @@ public protocol CapturePreviewViewDelegate : MaterialDelegate {
 	:name:	capturePreviewViewDidTapToExposeAtPoint
 	*/
 	optional func capturePreviewViewDidTapToExposeAtPoint(capturePreviewView: CapturePreviewView, point: CGPoint)
+	
+	/**
+	:name:	capturePreviewViewDidTapToResetAtPoint
+	*/
+	optional func capturePreviewViewDidTapToResetAtPoint(capturePreviewView: CapturePreviewView, point: CGPoint)
 }
 
 public class CapturePreviewView : MaterialView, UIGestureRecognizerDelegate {
@@ -42,6 +47,11 @@ public class CapturePreviewView : MaterialView, UIGestureRecognizerDelegate {
 	:name:	tapToExposeGesture
 	*/
 	private var tapToExposeGesture: UITapGestureRecognizer?
+	
+	/**
+	:name:	tapToResetGesture
+	*/
+	private var tapToResetGesture: UITapGestureRecognizer?
 	
 	/**
 	:name:	previewLayer
@@ -59,7 +69,8 @@ public class CapturePreviewView : MaterialView, UIGestureRecognizerDelegate {
 	public var tapToFocusEnabled: Bool {
 		didSet {
 			if tapToFocusEnabled {
-				prepareTapGesture(&tapToFocusGesture, numberOfTapsRequired: 1, selector: "handleTapToFocusGesture:")
+				tapToResetEnabled = true
+				prepareTapGesture(&tapToFocusGesture, numberOfTapsRequired: 1, numberOfTouchesRequired: 1, selector: "handleTapToFocusGesture:")
 				if let v: UITapGestureRecognizer = tapToExposeGesture {
 					tapToFocusGesture!.requireGestureRecognizerToFail(v)
 				}
@@ -75,7 +86,8 @@ public class CapturePreviewView : MaterialView, UIGestureRecognizerDelegate {
 	public var tapToExposeEnabled: Bool {
 		didSet {
 			if tapToExposeEnabled {
-				prepareTapGesture(&tapToExposeGesture, numberOfTapsRequired: 2, selector: "handleTapToExposeGesture:")
+				tapToResetEnabled = true
+				prepareTapGesture(&tapToExposeGesture, numberOfTapsRequired: 2, numberOfTouchesRequired: 1, selector: "handleTapToExposeGesture:")
 				if let v: UITapGestureRecognizer = tapToFocusGesture {
 					v.requireGestureRecognizerToFail(tapToExposeGesture!)
 				}
@@ -86,11 +98,31 @@ public class CapturePreviewView : MaterialView, UIGestureRecognizerDelegate {
 	}
 	
 	/**
+	:name:	tapToResetEnabled
+	*/
+	public var tapToResetEnabled: Bool {
+		didSet {
+			if tapToResetEnabled {
+				prepareTapGesture(&tapToResetGesture, numberOfTapsRequired: 2, numberOfTouchesRequired: 2, selector: "handleTapToResetGesture:")
+				if let v: UITapGestureRecognizer = tapToFocusGesture {
+					v.requireGestureRecognizerToFail(tapToResetGesture!)
+				}
+				if let v: UITapGestureRecognizer = tapToExposeGesture {
+					v.requireGestureRecognizerToFail(tapToResetGesture!)
+				}
+			} else {
+				removeTapGesture(&tapToResetGesture)
+			}
+		}
+	}
+	
+	/**
 	:name:	init
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		tapToFocusEnabled = true
 		tapToExposeEnabled = true
+		tapToResetEnabled = true
 		super.init(coder: aDecoder)
 	}
 	
@@ -100,6 +132,7 @@ public class CapturePreviewView : MaterialView, UIGestureRecognizerDelegate {
 	public override init(frame: CGRect) {
 		tapToFocusEnabled = true
 		tapToExposeEnabled = true
+		tapToResetEnabled = true
 		super.init(frame: frame)
 	}
 	
@@ -167,6 +200,15 @@ public class CapturePreviewView : MaterialView, UIGestureRecognizerDelegate {
 	}
 	
 	/**
+	:name:	handleTapToResetGesture
+	*/
+	internal func handleTapToResetGesture(recognizer: UITapGestureRecognizer) {
+		if tapToResetEnabled {
+			(delegate as? CapturePreviewViewDelegate)?.capturePreviewViewDidTapToResetAtPoint?(self, point: pointForCaptureDevicePointOfInterest(CGPointMake(0.5, 0.5)))
+		}
+	}
+	
+	/**
 	:name:	preparePreviewLayer
 	*/
 	private func preparePreviewLayer() {
@@ -187,10 +229,12 @@ public class CapturePreviewView : MaterialView, UIGestureRecognizerDelegate {
 	/**
 	:name:	prepareTapGesture
 	*/
-	private func prepareTapGesture(inout gesture: UITapGestureRecognizer?, numberOfTapsRequired: Int, selector: Selector) {
+	private func prepareTapGesture(inout gesture: UITapGestureRecognizer?, numberOfTapsRequired: Int, numberOfTouchesRequired: Int, selector: Selector) {
+		removeTapGesture(&gesture)
 		gesture = UITapGestureRecognizer(target: self, action: selector)
 		gesture!.delegate = self
 		gesture!.numberOfTapsRequired = numberOfTapsRequired
+		gesture!.numberOfTouchesRequired = numberOfTouchesRequired
 		addGestureRecognizer(gesture!)
 	}
 	

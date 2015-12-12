@@ -314,6 +314,30 @@ public class CaptureSession : NSObject {
 	}
 	
 	/**
+	:name:	resetFocusAndExposureModes
+	*/
+	public func resetFocusAndExposureModes() {
+		let device: AVCaptureDevice = activeCamera!
+		let canResetFocus: Bool = device.focusPointOfInterestSupported && device.isFocusModeSupported(.ContinuousAutoFocus)
+		let canResetExposure: Bool = device.exposurePointOfInterestSupported && device.isExposureModeSupported(.ContinuousAutoExposure)
+		let centerPoint: CGPoint = CGPointMake(0.5, 0.5)
+		do {
+			try device.lockForConfiguration()
+			if canResetFocus {
+				device.focusMode = .ContinuousAutoFocus
+				device.focusPointOfInterest = centerPoint
+			}
+			if canResetExposure {
+				device.exposureMode = .ContinuousAutoExposure
+				device.exposurePointOfInterest = centerPoint
+			}
+			device.unlockForConfiguration()
+		} catch let e as NSError {
+			self.delegate?.captureSessionFailedWithError?(self, error: e)
+		}
+	}
+	
+	/**
 	:name:	prepareSession
 	*/
 	private func prepareSession() {

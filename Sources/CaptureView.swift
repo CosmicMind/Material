@@ -162,6 +162,14 @@ public class CaptureView : MaterialView, CaptureSessionDelegate, CapturePreviewV
 			}
 		}
 	}
+
+	/**
+	:name:	capturePreviewViewDidTapToResetAtPoint
+	*/
+	public func capturePreviewViewDidTapToResetAtPoint(capturePreviewView: CapturePreviewView, point: CGPoint) {
+		capturePreviewViewDidTapToFocusAtPoint(capturePreviewView, point: point)
+		capturePreviewViewDidTapToExposeAtPoint(capturePreviewView, point: point)
+	}
 	
 	/**
 	:name:	prepareView

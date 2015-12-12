@@ -41,7 +41,10 @@ class ViewController: UIViewController {
 	:description:	General usage example.
 	*/
 	private func prepareGeneralCaptureViewExample() {
-	
+		let v: CaptureView = CaptureView(frame: view.bounds)
+		v.switchCamerasButton = FabButton()
+		
+		view.addSubview(v)
 	}
 }
 
