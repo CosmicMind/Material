@@ -196,6 +196,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			if let v: UIViewController = oldValue {
 				v.willMoveToParentViewController(nil)
 				addChildViewController(mainViewController)
+				mainViewController.view.frame = view.bounds
 				transitionFromViewController(v,
 					toViewController: mainViewController,
 					duration: 0.25,
