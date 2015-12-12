@@ -189,12 +189,22 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	}
 	
 	/**
-	:name:	maintViewController
+	:name:	mainViewController
 	*/
 	public var mainViewController: UIViewController! {
 		didSet {
-			prepareMainViewController()
 			if let v: UIViewController = oldValue {
+				v.willMoveToParentViewController(nil)
+				addChildViewController(mainViewController)
+				transitionFromViewController(v,
+					toViewController: mainViewController,
+					duration: 0.25,
+					options: .TransitionCrossDissolve,
+					animations: nil
+				) { _ in
+					v.removeFromParentViewController()
+					self.mainViewController.didMoveToParentViewController(self)
+				}
 				userInteractionEnabled = v.view.userInteractionEnabled
 			}
 		}
@@ -510,8 +520,6 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	:name:	prepareViewControllerWithinContainer
 	*/
 	private func prepareViewControllerWithinContainer(controller: UIViewController, container: UIView) {
-		controller.willMoveToParentViewController(nil)
-		controller.removeFromParentViewController()
 		addChildViewController(controller)
 		container.addSubview(controller.view)
 		controller.didMoveToParentViewController(self)

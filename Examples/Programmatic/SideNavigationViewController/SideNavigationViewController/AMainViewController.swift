@@ -39,7 +39,7 @@ class AMainViewController: UIViewController {
 	:description: General preparation statements.
 	*/
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.green.base
+		view.backgroundColor = MaterialColor.blue.base
 	}
 	
 	/**

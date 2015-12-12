@@ -39,7 +39,7 @@ class BMainViewController: UIViewController {
 	:description: General preparation statements.
 	*/
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.blue.base
+		view.backgroundColor = MaterialColor.green.base
 	}
 	
 	/**
@@ -48,12 +48,13 @@ class BMainViewController: UIViewController {
 	*/
 	private func prepareSwapSideNavigationViewControllerExample() {
 		let button: FabButton = FabButton()
+		button.backgroundColor = MaterialColor.yellow.base
 		button.addTarget(self, action: "handleSwapViewControllers", forControlEvents: .TouchUpInside)
 		
 		// Add the button through MaterialLayout.
 		view.addSubview(button)
 		button.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignFromBottomRight(view, child: button, bottom: 24, right: 24)
+		MaterialLayout.alignFromBottomLeft(view, child: button, bottom: 24, left: 24)
 		MaterialLayout.size(view, child: button, width: 64, height: 64)
 	}
 }
