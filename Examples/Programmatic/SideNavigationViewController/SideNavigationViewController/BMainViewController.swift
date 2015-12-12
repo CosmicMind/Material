@@ -24,14 +24,16 @@ class BMainViewController: UIViewController {
 		super.viewDidLoad()
 		prepareView()
 		
-		// Examples of using Capture.
-		// Uncomment different examples and read
-		// the comments below.
+		// Examples of using SideNavigationViewController.
 		prepareSwapSideNavigationViewControllerExample()
 	}
 	
 	internal func handleSwapViewControllers() {
-		sideNavigationViewController?.mainViewController = AMainViewController()
+		sideNavigationViewController?.transitionFromMainViewController(AMainViewController(),
+			duration: 0.25,
+			options: .TransitionCrossDissolve,
+			animations: nil,
+			completion: nil)
 	}
 	
 	/**

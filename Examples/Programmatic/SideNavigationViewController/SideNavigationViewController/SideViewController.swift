@@ -23,6 +23,20 @@ class SideViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
+		
+		// Examples of using SideNavigationViewController.
+		prepareSwapSideNavigationViewControllerExample()
+	}
+	
+	internal func handleSwapViewControllers() {
+		sideNavigationViewController?.transitionFromMainViewController(sideNavigationViewController?.mainViewController is AMainViewController ? BMainViewController() : AMainViewController(),
+			duration: 0.25,
+			options: .TransitionCrossDissolve,
+			animations: nil,
+			completion: { (result: Bool) in
+				self.sideNavigationViewController?.close()
+			}
+		)
 	}
 	
 	/**
@@ -31,6 +45,22 @@ class SideViewController: UIViewController {
 	*/
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.purple.base
+	}
+	
+	/**
+	:name:	prepareGeneralSideNavigationViewControllerExample
+	:description:	General usage example.
+	*/
+	private func prepareSwapSideNavigationViewControllerExample() {
+		let button: FabButton = FabButton()
+		button.backgroundColor = MaterialColor.orange.base
+		button.addTarget(self, action: "handleSwapViewControllers", forControlEvents: .TouchUpInside)
+		
+		// Add the button through MaterialLayout.
+		view.addSubview(button)
+		button.translatesAutoresizingMaskIntoConstraints = false
+		MaterialLayout.alignFromTopRight(view, child: button, top: 24, right: 24)
+		MaterialLayout.size(view, child: button, width: 48, height: 48)
 	}
 }
 
