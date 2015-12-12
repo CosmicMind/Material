@@ -129,14 +129,28 @@ public class CaptureSession : NSObject {
 	:name:	caneraSupportsTapToFocus
 	*/
 	public var cameraSupportsTapToFocus: Bool {
-		return true == activeCamera?.focusPointOfInterestSupported
+		return activeCamera!.focusPointOfInterestSupported
 	}
 	
 	/**
 	:name:	cameraSupportsTapToExpose
 	*/
 	public var cameraSupportsTapToExpose: Bool {
-		return true == activeCamera?.exposurePointOfInterestSupported
+		return activeCamera!.exposurePointOfInterestSupported
+	}
+	
+	/**
+	:name:	cameraHasFlash
+	*/
+	public var cameraHasFlash: Bool {
+		return activeCamera!.hasFlash
+	}
+	
+	/**
+	:name:	cameraHasTorch
+	*/
+	public var cameraHasTorch: Bool {
+		return activeCamera!.hasTorch
 	}
 	
 	/**
@@ -159,6 +173,60 @@ public class CaptureSession : NSObject {
 				}
 			} else {
 				error = NSError(domain: "[MaterialKit Error: Unsupported focusMode.]", code: 0, userInfo: nil)
+			}
+			if let e: NSError = error {
+				delegate?.captureSessionFailedWithError?(self, error: e)
+			}
+		}
+	}
+	
+	/**
+	:name:	flashMode
+	*/
+	public var flashMode: AVCaptureFlashMode {
+		get {
+			return activeCamera!.flashMode
+		}
+		set(value) {
+			var error: NSError?
+			if isFlashModeSupported(flashMode) {
+				do {
+					let device: AVCaptureDevice = activeCamera!
+					try device.lockForConfiguration()
+					device.flashMode = flashMode
+					device.unlockForConfiguration()
+				} catch let e as NSError {
+					error = e
+				}
+			} else {
+				error = NSError(domain: "[MaterialKit Error: Unsupported flashMode.]", code: 0, userInfo: nil)
+			}
+			if let e: NSError = error {
+				delegate?.captureSessionFailedWithError?(self, error: e)
+			}
+		}
+	}
+	
+	/**
+	:name:	torchMode
+	*/
+	public var torchMode: AVCaptureTorchMode {
+		get {
+			return activeCamera!.torchMode
+		}
+		set(value) {
+			var error: NSError?
+			if isTorchModeSupported(torchMode) {
+				do {
+					let device: AVCaptureDevice = activeCamera!
+					try device.lockForConfiguration()
+					device.torchMode = torchMode
+					device.unlockForConfiguration()
+				} catch let e as NSError {
+					error = e
+				}
+			} else {
+				error = NSError(domain: "[MaterialKit Error: Unsupported torchMode.]", code: 0, userInfo: nil)
 			}
 			if let e: NSError = error {
 				delegate?.captureSessionFailedWithError?(self, error: e)
@@ -239,6 +307,20 @@ public class CaptureSession : NSObject {
 	*/
 	public func isExposureModeSupported(exposureMode: AVCaptureExposureMode) -> Bool {
 		return activeVideoInput!.device.isExposureModeSupported(exposureMode)
+	}
+	
+	/**
+	:name:	isFlashModeSupported
+	*/
+	public func isFlashModeSupported(flashMode: AVCaptureFlashMode) -> Bool {
+		return activeVideoInput!.device.isFlashModeSupported(flashMode)
+	}
+	
+	/**
+	:name:	isTorchModeSupported
+	*/
+	public func isTorchModeSupported(torchMode: AVCaptureTorchMode) -> Bool {
+		return activeVideoInput!.device.isTorchModeSupported(torchMode)
 	}
 	
 	/**

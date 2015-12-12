@@ -204,6 +204,7 @@ public class CapturePreviewView : MaterialView, UIGestureRecognizerDelegate {
 	*/
 	internal func handleTapToResetGesture(recognizer: UITapGestureRecognizer) {
 		if tapToResetEnabled {
+			captureSession.resetFocusAndExposureModes()
 			(delegate as? CapturePreviewViewDelegate)?.capturePreviewViewDidTapToResetAtPoint?(self, point: pointForCaptureDevicePointOfInterest(CGPointMake(0.5, 0.5)))
 		}
 	}
