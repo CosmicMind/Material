@@ -24,10 +24,8 @@ class ViewController: UIViewController {
 		super.viewDidLoad()
 		prepareView()
 		
-		// Examples of using Capture.
-		// Uncomment different examples and read
-		// the comments below.
-		prepareGeneralCaptureExample()
+		// Examples of using CaptureView.
+		prepareGeneralCaptureViewExample()
 	}
 	
 	/**
@@ -39,11 +37,11 @@ class ViewController: UIViewController {
 	}
 	
 	/**
-	:name:	prepareGeneralCaptureExample
+	:name:	prepareGeneralCaptureViewExample
 	:description:	General usage example.
 	*/
-	private func prepareGeneralCaptureExample() {
-		
+	private func prepareGeneralCaptureViewExample() {
+	
 	}
 }
 

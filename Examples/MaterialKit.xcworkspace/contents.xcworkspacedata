@@ -65,9 +65,9 @@
       </Group>
       <Group
          location = "container:"
-         name = "Capture">
+         name = "CaptureView">
          <FileRef
-            location = "group:Programmatic/Capture/Capture.xcodeproj">
+            location = "group:Programmatic/CaptureView/CaptureView.xcodeproj">
          </FileRef>
       </Group>
       <Group
