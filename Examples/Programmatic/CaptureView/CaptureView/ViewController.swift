@@ -20,31 +20,62 @@ import UIKit
 import MaterialKit
 
 class ViewController: UIViewController {
+	private lazy var captureView: CaptureView = CaptureView()
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		
-		// Examples of using CaptureView.
-		prepareGeneralCaptureViewExample()
+		prepareCaptureView()
 	}
 	
 	/**
 	:name:	prepareView
-	:description: General preparation statements.
 	*/
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.white
 	}
 	
 	/**
-	:name:	prepareGeneralCaptureViewExample
-	:description:	General usage example.
+	:name:	prepareCaptureView
 	*/
-	private func prepareGeneralCaptureViewExample() {
-		let v: CaptureView = CaptureView(frame: view.bounds)
-		v.switchCamerasButton = FabButton()
+	private func prepareCaptureView() {
+		let img1: UIImage? = UIImage(named: "ic_flash_auto_white")
+		let btn1: FlatButton = FlatButton()
+		btn1.pulseColor = nil
+		btn1.setImage(img1, forState: .Normal)
+		btn1.setImage(img1, forState: .Highlighted)
+		btn1.addTarget(self, action: "handleFlash:", forControlEvents: .TouchUpInside)
 		
-		view.addSubview(v)
+		let img2: UIImage? = UIImage(named: "ic_switch_camera_white")
+		let btn2: FlatButton = FlatButton()
+		btn2.pulseColor = nil
+		btn2.setImage(img2, forState: .Normal)
+		btn2.setImage(img2, forState: .Highlighted)
+		
+		captureView.flashAutoButton = btn1
+		captureView.switchCamerasButton = btn2
+		captureView.navigationBarView.rightButtons = [btn1, btn2]
+		
+		view.addSubview(captureView)
+		captureView.translatesAutoresizingMaskIntoConstraints = false
+		MaterialLayout.alignToParent(view, child: captureView)
+	}
+	
+	internal func handleFlash(sender: AnyObject) {
+		var img: UIImage?
+		switch captureView.previewView.captureSession.flashMode {
+		case .Off:
+			img = UIImage(named: "ic_flash_on_white")
+			print("Flash On")
+		case .On:
+			img = UIImage(named: "ic_flash_auto_white")
+			print("Flash Auto")
+		case .Auto:
+			img = UIImage(named: "ic_flash_off_white")
+			print("Flash Off")
+		}
+		captureView.flashAutoButton?.setImage(img, forState: .Normal)
+		captureView.flashAutoButton?.setImage(img, forState: .Highlighted)
 	}
 }
 

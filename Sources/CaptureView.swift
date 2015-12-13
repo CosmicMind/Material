@@ -35,14 +35,37 @@ public class CaptureView : MaterialView, CaptureSessionDelegate, CapturePreviewV
 	public private(set) lazy var exposureLayer: MaterialLayer = MaterialLayer()
 	
 	/**
+	:name:	navigationBarView
+	*/
+	public private(set) lazy var navigationBarView: NavigationBarView = NavigationBarView()
+	
+	/**
+	:name:	flashAutoButton
+	*/
+	public var flashAutoButton: MaterialButton? {
+		didSet {
+			if let v: MaterialButton = flashAutoButton {
+				v.removeTarget(self, action: "handleFlashAuto:", forControlEvents: .TouchUpInside)
+				v.addTarget(self, action: "handleFlashAuto:", forControlEvents: .TouchUpInside)
+			} else {
+				flashAutoButton?.removeFromSuperview()
+				flashAutoButton = nil
+			}
+		}
+	}
+	
+	/**
 	:name:	switchCamerasButton
 	*/
 	public var switchCamerasButton: MaterialButton? {
 		didSet {
 			if let v: MaterialButton = switchCamerasButton {
-				v.translatesAutoresizingMaskIntoConstraints = false
+				v.removeTarget(self, action: "handleSwitchCamera:", forControlEvents: .TouchUpInside)
+				v.addTarget(self, action: "handleSwitchCamera:", forControlEvents: .TouchUpInside)
+			} else {
+				switchCamerasButton?.removeFromSuperview()
+				switchCamerasButton = nil
 			}
-			reloadView()
 		}
 	}
 	
@@ -100,20 +123,14 @@ public class CaptureView : MaterialView, CaptureSessionDelegate, CapturePreviewV
 			v.removeFromSuperview()
 		}
 		
-//		var verticalFormat: String = "V:|"
-//		var views: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
-//		var metrics: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
-		
 		addSubview(previewView)
 		MaterialLayout.alignToParent(self, child: previewView)
 		
-		if let v: MaterialButton = switchCamerasButton {
-			addSubview(v)
-			MaterialLayout.alignFromBottomRight(self, child: v, bottom: contentInsetsRef.bottom, right: contentInsetsRef.right)
-			MaterialLayout.size(self, child: v, width: switchCamerasButtonSize.width, height: switchCamerasButtonSize.height)
-			v.removeTarget(self, action: "handleSwitchCameras", forControlEvents: .TouchUpInside)
-			v.addTarget(self, action: "handleSwitchCameras", forControlEvents: .TouchUpInside)
-		}
+		addSubview(navigationBarView)
+		
+//		var verticalFormat: String = "V:|"
+//		var views: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
+//		var metrics: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
 		
 //		if 0 < views.count {
 //			addConstraints(MaterialLayout.constraint(verticalFormat, options: [], metrics: metrics, views: views))
@@ -177,16 +194,43 @@ public class CaptureView : MaterialView, CaptureSessionDelegate, CapturePreviewV
 	public override func prepareView() {
 		super.prepareView()
 		preparePreviewView()
+		prepareNavigationBarView()
 		prepareFocusLayer()
 		prepareExposureLayer()
 		reloadView()
 	}
 	
 	/**
-	:name:	handleSwitchCameras
+	:name:	handleSwitchCamera
 	*/
-	internal func handleSwitchCameras() {
+	internal func handleSwitchCamera(button: MaterialButton) {
 		previewView.captureSession.switchCameras()
+	}
+	
+	/**
+	:name:	handleFlashAuto
+	*/
+	internal func handleFlashAuto(button: MaterialButton) {
+		switch previewView.captureSession.flashMode {
+		case .Off:
+			previewView.captureSession.flashMode = .On
+			print("On")
+		case .On:
+			previewView.captureSession.flashMode = .Off
+			print("Auto")
+		case .Auto:
+			print("Off")
+			previewView.captureSession.flashMode = .On
+		}
+	}
+	
+	/**
+	:name:	prepareNavigationBarView
+	*/
+	private func prepareNavigationBarView() {
+		navigationBarView.backgroundColor = MaterialColor.black.colorWithAlphaComponent(0.3)
+		navigationBarView.shadowDepth = .None
+		navigationBarView.statusBarStyle = .LightContent
 	}
 	
 	/**
