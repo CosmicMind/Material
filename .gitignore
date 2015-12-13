@@ -15,4 +15,4 @@ xcuserdata
 profile
 *.moved-aside
 *.playground
-#*.framework
+*.framework
