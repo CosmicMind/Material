@@ -12,8 +12,6 @@
 		96212DB91C16964500F31053 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96212DB11C16964500F31053 /* LaunchScreen.storyboard */; };
 		96212DBA1C16964500F31053 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96212DB31C16964500F31053 /* Main.storyboard */; };
 		96212DBC1C16964500F31053 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96212DB61C16964500F31053 /* ViewController.swift */; };
-		96212DBE1C1696A500F31053 /* MaterialKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96212DBD1C1696A500F31053 /* MaterialKit.framework */; };
-		96212DBF1C1696A500F31053 /* MaterialKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 96212DBD1C1696A500F31053 /* MaterialKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,7 +21,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				96212DBF1C1696A500F31053 /* MaterialKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -37,7 +34,6 @@
 		96212DB41C16964500F31053 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		96212DB51C16964500F31053 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96212DB61C16964500F31053 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		96212DBD1C1696A500F31053 /* MaterialKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = MaterialKit.framework; path = "/Users/danieldahan/Library/Developer/Xcode/DerivedData/MaterialKit-anypxbsecgdqqxevbavirvnffqxd/Build/Products/Debug-iphoneos/MaterialKit.framework"; sourceTree = "<absolute>"; };
 		9ABEC5A31C152FE800F6895E /* MaterialButton.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MaterialButton.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -46,7 +42,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96212DBE1C1696A500F31053 /* MaterialKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,7 +64,6 @@
 		9ABEC59A1C152FE800F6895E = {
 			isa = PBXGroup;
 			children = (
-				96212DBD1C1696A500F31053 /* MaterialKit.framework */,
 				96212DAE1C16964500F31053 /* MaterialButton */,
 				9ABEC5A41C152FE800F6895E /* Products */,
 			);

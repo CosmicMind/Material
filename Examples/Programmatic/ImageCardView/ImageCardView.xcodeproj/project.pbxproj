@@ -11,8 +11,6 @@
 		967513F01C13EB69009F455A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967513EF1C13EB69009F455A /* ViewController.swift */; };
 		967513F51C13EB69009F455A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 967513F41C13EB69009F455A /* Assets.xcassets */; };
 		967513F81C13EB69009F455A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 967513F61C13EB69009F455A /* LaunchScreen.storyboard */; };
-		967514001C13ECC0009F455A /* MaterialKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 967513FF1C13ECC0009F455A /* MaterialKit.framework */; };
-		967514011C13ECC0009F455A /* MaterialKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 967513FF1C13ECC0009F455A /* MaterialKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		967514041C13ED3F009F455A /* ContentKit+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967514031C13ED3F009F455A /* ContentKit+UIImage.swift */; };
 /* End PBXBuildFile section */
 
@@ -23,7 +21,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				967514011C13ECC0009F455A /* MaterialKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -37,7 +34,6 @@
 		967513F41C13EB69009F455A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		967513F71C13EB69009F455A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		967513F91C13EB69009F455A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		967513FF1C13ECC0009F455A /* MaterialKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = MaterialKit.framework; path = "/Users/danieldahan/Library/Developer/Xcode/DerivedData/MaterialKit-anypxbsecgdqqxevbavirvnffqxd/Build/Products/Debug-iphoneos/MaterialKit.framework"; sourceTree = "<absolute>"; };
 		967514031C13ED3F009F455A /* ContentKit+UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ContentKit+UIImage.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -46,7 +42,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				967514001C13ECC0009F455A /* MaterialKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,7 +51,6 @@
 		967513E11C13EB69009F455A = {
 			isa = PBXGroup;
 			children = (
-				967513FF1C13ECC0009F455A /* MaterialKit.framework */,
 				967513EC1C13EB69009F455A /* ImageCardView */,
 				967513EB1C13EB69009F455A /* Products */,
 			);

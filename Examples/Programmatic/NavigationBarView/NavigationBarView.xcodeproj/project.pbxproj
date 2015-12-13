@@ -11,8 +11,6 @@
 		96D88C851C132C1800B91418 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D88C841C132C1800B91418 /* ViewController.swift */; };
 		96D88C8A1C132C1800B91418 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96D88C891C132C1800B91418 /* Assets.xcassets */; };
 		96D88C8D1C132C1800B91418 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96D88C8B1C132C1800B91418 /* LaunchScreen.storyboard */; };
-		96D88C951C132C7800B91418 /* MaterialKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96D88C941C132C7800B91418 /* MaterialKit.framework */; };
-		96D88C961C132C7800B91418 /* MaterialKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 96D88C941C132C7800B91418 /* MaterialKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -22,7 +20,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				96D88C961C132C7800B91418 /* MaterialKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -36,7 +33,6 @@
 		96D88C891C132C1800B91418 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		96D88C8C1C132C1800B91418 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		96D88C8E1C132C1900B91418 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		96D88C941C132C7800B91418 /* MaterialKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = MaterialKit.framework; path = "/Users/danieldahan/Library/Developer/Xcode/DerivedData/MaterialKit-anypxbsecgdqqxevbavirvnffqxd/Build/Products/Debug-iphoneos/MaterialKit.framework"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,7 +40,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96D88C951C132C7800B91418 /* MaterialKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,7 +49,6 @@
 		96D88C761C132C1800B91418 = {
 			isa = PBXGroup;
 			children = (
-				96D88C941C132C7800B91418 /* MaterialKit.framework */,
 				96D88C811C132C1800B91418 /* NavigationBarView */,
 				96D88C801C132C1800B91418 /* Products */,
 			);
