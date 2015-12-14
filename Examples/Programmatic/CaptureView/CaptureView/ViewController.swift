@@ -96,17 +96,22 @@ class ViewController: UIViewController, CaptureSessionDelegate {
 	
 	internal func handleFlash(sender: AnyObject) {
 		var img: UIImage?
-		switch captureView.previewView.captureSession.flashMode {
+		
+		switch captureView.captureSession.flashMode {
 		case .Off:
 			img = UIImage(named: "ic_flash_on_white")
-			print("Flash On")
+			captureView.captureSession.flashMode = .On
+			print("On")
 		case .On:
 			img = UIImage(named: "ic_flash_auto_white")
-			print("Flash Auto")
+			captureView.captureSession.flashMode = .Off
+			print("Auto")
 		case .Auto:
 			img = UIImage(named: "ic_flash_off_white")
-			print("Flash Off")
+			captureView.captureSession.flashMode = .On
+			print("Off")
 		}
+		
 		captureView.flashButton?.setImage(img, forState: .Normal)
 		captureView.flashButton?.setImage(img, forState: .Highlighted)
 	}

@@ -42,24 +42,6 @@ public class CaptureView : MaterialView, CaptureSessionDelegate, CapturePreviewV
 			if let v: UIButton = captureButton {
 				v.removeTarget(self, action: "handleCaptureButton:", forControlEvents: .TouchUpInside)
 				v.addTarget(self, action: "handleCaptureButton:", forControlEvents: .TouchUpInside)
-			} else {
-				captureButton?.removeFromSuperview()
-				captureButton = nil
-			}
-		}
-	}
-	
-	/**
-	:name:	flashButton
-	*/
-	public var flashButton: UIButton? {
-		didSet {
-			if let v: UIButton = flashButton {
-				v.removeTarget(self, action: "handleFlashButton:", forControlEvents: .TouchUpInside)
-				v.addTarget(self, action: "handleFlashButton:", forControlEvents: .TouchUpInside)
-			} else {
-				flashButton?.removeFromSuperview()
-				flashButton = nil
 			}
 		}
 	}
@@ -72,12 +54,14 @@ public class CaptureView : MaterialView, CaptureSessionDelegate, CapturePreviewV
 			if let v: UIButton = switchCamerasButton {
 				v.removeTarget(self, action: "handleSwitchCameraButton:", forControlEvents: .TouchUpInside)
 				v.addTarget(self, action: "handleSwitchCameraButton:", forControlEvents: .TouchUpInside)
-			} else {
-				switchCamerasButton?.removeFromSuperview()
-				switchCamerasButton = nil
 			}
 		}
 	}
+	
+	/**
+	:name:	flashButton
+	*/
+	public var flashButton: UIButton?
 	
 	/**
 	:name:	captureSession
@@ -179,25 +163,6 @@ public class CaptureView : MaterialView, CaptureSessionDelegate, CapturePreviewV
 	*/
 	internal func handleSwitchCameraButton(button: UIButton) {
 		captureSession.switchCameras()
-	}
-	
-	/**
-	:name:	handleFlashButton
-	*/
-	internal func handleFlashButton(button: UIButton) {
-		print(captureSession.flashMode == .Off)
-		
-		switch captureSession.flashMode {
-		case .Off:
-			captureSession.flashMode = .On
-			print("On")
-		case .On:
-			captureSession.flashMode = .Off
-			print("Auto")
-		case .Auto:
-			print("Off")
-			captureSession.flashMode = .On
-		}
 	}
 	
 	/**
