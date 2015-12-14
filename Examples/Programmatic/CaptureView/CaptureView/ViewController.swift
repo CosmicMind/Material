@@ -46,29 +46,38 @@ class ViewController: UIViewController, CaptureSessionDelegate {
 		
 		let img1: UIImage? = UIImage(named: "ic_flash_auto_white")
 		let btn1: FlatButton = FlatButton()
-		btn1.pulseColor = nil
+		btn1.pulseColor = MaterialColor.white
+		btn1.pulseFill = true
 		btn1.setImage(img1, forState: .Normal)
 		btn1.setImage(img1, forState: .Highlighted)
 		btn1.addTarget(self, action: "handleFlash:", forControlEvents: .TouchUpInside)
 		
 		let img2: UIImage? = UIImage(named: "ic_switch_camera_white")
 		let btn2: FlatButton = FlatButton()
-		btn2.pulseColor = nil
+		btn2.pulseColor = MaterialColor.white
+		btn2.pulseFill = true
 		btn2.setImage(img2, forState: .Normal)
 		btn2.setImage(img2, forState: .Highlighted)
 
-		let img3: UIImage? = UIImage(named: "ic_photo_camera_white_36pt")
+		let img3: UIImage? = UIImage(named: "ic_close_white")
+		let btn3: FlatButton = FlatButton()
+		btn3.pulseColor = MaterialColor.white
+		btn3.pulseFill = true
+		btn3.setImage(img3, forState: .Normal)
+		btn3.setImage(img3, forState: .Highlighted)
+		
+		let img4: UIImage? = UIImage(named: "ic_photo_camera_white_36pt")
 		let captureButton: FabButton = FabButton()
-		captureButton.backgroundColor = MaterialColor.grey.darken2
-		captureButton.borderWidth = .Border4
-		captureButton.borderColor = MaterialColor.white
+		captureButton.backgroundColor = MaterialColor.black.colorWithAlphaComponent(0.3)
+		captureButton.borderWidth = .Border2
+		captureButton.borderColor = MaterialColor.grey.darken1
 		captureButton.shadowDepth = .None
-		captureButton.setImage(img3, forState: .Normal)
-		captureButton.setImage(img3, forState: .Highlighted)
+		captureButton.setImage(img4, forState: .Normal)
+		captureButton.setImage(img4, forState: .Highlighted)
 		
 		captureView.captureSession.delegate = self
 		captureView.captureButton = captureButton
-		captureView.flashAutoButton = btn1
+		captureView.flashButton = btn1
 		captureView.switchCamerasButton = btn2
 		
 		view.addSubview(captureView)
@@ -81,6 +90,7 @@ class ViewController: UIViewController, CaptureSessionDelegate {
 		MaterialLayout.size(view, child: captureButton, width: 72, height: 72)
 		
 		view.addSubview(navigationBarView)
+		navigationBarView.leftButtons = [btn3]
 		navigationBarView.rightButtons = [btn1, btn2]
 	}
 	
@@ -97,8 +107,8 @@ class ViewController: UIViewController, CaptureSessionDelegate {
 			img = UIImage(named: "ic_flash_off_white")
 			print("Flash Off")
 		}
-		captureView.flashAutoButton?.setImage(img, forState: .Normal)
-		captureView.flashAutoButton?.setImage(img, forState: .Highlighted)
+		captureView.flashButton?.setImage(img, forState: .Normal)
+		captureView.flashButton?.setImage(img, forState: .Highlighted)
 	}
 	
 	/**

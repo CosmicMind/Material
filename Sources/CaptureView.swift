@@ -40,8 +40,8 @@ public class CaptureView : MaterialView, CaptureSessionDelegate, CapturePreviewV
 	public var captureButton: UIButton? {
 		didSet {
 			if let v: UIButton = captureButton {
-				v.removeTarget(self, action: "handleCapture:", forControlEvents: .TouchUpInside)
-				v.addTarget(self, action: "handleCapture:", forControlEvents: .TouchUpInside)
+				v.removeTarget(self, action: "handleCaptureButton:", forControlEvents: .TouchUpInside)
+				v.addTarget(self, action: "handleCaptureButton:", forControlEvents: .TouchUpInside)
 			} else {
 				captureButton?.removeFromSuperview()
 				captureButton = nil
@@ -50,16 +50,16 @@ public class CaptureView : MaterialView, CaptureSessionDelegate, CapturePreviewV
 	}
 	
 	/**
-	:name:	flashAutoButton
+	:name:	flashButton
 	*/
-	public var flashAutoButton: UIButton? {
+	public var flashButton: UIButton? {
 		didSet {
-			if let v: UIButton = flashAutoButton {
-				v.removeTarget(self, action: "handleFlashAuto:", forControlEvents: .TouchUpInside)
-				v.addTarget(self, action: "handleFlashAuto:", forControlEvents: .TouchUpInside)
+			if let v: UIButton = flashButton {
+				v.removeTarget(self, action: "handleFlashButton:", forControlEvents: .TouchUpInside)
+				v.addTarget(self, action: "handleFlashButton:", forControlEvents: .TouchUpInside)
 			} else {
-				flashAutoButton?.removeFromSuperview()
-				flashAutoButton = nil
+				flashButton?.removeFromSuperview()
+				flashButton = nil
 			}
 		}
 	}
@@ -70,39 +70,12 @@ public class CaptureView : MaterialView, CaptureSessionDelegate, CapturePreviewV
 	public var switchCamerasButton: UIButton? {
 		didSet {
 			if let v: UIButton = switchCamerasButton {
-				v.removeTarget(self, action: "handleSwitchCamera:", forControlEvents: .TouchUpInside)
-				v.addTarget(self, action: "handleSwitchCamera:", forControlEvents: .TouchUpInside)
+				v.removeTarget(self, action: "handleSwitchCameraButton:", forControlEvents: .TouchUpInside)
+				v.addTarget(self, action: "handleSwitchCameraButton:", forControlEvents: .TouchUpInside)
 			} else {
 				switchCamerasButton?.removeFromSuperview()
 				switchCamerasButton = nil
 			}
-		}
-	}
-	
-	/**
-	:name:	switchCamerasButtonSize
-	*/
-	public var switchCamerasButtonSize: CGSize = CGSizeMake(48, 48) {
-		didSet {
-			reloadView()
-		}
-	}
-	
-	/**
-	:name:	contentInsets
-	*/
-	public var contentInsets: MaterialEdgeInsets = .None {
-		didSet {
-			contentInsetsRef = MaterialEdgeInsetsToValue(contentInsets)
-		}
-	}
-	
-	/**
-	:name:	contentInsetsRef
-	*/
-	public var contentInsetsRef: UIEdgeInsets = MaterialTheme.basicCaptureView.contentInsetsRef {
-		didSet {
-			reloadView()
 		}
 	}
 	
@@ -134,12 +107,7 @@ public class CaptureView : MaterialView, CaptureSessionDelegate, CapturePreviewV
 	:name:	reloadView
 	*/
 	public func reloadView() {
-		// clear constraints so new ones do not conflict
-		removeConstraints(constraints)
-		for v in subviews {
-			v.removeFromSuperview()
-		}
-		
+		previewView.removeFromSuperview()
 		addSubview(previewView)
 		MaterialLayout.alignToParent(self, child: previewView)
 	}
@@ -200,33 +168,35 @@ public class CaptureView : MaterialView, CaptureSessionDelegate, CapturePreviewV
 	}
 	
 	/**
-	:name:	handleCapture
+	:name:	handleCaptureButton
 	*/
-	internal func handleCapture(button: UIButton) {
-		previewView.captureSession.captureStillImage()
+	internal func handleCaptureButton(button: UIButton) {
+		captureSession.captureStillImage()
 	}
 	
 	/**
-	:name:	handleSwitchCamera
+	:name:	handleSwitchCameraButton
 	*/
-	internal func handleSwitchCamera(button: UIButton) {
-		previewView.captureSession.switchCameras()
+	internal func handleSwitchCameraButton(button: UIButton) {
+		captureSession.switchCameras()
 	}
 	
 	/**
-	:name:	handleFlashAuto
+	:name:	handleFlashButton
 	*/
-	internal func handleFlashAuto(button: UIButton) {
-		switch previewView.captureSession.flashMode {
+	internal func handleFlashButton(button: UIButton) {
+		print(captureSession.flashMode == .Off)
+		
+		switch captureSession.flashMode {
 		case .Off:
-			previewView.captureSession.flashMode = .On
+			captureSession.flashMode = .On
 			print("On")
 		case .On:
-			previewView.captureSession.flashMode = .Off
+			captureSession.flashMode = .Off
 			print("Auto")
 		case .Auto:
 			print("Off")
-			previewView.captureSession.flashMode = .On
+			captureSession.flashMode = .On
 		}
 	}
 	

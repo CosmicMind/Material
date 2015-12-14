@@ -322,28 +322,28 @@ public class CaptureSession : NSObject {
 	:name:	isFocusModeSupported
 	*/
 	public func isFocusModeSupported(focusMode: AVCaptureFocusMode) -> Bool {
-		return activeVideoInput!.device.isFocusModeSupported(focusMode)
+		return activeCamera!.isFocusModeSupported(focusMode)
 	}
 	
 	/**
 	:name:	isExposureModeSupported
 	*/
 	public func isExposureModeSupported(exposureMode: AVCaptureExposureMode) -> Bool {
-		return activeVideoInput!.device.isExposureModeSupported(exposureMode)
+		return activeCamera!.isExposureModeSupported(exposureMode)
 	}
 	
 	/**
 	:name:	isFlashModeSupported
 	*/
 	public func isFlashModeSupported(flashMode: AVCaptureFlashMode) -> Bool {
-		return activeVideoInput!.device.isFlashModeSupported(flashMode)
+		return activeCamera!.isFlashModeSupported(flashMode)
 	}
 	
 	/**
 	:name:	isTorchModeSupported
 	*/
 	public func isTorchModeSupported(torchMode: AVCaptureTorchMode) -> Bool {
-		return activeVideoInput!.device.isTorchModeSupported(torchMode)
+		return activeCamera!.isTorchModeSupported(torchMode)
 	}
 	
 	/**
@@ -438,7 +438,7 @@ public class CaptureSession : NSObject {
 			}
 			device.unlockForConfiguration()
 		} catch let e as NSError {
-			self.delegate?.captureSessionFailedWithError?(self, error: e)
+			delegate?.captureSessionFailedWithError?(self, error: e)
 		}
 	}
 	
