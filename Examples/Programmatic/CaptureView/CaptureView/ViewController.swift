@@ -71,7 +71,7 @@ class ViewController: UIViewController, CaptureSessionDelegate {
 		btn3.setImage(img3, forState: .Normal)
 		btn3.setImage(img3, forState: .Highlighted)
 		
-		let img4: UIImage? = UIImage(named: "ic_photo_camera_white_48pt")
+		let img4: UIImage? = UIImage(named: "ic_photo_camera_white_36pt")
 		cameraButton.pulseColor = nil
 		cameraButton.setImage(img4, forState: .Normal)
 		cameraButton.setImage(img4, forState: .Highlighted)
@@ -85,7 +85,7 @@ class ViewController: UIViewController, CaptureSessionDelegate {
 		captureButton.shadowDepth = .None
 		captureButton.addTarget(self, action: "handleCaptureButton:", forControlEvents: .TouchUpInside)
 		
-		let img5: UIImage? = UIImage(named: "ic_videocam_white_48pt")
+		let img5: UIImage? = UIImage(named: "ic_videocam_white_36pt")
 		videoButton.pulseColor = nil
 		videoButton.setImage(img5, forState: .Normal)
 		videoButton.setImage(img5, forState: .Highlighted)
@@ -103,7 +103,6 @@ class ViewController: UIViewController, CaptureSessionDelegate {
 		view.addSubview(cameraButton)
 		cameraButton.translatesAutoresizingMaskIntoConstraints = false
 		MaterialLayout.alignFromBottomLeft(view, child: cameraButton, bottom: 24, left: 24)
-//		MaterialLayout.size(view, child: cameraButton, width: 48, height: 48)
 		
 		view.addSubview(captureButton)
 		captureButton.translatesAutoresizingMaskIntoConstraints = false
@@ -113,7 +112,6 @@ class ViewController: UIViewController, CaptureSessionDelegate {
 		view.addSubview(videoButton)
 		videoButton.translatesAutoresizingMaskIntoConstraints = false
 		MaterialLayout.alignFromBottomRight(view, child: videoButton, bottom: 24, right: 24)
-//		MaterialLayout.size(view, child: videoButton, width: 48, height: 48)
 		
 		view.addSubview(navigationBarView)
 		navigationBarView.leftButtons = [btn3]
