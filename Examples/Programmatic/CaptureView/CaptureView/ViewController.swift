@@ -18,6 +18,7 @@
 
 import UIKit
 import MaterialKit
+import AVFoundation
 
 class ViewController: UIViewController, CaptureSessionDelegate {
 	private lazy var captureView: CaptureView = CaptureView()
@@ -50,7 +51,7 @@ class ViewController: UIViewController, CaptureSessionDelegate {
 		btn1.pulseFill = true
 		btn1.setImage(img1, forState: .Normal)
 		btn1.setImage(img1, forState: .Highlighted)
-		btn1.addTarget(self, action: "handleFlash:", forControlEvents: .TouchUpInside)
+		btn1.addTarget(self, action: "handleFlashButton:", forControlEvents: .TouchUpInside)
 		
 		let img2: UIImage? = UIImage(named: "ic_switch_camera_white")
 		let btn2: FlatButton = FlatButton()
@@ -58,6 +59,7 @@ class ViewController: UIViewController, CaptureSessionDelegate {
 		btn2.pulseFill = true
 		btn2.setImage(img2, forState: .Normal)
 		btn2.setImage(img2, forState: .Highlighted)
+		btn2.addTarget(self, action: "handleSwitchCameraButton:", forControlEvents: .TouchUpInside)
 
 		let img3: UIImage? = UIImage(named: "ic_close_white")
 		let btn3: FlatButton = FlatButton()
@@ -74,6 +76,7 @@ class ViewController: UIViewController, CaptureSessionDelegate {
 		captureButton.shadowDepth = .None
 		captureButton.setImage(img4, forState: .Normal)
 		captureButton.setImage(img4, forState: .Highlighted)
+		captureButton.addTarget(self, action: "handleCaptureButton:", forControlEvents: .TouchUpInside)
 		
 		captureView.captureSession.delegate = self
 		captureView.captureButton = captureButton
@@ -94,7 +97,28 @@ class ViewController: UIViewController, CaptureSessionDelegate {
 		navigationBarView.rightButtons = [btn1, btn2]
 	}
 	
-	internal func handleFlash(sender: AnyObject) {
+	/**
+	:name:	handleCaptureButton
+	*/
+	internal func handleCaptureButton(button: UIButton) {
+		if captureView.captureSession.isRecording {
+			captureView.captureSession.stopRecording()
+		} else {
+			captureView.captureSession.startRecording()
+		}
+	}
+	
+	/**
+	:name:	handleSwitchCameraButton
+	*/
+	internal func handleSwitchCameraButton(button: UIButton) {
+		captureView.captureSession.switchCameras()
+	}
+	
+	/**
+	:name:	handleFlashButton
+	*/
+	internal func handleFlashButton(sender: AnyObject) {
 		var img: UIImage?
 		
 		switch captureView.captureSession.flashMode {
@@ -123,9 +147,32 @@ class ViewController: UIViewController, CaptureSessionDelegate {
 		print(error)
 	}
 	
-	func captureStillImageAsynchronously(capture: CaptureSession, image: UIImage?, error: NSError?) {
-		print(image)
-		print(error)
+	/**
+	:name:	captureStillImageAsynchronously
+	*/
+	func captureStillImageAsynchronously(capture: CaptureSession, image: UIImage) {
+		print("Capture Image \(image)")
+	}
+	
+	/**
+	:name:	captureCreateMovieFileFailedWithError
+	*/
+	func captureCreateMovieFileFailedWithError(capture: CaptureSession, error: NSError) {
+		print("Capture Failed \(error)")
+	}
+
+	/**
+	:name:	captureDidStartRecordingToOutputFileAtURL
+	*/
+	func captureDidStartRecordingToOutputFileAtURL(capture: CaptureSession, captureOutput: AVCaptureFileOutput, fileURL: NSURL, fromConnections connections: [AnyObject]) {
+		print("Capture Started Recording")
+	}
+	
+	/**
+	:name:	captureDidFinishRecordingToOutputFileAtURL
+	*/
+	func captureDidFinishRecordingToOutputFileAtURL(capture: CaptureSession, captureOutput: AVCaptureFileOutput, outputFileURL: NSURL, fromConnections connections: [AnyObject], error: NSError!) {
+		print("Capture Stopped Recording")
 	}
 }
 

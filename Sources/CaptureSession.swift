@@ -45,11 +45,36 @@ public protocol CaptureSessionDelegate {
 	/**
 	:name:	captureStillImageAsynchronously
 	*/
-	optional func captureStillImageAsynchronously(capture: CaptureSession, image: UIImage?, error: NSError?)
+	optional func captureStillImageAsynchronously(capture: CaptureSession, image: UIImage)
+	
+	/**
+	:name:	captureStillImageAsynchronouslyFailedWithError
+	*/
+	optional func captureStillImageAsynchronouslyFailedWithError(capture: CaptureSession, error: NSError)
+	
+	/**
+	:name:	captureCreateMovieFileFailedWithError
+	*/
+	optional func captureCreateMovieFileFailedWithError(capture: CaptureSession, error: NSError)
+	
+	/**
+	:name:	captureMovieFailedWithError
+	*/
+	optional func captureMovieFailedWithError(capture: CaptureSession, error: NSError)
+	
+	/**
+	:name:	captureDidStartRecordingToOutputFileAtURL
+	*/
+	optional func captureDidStartRecordingToOutputFileAtURL(capture: CaptureSession, captureOutput: AVCaptureFileOutput, fileURL: NSURL, fromConnections connections: [AnyObject])
+	
+	/**
+	:name:	captureDidFinishRecordingToOutputFileAtURL
+	*/
+	optional func captureDidFinishRecordingToOutputFileAtURL(capture: CaptureSession, captureOutput: AVCaptureFileOutput, outputFileURL: NSURL, fromConnections connections: [AnyObject], error: NSError!)
 }
 
 @objc(CaptureSession)
-public class CaptureSession : NSObject {
+public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 	/**
 	:name:	videoQueue
 	*/
@@ -84,6 +109,16 @@ public class CaptureSession : NSObject {
 	:name:	isRunning
 	*/
 	public private(set) lazy var isRunning: Bool = false
+	
+	/**
+	:name:	isRecording
+	*/
+	public private(set) lazy var isRecording: Bool = false
+	
+	/**
+	:name:	movieOutputURL
+	*/
+	public private(set) var movieOutputURL: NSURL?
 	
 	/**
 	:name:	activeCamera
@@ -451,11 +486,62 @@ public class CaptureSession : NSObject {
 		imageOutput.captureStillImageAsynchronouslyFromConnection(connection) { (sampleBuffer: CMSampleBuffer!, error: NSError!) -> Void in
 			if nil == error {
 				let data: NSData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer)
-				self.delegate?.captureStillImageAsynchronously?(self, image: UIImage(data: data), error: nil)
+				self.delegate?.captureStillImageAsynchronously?(self, image: UIImage(data: data)!)
 			} else {
-				self.delegate?.captureStillImageAsynchronously?(self, image: nil, error: error)
+				self.delegate?.captureStillImageAsynchronouslyFailedWithError?(self, error: error!)
+			}
+		}
+	}
+	
+	/**
+	:name:	startRecording
+	*/
+	public func startRecording() {
+		if !isRecording {
+			let connection: AVCaptureConnection = movieOutput.connectionWithMediaType(AVMediaTypeVideo)
+			connection.videoOrientation = currentVideoOrientation
+			connection.preferredVideoStabilizationMode = .Auto
+			
+			let device: AVCaptureDevice = activeCamera!
+			if device.smoothAutoFocusSupported {
+				do {
+					try device.lockForConfiguration()
+					device.smoothAutoFocusEnabled = true
+					device.unlockForConfiguration()
+				} catch let e as NSError {
+					delegate?.captureSessionFailedWithError?(self, error: e)
+				}
 			}
 			
+			movieOutputURL = uniqueURL()
+			if let v: NSURL = movieOutputURL {
+				movieOutput.startRecordingToOutputFileURL(v, recordingDelegate: self)
+			}
+		}
+	}
+	
+	/**
+	:name:	captureOutput
+	*/
+	public func captureOutput(captureOutput: AVCaptureFileOutput!, didStartRecordingToOutputFileAtURL fileURL: NSURL!, fromConnections connections: [AnyObject]!) {
+		isRecording = true
+		delegate?.captureDidStartRecordingToOutputFileAtURL?(self, captureOutput: captureOutput, fileURL: fileURL, fromConnections: connections)
+	}
+	
+	/**
+	:name:	captureOutput
+	*/
+	public func captureOutput(captureOutput: AVCaptureFileOutput!, didFinishRecordingToOutputFileAtURL outputFileURL: NSURL!, fromConnections connections: [AnyObject]!, error: NSError!) {
+		isRecording = false
+		delegate?.captureDidFinishRecordingToOutputFileAtURL?(self, captureOutput: captureOutput, outputFileURL: outputFileURL, fromConnections: connections, error: error)
+	}
+	
+	/**
+	:name:	stopRecording
+	*/
+	public func stopRecording() {
+		if isRecording {
+			movieOutput.stopRecording()
 		}
 	}
 	
@@ -525,6 +611,19 @@ public class CaptureSession : NSObject {
 			if device.position == position {
 				return device
 			}
+		}
+		return nil
+	}
+	
+	/**
+	:name:	uniqueURL
+	*/
+	private func uniqueURL() -> NSURL? {
+		do {
+			let directory: NSURL = try NSFileManager.defaultManager().URLForDirectory(.DocumentDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: true)
+			return directory.URLByAppendingPathComponent("temp_movie.mov")
+		} catch let e as NSError {
+			delegate?.captureCreateMovieFileFailedWithError?(self, error: e)
 		}
 		return nil
 	}

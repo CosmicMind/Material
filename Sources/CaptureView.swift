@@ -37,26 +37,12 @@ public class CaptureView : MaterialView, CaptureSessionDelegate, CapturePreviewV
 	/**
 	:name:	captureButton
 	*/
-	public var captureButton: UIButton? {
-		didSet {
-			if let v: UIButton = captureButton {
-				v.removeTarget(self, action: "handleCaptureButton:", forControlEvents: .TouchUpInside)
-				v.addTarget(self, action: "handleCaptureButton:", forControlEvents: .TouchUpInside)
-			}
-		}
-	}
+	public var captureButton: UIButton?
 	
 	/**
 	:name:	switchCamerasButton
 	*/
-	public var switchCamerasButton: UIButton? {
-		didSet {
-			if let v: UIButton = switchCamerasButton {
-				v.removeTarget(self, action: "handleSwitchCameraButton:", forControlEvents: .TouchUpInside)
-				v.addTarget(self, action: "handleSwitchCameraButton:", forControlEvents: .TouchUpInside)
-			}
-		}
-	}
+	public var switchCamerasButton: UIButton?
 	
 	/**
 	:name:	flashButton
@@ -149,20 +135,6 @@ public class CaptureView : MaterialView, CaptureSessionDelegate, CapturePreviewV
 		prepareFocusLayer()
 		prepareExposureLayer()
 		reloadView()
-	}
-	
-	/**
-	:name:	handleCaptureButton
-	*/
-	internal func handleCaptureButton(button: UIButton) {
-		captureSession.captureStillImage()
-	}
-	
-	/**
-	:name:	handleSwitchCameraButton
-	*/
-	internal func handleSwitchCameraButton(button: UIButton) {
-		captureSession.switchCameras()
 	}
 	
 	/**
