@@ -35,16 +35,26 @@ public class CaptureView : MaterialView, CaptureSessionDelegate, CapturePreviewV
 	public private(set) lazy var exposureLayer: MaterialLayer = MaterialLayer()
 	
 	/**
-	:name:	navigationBarView
+	:name:	captureButton
 	*/
-	public private(set) lazy var navigationBarView: NavigationBarView = NavigationBarView()
+	public var captureButton: UIButton? {
+		didSet {
+			if let v: UIButton = captureButton {
+				v.removeTarget(self, action: "handleCapture:", forControlEvents: .TouchUpInside)
+				v.addTarget(self, action: "handleCapture:", forControlEvents: .TouchUpInside)
+			} else {
+				captureButton?.removeFromSuperview()
+				captureButton = nil
+			}
+		}
+	}
 	
 	/**
 	:name:	flashAutoButton
 	*/
-	public var flashAutoButton: MaterialButton? {
+	public var flashAutoButton: UIButton? {
 		didSet {
-			if let v: MaterialButton = flashAutoButton {
+			if let v: UIButton = flashAutoButton {
 				v.removeTarget(self, action: "handleFlashAuto:", forControlEvents: .TouchUpInside)
 				v.addTarget(self, action: "handleFlashAuto:", forControlEvents: .TouchUpInside)
 			} else {
@@ -57,9 +67,9 @@ public class CaptureView : MaterialView, CaptureSessionDelegate, CapturePreviewV
 	/**
 	:name:	switchCamerasButton
 	*/
-	public var switchCamerasButton: MaterialButton? {
+	public var switchCamerasButton: UIButton? {
 		didSet {
-			if let v: MaterialButton = switchCamerasButton {
+			if let v: UIButton = switchCamerasButton {
 				v.removeTarget(self, action: "handleSwitchCamera:", forControlEvents: .TouchUpInside)
 				v.addTarget(self, action: "handleSwitchCamera:", forControlEvents: .TouchUpInside)
 			} else {
@@ -97,6 +107,13 @@ public class CaptureView : MaterialView, CaptureSessionDelegate, CapturePreviewV
 	}
 	
 	/**
+	:name:	captureSession
+	*/
+	public var captureSession: CaptureSession {
+		return previewView.captureSession
+	}
+	
+	/**
 	:name:	init
 	*/
 	public convenience init() {
@@ -125,23 +142,6 @@ public class CaptureView : MaterialView, CaptureSessionDelegate, CapturePreviewV
 		
 		addSubview(previewView)
 		MaterialLayout.alignToParent(self, child: previewView)
-		
-		addSubview(navigationBarView)
-		
-//		var verticalFormat: String = "V:|"
-//		var views: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
-//		var metrics: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
-		
-//		if 0 < views.count {
-//			addConstraints(MaterialLayout.constraint(verticalFormat, options: [], metrics: metrics, views: views))
-//		}
-	}
-	
-	/**
-	:name:	captureSessionFailedWithError
-	*/
-	public func captureSessionFailedWithError(capture: CaptureSession, error: NSError) {
-		print(error)
 	}
 	
 	/**
@@ -194,23 +194,29 @@ public class CaptureView : MaterialView, CaptureSessionDelegate, CapturePreviewV
 	public override func prepareView() {
 		super.prepareView()
 		preparePreviewView()
-		prepareNavigationBarView()
 		prepareFocusLayer()
 		prepareExposureLayer()
 		reloadView()
 	}
 	
 	/**
+	:name:	handleCapture
+	*/
+	internal func handleCapture(button: UIButton) {
+		previewView.captureSession.captureStillImage()
+	}
+	
+	/**
 	:name:	handleSwitchCamera
 	*/
-	internal func handleSwitchCamera(button: MaterialButton) {
+	internal func handleSwitchCamera(button: UIButton) {
 		previewView.captureSession.switchCameras()
 	}
 	
 	/**
 	:name:	handleFlashAuto
 	*/
-	internal func handleFlashAuto(button: MaterialButton) {
+	internal func handleFlashAuto(button: UIButton) {
 		switch previewView.captureSession.flashMode {
 		case .Off:
 			previewView.captureSession.flashMode = .On
@@ -225,20 +231,10 @@ public class CaptureView : MaterialView, CaptureSessionDelegate, CapturePreviewV
 	}
 	
 	/**
-	:name:	prepareNavigationBarView
-	*/
-	private func prepareNavigationBarView() {
-		navigationBarView.backgroundColor = MaterialColor.black.colorWithAlphaComponent(0.3)
-		navigationBarView.shadowDepth = .None
-		navigationBarView.statusBarStyle = .LightContent
-	}
-	
-	/**
 	:name:	preparePreviewView
 	*/
 	private func preparePreviewView() {
 		previewView.translatesAutoresizingMaskIntoConstraints = false
-		previewView.captureSession.delegate = self
 		previewView.delegate = self
 		previewView.captureSession.startSession()
 	}

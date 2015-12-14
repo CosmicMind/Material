@@ -19,7 +19,7 @@
 import UIKit
 import MaterialKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, CaptureSessionDelegate {
 	private lazy var captureView: CaptureView = CaptureView()
 	
 	override func viewDidLoad() {
@@ -39,6 +39,11 @@ class ViewController: UIViewController {
 	:name:	prepareCaptureView
 	*/
 	private func prepareCaptureView() {
+		let navigationBarView: NavigationBarView = NavigationBarView()
+		navigationBarView.backgroundColor = MaterialColor.black.colorWithAlphaComponent(0.3)
+		navigationBarView.shadowDepth = .None
+		navigationBarView.statusBarStyle = .LightContent
+		
 		let img1: UIImage? = UIImage(named: "ic_flash_auto_white")
 		let btn1: FlatButton = FlatButton()
 		btn1.pulseColor = nil
@@ -51,14 +56,32 @@ class ViewController: UIViewController {
 		btn2.pulseColor = nil
 		btn2.setImage(img2, forState: .Normal)
 		btn2.setImage(img2, forState: .Highlighted)
+
+		let img3: UIImage? = UIImage(named: "ic_photo_camera_white_36pt")
+		let captureButton: FabButton = FabButton()
+		captureButton.backgroundColor = MaterialColor.grey.darken2
+		captureButton.borderWidth = .Border4
+		captureButton.borderColor = MaterialColor.white
+		captureButton.shadowDepth = .None
+		captureButton.setImage(img3, forState: .Normal)
+		captureButton.setImage(img3, forState: .Highlighted)
 		
+		captureView.captureSession.delegate = self
+		captureView.captureButton = captureButton
 		captureView.flashAutoButton = btn1
 		captureView.switchCamerasButton = btn2
-		captureView.navigationBarView.rightButtons = [btn1, btn2]
 		
 		view.addSubview(captureView)
 		captureView.translatesAutoresizingMaskIntoConstraints = false
 		MaterialLayout.alignToParent(view, child: captureView)
+		
+		view.addSubview(captureButton)
+		captureButton.translatesAutoresizingMaskIntoConstraints = false
+		MaterialLayout.alignFromBottomRight(view, child: captureButton, bottom: 24, right: (view.bounds.width - 72) / 2)
+		MaterialLayout.size(view, child: captureButton, width: 72, height: 72)
+		
+		view.addSubview(navigationBarView)
+		navigationBarView.rightButtons = [btn1, btn2]
 	}
 	
 	internal func handleFlash(sender: AnyObject) {
@@ -76,6 +99,18 @@ class ViewController: UIViewController {
 		}
 		captureView.flashAutoButton?.setImage(img, forState: .Normal)
 		captureView.flashAutoButton?.setImage(img, forState: .Highlighted)
+	}
+	
+	/**
+	:name:	captureSessionFailedWithError
+	*/
+	func captureSessionFailedWithError(capture: CaptureSession, error: NSError) {
+		print(error)
+	}
+	
+	func captureStillImageAsynchronously(capture: CaptureSession, image: UIImage?, error: NSError?) {
+		print(image)
+		print(error)
 	}
 }
 

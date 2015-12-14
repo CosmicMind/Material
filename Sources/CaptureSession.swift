@@ -41,6 +41,11 @@ public protocol CaptureSessionDelegate {
 	:name:	captureSessionFailedWithError
 	*/
 	optional func captureSessionFailedWithError(capture: CaptureSession, error: NSError)
+	
+	/**
+	:name:	captureStillImageAsynchronously
+	*/
+	optional func captureStillImageAsynchronously(capture: CaptureSession, image: UIImage?, error: NSError?)
 }
 
 @objc(CaptureSession)
@@ -244,6 +249,24 @@ public class CaptureSession : NSObject {
 	}
 	
 	/**
+	:name:	sessionPreset
+	*/
+	public var currentVideoOrientation: AVCaptureVideoOrientation {
+		var orientation: AVCaptureVideoOrientation
+		switch UIDevice.currentDevice().orientation {
+		case .Portrait:
+			orientation = .Portrait
+		case .LandscapeRight:
+			orientation = .LandscapeLeft
+		case .PortraitUpsideDown:
+			orientation = .PortraitUpsideDown
+		default:
+			orientation = .LandscapeRight
+		}
+		return orientation
+	}
+	
+	/**
 	:name:	delegate
 	*/
 	public weak var delegate: CaptureSessionDelegate?
@@ -416,6 +439,23 @@ public class CaptureSession : NSObject {
 			device.unlockForConfiguration()
 		} catch let e as NSError {
 			self.delegate?.captureSessionFailedWithError?(self, error: e)
+		}
+	}
+	
+	/**
+	:name:	captureStillImage
+	*/
+	public func captureStillImage() {
+		let connection: AVCaptureConnection = imageOutput.connectionWithMediaType(AVMediaTypeVideo)
+		connection.videoOrientation = currentVideoOrientation
+		imageOutput.captureStillImageAsynchronouslyFromConnection(connection) { (sampleBuffer: CMSampleBuffer!, error: NSError!) -> Void in
+			if nil == error {
+				let data: NSData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer)
+				self.delegate?.captureStillImageAsynchronously?(self, image: UIImage(data: data), error: nil)
+			} else {
+				self.delegate?.captureStillImageAsynchronously?(self, image: nil, error: error)
+			}
+			
 		}
 	}
 	
