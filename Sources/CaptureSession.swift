@@ -497,25 +497,27 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 	:name:	startRecording
 	*/
 	public func startRecording() {
-		if !isRecording {
-			let connection: AVCaptureConnection = movieOutput.connectionWithMediaType(AVMediaTypeVideo)
-			connection.videoOrientation = currentVideoOrientation
-			connection.preferredVideoStabilizationMode = .Auto
-			
-			let device: AVCaptureDevice = activeCamera!
-			if device.smoothAutoFocusSupported {
-				do {
-					try device.lockForConfiguration()
-					device.smoothAutoFocusEnabled = true
-					device.unlockForConfiguration()
-				} catch let e as NSError {
-					delegate?.captureSessionFailedWithError?(self, error: e)
+		dispatch_async(videoQueue) {
+			if !self.isRecording {
+				let connection: AVCaptureConnection = self.movieOutput.connectionWithMediaType(AVMediaTypeVideo)
+				connection.videoOrientation = self.currentVideoOrientation
+				connection.preferredVideoStabilizationMode = .Auto
+				
+				let device: AVCaptureDevice = self.activeCamera!
+				if device.smoothAutoFocusSupported {
+					do {
+						try device.lockForConfiguration()
+						device.smoothAutoFocusEnabled = true
+						device.unlockForConfiguration()
+					} catch let e as NSError {
+						self.delegate?.captureSessionFailedWithError?(self, error: e)
+					}
 				}
-			}
-			
-			movieOutputURL = uniqueURL()
-			if let v: NSURL = movieOutputURL {
-				movieOutput.startRecordingToOutputFileURL(v, recordingDelegate: self)
+				
+				self.movieOutputURL = self.uniqueURL()
+				if let v: NSURL = self.movieOutputURL {
+					self.movieOutput.startRecordingToOutputFileURL(v, recordingDelegate: self)
+				}
 			}
 		}
 	}

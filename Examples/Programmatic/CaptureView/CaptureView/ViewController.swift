@@ -20,16 +20,28 @@ import UIKit
 import MaterialKit
 import AVFoundation
 
-class ViewController: UIViewController, CaptureSessionDelegate {
+class ViewController: UIViewController, CapturePreviewViewDelegate, CaptureSessionDelegate {
+	private lazy var navigationBarView: NavigationBarView = NavigationBarView()
 	private lazy var captureView: CaptureView = CaptureView()
 	private lazy var cameraButton: FlatButton = FlatButton()
 	private lazy var captureButton: FabButton = FabButton()
 	private lazy var videoButton: FlatButton = FlatButton()
+	private lazy var switchCameraButton: FlatButton = FlatButton()
+	private lazy var flashButton: FlatButton = FlatButton()
+	private lazy var closeButton: FlatButton = FlatButton()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
+		
 		prepareCaptureView()
+		prepareNavigationBarView()
+		prepareCaptureButton()
+		prepareCameraButton()
+		prepareVideoButton()
+		prepareCloseButton()
+		prepareSwitchCameraButton()
+		prepareFlashButton()
 	}
 	
 	/**
@@ -40,43 +52,22 @@ class ViewController: UIViewController, CaptureSessionDelegate {
 	}
 	
 	/**
-	:name:	prepareCaptureView
+	:name:	prepareNavigationBarView
 	*/
-	private func prepareCaptureView() {
-		let navigationBarView: NavigationBarView = NavigationBarView()
+	private func prepareNavigationBarView() {
 		navigationBarView.backgroundColor = MaterialColor.black.colorWithAlphaComponent(0.3)
 		navigationBarView.shadowDepth = .None
 		navigationBarView.statusBarStyle = .LightContent
 		
-		let img1: UIImage? = UIImage(named: "ic_flash_auto_white")
-		let btn1: FlatButton = FlatButton()
-		btn1.pulseColor = MaterialColor.white
-		btn1.pulseFill = true
-		btn1.setImage(img1, forState: .Normal)
-		btn1.setImage(img1, forState: .Highlighted)
-		btn1.addTarget(self, action: "handleFlashButton:", forControlEvents: .TouchUpInside)
-		
-		let img2: UIImage? = UIImage(named: "ic_switch_camera_white")
-		let btn2: FlatButton = FlatButton()
-		btn2.pulseColor = MaterialColor.white
-		btn2.pulseFill = true
-		btn2.setImage(img2, forState: .Normal)
-		btn2.setImage(img2, forState: .Highlighted)
-		btn2.addTarget(self, action: "handleSwitchCameraButton:", forControlEvents: .TouchUpInside)
-
-		let img3: UIImage? = UIImage(named: "ic_close_white")
-		let btn3: FlatButton = FlatButton()
-		btn3.pulseColor = MaterialColor.white
-		btn3.pulseFill = true
-		btn3.setImage(img3, forState: .Normal)
-		btn3.setImage(img3, forState: .Highlighted)
-		
-		let img4: UIImage? = UIImage(named: "ic_photo_camera_white_36pt")
-		cameraButton.pulseColor = nil
-		cameraButton.setImage(img4, forState: .Normal)
-		cameraButton.setImage(img4, forState: .Highlighted)
-		cameraButton.addTarget(self, action: "handleCameraButton:", forControlEvents: .TouchUpInside)
-		
+		view.addSubview(navigationBarView)
+		navigationBarView.leftButtons = [closeButton]
+		navigationBarView.rightButtons = [switchCameraButton, flashButton]
+	}
+	
+	/**
+	:name:	prepareCaptureButton
+	*/
+	private func prepareCaptureButton() {
 		captureButton.pulseColor = MaterialColor.white
 		captureButton.pulseFill = true
 		captureButton.backgroundColor = MaterialColor.blue.darken1.colorWithAlphaComponent(0.3)
@@ -85,37 +76,89 @@ class ViewController: UIViewController, CaptureSessionDelegate {
 		captureButton.shadowDepth = .None
 		captureButton.addTarget(self, action: "handleCaptureButton:", forControlEvents: .TouchUpInside)
 		
+		view.addSubview(captureButton)
+		captureButton.translatesAutoresizingMaskIntoConstraints = false
+		MaterialLayout.alignFromBottomRight(view, child: captureButton, bottom: 24, right: (view.bounds.width - 72) / 2)
+		MaterialLayout.size(view, child: captureButton, width: 72, height: 72)
+	}
+	
+	/**
+	:name:	prepareCameraButton
+	*/
+	private func prepareCameraButton() {
+		let img4: UIImage? = UIImage(named: "ic_photo_camera_white_36pt")
+		cameraButton.pulseColor = nil
+		cameraButton.setImage(img4, forState: .Normal)
+		cameraButton.setImage(img4, forState: .Highlighted)
+		cameraButton.addTarget(self, action: "handleCameraButton:", forControlEvents: .TouchUpInside)
+		
+		view.addSubview(cameraButton)
+		cameraButton.translatesAutoresizingMaskIntoConstraints = false
+		MaterialLayout.alignFromBottomLeft(view, child: cameraButton, bottom: 24, left: 24)
+	}
+	
+	/**
+	:name:	prepareVideoButton
+	*/
+	private func prepareVideoButton() {
 		let img5: UIImage? = UIImage(named: "ic_videocam_white_36pt")
 		videoButton.pulseColor = nil
 		videoButton.setImage(img5, forState: .Normal)
 		videoButton.setImage(img5, forState: .Highlighted)
 		videoButton.addTarget(self, action: "handleVideoButton:", forControlEvents: .TouchUpInside)
-		
+
+		view.addSubview(videoButton)
+		videoButton.translatesAutoresizingMaskIntoConstraints = false
+		MaterialLayout.alignFromBottomRight(view, child: videoButton, bottom: 24, right: 24)
+	}
+	
+	/**
+	:name:	prepareCloseButton
+	*/
+	private func prepareCloseButton() {
+		let img: UIImage? = UIImage(named: "ic_close_white")
+		closeButton.pulseColor = MaterialColor.white
+		closeButton.pulseFill = true
+		closeButton.setImage(img, forState: .Normal)
+		closeButton.setImage(img, forState: .Highlighted)
+	}
+	
+	/**
+	:name:	prepareSwitchCameraButton
+	*/
+	private func prepareSwitchCameraButton() {
+		let img: UIImage? = UIImage(named: "ic_switch_camera_white")
+		switchCameraButton.pulseColor = MaterialColor.white
+		switchCameraButton.pulseFill = true
+		switchCameraButton.setImage(img, forState: .Normal)
+		switchCameraButton.setImage(img, forState: .Highlighted)
+		switchCameraButton.addTarget(self, action: "handleSwitchCameraButton:", forControlEvents: .TouchUpInside)
+	}
+	
+	/**
+	:name:	prepareFlashButton
+	*/
+	private func prepareFlashButton() {
+		let img: UIImage? = UIImage(named: "ic_flash_auto_white")
+		flashButton.pulseColor = MaterialColor.white
+		flashButton.pulseFill = true
+		flashButton.setImage(img, forState: .Normal)
+		flashButton.setImage(img, forState: .Highlighted)
+		flashButton.addTarget(self, action: "handleFlashButton:", forControlEvents: .TouchUpInside)
+	}
+	
+	/**
+	:name:	prepareCaptureView
+	*/
+	private func prepareCaptureView() {
 		captureView.captureSession.delegate = self
 		captureView.captureButton = captureButton
-		captureView.flashButton = btn1
-		captureView.switchCamerasButton = btn2
+		captureView.flashButton = flashButton
+		captureView.switchCamerasButton = switchCameraButton
 		
 		view.addSubview(captureView)
 		captureView.translatesAutoresizingMaskIntoConstraints = false
 		MaterialLayout.alignToParent(view, child: captureView)
-		
-		view.addSubview(cameraButton)
-		cameraButton.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignFromBottomLeft(view, child: cameraButton, bottom: 24, left: 24)
-		
-		view.addSubview(captureButton)
-		captureButton.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignFromBottomRight(view, child: captureButton, bottom: 24, right: (view.bounds.width - 72) / 2)
-		MaterialLayout.size(view, child: captureButton, width: 72, height: 72)
-		
-		view.addSubview(videoButton)
-		videoButton.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignFromBottomRight(view, child: videoButton, bottom: 24, right: 24)
-		
-		view.addSubview(navigationBarView)
-		navigationBarView.leftButtons = [btn3]
-		navigationBarView.rightButtons = [btn1, btn2]
 	}
 	
 	/**
