@@ -127,7 +127,7 @@ class ViewController: UIViewController, CapturePreviewViewDelegate, CaptureSessi
 	:name:	prepareSwitchCameraButton
 	*/
 	private func prepareSwitchCameraButton() {
-		let img: UIImage? = UIImage(named: "ic_switch_camera_white")
+		let img: UIImage? = UIImage(named: "ic_camera_front_white")
 		switchCameraButton.pulseColor = MaterialColor.white
 		switchCameraButton.pulseFill = true
 		switchCameraButton.setImage(img, forState: .Normal)
@@ -139,6 +139,8 @@ class ViewController: UIViewController, CapturePreviewViewDelegate, CaptureSessi
 	:name:	prepareFlashButton
 	*/
 	private func prepareFlashButton() {
+		captureView.captureSession.flashMode = .Auto
+		
 		let img: UIImage? = UIImage(named: "ic_flash_auto_white")
 		flashButton.pulseColor = MaterialColor.white
 		flashButton.pulseFill = true
@@ -176,7 +178,18 @@ class ViewController: UIViewController, CapturePreviewViewDelegate, CaptureSessi
 	:name:	handleSwitchCameraButton
 	*/
 	internal func handleSwitchCameraButton(button: UIButton) {
-		captureView.captureSession.switchCameras()
+		var img: UIImage?
+		
+		if .Back == captureView.captureSession.cameraPosition {
+			img = UIImage(named: "ic_camera_rear_white")
+			captureView.captureSession.switchCameras()
+		} else if .Front == captureView.captureSession.cameraPosition {
+			img = UIImage(named: "ic_camera_front_white")
+			captureView.captureSession.switchCameras()
+		}
+		
+		switchCameraButton.setImage(img, forState: .Normal)
+		switchCameraButton.setImage(img, forState: .Highlighted)
 	}
 	
 	/**
@@ -189,19 +202,16 @@ class ViewController: UIViewController, CapturePreviewViewDelegate, CaptureSessi
 		case .Off:
 			img = UIImage(named: "ic_flash_on_white")
 			captureView.captureSession.flashMode = .On
-			print("On")
 		case .On:
 			img = UIImage(named: "ic_flash_auto_white")
-			captureView.captureSession.flashMode = .Off
-			print("Auto")
+			captureView.captureSession.flashMode = .Auto
 		case .Auto:
 			img = UIImage(named: "ic_flash_off_white")
-			captureView.captureSession.flashMode = .On
-			print("Off")
+			captureView.captureSession.flashMode = .Off
 		}
 		
-		captureView.flashButton?.setImage(img, forState: .Normal)
-		captureView.flashButton?.setImage(img, forState: .Highlighted)
+		flashButton.setImage(img, forState: .Normal)
+		flashButton.setImage(img, forState: .Highlighted)
 	}
 	
 	/**

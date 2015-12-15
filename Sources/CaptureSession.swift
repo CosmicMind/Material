@@ -194,6 +194,13 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 	}
 	
 	/**
+	:name:	cameraPosition
+	*/
+	public var cameraPosition: AVCaptureDevicePosition {
+		return activeCamera!.position
+	}
+	
+	/**
 	:name:	focusMode
 	*/
 	public var focusMode: AVCaptureFocusMode {
@@ -206,7 +213,7 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 				do {
 					let device: AVCaptureDevice = activeCamera!
 					try device.lockForConfiguration()
-					device.focusMode = focusMode
+					device.focusMode = value
 					device.unlockForConfiguration()
 				} catch let e as NSError {
 					error = e
@@ -233,7 +240,7 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 				do {
 					let device: AVCaptureDevice = activeCamera!
 					try device.lockForConfiguration()
-					device.flashMode = flashMode
+					device.flashMode = value
 					device.unlockForConfiguration()
 				} catch let e as NSError {
 					error = e
@@ -260,7 +267,7 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 				do {
 					let device: AVCaptureDevice = activeCamera!
 					try device.lockForConfiguration()
-					device.torchMode = torchMode
+					device.torchMode = value
 					device.unlockForConfiguration()
 				} catch let e as NSError {
 					error = e
