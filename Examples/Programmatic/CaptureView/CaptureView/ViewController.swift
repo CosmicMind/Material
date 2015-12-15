@@ -20,6 +20,11 @@ import UIKit
 import MaterialKit
 import AVFoundation
 
+enum CaptureMode {
+	case Photo
+	case Video
+}
+
 class ViewController: UIViewController, CapturePreviewViewDelegate, CaptureSessionDelegate {
 	private lazy var navigationBarView: NavigationBarView = NavigationBarView()
 	private lazy var captureView: CaptureView = CaptureView()
@@ -29,6 +34,8 @@ class ViewController: UIViewController, CapturePreviewViewDelegate, CaptureSessi
 	private lazy var switchCameraButton: FlatButton = FlatButton()
 	private lazy var flashButton: FlatButton = FlatButton()
 	private lazy var closeButton: FlatButton = FlatButton()
+	
+	private lazy var captureMode: CaptureMode = .Photo
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -72,7 +79,7 @@ class ViewController: UIViewController, CapturePreviewViewDelegate, CaptureSessi
 		captureButton.pulseFill = true
 		captureButton.backgroundColor = MaterialColor.blue.darken1.colorWithAlphaComponent(0.3)
 		captureButton.borderWidth = .Border2
-		captureButton.borderColor = MaterialColor.grey.darken1
+		captureButton.borderColor = MaterialColor.white
 		captureButton.shadowDepth = .None
 		captureButton.addTarget(self, action: "handleCaptureButton:", forControlEvents: .TouchUpInside)
 		
@@ -167,10 +174,14 @@ class ViewController: UIViewController, CapturePreviewViewDelegate, CaptureSessi
 	:name:	handleCaptureButton
 	*/
 	internal func handleCaptureButton(button: UIButton) {
-		if captureView.captureSession.isRecording {
-			captureView.captureSession.stopRecording()
-		} else {
-			captureView.captureSession.startRecording()
+		if .Photo == captureMode {
+			captureView.captureSession.captureStillImage()
+		} else if .Video == captureMode {
+			if captureView.captureSession.isRecording {
+				captureView.captureSession.stopRecording()
+			} else {
+				captureView.captureSession.startRecording()
+			}
 		}
 	}
 	
@@ -219,6 +230,7 @@ class ViewController: UIViewController, CapturePreviewViewDelegate, CaptureSessi
 	*/
 	func handleCameraButton(button: UIButton) {
 		captureButton.backgroundColor = MaterialColor.blue.darken1.colorWithAlphaComponent(0.3)
+		captureMode = .Photo
 	}
 	
 	/**
@@ -226,6 +238,7 @@ class ViewController: UIViewController, CapturePreviewViewDelegate, CaptureSessi
 	*/
 	func handleVideoButton(button: UIButton) {
 		captureButton.backgroundColor = MaterialColor.red.darken1.colorWithAlphaComponent(0.3)
+		captureMode = .Video
 	}
 	
 	/**
@@ -253,14 +266,14 @@ class ViewController: UIViewController, CapturePreviewViewDelegate, CaptureSessi
 	:name:	captureDidStartRecordingToOutputFileAtURL
 	*/
 	func captureDidStartRecordingToOutputFileAtURL(capture: CaptureSession, captureOutput: AVCaptureFileOutput, fileURL: NSURL, fromConnections connections: [AnyObject]) {
-		print("Capture Started Recording")
+		print("Capture Started Recording \(fileURL)")
 	}
 	
 	/**
 	:name:	captureDidFinishRecordingToOutputFileAtURL
 	*/
 	func captureDidFinishRecordingToOutputFileAtURL(capture: CaptureSession, captureOutput: AVCaptureFileOutput, outputFileURL: NSURL, fromConnections connections: [AnyObject], error: NSError!) {
-		print("Capture Stopped Recording")
+		print("Capture Stopped Recording \(outputFileURL)")
 	}
 }
 

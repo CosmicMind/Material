@@ -22,7 +22,18 @@ import AVFoundation
 private var CaptureSessionAdjustingExposureContext: UInt8 = 1
 
 public enum CaptureSessionPreset {
-	case High
+	case PresetPhoto
+	case PresetHigh
+	case PresetMedium
+	case PresetLow
+	case Preset352x288
+	case Preset640x480
+	case Preset1280x720
+	case Preset1920x1080
+	case Preset3840x2160
+	case PresetiFrame960x540
+	case PresetiFrame1280x720
+	case PresetInputPriority
 }
 
 /**
@@ -30,8 +41,34 @@ public enum CaptureSessionPreset {
 */
 public func CaptureSessionPresetToString(preset: CaptureSessionPreset) -> String {
 	switch preset {
-	case .High:
+	case .PresetPhoto:
+		return AVCaptureSessionPresetPhoto
+	case .PresetHigh:
 		return AVCaptureSessionPresetHigh
+	case .PresetMedium:
+		return AVCaptureSessionPresetMedium
+	case .PresetLow:
+		return AVCaptureSessionPresetLow
+	case .Preset352x288:
+		return AVCaptureSessionPreset352x288
+	case .Preset640x480:
+		return AVCaptureSessionPreset640x480
+	case .Preset1280x720:
+		return AVCaptureSessionPreset1280x720
+	case .Preset1920x1080:
+		return AVCaptureSessionPreset1920x1080
+	case .Preset3840x2160:
+		if #available(iOS 9.0, *) {
+			return AVCaptureSessionPreset3840x2160
+		} else {
+			return AVCaptureSessionPresetHigh
+		}
+	case .PresetiFrame960x540:
+		return AVCaptureSessionPresetiFrame960x540
+	case .PresetiFrame1280x720:
+		return AVCaptureSessionPresetiFrame1280x720
+	case .PresetInputPriority:
+		return AVCaptureSessionPresetInputPriority
 	}
 }
 
@@ -101,6 +138,11 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 	private lazy var movieOutput: AVCaptureMovieFileOutput = AVCaptureMovieFileOutput()
 	
 	/**
+	:name:	movieOutputURL
+	*/
+	private var movieOutputURL: NSURL?
+	
+	/**
 	:name: session
 	*/
 	internal lazy var session: AVCaptureSession = AVCaptureSession()
@@ -116,11 +158,6 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 	public private(set) lazy var isRecording: Bool = false
 	
 	/**
-	:name:	movieOutputURL
-	*/
-	public private(set) var movieOutputURL: NSURL?
-	
-	/**
 	:name:	activeCamera
 	*/
 	public var activeCamera: AVCaptureDevice? {
@@ -131,7 +168,7 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 	:name:	init
 	*/
 	public override init() {
-		sessionPreset = .High
+		sessionPreset = .PresetHigh
 		super.init()
 		prepareSession()
 	}
@@ -630,7 +667,10 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 	private func uniqueURL() -> NSURL? {
 		do {
 			let directory: NSURL = try NSFileManager.defaultManager().URLForDirectory(.DocumentDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: true)
-			return directory.URLByAppendingPathComponent("temp_movie.mov")
+			let dateFormatter = NSDateFormatter()
+			dateFormatter.dateStyle = .FullStyle
+			dateFormatter.timeStyle = .FullStyle
+			return directory.URLByAppendingPathComponent(dateFormatter.stringFromDate(NSDate()) + ".mov")
 		} catch let e as NSError {
 			delegate?.captureCreateMovieFileFailedWithError?(self, error: e)
 		}
