@@ -80,6 +80,16 @@ public protocol CaptureSessionDelegate {
 	optional func captureSessionFailedWithError(capture: CaptureSession, error: NSError)
 	
 	/**
+	:name:	captureSessionDidSwitchCameras
+	*/
+	optional func captureSessionDidSwitchCameras(capture: CaptureSession, position: AVCaptureDevicePosition)
+	
+	/**
+	:name:	captureSessionWillSwitchCameras
+	*/
+	optional func captureSessionWillSwitchCameras(capture: CaptureSession, position: AVCaptureDevicePosition)
+	
+	/**
 	:name:	captureStillImageAsynchronously
 	*/
 	optional func captureStillImageAsynchronously(capture: CaptureSession, image: UIImage)
@@ -156,6 +166,13 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 	:name:	isRecording
 	*/
 	public private(set) lazy var isRecording: Bool = false
+	
+	/**
+	:name:	recordedDuration
+	*/
+	public var recordedDuration: CMTime {
+		return movieOutput.recordedDuration
+	}
 	
 	/**
 	:name:	activeCamera
@@ -377,22 +394,22 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 	*/
 	public func switchCameras() {
 		if canSwitchCameras {
-			dispatch_async(videoQueue) {
-				do {
-					let videoInput: AVCaptureDeviceInput? = try AVCaptureDeviceInput(device: self.inactiveCamera!)
-					self.session.beginConfiguration()
-					self.session.removeInput(self.activeVideoInput)
-					
-					if self.session.canAddInput(videoInput) {
-						self.session.addInput(videoInput)
-						self.activeVideoInput = videoInput
-					} else {
-						self.session.addInput(self.activeVideoInput)
-					}
-					self.session.commitConfiguration()
-				} catch let e as NSError {
-					self.delegate?.captureSessionFailedWithError?(self, error: e)
+			do {
+				self.delegate?.captureSessionWillSwitchCameras?(self, position: self.cameraPosition)
+				let videoInput: AVCaptureDeviceInput? = try AVCaptureDeviceInput(device: self.inactiveCamera!)
+				self.session.beginConfiguration()
+				self.session.removeInput(self.activeVideoInput)
+				
+				if self.session.canAddInput(videoInput) {
+					self.session.addInput(videoInput)
+					self.activeVideoInput = videoInput
+				} else {
+					self.session.addInput(self.activeVideoInput)
 				}
+				self.session.commitConfiguration()
+				self.delegate?.captureSessionDidSwitchCameras?(self, position: self.cameraPosition)
+			} catch let e as NSError {
+				self.delegate?.captureSessionFailedWithError?(self, error: e)
 			}
 		}
 	}
@@ -541,27 +558,25 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 	:name:	startRecording
 	*/
 	public func startRecording() {
-		dispatch_async(videoQueue) {
-			if !self.isRecording {
-				let connection: AVCaptureConnection = self.movieOutput.connectionWithMediaType(AVMediaTypeVideo)
-				connection.videoOrientation = self.currentVideoOrientation
-				connection.preferredVideoStabilizationMode = .Auto
-				
-				let device: AVCaptureDevice = self.activeCamera!
-				if device.smoothAutoFocusSupported {
-					do {
-						try device.lockForConfiguration()
-						device.smoothAutoFocusEnabled = true
-						device.unlockForConfiguration()
-					} catch let e as NSError {
-						self.delegate?.captureSessionFailedWithError?(self, error: e)
-					}
+		if !self.isRecording {
+			let connection: AVCaptureConnection = self.movieOutput.connectionWithMediaType(AVMediaTypeVideo)
+			connection.videoOrientation = self.currentVideoOrientation
+			connection.preferredVideoStabilizationMode = .Auto
+			
+			let device: AVCaptureDevice = self.activeCamera!
+			if device.smoothAutoFocusSupported {
+				do {
+					try device.lockForConfiguration()
+					device.smoothAutoFocusEnabled = true
+					device.unlockForConfiguration()
+				} catch let e as NSError {
+					self.delegate?.captureSessionFailedWithError?(self, error: e)
 				}
-				
-				self.movieOutputURL = self.uniqueURL()
-				if let v: NSURL = self.movieOutputURL {
-					self.movieOutput.startRecordingToOutputFileURL(v, recordingDelegate: self)
-				}
+			}
+			
+			self.movieOutputURL = self.uniqueURL()
+			if let v: NSURL = self.movieOutputURL {
+				self.movieOutput.startRecordingToOutputFileURL(v, recordingDelegate: self)
 			}
 		}
 	}

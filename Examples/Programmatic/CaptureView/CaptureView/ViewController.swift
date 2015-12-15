@@ -35,7 +35,9 @@ class ViewController: UIViewController, CapturePreviewViewDelegate, CaptureSessi
 	private lazy var flashButton: FlatButton = FlatButton()
 	private lazy var closeButton: FlatButton = FlatButton()
 	
-	private lazy var captureMode: CaptureMode = .Photo
+	private lazy var captureMode: CaptureMode = .Video
+	
+	private var timer: NSTimer?
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -66,6 +68,24 @@ class ViewController: UIViewController, CapturePreviewViewDelegate, CaptureSessi
 		navigationBarView.shadowDepth = .None
 		navigationBarView.statusBarStyle = .LightContent
 		
+		// Title label.
+		let titleLabel: UILabel = UILabel()
+		titleLabel.text = "00:00:00"
+		titleLabel.textAlignment = .Left
+		titleLabel.textColor = MaterialColor.white
+		titleLabel.font = RobotoFont.regularWithSize(20)
+		navigationBarView.titleLabel = titleLabel
+		navigationBarView.titleLabelInsetsRef.left = 64
+		
+		// Detail label
+		let detailLabel: UILabel = UILabel()
+		detailLabel.text = "Stopped"
+		detailLabel.textAlignment = .Left
+		detailLabel.textColor = MaterialColor.white
+		detailLabel.font = RobotoFont.regularWithSize(12)
+		navigationBarView.detailLabel = detailLabel
+		navigationBarView.detailLabelInsetsRef.left = 64
+		
 		view.addSubview(navigationBarView)
 		navigationBarView.leftButtons = [closeButton]
 		navigationBarView.rightButtons = [switchCameraButton, flashButton]
@@ -77,7 +97,7 @@ class ViewController: UIViewController, CapturePreviewViewDelegate, CaptureSessi
 	private func prepareCaptureButton() {
 		captureButton.pulseColor = MaterialColor.white
 		captureButton.pulseFill = true
-		captureButton.backgroundColor = MaterialColor.blue.darken1.colorWithAlphaComponent(0.3)
+		captureButton.backgroundColor = MaterialColor.red.darken1.colorWithAlphaComponent(0.3)
 		captureButton.borderWidth = .Border2
 		captureButton.borderColor = MaterialColor.white
 		captureButton.shadowDepth = .None
@@ -179,8 +199,10 @@ class ViewController: UIViewController, CapturePreviewViewDelegate, CaptureSessi
 		} else if .Video == captureMode {
 			if captureView.captureSession.isRecording {
 				captureView.captureSession.stopRecording()
+				stopTimer()
 			} else {
 				captureView.captureSession.startRecording()
+				startTimer()
 			}
 		}
 	}
@@ -207,22 +229,24 @@ class ViewController: UIViewController, CapturePreviewViewDelegate, CaptureSessi
 	:name:	handleFlashButton
 	*/
 	internal func handleFlashButton(button: UIButton) {
-		var img: UIImage?
-		
-		switch captureView.captureSession.flashMode {
-		case .Off:
-			img = UIImage(named: "ic_flash_on_white")
-			captureView.captureSession.flashMode = .On
-		case .On:
-			img = UIImage(named: "ic_flash_auto_white")
-			captureView.captureSession.flashMode = .Auto
-		case .Auto:
-			img = UIImage(named: "ic_flash_off_white")
-			captureView.captureSession.flashMode = .Off
+		if .Back == captureView.captureSession.cameraPosition {
+			var img: UIImage?
+			
+			switch captureView.captureSession.flashMode {
+			case .Off:
+				img = UIImage(named: "ic_flash_on_white")
+				captureView.captureSession.flashMode = .On
+			case .On:
+				img = UIImage(named: "ic_flash_auto_white")
+				captureView.captureSession.flashMode = .Auto
+			case .Auto:
+				img = UIImage(named: "ic_flash_off_white")
+				captureView.captureSession.flashMode = .Off
+			}
+			
+			flashButton.setImage(img, forState: .Normal)
+			flashButton.setImage(img, forState: .Highlighted)
 		}
-		
-		flashButton.setImage(img, forState: .Normal)
-		flashButton.setImage(img, forState: .Highlighted)
 	}
 	
 	/**
@@ -231,6 +255,8 @@ class ViewController: UIViewController, CapturePreviewViewDelegate, CaptureSessi
 	func handleCameraButton(button: UIButton) {
 		captureButton.backgroundColor = MaterialColor.blue.darken1.colorWithAlphaComponent(0.3)
 		captureMode = .Photo
+		navigationBarView.titleLabel!.text = ""
+		navigationBarView.detailLabel!.text = ""
 	}
 	
 	/**
@@ -239,6 +265,8 @@ class ViewController: UIViewController, CapturePreviewViewDelegate, CaptureSessi
 	func handleVideoButton(button: UIButton) {
 		captureButton.backgroundColor = MaterialColor.red.darken1.colorWithAlphaComponent(0.3)
 		captureMode = .Video
+		navigationBarView.titleLabel!.text = "00:00:00"
+		navigationBarView.detailLabel!.text = "Stopped"
 	}
 	
 	/**
@@ -246,6 +274,30 @@ class ViewController: UIViewController, CapturePreviewViewDelegate, CaptureSessi
 	*/
 	func captureSessionFailedWithError(capture: CaptureSession, error: NSError) {
 		print(error)
+	}
+	
+	/**
+	:name:	captureSessionWillSwitchCameras
+	*/
+	func captureSessionWillSwitchCameras(capture: CaptureSession, position: AVCaptureDevicePosition) {
+		if .Back == position {
+			let img: UIImage? = UIImage(named: "ic_flash_off_white")
+			captureView.captureSession.flashMode = .Off
+			flashButton.setImage(img, forState: .Normal)
+			flashButton.setImage(img, forState: .Highlighted)
+		}
+	}
+	
+	/**
+	:name:	captureSessionDidSwitchCameras
+	*/
+	func captureSessionDidSwitchCameras(capture: CaptureSession, position: AVCaptureDevicePosition) {
+		if .Back == position {
+			let img: UIImage? = UIImage(named: "ic_flash_auto_white")
+			captureView.captureSession.flashMode = .Auto
+			flashButton.setImage(img, forState: .Normal)
+			flashButton.setImage(img, forState: .Highlighted)
+		}
 	}
 	
 	/**
@@ -274,6 +326,42 @@ class ViewController: UIViewController, CapturePreviewViewDelegate, CaptureSessi
 	*/
 	func captureDidFinishRecordingToOutputFileAtURL(capture: CaptureSession, captureOutput: AVCaptureFileOutput, outputFileURL: NSURL, fromConnections connections: [AnyObject], error: NSError!) {
 		print("Capture Stopped Recording \(outputFileURL)")
+	}
+	
+	/**
+	:name:	startTimer
+	*/
+	func startTimer() {
+		timer?.invalidate()
+		timer = NSTimer(timeInterval: 0.5, target: self, selector: "updateTimer", userInfo: nil, repeats: true)
+		NSRunLoop.mainRunLoop().addTimer(timer!, forMode: NSRunLoopCommonModes)
+		navigationBarView.detailLabel!.textColor = MaterialColor.red.accent1
+		captureButton.backgroundColor = MaterialColor.red.darken4.colorWithAlphaComponent(0.3)
+	}
+	
+	/**
+	:name:	updateTimer
+	*/
+	func updateTimer() {
+		let duration: CMTime = captureView.captureSession.recordedDuration
+		let time: Double = CMTimeGetSeconds(duration)
+		let hours: Int = Int(time / 3600)
+		let minutes: Int = Int((time / 60) % 60)
+		let seconds: Int = Int(time % 60)
+		navigationBarView.titleLabel!.text = String(format: "%02i:%02i:%02i", arguments: [hours, minutes, seconds])
+		navigationBarView.detailLabel!.text = "Recording"
+	}
+	
+	/**
+	:name:	stopTimer
+	*/
+	func stopTimer() {
+		timer?.invalidate()
+		timer = nil
+		navigationBarView.titleLabel!.text = "00:00:00"
+		navigationBarView.detailLabel!.text = "Stopped"
+		navigationBarView.detailLabel!.textColor = MaterialColor.white
+		captureButton.backgroundColor = MaterialColor.red.darken1.colorWithAlphaComponent(0.3)
 	}
 }
 
