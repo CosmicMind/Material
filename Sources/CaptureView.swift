@@ -104,6 +104,11 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 	private var tapToResetGesture: UITapGestureRecognizer?
 	
 	/**
+	:name:	captureMode
+	*/
+	public lazy var captureMode: CaptureMode = .Video
+	
+	/**
 	:name:	tapToFocusEnabled
 	*/
 	public var tapToFocusEnabled: Bool = false {
@@ -146,7 +151,7 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 	/**
 	:name:	tapToResetEnabled
 	*/
-	private var tapToResetEnabled: Bool = false {
+	public var tapToResetEnabled: Bool = false {
 		didSet {
 			if tapToResetEnabled {
 				prepareResetLayer()
@@ -164,11 +169,6 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 			}
 		}
 	}
-	
-	/**
-	:name:	captureMode
-	*/
-	public private(set) lazy var captureMode: CaptureMode = .Video
 	
 	/**
 	:name:	contentInsets
@@ -284,6 +284,8 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 	*/
 	public override func layoutSubviews() {
 		super.layoutSubviews()
+		previewView.frame = bounds
+		
 		if let v: UIButton = cameraButton {
 			v.frame.origin.y = bounds.height - contentInsetsRef.bottom - v.bounds.height
 			v.frame.origin.x = contentInsetsRef.left
@@ -296,7 +298,9 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 			v.frame.origin.y = bounds.height - contentInsetsRef.bottom - v.bounds.height
 			v.frame.origin.x = bounds.width - v.bounds.width - contentInsetsRef.right
 		}
-		(previewView.layer as! AVCaptureVideoPreviewLayer).connection.videoOrientation = captureSession.currentVideoOrientation
+		if let v: AVCaptureConnection = (previewView.layer as! AVCaptureVideoPreviewLayer).connection {
+			v.videoOrientation = captureSession.currentVideoOrientation
+		}
 	}
 	
 	/**
@@ -331,7 +335,6 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 		}
 		
 		insertSubview(previewView, atIndex: 0)
-		MaterialLayout.alignToParent(self, child: previewView)
 		
 		if let v: UIButton = captureButton {
 			insertSubview(v, atIndex: 1)
@@ -393,10 +396,8 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 	:name:	handleSwitchCamerasButton
 	*/
 	internal func handleSwitchCamerasButton(button: UIButton) {
-		previewView.layer.addAnimation(MaterialAnimation.transition(.Fade), forKey: kCATransition)
-		captureSession.switchCameras { (success: Bool) in
-			(self.delegate as? CaptureViewDelegate)?.captureViewDidPressSwitchCamerasButton?(self, button: button)
-		}
+		captureSession.switchCameras()
+		(delegate as? CaptureViewDelegate)?.captureViewDidPressSwitchCamerasButton?(self, button: button)
 	}
 	
 	/**
@@ -410,7 +411,6 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 				captureSession.stopRecording()
 				stopTimer()
 			} else {
-				previewView.layer.addAnimation(MaterialAnimation.transition(.Fade), forKey: kCATransition)
 				captureSession.startRecording()
 				startTimer()
 			}
@@ -496,7 +496,6 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 	:name:	preparePreviewView
 	*/
 	private func preparePreviewView() {
-		previewView.translatesAutoresizingMaskIntoConstraints = false
 		(previewView.layer as! AVCaptureVideoPreviewLayer).session = captureSession.session
 		captureSession.startSession()
 	}

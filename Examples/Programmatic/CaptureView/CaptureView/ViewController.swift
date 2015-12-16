@@ -121,26 +121,40 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 	:name:	captureSessionWillSwitchCameras
 	*/
 	func captureSessionWillSwitchCameras(capture: CaptureSession, position: AVCaptureDevicePosition) {
+		// ... do something
+	}
+	
+	/**
+	:name:	captureSessionDidSwitchCameras
+	*/
+	func captureSessionDidSwitchCameras(capture: CaptureSession, position: AVCaptureDevicePosition) {
+		var img: UIImage?
 		if .Back == position {
-			let img: UIImage? = UIImage(named: "ic_flash_off_white")
-			captureView.captureSession.flashMode = .Off
+			captureView.captureSession.flashMode = .Auto
+			
+			img = UIImage(named: "ic_flash_auto_white")
 			flashButton.setImage(img, forState: .Normal)
 			flashButton.setImage(img, forState: .Highlighted)
+			
+			img = UIImage(named: "ic_camera_front_white")
+			switchCamerasButton.setImage(img, forState: .Normal)
+			switchCamerasButton.setImage(img, forState: .Highlighted)
+		} else {
+			captureView.captureSession.flashMode = .Off
+			
+			img = UIImage(named: "ic_flash_off_white")
+			flashButton.setImage(img, forState: .Normal)
+			flashButton.setImage(img, forState: .Highlighted)
+			
+			img = UIImage(named: "ic_camera_rear_white")
+			switchCamerasButton.setImage(img, forState: .Normal)
+			switchCamerasButton.setImage(img, forState: .Highlighted)
 		}
 	}
 	
 	/**
-	:name:	captureSessionDidSwitchCamerapublic s
+	:name:	captureViewDidPressFlashButton
 	*/
-	func captureSessionDidSwitchCameras(capture: CaptureSession, position: AVCaptureDevicePosition) {
-		if .Back == position {
-			let img: UIImage? = UIImage(named: "ic_flash_auto_white")
-			captureView.captureSession.flashMode = .Auto
-			flashButton.setImage(img, forState: .Normal)
-			flashButton.setImage(img, forState: .Highlighted)
-		}
-	}
-	
 	func captureViewDidPressFlashButton(captureView: CaptureView, button: UIButton) {
 		if .Back == captureView.captureSession.cameraPosition {
 			var img: UIImage?
@@ -191,16 +205,7 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 	:name:	captureViewDidPressSwitchCamerasButton
 	*/
 	func captureViewDidPressSwitchCamerasButton(captureView: CaptureView, button: UIButton) {
-		var img: UIImage?
-		
-		if .Back == captureView.captureSession.cameraPosition {
-			img = UIImage(named: "ic_camera_front_white")
-		} else if .Front == captureView.captureSession.cameraPosition {
-			img = UIImage(named: "ic_camera_rear_white")
-		}
-		
-		switchCamerasButton.setImage(img, forState: .Normal)
-		switchCamerasButton.setImage(img, forState: .Highlighted)
+		// ... do something
 	}
 	
 	/**

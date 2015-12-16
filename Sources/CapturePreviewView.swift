@@ -53,7 +53,6 @@ public class CapturePreviewView : MaterialView {
 	:name:	preparePreviewLayer
 	*/
 	private func preparePreviewLayer() {
-		layer.addAnimation(MaterialAnimation.transition(.Fade), forKey: kCATransition)
 		layer.backgroundColor = MaterialColor.black.CGColor
 		layer.masksToBounds = true
 		(layer as! AVCaptureVideoPreviewLayer).videoGravity = AVLayerVideoGravityResizeAspectFill
