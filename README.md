@@ -26,9 +26,15 @@ github "CosmicMind/MaterialKit"
 
 Run carthage to build the framework and drag the built MaterialKit.framework into your Xcode project.
 
-### Features
+### Highlighted Features
 
-
+* Full Material Design color Palette.
+* Side Navigation.
+* Camera with Photo and Video.
+* Animation Library.
+* Cards and ImageCards
+* Range of buttons.
+* Fully customizable.
 
 ### MaterialColor
 
@@ -46,6 +52,12 @@ button.backgroundColor = MaterialColor.blue.darken1
 As elegant as is effective, the SideNavigationViewController is an excellent way to organize your app. In the Examples directory, there is an example project using this wonderful component.
 
 ![MaterialKitSideNavigationViewController](http://www.materialkit.io/MK/MaterialKitSideNavigationViewController.gif)
+
+### CaptureView
+
+Add a new dimension of interactivity with CaptureView. CaptureView is a fully functional camera that is completely customizable. Checkout the Examples directly for a sample project using this wonderful component.
+
+![MaterialKitCaptureView](http://www.materialkit.io/MK/MaterialKitCaptureView.jpg)
 
 ### MaterialLayer
 
