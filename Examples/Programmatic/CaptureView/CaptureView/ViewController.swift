@@ -26,10 +26,9 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 	lazy var closeButton: FlatButton = FlatButton()
 	lazy var cameraButton: FlatButton = FlatButton()
 	lazy var videoButton: FlatButton = FlatButton()
-	lazy var switchCameraButton: FlatButton = FlatButton()
+	lazy var switchCamerasButton: FlatButton = FlatButton()
 	lazy var flashButton: FlatButton = FlatButton()
 	lazy var captureButton: FabButton = FabButton()
-	lazy var captureMode: CaptureMode = .Video
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -38,15 +37,10 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 		prepareCameraButton()
 		prepareVideoButton()
 		prepareCloseButton()
-		prepareSwitchCameraButton()
+		prepareSwitchCamerasButton()
 		prepareFlashButton()
-		prepareNavigationBarView()
 		prepareCaptureView()
-	}
-	
-	override func viewWillLayoutSubviews() {
-		super.viewWillLayoutSubviews()
-		
+		prepareNavigationBarView()
 	}
 	
 	/**
@@ -75,6 +69,13 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 	*/
 	func captureDidStartRecordingToOutputFileAtURL(capture: CaptureSession, captureOutput: AVCaptureFileOutput, fileURL: NSURL, fromConnections connections: [AnyObject]) {
 		print("Capture Started Recording \(fileURL)")
+		
+		cameraButton.hidden = true
+		videoButton.hidden = true
+		switchCamerasButton.hidden = true
+		flashButton.hidden = true
+			
+		navigationBarView.backgroundColor = nil
 	}
 	
 	/**
@@ -82,6 +83,13 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 	*/
 	func captureDidFinishRecordingToOutputFileAtURL(capture: CaptureSession, captureOutput: AVCaptureFileOutput, outputFileURL: NSURL, fromConnections connections: [AnyObject], error: NSError!) {
 		print("Capture Stopped Recording \(outputFileURL)")
+		
+		cameraButton.hidden = false
+		videoButton.hidden = false
+		switchCamerasButton.hidden = false
+		flashButton.hidden = false
+		
+		navigationBarView.backgroundColor = MaterialColor.black.colorWithAlphaComponent(0.3)
 	}
 	
 	/**
@@ -91,7 +99,6 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 		MaterialAnimation.animationDisabled {
 			self.navigationBarView.titleLabel!.text = String(format: "%02i:%02i:%02i", arguments: [hours, minutes, seconds])
 		}
-		
 	}
 	
 	/**
@@ -127,99 +134,7 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 		}
 	}
 	
-	/**
-	:name:	handleCameraButton
-	*/
-	internal func handleCameraButton(button: UIButton) {
-		captureButton.backgroundColor = MaterialColor.blue.darken1.colorWithAlphaComponent(0.3)
-		captureMode = .Photo
-	}
-	
-	/**
-	:name:	handleVideoButton
-	*/
-	internal func handleVideoButton(button: UIButton) {
-		captureButton.backgroundColor = MaterialColor.red.darken1.colorWithAlphaComponent(0.3)
-		captureMode = .Video
-	}
-	
-	/**
-	:name:	handleCaptureButton
-	*/
-	internal func handleCaptureButton(button: UIButton) {
-		if .Photo == captureMode {
-			captureView.captureSession.captureStillImage()
-		} else if .Video == captureMode {
-			if captureView.captureSession.isRecording {
-				captureView.captureSession.stopRecording()
-				captureView.stopTimer()
-				
-				cameraButton.hidden = false
-				videoButton.hidden = false
-				
-				if let v: Array<UIButton> = navigationBarView.leftButtons {
-					for x in v {
-						x.hidden = false
-					}
-				}
-				
-				if let v: Array<UIButton> = navigationBarView.rightButtons {
-					for x in v {
-						x.hidden = false
-					}
-				}
-				
-				navigationBarView.backgroundColor = MaterialColor.black.colorWithAlphaComponent(0.3)
-				
-			} else {
-				captureView.previewView.layer.addAnimation(MaterialAnimation.transition(.Fade), forKey: kCATransition)
-				captureView.captureSession.startRecording()
-				captureView.startTimer()
-				
-				cameraButton.hidden = true
-				videoButton.hidden = true
-				
-				if let v: Array<UIButton> = navigationBarView.leftButtons {
-					for x in v {
-						x.hidden = true
-					}
-				}
-				
-				if let v: Array<UIButton> = navigationBarView.rightButtons {
-					for x in v {
-						x.hidden = true
-					}
-				}
-				
-				navigationBarView.backgroundColor = nil
-			}
-		}
-	}
-	
-	/**
-	:name:	handleSwitchCameraButton
-	*/
-	internal func handleSwitchCameraButton(button: UIButton) {
-		var img: UIImage?
-		
-		captureView.previewView.layer.addAnimation(MaterialAnimation.transition(.Fade), forKey: kCATransition)
-		
-		if .Back == captureView.captureSession.cameraPosition {
-			img = UIImage(named: "ic_camera_rear_white")
-			captureView.captureSession.switchCameras()
-		} else if .Front == captureView.captureSession.cameraPosition {
-			img = UIImage(named: "ic_camera_front_white")
-			captureView.captureSession.switchCameras()
-		}
-		
-		switchCameraButton.setImage(img, forState: .Normal)
-		switchCameraButton.setImage(img, forState: .Highlighted)
-	}
-	
-	/**
-	:name:	handleFlashButton
-	*/
-	internal func handleFlashButton(button: UIButton) {
+	func captureViewDidPressFlashButton(captureView: CaptureView, button: UIButton) {
 		if .Back == captureView.captureSession.cameraPosition {
 			var img: UIImage?
 			
@@ -235,9 +150,50 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 				captureView.captureSession.flashMode = .Off
 			}
 			
-			flashButton.setImage(img, forState: .Normal)
-			flashButton.setImage(img, forState: .Highlighted)
+			button.setImage(img, forState: .Normal)
+			button.setImage(img, forState: .Highlighted)
 		}
+	}
+	
+	/**
+	:name:	captureViewDidPressCameraButton
+	*/
+	func captureViewDidPressCameraButton(captureView: CaptureView, button: UIButton) {
+		captureButton.backgroundColor = MaterialColor.blue.darken1.colorWithAlphaComponent(0.3)
+	}
+	
+	/**
+	:name:	captureViewDidPressVideoButton
+	*/
+	func captureViewDidPressVideoButton(captureView: CaptureView, button: UIButton) {
+		captureButton.backgroundColor = MaterialColor.red.darken1.colorWithAlphaComponent(0.3)
+	}
+	
+	/**
+	:name:	captureViewDidPressCaptureButton
+	*/
+	func captureViewDidPressCaptureButton(captureView: CaptureView, button: UIButton) {
+		if .Photo == captureView.captureMode {
+			// ... do something
+		} else if .Video == captureView.captureMode {
+			// ... do something
+		}
+	}
+	
+	/**
+	:name:	captureViewDidPressSwitchCamerasButton
+	*/
+	func captureViewDidPressSwitchCamerasButton(captureView: CaptureView, button: UIButton) {
+		var img: UIImage?
+		
+		if .Back == captureView.captureSession.cameraPosition {
+			img = UIImage(named: "ic_camera_front_white")
+		} else if .Front == captureView.captureSession.cameraPosition {
+			img = UIImage(named: "ic_camera_rear_white")
+		}
+		
+		switchCamerasButton.setImage(img, forState: .Normal)
+		switchCamerasButton.setImage(img, forState: .Highlighted)
 	}
 	
 	/**
@@ -252,8 +208,11 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 	*/
 	private func prepareCaptureView() {
 		view.addSubview(captureView)
+		captureView.tapToFocusEnabled = true
+		captureView.tapToExposeEnabled = true
 		captureView.translatesAutoresizingMaskIntoConstraints = false
 		captureView.delegate = self
+		captureView.captureSession.delegate = self
 		MaterialLayout.alignToParent(view, child: captureView)
 	}
 	
@@ -283,7 +242,7 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 		navigationBarView.detailLabel = detailLabel
 		
 		navigationBarView.leftButtons = [closeButton]
-		navigationBarView.rightButtons = [switchCameraButton, flashButton]
+		navigationBarView.rightButtons = [switchCamerasButton, flashButton]
 		
 		view.addSubview(navigationBarView)
 		navigationBarView.translatesAutoresizingMaskIntoConstraints = false
@@ -304,8 +263,6 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 		captureButton.borderWidth = .Border2
 		captureButton.borderColor = MaterialColor.white
 		captureButton.shadowDepth = .None
-		captureButton.addTarget(self, action: "handleCaptureButton:", forControlEvents: .TouchUpInside)
-		view.addSubview(captureButton)
 		
 		captureView.captureButton = captureButton
 	}
@@ -315,10 +272,11 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 	*/
 	private func prepareCameraButton() {
 		let img4: UIImage? = UIImage(named: "ic_photo_camera_white_36pt")
+		cameraButton.width = 72
+		cameraButton.height = 72
 		cameraButton.pulseColor = nil
 		cameraButton.setImage(img4, forState: .Normal)
 		cameraButton.setImage(img4, forState: .Highlighted)
-		cameraButton.addTarget(self, action: "handleCameraButton:", forControlEvents: .TouchUpInside)
 		
 		captureView.cameraButton = cameraButton
 	}
@@ -328,10 +286,11 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 	*/
 	private func prepareVideoButton() {
 		let img5: UIImage? = UIImage(named: "ic_videocam_white_36pt")
+		videoButton.width = 72
+		videoButton.height = 72
 		videoButton.pulseColor = nil
 		videoButton.setImage(img5, forState: .Normal)
 		videoButton.setImage(img5, forState: .Highlighted)
-		videoButton.addTarget(self, action: "handleVideoButton:", forControlEvents: .TouchUpInside)
 		
 		captureView.videoButton = videoButton
 	}
@@ -344,35 +303,30 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 		closeButton.pulseColor = nil
 		closeButton.setImage(img, forState: .Normal)
 		closeButton.setImage(img, forState: .Highlighted)
-		
-		captureView.closeButton = closeButton
 	}
 	
 	/**
-	:name:	prepareSwitchCameraButton
+	:name:	prepareSwitchCamerasButton
 	*/
-	private func prepareSwitchCameraButton() {
+	private func prepareSwitchCamerasButton() {
 		let img: UIImage? = UIImage(named: "ic_camera_front_white")
-		switchCameraButton.pulseColor = nil
-		switchCameraButton.setImage(img, forState: .Normal)
-		switchCameraButton.setImage(img, forState: .Highlighted)
-		switchCameraButton.addTarget(self, action: "handleSwitchCameraButton:", forControlEvents: .TouchUpInside)
+		switchCamerasButton.pulseColor = nil
+		switchCamerasButton.setImage(img, forState: .Normal)
+		switchCamerasButton.setImage(img, forState: .Highlighted)
 		
-		captureView.switchCameraButton = switchCameraButton
+		captureView.switchCamerasButton = switchCamerasButton
 	}
 	
 	/**
 	:name:	prepareFlashButton
 	*/
 	private func prepareFlashButton() {
-		captureView.captureSession.flashMode = .Auto
-		
 		let img: UIImage? = UIImage(named: "ic_flash_auto_white")
 		flashButton.pulseColor = nil
 		flashButton.setImage(img, forState: .Normal)
 		flashButton.setImage(img, forState: .Highlighted)
-		flashButton.addTarget(self, action: "handleFlashButton:", forControlEvents: .TouchUpInside)
 		
+		captureView.captureSession.flashMode = .Auto
 		captureView.flashButton = flashButton
 	}
 }

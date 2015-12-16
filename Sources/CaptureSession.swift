@@ -392,7 +392,7 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 	/**
 	:name:	switchCameras
 	*/
-	public func switchCameras() {
+	public func switchCameras(completion: ((success: Bool) -> Void)? = nil) {
 		if canSwitchCameras {
 			do {
 				self.delegate?.captureSessionWillSwitchCameras?(self, position: self.cameraPosition)
@@ -407,8 +407,10 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 					self.session.addInput(self.activeVideoInput)
 				}
 				self.session.commitConfiguration()
+				completion?(success: true)
 				self.delegate?.captureSessionDidSwitchCameras?(self, position: self.cameraPosition)
 			} catch let e as NSError {
+				completion?(success: false)
 				self.delegate?.captureSessionFailedWithError?(self, error: e)
 			}
 		}
@@ -560,7 +562,7 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 	:name:	startRecording
 	*/
 	public func startRecording() {
-		if !self.isRecording {
+		if !isRecording {
 			dispatch_async(sessionQueue) {
 				let connection: AVCaptureConnection = self.movieOutput.connectionWithMediaType(AVMediaTypeVideo)
 				connection.videoOrientation = self.currentVideoOrientation
