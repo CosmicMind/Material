@@ -19,6 +19,11 @@
 import UIKit
 import AVFoundation
 
+public enum CaptureMode {
+	case Photo
+	case Video
+}
+
 @objc(CaptureViewDelegate)
 public protocol CaptureViewDelegate : MaterialDelegate {
 	/**
@@ -93,6 +98,24 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 	}
 	
 	/**
+	:name:	contentInsets
+	*/
+	public var contentInsets: MaterialEdgeInsets = .None {
+		didSet {
+			contentInsetsRef = MaterialEdgeInsetsToValue(contentInsets)
+		}
+	}
+	
+	/**
+	:name:	contentInsetsRef
+	*/
+	public var contentInsetsRef: UIEdgeInsets = MaterialTheme.captureView.contentInsetsRef {
+		didSet {
+			reloadView()
+		}
+	}
+	
+	/**
 	:name:	previewView
 	*/
 	public private(set) lazy var previewView: CapturePreviewView = CapturePreviewView()
@@ -146,7 +169,12 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 	/**
 	:name:	cameraButton
 	*/
-	public var cameraButton: MaterialButton?
+	public var cameraButton: MaterialButton? {
+		didSet {
+			cameraButton?.translatesAutoresizingMaskIntoConstraints = false
+			reloadView()
+		}
+	}
 	
 	/**
 	:name:	captureButton
@@ -156,7 +184,12 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 	/**
 	:name:	videoButton
 	*/
-	public var videoButton: MaterialButton?
+	public var videoButton: MaterialButton? {
+		didSet {
+			videoButton?.translatesAutoresizingMaskIntoConstraints = false
+			reloadView()
+		}
+	}
 	
 	/**
 	:name:	switchCameraButton
@@ -169,11 +202,67 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 	public var flashButton: MaterialButton?
 	
 	/**
+	:name:	init
+	*/
+	public convenience init() {
+		self.init(frame: CGRectNull)
+	}
+	
+	/**
+	:name:	layoutSubviews
+	*/
+	public override func layoutSubviews() {
+		super.layoutSubviews()
+		if let v: MaterialButton = captureButton {
+			v.y = bounds.height - contentInsetsRef.bottom - v.height
+			v.x = (bounds.width - v.width) / 2
+		}
+		(previewView.layer as! AVCaptureVideoPreviewLayer).connection.videoOrientation = captureSession.currentVideoOrientation
+	}
+	
+	/**
 	:name:	prepareView
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		prepareCapturePreviewView()
+		userInteractionEnabled = MaterialTheme.captureView.userInteractionEnabled
+		backgroundColor = MaterialTheme.captureView.backgroundColor
+		
+		contentsRect = MaterialTheme.captureView.contentsRect
+		contentsCenter = MaterialTheme.captureView.contentsCenter
+		contentsScale = MaterialTheme.captureView.contentsScale
+		contentsGravity = MaterialTheme.captureView.contentsGravity
+		shadowDepth = MaterialTheme.captureView.shadowDepth
+		shadowColor = MaterialTheme.captureView.shadowColor
+		zPosition = MaterialTheme.captureView.zPosition
+		borderWidth = MaterialTheme.captureView.borderWidth
+		borderColor = MaterialTheme.captureView.bordercolor
+		
+		preparePreviewView()
+	}
+	
+	/**
+	:name:	reloadView
+	*/
+	public func reloadView() {
+		// clear constraints so new ones do not conflict
+		removeConstraints(constraints)
+		for v in subviews {
+			v.removeFromSuperview()
+		}
+		
+		addSubview(previewView)
+		MaterialLayout.alignToParent(self, child: previewView)
+		
+		if let v: MaterialButton = cameraButton {
+			addSubview(v)
+			MaterialLayout.alignFromBottomLeft(self, child: v, bottom: contentInsetsRef.bottom, left: contentInsetsRef.left)
+		}
+		
+		if let v: MaterialButton = videoButton {
+			addSubview(v)
+			MaterialLayout.alignFromBottomRight(self, child: v, bottom: contentInsetsRef.bottom, right: contentInsetsRef.right)
+		}
 	}
 	
 	/**
@@ -284,14 +373,12 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 	}
 	
 	/**
-	:name:	prepareCapturePreviewView
+	:name:	preparePreviewView
 	*/
-	private func prepareCapturePreviewView() {
+	private func preparePreviewView() {
+		previewView.translatesAutoresizingMaskIntoConstraints = false
 		(previewView.layer as! AVCaptureVideoPreviewLayer).session = captureSession.session
 		captureSession.startSession()
-		addSubview(previewView)
-		previewView.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignToParent(self, child: previewView)
 	}
 	
 	/**
@@ -299,7 +386,6 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 	*/
 	private func prepareFocusView() {
 		if let v: MaterialView = focusView {
-			addSubview(v)
 			v.hidden = true
 		}
 	}
@@ -309,7 +395,6 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 	*/
 	private func prepareExposureView() {
 		if let v: MaterialView = exposureView {
-			addSubview(v)
 			v.hidden = true
 		}
 	}

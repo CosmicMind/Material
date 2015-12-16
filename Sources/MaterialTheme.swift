@@ -208,8 +208,11 @@ public extension MaterialTheme.navigationBarView {
 // captureView
 public extension MaterialTheme.captureView {
 	// shadow
-	public static var shadowDepth: MaterialDepth = .Depth2
+	public static var shadowDepth: MaterialDepth = .None
 	public static var shadowColor: UIColor = MaterialColor.black
+	
+	// shape
+	public static var contentInsetsRef: UIEdgeInsets = MaterialEdgeInsetsToValue(.Square4)
 	
 	// border
 	public static var borderWidth: MaterialBorder = .None
@@ -220,6 +223,12 @@ public extension MaterialTheme.captureView {
 	
 	// interaction
 	public static var userInteractionEnabled: Bool = true
+	
+	// image
+	public static var contentsRect: CGRect = CGRectMake(0, 0, 1, 1)
+	public static var contentsCenter: CGRect = CGRectMake(0, 0, 1, 1)
+	public static var contentsScale: CGFloat = UIScreen.mainScreen().scale
+	public static var contentsGravity: MaterialGravity = .ResizeAspectFill
 	
 	// position
 	public static var zPosition: CGFloat = 0

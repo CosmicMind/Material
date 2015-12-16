@@ -20,11 +20,6 @@ import UIKit
 import MaterialKit
 import AVFoundation
 
-enum CaptureMode {
-	case Photo
-	case Video
-}
-
 class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDelegate {
 	lazy var captureView: CaptureView = CaptureView()
 	lazy var navigationBarView: NavigationBarView = NavigationBarView(frame: CGRectNull)
@@ -51,21 +46,7 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 	
 	override func viewWillLayoutSubviews() {
 		super.viewWillLayoutSubviews()
-		captureButton.frame = CGRectMake((view.bounds.width - 72) / 2, view.bounds.height - 100, 72, 72)
-	}
-	
-	private func prepareCaptureView() {
-		view.addSubview(captureView)
-		captureView.translatesAutoresizingMaskIntoConstraints = false
-		captureView.delegate = self
-		MaterialLayout.alignToParent(view, child: captureView)
-	}
-	
-	/**
-	:name:	prepareView
-	*/
-	private func prepareView() {
-		view.backgroundColor = MaterialColor.white
+		
 	}
 	
 	/**
@@ -260,6 +241,23 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 	}
 	
 	/**
+	:name:	prepareView
+	*/
+	private func prepareView() {
+		view.backgroundColor = MaterialColor.black
+	}
+	
+	/**
+	:name:	prepareCaptureView
+	*/
+	private func prepareCaptureView() {
+		view.addSubview(captureView)
+		captureView.translatesAutoresizingMaskIntoConstraints = false
+		captureView.delegate = self
+		MaterialLayout.alignToParent(view, child: captureView)
+	}
+	
+	/**
 	:name:	prepareNavigationBarView
 	*/
 	private func prepareNavigationBarView() {
@@ -298,6 +296,8 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 	:name:	prepareCaptureButton
 	*/
 	private func prepareCaptureButton() {
+		captureButton.width = 72
+		captureButton.height = 72
 		captureButton.pulseColor = MaterialColor.white
 		captureButton.pulseFill = true
 		captureButton.backgroundColor = MaterialColor.red.darken1.colorWithAlphaComponent(0.3)
@@ -306,6 +306,8 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 		captureButton.shadowDepth = .None
 		captureButton.addTarget(self, action: "handleCaptureButton:", forControlEvents: .TouchUpInside)
 		view.addSubview(captureButton)
+		
+		captureView.captureButton = captureButton
 	}
 	
 	/**
@@ -318,11 +320,7 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 		cameraButton.setImage(img4, forState: .Highlighted)
 		cameraButton.addTarget(self, action: "handleCameraButton:", forControlEvents: .TouchUpInside)
 		
-		view.addSubview(cameraButton)
-		cameraButton.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignFromBottomLeft(view, child: cameraButton, bottom: 24, left: 24)
-		
-		captureView.captureButton = cameraButton
+		captureView.cameraButton = cameraButton
 	}
 	
 	/**
@@ -334,10 +332,6 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 		videoButton.setImage(img5, forState: .Normal)
 		videoButton.setImage(img5, forState: .Highlighted)
 		videoButton.addTarget(self, action: "handleVideoButton:", forControlEvents: .TouchUpInside)
-		
-		view.addSubview(videoButton)
-		videoButton.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignFromBottomRight(view, child: videoButton, bottom: 24, right: 24)
 		
 		captureView.videoButton = videoButton
 	}
