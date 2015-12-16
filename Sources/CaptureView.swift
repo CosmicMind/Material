@@ -29,12 +29,12 @@ public protocol CaptureViewDelegate : MaterialDelegate {
 	/**
 	:name:	captureViewDidUpdateRecordTimer
 	*/
-	optional func captureViewDidUpdateRecordTimer(captureView: CaptureView, duration: CMTime, time: Double, hours: Int, minutes: Int, seconds: Int)
+	optional func captureViewDidUpdateRecordTimer(captureView: CaptureView, hours: Int, minutes: Int, seconds: Int)
 	
 	/**
 	:name:	captureViewDidStopRecordTimer
 	*/
-	optional func captureViewDidStopRecordTimer(captureView: CaptureView, duration: CMTime, time: Double, hours: Int, minutes: Int, seconds: Int)
+	optional func captureViewDidStopRecordTimer(captureView: CaptureView, hours: Int, minutes: Int, seconds: Int)
 	
 	/**
 	:name:	captureViewDidTapToFocusAtPoint
@@ -195,7 +195,7 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 		let hours: Int = Int(time / 3600)
 		let minutes: Int = Int((time / 60) % 60)
 		let seconds: Int = Int(time % 60)
-		(delegate as? CaptureViewDelegate)?.captureViewDidUpdateRecordTimer?(self, duration: duration, time: time, hours: hours, minutes: minutes, seconds: seconds)
+		(delegate as? CaptureViewDelegate)?.captureViewDidUpdateRecordTimer?(self, hours: hours, minutes: minutes, seconds: seconds)
 	}
 	
 	/**
@@ -209,7 +209,7 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 		let seconds: Int = Int(time % 60)
 		timer?.invalidate()
 		timer = nil
-		(delegate as? CaptureViewDelegate)?.captureViewDidStopRecordTimer?(self, duration: duration, time: time, hours: hours, minutes: minutes, seconds: seconds)
+		(delegate as? CaptureViewDelegate)?.captureViewDidStopRecordTimer?(self, hours: hours, minutes: minutes, seconds: seconds)
 	}
 	
 	/**

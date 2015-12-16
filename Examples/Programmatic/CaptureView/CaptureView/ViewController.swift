@@ -36,8 +36,8 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 	}
 	
 	private func prepareCameraView() {
-		cameraView.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(cameraView)
+		cameraView.translatesAutoresizingMaskIntoConstraints = false
 		MaterialLayout.alignToParent(view, child: cameraView)
 	}
 	

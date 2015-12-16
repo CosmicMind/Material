@@ -40,15 +40,18 @@ public class CameraView : CaptureView, CaptureViewDelegate, CaptureSessionDelega
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		prepareNavigationBarView()
 		prepareCaptureButton()
 		prepareCameraButton()
 		prepareVideoButton()
 		prepareCloseButton()
 		prepareSwitchCameraButton()
 		prepareFlashButton()
+		prepareNavigationBarView()
 	}
 	
+	/**
+	:name:	captureViewDidUpdateRecordTimer
+	*/
 	public func captureViewDidUpdateRecordTimer(captureView: CaptureView, duration: CMTime, time: Double, hours: Int, minutes: Int, seconds: Int) {
 		MaterialAnimation.animationDisabled {
 			self.navigationBarView.titleLabel!.text = String(format: "%02i:%02i:%02i", arguments: [hours, minutes, seconds])
@@ -56,6 +59,9 @@ public class CameraView : CaptureView, CaptureViewDelegate, CaptureSessionDelega
 		
 	}
 	
+	/**
+	:name:	captureViewDidStopRecordTimer
+	*/
 	public func captureViewDidStopRecordTimer(captureView: CaptureView, duration: CMTime, time: Double, hours: Int, minutes: Int, seconds: Int) {
 		navigationBarView.titleLabel!.hidden = true
 		navigationBarView.detailLabel!.hidden = true
@@ -236,6 +242,7 @@ public class CameraView : CaptureView, CaptureViewDelegate, CaptureSessionDelega
 		
 		addSubview(navigationBarView)
 		navigationBarView.translatesAutoresizingMaskIntoConstraints = false
+		MaterialLayout.alignFromTop(self, child: navigationBarView)
 		MaterialLayout.alignToParentHorizontally(self, child: navigationBarView)
 		MaterialLayout.height(self, child: navigationBarView, height: 70)
 	}
