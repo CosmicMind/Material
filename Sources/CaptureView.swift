@@ -330,19 +330,19 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 			v.removeFromSuperview()
 		}
 		
-		addSubview(previewView)
+		insertSubview(previewView, atIndex: 0)
 		MaterialLayout.alignToParent(self, child: previewView)
 		
 		if let v: UIButton = captureButton {
-			addSubview(v)
+			insertSubview(v, atIndex: 1)
 		}
 		
 		if let v: UIButton = cameraButton {
-			addSubview(v)
+			insertSubview(v, atIndex: 2)
 		}
 		
 		if let v: UIButton = videoButton {
-			addSubview(v)
+			insertSubview(v, atIndex: 3)
 		}
 	}
 	
@@ -535,7 +535,7 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 			resetLayer = MaterialLayer(frame: CGRectMake(0, 0, 150, 150))
 			resetLayer!.hidden = true
 			resetLayer!.borderWidth = 2
-			resetLayer!.borderColor = MaterialColor.purple.darken1.CGColor
+			resetLayer!.borderColor = MaterialColor.red.accent1.CGColor
 			previewView.layer.addSublayer(resetLayer!)
 		}
 	}

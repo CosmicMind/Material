@@ -666,6 +666,12 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 	private func prepareMovieOutput() {
 		if session.canAddOutput(movieOutput) {
 			session.addOutput(movieOutput)
+			
+			// By calling this, it removes the stutter that occurs
+			// when calling the record button.
+			let connection: AVCaptureConnection = self.movieOutput.connectionWithMediaType(AVMediaTypeVideo)
+			connection.videoOrientation = self.currentVideoOrientation
+			connection.preferredVideoStabilizationMode = .Auto
 		}
 	}
 	

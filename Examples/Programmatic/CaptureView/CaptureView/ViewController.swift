@@ -70,6 +70,7 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 	func captureDidStartRecordingToOutputFileAtURL(capture: CaptureSession, captureOutput: AVCaptureFileOutput, fileURL: NSURL, fromConnections connections: [AnyObject]) {
 		print("Capture Started Recording \(fileURL)")
 		
+		closeButton.hidden = true
 		cameraButton.hidden = true
 		videoButton.hidden = true
 		switchCamerasButton.hidden = true
@@ -84,6 +85,7 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 	func captureDidFinishRecordingToOutputFileAtURL(capture: CaptureSession, captureOutput: AVCaptureFileOutput, outputFileURL: NSURL, fromConnections connections: [AnyObject], error: NSError!) {
 		print("Capture Stopped Recording \(outputFileURL)")
 		
+		closeButton.hidden = false
 		cameraButton.hidden = false
 		videoButton.hidden = false
 		switchCamerasButton.hidden = false
@@ -92,10 +94,16 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 		navigationBarView.backgroundColor = MaterialColor.black.colorWithAlphaComponent(0.3)
 	}
 	
+	func captureViewDidStartRecordTimer(captureView: CaptureView) {
+		navigationBarView.titleLabel!.text = "00:00:00"
+		navigationBarView.titleLabel!.hidden = false
+		navigationBarView.detailLabel!.hidden = false
+	}
+	
 	/**
 	:name:	captureViewDidUpdateRecordTimer
 	*/
-	func captureViewDidUpdateRecordTimer(captureView: CaptureView, duration: CMTime, time: Double, hours: Int, minutes: Int, seconds: Int) {
+	func captureViewDidUpdateRecordTimer(captureView: CaptureView, hours: Int, minutes: Int, seconds: Int) {
 		MaterialAnimation.animationDisabled {
 			self.navigationBarView.titleLabel!.text = String(format: "%02i:%02i:%02i", arguments: [hours, minutes, seconds])
 		}
@@ -104,10 +112,9 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 	/**
 	:name:	captureViewDidStopRecordTimer
 	*/
-	func captureViewDidStopRecordTimer(captureView: CaptureView, duration: CMTime, time: Double, hours: Int, minutes: Int, seconds: Int) {
+	func captureViewDidStopRecordTimer(captureView: CaptureView, hours: Int, minutes: Int, seconds: Int) {
 		navigationBarView.titleLabel!.hidden = true
 		navigationBarView.detailLabel!.hidden = true
-		navigationBarView.detailLabel!.textColor = MaterialColor.white
 	}
 	
 	/**
@@ -237,7 +244,7 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 		detailLabel.hidden = true
 		detailLabel.text = "Recording"
 		detailLabel.textAlignment = .Center
-		detailLabel.textColor = MaterialColor.white
+		detailLabel.textColor = MaterialColor.red.accent1
 		detailLabel.font = RobotoFont.regularWithSize(12)
 		navigationBarView.detailLabel = detailLabel
 		
