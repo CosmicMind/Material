@@ -79,6 +79,7 @@
 		96D88C731C132ACC00B91418 /* MaterialAnimation.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96D88BFF1C1328D800B91418 /* MaterialAnimation.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96D88C741C132ACC00B91418 /* MaterialBasicAnimation.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96D88C001C1328D800B91418 /* MaterialBasicAnimation.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96D88C751C132AD500B91418 /* NavigationBarView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96D88C151C1328D800B91418 /* NavigationBarView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96F367031C20B87D00DD91F4 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F367021C20B87D00DD91F4 /* CameraView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -136,6 +137,7 @@
 		96D88C1B1C1328D800B91418 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		96D88C1C1C1328D800B91418 /* RobotoFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RobotoFont.swift; sourceTree = "<group>"; };
 		96D88C1D1C1328D800B91418 /* SideNavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideNavigationViewController.swift; sourceTree = "<group>"; };
+		96F367021C20B87D00DD91F4 /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -233,6 +235,7 @@
 		96D88C491C13292700B91418 /* Capture */ = {
 			isa = PBXGroup;
 			children = (
+				96F367021C20B87D00DD91F4 /* CameraView.swift */,
 				96D88BF51C1328D800B91418 /* CaptureView.swift */,
 				96D88BF71C1328D800B91418 /* CapturePreviewView.swift */,
 				96D88BF81C1328D800B91418 /* CaptureSession.swift */,
@@ -515,6 +518,7 @@
 				96D88C3F1C1328D800B91418 /* RaisedButton.swift in Sources */,
 				96D88C3C1C1328D800B91418 /* MaterialTransitionAnimation.swift in Sources */,
 				96D88C361C1328D800B91418 /* MaterialPulseView.swift in Sources */,
+				96F367031C20B87D00DD91F4 /* CameraView.swift in Sources */,
 				96D88C1E1C1328D800B91418 /* CaptureView.swift in Sources */,
 				96D88C2D1C1328D800B91418 /* MaterialDepth.swift in Sources */,
 				96D88C331C1328D800B91418 /* MaterialLabel.swift in Sources */,

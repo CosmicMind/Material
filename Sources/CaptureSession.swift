@@ -123,9 +123,9 @@ public protocol CaptureSessionDelegate {
 @objc(CaptureSession)
 public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 	/**
-	:name:	videoQueue
+	:name:	sessionQueue
 	*/
-	private lazy var videoQueue: dispatch_queue_t = dispatch_queue_create("io.materialkit.CaptureSession", nil)
+	private lazy var sessionQueue: dispatch_queue_t = dispatch_queue_create("io.materialkit.CaptureSession", DISPATCH_QUEUE_SERIAL)
 	
 	/**
 	:name:	activeVideoInput
@@ -179,15 +179,6 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 	*/
 	public var activeCamera: AVCaptureDevice? {
 		return activeVideoInput?.device
-	}
-	
-	/**
-	:name:	init
-	*/
-	public override init() {
-		sessionPreset = .PresetHigh
-		super.init()
-		prepareSession()
 	}
 	
 	/**
@@ -368,11 +359,20 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 	public weak var delegate: CaptureSessionDelegate?
 	
 	/**
+	:name:	init
+	*/
+	public override init() {
+		sessionPreset = .PresetHigh
+		super.init()
+		prepareSession()
+	}
+	
+	/**
 	:name:	startSession
 	*/
 	public func startSession() {
 		if !isRunning {
-			dispatch_async(videoQueue) {
+			dispatch_async(sessionQueue) {
 				self.session.startRunning()
 			}
 		}
@@ -383,7 +383,7 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 	*/
 	public func stopSession() {
 		if isRunning {
-			dispatch_async(videoQueue) {
+			dispatch_async(sessionQueue) {
 				self.session.stopRunning()
 			}
 		}
@@ -542,14 +542,16 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 	:name:	captureStillImage
 	*/
 	public func captureStillImage() {
-		let connection: AVCaptureConnection = imageOutput.connectionWithMediaType(AVMediaTypeVideo)
-		connection.videoOrientation = currentVideoOrientation
-		imageOutput.captureStillImageAsynchronouslyFromConnection(connection) { (sampleBuffer: CMSampleBuffer!, error: NSError!) -> Void in
-			if nil == error {
-				let data: NSData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer)
-				self.delegate?.captureStillImageAsynchronously?(self, image: UIImage(data: data)!)
-			} else {
-				self.delegate?.captureStillImageAsynchronouslyFailedWithError?(self, error: error!)
+		dispatch_async(sessionQueue) {
+			let connection: AVCaptureConnection = self.imageOutput.connectionWithMediaType(AVMediaTypeVideo)
+			connection.videoOrientation = self.currentVideoOrientation
+			self.imageOutput.captureStillImageAsynchronouslyFromConnection(connection) { (sampleBuffer: CMSampleBuffer!, error: NSError!) -> Void in
+				if nil == error {
+					let data: NSData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer)
+					self.delegate?.captureStillImageAsynchronously?(self, image: UIImage(data: data)!)
+				} else {
+					self.delegate?.captureStillImageAsynchronouslyFailedWithError?(self, error: error!)
+				}
 			}
 		}
 	}
@@ -559,24 +561,26 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 	*/
 	public func startRecording() {
 		if !self.isRecording {
-			let connection: AVCaptureConnection = self.movieOutput.connectionWithMediaType(AVMediaTypeVideo)
-			connection.videoOrientation = self.currentVideoOrientation
-			connection.preferredVideoStabilizationMode = .Auto
-			
-			let device: AVCaptureDevice = self.activeCamera!
-			if device.smoothAutoFocusSupported {
-				do {
-					try device.lockForConfiguration()
-					device.smoothAutoFocusEnabled = true
-					device.unlockForConfiguration()
-				} catch let e as NSError {
-					self.delegate?.captureSessionFailedWithError?(self, error: e)
+			dispatch_async(sessionQueue) {
+				let connection: AVCaptureConnection = self.movieOutput.connectionWithMediaType(AVMediaTypeVideo)
+				connection.videoOrientation = self.currentVideoOrientation
+				connection.preferredVideoStabilizationMode = .Auto
+				
+				let device: AVCaptureDevice = self.activeCamera!
+				if device.smoothAutoFocusSupported {
+					do {
+						try device.lockForConfiguration()
+						device.smoothAutoFocusEnabled = true
+						device.unlockForConfiguration()
+					} catch let e as NSError {
+						self.delegate?.captureSessionFailedWithError?(self, error: e)
+					}
 				}
-			}
-			
-			self.movieOutputURL = self.uniqueURL()
-			if let v: NSURL = self.movieOutputURL {
-				self.movieOutput.startRecordingToOutputFileURL(v, recordingDelegate: self)
+				
+				self.movieOutputURL = self.uniqueURL()
+				if let v: NSURL = self.movieOutputURL {
+					self.movieOutput.startRecordingToOutputFileURL(v, recordingDelegate: self)
+				}
 			}
 		}
 	}

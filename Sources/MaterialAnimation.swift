@@ -49,7 +49,44 @@ public func MaterialAnimationFillModeToValue(mode: MaterialAnimationFillMode) ->
 	}
 }
 
+public typealias MaterialAnimationDelayCancelBlock = (cancel : Bool) -> Void
+
 public struct MaterialAnimation {
+	/**
+	:name:	delay
+	*/
+	public static func delay(time: NSTimeInterval, completion: ()-> Void) ->  MaterialAnimationDelayCancelBlock? {
+		
+		func dispatch_later(completion: ()-> Void) {
+			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), completion)
+		}
+		
+		var cancelable: MaterialAnimationDelayCancelBlock?
+		
+		let delayed: MaterialAnimationDelayCancelBlock = { cancel in
+			if !cancel {
+				dispatch_async(dispatch_get_main_queue(), completion)
+			}
+			cancelable = nil
+		}
+		
+		cancelable = delayed
+		
+		dispatch_later {
+			cancelable?(cancel: false)
+		}
+		
+		return cancelable;
+	}
+	
+	/**
+	:name:	delayCancel
+	*/
+	public static func delayCancel(completion: MaterialAnimationDelayCancelBlock?) {
+		completion?(cancel: true)
+	}
+
+	
 	/**
 	:name:	animationDisabled
 	*/
@@ -80,5 +117,14 @@ public struct MaterialAnimation {
 		group.duration = duration
 		group.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
 		return group
+	}
+	
+	/**
+	:name:	animateWithDelay
+	*/
+	public static func animateWithDelay(delay d: CFTimeInterval, duration: CFTimeInterval, animations: (() -> Void), options: UIViewAnimationOptions? = nil, completion: (() -> Void)? = nil) {
+		delay(d) {
+			animateWithDuration(duration, animations: animations, options: options, completion: completion)
+		}
 	}
 }

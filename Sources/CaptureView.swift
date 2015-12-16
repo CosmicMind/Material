@@ -17,154 +17,300 @@
 //
 
 import UIKit
+import AVFoundation
 
-public class CaptureView : MaterialView, CapturePreviewViewDelegate {
+@objc(CaptureViewDelegate)
+public protocol CaptureViewDelegate : MaterialDelegate {
+	/**
+	:name:	captureViewDidStartRecordTimer
+	*/
+	optional func captureViewDidStartRecordTimer(captureView: CaptureView)
+	
+	/**
+	:name:	captureViewDidUpdateRecordTimer
+	*/
+	optional func captureViewDidUpdateRecordTimer(captureView: CaptureView, duration: CMTime, time: Double, hours: Int, minutes: Int, seconds: Int)
+	
+	/**
+	:name:	captureViewDidStopRecordTimer
+	*/
+	optional func captureViewDidStopRecordTimer(captureView: CaptureView, duration: CMTime, time: Double, hours: Int, minutes: Int, seconds: Int)
+	
+	/**
+	:name:	captureViewDidTapToFocusAtPoint
+	*/
+	optional func captureViewDidTapToFocusAtPoint(captureView: CaptureView, point: CGPoint)
+	
+	/**
+	:name:	captureViewDidTapToExposeAtPoint
+	*/
+	optional func captureViewDidTapToExposeAtPoint(captureView: CaptureView, point: CGPoint)
+	
+	/**
+	:name:	captureViewDidTapToResetAtPoint
+	*/
+	optional func captureViewDidTapToResetAtPoint(captureView: CaptureView, point: CGPoint)
+}
+
+public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
+	/**
+	:name:	timer
+	*/
+	private var timer: NSTimer?
+	
+	/**
+	:name:	tapToFocusGesture
+	*/
+	private var tapToFocusGesture: UITapGestureRecognizer?
+	
+	/**
+	:name:	tapToExposeGesture
+	*/
+	private var tapToExposeGesture: UITapGestureRecognizer?
+	
+	/**
+	:name:	tapToResetGesture
+	*/
+	private var tapToResetGesture: UITapGestureRecognizer?
+	
+	/**
+	:name:	tapToResetEnabled
+	*/
+	private var tapToResetEnabled: Bool = false {
+		didSet {
+			if tapToResetEnabled {
+				prepareTapGesture(&tapToResetGesture, numberOfTapsRequired: 2, numberOfTouchesRequired: 2, selector: "handleTapToResetGesture:")
+				if let v: UITapGestureRecognizer = tapToFocusGesture {
+					v.requireGestureRecognizerToFail(tapToResetGesture!)
+				}
+				if let v: UITapGestureRecognizer = tapToExposeGesture {
+					v.requireGestureRecognizerToFail(tapToResetGesture!)
+				}
+			} else {
+				removeTapGesture(&tapToResetGesture)
+			}
+		}
+	}
+	
 	/**
 	:name:	previewView
 	*/
 	public private(set) lazy var previewView: CapturePreviewView = CapturePreviewView()
 	
 	/**
-	:name:	focusLayer
+	:name:	capture
 	*/
-	public private(set) lazy var focusLayer: MaterialLayer = MaterialLayer()
+	public private(set) lazy var captureSession: CaptureSession = CaptureSession()
 	
 	/**
-	:name:	exposureLayer
+	:name:	focusView
 	*/
-	public private(set) lazy var exposureLayer: MaterialLayer = MaterialLayer()
+	public var focusView: MaterialView? {
+		didSet {
+			if nil == focusView {
+				removeTapGesture(&tapToFocusGesture)
+			} else {
+				tapToResetEnabled = true
+				prepareFocusView()
+				prepareTapGesture(&tapToFocusGesture, numberOfTapsRequired: 1, numberOfTouchesRequired: 1, selector: "handleTapToFocusGesture:")
+				if let v: UITapGestureRecognizer = tapToExposeGesture {
+					tapToFocusGesture!.requireGestureRecognizerToFail(v)
+				}
+			}
+		}
+	}
+	
+	/**
+	:name:	exposureView
+	*/
+	public var exposureView: MaterialView? {
+		didSet {
+			if nil == exposureView {
+				removeTapGesture(&tapToExposeGesture)
+			} else {
+				tapToResetEnabled = true
+				prepareExposureView()
+				prepareTapGesture(&tapToExposeGesture, numberOfTapsRequired: 2, numberOfTouchesRequired: 1, selector: "handleTapToExposeGesture:")
+				if let v: UITapGestureRecognizer = tapToFocusGesture {
+					v.requireGestureRecognizerToFail(tapToExposeGesture!)
+				}
+			}
+		}
+	}
+	
+	/**
+	:name:	closeButton
+	*/
+	public var closeButton: MaterialButton?
+	
+	/**
+	:name:	cameraButton
+	*/
+	public var cameraButton: MaterialButton?
 	
 	/**
 	:name:	captureButton
 	*/
-	public var captureButton: UIButton?
+	public var captureButton: MaterialButton?
 	
 	/**
-	:name:	switchCamerasButton
+	:name:	videoButton
 	*/
-	public var switchCamerasButton: UIButton?
+	public var videoButton: MaterialButton?
+	
+	/**
+	:name:	switchCameraButton
+	*/
+	public var switchCameraButton: MaterialButton?
 	
 	/**
 	:name:	flashButton
 	*/
-	public var flashButton: UIButton?
-	
-	/**
-	:name:	captureSession
-	*/
-	public var captureSession: CaptureSession {
-		return previewView.captureSession
-	}
-	
-	/**
-	:name:	init
-	*/
-	public convenience init() {
-		self.init(frame: CGRectNull)
-	}
-	
-	/**
-	:name:	layoutSublayersOfLayer
-	*/
-	public override func layoutSublayersOfLayer(layer: CALayer) {
-		super.layoutSublayersOfLayer(layer)
-		if self.layer == layer {
-			
-		}
-	}
-	
-	/**
-	:name:	reloadView
-	*/
-	public func reloadView() {
-		previewView.removeFromSuperview()
-		addSubview(previewView)
-		MaterialLayout.alignToParent(self, child: previewView)
-	}
-	
-	/**
-	:name:	capturePreviewViewDidTapToFocusAtPoint
-	*/
-	public func capturePreviewViewDidTapToFocusAtPoint(capturePreviewView: CapturePreviewView, point: CGPoint) {
-		MaterialAnimation.animationDisabled {
-			self.focusLayer.position = point
-			self.focusLayer.hidden = false
-		}
-		MaterialAnimation.animateWithDuration(0.25, animations: {
-			self.focusLayer.transform = CATransform3DMakeScale(0, 0, 1)
-		}) {
-			MaterialAnimation.animationDisabled {
-				self.focusLayer.hidden = true
-				self.focusLayer.transform = CATransform3DIdentity
-			}
-		}
-	}
-	
-	/**
-	:name:	capturePreviewViewDidTapToExposeAtPoint
-	*/
-	public func capturePreviewViewDidTapToExposeAtPoint(capturePreviewView: CapturePreviewView, point: CGPoint) {
-		MaterialAnimation.animationDisabled {
-			self.exposureLayer.position = point
-			self.exposureLayer.hidden = false
-		}
-		MaterialAnimation.animateWithDuration(0.25, animations: {
-			self.exposureLayer.transform = CATransform3DMakeScale(0, 0, 1)
-		}) {
-			MaterialAnimation.animationDisabled {
-				self.exposureLayer.hidden = true
-				self.exposureLayer.transform = CATransform3DIdentity
-			}
-		}
-	}
-
-	/**
-	:name:	capturePreviewViewDidTapToResetAtPoint
-	*/
-	public func capturePreviewViewDidTapToResetAtPoint(capturePreviewView: CapturePreviewView, point: CGPoint) {
-		capturePreviewViewDidTapToFocusAtPoint(capturePreviewView, point: point)
-		capturePreviewViewDidTapToExposeAtPoint(capturePreviewView, point: point)
-	}
+	public var flashButton: MaterialButton?
 	
 	/**
 	:name:	prepareView
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		preparePreviewView()
-		prepareFocusLayer()
-		prepareExposureLayer()
-		reloadView()
+		prepareCapturePreviewView()
 	}
 	
 	/**
-	:name:	preparePreviewView
+	:name:	startTimer
 	*/
-	private func preparePreviewView() {
+	internal func startTimer() {
+		timer?.invalidate()
+		timer = NSTimer(timeInterval: 0.5, target: self, selector: "updateTimer", userInfo: nil, repeats: true)
+		NSRunLoop.mainRunLoop().addTimer(timer!, forMode: NSRunLoopCommonModes)
+		(delegate as? CaptureViewDelegate)?.captureViewDidStartRecordTimer?(self)
+	}
+	
+	/**
+	:name:	updateTimer
+	*/
+	internal func updateTimer() {
+		let duration: CMTime = captureSession.recordedDuration
+		let time: Double = CMTimeGetSeconds(duration)
+		let hours: Int = Int(time / 3600)
+		let minutes: Int = Int((time / 60) % 60)
+		let seconds: Int = Int(time % 60)
+		(delegate as? CaptureViewDelegate)?.captureViewDidUpdateRecordTimer?(self, duration: duration, time: time, hours: hours, minutes: minutes, seconds: seconds)
+	}
+	
+	/**
+	:name:	stopTimer
+	*/
+	internal func stopTimer() {
+		let duration: CMTime = captureSession.recordedDuration
+		let time: Double = CMTimeGetSeconds(duration)
+		let hours: Int = Int(time / 3600)
+		let minutes: Int = Int((time / 60) % 60)
+		let seconds: Int = Int(time % 60)
+		timer?.invalidate()
+		timer = nil
+		(delegate as? CaptureViewDelegate)?.captureViewDidStopRecordTimer?(self, duration: duration, time: time, hours: hours, minutes: minutes, seconds: seconds)
+	}
+	
+	/**
+	:name:	handleTapToFocusGesture
+	*/
+	internal func handleTapToFocusGesture(recognizer: UITapGestureRecognizer) {
+		if let v: MaterialView = focusView {
+			if captureSession.cameraSupportsTapToFocus {
+				let point: CGPoint = recognizer.locationInView(self)
+				captureSession.focusAtPoint(previewView.captureDevicePointOfInterestForPoint(point))
+				MaterialAnimation.animationDisabled {
+					v.layer.transform = CATransform3DIdentity
+					v.position = point
+					v.hidden = false
+				}
+				MaterialAnimation.animateWithDuration(0.25, animations: {
+					v.layer.transform = CATransform3DMakeScale(0.5, 0.5, 1)
+				}) {
+					MaterialAnimation.delay(0.4) {
+						MaterialAnimation.animationDisabled {
+							v.hidden = true
+						}
+					}
+				}
+				(delegate as? CaptureViewDelegate)?.captureViewDidTapToFocusAtPoint?(self, point: point)
+			}
+		}
+	}
+	
+	/**
+	:name:	handleTapToExposeGesture
+	*/
+	internal func handleTapToExposeGesture(recognizer: UITapGestureRecognizer) {
+		if nil != exposureView && captureSession.cameraSupportsTapToExpose {
+			let point: CGPoint = recognizer.locationInView(self)
+			captureSession.exposeAtPoint(previewView.captureDevicePointOfInterestForPoint(point))
+			(delegate as? CaptureViewDelegate)?.captureViewDidTapToExposeAtPoint?(self, point: point)
+		}
+	}
+	
+	/**
+	:name:	handleTapToResetGesture
+	*/
+	internal func handleTapToResetGesture(recognizer: UITapGestureRecognizer) {
+		if tapToResetEnabled {
+			captureSession.resetFocusAndExposureModes()
+			let point: CGPoint = previewView.pointForCaptureDevicePointOfInterest(CGPointMake(0.5, 0.5))
+			(delegate as? CaptureViewDelegate)?.captureViewDidTapToResetAtPoint?(self, point: point)
+		}
+	}
+	
+	/**
+	:name:	prepareTapGesture
+	*/
+	private func prepareTapGesture(inout gesture: UITapGestureRecognizer?, numberOfTapsRequired: Int, numberOfTouchesRequired: Int, selector: Selector) {
+		removeTapGesture(&gesture)
+		gesture = UITapGestureRecognizer(target: self, action: selector)
+		gesture!.delegate = self
+		gesture!.numberOfTapsRequired = numberOfTapsRequired
+		gesture!.numberOfTouchesRequired = numberOfTouchesRequired
+		addGestureRecognizer(gesture!)
+	}
+	
+	/**
+	:name:	removeTapToFocusGesture
+	*/
+	private func removeTapGesture(inout gesture: UITapGestureRecognizer?) {
+		if let v: UIGestureRecognizer = gesture {
+			removeGestureRecognizer(v)
+			gesture = nil
+		}
+	}
+	
+	/**
+	:name:	prepareCapturePreviewView
+	*/
+	private func prepareCapturePreviewView() {
+		(previewView.layer as! AVCaptureVideoPreviewLayer).session = captureSession.session
+		captureSession.startSession()
+		addSubview(previewView)
 		previewView.translatesAutoresizingMaskIntoConstraints = false
-		previewView.delegate = self
-		previewView.captureSession.startSession()
+		MaterialLayout.alignToParent(self, child: previewView)
 	}
 	
 	/**
-	:name:	prepareFocusLayer
+	:name:	prepareFocusView
 	*/
-	private func prepareFocusLayer() {
-		focusLayer.hidden = true
-		focusLayer.backgroundColor = MaterialColor.blue.base.colorWithAlphaComponent(0.25).CGColor
-		focusLayer.bounds = CGRectMake(0, 0, 150, 150)
-		focusLayer.cornerRadius = 75
-		previewView.layer.addSublayer(focusLayer)
+	private func prepareFocusView() {
+		if let v: MaterialView = focusView {
+			addSubview(v)
+			v.hidden = true
+		}
 	}
 	
 	/**
-	:name:	prepareExposureLayer
+	:name:	prepareExposureView
 	*/
-	private func prepareExposureLayer() {
-		exposureLayer.hidden = true
-		exposureLayer.backgroundColor = MaterialColor.red.base.colorWithAlphaComponent(0.25).CGColor
-		exposureLayer.bounds = CGRectMake(0, 0, 150, 150)
-		exposureLayer.cornerRadius = 75
-		previewView.layer.addSublayer(exposureLayer)
+	private func prepareExposureView() {
+		if let v: MaterialView = exposureView {
+			addSubview(v)
+			v.hidden = true
+		}
 	}
 }
