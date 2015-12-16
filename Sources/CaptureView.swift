@@ -179,7 +179,7 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 	/**
 	:name:	startTimer
 	*/
-	internal func startTimer() {
+	public func startTimer() {
 		timer?.invalidate()
 		timer = NSTimer(timeInterval: 0.5, target: self, selector: "updateTimer", userInfo: nil, repeats: true)
 		NSRunLoop.mainRunLoop().addTimer(timer!, forMode: NSRunLoopCommonModes)
@@ -189,7 +189,7 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 	/**
 	:name:	updateTimer
 	*/
-	internal func updateTimer() {
+	public func updateTimer() {
 		let duration: CMTime = captureSession.recordedDuration
 		let time: Double = CMTimeGetSeconds(duration)
 		let hours: Int = Int(time / 3600)
@@ -201,7 +201,7 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 	/**
 	:name:	stopTimer
 	*/
-	internal func stopTimer() {
+	public func stopTimer() {
 		let duration: CMTime = captureSession.recordedDuration
 		let time: Double = CMTimeGetSeconds(duration)
 		let hours: Int = Int(time / 3600)
