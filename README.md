@@ -32,7 +32,7 @@ Run carthage to build the framework and drag the built MaterialKit.framework int
 * Side Navigation.
 * Camera with Photo and Video.
 * Animation Library.
-* Cards and ImageCards
+* Cards and ImageCards.
 * Range of buttons.
 * Fully customizable.
 
@@ -55,7 +55,7 @@ As elegant as is effective, the SideNavigationViewController is an excellent way
 
 ### CaptureView
 
-Add a new dimension of interactivity with CaptureView. CaptureView is a fully functional camera that is completely customizable. Checkout the Examples directly for a sample project using this wonderful component.
+Add a new dimension of interactivity with CaptureView. CaptureView is a fully functional camera that is completely customizable. Checkout the Examples directory for a sample project using this wonderful component.
 
 ![MaterialKitCaptureView](http://www.materialkit.io/MK/MaterialKitCaptureView.jpg)
 
