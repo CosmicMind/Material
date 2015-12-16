@@ -26,6 +26,17 @@ github "CosmicMind/MaterialKit"
 
 Run carthage to build the framework and drag the built MaterialKit.framework into your Xcode project.
 
+### MaterialColor
+
+Explore a complete range of Material Design colors easily using the MaterialColor library.
+
+![MaterialKitMaterialColorPalette](http://www.materialkit.io/MK/MaterialKitMaterialColorPalette.png)
+
+```swift
+let button: FabButton = FabButton()
+button.backgroundColor = MaterialColor.blue.darken1
+```
+
 ### SideNavigationViewController
 
 As elegant as is effective, the SideNavigationViewController is an excellent way to organize your app. In the Examples directory, there is an example project using this wonderful component.
