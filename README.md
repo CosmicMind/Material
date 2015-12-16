@@ -26,6 +26,10 @@ github "CosmicMind/MaterialKit"
 
 Run carthage to build the framework and drag the built MaterialKit.framework into your Xcode project.
 
+### Features
+
+
+
 ### MaterialColor
 
 Explore a complete range of Material Design colors easily using the MaterialColor library.
