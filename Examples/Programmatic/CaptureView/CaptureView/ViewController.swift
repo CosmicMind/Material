@@ -75,8 +75,6 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 		videoButton.hidden = true
 		switchCamerasButton.hidden = true
 		flashButton.hidden = true
-			
-		navigationBarView.backgroundColor = nil
 	}
 	
 	/**
@@ -90,8 +88,6 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 		videoButton.hidden = false
 		switchCamerasButton.hidden = false
 		flashButton.hidden = false
-		
-		navigationBarView.backgroundColor = MaterialColor.black.colorWithAlphaComponent(0.3)
 	}
 	
 	func captureViewDidStartRecordTimer(captureView: CaptureView) {
@@ -232,7 +228,7 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 	:name:	prepareNavigationBarView
 	*/
 	private func prepareNavigationBarView() {
-		navigationBarView.backgroundColor = MaterialColor.black.colorWithAlphaComponent(0.3)
+		navigationBarView.backgroundColor = nil
 		navigationBarView.shadowDepth = .None
 		navigationBarView.statusBarStyle = .LightContent
 		

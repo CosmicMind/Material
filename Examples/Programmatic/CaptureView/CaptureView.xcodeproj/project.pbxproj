@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		961725841C2230550091B34F /* MaterialKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961725831C2230550091B34F /* MaterialKit.framework */; };
+		961725851C2230550091B34F /* MaterialKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 961725831C2230550091B34F /* MaterialKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		967C0E5A1C1CB980005175A6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967C0E591C1CB980005175A6 /* AppDelegate.swift */; };
 		967C0E5C1C1CB980005175A6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967C0E5B1C1CB980005175A6 /* ViewController.swift */; };
 		967C0E611C1CB980005175A6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 967C0E601C1CB980005175A6 /* Assets.xcassets */; };
@@ -20,6 +22,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				961725851C2230550091B34F /* MaterialKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -27,6 +30,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		961725831C2230550091B34F /* MaterialKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = MaterialKit.framework; path = "/Users/danieldahan/Library/Developer/Xcode/DerivedData/MaterialKit-anypxbsecgdqqxevbavirvnffqxd/Build/Products/Debug-iphoneos/MaterialKit.framework"; sourceTree = "<absolute>"; };
 		967C0E561C1CB980005175A6 /* CaptureView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CaptureView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		967C0E591C1CB980005175A6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		967C0E5B1C1CB980005175A6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -40,6 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				961725841C2230550091B34F /* MaterialKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -49,6 +54,7 @@
 		967C0E4D1C1CB980005175A6 = {
 			isa = PBXGroup;
 			children = (
+				961725831C2230550091B34F /* MaterialKit.framework */,
 				967C0E581C1CB980005175A6 /* CaptureView */,
 				967C0E571C1CB980005175A6 /* Products */,
 			);
