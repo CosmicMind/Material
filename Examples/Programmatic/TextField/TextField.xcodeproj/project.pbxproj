@@ -7,19 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		967C0E5A1C1CB980005175A6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967C0E591C1CB980005175A6 /* AppDelegate.swift */; };
-		967C0E5C1C1CB980005175A6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967C0E5B1C1CB980005175A6 /* ViewController.swift */; };
-		967C0E611C1CB980005175A6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 967C0E601C1CB980005175A6 /* Assets.xcassets */; };
-		967C0E641C1CB980005175A6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 967C0E621C1CB980005175A6 /* LaunchScreen.storyboard */; };
+		966F57A11C226BAA009185B7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966F57A01C226BAA009185B7 /* AppDelegate.swift */; };
+		966F57A31C226BAA009185B7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966F57A21C226BAA009185B7 /* ViewController.swift */; };
+		966F57A81C226BAA009185B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 966F57A71C226BAA009185B7 /* Assets.xcassets */; };
+		966F57AB1C226BAA009185B7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 966F57A91C226BAA009185B7 /* LaunchScreen.storyboard */; };
+		966F57B31C226CA3009185B7 /* MaterialKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 966F57B21C226CA3009185B7 /* MaterialKit.framework */; };
+		966F57B41C226CA3009185B7 /* MaterialKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 966F57B21C226CA3009185B7 /* MaterialKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		967C0E6E1C1CBEDE005175A6 /* Embed Frameworks */ = {
+		966F57B51C226CA3009185B7 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				966F57B41C226CA3009185B7 /* MaterialKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -27,90 +30,93 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		967C0E561C1CB980005175A6 /* CaptureView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CaptureView.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		967C0E591C1CB980005175A6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		967C0E5B1C1CB980005175A6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		967C0E601C1CB980005175A6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		967C0E631C1CB980005175A6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		967C0E651C1CB980005175A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		966F579D1C226BAA009185B7 /* TextField.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TextField.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		966F57A01C226BAA009185B7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		966F57A21C226BAA009185B7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		966F57A71C226BAA009185B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		966F57AA1C226BAA009185B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		966F57AC1C226BAA009185B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		966F57B21C226CA3009185B7 /* MaterialKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = MaterialKit.framework; path = "/Users/danieldahan/Library/Developer/Xcode/DerivedData/MaterialKit-anypxbsecgdqqxevbavirvnffqxd/Build/Products/Debug-iphoneos/MaterialKit.framework"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		967C0E531C1CB980005175A6 /* Frameworks */ = {
+		966F579A1C226BAA009185B7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				966F57B31C226CA3009185B7 /* MaterialKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		967C0E4D1C1CB980005175A6 = {
+		966F57941C226BAA009185B7 = {
 			isa = PBXGroup;
 			children = (
-				967C0E581C1CB980005175A6 /* CaptureView */,
-				967C0E571C1CB980005175A6 /* Products */,
+				966F57B21C226CA3009185B7 /* MaterialKit.framework */,
+				966F579F1C226BAA009185B7 /* TextField */,
+				966F579E1C226BAA009185B7 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		967C0E571C1CB980005175A6 /* Products */ = {
+		966F579E1C226BAA009185B7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				967C0E561C1CB980005175A6 /* CaptureView.app */,
+				966F579D1C226BAA009185B7 /* TextField.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		967C0E581C1CB980005175A6 /* CaptureView */ = {
+		966F579F1C226BAA009185B7 /* TextField */ = {
 			isa = PBXGroup;
 			children = (
-				967C0E591C1CB980005175A6 /* AppDelegate.swift */,
-				967C0E5B1C1CB980005175A6 /* ViewController.swift */,
-				967C0E601C1CB980005175A6 /* Assets.xcassets */,
-				967C0E621C1CB980005175A6 /* LaunchScreen.storyboard */,
-				967C0E651C1CB980005175A6 /* Info.plist */,
+				966F57A01C226BAA009185B7 /* AppDelegate.swift */,
+				966F57A21C226BAA009185B7 /* ViewController.swift */,
+				966F57A71C226BAA009185B7 /* Assets.xcassets */,
+				966F57A91C226BAA009185B7 /* LaunchScreen.storyboard */,
+				966F57AC1C226BAA009185B7 /* Info.plist */,
 			);
-			path = CaptureView;
+			path = TextField;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		967C0E551C1CB980005175A6 /* CaptureView */ = {
+		966F579C1C226BAA009185B7 /* TextField */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 967C0E681C1CB980005175A6 /* Build configuration list for PBXNativeTarget "CaptureView" */;
+			buildConfigurationList = 966F57AF1C226BAA009185B7 /* Build configuration list for PBXNativeTarget "TextField" */;
 			buildPhases = (
-				967C0E521C1CB980005175A6 /* Sources */,
-				967C0E531C1CB980005175A6 /* Frameworks */,
-				967C0E541C1CB980005175A6 /* Resources */,
-				967C0E6E1C1CBEDE005175A6 /* Embed Frameworks */,
+				966F57991C226BAA009185B7 /* Sources */,
+				966F579A1C226BAA009185B7 /* Frameworks */,
+				966F579B1C226BAA009185B7 /* Resources */,
+				966F57B51C226CA3009185B7 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = CaptureView;
-			productName = CaptureView;
-			productReference = 967C0E561C1CB980005175A6 /* CaptureView.app */;
+			name = TextField;
+			productName = TextField;
+			productReference = 966F579D1C226BAA009185B7 /* TextField.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		967C0E4E1C1CB980005175A6 /* Project object */ = {
+		966F57951C226BAA009185B7 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "CosmicMind, Inc.";
 				TargetAttributes = {
-					967C0E551C1CB980005175A6 = {
+					966F579C1C226BAA009185B7 = {
 						CreatedOnToolsVersion = 7.2;
 					};
 				};
 			};
-			buildConfigurationList = 967C0E511C1CB980005175A6 /* Build configuration list for PBXProject "CaptureView" */;
+			buildConfigurationList = 966F57981C226BAA009185B7 /* Build configuration list for PBXProject "TextField" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -118,45 +124,45 @@
 				en,
 				Base,
 			);
-			mainGroup = 967C0E4D1C1CB980005175A6;
-			productRefGroup = 967C0E571C1CB980005175A6 /* Products */;
+			mainGroup = 966F57941C226BAA009185B7;
+			productRefGroup = 966F579E1C226BAA009185B7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				967C0E551C1CB980005175A6 /* CaptureView */,
+				966F579C1C226BAA009185B7 /* TextField */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		967C0E541C1CB980005175A6 /* Resources */ = {
+		966F579B1C226BAA009185B7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				967C0E641C1CB980005175A6 /* LaunchScreen.storyboard in Resources */,
-				967C0E611C1CB980005175A6 /* Assets.xcassets in Resources */,
+				966F57AB1C226BAA009185B7 /* LaunchScreen.storyboard in Resources */,
+				966F57A81C226BAA009185B7 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		967C0E521C1CB980005175A6 /* Sources */ = {
+		966F57991C226BAA009185B7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				967C0E5C1C1CB980005175A6 /* ViewController.swift in Sources */,
-				967C0E5A1C1CB980005175A6 /* AppDelegate.swift in Sources */,
+				966F57A31C226BAA009185B7 /* ViewController.swift in Sources */,
+				966F57A11C226BAA009185B7 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		967C0E621C1CB980005175A6 /* LaunchScreen.storyboard */ = {
+		966F57A91C226BAA009185B7 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				967C0E631C1CB980005175A6 /* Base */,
+				966F57AA1C226BAA009185B7 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -164,7 +170,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		967C0E661C1CB980005175A6 /* Debug */ = {
+		966F57AD1C226BAA009185B7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -209,7 +215,7 @@
 			};
 			name = Debug;
 		};
-		967C0E671C1CB980005175A6 /* Release */ = {
+		966F57AE1C226BAA009185B7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -247,52 +253,50 @@
 			};
 			name = Release;
 		};
-		967C0E691C1CB980005175A6 /* Debug */ = {
+		966F57B01C226BAA009185B7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = CaptureView/Info.plist;
+				INFOPLIST_FILE = TextField/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.CaptureView;
+				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.TextField;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		967C0E6A1C1CB980005175A6 /* Release */ = {
+		966F57B11C226BAA009185B7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = CaptureView/Info.plist;
+				INFOPLIST_FILE = TextField/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.CaptureView;
+				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.TextField;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		967C0E511C1CB980005175A6 /* Build configuration list for PBXProject "CaptureView" */ = {
+		966F57981C226BAA009185B7 /* Build configuration list for PBXProject "TextField" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				967C0E661C1CB980005175A6 /* Debug */,
-				967C0E671C1CB980005175A6 /* Release */,
+				966F57AD1C226BAA009185B7 /* Debug */,
+				966F57AE1C226BAA009185B7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		967C0E681C1CB980005175A6 /* Build configuration list for PBXNativeTarget "CaptureView" */ = {
+		966F57AF1C226BAA009185B7 /* Build configuration list for PBXNativeTarget "TextField" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				967C0E691C1CB980005175A6 /* Debug */,
-				967C0E6A1C1CB980005175A6 /* Release */,
+				966F57B01C226BAA009185B7 /* Debug */,
+				966F57B11C226BAA009185B7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 967C0E4E1C1CB980005175A6 /* Project object */;
+	rootObject = 966F57951C226BAA009185B7 /* Project object */;
 }

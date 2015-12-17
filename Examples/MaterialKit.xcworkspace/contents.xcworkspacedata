@@ -77,6 +77,13 @@
             location = "group:Programmatic/SideNavigationViewController/SideNavigationViewController.xcodeproj">
          </FileRef>
       </Group>
+      <Group
+         location = "container:"
+         name = "TextField">
+         <FileRef
+            location = "group:Programmatic/TextField/TextField.xcodeproj">
+         </FileRef>
+      </Group>
    </Group>
    <Group
       location = "container:"
