@@ -24,11 +24,20 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-	
+		
+		prepareTextField()
 	}
 	
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.white
+	}
+	
+	private func prepareTextField() {
+		let textField: TextField = TextField(frame: CGRectMake(100, 100, 200, 35))
+		textField.placeholder = "Title"
+		textField.textColor = MaterialColor.grey.base
+		textField.titleLabel = UILabel()
+		view.addSubview(textField)
 	}
 	
 }
