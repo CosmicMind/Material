@@ -507,17 +507,6 @@ MaterialLayout.alignFromTop(view, child: imageCardView, top: 100)
 MaterialLayout.alignToParentHorizontally(view, child: imageCardView, left: 20, right: 20)
 ```
 
-### MaterialColor
-
-Explore a complete range of Material Design colors easily using the MaterialColor library.
-
-![MaterialKitMaterialColorPalette](http://www.materialkit.io/MK/MaterialKitMaterialColorPalette.png)
-
-```swift
-let button: FabButton = FabButton()
-button.backgroundColor = MaterialColor.blue.darken1
-```
-
 ### SideNavigationViewController
 
 As elegant as is effective, the SideNavigationViewController is an excellent way to organize your app. In the Examples directory, there is an example project using this wonderful component.
@@ -529,6 +518,17 @@ As elegant as is effective, the SideNavigationViewController is an excellent way
 Add a new dimension of interactivity with CaptureView. CaptureView is a fully functional camera that is completely customizable. Checkout the Examples directory for a sample project using this wonderful component.
 
 ![MaterialKitCaptureView](http://www.materialkit.io/MK/MaterialKitCaptureView.jpg)
+
+### MaterialColor
+
+Explore a complete range of Material Design colors easily using the MaterialColor library.
+
+![MaterialKitMaterialColorPalette](http://www.materialkit.io/MK/MaterialKitMaterialColorPalette.png)
+
+```swift
+let button: FabButton = FabButton()
+button.backgroundColor = MaterialColor.blue.darken1
+```
 
 ### License
 
