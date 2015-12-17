@@ -26,16 +26,41 @@ github "CosmicMind/MaterialKit"
 
 Run carthage to build the framework and drag the built MaterialKit.framework into your Xcode project.
 
-### Highlighted Features
+### Table of Contents  
 
-* Full Material Design color Palette.
-* Side Navigation.
-* Camera with Photo and Video.
-* Animation Library.
-* Cards and ImageCards.
-* Range of buttons.
-* Fully customizable.
+[MaterialColor](#materialcolor)  
+[MaterialLayer](#materiallayer)  
+[MaterialView](#materialview)  
+[MaterialPulseView](#materialpulseview)  
+[FlatButton](#flatbutton)
+[RaisedButton](#raisedbutton)
+[FabButton](#fabbutton)
+[NavigationBarView](#navigationbarview)  
+[SideNavigationViewController](#sidenavigationviewcontroller)
+[CardView](#cardview)  
+[ImageCardView](#imagecardview)  
+[CaptureView](#captureview)
 
+### Upcoming
+
+* Scrolling Techniques
+* TextField
+* SearchBarView
+* More Examples
+
+<a name="materialcolor"/>
+### MaterialColor
+
+Explore a complete range of Material Design colors using MaterialColor. Below is an example of setting a button's background color property.
+
+![MaterialKitMaterialColorPalette](http://www.materialkit.io/MK/MaterialKitMaterialColorPalette.png)
+
+```swift
+let button: FabButton = FabButton()
+button.backgroundColor = MaterialColor.blue.darken1
+```
+
+<a name="materiallayer"/>
 ### MaterialLayer
 
 MaterialLayer is a lightweight CAShapeLayer used throughout MaterialKit. It is designed to easily take shape, depth, and animations. Below is an example demonstrating the ease of adding shape and depth to MaterialLayer.
@@ -52,6 +77,7 @@ materialLayer.shadowDepth = .Depth2
 view.layer.addSublayer(materialLayer)
 ```
 
+<a name="materialview"/>
 ### MaterialView
 
 MaterialView is the base UIView class used throughout MaterialKit. Like MaterialLayer, it is designed to easily take shape, depth, and animations. The major difference is that MaterialView has all the added features of the UIView class. Below is an example of setting a MaterialView's cornerRadius, shape, and depth.
@@ -69,6 +95,7 @@ materialView.cornerRadius = .Radius3
 view.addSubview(materialView)
 ```
 
+<a name="materialpulseview"/>
 ### MaterialPulseView
 
 MaterialPulseView is at the heart of all pulse animations. Any view that subclasses MaterialPulseView instantly inherits the pulse animation with full customizability.
@@ -85,6 +112,7 @@ materialPulseView.shadowDepth = .Depth2
 view.addSubview(materialPulseView)
 ```
 
+<a name="flatbutton"/>
 ### FlatButton
 
 A FlatButton is the best place to start when introducing MaterialKit buttons. It is simple, clean, and very effective. Below is an example of a FlatButton in action.
@@ -100,6 +128,7 @@ button.titleLabel!.font = RobotoFont.mediumWithSize(32)
 view.addSubview(button)
 ```
 
+<a name="raisedbutton"/>
 ### RaisedButton
 
 A RaisedButton is sure to get attention. Take a look at the following animation example.
@@ -115,6 +144,7 @@ button.titleLabel!.font = RobotoFont.mediumWithSize(32)
 view.addSubview(button)
 ```
 
+<a name="fabbutton"/>
 ### FabButton
 
 A FabButton is essential to Material Design's overall look. Below showcases its beauty.
@@ -131,6 +161,7 @@ button.setImage(img, forState: .Highlighted)
 view.addSubview(button)
 ```
 
+<a name="navigationbarview"/>
 ### NavigationBarView
 
 One of Material Design's greatest additions to UI is the NavigationBarView. In the Examples folder, you can checkout some code to get you started with this wonderful component.
@@ -206,6 +237,14 @@ MaterialLayout.alignToParentHorizontally(view, child: navigationBarView)
 MaterialLayout.height(view, child: navigationBarView, height: 70)
 ```
 
+<a name="sidenavigationviewcontroller"/>
+### SideNavigationViewController
+
+As elegant as is effective, the SideNavigationViewController is an excellent way to organize your app. In the Examples directory, there is an example project using this wonderful component.
+
+![MaterialKitSideNavigationViewController](http://www.materialkit.io/MK/MaterialKitSideNavigationViewController.gif)
+
+<a name="cardview"/>
 ### CardView
 
 Right out of the box to a fully customizable configuration, CardView always stands out. Take a look at a few examples in action and find more in the Examples directory.
@@ -398,6 +437,7 @@ MaterialLayout.alignFromTop(view, child: cardView, top: 100)
 MaterialLayout.alignToParentHorizontally(view, child: cardView, left: 20, right: 20)
 ```
 
+<a name="imagecardview"/>
 ### ImageCardView
 
 Bold and attractive, ImageCardView is the next step from a CardView. In the Examples folder you will find examples using the ImageCardView. Below are some animations to give you an idea of the possibilities the ImageCardView has to offer.
@@ -507,28 +547,12 @@ MaterialLayout.alignFromTop(view, child: imageCardView, top: 100)
 MaterialLayout.alignToParentHorizontally(view, child: imageCardView, left: 20, right: 20)
 ```
 
-### SideNavigationViewController
-
-As elegant as is effective, the SideNavigationViewController is an excellent way to organize your app. In the Examples directory, there is an example project using this wonderful component.
-
-![MaterialKitSideNavigationViewController](http://www.materialkit.io/MK/MaterialKitSideNavigationViewController.gif)
-
+<a name="captureview"/>
 ### CaptureView
 
 Add a new dimension of interactivity with CaptureView. CaptureView is a fully functional camera that is completely customizable. Checkout the Examples directory for a sample project using this wonderful component.
 
 ![MaterialKitCaptureView](http://www.materialkit.io/MK/MaterialKitCaptureView.jpg)
-
-### MaterialColor
-
-Explore a complete range of Material Design colors using the MaterialColor library.
-
-![MaterialKitMaterialColorPalette](http://www.materialkit.io/MK/MaterialKitMaterialColorPalette.png)
-
-```swift
-let button: FabButton = FabButton()
-button.backgroundColor = MaterialColor.blue.darken1
-```
 
 ### License
 

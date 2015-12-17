@@ -20,20 +20,11 @@ import UIKit
 
 public class MaterialTextLayer : CATextLayer {
 	/**
-	:name:	internalFont
+	:name:	fontType
 	*/
-	private var internalFont: UIFont?
-	
-	/**
-	:name:	font
-	*/
-	public override var font: AnyObject? {
-		get {
-			return internalFont
-		}
-		set(value) {
-			internalFont = value as? UIFont
-			if let v: UIFont = internalFont {
+	public var fontType: UIFont? {
+		didSet {
+			if let v: UIFont = fontType {
 				super.font = CGFontCreateWithFontName(v.fontName as CFStringRef)!
 				pointSize = v.pointSize
 			}
@@ -162,13 +153,14 @@ public class MaterialTextLayer : CATextLayer {
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
+		prepareLayer()
 	}
 	
 	/**
 	:name: init
 	*/
 	public override init(layer: AnyObject) {
-		super.init(layer: layer)
+		super.init()
 		prepareLayer()
 	}
 	
@@ -181,10 +173,18 @@ public class MaterialTextLayer : CATextLayer {
 	}
 	
 	/**
+	:name: init
+	*/
+	public convenience init(frame: CGRect) {
+		self.init()
+		self.frame = frame
+	}
+	
+	/**
 	:name:	stringSize
 	*/
 	public func stringSize(constrainedToWidth width: Double) -> CGSize {
-		if let v: UIFont = internalFont {
+		if let v: UIFont = fontType {
 			if 0 < text?.utf16.count {
 				return v.stringSize(text!, constrainedToWidth: width)
 			}
