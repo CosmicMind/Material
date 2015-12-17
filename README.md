@@ -28,29 +28,18 @@ Run carthage to build the framework and drag the built MaterialKit.framework int
 
 ### Table of Contents  
 
-[MaterialColor](#materialcolor)
-
-[MaterialLayer](#materiallayer)
-
-[MaterialView](#materialview)
-
-[MaterialPulseView](#materialpulseview)
-
-[FlatButton](#flatbutton)
-
-[RaisedButton](#raisedbutton)
-
-[FabButton](#fabbutton)
-
-[NavigationBarView](#navigationbarview)
-
-[SideNavigationViewController](#sidenavigationviewcontroller)
-
-[CardView](#cardview)
-
-[ImageCardView](#imagecardview)
-
-[CaptureView](#captureview)
+* [MaterialColor](#materialcolor)
+* [MaterialLayer](#materiallayer)
+* [MaterialView](#materialview)
+* [MaterialPulseView](#materialpulseview)
+* [FlatButton](#flatbutton)
+* [RaisedButton](#raisedbutton)
+* [FabButton](#fabbutton)
+* [NavigationBarView](#navigationbarview)
+* [SideNavigationViewController](#sidenavigationviewcontroller)
+* [CardView](#cardview)
+* [ImageCardView](#imagecardview)
+* [CaptureView](#captureview)
 
 ### Upcoming
 
