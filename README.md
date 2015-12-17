@@ -521,7 +521,7 @@ Add a new dimension of interactivity with CaptureView. CaptureView is a fully fu
 
 ### MaterialColor
 
-Explore a complete range of Material Design colors easily using the MaterialColor library.
+Explore a complete range of Material Design colors using the MaterialColor library.
 
 ![MaterialKitMaterialColorPalette](http://www.materialkit.io/MK/MaterialKitMaterialColorPalette.png)
 
