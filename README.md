@@ -37,7 +37,7 @@ Run carthage to build the framework and drag the built MaterialKit.framework int
 [FabButton](#fabbutton)
 [NavigationBarView](#navigationbarview)  
 [SideNavigationViewController](#sidenavigationviewcontroller)
-[CardView](#cardview)  
+[CardView](#cardview)
 [ImageCardView](#imagecardview)  
 [CaptureView](#captureview)
 
