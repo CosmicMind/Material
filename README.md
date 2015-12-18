@@ -28,7 +28,6 @@ Run carthage to build the framework and drag the built MaterialKit.framework int
 
 ### Table of Contents  
 
-* [MaterialColor](#materialcolor)
 * [TextField](#textfield)
 * [MaterialLayer](#materiallayer)
 * [MaterialView](#materialview)
@@ -41,6 +40,7 @@ Run carthage to build the framework and drag the built MaterialKit.framework int
 * [NavigationBarView](#navigationbarview)
 * [SideNavigationViewController](#sidenavigationviewcontroller)
 * [CaptureView](#captureview)
+* [MaterialColor](#materialcolor)
 
 ### Upcoming
 
@@ -51,13 +51,6 @@ Run carthage to build the framework and drag the built MaterialKit.framework int
 * TextView
 * Scrolling Techniques
 * More Examples
-
-<a name="materialcolor"/>
-### MaterialColor
-
-Explore a complete range of Material Design colors using MaterialColor. Below is an example of setting a button's background color property.
-
-![MaterialKitMaterialColorPalette](http://www.materialkit.io/MK/MaterialKitMaterialColorPalette.png)
 
 ```swift
 let button: FabButton = FabButton()
@@ -73,7 +66,6 @@ A TextField is an excellent way to improve UX. Checkout the Examples directory f
 
 ```swift
 let titleField: TextField = TextField(frame: CGRectMake(57, 100, 300, 24))
-titleField.delegate = self
 titleField.placeholder = "Title"
 titleField.font = RobotoFont.regularWithSize(20)
 titleField.textColor = MaterialColor.black
@@ -579,6 +571,13 @@ As elegant as is effective, the SideNavigationViewController is an excellent way
 Add a new dimension of interactivity with CaptureView. CaptureView is a fully functional camera that is completely customizable. Checkout the Examples directory for a sample project using this wonderful component.
 
 ![MaterialKitCaptureView](http://www.materialkit.io/MK/MaterialKitCaptureView.jpg)
+
+<a name="materialcolor"/>
+### MaterialColor
+
+Explore a complete range of Material Design colors using MaterialColor. Below is an example of setting a button's background color property.
+
+![MaterialKitMaterialColorPalette](http://www.materialkit.io/MK/MaterialKitMaterialColorPalette.png)
 
 ### License
 
