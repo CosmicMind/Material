@@ -28,11 +28,11 @@ Run carthage to build the framework and drag the built MaterialKit.framework int
 
 ### Table of Contents  
 
-* [TextView](#textview)
 * [MaterialColor](#materialcolor)
 * [MaterialLayer](#materiallayer)
 * [MaterialView](#materialview)
 * [MaterialPulseView](#materialpulseview)
+* [TextField](#textfield)
 * [FlatButton](#flatbutton)
 * [RaisedButton](#raisedbutton)
 * [FabButton](#fabbutton)
@@ -51,15 +51,6 @@ Run carthage to build the framework and drag the built MaterialKit.framework int
 * TextView
 * Scrolling Techniques
 * More Examples
-
-<a name="textview"/>
-### TextField
-
-A TextField is a great option to increase UX. Below is an example.
-
-Space on mobile devices
-
-![MaterialKitTextField](http://www.materialkit.io/MK/MaterialKitTextField.gif)
 
 <a name="materialcolor"/>
 ### MaterialColor
@@ -124,6 +115,13 @@ materialPulseView.shadowDepth = .Depth2
 // Add view to UIViewController.
 view.addSubview(materialPulseView)
 ```
+
+<a name="textfield"/>
+### TextField
+
+A TextField is an excellent way to improve UX. Checkout the Examples directory for a project using this component. 
+
+![MaterialKitTextField](http://www.materialkit.io/MK/MaterialKitTextField.gif)
 
 <a name="flatbutton"/>
 ### FlatButton

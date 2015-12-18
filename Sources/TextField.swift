@@ -89,6 +89,7 @@ public class TextField : UITextField {
 	*/
 	internal func textFieldDidBegin(textField: TextField) {
 		count = text?.utf16.count
+		titleLabel?.text = placeholder
 		titleLabel?.textColor = 0 == count ? titleLabelNormalColor : titleLabelHighlightedColor
 	}
 	
@@ -152,7 +153,6 @@ public class TextField : UITextField {
 				v.hidden = true
 				v.alpha = 0
 			}
-			v.text = placeholder
 			let h: CGFloat = v.font.stringSize(v.text!, constrainedToWidth: Double(bounds.width)).height
 			v.frame = CGRectMake(0, -h, bounds.width, h)
 			addSubview(v)
