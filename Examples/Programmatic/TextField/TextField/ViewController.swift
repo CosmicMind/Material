@@ -19,25 +19,50 @@
 import UIKit
 import MaterialKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, TextFieldDelegate {
+	private lazy var titleTextField: TextField = TextField()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
 		
-		prepareTextField()
+		prepareTitleTextField()
 	}
 	
+	/**
+	:name:	prepareView
+	*/
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.white
 	}
 	
-	private func prepareTextField() {
-		let textField: TextField = TextField(frame: CGRectMake(100, 100, 200, 35))
-		textField.placeholder = "Title"
-		textField.textColor = MaterialColor.grey.base
-		textField.titleLabel = UILabel()
-		view.addSubview(textField)
+	/**
+	:name:	prepareTitleTextField
+	:description:	A preparation helper method for titleTextField.
+	*/
+	private func prepareTitleTextField() {
+		titleTextField.frame = CGRectMake(100, 100, 200, 35)
+		titleTextField.placeholder = "Title"
+		titleTextField.textColor = MaterialColor.black
+		titleTextField.titleLabel = UILabel()
+		titleTextField.titleLabel!.font = RobotoFont.boldWithSize(12)
+		titleTextField.font = RobotoFont.boldWithSize(24)
+		titleTextField.delegate = self
+		titleTextField.titleNormalColor = MaterialColor.grey.lighten1
+		titleTextField.titleHighlightedColor = MaterialColor.blue.accent3
+		view.addSubview(titleTextField)
+	}
+	
+	/**
+	:name:	textFieldShouldReturn
+	:description: This is called when the user presses the Return
+				  key on the keyboard.
+	*/
+	func textFieldShouldReturn(textField: UITextField) -> Bool {
+		if textField == titleTextField {
+			titleTextField.resignFirstResponder()
+		}
+		return false
 	}
 	
 }

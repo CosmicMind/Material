@@ -18,7 +18,28 @@
 
 import UIKit
 
+public protocol TextFieldDelegate : UITextFieldDelegate {}
+
 public class TextField : UITextField {
+	/**
+	:name:	count
+	*/
+	private var count: Int?
+	
+	/**
+	:name:	titleNormalColor
+	*/
+	public var titleNormalColor: UIColor? {
+		didSet {
+			titleLabel?.textColor = titleNormalColor
+		}
+	}
+	
+	/**
+	:name:	titleHighlightedColor
+	*/
+	public var titleHighlightedColor: UIColor?
+	
 	/**
 	:name:	bottomBorderLayer
 	*/
@@ -73,14 +94,73 @@ public class TextField : UITextField {
 	:name:	prepareView
 	*/
 	public func prepareView() {
+		clipsToBounds = false
 		prepareBottomBorderLayer()
+	}
+	
+	/**
+	:name:	textFieldDidBegin
+	*/
+	internal func textFieldDidBegin(textField: TextField) {
+		count = text?.utf16.count
+		titleLabel?.textColor = titleHighlightedColor
+	}
+	
+	/**
+	:name:	textFieldDidChange
+	*/
+	internal func textFieldDidChange(textField: TextField) {
+		if 0 == count && 1 == text?.utf16.count {
+			if let v: UILabel = titleLabel {
+				UIView.animateWithDuration(0.25, animations: {
+					v.hidden = false
+					v.alpha = 1
+					v.frame.origin.y = -v.frame.height
+				})
+			}
+		} else if 1 == count && 0 == text?.utf16.count {
+			if let v: UILabel = titleLabel {
+				UIView.animateWithDuration(0.25, animations: {
+					v.alpha = 0
+					v.frame.origin.y = -v.frame.height / 3
+				}) { _ in
+					v.hidden = true
+				}
+			}
+		}
+		count = text?.utf16.count
+	}
+	
+	/**
+	:name:	textFieldDidEnd
+	*/
+	internal func textFieldDidEnd(textField: TextField) {
+		if 0 < count {
+			if let v: UILabel = titleLabel {
+				UIView.animateWithDuration(0.25, animations: {
+					v.hidden = false
+					v.alpha = 1
+					v.frame.origin.y = -v.frame.height
+				})
+			}
+		} else if 0 == count {
+			if let v: UILabel = titleLabel {
+				UIView.animateWithDuration(0.25, animations: {
+					v.alpha = 0
+					v.frame.origin.y = -v.frame.height / 3
+					}) { _ in
+						v.hidden = true
+				}
+			}
+		}
+		titleLabel?.textColor = titleNormalColor
 	}
 	
 	/**
 	:name:	prepareBottomBorderLayer
 	*/
 	private func prepareBottomBorderLayer() {
-		bottomBorderLayer.frame = CGRectMake(0, bounds.height - 1, bounds.width, 1)
+		bottomBorderLayer.frame = CGRectMake(0, bounds.height + 5, bounds.width, 3)
 		bottomBorderLayer.backgroundColor = MaterialColor.grey.lighten3.CGColor
 		layer.addSublayer(bottomBorderLayer)
 	}
@@ -90,10 +170,17 @@ public class TextField : UITextField {
 	*/
 	private func prepareTitleLabel() {
 		if let v: UILabel = titleLabel {
-			v.frame = bounds
+			MaterialAnimation.animationDisabled {
+				v.hidden = true
+				v.alpha = 0
+			}
 			v.text = placeholder
-			v.textColor = textColor
+			let h: CGFloat = v.font.stringSize(v.text!, constrainedToWidth: Double(bounds.width)).height
+			v.frame = CGRectMake(0, -h, bounds.width, h)
 			addSubview(v)
+			addTarget(self, action: "textFieldDidBegin:", forControlEvents: .EditingDidBegin)
+			addTarget(self, action: "textFieldDidChange:", forControlEvents: .EditingChanged)
+			addTarget(self, action: "textFieldDidEnd:", forControlEvents: .EditingDidEnd)
 		}
 	}
 }

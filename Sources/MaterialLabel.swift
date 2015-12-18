@@ -56,7 +56,7 @@ public class MaterialLabel : UILabel {
 	*/
 	public override var font: UIFont! {
 		didSet {
-			textLayer.font = font
+			textLayer.fontType = font
 		}
 	}
 	
