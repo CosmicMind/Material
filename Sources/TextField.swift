@@ -27,23 +27,18 @@ public class TextField : UITextField {
 	private var count: Int?
 	
 	/**
-	:name:	titleNormalColor
+	:name:	titleLabelNormalColor
 	*/
-	public var titleNormalColor: UIColor? {
+	public var titleLabelNormalColor: UIColor? {
 		didSet {
-			titleLabel?.textColor = titleNormalColor
+			titleLabel?.textColor = titleLabelNormalColor
 		}
 	}
 	
 	/**
-	:name:	titleHighlightedColor
+	:name:	titleLabelHighlightedColor
 	*/
-	public var titleHighlightedColor: UIColor?
-	
-	/**
-	:name:	bottomBorderLayer
-	*/
-	public private(set) lazy var bottomBorderLayer: MaterialLayer = MaterialLayer()
+	public var titleLabelHighlightedColor: UIColor?
 	
 	/**
 	:name:	titleLabel
@@ -83,19 +78,10 @@ public class TextField : UITextField {
 	}
 	
 	/**
-	:name:	layoutSubviews
-	*/
-	public override func layoutSubviews() {
-		super.layoutSubviews()
-		bottomBorderLayer.frame = CGRectMake(0, bounds.height - bottomBorderLayer.height, bounds.width, bottomBorderLayer.height)
-	}
-	
-	/**
 	:name:	prepareView
 	*/
 	public func prepareView() {
 		clipsToBounds = false
-		prepareBottomBorderLayer()
 	}
 	
 	/**
@@ -103,7 +89,7 @@ public class TextField : UITextField {
 	*/
 	internal func textFieldDidBegin(textField: TextField) {
 		count = text?.utf16.count
-		titleLabel?.textColor = titleHighlightedColor
+		titleLabel?.textColor = 0 == count ? titleLabelNormalColor : titleLabelHighlightedColor
 	}
 	
 	/**
@@ -112,17 +98,18 @@ public class TextField : UITextField {
 	internal func textFieldDidChange(textField: TextField) {
 		if 0 == count && 1 == text?.utf16.count {
 			if let v: UILabel = titleLabel {
+				v.hidden = false
 				UIView.animateWithDuration(0.25, animations: {
-					v.hidden = false
 					v.alpha = 1
 					v.frame.origin.y = -v.frame.height
 				})
+				titleLabel?.textColor = titleLabelHighlightedColor
 			}
 		} else if 1 == count && 0 == text?.utf16.count {
 			if let v: UILabel = titleLabel {
 				UIView.animateWithDuration(0.25, animations: {
 					v.alpha = 0
-					v.frame.origin.y = -v.frame.height / 3
+					v.frame.origin.y = -v.frame.height + 4
 				}) { _ in
 					v.hidden = true
 				}
@@ -137,8 +124,8 @@ public class TextField : UITextField {
 	internal func textFieldDidEnd(textField: TextField) {
 		if 0 < count {
 			if let v: UILabel = titleLabel {
+				v.hidden = false
 				UIView.animateWithDuration(0.25, animations: {
-					v.hidden = false
 					v.alpha = 1
 					v.frame.origin.y = -v.frame.height
 				})
@@ -147,22 +134,13 @@ public class TextField : UITextField {
 			if let v: UILabel = titleLabel {
 				UIView.animateWithDuration(0.25, animations: {
 					v.alpha = 0
-					v.frame.origin.y = -v.frame.height / 3
-					}) { _ in
-						v.hidden = true
+					v.frame.origin.y = -v.frame.height + 4
+				}) { _ in
+					v.hidden = true
 				}
 			}
 		}
-		titleLabel?.textColor = titleNormalColor
-	}
-	
-	/**
-	:name:	prepareBottomBorderLayer
-	*/
-	private func prepareBottomBorderLayer() {
-		bottomBorderLayer.frame = CGRectMake(0, bounds.height + 5, bounds.width, 3)
-		bottomBorderLayer.backgroundColor = MaterialColor.grey.lighten3.CGColor
-		layer.addSublayer(bottomBorderLayer)
+		titleLabel?.textColor = titleLabelNormalColor
 	}
 	
 	/**

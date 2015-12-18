@@ -28,6 +28,7 @@ Run carthage to build the framework and drag the built MaterialKit.framework int
 
 ### Table of Contents  
 
+* [TextView](#textview)
 * [MaterialColor](#materialcolor)
 * [MaterialLayer](#materiallayer)
 * [MaterialView](#materialview)
@@ -43,13 +44,22 @@ Run carthage to build the framework and drag the built MaterialKit.framework int
 
 ### Upcoming
 
-* Scrolling Techniques
-* TextField
 * SearchBarView
 * SearchBarViewController
 * TabView
 * TabViewController
+* TextView
+* Scrolling Techniques
 * More Examples
+
+<a name="textview"/>
+### TextField
+
+A TextField is a great option to increase UX. Below is an example.
+
+Space on mobile devices
+
+![MaterialKitTextField](http://www.materialkit.io/MK/MaterialKitTextField.gif)
 
 <a name="materialcolor"/>
 ### MaterialColor
