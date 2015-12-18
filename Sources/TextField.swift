@@ -22,9 +22,61 @@ public protocol TextFieldDelegate : UITextFieldDelegate {}
 
 public class TextField : UITextField {
 	/**
-	:name:	count
+	:name:	backgroundColor
 	*/
-	private var count: Int?
+	public override var backgroundColor: UIColor? {
+		didSet {
+			layer.backgroundColor = backgroundColor?.CGColor
+		}
+	}
+	
+	/**
+	:name:	x
+	*/
+	public var x: CGFloat {
+		get {
+			return layer.frame.origin.x
+		}
+		set(value) {
+			layer.frame.origin.x = value
+		}
+	}
+	
+	/**
+	:name:	y
+	*/
+	public var y: CGFloat {
+		get {
+			return layer.frame.origin.y
+		}
+		set(value) {
+			layer.frame.origin.y = value
+		}
+	}
+	
+	/**
+	:name:	width
+	*/
+	public var width: CGFloat {
+		get {
+			return layer.frame.size.width
+		}
+		set(value) {
+			layer.frame.size.width = value
+		}
+	}
+	
+	/**
+	:name:	height
+	*/
+	public var height: CGFloat {
+		get {
+			return layer.frame.size.height
+		}
+		set(value) {
+			layer.frame.size.height = value
+		}
+	}
 	
 	/**
 	:name:	titleLabelNormalColor
@@ -50,9 +102,64 @@ public class TextField : UITextField {
 	}
 	
 	/**
-	:name:	bottomBorderEnabled
+	:name:	layoutSublayersOfLayer
 	*/
-	public var bottomBorderEnabled: Bool = true
+	public override func layoutSublayersOfLayer(layer: CALayer) {
+		super.layoutSublayersOfLayer(layer)
+		if self.layer == layer {
+			
+		}
+	}
+	
+	/**
+	:name:	actionForLayer
+	*/
+	public override func actionForLayer(layer: CALayer, forKey event: String) -> CAAction? {
+		return nil
+	}
+	
+	/**
+	:name:	animate
+	*/
+	public func animate(animation: CAAnimation) {
+		animation.delegate = self
+		if let a: CABasicAnimation = animation as? CABasicAnimation {
+			a.fromValue = (nil == layer.presentationLayer() ? layer : layer.presentationLayer() as! CALayer).valueForKeyPath(a.keyPath!)
+		}
+		if let a: CAPropertyAnimation = animation as? CAPropertyAnimation {
+			layer.addAnimation(a, forKey: a.keyPath!)
+		} else if let a: CAAnimationGroup = animation as? CAAnimationGroup {
+			layer.addAnimation(a, forKey: nil)
+		} else if let a: CATransition = animation as? CATransition {
+			layer.addAnimation(a, forKey: kCATransition)
+		}
+	}
+	
+	/**
+	:name:	animationDidStart
+	*/
+	public override func animationDidStart(anim: CAAnimation) {
+		(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStart?(anim)
+	}
+	
+	/**
+	:name:	animationDidStop
+	*/
+	public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
+		if let a: CAPropertyAnimation = anim as? CAPropertyAnimation {
+			if let b: CABasicAnimation = a as? CABasicAnimation {
+				MaterialAnimation.animationDisabled {
+					self.layer.setValue(nil == b.toValue ? b.byValue : b.toValue, forKey: b.keyPath!)
+				}
+			}
+			(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStop?(anim, finished: flag)
+			layer.removeAnimationForKey(a.keyPath!)
+		} else if let a: CAAnimationGroup = anim as? CAAnimationGroup {
+			for x in a.animations! {
+				animationDidStop(x, finished: true)
+			}
+		}
+	}
 	
 	/**
 	:name:	init
@@ -88,58 +195,30 @@ public class TextField : UITextField {
 	:name:	textFieldDidBegin
 	*/
 	internal func textFieldDidBegin(textField: TextField) {
-		count = text?.utf16.count
 		titleLabel?.text = placeholder
-		titleLabel?.textColor = 0 == count ? titleLabelNormalColor : titleLabelHighlightedColor
+		titleLabel?.textColor = 0 == text?.utf16.count ? titleLabelNormalColor : titleLabelHighlightedColor
 	}
 	
 	/**
 	:name:	textFieldDidChange
 	*/
 	internal func textFieldDidChange(textField: TextField) {
-		if 0 == count && 1 == text?.utf16.count {
-			if let v: UILabel = titleLabel {
-				v.hidden = false
-				UIView.animateWithDuration(0.25, animations: {
-					v.alpha = 1
-					v.frame.origin.y = -v.frame.height
-				})
-				titleLabel?.textColor = titleLabelHighlightedColor
-			}
-		} else if 1 == count && 0 == text?.utf16.count {
-			if let v: UILabel = titleLabel {
-				UIView.animateWithDuration(0.25, animations: {
-					v.alpha = 0
-					v.frame.origin.y = -v.frame.height + 4
-				}) { _ in
-					v.hidden = true
-				}
-			}
+		if 0 < text?.utf16.count {
+			showTitleLabel()
+			titleLabel?.textColor = titleLabelHighlightedColor
+		} else if 0 == text?.utf16.count {
+			hideTitleLabel()
 		}
-		count = text?.utf16.count
 	}
 	
 	/**
 	:name:	textFieldDidEnd
 	*/
 	internal func textFieldDidEnd(textField: TextField) {
-		if 0 < count {
-			if let v: UILabel = titleLabel {
-				v.hidden = false
-				UIView.animateWithDuration(0.25, animations: {
-					v.alpha = 1
-					v.frame.origin.y = -v.frame.height
-				})
-			}
-		} else if 0 == count {
-			if let v: UILabel = titleLabel {
-				UIView.animateWithDuration(0.25, animations: {
-					v.alpha = 0
-					v.frame.origin.y = -v.frame.height + 4
-				}) { _ in
-					v.hidden = true
-				}
-			}
+		if 0 < text?.utf16.count {
+			showTitleLabel()
+		} else if 0 == text?.utf16.count {
+			hideTitleLabel()
 		}
 		titleLabel?.textColor = titleLabelNormalColor
 	}
@@ -160,6 +239,33 @@ public class TextField : UITextField {
 			addTarget(self, action: "textFieldDidBegin:", forControlEvents: .EditingDidBegin)
 			addTarget(self, action: "textFieldDidChange:", forControlEvents: .EditingChanged)
 			addTarget(self, action: "textFieldDidEnd:", forControlEvents: .EditingDidEnd)
+		}
+	}
+	
+	/**
+	:name:	showTitleLabel
+	*/
+	private func showTitleLabel() {
+		if let v: UILabel = titleLabel {
+			v.hidden = false
+			UIView.animateWithDuration(0.25, animations: {
+				v.alpha = 1
+				v.frame.origin.y = -v.frame.height
+			})
+		}
+	}
+	
+	/**
+	:name:	hideTitleLabel
+	*/
+	private func hideTitleLabel() {
+		if let v: UILabel = titleLabel {
+			UIView.animateWithDuration(0.25, animations: {
+				v.alpha = 0
+				v.frame.origin.y = -v.frame.height + 4
+			}) { _ in
+				v.hidden = true
+			}
 		}
 	}
 }

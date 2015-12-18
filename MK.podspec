@@ -1,8 +1,8 @@
 Pod::Spec.new do |s|
   s.name = 'MK'
-  s.version = '1.25.5'
+  s.version = '1.25.6'
   s.license = { :type => "AGPL-3.0", :file => "LICENSE" }
-  s.summary = 'Beautiful Material Design in Swift.'
+  s.summary = 'A beautiful Material Design framework in Swift.'
   s.homepage = 'http://materialkit.io'
   s.social_media_url = 'https://www.facebook.com/graphkit'
   s.authors = { 'CosmicMind, Inc.' => 'support@cosmicmind.io' }

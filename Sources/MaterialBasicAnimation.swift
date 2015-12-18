@@ -68,9 +68,9 @@ public extension MaterialAnimation {
 	}
 	
 	/**
-	:name:	rotation
+	:name:	rotate
 	*/
-	public static func rotation(rotations: Double = 1, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+	public static func rotate(rotations: Double = 1, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation: CABasicAnimation = CABasicAnimation()
 		animation.keyPath = "transform.rotation"
 		animation.byValue = (M_PI * 2 * rotations) as NSNumber
@@ -84,9 +84,9 @@ public extension MaterialAnimation {
 	}
 	
 	/**
-	:name:	rotationX
+	:name:	rotateX
 	*/
-	public static func rotationX(rotations: Double = 1, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+	public static func rotateX(rotations: Double = 1, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation: CABasicAnimation = CABasicAnimation()
 		animation.keyPath = "transform.rotation.x"
 		animation.byValue = (M_PI_4 * rotations) as NSNumber
@@ -100,9 +100,9 @@ public extension MaterialAnimation {
 	}
 	
 	/**
-	:name:	rotationY
+	:name:	rotateY
 	*/
-	public static func rotationY(rotations: Double = 1, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+	public static func rotateY(rotations: Double = 1, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation: CABasicAnimation = CABasicAnimation()
 		animation.keyPath = "transform.rotation.y"
 		animation.byValue = (M_PI_4 * rotations) as NSNumber
@@ -116,9 +116,9 @@ public extension MaterialAnimation {
 	}
 	
 	/**
-	:name:	rotationZ
+	:name:	rotateZ
 	*/
-	public static func rotationZ(rotations: Double = 1, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+	public static func rotateZ(rotations: Double = 1, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation: CABasicAnimation = CABasicAnimation()
 		animation.keyPath = "transform.rotation.z"
 		animation.byValue = (M_PI_4 * rotations) as NSNumber
@@ -196,9 +196,9 @@ public extension MaterialAnimation {
 	}
 	
 	/**
-	:name:	translation
+	:name:	translate
 	*/
-	public static func translation(translation: CGSize, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+	public static func translate(translation: CGSize, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation: CABasicAnimation = CABasicAnimation()
 		animation.keyPath = "transform.translation"
 		animation.toValue = NSValue(CGSize: translation)
@@ -212,9 +212,9 @@ public extension MaterialAnimation {
 	}
 	
 	/**
-	:name:	translationX
+	:name:	translateX
 	*/
-	public static func translationX(translation: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+	public static func translateX(translation: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation: CABasicAnimation = CABasicAnimation()
 		animation.keyPath = "transform.translation.x"
 		animation.toValue = translation as NSNumber
@@ -228,9 +228,9 @@ public extension MaterialAnimation {
 	}
 	
 	/**
-	:name:	translationY
+	:name:	translateY
 	*/
-	public static func translationY(translation: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+	public static func translateY(translation: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation: CABasicAnimation = CABasicAnimation()
 		animation.keyPath = "transform.translation.y"
 		animation.toValue = translation as NSNumber
@@ -244,9 +244,9 @@ public extension MaterialAnimation {
 	}
 	
 	/**
-	:name:	translationZ
+	:name:	translateZ
 	*/
-	public static func translationZ(translation: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+	public static func translateZ(translation: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation: CABasicAnimation = CABasicAnimation()
 		animation.keyPath = "transform.translation.z"
 		animation.toValue = translation as NSNumber

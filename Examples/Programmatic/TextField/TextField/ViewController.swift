@@ -52,6 +52,7 @@ class ViewController: UIViewController, TextFieldDelegate {
 		titleField.titleLabel!.font = RobotoFont.mediumWithSize(12)
 		titleField.titleLabelNormalColor = MaterialColor.grey.lighten1
 		titleField.titleLabelHighlightedColor = MaterialColor.blue.accent3
+		titleField.clearButtonMode = .WhileEditing
 		view.addSubview(titleField)
 	}
 	
@@ -69,6 +70,7 @@ class ViewController: UIViewController, TextFieldDelegate {
 		descriptionField.titleLabel!.font = RobotoFont.mediumWithSize(12)
 		descriptionField.titleLabelNormalColor = MaterialColor.grey.lighten1
 		descriptionField.titleLabelHighlightedColor = MaterialColor.blue.accent3
+		descriptionField.clearButtonMode = .WhileEditing
 		view.addSubview(descriptionField)
 	}
 	
