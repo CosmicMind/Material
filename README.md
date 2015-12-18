@@ -29,10 +29,10 @@ Run carthage to build the framework and drag the built MaterialKit.framework int
 ### Table of Contents  
 
 * [MaterialColor](#materialcolor)
+* [TextField](#textfield)
 * [MaterialLayer](#materiallayer)
 * [MaterialView](#materialview)
 * [MaterialPulseView](#materialpulseview)
-* [TextField](#textfield)
 * [FlatButton](#flatbutton)
 * [RaisedButton](#raisedbutton)
 * [FabButton](#fabbutton)
@@ -62,6 +62,28 @@ Explore a complete range of Material Design colors using MaterialColor. Below is
 ```swift
 let button: FabButton = FabButton()
 button.backgroundColor = MaterialColor.blue.darken1
+```
+
+<a name="textfield"/>
+### TextField
+
+A TextField is an excellent way to improve UX. Checkout the Examples directory for a project using this component.
+
+![MaterialKitTextField](http://www.materialkit.io/MK/MaterialKitTextField.gif)
+
+```swift
+let titleField: TextField = TextField(frame: CGRectMake(57, 100, 300, 24))
+titleField.delegate = self
+titleField.placeholder = "Title"
+titleField.font = RobotoFont.regularWithSize(20)
+titleField.textColor = MaterialColor.black
+titleField.titleLabel = UILabel()
+titleField.titleLabel!.font = RobotoFont.mediumWithSize(12)
+titleField.titleLabelNormalColor = MaterialColor.grey.lighten1
+titleField.titleLabelHighlightedColor = MaterialColor.blue.accent3
+
+// Add titleField to UIViewController.
+view.addSubview(titleField)
 ```
 
 <a name="materiallayer"/>
@@ -115,13 +137,6 @@ materialPulseView.shadowDepth = .Depth2
 // Add view to UIViewController.
 view.addSubview(materialPulseView)
 ```
-
-<a name="textfield"/>
-### TextField
-
-A TextField is an excellent way to improve UX. Checkout the Examples directory for a project using this component. 
-
-![MaterialKitTextField](http://www.materialkit.io/MK/MaterialKitTextField.gif)
 
 <a name="flatbutton"/>
 ### FlatButton
