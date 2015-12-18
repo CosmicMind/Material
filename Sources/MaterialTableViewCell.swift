@@ -51,6 +51,7 @@ public class MaterialTableViewCell: UITableViewCell {
      */
     public func prepare() {
         selectionStyle = .None
+        imageView?.userInteractionEnabled = false
         textLabel?.userInteractionEnabled = false
         detailTextLabel?.userInteractionEnabled = false
     }
@@ -59,7 +60,7 @@ public class MaterialTableViewCell: UITableViewCell {
      :name:	preparePulseView
      */
     public func preparePulseView() {
-        pulseView.pulseColor = MaterialColor.deepPurple.darken1.colorWithAlphaComponent(0.2)
+        pulseView.pulseColor = MaterialColor.red.darken1.colorWithAlphaComponent(0.2)
         contentView.addSubview(pulseView)
     }
     
