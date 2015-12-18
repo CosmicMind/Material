@@ -73,13 +73,14 @@ A TextField is an excellent way to improve UX. Checkout the Examples directory f
 
 ```swift
 let titleField: TextField = TextField(frame: CGRectMake(57, 100, 300, 24))
-titleField.placeholder = "Title"
-titleField.font = RobotoFont.regularWithSize(20)
-titleField.textColor = MaterialColor.black
-titleField.titleLabel = UILabel()
-titleField.titleLabel!.font = RobotoFont.mediumWithSize(12)
-titleField.titleLabelNormalColor = MaterialColor.grey.lighten1
-titleField.titleLabelHighlightedColor = MaterialColor.blue.accent3
+nameField.placeholder = "First Name"
+nameField.font = RobotoFont.regularWithSize(20)
+nameField.textColor = MaterialColor.black
+nameField.titleLabel = UILabel()
+nameField.titleLabel!.font = RobotoFont.mediumWithSize(12)
+nameField.titleLabelNormalColor = MaterialColor.grey.lighten2
+nameField.titleLabelHighlightedColor = MaterialColor.blue.accent3
+nameField.clearButtonMode = .WhileEditing
 
 // Add titleField to UIViewController.
 view.addSubview(titleField)

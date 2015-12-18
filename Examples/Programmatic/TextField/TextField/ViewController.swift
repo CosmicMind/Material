@@ -20,15 +20,15 @@ import UIKit
 import MaterialKit
 
 class ViewController: UIViewController, TextFieldDelegate {
-	private lazy var titleField: TextField = TextField()
-	private lazy var descriptionField: TextField = TextField()
+	private lazy var nameField: TextField = TextField()
+	private lazy var emailField: TextField = TextField()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
 		
-		prepareTitleField()
-		prepareDescriptionField()
+		prepareNameField()
+		prepareEmailField()
 	}
 	
 	/**
@@ -39,39 +39,43 @@ class ViewController: UIViewController, TextFieldDelegate {
 	}
 	
 	/**
-	:name:	prepareTitleField
-	:description:	A preparation helper for titleField.
+	:name:	prepareNameField
+	:description:	A preparation helper for nameField.
 	*/
-	private func prepareTitleField() {
-		titleField.delegate = self
-		titleField.frame = CGRectMake(57, 100, 300, 24)
-		titleField.placeholder = "Title"
-		titleField.font = RobotoFont.regularWithSize(20)
-		titleField.textColor = MaterialColor.black
-		titleField.titleLabel = UILabel()
-		titleField.titleLabel!.font = RobotoFont.mediumWithSize(12)
-		titleField.titleLabelNormalColor = MaterialColor.grey.lighten1
-		titleField.titleLabelHighlightedColor = MaterialColor.blue.accent3
-		titleField.clearButtonMode = .WhileEditing
-		view.addSubview(titleField)
+	private func prepareNameField() {
+		nameField.delegate = self
+		nameField.frame = CGRectMake(57, 100, 300, 24)
+		nameField.placeholder = "First Name"
+		nameField.font = RobotoFont.regularWithSize(20)
+		nameField.textColor = MaterialColor.black
+		nameField.titleLabel = UILabel()
+		nameField.titleLabel!.font = RobotoFont.mediumWithSize(12)
+		nameField.titleLabelNormalColor = MaterialColor.grey.lighten2
+		nameField.titleLabelHighlightedColor = MaterialColor.blue.accent3
+		nameField.clearButtonMode = .WhileEditing
+		view.addSubview(nameField)
 	}
 	
 	/**
-	:name:	prepareDescriptionField
-	:description:	A preparation helper for descriptionField.
+	:name:	prepareEmailField
+	:description:	A preparation helper for emailField.
 	*/
-	private func prepareDescriptionField() {
-		descriptionField.delegate = self
-		descriptionField.frame = CGRectMake(57, 150, 300, 24)
-		descriptionField.placeholder = "Description"
-		descriptionField.font = RobotoFont.regularWithSize(20)
-		descriptionField.textColor = MaterialColor.black
-		descriptionField.titleLabel = UILabel()
-		descriptionField.titleLabel!.font = RobotoFont.mediumWithSize(12)
-		descriptionField.titleLabelNormalColor = MaterialColor.grey.lighten1
-		descriptionField.titleLabelHighlightedColor = MaterialColor.blue.accent3
-		descriptionField.clearButtonMode = .WhileEditing
-		view.addSubview(descriptionField)
+	private func prepareEmailField() {
+		emailField.delegate = self
+		emailField.frame = CGRectMake(57, 200, 300, 24)
+		emailField.placeholder = "Email"
+		emailField.font = RobotoFont.regularWithSize(20)
+		emailField.textColor = MaterialColor.black
+		emailField.titleLabel = UILabel()
+		emailField.titleLabel!.font = RobotoFont.mediumWithSize(12)
+		emailField.titleLabelNormalColor = MaterialColor.grey.lighten2
+		emailField.titleLabelHighlightedColor = MaterialColor.blue.accent3
+		emailField.clearButtonMode = .WhileEditing
+		emailField.detailLabel = UILabel()
+		emailField.detailLabel!.text = "Email is incorrect."
+		emailField.detailLabel!.font = RobotoFont.mediumWithSize(12)
+		emailField.detailLabelHighlightedColor = MaterialColor.red.accent3
+		view.addSubview(emailField)
 	}
 	
 	/**
@@ -81,6 +85,9 @@ class ViewController: UIViewController, TextFieldDelegate {
 	*/
 	func textFieldShouldReturn(textField: UITextField) -> Bool {
 		textField.resignFirstResponder()
+		if textField == emailField {
+			(textField as! TextField).detailLabelHidden = false
+		}
 		return false
 	}
 	
