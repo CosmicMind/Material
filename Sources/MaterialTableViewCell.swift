@@ -19,9 +19,7 @@
 import UIKit
 
 public class MaterialTableViewCell: UITableViewCell {
-    /**
-     :name:	writeToPhotoLibrary
-     */
+    
     public lazy var pulseView: MaterialPulseView = MaterialPulseView()
     
     /**
