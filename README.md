@@ -37,9 +37,9 @@ Run carthage to build the framework and drag the built MaterialKit.framework int
 * [FabButton](#fabbutton)
 * [CardView](#cardview)
 * [ImageCardView](#imagecardview)
-* [CaptureView](#captureview)
 * [NavigationBarView](#navigationbarview)
 * [SideNavigationViewController](#sidenavigationviewcontroller)
+* [CaptureView](#captureview)
 
 ### Upcoming
 
@@ -467,13 +467,6 @@ MaterialLayout.alignFromTop(view, child: imageCardView, top: 100)
 MaterialLayout.alignToParentHorizontally(view, child: imageCardView, left: 20, right: 20)
 ```
 
-<a name="captureview"/>
-### CaptureView
-
-Add a new dimension of interactivity with CaptureView. CaptureView is a fully functional camera that is completely customizable. Checkout the Examples directory for a sample project using this wonderful component.
-
-![MaterialKitCaptureView](http://www.materialkit.io/MK/MaterialKitCaptureView.jpg)
-
 <a name="navigationbarview"/>
 ### NavigationBarView
 
@@ -557,6 +550,12 @@ As elegant as is effective, the SideNavigationViewController is an excellent way
 
 ![MaterialKitSideNavigationViewController](http://www.materialkit.io/MK/MaterialKitSideNavigationViewController.gif)
 
+<a name="captureview"/>
+### CaptureView
+
+Add a new dimension of interactivity with CaptureView. CaptureView is a fully functional camera that is completely customizable. Checkout the Examples directory for a sample project using this wonderful component.
+
+![MaterialKitCaptureView](http://www.materialkit.io/MK/MaterialKitCaptureView.jpg)
 
 ### License
 
