@@ -23,6 +23,13 @@
       </Group>
       <Group
          location = "container:"
+         name = "TextField">
+         <FileRef
+            location = "group:Programmatic/TextField/TextField.xcodeproj">
+         </FileRef>
+      </Group>
+      <Group
+         location = "container:"
          name = "MaterialView">
          <FileRef
             location = "group:Programmatic/MaterialView/MaterialView.xcodeproj">
@@ -75,13 +82,6 @@
          name = "SideNavigationViewController">
          <FileRef
             location = "group:Programmatic/SideNavigationViewController/SideNavigationViewController.xcodeproj">
-         </FileRef>
-      </Group>
-      <Group
-         location = "container:"
-         name = "TextField">
-         <FileRef
-            location = "group:Programmatic/TextField/TextField.xcodeproj">
          </FileRef>
       </Group>
    </Group>

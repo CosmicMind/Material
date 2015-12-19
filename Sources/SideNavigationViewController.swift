@@ -241,12 +241,12 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			duration: duration,
 			options: options,
 			animations: animations,
-			completion: { (result: Bool) in
-			self.mainViewController.removeFromParentViewController()
-			toViewController.didMoveToParentViewController(self)
-			self.mainViewController = toViewController
-			self.userInteractionEnabled = !self.opened
-			completion?(result)
+			completion: { [unowned self, mainViewController = self.mainViewController] (result: Bool) in
+				mainViewController.removeFromParentViewController()
+				toViewController.didMoveToParentViewController(self)
+				self.mainViewController = toViewController
+				self.userInteractionEnabled = !self.opened
+				completion?(result)
 		})
 	}
 	
@@ -259,16 +259,16 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		let w: CGFloat = (hidden ? -width : width) / 2
 		
 		if animated {
-			MaterialAnimation.animateWithDuration(0.25, animations: {
-				self.sideView.width = width
-				self.sideView.position.x = w
-			}) {
+			MaterialAnimation.animateWithDuration(0.25, animations: { [unowned sideView = self.sideView] in
+				sideView.width = width
+				sideView.position.x = w
+			}) { [unowned self] in
 				self.userInteractionEnabled = false
 			}
 		} else {
-			MaterialAnimation.animationDisabled {
-				self.sideView.width = width
-				self.sideView.position.x = w
+			MaterialAnimation.animationDisabled { [unowned sideView = self.sideView] in
+				sideView.width = width
+				sideView.position.x = w
 			}
 		}
 	}
@@ -290,18 +290,18 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		delegate?.sideNavigationViewWillOpen?(self)
 		
 		MaterialAnimation.animateWithDuration(Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(sideView.x / velocity)))),
-		animations: {
-			self.sideView.position = CGPointMake(self.sideView.width / 2, self.sideView.height / 2)
-		}) {
+		animations: { [unowned sideView = self.sideView] in
+			sideView.position = CGPointMake(sideView.width / 2, sideView.height / 2)
+		}) { [unowned self, weak delegate = self.delegate] in
 			self.userInteractionEnabled = false
 			
 			if self.enableShadowDepth {
-				MaterialAnimation.animationDisabled {
-					self.sideView.shadowDepth = self.shadowDepth
+				MaterialAnimation.animationDisabled { [unowned self, unowned sideView = self.sideView] in
+					sideView.shadowDepth = self.shadowDepth
 				}
 			}
 			
-			self.delegate?.sideNavigationViewDidOpen?(self)
+			delegate?.sideNavigationViewDidOpen?(self)
 		}
 	}
 	
@@ -315,18 +315,18 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		delegate?.sideNavigationViewWillClose?(self)
 		
 		MaterialAnimation.animateWithDuration(Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(sideView.x / velocity)))),
-		animations: {
-			self.sideView.position = CGPointMake(-self.sideView.width / 2, self.sideView.height / 2)
-		}) {
+		animations: { [unowned sideView = self.sideView] in
+			sideView.position = CGPointMake(-sideView.width / 2, sideView.height / 2)
+		}) { [unowned self, weak delegate = self.delegate] in
 			self.userInteractionEnabled = true
 			
 			if self.enableShadowDepth {
-				MaterialAnimation.animationDisabled {
-					self.sideView.shadowDepth = .None
+				MaterialAnimation.animationDisabled { [unowned sideView = self.sideView] in
+					sideView.shadowDepth = .None
 				}
 			}
 			
-			self.delegate?.sideNavigationViewDidClose?(self)
+			delegate?.sideNavigationViewDidClose?(self)
 		}
 	}
 	
@@ -334,16 +334,15 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	:name:	gestureRecognizer
 	*/
 	public func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
-		if !enabled {
-			return false
-		}
-		if gestureRecognizer == sidePanGesture {
-			return gesturePanSideViewController(gestureRecognizer, withTouchPoint: touch.locationInView(view))
-		}
-		if gestureRecognizer == sideTapGesture && opened {
-			let point: CGPoint = touch.locationInView(view)
-			delegate?.sideNavigationViewDidTap?(self, point: point)
-			return !isPointContainedWithinViewController(sideView, point: point)
+		if enabled {
+			if gestureRecognizer == sidePanGesture {
+				return gesturePanSideViewController(gestureRecognizer, withTouchPoint: touch.locationInView(view))
+			}
+			if gestureRecognizer == sideTapGesture && opened {
+				let point: CGPoint = touch.locationInView(view)
+				delegate?.sideNavigationViewDidTap?(self, point: point)
+				return !isPointContainedWithinViewController(sideView, point: point)
+			}
 		}
 		return false
 	}
@@ -380,9 +379,9 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		sideView.backgroundColor = MaterialColor.clear
 		view.addSubview(sideView)
 		
-		MaterialAnimation.animationDisabled {
-			self.sideView.position.x = -self.sideViewControllerWidth / 2
-			self.sideView.zPosition = 1000
+		MaterialAnimation.animationDisabled { [unowned self, unowned sideView = self.sideView] in
+			sideView.position.x = -self.sideViewControllerWidth / 2
+			sideView.zPosition = 1000
 		}
 		
 		prepareSideViewController()
@@ -399,8 +398,8 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			originalPosition = sideView.position
 			toggleStatusBar(true)
 			if enableShadowDepth {
-				MaterialAnimation.animationDisabled {
-					self.sideView.shadowDepth = self.shadowDepth
+				MaterialAnimation.animationDisabled { [unowned self, sideView = self.sideView] in
+					sideView.shadowDepth = self.shadowDepth
 				}
 			}
 			delegate?.sideNavigationViewPanDidBegin?(self, point: sideView.position)
@@ -408,9 +407,9 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			let translation: CGPoint = recognizer.translationInView(sideView)
 			let w: CGFloat = sideView.width
 			
-			MaterialAnimation.animationDisabled {
-				self.sideView.position.x = self.originalPosition.x + translation.x > (w / 2) ? (w / 2) : self.originalPosition.x + translation.x
-				self.delegate?.sideNavigationViewPanDidChange?(self, point: self.sideView.position)
+			MaterialAnimation.animationDisabled { [unowned self, weak delegate = self.delegate, unowned sideView = self.sideView] in
+				sideView.position.x = self.originalPosition.x + translation.x > (w / 2) ? (w / 2) : self.originalPosition.x + translation.x
+				delegate?.sideNavigationViewPanDidChange?(self, point: sideView.position)
 			}
 		case .Ended, .Cancelled, .Failed:
 			let point: CGPoint = recognizer.velocityInView(recognizer.view)
@@ -519,7 +518,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	:name:	layoutBackdropLayer
 	*/
 	private func layoutBackdropLayer() {
-		MaterialAnimation.animationDisabled {
+		MaterialAnimation.animationDisabled { [unowned self] in
 			self.backdropLayer.frame = self.view.bounds
 		}
 	}
