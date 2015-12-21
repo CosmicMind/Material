@@ -40,8 +40,8 @@ class ViewController: UIViewController {
 		// Examples of using ImageCardView.
 		// Uncomment different examples and read
 		// the comments below.
-		prepareGeneralImageCardViewExample()
-//		prepareImageCardViewWithoutDetailLabelAndDividerExample()
+//		prepareGeneralImageCardViewExample()
+		prepareImageCardViewWithoutDetailLabelAndDividerExample()
 	}
 	
 	/**
@@ -71,7 +71,7 @@ class ViewController: UIViewController {
 		imageCardView.titleLabel = titleLabel
 		imageCardView.titleLabelInsetsRef.top = 100
 		
-		// Detail label
+		// Detail label.
 		let detailLabel: UILabel = UILabel()
 		detailLabel.text = "It’s been a while, have you read any new books lately?"
 		detailLabel.numberOfLines = 0

@@ -240,7 +240,7 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 		titleLabel.font = RobotoFont.regularWithSize(20)
 		navigationBarView.titleLabel = titleLabel
 		
-		// Detail label
+		// Detail label.
 		let detailLabel: UILabel = UILabel()
 		detailLabel.hidden = true
 		detailLabel.text = "Recording"

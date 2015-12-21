@@ -29,15 +29,15 @@ class ViewController: UIViewController {
 	}
 	
 	/**
-	:name:	prepareView
-	:description: General preparation statements.
+	:name:			prepareView
+	:description:	General preparation statements.
 	*/
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.white
 	}
 	
 	/**
-	:name:	prepareGeneralMaterialViewExample
+	:name:			prepareGeneralMaterialViewExample
 	:description:	General usage example.
 	*/
 	private func prepareGeneralMaterialViewExample() {

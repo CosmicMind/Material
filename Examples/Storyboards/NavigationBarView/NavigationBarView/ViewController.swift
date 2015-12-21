@@ -60,7 +60,7 @@ class ViewController: UIViewController {
         navigationBarView.titleLabel = titleLabel
         navigationBarView.titleLabelInsetsRef.left = 64
         
-        // Detail label
+        // Detail label.
         let detailLabel: UILabel = UILabel()
         detailLabel.text = "Build Beautiful Software"
         detailLabel.textAlignment = .Left

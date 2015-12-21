@@ -204,7 +204,7 @@ titleLabel.textColor = MaterialColor.blue.darken1
 titleLabel.font = RobotoFont.mediumWithSize(20)
 cardView.titleLabel = titleLabel
 
-// Detail label
+// Detail label.
 let detailLabel: UILabel = UILabel()
 detailLabel.text = "It’s been a while, have you read any new books lately?"
 detailLabel.numberOfLines = 0
@@ -258,7 +258,7 @@ titleLabel.textColor = MaterialColor.white
 titleLabel.font = RobotoFont.mediumWithSize(24)
 cardView.titleLabel = titleLabel
 
-// Detail label
+// Detail label.
 let detailLabel: UILabel = UILabel()
 detailLabel.text = "Build beautiful software."
 detailLabel.textColor = MaterialColor.white
@@ -305,7 +305,7 @@ titleLabel.text = "GraphKit"
 titleLabel.font = RobotoFont.mediumWithSize(24)
 cardView.titleLabel = titleLabel
 
-// Detail label
+// Detail label.
 let detailLabel: UILabel = UILabel()
 detailLabel.text = "Build scalable data-driven apps."
 detailLabel.numberOfLines = 0
@@ -402,7 +402,7 @@ titleLabel.font = RobotoFont.mediumWithSize(24)
 imageCardView.titleLabel = titleLabel
 imageCardView.titleLabelInsetsRef.top = 100
 
-// Detail label
+// Detail label.
 let detailLabel: UILabel = UILabel()
 detailLabel.text = "It’s been a while, have you read any new books lately?"
 detailLabel.numberOfLines = 0
@@ -516,7 +516,7 @@ titleLabel.font = RobotoFont.regularWithSize(20)
 navigationBarView.titleLabel = titleLabel
 navigationBarView.titleLabelInsetsRef.left = 64
 
-// Detail label
+// Detail label.
 let detailLabel: UILabel = UILabel()
 detailLabel.text = "Build Beautiful Software"
 detailLabel.textAlignment = .Left

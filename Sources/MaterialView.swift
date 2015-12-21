@@ -21,17 +21,23 @@ import UIKit
 @objc(MaterialView)
 public class MaterialView : UIView {
 	/**
-	:name:	visualLayer
+	A CAShapeLayer used to store an image value. Rather than
+	use the default layer.contents property, the visualLayer
+	allows for separate management of the contents. This
+	solves the clipsToBounds issue when supporting a shadow
+	and image that needs to be clipped.
 	*/
 	public private(set) lazy var visualLayer: CAShapeLayer = CAShapeLayer()
 	
 	/**
-	:name:	delegate
+	A base delegate reference used when subclassing MaterialView.
 	*/
 	public weak var delegate: MaterialDelegate?
 	
 	/**
-	:name:	image
+	An optional property that sets an image to the visualLayer's
+	contents. Images should not be set to the backing layer's
+	contents property to avoid conflicts when using clipsToBounds.
 	*/
 	public var image: UIImage? {
 		didSet {
@@ -40,7 +46,10 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-	:name:	contentsRect
+	Allows a relative subrectangle within the range of 0 to 1 to be
+	specified for the visualLayer's contents property. This allows
+	much greater flexibility than the contentsGravity property in
+	terms of how the image is cropped and stretched.
 	*/
 	public var contentsRect: CGRect {
 		didSet {
@@ -49,7 +58,8 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-	:name:	contentsCenter
+	A CGRect that defines a stretchable region inside the visualLayer
+	with a fixed border around the edge.
 	*/
 	public var contentsCenter: CGRect {
 		didSet {
@@ -58,7 +68,9 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-	:name:	contentsScale
+	A floating point value that defines a ratio between the pixel dimensions 
+	of the visualLayer's contents property and the size of the view. By default,
+	this value is set to the UIScreen's scale value, (UIScreen.mainScreen().scale).
 	*/
 	public var contentsScale: CGFloat {
 		didSet {
@@ -66,9 +78,7 @@ public class MaterialView : UIView {
 		}
 	}
 	
-	/**
-	:name:	contentsGravity
-	*/
+	/// Determine how content should be aligned within the visualLayer's bounds.
 	public var contentsGravity: MaterialGravity {
 		didSet {
 			visualLayer.contentsGravity = MaterialGravityToString(contentsGravity)
@@ -76,7 +86,10 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-	:name:	masksToBounds
+	This property is the same as clipsToBounds. It crops any of the view's contents from
+	bleeding past the view's frame. If an image is set using the image property, then this
+	value does not need to be set, since the visualLayer's maskToBounds is set to true by 
+	default.
 	*/
 	public var masksToBounds: Bool {
 		get {
@@ -87,18 +100,14 @@ public class MaterialView : UIView {
 		}
 	}
 	
-	/**
-	:name:	backgroundColor
-	*/
+	/// An Optional value that set's the backing layer's backgroundColor.
 	public override var backgroundColor: UIColor? {
 		didSet {
 			layer.backgroundColor = backgroundColor?.CGColor
 		}
 	}
 	
-	/**
-	:name:	x
-	*/
+	/// A convenience property that accesses the layer.frame.origin.x property.
 	public var x: CGFloat {
 		get {
 			return layer.frame.origin.x
@@ -108,9 +117,7 @@ public class MaterialView : UIView {
 		}
 	}
 	
-	/**
-	:name:	y
-	*/
+	/// A convenience property that accesses the layer.frame.origin.y property.
 	public var y: CGFloat {
 		get {
 			return layer.frame.origin.y
@@ -121,7 +128,10 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-	:name:	width
+	A convenience property that accesses the layer.frame.origin.width property.
+	When setting this property in conjunction with the shape property having a
+	value that is not .None, the height will be adjusted to maintain the correct
+	shape.
 	*/
 	public var width: CGFloat {
 		get {
@@ -136,7 +146,10 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-	:name:	height
+	A convenience property that accesses the layer.frame.origin.height property.
+	When setting this property in conjunction with the shape property having a
+	value that is not .None, the width will be adjusted to maintain the correct
+	shape.
 	*/
 	public var height: CGFloat {
 		get {

@@ -55,7 +55,7 @@ class ViewController: UIViewController {
 		titleLabel.font = RobotoFont.mediumWithSize(20)
 		cardView.titleLabel = titleLabel
 		
-		// Detail label
+		// Detail label.
 		let detailLabel: UILabel = UILabel()
 		detailLabel.text = "It’s been a while, have you read any new books lately?"
 		detailLabel.numberOfLines = 0
@@ -110,7 +110,7 @@ class ViewController: UIViewController {
 		titleLabel.font = RobotoFont.mediumWithSize(24)
 		cardView.titleLabel = titleLabel
 		
-		// Detail label
+		// Detail label.
 		let detailLabel: UILabel = UILabel()
 		detailLabel.text = "Build beautiful software."
 		detailLabel.textColor = MaterialColor.white
@@ -157,7 +157,7 @@ class ViewController: UIViewController {
 		titleLabel.font = RobotoFont.mediumWithSize(24)
 		cardView.titleLabel = titleLabel
 		
-		// Detail label
+		// Detail label.
 		let detailLabel: UILabel = UILabel()
 		detailLabel.text = "Build scalable data-driven apps."
 		detailLabel.numberOfLines = 0

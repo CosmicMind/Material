@@ -63,7 +63,7 @@ public struct MaterialAnimation {
 		
 		var cancelable: MaterialAnimationDelayCancelBlock?
 		
-		let delayed: MaterialAnimationDelayCancelBlock = { cancel in
+		let delayed: MaterialAnimationDelayCancelBlock = { (cancel: Bool) in
 			if !cancel {
 				dispatch_async(dispatch_get_main_queue(), completion)
 			}
