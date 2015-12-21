@@ -143,7 +143,7 @@ public class MaterialPulseView : MaterialView {
 		contentsCenter = MaterialTheme.pulseView.contentsCenter
 		contentsScale = MaterialTheme.pulseView.contentsScale
 		contentsGravity = MaterialTheme.pulseView.contentsGravity
-		shadowDepth = MaterialTheme.pulseView.shadowDepth
+		depth = MaterialTheme.pulseView.depth
 		shadowColor = MaterialTheme.pulseView.shadowColor
 		zPosition = MaterialTheme.pulseView.zPosition
 		borderWidth = MaterialTheme.pulseView.borderWidth

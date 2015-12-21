@@ -35,7 +35,7 @@ public struct MaterialTheme {
 // view
 public extension MaterialTheme.view {
 	// shadow
-	public static var shadowDepth: MaterialDepth = .None
+	public static var depth: MaterialDepth = .None
 	public static var shadowColor: UIColor = MaterialColor.black
 	
 	// border
@@ -61,7 +61,7 @@ public extension MaterialTheme.view {
 // pulseView
 public extension MaterialTheme.pulseView {
 	// shadow
-	public static var shadowDepth: MaterialDepth = .None
+	public static var depth: MaterialDepth = .None
 	public static var shadowColor: UIColor = MaterialColor.black
 	
 	// border
@@ -89,7 +89,7 @@ public extension MaterialTheme.pulseView {
 // basicCardView
 public extension MaterialTheme.basicCardView {
 	// shadow
-	public static var shadowDepth: MaterialDepth = .Depth2
+	public static var depth: MaterialDepth = .Depth2
 	public static var shadowColor: UIColor = MaterialColor.black
 	
 	// shape
@@ -129,7 +129,7 @@ public extension MaterialTheme.basicCardView {
 // imageCardView
 public extension MaterialTheme.imageCardView {
 	// shadow
-	public static var shadowDepth: MaterialDepth = .Depth2
+	public static var depth: MaterialDepth = .Depth2
 	public static var shadowColor: UIColor = MaterialColor.black
 	
 	// shape
@@ -175,7 +175,7 @@ public extension MaterialTheme.navigationBarView {
 	public static var height: CGFloat = 70
 	
 	// shadow
-	public static var shadowDepth: MaterialDepth = .Depth2
+	public static var depth: MaterialDepth = .Depth2
 	public static var shadowColor: UIColor = MaterialColor.black
 	
 	// shape
@@ -208,7 +208,7 @@ public extension MaterialTheme.navigationBarView {
 // captureView
 public extension MaterialTheme.captureView {
 	// shadow
-	public static var shadowDepth: MaterialDepth = .None
+	public static var depth: MaterialDepth = .None
 	public static var shadowColor: UIColor = MaterialColor.black
 	
 	// shape
@@ -267,7 +267,7 @@ public extension MaterialTheme.label {
 // flatButton
 public extension MaterialTheme.flatButton {
 	// shadow
-	public static var shadowDepth: MaterialDepth = .None
+	public static var depth: MaterialDepth = .None
 	public static var shadowColor: UIColor = MaterialColor.black
 	
 	// shape
@@ -298,7 +298,7 @@ public extension MaterialTheme.flatButton {
 // raisedButton
 public extension MaterialTheme.raisedButton {
 	// shadow
-	public static var shadowDepth: MaterialDepth = .Depth2
+	public static var depth: MaterialDepth = .Depth2
 	public static var shadowColor: UIColor = MaterialColor.black
 	
 	// shape
@@ -330,7 +330,7 @@ public extension MaterialTheme.raisedButton {
 // fabButton
 public extension MaterialTheme.fabButton {
 	// shadow
-	public static var shadowDepth: MaterialDepth = .Depth2
+	public static var depth: MaterialDepth = .Depth2
 	public static var shadowColor: UIColor = MaterialColor.black
 	
 	// shape

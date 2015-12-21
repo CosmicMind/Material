@@ -402,7 +402,7 @@ public class CardView : MaterialPulseView {
 		contentsCenter = MaterialTheme.basicCardView.contentsCenter
 		contentsScale = MaterialTheme.basicCardView.contentsScale
 		contentsGravity = MaterialTheme.basicCardView.contentsGravity
-		shadowDepth = MaterialTheme.basicCardView.shadowDepth
+		depth = MaterialTheme.basicCardView.depth
 		shadowColor = MaterialTheme.basicCardView.shadowColor
 		zPosition = MaterialTheme.basicCardView.zPosition
 		borderWidth = MaterialTheme.basicCardView.borderWidth

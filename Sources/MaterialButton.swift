@@ -201,11 +201,11 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
-	:name:	shadowDepth
+	:name:	depth
 	*/
-	public var shadowDepth: MaterialDepth {
+	public var depth: MaterialDepth {
 		didSet {
-			let value: MaterialDepthType = MaterialDepthToValue(shadowDepth)
+			let value: MaterialDepthType = MaterialDepthToValue(depth)
 			shadowOffset = value.offset
 			shadowOpacity = value.opacity
 			shadowRadius = value.radius
@@ -298,7 +298,7 @@ public class MaterialButton : UIButton {
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		borderWidth = .None
-		shadowDepth = .None
+		depth = .None
 		shape = .None
 		contentInsets = .None
 		super.init(coder: aDecoder)
@@ -310,7 +310,7 @@ public class MaterialButton : UIButton {
 	*/
 	public override init(frame: CGRect) {
 		borderWidth = .None
-		shadowDepth = .None
+		depth = .None
 		shape = .None
 		contentInsets = .None
 		super.init(frame: frame)

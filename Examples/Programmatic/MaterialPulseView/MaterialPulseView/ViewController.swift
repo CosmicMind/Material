@@ -44,7 +44,7 @@ class ViewController: UIViewController {
 		let pulseView: MaterialPulseView = MaterialPulseView(frame: CGRectMake(132, 132, 150, 150))
 		pulseView.image = UIImage(named: "ContentAppIcon")
 		pulseView.shape = .Circle
-		pulseView.shadowDepth = .Depth2
+		pulseView.depth = .Depth2
 		
 		// Add view to UIViewController.
 		view.addSubview(pulseView)

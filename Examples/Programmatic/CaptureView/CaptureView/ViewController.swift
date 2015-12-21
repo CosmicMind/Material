@@ -229,7 +229,7 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 	*/
 	private func prepareNavigationBarView() {
 		navigationBarView.backgroundColor = nil
-		navigationBarView.shadowDepth = .None
+		navigationBarView.depth = .None
 		navigationBarView.statusBarStyle = .LightContent
 		
 		// Title label.
@@ -270,7 +270,7 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 		captureButton.backgroundColor = MaterialColor.red.darken1.colorWithAlphaComponent(0.3)
 		captureButton.borderWidth = .Border2
 		captureButton.borderColor = MaterialColor.white
-		captureButton.shadowDepth = .None
+		captureButton.depth = .None
 		
 		captureView.captureButton = captureButton
 	}

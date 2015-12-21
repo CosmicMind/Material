@@ -539,7 +539,7 @@ public class ImageCardView : MaterialPulseView {
 		contentsCenter = MaterialTheme.imageCardView.contentsCenter
 		contentsScale = MaterialTheme.imageCardView.contentsScale
 		contentsGravity = MaterialTheme.imageCardView.contentsGravity
-		shadowDepth = MaterialTheme.imageCardView.shadowDepth
+		depth = MaterialTheme.imageCardView.depth
 		shadowColor = MaterialTheme.imageCardView.shadowColor
 		zPosition = MaterialTheme.imageCardView.zPosition
 		borderWidth = MaterialTheme.imageCardView.borderWidth

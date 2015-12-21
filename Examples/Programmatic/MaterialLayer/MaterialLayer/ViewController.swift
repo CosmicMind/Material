@@ -44,7 +44,7 @@ class ViewController: UIViewController {
 		let materialLayer: MaterialLayer = MaterialLayer(frame: CGRectMake(132, 132, 150, 150))
 		materialLayer.image = UIImage(named: "CosmicMindAppIcon")
 		materialLayer.shape = .Circle
-		materialLayer.shadowDepth = .Depth2
+		materialLayer.depth = .Depth2
 		
 		// Add layer to UIViewController.
 		view.layer.addSublayer(materialLayer)

@@ -137,18 +137,18 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	public var enableShadowDepth: Bool = true {
 		didSet {
 			if !enableShadowDepth {
-				sideView.shadowDepth = .None
+				sideView.depth = .None
 			}
 		}
 	}
 	
 	/**
-	:name:	shadowDepth
+	:name:	depth
 	*/
-	public var shadowDepth: MaterialDepth = .Depth2 {
+	public var depth: MaterialDepth = .Depth2 {
 		didSet {
-			if !enableShadowDepth && .None != sideView.shadowDepth {
-				sideView.shadowDepth = shadowDepth
+			if !enableShadowDepth && .None != sideView.depth {
+				sideView.depth = depth
 			}
 		}
 	}
@@ -297,7 +297,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			
 			if self.enableShadowDepth {
 				MaterialAnimation.animationDisabled { [unowned self, unowned sideView = self.sideView] in
-					sideView.shadowDepth = self.shadowDepth
+					sideView.depth = self.depth
 				}
 			}
 			
@@ -322,7 +322,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			
 			if self.enableShadowDepth {
 				MaterialAnimation.animationDisabled { [unowned sideView = self.sideView] in
-					sideView.shadowDepth = .None
+					sideView.depth = .None
 				}
 			}
 			
@@ -399,7 +399,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			toggleStatusBar(true)
 			if enableShadowDepth {
 				MaterialAnimation.animationDisabled { [unowned self, sideView = self.sideView] in
-					sideView.shadowDepth = self.shadowDepth
+					sideView.depth = self.depth
 				}
 			}
 			delegate?.sideNavigationViewPanDidBegin?(self, point: sideView.position)

@@ -327,7 +327,7 @@ public class NavigationBarView : MaterialView {
 		contentsCenter = MaterialTheme.navigationBarView.contentsCenter
 		contentsScale = MaterialTheme.navigationBarView.contentsScale
 		contentsGravity = MaterialTheme.navigationBarView.contentsGravity
-		shadowDepth = MaterialTheme.navigationBarView.shadowDepth
+		depth = MaterialTheme.navigationBarView.depth
 		shadowColor = MaterialTheme.navigationBarView.shadowColor
 		zPosition = MaterialTheme.navigationBarView.zPosition
 		borderWidth = MaterialTheme.navigationBarView.borderWidth

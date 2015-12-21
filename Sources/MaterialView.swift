@@ -36,7 +36,7 @@ public class MaterialView : UIView {
 	
 	/**
 	An optional property that sets an image to the visualLayer's
-	contents. Images should not be set to the backing layer's
+	contents property. Images should not be set to the backing layer's
 	contents property to avoid conflicts when using clipsToBounds.
 	*/
 	public var image: UIImage? {
@@ -100,7 +100,7 @@ public class MaterialView : UIView {
 		}
 	}
 	
-	/// An Optional value that set's the backing layer's backgroundColor.
+	/// An optional property that accesses the backing layer's backgroundColor.
 	public override var backgroundColor: UIColor? {
 		didSet {
 			layer.backgroundColor = backgroundColor?.CGColor
@@ -163,18 +163,14 @@ public class MaterialView : UIView {
 		}
 	}
 	
-	/**
-	:name:	shadowColor
-	*/
+	/// An optional property that accesses the backing layer's shadowColor.
 	public var shadowColor: UIColor? {
 		didSet {
 			layer.shadowColor = shadowColor?.CGColor
 		}
 	}
 	
-	/**
-	:name:	shadowOffset
-	*/
+	/// A property that accesses the backing layer's shadowOffset.
 	public var shadowOffset: CGSize {
 		get {
 			return layer.shadowOffset
@@ -184,9 +180,7 @@ public class MaterialView : UIView {
 		}
 	}
 	
-	/**
-	:name:	shadowOpacity
-	*/
+	/// A property that accesses the backing layer's shadowOpacity.
 	public var shadowOpacity: Float {
 		get {
 			return layer.shadowOpacity
@@ -196,9 +190,7 @@ public class MaterialView : UIView {
 		}
 	}
 	
-	/**
-	:name:	shadowRadius
-	*/
+	/// A property that accesses the backing layer's shadowRadius.
 	public var shadowRadius: CGFloat {
 		get {
 			return layer.shadowRadius
@@ -209,11 +201,13 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-	:name:	shadowDepth
+	A convenience property that sets the shadowOffset, shadowOpacity, and
+	shadowRadius for the backing layer. This is the preferred method of
+	setting depth in order to maintain consitency across UI objects.
 	*/
-	public var shadowDepth: MaterialDepth {
+	public var depth: MaterialDepth {
 		didSet {
-			let value: MaterialDepthType = MaterialDepthToValue(shadowDepth)
+			let value: MaterialDepthType = MaterialDepthToValue(depth)
 			shadowOffset = value.offset
 			shadowOpacity = value.opacity
 			shadowRadius = value.radius
@@ -300,7 +294,7 @@ public class MaterialView : UIView {
 		contentsScale = MaterialTheme.view.contentsScale
 		contentsGravity = MaterialTheme.view.contentsGravity
 		borderWidth = MaterialTheme.view.borderWidth
-		shadowDepth = MaterialTheme.view.shadowDepth
+		depth = MaterialTheme.view.depth
 		shape = .None
 		cornerRadius = .None
 		super.init(coder: aDecoder)
@@ -316,7 +310,7 @@ public class MaterialView : UIView {
 		contentsScale = MaterialTheme.view.contentsScale
 		contentsGravity = MaterialTheme.view.contentsGravity
 		borderWidth = MaterialTheme.view.borderWidth
-		shadowDepth = MaterialTheme.view.shadowDepth
+		depth = MaterialTheme.view.depth
 		shape = .None
 		cornerRadius = .None
 		super.init(frame: frame)

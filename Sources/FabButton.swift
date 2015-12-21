@@ -32,7 +32,7 @@ public class FabButton : MaterialButton {
 		pulseColorOpacity = MaterialTheme.fabButton.pulseColorOpacity
 		pulseColor = MaterialTheme.fabButton.pulseColor
 		
-		shadowDepth = MaterialTheme.fabButton.shadowDepth
+		depth = MaterialTheme.fabButton.depth
 		shadowColor = MaterialTheme.fabButton.shadowColor
 		zPosition = MaterialTheme.fabButton.zPosition
 		borderWidth = MaterialTheme.fabButton.borderWidth

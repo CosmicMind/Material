@@ -143,11 +143,11 @@ public class MaterialLayer : CAShapeLayer {
 	}
 	
 	/**
-	:name:	shadowDepth
+	:name:	depth
 	*/
-	public var shadowDepth: MaterialDepth {
+	public var depth: MaterialDepth {
 		didSet {
-			let value: MaterialDepthType = MaterialDepthToValue(shadowDepth)
+			let value: MaterialDepthType = MaterialDepthToValue(depth)
 			shadowOffset = value.offset
 			shadowOpacity = value.opacity
 			shadowRadius = value.radius
@@ -185,7 +185,7 @@ public class MaterialLayer : CAShapeLayer {
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		shape = .None
-		shadowDepth = .None
+		depth = .None
 		super.init(coder: aDecoder)
 		prepareVisualLayer()
 	}
@@ -195,7 +195,7 @@ public class MaterialLayer : CAShapeLayer {
 	*/
 	public override init(layer: AnyObject) {
 		shape = .None
-		shadowDepth = .None
+		depth = .None
 		super.init()
 		prepareVisualLayer()
 	}
@@ -205,7 +205,7 @@ public class MaterialLayer : CAShapeLayer {
 	*/
 	public override init() {
 		shape = .None
-		shadowDepth = .None
+		depth = .None
 		super.init()
 		prepareVisualLayer()
 	}

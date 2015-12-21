@@ -315,7 +315,7 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 		contentsCenter = MaterialTheme.captureView.contentsCenter
 		contentsScale = MaterialTheme.captureView.contentsScale
 		contentsGravity = MaterialTheme.captureView.contentsGravity
-		shadowDepth = MaterialTheme.captureView.shadowDepth
+		depth = MaterialTheme.captureView.depth
 		shadowColor = MaterialTheme.captureView.shadowColor
 		zPosition = MaterialTheme.captureView.zPosition
 		borderWidth = MaterialTheme.captureView.borderWidth

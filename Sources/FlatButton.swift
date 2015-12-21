@@ -32,7 +32,7 @@ public class FlatButton : MaterialButton {
 		pulseColorOpacity = MaterialTheme.flatButton.pulseColorOpacity
 		pulseColor = MaterialTheme.flatButton.pulseColor
 		
-		shadowDepth = MaterialTheme.flatButton.shadowDepth
+		depth = MaterialTheme.flatButton.depth
 		shadowColor = MaterialTheme.flatButton.shadowColor
 		zPosition = MaterialTheme.flatButton.zPosition
 		cornerRadius = MaterialTheme.flatButton.cornerRadius

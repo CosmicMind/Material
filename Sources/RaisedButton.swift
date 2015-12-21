@@ -32,7 +32,7 @@ public class RaisedButton : MaterialButton {
 		pulseColorOpacity = MaterialTheme.raisedButton.pulseColorOpacity
 		pulseColor = MaterialTheme.raisedButton.pulseColor
 		
-		shadowDepth = MaterialTheme.raisedButton.shadowDepth
+		depth = MaterialTheme.raisedButton.depth
 		shadowColor = MaterialTheme.raisedButton.shadowColor
 		zPosition = MaterialTheme.raisedButton.zPosition
 		cornerRadius = MaterialTheme.raisedButton.cornerRadius
