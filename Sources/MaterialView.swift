@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2015 CosmicMind, Inc. <http://cosmicmind.io> and other CosmicMind contributors
+// Copyright (C) 2015 CosmicMind, Inc. <http://cosmicmind.io> 
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published
@@ -21,11 +21,10 @@ import UIKit
 @objc(MaterialView)
 public class MaterialView : UIView {
 	/**
-	A CAShapeLayer used to store an image value. Rather than
-	use the default layer.contents property, the visualLayer
-	allows for separate management of the contents. This
-	solves the clipsToBounds issue when supporting a shadow
-	and image that needs to be clipped.
+	A CAShapeLayer used to manage elements that would be affected by
+	the clipToBounds property of the backing layer. For example, this
+	allows the dropshadow effect on the backing layer, while clipping 
+	the image to a desired shape within the visualLayer.
 	*/
 	public private(set) lazy var visualLayer: CAShapeLayer = CAShapeLayer()
 	
@@ -35,9 +34,9 @@ public class MaterialView : UIView {
 	public weak var delegate: MaterialDelegate?
 	
 	/**
-	An optional property that sets an image to the visualLayer's
-	contents property. Images should not be set to the backing layer's
-	contents property to avoid conflicts when using clipsToBounds.
+	A property that manages an image for the visualLayer's contents 
+	property. Images should not be set to the backing layer's contents 
+	property to avoid conflicts when using clipsToBounds.
 	*/
 	public var image: UIImage? {
 		didSet {
@@ -68,9 +67,10 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-	A floating point value that defines a ratio between the pixel dimensions 
-	of the visualLayer's contents property and the size of the view. By default,
-	this value is set to the UIScreen's scale value, (UIScreen.mainScreen().scale).
+	A floating point value that defines a ratio between the pixel 
+	dimensions of the visualLayer's contents property and the size 
+	of the view. By default, this value is set to the UIScreen's 
+	scale value, UIScreen.mainScreen().scale.
 	*/
 	public var contentsScale: CGFloat {
 		didSet {
@@ -78,7 +78,7 @@ public class MaterialView : UIView {
 		}
 	}
 	
-	/// Determine how content should be aligned within the visualLayer's bounds.
+	/// Determines how content should be aligned within the visualLayer's bounds.
 	public var contentsGravity: MaterialGravity {
 		didSet {
 			visualLayer.contentsGravity = MaterialGravityToString(contentsGravity)
@@ -86,10 +86,10 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-	This property is the same as clipsToBounds. It crops any of the view's contents from
-	bleeding past the view's frame. If an image is set using the image property, then this
-	value does not need to be set, since the visualLayer's maskToBounds is set to true by 
-	default.
+	This property is the same as clipsToBounds. It crops any of the view's 
+	contents from bleeding past the view's frame. If an image is set using 
+	the image property, then this value does not need to be set, since the 
+	visualLayer's maskToBounds is set to true by default.
 	*/
 	public var masksToBounds: Bool {
 		get {
@@ -100,14 +100,14 @@ public class MaterialView : UIView {
 		}
 	}
 	
-	/// An optional property that accesses the backing layer's backgroundColor.
+	/// A property that accesses the backing layer's backgroundColor.
 	public override var backgroundColor: UIColor? {
 		didSet {
 			layer.backgroundColor = backgroundColor?.CGColor
 		}
 	}
 	
-	/// A convenience property that accesses the layer.frame.origin.x property.
+	/// A property that accesses the layer.frame.origin.x property.
 	public var x: CGFloat {
 		get {
 			return layer.frame.origin.x
@@ -117,7 +117,7 @@ public class MaterialView : UIView {
 		}
 	}
 	
-	/// A convenience property that accesses the layer.frame.origin.y property.
+	/// A property that accesses the layer.frame.origin.y property.
 	public var y: CGFloat {
 		get {
 			return layer.frame.origin.y
@@ -128,9 +128,9 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-	A convenience property that accesses the layer.frame.origin.width property.
-	When setting this property in conjunction with the shape property having a
-	value that is not .None, the height will be adjusted to maintain the correct
+	A property that accesses the layer.frame.origin.width property.
+	When setting this property in conjunction with the shape property having a 
+	value that is not .None, the height will be adjusted to maintain the correct 
 	shape.
 	*/
 	public var width: CGFloat {
@@ -146,7 +146,7 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-	A convenience property that accesses the layer.frame.origin.height property.
+	A property that accesses the layer.frame.origin.height property.
 	When setting this property in conjunction with the shape property having a
 	value that is not .None, the width will be adjusted to maintain the correct
 	shape.
@@ -163,7 +163,7 @@ public class MaterialView : UIView {
 		}
 	}
 	
-	/// An optional property that accesses the backing layer's shadowColor.
+	/// A property that accesses the backing layer's shadowColor.
 	public var shadowColor: UIColor? {
 		didSet {
 			layer.shadowColor = shadowColor?.CGColor
@@ -201,9 +201,9 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-	A convenience property that sets the shadowOffset, shadowOpacity, and
-	shadowRadius for the backing layer. This is the preferred method of
-	setting depth in order to maintain consitency across UI objects.
+	A property that sets the shadowOffset, shadowOpacity, and shadowRadius 
+	for the backing layer. This is the preferred method of setting depth 
+	in order to maintain consitency across UI objects.
 	*/
 	public var depth: MaterialDepth {
 		didSet {
@@ -215,7 +215,9 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-	:name:	cornerRadius
+	A property that sets the cornerRadius of the backing layer. If the shape 
+	property has a value of .Circle when the cornerRadius is set, it will 
+	become .None, as it no longer maintains its circle shape.
 	*/
 	public var cornerRadius: MaterialRadius {
 		didSet {
@@ -229,7 +231,9 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-	:name:	shape
+	A property that manages the overall shape for the object. If either the 
+	width or height property is set, the other will be automatically adjusted 
+	to maintain the shape of the object.
 	*/
 	public var shape: MaterialShape {
 		didSet {
