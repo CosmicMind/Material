@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'MK'
-  s.version = '1.25.8'
+  s.version = '1.26.0'
   s.license = { :type => "AGPL-3.0", :file => "LICENSE" }
   s.summary = 'A beautiful Material Design framework in Swift.'
   s.homepage = 'http://materialkit.io'

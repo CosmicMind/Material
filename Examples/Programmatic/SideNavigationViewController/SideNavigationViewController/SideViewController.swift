@@ -19,7 +19,7 @@
 import UIKit
 import MaterialKit
 
-class SideViewController: UIViewController {
+class SideViewController: UIViewController, SideNavigationViewControllerDelegate {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
