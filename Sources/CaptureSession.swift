@@ -264,7 +264,11 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 					error = e
 				}
 			} else {
-				error = NSError(domain: "[MaterialKit Error: Unsupported focusMode.]", code: 0, userInfo: nil)
+				var userInfo: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
+				userInfo[NSLocalizedDescriptionKey] = "[MaterialKit Error: Unsupported focusMode.]"
+				userInfo[NSLocalizedFailureReasonErrorKey] = "[MaterialKit Error: Unsupported focusMode.]"
+				error = NSError(domain: "io.materialkit.CaptureView", code: 1111, userInfo: userInfo)
+				userInfo[NSUnderlyingErrorKey] = error
 			}
 			if let e: NSError = error {
 				delegate?.captureSessionFailedWithError?(self, error: e)
@@ -291,7 +295,11 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 					error = e
 				}
 			} else {
-				error = NSError(domain: "[MaterialKit Error: Unsupported flashMode.]", code: 0, userInfo: nil)
+				var userInfo: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
+				userInfo[NSLocalizedDescriptionKey] = "[MaterialKit Error: Unsupported flashMode.]"
+				userInfo[NSLocalizedFailureReasonErrorKey] = "[MaterialKit Error: Unsupported flashMode.]"
+				error = NSError(domain: "io.materialkit.CaptureView", code: 2222, userInfo: userInfo)
+				userInfo[NSUnderlyingErrorKey] = error
 			}
 			if let e: NSError = error {
 				delegate?.captureSessionFailedWithError?(self, error: e)
@@ -318,7 +326,11 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 					error = e
 				}
 			} else {
-				error = NSError(domain: "[MaterialKit Error: Unsupported torchMode.]", code: 0, userInfo: nil)
+				var userInfo: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
+				userInfo[NSLocalizedDescriptionKey] = "[MaterialKit Error: Unsupported torchMode.]"
+				userInfo[NSLocalizedFailureReasonErrorKey] = "[MaterialKit Error: Unsupported torchMode.]"
+				error = NSError(domain: "io.materialkit.CaptureView", code: 3333, userInfo: userInfo)
+				userInfo[NSUnderlyingErrorKey] = error
 			}
 			if let e: NSError = error {
 				delegate?.captureSessionFailedWithError?(self, error: e)
@@ -460,7 +472,11 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 				error = e
 			}
 		} else {
-			error = NSError(domain: "[MaterialKit Error: Unsupported focusAtPoint.]", code: 0, userInfo: nil)
+			var userInfo: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
+			userInfo[NSLocalizedDescriptionKey] = "[MaterialKit Error: Unsupported focusAtPoint.]"
+			userInfo[NSLocalizedFailureReasonErrorKey] = "[MaterialKit Error: Unsupported focusAtPoint.]"
+			error = NSError(domain: "io.materialkit.CaptureView", code: 4444, userInfo: userInfo)
+			userInfo[NSUnderlyingErrorKey] = error
 		}
 		if let e: NSError = error {
 			delegate?.captureSessionFailedWithError?(self, error: e)
@@ -486,7 +502,11 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 				error = e
 			}
 		} else {
-			error = NSError(domain: "[MaterialKit Error: Unsupported exposeAtPoint.]", code: 0, userInfo: nil)
+			var userInfo: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
+			userInfo[NSLocalizedDescriptionKey] = "[MaterialKit Error: Unsupported exposeAtPoint.]"
+			userInfo[NSLocalizedFailureReasonErrorKey] = "[MaterialKit Error: Unsupported exposeAtPoint.]"
+			error = NSError(domain: "io.materialkit.CaptureView", code: 5555, userInfo: userInfo)
+			userInfo[NSUnderlyingErrorKey] = error
 		}
 		if let e: NSError = error {
 			delegate?.captureSessionFailedWithError?(self, error: e)
