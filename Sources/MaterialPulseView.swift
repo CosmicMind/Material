@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2015 CosmicMind, Inc. <http://cosmicmind.io> 
+// Copyright (C) 2015 - 2016 CosmicMind, Inc. <http://cosmicmind.io>. All rights reserved. 
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published
@@ -19,19 +19,13 @@
 import UIKit
 
 public class MaterialPulseView : MaterialView {
-	/**
-	:name:	pulseLayer
-	*/
+	/// A CAShapeLayer used in the pulse animation.
 	public private(set) lazy var pulseLayer: CAShapeLayer = CAShapeLayer()
 	
-	/**
-	:name:	pulseScale
-	*/
+	/// Sets whether the scaling animation should be used.
 	public lazy var pulseScale: Bool = true
 	
-	/**
-	:name:	spotlight
-	*/
+	/// Enables and disables the spotlight effect.
 	public var spotlight: Bool = false {
 		didSet {
 			if spotlight {
@@ -41,7 +35,8 @@ public class MaterialPulseView : MaterialView {
 	}
 	
 	/**
-	:name:	pulseFill
+	Determines if the pulse animation should fill the entire 
+	view.
 	*/
 	public var pulseFill: Bool = false {
 		didSet {
@@ -51,18 +46,14 @@ public class MaterialPulseView : MaterialView {
 		}
 	}
 	
-	/**
-	:name:	pulseColorOpacity
-	*/
-	public var pulseColorOpacity: CGFloat = MaterialTheme.pulseView.pulseColorOpacity {
+	/// The opcaity value for the pulse animation.
+	public var pulseColorOpacity: CGFloat = 0.25 {
 		didSet {
 			updatedPulseLayer()
 		}
 	}
 	
-	/**
-	:name:	pulseColor
-	*/
+	/// The color of the pulse effect.
 	public var pulseColor: UIColor? {
 		didSet {
 			updatedPulseLayer()
@@ -70,7 +61,10 @@ public class MaterialPulseView : MaterialView {
 	}
 	
 	/**
-	:name:	touchesBegan
+	A delegation method that is executed when the view has began a
+	touch event.
+	- Parameter touches: A set of UITouch objects.
+	- Parameter event: A UIEvent object.
 	*/
 	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesBegan(touches, withEvent: event)
@@ -100,7 +94,10 @@ public class MaterialPulseView : MaterialView {
 	}
 	
 	/**
-	:name:	touchesMoved
+	A delegation method that is executed when the view touch event is
+	moving.
+	- Parameter touches: A set of UITouch objects.
+	- Parameter event: A UIEvent object.
 	*/
 	public override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesMoved(touches, withEvent: event)
@@ -115,63 +112,54 @@ public class MaterialPulseView : MaterialView {
 	}
 	
 	/**
-	:name:	touchesEnded
+	A delegation method that is executed when the view touch event has
+	ended.
+	- Parameter touches: A set of UITouch objects.
+	- Parameter event: A UIEvent object.
 	*/
 	public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesEnded(touches, withEvent: event)
-		shrink()
+		shrinkAnimation()
 	}
 	
 	/**
-	:name:	touchesCancelled
+	A delegation method that is executed when the view touch event has
+	been cancelled.
+	- Parameter touches: A set of UITouch objects.
+	- Parameter event: A UIEvent object.
 	*/
 	public override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
 		super.touchesCancelled(touches, withEvent: event)
-		shrink()
+		shrinkAnimation()
 	}
 	
 	/**
-	:name:	prepareView
+	Prepares the view instance when intialized. When subclassing,
+	it is recommended to override the prepareView method
+	to initialize property values and other setup operations.
+	The super.prepareView method should always be called immediately
+	when subclassing.
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		userInteractionEnabled = MaterialTheme.pulseView.userInteractionEnabled
-		backgroundColor = MaterialTheme.pulseView.backgroundColor
-		pulseColor = MaterialTheme.pulseView.pulseColor
-		
-		contentsRect = MaterialTheme.pulseView.contentsRect
-		contentsCenter = MaterialTheme.pulseView.contentsCenter
-		contentsScale = MaterialTheme.pulseView.contentsScale
-		contentsGravity = MaterialTheme.pulseView.contentsGravity
-		depth = MaterialTheme.pulseView.depth
-		shadowColor = MaterialTheme.pulseView.shadowColor
-		zPosition = MaterialTheme.pulseView.zPosition
-		borderWidth = MaterialTheme.pulseView.borderWidth
-		borderColor = MaterialTheme.pulseView.bordercolor
-		
+		pulseColor = MaterialColor.white
 		preparePulseLayer()
 	}
 	
-	/**
-	:name:	preparePulseLayer
-	*/
+	/// Prepares the pulseLayer property.
 	internal func preparePulseLayer() {
 		pulseLayer.hidden = true
 		pulseLayer.zPosition = 1
 		visualLayer.addSublayer(pulseLayer)
 	}
 	
-	/**
-	:name:	updatedPulseLayer
-	*/
+	/// Updates the pulseLayer when settings have changed.
 	internal func updatedPulseLayer() {
 		pulseLayer.backgroundColor = pulseColor?.colorWithAlphaComponent(pulseColorOpacity).CGColor
 	}
 	
-	/**
-	:name:	shrink
-	*/
-	internal func shrink() {
+	/// Executes the shrink animation for the pulse effect.
+	internal func shrinkAnimation() {
 		let t: CFTimeInterval = 0.25
 		let s: CGFloat = 1
 		

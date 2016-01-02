@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2015 CosmicMind, Inc. <http://cosmicmind.io>
+// Copyright (C) 2015 - 2016 CosmicMind, Inc. <http://cosmicmind.io>. All rights reserved.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published
@@ -22,13 +22,13 @@ public extension UIImage {
 	/**
 		:name:	contentsOfURL
 	*/
-	public class func contentsOfURL(URL: NSURL, completion: ((image: UIImage?, error: NSError?) -> Void)?) {
+	public class func contentsOfURL(URL: NSURL, completion: ((image: UIImage?, error: NSError?) -> Void)) {
 		let request: NSURLRequest = NSURLRequest(URL: URL)
 		NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) { (response: NSURLResponse?, data: NSData?, error: NSError?) -> Void in
 			if let v: NSError = error {
-				completion?(image: nil, error: v)
+				completion(image: nil, error: v)
 			} else if let v: NSData = data {
-				completion?(image: UIImage(data: v), error: nil)
+				completion(image: UIImage(data: v), error: nil)
 			}
 		}
 	}

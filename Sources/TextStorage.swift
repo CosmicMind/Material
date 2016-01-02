@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2015 CosmicMind, Inc. <http://cosmicmind.io>
+// Copyright (C) 2015 - 2016 CosmicMind, Inc. <http://cosmicmind.io>. All rights reserved.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published
@@ -22,55 +22,39 @@ internal typealias TextWillProcessEdit = (TextStorage, String, NSRange) -> Void
 internal typealias TextDidProcessEdit = (TextStorage, NSTextCheckingResult?, NSMatchingFlags, UnsafeMutablePointer<ObjCBool>) -> Void
 
 public class TextStorage: NSTextStorage {
-	/**
-		:name:	store
-	*/
-	private lazy var store: NSMutableAttributedString = NSMutableAttributedString()
-	
-	/**
-		:name:	expression
-	*/
-	internal var expression: NSRegularExpression?
-	
-	/**
-		:name:	textWillProcessEdit
-	*/
+	/// A callback that is executed when a process edit will happen.
 	internal var textWillProcessEdit: TextWillProcessEdit?
 	
-	/**
-		:name:	textDidProcessEdit
-	*/
+	/// A callback that is executed when a process edit did happen.
 	internal var textDidProcessEdit: TextDidProcessEdit?
 	
-	/**
-		:name:	init
-	*/
+	/// A storage facility for attributed text.
+	public lazy var store: NSMutableAttributedString = NSMutableAttributedString()
+	
+	/// The regular expression to match text fragments against.
+	public var expression: NSRegularExpression?
+	
+	/// Initializer.
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
 	
-	/**
-		:name:	init
-	*/
+	/// Initializer.
 	public override init() {
 		super.init()
 	}
 	
-	/**
-		:name:	string
-	*/
-	override public var string: String {
-		get {
-			return store.string
-		}
+	/// A String value of the attirbutedString property.
+	public override var string: String {
+		return store.string
 	}
 	
-	/**
-		:name:	processEditing
-	*/
+	/// Processes the text when editing.
 	public override func processEditing() {
 		let range: NSRange = (string as NSString).paragraphRangeForRange(editedRange)
+		
 		textWillProcessEdit?(self, string, range)
+		
 		expression!.enumerateMatchesInString(string, options: [], range: range) { (result: NSTextCheckingResult?, flags: NSMatchingFlags, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
 			self.textDidProcessEdit?(self, result, flags, stop)
 		}
@@ -78,14 +62,26 @@ public class TextStorage: NSTextStorage {
 	}
 	
 	/**
-		:name:	attributesAtIndex
+	Returns the attributes for the character at a given index.
+	- Parameter location: The index for which to return attributes. 
+	This value must lie within the bounds of the receiver.
+	- Parameter range: Upon return, the range over which the 
+	attributes and values are the same as those at index. This range 
+	isn’t necessarily the maximum range covered, and its extent is 
+	implementation-dependent. If you need the maximum range, use 
+	attributesAtIndex:longestEffectiveRange:inRange:. 
+	If you don't need this value, pass NULL.
+	- Returns: The attributes for the character at index.
 	*/
 	public override func attributesAtIndex(location: Int, effectiveRange range: NSRangePointer) -> [String : AnyObject] {
 		return store.attributesAtIndex(location, effectiveRange: range)
 	}
 	
 	/**
-		:name:	replaceCharactersInRange
+	Replaces a range of text with a string value.
+	- Parameter range: The character range to replace.
+	- Parameter str: The string value that the characters
+	will be replaced with.
 	*/
 	public override func replaceCharactersInRange(range: NSRange, withString str: String) {
 		store.replaceCharactersInRange(range, withString: str)
@@ -93,7 +89,10 @@ public class TextStorage: NSTextStorage {
 	}
 	
 	/**
-		:name:	setAttributes
+	Sets the attributedString attribute values.
+	- Parameter attrs: The attributes to set.
+	- Parameter range: A range of characters that will have their
+	attributes updated.
 	*/
 	public override func setAttributes(attrs: [String : AnyObject]?, range: NSRange) {
 		store.setAttributes(attrs, range: range)

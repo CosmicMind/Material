@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2015 CosmicMind, Inc. <http://cosmicmind.io> 
+// Copyright (C) 2015 - 2016 CosmicMind, Inc. <http://cosmicmind.io>. All rights reserved. 
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published
@@ -65,7 +65,7 @@ public class MaterialButton : UIButton {
 	/**
 	:name:	pulseColorOpacity
 	*/
-	public var pulseColorOpacity: CGFloat = MaterialTheme.pulseView.pulseColorOpacity {
+	public var pulseColorOpacity: CGFloat = 0.25 {
 		didSet {
 			updatePulseLayer()
 		}
@@ -428,7 +428,7 @@ public class MaterialButton : UIButton {
 	*/
 	public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesEnded(touches, withEvent: event)
-		shrink()
+		shrinkAnimation()
 	}
 	
 	/**
@@ -436,7 +436,7 @@ public class MaterialButton : UIButton {
 	*/
 	public override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
 		super.touchesCancelled(touches, withEvent: event)
-		shrink()
+		shrinkAnimation()
 	}
 	
 	/**
@@ -500,7 +500,7 @@ public class MaterialButton : UIButton {
 	/**
 	:name:	shrink
 	*/
-	internal func shrink() {
+	internal func shrinkAnimation() {
 		let t: CFTimeInterval = 0.25
 		let s: CGFloat = 1
 		

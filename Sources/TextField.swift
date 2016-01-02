@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2015 CosmicMind, Inc. <http://cosmicmind.io> 
+// Copyright (C) 2015 - 2016 CosmicMind, Inc. <http://cosmicmind.io>. All rights reserved. 
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published
@@ -21,23 +21,17 @@ import UIKit
 public protocol TextFieldDelegate : UITextFieldDelegate {}
 
 public class TextField : UITextField {
-	/**
-	:name:	bottomBorderLayer
-	*/
+	/// The bottom border layer.
 	public private(set) lazy var bottomBorderLayer: CAShapeLayer = CAShapeLayer()
 	
-	/**
-	:name:	backgroundColor
-	*/
+	/// A property that accesses the backing layer's backgroundColor.
 	public override var backgroundColor: UIColor? {
 		didSet {
 			layer.backgroundColor = backgroundColor?.CGColor
 		}
 	}
 	
-	/**
-	:name:	x
-	*/
+	/// A property that accesses the layer.frame.origin.x property.
 	public var x: CGFloat {
 		get {
 			return layer.frame.origin.x
@@ -47,9 +41,7 @@ public class TextField : UITextField {
 		}
 	}
 	
-	/**
-	:name:	y
-	*/
+	/// A property that accesses the layer.frame.origin.y property.
 	public var y: CGFloat {
 		get {
 			return layer.frame.origin.y
@@ -60,7 +52,10 @@ public class TextField : UITextField {
 	}
 	
 	/**
-	:name:	width
+	A property that accesses the layer.frame.origin.width property.
+	When setting this property in conjunction with the shape property having a
+	value that is not .None, the height will be adjusted to maintain the correct
+	shape.
 	*/
 	public var width: CGFloat {
 		get {
@@ -72,7 +67,10 @@ public class TextField : UITextField {
 	}
 	
 	/**
-	:name:	height
+	A property that accesses the layer.frame.origin.height property.
+	When setting this property in conjunction with the shape property having a
+	value that is not .None, the width will be adjusted to maintain the correct
+	shape.
 	*/
 	public var height: CGFloat {
 		get {
@@ -84,7 +82,8 @@ public class TextField : UITextField {
 	}
 	
 	/**
-	:name:	borderWidth
+	A property that accesses the layer.borderWith using a MaterialBorder 
+	enum preset.
 	*/
 	public var borderWidth: MaterialBorder {
 		didSet {
@@ -92,18 +91,14 @@ public class TextField : UITextField {
 		}
 	}
 	
-	/**
-	:name:	borderColor
-	*/
+	/// A property that accesses the layer.borderColor property.
 	public var borderColor: UIColor? {
 		didSet {
 			layer.borderColor = borderColor?.CGColor
 		}
 	}
 	
-	/**
-	:name:	position
-	*/
+	/// A property that accesses the layer.position property.
 	public var position: CGPoint {
 		get {
 			return layer.position
@@ -113,9 +108,7 @@ public class TextField : UITextField {
 		}
 	}
 	
-	/**
-	:name:	zPosition
-	*/
+	/// A property that accesses the layer.zPosition property.
 	public var zPosition: CGFloat {
 		get {
 			return layer.zPosition

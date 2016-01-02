@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2015 CosmicMind, Inc. <http://cosmicmind.io> 
+// Copyright (C) 2015 - 2016 CosmicMind, Inc. <http://cosmicmind.io>. All rights reserved. 
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published
@@ -248,7 +248,8 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-	:name:	borderWidth
+	A property that accesses the layer.borderWith using a MaterialBorder
+	enum preset.
 	*/
 	public var borderWidth: MaterialBorder {
 		didSet {
@@ -256,18 +257,14 @@ public class MaterialView : UIView {
 		}
 	}
 	
-	/**
-	:name:	borderColor
-	*/
+	/// A property that accesses the layer.borderColor property.
 	public var borderColor: UIColor? {
 		didSet {
 			layer.borderColor = borderColor?.CGColor
 		}
 	}
 	
-	/**
-	:name:	position
-	*/
+	/// A property that accesses the layer.position property.
 	public var position: CGPoint {
 		get {
 			return layer.position
@@ -277,9 +274,7 @@ public class MaterialView : UIView {
 		}
 	}
 	
-	/**
-	:name:	zPosition
-	*/
+	/// A property that accesses the layer.zPosition property.
 	public var zPosition: CGFloat {
 		get {
 			return layer.zPosition
@@ -290,15 +285,16 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-	:name:	init
+	An initializer that initializes the object with a NSCoder object.
+	- Parameter aDecoder: A NSCoder instance.
 	*/
 	public required init?(coder aDecoder: NSCoder) {
-		contentsRect = MaterialTheme.view.contentsRect
-		contentsCenter = MaterialTheme.view.contentsCenter
-		contentsScale = MaterialTheme.view.contentsScale
-		contentsGravity = MaterialTheme.view.contentsGravity
-		borderWidth = MaterialTheme.view.borderWidth
-		depth = MaterialTheme.view.depth
+		contentsRect = CGRectMake(0, 0, 1, 1)
+		contentsCenter = CGRectMake(0, 0, 1, 1)
+		contentsScale = UIScreen.mainScreen().scale
+		contentsGravity = .ResizeAspectFill
+		borderWidth = .None
+		depth = .None
 		shape = .None
 		cornerRadius = .None
 		super.init(coder: aDecoder)
@@ -306,31 +302,30 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-	:name:	init
+	An initializer that initializes the object with a CGRect object.
+	If AutoLayout is used, it is better to initilize the instance
+	using the init() initializer.
+	- Parameter frame: A CGRect instance.
 	*/
 	public override init(frame: CGRect) {
-		contentsRect = MaterialTheme.view.contentsRect
-		contentsCenter = MaterialTheme.view.contentsCenter
-		contentsScale = MaterialTheme.view.contentsScale
-		contentsGravity = MaterialTheme.view.contentsGravity
-		borderWidth = MaterialTheme.view.borderWidth
-		depth = MaterialTheme.view.depth
+		contentsRect = CGRectMake(0, 0, 1, 1)
+		contentsCenter = CGRectMake(0, 0, 1, 1)
+		contentsScale = UIScreen.mainScreen().scale
+		contentsGravity = .ResizeAspectFill
+		borderWidth = .None
+		depth = .None
 		shape = .None
 		cornerRadius = .None
 		super.init(frame: frame)
 		prepareView()
 	}
 	
-	/**
-	:name:	init
-	*/
+	/// A convenience initializer that is mostly used with AutoLayout.
 	public convenience init() {
 		self.init(frame: CGRectNull)
 	}
 	
-	/**
-	:name:	layoutSublayersOfLayer
-	*/
+	/// Overriding the layout callback for layer sublayers.
 	public override func layoutSublayersOfLayer(layer: CALayer) {
 		super.layoutSublayersOfLayer(layer)
 		if self.layer == layer {
@@ -340,14 +335,19 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-	:name:	actionForLayer
+	By default CALayer values are animated. The UIView class supresses this
+	behavior for its backing layer. By overrinding the actionForLayer method
+	and returning nil, the backing layer's default animation behavior
+	is enabled.
 	*/
 	public override func actionForLayer(layer: CALayer, forKey event: String) -> CAAction? {
 		return nil
 	}
 	
 	/**
-	:name:	animate
+	A method that accepts CAAnimation objects and executes them on the 
+	view's backing layer.
+	- Parameter animation: A CAAnimation instance.
 	*/
 	public func animate(animation: CAAnimation) {
 		animation.delegate = self
@@ -364,14 +364,21 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-	:name:	animationDidStart
+	A delegation method that is executed when the backing layer starts
+	running an animation.
+	- Parameter anim: The currently running CAAnimation instance.
 	*/
 	public override func animationDidStart(anim: CAAnimation) {
 		(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStart?(anim)
 	}
 	
 	/**
-	:name:	animationDidStop
+	A delegation method that is executed when the backing layer stops
+	running an animation.
+	- Parameter anim: The CAAnimation instance that stopped running.
+	- Parameter flag: A boolean that indicates if the animation stopped
+	because it was completed or interrupted. True if completed, false 
+	if interrupted.
 	*/
 	public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
 		if let a: CAPropertyAnimation = anim as? CAPropertyAnimation {
@@ -391,40 +398,33 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-	:name:	prepareView
+	Prepares the view instance when intialized. When subclassing, 
+	it is recommended to override the prepareView method
+	to initialize property values and other setup operations.
+	The super.prepareView method should always be called immediately
+	when subclassing.
 	*/
 	public func prepareView() {
-		userInteractionEnabled = MaterialTheme.view.userInteractionEnabled
-		backgroundColor = MaterialTheme.view.backgroundColor
-		
-		shadowColor = MaterialTheme.view.shadowColor
-		zPosition = MaterialTheme.view.zPosition
-		borderColor = MaterialTheme.view.bordercolor
-		
 		prepareVisualLayer()
+		shadowColor = MaterialColor.black
+		borderColor = MaterialColor.black
 	}
 	
-	/**
-	:name:	prepareVisualLayer
-	*/
+	/// Prepares the visualLayer property.
 	internal func prepareVisualLayer() {
 		visualLayer.zPosition = 0
 		visualLayer.masksToBounds = true
 		layer.addSublayer(visualLayer)
 	}
 	
-	/**
-	:name:	layoutVisualLayer
-	*/
+	/// Manages the layout for the visualLayer property.
 	internal func layoutVisualLayer() {
 		visualLayer.frame = bounds
 		visualLayer.position = CGPointMake(width / 2, height / 2)
 		visualLayer.cornerRadius = layer.cornerRadius
 	}
 	
-	/**
-	:name:	layoutShape
-	*/
+	/// Manages the layout for the shape of the view instance.
 	internal func layoutShape() {
 		if .Circle == shape {
 			layer.cornerRadius = width / 2

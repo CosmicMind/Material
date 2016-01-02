@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2015 CosmicMind, Inc. <http://cosmicmind.io> 
+// Copyright (C) 2015 - 2016 CosmicMind, Inc. <http://cosmicmind.io>. All rights reserved. 
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published
@@ -19,8 +19,6 @@
 import UIKit
 
 public struct MaterialTheme {
-	public struct view {}
-	public struct pulseView {}
 	public struct basicCardView {}
 	public struct imageCardView {}
 	public struct navigationBarView {}
@@ -30,60 +28,6 @@ public struct MaterialTheme {
 	public struct flatButton {}
 	public struct raisedButton {}
 	public struct fabButton {}
-}
-
-// view
-public extension MaterialTheme.view {
-	// shadow
-	public static var depth: MaterialDepth = .None
-	public static var shadowColor: UIColor = MaterialColor.black
-	
-	// border
-	public static var borderWidth: MaterialBorder = .None
-	public static var bordercolor: UIColor = MaterialColor.black
-	
-	// color
-	public static var backgroundColor: UIColor = MaterialColor.white
-	
-	// interaction
-	public static var userInteractionEnabled: Bool = true
-	
-	// image
-	public static var contentsRect: CGRect = CGRectMake(0, 0, 1, 1)
-	public static var contentsCenter: CGRect = CGRectMake(0, 0, 1, 1)
-	public static var contentsScale: CGFloat = UIScreen.mainScreen().scale
-	public static var contentsGravity: MaterialGravity = .ResizeAspectFill
-	
-	// position
-	public static var zPosition: CGFloat = 0
-}
-
-// pulseView
-public extension MaterialTheme.pulseView {
-	// shadow
-	public static var depth: MaterialDepth = .None
-	public static var shadowColor: UIColor = MaterialColor.black
-	
-	// border
-	public static var borderWidth: MaterialBorder = .None
-	public static var bordercolor: UIColor = MaterialColor.black
-	
-	// color
-	public static var backgroundColor: UIColor = MaterialColor.clear
-	public static var pulseColor: UIColor = MaterialColor.white
-	public static var pulseColorOpacity: CGFloat = 0.25
-	
-	// interaction
-	public static var userInteractionEnabled: Bool = true
-	
-	// image
-	public static var contentsRect: CGRect = CGRectMake(0, 0, 1, 1)
-	public static var contentsCenter: CGRect = CGRectMake(0, 0, 1, 1)
-	public static var contentsScale: CGFloat = UIScreen.mainScreen().scale
-	public static var contentsGravity: MaterialGravity = .ResizeAspectFill
-	
-	// position
-	public static var zPosition: CGFloat = 0
 }
 
 // basicCardView
