@@ -25,9 +25,6 @@ public struct MaterialTheme {
 	public struct captureView {}
 	public struct textLayer {}
 	public struct label {}
-	public struct flatButton {}
-	public struct raisedButton {}
-	public struct fabButton {}
 }
 
 // basicCardView
@@ -208,95 +205,3 @@ public extension MaterialTheme.label {
 	public static var font: UIFont = RobotoFont.regular
 }
 
-// flatButton
-public extension MaterialTheme.flatButton {
-	// shadow
-	public static var depth: MaterialDepth = .None
-	public static var shadowColor: UIColor = MaterialColor.black
-	
-	// shape
-	public static var cornerRadius: MaterialRadius = .Radius1
-	public static var contentInsets: MaterialEdgeInsets = .WideRectangle3
-	public static var shape: MaterialShape = .None
-	
-	// border
-	public static var borderWidth: MaterialBorder = .None
-	public static var bordercolor: UIColor = MaterialColor.black
-	
-	// color
-	public static var backgroundColor: UIColor = MaterialColor.clear
-	public static var pulseColor: UIColor = MaterialColor.blue.accent3
-	public static var pulseColorOpacity: CGFloat = 0.25
-	public static var titleLabelColorForNormalState: UIColor = MaterialColor.blue.accent3
-	
-	// interaction
-	public static var userInteractionEnabled: Bool = true
-	
-	// position
-	public static var zPosition: CGFloat = 200
-	
-	// font
-	public static var titleLabelFont: UIFont = RobotoFont.regular
-}
-
-// raisedButton
-public extension MaterialTheme.raisedButton {
-	// shadow
-	public static var depth: MaterialDepth = .Depth2
-	public static var shadowColor: UIColor = MaterialColor.black
-	
-	// shape
-	public static var cornerRadius: MaterialRadius = .Radius1
-	public static var contentInsets: MaterialEdgeInsets = .WideRectangle2
-	public static var shape: MaterialShape = .None
-	
-	// border
-	public static var borderWidth: MaterialBorder = .None
-	public static var bordercolor: UIColor = MaterialColor.black
-	
-	// color
-	public static var backgroundColor: UIColor = MaterialColor.blue.accent3
-	public static var pulseColor: UIColor = MaterialColor.white
-	public static var pulseColorOpacity: CGFloat = 0.25
-	public static var titleLabelColorForNormalState: UIColor = MaterialColor.white
-	
-	// interaction
-	public static var userInteractionEnabled: Bool = true
-	
-	// position
-	public static var zPosition: CGFloat = 200
-	
-	// font
-	public static var titleLabelFont: UIFont = RobotoFont.regular
-}
-
-
-// fabButton
-public extension MaterialTheme.fabButton {
-	// shadow
-	public static var depth: MaterialDepth = .Depth2
-	public static var shadowColor: UIColor = MaterialColor.black
-	
-	// shape
-	public static var contentInsets: MaterialEdgeInsets = .None
-	public static var shape: MaterialShape = .Circle
-	
-	// border
-	public static var borderWidth: MaterialBorder = .None
-	public static var bordercolor: UIColor = MaterialColor.black
-	
-	// color
-	public static var backgroundColor: UIColor = MaterialColor.red.darken1
-	public static var pulseColor: UIColor = MaterialColor.white
-	public static var pulseColorOpacity: CGFloat = 0.25
-	public static var titleLabelColorForNormalState: UIColor = MaterialColor.white
-	
-	// interaction
-	public static var userInteractionEnabled: Bool = true
-	
-	// position
-	public static var zPosition: CGFloat = 200
-	
-	// font
-	public static var titleLabelFont: UIFont = RobotoFont.regular
-}

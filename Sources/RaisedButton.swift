@@ -20,25 +20,18 @@ import UIKit
 
 public class RaisedButton : MaterialButton {
 	/**
-	:name:	prepareView
+	Prepares the view instance when intialized. When subclassing,
+	it is recommended to override the prepareView method
+	to initialize property values and other setup operations.
+	The super.prepareView method should always be called immediately
+	when subclassing.
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		setTitleColor(MaterialTheme.raisedButton.titleLabelColorForNormalState, forState: .Normal)
-		titleLabel!.font = MaterialTheme.raisedButton.titleLabelFont
-		
-		userInteractionEnabled = MaterialTheme.raisedButton.userInteractionEnabled
-		backgroundColor = MaterialTheme.raisedButton.backgroundColor
-		pulseColorOpacity = MaterialTheme.raisedButton.pulseColorOpacity
-		pulseColor = MaterialTheme.raisedButton.pulseColor
-		
-		depth = MaterialTheme.raisedButton.depth
-		shadowColor = MaterialTheme.raisedButton.shadowColor
-		zPosition = MaterialTheme.raisedButton.zPosition
-		cornerRadius = MaterialTheme.raisedButton.cornerRadius
-		borderWidth = MaterialTheme.raisedButton.borderWidth
-		borderColor = MaterialTheme.raisedButton.bordercolor
-		contentInsets = MaterialTheme.raisedButton.contentInsets
-		shape = MaterialTheme.raisedButton.shape
+		setTitleColor(MaterialColor.white, forState: .Normal)
+		backgroundColor = MaterialColor.blue.accent3
+		depth = .Depth2
+		cornerRadius = .Radius1
+		contentInsets = .WideRectangle3
 	}
 }

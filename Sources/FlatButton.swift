@@ -20,25 +20,17 @@ import UIKit
 
 public class FlatButton : MaterialButton {
 	/**
-	:name:	prepareView
+	Prepares the view instance when intialized. When subclassing,
+	it is recommended to override the prepareView method
+	to initialize property values and other setup operations.
+	The super.prepareView method should always be called immediately
+	when subclassing.
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		setTitleColor(MaterialTheme.flatButton.titleLabelColorForNormalState, forState: .Normal)
-		titleLabel?.font = MaterialTheme.flatButton.titleLabelFont
-		
-		userInteractionEnabled = MaterialTheme.flatButton.userInteractionEnabled
-		backgroundColor = MaterialTheme.flatButton.backgroundColor
-		pulseColorOpacity = MaterialTheme.flatButton.pulseColorOpacity
-		pulseColor = MaterialTheme.flatButton.pulseColor
-		
-		depth = MaterialTheme.flatButton.depth
-		shadowColor = MaterialTheme.flatButton.shadowColor
-		zPosition = MaterialTheme.flatButton.zPosition
-		cornerRadius = MaterialTheme.flatButton.cornerRadius
-		borderWidth = MaterialTheme.flatButton.borderWidth
-		borderColor = MaterialTheme.flatButton.bordercolor
-		contentInsets = MaterialTheme.flatButton.contentInsets
-		shape = MaterialTheme.flatButton.shape
+		setTitleColor(MaterialColor.blue.accent3, forState: .Normal)
+		pulseColor = MaterialColor.blue.accent3
+		cornerRadius = .Radius1
+		contentInsets = .WideRectangle3
 	}
 }

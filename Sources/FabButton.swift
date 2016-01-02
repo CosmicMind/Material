@@ -20,24 +20,16 @@ import UIKit
 
 public class FabButton : MaterialButton {	
 	/**
-	:name:	prepareView
+	Prepares the view instance when intialized. When subclassing,
+	it is recommended to override the prepareView method
+	to initialize property values and other setup operations.
+	The super.prepareView method should always be called immediately
+	when subclassing.
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		setTitleColor(MaterialTheme.fabButton.titleLabelColorForNormalState, forState: .Normal)
-		titleLabel?.font = MaterialTheme.fabButton.titleLabelFont
-		
-		userInteractionEnabled = MaterialTheme.fabButton.userInteractionEnabled
-		backgroundColor = MaterialTheme.fabButton.backgroundColor
-		pulseColorOpacity = MaterialTheme.fabButton.pulseColorOpacity
-		pulseColor = MaterialTheme.fabButton.pulseColor
-		
-		depth = MaterialTheme.fabButton.depth
-		shadowColor = MaterialTheme.fabButton.shadowColor
-		zPosition = MaterialTheme.fabButton.zPosition
-		borderWidth = MaterialTheme.fabButton.borderWidth
-		borderColor = MaterialTheme.fabButton.bordercolor
-		contentInsets = MaterialTheme.fabButton.contentInsets
-		shape = MaterialTheme.fabButton.shape
+		backgroundColor = MaterialColor.red.darken1
+		depth = .Depth2
+		shape = .Circle
 	}
 }

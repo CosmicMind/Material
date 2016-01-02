@@ -49,7 +49,7 @@ class ViewController: UIViewController {
      */
     func prepareRaisedButtonExample() {
         raisedButton.setTitle("Raised", forState: .Normal)
-        raisedButton.titleLabel!.font = RobotoFont.mediumWithSize(28)
+		raisedButton.titleLabel!.font = RobotoFont.mediumWithSize(28)
     }
     
     /**

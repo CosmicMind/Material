@@ -99,7 +99,7 @@
          location = "container:"
          name = "MaterialButton">
          <FileRef
-            location = "group:/Users/danieldahan/Dropbox/GraphKit/Technology/Repositories/MaterialKit/Examples/Storyboards/MaterialButton/MaterialButton.xcodeproj">
+            location = "group:Storyboards/MaterialButton/MaterialButton.xcodeproj">
          </FileRef>
       </Group>
       <Group

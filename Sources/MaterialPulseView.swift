@@ -49,14 +49,14 @@ public class MaterialPulseView : MaterialView {
 	/// The opcaity value for the pulse animation.
 	public var pulseColorOpacity: CGFloat = 0.25 {
 		didSet {
-			updatedPulseLayer()
+			updatePulseLayer()
 		}
 	}
 	
 	/// The color of the pulse effect.
 	public var pulseColor: UIColor? {
 		didSet {
-			updatedPulseLayer()
+			updatePulseLayer()
 		}
 	}
 	
@@ -154,7 +154,7 @@ public class MaterialPulseView : MaterialView {
 	}
 	
 	/// Updates the pulseLayer when settings have changed.
-	internal func updatedPulseLayer() {
+	internal func updatePulseLayer() {
 		pulseLayer.backgroundColor = pulseColor?.colorWithAlphaComponent(pulseColorOpacity).CGColor
 	}
 	
