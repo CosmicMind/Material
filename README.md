@@ -28,9 +28,6 @@ Run carthage to build the framework and drag the built MaterialKit.framework int
 
 ### Table of Contents  
 
-* [MaterialColor](#materialcolor)
-* [TextField](#textfield)
-* [TextView](#textview)
 * [MaterialLayer](#materiallayer)
 * [MaterialView](#materialview)
 * [MaterialPulseView](#materialpulseview)
@@ -46,6 +43,9 @@ Run carthage to build the framework and drag the built MaterialKit.framework int
 * [Crop Image](#cropimage)
 * [Save Image To PhotoLibrary](#saveimagetophotolibrary)
 * [Asynchronous Image Loading](#asynchronousimageloading)
+* [MaterialColor](#materialcolor)
+* [TextField](#textfield)
+* [TextView](#textview)
 * [Lines of Text](#linesoftext)
 * [Trim Whitespace](#trimwhitespace)
 
@@ -62,100 +62,6 @@ Run carthage to build the framework and drag the built MaterialKit.framework int
 * DatePicker
 * TimePicker
 * More Examples
-
-<a name="materialcolor"/>
-### MaterialColor
-
-Explore a complete range of Material Design colors using MaterialColor. Below is an example of setting a button's background color property.
-
-![MaterialKitMaterialColorPalette](http://www.materialkit.io/MK/MaterialKitMaterialColorPalette.png)
-
-```swift
-let button: FabButton = FabButton()
-button.backgroundColor = MaterialColor.blue.darken1
-```
-
-<a name="textfield"/>
-### TextField
-
-A TextField is an excellent way to improve UX. Checkout the Examples directory for a project using this component.
-
-![MaterialKitTextField](http://www.materialkit.io/MK/MaterialKitTextField.gif)
-
-```swift
-let nameField: TextField = TextField(frame: CGRectMake(57, 100, 300, 24))
-nameField.placeholder = "First Name"
-nameField.font = RobotoFont.regularWithSize(20)
-nameField.textColor = MaterialColor.black
-nameField.titleLabel = UILabel()
-nameField.titleLabel!.font = RobotoFont.mediumWithSize(12)
-nameField.titleLabelNormalColor = MaterialColor.grey.lighten2
-nameField.titleLabelHighlightedColor = MaterialColor.blue.accent3
-nameField.clearButtonMode = .WhileEditing
-
-// Add nameField to UIViewController.
-view.addSubview(nameField)
-```
-
-<a name="textview"/>
-### TextView
-
-Easily match any regular expression pattern in a body of text. Below is an example of the default hashtag pattern matching.
-
-![MaterialKitTextView](http://www.materialkit.io/MK/MaterialKitTextView.gif)
-
-```swift
-class ViewController: UIViewController, TextDelegate, TextViewDelegate {
-
-	// ...
-
-	lazy var text: Text = Text()
-	var textView: TextView?
-
-	// ...
-
-	func prepareTextView() {
-		let layoutManager: NSLayoutManager = NSLayoutManager()
-		let textContainer = NSTextContainer(size: bounds.size)
-		layoutManager.addTextContainer(textContainer)
-
-		text.delegate = self
-		text.textStorage.addLayoutManager(layoutManager)
-
-		textView = TextView(frame: CGRectNull, textContainer: textContainer)
-		textView?.delegate = self
-		textView!.editable = true
-		textView!.selectable = true
-		textView!.font = UIFont.systemFontOfSize(16)
-		textView!.text = note?["text"] as? String
-
-		textView!.placeholderLabel = UILabel()
-		textView!.placeholderLabel!.textColor = UIColor.grayColor()
-
-		let attrText: NSMutableAttributedString = NSMutableAttributedString(string: "focus your #thoughts", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(16)])
-		attrText.addAttribute(NSFontAttributeName, value: UIFont.boldSystemFontOfSize(16), range: NSRange(location: 11, length: 9))
-		textView!.placeholderLabel!.attributedText = attrText
-
-		addSubview(textView!)
-	}
-
-	// ...
-
-	func textWillProcessEdit(text: Text, textStorage: TextStorage, string: String, range: NSRange) {
-		textStorage.removeAttribute(NSFontAttributeName, range: range)
-		textStorage.addAttribute(NSFontAttributeName, value: UIFont.systemFontOfSize(16), range: range)
-	}
-
-	//...
-
-	func textDidProcessEdit(text: Text, textStorage: TextStorage, string: String, result: NSTextCheckingResult?, flags: NSMatchingFlags, stop: UnsafeMutablePointer<ObjCBool>) {
-		textStorage.addAttribute(NSFontAttributeName, value: UIFont.boldSystemFontOfSize(16), range: result!.range)
-	}
-
-	// ...
-
-}
-```
 
 <a name="materiallayer"/>
 ### MaterialLayer
@@ -711,6 +617,100 @@ UIImage.contentsOfURL(url) { (image: UIImage?, error: NSError?) in
 	if let v: UIImage = image {
 		// Do something
 	}
+}
+```
+
+<a name="materialcolor"/>
+### MaterialColor
+
+Explore a complete range of Material Design colors using MaterialColor. Below is an example of setting a button's background color property.
+
+![MaterialKitMaterialColorPalette](http://www.materialkit.io/MK/MaterialKitMaterialColorPalette.png)
+
+```swift
+let button: FabButton = FabButton()
+button.backgroundColor = MaterialColor.blue.darken1
+```
+
+<a name="textfield"/>
+### TextField
+
+A TextField is an excellent way to improve UX. Checkout the Examples directory for a project using this component.
+
+![MaterialKitTextField](http://www.materialkit.io/MK/MaterialKitTextField.gif)
+
+```swift
+let nameField: TextField = TextField(frame: CGRectMake(57, 100, 300, 24))
+nameField.placeholder = "First Name"
+nameField.font = RobotoFont.regularWithSize(20)
+nameField.textColor = MaterialColor.black
+nameField.titleLabel = UILabel()
+nameField.titleLabel!.font = RobotoFont.mediumWithSize(12)
+nameField.titleLabelNormalColor = MaterialColor.grey.lighten2
+nameField.titleLabelHighlightedColor = MaterialColor.blue.accent3
+nameField.clearButtonMode = .WhileEditing
+
+// Add nameField to UIViewController.
+view.addSubview(nameField)
+```
+
+<a name="textview"/>
+### TextView
+
+Easily match any regular expression pattern in a body of text. Below is an example of the default hashtag pattern matching.
+
+![MaterialKitTextView](http://www.materialkit.io/MK/MaterialKitTextView.gif)
+
+```swift
+class ViewController: UIViewController, TextDelegate, TextViewDelegate {
+
+	// ...
+
+	lazy var text: Text = Text()
+	var textView: TextView?
+
+	// ...
+
+	func prepareTextView() {
+		let layoutManager: NSLayoutManager = NSLayoutManager()
+		let textContainer = NSTextContainer(size: bounds.size)
+		layoutManager.addTextContainer(textContainer)
+
+		text.delegate = self
+		text.textStorage.addLayoutManager(layoutManager)
+
+		textView = TextView(frame: CGRectNull, textContainer: textContainer)
+		textView?.delegate = self
+		textView!.editable = true
+		textView!.selectable = true
+		textView!.font = UIFont.systemFontOfSize(16)
+		textView!.text = note?["text"] as? String
+
+		textView!.placeholderLabel = UILabel()
+		textView!.placeholderLabel!.textColor = UIColor.grayColor()
+
+		let attrText: NSMutableAttributedString = NSMutableAttributedString(string: "focus your #thoughts", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(16)])
+		attrText.addAttribute(NSFontAttributeName, value: UIFont.boldSystemFontOfSize(16), range: NSRange(location: 11, length: 9))
+		textView!.placeholderLabel!.attributedText = attrText
+
+		addSubview(textView!)
+	}
+
+	// ...
+
+	func textWillProcessEdit(text: Text, textStorage: TextStorage, string: String, range: NSRange) {
+		textStorage.removeAttribute(NSFontAttributeName, range: range)
+		textStorage.addAttribute(NSFontAttributeName, value: UIFont.systemFontOfSize(16), range: range)
+	}
+
+	//...
+
+	func textDidProcessEdit(text: Text, textStorage: TextStorage, string: String, result: NSTextCheckingResult?, flags: NSMatchingFlags, stop: UnsafeMutablePointer<ObjCBool>) {
+		textStorage.addAttribute(NSFontAttributeName, value: UIFont.boldSystemFontOfSize(16), range: result!.range)
+	}
+
+	// ...
+
 }
 ```
 
