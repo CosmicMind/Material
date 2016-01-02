@@ -7,21 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9642FA1B1C1B50E700022BC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9642FA1A1C1B50E700022BC6 /* AppDelegate.swift */; };
-		9642FA1D1C1B50E700022BC6 /* AMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9642FA1C1C1B50E700022BC6 /* AMainViewController.swift */; };
-		9642FA221C1B50E700022BC6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9642FA211C1B50E700022BC6 /* Assets.xcassets */; };
-		9642FA251C1B50E700022BC6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9642FA231C1B50E700022BC6 /* LaunchScreen.storyboard */; };
-		9642FA311C1B906600022BC6 /* BMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9642FA301C1B906600022BC6 /* BMainViewController.swift */; };
-		9642FA331C1B909700022BC6 /* SideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9642FA321C1B909700022BC6 /* SideViewController.swift */; };
+		960590201C388FD800691E88 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9605901F1C388FD800691E88 /* AppDelegate.swift */; };
+		960590221C388FD800691E88 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960590211C388FD800691E88 /* ViewController.swift */; };
+		960590271C388FD800691E88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 960590261C388FD800691E88 /* Assets.xcassets */; };
+		9605902A1C388FD800691E88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 960590281C388FD800691E88 /* LaunchScreen.storyboard */; };
+		960590321C38924200691E88 /* MaterialKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 960590311C38924200691E88 /* MaterialKit.framework */; };
+		960590331C38924200691E88 /* MaterialKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 960590311C38924200691E88 /* MaterialKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		9605900F1C388B8500691E88 /* Embed Frameworks */ = {
+		960590341C38924200691E88 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				960590331C38924200691E88 /* MaterialKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -29,94 +30,93 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		9642FA171C1B50E700022BC6 /* SideNavigationViewController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SideNavigationViewController.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		9642FA1A1C1B50E700022BC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9642FA1C1C1B50E700022BC6 /* AMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AMainViewController.swift; sourceTree = "<group>"; };
-		9642FA211C1B50E700022BC6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		9642FA241C1B50E700022BC6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		9642FA261C1B50E700022BC6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9642FA301C1B906600022BC6 /* BMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BMainViewController.swift; sourceTree = "<group>"; };
-		9642FA321C1B909700022BC6 /* SideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideViewController.swift; sourceTree = "<group>"; };
+		9605901C1C388FD800691E88 /* TextView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TextView.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9605901F1C388FD800691E88 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		960590211C388FD800691E88 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		960590261C388FD800691E88 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		960590291C388FD800691E88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		9605902B1C388FD800691E88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		960590311C38924200691E88 /* MaterialKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = MaterialKit.framework; path = "/Users/danieldahan/Library/Developer/Xcode/DerivedData/MaterialKit-gdulktuccbcfwbdfadtpxkworhyc/Build/Products/Debug-iphoneos/MaterialKit.framework"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		9642FA141C1B50E700022BC6 /* Frameworks */ = {
+		960590191C388FD800691E88 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				960590321C38924200691E88 /* MaterialKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9642FA0E1C1B50E700022BC6 = {
+		960590131C388FD800691E88 = {
 			isa = PBXGroup;
 			children = (
-				9642FA191C1B50E700022BC6 /* SideNavigationViewController */,
-				9642FA181C1B50E700022BC6 /* Products */,
+				960590311C38924200691E88 /* MaterialKit.framework */,
+				9605901E1C388FD800691E88 /* TextView */,
+				9605901D1C388FD800691E88 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		9642FA181C1B50E700022BC6 /* Products */ = {
+		9605901D1C388FD800691E88 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9642FA171C1B50E700022BC6 /* SideNavigationViewController.app */,
+				9605901C1C388FD800691E88 /* TextView.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		9642FA191C1B50E700022BC6 /* SideNavigationViewController */ = {
+		9605901E1C388FD800691E88 /* TextView */ = {
 			isa = PBXGroup;
 			children = (
-				9642FA1A1C1B50E700022BC6 /* AppDelegate.swift */,
-				9642FA1C1C1B50E700022BC6 /* AMainViewController.swift */,
-				9642FA301C1B906600022BC6 /* BMainViewController.swift */,
-				9642FA321C1B909700022BC6 /* SideViewController.swift */,
-				9642FA211C1B50E700022BC6 /* Assets.xcassets */,
-				9642FA231C1B50E700022BC6 /* LaunchScreen.storyboard */,
-				9642FA261C1B50E700022BC6 /* Info.plist */,
+				9605901F1C388FD800691E88 /* AppDelegate.swift */,
+				960590211C388FD800691E88 /* ViewController.swift */,
+				960590261C388FD800691E88 /* Assets.xcassets */,
+				960590281C388FD800691E88 /* LaunchScreen.storyboard */,
+				9605902B1C388FD800691E88 /* Info.plist */,
 			);
-			path = SideNavigationViewController;
+			path = TextView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		9642FA161C1B50E700022BC6 /* SideNavigationViewController */ = {
+		9605901B1C388FD800691E88 /* TextView */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9642FA291C1B50E700022BC6 /* Build configuration list for PBXNativeTarget "SideNavigationViewController" */;
+			buildConfigurationList = 9605902E1C388FD800691E88 /* Build configuration list for PBXNativeTarget "TextView" */;
 			buildPhases = (
-				9642FA131C1B50E700022BC6 /* Sources */,
-				9642FA141C1B50E700022BC6 /* Frameworks */,
-				9642FA151C1B50E700022BC6 /* Resources */,
-				9605900F1C388B8500691E88 /* Embed Frameworks */,
+				960590181C388FD800691E88 /* Sources */,
+				960590191C388FD800691E88 /* Frameworks */,
+				9605901A1C388FD800691E88 /* Resources */,
+				960590341C38924200691E88 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = SideNavigationViewController;
-			productName = SideNavigationViewController;
-			productReference = 9642FA171C1B50E700022BC6 /* SideNavigationViewController.app */;
+			name = TextView;
+			productName = TextView;
+			productReference = 9605901C1C388FD800691E88 /* TextView.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		9642FA0F1C1B50E700022BC6 /* Project object */ = {
+		960590141C388FD800691E88 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0710;
-				LastUpgradeCheck = 0710;
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "CosmicMind, Inc.";
 				TargetAttributes = {
-					9642FA161C1B50E700022BC6 = {
-						CreatedOnToolsVersion = 7.1.1;
+					9605901B1C388FD800691E88 = {
+						CreatedOnToolsVersion = 7.2;
 					};
 				};
 			};
-			buildConfigurationList = 9642FA121C1B50E700022BC6 /* Build configuration list for PBXProject "SideNavigationViewController" */;
+			buildConfigurationList = 960590171C388FD800691E88 /* Build configuration list for PBXProject "TextView" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -124,47 +124,45 @@
 				en,
 				Base,
 			);
-			mainGroup = 9642FA0E1C1B50E700022BC6;
-			productRefGroup = 9642FA181C1B50E700022BC6 /* Products */;
+			mainGroup = 960590131C388FD800691E88;
+			productRefGroup = 9605901D1C388FD800691E88 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				9642FA161C1B50E700022BC6 /* SideNavigationViewController */,
+				9605901B1C388FD800691E88 /* TextView */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		9642FA151C1B50E700022BC6 /* Resources */ = {
+		9605901A1C388FD800691E88 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9642FA251C1B50E700022BC6 /* LaunchScreen.storyboard in Resources */,
-				9642FA221C1B50E700022BC6 /* Assets.xcassets in Resources */,
+				9605902A1C388FD800691E88 /* LaunchScreen.storyboard in Resources */,
+				960590271C388FD800691E88 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		9642FA131C1B50E700022BC6 /* Sources */ = {
+		960590181C388FD800691E88 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9642FA1D1C1B50E700022BC6 /* AMainViewController.swift in Sources */,
-				9642FA331C1B909700022BC6 /* SideViewController.swift in Sources */,
-				9642FA1B1C1B50E700022BC6 /* AppDelegate.swift in Sources */,
-				9642FA311C1B906600022BC6 /* BMainViewController.swift in Sources */,
+				960590221C388FD800691E88 /* ViewController.swift in Sources */,
+				960590201C388FD800691E88 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		9642FA231C1B50E700022BC6 /* LaunchScreen.storyboard */ = {
+		960590281C388FD800691E88 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				9642FA241C1B50E700022BC6 /* Base */,
+				960590291C388FD800691E88 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -172,7 +170,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		9642FA271C1B50E700022BC6 /* Debug */ = {
+		9605902C1C388FD800691E88 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -217,7 +215,7 @@
 			};
 			name = Debug;
 		};
-		9642FA281C1B50E700022BC6 /* Release */ = {
+		9605902D1C388FD800691E88 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -255,24 +253,24 @@
 			};
 			name = Release;
 		};
-		9642FA2A1C1B50E700022BC6 /* Debug */ = {
+		9605902F1C388FD800691E88 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = SideNavigationViewController/Info.plist;
+				INFOPLIST_FILE = TextView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.SideNavigationViewController;
+				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.TextView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
-		9642FA2B1C1B50E700022BC6 /* Release */ = {
+		960590301C388FD800691E88 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = SideNavigationViewController/Info.plist;
+				INFOPLIST_FILE = TextView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.SideNavigationViewController;
+				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.TextView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -280,25 +278,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9642FA121C1B50E700022BC6 /* Build configuration list for PBXProject "SideNavigationViewController" */ = {
+		960590171C388FD800691E88 /* Build configuration list for PBXProject "TextView" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				9642FA271C1B50E700022BC6 /* Debug */,
-				9642FA281C1B50E700022BC6 /* Release */,
+				9605902C1C388FD800691E88 /* Debug */,
+				9605902D1C388FD800691E88 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9642FA291C1B50E700022BC6 /* Build configuration list for PBXNativeTarget "SideNavigationViewController" */ = {
+		9605902E1C388FD800691E88 /* Build configuration list for PBXNativeTarget "TextView" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				9642FA2A1C1B50E700022BC6 /* Debug */,
-				9642FA2B1C1B50E700022BC6 /* Release */,
+				9605902F1C388FD800691E88 /* Debug */,
+				960590301C388FD800691E88 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 9642FA0F1C1B50E700022BC6 /* Project object */;
+	rootObject = 960590141C388FD800691E88 /* Project object */;
 }

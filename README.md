@@ -663,17 +663,22 @@ Easily match any regular expression pattern in a body of text. Below is an examp
 
 ```swift
 class ViewController: UIViewController, TextDelegate, TextViewDelegate {
-
-	// ...
-
 	lazy var text: Text = Text()
 	var textView: TextView?
 
-	// ...
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		prepareView()
+		prepareTextView()
+	}
+
+	private func prepareView() {
+		view.backgroundColor = MaterialColor.white
+	}
 
 	func prepareTextView() {
 		let layoutManager: NSLayoutManager = NSLayoutManager()
-		let textContainer = NSTextContainer(size: bounds.size)
+		let textContainer = NSTextContainer(size: view.bounds.size)
 		layoutManager.addTextContainer(textContainer)
 
 		text.delegate = self
@@ -683,34 +688,25 @@ class ViewController: UIViewController, TextDelegate, TextViewDelegate {
 		textView?.delegate = self
 		textView!.editable = true
 		textView!.selectable = true
-		textView!.font = UIFont.systemFontOfSize(16)
-		textView!.text = note?["text"] as? String
+		textView!.font = RobotoFont.regular
 
 		textView!.placeholderLabel = UILabel()
-		textView!.placeholderLabel!.textColor = UIColor.grayColor()
+		textView!.placeholderLabel!.textColor = MaterialColor.grey.base
+		textView!.placeholderLabel!.text = "MaterialKit TextView"
 
-		let attrText: NSMutableAttributedString = NSMutableAttributedString(string: "focus your #thoughts", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(16)])
-		attrText.addAttribute(NSFontAttributeName, value: UIFont.boldSystemFontOfSize(16), range: NSRange(location: 11, length: 9))
-		textView!.placeholderLabel!.attributedText = attrText
-
-		addSubview(textView!)
+		view.addSubview(textView!)
+		textView!.translatesAutoresizingMaskIntoConstraints = false
+		MaterialLayout.alignToParent(view, child: textView!, top: 24, left: 24, bottom: 24, right: 24)
 	}
-
-	// ...
 
 	func textWillProcessEdit(text: Text, textStorage: TextStorage, string: String, range: NSRange) {
 		textStorage.removeAttribute(NSFontAttributeName, range: range)
-		textStorage.addAttribute(NSFontAttributeName, value: UIFont.systemFontOfSize(16), range: range)
+		textStorage.addAttribute(NSFontAttributeName, value: RobotoFont.regular, range: range)
 	}
-
-	//...
 
 	func textDidProcessEdit(text: Text, textStorage: TextStorage, string: String, result: NSTextCheckingResult?, flags: NSMatchingFlags, stop: UnsafeMutablePointer<ObjCBool>) {
 		textStorage.addAttribute(NSFontAttributeName, value: UIFont.boldSystemFontOfSize(16), range: result!.range)
 	}
-
-	// ...
-
 }
 ```
 

@@ -30,6 +30,13 @@
       </Group>
       <Group
          location = "container:"
+         name = "TextView">
+         <FileRef
+            location = "group:Programmatic/TextView/TextView.xcodeproj">
+         </FileRef>
+      </Group>
+      <Group
+         location = "container:"
          name = "MaterialView">
          <FileRef
             location = "group:Programmatic/MaterialView/MaterialView.xcodeproj">
