@@ -40,7 +40,7 @@ public class NavigationBarView : MaterialView {
 	/**
 	:name:	contentInsetsRef
 	*/
-	public var contentInsetsRef: UIEdgeInsets = MaterialTheme.navigationBarView.contentInsetsRef {
+	public var contentInsetsRef: UIEdgeInsets = MaterialEdgeInsetsToValue(.Square2) {
 		didSet {
 			reloadView()
 		}
@@ -58,7 +58,7 @@ public class NavigationBarView : MaterialView {
 	/**
 	:name:	titleLabelInsetsRef
 	*/
-	public var titleLabelInsetsRef: UIEdgeInsets = MaterialTheme.navigationBarView.titleLabelInsetsRef {
+	public var titleLabelInsetsRef: UIEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0) {
 		didSet {
 			reloadView()
 		}
@@ -86,7 +86,7 @@ public class NavigationBarView : MaterialView {
 	/**
 	:name:	detailLabelInsetsRef
 	*/
-	public var detailLabelInsetsRef: UIEdgeInsets = MaterialTheme.navigationBarView.detailLabelInsetsRef {
+	public var detailLabelInsetsRef: UIEdgeInsets = MaterialEdgeInsetsToValue(.None) {
 		didSet {
 			reloadView()
 		}
@@ -114,7 +114,7 @@ public class NavigationBarView : MaterialView {
 	/**
 	:name:	leftButtonsInsetsRef
 	*/
-	public var leftButtonsInsetsRef: UIEdgeInsets = MaterialTheme.navigationBarView.leftButtonsInsetsRef {
+	public var leftButtonsInsetsRef: UIEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0) {
 		didSet {
 			reloadView()
 		}
@@ -146,7 +146,7 @@ public class NavigationBarView : MaterialView {
 	/**
 	:name:	rightButtonsInsetsRef
 	*/
-	public var rightButtonsInsetsRef: UIEdgeInsets = MaterialTheme.navigationBarView.rightButtonsInsetsRef {
+	public var rightButtonsInsetsRef: UIEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0) {
 		didSet {
 			reloadView()
 		}
@@ -184,14 +184,14 @@ public class NavigationBarView : MaterialView {
 	:name:	init
 	*/
 	public convenience init() {
-		self.init(frame: CGRectMake(MaterialTheme.navigationBarView.x, MaterialTheme.navigationBarView.y, MaterialTheme.navigationBarView.width, MaterialTheme.navigationBarView.height))
+		self.init(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 70))
 	}
 	
 	/**
 	:name:	init
 	*/
 	public convenience init?(titleLabel: UILabel? = nil, detailLabel: UILabel? = nil, leftButtons: Array<UIButton>? = nil, rightButtons: Array<UIButton>? = nil) {
-		self.init(frame: CGRectMake(MaterialTheme.navigationBarView.x, MaterialTheme.navigationBarView.y, MaterialTheme.navigationBarView.width, MaterialTheme.navigationBarView.height))
+		self.init(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 70))
 		prepareProperties(titleLabel, detailLabel: detailLabel, leftButtons: leftButtons, rightButtons: rightButtons)
 	}
 	
@@ -320,18 +320,7 @@ public class NavigationBarView : MaterialView {
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		userInteractionEnabled = MaterialTheme.navigationBarView.userInteractionEnabled
-		backgroundColor = MaterialTheme.navigationBarView.backgroundColor
-		
-		contentsRect = MaterialTheme.navigationBarView.contentsRect
-		contentsCenter = MaterialTheme.navigationBarView.contentsCenter
-		contentsScale = MaterialTheme.navigationBarView.contentsScale
-		contentsGravity = MaterialTheme.navigationBarView.contentsGravity
-		depth = MaterialTheme.navigationBarView.depth
-		shadowColor = MaterialTheme.navigationBarView.shadowColor
-		zPosition = MaterialTheme.navigationBarView.zPosition
-		borderWidth = MaterialTheme.navigationBarView.borderWidth
-		borderColor = MaterialTheme.navigationBarView.bordercolor
+		depth = .Depth2
 	}
 	
 	/**

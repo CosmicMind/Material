@@ -20,11 +20,11 @@ import UIKit
 import MaterialKit
 
 class AMainViewController: UIViewController {
+	lazy var enabledButton: RaisedButton = RaisedButton()
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		
-		// Examples of using SideNavigationViewController.
 		prepareSwapSideNavigationViewControllerExample()
 	}
 	
@@ -36,18 +36,32 @@ class AMainViewController: UIViewController {
 			completion: nil)
 	}
 	
-	/**
-	:name:	prepareView
-	:description: General preparation statements.
-	*/
-	private func prepareView() {
-		view.backgroundColor = MaterialColor.blue.base
+	internal func handleEnabledButton() {
+		if true == sideNavigationViewController?.enabled {
+			sideNavigationViewController?.enabled = false
+			enabledButton.setTitle("Disabled", forState: .Normal)
+		} else {
+			sideNavigationViewController?.enabled = true
+			enabledButton.setTitle("Enabled", forState: .Normal)
+		}
 	}
 	
-	/**
-	:name:	prepareGeneralSideNavigationViewControllerExample
-	:description:	General usage example.
-	*/
+	private func prepareView() {
+		view.backgroundColor = MaterialColor.blue.base
+		prepareEnabledButton()
+	}
+	
+	private func prepareEnabledButton() {
+		enabledButton.setTitle("Enabled", forState: .Normal)
+		enabledButton.addTarget(self, action: "handleEnabledButton", forControlEvents: .TouchUpInside)
+		
+		// Add the enabledButton through MaterialLayout.
+		view.addSubview(enabledButton)
+		enabledButton.translatesAutoresizingMaskIntoConstraints = false
+		MaterialLayout.alignFromTopRight(view, child: enabledButton, top: 124, right: 24)
+		MaterialLayout.size(view, child: enabledButton, width: 200, height: 50)
+	}
+	
 	private func prepareSwapSideNavigationViewControllerExample() {
 		let button: FabButton = FabButton()
 		button.addTarget(self, action: "handleSwapViewControllers", forControlEvents: .TouchUpInside)

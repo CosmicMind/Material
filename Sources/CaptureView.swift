@@ -182,7 +182,7 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 	/**
 	:name:	contentInsetsRef
 	*/
-	public var contentInsetsRef: UIEdgeInsets = MaterialTheme.captureView.contentInsetsRef {
+	public var contentInsetsRef: UIEdgeInsets = MaterialEdgeInsetsToValue(.Square4) {
 		didSet {
 			reloadView()
 		}
@@ -308,19 +308,7 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		userInteractionEnabled = MaterialTheme.captureView.userInteractionEnabled
-		backgroundColor = MaterialTheme.captureView.backgroundColor
-		
-		contentsRect = MaterialTheme.captureView.contentsRect
-		contentsCenter = MaterialTheme.captureView.contentsCenter
-		contentsScale = MaterialTheme.captureView.contentsScale
-		contentsGravity = MaterialTheme.captureView.contentsGravity
-		depth = MaterialTheme.captureView.depth
-		shadowColor = MaterialTheme.captureView.shadowColor
-		zPosition = MaterialTheme.captureView.zPosition
-		borderWidth = MaterialTheme.captureView.borderWidth
-		borderColor = MaterialTheme.captureView.bordercolor
-		
+		backgroundColor = MaterialColor.black
 		preparePreviewView()
 	}
 	

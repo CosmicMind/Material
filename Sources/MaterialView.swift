@@ -406,6 +406,7 @@ public class MaterialView : UIView {
 	*/
 	public func prepareView() {
 		prepareVisualLayer()
+		backgroundColor = MaterialColor.white
 		shadowColor = MaterialColor.black
 		borderColor = MaterialColor.black
 	}

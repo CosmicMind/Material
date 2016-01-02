@@ -154,7 +154,16 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	A Boolean property that enables and disables the sideView from
 	opening and closing. Defaults to true.
 	*/
-	public var enabled: Bool = true
+	public var enabled: Bool = true {
+		didSet {
+			if enabled {
+				removeGestures(&sidePanGesture, tap: &sideTapGesture)
+				prepareGestures(&sidePanGesture, panSelector: "handlePanGesture:", tap: &sideTapGesture, tapSelector: "handleTapGesture:")
+			} else {
+				removeGestures(&sidePanGesture, tap: &sideTapGesture)
+			}
+		}
+	}
 	
 	/**
 	A Boolean property that triggers the status bar to be hidden

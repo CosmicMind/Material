@@ -72,18 +72,18 @@ public class MaterialLabel : UILabel {
 	/**
 	:name:	wrapped
 	*/
-	public var wrapped: Bool! {
+	public var wrapped: Bool {
 		didSet {
-			textLayer.wrapped = nil == wrapped ? MaterialTheme.label.wrapped : wrapped!
+			textLayer.wrapped = wrapped
 		}
 	}
 	
 	/**
 	:name:	contentsScale
 	*/
-	public var contentsScale: CGFloat! {
+	public var contentsScale: CGFloat {
 		didSet {
-			textLayer.contentsScale = nil == contentsScale ? MaterialTheme.label.contentsScale : contentsScale!
+			textLayer.contentsScale = contentsScale
 		}
 	}
 	
@@ -100,6 +100,8 @@ public class MaterialLabel : UILabel {
 	:name:	init
 	*/
 	public required init?(coder aDecoder: NSCoder) {
+		wrapped = true
+		contentsScale = UIScreen.mainScreen().scale
 		super.init(coder: aDecoder)
 	}
 	
@@ -107,6 +109,8 @@ public class MaterialLabel : UILabel {
 	:name:	init
 	*/
 	public override init(frame: CGRect) {
+		wrapped = true
+		contentsScale = UIScreen.mainScreen().scale
 		super.init(frame: frame)
 		prepareView()
 	}
@@ -130,9 +134,6 @@ public class MaterialLabel : UILabel {
 	:name:	prepareView
 	*/
 	public func prepareView() {
-		textAlignment = MaterialTheme.label.textAlignment
-		wrapped = MaterialTheme.label.wrapped
-		contentsScale = MaterialTheme.label.contentsScale
-		font = MaterialTheme.label.font
+		textAlignment = .Left
 	}
 }

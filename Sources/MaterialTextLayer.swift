@@ -196,11 +196,10 @@ public class MaterialTextLayer : CATextLayer {
 	:name:	prepareLayer
 	*/
 	internal func prepareLayer() {
-		textColor = MaterialTheme.textLayer.textColor
-		textAlignment = MaterialTheme.textLayer.textAlignment
-		wrapped = MaterialTheme.textLayer.wrapped
-		contentsScale = MaterialTheme.textLayer.contentsScale
-		font = MaterialTheme.textLayer.font
-		lineBreakMode = MaterialTheme.textLayer.lineBreakMode
+		textColor = MaterialColor.black
+		textAlignment = .Left
+		wrapped = true
+		contentsScale = UIScreen.mainScreen().scale
+		lineBreakMode = .ByWordWrapping
 	}
 }

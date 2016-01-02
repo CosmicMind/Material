@@ -36,7 +36,7 @@ public class CardView : MaterialPulseView {
 	/**
 	:name:	divider
 	*/
-	public var divider: Bool = MaterialTheme.basicCardView.divider {
+	public var divider: Bool = true {
 		didSet {
 			reloadView()
 		}
@@ -54,7 +54,7 @@ public class CardView : MaterialPulseView {
 	/**
 	:name:	dividerInsetsRef
 	*/
-	public var dividerInsetsRef: UIEdgeInsets = MaterialTheme.basicCardView.dividerInsetsRef {
+	public var dividerInsetsRef: UIEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0) {
 		didSet {
 			reloadView()
 		}
@@ -72,7 +72,7 @@ public class CardView : MaterialPulseView {
 	/**
 	:name:	contentInsetsRef
 	*/
-	public var contentInsetsRef: UIEdgeInsets = MaterialTheme.basicCardView.contentInsetsRef {
+	public var contentInsetsRef: UIEdgeInsets = MaterialEdgeInsetsToValue(.Square2) {
 		didSet {
 			reloadView()
 		}
@@ -90,7 +90,7 @@ public class CardView : MaterialPulseView {
 	/**
 	:name:	titleLabelInsetsRef
 	*/
-	public var titleLabelInsetsRef: UIEdgeInsets = MaterialTheme.basicCardView.titleLabelInsetsRef {
+	public var titleLabelInsetsRef: UIEdgeInsets = MaterialEdgeInsetsToValue(.Square2) {
 		didSet {
 			reloadView()
 		}
@@ -118,7 +118,7 @@ public class CardView : MaterialPulseView {
 	/**
 	:name:	detailLabelInsetsRef
 	*/
-	public var detailLabelInsetsRef: UIEdgeInsets = MaterialTheme.basicCardView.detailLabelInsetsRef {
+	public var detailLabelInsetsRef: UIEdgeInsets = MaterialEdgeInsetsToValue(.Square2) {
 		didSet {
 			reloadView()
 		}
@@ -146,7 +146,7 @@ public class CardView : MaterialPulseView {
 	/**
 	:name:	leftButtonsInsetsRef
 	*/
-	public var leftButtonsInsetsRef: UIEdgeInsets = MaterialTheme.basicCardView.leftButtonsInsetsRef {
+	public var leftButtonsInsetsRef: UIEdgeInsets = MaterialEdgeInsetsToValue(.None) {
 		didSet {
 			reloadView()
 		}
@@ -178,7 +178,7 @@ public class CardView : MaterialPulseView {
 	/**
 	:name:	rightButtonsInsetsRef
 	*/
-	public var rightButtonsInsetsRef: UIEdgeInsets = MaterialTheme.basicCardView.rightButtonsInsetsRef {
+	public var rightButtonsInsetsRef: UIEdgeInsets = MaterialEdgeInsetsToValue(.None) {
 		didSet {
 			reloadView()
 		}
@@ -394,20 +394,9 @@ public class CardView : MaterialPulseView {
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		userInteractionEnabled = MaterialTheme.basicCardView.userInteractionEnabled
-		backgroundColor = MaterialTheme.basicCardView.backgroundColor
-		pulseColor = MaterialTheme.basicCardView.pulseColor
-		
-		contentsRect = MaterialTheme.basicCardView.contentsRect
-		contentsCenter = MaterialTheme.basicCardView.contentsCenter
-		contentsScale = MaterialTheme.basicCardView.contentsScale
-		contentsGravity = MaterialTheme.basicCardView.contentsGravity
-		depth = MaterialTheme.basicCardView.depth
-		shadowColor = MaterialTheme.basicCardView.shadowColor
-		zPosition = MaterialTheme.basicCardView.zPosition
-		borderWidth = MaterialTheme.basicCardView.borderWidth
-		borderColor = MaterialTheme.basicCardView.bordercolor
-		dividerColor = MaterialTheme.basicCardView.dividerColor
+		pulseColor = MaterialColor.blueGrey.lighten4
+		depth = .Depth2
+		dividerColor = MaterialColor.blueGrey.lighten5
 	}
 	
 	/**
