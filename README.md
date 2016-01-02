@@ -56,6 +56,11 @@ Run carthage to build the framework and drag the built MaterialKit.framework int
 * TabView
 * TabViewController
 * Scrolling Techniques
+* Dialogs
+* Snackbar
+* ProgressBar (circular and horizontal)
+* DatePicker
+* TimePicker
 * More Examples
 
 <a name="materialcolor"/>
@@ -313,7 +318,6 @@ cardView.backgroundColor = MaterialColor.red.darken1
 cardView.pulseScale = false
 cardView.pulseColor = nil
 
-// Image - resize method is located in ContentKit or Examples project.
 cardView.image = UIImage(named: "iTunesArtwork")?.resize(toWidth: 400)
 cardView.contentsGravity = .BottomRight
 
