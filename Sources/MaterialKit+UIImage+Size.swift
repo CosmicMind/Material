@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2015 CosmicMind, Inc. <http://cosmicmind.io>.. 
+// Copyright (C) 2015 CosmicMind, Inc. <http://cosmicmind.io>
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published
@@ -18,14 +18,18 @@
 
 import UIKit
 
-public extension UIFont {
+public extension UIImage {
 	/**
-	:name:	stringSize
+		:name:	width
 	*/
-	public func stringSize(string: String, constrainedToWidth width: Double) -> CGSize {
-		return string.boundingRectWithSize(CGSize(width: width, height: DBL_MAX),
-			options: NSStringDrawingOptions.UsesLineFragmentOrigin,
-			attributes: [NSFontAttributeName: self],
-			context: nil).size
+	public var width: CGFloat {
+		return size.width
+	}
+	
+	/**
+		:name:	height
+	*/
+	public var height: CGFloat {
+		return size.height
 	}
 }

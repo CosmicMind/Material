@@ -30,6 +30,7 @@ Run carthage to build the framework and drag the built MaterialKit.framework int
 
 * [MaterialColor](#materialcolor)
 * [TextField](#textfield)
+* [TextView](#textview)
 * [MaterialLayer](#materiallayer)
 * [MaterialView](#materialview)
 * [MaterialPulseView](#materialpulseview)
@@ -41,6 +42,12 @@ Run carthage to build the framework and drag the built MaterialKit.framework int
 * [NavigationBarView](#navigationbarview)
 * [SideNavigationViewController](#sidenavigationviewcontroller)
 * [CaptureView](#captureview)
+* [Resize Image](#resizeimage)
+* [Crop Image](#cropimage)
+* [Save Image To PhotoLibrary](#saveimagetophotolibrary)
+* [Asynchronous Image Loading](#asynchronousimageloading)
+* [Lines of Text](#linesoftext)
+* [Trim Whitespace](#trimwhitespace)
 
 ### Upcoming
 
@@ -48,7 +55,6 @@ Run carthage to build the framework and drag the built MaterialKit.framework int
 * SearchBarViewController
 * TabView
 * TabViewController
-* TextView
 * Scrolling Techniques
 * More Examples
 
@@ -84,6 +90,66 @@ nameField.clearButtonMode = .WhileEditing
 
 // Add nameField to UIViewController.
 view.addSubview(nameField)
+```
+
+<a name="textview"/>
+### TextView
+
+Easily match any regular expression pattern in a body of text. Below is an example of the default hashtag pattern matching.
+
+![MaterialKitTextView](http://www.materialkit.io/MK/MaterialKitTextView.gif)
+
+```swift
+class ViewController: UIViewController, TextDelegate, TextViewDelegate {
+
+	// ...
+
+	lazy var text: Text = Text()
+	var textView: TextView?
+
+	// ...
+
+	func prepareTextView() {
+		let layoutManager: NSLayoutManager = NSLayoutManager()
+		let textContainer = NSTextContainer(size: bounds.size)
+		layoutManager.addTextContainer(textContainer)
+
+		text.delegate = self
+		text.textStorage.addLayoutManager(layoutManager)
+
+		textView = TextView(frame: CGRectNull, textContainer: textContainer)
+		textView?.delegate = self
+		textView!.editable = true
+		textView!.selectable = true
+		textView!.font = UIFont.systemFontOfSize(16)
+		textView!.text = note?["text"] as? String
+
+		textView!.placeholderLabel = UILabel()
+		textView!.placeholderLabel!.textColor = UIColor.grayColor()
+
+		let attrText: NSMutableAttributedString = NSMutableAttributedString(string: "focus your #thoughts", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(16)])
+		attrText.addAttribute(NSFontAttributeName, value: UIFont.boldSystemFontOfSize(16), range: NSRange(location: 11, length: 9))
+		textView!.placeholderLabel!.attributedText = attrText
+
+		addSubview(textView!)
+	}
+
+	// ...
+
+	func textWillProcessEdit(text: Text, textStorage: TextStorage, string: String, range: NSRange) {
+		textStorage.removeAttribute(NSFontAttributeName, range: range)
+		textStorage.addAttribute(NSFontAttributeName, value: UIFont.systemFontOfSize(16), range: range)
+	}
+
+	//...
+
+	func textDidProcessEdit(text: Text, textStorage: TextStorage, string: String, result: NSTextCheckingResult?, flags: NSMatchingFlags, stop: UnsafeMutablePointer<ObjCBool>) {
+		textStorage.addAttribute(NSFontAttributeName, value: UIFont.boldSystemFontOfSize(16), range: result!.range)
+	}
+
+	// ...
+
+}
 ```
 
 <a name="materiallayer"/>
@@ -579,6 +645,97 @@ As elegant as is effective, the SideNavigationViewController is an excellent way
 Add a new dimension of interactivity with CaptureView. CaptureView is a fully functional camera that is completely customizable. Checkout the Examples directory for a sample project using this wonderful component.
 
 ![MaterialKitCaptureView](http://www.materialkit.io/MK/MaterialKitCaptureView.jpg)
+
+<a name="resizeimage"/>
+### Resize Image
+
+Images come in all shapes and sizes. UIImage resize is a flexible way to resize images on the fly. The below example shows you how.
+
+```swift
+let p1: UIImage? = UIImage(named: "img1")
+let p2: UIImage? = p1?.resize(toWidth: 300)
+let p3: UIImage? = p1?.resize(toHeight: 200)
+```
+
+<a name="cropimage"/>
+### Crop Image
+
+Crop images easily with UIImage crop. Below is an example:
+
+```swift
+let p1: UIImage? = UIImage(named: "img1")
+let p2: UIImage? = p1?.crop(toWidth: 400, toHeight: 200)
+```
+
+<a name="saveimagetophotolibrary"/>
+### Save Image To PhotoLibrary
+
+Keep the moment by saving your images to PhotoLibrary. Below is an example of cropping an image and saving it to the devices PhotoLibrary.
+
+```swift
+let p: UIImage? = UIImage(named: "img1")
+p?.crop(toWidth: 400, toHeight: 200)?.writeToPhotoLibrary()
+```
+
+It is also possible to specify a target handler when saving to the PhotoLibrary.
+
+```swift
+let p: UIImage? = UIImage(named: "img1")
+p?.writeToPhotoLibrary(target: self)
+```
+
+Add the PhotoLibrary save handler to the target object.
+
+```swift
+func image(image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafePointer<Void>) {
+	let message: String = nil == error ? "Your photo has been saved!" : error!.localizedDescription
+
+	let a: UIAlertController = UIAlertController(title: "Status", message: message, preferredStyle: .Alert)
+	a.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+	presentViewController(a, animated: true, completion: nil)
+}
+```
+
+<a name="asynchronousimageloading"/>
+### Asynchronous Image Loading
+
+Not all images you may want to load will be available locally. No problem, use the UIImage class method contentsOfURL to load remote images asynchronously. Below is an example of its usage.
+
+```swift
+let url: NSURL = NSURL(string: "https://yourimage.io")!
+UIImage.contentsOfURL(url) { (image: UIImage?, error: NSError?) in
+	if let v: UIImage = image {
+		// Do something
+	}
+}
+```
+
+<a name="linesoftext"/>
+### Lines of Text
+
+Cycle through lines of text in any String. Below is an example of iterating through all lines of text in a String.
+
+```swift
+let text: String = "This is a\nblock of text\nthat has\nnewlines."
+for line in text.lines {
+	print(line)
+}
+// Output:
+// This is a
+// block of text
+// that has
+// newlines.
+```
+
+<a name="trimwhitespace"/>
+### Trim Whitespace
+
+Remove the spaces and newlines from the beginning and end of a text block. Below is an example.
+
+```swift
+let text: String = "     \n  Hello World    \n     "
+print(text.trim()) // Output: Hello World
+```
 
 ### License
 

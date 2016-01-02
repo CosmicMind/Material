@@ -18,32 +18,14 @@
 
 import UIKit
 
-public protocol MaterialFontType {}
-
-public struct MaterialFont : MaterialFontType {
+public extension UIFont {
 	/**
-	:name:	pointSize
+	:name:	stringSize
 	*/
-	public static let pointSize: CGFloat = 16
-	
-	/**
-	:name:	systemFontWithSize
-	*/
-	public static func systemFontWithSize(size: CGFloat) -> UIFont {
-		return UIFont.systemFontOfSize(size)
-	}
-	
-	/**
-	:name:	boldSystemFontWithSize
-	*/
-	public static func boldSystemFontWithSize(size: CGFloat) -> UIFont {
-		return UIFont.boldSystemFontOfSize(size)
-	}
-	
-	/**
-	:name:	italicSystemFontWithSize
-	*/
-	public static func italicSystemFontWithSize(size: CGFloat) -> UIFont {
-		return UIFont.italicSystemFontOfSize(size)
+	public func stringSize(string: String, constrainedToWidth width: Double) -> CGSize {
+		return string.boundingRectWithSize(CGSize(width: width, height: DBL_MAX),
+			options: NSStringDrawingOptions.UsesLineFragmentOrigin,
+			attributes: [NSFontAttributeName: self],
+			context: nil).size
 	}
 }

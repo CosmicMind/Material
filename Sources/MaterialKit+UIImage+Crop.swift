@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2015 CosmicMind, Inc. <http://cosmicmind.io> 
+// Copyright (C) 2015 CosmicMind, Inc. <http://cosmicmind.io>
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published
@@ -18,32 +18,24 @@
 
 import UIKit
 
-public protocol MaterialFontType {}
-
-public struct MaterialFont : MaterialFontType {
+public extension UIImage {
 	/**
-	:name:	pointSize
+		:name:	crop
 	*/
-	public static let pointSize: CGFloat = 16
-	
-	/**
-	:name:	systemFontWithSize
-	*/
-	public static func systemFontWithSize(size: CGFloat) -> UIFont {
-		return UIFont.systemFontOfSize(size)
-	}
-	
-	/**
-	:name:	boldSystemFontWithSize
-	*/
-	public static func boldSystemFontWithSize(size: CGFloat) -> UIFont {
-		return UIFont.boldSystemFontOfSize(size)
-	}
-	
-	/**
-	:name:	italicSystemFontWithSize
-	*/
-	public static func italicSystemFontWithSize(size: CGFloat) -> UIFont {
-		return UIFont.italicSystemFontOfSize(size)
+	public func crop(var toWidth w: CGFloat, var toHeight h: CGFloat) -> UIImage? {
+		let g: UIImage?
+		let b: Bool = width > height
+		let s: CGFloat = b ? h / height : w / width
+		let t: CGSize = CGSizeMake(w, h)
+		
+		w = width * s
+		h = height * s
+		
+		UIGraphicsBeginImageContext(t)
+		drawInRect(b ? CGRectMake(-1 * (w - t.width) / 2, 0, w, h) : CGRectMake(0, -1 * (h - t.height) / 2, w, h), blendMode: .Normal, alpha: 1)
+		g = UIGraphicsGetImageFromCurrentImageContext()
+		UIGraphicsEndImageContext()
+		
+		return g!
 	}
 }

@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2015 CosmicMind, Inc. <http://cosmicmind.io> 
+// Copyright (C) 2015 CosmicMind, Inc. <http://cosmicmind.io>
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published
@@ -18,32 +18,38 @@
 
 import UIKit
 
-public protocol MaterialFontType {}
-
-public struct MaterialFont : MaterialFontType {
+public extension UIImage {
 	/**
-	:name:	pointSize
+		:name:	internalResize
 	*/
-	public static let pointSize: CGFloat = 16
-	
-	/**
-	:name:	systemFontWithSize
-	*/
-	public static func systemFontWithSize(size: CGFloat) -> UIFont {
-		return UIFont.systemFontOfSize(size)
+	private func internalResize(var toWidth w: CGFloat = 0, var toHeight h: CGFloat = 0) -> UIImage? {
+		if 0 < w {
+			h = height * w / width
+		} else if 0 < h {
+			w = width * h / height
+		}
+		
+		let g: UIImage?
+		let t: CGRect = CGRectMake(0, 0, w, h)
+		UIGraphicsBeginImageContext(t.size)
+		drawInRect(t, blendMode: .Normal, alpha: 1)
+		g = UIGraphicsGetImageFromCurrentImageContext()
+		UIGraphicsEndImageContext()
+		
+		return g
 	}
 	
 	/**
-	:name:	boldSystemFontWithSize
+		:name:	resize
 	*/
-	public static func boldSystemFontWithSize(size: CGFloat) -> UIFont {
-		return UIFont.boldSystemFontOfSize(size)
+	public func resize(toWidth w: CGFloat) -> UIImage? {
+		return internalResize(toWidth: w)
 	}
 	
 	/**
-	:name:	italicSystemFontWithSize
+		:name:	resize
 	*/
-	public static func italicSystemFontWithSize(size: CGFloat) -> UIFont {
-		return UIFont.italicSystemFontOfSize(size)
+	public func resize(toHeight h: CGFloat) -> UIImage? {
+		return internalResize(toHeight: h)
 	}
 }

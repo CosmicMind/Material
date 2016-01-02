@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2015 CosmicMind, Inc. <http://cosmicmind.io> 
+// Copyright (C) 2015 CosmicMind, Inc. <http://cosmicmind.io>
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published
@@ -18,32 +18,7 @@
 
 import UIKit
 
-public protocol MaterialFontType {}
-
-public struct MaterialFont : MaterialFontType {
-	/**
-	:name:	pointSize
-	*/
-	public static let pointSize: CGFloat = 16
-	
-	/**
-	:name:	systemFontWithSize
-	*/
-	public static func systemFontWithSize(size: CGFloat) -> UIFont {
-		return UIFont.systemFontOfSize(size)
-	}
-	
-	/**
-	:name:	boldSystemFontWithSize
-	*/
-	public static func boldSystemFontWithSize(size: CGFloat) -> UIFont {
-		return UIFont.boldSystemFontOfSize(size)
-	}
-	
-	/**
-	:name:	italicSystemFontWithSize
-	*/
-	public static func italicSystemFontWithSize(size: CGFloat) -> UIFont {
-		return UIFont.italicSystemFontOfSize(size)
-	}
+public enum ContentImageFormatType {
+	case PNG
+	case JPEG
 }
