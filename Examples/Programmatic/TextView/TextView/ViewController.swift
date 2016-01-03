@@ -53,8 +53,8 @@ class ViewController: UIViewController, TextDelegate, TextViewDelegate {
 		
 		textView.titleLabel = UILabel()
 		textView.titleLabel!.font = RobotoFont.mediumWithSize(12)
-		textView.titleLabelTextColor = MaterialColor.grey.lighten2
-		textView.titleLabelActiveTextColor = MaterialColor.blue.accent3
+		textView.titleLabelColor = MaterialColor.grey.lighten2
+		textView.titleLabelActiveColor = MaterialColor.blue.accent3
 		
 		view.addSubview(textView)
 		textView!.translatesAutoresizingMaskIntoConstraints = false

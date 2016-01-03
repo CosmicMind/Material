@@ -232,14 +232,14 @@ public class TextView: UITextView {
 	}
 	
 	/// The color of the titleLabel text when the textView is not active.
-	public var titleLabelTextColor: UIColor? {
+	public var titleLabelColor: UIColor? {
 		didSet {
-			titleLabel?.textColor = titleLabelTextColor
+			titleLabel?.textColor = titleLabelColor
 		}
 	}
 	
 	/// The color of the titleLabel text when the textView is active.
-	public var titleLabelActiveTextColor: UIColor?
+	public var titleLabelActiveColor: UIColor?
 	
 	/// Placeholder UILabel view.
 	public var placeholderLabel: UILabel? {
@@ -410,9 +410,9 @@ public class TextView: UITextView {
 				v.frame = CGRectMake(0, -h, bounds.width, h)
 				v.text = placeholderLabel?.text
 				if 0 == text?.utf16.count {
-					v.textColor = titleLabelTextColor
+					v.textColor = titleLabelColor
 				} else {
-					v.textColor = titleLabelActiveTextColor
+					v.textColor = titleLabelActiveColor
 				}
 			}
 		}
@@ -426,7 +426,7 @@ public class TextView: UITextView {
 		
 		if 0 < text?.utf16.count {
 			showTitleLabel()
-			titleLabel?.textColor = titleLabelActiveTextColor
+			titleLabel?.textColor = titleLabelActiveColor
 		} else if 0 == text?.utf16.count {
 			hideTitleLabel()
 		}
@@ -439,7 +439,7 @@ public class TextView: UITextView {
 		} else if 0 == text?.utf16.count {
 			hideTitleLabel()
 		}
-		titleLabel?.textColor = titleLabelTextColor
+		titleLabel?.textColor = titleLabelColor
 	}
 	
 	/// Manages the layout for the shape of the view instance.

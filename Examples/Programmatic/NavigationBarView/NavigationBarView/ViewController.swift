@@ -31,8 +31,8 @@ class ViewController: UIViewController {
 //		prepareOrientationSupportExample()
 //		prepareDetailLabelExample()
 //		prepareBackgroundImageExample()
-//		prepareButtonExample()
-		prepareAlignTitleAndDetailLabelToLeftExample()
+		prepareButtonExample()
+//		prepareAlignTitleAndDetailLabelToLeftExample()
 	}
 	
 	/**

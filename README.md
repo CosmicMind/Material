@@ -81,15 +81,16 @@ A TextField is an excellent way to improve UX. Checkout the Examples directory f
 ![MaterialKitTextField](http://www.materialkit.io/MK/MaterialKitTextField.gif)
 
 ```swift
-let nameField: TextField = TextField(frame: CGRectMake(57, 100, 300, 24))
-nameField.placeholder = "First Name"
-nameField.font = RobotoFont.regularWithSize(20)
-nameField.textColor = MaterialColor.black
-nameField.titleLabel = UILabel()
-nameField.titleLabel!.font = RobotoFont.mediumWithSize(12)
-nameField.titleLabelNormalColor = MaterialColor.grey.lighten2
-nameField.titleLabelHighlightedColor = MaterialColor.blue.accent3
-nameField.clearButtonMode = .WhileEditing
+let textField: TextField = TextField(frame: CGRectMake(57, 100, 300, 24))
+textField.placeholder = "First Name"
+textField.font = RobotoFont.regularWithSize(20)
+textField.textColor = MaterialColor.black
+textField.titleLabel = UILabel()
+textField.titleLabel!.font = RobotoFont.mediumWithSize(12)
+textField.titleLabelTextColor = MaterialColor.grey.lighten1
+textField.titleLabelActiveTextColor = MaterialColor.blue.accent3
+textField.clearButtonMode = .WhileEditing
+view.addSubview(textField)
 
 // Add nameField to UIViewController.
 view.addSubview(nameField)
