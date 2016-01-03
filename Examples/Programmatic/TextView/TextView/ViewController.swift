@@ -41,7 +41,7 @@ class ViewController: UIViewController, TextDelegate, TextViewDelegate {
 		text.delegate = self
 		text.textStorage.addLayoutManager(layoutManager)
 		
-		textView = TextView(frame: CGRectNull, textContainer: textContainer)
+		textView = TextView(textContainer: textContainer)
 		textView.delegate = self
 		textView.editable = true
 		textView.selectable = true

@@ -246,11 +246,6 @@ public class TextField : UITextField {
 	public var titleLabelActiveTextColor: UIColor?
 	
 	/**
-	:name:	detailLabelActiveTextColor
-	*/
-	public var detailLabelActiveTextColor: UIColor?
-	
-	/**
 	The detail UILabel that is displayed when the detailLabelHidden property
 	is set to false.
 	*/
@@ -259,6 +254,12 @@ public class TextField : UITextField {
 			prepareDetailLabel()
 		}
 	}
+	
+	/**
+	The color of the detailLabel text when the detailLabelHidden property
+	is set to false.
+	*/
+	public var detailLabelActiveTextColor: UIColor?
 	
 	/**
 	:name:	detailLabelHidden
@@ -276,8 +277,10 @@ public class TextField : UITextField {
 		}
 	}
 	
+	
 	/**
-	:name:	init
+	An initializer that initializes the object with a NSCoder object.
+	- Parameter aDecoder: A NSCoder instance.
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		depth = .None
@@ -289,7 +292,10 @@ public class TextField : UITextField {
 	}
 	
 	/**
-	:name:	init
+	An initializer that initializes the object with a CGRect object.
+	If AutoLayout is used, it is better to initilize the instance
+	using the init() initializer.
+	- Parameter frame: A CGRect instance.
 	*/
 	public override init(frame: CGRect) {
 		depth = .None
@@ -300,9 +306,7 @@ public class TextField : UITextField {
 		prepareView()
 	}
 	
-	/**
-	:name:	init
-	*/
+	/// A convenience initializer that is mostly used with AutoLayout.
 	public convenience init() {
 		self.init(frame: CGRectNull)
 	}
@@ -383,11 +387,16 @@ public class TextField : UITextField {
 		prepareBottomBorderLayer()
 	}
 	
-	/**
-	:name:	textFieldDidBegin
-	*/
+	/// Handler for text editing began.
 	internal func textFieldDidBegin(textField: TextField) {
-		titleLabel?.text = placeholder
+		if let v: UILabel = titleLabel {
+			if v.hidden {
+				let h: CGFloat = v.font.pointSize
+				v.frame = CGRectMake(0, -h, bounds.width, h)
+				titleLabel?.text = placeholder
+			}
+		}
+		
 		if 0 == text?.utf16.count {
 			titleLabel?.textColor = titleLabelTextColor
 			bottomBorderLayer.backgroundColor = titleLabelTextColor?.CGColor
@@ -398,9 +407,7 @@ public class TextField : UITextField {
 		}
 	}
 	
-	/**
-	:name:	textFieldDidChange
-	*/
+	/// Handler for text changed.
 	internal func textFieldDidChange(textField: TextField) {
 		if 0 < text?.utf16.count {
 			showTitleLabel()
@@ -412,9 +419,7 @@ public class TextField : UITextField {
 		}
 	}
 	
-	/**
-	:name:	textFieldDidEnd
-	*/
+	/// Handler for text editing ended.
 	internal func textFieldDidEnd(textField: TextField) {
 		if 0 < text?.utf16.count {
 			showTitleLabel()
@@ -432,9 +437,7 @@ public class TextField : UITextField {
 		}
 	}
 	
-	/**
-	:name:	prepareTitleLabel
-	*/
+	/// Prepares the titleLabel property.
 	private func prepareTitleLabel() {
 		if let v: UILabel = titleLabel {
 			MaterialAnimation.animationDisabled {
@@ -451,9 +454,7 @@ public class TextField : UITextField {
 		}
 	}
 	
-	/**
-	:name:	prepareDetailLabel
-	*/
+	/// Prepares the detailLabel property.
 	private func prepareDetailLabel() {
 		if let v: UILabel = detailLabel {
 			MaterialAnimation.animationDisabled {
@@ -469,16 +470,12 @@ public class TextField : UITextField {
 		}
 	}
 	
-	/**
-	:name:	prepareBottomBorderLayer
-	*/
+	/// Prepares the bottomBorderLayer property.
 	private func prepareBottomBorderLayer() {
 		layer.addSublayer(bottomBorderLayer)
 	}
 	
-	/**
-	:name:	showTitleLabel
-	*/
+	/// Shows and animates the titleLabel property.
 	private func showTitleLabel() {
 		if let v: UILabel = titleLabel {
 			v.frame.size.height = v.font.pointSize
@@ -490,9 +487,7 @@ public class TextField : UITextField {
 		}
 	}
 	
-	/**
-	:name:	hideTitleLabel
-	*/
+	/// Hides and animates the titleLabel property.
 	private func hideTitleLabel() {
 		if let v: UILabel = titleLabel {
 			UIView.animateWithDuration(0.25, animations: {
@@ -504,12 +499,9 @@ public class TextField : UITextField {
 		}
 	}
 	
-	/**
-	:name:	showDetailLabel
-	*/
+	/// Shows and animates the detailLabel property.
 	private func showDetailLabel() {
 		if let v: UILabel = detailLabel {
-			v.frame.size.height = v.font.pointSize
 			v.hidden = false
 			UIView.animateWithDuration(0.25, animations: {
 				v.alpha = 1
@@ -518,9 +510,7 @@ public class TextField : UITextField {
 		}
 	}
 	
-	/**
-	:name:	hideDetailLabel
-	*/
+	/// Hides and animates the detailLabel property.
 	private func hideDetailLabel() {
 		if let v: UILabel = detailLabel {
 			UIView.animateWithDuration(0.25, animations: {

@@ -241,28 +241,21 @@ public class TextView: UITextView {
 	/// The color of the titleLabel text when the textView is active.
 	public var titleLabelActiveTextColor: UIColor?
 	
-	/**
-	:name:	placeholderLabel
-	*/
+	/// Placeholder UILabel view.
 	public var placeholderLabel: UILabel? {
 		didSet {
 			preparePlaceholderLabel()
 		}
 	}
 	
-	
-	/**
-	:name:	text
-	*/
+	/// An override to the text property.
 	public override var text: String! {
 		didSet {
 			handleTextViewTextDidChange()
 		}
 	}
 	
-	/**
-	:name:	attributedText
-	*/
+	/// An override to the attributedText property.
 	public override var attributedText: NSAttributedString! {
 		didSet {
 			handleTextViewTextDidChange()
@@ -270,7 +263,8 @@ public class TextView: UITextView {
 	}
 	
 	/**
-	:name:	textContainerInset
+	Text container UIEdgeInset preset property. This updates the 
+	textContainerInset property with a preset value.
 	*/
 	public var textContainerInsetPreset: MaterialEdgeInsetPreset = .None {
 		didSet {
@@ -278,9 +272,7 @@ public class TextView: UITextView {
 		}
 	}
 	
-	/**
-	:name:	textContainerInset
-	*/
+	/// Text container UIEdgeInset property.
 	public override var textContainerInset: UIEdgeInsets {
 		didSet {
 			reloadView()
@@ -288,7 +280,8 @@ public class TextView: UITextView {
 	}
 	
 	/**
-		:name:	init
+	An initializer that initializes the object with a NSCoder object.
+	- Parameter aDecoder: A NSCoder instance.
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		depth = .None
@@ -300,7 +293,10 @@ public class TextView: UITextView {
 	}
 	
 	/**
-		:name:	init
+	An initializer that initializes the object with a CGRect object.
+	If AutoLayout is used, it is better to initilize the instance
+	using the init() initializer.
+	- Parameter frame: A CGRect instance.
 	*/
 	public override init(frame: CGRect, textContainer: NSTextContainer?) {
 		depth = .None
@@ -311,9 +307,17 @@ public class TextView: UITextView {
 		prepareView()
 	}
 	
-	//
-	//	:name:	deinit
-	//
+	/**
+	A convenience initializer that is mostly used with AutoLayout.
+	- Parameter textContainer: A NSTextContainer instance.
+	*/
+	public convenience init(textContainer: NSTextContainer?) {
+		self.init(frame: CGRectNull, textContainer: textContainer)
+	}
+	
+	/** Denitializer. This should never be called unless you know
+	what you are doing.
+	*/
 	deinit {
 		removeNotificationHandlers()
 	}
@@ -385,9 +389,7 @@ public class TextView: UITextView {
 		}
 	}
 	
-	/**
-		:name:	reloadView
-	*/
+	/// Reloads necessary components when the view has changed.
 	internal func reloadView() {
 		if let p = placeholderLabel {
 			removeConstraints(constraints)
@@ -400,21 +402,23 @@ public class TextView: UITextView {
 		}
 	}
 	
-	/**
-	:name:	textFieldDidBegin
-	*/
+	/// Notification handler for when text editing began.
 	internal func handleTextViewTextDidBegin() {
-		titleLabel?.text = placeholderLabel?.text
-		if 0 == text?.utf16.count {
-			titleLabel?.textColor = titleLabelTextColor
-		} else {
-			titleLabel?.textColor = titleLabelActiveTextColor
+		if let v: UILabel = titleLabel {
+			if v.hidden {
+				let h: CGFloat = v.font.pointSize
+				v.frame = CGRectMake(0, -h, bounds.width, h)
+				v.text = placeholderLabel?.text
+				if 0 == text?.utf16.count {
+					v.textColor = titleLabelTextColor
+				} else {
+					v.textColor = titleLabelActiveTextColor
+				}
+			}
 		}
 	}
 	
-	/**
-	:name:	textFieldDidChange
-	*/
+	/// Notification handler for when text changed.
 	internal func handleTextViewTextDidChange() {
 		if let p = placeholderLabel {
 			p.hidden = !text.isEmpty
@@ -428,9 +432,7 @@ public class TextView: UITextView {
 		}
 	}
 	
-	/**
-	:name:	textFieldDidEnd
-	*/
+	/// Notification handler for when text editing ended.
 	internal func handleTextViewTextDidEnd() {
 		if 0 < text?.utf16.count {
 			showTitleLabel()
@@ -447,9 +449,13 @@ public class TextView: UITextView {
 		}
 	}
 	
-	//
-	//	:name:	prepareView
-	//
+	/**
+	Prepares the view instance when intialized. When subclassing,
+	it is recommended to override the prepareView method
+	to initialize property values and other setup operations.
+	The super.prepareView method should always be called immediately
+	when subclassing.
+	*/
 	private func prepareView() {
 		textContainerInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
 		backgroundColor = MaterialColor.white
@@ -459,6 +465,7 @@ public class TextView: UITextView {
 		reloadView()
 	}
 	
+	/// prepares the placeholderLabel property.
 	private func preparePlaceholderLabel() {
 		if let v: UILabel = placeholderLabel {
 			v.translatesAutoresizingMaskIntoConstraints = false
@@ -481,8 +488,6 @@ public class TextView: UITextView {
 				v.alpha = 0
 			}
 			titleLabel?.text = placeholderLabel?.text
-			let h: CGFloat = v.font.pointSize
-			v.frame = CGRectMake(0, -h, bounds.width, h)
 			addSubview(v)
 		}
 	}
@@ -490,7 +495,6 @@ public class TextView: UITextView {
 	/// Shows and animates the titleLabel property.
 	private func showTitleLabel() {
 		if let v: UILabel = titleLabel {
-			v.frame.size.height = v.font.pointSize
 			v.hidden = false
 			UIView.animateWithDuration(0.25, animations: {
 				v.alpha = 1

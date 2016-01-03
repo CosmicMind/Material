@@ -29,6 +29,8 @@ Run carthage to build the framework and drag the built MaterialKit.framework int
 ### Table of Contents  
 
 * [MaterialColor](#materialcolor)
+* [TextField](#textfield)
+* [TextView](#textview)
 * [MaterialLayer](#materiallayer)
 * [MaterialView](#materialview)
 * [MaterialPulseView](#materialpulseview)
@@ -44,8 +46,6 @@ Run carthage to build the framework and drag the built MaterialKit.framework int
 * [Crop Image](#cropimage)
 * [Save Image To PhotoLibrary](#saveimagetophotolibrary)
 * [Asynchronous Image Loading](#asynchronousimageloading)
-* [TextField](#textfield)
-* [TextView](#textview)
 * [Lines of Text](#linesoftext)
 * [Trim Whitespace](#trimwhitespace)
 
@@ -73,6 +73,116 @@ Explore a complete range of Material Design colors using MaterialColor. Below is
 ```swift
 let button: FabButton = FabButton()
 button.backgroundColor = MaterialColor.blue.darken1
+```
+
+<a name="textfield"/>
+### TextField
+
+A TextField is an excellent way to improve UX. Checkout the Examples directory for a project using this component.
+
+![MaterialKitTextField](http://www.materialkit.io/MK/MaterialKitTextField.gif)
+
+```swift
+let nameField: TextField = TextField(frame: CGRectMake(57, 100, 300, 24))
+nameField.placeholder = "First Name"
+nameField.font = RobotoFont.regularWithSize(20)
+nameField.textColor = MaterialColor.black
+nameField.titleLabel = UILabel()
+nameField.titleLabel!.font = RobotoFont.mediumWithSize(12)
+nameField.titleLabelNormalColor = MaterialColor.grey.lighten2
+nameField.titleLabelHighlightedColor = MaterialColor.blue.accent3
+nameField.clearButtonMode = .WhileEditing
+
+// Add nameField to UIViewController.
+view.addSubview(nameField)
+```
+
+<a name="textview"/>
+### TextView
+
+Easily match any regular expression pattern in a body of text. Below is an example of the default hashtag pattern matching.
+
+![MaterialKitTextView](http://www.materialkit.io/MK/MaterialKitTextView.gif)
+
+```swift
+class ViewController: UIViewController, TextDelegate, TextViewDelegate {
+	lazy var text: Text = Text()
+	var textView: TextView!
+
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		prepareView()
+		prepareTextView()
+	}
+
+	private func prepareView() {
+		view.backgroundColor = MaterialColor.white
+	}
+
+	func prepareTextView() {
+		let layoutManager: NSLayoutManager = NSLayoutManager()
+		let textContainer = NSTextContainer(size: view.bounds.size)
+		layoutManager.addTextContainer(textContainer)
+
+		text.delegate = self
+		text.textStorage.addLayoutManager(layoutManager)
+
+		textView = TextView(textContainer: textContainer)
+		textView.delegate = self
+		textView.editable = true
+		textView.selectable = true
+		textView.font = RobotoFont.regular
+
+		textView.placeholderLabel = UILabel()
+		textView.placeholderLabel!.textColor = MaterialColor.grey.base
+		textView.placeholderLabel!.text = "Description"
+
+		textView.titleLabel = UILabel()
+		textView.titleLabel!.font = RobotoFont.mediumWithSize(12)
+		textView.titleLabelTextColor = MaterialColor.grey.lighten2
+		textView.titleLabelActiveTextColor = MaterialColor.blue.accent3
+
+		view.addSubview(textView)
+		textView!.translatesAutoresizingMaskIntoConstraints = false
+		MaterialLayout.alignToParent(view, child: textView!, top: 124, left: 24, bottom: 24, right: 24)
+	}
+
+	func textWillProcessEdit(text: Text, textStorage: TextStorage, string: String, range: NSRange) {
+		textStorage.removeAttribute(NSFontAttributeName, range: range)
+		textStorage.addAttribute(NSFontAttributeName, value: RobotoFont.regular, range: range)
+	}
+
+	func textDidProcessEdit(text: Text, textStorage: TextStorage, string: String, result: NSTextCheckingResult?, flags: NSMatchingFlags, stop: UnsafeMutablePointer<ObjCBool>) {
+		textStorage.addAttribute(NSFontAttributeName, value: UIFont.boldSystemFontOfSize(16), range: result!.range)
+	}
+}
+```
+
+<a name="linesoftext"/>
+### Lines of Text
+
+Cycle through lines of text in any String. Below is an example of iterating through all lines of text in a String.
+
+```swift
+let text: String = "This is a\nblock of text\nthat has\nnewlines."
+for line in text.lines {
+	print(line)
+}
+// Output:
+// This is a
+// block of text
+// that has
+// newlines.
+```
+
+<a name="trimwhitespace"/>
+### Trim Whitespace
+
+Remove the spaces and newlines from the beginning and end of a text block. Below is an example.
+
+```swift
+let text: String = "     \n  Hello World    \n     "
+print(text.trim()) // Output: Hello World
 ```
 
 <a name="materiallayer"/>
@@ -574,9 +684,9 @@ Add a new dimension of interactivity with CaptureView. CaptureView is a fully fu
 Images come in all shapes and sizes. UIImage resize is a flexible way to resize images on the fly. The below example shows you how.
 
 ```swift
-let p1: UIImage? = UIImage(named: "img1")
-let p2: UIImage? = p1?.resize(toWidth: 300)
-let p3: UIImage? = p1?.resize(toHeight: 200)
+let img1: UIImage? = UIImage(named: "photo")
+let img2: UIImage? = img1?.resize(toWidth: 300)
+let img3: UIImage? = img1?.resize(toHeight: 200)
 ```
 
 <a name="cropimage"/>
@@ -585,8 +695,8 @@ let p3: UIImage? = p1?.resize(toHeight: 200)
 Crop images easily with UIImage crop. Below is an example:
 
 ```swift
-let p1: UIImage? = UIImage(named: "img1")
-let p2: UIImage? = p1?.crop(toWidth: 400, toHeight: 200)
+let img1: UIImage? = UIImage(named: "photo")
+let img2: UIImage? = img1?.crop(toWidth: 400, toHeight: 200)
 ```
 
 <a name="saveimagetophotolibrary"/>
@@ -595,15 +705,15 @@ let p2: UIImage? = p1?.crop(toWidth: 400, toHeight: 200)
 Keep the moment by saving your images to PhotoLibrary. Below is an example of cropping an image and saving it to the devices PhotoLibrary.
 
 ```swift
-let p: UIImage? = UIImage(named: "img1")
-p?.crop(toWidth: 400, toHeight: 200)?.writeToPhotoLibrary()
+let img: UIImage? = UIImage(named: "photo")
+img?.crop(toWidth: 400, toHeight: 200)?.writeToPhotoLibrary()
 ```
 
 It is also possible to specify a target handler when saving to the PhotoLibrary.
 
 ```swift
-let p: UIImage? = UIImage(named: "img1")
-p?.writeToPhotoLibrary(target: self)
+let img: UIImage? = UIImage(named: "photo")
+img?.writeToPhotoLibrary(target: self)
 ```
 
 Add the PhotoLibrary save handler to the target object.
@@ -630,116 +740,6 @@ UIImage.contentsOfURL(url) { (image: UIImage?, error: NSError?) in
 		// Do something
 	}
 }
-```
-
-<a name="textfield"/>
-### TextField
-
-A TextField is an excellent way to improve UX. Checkout the Examples directory for a project using this component.
-
-![MaterialKitTextField](http://www.materialkit.io/MK/MaterialKitTextField.gif)
-
-```swift
-let nameField: TextField = TextField(frame: CGRectMake(57, 100, 300, 24))
-nameField.placeholder = "First Name"
-nameField.font = RobotoFont.regularWithSize(20)
-nameField.textColor = MaterialColor.black
-nameField.titleLabel = UILabel()
-nameField.titleLabel!.font = RobotoFont.mediumWithSize(12)
-nameField.titleLabelNormalColor = MaterialColor.grey.lighten2
-nameField.titleLabelHighlightedColor = MaterialColor.blue.accent3
-nameField.clearButtonMode = .WhileEditing
-
-// Add nameField to UIViewController.
-view.addSubview(nameField)
-```
-
-<a name="textview"/>
-### TextView
-
-Easily match any regular expression pattern in a body of text. Below is an example of the default hashtag pattern matching.
-
-![MaterialKitTextView](http://www.materialkit.io/MK/MaterialKitTextView.gif)
-
-```swift
-class ViewController: UIViewController, TextDelegate, TextViewDelegate {
-	lazy var text: Text = Text()
-	var textView: TextView!
-
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		prepareView()
-		prepareTextView()
-	}
-
-	private func prepareView() {
-		view.backgroundColor = MaterialColor.white
-	}
-
-	func prepareTextView() {
-		let layoutManager: NSLayoutManager = NSLayoutManager()
-		let textContainer = NSTextContainer(size: view.bounds.size)
-		layoutManager.addTextContainer(textContainer)
-
-		text.delegate = self
-		text.textStorage.addLayoutManager(layoutManager)
-
-		textView = TextView(frame: CGRectNull, textContainer: textContainer)
-		textView.delegate = self
-		textView.editable = true
-		textView.selectable = true
-		textView.font = RobotoFont.regular
-
-		textView.placeholderLabel = UILabel()
-		textView.placeholderLabel!.textColor = MaterialColor.grey.base
-		textView.placeholderLabel!.text = "Description"
-
-		textView.titleLabel = UILabel()
-		textView.titleLabel!.font = RobotoFont.mediumWithSize(12)
-		textView.titleLabelNormalColor = MaterialColor.grey.lighten2
-		textView.titleLabelHighlightedColor = MaterialColor.blue.accent3
-
-		view.addSubview(textView)
-		textView!.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignToParent(view, child: textView!, top: 124, left: 24, bottom: 24, right: 24)
-	}
-
-	func textWillProcessEdit(text: Text, textStorage: TextStorage, string: String, range: NSRange) {
-		textStorage.removeAttribute(NSFontAttributeName, range: range)
-		textStorage.addAttribute(NSFontAttributeName, value: RobotoFont.regular, range: range)
-	}
-
-	func textDidProcessEdit(text: Text, textStorage: TextStorage, string: String, result: NSTextCheckingResult?, flags: NSMatchingFlags, stop: UnsafeMutablePointer<ObjCBool>) {
-		textStorage.addAttribute(NSFontAttributeName, value: UIFont.boldSystemFontOfSize(16), range: result!.range)
-	}
-}
-```
-
-<a name="linesoftext"/>
-### Lines of Text
-
-Cycle through lines of text in any String. Below is an example of iterating through all lines of text in a String.
-
-```swift
-let text: String = "This is a\nblock of text\nthat has\nnewlines."
-for line in text.lines {
-	print(line)
-}
-// Output:
-// This is a
-// block of text
-// that has
-// newlines.
-```
-
-<a name="trimwhitespace"/>
-### Trim Whitespace
-
-Remove the spaces and newlines from the beginning and end of a text block. Below is an example.
-
-```swift
-let text: String = "     \n  Hello World    \n     "
-print(text.trim()) // Output: Hello World
 ```
 
 ### License

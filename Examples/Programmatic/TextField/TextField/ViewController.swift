@@ -50,7 +50,7 @@ class ViewController: UIViewController, TextFieldDelegate {
 		nameField.textColor = MaterialColor.black
 		nameField.titleLabel = UILabel()
 		nameField.titleLabel!.font = RobotoFont.mediumWithSize(12)
-		nameField.titleLabelTextColor = MaterialColor.grey.lighten2
+		nameField.titleLabelTextColor = MaterialColor.grey.lighten1
 		nameField.titleLabelActiveTextColor = MaterialColor.blue.accent3
 		nameField.clearButtonMode = .WhileEditing
 		view.addSubview(nameField)
@@ -68,7 +68,7 @@ class ViewController: UIViewController, TextFieldDelegate {
 		emailField.textColor = MaterialColor.black
 		emailField.titleLabel = UILabel()
 		emailField.titleLabel!.font = RobotoFont.mediumWithSize(12)
-		emailField.titleLabelTextColor = MaterialColor.grey.lighten2
+		emailField.titleLabelTextColor = MaterialColor.grey.lighten1
 		emailField.titleLabelActiveTextColor = MaterialColor.blue.accent3
 		emailField.clearButtonMode = .WhileEditing
 		emailField.detailLabel = UILabel()
