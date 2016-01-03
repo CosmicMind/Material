@@ -26,7 +26,11 @@ github "CosmicMind/MaterialKit"
 
 Run carthage to build the framework and drag the built MaterialKit.framework into your Xcode project.
 
-### Table of Contents  
+### Changelog
+
+The MaterialKit framework is a fast growing project and will encounter changes throughout its development. It is recommended that the [Changelog](https://github.com/CosmicMind/MaterialKit/wiki/Changelog) be reviewed prior to updating versions.
+
+### Contents  
 
 * [MaterialColor](#materialcolor)
 * [TextField](#textfield)
@@ -42,12 +46,6 @@ Run carthage to build the framework and drag the built MaterialKit.framework int
 * [NavigationBarView](#navigationbarview)
 * [SideNavigationViewController](#sidenavigationviewcontroller)
 * [CaptureView](#captureview)
-* [Resize Image](#resizeimage)
-* [Crop Image](#cropimage)
-* [Save Image To PhotoLibrary](#saveimagetophotolibrary)
-* [Asynchronous Image Loading](#asynchronousimageloading)
-* [Lines of Text](#linesoftext)
-* [Trim Whitespace](#trimwhitespace)
 
 ### Upcoming
 
@@ -104,86 +102,7 @@ Easily match any regular expression pattern in a body of text. Below is an examp
 
 ![MaterialKitTextView](http://www.materialkit.io/MK/MaterialKitTextView.gif)
 
-```swift
-class ViewController: UIViewController, TextDelegate, TextViewDelegate {
-	lazy var text: Text = Text()
-	var textView: TextView!
-
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		prepareView()
-		prepareTextView()
-	}
-
-	private func prepareView() {
-		view.backgroundColor = MaterialColor.white
-	}
-
-	func prepareTextView() {
-		let layoutManager: NSLayoutManager = NSLayoutManager()
-		let textContainer = NSTextContainer(size: view.bounds.size)
-		layoutManager.addTextContainer(textContainer)
-
-		text.delegate = self
-		text.textStorage.addLayoutManager(layoutManager)
-
-		textView = TextView(textContainer: textContainer)
-		textView.delegate = self
-		textView.editable = true
-		textView.selectable = true
-		textView.font = RobotoFont.regular
-
-		textView.placeholderLabel = UILabel()
-		textView.placeholderLabel!.textColor = MaterialColor.grey.base
-		textView.placeholderLabel!.text = "Description"
-
-		textView.titleLabel = UILabel()
-		textView.titleLabel!.font = RobotoFont.mediumWithSize(12)
-		textView.titleLabelTextColor = MaterialColor.grey.lighten2
-		textView.titleLabelActiveTextColor = MaterialColor.blue.accent3
-
-		view.addSubview(textView)
-		textView!.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignToParent(view, child: textView!, top: 124, left: 24, bottom: 24, right: 24)
-	}
-
-	func textWillProcessEdit(text: Text, textStorage: TextStorage, string: String, range: NSRange) {
-		textStorage.removeAttribute(NSFontAttributeName, range: range)
-		textStorage.addAttribute(NSFontAttributeName, value: RobotoFont.regular, range: range)
-	}
-
-	func textDidProcessEdit(text: Text, textStorage: TextStorage, string: String, result: NSTextCheckingResult?, flags: NSMatchingFlags, stop: UnsafeMutablePointer<ObjCBool>) {
-		textStorage.addAttribute(NSFontAttributeName, value: UIFont.boldSystemFontOfSize(16), range: result!.range)
-	}
-}
-```
-
-<a name="linesoftext"/>
-### Lines of Text
-
-Cycle through lines of text in any String. Below is an example of iterating through all lines of text in a String.
-
-```swift
-let text: String = "This is a\nblock of text\nthat has\nnewlines."
-for line in text.lines {
-	print(line)
-}
-// Output:
-// This is a
-// block of text
-// that has
-// newlines.
-```
-
-<a name="trimwhitespace"/>
-### Trim Whitespace
-
-Remove the spaces and newlines from the beginning and end of a text block. Below is an example.
-
-```swift
-let text: String = "     \n  Hello World    \n     "
-print(text.trim()) // Output: Hello World
-```
+Checkout the Examples Programmatic directory for a sample project using this wonderful component.
 
 <a name="materiallayer"/>
 ### MaterialLayer
@@ -674,73 +593,11 @@ As elegant as is effective, the SideNavigationViewController is an excellent way
 <a name="captureview"/>
 ### CaptureView
 
-Add a new dimension of interactivity with CaptureView. CaptureView is a fully functional camera that is completely customizable. Checkout the Examples directory for a sample project using this wonderful component.
+Add a new dimension of interactivity with CaptureView. CaptureView is a fully functional camera that is completely customizable.
 
 ![MaterialKitCaptureView](http://www.materialkit.io/MK/MaterialKitCaptureView.jpg)
 
-<a name="resizeimage"/>
-### Resize Image
-
-Images come in all shapes and sizes. UIImage resize is a flexible way to resize images on the fly. The below example shows you how.
-
-```swift
-let img1: UIImage? = UIImage(named: "photo")
-let img2: UIImage? = img1?.resize(toWidth: 300)
-let img3: UIImage? = img1?.resize(toHeight: 200)
-```
-
-<a name="cropimage"/>
-### Crop Image
-
-Crop images easily with UIImage crop. Below is an example:
-
-```swift
-let img1: UIImage? = UIImage(named: "photo")
-let img2: UIImage? = img1?.crop(toWidth: 400, toHeight: 200)
-```
-
-<a name="saveimagetophotolibrary"/>
-### Save Image To PhotoLibrary
-
-Keep the moment by saving your images to PhotoLibrary. Below is an example of cropping an image and saving it to the devices PhotoLibrary.
-
-```swift
-let img: UIImage? = UIImage(named: "photo")
-img?.crop(toWidth: 400, toHeight: 200)?.writeToPhotoLibrary()
-```
-
-It is also possible to specify a target handler when saving to the PhotoLibrary.
-
-```swift
-let img: UIImage? = UIImage(named: "photo")
-img?.writeToPhotoLibrary(target: self)
-```
-
-Add the PhotoLibrary save handler to the target object.
-
-```swift
-func image(image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafePointer<Void>) {
-	let message: String = nil == error ? "Your photo has been saved!" : error!.localizedDescription
-
-	let a: UIAlertController = UIAlertController(title: "Status", message: message, preferredStyle: .Alert)
-	a.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-	presentViewController(a, animated: true, completion: nil)
-}
-```
-
-<a name="asynchronousimageloading"/>
-### Asynchronous Image Loading
-
-Not all images you may want to load will be available locally. No problem, use the UIImage class method contentsOfURL to load remote images asynchronously. Below is an example of its usage.
-
-```swift
-let url: NSURL = NSURL(string: "https://yourimage.io")!
-UIImage.contentsOfURL(url) { (image: UIImage?, error: NSError?) in
-	if let v: UIImage = image {
-		// Do something
-	}
-}
-```
+Checkout the Examples Programmatic directory for a sample project using this wonderful component.
 
 ### License
 
