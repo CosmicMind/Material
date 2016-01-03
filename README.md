@@ -28,6 +28,7 @@ Run carthage to build the framework and drag the built MaterialKit.framework int
 
 ### Table of Contents  
 
+* [MaterialColor](#materialcolor)
 * [MaterialLayer](#materiallayer)
 * [MaterialView](#materialview)
 * [MaterialPulseView](#materialpulseview)
@@ -43,7 +44,6 @@ Run carthage to build the framework and drag the built MaterialKit.framework int
 * [Crop Image](#cropimage)
 * [Save Image To PhotoLibrary](#saveimagetophotolibrary)
 * [Asynchronous Image Loading](#asynchronousimageloading)
-* [MaterialColor](#materialcolor)
 * [TextField](#textfield)
 * [TextView](#textview)
 * [Lines of Text](#linesoftext)
@@ -62,6 +62,40 @@ Run carthage to build the framework and drag the built MaterialKit.framework int
 * DatePicker
 * TimePicker
 * More Examples
+
+<a name="materialcolor"/>
+### MaterialColor
+
+Explore a complete range of Material Design colors using MaterialColor. Below is an example of setting a button's background color property.
+
+![MaterialKitMaterialColorPalette](http://www.materialkit.io/MK/MaterialKitMaterialColorPalette.png)
+
+```swift
+let button: FabButton = FabButton()
+button.backgroundColor = MaterialColor.blue.darken1
+```
+
+<a name="textfield"/>
+### TextField
+
+A TextField is an excellent way to improve UX. Checkout the Examples directory for a project using this component.
+
+![MaterialKitTextField](http://www.materialkit.io/MK/MaterialKitTextField.gif)
+
+```swift
+let nameField: TextField = TextField(frame: CGRectMake(57, 100, 300, 24))
+nameField.placeholder = "First Name"
+nameField.font = RobotoFont.regularWithSize(20)
+nameField.textColor = MaterialColor.black
+nameField.titleLabel = UILabel()
+nameField.titleLabel!.font = RobotoFont.mediumWithSize(12)
+nameField.titleLabelNormalColor = MaterialColor.grey.lighten2
+nameField.titleLabelHighlightedColor = MaterialColor.blue.accent3
+nameField.clearButtonMode = .WhileEditing
+
+// Add nameField to UIViewController.
+view.addSubview(nameField)
+```
 
 <a name="materiallayer"/>
 ### MaterialLayer
@@ -266,9 +300,9 @@ Adjust the alignment of the UI elements to create different configurations of th
 
 ```swift
 let cardView: CardView = CardView()
-cardView.dividerInsetsRef.left = 100
-cardView.titleLabelInsetsRef.left = 100
-cardView.detailLabelInsetsRef.left = 100
+cardView.dividerInset.left = 100
+cardView.titleLabelInset.left = 100
+cardView.detailLabelInset.left = 100
 cardView.pulseColor = MaterialColor.teal.lighten4
 
 // Image.
@@ -376,7 +410,7 @@ titleLabel.text = "Welcome Back!"
 titleLabel.textColor = MaterialColor.white
 titleLabel.font = RobotoFont.mediumWithSize(24)
 imageCardView.titleLabel = titleLabel
-imageCardView.titleLabelInsetsRef.top = 100
+imageCardView.titleLabelInset.top = 100
 
 // Detail label.
 let detailLabel: UILabel = UILabel()
@@ -427,7 +461,7 @@ titleLabel.text = "Material Design"
 titleLabel.textColor = MaterialColor.white
 titleLabel.font = RobotoFont.regularWithSize(24)
 imageCardView.titleLabel = titleLabel
-imageCardView.titleLabelInsetsRef.top = 80
+imageCardView.titleLabelInset.top = 80
 
 // Star button.
 let img1: UIImage? = UIImage(named: "ic_star_grey_darken_2")
@@ -490,7 +524,7 @@ titleLabel.textAlignment = .Left
 titleLabel.textColor = MaterialColor.white
 titleLabel.font = RobotoFont.regularWithSize(20)
 navigationBarView.titleLabel = titleLabel
-navigationBarView.titleLabelInsetsRef.left = 64
+navigationBarView.titleLabelInset.left = 64
 
 // Detail label.
 let detailLabel: UILabel = UILabel()
@@ -499,7 +533,7 @@ detailLabel.textAlignment = .Left
 detailLabel.textColor = MaterialColor.white
 detailLabel.font = RobotoFont.regularWithSize(12)
 navigationBarView.detailLabel = detailLabel
-navigationBarView.detailLabelInsetsRef.left = 64
+navigationBarView.detailLabelInset.left = 64
 
 // Menu button.
 let img1: UIImage? = UIImage(named: "ic_menu_white")
@@ -620,40 +654,6 @@ UIImage.contentsOfURL(url) { (image: UIImage?, error: NSError?) in
 }
 ```
 
-<a name="materialcolor"/>
-### MaterialColor
-
-Explore a complete range of Material Design colors using MaterialColor. Below is an example of setting a button's background color property.
-
-![MaterialKitMaterialColorPalette](http://www.materialkit.io/MK/MaterialKitMaterialColorPalette.png)
-
-```swift
-let button: FabButton = FabButton()
-button.backgroundColor = MaterialColor.blue.darken1
-```
-
-<a name="textfield"/>
-### TextField
-
-A TextField is an excellent way to improve UX. Checkout the Examples directory for a project using this component.
-
-![MaterialKitTextField](http://www.materialkit.io/MK/MaterialKitTextField.gif)
-
-```swift
-let nameField: TextField = TextField(frame: CGRectMake(57, 100, 300, 24))
-nameField.placeholder = "First Name"
-nameField.font = RobotoFont.regularWithSize(20)
-nameField.textColor = MaterialColor.black
-nameField.titleLabel = UILabel()
-nameField.titleLabel!.font = RobotoFont.mediumWithSize(12)
-nameField.titleLabelNormalColor = MaterialColor.grey.lighten2
-nameField.titleLabelHighlightedColor = MaterialColor.blue.accent3
-nameField.clearButtonMode = .WhileEditing
-
-// Add nameField to UIViewController.
-view.addSubview(nameField)
-```
-
 <a name="textview"/>
 ### TextView
 
@@ -664,7 +664,7 @@ Easily match any regular expression pattern in a body of text. Below is an examp
 ```swift
 class ViewController: UIViewController, TextDelegate, TextViewDelegate {
 	lazy var text: Text = Text()
-	var textView: TextView?
+	var textView: TextView!
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -685,18 +685,23 @@ class ViewController: UIViewController, TextDelegate, TextViewDelegate {
 		text.textStorage.addLayoutManager(layoutManager)
 
 		textView = TextView(frame: CGRectNull, textContainer: textContainer)
-		textView?.delegate = self
-		textView!.editable = true
-		textView!.selectable = true
-		textView!.font = RobotoFont.regular
+		textView.delegate = self
+		textView.editable = true
+		textView.selectable = true
+		textView.font = RobotoFont.regular
 
-		textView!.placeholderLabel = UILabel()
-		textView!.placeholderLabel!.textColor = MaterialColor.grey.base
-		textView!.placeholderLabel!.text = "MaterialKit TextView"
+		textView.placeholderLabel = UILabel()
+		textView.placeholderLabel!.textColor = MaterialColor.grey.base
+		textView.placeholderLabel!.text = "Description"
 
-		view.addSubview(textView!)
+		textView.titleLabel = UILabel()
+		textView.titleLabel!.font = RobotoFont.mediumWithSize(12)
+		textView.titleLabelNormalColor = MaterialColor.grey.lighten2
+		textView.titleLabelHighlightedColor = MaterialColor.blue.accent3
+
+		view.addSubview(textView)
 		textView!.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignToParent(view, child: textView!, top: 24, left: 24, bottom: 24, right: 24)
+		MaterialLayout.alignToParent(view, child: textView!, top: 124, left: 24, bottom: 24, right: 24)
 	}
 
 	func textWillProcessEdit(text: Text, textStorage: TextStorage, string: String, range: NSRange) {

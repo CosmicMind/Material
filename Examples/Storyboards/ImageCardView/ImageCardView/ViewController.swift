@@ -46,7 +46,7 @@ class ViewController: UIViewController {
 		titleLabel.textColor = MaterialColor.white
 		titleLabel.font = RobotoFont.regularWithSize(24)
 		imageCardView.titleLabel = titleLabel
-		imageCardView.titleLabelInsetsRef.top = 80
+		imageCardView.titleLabelInset.top = 80
 		
 		// Star button.
 		let img1: UIImage? = UIImage(named: "ic_star_grey_darken_2")
@@ -77,7 +77,7 @@ class ViewController: UIViewController {
 		
 		// Add buttons to right side.
 		imageCardView.rightButtons = [btn1, btn2, btn3]
-		imageCardView.rightButtonsInsetsRef.top = imageCardView.contentInsetsRef.top
+		imageCardView.rightButtonsInset.top = imageCardView.contentInset.top
     }
 }
 

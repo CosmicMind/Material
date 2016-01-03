@@ -173,16 +173,16 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 	/**
 	:name:	contentInsets
 	*/
-	public var contentInsets: MaterialEdgeInsets = .None {
+	public var contentInsetPreset: MaterialEdgeInsets = .None {
 		didSet {
-			contentInsetsRef = MaterialEdgeInsetsToValue(contentInsets)
+			contentInset = MaterialEdgeInsetsToValue(contentInsetPreset)
 		}
 	}
 	
 	/**
-	:name:	contentInsetsRef
+	:name:	contentInset
 	*/
-	public var contentInsetsRef: UIEdgeInsets = MaterialEdgeInsetsToValue(.Square4) {
+	public var contentInset: UIEdgeInsets = MaterialEdgeInsetsToValue(.Square4) {
 		didSet {
 			reloadView()
 		}
@@ -287,16 +287,16 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 		previewView.frame = bounds
 		
 		if let v: UIButton = cameraButton {
-			v.frame.origin.y = bounds.height - contentInsetsRef.bottom - v.bounds.height
-			v.frame.origin.x = contentInsetsRef.left
+			v.frame.origin.y = bounds.height - contentInset.bottom - v.bounds.height
+			v.frame.origin.x = contentInset.left
 		}
 		if let v: UIButton = captureButton {
-			v.frame.origin.y = bounds.height - contentInsetsRef.bottom - v.bounds.height
+			v.frame.origin.y = bounds.height - contentInset.bottom - v.bounds.height
 			v.frame.origin.x = (bounds.width - v.bounds.width) / 2
 		}
 		if let v: UIButton = videoButton {
-			v.frame.origin.y = bounds.height - contentInsetsRef.bottom - v.bounds.height
-			v.frame.origin.x = bounds.width - v.bounds.width - contentInsetsRef.right
+			v.frame.origin.y = bounds.height - contentInset.bottom - v.bounds.height
+			v.frame.origin.x = bounds.width - v.bounds.width - contentInset.right
 		}
 		if let v: AVCaptureConnection = (previewView.layer as! AVCaptureVideoPreviewLayer).connection {
 			v.videoOrientation = captureSession.currentVideoOrientation

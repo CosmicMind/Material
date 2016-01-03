@@ -276,9 +276,9 @@ public class MaterialButton : UIButton {
 	/**
 	:name:	contentInsets
 	*/
-	public var contentInsets: MaterialEdgeInsets {
+	public var contentInsetPreset: MaterialEdgeInsets {
 		didSet {
-			let value: UIEdgeInsets = MaterialEdgeInsetsToValue(contentInsets)
+			let value: UIEdgeInsets = MaterialEdgeInsetsToValue(contentInsetPreset)
 			contentEdgeInsets = UIEdgeInsetsMake(value.top, value.left, value.bottom, value.right)
 		}
 	}
@@ -292,7 +292,7 @@ public class MaterialButton : UIButton {
 		depth = .None
 		shape = .None
 		cornerRadius = .None
-		contentInsets = .None
+		contentInsetPreset = .None
 		super.init(coder: aDecoder)
 		prepareView()
 	}
@@ -308,7 +308,7 @@ public class MaterialButton : UIButton {
 		depth = .None
 		shape = .None
 		cornerRadius = .None
-		contentInsets = .None
+		contentInsetPreset = .None
 		super.init(frame: frame)
 		prepareView()
 	}
@@ -318,7 +318,7 @@ public class MaterialButton : UIButton {
 		self.init(frame: CGRectNull)
 	}
 	
-	/// Overriding the layout callback for layer sublayers.
+	/// Overriding the layout callback for sublayers.
 	public override func layoutSublayersOfLayer(layer: CALayer) {
 		super.layoutSublayersOfLayer(layer)
 		if self.layer == layer {

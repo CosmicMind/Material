@@ -53,8 +53,8 @@ class ViewController: UIViewController, TextDelegate, TextViewDelegate {
 		
 		textView.titleLabel = UILabel()
 		textView.titleLabel!.font = RobotoFont.mediumWithSize(12)
-		textView.titleLabelNormalColor = MaterialColor.grey.lighten2
-		textView.titleLabelHighlightedColor = MaterialColor.blue.accent3
+		textView.titleLabelTextColor = MaterialColor.grey.lighten2
+		textView.titleLabelActiveTextColor = MaterialColor.blue.accent3
 		
 		view.addSubview(textView)
 		textView!.translatesAutoresizingMaskIntoConstraints = false
@@ -69,6 +69,5 @@ class ViewController: UIViewController, TextDelegate, TextViewDelegate {
 	func textDidProcessEdit(text: Text, textStorage: TextStorage, string: String, result: NSTextCheckingResult?, flags: NSMatchingFlags, stop: UnsafeMutablePointer<ObjCBool>) {
 		textStorage.addAttribute(NSFontAttributeName, value: UIFont.boldSystemFontOfSize(16), range: result!.range)
 	}
-	
 }
 

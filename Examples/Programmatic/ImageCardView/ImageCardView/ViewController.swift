@@ -69,7 +69,7 @@ class ViewController: UIViewController {
 		titleLabel.textColor = MaterialColor.white
 		titleLabel.font = RobotoFont.mediumWithSize(24)
 		imageCardView.titleLabel = titleLabel
-		imageCardView.titleLabelInsetsRef.top = 100
+		imageCardView.titleLabelInset.top = 100
 		
 		// Detail label.
 		let detailLabel: UILabel = UILabel()
@@ -120,7 +120,7 @@ class ViewController: UIViewController {
 		titleLabel.textColor = MaterialColor.white
 		titleLabel.font = RobotoFont.regularWithSize(24)
 		imageCardView.titleLabel = titleLabel
-		imageCardView.titleLabelInsetsRef.top = 80
+		imageCardView.titleLabelInset.top = 80
 
 		// Star button.
 		let img1: UIImage? = UIImage(named: "ic_star_grey_darken_2")

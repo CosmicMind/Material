@@ -32,6 +32,6 @@ public class RaisedButton : MaterialButton {
 		backgroundColor = MaterialColor.blue.accent3
 		depth = .Depth2
 		cornerRadius = .Radius1
-		contentInsets = .WideRectangle3
+		contentInsetPreset = .WideRectangle3
 	}
 }

@@ -24,6 +24,21 @@ public class TextField : UITextField {
 	/// The bottom border layer.
 	public private(set) lazy var bottomBorderLayer: CAShapeLayer = CAShapeLayer()
 	
+	/**
+	This property is the same as clipsToBounds. It crops any of the view's
+	contents from bleeding past the view's frame. If an image is set using
+	the image property, then this value does not need to be set, since the
+	visualLayer's maskToBounds is set to true by default.
+	*/
+	public var masksToBounds: Bool {
+		get {
+			return layer.masksToBounds
+		}
+		set(value) {
+			layer.masksToBounds = value
+		}
+	}
+	
 	/// A property that accesses the backing layer's backgroundColor.
 	public override var backgroundColor: UIColor? {
 		didSet {
@@ -63,6 +78,9 @@ public class TextField : UITextField {
 		}
 		set(value) {
 			layer.frame.size.width = value
+			if .None != shape {
+				layer.frame.size.height = value
+			}
 		}
 	}
 	
@@ -78,11 +96,98 @@ public class TextField : UITextField {
 		}
 		set(value) {
 			layer.frame.size.height = value
+			if .None != shape {
+				layer.frame.size.width = value
+			}
+		}
+	}
+	
+	/// A property that accesses the backing layer's shadowColor.
+	public var shadowColor: UIColor? {
+		didSet {
+			layer.shadowColor = shadowColor?.CGColor
+		}
+	}
+	
+	/// A property that accesses the backing layer's shadowOffset.
+	public var shadowOffset: CGSize {
+		get {
+			return layer.shadowOffset
+		}
+		set(value) {
+			layer.shadowOffset = value
+		}
+	}
+	
+	/// A property that accesses the backing layer's shadowOpacity.
+	public var shadowOpacity: Float {
+		get {
+			return layer.shadowOpacity
+		}
+		set(value) {
+			layer.shadowOpacity = value
+		}
+	}
+	
+	/// A property that accesses the backing layer's shadowRadius.
+	public var shadowRadius: CGFloat {
+		get {
+			return layer.shadowRadius
+		}
+		set(value) {
+			layer.shadowRadius = value
 		}
 	}
 	
 	/**
-	A property that accesses the layer.borderWith using a MaterialBorder 
+	A property that sets the shadowOffset, shadowOpacity, and shadowRadius
+	for the backing layer. This is the preferred method of setting depth
+	in order to maintain consitency across UI objects.
+	*/
+	public var depth: MaterialDepth {
+		didSet {
+			let value: MaterialDepthType = MaterialDepthToValue(depth)
+			shadowOffset = value.offset
+			shadowOpacity = value.opacity
+			shadowRadius = value.radius
+		}
+	}
+	
+	/**
+	A property that sets the cornerRadius of the backing layer. If the shape
+	property has a value of .Circle when the cornerRadius is set, it will
+	become .None, as it no longer maintains its circle shape.
+	*/
+	public var cornerRadius: MaterialRadius {
+		didSet {
+			if let v: MaterialRadius = cornerRadius {
+				layer.cornerRadius = MaterialRadiusToValue(v)
+				if .Circle == shape {
+					shape = .None
+				}
+			}
+		}
+	}
+	
+	/**
+	A property that manages the overall shape for the object. If either the
+	width or height property is set, the other will be automatically adjusted
+	to maintain the shape of the object.
+	*/
+	public var shape: MaterialShape {
+		didSet {
+			if .None != shape {
+				if width < height {
+					frame.size.width = height
+				} else {
+					frame.size.height = width
+				}
+			}
+		}
+	}
+	
+	/**
+	A property that accesses the layer.borderWith using a MaterialBorder
 	enum preset.
 	*/
 	public var borderWidth: MaterialBorder {
@@ -119,27 +224,9 @@ public class TextField : UITextField {
 	}
 	
 	/**
-	:name:	titleLabelNormalColor
-	*/
-	public var titleLabelNormalColor: UIColor? {
-		didSet {
-			titleLabel?.textColor = titleLabelNormalColor
-			bottomBorderLayer.backgroundColor = titleLabelNormalColor?.CGColor
-		}
-	}
-	
-	/**
-	:name:	titleLabelHighlightedColor
-	*/
-	public var titleLabelHighlightedColor: UIColor?
-	
-	/**
-	:name:	detailLabelHighlightedColor
-	*/
-	public var detailLabelHighlightedColor: UIColor?
-	
-	/**
-	:name:	titleLabel
+	The title UILabel that is displayed when there is text. The
+	titleLabel text value is updated with the placeholder text 
+	value before being displayed.
 	*/
 	public var titleLabel: UILabel? {
 		didSet {
@@ -147,8 +234,25 @@ public class TextField : UITextField {
 		}
 	}
 	
+	/// The color of the titleLabel text when the textField is not active.
+	public var titleLabelTextColor: UIColor? {
+		didSet {
+			titleLabel?.textColor = titleLabelTextColor
+			bottomBorderLayer.backgroundColor = titleLabelTextColor?.CGColor
+		}
+	}
+	
+	/// The color of the titleLabel text when the textField is active.
+	public var titleLabelActiveTextColor: UIColor?
+	
 	/**
-	:name:	detailLabel
+	:name:	detailLabelActiveTextColor
+	*/
+	public var detailLabelActiveTextColor: UIColor?
+	
+	/**
+	The detail UILabel that is displayed when the detailLabelHidden property
+	is set to false.
 	*/
 	public var detailLabel: UILabel? {
 		didSet {
@@ -162,11 +266,11 @@ public class TextField : UITextField {
 	public var detailLabelHidden: Bool = false {
 		didSet {
 			if detailLabelHidden {
-				bottomBorderLayer.backgroundColor = editing ? titleLabelHighlightedColor?.CGColor : titleLabelNormalColor?.CGColor
+				bottomBorderLayer.backgroundColor = editing ? titleLabelActiveTextColor?.CGColor : titleLabelTextColor?.CGColor
 				hideDetailLabel()
 			} else {
-				detailLabel?.textColor = detailLabelHighlightedColor
-				bottomBorderLayer.backgroundColor = detailLabelHighlightedColor?.CGColor
+				detailLabel?.textColor = detailLabelActiveTextColor
+				bottomBorderLayer.backgroundColor = detailLabelActiveTextColor?.CGColor
 				showDetailLabel()
 			}
 		}
@@ -176,6 +280,9 @@ public class TextField : UITextField {
 	:name:	init
 	*/
 	public required init?(coder aDecoder: NSCoder) {
+		depth = .None
+		shape = .None
+		cornerRadius = .None
 		borderWidth = .None
 		super.init(coder: aDecoder)
 		prepareView()
@@ -185,6 +292,9 @@ public class TextField : UITextField {
 	:name:	init
 	*/
 	public override init(frame: CGRect) {
+		depth = .None
+		shape = .None
+		cornerRadius = .None
 		borderWidth = .None
 		super.init(frame: frame)
 		prepareView()
@@ -197,21 +307,79 @@ public class TextField : UITextField {
 		self.init(frame: CGRectNull)
 	}
 	
-	/**
-	:name:	layoutSublayersOfLayer
-	*/
+	/// Overriding the layout callback for sublayers.
 	public override func layoutSublayersOfLayer(layer: CALayer) {
 		super.layoutSublayersOfLayer(layer)
 		if self.layer == layer {
 			bottomBorderLayer.frame = CGRectMake(0, bounds.height + 8, bounds.width, 1)
+			layoutShape()
 		}
 	}
 	
 	/**
-	:name:	prepareView
+	A method that accepts CAAnimation objects and executes them on the
+	view's backing layer.
+	- Parameter animation: A CAAnimation instance.
+	*/
+	public func animate(animation: CAAnimation) {
+		animation.delegate = self
+		if let a: CABasicAnimation = animation as? CABasicAnimation {
+			a.fromValue = (nil == layer.presentationLayer() ? layer : layer.presentationLayer() as! CALayer).valueForKeyPath(a.keyPath!)
+		}
+		if let a: CAPropertyAnimation = animation as? CAPropertyAnimation {
+			layer.addAnimation(a, forKey: a.keyPath!)
+		} else if let a: CAAnimationGroup = animation as? CAAnimationGroup {
+			layer.addAnimation(a, forKey: nil)
+		} else if let a: CATransition = animation as? CATransition {
+			layer.addAnimation(a, forKey: kCATransition)
+		}
+	}
+	
+	/**
+	A delegation method that is executed when the backing layer starts
+	running an animation.
+	- Parameter anim: The currently running CAAnimation instance.
+	*/
+	public override func animationDidStart(anim: CAAnimation) {
+		(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStart?(anim)
+	}
+	
+	/**
+	A delegation method that is executed when the backing layer stops
+	running an animation.
+	- Parameter anim: The CAAnimation instance that stopped running.
+	- Parameter flag: A boolean that indicates if the animation stopped
+	because it was completed or interrupted. True if completed, false
+	if interrupted.
+	*/
+	public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
+		if let a: CAPropertyAnimation = anim as? CAPropertyAnimation {
+			if let b: CABasicAnimation = a as? CABasicAnimation {
+				MaterialAnimation.animationDisabled {
+					self.layer.setValue(nil == b.toValue ? b.byValue : b.toValue, forKey: b.keyPath!)
+				}
+			}
+			(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStop?(anim, finished: flag)
+			layer.removeAnimationForKey(a.keyPath!)
+		} else if let a: CAAnimationGroup = anim as? CAAnimationGroup {
+			for x in a.animations! {
+				animationDidStop(x, finished: true)
+			}
+		}
+	}
+	
+	/**
+	Prepares the view instance when intialized. When subclassing,
+	it is recommended to override the prepareView method
+	to initialize property values and other setup operations.
+	The super.prepareView method should always be called immediately
+	when subclassing.
 	*/
 	public func prepareView() {
-		clipsToBounds = false
+		backgroundColor = MaterialColor.white
+		shadowColor = MaterialColor.black
+		borderColor = MaterialColor.black
+		masksToBounds = false
 		prepareBottomBorderLayer()
 	}
 	
@@ -221,12 +389,12 @@ public class TextField : UITextField {
 	internal func textFieldDidBegin(textField: TextField) {
 		titleLabel?.text = placeholder
 		if 0 == text?.utf16.count {
-			titleLabel?.textColor = titleLabelNormalColor
-			bottomBorderLayer.backgroundColor = titleLabelNormalColor?.CGColor
+			titleLabel?.textColor = titleLabelTextColor
+			bottomBorderLayer.backgroundColor = titleLabelTextColor?.CGColor
 			detailLabelHidden = true
 		} else {
-			titleLabel?.textColor = titleLabelHighlightedColor
-			bottomBorderLayer.backgroundColor = detailLabelHidden ? titleLabelHighlightedColor?.CGColor : detailLabelHighlightedColor?.CGColor
+			titleLabel?.textColor = titleLabelActiveTextColor
+			bottomBorderLayer.backgroundColor = detailLabelHidden ? titleLabelActiveTextColor?.CGColor : detailLabelActiveTextColor?.CGColor
 		}
 	}
 	
@@ -236,8 +404,8 @@ public class TextField : UITextField {
 	internal func textFieldDidChange(textField: TextField) {
 		if 0 < text?.utf16.count {
 			showTitleLabel()
-			titleLabel?.textColor = titleLabelHighlightedColor
-			bottomBorderLayer.backgroundColor = detailLabelHidden ? titleLabelHighlightedColor?.CGColor : detailLabelHighlightedColor?.CGColor
+			titleLabel?.textColor = titleLabelActiveTextColor
+			bottomBorderLayer.backgroundColor = detailLabelHidden ? titleLabelActiveTextColor?.CGColor : detailLabelActiveTextColor?.CGColor
 		} else if 0 == text?.utf16.count {
 			hideTitleLabel()
 			detailLabelHidden = true
@@ -253,8 +421,15 @@ public class TextField : UITextField {
 		} else if 0 == text?.utf16.count {
 			hideTitleLabel()
 		}
-		titleLabel?.textColor = titleLabelNormalColor
-		bottomBorderLayer.backgroundColor = detailLabelHidden ? titleLabelNormalColor?.CGColor : detailLabelHighlightedColor?.CGColor
+		titleLabel?.textColor = titleLabelTextColor
+		bottomBorderLayer.backgroundColor = detailLabelHidden ? titleLabelTextColor?.CGColor : detailLabelActiveTextColor?.CGColor
+	}
+	
+	/// Manages the layout for the shape of the view instance.
+	internal func layoutShape() {
+		if .Circle == shape {
+			layer.cornerRadius = width / 2
+		}
 	}
 	
 	/**

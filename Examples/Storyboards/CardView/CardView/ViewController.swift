@@ -83,9 +83,9 @@ class ViewController: UIViewController {
      :description:	General usage example.
      */
     func prepareCardViewExampleTwo() {
-        secondCardView.dividerInsetsRef.left = 100
-        secondCardView.titleLabelInsetsRef.left = 100
-        secondCardView.detailLabelInsetsRef.left = 100
+        secondCardView.dividerInset.left = 100
+        secondCardView.titleLabelInset.left = 100
+        secondCardView.detailLabelInset.left = 100
         secondCardView.pulseColor = MaterialColor.teal.lighten4
         
         // Image.

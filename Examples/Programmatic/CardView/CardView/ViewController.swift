@@ -141,9 +141,9 @@ class ViewController: UIViewController {
 	*/
 	private func prepareCardViewWithAlteredAlignmentExample() {
 		let cardView: CardView = CardView()
-		cardView.dividerInsetsRef.left = 100
-		cardView.titleLabelInsetsRef.left = 100
-		cardView.detailLabelInsetsRef.left = 100
+		cardView.dividerInset.left = 100
+		cardView.titleLabelInset.left = 100
+		cardView.detailLabelInset.left = 100
 		cardView.pulseColor = MaterialColor.teal.lighten4
 		
 		// Image.

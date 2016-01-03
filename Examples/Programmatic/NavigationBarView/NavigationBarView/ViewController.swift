@@ -253,7 +253,7 @@ class ViewController: UIViewController {
 		titleLabel.textColor = MaterialColor.white
 		titleLabel.font = RobotoFont.regularWithSize(20)
 		navigationBarView.titleLabel = titleLabel
-		navigationBarView.titleLabelInsetsRef.left = 64
+		navigationBarView.titleLabelInset.left = 64
 		
 		// Detail label.
 		let detailLabel: UILabel = UILabel()
@@ -262,7 +262,7 @@ class ViewController: UIViewController {
 		detailLabel.textColor = MaterialColor.white
 		detailLabel.font = RobotoFont.regularWithSize(12)
 		navigationBarView.detailLabel = detailLabel
-		navigationBarView.detailLabelInsetsRef.left = 64
+		navigationBarView.detailLabelInset.left = 64
 		
 		// Menu button.
 		let img1: UIImage? = UIImage(named: "ic_menu_white")
