@@ -31,16 +31,16 @@ public class NavigationBarView : MaterialView {
 	/**
 	:name:	contentInsets
 	*/
-	public var contentInsetPreset: MaterialEdgeInsets = .None {
+	public var contentInsetPreset: MaterialEdgeInsetPreset = .None {
 		didSet {
-			contentInset = MaterialEdgeInsetsToValue(contentInsetPreset)
+			contentInset = MaterialEdgeInsetPresetToValue(contentInsetPreset)
 		}
 	}
 	
 	/**
 	:name:	contentInset
 	*/
-	public var contentInset: UIEdgeInsets = MaterialEdgeInsetsToValue(.Square2) {
+	public var contentInset: UIEdgeInsets = MaterialEdgeInsetPresetToValue(.Square2) {
 		didSet {
 			reloadView()
 		}
@@ -49,9 +49,9 @@ public class NavigationBarView : MaterialView {
 	/**
 	:name:	titleLabelInsets
 	*/
-	public var titleLabelInsetPreset: MaterialEdgeInsets = .None {
+	public var titleLabelInsetPreset: MaterialEdgeInsetPreset = .None {
 		didSet {
-			titleLabelInset = MaterialEdgeInsetsToValue(titleLabelInsetPreset)
+			titleLabelInset = MaterialEdgeInsetPresetToValue(titleLabelInsetPreset)
 		}
 	}
 	
@@ -77,16 +77,16 @@ public class NavigationBarView : MaterialView {
 	/**
 	:name:	detailLabelInsets
 	*/
-	public var detailLabelInsetPreset: MaterialEdgeInsets = .None {
+	public var detailLabelInsetPreset: MaterialEdgeInsetPreset = .None {
 		didSet {
-			detailLabelInset = MaterialEdgeInsetsToValue(detailLabelInsetPreset)
+			detailLabelInset = MaterialEdgeInsetPresetToValue(detailLabelInsetPreset)
 		}
 	}
 	
 	/**
 	:name:	detailLabelInset
 	*/
-	public var detailLabelInset: UIEdgeInsets = MaterialEdgeInsetsToValue(.None) {
+	public var detailLabelInset: UIEdgeInsets = MaterialEdgeInsetPresetToValue(.None) {
 		didSet {
 			reloadView()
 		}
@@ -105,9 +105,9 @@ public class NavigationBarView : MaterialView {
 	/**
 	:name:	leftButtonsInsets
 	*/
-	public var leftButtonsInsetPreset: MaterialEdgeInsets = .None {
+	public var leftButtonsInsetPreset: MaterialEdgeInsetPreset = .None {
 		didSet {
-			leftButtonsInset = MaterialEdgeInsetsToValue(leftButtonsInsetPreset)
+			leftButtonsInset = MaterialEdgeInsetPresetToValue(leftButtonsInsetPreset)
 		}
 	}
 	
@@ -137,9 +137,9 @@ public class NavigationBarView : MaterialView {
 	/**
 	:name:	rightButtonsInsets
 	*/
-	public var rightButtonsInsetPreset: MaterialEdgeInsets = .None {
+	public var rightButtonsInsetPreset: MaterialEdgeInsetPreset = .None {
 		didSet {
-			rightButtonsInset = MaterialEdgeInsetsToValue(rightButtonsInsetPreset)
+			rightButtonsInset = MaterialEdgeInsetPresetToValue(rightButtonsInsetPreset)
 		}
 	}
 	

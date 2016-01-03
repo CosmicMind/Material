@@ -75,28 +75,6 @@ let button: FabButton = FabButton()
 button.backgroundColor = MaterialColor.blue.darken1
 ```
 
-<a name="textfield"/>
-### TextField
-
-A TextField is an excellent way to improve UX. Checkout the Examples directory for a project using this component.
-
-![MaterialKitTextField](http://www.materialkit.io/MK/MaterialKitTextField.gif)
-
-```swift
-let nameField: TextField = TextField(frame: CGRectMake(57, 100, 300, 24))
-nameField.placeholder = "First Name"
-nameField.font = RobotoFont.regularWithSize(20)
-nameField.textColor = MaterialColor.black
-nameField.titleLabel = UILabel()
-nameField.titleLabel!.font = RobotoFont.mediumWithSize(12)
-nameField.titleLabelNormalColor = MaterialColor.grey.lighten2
-nameField.titleLabelHighlightedColor = MaterialColor.blue.accent3
-nameField.clearButtonMode = .WhileEditing
-
-// Add nameField to UIViewController.
-view.addSubview(nameField)
-```
-
 <a name="materiallayer"/>
 ### MaterialLayer
 
@@ -652,6 +630,28 @@ UIImage.contentsOfURL(url) { (image: UIImage?, error: NSError?) in
 		// Do something
 	}
 }
+```
+
+<a name="textfield"/>
+### TextField
+
+A TextField is an excellent way to improve UX. Checkout the Examples directory for a project using this component.
+
+![MaterialKitTextField](http://www.materialkit.io/MK/MaterialKitTextField.gif)
+
+```swift
+let nameField: TextField = TextField(frame: CGRectMake(57, 100, 300, 24))
+nameField.placeholder = "First Name"
+nameField.font = RobotoFont.regularWithSize(20)
+nameField.textColor = MaterialColor.black
+nameField.titleLabel = UILabel()
+nameField.titleLabel!.font = RobotoFont.mediumWithSize(12)
+nameField.titleLabelNormalColor = MaterialColor.grey.lighten2
+nameField.titleLabelHighlightedColor = MaterialColor.blue.accent3
+nameField.clearButtonMode = .WhileEditing
+
+// Add nameField to UIViewController.
+view.addSubview(nameField)
 ```
 
 <a name="textview"/>

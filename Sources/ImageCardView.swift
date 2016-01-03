@@ -45,9 +45,9 @@ public class ImageCardView : MaterialPulseView {
 	/**
 	:name:	dividerInsets
 	*/
-	public var dividerInsetPreset: MaterialEdgeInsets = .None {
+	public var dividerInsetPreset: MaterialEdgeInsetPreset = .None {
 		didSet {
-			dividerInset = MaterialEdgeInsetsToValue(dividerInsetPreset)
+			dividerInset = MaterialEdgeInsetPresetToValue(dividerInsetPreset)
 		}
 	}
 	
@@ -153,16 +153,16 @@ public class ImageCardView : MaterialPulseView {
 	/**
 	:name:	contentInsets
 	*/
-	public var contentInsetPreset: MaterialEdgeInsets = .None {
+	public var contentInsetPreset: MaterialEdgeInsetPreset = .None {
 		didSet {
-			contentInset = MaterialEdgeInsetsToValue(contentInsetPreset)
+			contentInset = MaterialEdgeInsetPresetToValue(contentInsetPreset)
 		}
 	}
 	
 	/**
 	:name:	contentInset
 	*/
-	public var contentInset: UIEdgeInsets = MaterialEdgeInsetsToValue(.Square2) {
+	public var contentInset: UIEdgeInsets = MaterialEdgeInsetPresetToValue(.Square2) {
 		didSet {
 			reloadView()
 		}
@@ -171,16 +171,16 @@ public class ImageCardView : MaterialPulseView {
 	/**
 	:name:	titleLabelInsets
 	*/
-	public var titleLabelInsetPreset: MaterialEdgeInsets = .None {
+	public var titleLabelInsetPreset: MaterialEdgeInsetPreset = .None {
 		didSet {
-			titleLabelInset = MaterialEdgeInsetsToValue(titleLabelInsetPreset)
+			titleLabelInset = MaterialEdgeInsetPresetToValue(titleLabelInsetPreset)
 		}
 	}
 	
 	/**
 	:name:	titleLabelInset
 	*/
-	public var titleLabelInset: UIEdgeInsets = MaterialEdgeInsetsToValue(.Square2) {
+	public var titleLabelInset: UIEdgeInsets = MaterialEdgeInsetPresetToValue(.Square2) {
 		didSet {
 			reloadView()
 		}
@@ -199,16 +199,16 @@ public class ImageCardView : MaterialPulseView {
 	/**
 	:name:	detailLabelInsets
 	*/
-	public var detailLabelInsetPreset: MaterialEdgeInsets = .None {
+	public var detailLabelInsetPreset: MaterialEdgeInsetPreset = .None {
 		didSet {
-			detailLabelInset = MaterialEdgeInsetsToValue(detailLabelInsetPreset)
+			detailLabelInset = MaterialEdgeInsetPresetToValue(detailLabelInsetPreset)
 		}
 	}
 	
 	/**
 	:name:	detailLabelInset
 	*/
-	public var detailLabelInset: UIEdgeInsets = MaterialEdgeInsetsToValue(.Square2) {
+	public var detailLabelInset: UIEdgeInsets = MaterialEdgeInsetPresetToValue(.Square2) {
 		didSet {
 			reloadView()
 		}
@@ -227,16 +227,16 @@ public class ImageCardView : MaterialPulseView {
 	/**
 	:name:	leftButtonsInsets
 	*/
-	public var leftButtonsInsetPreset: MaterialEdgeInsets = .None {
+	public var leftButtonsInsetPreset: MaterialEdgeInsetPreset = .None {
 		didSet {
-			leftButtonsInset = MaterialEdgeInsetsToValue(leftButtonsInsetPreset)
+			leftButtonsInset = MaterialEdgeInsetPresetToValue(leftButtonsInsetPreset)
 		}
 	}
 	
 	/**
 	:name:	leftButtonsInset
 	*/
-	public var leftButtonsInset: UIEdgeInsets = MaterialEdgeInsetsToValue(.None) {
+	public var leftButtonsInset: UIEdgeInsets = MaterialEdgeInsetPresetToValue(.None) {
 		didSet {
 			reloadView()
 		}
@@ -259,16 +259,16 @@ public class ImageCardView : MaterialPulseView {
 	/**
 	:name:	rightButtonsInsets
 	*/
-	public var rightButtonsInsetPreset: MaterialEdgeInsets = .None {
+	public var rightButtonsInsetPreset: MaterialEdgeInsetPreset = .None {
 		didSet {
-			rightButtonsInset = MaterialEdgeInsetsToValue(rightButtonsInsetPreset)
+			rightButtonsInset = MaterialEdgeInsetPresetToValue(rightButtonsInsetPreset)
 		}
 	}
 	
 	/**
 	:name:	rightButtonsInset
 	*/
-	public var rightButtonsInset: UIEdgeInsets = MaterialEdgeInsetsToValue(.None) {
+	public var rightButtonsInset: UIEdgeInsets = MaterialEdgeInsetPresetToValue(.None) {
 		didSet {
 			reloadView()
 		}

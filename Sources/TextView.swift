@@ -272,9 +272,9 @@ public class TextView: UITextView {
 	/**
 	:name:	textContainerInset
 	*/
-	public var textContainerInsetPreset: MaterialEdgeInsets = .None {
+	public var textContainerInsetPreset: MaterialEdgeInsetPreset = .None {
 		didSet {
-			textContainerInset = MaterialEdgeInsetsToValue(textContainerInsetPreset)
+			textContainerInset = MaterialEdgeInsetPresetToValue(textContainerInsetPreset)
 		}
 	}
 	

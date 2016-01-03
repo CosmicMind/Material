@@ -276,9 +276,9 @@ public class MaterialButton : UIButton {
 	/**
 	:name:	contentInsets
 	*/
-	public var contentInsetPreset: MaterialEdgeInsets {
+	public var contentInsetPreset: MaterialEdgeInsetPreset {
 		didSet {
-			let value: UIEdgeInsets = MaterialEdgeInsetsToValue(contentInsetPreset)
+			let value: UIEdgeInsets = MaterialEdgeInsetPresetToValue(contentInsetPreset)
 			contentEdgeInsets = UIEdgeInsetsMake(value.top, value.left, value.bottom, value.right)
 		}
 	}
