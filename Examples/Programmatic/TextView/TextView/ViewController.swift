@@ -21,7 +21,7 @@ import MaterialKit
 
 class ViewController: UIViewController, TextDelegate, TextViewDelegate {
 	lazy var text: Text = Text()
-	var textView: TextView?
+	var textView: TextView!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -42,18 +42,23 @@ class ViewController: UIViewController, TextDelegate, TextViewDelegate {
 		text.textStorage.addLayoutManager(layoutManager)
 		
 		textView = TextView(frame: CGRectNull, textContainer: textContainer)
-		textView?.delegate = self
-		textView!.editable = true
-		textView!.selectable = true
-		textView!.font = RobotoFont.regular
+		textView.delegate = self
+		textView.editable = true
+		textView.selectable = true
+		textView.font = RobotoFont.regular
 		
-		textView!.placeholderLabel = UILabel()
-		textView!.placeholderLabel!.textColor = MaterialColor.grey.base
-		textView!.placeholderLabel!.text = "MaterialKit TextView"
+		textView.placeholderLabel = UILabel()
+		textView.placeholderLabel!.textColor = MaterialColor.grey.base
+		textView.placeholderLabel!.text = "Description"
 		
-		view.addSubview(textView!)
+		textView.titleLabel = UILabel()
+		textView.titleLabel!.font = RobotoFont.mediumWithSize(12)
+		textView.titleLabelNormalColor = MaterialColor.grey.lighten2
+		textView.titleLabelHighlightedColor = MaterialColor.blue.accent3
+		
+		view.addSubview(textView)
 		textView!.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignToParent(view, child: textView!, top: 24, left: 24, bottom: 24, right: 24)
+		MaterialLayout.alignToParent(view, child: textView!, top: 124, left: 24, bottom: 24, right: 24)
 	}
 	
 	func textWillProcessEdit(text: Text, textStorage: TextStorage, string: String, range: NSRange) {

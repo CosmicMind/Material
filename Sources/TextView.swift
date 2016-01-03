@@ -21,6 +21,26 @@ import UIKit
 public protocol TextViewDelegate : UITextViewDelegate {}
 
 public class TextView: UITextView {
+	public var titleLabel: UILabel? {
+		didSet {
+			prepareTitleLabel()
+		}
+	}
+	
+	/**
+	:name:	titleLabelNormalColor
+	*/
+	public var titleLabelNormalColor: UIColor? {
+		didSet {
+			titleLabel?.textColor = titleLabelNormalColor
+		}
+	}
+	
+	/**
+	:name:	titleLabelHighlightedColor
+	*/
+	public var titleLabelHighlightedColor: UIColor?
+	
 	/**
 		:name:	init
 	*/
@@ -41,24 +61,15 @@ public class TextView: UITextView {
 	//	:name:	deinit
 	//
 	deinit {
-		NSNotificationCenter.defaultCenter().removeObserver(self, name: UITextViewTextDidChangeNotification, object: nil)
+		removeNotificationHandlers()
 	}
 	
 	/**
-		:name:	placeholder
+		:name:	placeholderLabel
 	*/
 	public var placeholderLabel: UILabel? {
 		didSet {
-			if let p = placeholderLabel {
-				p.translatesAutoresizingMaskIntoConstraints = false
-				p.font = font
-				p.textAlignment = textAlignment
-				p.numberOfLines = 0
-				p.backgroundColor = .clearColor()
-				addSubview(p)
-				updateLabelConstraints()
-				textViewTextDidChange()
-			}
+			preparePlaceholderLabel()
 		}
 	}
 	
@@ -68,7 +79,7 @@ public class TextView: UITextView {
 	*/
 	public override var text: String! {
 		didSet {
-			textViewTextDidChange()
+			handleTextViewTextDidChange()
 		}
 	}
 	
@@ -77,7 +88,7 @@ public class TextView: UITextView {
 	*/
 	public override var attributedText: NSAttributedString! {
 		didSet {
-			textViewTextDidChange()
+			handleTextViewTextDidChange()
 		}
 	}
 	
@@ -86,43 +97,150 @@ public class TextView: UITextView {
 	*/
 	public override var textContainerInset: UIEdgeInsets {
 		didSet {
-			updateLabelConstraints()
+			reloadView()
 		}
 	}
 	
 	public override func layoutSubviews() {
 		super.layoutSubviews()
 		placeholderLabel?.preferredMaxLayoutWidth = textContainer.size.width - textContainer.lineFragmentPadding * 2
+		titleLabel?.frame.size.width = bounds.width
 	}
 	
 	/**
-		:name:	updateLabelConstraints
+		:name:	reloadView
 	*/
-	internal func updateLabelConstraints() {
+	internal func reloadView() {
 		if let p = placeholderLabel {
 			removeConstraints(constraints)
-			addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(left)-[placeholderLabel]-(right)-|", options: [], metrics: ["left": textContainerInset.left + textContainer.lineFragmentPadding, "right": textContainerInset.right + textContainer.lineFragmentPadding], views: ["placeholderLabel": p]))
-			addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(top)-[placeholderLabel]-(bottom)-|", options: [], metrics: ["top": textContainerInset.top, "bottom": textContainerInset.bottom], views: ["placeholderLabel": p]))
+			MaterialLayout.alignToParent(self,
+				child: p,
+				top: textContainerInset.top,
+				left: textContainerInset.left + textContainer.lineFragmentPadding,
+				bottom: textContainerInset.bottom,
+				right: textContainerInset.right + textContainer.lineFragmentPadding)
 		}
 	}
 	
-	//
-	//	:name:	textViewTextDidChange
-	//
-	internal func textViewTextDidChange() {
+	/**
+	:name:	textFieldDidBegin
+	*/
+	internal func handleTextViewTextDidBegin() {
+		titleLabel?.text = placeholderLabel?.text
+		if 0 == text?.utf16.count {
+			titleLabel?.textColor = titleLabelNormalColor
+		} else {
+			titleLabel?.textColor = titleLabelHighlightedColor
+		}
+	}
+	
+	/**
+	:name:	textFieldDidChange
+	*/
+	internal func handleTextViewTextDidChange() {
 		if let p = placeholderLabel {
 			p.hidden = !text.isEmpty
 		}
+		
+		if 0 < text?.utf16.count {
+			showTitleLabel()
+			titleLabel?.textColor = titleLabelHighlightedColor
+		} else if 0 == text?.utf16.count {
+			hideTitleLabel()
+		}
+	}
+	
+	/**
+	:name:	textFieldDidEnd
+	*/
+	internal func handleTextViewTextDidEnd() {
+		if 0 < text?.utf16.count {
+			showTitleLabel()
+		} else if 0 == text?.utf16.count {
+			hideTitleLabel()
+		}
+		titleLabel?.textColor = titleLabelNormalColor
 	}
 	
 	//
 	//	:name:	prepareView
 	//
 	private func prepareView() {
-		textContainerInset = UIEdgeInsetsMake(16, 16, 16, 16)
-		backgroundColor = .clearColor()
+		textContainerInset = UIEdgeInsets(top: 24, left: 0, bottom: 24, right: 0)
+		backgroundColor = MaterialColor.clear
+		clipsToBounds = false
+		removeNotificationHandlers()
+		prepareNotificationHandlers()
+		reloadView()
+	}
+	
+	private func preparePlaceholderLabel() {
+		if let v: UILabel = placeholderLabel {
+			v.translatesAutoresizingMaskIntoConstraints = false
+			v.font = font
+			v.textAlignment = textAlignment
+			v.numberOfLines = 0
+			v.backgroundColor = .clearColor()
+			titleLabel?.text = placeholderLabel?.text
+			addSubview(v)
+			reloadView()
+			handleTextViewTextDidChange()
+		}
+	}
+	
+	/**
+	:name:	prepareTitleLabel
+	*/
+	private func prepareTitleLabel() {
+		if let v: UILabel = titleLabel {
+			MaterialAnimation.animationDisabled {
+				v.hidden = true
+				v.alpha = 0
+			}
+			titleLabel?.text = placeholderLabel?.text
+			let h: CGFloat = v.font.pointSize
+			v.frame = CGRectMake(0, -h, bounds.width, h)
+			addSubview(v)
+		}
+	}
+	
+	/**
+	:name:	showTitleLabel
+	*/
+	private func showTitleLabel() {
+		if let v: UILabel = titleLabel {
+			v.frame.size.height = v.font.pointSize
+			v.hidden = false
+			UIView.animateWithDuration(0.25, animations: {
+				v.alpha = 1
+				v.frame.origin.y = -v.frame.height - 4
+			})
+		}
+	}
+	
+	/**
+	:name:	hideTitleLabel
+	*/
+	private func hideTitleLabel() {
+		if let v: UILabel = titleLabel {
+			UIView.animateWithDuration(0.25, animations: {
+				v.alpha = 0
+				v.frame.origin.y = -v.frame.height
+			}) { _ in
+				v.hidden = true
+			}
+		}
+	}
+	
+	private func prepareNotificationHandlers() {
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleTextViewTextDidBegin", name: UITextViewTextDidBeginEditingNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleTextViewTextDidChange", name: UITextViewTextDidChangeNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleTextViewTextDidEnd", name: UITextViewTextDidEndEditingNotification, object: nil)
+	}
+	
+	private func removeNotificationHandlers() {
+		NSNotificationCenter.defaultCenter().removeObserver(self, name: UITextViewTextDidBeginEditingNotification, object: nil)
 		NSNotificationCenter.defaultCenter().removeObserver(self, name: UITextViewTextDidChangeNotification, object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "textViewTextDidChange", name: UITextViewTextDidChangeNotification, object: nil)
-		updateLabelConstraints()
+		NSNotificationCenter.defaultCenter().removeObserver(self, name: UITextViewTextDidEndEditingNotification, object: nil)
 	}
 }
