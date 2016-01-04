@@ -87,8 +87,8 @@ textField.font = RobotoFont.regularWithSize(20)
 textField.textColor = MaterialColor.black
 textField.titleLabel = UILabel()
 textField.titleLabel!.font = RobotoFont.mediumWithSize(12)
-textField.titleLabelTextColor = MaterialColor.grey.lighten1
-textField.titleLabelActiveTextColor = MaterialColor.blue.accent3
+textField.titleLabelColor = MaterialColor.grey.lighten1
+textField.titleLabelActiveColor = MaterialColor.blue.accent3
 textField.clearButtonMode = .WhileEditing
 view.addSubview(textField)
 
