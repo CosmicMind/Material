@@ -277,7 +277,6 @@ public class TextField : UITextField {
 		}
 	}
 	
-	
 	/**
 	An initializer that initializes the object with a NSCoder object.
 	- Parameter aDecoder: A NSCoder instance.

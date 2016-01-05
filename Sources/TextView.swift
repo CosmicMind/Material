@@ -297,6 +297,7 @@ public class TextView: UITextView {
 	If AutoLayout is used, it is better to initilize the instance
 	using the init() initializer.
 	- Parameter frame: A CGRect instance.
+	- Parameter textContainer: A NSTextContainer instance.
 	*/
 	public override init(frame: CGRect, textContainer: NSTextContainer?) {
 		depth = .None
