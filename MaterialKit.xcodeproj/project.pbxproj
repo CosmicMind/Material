@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9605900A1C388A8400691E88 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960590091C388A8400691E88 /* File.swift */; };
-		9605900B1C388B0B00691E88 /* File.swift in Headers */ = {isa = PBXBuildFile; fileRef = 960590091C388A8400691E88 /* File.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		960B23271C383E5500E96216 /* MaterialKit+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960B23261C383E5500E96216 /* MaterialKit+String.swift */; };
 		960B232E1C383EAA00E96216 /* MaterialKit+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960B23281C383EAA00E96216 /* MaterialKit+UIImage.swift */; };
 		960B232F1C383EAA00E96216 /* MaterialKit+UIImage+Crop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960B23291C383EAA00E96216 /* MaterialKit+UIImage+Crop.swift */; };
@@ -116,7 +114,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		960590091C388A8400691E88 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		960B23261C383E5500E96216 /* MaterialKit+String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MaterialKit+String.swift"; sourceTree = "<group>"; };
 		960B23281C383EAA00E96216 /* MaterialKit+UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MaterialKit+UIImage.swift"; sourceTree = "<group>"; };
 		960B23291C383EAA00E96216 /* MaterialKit+UIImage+Crop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MaterialKit+UIImage+Crop.swift"; sourceTree = "<group>"; };
@@ -193,14 +190,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		960590081C388A6F00691E88 /* File */ = {
-			isa = PBXGroup;
-			children = (
-				960590091C388A8400691E88 /* File.swift */,
-			);
-			name = File;
-			sourceTree = "<group>";
-		};
 		9638322C1B88DFD80015F710 = {
 			isa = PBXGroup;
 			children = (
@@ -268,7 +257,6 @@
 				96D88C471C1328F500B91418 /* Font */,
 				966F57B61C226D65009185B7 /* Text */,
 				96442ADC1C28EF1400C3C574 /* TableView */,
-				960590081C388A6F00691E88 /* File */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -466,7 +454,6 @@
 				960B23501C38490D00E96216 /* Text.swift in Headers */,
 				960B23511C38490D00E96216 /* TextStorage.swift in Headers */,
 				960B23521C38490D00E96216 /* TextView.swift in Headers */,
-				9605900B1C388B0B00691E88 /* File.swift in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -598,7 +585,6 @@
 				96D88C3C1C1328D800B91418 /* MaterialTransitionAnimation.swift in Sources */,
 				96D88C361C1328D800B91418 /* MaterialPulseView.swift in Sources */,
 				960B23301C383EAA00E96216 /* MaterialKit+UIImage+Network.swift in Sources */,
-				9605900A1C388A8400691E88 /* File.swift in Sources */,
 				96D88C1E1C1328D800B91418 /* CaptureView.swift in Sources */,
 				96D88C2D1C1328D800B91418 /* MaterialDepth.swift in Sources */,
 				96D88C331C1328D800B91418 /* MaterialLabel.swift in Sources */,
