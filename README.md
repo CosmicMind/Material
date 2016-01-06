@@ -1,12 +1,36 @@
 ![MaterialKit](http://www.materialkit.io/MK/MaterialKit.png)
 
+<h4 style="text-align: center;">Beautiful Material Design in Swift.</h4>
+
 # Welcome to MaterialKit
 
 MaterialKit is built as an animation and graphics framework. A major goal in the design of MaterialKit is to allow the creativity of others to easily be expressed. The following README is written to get you started, and is by no means a complete tutorial on all that is possible. Examples may be found in the Examples directory that go beyond the README documentation.
 
-### CocoaPods Support
+### CocoaPods
 
-MaterialKit is on CocoaPods under the name [MK](https://cocoapods.org/?q=MK).
+[CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
+
+```bash
+$ gem install cocoapods
+```
+
+> CocoaPods 0.39.0+ is required to build MaterialKit 1.0.0+.
+
+To integrate MaterialKit into your Xcode project using CocoaPods, specify it in your `Podfile`:
+
+```ruby
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.0'
+use_frameworks!
+
+pod 'MK', '~> 1.0'
+```
+
+Then, run the following command:
+
+```bash
+$ pod install
+```
 
 ### Carthage Support
 
