@@ -4,6 +4,19 @@
 
 MaterialKit is a graphics and animation framework based on Google's Material Design. A major goal in the design of MaterialKit is to allow the creativity of others to easily be expressed. The following README is written to get you started, and is by no means a complete tutorial on all that is possible. Additional examples may be found in the Examples directory that go beyond the README documentation.
 
+## How To Get Started
+
+- [Download MaterialKit](https://github.com/CosmicMind/MaterialKit/archive/master.zip).
+- Explore the examples in the Examples directory.
+
+## Communication
+
+- If you **need help**, use [Stack Overflow](http://stackoverflow.com/questions/tagged/materialkit). (Tag 'materialkit')
+- If you'd like to **ask a general question**, use [Stack Overflow](http://stackoverflow.com/questions/tagged/materialkit).
+- If you **found a bug**, _and can provide steps to reliably reproduce it_, open an issue.
+- If you **have a feature request**, open an issue.
+- If you **want to contribute**, submit a pull request.
+
 ### CocoaPods
 
 [CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
