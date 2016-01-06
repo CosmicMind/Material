@@ -1,10 +1,8 @@
 ![MaterialKit](http://www.materialkit.io/MK/MaterialKit.png)
 
-<h4 style="text-align: center;">Beautiful Material Design in Swift.</h4>
-
 # Welcome to MaterialKit
 
-MaterialKit is built as an animation and graphics framework. A major goal in the design of MaterialKit is to allow the creativity of others to easily be expressed. The following README is written to get you started, and is by no means a complete tutorial on all that is possible. Examples may be found in the Examples directory that go beyond the README documentation.
+MaterialKit is a graphics and animation framework based on Google's Material Design. A major goal in the design of MaterialKit is to allow the creativity of others to easily be expressed. The following README is written to get you started, and is by no means a complete tutorial on all that is possible. Additional examples may be found in the Examples directory that go beyond the README documentation.
 
 ### CocoaPods
 
@@ -85,7 +83,7 @@ The MaterialKit framework is a fast growing project and will encounter changes t
 * TimePicker
 * More Examples
 
-<a name="materialcolor"/>
+<a name="materialcolor"></a>
 ### MaterialColor
 
 Explore a complete range of Material Design colors using MaterialColor. Below is an example of setting a button's background color property.
@@ -97,7 +95,7 @@ let button: FabButton = FabButton()
 button.backgroundColor = MaterialColor.blue.darken1
 ```
 
-<a name="textfield"/>
+<a name="textfield"></a>
 ### TextField
 
 A TextField is an excellent way to improve UX. Checkout the Examples directory for a project using this component.
@@ -120,7 +118,7 @@ view.addSubview(textField)
 view.addSubview(nameField)
 ```
 
-<a name="textview"/>
+<a name="textview"></a>
 ### TextView
 
 Easily match any regular expression pattern in a body of text. Below is an example of the default hashtag pattern matching.
@@ -129,7 +127,7 @@ Easily match any regular expression pattern in a body of text. Below is an examp
 
 Checkout the Examples Programmatic directory for a sample project using this wonderful component.
 
-<a name="materiallayer"/>
+<a name="materiallayer"></a>
 ### MaterialLayer
 
 MaterialLayer is a lightweight CAShapeLayer used throughout MaterialKit. It is designed to easily take shape, depth, and animations. Below is an example demonstrating the ease of adding shape and depth to MaterialLayer.
@@ -146,7 +144,7 @@ materialLayer.shadowDepth = .Depth2
 view.layer.addSublayer(materialLayer)
 ```
 
-<a name="materialview"/>
+<a name="materialview"></a>
 ### MaterialView
 
 MaterialView is the base UIView class used throughout MaterialKit. Like MaterialLayer, it is designed to easily take shape, depth, and animations. The major difference is that MaterialView has all the added features of the UIView class. Below is an example of setting a MaterialView's cornerRadius, shape, and depth.
@@ -164,7 +162,7 @@ materialView.cornerRadius = .Radius3
 view.addSubview(materialView)
 ```
 
-<a name="materialpulseview"/>
+<a name="materialpulseview"></a>
 ### MaterialPulseView
 
 MaterialPulseView is at the heart of all pulse animations. Any view that subclasses MaterialPulseView instantly inherits the pulse animation with full customizability.
@@ -181,7 +179,7 @@ materialPulseView.shadowDepth = .Depth2
 view.addSubview(materialPulseView)
 ```
 
-<a name="flatbutton"/>
+<a name="flatbutton"></a>
 ### FlatButton
 
 A FlatButton is the best place to start when introducing MaterialKit buttons. It is simple, clean, and very effective. Below is an example of a FlatButton in action.
@@ -197,7 +195,7 @@ button.titleLabel!.font = RobotoFont.mediumWithSize(32)
 view.addSubview(button)
 ```
 
-<a name="raisedbutton"/>
+<a name="raisedbutton"></a>
 ### RaisedButton
 
 A RaisedButton is sure to get attention. Take a look at the following animation example.
@@ -213,7 +211,7 @@ button.titleLabel!.font = RobotoFont.mediumWithSize(32)
 view.addSubview(button)
 ```
 
-<a name="fabbutton"/>
+<a name="fabbutton"></a>
 ### FabButton
 
 A FabButton is essential to Material Design's overall look. Below showcases its beauty.
@@ -230,7 +228,7 @@ button.setImage(img, forState: .Highlighted)
 view.addSubview(button)
 ```
 
-<a name="cardview"/>
+<a name="cardview"></a>
 ### CardView
 
 Right out of the box to a fully customizable configuration, CardView always stands out. Take a look at a few examples in action and find more in the Examples directory.
@@ -422,7 +420,7 @@ MaterialLayout.alignFromTop(view, child: cardView, top: 100)
 MaterialLayout.alignToParentHorizontally(view, child: cardView, left: 20, right: 20)
 ```
 
-<a name="imagecardview"/>
+<a name="imagecardview"></a>
 ### ImageCardView
 
 Bold and attractive, ImageCardView is the next step from a CardView. In the Examples folder you will find examples using the ImageCardView. Below are some animations to give you an idea of the possibilities the ImageCardView has to offer.
@@ -532,7 +530,7 @@ MaterialLayout.alignFromTop(view, child: imageCardView, top: 100)
 MaterialLayout.alignToParentHorizontally(view, child: imageCardView, left: 20, right: 20)
 ```
 
-<a name="navigationbarview"/>
+<a name="navigationbarview"></a>
 ### NavigationBarView
 
 One of Material Design's greatest additions to UI is the NavigationBarView. In the Examples folder, you can checkout some code to get you started with this wonderful component.
@@ -608,14 +606,14 @@ MaterialLayout.alignToParentHorizontally(view, child: navigationBarView)
 MaterialLayout.height(view, child: navigationBarView, height: 70)
 ```
 
-<a name="sidenavigationviewcontroller"/>
+<a name="sidenavigationviewcontroller"></a>
 ### SideNavigationViewController
 
 As elegant as is effective, the SideNavigationViewController is an excellent way to organize your app. In the Examples directory, there is an example project using this wonderful component.
 
 ![MaterialKitSideNavigationViewController](http://www.materialkit.io/MK/MaterialKitSideNavigationViewController.gif)
 
-<a name="captureview"/>
+<a name="captureview"></a>
 ### CaptureView
 
 Add a new dimension of interactivity with CaptureView. CaptureView is a fully functional camera that is completely customizable.
