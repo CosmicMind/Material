@@ -422,7 +422,7 @@ public class TextView: UITextView {
 	/// Notification handler for when text changed.
 	internal func handleTextViewTextDidChange() {
 		if let p = placeholderLabel {
-			p.hidden = !text.isEmpty
+			p.hidden = !(true == text?.isEmpty)
 		}
 		
 		if 0 < text?.utf16.count {
