@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'MK'
-  s.version = '1.27.9'
+  s.version = '1.27.10'
   s.license = 'BSD'
   s.summary = 'Beautiful Material Design in Swift.'
   s.homepage = 'http://materialkit.io'
