@@ -1,5 +1,6 @@
 /*
-* Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.io>. All rights reserved.
+* Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.io>.
+* All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without
 * modification, are permitted provided that the following conditions are met:
@@ -37,21 +38,21 @@ public class CapturePreviewView : MaterialView {
 	public override class func layerClass() -> AnyClass {
 		return AVCaptureVideoPreviewLayer.self
 	}
-	
+
 	/**
 	:name:	captureDevicePointOfInterestForPoint
 	*/
 	public func captureDevicePointOfInterestForPoint(point: CGPoint) -> CGPoint {
 		return (layer as! AVCaptureVideoPreviewLayer).captureDevicePointOfInterestForPoint(point)
 	}
-	
+
 	/**
 	:name:	pointForCaptureDevicePointOfInterest
 	*/
 	public func pointForCaptureDevicePointOfInterest(point: CGPoint) -> CGPoint {
 		return (layer as! AVCaptureVideoPreviewLayer).pointForCaptureDevicePointOfInterest(point)
 	}
-	
+
 	/**
 	:name:	prepareView
 	*/
@@ -59,7 +60,7 @@ public class CapturePreviewView : MaterialView {
 		super.prepareView()
 		preparePreviewLayer()
 	}
-	
+
 	/**
 	:name:	preparePreviewLayer
 	*/
