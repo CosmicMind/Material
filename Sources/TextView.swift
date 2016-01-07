@@ -474,7 +474,6 @@ public class TextView: UITextView {
 			v.textAlignment = textAlignment
 			v.numberOfLines = 0
 			v.backgroundColor = MaterialColor.clear
-			titleLabel?.text = placeholderLabel?.text
 			addSubview(v)
 			reloadView()
 			handleTextViewTextDidChange()
