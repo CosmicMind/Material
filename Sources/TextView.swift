@@ -18,8 +18,10 @@
 
 import UIKit
 
+@objc(TextViewDelegate)
 public protocol TextViewDelegate : UITextViewDelegate {}
 
+@objc(TextView)
 public class TextView: UITextView {
 	/**
 	This property is the same as clipsToBounds. It crops any of the view's
