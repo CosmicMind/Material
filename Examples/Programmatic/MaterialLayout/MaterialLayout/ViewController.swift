@@ -28,6 +28,10 @@
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+/**
+MaterialLayout 
+*/
+
 import UIKit
 import MaterialKit
 
@@ -35,24 +39,16 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		
-		// Examples of using MaterialLayout.
 		prepareAlignToParentHorizontallyExample()
-//		prepareAlignToParentVerticallyExample()
+		prepareAlignToParentVerticallyExample()
 	}
 	
-	/**
-	:name:	prepareView
-	:description: General preparation statements.
-	*/
+	/// General preparation methods are placed here.
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.white
 	}
 	
-	/**
-	:name:	prepareAlignToParentHorizontallyExample
-	:description:	Laying out views horizontally with equal width.
-	*/
+	/// Layout views horizontally with equal width.
 	private func prepareAlignToParentHorizontallyExample() {
 		let label1: UILabel = UILabel()
 		label1.translatesAutoresizingMaskIntoConstraints = false
@@ -100,10 +96,7 @@ class ViewController: UIViewController {
 		}
 	}
 	
-	/**
-	:name:	prepareAlignToParentVerticallyExample
-	:description:	Laying out views vertically with equal height.
-	*/
+	/// Layout views vertically with equal height.
 	private func prepareAlignToParentVerticallyExample() {
 		let label1: UILabel = UILabel()
 		label1.translatesAutoresizingMaskIntoConstraints = false
