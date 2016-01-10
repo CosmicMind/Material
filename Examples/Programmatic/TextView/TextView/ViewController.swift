@@ -63,7 +63,7 @@ class ViewController: UIViewController, TextDelegate, TextViewDelegate {
 		
 		textView.titleLabel = UILabel()
 		textView.titleLabel!.font = RobotoFont.mediumWithSize(12)
-		textView.titleLabelColor = MaterialColor.grey.lighten2
+		textView.titleLabelColor = MaterialColor.grey.base
 		textView.titleLabelActiveColor = MaterialColor.blue.accent3
 		
 		view.addSubview(textView)

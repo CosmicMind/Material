@@ -262,6 +262,12 @@ public class TextView: UITextView {
 		}
 	}
 	
+	/**
+	A property that sets the distance between the textView and 
+	titleLabel.
+	*/
+	public var titleLabelAnimationDistance: CGFloat = 16
+	
 	/// An override to the text property.
 	public override var text: String! {
 		didSet {
@@ -419,20 +425,17 @@ public class TextView: UITextView {
 	
 	/// Notification handler for when text editing began.
 	internal func handleTextViewTextDidBegin() {
-		prepareTitleLabelForAnimation()
+		titleLabel?.textColor = titleLabelActiveColor
 	}
 	
 	/// Notification handler for when text changed.
 	internal func handleTextViewTextDidChange() {
-		prepareTitleLabelForAnimation()
-		
 		if let p = placeholderLabel {
 			p.hidden = !(true == text?.isEmpty)
 		}
 		
 		if 0 < text?.utf16.count {
 			showTitleLabel()
-			titleLabel?.textColor = titleLabelActiveColor
 		} else if 0 == text?.utf16.count {
 			hideTitleLabel()
 		}
@@ -463,7 +466,7 @@ public class TextView: UITextView {
 	when subclassing.
 	*/
 	private func prepareView() {
-		textContainerInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
+		textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
 		backgroundColor = MaterialColor.white
 		masksToBounds = false
 		removeNotificationHandlers()
@@ -488,28 +491,12 @@ public class TextView: UITextView {
 	/// Prepares the titleLabel property.
 	private func prepareTitleLabel() {
 		if let v: UILabel = titleLabel {
-			MaterialAnimation.animationDisabled {
-				v.hidden = true
-				v.alpha = 0
-			}
+			v.hidden = true
 			addSubview(v)
-		}
-	}
-	
-	/// Parepares the titleLabel before it animates.
-	private func prepareTitleLabelForAnimation() {
-		if let v: UILabel = titleLabel {
-			if v.hidden {
-				let h: CGFloat = v.font.pointSize
-				v.frame = CGRectMake(0, -h, bounds.width, h)
-				if let s: String = placeholderLabel?.text {
-					v.text = s
-				}
-				if 0 == text?.utf16.count {
-					v.textColor = titleLabelColor
-				} else {
-					v.textColor = titleLabelActiveColor
-				}
+			if 0 < text?.utf16.count {
+				showTitleLabel()
+			} else {
+				v.alpha = 0
 			}
 		}
 	}
@@ -517,23 +504,34 @@ public class TextView: UITextView {
 	/// Shows and animates the titleLabel property.
 	private func showTitleLabel() {
 		if let v: UILabel = titleLabel {
-			v.hidden = false
-			UIView.animateWithDuration(0.25, animations: {
-				v.alpha = 1
-				print(v.frame)
-				v.frame.origin.y = -v.frame.height - 4
-			})
+			if v.hidden {
+				if let s: String = placeholderLabel?.text {
+					if 0 == v.text?.utf16.count || nil == v.text {
+						v.text = s
+					}
+				}
+				let h: CGFloat = v.font.pointSize
+				v.frame = CGRectMake(0, -h, bounds.width, h)
+				v.hidden = false
+				UIView.animateWithDuration(0.25, animations: {
+					v.alpha = 1
+					print(v.frame)
+					v.frame.origin.y = -v.frame.height - self.titleLabelAnimationDistance
+				})
+			}
 		}
 	}
 	
 	/// Hides and animates the titleLabel property.
 	private func hideTitleLabel() {
 		if let v: UILabel = titleLabel {
-			UIView.animateWithDuration(0.25, animations: {
-				v.alpha = 0
-				v.frame.origin.y = -v.frame.height
-			}) { _ in
-				v.hidden = true
+			if !v.hidden {
+				UIView.animateWithDuration(0.25, animations: {
+					v.alpha = 0
+					v.frame.origin.y = -v.frame.height
+				}) { _ in
+					v.hidden = true
+				}
 			}
 		}
 	}
