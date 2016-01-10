@@ -47,7 +47,7 @@ class ViewController: UIViewController, TextDelegate, TextViewDelegate {
 	
 	func prepareTextView() {
 		let layoutManager: NSLayoutManager = NSLayoutManager()
-		let textContainer = NSTextContainer(size: view.bounds.size)
+		let textContainer: NSTextContainer = NSTextContainer(size: view.bounds.size)
 		layoutManager.addTextContainer(textContainer)
 		
 		text.delegate = self
@@ -55,8 +55,6 @@ class ViewController: UIViewController, TextDelegate, TextViewDelegate {
 		
 		textView = TextView(textContainer: textContainer)
 		textView.delegate = self
-		textView.editable = true
-		textView.selectable = true
 		textView.font = RobotoFont.regular
 		
 		textView.placeholderLabel = UILabel()

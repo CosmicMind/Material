@@ -250,7 +250,9 @@ public class TextField : UITextField {
 	public var titleLabelColor: UIColor? {
 		didSet {
 			titleLabel?.textColor = titleLabelColor
-			bottomBorderLayer.backgroundColor = titleLabelColor?.CGColor
+			MaterialAnimation.animationDisabled { [unowned self] in
+				self.bottomBorderLayer.backgroundColor = self.titleLabelColor?.CGColor
+			}
 		}
 	}
 	
@@ -279,11 +281,15 @@ public class TextField : UITextField {
 	public var detailLabelHidden: Bool = false {
 		didSet {
 			if detailLabelHidden {
-				bottomBorderLayer.backgroundColor = editing ? titleLabelActiveColor?.CGColor : titleLabelColor?.CGColor
+				MaterialAnimation.animationDisabled { [unowned self] in
+					self.bottomBorderLayer.backgroundColor = self.editing ? self.titleLabelActiveColor?.CGColor : self.titleLabelColor?.CGColor
+				}
 				hideDetailLabel()
 			} else {
 				detailLabel?.textColor = detailLabelActiveColor
-				bottomBorderLayer.backgroundColor = detailLabelActiveColor?.CGColor
+				MaterialAnimation.animationDisabled { [unowned self] in
+					self.bottomBorderLayer.backgroundColor = self.detailLabelActiveColor?.CGColor
+				}
 				showDetailLabel()
 			}
 		}
@@ -410,11 +416,15 @@ public class TextField : UITextField {
 		
 		if 0 == text?.utf16.count {
 			titleLabel?.textColor = titleLabelColor
-			bottomBorderLayer.backgroundColor = titleLabelColor?.CGColor
+			MaterialAnimation.animationDisabled { [unowned self] in
+				self.bottomBorderLayer.backgroundColor = self.titleLabelColor?.CGColor
+			}
 			detailLabelHidden = true
 		} else {
 			titleLabel?.textColor = titleLabelActiveColor
-			bottomBorderLayer.backgroundColor = detailLabelHidden ? titleLabelActiveColor?.CGColor : detailLabelActiveColor?.CGColor
+			MaterialAnimation.animationDisabled { [unowned self] in
+				self.bottomBorderLayer.backgroundColor = self.detailLabelHidden ? self.titleLabelActiveColor?.CGColor : self.detailLabelActiveColor?.CGColor
+			}
 		}
 	}
 	
@@ -423,7 +433,9 @@ public class TextField : UITextField {
 		if 0 < text?.utf16.count {
 			showTitleLabel()
 			titleLabel?.textColor = titleLabelActiveColor
-			bottomBorderLayer.backgroundColor = detailLabelHidden ? titleLabelActiveColor?.CGColor : detailLabelActiveColor?.CGColor
+			MaterialAnimation.animationDisabled { [unowned self] in
+				self.bottomBorderLayer.backgroundColor = self.detailLabelHidden ? self.titleLabelActiveColor?.CGColor : self.detailLabelActiveColor?.CGColor
+			}
 		} else if 0 == text?.utf16.count {
 			hideTitleLabel()
 			detailLabelHidden = true
@@ -438,7 +450,9 @@ public class TextField : UITextField {
 			hideTitleLabel()
 		}
 		titleLabel?.textColor = titleLabelColor
-		bottomBorderLayer.backgroundColor = detailLabelHidden ? titleLabelColor?.CGColor : detailLabelActiveColor?.CGColor
+		MaterialAnimation.animationDisabled { [unowned self] in
+			self.bottomBorderLayer.backgroundColor = self.detailLabelHidden ? self.titleLabelColor?.CGColor : self.detailLabelActiveColor?.CGColor
+		}
 	}
 	
 	/// Manages the layout for the shape of the view instance.

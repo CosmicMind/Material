@@ -419,22 +419,13 @@ public class TextView: UITextView {
 	
 	/// Notification handler for when text editing began.
 	internal func handleTextViewTextDidBegin() {
-		if let v: UILabel = titleLabel {
-			if v.hidden {
-				let h: CGFloat = v.font.pointSize
-				v.frame = CGRectMake(0, -h, bounds.width, h)
-				v.text = placeholderLabel?.text
-				if 0 == text?.utf16.count {
-					v.textColor = titleLabelColor
-				} else {
-					v.textColor = titleLabelActiveColor
-				}
-			}
-		}
+		prepareTitleLabelForAnimation()
 	}
 	
 	/// Notification handler for when text changed.
 	internal func handleTextViewTextDidChange() {
+		prepareTitleLabelForAnimation()
+		
 		if let p = placeholderLabel {
 			p.hidden = !(true == text?.isEmpty)
 		}
@@ -501,8 +492,25 @@ public class TextView: UITextView {
 				v.hidden = true
 				v.alpha = 0
 			}
-			titleLabel?.text = placeholderLabel?.text
 			addSubview(v)
+		}
+	}
+	
+	/// Parepares the titleLabel before it animates.
+	private func prepareTitleLabelForAnimation() {
+		if let v: UILabel = titleLabel {
+			if v.hidden {
+				let h: CGFloat = v.font.pointSize
+				v.frame = CGRectMake(0, -h, bounds.width, h)
+				if let s: String = placeholderLabel?.text {
+					v.text = s
+				}
+				if 0 == text?.utf16.count {
+					v.textColor = titleLabelColor
+				} else {
+					v.textColor = titleLabelActiveColor
+				}
+			}
 		}
 	}
 	
@@ -512,6 +520,7 @@ public class TextView: UITextView {
 			v.hidden = false
 			UIView.animateWithDuration(0.25, animations: {
 				v.alpha = 1
+				print(v.frame)
 				v.frame.origin.y = -v.frame.height - 4
 			})
 		}

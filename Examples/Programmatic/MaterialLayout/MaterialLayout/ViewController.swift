@@ -29,7 +29,9 @@
 */
 
 /**
-MaterialLayout 
+MaterialLayout is an excellent tool to ease the use of AutoLayout. The following
+examples demonstrate laying out a collection of UILabel objects, both vertically
+and horizontally.
 */
 
 import UIKit
@@ -83,8 +85,10 @@ class ViewController: UIViewController {
 		// Align the labels horizontally with an equal width.
 		MaterialLayout.alignToParentHorizontally(view, children: children, left: 30, right: 30, spacing: 30)
 		
-		// Individually set the labels' vertical alignment.
-		// If this is left out, the intrinsic value is used for the view.
+		/*
+		Individually set the labels' vertical alignment.
+		If this is left out, the intrinsic value is used for the view.
+		*/
 		for v in children {
 			MaterialLayout.alignToParentVertically(view, child: v, top: 100, bottom: 100)
 		}
@@ -131,8 +135,10 @@ class ViewController: UIViewController {
 		// Align the labels vertically with an equal height.
 		MaterialLayout.alignToParentVertically(view, children: children, top: 100, bottom: 100, spacing: 100)
 		
-		// Individually set the labels' horizontal alignment.
-		// If this is left out, the intrinsic value is used for the view.
+		/*
+		Individually set the labels' horizontal alignment.
+		If this is left out, the intrinsic value is used for the view.
+		*/
 		for v in children {
 			MaterialLayout.alignToParentHorizontally(view, child: v, left: 100, right: 100)
 		}

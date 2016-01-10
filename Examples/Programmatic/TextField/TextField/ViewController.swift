@@ -65,6 +65,7 @@ class ViewController: UIViewController, TextFieldDelegate {
 		nameField.titleLabelColor = MaterialColor.grey.lighten1
 		nameField.titleLabelActiveColor = MaterialColor.blue.accent3
 		nameField.clearButtonMode = .WhileEditing
+		nameField.text = "Hello"
 		view.addSubview(nameField)
 	}
 	
