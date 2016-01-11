@@ -109,15 +109,15 @@ let textField: TextField = TextField(frame: CGRectMake(57, 100, 300, 24))
 textField.placeholder = "First Name"
 textField.font = RobotoFont.regularWithSize(20)
 textField.textColor = MaterialColor.black
+
 textField.titleLabel = UILabel()
 textField.titleLabel!.font = RobotoFont.mediumWithSize(12)
 textField.titleLabelColor = MaterialColor.grey.lighten1
 textField.titleLabelActiveColor = MaterialColor.blue.accent3
 textField.clearButtonMode = .WhileEditing
-view.addSubview(textField)
 
 // Add nameField to UIViewController.
-view.addSubview(nameField)
+view.addSubview(textField)
 ```
 
 <a name="textview"></a>

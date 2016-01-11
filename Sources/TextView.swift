@@ -255,18 +255,18 @@ public class TextView: UITextView {
 	/// The color of the titleLabel text when the textView is active.
 	public var titleLabelActiveColor: UIColor?
 	
+	/**
+	A property that sets the distance between the textView and
+	titleLabel.
+	*/
+	public var titleLabelAnimationDistance: CGFloat = 16
+	
 	/// Placeholder UILabel view.
 	public var placeholderLabel: UILabel? {
 		didSet {
 			preparePlaceholderLabel()
 		}
 	}
-	
-	/**
-	A property that sets the distance between the textView and 
-	titleLabel.
-	*/
-	public var titleLabelAnimationDistance: CGFloat = 16
 	
 	/// An override to the text property.
 	public override var text: String! {
@@ -397,7 +397,7 @@ public class TextView: UITextView {
 	public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
 		if let a: CAPropertyAnimation = anim as? CAPropertyAnimation {
 			if let b: CABasicAnimation = a as? CABasicAnimation {
-				MaterialAnimation.animationDisabled {
+				MaterialAnimation.animationDisabled { [unowned self] in
 					self.layer.setValue(nil == b.toValue ? b.byValue : b.toValue, forKey: b.keyPath!)
 				}
 			}
@@ -513,9 +513,8 @@ public class TextView: UITextView {
 				let h: CGFloat = v.font.pointSize
 				v.frame = CGRectMake(0, -h, bounds.width, h)
 				v.hidden = false
-				UIView.animateWithDuration(0.25, animations: {
+				UIView.animateWithDuration(0.25, animations: { [unowned self] in
 					v.alpha = 1
-					print(v.frame)
 					v.frame.origin.y = -v.frame.height - self.titleLabelAnimationDistance
 				})
 			}

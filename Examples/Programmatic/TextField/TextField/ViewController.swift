@@ -28,62 +28,68 @@
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+/*
+The following is an example of using a TextField. TextFields offer details
+that describe the usage and input results of text. For example, when an 
+error enters an incorrect email, it is possible to display an error message
+under the TextField.
+*/
+
 import UIKit
 import MaterialKit
 
 class ViewController: UIViewController, TextFieldDelegate {
-	private lazy var nameField: TextField = TextField()
-	private lazy var emailField: TextField = TextField()
+	/// Name TextField.
+	private var nameField: TextField!
+	
+	/// Email TextField.
+	private var emailField: TextField!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		
 		prepareNameField()
 		prepareEmailField()
 	}
 	
-	/**
-	:name:	prepareView
-	*/
+	/// General preparation statements.
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.white
 	}
 	
-	/**
-	:name:	prepareNameField
-	:description:	A preparation helper for nameField.
-	*/
+	/// Prepares the name TextField.
 	private func prepareNameField() {
-		nameField.delegate = self
-		nameField.frame = CGRectMake(57, 100, 300, 24)
+		nameField = TextField(frame: CGRectMake(57, 100, 300, 24))
+		nameField.clearButtonMode = .WhileEditing
 		nameField.placeholder = "First Name"
 		nameField.font = RobotoFont.regularWithSize(20)
 		nameField.textColor = MaterialColor.black
+		
 		nameField.titleLabel = UILabel()
 		nameField.titleLabel!.font = RobotoFont.mediumWithSize(12)
 		nameField.titleLabelColor = MaterialColor.grey.lighten1
 		nameField.titleLabelActiveColor = MaterialColor.blue.accent3
-		nameField.clearButtonMode = .WhileEditing
-		nameField.text = "Hello"
 		view.addSubview(nameField)
 	}
 	
-	/**
-	:name:	prepareEmailField
-	:description:	A preparation helper for emailField.
-	*/
+	/// Prepares the email TextField.
 	private func prepareEmailField() {
+		emailField = TextField(frame: CGRectMake(57, 200, 300, 24))
 		emailField.delegate = self
-		emailField.frame = CGRectMake(57, 200, 300, 24)
 		emailField.placeholder = "Email"
 		emailField.font = RobotoFont.regularWithSize(20)
 		emailField.textColor = MaterialColor.black
+		
 		emailField.titleLabel = UILabel()
 		emailField.titleLabel!.font = RobotoFont.mediumWithSize(12)
 		emailField.titleLabelColor = MaterialColor.grey.lighten1
 		emailField.titleLabelActiveColor = MaterialColor.blue.accent3
 		emailField.clearButtonMode = .WhileEditing
+		
+		/*
+		Used to display the error message, which is displayed when
+		the user presses the 'return' key.
+		*/
 		emailField.detailLabel = UILabel()
 		emailField.detailLabel!.text = "Email is incorrect."
 		emailField.detailLabel!.font = RobotoFont.mediumWithSize(12)
@@ -91,16 +97,10 @@ class ViewController: UIViewController, TextFieldDelegate {
 		view.addSubview(emailField)
 	}
 	
-	/**
-	:name:	textFieldShouldReturn
-	:description: This is called when the user presses the Return
-				  key on the keyboard.
-	*/
+	/// Executed when the 'return' key is pressed when using the emailField.
 	func textFieldShouldReturn(textField: UITextField) -> Bool {
 		textField.resignFirstResponder()
-		if textField == emailField {
-			(textField as! TextField).detailLabelHidden = false
-		}
+		(textField as! TextField).detailLabelHidden = !(0 < emailField.text?.utf16.count)
 		return false
 	}
 	
