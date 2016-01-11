@@ -634,7 +634,7 @@ Checkout the Examples Programmatic directory for a sample project using this won
 <a name="materialcolor"></a>
 ### MaterialColor
 
-MaterialColor is a complete Material Design color library. It uses base color values that expand to a range of lighter and darker shades, with the addition of accents.
+MaterialColor is a complete Material Design color library. It uses base color values that expand to a range of lighter and darker shades, with the addition of accents. Below is an example of setting a FabButton's background color.
 
 ![MaterialKitMaterialColorPalette](http://www.materialkit.io/MK/MaterialKitMaterialColorPalette.png)
 
@@ -642,15 +642,6 @@ MaterialColor is a complete Material Design color library. It uses base color va
 let button: FabButton = FabButton()
 button.backgroundColor = MaterialColor.blue.darken1
 ```
-
-[Learn More About MaterialColor](https://github.com/CosmicMind/MaterialKit/wiki/MaterialColor)
-
-<a name="materiallayout"></a>
-### MaterialLayout
-
-MaterialLayout simplifies the use of AutoLayout. It offers a clean and expansive API that focuses on the intent of the desired layout.
-
-[Learn More About MaterialLayout](https://github.com/CosmicMind/MaterialKit/wiki/MaterialLayout)
 
 ### License
 
