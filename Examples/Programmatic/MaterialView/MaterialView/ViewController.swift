@@ -28,6 +28,13 @@
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+/*
+MaterialView is the base UIView class used throughout MaterialKit. It is designed 
+to easily take shape, depth, and animations. The major difference is that 
+MaterialView has all the added features of the UIView class. Below is an example 
+of setting a MaterialView's cornerRadius, shape, and depth.
+*/
+
 import UIKit
 import MaterialKit
 
@@ -35,23 +42,15 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		
-		// Examples of using MaterialView.
 		prepareGeneralMaterialViewExample()
 	}
 	
-	/**
-	:name:			prepareView
-	:description:	General preparation statements.
-	*/
+	/// General preparation statements.
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.white
 	}
 	
-	/**
-	:name:			prepareGeneralMaterialViewExample
-	:description:	General usage example.
-	*/
+	/// Prepare the MaterialView.
 	private func prepareGeneralMaterialViewExample() {
 		let materialView: MaterialView = MaterialView(frame: CGRectMake(132, 132, 150, 150))
 		materialView.image = UIImage(named: "FocusAppIcon")
@@ -59,7 +58,7 @@ class ViewController: UIViewController {
 		materialView.depth = .Depth2
 		materialView.cornerRadius = .Radius3
 		
-		// Add view to UIViewController.
+		// Add materialView to UIViewController.
 		view.addSubview(materialView)
 	}
 }

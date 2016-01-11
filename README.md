@@ -75,10 +75,10 @@ The MaterialKit framework is a fast growing project and will encounter changes t
 * [FlatButton](#flatbutton)
 * [RaisedButton](#raisedbutton)
 * [FabButton](#fabbutton)
-* [CardView](#cardview)
-* [ImageCardView](#imagecardview)
 * [NavigationBarView](#navigationbarview)
 * [SideNavigationViewController](#sidenavigationviewcontroller)
+* [CardView](#cardview)
+* [ImageCardView](#imagecardview)
 * [CaptureView](#captureview)
 * [MaterialColor](#materialcolor)
 * [MaterialLayout](#materiallayout)
@@ -100,7 +100,10 @@ The MaterialKit framework is a fast growing project and will encounter changes t
 <a name="textfield"></a>
 ### TextField
 
-A TextField is an excellent way to improve UX. Checkout the Examples directory for a project using this component.
+A TextField is an excellent way to improve UX. TextFields offer details
+that describe the usage and input results of text. For example, when a
+user enters an incorrect email, it is possible to display an error message
+under the TextField. Checkout the Examples directory for a project using this component.
 
 ![MaterialKitTextField](http://www.materialkit.io/MK/MaterialKitTextField.gif)
 
@@ -116,7 +119,7 @@ textField.titleLabelColor = MaterialColor.grey.lighten1
 textField.titleLabelActiveColor = MaterialColor.blue.accent3
 textField.clearButtonMode = .WhileEditing
 
-// Add nameField to UIViewController.
+// Add textField to UIViewController.
 view.addSubview(textField)
 ```
 
@@ -142,7 +145,7 @@ materialLayer.image = UIImage(named: "CosmicMindAppIcon")
 materialLayer.shape = .Circle
 materialLayer.shadowDepth = .Depth2
 
-// Add layer to UIViewController.
+// Add materialLayer to UIViewController.
 view.layer.addSublayer(materialLayer)
 ```
 
@@ -160,31 +163,32 @@ materialView.shape = .Square
 materialView.shadowDepth = .Depth2
 materialView.cornerRadius = .Radius3
 
-// Add view to UIViewController.
+// Add materialView to UIViewController.
 view.addSubview(materialView)
 ```
 
 <a name="materialpulseview"></a>
 ### MaterialPulseView
 
-MaterialPulseView is at the heart of all pulse animations. Any view that subclasses MaterialPulseView instantly inherits the pulse animation with full customizability.
+MaterialPulseView is at the heart of all pulse animations. Any view that subclasses MaterialPulseView instantly inherits the pulse animation with full customizability. Below is an example of using MaterialPulseView.
 
 ![MaterialKitMaterialPulseView](http://www.materialkit.io/MK/MaterialKitMaterialPulseView.gif)
 
 ```swift
-let materialPulseView: MaterialPulseView = MaterialPulseView(frame: CGRectMake(132, 132, 150, 150))
-materialPulseView.image = UIImage(named: "ContentAppIcon")
-materialPulseView.shape = .Circle
-materialPulseView.shadowDepth = .Depth2
+let pulseView: MaterialPulseView = MaterialPulseView(frame: CGRectMake(132, 132, 150, 150))
+pulseView.image = UIImage(named: "GraphKitAppIcon")
+pulseView.shape = .Square
+pulseView.depth = .Depth2
+pulseView.cornerRadius = .Radius4
 
-// Add view to UIViewController.
-view.addSubview(materialPulseView)
+// Add pulseView to UIViewController.
+view.addSubview(pulseView)
 ```
 
 <a name="flatbutton"></a>
 ### FlatButton
 
-A FlatButton is the best place to start when introducing MaterialKit buttons. It is simple, clean, and very effective. Below is an example of a FlatButton in action.
+A FlatButton is simple, clean, and very effective. Below is an example of a FlatButton in action.
 
 ![MaterialKitFlatButton](http://www.materialkit.io/MK/MaterialKitFlatButton.gif)
 
@@ -193,7 +197,7 @@ let button: FlatButton = FlatButton(frame: CGRectMake(107, 107, 200, 65))
 button.setTitle("Flat", forState: .Normal)
 button.titleLabel!.font = RobotoFont.mediumWithSize(32)
 
-// Add to UIViewController.
+// Add button to UIViewController.
 view.addSubview(button)
 ```
 
@@ -209,7 +213,7 @@ let button: RaisedButton = RaisedButton(frame: CGRectMake(107, 207, 200, 65))
 button.setTitle("Raised", forState: .Normal)
 button.titleLabel!.font = RobotoFont.mediumWithSize(32)
 
-// Add to UIViewController.
+// Add button to UIViewController.
 view.addSubview(button)
 ```
 
@@ -226,9 +230,95 @@ let button: FabButton = FabButton(frame: CGRectMake(175, 315, 64, 64))
 button.setImage(img, forState: .Normal)
 button.setImage(img, forState: .Highlighted)
 
-// Add to UIViewController.
+// Add button to UIViewController.
 view.addSubview(button)
 ```
+
+<a name="navigationbarview"></a>
+### NavigationBarView
+
+A NavigationBarView is a fully featured NavigationBar that supports orientation changes,
+background images, title and detail labels, both left and right button sets, and
+status bar settings. Below is an example of its usage.
+
+![MaterialKitNavigationBarView](http://www.materialkit.io/MK/MaterialKitNavigationBarView.gif)
+
+```swift
+let navigationBarView: NavigationBarView = NavigationBarView()
+navigationBarView.backgroundColor = MaterialColor.indigo.darken1
+
+/*
+To lighten the status bar - add the
+"View controller-based status bar appearance = NO"
+to your info.plist file and set the following property.
+*/
+navigationBarView.statusBarStyle = .LightContent
+
+// Title label.
+let titleLabel: UILabel = UILabel()
+titleLabel.text = "MaterialKit"
+titleLabel.textAlignment = .Left
+titleLabel.textColor = MaterialColor.white
+titleLabel.font = RobotoFont.regularWithSize(20)
+navigationBarView.titleLabel = titleLabel
+navigationBarView.titleLabelInset.left = 64
+
+// Detail label.
+let detailLabel: UILabel = UILabel()
+detailLabel.text = "Build Beautiful Software"
+detailLabel.textAlignment = .Left
+detailLabel.textColor = MaterialColor.white
+detailLabel.font = RobotoFont.regularWithSize(12)
+navigationBarView.detailLabel = detailLabel
+navigationBarView.detailLabelInset.left = 64
+
+// Menu button.
+let img1: UIImage? = UIImage(named: "ic_menu_white")
+let btn1: FlatButton = FlatButton()
+btn1.pulseColor = MaterialColor.white
+btn1.pulseFill = true
+btn1.pulseScale = false
+btn1.setImage(img1, forState: .Normal)
+btn1.setImage(img1, forState: .Highlighted)
+
+// Star button.
+let img2: UIImage? = UIImage(named: "ic_star_white")
+let btn2: FlatButton = FlatButton()
+btn2.pulseColor = MaterialColor.white
+btn2.pulseFill = true
+btn2.pulseScale = false
+btn2.setImage(img2, forState: .Normal)
+btn2.setImage(img2, forState: .Highlighted)
+
+// Search button.
+let img3: UIImage? = UIImage(named: "ic_search_white")
+let btn3: FlatButton = FlatButton()
+btn3.pulseColor = MaterialColor.white
+btn3.pulseFill = true
+btn3.pulseScale = false
+btn3.setImage(img3, forState: .Normal)
+btn3.setImage(img3, forState: .Highlighted)
+
+// Add buttons to left side.
+navigationBarView.leftButtons = [btn1]
+
+// Add buttons to right side.
+navigationBarView.rightButtons = [btn2, btn3]
+
+// To support orientation changes, use MaterialLayout.
+view.addSubview(navigationBarView)
+navigationBarView.translatesAutoresizingMaskIntoConstraints = false
+MaterialLayout.alignFromTop(view, child: navigationBarView)
+MaterialLayout.alignToParentHorizontally(view, child: navigationBarView)
+MaterialLayout.height(view, child: navigationBarView, height: 70)
+```
+
+<a name="sidenavigationviewcontroller"></a>
+### SideNavigationViewController
+
+As elegant as is effective, the SideNavigationViewController is an excellent way to organize your app. In the Examples directory, there is an example project using this wonderful component.
+
+![MaterialKitSideNavigationViewController](http://www.materialkit.io/MK/MaterialKitSideNavigationViewController.gif)
 
 <a name="cardview"></a>
 ### CardView
@@ -531,89 +621,6 @@ imageCardView.translatesAutoresizingMaskIntoConstraints = false
 MaterialLayout.alignFromTop(view, child: imageCardView, top: 100)
 MaterialLayout.alignToParentHorizontally(view, child: imageCardView, left: 20, right: 20)
 ```
-
-<a name="navigationbarview"></a>
-### NavigationBarView
-
-One of Material Design's greatest additions to UI is the NavigationBarView. In the Examples folder, you can checkout some code to get you started with this wonderful component.
-
-![MaterialKitNavigationBarView](http://www.materialkit.io/MK/MaterialKitNavigationBarView.gif)
-
-```swift
-let navigationBarView: NavigationBarView = NavigationBarView()
-
-// Stylize.
-navigationBarView.backgroundColor = MaterialColor.indigo.darken1
-
-// To lighten the status bar add the "View controller-based status bar appearance = NO"
-// to your info.plist file and set the following property.
-navigationBarView.statusBarStyle = .LightContent
-
-// Title label.
-let titleLabel: UILabel = UILabel()
-titleLabel.text = "MaterialKit"
-titleLabel.textAlignment = .Left
-titleLabel.textColor = MaterialColor.white
-titleLabel.font = RobotoFont.regularWithSize(20)
-navigationBarView.titleLabel = titleLabel
-navigationBarView.titleLabelInset.left = 64
-
-// Detail label.
-let detailLabel: UILabel = UILabel()
-detailLabel.text = "Build Beautiful Software"
-detailLabel.textAlignment = .Left
-detailLabel.textColor = MaterialColor.white
-detailLabel.font = RobotoFont.regularWithSize(12)
-navigationBarView.detailLabel = detailLabel
-navigationBarView.detailLabelInset.left = 64
-
-// Menu button.
-let img1: UIImage? = UIImage(named: "ic_menu_white")
-let btn1: FlatButton = FlatButton()
-btn1.pulseColor = MaterialColor.white
-btn1.pulseFill = true
-btn1.pulseScale = false
-btn1.setImage(img1, forState: .Normal)
-btn1.setImage(img1, forState: .Highlighted)
-
-// Star button.
-let img2: UIImage? = UIImage(named: "ic_star_white")
-let btn2: FlatButton = FlatButton()
-btn2.pulseColor = MaterialColor.white
-btn2.pulseFill = true
-btn2.pulseScale = false
-btn2.setImage(img2, forState: .Normal)
-btn2.setImage(img2, forState: .Highlighted)
-
-// Search button.
-let img3: UIImage? = UIImage(named: "ic_search_white")
-let btn3: FlatButton = FlatButton()
-btn3.pulseColor = MaterialColor.white
-btn3.pulseFill = true
-btn3.pulseScale = false
-btn3.setImage(img3, forState: .Normal)
-btn3.setImage(img3, forState: .Highlighted)
-
-// Add buttons to left side.
-navigationBarView.leftButtons = [btn1]
-
-// Add buttons to right side.
-navigationBarView.rightButtons = [btn2, btn3]
-
-// To support orientation changes, use MaterialLayout.
-view.addSubview(navigationBarView)
-navigationBarView.translatesAutoresizingMaskIntoConstraints = false
-MaterialLayout.alignFromTop(view, child: navigationBarView)
-MaterialLayout.alignToParentHorizontally(view, child: navigationBarView)
-MaterialLayout.height(view, child: navigationBarView, height: 70)
-```
-
-<a name="sidenavigationviewcontroller"></a>
-### SideNavigationViewController
-
-As elegant as is effective, the SideNavigationViewController is an excellent way to organize your app. In the Examples directory, there is an example project using this wonderful component.
-
-![MaterialKitSideNavigationViewController](http://www.materialkit.io/MK/MaterialKitSideNavigationViewController.gif)
 
 <a name="captureview"></a>
 ### CaptureView

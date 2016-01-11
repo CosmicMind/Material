@@ -65,6 +65,13 @@
       </Group>
       <Group
          location = "container:"
+         name = "SideNavigationViewController">
+         <FileRef
+            location = "group:Programmatic/SideNavigationViewController/SideNavigationViewController.xcodeproj">
+         </FileRef>
+      </Group>
+      <Group
+         location = "container:"
          name = "CardView">
          <FileRef
             location = "group:Programmatic/CardView/CardView.xcodeproj">
@@ -82,13 +89,6 @@
          name = "CaptureView">
          <FileRef
             location = "group:Programmatic/CaptureView/CaptureView.xcodeproj">
-         </FileRef>
-      </Group>
-      <Group
-         location = "container:"
-         name = "SideNavigationViewController">
-         <FileRef
-            location = "group:Programmatic/SideNavigationViewController/SideNavigationViewController.xcodeproj">
          </FileRef>
       </Group>
    </Group>
@@ -118,6 +118,13 @@
       </Group>
       <Group
          location = "container:"
+         name = "SideNavigationViewController">
+         <FileRef
+            location = "group:Storyboards/SideNavigationViewController/SideNavigationViewController.xcodeproj">
+         </FileRef>
+      </Group>
+      <Group
+         location = "container:"
          name = "CardView">
          <FileRef
             location = "group:Storyboards/CardView/CardView.xcodeproj">
@@ -128,13 +135,6 @@
          name = "ImageCardView">
          <FileRef
             location = "group:Storyboards/ImageCardView/ImageCardView.xcodeproj">
-         </FileRef>
-      </Group>
-      <Group
-         location = "container:"
-         name = "SideNavigationViewController">
-         <FileRef
-            location = "group:Storyboards/SideNavigationViewController/SideNavigationViewController.xcodeproj">
          </FileRef>
       </Group>
    </Group>

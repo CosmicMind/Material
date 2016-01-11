@@ -28,6 +28,12 @@
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+/*
+MaterialLayer is a lightweight extension of CAShapeLayer that includes
+an extended API to create beautiful visual graphics. An animation
+interface is available to add awesome animations with ease.
+*/
+
 import UIKit
 import MaterialKit
 
@@ -58,8 +64,11 @@ class ViewController: UIViewController {
 		materialLayer.shape = .Circle
 		materialLayer.depth = .Depth2
 		
-		// Add layer to UIViewController.
+		// Add materialLayer to UIViewController.
 		view.layer.addSublayer(materialLayer)
+		
+		// Add a rotate animation.
+		materialLayer.animate(MaterialAnimation.rotate(3, duration: 3))
 	}
 }
 

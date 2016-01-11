@@ -28,6 +28,12 @@
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+/*
+MaterialPulseView is at the heart of all pulse animations. Any view that subclasses 
+MaterialPulseView instantly inherits the pulse animation with full customizability. 
+Below is an example of using MaterialPulseView.
+*/
+
 import UIKit
 import MaterialKit
 
@@ -35,30 +41,23 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		
-		// Examples of using MaterialPulseView.
 		prepareGeneralMaterialPulseViewExample()
 	}
 	
-	/**
-	:name:	prepareView
-	:description: General preparation statements.
-	*/
+	/// General preparation statements.
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.white
 	}
 	
-	/**
-	:name:	prepareGeneralMaterialPulseViewExample
-	:description:	General usage example.
-	*/
+	/// Prepares the MaterialPulseView example.
 	private func prepareGeneralMaterialPulseViewExample() {
 		let pulseView: MaterialPulseView = MaterialPulseView(frame: CGRectMake(132, 132, 150, 150))
-		pulseView.image = UIImage(named: "ContentAppIcon")
-		pulseView.shape = .Circle
+		pulseView.image = UIImage(named: "GraphKitAppIcon")
+		pulseView.shape = .Square
 		pulseView.depth = .Depth2
+		pulseView.cornerRadius = .Radius4
 		
-		// Add view to UIViewController.
+		// Add pulseView to UIViewController.
 		view.addSubview(pulseView)
 	}
 }

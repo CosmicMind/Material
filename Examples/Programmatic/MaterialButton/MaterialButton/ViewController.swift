@@ -28,6 +28,11 @@
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+/*
+There are 3 button types that may be easily customized -- a FlatButton,
+RaisedButton, and FabButton. Below are examples of their usage.
+*/
+
 import UIKit
 import MaterialKit
 
@@ -35,58 +40,44 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		
-		// Examples of using MaterialButton.
 		prepareFlatButtonExample()
 		prepareRaisedButtonExample()
 		prepareFabButtonExample()
 	}
 	
-	/**
-	:name:	prepareView
-	:description: General preparation statements.
-	*/
+	/// General preparation statements.
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.white
 	}
 	
-	/**
-	:name:	prepareFlatButtonExample
-	:description:	FlatButton example.
-	*/
+	/// Prepares the FlatButton.
 	private func prepareFlatButtonExample() {
 		let button: FlatButton = FlatButton(frame: CGRectMake(107, 107, 200, 65))
 		button.setTitle("Flat", forState: .Normal)
 		button.titleLabel!.font = RobotoFont.mediumWithSize(32)
 		
-		// Add to UIViewController.
+		// Add button to UIViewController.
 		view.addSubview(button)
 	}
 	
-	/**
-	:name:	prepareRaisedButtonExample
-	:description:	RaisedButton example.
-	*/
+	/// Prepares the RaisedButton.
 	private func prepareRaisedButtonExample() {
 		let button: RaisedButton = RaisedButton(frame: CGRectMake(107, 207, 200, 65))
 		button.setTitle("Raised", forState: .Normal)
 		button.titleLabel!.font = RobotoFont.mediumWithSize(32)
 		
-		// Add to UIViewController.
+		// Add button to UIViewController.
 		view.addSubview(button)
 	}
 	
-	/**
-	:name:	prepareFabButtonExample
-	:description:	FabButton example.
-	*/
+	/// Prepares the FabButton.
 	private func prepareFabButtonExample() {
 		let img: UIImage? = UIImage(named: "ic_create_white")
 		let button: FabButton = FabButton(frame: CGRectMake(175, 315, 64, 64))
 		button.setImage(img, forState: .Normal)
 		button.setImage(img, forState: .Highlighted)
 		
-		// Add to UIViewController.
+		// Add button to UIViewController.
 		view.addSubview(button)
 	}
 }

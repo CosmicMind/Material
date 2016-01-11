@@ -30,8 +30,8 @@
 
 /*
 The following is an example of using a TextField. TextFields offer details
-that describe the usage and input results of text. For example, when an 
-error enters an incorrect email, it is possible to display an error message
+that describe the usage and input results of text. For example, when a
+user enters an incorrect email, it is possible to display an error message
 under the TextField.
 */
 
@@ -67,7 +67,7 @@ class ViewController: UIViewController, TextFieldDelegate {
 		
 		nameField.titleLabel = UILabel()
 		nameField.titleLabel!.font = RobotoFont.mediumWithSize(12)
-		nameField.titleLabelColor = MaterialColor.grey.lighten1
+		nameField.titleLabelColor = MaterialColor.grey.base
 		nameField.titleLabelActiveColor = MaterialColor.blue.accent3
 		view.addSubview(nameField)
 	}
@@ -82,7 +82,7 @@ class ViewController: UIViewController, TextFieldDelegate {
 		
 		emailField.titleLabel = UILabel()
 		emailField.titleLabel!.font = RobotoFont.mediumWithSize(12)
-		emailField.titleLabelColor = MaterialColor.grey.lighten1
+		emailField.titleLabelColor = MaterialColor.grey.base
 		emailField.titleLabelActiveColor = MaterialColor.blue.accent3
 		emailField.clearButtonMode = .WhileEditing
 		
