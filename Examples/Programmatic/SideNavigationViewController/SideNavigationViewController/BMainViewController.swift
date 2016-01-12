@@ -32,43 +32,52 @@ import UIKit
 import MaterialKit
 
 class BMainViewController: UIViewController {
+	lazy var enabledButton: RaisedButton = RaisedButton()
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		
-		// Examples of using SideNavigationViewController.
-		prepareSwapSideNavigationViewControllerExample()
+		prepareFabButton()
 	}
 	
 	internal func handleSwapViewControllers() {
-		sideNavigationViewController?.transitionFromMainViewController(AMainViewController(),
-			duration: 0.25,
-			options: .TransitionCrossDissolve,
-			animations: nil,
-			completion: nil)
+		sideNavigationViewController?.open()
 	}
 	
-	/**
-	:name:	prepareView
-	:description: General preparation statements.
-	*/
+	internal func handleEnabledButton() {
+		if true == sideNavigationViewController?.enabled {
+			sideNavigationViewController?.enabled = false
+			enabledButton.setTitle("Disabled", forState: .Normal)
+		} else {
+			sideNavigationViewController?.enabled = true
+			enabledButton.setTitle("Enabled", forState: .Normal)
+		}
+	}
+	
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.green.base
+		view.backgroundColor = MaterialColor.blue.base
+		prepareEnabledButton()
 	}
 	
-	/**
-	:name:	prepareGeneralSideNavigationViewControllerExample
-	:description:	General usage example.
-	*/
-	private func prepareSwapSideNavigationViewControllerExample() {
+	private func prepareEnabledButton() {
+		enabledButton.setTitle(true == sideNavigationViewController?.enabled ? "Enabled" : "Disabled", forState: .Normal)
+		enabledButton.addTarget(self, action: "handleEnabledButton", forControlEvents: .TouchUpInside)
+		
+		// Add the enabledButton through MaterialLayout.
+		view.addSubview(enabledButton)
+		enabledButton.translatesAutoresizingMaskIntoConstraints = false
+		MaterialLayout.alignFromTopRight(view, child: enabledButton, top: 124, right: 24)
+		MaterialLayout.size(view, child: enabledButton, width: 200, height: 50)
+	}
+	
+	private func prepareFabButton() {
 		let button: FabButton = FabButton()
-		button.backgroundColor = MaterialColor.yellow.base
 		button.addTarget(self, action: "handleSwapViewControllers", forControlEvents: .TouchUpInside)
 		
 		// Add the button through MaterialLayout.
 		view.addSubview(button)
 		button.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignFromBottomLeft(view, child: button, bottom: 24, left: 24)
+		MaterialLayout.alignFromBottomRight(view, child: button, bottom: 24, right: 24)
 		MaterialLayout.size(view, child: button, width: 64, height: 64)
 	}
 }

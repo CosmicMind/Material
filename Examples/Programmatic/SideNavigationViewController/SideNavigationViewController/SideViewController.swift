@@ -31,16 +31,73 @@
 import UIKit
 import MaterialKit
 
-class SideViewController: UIViewController, SideNavigationViewControllerDelegate {
+private struct Item {
+	var text: String
+	var image: UIImage?
+}
+
+class SideViewController: UIViewController {
+	/// A tableView used to display navigation items.
+	private let tableView: UITableView = UITableView()
+	
+	/// A list of all the navigation items.
+	private var items: Array<Item> = Array<Item>()
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		
-		// Examples of using SideNavigationViewController.
-		prepareSwapSideNavigationViewControllerExample()
+		prepareItems()
+		prepareTableView()
 	}
 	
-	internal func handleSwapViewControllers() {
+	/// General preparation statements.
+	private func prepareView() {
+		view.backgroundColor = MaterialColor.purple.base
+	}
+	
+	/// Prepares the items that are displayed within the tableView.
+	private func prepareItems() {
+		items.append(Item(text: "Settings", image: UIImage(named: "ic_settings")))
+	}
+	
+	/// Prepares the tableView.
+	private func prepareTableView() {
+		tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+		tableView.dataSource = self
+		tableView.delegate = self
+		tableView.separatorStyle = .None
+		
+		// Use MaterialLayout to easily align the tableView.
+		view.addSubview(tableView)
+		tableView.translatesAutoresizingMaskIntoConstraints = false
+		MaterialLayout.alignToParent(view, child: tableView, top: 140)
+	}
+}
+
+/// TableViewDataSource methods.
+extension SideViewController: UITableViewDataSource {
+	/// Determines the number of rows in the tableView.
+	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return items.count;
+	}
+	
+	/// Prepares the cells within the tableView.
+	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+		let cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
+		
+		let item: Item = items[indexPath.row]
+		cell.selectionStyle = .None
+		cell.textLabel!.text = item.text
+		cell.imageView!.image = item.image
+		
+		return cell
+	}
+}
+
+/// UITableViewDelegate methods.
+extension SideViewController: UITableViewDelegate {
+	/// A delegation method that is executed when an item row is selected.
+	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		sideNavigationViewController?.transitionFromMainViewController(sideNavigationViewController?.mainViewController is AMainViewController ? BMainViewController() : AMainViewController(),
 			duration: 0.25,
 			options: .TransitionCrossDissolve,
@@ -49,30 +106,6 @@ class SideViewController: UIViewController, SideNavigationViewControllerDelegate
 				self.sideNavigationViewController?.close()
 			}
 		)
-	}
-	
-	/**
-	:name:	prepareView
-	:description: General preparation statements.
-	*/
-	private func prepareView() {
-		view.backgroundColor = MaterialColor.purple.base
-	}
-	
-	/**
-	:name:	prepareGeneralSideNavigationViewControllerExample
-	:description:	General usage example.
-	*/
-	private func prepareSwapSideNavigationViewControllerExample() {
-		let button: FabButton = FabButton()
-		button.backgroundColor = MaterialColor.orange.base
-		button.addTarget(self, action: "handleSwapViewControllers", forControlEvents: .TouchUpInside)
-		
-		// Add the button through MaterialLayout.
-		view.addSubview(button)
-		button.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignFromTopRight(view, child: button, top: 24, right: 24)
-		MaterialLayout.size(view, child: button, width: 48, height: 48)
 	}
 }
 

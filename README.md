@@ -81,7 +81,6 @@ The MaterialKit framework is a fast growing project and will encounter changes t
 * [ImageCardView](#imagecardview)
 * [CaptureView](#captureview)
 * [MaterialColor](#materialcolor)
-* [MaterialLayout](#materiallayout)
 
 ### Upcoming
 
@@ -316,7 +315,7 @@ MaterialLayout.height(view, child: navigationBarView, height: 70)
 <a name="sidenavigationviewcontroller"></a>
 ### SideNavigationViewController
 
-As elegant as is effective, the SideNavigationViewController is an excellent way to organize your app. In the Examples directory, there is an example project using this wonderful component.
+The SideNavigationViewController is an app wide navigation pattern. It generally provides overall app navigation with other useful items. Below is an example of the SideNavigationViewController and in the Examples Programmatic directory, an example project is available using this component. 
 
 ![MaterialKitSideNavigationViewController](http://www.materialkit.io/MK/MaterialKitSideNavigationViewController.gif)
 
