@@ -28,6 +28,11 @@
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+/*
+The following is an example of setting a UITableView as the SideViewController
+within a SideNavigationViewController.
+*/
+
 import UIKit
 import MaterialKit
 
@@ -47,17 +52,35 @@ class SideViewController: UIViewController {
 		super.viewDidLoad()
 		prepareView()
 		prepareItems()
+		prepareProfileView()
 		prepareTableView()
 	}
 	
 	/// General preparation statements.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.purple.base
+		view.backgroundColor = MaterialColor.white
 	}
 	
 	/// Prepares the items that are displayed within the tableView.
 	private func prepareItems() {
+		items.append(Item(text: "Inbox", image: UIImage(named: "ic_inbox")))
+		items.append(Item(text: "Today", image: UIImage(named: "ic_today")))
+		items.append(Item(text: "Bookmarks", image: UIImage(named: "ic_book")))
+		items.append(Item(text: "Work", image: UIImage(named: "ic_work")))
+		items.append(Item(text: "Contacts", image: UIImage(named: "ic_contacts")))
 		items.append(Item(text: "Settings", image: UIImage(named: "ic_settings")))
+	}
+	
+	/// Prepares profile view.
+	private func prepareProfileView() {
+		let backgroundView: MaterialView = MaterialView()
+		backgroundView.image = UIImage(named: "ProfileSideNavBackground")
+		
+		view.addSubview(backgroundView)
+		backgroundView.translatesAutoresizingMaskIntoConstraints = false
+		MaterialLayout.alignFromTop(view, child: backgroundView)
+		MaterialLayout.alignToParentHorizontally(view, child: backgroundView)
+		MaterialLayout.height(view, child: backgroundView, height: 140)
 	}
 	
 	/// Prepares the tableView.
@@ -96,16 +119,8 @@ extension SideViewController: UITableViewDataSource {
 
 /// UITableViewDelegate methods.
 extension SideViewController: UITableViewDelegate {
-	/// A delegation method that is executed when an item row is selected.
-	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		sideNavigationViewController?.transitionFromMainViewController(sideNavigationViewController?.mainViewController is AMainViewController ? BMainViewController() : AMainViewController(),
-			duration: 0.25,
-			options: .TransitionCrossDissolve,
-			animations: nil,
-			completion: { (result: Bool) in
-				self.sideNavigationViewController?.close()
-			}
-		)
+	/// Sets the tableView cell height.
+	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+		return 64
 	}
 }
-

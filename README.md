@@ -67,6 +67,7 @@ The MaterialKit framework is a fast growing project and will encounter changes t
 
 ### A Quick Tour  
 
+* [SideNavigationViewController](#sidenavigationviewcontroller)
 * [TextField](#textfield)
 * [TextView](#textview)
 * [MaterialLayer](#materiallayer)
@@ -76,7 +77,6 @@ The MaterialKit framework is a fast growing project and will encounter changes t
 * [RaisedButton](#raisedbutton)
 * [FabButton](#fabbutton)
 * [NavigationBarView](#navigationbarview)
-* [SideNavigationViewController](#sidenavigationviewcontroller)
 * [CardView](#cardview)
 * [ImageCardView](#imagecardview)
 * [CaptureView](#captureview)
@@ -95,6 +95,13 @@ The MaterialKit framework is a fast growing project and will encounter changes t
 * DatePicker
 * TimePicker
 * More Examples
+
+<a name="sidenavigationviewcontroller"></a>
+### SideNavigationViewController
+
+The SideNavigationViewController is an app wide navigation pattern. It generally provides overall app navigation with other useful items. Below is an example of the SideNavigationViewController and in the Examples Programmatic directory, an example project is available using this component.
+
+![MaterialKitSideNavigationViewController](http://www.materialkit.io/MK/MaterialKitSideNavigationViewController.gif)
 
 <a name="textfield"></a>
 ### TextField
@@ -311,13 +318,6 @@ MaterialLayout.alignFromTop(view, child: navigationBarView)
 MaterialLayout.alignToParentHorizontally(view, child: navigationBarView)
 MaterialLayout.height(view, child: navigationBarView, height: 70)
 ```
-
-<a name="sidenavigationviewcontroller"></a>
-### SideNavigationViewController
-
-The SideNavigationViewController is an app wide navigation pattern. It generally provides overall app navigation with other useful items. Below is an example of the SideNavigationViewController and in the Examples Programmatic directory, an example project is available using this component. 
-
-![MaterialKitSideNavigationViewController](http://www.materialkit.io/MK/MaterialKitSideNavigationViewController.gif)
 
 <a name="cardview"></a>
 ### CardView

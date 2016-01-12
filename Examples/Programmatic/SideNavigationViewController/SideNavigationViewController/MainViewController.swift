@@ -29,7 +29,10 @@
 */
 
 /*
-
+The following is an example of setting a UITableView as the MainViewController
+within a SideNavigationViewController. There is a NavigationBarView that is
+used for navigation, with a menu button that opens the 
+SideNavigationViewController.
 */
 
 import UIKit
@@ -41,7 +44,7 @@ private struct Item {
 	var image: UIImage?
 }
 
-class AMainViewController: UIViewController {
+class MainViewController: UIViewController {
 	/// A tableView used to display Bond entries.
 	private let tableView: UITableView = UITableView()
 	
@@ -55,6 +58,18 @@ class AMainViewController: UIViewController {
 		prepareTableView()
 		prepareNavigationBarView()
 		prepareMaterialKitButton()
+	}
+	
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+		
+		/*
+		Set the width of the SideNavigationViewController. Be mindful
+		of when setting this value. It is set in the viewWillAppear method,
+		because any earlier may cause a race condition when instantiating
+		the MainViewController and SideViewController.
+		*/
+		sideNavigationViewController?.setSideViewWidth(view.bounds.width - 88, hidden: true, animated: false)
 	}
 	
 	/**
@@ -172,7 +187,7 @@ class AMainViewController: UIViewController {
 }
 
 /// TableViewDataSource methods.
-extension AMainViewController: UITableViewDataSource {
+extension MainViewController: UITableViewDataSource {
 	/// Determines the number of rows in the tableView.
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return items.count;
@@ -190,12 +205,10 @@ extension AMainViewController: UITableViewDataSource {
 		let item: Item = items[indexPath.row]
 		cell.selectionStyle = .None
 		cell.textLabel!.text = item.text
-		
 		cell.detailTextLabel!.text = item.detail
-		cell.detailTextLabel!.textColor = MaterialColor.grey.darken4
-		
 		cell.imageView!.image = item.image?.resize(toWidth: 36)
 		cell.imageView!.layer.cornerRadius = 18
+		
 		return cell
 	}
 	
@@ -217,7 +230,7 @@ extension AMainViewController: UITableViewDataSource {
 }
 
 /// UITableViewDelegate methods.
-extension AMainViewController: UITableViewDelegate {
+extension MainViewController: UITableViewDelegate {
 	/// Sets the tableView cell height.
 	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 		return 80
