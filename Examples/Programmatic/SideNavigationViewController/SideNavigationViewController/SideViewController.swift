@@ -38,7 +38,8 @@ import MaterialKit
 
 private struct Item {
 	var text: String
-	var image: UIImage?
+	var imageName: String
+	var selected: Bool
 }
 
 class SideViewController: UIViewController {
@@ -63,12 +64,12 @@ class SideViewController: UIViewController {
 	
 	/// Prepares the items that are displayed within the tableView.
 	private func prepareItems() {
-		items.append(Item(text: "Inbox", image: UIImage(named: "ic_inbox")))
-		items.append(Item(text: "Today", image: UIImage(named: "ic_today")))
-		items.append(Item(text: "Bookmarks", image: UIImage(named: "ic_book")))
-		items.append(Item(text: "Work", image: UIImage(named: "ic_work")))
-		items.append(Item(text: "Contacts", image: UIImage(named: "ic_contacts")))
-		items.append(Item(text: "Settings", image: UIImage(named: "ic_settings")))
+		items.append(Item(text: "Inbox", imageName: "ic_inbox", selected: true))
+		items.append(Item(text: "Today", imageName: "ic_today", selected: false))
+		items.append(Item(text: "Bookmarks", imageName: "ic_book", selected: false))
+		items.append(Item(text: "Work", imageName: "ic_work", selected: false))
+		items.append(Item(text: "Contacts", imageName: "ic_contacts", selected: false))
+		items.append(Item(text: "Settings", imageName: "ic_settings", selected: false))
 	}
 	
 	/// Prepares profile view.
@@ -76,11 +77,32 @@ class SideViewController: UIViewController {
 		let backgroundView: MaterialView = MaterialView()
 		backgroundView.image = UIImage(named: "ProfileSideNavBackground")
 		
+		let profileView: MaterialView = MaterialView()
+		profileView.image = UIImage(named: "Profile9")?.resize(toWidth: 72)
+		profileView.shape = .Circle
+		profileView.borderColor = MaterialColor.white
+		profileView.borderWidth = .Border3
+		
+		let nameLabel: UILabel = UILabel()
+		nameLabel.text = "Michael Smith"
+		nameLabel.textColor = MaterialColor.white
+		nameLabel.font = RobotoFont.mediumWithSize(18)
+		
 		view.addSubview(backgroundView)
 		backgroundView.translatesAutoresizingMaskIntoConstraints = false
 		MaterialLayout.alignFromTop(view, child: backgroundView)
 		MaterialLayout.alignToParentHorizontally(view, child: backgroundView)
-		MaterialLayout.height(view, child: backgroundView, height: 140)
+		MaterialLayout.height(view, child: backgroundView, height: 170)
+		
+		backgroundView.addSubview(profileView)
+		profileView.translatesAutoresizingMaskIntoConstraints = false
+		MaterialLayout.alignFromTopLeft(backgroundView, child: profileView, top: 20, left: 20)
+		MaterialLayout.size(backgroundView, child: profileView, width: 72, height: 72)
+		
+		backgroundView.addSubview(nameLabel)
+		nameLabel.translatesAutoresizingMaskIntoConstraints = false
+		MaterialLayout.alignFromBottom(backgroundView, child: nameLabel, bottom: 20)
+		MaterialLayout.alignToParentHorizontally(backgroundView, child: nameLabel, left: 20, right: 20)
 	}
 	
 	/// Prepares the tableView.
@@ -93,7 +115,7 @@ class SideViewController: UIViewController {
 		// Use MaterialLayout to easily align the tableView.
 		view.addSubview(tableView)
 		tableView.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignToParent(view, child: tableView, top: 140)
+		MaterialLayout.alignToParent(view, child: tableView, top: 170)
 	}
 }
 
@@ -111,7 +133,13 @@ extension SideViewController: UITableViewDataSource {
 		let item: Item = items[indexPath.row]
 		cell.selectionStyle = .None
 		cell.textLabel!.text = item.text
-		cell.imageView!.image = item.image
+		cell.textLabel!.font = RobotoFont.medium
+		cell.imageView!.image = UIImage(named: item.imageName)?.imageWithRenderingMode(.AlwaysTemplate)
+		cell.imageView!.tintColor = MaterialColor.cyan.darken4
+		
+		if item.selected {
+			cell.textLabel!.textColor = MaterialColor.cyan.base
+		}
 		
 		return cell
 	}

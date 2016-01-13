@@ -70,7 +70,7 @@ public class NavigationBarView : MaterialView {
 	/**
 	:name:	titleLabelInset
 	*/
-	public var titleLabelInset: UIEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0) {
+	public var titleLabelInset: UIEdgeInsets = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0) {
 		didSet {
 			reloadView()
 		}

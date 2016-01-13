@@ -57,7 +57,7 @@ class MainViewController: UIViewController {
 		prepareItems()
 		prepareTableView()
 		prepareNavigationBarView()
-		prepareMaterialKitButton()
+		prepareAddButton()
 	}
 	
 	override func viewWillAppear(animated: Bool) {
@@ -112,7 +112,7 @@ class MainViewController: UIViewController {
 	/// Prepares the navigationBarView.
 	private func prepareNavigationBarView() {
 		let navigationBarView: NavigationBarView = NavigationBarView()
-		navigationBarView.backgroundColor = MaterialColor.blue.base
+		navigationBarView.backgroundColor = MaterialColor.cyan.base
 		
 		/*
 		To lighten the status bar - add the
@@ -126,40 +126,33 @@ class MainViewController: UIViewController {
 		titleLabel.text = "Inbox"
 		titleLabel.textAlignment = .Left
 		titleLabel.textColor = MaterialColor.white
-		titleLabel.font = RobotoFont.regularWithSize(20)
+		titleLabel.font = RobotoFont.regularWithSize(22)
 		navigationBarView.titleLabel = titleLabel
 		navigationBarView.titleLabelInset.left = 64
 		
-		// Detail label.
-		let detailLabel: UILabel = UILabel()
-		detailLabel.text = "Count: \(items.count)"
-		detailLabel.textAlignment = .Left
-		detailLabel.textColor = MaterialColor.white
-		detailLabel.font = RobotoFont.regularWithSize(12)
-		navigationBarView.detailLabel = detailLabel
-		navigationBarView.detailLabelInset.left = 64
-		
 		// Menu button.
-		let img1: UIImage? = UIImage(named: "ic_menu_white")
+		let img1: UIImage? = UIImage(named: "ic_menu_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let menuButton: FlatButton = FlatButton()
 		menuButton.pulseColor = MaterialColor.white
 		menuButton.pulseFill = true
 		menuButton.pulseScale = false
 		menuButton.setImage(img1, forState: .Normal)
 		menuButton.setImage(img1, forState: .Highlighted)
+		menuButton.tintColor = MaterialColor.cyan.darken4
 		menuButton.addTarget(self, action: "handleMenuButton", forControlEvents: .TouchUpInside)
 		
 		// Add menuButton to left side.
 		navigationBarView.leftButtons = [menuButton]
 		
 		// Search button.
-		let img2: UIImage? = UIImage(named: "ic_search_white")
+		let img2: UIImage? = UIImage(named: "ic_search_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let searchButton: FlatButton = FlatButton()
 		searchButton.pulseColor = MaterialColor.white
 		searchButton.pulseFill = true
 		searchButton.pulseScale = false
 		searchButton.setImage(img2, forState: .Normal)
 		searchButton.setImage(img2, forState: .Highlighted)
+		searchButton.tintColor = MaterialColor.cyan.darken4
 		
 		// Add searchButton to right side.
 		navigationBarView.rightButtons = [searchButton]
@@ -172,10 +165,11 @@ class MainViewController: UIViewController {
 		MaterialLayout.height(view, child: navigationBarView, height: 70)
 	}
 	
-	/// Prepares the MaterialKit button.
-	func prepareMaterialKitButton() {
-		let image: UIImage? = UIImage(named: "ic_materialkit_white")
+	/// Prepares the add button.
+	func prepareAddButton() {
+		let image: UIImage? = UIImage(named: "ic_add_white")
 		let button: FabButton = FabButton()
+		button.backgroundColor = MaterialColor.deepPurple.accent3
 		button.setImage(image, forState: .Normal)
 		button.setImage(image, forState: .Highlighted)
 		
@@ -205,27 +199,31 @@ extension MainViewController: UITableViewDataSource {
 		let item: Item = items[indexPath.row]
 		cell.selectionStyle = .None
 		cell.textLabel!.text = item.text
+		cell.textLabel!.font = RobotoFont.regular
 		cell.detailTextLabel!.text = item.detail
-		cell.imageView!.image = item.image?.resize(toWidth: 36)
-		cell.imageView!.layer.cornerRadius = 18
+		cell.detailTextLabel!.font = RobotoFont.regular
+		cell.detailTextLabel!.textColor = MaterialColor.grey.darken1
+		cell.imageView!.image = item.image?.resize(toWidth: 40)
+		cell.imageView!.layer.cornerRadius = 20
 		
 		return cell
 	}
 	
 	/// Prepares the header within the tableView.
 	func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		let view = UIView()
-		view.backgroundColor = MaterialColor.white
+		let header = UIView(frame: CGRectMake(0, 0, view.bounds.width, 48))
+		header.backgroundColor = MaterialColor.white
 		
 		let label: UILabel = UILabel()
-		label.translatesAutoresizingMaskIntoConstraints = false
-		label.font = RobotoFont.mediumWithSize(16)
-		label.textColor = MaterialColor.grey.base
+		label.font = RobotoFont.medium
+		label.textColor = MaterialColor.grey.darken1
 		label.text = "Today"
 		
-		view.addSubview(label)
-		MaterialLayout.alignToParent(view, child: label, left: 16)
-		return view
+		header.addSubview(label)
+		label.translatesAutoresizingMaskIntoConstraints = false
+		MaterialLayout.alignToParent(header, child: label, left: 24)
+		
+		return header
 	}
 }
 

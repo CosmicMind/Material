@@ -36,6 +36,11 @@ public enum MaterialRadius {
 	case Radius2
 	case Radius3
 	case Radius4
+	case Radius5
+	case Radius6
+	case Radius7
+	case Radius8
+	case Radius9
 }
 
 /**
@@ -52,6 +57,16 @@ public func MaterialRadiusToValue(radius: MaterialRadius) -> CGFloat {
 	case .Radius3:
 		return 16
 	case .Radius4:
+		return 24
+	case .Radius5:
 		return 32
+	case .Radius6:
+		return 40
+	case .Radius7:
+		return 48
+	case .Radius8:
+		return 56
+	case .Radius9:
+		return 64
 	}
 }
