@@ -48,6 +48,7 @@ Material is a growing project and will encounter changes throughout its developm
 
 ## A Tour  
 
+* [MaterialColor](#materialcolor)
 * [SideNavigationViewController](#sidenavigationviewcontroller)
 * [NavigationBarView](#navigationbarview)
 * [TextField](#textfield)
@@ -61,7 +62,6 @@ Material is a growing project and will encounter changes throughout its developm
 * [CardView](#cardview)
 * [ImageCardView](#imagecardview)
 * [CaptureView](#captureview)
-* [MaterialColor](#materialcolor)
 
 ## Upcoming
 
@@ -76,6 +76,15 @@ Material is a growing project and will encounter changes throughout its developm
 * DatePicker
 * TimePicker
 * More Examples
+
+<a name="materialcolor"></a>
+## MaterialColor
+
+MaterialColor is a complete Material Design color library. It uses base color values that expand to a range of lighter and darker shades, with the addition of accents.
+
+![MaterialMaterialColorPalette](http://www.cosmicmind.io/MK/MaterialMaterialColorPalette.png)
+
+[Learn More About MaterialColor](https://github.com/CosmicMind/Material/wiki/MaterialColor)
 
 <a name="sidenavigationviewcontroller"></a>
 ## SideNavigationViewController
@@ -212,15 +221,6 @@ Add a new dimension of interactivity with CaptureView. CaptureView is a fully fu
 ![MaterialCaptureView](http://www.cosmicmind.io/MK/MaterialCaptureView.jpg)
 
 [Learn More About CaptureView](https://github.com/CosmicMind/Material/wiki/CaptureView)
-
-<a name="materialcolor"></a>
-## MaterialColor
-
-MaterialColor is a complete Material Design color library. It uses base color values that expand to a range of lighter and darker shades, with the addition of accents.
-
-![MaterialMaterialColorPalette](http://www.cosmicmind.io/MK/MaterialMaterialColorPalette.png)
-
-[Learn More About MaterialColor](https://github.com/CosmicMind/Material/wiki/MaterialColor)
 
 ## License
 
