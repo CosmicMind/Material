@@ -12,7 +12,7 @@
 *		this list of conditions and the following disclaimer in the documentation
 *		and/or other materials provided with the distribution.
 *
-*	*	Neither the name of MaterialKit nor the names of its
+*	*	Neither the name of Material nor the names of its
 *		contributors may be used to endorse or promote products derived from
 *		this software without specific prior written permission.
 *
@@ -34,7 +34,7 @@ in text to be detected.
 */
 
 import UIKit
-import MaterialKit
+import Material
 
 class ViewController: UIViewController, TextDelegate, TextViewDelegate {
 	/// A Text storage object that monitors the changes within the textView.

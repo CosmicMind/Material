@@ -12,7 +12,7 @@
 *		this list of conditions and the following disclaimer in the documentation
 *		and/or other materials provided with the distribution.
 *
-*	*	Neither the name of MaterialKit nor the names of its
+*	*	Neither the name of Material nor the names of its
 *		contributors may be used to endorse or promote products derived from
 *		this software without specific prior written permission.
 *
@@ -35,7 +35,7 @@ sets, and status bar settings. Below are examples of its usage.
 */
 
 import UIKit
-import MaterialKit
+import Material
 
 class ViewController: UIViewController {
 	override func viewDidLoad() {
@@ -74,7 +74,7 @@ class ViewController: UIViewController {
 		
 		// Title label.
 		let titleLabel: UILabel = UILabel()
-		titleLabel.text = "MaterialKit"
+		titleLabel.text = "Material"
 		titleLabel.textAlignment = .Center
 		titleLabel.textColor = MaterialColor.white
 		titleLabel.font = RobotoFont.regularWithSize(20)
@@ -98,7 +98,7 @@ class ViewController: UIViewController {
 		
 		// Title label.
 		let titleLabel: UILabel = UILabel()
-		titleLabel.text = "MaterialKit"
+		titleLabel.text = "Material"
 		titleLabel.textAlignment = .Center
 		titleLabel.textColor = MaterialColor.white
 		titleLabel.font = RobotoFont.regularWithSize(20)
@@ -127,7 +127,7 @@ class ViewController: UIViewController {
 		
 		// Title label.
 		let titleLabel: UILabel = UILabel()
-		titleLabel.text = "MaterialKit"
+		titleLabel.text = "Material"
 		titleLabel.textAlignment = .Center
 		titleLabel.textColor = MaterialColor.white
 		titleLabel.font = RobotoFont.regularWithSize(20)
@@ -164,7 +164,7 @@ class ViewController: UIViewController {
 		
 		// Title label.
 		let titleLabel: UILabel = UILabel()
-		titleLabel.text = "MaterialKit"
+		titleLabel.text = "Material"
 		titleLabel.textAlignment = .Center
 		titleLabel.textColor = MaterialColor.white
 		titleLabel.font = RobotoFont.boldWithSize(22)
@@ -192,7 +192,7 @@ class ViewController: UIViewController {
 		
 		// Title label.
 		let titleLabel: UILabel = UILabel()
-		titleLabel.text = "MaterialKit"
+		titleLabel.text = "Material"
 		titleLabel.textAlignment = .Center
 		titleLabel.textColor = MaterialColor.white
 		titleLabel.font = RobotoFont.regularWithSize(20)
@@ -253,7 +253,7 @@ class ViewController: UIViewController {
 		
 		// Title label.
 		let titleLabel: UILabel = UILabel()
-		titleLabel.text = "MaterialKit"
+		titleLabel.text = "Material"
 		titleLabel.textAlignment = .Left
 		titleLabel.textColor = MaterialColor.white
 		titleLabel.font = RobotoFont.regularWithSize(20)

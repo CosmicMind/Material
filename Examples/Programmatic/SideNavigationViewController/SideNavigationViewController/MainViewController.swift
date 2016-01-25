@@ -36,7 +36,7 @@ SideNavigationViewController.
 */
 
 import UIKit
-import MaterialKit
+import Material
 
 private struct Item {
 	var text: String

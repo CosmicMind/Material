@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dkT-RV-hy3" customClass="CardView" customModule="MaterialKit">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dkT-RV-hy3" customClass="CardView" customModule="Material">
                                 <rect key="frame" x="20" y="100" width="560" height="200"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.44030721049999999" green="0.37359787849999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -26,7 +26,7 @@
                                     <constraint firstAttribute="height" constant="200" id="fB1-Lj-ku6"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ivd-HY-MK8" customClass="CardView" customModule="MaterialKit">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ivd-HY-MK8" customClass="CardView" customModule="Material">
                                 <rect key="frame" x="20" y="350" width="560" height="128"/>
                                 <animations/>
                                 <color key="backgroundColor" red="1" green="0.17760021910000001" blue="0.043027932579999997" alpha="1" colorSpace="calibratedRGB"/>

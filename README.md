@@ -1,8 +1,8 @@
-![MaterialKit](http://www.materialkit.io/MK/MaterialKit.png)
+![Material](http://www.cosmicmind.io/MK/Material.png)
 
-# Welcome to MaterialKit
+# Welcome to Material
 
-MaterialKit is a graphics and animation framework based on Google's Material Design. A major goal in the design of MaterialKit is to allow the creativity of others to easily be expressed.
+Material is a graphics and animation framework based on Google's Material Design. A major goal in the design of Material is to allow the creativity of others to easily be expressed.
 
 ## Features
 
@@ -25,67 +25,26 @@ MaterialKit is a graphics and animation framework based on Google's Material Des
 
 ## Communication
 
-- If you **need help**, use [Stack Overflow](http://stackoverflow.com/questions/tagged/materialkit). (Tag 'materialkit')
-- If you'd like to **ask a general question**, use [Stack Overflow](http://stackoverflow.com/questions/tagged/materialkit).
+- If you **need help**, use [Stack Overflow](http://stackoverflow.com/questions/tagged/cosmicmind). (Tag 'cosmicmind')
+- If you'd like to **ask a general question**, use [Stack Overflow](http://stackoverflow.com/questions/tagged/cosmicmind).
 - If you **found a bug**, _and can provide steps to reliably reproduce it_, open an issue.
 - If you **have a feature request**, open an issue.
 - If you **want to contribute**, submit a pull request.
 
 ## Installation
-> **Embedded frameworks require a minimum deployment target of iOS 8.**
-> - [Download MaterialKit](https://github.com/CosmicMind/MaterialKit/archive/master.zip)
 
-## CocoaPods
+> **Embedded frameworks require a minimum deployment target of iOS 8 or OS X Mavericks (10.9).**
+> - [Download Graph](https://github.com/CosmicMind/Graph/archive/master.zip)
 
-[CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
-
-```bash
-$ gem install cocoapods
-```
-
-> CocoaPods 0.39.0+ is required to build MaterialKit 1.0.0+.
-
-To integrate MaterialKit into your Xcode project using CocoaPods, specify it in your `Podfile`:
-
-```ruby
-source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '8.0'
-use_frameworks!
-
-pod 'MK', '~> 1.0'
-```
-
-Then, run the following command:
-
-```bash
-$ pod install
-```
-
-## Carthage
-
-Carthage is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks.
-
-You can install Carthage with Homebrew using the following command:
-
-```bash
-$ brew update
-$ brew install carthage
-```
-To integrate MaterialKit into your Xcode project using Carthage, specify it in your Cartfile:
-
-```bash
-github "CosmicMind/MaterialKit"
-```
-
-Run `carthage update` to build the framework and drag the built `MaterialKit.framework` into your Xcode project.
+Visit the [Installation](https://github.com/CosmicMind/Graph/wiki/Installation) page to learn how to install Graph using [CocoaPods](http://cocoapods.org) and [Carthage](https://github.com/Carthage/Carthage).
 
 ## Changelog
 
-MaterialKit is a growing project and will encounter changes throughout its development. It is recommended that the [Changelog](https://github.com/CosmicMind/MaterialKit/wiki/Changelog) be reviewed prior to updating versions.
+Material is a growing project and will encounter changes throughout its development. It is recommended that the [Changelog](https://github.com/CosmicMind/Material/wiki/Changelog) be reviewed prior to updating versions.
 
 ## Examples
 
-* Visit the Examples directory to see example projects using MaterialKit.
+* Visit the Examples directory to see example projects using Material.
 
 ## A Tour  
 
@@ -123,18 +82,18 @@ MaterialKit is a growing project and will encounter changes throughout its devel
 
 The SideNavigationViewController is an app wide navigation pattern. It generally provides overall app navigation with other useful items.
 
-![MaterialKitSideNavigationViewController](http://www.materialkit.io/MK/MaterialKitSideNavigationViewController.gif)
+![MaterialSideNavigationViewController](http://www.cosmicmind.io/MK/MaterialSideNavigationViewController.gif)
 
-[Learn More About SideNavigationViewController](https://github.com/CosmicMind/MaterialKit/wiki/SideNavigationViewController)
+[Learn More About SideNavigationViewController](https://github.com/CosmicMind/Material/wiki/SideNavigationViewController)
 
 <a name="navigationbarview"></a>
 ## NavigationBarView
 
 A NavigationBarView is a fully featured navigation bar that supports orientation changes, background images, title and detail labels, both left and right button sets, and status bar settings.
 
-![MaterialKitNavigationBarView](http://www.materialkit.io/MK/MaterialKitNavigationBarView.gif)
+![MaterialNavigationBarView](http://www.cosmicmind.io/MK/MaterialNavigationBarView.gif)
 
-[Learn More About NavigationBarView](https://github.com/CosmicMind/MaterialKit/wiki/NavigationBarView)
+[Learn More About NavigationBarView](https://github.com/CosmicMind/Material/wiki/NavigationBarView)
 
 <a name="textfield"></a>
 ## TextField
@@ -144,124 +103,124 @@ that describe the usage and input results of text. For example, when a
 user enters an incorrect email, it is possible to display an error message
 under the TextField.
 
-![MaterialKitTextField](http://www.materialkit.io/MK/MaterialKitTextField.gif)
+![MaterialTextField](http://www.cosmicmind.io/MK/MaterialTextField.gif)
 
-[Learn More About TextField](https://github.com/CosmicMind/MaterialKit/wiki/TextField)
+[Learn More About TextField](https://github.com/CosmicMind/Material/wiki/TextField)
 
 <a name="textview"></a>
 ## TextView
 
 A TextView is an excellent way to improve UX. TextViews offer details that describe the usage of text. In addition, TextViews may easily match any regular expression pattern in a body of text. Below is an example of the default hashtag pattern matching.
 
-![MaterialKitTextView](http://www.materialkit.io/MK/MaterialKitTextView.gif)
+![MaterialTextView](http://www.cosmicmind.io/MK/MaterialTextView.gif)
 
-[Learn More About TextView](https://github.com/CosmicMind/MaterialKit/wiki/TextView)
+[Learn More About TextView](https://github.com/CosmicMind/Material/wiki/TextView)
 
 <a name="materiallayer"></a>
 ## MaterialLayer
 
-MaterialLayer is a lightweight CAShapeLayer used throughout MaterialKit. It is designed to easily take shape, depth, and animations.
+MaterialLayer is a lightweight CAShapeLayer used throughout Material. It is designed to easily take shape, depth, and animations.
 
-![MaterialKitMaterialLayer](http://www.materialkit.io/MK/MaterialKitMaterialLayer.gif)
+![MaterialMaterialLayer](http://www.cosmicmind.io/MK/MaterialMaterialLayer.gif)
 
-[Learn More About MaterialLayer](https://github.com/CosmicMind/MaterialKit/wiki/MaterialLayer)
+[Learn More About MaterialLayer](https://github.com/CosmicMind/Material/wiki/MaterialLayer)
 
 <a name="materialview"></a>
 ## MaterialView
 
-MaterialView is the base UIView class used throughout MaterialKit. Like MaterialLayer, it is designed to easily take shape, depth, and animations. The major difference is that MaterialView has all the added features of the UIView class.
+MaterialView is the base UIView class used throughout Material. Like MaterialLayer, it is designed to easily take shape, depth, and animations. The major difference is that MaterialView has all the added features of the UIView class.
 
-![MaterialKitMaterialView](http://www.materialkit.io/MK/MaterialKitMaterialView.gif)
+![MaterialMaterialView](http://www.cosmicmind.io/MK/MaterialMaterialView.gif)
 
-[Learn More About MaterialView](https://github.com/CosmicMind/MaterialKit/wiki/MaterialView)
+[Learn More About MaterialView](https://github.com/CosmicMind/Material/wiki/MaterialView)
 
 <a name="materialpulseview"></a>
 ## MaterialPulseView
 
 MaterialPulseView is at the heart of all pulse animations. Any view that subclasses MaterialPulseView instantly inherits the pulse animation with full customizability.
 
-![MaterialKitMaterialPulseView](http://www.materialkit.io/MK/MaterialKitMaterialPulseView.gif)
+![MaterialMaterialPulseView](http://www.cosmicmind.io/MK/MaterialMaterialPulseView.gif)
 
-[Learn More About MaterialPulseView](https://github.com/CosmicMind/MaterialKit/wiki/MaterialPulseView)
+[Learn More About MaterialPulseView](https://github.com/CosmicMind/Material/wiki/MaterialPulseView)
 
 <a name="flatbutton"></a>
 ## FlatButton
 
 A FlatButton is simple, clean, and very effective. Below is an example of a FlatButton in action.
 
-![MaterialKitFlatButton](http://www.materialkit.io/MK/MaterialKitFlatButton.gif)
+![MaterialFlatButton](http://www.cosmicmind.io/MK/MaterialFlatButton.gif)
 
-[Learn More About FlatButton](https://github.com/CosmicMind/MaterialKit/wiki/FlatButton)
+[Learn More About FlatButton](https://github.com/CosmicMind/Material/wiki/FlatButton)
 
 <a name="raisedbutton"></a>
 ## RaisedButton
 
 A RaisedButton is sure to get attention. Take a look at the following animation example.
 
-![MaterialKitRaisedButton](http://www.materialkit.io/MK/MaterialKitRaisedButton.gif)
+![MaterialRaisedButton](http://www.cosmicmind.io/MK/MaterialRaisedButton.gif)
 
-[Learn More About RaisedButton](https://github.com/CosmicMind/MaterialKit/wiki/RaisedButton)
+[Learn More About RaisedButton](https://github.com/CosmicMind/Material/wiki/RaisedButton)
 
 <a name="fabbutton"></a>
 ## FabButton
 
 A FabButton is essential to Material Design's overall look. Below showcases its beauty.
 
-![MaterialKitFabButton](http://www.materialkit.io/MK/MaterialKitFabButton.gif)
+![MaterialFabButton](http://www.cosmicmind.io/MK/MaterialFabButton.gif)
 
-[Learn More About FabButton](https://github.com/CosmicMind/MaterialKit/wiki/FabButton)
+[Learn More About FabButton](https://github.com/CosmicMind/Material/wiki/FabButton)
 
 <a name="cardview"></a>
 ## CardView
 
 Right out of the box to a fully customizable configuration, CardView always stands out. Take a look at a few examples in action.
 
-![MaterialKitCardView](http://www.materialkit.io/MK/MaterialKitCardView.gif)
+![MaterialCardView](http://www.cosmicmind.io/MK/MaterialCardView.gif)
 
-[Learn More About CardView](https://github.com/CosmicMind/MaterialKit/wiki/CardView)
+[Learn More About CardView](https://github.com/CosmicMind/Material/wiki/CardView)
 
 Easily remove the pulse animation and add a background image for an entirely new feel.
 
-![MaterialKitCardViewFavorite](http://www.materialkit.io/MK/MaterialKitCardViewFavorite.gif)
+![MaterialCardViewFavorite](http://www.cosmicmind.io/MK/MaterialCardViewFavorite.gif)
 
 Adjust the alignment of the UI elements to create different configurations of the CardView.
 
-![MaterialKitCardViewDataDriven](http://www.materialkit.io/MK/MaterialKitCardViewDataDriven.gif)
+![MaterialCardViewDataDriven](http://www.cosmicmind.io/MK/MaterialCardViewDataDriven.gif)
 
 CardViews are so flexible they create entirely new components by removing all but certain elements. For example, bellow is a button bar by only setting the button values of the CardView.
 
-![MaterialKitCardViewButtonBar](http://www.materialkit.io/MK/MaterialKitCardViewButtonBar.gif)
+![MaterialCardViewButtonBar](http://www.cosmicmind.io/MK/MaterialCardViewButtonBar.gif)
 
 <a name="imagecardview"></a>
 ## ImageCardView
 
 Bold and attractive, ImageCardView is the next step from a CardView. Below are some animations to give you an idea of the possibilities the ImageCardView has to offer.
 
-![MaterialKitImageCardView](http://www.materialkit.io/MK/MaterialKitImageCardView.gif)
+![MaterialImageCardView](http://www.cosmicmind.io/MK/MaterialImageCardView.gif)
 
-[Learn More About ImageCardView](https://github.com/CosmicMind/MaterialKit/wiki/ImageCardView)
+[Learn More About ImageCardView](https://github.com/CosmicMind/Material/wiki/ImageCardView)
 
 Remove elements, such as details to create a fresh look for your images.
 
-![MaterialKitImageCardViewBackgroundImage](http://www.materialkit.io/MK/MaterialKitImageCardViewBackgroundImage.gif)
+![MaterialImageCardViewBackgroundImage](http://www.cosmicmind.io/MK/MaterialImageCardViewBackgroundImage.gif)
 
 <a name="captureview"></a>
 ## CaptureView
 
 Add a new dimension of interactivity with CaptureView. CaptureView is a fully functional camera that is completely customizable.
 
-![MaterialKitCaptureView](http://www.materialkit.io/MK/MaterialKitCaptureView.jpg)
+![MaterialCaptureView](http://www.cosmicmind.io/MK/MaterialCaptureView.jpg)
 
-[Learn More About CaptureView](https://github.com/CosmicMind/MaterialKit/wiki/CaptureView)
+[Learn More About CaptureView](https://github.com/CosmicMind/Material/wiki/CaptureView)
 
 <a name="materialcolor"></a>
 ## MaterialColor
 
 MaterialColor is a complete Material Design color library. It uses base color values that expand to a range of lighter and darker shades, with the addition of accents.
 
-![MaterialKitMaterialColorPalette](http://www.materialkit.io/MK/MaterialKitMaterialColorPalette.png)
+![MaterialMaterialColorPalette](http://www.cosmicmind.io/MK/MaterialMaterialColorPalette.png)
 
-[Learn More About MaterialColor](https://github.com/CosmicMind/MaterialKit/wiki/MaterialColor)
+[Learn More About MaterialColor](https://github.com/CosmicMind/Material/wiki/MaterialColor)
 
 ## License
 
@@ -276,7 +235,7 @@ Redistribution and use in source and binary forms, with or without modification,
     this list of conditions and the following disclaimer in the documentation
     and/or other materials provided with the distribution.
 
-*   Neither the name of MaterialKit nor the names of its
+*   Neither the name of Material nor the names of its
     contributors may be used to endorse or promote products derived from
     this software without specific prior written permission.
 

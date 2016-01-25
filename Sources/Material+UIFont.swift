@@ -12,7 +12,7 @@
 *		this list of conditions and the following disclaimer in the documentation
 *		and/or other materials provided with the distribution.
 *
-*	*	Neither the name of MaterialKit nor the names of its
+*	*	Neither the name of Material nor the names of its
 *		contributors may be used to endorse or promote products derived from
 *		this software without specific prior written permission.
 *
@@ -30,11 +30,14 @@
 
 import UIKit
 
-public extension UIImage {
+public extension UIFont {
 	/**
-		:name:	writeToPhotoLibrary
+	:name:	stringSize
 	*/
-	public func writeToPhotoLibrary(target t: AnyObject? = nil) {
-		UIImageWriteToSavedPhotosAlbum(self, t, "image:didFinishSavingWithError:contextInfo:", nil)
+	public func stringSize(string: String, constrainedToWidth width: Double) -> CGSize {
+		return string.boundingRectWithSize(CGSize(width: width, height: DBL_MAX),
+			options: NSStringDrawingOptions.UsesLineFragmentOrigin,
+			attributes: [NSFontAttributeName: self],
+			context: nil).size
 	}
 }

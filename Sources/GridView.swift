@@ -12,7 +12,7 @@
 *		this list of conditions and the following disclaimer in the documentation
 *		and/or other materials provided with the distribution.
 *
-*	*	Neither the name of MaterialKit nor the names of its
+*	*	Neither the name of Material nor the names of its
 *		contributors may be used to endorse or promote products derived from
 *		this software without specific prior written permission.
 *
@@ -30,38 +30,50 @@
 
 import UIKit
 
-public extension UIImage {
-	/**
-		:name:	internalResize
-	*/
-	private func internalResize(var toWidth w: CGFloat = 0, var toHeight h: CGFloat = 0) -> UIImage? {
-		if 0 < w {
-			h = height * w / width
-		} else if 0 < h {
-			w = width * h / height
+public class GridView : MaterialView {
+	
+	public private(set) var arrangedSubviews: Array<UIView>!
+	
+	public required init?(coder aDecoder: NSCoder) {
+		super.init(coder: aDecoder)
+	}
+	
+	public override init(frame: CGRect) {
+		super.init(frame: frame)
+	}
+	
+	public init() {
+		super.init(frame: CGRectNull)
+	}
+	
+	public func reloadView() {
+		// Remove constraints.
+		removeConstraints(constraints)
+		MaterialLayout.alignToParentVertically(self, children: arrangedSubviews)
+		
+		for v in arrangedSubviews {
+			MaterialLayout.alignToParentHorizontally(self, child: v)
 		}
-		
-		let g: UIImage?
-		let t: CGRect = CGRectMake(0, 0, w, h)
-		UIGraphicsBeginImageContext(t.size)
-		drawInRect(t, blendMode: .Normal, alpha: 1)
-		g = UIGraphicsGetImageFromCurrentImageContext()
-		UIGraphicsEndImageContext()
-		
-		return g
 	}
 	
-	/**
-		:name:	resize
-	*/
-	public func resize(toWidth w: CGFloat) -> UIImage? {
-		return internalResize(toWidth: w)
+	public override func prepareView() {
+		super.prepareView()
+		arrangedSubviews = Array<UIView>()
 	}
 	
-	/**
-		:name:	resize
-	*/
-	public func resize(toHeight h: CGFloat) -> UIImage? {
-		return internalResize(toHeight: h)
+	public override func addSubview(view: UIView) {
+		super.addSubview(view)
+		view.translatesAutoresizingMaskIntoConstraints = false
+		reloadView()
+	}
+	
+	public func removeSubview(view: UIView) {
+		for v in arrangedSubviews {
+			if v == view {
+				v.removeFromSuperview()
+				reloadView()
+				break
+			}
+		}
 	}
 }

@@ -12,7 +12,7 @@
 *		this list of conditions and the following disclaimer in the documentation
 *		and/or other materials provided with the distribution.
 *
-*	*	Neither the name of MaterialKit nor the names of its
+*	*	Neither the name of Material nor the names of its
 *		contributors may be used to endorse or promote products derived from
 *		this software without specific prior written permission.
 *
@@ -29,7 +29,7 @@
 */
 
 import UIKit
-import MaterialKit
+import Material
 
 class ViewController: UIViewController {
     
@@ -65,7 +65,7 @@ class ViewController: UIViewController {
         
         // Title label.
         let titleLabel: UILabel = UILabel()
-        titleLabel.text = "MaterialKit"
+        titleLabel.text = "Material"
         titleLabel.textAlignment = .Left
         titleLabel.textColor = MaterialColor.white
         titleLabel.font = RobotoFont.regularWithSize(20)

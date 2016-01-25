@@ -12,7 +12,7 @@
 *		this list of conditions and the following disclaimer in the documentation
 *		and/or other materials provided with the distribution.
 *
-*	*	Neither the name of MaterialKit nor the names of its
+*	*	Neither the name of Material nor the names of its
 *		contributors may be used to endorse or promote products derived from
 *		this software without specific prior written permission.
 *
@@ -29,14 +29,14 @@
 */
 
 /*
-MaterialView is the base UIView class used throughout MaterialKit. It is designed 
+MaterialView is the base UIView class used throughout Material. It is designed 
 to easily take shape, depth, and animations. The major difference is that 
 MaterialView has all the added features of the UIView class. Below is an example 
 of setting a MaterialView's cornerRadius, shape, and depth.
 */
 
 import UIKit
-import MaterialKit
+import Material
 
 class ViewController: UIViewController {
 	override func viewDidLoad() {

@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "963832351B88DFD80015F710"
-               BuildableName = "MaterialKit.framework"
-               BlueprintName = "MaterialKit"
-               ReferencedContainer = "container:MaterialKit.xcodeproj">
+               BuildableName = "Material.framework"
+               BlueprintName = "Material"
+               ReferencedContainer = "container:Material.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "963832401B88DFD80015F710"
-               BuildableName = "MaterialKitTests.xctest"
-               BlueprintName = "MaterialKitTests"
-               ReferencedContainer = "container:MaterialKit.xcodeproj">
+               BuildableName = "Material.xctest"
+               BlueprintName = "MaterialTests"
+               ReferencedContainer = "container:Material.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "963832351B88DFD80015F710"
-            BuildableName = "MaterialKit.framework"
-            BlueprintName = "MaterialKit"
-            ReferencedContainer = "container:MaterialKit.xcodeproj">
+            BuildableName = "Material.framework"
+            BlueprintName = "Material"
+            ReferencedContainer = "container:Material.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -65,9 +65,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "963832351B88DFD80015F710"
-            BuildableName = "MaterialKit.framework"
-            BlueprintName = "MaterialKit"
-            ReferencedContainer = "container:MaterialKit.xcodeproj">
+            BuildableName = "Material.framework"
+            BlueprintName = "Material"
+            ReferencedContainer = "container:Material.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -83,9 +83,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "963832351B88DFD80015F710"
-            BuildableName = "MaterialKit.framework"
-            BlueprintName = "MaterialKit"
-            ReferencedContainer = "container:MaterialKit.xcodeproj">
+            BuildableName = "Material.framework"
+            BlueprintName = "Material"
+            ReferencedContainer = "container:Material.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="est-za-GAc" customClass="NavigationBarView" customModule="MaterialKit">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="est-za-GAc" customClass="NavigationBarView" customModule="Material">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="60"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.39222975830000001" green="0.2440954615" blue="0.68699765469999996" alpha="1" colorSpace="calibratedRGB"/>

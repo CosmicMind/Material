@@ -12,7 +12,7 @@
 *		this list of conditions and the following disclaimer in the documentation
 *		and/or other materials provided with the distribution.
 *
-*	*	Neither the name of MaterialKit nor the names of its
+*	*	Neither the name of Material nor the names of its
 *		contributors may be used to endorse or promote products derived from
 *		this software without specific prior written permission.
 *
@@ -30,18 +30,46 @@
 
 import UIKit
 
-public extension UIImage {
-	/**
-		:name:	width
-	*/
-	public var width: CGFloat {
-		return size.width
+public class ColumnView : MaterialView {
+	
+	public private(set) var axis: Axis = .Vertical
+	
+	public private(set) var arrangedSubviews: Array<UIView>!
+	
+	public required init?(coder aDecoder: NSCoder) {
+		super.init(coder: aDecoder)
 	}
 	
-	/**
-		:name:	height
-	*/
-	public var height: CGFloat {
-		return size.height
+	public init() {
+		super.init(frame: CGRectNull)
+	}
+	
+	public func reloadView() {
+		// Remove constraints.
+		removeConstraints(constraints)
+		for x in arrangedSubviews {
+			MaterialLayout.alignToParent(self, child: x)
+		}
+	}
+	
+	public override func prepareView() {
+		super.prepareView()
+		arrangedSubviews = Array<UIView>()
+	}
+	
+	public override func addSubview(view: UIView) {
+		super.addSubview(view)
+		view.translatesAutoresizingMaskIntoConstraints = false
+		reloadView()
+	}
+	
+	public func removeSubview(view: UIView) {
+		for v in arrangedSubviews {
+			if v == view {
+				v.removeFromSuperview()
+				reloadView()
+				break
+			}
+		}
 	}
 }

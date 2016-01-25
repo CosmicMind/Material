@@ -2,11 +2,18 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:../MaterialKit.xcodeproj">
+      location = "group:/Users/danieldahan/Dropbox/CosmicMind/Technology/Repositories/Material/Material.xcodeproj">
    </FileRef>
    <Group
       location = "container:"
       name = "Programmatic">
+      <Group
+         location = "container:"
+         name = "Grid">
+         <FileRef
+            location = "group:Programmatic/Grid/Grid.xcodeproj">
+         </FileRef>
+      </Group>
       <Group
          location = "container:"
          name = "MaterialLayout">

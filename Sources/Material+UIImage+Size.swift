@@ -12,7 +12,7 @@
 *		this list of conditions and the following disclaimer in the documentation
 *		and/or other materials provided with the distribution.
 *
-*	*	Neither the name of MaterialKit nor the names of its
+*	*	Neither the name of Material nor the names of its
 *		contributors may be used to endorse or promote products derived from
 *		this software without specific prior written permission.
 *
@@ -30,46 +30,18 @@
 
 import UIKit
 
-public extension String {
+public extension UIImage {
 	/**
-	:name:	lines
+		:name:	width
 	*/
-	public var lines: Array<String> {
-		return componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet())
+	public var width: CGFloat {
+		return size.width
 	}
 	
 	/**
-	:name:	firstLine
+		:name:	height
 	*/
-	public var firstLine: String? {
-		return lines.first?.trim()
-	}
-	
-	/**
-	:name:	lastLine
-	*/
-	public var lastLine: String? {
-		return lines.last?.trim()
-	}
-	
-	/**
-	:name:	replaceNewLineCharater
-	*/
-	public func replaceNewLineCharater(replace: String = " ") -> String {
-		return componentsSeparatedByCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()).joinWithSeparator(replace).trim()
-	}
-	
-	/**
-	:name:	replacePunctuationCharacters
-	*/
-	public func replacePunctuationCharacters(replace: String = "") -> String {
-		return componentsSeparatedByCharactersInSet(NSCharacterSet.punctuationCharacterSet()).joinWithSeparator(replace).trim()
-	}
-	
-	/**
-	:name:	trim
-	*/
-	public func trim() -> String {
-		return stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+	public var height: CGFloat {
+		return size.height
 	}
 }

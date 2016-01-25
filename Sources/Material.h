@@ -12,7 +12,7 @@
  *		this list of conditions and the following disclaimer in the documentation
  *		and/or other materials provided with the distribution.
  *
- *	*	Neither the name of MaterialKit nor the names of its
+ *	*	Neither the name of Material nor the names of its
  *		contributors may be used to endorse or promote products derived from
  *		this software without specific prior written permission.
  *
@@ -30,10 +30,10 @@
 
 #import <UIKit/UIKit.h>
 
-//! Project version number for MaterialKit.
-FOUNDATION_EXPORT double MaterialKitVersionNumber;
+//! Project version number for Material.
+FOUNDATION_EXPORT double MaterialVersionNumber;
 
-//! Project version string for MaterialKit.
-FOUNDATION_EXPORT const unsigned char MaterialKitVersionString[];
+//! Project version string for Material.
+FOUNDATION_EXPORT const unsigned char MaterialVersionString[];
 
-// In this header, you should import all the public headers of your framework using statements like #import <MaterialKit/PublicHeader.h>
+// In this header, you should import all the public headers of your framework using statements like #import <Material/PublicHeader.h>

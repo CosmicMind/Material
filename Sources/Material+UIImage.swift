@@ -12,7 +12,7 @@
 *		this list of conditions and the following disclaimer in the documentation
 *		and/or other materials provided with the distribution.
 *
-*	*	Neither the name of MaterialKit nor the names of its
+*	*	Neither the name of Material nor the names of its
 *		contributors may be used to endorse or promote products derived from
 *		this software without specific prior written permission.
 *
@@ -30,24 +30,7 @@
 
 import UIKit
 
-public extension UIImage {
-	/**
-		:name:	crop
-	*/
-	public func crop(var toWidth w: CGFloat, var toHeight h: CGFloat) -> UIImage? {
-		let g: UIImage?
-		let b: Bool = width > height
-		let s: CGFloat = b ? h / height : w / width
-		let t: CGSize = CGSizeMake(w, h)
-		
-		w = width * s
-		h = height * s
-		
-		UIGraphicsBeginImageContext(t)
-		drawInRect(b ? CGRectMake(-1 * (w - t.width) / 2, 0, w, h) : CGRectMake(0, -1 * (h - t.height) / 2, w, h), blendMode: .Normal, alpha: 1)
-		g = UIGraphicsGetImageFromCurrentImageContext()
-		UIGraphicsEndImageContext()
-		
-		return g!
-	}
+public enum ContentImageFormatType {
+	case PNG
+	case JPEG
 }

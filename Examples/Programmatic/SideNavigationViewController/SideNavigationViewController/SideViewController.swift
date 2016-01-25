@@ -12,7 +12,7 @@
 *		this list of conditions and the following disclaimer in the documentation
 *		and/or other materials provided with the distribution.
 *
-*	*	Neither the name of MaterialKit nor the names of its
+*	*	Neither the name of Material nor the names of its
 *		contributors may be used to endorse or promote products derived from
 *		this software without specific prior written permission.
 *
@@ -34,7 +34,7 @@ within a SideNavigationViewController.
 */
 
 import UIKit
-import MaterialKit
+import Material
 
 private struct Item {
 	var text: String
@@ -59,8 +59,15 @@ class SideViewController: UIViewController {
 	
 	/// General preparation statements.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.white
+		view.backgroundColor = MaterialColor.clear
 	}
+	
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+		sideNavigationViewController?.backdropColor = nil
+		sideNavigationViewController?.depth = .None
+	}
+
 	
 	/// Prepares the items that are displayed within the tableView.
 	private func prepareItems() {
@@ -112,6 +119,16 @@ class SideViewController: UIViewController {
 		tableView.delegate = self
 		tableView.separatorStyle = .None
 		
+		if !UIAccessibilityIsReduceTransparencyEnabled() {
+			tableView.backgroundColor = UIColor.clearColor()
+			let blurEffect = UIBlurEffect(style: .Light)
+			let blurEffectView = UIVisualEffectView(effect: blurEffect)
+			tableView.backgroundView = blurEffectView
+			
+			//if you want translucent vibrant table view separator lines
+			tableView.separatorEffect = UIVibrancyEffect(forBlurEffect: blurEffect)
+		}
+		
 		// Use MaterialLayout to easily align the tableView.
 		view.addSubview(tableView)
 		tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -129,6 +146,7 @@ extension SideViewController: UITableViewDataSource {
 	/// Prepares the cells within the tableView.
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
+		cell.backgroundColor = MaterialColor.clear
 		
 		let item: Item = items[indexPath.row]
 		cell.selectionStyle = .None
