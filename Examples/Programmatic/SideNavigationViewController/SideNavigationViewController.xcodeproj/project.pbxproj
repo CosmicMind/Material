@@ -78,10 +78,10 @@
 				9642FA1A1C1B50E700022BC6 /* AppDelegate.swift */,
 				9642FA1C1C1B50E700022BC6 /* MainViewController.swift */,
 				9642FA321C1B909700022BC6 /* LeftViewController.swift */,
+				967585371C569AA9001E4268 /* RightViewController.swift */,
 				9642FA211C1B50E700022BC6 /* Assets.xcassets */,
 				9642FA231C1B50E700022BC6 /* LaunchScreen.storyboard */,
 				9642FA261C1B50E700022BC6 /* Info.plist */,
-				967585371C569AA9001E4268 /* RightViewController.swift */,
 			);
 			path = SideNavigationViewController;
 			sourceTree = "<group>";

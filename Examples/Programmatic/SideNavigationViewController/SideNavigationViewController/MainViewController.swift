@@ -77,7 +77,7 @@ class MainViewController: UIViewController {
 	SideNavigationViewController.
 	*/
 	func handleMenuButton() {
-		sideNavigationViewController?.open()
+		sideNavigationViewController?.openLeftView()
 	}
 	
 	/// Prepares view.
