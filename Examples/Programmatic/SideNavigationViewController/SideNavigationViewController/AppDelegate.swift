@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
 		window = UIWindow(frame: UIScreen.mainScreen().bounds)
-		window!.rootViewController = SideNavigationViewController(mainViewController: MainViewController(), sideViewController: SideViewController())
+		window!.rootViewController = SideNavigationViewController(mainViewController: MainViewController(), leftViewController: LeftViewController())
 		window!.makeKeyAndVisible()
 		return true
 	}

@@ -69,7 +69,7 @@ class MainViewController: UIViewController {
 		because any earlier may cause a race condition when instantiating
 		the MainViewController and SideViewController.
 		*/
-		sideNavigationViewController?.setSideViewWidth(view.bounds.width - 88, hidden: true, animated: false)
+		sideNavigationViewController?.setLeftViewWidth(view.bounds.width - 88, hidden: true, animated: false)
 	}
 	
 	/**

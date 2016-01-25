@@ -29,7 +29,7 @@
 */
 
 /*
-The following is an example of setting a UITableView as the SideViewController
+The following is an example of setting a UITableView as the LeftViewController
 within a SideNavigationViewController.
 */
 
@@ -42,7 +42,7 @@ private struct Item {
 	var selected: Bool
 }
 
-class SideViewController: UIViewController {
+class LeftViewController: UIViewController {
 	/// A tableView used to display navigation items.
 	private let tableView: UITableView = UITableView()
 	
@@ -64,8 +64,8 @@ class SideViewController: UIViewController {
 	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
-		sideNavigationViewController?.backdropColor = nil
-		sideNavigationViewController?.depth = .None
+//		sideNavigationViewController?.backdropColor = nil
+//		sideNavigationViewController?.depth = .None
 	}
 
 	
@@ -137,7 +137,7 @@ class SideViewController: UIViewController {
 }
 
 /// TableViewDataSource methods.
-extension SideViewController: UITableViewDataSource {
+extension LeftViewController: UITableViewDataSource {
 	/// Determines the number of rows in the tableView.
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return items.count;
@@ -164,7 +164,7 @@ extension SideViewController: UITableViewDataSource {
 }
 
 /// UITableViewDelegate methods.
-extension SideViewController: UITableViewDelegate {
+extension LeftViewController: UITableViewDelegate {
 	/// Sets the tableView cell height.
 	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 		return 64
