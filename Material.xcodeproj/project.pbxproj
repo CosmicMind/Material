@@ -28,7 +28,6 @@
 		960B23511C38490D00E96216 /* TextStorage.swift in Headers */ = {isa = PBXBuildFile; fileRef = 960B23441C38480E00E96216 /* TextStorage.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		960B23521C38490D00E96216 /* TextView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 960B23451C38480E00E96216 /* TextView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		963832421B88DFD80015F710 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963832361B88DFD80015F710 /* Material.framework */; };
-		9638325A1B88E31A0015F710 /* MaterialTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963832581B88E31A0015F710 /* MaterialTests.swift */; };
 		96442ADB1C28EEFA00C3C574 /* TextField.swift in Headers */ = {isa = PBXBuildFile; fileRef = 966F57B71C226D75009185B7 /* TextField.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96442ADE1C28EF3700C3C574 /* MaterialTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96442ADD1C28EF3700C3C574 /* MaterialTableViewCell.swift */; };
 		96442ADF1C28EF3E00C3C574 /* MaterialTableViewCell.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96442ADD1C28EF3700C3C574 /* MaterialTableViewCell.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -101,10 +100,6 @@
 		96D88C731C132ACC00B91418 /* MaterialAnimation.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96D88BFF1C1328D800B91418 /* MaterialAnimation.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96D88C741C132ACC00B91418 /* MaterialBasicAnimation.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96D88C001C1328D800B91418 /* MaterialBasicAnimation.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96D88C751C132AD500B91418 /* NavigationBarView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96D88C151C1328D800B91418 /* NavigationBarView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		96F040721C50272600C7E304 /* RowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F040711C50272600C7E304 /* RowView.swift */; };
-		96F040741C50274500C7E304 /* ColumnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F040731C50274500C7E304 /* ColumnView.swift */; };
-		96F040981C5031F500C7E304 /* Axis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F040971C5031F500C7E304 /* Axis.swift */; };
-		96F0409A1C50323A00C7E304 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F040991C50323A00C7E304 /* GridView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -130,7 +125,6 @@
 		960B23451C38480E00E96216 /* TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		963832361B88DFD80015F710 /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Material.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		963832411B88DFD80015F710 /* Material.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Material.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		963832581B88E31A0015F710 /* MaterialTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialTests.swift; sourceTree = "<group>"; };
 		963832591B88E31A0015F710 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96442ADD1C28EF3700C3C574 /* MaterialTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialTableViewCell.swift; sourceTree = "<group>"; };
 		966F57B71C226D75009185B7 /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
@@ -173,10 +167,6 @@
 		96D88C1B1C1328D800B91418 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		96D88C1C1C1328D800B91418 /* RobotoFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RobotoFont.swift; sourceTree = "<group>"; };
 		96D88C1D1C1328D800B91418 /* SideNavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideNavigationViewController.swift; sourceTree = "<group>"; };
-		96F040711C50272600C7E304 /* RowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RowView.swift; sourceTree = "<group>"; };
-		96F040731C50274500C7E304 /* ColumnView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColumnView.swift; sourceTree = "<group>"; };
-		96F040971C5031F500C7E304 /* Axis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Axis.swift; sourceTree = "<group>"; };
-		96F040991C50323A00C7E304 /* GridView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,7 +210,6 @@
 			isa = PBXGroup;
 			children = (
 				963832591B88E31A0015F710 /* Info.plist */,
-				963832581B88E31A0015F710 /* MaterialTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -247,7 +236,6 @@
 		96D88BF41C1328D800B91418 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				96F040701C50270D00C7E304 /* Grid */,
 				96D88BFD1C1328D800B91418 /* LICENSE */,
 				96D88BFC1C1328D800B91418 /* Info.plist */,
 				96D88C091C1328D800B91418 /* Material.h */,
@@ -410,17 +398,6 @@
 				96D88C031C1328D800B91418 /* MaterialColor.swift */,
 			);
 			name = Color;
-			sourceTree = "<group>";
-		};
-		96F040701C50270D00C7E304 /* Grid */ = {
-			isa = PBXGroup;
-			children = (
-				96F040971C5031F500C7E304 /* Axis.swift */,
-				96F040991C50323A00C7E304 /* GridView.swift */,
-				96F040711C50272600C7E304 /* RowView.swift */,
-				96F040731C50274500C7E304 /* ColumnView.swift */,
-			);
-			name = Grid;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -591,8 +568,6 @@
 				96D88C311C1328D800B91418 /* MaterialKeyframeAnimation.swift in Sources */,
 				96D88C2E1C1328D800B91418 /* MaterialFont.swift in Sources */,
 				96D88C2A1C1328D800B91418 /* MaterialBorder.swift in Sources */,
-				96F0409A1C50323A00C7E304 /* GridView.swift in Sources */,
-				96F040741C50274500C7E304 /* ColumnView.swift in Sources */,
 				960B23461C38480E00E96216 /* Text.swift in Sources */,
 				96D88C351C1328D800B91418 /* MaterialLayout.swift in Sources */,
 				96D88C2F1C1328D800B91418 /* MaterialGravity.swift in Sources */,
@@ -610,7 +585,6 @@
 				96D88C1E1C1328D800B91418 /* CaptureView.swift in Sources */,
 				96D88C2D1C1328D800B91418 /* MaterialDepth.swift in Sources */,
 				96D88C331C1328D800B91418 /* MaterialLabel.swift in Sources */,
-				96F040721C50272600C7E304 /* RowView.swift in Sources */,
 				96D88C281C1328D800B91418 /* MaterialAnimation.swift in Sources */,
 				960B232E1C383EAA00E96216 /* Material+UIImage.swift in Sources */,
 				96D88C451C1328D800B91418 /* RobotoFont.swift in Sources */,
@@ -625,7 +599,6 @@
 				96D88C461C1328D800B91418 /* SideNavigationViewController.swift in Sources */,
 				96D88C381C1328D800B91418 /* MaterialShape.swift in Sources */,
 				960B23331C383EAA00E96216 /* Material+UIImage+Size.swift in Sources */,
-				96F040981C5031F500C7E304 /* Axis.swift in Sources */,
 				96D88C271C1328D800B91418 /* Material+UIFont.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -634,7 +607,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9638325A1B88E31A0015F710 /* MaterialTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

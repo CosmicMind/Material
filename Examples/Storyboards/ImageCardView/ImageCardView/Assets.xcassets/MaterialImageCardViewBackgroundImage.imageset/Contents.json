@@ -2,7 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "MaterialImageCardViewBackgroundImage.png",
+      "filename" : "MaterialKitImageCardViewBackgroundImage.png",
       "scale" : "1x"
     },
     {

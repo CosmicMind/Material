@@ -39,8 +39,8 @@ class ViewController: UIViewController {
 		// Examples of using CardView.
 		// Uncomment different examples and read
 		// the comments below.
-		prepareGeneralCardViewExample()
-//		prepareCardViewWithoutPulseBackgroundImageExample()
+//		prepareGeneralCardViewExample()
+		prepareCardViewWithoutPulseBackgroundImageExample()
 //		prepareCardViewWithAlteredAlignmentExample()
 //		prepareCardViewButtonBarExample()
 	}
@@ -107,11 +107,11 @@ class ViewController: UIViewController {
 	private func prepareCardViewWithoutPulseBackgroundImageExample() {
 		let cardView: CardView = CardView()
 		cardView.divider = false
-		cardView.backgroundColor = MaterialColor.red.darken1
+		cardView.backgroundColor = MaterialColor.red.base
 		cardView.pulseScale = false
 		cardView.pulseColor = nil
 		
-		cardView.image = UIImage(named: "iTunesArtwork")?.resize(toWidth: 400)
+		cardView.image = UIImage(named: "Material-iTunesArtWork")?.resize(toHeight: 150)
 		cardView.contentsGravity = .BottomRight
 		
 		// Title label.
@@ -123,7 +123,7 @@ class ViewController: UIViewController {
 		
 		// Detail label.
 		let detailLabel: UILabel = UILabel()
-		detailLabel.text = "Build beautiful software."
+		detailLabel.text = "Beautiful Material Design"
 		detailLabel.textColor = MaterialColor.white
 		detailLabel.numberOfLines = 0
 		cardView.detailLabel = detailLabel
@@ -159,7 +159,7 @@ class ViewController: UIViewController {
 		cardView.pulseColor = MaterialColor.teal.lighten4
 		
 		// Image.
-		cardView.image = UIImage(named: "GraphKit")
+		cardView.image = UIImage(named: "GraphKit")?.resize(toHeight: 100)
 		cardView.contentsGravity = .TopLeft
 		
 		// Title label.

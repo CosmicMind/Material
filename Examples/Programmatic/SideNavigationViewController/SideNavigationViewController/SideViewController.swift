@@ -119,15 +119,15 @@ class SideViewController: UIViewController {
 		tableView.delegate = self
 		tableView.separatorStyle = .None
 		
-		if !UIAccessibilityIsReduceTransparencyEnabled() {
-			tableView.backgroundColor = UIColor.clearColor()
-			let blurEffect = UIBlurEffect(style: .Light)
-			let blurEffectView = UIVisualEffectView(effect: blurEffect)
-			tableView.backgroundView = blurEffectView
-			
-			//if you want translucent vibrant table view separator lines
-			tableView.separatorEffect = UIVibrancyEffect(forBlurEffect: blurEffect)
-		}
+//		if !UIAccessibilityIsReduceTransparencyEnabled() {
+//			tableView.backgroundColor = MaterialColor.clear
+//			let blurEffect = UIBlurEffect(style: .Light)
+//			let blurEffectView = UIVisualEffectView(effect: blurEffect)
+//			tableView.backgroundView = blurEffectView
+//			
+//			//if you want translucent vibrant table view separator lines
+//			tableView.separatorEffect = UIVibrancyEffect(forBlurEffect: blurEffect)
+//		}
 		
 		// Use MaterialLayout to easily align the tableView.
 		view.addSubview(tableView)

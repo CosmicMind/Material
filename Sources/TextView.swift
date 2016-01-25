@@ -259,7 +259,7 @@ public class TextView: UITextView {
 	A property that sets the distance between the textView and
 	titleLabel.
 	*/
-	public var titleLabelAnimationDistance: CGFloat = 16
+	public var titleLabelAnimationDistance: CGFloat = 8
 	
 	/// Placeholder UILabel view.
 	public var placeholderLabel: UILabel? {
@@ -466,7 +466,7 @@ public class TextView: UITextView {
 	when subclassing.
 	*/
 	private func prepareView() {
-		textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
+		textContainerInset = MaterialEdgeInsetPresetToValue(.None)
 		backgroundColor = MaterialColor.white
 		masksToBounds = false
 		removeNotificationHandlers()

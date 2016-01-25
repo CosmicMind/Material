@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "MaterialKitImageCardViewBackgroundImage.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "iTunesArtwork@2x.png",
       "scale" : "2x"
     },
     {

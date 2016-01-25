@@ -89,7 +89,6 @@ class ViewController: UIViewController {
 		
 		// Add buttons to right side.
 		imageCardView.rightButtons = [btn1, btn2, btn3]
-		imageCardView.rightButtonsInset.top = imageCardView.contentInset.top
     }
 }
 

@@ -11,7 +11,6 @@
 		96212DCA1C1696D000F31053 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96212DC21C1696D000F31053 /* Assets.xcassets */; };
 		96212DCB1C1696D000F31053 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96212DC31C1696D000F31053 /* LaunchScreen.storyboard */; };
 		96212DCC1C1696D000F31053 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96212DC51C1696D000F31053 /* Main.storyboard */; };
-		96212DCD1C1696D000F31053 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 96212DC71C1696D000F31053 /* Info.plist */; };
 		96212DCE1C1696D000F31053 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96212DC81C1696D000F31053 /* ViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -106,7 +105,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0710;
-				LastUpgradeCheck = 0710;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Adam Dahan";
 				TargetAttributes = {
 					9ABEC4EE1C14F08200F6895E = {
@@ -137,7 +136,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96212DCD1C1696D000F31053 /* Info.plist in Resources */,
 				96212DCC1C1696D000F31053 /* Main.storyboard in Resources */,
 				96212DCA1C1696D000F31053 /* Assets.xcassets in Resources */,
 				96212DCB1C1696D000F31053 /* LaunchScreen.storyboard in Resources */,

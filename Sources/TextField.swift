@@ -269,7 +269,7 @@ public class TextField : UITextField {
 	A property that sets the distance between the textField and
 	titleLabel.
 	*/
-	public var titleLabelAnimationDistance: CGFloat = 16
+	public var titleLabelAnimationDistance: CGFloat = 8
 	
 	/// An override to the text property.
 	public override var text: String? {

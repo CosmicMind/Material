@@ -101,7 +101,7 @@ class ViewController: UIViewController {
         secondCardView.pulseColor = MaterialColor.teal.lighten4
         
         // Image.
-        secondCardView.image = UIImage(named: "GraphKit")
+        secondCardView.image = UIImage(named: "GraphKit")?.resize(toHeight: 100)
         secondCardView.contentsGravity = .TopLeft
         
         // Title label.
