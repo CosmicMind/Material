@@ -111,13 +111,13 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	A UIPanGestureRecognizer property internally used for the
 	pan gesture.
 	*/
-	private var sidePanGesture: UIPanGestureRecognizer?
+	private var panGesture: UIPanGestureRecognizer?
 	
 	/**
 	A UITapGestureRecognizer property internally used for the 
 	tap gesture.
 	*/
-	private var sideTapGesture: UITapGestureRecognizer?
+	private var tapGesture: UITapGestureRecognizer?
 	
 	/**
 	A CAShapeLayer property that is used as the backdrop when 
@@ -128,14 +128,24 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	public private(set) lazy var backdropLayer: CAShapeLayer = CAShapeLayer()
 	
 	/**
-	A CGFloat property that accesses the horizontal threshold of
+	A CGFloat property that accesses the leftView threshold of
 	the SideNavigationViewController. When the panning gesture has
-	ended, if the position is beyond the horizontal threshold,
+	ended, if the position is beyond the threshold,
 	the leftView is opened, if it is below the threshold, the
-	leftView is closed. The horizontal threshold is always at half
+	leftView is closed. The leftViewThreshold is always at half
 	the width of the leftView.
 	*/
-	public private(set) var horizontalThreshold: CGFloat = 0
+	public private(set) var leftViewThreshold: CGFloat = 0
+	
+	/**
+	A CGFloat property that accesses the rightView threshold of
+	the SideNavigationViewController. When the panning gesture has
+	ended, if the position is beyond the threshold,
+	the rightView is closed, if it is below the threshold, the
+	rightView is opened. The rightViewThreshold is always at half
+	the width of the rightView.
+	*/
+	public private(set) var rightViewThreshold: CGFloat = 0
 	
 	/**
 	A SideNavigationViewControllerDelegate property used to bind
@@ -169,10 +179,10 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	public var enabled: Bool = true {
 		didSet {
 			if enabled {
-				removeGestures(&sidePanGesture, tap: &sideTapGesture)
-				prepareGestures(&sidePanGesture, panSelector: "handlePanGesture:", tap: &sideTapGesture, tapSelector: "handleTapGesture:")
+				removeGestures(&panGesture, tap: &tapGesture)
+				prepareGestures(&panGesture, panSelector: "handlePanGesture:", tap: &tapGesture, tapSelector: "handleTapGesture:")
 			} else {
-				removeGestures(&sidePanGesture, tap: &sideTapGesture)
+				removeGestures(&panGesture, tap: &tapGesture)
 			}
 		}
 	}
@@ -501,10 +511,10 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	
 	public func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
 		if enabled {
-			if gestureRecognizer == sidePanGesture {
-				return opened || enabled && isPointContainedWithinRect(touch.locationInView(view))
+			if gestureRecognizer == panGesture {
+				return enabled && isPointContainedWithinLeftThreshold(touch.locationInView(view))
 			}
-			if opened && gestureRecognizer == sideTapGesture {
+			if opened && gestureRecognizer == tapGesture {
 				let point: CGPoint = touch.locationInView(view)
 				delegate?.sideNavigationViewDidTap?(self, point: point)
 				return !isPointContainedWithinViewController(leftView!, point: point)
@@ -614,8 +624,8 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		}
 		
 		prepareLeftViewController()
-		removeGestures(&sidePanGesture, tap: &sideTapGesture)
-		prepareGestures(&sidePanGesture, panSelector: "handlePanGesture:", tap: &sideTapGesture, tapSelector: "handleTapGesture:")
+		removeGestures(&panGesture, tap: &tapGesture)
+		prepareGestures(&panGesture, panSelector: "handlePanGesture:", tap: &tapGesture, tapSelector: "handleTapGesture:")
 	}
 	
 	/**
@@ -710,7 +720,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	- Returns: A Boolean of the result, true if yes, false 
 	otherwise.
 	*/
-	private func isPointContainedWithinRect(point: CGPoint) -> Bool {
+	private func isPointContainedWithinLeftThreshold(point: CGPoint) -> Bool {
 		return CGRectContainsPoint(CGRectMake(0, 0, horizontalThreshold, view.frame.height), point)
 	}
 	
