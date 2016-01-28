@@ -290,7 +290,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 				v.width = self.leftViewWidth
 				v.height = self.view.bounds.height
 			}
-			horizontalThreshold = leftViewWidth / 2
+			leftViewThreshold = leftViewWidth / 2
 			leftViewController?.view.frame.size.width = v.width
 			leftViewController?.view.frame.size.height = v.height
 			leftViewController?.view.center = CGPointMake(v.width / 2, v.height / 2)
@@ -512,7 +512,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	public func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
 		if enabled {
 			if gestureRecognizer == panGesture {
-				return enabled && isPointContainedWithinLeftThreshold(touch.locationInView(view))
+				return enabled && isPointContainedWithinLeftViewThreshold(touch.locationInView(view))
 			}
 			if opened && gestureRecognizer == tapGesture {
 				let point: CGPoint = touch.locationInView(view)
@@ -551,7 +551,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			
 			delegate?.sideNavigationViewPanDidEnd?(self, point: leftView!.position)
 			
-			if leftView!.x <= CGFloat(floor(-leftViewWidth)) + horizontalThreshold || point.x <= -1000 {
+			if leftView!.x <= CGFloat(floor(-leftViewWidth)) + leftViewThreshold || point.x <= -1000 {
 				closeLeftView(x)
 			} else {
 				openLeftView(x)
@@ -713,15 +713,15 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	
 	/**
 	A method that determines whether the passed point is
-	contained within the bounds of the horizontalThreshold
+	contained within the bounds of the leftViewThreshold
 	and height of the SideNavigationViewController view frame
 	property.
 	- Parameter point: A CGPoint to test against.
 	- Returns: A Boolean of the result, true if yes, false 
 	otherwise.
 	*/
-	private func isPointContainedWithinLeftThreshold(point: CGPoint) -> Bool {
-		return CGRectContainsPoint(CGRectMake(0, 0, horizontalThreshold, view.frame.height), point)
+	private func isPointContainedWithinLeftViewThreshold(point: CGPoint) -> Bool {
+		return CGRectContainsPoint(CGRectMake(0, 0, leftViewThreshold, view.frame.height), point)
 	}
 	
 	/**
