@@ -231,7 +231,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	is opened.
 	*/
 	public var opened: Bool {
-		return leftView?.x != -leftViewWidth
+		return (nil != leftView && leftView!.x != -leftViewWidth || nil != rightView && rightView!.x != view.bounds.width)
 	}
 	
 	/**
@@ -535,7 +535,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			delegate?.sideNavigationViewWillOpen?(self)
 			MaterialAnimation.animateWithDuration(Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.x / velocity)))),
 				animations: {
-					v.position = CGPointMake(-v.width / 2, v.height / 2)
+					v.position = CGPointMake(self.view.bounds.width - v.width / 2, v.height / 2)
 			}) { [unowned self] in
 				self.userInteractionEnabled = false
 				self.showRightViewDepth()
@@ -707,12 +707,12 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	private func prepareRightView() {
 		if nil != rightViewController {
 			rightView = MaterialView()
-			rightView!.frame = CGRectMake(view.bounds.width, 0, rightViewWidth, view.frame.height)
+			rightView!.frame = CGRectMake(0, 0, rightViewWidth, view.frame.height)
 			rightView!.backgroundColor = MaterialColor.clear
-			view.addSubview(leftView!)
+			view.addSubview(rightView!)
 			
 			MaterialAnimation.animationDisabled { [unowned self] in
-				self.rightView!.position.x = -self.rightViewWidth / 2
+				self.rightView!.position.x = self.view.bounds.width +  self.rightViewWidth / 2
 				self.rightView!.zPosition = 1000
 			}
 		}
