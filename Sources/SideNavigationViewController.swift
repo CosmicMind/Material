@@ -226,12 +226,25 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		}
 	}
 	
-	/**
-	A Boolean property that indicates whether the leftView 
-	is opened.
-	*/
+	/// Indicates whether the leftView or rightView is opened.
 	public var opened: Bool {
-		return (nil != leftView && leftView!.x != -leftViewWidth || nil != rightView && rightView!.x != view.bounds.width)
+		return openedLeftView || openedRightView
+	}
+	
+	/// indicates if the leftView is opened.
+	public var openedLeftView: Bool {
+		guard nil != leftView else {
+			return false
+		}
+		return leftView!.x != -leftViewWidth
+	}
+	
+	/// Indicates if the rightView is opened.
+	public var openedRightView: Bool {
+		guard nil != rightView else {
+			return false
+		}
+		return rightView!.x != view.bounds.width
 	}
 	
 	/**
@@ -484,7 +497,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	leftView. Defaults to 0.
 	*/
 	public func toggleLeftView(velocity: CGFloat = 0) {
-		opened ? closeLeftView(velocity) : openLeftView(velocity)
+		openedLeftView ? closeLeftView(velocity) : openLeftView(velocity)
 	}
 	
 	/**
@@ -495,7 +508,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	leftView. Defaults to 0.
 	*/
 	public func toggleRightView(velocity: CGFloat = 0) {
-		opened ? closeRightView(velocity) : openRightView(velocity)
+		openedRightView ? closeRightView(velocity) : openRightView(velocity)
 	}
 	
 	/**
@@ -581,7 +594,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			delegate?.sideNavigationViewWillClose?(self)
 			MaterialAnimation.animateWithDuration(Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.x / velocity)))),
 			animations: {
-				v.position = CGPointMake(-v.width / 2, v.height / 2)
+				v.position = CGPointMake(self.view.bounds.width + v.width / 2, v.height / 2)
 			}) { [unowned self] in
 				self.userInteractionEnabled = true
 				self.hideRightViewDepth()
@@ -598,7 +611,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			if opened && gestureRecognizer == tapGesture {
 				let point: CGPoint = touch.locationInView(view)
 				delegate?.sideNavigationViewDidTap?(self, point: point)
-				return !isPointContainedWithinView(leftView!, point: point)
+				return !isPointContainedWithinView(leftView!, point: point) || !isPointContainedWithinView(rightView!, point: point)
 			}
 		}
 		return false
@@ -618,20 +631,20 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 				originalPosition = leftView!.position
 				toggleStatusBar(true)
 				showLeftViewDepth()
-				delegate?.sideNavigationViewPanDidBegin?(self, point: leftView!.position)
+				delegate?.sideNavigationViewPanDidBegin?(self, point: recognizer.locationInView(view))
 			case .Changed:
 				let translation: CGPoint = recognizer.translationInView(leftView)
 				let w: CGFloat = leftView!.width
 				
 				MaterialAnimation.animationDisabled { [unowned self] in
 					self.leftView!.position.x = self.originalPosition.x + translation.x > (w / 2) ? (w / 2) : self.originalPosition.x + translation.x
-					self.delegate?.sideNavigationViewPanDidChange?(self, point: self.leftView!.position)
+					self.delegate?.sideNavigationViewPanDidChange?(self, point: recognizer.locationInView(self.view))
 				}
 			case .Ended, .Cancelled, .Failed:
 				let point: CGPoint = recognizer.velocityInView(recognizer.view)
 				let x: CGFloat = point.x >= 1000 || point.x <= -1000 ? point.x : 0
 				
-				delegate?.sideNavigationViewPanDidEnd?(self, point: leftView!.position)
+				delegate?.sideNavigationViewPanDidEnd?(self, point: recognizer.locationInView(view))
 				
 				if leftView!.x <= CGFloat(floor(-leftViewWidth)) + leftViewThreshold || point.x <= -1000 {
 					closeLeftView(x)
@@ -652,6 +665,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	internal func handleTapGesture(recognizer: UITapGestureRecognizer) {
 		if opened {
 			closeLeftView()
+			closeRightView()
 		}
 	}
 	
