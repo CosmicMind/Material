@@ -179,7 +179,6 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	public var enabled: Bool = true {
 		didSet {
 			if enabled {
-				removeGestures(&panGesture, tap: &tapGesture)
 				prepareGestures(&panGesture, panSelector: "handlePanGesture:", tap: &tapGesture, tapSelector: "handleTapGesture:")
 			} else {
 				removeGestures(&panGesture, tap: &tapGesture)
@@ -270,8 +269,8 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	/**
 	An initializer for the SideNavigationViewController.
 	- Parameter mainViewController: The main UIViewController.
-	- Parameter leftViewController: The left UIViewController.
-	- Parameter rightViewController: The right UIViewController.
+	- Parameter leftViewController: An Optional left UIViewController.
+	- Parameter rightViewController: An Optional right UIViewController.
 	*/
 	public convenience init(mainViewController: UIViewController, leftViewController: UIViewController? = nil, rightViewController: UIViewController? = nil) {
 		self.init()
@@ -329,6 +328,74 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 				self.userInteractionEnabled = !self.opened
 				completion?(result)
 		})
+	}
+	
+	/**
+	A method to swap leftViewController objects.
+	- Parameter toViewController: The UIViewController to swap
+	with the active mainViewController.
+	- Parameter duration: A NSTimeInterval that sets the
+	animation duration of the transition.
+	- Parameter options: UIViewAnimationOptions thst are used
+	when animating the transition from the active mainViewController
+	to the toViewController.
+	- Parameter animations: An animation block that is executed during
+	the transition from the active mainViewController
+	to the toViewController.
+	- Parameter completion: A completion block that is execited after
+	the transition animation from the active mainViewController
+	to the toViewController has completed.
+	*/
+	public func transitionFromLeftViewController(toViewController: UIViewController, duration: NSTimeInterval, options: UIViewAnimationOptions, animations: (() -> Void)?, completion: ((Bool) -> Void)?) {
+//		leftViewController?.willMoveToParentViewController(nil)
+//		addChildViewController(toViewController)
+//		toViewController.view.frame = view.bounds
+//		transitionFromViewController(mainViewController,
+//			toViewController: toViewController,
+//			duration: duration,
+//			options: options,
+//			animations: animations,
+//			completion: { [unowned self, mainViewController = self.mainViewController] (result: Bool) in
+//				mainViewController.removeFromParentViewController()
+//				toViewController.didMoveToParentViewController(self)
+//				self.mainViewController = toViewController
+//				self.userInteractionEnabled = !self.opened
+//				completion?(result)
+//			})
+	}
+	
+	/**
+	A method to swap rightViewController objects.
+	- Parameter toViewController: The UIViewController to swap
+	with the active mainViewController.
+	- Parameter duration: A NSTimeInterval that sets the
+	animation duration of the transition.
+	- Parameter options: UIViewAnimationOptions thst are used
+	when animating the transition from the active mainViewController
+	to the toViewController.
+	- Parameter animations: An animation block that is executed during
+	the transition from the active mainViewController
+	to the toViewController.
+	- Parameter completion: A completion block that is execited after
+	the transition animation from the active mainViewController
+	to the toViewController has completed.
+	*/
+	public func transitionFromRightViewController(toViewController: UIViewController, duration: NSTimeInterval, options: UIViewAnimationOptions, animations: (() -> Void)?, completion: ((Bool) -> Void)?) {
+		//		leftViewController?.willMoveToParentViewController(nil)
+		//		addChildViewController(toViewController)
+		//		toViewController.view.frame = view.bounds
+		//		transitionFromViewController(mainViewController,
+		//			toViewController: toViewController,
+		//			duration: duration,
+		//			options: options,
+		//			animations: animations,
+		//			completion: { [unowned self, mainViewController = self.mainViewController] (result: Bool) in
+		//				mainViewController.removeFromParentViewController()
+		//				toViewController.didMoveToParentViewController(self)
+		//				self.mainViewController = toViewController
+		//				self.userInteractionEnabled = !self.opened
+		//				completion?(result)
+		//			})
 	}
 	
 	/**
@@ -512,12 +579,12 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	public func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
 		if enabled {
 			if gestureRecognizer == panGesture {
-				return enabled && isPointContainedWithinLeftViewThreshold(touch.locationInView(view))
+				return opened || enabled && isPointContainedWithinLeftViewThreshold(touch.locationInView(view))
 			}
 			if opened && gestureRecognizer == tapGesture {
 				let point: CGPoint = touch.locationInView(view)
 				delegate?.sideNavigationViewDidTap?(self, point: point)
-				return !isPointContainedWithinViewController(leftView!, point: point)
+				return !isPointContainedWithinView(leftView!, point: point)
 			}
 		}
 		return false
@@ -572,26 +639,23 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		}
 	}
 	
-	/**
-	A method that generally prepares the SideNavigationViewController.
-	*/
+	/// A method that generally prepares the SideNavigationViewController.
 	private func prepareView() {
 		prepareBackdropLayer()
 		prepareMainViewController()
 		prepareLeftView()
+		prepareRightView()
+		prepareLeftViewController()
+		prepareGestures(&panGesture, panSelector: "handlePanGesture:", tap: &tapGesture, tapSelector: "handleTapGesture:")
 	}
 	
-	/**
-	A method that prepares the mainViewController.
-	*/
+	/// A method that prepares the mainViewController.
 	private func prepareMainViewController() {
 		prepareViewControllerWithinContainer(mainViewController, container: view)
 		mainViewController.view.frame = view.bounds
 	}
 	
-	/**
-	A method that prepares the leftViewController.
-	*/
+	/// A method that prepares the leftViewController.
 	private func prepareLeftViewController() {
 		if let v: MaterialView = leftView {
 			leftViewController?.view.clipsToBounds = true
@@ -599,9 +663,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		}
 	}
 	
-	/**
-	A method that prepares the rightViewController.
-	*/
+	/// A method that prepares the rightViewController.
 	private func prepareRightViewController() {
 		if let v: MaterialView = leftView {
 			rightViewController?.view.clipsToBounds = true
@@ -609,28 +671,37 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		}
 	}
 	
-	/**
-	A method that prepares the leftView.
-	*/
+	/// A method that prepares the leftView.
 	private func prepareLeftView() {
-		leftView = MaterialView()
-		leftView!.frame = CGRectMake(0, 0, leftViewWidth, view.frame.height)
-		leftView!.backgroundColor = MaterialColor.clear
-		view.addSubview(leftView!)
-		
-		MaterialAnimation.animationDisabled { [unowned self] in
-			self.leftView!.position.x = -self.leftViewWidth / 2
-			self.leftView!.zPosition = 1000
+		if nil != leftViewController {
+			leftView = MaterialView()
+			leftView!.frame = CGRectMake(0, 0, leftViewWidth, view.frame.height)
+			leftView!.backgroundColor = MaterialColor.clear
+			view.addSubview(leftView!)
+			
+			MaterialAnimation.animationDisabled { [unowned self] in
+				self.leftView!.position.x = -self.leftViewWidth / 2
+				self.leftView!.zPosition = 1000
+			}
 		}
-		
-		prepareLeftViewController()
-		removeGestures(&panGesture, tap: &tapGesture)
-		prepareGestures(&panGesture, panSelector: "handlePanGesture:", tap: &tapGesture, tapSelector: "handleTapGesture:")
 	}
 	
-	/**
-	A method that prepares the backdropLayer.
-	*/
+	/// A method that prepares the leftView.
+	private func prepareRightView() {
+		if nil != rightViewController {
+			rightView = MaterialView()
+			rightView!.frame = CGRectMake(0, 0, rightViewWidth, view.frame.height)
+			rightView!.backgroundColor = MaterialColor.clear
+			view.addSubview(leftView!)
+			
+			MaterialAnimation.animationDisabled { [unowned self] in
+				self.rightView!.position.x = -self.rightViewWidth / 2
+				self.rightView!.zPosition = 1000
+			}
+		}
+	}
+	
+	/// A method that prepares the backdropLayer.
 	private func prepareBackdropLayer() {
 		backdropColor = MaterialColor.black
 		backdropLayer.zPosition = 900
@@ -667,12 +738,15 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	tap gesture is recognized.
 	*/
 	private func prepareGestures(inout pan: UIPanGestureRecognizer?, panSelector: Selector, inout tap: UITapGestureRecognizer?, tapSelector: Selector) {
+		removeGestures(&panGesture, tap: &tapGesture)
+		
 		if nil == pan {
 			pan = UIPanGestureRecognizer(target: self, action: panSelector)
 			pan!.delegate = self
 			view.addGestureRecognizer(pan!)
 		}
-		if nil == tap {
+		
+		if nil == pan {
 			tap = UITapGestureRecognizer(target: self, action: tapSelector)
 			tap!.delegate = self
 			view.addGestureRecognizer(tap!)
@@ -734,7 +808,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	- Returns: A Boolean of the result, true if yes, false
 	otherwise.
 	*/
-	private func isPointContainedWithinViewController(container: UIView, point: CGPoint) -> Bool {
+	private func isPointContainedWithinView(container: UIView, point: CGPoint) -> Bool {
 		return CGRectContainsPoint(container.frame, point)
 	}
 	
