@@ -347,7 +347,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 				v.width = self.rightViewWidth
 				v.height = self.view.bounds.height
 			}
-			rightViewThreshold = rightViewWidth / 2
+			rightViewThreshold = view.bounds.width - rightViewWidth / 2
 			rightViewController?.view.frame.size.width = v.width
 			rightViewController?.view.frame.size.height = v.height
 			rightViewController?.view.center = CGPointMake(v.width / 2, v.height / 2)
@@ -648,7 +648,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	
 	public func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
 		if gestureRecognizer == panGesture {
-			return opened || enabled && (isPointContainedWithinLeftViewThreshold(touch.locationInView(view)) || isPointContainedWithinRightViewThreshold(touch.locationInView(view)))
+			return enabled && (isPointContainedWithinLeftViewThreshold(touch.locationInView(view)) || isPointContainedWithinRightViewThreshold(touch.locationInView(view)))
 		}
 		if opened && gestureRecognizer == tapGesture {
 			let point: CGPoint = touch.locationInView(view)
@@ -669,6 +669,8 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		if enabledRightView && (openedRightView || !openedLeftView && isPointContainedWithinRightViewThreshold(recognizer.locationInView(view))) {
 			currentView = rightView
 			if let v: MaterialView = currentView {
+				let point: CGPoint = recognizer.locationInView(view)
+				
 				// Animate the panel.
 				switch recognizer.state {
 				case .Began:
@@ -676,23 +678,24 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 					originalPosition = v.position
 					toggleStatusBar(true)
 					showDepth()
-					delegate?.sideNavigationViewPanDidBegin?(self, point: recognizer.locationInView(view))
+					
+					delegate?.sideNavigationViewPanDidBegin?(self, point: point)
 				case .Changed:
-					let translation: CGPoint = recognizer.translationInView(v)
 					let w: CGFloat = v.width
+					let originalX: CGFloat = originalPosition.x
+					let translationX: CGFloat = recognizer.translationInView(v).x
 					
 					MaterialAnimation.animationDisabled { [unowned self] in
-						print("OX \(self.originalPosition.x) TX \(translation.x)")
-						v.position.x = self.originalPosition.x + translation.x < self.view.bounds.width - (w / 2) ? self.view.bounds.width - (w / 2) : self.originalPosition.x + translation.x
-						self.delegate?.sideNavigationViewPanDidChange?(self, point: recognizer.locationInView(self.view))
+						v.position.x = originalX + translationX < self.view.bounds.width - (w / 2) ? self.view.bounds.width - (w / 2) : originalX + translationX
+						self.delegate?.sideNavigationViewPanDidChange?(self, point: point)
 					}
 				case .Ended, .Cancelled, .Failed:
-					let point: CGPoint = recognizer.velocityInView(recognizer.view)
-					let x: CGFloat = point.x >= 1000 || point.x <= -1000 ? point.x : 0
+					let p: CGPoint = recognizer.velocityInView(recognizer.view)
+					let x: CGFloat = p.x >= 1000 || p.x <= -1000 ? p.x : 0
 					
-					delegate?.sideNavigationViewPanDidEnd?(self, point: recognizer.locationInView(view))
+					delegate?.sideNavigationViewPanDidEnd?(self, point: point)
 					
-					if v.x <= CGFloat(floor(-rightViewWidth)) + rightViewThreshold || point.x <= -1000 {
+					if v.x >= rightViewThreshold {
 						closeRightView(x)
 					} else {
 						openRightView(x)
@@ -703,6 +706,8 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		} else if enabledLeftView {
 			currentView = leftView
 			if let v: MaterialView = currentView {
+				let point: CGPoint = recognizer.locationInView(view)
+				
 				// Animate the panel.
 				switch recognizer.state {
 				case .Began:
@@ -710,22 +715,24 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 					originalPosition = v.position
 					toggleStatusBar(true)
 					showDepth()
-					delegate?.sideNavigationViewPanDidBegin?(self, point: recognizer.locationInView(view))
+					
+					delegate?.sideNavigationViewPanDidBegin?(self, point: point)
 				case .Changed:
-					let translation: CGPoint = recognizer.translationInView(v)
 					let w: CGFloat = v.width
+					let originalX: CGFloat = originalPosition.x
+					let translationX: CGFloat = recognizer.translationInView(v).x
 					
 					MaterialAnimation.animationDisabled { [unowned self] in
-						v.position.x = self.originalPosition.x + translation.x > (w / 2) ? (w / 2) : self.originalPosition.x + translation.x
-						self.delegate?.sideNavigationViewPanDidChange?(self, point: recognizer.locationInView(self.view))
+						v.position.x = originalX + translationX > (w / 2) ? (w / 2) : originalX + translationX
+						self.delegate?.sideNavigationViewPanDidChange?(self, point: point)
 					}
 				case .Ended, .Cancelled, .Failed:
-					let point: CGPoint = recognizer.velocityInView(recognizer.view)
-					let x: CGFloat = point.x >= 1000 || point.x <= -1000 ? point.x : 0
+					let p: CGPoint = recognizer.velocityInView(recognizer.view)
+					let x: CGFloat = p.x >= 1000 || p.x <= -1000 ? p.x : 0
 					
-					delegate?.sideNavigationViewPanDidEnd?(self, point: recognizer.locationInView(view))
+					delegate?.sideNavigationViewPanDidEnd?(self, point: point)
 					
-					if v.x <= CGFloat(floor(-leftViewWidth)) + leftViewThreshold || point.x <= -1000 {
+					if v.x <= -leftViewWidth + leftViewThreshold {
 						closeLeftView(x)
 					} else {
 						openLeftView(x)
@@ -919,7 +926,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	otherwise.
 	*/
 	private func isPointContainedWithinRightViewThreshold(point: CGPoint) -> Bool {
-		return CGRectContainsPoint(CGRectMake(0, 0, view.bounds.width - rightViewThreshold, view.frame.height), point)
+		return CGRectContainsPoint(CGRectMake(view.bounds.width - rightViewThreshold, 0, rightViewThreshold, view.frame.height), point)
 	}
 	
 	/**
