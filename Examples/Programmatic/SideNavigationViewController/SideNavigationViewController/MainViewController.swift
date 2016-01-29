@@ -44,7 +44,7 @@ private struct Item {
 	var image: UIImage?
 }
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, SideNavigationViewControllerDelegate {
 	/// A tableView used to display Bond entries.
 	private let tableView: UITableView = UITableView()
 	
@@ -70,6 +70,11 @@ class MainViewController: UIViewController {
 		the MainViewController and SideViewController.
 		*/
 		sideNavigationViewController?.setLeftViewWidth(view.bounds.width - 88, hidden: true, animated: false)
+		sideNavigationViewController?.delegate = self
+	}
+	
+	func sideNavigationViewDidTap(sideNavigationViewController: SideNavigationViewController, point: CGPoint) {
+		print(point)
 	}
 	
 	/**
@@ -78,6 +83,14 @@ class MainViewController: UIViewController {
 	*/
 	func handleMenuButton() {
 		sideNavigationViewController?.openLeftView()
+	}
+	
+	/**
+	Handles the search button click, which opens the
+	SideNavigationViewController.
+	*/
+	func handleSearchButton() {
+		sideNavigationViewController?.openRightView()
 	}
 	
 	/// Prepares view.
@@ -153,6 +166,7 @@ class MainViewController: UIViewController {
 		searchButton.setImage(img2, forState: .Normal)
 		searchButton.setImage(img2, forState: .Highlighted)
 		searchButton.tintColor = MaterialColor.cyan.darken4
+		searchButton.addTarget(self, action: "handleSearchButton", forControlEvents: .TouchUpInside)
 		
 		// Add searchButton to right side.
 		navigationBarView.rightButtons = [searchButton]

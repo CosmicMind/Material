@@ -53,13 +53,13 @@ class RightViewController: UIViewController {
 		super.viewDidLoad()
 		prepareView()
 		prepareItems()
-		prepareProfileView()
-		prepareTableView()
+//		prepareProfileView()
+//		prepareTableView()
 	}
 	
 	/// General preparation statements.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.clear
+		view.backgroundColor = MaterialColor.black
 	}
 	
 	override func viewWillAppear(animated: Bool) {
