@@ -44,7 +44,7 @@ private struct Item {
 	var image: UIImage?
 }
 
-class MainViewController: UIViewController, SideNavigationViewControllerDelegate {
+class MainViewController: UIViewController {
 	/// A tableView used to display Bond entries.
 	private let tableView: UITableView = UITableView()
 	
@@ -70,11 +70,6 @@ class MainViewController: UIViewController, SideNavigationViewControllerDelegate
 		the MainViewController and SideViewController.
 		*/
 		sideNavigationViewController?.setLeftViewWidth(view.bounds.width - 88, hidden: true, animated: false)
-		sideNavigationViewController?.delegate = self
-	}
-	
-	func sideNavigationViewDidTap(sideNavigationViewController: SideNavigationViewController, point: CGPoint) {
-		print(point)
 	}
 	
 	/**
