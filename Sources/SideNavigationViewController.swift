@@ -108,10 +108,10 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	private var originalPosition: CGPoint = CGPointZero
 	
 	/**
-	A UIView property that is used internally to track
-	the currentView, either leftView or rightView.
+	A MaterialView property that is used internally to track
+	either leftView or rightView.
 	*/
-	private var currentView: UIView?
+	private var currentView: MaterialView?
 	
 	/**
 	A UIPanGestureRecognizer property internally used for the
@@ -550,17 +550,18 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	*/
 	public func openLeftView(velocity: CGFloat = 0) {
 		if enabledLeftView {
-			toggleStatusBar(true)
-			backdropLayer.hidden = false
-			
 			if let v: MaterialView = leftView {
+				toggleStatusBar(true)
+				backdropLayer.hidden = false
+				currentView = v
+				
 				delegate?.sideNavigationViewWillOpen?(self)
 				MaterialAnimation.animateWithDuration(Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.x / velocity)))),
 				animations: {
 					v.position = CGPointMake(v.width / 2, v.height / 2)
 				}) { [unowned self] in
 					self.userInteractionEnabled = false
-					self.showLeftViewDepth()
+					self.showDepth()
 					self.delegate?.sideNavigationViewDidOpen?(self)
 				}
 			}
@@ -575,17 +576,18 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	*/
 	public func openRightView(velocity: CGFloat = 0) {
 		if enabledRightView {
-			toggleStatusBar(true)
-			backdropLayer.hidden = false
-			
 			if let v: MaterialView = rightView {
+				toggleStatusBar(true)
+				backdropLayer.hidden = false
+				currentView = v
+				
 				delegate?.sideNavigationViewWillOpen?(self)
 				MaterialAnimation.animateWithDuration(Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.x / velocity)))),
 					animations: {
 						v.position = CGPointMake(self.view.bounds.width - v.width / 2, v.height / 2)
 				}) { [unowned self] in
 					self.userInteractionEnabled = false
-					self.showRightViewDepth()
+					self.showDepth()
 					self.delegate?.sideNavigationViewDidOpen?(self)
 				}
 			}
@@ -610,8 +612,9 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 					v.position = CGPointMake(-v.width / 2, v.height / 2)
 				}) { [unowned self] in
 					self.userInteractionEnabled = true
-					self.hideLeftViewDepth()
+					self.hideDepth()
 					self.delegate?.sideNavigationViewDidClose?(self)
+					self.currentView = nil
 				}
 			}
 		}
@@ -635,8 +638,9 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 					v.position = CGPointMake(self.view.bounds.width + v.width / 2, v.height / 2)
 				}) { [unowned self] in
 					self.userInteractionEnabled = true
-					self.hideRightViewDepth()
+					self.hideDepth()
 					self.delegate?.sideNavigationViewDidClose?(self)
+					self.currentView = nil
 				}
 			}
 		}
@@ -661,39 +665,73 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	passed to the handler when recognized.
 	*/
 	internal func handlePanGesture(recognizer: UIPanGestureRecognizer) {
-		if enabled {
-			switch recognizer.state {
-			case .Began:
-				if !opened {
-					if isPointContainedWithinLeftViewThreshold(recognizer.locationInView(view)) {
-						
+		// Deterine which view to pan.
+		if enabledRightView && (openedRightView || !openedLeftView && isPointContainedWithinRightViewThreshold(recognizer.locationInView(view))) {
+			currentView = rightView
+			if let v: MaterialView = currentView {
+				// Animate the panel.
+				switch recognizer.state {
+				case .Began:
+					backdropLayer.hidden = false
+					originalPosition = v.position
+					toggleStatusBar(true)
+					showDepth()
+					delegate?.sideNavigationViewPanDidBegin?(self, point: recognizer.locationInView(view))
+				case .Changed:
+					let translation: CGPoint = recognizer.translationInView(v)
+					let w: CGFloat = v.width
+					
+					MaterialAnimation.animationDisabled { [unowned self] in
+						print("OX \(self.originalPosition.x) TX \(translation.x)")
+						v.position.x = self.originalPosition.x + translation.x < self.view.bounds.width - (w / 2) ? self.view.bounds.width - (w / 2) : self.originalPosition.x + translation.x
+						self.delegate?.sideNavigationViewPanDidChange?(self, point: recognizer.locationInView(self.view))
 					}
+				case .Ended, .Cancelled, .Failed:
+					let point: CGPoint = recognizer.velocityInView(recognizer.view)
+					let x: CGFloat = point.x >= 1000 || point.x <= -1000 ? point.x : 0
+					
+					delegate?.sideNavigationViewPanDidEnd?(self, point: recognizer.locationInView(view))
+					
+					if v.x <= CGFloat(floor(-rightViewWidth)) + rightViewThreshold || point.x <= -1000 {
+						closeRightView(x)
+					} else {
+						openRightView(x)
+					}
+				case .Possible:break
 				}
-				backdropLayer.hidden = false
-				originalPosition = leftView!.position
-				toggleStatusBar(true)
-				showLeftViewDepth()
-				delegate?.sideNavigationViewPanDidBegin?(self, point: recognizer.locationInView(view))
-			case .Changed:
-				let translation: CGPoint = recognizer.translationInView(leftView)
-				let w: CGFloat = leftView!.width
-				
-				MaterialAnimation.animationDisabled { [unowned self] in
-					self.leftView!.position.x = self.originalPosition.x + translation.x > (w / 2) ? (w / 2) : self.originalPosition.x + translation.x
-					self.delegate?.sideNavigationViewPanDidChange?(self, point: recognizer.locationInView(self.view))
+			}
+		} else if enabledLeftView {
+			currentView = leftView
+			if let v: MaterialView = currentView {
+				// Animate the panel.
+				switch recognizer.state {
+				case .Began:
+					backdropLayer.hidden = false
+					originalPosition = v.position
+					toggleStatusBar(true)
+					showDepth()
+					delegate?.sideNavigationViewPanDidBegin?(self, point: recognizer.locationInView(view))
+				case .Changed:
+					let translation: CGPoint = recognizer.translationInView(v)
+					let w: CGFloat = v.width
+					
+					MaterialAnimation.animationDisabled { [unowned self] in
+						v.position.x = self.originalPosition.x + translation.x > (w / 2) ? (w / 2) : self.originalPosition.x + translation.x
+						self.delegate?.sideNavigationViewPanDidChange?(self, point: recognizer.locationInView(self.view))
+					}
+				case .Ended, .Cancelled, .Failed:
+					let point: CGPoint = recognizer.velocityInView(recognizer.view)
+					let x: CGFloat = point.x >= 1000 || point.x <= -1000 ? point.x : 0
+					
+					delegate?.sideNavigationViewPanDidEnd?(self, point: recognizer.locationInView(view))
+					
+					if v.x <= CGFloat(floor(-leftViewWidth)) + leftViewThreshold || point.x <= -1000 {
+						closeLeftView(x)
+					} else {
+						openLeftView(x)
+					}
+				case .Possible:break
 				}
-			case .Ended, .Cancelled, .Failed:
-				let point: CGPoint = recognizer.velocityInView(recognizer.view)
-				let x: CGFloat = point.x >= 1000 || point.x <= -1000 ? point.x : 0
-				
-				delegate?.sideNavigationViewPanDidEnd?(self, point: recognizer.locationInView(view))
-				
-				if leftView!.x <= CGFloat(floor(-leftViewWidth)) + leftViewThreshold || point.x <= -1000 {
-					closeLeftView(x)
-				} else {
-					openLeftView(x)
-				}
-			case .Possible:break
 			}
 		}
 	}
@@ -898,46 +936,18 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		return CGRectContainsPoint(container.frame, point)
 	}
 	
-	/**
-	A method that adds the depth to the leftView depth property.
-	*/
-	private func showLeftViewDepth() {
-		if let v: MaterialView = leftView {
+	/// A method that adds the depth to the currentView.
+	private func showDepth() {
+		if let v: MaterialView = currentView {
 			MaterialAnimation.animationDisabled { [unowned self] in
 				v.depth = self.depth
 			}
 		}
 	}
 	
-	/**
-	A method that adds the depth to the rightView depth property.
-	*/
-	private func showRightViewDepth() {
-		if let v: MaterialView = rightView {
-			MaterialAnimation.animationDisabled {
-				v.depth = self.depth
-			}
-		}
-	}
-	
-	/**
-	A method that removes the depth from the leftView depth 
-	property.
-	*/
-	private func hideLeftViewDepth() {
-		if let v: MaterialView = leftView {
-			MaterialAnimation.animationDisabled {
-				v.depth = .None
-			}
-		}
-	}
-	
-	/**
-	A method that removes the depth from the rightView depth
-	property.
-	*/
-	private func hideRightViewDepth() {
-		if let v: MaterialView = rightView {
+	/// A method that removes the depth from the currentView.
+	private func hideDepth() {
+		if let v: MaterialView = currentView {
 			MaterialAnimation.animationDisabled {
 				v.depth = .None
 			}
