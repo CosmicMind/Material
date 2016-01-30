@@ -740,16 +740,20 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	passed to the handler when recognized.
 	*/
 	internal func handleTapGesture(recognizer: UITapGestureRecognizer) {
-		if let v: MaterialView = leftView {
-			delegate?.sideNavigationViewDidTap?(self, point: recognizer.locationInView(view), position: .Left)
-			if enabledLeftView && openedLeftView && !isPointContainedWithinView(v, point: recognizer.locationInView(v)) {
-				closeLeftView()
+		if openedLeftView {
+			if let v: MaterialView = leftView {
+				delegate?.sideNavigationViewDidTap?(self, point: recognizer.locationInView(view), position: .Left)
+				if enabledLeftView && openedLeftView && !isPointContainedWithinView(v, point: recognizer.locationInView(v)) {
+					closeLeftView()
+				}
 			}
 		}
-		if let v: MaterialView = rightView {
-			delegate?.sideNavigationViewDidTap?(self, point: recognizer.locationInView(view), position: .Right)
-			if enabledRightView && openedRightView && !isPointContainedWithinView(v, point: recognizer.locationInView(v)) {
-				closeRightView()
+		if openedRightView {
+			if let v: MaterialView = rightView {
+				delegate?.sideNavigationViewDidTap?(self, point: recognizer.locationInView(view), position: .Right)
+				if enabledRightView && openedRightView && !isPointContainedWithinView(v, point: recognizer.locationInView(v)) {
+					closeRightView()
+				}
 			}
 		}
 	}
