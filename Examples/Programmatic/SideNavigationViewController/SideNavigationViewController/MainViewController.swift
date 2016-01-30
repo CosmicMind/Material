@@ -70,6 +70,7 @@ class MainViewController: UIViewController {
 		the MainViewController and SideViewController.
 		*/
 		sideNavigationViewController?.setLeftViewWidth(view.bounds.width - 88, hidden: true, animated: false)
+		sideNavigationViewController?.delegate = self
 	}
 	
 	/**
@@ -246,5 +247,72 @@ extension MainViewController: UITableViewDelegate {
 	/// Sets the tableView header height.
 	func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 		return 48
+	}
+}
+
+/// SideNavigationViewControllerDelegate methods.
+extension MainViewController: SideNavigationViewControllerDelegate {
+	/**
+	An optional delegation method that is fired before the
+	SideNavigationViewController opens.
+	*/
+	func sideNavigationViewWillOpen(sideNavigationViewController: SideNavigationViewController, position: SideNavigationPosition) {
+		print("Will open", .Left == position ? "Left" : "Right", "view.")
+	}
+	
+	/**
+	An optional delegation method that is fired after the
+	SideNavigationViewController opened.
+	*/
+	func sideNavigationViewDidOpen(sideNavigationViewController: SideNavigationViewController, position: SideNavigationPosition) {
+		print("Did open", .Left == position ? "Left" : "Right", "view.")
+	}
+	
+	/**
+	An optional delegation method that is fired before the
+	SideNavigationViewController closes.
+	*/
+	func sideNavigationViewWillClose(sideNavigationViewController: SideNavigationViewController, position: SideNavigationPosition) {
+		print("Will close", .Left == position ? "Left" : "Right", "view.")
+	}
+	
+	/**
+	An optional delegation method that is fired after the
+	SideNavigationViewController closed.
+	*/
+	func sideNavigationViewDidClose(sideNavigationViewController: SideNavigationViewController, position: SideNavigationPosition) {
+		print("Did close", .Left == position ? "Left" : "Right", "view.")
+	}
+	
+	/**
+	An optional delegation method that is fired when the
+	SideNavigationViewController pan gesture begins.
+	*/
+	func sideNavigationViewPanDidBegin(sideNavigationViewController: SideNavigationViewController, point: CGPoint, position: SideNavigationPosition) {
+		print("Pan did begin for", .Left == position ? "Left" : "Right", "view.")
+	}
+	
+	/**
+	An optional delegation method that is fired when the
+	SideNavigationViewController pan gesture changes position.
+	*/
+	func sideNavigationViewPanDidChange(sideNavigationViewController: SideNavigationViewController, point: CGPoint, position: SideNavigationPosition) {
+		print("Pan did change for", .Left == position ? "Left" : "Right", "view.")
+	}
+	
+	/**
+	An optional delegation method that is fired when the
+	SideNavigationViewController pan gesture ends.
+	*/
+	func sideNavigationViewPanDidEnd(sideNavigationViewController: SideNavigationViewController, point: CGPoint, position: SideNavigationPosition) {
+		print("Pan did end for", .Left == position ? "Left" : "Right", "view.")
+	}
+	
+	/**
+	An optional delegation method that is fired when the
+	SideNavigationViewController tap gesture begins.
+	*/
+	func sideNavigationViewDidTap(sideNavigationViewController: SideNavigationViewController, point: CGPoint, position: SideNavigationPosition) {
+		print("Did Tap for", .Left == position ? "Left" : "Right", "view.")
 	}
 }
