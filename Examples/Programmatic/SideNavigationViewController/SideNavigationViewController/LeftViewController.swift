@@ -62,13 +62,6 @@ class LeftViewController: UIViewController {
 		view.backgroundColor = MaterialColor.clear
 	}
 	
-	override func viewWillAppear(animated: Bool) {
-		super.viewWillAppear(animated)
-//		sideNavigationViewController?.backdropColor = nil
-//		sideNavigationViewController?.depth = .None
-	}
-
-	
 	/// Prepares the items that are displayed within the tableView.
 	private func prepareItems() {
 		items.append(Item(text: "Inbox", imageName: "ic_inbox", selected: true))
@@ -82,7 +75,7 @@ class LeftViewController: UIViewController {
 	/// Prepares profile view.
 	private func prepareProfileView() {
 		let backgroundView: MaterialView = MaterialView()
-		backgroundView.image = UIImage(named: "ProfileSideNavBackground")
+		backgroundView.image = UIImage(named: "MaterialBackground")
 		
 		let profileView: MaterialView = MaterialView()
 		profileView.image = UIImage(named: "Profile9")?.resize(toWidth: 72)
@@ -118,16 +111,6 @@ class LeftViewController: UIViewController {
 		tableView.dataSource = self
 		tableView.delegate = self
 		tableView.separatorStyle = .None
-		
-//		if !UIAccessibilityIsReduceTransparencyEnabled() {
-//			tableView.backgroundColor = MaterialColor.clear
-//			let blurEffect = UIBlurEffect(style: .Light)
-//			let blurEffectView = UIVisualEffectView(effect: blurEffect)
-//			tableView.backgroundView = blurEffectView
-//			
-//			//if you want translucent vibrant table view separator lines
-//			tableView.separatorEffect = UIVibrancyEffect(forBlurEffect: blurEffect)
-//		}
 		
 		// Use MaterialLayout to easily align the tableView.
 		view.addSubview(tableView)

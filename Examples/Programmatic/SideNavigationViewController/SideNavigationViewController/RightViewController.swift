@@ -53,86 +53,41 @@ class RightViewController: UIViewController {
 		super.viewDidLoad()
 		prepareView()
 		prepareItems()
-//		prepareProfileView()
-//		prepareTableView()
+		prepareTableView()
 	}
 	
 	/// General preparation statements.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.black
+		view.backgroundColor = MaterialColor.blueGrey.darken4
 	}
 	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
-		//		sideNavigationViewController?.backdropColor = nil
-		//		sideNavigationViewController?.depth = .None
 	}
 	
 	
 	/// Prepares the items that are displayed within the tableView.
 	private func prepareItems() {
-		items.append(Item(text: "Inbox", imageName: "ic_inbox", selected: true))
-		items.append(Item(text: "Today", imageName: "ic_today", selected: false))
+		items.append(Item(text: "Inbox", imageName: "ic_inbox", selected: false))
+		items.append(Item(text: "Today", imageName: "ic_today", selected: true))
 		items.append(Item(text: "Bookmarks", imageName: "ic_book", selected: false))
 		items.append(Item(text: "Work", imageName: "ic_work", selected: false))
 		items.append(Item(text: "Contacts", imageName: "ic_contacts", selected: false))
 		items.append(Item(text: "Settings", imageName: "ic_settings", selected: false))
 	}
 	
-	/// Prepares profile view.
-	private func prepareProfileView() {
-		let backgroundView: MaterialView = MaterialView()
-		backgroundView.image = UIImage(named: "ProfileSideNavBackground")
-		
-		let profileView: MaterialView = MaterialView()
-		profileView.image = UIImage(named: "Profile9")?.resize(toWidth: 72)
-		profileView.shape = .Circle
-		profileView.borderColor = MaterialColor.white
-		profileView.borderWidth = .Border3
-		
-		let nameLabel: UILabel = UILabel()
-		nameLabel.text = "Michael Smith"
-		nameLabel.textColor = MaterialColor.white
-		nameLabel.font = RobotoFont.mediumWithSize(18)
-		
-		view.addSubview(backgroundView)
-		backgroundView.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignFromTop(view, child: backgroundView)
-		MaterialLayout.alignToParentHorizontally(view, child: backgroundView)
-		MaterialLayout.height(view, child: backgroundView, height: 170)
-		
-		backgroundView.addSubview(profileView)
-		profileView.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignFromTopLeft(backgroundView, child: profileView, top: 20, left: 20)
-		MaterialLayout.size(backgroundView, child: profileView, width: 72, height: 72)
-		
-		backgroundView.addSubview(nameLabel)
-		nameLabel.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignFromBottom(backgroundView, child: nameLabel, bottom: 20)
-		MaterialLayout.alignToParentHorizontally(backgroundView, child: nameLabel, left: 20, right: 20)
-	}
-	
 	/// Prepares the tableView.
 	private func prepareTableView() {
 		tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+		tableView.backgroundColor = MaterialColor.clear
 		tableView.dataSource = self
 		tableView.delegate = self
 		tableView.separatorStyle = .None
 		
-		//		if !UIAccessibilityIsReduceTransparencyEnabled() {
-		//			tableView.backgroundColor = MaterialColor.clear
-		//			let blurEffect = UIBlurEffect(style: .Light)
-		//			let blurEffectView = UIVisualEffectView(effect: blurEffect)
-		//			tableView.backgroundView = blurEffectView
-		//
-		//			//if you want translucent vibrant table view separator lines
-		//			tableView.separatorEffect = UIVibrancyEffect(forBlurEffect: blurEffect)
-		//		}
-		
 		// Use MaterialLayout to easily align the tableView.
 		view.addSubview(tableView)
 		tableView.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignToParent(view, child: tableView, top: 170)
+		MaterialLayout.alignToParent(view, child: tableView)
 	}
 }
 
@@ -151,12 +106,13 @@ extension RightViewController: UITableViewDataSource {
 		let item: Item = items[indexPath.row]
 		cell.selectionStyle = .None
 		cell.textLabel!.text = item.text
+		cell.textLabel!.textColor = MaterialColor.white
 		cell.textLabel!.font = RobotoFont.medium
 		cell.imageView!.image = UIImage(named: item.imageName)?.imageWithRenderingMode(.AlwaysTemplate)
-		cell.imageView!.tintColor = MaterialColor.cyan.darken4
+		cell.imageView!.tintColor = MaterialColor.cyan.lighten4
 		
 		if item.selected {
-			cell.textLabel!.textColor = MaterialColor.cyan.base
+			cell.textLabel!.textColor = MaterialColor.cyan.lighten3
 		}
 		
 		return cell

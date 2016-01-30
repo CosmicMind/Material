@@ -2,7 +2,7 @@
 
 # Welcome to Material
 
-Material is a graphics and animation framework based on Google's Material Design. A major goal in the design of Material is to allow the creativity of others to easily be expressed.
+Material is a graphics and animation framework for Google's Material Design. It is designed to allow the creativity of others to easily be expressed.
 
 ## Features
 
@@ -89,7 +89,7 @@ MaterialColor is a complete Material Design color library. It uses base color va
 <a name="sidenavigationviewcontroller"></a>
 ## SideNavigationViewController
 
-The SideNavigationViewController is an app wide navigation pattern. It generally provides overall app navigation with other useful items.
+The SideNavigationViewController is an app wide navigation pattern. It generally provides overall app navigation with other useful items. Use the Left position for global app navigation, and the Right position for view navigation.
 
 ![MaterialSideNavigationViewController](http://www.cosmicmind.io/MK/MaterialSideNavigationViewController.gif)
 

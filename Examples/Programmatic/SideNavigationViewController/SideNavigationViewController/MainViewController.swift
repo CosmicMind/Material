@@ -154,7 +154,7 @@ class MainViewController: UIViewController {
 		navigationBarView.leftButtons = [menuButton]
 		
 		// Search button.
-		let img2: UIImage? = UIImage(named: "ic_search_white")?.imageWithRenderingMode(.AlwaysTemplate)
+		let img2: UIImage? = UIImage(named: "ic_more_vert_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let searchButton: FlatButton = FlatButton()
 		searchButton.pulseColor = MaterialColor.white
 		searchButton.pulseFill = true
@@ -179,7 +179,7 @@ class MainViewController: UIViewController {
 	func prepareAddButton() {
 		let image: UIImage? = UIImage(named: "ic_add_white")
 		let button: FabButton = FabButton()
-		button.backgroundColor = MaterialColor.deepPurple.accent3
+		button.backgroundColor = MaterialColor.blue.accent3
 		button.setImage(image, forState: .Normal)
 		button.setImage(image, forState: .Highlighted)
 		
@@ -310,7 +310,7 @@ extension MainViewController: SideNavigationViewControllerDelegate {
 	
 	/**
 	An optional delegation method that is fired when the
-	SideNavigationViewController tap gesture begins.
+	SideNavigationViewController tap gesture executes.
 	*/
 	func sideNavigationViewDidTap(sideNavigationViewController: SideNavigationViewController, point: CGPoint, position: SideNavigationPosition) {
 		print("Did Tap for", .Left == position ? "Left" : "Right", "view.")
