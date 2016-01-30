@@ -51,7 +51,7 @@ class MainViewController: UIViewController {
 	
 	// FabButton handler.
 	func handleFabButton() {
-		sideNavigationViewController?.toggle()
+		sideNavigationViewController?.toggleLeftView()
 	}
 }
 

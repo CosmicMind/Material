@@ -100,7 +100,7 @@ public protocol SideNavigationViewControllerDelegate {
 	
 	/**
 	An optional delegation method that is fired when the
-	SideNavigationViewController tap gesture begins.
+	SideNavigationViewController tap gesture executes.
 	*/
 	optional func sideNavigationViewDidTap(sideNavigationViewController: SideNavigationViewController, point: CGPoint, position: SideNavigationPosition)
 }
@@ -337,9 +337,11 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 				v.height = self.view.bounds.height
 			}
 			leftViewThreshold = leftViewWidth / 2
-			leftViewController?.view.frame.size.width = v.width
-			leftViewController?.view.frame.size.height = v.height
-			leftViewController?.view.center = CGPointMake(v.width / 2, v.height / 2)
+			if let vc: UIViewController = leftViewController {
+				vc.view.frame.size.width = v.width
+				vc.view.frame.size.height = v.height
+				vc.view.center = CGPointMake(v.width / 2, v.height / 2)
+			}
 		}
 		
 		if let v: MaterialView = rightView {
@@ -348,9 +350,19 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 				v.height = self.view.bounds.height
 			}
 			rightViewThreshold = view.bounds.width - rightViewWidth / 2
-			rightViewController?.view.frame.size.width = v.width
-			rightViewController?.view.frame.size.height = v.height
-			rightViewController?.view.center = CGPointMake(v.width / 2, v.height / 2)
+			if let vc: UIViewController = rightViewController {
+				vc.view.frame.size.width = v.width
+				vc.view.frame.size.height = v.height
+				vc.view.center = CGPointMake(v.width / 2, v.height / 2)
+			}
+		}
+	}
+	
+	public override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
+		if let v: MaterialView = rightView {
+			MaterialAnimation.animationDisabled { [unowned self] in
+				v.x = self.view.bounds.height - (self.openedRightView ? self.rightViewWidth : 0)
+			}
 		}
 	}
 	
@@ -386,74 +398,6 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 				self.userInteractionEnabled = !self.opened
 				completion?(result)
 		})
-	}
-	
-	/**
-	A method to swap leftViewController objects.
-	- Parameter toViewController: The UIViewController to swap
-	with the active mainViewController.
-	- Parameter duration: A NSTimeInterval that sets the
-	animation duration of the transition.
-	- Parameter options: UIViewAnimationOptions thst are used
-	when animating the transition from the active mainViewController
-	to the toViewController.
-	- Parameter animations: An animation block that is executed during
-	the transition from the active mainViewController
-	to the toViewController.
-	- Parameter completion: A completion block that is execited after
-	the transition animation from the active mainViewController
-	to the toViewController has completed.
-	*/
-	public func transitionFromLeftViewController(toViewController: UIViewController, duration: NSTimeInterval, options: UIViewAnimationOptions, animations: (() -> Void)?, completion: ((Bool) -> Void)?) {
-//		leftViewController?.willMoveToParentViewController(nil)
-//		addChildViewController(toViewController)
-//		toViewController.view.frame = view.bounds
-//		transitionFromViewController(mainViewController,
-//			toViewController: toViewController,
-//			duration: duration,
-//			options: options,
-//			animations: animations,
-//			completion: { [unowned self, mainViewController = self.mainViewController] (result: Bool) in
-//				mainViewController.removeFromParentViewController()
-//				toViewController.didMoveToParentViewController(self)
-//				self.mainViewController = toViewController
-//				self.userInteractionEnabled = !self.opened
-//				completion?(result)
-//			})
-	}
-	
-	/**
-	A method to swap rightViewController objects.
-	- Parameter toViewController: The UIViewController to swap
-	with the active mainViewController.
-	- Parameter duration: A NSTimeInterval that sets the
-	animation duration of the transition.
-	- Parameter options: UIViewAnimationOptions thst are used
-	when animating the transition from the active mainViewController
-	to the toViewController.
-	- Parameter animations: An animation block that is executed during
-	the transition from the active mainViewController
-	to the toViewController.
-	- Parameter completion: A completion block that is execited after
-	the transition animation from the active mainViewController
-	to the toViewController has completed.
-	*/
-	public func transitionFromRightViewController(toViewController: UIViewController, duration: NSTimeInterval, options: UIViewAnimationOptions, animations: (() -> Void)?, completion: ((Bool) -> Void)?) {
-		//		leftViewController?.willMoveToParentViewController(nil)
-		//		addChildViewController(toViewController)
-		//		toViewController.view.frame = view.bounds
-		//		transitionFromViewController(mainViewController,
-		//			toViewController: toViewController,
-		//			duration: duration,
-		//			options: options,
-		//			animations: animations,
-		//			completion: { [unowned self, mainViewController = self.mainViewController] (result: Bool) in
-		//				mainViewController.removeFromParentViewController()
-		//				toViewController.didMoveToParentViewController(self)
-		//				self.mainViewController = toViewController
-		//				self.userInteractionEnabled = !self.opened
-		//				completion?(result)
-		//			})
 	}
 	
 	/**
@@ -552,6 +496,8 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		if enabledLeftView {
 			if let v: MaterialView = leftView {
 				toggleStatusBar(true)
+				showView(v)
+				
 				backdropLayer.hidden = false
 				
 				delegate?.sideNavigationViewWillOpen?(self, position: .Left)
@@ -577,6 +523,8 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		if enabledRightView {
 			if let v: MaterialView = rightView {
 				toggleStatusBar(true)
+				showView(v)
+				
 				backdropLayer.hidden = false
 				
 				delegate?.sideNavigationViewWillOpen?(self, position: .Right)
@@ -611,6 +559,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 				}) { [unowned self] in
 					self.userInteractionEnabled = true
 					self.hideDepth(v)
+					self.hideView(v)
 					self.delegate?.sideNavigationViewDidClose?(self, position: .Left)
 				}
 			}
@@ -636,6 +585,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 				}) { [unowned self] in
 					self.userInteractionEnabled = true
 					self.hideDepth(v)
+					self.hideView(v)
 					self.delegate?.sideNavigationViewDidClose?(self, position: .Right)
 				}
 			}
@@ -669,8 +619,10 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 				case .Began:
 					backdropLayer.hidden = false
 					originalX = v.position.x
+					
 					toggleStatusBar(true)
 					showDepth(v)
+					showView(v)
 					
 					delegate?.sideNavigationViewPanDidBegin?(self, point: point, position: .Right)
 				case .Changed:
@@ -704,8 +656,10 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 				case .Began:
 					backdropLayer.hidden = false
 					originalX = v.position.x
+					
 					toggleStatusBar(true)
 					showDepth(v)
+					showView(v)
 					
 					delegate?.sideNavigationViewPanDidBegin?(self, point: point, position: .Left)
 				case .Changed:
@@ -800,6 +754,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			view.addSubview(leftView!)
 			
 			MaterialAnimation.animationDisabled { [unowned self] in
+				self.leftView!.hidden = true
 				self.leftView!.position.x = -self.leftViewWidth / 2
 				self.leftView!.zPosition = 1000
 			}
@@ -815,6 +770,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			view.addSubview(rightView!)
 			
 			MaterialAnimation.animationDisabled { [unowned self] in
+				self.rightView!.hidden = true
 				self.rightView!.position.x = self.view.bounds.width +  self.rightViewWidth / 2
 				self.rightView!.zPosition = 1000
 			}
@@ -962,6 +918,26 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	private func hideDepth(container: MaterialView) {
 		MaterialAnimation.animationDisabled {
 			container.depth = .None
+		}
+	}
+	
+	/**
+	A method that shows a view.
+	- Parameter container: A container view.
+	*/
+	private func showView(container: UIView) {
+		MaterialAnimation.animationDisabled {
+			container.hidden = false
+		}
+	}
+	
+	/**
+	A method that hides a view.
+	- Parameter container: A container view.
+	*/
+	private func hideView(container: UIView) {
+		MaterialAnimation.animationDisabled {
+			container.hidden = true
 		}
 	}
 }

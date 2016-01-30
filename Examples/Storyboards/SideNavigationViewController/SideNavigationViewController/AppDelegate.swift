@@ -45,7 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Configure the window with the SideNavigationViewController as the root view controller
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        window?.rootViewController = SideNavigationViewController(mainViewController: mainViewController, sideViewController: sideViewController)
+        window?.rootViewController = SideNavigationViewController(mainViewController: mainViewController, leftViewController: sideViewController)
         window?.makeKeyAndVisible()
         return true
     }
