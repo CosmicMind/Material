@@ -59,15 +59,17 @@ class ViewController: UIViewController {
 	:description:	General usage example.
 	*/
 	private func prepareGeneralMaterialLayerExample() {
-		let materialLayer: MaterialLayer = MaterialLayer(frame: CGRectMake(132, 132, 150, 150))
+		let diameter: CGFloat = 150
+		let point: CGFloat = UIScreen.mainScreen().bounds.width / 2 - diameter / 2
+		let materialLayer: MaterialLayer = MaterialLayer(frame: CGRectMake(point, point, diameter, diameter))
 		materialLayer.shape = .Circle
 		materialLayer.depth = .Depth2
 		
-		UIImage.contentsOfURL(NSURL(string: "http://www.cosmicmind.io/CosmicMind.png")!) { (image: UIImage?, error: NSError?) in
+		UIImage.contentsOfURL(NSURL(string: "http://www.cosmicmind.io/CM/CosmicMindInverted.png")!) { (image: UIImage?, error: NSError?) in
 			if let v: UIImage = image {
 				materialLayer.image = v
 			} else {
-				materialLayer.image = UIImage(named: "CosmicMindAppIcon")
+				materialLayer.image = UIImage(named: "CosmicMindInverted")
 			}
 		}
 		
