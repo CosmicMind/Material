@@ -36,12 +36,14 @@ public extension UIImage {
 	*/
 	public class func contentsOfURL(URL: NSURL, completion: ((image: UIImage?, error: NSError?) -> Void)) {
 		let request: NSURLRequest = NSURLRequest(URL: URL)
-		NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) { (response: NSURLResponse?, data: NSData?, error: NSError?) -> Void in
-			if let v: NSError = error {
-				completion(image: nil, error: v)
-			} else if let v: NSData = data {
-				completion(image: UIImage(data: v), error: nil)
-			}
-		}
+        NSURLSession.sharedSession().dataTaskWithRequest(request) { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                if let v: NSError = error {
+                    completion(image: nil, error: v)
+                } else if let v: NSData = data {
+                    completion(image: UIImage(data: v), error: nil)
+                }
+            })
+        }.resume()
 	}
 }
