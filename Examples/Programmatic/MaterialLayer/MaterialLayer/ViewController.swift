@@ -60,9 +60,16 @@ class ViewController: UIViewController {
 	*/
 	private func prepareGeneralMaterialLayerExample() {
 		let materialLayer: MaterialLayer = MaterialLayer(frame: CGRectMake(132, 132, 150, 150))
-		materialLayer.image = UIImage(named: "CosmicMindAppIcon")
 		materialLayer.shape = .Circle
 		materialLayer.depth = .Depth2
+		
+		UIImage.contentsOfURL(NSURL(string: "http://www.cosmicmind.io/CosmicMind.png")!) { (image: UIImage?, error: NSError?) in
+			if let v: UIImage = image {
+				materialLayer.image = v
+			} else {
+				materialLayer.image = UIImage(named: "CosmicMindAppIcon")
+			}
+		}
 		
 		// Add materialLayer to UIViewController.
 		view.layer.addSublayer(materialLayer)

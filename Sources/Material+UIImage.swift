@@ -30,7 +30,7 @@
 
 import UIKit
 
-public enum ContentImageFormatType {
+public enum ImageFormatType {
 	case PNG
 	case JPEG
 }

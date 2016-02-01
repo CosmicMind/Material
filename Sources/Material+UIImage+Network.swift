@@ -32,16 +32,20 @@ import UIKit
 
 public extension UIImage {
 	/**
-		:name:	contentsOfURL
+	Asynchronously load images with a completion block.
+	- Parameter URL: A URL destination to fetch the image from.
+	- Parameter completion: A completion block that is executed once the image
+	has been retrieved.
 	*/
 	public class func contentsOfURL(URL: NSURL, completion: ((image: UIImage?, error: NSError?) -> Void)) {
-		let request: NSURLRequest = NSURLRequest(URL: URL)
-		NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) { (response: NSURLResponse?, data: NSData?, error: NSError?) -> Void in
-			if let v: NSError = error {
-				completion(image: nil, error: v)
-			} else if let v: NSData = data {
-				completion(image: UIImage(data: v), error: nil)
+		NSURLSession.sharedSession().dataTaskWithRequest(NSURLRequest(URL: URL)) { (data: NSData?, response: NSURLResponse?, error: NSError?) in
+			dispatch_async(dispatch_get_main_queue()) {
+				if let v: NSError = error {
+					completion(image: nil, error: v)
+				} else if let v: NSData = data {
+					completion(image: UIImage(data: v), error: nil)
+				}
 			}
-		}
+		}.resume()
 	}
 }
