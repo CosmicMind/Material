@@ -806,6 +806,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		
 		if nil == tap {
 			tap = UITapGestureRecognizer(target: self, action: tapSelector)
+			tap!.cancelsTouchesInView = false
 			tap!.delegate = self
 			view.addGestureRecognizer(tap!)
 		}
