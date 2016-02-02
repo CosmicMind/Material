@@ -39,8 +39,8 @@ class ViewController: UIViewController {
 		// Examples of using CardView.
 		// Uncomment different examples and read
 		// the comments below.
-//		prepareGeneralCardViewExample()
-		prepareCardViewWithoutPulseBackgroundImageExample()
+		prepareGeneralCardViewExample()
+//		prepareCardViewWithoutPulseBackgroundImageExample()
 //		prepareCardViewWithAlteredAlignmentExample()
 //		prepareCardViewButtonBarExample()
 	}

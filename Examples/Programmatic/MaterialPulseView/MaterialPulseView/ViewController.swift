@@ -65,7 +65,7 @@ class ViewController: UIViewController {
 	/// Prepares the MaterialPulseView animation example.
 	private func prepareMaterialPulseViewAnimationExample() {
 		let pulseView: MaterialPulseView = MaterialPulseView(frame: CGRectMake(132, 132, 150, 150))
-		pulseView.image = UIImage(named: "FocusAppIcon")
+		pulseView.image = UIImage(named: "GraphKitAppIcon")
 		pulseView.shape = .Square
 		pulseView.depth = .Depth2
 		pulseView.cornerRadius = .Radius3

@@ -153,6 +153,7 @@ extension LeftViewController: UITableViewDelegate {
 		return 64
 	}
 	
+	/// Select item at row in tableView.
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		print("Item selected")
 	}
