@@ -112,9 +112,7 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 	:name:	captureViewDidUpdateRecordTimer
 	*/
 	func captureViewDidUpdateRecordTimer(captureView: CaptureView, hours: Int, minutes: Int, seconds: Int) {
-		MaterialAnimation.animationDisabled {
-			self.navigationBarView.titleLabel!.text = String(format: "%02i:%02i:%02i", arguments: [hours, minutes, seconds])
-		}
+		navigationBarView.titleLabel!.text = String(format: "%02i:%02i:%02i", arguments: [hours, minutes, seconds])
 	}
 	
 	/**

@@ -31,19 +31,6 @@
 import UIKit
 import Material
 
-// helper method
-public extension UIImage {
-	class func imageWithColor(color: UIColor, size: CGSize) -> UIImage {
-		let rect = CGRectMake(0, 0, size.width, size.height)
-		UIGraphicsBeginImageContextWithOptions(size, false, 0)
-		color.setFill()
-		UIRectFill(rect)
-		let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()
-		UIGraphicsEndImageContext()
-		return image
-	}
-}
-
 class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -52,8 +39,8 @@ class ViewController: UIViewController {
 		// Examples of using ImageCardView.
 		// Uncomment different examples and read
 		// the comments below.
-//		prepareGeneralImageCardViewExample()
-		prepareImageCardViewWithoutDetailLabelAndDividerExample()
+		prepareGeneralImageCardViewExample()
+//		prepareImageCardViewWithoutDetailLabelAndDividerExample()
 	}
 	
 	/**
@@ -132,7 +119,6 @@ class ViewController: UIViewController {
 		titleLabel.textColor = MaterialColor.white
 		titleLabel.font = RobotoFont.regularWithSize(24)
 		imageCardView.titleLabel = titleLabel
-		imageCardView.titleLabelInset.top = 80
 
 		// Star button.
 		let img1: UIImage? = UIImage(named: "ic_star_grey_darken_2")

@@ -125,4 +125,9 @@ extension RightViewController: UITableViewDelegate {
 	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 		return 64
 	}
+	
+	/// Select item at row in tableView.
+	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+		print("Item selected")
+	}
 }
