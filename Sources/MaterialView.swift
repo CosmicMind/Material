@@ -347,16 +347,6 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-	By default CALayer values are animated. The UIView class supresses this
-	behavior for its backing layer. By overrinding the actionForLayer method
-	and returning nil, the backing layer's default animation behavior
-	is enabled.
-	*/
-	public override func actionForLayer(layer: CALayer, forKey event: String) -> CAAction? {
-		return nil
-	}
-	
-	/**
 	A method that accepts CAAnimation objects and executes them on the 
 	view's backing layer.
 	- Parameter animation: A CAAnimation instance.
