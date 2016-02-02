@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace
    version = "1.0">
+   <Group
+      location = "container:"
+      name = "Apps">
+      <FileRef
+         location = "group:Apps/Task/Task.xcodeproj">
+      </FileRef>
+   </Group>
    <FileRef
       location = "group:../Material.xcodeproj">
    </FileRef>
