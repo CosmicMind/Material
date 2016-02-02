@@ -40,10 +40,10 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-//		prepareFlatButtonExample()
-//		prepareRaisedButtonExample()
-//		prepareFabButtonExample()
-		prepareFabButtonAnimationExample()
+		prepareFlatButtonExample()
+		prepareRaisedButtonExample()
+		prepareFabButtonExample()
+//		prepareFabButtonAnimationExample()
 	}
 	
 	/// General preparation statements.
@@ -96,9 +96,10 @@ class ViewController: UIViewController {
 			delay: 3,
 			usingSpringWithDamping: 0.6,
 			initialSpringVelocity: 0,
-			options: .AllowUserInteraction, animations: {
+			options: .AllowUserInteraction,
+			animations: {
 				button.frame.origin.x = 300
-		}, completion: nil)
+			}, completion: nil)
 	}
 }
 

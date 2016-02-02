@@ -42,7 +42,8 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		prepareGeneralMaterialViewExample()
+//		prepareGeneralMaterialViewExample()
+		prepareMaterialViewAnimationExample()
 	}
 	
 	/// General preparation statements.
@@ -60,6 +61,27 @@ class ViewController: UIViewController {
 		
 		// Add materialView to UIViewController.
 		view.addSubview(materialView)
+	}
+	
+	/// Prepares the MaterialView animation example.
+	private func prepareMaterialViewAnimationExample() {
+		let materialView: MaterialView = MaterialView(frame: CGRectMake(132, 132, 150, 150))
+		materialView.image = UIImage(named: "FocusAppIcon")
+		materialView.shape = .Square
+		materialView.depth = .Depth2
+		materialView.cornerRadius = .Radius3
+		
+		// Add materialView to UIViewController.
+		view.addSubview(materialView)
+		
+		UIView.animateWithDuration(0.4,
+			delay: 3,
+			usingSpringWithDamping: 0.6,
+			initialSpringVelocity: 0,
+			options: .AllowUserInteraction,
+			animations: {
+				materialView.frame.origin.x = 300
+			}, completion: nil)
 	}
 }
 

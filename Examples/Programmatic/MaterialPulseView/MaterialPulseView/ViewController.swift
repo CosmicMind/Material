@@ -41,7 +41,8 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		prepareGeneralMaterialPulseViewExample()
+//		prepareGeneralMaterialPulseViewExample()
+		prepareMaterialPulseViewAnimationExample()
 	}
 	
 	/// General preparation statements.
@@ -59,6 +60,29 @@ class ViewController: UIViewController {
 		
 		// Add pulseView to UIViewController.
 		view.addSubview(pulseView)
+	}
+	
+	/// Prepares the MaterialPulseView animation example.
+	private func prepareMaterialPulseViewAnimationExample() {
+		let pulseView: MaterialPulseView = MaterialPulseView(frame: CGRectMake(132, 132, 150, 150))
+		pulseView.image = UIImage(named: "FocusAppIcon")
+		pulseView.shape = .Square
+		pulseView.depth = .Depth2
+		pulseView.cornerRadius = .Radius3
+		
+		// Add materialView to UIViewController.
+		view.addSubview(pulseView)
+		
+		pulseView.animate(MaterialAnimation.rotate(3, duration: 3))
+		
+		UIView.animateWithDuration(0.4,
+			delay: 3,
+			usingSpringWithDamping: 0.6,
+			initialSpringVelocity: 0,
+			options: .AllowUserInteraction,
+			animations: {
+				pulseView.frame.origin.x = 300
+			}, completion: nil)
 	}
 }
 
