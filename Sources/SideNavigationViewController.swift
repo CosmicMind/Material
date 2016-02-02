@@ -639,11 +639,15 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 					
 					delegate?.sideNavigationViewPanDidEnd?(self, point: point, position: .Right)
 					
-					if v.x >= rightViewThreshold {
-						closeRightView(x)
-					} else {
-						openRightView(x)
-					}
+                    if p.x >= 300.0 {
+                        closeLeftView(x)
+                    } else {
+                        if v.x >= rightViewThreshold {
+                            closeRightView(x)
+                        } else {
+                            openRightView(x)
+                        }
+                    }
 				case .Possible:break
 				}
 			}
@@ -676,11 +680,15 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 					
 					delegate?.sideNavigationViewPanDidEnd?(self, point: point, position: .Left)
 					
-					if v.x <= -leftViewWidth + leftViewThreshold {
-						closeLeftView(x)
-					} else {
-						openLeftView(x)
-					}
+                    if p.x <= -300.0 {
+                        closeLeftView(x)
+                    } else {
+                        if v.x <= -leftViewWidth + leftViewThreshold {
+                            closeLeftView(x)
+                        } else {
+                            openLeftView(x)
+                        }
+                    }
 				case .Possible:break
 				}
 			}
