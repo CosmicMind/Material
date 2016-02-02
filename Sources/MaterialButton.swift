@@ -466,13 +466,6 @@ public class MaterialButton : UIButton {
 	}
 	
 	/**
-	:name:	actionForLayer
-	*/
-	public override func actionForLayer(layer: CALayer, forKey event: String) -> CAAction? {
-		return nil // returning nil enables the animations for the layer property that are normally disabled.
-	}
-	
-	/**
 	Prepares the view instance when intialized. When subclassing,
 	it is recommended to override the prepareView method
 	to initialize property values and other setup operations.

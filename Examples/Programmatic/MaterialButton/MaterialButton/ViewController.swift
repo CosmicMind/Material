@@ -40,9 +40,10 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		prepareFlatButtonExample()
-		prepareRaisedButtonExample()
-		prepareFabButtonExample()
+//		prepareFlatButtonExample()
+//		prepareRaisedButtonExample()
+//		prepareFabButtonExample()
+		prepareFabButtonAnimationExample()
 	}
 	
 	/// General preparation statements.
@@ -79,6 +80,25 @@ class ViewController: UIViewController {
 		
 		// Add button to UIViewController.
 		view.addSubview(button)
+	}
+	
+	/// Prepares the FabButton animation example. 
+	private func prepareFabButtonAnimationExample() {
+		let img: UIImage? = UIImage(named: "ic_create_white")
+		let button: FabButton = FabButton(frame: CGRectMake(175, 315, 64, 64))
+		button.setImage(img, forState: .Normal)
+		button.setImage(img, forState: .Highlighted)
+		
+		// Add button to UIViewController.
+		view.addSubview(button)
+		
+		UIView.animateWithDuration(0.4,
+			delay: 3,
+			usingSpringWithDamping: 0.6,
+			initialSpringVelocity: 0,
+			options: .AllowUserInteraction, animations: {
+				button.frame.origin.x = 300
+		}, completion: nil)
 	}
 }
 
