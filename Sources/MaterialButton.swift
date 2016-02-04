@@ -502,9 +502,7 @@ public class MaterialButton : UIButton {
 	internal func shrinkAnimation() {
 		if pulseScale {
 			var t: CFTimeInterval = CFTimeInterval(1.5 * width / UIScreen.mainScreen().bounds.width)
-			if 0.55 < t {
-				t = 0.55
-			} else if 0.25 > t {
+			if 0.55 < t || 0.25 > t {
 				t = 0.55
 			}
 			t /= 1.3
