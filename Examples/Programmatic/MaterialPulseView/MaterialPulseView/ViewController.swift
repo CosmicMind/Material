@@ -75,13 +75,13 @@ class ViewController: UIViewController {
 		
 		pulseView.animate(MaterialAnimation.rotate(3, duration: 3))
 		
-		UIView.animateWithDuration(0.4,
+		UIView.animateWithDuration(0.5,
 			delay: 3,
 			usingSpringWithDamping: 0.6,
 			initialSpringVelocity: 0,
 			options: .AllowUserInteraction,
 			animations: {
-				pulseView.frame.origin.x = 300
+				pulseView.y = 300
 			}, completion: nil)
 	}
 }

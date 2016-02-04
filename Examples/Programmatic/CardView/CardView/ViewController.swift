@@ -76,7 +76,6 @@ class ViewController: UIViewController {
 		// Yes button.
 		let btn1: FlatButton = FlatButton()
 		btn1.pulseColor = MaterialColor.blue.lighten1
-		btn1.pulseFill = true
 		btn1.pulseScale = false
 		btn1.setTitle("YES", forState: .Normal)
 		btn1.setTitleColor(MaterialColor.blue.darken1, forState: .Normal)
@@ -84,7 +83,6 @@ class ViewController: UIViewController {
 		// No button.
 		let btn2: FlatButton = FlatButton()
 		btn2.pulseColor = MaterialColor.blue.lighten1
-		btn2.pulseFill = true
 		btn2.pulseScale = false
 		btn2.setTitle("NO", forState: .Normal)
 		btn2.setTitleColor(MaterialColor.blue.darken1, forState: .Normal)
@@ -132,7 +130,6 @@ class ViewController: UIViewController {
 		let img1: UIImage? = UIImage(named: "ic_favorite_white")
 		let btn1: FlatButton = FlatButton()
 		btn1.pulseColor = MaterialColor.white
-		btn1.pulseFill = true
 		btn1.pulseScale = false
 		btn1.setImage(img1, forState: .Normal)
 		btn1.setImage(img1, forState: .Highlighted)
@@ -177,7 +174,6 @@ class ViewController: UIViewController {
 		// LEARN MORE button.
 		let btn1: FlatButton = FlatButton()
 		btn1.pulseColor = MaterialColor.teal.lighten1
-		btn1.pulseFill = true
 		btn1.pulseScale = false
 		btn1.setTitle("LEARN MORE", forState: .Normal)
 		btn1.setTitleColor(MaterialColor.teal.darken1, forState: .Normal)
@@ -207,7 +203,6 @@ class ViewController: UIViewController {
 		let img1: UIImage? = UIImage(named: "ic_search_white")
 		let btn1: FlatButton = FlatButton()
 		btn1.pulseColor = MaterialColor.white
-		btn1.pulseFill = true
 		btn1.pulseScale = false
 		btn1.setImage(img1, forState: .Normal)
 		btn1.setImage(img1, forState: .Highlighted)
@@ -215,7 +210,6 @@ class ViewController: UIViewController {
 		// BUTTON 1 button.
 		let btn2: FlatButton = FlatButton()
 		btn2.pulseColor = MaterialColor.teal.lighten3
-		btn2.pulseFill = true
 		btn2.pulseScale = false
 		btn2.setTitle("BUTTON 1", forState: .Normal)
 		btn2.setTitleColor(MaterialColor.teal.lighten3, forState: .Normal)
@@ -224,7 +218,6 @@ class ViewController: UIViewController {
 		// BUTTON 2 button.
 		let btn3: FlatButton = FlatButton()
 		btn3.pulseColor = MaterialColor.teal.lighten3
-		btn3.pulseFill = true
 		btn3.pulseScale = false
 		btn3.setTitle("BUTTON 2", forState: .Normal)
 		btn3.setTitleColor(MaterialColor.teal.lighten3, forState: .Normal)
