@@ -49,16 +49,16 @@ Material is a growing project and will encounter changes throughout its developm
 ## A Tour  
 
 * [MaterialColor](#materialcolor)
-* [SideNavigationViewController](#sidenavigationviewcontroller)
-* [NavigationBarView](#navigationbarview)
-* [TextField](#textfield)
-* [TextView](#textview)
 * [MaterialLayer](#materiallayer)
 * [MaterialView](#materialview)
 * [MaterialPulseView](#materialpulseview)
+* [TextField](#textfield)
+* [TextView](#textview)
 * [FlatButton](#flatbutton)
 * [RaisedButton](#raisedbutton)
 * [FabButton](#fabbutton)
+* [NavigationBarView](#navigationbarview)
+* [SideNavigationViewController](#sidenavigationviewcontroller)
 * [CardView](#cardview)
 * [ImageCardView](#imagecardview)
 * [CaptureView](#captureview)
@@ -85,45 +85,6 @@ MaterialColor is a complete Material Design color library. It uses base color va
 ![MaterialMaterialColorPalette](http://www.cosmicmind.io/MK/MaterialMaterialColorPalette.png)
 
 [Learn More About MaterialColor](https://github.com/CosmicMind/Material/wiki/MaterialColor)
-
-<a name="sidenavigationviewcontroller"></a>
-## SideNavigationViewController
-
-The SideNavigationViewController is an app wide navigation pattern. It generally provides overall app navigation with other useful items. Use the Left position for global app navigation, and the Right position for view navigation.
-
-![MaterialSideNavigationViewController](http://www.cosmicmind.io/MK/MaterialSideNavigationViewController.gif)
-
-[Learn More About SideNavigationViewController](https://github.com/CosmicMind/Material/wiki/SideNavigationViewController)
-
-<a name="navigationbarview"></a>
-## NavigationBarView
-
-A NavigationBarView is a fully featured navigation bar that supports orientation changes, background images, title and detail labels, both left and right button sets, and status bar settings.
-
-![MaterialNavigationBarView](http://www.cosmicmind.io/MK/MaterialNavigationBarView.gif)
-
-[Learn More About NavigationBarView](https://github.com/CosmicMind/Material/wiki/NavigationBarView)
-
-<a name="textfield"></a>
-## TextField
-
-A TextField is an excellent way to improve UX. TextFields offer details
-that describe the usage and input results of text. For example, when a
-user enters an incorrect email, it is possible to display an error message
-under the TextField.
-
-![MaterialTextField](http://www.cosmicmind.io/MK/MaterialTextField.gif)
-
-[Learn More About TextField](https://github.com/CosmicMind/Material/wiki/TextField)
-
-<a name="textview"></a>
-## TextView
-
-A TextView is an excellent way to improve UX. TextViews offer details that describe the usage of text. In addition, TextViews may easily match any regular expression pattern in a body of text. Below is an example of the default hashtag pattern matching.
-
-![MaterialTextView](http://www.cosmicmind.io/MK/MaterialTextView.gif)
-
-[Learn More About TextView](https://github.com/CosmicMind/Material/wiki/TextView)
 
 <a name="materiallayer"></a>
 ## MaterialLayer
@@ -152,6 +113,27 @@ MaterialPulseView is at the heart of all pulse animations. Any view that subclas
 
 [Learn More About MaterialPulseView](https://github.com/CosmicMind/Material/wiki/MaterialPulseView)
 
+<a name="textfield"></a>
+## TextField
+
+A TextField is an excellent way to improve UX. TextFields offer details
+that describe the usage and input results of text. For example, when a
+user enters an incorrect email, it is possible to display an error message
+under the TextField.
+
+![MaterialTextField](http://www.cosmicmind.io/MK/MaterialTextField.gif)
+
+[Learn More About TextField](https://github.com/CosmicMind/Material/wiki/TextField)
+
+<a name="textview"></a>
+## TextView
+
+A TextView is an excellent way to improve UX. TextViews offer details that describe the usage of text. In addition, TextViews may easily match any regular expression pattern in a body of text. Below is an example of the default hashtag pattern matching.
+
+![MaterialTextView](http://www.cosmicmind.io/MK/MaterialTextView.gif)
+
+[Learn More About TextView](https://github.com/CosmicMind/Material/wiki/TextView)
+
 <a name="flatbutton"></a>
 ## FlatButton
 
@@ -179,6 +161,24 @@ A FabButton is essential to Material Design's overall look. Below showcases its 
 
 [Learn More About FabButton](https://github.com/CosmicMind/Material/wiki/FabButton)
 
+<a name="navigationbarview"></a>
+## NavigationBarView
+
+A NavigationBarView is a fully featured navigation bar that supports orientation changes, background images, title and detail labels, both left and right button sets, and status bar settings.
+
+![MaterialNavigationBarView](http://www.cosmicmind.io/MK/MaterialNavigationBarView.gif)
+
+[Learn More About NavigationBarView](https://github.com/CosmicMind/Material/wiki/NavigationBarView)
+
+<a name="sidenavigationviewcontroller"></a>
+## SideNavigationViewController
+
+The SideNavigationViewController is an app wide navigation pattern. It generally provides overall app navigation with other useful items. Use the Left position for global app navigation, and the Right position for view navigation.
+
+![MaterialSideNavigationViewController](http://www.cosmicmind.io/MK/MaterialSideNavigationViewController.gif)
+
+[Learn More About SideNavigationViewController](https://github.com/CosmicMind/Material/wiki/SideNavigationViewController)
+
 <a name="cardview"></a>
 ## CardView
 
@@ -194,7 +194,7 @@ Easily remove the pulse animation and add a background image for an entirely new
 
 Adjust the alignment of the UI elements to create different configurations of the CardView.
 
-![MaterialCardViewDataDriven](http://www.cosmicmind.io/MK/MaterialCardViewDataDriven.gif)
+![MaterialCardViewDataDriven](http://www.cosmicmind.io/MK/MaterialCardViewFavoritePulse.gif)
 
 CardViews are so flexible they create entirely new components by removing all but certain elements. For example, bellow is a button bar by only setting the button values of the CardView.
 

@@ -41,7 +41,7 @@ class ViewController: UIViewController {
 		// the comments below.
 		prepareGeneralCardViewExample()
 //		prepareCardViewWithoutPulseBackgroundImageExample()
-//		prepareCardViewWithAlteredAlignmentExample()
+//		prepareCardViewWithPulseBackgroundImageExample()
 //		prepareCardViewButtonBarExample()
 	}
 	
@@ -145,41 +145,42 @@ class ViewController: UIViewController {
 	}
 	
 	/**
-	:name:	prepareCardViewWithAlteredAlignmentExample
-	:description:	An example of the CardView with an altered alignment of the UI elements.
+	:name:	prepareCardViewWithPulseBackgroundImageExample
+	:description:	An example of the CardView with the pulse animation and an added background image.
 	*/
-	private func prepareCardViewWithAlteredAlignmentExample() {
+	private func prepareCardViewWithPulseBackgroundImageExample() {
 		let cardView: CardView = CardView()
-		cardView.dividerInset.left = 100
-		cardView.titleLabelInset.left = 100
-		cardView.detailLabelInset.left = 100
-		cardView.pulseColor = MaterialColor.teal.lighten4
+		cardView.backgroundColor = MaterialColor.blue.base
+		cardView.divider = false
 		
 		// Image.
-		cardView.image = UIImage(named: "GraphKit")?.resize(toHeight: 100)
-		cardView.contentsGravity = .TopLeft
+		cardView.image = UIImage(named: "Graph")?.resize(toHeight: 150)
+		cardView.contentsGravity = .Right
 		
 		// Title label.
 		let titleLabel: UILabel = UILabel()
-		titleLabel.text = "GraphKit"
+		titleLabel.text = "Graph"
+		titleLabel.textColor = MaterialColor.white
 		titleLabel.font = RobotoFont.mediumWithSize(24)
 		cardView.titleLabel = titleLabel
 		
 		// Detail label.
 		let detailLabel: UILabel = UILabel()
-		detailLabel.text = "Build scalable data-driven apps."
+		detailLabel.text = "Data-Driven Framework"
+		detailLabel.textColor = MaterialColor.white
 		detailLabel.numberOfLines = 0
 		cardView.detailLabel = detailLabel
 		
-		// LEARN MORE button.
+		// Favorite button.
+		let img1: UIImage? = UIImage(named: "ic_favorite_white")
 		let btn1: FlatButton = FlatButton()
-		btn1.pulseColor = MaterialColor.teal.lighten1
+		btn1.pulseColor = MaterialColor.white
 		btn1.pulseScale = false
-		btn1.setTitle("LEARN MORE", forState: .Normal)
-		btn1.setTitleColor(MaterialColor.teal.darken1, forState: .Normal)
+		btn1.setImage(img1, forState: .Normal)
+		btn1.setImage(img1, forState: .Highlighted)
 		
-		// Add buttons to right side.
-		cardView.rightButtons = [btn1]
+		// Add buttons to left side.
+		cardView.leftButtons = [btn1]
 		
 		// To support orientation changes, use MaterialLayout.
 		view.addSubview(cardView)

@@ -41,8 +41,7 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-//		prepareGeneralMaterialPulseViewExample()
-		prepareMaterialPulseViewAnimationExample()
+		prepareGeneralMaterialPulseViewExample()
 	}
 	
 	/// General preparation statements.
@@ -52,37 +51,22 @@ class ViewController: UIViewController {
 	
 	/// Prepares the MaterialPulseView example.
 	private func prepareGeneralMaterialPulseViewExample() {
-		let pulseView: MaterialPulseView = MaterialPulseView(frame: CGRectMake(132, 132, 150, 150))
-		pulseView.image = UIImage(named: "GraphKitAppIcon")
-		pulseView.shape = .Square
-		pulseView.depth = .Depth2
-		pulseView.cornerRadius = .Radius4
+		let point: CGFloat = (UIScreen.mainScreen().bounds.width - 150) / 2
 		
-		// Add pulseView to UIViewController.
-		view.addSubview(pulseView)
-	}
-	
-	/// Prepares the MaterialPulseView animation example.
-	private func prepareMaterialPulseViewAnimationExample() {
-		let pulseView: MaterialPulseView = MaterialPulseView(frame: CGRectMake(132, 132, 150, 150))
-		pulseView.image = UIImage(named: "GraphKitAppIcon")
+		let pulseView: MaterialPulseView = MaterialPulseView(frame: CGRectMake(point, point, 150, 150))
+		pulseView.image = UIImage(named: "Graph")
 		pulseView.shape = .Square
 		pulseView.depth = .Depth2
 		pulseView.cornerRadius = .Radius3
+		print(pulseView)
 		
-		// Add materialView to UIViewController.
+		// Add pulseView to UIViewController.
 		view.addSubview(pulseView)
 		
-		pulseView.animate(MaterialAnimation.rotate(3, duration: 3))
-		
-		UIView.animateWithDuration(0.5,
-			delay: 3,
-			usingSpringWithDamping: 0.6,
-			initialSpringVelocity: 0,
-			options: .AllowUserInteraction,
-			animations: {
-				pulseView.y = 300
-			}, completion: nil)
+		// Trigger the pulse animation.
+		MaterialAnimation.delay(2) {
+			pulseView.pulse()
+		}
 	}
 }
 
