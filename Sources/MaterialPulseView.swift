@@ -115,10 +115,9 @@ public class MaterialPulseView : MaterialView {
 			let v: CGFloat = r / f
 			let d: CGFloat = 2 * f
 			let s: CGFloat = 1.05
+			
 			var t: CFTimeInterval = CFTimeInterval(1.5 * width / UIScreen.mainScreen().bounds.width)
-			if 0.55 < t {
-				t = 0.55
-			} else if 0.25 > t {
+			if 0.55 < t || 0.25 > t {
 				t = 0.55
 			}
 			t /= 1.3
@@ -142,7 +141,7 @@ public class MaterialPulseView : MaterialView {
 					if nil != self.pulseColor && 0 < self.pulseColorOpacity {
 						MaterialAnimation.animateWithDuration(t, animations: {
 							pulseLayer.hidden = true
-							}) {
+						}) {
 								pulseLayer.removeFromSuperlayer()
 						}
 					}
