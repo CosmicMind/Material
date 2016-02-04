@@ -143,7 +143,6 @@ class MainViewController: UIViewController {
 		let img1: UIImage? = UIImage(named: "ic_menu_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let menuButton: FlatButton = FlatButton()
 		menuButton.pulseColor = MaterialColor.white
-		menuButton.pulseFill = true
 		menuButton.pulseScale = false
 		menuButton.setImage(img1, forState: .Normal)
 		menuButton.setImage(img1, forState: .Highlighted)
@@ -157,7 +156,6 @@ class MainViewController: UIViewController {
 		let img2: UIImage? = UIImage(named: "ic_more_vert_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let searchButton: FlatButton = FlatButton()
 		searchButton.pulseColor = MaterialColor.white
-		searchButton.pulseFill = true
 		searchButton.pulseScale = false
 		searchButton.setImage(img2, forState: .Normal)
 		searchButton.setImage(img2, forState: .Highlighted)

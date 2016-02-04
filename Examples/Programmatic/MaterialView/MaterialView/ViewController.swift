@@ -74,13 +74,13 @@ class ViewController: UIViewController {
 		// Add materialView to UIViewController.
 		view.addSubview(materialView)
 		
-		UIView.animateWithDuration(0.4,
+		UIView.animateWithDuration(0.5,
 			delay: 3,
 			usingSpringWithDamping: 0.6,
 			initialSpringVelocity: 0,
 			options: .AllowUserInteraction,
 			animations: {
-				materialView.frame.origin.x = 300
+				materialView.y = 300
 			}, completion: nil)
 	}
 }
