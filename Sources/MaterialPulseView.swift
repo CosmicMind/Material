@@ -90,7 +90,7 @@ public class MaterialPulseView : MaterialView {
 			let t: CFTimeInterval = 0.25
 			
 			if nil != pulseColor && 0 < pulseColorOpacity {
-				MaterialAnimation.animationDisabled {
+				MaterialAnimation.animationDisabled { [unowned self] in
 					self.pulseLayer.bounds = CGRectMake(0, 0, v, v)
 					self.pulseLayer.position = point
 					self.pulseLayer.cornerRadius = r / d
@@ -116,7 +116,7 @@ public class MaterialPulseView : MaterialView {
 		if spotlight {
 			let point: CGPoint = layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer)
 			if layer.containsPoint(point) {
-				MaterialAnimation.animationDisabled {
+				MaterialAnimation.animationDisabled { [unowned self] in
 					self.pulseLayer.position = point
 				}
 			}
@@ -176,7 +176,7 @@ public class MaterialPulseView : MaterialView {
 		let s: CGFloat = 1
 		
 		if nil != pulseColor && 0 < pulseColorOpacity {
-			MaterialAnimation.animateWithDuration(t, animations: {
+			MaterialAnimation.animateWithDuration(t, animations: { [unowned self] in
 				self.pulseLayer.hidden = true
 			})
 			pulseLayer.addAnimation(MaterialAnimation.scale(s, duration: t), forKey: nil)
