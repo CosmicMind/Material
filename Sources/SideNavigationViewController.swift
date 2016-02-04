@@ -403,7 +403,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 							self.userInteractionEnabled = true
 							self.hideDepth(v)
 							self.hideView(v)
-					}
+						}
 				} else {
 					showView(v)
 					UIView.animateWithDuration(duration,
@@ -413,7 +413,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 						}) { _ in
 							self.userInteractionEnabled = true
 							self.showDepth(v)
-					}
+						}
 				}
 			} else {
 				v.width = width

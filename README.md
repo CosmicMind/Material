@@ -33,7 +33,7 @@ Material is a graphics and animation framework for Google's Material Design. It 
 
 ## Installation
 
-> **Embedded frameworks require a minimum deployment target of iOS 8 or OS X Mavericks (10.9).**
+> **Embedded frameworks require a minimum deployment target of iOS 8.**
 > - [Download Material](https://github.com/CosmicMind/Material/archive/master.zip)
 
 Visit the [Installation](https://github.com/CosmicMind/Material/wiki/Installation) page to learn how to install Material using [CocoaPods](http://cocoapods.org) and [Carthage](https://github.com/Carthage/Carthage).
