@@ -65,11 +65,11 @@ class ViewController: UIViewController {
 		materialLayer.shape = .Circle
 		materialLayer.depth = .Depth2
 		
-		UIImage.contentsOfURL(NSURL(string: "http://www.cosmicmind.io/CM/CosmicMindInverted.png")!) { (image: UIImage?, error: NSError?) in
+		UIImage.contentsOfURL(NSURL(string: "http://www.cosmicmind.io/CM/iTunesArtwork.png")!) { (image: UIImage?, error: NSError?) in
 			if let v: UIImage = image {
 				materialLayer.image = v
 			} else {
-				materialLayer.image = UIImage(named: "CosmicMindInverted")
+				materialLayer.image = UIImage(named: "iTunesArtWork")
 			}
 		}
 		
@@ -77,7 +77,9 @@ class ViewController: UIViewController {
 		view.layer.addSublayer(materialLayer)
 		
 		// Add a rotate animation.
-		materialLayer.animate(MaterialAnimation.rotate(3, duration: 3))
+		MaterialAnimation.delay(3) {
+			materialLayer.animate(MaterialAnimation.rotate(3, duration: 3))
+		}
 	}
 }
 

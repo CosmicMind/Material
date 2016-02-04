@@ -239,7 +239,7 @@ class ViewController: UIViewController {
 	/// Prepares a text alignment example.
 	private func prepareAlignTitleAndDetailLabelToLeftExample() {
 		let navigationBarView: NavigationBarView = NavigationBarView()
-		navigationBarView.backgroundColor = MaterialColor.blue.base
+		navigationBarView.backgroundColor = MaterialColor.deepPurple.base
 		
 		/*
 		To lighten the status bar - add the

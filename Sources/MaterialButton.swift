@@ -366,7 +366,7 @@ public class MaterialButton : UIButton {
 	*/
 	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesBegan(touches, withEvent: event)
-		pulse(layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer))
+		pulseAnimation(layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer))
 	}
 	
 	/**
@@ -391,8 +391,66 @@ public class MaterialButton : UIButton {
 		shrinkAnimation()
 	}
 	
-	/// Triggers the pulse animation.
-	public func pulse(point: CGPoint) {
+	/**
+	Triggers the pulse animation.
+	- Parameter point: A Optional point to pulse from, otherwise pulses
+	from the center.
+	*/
+	public func pulse(var point: CGPoint? = nil) {
+		if nil == point {
+			point = CGPointMake(CGFloat(width / 2), CGFloat(height / 2))
+		}
+		
+		if let v: CFTimeInterval = pulseAnimation(point!) {
+			MaterialAnimation.delay(v) { [unowned self] in
+				self.shrinkAnimation()
+			}
+		}
+	}
+	
+	/**
+	Prepares the view instance when intialized. When subclassing,
+	it is recommended to override the prepareView method
+	to initialize property values and other setup operations.
+	The super.prepareView method should always be called immediately
+	when subclassing.
+	*/
+	public func prepareView() {
+		prepareVisualLayer()
+		shadowColor = MaterialColor.black
+		borderColor = MaterialColor.black
+		pulseColor = MaterialColor.white
+		pulseColorOpacity = 0.25
+	}
+	
+	/// Prepares the visualLayer property.
+	internal func prepareVisualLayer() {
+		visualLayer.zPosition = 0
+		visualLayer.masksToBounds = true
+		layer.addSublayer(visualLayer)
+	}
+	
+	/// Manages the layout for the visualLayer property.
+	internal func layoutVisualLayer() {
+		visualLayer.frame = bounds
+		visualLayer.position = CGPointMake(width / 2, height / 2)
+		visualLayer.cornerRadius = layer.cornerRadius
+	}
+	
+	/// Manages the layout for the shape of the view instance.
+	internal func layoutShape() {
+		if .Circle == shape {
+			layer.cornerRadius = width / 2
+		}
+	}
+	
+	/**
+	Triggers the pulse animation.
+	- Parameter point: A point to pulse from.
+	- Returns: A Ooptional CFTimeInternal if the point exists within
+	the view. The time internal represents the animation time.
+	*/
+	internal func pulseAnimation(point: CGPoint) -> CFTimeInterval? {
 		if true == layer.containsPoint(point) {
 			let r: CGFloat = (width < height ? height : width) / 2
 			let f: CGFloat = 3
@@ -435,44 +493,10 @@ public class MaterialButton : UIButton {
 			
 			if pulseScale {
 				layer.addAnimation(MaterialAnimation.scale(s, duration: t), forKey: nil)
+				return t
 			}
 		}
-	}
-	
-	/**
-	Prepares the view instance when intialized. When subclassing,
-	it is recommended to override the prepareView method
-	to initialize property values and other setup operations.
-	The super.prepareView method should always be called immediately
-	when subclassing.
-	*/
-	public func prepareView() {
-		prepareVisualLayer()
-		shadowColor = MaterialColor.black
-		borderColor = MaterialColor.black
-		pulseColor = MaterialColor.white
-		pulseColorOpacity = 0.25
-	}
-	
-	/// Prepares the visualLayer property.
-	internal func prepareVisualLayer() {
-		visualLayer.zPosition = 0
-		visualLayer.masksToBounds = true
-		layer.addSublayer(visualLayer)
-	}
-	
-	/// Manages the layout for the visualLayer property.
-	internal func layoutVisualLayer() {
-		visualLayer.frame = bounds
-		visualLayer.position = CGPointMake(width / 2, height / 2)
-		visualLayer.cornerRadius = layer.cornerRadius
-	}
-	
-	/// Manages the layout for the shape of the view instance.
-	internal func layoutShape() {
-		if .Circle == shape {
-			layer.cornerRadius = width / 2
-		}
+		return nil
 	}
 	
 	/// Executes the shrink animation for the pulse effect.

@@ -53,11 +53,12 @@ class ViewController: UIViewController {
 	
 	/// Prepare the MaterialView.
 	private func prepareGeneralMaterialViewExample() {
-		let materialView: MaterialView = MaterialView(frame: CGRectMake(132, 132, 150, 150))
-		materialView.image = UIImage(named: "FocusAppIcon")
-		materialView.shape = .Square
+		let point: CGFloat = (UIScreen.mainScreen().bounds.width - 150) / 2
+		
+		let materialView: MaterialView = MaterialView(frame: CGRectMake(point, point, 150, 150))
+		materialView.image = UIImage(named: "Avatar")
+		materialView.shape = .Circle
 		materialView.depth = .Depth2
-		materialView.cornerRadius = .Radius3
 		
 		// Add materialView to UIViewController.
 		view.addSubview(materialView)
@@ -65,23 +66,33 @@ class ViewController: UIViewController {
 	
 	/// Prepares the MaterialView animation example.
 	private func prepareMaterialViewAnimationExample() {
-		let materialView: MaterialView = MaterialView(frame: CGRectMake(132, 132, 150, 150))
-		materialView.image = UIImage(named: "FocusAppIcon")
-		materialView.shape = .Square
+		let point: CGFloat = (UIScreen.mainScreen().bounds.width - 150) / 2
+		
+		let materialView: MaterialView = MaterialView(frame: CGRectMake(point, point, 150, 150))
+		materialView.image = UIImage(named: "Avatar")
+		materialView.shape = .Circle
 		materialView.depth = .Depth2
-		materialView.cornerRadius = .Radius3
 		
 		// Add materialView to UIViewController.
 		view.addSubview(materialView)
 		
 		UIView.animateWithDuration(0.5,
-			delay: 3,
+			delay: 2,
 			usingSpringWithDamping: 0.6,
 			initialSpringVelocity: 0,
 			options: .AllowUserInteraction,
 			animations: {
 				materialView.y = 300
-			}, completion: nil)
+			}) { _ in
+				UIView.animateWithDuration(0.5,
+					delay: 2,
+					usingSpringWithDamping: 0.6,
+					initialSpringVelocity: 0,
+					options: .AllowUserInteraction,
+					animations: {
+						materialView.y = point
+					}, completion: nil)
+			}
 	}
 }
 
