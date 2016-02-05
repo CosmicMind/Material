@@ -46,6 +46,18 @@ Material is a growing project and will encounter changes throughout its developm
 
 * Visit the Examples directory to see example projects using Material.
 
+>1.Compile the Material.framework project, by choosing the scheme in the Xcode navigation bar. The device needs to be on Generic Device, or an actual iOS device, not simulator.
+
+>2.Click on the project you want to run in the examples directory.
+
+>3.Open the 'General' page in the project inspector.
+
+>4.Go to Embedded Binaries, and add the Material.framework binary.
+
+>5.Choose the project scheme in the top navigation bar that you want to run.
+
+>6.Press run.
+
 ## A Tour  
 
 * [MaterialColor](#materialcolor)
