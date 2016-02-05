@@ -42,8 +42,7 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-//		prepareGeneralMaterialViewExample()
-		prepareMaterialViewAnimationExample()
+		prepareGeneralMaterialViewExample()
 	}
 	
 	/// General preparation statements.
@@ -53,46 +52,15 @@ class ViewController: UIViewController {
 	
 	/// Prepare the MaterialView.
 	private func prepareGeneralMaterialViewExample() {
-		let point: CGFloat = (UIScreen.mainScreen().bounds.width - 150) / 2
+		let point: CGFloat = (UIScreen.mainScreen().bounds.width - 125) / 2
 		
-		let materialView: MaterialView = MaterialView(frame: CGRectMake(point, point, 150, 150))
-		materialView.image = UIImage(named: "Avatar")
+		let materialView: MaterialView = MaterialView(frame: CGRectMake(point, point, 125, 125))
+		materialView.image = UIImage(named: "CosmicMind")
 		materialView.shape = .Circle
 		materialView.depth = .Depth2
 		
 		// Add materialView to UIViewController.
 		view.addSubview(materialView)
-	}
-	
-	/// Prepares the MaterialView animation example.
-	private func prepareMaterialViewAnimationExample() {
-		let point: CGFloat = (UIScreen.mainScreen().bounds.width - 150) / 2
-		
-		let materialView: MaterialView = MaterialView(frame: CGRectMake(point, point, 150, 150))
-		materialView.image = UIImage(named: "Avatar")
-		materialView.shape = .Circle
-		materialView.depth = .Depth2
-		
-		// Add materialView to UIViewController.
-		view.addSubview(materialView)
-		
-		UIView.animateWithDuration(0.5,
-			delay: 2,
-			usingSpringWithDamping: 0.6,
-			initialSpringVelocity: 0,
-			options: .AllowUserInteraction,
-			animations: {
-				materialView.y = 300
-			}) { _ in
-				UIView.animateWithDuration(0.5,
-					delay: 2,
-					usingSpringWithDamping: 0.6,
-					initialSpringVelocity: 0,
-					options: .AllowUserInteraction,
-					animations: {
-						materialView.y = point
-					}, completion: nil)
-			}
 	}
 }
 
