@@ -187,8 +187,12 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			return enabledLeftView || enabledRightView
 		}
 		set(value) {
-			enabledLeftView = value
-			enabledRightView = value
+			if nil != leftView {
+				enabledLeftView = value
+			}
+			if nil != rightView {
+				enabledRightView = value
+			}
 		}
 	}
 	
@@ -196,12 +200,12 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	A Boolean property that enables and disables the leftView from
 	opening and closing. Defaults to true.
 	*/
-	public var enabledLeftView: Bool = true {
+	public var enabledLeftView: Bool = false {
 		didSet {
 			if enabledLeftView {
-				prepareGestures(&panGesture, panSelector: "handlePanGesture:", tap: &tapGesture, tapSelector: "handleTapGesture:")
+				prepareGestures(panSelector: "handlePanGesture:", tapSelector: "handleTapGesture:")
 			} else if !enabledRightView {
-				removeGestures(&panGesture, tap: &tapGesture)
+				removeGestures()
 			}
 		}
 	}
@@ -210,12 +214,12 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	A Boolean property that enables and disables the rightView from
 	opening and closing. Defaults to true.
 	*/
-	public var enabledRightView: Bool = true {
+	public var enabledRightView: Bool = false {
 		didSet {
 			if enabledRightView {
-				prepareGestures(&panGesture, panSelector: "handlePanGesture:", tap: &tapGesture, tapSelector: "handleTapGesture:")
+				prepareGestures(panSelector: "handlePanGesture:", tapSelector: "handleTapGesture:")
 			} else if !enabledLeftView {
-				removeGestures(&panGesture, tap: &tapGesture)
+				removeGestures()
 			}
 		}
 	}
@@ -364,12 +368,12 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			options: options,
 			animations: animations,
 			completion: { [unowned self] (result: Bool) in
-				self.mainViewController.removeFromParentViewController()
 				toViewController.didMoveToParentViewController(self)
+				self.mainViewController.removeFromParentViewController()
 				self.mainViewController = toViewController
 				self.userInteractionEnabled = !self.opened
 				completion?(result)
-		})
+			})
 	}
 	
 	/**
@@ -735,7 +739,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		prepareRightView()
 		prepareLeftViewController()
 		prepareRightViewController()
-		prepareGestures(&panGesture, panSelector: "handlePanGesture:", tap: &tapGesture, tapSelector: "handleTapGesture:")
+		enabled = true
 	}
 	
 	/// A method that prepares the mainViewController.
@@ -819,48 +823,38 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	/**
 	A method that prepares the gestures used within the 
 	SideNavigationViewController.
-	- Parameter pan: A UIPanGestureRecognizer that is used to 
-	recognize pan gestures.
 	- Parameter panSelector: A Selector that is fired when the
 	pan gesture is recognized.
-	- Parameter tap: A UITapGestureRecognizer that is used to 
-	recognize tap gestures.
 	- Parameter tapSelector: A Selector that is fired when the
 	tap gesture is recognized.
 	*/
-	private func prepareGestures(inout pan: UIPanGestureRecognizer?, panSelector: Selector, inout tap: UITapGestureRecognizer?, tapSelector: Selector) {
-		removeGestures(&panGesture, tap: &tapGesture)
-		
-		if nil == pan {
-			pan = UIPanGestureRecognizer(target: self, action: panSelector)
-			pan!.delegate = self
-			view.addGestureRecognizer(pan!)
+	private func prepareGestures(panSelector panSelector: Selector, tapSelector: Selector) {
+		if nil == panGesture {
+			panGesture = UIPanGestureRecognizer(target: self, action: panSelector)
+			panGesture!.delegate = self
+			view.addGestureRecognizer(panGesture!)
 		}
 		
-		if nil == tap {
-			tap = UITapGestureRecognizer(target: self, action: tapSelector)
-			tap!.cancelsTouchesInView = false
-			tap!.delegate = self
-			view.addGestureRecognizer(tap!)
+		if nil == tapGesture {
+			tapGesture = UITapGestureRecognizer(target: self, action: tapSelector)
+			tapGesture!.cancelsTouchesInView = false
+			tapGesture!.delegate = self
+			view.addGestureRecognizer(tapGesture!)
 		}
 	}
 	
 	/**
 	A method that removes the passed in pan and tap gesture 
 	recognizers.
-	- Parameter pan: A UIPanGestureRecognizer that should be 
-	removed from the SideNavigationViewController.
-	- Parameter tap: A UITapGestureRecognizer that should be 
-	removed from the SideNavigationViewController.
 	*/
-	private func removeGestures(inout pan: UIPanGestureRecognizer?, inout tap: UITapGestureRecognizer?) {
-		if let v: UIPanGestureRecognizer = pan {
+	private func removeGestures() {
+		if let v: UIPanGestureRecognizer = panGesture {
 			view.removeGestureRecognizer(v)
-			pan = nil
+			panGesture = nil
 		}
-		if let v: UITapGestureRecognizer = tap {
+		if let v: UITapGestureRecognizer = tapGesture {
 			view.removeGestureRecognizer(v)
-			tap = nil
+			tapGesture = nil
 		}
 	}
 	
