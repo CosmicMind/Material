@@ -36,10 +36,20 @@ import UIKit
 import Material
 
 class ViewController: UIViewController {
+	private var menuView: MenuView!
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
 		prepareMenuViewExample()
+	}
+	
+	internal func handleOpenMenuView() {
+		if menuView.opened {
+			menuView.close()
+		} else {
+			menuView.open()
+		}
 	}
 	
 	/// General preparation statements are placed here.
@@ -50,11 +60,26 @@ class ViewController: UIViewController {
 	/// Prepares the MenuView example.
 	private func prepareMenuViewExample() {
 		let btn1: FabButton = FabButton()
+		btn1.addTarget(self, action: "handleOpenMenuView", forControlEvents: .TouchUpInside)
 		
-		let menuView: MenuView = MenuView(frame: view.bounds)
+		let btn2: FabButton = FabButton()
+		btn2.backgroundColor = MaterialColor.blue.base
+		
+		let btn3: FabButton = FabButton()
+		btn3.backgroundColor = MaterialColor.green.base
+		
+		let btn4: FabButton = FabButton()
+		btn4.backgroundColor = MaterialColor.yellow.base
+		
+		menuView = MenuView(frame: view.bounds)
 		view.addSubview(menuView)
 		
-		menuView.menuItems = [MenuViewItem(button: btn1)]
+		menuView.menuItems = [
+			MenuViewItem(button: btn1),
+			MenuViewItem(button: btn2),
+			MenuViewItem(button: btn3),
+			MenuViewItem(button: btn4)
+		]
 	}
 }
 
