@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		65FDC2EB1C66858A00103AC2 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FDC2EA1C66858A00103AC2 /* MenuView.swift */; };
 		960B23271C383E5500E96216 /* Material+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960B23261C383E5500E96216 /* Material+String.swift */; };
 		960B232E1C383EAA00E96216 /* Material+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960B23281C383EAA00E96216 /* Material+UIImage.swift */; };
 		960B232F1C383EAA00E96216 /* Material+UIImage+Crop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960B23291C383EAA00E96216 /* Material+UIImage+Crop.swift */; };
@@ -114,6 +115,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		65FDC2EA1C66858A00103AC2 /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		960B23261C383E5500E96216 /* Material+String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+String.swift"; sourceTree = "<group>"; };
 		960B23281C383EAA00E96216 /* Material+UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIImage.swift"; sourceTree = "<group>"; };
 		960B23291C383EAA00E96216 /* Material+UIImage+Crop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIImage+Crop.swift"; sourceTree = "<group>"; };
@@ -391,6 +393,7 @@
 			children = (
 				96D88C151C1328D800B91418 /* NavigationBarView.swift */,
 				96D88C1D1C1328D800B91418 /* SideNavigationViewController.swift */,
+				65FDC2EA1C66858A00103AC2 /* MenuView.swift */,
 			);
 			name = Navigation;
 			sourceTree = "<group>";
@@ -582,6 +585,7 @@
 				96D88C3E1C1328D800B91418 /* NavigationBarView.swift in Sources */,
 				96D88C221C1328D800B91418 /* FabButton.swift in Sources */,
 				96D88C3F1C1328D800B91418 /* RaisedButton.swift in Sources */,
+				65FDC2EB1C66858A00103AC2 /* MenuView.swift in Sources */,
 				960B23311C383EAA00E96216 /* Material+UIImage+PhotoLibrary.swift in Sources */,
 				960B23321C383EAA00E96216 /* Material+UIImage+Resize.swift in Sources */,
 				96D88C3C1C1328D800B91418 /* MaterialTransitionAnimation.swift in Sources */,

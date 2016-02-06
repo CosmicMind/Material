@@ -58,6 +58,13 @@
       </Group>
       <Group
          location = "container:"
+         name = "MenuView">
+         <FileRef
+            location = "group:Programmatic/MenuView/MenuView.xcodeproj">
+         </FileRef>
+      </Group>
+      <Group
+         location = "container:"
          name = "NavigationBarView">
          <FileRef
             location = "group:Programmatic/NavigationBarView/NavigationBarView.xcodeproj">
