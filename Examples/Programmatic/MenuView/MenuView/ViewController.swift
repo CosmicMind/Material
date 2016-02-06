@@ -48,7 +48,9 @@ class ViewController: UIViewController {
 		if menuView.opened {
 			menuView.close()
 		} else {
-			menuView.open()
+			menuView.open() { (item: MenuViewItem) in
+				(item.button as? MaterialButton)?.pulse()
+			}
 		}
 	}
 	
@@ -59,17 +61,26 @@ class ViewController: UIViewController {
 	
 	/// Prepares the MenuView example.
 	private func prepareMenuViewExample() {
+		let image: UIImage? = UIImage(named: "ic_add_white")
 		let btn1: FabButton = FabButton()
+		btn1.setImage(image, forState: .Normal)
+		btn1.setImage(image, forState: .Highlighted)
 		btn1.addTarget(self, action: "handleOpenMenuView", forControlEvents: .TouchUpInside)
 		
 		let btn2: FabButton = FabButton()
 		btn2.backgroundColor = MaterialColor.blue.base
+		btn2.setImage(image, forState: .Normal)
+		btn2.setImage(image, forState: .Highlighted)
 		
 		let btn3: FabButton = FabButton()
 		btn3.backgroundColor = MaterialColor.green.base
+		btn3.setImage(image, forState: .Normal)
+		btn3.setImage(image, forState: .Highlighted)
 		
 		let btn4: FabButton = FabButton()
 		btn4.backgroundColor = MaterialColor.yellow.base
+		btn4.setImage(image, forState: .Normal)
+		btn4.setImage(image, forState: .Highlighted)
 		
 		menuView = MenuView(frame: view.bounds)
 		view.addSubview(menuView)

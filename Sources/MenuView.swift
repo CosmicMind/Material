@@ -82,33 +82,38 @@ public class MenuView : MaterialView {
 		}
 	}
 	
-	public func open() {
+	public func open(completion: ((MenuViewItem) -> Void)? = nil) {
 		if let v: Array<MenuViewItem> = menuItems {
+			var base: MenuViewItem?
 			for var i: Int = 1, l: Int = v.count; i < l; ++i {
+				if nil == base {
+					base = v[0]
+				}
 				let item: MenuViewItem = v[i]
 				UIView.animateWithDuration(Double(i) * 0.15,
 					animations: { [unowned self] in
 						item.button.hidden = false
-						item.button.center.y = self.height - CGFloat(i + 1) * (item.button.bounds.height) - CGFloat(i) * 16
+						item.button.frame.origin.y = base!.button.frame.origin.y - CGFloat(i) * (self.itemSize.height) - CGFloat(i) * 16
 					},
 					completion: { _ in
-						(item.button as? MaterialButton)?.pulse()
+						completion?(item)
 					})
 			}
 			opened = true
 		}
 	}
 	
-	public func close() {
+	public func close(completion: ((MenuViewItem) -> Void)? = nil) {
 		if let v: Array<MenuViewItem> = menuItems {
 			for var i: Int = 1, l: Int = v.count; i < l; ++i {
 				let item: MenuViewItem = v[i]
 				UIView.animateWithDuration(0.15,
 					animations: { [unowned self] in
-						item.button.center.y = self.height - item.button.bounds.height - 16
+						item.button.frame.origin.y = self.height - item.button.bounds.height - 16
 					},
 					completion: { _ in
 						item.button.hidden = true
+						completion?(item)
 					})
 			}
 			opened = false
