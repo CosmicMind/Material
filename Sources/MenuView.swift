@@ -30,6 +30,13 @@
 
 import UIKit
 
+public enum MenuViewDirection {
+	case Up
+	case Down
+	case Left
+	case Right
+}
+
 public struct MenuViewItem {
 	/// UIButton.
 	public var button: UIButton
@@ -44,9 +51,14 @@ public struct MenuViewItem {
 }
 
 public class MenuView : MaterialView {
+	/// A Boolean that indicates if the menu is open or not.
 	public private(set) var opened: Bool = false
 	
-	public var menuItems: Array<MenuViewItem>? {
+	/// The direction in which the animation opens the menu.
+	public var direction: MenuViewDirection = .Up
+	
+	/// An Array of MenuViewItems.
+	public var items: Array<MenuViewItem>? {
 		didSet {
 			reloadView()
 		}
@@ -54,7 +66,7 @@ public class MenuView : MaterialView {
 	
 	public var itemSize: CGSize = CGSizeMake(48, 48)
 	
-	public var baseItemSize: CGSize = CGSizeMake(56, 56)
+	public var baseSize: CGSize = CGSizeMake(56, 56)
 	
 	public func reloadView() {
 		// Clear the subviews.
@@ -62,20 +74,28 @@ public class MenuView : MaterialView {
 			v.removeFromSuperview()
 		}
 		
-		if let v: Array<MenuViewItem> = menuItems {
+		if let v: Array<MenuViewItem> = items {
 			for var i: Int = 0, l: Int = v.count; i < l; ++i {
 				let item: MenuViewItem = v[i]
 				
 				if 0 == i {
-					item.button.frame.size = baseItemSize
-					item.button.frame.origin.x = width - baseItemSize.width - 16
-					item.button.frame.origin.y = height - baseItemSize.height - 16
+					item.button.frame.size = baseSize
+					// bottom right
+//					item.button.frame.origin.x = width - baseItemSize.width - 16
+//					item.button.frame.origin.y = height - baseItemSize.height - 16
+					// top left
+					item.button.frame.origin.x = 16
+					item.button.frame.origin.y = 16
 					addSubview(item.button)
 				} else {
-					item.button.hidden = true
+					item.button.alpha = 0
 					item.button.frame.size = itemSize
-					item.button.frame.origin.x = width - (baseItemSize.width + itemSize.width) / 2 - 16
-					item.button.frame.origin.y = height - itemSize.height - 16
+					// bottom right
+//					item.button.frame.origin.x = width - (baseItemSize.width + itemSize.width) / 2 - 16
+//					item.button.frame.origin.y = height - (baseItemSize.height + itemSize.height) / 2 - 16
+					// top left
+					item.button.frame.origin.x = (baseSize.width - itemSize.width) / 2 + 16
+					item.button.frame.origin.y = (baseSize.height - itemSize.height) / 2 + 16
 					insertSubview(item.button, belowSubview: v[i - 1].button)
 				}
 			}
@@ -83,17 +103,44 @@ public class MenuView : MaterialView {
 	}
 	
 	public func open(completion: ((MenuViewItem) -> Void)? = nil) {
-		if let v: Array<MenuViewItem> = menuItems {
+		switch direction {
+		case .Up:
+			openUpAnimation(completion)
+		case .Down:
+			openDownAnimation(completion)
+		case .Left:
+			openLeftAnimation(completion)
+		case .Right:
+			openRightAnimation(completion)
+		}
+	}
+	
+	public func close(completion: ((MenuViewItem) -> Void)? = nil) {
+		switch direction {
+		case .Up:
+			closeUpAnimation(completion)
+		case .Down:
+			closeDownAnimation(completion)
+		case .Left:
+			closeLeftAnimation(completion)
+		case .Right:
+			closeRightAnimation(completion)
+		}
+	}
+	
+	private func openUpAnimation(completion: ((MenuViewItem) -> Void)? = nil) {
+		if let v: Array<MenuViewItem> = items {
 			var base: MenuViewItem?
 			for var i: Int = 1, l: Int = v.count; i < l; ++i {
 				if nil == base {
 					base = v[0]
 				}
 				let item: MenuViewItem = v[i]
+				item.button.hidden = false
 				UIView.animateWithDuration(Double(i) * 0.15,
 					animations: { [unowned self] in
-						item.button.hidden = false
-						item.button.frame.origin.y = base!.button.frame.origin.y - CGFloat(i) * (self.itemSize.height) - CGFloat(i) * 16
+						item.button.alpha = 1
+						item.button.frame.origin.y = base!.button.frame.origin.y - CGFloat(i) * self.itemSize.height - CGFloat(i) * 16
 					},
 					completion: { _ in
 						completion?(item)
@@ -103,13 +150,134 @@ public class MenuView : MaterialView {
 		}
 	}
 	
-	public func close(completion: ((MenuViewItem) -> Void)? = nil) {
-		if let v: Array<MenuViewItem> = menuItems {
+	public func closeUpAnimation(completion: ((MenuViewItem) -> Void)? = nil) {
+		if let v: Array<MenuViewItem> = items {
 			for var i: Int = 1, l: Int = v.count; i < l; ++i {
 				let item: MenuViewItem = v[i]
 				UIView.animateWithDuration(0.15,
 					animations: { [unowned self] in
+						item.button.alpha = 0
 						item.button.frame.origin.y = self.height - item.button.bounds.height - 16
+					},
+					completion: { _ in
+						item.button.hidden = true
+						completion?(item)
+					})
+			}
+			opened = false
+		}
+	}
+	
+	private func openDownAnimation(completion: ((MenuViewItem) -> Void)? = nil) {
+		if let v: Array<MenuViewItem> = items {
+			var base: MenuViewItem?
+			for var i: Int = 1, l: Int = v.count; i < l; ++i {
+				if nil == base {
+					base = v[0]
+				}
+				let item: MenuViewItem = v[i]
+				item.button.hidden = false
+				UIView.animateWithDuration(Double(i) * 0.15,
+					animations: { [unowned self] in
+						item.button.alpha = 1
+						item.button.frame.origin.y = base!.button.frame.origin.y + self.baseSize.height + CGFloat(i - 1) * self.itemSize.height + CGFloat(i) * 16
+					},
+					completion: { _ in
+						completion?(item)
+					})
+			}
+			opened = true
+		}
+	}
+	
+	public func closeDownAnimation(completion: ((MenuViewItem) -> Void)? = nil) {
+		if let v: Array<MenuViewItem> = items {
+			for var i: Int = 1, l: Int = v.count; i < l; ++i {
+				let item: MenuViewItem = v[i]
+				UIView.animateWithDuration(0.15,
+					animations: {
+						item.button.alpha = 0
+						item.button.frame.origin.y = 16
+					},
+					completion: { _ in
+						item.button.hidden = true
+						completion?(item)
+					})
+			}
+			opened = false
+		}
+	}
+	
+	private func openLeftAnimation(completion: ((MenuViewItem) -> Void)? = nil) {
+		if let v: Array<MenuViewItem> = items {
+			var base: MenuViewItem?
+			for var i: Int = 1, l: Int = v.count; i < l; ++i {
+				if nil == base {
+					base = v[0]
+				}
+				let item: MenuViewItem = v[i]
+				item.button.hidden = false
+				UIView.animateWithDuration(Double(i) * 0.15,
+					animations: { [unowned self] in
+						item.button.alpha = 1
+						item.button.frame.origin.x = base!.button.frame.origin.x - CGFloat(i) * self.itemSize.width - CGFloat(i) * 16
+					},
+					completion: { _ in
+						completion?(item)
+					})
+			}
+			opened = true
+		}
+	}
+	
+	public func closeLeftAnimation(completion: ((MenuViewItem) -> Void)? = nil) {
+		if let v: Array<MenuViewItem> = items {
+			for var i: Int = 1, l: Int = v.count; i < l; ++i {
+				let item: MenuViewItem = v[i]
+				UIView.animateWithDuration(0.15,
+					animations: { [unowned self] in
+						item.button.alpha = 0
+						item.button.frame.origin.x = self.width - item.button.bounds.width - 16
+					},
+					completion: { _ in
+						item.button.hidden = true
+						completion?(item)
+					})
+			}
+			opened = false
+		}
+	}
+	
+	private func openRightAnimation(completion: ((MenuViewItem) -> Void)? = nil) {
+		if let v: Array<MenuViewItem> = items {
+			var base: MenuViewItem?
+			for var i: Int = 1, l: Int = v.count; i < l; ++i {
+				if nil == base {
+					base = v[0]
+				}
+				let item: MenuViewItem = v[i]
+				item.button.hidden = false
+				UIView.animateWithDuration(Double(i) * 0.15,
+					animations: { [unowned self] in
+						item.button.alpha = 1
+						item.button.frame.origin.x = base!.button.frame.origin.x + self.baseSize.width + CGFloat(i - 1) * self.itemSize.width + CGFloat(i) * 16
+					},
+					completion: { _ in
+						completion?(item)
+					})
+			}
+			opened = true
+		}
+	}
+	
+	public func closeRightAnimation(completion: ((MenuViewItem) -> Void)? = nil) {
+		if let v: Array<MenuViewItem> = items {
+			for var i: Int = 1, l: Int = v.count; i < l; ++i {
+				let item: MenuViewItem = v[i]
+				UIView.animateWithDuration(0.15,
+					animations: {
+						item.button.alpha = 0
+						item.button.frame.origin.x = 16
 					},
 					completion: { _ in
 						item.button.hidden = true
