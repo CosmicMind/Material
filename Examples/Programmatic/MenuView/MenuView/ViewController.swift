@@ -36,7 +36,7 @@ import UIKit
 import Material
 
 class ViewController: UIViewController {
-	private var menuView: MenuLayout!
+	private var menuLayout: MenuLayout!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -44,11 +44,22 @@ class ViewController: UIViewController {
 		prepareMenuLayoutExample()
 	}
 	
+	override func viewWillLayoutSubviews() {
+		super.viewWillLayoutSubviews()
+	}
+	
+	override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+		super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+		menuLayout.width = size.width
+		menuLayout.height = size.height
+		menuLayout.reloadLayout()
+	}
+	
 	internal func handleOpenMenuLayout() {
-		if menuView.opened {
-			menuView.close()
+		if menuLayout.opened {
+			menuLayout.close()
 		} else {
-			menuView.open() { (item: MenuLayoutItem) in
+			menuLayout.open() { (item: MenuLayoutItem) in
 				(item.button as? MaterialButton)?.pulse()
 			}
 		}
@@ -63,7 +74,7 @@ class ViewController: UIViewController {
 	private func prepareMenuLayoutExample() {
 		let btn: FlatButton = FlatButton(frame: CGRectMake(100, 100, 100, 100))
 		btn.backgroundColor = MaterialColor.red.base
-		
+		view.addSubview(btn)
 		
 		let image: UIImage? = UIImage(named: "ic_add_white")
 		let btn1: FabButton = FabButton()
@@ -94,15 +105,11 @@ class ViewController: UIViewController {
 		btn4.setImage(image, forState: .Highlighted)
 		view.addSubview(btn4)
 		
-		menuView = MenuLayout()
-		menuView.menuPosition = .TopRight
-		menuView.menuDirection = .Left
-		menuView.baseSize = CGSizeMake(36, 36)
-		menuView.itemSize = CGSizeMake(36, 36)
+		menuLayout = MenuLayout()
+		menuLayout.baseSize = CGSizeMake(48, 48)
+		menuLayout.itemSize = CGSizeMake(36, 36)
 		
-		view.addSubview(btn)
-		
-		menuView.menuItems = [
+		menuLayout.items = [
 			MenuLayoutItem(button: btn1),
 			MenuLayoutItem(button: btn2),
 			MenuLayoutItem(button: btn3),

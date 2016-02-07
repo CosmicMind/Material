@@ -65,19 +65,19 @@ public class MenuLayout {
 	public private(set) var opened: Bool = false
 	
 	/// The position of the menu. 
-	public var menuPosition: MenuLayoutPosition = .BottomRight {
+	public var position: MenuLayoutPosition = .BottomRight {
 		didSet {
-			reloadView()
+			reloadLayout()
 		}
 	}
 	
 	/// The direction in which the animation opens the menu.
-	public var menuDirection: MenuLayoutDirection = .Up
+	public var direction: MenuLayoutDirection = .Up
 	
 	/// An Array of MenuLayoutItems.
-	public var menuItems: Array<MenuLayoutItem>? {
+	public var items: Array<MenuLayoutItem>? {
 		didSet {
-			reloadView()
+			reloadLayout()
 		}
 	}
 	
@@ -89,8 +89,8 @@ public class MenuLayout {
 		
 	}
 	
-	public func reloadView() {
-		switch menuPosition {
+	public func reloadLayout() {
+		switch position {
 		case .TopLeft:
 			layoutTopLeft()
 		case .TopRight:
@@ -103,7 +103,7 @@ public class MenuLayout {
 	}
 	
 	public func open(completion: ((MenuLayoutItem) -> Void)? = nil) {
-		switch menuDirection {
+		switch direction {
 		case .Up:
 			openUpAnimation(completion)
 		case .Down:
@@ -116,7 +116,7 @@ public class MenuLayout {
 	}
 	
 	public func close(completion: ((MenuLayoutItem) -> Void)? = nil) {
-		switch menuDirection {
+		switch direction {
 		case .Up:
 			closeUpAnimation(completion)
 		case .Down:
@@ -129,7 +129,7 @@ public class MenuLayout {
 	}
 	
 	private func openUpAnimation(completion: ((MenuLayoutItem) -> Void)? = nil) {
-		if let v: Array<MenuLayoutItem> = menuItems {
+		if let v: Array<MenuLayoutItem> = items {
 			var base: MenuLayoutItem?
 			for var i: Int = 1, l: Int = v.count; i < l; ++i {
 				if nil == base {
@@ -151,7 +151,7 @@ public class MenuLayout {
 	}
 	
 	public func closeUpAnimation(completion: ((MenuLayoutItem) -> Void)? = nil) {
-		if let v: Array<MenuLayoutItem> = menuItems {
+		if let v: Array<MenuLayoutItem> = items {
 			for var i: Int = 1, l: Int = v.count; i < l; ++i {
 				let item: MenuLayoutItem = v[i]
 				UIView.animateWithDuration(0.15,
@@ -169,7 +169,7 @@ public class MenuLayout {
 	}
 	
 	private func openDownAnimation(completion: ((MenuLayoutItem) -> Void)? = nil) {
-		if let v: Array<MenuLayoutItem> = menuItems {
+		if let v: Array<MenuLayoutItem> = items {
 			var base: MenuLayoutItem?
 			for var i: Int = 1, l: Int = v.count; i < l; ++i {
 				if nil == base {
@@ -191,7 +191,7 @@ public class MenuLayout {
 	}
 	
 	public func closeDownAnimation(completion: ((MenuLayoutItem) -> Void)? = nil) {
-		if let v: Array<MenuLayoutItem> = menuItems {
+		if let v: Array<MenuLayoutItem> = items {
 			for var i: Int = 1, l: Int = v.count; i < l; ++i {
 				let item: MenuLayoutItem = v[i]
 				UIView.animateWithDuration(0.15,
@@ -209,7 +209,7 @@ public class MenuLayout {
 	}
 	
 	private func openLeftAnimation(completion: ((MenuLayoutItem) -> Void)? = nil) {
-		if let v: Array<MenuLayoutItem> = menuItems {
+		if let v: Array<MenuLayoutItem> = items {
 			var base: MenuLayoutItem?
 			for var i: Int = 1, l: Int = v.count; i < l; ++i {
 				if nil == base {
@@ -231,7 +231,7 @@ public class MenuLayout {
 	}
 	
 	public func closeLeftAnimation(completion: ((MenuLayoutItem) -> Void)? = nil) {
-		if let v: Array<MenuLayoutItem> = menuItems {
+		if let v: Array<MenuLayoutItem> = items {
 			for var i: Int = 1, l: Int = v.count; i < l; ++i {
 				let item: MenuLayoutItem = v[i]
 				UIView.animateWithDuration(0.15,
@@ -249,7 +249,7 @@ public class MenuLayout {
 	}
 	
 	private func openRightAnimation(completion: ((MenuLayoutItem) -> Void)? = nil) {
-		if let v: Array<MenuLayoutItem> = menuItems {
+		if let v: Array<MenuLayoutItem> = items {
 			var base: MenuLayoutItem?
 			for var i: Int = 1, l: Int = v.count; i < l; ++i {
 				if nil == base {
@@ -271,7 +271,7 @@ public class MenuLayout {
 	}
 	
 	public func closeRightAnimation(completion: ((MenuLayoutItem) -> Void)? = nil) {
-		if let v: Array<MenuLayoutItem> = menuItems {
+		if let v: Array<MenuLayoutItem> = items {
 			for var i: Int = 1, l: Int = v.count; i < l; ++i {
 				let item: MenuLayoutItem = v[i]
 				UIView.animateWithDuration(0.15,
@@ -289,7 +289,7 @@ public class MenuLayout {
 	}
 	
 	private func layoutTopLeft() {
-		if let v: Array<MenuLayoutItem> = menuItems {
+		if let v: Array<MenuLayoutItem> = items {
 			for var i: Int = 0, l: Int = v.count; i < l; ++i {
 				let item: MenuLayoutItem = v[i]
 				if 0 == i {
@@ -309,7 +309,7 @@ public class MenuLayout {
 	}
 	
 	private func layoutTopRight() {
-		if let v: Array<MenuLayoutItem> = menuItems {
+		if let v: Array<MenuLayoutItem> = items {
 			for var i: Int = 0, l: Int = v.count; i < l; ++i {
 				let item: MenuLayoutItem = v[i]
 				if 0 == i {
@@ -329,7 +329,7 @@ public class MenuLayout {
 	}
 	
 	private func layoutBottomLeft() {
-		if let v: Array<MenuLayoutItem> = menuItems {
+		if let v: Array<MenuLayoutItem> = items {
 			for var i: Int = 0, l: Int = v.count; i < l; ++i {
 				let item: MenuLayoutItem = v[i]
 				if 0 == i {
@@ -349,7 +349,7 @@ public class MenuLayout {
 	}
 	
 	private func layoutBottomRight() {
-		if let v: Array<MenuLayoutItem> = menuItems {
+		if let v: Array<MenuLayoutItem> = items {
 			for var i: Int = 0, l: Int = v.count; i < l; ++i {
 				let item: MenuLayoutItem = v[i]
 				if 0 == i {
