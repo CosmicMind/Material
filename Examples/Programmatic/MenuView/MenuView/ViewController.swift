@@ -36,19 +36,19 @@ import UIKit
 import Material
 
 class ViewController: UIViewController {
-	private var menuView: MenuView!
+	private var menuView: MenuLayout!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		prepareMenuViewExample()
+		prepareMenuLayoutExample()
 	}
 	
-	internal func handleOpenMenuView() {
+	internal func handleOpenMenuLayout() {
 		if menuView.opened {
 			menuView.close()
 		} else {
-			menuView.open() { (item: MenuViewItem) in
+			menuView.open() { (item: MenuLayoutItem) in
 				(item.button as? MaterialButton)?.pulse()
 			}
 		}
@@ -59,45 +59,54 @@ class ViewController: UIViewController {
 		view.backgroundColor = MaterialColor.white
 	}
 	
-	/// Prepares the MenuView example.
-	private func prepareMenuViewExample() {
+	/// Prepares the MenuLayout example.
+	private func prepareMenuLayoutExample() {
+		let btn: FlatButton = FlatButton(frame: CGRectMake(100, 100, 100, 100))
+		btn.backgroundColor = MaterialColor.red.base
+		
+		
 		let image: UIImage? = UIImage(named: "ic_add_white")
 		let btn1: FabButton = FabButton()
 		btn1.depth = .None
 		btn1.setImage(image, forState: .Normal)
 		btn1.setImage(image, forState: .Highlighted)
-		btn1.addTarget(self, action: "handleOpenMenuView", forControlEvents: .TouchUpInside)
+		btn1.addTarget(self, action: "handleOpenMenuLayout", forControlEvents: .TouchUpInside)
+		view.addSubview(btn1)
 		
 		let btn2: FabButton = FabButton()
 		btn2.depth = .None
 		btn2.backgroundColor = MaterialColor.blue.base
 		btn2.setImage(image, forState: .Normal)
 		btn2.setImage(image, forState: .Highlighted)
+		view.addSubview(btn2)
 		
 		let btn3: FabButton = FabButton()
 		btn3.depth = .None
 		btn3.backgroundColor = MaterialColor.green.base
 		btn3.setImage(image, forState: .Normal)
 		btn3.setImage(image, forState: .Highlighted)
+		view.addSubview(btn3)
 		
 		let btn4: FabButton = FabButton()
 		btn4.depth = .None
 		btn4.backgroundColor = MaterialColor.yellow.base
 		btn4.setImage(image, forState: .Normal)
 		btn4.setImage(image, forState: .Highlighted)
+		view.addSubview(btn4)
 		
-		menuView = MenuView(frame: view.bounds)
-//		menuView.menuPosition = .BottomLeft
-//		menuView.menuDirection = .Up
+		menuView = MenuLayout()
+		menuView.menuPosition = .TopRight
+		menuView.menuDirection = .Left
 		menuView.baseSize = CGSizeMake(36, 36)
 		menuView.itemSize = CGSizeMake(36, 36)
-		view.addSubview(menuView)
+		
+		view.addSubview(btn)
 		
 		menuView.menuItems = [
-			MenuViewItem(button: btn1),
-			MenuViewItem(button: btn2),
-			MenuViewItem(button: btn3),
-			MenuViewItem(button: btn4)
+			MenuLayoutItem(button: btn1),
+			MenuLayoutItem(button: btn2),
+			MenuLayoutItem(button: btn3),
+			MenuLayoutItem(button: btn4)
 		]
 	}
 }
