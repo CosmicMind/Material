@@ -87,12 +87,13 @@ class ViewController: UIViewController {
 		btn4.setImage(image, forState: .Highlighted)
 		
 		menuView = MenuView(frame: view.bounds)
-		menuView.direction = .Right
+//		menuView.menuPosition = .BottomLeft
+//		menuView.menuDirection = .Up
 		menuView.baseSize = CGSizeMake(36, 36)
 		menuView.itemSize = CGSizeMake(36, 36)
 		view.addSubview(menuView)
 		
-		menuView.items = [
+		menuView.menuItems = [
 			MenuViewItem(button: btn1),
 			MenuViewItem(button: btn2),
 			MenuViewItem(button: btn3),

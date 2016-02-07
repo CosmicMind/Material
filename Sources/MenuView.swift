@@ -37,6 +37,13 @@ public enum MenuViewDirection {
 	case Right
 }
 
+public enum MenuViewPosition {
+	case TopLeft
+	case TopRight
+	case BottomLeft
+	case BottomRight
+}
+
 public struct MenuViewItem {
 	/// UIButton.
 	public var button: UIButton
@@ -54,11 +61,18 @@ public class MenuView : MaterialView {
 	/// A Boolean that indicates if the menu is open or not.
 	public private(set) var opened: Bool = false
 	
+	/// The position of the menu. 
+	public var menuPosition: MenuViewPosition = .BottomRight {
+		didSet {
+			reloadView()
+		}
+	}
+	
 	/// The direction in which the animation opens the menu.
-	public var direction: MenuViewDirection = .Up
+	public var menuDirection: MenuViewDirection = .Up
 	
 	/// An Array of MenuViewItems.
-	public var items: Array<MenuViewItem>? {
+	public var menuItems: Array<MenuViewItem>? {
 		didSet {
 			reloadView()
 		}
@@ -74,36 +88,20 @@ public class MenuView : MaterialView {
 			v.removeFromSuperview()
 		}
 		
-		if let v: Array<MenuViewItem> = items {
-			for var i: Int = 0, l: Int = v.count; i < l; ++i {
-				let item: MenuViewItem = v[i]
-				
-				if 0 == i {
-					item.button.frame.size = baseSize
-					// bottom right
-//					item.button.frame.origin.x = width - baseItemSize.width - 16
-//					item.button.frame.origin.y = height - baseItemSize.height - 16
-					// top left
-					item.button.frame.origin.x = 16
-					item.button.frame.origin.y = 16
-					addSubview(item.button)
-				} else {
-					item.button.alpha = 0
-					item.button.frame.size = itemSize
-					// bottom right
-//					item.button.frame.origin.x = width - (baseItemSize.width + itemSize.width) / 2 - 16
-//					item.button.frame.origin.y = height - (baseItemSize.height + itemSize.height) / 2 - 16
-					// top left
-					item.button.frame.origin.x = (baseSize.width - itemSize.width) / 2 + 16
-					item.button.frame.origin.y = (baseSize.height - itemSize.height) / 2 + 16
-					insertSubview(item.button, belowSubview: v[i - 1].button)
-				}
-			}
+		switch menuPosition {
+		case .TopLeft:
+			layoutTopLeft()
+		case .TopRight:
+			layoutTopRight()
+		case .BottomLeft:
+			layoutBottomLeft()
+		case .BottomRight:
+			layoutBottomRight()
 		}
 	}
 	
 	public func open(completion: ((MenuViewItem) -> Void)? = nil) {
-		switch direction {
+		switch menuDirection {
 		case .Up:
 			openUpAnimation(completion)
 		case .Down:
@@ -116,7 +114,7 @@ public class MenuView : MaterialView {
 	}
 	
 	public func close(completion: ((MenuViewItem) -> Void)? = nil) {
-		switch direction {
+		switch menuDirection {
 		case .Up:
 			closeUpAnimation(completion)
 		case .Down:
@@ -129,7 +127,7 @@ public class MenuView : MaterialView {
 	}
 	
 	private func openUpAnimation(completion: ((MenuViewItem) -> Void)? = nil) {
-		if let v: Array<MenuViewItem> = items {
+		if let v: Array<MenuViewItem> = menuItems {
 			var base: MenuViewItem?
 			for var i: Int = 1, l: Int = v.count; i < l; ++i {
 				if nil == base {
@@ -151,7 +149,7 @@ public class MenuView : MaterialView {
 	}
 	
 	public func closeUpAnimation(completion: ((MenuViewItem) -> Void)? = nil) {
-		if let v: Array<MenuViewItem> = items {
+		if let v: Array<MenuViewItem> = menuItems {
 			for var i: Int = 1, l: Int = v.count; i < l; ++i {
 				let item: MenuViewItem = v[i]
 				UIView.animateWithDuration(0.15,
@@ -169,7 +167,7 @@ public class MenuView : MaterialView {
 	}
 	
 	private func openDownAnimation(completion: ((MenuViewItem) -> Void)? = nil) {
-		if let v: Array<MenuViewItem> = items {
+		if let v: Array<MenuViewItem> = menuItems {
 			var base: MenuViewItem?
 			for var i: Int = 1, l: Int = v.count; i < l; ++i {
 				if nil == base {
@@ -191,7 +189,7 @@ public class MenuView : MaterialView {
 	}
 	
 	public func closeDownAnimation(completion: ((MenuViewItem) -> Void)? = nil) {
-		if let v: Array<MenuViewItem> = items {
+		if let v: Array<MenuViewItem> = menuItems {
 			for var i: Int = 1, l: Int = v.count; i < l; ++i {
 				let item: MenuViewItem = v[i]
 				UIView.animateWithDuration(0.15,
@@ -209,7 +207,7 @@ public class MenuView : MaterialView {
 	}
 	
 	private func openLeftAnimation(completion: ((MenuViewItem) -> Void)? = nil) {
-		if let v: Array<MenuViewItem> = items {
+		if let v: Array<MenuViewItem> = menuItems {
 			var base: MenuViewItem?
 			for var i: Int = 1, l: Int = v.count; i < l; ++i {
 				if nil == base {
@@ -231,7 +229,7 @@ public class MenuView : MaterialView {
 	}
 	
 	public func closeLeftAnimation(completion: ((MenuViewItem) -> Void)? = nil) {
-		if let v: Array<MenuViewItem> = items {
+		if let v: Array<MenuViewItem> = menuItems {
 			for var i: Int = 1, l: Int = v.count; i < l; ++i {
 				let item: MenuViewItem = v[i]
 				UIView.animateWithDuration(0.15,
@@ -249,7 +247,7 @@ public class MenuView : MaterialView {
 	}
 	
 	private func openRightAnimation(completion: ((MenuViewItem) -> Void)? = nil) {
-		if let v: Array<MenuViewItem> = items {
+		if let v: Array<MenuViewItem> = menuItems {
 			var base: MenuViewItem?
 			for var i: Int = 1, l: Int = v.count; i < l; ++i {
 				if nil == base {
@@ -271,7 +269,7 @@ public class MenuView : MaterialView {
 	}
 	
 	public func closeRightAnimation(completion: ((MenuViewItem) -> Void)? = nil) {
-		if let v: Array<MenuViewItem> = items {
+		if let v: Array<MenuViewItem> = menuItems {
 			for var i: Int = 1, l: Int = v.count; i < l; ++i {
 				let item: MenuViewItem = v[i]
 				UIView.animateWithDuration(0.15,
@@ -285,6 +283,86 @@ public class MenuView : MaterialView {
 					})
 			}
 			opened = false
+		}
+	}
+	
+	private func layoutTopLeft() {
+		if let v: Array<MenuViewItem> = menuItems {
+			for var i: Int = 0, l: Int = v.count; i < l; ++i {
+				let item: MenuViewItem = v[i]
+				if 0 == i {
+					item.button.frame.size = baseSize
+					item.button.frame.origin.x = 16
+					item.button.frame.origin.y = 16
+					addSubview(item.button)
+				} else {
+					item.button.alpha = 0
+					item.button.frame.size = itemSize
+					item.button.frame.origin.x = (baseSize.width - itemSize.width) / 2 + 16
+					item.button.frame.origin.y = (baseSize.height - itemSize.height) / 2 + 16
+					insertSubview(item.button, belowSubview: v[i - 1].button)
+				}
+			}
+		}
+	}
+	
+	private func layoutTopRight() {
+		if let v: Array<MenuViewItem> = menuItems {
+			for var i: Int = 0, l: Int = v.count; i < l; ++i {
+				let item: MenuViewItem = v[i]
+				if 0 == i {
+					item.button.frame.size = baseSize
+					item.button.frame.origin.x = width - baseSize.width - 16
+					item.button.frame.origin.y = 16
+					addSubview(item.button)
+				} else {
+					item.button.alpha = 0
+					item.button.frame.size = itemSize
+					item.button.frame.origin.x = width - (baseSize.width + itemSize.width) / 2 - 16
+					item.button.frame.origin.y = (baseSize.height - itemSize.height) / 2 + 16
+					insertSubview(item.button, belowSubview: v[i - 1].button)
+				}
+			}
+		}
+	}
+	
+	private func layoutBottomLeft() {
+		if let v: Array<MenuViewItem> = menuItems {
+			for var i: Int = 0, l: Int = v.count; i < l; ++i {
+				let item: MenuViewItem = v[i]
+				if 0 == i {
+					item.button.frame.size = baseSize
+					item.button.frame.origin.x = 16
+					item.button.frame.origin.y = height - baseSize.height - 16
+					addSubview(item.button)
+				} else {
+					item.button.alpha = 0
+					item.button.frame.size = itemSize
+					item.button.frame.origin.x = (baseSize.width - itemSize.width) / 2 + 16
+					item.button.frame.origin.y = height - (baseSize.height + itemSize.height) / 2 - 16
+					insertSubview(item.button, belowSubview: v[i - 1].button)
+				}
+			}
+		}
+	}
+	
+	private func layoutBottomRight() {
+		if let v: Array<MenuViewItem> = menuItems {
+			for var i: Int = 0, l: Int = v.count; i < l; ++i {
+				let item: MenuViewItem = v[i]
+				if 0 == i {
+					item.button.frame.size = baseSize
+					item.button.frame.origin.x = width - baseSize.width - 16
+					item.button.frame.origin.y = height - baseSize.height - 16
+					addSubview(item.button)
+				} else {
+					item.button.alpha = 0
+					item.button.frame.size = itemSize
+					item.button.frame.origin.x = width - (baseSize.width + itemSize.width) / 2 - 16
+					item.button.frame.origin.y = height - (baseSize.height + itemSize.height) / 2 - 16
+					insertSubview(item.button, belowSubview: v[i - 1].button)
+				}
+			}
 		}
 	}
 }
