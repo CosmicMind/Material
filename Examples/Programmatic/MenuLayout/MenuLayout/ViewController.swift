@@ -73,9 +73,9 @@ class ViewController: UIViewController {
 	
 	/// Prepares the MenuLayout example.
 	private func prepareMenuLayoutExample() {
-		let btn: FlatButton = FlatButton(frame: CGRectMake(100, 100, 100, 100))
-		btn.backgroundColor = MaterialColor.red.base
-		view.addSubview(btn)
+//		let btn: FlatButton = FlatButton(frame: CGRectMake(100, 100, 100, 100))
+//		btn.backgroundColor = MaterialColor.red.base
+//		view.addSubview(btn)
 		
 		let image: UIImage? = UIImage(named: "ic_add_white")
 		let btn1: FabButton = FabButton()
