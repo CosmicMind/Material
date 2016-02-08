@@ -332,7 +332,7 @@ public class NavigationBarView : MaterialView {
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		depth = .Depth2
+		depth = .Depth1
 	}
 	
 	/**

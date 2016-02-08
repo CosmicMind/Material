@@ -234,7 +234,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	A MaterialDepth property that is used to set the depth of the
 	leftView when opened.
 	*/
-	public var depth: MaterialDepth = .Depth2
+	public var depth: MaterialDepth = .Depth1
 	
 	/**
 	A MaterialView property that is used to hide and reveal the

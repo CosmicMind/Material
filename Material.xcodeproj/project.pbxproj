@@ -391,9 +391,9 @@
 		96D88C541C132A7700B91418 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				65FDC2EA1C66858A00103AC2 /* MenuLayout.swift */,
 				96D88C151C1328D800B91418 /* NavigationBarView.swift */,
 				96D88C1D1C1328D800B91418 /* SideNavigationViewController.swift */,
-				65FDC2EA1C66858A00103AC2 /* MenuLayout.swift */,
 			);
 			name = Navigation;
 			sourceTree = "<group>";

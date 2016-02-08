@@ -59,6 +59,7 @@ class ViewController: UIViewController {
 		if menuLayout.opened {
 			menuLayout.close()
 		} else {
+//			(menuLayout.items?.first?.button as? MaterialButton)?.animate(MaterialAnimation.rotate(1))
 			menuLayout.open() { (item: MenuLayoutItem) in
 				(item.button as? MaterialButton)?.pulse()
 			}
@@ -78,36 +79,36 @@ class ViewController: UIViewController {
 		
 		let image: UIImage? = UIImage(named: "ic_add_white")
 		let btn1: FabButton = FabButton()
-		btn1.depth = .None
+		btn1.depth = .Depth1
 		btn1.setImage(image, forState: .Normal)
 		btn1.setImage(image, forState: .Highlighted)
 		btn1.addTarget(self, action: "handleOpenMenuLayout", forControlEvents: .TouchUpInside)
 		view.addSubview(btn1)
 		
 		let btn2: FabButton = FabButton()
-		btn2.depth = .None
+		btn2.depth = .Depth1
 		btn2.backgroundColor = MaterialColor.blue.base
 		btn2.setImage(image, forState: .Normal)
 		btn2.setImage(image, forState: .Highlighted)
 		view.addSubview(btn2)
 		
 		let btn3: FabButton = FabButton()
-		btn3.depth = .None
+		btn3.depth = .Depth1
 		btn3.backgroundColor = MaterialColor.green.base
 		btn3.setImage(image, forState: .Normal)
 		btn3.setImage(image, forState: .Highlighted)
 		view.addSubview(btn3)
 		
 		let btn4: FabButton = FabButton()
-		btn4.depth = .None
+		btn4.depth = .Depth1
 		btn4.backgroundColor = MaterialColor.yellow.base
 		btn4.setImage(image, forState: .Normal)
 		btn4.setImage(image, forState: .Highlighted)
 		view.addSubview(btn4)
 		
 		menuLayout = MenuLayout()
-		menuLayout.baseSize = CGSizeMake(48, 48)
-		menuLayout.itemSize = CGSizeMake(36, 36)
+		menuLayout.baseSize = CGSizeMake(56, 56)
+		menuLayout.itemSize = CGSizeMake(48, 48)
 		
 		menuLayout.items = [
 			MenuLayoutItem(button: btn1),

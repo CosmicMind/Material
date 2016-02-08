@@ -64,6 +64,9 @@ public class MenuLayout {
 	/// A Boolean that indicates if the menu is open or not.
 	public private(set) var opened: Bool = false
 	
+	/// Animation duration.
+	public var duration: Double = 0.07
+	
 	/// The position of the menu. 
 	public var position: MenuLayoutPosition = .BottomRight {
 		didSet {
@@ -90,6 +93,7 @@ public class MenuLayout {
 	}
 	
 	public func reloadLayout() {
+		opened = false
 		switch position {
 		case .TopLeft:
 			layoutTopLeft()
@@ -137,7 +141,7 @@ public class MenuLayout {
 				}
 				let item: MenuLayoutItem = v[i]
 				item.button.hidden = false
-				UIView.animateWithDuration(Double(i) * 0.15,
+				UIView.animateWithDuration(Double(i) * duration,
 					animations: { [unowned self] in
 						item.button.alpha = 1
 						item.button.frame.origin.y = base!.button.frame.origin.y - CGFloat(i) * self.itemSize.height - CGFloat(i) * 16
@@ -154,7 +158,7 @@ public class MenuLayout {
 		if let v: Array<MenuLayoutItem> = items {
 			for var i: Int = 1, l: Int = v.count; i < l; ++i {
 				let item: MenuLayoutItem = v[i]
-				UIView.animateWithDuration(0.15,
+				UIView.animateWithDuration(Double(i) * duration,
 					animations: { [unowned self] in
 						item.button.alpha = 0
 						item.button.frame.origin.y = self.height - item.button.bounds.height - 16
@@ -177,7 +181,7 @@ public class MenuLayout {
 				}
 				let item: MenuLayoutItem = v[i]
 				item.button.hidden = false
-				UIView.animateWithDuration(Double(i) * 0.15,
+				UIView.animateWithDuration(Double(i) * duration,
 					animations: { [unowned self] in
 						item.button.alpha = 1
 						item.button.frame.origin.y = base!.button.frame.origin.y + self.baseSize.height + CGFloat(i - 1) * self.itemSize.height + CGFloat(i) * 16
@@ -194,7 +198,7 @@ public class MenuLayout {
 		if let v: Array<MenuLayoutItem> = items {
 			for var i: Int = 1, l: Int = v.count; i < l; ++i {
 				let item: MenuLayoutItem = v[i]
-				UIView.animateWithDuration(0.15,
+				UIView.animateWithDuration(Double(i) * duration,
 					animations: {
 						item.button.alpha = 0
 						item.button.frame.origin.y = 16
@@ -217,7 +221,7 @@ public class MenuLayout {
 				}
 				let item: MenuLayoutItem = v[i]
 				item.button.hidden = false
-				UIView.animateWithDuration(Double(i) * 0.15,
+				UIView.animateWithDuration(Double(i) * duration,
 					animations: { [unowned self] in
 						item.button.alpha = 1
 						item.button.frame.origin.x = base!.button.frame.origin.x - CGFloat(i) * self.itemSize.width - CGFloat(i) * 16
@@ -234,7 +238,7 @@ public class MenuLayout {
 		if let v: Array<MenuLayoutItem> = items {
 			for var i: Int = 1, l: Int = v.count; i < l; ++i {
 				let item: MenuLayoutItem = v[i]
-				UIView.animateWithDuration(0.15,
+				UIView.animateWithDuration(Double(i) * duration,
 					animations: { [unowned self] in
 						item.button.alpha = 0
 						item.button.frame.origin.x = self.width - item.button.bounds.width - 16
@@ -257,7 +261,7 @@ public class MenuLayout {
 				}
 				let item: MenuLayoutItem = v[i]
 				item.button.hidden = false
-				UIView.animateWithDuration(Double(i) * 0.15,
+				UIView.animateWithDuration(Double(i) * duration,
 					animations: { [unowned self] in
 						item.button.alpha = 1
 						item.button.frame.origin.x = base!.button.frame.origin.x + self.baseSize.width + CGFloat(i - 1) * self.itemSize.width + CGFloat(i) * 16
@@ -274,7 +278,7 @@ public class MenuLayout {
 		if let v: Array<MenuLayoutItem> = items {
 			for var i: Int = 1, l: Int = v.count; i < l; ++i {
 				let item: MenuLayoutItem = v[i]
-				UIView.animateWithDuration(0.15,
+				UIView.animateWithDuration(Double(i) * duration,
 					animations: {
 						item.button.alpha = 0
 						item.button.frame.origin.x = 16

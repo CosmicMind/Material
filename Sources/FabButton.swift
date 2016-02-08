@@ -41,7 +41,7 @@ public class FabButton : MaterialButton {
 	public override func prepareView() {
 		super.prepareView()
 		backgroundColor = MaterialColor.red.darken1
-		depth = .Depth2
+		depth = .Depth1
 		shape = .Circle
 	}
 }
