@@ -101,6 +101,7 @@
 		96D88C741C132ACC00B91418 /* MaterialBasicAnimation.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96D88C001C1328D800B91418 /* MaterialBasicAnimation.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96D88C751C132AD500B91418 /* NavigationBarView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96D88C151C1328D800B91418 /* NavigationBarView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96DBA7361C61198400844821 /* Material+UIImage+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DBA7351C61198400844821 /* Material+UIImage+Color.swift */; };
+		97D26D781C68F53D00ACA1C3 /* IconCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D26D771C68F53D00ACA1C3 /* IconCardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -169,6 +170,7 @@
 		96D88C1C1C1328D800B91418 /* RobotoFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RobotoFont.swift; sourceTree = "<group>"; };
 		96D88C1D1C1328D800B91418 /* SideNavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideNavigationViewController.swift; sourceTree = "<group>"; };
 		96DBA7351C61198400844821 /* Material+UIImage+Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIImage+Color.swift"; sourceTree = "<group>"; };
+		97D26D771C68F53D00ACA1C3 /* IconCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconCardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -310,6 +312,7 @@
 			children = (
 				96D88BF61C1328D800B91418 /* CardView.swift */,
 				96D88BFB1C1328D800B91418 /* ImageCardView.swift */,
+				97D26D771C68F53D00ACA1C3 /* IconCardView.swift */,
 			);
 			name = Card;
 			sourceTree = "<group>";
@@ -578,6 +581,7 @@
 				966F57B81C226D75009185B7 /* TextField.swift in Sources */,
 				96DBA7361C61198400844821 /* Material+UIImage+Color.swift in Sources */,
 				96D88C201C1328D800B91418 /* CapturePreviewView.swift in Sources */,
+				97D26D781C68F53D00ACA1C3 /* IconCardView.swift in Sources */,
 				96D88C3E1C1328D800B91418 /* NavigationBarView.swift in Sources */,
 				96D88C221C1328D800B91418 /* FabButton.swift in Sources */,
 				96D88C3F1C1328D800B91418 /* RaisedButton.swift in Sources */,
