@@ -29,14 +29,22 @@
 */
 
 /**
-
+This is an example of using the Menu component. It is designed to take any array
+of buttons and provide a facility to animate them opened and closed as a group.
 */
 
 import UIKit
 import Material
 
 class ViewController: UIViewController {
+	/// Menu component.
 	private var menu: Menu!
+	
+	/// Default spacing size
+	let spacing: CGFloat = 16
+	
+	/// Base button diameter, otherwise default to buttonSize (48 x 48)
+	let diameter: CGFloat = 56
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -44,25 +52,33 @@ class ViewController: UIViewController {
 		prepareMenuExample()
 	}
 	
-	override func viewWillLayoutSubviews() {
-		super.viewWillLayoutSubviews()
-	}
-	
+	/// Handle orientation.
 	override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
 		super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-		//		menuLayout.origin.x = size.width
-		//		menuLayout.origin.y = size.height
-		menu.reloadLayout()
+		
+		// Handle orientation change.
+		menu.origin = CGPointMake(view.bounds.height - diameter - spacing, view.bounds.width - diameter - spacing)
 	}
 	
+	/// Handle the base button touch event.
 	internal func handleOpenMenu() {
-		if menu.opened {
-			menu.close()
-		} else {
-			//			(menuLayout.items?.first?.button as? MaterialButton)?.animate(MaterialAnimation.rotate(1))
-			menu.open() { (button: UIButton) in
-				(button as? MaterialButton)?.pulse()
+		// Only trigger open and close animations when enabled.
+		if menu.enabled {
+			let image: UIImage?
+			if menu.opened {
+				menu.close()
+				image = UIImage(named: "ic_add_white")
+			} else {
+				menu.open() { (button: UIButton) in
+					(button as? MaterialButton)?.pulse()
+				}
+				image = UIImage(named: "ic_close_white")
 			}
+			
+			// Add a nice rotation animation to the base button.
+			(menu.buttons?.first as? MaterialButton)?.animate(MaterialAnimation.rotate(1))
+			menu.buttons?.first?.setImage(image, forState: .Normal)
+			menu.buttons?.first?.setImage(image, forState: .Highlighted)
 		}
 	}
 	
@@ -73,38 +89,43 @@ class ViewController: UIViewController {
 	
 	/// Prepares the Menu example.
 	private func prepareMenuExample() {
-		let image: UIImage? = UIImage(named: "ic_add_white")
+		var image: UIImage? = UIImage(named: "ic_add_white")
 		let btn1: FabButton = FabButton()
-		btn1.depth = .Depth1
+		/**
+		Remove the pulse animation, so the rotation animation 
+		doesn't seem like too much with the pulse animation.
+		*/
+		btn1.pulseColor = nil
 		btn1.setImage(image, forState: .Normal)
 		btn1.setImage(image, forState: .Highlighted)
 		btn1.addTarget(self, action: "handleOpenMenu", forControlEvents: .TouchUpInside)
 		view.addSubview(btn1)
 		
+		image = UIImage(named: "ic_create_white")
 		let btn2: FabButton = FabButton()
-		btn2.depth = .Depth1
 		btn2.backgroundColor = MaterialColor.blue.base
 		btn2.setImage(image, forState: .Normal)
 		btn2.setImage(image, forState: .Highlighted)
 		view.addSubview(btn2)
 		
+		image = UIImage(named: "ic_photo_camera_white")
 		let btn3: FabButton = FabButton()
-		btn3.depth = .Depth1
 		btn3.backgroundColor = MaterialColor.green.base
 		btn3.setImage(image, forState: .Normal)
 		btn3.setImage(image, forState: .Highlighted)
 		view.addSubview(btn3)
 		
+		image = UIImage(named: "ic_note_add_white")
 		let btn4: FabButton = FabButton()
-		btn4.depth = .Depth1
-		btn4.backgroundColor = MaterialColor.yellow.base
+		btn4.backgroundColor = MaterialColor.amber.base
 		btn4.setImage(image, forState: .Normal)
 		btn4.setImage(image, forState: .Highlighted)
 		view.addSubview(btn4)
 		
-		menu = Menu(origin: CGPointMake(100, 100))
-		menu.direction = .Down
-		menu.baseSize = CGSizeMake(88, 88)
+		// Initialize the menu and setup the configuration options.
+		menu = Menu(origin: CGPointMake(view.bounds.width - diameter - spacing, view.bounds.height - diameter - spacing))
+		menu.direction = .Up
+		menu.baseSize = CGSizeMake(diameter, diameter)
 		menu.buttons = [btn1, btn2, btn3, btn4]
 	}
 }

@@ -57,6 +57,7 @@ Material is a growing project and will encounter changes throughout its developm
 * [FlatButton](#flatbutton)
 * [RaisedButton](#raisedbutton)
 * [FabButton](#fabbutton)
+* [Menu](#menu)
 * [NavigationBarView](#navigationbarview)
 * [SideNavigationViewController](#sidenavigationviewcontroller)
 * [CardView](#cardview)
@@ -75,6 +76,7 @@ Material is a growing project and will encounter changes throughout its developm
 * ProgressBar (circular and horizontal)
 * DatePicker
 * TimePicker
+* Switch Control
 * More Examples
 
 <a name="materialcolor"></a>
@@ -159,7 +161,14 @@ A FabButton is essential to Material Design's overall look. Below showcases its 
 
 ![MaterialFabButton](http://www.cosmicmind.io/MK/MaterialFabButton.gif)
 
-[Learn More About FabButton](https://github.com/CosmicMind/Material/wiki/FabButton)
+<a name="menu"></a>
+## Menu
+
+A Menu manages a group of UIButtons that may be animated open in the Up, Down, Left, and Right directions. The animations are fully customizable.
+
+![MaterialFabButton](http://www.cosmicmind.io/MK/MaterialMenu.gif)
+
+[Learn More About Menu](https://github.com/CosmicMind/Material/wiki/Menu)
 
 <a name="navigationbarview"></a>
 ## NavigationBarView
