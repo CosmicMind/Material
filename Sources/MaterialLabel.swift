@@ -30,7 +30,122 @@
 
 import UIKit
 
-public class MaterialLabel : UILabel, GridCell {
-	/// Grid space.
-	public var grid: Grid = .Grid1
+public class MaterialLabel : UILabel {
+	/**
+	:name:	layerClass
+	*/
+	public override class func layerClass() -> AnyClass {
+		return MaterialTextLayer.self
+	}
+	
+	/**
+	:name:	textLayer
+	*/
+	public var textLayer: MaterialTextLayer {
+		return layer as! MaterialTextLayer
+	}
+	
+	/**
+	:name:	text
+	*/
+	public override var text: String? {
+		didSet {
+			textLayer.text = text
+		}
+	}
+	
+	/**
+	:name:	textColor
+	*/
+	public override var textColor: UIColor? {
+		didSet {
+			textLayer.textColor = textColor
+		}
+	}
+	
+	/**
+	:name:	font
+	*/
+	public override var font: UIFont! {
+		didSet {
+			textLayer.fontType = font
+		}
+	}
+	
+	/**
+	:name:	textAlignment
+	*/
+	public override var textAlignment: NSTextAlignment {
+		didSet {
+			textLayer.textAlignment = textAlignment
+		}
+	}
+	
+	/**
+	:name:	wrapped
+	*/
+	public var wrapped: Bool {
+		didSet {
+			textLayer.wrapped = wrapped
+		}
+	}
+	
+	/**
+	:name:	contentsScale
+	*/
+	public var contentsScale: CGFloat {
+		didSet {
+			textLayer.contentsScale = contentsScale
+		}
+	}
+	
+	/**
+	:name:	lineBreakMode
+	*/
+	public override var lineBreakMode: NSLineBreakMode {
+		didSet {
+			textLayer.lineBreakMode = lineBreakMode
+		}
+	}
+	
+	/**
+	:name:	init
+	*/
+	public required init?(coder aDecoder: NSCoder) {
+		wrapped = true
+		contentsScale = UIScreen.mainScreen().scale
+		super.init(coder: aDecoder)
+	}
+	
+	/**
+	:name:	init
+	*/
+	public override init(frame: CGRect) {
+		wrapped = true
+		contentsScale = UIScreen.mainScreen().scale
+		super.init(frame: frame)
+		prepareView()
+	}
+	
+	/**
+	:name:	init
+	*/
+	public convenience init() {
+		self.init(frame: CGRectNull)
+		prepareView()
+	}
+	
+	/**
+	:name:	stringSize
+	*/
+	public func stringSize(constrainedToWidth width: Double) -> CGSize {
+		return textLayer.stringSize(constrainedToWidth: width)
+	}
+	
+	/**
+	:name:	prepareView
+	*/
+	public func prepareView() {
+		textAlignment = .Left
+	}
 }

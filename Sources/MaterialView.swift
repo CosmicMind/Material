@@ -31,10 +31,7 @@
 import UIKit
 
 @objc(MaterialView)
-public class MaterialView : UIView, GridCell {
-	/// Grid space.
-	public var grid: Grid = .Grid1
-	
+public class MaterialView : UIView {
 	/**
 	A CAShapeLayer used to manage elements that would be affected by
 	the clipToBounds property of the backing layer. For example, this
