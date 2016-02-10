@@ -120,6 +120,7 @@ public class GridView : MaterialView {
 		
 		let g: Int = grid.rawValue
 		let w: CGFloat = (width - spacing) / CGFloat(g)
+		let h: CGFloat = (height - spacing) / CGFloat(g)
 		if let v: Array<GridCell> = views {
 			var n: Int = 0
 			for var i: Int = 0, l: Int = v.count; i < l; ++i {
@@ -128,6 +129,8 @@ public class GridView : MaterialView {
 				let m: Int = cell.grid.rawValue
 				if .Horizontal == layout {
 					view.frame = CGRectMake(CGFloat(i + n) * w + spacing, 0, (w * CGFloat(m)) - spacing, 0 < unifiedHeight ? unifiedHeight : view.intrinsicContentSize().height)
+				} else {
+					view.frame = CGRectMake(0, CGFloat(i + n) * h + spacing, view.intrinsicContentSize().width, (h * CGFloat(m)) - spacing)
 				}
 				view.removeFromSuperview()
 				addSubview(view)
