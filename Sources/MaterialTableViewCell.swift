@@ -72,8 +72,8 @@ public class MaterialTableViewCell: UITableViewCell {
      :name:	preparePulseView
      */
     public func preparePulseView() {
-        pulseView.pulseColor = MaterialColor.red.darken1.colorWithAlphaComponent(0.2)
-        contentView.addSubview(pulseView)
+        pulseView.pulseColor = MaterialColor.blue.accent3
+        contentView.insertSubview(pulseView, atIndex: 0)
     }
     
     /**

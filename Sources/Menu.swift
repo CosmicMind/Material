@@ -30,6 +30,13 @@
 
 import UIKit
 
+public enum MenuDirection {
+	case Up
+	case Down
+	case Left
+	case Right
+}
+
 public class Menu {
 	/// A Boolean that indicates if the menu is open or not.
 	public private(set) var opened: Bool = false
@@ -52,7 +59,7 @@ public class Menu {
 	public var enabled: Bool = true
 	
 	/// The direction in which the animation opens the menu.
-	public var direction: MaterialDirection = .Up {
+	public var direction: MenuDirection = .Up {
 		didSet {
 			reloadLayout()
 		}

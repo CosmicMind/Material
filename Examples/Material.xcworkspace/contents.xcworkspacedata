@@ -98,6 +98,13 @@
             location = "group:Programmatic/CaptureView/CaptureView.xcodeproj">
          </FileRef>
       </Group>
+      <Group
+         location = "container:"
+         name = "GridView">
+         <FileRef
+            location = "group:Programmatic/GridView/GridView.xcodeproj">
+         </FileRef>
+      </Group>
    </Group>
    <Group
       location = "container:"
