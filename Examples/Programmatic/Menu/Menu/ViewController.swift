@@ -37,19 +37,32 @@ import UIKit
 import Material
 
 class ViewController: UIViewController {
-	/// Menu component.
-	private var menu: Menu!
+	/// FabMenu component.
+	private var fabMenu: Menu!
+	
+	/// FlatMenu component.
+	private var flatMenu: Menu!
+	
+	/// FlashMenu component.
+	private var flashMenu: Menu!
 	
 	/// Default spacing size
 	let spacing: CGFloat = 16
 	
-	/// Base button diameter, otherwise default to buttonSize (48 x 48)
+	/// Diameter for FabButtons.
 	let diameter: CGFloat = 56
+	
+	/// Height for FlatButtons.
+	let height: CGFloat = 36
+	
+	
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		prepareMenuExample()
+		prepareFabMenuExample()
+		prepareFlatbMenuExample()
+		prepareFlashMenuExample()
 	}
 	
 	/// Handle orientation.
@@ -57,28 +70,53 @@ class ViewController: UIViewController {
 		super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
 		
 		// Handle orientation change.
-		menu.origin = CGPointMake(view.bounds.height - diameter - spacing, view.bounds.width - diameter - spacing)
+		fabMenu.origin = CGPointMake(view.bounds.height - diameter - spacing, view.bounds.width - diameter - spacing)
+		flatMenu.origin = CGPointMake(spacing, view.bounds.height - height - spacing)
 	}
 	
-	/// Handle the base button touch event.
-	internal func handleOpenMenu() {
+	/// Handle the fabMenu touch event.
+	internal func handleFabMenu() {
 		// Only trigger open and close animations when enabled.
-		if menu.enabled {
+		if fabMenu.enabled {
 			let image: UIImage?
-			if menu.opened {
-				menu.close()
+			if fabMenu.opened {
+				fabMenu.close()
 				image = UIImage(named: "ic_add_white")
 			} else {
-				menu.open() { (button: UIButton) in
+				fabMenu.open() { (button: UIButton) in
 					(button as? MaterialButton)?.pulse()
 				}
 				image = UIImage(named: "ic_close_white")
 			}
 			
 			// Add a nice rotation animation to the base button.
-			(menu.buttons?.first as? MaterialButton)?.animate(MaterialAnimation.rotate(1))
-			menu.buttons?.first?.setImage(image, forState: .Normal)
-			menu.buttons?.first?.setImage(image, forState: .Highlighted)
+			(fabMenu.buttons?.first as? MaterialButton)?.animate(MaterialAnimation.rotate(1))
+			fabMenu.buttons?.first?.setImage(image, forState: .Normal)
+			fabMenu.buttons?.first?.setImage(image, forState: .Highlighted)
+		}
+	}
+	
+	/// Handle the flatMenu touch event.
+	internal func handleFlatMenu() {
+		// Only trigger open and close animations when enabled.
+		if flatMenu.enabled {
+			if flatMenu.opened {
+				flatMenu.close()
+			} else {
+				flatMenu.open()
+			}
+		}
+	}
+	
+	/// Handle the flashMenu touch event.
+	internal func handleFlashMenu() {
+		// Only trigger open and close animations when enabled.
+		if flashMenu.enabled {
+			if flashMenu.opened {
+				flashMenu.close()
+			} else {
+				flashMenu.open()
+			}
 		}
 	}
 	
@@ -87,8 +125,8 @@ class ViewController: UIViewController {
 		view.backgroundColor = MaterialColor.white
 	}
 	
-	/// Prepares the Menu example.
-	private func prepareMenuExample() {
+	/// Prepares the FabMenu example.
+	private func prepareFabMenuExample() {
 		var image: UIImage? = UIImage(named: "ic_add_white")
 		let btn1: FabButton = FabButton()
 		/**
@@ -98,7 +136,7 @@ class ViewController: UIViewController {
 		btn1.pulseColor = nil
 		btn1.setImage(image, forState: .Normal)
 		btn1.setImage(image, forState: .Highlighted)
-		btn1.addTarget(self, action: "handleOpenMenu", forControlEvents: .TouchUpInside)
+		btn1.addTarget(self, action: "handleFabMenu", forControlEvents: .TouchUpInside)
 		view.addSubview(btn1)
 		
 		image = UIImage(named: "ic_create_white")
@@ -123,10 +161,86 @@ class ViewController: UIViewController {
 		view.addSubview(btn4)
 		
 		// Initialize the menu and setup the configuration options.
-		menu = Menu(origin: CGPointMake(view.bounds.width - diameter - spacing, view.bounds.height - diameter - spacing))
-		menu.direction = .Up
-		menu.baseSize = CGSizeMake(diameter, diameter)
-		menu.buttons = [btn1, btn2, btn3, btn4]
+		fabMenu = Menu(origin: CGPointMake(view.bounds.width - diameter - spacing, view.bounds.height - diameter - spacing))
+		fabMenu.direction = .Up
+		fabMenu.baseSize = CGSizeMake(diameter, diameter)
+		fabMenu.buttons = [btn1, btn2, btn3, btn4]
+	}
+	
+	/// Prepares the FlatMenu example.
+	private func prepareFlatbMenuExample() {
+		let btn1: FlatButton = FlatButton()
+		btn1.addTarget(self, action: "handleFlatMenu", forControlEvents: .TouchUpInside)
+		btn1.setTitleColor(MaterialColor.white, forState: .Normal)
+		btn1.backgroundColor = MaterialColor.blue.accent3
+		btn1.pulseColor = MaterialColor.white
+		btn1.setTitle("Base", forState: .Normal)
+		view.addSubview(btn1)
+		
+		let btn2: FlatButton = FlatButton()
+		btn2.setTitleColor(MaterialColor.blue.accent3, forState: .Normal)
+		btn2.borderColor = MaterialColor.blue.accent3
+		btn2.pulseColor = MaterialColor.blue.accent3
+		btn2.borderWidth = .Border1
+		btn2.setTitle("Item", forState: .Normal)
+		view.addSubview(btn2)
+		
+		let btn3: FlatButton = FlatButton()
+		btn3.setTitleColor(MaterialColor.blue.accent3, forState: .Normal)
+		btn3.borderColor = MaterialColor.blue.accent3
+		btn3.pulseColor = MaterialColor.blue.accent3
+		btn3.borderWidth = .Border1
+		btn3.setTitle("Item", forState: .Normal)
+		view.addSubview(btn3)
+		
+		let btn4: FlatButton = FlatButton()
+		btn4.setTitleColor(MaterialColor.blue.accent3, forState: .Normal)
+		btn4.borderColor = MaterialColor.blue.accent3
+		btn4.pulseColor = MaterialColor.blue.accent3
+		btn4.borderWidth = .Border1
+		btn4.setTitle("Item", forState: .Normal)
+		view.addSubview(btn4)
+		
+		// Initialize the menu and setup the configuration options.
+		flatMenu = Menu(origin: CGPointMake(spacing, view.bounds.height - height - spacing))
+		flatMenu.direction = .Up
+		flatMenu.spacing = 8
+		flatMenu.buttonSize = CGSizeMake(120, height)
+		flatMenu.buttons = [btn1, btn2, btn3, btn4]
+	}
+	
+	/// Prepares the FlashMenu example.
+	private func prepareFlashMenuExample() {
+		var image: UIImage? = UIImage(named: "ic_flash_auto_white")?.imageWithRenderingMode(.AlwaysTemplate)
+		let btn1: FlatButton = FlatButton()
+		btn1.pulseColor = MaterialColor.blueGrey.darken4
+		btn1.tintColor = MaterialColor.blueGrey.darken4
+		btn1.setImage(image, forState: .Normal)
+		btn1.setImage(image, forState: .Highlighted)
+		btn1.addTarget(self, action: "handleFlashMenu", forControlEvents: .TouchUpInside)
+		view.addSubview(btn1)
+		
+		image = UIImage(named: "ic_flash_off_white")?.imageWithRenderingMode(.AlwaysTemplate)
+		let btn2: FlatButton = FlatButton()
+		btn2.pulseColor = MaterialColor.blueGrey.darken4
+		btn2.tintColor = MaterialColor.blueGrey.darken4
+		btn2.setImage(image, forState: .Normal)
+		btn2.setImage(image, forState: .Highlighted)
+		view.addSubview(btn2)
+		
+		image = UIImage(named: "ic_flash_on_white")?.imageWithRenderingMode(.AlwaysTemplate)
+		let btn3: FlatButton = FlatButton()
+		btn3.pulseColor = MaterialColor.blueGrey.darken4
+		btn3.tintColor = MaterialColor.blueGrey.darken4
+		btn3.setImage(image, forState: .Normal)
+		btn3.setImage(image, forState: .Highlighted)
+		view.addSubview(btn3)
+		
+		// Initialize the menu and setup the configuration options.
+		flashMenu = Menu(origin: CGPointMake(300, 100))
+		flashMenu.direction = .Left
+		flashMenu.buttonSize = btn1.intrinsicContentSize()
+		flashMenu.buttons = [btn1, btn2, btn3]
 	}
 }
 

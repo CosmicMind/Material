@@ -448,7 +448,7 @@ public class Menu {
 					button.frame.size = buttonSize
 					button.frame.origin.x = origin.x + (size.width - buttonSize.width) / 2
 					button.frame.origin.y = origin.y + (size.height - buttonSize.height) / 2
-					button.layer.zPosition = CGFloat(10000 - i)
+					button.layer.zPosition = CGFloat(10000 - v.count - i)
 				}
 			}
 		}
@@ -456,8 +456,10 @@ public class Menu {
 	
 	/// Disable the Menu if buttons exist.
 	private func disable() {
-		if let _: Array<UIButton> = buttons {
-			enabled = false
+		if let v: Array<UIButton> = buttons {
+			if 0 < v.count {
+				enabled = false
+			}
 		}
 	}
 	

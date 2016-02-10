@@ -166,7 +166,17 @@ A FabButton is essential to Material Design's overall look. Below showcases its 
 
 A Menu manages a group of UIButtons that may be animated open in the Up, Down, Left, and Right directions. The animations are fully customizable.
 
-![MaterialFabButton](http://www.cosmicmind.io/MK/MaterialMenu.gif)
+Below is an Example using FabButtons.
+
+![MaterialFabButton](http://www.cosmicmind.io/MK/MaterialFabMenu.gif)
+
+Below is an Example using FlatButtons.
+
+![MaterialFabButton](http://www.cosmicmind.io/MK/MaterialFlatMenu.gif)
+
+Below is an Example using FlatButtons with images.
+
+![MaterialFabButton](http://www.cosmicmind.io/MK/MaterialFlashMenu.gif)
 
 [Learn More About Menu](https://github.com/CosmicMind/Material/wiki/Menu)
 
