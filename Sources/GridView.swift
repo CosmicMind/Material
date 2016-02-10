@@ -31,6 +31,7 @@
 import UIKit
 
 public enum Grid : Int {
+	case Grid1 = 1
 	case Grid2 = 2
 	case Grid3 = 3
 	case Grid4 = 4
@@ -49,9 +50,21 @@ public enum GridLayout {
 	case Vertical
 }
 
+public protocol GridCell {
+	/// Grid spacing.
+	var grid: Grid { get set }
+}
+
 public class GridView : MaterialView {
+	/// A single height for all views.
+	public var unifiedHeight: CGFloat = 0 {
+		didSet {
+			reloadLayout()
+		}
+	}
+	
 	/// The grid size.
-	public var grid: Grid {
+	public override var grid: Grid {
 		didSet {
 			reloadLayout()
 		}
@@ -72,7 +85,7 @@ public class GridView : MaterialView {
 	}
 	
 	/// An Array of UIButtons.
-	public var views: Array<UIView>? {
+	public var views: Array<GridCell>? {
 		didSet {
 			reloadLayout()
 		}
@@ -83,15 +96,20 @@ public class GridView : MaterialView {
 	}
 	
 	public required init?(coder aDecoder: NSCoder) {
-		grid = .Grid12
 		spacing = 0
 		super.init(coder: aDecoder)
+		grid = .Grid12
 	}
 
 	public override init(frame: CGRect) {
-		grid = .Grid12
 		spacing = 0
 		super.init(frame: frame)
+		grid = .Grid12
+	}
+	
+	public override func layoutSubviews() {
+		super.layoutSubviews()
+		reloadLayout()
 	}
 	
 	/// Reload the button layout.
@@ -100,12 +118,20 @@ public class GridView : MaterialView {
 			v.removeFromSuperview()
 		}
 		
-		let w: CGFloat = (width - spacing) / CGFloat(grid.rawValue)
-		if let v: Array<UIView> = views {
+		let g: Int = grid.rawValue
+		let w: CGFloat = (width - spacing) / CGFloat(g)
+		if let v: Array<GridCell> = views {
+			var n: Int = 0
 			for var i: Int = 0, l: Int = v.count; i < l; ++i {
-				let view: UIView = v[i]
-				view.frame = CGRectMake(CGFloat(i) * w + spacing, 0, w - spacing, height)
+				let cell: GridCell = v[i]
+				let view: UIView = cell as! UIView
+				let m: Int = cell.grid.rawValue
+				if .Horizontal == layout {
+					view.frame = CGRectMake(CGFloat(i + n) * w + spacing, 0, (w * CGFloat(m)) - spacing, 0 < unifiedHeight ? unifiedHeight : view.intrinsicContentSize().height)
+				}
+				view.removeFromSuperview()
 				addSubview(view)
+				n += m - 1
 			}
 		}
 	}

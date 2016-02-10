@@ -53,6 +53,7 @@ class ViewController: UIViewController {
 	private func prepareHorizontalGridViewExample() {
 		var image: UIImage? = UIImage(named: "ic_flash_auto_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let btn1: FlatButton = FlatButton()
+		btn1.grid = .Grid2
 		btn1.pulseColor = MaterialColor.blueGrey.darken4
 		btn1.tintColor = MaterialColor.blueGrey.darken4
 		btn1.backgroundColor = MaterialColor.grey.lighten3
@@ -61,6 +62,7 @@ class ViewController: UIViewController {
 		
 		image = UIImage(named: "ic_flash_off_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let btn2: FlatButton = FlatButton()
+//		btn2.grid = .Grid3
 		btn2.pulseColor = MaterialColor.blueGrey.darken4
 		btn2.tintColor = MaterialColor.blueGrey.darken4
 		btn2.backgroundColor = MaterialColor.grey.lighten3
@@ -75,21 +77,25 @@ class ViewController: UIViewController {
 		btn3.setImage(image, forState: .Normal)
 		btn3.setImage(image, forState: .Highlighted)
 		
-		let label1: UILabel = UILabel()
+		let label1: MaterialLabel = MaterialLabel()
 		label1.text = "A"
 		label1.backgroundColor = MaterialColor.blue.base
 		
-		let label2: UILabel = UILabel()
+		let label2: MaterialLabel = MaterialLabel()
 		label2.text = "B"
+		label2.grid = .Grid2
 		label2.backgroundColor = MaterialColor.blue.base
 		
-		let gridView: GridView = GridView(frame: CGRectMake(0, 100, view.bounds.width, 40))
+		let gridView: GridView = GridView()
 		gridView.grid = .Grid5
-		gridView.spacing = 16
-		gridView.views = [btn1, btn2, btn3, label1, label2]
-		
+		gridView.spacing = 32
+//		gridView.unifiedHeight = 40
+		gridView.views = [btn1, btn2, label2]
 		
 		view.addSubview(gridView)
+		gridView.translatesAutoresizingMaskIntoConstraints = false
+		MaterialLayout.alignFromTop(view, child: gridView)
+		MaterialLayout.alignToParentHorizontally(view, child: gridView)
 	}
 }
 
