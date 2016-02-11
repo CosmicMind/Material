@@ -55,11 +55,11 @@ class ViewController: UIViewController {
 	private func prepareSmallCardViewExample() {
 		var image: UIImage? = UIImage.imageWithColor(MaterialColor.blueGrey.darken4, size: CGSizeMake(100, 100))
 		let imageView: MaterialView = MaterialView()
-		imageView.column = .Grid3
+		imageView.grid.column = .Grid3
 		imageView.image = image
 		
 		let contentView: MaterialView = MaterialView()
-		contentView.column = .Grid9
+		contentView.grid.column = .Grid9
 //		contentView.backgroundColor = MaterialColor.blue.base
 		
 //		let titleGridView: GridView = GridView()
@@ -120,9 +120,6 @@ class ViewController: UIViewController {
 //		btn3.setImage(image, forState: .Normal)
 //		btn3.setImage(image, forState: .Highlighted)
 		
-		var grid1: Grid = Grid()
-		grid1.size = CGSizeMake(cardView.width, 120)
-		grid1.views = [imageView, contentView]
 		
 //		var grid2: Grid = Grid()
 //		grid2.spacing = 8
@@ -141,7 +138,7 @@ class ViewController: UIViewController {
 //		grid4.size = CGSizeMake(contentView.width - 8, buttonView.height)
 //		grid4.views = [btn1, btn2, btn3]
 		
-		print(imageView.column)
+		print(imageView.grid.column)
 		view.addSubview(cardView)
 		cardView.addSubview(imageView)
 		cardView.addSubview(contentView)
@@ -159,7 +156,7 @@ class ViewController: UIViewController {
 	private func prepareHorizontalGridViewExample() {
 		var image: UIImage? = UIImage(named: "ic_flash_auto_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let btn1: FlatButton = FlatButton()
-		btn1.column = .Grid3
+		btn1.grid.column = .Grid3
 		btn1.pulseColor = MaterialColor.blueGrey.darken4
 		btn1.tintColor = MaterialColor.blueGrey.darken4
 		btn1.backgroundColor = MaterialColor.grey.lighten3
@@ -169,7 +166,7 @@ class ViewController: UIViewController {
 		
 		image = UIImage(named: "ic_flash_off_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let btn2: FlatButton = FlatButton()
-		btn2.column = .Grid3
+		btn2.grid.column = .Grid3
 		btn2.pulseColor = MaterialColor.blueGrey.darken4
 		btn2.tintColor = MaterialColor.blueGrey.darken4
 		btn2.backgroundColor = MaterialColor.grey.lighten3
@@ -179,7 +176,7 @@ class ViewController: UIViewController {
 		
 		image = UIImage(named: "ic_flash_on_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let btn3: FlatButton = FlatButton()
-		btn3.column = .Grid3
+		btn3.grid.column = .Grid3
 		btn3.pulseColor = MaterialColor.blueGrey.darken4
 		btn3.tintColor = MaterialColor.blueGrey.darken4
 		btn3.backgroundColor = MaterialColor.grey.lighten3
@@ -195,10 +192,10 @@ class ViewController: UIViewController {
 		label2.text = "B"
 		label2.backgroundColor = MaterialColor.blue.base
 		
-		view.size = CGSizeMake(view.bounds.width, 40)
-		view.column = .Grid9
-		view.spacing = 16
-		view.views = [btn1, btn2, btn3]
+		view.grid.size = CGSizeMake(view.bounds.width, 40)
+		view.grid.column = .Grid9
+		view.grid.spacing = 16
+		view.grid.views = [btn1, btn2, btn3]
 	}
 //
 //	internal func handleButton() {

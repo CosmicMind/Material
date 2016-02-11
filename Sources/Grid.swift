@@ -30,27 +30,6 @@
 
 import UIKit
 
-import Foundation
-func associatedObject<ValueType: AnyObject>(
-	base: AnyObject,
-	key: UnsafePointer<UInt8>,
-	initialiser: () -> ValueType)
-	-> ValueType {
-		if let associated = objc_getAssociatedObject(base, key)
-			as? ValueType { return associated }
-		let associated = initialiser()
-		objc_setAssociatedObject(base, key, associated,
-			.OBJC_ASSOCIATION_RETAIN)
-		return associated
-}
-func associateObject<ValueType: AnyObject>(
-	base: AnyObject,
-	key: UnsafePointer<UInt8>,
-	value: ValueType) {
-		objc_setAssociatedObject(base, key, value,
-			.OBJC_ASSOCIATION_RETAIN)
-}
-
 public enum GridSize : Int {
 	case Grid1 = 1
 	case Grid2 = 2
@@ -69,64 +48,6 @@ public enum GridSize : Int {
 public enum GridLayout {
 	case Horizontal
 	case Vertical
-}
-
-private var gridKey: UInt8 = 0
-
-public extension UIView {
-	public var grid: Grid {
-		get {
-			return associatedObject(self, key: &gridKey) { return Grid() }
-		}
-		set(value) {
-			associateObject(self, key: &gridKey, value: value)
-		}
-	}
-	
-	public var column: GridSize {
-		get {
-			return grid.column
-		}
-		set(value) {
-			grid.column = value
-		}
-	}
-	
-	public var row: GridSize {
-		get {
-			return grid.row
-		}
-		set(value) {
-			grid.row = value
-		}
-	}
-	
-	public var size: CGSize {
-		get {
-			return grid.size
-		}
-		set(value) {
-			grid.size = value
-		}
-	}
-	
-	public var spacing: CGFloat {
-		get {
-			return grid.spacing
-		}
-		set(value) {
-			grid.spacing = value
-		}
-	}
-	
-	public var views: Array<UIView>? {
-		get {
-			return grid.views
-		}
-		set(value) {
-			grid.views = value
-		}
-	}
 }
 
 public protocol GridCell {
@@ -211,8 +132,8 @@ public class Grid {
 			var m: Int = 0
 			for var i: Int = 0, l: Int = v.count - 1; i <= l; ++i {
 				let view: UIView = v[i]
-				let c: Int = view.column.rawValue
-				let r: Int = view.row.rawValue
+				let c: Int = view.grid.column.rawValue
+				let r: Int = view.grid.row.rawValue
 				if .Horizontal == layout {
 					if 0 == i {
 						view.frame = CGRectMake(CGFloat(i + n) * w + contentInset.left, contentInset.top, (w * CGFloat(c)) - spacing, (0 < size.height ? size.height : view.intrinsicContentSize().height) - contentInset.top - contentInset.bottom)
@@ -233,6 +154,33 @@ public class Grid {
 				n += c - 1
 				m += r - 1
 			}
+		}
+	}
+}
+
+private func associatedObject<ValueType: AnyObject>(base: AnyObject, key: UnsafePointer<UInt8>, initialiser: () -> ValueType) -> ValueType {
+	if let associated = objc_getAssociatedObject(base, key) as? ValueType {
+		return associated
+	}
+	
+	let associated = initialiser()
+	objc_setAssociatedObject(base, key, associated, .OBJC_ASSOCIATION_RETAIN)
+	return associated
+}
+
+private func associateObject<ValueType: AnyObject>(base: AnyObject, key: UnsafePointer<UInt8>, value: ValueType) {
+	objc_setAssociatedObject(base, key, value, .OBJC_ASSOCIATION_RETAIN)
+}
+
+private var gridKey: UInt8 = 0
+
+public extension UIView {
+	public var grid: Grid {
+		get {
+			return associatedObject(self, key: &gridKey) { return Grid() }
+		}
+		set(value) {
+			associateObject(self, key: &gridKey, value: value)
 		}
 	}
 }
