@@ -40,9 +40,9 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		prepareHorizontalGridViewExample()
+//		prepareHorizontalGridViewExample()
 //		prepareVerticalGridViewExample()
-//		prepareSmallCardViewExample()
+		prepareSmallCardViewExample()
 	}
 	
 	
@@ -53,110 +53,87 @@ class ViewController: UIViewController {
 	
 	/// Prepares the small card example.
 	private func prepareSmallCardViewExample() {
-		var image: UIImage? = UIImage.imageWithColor(MaterialColor.blueGrey.darken4, size: CGSizeMake(100, 100))
+		let cardView: MaterialView = MaterialView(frame: CGRectMake(16, 100, view.bounds.width - 32, 200))
+		cardView.depth = .Depth1
+		view.addSubview(cardView)
+		
+		var image: UIImage? = UIImage(named: "CosmicMindInverted")
 		let imageView: MaterialView = MaterialView()
-		imageView.grid.column = .Grid3
+		imageView.grid.column = .Cell4
 		imageView.image = image
+		imageView.contentsGravity = .ResizeAspectFill
+		cardView.addSubview(imageView)
 		
 		let contentView: MaterialView = MaterialView()
-		contentView.grid.column = .Grid9
-//		contentView.backgroundColor = MaterialColor.blue.base
-		
-//		let titleGridView: GridView = GridView()
-//		titleGridView.grid = .Grid9
-//		titleGridView.spacing = 8
-//		titleGridView.unifiedHeight = 40
-		
-//		image = UIImage(named: "ic_more_vert_white")?.imageWithRenderingMode(.AlwaysTemplate)
-//		let moreButton: FlatButton = FlatButton()
-//		moreButton.column = .Grid2
-//		moreButton.contentInsetPreset = .None
-//		moreButton.pulseColor = MaterialColor.blueGrey.darken4
-//		moreButton.tintColor = MaterialColor.blueGrey.darken4
-////		moreButton.backgroundColor = MaterialColor.green.base
-//		moreButton.setImage(image, forState: .Normal)
-//		moreButton.setImage(image, forState: .Highlighted)
-//		
-//		let titleView: MaterialView = MaterialView()
-//		
-//		let titleLabel: MaterialLabel = MaterialLabel()
-//		titleLabel.column = .Grid10
-//		titleLabel.text = "Title"
-//		titleLabel.textColor = MaterialColor.blueGrey.darken4
-////		titleLabel.backgroundColor = MaterialColor.red.base
-//		
-//		let detailLabel: MaterialLabel = MaterialLabel()
-//		detailLabel.column = .Grid12
-//		detailLabel.row = .Grid1
-//		detailLabel.numberOfLines = 0
-//		detailLabel.font = RobotoFont.regularWithSize(12)
-//		detailLabel.text = "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable."
-//		detailLabel.textColor = MaterialColor.blueGrey.darken4
-////		detailLabel.backgroundColor = MaterialColor.purple.base
-//		
-		let cardView: MaterialView = MaterialView(frame: CGRectMake(16, 120, view.bounds.width - 32, 120))
-		cardView.depth = .Depth1
-//
-//		let buttonView: MaterialView = MaterialView()
-//		
-//		image = UIImage(named: "ic_flash_auto_white")?.imageWithRenderingMode(.AlwaysTemplate)
-//		let btn1: FlatButton = FlatButton()
-//		btn1.pulseColor = MaterialColor.blueGrey.darken4
-//		btn1.tintColor = MaterialColor.blueGrey.darken4
-//		btn1.setImage(image, forState: .Normal)
-//		btn1.setImage(image, forState: .Highlighted)
-//		
-//		image = UIImage(named: "ic_flash_off_white")?.imageWithRenderingMode(.AlwaysTemplate)
-//		let btn2: FlatButton = FlatButton()
-//		btn2.pulseColor = MaterialColor.blueGrey.darken4
-//		btn2.tintColor = MaterialColor.blueGrey.darken4
-//		btn2.setImage(image, forState: .Normal)
-//		btn2.setImage(image, forState: .Highlighted)
-//
-//		image = UIImage(named: "ic_flash_on_white")?.imageWithRenderingMode(.AlwaysTemplate)
-//		let btn3: FlatButton = FlatButton()
-//		btn3.pulseColor = MaterialColor.blueGrey.darken4
-//		btn3.tintColor = MaterialColor.blueGrey.darken4
-//		btn3.setImage(image, forState: .Normal)
-//		btn3.setImage(image, forState: .Highlighted)
-		
-		
-//		var grid2: Grid = Grid()
-//		grid2.spacing = 8
-//		grid2.size = CGSizeMake(contentView.width - 8, 40)
-//		grid2.views = [titleLabel, moreButton]
-//		
-//		var grid3: Grid = Grid(row: .Grid3)
-//		grid3.layout = .Vertical
-//		grid3.size = CGSizeMake(contentView.width - 8, contentView.height)
-//		grid3.contentInset.left = 8
-//		grid3.views = [titleView, detailLabel, buttonView]
-//		
-//		var grid4: Grid = Grid()
-//		grid4.column = .Grid3
-//		grid4.spacing = 8
-//		grid4.size = CGSizeMake(contentView.width - 8, buttonView.height)
-//		grid4.views = [btn1, btn2, btn3]
-		
-		print(imageView.grid.column)
-		view.addSubview(cardView)
-		cardView.addSubview(imageView)
+		contentView.grid.column = .Cell8
+		contentView.grid.layout = .Vertical
+		contentView.grid.contentInsetPreset = .Square3
+		contentView.grid.spacing = 16
 		cardView.addSubview(contentView)
-//		contentView.addSubview(titleView)
-//		contentView.addSubview(detailLabel)
-//		contentView.addSubview(buttonView)
-//		titleView.addSubview(titleLabel)
-//		titleView.addSubview(moreButton)
-//		buttonView.addSubview(btn1)
-//		buttonView.addSubview(btn2)
-//		buttonView.addSubview(btn3)
+		
+		let titleView: MaterialView = MaterialView()
+		titleView.grid.column = .Cell8
+		titleView.grid.row = .Cell3
+		contentView.addSubview(titleView)
+		
+		let titleLabel: UILabel = UILabel()
+		titleLabel.grid.column = .Cell7
+		titleLabel.text = "Title"
+		titleLabel.textColor = MaterialColor.blueGrey.darken4
+		titleView.addSubview(titleLabel)
+		
+		image = UIImage(named: "ic_more_vert_white")?.imageWithRenderingMode(.AlwaysTemplate)
+		let moreButton: FlatButton = FlatButton()
+		moreButton.grid.column = .Cell1
+		moreButton.contentInsetPreset = .None
+		moreButton.pulseColor = MaterialColor.blueGrey.darken4
+		moreButton.tintColor = MaterialColor.blueGrey.darken4
+		moreButton.setImage(image, forState: .Normal)
+		moreButton.setImage(image, forState: .Highlighted)
+		titleView.addSubview(moreButton)
+		
+		let detailLabel: MaterialLabel = MaterialLabel()
+		detailLabel.grid.row = .Cell6
+		detailLabel.numberOfLines = 0
+		detailLabel.lineBreakMode = .ByTruncatingTail
+		detailLabel.font = RobotoFont.regularWithSize(12)
+		detailLabel.text = "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable."
+		detailLabel.textColor = MaterialColor.blueGrey.darken4
+		contentView.addSubview(detailLabel)
+
+		let alarmView: MaterialView = MaterialView()
+		alarmView.grid.column = .Cell8
+		alarmView.grid.row = .Cell3
+		contentView.addSubview(alarmView)
+		
+		let alarmLabel: UILabel = UILabel()
+		alarmLabel.grid.column = .Cell7
+		alarmLabel.font = RobotoFont.regularWithSize(12)
+		alarmLabel.text = "alarm set for 2:30 pm"
+		alarmLabel.textColor = MaterialColor.blueGrey.darken4
+		alarmView.addSubview(alarmLabel)
+		
+		image = UIImage(named: "ic_alarm_white")?.imageWithRenderingMode(.AlwaysTemplate)
+		let alarmButton: FlatButton = FlatButton()
+		alarmButton.grid.column = .Cell1
+		alarmButton.contentInsetPreset = .None
+		alarmButton.pulseColor = MaterialColor.blueGrey.darken4
+		alarmButton.tintColor = MaterialColor.blueGrey.darken4
+		alarmButton.setImage(image, forState: .Normal)
+		alarmButton.setImage(image, forState: .Highlighted)
+		alarmView.addSubview(alarmButton)
+		
+		cardView.grid.views = [imageView, contentView]
+		contentView.grid.views = [titleView, detailLabel, alarmView]
+		titleView.grid.views = [titleLabel, moreButton]
+		alarmView.grid.views = [alarmLabel, alarmButton]
 	}
 	
 	/// Prepares the Horizontal GridView example.
 	private func prepareHorizontalGridViewExample() {
 		var image: UIImage? = UIImage(named: "ic_flash_auto_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let btn1: FlatButton = FlatButton()
-		btn1.grid.column = .Grid3
+		btn1.grid.column = .Cell3
 		btn1.pulseColor = MaterialColor.blueGrey.darken4
 		btn1.tintColor = MaterialColor.blueGrey.darken4
 		btn1.backgroundColor = MaterialColor.grey.lighten3
@@ -166,7 +143,7 @@ class ViewController: UIViewController {
 		
 		image = UIImage(named: "ic_flash_off_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let btn2: FlatButton = FlatButton()
-		btn2.grid.column = .Grid3
+		btn2.grid.column = .Cell3
 		btn2.pulseColor = MaterialColor.blueGrey.darken4
 		btn2.tintColor = MaterialColor.blueGrey.darken4
 		btn2.backgroundColor = MaterialColor.grey.lighten3
@@ -176,7 +153,7 @@ class ViewController: UIViewController {
 		
 		image = UIImage(named: "ic_flash_on_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let btn3: FlatButton = FlatButton()
-		btn3.grid.column = .Grid3
+		btn3.grid.column = .Cell3
 		btn3.pulseColor = MaterialColor.blueGrey.darken4
 		btn3.tintColor = MaterialColor.blueGrey.darken4
 		btn3.backgroundColor = MaterialColor.grey.lighten3
@@ -192,67 +169,75 @@ class ViewController: UIViewController {
 		label2.text = "B"
 		label2.backgroundColor = MaterialColor.blue.base
 		
-		view.grid.size = CGSizeMake(view.bounds.width, 40)
-		view.grid.column = .Grid9
+		view.grid.column = .Cell9
 		view.grid.spacing = 16
+		view.grid.contentInset.left = 16
+		view.grid.contentInset.right = 16
+		view.grid.contentInset.top = 100
+		view.grid.contentInset.bottom = 100
 		view.grid.views = [btn1, btn2, btn3]
+		
+		for v in view.grid.views! {
+			print(v.frame)
+		}
 	}
-//
-//	internal func handleButton() {
-//		print("Clicked Button")
-//	}
-//	
-//	/// Prepares the Vertical GridView example.
-//	private func prepareVerticalGridViewExample() {
-//		var image: UIImage? = UIImage(named: "ic_flash_auto_white")?.imageWithRenderingMode(.AlwaysTemplate)
-//		let btn1: FlatButton = FlatButton()
-////		btn1.grid = .Grid2
-//		btn1.pulseColor = MaterialColor.blueGrey.darken4
-//		btn1.tintColor = MaterialColor.blueGrey.darken4
-//		btn1.backgroundColor = MaterialColor.grey.lighten3
-//		btn1.setImage(image, forState: .Normal)
-//		btn1.setImage(image, forState: .Highlighted)
-//		btn1.addTarget(self, action: "handleButton", forControlEvents: .TouchUpInside)
-//		
-//		image = UIImage(named: "ic_flash_off_white")?.imageWithRenderingMode(.AlwaysTemplate)
-//		let btn2: FlatButton = FlatButton()
-//		//		btn2.grid = .Grid3
-//		btn2.pulseColor = MaterialColor.blueGrey.darken4
-//		btn2.tintColor = MaterialColor.blueGrey.darken4
-//		btn2.backgroundColor = MaterialColor.grey.lighten3
-//		btn2.setImage(image, forState: .Normal)
-//		btn2.setImage(image, forState: .Highlighted)
-//		
-//		image = UIImage(named: "ic_flash_on_white")?.imageWithRenderingMode(.AlwaysTemplate)
-//		let btn3: FlatButton = FlatButton()
-//		btn3.pulseColor = MaterialColor.blueGrey.darken4
-//		btn3.tintColor = MaterialColor.blueGrey.darken4
-//		btn3.backgroundColor = MaterialColor.grey.lighten3
-//		btn3.setImage(image, forState: .Normal)
-//		btn3.setImage(image, forState: .Highlighted)
-//		
-//		let label1: MaterialLabel = MaterialLabel()
-//		label1.text = "A"
-//		label1.backgroundColor = MaterialColor.blue.base
-//		
-//		let label2: MaterialLabel = MaterialLabel()
-//		label2.text = "B"
-////		label2.grid = .Grid2
-//		label2.backgroundColor = MaterialColor.blue.base
-//		
-//		let gridView: GridView = GridView()
-////		let gridView: GridView = GridView(frame: CGRectMake(0, 100, view.bounds.width, 100))
-//		gridView.grid = .Grid12
-//		gridView.layout = .Vertical
-////		gridView.spacing = 32
-////		gridView.unifiedHeight = 40
-//		gridView.views = [btn1, btn2, label2]
-//		
-//		view.addSubview(gridView)
-//		gridView.translatesAutoresizingMaskIntoConstraints = false
-//		MaterialLayout.alignFromTop(view, child: gridView, top: 100)
-//		MaterialLayout.alignToParentHorizontally(view, child: gridView)
-//		MaterialLayout.height(view, child: gridView, height: view.bounds.height - 100)
-//	}
+
+	internal func handleButton() {
+		print("Clicked Button")
+	}
+	
+	/// Prepares the Vertical GridView example.
+	private func prepareVerticalGridViewExample() {
+		var image: UIImage? = UIImage(named: "ic_flash_auto_white")?.imageWithRenderingMode(.AlwaysTemplate)
+		let btn1: FlatButton = FlatButton()
+		btn1.grid.row = .Cell3
+		btn1.pulseColor = MaterialColor.blueGrey.darken4
+		btn1.tintColor = MaterialColor.blueGrey.darken4
+		btn1.backgroundColor = MaterialColor.grey.lighten3
+		btn1.setImage(image, forState: .Normal)
+		btn1.setImage(image, forState: .Highlighted)
+		view.addSubview(btn1)
+		
+		image = UIImage(named: "ic_flash_off_white")?.imageWithRenderingMode(.AlwaysTemplate)
+		let btn2: FlatButton = FlatButton()
+		btn2.grid.row = .Cell3
+		btn2.pulseColor = MaterialColor.blueGrey.darken4
+		btn2.tintColor = MaterialColor.blueGrey.darken4
+		btn2.backgroundColor = MaterialColor.grey.lighten3
+		btn2.setImage(image, forState: .Normal)
+		btn2.setImage(image, forState: .Highlighted)
+		view.addSubview(btn2)
+		
+		image = UIImage(named: "ic_flash_on_white")?.imageWithRenderingMode(.AlwaysTemplate)
+		let btn3: FlatButton = FlatButton()
+		btn3.grid.row = .Cell3
+		btn3.pulseColor = MaterialColor.blueGrey.darken4
+		btn3.tintColor = MaterialColor.blueGrey.darken4
+		btn3.backgroundColor = MaterialColor.grey.lighten3
+		btn3.setImage(image, forState: .Normal)
+		btn3.setImage(image, forState: .Highlighted)
+		view.addSubview(btn3)
+		
+		let label1: MaterialLabel = MaterialLabel()
+		label1.text = "A"
+		label1.backgroundColor = MaterialColor.blue.base
+		
+		let label2: MaterialLabel = MaterialLabel()
+		label2.text = "B"
+		label2.backgroundColor = MaterialColor.blue.base
+		
+		view.grid.layout = .Vertical
+		view.grid.row = .Cell9
+		view.grid.spacing = 16
+		view.grid.contentInset.left = 16
+		view.grid.contentInset.right = 16
+		view.grid.contentInset.top = 100
+		view.grid.contentInset.bottom = 100
+		view.grid.views = [btn1, btn2, btn3]
+		
+		for v in view.grid.views! {
+			print(v.frame)
+		}
+	}
 }
 

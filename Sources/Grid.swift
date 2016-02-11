@@ -30,19 +30,19 @@
 
 import UIKit
 
-public enum GridSize : Int {
-	case Grid1 = 1
-	case Grid2 = 2
-	case Grid3 = 3
-	case Grid4 = 4
-	case Grid5 = 5
-	case Grid6 = 6
-	case Grid7 = 7
-	case Grid8 = 8
-	case Grid9 = 9
-	case Grid10 = 10
-	case Grid11 = 11
-	case Grid12 = 12
+public enum Cell : Int {
+	case Cell1 = 1
+	case Cell2 = 2
+	case Cell3 = 3
+	case Cell4 = 4
+	case Cell5 = 5
+	case Cell6 = 6
+	case Cell7 = 7
+	case Cell8 = 8
+	case Cell9 = 9
+	case Cell10 = 10
+	case Cell11 = 11
+	case Cell12 = 12
 }
 
 public enum GridLayout {
@@ -52,29 +52,22 @@ public enum GridLayout {
 
 public protocol GridCell {
 	/// Grid column size.
-	var column: GridSize { get set }
+	var column: Cell { get set }
 	
 	/// Grid row size.
-	var row: GridSize { get set }
+	var row: Cell { get set }
 }
 
 public class Grid {
-	/// The size of the grid.
-	public var size: CGSize = CGSizeZero {
+	/// The row size.
+	public var row: Cell {
 		didSet {
 			reloadLayout()
 		}
 	}
 	
 	/// The column size.
-	public var column: GridSize {
-		didSet {
-			reloadLayout()
-		}
-	}
-	
-	/// The row size.
-	public var row: GridSize {
+	public var column: Cell {
 		didSet {
 			reloadLayout()
 		}
@@ -115,7 +108,7 @@ public class Grid {
 		}
 	}
 	
-	public init(row: GridSize = .Grid12, column: GridSize = .Grid12, spacing: CGFloat = 0) {
+	public init(row: Cell = .Cell12, column: Cell = .Cell12, spacing: CGFloat = 0) {
 		self.row = row
 		self.column = column
 		self.spacing = spacing
@@ -123,36 +116,55 @@ public class Grid {
 	
 	/// Reload the button layout.
 	public func reloadLayout() {
-		let gc: Int = column.rawValue
-		let gr: Int = row.rawValue
-		let w: CGFloat = (size.width - contentInset.left - contentInset.right) / CGFloat(gc)
-		let h: CGFloat = (size.height - contentInset.top - contentInset.bottom - spacing) / CGFloat(gr)
 		if let v: Array<UIView> = views {
 			var n: Int = 0
 			var m: Int = 0
 			for var i: Int = 0, l: Int = v.count - 1; i <= l; ++i {
 				let view: UIView = v[i]
-				let c: Int = view.grid.column.rawValue
-				let r: Int = view.grid.row.rawValue
-				if .Horizontal == layout {
-					if 0 == i {
-						view.frame = CGRectMake(CGFloat(i + n) * w + contentInset.left, contentInset.top, (w * CGFloat(c)) - spacing, (0 < size.height ? size.height : view.intrinsicContentSize().height) - contentInset.top - contentInset.bottom)
-					} else if l == i {
-						view.frame = CGRectMake(CGFloat(i + n) * w + contentInset.left + spacing, contentInset.top, (w * CGFloat(c)) - spacing, (0 < size.height ? size.height : view.intrinsicContentSize().height) - contentInset.top - contentInset.bottom)
-					} else {
-						view.frame = CGRectMake(CGFloat(i + n) * w + contentInset.right, contentInset.top, (w * CGFloat(c)) - spacing, (0 < size.height ? size.height : view.intrinsicContentSize().height) - contentInset.top - contentInset.bottom)
+				if let sv: UIView = view.superview {
+					let w: CGFloat = (sv.bounds.width - contentInset.left - contentInset.right + spacing) / CGFloat(column.rawValue)
+					let h: CGFloat = (sv.bounds.height - contentInset.top - contentInset.bottom + spacing) / CGFloat(row.rawValue)
+					let c: Int = view.grid.column.rawValue
+					let r: Int = view.grid.row.rawValue
+					if .Horizontal == layout {
+						
+						// View height.
+						let vh: CGFloat = sv.bounds.height - contentInset.top - contentInset.bottom
+						
+						// View left.
+						let vl: CGFloat = CGFloat(i + n) * w + contentInset.left
+						
+						// View width.
+						let vw: CGFloat = (w * CGFloat(c)) - spacing
+						
+						if 0 == i {
+							view.frame = CGRectMake(vl, contentInset.top, vw, vh)
+						} else if l == i {
+							view.frame = CGRectMake(vl, contentInset.top, vw, vh)
+						} else {
+							view.frame = CGRectMake(vl, contentInset.top, vw, vh)
+						}
+					} else if .Vertical == layout {
+						// View width.
+						let vw: CGFloat = sv.bounds.width - contentInset.left - contentInset.right
+						
+						// View top.
+						let vt: CGFloat = CGFloat(i + m) * h + contentInset.top
+						
+						// View height.
+						let vh: CGFloat = (h * CGFloat(r)) - spacing
+						
+						if 0 == i {
+							view.frame = CGRectMake(contentInset.left, vt, vw, vh)
+						} else if l == i {
+							view.frame = CGRectMake(contentInset.left, vt, vw, vh)
+						} else {
+							view.frame = CGRectMake(contentInset.left, vt, vw, vh)
+						}
 					}
-				} else {
-					if 0 == i {
-						view.frame = CGRectMake(contentInset.left, CGFloat(i + m) * h + contentInset.top + spacing, (0 < size.width ? size.width : view.intrinsicContentSize().width) - contentInset.left - contentInset.right, (h * CGFloat(r)) - spacing)
-					} else if l == i {
-						view.frame = CGRectMake(contentInset.left, CGFloat(i + m) * h + contentInset.top + spacing, (0 < size.width ? size.width : view.intrinsicContentSize().width) - contentInset.left - contentInset.right, (h * CGFloat(r)) - spacing)
-					} else {
-						view.frame = CGRectMake(contentInset.left, CGFloat(i + m) * h + contentInset.top + spacing, (0 < size.width ? size.width : view.intrinsicContentSize().width) - contentInset.left - contentInset.right, (h * CGFloat(r)) - spacing)
-					}
+					n += c - 1
+					m += r - 1
 				}
-				n += c - 1
-				m += r - 1
 			}
 		}
 	}
