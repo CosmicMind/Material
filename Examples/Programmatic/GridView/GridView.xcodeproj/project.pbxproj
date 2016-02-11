@@ -11,8 +11,6 @@
 		965C58CF1C6B936400CFB4E1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965C58CE1C6B936400CFB4E1 /* ViewController.swift */; };
 		965C58D41C6B936400CFB4E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 965C58D31C6B936400CFB4E1 /* Assets.xcassets */; };
 		965C58D71C6B936400CFB4E1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 965C58D51C6B936400CFB4E1 /* LaunchScreen.storyboard */; };
-		965C58DF1C6B949A00CFB4E1 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 965C58DE1C6B949A00CFB4E1 /* Material.framework */; };
-		965C58E01C6B949A00CFB4E1 /* Material.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 965C58DE1C6B949A00CFB4E1 /* Material.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -22,7 +20,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				965C58E01C6B949A00CFB4E1 /* Material.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -36,7 +33,6 @@
 		965C58D31C6B936400CFB4E1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		965C58D61C6B936400CFB4E1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		965C58D81C6B936400CFB4E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		965C58DE1C6B949A00CFB4E1 /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = Material.framework; path = "/Users/danieldahan/Library/Developer/Xcode/DerivedData/Material-hbpnflxhoouqxebjcyhbbhqyesjd/Build/Products/Debug-iphoneos/Material.framework"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,7 +40,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				965C58DF1C6B949A00CFB4E1 /* Material.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,7 +49,6 @@
 		965C58C01C6B936400CFB4E1 = {
 			isa = PBXGroup;
 			children = (
-				965C58DE1C6B949A00CFB4E1 /* Material.framework */,
 				965C58CB1C6B936400CFB4E1 /* GridView */,
 				965C58CA1C6B936400CFB4E1 /* Products */,
 			);
