@@ -60,7 +60,7 @@ public enum GridColumn : Int {
 	case Column12 = 12
 }
 
-public enum GridLayout {
+public enum GridAxis {
 	case Horizontal
 	case Vertical
 }
@@ -115,8 +115,8 @@ public class Grid {
 		}
 	}
 	
-	/// The direction in which the animation opens the menu.
-	public var layout: GridLayout = .Horizontal {
+	/// The axis in which the Grid is laying out its views.
+	public var axis: GridAxis = .Horizontal {
 		didSet {
 			reloadLayout()
 		}
@@ -149,7 +149,7 @@ public class Grid {
 					let r: Int = view.grid.row.rawValue
 					let co: Int = nil == view.grid.columnOffset ? 0 : view.grid.columnOffset!.rawValue
 					let ro: Int = nil == view.grid.rowOffset ? 0 : view.grid.rowOffset!.rawValue
-					if .Horizontal == layout {
+					if .Horizontal == axis {
 						
 						// View height.
 						let vh: CGFloat = sv.bounds.height - contentInset.top - contentInset.bottom
@@ -167,7 +167,7 @@ public class Grid {
 						} else {
 							view.frame = CGRectMake(vl, contentInset.top, vw, vh)
 						}
-					} else if .Vertical == layout {
+					} else if .Vertical == axis {
 						// View width.
 						let vw: CGFloat = sv.bounds.width - contentInset.left - contentInset.right
 						

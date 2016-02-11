@@ -67,7 +67,7 @@ class ViewController: UIViewController {
 		
 		let contentView: MaterialView = MaterialView()
 		contentView.grid.column = .Column8
-		contentView.grid.layout = .Vertical
+		contentView.grid.axis = .Vertical
 		contentView.grid.contentInsetPreset = .Square3
 		contentView.grid.spacing = 16
 		contentView.backgroundColor = MaterialColor.clear
@@ -233,7 +233,7 @@ class ViewController: UIViewController {
 		label2.text = "B"
 		label2.backgroundColor = MaterialColor.blue.base
 		
-		view.grid.layout = .Vertical
+		view.grid.axis = .Vertical
 		view.grid.row = .Row9
 		view.grid.spacing = 16
 		view.grid.contentInset.left = 16
