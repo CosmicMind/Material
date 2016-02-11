@@ -221,13 +221,13 @@ Gets the Obj-C reference for the Grid object within the UIView extension.
 - Returns: The associated reference for the initializer object.
 */
 private func GridAssociatedObject<T: AnyObject>(base: AnyObject, key: UnsafePointer<UInt8>, initializer: () -> T) -> T {
-	if let associated: T = objc_getAssociatedObject(base, key) as? T {
-		return associated
+	if let v: T = objc_getAssociatedObject(base, key) as? T {
+		return v
 	}
 	
-	let associated = initializer()
-	objc_setAssociatedObject(base, key, associated, .OBJC_ASSOCIATION_RETAIN)
-	return associated
+	let v: T = initializer()
+	objc_setAssociatedObject(base, key, v, .OBJC_ASSOCIATION_RETAIN)
+	return v
 }
 
 /**
