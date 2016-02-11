@@ -2,19 +2,19 @@
 
 # Welcome to Material
 
-Material is a graphics and animation framework. It may be used for Google's Material Design and Apple's Flat UI. It is designed to allow the creativity of others to easily be expressed.
+Material is an animation and graphics framework. It may be used for Google's Material Design and Apple's Flat UI. Material allows the creativity of others to easily be expressed.
 
 ## Features
 
 - [x] Fully Configurable UI Components
 - [x] Grid System For Complex UIs
+- [x] Layout Library To Simplify AutoLayout
 - [x] Base Material Layers & Material Views To Create New UI Components
 - [x] Side Navigation View Controller
 - [x] Navigation Bar View
 - [x] Material Buttons
 - [x] Material Card Views
 - [x] Camera / Video Extension With Extensive Functionality
-- [x] Layout Library To Simplify AutoLayout
 - [x] Animation Extension To Create Intricate Animations
 - [x] Complete Material Color Library
 - [x] Example Projects

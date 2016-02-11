@@ -40,11 +40,11 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-//		prepareHorizontalGridViewExample()
+		prepareHorizontalGridViewExample()
 //		prepareVerticalGridViewExample()
 //		prepareSmallCardViewExample()
 //		prepareMediumCardViewExample()
-		prepareLargeCardViewExample()
+//		prepareLargeCardViewExample()
 	}
 	
 	
@@ -77,7 +77,7 @@ class ViewController: UIViewController {
 		
 		image = UIImage(named: "ic_flash_on_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let btn3: FlatButton = FlatButton()
-		btn3.grid.columns = 4
+		btn3.grid.columns = 3
 		btn3.pulseColor = MaterialColor.blueGrey.darken4
 		btn3.tintColor = MaterialColor.blueGrey.darken4
 		btn3.backgroundColor = MaterialColor.grey.lighten3
@@ -85,7 +85,7 @@ class ViewController: UIViewController {
 		btn3.setImage(image, forState: .Highlighted)
 		view.addSubview(btn3)
 		
-		//		view.grid.columns = 9
+		view.grid.columns = 9
 		view.grid.spacing = 16
 		view.grid.contentInset.left = 16
 		view.grid.contentInset.right = 16
