@@ -57,57 +57,57 @@ class ViewController: UIViewController {
 	private func prepareLargeCardViewExample() {
 		let cardView: MaterialPulseView = MaterialPulseView(frame: CGRectMake(16, 100, view.bounds.width - 32, 350))
 		cardView.pulseColor = MaterialColor.blueGrey.lighten5
-		cardView.grid.axis = .Vertical
+		cardView.grid.axis.direction = .Vertical
 		cardView.depth = .Depth1
 		view.addSubview(cardView)
 		
 		let imageView: MaterialView = MaterialView()
-		imageView.grid.row = .Row7
-		imageView.grid.column = .Column6
+		imageView.grid.rows = 7
+		imageView.grid.columns = 6
 		imageView.grid.spacing = 4
 		cardView.addSubview(imageView)
 		
 		var image: UIImage? = UIImage(named: "CosmicMindInverted")
 		let leftImageViewCollection: MaterialView = MaterialView()
-		leftImageViewCollection.grid.column = .Column3
+		leftImageViewCollection.grid.columns = 3
 		leftImageViewCollection.image = image
 		leftImageViewCollection.contentsGravity = .ResizeAspectFill
 		imageView.addSubview(leftImageViewCollection)
 		
 		let rightImageViewCollection: MaterialView = MaterialView()
-		rightImageViewCollection.grid.column = .Column3
-		rightImageViewCollection.grid.axis = .Vertical
+		rightImageViewCollection.grid.columns = 3
+		rightImageViewCollection.grid.axis.direction = .Vertical
 		rightImageViewCollection.grid.spacing = 4
 		imageView.addSubview(rightImageViewCollection)
 		
 		image = UIImage(named: "CosmicMindInverted")
 		let topImageViewCollection: MaterialView = MaterialView()
-		topImageViewCollection.grid.row = .Row6
+		topImageViewCollection.grid.rows = 6
 		topImageViewCollection.image = image
 		topImageViewCollection.contentsGravity = .ResizeAspectFill
 		rightImageViewCollection.addSubview(topImageViewCollection)
 		
 		image = UIImage(named: "CosmicMindInverted")
 		let bottomImageViewCollection: MaterialView = MaterialView()
-		bottomImageViewCollection.grid.row = .Row6
+		bottomImageViewCollection.grid.rows = 6
 		bottomImageViewCollection.image = image
 		bottomImageViewCollection.contentsGravity = .ResizeAspectFill
 		rightImageViewCollection.addSubview(bottomImageViewCollection)
 		
 		let contentView: MaterialView = MaterialView()
-		contentView.grid.row = .Row5
-		contentView.grid.axis = .Vertical
+		contentView.grid.rows = 5
+		contentView.grid.axis.direction = .Vertical
 		contentView.grid.contentInsetPreset = .Square3
 		contentView.backgroundColor = MaterialColor.clear
 		cardView.addSubview(contentView)
 		
 		let titleView: MaterialView = MaterialView()
-		titleView.grid.row = .Row1
+		titleView.grid.rows = 1
 		titleView.backgroundColor = MaterialColor.clear
 		contentView.addSubview(titleView)
 		
 		let titleLabel: UILabel = UILabel()
-		titleLabel.grid.column = .Column7
+		titleLabel.grid.columns = 7
 		titleLabel.text = "Material"
 		titleLabel.textColor = MaterialColor.blueGrey.darken4
 		titleLabel.backgroundColor = MaterialColor.clear
@@ -115,8 +115,8 @@ class ViewController: UIViewController {
 		
 		image = UIImage(named: "ic_more_vert_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let moreButton: FlatButton = FlatButton()
-		moreButton.grid.column = .Column1
-		moreButton.grid.columnOffset = .Column4
+		moreButton.grid.columns = 1
+		moreButton.grid.offset.columns = 4
 		moreButton.contentInsetPreset = .None
 		moreButton.pulseColor = MaterialColor.blueGrey.darken4
 		moreButton.tintColor = MaterialColor.blueGrey.darken4
@@ -125,7 +125,7 @@ class ViewController: UIViewController {
 		titleView.addSubview(moreButton)
 		
 		let detailLabel: UILabel = UILabel()
-		detailLabel.grid.row = .Row3
+		detailLabel.grid.rows = 3
 		detailLabel.numberOfLines = 0
 		detailLabel.lineBreakMode = .ByTruncatingTail
 		detailLabel.font = RobotoFont.regularWithSize(12)
@@ -135,12 +135,12 @@ class ViewController: UIViewController {
 		contentView.addSubview(detailLabel)
 		
 		let alarmView: MaterialView = MaterialView()
-		alarmView.grid.row = .Row1
+		alarmView.grid.rows = 1
 		alarmView.backgroundColor = MaterialColor.clear
 		contentView.addSubview(alarmView)
 		
 		let alarmLabel: UILabel = UILabel()
-		alarmLabel.grid.column = .Column7
+		alarmLabel.grid.columns = 7
 		alarmLabel.font = RobotoFont.regularWithSize(12)
 		alarmLabel.text = "34 min"
 		alarmLabel.textColor = MaterialColor.blueGrey.darken4
@@ -149,8 +149,8 @@ class ViewController: UIViewController {
 		
 		image = UIImage(named: "ic_alarm_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let alarmButton: FlatButton = FlatButton()
-		alarmButton.grid.column = .Column1
-		alarmButton.grid.columnOffset = .Column4
+		alarmButton.grid.columns = 1
+		alarmButton.grid.offset.columns = 4
 		alarmButton.contentInsetPreset = .None
 		alarmButton.pulseColor = MaterialColor.blueGrey.darken4
 		alarmButton.tintColor = MaterialColor.red.base
@@ -175,27 +175,27 @@ class ViewController: UIViewController {
 		
 		var image: UIImage? = UIImage(named: "CosmicMindInverted")
 		let imageView: MaterialView = MaterialView()
-		imageView.grid.column = .Column6
+		imageView.grid.columns = 6
 		imageView.image = image
 		imageView.contentsGravity = .ResizeAspectFill
 		cardView.addSubview(imageView)
 		
 		let contentView: MaterialView = MaterialView()
-		contentView.grid.column = .Column6
-		contentView.grid.axis = .Vertical
+		contentView.grid.columns = 6
+		contentView.grid.axis.direction = .Vertical
 		contentView.grid.contentInsetPreset = .Square3
 		contentView.grid.spacing = 8
 		contentView.backgroundColor = MaterialColor.clear
 		cardView.addSubview(contentView)
 		
 		let titleView: MaterialView = MaterialView()
-		titleView.grid.column = .Column6
-		titleView.grid.row = .Row2
+		titleView.grid.columns = 6
+		titleView.grid.rows = 2
 		titleView.backgroundColor = MaterialColor.clear
 		contentView.addSubview(titleView)
 		
 		let titleLabel: UILabel = UILabel()
-		titleLabel.grid.column = .Column5
+		titleLabel.grid.columns = 5
 		titleLabel.text = "Material"
 		titleLabel.textColor = MaterialColor.blueGrey.darken4
 		titleLabel.backgroundColor = MaterialColor.clear
@@ -203,7 +203,7 @@ class ViewController: UIViewController {
 		
 		image = UIImage(named: "ic_more_vert_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let moreButton: FlatButton = FlatButton()
-		moreButton.grid.column = .Column1
+		moreButton.grid.columns = 1
 		moreButton.contentInsetPreset = .None
 		moreButton.pulseColor = MaterialColor.blueGrey.darken4
 		moreButton.tintColor = MaterialColor.blueGrey.darken4
@@ -212,7 +212,7 @@ class ViewController: UIViewController {
 		titleView.addSubview(moreButton)
 		
 		let detailLabel: UILabel = UILabel()
-		detailLabel.grid.row = .Row8
+		detailLabel.grid.rows = 8
 		detailLabel.numberOfLines = 0
 		detailLabel.lineBreakMode = .ByTruncatingTail
 		detailLabel.font = RobotoFont.regularWithSize(12)
@@ -222,13 +222,13 @@ class ViewController: UIViewController {
 		contentView.addSubview(detailLabel)
 		
 		let alarmView: MaterialView = MaterialView()
-		alarmView.grid.column = .Column6
-		alarmView.grid.row = .Row2
+		alarmView.grid.columns = 6
+		alarmView.grid.rows = 2
 		alarmView.backgroundColor = MaterialColor.clear
 		contentView.addSubview(alarmView)
 		
 		let alarmLabel: UILabel = UILabel()
-		alarmLabel.grid.column = .Column5
+		alarmLabel.grid.columns = 5
 		alarmLabel.font = RobotoFont.regularWithSize(12)
 		alarmLabel.text = "34 min"
 		alarmLabel.textColor = MaterialColor.blueGrey.darken4
@@ -237,7 +237,7 @@ class ViewController: UIViewController {
 		
 		image = UIImage(named: "ic_alarm_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let alarmButton: FlatButton = FlatButton()
-		alarmButton.grid.column = .Column1
+		alarmButton.grid.columns = 1
 		alarmButton.contentInsetPreset = .None
 		alarmButton.pulseColor = MaterialColor.blueGrey.darken4
 		alarmButton.tintColor = MaterialColor.red.base
@@ -260,27 +260,27 @@ class ViewController: UIViewController {
 		
 		var image: UIImage? = UIImage(named: "CosmicMindInverted")
 		let imageView: MaterialView = MaterialView()
-		imageView.grid.column = .Column4
+		imageView.grid.columns = 4
 		imageView.image = image
 		imageView.contentsGravity = .ResizeAspectFill
 		cardView.addSubview(imageView)
 		
 		let contentView: MaterialView = MaterialView()
-		contentView.grid.column = .Column8
-		contentView.grid.axis = .Vertical
+		contentView.grid.columns = 8
+		contentView.grid.axis.direction = .Vertical
 		contentView.grid.contentInsetPreset = .Square3
 		contentView.grid.spacing = 12
 		contentView.backgroundColor = MaterialColor.clear
 		cardView.addSubview(contentView)
 		
 		let titleView: MaterialView = MaterialView()
-		titleView.grid.column = .Column8
-		titleView.grid.row = .Row4
+		titleView.grid.columns = 8
+		titleView.grid.rows = 4
 		titleView.backgroundColor = MaterialColor.clear
 		contentView.addSubview(titleView)
 		
 		let titleLabel: UILabel = UILabel()
-		titleLabel.grid.column = .Column7
+		titleLabel.grid.columns = 7
 		titleLabel.text = "Material"
 		titleLabel.textColor = MaterialColor.blueGrey.darken4
 		titleLabel.backgroundColor = MaterialColor.clear
@@ -288,7 +288,7 @@ class ViewController: UIViewController {
 		
 		image = UIImage(named: "ic_more_vert_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let moreButton: FlatButton = FlatButton()
-		moreButton.grid.column = .Column1
+		moreButton.grid.columns = 1
 		moreButton.contentInsetPreset = .None
 		moreButton.pulseColor = MaterialColor.blueGrey.darken4
 		moreButton.tintColor = MaterialColor.blueGrey.darken4
@@ -297,7 +297,7 @@ class ViewController: UIViewController {
 		titleView.addSubview(moreButton)
 		
 		let detailLabel: UILabel = UILabel()
-		detailLabel.grid.row = .Row4
+		detailLabel.grid.rows = 4
 		detailLabel.numberOfLines = 0
 		detailLabel.lineBreakMode = .ByTruncatingTail
 		detailLabel.font = RobotoFont.regularWithSize(12)
@@ -307,13 +307,13 @@ class ViewController: UIViewController {
 		contentView.addSubview(detailLabel)
 		
 		let alarmView: MaterialView = MaterialView()
-		alarmView.grid.column = .Column8
-		alarmView.grid.row = .Row4
+		alarmView.grid.columns = 8
+		alarmView.grid.rows = 4
 		alarmView.backgroundColor = MaterialColor.clear
 		contentView.addSubview(alarmView)
 		
 		let alarmLabel: UILabel = UILabel()
-		alarmLabel.grid.column = .Column7
+		alarmLabel.grid.columns = 7
 		alarmLabel.font = RobotoFont.regularWithSize(12)
 		alarmLabel.text = "34 min"
 		alarmLabel.textColor = MaterialColor.blueGrey.darken4
@@ -322,7 +322,7 @@ class ViewController: UIViewController {
 		
 		image = UIImage(named: "ic_alarm_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let alarmButton: FlatButton = FlatButton()
-		alarmButton.grid.column = .Column1
+		alarmButton.grid.columns = 1
 		alarmButton.contentInsetPreset = .None
 		alarmButton.pulseColor = MaterialColor.blueGrey.darken4
 		alarmButton.tintColor = MaterialColor.red.base
@@ -340,7 +340,7 @@ class ViewController: UIViewController {
 	private func prepareHorizontalGridViewExample() {
 		var image: UIImage? = UIImage(named: "ic_flash_auto_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let btn1: FlatButton = FlatButton()
-		btn1.grid.column = .Column3
+		btn1.grid.columns = 3
 		btn1.pulseColor = MaterialColor.blueGrey.darken4
 		btn1.tintColor = MaterialColor.blueGrey.darken4
 		btn1.backgroundColor = MaterialColor.grey.lighten3
@@ -350,7 +350,7 @@ class ViewController: UIViewController {
 		
 		image = UIImage(named: "ic_flash_off_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let btn2: FlatButton = FlatButton()
-		btn2.grid.column = .Column3
+		btn2.grid.columns = 3
 		btn2.pulseColor = MaterialColor.blueGrey.darken4
 		btn2.tintColor = MaterialColor.blueGrey.darken4
 		btn2.backgroundColor = MaterialColor.grey.lighten3
@@ -360,7 +360,7 @@ class ViewController: UIViewController {
 		
 		image = UIImage(named: "ic_flash_on_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let btn3: FlatButton = FlatButton()
-		btn3.grid.column = .Column3
+		btn3.grid.columns = 4
 		btn3.pulseColor = MaterialColor.blueGrey.darken4
 		btn3.tintColor = MaterialColor.blueGrey.darken4
 		btn3.backgroundColor = MaterialColor.grey.lighten3
@@ -368,21 +368,23 @@ class ViewController: UIViewController {
 		btn3.setImage(image, forState: .Highlighted)
 		view.addSubview(btn3)
 		
-		let label1: MaterialLabel = MaterialLabel()
+		let label1: UILabel = UILabel()
 		label1.text = "A"
-		label1.backgroundColor = MaterialColor.blue.base
+		label1.backgroundColor = MaterialColor.red.base
+		label1.grid.columns = 2
+		view.addSubview(label1)
 		
 		let label2: MaterialLabel = MaterialLabel()
 		label2.text = "B"
 		label2.backgroundColor = MaterialColor.blue.base
 		
-		view.grid.column = .Column9
+//		view.grid.columns = 9
 		view.grid.spacing = 16
 		view.grid.contentInset.left = 16
 		view.grid.contentInset.right = 16
 		view.grid.contentInset.top = 100
 		view.grid.contentInset.bottom = 100
-		view.grid.views = [btn1, btn2, btn3]
+		view.grid.views = [btn1, btn2, label1, btn3]
 		
 		for v in view.grid.views! {
 			print(v.frame)
@@ -397,7 +399,7 @@ class ViewController: UIViewController {
 	private func prepareVerticalGridViewExample() {
 		var image: UIImage? = UIImage(named: "ic_flash_auto_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let btn1: FlatButton = FlatButton()
-		btn1.grid.row = .Row3
+		btn1.grid.rows = 3
 		btn1.pulseColor = MaterialColor.blueGrey.darken4
 		btn1.tintColor = MaterialColor.blueGrey.darken4
 		btn1.backgroundColor = MaterialColor.grey.lighten3
@@ -407,7 +409,7 @@ class ViewController: UIViewController {
 		
 		image = UIImage(named: "ic_flash_off_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let btn2: FlatButton = FlatButton()
-		btn2.grid.row = .Row3
+		btn2.grid.rows = 3
 		btn2.pulseColor = MaterialColor.blueGrey.darken4
 		btn2.tintColor = MaterialColor.blueGrey.darken4
 		btn2.backgroundColor = MaterialColor.grey.lighten3
@@ -417,7 +419,7 @@ class ViewController: UIViewController {
 		
 		image = UIImage(named: "ic_flash_on_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let btn3: FlatButton = FlatButton()
-		btn3.grid.row = .Row3
+		btn3.grid.rows = 3
 		btn3.pulseColor = MaterialColor.blueGrey.darken4
 		btn3.tintColor = MaterialColor.blueGrey.darken4
 		btn3.backgroundColor = MaterialColor.grey.lighten3
@@ -433,8 +435,8 @@ class ViewController: UIViewController {
 		label2.text = "B"
 		label2.backgroundColor = MaterialColor.blue.base
 		
-		view.grid.axis = .Vertical
-		view.grid.row = .Row9
+		view.grid.axis.direction = .Vertical
+		view.grid.rows = 9
 		view.grid.spacing = 16
 		view.grid.contentInset.left = 16
 		view.grid.contentInset.right = 16

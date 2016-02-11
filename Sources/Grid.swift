@@ -30,69 +30,87 @@
 
 import UIKit
 
-public enum GridRow : Int {
-	case Row1 = 1
-	case Row2 = 2
-	case Row3 = 3
-	case Row4 = 4
-	case Row5 = 5
-	case Row6 = 6
-	case Row7 = 7
-	case Row8 = 8
-	case Row9 = 9
-	case Row10 = 10
-	case Row11 = 11
-	case Row12 = 12
-}
-
-public enum GridColumn : Int {
-	case Column1 = 1
-	case Column2 = 2
-	case Column3 = 3
-	case Column4 = 4
-	case Column5 = 5
-	case Column6 = 6
-	case Column7 = 7
-	case Column8 = 8
-	case Column9 = 9
-	case Column10 = 10
-	case Column11 = 11
-	case Column12 = 12
-}
-
-public enum GridAxis {
+public enum GridAxisDirection {
 	case Horizontal
 	case Vertical
 }
 
+public class GridAxis {
+	/// Grid reference.
+	unowned var grid: Grid
+	
+	/// Inherit grid rows and columns.
+	public var inherited: Bool = true
+	
+	/// The direction the grid layouts its views out.
+	public var direction: GridAxisDirection = .Horizontal
+	
+	/// The rows size.
+	public var rows: Int {
+		didSet {
+			grid.reloadLayout()
+		}
+	}
+	
+	/// The columns size.
+	public var columns: Int {
+		didSet {
+			grid.reloadLayout()
+		}
+	}
+	
+	public init(grid: Grid, rows: Int = 12, columns: Int = 12) {
+		self.grid = grid
+		self.rows = rows
+		self.columns = columns
+	}
+}
+
+public class GridOffset {
+	/// Grid reference.
+	unowned var grid: Grid
+	
+	/// The rows size.
+	public var rows: Int {
+		didSet {
+			grid.reloadLayout()
+		}
+	}
+	
+	/// The columns size.
+	public var columns: Int {
+		didSet {
+			grid.reloadLayout()
+		}
+	}
+	
+	public init(grid: Grid, rows: Int = 0, columns: Int = 0) {
+		self.grid = grid
+		self.rows = rows
+		self.columns = columns
+	}
+}
+
 public class Grid {
-	/// The row size.
-	public var row: GridRow {
+	/// The rows size.
+	public var rows: Int {
 		didSet {
 			reloadLayout()
 		}
 	}
 	
-	/// The row size.
-	public var rowOffset: GridRow? {
+	/// The columns size.
+	public var columns: Int {
 		didSet {
 			reloadLayout()
 		}
 	}
 	
-	/// The column size.
-	public var column: GridColumn {
-		didSet {
-			reloadLayout()
-		}
-	}
+	/// Offsets for rows and columns.
+	public private(set) var offset: GridOffset!
 	
-	/// The column size.
-	public var columnOffset: GridColumn? {
-		didSet {
-			reloadLayout()
-		}
-	}
+	/// The axis in which the Grid is laying out its views.
+	public private(set) var axis: GridAxis!
 	
 	/// Preset inset value for grid.
 	public var contentInsetPreset: MaterialEdgeInsetPreset = .None {
@@ -108,15 +126,8 @@ public class Grid {
 		}
 	}
 	
-	/// The space between grid columns.
+	/// The space between grid columnss.
 	public var spacing: CGFloat {
-		didSet {
-			reloadLayout()
-		}
-	}
-	
-	/// The axis in which the Grid is laying out its views.
-	public var axis: GridAxis = .Horizontal {
 		didSet {
 			reloadLayout()
 		}
@@ -129,10 +140,12 @@ public class Grid {
 		}
 	}
 	
-	public init(row: GridRow = .Row12, column: GridColumn = .Column12, spacing: CGFloat = 0) {
-		self.row = row
-		self.column = column
+	public init(rows: Int = 12, columns: Int = 12, spacing: CGFloat = 0) {
+		self.rows = rows
+		self.columns = columns
 		self.spacing = spacing
+		self.offset = GridOffset(grid: self)
+		self.axis = GridAxis(grid: self)
 	}
 	
 	/// Reload the button layout.
@@ -143,13 +156,13 @@ public class Grid {
 			for var i: Int = 0, l: Int = v.count - 1; i <= l; ++i {
 				let view: UIView = v[i]
 				if let sv: UIView = view.superview {
-					let w: CGFloat = (sv.bounds.width - contentInset.left - contentInset.right + spacing) / CGFloat(column.rawValue)
-					let h: CGFloat = (sv.bounds.height - contentInset.top - contentInset.bottom + spacing) / CGFloat(row.rawValue)
-					let c: Int = view.grid.column.rawValue
-					let r: Int = view.grid.row.rawValue
-					let co: Int = nil == view.grid.columnOffset ? 0 : view.grid.columnOffset!.rawValue
-					let ro: Int = nil == view.grid.rowOffset ? 0 : view.grid.rowOffset!.rawValue
-					if .Horizontal == axis {
+					let w: CGFloat = (sv.bounds.width - contentInset.left - contentInset.right + spacing) / CGFloat(axis.inherited ? columns : axis.columns)
+					let h: CGFloat = (sv.bounds.height - contentInset.top - contentInset.bottom + spacing) / CGFloat(axis.inherited ? rows : axis.rows)
+					let c: Int = view.grid.columns
+					let r: Int = view.grid.rows
+					let co: Int = view.grid.offset.columns
+					let ro: Int = view.grid.offset.rows
+					if .Horizontal == axis.direction {
 						
 						// View height.
 						let vh: CGFloat = sv.bounds.height - contentInset.top - contentInset.bottom
@@ -167,7 +180,9 @@ public class Grid {
 						} else {
 							view.frame = CGRectMake(vl, contentInset.top, vw, vh)
 						}
-					} else if .Vertical == axis {
+					
+						n += c + co - 1
+					} else if .Vertical == axis.direction {
 						// View width.
 						let vw: CGFloat = sv.bounds.width - contentInset.left - contentInset.right
 						
@@ -184,17 +199,17 @@ public class Grid {
 						} else {
 							view.frame = CGRectMake(contentInset.left, vt, vw, vh)
 						}
+					
+						m += r + ro - 1
 					}
-					n += c + co - 1
-					m += r + ro - 1
 				}
 			}
 		}
 	}
 }
 
-private func associatedObject<ValueType: AnyObject>(base: AnyObject, key: UnsafePointer<UInt8>, initialiser: () -> ValueType) -> ValueType {
-	if let associated = objc_getAssociatedObject(base, key) as? ValueType {
+private func associatedObject<T: AnyObject>(base: AnyObject, key: UnsafePointer<UInt8>, initialiser: () -> T) -> T {
+	if let associated: T = objc_getAssociatedObject(base, key) as? T {
 		return associated
 	}
 	
@@ -203,7 +218,7 @@ private func associatedObject<ValueType: AnyObject>(base: AnyObject, key: Unsafe
 	return associated
 }
 
-private func associateObject<ValueType: AnyObject>(base: AnyObject, key: UnsafePointer<UInt8>, value: ValueType) {
+private func associateObject<T: AnyObject>(base: AnyObject, key: UnsafePointer<UInt8>, value: T) {
 	objc_setAssociatedObject(base, key, value, .OBJC_ASSOCIATION_RETAIN)
 }
 
@@ -212,7 +227,9 @@ private var gridKey: UInt8 = 0
 public extension UIView {
 	public var grid: Grid {
 		get {
-			return associatedObject(self, key: &gridKey) { return Grid() }
+			return associatedObject(self, key: &gridKey) {
+				return Grid()
+			}
 		}
 		set(value) {
 			associateObject(self, key: &gridKey, value: value)
