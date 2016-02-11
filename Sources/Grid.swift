@@ -59,6 +59,12 @@ public class GridAxis {
 		}
 	}
 	
+	/**
+	Initializer.
+	- Parameter grid: The Grid reference used for offset values.
+	- Parameter rows: The number of rows, Vertical axis the grid will use.
+	- Parameter columns: The number of columns, Horizontal axis the grid will use.
+	*/
 	public init(grid: Grid, rows: Int = 12, columns: Int = 12) {
 		self.grid = grid
 		self.rows = rows
@@ -84,6 +90,12 @@ public class GridOffset {
 		}
 	}
 	
+	/**
+	Initializer.
+	- Parameter grid: The Grid reference used for offset values.
+	- Parameter rows: The number of rows, Vertical axis the grid will use.
+	- Parameter columns: The number of columns, Horizontal axis the grid will use.
+	*/
 	public init(grid: Grid, rows: Int = 0, columns: Int = 0) {
 		self.grid = grid
 		self.rows = rows
@@ -140,6 +152,12 @@ public class Grid {
 		}
 	}
 	
+	/**
+	Initializer.
+	- Parameter rows: The number of rows, Vertical axis the grid will use.
+	- Parameter columns: The number of columns, Horizontal axis the grid will use.
+	- Parameter spacing: The spacing between rows or columns.
+	*/
 	public init(rows: Int = 12, columns: Int = 12, spacing: CGFloat = 0) {
 		self.rows = rows
 		self.columns = columns
@@ -152,17 +170,14 @@ public class Grid {
 	public func reloadLayout() {
 		if let v: Array<UIView> = views {
 			var n: Int = 0
-			var m: Int = 0
 			for var i: Int = 0, l: Int = v.count - 1; i <= l; ++i {
 				let view: UIView = v[i]
 				if let sv: UIView = view.superview {
-					let w: CGFloat = (sv.bounds.width - contentInset.left - contentInset.right + spacing) / CGFloat(axis.inherited ? columns : axis.columns)
-					let h: CGFloat = (sv.bounds.height - contentInset.top - contentInset.bottom + spacing) / CGFloat(axis.inherited ? rows : axis.rows)
-					let c: Int = view.grid.columns
-					let r: Int = view.grid.rows
-					let co: Int = view.grid.offset.columns
-					let ro: Int = view.grid.offset.rows
+					sv.layoutIfNeeded()
 					if .Horizontal == axis.direction {
+						let w: CGFloat = (sv.bounds.width - contentInset.left - contentInset.right + spacing) / CGFloat(axis.inherited ? columns : axis.columns)
+						let c: Int = view.grid.columns
+						let co: Int = view.grid.offset.columns
 						
 						// View height.
 						let vh: CGFloat = sv.bounds.height - contentInset.top - contentInset.bottom
@@ -173,34 +188,24 @@ public class Grid {
 						// View width.
 						let vw: CGFloat = (w * CGFloat(c)) - spacing
 						
-						if 0 == i {
-							view.frame = CGRectMake(vl, contentInset.top, vw, vh)
-						} else if l == i {
-							view.frame = CGRectMake(vl, contentInset.top, vw, vh)
-						} else {
-							view.frame = CGRectMake(vl, contentInset.top, vw, vh)
-						}
-					
+						view.frame = CGRectMake(vl, contentInset.top, vw, vh)
 						n += c + co - 1
 					} else if .Vertical == axis.direction {
+						let h: CGFloat = (sv.bounds.height - contentInset.top - contentInset.bottom + spacing) / CGFloat(axis.inherited ? rows : axis.rows)
+						let r: Int = view.grid.rows
+						let ro: Int = view.grid.offset.rows
+						
 						// View width.
 						let vw: CGFloat = sv.bounds.width - contentInset.left - contentInset.right
 						
 						// View top.
-						let vt: CGFloat = CGFloat(i + m + ro) * h + contentInset.top
+						let vt: CGFloat = CGFloat(i + n + ro) * h + contentInset.top
 						
 						// View height.
 						let vh: CGFloat = (h * CGFloat(r)) - spacing
 						
-						if 0 == i {
-							view.frame = CGRectMake(contentInset.left, vt, vw, vh)
-						} else if l == i {
-							view.frame = CGRectMake(contentInset.left, vt, vw, vh)
-						} else {
-							view.frame = CGRectMake(contentInset.left, vt, vw, vh)
-						}
-					
-						m += r + ro - 1
+						view.frame = CGRectMake(contentInset.left, vt, vw, vh)
+						n += r + ro - 1
 					}
 				}
 			}
@@ -208,31 +213,48 @@ public class Grid {
 	}
 }
 
-private func associatedObject<T: AnyObject>(base: AnyObject, key: UnsafePointer<UInt8>, initialiser: () -> T) -> T {
+/**
+Gets the Obj-C reference for the Grid object within the UIView extension.
+- Parameter base: Base object.
+- Parameter key: Memory key pointer.
+- Parameter initializer: Object initializer.
+- Returns: The associated reference for the initializer object.
+*/
+private func GridAssociatedObject<T: AnyObject>(base: AnyObject, key: UnsafePointer<UInt8>, initializer: () -> T) -> T {
 	if let associated: T = objc_getAssociatedObject(base, key) as? T {
 		return associated
 	}
 	
-	let associated = initialiser()
+	let associated = initializer()
 	objc_setAssociatedObject(base, key, associated, .OBJC_ASSOCIATION_RETAIN)
 	return associated
 }
 
-private func associateObject<T: AnyObject>(base: AnyObject, key: UnsafePointer<UInt8>, value: T) {
+/**
+Sets the Obj-C reference for the Grid object within the UIView extension.
+- Parameter base: Base object.
+- Parameter key: Memory key pointer.
+- Parameter value: The object instance to set for the associated object.
+- Returns: The associated reference for the initializer object.
+*/
+private func GridAssociateObject<T: AnyObject>(base: AnyObject, key: UnsafePointer<UInt8>, value: T) {
 	objc_setAssociatedObject(base, key, value, .OBJC_ASSOCIATION_RETAIN)
 }
 
+/// A memory reference to the Grid instance for UIView extensions.
 private var gridKey: UInt8 = 0
 
+/// Grid extension for UIView.
 public extension UIView {
+	/// Grid reference.
 	public var grid: Grid {
 		get {
-			return associatedObject(self, key: &gridKey) {
+			return GridAssociatedObject(self, key: &gridKey) {
 				return Grid()
 			}
 		}
 		set(value) {
-			associateObject(self, key: &gridKey, value: value)
+			GridAssociateObject(self, key: &gridKey, value: value)
 		}
 	}
 }

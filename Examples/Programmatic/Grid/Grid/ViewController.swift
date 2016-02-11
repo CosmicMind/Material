@@ -29,7 +29,7 @@
 */
 
 /**
-
+The following ViewController demonstrates using Grid to make complex layouts.
 */
 
 import UIKit
@@ -40,10 +40,10 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-//		prepareHorizontalGridViewExample()
-//		prepareVerticalGridViewExample()
-//		prepareSmallCardViewExample()
-//		prepareMediumCardViewExample()
+		//		prepareHorizontalGridViewExample()
+		//		prepareVerticalGridViewExample()
+		//		prepareSmallCardViewExample()
+		//		prepareMediumCardViewExample()
 		prepareLargeCardViewExample()
 	}
 	
@@ -55,8 +55,8 @@ class ViewController: UIViewController {
 	
 	/// Prepares the medium card example.
 	private func prepareLargeCardViewExample() {
-		let cardView: MaterialPulseView = MaterialPulseView(frame: CGRectMake(16, 100, view.bounds.width - 32, 350))
-		cardView.pulseColor = MaterialColor.blueGrey.lighten5
+		let cardView: MaterialPulseView = MaterialPulseView(frame: CGRectMake(16, 100, view.bounds.width - 32, 400))
+		cardView.pulseColor = MaterialColor.blueGrey.base
 		cardView.grid.axis.direction = .Vertical
 		cardView.depth = .Depth1
 		view.addSubview(cardView)
@@ -65,6 +65,7 @@ class ViewController: UIViewController {
 		imageView.grid.rows = 7
 		imageView.grid.columns = 6
 		imageView.grid.spacing = 4
+		imageView.backgroundColor = MaterialColor.clear
 		cardView.addSubview(imageView)
 		
 		var image: UIImage? = UIImage(named: "CosmicMindInverted")
@@ -78,6 +79,7 @@ class ViewController: UIViewController {
 		rightImageViewCollection.grid.columns = 3
 		rightImageViewCollection.grid.axis.direction = .Vertical
 		rightImageViewCollection.grid.spacing = 4
+		rightImageViewCollection.backgroundColor = MaterialColor.clear
 		imageView.addSubview(rightImageViewCollection)
 		
 		image = UIImage(named: "CosmicMindInverted")
@@ -169,7 +171,7 @@ class ViewController: UIViewController {
 	/// Prepares the medium card example.
 	private func prepareMediumCardViewExample() {
 		let cardView: MaterialPulseView = MaterialPulseView(frame: CGRectMake(16, 100, view.bounds.width - 32, 240))
-		cardView.pulseColor = MaterialColor.blueGrey.lighten5
+		cardView.pulseColor = MaterialColor.blueGrey.base
 		cardView.depth = .Depth1
 		view.addSubview(cardView)
 		
@@ -254,7 +256,7 @@ class ViewController: UIViewController {
 	/// Prepares the small card example.
 	private func prepareSmallCardViewExample() {
 		let cardView: MaterialPulseView = MaterialPulseView(frame: CGRectMake(16, 100, view.bounds.width - 32, 152))
-		cardView.pulseColor = MaterialColor.blueGrey.lighten5
+		cardView.pulseColor = MaterialColor.blueGrey.base
 		cardView.depth = .Depth1
 		view.addSubview(cardView)
 		
@@ -378,7 +380,7 @@ class ViewController: UIViewController {
 		label2.text = "B"
 		label2.backgroundColor = MaterialColor.blue.base
 		
-//		view.grid.columns = 9
+		//		view.grid.columns = 9
 		view.grid.spacing = 16
 		view.grid.contentInset.left = 16
 		view.grid.contentInset.right = 16
@@ -390,7 +392,7 @@ class ViewController: UIViewController {
 			print(v.frame)
 		}
 	}
-
+	
 	internal func handleButton() {
 		print("Clicked Button")
 	}
