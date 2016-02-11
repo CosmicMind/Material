@@ -53,7 +53,8 @@ class ViewController: UIViewController {
 	
 	/// Prepares the small card example.
 	private func prepareSmallCardViewExample() {
-		let cardView: MaterialView = MaterialView(frame: CGRectMake(16, 100, view.bounds.width - 32, 200))
+		let cardView: MaterialPulseView = MaterialPulseView(frame: CGRectMake(16, 100, view.bounds.width - 32, 200))
+		cardView.pulseColor = MaterialColor.blueGrey.lighten5
 		cardView.depth = .Depth1
 		view.addSubview(cardView)
 		
@@ -69,17 +70,20 @@ class ViewController: UIViewController {
 		contentView.grid.layout = .Vertical
 		contentView.grid.contentInsetPreset = .Square3
 		contentView.grid.spacing = 16
+		contentView.backgroundColor = MaterialColor.clear
 		cardView.addSubview(contentView)
 		
 		let titleView: MaterialView = MaterialView()
 		titleView.grid.column = .Cell8
 		titleView.grid.row = .Cell3
+		titleView.backgroundColor = MaterialColor.clear
 		contentView.addSubview(titleView)
 		
 		let titleLabel: UILabel = UILabel()
 		titleLabel.grid.column = .Cell7
 		titleLabel.text = "Title"
 		titleLabel.textColor = MaterialColor.blueGrey.darken4
+		titleLabel.backgroundColor = MaterialColor.clear
 		titleView.addSubview(titleLabel)
 		
 		image = UIImage(named: "ic_more_vert_white")?.imageWithRenderingMode(.AlwaysTemplate)
@@ -92,25 +96,28 @@ class ViewController: UIViewController {
 		moreButton.setImage(image, forState: .Highlighted)
 		titleView.addSubview(moreButton)
 		
-		let detailLabel: MaterialLabel = MaterialLabel()
+		let detailLabel: UILabel = UILabel()
 		detailLabel.grid.row = .Cell6
 		detailLabel.numberOfLines = 0
 		detailLabel.lineBreakMode = .ByTruncatingTail
 		detailLabel.font = RobotoFont.regularWithSize(12)
 		detailLabel.text = "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable."
 		detailLabel.textColor = MaterialColor.blueGrey.darken4
+		detailLabel.backgroundColor = MaterialColor.clear
 		contentView.addSubview(detailLabel)
 
 		let alarmView: MaterialView = MaterialView()
 		alarmView.grid.column = .Cell8
 		alarmView.grid.row = .Cell3
+		alarmView.backgroundColor = MaterialColor.clear
 		contentView.addSubview(alarmView)
 		
 		let alarmLabel: UILabel = UILabel()
 		alarmLabel.grid.column = .Cell7
 		alarmLabel.font = RobotoFont.regularWithSize(12)
-		alarmLabel.text = "alarm set for 2:30 pm"
+		alarmLabel.text = "34 min"
 		alarmLabel.textColor = MaterialColor.blueGrey.darken4
+		alarmLabel.backgroundColor = MaterialColor.clear
 		alarmView.addSubview(alarmLabel)
 		
 		image = UIImage(named: "ic_alarm_white")?.imageWithRenderingMode(.AlwaysTemplate)
@@ -118,7 +125,7 @@ class ViewController: UIViewController {
 		alarmButton.grid.column = .Cell1
 		alarmButton.contentInsetPreset = .None
 		alarmButton.pulseColor = MaterialColor.blueGrey.darken4
-		alarmButton.tintColor = MaterialColor.blueGrey.darken4
+		alarmButton.tintColor = MaterialColor.red.base
 		alarmButton.setImage(image, forState: .Normal)
 		alarmButton.setImage(image, forState: .Highlighted)
 		alarmView.addSubview(alarmButton)
