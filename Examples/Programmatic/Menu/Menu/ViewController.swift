@@ -237,7 +237,7 @@ class ViewController: UIViewController {
 		view.addSubview(btn3)
 		
 		// Initialize the menu and setup the configuration options.
-		flashMenu = Menu(origin: CGPointMake(300, 100))
+		flashMenu = Menu(origin: CGPointMake((view.bounds.width + btn1.width) / 2, 100))
 		flashMenu.direction = .Left
 		flashMenu.buttonSize = btn1.intrinsicContentSize()
 		flashMenu.buttons = [btn1, btn2, btn3]

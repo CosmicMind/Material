@@ -2,11 +2,12 @@
 
 # Welcome to Material
 
-Material is a graphics and animation framework for Google's Material Design. It is designed to allow the creativity of others to easily be expressed.
+Material is a graphics and animation framework. It may be used for Google's Material Design and Apple's Flat UI. It is designed to allow the creativity of others to easily be expressed.
 
 ## Features
 
 - [x] Fully Configurable UI Components
+- [x] Grid System For Complex UIs
 - [x] Base Material Layers & Material Views To Create New UI Components
 - [x] Side Navigation View Controller
 - [x] Navigation Bar View
@@ -57,7 +58,8 @@ Material is a growing project and will encounter changes throughout its developm
 * [FlatButton](#flatbutton)
 * [RaisedButton](#raisedbutton)
 * [FabButton](#fabbutton)
-* [Menu](#menu)
+* [Menu](#menu) (New)
+* [Grid](#grid) (New)
 * [NavigationBarView](#navigationbarview)
 * [SideNavigationViewController](#sidenavigationviewcontroller)
 * [CardView](#cardview)
@@ -164,21 +166,40 @@ A FabButton is essential to Material Design's overall look. Below showcases its 
 <a name="menu"></a>
 ## Menu
 
-A Menu manages a group of UIButtons that may be animated open in the Up, Down, Left, and Right directions. The animations are fully customizable. The Examples/Programmatic directory has a sample project using the Menu. 
+A Menu manages a group of UIButtons that may be animated open in the Up, Down, Left, and Right directions. The animations are fully customizable. The Examples/Programmatic directory has a sample project using the Menu.
 
 Below is an example using FabButtons.
 
-![MaterialFabButton](http://www.cosmicmind.io/MK/MaterialFabMenu.gif)
+![MaterialFabMenu](http://www.cosmicmind.io/MK/MaterialFabMenu.gif)
 
 Below is an example using FlatButtons.
 
-![MaterialFabButton](http://www.cosmicmind.io/MK/MaterialFlatMenu.gif)
+![MaterialFlatMenu](http://www.cosmicmind.io/MK/MaterialFlatMenu.gif)
 
 Below is an example using FlatButtons with images.
 
-![MaterialFabButton](http://www.cosmicmind.io/MK/MaterialFlashMenu.gif)
+![MaterialFlashMenu](http://www.cosmicmind.io/MK/MaterialFlashMenu.gif)
 
 [Learn More About Menu](https://github.com/CosmicMind/Material/wiki/Menu)
+
+<a name="grid"></a>
+## Grid
+
+Grid is an extension of UIView that enables any collection of subviews to be managed in a flexible grid system, independent of other views that would need to be freely moving. Below are examples of using Grid. In the Examples/Programmatic directory, there are examples using this wonderful feature.
+
+Below is an example of a small CardView using Grid.
+
+![MaterialSmallCardView](http://www.cosmicmind.io/MK/MaterialGridSmallCardView.gif)
+
+Below is an example of a medium CardView using Grid.
+
+![MaterialGridMediumCardView](http://www.cosmicmind.io/MK/MaterialGridMediumCardView.gif)
+
+Below is an example of a large CardView using Grid.
+
+![MaterialGridLargeCardView](http://www.cosmicmind.io/MK/MaterialGridLargeCardView.gif)
+
+[Learn More About Grid](https://github.com/CosmicMind/Material/wiki/Grid)
 
 <a name="navigationbarview"></a>
 ## NavigationBarView
@@ -210,10 +231,6 @@ Right out of the box to a fully customizable configuration, CardView always stan
 Easily remove the pulse animation and add a background image for an entirely new feel.
 
 ![MaterialCardViewFavorite](http://www.cosmicmind.io/MK/MaterialCardViewFavorite.gif)
-
-Adjust the alignment of the UI elements to create different configurations of the CardView.
-
-![MaterialCardViewDataDriven](http://www.cosmicmind.io/MK/MaterialCardViewFavoritePulse.gif)
 
 CardViews are so flexible they create entirely new components by removing all but certain elements. For example, bellow is a button bar by only setting the button values of the CardView.
 
