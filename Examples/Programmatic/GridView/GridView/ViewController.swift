@@ -60,13 +60,13 @@ class ViewController: UIViewController {
 		
 		var image: UIImage? = UIImage(named: "CosmicMindInverted")
 		let imageView: MaterialView = MaterialView()
-		imageView.grid.column = .Cell4
+		imageView.grid.column = .Column4
 		imageView.image = image
 		imageView.contentsGravity = .ResizeAspectFill
 		cardView.addSubview(imageView)
 		
 		let contentView: MaterialView = MaterialView()
-		contentView.grid.column = .Cell8
+		contentView.grid.column = .Column8
 		contentView.grid.layout = .Vertical
 		contentView.grid.contentInsetPreset = .Square3
 		contentView.grid.spacing = 16
@@ -74,21 +74,21 @@ class ViewController: UIViewController {
 		cardView.addSubview(contentView)
 		
 		let titleView: MaterialView = MaterialView()
-		titleView.grid.column = .Cell8
-		titleView.grid.row = .Cell3
+		titleView.grid.column = .Column8
+		titleView.grid.row = .Row3
 		titleView.backgroundColor = MaterialColor.clear
 		contentView.addSubview(titleView)
 		
 		let titleLabel: UILabel = UILabel()
-		titleLabel.grid.column = .Cell7
-		titleLabel.text = "Title"
+		titleLabel.grid.column = .Column7
+		titleLabel.text = "Material"
 		titleLabel.textColor = MaterialColor.blueGrey.darken4
 		titleLabel.backgroundColor = MaterialColor.clear
 		titleView.addSubview(titleLabel)
 		
 		image = UIImage(named: "ic_more_vert_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let moreButton: FlatButton = FlatButton()
-		moreButton.grid.column = .Cell1
+		moreButton.grid.column = .Column1
 		moreButton.contentInsetPreset = .None
 		moreButton.pulseColor = MaterialColor.blueGrey.darken4
 		moreButton.tintColor = MaterialColor.blueGrey.darken4
@@ -97,23 +97,23 @@ class ViewController: UIViewController {
 		titleView.addSubview(moreButton)
 		
 		let detailLabel: UILabel = UILabel()
-		detailLabel.grid.row = .Cell6
+		detailLabel.grid.row = .Row6
 		detailLabel.numberOfLines = 0
 		detailLabel.lineBreakMode = .ByTruncatingTail
 		detailLabel.font = RobotoFont.regularWithSize(12)
-		detailLabel.text = "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable."
+		detailLabel.text = "Material is a graphics and animation framework for Google's Material Design. It is designed to allow the creativity of others to easily be expressed."
 		detailLabel.textColor = MaterialColor.blueGrey.darken4
 		detailLabel.backgroundColor = MaterialColor.clear
 		contentView.addSubview(detailLabel)
 
 		let alarmView: MaterialView = MaterialView()
-		alarmView.grid.column = .Cell8
-		alarmView.grid.row = .Cell3
+		alarmView.grid.column = .Column8
+		alarmView.grid.row = .Row3
 		alarmView.backgroundColor = MaterialColor.clear
 		contentView.addSubview(alarmView)
 		
 		let alarmLabel: UILabel = UILabel()
-		alarmLabel.grid.column = .Cell7
+		alarmLabel.grid.column = .Column7
 		alarmLabel.font = RobotoFont.regularWithSize(12)
 		alarmLabel.text = "34 min"
 		alarmLabel.textColor = MaterialColor.blueGrey.darken4
@@ -122,7 +122,7 @@ class ViewController: UIViewController {
 		
 		image = UIImage(named: "ic_alarm_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let alarmButton: FlatButton = FlatButton()
-		alarmButton.grid.column = .Cell1
+		alarmButton.grid.column = .Column1
 		alarmButton.contentInsetPreset = .None
 		alarmButton.pulseColor = MaterialColor.blueGrey.darken4
 		alarmButton.tintColor = MaterialColor.red.base
@@ -140,7 +140,7 @@ class ViewController: UIViewController {
 	private func prepareHorizontalGridViewExample() {
 		var image: UIImage? = UIImage(named: "ic_flash_auto_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let btn1: FlatButton = FlatButton()
-		btn1.grid.column = .Cell3
+		btn1.grid.column = .Column3
 		btn1.pulseColor = MaterialColor.blueGrey.darken4
 		btn1.tintColor = MaterialColor.blueGrey.darken4
 		btn1.backgroundColor = MaterialColor.grey.lighten3
@@ -150,7 +150,7 @@ class ViewController: UIViewController {
 		
 		image = UIImage(named: "ic_flash_off_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let btn2: FlatButton = FlatButton()
-		btn2.grid.column = .Cell3
+		btn2.grid.column = .Column3
 		btn2.pulseColor = MaterialColor.blueGrey.darken4
 		btn2.tintColor = MaterialColor.blueGrey.darken4
 		btn2.backgroundColor = MaterialColor.grey.lighten3
@@ -160,7 +160,7 @@ class ViewController: UIViewController {
 		
 		image = UIImage(named: "ic_flash_on_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let btn3: FlatButton = FlatButton()
-		btn3.grid.column = .Cell3
+		btn3.grid.column = .Column3
 		btn3.pulseColor = MaterialColor.blueGrey.darken4
 		btn3.tintColor = MaterialColor.blueGrey.darken4
 		btn3.backgroundColor = MaterialColor.grey.lighten3
@@ -176,7 +176,7 @@ class ViewController: UIViewController {
 		label2.text = "B"
 		label2.backgroundColor = MaterialColor.blue.base
 		
-		view.grid.column = .Cell9
+		view.grid.column = .Column9
 		view.grid.spacing = 16
 		view.grid.contentInset.left = 16
 		view.grid.contentInset.right = 16
@@ -197,7 +197,7 @@ class ViewController: UIViewController {
 	private func prepareVerticalGridViewExample() {
 		var image: UIImage? = UIImage(named: "ic_flash_auto_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let btn1: FlatButton = FlatButton()
-		btn1.grid.row = .Cell3
+		btn1.grid.row = .Row3
 		btn1.pulseColor = MaterialColor.blueGrey.darken4
 		btn1.tintColor = MaterialColor.blueGrey.darken4
 		btn1.backgroundColor = MaterialColor.grey.lighten3
@@ -207,7 +207,7 @@ class ViewController: UIViewController {
 		
 		image = UIImage(named: "ic_flash_off_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let btn2: FlatButton = FlatButton()
-		btn2.grid.row = .Cell3
+		btn2.grid.row = .Row3
 		btn2.pulseColor = MaterialColor.blueGrey.darken4
 		btn2.tintColor = MaterialColor.blueGrey.darken4
 		btn2.backgroundColor = MaterialColor.grey.lighten3
@@ -217,7 +217,7 @@ class ViewController: UIViewController {
 		
 		image = UIImage(named: "ic_flash_on_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let btn3: FlatButton = FlatButton()
-		btn3.grid.row = .Cell3
+		btn3.grid.row = .Row3
 		btn3.pulseColor = MaterialColor.blueGrey.darken4
 		btn3.tintColor = MaterialColor.blueGrey.darken4
 		btn3.backgroundColor = MaterialColor.grey.lighten3
@@ -234,7 +234,7 @@ class ViewController: UIViewController {
 		label2.backgroundColor = MaterialColor.blue.base
 		
 		view.grid.layout = .Vertical
-		view.grid.row = .Cell9
+		view.grid.row = .Row9
 		view.grid.spacing = 16
 		view.grid.contentInset.left = 16
 		view.grid.contentInset.right = 16

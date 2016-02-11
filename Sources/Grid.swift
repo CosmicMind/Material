@@ -30,19 +30,34 @@
 
 import UIKit
 
-public enum Cell : Int {
-	case Cell1 = 1
-	case Cell2 = 2
-	case Cell3 = 3
-	case Cell4 = 4
-	case Cell5 = 5
-	case Cell6 = 6
-	case Cell7 = 7
-	case Cell8 = 8
-	case Cell9 = 9
-	case Cell10 = 10
-	case Cell11 = 11
-	case Cell12 = 12
+public enum GridRow : Int {
+	case Row1 = 1
+	case Row2 = 2
+	case Row3 = 3
+	case Row4 = 4
+	case Row5 = 5
+	case Row6 = 6
+	case Row7 = 7
+	case Row8 = 8
+	case Row9 = 9
+	case Row10 = 10
+	case Row11 = 11
+	case Row12 = 12
+}
+
+public enum GridColumn : Int {
+	case Column1 = 1
+	case Column2 = 2
+	case Column3 = 3
+	case Column4 = 4
+	case Column5 = 5
+	case Column6 = 6
+	case Column7 = 7
+	case Column8 = 8
+	case Column9 = 9
+	case Column10 = 10
+	case Column11 = 11
+	case Column12 = 12
 }
 
 public enum GridLayout {
@@ -50,24 +65,30 @@ public enum GridLayout {
 	case Vertical
 }
 
-public protocol GridCell {
-	/// Grid column size.
-	var column: Cell { get set }
-	
-	/// Grid row size.
-	var row: Cell { get set }
-}
-
 public class Grid {
 	/// The row size.
-	public var row: Cell {
+	public var row: GridRow {
+		didSet {
+			reloadLayout()
+		}
+	}
+	
+	/// The row size.
+	public var rowOffset: GridRow? {
 		didSet {
 			reloadLayout()
 		}
 	}
 	
 	/// The column size.
-	public var column: Cell {
+	public var column: GridColumn {
+		didSet {
+			reloadLayout()
+		}
+	}
+	
+	/// The column size.
+	public var columnOffset: GridColumn? {
 		didSet {
 			reloadLayout()
 		}
@@ -108,7 +129,7 @@ public class Grid {
 		}
 	}
 	
-	public init(row: Cell = .Cell12, column: Cell = .Cell12, spacing: CGFloat = 0) {
+	public init(row: GridRow = .Row12, column: GridColumn = .Column12, spacing: CGFloat = 0) {
 		self.row = row
 		self.column = column
 		self.spacing = spacing
@@ -126,13 +147,15 @@ public class Grid {
 					let h: CGFloat = (sv.bounds.height - contentInset.top - contentInset.bottom + spacing) / CGFloat(row.rawValue)
 					let c: Int = view.grid.column.rawValue
 					let r: Int = view.grid.row.rawValue
+					let co: Int = nil == view.grid.columnOffset ? 0 : view.grid.columnOffset!.rawValue
+					let ro: Int = nil == view.grid.rowOffset ? 0 : view.grid.rowOffset!.rawValue
 					if .Horizontal == layout {
 						
 						// View height.
 						let vh: CGFloat = sv.bounds.height - contentInset.top - contentInset.bottom
 						
 						// View left.
-						let vl: CGFloat = CGFloat(i + n) * w + contentInset.left
+						let vl: CGFloat = CGFloat(i + n + co) * w + contentInset.left
 						
 						// View width.
 						let vw: CGFloat = (w * CGFloat(c)) - spacing
@@ -149,7 +172,7 @@ public class Grid {
 						let vw: CGFloat = sv.bounds.width - contentInset.left - contentInset.right
 						
 						// View top.
-						let vt: CGFloat = CGFloat(i + m) * h + contentInset.top
+						let vt: CGFloat = CGFloat(i + m + ro) * h + contentInset.top
 						
 						// View height.
 						let vh: CGFloat = (h * CGFloat(r)) - spacing
@@ -162,8 +185,8 @@ public class Grid {
 							view.frame = CGRectMake(contentInset.left, vt, vw, vh)
 						}
 					}
-					n += c - 1
-					m += r - 1
+					n += c + co - 1
+					m += r + ro - 1
 				}
 			}
 		}
