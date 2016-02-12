@@ -31,6 +31,7 @@
 import UIKit
 
 public enum GridAxisDirection {
+	case None
 	case Horizontal
 	case Vertical
 }
@@ -169,43 +170,44 @@ public class Grid {
 	/// Reload the button layout.
 	public func reloadLayout() {
 		if let v: Array<UIView> = views {
+			let gc: Int = axis.inherited ? columns : axis.columns
+			let gr: Int = axis.inherited ? rows : axis.rows
 			var n: Int = 0
 			for var i: Int = 0, l: Int = v.count - 1; i <= l; ++i {
 				let view: UIView = v[i]
 				if let sv: UIView = view.superview {
 					sv.layoutIfNeeded()
-					if .Horizontal == axis.direction {
-						let w: CGFloat = (sv.bounds.width - contentInset.left - contentInset.right + spacing) / CGFloat(axis.inherited ? columns : axis.columns)
+					switch axis.direction {
+					case .Horizontal:
+						let w: CGFloat = (sv.bounds.width - contentInset.left - contentInset.right + spacing) / CGFloat(gc)
 						let c: Int = view.grid.columns
 						let co: Int = view.grid.offset.columns
-						
-						// View height.
 						let vh: CGFloat = sv.bounds.height - contentInset.top - contentInset.bottom
-						
-						// View left.
 						let vl: CGFloat = CGFloat(i + n + co) * w + contentInset.left
-						
-						// View width.
-						let vw: CGFloat = (w * CGFloat(c)) - spacing
-						
+						let vw: CGFloat = w * CGFloat(c) - spacing
 						view.frame = CGRectMake(vl, contentInset.top, vw, vh)
 						n += c + co - 1
-					} else if .Vertical == axis.direction {
-						let h: CGFloat = (sv.bounds.height - contentInset.top - contentInset.bottom + spacing) / CGFloat(axis.inherited ? rows : axis.rows)
+					case .Vertical:
+						let h: CGFloat = (sv.bounds.height - contentInset.top - contentInset.bottom + spacing) / CGFloat(gr)
 						let r: Int = view.grid.rows
 						let ro: Int = view.grid.offset.rows
-						
-						// View width.
 						let vw: CGFloat = sv.bounds.width - contentInset.left - contentInset.right
-						
-						// View top.
 						let vt: CGFloat = CGFloat(i + n + ro) * h + contentInset.top
-						
-						// View height.
-						let vh: CGFloat = (h * CGFloat(r)) - spacing
-						
+						let vh: CGFloat = h * CGFloat(r) - spacing
 						view.frame = CGRectMake(contentInset.left, vt, vw, vh)
 						n += r + ro - 1
+					case .None:
+						let w: CGFloat = (sv.bounds.width - contentInset.left - contentInset.right + spacing) / CGFloat(gc)
+						let c: Int = view.grid.columns
+						let co: Int = view.grid.offset.columns
+						let h: CGFloat = (sv.bounds.height - contentInset.top - contentInset.bottom + spacing) / CGFloat(gr)
+						let r: Int = view.grid.rows
+						let ro: Int = view.grid.offset.rows
+						let vt: CGFloat = CGFloat(ro) * h + contentInset.top
+						let vl: CGFloat = CGFloat(co) * w + contentInset.left
+						let vh: CGFloat = h * CGFloat(r) - spacing
+						let vw: CGFloat = w * CGFloat(c) - spacing
+						view.frame = CGRectMake(vl, vt, vw, vh)
 					}
 				}
 			}
