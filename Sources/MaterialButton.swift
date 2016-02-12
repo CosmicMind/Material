@@ -29,6 +29,7 @@
 */
 
 import UIKit
+import Foundation
 
 @objc(MaterialButton)
 @IBDesignable
@@ -189,15 +190,13 @@ public class MaterialButton : UIButton {
 	property has a value of .Circle when the cornerRadius is set, it will
 	become .None, as it no longer maintains its circle shape.
 	*/
-	public var cornerRadius: MaterialRadius {
-		didSet {
-			if let v: MaterialRadius = cornerRadius {
-				layer.cornerRadius = MaterialRadiusToValue(v)
-				if .Circle == shape {
-					shape = .None
-				}
-			}
-		}
+	@IBInspectable public var cornerRadius: CGFloat {
+        get {
+            return layer.cornerRadius
+        }
+        set(value) {
+            layer.cornerRadius = value
+        }
 	}
 	
 	/**
@@ -221,10 +220,13 @@ public class MaterialButton : UIButton {
 	A property that accesses the layer.borderWith using a MaterialBorder
 	enum preset.
 	*/
-	public var borderWidth: MaterialBorder {
-		didSet {
-			layer.borderWidth = MaterialBorderToValue(borderWidth)
-		}
+	@IBInspectable public var borderWidth: CGFloat {
+        get {
+            return layer.borderWidth
+        }
+        set(value) {
+            layer.borderWidth = value
+        }
 	}
 	
 	/// A property that accesses the layer.borderColor property.
@@ -269,10 +271,10 @@ public class MaterialButton : UIButton {
 	- Parameter aDecoder: A NSCoder instance.
 	*/
 	public required init?(coder aDecoder: NSCoder) {
-		borderWidth = .None
+		//borderWidth = .None
 		depth = .None
 		shape = .None
-		cornerRadius = .None
+		//cornerRadius = MaterialRadiusToValue(.None)
 		contentInsetPreset = .None
 		super.init(coder: aDecoder)
 		prepareView()
@@ -285,10 +287,9 @@ public class MaterialButton : UIButton {
 	- Parameter frame: A CGRect instance.
 	*/
 	public override init(frame: CGRect) {
-		borderWidth = .None
+		//borderWidth = .None
 		depth = .None
 		shape = .None
-		cornerRadius = .None
 		contentInsetPreset = .None
 		super.init(frame: frame)
 		prepareView()
