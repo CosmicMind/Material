@@ -13,6 +13,7 @@ Material is an animation and graphics framework. It may be used for Google's Mat
 - [x] Side Navigation View Controller
 - [x] Navigation Bar View
 - [x] Material Buttons
+- [x] Material Menu Toolset To Create Animated Menus
 - [x] Material Card Views
 - [x] Camera / Video Extension With Extensive Functionality
 - [x] Animation Extension To Create Intricate Animations
