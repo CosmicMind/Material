@@ -90,6 +90,9 @@
          <FileRef
             location = "group:Programmatic/CardView/CardView.xcodeproj">
          </FileRef>
+         <FileRef
+            location = "group:Programmatic/TableCardView/TableCardView.xcodeproj">
+         </FileRef>
       </Group>
       <Group
          location = "container:"

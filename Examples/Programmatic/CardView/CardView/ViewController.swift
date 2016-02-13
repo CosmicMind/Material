@@ -39,10 +39,10 @@ class ViewController: UIViewController {
 		// Examples of using CardView.
 		// Uncomment different examples and read
 		// the comments below.
-//		prepareGeneralCardViewExample()
+		prepareGeneralCardViewExample()
 //		prepareCardViewWithoutPulseBackgroundImageExample()
 //		prepareCardViewWithPulseBackgroundImageExample()
-		prepareCardViewButtonBarExample()
+//		prepareCardViewButtonBarExample()
 	}
 	
 	/**
@@ -71,7 +71,7 @@ class ViewController: UIViewController {
 		let detailLabel: UILabel = UILabel()
 		detailLabel.text = "It’s been a while, have you read any new books lately?"
 		detailLabel.numberOfLines = 0
-		cardView.detailLabel = detailLabel
+		cardView.detailView = detailLabel
 		
 		// Yes button.
 		let btn1: FlatButton = FlatButton()
@@ -124,7 +124,7 @@ class ViewController: UIViewController {
 		detailLabel.text = "Beautiful Material Design"
 		detailLabel.textColor = MaterialColor.white
 		detailLabel.numberOfLines = 0
-		cardView.detailLabel = detailLabel
+		cardView.detailView = detailLabel
 		
 		// Favorite button.
 		let img1: UIImage? = UIImage(named: "ic_favorite_white")
@@ -169,7 +169,7 @@ class ViewController: UIViewController {
 		detailLabel.text = "Data-Driven Framework"
 		detailLabel.textColor = MaterialColor.white
 		detailLabel.numberOfLines = 0
-		cardView.detailLabel = detailLabel
+		cardView.detailView = detailLabel
 		
 		// Favorite button.
 		let img1: UIImage? = UIImage(named: "ic_favorite_white")

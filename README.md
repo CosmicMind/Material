@@ -2,7 +2,7 @@
 
 # Welcome to Material
 
-Material is an animation and graphics framework. It may be used for Google's Material Design and Apple's Flat UI. Material allows the creativity of others to easily be expressed.
+Material is an animation and graphics framework for Google's Material Design and Apple's Flat UI in Swift. Material allows the creativity of others to easily be expressed.
 
 ## Features
 
@@ -227,15 +227,19 @@ Right out of the box to a fully customizable configuration, CardView always stan
 
 ![MaterialCardView](http://www.cosmicmind.io/MK/MaterialCardView.gif)
 
-[Learn More About CardView](https://github.com/CosmicMind/Material/wiki/CardView)
-
 Easily remove the pulse animation and add a background image for an entirely new feel.
 
 ![MaterialCardViewFavorite](http://www.cosmicmind.io/MK/MaterialCardViewFavorite.gif)
 
+Add any view as the detail to a CardView. For example, a UITableView.
+
+![MaterialTableCardView](http://www.cosmicmind.io/MK/MaterialTableCardView.gif)
+
 CardViews are so flexible they create entirely new components by removing all but certain elements. For example, bellow is a button bar by only setting the button values of the CardView.
 
 ![MaterialCardViewButtonBar](http://www.cosmicmind.io/MK/MaterialCardViewButtonBar.gif)
+
+[Learn More About CardView](https://github.com/CosmicMind/Material/wiki/CardView)
 
 <a name="imagecardview"></a>
 ## ImageCardView

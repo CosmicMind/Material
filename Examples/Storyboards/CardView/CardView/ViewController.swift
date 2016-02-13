@@ -68,7 +68,7 @@ class ViewController: UIViewController {
 		let detailLabel: UILabel = UILabel()
 		detailLabel.text = "It’s been a while, have you read any new books lately?"
 		detailLabel.numberOfLines = 0
-		cardView.detailLabel = detailLabel
+		cardView.detailView = detailLabel
 		
 		// Yes button.
 		let btn1: FlatButton = FlatButton()
@@ -95,16 +95,16 @@ class ViewController: UIViewController {
     func prepareCardViewExampleTwo() {
         secondCardView.dividerInset.left = 100
         secondCardView.titleLabelInset.left = 100
-        secondCardView.detailLabelInset.left = 100
+        secondCardView.detailViewInset.left = 100
         secondCardView.pulseColor = MaterialColor.teal.lighten4
         
         // Image.
-        secondCardView.image = UIImage(named: "GraphKit")?.resize(toHeight: 100)
+        secondCardView.image = UIImage(named: "Graph")?.resize(toHeight: 100)
         secondCardView.contentsGravity = .TopLeft
         
         // Title label.
         let titleLabel: UILabel = UILabel()
-        titleLabel.text = "GraphKit"
+        titleLabel.text = "Graph"
         titleLabel.font = RobotoFont.mediumWithSize(24)
         secondCardView.titleLabel = titleLabel
         
@@ -112,14 +112,14 @@ class ViewController: UIViewController {
         let detailLabel: UILabel = UILabel()
         detailLabel.text = "Build scalable data-driven apps."
         detailLabel.numberOfLines = 0
-        secondCardView.detailLabel = detailLabel
+        secondCardView.detailView = detailLabel
         
         // LEARN MORE button.
 		let btn1: FlatButton = FlatButton()
-		btn1.pulseColor = MaterialColor.teal.lighten1
+		btn1.pulseColor = MaterialColor.blue.lighten1
 		btn1.pulseScale = false
 		btn1.setTitle("LEARN MORE", forState: .Normal)
-		btn1.setTitleColor(MaterialColor.teal.darken1, forState: .Normal)
+		btn1.setTitleColor(MaterialColor.blue.darken1, forState: .Normal)
 		
         // Add buttons to right side.
         secondCardView.rightButtons = [btn1]
