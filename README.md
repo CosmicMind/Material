@@ -167,7 +167,7 @@ A FabButton is essential to Material Design's overall look. Below showcases its 
 <a name="menu"></a>
 ## Menu
 
-A Menu manages a group of UIButtons that may be animated open in the Up, Down, Left, and Right directions. The animations are fully customizable. The Examples/Programmatic directory has a sample project using the Menu.
+A Menu manages a group of UIViews that may be animated open in the Up, Down, Left, and Right directions. The animations are fully customizable. The Examples/Programmatic directory has sample projects using Menus.
 
 Below is an example using FabButtons.
 
@@ -248,11 +248,11 @@ Bold and attractive, ImageCardView is the next step from a CardView. Below are s
 
 ![MaterialImageCardView](http://www.cosmicmind.io/MK/MaterialImageCardView.gif)
 
-[Learn More About ImageCardView](https://github.com/CosmicMind/Material/wiki/ImageCardView)
-
 Remove elements, such as details to create a fresh look for your images.
 
 ![MaterialImageCardViewBackgroundImage](http://www.cosmicmind.io/MK/MaterialImageCardViewBackgroundImage.gif)
+
+[Learn More About ImageCardView](https://github.com/CosmicMind/Material/wiki/ImageCardView)
 
 <a name="captureview"></a>
 ## CaptureView

@@ -81,7 +81,7 @@ class LeftViewController: UIViewController {
 		profileView.image = UIImage(named: "Profile9")?.resize(toWidth: 72)
 		profileView.shape = .Circle
 		profileView.borderColor = MaterialColor.white
-		profileView.borderWidth = .Border3
+		profileView.borderWidth = 3
 		
 		let nameLabel: UILabel = UILabel()
 		nameLabel.text = "Michael Smith"

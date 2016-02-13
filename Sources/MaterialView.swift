@@ -260,12 +260,11 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-	A property that accesses the layer.borderWith using a MaterialBorder
-	enum preset.
+	A property that accesses the layer.borderWith.
 	*/
-	public var borderWidth: MaterialBorder {
+	public var borderWidth: CGFloat = 0 {
 		didSet {
-			layer.borderWidth = MaterialBorderToValue(borderWidth)
+			layer.borderWidth = borderWidth
 		}
 	}
 	
@@ -305,7 +304,6 @@ public class MaterialView : UIView {
 		contentsCenter = CGRectMake(0, 0, 1, 1)
 		contentsScale = UIScreen.mainScreen().scale
 		contentsGravity = .ResizeAspectFill
-		borderWidth = .None
 		depth = .None
 		shape = .None
 		cornerRadius = .None
@@ -324,7 +322,6 @@ public class MaterialView : UIView {
 		contentsCenter = CGRectMake(0, 0, 1, 1)
 		contentsScale = UIScreen.mainScreen().scale
 		contentsGravity = .ResizeAspectFill
-		borderWidth = .None
 		depth = .None
 		shape = .None
 		cornerRadius = .None

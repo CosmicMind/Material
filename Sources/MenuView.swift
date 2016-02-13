@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.io>.
+* Copyright (C) 2015 - 20spacing, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.io>.
 * All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without
@@ -30,43 +30,20 @@
 
 import UIKit
 
-public enum MaterialBorder {
-	case None
-	case Border1
-	case Border2
-	case Border3
-	case Border4
-	case Border5
-	case Border6
-	case Border7
-	case Border8
-	case Border9
-}
-
-/**
-	:name:	MaterialBorderToValue
-*/
-public func MaterialBorderToValue(border: MaterialBorder) -> CGFloat {
-	switch border {
-	case .None:
-		return 0
-	case .Border1:
-		return 0.5
-	case .Border2:
-		return 1
-	case .Border3:
-		return 2
-	case .Border4:
-		return 3
-	case .Border5:
-		return 4
-	case .Border6:
-		return 5
-	case .Border7:
-		return 6
-	case .Border8:
-		return 7
-	case .Border9:
-		return 8
+public class MenuView : MaterialPulseView {
+	/// References the Menu instance.
+	public private(set) lazy var menu: Menu = Menu(origin: CGPointZero)
+	
+	/**
+	Prepares the view instance when intialized. When subclassing,
+	it is recommended to override the prepareView method
+	to initialize property values and other setup operations.
+	The super.prepareView method should always be called immediately
+	when subclassing.
+	*/
+	public override func prepareView() {
+		super.prepareView()
+		pulseColor = nil
+		pulseScale = false
 	}
 }

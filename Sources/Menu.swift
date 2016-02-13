@@ -48,7 +48,7 @@ public class Menu {
 		}
 	}
 	
-	/// The space between buttons.
+	/// The space between views.
 	public var spacing: CGFloat {
 		didSet {
 			reloadLayout()
@@ -65,14 +65,14 @@ public class Menu {
 		}
 	}
 	
-	/// An Array of UIButtons.
-	public var buttons: Array<UIButton>? {
+	/// An Array of UIViews.
+	public var views: Array<UIView>? {
 		didSet {
 			reloadLayout()
 		}
 	}
 	
-	/// Size of buttons, not including the first button.
+	/// Size of views, not including the first button.
 	public var buttonSize: CGSize = CGSizeMake(48, 48)
 	
 	/// An Optional base button size.
@@ -81,7 +81,7 @@ public class Menu {
 	/**
 	Initializer.
 	- Parameter origin: The origin position of the Menu.
-	- Parameter spacing: The spacing size between buttons.
+	- Parameter spacing: The spacing size between views.
 	*/
 	public init(origin: CGPoint, spacing: CGFloat = 16) {
 		self.origin = origin
@@ -104,7 +104,7 @@ public class Menu {
 	- Parameter animations: An animation block to execute on each button's animation.
 	- Parameter completion: A completion block to execute on each button's animation.
 	*/
-	public func open(duration duration: NSTimeInterval = 0.15, delay: NSTimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIButton) -> Void)? = nil, completion: ((UIButton) -> Void)? = nil) {
+	public func open(duration duration: NSTimeInterval = 0.15, delay: NSTimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
 		if enabled {
 			disable()
 			switch direction {
@@ -130,7 +130,7 @@ public class Menu {
 	- Parameter animations: An animation block to execute on each button's animation.
 	- Parameter completion: A completion block to execute on each button's animation.
 	*/
-	public func close(duration duration: NSTimeInterval = 0.15, delay: NSTimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIButton) -> Void)? = nil, completion: ((UIButton) -> Void)? = nil) {
+	public func close(duration duration: NSTimeInterval = 0.15, delay: NSTimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
 		if enabled {
 			disable()
 			switch direction {
@@ -156,14 +156,14 @@ public class Menu {
 	- Parameter animations: An animation block to execute on each button's animation.
 	- Parameter completion: A completion block to execute on each button's animation.
 	*/
-	private func openUpAnimation(duration: NSTimeInterval, delay: NSTimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIButton) -> Void)?, completion: ((UIButton) -> Void)?) {
-		if let v: Array<UIButton> = buttons {
-			var base: UIButton?
+	private func openUpAnimation(duration: NSTimeInterval, delay: NSTimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
+		if let v: Array<UIView> = views {
+			var base: UIView?
 			for var i: Int = 1, l: Int = v.count; i < l; ++i {
 				if nil == base {
 					base = v[0]
 				}
-				let button: UIButton = v[i]
+				let button: UIView = v[i]
 				button.hidden = false
 				
 				UIView.animateWithDuration(Double(i) * duration,
@@ -194,10 +194,10 @@ public class Menu {
 	- Parameter animations: An animation block to execute on each button's animation.
 	- Parameter completion: A completion block to execute on each button's animation.
 	*/
-	public func closeUpAnimation(duration: NSTimeInterval, delay: NSTimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIButton) -> Void)?, completion: ((UIButton) -> Void)?) {
-		if let v: Array<UIButton> = buttons {
+	public func closeUpAnimation(duration: NSTimeInterval, delay: NSTimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
+		if let v: Array<UIView> = views {
 			for var i: Int = 1, l: Int = v.count; i < l; ++i {
-				let button: UIButton = v[i]
+				let button: UIView = v[i]
 				
 				UIView.animateWithDuration(Double(i) * duration,
 					delay: delay,
@@ -228,15 +228,15 @@ public class Menu {
 	- Parameter animations: An animation block to execute on each button's animation.
 	- Parameter completion: A completion block to execute on each button's animation.
 	*/
-	private func openDownAnimation(duration: NSTimeInterval, delay: NSTimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIButton) -> Void)?, completion: ((UIButton) -> Void)?) {
-		if let v: Array<UIButton> = buttons {
-			var base: UIButton?
+	private func openDownAnimation(duration: NSTimeInterval, delay: NSTimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
+		if let v: Array<UIView> = views {
+			var base: UIView?
 			for var i: Int = 1, l: Int = v.count; i < l; ++i {
 				if nil == base {
 					base = v[0]
 				}
 				
-				let button: UIButton = v[i]
+				let button: UIView = v[i]
 				button.hidden = false
 				
 				let h: CGFloat = nil == baseSize ? buttonSize.height : baseSize!.height
@@ -268,10 +268,10 @@ public class Menu {
 	- Parameter animations: An animation block to execute on each button's animation.
 	- Parameter completion: A completion block to execute on each button's animation.
 	*/
-	public func closeDownAnimation(duration: NSTimeInterval, delay: NSTimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIButton) -> Void)?, completion: ((UIButton) -> Void)?) {
-		if let v: Array<UIButton> = buttons {
+	public func closeDownAnimation(duration: NSTimeInterval, delay: NSTimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
+		if let v: Array<UIView> = views {
 			for var i: Int = 1, l: Int = v.count; i < l; ++i {
-				let button: UIButton = v[i]
+				let button: UIView = v[i]
 				
 				let h: CGFloat = nil == baseSize ? buttonSize.height : baseSize!.height
 				UIView.animateWithDuration(Double(i) * duration,
@@ -303,15 +303,15 @@ public class Menu {
 	- Parameter animations: An animation block to execute on each button's animation.
 	- Parameter completion: A completion block to execute on each button's animation.
 	*/
-	private func openLeftAnimation(duration: NSTimeInterval, delay: NSTimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIButton) -> Void)?, completion: ((UIButton) -> Void)?) {
-		if let v: Array<UIButton> = buttons {
-			var base: UIButton?
+	private func openLeftAnimation(duration: NSTimeInterval, delay: NSTimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
+		if let v: Array<UIView> = views {
+			var base: UIView?
 			for var i: Int = 1, l: Int = v.count; i < l; ++i {
 				if nil == base {
 					base = v[0]
 				}
 				
-				let button: UIButton = v[i]
+				let button: UIView = v[i]
 				button.hidden = false
 				
 				UIView.animateWithDuration(Double(i) * duration,
@@ -342,10 +342,10 @@ public class Menu {
 	- Parameter animations: An animation block to execute on each button's animation.
 	- Parameter completion: A completion block to execute on each button's animation.
 	*/
-	public func closeLeftAnimation(duration: NSTimeInterval, delay: NSTimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIButton) -> Void)?, completion: ((UIButton) -> Void)?) {
-		if let v: Array<UIButton> = buttons {
+	public func closeLeftAnimation(duration: NSTimeInterval, delay: NSTimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
+		if let v: Array<UIView> = views {
 			for var i: Int = 1, l: Int = v.count; i < l; ++i {
-				let button: UIButton = v[i]
+				let button: UIView = v[i]
 				UIView.animateWithDuration(Double(i) * duration,
 					delay: delay,
 					usingSpringWithDamping: usingSpringWithDamping,
@@ -375,14 +375,14 @@ public class Menu {
 	- Parameter animations: An animation block to execute on each button's animation.
 	- Parameter completion: A completion block to execute on each button's animation.
 	*/
-	private func openRightAnimation(duration: NSTimeInterval, delay: NSTimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIButton) -> Void)?, completion: ((UIButton) -> Void)?) {
-		if let v: Array<UIButton> = buttons {
-			var base: UIButton?
+	private func openRightAnimation(duration: NSTimeInterval, delay: NSTimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
+		if let v: Array<UIView> = views {
+			var base: UIView?
 			for var i: Int = 1, l: Int = v.count; i < l; ++i {
 				if nil == base {
 					base = v[0]
 				}
-				let button: UIButton = v[i]
+				let button: UIView = v[i]
 				button.hidden = false
 				
 				let h: CGFloat = nil == baseSize ? buttonSize.height : baseSize!.height
@@ -414,10 +414,10 @@ public class Menu {
 	- Parameter animations: An animation block to execute on each button's animation.
 	- Parameter completion: A completion block to execute on each button's animation.
 	*/
-	public func closeRightAnimation(duration: NSTimeInterval, delay: NSTimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIButton) -> Void)?, completion: ((UIButton) -> Void)?) {
-		if let v: Array<UIButton> = buttons {
+	public func closeRightAnimation(duration: NSTimeInterval, delay: NSTimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
+		if let v: Array<UIView> = views {
 			for var i: Int = 1, l: Int = v.count; i < l; ++i {
-				let button: UIButton = v[i]
+				let button: UIView = v[i]
 				
 				let w: CGFloat = nil == baseSize ? buttonSize.width : baseSize!.width
 				UIView.animateWithDuration(Double(i) * duration,
@@ -439,12 +439,12 @@ public class Menu {
 		}
 	}
 	
-	/// Layout the buttons.
+	/// Layout the views.
 	private func layoutButtons() {
-		if let v: Array<UIButton> = buttons {
+		if let v: Array<UIView> = views {
 			let size: CGSize = nil == baseSize ? buttonSize : baseSize!
 			for var i: Int = 0, l: Int = v.count; i < l; ++i {
-				let button: UIButton = v[i]
+				let button: UIView = v[i]
 				if 0 == i {
 					button.frame.size = size
 					button.frame.origin = origin
@@ -461,9 +461,9 @@ public class Menu {
 		}
 	}
 	
-	/// Disable the Menu if buttons exist.
+	/// Disable the Menu if views exist.
 	private func disable() {
-		if let v: Array<UIButton> = buttons {
+		if let v: Array<UIView> = views {
 			if 0 < v.count {
 				enabled = false
 			}
@@ -472,10 +472,10 @@ public class Menu {
 	
 	/**
 	Enable the Menu if the last button is equal to the passed in button.
-	- Parameter button: UIButton that is passed in to compare.
+	- Parameter button: UIView that is passed in to compare.
 	*/
-	private func enable(button: UIButton) {
-		if let v: Array<UIButton> = buttons {
+	private func enable(button: UIView) {
+		if let v: Array<UIView> = views {
 			if button == v.last {
 				enabled = true
 			}

@@ -30,7 +30,7 @@
 
 /**
 This is an example of using the Menu component. It is designed to take any array
-of buttons and provide a facility to animate them opened and closed as a group.
+of views and provide a facility to animate them opened and closed as a group.
 */
 
 import UIKit
@@ -76,24 +76,23 @@ class ViewController: UIViewController {
 	
 	/// Handle the fabMenu touch event.
 	internal func handleFabMenu() {
-		// Only trigger open and close animations when enabled.
-		if fabMenu.enabled {
-			let image: UIImage?
-			if fabMenu.opened {
-				fabMenu.close()
-				image = UIImage(named: "ic_add_white")
-			} else {
-				fabMenu.open() { (button: UIButton) in
-					(button as? MaterialButton)?.pulse()
-				}
-				image = UIImage(named: "ic_close_white")
+		let image: UIImage?
+		
+		if fabMenu.opened {
+			fabMenu.close()
+			image = UIImage(named: "ic_add_white")
+		} else {
+			fabMenu.open() { (v: UIView) in
+				(v as? MaterialButton)?.pulse()
 			}
-			
-			// Add a nice rotation animation to the base button.
-			(fabMenu.buttons?.first as? MaterialButton)?.animate(MaterialAnimation.rotate(1))
-			fabMenu.buttons?.first?.setImage(image, forState: .Normal)
-			fabMenu.buttons?.first?.setImage(image, forState: .Highlighted)
+			image = UIImage(named: "ic_close_white")
 		}
+		
+		// Add a nice rotation animation to the base button.
+		let first: MaterialButton? = fabMenu.views?.first as? MaterialButton
+		first?.animate(MaterialAnimation.rotate(1))
+		first?.setImage(image, forState: .Normal)
+		first?.setImage(image, forState: .Highlighted)
 	}
 	
 	/// Handle the flatMenu touch event.
@@ -164,7 +163,7 @@ class ViewController: UIViewController {
 		fabMenu = Menu(origin: CGPointMake(view.bounds.width - diameter - spacing, view.bounds.height - diameter - spacing))
 		fabMenu.direction = .Up
 		fabMenu.baseSize = CGSizeMake(diameter, diameter)
-		fabMenu.buttons = [btn1, btn2, btn3, btn4]
+		fabMenu.views = [btn1, btn2, btn3, btn4]
 	}
 	
 	/// Prepares the FlatMenu example.
@@ -181,7 +180,7 @@ class ViewController: UIViewController {
 		btn2.setTitleColor(MaterialColor.blue.accent3, forState: .Normal)
 		btn2.borderColor = MaterialColor.blue.accent3
 		btn2.pulseColor = MaterialColor.blue.accent3
-		btn2.borderWidth = .Border1
+		btn2.borderWidth = 1
 		btn2.setTitle("Item", forState: .Normal)
 		view.addSubview(btn2)
 		
@@ -189,7 +188,7 @@ class ViewController: UIViewController {
 		btn3.setTitleColor(MaterialColor.blue.accent3, forState: .Normal)
 		btn3.borderColor = MaterialColor.blue.accent3
 		btn3.pulseColor = MaterialColor.blue.accent3
-		btn3.borderWidth = .Border1
+		btn3.borderWidth = 1
 		btn3.setTitle("Item", forState: .Normal)
 		view.addSubview(btn3)
 		
@@ -197,7 +196,7 @@ class ViewController: UIViewController {
 		btn4.setTitleColor(MaterialColor.blue.accent3, forState: .Normal)
 		btn4.borderColor = MaterialColor.blue.accent3
 		btn4.pulseColor = MaterialColor.blue.accent3
-		btn4.borderWidth = .Border1
+		btn4.borderWidth = 1
 		btn4.setTitle("Item", forState: .Normal)
 		view.addSubview(btn4)
 		
@@ -206,7 +205,7 @@ class ViewController: UIViewController {
 		flatMenu.direction = .Up
 		flatMenu.spacing = 8
 		flatMenu.buttonSize = CGSizeMake(120, height)
-		flatMenu.buttons = [btn1, btn2, btn3, btn4]
+		flatMenu.views = [btn1, btn2, btn3, btn4]
 	}
 	
 	/// Prepares the FlashMenu example.
@@ -240,7 +239,7 @@ class ViewController: UIViewController {
 		flashMenu = Menu(origin: CGPointMake((view.bounds.width + btn1.width) / 2, 100))
 		flashMenu.direction = .Left
 		flashMenu.buttonSize = btn1.intrinsicContentSize()
-		flashMenu.buttons = [btn1, btn2, btn3]
+		flashMenu.views = [btn1, btn2, btn3]
 	}
 }
 
