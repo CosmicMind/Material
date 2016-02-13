@@ -45,5 +45,20 @@ public class MenuView : MaterialPulseView {
 		super.prepareView()
 		pulseColor = nil
 		pulseScale = false
+		clipsToBounds = false
+	}
+	
+	public override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
+		/**
+		Since the subviews will be outside the bounds of this view,
+		we need to look at the subviews to see if we have a hit.
+		*/
+		for v in subviews {
+			let p: CGPoint = v.convertPoint(point, fromView: self)
+			if CGRectContainsPoint(v.bounds, p) {
+				return v.hitTest(p, withEvent: event)
+			}
+		}
+		return super.hitTest(point, withEvent: event)
 	}
 }

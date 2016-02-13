@@ -83,6 +83,11 @@ class ViewController: UIViewController {
 		first?.setImage(image, forState: .Highlighted)
 	}
 	
+	/// Handle the menuView touch event.
+	internal func handleButton(button: UIButton) {
+		print("Hit Button \(button)")
+	}
+	
 	/// General preparation statements are placed here.
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.white
@@ -120,6 +125,7 @@ class ViewController: UIViewController {
 		btn2.borderWidth = 1
 		btn2.setImage(image, forState: .Normal)
 		btn2.setImage(image, forState: .Highlighted)
+		btn2.addTarget(self, action: "handleButton:", forControlEvents: .TouchUpInside)
 		menuView.addSubview(btn2)
 		
 		image = UIImage(named: "ic_photo_camera_white")?.imageWithRenderingMode(.AlwaysTemplate)
@@ -132,6 +138,7 @@ class ViewController: UIViewController {
 		btn3.borderWidth = 1
 		btn3.setImage(image, forState: .Normal)
 		btn3.setImage(image, forState: .Highlighted)
+		btn3.addTarget(self, action: "handleButton:", forControlEvents: .TouchUpInside)
 		menuView.addSubview(btn3)
 		
 		image = UIImage(named: "ic_note_add_white")?.imageWithRenderingMode(.AlwaysTemplate)
@@ -144,11 +151,12 @@ class ViewController: UIViewController {
 		btn4.borderWidth = 1
 		btn4.setImage(image, forState: .Normal)
 		btn4.setImage(image, forState: .Highlighted)
+		btn4.addTarget(self, action: "handleButton:", forControlEvents: .TouchUpInside)
 		menuView.addSubview(btn4)
 		
 		// Initialize the menu and setup the configuration options.
 		menuView.menu.direction = .Up
-		menuView.menu.baseSize = CGSizeMake(diameter, diameter)
+		menuView.menu.baseViewSize = CGSizeMake(diameter, diameter)
 		menuView.menu.views = [btn1, btn2, btn3, btn4]
 		
 		view.addSubview(menuView)

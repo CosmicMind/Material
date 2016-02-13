@@ -162,7 +162,7 @@ class ViewController: UIViewController {
 		// Initialize the menu and setup the configuration options.
 		fabMenu = Menu(origin: CGPointMake(view.bounds.width - diameter - spacing, view.bounds.height - diameter - spacing))
 		fabMenu.direction = .Up
-		fabMenu.baseSize = CGSizeMake(diameter, diameter)
+		fabMenu.baseViewSize = CGSizeMake(diameter, diameter)
 		fabMenu.views = [btn1, btn2, btn3, btn4]
 	}
 	
@@ -204,7 +204,7 @@ class ViewController: UIViewController {
 		flatMenu = Menu(origin: CGPointMake(spacing, view.bounds.height - height - spacing))
 		flatMenu.direction = .Up
 		flatMenu.spacing = 8
-		flatMenu.buttonSize = CGSizeMake(120, height)
+		flatMenu.itemViewSize = CGSizeMake(120, height)
 		flatMenu.views = [btn1, btn2, btn3, btn4]
 	}
 	
@@ -238,7 +238,7 @@ class ViewController: UIViewController {
 		// Initialize the menu and setup the configuration options.
 		flashMenu = Menu(origin: CGPointMake((view.bounds.width + btn1.width) / 2, 100))
 		flashMenu.direction = .Left
-		flashMenu.buttonSize = btn1.intrinsicContentSize()
+		flashMenu.itemViewSize = btn1.intrinsicContentSize()
 		flashMenu.views = [btn1, btn2, btn3]
 	}
 }
