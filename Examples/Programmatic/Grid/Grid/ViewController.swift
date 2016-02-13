@@ -173,8 +173,8 @@ class ViewController: UIViewController {
 		labelB.grid.offset.columns = 6
 		
 		view.grid.spacing = 16
-		view.grid.contentInsetPreset = .Square6
 		view.grid.axis.direction = .None
+		view.grid.contentInsetPreset = .Square6
 		view.grid.views = [labelA, labelB]
 	}
 	
@@ -214,7 +214,7 @@ class ViewController: UIViewController {
 		detailLabel.numberOfLines = 0
 		detailLabel.lineBreakMode = .ByTruncatingTail
 		detailLabel.font = RobotoFont.regularWithSize(12)
-		detailLabel.text = "Material is a graphics and animation framework. It may be used for Google's Material Design and Apple's Flat UI. It is designed to allow the creativity of others to easily be expressed."
+		detailLabel.text = "Express your creativity with Material, an animation and graphics framework for Google's Material Design and Apple's Flat UI in Swift."
 		detailLabel.textColor = MaterialColor.blueGrey.darken4
 		detailLabel.backgroundColor = MaterialColor.clear
 		contentView.addSubview(detailLabel)
@@ -312,7 +312,7 @@ class ViewController: UIViewController {
 		detailLabel.numberOfLines = 0
 		detailLabel.lineBreakMode = .ByTruncatingTail
 		detailLabel.font = RobotoFont.regularWithSize(12)
-		detailLabel.text = "Material is a graphics and animation framework. It may be used for Google's Material Design and Apple's Flat UI. It is designed to allow the creativity of others to easily be expressed."
+		detailLabel.text = "Express your creativity with Material, an animation and graphics framework for Google's Material Design and Apple's Flat UI in Swift."
 		detailLabel.textColor = MaterialColor.blueGrey.darken4
 		detailLabel.backgroundColor = MaterialColor.clear
 		contentView.addSubview(detailLabel)
@@ -422,7 +422,7 @@ class ViewController: UIViewController {
 		detailLabel.numberOfLines = 0
 		detailLabel.lineBreakMode = .ByTruncatingTail
 		detailLabel.font = RobotoFont.regularWithSize(12)
-		detailLabel.text = "Material is a graphics and animation framework. It may be used for Google's Material Design and Apple's Flat UI. It is designed to allow the creativity of others to easily be expressed."
+		detailLabel.text = "Express your creativity with Material, an animation and graphics framework for Google's Material Design and Apple's Flat UI in Swift."
 		detailLabel.textColor = MaterialColor.blueGrey.darken4
 		detailLabel.backgroundColor = MaterialColor.clear
 		contentView.addSubview(detailLabel)

@@ -2,7 +2,7 @@
 
 # Welcome to Material
 
-Material is an animation and graphics framework for Google's Material Design and Apple's Flat UI in Swift, allowing the creativity of others to easily be expressed.
+Express your creativity with Material, an animation and graphics framework for Google's Material Design and Apple's Flat UI in Swift.
 
 ## Features
 
