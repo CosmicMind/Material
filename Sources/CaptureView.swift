@@ -185,16 +185,16 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 	/**
 	:name:	contentInsets
 	*/
-	public var contentInsetPreset: MaterialEdgeInsetPreset = .None {
+	public var contentInsetPreset: MaterialEdgeInset = .None {
 		didSet {
-			contentInset = MaterialEdgeInsetPresetToValue(contentInsetPreset)
+			contentInset = MaterialEdgeInsetToValue(contentInsetPreset)
 		}
 	}
 	
 	/**
 	:name:	contentInset
 	*/
-	public var contentInset: UIEdgeInsets = MaterialEdgeInsetPresetToValue(.Square4) {
+	public var contentInset: UIEdgeInsets = MaterialEdgeInsetToValue(.Square4) {
 		didSet {
 			reloadView()
 		}

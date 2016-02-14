@@ -85,11 +85,19 @@ class ViewController: UIViewController {
 	func prepareCardView() {
 		let cardView: CardView = CardView()
 		cardView.pulseColor = nil
+		cardView.backgroundColor = MaterialColor.grey.lighten5
+		cardView.cornerRadiusPreset = .Radius1
+		cardView.divider = false
+		cardView.contentInsetPreset = .None
+		cardView.leftButtonsInsetPreset = .Square2
+		cardView.rightButtonsInsetPreset = .Square2
+		cardView.detailViewInsetPreset = .None
 		
 		let titleLabel: UILabel = UILabel()
+		titleLabel.font = RobotoFont.mediumWithSize(20)
 		titleLabel.text = "Messages"
 		titleLabel.textAlignment = .Center
-		titleLabel.font = RobotoFont.mediumWithSize(24)
+		titleLabel.textColor = MaterialColor.blueGrey.darken4
 		
 		let v: UIView = UIView()
 		v.backgroundColor = MaterialColor.blue.accent1
@@ -106,8 +114,6 @@ class ViewController: UIViewController {
 		// Use MaterialLayout to easily align the tableView.
 		cardView.titleLabel = titleLabel
 		cardView.detailView = tableView
-		cardView.detailViewInsetPreset = .None
-		cardView.dividerInset.top = 0
 		cardView.leftButtons = [closeButton]
 		cardView.rightButtons = [settingButton]
 		

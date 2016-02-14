@@ -188,14 +188,21 @@ public class MaterialButton : UIButton {
 	property has a value of .Circle when the cornerRadius is set, it will
 	become .None, as it no longer maintains its circle shape.
 	*/
-	public var cornerRadius: MaterialRadius {
+	public var cornerRadiusPreset: MaterialRadius {
 		didSet {
-			if let v: MaterialRadius = cornerRadius {
-				layer.cornerRadius = MaterialRadiusToValue(v)
+			if let v: MaterialRadius = cornerRadiusPreset {
+				cornerRadius = MaterialRadiusToValue(v)
 				if .Circle == shape {
 					shape = .None
 				}
 			}
+		}
+	}
+	
+	/// A property that accesses the layer.cornerRadius.
+	public var cornerRadius: CGFloat = 0 {
+		didSet {
+			layer.cornerRadius = cornerRadius
 		}
 	}
 	
@@ -216,10 +223,8 @@ public class MaterialButton : UIButton {
 		}
 	}
 	
-	/**
-	A property that accesses the layer.borderWith.
-	*/
-	public var borderWidth: CGFloat = 0 {
+	/// A property that accesses the layer.borderWith.
+	public var borderWidth: CGFloat {
 		didSet {
 			layer.borderWidth = borderWidth
 		}
@@ -255,9 +260,9 @@ public class MaterialButton : UIButton {
 	/**
 	:name:	contentInsets
 	*/
-	public var contentInsetPreset: MaterialEdgeInsetPreset {
+	public var contentInsetPreset: MaterialEdgeInset {
 		didSet {
-			let value: UIEdgeInsets = MaterialEdgeInsetPresetToValue(contentInsetPreset)
+			let value: UIEdgeInsets = MaterialEdgeInsetToValue(contentInsetPreset)
 			contentEdgeInsets = UIEdgeInsetsMake(value.top, value.left, value.bottom, value.right)
 		}
 	}
@@ -268,8 +273,9 @@ public class MaterialButton : UIButton {
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		depth = .None
+		cornerRadiusPreset = .None
 		shape = .None
-		cornerRadius = .None
+		borderWidth = 0
 		contentInsetPreset = .None
 		super.init(coder: aDecoder)
 		prepareView()
@@ -283,8 +289,9 @@ public class MaterialButton : UIButton {
 	*/
 	public override init(frame: CGRect) {
 		depth = .None
+		cornerRadiusPreset = .None
 		shape = .None
-		cornerRadius = .None
+		borderWidth = 0
 		contentInsetPreset = .None
 		super.init(frame: frame)
 		prepareView()

@@ -43,7 +43,7 @@ public class RaisedButton : MaterialButton {
 		setTitleColor(MaterialColor.white, forState: .Normal)
 		backgroundColor = MaterialColor.blue.accent3
 		depth = .Depth1
-		cornerRadius = .Radius1
+		cornerRadiusPreset = .Radius1
 		contentInsetPreset = .WideRectangle3
 	}
 }

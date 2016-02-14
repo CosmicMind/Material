@@ -126,14 +126,14 @@ public class Grid {
 	public private(set) var axis: GridAxis!
 	
 	/// Preset inset value for grid.
-	public var contentInsetPreset: MaterialEdgeInsetPreset = .None {
+	public var contentInsetPreset: MaterialEdgeInset = .None {
 		didSet {
-			contentInset = MaterialEdgeInsetPresetToValue(contentInsetPreset)
+			contentInset = MaterialEdgeInsetToValue(contentInsetPreset)
 		}
 	}
 	
 	/// Insets value for grid.
-	public var contentInset: UIEdgeInsets = MaterialEdgeInsetPresetToValue(.None) {
+	public var contentInset: UIEdgeInsets = MaterialEdgeInsetToValue(.None) {
 		didSet {
 			reloadLayout()
 		}

@@ -231,14 +231,21 @@ public class MaterialView : UIView {
 	property has a value of .Circle when the cornerRadius is set, it will 
 	become .None, as it no longer maintains its circle shape.
 	*/
-	public var cornerRadius: MaterialRadius {
+	public var cornerRadiusPreset: MaterialRadius {
 		didSet {
-			if let v: MaterialRadius = cornerRadius {
-				layer.cornerRadius = MaterialRadiusToValue(v)
+			if let v: MaterialRadius = cornerRadiusPreset {
+				cornerRadius = MaterialRadiusToValue(v)
 				if .Circle == shape {
 					shape = .None
 				}
 			}
+		}
+	}
+	
+	/// A property that accesses the layer.cornerRadius.
+	public var cornerRadius: CGFloat = 0 {
+		didSet {
+			layer.cornerRadius = cornerRadius
 		}
 	}
 	
@@ -259,10 +266,8 @@ public class MaterialView : UIView {
 		}
 	}
 	
-	/**
-	A property that accesses the layer.borderWith.
-	*/
-	public var borderWidth: CGFloat = 0 {
+	/// A property that accesses the layer.borderWith.
+	public var borderWidth: CGFloat {
 		didSet {
 			layer.borderWidth = borderWidth
 		}
@@ -305,8 +310,9 @@ public class MaterialView : UIView {
 		contentsScale = UIScreen.mainScreen().scale
 		contentsGravity = .ResizeAspectFill
 		depth = .None
+		cornerRadiusPreset = .None
 		shape = .None
-		cornerRadius = .None
+		borderWidth = 0
 		super.init(coder: aDecoder)
 		prepareView()
 	}
@@ -323,8 +329,9 @@ public class MaterialView : UIView {
 		contentsScale = UIScreen.mainScreen().scale
 		contentsGravity = .ResizeAspectFill
 		depth = .None
+		cornerRadiusPreset = .None
 		shape = .None
-		cornerRadius = .None
+		borderWidth = 0
 		super.init(frame: frame)
 		prepareView()
 	}

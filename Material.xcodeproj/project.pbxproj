@@ -39,6 +39,7 @@
 		96A71EB91C6FCFA300C0C4AE /* Grid.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9656CD0B1C6BD33700EBCEF1 /* Grid.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96A71EBA1C6FCFA300C0C4AE /* Menu.swift in Headers */ = {isa = PBXBuildFile; fileRef = 65FDC2EA1C66858A00103AC2 /* Menu.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96A71EBB1C6FCFA300C0C4AE /* MenuView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96A71E901C6FBC2200C0C4AE /* MenuView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96A71EC71C6FFF0500C0C4AE /* MaterialSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71EC61C6FFF0500C0C4AE /* MaterialSwitch.swift */; };
 		96D88C1E1C1328D800B91418 /* CaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D88BF51C1328D800B91418 /* CaptureView.swift */; };
 		96D88C1F1C1328D800B91418 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D88BF61C1328D800B91418 /* CardView.swift */; };
 		96D88C201C1328D800B91418 /* CapturePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D88BF71C1328D800B91418 /* CapturePreviewView.swift */; };
@@ -54,7 +55,7 @@
 		96D88C2D1C1328D800B91418 /* MaterialDepth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D88C041C1328D800B91418 /* MaterialDepth.swift */; };
 		96D88C2E1C1328D800B91418 /* MaterialFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D88C051C1328D800B91418 /* MaterialFont.swift */; };
 		96D88C2F1C1328D800B91418 /* MaterialGravity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D88C061C1328D800B91418 /* MaterialGravity.swift */; };
-		96D88C301C1328D800B91418 /* MaterialEdgeInsetPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D88C071C1328D800B91418 /* MaterialEdgeInsetPreset.swift */; };
+		96D88C301C1328D800B91418 /* MaterialEdgeInset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D88C071C1328D800B91418 /* MaterialEdgeInset.swift */; };
 		96D88C311C1328D800B91418 /* MaterialKeyframeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D88C081C1328D800B91418 /* MaterialKeyframeAnimation.swift */; };
 		96D88C321C1328D800B91418 /* Material.h in Headers */ = {isa = PBXBuildFile; fileRef = 96D88C091C1328D800B91418 /* Material.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		96D88C331C1328D800B91418 /* MaterialLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D88C0A1C1328D800B91418 /* MaterialLabel.swift */; };
@@ -83,7 +84,7 @@
 		96D88C5D1C132ABF00B91418 /* MaterialColor.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96D88C031C1328D800B91418 /* MaterialColor.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96D88C5E1C132ABF00B91418 /* MaterialDepth.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96D88C041C1328D800B91418 /* MaterialDepth.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96D88C5F1C132ABF00B91418 /* MaterialGravity.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96D88C061C1328D800B91418 /* MaterialGravity.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		96D88C601C132ABF00B91418 /* MaterialEdgeInsetPreset.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96D88C071C1328D800B91418 /* MaterialEdgeInsetPreset.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96D88C601C132ABF00B91418 /* MaterialEdgeInset.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96D88C071C1328D800B91418 /* MaterialEdgeInset.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96D88C611C132ABF00B91418 /* CaptureView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96D88BF51C1328D800B91418 /* CaptureView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96D88C621C132ABF00B91418 /* CapturePreviewView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96D88BF71C1328D800B91418 /* CapturePreviewView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96D88C631C132ABF00B91418 /* CaptureSession.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96D88BF81C1328D800B91418 /* CaptureSession.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -137,6 +138,7 @@
 		9656CD0B1C6BD33700EBCEF1 /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		966F57B71C226D75009185B7 /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		96A71E901C6FBC2200C0C4AE /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		96A71EC61C6FFF0500C0C4AE /* MaterialSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialSwitch.swift; sourceTree = "<group>"; };
 		96D88BF51C1328D800B91418 /* CaptureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureView.swift; sourceTree = "<group>"; };
 		96D88BF61C1328D800B91418 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		96D88BF71C1328D800B91418 /* CapturePreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CapturePreviewView.swift; sourceTree = "<group>"; };
@@ -154,7 +156,7 @@
 		96D88C041C1328D800B91418 /* MaterialDepth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialDepth.swift; sourceTree = "<group>"; };
 		96D88C051C1328D800B91418 /* MaterialFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialFont.swift; sourceTree = "<group>"; };
 		96D88C061C1328D800B91418 /* MaterialGravity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialGravity.swift; sourceTree = "<group>"; };
-		96D88C071C1328D800B91418 /* MaterialEdgeInsetPreset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialEdgeInsetPreset.swift; sourceTree = "<group>"; };
+		96D88C071C1328D800B91418 /* MaterialEdgeInset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialEdgeInset.swift; sourceTree = "<group>"; };
 		96D88C081C1328D800B91418 /* MaterialKeyframeAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialKeyframeAnimation.swift; sourceTree = "<group>"; };
 		96D88C091C1328D800B91418 /* Material.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Material.h; sourceTree = "<group>"; };
 		96D88C0A1C1328D800B91418 /* MaterialLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialLabel.swift; sourceTree = "<group>"; };
@@ -259,6 +261,14 @@
 			name = Menu;
 			sourceTree = "<group>";
 		};
+		96A71EC51C6FFEF300C0C4AE /* Switch */ = {
+			isa = PBXGroup;
+			children = (
+				96A71EC61C6FFF0500C0C4AE /* MaterialSwitch.swift */,
+			);
+			name = Switch;
+			sourceTree = "<group>";
+		};
 		96D88BF41C1328D800B91418 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -282,6 +292,7 @@
 				96442ADC1C28EF1400C3C574 /* TableView */,
 				965C58BD1C6B8D3300CFB4E1 /* Grid */,
 				96A71E921C6FBC2900C0C4AE /* Menu */,
+				96A71EC51C6FFEF300C0C4AE /* Switch */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -325,7 +336,7 @@
 				96D88C0F1C1328D800B91418 /* MaterialShape.swift */,
 				96D88C041C1328D800B91418 /* MaterialDepth.swift */,
 				96D88C061C1328D800B91418 /* MaterialGravity.swift */,
-				96D88C071C1328D800B91418 /* MaterialEdgeInsetPreset.swift */,
+				96D88C071C1328D800B91418 /* MaterialEdgeInset.swift */,
 			);
 			name = Type;
 			sourceTree = "<group>";
@@ -459,7 +470,7 @@
 				96D88C5D1C132ABF00B91418 /* MaterialColor.swift in Headers */,
 				96D88C5E1C132ABF00B91418 /* MaterialDepth.swift in Headers */,
 				96D88C5F1C132ABF00B91418 /* MaterialGravity.swift in Headers */,
-				96D88C601C132ABF00B91418 /* MaterialEdgeInsetPreset.swift in Headers */,
+				96D88C601C132ABF00B91418 /* MaterialEdgeInset.swift in Headers */,
 				96D88C611C132ABF00B91418 /* CaptureView.swift in Headers */,
 				96D88C621C132ABF00B91418 /* CapturePreviewView.swift in Headers */,
 				96D88C631C132ABF00B91418 /* CaptureSession.swift in Headers */,
@@ -606,6 +617,7 @@
 				966F57B81C226D75009185B7 /* TextField.swift in Sources */,
 				96DBA7361C61198400844821 /* Material+UIImage+Color.swift in Sources */,
 				96D88C201C1328D800B91418 /* CapturePreviewView.swift in Sources */,
+				96A71EC71C6FFF0500C0C4AE /* MaterialSwitch.swift in Sources */,
 				96D88C3E1C1328D800B91418 /* NavigationBarView.swift in Sources */,
 				96D88C221C1328D800B91418 /* FabButton.swift in Sources */,
 				96D88C3F1C1328D800B91418 /* RaisedButton.swift in Sources */,
@@ -623,7 +635,7 @@
 				96D88C451C1328D800B91418 /* RobotoFont.swift in Sources */,
 				96D88C1F1C1328D800B91418 /* CardView.swift in Sources */,
 				96D88C2C1C1328D800B91418 /* MaterialColor.swift in Sources */,
-				96D88C301C1328D800B91418 /* MaterialEdgeInsetPreset.swift in Sources */,
+				96D88C301C1328D800B91418 /* MaterialEdgeInset.swift in Sources */,
 				96D88C211C1328D800B91418 /* CaptureSession.swift in Sources */,
 				96442ADE1C28EF3700C3C574 /* MaterialTableViewCell.swift in Sources */,
 				960B23271C383E5500E96216 /* Material+String.swift in Sources */,

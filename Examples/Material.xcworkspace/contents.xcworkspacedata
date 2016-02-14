@@ -75,6 +75,13 @@
       </Group>
       <Group
          location = "container:"
+         name = "MaterialSwitch">
+         <FileRef
+            location = "group:Programmatic/MaterialSwitch/MaterialSwitch.xcodeproj">
+         </FileRef>
+      </Group>
+      <Group
+         location = "container:"
          name = "NavigationBarView">
          <FileRef
             location = "group:Programmatic/NavigationBarView/NavigationBarView.xcodeproj">

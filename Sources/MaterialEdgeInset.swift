@@ -30,7 +30,7 @@
 
 import UIKit
 
-public enum MaterialEdgeInsetPreset {
+public enum MaterialEdgeInset {
 	case None
 	
 	// square
@@ -68,9 +68,9 @@ public enum MaterialEdgeInsetPreset {
 }
 
 /**
-	:name:	MaterialEdgeInsetPresetToValue
+	:name:	MaterialEdgeInsetToValue
 */
-public func MaterialEdgeInsetPresetToValue(inset: MaterialEdgeInsetPreset) -> UIEdgeInsets {
+public func MaterialEdgeInsetToValue(inset: MaterialEdgeInset) -> UIEdgeInsets {
 	switch inset {
 	case .None:
 		return UIEdgeInsetsZero

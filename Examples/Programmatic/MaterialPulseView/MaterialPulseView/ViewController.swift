@@ -57,7 +57,7 @@ class ViewController: UIViewController {
 		pulseView.image = UIImage(named: "Graph")
 		pulseView.shape = .Square
 		pulseView.depth = .Depth1
-		pulseView.cornerRadius = .Radius3
+		pulseView.cornerRadiusPreset = .Radius3
 		
 		// Add pulseView to UIViewController.
 		view.addSubview(pulseView)
