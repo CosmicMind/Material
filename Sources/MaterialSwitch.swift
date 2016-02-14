@@ -216,24 +216,13 @@ public class MaterialSwitch: UIControl {
 	
 	public override var frame: CGRect {
 		didSet {
-			var w: CGFloat = 0
-			switch switchSize {
-			case .Small:
-				w = 30
-			case .Normal:
-				w = 40
-			case .Large:
-				w = 50
-			}
-			
-			let px: CGFloat = (width - w) / 2
-			
-			track.frame = CGRectMake(px, (height - trackThickness) / 2, w, trackThickness)
-			track.cornerRadius = min(track.height, track.width) / 2
-			
-			button.frame = CGRectMake(px, (height - buttonDiameter) / 2, buttonDiameter, buttonDiameter)
-			onPosition = width - px - buttonDiameter
-			offPosition = px
+			layoutSwitch()
+		}
+	}
+	
+	public override var bounds: CGRect {
+		didSet {
+			layoutSwitch()
 		}
 	}
 	
@@ -457,5 +446,27 @@ public class MaterialSwitch: UIControl {
 			button.backgroundColor = buttonOffDisabledColor
 			track.backgroundColor = trackOffDisabledColor
 		}
+	}
+	
+	/// Laout the button and track views.
+	private func layoutSwitch() {
+		var w: CGFloat = 0
+		switch switchSize {
+		case .Small:
+			w = 30
+		case .Normal:
+			w = 40
+		case .Large:
+			w = 50
+		}
+		
+		let px: CGFloat = (width - w) / 2
+		
+		track.frame = CGRectMake(px, (height - trackThickness) / 2, w, trackThickness)
+		track.cornerRadius = min(track.height, track.width) / 2
+		
+		button.frame = CGRectMake(px, (height - buttonDiameter) / 2, buttonDiameter, buttonDiameter)
+		onPosition = width - px - buttonDiameter
+		offPosition = px
 	}
 }

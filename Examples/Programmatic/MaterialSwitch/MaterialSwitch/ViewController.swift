@@ -29,7 +29,7 @@
 */
 
 /*
-The following is an example of MaterialSwitch.
+The following are examples of MaterialSwitch.
 */
 
 import UIKit
@@ -40,12 +40,12 @@ class ViewController: UIViewController, MaterialSwitchDelegate {
 	private var materialSwitch: MaterialSwitch!
 	
 	/// Reference for NavigationBarView.
-	private var navigationBarView: NavigationBarView = NavigationBarView()
+	private var searchBarView: SearchBarView = SearchBarView()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		prepareNavigationBarView()
+		prepareSearchBarView()
 		prepareSmallMaterialSwitch()
 		prepareNormalMaterialSwitch()
 		prepareLargeMaterialSwitch()
@@ -61,11 +61,13 @@ class ViewController: UIViewController, MaterialSwitchDelegate {
 	}
 	
 	/// Prepare navigationBarView.
-	private func prepareNavigationBarView() {
-		navigationBarView.statusBarStyle = .LightContent
-		navigationBarView.backgroundColor = MaterialColor.blue.base
-		
-		view.addSubview(navigationBarView)
+	private func prepareSearchBarView() {
+		searchBarView.statusBarStyle = .LightContent
+		searchBarView.backgroundColor = MaterialColor.blue.base
+		searchBarView.textField.attributedPlaceholder = NSAttributedString(string:"Search", attributes: [NSForegroundColorAttributeName: MaterialColor.white])
+		searchBarView.textField.clearButtonMode = .WhileEditing
+		searchBarView.textField.tintColor = MaterialColor.white
+		view.addSubview(searchBarView)
 	}
 	
 	/// Prepares the Small MaterialSwitch.
@@ -74,11 +76,15 @@ class ViewController: UIViewController, MaterialSwitchDelegate {
 		materialSwitch.delegate = self
 		
 		let image: UIImage? = UIImage(named: "ic_alarm_white")
+		let alarmButton: FlatButton = FlatButton()
+		alarmButton.setImage(image, forState: .Normal)
+		alarmButton.setImage(image, forState: .Highlighted)
+		
 		let button: FlatButton = FlatButton()
-		button.setImage(image, forState: .Normal)
-		button.setImage(image, forState: .Highlighted)
-		materialSwitch.backgroundColor = MaterialColor.green.base
-		navigationBarView.leftControls = [materialSwitch, button]
+		button.setTitle("Back Button", forState: .Normal)
+		
+		searchBarView.leftControls = [materialSwitch]
+		searchBarView.rightControls = [alarmButton]
 	}
 	
 	/// Prepares the Normal MaterialSwitch.
@@ -89,6 +95,9 @@ class ViewController: UIViewController, MaterialSwitchDelegate {
 		materialSwitch.delegate = self
 		materialSwitch.backgroundColor = MaterialColor.green.base
 		view.addSubview(materialSwitch)
+		materialSwitch.translatesAutoresizingMaskIntoConstraints = false
+		MaterialLayout.size(view, child: materialSwitch, width: materialSwitch.width + 100, height: materialSwitch.height + 100)
+		MaterialLayout.alignFromBottomRight(view, child: materialSwitch, bottom: 16, right: 16)
 	}
 	
 	/// Prepares the Large MaterialSwitch.
