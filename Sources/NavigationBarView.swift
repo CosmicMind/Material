@@ -52,25 +52,7 @@ public class NavigationBarView : MaterialView {
 	/**
 	:name:	contentInset
 	*/
-	public var contentInset: UIEdgeInsets = MaterialEdgeInsetToValue(.Square2) {
-		didSet {
-			reloadView()
-		}
-	}
-	
-	/**
-	:name:	titleLabelInsets
-	*/
-	public var titleLabelInsetPreset: MaterialEdgeInset = .None {
-		didSet {
-			titleLabelInset = MaterialEdgeInsetToValue(titleLabelInsetPreset)
-		}
-	}
-	
-	/**
-	:name:	titleLabelInset
-	*/
-	public var titleLabelInset: UIEdgeInsets = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0) {
+	public var contentInset: UIEdgeInsets = UIEdgeInsets(top: 24, left: 8, bottom: 8, right: 8) {
 		didSet {
 			reloadView()
 		}
@@ -87,24 +69,6 @@ public class NavigationBarView : MaterialView {
 	}
 	
 	/**
-	:name:	detailLabelInsets
-	*/
-	public var detailLabelInsetPreset: MaterialEdgeInset = .None {
-		didSet {
-			detailLabelInset = MaterialEdgeInsetToValue(detailLabelInsetPreset)
-		}
-	}
-	
-	/**
-	:name:	detailLabelInset
-	*/
-	public var detailLabelInset: UIEdgeInsets = MaterialEdgeInsetToValue(.None) {
-		didSet {
-			reloadView()
-		}
-	}
-	
-	/**
 	:name:	detailLabel
 	*/
 	public var detailLabel: UILabel? {
@@ -115,31 +79,13 @@ public class NavigationBarView : MaterialView {
 	}
 	
 	/**
-	:name:	leftButtonsInsets
+	:name:	leftControls
 	*/
-	public var leftButtonsInsetPreset: MaterialEdgeInset = .None {
+	public var leftControls: Array<UIControl>? {
 		didSet {
-			leftButtonsInset = MaterialEdgeInsetToValue(leftButtonsInsetPreset)
-		}
-	}
-	
-	/**
-	:name:	leftButtonsInset
-	*/
-	public var leftButtonsInset: UIEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0) {
-		didSet {
-			reloadView()
-		}
-	}
-	
-	/**
-	:name:	leftButtons
-	*/
-	public var leftButtons: Array<UIButton>? {
-		didSet {
-			if let v = leftButtons {
-				for b in v {
-					b.translatesAutoresizingMaskIntoConstraints = false
+			if let v = leftControls {
+				for c in v {
+//					c.translatesAutoresizingMaskIntoConstraints = false
 				}
 			}
 			reloadView()
@@ -147,31 +93,13 @@ public class NavigationBarView : MaterialView {
 	}
 	
 	/**
-	:name:	rightButtonsInsets
+	:name:	rightControls
 	*/
-	public var rightButtonsInsetPreset: MaterialEdgeInset = .None {
+	public var rightControls: Array<UIControl>? {
 		didSet {
-			rightButtonsInset = MaterialEdgeInsetToValue(rightButtonsInsetPreset)
-		}
-	}
-	
-	/**
-	:name:	rightButtonsInset
-	*/
-	public var rightButtonsInset: UIEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0) {
-		didSet {
-			reloadView()
-		}
-	}
-	
-	/**
-	:name:	rightButtons
-	*/
-	public var rightButtons: Array<UIButton>? {
-		didSet {
-			if let v = rightButtons {
-				for b in v {
-					b.translatesAutoresizingMaskIntoConstraints = false
+			if let v: Array<UIControl> = rightControls {
+				for c in v {
+					c.translatesAutoresizingMaskIntoConstraints = false
 				}
 			}
 			reloadView()
@@ -202,9 +130,9 @@ public class NavigationBarView : MaterialView {
 	/**
 	:name:	init
 	*/
-	public convenience init?(titleLabel: UILabel? = nil, detailLabel: UILabel? = nil, leftButtons: Array<UIButton>? = nil, rightButtons: Array<UIButton>? = nil) {
+	public convenience init?(titleLabel: UILabel? = nil, detailLabel: UILabel? = nil, leftControls: Array<UIControl>? = nil, rightControls: Array<UIControl>? = nil) {
 		self.init(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 70))
-		prepareProperties(titleLabel, detailLabel: detailLabel, leftButtons: leftButtons, rightButtons: rightButtons)
+		prepareProperties(titleLabel, detailLabel: detailLabel, leftControls: leftControls, rightControls: rightControls)
 	}
 	
 	/**
@@ -217,114 +145,49 @@ public class NavigationBarView : MaterialView {
 			v.removeFromSuperview()
 		}
 		
-		var verticalFormat: String = "V:|"
-		var views: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
-		var metrics: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
 		
-		if nil != titleLabel {
-			verticalFormat += "-(insetTop)"
-			metrics["insetTop"] = contentInset.top + titleLabelInset.top
-		} else if nil != detailLabel {
-			verticalFormat += "-(insetTop)"
-			metrics["insetTop"] = contentInset.top + detailLabelInset.top
-		}
+		var views: Dictionary<String, UIView> = Dictionary<String, UIView>()
+		var h: String = "H:|"
 		
-		// title
-		if let v = titleLabel {
-			verticalFormat += "-[titleLabel]"
-			views["titleLabel"] = v
-			
-			addSubview(v)
-			MaterialLayout.alignToParentHorizontally(self, child: v, left: contentInset.left + titleLabelInset.left, right: contentInset.right + titleLabelInset.right)
-		}
 		
-		// detail
-		if let v = detailLabel {
-			if nil != titleLabel {
-				verticalFormat += "-(insetB)"
-				metrics["insetB"] = titleLabelInset.bottom + detailLabelInset.top
-			}
-			
-			verticalFormat += "-[detailLabel]"
-			views["detailLabel"] = v
-			
-			addSubview(v)
-			MaterialLayout.alignToParentHorizontally(self, child: v, left: contentInset.left + detailLabelInset.left, right: contentInset.right + detailLabelInset.right)
-		}
-		
-		// leftButtons
-		if let v = leftButtons {
+		// leftControls
+		if let v: Array<UIControl> = leftControls {
 			if 0 < v.count {
-				var h: String = "H:|"
-				var d: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
 				var i: Int = 0
-				for b in v {
-					let k: String = "b\(i)"
-					
-					d[k] = b
-					
+				for c in v {
+					let k: String = "c\(i)"
+
+					views[k] = c
+
 					if 0 == i++ {
 						h += "-(left)-"
 					} else {
-						h += "-(left_right)-"
+						h += "-(spacing)-"
 					}
 					
 					h += "[\(k)]"
+
+					addSubview(c)
+					c.grid.columns = 1
 					
-					addSubview(b)
-					MaterialLayout.alignFromBottom(self, child: b, bottom: contentInset.bottom + leftButtonsInset.bottom)
-				}
-				
-				addConstraints(MaterialLayout.constraint(h, options: [], metrics: ["left" : contentInset.left + leftButtonsInset.left, "left_right" : leftButtonsInset.left + leftButtonsInset.right], views: d))
-			}
-		}
-		
-		// rightButtons
-		if let v = rightButtons {
-			if 0 < v.count {
-				var h: String = "H:"
-				var d: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
-				var i: Int = v.count - 1
-				
-				for b in v {
-					let k: String = "b\(i)"
-					
-					d[k] = b
-					
-					h += "[\(k)]"
-					
-					if 0 == i-- {
-						h += "-(right)-"
-					} else {
-						h += "-(right_left)-"
+//					if 0 < c.bounds.width {
+//						MaterialLayout.size(self, child: c, width: c.bounds.width, height: c.bounds.height)
+//					}
+					if let btn: UIButton = c as? UIButton {
+						btn.contentEdgeInsets = UIEdgeInsetsZero
 					}
-					
-					addSubview(b)
-					MaterialLayout.alignFromBottom(self, child: b, bottom: contentInset.bottom + rightButtonsInset.bottom)
+//					MaterialLayout.alignToParentVertically(self, child: c, top: contentInset.top, bottom: contentInset.bottom)
 				}
-				
-				addConstraints(MaterialLayout.constraint(h + "|", options: [], metrics: ["right" : contentInset.right + rightButtonsInset.right, "right_left" : rightButtonsInset.right + rightButtonsInset.left], views: d))
 			}
 		}
 		
-		if nil != detailLabel {
-			if nil == metrics["insetC"] {
-				metrics["insetBottom"] = contentInset.bottom + detailLabelInset.bottom
-			} else {
-				metrics["insetC"] = (metrics["insetC"] as! CGFloat) + detailLabelInset.bottom
-			}
-		} else if nil != titleLabel {
-			if nil == metrics["insetC"] {
-				metrics["insetBottom"] = contentInset.bottom + titleLabelInset.bottom
-			} else {
-				metrics["insetC"] = (metrics["insetC"] as! CGFloat) + titleLabelInset.bottom
-			}
-		}
+		grid.contentInset.top = 20
+		grid.contentInset.bottom = 10
+		grid.columns = 10
+		grid.views = leftControls
 		
-		if 0 < views.count {
-			verticalFormat += "-(insetBottom)-|"
-			addConstraints(MaterialLayout.constraint(verticalFormat, options: [], metrics: metrics, views: views))
-		}
+		
+//		addConstraints(MaterialLayout.constraint(h + "|", options: [], metrics: ["left" : contentInset.left, "spacing" : 8], views: views))
 	}
 	
 	/**
@@ -338,10 +201,10 @@ public class NavigationBarView : MaterialView {
 	/**
 	:name:	prepareProperties
 	*/
-	internal func prepareProperties(titleLabel: UILabel?, detailLabel: UILabel?, leftButtons: Array<UIButton>?, rightButtons: Array<UIButton>?) {
+	internal func prepareProperties(titleLabel: UILabel?, detailLabel: UILabel?, leftControls: Array<UIControl>?, rightControls: Array<UIControl>?) {
 		self.titleLabel = titleLabel
 		self.detailLabel = detailLabel
-		self.leftButtons = leftButtons
-		self.rightButtons = rightButtons
+		self.leftControls = leftControls
+		self.rightControls = rightControls
 	}
 }

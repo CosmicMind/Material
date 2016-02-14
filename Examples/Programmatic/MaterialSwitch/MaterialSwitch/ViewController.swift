@@ -39,14 +39,20 @@ class ViewController: UIViewController, MaterialSwitchDelegate {
 	/// Reference for MaterialSwitch.
 	private var materialSwitch: MaterialSwitch!
 	
+	/// Reference for NavigationBarView.
+	private var navigationBarView: NavigationBarView = NavigationBarView()
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
+		prepareNavigationBarView()
 		prepareSmallMaterialSwitch()
 		prepareNormalMaterialSwitch()
 		prepareLargeMaterialSwitch()
-		prepareLightDisabledMaterialSwitch()
-		prepareDarkDisabledMaterialSwitch()
+		prepareLightOnDisabledMaterialSwitch()
+		prepareLightOffDisabledMaterialSwitch()
+		prepareDarkOnDisabledMaterialSwitch()
+		prepareDarkOffDisabledMaterialSwitch()
 	}
 	
 	/// General preparation statements.
@@ -54,49 +60,90 @@ class ViewController: UIViewController, MaterialSwitchDelegate {
 		view.backgroundColor = MaterialColor.white
 	}
 	
+	/// Prepare navigationBarView.
+	private func prepareNavigationBarView() {
+		navigationBarView.statusBarStyle = .LightContent
+		navigationBarView.backgroundColor = MaterialColor.blue.base
+		
+		view.addSubview(navigationBarView)
+	}
+	
 	/// Prepares the Small MaterialSwitch.
 	private func prepareSmallMaterialSwitch() {
 		materialSwitch = MaterialSwitch(state: .Off, style: .Light, size: .Small)
-		materialSwitch.center = view.center
-		materialSwitch.y -= 100
 		materialSwitch.delegate = self
-		view.addSubview(materialSwitch)
+		
+		let image: UIImage? = UIImage(named: "ic_alarm_white")
+		let button: FlatButton = FlatButton()
+		button.setImage(image, forState: .Normal)
+		button.setImage(image, forState: .Highlighted)
+		materialSwitch.backgroundColor = MaterialColor.green.base
+		navigationBarView.leftControls = [materialSwitch, button]
 	}
 	
 	/// Prepares the Normal MaterialSwitch.
 	private func prepareNormalMaterialSwitch() {
-		materialSwitch = MaterialSwitch(state: .On, style: .Dark, size: .Normal)
+		materialSwitch = MaterialSwitch(state: .On, style: .Light, size: .Normal)
 		materialSwitch.center = view.center
+		materialSwitch.y -= 100
 		materialSwitch.delegate = self
+		materialSwitch.backgroundColor = MaterialColor.green.base
 		view.addSubview(materialSwitch)
 	}
 	
 	/// Prepares the Large MaterialSwitch.
 	private func prepareLargeMaterialSwitch() {
+		let image: UIImage? = UIImage(named: "ic_alarm_white_18pt")
 		materialSwitch = MaterialSwitch(state: .Off, style: .Light, size: .Large)
 		materialSwitch.center = view.center
-		materialSwitch.y += 100
+		materialSwitch.y -= 50
 		materialSwitch.delegate = self
+		materialSwitch.button.setImage(image, forState: .Normal)
+		materialSwitch.button.setImage(image, forState: .Highlighted)
+		materialSwitch.backgroundColor = MaterialColor.green.base
 		view.addSubview(materialSwitch)
 	}
 	
-	/// Prepares the Light disabled MaterialSwitch.
-	private func prepareLightDisabledMaterialSwitch() {
+	/// Prepares the Light On enabled = false MaterialSwitch.
+	private func prepareLightOnDisabledMaterialSwitch() {
+		materialSwitch = MaterialSwitch(state: .On, style: .Light, size: .Normal)
+		materialSwitch.enabled = false
+		materialSwitch.center = view.center
+		materialSwitch.delegate = self
+		materialSwitch.backgroundColor = MaterialColor.green.base
+		view.addSubview(materialSwitch)
+	}
+	
+	/// Prepares the Light Off enabled = false MaterialSwitch.
+	private func prepareLightOffDisabledMaterialSwitch() {
 		materialSwitch = MaterialSwitch(state: .Off, style: .Light, size: .Normal)
 		materialSwitch.enabled = false
 		materialSwitch.center = view.center
-		materialSwitch.y += 200
+		materialSwitch.y += 50
 		materialSwitch.delegate = self
+		materialSwitch.backgroundColor = MaterialColor.green.base
 		view.addSubview(materialSwitch)
 	}
 	
-	/// Prepares the Dark disabled MaterialSwitch.
-	private func prepareDarkDisabledMaterialSwitch() {
+	/// Prepares the Dark On enabled = false MaterialSwitch.
+	private func prepareDarkOnDisabledMaterialSwitch() {
 		materialSwitch = MaterialSwitch(state: .On, style: .Dark, size: .Normal)
 		materialSwitch.enabled = false
 		materialSwitch.center = view.center
-		materialSwitch.y += 300
+		materialSwitch.y += 100
 		materialSwitch.delegate = self
+		materialSwitch.backgroundColor = MaterialColor.green.base
+		view.addSubview(materialSwitch)
+	}
+	
+	/// Prepares the Dark On enabled = false MaterialSwitch.
+	private func prepareDarkOffDisabledMaterialSwitch() {
+		materialSwitch = MaterialSwitch(state: .Off, style: .Dark, size: .Normal)
+		materialSwitch.enabled = false
+		materialSwitch.center = view.center
+		materialSwitch.y += 150
+		materialSwitch.delegate = self
+		materialSwitch.backgroundColor = MaterialColor.green.base
 		view.addSubview(materialSwitch)
 	}
 	
