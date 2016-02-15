@@ -36,94 +36,81 @@ import UIKit
 import Material
 
 class ViewController: UIViewController, MaterialSwitchDelegate {
+	private var topView: MaterialView = MaterialView()
+	private var bottomView: MaterialView = MaterialView()
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		prepareSmallMaterialSwitch()
+		prepareLightContentMaterialSwitch()
 		prepareDefaultMaterialSwitch()
-		prepareLargeMaterialSwitch()
-		prepareLightOnDisabledMaterialSwitch()
-		prepareLightOffDisabledMaterialSwitch()
-		prepareDarkOnDisabledMaterialSwitch()
-		prepareDarkOffDisabledMaterialSwitch()
 	}
 	
 	/// General preparation statements.
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.white
-	}
-	
-	/// Prepares the Small MaterialSwitch.
-	private func prepareSmallMaterialSwitch() {
-		let switchControl: MaterialSwitch = MaterialSwitch(state: .Off, style: .Light, size: .Small)
-		switchControl.center = view.center
-		switchControl.y -= 100
-		switchControl.delegate = self
-		view.addSubview(switchControl)
-	}
-	
-	/// Prepares the Default MaterialSwitch.
-	private func prepareDefaultMaterialSwitch() {
-		let switchControl: MaterialSwitch = MaterialSwitch(state: .On, style: .Light)
-		switchControl.delegate = self
 		
-		view.addSubview(switchControl)
-		switchControl.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignFromBottomRight(view, child: switchControl, bottom: 16, right: 16)
+		view.addSubview(topView)
+		topView.translatesAutoresizingMaskIntoConstraints = false
+		
+		view.addSubview(bottomView)
+		bottomView.translatesAutoresizingMaskIntoConstraints = false
+		bottomView.backgroundColor = MaterialColor.grey.darken4
+		
+		MaterialLayout.alignToParentHorizontally(view, child: topView)
+		MaterialLayout.alignToParentHorizontally(view, child: bottomView)
+		MaterialLayout.alignToParentVertically(view, children: [topView, bottomView])
 	}
 	
-	/// Prepares the Large MaterialSwitch.
-	private func prepareLargeMaterialSwitch() {
-		let image: UIImage? = UIImage(named: "ic_alarm_white_18pt")
-		let switchControl: MaterialSwitch = MaterialSwitch(state: .Off, style: .Light, size: .Large)
-		switchControl.center = view.center
-		switchControl.y -= 50
-		switchControl.delegate = self
-		switchControl.button.setImage(image, forState: .Normal)
-		switchControl.button.setImage(image, forState: .Highlighted)
-		view.addSubview(switchControl)
+	/// Prepares the LightContent MaterialSwitch.
+	private func prepareLightContentMaterialSwitch() {
+		let c1: MaterialSwitch = MaterialSwitch(state: .Off, style: .LightContent, size: .Small)
+		c1.delegate = self
+		c1.translatesAutoresizingMaskIntoConstraints = false
+		topView.addSubview(c1)
+		
+		let c2: MaterialSwitch = MaterialSwitch(state: .On, style: .LightContent)
+		c2.delegate = self
+		c2.translatesAutoresizingMaskIntoConstraints = false
+		topView.addSubview(c2)
+		
+		let c3: MaterialSwitch = MaterialSwitch(state: .Off, style: .LightContent, size: .Large)
+		c3.delegate = self
+		c3.enabled = false
+		c3.translatesAutoresizingMaskIntoConstraints = false
+		topView.addSubview(c3)
+		
+		MaterialLayout.alignToParentHorizontally(topView, child: c1)
+		MaterialLayout.alignToParentHorizontally(topView, child: c2)
+		MaterialLayout.alignToParentHorizontally(topView, child: c3)
+		MaterialLayout.alignToParentVertically(topView, children: [c1, c2, c3])
 	}
 	
-	/// Prepares the Light On enabled = false MaterialSwitch.
-	private func prepareLightOnDisabledMaterialSwitch() {
-		let switchControl: MaterialSwitch = MaterialSwitch(state: .On, style: .Light)
-		switchControl.enabled = false
-		switchControl.center = view.center
-		switchControl.delegate = self
-		view.addSubview(switchControl)
+	/// Prepares the LightContent MaterialSwitch.
+	private func prepareDefaultMaterialSwitch() {
+		let c1: MaterialSwitch = MaterialSwitch(state: .Off, style: .Default, size: .Small)
+		c1.delegate = self
+		c1.translatesAutoresizingMaskIntoConstraints = false
+		bottomView.addSubview(c1)
+		
+		let c2: MaterialSwitch = MaterialSwitch(state: .On)
+		c2.delegate = self
+		c2.translatesAutoresizingMaskIntoConstraints = false
+		bottomView.addSubview(c2)
+		
+		let c3: MaterialSwitch = MaterialSwitch(state: .Off, style: .Default, size: .Large)
+		c3.delegate = self
+		c3.enabled = false
+		c3.translatesAutoresizingMaskIntoConstraints = false
+		bottomView.addSubview(c3)
+		
+		MaterialLayout.alignToParentHorizontally(bottomView, child: c1)
+		MaterialLayout.alignToParentHorizontally(bottomView, child: c2)
+		MaterialLayout.alignToParentHorizontally(bottomView, child: c3)
+		MaterialLayout.alignToParentVertically(bottomView, children: [c1, c2, c3])
 	}
 	
-	/// Prepares the Light Off enabled = false MaterialSwitch.
-	private func prepareLightOffDisabledMaterialSwitch() {
-		let switchControl: MaterialSwitch = MaterialSwitch(state: .Off, style: .Light)
-		switchControl.enabled = false
-		switchControl.center = view.center
-		switchControl.y += 50
-		switchControl.delegate = self
-		view.addSubview(switchControl)
-	}
-	
-	/// Prepares the Dark On enabled = false MaterialSwitch.
-	private func prepareDarkOnDisabledMaterialSwitch() {
-		let switchControl: MaterialSwitch = MaterialSwitch(state: .On, style: .Dark)
-		switchControl.enabled = false
-		switchControl.center = view.center
-		switchControl.y += 100
-		switchControl.delegate = self
-		view.addSubview(switchControl)
-	}
-	
-	/// Prepares the Dark On enabled = false MaterialSwitch.
-	private func prepareDarkOffDisabledMaterialSwitch() {
-		let switchControl: MaterialSwitch = MaterialSwitch(state: .Off, style: .Dark)
-		switchControl.enabled = false
-		switchControl.center = view.center
-		switchControl.y += 150
-		switchControl.delegate = self
-		view.addSubview(switchControl)
-	}
-	
-	internal func switchControlStateChanged(control: MaterialSwitch, state: MaterialSwitchState) {
+	internal func materialSwitchStateChanged(control: MaterialSwitch, state: MaterialSwitchState) {
 		print("MaterialSwitch - Size: \(control.switchSize) State: \(state)")
 	}
 }

@@ -31,8 +31,8 @@
 import UIKit
 
 public enum MaterialSwitchStyle {
-	case Light
-	case Dark
+	case LightContent
+	case Default
 }
 
 public enum MaterialSwitchState {
@@ -169,27 +169,27 @@ public class MaterialSwitch: UIControl {
 	public private(set) var switchState: MaterialSwitchState = .Off
 	
 	/// MaterialSwitch style.
-	public var switchStyle: MaterialSwitchStyle = .Light {
+	public var switchStyle: MaterialSwitchStyle = .LightContent {
 		didSet {
 			switch switchStyle {
-			case .Light:
-				buttonOnColor = MaterialColor.blue.lighten1
-				trackOnColor = MaterialColor.blue.darken2
-				buttonOffColor = MaterialColor.grey.lighten2
-				trackOffColor = MaterialColor.grey.darken1
-				buttonOnDisabledColor = MaterialColor.blue.base
-				trackOnDisabledColor = MaterialColor.blue.darken3
-				buttonOffDisabledColor = MaterialColor.grey.base
-				trackOffDisabledColor = MaterialColor.grey.darken3
-			case .Dark:
-				buttonOnColor = MaterialColor.blueGrey.base
-				trackOnColor = MaterialColor.blueGrey.darken3
-				buttonOffColor = MaterialColor.grey.base
-				trackOffColor = MaterialColor.grey.darken3
-				buttonOnDisabledColor = MaterialColor.blueGrey.darken1
-				trackOnDisabledColor = MaterialColor.blueGrey.darken4
-				buttonOffDisabledColor = MaterialColor.grey.darken1
-				trackOffDisabledColor = MaterialColor.grey.darken4
+			case .LightContent:
+				buttonOnColor = MaterialColor.lightBlue.darken3
+				trackOnColor = MaterialColor.lightBlue.lighten3
+				buttonOffColor = MaterialColor.blueGrey.lighten4
+				trackOffColor = MaterialColor.blueGrey.lighten3
+				buttonOnDisabledColor = MaterialColor.grey.lighten2
+				trackOnDisabledColor = MaterialColor.grey.lighten3
+				buttonOffDisabledColor = MaterialColor.grey.lighten2
+				trackOffDisabledColor = MaterialColor.grey.lighten3
+			case .Default:
+				buttonOnColor = MaterialColor.lightBlue.lighten1
+				trackOnColor = MaterialColor.lightBlue.lighten2.colorWithAlphaComponent(0.5)
+				buttonOffColor = MaterialColor.blueGrey.lighten3
+				trackOffColor = MaterialColor.blueGrey.lighten4.colorWithAlphaComponent(0.5)
+				buttonOnDisabledColor = MaterialColor.grey.darken3
+				trackOnDisabledColor = MaterialColor.grey.lighten1.colorWithAlphaComponent(0.2)
+				buttonOffDisabledColor = MaterialColor.grey.darken3
+				trackOffDisabledColor = MaterialColor.grey.lighten1.colorWithAlphaComponent(0.2)
 			}
 		}
 	}
@@ -237,7 +237,7 @@ public class MaterialSwitch: UIControl {
 		prepareTrack()
 		prepareButton()
 		prepareSwitchSize(.Default)
-		prepareSwitchStyle(.Light)
+		prepareSwitchStyle(.LightContent)
 		prepareSwitchState(.Off)
 	}
 	
@@ -247,7 +247,7 @@ public class MaterialSwitch: UIControl {
 	- Parameter style: A MaterialSwitchStyle value.
 	- Parameter size: A MaterialSwitchSize value.
 	*/
-	public init(state: MaterialSwitchState = .On, style: MaterialSwitchStyle = .Light, size: MaterialSwitchSize = .Default) {
+	public init(state: MaterialSwitchState = .On, style: MaterialSwitchStyle = .Default, size: MaterialSwitchSize = .Default) {
 		track = MaterialView(frame: CGRectZero)
 		button = FabButton(frame: CGRectZero)
 		super.init(frame: CGRectZero)
