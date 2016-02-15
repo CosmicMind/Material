@@ -41,18 +41,14 @@ public class SearchBarView : MaterialView {
 		}
 	}
 	
-	/**
-	:name:	leftControls
-	*/
+	/// Left side UIControls.
 	public var leftControls: Array<UIControl>? {
 		didSet {
 			reloadView()
 		}
 	}
 	
-	/**
-	:name:	rightControls
-	*/
+	/// Right side UIControls.
 	public var rightControls: Array<UIControl>? {
 		didSet {
 			reloadView()

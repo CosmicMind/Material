@@ -145,7 +145,7 @@ class MainViewController: UIViewController {
 	/// Prepares the navigationBarView.
 	private func prepareNavigationBarView() {
 		let navigationBarView: NavigationBarView = NavigationBarView()
-		navigationBarView.backgroundColor = MaterialColor.blue.base
+		navigationBarView.backgroundColor = MaterialColor.grey.darken4
 		
 		/*
 		To lighten the status bar - add the
@@ -159,7 +159,7 @@ class MainViewController: UIViewController {
 		titleLabel.text = "Inbox"
 		titleLabel.textAlignment = .Left
 		titleLabel.textColor = MaterialColor.white
-		titleLabel.font = RobotoFont.regularWithSize(22)
+		titleLabel.font = RobotoFont.regularWithSize(17)
 		navigationBarView.titleLabel = titleLabel
 		
 		// Menu button.
@@ -175,7 +175,7 @@ class MainViewController: UIViewController {
 		navigationBarView.leftControls = [menuButton]
 		
 		// MaterialSwitch control.
-		let materialSwitch: MaterialSwitch = MaterialSwitch(state: .Off, style: .Light, size: .Normal)
+		let materialSwitch: MaterialSwitch = MaterialSwitch(state: .Off)
 		
 		// Search button.
 		let img2: UIImage? = UIImage(named: "ic_more_vert_white")
@@ -191,10 +191,6 @@ class MainViewController: UIViewController {
 		
 		// To support orientation changes, use MaterialLayout.
 		view.addSubview(navigationBarView)
-		navigationBarView.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignFromTop(view, child: navigationBarView)
-		MaterialLayout.alignToParentHorizontally(view, child: navigationBarView)
-		MaterialLayout.height(view, child: navigationBarView, height: 70)
 	}
 	
 	/// Prepares the add button.
