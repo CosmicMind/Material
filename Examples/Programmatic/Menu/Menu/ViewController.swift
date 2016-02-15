@@ -128,10 +128,6 @@ class ViewController: UIViewController {
 	private func prepareFabMenuExample() {
 		var image: UIImage? = UIImage(named: "ic_add_white")
 		let btn1: FabButton = FabButton()
-		/**
-		Remove the pulse animation, so the rotation animation 
-		doesn't seem like too much with the pulse animation.
-		*/
 		btn1.pulseColor = nil
 		btn1.setImage(image, forState: .Normal)
 		btn1.setImage(image, forState: .Highlighted)

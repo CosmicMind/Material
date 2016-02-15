@@ -38,21 +38,30 @@ SideNavigationViewController.
 import UIKit
 import Material
 
-private struct Item {
+struct Item {
 	var text: String
 	var detail: String
 	var image: UIImage?
 }
 
 class MainViewController: UIViewController {
+	/// MenuView diameter.
+	private let menuViewDiameter: CGFloat = 56
+	
+	/// MenuView inset.
+	private let menuViewInset: CGFloat = 16
+	
+	/// NavigationBarView.
+	private var navigationBarView: NavigationBarView = NavigationBarView()
+	
 	/// A tableView used to display Bond entries.
-	private let tableView: UITableView = UITableView()
+	private lazy var collectionView: FeedCollectionView = FeedCollectionView(frame: CGRectNull, collectionViewLayout: FeedCollectionViewLayout())
 	
 	/// MenuView.
-	let menuView: MenuView = MenuView()
+	private let menuView: MenuView = MenuView()
 	
 	/// A list of all the Author Bond types.
-	private var items: Array<Item> = Array<Item>()
+	var items: Array<Item> = Array<Item>()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -72,7 +81,7 @@ class MainViewController: UIViewController {
 		because any earlier may cause a race condition when instantiating
 		the MainViewController and SideViewController.
 		*/
-		sideNavigationViewController?.setLeftViewWidth(view.bounds.width - 88, hidden: true, animated: false)
+		sideNavigationViewController?.setLeftViewWidth(view.bounds.width - menuViewDiameter - 2 * menuViewInset, hidden: true, animated: false)
 		sideNavigationViewController?.delegate = self
 	}
 	
@@ -132,20 +141,50 @@ class MainViewController: UIViewController {
 	
 	/// Prepares the tableView.
 	private func prepareTableView() {
-		tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-		tableView.dataSource = self
-		tableView.delegate = self
+		collectionView.delegate = self
+		collectionView.dataSource = self
 		
-		// Use MaterialLayout to easily align the tableView.
-		view.addSubview(tableView)
-		tableView.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignToParent(view, child: tableView, top: 70)
+		view.addSubview(collectionView)
+		collectionView.translatesAutoresizingMaskIntoConstraints = false
+		MaterialLayout.alignToParent(view, child: collectionView, top: navigationBarView.height)
 	}
 	
 	/// Prepares the navigationBarView.
 	private func prepareNavigationBarView() {
-		let navigationBarView: NavigationBarView = NavigationBarView()
-		navigationBarView.backgroundColor = MaterialColor.grey.darken4
+		// Title label.
+		let titleLabel: UILabel = UILabel()
+		titleLabel.text = "Material"
+		titleLabel.textAlignment = .Left
+		titleLabel.textColor = MaterialColor.white
+		titleLabel.font = RobotoFont.regularWithSize(17)
+		
+		// Detail label.
+		let detailLabel: UILabel = UILabel()
+		detailLabel.text = "Build Beautiful Software"
+		detailLabel.textAlignment = .Left
+		detailLabel.textColor = MaterialColor.white
+		detailLabel.font = RobotoFont.regularWithSize(12)
+		
+		var image = UIImage(named: "ic_menu_white")
+		
+		// Menu button.
+		let menuButton: FlatButton = FlatButton()
+		menuButton.pulseColor = nil
+		menuButton.pulseScale = false
+		menuButton.setImage(image, forState: .Normal)
+		menuButton.setImage(image, forState: .Highlighted)
+		menuButton.addTarget(self, action: "handleMenuButton", forControlEvents: .TouchUpInside)
+		
+		// Switch control.
+		let switchControl: MaterialSwitch = MaterialSwitch()
+		
+		// Search button.
+		image = UIImage(named: "ic_search_white")
+		let searchButton: FlatButton = FlatButton()
+		searchButton.pulseColor = nil
+		searchButton.pulseScale = false
+		searchButton.setImage(image, forState: .Normal)
+		searchButton.setImage(image, forState: .Highlighted)
 		
 		/*
 		To lighten the status bar - add the
@@ -154,56 +193,19 @@ class MainViewController: UIViewController {
 		*/
 		navigationBarView.statusBarStyle = .LightContent
 		
-		// Title label.
-		let titleLabel: UILabel = UILabel()
-		titleLabel.text = "Inbox"
-		titleLabel.textAlignment = .Left
-		titleLabel.textColor = MaterialColor.white
-		titleLabel.font = RobotoFont.regularWithSize(17)
+		navigationBarView.backgroundColor = MaterialColor.grey.darken4
 		navigationBarView.titleLabel = titleLabel
-		
-		// Menu button.
-		let img1: UIImage? = UIImage(named: "ic_menu_white")
-		let menuButton: FlatButton = FlatButton()
-		menuButton.pulseColor = MaterialColor.white
-		menuButton.pulseScale = false
-		menuButton.setImage(img1, forState: .Normal)
-		menuButton.setImage(img1, forState: .Highlighted)
-		menuButton.addTarget(self, action: "handleMenuButton", forControlEvents: .TouchUpInside)
-		
-		// Add menuButton to left side.
+		navigationBarView.detailLabel = detailLabel
 		navigationBarView.leftControls = [menuButton]
+		navigationBarView.rightControls = [switchControl, searchButton]
 		
-		// MaterialSwitch control.
-		let materialSwitch: MaterialSwitch = MaterialSwitch(state: .Off)
-		
-		// Search button.
-		let img2: UIImage? = UIImage(named: "ic_more_vert_white")
-		let searchButton: FlatButton = FlatButton()
-		searchButton.pulseColor = MaterialColor.white
-		searchButton.pulseScale = false
-		searchButton.setImage(img2, forState: .Normal)
-		searchButton.setImage(img2, forState: .Highlighted)
-		searchButton.addTarget(self, action: "handleSearchButton", forControlEvents: .TouchUpInside)
-		
-		// Add searchButton to right side.
-		navigationBarView.rightControls = [materialSwitch, searchButton]
-		
-		// To support orientation changes, use MaterialLayout.
 		view.addSubview(navigationBarView)
 	}
 	
 	/// Prepares the add button.
 	private func prepareMenuView() {
-		/// MenuView diameter.
-		let diameter: CGFloat = 56
-		
 		var image: UIImage? = UIImage(named: "ic_add_white")
 		let btn1: FabButton = FabButton()
-		/**
-		Remove the pulse animation, so the rotation animation
-		doesn't seem like too much with the pulse animation.
-		*/
 		btn1.pulseColor = nil
 		btn1.setImage(image, forState: .Normal)
 		btn1.setImage(image, forState: .Highlighted)
@@ -233,73 +235,39 @@ class MainViewController: UIViewController {
 		
 		// Initialize the menu and setup the configuration options.
 		menuView.menu.direction = .Up
-		menuView.menu.baseViewSize = CGSizeMake(diameter, diameter)
+		menuView.menu.baseViewSize = CGSizeMake(menuViewDiameter, menuViewDiameter)
 		menuView.menu.views = [btn1, btn2, btn3, btn4]
 		
 		view.addSubview(menuView)
 		menuView.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.size(view, child: menuView, width: diameter, height: diameter)
-		MaterialLayout.alignFromBottomRight(view, child: menuView, bottom: 16, right: 16)
+		MaterialLayout.size(view, child: menuView, width: menuViewDiameter, height: menuViewDiameter)
+		MaterialLayout.alignFromBottomRight(view, child: menuView, bottom: menuViewInset, right: menuViewInset)
 	}
 }
 
-/// TableViewDataSource methods.
-extension MainViewController: UITableViewDataSource {
-	/// Determines the number of rows in the tableView.
-	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return items.count;
+/// UICollectionViewDelegate
+extension MainViewController: UICollectionViewDelegate {
+	func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+		let c: FeedCollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier("FeedCollectionViewCell", forIndexPath: indexPath) as! FeedCollectionViewCell
+		
+		return c
 	}
-	
-	/// Returns the number of sections.
-	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+}
+
+/// UICollectionViewDataSource
+extension MainViewController: UICollectionViewDataSource {
+	//
+	//	:name:	numberOfSectionsInTableView
+	//
+	func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
 		return 1
 	}
 	
-	/// Prepares the cells within the tableView.
-	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell: UITableViewCell = UITableViewCell(style: .Subtitle, reuseIdentifier: "Cell")
-		
-		let item: Item = items[indexPath.row]
-		cell.selectionStyle = .None
-		cell.textLabel!.text = item.text
-		cell.textLabel!.font = RobotoFont.regular
-		cell.detailTextLabel!.text = item.detail
-		cell.detailTextLabel!.font = RobotoFont.regular
-		cell.detailTextLabel!.textColor = MaterialColor.grey.darken1
-		cell.imageView!.image = item.image?.resize(toWidth: 40)
-		cell.imageView!.layer.cornerRadius = 20
-		
-		return cell
-	}
-	
-	/// Prepares the header within the tableView.
-	func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		let header = UIView(frame: CGRectMake(0, 0, view.bounds.width, 48))
-		header.backgroundColor = MaterialColor.white
-		
-		let label: UILabel = UILabel()
-		label.font = RobotoFont.medium
-		label.textColor = MaterialColor.grey.darken1
-		label.text = "Today"
-		
-		header.addSubview(label)
-		label.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignToParent(header, child: label, left: 24)
-		
-		return header
-	}
-}
-
-/// UITableViewDelegate methods.
-extension MainViewController: UITableViewDelegate {
-	/// Sets the tableView cell height.
-	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-		return 80
-	}
-	
-	/// Sets the tableView header height.
-	func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-		return 48
+	//
+	//	:name:	collectionView
+	//
+	func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+		return items.count
 	}
 }
 

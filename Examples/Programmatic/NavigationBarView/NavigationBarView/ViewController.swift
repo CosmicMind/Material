@@ -30,8 +30,8 @@
 
 /*
 A NavigationBarView is a fully featured NavigationBar that supports orientation 
-changes, background images, title and detail labels, both left and right button 
-sets, and status bar settings. Below are examples of its usage.
+changes, background images, title and detail labels, both left and right UIControl
+sets, and status bar settings. Below is an example of its usage.
 */
 
 import UIKit
@@ -77,8 +77,8 @@ class ViewController: UIViewController {
 		menuButton.setImage(image, forState: .Normal)
 		menuButton.setImage(image, forState: .Highlighted)
 		
-		// Star button.
-		let switchControl: MaterialSwitch = MaterialSwitch(state: .On, style: .Light)
+		// Switch control.
+		let switchControl: MaterialSwitch = MaterialSwitch(state: .On, style: .LightContent)
 		
 		// Search button.
 		image = UIImage(named: "ic_search_white")

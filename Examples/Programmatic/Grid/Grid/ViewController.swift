@@ -43,9 +43,9 @@ class ViewController: UIViewController {
 //		prepareHorizontalGridViewExample()
 //		prepareVerticalGridViewExample()
 //		prepareGridDirectionNoneExample()
-//		prepareSmallCardViewExample()
+		prepareSmallCardViewExample()
 //		prepareMediumCardViewExample()
-		prepareLargeCardViewExample()
+//		prepareLargeCardViewExample()
 	}
 	
 	
@@ -185,7 +185,7 @@ class ViewController: UIViewController {
 		cardView.depth = .Depth1
 		view.addSubview(cardView)
 		
-		var image: UIImage? = UIImage(named: "CosmicMindInverted")
+		var image: UIImage? = UIImage(named: "VeganCakeFull")
 		let imageView: MaterialView = MaterialView()
 		imageView.image = image
 		imageView.contentsGravity = .ResizeAspectFill

@@ -29,7 +29,9 @@
 */
 
 /*
-The following is an example of SearchBarView.
+A SearchBarView is a fully featured SearchBar that supports orientation
+changes, background images, both left and right UIControl sets, and status bar 
+settings. Below is an example of its usage.
 */
 
 import UIKit

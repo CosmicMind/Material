@@ -247,7 +247,7 @@ public class MaterialSwitch: UIControl {
 	- Parameter style: A MaterialSwitchStyle value.
 	- Parameter size: A MaterialSwitchSize value.
 	*/
-	public init(state: MaterialSwitchState = .On, style: MaterialSwitchStyle = .Default, size: MaterialSwitchSize = .Default) {
+	public init(state: MaterialSwitchState = .Off, style: MaterialSwitchStyle = .Default, size: MaterialSwitchSize = .Default) {
 		track = MaterialView(frame: CGRectZero)
 		button = FabButton(frame: CGRectZero)
 		super.init(frame: CGRectZero)
