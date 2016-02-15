@@ -46,6 +46,7 @@ public class MenuView : MaterialPulseView {
 		pulseColor = nil
 		pulseScale = false
 		clipsToBounds = false
+		backgroundColor = nil
 	}
 	
 	public override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {

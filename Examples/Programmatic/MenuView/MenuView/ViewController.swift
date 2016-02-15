@@ -38,7 +38,7 @@ import Material
 
 class ViewController: UIViewController {
 	/// MenuView reference.
-	private var menuView: MenuView!
+	private lazy var menuView: MenuView = MenuView()
 	
 	/// Default spacing size
 	let spacing: CGFloat = 16
@@ -52,14 +52,7 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		prepareMenuView()
 		prepareMenuViewExample()
-	}
-	
-	/// Handle orientation.
-	override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-		super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-	
 	}
 	
 	/// Handle the menuView touch event.
@@ -91,13 +84,6 @@ class ViewController: UIViewController {
 	/// General preparation statements are placed here.
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.white
-	}
-	
-	/// Prepares the MenuView.
-	private func prepareMenuView() {
-		if nil == menuView {
-			menuView = MenuView()
-		}
 	}
 	
 	/// Prepares the MenuView example.

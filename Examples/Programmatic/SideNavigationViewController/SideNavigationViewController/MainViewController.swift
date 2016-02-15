@@ -48,6 +48,9 @@ class MainViewController: UIViewController {
 	/// A tableView used to display Bond entries.
 	private let tableView: UITableView = UITableView()
 	
+	/// MenuView.
+	let menuView: MenuView = MenuView()
+	
 	/// A list of all the Author Bond types.
 	private var items: Array<Item> = Array<Item>()
 	
@@ -57,7 +60,7 @@ class MainViewController: UIViewController {
 		prepareItems()
 		prepareTableView()
 		prepareNavigationBarView()
-		prepareAddButton()
+		prepareMenuView()
 	}
 	
 	override func viewWillAppear(animated: Bool) {
@@ -87,6 +90,27 @@ class MainViewController: UIViewController {
 	*/
 	func handleSearchButton() {
 		sideNavigationViewController?.openRightView()
+	}
+	
+	/// Handle the menuView touch event.
+	func handleMenu() {
+		let image: UIImage?
+		
+		if menuView.menu.opened {
+			menuView.menu.close()
+			image = UIImage(named: "ic_add_white")
+		} else {
+			menuView.menu.open() { (v: UIView) in
+				(v as? MaterialButton)?.pulse()
+			}
+			image = UIImage(named: "ic_close_white")
+		}
+		
+		// Add a nice rotation animation to the base button.
+		let first: MaterialButton? = menuView.menu.views?.first as? MaterialButton
+		first?.animate(MaterialAnimation.rotate(1))
+		first?.setImage(image, forState: .Normal)
+		first?.setImage(image, forState: .Highlighted)
 	}
 	
 	/// Prepares view.
@@ -121,7 +145,7 @@ class MainViewController: UIViewController {
 	/// Prepares the navigationBarView.
 	private func prepareNavigationBarView() {
 		let navigationBarView: NavigationBarView = NavigationBarView()
-		navigationBarView.backgroundColor = MaterialColor.cyan.base
+		navigationBarView.backgroundColor = MaterialColor.blue.base
 		
 		/*
 		To lighten the status bar - add the
@@ -137,33 +161,33 @@ class MainViewController: UIViewController {
 		titleLabel.textColor = MaterialColor.white
 		titleLabel.font = RobotoFont.regularWithSize(22)
 		navigationBarView.titleLabel = titleLabel
-		navigationBarView.titleLabelInset.left = 64
 		
 		// Menu button.
-		let img1: UIImage? = UIImage(named: "ic_menu_white")?.imageWithRenderingMode(.AlwaysTemplate)
+		let img1: UIImage? = UIImage(named: "ic_menu_white")
 		let menuButton: FlatButton = FlatButton()
 		menuButton.pulseColor = MaterialColor.white
 		menuButton.pulseScale = false
 		menuButton.setImage(img1, forState: .Normal)
 		menuButton.setImage(img1, forState: .Highlighted)
-		menuButton.tintColor = MaterialColor.cyan.darken4
 		menuButton.addTarget(self, action: "handleMenuButton", forControlEvents: .TouchUpInside)
 		
 		// Add menuButton to left side.
-		navigationBarView.leftButtons = [menuButton]
+		navigationBarView.leftControls = [menuButton]
+		
+		// MaterialSwitch control.
+		let materialSwitch: MaterialSwitch = MaterialSwitch(state: .Off, style: .Light, size: .Normal)
 		
 		// Search button.
-		let img2: UIImage? = UIImage(named: "ic_more_vert_white")?.imageWithRenderingMode(.AlwaysTemplate)
+		let img2: UIImage? = UIImage(named: "ic_more_vert_white")
 		let searchButton: FlatButton = FlatButton()
 		searchButton.pulseColor = MaterialColor.white
 		searchButton.pulseScale = false
 		searchButton.setImage(img2, forState: .Normal)
 		searchButton.setImage(img2, forState: .Highlighted)
-		searchButton.tintColor = MaterialColor.cyan.darken4
 		searchButton.addTarget(self, action: "handleSearchButton", forControlEvents: .TouchUpInside)
 		
 		// Add searchButton to right side.
-		navigationBarView.rightButtons = [searchButton]
+		navigationBarView.rightControls = [materialSwitch, searchButton]
 		
 		// To support orientation changes, use MaterialLayout.
 		view.addSubview(navigationBarView)
@@ -174,17 +198,52 @@ class MainViewController: UIViewController {
 	}
 	
 	/// Prepares the add button.
-	func prepareAddButton() {
-		let image: UIImage? = UIImage(named: "ic_add_white")
-		let button: FabButton = FabButton()
-		button.backgroundColor = MaterialColor.blue.accent3
-		button.setImage(image, forState: .Normal)
-		button.setImage(image, forState: .Highlighted)
+	private func prepareMenuView() {
+		/// MenuView diameter.
+		let diameter: CGFloat = 56
 		
-		view.addSubview(button)
-		button.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignFromBottomRight(view, child: button, bottom: 16, right: 16)
-		MaterialLayout.size(view, child: button, width: 56, height: 56)
+		var image: UIImage? = UIImage(named: "ic_add_white")
+		let btn1: FabButton = FabButton()
+		/**
+		Remove the pulse animation, so the rotation animation
+		doesn't seem like too much with the pulse animation.
+		*/
+		btn1.pulseColor = nil
+		btn1.setImage(image, forState: .Normal)
+		btn1.setImage(image, forState: .Highlighted)
+		btn1.addTarget(self, action: "handleMenu", forControlEvents: .TouchUpInside)
+		menuView.addSubview(btn1)
+		
+		image = UIImage(named: "ic_create_white")
+		let btn2: FabButton = FabButton()
+		btn2.backgroundColor = MaterialColor.blue.base
+		btn2.setImage(image, forState: .Normal)
+		btn2.setImage(image, forState: .Highlighted)
+		menuView.addSubview(btn2)
+		
+		image = UIImage(named: "ic_photo_camera_white")
+		let btn3: FabButton = FabButton()
+		btn3.backgroundColor = MaterialColor.green.base
+		btn3.setImage(image, forState: .Normal)
+		btn3.setImage(image, forState: .Highlighted)
+		menuView.addSubview(btn3)
+		
+		image = UIImage(named: "ic_note_add_white")
+		let btn4: FabButton = FabButton()
+		btn4.backgroundColor = MaterialColor.amber.base
+		btn4.setImage(image, forState: .Normal)
+		btn4.setImage(image, forState: .Highlighted)
+		menuView.addSubview(btn4)
+		
+		// Initialize the menu and setup the configuration options.
+		menuView.menu.direction = .Up
+		menuView.menu.baseViewSize = CGSizeMake(diameter, diameter)
+		menuView.menu.views = [btn1, btn2, btn3, btn4]
+		
+		view.addSubview(menuView)
+		menuView.translatesAutoresizingMaskIntoConstraints = false
+		MaterialLayout.size(view, child: menuView, width: diameter, height: diameter)
+		MaterialLayout.alignFromBottomRight(view, child: menuView, bottom: 16, right: 16)
 	}
 }
 
