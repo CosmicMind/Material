@@ -336,7 +336,7 @@ public class MaterialView : UIView {
 		prepareView()
 	}
 	
-	/// A convenience initializer that is mostly used with AutoLayout.
+	/// A convenience initializer.
 	public convenience init() {
 		self.init(frame: CGRectNull)
 	}

@@ -34,74 +34,41 @@ public class NavigationBarView : MaterialView {
 	/// TitleView that holds the titleLabel and detailLabel.
 	public private(set) lazy var titleView: MaterialView = MaterialView()
 	
-	/**
-	:name:	statusBarStyle
-	*/
+	/// Device status bar style.
 	public var statusBarStyle: UIStatusBarStyle = UIApplication.sharedApplication().statusBarStyle {
 		didSet {
 			UIApplication.sharedApplication().statusBarStyle = statusBarStyle
 		}
 	}
 	
-	/**
-	:name:	contentInsets
-	*/
-	public var contentInsetPreset: MaterialEdgeInset = .None {
-		didSet {
-			contentInset = MaterialEdgeInsetToValue(contentInsetPreset)
-		}
-	}
-	
-	/**
-	:name:	contentInset
-	*/
-	public var contentInset: UIEdgeInsets = MaterialEdgeInsetToValue(.Square2) {
-		didSet {
-			reloadView()
-		}
-	}
-	
-	/**
-	:name:	titleLabel
-	*/
+	/// Title label.
 	public var titleLabel: UILabel? {
 		didSet {
 			if let v: UILabel = titleLabel {
-				v.grid.rows = nil == detailLabel ? 3 : 2
 				titleView.addSubview(v)
 			}
 			reloadView()
 		}
 	}
 	
-	/**
-	:name:	detailLabel
-	*/
+	/// Detail label.
 	public var detailLabel: UILabel? {
 		didSet {
 			if let v: UILabel = detailLabel {
-				v.grid.rows = 1
 				titleView.addSubview(v)
-				titleLabel?.grid.rows = 2
-			} else {
-				titleLabel?.grid.rows = 3
 			}
 			reloadView()
 		}
 	}
 	
-	/**
-	:name:	leftControls
-	*/
+	/// Left side UIControls.
 	public var leftControls: Array<UIControl>? {
 		didSet {
 			reloadView()
 		}
 	}
 	
-	/**
-	:name:	rightControls
-	*/
+	/// Right side UIControls.
 	public var rightControls: Array<UIControl>? {
 		didSet {
 			reloadView()
@@ -109,36 +76,74 @@ public class NavigationBarView : MaterialView {
 	}
 	
 	/**
-	:name:	init
+	An initializer that initializes the object with a NSCoder object.
+	- Parameter aDecoder: A NSCoder instance.
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
 	
 	/**
-	:name:	init
+	An initializer that initializes the object with a CGRect object.
+	If AutoLayout is used, it is better to initilize the instance
+	using the init() initializer.
+	- Parameter frame: A CGRect instance.
 	*/
 	public override init(frame: CGRect) {
 		super.init(frame: frame)
 	}
 	
-	/**
-	:name:	init
-	*/
+	/// A convenience initializer.
 	public convenience init() {
-		self.init(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 70))
+		self.init(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 64))
 	}
 	
 	/**
-	:name:	init
+	A convenience initializer with parameter settings.
+	- Parameter titleLabel: UILabel for the title.
+	- Parameter detailLabel: UILabel for the details.
+	- Parameter leftControls: An Array of UIControls that go on the left side.
+	- Parameter rightControls: An Array of UIControls that go on the right side.
 	*/
 	public convenience init?(titleLabel: UILabel? = nil, detailLabel: UILabel? = nil, leftControls: Array<UIControl>? = nil, rightControls: Array<UIControl>? = nil) {
-		self.init(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 70))
+		self.init(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 64))
 		prepareProperties(titleLabel, detailLabel: detailLabel, leftControls: leftControls, rightControls: rightControls)
 	}
 	
 	public override func layoutSubviews() {
 		super.layoutSubviews()
+		
+		// General alignment.
+		switch UIDevice.currentDevice().orientation {
+		case .LandscapeLeft, .LandscapeRight:
+			grid.contentInset.top = 0
+			grid.contentInset.bottom = 0
+			titleView.grid.spacing = 2
+			titleView.grid.contentInset.top = 4
+			titleView.grid.contentInset.bottom = 8
+			height = 44
+		default:
+			grid.contentInset.top = 20
+			grid.contentInset.bottom = 8
+			titleView.grid.spacing = 0
+			titleView.grid.contentInset.top = 0
+			titleView.grid.contentInset.bottom = 0
+			height = 64
+		}
+		
+		// TitleView alignment.
+		titleView.grid.axis.rows = 6
+		if let v: UILabel = titleLabel {
+			titleView.grid.views?.append(v)
+			v.grid.rows = nil == detailLabel ? 6 : 4
+		}
+		if let v: UILabel = detailLabel {
+			titleView.grid.views?.append(v)
+			v.grid.rows = 2
+		}
+		
+		width = UIScreen.mainScreen().bounds.width
+		grid.axis.columns = Int(width / 48)
 		reloadView()
 	}
 	
@@ -147,9 +152,11 @@ public class NavigationBarView : MaterialView {
 		reloadView()
 	}
 	
-	/**
-	:name:	reloadView
-	*/
+	public override func intrinsicContentSize() -> CGSize {
+		return CGSizeMake(UIScreen.mainScreen().bounds.width, 64)
+	}
+	
+	/// Reloads the view.
 	public func reloadView() {
 		layoutIfNeeded()
 		
@@ -162,7 +169,7 @@ public class NavigationBarView : MaterialView {
 		}
 		
 		// Size of single grid column.
-		let g: CGFloat = width / CGFloat(0 < grid.columns ? grid.columns : 1)
+		let g: CGFloat = width / CGFloat(0 < grid.axis.columns ? grid.axis.columns : 1)
 		
 		grid.views = []
 		titleView.grid.columns = grid.axis.columns
@@ -206,6 +213,7 @@ public class NavigationBarView : MaterialView {
 		grid.reloadLayout()
 		
 		titleView.grid.views = []
+		titleView.grid.axis.rows = 6
 		if let v: UILabel = titleLabel {
 			titleView.grid.views?.append(v)
 		}
@@ -216,32 +224,38 @@ public class NavigationBarView : MaterialView {
 	}
 	
 	/**
-	:name:	prepareView
+	Prepares the view instance when intialized. When subclassing,
+	it is recommended to override the prepareView method
+	to initialize property values and other setup operations.
+	The super.prepareView method should always be called immediately
+	when subclassing.
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		grid.spacing = 10
-		grid.axis.columns = 8
+		grid.spacing = 8
 		grid.axis.inherited = false
-		grid.contentInset.top = 25
-		grid.contentInset.left = 10
-		grid.contentInset.bottom = 10
-		grid.contentInset.right = 10
+		grid.contentInset.top = 20
+		grid.contentInset.left = 8
+		grid.contentInset.bottom = 8
+		grid.contentInset.right = 8
 		depth = .Depth1
-		prepareTextView()
+		prepareTitleView()
 	}
 	
-	public func prepareTextView() {
+	/// Prepares the titleView.
+	public func prepareTitleView() {
 		titleView.backgroundColor = nil
-		titleView.grid.spacing = 4
-		titleView.grid.axis.rows = 3
 		titleView.grid.axis.inherited = false
 		titleView.grid.axis.direction = .Vertical
 		addSubview(titleView)
 	}
 	
 	/**
-	:name:	prepareProperties
+	Used to trigger property changes  that initializers avoid.
+	- Parameter titleLabel: UILabel for the title.
+	- Parameter detailLabel: UILabel for the details.
+	- Parameter leftControls: An Array of UIControls that go on the left side.
+	- Parameter rightControls: An Array of UIControls that go on the right side.
 	*/
 	internal func prepareProperties(titleLabel: UILabel?, detailLabel: UILabel?, leftControls: Array<UIControl>?, rightControls: Array<UIControl>?) {
 		self.titleLabel = titleLabel

@@ -41,199 +41,12 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		
-		/*
-		Examples of using NavigationBarView.
-		Uncomment different examples and read
-		the comments below.
-		*/
-//		prepareGeneralUsageExample()
-//		prepareOrientationSupportExample()
-//		prepareDetailLabelExample()
-//		prepareBackgroundImageExample()
-//		prepareButtonExample()
 		prepareAlignTitleAndDetailLabelToLeftExample()
 	}
 	
 	/// General preparation statements.
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.white
-	}
-	
-	/// Prepares a general usage example.
-	private func prepareGeneralUsageExample() {
-		let navigationBarView: NavigationBarView = NavigationBarView()
-		navigationBarView.backgroundColor = MaterialColor.blue.darken1
-		
-		/*
-		To lighten the status bar - add the
-		"View controller-based status bar appearance = NO"
-		to your info.plist file and set the following property.
-		*/
-		navigationBarView.statusBarStyle = .LightContent
-		
-		// Title label.
-		let titleLabel: UILabel = UILabel()
-		titleLabel.text = "Material"
-		titleLabel.textAlignment = .Center
-		titleLabel.textColor = MaterialColor.white
-		titleLabel.font = RobotoFont.regularWithSize(20)
-		navigationBarView.titleLabel = titleLabel
-		
-		// Add NavigationBarView without support for orientation change.
-		view.addSubview(navigationBarView)
-	}
-	
-	/// Prepare an example using MaterialLayout that support orientation change.
-	private func prepareOrientationSupportExample() {
-		let navigationBarView: NavigationBarView = NavigationBarView()
-		navigationBarView.backgroundColor = MaterialColor.red.darken1
-		
-		/*
-		To lighten the status bar - add the
-		"View controller-based status bar appearance = NO"
-		to your info.plist file and set the following property.
-		*/
-		navigationBarView.statusBarStyle = .LightContent
-		
-		// Title label.
-		let titleLabel: UILabel = UILabel()
-		titleLabel.text = "Material"
-		titleLabel.textAlignment = .Center
-		titleLabel.textColor = MaterialColor.white
-		titleLabel.font = RobotoFont.regularWithSize(20)
-		navigationBarView.titleLabel = titleLabel
-		
-		
-		// To support orientation changes, use MaterialLayout.
-		view.addSubview(navigationBarView)
-		navigationBarView.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignFromTop(view, child: navigationBarView)
-		MaterialLayout.alignToParentHorizontally(view, child: navigationBarView)
-		MaterialLayout.height(view, child: navigationBarView, height: 70)
-	}
-	
-	/// Prepares an example that uses a detailLabel.
-	private func prepareDetailLabelExample() {
-		let navigationBarView: NavigationBarView = NavigationBarView()
-		navigationBarView.backgroundColor = MaterialColor.purple.darken1
-		
-		/*
-		To lighten the status bar - add the
-		"View controller-based status bar appearance = NO"
-		to your info.plist file and set the following property.
-		*/
-		navigationBarView.statusBarStyle = .LightContent
-		
-		// Title label.
-		let titleLabel: UILabel = UILabel()
-		titleLabel.text = "Material"
-		titleLabel.textAlignment = .Center
-		titleLabel.textColor = MaterialColor.white
-		titleLabel.font = RobotoFont.regularWithSize(20)
-		navigationBarView.titleLabel = titleLabel
-		
-		// Detail label.
-		let detailLabel: UILabel = UILabel()
-		detailLabel.text = "Build Beautiful Software"
-		detailLabel.textAlignment = .Center
-		detailLabel.textColor = MaterialColor.white
-		detailLabel.font = RobotoFont.regularWithSize(12)
-		navigationBarView.detailLabel = detailLabel
-		
-		// To support orientation changes, use MaterialLayout.
-		view.addSubview(navigationBarView)
-		navigationBarView.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignFromTop(view, child: navigationBarView)
-		MaterialLayout.alignToParentHorizontally(view, child: navigationBarView)
-		MaterialLayout.height(view, child: navigationBarView, height: 70)
-	}
-	
-	/// Prepares an example that uses a background image.
-	private func prepareBackgroundImageExample() {
-		let navigationBarView: NavigationBarView = NavigationBarView()
-		navigationBarView.image = UIImage(named: "NavigationBarViewTexture")
-		navigationBarView.contentsGravity = .ResizeAspectFill
-		
-		/*
-		To lighten the status bar - add the
-		"View controller-based status bar appearance = NO"
-		to your info.plist file and set the following property.
-		*/
-		navigationBarView.statusBarStyle = .LightContent
-		
-		// Title label.
-		let titleLabel: UILabel = UILabel()
-		titleLabel.text = "Material"
-		titleLabel.textAlignment = .Center
-		titleLabel.textColor = MaterialColor.white
-		titleLabel.font = RobotoFont.boldWithSize(22)
-		navigationBarView.titleLabel = titleLabel
-		
-		// To support orientation changes, use MaterialLayout.
-		view.addSubview(navigationBarView)
-		navigationBarView.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignFromTop(view, child: navigationBarView)
-		MaterialLayout.alignToParentHorizontally(view, child: navigationBarView)
-		MaterialLayout.height(view, child: navigationBarView, height: 70)
-	}
-	
-	/// Prepares an example that uses buttons.
-	private func prepareButtonExample() {
-		let navigationBarView: NavigationBarView = NavigationBarView()
-		navigationBarView.backgroundColor = MaterialColor.blueGrey.darken4
-		
-		/*
-		To lighten the status bar - add the
-		"View controller-based status bar appearance = NO"
-		to your info.plist file and set the following property.
-		*/
-		navigationBarView.statusBarStyle = .LightContent
-		
-		// Title label.
-		let titleLabel: UILabel = UILabel()
-		titleLabel.text = "Material"
-		titleLabel.textAlignment = .Center
-		titleLabel.textColor = MaterialColor.white
-		titleLabel.font = RobotoFont.regularWithSize(20)
-		navigationBarView.titleLabel = titleLabel
-		
-		// Menu button.
-		let img1: UIImage? = UIImage(named: "ic_menu_white")
-		let btn1: FlatButton = FlatButton()
-		btn1.pulseColor = MaterialColor.white
-		btn1.pulseScale = false
-		btn1.setImage(img1, forState: .Normal)
-		btn1.setImage(img1, forState: .Highlighted)
-		
-		// Star button.
-		let img2: UIImage? = UIImage(named: "ic_star_white")
-		let btn2: FlatButton = FlatButton()
-		btn2.pulseColor = MaterialColor.white
-		btn2.pulseScale = false
-		btn2.setImage(img2, forState: .Normal)
-		btn2.setImage(img2, forState: .Highlighted)
-		
-		// Search button.
-		let img3: UIImage? = UIImage(named: "ic_search_white")
-		let btn3: FlatButton = FlatButton()
-		btn3.pulseColor = MaterialColor.white
-		btn3.pulseScale = false
-		btn3.setImage(img3, forState: .Normal)
-		btn3.setImage(img3, forState: .Highlighted)
-		
-		// Add buttons to left side.
-		navigationBarView.leftControls = [btn1]
-		
-		// Add buttons to right side.
-		navigationBarView.rightControls = [btn2, btn3]
-		
-		// To support orientation changes, use MaterialLayout.
-		view.addSubview(navigationBarView)
-		navigationBarView.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignFromTop(view, child: navigationBarView)
-		MaterialLayout.alignToParentHorizontally(view, child: navigationBarView)
-		MaterialLayout.height(view, child: navigationBarView, height: 70)
 	}
 	
 	/// Prepares a text alignment example.
@@ -253,7 +66,7 @@ class ViewController: UIViewController {
 		titleLabel.text = "Material"
 		titleLabel.textAlignment = .Left
 		titleLabel.textColor = MaterialColor.white
-		titleLabel.font = RobotoFont.regularWithSize(22)
+		titleLabel.font = RobotoFont.regularWithSize(17)
 		navigationBarView.titleLabel = titleLabel
 		
 		// Detail label.
@@ -261,40 +74,35 @@ class ViewController: UIViewController {
 		detailLabel.text = "Build Beautiful Software"
 		detailLabel.textAlignment = .Left
 		detailLabel.textColor = MaterialColor.white
-		detailLabel.font = RobotoFont.regularWithSize(10)
-//		navigationBarView.detailLabel = detailLabel
+		detailLabel.font = RobotoFont.regularWithSize(12)
+		navigationBarView.detailLabel = detailLabel
 		
 		// Menu button.
 		let img1: UIImage? = UIImage(named: "ic_menu_white")
-		let btn1: FlatButton = FlatButton()
-		btn1.pulseColor = MaterialColor.white
-		btn1.pulseScale = false
-		btn1.setImage(img1, forState: .Normal)
-		btn1.setImage(img1, forState: .Highlighted)
+		let menuButton: FlatButton = FlatButton()
+		menuButton.pulseColor = nil
+		menuButton.pulseScale = false
+		menuButton.setImage(img1, forState: .Normal)
+		menuButton.setImage(img1, forState: .Highlighted)
 		
 		// Star button.
-		let materialSwitch: MaterialSwitch = MaterialSwitch(state: .On, style: .Light, size: .Normal)
+		let switchControl: MaterialSwitch = MaterialSwitch(state: .On, style: .Light)
 		
 		// Search button.
 		let img3: UIImage? = UIImage(named: "ic_search_white")
-		let btn3: FlatButton = FlatButton()
-		btn3.pulseColor = MaterialColor.white
-		btn3.pulseScale = false
-		btn3.setImage(img3, forState: .Normal)
-		btn3.setImage(img3, forState: .Highlighted)
+		let searchButton: FlatButton = FlatButton()
+		searchButton.pulseColor = nil
+		searchButton.pulseScale = false
+		searchButton.setImage(img3, forState: .Normal)
+		searchButton.setImage(img3, forState: .Highlighted)
 		
-		// Add buttons to left side.
-		navigationBarView.leftControls = [btn1]
+		// Add controls to left side.
+		navigationBarView.leftControls = [menuButton]
 		
-		// Add buttons to right side.
-		navigationBarView.rightControls = [materialSwitch, btn3]
+		// Add controls to right side.
+		navigationBarView.rightControls = [switchControl, searchButton]
 		
-		// To support orientation changes, use MaterialLayout.
 		view.addSubview(navigationBarView)
-		navigationBarView.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignFromTop(view, child: navigationBarView)
-		MaterialLayout.alignToParentHorizontally(view, child: navigationBarView)
-		MaterialLayout.height(view, child: navigationBarView, height: 70)
 	}
 }
 

@@ -42,7 +42,7 @@ public enum MaterialSwitchState {
 
 public enum MaterialSwitchSize {
 	case Small
-	case Normal
+	case Default
 	case Large
 }
 
@@ -195,14 +195,14 @@ public class MaterialSwitch: UIControl {
 	}
 	
 	/// MaterialSwitch size.
-	public var switchSize: MaterialSwitchSize = .Normal {
+	public var switchSize: MaterialSwitchSize = .Default {
 		didSet {
 			switch switchSize {
 			case .Small:
 				trackThickness = 13
 				buttonDiameter = 18
 				frame = CGRectMake(0, 0, 30, 25)
-			case .Normal:
+			case .Default:
 				trackThickness = 17
 				buttonDiameter = 24
 				frame = CGRectMake(0, 0, 40, 30)
@@ -236,7 +236,7 @@ public class MaterialSwitch: UIControl {
 		super.init(coder: aDecoder)
 		prepareTrack()
 		prepareButton()
-		prepareSwitchSize(.Normal)
+		prepareSwitchSize(.Default)
 		prepareSwitchStyle(.Light)
 		prepareSwitchState(.Off)
 	}
@@ -247,7 +247,7 @@ public class MaterialSwitch: UIControl {
 	- Parameter style: A MaterialSwitchStyle value.
 	- Parameter size: A MaterialSwitchSize value.
 	*/
-	public init(state: MaterialSwitchState = .On, style: MaterialSwitchStyle = .Light, size: MaterialSwitchSize = .Normal) {
+	public init(state: MaterialSwitchState = .On, style: MaterialSwitchStyle = .Light, size: MaterialSwitchSize = .Default) {
 		track = MaterialView(frame: CGRectZero)
 		button = FabButton(frame: CGRectZero)
 		super.init(frame: CGRectZero)
@@ -267,7 +267,7 @@ public class MaterialSwitch: UIControl {
 		switch switchSize {
 		case .Small:
 			return CGSizeMake(30, 25)
-		case .Normal:
+		case .Default:
 			return CGSizeMake(40, 30)
 		case .Large:
 			return CGSizeMake(50, 40)
@@ -456,7 +456,7 @@ public class MaterialSwitch: UIControl {
 		switch switchSize {
 		case .Small:
 			w = 30
-		case .Normal:
+		case .Default:
 			w = 40
 		case .Large:
 			w = 50

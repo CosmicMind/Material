@@ -69,17 +69,15 @@ Material is a growing project and will encounter changes throughout its developm
 
 ## Upcoming
 
-* SearchBarView
+* MenuViewController
 * SearchBarViewController
 * TabView
 * TabViewController
 * Scrolling Techniques
-* Dialogs
 * Snackbar
 * ProgressBar (circular and horizontal)
 * DatePicker
 * TimePicker
-* Switch Control
 * More Examples
 
 <a name="materialcolor"></a>

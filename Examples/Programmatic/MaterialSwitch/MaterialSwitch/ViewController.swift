@@ -40,7 +40,7 @@ class ViewController: UIViewController, MaterialSwitchDelegate {
 		super.viewDidLoad()
 		prepareView()
 		prepareSmallMaterialSwitch()
-		prepareNormalMaterialSwitch()
+		prepareDefaultMaterialSwitch()
 		prepareLargeMaterialSwitch()
 		prepareLightOnDisabledMaterialSwitch()
 		prepareLightOffDisabledMaterialSwitch()
@@ -55,76 +55,75 @@ class ViewController: UIViewController, MaterialSwitchDelegate {
 	
 	/// Prepares the Small MaterialSwitch.
 	private func prepareSmallMaterialSwitch() {
-		let materialSwitch: MaterialSwitch = MaterialSwitch(state: .Off, style: .Light, size: .Small)
-		materialSwitch.center = view.center
-		materialSwitch.y -= 100
-		materialSwitch.delegate = self
-		view.addSubview(materialSwitch)
+		let switchControl: MaterialSwitch = MaterialSwitch(state: .Off, style: .Light, size: .Small)
+		switchControl.center = view.center
+		switchControl.y -= 100
+		switchControl.delegate = self
+		view.addSubview(switchControl)
 	}
 	
-	/// Prepares the Normal MaterialSwitch.
-	private func prepareNormalMaterialSwitch() {
-		let materialSwitch: MaterialSwitch = MaterialSwitch(state: .On, style: .Light, size: .Normal)
-		materialSwitch.delegate = self
+	/// Prepares the Default MaterialSwitch.
+	private func prepareDefaultMaterialSwitch() {
+		let switchControl: MaterialSwitch = MaterialSwitch(state: .On, style: .Light)
+		switchControl.delegate = self
 		
-		view.addSubview(materialSwitch)
-		materialSwitch.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.size(view, child: materialSwitch, width: materialSwitch.width, height: materialSwitch.height)
-		MaterialLayout.alignFromBottomRight(view, child: materialSwitch, bottom: 16, right: 16)
+		view.addSubview(switchControl)
+		switchControl.translatesAutoresizingMaskIntoConstraints = false
+		MaterialLayout.alignFromBottomRight(view, child: switchControl, bottom: 16, right: 16)
 	}
 	
 	/// Prepares the Large MaterialSwitch.
 	private func prepareLargeMaterialSwitch() {
 		let image: UIImage? = UIImage(named: "ic_alarm_white_18pt")
-		let materialSwitch: MaterialSwitch = MaterialSwitch(state: .Off, style: .Light, size: .Large)
-		materialSwitch.center = view.center
-		materialSwitch.y -= 50
-		materialSwitch.delegate = self
-		materialSwitch.button.setImage(image, forState: .Normal)
-		materialSwitch.button.setImage(image, forState: .Highlighted)
-		view.addSubview(materialSwitch)
+		let switchControl: MaterialSwitch = MaterialSwitch(state: .Off, style: .Light, size: .Large)
+		switchControl.center = view.center
+		switchControl.y -= 50
+		switchControl.delegate = self
+		switchControl.button.setImage(image, forState: .Normal)
+		switchControl.button.setImage(image, forState: .Highlighted)
+		view.addSubview(switchControl)
 	}
 	
 	/// Prepares the Light On enabled = false MaterialSwitch.
 	private func prepareLightOnDisabledMaterialSwitch() {
-		let materialSwitch: MaterialSwitch = MaterialSwitch(state: .On, style: .Light, size: .Normal)
-		materialSwitch.enabled = false
-		materialSwitch.center = view.center
-		materialSwitch.delegate = self
-		view.addSubview(materialSwitch)
+		let switchControl: MaterialSwitch = MaterialSwitch(state: .On, style: .Light)
+		switchControl.enabled = false
+		switchControl.center = view.center
+		switchControl.delegate = self
+		view.addSubview(switchControl)
 	}
 	
 	/// Prepares the Light Off enabled = false MaterialSwitch.
 	private func prepareLightOffDisabledMaterialSwitch() {
-		let materialSwitch: MaterialSwitch = MaterialSwitch(state: .Off, style: .Light, size: .Normal)
-		materialSwitch.enabled = false
-		materialSwitch.center = view.center
-		materialSwitch.y += 50
-		materialSwitch.delegate = self
-		view.addSubview(materialSwitch)
+		let switchControl: MaterialSwitch = MaterialSwitch(state: .Off, style: .Light)
+		switchControl.enabled = false
+		switchControl.center = view.center
+		switchControl.y += 50
+		switchControl.delegate = self
+		view.addSubview(switchControl)
 	}
 	
 	/// Prepares the Dark On enabled = false MaterialSwitch.
 	private func prepareDarkOnDisabledMaterialSwitch() {
-		let materialSwitch: MaterialSwitch = MaterialSwitch(state: .On, style: .Dark, size: .Normal)
-		materialSwitch.enabled = false
-		materialSwitch.center = view.center
-		materialSwitch.y += 100
-		materialSwitch.delegate = self
-		view.addSubview(materialSwitch)
+		let switchControl: MaterialSwitch = MaterialSwitch(state: .On, style: .Dark)
+		switchControl.enabled = false
+		switchControl.center = view.center
+		switchControl.y += 100
+		switchControl.delegate = self
+		view.addSubview(switchControl)
 	}
 	
 	/// Prepares the Dark On enabled = false MaterialSwitch.
 	private func prepareDarkOffDisabledMaterialSwitch() {
-		let materialSwitch: MaterialSwitch = MaterialSwitch(state: .Off, style: .Dark, size: .Normal)
-		materialSwitch.enabled = false
-		materialSwitch.center = view.center
-		materialSwitch.y += 150
-		materialSwitch.delegate = self
-		view.addSubview(materialSwitch)
+		let switchControl: MaterialSwitch = MaterialSwitch(state: .Off, style: .Dark)
+		switchControl.enabled = false
+		switchControl.center = view.center
+		switchControl.y += 150
+		switchControl.delegate = self
+		view.addSubview(switchControl)
 	}
 	
-	internal func materialSwitchStateChanged(control: MaterialSwitch, state: MaterialSwitchState) {
+	internal func switchControlStateChanged(control: MaterialSwitch, state: MaterialSwitchState) {
 		print("MaterialSwitch - Size: \(control.switchSize) State: \(state)")
 	}
 }

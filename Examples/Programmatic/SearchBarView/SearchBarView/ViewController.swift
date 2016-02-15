@@ -81,7 +81,7 @@ class ViewController: UIViewController {
 		searchBarView.textField.font = RobotoFont.regularWithSize(22)
 		
 		searchBarView.leftControls = [menuButton]
-		searchBarView.rightControls = [searchButton]
+//		searchBarView.rightControls = [searchButton]
 		
 		view.addSubview(searchBarView)
 		searchBarView.translatesAutoresizingMaskIntoConstraints = false
