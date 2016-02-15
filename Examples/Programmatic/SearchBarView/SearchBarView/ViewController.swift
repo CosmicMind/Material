@@ -68,8 +68,6 @@ class ViewController: UIViewController {
 		menuButton.setImage(image, forState: .Normal)
 		menuButton.setImage(image, forState: .Highlighted)
 		
-		let materialSwitch: MaterialSwitch = MaterialSwitch(state: .On, style: .Light, size: .Normal)
-		
 		image = UIImage(named: "ic_search_white")
 		let searchButton: FlatButton = FlatButton()
 		searchButton.pulseColor = MaterialColor.white
@@ -80,9 +78,10 @@ class ViewController: UIViewController {
 		searchBarView.tintColor = MaterialColor.white
 		searchBarView.textColor = MaterialColor.white
 		searchBarView.placeholderTextColor = MaterialColor.white
+		searchBarView.textField.font = RobotoFont.regularWithSize(22)
 		
 		searchBarView.leftControls = [menuButton]
-		searchBarView.rightControls = [materialSwitch, searchButton]
+		searchBarView.rightControls = [searchButton]
 		
 		view.addSubview(searchBarView)
 		searchBarView.translatesAutoresizingMaskIntoConstraints = false
