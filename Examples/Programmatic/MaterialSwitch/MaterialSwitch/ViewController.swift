@@ -36,13 +36,9 @@ import UIKit
 import Material
 
 class ViewController: UIViewController, MaterialSwitchDelegate {
-	/// Reference for NavigationBarView.
-	private var searchBarView: SearchBarView = SearchBarView(frame: CGRectNull)
-	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		prepareSearchBarView()
 		prepareSmallMaterialSwitch()
 		prepareNormalMaterialSwitch()
 		prepareLargeMaterialSwitch()
@@ -57,56 +53,23 @@ class ViewController: UIViewController, MaterialSwitchDelegate {
 		view.backgroundColor = MaterialColor.white
 	}
 	
-	/// Prepare navigationBarView.
-	private func prepareSearchBarView() {
-		searchBarView.statusBarStyle = .LightContent
-		searchBarView.backgroundColor = MaterialColor.blue.base
-		
-		var image = UIImage(named: "ic_close_white")
-		let clearButton: FlatButton = FlatButton()
-		clearButton.pulseColor = MaterialColor.white
-		clearButton.setImage(image, forState: .Normal)
-		clearButton.setImage(image, forState: .Highlighted)
-		searchBarView.clearButton = clearButton
-		
-		image = UIImage(named: "ic_alarm_white")
-		let alarmButton: FlatButton = FlatButton()
-		alarmButton.pulseColor = MaterialColor.white
-		alarmButton.setImage(image, forState: .Normal)
-		alarmButton.setImage(image, forState: .Highlighted)
-		
-		searchBarView.placeholder = "Search"
-		searchBarView.tintColor = MaterialColor.white
-		searchBarView.textColor = MaterialColor.white
-		searchBarView.placeholderTextColor = MaterialColor.white
-		
-		searchBarView.rightControls = [alarmButton]
-		
-		view.addSubview(searchBarView)
-		searchBarView.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.height(view, child: searchBarView, height: 70)
-		MaterialLayout.alignFromTop(view, child: searchBarView)
-		MaterialLayout.alignToParentHorizontally(view, child: searchBarView)
-	}
-	
 	/// Prepares the Small MaterialSwitch.
 	private func prepareSmallMaterialSwitch() {
 		let materialSwitch: MaterialSwitch = MaterialSwitch(state: .Off, style: .Light, size: .Small)
+		materialSwitch.center = view.center
+		materialSwitch.y -= 100
 		materialSwitch.delegate = self
-		searchBarView.leftControls = [materialSwitch]
+		view.addSubview(materialSwitch)
 	}
 	
 	/// Prepares the Normal MaterialSwitch.
 	private func prepareNormalMaterialSwitch() {
 		let materialSwitch: MaterialSwitch = MaterialSwitch(state: .On, style: .Light, size: .Normal)
-		materialSwitch.center = view.center
-		materialSwitch.y -= 100
 		materialSwitch.delegate = self
-		materialSwitch.backgroundColor = MaterialColor.green.base
 		
 		view.addSubview(materialSwitch)
 		materialSwitch.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.size(view, child: materialSwitch, width: materialSwitch.width + 100, height: materialSwitch.height + 100)
+		MaterialLayout.size(view, child: materialSwitch, width: materialSwitch.width, height: materialSwitch.height)
 		MaterialLayout.alignFromBottomRight(view, child: materialSwitch, bottom: 16, right: 16)
 	}
 	
@@ -119,7 +82,6 @@ class ViewController: UIViewController, MaterialSwitchDelegate {
 		materialSwitch.delegate = self
 		materialSwitch.button.setImage(image, forState: .Normal)
 		materialSwitch.button.setImage(image, forState: .Highlighted)
-		materialSwitch.backgroundColor = MaterialColor.green.base
 		view.addSubview(materialSwitch)
 	}
 	
@@ -129,7 +91,6 @@ class ViewController: UIViewController, MaterialSwitchDelegate {
 		materialSwitch.enabled = false
 		materialSwitch.center = view.center
 		materialSwitch.delegate = self
-		materialSwitch.backgroundColor = MaterialColor.green.base
 		view.addSubview(materialSwitch)
 	}
 	
@@ -140,7 +101,6 @@ class ViewController: UIViewController, MaterialSwitchDelegate {
 		materialSwitch.center = view.center
 		materialSwitch.y += 50
 		materialSwitch.delegate = self
-		materialSwitch.backgroundColor = MaterialColor.green.base
 		view.addSubview(materialSwitch)
 	}
 	
@@ -151,7 +111,6 @@ class ViewController: UIViewController, MaterialSwitchDelegate {
 		materialSwitch.center = view.center
 		materialSwitch.y += 100
 		materialSwitch.delegate = self
-		materialSwitch.backgroundColor = MaterialColor.green.base
 		view.addSubview(materialSwitch)
 	}
 	
@@ -162,7 +121,6 @@ class ViewController: UIViewController, MaterialSwitchDelegate {
 		materialSwitch.center = view.center
 		materialSwitch.y += 150
 		materialSwitch.delegate = self
-		materialSwitch.backgroundColor = MaterialColor.green.base
 		view.addSubview(materialSwitch)
 	}
 	

@@ -368,14 +368,6 @@ public class MaterialSwitch: UIControl {
 		}
 	}
 	
-	/**
-	Handle the TouchDown event.
-	- Parameter sender: A UIButton.
-	*/
-	internal func handleTouchDown(sender: UIButton) {
-		
-	}
-	
 	/// Prepares the track.
 	private func prepareTrack() {
 		addSubview(track)
@@ -384,7 +376,6 @@ public class MaterialSwitch: UIControl {
 	/// Prepares the button.
 	private func prepareButton() {
 		button.pulseColor = nil
-		button.addTarget(self, action: "handleTouchDown:", forControlEvents: .TouchDown)
 		button.addTarget(self, action: "handleTouchUpOutsideOrCanceled:event:", forControlEvents: .TouchUpOutside)
 		button.addTarget(self, action: "handleTouchUpInside", forControlEvents: .TouchUpInside)
 		button.addTarget(self, action: "handleTouchDragInside:event:", forControlEvents: .TouchDragInside)

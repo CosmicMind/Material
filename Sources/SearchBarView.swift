@@ -41,6 +41,15 @@ public class SearchBarView : MaterialView {
 		}
 	}
 	
+	/**
+	:name:	contentInsets
+	*/
+	public var contentInsetPreset: MaterialEdgeInset = .None {
+		didSet {
+			contentInset = MaterialEdgeInsetToValue(contentInsetPreset)
+		}
+	}
+	
 	/// Wrapper around grid.contentInset.
 	public var contentInset: UIEdgeInsets = UIEdgeInsetsZero {
 		didSet {
@@ -174,7 +183,7 @@ public class SearchBarView : MaterialView {
 		let g: CGFloat = width / CGFloat(0 < grid.columns ? grid.columns : 1)
 		
 		grid.views = []
-		textField.grid.columns = grid.columns
+		textField.grid.columns = grid.axis.columns
 		
 		// leftControls
 		if let v: Array<UIControl> = leftControls {
@@ -215,6 +224,8 @@ public class SearchBarView : MaterialView {
 			v.frame = CGRectMake(0, 0, textField.height, textField.height)
 		}
 		
+		textField.grid.columns -= textField.grid.offset.columns
+		
 		grid.reloadLayout()
 	}
 	
@@ -223,12 +234,13 @@ public class SearchBarView : MaterialView {
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		grid.columns = 10
-		grid.spacing = 8
-		grid.contentInset.top = 28
-		grid.contentInset.left = 8
-		grid.contentInset.bottom = 8
-		grid.contentInset.right = 8
+		grid.spacing = 10
+		grid.axis.columns = 8
+		grid.axis.inherited = false
+		grid.contentInset.top = 25
+		grid.contentInset.left = 10
+		grid.contentInset.bottom = 10
+		grid.contentInset.right = 10
 		depth = .Depth1
 		prepareTextField()
 	}

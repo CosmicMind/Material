@@ -223,10 +223,10 @@ class ViewController: UIViewController {
 		btn3.setImage(img3, forState: .Highlighted)
 		
 		// Add buttons to left side.
-		navigationBarView.leftButtons = [btn1]
+		navigationBarView.leftControls = [btn1]
 		
 		// Add buttons to right side.
-		navigationBarView.rightButtons = [btn2, btn3]
+		navigationBarView.rightControls = [btn2, btn3]
 		
 		// To support orientation changes, use MaterialLayout.
 		view.addSubview(navigationBarView)
@@ -253,18 +253,16 @@ class ViewController: UIViewController {
 		titleLabel.text = "Material"
 		titleLabel.textAlignment = .Left
 		titleLabel.textColor = MaterialColor.white
-		titleLabel.font = RobotoFont.regularWithSize(20)
+		titleLabel.font = RobotoFont.regularWithSize(22)
 		navigationBarView.titleLabel = titleLabel
-		navigationBarView.titleLabelInset.left = 64
 		
 		// Detail label.
 		let detailLabel: UILabel = UILabel()
 		detailLabel.text = "Build Beautiful Software"
 		detailLabel.textAlignment = .Left
 		detailLabel.textColor = MaterialColor.white
-		detailLabel.font = RobotoFont.regularWithSize(12)
-		navigationBarView.detailLabel = detailLabel
-		navigationBarView.detailLabelInset.left = 64
+		detailLabel.font = RobotoFont.regularWithSize(10)
+//		navigationBarView.detailLabel = detailLabel
 		
 		// Menu button.
 		let img1: UIImage? = UIImage(named: "ic_menu_white")
@@ -275,12 +273,7 @@ class ViewController: UIViewController {
 		btn1.setImage(img1, forState: .Highlighted)
 		
 		// Star button.
-		let img2: UIImage? = UIImage(named: "ic_star_white")
-		let btn2: FlatButton = FlatButton()
-		btn2.pulseColor = MaterialColor.white
-		btn2.pulseScale = false
-		btn2.setImage(img2, forState: .Normal)
-		btn2.setImage(img2, forState: .Highlighted)
+		let materialSwitch: MaterialSwitch = MaterialSwitch(state: .On, style: .Light, size: .Normal)
 		
 		// Search button.
 		let img3: UIImage? = UIImage(named: "ic_search_white")
@@ -291,10 +284,10 @@ class ViewController: UIViewController {
 		btn3.setImage(img3, forState: .Highlighted)
 		
 		// Add buttons to left side.
-		navigationBarView.leftButtons = [btn1]
+		navigationBarView.leftControls = [btn1]
 		
 		// Add buttons to right side.
-		navigationBarView.rightButtons = [btn2, btn3]
+		navigationBarView.rightControls = [materialSwitch, btn3]
 		
 		// To support orientation changes, use MaterialLayout.
 		view.addSubview(navigationBarView)
