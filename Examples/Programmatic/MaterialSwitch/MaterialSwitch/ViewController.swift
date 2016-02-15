@@ -36,11 +36,8 @@ import UIKit
 import Material
 
 class ViewController: UIViewController, MaterialSwitchDelegate {
-	/// Reference for MaterialSwitch.
-	private var materialSwitch: MaterialSwitch!
-	
 	/// Reference for NavigationBarView.
-	private var searchBarView: SearchBarView = SearchBarView()
+	private var searchBarView: SearchBarView = SearchBarView(frame: CGRectNull)
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -64,36 +61,49 @@ class ViewController: UIViewController, MaterialSwitchDelegate {
 	private func prepareSearchBarView() {
 		searchBarView.statusBarStyle = .LightContent
 		searchBarView.backgroundColor = MaterialColor.blue.base
-		searchBarView.textField.attributedPlaceholder = NSAttributedString(string:"Search", attributes: [NSForegroundColorAttributeName: MaterialColor.white])
-		searchBarView.textField.clearButtonMode = .WhileEditing
-		searchBarView.textField.tintColor = MaterialColor.white
+		
+		var image = UIImage(named: "ic_close_white")
+		let clearButton: FlatButton = FlatButton()
+		clearButton.pulseColor = MaterialColor.white
+		clearButton.setImage(image, forState: .Normal)
+		clearButton.setImage(image, forState: .Highlighted)
+		searchBarView.clearButton = clearButton
+		
+		image = UIImage(named: "ic_alarm_white")
+		let alarmButton: FlatButton = FlatButton()
+		alarmButton.pulseColor = MaterialColor.white
+		alarmButton.setImage(image, forState: .Normal)
+		alarmButton.setImage(image, forState: .Highlighted)
+		
+		searchBarView.placeholder = "Search"
+		searchBarView.tintColor = MaterialColor.white
+		searchBarView.textColor = MaterialColor.white
+		searchBarView.placeholderTextColor = MaterialColor.white
+		
+		searchBarView.rightControls = [alarmButton]
+		
 		view.addSubview(searchBarView)
+		searchBarView.translatesAutoresizingMaskIntoConstraints = false
+		MaterialLayout.height(view, child: searchBarView, height: 70)
+		MaterialLayout.alignFromTop(view, child: searchBarView)
+		MaterialLayout.alignToParentHorizontally(view, child: searchBarView)
 	}
 	
 	/// Prepares the Small MaterialSwitch.
 	private func prepareSmallMaterialSwitch() {
-		materialSwitch = MaterialSwitch(state: .Off, style: .Light, size: .Small)
+		let materialSwitch: MaterialSwitch = MaterialSwitch(state: .Off, style: .Light, size: .Small)
 		materialSwitch.delegate = self
-		
-		let image: UIImage? = UIImage(named: "ic_alarm_white")
-		let alarmButton: FlatButton = FlatButton()
-		alarmButton.setImage(image, forState: .Normal)
-		alarmButton.setImage(image, forState: .Highlighted)
-		
-		let button: FlatButton = FlatButton()
-		button.setTitle("Back Button", forState: .Normal)
-		
 		searchBarView.leftControls = [materialSwitch]
-		searchBarView.rightControls = [alarmButton]
 	}
 	
 	/// Prepares the Normal MaterialSwitch.
 	private func prepareNormalMaterialSwitch() {
-		materialSwitch = MaterialSwitch(state: .On, style: .Light, size: .Normal)
+		let materialSwitch: MaterialSwitch = MaterialSwitch(state: .On, style: .Light, size: .Normal)
 		materialSwitch.center = view.center
 		materialSwitch.y -= 100
 		materialSwitch.delegate = self
 		materialSwitch.backgroundColor = MaterialColor.green.base
+		
 		view.addSubview(materialSwitch)
 		materialSwitch.translatesAutoresizingMaskIntoConstraints = false
 		MaterialLayout.size(view, child: materialSwitch, width: materialSwitch.width + 100, height: materialSwitch.height + 100)
@@ -103,7 +113,7 @@ class ViewController: UIViewController, MaterialSwitchDelegate {
 	/// Prepares the Large MaterialSwitch.
 	private func prepareLargeMaterialSwitch() {
 		let image: UIImage? = UIImage(named: "ic_alarm_white_18pt")
-		materialSwitch = MaterialSwitch(state: .Off, style: .Light, size: .Large)
+		let materialSwitch: MaterialSwitch = MaterialSwitch(state: .Off, style: .Light, size: .Large)
 		materialSwitch.center = view.center
 		materialSwitch.y -= 50
 		materialSwitch.delegate = self
@@ -115,7 +125,7 @@ class ViewController: UIViewController, MaterialSwitchDelegate {
 	
 	/// Prepares the Light On enabled = false MaterialSwitch.
 	private func prepareLightOnDisabledMaterialSwitch() {
-		materialSwitch = MaterialSwitch(state: .On, style: .Light, size: .Normal)
+		let materialSwitch: MaterialSwitch = MaterialSwitch(state: .On, style: .Light, size: .Normal)
 		materialSwitch.enabled = false
 		materialSwitch.center = view.center
 		materialSwitch.delegate = self
@@ -125,7 +135,7 @@ class ViewController: UIViewController, MaterialSwitchDelegate {
 	
 	/// Prepares the Light Off enabled = false MaterialSwitch.
 	private func prepareLightOffDisabledMaterialSwitch() {
-		materialSwitch = MaterialSwitch(state: .Off, style: .Light, size: .Normal)
+		let materialSwitch: MaterialSwitch = MaterialSwitch(state: .Off, style: .Light, size: .Normal)
 		materialSwitch.enabled = false
 		materialSwitch.center = view.center
 		materialSwitch.y += 50
@@ -136,7 +146,7 @@ class ViewController: UIViewController, MaterialSwitchDelegate {
 	
 	/// Prepares the Dark On enabled = false MaterialSwitch.
 	private func prepareDarkOnDisabledMaterialSwitch() {
-		materialSwitch = MaterialSwitch(state: .On, style: .Dark, size: .Normal)
+		let materialSwitch: MaterialSwitch = MaterialSwitch(state: .On, style: .Dark, size: .Normal)
 		materialSwitch.enabled = false
 		materialSwitch.center = view.center
 		materialSwitch.y += 100
@@ -147,7 +157,7 @@ class ViewController: UIViewController, MaterialSwitchDelegate {
 	
 	/// Prepares the Dark On enabled = false MaterialSwitch.
 	private func prepareDarkOffDisabledMaterialSwitch() {
-		materialSwitch = MaterialSwitch(state: .Off, style: .Dark, size: .Normal)
+		let materialSwitch: MaterialSwitch = MaterialSwitch(state: .Off, style: .Dark, size: .Normal)
 		materialSwitch.enabled = false
 		materialSwitch.center = view.center
 		materialSwitch.y += 150

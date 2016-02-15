@@ -31,9 +31,10 @@
 import UIKit
 
 public class SearchBarView : MaterialView {
-	/**
-	:name:	statusBarStyle
-	*/
+	/// The UITextField for the searchBar.
+	public private(set) lazy var textField: TextField = TextField()
+	
+	/// StatusBar style.
 	public var statusBarStyle: UIStatusBarStyle = UIApplication.sharedApplication().statusBarStyle {
 		didSet {
 			UIApplication.sharedApplication().statusBarStyle = statusBarStyle
@@ -54,9 +55,6 @@ public class SearchBarView : MaterialView {
 		}
 	}
 	
-	/// SearchBar textField.
-	public private(set) lazy var textField: TextField = TextField()
-	
 	/**
 	:name:	leftControls
 	*/
@@ -72,6 +70,50 @@ public class SearchBarView : MaterialView {
 	public var rightControls: Array<UIControl>? {
 		didSet {
 			reloadView()
+		}
+	}
+	
+	/// The UIImage for the clear icon.
+	public var clearButton: UIButton? {
+		didSet {
+			if let v: UIButton = clearButton {
+				v.contentEdgeInsets = UIEdgeInsetsZero
+				v.addTarget(self, action: "handleClearButton", forControlEvents: .TouchUpInside)
+			}
+			textField.rightView = clearButton
+		}
+	}
+	
+	/// TintColor for searchBar.
+	public override var tintColor: UIColor? {
+		didSet {
+			textField.tintColor = tintColor
+		}
+	}
+	
+	/// TextColor for searchBar.
+	public var textColor: UIColor? {
+		didSet {
+			textField.textColor = textColor
+		}
+	}
+	
+	/// Placeholder textColor.
+	public var placeholderTextColor: UIColor? {
+		didSet {
+			if let v: String = textField.placeholder {
+				textField.attributedPlaceholder = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: MaterialColor.white])
+			}
+		}
+	}
+	
+	/// A wrapper for searchBar.placeholder.
+	public var placeholder: String? {
+		didSet {
+			textField.placeholder = placeholder
+			if let v: String = textField.placeholder {
+				textField.attributedPlaceholder = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: MaterialColor.white])
+			}
 		}
 	}
 	
@@ -104,6 +146,11 @@ public class SearchBarView : MaterialView {
 		prepareProperties(leftControls, rightControls: rightControls)
 	}
 	
+	public override func layoutSubviews() {
+		super.layoutSubviews()
+		reloadView()
+	}
+	
 	public override func didMoveToSuperview() {
 		super.didMoveToSuperview()
 		reloadView()
@@ -113,66 +160,59 @@ public class SearchBarView : MaterialView {
 	:name:	reloadView
 	*/
 	public func reloadView() {
+		layoutIfNeeded()
+		
 		// clear constraints so new ones do not conflict
 		removeConstraints(constraints)
 		for v in subviews {
-			v.removeFromSuperview()
+			if v != textField {
+				v.removeFromSuperview()
+			}
 		}
+		
+		// Size of single grid column.
+		let g: CGFloat = width / CGFloat(0 < grid.columns ? grid.columns : 1)
 		
 		grid.views = []
 		textField.grid.columns = grid.columns
 		
 		// leftControls
 		if let v: Array<UIControl> = leftControls {
-			if 0 < v.count {
-				
-				// Size of single grid column.
-				let g: CGFloat = width / CGFloat(grid.columns)
-				
-				for c in v {
-					var w: CGFloat = c.frame.width
-					if 0 == w {
-						if let b: UIButton = c as? UIButton {
-							b.contentEdgeInsets = UIEdgeInsetsZero
-						}
-						w = c.intrinsicContentSize().width
-					}
-					
-					c.grid.columns = Int(ceil(w / g))
-					textField.grid.columns -= c.grid.columns
-					
-					addSubview(c)
-					grid.views?.append(c)
+			for c in v {
+				let w: CGFloat = c.intrinsicContentSize().width
+				if let b: UIButton = c as? UIButton {
+					b.contentEdgeInsets = UIEdgeInsetsZero
 				}
+				
+				c.grid.columns = 0 == g ? 1 : Int(ceil(w / g))
+				textField.grid.columns -= c.grid.columns
+				
+				addSubview(c)
+				grid.views?.append(c)
 			}
 		}
 		
-		addSubview(textField)
 		grid.views?.append(textField)
 		
 		// rightControls
 		if let v: Array<UIControl> = rightControls {
-			if 0 < v.count {
-				
-				// Size of single grid column.
-				let g: CGFloat = width / CGFloat(grid.columns)
-				
-				for c in v {
-					var w: CGFloat = c.frame.width
-					if 0 == w {
-						if let b: UIButton = c as? UIButton {
-							b.contentEdgeInsets = UIEdgeInsetsZero
-						}
-						w = c.intrinsicContentSize().width
-					}
-					
-					c.grid.columns = Int(ceil(w / g))
-					textField.grid.columns -= c.grid.columns
-					
-					addSubview(c)
-					grid.views?.append(c)
+			for c in v {
+				let w: CGFloat = c.intrinsicContentSize().width
+				if let b: UIButton = c as? UIButton {
+					b.contentEdgeInsets = UIEdgeInsetsZero
 				}
+				
+				c.grid.columns = 0 == g ? 1 : Int(ceil(w / g))
+				textField.grid.columns -= c.grid.columns
+				
+				addSubview(c)
+				grid.views?.append(c)
 			}
+		}
+		
+		/// Prepare the clearButton
+		if let v: UIButton = clearButton {
+			v.frame = CGRectMake(0, 0, textField.height, textField.height)
 		}
 		
 		grid.reloadLayout()
@@ -193,6 +233,11 @@ public class SearchBarView : MaterialView {
 		prepareTextField()
 	}
 	
+	/// Clears the textField text.
+	internal func handleClearButton() {
+		textField.text = ""
+	}
+	
 	/**
 	:name:	prepareProperties
 	*/
@@ -201,7 +246,12 @@ public class SearchBarView : MaterialView {
 		self.rightControls = rightControls
 	}
 	
+	/// Prepares the textField.
 	private func prepareTextField() {
+		textField.placeholder = "Search"
 		textField.backgroundColor = MaterialColor.clear
+		textField.clearButtonMode = .Never
+		textField.rightViewMode = .WhileEditing
+		addSubview(textField)
 	}
 }

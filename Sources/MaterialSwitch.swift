@@ -263,6 +263,17 @@ public class MaterialSwitch: UIControl {
 		styleForState(switchState)
 	}
 	
+	public override func intrinsicContentSize() -> CGSize {
+		switch switchSize {
+		case .Small:
+			return CGSizeMake(30, 25)
+		case .Normal:
+			return CGSizeMake(40, 30)
+		case .Large:
+			return CGSizeMake(50, 40)
+		}
+	}
+	
 	/**
 	Prepares the view instance when intialized. When subclassing,
 	it is recommended to override the prepareView method
@@ -468,5 +479,9 @@ public class MaterialSwitch: UIControl {
 		button.frame = CGRectMake(px, (height - buttonDiameter) / 2, buttonDiameter, buttonDiameter)
 		onPosition = width - px - buttonDiameter
 		offPosition = px
+		
+		if .On == switchState {
+			button.x = onPosition
+		}
 	}
 }
