@@ -142,6 +142,7 @@ public class NavigationBarView : MaterialView {
 			v.grid.rows = 2
 		}
 		
+		// Column adjustment.
 		width = UIScreen.mainScreen().bounds.width
 		grid.axis.columns = Int(width / 48)
 		reloadView()

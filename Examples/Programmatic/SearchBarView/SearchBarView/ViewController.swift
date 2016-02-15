@@ -36,8 +36,8 @@ import UIKit
 import Material
 
 class ViewController: UIViewController {
-	/// Reference for NavigationBarView.
-	private var searchBarView: SearchBarView = SearchBarView(frame: CGRectNull)
+	/// Reference for SearchBarView.
+	private var searchBarView: SearchBarView = SearchBarView()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -52,41 +52,46 @@ class ViewController: UIViewController {
 	
 	/// Prepare navigationBarView.
 	private func prepareSearchBarView() {
-		searchBarView.statusBarStyle = .LightContent
-		searchBarView.backgroundColor = MaterialColor.blue.base
-		
 		var image = UIImage(named: "ic_close_white")
+		
 		let clearButton: FlatButton = FlatButton()
-		clearButton.pulseColor = MaterialColor.white
+		clearButton.pulseColor = nil
+		clearButton.pulseScale = false
 		clearButton.setImage(image, forState: .Normal)
 		clearButton.setImage(image, forState: .Highlighted)
-		searchBarView.clearButton = clearButton
 		
 		image = UIImage(named: "ic_menu_white")
 		let menuButton: FlatButton = FlatButton()
-		menuButton.pulseColor = MaterialColor.white
+		menuButton.pulseColor = nil
+		menuButton.pulseScale = false
 		menuButton.setImage(image, forState: .Normal)
 		menuButton.setImage(image, forState: .Highlighted)
 		
 		image = UIImage(named: "ic_search_white")
 		let searchButton: FlatButton = FlatButton()
-		searchButton.pulseColor = MaterialColor.white
+		searchButton.pulseColor = nil
+		searchButton.pulseScale = false
 		searchButton.setImage(image, forState: .Normal)
 		searchButton.setImage(image, forState: .Highlighted)
 		
+		/*
+		To lighten the status bar - add the
+		"View controller-based status bar appearance = NO"
+		to your info.plist file and set the following property.
+		*/
+		searchBarView.statusBarStyle = .LightContent
+		
+		searchBarView.backgroundColor = MaterialColor.blue.base
 		searchBarView.placeholder = "Search"
 		searchBarView.tintColor = MaterialColor.white
 		searchBarView.textColor = MaterialColor.white
 		searchBarView.placeholderTextColor = MaterialColor.white
 		searchBarView.textField.font = RobotoFont.regularWithSize(22)
 		
+		searchBarView.clearButton = clearButton
 		searchBarView.leftControls = [menuButton]
-//		searchBarView.rightControls = [searchButton]
+		searchBarView.rightControls = [searchButton]
 		
 		view.addSubview(searchBarView)
-		searchBarView.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.height(view, child: searchBarView, height: 70)
-		MaterialLayout.alignFromTop(view, child: searchBarView)
-		MaterialLayout.alignToParentHorizontally(view, child: searchBarView)
 	}
 }

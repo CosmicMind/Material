@@ -38,10 +38,13 @@ import UIKit
 import Material
 
 class ViewController: UIViewController {
+	/// Reference for NavigationBarView.
+	private var navigationBarView: NavigationBarView = NavigationBarView()
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		prepareAlignTitleAndDetailLabelToLeftExample()
+		prepareNavigationBarView()
 	}
 	
 	/// General preparation statements.
@@ -49,10 +52,41 @@ class ViewController: UIViewController {
 		view.backgroundColor = MaterialColor.white
 	}
 	
-	/// Prepares a text alignment example.
-	private func prepareAlignTitleAndDetailLabelToLeftExample() {
-		let navigationBarView: NavigationBarView = NavigationBarView()
-		navigationBarView.backgroundColor = MaterialColor.blue.base
+	/// Prepares the navigationBarView
+	private func prepareNavigationBarView() {
+		// Title label.
+		let titleLabel: UILabel = UILabel()
+		titleLabel.text = "Material"
+		titleLabel.textAlignment = .Left
+		titleLabel.textColor = MaterialColor.white
+		titleLabel.font = RobotoFont.regularWithSize(17)
+		
+		// Detail label.
+		let detailLabel: UILabel = UILabel()
+		detailLabel.text = "Build Beautiful Software"
+		detailLabel.textAlignment = .Left
+		detailLabel.textColor = MaterialColor.white
+		detailLabel.font = RobotoFont.regularWithSize(12)
+		
+		var image = UIImage(named: "ic_menu_white")
+		
+		// Menu button.
+		let menuButton: FlatButton = FlatButton()
+		menuButton.pulseColor = nil
+		menuButton.pulseScale = false
+		menuButton.setImage(image, forState: .Normal)
+		menuButton.setImage(image, forState: .Highlighted)
+		
+		// Star button.
+		let switchControl: MaterialSwitch = MaterialSwitch(state: .On, style: .Light)
+		
+		// Search button.
+		image = UIImage(named: "ic_search_white")
+		let searchButton: FlatButton = FlatButton()
+		searchButton.pulseColor = nil
+		searchButton.pulseScale = false
+		searchButton.setImage(image, forState: .Normal)
+		searchButton.setImage(image, forState: .Highlighted)
 		
 		/*
 		To lighten the status bar - add the
@@ -61,45 +95,10 @@ class ViewController: UIViewController {
 		*/
 		navigationBarView.statusBarStyle = .LightContent
 		
-		// Title label.
-		let titleLabel: UILabel = UILabel()
-		titleLabel.text = "Material"
-		titleLabel.textAlignment = .Left
-		titleLabel.textColor = MaterialColor.white
-		titleLabel.font = RobotoFont.regularWithSize(17)
+		navigationBarView.backgroundColor = MaterialColor.blue.base
 		navigationBarView.titleLabel = titleLabel
-		
-		// Detail label.
-		let detailLabel: UILabel = UILabel()
-		detailLabel.text = "Build Beautiful Software"
-		detailLabel.textAlignment = .Left
-		detailLabel.textColor = MaterialColor.white
-		detailLabel.font = RobotoFont.regularWithSize(12)
 		navigationBarView.detailLabel = detailLabel
-		
-		// Menu button.
-		let img1: UIImage? = UIImage(named: "ic_menu_white")
-		let menuButton: FlatButton = FlatButton()
-		menuButton.pulseColor = nil
-		menuButton.pulseScale = false
-		menuButton.setImage(img1, forState: .Normal)
-		menuButton.setImage(img1, forState: .Highlighted)
-		
-		// Star button.
-		let switchControl: MaterialSwitch = MaterialSwitch(state: .On, style: .Light)
-		
-		// Search button.
-		let img3: UIImage? = UIImage(named: "ic_search_white")
-		let searchButton: FlatButton = FlatButton()
-		searchButton.pulseColor = nil
-		searchButton.pulseScale = false
-		searchButton.setImage(img3, forState: .Normal)
-		searchButton.setImage(img3, forState: .Highlighted)
-		
-		// Add controls to left side.
 		navigationBarView.leftControls = [menuButton]
-		
-		// Add controls to right side.
 		navigationBarView.rightControls = [switchControl, searchButton]
 		
 		view.addSubview(navigationBarView)

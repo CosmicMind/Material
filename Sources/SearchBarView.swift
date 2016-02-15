@@ -42,29 +42,6 @@ public class SearchBarView : MaterialView {
 	}
 	
 	/**
-	:name:	contentInsets
-	*/
-	public var contentInsetPreset: MaterialEdgeInset = .None {
-		didSet {
-			contentInset = MaterialEdgeInsetToValue(contentInsetPreset)
-		}
-	}
-	
-	/// Wrapper around grid.contentInset.
-	public var contentInset: UIEdgeInsets = UIEdgeInsetsZero {
-		didSet {
-			grid.contentInset = contentInset
-		}
-	}
-	
-	/// Wrapper around grid.spacing.
-	public var spacing: CGFloat = 0 {
-		didSet {
-			grid.spacing = spacing
-		}
-	}
-	
-	/**
 	:name:	leftControls
 	*/
 	public var leftControls: Array<UIControl>? {
@@ -127,36 +104,56 @@ public class SearchBarView : MaterialView {
 	}
 	
 	/**
-	:name:	init
+	An initializer that initializes the object with a NSCoder object.
+	- Parameter aDecoder: A NSCoder instance.
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
 	
 	/**
-	:name:	init
+	An initializer that initializes the object with a CGRect object.
+	If AutoLayout is used, it is better to initilize the instance
+	using the init() initializer.
+	- Parameter frame: A CGRect instance.
 	*/
 	public override init(frame: CGRect) {
 		super.init(frame: frame)
 	}
 	
-	/**
-	:name:	init
-	*/
+	/// A convenience initializer.
 	public convenience init() {
-		self.init(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 70))
+		self.init(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 64))
 	}
 	
 	/**
-	:name:	init
+	A convenience initializer with parameter settings.
+	- Parameter leftControls: An Array of UIControls that go on the left side.
+	- Parameter rightControls: An Array of UIControls that go on the right side.
 	*/
 	public convenience init?(leftControls: Array<UIControl>? = nil, rightControls: Array<UIControl>? = nil) {
-		self.init(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 70))
+		self.init(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 64))
 		prepareProperties(leftControls, rightControls: rightControls)
 	}
 	
 	public override func layoutSubviews() {
 		super.layoutSubviews()
+		
+		// General alignment.
+		switch UIDevice.currentDevice().orientation {
+		case .LandscapeLeft, .LandscapeRight:
+			grid.contentInset.top = 0
+			grid.contentInset.bottom = 0
+			height = 44
+		default:
+			grid.contentInset.top = 20
+			grid.contentInset.bottom = 8
+			height = 64
+		}
+		
+		// Column adjustment.
+		width = UIScreen.mainScreen().bounds.width
+		grid.axis.columns = Int(width / 48)
 		reloadView()
 	}
 	
@@ -165,9 +162,7 @@ public class SearchBarView : MaterialView {
 		reloadView()
 	}
 	
-	/**
-	:name:	reloadView
-	*/
+	/// Reloads the view.
 	public func reloadView() {
 		layoutIfNeeded()
 		
@@ -230,17 +225,20 @@ public class SearchBarView : MaterialView {
 	}
 	
 	/**
-	:name:	prepareView
+	Prepares the view instance when intialized. When subclassing,
+	it is recommended to override the prepareView method
+	to initialize property values and other setup operations.
+	The super.prepareView method should always be called immediately
+	when subclassing.
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		grid.spacing = 10
-		grid.axis.columns = 8
+		grid.spacing = 8
 		grid.axis.inherited = false
-		grid.contentInset.top = 25
-		grid.contentInset.left = 10
-		grid.contentInset.bottom = 10
-		grid.contentInset.right = 10
+		grid.contentInset.top = 20
+		grid.contentInset.left = 8
+		grid.contentInset.bottom = 8
+		grid.contentInset.right = 8
 		depth = .Depth1
 		prepareTextField()
 	}
@@ -250,14 +248,6 @@ public class SearchBarView : MaterialView {
 		textField.text = ""
 	}
 	
-	/**
-	:name:	prepareProperties
-	*/
-	private func prepareProperties(leftControls: Array<UIControl>?, rightControls: Array<UIControl>?) {
-		self.leftControls = leftControls
-		self.rightControls = rightControls
-	}
-	
 	/// Prepares the textField.
 	private func prepareTextField() {
 		textField.placeholder = "Search"
@@ -265,5 +255,17 @@ public class SearchBarView : MaterialView {
 		textField.clearButtonMode = .Never
 		textField.rightViewMode = .WhileEditing
 		addSubview(textField)
+	}
+	
+	/**
+	Used to trigger property changes  that initializers avoid.
+	- Parameter titleLabel: UILabel for the title.
+	- Parameter detailLabel: UILabel for the details.
+	- Parameter leftControls: An Array of UIControls that go on the left side.
+	- Parameter rightControls: An Array of UIControls that go on the right side.
+	*/
+	private func prepareProperties(leftControls: Array<UIControl>?, rightControls: Array<UIControl>?) {
+		self.leftControls = leftControls
+		self.rightControls = rightControls
 	}
 }
