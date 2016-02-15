@@ -220,7 +220,6 @@ public class NavigationBarView : MaterialView {
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		super.prepareView()
 		grid.spacing = 10
 		grid.axis.columns = 8
 		grid.axis.inherited = false
