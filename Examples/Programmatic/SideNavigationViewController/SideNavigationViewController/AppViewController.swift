@@ -97,7 +97,7 @@ class AppViewController: NavigationViewController {
 			sideNavigationViewController?.enabled = true
 
 			// Position the menuBackdropLayer for the animation when closing.
-			menuBackdropLayer.animate(MaterialAnimation.scale(1, duration: 0.25))
+			menuBackdropLayer.animate(MaterialAnimation.scale(1))
 			
 			menuView.menu.close()
 			image = UIImage(named: "ic_add_white")
@@ -110,7 +110,7 @@ class AppViewController: NavigationViewController {
 				self.menuBackdropLayer.frame = self.menuView.frame
 				self.menuBackdropLayer.shape = .Circle
 			}
-			menuBackdropLayer.animate(MaterialAnimation.scale(30, duration: 0.25))
+			menuBackdropLayer.animate(MaterialAnimation.scale(30))
 			menuBackdropLayer.hidden = false
 			
 			menuView.menu.open() { (v: UIView) in
