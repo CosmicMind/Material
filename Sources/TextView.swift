@@ -263,7 +263,7 @@ public class TextView: UITextView {
 	A property that sets the distance between the textView and
 	titleLabel.
 	*/
-	public var titleLabelAnimationDistance: CGFloat = 8
+	public var titleLabelAnimationDistance: CGFloat = 4
 	
 	/// Placeholder UILabel view.
 	public var placeholderLabel: UILabel? {
@@ -302,6 +302,9 @@ public class TextView: UITextView {
 			reloadView()
 		}
 	}
+	
+	/// A multiplier for the titleLabel and detailLabel frame height.
+	public private(set) var scale: CGFloat = 2
 	
 	/**
 	An initializer that initializes the object with a NSCoder object.
@@ -399,12 +402,8 @@ public class TextView: UITextView {
 	if interrupted.
 	*/
 	public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
-		if let a: CAPropertyAnimation = anim as? CAPropertyAnimation {
-			if let b: CABasicAnimation = a as? CABasicAnimation {
-				layer.setValue(nil == b.toValue ? b.byValue : b.toValue, forKey: b.keyPath!)
-			}
+		if anim is CAPropertyAnimation {
 			(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStop?(anim, finished: flag)
-			layer.removeAnimationForKey(a.keyPath!)
 		} else if let a: CAAnimationGroup = anim as? CAAnimationGroup {
 			for x in a.animations! {
 				animationDidStop(x, finished: true)
@@ -512,7 +511,7 @@ public class TextView: UITextView {
 						v.text = s
 					}
 				}
-				let h: CGFloat = v.font.pointSize
+				let h: CGFloat = v.font.pointSize * scale
 				v.frame = CGRectMake(0, -h, bounds.width, h)
 				v.hidden = false
 				UIView.animateWithDuration(0.25, animations: { [unowned self] in

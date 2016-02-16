@@ -273,7 +273,7 @@ public class TextField : UITextField {
 	A property that sets the distance between the textField and
 	titleLabel.
 	*/
-	public var titleLabelAnimationDistance: CGFloat = 8
+	public var titleLabelAnimationDistance: CGFloat = 4
 	
 	/// An override to the text property.
 	public override var text: String? {
@@ -311,7 +311,7 @@ public class TextField : UITextField {
 	A property that sets the distance between the textField and
 	detailLabel.
 	*/
-	public var detailLabelAnimationDistance: CGFloat = 8
+	public var detailLabelAnimationDistance: CGFloat = 4
 	
 	/**
 	:name:	detailLabelHidden
@@ -335,7 +335,7 @@ public class TextField : UITextField {
 	}
 	
 	/// A multiplier for the titleLabel and detailLabel frame height.
-	public private(set) var scale: CGFloat = UIScreen.mainScreen().scale
+	public private(set) var scale: CGFloat = 2
 	
 	/**
 	An initializer that initializes the object with a NSCoder object.
@@ -416,12 +416,8 @@ public class TextField : UITextField {
 	if interrupted.
 	*/
 	public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
-		if let a: CAPropertyAnimation = anim as? CAPropertyAnimation {
-			if let b: CABasicAnimation = a as? CABasicAnimation {
-				layer.setValue(nil == b.toValue ? b.byValue : b.toValue, forKey: b.keyPath!)
-			}
+		if anim is CAPropertyAnimation {
 			(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStop?(anim, finished: flag)
-			layer.removeAnimationForKey(a.keyPath!)
 		} else if let a: CAAnimationGroup = anim as? CAAnimationGroup {
 			for x in a.animations! {
 				animationDidStop(x, finished: true)
