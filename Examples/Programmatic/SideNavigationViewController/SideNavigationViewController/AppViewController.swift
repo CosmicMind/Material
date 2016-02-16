@@ -38,13 +38,7 @@ SideNavigationViewController.
 import UIKit
 import Material
 
-struct Item {
-	var title: String
-	var detail: String
-	var image: UIImage?
-}
-
-class MainViewController: UIViewController {
+class AppViewController: NavigationViewController {
 	/// Menu backdrop layer.
 	private lazy var menuBackdropLayer: MaterialLayer = MaterialLayer()
 	
@@ -54,23 +48,12 @@ class MainViewController: UIViewController {
 	/// MenuView inset.
 	private let menuViewInset: CGFloat = 16
 	
-	/// NavigationBarView.
-	private var navigationBarView: NavigationBarView = NavigationBarView()
-	
-	/// A tableView used to display Bond entries.
-	private lazy var collectionView: FeedCollectionView = FeedCollectionView(frame: CGRectNull, collectionViewLayout: FeedCollectionViewLayout())
-	
 	/// MenuView.
 	private let menuView: MenuView = MenuView()
-	
-	/// A list of all the Author Bond types.
-	var items: Array<Item> = Array<Item>()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		prepareItems()
-		prepareCollectionView()
 		prepareNavigationBarView()
 		prepareMenuBackdropLayer()
 		prepareMenuView()
@@ -148,62 +131,6 @@ class MainViewController: UIViewController {
 		view.backgroundColor = MaterialColor.white
 	}
 	
-	/// Prepares the items Array.
-	private func prepareItems() {
-		items.append(Item(
-			title: "Raw Vegan Blackberry Tart!",
-			detail: "Treat yourself today and every day with this sweet nutritious cake!",
-			image: UIImage(named: "VeganCakeFull")
-		))
-		
-		items.append(Item(
-			title: "Raw Vegan Pumpkin Pie",
-			detail: "Pumpkin lovers, desert lovers, and anyone who likes simple healthy cooking and enjoys eating! Light up your day with a piece of happiness- raw vegan pumpkin pie :)",
-			image: UIImage(named: "VeganPieAbove")
-		))
-		
-		items.append(Item(
-			title: "Raw Vegan Nutty Sweets!",
-			detail: "Since most of my readers have a sweet tooth, here is another simple recipe to boost your happiness :)",
-			image: UIImage(named: "VeganHempBalls")
-		))
-		
-		items.append(Item(
-			title: "Avocado Chocolate Cake!",
-			detail: "Do you know what are the two best things about vegan food besides that it's healthy and full of nutrition? It's absolutely delicious and easy to make!",
-			image: UIImage(named: "AssortmentOfFood")
-		))
-		
-		items.append(Item(
-			title: "Homemade brunch: Crepe Indulgence",
-			detail: "Looking for a perfect sunday brunch spot? How about staying in and making something to die for?:)",
-			image: UIImage(named: "AssortmentOfDessert")
-		))
-		
-		items.append(Item(
-			title: "Raw Vegan Chocolate Cookies",
-			detail: "Once I start making sweets it's hard for me to stop! I've got another exciting recipe, which hopefully you will love! :D",
-			image: UIImage(named: "HeartCookies")
-		))
-		
-		items.append(Item(
-			title: "Homemade Avocado Ice Cream",
-			detail: "Avocado ice cream (and vegan!) might not sound so appealing to some of you, but the truth is- it's mind blowing!!!",
-			image: UIImage(named: "AvocadoIceCream")
-		))
-	}
-	
-	/// Prepares the tableView.
-	private func prepareCollectionView() {
-		collectionView.delegate = self
-		collectionView.dataSource = self
-		collectionView.backgroundColor = MaterialColor.grey.lighten4
-		
-		view.addSubview(collectionView)
-		collectionView.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignToParent(view, child: collectionView, top: navigationBarView.height)
-	}
-	
 	/// Prepares the navigationBarView.
 	private func prepareNavigationBarView() {
 		// Title label.
@@ -253,14 +180,13 @@ class MainViewController: UIViewController {
 		navigationBarView.titleLabel = titleLabel
 		navigationBarView.leftControls = [menuButton]
 		navigationBarView.rightControls = [switchControl, searchButton]
-		
-		view.addSubview(navigationBarView)
 	}
 	
 	/// Prepares the menuBackdropLayer.
 	private func prepareMenuBackdropLayer() {
-		menuBackdropLayer.backgroundColor = MaterialColor.grey.base.colorWithAlphaComponent(0.75).CGColor
+		menuBackdropLayer.backgroundColor = MaterialColor.white.colorWithAlphaComponent(0.75).CGColor
 		menuBackdropLayer.hidden = true
+		menuBackdropLayer.zPosition = 2000
 		view.layer.addSublayer(menuBackdropLayer)
 	}
 	
@@ -299,47 +225,17 @@ class MainViewController: UIViewController {
 		menuView.menu.direction = .Up
 		menuView.menu.baseViewSize = CGSizeMake(menuViewDiameter, menuViewDiameter)
 		menuView.menu.views = [btn1, btn2, btn3, btn4]
+		menuView.zPosition = 3000
 		
-		view.addSubview(menuView)
+		view.insertSubview(menuView, aboveSubview: navigationBarView)
 		menuView.translatesAutoresizingMaskIntoConstraints = false
 		MaterialLayout.size(view, child: menuView, width: menuViewDiameter, height: menuViewDiameter)
 		MaterialLayout.alignFromBottomRight(view, child: menuView, bottom: menuViewInset, right: menuViewInset)
 	}
 }
 
-/// UICollectionViewDelegate
-extension MainViewController: UICollectionViewDelegate {
-	func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-		let c: FeedCollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier("FeedCollectionViewCell", forIndexPath: indexPath) as! FeedCollectionViewCell
-		
-		let item: Item = items[indexPath.row] as Item
-		c.titleLabel.text = item.title
-		c.detailLabel.text = item.detail
-		c.imageView.image = item.image
-		
-		return c
-	}
-}
-
-/// UICollectionViewDataSource
-extension MainViewController: UICollectionViewDataSource {
-	//
-	//	:name:	numberOfSectionsInTableView
-	//
-	func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-		return 1
-	}
-	
-	//
-	//	:name:	collectionView
-	//
-	func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		return items.count
-	}
-}
-
 /// SideNavigationViewControllerDelegate methods.
-extension MainViewController: SideNavigationViewControllerDelegate {
+extension AppViewController: SideNavigationViewControllerDelegate {
 	/**
 	An optional delegation method that is fired before the
 	SideNavigationViewController opens.

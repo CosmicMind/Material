@@ -96,19 +96,23 @@ class FeedCollectionViewCell : UICollectionViewCell {
 		]
 		
 		titleLabel.grid.rows = 4
-		titleLabel.grid.columns = 8
+		titleLabel.grid.columns = 7
+		titleLabel.grid.offset.columns = 1
 		
-		moreButton.grid.rows = 3
+		moreButton.grid.rows = 4
 		moreButton.grid.columns = 2
-		moreButton.grid.offset.columns = 10
+		moreButton.grid.offset.columns = 8
 		
-		detailLabel.grid.rows = 8
+		detailLabel.grid.rows = 7
 		detailLabel.grid.offset.rows = 4
+		detailLabel.grid.columns = 7
+		detailLabel.grid.offset.columns = 1
 		
 		contentView.grid.spacing = 8
-		contentView.grid.axis.inherited = false
+		contentView.grid.axis.columns = 10
 		contentView.grid.axis.direction = .None
-		contentView.grid.contentInsetPreset = .Square3
+		contentView.grid.axis.inherited = false
+		contentView.grid.contentInsetPreset = .Square2
 		contentView.grid.views = [
 			titleLabel,
 			moreButton,

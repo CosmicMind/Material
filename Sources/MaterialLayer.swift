@@ -283,11 +283,11 @@ public class MaterialLayer : CAShapeLayer {
 		if let a: CAPropertyAnimation = anim as? CAPropertyAnimation {
 			if let b: CABasicAnimation = a as? CABasicAnimation {
 				MaterialAnimation.animationDisabled { [unowned self] in
-//					self.setValue(nil == b.toValue ? b.byValue : b.toValue, forKey: b.keyPath!)
+					self.setValue(nil == b.toValue ? b.byValue : b.toValue, forKey: b.keyPath!)
 				}
 			}
 			(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStop?(anim, finished: flag)
-//			removeAnimationForKey(a.keyPath!)
+			removeAnimationForKey(a.keyPath!)
 		} else if let a: CAAnimationGroup = anim as? CAAnimationGroup {
 			for x in a.animations! {
 				animationDidStop(x, finished: true)

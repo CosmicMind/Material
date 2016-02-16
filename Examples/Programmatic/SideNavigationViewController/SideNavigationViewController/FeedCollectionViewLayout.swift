@@ -67,7 +67,7 @@ class FeedCollectionViewLayout : UICollectionViewLayout {
 	}
 	
 	override func prepareLayout() {
-		let dataSource: MainViewController = collectionView!.dataSource as! MainViewController
+		let dataSource: FeedViewController = collectionView!.dataSource as! FeedViewController
 		let items: Array<Item> = dataSource.items
 		
 		layoutItems = Array<(UICollectionViewLayoutAttributes, NSIndexPath)>()
