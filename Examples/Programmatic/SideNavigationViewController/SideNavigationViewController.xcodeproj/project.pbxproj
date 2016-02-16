@@ -85,12 +85,12 @@
 				9642FA1C1C1B50E700022BC6 /* MainViewController.swift */,
 				9642FA321C1B909700022BC6 /* LeftViewController.swift */,
 				967585371C569AA9001E4268 /* RightViewController.swift */,
-				9642FA211C1B50E700022BC6 /* Assets.xcassets */,
-				9642FA231C1B50E700022BC6 /* LaunchScreen.storyboard */,
-				9642FA261C1B50E700022BC6 /* Info.plist */,
 				96A71F261C7275F200C0C4AE /* FeedCollectionView.swift */,
 				96A71F281C72761700C0C4AE /* FeedCollectionViewLayout.swift */,
 				96A71F2A1C72766700C0C4AE /* FeedCollectionViewCell.swift */,
+				9642FA211C1B50E700022BC6 /* Assets.xcassets */,
+				9642FA231C1B50E700022BC6 /* LaunchScreen.storyboard */,
+				9642FA261C1B50E700022BC6 /* Info.plist */,
 			);
 			path = SideNavigationViewController;
 			sourceTree = "<group>";

@@ -53,7 +53,6 @@ class FeedCollectionView : UICollectionView {
 	internal func prepareView() {
 		registerClass(FeedCollectionViewCell.self, forCellWithReuseIdentifier: "FeedCollectionViewCell")
 		backgroundColor = MaterialColor.clear
-		contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
-		showsVerticalScrollIndicator = false
+		contentInset = UIEdgeInsetsZero
 	}
 }

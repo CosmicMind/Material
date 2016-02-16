@@ -334,6 +334,9 @@ public class TextField : UITextField {
 		}
 	}
 	
+	/// A multiplier for the titleLabel and detailLabel frame height.
+	public private(set) var scale: CGFloat = UIScreen.mainScreen().scale
+	
 	/**
 	An initializer that initializes the object with a NSCoder object.
 	- Parameter aDecoder: A NSCoder instance.
@@ -529,7 +532,7 @@ public class TextField : UITextField {
 						v.text = s
 					}
 				}
-				let h: CGFloat = v.font.pointSize
+				let h: CGFloat = v.font.pointSize * scale
 				v.frame = CGRectMake(0, -h, bounds.width, h)
 				v.hidden = false
 				UIView.animateWithDuration(0.25, animations: { [unowned self] in
@@ -556,7 +559,7 @@ public class TextField : UITextField {
 	private func showDetailLabel() {
 		if let v: UILabel = detailLabel {
 			if v.hidden {
-				let h: CGFloat = v.font.pointSize
+				let h: CGFloat = v.font.pointSize * scale
 				v.frame = CGRectMake(0, bounds.height + bottomBorderLayerDistance, bounds.width, h)
 				v.hidden = false
 				UIView.animateWithDuration(0.25, animations: { [unowned self] in

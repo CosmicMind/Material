@@ -32,7 +32,90 @@ import UIKit
 import Material
 
 class FeedCollectionViewCell : UICollectionViewCell {
+	private var cardView: MaterialPulseView!
+	let titleLabel: UILabel = UILabel()
+	let detailLabel: UILabel = UILabel()
+	let imageView: MaterialView = MaterialView()
+	
+	override init(frame: CGRect) {
+		super.init(frame: frame)
+		prepareView()
+	}
+	
 	convenience init() {
 		self.init(frame: CGRectNull)
+		prepareView()
+	}
+
+	required init?(coder aDecoder: NSCoder) {
+	    fatalError("init(coder:) has not been implemented")
+	}
+	
+	private func prepareView() {
+		cardView = MaterialPulseView(frame: CGRectMake(0, 0, bounds.width, 152))
+		cardView.pulseScale = false
+		cardView.pulseColor = MaterialColor.blueGrey.base
+		addSubview(cardView)
+		
+		var image: UIImage?
+		
+		imageView.shape = .Circle
+		imageView.contentsGravity = .ResizeAspectFill
+		cardView.addSubview(imageView)
+		
+		let contentView: MaterialView = MaterialView()
+		contentView.backgroundColor = MaterialColor.clear
+		cardView.addSubview(contentView)
+		
+		titleLabel.textColor = MaterialColor.blueGrey.darken4
+		titleLabel.backgroundColor = MaterialColor.clear
+		contentView.addSubview(titleLabel)
+		
+		image = UIImage(named: "ic_more_vert_white")?.imageWithRenderingMode(.AlwaysTemplate)
+		let moreButton: FlatButton = FlatButton()
+		moreButton.contentInsetPreset = .None
+		moreButton.pulseColor = MaterialColor.blueGrey.darken4
+		moreButton.tintColor = MaterialColor.blueGrey.darken4
+		moreButton.setImage(image, forState: .Normal)
+		moreButton.setImage(image, forState: .Highlighted)
+		contentView.addSubview(moreButton)
+		
+		detailLabel.numberOfLines = 0
+		detailLabel.lineBreakMode = .ByTruncatingTail
+		detailLabel.font = RobotoFont.regularWithSize(12)
+		detailLabel.textColor = MaterialColor.blueGrey.darken4
+		detailLabel.backgroundColor = MaterialColor.clear
+		contentView.addSubview(detailLabel)
+		
+		cardView.grid.contentInsetPreset = .Square2
+		
+		imageView.grid.columns = 4
+		
+		contentView.grid.columns = 8
+		
+		cardView.grid.views = [
+			imageView,
+			contentView
+		]
+		
+		titleLabel.grid.rows = 3
+		titleLabel.grid.columns = 9
+		
+		moreButton.grid.rows = 3
+		moreButton.grid.columns = 2
+		moreButton.grid.offset.columns = 10
+		
+		detailLabel.grid.rows = 4
+		detailLabel.grid.offset.rows = 4
+		
+		contentView.grid.spacing = 8
+		contentView.grid.axis.inherited = false
+		contentView.grid.axis.direction = .None
+		contentView.grid.contentInsetPreset = .Square3
+		contentView.grid.views = [
+			titleLabel,
+			moreButton,
+			detailLabel
+		]
 	}
 }

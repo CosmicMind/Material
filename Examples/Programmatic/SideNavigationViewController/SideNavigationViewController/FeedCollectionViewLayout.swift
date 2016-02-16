@@ -33,8 +33,8 @@ import UIKit
 class FeedCollectionViewLayout : UICollectionViewLayout {
 	private var contentSize: CGSize = CGSizeZero
 	private var layoutItems: Array<(UICollectionViewLayoutAttributes, NSIndexPath)>?
-	internal var height: CGFloat = 88
-	internal var offset: CGFloat = 0
+	internal var height: CGFloat = 152
+	internal var offset: CGFloat = 1
 	
 	override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
 		let attributes: UICollectionViewLayoutAttributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: indexPath)

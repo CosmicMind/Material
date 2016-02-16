@@ -579,6 +579,8 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			backdropLayer.hidden = true
 			
 			if let v: MaterialView = leftView {
+				self.hideDepth(v)
+				
 				delegate?.sideNavigationViewWillClose?(self, position: .Left)
 				UIView.animateWithDuration(Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.x / velocity)))),
 				animations: {
@@ -586,7 +588,6 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 				}) { _ in
 					self.toggleStatusBar()
 					self.userInteractionEnabled = true
-					self.hideDepth(v)
 					self.hideView(v)
 					self.delegate?.sideNavigationViewDidClose?(self, position: .Left)
 				}
@@ -605,6 +606,8 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			backdropLayer.hidden = true
 			
 			if let v: MaterialView = rightView {
+				self.hideDepth(v)
+				
 				delegate?.sideNavigationViewWillClose?(self, position: .Right)
 				UIView.animateWithDuration(Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.x / velocity)))),
 				animations: {
@@ -612,7 +615,6 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 				}) { _ in
 					self.toggleStatusBar()
 					self.userInteractionEnabled = true
-					self.hideDepth(v)
 					self.hideView(v)
 					self.delegate?.sideNavigationViewDidClose?(self, position: .Right)
 				}
@@ -647,6 +649,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 					
 					toggleStatusBar(true)
 					showView(v)
+					hideDepth(v)
 					
 					delegate?.sideNavigationViewPanDidBegin?(self, point: point, position: .Right)
 				case .Changed:
@@ -681,6 +684,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 					
 					toggleStatusBar(true)
 					showView(v)
+					hideDepth(v)
 					
 					delegate?.sideNavigationViewPanDidBegin?(self, point: point, position: .Left)
 				case .Changed:

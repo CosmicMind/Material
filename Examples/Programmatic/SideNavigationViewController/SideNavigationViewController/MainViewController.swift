@@ -39,7 +39,7 @@ import UIKit
 import Material
 
 struct Item {
-	var text: String
+	var title: String
 	var detail: String
 	var image: UIImage?
 }
@@ -129,20 +129,54 @@ class MainViewController: UIViewController {
 	
 	/// Prepares the items Array.
 	private func prepareItems() {
-		items.append(Item(text: "Summer BBQ", detail: "Wish I could come, but I am out of town this weekend.", image: UIImage(named: "Profile1")))
-		items.append(Item(text: "Birthday gift", detail: "Have any ideas about what we should get Heidi for her birthday?", image: UIImage(named: "Profile2")))
-		items.append(Item(text: "Brunch this weekend?", detail: "I'll be in your neighborhood doing errands this weekend.", image: UIImage(named: "Profile3")))
-		items.append(Item(text: "Giants game", detail: "Are we on this weekend for the game?", image: UIImage(named: "Profile4")))
-		items.append(Item(text: "Recipe to try", detail: "We should eat this: Squash, Corn and tomatillo Tacos.", image: UIImage(named: "Profile5")))
-		items.append(Item(text: "Interview", detail: "The candidate will be arriving at 11:30, are you free?", image: UIImage(named: "Profile6")))
-		items.append(Item(text: "Book recommendation", detail: "I found the book title, Surely You’re Joking, Mr. Feynman!", image: UIImage(named: "Profile7")))
-		items.append(Item(text: "Oui oui", detail: "Do you have Paris recommendations? Have you ever been?", image: UIImage(named: "Profile8")))
+		items.append(Item(
+			title: "Raw Vegan Blackberry Tart!",
+			detail: "Wish I could come, but I am out of town this weekend.",
+			image: UIImage(named: "VeganCakeFull")
+		))
+		
+		items.append(Item(
+			title: "Raw Vegan Pumpkin Pie",
+			detail: "Have any ideas about what we should get Heidi for her birthday?",
+			image: UIImage(named: "VeganPieAbove")
+		))
+		
+		items.append(Item(
+			title: "Raw Vegan Nutty Sweets!",
+			detail: "I'll be in your neighborhood doing errands this weekend.",
+			image: UIImage(named: "VeganHempBalls")
+		))
+		
+		items.append(Item(
+			title: "Avocado Chocolate Cake!",
+			detail: "Are we on this weekend for the game?",
+			image: UIImage(named: "AssortmentOfFood")
+		))
+		
+		items.append(Item(
+			title: "Homemade brunch: Crepe Indulgence",
+			detail: "We should eat this: Squash, Corn and tomatillo Tacos.",
+			image: UIImage(named: "AssortmentOfDessert")
+		))
+		
+		items.append(Item(
+			title: "Raw Vegan Chocolate Cookies",
+			detail: "The candidate will be arriving at 11:30, are you free?",
+			image: UIImage(named: "HeartCookies")
+		))
+		
+		items.append(Item(
+			title: "Homemade Avocado Ice Cream",
+			detail: "I found the book title, Surely You’re Joking, Mr. Feynman!",
+			image: UIImage(named: "AvocadoIceCream")
+		))
 	}
 	
 	/// Prepares the tableView.
 	private func prepareTableView() {
 		collectionView.delegate = self
 		collectionView.dataSource = self
+		collectionView.backgroundColor = MaterialColor.blueGrey.lighten3
 		
 		view.addSubview(collectionView)
 		collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -176,7 +210,7 @@ class MainViewController: UIViewController {
 		menuButton.addTarget(self, action: "handleMenuButton", forControlEvents: .TouchUpInside)
 		
 		// Switch control.
-		let switchControl: MaterialSwitch = MaterialSwitch()
+		let switchControl: MaterialSwitch = MaterialSwitch(state: .Off, style: .LightContent)
 		
 		// Search button.
 		image = UIImage(named: "ic_search_white")
@@ -193,7 +227,7 @@ class MainViewController: UIViewController {
 		*/
 		navigationBarView.statusBarStyle = .LightContent
 		
-		navigationBarView.backgroundColor = MaterialColor.grey.darken4
+		navigationBarView.backgroundColor = MaterialColor.blue.base
 		navigationBarView.titleLabel = titleLabel
 		navigationBarView.detailLabel = detailLabel
 		navigationBarView.leftControls = [menuButton]
@@ -249,6 +283,11 @@ class MainViewController: UIViewController {
 extension MainViewController: UICollectionViewDelegate {
 	func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
 		let c: FeedCollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier("FeedCollectionViewCell", forIndexPath: indexPath) as! FeedCollectionViewCell
+		
+		let item: Item = items[indexPath.row] as Item
+		c.titleLabel.text = item.title
+		c.detailLabel.text = item.detail
+		c.imageView.image = item.image
 		
 		return c
 	}

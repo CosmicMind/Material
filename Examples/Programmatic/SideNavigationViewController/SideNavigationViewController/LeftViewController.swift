@@ -55,16 +55,11 @@ class LeftViewController: UIViewController {
 		prepareCells()
 		prepareProfileView()
 		prepareTableView()
-		
-		// Reload the Grid layout.
-		view.grid.reloadLayout()
 	}
 	
 	/// General preparation statements.
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.clear
-		view.grid.axis.direction = .None
-		view.grid.views = []
 	}
 	
 	/// Prepares the items that are displayed within the tableView.
@@ -79,29 +74,35 @@ class LeftViewController: UIViewController {
 	
 	/// Prepares profile view.
 	private func prepareProfileView() {
-		let imageView: MaterialView = MaterialView()
-		imageView.image = UIImage(named: "Profile9")?.resize(toWidth: 72)
-		imageView.shape = .Circle
-		imageView.borderColor = MaterialColor.white
-		imageView.borderWidth = 3
-		view.addSubview(imageView)
+		let backgroundView: MaterialView = MaterialView()
+		backgroundView.image = UIImage(named: "MaterialBackground")
+		
+		let profileView: MaterialView = MaterialView()
+		profileView.image = UIImage(named: "Profile9")?.resize(toWidth: 72)
+		profileView.shape = .Circle
+		profileView.borderColor = MaterialColor.white
+		profileView.borderWidth = 3
 		
 		let nameLabel: UILabel = UILabel()
 		nameLabel.text = "Michael Smith"
 		nameLabel.textColor = MaterialColor.white
 		nameLabel.font = RobotoFont.mediumWithSize(18)
 		
-		view.addSubview(nameLabel)
+		view.addSubview(backgroundView)
+		backgroundView.translatesAutoresizingMaskIntoConstraints = false
+		MaterialLayout.alignFromTop(view, child: backgroundView)
+		MaterialLayout.alignToParentHorizontally(view, child: backgroundView)
+		MaterialLayout.height(view, child: backgroundView, height: 170)
 		
-		nameLabel.grid.rows = 1
-		nameLabel.grid.offset.rows = 3
+		backgroundView.addSubview(profileView)
+		profileView.translatesAutoresizingMaskIntoConstraints = false
+		MaterialLayout.alignFromTopLeft(backgroundView, child: profileView, top: 20, left: 20)
+		MaterialLayout.size(backgroundView, child: profileView, width: 72, height: 72)
 		
-		view.grid.views?.append(nameLabel)
-		
-		print(nameLabel.frame.width)
-		imageView.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignFromTopLeft(view, child: imageView, top: (nameLabel.frame.origin.y - 72) / 2 , left: (nameLabel.frame.width - 72) / 2)
-		MaterialLayout.size(view, child: imageView, width: 72, height: 72)
+		backgroundView.addSubview(nameLabel)
+		nameLabel.translatesAutoresizingMaskIntoConstraints = false
+		MaterialLayout.alignFromBottom(backgroundView, child: nameLabel, bottom: 20)
+		MaterialLayout.alignToParentHorizontally(backgroundView, child: nameLabel, left: 20, right: 20)
 	}
 	
 	/// Prepares the tableView.
@@ -111,11 +112,10 @@ class LeftViewController: UIViewController {
 		tableView.delegate = self
 		tableView.separatorStyle = .None
 		
+		// Use MaterialLayout to easily align the tableView.
 		view.addSubview(tableView)
-		
-		tableView.grid.rows = 8
-		tableView.grid.offset.rows = 4
-		view.grid.views?.append(tableView)
+		tableView.translatesAutoresizingMaskIntoConstraints = false
+		MaterialLayout.alignToParent(view, child: tableView, top: 170)
 	}
 }
 
