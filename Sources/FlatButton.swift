@@ -43,6 +43,6 @@ public class FlatButton : MaterialButton {
 		setTitleColor(MaterialColor.blue.accent3, forState: .Normal)
 		pulseColor = MaterialColor.blue.accent3
 		cornerRadiusPreset = .Radius1
-		contentInsetPreset = .WideRectangle3
+		contentEdgeInsetsPreset = .WideRectangle3
 	}
 }

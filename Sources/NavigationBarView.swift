@@ -121,30 +121,39 @@ public class NavigationBarView : MaterialView {
 		// General alignment.
 		switch UIDevice.currentDevice().orientation {
 		case .LandscapeLeft, .LandscapeRight:
-			grid.contentInset.top = 0
-			grid.contentInset.bottom = 0
-			titleView.grid.spacing = 2
-			titleView.grid.contentInset.top = 4
-			titleView.grid.contentInset.bottom = 8
+			grid.contentInset.top = 8
+			
+			// TitleView alignment.
+			if let v: UILabel = titleLabel {
+				if let d: UILabel = detailLabel {
+					v.grid.rows = 7
+					d.grid.rows = 5
+					titleView.grid.spacing = 4
+					titleView.grid.contentInset.top = -3
+				} else {
+					v.grid.rows = 12
+					titleView.grid.spacing = 0
+					titleView.grid.contentInset.top = 0
+				}
+			}
 			height = 44
 		default:
-			grid.contentInset.top = 20
-			grid.contentInset.bottom = 8
-			titleView.grid.spacing = 0
-			titleView.grid.contentInset.top = 0
-			titleView.grid.contentInset.bottom = 0
+			grid.contentInset.top = 28
+			
+			// TitleView alignment.
+			if let v: UILabel = titleLabel {
+				if let d: UILabel = detailLabel {
+					v.grid.rows = 7
+					d.grid.rows = 5
+					titleView.grid.spacing = 4
+					titleView.grid.contentInset.top = -3
+				} else {
+					v.grid.rows = 12
+					titleView.grid.spacing = 0
+					titleView.grid.contentInset.top = 0
+				}
+			}
 			height = 64
-		}
-		
-		// TitleView alignment.
-		titleView.grid.axis.rows = 6
-		if let v: UILabel = titleLabel {
-			titleView.grid.views?.append(v)
-			v.grid.rows = nil == detailLabel ? 6 : 4
-		}
-		if let v: UILabel = detailLabel {
-			titleView.grid.views?.append(v)
-			v.grid.rows = 2
 		}
 		
 		// Column adjustment.
@@ -241,7 +250,6 @@ public class NavigationBarView : MaterialView {
 		super.prepareView()
 		grid.spacing = 8
 		grid.axis.inherited = false
-		grid.contentInset.top = 20
 		grid.contentInset.left = 8
 		grid.contentInset.bottom = 8
 		grid.contentInset.right = 8
@@ -252,7 +260,6 @@ public class NavigationBarView : MaterialView {
 	/// Prepares the titleView.
 	public func prepareTitleView() {
 		titleView.backgroundColor = nil
-		titleView.grid.axis.inherited = false
 		titleView.grid.axis.direction = .Vertical
 		addSubview(titleView)
 	}

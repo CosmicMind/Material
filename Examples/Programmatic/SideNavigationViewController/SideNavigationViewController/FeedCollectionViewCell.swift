@@ -31,8 +31,7 @@
 import UIKit
 import Material
 
-class FeedCollectionViewCell : UICollectionViewCell {
-	private var cardView: MaterialPulseView!
+class FeedCollectionViewCell : MaterialCollectionViewCell {
 	let titleLabel: UILabel = UILabel()
 	let detailLabel: UILabel = UILabel()
 	let imageView: MaterialView = MaterialView()
@@ -51,20 +50,18 @@ class FeedCollectionViewCell : UICollectionViewCell {
 	    fatalError("init(coder:) has not been implemented")
 	}
 	
-	private func prepareView() {
-		cardView = MaterialPulseView()
-		cardView.pulseScale = false
-		cardView.pulseColor = MaterialColor.blue.lighten4
-		addSubview(cardView)
+	override func prepareView() {
+		pulseScale = false
+		pulseColor = MaterialColor.blue.lighten4
 		
 		var image: UIImage?
 		
 		imageView.contentsGravity = .ResizeAspectFill
-		cardView.addSubview(imageView)
+		addSubview(imageView)
 		
 		let contentView: MaterialView = MaterialView()
 		contentView.backgroundColor = MaterialColor.clear
-		cardView.addSubview(contentView)
+		addSubview(contentView)
 		
 		titleLabel.textColor = MaterialColor.blueGrey.darken4
 		titleLabel.backgroundColor = MaterialColor.clear
@@ -72,7 +69,7 @@ class FeedCollectionViewCell : UICollectionViewCell {
 		
 		image = UIImage(named: "ic_more_vert_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let moreButton: FlatButton = FlatButton()
-		moreButton.contentInsetPreset = .None
+		moreButton.contentEdgeInsetsPreset = .None
 		moreButton.pulseColor = MaterialColor.blueGrey.darken4
 		moreButton.tintColor = MaterialColor.blueGrey.darken4
 		moreButton.setImage(image, forState: .Normal)
@@ -89,15 +86,14 @@ class FeedCollectionViewCell : UICollectionViewCell {
 		let g: Int = Int(bounds.width / 48)
 		
 		grid.axis.columns = g
-		grid.views = [cardView]
 		
 		imageView.grid.columns = 4
 		
 		contentView.grid.columns = g - 4
 		
-		cardView.grid.contentInset.right = 8
-		cardView.grid.axis.columns = g
-		cardView.grid.views = [
+		grid.contentInset.right = 8
+		grid.axis.columns = g
+		grid.views = [
 			imageView,
 			contentView
 		]

@@ -93,25 +93,12 @@ class AppViewController: NavigationViewController {
 		let image: UIImage?
 		
 		if menuView.menu.opened {
-			// Enable the side nav.
-			sideNavigationViewController?.enabled = true
-
-			// Position the menuBackdropLayer for the animation when closing.
-			menuBackdropLayer.animate(MaterialAnimation.scale(1))
+			hideMenuBackdropLayer()
 			
 			menuView.menu.close()
 			image = UIImage(named: "ic_add_white")
 		} else {
-			// Disable the side nav, so users can't swipe while viewing the menu.
-			sideNavigationViewController?.enabled = false
-			
-			// Position the menuBackdropLayer for the animation when opening.
-			MaterialAnimation.animationDisabled { [unowned self] in
-				self.menuBackdropLayer.frame = self.menuView.frame
-				self.menuBackdropLayer.shape = .Circle
-			}
-			menuBackdropLayer.animate(MaterialAnimation.scale(30))
-			menuBackdropLayer.hidden = false
+			showMenuBackdropLayer()
 			
 			menuView.menu.open() { (v: UIView) in
 				(v as? MaterialButton)?.pulse()
@@ -138,7 +125,7 @@ class AppViewController: NavigationViewController {
 		titleLabel.text = "Recipes"
 		titleLabel.textAlignment = .Left
 		titleLabel.textColor = MaterialColor.white
-		titleLabel.font = RobotoFont.regularWithSize(20)
+		titleLabel.font = RobotoFont.regularWithSize(17)
 		
 		// Detail label. Uncomment the code below to use a detail label.
 //		let detailLabel: UILabel = UILabel()
@@ -231,6 +218,37 @@ class AppViewController: NavigationViewController {
 		menuView.translatesAutoresizingMaskIntoConstraints = false
 		MaterialLayout.size(view, child: menuView, width: menuViewDiameter, height: menuViewDiameter)
 		MaterialLayout.alignFromBottomRight(view, child: menuView, bottom: menuViewInset, right: menuViewInset)
+	}
+	
+	/// Displays the menuBackdropLayer.
+	private func showMenuBackdropLayer() {
+		// Disable the side nav, so users can't swipe while viewing the menu.
+		sideNavigationViewController?.enabled = false
+		
+		// Position the menuBackdropLayer for the animation when opening.
+		MaterialAnimation.animationDisabled { [unowned self] in
+			self.menuBackdropLayer.frame = self.menuView.frame
+			self.menuBackdropLayer.shape = .Circle
+			self.menuBackdropLayer.hidden = false
+		}
+		
+		menuBackdropLayer.animate(MaterialAnimation.scale(30, duration: 0.25))
+	}
+	
+	/// Hides the menuBackdropLayer.
+	private func hideMenuBackdropLayer() {
+		// Enable the side nav.
+		sideNavigationViewController?.enabled = true
+		
+		// Position the menuBackdropLayer for the animation when closing.
+		menuBackdropLayer.animate(MaterialAnimation.animationGroup([
+			MaterialAnimation.scale(1),
+			MaterialAnimation.position(menuView.center)
+		], duration: 0.25))
+		
+		MaterialAnimation.delay(0.25) { [weak self] in
+			self?.menuBackdropLayer.hidden = true
+		}
 	}
 }
 

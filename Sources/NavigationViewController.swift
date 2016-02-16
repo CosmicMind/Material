@@ -156,7 +156,8 @@ public class NavigationViewController: UIViewController {
 	/// Layout subviews.
 	private func layoutSubviews() {
 		let size: CGSize = UIScreen.mainScreen().bounds.size
-		mainViewController.view.frame = CGRectMake(0, navigationBarView.height, size.width, size.height - navigationBarView.height)
+		let h: CGFloat = UIApplication.sharedApplication().statusBarFrame.size.height
+		mainViewController.view.frame = CGRectMake(0, navigationBarView.height, size.width, size.height - navigationBarView.height - (20 >= h ? 0 : h - 20))
 	}
 }
 

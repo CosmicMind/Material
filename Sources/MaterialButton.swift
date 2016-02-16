@@ -257,12 +257,10 @@ public class MaterialButton : UIButton {
 		}
 	}
 	
-	/**
-	:name:	contentInsets
-	*/
-	public var contentInsetPreset: MaterialEdgeInset {
+	/// A preset property for updated contentEdgeInsets.
+	public var contentEdgeInsetsPreset: MaterialEdgeInset {
 		didSet {
-			let value: UIEdgeInsets = MaterialEdgeInsetToValue(contentInsetPreset)
+			let value: UIEdgeInsets = MaterialEdgeInsetToValue(contentEdgeInsetsPreset)
 			contentEdgeInsets = UIEdgeInsetsMake(value.top, value.left, value.bottom, value.right)
 		}
 	}
@@ -276,7 +274,7 @@ public class MaterialButton : UIButton {
 		cornerRadiusPreset = .None
 		shape = .None
 		borderWidth = 0
-		contentInsetPreset = .None
+		contentEdgeInsetsPreset = .None
 		super.init(coder: aDecoder)
 		prepareView()
 	}
@@ -292,7 +290,7 @@ public class MaterialButton : UIButton {
 		cornerRadiusPreset = .None
 		shape = .None
 		borderWidth = 0
-		contentInsetPreset = .None
+		contentEdgeInsetsPreset = .None
 		super.init(frame: frame)
 		prepareView()
 	}
