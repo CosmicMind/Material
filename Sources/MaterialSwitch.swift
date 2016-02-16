@@ -152,7 +152,7 @@ public class MaterialSwitch: UIControl {
 	public var trackOffDisabledColor: UIColor = MaterialColor.clear
 	
 	/// Track view reference.
-	public private(set) var track: MaterialView {
+	public private(set) var trackLayer: MaterialLayer {
 		didSet {
 			prepareTrack()
 		}
@@ -231,7 +231,7 @@ public class MaterialSwitch: UIControl {
 	- Parameter aDecoder: A NSCoder instance.
 	*/
 	public required init?(coder aDecoder: NSCoder) {
-		track = MaterialView(frame: CGRectZero)
+		trackLayer = MaterialLayer(frame: CGRectZero)
 		button = FabButton(frame: CGRectZero)
 		super.init(coder: aDecoder)
 		prepareTrack()
@@ -248,7 +248,7 @@ public class MaterialSwitch: UIControl {
 	- Parameter size: A MaterialSwitchSize value.
 	*/
 	public init(state: MaterialSwitchState = .Off, style: MaterialSwitchStyle = .Default, size: MaterialSwitchSize = .Default) {
-		track = MaterialView(frame: CGRectZero)
+		trackLayer = MaterialLayer(frame: CGRectZero)
 		button = FabButton(frame: CGRectZero)
 		super.init(frame: CGRectZero)
 		prepareTrack()
@@ -368,9 +368,16 @@ public class MaterialSwitch: UIControl {
 		}
 	}
 	
+	public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+		super.touchesEnded(touches, withEvent: event)
+		if true == CGRectContainsPoint(trackLayer.frame, layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer)) {
+			setSwitchState(.On == switchState ? .Off : .On)
+		}
+	}
+	
 	/// Prepares the track.
 	private func prepareTrack() {
-		addSubview(track)
+		layer.addSublayer(trackLayer)
 	}
 	
 	/// Prepares the button.
@@ -429,10 +436,10 @@ public class MaterialSwitch: UIControl {
 	private func updateColorForEnabledState(state: MaterialSwitchState) {
 		if .On == state {
 			button.backgroundColor = buttonOnColor
-			track.backgroundColor = trackOnColor
+			trackLayer.backgroundColor = trackOnColor.CGColor
 		} else {
 			button.backgroundColor = buttonOffColor
-			track.backgroundColor = trackOffColor
+			trackLayer.backgroundColor = trackOffColor.CGColor
 		}
 	}
 	
@@ -443,10 +450,10 @@ public class MaterialSwitch: UIControl {
 	private func updateColorForDisabledState(state: MaterialSwitchState) {
 		if .On == state {
 			button.backgroundColor = buttonOnDisabledColor
-			track.backgroundColor = trackOnDisabledColor
+			trackLayer.backgroundColor = trackOnDisabledColor.CGColor
 		} else {
 			button.backgroundColor = buttonOffDisabledColor
-			track.backgroundColor = trackOffDisabledColor
+			trackLayer.backgroundColor = trackOffDisabledColor.CGColor
 		}
 	}
 	
@@ -464,8 +471,8 @@ public class MaterialSwitch: UIControl {
 		
 		let px: CGFloat = (width - w) / 2
 		
-		track.frame = CGRectMake(px, (height - trackThickness) / 2, w, trackThickness)
-		track.cornerRadius = min(track.height, track.width) / 2
+		trackLayer.frame = CGRectMake(px, (height - trackThickness) / 2, w, trackThickness)
+		trackLayer.cornerRadius = min(trackLayer.height, trackLayer.width) / 2
 		
 		button.frame = CGRectMake(px, (height - buttonDiameter) / 2, buttonDiameter, buttonDiameter)
 		onPosition = width - px - buttonDiameter

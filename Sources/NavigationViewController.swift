@@ -128,14 +128,13 @@ public class NavigationViewController: UIViewController {
 	
 	/// Prepares the NavigationBarView.
 	private func prepareNavigationBarView() {
+		navigationBarView.delegate = self
 		view.addSubview(navigationBarView)
 	}
 	
 	/// A method that prepares the mainViewController.
 	private func prepareMainViewController() {
 		prepareViewControllerWithinContainer(mainViewController, container: view)
-		mainViewController.view.frame = CGRectMake(0, navigationBarView.height, view.bounds.width, view.bounds.height - navigationBarView.height)
-		mainViewController.view.frame.origin.y = navigationBarView.height
 	}
 	
 	/**
@@ -156,6 +155,14 @@ public class NavigationViewController: UIViewController {
 	
 	/// Layout subviews.
 	private func layoutSubviews() {
-		
+		let size: CGSize = UIScreen.mainScreen().bounds.size
+		mainViewController.view.frame = CGRectMake(0, navigationBarView.height, size.width, size.height - navigationBarView.height)
+	}
+}
+
+extension NavigationViewController : NavigationBarViewDelegate {
+	/// Monitor layout changes.
+	public func navigationBarViewLayoutChanged(navigationBarView: NavigationBarView) {
+		layoutSubviews()
 	}
 }

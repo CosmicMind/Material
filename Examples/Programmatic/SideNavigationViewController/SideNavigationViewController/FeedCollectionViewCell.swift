@@ -52,7 +52,7 @@ class FeedCollectionViewCell : UICollectionViewCell {
 	}
 	
 	private func prepareView() {
-		cardView = MaterialPulseView(frame: CGRectMake(4, 0, bounds.width - 8, 156))
+		cardView = MaterialPulseView()
 		cardView.pulseScale = false
 		cardView.pulseColor = MaterialColor.blue.lighten4
 		addSubview(cardView)
@@ -86,37 +86,46 @@ class FeedCollectionViewCell : UICollectionViewCell {
 		detailLabel.backgroundColor = MaterialColor.clear
 		contentView.addSubview(detailLabel)
 		
+		let g: Int = Int(bounds.width / 48)
+		
+		grid.axis.columns = g
+		grid.views = [cardView]
+		
 		imageView.grid.columns = 4
 		
-		contentView.grid.columns = 8
+		contentView.grid.columns = g - 4
 		
+		cardView.grid.contentInset.right = 8
+		cardView.grid.axis.columns = g
 		cardView.grid.views = [
 			imageView,
 			contentView
 		]
 		
+		
+		
 		titleLabel.grid.rows = 4
-		titleLabel.grid.columns = 7
-		titleLabel.grid.offset.columns = 1
-		
-		moreButton.grid.rows = 4
-		moreButton.grid.columns = 2
-		moreButton.grid.offset.columns = 8
-		
-		detailLabel.grid.rows = 7
-		detailLabel.grid.offset.rows = 4
-		detailLabel.grid.columns = 7
-		detailLabel.grid.offset.columns = 1
-		
-		contentView.grid.spacing = 8
-		contentView.grid.axis.columns = 10
-		contentView.grid.axis.direction = .None
-		contentView.grid.axis.inherited = false
-		contentView.grid.contentInsetPreset = .Square2
+		titleLabel.grid.columns = contentView.grid.columns
+//		titleLabel.grid.offset.columns = 1
+//
+//		moreButton.grid.rows = 4
+//		moreButton.grid.columns = 2
+//		moreButton.grid.offset.columns = 8
+//		
+//		detailLabel.grid.rows = 7
+//		detailLabel.grid.offset.rows = 4
+//		detailLabel.grid.columns = 7
+//		detailLabel.grid.offset.columns = 1
+//		
+//		contentView.grid.spacing = 8
+//		contentView.grid.axis.columns = 10
+//		contentView.grid.axis.direction = .None
+//		contentView.grid.axis.inherited = false
+//		contentView.grid.contentInsetPreset = .Square2
 		contentView.grid.views = [
 			titleLabel,
-			moreButton,
-			detailLabel
+//			moreButton,
+//			detailLabel
 		]
 	}
 }

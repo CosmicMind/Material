@@ -97,7 +97,7 @@ class AppViewController: NavigationViewController {
 			sideNavigationViewController?.enabled = true
 
 			// Position the menuBackdropLayer for the animation when closing.
-			menuBackdropLayer.addAnimation(MaterialAnimation.scale(1, duration: 0.25), forKey: nil)
+			menuBackdropLayer.animate(MaterialAnimation.scale(1, duration: 0.25))
 			
 			menuView.menu.close()
 			image = UIImage(named: "ic_add_white")
@@ -110,7 +110,7 @@ class AppViewController: NavigationViewController {
 				self.menuBackdropLayer.frame = self.menuView.frame
 				self.menuBackdropLayer.shape = .Circle
 			}
-			menuBackdropLayer.addAnimation(MaterialAnimation.scale(30, duration: 0.25), forKey: nil)
+			menuBackdropLayer.animate(MaterialAnimation.scale(30, duration: 0.25))
 			menuBackdropLayer.hidden = false
 			
 			menuView.menu.open() { (v: UIView) in
@@ -135,7 +135,7 @@ class AppViewController: NavigationViewController {
 	private func prepareNavigationBarView() {
 		// Title label.
 		let titleLabel: UILabel = UILabel()
-		titleLabel.text = "Rcipes"
+		titleLabel.text = "Recipes"
 		titleLabel.textAlignment = .Left
 		titleLabel.textColor = MaterialColor.white
 		titleLabel.font = RobotoFont.regularWithSize(20)

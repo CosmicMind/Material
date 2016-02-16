@@ -30,6 +30,11 @@
 
 import UIKit
 
+@objc(NavigationBarViewDelegate)
+public protocol NavigationBarViewDelegate : MaterialDelegate {
+	optional func navigationBarViewLayoutChanged(navigationBarView: NavigationBarView)
+}
+
 public class NavigationBarView : MaterialView {
 	/// TitleView that holds the titleLabel and detailLabel.
 	public private(set) lazy var titleView: MaterialView = MaterialView()
@@ -145,6 +150,7 @@ public class NavigationBarView : MaterialView {
 		// Column adjustment.
 		width = UIScreen.mainScreen().bounds.width
 		grid.axis.columns = Int(width / 48)
+		(delegate as? NavigationBarViewDelegate)?.navigationBarViewLayoutChanged?(self)
 		reloadView()
 	}
 	

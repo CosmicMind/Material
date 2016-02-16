@@ -58,6 +58,11 @@ class FeedViewController: UIViewController {
 		prepareCollectionView()
 	}
 	
+	override func viewWillLayoutSubviews() {
+		super.viewWillLayoutSubviews()
+		collectionView.reloadData()
+	}
+	
 	/// Prepares view.
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.white
@@ -113,9 +118,9 @@ class FeedViewController: UIViewController {
 		collectionView.delegate = self
 		collectionView.dataSource = self
 		collectionView.backgroundColor = MaterialColor.grey.lighten4
+		collectionView.translatesAutoresizingMaskIntoConstraints = false
 		
 		view.addSubview(collectionView)
-		collectionView.translatesAutoresizingMaskIntoConstraints = false
 		MaterialLayout.alignToParent(view, child: collectionView)
 	}
 }
@@ -129,6 +134,7 @@ extension FeedViewController: UICollectionViewDelegate {
 		c.titleLabel.text = item.title
 		c.detailLabel.text = item.detail
 		c.imageView.image = item.image
+		c.grid.reloadLayout()
 		
 		return c
 	}
