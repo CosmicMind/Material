@@ -45,6 +45,9 @@ struct Item {
 }
 
 class MainViewController: UIViewController {
+	/// Menu backdrop layer.
+	private lazy var menuBackdropLayer: MaterialLayer = MaterialLayer()
+	
 	/// MenuView diameter.
 	private let menuViewDiameter: CGFloat = 56
 	
@@ -67,8 +70,9 @@ class MainViewController: UIViewController {
 		super.viewDidLoad()
 		prepareView()
 		prepareItems()
-		prepareTableView()
+		prepareCollectionView()
 		prepareNavigationBarView()
+		prepareMenuBackdropLayer()
 		prepareMenuView()
 	}
 	
@@ -106,9 +110,26 @@ class MainViewController: UIViewController {
 		let image: UIImage?
 		
 		if menuView.menu.opened {
+			// Enable the side nav.
+			sideNavigationViewController?.enabled = true
+
+			// Position the menuBackdropLayer for the animation when closing.
+			menuBackdropLayer.addAnimation(MaterialAnimation.scale(1, duration: 0.25), forKey: nil)
+			
 			menuView.menu.close()
 			image = UIImage(named: "ic_add_white")
 		} else {
+			// Disable the side nav, so users can't swipe while viewing the menu.
+			sideNavigationViewController?.enabled = false
+			
+			// Position the menuBackdropLayer for the animation when opening.
+			MaterialAnimation.animationDisabled { [unowned self] in
+				self.menuBackdropLayer.frame = self.menuView.frame
+				self.menuBackdropLayer.shape = .Circle
+			}
+			menuBackdropLayer.addAnimation(MaterialAnimation.scale(30, duration: 0.25), forKey: nil)
+			menuBackdropLayer.hidden = false
+			
 			menuView.menu.open() { (v: UIView) in
 				(v as? MaterialButton)?.pulse()
 			}
@@ -131,52 +152,52 @@ class MainViewController: UIViewController {
 	private func prepareItems() {
 		items.append(Item(
 			title: "Raw Vegan Blackberry Tart!",
-			detail: "Wish I could come, but I am out of town this weekend.",
+			detail: "Treat yourself today and every day with this sweet nutritious cake!",
 			image: UIImage(named: "VeganCakeFull")
 		))
 		
 		items.append(Item(
 			title: "Raw Vegan Pumpkin Pie",
-			detail: "Have any ideas about what we should get Heidi for her birthday?",
+			detail: "Pumpkin lovers, desert lovers, and anyone who likes simple healthy cooking and enjoys eating! Light up your day with a piece of happiness- raw vegan pumpkin pie :)",
 			image: UIImage(named: "VeganPieAbove")
 		))
 		
 		items.append(Item(
 			title: "Raw Vegan Nutty Sweets!",
-			detail: "I'll be in your neighborhood doing errands this weekend.",
+			detail: "Since most of my readers have a sweet tooth, here is another simple recipe to boost your happiness :)",
 			image: UIImage(named: "VeganHempBalls")
 		))
 		
 		items.append(Item(
 			title: "Avocado Chocolate Cake!",
-			detail: "Are we on this weekend for the game?",
+			detail: "Do you know what are the two best things about vegan food besides that it's healthy and full of nutrition? It's absolutely delicious and easy to make!",
 			image: UIImage(named: "AssortmentOfFood")
 		))
 		
 		items.append(Item(
 			title: "Homemade brunch: Crepe Indulgence",
-			detail: "We should eat this: Squash, Corn and tomatillo Tacos.",
+			detail: "Looking for a perfect sunday brunch spot? How about staying in and making something to die for?:)",
 			image: UIImage(named: "AssortmentOfDessert")
 		))
 		
 		items.append(Item(
 			title: "Raw Vegan Chocolate Cookies",
-			detail: "The candidate will be arriving at 11:30, are you free?",
+			detail: "Once I start making sweets it's hard for me to stop! I've got another exciting recipe, which hopefully you will love! :D",
 			image: UIImage(named: "HeartCookies")
 		))
 		
 		items.append(Item(
 			title: "Homemade Avocado Ice Cream",
-			detail: "I found the book title, Surely You’re Joking, Mr. Feynman!",
+			detail: "Avocado ice cream (and vegan!) might not sound so appealing to some of you, but the truth is- it's mind blowing!!!",
 			image: UIImage(named: "AvocadoIceCream")
 		))
 	}
 	
 	/// Prepares the tableView.
-	private func prepareTableView() {
+	private func prepareCollectionView() {
 		collectionView.delegate = self
 		collectionView.dataSource = self
-		collectionView.backgroundColor = MaterialColor.blueGrey.lighten3
+		collectionView.backgroundColor = MaterialColor.grey.lighten4
 		
 		view.addSubview(collectionView)
 		collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -187,17 +208,18 @@ class MainViewController: UIViewController {
 	private func prepareNavigationBarView() {
 		// Title label.
 		let titleLabel: UILabel = UILabel()
-		titleLabel.text = "Material"
+		titleLabel.text = "Rcipes"
 		titleLabel.textAlignment = .Left
 		titleLabel.textColor = MaterialColor.white
-		titleLabel.font = RobotoFont.regularWithSize(17)
+		titleLabel.font = RobotoFont.regularWithSize(20)
 		
-		// Detail label.
-		let detailLabel: UILabel = UILabel()
-		detailLabel.text = "Build Beautiful Software"
-		detailLabel.textAlignment = .Left
-		detailLabel.textColor = MaterialColor.white
-		detailLabel.font = RobotoFont.regularWithSize(12)
+		// Detail label. Uncomment the code below to use a detail label.
+//		let detailLabel: UILabel = UILabel()
+//		detailLabel.text = "Build Beautiful Software"
+//		detailLabel.textAlignment = .Left
+//		detailLabel.textColor = MaterialColor.white
+//		detailLabel.font = RobotoFont.regularWithSize(12)
+//		navigationBarView.detailLabel = detailLabel
 		
 		var image = UIImage(named: "ic_menu_white")
 		
@@ -229,11 +251,17 @@ class MainViewController: UIViewController {
 		
 		navigationBarView.backgroundColor = MaterialColor.blue.base
 		navigationBarView.titleLabel = titleLabel
-		navigationBarView.detailLabel = detailLabel
 		navigationBarView.leftControls = [menuButton]
 		navigationBarView.rightControls = [switchControl, searchButton]
 		
 		view.addSubview(navigationBarView)
+	}
+	
+	/// Prepares the menuBackdropLayer.
+	private func prepareMenuBackdropLayer() {
+		menuBackdropLayer.backgroundColor = MaterialColor.grey.base.colorWithAlphaComponent(0.75).CGColor
+		menuBackdropLayer.hidden = true
+		view.layer.addSublayer(menuBackdropLayer)
 	}
 	
 	/// Prepares the add button.

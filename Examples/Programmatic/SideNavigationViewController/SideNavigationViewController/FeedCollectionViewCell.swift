@@ -52,14 +52,13 @@ class FeedCollectionViewCell : UICollectionViewCell {
 	}
 	
 	private func prepareView() {
-		cardView = MaterialPulseView(frame: CGRectMake(0, 0, bounds.width, 152))
+		cardView = MaterialPulseView(frame: CGRectMake(4, 0, bounds.width - 8, 156))
 		cardView.pulseScale = false
-		cardView.pulseColor = MaterialColor.blueGrey.base
+		cardView.pulseColor = MaterialColor.blue.lighten4
 		addSubview(cardView)
 		
 		var image: UIImage?
 		
-		imageView.shape = .Circle
 		imageView.contentsGravity = .ResizeAspectFill
 		cardView.addSubview(imageView)
 		
@@ -87,8 +86,6 @@ class FeedCollectionViewCell : UICollectionViewCell {
 		detailLabel.backgroundColor = MaterialColor.clear
 		contentView.addSubview(detailLabel)
 		
-		cardView.grid.contentInsetPreset = .Square2
-		
 		imageView.grid.columns = 4
 		
 		contentView.grid.columns = 8
@@ -98,14 +95,14 @@ class FeedCollectionViewCell : UICollectionViewCell {
 			contentView
 		]
 		
-		titleLabel.grid.rows = 3
-		titleLabel.grid.columns = 9
+		titleLabel.grid.rows = 4
+		titleLabel.grid.columns = 8
 		
 		moreButton.grid.rows = 3
 		moreButton.grid.columns = 2
 		moreButton.grid.offset.columns = 10
 		
-		detailLabel.grid.rows = 4
+		detailLabel.grid.rows = 8
 		detailLabel.grid.offset.rows = 4
 		
 		contentView.grid.spacing = 8
