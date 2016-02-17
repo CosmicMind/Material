@@ -173,11 +173,10 @@ public class SearchBarView : MaterialView {
 		super.layoutSubviews()
 		
 		// General alignment.
-		switch UIDevice.currentDevice().orientation {
-		case .LandscapeLeft, .LandscapeRight:
+		if UIApplication.sharedApplication().statusBarOrientation.isLandscape {
 			grid.contentInset.top = 8
 			height = 44
-		default:
+		} else {
 			grid.contentInset.top = 28
 			height = 64
 		}

@@ -125,7 +125,7 @@ class AppViewController: NavigationViewController {
 		titleLabel.text = "Inbox"
 		titleLabel.textAlignment = .Left
 		titleLabel.textColor = MaterialColor.white
-		titleLabel.font = RobotoFont.regularWithSize(17)
+		titleLabel.font = RobotoFont.regularWithSize(20)
 		
 		// Detail label. Uncomment the code below to use a detail label.
 //		let detailLabel: UILabel = UILabel()
@@ -133,6 +133,7 @@ class AppViewController: NavigationViewController {
 //		detailLabel.textAlignment = .Left
 //		detailLabel.textColor = MaterialColor.white
 //		detailLabel.font = RobotoFont.regularWithSize(12)
+//		titleLabel.font = RobotoFont.regularWithSize(17) // 17 point looks better with the detailLabel.
 //		navigationBarView.detailLabel = detailLabel
 		
 		var image = UIImage(named: "ic_menu_white")

@@ -151,8 +151,7 @@ public class NavigationBarView : MaterialView {
 		super.layoutSubviews()
 		
 		// General alignment.
-		switch UIDevice.currentDevice().orientation {
-		case .LandscapeLeft, .LandscapeRight:
+		if UIApplication.sharedApplication().statusBarOrientation.isLandscape {
 			grid.contentInset.top = 8
 			
 			// TitleView alignment.
@@ -169,7 +168,7 @@ public class NavigationBarView : MaterialView {
 				}
 			}
 			height = 44
-		default:
+		} else {
 			grid.contentInset.top = 28
 			
 			// TitleView alignment.
@@ -204,10 +203,9 @@ public class NavigationBarView : MaterialView {
 	}
 	
 	public override func intrinsicContentSize() -> CGSize {
-		switch UIDevice.currentDevice().orientation {
-		case .LandscapeLeft, .LandscapeRight:
+		if UIApplication.sharedApplication().statusBarOrientation.isLandscape {
 			return CGSizeMake(UIScreen.mainScreen().bounds.width, 44)
-		default:
+		} else {
 			return CGSizeMake(UIScreen.mainScreen().bounds.width, 64)
 		}
 	}
