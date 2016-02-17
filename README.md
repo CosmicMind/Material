@@ -4,6 +4,14 @@
 
 Express your creativity with Material, an animation and graphics framework for Google's Material Design and Apple's Flat UI in Swift.
 
+## Notice
+
+The CosmicMind Team would like to thank everyone for helping make Material a growing project. Since Material is growing, we feel it is time to ensure that standards are met. As we release new components and features, we will be converting older components to follow the standards we set forward. If this causes any issues for your project, please create an issue and we will help resolve it. This process is meant to be short and swift. We thank everyone in advance.
+
+## Standards
+
+Our standards look to follow Apple's measurement guides, while providing both Apple and Google's beautiful look and feel. As well, everything is customizable, so any customization is possible.
+
 ## Features
 
 - [x] Fully Configurable UI Components
@@ -61,7 +69,10 @@ Material is a growing project and will encounter changes throughout its developm
 * [FabButton](#fabbutton)
 * [Menu](#menu) (New)
 * [Grid](#grid) (New)
-* [NavigationBarView](#navigationbarview)
+* [MaterialTableViewCell](#materialtableviewcell) (New)
+* [NavigationBarView](#navigationbarview) (New)
+* [NavigationViewController](#navigationviewcontroller) (New)
+* [SearchBarView](#searchbarview) (New)
 * [SideNavigationViewController](#sidenavigationviewcontroller)
 * [CardView](#cardview) (New)
 * [ImageCardView](#imagecardview)
@@ -195,6 +206,14 @@ Below is an example of a large CardView using Grid.
 ![MaterialGridLargeCardView](http://www.cosmicmind.io/MK/MaterialGridLargeCardView.gif)
 
 [Learn More About Grid](https://github.com/CosmicMind/Material/wiki/Grid)
+
+## MaterialTableViewCell
+
+UITableView is a popular and widely used view in iOS. Now the pulse animation and core Material features have been made available for the UITableView.
+
+![MaterialMaterialTableViewCell](http://www.cosmicmind.io/MK/MaterialMaterialTableViewCell.gif)
+
+[Learn More About MaterialTableViewCell](https://github.com/CosmicMind/Material/wiki/MaterialTableViewCell)
 
 <a name="navigationbarview"></a>
 ## NavigationBarView
