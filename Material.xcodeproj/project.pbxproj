@@ -42,8 +42,6 @@
 		96A71EC71C6FFF0500C0C4AE /* MaterialSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71EC61C6FFF0500C0C4AE /* MaterialSwitch.swift */; };
 		96A71EF61C71127100C0C4AE /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71EF51C71127100C0C4AE /* SearchBarView.swift */; };
 		96A71F301C72E41100C0C4AE /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71F2F1C72E41100C0C4AE /* NavigationViewController.swift */; };
-		96A71F351C7395C200C0C4AE /* MaterialCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71F341C7395C200C0C4AE /* MaterialCollectionViewCell.swift */; };
-		96A71F371C73967E00C0C4AE /* MaterialPulseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71F361C73967E00C0C4AE /* MaterialPulseCollectionViewCell.swift */; };
 		96A71F451C74ABCB00C0C4AE /* MaterialBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71F441C74ABCB00C0C4AE /* MaterialBorder.swift */; };
 		96D88C1E1C1328D800B91418 /* CaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D88BF51C1328D800B91418 /* CaptureView.swift */; };
 		96D88C1F1C1328D800B91418 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D88BF61C1328D800B91418 /* CardView.swift */; };
@@ -146,8 +144,6 @@
 		96A71EC61C6FFF0500C0C4AE /* MaterialSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialSwitch.swift; sourceTree = "<group>"; };
 		96A71EF51C71127100C0C4AE /* SearchBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		96A71F2F1C72E41100C0C4AE /* NavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
-		96A71F341C7395C200C0C4AE /* MaterialCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialCollectionViewCell.swift; sourceTree = "<group>"; };
-		96A71F361C73967E00C0C4AE /* MaterialPulseCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialPulseCollectionViewCell.swift; sourceTree = "<group>"; };
 		96A71F441C74ABCB00C0C4AE /* MaterialBorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialBorder.swift; sourceTree = "<group>"; };
 		96D88BF51C1328D800B91418 /* CaptureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureView.swift; sourceTree = "<group>"; };
 		96D88BF61C1328D800B91418 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -287,15 +283,6 @@
 			name = Search;
 			sourceTree = "<group>";
 		};
-		96A71F331C73959100C0C4AE /* CollectionView */ = {
-			isa = PBXGroup;
-			children = (
-				96A71F361C73967E00C0C4AE /* MaterialPulseCollectionViewCell.swift */,
-				96A71F341C7395C200C0C4AE /* MaterialCollectionViewCell.swift */,
-			);
-			name = CollectionView;
-			sourceTree = "<group>";
-		};
 		96D88BF41C1328D800B91418 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -317,7 +304,6 @@
 				96D88C471C1328F500B91418 /* Font */,
 				966F57B61C226D65009185B7 /* Text */,
 				96442ADC1C28EF1400C3C574 /* TableView */,
-				96A71F331C73959100C0C4AE /* CollectionView */,
 				965C58BD1C6B8D3300CFB4E1 /* Grid */,
 				96A71E921C6FBC2900C0C4AE /* Menu */,
 				96A71EC51C6FFEF300C0C4AE /* Switch */,
@@ -641,7 +627,6 @@
 				96D88C2B1C1328D800B91418 /* MaterialButton.swift in Sources */,
 				96D88C311C1328D800B91418 /* MaterialKeyframeAnimation.swift in Sources */,
 				96D88C2E1C1328D800B91418 /* MaterialFont.swift in Sources */,
-				96A71F371C73967E00C0C4AE /* MaterialPulseCollectionViewCell.swift in Sources */,
 				9656CD0C1C6BD33700EBCEF1 /* Grid.swift in Sources */,
 				960B23461C38480E00E96216 /* Text.swift in Sources */,
 				96D88C351C1328D800B91418 /* MaterialLayout.swift in Sources */,
@@ -680,7 +665,6 @@
 				960B23331C383EAA00E96216 /* Material+UIImage+Size.swift in Sources */,
 				96A71F451C74ABCB00C0C4AE /* MaterialBorder.swift in Sources */,
 				96A71E911C6FBC2200C0C4AE /* MenuView.swift in Sources */,
-				96A71F351C7395C200C0C4AE /* MaterialCollectionViewCell.swift in Sources */,
 				96D88C271C1328D800B91418 /* Material+UIFont.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

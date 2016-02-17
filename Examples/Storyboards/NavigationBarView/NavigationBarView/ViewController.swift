@@ -37,26 +37,18 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Examples of using NavigationBarView
-        prepareNavigationBarViewExample()
+		prepareView()
+		prepareNavigationBarView()
     }
-    
-    /**
-     :name:	prepareView
-     :description: General preparation statements.
-     */
+	
+	/// General preparation statements.
     private func prepareView() {
         view.backgroundColor = MaterialColor.white
     }
-    
-    /**
-     :name:	prepareNavigationBarViewExample
-     :description:	General usage example.
-     */
-    func prepareNavigationBarViewExample() {
-        
-        // Stylize.
+	
+	/// Prepare the navigationBarView.
+    func prepareNavigationBarView() {
+		// Stylize.
         navigationBarView.backgroundColor = MaterialColor.indigo.darken1
         
         // To lighten the status bar add the "View controller-based status bar appearance = NO"
@@ -68,10 +60,9 @@ class ViewController: UIViewController {
         titleLabel.text = "Material"
         titleLabel.textAlignment = .Left
         titleLabel.textColor = MaterialColor.white
-        titleLabel.font = RobotoFont.regularWithSize(20)
+        titleLabel.font = RobotoFont.regularWithSize(17)
         navigationBarView.titleLabel = titleLabel
-        navigationBarView.titleLabelInset.left = 64
-        
+		
         // Detail label.
         let detailLabel: UILabel = UILabel()
         detailLabel.text = "Build Beautiful Software"
@@ -79,12 +70,11 @@ class ViewController: UIViewController {
         detailLabel.textColor = MaterialColor.white
         detailLabel.font = RobotoFont.regularWithSize(12)
         navigationBarView.detailLabel = detailLabel
-        navigationBarView.detailLabelInset.left = 64
-        
+		
         // Menu button.
         let img1: UIImage? = UIImage(named: "ic_menu_white")
         let btn1: FlatButton = FlatButton()
-        btn1.pulseColor = MaterialColor.white
+        btn1.pulseColor = nil
         btn1.pulseScale = false
         btn1.setImage(img1, forState: .Normal)
         btn1.setImage(img1, forState: .Highlighted)
@@ -92,7 +82,7 @@ class ViewController: UIViewController {
         // Star button.
         let img2: UIImage? = UIImage(named: "ic_star_white")
         let btn2: FlatButton = FlatButton()
-        btn2.pulseColor = MaterialColor.white
+        btn2.pulseColor = nil
         btn2.pulseScale = false
         btn2.setImage(img2, forState: .Normal)
         btn2.setImage(img2, forState: .Highlighted)
@@ -100,18 +90,16 @@ class ViewController: UIViewController {
         // Search button.
         let img3: UIImage? = UIImage(named: "ic_search_white")
         let btn3: FlatButton = FlatButton()
-        btn3.pulseColor = MaterialColor.white
+        btn3.pulseColor = nil
         btn3.pulseScale = false
         btn3.setImage(img3, forState: .Normal)
         btn3.setImage(img3, forState: .Highlighted)
         
         // Add buttons to left side.
-        navigationBarView.leftButtons = [btn1]
+        navigationBarView.leftControls = [btn1]
         
         // Add buttons to right side.
-        navigationBarView.rightButtons = [btn2, btn3]
-        
-        MaterialLayout.height(view, child: navigationBarView, height: 70)
+        navigationBarView.rightControls = [btn2, btn3]
     }
 }
 

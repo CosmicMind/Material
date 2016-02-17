@@ -13,12 +13,9 @@
 		9642FA251C1B50E700022BC6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9642FA231C1B50E700022BC6 /* LaunchScreen.storyboard */; };
 		9642FA331C1B909700022BC6 /* LeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9642FA321C1B909700022BC6 /* LeftViewController.swift */; };
 		967585381C569AA9001E4268 /* RightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967585371C569AA9001E4268 /* RightViewController.swift */; };
-		96A71F271C7275F200C0C4AE /* FeedCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71F261C7275F200C0C4AE /* FeedCollectionView.swift */; };
-		96A71F291C72761700C0C4AE /* FeedCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71F281C72761700C0C4AE /* FeedCollectionViewLayout.swift */; };
-		96A71F2B1C72766700C0C4AE /* FeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71F2A1C72766700C0C4AE /* FeedCollectionViewCell.swift */; };
-		96A71F321C73607B00C0C4AE /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71F311C73607B00C0C4AE /* FeedViewController.swift */; };
 		96A71F3C1C739D1E00C0C4AE /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A71F3B1C739D1E00C0C4AE /* Material.framework */; };
 		96A71F3D1C739D1E00C0C4AE /* Material.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 96A71F3B1C739D1E00C0C4AE /* Material.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		96A71F471C74AD0700C0C4AE /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71F461C74AD0700C0C4AE /* FeedViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -44,11 +41,8 @@
 		9642FA261C1B50E700022BC6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9642FA321C1B909700022BC6 /* LeftViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftViewController.swift; sourceTree = "<group>"; };
 		967585371C569AA9001E4268 /* RightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightViewController.swift; sourceTree = "<group>"; };
-		96A71F261C7275F200C0C4AE /* FeedCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedCollectionView.swift; sourceTree = "<group>"; };
-		96A71F281C72761700C0C4AE /* FeedCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedCollectionViewLayout.swift; sourceTree = "<group>"; };
-		96A71F2A1C72766700C0C4AE /* FeedCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedCollectionViewCell.swift; sourceTree = "<group>"; };
-		96A71F311C73607B00C0C4AE /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		96A71F3B1C739D1E00C0C4AE /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = Material.framework; path = "/Users/danieldahan/Library/Developer/Xcode/DerivedData/Material-hbpnflxhoouqxebjcyhbbhqyesjd/Build/Products/Debug-iphoneos/Material.framework"; sourceTree = "<absolute>"; };
+		96A71F461C74AD0700C0C4AE /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,10 +81,7 @@
 				9642FA1C1C1B50E700022BC6 /* AppViewController.swift */,
 				9642FA321C1B909700022BC6 /* LeftViewController.swift */,
 				967585371C569AA9001E4268 /* RightViewController.swift */,
-				96A71F311C73607B00C0C4AE /* FeedViewController.swift */,
-				96A71F261C7275F200C0C4AE /* FeedCollectionView.swift */,
-				96A71F281C72761700C0C4AE /* FeedCollectionViewLayout.swift */,
-				96A71F2A1C72766700C0C4AE /* FeedCollectionViewCell.swift */,
+				96A71F461C74AD0700C0C4AE /* FeedViewController.swift */,
 				9642FA211C1B50E700022BC6 /* Assets.xcassets */,
 				9642FA231C1B50E700022BC6 /* LaunchScreen.storyboard */,
 				9642FA261C1B50E700022BC6 /* Info.plist */,
@@ -170,12 +161,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				9642FA1D1C1B50E700022BC6 /* AppViewController.swift in Sources */,
-				96A71F271C7275F200C0C4AE /* FeedCollectionView.swift in Sources */,
 				967585381C569AA9001E4268 /* RightViewController.swift in Sources */,
+				96A71F471C74AD0700C0C4AE /* FeedViewController.swift in Sources */,
 				9642FA331C1B909700022BC6 /* LeftViewController.swift in Sources */,
-				96A71F291C72761700C0C4AE /* FeedCollectionViewLayout.swift in Sources */,
-				96A71F2B1C72766700C0C4AE /* FeedCollectionViewCell.swift in Sources */,
-				96A71F321C73607B00C0C4AE /* FeedViewController.swift in Sources */,
 				9642FA1B1C1B50E700022BC6 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

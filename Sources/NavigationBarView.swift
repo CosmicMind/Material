@@ -169,7 +169,13 @@ public class NavigationBarView : MaterialView {
 	}
 	
 	public override func intrinsicContentSize() -> CGSize {
-		return CGSizeMake(UIScreen.mainScreen().bounds.width, 64)
+		// General alignment.
+		switch UIDevice.currentDevice().orientation {
+		case .LandscapeLeft, .LandscapeRight:
+			return CGSizeMake(UIScreen.mainScreen().bounds.width, 44)
+		default:
+			return CGSizeMake(UIScreen.mainScreen().bounds.width, 64)
+		}
 	}
 	
 	/// Reloads the view.
