@@ -44,6 +44,7 @@
 		96A71F301C72E41100C0C4AE /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71F2F1C72E41100C0C4AE /* NavigationViewController.swift */; };
 		96A71F351C7395C200C0C4AE /* MaterialCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71F341C7395C200C0C4AE /* MaterialCollectionViewCell.swift */; };
 		96A71F371C73967E00C0C4AE /* MaterialPulseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71F361C73967E00C0C4AE /* MaterialPulseCollectionViewCell.swift */; };
+		96A71F451C74ABCB00C0C4AE /* MaterialBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71F441C74ABCB00C0C4AE /* MaterialBorder.swift */; };
 		96D88C1E1C1328D800B91418 /* CaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D88BF51C1328D800B91418 /* CaptureView.swift */; };
 		96D88C1F1C1328D800B91418 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D88BF61C1328D800B91418 /* CardView.swift */; };
 		96D88C201C1328D800B91418 /* CapturePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D88BF71C1328D800B91418 /* CapturePreviewView.swift */; };
@@ -147,6 +148,7 @@
 		96A71F2F1C72E41100C0C4AE /* NavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 		96A71F341C7395C200C0C4AE /* MaterialCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialCollectionViewCell.swift; sourceTree = "<group>"; };
 		96A71F361C73967E00C0C4AE /* MaterialPulseCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialPulseCollectionViewCell.swift; sourceTree = "<group>"; };
+		96A71F441C74ABCB00C0C4AE /* MaterialBorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialBorder.swift; sourceTree = "<group>"; };
 		96D88BF51C1328D800B91418 /* CaptureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureView.swift; sourceTree = "<group>"; };
 		96D88BF61C1328D800B91418 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		96D88BF71C1328D800B91418 /* CapturePreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CapturePreviewView.swift; sourceTree = "<group>"; };
@@ -364,6 +366,7 @@
 				96D88C041C1328D800B91418 /* MaterialDepth.swift */,
 				96D88C061C1328D800B91418 /* MaterialGravity.swift */,
 				96D88C071C1328D800B91418 /* MaterialEdgeInset.swift */,
+				96A71F441C74ABCB00C0C4AE /* MaterialBorder.swift */,
 			);
 			name = Type;
 			sourceTree = "<group>";
@@ -675,6 +678,7 @@
 				96D88C461C1328D800B91418 /* SideNavigationViewController.swift in Sources */,
 				96D88C381C1328D800B91418 /* MaterialShape.swift in Sources */,
 				960B23331C383EAA00E96216 /* Material+UIImage+Size.swift in Sources */,
+				96A71F451C74ABCB00C0C4AE /* MaterialBorder.swift in Sources */,
 				96A71E911C6FBC2200C0C4AE /* MenuView.swift in Sources */,
 				96A71F351C7395C200C0C4AE /* MaterialCollectionViewCell.swift in Sources */,
 				96D88C271C1328D800B91418 /* Material+UIFont.swift in Sources */,
