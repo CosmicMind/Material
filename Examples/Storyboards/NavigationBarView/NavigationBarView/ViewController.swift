@@ -34,7 +34,18 @@ import Material
 class ViewController: UIViewController {
     
     @IBOutlet weak var navigationBarView: NavigationBarView!
-    
+	
+	@IBOutlet weak var navigationBarViewHeightConstraint: NSLayoutConstraint?
+	
+	override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
+		// if landscape
+		if UIInterfaceOrientationIsLandscape(toInterfaceOrientation) {
+			navigationBarViewHeightConstraint?.constant = 44
+		} else { // else portrait
+			navigationBarViewHeightConstraint?.constant = 64
+		}
+	}
+	
     override func viewDidLoad() {
         super.viewDidLoad()
 		prepareView()
@@ -43,14 +54,14 @@ class ViewController: UIViewController {
 	
 	/// General preparation statements.
     private func prepareView() {
-        view.backgroundColor = MaterialColor.white
+		view.backgroundColor = MaterialColor.white
     }
 	
 	/// Prepare the navigationBarView.
     func prepareNavigationBarView() {
 		// Stylize.
         navigationBarView.backgroundColor = MaterialColor.indigo.darken1
-        
+		
         // To lighten the status bar add the "View controller-based status bar appearance = NO"
         // to your info.plist file and set the following property.
         navigationBarView.statusBarStyle = .LightContent

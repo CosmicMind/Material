@@ -46,6 +46,8 @@ class ViewController: UIViewController {
 	}
 	
 	/// General preparation statements are placed here.
+    @IBOutlet weak var heightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var navigationBarViewConstraint: NavigationBarView!
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.white
 	}
