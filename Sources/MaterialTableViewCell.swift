@@ -107,9 +107,6 @@ public class MaterialTableViewCell: UITableViewCell {
 		}
 		set(value) {
 			layer.frame.size.width = value
-			if .None != shape {
-				layer.frame.size.height = value
-			}
 		}
 	}
 	
@@ -125,9 +122,6 @@ public class MaterialTableViewCell: UITableViewCell {
 		}
 		set(value) {
 			layer.frame.size.height = value
-			if .None != shape {
-				layer.frame.size.width = value
-			}
 		}
 	}
 	
@@ -191,9 +185,6 @@ public class MaterialTableViewCell: UITableViewCell {
 		didSet {
 			if let v: MaterialRadius = cornerRadiusPreset {
 				cornerRadius = MaterialRadiusToValue(v)
-				if .Circle == shape {
-					shape = .None
-				}
 			}
 		}
 	}
@@ -202,23 +193,6 @@ public class MaterialTableViewCell: UITableViewCell {
 	public var cornerRadius: CGFloat = 0 {
 		didSet {
 			layer.cornerRadius = cornerRadius
-		}
-	}
-	
-	/**
-	A property that manages the overall shape for the object. If either the
-	width or height property is set, the other will be automatically adjusted
-	to maintain the shape of the object.
-	*/
-	public var shape: MaterialShape = .None {
-		didSet {
-			if .None != shape {
-				if width < height {
-					frame.size.width = height
-				} else {
-					frame.size.height = width
-				}
-			}
 		}
 	}
 	
@@ -284,7 +258,6 @@ public class MaterialTableViewCell: UITableViewCell {
 	public override func layoutSublayersOfLayer(layer: CALayer) {
 		super.layoutSublayersOfLayer(layer)
 		if self.layer == layer {
-			layoutShape()
 			layoutVisualLayer()
 		}
 	}
@@ -396,6 +369,8 @@ public class MaterialTableViewCell: UITableViewCell {
 	public func prepareView() {
 		prepareVisualLayer()
 		selectionStyle = .None
+		pulseColor = MaterialColor.grey.lighten1
+		pulseScale = false
 		imageView?.userInteractionEnabled = false
 		textLabel?.userInteractionEnabled = false
 		detailTextLabel?.userInteractionEnabled = false
@@ -405,7 +380,7 @@ public class MaterialTableViewCell: UITableViewCell {
 	internal func prepareVisualLayer() {
 		visualLayer.zPosition = 0
 		visualLayer.masksToBounds = true
-		layer.addSublayer(visualLayer)
+		contentView.layer.addSublayer(visualLayer)
 	}
 	
 	/// Manages the layout for the visualLayer property.
@@ -413,13 +388,6 @@ public class MaterialTableViewCell: UITableViewCell {
 		visualLayer.frame = bounds
 		visualLayer.position = CGPointMake(width / 2, height / 2)
 		visualLayer.cornerRadius = layer.cornerRadius
-	}
-	
-	/// Manages the layout for the shape of the view instance.
-	internal func layoutShape() {
-		if .Circle == shape {
-			layer.cornerRadius = width / 2
-		}
 	}
 	
 	/**

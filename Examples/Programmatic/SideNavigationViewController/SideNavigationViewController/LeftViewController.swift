@@ -107,7 +107,7 @@ class LeftViewController: UIViewController {
 	
 	/// Prepares the tableView.
 	private func prepareTableView() {
-		tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+		tableView.registerClass(MaterialTableViewCell.self, forCellReuseIdentifier: "MaterialTableViewCell")
 		tableView.dataSource = self
 		tableView.delegate = self
 		tableView.separatorStyle = .None
@@ -128,7 +128,7 @@ extension LeftViewController: UITableViewDataSource {
 	
 	/// Prepares the cells within the tableView.
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
+		let cell: MaterialTableViewCell = tableView.dequeueReusableCellWithIdentifier("MaterialTableViewCell", forIndexPath: indexPath) as! MaterialTableViewCell
 		cell.backgroundColor = MaterialColor.clear
 		
 		let item: Cell = items[indexPath.row]
