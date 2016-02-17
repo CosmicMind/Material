@@ -263,7 +263,7 @@ public class TextView: UITextView {
 	A property that sets the distance between the textView and
 	titleLabel.
 	*/
-	public var titleLabelAnimationDistance: CGFloat = 4
+	public var titleLabelAnimationDistance: CGFloat = 8
 	
 	/// Placeholder UILabel view.
 	public var placeholderLabel: UILabel? {
@@ -302,9 +302,6 @@ public class TextView: UITextView {
 			reloadView()
 		}
 	}
-	
-	/// A multiplier for the titleLabel and detailLabel frame height.
-	public private(set) var scale: CGFloat = 2
 	
 	/**
 	An initializer that initializes the object with a NSCoder object.
@@ -511,7 +508,7 @@ public class TextView: UITextView {
 						v.text = s
 					}
 				}
-				let h: CGFloat = v.font.pointSize * scale
+				let h: CGFloat = ceil(v.font.lineHeight)
 				v.frame = CGRectMake(0, -h, bounds.width, h)
 				v.hidden = false
 				UIView.animateWithDuration(0.25, animations: { [unowned self] in

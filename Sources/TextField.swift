@@ -273,7 +273,7 @@ public class TextField : UITextField {
 	A property that sets the distance between the textField and
 	titleLabel.
 	*/
-	public var titleLabelAnimationDistance: CGFloat = 4
+	public var titleLabelAnimationDistance: CGFloat = 8
 	
 	/// An override to the text property.
 	public override var text: String? {
@@ -311,7 +311,7 @@ public class TextField : UITextField {
 	A property that sets the distance between the textField and
 	detailLabel.
 	*/
-	public var detailLabelAnimationDistance: CGFloat = 4
+	public var detailLabelAnimationDistance: CGFloat = 8
 	
 	/**
 	:name:	detailLabelHidden
@@ -333,9 +333,6 @@ public class TextField : UITextField {
 			}
 		}
 	}
-	
-	/// A multiplier for the titleLabel and detailLabel frame height.
-	public private(set) var scale: CGFloat = 2
 	
 	/**
 	An initializer that initializes the object with a NSCoder object.
@@ -528,7 +525,7 @@ public class TextField : UITextField {
 						v.text = s
 					}
 				}
-				let h: CGFloat = v.font.pointSize * scale
+				let h: CGFloat = ceil(v.font.lineHeight)
 				v.frame = CGRectMake(0, -h, bounds.width, h)
 				v.hidden = false
 				UIView.animateWithDuration(0.25, animations: { [unowned self] in
@@ -555,7 +552,7 @@ public class TextField : UITextField {
 	private func showDetailLabel() {
 		if let v: UILabel = detailLabel {
 			if v.hidden {
-				let h: CGFloat = v.font.pointSize * scale
+				let h: CGFloat = ceil(v.font.lineHeight)
 				v.frame = CGRectMake(0, bounds.height + bottomBorderLayerDistance, bounds.width, h)
 				v.hidden = false
 				UIView.animateWithDuration(0.25, animations: { [unowned self] in
