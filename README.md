@@ -67,6 +67,7 @@ Material is a growing project and will encounter changes throughout its developm
 * [FlatButton](#flatbutton)
 * [RaisedButton](#raisedbutton)
 * [FabButton](#fabbutton)
+* [MaterialSwitch](#materialswitch)
 * [Menu](#menu) (New)
 * [Grid](#grid) (New)
 * [MaterialTableViewCell](#materialtableviewcell) (New)
@@ -169,6 +170,13 @@ A FabButton is essential to Material Design's overall look. Below showcases its 
 
 ![MaterialFabButton](http://www.cosmicmind.io/MK/MaterialFabButton.gif)
 
+<a name="materialswitch"></a>
+## MaterialSwitch
+
+MaterialSwitch is a fully customizable UIControl. It has auto centering when using AutoLayout, and makes for a great addition to the UIControl family of components.
+
+![MaterialMaterialSwitch](http://www.cosmicmind.io/MK/MaterialMaterialSwitch.gif)
+
 <a name="menu"></a>
 ## Menu
 
@@ -207,6 +215,7 @@ Below is an example of a large CardView using Grid.
 
 [Learn More About Grid](https://github.com/CosmicMind/Material/wiki/Grid)
 
+<a name="materialtableviewcell"></a>
 ## MaterialTableViewCell
 
 UITableView is a popular and widely used view in iOS. Now the pulse animation and core Material features have been made available for the UITableView.
