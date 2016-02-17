@@ -42,6 +42,7 @@ struct Item {
 	var title: String
 	var detail: String
 	var image: UIImage?
+	var images: Array<UIImage?>?
 }
 
 class FeedViewController: UIViewController {
@@ -73,44 +74,51 @@ class FeedViewController: UIViewController {
 		items.append(Item(
 			title: "Raw Vegan Blackberry Tart!",
 			detail: "Treat yourself today and every day with this sweet nutritious cake!",
-			image: UIImage(named: "VeganCakeFull")
-			))
+			image: UIImage(named: "VeganCakeFull"),
+			images: [UIImage(named: "VeganCakeFull"), UIImage(named: "VeganCakeFull")]
+		))
 		
 		items.append(Item(
 			title: "Raw Vegan Pumpkin Pie",
 			detail: "Pumpkin lovers, desert lovers, and anyone who likes simple healthy cooking and enjoys eating! Light up your day with a piece of happiness- raw vegan pumpkin pie :)",
-			image: UIImage(named: "VeganPieAbove")
-			))
+			image: UIImage(named: "VeganPieAbove"),
+			images: [UIImage(named: "VeganCakeFull"), UIImage(named: "VeganCakeFull")]
+		))
 		
 		items.append(Item(
 			title: "Raw Vegan Nutty Sweets!",
 			detail: "Since most of my readers have a sweet tooth, here is another simple recipe to boost your happiness :)",
-			image: UIImage(named: "VeganHempBalls")
-			))
+			image: UIImage(named: "VeganHempBalls"),
+			images: [UIImage(named: "VeganCakeFull"), UIImage(named: "VeganCakeFull")]
+		))
 		
 		items.append(Item(
 			title: "Avocado Chocolate Cake!",
 			detail: "Do you know what are the two best things about vegan food besides that it's healthy and full of nutrition? It's absolutely delicious and easy to make!",
-			image: UIImage(named: "AssortmentOfFood")
-			))
+			image: UIImage(named: "AssortmentOfFood"),
+			images: [UIImage(named: "VeganCakeFull"), UIImage(named: "VeganCakeFull")]
+		))
 		
 		items.append(Item(
 			title: "Homemade brunch: Crepe Indulgence",
 			detail: "Looking for a perfect sunday brunch spot? How about staying in and making something to die for?:)",
-			image: UIImage(named: "AssortmentOfDessert")
-			))
+			image: UIImage(named: "AssortmentOfDessert"),
+			images: [UIImage(named: "VeganCakeFull"), UIImage(named: "VeganCakeFull")]
+		))
 		
 		items.append(Item(
 			title: "Raw Vegan Chocolate Cookies",
 			detail: "Once I start making sweets it's hard for me to stop! I've got another exciting recipe, which hopefully you will love! :D",
-			image: UIImage(named: "HeartCookies")
-			))
+			image: UIImage(named: "HeartCookies"),
+			images: [UIImage(named: "VeganCakeFull"), UIImage(named: "VeganCakeFull")]
+		))
 		
 		items.append(Item(
 			title: "Homemade Avocado Ice Cream",
 			detail: "Avocado ice cream (and vegan!) might not sound so appealing to some of you, but the truth is- it's mind blowing!!!",
-			image: UIImage(named: "AvocadoIceCream")
-			))
+			image: UIImage(named: "AvocadoIceCream"),
+			images: [UIImage(named: "VeganCakeFull"), UIImage(named: "VeganCakeFull")]
+		))
 	}
 	
 	/// Prepares the tableView.
@@ -134,6 +142,7 @@ extension FeedViewController: UICollectionViewDelegate {
 		c.titleLabel.text = item.title
 		c.detailLabel.text = item.detail
 		c.imageView.image = item.image
+		c.images = item.images
 		c.grid.reloadLayout()
 		
 		return c

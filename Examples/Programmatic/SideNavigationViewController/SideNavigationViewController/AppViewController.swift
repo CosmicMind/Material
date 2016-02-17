@@ -68,7 +68,7 @@ class AppViewController: NavigationViewController {
 		because any earlier may cause a race condition when instantiating
 		the MainViewController and SideViewController.
 		*/
-		sideNavigationViewController?.setLeftViewWidth(view.bounds.width - menuViewDiameter - 2 * menuViewInset, hidden: true, animated: false)
+//		sideNavigationViewController?.setLeftViewWidth(view.bounds.width - menuViewDiameter - 2 * menuViewInset, hidden: true, animated: false)
 		sideNavigationViewController?.delegate = self
 	}
 	

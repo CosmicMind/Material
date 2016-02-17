@@ -33,17 +33,23 @@ import UIKit
 class FeedCollectionViewLayout : UICollectionViewLayout {
 	private var contentSize: CGSize = CGSizeZero
 	private var layoutItems: Array<(UICollectionViewLayoutAttributes, NSIndexPath)>?
-	internal var height: CGFloat = 128
+	internal var height: CGFloat = 96
 	internal var offset: CGFloat = 4
 	
 	override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
 		let attributes: UICollectionViewLayoutAttributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: indexPath)
 		
+		switch UIDevice.currentDevice().orientation {
+		case .LandscapeLeft, .LandscapeRight:
+			height = UIScreen.mainScreen().bounds.height - 44
+		default:
+			height = 96
+		}
+		
 		let w: CGFloat = collectionView!.bounds.width
 		let r: CGFloat = CGFloat(indexPath.row)
-		let h: CGFloat = CGFloat(height)
 		
-		attributes.frame = CGRectMake(0, r * CGFloat(h + (0 < r ? offset : 0)), w, h)
+		attributes.frame = CGRectMake(0, r * CGFloat(height + (0 < r ? offset : 0)), w, height)
 		
 		return attributes
 	}

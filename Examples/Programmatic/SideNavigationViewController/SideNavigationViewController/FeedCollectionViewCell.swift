@@ -35,6 +35,7 @@ class FeedCollectionViewCell : MaterialCollectionViewCell {
 	let titleLabel: UILabel = UILabel()
 	let detailLabel: UILabel = UILabel()
 	let imageView: MaterialView = MaterialView()
+	var images: Array<UIImage?>?
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -51,77 +52,98 @@ class FeedCollectionViewCell : MaterialCollectionViewCell {
 	}
 	
 	override func prepareView() {
+		backgroundColor = MaterialColor.white
+		
 		pulseScale = false
 		pulseColor = MaterialColor.blue.lighten4
 		
-		var image: UIImage?
+//		var image: UIImage?
 		
-		imageView.contentsGravity = .ResizeAspectFill
-		addSubview(imageView)
-		
-		let contentView: MaterialView = MaterialView()
-		contentView.backgroundColor = MaterialColor.clear
-		addSubview(contentView)
+		contentView.addSubview(imageView)
 		
 		titleLabel.textColor = MaterialColor.blueGrey.darken4
 		titleLabel.backgroundColor = MaterialColor.clear
 		contentView.addSubview(titleLabel)
 		
-		image = UIImage(named: "ic_more_vert_white")?.imageWithRenderingMode(.AlwaysTemplate)
-		let moreButton: FlatButton = FlatButton()
-		moreButton.contentEdgeInsetsPreset = .None
-		moreButton.pulseColor = MaterialColor.blueGrey.darken4
-		moreButton.tintColor = MaterialColor.blueGrey.darken4
-		moreButton.setImage(image, forState: .Normal)
-		moreButton.setImage(image, forState: .Highlighted)
-		contentView.addSubview(moreButton)
+//		image = UIImage(named: "ic_more_vert_white")?.imageWithRenderingMode(.AlwaysTemplate)
+//		let moreButton: FlatButton = FlatButton()
+//		moreButton.contentEdgeInsetsPreset = .None
+//		moreButton.pulseColor = MaterialColor.blueGrey.darken4
+//		moreButton.tintColor = MaterialColor.blueGrey.darken4
+//		moreButton.setImage(image, forState: .Normal)
+//		moreButton.setImage(image, forState: .Highlighted)
+//		addSubview(moreButton)
 		
-		detailLabel.numberOfLines = 0
-		detailLabel.lineBreakMode = .ByTruncatingTail
-		detailLabel.font = RobotoFont.regularWithSize(12)
-		detailLabel.textColor = MaterialColor.blueGrey.darken4
-		detailLabel.backgroundColor = MaterialColor.clear
-		contentView.addSubview(detailLabel)
+//		detailLabel.numberOfLines = 0
+//		detailLabel.lineBreakMode = .ByTruncatingTail
+//		detailLabel.font = RobotoFont.regularWithSize(12)
+//		detailLabel.textColor = MaterialColor.blueGrey.darken4
+//		detailLabel.backgroundColor = MaterialColor.clear
+//		addSubview(detailLabel)
 		
 		let g: Int = Int(bounds.width / 48)
 		
-		grid.axis.columns = g
+		switch UIDevice.currentDevice().orientation {
+		case .LandscapeLeft, .LandscapeRight:
+			contentView.grid.axis.direction = .None
+			contentView.grid.columns = g
+			contentView.grid.views = [
+				imageView
+			]
+			
+			if let v: Array<UIImage?> = images {
+				let topImageView: MaterialView = MaterialView()
+				imageView.addSubview(topImageView)
+				
+				topImageView.image = v.first!
+				topImageView.grid.rows = 6
+				topImageView.grid.columns = 6
+				
+				let bottomImageView: MaterialView = MaterialView()
+				imageView.addSubview(bottomImageView)
+				
+				bottomImageView.image = v.last!
+				bottomImageView.grid.rows = 6
+				bottomImageView.grid.columns = 6
+				
+				imageView.grid.views = [
+					topImageView,
+					bottomImageView
+				]
+			}
+			
+		default:
+			for v in imageView.subviews {
+				v.removeFromSuperview()
+			}
+			
+			imageView.contentsGravity = .ResizeAspectFill
 		
-		imageView.grid.columns = 4
-		
-		contentView.grid.columns = g - 4
-		
-		grid.contentInset.right = 8
-		grid.axis.columns = g
-		grid.views = [
-			imageView,
-			contentView
-		]
-		
-		
-		
-		titleLabel.grid.rows = 4
-		titleLabel.grid.columns = contentView.grid.columns
-//		titleLabel.grid.offset.columns = 1
-//
-//		moreButton.grid.rows = 4
-//		moreButton.grid.columns = 2
-//		moreButton.grid.offset.columns = 8
-//		
-//		detailLabel.grid.rows = 7
-//		detailLabel.grid.offset.rows = 4
-//		detailLabel.grid.columns = 7
-//		detailLabel.grid.offset.columns = 1
-//		
-//		contentView.grid.spacing = 8
-//		contentView.grid.axis.columns = 10
-//		contentView.grid.axis.direction = .None
-//		contentView.grid.axis.inherited = false
-//		contentView.grid.contentInsetPreset = .Square2
-		contentView.grid.views = [
-			titleLabel,
-//			moreButton,
-//			detailLabel
-		]
+			imageView.grid.columns = 2
+			
+			titleLabel.grid.columns = g - 2
+			
+			//		moreButton.grid.rows = 4
+			//		moreButton.grid.columns = 2
+			//		moreButton.grid.offset.columns = 8
+			
+			detailLabel.grid.rows = 7
+			detailLabel.grid.offset.rows = 4
+			detailLabel.grid.columns = 7
+			detailLabel.grid.offset.columns = 1
+			
+			//		grid.axis.columns = g
+			//		grid.axis.inherited = false
+			//		grid.views = [
+			//			imageView,
+			//			contentView
+			//		]
+					
+			contentView.grid.columns = g
+			contentView.grid.views = [
+				imageView,
+				titleLabel
+			]
+		}
 	}
 }
