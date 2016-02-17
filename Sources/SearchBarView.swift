@@ -32,7 +32,7 @@ import UIKit
 
 @objc(SearchBarViewDelegate)
 public protocol SearchBarViewDelegate : MaterialDelegate {
-	optional func searchBarViewLayoutChanged(searchBarView: SearchBarView)
+	optional func searchBarViewDidChangeLayout(searchBarView: SearchBarView)
 }
 
 public class SearchBarView : MaterialView {
@@ -186,7 +186,7 @@ public class SearchBarView : MaterialView {
 		width = UIScreen.mainScreen().bounds.width
 		grid.axis.columns = Int(width / 48)
 		if frame.origin.x != oldFrame!.origin.x || frame.origin.y != oldFrame!.origin.y || frame.width != oldFrame!.width || frame.height != oldFrame!.height {
-			(delegate as? SearchBarViewDelegate)?.searchBarViewLayoutChanged?(self)
+			(delegate as? SearchBarViewDelegate)?.searchBarViewDidChangeLayout?(self)
 			oldFrame = frame
 		}
 		reloadView()

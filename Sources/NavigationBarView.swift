@@ -32,7 +32,7 @@ import UIKit
 
 @objc(NavigationBarViewDelegate)
 public protocol NavigationBarViewDelegate : MaterialDelegate {
-	optional func navigationBarViewLayoutChanged(navigationBarView: NavigationBarView)
+	optional func navigationBarViewDidChangeLayout(navigationBarView: NavigationBarView)
 }
 
 public class NavigationBarView : MaterialView {
@@ -192,7 +192,7 @@ public class NavigationBarView : MaterialView {
 		width = UIScreen.mainScreen().bounds.width
 		grid.axis.columns = Int(width / 48)
 		if frame.origin.x != oldFrame!.origin.x || frame.origin.y != oldFrame!.origin.y || frame.width != oldFrame!.width || frame.height != oldFrame!.height {
-			(delegate as? NavigationBarViewDelegate)?.navigationBarViewLayoutChanged?(self)
+			(delegate as? NavigationBarViewDelegate)?.navigationBarViewDidChangeLayout?(self)
 			oldFrame = frame
 		}
 		reloadView()

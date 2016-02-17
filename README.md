@@ -4,7 +4,7 @@
 
 Express your creativity with Material, an animation and graphics framework for Google's Material Design and Apple's Flat UI in Swift.
 
-![MaterialMockup](http://www.cosmicmind.io/MK/MaterialMockup.png)
+![MaterialApp](http://www.cosmicmind.io/MK/MaterialApp.gif)
 
 ## Notice
 
@@ -21,14 +21,17 @@ Our standards look to follow Apple's measurement guides, while providing both Ap
 - [x] Layout Library To Simplify AutoLayout
 - [x] Base Material Layers & Material Views To Create New UI Components
 - [x] Side Navigation View Controller
-- [x] Navigation Bar View
+- [x] Navigation Bar View & Controller
+- [x] Search Bar View
 - [x] Material Buttons
+- [x] Material Switch
 - [x] Material Card Views
 - [x] Menu Toolset To Create Animated Menus
 - [x] Camera / Video Extension With Extensive Functionality
 - [x] Animation Extension To Create Intricate Animations
 - [x] Complete Material Color Library
 - [x] Example Projects
+- [x] And More...
 
 ## Requirements
 
@@ -58,8 +61,6 @@ Material is a growing project and will encounter changes throughout its developm
 
 * Visit the Examples directory to see example projects using Material.
 
-![MaterialApp](http://www.cosmicmind.io/MK/MaterialApp.gif)
-
 ## A Tour  
 
 * [MaterialColor](#materialcolor)
@@ -76,7 +77,7 @@ Material is a growing project and will encounter changes throughout its developm
 * [Grid](#grid) (New)
 * [MaterialTableViewCell](#materialtableviewcell) (New)
 * [NavigationBarView](#navigationbarview) (New)
-* [NavigationViewController](#navigationviewcontroller) (New)
+* NavigationViewController (New)
 * [SearchBarView](#searchbarview) (New)
 * [SideNavigationViewController](#sidenavigationviewcontroller)
 * [CardView](#cardview) (New)
@@ -90,6 +91,7 @@ Material is a growing project and will encounter changes throughout its developm
 * TabViewController
 * Scrolling Techniques
 * Snackbar
+* Advanced Camera / Audio Toolset & Views
 * More Examples
 
 <a name="materialcolor"></a>
@@ -226,7 +228,7 @@ Below is an example of a large CardView using Grid.
 <a name="materialtableviewcell"></a>
 ## MaterialTableViewCell
 
-UITableView is a popular and widely used view in iOS. Now the pulse animation and core Material features have been made available for the UITableView.
+UITableViewCell is a popular and widely used view in iOS. Now the pulse animation and core Material features have been made available for the UITableViewCell.
 
 ![MaterialMaterialTableViewCell](http://www.cosmicmind.io/MK/MaterialMaterialTableViewCell.gif)
 
@@ -244,7 +246,7 @@ A NavigationBarView is a fully featured navigation bar that supports orientation
 <a name="searchbarview"></a>
 ## SearchBarView
 
-A SearchBarView is fully featured and supports orientation changes, background images, title and detail labels, both left and right UIControl sets, and status bar settings.
+A SearchBarView is a fully featured search bar that supports orientation changes, background images, title and detail labels, both left and right UIControl sets, and status bar settings.
 
 ![MaterialSearchBarView](http://www.cosmicmind.io/MK/MaterialSearchBarView.gif)
 
@@ -270,7 +272,7 @@ Easily remove the pulse animation and add a background image for an entirely new
 
 ![MaterialCardViewFavorite](http://www.cosmicmind.io/MK/MaterialCardViewFavorite.gif)
 
-Add any view as the detail to a CardView. For example, a UITableView.
+Add any UIView as the detail to a CardView. For example, a UITableView.
 
 ![MaterialTableCardView](http://www.cosmicmind.io/MK/MaterialTableCardView.gif)
 

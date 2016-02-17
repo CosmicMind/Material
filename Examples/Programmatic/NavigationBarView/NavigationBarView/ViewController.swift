@@ -108,7 +108,7 @@ class ViewController: UIViewController {
 
 /// NavigationBarViewDelegate methods.
 extension ViewController: NavigationBarViewDelegate {
-	func navigationBarViewLayoutChanged(navigationBarView: NavigationBarView) {
+	func navigationBarViewDidChangeLayout(navigationBarView: NavigationBarView) {
 		print("Updated Frame: \(navigationBarView.frame)")
 	}
 }

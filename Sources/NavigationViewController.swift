@@ -163,7 +163,7 @@ public class NavigationViewController: UIViewController {
 
 extension NavigationViewController : NavigationBarViewDelegate {
 	/// Monitor layout changes.
-	public func navigationBarViewLayoutChanged(navigationBarView: NavigationBarView) {
+	public func navigationBarViewDidChangeLayout(navigationBarView: NavigationBarView) {
 		layoutSubviews()
 	}
 }

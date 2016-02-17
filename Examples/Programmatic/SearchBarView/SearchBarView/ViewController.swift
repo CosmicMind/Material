@@ -98,7 +98,7 @@ class ViewController: UIViewController {
 
 /// SearchBarViewDelegate methods.
 extension ViewController: SearchBarViewDelegate {
-	func searchBarViewLayoutChanged(searchBarView: SearchBarView) {
+	func searchBarViewDidChangeLayout(searchBarView: SearchBarView) {
 		print("Updated Frame: \(searchBarView.frame)")
 	}
 }

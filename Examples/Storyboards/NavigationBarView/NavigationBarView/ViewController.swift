@@ -35,13 +35,14 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var navigationBarView: NavigationBarView!
 	
+	/// ************* This needs to be attached to the Storyboard. *************
 	@IBOutlet weak var navigationBarViewHeightConstraint: NSLayoutConstraint?
 	
 	override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
 		// if landscape
 		if UIInterfaceOrientationIsLandscape(toInterfaceOrientation) {
 			navigationBarViewHeightConstraint?.constant = 44
-		} else { // else portrait
+		} else {
 			navigationBarViewHeightConstraint?.constant = 64
 		}
 	}
