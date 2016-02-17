@@ -155,7 +155,7 @@ public class TextView: UITextView {
 	for the backing layer. This is the preferred method of setting depth
 	in order to maintain consitency across UI objects.
 	*/
-	public var depth: MaterialDepth {
+	public var depth: MaterialDepth = .None {
 		didSet {
 			let value: MaterialDepthType = MaterialDepthToValue(depth)
 			shadowOffset = value.offset
@@ -169,7 +169,7 @@ public class TextView: UITextView {
 	property has a value of .Circle when the cornerRadius is set, it will
 	become .None, as it no longer maintains its circle shape.
 	*/
-	public var cornerRadiusPreset: MaterialRadius {
+	public var cornerRadiusPreset: MaterialRadius = .None {
 		didSet {
 			if let v: MaterialRadius = cornerRadiusPreset {
 				cornerRadius = MaterialRadiusToValue(v)
@@ -192,7 +192,7 @@ public class TextView: UITextView {
 	width or height property is set, the other will be automatically adjusted
 	to maintain the shape of the object.
 	*/
-	public var shape: MaterialShape {
+	public var shape: MaterialShape = .None {
 		didSet {
 			if .None != shape {
 				if width < height {
@@ -204,8 +204,15 @@ public class TextView: UITextView {
 		}
 	}
 	
+	/// A preset property to set the borderWidth.
+	public var borderWidthPreset: MaterialBorder = .None {
+		didSet {
+			borderWidth = MaterialBorderToValue(borderWidthPreset)
+		}
+	}
+	
 	/// A property that accesses the layer.borderWith.
-	public var borderWidth: CGFloat {
+	public var borderWidth: CGFloat = 0 {
 		didSet {
 			layer.borderWidth = borderWidth
 		}
@@ -308,10 +315,6 @@ public class TextView: UITextView {
 	- Parameter aDecoder: A NSCoder instance.
 	*/
 	public required init?(coder aDecoder: NSCoder) {
-		depth = .None
-		cornerRadiusPreset = .None
-		shape = .None
-		borderWidth = 0
 		super.init(coder: aDecoder)
 		prepareView()
 	}
@@ -324,10 +327,6 @@ public class TextView: UITextView {
 	- Parameter textContainer: A NSTextContainer instance.
 	*/
 	public override init(frame: CGRect, textContainer: NSTextContainer?) {
-		depth = .None
-		cornerRadiusPreset = .None
-		shape = .None
-		borderWidth = 0
 		super.init(frame: frame, textContainer: textContainer)
 		prepareView()
 	}
