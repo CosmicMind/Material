@@ -81,10 +81,10 @@ class AppViewController: NavigationViewController {
 	}
 	
 	/**
-	Handles the search button click, which opens the
+	Handles the more button click, which opens the
 	SideNavigationViewController.
 	*/
-	func handleSearchButton() {
+	func handleMoreButton() {
 		sideNavigationViewController?.openRightView()
 	}
 	
@@ -122,7 +122,7 @@ class AppViewController: NavigationViewController {
 	private func prepareNavigationBarView() {
 		// Title label.
 		let titleLabel: UILabel = UILabel()
-		titleLabel.text = "Recipes"
+		titleLabel.text = "Inbox"
 		titleLabel.textAlignment = .Left
 		titleLabel.textColor = MaterialColor.white
 		titleLabel.font = RobotoFont.regularWithSize(17)
@@ -146,15 +146,16 @@ class AppViewController: NavigationViewController {
 		menuButton.addTarget(self, action: "handleMenuButton", forControlEvents: .TouchUpInside)
 		
 		// Switch control.
-		let switchControl: MaterialSwitch = MaterialSwitch(state: .Off, style: .LightContent)
+		let switchControl: MaterialSwitch = MaterialSwitch(state: .Off, style: .LightContent, size: .Small)
 		
 		// Search button.
-		image = UIImage(named: "ic_search_white")
-		let searchButton: FlatButton = FlatButton()
-		searchButton.pulseColor = nil
-		searchButton.pulseScale = false
-		searchButton.setImage(image, forState: .Normal)
-		searchButton.setImage(image, forState: .Highlighted)
+		image = UIImage(named: "ic_more_vert_white")
+		let moreButton: FlatButton = FlatButton()
+		moreButton.pulseColor = nil
+		moreButton.pulseScale = false
+		moreButton.setImage(image, forState: .Normal)
+		moreButton.setImage(image, forState: .Highlighted)
+		moreButton.addTarget(self, action: "handleMoreButton", forControlEvents: .TouchUpInside)
 		
 		/*
 		To lighten the status bar - add the
@@ -166,7 +167,7 @@ class AppViewController: NavigationViewController {
 		navigationBarView.backgroundColor = MaterialColor.blue.base
 		navigationBarView.titleLabel = titleLabel
 		navigationBarView.leftControls = [menuButton]
-		navigationBarView.rightControls = [switchControl, searchButton]
+		navigationBarView.rightControls = [switchControl, moreButton]
 	}
 	
 	/// Prepares the menuBackdropLayer.

@@ -57,24 +57,20 @@ class ViewController: UIViewController {
 		var image = UIImage(named: "ic_close_white")
 		
 		let clearButton: FlatButton = FlatButton()
-		clearButton.pulseColor = nil
+		clearButton.pulseColor = MaterialColor.white
 		clearButton.pulseScale = false
 		clearButton.setImage(image, forState: .Normal)
 		clearButton.setImage(image, forState: .Highlighted)
 		
 		image = UIImage(named: "ic_menu_white")
 		let menuButton: FlatButton = FlatButton()
-		menuButton.pulseColor = nil
+		menuButton.pulseColor = MaterialColor.white
 		menuButton.pulseScale = false
 		menuButton.setImage(image, forState: .Normal)
 		menuButton.setImage(image, forState: .Highlighted)
-		
-		image = UIImage(named: "ic_search_white")
-		let searchButton: FlatButton = FlatButton()
-		searchButton.pulseColor = nil
-		searchButton.pulseScale = false
-		searchButton.setImage(image, forState: .Normal)
-		searchButton.setImage(image, forState: .Highlighted)
+	
+		// Switch control.
+		let switchControl: MaterialSwitch = MaterialSwitch(state: .Off, style: .LightContent, size: .Small)
 		
 		/*
 		To lighten the status bar - add the
@@ -83,17 +79,27 @@ class ViewController: UIViewController {
 		*/
 		searchBarView.statusBarStyle = .LightContent
 		
+		searchBarView.delegate = self
 		searchBarView.backgroundColor = MaterialColor.blue.base
 		searchBarView.placeholder = "Search"
 		searchBarView.tintColor = MaterialColor.white
 		searchBarView.textColor = MaterialColor.white
 		searchBarView.placeholderTextColor = MaterialColor.white
-		searchBarView.textField.font = RobotoFont.regularWithSize(22)
+		searchBarView.textField.font = RobotoFont.regularWithSize(17)
 		
 		searchBarView.clearButton = clearButton
 		searchBarView.leftControls = [menuButton]
-		searchBarView.rightControls = [searchButton]
+		searchBarView.rightControls = [switchControl]
 		
 		view.addSubview(searchBarView)
 	}
 }
+
+
+/// SearchBarViewDelegate methods.
+extension ViewController: SearchBarViewDelegate {
+	func searchBarViewLayoutChanged(searchBarView: SearchBarView) {
+		print("Updated Frame: \(searchBarView.frame)")
+	}
+}
+

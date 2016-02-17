@@ -30,7 +30,15 @@
 
 import UIKit
 
+@objc(SearchBarViewDelegate)
+public protocol SearchBarViewDelegate : MaterialDelegate {
+	optional func searchBarViewLayoutChanged(searchBarView: SearchBarView)
+}
+
 public class SearchBarView : MaterialView {
+	/// Tracks the old frame size.
+	private var oldFrame: CGRect?
+	
 	/// The UITextField for the searchBar.
 	public private(set) lazy var textField: TextField = TextField()
 	
@@ -38,6 +46,35 @@ public class SearchBarView : MaterialView {
 	public var statusBarStyle: UIStatusBarStyle = UIApplication.sharedApplication().statusBarStyle {
 		didSet {
 			UIApplication.sharedApplication().statusBarStyle = statusBarStyle
+		}
+	}
+	
+	/// A preset wrapper around contentInset.
+	public var contentInsetPreset: MaterialEdgeInset = .None {
+		didSet {
+			contentInset = MaterialEdgeInsetToValue(contentInsetPreset)
+		}
+	}
+	
+	/// A wrapper around grid.contentInset.
+	public var contentInset: UIEdgeInsets {
+		get {
+			return grid.contentInset
+		}
+		set(value) {
+			grid.contentInset = contentInset
+			reloadView()
+		}
+	}
+	
+	/// A wrapper around grid.spacing.
+	public var spacing: CGFloat {
+		get {
+			return grid.spacing
+		}
+		set(value) {
+			grid.spacing = spacing
+			reloadView()
 		}
 	}
 	
@@ -138,18 +175,20 @@ public class SearchBarView : MaterialView {
 		// General alignment.
 		switch UIDevice.currentDevice().orientation {
 		case .LandscapeLeft, .LandscapeRight:
-			grid.contentInset.top = 0
-			grid.contentInset.bottom = 0
+			grid.contentInset.top = 8
 			height = 44
 		default:
-			grid.contentInset.top = 20
-			grid.contentInset.bottom = 8
+			grid.contentInset.top = 28
 			height = 64
 		}
 		
 		// Column adjustment.
 		width = UIScreen.mainScreen().bounds.width
 		grid.axis.columns = Int(width / 48)
+		if frame.origin.x != oldFrame!.origin.x || frame.origin.y != oldFrame!.origin.y || frame.width != oldFrame!.width || frame.height != oldFrame!.height {
+			(delegate as? SearchBarViewDelegate)?.searchBarViewLayoutChanged?(self)
+			oldFrame = frame
+		}
 		reloadView()
 	}
 	
@@ -229,9 +268,9 @@ public class SearchBarView : MaterialView {
 	*/
 	public override func prepareView() {
 		super.prepareView()
+		oldFrame = frame
 		grid.spacing = 8
 		grid.axis.inherited = false
-		grid.contentInset.top = 20
 		grid.contentInset.left = 8
 		grid.contentInset.bottom = 8
 		grid.contentInset.right = 8

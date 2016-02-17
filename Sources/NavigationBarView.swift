@@ -36,6 +36,9 @@ public protocol NavigationBarViewDelegate : MaterialDelegate {
 }
 
 public class NavigationBarView : MaterialView {
+	/// Tracks the old frame size.
+	private var oldFrame: CGRect?
+	
 	/// TitleView that holds the titleLabel and detailLabel.
 	public private(set) lazy var titleView: MaterialView = MaterialView()
 	
@@ -43,6 +46,35 @@ public class NavigationBarView : MaterialView {
 	public var statusBarStyle: UIStatusBarStyle = UIApplication.sharedApplication().statusBarStyle {
 		didSet {
 			UIApplication.sharedApplication().statusBarStyle = statusBarStyle
+		}
+	}
+	
+	/// A preset wrapper around contentInset.
+	public var contentInsetPreset: MaterialEdgeInset = .None {
+		didSet {
+			contentInset = MaterialEdgeInsetToValue(contentInsetPreset)
+		}
+	}
+	
+	/// A wrapper around grid.contentInset.
+	public var contentInset: UIEdgeInsets {
+		get {
+			return grid.contentInset
+		}
+		set(value) {
+			grid.contentInset = contentInset
+			reloadView()
+		}
+	}
+	
+	/// A wrapper around grid.spacing.
+	public var spacing: CGFloat {
+		get {
+			return grid.spacing
+		}
+		set(value) {
+			grid.spacing = spacing
+			reloadView()
 		}
 	}
 	
@@ -159,7 +191,10 @@ public class NavigationBarView : MaterialView {
 		// Column adjustment.
 		width = UIScreen.mainScreen().bounds.width
 		grid.axis.columns = Int(width / 48)
-		(delegate as? NavigationBarViewDelegate)?.navigationBarViewLayoutChanged?(self)
+		if frame.origin.x != oldFrame!.origin.x || frame.origin.y != oldFrame!.origin.y || frame.width != oldFrame!.width || frame.height != oldFrame!.height {
+			(delegate as? NavigationBarViewDelegate)?.navigationBarViewLayoutChanged?(self)
+			oldFrame = frame
+		}
 		reloadView()
 	}
 	
@@ -253,6 +288,7 @@ public class NavigationBarView : MaterialView {
 	*/
 	public override func prepareView() {
 		super.prepareView()
+		oldFrame = frame
 		grid.spacing = 8
 		grid.axis.inherited = false
 		grid.contentInset.left = 8

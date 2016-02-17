@@ -72,18 +72,18 @@ class ViewController: UIViewController {
 		
 		// Menu button.
 		let menuButton: FlatButton = FlatButton()
-		menuButton.pulseColor = nil
+		menuButton.pulseColor = MaterialColor.white
 		menuButton.pulseScale = false
 		menuButton.setImage(image, forState: .Normal)
 		menuButton.setImage(image, forState: .Highlighted)
 		
 		// Switch control.
-		let switchControl: MaterialSwitch = MaterialSwitch(state: .On, style: .LightContent)
+		let switchControl: MaterialSwitch = MaterialSwitch(state: .Off, style: .LightContent, size: .Small)
 		
 		// Search button.
 		image = UIImage(named: "ic_search_white")
 		let searchButton: FlatButton = FlatButton()
-		searchButton.pulseColor = nil
+		searchButton.pulseColor = MaterialColor.white
 		searchButton.pulseScale = false
 		searchButton.setImage(image, forState: .Normal)
 		searchButton.setImage(image, forState: .Highlighted)
@@ -95,6 +95,7 @@ class ViewController: UIViewController {
 		*/
 		navigationBarView.statusBarStyle = .LightContent
 		
+		navigationBarView.delegate = self
 		navigationBarView.backgroundColor = MaterialColor.blue.base
 		navigationBarView.titleLabel = titleLabel
 		navigationBarView.detailLabel = detailLabel
@@ -102,6 +103,13 @@ class ViewController: UIViewController {
 		navigationBarView.rightControls = [switchControl, searchButton]
 		
 		view.addSubview(navigationBarView)
+	}
+}
+
+/// NavigationBarViewDelegate methods.
+extension ViewController: NavigationBarViewDelegate {
+	func navigationBarViewLayoutChanged(navigationBarView: NavigationBarView) {
+		print("Updated Frame: \(navigationBarView.frame)")
 	}
 }
 

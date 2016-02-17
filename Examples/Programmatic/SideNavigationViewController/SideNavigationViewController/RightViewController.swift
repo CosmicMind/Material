@@ -58,7 +58,7 @@ class RightViewController: UIViewController {
 	
 	/// General preparation statements.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.grey.darken4
+		view.backgroundColor = MaterialColor.blueGrey.darken4
 	}
 	
 	override func viewWillAppear(animated: Bool) {
@@ -104,16 +104,12 @@ extension RightViewController: UITableViewDataSource {
 		cell.backgroundColor = MaterialColor.clear
 		
 		let item: Cell = items[indexPath.row]
-		cell.selectionStyle = .None
 		cell.textLabel!.text = item.text
-		cell.textLabel!.textColor = MaterialColor.white
 		cell.textLabel!.font = RobotoFont.medium
 		cell.imageView!.image = UIImage(named: item.imageName)?.imageWithRenderingMode(.AlwaysTemplate)
-		cell.imageView!.tintColor = MaterialColor.cyan.lighten4
+		cell.imageView!.tintColor = MaterialColor.grey.lighten2
 		
-		if item.selected {
-			cell.textLabel!.textColor = MaterialColor.cyan.lighten3
-		}
+		cell.textLabel!.textColor = item.selected ? MaterialColor.cyan.lighten5 : MaterialColor.grey.lighten3
 		
 		return cell
 	}

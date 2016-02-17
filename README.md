@@ -4,6 +4,8 @@
 
 Express your creativity with Material, an animation and graphics framework for Google's Material Design and Apple's Flat UI in Swift.
 
+![MaterialMockup](http://www.cosmicmind.io/MK/MaterialMockup.png)
+
 ## Notice
 
 The CosmicMind Team would like to thank everyone for helping make Material a growing project. Since Material is growing, we feel it is time to ensure that standards are met. As we release new components and features, we will be converting older components to follow the standards we set forward. If this causes any issues for your project, please create an issue and we will help resolve it. This process is meant to be short and swift. We thank everyone in advance.
@@ -56,6 +58,8 @@ Material is a growing project and will encounter changes throughout its developm
 
 * Visit the Examples directory to see example projects using Material.
 
+![MaterialApp](http://www.cosmicmind.io/MK/MaterialApp.gif)
+
 ## A Tour  
 
 * [MaterialColor](#materialcolor)
@@ -67,7 +71,7 @@ Material is a growing project and will encounter changes throughout its developm
 * [FlatButton](#flatbutton)
 * [RaisedButton](#raisedbutton)
 * [FabButton](#fabbutton)
-* [MaterialSwitch](#materialswitch)
+* [MaterialSwitch](#materialswitch) (New)
 * [Menu](#menu) (New)
 * [Grid](#grid) (New)
 * [MaterialTableViewCell](#materialtableviewcell) (New)
@@ -170,12 +174,16 @@ A FabButton is essential to Material Design's overall look. Below showcases its 
 
 ![MaterialFabButton](http://www.cosmicmind.io/MK/MaterialFabButton.gif)
 
+[Learn More About FabButton](https://github.com/CosmicMind/Material/wiki/FabButton)
+
 <a name="materialswitch"></a>
 ## MaterialSwitch
 
-MaterialSwitch is a fully customizable UIControl. It has auto centering when using AutoLayout, and makes for a great addition to the UIControl family of components.
+MaterialSwitch is a fully customizable UIControl. It has auto centre alignment when using AutoLayout, and makes for a great addition to the UIControl family of components.
 
 ![MaterialMaterialSwitch](http://www.cosmicmind.io/MK/MaterialMaterialSwitch.gif)
+
+[Learn More About MaterialSwitch](https://github.com/CosmicMind/Material/wiki/MaterialSwitch)
 
 <a name="menu"></a>
 ## Menu
@@ -227,11 +235,20 @@ UITableView is a popular and widely used view in iOS. Now the pulse animation an
 <a name="navigationbarview"></a>
 ## NavigationBarView
 
-A NavigationBarView is a fully featured navigation bar that supports orientation changes, background images, title and detail labels, both left and right button sets, and status bar settings.
+A NavigationBarView is a fully featured navigation bar that supports orientation changes, background images, title and detail labels, both left and right UIControl sets, and status bar settings.
 
 ![MaterialNavigationBarView](http://www.cosmicmind.io/MK/MaterialNavigationBarView.gif)
 
 [Learn More About NavigationBarView](https://github.com/CosmicMind/Material/wiki/NavigationBarView)
+
+<a name="searchbarview"></a>
+## SearchBarView
+
+A SearchBarView is fully featured and supports orientation changes, background images, title and detail labels, both left and right UIControl sets, and status bar settings.
+
+![MaterialSearchBarView](http://www.cosmicmind.io/MK/MaterialSearchBarView.gif)
+
+[Learn More About SearchBarView](https://github.com/CosmicMind/Material/wiki/SearchBarView)
 
 <a name="sidenavigationviewcontroller"></a>
 ## SideNavigationViewController

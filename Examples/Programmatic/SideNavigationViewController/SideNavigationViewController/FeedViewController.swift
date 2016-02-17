@@ -130,7 +130,7 @@ extension FeedViewController: UITableViewDataSource {
 		
 		header.addSubview(label)
 		label.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignToParent(header, child: label, left: 24)
+		MaterialLayout.alignToParent(header, child: label, left: navigationViewController!.navigationBarView.contentInset.left + navigationViewController!.navigationBarView.spacing)
 		
 		return header
 	}
