@@ -71,6 +71,7 @@ class ViewController: UIViewController {
 	
 		// Switch control.
 		let switchControl: MaterialSwitch = MaterialSwitch(state: .Off, style: .LightContent, size: .Small)
+		switchControl.buttonOnColor = MaterialColor.lightBlue.base
 		
 		/*
 		To lighten the status bar - add the
@@ -80,7 +81,7 @@ class ViewController: UIViewController {
 		searchBarView.statusBarStyle = .LightContent
 		
 		searchBarView.delegate = self
-		searchBarView.backgroundColor = MaterialColor.blue.base
+		searchBarView.backgroundColor = MaterialColor.indigo.base
 		searchBarView.placeholder = "Search"
 		searchBarView.tintColor = MaterialColor.white
 		searchBarView.textColor = MaterialColor.white

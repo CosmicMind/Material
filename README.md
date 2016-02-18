@@ -6,14 +6,6 @@ Express your creativity with Material, an animation and graphics framework for G
 
 ![MaterialApp](http://www.cosmicmind.io/MK/MaterialApp.gif)
 
-## Notice
-
-The CosmicMind Team would like to thank everyone for helping make Material a growing project. Since Material is growing, we feel it is time to ensure that standards are met. As we release new components and features, we will be converting older components to follow the standards we set forward. If this causes any issues for your project, please create an issue and we will help resolve it. This process is meant to be short and swift. We thank everyone in advance.
-
-## Standards
-
-Our standards look to follow Apple's measurement guides, while providing both Apple and Google's beautiful look and feel. As well, everything is customizable, so any customization is possible.
-
 ## Features
 
 - [x] Fully Configurable UI Components
