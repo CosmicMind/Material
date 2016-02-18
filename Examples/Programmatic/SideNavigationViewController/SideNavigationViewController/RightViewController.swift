@@ -30,7 +30,7 @@
 
 /*
 The following is an example of setting a UITableView as the RightViewController
-within a SideNavigationViewController.
+within a SideNavigationBarViewController.
 */
 
 import UIKit

@@ -30,6 +30,10 @@
 
 import UIKit
 
+
+@objc(NavigationBarViewDelegate)
+public protocol NavigationBarViewDelegate : StatusBarViewDelegate {}
+
 public class NavigationBarView : StatusBarView {
 	/// Title label.
 	public var titleLabel: UILabel? {
@@ -124,12 +128,6 @@ public class NavigationBarView : StatusBarView {
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		depth = .Depth1
-		grid.spacing = 8
-		grid.contentInset.left = 8
-		grid.contentInset.bottom = 8
-		grid.contentInset.right = 8
-		grid.axis.inherited = false
 		contentView.grid.axis.direction = .Vertical
 	}
 	

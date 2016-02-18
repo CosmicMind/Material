@@ -32,15 +32,15 @@ import UIKit
 
 public extension UIViewController {
 	/**
-	A convenience property that provides access to the NavigationViewController.
-	This is the recommended method of accessing the NavigationViewController
+	A convenience property that provides access to the NavigationBarViewController.
+	This is the recommended method of accessing the NavigationBarViewController
 	through child UIViewControllers.
 	*/
-	public var navigationViewController: NavigationViewController? {
+	public var navigationBarViewController: NavigationBarViewController? {
 		var viewController: UIViewController? = self
 		while nil != viewController {
-			if viewController is NavigationViewController {
-				return viewController as? NavigationViewController
+			if viewController is NavigationBarViewController {
+				return viewController as? NavigationBarViewController
 			}
 			viewController = viewController?.parentViewController
 		}
@@ -48,7 +48,7 @@ public extension UIViewController {
 	}
 }
 
-public class NavigationViewController: UIViewController {
+public class NavigationBarViewController: UIViewController {
 	public private(set) lazy var navigationBarView: NavigationBarView = NavigationBarView()
 	
 	/**
@@ -73,7 +73,7 @@ public class NavigationViewController: UIViewController {
 	public private(set) var mainViewController: UIViewController!
 	
 	/**
-	An initializer for the NavigationViewController.
+	An initializer for the NavigationBarViewController.
 	- Parameter mainViewController: The main UIViewController.
 	*/
 	public convenience init(mainViewController: UIViewController) {
@@ -120,7 +120,7 @@ public class NavigationViewController: UIViewController {
 			})
 	}
 	
-	/// A method that generally prepares the NavigationViewController.
+	/// A method that generally prepares the NavigationBarViewController.
 	private func prepareView() {
 		prepareNavigationBarView()
 		prepareMainViewController()
@@ -139,7 +139,7 @@ public class NavigationViewController: UIViewController {
 	
 	/**
 	A method that adds the passed in controller as a child of
-	the NavigationViewController within the passed in
+	the NavigationBarViewController within the passed in
 	container view.
 	- Parameter viewController: A UIViewController to add as a child.
 	- Parameter container: A UIView that is the parent of the
@@ -161,7 +161,7 @@ public class NavigationViewController: UIViewController {
 	}
 }
 
-extension NavigationViewController : StatusBarViewDelegate {
+extension NavigationBarViewController : NavigationBarViewDelegate {
 	/// Monitor layout changes.
 	public func statusBarViewDidChangeLayout(statusBarView: StatusBarView) {
 		layoutSubviews()

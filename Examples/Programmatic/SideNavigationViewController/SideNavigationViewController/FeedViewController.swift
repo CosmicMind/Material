@@ -53,10 +53,10 @@ class FeedViewController: UIViewController {
 	
 	/**
 	Handles the search button click, which opens the
-	SideNavigationViewController.
+	SideNavigationBarViewController.
 	*/
 	func handleSearchButton() {
-		sideNavigationViewController?.openRightView()
+		sideNavigationBarViewController?.openRightView()
 	}
 	
 	/// Prepares view.
@@ -130,7 +130,7 @@ extension FeedViewController: UITableViewDataSource {
 		
 		header.addSubview(label)
 		label.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignToParent(header, child: label, left: navigationViewController!.navigationBarView.contentInset.left + navigationViewController!.navigationBarView.spacing)
+		MaterialLayout.alignToParent(header, child: label, left: navigationBarViewController!.navigationBarView.contentInset.left + navigationBarViewController!.navigationBarView.spacing)
 		
 		return header
 	}

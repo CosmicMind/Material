@@ -96,9 +96,9 @@
       </Group>
       <Group
          location = "container:"
-         name = "NavigationViewController">
+         name = "NavigationBarViewController">
          <FileRef
-            location = "group:Programmatic/NavigationViewController/NavigationViewController.xcodeproj">
+            location = "group:Programmatic/NavigationBarViewController/NavigationBarViewController.xcodeproj">
          </FileRef>
       </Group>
       <Group

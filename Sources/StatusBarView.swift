@@ -94,6 +94,12 @@ public class StatusBarView : ControlView {
 	*/
 	public override func prepareView() {
 		super.prepareView()
+		depth = .Depth1
 		oldFrame = frame
+		grid.spacing = 8
+		grid.contentInset.left = 8
+		grid.contentInset.bottom = 8
+		grid.contentInset.right = 8
+		grid.axis.inherited = false
 	}
 }

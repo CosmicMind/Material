@@ -30,15 +30,15 @@
 
 /*
 The following is an example of setting a UITableView as the MainViewController
-within a SideNavigationViewController. There is a NavigationBarView that is
+within a SideNavigationBarViewController. There is a NavigationBarView that is
 used for navigation, with a menu button that opens the 
-SideNavigationViewController.
+SideNavigationBarViewController.
 */
 
 import UIKit
 import Material
 
-class AppNavigationViewController: NavigationViewController {
+class AppNavigationBarViewController: NavigationBarViewController {
 	/// Menu backdrop layer.
 	private lazy var menuBackdropLayer: MaterialLayer = MaterialLayer()
 	
@@ -63,29 +63,29 @@ class AppNavigationViewController: NavigationViewController {
 		super.viewWillAppear(animated)
 		
 		/*
-		Set the width of the SideNavigationViewController. Be mindful
+		Set the width of the SideNavigationBarViewController. Be mindful
 		of when setting this value. It is set in the viewWillAppear method,
 		because any earlier may cause a race condition when instantiating
 		the MainViewController and SideViewController.
 		*/
-//		sideNavigationViewController?.setLeftViewWidth(view.bounds.width - menuViewDiameter - 2 * menuViewInset, hidden: true, animated: false)
-		sideNavigationViewController?.delegate = self
+//		sideNavigationBarViewController?.setLeftViewWidth(view.bounds.width - menuViewDiameter - 2 * menuViewInset, hidden: true, animated: false)
+		sideNavigationBarViewController?.delegate = self
 	}
 	
 	/**
 	Handles the menu button click, which opens the
-	SideNavigationViewController.
+	SideNavigationBarViewController.
 	*/
 	func handleMenuButton() {
-		sideNavigationViewController?.openLeftView()
+		sideNavigationBarViewController?.openLeftView()
 	}
 	
 	/**
 	Handles the more button click, which opens the
-	SideNavigationViewController.
+	SideNavigationBarViewController.
 	*/
 	func handleMoreButton() {
-		sideNavigationViewController?.openRightView()
+		sideNavigationBarViewController?.openRightView()
 	}
 	
 	/// Handle the menuView touch event.
@@ -225,7 +225,7 @@ class AppNavigationViewController: NavigationViewController {
 	/// Displays the menuBackdropLayer.
 	private func showMenuBackdropLayer() {
 		// Disable the side nav, so users can't swipe while viewing the menu.
-		sideNavigationViewController?.enabled = false
+		sideNavigationBarViewController?.enabled = false
 		
 		// Position the menuBackdropLayer for the animation when opening.
 		MaterialAnimation.animationDisabled { [unowned self] in
@@ -240,7 +240,7 @@ class AppNavigationViewController: NavigationViewController {
 	/// Hides the menuBackdropLayer.
 	private func hideMenuBackdropLayer() {
 		// Enable the side nav.
-		sideNavigationViewController?.enabled = true
+		sideNavigationBarViewController?.enabled = true
 		
 		// Position the menuBackdropLayer for the animation when closing.
 		menuBackdropLayer.animate(MaterialAnimation.animationGroup([
@@ -254,69 +254,69 @@ class AppNavigationViewController: NavigationViewController {
 	}
 }
 
-/// SideNavigationViewControllerDelegate methods.
-extension AppNavigationViewController: SideNavigationViewControllerDelegate {
+/// SideNavigationBarViewControllerDelegate methods.
+extension AppNavigationBarViewController: SideNavigationBarViewControllerDelegate {
 	/**
 	An optional delegation method that is fired before the
-	SideNavigationViewController opens.
+	SideNavigationBarViewController opens.
 	*/
-	func sideNavigationViewWillOpen(sideNavigationViewController: SideNavigationViewController, position: SideNavigationPosition) {
+	func sideNavigationViewWillOpen(sideNavigationBarViewController: SideNavigationBarViewController, position: SideNavigationPosition) {
 		print("Will open", .Left == position ? "Left" : "Right", "view.")
 	}
 	
 	/**
 	An optional delegation method that is fired after the
-	SideNavigationViewController opened.
+	SideNavigationBarViewController opened.
 	*/
-	func sideNavigationViewDidOpen(sideNavigationViewController: SideNavigationViewController, position: SideNavigationPosition) {
+	func sideNavigationViewDidOpen(sideNavigationBarViewController: SideNavigationBarViewController, position: SideNavigationPosition) {
 		print("Did open", .Left == position ? "Left" : "Right", "view.")
 	}
 	
 	/**
 	An optional delegation method that is fired before the
-	SideNavigationViewController closes.
+	SideNavigationBarViewController closes.
 	*/
-	func sideNavigationViewWillClose(sideNavigationViewController: SideNavigationViewController, position: SideNavigationPosition) {
+	func sideNavigationViewWillClose(sideNavigationBarViewController: SideNavigationBarViewController, position: SideNavigationPosition) {
 		print("Will close", .Left == position ? "Left" : "Right", "view.")
 	}
 	
 	/**
 	An optional delegation method that is fired after the
-	SideNavigationViewController closed.
+	SideNavigationBarViewController closed.
 	*/
-	func sideNavigationViewDidClose(sideNavigationViewController: SideNavigationViewController, position: SideNavigationPosition) {
+	func sideNavigationViewDidClose(sideNavigationBarViewController: SideNavigationBarViewController, position: SideNavigationPosition) {
 		print("Did close", .Left == position ? "Left" : "Right", "view.")
 	}
 	
 	/**
 	An optional delegation method that is fired when the
-	SideNavigationViewController pan gesture begins.
+	SideNavigationBarViewController pan gesture begins.
 	*/
-	func sideNavigationViewPanDidBegin(sideNavigationViewController: SideNavigationViewController, point: CGPoint, position: SideNavigationPosition) {
+	func sideNavigationViewPanDidBegin(sideNavigationBarViewController: SideNavigationBarViewController, point: CGPoint, position: SideNavigationPosition) {
 		print("Pan did begin for", .Left == position ? "Left" : "Right", "view.")
 	}
 	
 	/**
 	An optional delegation method that is fired when the
-	SideNavigationViewController pan gesture changes position.
+	SideNavigationBarViewController pan gesture changes position.
 	*/
-	func sideNavigationViewPanDidChange(sideNavigationViewController: SideNavigationViewController, point: CGPoint, position: SideNavigationPosition) {
+	func sideNavigationViewPanDidChange(sideNavigationBarViewController: SideNavigationBarViewController, point: CGPoint, position: SideNavigationPosition) {
 		print("Pan did change for", .Left == position ? "Left" : "Right", "view.")
 	}
 	
 	/**
 	An optional delegation method that is fired when the
-	SideNavigationViewController pan gesture ends.
+	SideNavigationBarViewController pan gesture ends.
 	*/
-	func sideNavigationViewPanDidEnd(sideNavigationViewController: SideNavigationViewController, point: CGPoint, position: SideNavigationPosition) {
+	func sideNavigationViewPanDidEnd(sideNavigationBarViewController: SideNavigationBarViewController, point: CGPoint, position: SideNavigationPosition) {
 		print("Pan did end for", .Left == position ? "Left" : "Right", "view.")
 	}
 	
 	/**
 	An optional delegation method that is fired when the
-	SideNavigationViewController tap gesture executes.
+	SideNavigationBarViewController tap gesture executes.
 	*/
-	func sideNavigationViewDidTap(sideNavigationViewController: SideNavigationViewController, point: CGPoint, position: SideNavigationPosition) {
+	func sideNavigationViewDidTap(sideNavigationBarViewController: SideNavigationBarViewController, point: CGPoint, position: SideNavigationPosition) {
 		print("Did Tap for", .Left == position ? "Left" : "Right", "view.")
 	}
 }

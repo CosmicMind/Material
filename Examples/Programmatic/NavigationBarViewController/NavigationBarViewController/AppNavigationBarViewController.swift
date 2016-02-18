@@ -29,14 +29,14 @@
 */
 
 /*
-The following is an example of using a NavigationViewController to control the
-flow of your application. 
+The following is an example of using a NavigationBarViewController to control the
+flow of your application.
 */
 
 import UIKit
 import Material
 
-class AppNavigationViewController: NavigationViewController {
+class AppNavigationBarViewController: NavigationBarViewController {
 	/// Menu backdrop layer.
 	private lazy var menuBackdropLayer: MaterialLayer = MaterialLayer()
 	
@@ -59,18 +59,18 @@ class AppNavigationViewController: NavigationViewController {
 	
 	/**
 	Handles the menu button click, which opens the
-	SideNavigationViewController.
+	SideNavigationBarViewController.
 	*/
 	func handleMenuButton() {
-		sideNavigationViewController?.openLeftView()
+		sideNavigationBarViewController?.openLeftView()
 	}
 	
 	/**
 	Handles the more button click, which opens the
-	SideNavigationViewController.
+	SideNavigationBarViewController.
 	*/
 	func handleMoreButton() {
-		sideNavigationViewController?.openRightView()
+		sideNavigationBarViewController?.openRightView()
 	}
 	
 	/// Handle the menuView touch event.
@@ -210,7 +210,7 @@ class AppNavigationViewController: NavigationViewController {
 	/// Displays the menuBackdropLayer.
 	private func showMenuBackdropLayer() {
 		// Disable the side nav, so users can't swipe while viewing the menu.
-		sideNavigationViewController?.enabled = false
+		sideNavigationBarViewController?.enabled = false
 		
 		// Position the menuBackdropLayer for the animation when opening.
 		MaterialAnimation.animationDisabled { [unowned self] in
@@ -225,7 +225,7 @@ class AppNavigationViewController: NavigationViewController {
 	/// Hides the menuBackdropLayer.
 	private func hideMenuBackdropLayer() {
 		// Enable the side nav.
-		sideNavigationViewController?.enabled = true
+		sideNavigationBarViewController?.enabled = true
 		
 		// Position the menuBackdropLayer for the animation when closing.
 		menuBackdropLayer.animate(MaterialAnimation.animationGroup([

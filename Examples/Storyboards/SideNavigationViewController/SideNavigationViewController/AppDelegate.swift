@@ -43,9 +43,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let mainViewController = storyboard.instantiateViewControllerWithIdentifier("MainViewController") as! MainViewController
         let sideViewController = storyboard.instantiateViewControllerWithIdentifier("SideViewController") as! SideViewController
         
-        // Configure the window with the SideNavigationViewController as the root view controller
+        // Configure the window with the SideNavigationBarViewController as the root view controller
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        window?.rootViewController = SideNavigationViewController(mainViewController: mainViewController, leftViewController: sideViewController)
+        window?.rootViewController = SideNavigationBarViewController(mainViewController: mainViewController, leftViewController: sideViewController)
         window?.makeKeyAndVisible()
         return true
     }
