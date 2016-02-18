@@ -31,19 +31,19 @@
 import UIKit
 
 public class RaisedButton : MaterialButton {
-	/**
-	Prepares the view instance when intialized. When subclassing,
-	it is recommended to override the prepareView method
-	to initialize property values and other setup operations.
-	The super.prepareView method should always be called immediately
-	when subclassing.
-	*/
-	public override func prepareView() {
-		super.prepareView()
-		setTitleColor(MaterialColor.white, forState: .Normal)
-		backgroundColor = MaterialColor.blue.accent3
-		depth = .Depth1
-        cornerRadius = MaterialRadiusToValue(.Radius1)
-		contentInsetPreset = .WideRectangle3
-	}
+    /**
+     Prepares the view instance when intialized. When subclassing,
+     it is recommended to override the prepareView method
+     to initialize property values and other setup operations.
+     The super.prepareView method should always be called immediately
+     when subclassing.
+     */
+    public override func prepareView() {
+        super.prepareView()
+        setTitleColor(MaterialColor.white, forState: .Normal)
+        backgroundColor = MaterialColor.blue.accent3
+        depth = .Depth1
+        cornerRadiusPreset = .Radius1
+        contentEdgeInsetsPreset = .WideRectangle3
+    }
 }

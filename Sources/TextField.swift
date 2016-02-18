@@ -153,7 +153,7 @@ public class TextField : UITextField {
 	for the backing layer. This is the preferred method of setting depth
 	in order to maintain consitency across UI objects.
 	*/
-	public var depth: MaterialDepth {
+	public var depth: MaterialDepth = .None {
 		didSet {
 			let value: MaterialDepthType = MaterialDepthToValue(depth)
 			shadowOffset = value.offset
@@ -167,14 +167,21 @@ public class TextField : UITextField {
 	property has a value of .Circle when the cornerRadius is set, it will
 	become .None, as it no longer maintains its circle shape.
 	*/
-	public var cornerRadius: MaterialRadius {
+	public var cornerRadiusPreset: MaterialRadius = .None {
 		didSet {
-			if let v: MaterialRadius = cornerRadius {
-				layer.cornerRadius = MaterialRadiusToValue(v)
+			if let v: MaterialRadius = cornerRadiusPreset {
+				cornerRadius = MaterialRadiusToValue(v)
 				if .Circle == shape {
 					shape = .None
 				}
 			}
+		}
+	}
+	
+	/// A property that accesses the layer.cornerRadius.
+	public var cornerRadius: CGFloat = 0 {
+		didSet {
+			layer.cornerRadius = cornerRadius
 		}
 	}
 	
@@ -183,7 +190,7 @@ public class TextField : UITextField {
 	width or height property is set, the other will be automatically adjusted
 	to maintain the shape of the object.
 	*/
-	public var shape: MaterialShape {
+	public var shape: MaterialShape = .None {
 		didSet {
 			if .None != shape {
 				if width < height {
@@ -195,13 +202,17 @@ public class TextField : UITextField {
 		}
 	}
 	
-	/**
-	A property that accesses the layer.borderWith using a MaterialBorder
-	enum preset.
-	*/
-	public var borderWidth: MaterialBorder {
+	/// A preset property to set the borderWidth.
+	public var borderWidthPreset: MaterialBorder = .None {
 		didSet {
-			layer.borderWidth = MaterialBorderToValue(borderWidth)
+			borderWidth = MaterialBorderToValue(borderWidthPreset)
+		}
+	}
+
+	/// A property that accesses the layer.borderWith.
+	public var borderWidth: CGFloat = 0 {
+		didSet {
+			layer.borderWidth = borderWidth
 		}
 	}
 	
@@ -335,10 +346,6 @@ public class TextField : UITextField {
 	- Parameter aDecoder: A NSCoder instance.
 	*/
 	public required init?(coder aDecoder: NSCoder) {
-		depth = .None
-		shape = .None
-		cornerRadius = .None
-		borderWidth = .None
 		super.init(coder: aDecoder)
 		prepareView()
 	}
@@ -350,15 +357,11 @@ public class TextField : UITextField {
 	- Parameter frame: A CGRect instance.
 	*/
 	public override init(frame: CGRect) {
-		depth = .None
-		shape = .None
-		cornerRadius = .None
-		borderWidth = .None
 		super.init(frame: frame)
 		prepareView()
 	}
 	
-	/// A convenience initializer that is mostly used with AutoLayout.
+	/// A convenience initializer.
 	public convenience init() {
 		self.init(frame: CGRectNull)
 	}
@@ -409,12 +412,8 @@ public class TextField : UITextField {
 	if interrupted.
 	*/
 	public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
-		if let a: CAPropertyAnimation = anim as? CAPropertyAnimation {
-			if let b: CABasicAnimation = a as? CABasicAnimation {
-				layer.setValue(nil == b.toValue ? b.byValue : b.toValue, forKey: b.keyPath!)
-			}
+		if anim is CAPropertyAnimation {
 			(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStop?(anim, finished: flag)
-			layer.removeAnimationForKey(a.keyPath!)
 		} else if let a: CAAnimationGroup = anim as? CAAnimationGroup {
 			for x in a.animations! {
 				animationDidStop(x, finished: true)
@@ -525,7 +524,7 @@ public class TextField : UITextField {
 						v.text = s
 					}
 				}
-				let h: CGFloat = v.font.pointSize
+				let h: CGFloat = ceil(v.font.lineHeight)
 				v.frame = CGRectMake(0, -h, bounds.width, h)
 				v.hidden = false
 				UIView.animateWithDuration(0.25, animations: { [unowned self] in
@@ -552,7 +551,7 @@ public class TextField : UITextField {
 	private func showDetailLabel() {
 		if let v: UILabel = detailLabel {
 			if v.hidden {
-				let h: CGFloat = v.font.pointSize
+				let h: CGFloat = ceil(v.font.lineHeight)
 				v.frame = CGRectMake(0, bounds.height + bottomBorderLayerDistance, bounds.width, h)
 				v.hidden = false
 				UIView.animateWithDuration(0.25, animations: { [unowned self] in

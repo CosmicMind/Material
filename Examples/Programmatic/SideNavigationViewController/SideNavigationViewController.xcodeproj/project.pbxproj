@@ -8,11 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		9642FA1B1C1B50E700022BC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9642FA1A1C1B50E700022BC6 /* AppDelegate.swift */; };
-		9642FA1D1C1B50E700022BC6 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9642FA1C1C1B50E700022BC6 /* MainViewController.swift */; };
+		9642FA1D1C1B50E700022BC6 /* AppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9642FA1C1C1B50E700022BC6 /* AppViewController.swift */; };
 		9642FA221C1B50E700022BC6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9642FA211C1B50E700022BC6 /* Assets.xcassets */; };
 		9642FA251C1B50E700022BC6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9642FA231C1B50E700022BC6 /* LaunchScreen.storyboard */; };
 		9642FA331C1B909700022BC6 /* LeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9642FA321C1B909700022BC6 /* LeftViewController.swift */; };
 		967585381C569AA9001E4268 /* RightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967585371C569AA9001E4268 /* RightViewController.swift */; };
+		96A71F471C74AD0700C0C4AE /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71F461C74AD0700C0C4AE /* FeedViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,12 +32,13 @@
 /* Begin PBXFileReference section */
 		9642FA171C1B50E700022BC6 /* SideNavigationViewController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SideNavigationViewController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9642FA1A1C1B50E700022BC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9642FA1C1C1B50E700022BC6 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		9642FA1C1C1B50E700022BC6 /* AppViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewController.swift; sourceTree = "<group>"; };
 		9642FA211C1B50E700022BC6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9642FA241C1B50E700022BC6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9642FA261C1B50E700022BC6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9642FA321C1B909700022BC6 /* LeftViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftViewController.swift; sourceTree = "<group>"; };
 		967585371C569AA9001E4268 /* RightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightViewController.swift; sourceTree = "<group>"; };
+		96A71F461C74AD0700C0C4AE /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,9 +72,10 @@
 			isa = PBXGroup;
 			children = (
 				9642FA1A1C1B50E700022BC6 /* AppDelegate.swift */,
-				9642FA1C1C1B50E700022BC6 /* MainViewController.swift */,
+				9642FA1C1C1B50E700022BC6 /* AppViewController.swift */,
 				9642FA321C1B909700022BC6 /* LeftViewController.swift */,
 				967585371C569AA9001E4268 /* RightViewController.swift */,
+				96A71F461C74AD0700C0C4AE /* FeedViewController.swift */,
 				9642FA211C1B50E700022BC6 /* Assets.xcassets */,
 				9642FA231C1B50E700022BC6 /* LaunchScreen.storyboard */,
 				9642FA261C1B50E700022BC6 /* Info.plist */,
@@ -151,8 +154,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9642FA1D1C1B50E700022BC6 /* MainViewController.swift in Sources */,
+				9642FA1D1C1B50E700022BC6 /* AppViewController.swift in Sources */,
 				967585381C569AA9001E4268 /* RightViewController.swift in Sources */,
+				96A71F471C74AD0700C0C4AE /* FeedViewController.swift in Sources */,
 				9642FA331C1B909700022BC6 /* LeftViewController.swift in Sources */,
 				9642FA1B1C1B50E700022BC6 /* AppDelegate.swift in Sources */,
 			);

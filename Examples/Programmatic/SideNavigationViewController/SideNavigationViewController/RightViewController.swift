@@ -36,7 +36,7 @@ within a SideNavigationViewController.
 import UIKit
 import Material
 
-private struct Item {
+private struct Cell {
 	var text: String
 	var imageName: String
 	var selected: Bool
@@ -47,12 +47,12 @@ class RightViewController: UIViewController {
 	private let tableView: UITableView = UITableView()
 	
 	/// A list of all the navigation items.
-	private var items: Array<Item> = Array<Item>()
+	private var items: Array<Cell> = Array<Cell>()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		prepareItems()
+		prepareCells()
 		prepareTableView()
 	}
 	
@@ -67,18 +67,18 @@ class RightViewController: UIViewController {
 	
 	
 	/// Prepares the items that are displayed within the tableView.
-	private func prepareItems() {
-		items.append(Item(text: "Inbox", imageName: "ic_inbox", selected: false))
-		items.append(Item(text: "Today", imageName: "ic_today", selected: true))
-		items.append(Item(text: "Bookmarks", imageName: "ic_book", selected: false))
-		items.append(Item(text: "Work", imageName: "ic_work", selected: false))
-		items.append(Item(text: "Contacts", imageName: "ic_contacts", selected: false))
-		items.append(Item(text: "Settings", imageName: "ic_settings", selected: false))
+	private func prepareCells() {
+		items.append(Cell(text: "Inbox", imageName: "ic_inbox", selected: false))
+		items.append(Cell(text: "Today", imageName: "ic_today", selected: true))
+		items.append(Cell(text: "Bookmarks", imageName: "ic_book", selected: false))
+		items.append(Cell(text: "Work", imageName: "ic_work", selected: false))
+		items.append(Cell(text: "Contacts", imageName: "ic_contacts", selected: false))
+		items.append(Cell(text: "Settings", imageName: "ic_settings", selected: false))
 	}
 	
 	/// Prepares the tableView.
 	private func prepareTableView() {
-		tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+		tableView.registerClass(MaterialTableViewCell.self, forCellReuseIdentifier: "MaterialTableViewCell")
 		tableView.backgroundColor = MaterialColor.clear
 		tableView.dataSource = self
 		tableView.delegate = self
@@ -100,20 +100,16 @@ extension RightViewController: UITableViewDataSource {
 	
 	/// Prepares the cells within the tableView.
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
+		let cell: MaterialTableViewCell = tableView.dequeueReusableCellWithIdentifier("MaterialTableViewCell", forIndexPath: indexPath) as! MaterialTableViewCell
 		cell.backgroundColor = MaterialColor.clear
 		
-		let item: Item = items[indexPath.row]
-		cell.selectionStyle = .None
+		let item: Cell = items[indexPath.row]
 		cell.textLabel!.text = item.text
-		cell.textLabel!.textColor = MaterialColor.white
 		cell.textLabel!.font = RobotoFont.medium
 		cell.imageView!.image = UIImage(named: item.imageName)?.imageWithRenderingMode(.AlwaysTemplate)
-		cell.imageView!.tintColor = MaterialColor.cyan.lighten4
+		cell.imageView!.tintColor = MaterialColor.grey.lighten2
 		
-		if item.selected {
-			cell.textLabel!.textColor = MaterialColor.cyan.lighten3
-		}
+		cell.textLabel!.textColor = item.selected ? MaterialColor.cyan.lighten5 : MaterialColor.grey.lighten3
 		
 		return cell
 	}
@@ -128,6 +124,6 @@ extension RightViewController: UITableViewDelegate {
 	
 	/// Select item at row in tableView.
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		print("Item selected")
+		print("Cell selected")
 	}
 }

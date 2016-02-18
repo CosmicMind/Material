@@ -36,7 +36,7 @@ within a SideNavigationViewController.
 import UIKit
 import Material
 
-private struct Item {
+private struct Cell {
 	var text: String
 	var imageName: String
 	var selected: Bool
@@ -47,29 +47,41 @@ class LeftViewController: UIViewController {
 	private let tableView: UITableView = UITableView()
 	
 	/// A list of all the navigation items.
-	private var items: Array<Item> = Array<Item>()
+	private var items: Array<Cell> = Array<Cell>()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		prepareItems()
-		prepareProfileView()
+		prepareCells()
 		prepareTableView()
+	}
+	
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		
+		/*
+		The dimensions of the view will not be updated by the side navigation
+		until the view appears, so loading a dyanimc width is better done here. 
+		The user will not see this, as it is hidden, by the drawer being closed 
+		when launching the app. There are other strategies to mitigate from this.
+		This is one approach that works nicely here.
+		*/
+		prepareProfileView()
 	}
 	
 	/// General preparation statements.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.clear
+		view.backgroundColor = MaterialColor.blueGrey.darken4
 	}
 	
 	/// Prepares the items that are displayed within the tableView.
-	private func prepareItems() {
-		items.append(Item(text: "Inbox", imageName: "ic_inbox", selected: true))
-		items.append(Item(text: "Today", imageName: "ic_today", selected: false))
-		items.append(Item(text: "Bookmarks", imageName: "ic_book", selected: false))
-		items.append(Item(text: "Work", imageName: "ic_work", selected: false))
-		items.append(Item(text: "Contacts", imageName: "ic_contacts", selected: false))
-		items.append(Item(text: "Settings", imageName: "ic_settings", selected: false))
+	private func prepareCells() {
+		items.append(Cell(text: "Inbox", imageName: "ic_inbox", selected: true))
+		items.append(Cell(text: "Today", imageName: "ic_today", selected: false))
+		items.append(Cell(text: "Bookmarks", imageName: "ic_book", selected: false))
+		items.append(Cell(text: "Work", imageName: "ic_work", selected: false))
+		items.append(Cell(text: "Contacts", imageName: "ic_contacts", selected: false))
+		items.append(Cell(text: "Settings", imageName: "ic_settings", selected: false))
 	}
 	
 	/// Prepares profile view.
@@ -79,35 +91,32 @@ class LeftViewController: UIViewController {
 		
 		let profileView: MaterialView = MaterialView()
 		profileView.image = UIImage(named: "Profile9")?.resize(toWidth: 72)
+		profileView.backgroundColor = MaterialColor.clear
 		profileView.shape = .Circle
 		profileView.borderColor = MaterialColor.white
-		profileView.borderWidth = .Border3
+		profileView.borderWidth = 3
+		view.addSubview(profileView)
 		
 		let nameLabel: UILabel = UILabel()
 		nameLabel.text = "Michael Smith"
 		nameLabel.textColor = MaterialColor.white
 		nameLabel.font = RobotoFont.mediumWithSize(18)
+		view.addSubview(nameLabel)
 		
-		view.addSubview(backgroundView)
-		backgroundView.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignFromTop(view, child: backgroundView)
-		MaterialLayout.alignToParentHorizontally(view, child: backgroundView)
-		MaterialLayout.height(view, child: backgroundView, height: 170)
-		
-		backgroundView.addSubview(profileView)
 		profileView.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignFromTopLeft(backgroundView, child: profileView, top: 20, left: 20)
-		MaterialLayout.size(backgroundView, child: profileView, width: 72, height: 72)
 		
-		backgroundView.addSubview(nameLabel)
+		MaterialLayout.alignFromTopLeft(view, child: profileView, top: 30, left: (view.bounds.width - 72) / 2)
+		MaterialLayout.size(view, child: profileView, width: 72, height: 72)
+		
 		nameLabel.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignFromBottom(backgroundView, child: nameLabel, bottom: 20)
-		MaterialLayout.alignToParentHorizontally(backgroundView, child: nameLabel, left: 20, right: 20)
+		MaterialLayout.alignFromTop(view, child: nameLabel, top: 130)
+		MaterialLayout.alignToParentHorizontally(view, child: nameLabel, left: 20, right: 20)
 	}
 	
 	/// Prepares the tableView.
 	private func prepareTableView() {
-		tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+		tableView.registerClass(MaterialTableViewCell.self, forCellReuseIdentifier: "MaterialTableViewCell")
+		tableView.backgroundColor = MaterialColor.clear
 		tableView.dataSource = self
 		tableView.delegate = self
 		tableView.separatorStyle = .None
@@ -128,19 +137,16 @@ extension LeftViewController: UITableViewDataSource {
 	
 	/// Prepares the cells within the tableView.
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
+		let cell: MaterialTableViewCell = tableView.dequeueReusableCellWithIdentifier("MaterialTableViewCell", forIndexPath: indexPath) as! MaterialTableViewCell
 		cell.backgroundColor = MaterialColor.clear
 		
-		let item: Item = items[indexPath.row]
-		cell.selectionStyle = .None
+		let item: Cell = items[indexPath.row]
 		cell.textLabel!.text = item.text
 		cell.textLabel!.font = RobotoFont.medium
 		cell.imageView!.image = UIImage(named: item.imageName)?.imageWithRenderingMode(.AlwaysTemplate)
-		cell.imageView!.tintColor = MaterialColor.cyan.darken4
+		cell.imageView!.tintColor = MaterialColor.grey.lighten2
 		
-		if item.selected {
-			cell.textLabel!.textColor = MaterialColor.cyan.base
-		}
+		cell.textLabel!.textColor = item.selected ? MaterialColor.cyan.lighten5 : MaterialColor.grey.lighten3
 		
 		return cell
 	}
@@ -155,6 +161,6 @@ extension LeftViewController: UITableViewDelegate {
 	
 	/// Select item at row in tableView.
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		print("Item selected")
+		print("Cell selected")
 	}
 }

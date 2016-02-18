@@ -277,7 +277,7 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 		captureButton.height = 72
 		captureButton.pulseColor = MaterialColor.white
 		captureButton.backgroundColor = MaterialColor.red.darken1.colorWithAlphaComponent(0.3)
-		captureButton.borderWidth = .Border2
+		captureButton.borderWidth =  2
 		captureButton.borderColor = MaterialColor.white
 		captureButton.depth = .None
 		

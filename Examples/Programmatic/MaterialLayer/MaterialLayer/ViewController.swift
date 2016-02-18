@@ -63,7 +63,6 @@ class ViewController: UIViewController {
 		let point: CGFloat = UIScreen.mainScreen().bounds.width / 2 - diameter / 2
 		let materialLayer: MaterialLayer = MaterialLayer(frame: CGRectMake(point, point, diameter, diameter))
 		materialLayer.shape = .Circle
-		materialLayer.depth = .Depth2
 		
 		UIImage.contentsOfURL(NSURL(string: "http://www.cosmicmind.io/CM/iTunesArtwork.png")!) { (image: UIImage?, error: NSError?) in
 			if let v: UIImage = image {

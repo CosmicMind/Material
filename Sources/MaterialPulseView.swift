@@ -84,8 +84,8 @@ public class MaterialPulseView : MaterialView {
 		}
 		
 		if let v: CFTimeInterval = pulseAnimation(point!) {
-			MaterialAnimation.delay(v) { [unowned self] in
-				self.shrinkAnimation()
+			MaterialAnimation.delay(v) { [weak self] in
+				self?.shrinkAnimation()
 			}
 		}
 	}
@@ -137,12 +137,12 @@ public class MaterialPulseView : MaterialView {
 					pulseLayer.hidden = false
 				}
 				pulseLayer.addAnimation(MaterialAnimation.scale(3 * d, duration: t), forKey: nil)
-				MaterialAnimation.delay(t) { [unowned self] in
-					if nil != self.pulseColor && 0 < self.pulseColorOpacity {
+				MaterialAnimation.delay(t) { [weak self] in
+					if nil != self && nil != self!.pulseColor && 0 < self!.pulseColorOpacity {
 						MaterialAnimation.animateWithDuration(t, animations: {
 							pulseLayer.hidden = true
 						}) {
-								pulseLayer.removeFromSuperlayer()
+							pulseLayer.removeFromSuperlayer()
 						}
 					}
 				}

@@ -44,7 +44,7 @@ public enum MaterialBorder {
 }
 
 /**
-	:name:	MaterialBorderToValue
+:name:	MaterialBorderToValue
 */
 public func MaterialBorderToValue(border: MaterialBorder) -> CGFloat {
 	switch border {

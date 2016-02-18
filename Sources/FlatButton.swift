@@ -31,18 +31,18 @@
 import UIKit
 
 public class FlatButton : MaterialButton {
-	/**
-	Prepares the view instance when intialized. When subclassing,
-	it is recommended to override the prepareView method
-	to initialize property values and other setup operations.
-	The super.prepareView method should always be called immediately
-	when subclassing.
-	*/
-	public override func prepareView() {
-		super.prepareView()
-		setTitleColor(MaterialColor.blue.accent3, forState: .Normal)
-		pulseColor = MaterialColor.blue.accent3
-        cornerRadius = MaterialRadiusToValue(.Radius1)
-		contentInsetPreset = .WideRectangle3
-	}
+    /**
+     Prepares the view instance when intialized. When subclassing,
+     it is recommended to override the prepareView method
+     to initialize property values and other setup operations.
+     The super.prepareView method should always be called immediately
+     when subclassing.
+     */
+    public override func prepareView() {
+        super.prepareView()
+        setTitleColor(MaterialColor.blue.accent3, forState: .Normal)
+        pulseColor = MaterialColor.blue.accent3
+        cornerRadiusPreset = .Radius1
+        contentEdgeInsetsPreset = .WideRectangle3
+    }
 }

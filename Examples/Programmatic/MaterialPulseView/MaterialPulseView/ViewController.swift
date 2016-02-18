@@ -56,9 +56,8 @@ class ViewController: UIViewController {
 		let pulseView: MaterialPulseView = MaterialPulseView(frame: CGRectMake(point, point, 150, 150))
 		pulseView.image = UIImage(named: "Graph")
 		pulseView.shape = .Square
-		pulseView.depth = .Depth2
-		pulseView.cornerRadius = .Radius3
-		print(pulseView)
+		pulseView.depth = .Depth1
+		pulseView.cornerRadiusPreset = .Radius3
 		
 		// Add pulseView to UIViewController.
 		view.addSubview(pulseView)

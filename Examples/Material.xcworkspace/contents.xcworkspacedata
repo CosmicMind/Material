@@ -16,6 +16,13 @@
       </Group>
       <Group
          location = "container:"
+         name = "Grid">
+         <FileRef
+            location = "group:Programmatic/Grid/Grid.xcodeproj">
+         </FileRef>
+      </Group>
+      <Group
+         location = "container:"
          name = "MaterialLayer">
          <FileRef
             location = "group:Programmatic/MaterialLayer/MaterialLayer.xcodeproj">
@@ -62,12 +69,29 @@
          <FileRef
             location = "group:Programmatic/Menu/Menu.xcodeproj">
          </FileRef>
+         <FileRef
+            location = "group:Programmatic/MenuView/MenuView.xcodeproj">
+         </FileRef>
+      </Group>
+      <Group
+         location = "container:"
+         name = "MaterialSwitch">
+         <FileRef
+            location = "group:Programmatic/MaterialSwitch/MaterialSwitch.xcodeproj">
+         </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "NavigationBarView">
          <FileRef
             location = "group:Programmatic/NavigationBarView/NavigationBarView.xcodeproj">
+         </FileRef>
+      </Group>
+      <Group
+         location = "container:"
+         name = "SearchBarView">
+         <FileRef
+            location = "group:Programmatic/SearchBarView/SearchBarView.xcodeproj">
          </FileRef>
       </Group>
       <Group
@@ -82,6 +106,9 @@
          name = "CardView">
          <FileRef
             location = "group:Programmatic/CardView/CardView.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Programmatic/TableCardView/TableCardView.xcodeproj">
          </FileRef>
       </Group>
       <Group

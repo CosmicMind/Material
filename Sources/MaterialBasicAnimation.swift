@@ -41,7 +41,7 @@ public extension MaterialAnimation {
 		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
 		animation.removedOnCompletion = false
 		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-		if let d = duration {
+		if let d: CFTimeInterval = duration {
 			animation.duration = d
 		}
 		return animation
@@ -57,7 +57,7 @@ public extension MaterialAnimation {
 		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
 		animation.removedOnCompletion = false
 		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-		if let d = duration {
+		if let d: CFTimeInterval = duration {
 			animation.duration = d
 		}
 		return animation
@@ -73,7 +73,7 @@ public extension MaterialAnimation {
 		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
 		animation.removedOnCompletion = false
 		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-		if let d = duration {
+		if let d: CFTimeInterval = duration {
 			animation.duration = d
 		}
 		return animation
@@ -89,7 +89,7 @@ public extension MaterialAnimation {
 		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
 		animation.removedOnCompletion = false
 		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-		if let d = duration {
+		if let d: CFTimeInterval = duration {
 			animation.duration = d
 		}
 		return animation
@@ -105,7 +105,7 @@ public extension MaterialAnimation {
 		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
 		animation.removedOnCompletion = false
 		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-		if let d = duration {
+		if let d: CFTimeInterval = duration {
 			animation.duration = d
 		}
 		return animation
@@ -121,7 +121,7 @@ public extension MaterialAnimation {
 		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
 		animation.removedOnCompletion = false
 		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-		if let d = duration {
+		if let d: CFTimeInterval = duration {
 			animation.duration = d
 		}
 		return animation
@@ -137,7 +137,7 @@ public extension MaterialAnimation {
 		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
 		animation.removedOnCompletion = false
 		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-		if let d = duration {
+		if let d: CFTimeInterval = duration {
 			animation.duration = d
 		}
 		return animation
@@ -153,7 +153,7 @@ public extension MaterialAnimation {
 		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
 		animation.removedOnCompletion = false
 		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-		if let d = duration {
+		if let d: CFTimeInterval = duration {
 			animation.duration = d
 		}
 		return animation
@@ -169,7 +169,7 @@ public extension MaterialAnimation {
 		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
 		animation.removedOnCompletion = false
 		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-		if let d = duration {
+		if let d: CFTimeInterval = duration {
 			animation.duration = d
 		}
 		return animation
@@ -185,7 +185,7 @@ public extension MaterialAnimation {
 		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
 		animation.removedOnCompletion = false
 		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-		if let d = duration {
+		if let d: CFTimeInterval = duration {
 			animation.duration = d
 		}
 		return animation
@@ -201,7 +201,7 @@ public extension MaterialAnimation {
 		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
 		animation.removedOnCompletion = false
 		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-		if let d = duration {
+		if let d: CFTimeInterval = duration {
 			animation.duration = d
 		}
 		return animation
@@ -217,7 +217,7 @@ public extension MaterialAnimation {
 		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
 		animation.removedOnCompletion = false
 		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-		if let d = duration {
+		if let d: CFTimeInterval = duration {
 			animation.duration = d
 		}
 		return animation
@@ -233,7 +233,7 @@ public extension MaterialAnimation {
 		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
 		animation.removedOnCompletion = false
 		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-		if let d = duration {
+		if let d: CFTimeInterval = duration {
 			animation.duration = d
 		}
 		return animation
@@ -249,7 +249,7 @@ public extension MaterialAnimation {
 		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
 		animation.removedOnCompletion = false
 		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-		if let d = duration {
+		if let d: CFTimeInterval = duration {
 			animation.duration = d
 		}
 		return animation
@@ -265,7 +265,7 @@ public extension MaterialAnimation {
 		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
 		animation.removedOnCompletion = false
 		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-		if let d = duration {
+		if let d: CFTimeInterval = duration {
 			animation.duration = d
 		}
 		return animation
@@ -281,7 +281,7 @@ public extension MaterialAnimation {
 		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
 		animation.removedOnCompletion = false
 		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-		if let d = duration {
+		if let d: CFTimeInterval = duration {
 			animation.duration = d
 		}
 		return animation

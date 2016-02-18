@@ -39,8 +39,8 @@ class ViewController: UIViewController {
 		// Examples of using ImageCardView.
 		// Uncomment different examples and read
 		// the comments below.
-//		prepareGeneralImageCardViewExample()
-		prepareImageCardViewWithoutDetailLabelAndDividerExample()
+		prepareGeneralImageCardViewExample()
+//		prepareImageCardViewWithoutDetailLabelAndDividerExample()
 	}
 	
 	/**
@@ -74,7 +74,7 @@ class ViewController: UIViewController {
 		let detailLabel: UILabel = UILabel()
 		detailLabel.text = "It’s been a while, have you read any new books lately?"
 		detailLabel.numberOfLines = 0
-		imageCardView.detailLabel = detailLabel
+		imageCardView.detailView = detailLabel
 		
 		// Yes button.
 		let btn1: FlatButton = FlatButton()
@@ -117,7 +117,8 @@ class ViewController: UIViewController {
 		titleLabel.textColor = MaterialColor.white
 		titleLabel.font = RobotoFont.regularWithSize(24)
 		imageCardView.titleLabel = titleLabel
-
+		imageCardView.titleLabelInset.top = 80
+		
 		// Star button.
 		let img1: UIImage? = UIImage(named: "ic_star_grey_darken_2")
 		let btn1: FlatButton = FlatButton()

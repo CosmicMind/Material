@@ -30,318 +30,290 @@
 
 import UIKit
 
+@objc(NavigationBarViewDelegate)
+public protocol NavigationBarViewDelegate : MaterialDelegate {
+	optional func navigationBarViewDidChangeLayout(navigationBarView: NavigationBarView)
+}
+
 public class NavigationBarView : MaterialView {
-	/**
-	:name:	statusBarStyle
-	*/
+	/// Tracks the old frame size.
+	private var oldFrame: CGRect?
+	
+	/// TitleView that holds the titleLabel and detailLabel.
+	public private(set) lazy var titleView: MaterialView = MaterialView()
+	
+	/// Device status bar style.
 	public var statusBarStyle: UIStatusBarStyle = UIApplication.sharedApplication().statusBarStyle {
 		didSet {
 			UIApplication.sharedApplication().statusBarStyle = statusBarStyle
 		}
 	}
 	
-	/**
-	:name:	contentInsets
-	*/
-	public var contentInsetPreset: MaterialEdgeInsetPreset = .None {
+	/// A preset wrapper around contentInset.
+	public var contentInsetPreset: MaterialEdgeInset = .None {
 		didSet {
-			contentInset = MaterialEdgeInsetPresetToValue(contentInsetPreset)
+			contentInset = MaterialEdgeInsetToValue(contentInsetPreset)
 		}
 	}
 	
-	/**
-	:name:	contentInset
-	*/
-	public var contentInset: UIEdgeInsets = MaterialEdgeInsetPresetToValue(.Square2) {
-		didSet {
+	/// A wrapper around grid.contentInset.
+	public var contentInset: UIEdgeInsets {
+		get {
+			return grid.contentInset
+		}
+		set(value) {
+			grid.contentInset = contentInset
 			reloadView()
 		}
 	}
 	
-	/**
-	:name:	titleLabelInsets
-	*/
-	public var titleLabelInsetPreset: MaterialEdgeInsetPreset = .None {
-		didSet {
-			titleLabelInset = MaterialEdgeInsetPresetToValue(titleLabelInsetPreset)
+	/// A wrapper around grid.spacing.
+	public var spacing: CGFloat {
+		get {
+			return grid.spacing
 		}
-	}
-	
-	/**
-	:name:	titleLabelInset
-	*/
-	public var titleLabelInset: UIEdgeInsets = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0) {
-		didSet {
+		set(value) {
+			grid.spacing = spacing
 			reloadView()
 		}
 	}
 	
-	/**
-	:name:	titleLabel
-	*/
+	/// Title label.
 	public var titleLabel: UILabel? {
 		didSet {
-			titleLabel?.translatesAutoresizingMaskIntoConstraints = false
+			if let v: UILabel = titleLabel {
+				titleView.addSubview(v)
+			}
 			reloadView()
 		}
 	}
 	
-	/**
-	:name:	detailLabelInsets
-	*/
-	public var detailLabelInsetPreset: MaterialEdgeInsetPreset = .None {
-		didSet {
-			detailLabelInset = MaterialEdgeInsetPresetToValue(detailLabelInsetPreset)
-		}
-	}
-	
-	/**
-	:name:	detailLabelInset
-	*/
-	public var detailLabelInset: UIEdgeInsets = MaterialEdgeInsetPresetToValue(.None) {
-		didSet {
-			reloadView()
-		}
-	}
-	
-	/**
-	:name:	detailLabel
-	*/
+	/// Detail label.
 	public var detailLabel: UILabel? {
 		didSet {
-			detailLabel?.translatesAutoresizingMaskIntoConstraints = false
-			reloadView()
-		}
-	}
-	
-	/**
-	:name:	leftButtonsInsets
-	*/
-	public var leftButtonsInsetPreset: MaterialEdgeInsetPreset = .None {
-		didSet {
-			leftButtonsInset = MaterialEdgeInsetPresetToValue(leftButtonsInsetPreset)
-		}
-	}
-	
-	/**
-	:name:	leftButtonsInset
-	*/
-	public var leftButtonsInset: UIEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0) {
-		didSet {
-			reloadView()
-		}
-	}
-	
-	/**
-	:name:	leftButtons
-	*/
-	public var leftButtons: Array<UIButton>? {
-		didSet {
-			if let v = leftButtons {
-				for b in v {
-					b.translatesAutoresizingMaskIntoConstraints = false
-				}
+			if let v: UILabel = detailLabel {
+				titleView.addSubview(v)
 			}
 			reloadView()
 		}
 	}
 	
-	/**
-	:name:	rightButtonsInsets
-	*/
-	public var rightButtonsInsetPreset: MaterialEdgeInsetPreset = .None {
+	/// Left side UIControls.
+	public var leftControls: Array<UIControl>? {
 		didSet {
-			rightButtonsInset = MaterialEdgeInsetPresetToValue(rightButtonsInsetPreset)
+			reloadView()
 		}
 	}
 	
-	/**
-	:name:	rightButtonsInset
-	*/
-	public var rightButtonsInset: UIEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0) {
+	/// Right side UIControls.
+	public var rightControls: Array<UIControl>? {
 		didSet {
 			reloadView()
 		}
 	}
 	
 	/**
-	:name:	rightButtons
-	*/
-	public var rightButtons: Array<UIButton>? {
-		didSet {
-			if let v = rightButtons {
-				for b in v {
-					b.translatesAutoresizingMaskIntoConstraints = false
-				}
-			}
-			reloadView()
-		}
-	}
-	
-	/**
-	:name:	init
+	An initializer that initializes the object with a NSCoder object.
+	- Parameter aDecoder: A NSCoder instance.
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
 	
 	/**
-	:name:	init
+	An initializer that initializes the object with a CGRect object.
+	If AutoLayout is used, it is better to initilize the instance
+	using the init() initializer.
+	- Parameter frame: A CGRect instance.
 	*/
 	public override init(frame: CGRect) {
 		super.init(frame: frame)
 	}
 	
-	/**
-	:name:	init
-	*/
+	/// A convenience initializer.
 	public convenience init() {
-		self.init(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 70))
+		self.init(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 64))
 	}
 	
 	/**
-	:name:	init
+	A convenience initializer with parameter settings.
+	- Parameter titleLabel: UILabel for the title.
+	- Parameter detailLabel: UILabel for the details.
+	- Parameter leftControls: An Array of UIControls that go on the left side.
+	- Parameter rightControls: An Array of UIControls that go on the right side.
 	*/
-	public convenience init?(titleLabel: UILabel? = nil, detailLabel: UILabel? = nil, leftButtons: Array<UIButton>? = nil, rightButtons: Array<UIButton>? = nil) {
-		self.init(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 70))
-		prepareProperties(titleLabel, detailLabel: detailLabel, leftButtons: leftButtons, rightButtons: rightButtons)
+	public convenience init?(titleLabel: UILabel? = nil, detailLabel: UILabel? = nil, leftControls: Array<UIControl>? = nil, rightControls: Array<UIControl>? = nil) {
+		self.init(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 64))
+		prepareProperties(titleLabel, detailLabel: detailLabel, leftControls: leftControls, rightControls: rightControls)
 	}
 	
-	/**
-	:name:	reloadView
-	*/
+	public override func layoutSubviews() {
+		super.layoutSubviews()
+		
+		// General alignment.
+		if UIApplication.sharedApplication().statusBarOrientation.isLandscape {
+			grid.contentInset.top = 8
+			
+			// TitleView alignment.
+			if let v: UILabel = titleLabel {
+				if let d: UILabel = detailLabel {
+					v.grid.rows = 7
+					d.grid.rows = 5
+					titleView.grid.spacing = 4
+					titleView.grid.contentInset.top = -3
+				} else {
+					v.grid.rows = 12
+					titleView.grid.spacing = 0
+					titleView.grid.contentInset.top = 0
+				}
+			}
+			height = 44
+		} else {
+			grid.contentInset.top = 28
+			
+			// TitleView alignment.
+			if let v: UILabel = titleLabel {
+				if let d: UILabel = detailLabel {
+					v.grid.rows = 7
+					d.grid.rows = 5
+					titleView.grid.spacing = 4
+					titleView.grid.contentInset.top = -3
+				} else {
+					v.grid.rows = 12
+					titleView.grid.spacing = 0
+					titleView.grid.contentInset.top = 0
+				}
+			}
+			height = 64
+		}
+		
+		// Column adjustment.
+		width = UIScreen.mainScreen().bounds.width
+		grid.axis.columns = Int(width / 48)
+		if frame.origin.x != oldFrame!.origin.x || frame.origin.y != oldFrame!.origin.y || frame.width != oldFrame!.width || frame.height != oldFrame!.height {
+			(delegate as? NavigationBarViewDelegate)?.navigationBarViewDidChangeLayout?(self)
+			oldFrame = frame
+		}
+		reloadView()
+	}
+	
+	public override func didMoveToSuperview() {
+		super.didMoveToSuperview()
+		reloadView()
+	}
+	
+	public override func intrinsicContentSize() -> CGSize {
+		if UIApplication.sharedApplication().statusBarOrientation.isLandscape {
+			return CGSizeMake(UIScreen.mainScreen().bounds.width, 44)
+		} else {
+			return CGSizeMake(UIScreen.mainScreen().bounds.width, 64)
+		}
+	}
+	
+	/// Reloads the view.
 	public func reloadView() {
+		layoutIfNeeded()
+		
 		// clear constraints so new ones do not conflict
 		removeConstraints(constraints)
 		for v in subviews {
-			v.removeFromSuperview()
-		}
-		
-		var verticalFormat: String = "V:|"
-		var views: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
-		var metrics: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
-		
-		if nil != titleLabel {
-			verticalFormat += "-(insetTop)"
-			metrics["insetTop"] = contentInset.top + titleLabelInset.top
-		} else if nil != detailLabel {
-			verticalFormat += "-(insetTop)"
-			metrics["insetTop"] = contentInset.top + detailLabelInset.top
-		}
-		
-		// title
-		if let v = titleLabel {
-			verticalFormat += "-[titleLabel]"
-			views["titleLabel"] = v
-			
-			addSubview(v)
-			MaterialLayout.alignToParentHorizontally(self, child: v, left: contentInset.left + titleLabelInset.left, right: contentInset.right + titleLabelInset.right)
-		}
-		
-		// detail
-		if let v = detailLabel {
-			if nil != titleLabel {
-				verticalFormat += "-(insetB)"
-				metrics["insetB"] = titleLabelInset.bottom + detailLabelInset.top
+			if v != titleView {
+				v.removeFromSuperview()
 			}
-			
-			verticalFormat += "-[detailLabel]"
-			views["detailLabel"] = v
-			
-			addSubview(v)
-			MaterialLayout.alignToParentHorizontally(self, child: v, left: contentInset.left + detailLabelInset.left, right: contentInset.right + detailLabelInset.right)
 		}
 		
-		// leftButtons
-		if let v = leftButtons {
-			if 0 < v.count {
-				var h: String = "H:|"
-				var d: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
-				var i: Int = 0
-				for b in v {
-					let k: String = "b\(i)"
-					
-					d[k] = b
-					
-					if 0 == i++ {
-						h += "-(left)-"
-					} else {
-						h += "-(left_right)-"
-					}
-					
-					h += "[\(k)]"
-					
-					addSubview(b)
-					MaterialLayout.alignFromBottom(self, child: b, bottom: contentInset.bottom + leftButtonsInset.bottom)
+		// Size of single grid column.
+		let g: CGFloat = width / CGFloat(0 < grid.axis.columns ? grid.axis.columns : 1)
+		
+		grid.views = []
+		titleView.grid.columns = grid.axis.columns
+		
+		// leftControls
+		if let v: Array<UIControl> = leftControls {
+			for c in v {
+				let w: CGFloat = c.intrinsicContentSize().width
+				if let b: UIButton = c as? UIButton {
+					b.contentEdgeInsets = UIEdgeInsetsZero
 				}
 				
-				addConstraints(MaterialLayout.constraint(h, options: [], metrics: ["left" : contentInset.left + leftButtonsInset.left, "left_right" : leftButtonsInset.left + leftButtonsInset.right], views: d))
+				c.grid.columns = 0 == g ? 1 : Int(ceil(w / g))
+				titleView.grid.columns -= c.grid.columns
+				
+				addSubview(c)
+				grid.views?.append(c)
 			}
 		}
 		
-		// rightButtons
-		if let v = rightButtons {
-			if 0 < v.count {
-				var h: String = "H:"
-				var d: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
-				var i: Int = v.count - 1
-				
-				for b in v {
-					let k: String = "b\(i)"
-					
-					d[k] = b
-					
-					h += "[\(k)]"
-					
-					if 0 == i-- {
-						h += "-(right)-"
-					} else {
-						h += "-(right_left)-"
-					}
-					
-					addSubview(b)
-					MaterialLayout.alignFromBottom(self, child: b, bottom: contentInset.bottom + rightButtonsInset.bottom)
+		grid.views?.append(titleView)
+		
+		// rightControls
+		if let v: Array<UIControl> = rightControls {
+			for c in v {
+				let w: CGFloat = c.intrinsicContentSize().width
+				if let b: UIButton = c as? UIButton {
+					b.contentEdgeInsets = UIEdgeInsetsZero
 				}
 				
-				addConstraints(MaterialLayout.constraint(h + "|", options: [], metrics: ["right" : contentInset.right + rightButtonsInset.right, "right_left" : rightButtonsInset.right + rightButtonsInset.left], views: d))
+				c.grid.columns = 0 == g ? 1 : Int(ceil(w / g))
+				titleView.grid.columns -= c.grid.columns
+				
+				addSubview(c)
+				grid.views?.append(c)
 			}
 		}
 		
-		if nil != detailLabel {
-			if nil == metrics["insetC"] {
-				metrics["insetBottom"] = contentInset.bottom + detailLabelInset.bottom
-			} else {
-				metrics["insetC"] = (metrics["insetC"] as! CGFloat) + detailLabelInset.bottom
-			}
-		} else if nil != titleLabel {
-			if nil == metrics["insetC"] {
-				metrics["insetBottom"] = contentInset.bottom + titleLabelInset.bottom
-			} else {
-				metrics["insetC"] = (metrics["insetC"] as! CGFloat) + titleLabelInset.bottom
-			}
-		}
+		titleView.grid.columns -= titleView.grid.offset.columns
 		
-		if 0 < views.count {
-			verticalFormat += "-(insetBottom)-|"
-			addConstraints(MaterialLayout.constraint(verticalFormat, options: [], metrics: metrics, views: views))
+		grid.reloadLayout()
+		
+		titleView.grid.views = []
+		titleView.grid.axis.rows = 6
+		if let v: UILabel = titleLabel {
+			titleView.grid.views?.append(v)
 		}
+		if let v: UILabel = detailLabel {
+			titleView.grid.views?.append(v)
+		}
+		titleView.grid.reloadLayout()
 	}
 	
 	/**
-	:name:	prepareView
+	Prepares the view instance when intialized. When subclassing,
+	it is recommended to override the prepareView method
+	to initialize property values and other setup operations.
+	The super.prepareView method should always be called immediately
+	when subclassing.
 	*/
 	public override func prepareView() {
 		super.prepareView()
+		oldFrame = frame
+		grid.spacing = 8
+		grid.axis.inherited = false
+		grid.contentInset.left = 8
+		grid.contentInset.bottom = 8
+		grid.contentInset.right = 8
 		depth = .Depth1
+		prepareTitleView()
+	}
+	
+	/// Prepares the titleView.
+	public func prepareTitleView() {
+		titleView.backgroundColor = nil
+		titleView.grid.axis.direction = .Vertical
+		addSubview(titleView)
 	}
 	
 	/**
-	:name:	prepareProperties
+	Used to trigger property changes  that initializers avoid.
+	- Parameter titleLabel: UILabel for the title.
+	- Parameter detailLabel: UILabel for the details.
+	- Parameter leftControls: An Array of UIControls that go on the left side.
+	- Parameter rightControls: An Array of UIControls that go on the right side.
 	*/
-	internal func prepareProperties(titleLabel: UILabel?, detailLabel: UILabel?, leftButtons: Array<UIButton>?, rightButtons: Array<UIButton>?) {
+	internal func prepareProperties(titleLabel: UILabel?, detailLabel: UILabel?, leftControls: Array<UIControl>?, rightControls: Array<UIControl>?) {
 		self.titleLabel = titleLabel
 		self.detailLabel = detailLabel
-		self.leftButtons = leftButtons
-		self.rightButtons = rightButtons
+		self.leftControls = leftControls
+		self.rightControls = rightControls
 	}
 }

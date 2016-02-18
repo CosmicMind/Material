@@ -159,12 +159,28 @@ public class MaterialLayer : CAShapeLayer {
 	for the backing layer. This is the preferred method of setting depth
 	in order to maintain consitency across UI objects.
 	*/
-	public var depth: MaterialDepth {
+	public var depth: MaterialDepth = .None {
 		didSet {
 			let value: MaterialDepthType = MaterialDepthToValue(depth)
 			shadowOffset = value.offset
 			shadowOpacity = value.opacity
 			shadowRadius = value.radius
+		}
+	}
+	
+	/**
+	A property that sets the cornerRadius of the backing layer. If the shape
+	property has a value of .Circle when the cornerRadius is set, it will
+	become .None, as it no longer maintains its circle shape.
+	*/
+	public var cornerRadiusPreset: MaterialRadius = .None {
+		didSet {
+			if let v: MaterialRadius = cornerRadiusPreset {
+				cornerRadius = MaterialRadiusToValue(v)
+				if .Circle == shape {
+					shape = .None
+				}
+			}
 		}
 	}
 	
@@ -186,7 +202,7 @@ public class MaterialLayer : CAShapeLayer {
 	width or height property is set, the other will be automatically adjusted
 	to maintain the shape of the object.
 	*/
-	public var shape: MaterialShape {
+	public var shape: MaterialShape = .None {
 		didSet {
 			if .None != shape {
 				if width < height {
@@ -198,13 +214,18 @@ public class MaterialLayer : CAShapeLayer {
 		}
 	}
 	
+	/// A preset property to set the borderWidth.
+	public var borderWidthPreset: MaterialBorder = .None {
+		didSet {
+			borderWidth = MaterialBorderToValue(borderWidthPreset)
+		}
+	}
+	
 	/**
 	An initializer that initializes the object with a NSCoder object.
 	- Parameter aDecoder: A NSCoder instance.
 	*/
 	public required init?(coder aDecoder: NSCoder) {
-		shape = .None
-		depth = .None
 		super.init(coder: aDecoder)
 		prepareVisualLayer()
 	}
@@ -215,16 +236,12 @@ public class MaterialLayer : CAShapeLayer {
 	- Parameter layer: AnyObject.
 	*/
 	public override init(layer: AnyObject) {
-		shape = .None
-		depth = .None
 		super.init()
 		prepareVisualLayer()
 	}
 	
 	/// A convenience initializer.
 	public override init() {
-		shape = .None
-		depth = .None
 		super.init()
 		prepareVisualLayer()
 	}
@@ -251,7 +268,7 @@ public class MaterialLayer : CAShapeLayer {
 	public func animate(animation: CAAnimation) {
 		animation.delegate = self
 		if let a: CABasicAnimation = animation as? CABasicAnimation {
-			a.fromValue = valueForKeyPath(a.keyPath!)
+			a.fromValue = (nil == presentationLayer() ? self : presentationLayer() as! CALayer).valueForKeyPath(a.keyPath!)
 		}
 		if let a: CAPropertyAnimation = animation as? CAPropertyAnimation {
 			addAnimation(a, forKey: a.keyPath!)
@@ -280,14 +297,8 @@ public class MaterialLayer : CAShapeLayer {
 	if interrupted.
 	*/
 	public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
-		if let a: CAPropertyAnimation = anim as? CAPropertyAnimation {
-			if let b: CABasicAnimation = a as? CABasicAnimation {
-				MaterialAnimation.animationDisabled { [unowned self] in
-					self.setValue(nil == b.toValue ? b.byValue : b.toValue, forKey: b.keyPath!)
-				}
-			}
+		if anim is CAPropertyAnimation {
 			(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStop?(anim, finished: flag)
-			removeAnimationForKey(a.keyPath!)
 		} else if let a: CAAnimationGroup = anim as? CAAnimationGroup {
 			for x in a.animations! {
 				animationDidStop(x, finished: true)

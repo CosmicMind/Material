@@ -217,7 +217,7 @@ public class MaterialView : UIView {
 	for the backing layer. This is the preferred method of setting depth 
 	in order to maintain consitency across UI objects.
 	*/
-	public var depth: MaterialDepth {
+	public var depth: MaterialDepth = .None {
 		didSet {
 			let value: MaterialDepthType = MaterialDepthToValue(depth)
 			shadowOffset = value.offset
@@ -231,14 +231,21 @@ public class MaterialView : UIView {
 	property has a value of .Circle when the cornerRadius is set, it will 
 	become .None, as it no longer maintains its circle shape.
 	*/
-	public var cornerRadius: MaterialRadius {
+	public var cornerRadiusPreset: MaterialRadius = .None {
 		didSet {
-			if let v: MaterialRadius = cornerRadius {
-				layer.cornerRadius = MaterialRadiusToValue(v)
+			if let v: MaterialRadius = cornerRadiusPreset {
+				cornerRadius = MaterialRadiusToValue(v)
 				if .Circle == shape {
 					shape = .None
 				}
 			}
+		}
+	}
+	
+	/// A property that accesses the layer.cornerRadius.
+	public var cornerRadius: CGFloat = 0 {
+		didSet {
+			layer.cornerRadius = cornerRadius
 		}
 	}
 	
@@ -247,7 +254,7 @@ public class MaterialView : UIView {
 	width or height property is set, the other will be automatically adjusted 
 	to maintain the shape of the object.
 	*/
-	public var shape: MaterialShape {
+	public var shape: MaterialShape = .None {
 		didSet {
 			if .None != shape {
 				if width < height {
@@ -259,13 +266,17 @@ public class MaterialView : UIView {
 		}
 	}
 	
-	/**
-	A property that accesses the layer.borderWith using a MaterialBorder
-	enum preset.
-	*/
-	public var borderWidth: MaterialBorder {
+	/// A preset property to set the borderWidth.
+	public var borderWidthPreset: MaterialBorder = .None {
 		didSet {
-			layer.borderWidth = MaterialBorderToValue(borderWidth)
+			borderWidth = MaterialBorderToValue(borderWidthPreset)
+		}
+	}
+	
+	/// A property that accesses the layer.borderWith.
+	public var borderWidth: CGFloat = 0 {
+		didSet {
+			layer.borderWidth = borderWidth
 		}
 	}
 	
@@ -305,10 +316,6 @@ public class MaterialView : UIView {
 		contentsCenter = CGRectMake(0, 0, 1, 1)
 		contentsScale = UIScreen.mainScreen().scale
 		contentsGravity = .ResizeAspectFill
-		borderWidth = .None
-		depth = .None
-		shape = .None
-		cornerRadius = .None
 		super.init(coder: aDecoder)
 		prepareView()
 	}
@@ -324,15 +331,11 @@ public class MaterialView : UIView {
 		contentsCenter = CGRectMake(0, 0, 1, 1)
 		contentsScale = UIScreen.mainScreen().scale
 		contentsGravity = .ResizeAspectFill
-		borderWidth = .None
-		depth = .None
-		shape = .None
-		cornerRadius = .None
 		super.init(frame: frame)
 		prepareView()
 	}
 	
-	/// A convenience initializer that is mostly used with AutoLayout.
+	/// A convenience initializer.
 	public convenience init() {
 		self.init(frame: CGRectNull)
 	}
@@ -383,12 +386,8 @@ public class MaterialView : UIView {
 	if interrupted.
 	*/
 	public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
-		if let a: CAPropertyAnimation = anim as? CAPropertyAnimation {
-			if let b: CABasicAnimation = a as? CABasicAnimation {
-				layer.setValue(nil == b.toValue ? b.byValue : b.toValue, forKey: b.keyPath!)
-			}
+		if anim is CAPropertyAnimation {
 			(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStop?(anim, finished: flag)
-			layer.removeAnimationForKey(a.keyPath!)
 		} else if let a: CAAnimationGroup = anim as? CAAnimationGroup {
 			for x in a.animations! {
 				animationDidStop(x, finished: true)
