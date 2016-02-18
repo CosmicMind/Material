@@ -29,16 +29,14 @@
 */
 
 /*
-The following is an example of setting a UITableView as the MainViewController
-within a SideNavigationViewController. There is a NavigationBarView that is
-used for navigation, with a menu button that opens the 
-SideNavigationViewController.
+The following is an example of using a NavigationViewController to control the
+flow of your application. 
 */
 
 import UIKit
 import Material
 
-class AppViewController: NavigationViewController {
+class AppNavigationViewController: NavigationViewController {
 	/// Menu backdrop layer.
 	private lazy var menuBackdropLayer: MaterialLayer = MaterialLayer()
 	
@@ -57,19 +55,6 @@ class AppViewController: NavigationViewController {
 		prepareNavigationBarView()
 		prepareMenuBackdropLayer()
 		prepareMenuView()
-	}
-	
-	override func viewWillAppear(animated: Bool) {
-		super.viewWillAppear(animated)
-		
-		/*
-		Set the width of the SideNavigationViewController. Be mindful
-		of when setting this value. It is set in the viewWillAppear method,
-		because any earlier may cause a race condition when instantiating
-		the MainViewController and SideViewController.
-		*/
-//		sideNavigationViewController?.setLeftViewWidth(view.bounds.width - menuViewDiameter - 2 * menuViewInset, hidden: true, animated: false)
-		sideNavigationViewController?.delegate = self
 	}
 	
 	/**
@@ -128,13 +113,13 @@ class AppViewController: NavigationViewController {
 		titleLabel.font = RobotoFont.regularWithSize(20)
 		
 		// Detail label. Uncomment the code below to use a detail label.
-//		let detailLabel: UILabel = UILabel()
-//		detailLabel.text = "Build Beautiful Software"
-//		detailLabel.textAlignment = .Left
-//		detailLabel.textColor = MaterialColor.white
-//		detailLabel.font = RobotoFont.regularWithSize(12)
-//		titleLabel.font = RobotoFont.regularWithSize(17) // 17 point looks better with the detailLabel.
-//		navigationBarView.detailLabel = detailLabel
+		//		let detailLabel: UILabel = UILabel()
+		//		detailLabel.text = "Build Beautiful Software"
+		//		detailLabel.textAlignment = .Left
+		//		detailLabel.textColor = MaterialColor.white
+		//		detailLabel.font = RobotoFont.regularWithSize(12)
+		//		titleLabel.font = RobotoFont.regularWithSize(17) // 17 point looks better with the detailLabel.
+		//		navigationBarView.detailLabel = detailLabel
 		
 		var image = UIImage(named: "ic_menu_white")
 		
@@ -150,7 +135,7 @@ class AppViewController: NavigationViewController {
 		let switchControl: MaterialSwitch = MaterialSwitch(state: .Off, style: .LightContent, size: .Small)
 		
 		// Search button.
-		image = UIImage(named: "ic_more_vert_white")
+		image = UIImage(named: "ic_more_horiz_white")
 		let moreButton: FlatButton = FlatButton()
 		moreButton.pulseColor = nil
 		moreButton.pulseScale = false
@@ -246,7 +231,7 @@ class AppViewController: NavigationViewController {
 		menuBackdropLayer.animate(MaterialAnimation.animationGroup([
 			MaterialAnimation.scale(1),
 			MaterialAnimation.position(menuView.center)
-		], duration: 0.25))
+			], duration: 0.25))
 		
 		MaterialAnimation.delay(0.25) { [weak self] in
 			self?.menuBackdropLayer.hidden = true
@@ -254,69 +239,3 @@ class AppViewController: NavigationViewController {
 	}
 }
 
-/// SideNavigationViewControllerDelegate methods.
-extension AppViewController: SideNavigationViewControllerDelegate {
-	/**
-	An optional delegation method that is fired before the
-	SideNavigationViewController opens.
-	*/
-	func sideNavigationViewWillOpen(sideNavigationViewController: SideNavigationViewController, position: SideNavigationPosition) {
-		print("Will open", .Left == position ? "Left" : "Right", "view.")
-	}
-	
-	/**
-	An optional delegation method that is fired after the
-	SideNavigationViewController opened.
-	*/
-	func sideNavigationViewDidOpen(sideNavigationViewController: SideNavigationViewController, position: SideNavigationPosition) {
-		print("Did open", .Left == position ? "Left" : "Right", "view.")
-	}
-	
-	/**
-	An optional delegation method that is fired before the
-	SideNavigationViewController closes.
-	*/
-	func sideNavigationViewWillClose(sideNavigationViewController: SideNavigationViewController, position: SideNavigationPosition) {
-		print("Will close", .Left == position ? "Left" : "Right", "view.")
-	}
-	
-	/**
-	An optional delegation method that is fired after the
-	SideNavigationViewController closed.
-	*/
-	func sideNavigationViewDidClose(sideNavigationViewController: SideNavigationViewController, position: SideNavigationPosition) {
-		print("Did close", .Left == position ? "Left" : "Right", "view.")
-	}
-	
-	/**
-	An optional delegation method that is fired when the
-	SideNavigationViewController pan gesture begins.
-	*/
-	func sideNavigationViewPanDidBegin(sideNavigationViewController: SideNavigationViewController, point: CGPoint, position: SideNavigationPosition) {
-		print("Pan did begin for", .Left == position ? "Left" : "Right", "view.")
-	}
-	
-	/**
-	An optional delegation method that is fired when the
-	SideNavigationViewController pan gesture changes position.
-	*/
-	func sideNavigationViewPanDidChange(sideNavigationViewController: SideNavigationViewController, point: CGPoint, position: SideNavigationPosition) {
-		print("Pan did change for", .Left == position ? "Left" : "Right", "view.")
-	}
-	
-	/**
-	An optional delegation method that is fired when the
-	SideNavigationViewController pan gesture ends.
-	*/
-	func sideNavigationViewPanDidEnd(sideNavigationViewController: SideNavigationViewController, point: CGPoint, position: SideNavigationPosition) {
-		print("Pan did end for", .Left == position ? "Left" : "Right", "view.")
-	}
-	
-	/**
-	An optional delegation method that is fired when the
-	SideNavigationViewController tap gesture executes.
-	*/
-	func sideNavigationViewDidTap(sideNavigationViewController: SideNavigationViewController, point: CGPoint, position: SideNavigationPosition) {
-		print("Did Tap for", .Left == position ? "Left" : "Right", "view.")
-	}
-}
