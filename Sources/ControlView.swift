@@ -30,7 +30,7 @@
 
 import UIKit
 
-public class MaterialControlView : MaterialView {
+public class ControlView : MaterialView {
 	/// ContentView that holds the any desired subviews.
 	public private(set) lazy var contentView: MaterialView = MaterialView()
 	

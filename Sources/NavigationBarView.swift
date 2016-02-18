@@ -30,22 +30,7 @@
 
 import UIKit
 
-@objc(NavigationBarViewDelegate)
-public protocol NavigationBarViewDelegate : MaterialDelegate {
-	optional func navigationBarViewDidChangeLayout(navigationBarView: NavigationBarView)
-}
-
-public class NavigationBarView : MaterialControlView {
-	/// Tracks the old frame size.
-	private var oldFrame: CGRect?
-	
-	/// Device status bar style.
-	public var statusBarStyle: UIStatusBarStyle = UIApplication.sharedApplication().statusBarStyle {
-		didSet {
-			UIApplication.sharedApplication().statusBarStyle = statusBarStyle
-		}
-	}
-	
+public class NavigationBarView : StatusBarView {
 	/// Title label.
 	public var titleLabel: UILabel? {
 		didSet {
@@ -66,11 +51,6 @@ public class NavigationBarView : MaterialControlView {
 		}
 	}
 	
-	/// A convenience initializer.
-	public convenience init() {
-		self.init(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 64))
-	}
-	
 	/**
 	A convenience initializer with parameter settings.
 	- Parameter titleLabel: UILabel for the title.
@@ -88,8 +68,6 @@ public class NavigationBarView : MaterialControlView {
 		
 		// General alignment.
 		if UIApplication.sharedApplication().statusBarOrientation.isLandscape {
-			grid.contentInset.top = 8
-			
 			// TitleView alignment.
 			if let v: UILabel = titleLabel {
 				if let d: UILabel = detailLabel {
@@ -103,10 +81,7 @@ public class NavigationBarView : MaterialControlView {
 					contentView.grid.contentInset.top = 0
 				}
 			}
-			height = 44
 		} else {
-			grid.contentInset.top = 28
-			
 			// TitleView alignment.
 			if let v: UILabel = titleLabel {
 				if let d: UILabel = detailLabel {
@@ -120,30 +95,9 @@ public class NavigationBarView : MaterialControlView {
 					contentView.grid.contentInset.top = 0
 				}
 			}
-			height = 64
 		}
 		
-		// Column adjustment.
-		width = UIScreen.mainScreen().bounds.width
-		grid.axis.columns = Int(width / 48)
-		if frame.origin.x != oldFrame!.origin.x || frame.origin.y != oldFrame!.origin.y || frame.width != oldFrame!.width || frame.height != oldFrame!.height {
-			(delegate as? NavigationBarViewDelegate)?.navigationBarViewDidChangeLayout?(self)
-			oldFrame = frame
-		}
 		reloadView()
-	}
-	
-	public override func didMoveToSuperview() {
-		super.didMoveToSuperview()
-		reloadView()
-	}
-	
-	public override func intrinsicContentSize() -> CGSize {
-		if UIApplication.sharedApplication().statusBarOrientation.isLandscape {
-			return CGSizeMake(UIScreen.mainScreen().bounds.width, 44)
-		} else {
-			return CGSizeMake(UIScreen.mainScreen().bounds.width, 64)
-		}
 	}
 	
 	/// Reloads the view.
@@ -170,14 +124,13 @@ public class NavigationBarView : MaterialControlView {
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		oldFrame = frame
 		depth = .Depth1
 		grid.spacing = 8
 		grid.contentInset.left = 8
 		grid.contentInset.bottom = 8
 		grid.contentInset.right = 8
 		grid.axis.inherited = false
-		contentView.grid.axis.inherited = false
+		contentView.grid.axis.direction = .Vertical
 	}
 	
 	/**

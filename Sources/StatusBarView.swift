@@ -30,56 +30,20 @@
 
 import UIKit
 
-@objc(SearchBarViewDelegate)
-public protocol SearchBarViewDelegate : MaterialDelegate {
-	optional func searchBarViewDidChangeLayout(searchBarView: SearchBarView)
+@objc(StatusBarViewDelegate)
+public protocol StatusBarViewDelegate : MaterialDelegate {
+	optional func statusBarViewDidChangeLayout(statusBarView: StatusBarView)
 }
 
-public class SearchBarView : StatusBarView {
-	/// The UITextField for the searchBar.
-	public private(set) lazy var textField: TextField = TextField()
+@objc(StatusBarView)
+public class StatusBarView : ControlView {
+	/// Tracks the old frame size.
+	private var oldFrame: CGRect?
 	
-	/// The UIImage for the clear icon.
-	public var clearButton: UIButton? {
+	/// Device status bar style.
+	public var statusBarStyle: UIStatusBarStyle = UIApplication.sharedApplication().statusBarStyle {
 		didSet {
-			if let v: UIButton = clearButton {
-				v.contentEdgeInsets = UIEdgeInsetsZero
-				v.addTarget(self, action: "handleClearButton", forControlEvents: .TouchUpInside)
-			}
-			textField.rightView = clearButton
-		}
-	}
-	
-	/// TintColor for searchBar.
-	public override var tintColor: UIColor? {
-		didSet {
-			textField.tintColor = tintColor
-		}
-	}
-	
-	/// TextColor for searchBar.
-	public var textColor: UIColor? {
-		didSet {
-			textField.textColor = textColor
-		}
-	}
-	
-	/// Placeholder textColor.
-	public var placeholderTextColor: UIColor? {
-		didSet {
-			if let v: String = textField.placeholder {
-				textField.attributedPlaceholder = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: MaterialColor.white])
-			}
-		}
-	}
-	
-	/// A wrapper for searchBar.placeholder.
-	public var placeholder: String? {
-		didSet {
-			textField.placeholder = placeholder
-			if let v: String = textField.placeholder {
-				textField.attributedPlaceholder = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: MaterialColor.white])
-			}
+			UIApplication.sharedApplication().statusBarStyle = statusBarStyle
 		}
 	}
 	
@@ -90,7 +54,6 @@ public class SearchBarView : StatusBarView {
 	
 	public override func layoutSubviews() {
 		super.layoutSubviews()
-		
 		// General alignment.
 		if UIApplication.sharedApplication().statusBarOrientation.isLandscape {
 			grid.contentInset.top = 8
@@ -100,8 +63,12 @@ public class SearchBarView : StatusBarView {
 			height = 64
 		}
 		
-		// Column adjustment.
 		width = UIScreen.mainScreen().bounds.width
+		
+		if frame.origin.x != oldFrame!.origin.x || frame.origin.y != oldFrame!.origin.y || frame.width != oldFrame!.width || frame.height != oldFrame!.height {
+			(delegate as? StatusBarViewDelegate)?.statusBarViewDidChangeLayout?(self)
+			oldFrame = frame
+		}
 		reloadView()
 	}
 	
@@ -110,18 +77,12 @@ public class SearchBarView : StatusBarView {
 		reloadView()
 	}
 	
-	/// Reloads the view.
-	public override func reloadView() {
-		super.reloadView()
-		
-		/// Prepare the clearButton
-		if let v: UIButton = clearButton {
-			v.frame = CGRectMake(0, 0, textField.height, textField.height)
+	public override func intrinsicContentSize() -> CGSize {
+		if UIApplication.sharedApplication().statusBarOrientation.isLandscape {
+			return CGSizeMake(UIScreen.mainScreen().bounds.width, 44)
+		} else {
+			return CGSizeMake(UIScreen.mainScreen().bounds.width, 64)
 		}
-		
-		textField.grid.columns -= textField.grid.offset.columns
-		
-		grid.reloadLayout()
 	}
 	
 	/**
@@ -133,26 +94,6 @@ public class SearchBarView : StatusBarView {
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		grid.spacing = 8
-		grid.axis.inherited = false
-		grid.contentInset.left = 8
-		grid.contentInset.bottom = 8
-		grid.contentInset.right = 8
-		depth = .Depth1
-		prepareTextField()
-	}
-	
-	/// Clears the textField text.
-	internal func handleClearButton() {
-		textField.text = ""
-	}
-	
-	/// Prepares the textField.
-	private func prepareTextField() {
-		textField.placeholder = "Search"
-		textField.backgroundColor = MaterialColor.clear
-		textField.clearButtonMode = .Never
-		textField.rightViewMode = .WhileEditing
-		contentView.addSubview(textField)
+		oldFrame = frame
 	}
 }

@@ -43,7 +43,8 @@
 		96A71EF61C71127100C0C4AE /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71EF51C71127100C0C4AE /* SearchBarView.swift */; };
 		96A71F301C72E41100C0C4AE /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71F2F1C72E41100C0C4AE /* NavigationViewController.swift */; };
 		96A71F451C74ABCB00C0C4AE /* MaterialBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71F441C74ABCB00C0C4AE /* MaterialBorder.swift */; };
-		96A71FB11C7649F800C0C4AE /* MaterialControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71FB01C7649F800C0C4AE /* MaterialControlView.swift */; };
+		96A71FB31C764E3200C0C4AE /* StatusBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71FB21C764E3200C0C4AE /* StatusBarView.swift */; };
+		96A71FB61C7651AA00C0C4AE /* ControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71FB01C7649F800C0C4AE /* ControlView.swift */; };
 		96D88C1E1C1328D800B91418 /* CaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D88BF51C1328D800B91418 /* CaptureView.swift */; };
 		96D88C1F1C1328D800B91418 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D88BF61C1328D800B91418 /* CardView.swift */; };
 		96D88C201C1328D800B91418 /* CapturePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D88BF71C1328D800B91418 /* CapturePreviewView.swift */; };
@@ -146,7 +147,8 @@
 		96A71EF51C71127100C0C4AE /* SearchBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		96A71F2F1C72E41100C0C4AE /* NavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 		96A71F441C74ABCB00C0C4AE /* MaterialBorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialBorder.swift; sourceTree = "<group>"; };
-		96A71FB01C7649F800C0C4AE /* MaterialControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialControlView.swift; sourceTree = "<group>"; };
+		96A71FB01C7649F800C0C4AE /* ControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlView.swift; sourceTree = "<group>"; };
+		96A71FB21C764E3200C0C4AE /* StatusBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarView.swift; sourceTree = "<group>"; };
 		96D88BF51C1328D800B91418 /* CaptureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureView.swift; sourceTree = "<group>"; };
 		96D88BF61C1328D800B91418 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		96D88BF71C1328D800B91418 /* CapturePreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CapturePreviewView.swift; sourceTree = "<group>"; };
@@ -285,6 +287,22 @@
 			name = Search;
 			sourceTree = "<group>";
 		};
+		96A71FB41C764EDB00C0C4AE /* StatusBar */ = {
+			isa = PBXGroup;
+			children = (
+				96A71FB21C764E3200C0C4AE /* StatusBarView.swift */,
+			);
+			name = StatusBar;
+			sourceTree = "<group>";
+		};
+		96A71FB51C764F3D00C0C4AE /* Control */ = {
+			isa = PBXGroup;
+			children = (
+				96A71FB01C7649F800C0C4AE /* ControlView.swift */,
+			);
+			name = Control;
+			sourceTree = "<group>";
+		};
 		96D88BF41C1328D800B91418 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -293,6 +311,8 @@
 				96D88C091C1328D800B91418 /* Material.h */,
 				96D88C501C132A2C00B91418 /* Extensions */,
 				96D88C541C132A7700B91418 /* Navigation */,
+				96A71FB51C764F3D00C0C4AE /* Control */,
+				96A71FB41C764EDB00C0C4AE /* StatusBar */,
 				96A71EF71C71134200C0C4AE /* Search */,
 				96D88C531C132A6900B91418 /* View */,
 				96D88C521C132A5700B91418 /* Layout */,
@@ -436,7 +456,6 @@
 			children = (
 				96D88C141C1328D800B91418 /* MaterialView.swift */,
 				96D88C0D1C1328D800B91418 /* MaterialPulseView.swift */,
-				96A71FB01C7649F800C0C4AE /* MaterialControlView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -627,11 +646,11 @@
 				96D88C371C1328D800B91418 /* MaterialRadius.swift in Sources */,
 				960B232F1C383EAA00E96216 /* Material+UIImage+Crop.swift in Sources */,
 				96D88C241C1328D800B91418 /* ImageCardView.swift in Sources */,
-				96A71FB11C7649F800C0C4AE /* MaterialControlView.swift in Sources */,
 				96D88C2B1C1328D800B91418 /* MaterialButton.swift in Sources */,
 				96D88C311C1328D800B91418 /* MaterialKeyframeAnimation.swift in Sources */,
 				96D88C2E1C1328D800B91418 /* MaterialFont.swift in Sources */,
 				9656CD0C1C6BD33700EBCEF1 /* Grid.swift in Sources */,
+				96A71FB31C764E3200C0C4AE /* StatusBarView.swift in Sources */,
 				960B23461C38480E00E96216 /* Text.swift in Sources */,
 				96D88C351C1328D800B91418 /* MaterialLayout.swift in Sources */,
 				96D88C2F1C1328D800B91418 /* MaterialGravity.swift in Sources */,
@@ -667,6 +686,7 @@
 				96D88C461C1328D800B91418 /* SideNavigationViewController.swift in Sources */,
 				96D88C381C1328D800B91418 /* MaterialShape.swift in Sources */,
 				960B23331C383EAA00E96216 /* Material+UIImage+Size.swift in Sources */,
+				96A71FB61C7651AA00C0C4AE /* ControlView.swift in Sources */,
 				96A71F451C74ABCB00C0C4AE /* MaterialBorder.swift in Sources */,
 				96A71E911C6FBC2200C0C4AE /* MenuView.swift in Sources */,
 				96D88C271C1328D800B91418 /* Material+UIFont.swift in Sources */,
