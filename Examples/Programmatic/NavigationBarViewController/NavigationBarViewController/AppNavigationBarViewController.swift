@@ -125,7 +125,7 @@ class AppNavigationBarViewController: NavigationBarViewController {
 		
 		// Menu button.
 		let menuButton: FlatButton = FlatButton()
-		menuButton.pulseColor = nil
+		menuButton.pulseColor = MaterialColor.white
 		menuButton.pulseScale = false
 		menuButton.setImage(image, forState: .Normal)
 		menuButton.setImage(image, forState: .Highlighted)
@@ -137,7 +137,7 @@ class AppNavigationBarViewController: NavigationBarViewController {
 		// Search button.
 		image = UIImage(named: "ic_more_horiz_white")
 		let moreButton: FlatButton = FlatButton()
-		moreButton.pulseColor = nil
+		moreButton.pulseColor = MaterialColor.white
 		moreButton.pulseScale = false
 		moreButton.setImage(image, forState: .Normal)
 		moreButton.setImage(image, forState: .Highlighted)

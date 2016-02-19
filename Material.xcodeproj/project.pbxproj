@@ -279,22 +279,6 @@
 			name = Switch;
 			sourceTree = "<group>";
 		};
-		96A71EF71C71134200C0C4AE /* Search */ = {
-			isa = PBXGroup;
-			children = (
-				96A71EF51C71127100C0C4AE /* SearchBarView.swift */,
-			);
-			name = Search;
-			sourceTree = "<group>";
-		};
-		96A71FB41C764EDB00C0C4AE /* StatusBar */ = {
-			isa = PBXGroup;
-			children = (
-				96A71FB21C764E3200C0C4AE /* StatusBarView.swift */,
-			);
-			name = StatusBar;
-			sourceTree = "<group>";
-		};
 		96A71FB51C764F3D00C0C4AE /* Control */ = {
 			isa = PBXGroup;
 			children = (
@@ -310,10 +294,6 @@
 				96D88BFC1C1328D800B91418 /* Info.plist */,
 				96D88C091C1328D800B91418 /* Material.h */,
 				96D88C501C132A2C00B91418 /* Extensions */,
-				96D88C541C132A7700B91418 /* Navigation */,
-				96A71FB51C764F3D00C0C4AE /* Control */,
-				96A71FB41C764EDB00C0C4AE /* StatusBar */,
-				96A71EF71C71134200C0C4AE /* Search */,
 				96D88C531C132A6900B91418 /* View */,
 				96D88C521C132A5700B91418 /* Layout */,
 				96D88C511C132A4200B91418 /* Label */,
@@ -330,6 +310,8 @@
 				965C58BD1C6B8D3300CFB4E1 /* Grid */,
 				96A71E921C6FBC2900C0C4AE /* Menu */,
 				96A71EC51C6FFEF300C0C4AE /* Switch */,
+				96A71FB51C764F3D00C0C4AE /* Control */,
+				96D88C541C132A7700B91418 /* Navigation */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -463,6 +445,8 @@
 		96D88C541C132A7700B91418 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				96A71FB21C764E3200C0C4AE /* StatusBarView.swift */,
+				96A71EF51C71127100C0C4AE /* SearchBarView.swift */,
 				96D88C151C1328D800B91418 /* NavigationBarView.swift */,
 				96A71F2F1C72E41100C0C4AE /* NavigationBarViewController.swift */,
 				96D88C1D1C1328D800B91418 /* SideNavigationViewController.swift */,

@@ -72,11 +72,6 @@ public class StatusBarView : ControlView {
 		reloadView()
 	}
 	
-	public override func didMoveToSuperview() {
-		super.didMoveToSuperview()
-		reloadView()
-	}
-	
 	public override func intrinsicContentSize() -> CGSize {
 		if UIApplication.sharedApplication().statusBarOrientation.isLandscape {
 			return CGSizeMake(UIScreen.mainScreen().bounds.width, 44)

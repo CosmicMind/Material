@@ -38,6 +38,7 @@ import Material
 class ViewController: UIViewController, MaterialSwitchDelegate {
 	private var topView: MaterialView = MaterialView()
 	private var bottomView: MaterialView = MaterialView()
+	var c2: MaterialSwitch!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -69,9 +70,10 @@ class ViewController: UIViewController, MaterialSwitchDelegate {
 		c1.translatesAutoresizingMaskIntoConstraints = false
 		topView.addSubview(c1)
 		
-		let c2: MaterialSwitch = MaterialSwitch(state: .On, style: .LightContent)
+		c2 = MaterialSwitch(state: .Off, style: .LightContent)
 		c2.delegate = self
 		c2.translatesAutoresizingMaskIntoConstraints = false
+		c2.switchState = .On
 		topView.addSubview(c2)
 		
 		let c3: MaterialSwitch = MaterialSwitch(state: .Off, style: .LightContent, size: .Large)
@@ -112,5 +114,7 @@ class ViewController: UIViewController, MaterialSwitchDelegate {
 	
 	internal func materialSwitchStateChanged(control: MaterialSwitch, state: MaterialSwitchState) {
 		print("MaterialSwitch - Size: \(control.switchSize) State: \(state)")
+		c2.switchState = state
+		
 	}
 }

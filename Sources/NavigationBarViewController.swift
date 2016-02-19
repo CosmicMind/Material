@@ -161,7 +161,7 @@ public class NavigationBarViewController: UIViewController {
 	}
 }
 
-extension NavigationBarViewController : NavigationBarViewDelegate {
+extension NavigationBarViewController : StatusBarViewDelegate {
 	/// Monitor layout changes.
 	public func statusBarViewDidChangeLayout(statusBarView: StatusBarView) {
 		layoutSubviews()

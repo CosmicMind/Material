@@ -166,7 +166,30 @@ public class MaterialSwitch: UIControl {
 	}
 	
 	/// MaterialSwitch state.
-	public private(set) var switchState: MaterialSwitchState = .Off
+	public var switchState: MaterialSwitchState = .Off {
+		didSet {
+			if oldValue != switchState {
+				userInteractionEnabled = false
+				UIView.animateWithDuration(0.15,
+					delay: 0.05,
+					options: .CurveEaseInOut,
+					animations: { [unowned self] in
+						self.button.x = .On == self.switchState ? self.onPosition + self.bounceOffset : self.offPosition - self.bounceOffset
+						self.styleForState(self.switchState)
+					}) { [unowned self] _ in
+						self.styleForState(self.switchState)
+						self.sendActionsForControlEvents(.ValueChanged)
+						self.delegate?.materialSwitchStateChanged(self, state: self.switchState)
+						UIView.animateWithDuration(0.15,
+							animations: { [unowned self] in
+								self.button.x = .On == self.switchState ? self.onPosition : self.offPosition
+							}) { [unowned self] _ in
+								self.userInteractionEnabled = true
+							}
+					}
+			}
+		}
+	}
 	
 	/// MaterialSwitch style.
 	public var switchStyle: MaterialSwitchStyle = .LightContent {
@@ -290,47 +313,7 @@ public class MaterialSwitch: UIControl {
 	- Parameter completion: An Optional completion block.
 	*/
 	public func toggle(completion: ((control: MaterialSwitch) -> Void)? = nil) {
-		setSwitchState(.On == switchState ? .Off : .On, animated: true, completion: completion)
-	}
-	
-	/**
-	Set the switchState property with an option to animate.
-	- Parameter state: The MaterialSwitchState to set.
-	- Parameter animated: A Boolean indicating to set the animation or not.
-	- Parameter completion: An Optional completion block.
-	*/
-	public func setSwitchState(state: MaterialSwitchState, animated: Bool = true, completion: ((control: MaterialSwitch) -> Void)? = nil) {
-		if switchState != state {
-			if animated {
-				userInteractionEnabled = false
-				UIView.animateWithDuration(0.15,
-					delay: 0.05,
-					options: .CurveEaseInOut,
-					animations: { [unowned self] in
-						self.button.x = .On == state ? self.onPosition + self.bounceOffset : self.offPosition - self.bounceOffset
-						self.styleForState(state)
-					}) { [unowned self] _ in
-						self.styleForState(state)
-						self.sendActionsForControlEvents(.ValueChanged)
-						self.switchState = state
-						self.delegate?.materialSwitchStateChanged(self, state: state)
-						UIView.animateWithDuration(0.15,
-							animations: { [unowned self] in
-								self.button.x = .On == state ? self.onPosition : self.offPosition
-							}) { [unowned self] _ in
-								self.userInteractionEnabled = true
-								completion?(control: self)
-							}
-					}
-			} else {
-				button.x = .On == state ? self.onPosition : self.offPosition
-				styleForState(state)
-				sendActionsForControlEvents(.ValueChanged)
-				switchState = state
-				delegate?.materialSwitchStateChanged(self, state: state)
-				completion?(control: self)
-			}
-		}
+		switchState = .On == switchState ? .Off : .On
 	}
 	
 	/// Handles the TouchUpInside event.
@@ -348,7 +331,7 @@ public class MaterialSwitch: UIControl {
 			let t: CGPoint = v.previousLocationInView(sender)
 			let p: CGPoint = v.locationInView(sender)
 			let q: CGFloat = sender.x + p.x - t.x
-			setSwitchState(q > (width - button.width) / 2 ? .On : .Off, animated: true)
+			switchState = q > (width - button.width) / 2 ? .On : .Off
 		}
 	}
 	
@@ -371,7 +354,7 @@ public class MaterialSwitch: UIControl {
 	public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesEnded(touches, withEvent: event)
 		if true == CGRectContainsPoint(trackLayer.frame, layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer)) {
-			setSwitchState(.On == switchState ? .Off : .On)
+			switchState = .On == switchState ? .Off : .On
 		}
 	}
 	
@@ -396,7 +379,7 @@ public class MaterialSwitch: UIControl {
 	- Parameter state: The MaterialSwitchState to set.
 	*/
 	private func prepareSwitchState(state: MaterialSwitchState) {
-		setSwitchState(state, animated: false)
+		switchState = state
 	}
 	
 	/**

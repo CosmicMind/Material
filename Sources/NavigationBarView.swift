@@ -30,10 +30,6 @@
 
 import UIKit
 
-
-@objc(NavigationBarViewDelegate)
-public protocol NavigationBarViewDelegate : StatusBarViewDelegate {}
-
 public class NavigationBarView : StatusBarView {
 	/// Title label.
 	public var titleLabel: UILabel? {
@@ -64,11 +60,13 @@ public class NavigationBarView : StatusBarView {
 	*/
 	public convenience init?(titleLabel: UILabel? = nil, detailLabel: UILabel? = nil, leftControls: Array<UIControl>? = nil, rightControls: Array<UIControl>? = nil) {
 		self.init(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 64))
-		prepareProperties(titleLabel: titleLabel, detailLabel: detailLabel, leftControls: leftControls, rightControls: rightControls)
+		prepareProperties(titleLabel, detailLabel: detailLabel, leftControls: leftControls, rightControls: rightControls)
 	}
 	
 	public override func layoutSubviews() {
 		super.layoutSubviews()
+		
+		grid.axis.columns = Int(width / 48)
 		
 		// General alignment.
 		if UIApplication.sharedApplication().statusBarOrientation.isLandscape {
@@ -107,7 +105,6 @@ public class NavigationBarView : StatusBarView {
 	/// Reloads the view.
 	public override func reloadView() {
 		super.reloadView()
-
 		contentView.grid.views = []
 		contentView.grid.axis.rows = 6
 		if let v: UILabel = titleLabel {
@@ -138,10 +135,9 @@ public class NavigationBarView : StatusBarView {
 	- Parameter leftControls: An Array of UIControls that go on the left side.
 	- Parameter rightControls: An Array of UIControls that go on the right side.
 	*/
-	internal func prepareProperties(titleLabel titleLabel: UILabel?, detailLabel: UILabel?, leftControls: Array<UIControl>?, rightControls: Array<UIControl>?) {
-		prepareProperties(leftControls: leftControls, rightControls: rightControls)
+	internal func prepareProperties(titleLabel: UILabel?, detailLabel: UILabel?, leftControls: Array<UIControl>?, rightControls: Array<UIControl>?) {
+		prepareProperties(leftControls, rightControls: rightControls)
 		self.titleLabel = titleLabel
 		self.detailLabel = detailLabel
-		
 	}
 }

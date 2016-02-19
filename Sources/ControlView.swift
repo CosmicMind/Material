@@ -102,7 +102,7 @@ public class ControlView : MaterialView {
 	*/
 	public convenience init?(leftControls: Array<UIControl>? = nil, rightControls: Array<UIControl>? = nil) {
 		self.init(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 64))
-		prepareProperties(leftControls: leftControls, rightControls: rightControls)
+		prepareProperties(leftControls, rightControls: rightControls)
 	}
 	
 	public override func layoutSubviews() {
@@ -195,7 +195,7 @@ public class ControlView : MaterialView {
 	- Parameter leftControls: An Array of UIControls that go on the left side.
 	- Parameter rightControls: An Array of UIControls that go on the right side.
 	*/
-	internal func prepareProperties(leftControls leftControls: Array<UIControl>?, rightControls: Array<UIControl>?) {
+	internal func prepareProperties(leftControls: Array<UIControl>?, rightControls: Array<UIControl>?) {
 		self.leftControls = leftControls
 		self.rightControls = rightControls
 	}
