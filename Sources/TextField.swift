@@ -449,9 +449,10 @@ public class TextField : UITextField {
 		if 0 < text?.utf16.count {
 			showTitleLabel()
 			if !detailLabelHidden {
-				MaterialAnimation.animationDisabled { [unowned self] in
-					self.bottomBorderLayer.backgroundColor = self.detailLabelActiveColor?.CGColor
-				}
+                detailLabelHidden = true
+                MaterialAnimation.animationDisabled { [unowned self] in
+                    self.bottomBorderLayer.backgroundColor = self.titleLabelColor?.CGColor
+                }
 			}
 		} else if 0 == text?.utf16.count {
 			hideTitleLabel()
