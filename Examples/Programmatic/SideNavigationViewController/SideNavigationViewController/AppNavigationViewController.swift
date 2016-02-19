@@ -113,6 +113,12 @@ class AppNavigationBarViewController: NavigationBarViewController {
 		first?.setImage(image, forState: .Highlighted)
 	}
 	
+	func openNote() {
+		let x = 10
+		print(x)
+		navigationBarViewController?.transitionFromMainViewController(NoteViewController(), duration: 0.5, options: [], animations: nil, completion: nil)
+	}
+	
 	/// Prepares view.
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.white
@@ -194,7 +200,9 @@ class AppNavigationBarViewController: NavigationBarViewController {
 		btn2.backgroundColor = MaterialColor.blue.base
 		btn2.setImage(image, forState: .Normal)
 		btn2.setImage(image, forState: .Highlighted)
+		btn2.addTarget(self, action: "openNote", forControlEvents: .TouchUpInside)
 		menuView.addSubview(btn2)
+		
 		
 		image = UIImage(named: "ic_photo_camera_white")
 		let btn3: FabButton = FabButton()

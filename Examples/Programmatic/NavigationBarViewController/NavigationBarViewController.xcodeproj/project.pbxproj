@@ -12,8 +12,8 @@
 		96A71FCB1C765FDF00C0C4AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96A71FCA1C765FDF00C0C4AE /* Assets.xcassets */; };
 		96A71FCE1C765FDF00C0C4AE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96A71FCC1C765FDF00C0C4AE /* LaunchScreen.storyboard */; };
 		96A71FD61C76618D00C0C4AE /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71FD51C76618D00C0C4AE /* MainViewController.swift */; };
-		96A71FD81C7661D200C0C4AE /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A71FD71C7661D200C0C4AE /* Material.framework */; };
-		96A71FD91C7661D200C0C4AE /* Material.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 96A71FD71C7661D200C0C4AE /* Material.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		96A7200C1C76E53A00C0C4AE /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A7200B1C76E53A00C0C4AE /* Material.framework */; };
+		96A7200D1C76E53A00C0C4AE /* Material.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 96A7200B1C76E53A00C0C4AE /* Material.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,7 +23,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				96A71FD91C7661D200C0C4AE /* Material.framework in Embed Frameworks */,
+				96A7200D1C76E53A00C0C4AE /* Material.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -38,7 +38,7 @@
 		96A71FCD1C765FDF00C0C4AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		96A71FCF1C765FDF00C0C4AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96A71FD51C76618D00C0C4AE /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		96A71FD71C7661D200C0C4AE /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = Material.framework; path = "/Users/danieldahan/Library/Developer/Xcode/DerivedData/Material-hbpnflxhoouqxebjcyhbbhqyesjd/Build/Products/Debug-iphoneos/Material.framework"; sourceTree = "<absolute>"; };
+		96A7200B1C76E53A00C0C4AE /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = Material.framework; path = "/Users/danieldahan/Library/Developer/Xcode/DerivedData/Material-hbpnflxhoouqxebjcyhbbhqyesjd/Build/Products/Debug-iphoneos/Material.framework"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,7 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96A71FD81C7661D200C0C4AE /* Material.framework in Frameworks */,
+				96A7200C1C76E53A00C0C4AE /* Material.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,7 +56,7 @@
 		96A71FB71C765FDF00C0C4AE = {
 			isa = PBXGroup;
 			children = (
-				96A71FD71C7661D200C0C4AE /* Material.framework */,
+				96A7200B1C76E53A00C0C4AE /* Material.framework */,
 				96A71FC21C765FDF00C0C4AE /* NavigationBarViewController */,
 				96A71FC11C765FDF00C0C4AE /* Products */,
 			);

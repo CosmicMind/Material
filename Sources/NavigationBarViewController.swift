@@ -103,7 +103,7 @@ public class NavigationBarViewController: UIViewController {
 	the transition animation from the active mainViewController
 	to the toViewController has completed.
 	*/
-	public func transitionFromMainViewController(toViewController: UIViewController, duration: NSTimeInterval, options: UIViewAnimationOptions, animations: (() -> Void)?, completion: ((Bool) -> Void)?) {
+	public func transitionFromMainViewController(toViewController: UIViewController, duration: NSTimeInterval = 0.5, options: UIViewAnimationOptions = [], animations: (() -> Void)?, completion: ((Bool) -> Void)?) {
 		mainViewController.willMoveToParentViewController(nil)
 		addChildViewController(toViewController)
 		toViewController.view.frame = view.bounds

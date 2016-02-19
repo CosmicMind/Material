@@ -73,7 +73,6 @@ class ViewController: UIViewController, MaterialSwitchDelegate {
 		c2 = MaterialSwitch(state: .Off, style: .LightContent)
 		c2.delegate = self
 		c2.translatesAutoresizingMaskIntoConstraints = false
-		c2.switchState = .On
 		topView.addSubview(c2)
 		
 		let c3: MaterialSwitch = MaterialSwitch(state: .Off, style: .LightContent, size: .Large)
@@ -114,7 +113,6 @@ class ViewController: UIViewController, MaterialSwitchDelegate {
 	
 	internal func materialSwitchStateChanged(control: MaterialSwitch, state: MaterialSwitchState) {
 		print("MaterialSwitch - Size: \(control.switchSize) State: \(state)")
-		c2.switchState = state
 		
 	}
 }
