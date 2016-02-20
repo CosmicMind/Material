@@ -30,6 +30,11 @@
 
 import UIKit
 
+@objc(NavigationBarView)
+public protocol NavigationBarViewDelegate : MaterialDelegate {
+	optional func navigationBarViewDidChangeLayout(navigationBarView: NavigationBarView)
+}
+
 public class NavigationBarView : StatusBarView {
 	/// Title label.
 	public var titleLabel: UILabel? {
@@ -139,5 +144,9 @@ public class NavigationBarView : StatusBarView {
 		prepareProperties(leftControls, rightControls: rightControls)
 		self.titleLabel = titleLabel
 		self.detailLabel = detailLabel
+	}
+	
+	internal override func statusBarViewDidChangeLayout() {
+		(delegate as? NavigationBarViewDelegate)?.navigationBarViewDidChangeLayout?(self)
 	}
 }

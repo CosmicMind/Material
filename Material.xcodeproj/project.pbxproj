@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		65FDC2EB1C66858A00103AC2 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FDC2EA1C66858A00103AC2 /* Menu.swift */; };
+		960036151C77E1B600EBA579 /* SearchBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960036141C77E1B600EBA579 /* SearchBarViewController.swift */; };
 		960B23271C383E5500E96216 /* Material+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960B23261C383E5500E96216 /* Material+String.swift */; };
 		960B232E1C383EAA00E96216 /* Material+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960B23281C383EAA00E96216 /* Material+UIImage.swift */; };
 		960B232F1C383EAA00E96216 /* Material+UIImage+Crop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960B23291C383EAA00E96216 /* Material+UIImage+Crop.swift */; };
@@ -126,6 +127,7 @@
 
 /* Begin PBXFileReference section */
 		65FDC2EA1C66858A00103AC2 /* Menu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
+		960036141C77E1B600EBA579 /* SearchBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarViewController.swift; sourceTree = "<group>"; };
 		960B23261C383E5500E96216 /* Material+String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+String.swift"; sourceTree = "<group>"; };
 		960B23281C383EAA00E96216 /* Material+UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIImage.swift"; sourceTree = "<group>"; };
 		960B23291C383EAA00E96216 /* Material+UIImage+Crop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIImage+Crop.swift"; sourceTree = "<group>"; };
@@ -447,6 +449,7 @@
 			children = (
 				96A71FB21C764E3200C0C4AE /* StatusBarView.swift */,
 				96A71EF51C71127100C0C4AE /* SearchBarView.swift */,
+				960036141C77E1B600EBA579 /* SearchBarViewController.swift */,
 				96D88C151C1328D800B91418 /* NavigationBarView.swift */,
 				96A71F2F1C72E41100C0C4AE /* NavigationBarViewController.swift */,
 				96D88C1D1C1328D800B91418 /* SideNavigationViewController.swift */,
@@ -626,6 +629,7 @@
 				960B23481C38480E00E96216 /* TextView.swift in Sources */,
 				96D88C291C1328D800B91418 /* MaterialBasicAnimation.swift in Sources */,
 				96D88C3A1C1328D800B91418 /* MaterialTextLayer.swift in Sources */,
+				960036151C77E1B600EBA579 /* SearchBarViewController.swift in Sources */,
 				96A71EF61C71127100C0C4AE /* SearchBarView.swift in Sources */,
 				96D88C371C1328D800B91418 /* MaterialRadius.swift in Sources */,
 				960B232F1C383EAA00E96216 /* Material+UIImage+Crop.swift in Sources */,

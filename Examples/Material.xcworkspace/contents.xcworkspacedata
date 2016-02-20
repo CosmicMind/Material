@@ -96,6 +96,13 @@
       </Group>
       <Group
          location = "container:"
+         name = "SearchBarViewController">
+         <FileRef
+            location = "group:Programmatic/SearchBarViewController/SearchBarViewController.xcodeproj">
+         </FileRef>
+      </Group>
+      <Group
+         location = "container:"
          name = "NavigationBarViewController">
          <FileRef
             location = "group:Programmatic/NavigationBarViewController/NavigationBarViewController.xcodeproj">

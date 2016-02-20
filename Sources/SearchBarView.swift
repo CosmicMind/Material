@@ -91,6 +91,8 @@ public class SearchBarView : StatusBarView {
 	public override func layoutSubviews() {
 		super.layoutSubviews()
 		
+		grid.axis.columns = Int(width / 48)
+		
 		// General alignment.
 		if UIApplication.sharedApplication().statusBarOrientation.isLandscape {
 			grid.contentInset.top = 8
@@ -100,8 +102,6 @@ public class SearchBarView : StatusBarView {
 			height = 64
 		}
 		
-		// Column adjustment.
-		width = UIScreen.mainScreen().bounds.width
 		reloadView()
 	}
 	
@@ -114,12 +114,12 @@ public class SearchBarView : StatusBarView {
 	public override func reloadView() {
 		super.reloadView()
 		
-		/// Prepare the clearButton
+		/// Prepare the clearButton.
 		if let v: UIButton = clearButton {
 			v.frame = CGRectMake(0, 0, textField.height, textField.height)
 		}
 		
-		textField.grid.columns -= textField.grid.offset.columns
+		textField.grid.columns = contentView.grid.columns
 		
 		grid.reloadLayout()
 	}
@@ -154,5 +154,10 @@ public class SearchBarView : StatusBarView {
 		textField.clearButtonMode = .Never
 		textField.rightViewMode = .WhileEditing
 		contentView.addSubview(textField)
+		contentView.grid.views = [textField]
+	}
+	
+	internal override func statusBarViewDidChangeLayout() {
+		(delegate as? SearchBarViewDelegate)?.searchBarViewDidChangeLayout?(self)
 	}
 }

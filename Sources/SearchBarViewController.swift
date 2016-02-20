@@ -32,15 +32,15 @@ import UIKit
 
 public extension UIViewController {
 	/**
-	A convenience property that provides access to the NavigationBarViewController.
-	This is the recommended method of accessing the NavigationBarViewController
+	A convenience property that provides access to the SearchBarViewController.
+	This is the recommended method of accessing the SearchBarViewController
 	through child UIViewControllers.
 	*/
-	public var navigationBarViewController: NavigationBarViewController? {
+	public var searchBarViewController: SearchBarViewController? {
 		var viewController: UIViewController? = self
 		while nil != viewController {
-			if viewController is NavigationBarViewController {
-				return viewController as? NavigationBarViewController
+			if viewController is SearchBarViewController {
+				return viewController as? SearchBarViewController
 			}
 			viewController = viewController?.parentViewController
 		}
@@ -48,8 +48,8 @@ public extension UIViewController {
 	}
 }
 
-public class NavigationBarViewController: UIViewController {
-	public private(set) lazy var navigationBarView: NavigationBarView = NavigationBarView()
+public class SearchBarViewController: UIViewController {
+	public private(set) lazy var searchBarView: SearchBarView = SearchBarView()
 	
 	/**
 	A Boolean property used to enable and disable interactivity
@@ -73,7 +73,7 @@ public class NavigationBarViewController: UIViewController {
 	public private(set) var mainViewController: UIViewController!
 	
 	/**
-	An initializer for the NavigationBarViewController.
+	An initializer for the SearchBarViewController.
 	- Parameter mainViewController: The main UIViewController.
 	*/
 	public convenience init(mainViewController: UIViewController) {
@@ -120,16 +120,16 @@ public class NavigationBarViewController: UIViewController {
 			})
 	}
 	
-	/// A method that generally prepares the NavigationBarViewController.
+	/// A method that generally prepares the SearchBarViewController.
 	private func prepareView() {
-		prepareNavigationBarView()
+		prepareSearchBarView()
 		prepareMainViewController()
 	}
 	
-	/// Prepares the NavigationBarView.
-	private func prepareNavigationBarView() {
-		navigationBarView.delegate = self
-		view.addSubview(navigationBarView)
+	/// Prepares the SearchBarView.
+	private func prepareSearchBarView() {
+		searchBarView.delegate = self
+		view.addSubview(searchBarView)
 	}
 	
 	/// A method that prepares the mainViewController.
@@ -139,7 +139,7 @@ public class NavigationBarViewController: UIViewController {
 	
 	/**
 	A method that adds the passed in controller as a child of
-	the NavigationBarViewController within the passed in
+	the SearchBarViewController within the passed in
 	container view.
 	- Parameter viewController: A UIViewController to add as a child.
 	- Parameter container: A UIView that is the parent of the
@@ -157,13 +157,13 @@ public class NavigationBarViewController: UIViewController {
 	private func layoutSubviews() {
 		let size: CGSize = UIScreen.mainScreen().bounds.size
 		let h: CGFloat = UIApplication.sharedApplication().statusBarFrame.size.height
-		mainViewController.view.frame = CGRectMake(0, navigationBarView.height, size.width, size.height - navigationBarView.height - (20 >= h ? 0 : h - 20))
+		mainViewController.view.frame = CGRectMake(0, searchBarView.height, size.width, size.height - searchBarView.height - (20 >= h ? 0 : h - 20))
 	}
 }
 
-extension NavigationBarViewController : NavigationBarViewDelegate {
+extension SearchBarViewController : SearchBarViewDelegate {
 	/// Monitor layout changes.
-	public func navigationBarViewDidChangeLayout(navigationBarView: NavigationBarView) {
+	public func searchBarViewDidChangeLayout(searchBarView: SearchBarView) {
 		layoutSubviews()
 	}
 }

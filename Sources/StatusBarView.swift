@@ -30,12 +30,6 @@
 
 import UIKit
 
-@objc(StatusBarViewDelegate)
-public protocol StatusBarViewDelegate : MaterialDelegate {
-	optional func statusBarViewDidChangeLayout(statusBarView: StatusBarView)
-}
-
-@objc(StatusBarView)
 public class StatusBarView : ControlView {
 	/// Tracks the old frame size.
 	private var oldFrame: CGRect?
@@ -66,7 +60,9 @@ public class StatusBarView : ControlView {
 		width = UIScreen.mainScreen().bounds.width
 		
 		if frame.origin.x != oldFrame!.origin.x || frame.origin.y != oldFrame!.origin.y || frame.width != oldFrame!.width || frame.height != oldFrame!.height {
-			(delegate as? StatusBarViewDelegate)?.statusBarViewDidChangeLayout?(self)
+			if nil != delegate {
+				statusBarViewDidChangeLayout()
+			}
 			oldFrame = frame
 		}
 		reloadView()
@@ -97,4 +93,7 @@ public class StatusBarView : ControlView {
 		grid.contentInset.right = 8
 		grid.axis.inherited = false
 	}
+	
+	/// Chaining method for subclasses to offer delegation or other useful features.
+	internal func statusBarViewDidChangeLayout() {}
 }
