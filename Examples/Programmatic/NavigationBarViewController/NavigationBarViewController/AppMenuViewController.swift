@@ -77,22 +77,26 @@ class AppMenuViewController: MenuViewController {
 	
 	*/
 	func handleBtn4() {
-		if (menuViewController?.mainViewController as? NavigationBarViewController)?.mainViewController is FeedViewController {
+		if (menuViewController?.mainViewController as? NavigationBarViewController)?.mainViewController is YellowViewController {
 			return
 		}
 		
 		closeMenu { [weak self] in
-			self?.menuViewController?.transitionFromMainViewController(AppNavigationBarViewController(mainViewController: FeedViewController()), options: [.TransitionCrossDissolve])
+			self?.menuViewController?.transitionFromMainViewController(AppNavigationBarViewController(mainViewController: YellowViewController()), options: [.TransitionCrossDissolve])
 		}
 	}
 	
 	/// Opens the menu with a callback.
 	func openMenu(completion: (() -> Void)? = nil) {
 		(menuView.menu.views?.first as? MaterialButton)?.animate(MaterialAnimation.rotate(0.125))
-		menuView.menu.open { [weak self] (v: UIView) in
-			(v as? MaterialButton)?.pulse()
-			if self?.menuView.menu.views?.last == v {
-				completion?()
+		if true == menuView.menu.views?.first?.userInteractionEnabled {
+			menuView.menu.views?.first?.userInteractionEnabled = false
+			menuView.menu.open { [weak self] (v: UIView) in
+				(v as? MaterialButton)?.pulse()
+				if self?.menuView.menu.views?.last == v {
+					self?.menuView.menu.views?.first?.userInteractionEnabled = true
+					completion?()
+				}
 			}
 		}
 	}

@@ -51,18 +51,26 @@ public class MenuView : MaterialPulseView {
 
 	/// Opens the menu with a callback.
 	public func open(completion: (() -> Void)? = nil) {
-		menu.open { [weak self] (v: UIView) in
-			if self?.menu.views?.last == v {
-				completion?()
+		if true == menu.views?.first?.userInteractionEnabled {
+			menu.views?.first?.userInteractionEnabled = false
+			menu.open { [weak self] (v: UIView) in
+				if self?.menu.views?.last == v {
+					self?.menu.views?.first?.userInteractionEnabled = true
+					completion?()
+				}
 			}
 		}
 	}
 	
 	/// Closes the menu with a callback.
 	public func close(completion: (() -> Void)? = nil) {
-		menu.close { [weak self] (v: UIView) in
-			if self?.menu.views?.last == v {
-				completion?()
+		if true == menu.views?.first?.userInteractionEnabled {
+			menu.views?.first?.userInteractionEnabled = false
+			menu.close { [weak self] (v: UIView) in
+				if self?.menu.views?.last == v {
+					self?.menu.views?.first?.userInteractionEnabled = true
+					completion?()
+				}
 			}
 		}
 	}

@@ -37,7 +37,7 @@ private struct Item {
 	var image: UIImage?
 }
 
-class FeedViewController: UIViewController {
+class YellowViewController: UIViewController {
 	/// A tableView used to display Bond entries.
 	private let tableView: UITableView = UITableView()
 	
@@ -90,7 +90,7 @@ class FeedViewController: UIViewController {
 }
 
 /// TableViewDataSource methods.
-extension FeedViewController: UITableViewDataSource {
+extension YellowViewController: UITableViewDataSource {
 	/// Determines the number of rows in the tableView.
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return items.count;
@@ -137,7 +137,7 @@ extension FeedViewController: UITableViewDataSource {
 }
 
 /// UITableViewDelegate methods.
-extension FeedViewController: UITableViewDelegate {
+extension YellowViewController: UITableViewDelegate {
 	/// Sets the tableView cell height.
 	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 		return 80

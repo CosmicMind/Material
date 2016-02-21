@@ -18,7 +18,7 @@
 		96A71FC61C765FDF00C0C4AE /* AppNavigationBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71FC51C765FDF00C0C4AE /* AppNavigationBarViewController.swift */; };
 		96A71FCB1C765FDF00C0C4AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96A71FCA1C765FDF00C0C4AE /* Assets.xcassets */; };
 		96A71FCE1C765FDF00C0C4AE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96A71FCC1C765FDF00C0C4AE /* LaunchScreen.storyboard */; };
-		96A71FD61C76618D00C0C4AE /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71FD51C76618D00C0C4AE /* FeedViewController.swift */; };
+		96A71FD61C76618D00C0C4AE /* YellowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71FD51C76618D00C0C4AE /* YellowViewController.swift */; };
 		96A7200C1C76E53A00C0C4AE /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A7200B1C76E53A00C0C4AE /* Material.framework */; };
 		96A7200D1C76E53A00C0C4AE /* Material.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 96A7200B1C76E53A00C0C4AE /* Material.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -51,7 +51,7 @@
 		96A71FCA1C765FDF00C0C4AE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		96A71FCD1C765FDF00C0C4AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		96A71FCF1C765FDF00C0C4AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		96A71FD51C76618D00C0C4AE /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
+		96A71FD51C76618D00C0C4AE /* YellowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowViewController.swift; sourceTree = "<group>"; };
 		96A7200B1C76E53A00C0C4AE /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = Material.framework; path = "/Users/danieldahan/Library/Developer/Xcode/DerivedData/Material-hbpnflxhoouqxebjcyhbbhqyesjd/Build/Products/Debug-iphoneos/Material.framework"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -93,7 +93,7 @@
 				9626C2DF1C7950AB007CA8E0 /* AppMenuViewController.swift */,
 				9626C2E11C795717007CA8E0 /* AppLeftViewController.swift */,
 				9626C2E31C79594B007CA8E0 /* AppRightViewController.swift */,
-				96A71FD51C76618D00C0C4AE /* FeedViewController.swift */,
+				96A71FD51C76618D00C0C4AE /* YellowViewController.swift */,
 				9600361A1C7828BB00EBA579 /* BlueViewController.swift */,
 				9600361C1C7829EF00EBA579 /* GreenViewController.swift */,
 				9626C2E51C7962B5007CA8E0 /* SearchListViewController.swift */,
@@ -178,7 +178,7 @@
 				9600361B1C7828BB00EBA579 /* BlueViewController.swift in Sources */,
 				9626C2E61C7962B5007CA8E0 /* SearchListViewController.swift in Sources */,
 				9626C2E21C795717007CA8E0 /* AppLeftViewController.swift in Sources */,
-				96A71FD61C76618D00C0C4AE /* FeedViewController.swift in Sources */,
+				96A71FD61C76618D00C0C4AE /* YellowViewController.swift in Sources */,
 				9626C2E81C7962D5007CA8E0 /* AppSearchBarViewController.swift in Sources */,
 				9600361D1C7829EF00EBA579 /* GreenViewController.swift in Sources */,
 				96A71FC61C765FDF00C0C4AE /* AppNavigationBarViewController.swift in Sources */,

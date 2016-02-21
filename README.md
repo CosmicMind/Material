@@ -55,25 +55,60 @@ Material is a growing project and will encounter changes throughout its developm
 
 ## A Tour  
 
+#### Colors
+
 * [MaterialColor](#materialcolor)
+
+#### Base Layers & Views
+
 * [MaterialLayer](#materiallayer)
 * [MaterialView](#materialview)
 * [MaterialPulseView](#materialpulseview)
+
+#### Text
+
 * [TextField](#textfield)
 * [TextView](#textview)
+
+#### Buttons
+
 * [FlatButton](#flatbutton)
 * [RaisedButton](#raisedbutton)
 * [FabButton](#fabbutton)
+
+#### Control
+
 * [MaterialSwitch](#materialswitch) (New)
-* [Menu](#menu) (New)
+
+#### Layout
+
 * [Grid](#grid) (New)
+* MaterialLayout
+
+#### Collections
+
 * [MaterialTableViewCell](#materialtableviewcell) (New)
-* [NavigationBarView](#navigationbarview) (New)
-* NavigationViewController (New)
-* [SearchBarView](#searchbarview) (New)
-* [SideNavigationViewController](#sidenavigationviewcontroller)
+
+#### Cards
+
 * [CardView](#cardview) (New)
 * [ImageCardView](#imagecardview)
+
+#### Component Control
+
+* [Menu](#menu) (New)
+
+#### Navigation
+
+* [NavigationBarView](#navigationbarview) (New)
+* [NavigationBarViewController](#navigationbarviewcontroller) (New)
+* [SearchBarView](#searchbarview) (New)
+* [SideNavigationViewController](#sidenavigationviewcontroller)
+* [MenuView](#searchbarview) (New)
+* [MenuViewController](#sidenavigationviewcontroller) (New)
+
+#### Photo / Video Camera
+
 * [CaptureView](#captureview)
 
 ## Upcoming
