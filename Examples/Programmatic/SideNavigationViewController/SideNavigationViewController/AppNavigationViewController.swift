@@ -30,9 +30,9 @@
 
 /*
 The following is an example of setting a UITableView as the MainViewController
-within a SideNavigationBarViewController. There is a NavigationBarView that is
+within a SideNavigationViewController. There is a NavigationBarView that is
 used for navigation, with a menu button that opens the 
-SideNavigationBarViewController.
+SideNavigationViewController.
 */
 
 import UIKit
@@ -48,9 +48,6 @@ class AppNavigationBarViewController: NavigationBarViewController {
 	/// MenuView inset.
 	private let menuViewInset: CGFloat = 16
 	
-	/// MenuView.
-	private let menuView: MenuView = MenuView()
-	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
@@ -63,51 +60,51 @@ class AppNavigationBarViewController: NavigationBarViewController {
 		super.viewWillAppear(animated)
 		
 		/*
-		Set the width of the SideNavigationBarViewController. Be mindful
+		Set the width of the SideNavigationViewController. Be mindful
 		of when setting this value. It is set in the viewWillAppear method,
 		because any earlier may cause a race condition when instantiating
 		the MainViewController and SideViewController.
 		*/
-//		sideNavigationBarViewController?.setLeftViewWidth(view.bounds.width - menuViewDiameter - 2 * menuViewInset, hidden: true, animated: false)
-		sideNavigationBarViewController?.delegate = self
+//		sideNavigationViewController?.setLeftViewWidth(view.bounds.width - menuViewDiameter - 2 * menuViewInset, hidden: true, animated: false)
+		sideNavigationViewController?.delegate = self
 	}
 	
 	/**
 	Handles the menu button click, which opens the
-	SideNavigationBarViewController.
+	SideNavigationViewController.
 	*/
 	func handleMenuButton() {
-		sideNavigationBarViewController?.openLeftView()
+		sideNavigationViewController?.openLeftView()
 	}
 	
 	/**
 	Handles the more button click, which opens the
-	SideNavigationBarViewController.
+	SideNavigationViewController.
 	*/
 	func handleMoreButton() {
-		sideNavigationBarViewController?.openRightView()
+		sideNavigationViewController?.openRightView()
 	}
 	
 	/// Handle the menuView touch event.
 	func handleMenu() {
 		let image: UIImage?
 		
-		if menuView.menu.opened {
+		if true == navigationBarViewController?.menuView?.menu.opened {
 			hideMenuBackdropLayer()
 			
-			menuView.menu.close()
+			navigationBarViewController?.menuView?.menu.close()
 			image = UIImage(named: "ic_add_white")
 		} else {
 			showMenuBackdropLayer()
 			
-			menuView.menu.open() { (v: UIView) in
+			navigationBarViewController?.menuView?.menu.open() { (v: UIView) in
 				(v as? MaterialButton)?.pulse()
 			}
 			image = UIImage(named: "ic_close_white")
 		}
 		
 		// Add a nice rotation animation to the base button.
-		let first: MaterialButton? = menuView.menu.views?.first as? MaterialButton
+		let first: MaterialButton? = navigationBarViewController?.menuView?.menu.views?.first as? MaterialButton
 		first?.animate(MaterialAnimation.rotate(1))
 		first?.setImage(image, forState: .Normal)
 		first?.setImage(image, forState: .Highlighted)
@@ -193,7 +190,7 @@ class AppNavigationBarViewController: NavigationBarViewController {
 		btn1.setImage(image, forState: .Normal)
 		btn1.setImage(image, forState: .Highlighted)
 		btn1.addTarget(self, action: "handleMenu", forControlEvents: .TouchUpInside)
-		menuView.addSubview(btn1)
+		navigationBarViewController?.menuView?.addSubview(btn1)
 		
 		image = UIImage(named: "ic_create_white")
 		let btn2: FabButton = FabButton()
@@ -201,7 +198,7 @@ class AppNavigationBarViewController: NavigationBarViewController {
 		btn2.setImage(image, forState: .Normal)
 		btn2.setImage(image, forState: .Highlighted)
 		btn2.addTarget(self, action: "openNote", forControlEvents: .TouchUpInside)
-		menuView.addSubview(btn2)
+		navigationBarViewController?.menuView?.addSubview(btn2)
 		
 		
 		image = UIImage(named: "ic_photo_camera_white")
@@ -209,35 +206,34 @@ class AppNavigationBarViewController: NavigationBarViewController {
 		btn3.backgroundColor = MaterialColor.green.base
 		btn3.setImage(image, forState: .Normal)
 		btn3.setImage(image, forState: .Highlighted)
-		menuView.addSubview(btn3)
+		navigationBarViewController?.menuView?.addSubview(btn3)
 		
 		image = UIImage(named: "ic_note_add_white")
 		let btn4: FabButton = FabButton()
 		btn4.backgroundColor = MaterialColor.amber.base
 		btn4.setImage(image, forState: .Normal)
 		btn4.setImage(image, forState: .Highlighted)
-		menuView.addSubview(btn4)
+		navigationBarViewController?.menuView?.addSubview(btn4)
 		
 		// Initialize the menu and setup the configuration options.
-		menuView.menu.direction = .Up
-		menuView.menu.baseViewSize = CGSizeMake(menuViewDiameter, menuViewDiameter)
-		menuView.menu.views = [btn1, btn2, btn3, btn4]
-		menuView.zPosition = 3000
+		navigationBarViewController?.menuView?.menu.direction = .Up
+		navigationBarViewController?.menuView?.menu.baseViewSize = CGSizeMake(menuViewDiameter, menuViewDiameter)
+		navigationBarViewController?.menuView?.menu.views = [btn1, btn2, btn3, btn4]
+		navigationBarViewController?.menuView?.zPosition = 3000
 		
-		view.insertSubview(menuView, aboveSubview: navigationBarView)
-		menuView.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.size(view, child: menuView, width: menuViewDiameter, height: menuViewDiameter)
-		MaterialLayout.alignFromBottomRight(view, child: menuView, bottom: menuViewInset, right: menuViewInset)
+		navigationBarViewController?.menuView?.translatesAutoresizingMaskIntoConstraints = false
+		MaterialLayout.size(view, child: navigationBarViewController!.menuView!, width: menuViewDiameter, height: menuViewDiameter)
+		MaterialLayout.alignFromBottomRight(view, child: navigationBarViewController!.menuView!, bottom: menuViewInset, right: menuViewInset)
 	}
 	
 	/// Displays the menuBackdropLayer.
 	private func showMenuBackdropLayer() {
 		// Disable the side nav, so users can't swipe while viewing the menu.
-		sideNavigationBarViewController?.enabled = false
+		sideNavigationViewController?.enabled = false
 		
 		// Position the menuBackdropLayer for the animation when opening.
 		MaterialAnimation.animationDisabled { [unowned self] in
-			self.menuBackdropLayer.frame = self.menuView.frame
+			self.menuBackdropLayer.frame = self.navigationBarViewController!.menuView!.frame
 			self.menuBackdropLayer.shape = .Circle
 			self.menuBackdropLayer.hidden = false
 		}
@@ -248,12 +244,12 @@ class AppNavigationBarViewController: NavigationBarViewController {
 	/// Hides the menuBackdropLayer.
 	private func hideMenuBackdropLayer() {
 		// Enable the side nav.
-		sideNavigationBarViewController?.enabled = true
+		sideNavigationViewController?.enabled = true
 		
 		// Position the menuBackdropLayer for the animation when closing.
 		menuBackdropLayer.animate(MaterialAnimation.animationGroup([
 			MaterialAnimation.scale(1),
-			MaterialAnimation.position(menuView.center)
+			MaterialAnimation.position(navigationBarViewController!.menuView!.center)
 		], duration: 0.25))
 		
 		MaterialAnimation.delay(0.25) { [weak self] in
@@ -262,69 +258,69 @@ class AppNavigationBarViewController: NavigationBarViewController {
 	}
 }
 
-/// SideNavigationBarViewControllerDelegate methods.
-extension AppNavigationBarViewController: SideNavigationBarViewControllerDelegate {
+/// SideNavigationViewControllerDelegate methods.
+extension AppNavigationBarViewController: SideNavigationViewControllerDelegate {
 	/**
 	An optional delegation method that is fired before the
-	SideNavigationBarViewController opens.
+	SideNavigationViewController opens.
 	*/
-	func sideNavigationViewWillOpen(sideNavigationBarViewController: SideNavigationBarViewController, position: SideNavigationPosition) {
+	func sideNavigationViewWillOpen(sideNavigationViewController: SideNavigationViewController, position: SideNavigationPosition) {
 		print("Will open", .Left == position ? "Left" : "Right", "view.")
 	}
 	
 	/**
 	An optional delegation method that is fired after the
-	SideNavigationBarViewController opened.
+	SideNavigationViewController opened.
 	*/
-	func sideNavigationViewDidOpen(sideNavigationBarViewController: SideNavigationBarViewController, position: SideNavigationPosition) {
+	func sideNavigationViewDidOpen(sideNavigationViewController: SideNavigationViewController, position: SideNavigationPosition) {
 		print("Did open", .Left == position ? "Left" : "Right", "view.")
 	}
 	
 	/**
 	An optional delegation method that is fired before the
-	SideNavigationBarViewController closes.
+	SideNavigationViewController closes.
 	*/
-	func sideNavigationViewWillClose(sideNavigationBarViewController: SideNavigationBarViewController, position: SideNavigationPosition) {
+	func sideNavigationViewWillClose(sideNavigationViewController: SideNavigationViewController, position: SideNavigationPosition) {
 		print("Will close", .Left == position ? "Left" : "Right", "view.")
 	}
 	
 	/**
 	An optional delegation method that is fired after the
-	SideNavigationBarViewController closed.
+	SideNavigationViewController closed.
 	*/
-	func sideNavigationViewDidClose(sideNavigationBarViewController: SideNavigationBarViewController, position: SideNavigationPosition) {
+	func sideNavigationViewDidClose(sideNavigationViewController: SideNavigationViewController, position: SideNavigationPosition) {
 		print("Did close", .Left == position ? "Left" : "Right", "view.")
 	}
 	
 	/**
 	An optional delegation method that is fired when the
-	SideNavigationBarViewController pan gesture begins.
+	SideNavigationViewController pan gesture begins.
 	*/
-	func sideNavigationViewPanDidBegin(sideNavigationBarViewController: SideNavigationBarViewController, point: CGPoint, position: SideNavigationPosition) {
+	func sideNavigationViewPanDidBegin(sideNavigationViewController: SideNavigationViewController, point: CGPoint, position: SideNavigationPosition) {
 		print("Pan did begin for", .Left == position ? "Left" : "Right", "view.")
 	}
 	
 	/**
 	An optional delegation method that is fired when the
-	SideNavigationBarViewController pan gesture changes position.
+	SideNavigationViewController pan gesture changes position.
 	*/
-	func sideNavigationViewPanDidChange(sideNavigationBarViewController: SideNavigationBarViewController, point: CGPoint, position: SideNavigationPosition) {
+	func sideNavigationViewPanDidChange(sideNavigationViewController: SideNavigationViewController, point: CGPoint, position: SideNavigationPosition) {
 		print("Pan did change for", .Left == position ? "Left" : "Right", "view.")
 	}
 	
 	/**
 	An optional delegation method that is fired when the
-	SideNavigationBarViewController pan gesture ends.
+	SideNavigationViewController pan gesture ends.
 	*/
-	func sideNavigationViewPanDidEnd(sideNavigationBarViewController: SideNavigationBarViewController, point: CGPoint, position: SideNavigationPosition) {
+	func sideNavigationViewPanDidEnd(sideNavigationViewController: SideNavigationViewController, point: CGPoint, position: SideNavigationPosition) {
 		print("Pan did end for", .Left == position ? "Left" : "Right", "view.")
 	}
 	
 	/**
 	An optional delegation method that is fired when the
-	SideNavigationBarViewController tap gesture executes.
+	SideNavigationViewController tap gesture executes.
 	*/
-	func sideNavigationViewDidTap(sideNavigationBarViewController: SideNavigationBarViewController, point: CGPoint, position: SideNavigationPosition) {
+	func sideNavigationViewDidTap(sideNavigationViewController: SideNavigationViewController, point: CGPoint, position: SideNavigationPosition) {
 		print("Did Tap for", .Left == position ? "Left" : "Right", "view.")
 	}
 }

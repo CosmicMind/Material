@@ -65,10 +65,10 @@ public class SearchBarView : StatusBarView {
 	}
 	
 	/// Placeholder textColor.
-	public var placeholderTextColor: UIColor? {
+	public var placeholderTextColor: UIColor = MaterialColor.black {
 		didSet {
 			if let v: String = textField.placeholder {
-				textField.attributedPlaceholder = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: MaterialColor.white])
+				textField.attributedPlaceholder = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderTextColor])
 			}
 		}
 	}
@@ -78,7 +78,7 @@ public class SearchBarView : StatusBarView {
 		didSet {
 			textField.placeholder = placeholder
 			if let v: String = textField.placeholder {
-				textField.attributedPlaceholder = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: MaterialColor.white])
+				textField.attributedPlaceholder = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderTextColor])
 			}
 		}
 	}

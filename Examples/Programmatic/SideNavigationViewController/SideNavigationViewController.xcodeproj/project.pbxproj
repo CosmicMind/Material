@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		961260741C78F2C700BF0079 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961260731C78F2C700BF0079 /* Material.framework */; };
+		961260751C78F2C700BF0079 /* Material.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 961260731C78F2C700BF0079 /* Material.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9642FA1B1C1B50E700022BC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9642FA1A1C1B50E700022BC6 /* AppDelegate.swift */; };
 		9642FA1D1C1B50E700022BC6 /* AppNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9642FA1C1C1B50E700022BC6 /* AppNavigationViewController.swift */; };
 		9642FA221C1B50E700022BC6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9642FA211C1B50E700022BC6 /* Assets.xcassets */; };
@@ -24,6 +26,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				961260751C78F2C700BF0079 /* Material.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -31,6 +34,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		961260731C78F2C700BF0079 /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = Material.framework; path = "/Users/danieldahan/Library/Developer/Xcode/DerivedData/Material-hbpnflxhoouqxebjcyhbbhqyesjd/Build/Products/Debug-iphoneos/Material.framework"; sourceTree = "<absolute>"; };
 		9642FA171C1B50E700022BC6 /* SideNavigationViewController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SideNavigationViewController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9642FA1A1C1B50E700022BC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9642FA1C1C1B50E700022BC6 /* AppNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigationViewController.swift; sourceTree = "<group>"; };
@@ -48,6 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				961260741C78F2C700BF0079 /* Material.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -57,6 +62,7 @@
 		9642FA0E1C1B50E700022BC6 = {
 			isa = PBXGroup;
 			children = (
+				961260731C78F2C700BF0079 /* Material.framework */,
 				9642FA191C1B50E700022BC6 /* SideNavigationViewController */,
 				9642FA181C1B50E700022BC6 /* Products */,
 			);

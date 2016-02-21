@@ -37,7 +37,7 @@ private struct Item {
 	var image: UIImage?
 }
 
-class MainViewController: UIViewController {
+class FeedViewController: UIViewController {
 	/// A tableView used to display Bond entries.
 	private let tableView: UITableView = UITableView()
 	
@@ -53,10 +53,10 @@ class MainViewController: UIViewController {
 	
 	/**
 	Handles the search button click, which opens the
-	SideNavigationBarViewController.
+	SideNavigationViewController.
 	*/
 	func handleSearchButton() {
-		sideNavigationBarViewController?.openRightView()
+		sideNavigationViewController?.openRightView()
 	}
 	
 	/// Prepares view.
@@ -90,7 +90,7 @@ class MainViewController: UIViewController {
 }
 
 /// TableViewDataSource methods.
-extension MainViewController: UITableViewDataSource {
+extension FeedViewController: UITableViewDataSource {
 	/// Determines the number of rows in the tableView.
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return items.count;
@@ -137,7 +137,7 @@ extension MainViewController: UITableViewDataSource {
 }
 
 /// UITableViewDelegate methods.
-extension MainViewController: UITableViewDelegate {
+extension FeedViewController: UITableViewDelegate {
 	/// Sets the tableView cell height.
 	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 		return 80

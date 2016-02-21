@@ -36,7 +36,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 		
-		// Toggle SideNavigationBarViewController.
+		// Toggle SideNavigationViewController.
 		let img: UIImage? = UIImage(named: "ic_create_white")
 		let fabButton: FabButton = FabButton()
 		fabButton.setImage(img, forState: .Normal)
@@ -51,7 +51,7 @@ class MainViewController: UIViewController {
 	
 	// FabButton handler.
 	func handleFabButton() {
-		sideNavigationBarViewController?.toggleLeftView()
+		sideNavigationViewController?.toggleLeftView()
 	}
 }
 

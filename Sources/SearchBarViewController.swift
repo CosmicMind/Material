@@ -49,6 +49,7 @@ public extension UIViewController {
 }
 
 public class SearchBarViewController: UIViewController {
+	/// Reference to the SearchBarView.
 	public private(set) lazy var searchBarView: SearchBarView = SearchBarView()
 	
 	/**
@@ -103,10 +104,10 @@ public class SearchBarViewController: UIViewController {
 	the transition animation from the active mainViewController
 	to the toViewController has completed.
 	*/
-	public func transitionFromMainViewController(toViewController: UIViewController, duration: NSTimeInterval = 0.5, options: UIViewAnimationOptions = [], animations: (() -> Void)?, completion: ((Bool) -> Void)?) {
+	public func transitionFromMainViewController(toViewController: UIViewController, duration: NSTimeInterval = 0.5, options: UIViewAnimationOptions = [], animations: (() -> Void)? = nil, completion: ((Bool) -> Void)? = nil) {
 		mainViewController.willMoveToParentViewController(nil)
 		addChildViewController(toViewController)
-		toViewController.view.frame = view.bounds
+		toViewController.view.frame = mainViewController.view.frame
 		transitionFromViewController(mainViewController,
 			toViewController: toViewController,
 			duration: duration,
@@ -116,6 +117,7 @@ public class SearchBarViewController: UIViewController {
 				toViewController.didMoveToParentViewController(self)
 				self.mainViewController.removeFromParentViewController()
 				self.mainViewController = toViewController
+				self.view.sendSubviewToBack(self.mainViewController.view)
 				completion?(result)
 			})
 	}
@@ -129,6 +131,7 @@ public class SearchBarViewController: UIViewController {
 	/// Prepares the SearchBarView.
 	private func prepareSearchBarView() {
 		searchBarView.delegate = self
+		searchBarView.zPosition = 1000
 		view.addSubview(searchBarView)
 	}
 	

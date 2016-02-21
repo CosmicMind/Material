@@ -69,17 +69,17 @@ class ViewController: UIViewController {
 		detailLabel.font = RobotoFont.regularWithSize(12)
 		
 		var image = UIImage(named: "ic_menu_white")
-		
+
 		// Menu button.
 		let menuButton: FlatButton = FlatButton()
 		menuButton.pulseColor = MaterialColor.white
 		menuButton.pulseScale = false
 		menuButton.setImage(image, forState: .Normal)
 		menuButton.setImage(image, forState: .Highlighted)
-		
+//
 		// Switch control.
 		let switchControl: MaterialSwitch = MaterialSwitch(state: .Off, style: .LightContent, size: .Small)
-		
+//
 		// Search button.
 		image = UIImage(named: "ic_search_white")
 		let searchButton: FlatButton = FlatButton()

@@ -53,10 +53,10 @@ class FeedViewController: UIViewController {
 	
 	/**
 	Handles the search button click, which opens the
-	SideNavigationBarViewController.
+	SideNavigationViewController.
 	*/
 	func handleSearchButton() {
-		sideNavigationBarViewController?.openRightView()
+		sideNavigationViewController?.openRightView()
 	}
 	
 	/// Prepares view.

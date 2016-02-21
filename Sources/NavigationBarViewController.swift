@@ -49,7 +49,58 @@ public extension UIViewController {
 }
 
 public class NavigationBarViewController: UIViewController {
+	/// Reference to the NavigationBarView.
 	public private(set) lazy var navigationBarView: NavigationBarView = NavigationBarView()
+	
+	/// Internal reference to the floatingViewController.
+	private var internalFloatingViewController: UIViewController?
+	
+	/// A floating UIViewController.
+	public var floatingViewController: UIViewController? {
+		get {
+			return internalFloatingViewController
+		}
+		set(value) {
+			if let v: UIViewController = value {
+				/**
+				Disable the sideNavigationViewController from opening while in
+				noteViewController.
+				*/
+				sideNavigationViewController?.enabled = false
+				
+				// Add the noteViewController! to the view.
+				addChildViewController(v)
+				v.view.frame = view.bounds
+				v.view.center.y = 2 * view.bounds.height
+				v.view.hidden = true
+				view.insertSubview(v.view, aboveSubview: navigationBarView)
+				v.view.layer.zPosition = 1500
+				v.didMoveToParentViewController(self)
+				
+				// Animate the noteButton out and the noteViewController! in.
+				v.view.hidden = false
+				internalFloatingViewController = v
+				
+				UIView.animateWithDuration(0.5,
+					animations: { [unowned self] in
+						v.view.center.y = self.view.bounds.height / 2
+					})
+			} else if let v: UIViewController = internalFloatingViewController {
+				sideNavigationViewController?.enabled = true
+				
+				internalFloatingViewController = nil
+				
+				UIView.animateWithDuration(0.5,
+					animations: { [unowned self] in
+						v.view.center.y = 2 * self.view.bounds.height
+					}) { _ in
+						v.willMoveToParentViewController(nil)
+						v.view.removeFromSuperview()
+						v.removeFromParentViewController()
+					}
+			}
+		}
+	}
 	
 	/**
 	A Boolean property used to enable and disable interactivity
@@ -103,10 +154,10 @@ public class NavigationBarViewController: UIViewController {
 	the transition animation from the active mainViewController
 	to the toViewController has completed.
 	*/
-	public func transitionFromMainViewController(toViewController: UIViewController, duration: NSTimeInterval = 0.5, options: UIViewAnimationOptions = [], animations: (() -> Void)?, completion: ((Bool) -> Void)?) {
+	public func transitionFromMainViewController(toViewController: UIViewController, duration: NSTimeInterval = 0.5, options: UIViewAnimationOptions = [], animations: (() -> Void)? = nil, completion: ((Bool) -> Void)? = nil) {
 		mainViewController.willMoveToParentViewController(nil)
 		addChildViewController(toViewController)
-		toViewController.view.frame = view.bounds
+		toViewController.view.frame = mainViewController.view.frame
 		transitionFromViewController(mainViewController,
 			toViewController: toViewController,
 			duration: duration,
@@ -116,6 +167,7 @@ public class NavigationBarViewController: UIViewController {
 				toViewController.didMoveToParentViewController(self)
 				self.mainViewController.removeFromParentViewController()
 				self.mainViewController = toViewController
+				self.view.sendSubviewToBack(self.mainViewController.view)
 				completion?(result)
 			})
 	}
@@ -129,6 +181,7 @@ public class NavigationBarViewController: UIViewController {
 	/// Prepares the NavigationBarView.
 	private func prepareNavigationBarView() {
 		navigationBarView.delegate = self
+		navigationBarView.zPosition = 1000
 		view.addSubview(navigationBarView)
 	}
 	

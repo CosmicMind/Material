@@ -59,18 +59,18 @@ class AppSearchBarViewController: SearchBarViewController {
 	
 	/**
 	Handles the menu button click, which opens the
-	SideNavigationBarViewController.
+	SideNavigationViewController.
 	*/
 	func handleMenuButton() {
-		sideNavigationBarViewController?.openLeftView()
+		sideNavigationViewController?.openLeftView()
 	}
 	
 	/**
 	Handles the more button click, which opens the
-	SideNavigationBarViewController.
+	SideNavigationViewController.
 	*/
 	func handleMoreButton() {
-		sideNavigationBarViewController?.openRightView()
+		sideNavigationViewController?.openRightView()
 	}
 	
 	/// Handle the menuView touch event.
@@ -130,7 +130,7 @@ class AppSearchBarViewController: SearchBarViewController {
 		to your info.plist file and set the following property.
 		*/
 		searchBarView.statusBarStyle = .LightContent
-		
+
 		searchBarView.delegate = self
 		searchBarView.backgroundColor = MaterialColor.indigo.base
 		searchBarView.placeholder = "Search"
@@ -200,7 +200,7 @@ class AppSearchBarViewController: SearchBarViewController {
 	/// Displays the menuBackdropLayer.
 	private func showMenuBackdropLayer() {
 		// Disable the side nav, so users can't swipe while viewing the menu.
-		sideNavigationBarViewController?.enabled = false
+		sideNavigationViewController?.enabled = false
 		
 		// Position the menuBackdropLayer for the animation when opening.
 		MaterialAnimation.animationDisabled { [unowned self] in
@@ -215,7 +215,7 @@ class AppSearchBarViewController: SearchBarViewController {
 	/// Hides the menuBackdropLayer.
 	private func hideMenuBackdropLayer() {
 		// Enable the side nav.
-		sideNavigationBarViewController?.enabled = true
+		sideNavigationViewController?.enabled = true
 		
 		// Position the menuBackdropLayer for the animation when closing.
 		menuBackdropLayer.animate(MaterialAnimation.animationGroup([
