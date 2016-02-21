@@ -166,8 +166,6 @@ class AppMenuViewController: MenuViewController {
 	private func showMenuBackdrop() {
 		// Disable the side nav, so users can't swipe while viewing the menu.
 		sideNavigationViewController?.enabled = false
-		navigationBarViewController?.navigationBarView.userInteractionEnabled = false
-		navigationBarViewController?.navigationBarView.alpha = 0.5
 		menuViewController?.mainViewController.view.userInteractionEnabled = false
 		menuViewController?.mainViewController.view.alpha = 0.5
 	}
@@ -176,8 +174,6 @@ class AppMenuViewController: MenuViewController {
 	private func hideMenuBackdrop() {
 		// Enable the side nav.
 		sideNavigationViewController?.enabled = true
-		navigationBarViewController?.navigationBarView.userInteractionEnabled = true
-		navigationBarViewController?.navigationBarView.alpha = 1
 		menuViewController?.mainViewController.view.userInteractionEnabled = true
 		menuViewController?.mainViewController.view.alpha = 1
 	}

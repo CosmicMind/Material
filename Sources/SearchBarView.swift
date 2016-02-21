@@ -41,12 +41,11 @@ public class SearchBarView : StatusBarView {
 	
 	/// The UIImage for the clear icon.
 	public var clearButton: UIButton? {
-		didSet {
-			if let v: UIButton = clearButton {
-				v.contentEdgeInsets = UIEdgeInsetsZero
-				v.addTarget(self, action: "handleClearButton", forControlEvents: .TouchUpInside)
-			}
-			textField.rightView = clearButton
+		get {
+			return textField.clearButton
+		}
+		set(value) {
+			textField.clearButton = value
 		}
 	}
 	
@@ -64,22 +63,20 @@ public class SearchBarView : StatusBarView {
 		}
 	}
 	
-	/// Placeholder textColor.
-	public var placeholderTextColor: UIColor = MaterialColor.black {
-		didSet {
-			if let v: String = textField.placeholder {
-				textField.attributedPlaceholder = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderTextColor])
-			}
-		}
-	}
-	
 	/// A wrapper for searchBar.placeholder.
 	public var placeholder: String? {
 		didSet {
 			textField.placeholder = placeholder
-			if let v: String = textField.placeholder {
-				textField.attributedPlaceholder = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderTextColor])
-			}
+		}
+	}
+	
+	/// Placeholder textColor.
+	public var placeholderTextColor: UIColor {
+		get {
+			return textField.placeholderTextColor
+		}
+		set(value) {
+			textField.placeholderTextColor = value
 		}
 	}
 	
@@ -114,12 +111,8 @@ public class SearchBarView : StatusBarView {
 	public override func reloadView() {
 		super.reloadView()
 		
-		/// Prepare the clearButton.
-		if let v: UIButton = clearButton {
-			v.frame = CGRectMake(0, 0, textField.height, textField.height)
-		}
-		
 		textField.grid.columns = contentView.grid.columns
+		textField.reloadView()
 		
 		grid.reloadLayout()
 	}
@@ -142,17 +135,11 @@ public class SearchBarView : StatusBarView {
 		prepareTextField()
 	}
 	
-	/// Clears the textField text.
-	internal func handleClearButton() {
-		textField.text = ""
-	}
-	
 	/// Prepares the textField.
 	private func prepareTextField() {
 		textField.placeholder = "Search"
 		textField.backgroundColor = MaterialColor.clear
-		textField.clearButtonMode = .Never
-		textField.rightViewMode = .WhileEditing
+		textField.clearButtonMode = .WhileEditing
 		contentView.addSubview(textField)
 		contentView.grid.views = [textField]
 	}
