@@ -48,6 +48,24 @@ public class MenuView : MaterialPulseView {
 		clipsToBounds = false
 		backgroundColor = nil
 	}
+
+	/// Opens the menu with a callback.
+	public func open(completion: (() -> Void)? = nil) {
+		menu.open { [weak self] (v: UIView) in
+			if self?.menu.views?.last == v {
+				completion?()
+			}
+		}
+	}
+	
+	/// Closes the menu with a callback.
+	public func close(completion: (() -> Void)? = nil) {
+		menu.close { [weak self] (v: UIView) in
+			if self?.menu.views?.last == v {
+				completion?()
+			}
+		}
+	}
 	
 	public override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
 		/**

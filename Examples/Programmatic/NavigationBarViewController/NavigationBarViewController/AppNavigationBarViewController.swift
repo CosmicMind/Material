@@ -81,6 +81,7 @@ class AppNavigationBarViewController: NavigationBarViewController {
 		guard let v: AppSearchBarViewController = AppSearchBarViewController(mainViewController: SearchListViewController()) else {
 			return
 		}
+		
 		navigationBarViewController?.floatingViewController = v
 	}
 	

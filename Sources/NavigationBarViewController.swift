@@ -49,11 +49,11 @@ public extension UIViewController {
 }
 
 public class NavigationBarViewController: UIViewController {
-	/// Reference to the NavigationBarView.
-	public private(set) lazy var navigationBarView: NavigationBarView = NavigationBarView()
-	
 	/// Internal reference to the floatingViewController.
 	private var internalFloatingViewController: UIViewController?
+	
+	/// Reference to the NavigationBarView.
+	public private(set) lazy var navigationBarView: NavigationBarView = NavigationBarView()
 	
 	/// A floating UIViewController.
 	public var floatingViewController: UIViewController? {
@@ -61,6 +61,20 @@ public class NavigationBarViewController: UIViewController {
 			return internalFloatingViewController
 		}
 		set(value) {
+			if let v: UIViewController = internalFloatingViewController {
+				sideNavigationViewController?.enabled = true
+				
+				UIView.animateWithDuration(0.5,
+					animations: { [unowned self] in
+						v.view.center.y = 2 * self.view.bounds.height
+					}) { [unowned self] _ in
+						v.willMoveToParentViewController(nil)
+						v.view.removeFromSuperview()
+						v.removeFromParentViewController()
+						self.internalFloatingViewController = nil
+					}
+			}
+			
 			if let v: UIViewController = value {
 				/**
 				Disable the sideNavigationViewController from opening while in
@@ -79,24 +93,11 @@ public class NavigationBarViewController: UIViewController {
 				
 				// Animate the noteButton out and the noteViewController! in.
 				v.view.hidden = false
-				internalFloatingViewController = v
-				
 				UIView.animateWithDuration(0.5,
 					animations: { [unowned self] in
 						v.view.center.y = self.view.bounds.height / 2
-					})
-			} else if let v: UIViewController = internalFloatingViewController {
-				sideNavigationViewController?.enabled = true
-				
-				internalFloatingViewController = nil
-				
-				UIView.animateWithDuration(0.5,
-					animations: { [unowned self] in
-						v.view.center.y = 2 * self.view.bounds.height
-					}) { _ in
-						v.willMoveToParentViewController(nil)
-						v.view.removeFromSuperview()
-						v.removeFromParentViewController()
+					}) { [unowned self] _ in
+						self.internalFloatingViewController = v
 					}
 			}
 		}

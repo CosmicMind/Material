@@ -52,59 +52,71 @@ class AppMenuViewController: MenuViewController {
 	/**
 	*/
 	func handleBtn2() {
-		if navigationBarViewController?.mainViewController is BlueViewController {
+		if menuViewController?.mainViewController is BlueViewController {
 			return
 		}
-		handleMenu()
-		menuViewController?.transitionFromMainViewController(BlueViewController())
-		navigationBarViewController?.navigationBarView.titleLabel?.text = "Blue"
+		
+		closeMenu { [weak self] in
+			self?.menuViewController?.transitionFromMainViewController(BlueViewController(), options: [.TransitionCrossDissolve])
+		}
 	}
 	
 	/**
 	*/
 	func handleBtn3() {
-		if navigationBarViewController?.mainViewController is GreenViewController {
+		if menuViewController?.mainViewController is GreenViewController {
 			return
 		}
 		
-		handleMenu()
-		menuViewController?.transitionFromMainViewController(GreenViewController())
-		navigationBarViewController?.navigationBarView.titleLabel?.text = "Green"
+		closeMenu { [weak self] in
+			self?.menuViewController?.transitionFromMainViewController(GreenViewController(), options: [.TransitionCrossDissolve])
+		}
 	}
 	
 	/**
 	
 	*/
 	func handleBtn4() {
-		if navigationBarViewController?.mainViewController is FeedViewController {
+		if (menuViewController?.mainViewController as? NavigationBarViewController)?.mainViewController is FeedViewController {
 			return
 		}
 		
-		handleMenu()
-		menuViewController?.transitionFromMainViewController(AppNavigationBarViewController(mainViewController: FeedViewController()))
-		navigationBarViewController?.navigationBarView.titleLabel?.text = "Feed"
+		closeMenu { [weak self] in
+			self?.menuViewController?.transitionFromMainViewController(AppNavigationBarViewController(mainViewController: FeedViewController()), options: [.TransitionCrossDissolve])
+		}
+	}
+	
+	/// Opens the menu with a callback.
+	func openMenu(completion: (() -> Void)? = nil) {
+		(menuView.menu.views?.first as? MaterialButton)?.animate(MaterialAnimation.rotate(0.125))
+		menuView.menu.open { [weak self] (v: UIView) in
+			(v as? MaterialButton)?.pulse()
+			if self?.menuView.menu.views?.last == v {
+				completion?()
+			}
+		}
+	}
+	
+	/// Closes the menu with a callback.
+	func closeMenu(completion: (() -> Void)? = nil) {
+		(menuView.menu.views?.first as? MaterialButton)?.animate(MaterialAnimation.rotate(-0.125))
+		menuView.close(completion)
 	}
 	
 	/// Handle the menuView touch event.
 	func handleMenu() {
-		var rotate: Double = -0.125
 		if true == menuView.menu.opened {
 			hideMenuBackdrop()
-			menuView.menu.close()
+			closeMenu()
 		} else {
 			showMenuBackdrop()
-			rotate = 0.125
-			menuView.menu.open() { (v: UIView) in
-				(v as? MaterialButton)?.pulse()
-			}
+			openMenu()
 		}
-		
-		(menuView.menu.views?.first as? MaterialButton)?.animate(MaterialAnimation.rotate(rotate))
 	}
 	
 	/// Prepares view.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.white
+		view.backgroundColor = MaterialColor.black
 	}
 	
 	/// Prepares the add button.
@@ -141,7 +153,6 @@ class AppMenuViewController: MenuViewController {
 		btn4.addTarget(self, action: "handleBtn4", forControlEvents: .TouchUpInside)
 		
 		// Initialize the menu and setup the configuration options.
-		menuView.menu.direction = .Up
 		menuView.menu.baseViewSize = baseViewSize
 		menuView.menu.views = [btn1, btn2, btn3, btn4]
 		
