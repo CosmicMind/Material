@@ -59,6 +59,9 @@
          location = "group:Programmatic/SearchBarViewController/SearchBarViewController.xcodeproj">
       </FileRef>
       <FileRef
+         location = "group:Programmatic/SideNavigationViewController/SideNavigationViewController.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:Programmatic/CardView/CardView.xcodeproj">
       </FileRef>
       <FileRef

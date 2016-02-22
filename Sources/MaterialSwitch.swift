@@ -216,7 +216,7 @@ public class MaterialSwitch: UIControl {
 	}
 	
 	/// MaterialSwitch style.
-	public var switchStyle: MaterialSwitchStyle = .LightContent {
+	public var switchStyle: MaterialSwitchStyle = .Default {
 		didSet {
 			switch switchStyle {
 			case .LightContent:
