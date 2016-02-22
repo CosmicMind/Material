@@ -58,7 +58,7 @@ class AppNavigationBarViewController: NavigationBarViewController {
 	
 	/// Prepares view.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.white
+		view.backgroundColor = MaterialColor.black
 	}
 	
 	/// Toggle SideNavigationViewController left UIViewController.
@@ -68,11 +68,7 @@ class AppNavigationBarViewController: NavigationBarViewController {
 	
 	/// Toggle SideNavigationViewController right UIViewController.
 	internal func handleSearchButton() {
-		guard let v: AppSearchBarViewController = AppSearchBarViewController(mainViewController: SearchListViewController()) else {
-			return
-		}
-		
-		floatingViewController = v
+		floatingViewController = AppSearchBarViewController(mainViewController: SearchListViewController())
 	}
 	
 	/// Prepares the navigationBarView.
@@ -82,7 +78,7 @@ class AppNavigationBarViewController: NavigationBarViewController {
 		titleLabel.text = "Feed"
 		titleLabel.textAlignment = .Left
 		titleLabel.textColor = MaterialColor.white
-		titleLabel.font = RobotoFont.regularWithSize(20)
+		titleLabel.font = RobotoFont.regular
 		
 		var image = UIImage(named: "ic_menu_white")
 		

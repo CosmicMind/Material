@@ -82,15 +82,14 @@ class AppNavigationBarViewController: NavigationBarViewController {
 		titleLabel.text = "Material"
 		titleLabel.textAlignment = .Left
 		titleLabel.textColor = MaterialColor.white
-		titleLabel.font = RobotoFont.regularWithSize(20)
+		titleLabel.font = RobotoFont.regular
 		
 		// Detail label. Uncomment the code below to use a detail label.
 		//		let detailLabel: UILabel = UILabel()
 		//		detailLabel.text = "Build Beautiful Software"
 		//		detailLabel.textAlignment = .Left
 		//		detailLabel.textColor = MaterialColor.white
-		//		detailLabel.font = RobotoFont.regularWithSize(12)
-		//		titleLabel.font = RobotoFont.regularWithSize(17) // 17 point looks better with the detailLabel.
+		//		detailLabel.font = RobotoFont.regular
 		//		navigationBarView.detailLabel = detailLabel
 		
 		var image = UIImage(named: "ic_menu_white")

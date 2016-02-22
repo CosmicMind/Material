@@ -43,9 +43,16 @@ class AppSearchBarViewController: SearchBarViewController {
 		prepareSearchBarView()
 	}
 	
+	override func viewWillDisappear(animated: Bool) {
+		super.viewWillDisappear(animated)
+		sideNavigationViewController?.enabled = true
+	}
+	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
+		searchBarView.statusBarStyle = .Default
 		sideNavigationViewController?.delegate = self
+		sideNavigationViewController?.enabled = false
 	}
 	
 	/// Toggle SideSearchViewController left UIViewController.
@@ -97,8 +104,6 @@ class AppSearchBarViewController: SearchBarViewController {
 		moreButton.setImage(image, forState: .Highlighted)
 		moreButton.addTarget(self, action: "handleMoreButton", forControlEvents: .TouchUpInside)
 		
-		searchBarView.statusBarStyle = .Default
-		
 		searchBarView.delegate = self
 		searchBarView.placeholder = "Search"
 		searchBarView.tintColor = MaterialColor.blueGrey.darken4
@@ -126,5 +131,6 @@ extension AppSearchBarViewController: TextFieldDelegate {
 extension AppSearchBarViewController: SideNavigationViewControllerDelegate {
 	func sideNavigationViewDidClose(sideNavigationViewController: SideNavigationViewController, position: SideNavigationPosition) {
 		searchBarView.textField.becomeFirstResponder()
+		sideNavigationViewController.enabled = false
 	}
 }

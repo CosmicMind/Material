@@ -5,12 +5,19 @@ Please read it before you start participating.
 
 **Topics**
 
+* [Pull Request Submissions](#pull-request-submissions)
 * [Asking Questions](#asking-questions)
 * [Reporting Security Issues](#reporting-security-issues)
 * [Reporting Issues](#reporting-other-issues)
 * [Developers Certificate of Origin](#developers-certificate-of-origin)
 * [Code of Conduct](#code-of-conduct)
 
+<a href="#pull-request-submissions"></a>
+## Pull Request Submissions.
+
+All pull requests should be made to the development branch. Details should be available describing your fix. Before submitting a pull request, please confirm that merge issues are resolved.
+
+<a href="#asking-questions"></a>
 ## Asking Questions
 
 We don't use GitHub as a support forum.
@@ -20,6 +27,7 @@ By doing so, you'll be more likely to quickly solve your problem,
 and you'll allow anyone else with the same question to find the answer.
 This also allows maintainers to focus on improving the project for others.
 
+<a href="#reporting-security-issues"></a>
 ## Reporting Security Issues
 
 CosmicMind takes security seriously.
@@ -31,6 +39,7 @@ This will help ensure that any vulnerabilities that _are_ found
 can be [disclosed responsibly](http://en.wikipedia.org/wiki/Responsible_disclosure)
 to any affected parties.
 
+<a href="#reporting-other-issues"></a>
 ## Reporting Other Issues
 
 A great way to contribute to the project
@@ -52,6 +61,7 @@ When reporting issues, please include the following:
 
 This information will help us review and fix your issue faster.
 
+<a href="#developers-certificate-of-origin"></a>
 ## Developer's Certificate of Origin 1.1
 
 By making a contribution to this project, I certify that:

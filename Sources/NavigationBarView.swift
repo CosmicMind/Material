@@ -73,34 +73,22 @@ public class NavigationBarView : StatusBarView {
 		
 		grid.axis.columns = Int(width / 48)
 		
-		// General alignment.
-		if UIApplication.sharedApplication().statusBarOrientation.isLandscape {
-			// TitleView alignment.
-			if let v: UILabel = titleLabel {
-				if let d: UILabel = detailLabel {
-					v.grid.rows = 7
-					d.grid.rows = 5
-					contentView.grid.spacing = 4
-					contentView.grid.contentInset.top = -3
-				} else {
-					v.grid.rows = 12
-					contentView.grid.spacing = 0
-					contentView.grid.contentInset.top = 0
-				}
-			}
-		} else {
-			// TitleView alignment.
-			if let v: UILabel = titleLabel {
-				if let d: UILabel = detailLabel {
-					v.grid.rows = 7
-					d.grid.rows = 5
-					contentView.grid.spacing = 4
-					contentView.grid.contentInset.top = -3
-				} else {
-					v.grid.rows = 12
-					contentView.grid.spacing = 0
-					contentView.grid.contentInset.top = 0
-				}
+		// TitleView alignment.
+		if let v: UILabel = titleLabel {
+			if let d: UILabel = detailLabel {
+				v.grid.rows = 2
+				v.font = v.font.fontWithSize(17)
+				d.grid.rows = 2
+				d.font = d.font.fontWithSize(12)
+				contentView.grid.axis.rows = 3
+				contentView.grid.spacing = -8
+				contentView.grid.contentInset.top = -8
+			} else {
+				v.grid.rows = 1
+				v.font = v.font.fontWithSize(20)
+				contentView.grid.axis.rows = 1
+				contentView.grid.spacing = 0
+				contentView.grid.contentInset.top = 0
 			}
 		}
 		
@@ -111,7 +99,6 @@ public class NavigationBarView : StatusBarView {
 	public override func reloadView() {
 		super.reloadView()
 		contentView.grid.views = []
-		contentView.grid.axis.rows = 6
 		if let v: UILabel = titleLabel {
 			contentView.grid.views?.append(v)
 		}
@@ -130,6 +117,7 @@ public class NavigationBarView : StatusBarView {
 	*/
 	public override func prepareView() {
 		super.prepareView()
+		contentView.grid.axis.inherited = false
 		contentView.grid.axis.direction = .Vertical
 	}
 	

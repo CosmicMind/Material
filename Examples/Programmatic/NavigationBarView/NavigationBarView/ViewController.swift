@@ -59,14 +59,14 @@ class ViewController: UIViewController {
 		titleLabel.text = "Material"
 		titleLabel.textAlignment = .Left
 		titleLabel.textColor = MaterialColor.white
-		titleLabel.font = RobotoFont.regularWithSize(17)
+		titleLabel.font = RobotoFont.regular
 		
 		// Detail label.
 		let detailLabel: UILabel = UILabel()
 		detailLabel.text = "Build Beautiful Software"
 		detailLabel.textAlignment = .Left
 		detailLabel.textColor = MaterialColor.white
-		detailLabel.font = RobotoFont.regularWithSize(12)
+		detailLabel.font = RobotoFont.regular
 		
 		var image = UIImage(named: "ic_menu_white")
 

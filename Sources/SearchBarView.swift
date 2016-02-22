@@ -90,15 +90,6 @@ public class SearchBarView : StatusBarView {
 		
 		grid.axis.columns = Int(width / 48)
 		
-		// General alignment.
-		if UIApplication.sharedApplication().statusBarOrientation.isLandscape {
-			grid.contentInset.top = 8
-			height = 44
-		} else {
-			grid.contentInset.top = 28
-			height = 64
-		}
-		
 		reloadView()
 	}
 	
@@ -126,12 +117,6 @@ public class SearchBarView : StatusBarView {
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		grid.spacing = 8
-		grid.axis.inherited = false
-		grid.contentInset.left = 8
-		grid.contentInset.bottom = 8
-		grid.contentInset.right = 8
-		depth = .Depth1
 		prepareTextField()
 	}
 	

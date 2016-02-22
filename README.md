@@ -12,7 +12,7 @@ Express your creativity with Material, an animation and graphics framework for G
 - [x] Grid System For Complex UIs
 - [x] Layout Library To Simplify AutoLayout
 - [x] Base Material Layers & Material Views To Create New UI Components
-- [x] Navigation Controls
+- [x] Navigation Controllers
 - [x] Material Buttons
 - [x] Material Switch
 - [x] Material Card Views

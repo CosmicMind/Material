@@ -59,13 +59,14 @@ public class StatusBarView : ControlView {
 		
 		width = UIScreen.mainScreen().bounds.width
 		
+		reloadView()
+		
 		if frame.origin.x != oldFrame!.origin.x || frame.origin.y != oldFrame!.origin.y || frame.width != oldFrame!.width || frame.height != oldFrame!.height {
 			if nil != delegate {
 				statusBarViewDidChangeLayout()
 			}
 			oldFrame = frame
 		}
-		reloadView()
 	}
 	
 	public override func intrinsicContentSize() -> CGSize {

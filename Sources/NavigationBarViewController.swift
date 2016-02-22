@@ -62,6 +62,7 @@ public class NavigationBarViewController: UIViewController {
 		}
 		set(value) {
 			if let v: UIViewController = internalFloatingViewController {
+				internalFloatingViewController = nil
 				UIView.animateWithDuration(0.5,
 					animations: { [unowned self] in
 						v.view.center.y = 2 * self.view.bounds.height
@@ -71,7 +72,6 @@ public class NavigationBarViewController: UIViewController {
 						v.willMoveToParentViewController(nil)
 						v.view.removeFromSuperview()
 						v.removeFromParentViewController()
-						self.internalFloatingViewController = nil
 						self.userInteractionEnabled = true
 						self.navigationBarView.userInteractionEnabled = true
 					}
@@ -89,16 +89,15 @@ public class NavigationBarViewController: UIViewController {
 				
 				// Animate the noteButton out and the noteViewController! in.
 				v.view.hidden = false
+				internalFloatingViewController = v
+				userInteractionEnabled = false
+				navigationBarView.userInteractionEnabled = false
 				UIView.animateWithDuration(0.5,
 					animations: { [unowned self] in
 						v.view.center.y = self.view.bounds.height / 2
 						self.navigationBarView.alpha = 0.5
 						self.mainViewController.view.alpha = 0.5
-					}) { [unowned self] _ in
-						self.userInteractionEnabled = false
-						self.navigationBarView.userInteractionEnabled = false
-						self.internalFloatingViewController = v
-					}
+					})
 			}
 		}
 	}
