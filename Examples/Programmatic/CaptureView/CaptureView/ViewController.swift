@@ -259,8 +259,8 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 		detailLabel.font = RobotoFont.regularWithSize(12)
 		navigationBarView.detailLabel = detailLabel
 		
-		navigationBarView.leftButtons = [closeButton]
-		navigationBarView.rightButtons = [switchCamerasButton, flashButton]
+		navigationBarView.leftControls = [closeButton]
+		navigationBarView.rightControls = [switchCamerasButton, flashButton]
 		
 		view.addSubview(navigationBarView)
 		navigationBarView.translatesAutoresizingMaskIntoConstraints = false
