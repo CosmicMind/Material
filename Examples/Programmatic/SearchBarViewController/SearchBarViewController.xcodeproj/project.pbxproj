@@ -11,9 +11,9 @@
 		960036031C77E0D400EBA579 /* AppSearchBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960036021C77E0D400EBA579 /* AppSearchBarViewController.swift */; };
 		960036081C77E0D400EBA579 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 960036071C77E0D400EBA579 /* Assets.xcassets */; };
 		9600360B1C77E0D400EBA579 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 960036091C77E0D400EBA579 /* LaunchScreen.storyboard */; };
-		960036131C77E13D00EBA579 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960036121C77E13D00EBA579 /* MainViewController.swift */; };
-		960036171C77E21800EBA579 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 960036161C77E21800EBA579 /* Material.framework */; };
-		960036181C77E21800EBA579 /* Material.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 960036161C77E21800EBA579 /* Material.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		960036131C77E13D00EBA579 /* YellowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960036121C77E13D00EBA579 /* YellowViewController.swift */; };
+		9663F91F1C7A6E3D00AF0965 /* BlueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9663F91E1C7A6E3D00AF0965 /* BlueViewController.swift */; };
+		9663F9211C7A6E4800AF0965 /* GreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9663F9201C7A6E4800AF0965 /* GreenViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,7 +23,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				960036181C77E21800EBA579 /* Material.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -37,8 +36,9 @@
 		960036071C77E0D400EBA579 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9600360A1C77E0D400EBA579 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9600360C1C77E0D400EBA579 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		960036121C77E13D00EBA579 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		960036161C77E21800EBA579 /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = Material.framework; path = "/Users/danieldahan/Library/Developer/Xcode/DerivedData/Material-hbpnflxhoouqxebjcyhbbhqyesjd/Build/Products/Debug-iphoneos/Material.framework"; sourceTree = "<absolute>"; };
+		960036121C77E13D00EBA579 /* YellowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowViewController.swift; sourceTree = "<group>"; };
+		9663F91E1C7A6E3D00AF0965 /* BlueViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueViewController.swift; sourceTree = "<group>"; };
+		9663F9201C7A6E4800AF0965 /* GreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreenViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,7 +46,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				960036171C77E21800EBA579 /* Material.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,7 +55,6 @@
 		960035F41C77E0D400EBA579 = {
 			isa = PBXGroup;
 			children = (
-				960036161C77E21800EBA579 /* Material.framework */,
 				960035FF1C77E0D400EBA579 /* SearchBarViewController */,
 				960035FE1C77E0D400EBA579 /* Products */,
 			);
@@ -75,7 +73,9 @@
 			children = (
 				960036001C77E0D400EBA579 /* AppDelegate.swift */,
 				960036021C77E0D400EBA579 /* AppSearchBarViewController.swift */,
-				960036121C77E13D00EBA579 /* MainViewController.swift */,
+				960036121C77E13D00EBA579 /* YellowViewController.swift */,
+				9663F91E1C7A6E3D00AF0965 /* BlueViewController.swift */,
+				9663F9201C7A6E4800AF0965 /* GreenViewController.swift */,
 				960036071C77E0D400EBA579 /* Assets.xcassets */,
 				960036091C77E0D400EBA579 /* LaunchScreen.storyboard */,
 				9600360C1C77E0D400EBA579 /* Info.plist */,
@@ -154,9 +154,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				960036131C77E13D00EBA579 /* MainViewController.swift in Sources */,
+				960036131C77E13D00EBA579 /* YellowViewController.swift in Sources */,
 				960036031C77E0D400EBA579 /* AppSearchBarViewController.swift in Sources */,
+				9663F91F1C7A6E3D00AF0965 /* BlueViewController.swift in Sources */,
 				960036011C77E0D400EBA579 /* AppDelegate.swift in Sources */,
+				9663F9211C7A6E4800AF0965 /* GreenViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

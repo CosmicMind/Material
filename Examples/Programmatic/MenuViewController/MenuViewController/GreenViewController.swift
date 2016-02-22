@@ -31,7 +31,7 @@
 import UIKit
 import Material
 
-class YellowViewController: UIViewController {
+class GreenViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
@@ -39,6 +39,6 @@ class YellowViewController: UIViewController {
 	
 	/// Prepares view.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.yellow.base
+		view.backgroundColor = MaterialColor.green.base
 	}
 }

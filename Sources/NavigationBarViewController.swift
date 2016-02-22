@@ -62,26 +62,22 @@ public class NavigationBarViewController: UIViewController {
 		}
 		set(value) {
 			if let v: UIViewController = internalFloatingViewController {
-				sideNavigationViewController?.enabled = true
-				
 				UIView.animateWithDuration(0.5,
 					animations: { [unowned self] in
 						v.view.center.y = 2 * self.view.bounds.height
+						self.navigationBarView.alpha = 1
+						self.mainViewController.view.alpha = 1
 					}) { [unowned self] _ in
 						v.willMoveToParentViewController(nil)
 						v.view.removeFromSuperview()
 						v.removeFromParentViewController()
 						self.internalFloatingViewController = nil
+						self.userInteractionEnabled = true
+						self.navigationBarView.userInteractionEnabled = true
 					}
 			}
 			
 			if let v: UIViewController = value {
-				/**
-				Disable the sideNavigationViewController from opening while in
-				noteViewController.
-				*/
-				sideNavigationViewController?.enabled = false
-				
 				// Add the noteViewController! to the view.
 				addChildViewController(v)
 				v.view.frame = view.bounds
@@ -96,7 +92,11 @@ public class NavigationBarViewController: UIViewController {
 				UIView.animateWithDuration(0.5,
 					animations: { [unowned self] in
 						v.view.center.y = self.view.bounds.height / 2
+						self.navigationBarView.alpha = 0.5
+						self.mainViewController.view.alpha = 0.5
 					}) { [unowned self] _ in
+						self.userInteractionEnabled = false
+						self.navigationBarView.userInteractionEnabled = false
 						self.internalFloatingViewController = v
 					}
 			}

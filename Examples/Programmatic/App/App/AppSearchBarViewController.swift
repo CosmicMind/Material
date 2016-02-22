@@ -43,43 +43,27 @@ class AppSearchBarViewController: SearchBarViewController {
 		prepareSearchBarView()
 	}
 	
-	/// Loads the BlueViewController into the searchBarViewControllers mainViewController.
-	func handleBlueButton() {
-		if mainViewController is BlueViewController {
-			return
-		}
-		
-		MaterialAnimation.delay(0.75) { [weak self] in
-			self?.transitionFromMainViewController(BlueViewController(), options: [.TransitionCrossDissolve])
-		}
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+		sideNavigationViewController?.delegate = self
 	}
 	
-	/// Loads the GreenViewController into the searchBarViewControllers mainViewController.
-	func handleGreenButton() {
-		if mainViewController is GreenViewController {
-			return
-		}
-		
-		MaterialAnimation.delay(0.75) { [weak self] in
-			self?.transitionFromMainViewController(GreenViewController(), options: [.TransitionCrossDissolve])
-		}
+	/// Toggle SideSearchViewController left UIViewController.
+	internal func handleBackButton() {
+		navigationBarViewController?.floatingViewController = nil
 	}
 	
-	/// Loads the YellowViewController into the searchBarViewControllers mainViewController.
-	func handleYellowButton() {
-		if (mainViewController as? NavigationBarViewController)?.mainViewController is YellowViewController {
-			return
-		}
-		
-		MaterialAnimation.delay(0.75) { [weak self] in
-			self?.transitionFromMainViewController(YellowViewController(), options: [.TransitionCrossDissolve])
-			self?.searchBarView.textField.resignFirstResponder()
-		}
+	/// Toggle SideSearchViewController right UIViewController.
+	internal func handleMoreButton() {
+		searchBarView.textField.resignFirstResponder()
+		sideNavigationViewController?.enabledRightView = true
+		sideNavigationViewController?.toggleRightView()
 	}
 	
 	/// Prepares view.
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.black
+		searchBarView.textField.becomeFirstResponder()
 	}
 	
 	/// Prepares the searchBarView.
@@ -92,7 +76,6 @@ class AppSearchBarViewController: SearchBarViewController {
 		clearButton.tintColor = MaterialColor.blueGrey.darken4
 		clearButton.setImage(image, forState: .Normal)
 		clearButton.setImage(image, forState: .Highlighted)
-		clearButton.addTarget(self, action: "handleYellowButton", forControlEvents: .TouchUpInside)
 		
 		// Back button.
 		image = UIImage(named: "ic_arrow_back_white")?.imageWithRenderingMode(.AlwaysTemplate)
@@ -102,7 +85,7 @@ class AppSearchBarViewController: SearchBarViewController {
 		backButton.tintColor = MaterialColor.blueGrey.darken4
 		backButton.setImage(image, forState: .Normal)
 		backButton.setImage(image, forState: .Highlighted)
-		backButton.addTarget(self, action: "handleBlueButton", forControlEvents: .TouchUpInside)
+		backButton.addTarget(self, action: "handleBackButton", forControlEvents: .TouchUpInside)
 		
 		// More button.
 		image = UIImage(named: "ic_more_horiz_white")?.imageWithRenderingMode(.AlwaysTemplate)
@@ -112,13 +95,8 @@ class AppSearchBarViewController: SearchBarViewController {
 		moreButton.tintColor = MaterialColor.blueGrey.darken4
 		moreButton.setImage(image, forState: .Normal)
 		moreButton.setImage(image, forState: .Highlighted)
-		moreButton.addTarget(self, action: "handleGreenButton", forControlEvents: .TouchUpInside)
+		moreButton.addTarget(self, action: "handleMoreButton", forControlEvents: .TouchUpInside)
 		
-		/*
-		To lighten the status bar - add the
-		"View controller-based status bar appearance = NO"
-		to your info.plist file and set the following property.
-		*/
 		searchBarView.statusBarStyle = .Default
 		
 		searchBarView.delegate = self
@@ -137,12 +115,16 @@ class AppSearchBarViewController: SearchBarViewController {
 
 extension AppSearchBarViewController: TextFieldDelegate {
 	func textFieldDidBeginEditing(textField: UITextField) {
-		mainViewController.view.alpha = 0.5
-		mainViewController.view.userInteractionEnabled = false
+		print("Begin searching....")
 	}
 	
 	func textFieldDidEndEditing(textField: UITextField) {
-		mainViewController.view.alpha = 1
-		mainViewController.view.userInteractionEnabled = true
+		print("End searching....")
+	}
+}
+
+extension AppSearchBarViewController: SideNavigationViewControllerDelegate {
+	func sideNavigationViewDidClose(sideNavigationViewController: SideNavigationViewController, position: SideNavigationPosition) {
+		searchBarView.textField.becomeFirstResponder()
 	}
 }

@@ -122,6 +122,34 @@ public class MenuViewController: UIViewController {
 			})
 	}
 	
+	/**
+	Opens the menu with a callback.
+	- Parameter completion: An Optional callback that is executed when
+	all menu items have been opened.
+	*/
+	public func openMenu(completion: (() -> Void)? = nil) {
+		if true == userInteractionEnabled {
+			menuView.open { [weak self] in
+				self?.userInteractionEnabled = false
+				completion?()
+			}
+		}
+	}
+	
+	/**
+	Closes the menu with a callback.
+	- Parameter completion: An Optional callback that is executed when
+	all menu items have been closed.
+	*/
+	public func closeMenu(completion: (() -> Void)? = nil) {
+		if false == userInteractionEnabled {
+			menuView.close { [weak self] in
+				self?.userInteractionEnabled = true
+				completion?()
+			}
+		}
+	}
+	
 	/// A method that generally prepares the MenuViewController.
 	private func prepareView() {
 		prepareMenuView()

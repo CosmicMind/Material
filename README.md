@@ -100,12 +100,13 @@ Material is a growing project and will encounter changes throughout its developm
 
 #### Navigation
 
+* [MenuView](#menuviewview) (New)
+* [MenuViewController](#menuviewcontroller) (New)
 * [NavigationBarView](#navigationbarview) (New)
 * [NavigationBarViewController](#navigationbarviewcontroller) (New)
 * [SearchBarView](#searchbarview) (New)
+* [SearchBarViewController](#searchbarviewcontroller) (New)
 * [SideNavigationViewController](#sidenavigationviewcontroller)
-* [MenuView](#searchbarview) (New)
-* [MenuViewController](#sidenavigationviewcontroller) (New)
 
 #### Photo / Video Camera
 
@@ -321,6 +322,32 @@ Remove elements, such as details to create a fresh look for your images.
 ![MaterialImageCardViewBackgroundImage](http://www.cosmicmind.io/MK/MaterialImageCardViewBackgroundImage.gif)
 
 [Learn More About ImageCardView](https://github.com/CosmicMind/Material/wiki/ImageCardView)
+
+## Navigation
+
+<a href="#menuviewcontroller"></a>
+#### MenuViewController
+
+A MenuViewController manages UIViewControllers using a MenuView component.
+
+![MaterialMenuViewController](http://www.cosmicmind.io/MK/MaterialMenuViewController.gif)
+
+<a href="#navigationbarviewcontroller"></a>
+#### NavigationBarViewController
+
+A NavigationBarViewController manages UIViewControllers using a NavigationBarView component.
+
+![MaterialNavigationBarViewController](http://www.cosmicmind.io/MK/MaterialNavigationBarViewController.gif)
+
+
+<a href="#searchbarviewcontroller"></a>
+#### SearchBarViewController
+
+A SearchBarViewController manages UIViewControllers using a SearchBarView component.
+
+![MaterialSearchBarViewController](http://www.cosmicmind.io/MK/MaterialSearchBarViewController.gif)
+
+
 
 <a name="captureview"></a>
 ## CaptureView

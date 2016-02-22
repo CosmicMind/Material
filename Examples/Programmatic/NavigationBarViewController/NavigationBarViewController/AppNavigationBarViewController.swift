@@ -37,19 +37,6 @@ import UIKit
 import Material
 
 class AppNavigationBarViewController: NavigationBarViewController {
-	override var floatingViewController: UIViewController? {
-		didSet {
-			if nil == floatingViewController {
-				/*
-				To lighten the status bar - add the
-				"View controller-based status bar appearance = NO"
-				to your info.plist file and set the following property.
-				*/
-				navigationBarView.statusBarStyle = .LightContent
-			}
-		}
-	}
-	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
@@ -68,28 +55,31 @@ class AppNavigationBarViewController: NavigationBarViewController {
 	
 	/// Prepares view.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.white
+		view.backgroundColor = MaterialColor.black
 	}
 	
 	/// Toggle SideNavigationViewController left UIViewController.
 	internal func handleMenuButton() {
-		sideNavigationViewController?.toggleLeftView()
+		MaterialAnimation.delay(0.75) { [weak self] in
+			self?.transitionFromMainViewController(GreenViewController(), options: [.TransitionCrossDissolve])
+		}
 	}
 	
 	/// Toggle SideNavigationViewController right UIViewController.
 	internal func handleSearchButton() {
-		guard let v: AppSearchBarViewController = AppSearchBarViewController(mainViewController: SearchListViewController()) else {
-			return
-		}
+		floatingViewController = BlueViewController()
 		
-		navigationBarViewController?.floatingViewController = v
+		MaterialAnimation.delay(1.5) { [weak self] in
+			// Removes the ViewController from the view stack.
+			self?.floatingViewController = nil
+		}
 	}
 	
 	/// Prepares the navigationBarView.
 	private func prepareNavigationBarView() {
 		// Title label.
 		let titleLabel: UILabel = UILabel()
-		titleLabel.text = "Feed"
+		titleLabel.text = "Material"
 		titleLabel.textAlignment = .Left
 		titleLabel.textColor = MaterialColor.white
 		titleLabel.font = RobotoFont.regularWithSize(20)
@@ -115,6 +105,7 @@ class AppNavigationBarViewController: NavigationBarViewController {
 		
 		// Switch control.
 		let switchControl: MaterialSwitch = MaterialSwitch(state: .Off, style: .LightContent, size: .Small)
+		switchControl.delegate = self
 		
 		// Search button.
 		image = UIImage(named: "ic_search_white")
@@ -129,6 +120,16 @@ class AppNavigationBarViewController: NavigationBarViewController {
 		navigationBarView.titleLabel = titleLabel
 		navigationBarView.leftControls = [menuButton]
 		navigationBarView.rightControls = [switchControl, searchButton]
+	}
+}
+
+extension AppNavigationBarViewController: MaterialSwitchDelegate {
+	func materialSwitchStateChanged(control: MaterialSwitch) {
+		if .Off == control.switchState {
+			MaterialAnimation.delay(0.75) { [weak self] in
+				self?.transitionFromMainViewController(YellowViewController(), options: [.TransitionCrossDissolve])
+			}
+		}
 	}
 }
 

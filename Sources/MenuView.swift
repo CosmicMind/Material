@@ -49,7 +49,11 @@ public class MenuView : MaterialPulseView {
 		backgroundColor = nil
 	}
 
-	/// Opens the menu with a callback.
+	/**
+	Opens the menu with a callback.
+	- Parameter completion: An Optional callback that is executed when
+	all menu items have been opened.
+	*/
 	public func open(completion: (() -> Void)? = nil) {
 		if true == menu.views?.first?.userInteractionEnabled {
 			menu.views?.first?.userInteractionEnabled = false
@@ -62,7 +66,11 @@ public class MenuView : MaterialPulseView {
 		}
 	}
 	
-	/// Closes the menu with a callback.
+	/**
+	Closes the menu with a callback.
+	- Parameter completion: An Optional callback that is executed when
+	all menu items have been closed.
+	*/
 	public func close(completion: (() -> Void)? = nil) {
 		if true == menu.views?.first?.userInteractionEnabled {
 			menu.views?.first?.userInteractionEnabled = false

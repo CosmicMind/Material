@@ -12,7 +12,7 @@
 *		this list of conditions and the following disclaimer in the documentation
 *		and/or other materials provided with the distribution.
 *
-*	*	Neither the name of Material nor the names of its
+*	*	Neither the name of GraphKit nor the names of its
 *		contributors may be used to endorse or promote products derived from
 *		this software without specific prior written permission.
 *
@@ -29,17 +29,21 @@
 */
 
 /*
-A NavigationBarView is a fully featured NavigationBar that supports orientation 
-changes, background images, title and detail labels, both left and right UIControl
-sets, and status bar settings. Below is an example of its usage.
+The following is an example of using a NavigationBarViewController to control the
+flow of your application.
 */
 
 import UIKit
 import Material
 
-class ViewController: UIViewController {
-	/// Reference for NavigationBarView.
-	private var navigationBarView: NavigationBarView = NavigationBarView()
+class AppNavigationBarViewController: NavigationBarViewController {
+	override var floatingViewController: UIViewController? {
+		didSet {
+			if nil == floatingViewController {
+				navigationBarView.statusBarStyle = .LightContent
+			}
+		}
+	}
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -47,39 +51,52 @@ class ViewController: UIViewController {
 		prepareNavigationBarView()
 	}
 	
-	/// General preparation statements.
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+		navigationBarView.statusBarStyle = .LightContent
+	}
+	
+	/// Prepares view.
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.white
 	}
 	
-	/// Prepares the navigationBarView
+	/// Toggle SideNavigationViewController left UIViewController.
+	internal func handleMenuButton() {
+		sideNavigationViewController?.toggleLeftView()
+	}
+	
+	/// Toggle SideNavigationViewController right UIViewController.
+	internal func handleSearchButton() {
+		guard let v: AppSearchBarViewController = AppSearchBarViewController(mainViewController: SearchListViewController()) else {
+			return
+		}
+		
+		floatingViewController = v
+	}
+	
+	/// Prepares the navigationBarView.
 	private func prepareNavigationBarView() {
 		// Title label.
 		let titleLabel: UILabel = UILabel()
-		titleLabel.text = "Material"
+		titleLabel.text = "Feed"
 		titleLabel.textAlignment = .Left
 		titleLabel.textColor = MaterialColor.white
-		titleLabel.font = RobotoFont.regularWithSize(17)
-		
-		// Detail label.
-		let detailLabel: UILabel = UILabel()
-		detailLabel.text = "Build Beautiful Software"
-		detailLabel.textAlignment = .Left
-		detailLabel.textColor = MaterialColor.white
-		detailLabel.font = RobotoFont.regularWithSize(12)
+		titleLabel.font = RobotoFont.regularWithSize(20)
 		
 		var image = UIImage(named: "ic_menu_white")
-
+		
 		// Menu button.
 		let menuButton: FlatButton = FlatButton()
 		menuButton.pulseColor = MaterialColor.white
 		menuButton.pulseScale = false
 		menuButton.setImage(image, forState: .Normal)
 		menuButton.setImage(image, forState: .Highlighted)
-
+		menuButton.addTarget(self, action: "handleMenuButton", forControlEvents: .TouchUpInside)
+		
 		// Switch control.
 		let switchControl: MaterialSwitch = MaterialSwitch(state: .Off, style: .LightContent, size: .Small)
-
+		
 		// Search button.
 		image = UIImage(named: "ic_search_white")
 		let searchButton: FlatButton = FlatButton()
@@ -87,29 +104,12 @@ class ViewController: UIViewController {
 		searchButton.pulseScale = false
 		searchButton.setImage(image, forState: .Normal)
 		searchButton.setImage(image, forState: .Highlighted)
+		searchButton.addTarget(self, action: "handleSearchButton", forControlEvents: .TouchUpInside)
 		
-		/*
-		To lighten the status bar - add the
-		"View controller-based status bar appearance = NO"
-		to your info.plist file and set the following property.
-		*/
-		navigationBarView.statusBarStyle = .LightContent
-		
-		navigationBarView.delegate = self
 		navigationBarView.backgroundColor = MaterialColor.blue.base
 		navigationBarView.titleLabel = titleLabel
-		navigationBarView.detailLabel = detailLabel
 		navigationBarView.leftControls = [menuButton]
 		navigationBarView.rightControls = [switchControl, searchButton]
-		
-		view.addSubview(navigationBarView)
-	}
-}
-
-/// NavigationBarViewDelegate methods.
-extension ViewController: NavigationBarViewDelegate {
-	func navigationBarViewDidChangeLayout(navigationBarView: NavigationBarView) {
-		print("Updated Frame: \(navigationBarView.frame)")
 	}
 }
 
