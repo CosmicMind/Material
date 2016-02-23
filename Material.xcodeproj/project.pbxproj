@@ -47,6 +47,14 @@
 		96A71F451C74ABCB00C0C4AE /* MaterialBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71F441C74ABCB00C0C4AE /* MaterialBorder.swift */; };
 		96A71FB31C764E3200C0C4AE /* StatusBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71FB21C764E3200C0C4AE /* StatusBarView.swift */; };
 		96A71FB61C7651AA00C0C4AE /* ControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71FB01C7649F800C0C4AE /* ControlView.swift */; };
+		96CC08311C7CCB7C0034FF84 /* MaterialBorder.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96A71F441C74ABCB00C0C4AE /* MaterialBorder.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96CC08321C7CCB7C0034FF84 /* MenuViewController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9626C2DD1C795017007CA8E0 /* MenuViewController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96CC08331C7CCB7C0034FF84 /* MaterialSwitch.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96A71EC61C6FFF0500C0C4AE /* MaterialSwitch.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96CC08341C7CCB7C0034FF84 /* ControlView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96A71FB01C7649F800C0C4AE /* ControlView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96CC08351C7CCB7C0034FF84 /* StatusBarView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96A71FB21C764E3200C0C4AE /* StatusBarView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96CC08361C7CCB7C0034FF84 /* SearchBarView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96A71EF51C71127100C0C4AE /* SearchBarView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96CC08371C7CCB7C0034FF84 /* SearchBarViewController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 960036141C77E1B600EBA579 /* SearchBarViewController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96CC08381C7CCB7C0034FF84 /* NavigationBarViewController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96A71F2F1C72E41100C0C4AE /* NavigationBarViewController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96D88C1E1C1328D800B91418 /* CaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D88BF51C1328D800B91418 /* CaptureView.swift */; };
 		96D88C1F1C1328D800B91418 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D88BF61C1328D800B91418 /* CardView.swift */; };
 		96D88C201C1328D800B91418 /* CapturePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D88BF71C1328D800B91418 /* CapturePreviewView.swift */; };
@@ -538,6 +546,14 @@
 				96A71EB91C6FCFA300C0C4AE /* Grid.swift in Headers */,
 				96A71EBA1C6FCFA300C0C4AE /* Menu.swift in Headers */,
 				96A71EBB1C6FCFA300C0C4AE /* MenuView.swift in Headers */,
+				96CC08311C7CCB7C0034FF84 /* MaterialBorder.swift in Headers */,
+				96CC08321C7CCB7C0034FF84 /* MenuViewController.swift in Headers */,
+				96CC08331C7CCB7C0034FF84 /* MaterialSwitch.swift in Headers */,
+				96CC08341C7CCB7C0034FF84 /* ControlView.swift in Headers */,
+				96CC08351C7CCB7C0034FF84 /* StatusBarView.swift in Headers */,
+				96CC08361C7CCB7C0034FF84 /* SearchBarView.swift in Headers */,
+				96CC08371C7CCB7C0034FF84 /* SearchBarViewController.swift in Headers */,
+				96CC08381C7CCB7C0034FF84 /* NavigationBarViewController.swift in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
