@@ -48,7 +48,7 @@ public extension UIViewController {
 	}
 }
 
-public class NavigationBarViewController: UIViewController {
+public class NavigationBarViewController: StatusBarViewController {
 	/// Internal reference to the floatingViewController.
 	private var internalFloatingViewController: UIViewController?
 	
@@ -102,80 +102,21 @@ public class NavigationBarViewController: UIViewController {
 		}
 	}
 	
-	/**
-	A Boolean property used to enable and disable interactivity
-	with the mainViewController.
-	*/
-	public var userInteractionEnabled: Bool {
-		get {
-			return mainViewController.view.userInteractionEnabled
-		}
-		set(value) {
-			mainViewController.view.userInteractionEnabled = value
-		}
-	}
-	
-	/**
-	A UIViewController property that references the active
-	main UIViewController. To swap the mainViewController, it
-	is recommended to use the transitionFromMainViewController
-	helper method.
-	*/
-	public private(set) var mainViewController: UIViewController!
-	
-	/**
-	An initializer for the NavigationBarViewController.
-	- Parameter mainViewController: The main UIViewController.
-	*/
-	public convenience init(mainViewController: UIViewController) {
-		self.init()
-		self.mainViewController = mainViewController
-		prepareView()
-	}
-	
 	public override func viewWillLayoutSubviews() {
 		super.viewWillLayoutSubviews()
 		layoutSubviews()
 	}
 	
 	/**
-	A method to swap mainViewController objects.
-	- Parameter toViewController: The UIViewController to swap
-	with the active mainViewController.
-	- Parameter duration: A NSTimeInterval that sets the
-	animation duration of the transition.
-	- Parameter options: UIViewAnimationOptions thst are used
-	when animating the transition from the active mainViewController
-	to the toViewController.
-	- Parameter animations: An animation block that is executed during
-	the transition from the active mainViewController
-	to the toViewController.
-	- Parameter completion: A completion block that is execited after
-	the transition animation from the active mainViewController
-	to the toViewController has completed.
+	Prepares the view instance when intialized. When subclassing,
+	it is recommended to override the prepareView method
+	to initialize property values and other setup operations.
+	The super.prepareView method should always be called at the end
+	when subclassing.
 	*/
-	public func transitionFromMainViewController(toViewController: UIViewController, duration: NSTimeInterval = 0.5, options: UIViewAnimationOptions = [], animations: (() -> Void)? = nil, completion: ((Bool) -> Void)? = nil) {
-		mainViewController.willMoveToParentViewController(nil)
-		addChildViewController(toViewController)
-		toViewController.view.frame = mainViewController.view.frame
-		transitionFromViewController(mainViewController,
-			toViewController: toViewController,
-			duration: duration,
-			options: options,
-			animations: animations,
-			completion: { [unowned self] (result: Bool) in
-				toViewController.didMoveToParentViewController(self)
-				self.mainViewController.removeFromParentViewController()
-				self.mainViewController = toViewController
-				self.view.sendSubviewToBack(self.mainViewController.view)
-				completion?(result)
-			})
-	}
-	
-	/// A method that generally prepares the NavigationBarViewController.
-	private func prepareView() {
+	public override func prepareView() {
 		prepareNavigationBarView()
-		prepareMainViewController()
+		super.prepareView()
 	}
 	
 	/// Prepares the NavigationBarView.
@@ -183,27 +124,6 @@ public class NavigationBarViewController: UIViewController {
 		navigationBarView.delegate = self
 		navigationBarView.zPosition = 1000
 		view.addSubview(navigationBarView)
-	}
-	
-	/// A method that prepares the mainViewController.
-	private func prepareMainViewController() {
-		prepareViewControllerWithinContainer(mainViewController, container: view)
-	}
-	
-	/**
-	A method that adds the passed in controller as a child of
-	the NavigationBarViewController within the passed in
-	container view.
-	- Parameter viewController: A UIViewController to add as a child.
-	- Parameter container: A UIView that is the parent of the
-	passed in controller view within the view hierarchy.
-	*/
-	private func prepareViewControllerWithinContainer(viewController: UIViewController?, container: UIView) {
-		if let v: UIViewController = viewController {
-			addChildViewController(v)
-			container.insertSubview(v.view, atIndex: 0)
-			v.didMoveToParentViewController(self)
-		}
 	}
 	
 	/// Layout subviews.
