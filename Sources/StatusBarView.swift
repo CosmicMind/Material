@@ -41,6 +41,16 @@ public class StatusBarView : ControlView {
 		}
 	}
 	
+	/**
+	A convenience initializer with parameter settings.
+	- Parameter leftControls: An Array of UIControls that go on the left side.
+	- Parameter rightControls: An Array of UIControls that go on the right side.
+	*/
+	public convenience init?(leftControls: Array<UIControl>? = nil, rightControls: Array<UIControl>? = nil) {
+		self.init(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 64))
+		prepareProperties(leftControls, rightControls: rightControls)
+	}
+	
 	/// A convenience initializer.
 	public convenience init() {
 		self.init(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 64))
