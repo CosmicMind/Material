@@ -68,7 +68,8 @@ class AppSearchBarViewController: SearchBarViewController {
 	}
 	
 	/// Prepares view.
-	private func prepareView() {
+	override func prepareView() {
+		super.prepareView()
 		view.backgroundColor = MaterialColor.black
 		searchBarView.textField.becomeFirstResponder()
 	}

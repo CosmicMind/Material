@@ -54,7 +54,8 @@ class AppNavigationBarViewController: NavigationBarViewController {
 	}
 	
 	/// Prepares view.
-	private func prepareView() {
+	override func prepareView() {
+		super.prepareView()
 		view.backgroundColor = MaterialColor.black
 	}
 	

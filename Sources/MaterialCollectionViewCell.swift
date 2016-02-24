@@ -419,7 +419,6 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	/// Manages the layout for the visualLayer property.
 	internal func layoutVisualLayer() {
 		visualLayer.frame = bounds
-		visualLayer.backgroundColor = MaterialColor.green.base.CGColor
 		visualLayer.position = CGPointMake(width / 2, height / 2)
 		visualLayer.cornerRadius = layer.cornerRadius
 	}

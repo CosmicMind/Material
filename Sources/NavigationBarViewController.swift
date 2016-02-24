@@ -143,8 +143,8 @@ public class NavigationBarViewController: StatusBarViewController {
 	when subclassing.
 	*/
 	public override func prepareView() {
-		prepareNavigationBarView()
 		super.prepareView()
+		prepareNavigationBarView()
 	}
 	
 	/// Prepares the NavigationBarView.

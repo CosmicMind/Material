@@ -28,6 +28,12 @@
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-public protocol MaterialCollectionViewDataSource : MaterialDelegate, UICollectionViewDataSource {
-	func items() -> Array<MaterialCollectionViewDataSourceItem>
+public struct MaterialCollectionViewDataSourceItem {
+	var data: AnyObject
+	var height: CGFloat
+	
+	public init(data: AnyObject, height: CGFloat) {
+		self.data = data
+		self.height = height
+	}
 }

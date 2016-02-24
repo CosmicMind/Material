@@ -33,17 +33,26 @@ import UIKit
 public class MaterialCollectionViewLayout : UICollectionViewLayout {
 	private var contentSize: CGSize = CGSizeZero
 	private var layoutItems: Array<(UICollectionViewLayoutAttributes, NSIndexPath)>?
-	public var height: CGFloat = 88
-	public var offset: CGFloat = 0
+	private var offset: CGFloat = 0
 	
 	public override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
 		let attributes: UICollectionViewLayoutAttributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: indexPath)
 		
-		let w: CGFloat = collectionView!.bounds.width
-		let r: CGFloat = CGFloat(indexPath.row)
-		let h: CGFloat = CGFloat(height)
+		let dataSource: MaterialCollectionViewDataSource = collectionView!.dataSource as! MaterialCollectionViewDataSource
+		let items: Array<MaterialCollectionViewDataSourceItem> = dataSource.items()
 		
-		attributes.frame = CGRectMake(0, r * CGFloat(h + (0 < r ? offset : 0)), w, h)
+		if 0 == indexPath.row {
+			offset = 0
+		}
+		
+		
+		let item: MaterialCollectionViewDataSourceItem = items[indexPath.row]
+		let w: CGFloat = collectionView!.bounds.width
+		let h: CGFloat = item.height
+		
+		attributes.frame = CGRectMake(0, offset, w, h)
+		
+		offset += h
 		
 		return attributes
 	}
@@ -68,15 +77,17 @@ public class MaterialCollectionViewLayout : UICollectionViewLayout {
 	
 	public override func prepareLayout() {
 		let dataSource: MaterialCollectionViewDataSource = collectionView!.dataSource as! MaterialCollectionViewDataSource
-		let items: Array<AnyObject> = dataSource.items()
+		let items: Array<MaterialCollectionViewDataSourceItem> = dataSource.items()
 		
 		layoutItems = Array<(UICollectionViewLayoutAttributes, NSIndexPath)>()
 		
 		var indexPath: NSIndexPath?
 		var count: Int = 0
-		for _ in items {
+		var height: CGFloat = 0
+		for item in items {
 			indexPath = NSIndexPath(forItem: count++, inSection: 0)
 			layoutItems?.append((layoutAttributesForItemAtIndexPath(indexPath!)!, indexPath!))
+			height += item.height
 		}
 		
 		let w: CGFloat = collectionView!.bounds.width
