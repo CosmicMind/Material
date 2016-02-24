@@ -101,7 +101,7 @@ public class ControlView : MaterialView {
 	- Parameter rightControls: An Array of UIControls that go on the right side.
 	*/
 	public convenience init?(leftControls: Array<UIControl>? = nil, rightControls: Array<UIControl>? = nil) {
-		self.init(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 44))
+		self.init(frame: CGRectNull)
 		prepareProperties(leftControls, rightControls: rightControls)
 	}
 	

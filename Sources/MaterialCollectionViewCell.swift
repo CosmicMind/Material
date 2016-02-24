@@ -30,7 +30,8 @@
 
 import UIKit
 
-public class MaterialTableViewCell: UITableViewCell {
+@objc(MaterialCollectionViewCell)
+public class MaterialCollectionViewCell : UICollectionViewCell {
 	/**
 	A CAShapeLayer used to manage elements that would be affected by
 	the clipToBounds property of the backing layer. For example, this
@@ -107,6 +108,9 @@ public class MaterialTableViewCell: UITableViewCell {
 		}
 		set(value) {
 			layer.frame.size.width = value
+			if .None != shape {
+				layer.frame.size.height = value
+			}
 		}
 	}
 	
@@ -122,6 +126,9 @@ public class MaterialTableViewCell: UITableViewCell {
 		}
 		set(value) {
 			layer.frame.size.height = value
+			if .None != shape {
+				layer.frame.size.width = value
+			}
 		}
 	}
 	
@@ -167,7 +174,7 @@ public class MaterialTableViewCell: UITableViewCell {
 	for the backing layer. This is the preferred method of setting depth
 	in order to maintain consitency across UI objects.
 	*/
-	public var depth: MaterialDepth = .None {
+	public var depth: MaterialDepth {
 		didSet {
 			let value: MaterialDepthType = MaterialDepthToValue(depth)
 			shadowOffset = value.offset
@@ -181,10 +188,13 @@ public class MaterialTableViewCell: UITableViewCell {
 	property has a value of .Circle when the cornerRadius is set, it will
 	become .None, as it no longer maintains its circle shape.
 	*/
-	public var cornerRadiusPreset: MaterialRadius = .None {
+	public var cornerRadiusPreset: MaterialRadius {
 		didSet {
 			if let v: MaterialRadius = cornerRadiusPreset {
 				cornerRadius = MaterialRadiusToValue(v)
+				if .Circle == shape {
+					shape = .None
+				}
 			}
 		}
 	}
@@ -196,15 +206,25 @@ public class MaterialTableViewCell: UITableViewCell {
 		}
 	}
 	
-	/// A preset property to set the borderWidth.
-	public var borderWidthPreset: MaterialBorder = .None {
+	/**
+	A property that manages the overall shape for the object. If either the
+	width or height property is set, the other will be automatically adjusted
+	to maintain the shape of the object.
+	*/
+	public var shape: MaterialShape {
 		didSet {
-			borderWidth = MaterialBorderToValue(borderWidthPreset)
+			if .None != shape {
+				if width < height {
+					frame.size.width = height
+				} else {
+					frame.size.height = width
+				}
+			}
 		}
 	}
 	
 	/// A property that accesses the layer.borderWith.
-	public var borderWidth: CGFloat = 0 {
+	public var borderWidth: CGFloat {
 		didSet {
 			layer.borderWidth = borderWidth
 		}
@@ -242,24 +262,39 @@ public class MaterialTableViewCell: UITableViewCell {
 	- Parameter aDecoder: A NSCoder instance.
 	*/
 	public required init?(coder aDecoder: NSCoder) {
+		depth = .None
+		cornerRadiusPreset = .None
+		shape = .None
+		borderWidth = 0
 		super.init(coder: aDecoder)
 		prepareView()
 	}
 	
 	/**
-	An initializer that initializes the object.
-	- Parameter style: A UITableViewCellStyle enum.
-	- Parameter reuseIdentifier: A String identifier.
+	An initializer that initializes the object with a CGRect object.
+	If AutoLayout is used, it is better to initilize the instance
+	using the init() initializer.
+	- Parameter frame: A CGRect instance.
 	*/
-	public override init(style: UITableViewCellStyle, reuseIdentifier: String!) {
-		super.init(style: style, reuseIdentifier: reuseIdentifier)
+	public override init(frame: CGRect) {
+		depth = .None
+		cornerRadiusPreset = .None
+		shape = .None
+		borderWidth = 0
+		super.init(frame: frame)
 		prepareView()
+	}
+	
+	/// A convenience initializer.
+	public convenience init() {
+		self.init(frame: CGRectNull)
 	}
 	
 	/// Overriding the layout callback for sublayers.
 	public override func layoutSublayersOfLayer(layer: CALayer) {
 		super.layoutSublayersOfLayer(layer)
 		if self.layer == layer {
+			layoutShape()
 			layoutVisualLayer()
 		}
 	}
@@ -370,26 +405,30 @@ public class MaterialTableViewCell: UITableViewCell {
 	*/
 	public func prepareView() {
 		prepareVisualLayer()
-		selectionStyle = .None
 		pulseColor = MaterialColor.grey.lighten1
 		pulseScale = false
-		imageView?.userInteractionEnabled = false
-		textLabel?.userInteractionEnabled = false
-		detailTextLabel?.userInteractionEnabled = false
 	}
 	
 	/// Prepares the visualLayer property.
 	internal func prepareVisualLayer() {
 		visualLayer.zPosition = 0
 		visualLayer.masksToBounds = true
-		contentView.layer.addSublayer(visualLayer)
+		layer.addSublayer(visualLayer)
 	}
 	
 	/// Manages the layout for the visualLayer property.
 	internal func layoutVisualLayer() {
 		visualLayer.frame = bounds
+		visualLayer.backgroundColor = MaterialColor.green.base.CGColor
 		visualLayer.position = CGPointMake(width / 2, height / 2)
 		visualLayer.cornerRadius = layer.cornerRadius
+	}
+	
+	/// Manages the layout for the shape of the view instance.
+	internal func layoutShape() {
+		if .Circle == shape {
+			layer.cornerRadius = width / 2
+		}
 	}
 	
 	/**
