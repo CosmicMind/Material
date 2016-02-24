@@ -30,29 +30,59 @@
 
 import UIKit
 
+public enum MaterialCollectionViewLayoutScrollDirection {
+	case Vertical
+	case Horizontal
+}
+
 public class MaterialCollectionViewLayout : UICollectionViewLayout {
+	
+	/// Size of the content.
 	private var contentSize: CGSize = CGSizeZero
+	
+	/// Layout attribute items.
 	private var layoutItems: Array<(UICollectionViewLayoutAttributes, NSIndexPath)>?
+	
+	/// Used to calculate the dimensions of the cells.
 	private var offset: CGFloat = 0
+	
+	/// Cell items.
+	private var items: Array<MaterialCollectionViewDataSourceItem>?
+	
+	/// Scroll direction.
+	public var scrollDirection: MaterialCollectionViewLayoutScrollDirection = .Vertical
+	
+	/**
+	Retrieves the index paths for the items within the passed in CGRect.
+	- Parameter rect: A CGRect that acts as the bounds to find the items within.
+	- Returns: An Array of NSIndexPath objects.
+	*/
+	public func indexPathsOfItemsInRect(rect: CGRect) -> Array<NSIndexPath> {
+		var paths: Array<NSIndexPath> = Array<NSIndexPath>()
+		for (attribute, indexPath) in layoutItems! {
+			if CGRectIntersectsRect(rect, attribute.frame) {
+				paths.append(indexPath)
+			}
+		}
+		return paths
+	}
 	
 	public override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
 		let attributes: UICollectionViewLayoutAttributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: indexPath)
-		
-		let dataSource: MaterialCollectionViewDataSource = collectionView!.dataSource as! MaterialCollectionViewDataSource
-		let items: Array<MaterialCollectionViewDataSourceItem> = dataSource.items()
 		
 		if 0 == indexPath.row {
 			offset = 0
 		}
 		
+		let item: MaterialCollectionViewDataSourceItem = items![indexPath.row]
 		
-		let item: MaterialCollectionViewDataSourceItem = items[indexPath.row]
-		let w: CGFloat = collectionView!.bounds.width
-		let h: CGFloat = item.height
-		
-		attributes.frame = CGRectMake(0, offset, w, h)
-		
-		offset += h
+		if .Vertical == scrollDirection {
+			attributes.frame = CGRectMake(0, offset, collectionView!.bounds.width, item.size.height)
+			offset += item.size.height
+		} else {
+			attributes.frame = CGRectMake(offset, 0, item.size.width, collectionView!.bounds.height)
+			offset += item.size.width
+		}
 		
 		return attributes
 	}
@@ -68,7 +98,7 @@ public class MaterialCollectionViewLayout : UICollectionViewLayout {
 	}
 	
 	public override func shouldInvalidateLayoutForBoundsChange(newBounds: CGRect) -> Bool {
-		return newBounds.width != collectionView!.bounds.width
+		return .Vertical == scrollDirection ? newBounds.width != collectionView!.bounds.width : newBounds.height != collectionView!.bounds.height
 	}
 	
 	public override func collectionViewContentSize() -> CGSize {
@@ -77,34 +107,24 @@ public class MaterialCollectionViewLayout : UICollectionViewLayout {
 	
 	public override func prepareLayout() {
 		let dataSource: MaterialCollectionViewDataSource = collectionView!.dataSource as! MaterialCollectionViewDataSource
-		let items: Array<MaterialCollectionViewDataSourceItem> = dataSource.items()
 		
+		items = dataSource.items()
 		layoutItems = Array<(UICollectionViewLayoutAttributes, NSIndexPath)>()
+		offset = 0
 		
 		var indexPath: NSIndexPath?
 		var count: Int = 0
-		var height: CGFloat = 0
-		for item in items {
+		
+		for item in items! {
 			indexPath = NSIndexPath(forItem: count++, inSection: 0)
 			layoutItems?.append((layoutAttributesForItemAtIndexPath(indexPath!)!, indexPath!))
-			height += item.height
+			offset += .Vertical == scrollDirection ? item.size.height : item.size.width
 		}
 		
-		let w: CGFloat = collectionView!.bounds.width
-		contentSize = CGSizeMake(w, CGFloat(layoutItems!.count) * (height + offset))
+		contentSize = .Vertical == scrollDirection ? CGSizeMake(collectionView!.bounds.width, offset) : CGSizeMake(offset, collectionView!.bounds.height)
 	}
 	
 	public override func targetContentOffsetForProposedContentOffset(proposedContentOffset: CGPoint) -> CGPoint {
 		return proposedContentOffset
-	}
-	
-	internal func indexPathsOfItemsInRect(rect: CGRect) -> Array<NSIndexPath> {
-		var paths: Array<NSIndexPath> = Array<NSIndexPath>()
-		for (attribute, indexPath) in layoutItems! {
-			if CGRectIntersectsRect(rect, attribute.frame) {
-				paths.append(indexPath)
-			}
-		}
-		return paths
 	}
 }

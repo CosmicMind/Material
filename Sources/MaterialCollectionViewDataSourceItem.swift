@@ -30,10 +30,10 @@
 
 public struct MaterialCollectionViewDataSourceItem {
 	var data: AnyObject
-	var height: CGFloat
+	var size: CGSize
 	
-	public init(data: AnyObject, height: CGFloat) {
+	public init(data: AnyObject, size: CGSize) {
 		self.data = data
-		self.height = height
+		self.size = size
 	}
 }
