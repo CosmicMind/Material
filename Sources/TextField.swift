@@ -338,6 +338,12 @@ public class TextField : UITextField {
 	public var detailLabelAnimationDistance: CGFloat = 8
 	
 	/**
+	A Boolean that indicates the detailLabel should hide
+	automatically when text changes.
+	*/
+	public var detailLabelAutoHideEnabled: Bool = true
+	
+	/**
 	:name:	detailLabelHidden
 	*/
 	public var detailLabelHidden: Bool = true {
@@ -489,7 +495,7 @@ public class TextField : UITextField {
 	
 	/// Ahdnler when text value changed.
 	internal func textFieldValueChanged() {
-		if !detailLabelHidden {
+		if detailLabelAutoHideEnabled && !detailLabelHidden {
 			detailLabelHidden = true
 			MaterialAnimation.animationDisabled { [unowned self] in
 				self.bottomBorderLayer.backgroundColor = self.titleLabelActiveColor?.CGColor

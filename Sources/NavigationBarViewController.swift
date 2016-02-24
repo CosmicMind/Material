@@ -48,12 +48,31 @@ public extension UIViewController {
 	}
 }
 
+@objc(NavigationBarViewControllerDelegate)
+public protocol NavigationBarViewControllerDelegate : MaterialDelegate {
+	/// Delegation method that executes when the floatingViewController will open.
+	optional func navigationBarViewControllerWillOpenFloatingViewController(navigationBarViewController: NavigationBarViewController)
+	
+	/// Delegation method that executes when the floatingViewController will close.
+	optional func navigationBarViewControllerWillCloseFloatingViewController(navigationBarViewController: NavigationBarViewController)
+	
+	/// Delegation method that executes when the floatingViewController did open.
+	optional func navigationBarViewControllerDidOpenFloatingViewController(navigationBarViewController: NavigationBarViewController)
+	
+	/// Delegation method that executes when the floatingViewController did close.
+	optional func navigationBarViewControllerDidCloseFloatingViewController(navigationBarViewController: NavigationBarViewController)
+}
+
+@objc(NavigationBarViewController)
 public class NavigationBarViewController: StatusBarViewController {
 	/// Internal reference to the floatingViewController.
 	private var internalFloatingViewController: UIViewController?
 	
 	/// Reference to the NavigationBarView.
 	public private(set) lazy var navigationBarView: NavigationBarView = NavigationBarView()
+	
+	/// Delegation handler.
+	public weak var delegate: NavigationBarViewControllerDelegate?
 	
 	/// A floating UIViewController.
 	public var floatingViewController: UIViewController? {
@@ -62,6 +81,7 @@ public class NavigationBarViewController: StatusBarViewController {
 		}
 		set(value) {
 			if let v: UIViewController = internalFloatingViewController {
+				delegate?.navigationBarViewControllerWillCloseFloatingViewController?(self)
 				internalFloatingViewController = nil
 				UIView.animateWithDuration(0.5,
 					animations: { [unowned self] in
@@ -74,6 +94,9 @@ public class NavigationBarViewController: StatusBarViewController {
 						v.removeFromParentViewController()
 						self.userInteractionEnabled = true
 						self.navigationBarView.userInteractionEnabled = true
+						dispatch_async(dispatch_get_main_queue()) { [unowned self] in
+							self.delegate?.navigationBarViewControllerDidCloseFloatingViewController?(self)
+						}
 					}
 			}
 			
@@ -92,12 +115,17 @@ public class NavigationBarViewController: StatusBarViewController {
 				internalFloatingViewController = v
 				userInteractionEnabled = false
 				navigationBarView.userInteractionEnabled = false
+				delegate?.navigationBarViewControllerWillOpenFloatingViewController?(self)
 				UIView.animateWithDuration(0.5,
 					animations: { [unowned self] in
 						v.view.center.y = self.view.bounds.height / 2
 						self.navigationBarView.alpha = 0.5
 						self.mainViewController.view.alpha = 0.5
-					})
+					}) { [unowned self] _ in
+						dispatch_async(dispatch_get_main_queue()) { [unowned self] in
+							self.delegate?.navigationBarViewControllerDidOpenFloatingViewController?(self)
+						}
+					}
 			}
 		}
 	}
