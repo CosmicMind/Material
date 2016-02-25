@@ -79,7 +79,6 @@ class AppNavigationBarViewController: NavigationBarViewController {
 		titleLabel.text = "Feed"
 		titleLabel.textAlignment = .Left
 		titleLabel.textColor = MaterialColor.white
-		titleLabel.font = RobotoFont.regular
 		
 		var image = UIImage(named: "ic_menu_white")
 		

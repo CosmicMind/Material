@@ -32,6 +32,36 @@ import UIKit
 
 @objc(MaterialCollectionViewCell)
 public class MaterialCollectionViewCell : UICollectionViewCell {
+	/// A preset wrapper around contentInset.
+	public var contentInsetPreset: MaterialEdgeInset {
+		get {
+			return contentView.grid.contentInsetPreset
+		}
+		set(value) {
+			contentView.grid.contentInsetPreset = value
+		}
+	}
+	
+	/// A wrapper around grid.contentInset.
+	public var contentInset: UIEdgeInsets {
+		get {
+			return contentView.grid.contentInset
+		}
+		set(value) {
+			contentView.grid.contentInset = value
+		}
+	}
+	
+	/// A wrapper around grid.spacing.
+	public var spacing: CGFloat {
+		get {
+			return contentView.grid.spacing
+		}
+		set(value) {
+			contentView.grid.spacing = value
+		}
+	}
+	
 	/**
 	A CAShapeLayer used to manage elements that would be affected by
 	the clipToBounds property of the backing layer. For example, this

@@ -28,12 +28,14 @@
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-public struct MaterialCollectionViewDataSourceItem {
-	var data: AnyObject
-	var size: CGSize
+public struct MaterialDataSourceItem {
+	public var data: AnyObject?
+	public var size: CGSize?
+	public var origin: CGPoint?
 	
-	public init(data: AnyObject, size: CGSize) {
+	public init(data: AnyObject? = nil, size: CGSize? = nil, origin: CGPoint? = nil) {
 		self.data = data
 		self.size = size
+		self.origin = origin
 	}
 }

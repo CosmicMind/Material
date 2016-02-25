@@ -66,7 +66,6 @@ public class MaterialCollectionView : UICollectionView {
 	when subclassing.
 	*/
 	public func prepareView() {
-		registerClass(MaterialCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
 		backgroundColor = MaterialColor.clear
 		contentInset = UIEdgeInsetsZero
 	}

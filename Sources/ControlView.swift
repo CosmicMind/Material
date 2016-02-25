@@ -31,13 +31,13 @@
 import UIKit
 
 public class ControlView : MaterialView {
-	/// ContentView that holds the any desired subviews.
-	public private(set) lazy var contentView: MaterialView = MaterialView()
-	
 	/// A preset wrapper around contentInset.
-	public var contentInsetPreset: MaterialEdgeInset = .None {
-		didSet {
-			contentInset = MaterialEdgeInsetToValue(contentInsetPreset)
+	public var contentInsetPreset: MaterialEdgeInset {
+		get {
+			return grid.contentInsetPreset
+		}
+		set(value) {
+			grid.contentInsetPreset = value
 		}
 	}
 	
@@ -47,8 +47,7 @@ public class ControlView : MaterialView {
 			return grid.contentInset
 		}
 		set(value) {
-			grid.contentInset = contentInset
-			reloadView()
+			grid.contentInset = value
 		}
 	}
 	
@@ -58,10 +57,12 @@ public class ControlView : MaterialView {
 			return grid.spacing
 		}
 		set(value) {
-			grid.spacing = spacing
-			reloadView()
+			grid.spacing = value
 		}
 	}
+	
+	/// ContentView that holds the any desired subviews.
+	public private(set) lazy var contentView: MaterialView = MaterialView()
 	
 	/// Left side UIControls.
 	public var leftControls: Array<UIControl>? {
