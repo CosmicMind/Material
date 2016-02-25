@@ -71,6 +71,8 @@ public class NavigationBarView : StatusBarView {
 	public override func layoutSubviews() {
 		super.layoutSubviews()
 		
+		width = UIScreen.mainScreen().bounds.width
+		
 		grid.axis.columns = Int(width / 48)
 		
 		// TitleView alignment.
@@ -91,7 +93,7 @@ public class NavigationBarView : StatusBarView {
 				contentView.grid.contentInset.top = 0
 			}
 		}
-		
+			
 		reloadView()
 	}
 	
@@ -121,6 +123,11 @@ public class NavigationBarView : StatusBarView {
 		contentView.grid.axis.direction = .Vertical
 	}
 	
+	/// Called when the NavigationBarView changes size.
+	public override func statusBarViewDidChangeLayout() {
+		(delegate as? NavigationBarViewDelegate)?.navigationBarViewDidChangeLayout?(self)
+	}
+	
 	/**
 	Used to trigger property changes  that initializers avoid.
 	- Parameter titleLabel: UILabel for the title.
@@ -132,9 +139,5 @@ public class NavigationBarView : StatusBarView {
 		prepareProperties(leftControls, rightControls: rightControls)
 		self.titleLabel = titleLabel
 		self.detailLabel = detailLabel
-	}
-	
-	internal override func statusBarViewDidChangeLayout() {
-		(delegate as? NavigationBarViewDelegate)?.navigationBarViewDidChangeLayout?(self)
 	}
 }

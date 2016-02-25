@@ -58,6 +58,9 @@ public class StatusBarView : ControlView {
 	
 	public override func layoutSubviews() {
 		super.layoutSubviews()
+		
+		width = UIScreen.mainScreen().bounds.width
+		
 		// General alignment.
 		if UIApplication.sharedApplication().statusBarOrientation.isLandscape {
 			grid.contentInset.top = 8
@@ -67,15 +70,11 @@ public class StatusBarView : ControlView {
 			height = 64
 		}
 		
-		width = UIScreen.mainScreen().bounds.width
-		
-		reloadView()
-		
 		if frame.origin.x != oldFrame!.origin.x || frame.origin.y != oldFrame!.origin.y || frame.width != oldFrame!.width || frame.height != oldFrame!.height {
+			oldFrame = frame
 			if nil != delegate {
 				statusBarViewDidChangeLayout()
 			}
-			oldFrame = frame
 		}
 	}
 	
@@ -106,5 +105,5 @@ public class StatusBarView : ControlView {
 	}
 	
 	/// Chaining method for subclasses to offer delegation or other useful features.
-	internal func statusBarViewDidChangeLayout() {}
+	public func statusBarViewDidChangeLayout() {}
 }

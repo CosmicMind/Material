@@ -120,6 +120,11 @@ public class SearchBarView : StatusBarView {
 		prepareTextField()
 	}
 	
+	/// Called when the SearchBarView changes size.
+	public override func statusBarViewDidChangeLayout() {
+		(delegate as? SearchBarViewDelegate)?.searchBarViewDidChangeLayout?(self)
+	}
+	
 	/// Prepares the textField.
 	private func prepareTextField() {
 		textField.placeholder = "Search"
@@ -127,9 +132,5 @@ public class SearchBarView : StatusBarView {
 		textField.clearButtonMode = .WhileEditing
 		contentView.addSubview(textField)
 		contentView.grid.views = [textField]
-	}
-	
-	internal override func statusBarViewDidChangeLayout() {
-		(delegate as? SearchBarViewDelegate)?.searchBarViewDidChangeLayout?(self)
 	}
 }

@@ -173,7 +173,7 @@ public class MaterialSwitch: UIControl {
 			return .On == internalSwitchState
 		}
 		set(value) {
-			setOn(selected, animated: true)
+			setOn(value, animated: true)
 		}
 	}
 	
@@ -182,7 +182,17 @@ public class MaterialSwitch: UIControl {
 			return .On == internalSwitchState
 		}
 		set(value) {
-			setOn(highlighted, animated: true)
+			setOn(value, animated: true)
+		}
+	}
+	
+	/// A boolean indicating if the switch is on or not.
+	public var on: Bool {
+		get {
+			return .On == internalSwitchState
+		}
+		set(value) {
+			setOn(value, animated: true)
 		}
 	}
 	
@@ -202,16 +212,6 @@ public class MaterialSwitch: UIControl {
 			if value != internalSwitchState {
 				internalSwitchState = value
 			}
-		}
-	}
-	
-	/// A boolean indicating if the switch is on or not.
-	public var on: Bool {
-		get {
-			return .On == internalSwitchState
-		}
-		set(value) {
-			setOn(on, animated: true)
 		}
 	}
 	
@@ -348,7 +348,7 @@ public class MaterialSwitch: UIControl {
 	- Parameter animated: A Boolean indicating to set the animation or not.
 	*/
 	public func setOn(on: Bool, animated: Bool, completion: ((control: MaterialSwitch) -> Void)? = nil) {
-		setSwitchState(on == true ? .On : .Off, animated: animated, completion: completion)
+		setSwitchState(on ? .On : .Off, animated: animated, completion: completion)
 	}
 	
 	/**
