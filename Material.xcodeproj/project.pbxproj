@@ -57,13 +57,15 @@
 		96CC08381C7CCB7C0034FF84 /* NavigationBarViewController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96A71F2F1C72E41100C0C4AE /* NavigationBarViewController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96CC083D1C7CF9D40034FF84 /* StatusBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC083C1C7CF9D40034FF84 /* StatusBarViewController.swift */; };
 		96CC083E1C7CFF2A0034FF84 /* StatusBarViewController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96CC083C1C7CF9D40034FF84 /* StatusBarViewController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		96CC08911C7FEC170034FF84 /* BasicCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC088A1C7FEC170034FF84 /* BasicCollectionViewCell.swift */; };
 		96CC08921C7FEC170034FF84 /* MaterialCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC088B1C7FEC170034FF84 /* MaterialCollectionView.swift */; };
 		96CC08931C7FEC170034FF84 /* MaterialCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC088C1C7FEC170034FF84 /* MaterialCollectionViewCell.swift */; };
 		96CC08941C7FEC170034FF84 /* MaterialCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC088D1C7FEC170034FF84 /* MaterialCollectionViewDataSource.swift */; };
 		96CC08951C7FEC170034FF84 /* MaterialCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC088E1C7FEC170034FF84 /* MaterialCollectionViewDelegate.swift */; };
 		96CC08961C7FEC170034FF84 /* MaterialCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC088F1C7FEC170034FF84 /* MaterialCollectionViewLayout.swift */; };
 		96CC08971C7FEC170034FF84 /* MaterialDataSourceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC08901C7FEC170034FF84 /* MaterialDataSourceItem.swift */; };
+		96CC08991C80B74F0034FF84 /* BasicCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC08981C80B74F0034FF84 /* BasicCollectionViewCell.swift */; };
+		96CC089B1C80B82E0034FF84 /* BasicCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC089A1C80B82E0034FF84 /* BasicCollectionView.swift */; };
+		96CC089D1C80B8F70034FF84 /* BasicCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC089C1C80B8F70034FF84 /* BasicCollectionViewLayout.swift */; };
 		96D88C1E1C1328D800B91418 /* CaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D88BF51C1328D800B91418 /* CaptureView.swift */; };
 		96D88C1F1C1328D800B91418 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D88BF61C1328D800B91418 /* CardView.swift */; };
 		96D88C201C1328D800B91418 /* CapturePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D88BF71C1328D800B91418 /* CapturePreviewView.swift */; };
@@ -171,13 +173,15 @@
 		96A71FB01C7649F800C0C4AE /* ControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlView.swift; sourceTree = "<group>"; };
 		96A71FB21C764E3200C0C4AE /* StatusBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarView.swift; sourceTree = "<group>"; };
 		96CC083C1C7CF9D40034FF84 /* StatusBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarViewController.swift; sourceTree = "<group>"; };
-		96CC088A1C7FEC170034FF84 /* BasicCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicCollectionViewCell.swift; sourceTree = "<group>"; };
 		96CC088B1C7FEC170034FF84 /* MaterialCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialCollectionView.swift; sourceTree = "<group>"; };
 		96CC088C1C7FEC170034FF84 /* MaterialCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialCollectionViewCell.swift; sourceTree = "<group>"; };
 		96CC088D1C7FEC170034FF84 /* MaterialCollectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		96CC088E1C7FEC170034FF84 /* MaterialCollectionViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialCollectionViewDelegate.swift; sourceTree = "<group>"; };
 		96CC088F1C7FEC170034FF84 /* MaterialCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialCollectionViewLayout.swift; sourceTree = "<group>"; };
 		96CC08901C7FEC170034FF84 /* MaterialDataSourceItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialDataSourceItem.swift; sourceTree = "<group>"; };
+		96CC08981C80B74F0034FF84 /* BasicCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicCollectionViewCell.swift; sourceTree = "<group>"; };
+		96CC089A1C80B82E0034FF84 /* BasicCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicCollectionView.swift; sourceTree = "<group>"; };
+		96CC089C1C80B8F70034FF84 /* BasicCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicCollectionViewLayout.swift; sourceTree = "<group>"; };
 		96D88BF51C1328D800B91418 /* CaptureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureView.swift; sourceTree = "<group>"; };
 		96D88BF61C1328D800B91418 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		96D88BF71C1328D800B91418 /* CapturePreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CapturePreviewView.swift; sourceTree = "<group>"; };
@@ -346,13 +350,15 @@
 		96CC08891C7FEBE10034FF84 /* CollectionView */ = {
 			isa = PBXGroup;
 			children = (
-				96CC088A1C7FEC170034FF84 /* BasicCollectionViewCell.swift */,
 				96CC088B1C7FEC170034FF84 /* MaterialCollectionView.swift */,
 				96CC088C1C7FEC170034FF84 /* MaterialCollectionViewCell.swift */,
 				96CC088D1C7FEC170034FF84 /* MaterialCollectionViewDataSource.swift */,
 				96CC088E1C7FEC170034FF84 /* MaterialCollectionViewDelegate.swift */,
 				96CC088F1C7FEC170034FF84 /* MaterialCollectionViewLayout.swift */,
 				96CC08901C7FEC170034FF84 /* MaterialDataSourceItem.swift */,
+				96CC08981C80B74F0034FF84 /* BasicCollectionViewCell.swift */,
+				96CC089A1C80B82E0034FF84 /* BasicCollectionView.swift */,
+				96CC089C1C80B8F70034FF84 /* BasicCollectionViewLayout.swift */,
 			);
 			name = CollectionView;
 			sourceTree = "<group>";
@@ -703,6 +709,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				96D88C3D1C1328D800B91418 /* MaterialView.swift in Sources */,
+				96CC089D1C80B8F70034FF84 /* BasicCollectionViewLayout.swift in Sources */,
 				960B23481C38480E00E96216 /* TextView.swift in Sources */,
 				96D88C291C1328D800B91418 /* MaterialBasicAnimation.swift in Sources */,
 				96D88C3A1C1328D800B91418 /* MaterialTextLayer.swift in Sources */,
@@ -721,6 +728,7 @@
 				96D88C351C1328D800B91418 /* MaterialLayout.swift in Sources */,
 				96D88C2F1C1328D800B91418 /* MaterialGravity.swift in Sources */,
 				96D88C231C1328D800B91418 /* FlatButton.swift in Sources */,
+				96CC089B1C80B82E0034FF84 /* BasicCollectionView.swift in Sources */,
 				966F57B81C226D75009185B7 /* TextField.swift in Sources */,
 				96DBA7361C61198400844821 /* Material+UIImage+Color.swift in Sources */,
 				96CC08931C7FEC170034FF84 /* MaterialCollectionViewCell.swift in Sources */,
@@ -733,6 +741,7 @@
 				96D88C221C1328D800B91418 /* FabButton.swift in Sources */,
 				96D88C3F1C1328D800B91418 /* RaisedButton.swift in Sources */,
 				65FDC2EB1C66858A00103AC2 /* Menu.swift in Sources */,
+				96CC08991C80B74F0034FF84 /* BasicCollectionViewCell.swift in Sources */,
 				960B23311C383EAA00E96216 /* Material+UIImage+PhotoLibrary.swift in Sources */,
 				960B23321C383EAA00E96216 /* Material+UIImage+Resize.swift in Sources */,
 				96D88C3C1C1328D800B91418 /* MaterialTransitionAnimation.swift in Sources */,
@@ -757,7 +766,6 @@
 				96D88C341C1328D800B91418 /* MaterialLayer.swift in Sources */,
 				96D88C461C1328D800B91418 /* SideNavigationViewController.swift in Sources */,
 				96D88C381C1328D800B91418 /* MaterialShape.swift in Sources */,
-				96CC08911C7FEC170034FF84 /* BasicCollectionViewCell.swift in Sources */,
 				960B23331C383EAA00E96216 /* Material+UIImage+Size.swift in Sources */,
 				9626C2DE1C795017007CA8E0 /* MenuViewController.swift in Sources */,
 				96A71FB61C7651AA00C0C4AE /* ControlView.swift in Sources */,

@@ -28,10 +28,40 @@
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-public protocol MaterialCollectionViewDataSource : MaterialDelegate, UICollectionViewDataSource {
+import UIKit
+
+public class BasicCollectionView : MaterialCollectionView {
 	/**
-	Retrieves the items for the collectionView.
-	- Returns: An Array of Arrays of MaterialDataSourceItem objects.
+	An initializer that initializes the object with a NSCoder object.
+	- Parameter aDecoder: A NSCoder instance.
 	*/
-	func items() -> Array<MaterialDataSourceItem>
+	public required init?(coder aDecoder: NSCoder) {
+		super.init(coder: aDecoder)
+	}
+	
+	/**
+	An initializer that initializes the object.
+	- Parameter frame: A CGRect defining the view's frame.
+	*/
+	public override init(frame: CGRect) {
+		super.init(frame: frame, collectionViewLayout: BasicCollectionViewLayout())
+		prepareView()
+	}
+	
+	/// A convenience initializer that initializes the object.
+	public convenience init() {
+		self.init(frame: CGRectNull)
+	}
+	
+	/**
+	Prepares the view instance when intialized. When subclassing,
+	it is recommended to override the prepareView method
+	to initialize property values and other setup operations.
+	The super.prepareView method should always be called immediately
+	when subclassing.
+	*/
+	public override func prepareView() {
+		backgroundColor = MaterialColor.clear
+		contentInset = UIEdgeInsetsZero
+	}
 }

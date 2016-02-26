@@ -31,6 +31,9 @@
 import UIKit
 
 public class MaterialCollectionViewLayout : UICollectionViewLayout {
+	/// Used to calculate the dimensions of the cells.
+	internal var offset: CGPoint = CGPointZero
+	
 	/// A preset wrapper around contentInset.
 	public var contentInsetPreset: MaterialEdgeInset = .None {
 		didSet {
@@ -42,22 +45,16 @@ public class MaterialCollectionViewLayout : UICollectionViewLayout {
 	public var contentInset: UIEdgeInsets = UIEdgeInsetsZero
 	
 	/// Size of the content.
-	private var contentSize: CGSize = CGSizeZero
+	public private(set) var contentSize: CGSize = CGSizeZero
 	
 	/// Layout attribute items.
-	private var layoutItems: Array<(UICollectionViewLayoutAttributes, NSIndexPath)> = Array<(UICollectionViewLayoutAttributes, NSIndexPath)>()
-	
-	/// Used to calculate the dimensions of the cells.
-	private var offset: CGPoint = CGPointZero
+	public private(set) var layoutItems: Array<(UICollectionViewLayoutAttributes, NSIndexPath)> = Array<(UICollectionViewLayoutAttributes, NSIndexPath)>()
 	
 	/// Cell items.
-	private var items: Array<Array<MaterialDataSourceItem>>?
+	public private(set) var items: Array<MaterialDataSourceItem>?
 	
 	/// Scroll direction.
 	public var scrollDirection: UICollectionViewScrollDirection = .Vertical
-	
-	/// Scale of the screen.
-	public var scale: CGFloat = 2
 	
 	/// Spacing between items.
 	public var spacing: CGFloat = 0
@@ -79,7 +76,7 @@ public class MaterialCollectionViewLayout : UICollectionViewLayout {
 	
 	public override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
 		let attributes: UICollectionViewLayoutAttributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: indexPath)
-		let item: MaterialDataSourceItem = items![indexPath.section][indexPath.item]
+		let item: MaterialDataSourceItem = items![indexPath.item]
 		
 		switch scrollDirection {
 		case .Vertical:
@@ -121,18 +118,15 @@ public class MaterialCollectionViewLayout : UICollectionViewLayout {
 		var indexPath: NSIndexPath?
 		
 		for var i: Int = 0, l: Int = items!.count - 1; i <= l; ++i {
-			let v: Array<MaterialDataSourceItem> = items![i]
-			for var j: Int = 0, k: Int = v.count - 1; j <= k; ++j {
-				let item: MaterialDataSourceItem = v[j]
-				indexPath = NSIndexPath(forItem: j, inSection: i)
-				layoutItems.append((layoutAttributesForItemAtIndexPath(indexPath!)!, indexPath!))
+			let item: MaterialDataSourceItem = items![i]
+			indexPath = NSIndexPath(forItem: i, inSection: 0)
+			layoutItems.append((layoutAttributesForItemAtIndexPath(indexPath!)!, indexPath!))
 				
-				offset.x += spacing
-				offset.x += nil == item.width ? 0 : item.width!
+			offset.x += spacing
+			offset.x += nil == item.width ? 0 : item.width!
 				
-				offset.y += spacing
-				offset.y += nil == item.height ? 0 : item.height!
-			}
+			offset.y += spacing
+			offset.y += nil == item.height ? 0 : item.height!
 		}
 		
 		offset.x += contentInset.right - spacing

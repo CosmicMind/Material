@@ -30,6 +30,12 @@
 
 import UIKit
 
+public enum BasicCollectionViewCellSize {
+	case Small
+	case Default
+	case Large
+}
+
 public class BasicCollectionViewCell : MaterialCollectionViewCell {
 	/// An Optional title UILabel.
 	public var titleLabel: UILabel? {
@@ -39,7 +45,7 @@ public class BasicCollectionViewCell : MaterialCollectionViewCell {
 	}
 	
 	/// An Optional detail UILabel.
-	public var detailView: UIView? {
+	public var detailLabel: UILabel? {
 		didSet {
 			reloadView()
 		}
@@ -68,8 +74,6 @@ public class BasicCollectionViewCell : MaterialCollectionViewCell {
 	/// Reloads the view.
 	public func reloadView() {
 		contentView.grid.views = []
-		contentView.grid.axis.rows = 12
-		contentView.grid.axis.inherited = false
 		contentView.grid.axis.direction = .Vertical
 		
 		for v in contentView.subviews {
@@ -80,22 +84,22 @@ public class BasicCollectionViewCell : MaterialCollectionViewCell {
 		var b: Int = 0
 		var c: Int = 0
 		
-		if nil != titleLabel && nil == detailView && nil == controlView {
+		if nil != titleLabel && nil == detailLabel && nil == controlView {
 			a = 12
-		} else if nil == titleLabel && nil != detailView && nil == controlView {
+		} else if nil == titleLabel && nil != detailLabel && nil == controlView {
 			b = 12
-		} else if nil == titleLabel && nil == detailView && nil != controlView {
+		} else if nil == titleLabel && nil == detailLabel && nil != controlView {
 			c = 12
-		} else if nil != titleLabel && nil != detailView && nil == controlView {
+		} else if nil != titleLabel && nil != detailLabel && nil == controlView {
 			a = 3
 			b = 9
-		} else if nil != titleLabel && nil == detailView && nil != controlView {
+		} else if nil != titleLabel && nil == detailLabel && nil != controlView {
 			a = 9
 			c = 3
-		} else if nil == titleLabel && nil != detailView && nil != controlView {
+		} else if nil == titleLabel && nil != detailLabel && nil != controlView {
 			b = 9
 			c = 3
-		} else if nil != titleLabel && nil != detailView && nil != controlView {
+		} else if nil != titleLabel && nil != detailLabel && nil != controlView {
 			a = 3
 			b = 6
 			c = 3
@@ -107,7 +111,7 @@ public class BasicCollectionViewCell : MaterialCollectionViewCell {
 			contentView.grid.views?.append(v)
 		}
 		
-		if let v: UIView = detailView {
+		if let v: UILabel = detailLabel {
 			v.grid.rows = b
 			contentView.addSubview(v)
 			contentView.grid.views?.append(v)
@@ -118,6 +122,10 @@ public class BasicCollectionViewCell : MaterialCollectionViewCell {
 			contentView.addSubview(v)
 			contentView.grid.views?.append(v)
 		}
+		
+		grid.views = [
+			contentView
+		]
 		
 		contentView.grid.reloadLayout()
 	}

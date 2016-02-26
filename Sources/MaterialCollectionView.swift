@@ -58,6 +58,11 @@ public class MaterialCollectionView : UICollectionView {
 		prepareView()
 	}
 	
+	/// A convenience initializer that initializes the object.
+	public convenience init() {
+		self.init(frame: CGRectNull)
+	}
+	
 	/**
 	Prepares the view instance when intialized. When subclassing,
 	it is recommended to override the prepareView method
