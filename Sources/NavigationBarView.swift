@@ -71,10 +71,6 @@ public class NavigationBarView : StatusBarView {
 	public override func layoutSubviews() {
 		super.layoutSubviews()
 		
-		width = UIScreen.mainScreen().bounds.width
-		
-		grid.axis.columns = Int(width / 48)
-		
 		// TitleView alignment.
 		if let v: UILabel = titleLabel {
 			if let d: UILabel = detailLabel {
@@ -119,7 +115,6 @@ public class NavigationBarView : StatusBarView {
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		contentView.grid.axis.inherited = false
 		contentView.grid.axis.direction = .Vertical
 	}
 	

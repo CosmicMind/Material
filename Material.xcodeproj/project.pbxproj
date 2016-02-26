@@ -352,7 +352,9 @@
 		96CC08891C7FEBE10034FF84 /* CollectionView */ = {
 			isa = PBXGroup;
 			children = (
-				96CC089E1C80BD550034FF84 /* Basic */,
+				96CC08981C80B74F0034FF84 /* BasicCollectionViewCell.swift */,
+				96CC089A1C80B82E0034FF84 /* BasicCollectionView.swift */,
+				96CC089C1C80B8F70034FF84 /* BasicCollectionViewLayout.swift */,
 				96CC088B1C7FEC170034FF84 /* MaterialCollectionView.swift */,
 				96CC088C1C7FEC170034FF84 /* MaterialCollectionViewCell.swift */,
 				96CC088D1C7FEC170034FF84 /* MaterialCollectionViewDataSource.swift */,
@@ -361,16 +363,6 @@
 				96CC08901C7FEC170034FF84 /* MaterialDataSourceItem.swift */,
 			);
 			name = CollectionView;
-			sourceTree = "<group>";
-		};
-		96CC089E1C80BD550034FF84 /* Basic */ = {
-			isa = PBXGroup;
-			children = (
-				96CC08981C80B74F0034FF84 /* BasicCollectionViewCell.swift */,
-				96CC089A1C80B82E0034FF84 /* BasicCollectionView.swift */,
-				96CC089C1C80B8F70034FF84 /* BasicCollectionViewLayout.swift */,
-			);
-			name = Basic;
 			sourceTree = "<group>";
 		};
 		96D88BF41C1328D800B91418 /* Sources */ = {

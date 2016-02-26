@@ -71,7 +71,7 @@ class AppLeftViewController: UIViewController {
 	
 	/// General preparation statements.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.blueGrey.darken4
+		view.backgroundColor = MaterialColor.grey.darken4
 	}
 	
 	/// Prepares the items that are displayed within the tableView.
@@ -164,7 +164,7 @@ extension AppLeftViewController: UITableViewDelegate {
 		let item: Item = items[indexPath.row]
 		if let a: MenuViewController = sideNavigationViewController?.mainViewController as? MenuViewController {
 			if let b: NavigationBarViewController = a.mainViewController as? NavigationBarViewController {
-				b.transitionFromMainViewController("Feed" == item.text ? FeedViewController() : InboxViewController(), duration: 0.75, options: [.TransitionCrossDissolve]) { [weak self] _ in
+				b.transitionFromMainViewController("Feed" == item.text ? FeedViewController() : InboxViewController(), options: [.TransitionCrossDissolve]) { [weak self] _ in
 					self?.sideNavigationViewController?.closeLeftView()
 				}
 			}

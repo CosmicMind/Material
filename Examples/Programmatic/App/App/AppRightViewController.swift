@@ -58,7 +58,7 @@ class AppRightViewController: UIViewController {
 	
 	/// General preparation statements.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.blueGrey.darken4
+		view.backgroundColor = MaterialColor.grey.darken4
 	}
 	
 	override func viewWillAppear(animated: Bool) {

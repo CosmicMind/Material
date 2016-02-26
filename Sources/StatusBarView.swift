@@ -60,6 +60,7 @@ public class StatusBarView : ControlView {
 		super.layoutSubviews()
 		
 		width = UIScreen.mainScreen().bounds.width
+		grid.axis.columns = Int(width / 48)
 		
 		// General alignment.
 		if UIApplication.sharedApplication().statusBarOrientation.isLandscape {
@@ -101,7 +102,6 @@ public class StatusBarView : ControlView {
 		grid.contentInset.left = 8
 		grid.contentInset.bottom = 8
 		grid.contentInset.right = 8
-		grid.axis.inherited = false
 	}
 	
 	/// Chaining method for subclasses to offer delegation or other useful features.

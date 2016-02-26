@@ -40,11 +40,11 @@ public class BasicCollectionViewLayout : MaterialCollectionViewLayout {
 			if let q: MaterialDataSourceItemSize = v.dataSourceItemSize {
 				switch q {
 				case .Small:
-					v.height = 96
-				case .Large:
+					v.height = 142
+				case .Default:
 					v.height = 192
-				default:
-					v.height = 144
+				case .Large:
+					v.height = 256
 				}
 			}
 			items[i] = v

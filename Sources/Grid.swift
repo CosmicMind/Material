@@ -41,7 +41,7 @@ public class GridAxis {
 	unowned var grid: Grid
 	
 	/// Inherit grid rows and columns.
-	public var inherited: Bool = true
+	public var inherited: Bool = false
 	
 	/// The direction the grid layouts its views out.
 	public var direction: GridAxisDirection = .Horizontal

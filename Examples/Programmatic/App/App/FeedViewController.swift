@@ -72,18 +72,12 @@ extension FeedViewController: MaterialCollectionViewDataSource {
 	/// Retrieves the items for the collectionView.
 	func items() -> Array<MaterialDataSourceItem> {
 		return [
-			MaterialDataSourceItem(data: ["title": "Material", "detail": "#Pumpkin #pie - Preheat oven to 425 degrees F. Whisk pumpkin, sweetened condensed milk, eggs...", "date": "February 26, 2016"], dataSourceItemSize: .Small),
-			MaterialDataSourceItem(data: ["title": "Material", "detail": "Wow!!! I really really need this fabulous pair. Action is ending tonight #sneakerhead", "date": "February 26, 2016"], dataSourceItemSize: .Default),
-			MaterialDataSourceItem(data: ["title": "Material", "detail": "Discovered an amazing #cofeeshop with the best #latte at Adelaide and Spadina #Toronto They also...", "date": "February 26, 2016"], dataSourceItemSize: .Large),
-			MaterialDataSourceItem(data: ["title": "Material", "detail": "Talk to that agency guy, a friend of #Jen, about renting...", "date": "February 26, 2016"], dataSourceItemSize: .Small),
-			MaterialDataSourceItem(data: ["title": "Material", "detail": "#Pumpkin #pie - Preheat oven to 425 degrees F. Whisk pumpkin, sweetened condensed milk, eggs...", "date": "February 26, 2016"], dataSourceItemSize: .Default),
-			MaterialDataSourceItem(data: ["title": "Material", "detail": "Wow!!! I really really need this fabulous pair. Action is ending tonight #sneakerhead", "date": "February 26, 2016"], dataSourceItemSize: .Large),
-			MaterialDataSourceItem(data: ["title": "Material", "detail": "Discovered an amazing #cofeeshop with the best #latte at Adelaide and Spadina #Toronto They also...", "date": "February 26, 2016"], dataSourceItemSize: .Default),
-			MaterialDataSourceItem(data: ["title": "Material", "detail": "Talk to that agency guy, a friend of #Jen, about renting...", "date": "February 26, 2016"], dataSourceItemSize: .Default),
-			MaterialDataSourceItem(data: ["title": "Material", "detail": "#Pumpkin #pie - Preheat oven to 425 degrees F. Whisk pumpkin, sweetened condensed milk, eggs...", "date": "February 26, 2016"], dataSourceItemSize: .Default),
-			MaterialDataSourceItem(data: ["title": "Material", "detail": "Wow!!! I really really need this fabulous pair. Action is ending tonight #sneakerhead", "date": "February 26, 2016"], dataSourceItemSize: .Default),
-			MaterialDataSourceItem(data: ["title": "Material", "detail": "Discovered an amazing #cofeeshop with the best #latte at Adelaide and Spadina #Toronto They also...", "date": "February 26, 2016"], dataSourceItemSize: .Default),
-			MaterialDataSourceItem(data: ["title": "Material", "detail": "Talk to that agency guy, a friend of #Jen, about renting...", "date": "February 26, 2016"], dataSourceItemSize: .Default)
+			MaterialDataSourceItem(data: ["title": "MaterialColor", "detail": "MaterialColor is a complete Material Design color library. It uses base color values that expand to a range of lighter and darker shades, with the addition of accents.", "date": "February 26, 2016"], dataSourceItemSize: .Small),
+			MaterialDataSourceItem(data: ["title": "MaterialLayer", "detail": "MaterialLayer is a lightweight CAShapeLayer used throughout Material. It is designed to easily take shape, depth, and animations.", "date": "February 26, 2016"], dataSourceItemSize: .Default),
+			MaterialDataSourceItem(data: ["title": "MaterialView", "detail": "MaterialView is the base UIView class used throughout Material. Like MaterialLayer, it is designed to easily take shape, depth, and animations. The major difference is that MaterialView has all the added features of the UIView class.", "date": "February 26, 2016"], dataSourceItemSize: .Large),
+			MaterialDataSourceItem(data: ["title": "MaterialPulseView", "detail": "MaterialPulseView is at the heart of all pulse animations. Any view that subclasses MaterialPulseView instantly inherits the pulse animation with full customizability.", "date": "February 26, 2016"], dataSourceItemSize: .Small),
+			MaterialDataSourceItem(data: ["title": "TextField", "detail": "A TextField is an excellent way to improve UX. TextFields offer details that describe the usage and input results of text. For example, when a user enters an incorrect email, it is possible to display an error message under the TextField.", "date": "February 26, 2016"], dataSourceItemSize: .Default),
+			MaterialDataSourceItem(data: ["title": "TextView", "detail": "A TextView is an excellent way to improve UX. TextViews offer details that describe the usage of text. In addition, TextViews may easily match any regular expression pattern in a body of text. Below is an example of the default hashtag pattern matching.", "date": "February 26, 2016"], dataSourceItemSize: .Large)
 		]
 	}
 	
@@ -102,40 +96,42 @@ extension FeedViewController: MaterialCollectionViewDataSource {
 		let c: BasicCollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! BasicCollectionViewCell
 		let item: MaterialDataSourceItem = items()[indexPath.item]
 		
-		c.backgroundColor = MaterialColor.blue.base
-		
 		if let data: Dictionary<String, AnyObject> = item.data as? Dictionary<String, AnyObject> {
 			if nil == data["title"] {
 				c.titleLabel = nil
 			} else if nil == c.titleLabel {
 				let titleLabel: UILabel = UILabel()
-				titleLabel.textColor = MaterialColor.blueGrey.darken4
-				titleLabel.backgroundColor = MaterialColor.clear
+				titleLabel.textColor = MaterialColor.grey.darken4
 				c.titleLabel = titleLabel
 			}
 			
-//			if nil == data["detail"] {
-//				c.detailLabel = nil
-//			} else if nil == c.detailLabel {
-//				let detailLabel: UILabel = UILabel()
-//				detailLabel.numberOfLines = 0
-//				detailLabel.lineBreakMode = .ByTruncatingTail
-//				detailLabel.font = RobotoFont.regularWithSize(12)
-//				detailLabel.textColor = MaterialColor.blueGrey.darken4
-//				detailLabel.backgroundColor = MaterialColor.clear
-//				c.detailLabel = detailLabel
-//			}
-//			
-//			if nil == c.controlView {
-//				c.controlView = ControlView()
-//				c.controlView!.backgroundColor = nil
-//				
-//				let date: UILabel = UILabel()
-//				date.font = RobotoFont.regularWithSize(12)
-//				date.textColor = MaterialColor.grey.lighten1
-//				c.controlView?.contentView.addSubview(date)
-//				c.controlView?.grid.views = [date]
-//			}
+			if nil == data["detail"] {
+				c.detailLabel = nil
+			} else if nil == c.detailLabel {
+				let detailLabel: UILabel = UILabel()
+				detailLabel.numberOfLines = 0
+				detailLabel.lineBreakMode = .ByTruncatingTail
+				detailLabel.font = RobotoFont.regularWithSize(12)
+				detailLabel.textColor = MaterialColor.grey.darken4
+				c.detailLabel = detailLabel
+			}
+			
+			if nil == c.controlView {
+				c.controlView = ControlView()
+				c.controlView!.backgroundColor = nil
+				
+				let image = UIImage(named: "ic_share_white_18pt")?.imageWithRenderingMode(.AlwaysTemplate)
+				
+				// Share button.
+				let shareButton: FlatButton = FlatButton()
+				shareButton.pulseScale = false
+				shareButton.pulseColor = MaterialColor.grey.lighten1
+				shareButton.tintColor = MaterialColor.grey.base
+				shareButton.setImage(image, forState: .Normal)
+				shareButton.setImage(image, forState: .Highlighted)
+				
+				c.controlView?.rightControls = [shareButton]
+			}
 			
 			c.titleLabel?.text = data["title"] as? String
 			c.detailLabel?.text = data["detail"] as? String

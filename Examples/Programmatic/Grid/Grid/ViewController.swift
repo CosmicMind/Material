@@ -290,7 +290,6 @@ class ViewController: UIViewController {
 		alarmButton.grid.offset.columns = 10
 		
 		contentView.grid.spacing = 8
-		contentView.grid.axis.inherited = false
 		contentView.grid.axis.direction = .None
 		contentView.grid.contentInsetPreset = .Square3
 		contentView.grid.views = [
@@ -388,7 +387,6 @@ class ViewController: UIViewController {
 		alarmButton.grid.offset.columns = 9
 		
 		contentView.grid.spacing = 8
-		contentView.grid.axis.inherited = false
 		contentView.grid.axis.direction = .None
 		contentView.grid.contentInsetPreset = .Square3
 		contentView.grid.views = [
@@ -513,7 +511,6 @@ class ViewController: UIViewController {
 		alarmButton.grid.offset.columns = 10
 		
 		contentView.grid.spacing = 8
-		contentView.grid.axis.inherited = false
 		contentView.grid.axis.direction = .None
 		contentView.grid.contentInsetPreset = .Square3
 		contentView.grid.views = [

@@ -125,7 +125,6 @@ public class ControlView : MaterialView {
 	
 	/// Reloads the view.
 	public func reloadView() {
-		layoutIfNeeded()
 		
 		// clear constraints so new ones do not conflict
 		removeConstraints(constraints)
@@ -177,6 +176,7 @@ public class ControlView : MaterialView {
 			contentView.grid.columns -= contentView.grid.offset.columns
 			
 			grid.reloadLayout()
+			contentView.grid.reloadLayout()
 		}
 	}
 	

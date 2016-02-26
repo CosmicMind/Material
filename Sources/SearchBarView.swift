@@ -85,14 +85,6 @@ public class SearchBarView : StatusBarView {
 		self.init(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 64))
 	}
 	
-	public override func layoutSubviews() {
-		super.layoutSubviews()
-		
-		grid.axis.columns = Int(width / 48)
-		
-		reloadView()
-	}
-	
 	public override func didMoveToSuperview() {
 		super.didMoveToSuperview()
 		reloadView()
@@ -103,9 +95,8 @@ public class SearchBarView : StatusBarView {
 		super.reloadView()
 		
 		textField.grid.columns = contentView.grid.columns
-		textField.reloadView()
-		
 		grid.reloadLayout()
+		textField.reloadView()
 	}
 	
 	/**
