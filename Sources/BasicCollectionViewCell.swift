@@ -74,59 +74,181 @@ public class BasicCollectionViewCell : MaterialCollectionViewCell {
 	/// Reloads the view.
 	public func reloadView() {
 		contentView.grid.views = []
-		contentView.grid.axis.direction = .Vertical
-		
-		for v in contentView.subviews {
-			v.removeFromSuperview()
+		switch height {
+		case 192:
+			let rows: Int = Int(height / 48)
+			
+			contentView.grid.axis.direction = .Vertical
+			contentView.grid.axis.rows = rows
+			
+			for v in contentView.subviews {
+				v.removeFromSuperview()
+			}
+			
+			var a: Int = 0
+			var b: Int = 0
+			var c: Int = 0
+			
+			if nil != titleLabel && nil == detailLabel && nil == controlView {
+				a = rows
+			} else if nil == titleLabel && nil != detailLabel && nil == controlView {
+				b = rows
+			} else if nil == titleLabel && nil == detailLabel && nil != controlView {
+				c = rows
+			} else if nil != titleLabel && nil != detailLabel && nil == controlView {
+				a = 1
+				b = rows - 1
+			} else if nil != titleLabel && nil == detailLabel && nil != controlView {
+				a = rows - 1
+				c = 1
+			} else if nil == titleLabel && nil != detailLabel && nil != controlView {
+				b = rows - 1
+				c = 1
+			} else if nil != titleLabel && nil != detailLabel && nil != controlView {
+				a = 1
+				b = rows - 6
+				c = 1
+			}
+			
+			if let v: UILabel = titleLabel {
+				v.grid.rows = a
+				contentView.addSubview(v)
+				contentView.grid.views?.append(v)
+			}
+			
+			if let v: UILabel = detailLabel {
+				v.grid.rows = b
+				contentView.addSubview(v)
+				contentView.grid.views?.append(v)
+			}
+			
+			if let v: ControlView = controlView {
+				v.grid.rows = c
+				contentView.addSubview(v)
+				contentView.grid.views?.append(v)
+			}
+			
+			grid.views = [
+				contentView
+			]
+			contentView.grid.reloadLayout()
+		case 144:
+			let rows: Int = Int(height / 48)
+			
+			contentView.grid.axis.direction = .Vertical
+			contentView.grid.axis.rows = rows
+			
+			for v in contentView.subviews {
+				v.removeFromSuperview()
+			}
+			
+			var a: Int = 0
+			var b: Int = 0
+			var c: Int = 0
+			
+			if nil != titleLabel && nil == detailLabel && nil == controlView {
+				a = rows
+			} else if nil == titleLabel && nil != detailLabel && nil == controlView {
+				b = rows
+			} else if nil == titleLabel && nil == detailLabel && nil != controlView {
+				c = rows
+			} else if nil != titleLabel && nil != detailLabel && nil == controlView {
+				a = 1
+				b = rows - 1
+			} else if nil != titleLabel && nil == detailLabel && nil != controlView {
+				a = rows - 1
+				c = 1
+			} else if nil == titleLabel && nil != detailLabel && nil != controlView {
+				b = rows - 1
+				c = 1
+			} else if nil != titleLabel && nil != detailLabel && nil != controlView {
+				a = 1
+				b = rows - 6
+				c = 1
+			}
+			
+			if let v: UILabel = titleLabel {
+				v.grid.rows = a
+				contentView.addSubview(v)
+				contentView.grid.views?.append(v)
+			}
+			
+			if let v: UILabel = detailLabel {
+				v.grid.rows = b
+				contentView.addSubview(v)
+				contentView.grid.views?.append(v)
+			}
+			
+			if let v: ControlView = controlView {
+				v.grid.rows = c
+				contentView.addSubview(v)
+				contentView.grid.views?.append(v)
+			}
+			
+			grid.views = [
+				contentView
+			]
+			contentView.grid.reloadLayout()
+		case 192:
+			let rows: Int = Int(height / 48)
+			
+			contentView.grid.axis.direction = .Vertical
+			contentView.grid.axis.rows = rows
+			
+			for v in contentView.subviews {
+				v.removeFromSuperview()
+			}
+			
+			var a: Int = 0
+			var b: Int = 0
+			var c: Int = 0
+			
+			if nil != titleLabel && nil == detailLabel && nil == controlView {
+				a = rows
+			} else if nil == titleLabel && nil != detailLabel && nil == controlView {
+				b = rows
+			} else if nil == titleLabel && nil == detailLabel && nil != controlView {
+				c = rows
+			} else if nil != titleLabel && nil != detailLabel && nil == controlView {
+				a = 1
+				b = rows - 1
+			} else if nil != titleLabel && nil == detailLabel && nil != controlView {
+				a = rows - 1
+				c = 1
+			} else if nil == titleLabel && nil != detailLabel && nil != controlView {
+				b = rows - 1
+				c = 1
+			} else if nil != titleLabel && nil != detailLabel && nil != controlView {
+				a = 1
+				b = rows - 6
+				c = 1
+			}
+			
+			if let v: UILabel = titleLabel {
+				v.grid.rows = a
+				contentView.addSubview(v)
+				contentView.grid.views?.append(v)
+			}
+			
+			if let v: UILabel = detailLabel {
+				v.grid.rows = b
+				contentView.addSubview(v)
+				contentView.grid.views?.append(v)
+			}
+			
+			if let v: ControlView = controlView {
+				v.grid.rows = c
+				contentView.addSubview(v)
+				contentView.grid.views?.append(v)
+			}
+			
+			grid.views = [
+				contentView
+			]
+			contentView.grid.reloadLayout()
+		default:
+			grid.views = []
+			contentView.grid.views = []
 		}
-		
-		var a: Int = 0
-		var b: Int = 0
-		var c: Int = 0
-		
-		if nil != titleLabel && nil == detailLabel && nil == controlView {
-			a = 12
-		} else if nil == titleLabel && nil != detailLabel && nil == controlView {
-			b = 12
-		} else if nil == titleLabel && nil == detailLabel && nil != controlView {
-			c = 12
-		} else if nil != titleLabel && nil != detailLabel && nil == controlView {
-			a = 3
-			b = 9
-		} else if nil != titleLabel && nil == detailLabel && nil != controlView {
-			a = 9
-			c = 3
-		} else if nil == titleLabel && nil != detailLabel && nil != controlView {
-			b = 9
-			c = 3
-		} else if nil != titleLabel && nil != detailLabel && nil != controlView {
-			a = 3
-			b = 6
-			c = 3
-		}
-		
-		if let v: UILabel = titleLabel {
-			v.grid.rows = a
-			contentView.addSubview(v)
-			contentView.grid.views?.append(v)
-		}
-		
-		if let v: UILabel = detailLabel {
-			v.grid.rows = b
-			contentView.addSubview(v)
-			contentView.grid.views?.append(v)
-		}
-		
-		if let v: ControlView = controlView {
-			v.grid.rows = c
-			contentView.addSubview(v)
-			contentView.grid.views?.append(v)
-		}
-		
-		grid.views = [
-			contentView
-		]
-		
-		contentView.grid.reloadLayout()
 	}
 }

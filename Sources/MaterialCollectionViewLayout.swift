@@ -115,8 +115,11 @@ public class MaterialCollectionViewLayout : UICollectionViewLayout {
 	
 	public override func prepareLayout() {
 		let dataSource: MaterialCollectionViewDataSource = collectionView!.dataSource as! MaterialCollectionViewDataSource
-		
-		items = dataSource.items()
+		prepareLayoutForItems(dataSource.items())
+	}
+	
+	public func prepareLayoutForItems(items: Array<MaterialDataSourceItem>) {
+		self.items = items
 		layoutItems.removeAll()
 		
 		offset.x = contentInset.left
@@ -124,8 +127,8 @@ public class MaterialCollectionViewLayout : UICollectionViewLayout {
 		
 		var indexPath: NSIndexPath?
 		
-		for var i: Int = 0, l: Int = items!.count - 1; i <= l; ++i {
-			let item: MaterialDataSourceItem = items![i]
+		for var i: Int = 0, l: Int = items.count - 1; i <= l; ++i {
+			let item: MaterialDataSourceItem = items[i]
 			indexPath = NSIndexPath(forItem: i, inSection: 0)
 			layoutItems.append((layoutAttributesForItemAtIndexPath(indexPath!)!, indexPath!))
 				

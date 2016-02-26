@@ -31,5 +31,25 @@
 import UIKit
 
 public class BasicCollectionViewLayout : MaterialCollectionViewLayout {
-	
+	public override func prepareLayout() {
+		let dataSource: MaterialCollectionViewDataSource = collectionView!.dataSource as! MaterialCollectionViewDataSource
+		var items: Array<MaterialDataSourceItem> = dataSource.items()
+		
+		for var i: Int = items.count - 1; 0 <= i; --i {
+			var v: MaterialDataSourceItem = items[i]
+			if let q: MaterialDataSourceItemSize = v.dataSourceItemSize {
+				switch q {
+				case .Small:
+					v.height = 96
+				case .Large:
+					v.height = 192
+				default:
+					v.height = 144
+				}
+			}
+			items[i] = v
+		}
+		
+		prepareLayoutForItems(items)
+	}
 }

@@ -30,19 +30,26 @@
 
 import UIKit
 
+public enum MaterialDataSourceItemSize {
+	case Small
+	case Default
+	case Large
+}
+
 public struct MaterialDataSourceItem {
 	public var data: AnyObject?
-	public var size: CGSize?
 	public var x: CGFloat?
 	public var y: CGFloat?
 	public var width: CGFloat?
 	public var height: CGFloat?
+	public var dataSourceItemSize: MaterialDataSourceItemSize?
 	
-	public init(data: AnyObject? = nil, x: CGFloat? = nil, y: CGFloat? = nil, width: CGFloat? = nil, height: CGFloat? = nil) {
+	public init(data: AnyObject? = nil, x: CGFloat? = nil, y: CGFloat? = nil, width: CGFloat? = nil, height: CGFloat? = nil, dataSourceItemSize: MaterialDataSourceItemSize? = nil) {
 		self.data = data
 		self.x = x
 		self.y = y
 		self.width = width
 		self.height = height
+		self.dataSourceItemSize = dataSourceItemSize
 	}
 }

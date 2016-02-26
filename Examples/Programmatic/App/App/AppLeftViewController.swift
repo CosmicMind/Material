@@ -164,7 +164,9 @@ extension AppLeftViewController: UITableViewDelegate {
 		let item: Item = items[indexPath.row]
 		if let a: MenuViewController = sideNavigationViewController?.mainViewController as? MenuViewController {
 			if let b: NavigationBarViewController = a.mainViewController as? NavigationBarViewController {
-				b.transitionFromMainViewController("Feed" == item.text ? FeedViewController() : InboxViewController(), options: [.TransitionCrossDissolve])
+				b.transitionFromMainViewController("Feed" == item.text ? FeedViewController() : InboxViewController(), duration: 0.75, options: [.TransitionCrossDissolve]) { [weak self] _ in
+					self?.sideNavigationViewController?.closeLeftView()
+				}
 			}
 		}
 		return indexPath
