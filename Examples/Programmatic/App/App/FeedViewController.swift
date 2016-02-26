@@ -31,120 +31,128 @@
 import UIKit
 import Material
 
-private struct Item {
-	var text: String
-	var detail: String
-	var image: UIImage?
-}
-
 class FeedViewController: UIViewController {
-	/// A tableView used to display Bond entries.
-	private let tableView: UITableView = UITableView()
-	
-	/// A list of all the Author Bond types.
-	private var items: Array<Item> = Array<Item>()
+	private var collectionView: MaterialCollectionView = MaterialCollectionView(frame: CGRectNull)
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		prepareItems()
-		prepareTableView()
+		prepareCollectionView()
 	}
 	
-	/**
-	Handles the search button click, which opens the
-	SideNavigationViewController.
-	*/
-	func handleSearchButton() {
-		sideNavigationViewController?.openRightView()
+	override func viewWillLayoutSubviews() {
+		super.viewWillLayoutSubviews()
+		collectionView.frame = view.bounds
+		collectionView.reloadData()
+	}
+	
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+		navigationBarViewController?.navigationBarView.titleLabel?.text = "Feed"
 	}
 	
 	/// Prepares view.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.white
+		view.backgroundColor = MaterialColor.grey.lighten5
 	}
 	
-	/// Prepares the items Array.
-	private func prepareItems() {
-		items.append(Item(text: "Summer BBQ", detail: "Wish I could come, but I am out of town this weekend.", image: UIImage(named: "Profile1")))
-		items.append(Item(text: "Birthday gift", detail: "Have any ideas about what we should get Heidi for her birthday?", image: UIImage(named: "Profile2")))
-		items.append(Item(text: "Brunch this weekend?", detail: "I'll be in your neighborhood doing errands this weekend.", image: UIImage(named: "Profile3")))
-		items.append(Item(text: "Giants game", detail: "Are we on this weekend for the game?", image: UIImage(named: "Profile4")))
-		items.append(Item(text: "Recipe to try", detail: "We should eat this: Squash, Corn and tomatillo Tacos.", image: UIImage(named: "Profile5")))
-		items.append(Item(text: "Interview", detail: "The candidate will be arriving at 11:30, are you free?", image: UIImage(named: "Profile6")))
-		items.append(Item(text: "Book recommendation", detail: "I found the book title, Surely You’re Joking, Mr. Feynman!", image: UIImage(named: "Profile7")))
-		items.append(Item(text: "Oui oui", detail: "Do you have Paris recommendations? Have you ever been?", image: UIImage(named: "Profile8")))
-	}
-	
-	/// Prepares the tableView.
-	private func prepareTableView() {
-		tableView.registerClass(MaterialTableViewCell.self, forCellReuseIdentifier: "MaterialTableViewCell")
-		tableView.dataSource = self
-		tableView.delegate = self
+	/// Prepares the collectionView
+	private func prepareCollectionView() {
+		collectionView.dataSource = self
+		collectionView.delegate = self
+		collectionView.registerClass(BasicCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
 		
-		// Use MaterialLayout to easily align the tableView.
-		view.addSubview(tableView)
-		tableView.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignToParent(view, child: tableView)
+		if let v: MaterialCollectionViewLayout = collectionView.collectionViewLayout as? MaterialCollectionViewLayout {
+			v.spacing = 4
+			v.contentInset = UIEdgeInsetsMake(4, 4, 4, 4)
+			//			v.scrollDirection = .Horizontal
+		}
+		view.addSubview(collectionView)
 	}
 }
 
-/// TableViewDataSource methods.
-extension FeedViewController: UITableViewDataSource {
-	/// Determines the number of rows in the tableView.
-	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return items.count;
+extension FeedViewController: MaterialCollectionViewDataSource {
+	/// Retrieves the items for the collectionView.
+	func items() -> Array<Array<MaterialDataSourceItem>> {
+		return [[
+			MaterialDataSourceItem(data: ["title": "Material", "detail": "#Pumpkin #pie - Preheat oven to 425 degrees F. Whisk pumpkin, sweetened condensed milk, eggs..."], width: 125, height: 125),
+			MaterialDataSourceItem(data: ["detail": "Wow!!! I really really need this fabulous pair. Action is ending tonight #sneakerhead"], width: 125, height: 125),
+			MaterialDataSourceItem(data: ["detail": "Discovered an amazing #cofeeshop with the best #latte at Adelaide and Spadina #Toronto They also..."], width: 125, height: 125),
+			MaterialDataSourceItem(data: ["title": "Material", "detail": "Talk to that agency guy, a friend of #Jen, about renting..."], width: 125, height: 125),
+			MaterialDataSourceItem(data: ["title": "Material", "detail": "#Pumpkin #pie - Preheat oven to 425 degrees F. Whisk pumpkin, sweetened condensed milk, eggs..."], width: 125, height: 125),
+			MaterialDataSourceItem(data: ["detail": "Wow!!! I really really need this fabulous pair. Action is ending tonight #sneakerhead"], width: 125, height: 125),
+			MaterialDataSourceItem(data: ["detail": "Discovered an amazing #cofeeshop with the best #latte at Adelaide and Spadina #Toronto They also..."], width: 125, height: 125),
+			MaterialDataSourceItem(data: ["title": "Material", "detail": "Talk to that agency guy, a friend of #Jen, about renting..."], width: 125, height: 125),
+			MaterialDataSourceItem(data: ["title": "Material", "detail": "#Pumpkin #pie - Preheat oven to 425 degrees F. Whisk pumpkin, sweetened condensed milk, eggs..."], width: 125, height: 125),
+			MaterialDataSourceItem(data: ["detail": "Wow!!! I really really need this fabulous pair. Action is ending tonight #sneakerhead"], width: 125, height: 125),
+			MaterialDataSourceItem(data: ["detail": "Discovered an amazing #cofeeshop with the best #latte at Adelaide and Spadina #Toronto They also..."], width: 125, height: 125),
+			MaterialDataSourceItem(data: ["title": "Material", "detail": "Talk to that agency guy, a friend of #Jen, about renting..."], width: 125, height: 125)
+			]]
+		
 	}
 	
-	/// Returns the number of sections.
-	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-		return 1
+	/// Number of sections.
+	func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+		return items().count
 	}
 	
-	/// Prepares the cells within the tableView.
-	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell: MaterialTableViewCell = MaterialTableViewCell(style: .Subtitle, reuseIdentifier: "MaterialTableViewCell")
-		
-		let item: Item = items[indexPath.row]
-		cell.selectionStyle = .None
-		cell.textLabel!.text = item.text
-		cell.textLabel!.font = RobotoFont.regular
-		cell.detailTextLabel!.text = item.detail
-		cell.detailTextLabel!.font = RobotoFont.regular
-		cell.detailTextLabel!.textColor = MaterialColor.grey.darken1
-		cell.imageView!.image = item.image?.resize(toWidth: 40)
-		cell.imageView!.layer.cornerRadius = 20
-		
-		return cell
+	/// Number of cells in each section.
+	func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+		return items()[section].count
 	}
 	
-	/// Prepares the header within the tableView.
-	func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		let header = UIView(frame: CGRectMake(0, 0, view.bounds.width, 48))
-		header.backgroundColor = MaterialColor.white
+	/// Retrieves a UICollectionViewCell.
+	func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+		let c: BasicCollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! BasicCollectionViewCell
+		let item: MaterialDataSourceItem = items()[indexPath.section][indexPath.item]
 		
-		let label: UILabel = UILabel()
-		label.font = RobotoFont.medium
-		label.textColor = MaterialColor.grey.darken1
-		label.text = "Today"
+		if let data: Dictionary<String, AnyObject> = item.data as? Dictionary<String, AnyObject> {
+			
+			if nil == data["title"] {
+				c.titleLabel = nil
+			} else if nil == c.titleLabel {
+				c.titleLabel = UILabel()
+				c.titleLabel?.textColor = MaterialColor.blueGrey.darken4
+				c.titleLabel?.backgroundColor = MaterialColor.clear
+			}
+			
+			if nil == data["detail"] {
+				c.detailView = nil
+			} else if nil == c.detailView {
+				let detailLabel: UILabel = UILabel()
+				detailLabel.numberOfLines = 0
+				detailLabel.lineBreakMode = .ByTruncatingTail
+				detailLabel.font = RobotoFont.regularWithSize(12)
+				detailLabel.textColor = MaterialColor.blueGrey.darken4
+				detailLabel.backgroundColor = MaterialColor.clear
+				c.detailView = detailLabel
+			}
+			
+			if nil == c.controlView {
+				c.controlView = ControlView()
+				c.controlView!.backgroundColor = nil
+				
+				let date: UILabel = UILabel()
+				date.text = "Monday 6, 2016"
+				date.font = RobotoFont.regularWithSize(12)
+				date.textColor = MaterialColor.grey.lighten1
+				c.controlView!.contentView.addSubview(date)
+				c.controlView!.contentView.grid.views = [date]
+			}
+			
+			c.titleLabel?.text = data["title"] as? String
+			(c.detailView as? UILabel)?.text = data["detail"] as? String
+			c.reloadView()
+		}
 		
-		header.addSubview(label)
-		label.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignToParent(header, child: label, left: navigationBarViewController!.navigationBarView.contentInset.left + navigationBarViewController!.navigationBarView.spacing)
-		
-		return header
+		return c
 	}
 }
 
-/// UITableViewDelegate methods.
-extension FeedViewController: UITableViewDelegate {
-	/// Sets the tableView cell height.
-	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-		return 80
-	}
-	
-	/// Sets the tableView header height.
-	func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-		return 48
+/// MaterialCollectionViewDelegate methods.
+extension FeedViewController: MaterialCollectionViewDelegate {
+	/// Executed when an item is selected.
+	func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+		print(indexPath)
 	}
 }

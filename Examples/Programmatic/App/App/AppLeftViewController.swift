@@ -36,7 +36,7 @@ within a SideNavigationViewController.
 import UIKit
 import Material
 
-private struct Cell {
+private struct Item {
 	var text: String
 	var imageName: String
 	var selected: Bool
@@ -47,7 +47,7 @@ class AppLeftViewController: UIViewController {
 	private let tableView: UITableView = UITableView()
 	
 	/// A list of all the navigation items.
-	private var items: Array<Cell> = Array<Cell>()
+	private var items: Array<Item> = Array<Item>()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -76,12 +76,8 @@ class AppLeftViewController: UIViewController {
 	
 	/// Prepares the items that are displayed within the tableView.
 	private func prepareCells() {
-		items.append(Cell(text: "Inbox", imageName: "ic_inbox", selected: true))
-		items.append(Cell(text: "Today", imageName: "ic_today", selected: false))
-		items.append(Cell(text: "Bookmarks", imageName: "ic_book", selected: false))
-		items.append(Cell(text: "Work", imageName: "ic_work", selected: false))
-		items.append(Cell(text: "Contacts", imageName: "ic_contacts", selected: false))
-		items.append(Cell(text: "Settings", imageName: "ic_settings", selected: false))
+		items.append(Item(text: "Feed", imageName: "ic_today", selected: true))
+		items.append(Item(text: "Inbox", imageName: "ic_inbox", selected: true))
 	}
 	
 	/// Prepares profile view.
@@ -140,7 +136,7 @@ extension AppLeftViewController: UITableViewDataSource {
 		let cell: MaterialTableViewCell = tableView.dequeueReusableCellWithIdentifier("MaterialTableViewCell", forIndexPath: indexPath) as! MaterialTableViewCell
 		cell.backgroundColor = MaterialColor.clear
 		
-		let item: Cell = items[indexPath.row]
+		let item: Item = items[indexPath.row]
 		cell.textLabel!.text = item.text
 		cell.textLabel!.font = RobotoFont.medium
 		cell.imageView!.image = UIImage(named: item.imageName)?.imageWithRenderingMode(.AlwaysTemplate)
@@ -162,5 +158,15 @@ extension AppLeftViewController: UITableViewDelegate {
 	/// Select item at row in tableView.
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		print("Cell selected")
+	}
+	
+	func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
+		let item: Item = items[indexPath.row]
+		if let a: MenuViewController = sideNavigationViewController?.mainViewController as? MenuViewController {
+			if let b: NavigationBarViewController = a.mainViewController as? NavigationBarViewController {
+				b.transitionFromMainViewController("Feed" == item.text ? FeedViewController() : InboxViewController(), options: [.TransitionCrossDissolve])
+			}
+		}
+		return indexPath
 	}
 }

@@ -69,7 +69,7 @@ class AppRightViewController: UIViewController {
 	/// Prepares the items that are displayed within the tableView.
 	private func prepareCells() {
 		items.append(Cell(text: "Inbox", imageName: "ic_inbox", selected: false))
-		items.append(Cell(text: "Today", imageName: "ic_today", selected: true))
+		items.append(Cell(text: "Feed", imageName: "ic_today", selected: true))
 		items.append(Cell(text: "Bookmarks", imageName: "ic_book", selected: false))
 		items.append(Cell(text: "Work", imageName: "ic_work", selected: false))
 		items.append(Cell(text: "Contacts", imageName: "ic_contacts", selected: false))

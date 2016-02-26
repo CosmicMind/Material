@@ -779,7 +779,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			
 			leftView!.hidden = true
 			leftView!.position.x = -leftViewWidth / 2
-			leftView!.zPosition = 1000
+			leftView!.zPosition = 2000
 		} else {
 			enabledLeftView = false
 		}
@@ -795,7 +795,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			
 			rightView!.hidden = true
 			rightView!.position.x = view.bounds.width + rightViewWidth / 2
-			rightView!.zPosition = 1000
+			rightView!.zPosition = 2000
 		} else {
 			enabledRightView = false
 		}
@@ -804,7 +804,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	/// A method that prepares the backdropLayer.
 	private func prepareBackdropLayer() {
 		backdropColor = MaterialColor.black
-		backdropLayer.zPosition = 900
+		backdropLayer.zPosition = 1500
 		backdropLayer.hidden = true
 		view.layer.addSublayer(backdropLayer)
 	}

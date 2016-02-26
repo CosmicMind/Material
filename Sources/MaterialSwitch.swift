@@ -306,7 +306,7 @@ public class MaterialSwitch: UIControl {
 		prepareSwitchStyle(style)
 		prepareSwitchState(state)
 	}
-
+	
 	public override func willMoveToSuperview(newSuperview: UIView?) {
 		super.willMoveToSuperview(newSuperview)
 		styleForState(internalSwitchState)

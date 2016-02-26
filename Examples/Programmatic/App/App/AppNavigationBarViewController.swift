@@ -76,7 +76,6 @@ class AppNavigationBarViewController: NavigationBarViewController {
 	private func prepareNavigationBarView() {
 		// Title label.
 		let titleLabel: UILabel = UILabel()
-		titleLabel.text = "Feed"
 		titleLabel.textAlignment = .Left
 		titleLabel.textColor = MaterialColor.white
 		
