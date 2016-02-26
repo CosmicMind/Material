@@ -56,6 +56,13 @@ public class MaterialCollectionViewLayout : UICollectionViewLayout {
 	/// Scroll direction.
 	public var scrollDirection: UICollectionViewScrollDirection = .Vertical
 	
+	/// A preset wrapper around spacing.
+	public var spacingPreset: MaterialSpacing = .None {
+		didSet {
+			spacing = MaterialSpacingToValue(spacingPreset)
+		}
+	}
+	
 	/// Spacing between items.
 	public var spacing: CGFloat = 0
 	

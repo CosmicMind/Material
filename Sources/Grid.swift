@@ -139,6 +139,13 @@ public class Grid {
 		}
 	}
 	
+	/// A preset wrapper around spacing.
+	public var spacingPreset: MaterialSpacing = .None {
+		didSet {
+			spacing = MaterialSpacingToValue(spacingPreset)
+		}
+	}
+	
 	/// The space between grid columnss.
 	public var spacing: CGFloat {
 		didSet {

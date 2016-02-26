@@ -48,6 +48,13 @@ public class Menu {
 		}
 	}
 	
+	/// A preset wrapper around spacing.
+	public var spacingPreset: MaterialSpacing = .None {
+		didSet {
+			spacing = MaterialSpacingToValue(spacingPreset)
+		}
+	}
+	
 	/// The space between views.
 	public var spacing: CGFloat {
 		didSet {

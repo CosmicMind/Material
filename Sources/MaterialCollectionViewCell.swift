@@ -52,6 +52,13 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 		}
 	}
 	
+	/// A preset wrapper around spacing.
+	public var spacingPreset: MaterialSpacing = .None {
+		didSet {
+			spacing = MaterialSpacingToValue(spacingPreset)
+		}
+	}
+	
 	/// A wrapper around grid.spacing.
 	public var spacing: CGFloat {
 		get {

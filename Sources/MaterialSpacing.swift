@@ -30,41 +30,41 @@
 
 import UIKit
 
-public enum MaterialRadius {
+public enum MaterialSpacing {
 	case None
-	case Radius1
-	case Radius2
-	case Radius3
-	case Radius4
-	case Radius5
-	case Radius6
-	case Radius7
-	case Radius8
-	case Radius9
+	case Spacing1
+	case Spacing2
+	case Spacing3
+	case Spacing4
+	case Spacing5
+	case Spacing6
+	case Spacing7
+	case Spacing8
+	case Spacing9
 }
 
-/// Converts the MaterialRadius enum to a CGFloat value.
-public func MaterialRadiusToValue(radius: MaterialRadius) -> CGFloat {
+/// Converts the MaterialSpacing enum to a CGFloat value.
+public func MaterialSpacingToValue(radius: MaterialSpacing) -> CGFloat {
 	switch radius {
 	case .None:
 		return 0
-	case .Radius1:
+	case .Spacing1:
 		return 4
-	case .Radius2:
+	case .Spacing2:
 		return 8
-	case .Radius3:
+	case .Spacing3:
 		return 16
-	case .Radius4:
+	case .Spacing4:
 		return 24
-	case .Radius5:
+	case .Spacing5:
 		return 32
-	case .Radius6:
+	case .Spacing6:
 		return 40
-	case .Radius7:
+	case .Spacing7:
 		return 48
-	case .Radius8:
+	case .Spacing8:
 		return 56
-	case .Radius9:
+	case .Spacing9:
 		return 64
 	}
 }

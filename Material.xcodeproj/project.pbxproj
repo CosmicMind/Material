@@ -66,6 +66,7 @@
 		96CC08991C80B74F0034FF84 /* BasicCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC08981C80B74F0034FF84 /* BasicCollectionViewCell.swift */; };
 		96CC089B1C80B82E0034FF84 /* BasicCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC089A1C80B82E0034FF84 /* BasicCollectionView.swift */; };
 		96CC089D1C80B8F70034FF84 /* BasicCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC089C1C80B8F70034FF84 /* BasicCollectionViewLayout.swift */; };
+		96CC08A01C80CB180034FF84 /* MaterialSpacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC089F1C80CB180034FF84 /* MaterialSpacing.swift */; };
 		96D88C1E1C1328D800B91418 /* CaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D88BF51C1328D800B91418 /* CaptureView.swift */; };
 		96D88C1F1C1328D800B91418 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D88BF61C1328D800B91418 /* CardView.swift */; };
 		96D88C201C1328D800B91418 /* CapturePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D88BF71C1328D800B91418 /* CapturePreviewView.swift */; };
@@ -182,6 +183,7 @@
 		96CC08981C80B74F0034FF84 /* BasicCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicCollectionViewCell.swift; sourceTree = "<group>"; };
 		96CC089A1C80B82E0034FF84 /* BasicCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicCollectionView.swift; sourceTree = "<group>"; };
 		96CC089C1C80B8F70034FF84 /* BasicCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicCollectionViewLayout.swift; sourceTree = "<group>"; };
+		96CC089F1C80CB180034FF84 /* MaterialSpacing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialSpacing.swift; sourceTree = "<group>"; };
 		96D88BF51C1328D800B91418 /* CaptureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureView.swift; sourceTree = "<group>"; };
 		96D88BF61C1328D800B91418 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		96D88BF71C1328D800B91418 /* CapturePreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CapturePreviewView.swift; sourceTree = "<group>"; };
@@ -350,17 +352,25 @@
 		96CC08891C7FEBE10034FF84 /* CollectionView */ = {
 			isa = PBXGroup;
 			children = (
+				96CC089E1C80BD550034FF84 /* Basic */,
 				96CC088B1C7FEC170034FF84 /* MaterialCollectionView.swift */,
 				96CC088C1C7FEC170034FF84 /* MaterialCollectionViewCell.swift */,
 				96CC088D1C7FEC170034FF84 /* MaterialCollectionViewDataSource.swift */,
 				96CC088E1C7FEC170034FF84 /* MaterialCollectionViewDelegate.swift */,
 				96CC088F1C7FEC170034FF84 /* MaterialCollectionViewLayout.swift */,
 				96CC08901C7FEC170034FF84 /* MaterialDataSourceItem.swift */,
+			);
+			name = CollectionView;
+			sourceTree = "<group>";
+		};
+		96CC089E1C80BD550034FF84 /* Basic */ = {
+			isa = PBXGroup;
+			children = (
 				96CC08981C80B74F0034FF84 /* BasicCollectionViewCell.swift */,
 				96CC089A1C80B82E0034FF84 /* BasicCollectionView.swift */,
 				96CC089C1C80B8F70034FF84 /* BasicCollectionViewLayout.swift */,
 			);
-			name = CollectionView;
+			name = Basic;
 			sourceTree = "<group>";
 		};
 		96D88BF41C1328D800B91418 /* Sources */ = {
@@ -437,6 +447,7 @@
 				96D88C061C1328D800B91418 /* MaterialGravity.swift */,
 				96D88C071C1328D800B91418 /* MaterialEdgeInset.swift */,
 				96A71F441C74ABCB00C0C4AE /* MaterialBorder.swift */,
+				96CC089F1C80CB180034FF84 /* MaterialSpacing.swift */,
 			);
 			name = Type;
 			sourceTree = "<group>";
@@ -758,6 +769,7 @@
 				96D88C1F1C1328D800B91418 /* CardView.swift in Sources */,
 				96D88C2C1C1328D800B91418 /* MaterialColor.swift in Sources */,
 				96D88C301C1328D800B91418 /* MaterialEdgeInset.swift in Sources */,
+				96CC08A01C80CB180034FF84 /* MaterialSpacing.swift in Sources */,
 				96D88C211C1328D800B91418 /* CaptureSession.swift in Sources */,
 				96442ADE1C28EF3700C3C574 /* MaterialTableViewCell.swift in Sources */,
 				960B23271C383E5500E96216 /* Material+String.swift in Sources */,
