@@ -72,7 +72,7 @@ class ViewController: UIViewController {
         titleLabel.text = "Material"
         titleLabel.textAlignment = .Left
         titleLabel.textColor = MaterialColor.white
-        titleLabel.font = RobotoFont.regularWithSize(17)
+        titleLabel.font = RobotoFont.regular
         navigationBarView.titleLabel = titleLabel
 		
         // Detail label.
@@ -80,7 +80,7 @@ class ViewController: UIViewController {
         detailLabel.text = "Build Beautiful Software"
         detailLabel.textAlignment = .Left
         detailLabel.textColor = MaterialColor.white
-        detailLabel.font = RobotoFont.regularWithSize(12)
+        detailLabel.font = RobotoFont.regular
         navigationBarView.detailLabel = detailLabel
 		
         // Menu button.

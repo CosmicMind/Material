@@ -36,7 +36,7 @@ in text to be detected.
 import UIKit
 import Material
 
-class ViewController: UIViewController, TextDelegate, TextViewDelegate {
+class ViewController: UIViewController, TextDelegate {
 	/// A Text storage object that monitors the changes within the textView.
 	lazy var text: Text = Text()
 	
@@ -64,7 +64,6 @@ class ViewController: UIViewController, TextDelegate, TextViewDelegate {
 		text.textStorage.addLayoutManager(layoutManager)
 		
 		textView = TextView(textContainer: textContainer)
-		textView.delegate = self
 		textView.font = RobotoFont.regular
 		
 		textView.placeholderLabel = UILabel()

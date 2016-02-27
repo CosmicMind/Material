@@ -73,9 +73,9 @@ public func MaterialAnimationTransitionSubTypeToValue(direction: MaterialAnimati
 	case .Left:
 		return kCATransitionFromLeft
 	case .Top:
-		return kCATransitionFromTop
-	case .Bottom:
 		return kCATransitionFromBottom
+	case .Bottom:
+		return kCATransitionFromTop
 	}
 }
 

@@ -34,6 +34,7 @@ import UIKit
 public protocol TextViewDelegate : UITextViewDelegate {}
 
 @objc(TextView)
+@IBDesignable
 public class TextView: UITextView {
 	/**
 	This property is the same as clipsToBounds. It crops any of the view's
@@ -51,7 +52,7 @@ public class TextView: UITextView {
 	}
 	
 	/// A property that accesses the backing layer's backgroundColor.
-	public override var backgroundColor: UIColor? {
+	@IBInspectable public override var backgroundColor: UIColor? {
 		didSet {
 			layer.backgroundColor = backgroundColor?.CGColor
 		}
@@ -114,14 +115,14 @@ public class TextView: UITextView {
 	}
 	
 	/// A property that accesses the backing layer's shadowColor.
-	public var shadowColor: UIColor? {
+	@IBInspectable public var shadowColor: UIColor? {
 		didSet {
 			layer.shadowColor = shadowColor?.CGColor
 		}
 	}
 	
 	/// A property that accesses the backing layer's shadowOffset.
-	public var shadowOffset: CGSize {
+	@IBInspectable public var shadowOffset: CGSize {
 		get {
 			return layer.shadowOffset
 		}
@@ -131,7 +132,7 @@ public class TextView: UITextView {
 	}
 	
 	/// A property that accesses the backing layer's shadowOpacity.
-	public var shadowOpacity: Float {
+	@IBInspectable public var shadowOpacity: Float {
 		get {
 			return layer.shadowOpacity
 		}
@@ -141,7 +142,7 @@ public class TextView: UITextView {
 	}
 	
 	/// A property that accesses the backing layer's shadowRadius.
-	public var shadowRadius: CGFloat {
+	@IBInspectable public var shadowRadius: CGFloat {
 		get {
 			return layer.shadowRadius
 		}
@@ -181,7 +182,7 @@ public class TextView: UITextView {
 	}
 	
 	/// A property that accesses the layer.cornerRadius.
-	public var cornerRadius: CGFloat = 0 {
+	@IBInspectable public var cornerRadius: CGFloat = 0 {
 		didSet {
 			layer.cornerRadius = cornerRadius
 		}
@@ -212,14 +213,14 @@ public class TextView: UITextView {
 	}
 	
 	/// A property that accesses the layer.borderWith.
-	public var borderWidth: CGFloat = 0 {
+	@IBInspectable public var borderWidth: CGFloat = 0 {
 		didSet {
 			layer.borderWidth = borderWidth
 		}
 	}
 	
 	/// A property that accesses the layer.borderColor property.
-	public var borderColor: UIColor? {
+	@IBInspectable public var borderColor: UIColor? {
 		didSet {
 			layer.borderColor = borderColor?.CGColor
 		}

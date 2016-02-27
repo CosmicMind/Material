@@ -34,8 +34,7 @@ import AVFoundation
 
 class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDelegate {
 	lazy var captureView: CaptureView = CaptureView()
-	lazy var navigationBarView: NavigationBarView = NavigationBarView(frame: CGRectNull)
-	lazy var closeButton: FlatButton = FlatButton()
+	lazy var navigationBarView: NavigationBarView = NavigationBarView()
 	lazy var cameraButton: FlatButton = FlatButton()
 	lazy var videoButton: FlatButton = FlatButton()
 	lazy var switchCamerasButton: FlatButton = FlatButton()
@@ -48,7 +47,6 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 		prepareCaptureButton()
 		prepareCameraButton()
 		prepareVideoButton()
-		prepareCloseButton()
 		prepareSwitchCamerasButton()
 		prepareFlashButton()
 		prepareCaptureView()
@@ -82,7 +80,6 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 	func captureDidStartRecordingToOutputFileAtURL(capture: CaptureSession, captureOutput: AVCaptureFileOutput, fileURL: NSURL, fromConnections connections: [AnyObject]) {
 		print("Capture Started Recording \(fileURL)")
 		
-		closeButton.hidden = true
 		cameraButton.hidden = true
 		videoButton.hidden = true
 		switchCamerasButton.hidden = true
@@ -95,7 +92,6 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 	func captureDidFinishRecordingToOutputFileAtURL(capture: CaptureSession, captureOutput: AVCaptureFileOutput, outputFileURL: NSURL, fromConnections connections: [AnyObject], error: NSError!) {
 		print("Capture Stopped Recording \(outputFileURL)")
 		
-		closeButton.hidden = false
 		cameraButton.hidden = false
 		videoButton.hidden = false
 		switchCamerasButton.hidden = false
@@ -247,7 +243,7 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 		titleLabel.hidden = true
 		titleLabel.textAlignment = .Center
 		titleLabel.textColor = MaterialColor.white
-		titleLabel.font = RobotoFont.regularWithSize(20)
+		titleLabel.font = RobotoFont.regular
 		navigationBarView.titleLabel = titleLabel
 		
 		// Detail label.
@@ -256,17 +252,13 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 		detailLabel.text = "Recording"
 		detailLabel.textAlignment = .Center
 		detailLabel.textColor = MaterialColor.red.accent1
-		detailLabel.font = RobotoFont.regularWithSize(12)
+		detailLabel.font = RobotoFont.regular
 		navigationBarView.detailLabel = detailLabel
 		
-		navigationBarView.leftButtons = [closeButton]
-		navigationBarView.rightButtons = [switchCamerasButton, flashButton]
+		navigationBarView.leftControls = [switchCamerasButton]
+		navigationBarView.rightControls = [flashButton]
 		
 		view.addSubview(navigationBarView)
-		navigationBarView.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignFromTop(view, child: navigationBarView)
-		MaterialLayout.alignToParentHorizontally(view, child: navigationBarView)
-		MaterialLayout.height(view, child: navigationBarView, height: 70)
 	}
 	
 	/**
@@ -310,16 +302,6 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 		videoButton.setImage(img5, forState: .Highlighted)
 		
 		captureView.videoButton = videoButton
-	}
-	
-	/**
-	:name:	prepareCloseButton
-	*/
-	private func prepareCloseButton() {
-		let img: UIImage? = UIImage(named: "ic_close_white")
-		closeButton.pulseColor = nil
-		closeButton.setImage(img, forState: .Normal)
-		closeButton.setImage(img, forState: .Highlighted)
 	}
 	
 	/**

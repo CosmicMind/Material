@@ -7,169 +7,93 @@
    <Group
       location = "container:"
       name = "Programmatic">
-      <Group
-         location = "container:"
-         name = "MaterialLayout">
-         <FileRef
-            location = "group:Programmatic/MaterialLayout/MaterialLayout.xcodeproj">
-         </FileRef>
-      </Group>
-      <Group
-         location = "container:"
-         name = "Grid">
-         <FileRef
-            location = "group:Programmatic/Grid/Grid.xcodeproj">
-         </FileRef>
-      </Group>
-      <Group
-         location = "container:"
-         name = "MaterialLayer">
-         <FileRef
-            location = "group:Programmatic/MaterialLayer/MaterialLayer.xcodeproj">
-         </FileRef>
-      </Group>
-      <Group
-         location = "container:"
-         name = "TextField">
-         <FileRef
-            location = "group:Programmatic/TextField/TextField.xcodeproj">
-         </FileRef>
-      </Group>
-      <Group
-         location = "container:"
-         name = "TextView">
-         <FileRef
-            location = "group:Programmatic/TextView/TextView.xcodeproj">
-         </FileRef>
-      </Group>
-      <Group
-         location = "container:"
-         name = "MaterialView">
-         <FileRef
-            location = "group:Programmatic/MaterialView/MaterialView.xcodeproj">
-         </FileRef>
-      </Group>
-      <Group
-         location = "container:"
-         name = "MaterialPulseView">
-         <FileRef
-            location = "group:Programmatic/MaterialPulseView/MaterialPulseView.xcodeproj">
-         </FileRef>
-      </Group>
-      <Group
-         location = "container:"
-         name = "MaterialButton">
-         <FileRef
-            location = "group:Programmatic/MaterialButton/MaterialButton.xcodeproj">
-         </FileRef>
-      </Group>
-      <Group
-         location = "container:"
-         name = "Menu">
-         <FileRef
-            location = "group:Programmatic/Menu/Menu.xcodeproj">
-         </FileRef>
-         <FileRef
-            location = "group:Programmatic/MenuView/MenuView.xcodeproj">
-         </FileRef>
-      </Group>
-      <Group
-         location = "container:"
-         name = "MaterialSwitch">
-         <FileRef
-            location = "group:Programmatic/MaterialSwitch/MaterialSwitch.xcodeproj">
-         </FileRef>
-      </Group>
-      <Group
-         location = "container:"
-         name = "NavigationBarView">
-         <FileRef
-            location = "group:Programmatic/NavigationBarView/NavigationBarView.xcodeproj">
-         </FileRef>
-      </Group>
-      <Group
-         location = "container:"
-         name = "SearchBarView">
-         <FileRef
-            location = "group:Programmatic/SearchBarView/SearchBarView.xcodeproj">
-         </FileRef>
-      </Group>
-      <Group
-         location = "container:"
-         name = "SideNavigationViewController">
-         <FileRef
-            location = "group:Programmatic/SideNavigationViewController/SideNavigationViewController.xcodeproj">
-         </FileRef>
-      </Group>
-      <Group
-         location = "container:"
-         name = "CardView">
-         <FileRef
-            location = "group:Programmatic/CardView/CardView.xcodeproj">
-         </FileRef>
-         <FileRef
-            location = "group:Programmatic/TableCardView/TableCardView.xcodeproj">
-         </FileRef>
-      </Group>
-      <Group
-         location = "container:"
-         name = "ImageCardView">
-         <FileRef
-            location = "group:Programmatic/ImageCardView/ImageCardView.xcodeproj">
-         </FileRef>
-      </Group>
-      <Group
-         location = "container:"
-         name = "CaptureView">
-         <FileRef
-            location = "group:Programmatic/CaptureView/CaptureView.xcodeproj">
-         </FileRef>
-      </Group>
+      <FileRef
+         location = "group:Programmatic/App/App.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/MaterialLayout/MaterialLayout.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/Grid/Grid.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/MaterialLayer/MaterialLayer.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/MaterialView/MaterialView.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/MaterialPulseView/MaterialPulseView.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/TextField/TextField.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/TextView/TextView.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/MaterialButton/MaterialButton.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/MaterialSwitch/MaterialSwitch.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/Menu/Menu.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/MenuView/MenuView.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/MenuViewController/MenuViewController.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/NavigationBarView/NavigationBarView.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/NavigationBarViewController/NavigationBarViewController.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/SearchBarView/SearchBarView.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/SearchBarViewController/SearchBarViewController.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/SideNavigationViewController/SideNavigationViewController.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/CardView/CardView.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/TableCardView/TableCardView.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/ImageCardView/ImageCardView.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/CaptureView/CaptureView.xcodeproj">
+      </FileRef>
    </Group>
    <Group
       location = "container:"
       name = "Storyboards">
-      <Group
-         location = "container:"
-         name = "MaterialPulseView">
-         <FileRef
-            location = "group:Storyboards/MaterialPulseView/MaterialPulseView.xcodeproj">
-         </FileRef>
-      </Group>
-      <Group
-         location = "container:"
-         name = "MaterialButton">
-         <FileRef
-            location = "group:Storyboards/MaterialButton/MaterialButton.xcodeproj">
-         </FileRef>
-      </Group>
-      <Group
-         location = "container:"
-         name = "NavigationBarView">
-         <FileRef
-            location = "group:Storyboards/NavigationBarView/NavigationBarView.xcodeproj">
-         </FileRef>
-      </Group>
-      <Group
-         location = "container:"
-         name = "SideNavigationViewController">
-         <FileRef
-            location = "group:Storyboards/SideNavigationViewController/SideNavigationViewController.xcodeproj">
-         </FileRef>
-      </Group>
-      <Group
-         location = "container:"
-         name = "CardView">
-         <FileRef
-            location = "group:Storyboards/CardView/CardView.xcodeproj">
-         </FileRef>
-      </Group>
-      <Group
-         location = "container:"
-         name = "ImageCardView">
-         <FileRef
-            location = "group:Storyboards/ImageCardView/ImageCardView.xcodeproj">
-         </FileRef>
-      </Group>
+      <FileRef
+         location = "group:Storyboards/MaterialPulseView/MaterialPulseView.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Storyboards/MaterialButton/MaterialButton.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Storyboards/NavigationBarView/NavigationBarView.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Storyboards/SideNavigationViewController/SideNavigationViewController.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Storyboards/CardView/CardView.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Storyboards/ImageCardView/ImageCardView.xcodeproj">
+      </FileRef>
    </Group>
 </Workspace>

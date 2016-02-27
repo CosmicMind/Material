@@ -31,6 +31,7 @@
 import UIKit
 
 @objc(MaterialView)
+@IBDesignable
 public class MaterialView : UIView {
 	/**
 	A CAShapeLayer used to manage elements that would be affected by
@@ -113,7 +114,7 @@ public class MaterialView : UIView {
 	}
 	
 	/// A property that accesses the backing layer's backgroundColor.
-	public override var backgroundColor: UIColor? {
+	@IBInspectable public override var backgroundColor: UIColor? {
 		didSet {
 			layer.backgroundColor = backgroundColor?.CGColor
 		}
@@ -176,14 +177,14 @@ public class MaterialView : UIView {
 	}
 	
 	/// A property that accesses the backing layer's shadowColor.
-	public var shadowColor: UIColor? {
+	@IBInspectable public var shadowColor: UIColor? {
 		didSet {
 			layer.shadowColor = shadowColor?.CGColor
 		}
 	}
 	
 	/// A property that accesses the backing layer's shadowOffset.
-	public var shadowOffset: CGSize {
+	@IBInspectable public var shadowOffset: CGSize {
 		get {
 			return layer.shadowOffset
 		}
@@ -193,7 +194,7 @@ public class MaterialView : UIView {
 	}
 	
 	/// A property that accesses the backing layer's shadowOpacity.
-	public var shadowOpacity: Float {
+	@IBInspectable public var shadowOpacity: Float {
 		get {
 			return layer.shadowOpacity
 		}
@@ -203,7 +204,7 @@ public class MaterialView : UIView {
 	}
 	
 	/// A property that accesses the backing layer's shadowRadius.
-	public var shadowRadius: CGFloat {
+	@IBInspectable public var shadowRadius: CGFloat {
 		get {
 			return layer.shadowRadius
 		}
@@ -243,7 +244,7 @@ public class MaterialView : UIView {
 	}
 	
 	/// A property that accesses the layer.cornerRadius.
-	public var cornerRadius: CGFloat = 0 {
+	@IBInspectable public var cornerRadius: CGFloat = 0 {
 		didSet {
 			layer.cornerRadius = cornerRadius
 		}
@@ -274,14 +275,14 @@ public class MaterialView : UIView {
 	}
 	
 	/// A property that accesses the layer.borderWith.
-	public var borderWidth: CGFloat = 0 {
+	@IBInspectable public var borderWidth: CGFloat = 0 {
 		didSet {
 			layer.borderWidth = borderWidth
 		}
 	}
 	
 	/// A property that accesses the layer.borderColor property.
-	public var borderColor: UIColor? {
+	@IBInspectable public var borderColor: UIColor? {
 		didSet {
 			layer.borderColor = borderColor?.CGColor
 		}

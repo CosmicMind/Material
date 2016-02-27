@@ -39,12 +39,6 @@ import UIKit
 import Material
 
 class ViewController: UIViewController, TextFieldDelegate {
-	/// Name TextField.
-	private var nameField: TextField!
-	
-	/// Email TextField.
-	private var emailField: TextField!
-	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
@@ -59,49 +53,72 @@ class ViewController: UIViewController, TextFieldDelegate {
 	
 	/// Prepares the name TextField.
 	private func prepareNameField() {
-		nameField = TextField(frame: CGRectMake(57, 100, 300, 24))
-		nameField.clearButtonMode = .WhileEditing
-		nameField.placeholder = "First Name"
-		nameField.font = RobotoFont.regularWithSize(20)
-		nameField.textColor = MaterialColor.black
+		let textField: TextField = TextField(frame: CGRectMake(57, 100, 300, 24))
+		textField.placeholder = "First Name"
+		textField.placeholderTextColor = MaterialColor.grey.base
+		textField.font = RobotoFont.regularWithSize(20)
+		textField.textColor = MaterialColor.black
 		
-		nameField.titleLabel = UILabel()
-		nameField.titleLabel!.font = RobotoFont.mediumWithSize(12)
-		nameField.titleLabelColor = MaterialColor.grey.base
-		nameField.titleLabelActiveColor = MaterialColor.blue.accent3
-		view.addSubview(nameField)
+		textField.titleLabel = UILabel()
+		textField.titleLabel!.font = RobotoFont.mediumWithSize(12)
+		textField.titleLabelColor = MaterialColor.grey.base
+		textField.titleLabelActiveColor = MaterialColor.blue.accent3
+		
+		let image = UIImage(named: "ic_close_white")?.imageWithRenderingMode(.AlwaysTemplate)
+		
+		let clearButton: FlatButton = FlatButton()
+		clearButton.pulseColor = MaterialColor.grey.base
+		clearButton.pulseScale = false
+		clearButton.tintColor = MaterialColor.grey.base
+		clearButton.setImage(image, forState: .Normal)
+		clearButton.setImage(image, forState: .Highlighted)
+		
+		textField.clearButton = clearButton
+		
+		view.addSubview(textField)
 	}
 	
 	/// Prepares the email TextField.
 	private func prepareEmailField() {
-		emailField = TextField(frame: CGRectMake(57, 200, 300, 24))
-		emailField.delegate = self
-		emailField.placeholder = "Email"
-		emailField.font = RobotoFont.regularWithSize(20)
-		emailField.textColor = MaterialColor.black
+		let textField: TextField = TextField(frame: CGRectMake(57, 200, 300, 24))
+		textField.delegate = self
+		textField.placeholder = "Email"
+		textField.placeholderTextColor = MaterialColor.grey.base
+		textField.font = RobotoFont.regularWithSize(20)
+		textField.textColor = MaterialColor.black
 		
-		emailField.titleLabel = UILabel()
-		emailField.titleLabel!.font = RobotoFont.mediumWithSize(12)
-		emailField.titleLabelColor = MaterialColor.grey.base
-		emailField.titleLabelActiveColor = MaterialColor.blue.accent3
-		emailField.clearButtonMode = .WhileEditing
+		textField.titleLabel = UILabel()
+		textField.titleLabel!.font = RobotoFont.mediumWithSize(12)
+		textField.titleLabelColor = MaterialColor.grey.base
+		textField.titleLabelActiveColor = MaterialColor.blue.accent3
 		
 		/*
 		Used to display the error message, which is displayed when
 		the user presses the 'return' key.
 		*/
-		emailField.detailLabel = UILabel()
-		emailField.detailLabel!.text = "Email is incorrect."
-		emailField.detailLabel!.font = RobotoFont.mediumWithSize(12)
-		emailField.detailLabelActiveColor = MaterialColor.red.accent3
-		view.addSubview(emailField)
+		textField.detailLabel = UILabel()
+		textField.detailLabel!.text = "Email is incorrect."
+		textField.detailLabel!.font = RobotoFont.mediumWithSize(12)
+		textField.detailLabelActiveColor = MaterialColor.red.accent3
+		textField.detailLabelAutoHideEnabled = false // Comment out this line to have automatic hiding.
+		
+		let image = UIImage(named: "ic_close_white")?.imageWithRenderingMode(.AlwaysTemplate)
+		
+		let clearButton: FlatButton = FlatButton()
+		clearButton.pulseColor = MaterialColor.grey.base
+		clearButton.pulseScale = false
+		clearButton.tintColor = MaterialColor.grey.base
+		clearButton.setImage(image, forState: .Normal)
+		clearButton.setImage(image, forState: .Highlighted)
+		
+		textField.clearButton = clearButton
+		
+		view.addSubview(textField)
 	}
 	
 	/// Executed when the 'return' key is pressed when using the emailField.
 	func textFieldShouldReturn(textField: UITextField) -> Bool {
-		textField.resignFirstResponder()
-		(textField as! TextField).detailLabelHidden = !(0 < emailField.text?.utf16.count)
+		(textField as! TextField).detailLabelHidden = 0 == textField.text?.utf16.count
 		return false
 	}
-	
 }

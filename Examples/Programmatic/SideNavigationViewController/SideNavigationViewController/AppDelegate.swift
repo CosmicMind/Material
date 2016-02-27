@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
 		window = UIWindow(frame: UIScreen.mainScreen().bounds)
-		window!.rootViewController = SideNavigationViewController(mainViewController: AppViewController(mainViewController: FeedViewController()), leftViewController: LeftViewController(), rightViewController: RightViewController())
+		window!.rootViewController = SideNavigationViewController(mainViewController: YellowViewController(), leftViewController: GreenViewController(), rightViewController: BlueViewController())
 		window!.makeKeyAndVisible()
 		return true
 	}
@@ -65,7 +65,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func applicationWillTerminate(application: UIApplication) {
 		// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 	}
-	
-	
 }
 

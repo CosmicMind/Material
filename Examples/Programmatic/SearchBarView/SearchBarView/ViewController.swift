@@ -54,43 +54,53 @@ class ViewController: UIViewController {
 	
 	/// Prepare navigationBarView.
 	private func prepareSearchBarView() {
-		var image = UIImage(named: "ic_close_white")
+		var image = UIImage(named: "ic_close_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		
 		let clearButton: FlatButton = FlatButton()
-		clearButton.pulseColor = MaterialColor.white
+		clearButton.pulseColor = MaterialColor.blueGrey.darken4
 		clearButton.pulseScale = false
+		clearButton.tintColor = MaterialColor.blueGrey.darken4
 		clearButton.setImage(image, forState: .Normal)
 		clearButton.setImage(image, forState: .Highlighted)
 		
-		image = UIImage(named: "ic_menu_white")
-		let menuButton: FlatButton = FlatButton()
-		menuButton.pulseColor = MaterialColor.white
-		menuButton.pulseScale = false
-		menuButton.setImage(image, forState: .Normal)
-		menuButton.setImage(image, forState: .Highlighted)
-	
+		// Back button.
+		image = UIImage(named: "ic_arrow_back_white")?.imageWithRenderingMode(.AlwaysTemplate)
+		let backButton: FlatButton = FlatButton()
+		backButton.pulseColor = MaterialColor.blueGrey.darken4
+		backButton.pulseScale = false
+		backButton.tintColor = MaterialColor.blueGrey.darken4
+		backButton.setImage(image, forState: .Normal)
+		backButton.setImage(image, forState: .Highlighted)
+		
 		// Switch control.
-		let switchControl: MaterialSwitch = MaterialSwitch(state: .Off, style: .LightContent, size: .Small)
-		switchControl.buttonOnColor = MaterialColor.lightBlue.base
+		let switchControl: MaterialSwitch = MaterialSwitch(state: .Off, style: .Default, size: .Small)
+		
+		// More button.
+		image = UIImage(named: "ic_more_horiz_white")?.imageWithRenderingMode(.AlwaysTemplate)
+		let moreButton: FlatButton = FlatButton()
+		moreButton.pulseColor = MaterialColor.blueGrey.darken4
+		moreButton.pulseScale = false
+		moreButton.tintColor = MaterialColor.blueGrey.darken4
+		moreButton.setImage(image, forState: .Normal)
+		moreButton.setImage(image, forState: .Highlighted)
 		
 		/*
 		To lighten the status bar - add the
 		"View controller-based status bar appearance = NO"
 		to your info.plist file and set the following property.
 		*/
-		searchBarView.statusBarStyle = .LightContent
+		searchBarView.statusBarStyle = .Default
 		
 		searchBarView.delegate = self
-		searchBarView.backgroundColor = MaterialColor.indigo.base
 		searchBarView.placeholder = "Search"
-		searchBarView.tintColor = MaterialColor.white
-		searchBarView.textColor = MaterialColor.white
-		searchBarView.placeholderTextColor = MaterialColor.white
-		searchBarView.textField.font = RobotoFont.regularWithSize(17)
+		searchBarView.tintColor = MaterialColor.blueGrey.darken4
+		searchBarView.textColor = MaterialColor.blueGrey.darken4
+		searchBarView.placeholderTextColor = MaterialColor.blueGrey.darken4
+		searchBarView.textField.font = RobotoFont.regularWithSize(20)
 		
 		searchBarView.clearButton = clearButton
-		searchBarView.leftControls = [menuButton]
-		searchBarView.rightControls = [switchControl]
+		searchBarView.leftControls = [backButton]
+		searchBarView.rightControls = [switchControl, moreButton]
 		
 		view.addSubview(searchBarView)
 	}

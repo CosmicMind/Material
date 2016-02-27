@@ -358,10 +358,10 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	the transition animation from the active mainViewController
 	to the toViewController has completed.
 	*/
-	public func transitionFromMainViewController(toViewController: UIViewController, duration: NSTimeInterval, options: UIViewAnimationOptions, animations: (() -> Void)?, completion: ((Bool) -> Void)?) {
+	public func transitionFromMainViewController(toViewController: UIViewController, duration: NSTimeInterval = 0.5, options: UIViewAnimationOptions = [], animations: (() -> Void)? = nil, completion: ((Bool) -> Void)? = nil) {
 		mainViewController.willMoveToParentViewController(nil)
 		addChildViewController(toViewController)
-		toViewController.view.frame = view.bounds
+		toViewController.view.frame = mainViewController.view.frame
 		transitionFromViewController(mainViewController,
 			toViewController: toViewController,
 			duration: duration,
@@ -371,6 +371,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 				toViewController.didMoveToParentViewController(self)
 				self.mainViewController.removeFromParentViewController()
 				self.mainViewController = toViewController
+				self.view.sendSubviewToBack(self.mainViewController.view)
 				self.userInteractionEnabled = !self.opened
 				completion?(result)
 			})

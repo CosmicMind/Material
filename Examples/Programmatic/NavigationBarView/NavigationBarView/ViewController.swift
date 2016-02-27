@@ -59,27 +59,27 @@ class ViewController: UIViewController {
 		titleLabel.text = "Material"
 		titleLabel.textAlignment = .Left
 		titleLabel.textColor = MaterialColor.white
-		titleLabel.font = RobotoFont.regularWithSize(17)
+		titleLabel.font = RobotoFont.regular
 		
 		// Detail label.
 		let detailLabel: UILabel = UILabel()
 		detailLabel.text = "Build Beautiful Software"
 		detailLabel.textAlignment = .Left
 		detailLabel.textColor = MaterialColor.white
-		detailLabel.font = RobotoFont.regularWithSize(12)
+		detailLabel.font = RobotoFont.regular
 		
 		var image = UIImage(named: "ic_menu_white")
-		
+
 		// Menu button.
 		let menuButton: FlatButton = FlatButton()
 		menuButton.pulseColor = MaterialColor.white
 		menuButton.pulseScale = false
 		menuButton.setImage(image, forState: .Normal)
 		menuButton.setImage(image, forState: .Highlighted)
-		
+
 		// Switch control.
 		let switchControl: MaterialSwitch = MaterialSwitch(state: .Off, style: .LightContent, size: .Small)
-		
+
 		// Search button.
 		image = UIImage(named: "ic_search_white")
 		let searchButton: FlatButton = FlatButton()

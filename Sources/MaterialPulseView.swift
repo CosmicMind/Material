@@ -30,15 +30,16 @@
 
 import UIKit
 
+@IBDesignable
 public class MaterialPulseView : MaterialView {
 	/// Sets whether the scaling animation should be used.
-	public lazy var pulseScale: Bool = true
+	@IBInspectable public lazy var pulseScale: Bool = true
 	
 	/// The opcaity value for the pulse animation.
-	public var pulseColorOpacity: CGFloat = 0.25
+	@IBInspectable public var pulseColorOpacity: CGFloat = 0.25
 	
 	/// The color of the pulse effect.
-	public var pulseColor: UIColor?
+	@IBInspectable public var pulseColor: UIColor?
 	
 	/**
 	A delegation method that is executed when the view has began a

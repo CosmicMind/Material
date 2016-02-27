@@ -110,7 +110,7 @@ class ViewController: UIViewController, MaterialSwitchDelegate {
 		MaterialLayout.alignToParentVertically(bottomView, children: [c1, c2, c3])
 	}
 	
-	internal func materialSwitchStateChanged(control: MaterialSwitch, state: MaterialSwitchState) {
-		print("MaterialSwitch - Size: \(control.switchSize) State: \(state)")
+	internal func materialSwitchStateChanged(control: MaterialSwitch) {
+		print("MaterialSwitch - Style: \(control.switchStyle), Size: \(control.switchSize), State: \(control.switchState), On: \(control.on), Selected: \(control.selected),  Highlighted: \(control.highlighted)")
 	}
 }

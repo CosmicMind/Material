@@ -1,0 +1,308 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		960036011C77E0D400EBA579 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960036001C77E0D400EBA579 /* AppDelegate.swift */; };
+		960036031C77E0D400EBA579 /* AppSearchBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960036021C77E0D400EBA579 /* AppSearchBarViewController.swift */; };
+		960036081C77E0D400EBA579 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 960036071C77E0D400EBA579 /* Assets.xcassets */; };
+		9600360B1C77E0D400EBA579 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 960036091C77E0D400EBA579 /* LaunchScreen.storyboard */; };
+		960036131C77E13D00EBA579 /* YellowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960036121C77E13D00EBA579 /* YellowViewController.swift */; };
+		9663F91F1C7A6E3D00AF0965 /* BlueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9663F91E1C7A6E3D00AF0965 /* BlueViewController.swift */; };
+		9663F9211C7A6E4800AF0965 /* GreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9663F9201C7A6E4800AF0965 /* GreenViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		960036191C77E21800EBA579 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		960035FD1C77E0D400EBA579 /* SearchBarViewController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SearchBarViewController.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		960036001C77E0D400EBA579 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		960036021C77E0D400EBA579 /* AppSearchBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSearchBarViewController.swift; sourceTree = "<group>"; };
+		960036071C77E0D400EBA579 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9600360A1C77E0D400EBA579 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		9600360C1C77E0D400EBA579 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		960036121C77E13D00EBA579 /* YellowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowViewController.swift; sourceTree = "<group>"; };
+		9663F91E1C7A6E3D00AF0965 /* BlueViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueViewController.swift; sourceTree = "<group>"; };
+		9663F9201C7A6E4800AF0965 /* GreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreenViewController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		960035FA1C77E0D400EBA579 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		960035F41C77E0D400EBA579 = {
+			isa = PBXGroup;
+			children = (
+				960035FF1C77E0D400EBA579 /* SearchBarViewController */,
+				960035FE1C77E0D400EBA579 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		960035FE1C77E0D400EBA579 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				960035FD1C77E0D400EBA579 /* SearchBarViewController.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		960035FF1C77E0D400EBA579 /* SearchBarViewController */ = {
+			isa = PBXGroup;
+			children = (
+				960036001C77E0D400EBA579 /* AppDelegate.swift */,
+				960036021C77E0D400EBA579 /* AppSearchBarViewController.swift */,
+				960036121C77E13D00EBA579 /* YellowViewController.swift */,
+				9663F91E1C7A6E3D00AF0965 /* BlueViewController.swift */,
+				9663F9201C7A6E4800AF0965 /* GreenViewController.swift */,
+				960036071C77E0D400EBA579 /* Assets.xcassets */,
+				960036091C77E0D400EBA579 /* LaunchScreen.storyboard */,
+				9600360C1C77E0D400EBA579 /* Info.plist */,
+			);
+			path = SearchBarViewController;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		960035FC1C77E0D400EBA579 /* SearchBarViewController */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9600360F1C77E0D400EBA579 /* Build configuration list for PBXNativeTarget "SearchBarViewController" */;
+			buildPhases = (
+				960035F91C77E0D400EBA579 /* Sources */,
+				960035FA1C77E0D400EBA579 /* Frameworks */,
+				960035FB1C77E0D400EBA579 /* Resources */,
+				960036191C77E21800EBA579 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SearchBarViewController;
+			productName = SearchBarViewController;
+			productReference = 960035FD1C77E0D400EBA579 /* SearchBarViewController.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		960035F51C77E0D400EBA579 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "CosmicMind, Inc.";
+				TargetAttributes = {
+					960035FC1C77E0D400EBA579 = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
+				};
+			};
+			buildConfigurationList = 960035F81C77E0D400EBA579 /* Build configuration list for PBXProject "SearchBarViewController" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 960035F41C77E0D400EBA579;
+			productRefGroup = 960035FE1C77E0D400EBA579 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				960035FC1C77E0D400EBA579 /* SearchBarViewController */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		960035FB1C77E0D400EBA579 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9600360B1C77E0D400EBA579 /* LaunchScreen.storyboard in Resources */,
+				960036081C77E0D400EBA579 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		960035F91C77E0D400EBA579 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				960036131C77E13D00EBA579 /* YellowViewController.swift in Sources */,
+				960036031C77E0D400EBA579 /* AppSearchBarViewController.swift in Sources */,
+				9663F91F1C7A6E3D00AF0965 /* BlueViewController.swift in Sources */,
+				960036011C77E0D400EBA579 /* AppDelegate.swift in Sources */,
+				9663F9211C7A6E4800AF0965 /* GreenViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		960036091C77E0D400EBA579 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9600360A1C77E0D400EBA579 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		9600360D1C77E0D400EBA579 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9600360E1C77E0D400EBA579 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		960036101C77E0D400EBA579 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = SearchBarViewController/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.SearchBarViewController;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		960036111C77E0D400EBA579 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = SearchBarViewController/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.SearchBarViewController;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		960035F81C77E0D400EBA579 /* Build configuration list for PBXProject "SearchBarViewController" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9600360D1C77E0D400EBA579 /* Debug */,
+				9600360E1C77E0D400EBA579 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9600360F1C77E0D400EBA579 /* Build configuration list for PBXNativeTarget "SearchBarViewController" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				960036101C77E0D400EBA579 /* Debug */,
+				960036111C77E0D400EBA579 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 960035F51C77E0D400EBA579 /* Project object */;
+}
