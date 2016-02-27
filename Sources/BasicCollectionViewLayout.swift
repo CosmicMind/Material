@@ -37,7 +37,7 @@ public class BasicCollectionViewLayout : MaterialCollectionViewLayout {
 		
 		for var i: Int = items.count - 1; 0 <= i; --i {
 			var v: MaterialDataSourceItem = items[i]
-			if let q: MaterialDataSourceItemSize = v.dataSourceItemSize {
+			if let q: MaterialDataSourceItemSize = v.itemSize {
 				switch q {
 				case .Small:
 					v.height = 142

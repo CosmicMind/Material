@@ -42,14 +42,14 @@ public struct MaterialDataSourceItem {
 	public var y: CGFloat?
 	public var width: CGFloat?
 	public var height: CGFloat?
-	public var dataSourceItemSize: MaterialDataSourceItemSize?
+	public var itemSize: MaterialDataSourceItemSize?
 	
-	public init(data: AnyObject? = nil, x: CGFloat? = nil, y: CGFloat? = nil, width: CGFloat? = nil, height: CGFloat? = nil, dataSourceItemSize: MaterialDataSourceItemSize? = nil) {
+	public init(data: AnyObject? = nil, x: CGFloat? = nil, y: CGFloat? = nil, width: CGFloat? = nil, height: CGFloat? = nil, itemSize: MaterialDataSourceItemSize? = nil) {
 		self.data = data
 		self.x = x
 		self.y = y
 		self.width = width
 		self.height = height
-		self.dataSourceItemSize = dataSourceItemSize
+		self.itemSize = itemSize
 	}
 }

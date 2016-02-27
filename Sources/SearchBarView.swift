@@ -85,20 +85,6 @@ public class SearchBarView : StatusBarView {
 		self.init(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 64))
 	}
 	
-	public override func didMoveToSuperview() {
-		super.didMoveToSuperview()
-		reloadView()
-	}
-	
-	/// Reloads the view.
-	public override func reloadView() {
-		super.reloadView()
-		
-		textField.grid.columns = contentView.grid.columns
-		grid.reloadLayout()
-		textField.reloadView()
-	}
-	
 	/**
 	Prepares the view instance when intialized. When subclassing,
 	it is recommended to override the prepareView method

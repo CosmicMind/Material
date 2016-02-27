@@ -195,6 +195,7 @@ public class ControlView : MaterialView {
 	/// Prepares the contentView.
 	public func prepareContentView() {
 		contentView.backgroundColor = nil
+		contentView.grid.axis.direction = .Vertical
 		addSubview(contentView)
 	}
 	

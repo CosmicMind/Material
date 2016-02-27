@@ -60,10 +60,8 @@ class FeedViewController: UIViewController {
 	private func prepareCollectionView() {
 		collectionView.dataSource = self
 		collectionView.delegate = self
-		collectionView.registerClass(BasicCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
 		collectionView.spacingPreset = .Spacing1
 		collectionView.contentInsetPreset = .Square1
-		
 		view.addSubview(collectionView)
 	}
 }
@@ -72,12 +70,54 @@ extension FeedViewController: MaterialCollectionViewDataSource {
 	/// Retrieves the items for the collectionView.
 	func items() -> Array<MaterialDataSourceItem> {
 		return [
-			MaterialDataSourceItem(data: ["title": "MaterialColor", "detail": "MaterialColor is a complete Material Design color library. It uses base color values that expand to a range of lighter and darker shades, with the addition of accents.", "date": "February 26, 2016"], dataSourceItemSize: .Small),
-			MaterialDataSourceItem(data: ["title": "MaterialLayer", "detail": "MaterialLayer is a lightweight CAShapeLayer used throughout Material. It is designed to easily take shape, depth, and animations.", "date": "February 26, 2016"], dataSourceItemSize: .Default),
-			MaterialDataSourceItem(data: ["title": "MaterialView", "detail": "MaterialView is the base UIView class used throughout Material. Like MaterialLayer, it is designed to easily take shape, depth, and animations. The major difference is that MaterialView has all the added features of the UIView class.", "date": "February 26, 2016"], dataSourceItemSize: .Large),
-			MaterialDataSourceItem(data: ["title": "MaterialPulseView", "detail": "MaterialPulseView is at the heart of all pulse animations. Any view that subclasses MaterialPulseView instantly inherits the pulse animation with full customizability.", "date": "February 26, 2016"], dataSourceItemSize: .Small),
-			MaterialDataSourceItem(data: ["title": "TextField", "detail": "A TextField is an excellent way to improve UX. TextFields offer details that describe the usage and input results of text. For example, when a user enters an incorrect email, it is possible to display an error message under the TextField.", "date": "February 26, 2016"], dataSourceItemSize: .Default),
-			MaterialDataSourceItem(data: ["title": "TextView", "detail": "A TextView is an excellent way to improve UX. TextViews offer details that describe the usage of text. In addition, TextViews may easily match any regular expression pattern in a body of text. Below is an example of the default hashtag pattern matching.", "date": "February 26, 2016"], dataSourceItemSize: .Large)
+			MaterialDataSourceItem(
+				data: [
+					"title": "MaterialColor",
+					"detail": "MaterialColor is a complete Material Design color library. It uses base color values that expand to a range of lighter and darker shades, with the addition of accents.",
+					"date": "February 26, 2016"
+				],
+				itemSize: .Small
+			),
+			MaterialDataSourceItem(
+				data: [
+					"title": "MaterialColor",
+					"detail": "MaterialColor is a complete Material Design color library. It uses base color values that expand to a range of lighter and darker shades, with the addition of accents.",
+					"date": "February 26, 2016"
+				],
+				itemSize: .Small
+			),
+			MaterialDataSourceItem(
+				data: [
+					"title": "MaterialColor",
+					"detail": "MaterialColor is a complete Material Design color library. It uses base color values that expand to a range of lighter and darker shades, with the addition of accents.",
+					"date": "February 26, 2016"
+				],
+				itemSize: .Small
+			),
+			MaterialDataSourceItem(
+				data: [
+					"title": "MaterialColor",
+					"detail": "MaterialColor is a complete Material Design color library. It uses base color values that expand to a range of lighter and darker shades, with the addition of accents.",
+					"date": "February 26, 2016"
+				],
+				itemSize: .Small
+			),
+			MaterialDataSourceItem(
+				data: [
+					"title": "MaterialColor",
+					"detail": "MaterialColor is a complete Material Design color library. It uses base color values that expand to a range of lighter and darker shades, with the addition of accents.",
+					"date": "February 26, 2016"
+				],
+				itemSize: .Small
+			),
+			MaterialDataSourceItem(
+				data: [
+					"title": "MaterialColor",
+					"detail": "MaterialColor is a complete Material Design color library. It uses base color values that expand to a range of lighter and darker shades, with the addition of accents.",
+					"date": "February 26, 2016"
+				],
+				itemSize: .Small
+			)
 		]
 	}
 	
@@ -93,10 +133,13 @@ extension FeedViewController: MaterialCollectionViewDataSource {
 	
 	/// Retrieves a UICollectionViewCell.
 	func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-		let c: BasicCollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! BasicCollectionViewCell
+		let c: BasicCollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier("BasicCollectionViewCell", forIndexPath: indexPath) as! BasicCollectionViewCell
 		let item: MaterialDataSourceItem = items()[indexPath.item]
 		
+		// Set the data for the view objects.
 		if let data: Dictionary<String, AnyObject> = item.data as? Dictionary<String, AnyObject> {
+			
+			// Only load the titleLabel if it has not been.
 			if nil == data["title"] {
 				c.titleLabel = nil
 			} else if nil == c.titleLabel {
@@ -105,6 +148,7 @@ extension FeedViewController: MaterialCollectionViewDataSource {
 				c.titleLabel = titleLabel
 			}
 			
+			// Only load the detailLabel if it has not been.
 			if nil == data["detail"] {
 				c.detailLabel = nil
 			} else if nil == c.detailLabel {
@@ -116,9 +160,23 @@ extension FeedViewController: MaterialCollectionViewDataSource {
 				c.detailLabel = detailLabel
 			}
 			
+			// Only load the controlView if it has not been.
 			if nil == c.controlView {
 				c.controlView = ControlView()
 				c.controlView!.backgroundColor = nil
+				
+				
+				let date: UILabel = UILabel()
+				date.font = RobotoFont.regularWithSize(12)
+				date.textColor = MaterialColor.grey.base
+				
+				/**
+				ControlViews have a contentView. In this example, I am using Grid
+				to maintain its alignment. A ControlView's contentView is inbetween
+				the leftControls and rightControls.
+				*/
+				c.controlView?.contentView.addSubview(date)
+				c.controlView?.contentView.grid.views = [date]
 				
 				let image = UIImage(named: "ic_share_white_18pt")?.imageWithRenderingMode(.AlwaysTemplate)
 				
@@ -136,6 +194,7 @@ extension FeedViewController: MaterialCollectionViewDataSource {
 			c.titleLabel?.text = data["title"] as? String
 			c.detailLabel?.text = data["detail"] as? String
 			(c.controlView?.contentView.subviews.first as? UILabel)?.text = data["date"] as? String
+			
 			c.reloadView()
 		}
 		

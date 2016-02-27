@@ -63,5 +63,6 @@ public class BasicCollectionView : MaterialCollectionView {
 	public override func prepareView() {
 		backgroundColor = MaterialColor.clear
 		contentInset = UIEdgeInsetsZero
+		registerClass(BasicCollectionViewCell.self, forCellWithReuseIdentifier: "BasicCollectionViewCell")
 	}
 }

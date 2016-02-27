@@ -71,6 +71,8 @@ public class StatusBarView : ControlView {
 			height = 64
 		}
 		
+		reloadView()
+		
 		if frame.origin.x != oldFrame!.origin.x || frame.origin.y != oldFrame!.origin.y || frame.width != oldFrame!.width || frame.height != oldFrame!.height {
 			oldFrame = frame
 			if nil != delegate {
@@ -98,10 +100,8 @@ public class StatusBarView : ControlView {
 		super.prepareView()
 		depth = .Depth1
 		oldFrame = frame
-		grid.spacing = 8
-		grid.contentInset.left = 8
-		grid.contentInset.bottom = 8
-		grid.contentInset.right = 8
+		grid.spacingPreset = .Spacing2
+		grid.contentInsetPreset = .Square2
 	}
 	
 	/// Chaining method for subclasses to offer delegation or other useful features.
