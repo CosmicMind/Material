@@ -39,6 +39,9 @@ import UIKit
 import Material
 
 class ViewController: UIViewController, TextFieldDelegate {
+	@IBOutlet weak var nameField: TextField!
+	@IBOutlet weak var emailField: TextField!
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
@@ -53,16 +56,16 @@ class ViewController: UIViewController, TextFieldDelegate {
 	
 	/// Prepares the name TextField.
 	private func prepareNameField() {
-		let textField: TextField = TextField(frame: CGRectMake(57, 100, 300, 24))
-		textField.placeholder = "First Name"
-		textField.placeholderTextColor = MaterialColor.grey.base
-		textField.font = RobotoFont.regularWithSize(20)
-		textField.textColor = MaterialColor.black
+		nameField.placeholder = "First Name"
+		nameField.placeholderTextColor = MaterialColor.grey.base
+		nameField.font = RobotoFont.regularWithSize(20)
+		nameField.textColor = MaterialColor.black
+		nameField.borderStyle = .None
 		
-		textField.titleLabel = UILabel()
-		textField.titleLabel!.font = RobotoFont.mediumWithSize(12)
-		textField.titleLabelColor = MaterialColor.grey.base
-		textField.titleLabelActiveColor = MaterialColor.blue.accent3
+		nameField.titleLabel = UILabel()
+		nameField.titleLabel!.font = RobotoFont.mediumWithSize(12)
+		nameField.titleLabelColor = MaterialColor.grey.base
+		nameField.titleLabelActiveColor = MaterialColor.blue.accent3
 		
 		let image = UIImage(named: "ic_close_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		
@@ -73,34 +76,32 @@ class ViewController: UIViewController, TextFieldDelegate {
 		clearButton.setImage(image, forState: .Normal)
 		clearButton.setImage(image, forState: .Highlighted)
 		
-		textField.clearButton = clearButton
-		
-		view.addSubview(textField)
+		nameField.clearButton = clearButton
 	}
 	
 	/// Prepares the email TextField.
 	private func prepareEmailField() {
-		let textField: TextField = TextField(frame: CGRectMake(57, 200, 300, 24))
-		textField.delegate = self
-		textField.placeholder = "Email"
-		textField.placeholderTextColor = MaterialColor.grey.base
-		textField.font = RobotoFont.regularWithSize(20)
-		textField.textColor = MaterialColor.black
+		emailField.delegate = self
+		emailField.placeholder = "Email"
+		emailField.placeholderTextColor = MaterialColor.grey.base
+		emailField.font = RobotoFont.regularWithSize(20)
+		emailField.textColor = MaterialColor.black
+		emailField.borderStyle = .None
 		
-		textField.titleLabel = UILabel()
-		textField.titleLabel!.font = RobotoFont.mediumWithSize(12)
-		textField.titleLabelColor = MaterialColor.grey.base
-		textField.titleLabelActiveColor = MaterialColor.blue.accent3
+		emailField.titleLabel = UILabel()
+		emailField.titleLabel!.font = RobotoFont.mediumWithSize(12)
+		emailField.titleLabelColor = MaterialColor.grey.base
+		emailField.titleLabelActiveColor = MaterialColor.blue.accent3
 		
 		/*
 		Used to display the error message, which is displayed when
 		the user presses the 'return' key.
 		*/
-		textField.detailLabel = UILabel()
-		textField.detailLabel!.text = "Email is incorrect."
-		textField.detailLabel!.font = RobotoFont.mediumWithSize(12)
-		textField.detailLabelActiveColor = MaterialColor.red.accent3
-//		textField.detailLabelAutoHideEnabled = false // Uncomment this line to have manual hiding.
+		emailField.detailLabel = UILabel()
+		emailField.detailLabel!.text = "Email is incorrect."
+		emailField.detailLabel!.font = RobotoFont.mediumWithSize(12)
+		emailField.detailLabelActiveColor = MaterialColor.red.accent3
+//		emailField.detailLabelAutoHideEnabled = false // Uncomment this line to have manual hiding.
 		
 		let image = UIImage(named: "ic_close_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		
@@ -111,9 +112,7 @@ class ViewController: UIViewController, TextFieldDelegate {
 		clearButton.setImage(image, forState: .Normal)
 		clearButton.setImage(image, forState: .Highlighted)
 		
-		textField.clearButton = clearButton
-		
-		view.addSubview(textField)
+		emailField.clearButton = clearButton
 	}
 	
 	/// Executed when the 'return' key is pressed when using the emailField.

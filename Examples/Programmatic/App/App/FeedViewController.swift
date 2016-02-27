@@ -28,11 +28,15 @@
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+/*
+The following example shows how to dynamically size MaterialCollectionViewCells.
+*/
+
 import UIKit
 import Material
 
 class FeedViewController: UIViewController {
-	private var collectionView: BasicCollectionView = BasicCollectionView()
+	private var collectionView: MaterialCollectionView = MaterialCollectionView()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -62,7 +66,12 @@ class FeedViewController: UIViewController {
 		collectionView.delegate = self
 		collectionView.spacingPreset = .Spacing1
 		collectionView.contentInsetPreset = .Square1
+		collectionView.registerClass(MaterialCollectionViewCell.self, forCellWithReuseIdentifier: "MaterialCollectionViewCell")
+		
+		// To avoid being hidden under the hovering MenuView.
 		view.addSubview(collectionView)
+		
+//		collectionView.scrollDirection = .Horizontal // Uncomment to see the horizontal scroll direction.
 	}
 }
 
@@ -76,7 +85,8 @@ extension FeedViewController: MaterialCollectionViewDataSource {
 					"detail": "MaterialColor is a complete Material Design color library. It uses base color values that expand to a range of lighter and darker shades, with the addition of accents.",
 					"date": "February 26, 2016"
 				],
-				itemSize: .Small
+				width: 150, // Applied when scrollDirection is .Horizontal
+				height: 150 // Applied when scrollDirection is .Vertical
 			),
 			MaterialDataSourceItem(
 				data: [
@@ -84,7 +94,8 @@ extension FeedViewController: MaterialCollectionViewDataSource {
 					"detail": "MaterialColor is a complete Material Design color library. It uses base color values that expand to a range of lighter and darker shades, with the addition of accents.",
 					"date": "February 26, 2016"
 				],
-				itemSize: .Small
+				width: 250, // Applied when scrollDirection is .Horizontal
+				height: 250 // Applied when scrollDirection is .Vertical
 			),
 			MaterialDataSourceItem(
 				data: [
@@ -92,7 +103,8 @@ extension FeedViewController: MaterialCollectionViewDataSource {
 					"detail": "MaterialColor is a complete Material Design color library. It uses base color values that expand to a range of lighter and darker shades, with the addition of accents.",
 					"date": "February 26, 2016"
 				],
-				itemSize: .Small
+				width: 350, // Applied when scrollDirection is .Horizontal
+				height: 350 // Applied when scrollDirection is .Vertical
 			),
 			MaterialDataSourceItem(
 				data: [
@@ -100,7 +112,8 @@ extension FeedViewController: MaterialCollectionViewDataSource {
 					"detail": "MaterialColor is a complete Material Design color library. It uses base color values that expand to a range of lighter and darker shades, with the addition of accents.",
 					"date": "February 26, 2016"
 				],
-				itemSize: .Small
+				width: 150, // Applied when scrollDirection is .Horizontal
+				height: 150 // Applied when scrollDirection is .Vertical
 			),
 			MaterialDataSourceItem(
 				data: [
@@ -108,7 +121,8 @@ extension FeedViewController: MaterialCollectionViewDataSource {
 					"detail": "MaterialColor is a complete Material Design color library. It uses base color values that expand to a range of lighter and darker shades, with the addition of accents.",
 					"date": "February 26, 2016"
 				],
-				itemSize: .Small
+				width: 250, // Applied when scrollDirection is .Horizontal
+				height: 250 // Applied when scrollDirection is .Vertical
 			),
 			MaterialDataSourceItem(
 				data: [
@@ -116,7 +130,8 @@ extension FeedViewController: MaterialCollectionViewDataSource {
 					"detail": "MaterialColor is a complete Material Design color library. It uses base color values that expand to a range of lighter and darker shades, with the addition of accents.",
 					"date": "February 26, 2016"
 				],
-				itemSize: .Small
+				width: 350, // Applied when scrollDirection is .Horizontal
+				height: 350 // Applied when scrollDirection is .Vertical
 			)
 		]
 	}
@@ -133,70 +148,14 @@ extension FeedViewController: MaterialCollectionViewDataSource {
 	
 	/// Retrieves a UICollectionViewCell.
 	func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-		let c: BasicCollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier("BasicCollectionViewCell", forIndexPath: indexPath) as! BasicCollectionViewCell
-		let item: MaterialDataSourceItem = items()[indexPath.item]
+		let c: MaterialCollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier("MaterialCollectionViewCell", forIndexPath: indexPath) as! MaterialCollectionViewCell
 		
-		// Set the data for the view objects.
-		if let data: Dictionary<String, AnyObject> = item.data as? Dictionary<String, AnyObject> {
-			
-			// Only load the titleLabel if it has not been.
-			if nil == data["title"] {
-				c.titleLabel = nil
-			} else if nil == c.titleLabel {
-				let titleLabel: UILabel = UILabel()
-				titleLabel.textColor = MaterialColor.grey.darken4
-				c.titleLabel = titleLabel
-			}
-			
-			// Only load the detailLabel if it has not been.
-			if nil == data["detail"] {
-				c.detailLabel = nil
-			} else if nil == c.detailLabel {
-				let detailLabel: UILabel = UILabel()
-				detailLabel.numberOfLines = 0
-				detailLabel.lineBreakMode = .ByTruncatingTail
-				detailLabel.font = RobotoFont.regularWithSize(12)
-				detailLabel.textColor = MaterialColor.grey.darken4
-				c.detailLabel = detailLabel
-			}
-			
-			// Only load the controlView if it has not been.
-			if nil == c.controlView {
-				c.controlView = ControlView()
-				c.controlView!.backgroundColor = nil
-				
-				// Create a date UILabel for the ControlView's contentView.
-				let date: UILabel = UILabel()
-				date.font = RobotoFont.regularWithSize(12)
-				date.textColor = MaterialColor.grey.base
-				
-				/**
-				ControlViews have a contentView. In this example, I am using Grid
-				to maintain its alignment. A ControlView's contentView is inbetween
-				the leftControls and rightControls.
-				*/
-				c.controlView?.contentView.addSubview(date)
-				c.controlView?.contentView.grid.views = [date]
-				
-				let image = UIImage(named: "ic_share_white_18pt")?.imageWithRenderingMode(.AlwaysTemplate)
-				
-				// Share button.
-				let shareButton: FlatButton = FlatButton()
-				shareButton.pulseScale = false
-				shareButton.pulseColor = MaterialColor.grey.lighten1
-				shareButton.tintColor = MaterialColor.grey.base
-				shareButton.setImage(image, forState: .Normal)
-				shareButton.setImage(image, forState: .Highlighted)
-				
-				c.controlView?.rightControls = [shareButton]
-			}
-			
-			c.titleLabel?.text = data["title"] as? String
-			c.detailLabel?.text = data["detail"] as? String
-			(c.controlView?.contentView.subviews.first as? UILabel)?.text = data["date"] as? String
-			
-			c.reloadView()
-		}
+		c.backgroundColor = MaterialColor.grey.darken1
+		
+//		Access the item data property to set data values.
+//		let item: MaterialDataSourceItem = items()[indexPath.item]
+//		let data: Dictionary<String, AnyObject>? = item.data as? Dictionary<String, AnyObject>
+//		print(data)
 		
 		return c
 	}

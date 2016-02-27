@@ -280,7 +280,6 @@ public class MaterialSwitch: UIControl {
 		trackLayer = MaterialLayer()
 		button = FabButton()
 		super.init(coder: aDecoder)
-		prepareView()
 		prepareTrack()
 		prepareButton()
 		prepareSwitchSize(.Default)
@@ -298,23 +297,11 @@ public class MaterialSwitch: UIControl {
 		trackLayer = MaterialLayer()
 		button = FabButton()
 		super.init(frame: CGRectNull)
-		prepareView()
 		prepareTrack()
 		prepareButton()
 		prepareSwitchSize(size)
 		prepareSwitchStyle(style)
 		prepareSwitchState(state)
-	}
-	
-	/**
-	Prepares the view instance when intialized. When subclassing,
-	it is recommended to override the prepareView method
-	to initialize property values and other setup operations.
-	The super.prepareView method should always be called immediately
-	when subclassing.
-	*/
-	public func prepareView() {
-		
 	}
 	
 	public override func willMoveToSuperview(newSuperview: UIView?) {
@@ -357,7 +344,7 @@ public class MaterialSwitch: UIControl {
 	- Parameter completion: An Optional completion block.
 	*/
 	public func setSwitchState(state: MaterialSwitchState, animated: Bool = true, completion: ((control: MaterialSwitch) -> Void)? = nil) {
-		if internalSwitchState != state {
+		if enabled && internalSwitchState != state {
 			internalSwitchState = state
 			if animated {
 				animateToState(state) { [unowned self] _ in
@@ -387,9 +374,7 @@ public class MaterialSwitch: UIControl {
 	*/
 	internal func handleTouchUpOutsideOrCanceled(sender: FabButton, event: UIEvent) {
 		if let v: UITouch = event.touchesForView(sender)?.first {
-			let t: CGPoint = v.previousLocationInView(sender)
-			let p: CGPoint = v.locationInView(sender)
-			let q: CGFloat = sender.x + p.x - t.x
+			let q: CGFloat = sender.x + v.locationInView(sender).x - v.previousLocationInView(sender).x
 			setSwitchState(q > (width - button.width) / 2 ? .On : .Off, animated: true)
 		}
 	}
@@ -401,9 +386,7 @@ public class MaterialSwitch: UIControl {
 	*/
 	internal func handleTouchDragInside(sender: FabButton, event: UIEvent) {
 		if let v = event.touchesForView(sender)?.first {
-			let t: CGPoint = v.previousLocationInView(sender)
-			let p: CGPoint = v.locationInView(sender)
-			let q: CGFloat = max(min(sender.x + (p.x - t.x), onPosition), offPosition)
+			let q: CGFloat = max(min(sender.x + v.locationInView(sender).x - v.previousLocationInView(sender).x, onPosition), offPosition)
 			if q != sender.x {
 				sender.x = q
 			}
@@ -412,7 +395,7 @@ public class MaterialSwitch: UIControl {
 	
 	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		if true == CGRectContainsPoint(trackLayer.frame, layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer)) {
-			setSwitchState(.On == internalSwitchState ? .Off : .On)
+			setOn(.On != internalSwitchState, animated: true)
 		}
 	}
 	

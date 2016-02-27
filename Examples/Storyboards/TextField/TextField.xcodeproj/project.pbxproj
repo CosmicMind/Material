@@ -7,14 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		96A71ED51C6FFF7300C0C4AE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71ED41C6FFF7300C0C4AE /* AppDelegate.swift */; };
-		96A71ED71C6FFF7300C0C4AE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71ED61C6FFF7300C0C4AE /* ViewController.swift */; };
-		96A71EDC1C6FFF7300C0C4AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96A71EDB1C6FFF7300C0C4AE /* Assets.xcassets */; };
-		96A71EDF1C6FFF7300C0C4AE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96A71EDD1C6FFF7300C0C4AE /* LaunchScreen.storyboard */; };
+		96D528021C8198AD00D3BDD1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D528011C8198AD00D3BDD1 /* AppDelegate.swift */; };
+		96D528041C8198AD00D3BDD1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D528031C8198AD00D3BDD1 /* ViewController.swift */; };
+		96D528071C8198AD00D3BDD1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96D528051C8198AD00D3BDD1 /* Main.storyboard */; };
+		96D528091C8198AD00D3BDD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96D528081C8198AD00D3BDD1 /* Assets.xcassets */; };
+		96D5280C1C8198AD00D3BDD1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96D5280A1C8198AD00D3BDD1 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		96A71EE91C70007600C0C4AE /* Embed Frameworks */ = {
+		96D528161C81990B00D3BDD1 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
@@ -27,16 +28,17 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		96A71ED11C6FFF7300C0C4AE /* MaterialSwitch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MaterialSwitch.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		96A71ED41C6FFF7300C0C4AE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		96A71ED61C6FFF7300C0C4AE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		96A71EDB1C6FFF7300C0C4AE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		96A71EDE1C6FFF7300C0C4AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		96A71EE01C6FFF7300C0C4AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		96D527FE1C8198AD00D3BDD1 /* TextField.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TextField.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		96D528011C8198AD00D3BDD1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		96D528031C8198AD00D3BDD1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		96D528061C8198AD00D3BDD1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		96D528081C8198AD00D3BDD1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		96D5280B1C8198AD00D3BDD1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		96D5280D1C8198AD00D3BDD1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		96A71ECE1C6FFF7300C0C4AE /* Frameworks */ = {
+		96D527FB1C8198AD00D3BDD1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -46,71 +48,72 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		96A71EC81C6FFF7300C0C4AE = {
+		96D527F51C8198AD00D3BDD1 = {
 			isa = PBXGroup;
 			children = (
-				96A71ED31C6FFF7300C0C4AE /* MaterialSwitch */,
-				96A71ED21C6FFF7300C0C4AE /* Products */,
+				96D528001C8198AD00D3BDD1 /* TextField */,
+				96D527FF1C8198AD00D3BDD1 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		96A71ED21C6FFF7300C0C4AE /* Products */ = {
+		96D527FF1C8198AD00D3BDD1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				96A71ED11C6FFF7300C0C4AE /* MaterialSwitch.app */,
+				96D527FE1C8198AD00D3BDD1 /* TextField.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		96A71ED31C6FFF7300C0C4AE /* MaterialSwitch */ = {
+		96D528001C8198AD00D3BDD1 /* TextField */ = {
 			isa = PBXGroup;
 			children = (
-				96A71ED41C6FFF7300C0C4AE /* AppDelegate.swift */,
-				96A71ED61C6FFF7300C0C4AE /* ViewController.swift */,
-				96A71EDB1C6FFF7300C0C4AE /* Assets.xcassets */,
-				96A71EDD1C6FFF7300C0C4AE /* LaunchScreen.storyboard */,
-				96A71EE01C6FFF7300C0C4AE /* Info.plist */,
+				96D528011C8198AD00D3BDD1 /* AppDelegate.swift */,
+				96D528031C8198AD00D3BDD1 /* ViewController.swift */,
+				96D528051C8198AD00D3BDD1 /* Main.storyboard */,
+				96D528081C8198AD00D3BDD1 /* Assets.xcassets */,
+				96D5280A1C8198AD00D3BDD1 /* LaunchScreen.storyboard */,
+				96D5280D1C8198AD00D3BDD1 /* Info.plist */,
 			);
-			path = MaterialSwitch;
+			path = TextField;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		96A71ED01C6FFF7300C0C4AE /* MaterialSwitch */ = {
+		96D527FD1C8198AD00D3BDD1 /* TextField */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 96A71EE31C6FFF7300C0C4AE /* Build configuration list for PBXNativeTarget "MaterialSwitch" */;
+			buildConfigurationList = 96D528101C8198AD00D3BDD1 /* Build configuration list for PBXNativeTarget "TextField" */;
 			buildPhases = (
-				96A71ECD1C6FFF7300C0C4AE /* Sources */,
-				96A71ECE1C6FFF7300C0C4AE /* Frameworks */,
-				96A71ECF1C6FFF7300C0C4AE /* Resources */,
-				96A71EE91C70007600C0C4AE /* Embed Frameworks */,
+				96D527FA1C8198AD00D3BDD1 /* Sources */,
+				96D527FB1C8198AD00D3BDD1 /* Frameworks */,
+				96D527FC1C8198AD00D3BDD1 /* Resources */,
+				96D528161C81990B00D3BDD1 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = MaterialSwitch;
-			productName = MaterialSwitch;
-			productReference = 96A71ED11C6FFF7300C0C4AE /* MaterialSwitch.app */;
+			name = TextField;
+			productName = TextField;
+			productReference = 96D527FE1C8198AD00D3BDD1 /* TextField.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		96A71EC91C6FFF7300C0C4AE /* Project object */ = {
+		96D527F61C8198AD00D3BDD1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "CosmicMind, Inc.";
 				TargetAttributes = {
-					96A71ED01C6FFF7300C0C4AE = {
-						CreatedOnToolsVersion = 7.2;
+					96D527FD1C8198AD00D3BDD1 = {
+						CreatedOnToolsVersion = 7.2.1;
 					};
 				};
 			};
-			buildConfigurationList = 96A71ECC1C6FFF7300C0C4AE /* Build configuration list for PBXProject "MaterialSwitch" */;
+			buildConfigurationList = 96D527F91C8198AD00D3BDD1 /* Build configuration list for PBXProject "TextField" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -118,45 +121,54 @@
 				en,
 				Base,
 			);
-			mainGroup = 96A71EC81C6FFF7300C0C4AE;
-			productRefGroup = 96A71ED21C6FFF7300C0C4AE /* Products */;
+			mainGroup = 96D527F51C8198AD00D3BDD1;
+			productRefGroup = 96D527FF1C8198AD00D3BDD1 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				96A71ED01C6FFF7300C0C4AE /* MaterialSwitch */,
+				96D527FD1C8198AD00D3BDD1 /* TextField */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		96A71ECF1C6FFF7300C0C4AE /* Resources */ = {
+		96D527FC1C8198AD00D3BDD1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96A71EDF1C6FFF7300C0C4AE /* LaunchScreen.storyboard in Resources */,
-				96A71EDC1C6FFF7300C0C4AE /* Assets.xcassets in Resources */,
+				96D5280C1C8198AD00D3BDD1 /* LaunchScreen.storyboard in Resources */,
+				96D528091C8198AD00D3BDD1 /* Assets.xcassets in Resources */,
+				96D528071C8198AD00D3BDD1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		96A71ECD1C6FFF7300C0C4AE /* Sources */ = {
+		96D527FA1C8198AD00D3BDD1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96A71ED71C6FFF7300C0C4AE /* ViewController.swift in Sources */,
-				96A71ED51C6FFF7300C0C4AE /* AppDelegate.swift in Sources */,
+				96D528041C8198AD00D3BDD1 /* ViewController.swift in Sources */,
+				96D528021C8198AD00D3BDD1 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		96A71EDD1C6FFF7300C0C4AE /* LaunchScreen.storyboard */ = {
+		96D528051C8198AD00D3BDD1 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				96A71EDE1C6FFF7300C0C4AE /* Base */,
+				96D528061C8198AD00D3BDD1 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		96D5280A1C8198AD00D3BDD1 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				96D5280B1C8198AD00D3BDD1 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -164,7 +176,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		96A71EE11C6FFF7300C0C4AE /* Debug */ = {
+		96D5280E1C8198AD00D3BDD1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -209,7 +221,7 @@
 			};
 			name = Debug;
 		};
-		96A71EE21C6FFF7300C0C4AE /* Release */ = {
+		96D5280F1C8198AD00D3BDD1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -247,24 +259,24 @@
 			};
 			name = Release;
 		};
-		96A71EE41C6FFF7300C0C4AE /* Debug */ = {
+		96D528111C8198AD00D3BDD1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = MaterialSwitch/Info.plist;
+				INFOPLIST_FILE = TextField/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.MaterialSwitch;
+				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.TextField;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
-		96A71EE51C6FFF7300C0C4AE /* Release */ = {
+		96D528121C8198AD00D3BDD1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = MaterialSwitch/Info.plist;
+				INFOPLIST_FILE = TextField/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.MaterialSwitch;
+				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.TextField;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -272,25 +284,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		96A71ECC1C6FFF7300C0C4AE /* Build configuration list for PBXProject "MaterialSwitch" */ = {
+		96D527F91C8198AD00D3BDD1 /* Build configuration list for PBXProject "TextField" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				96A71EE11C6FFF7300C0C4AE /* Debug */,
-				96A71EE21C6FFF7300C0C4AE /* Release */,
+				96D5280E1C8198AD00D3BDD1 /* Debug */,
+				96D5280F1C8198AD00D3BDD1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		96A71EE31C6FFF7300C0C4AE /* Build configuration list for PBXNativeTarget "MaterialSwitch" */ = {
+		96D528101C8198AD00D3BDD1 /* Build configuration list for PBXNativeTarget "TextField" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				96A71EE41C6FFF7300C0C4AE /* Debug */,
-				96A71EE51C6FFF7300C0C4AE /* Release */,
+				96D528111C8198AD00D3BDD1 /* Debug */,
+				96D528121C8198AD00D3BDD1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 96A71EC91C6FFF7300C0C4AE /* Project object */;
+	rootObject = 96D527F61C8198AD00D3BDD1 /* Project object */;
 }

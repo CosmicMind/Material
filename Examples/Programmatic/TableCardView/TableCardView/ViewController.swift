@@ -76,7 +76,7 @@ class ViewController: UIViewController {
 	
 	/// Prepares the tableView.
 	private func prepareTableView() {
-		tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+		tableView.registerClass(MaterialTableViewCell.self, forCellReuseIdentifier: "Cell")
 		tableView.dataSource = self
 		tableView.delegate = self
 	}
@@ -137,7 +137,7 @@ extension ViewController: UITableViewDataSource {
 	
 	/// Prepares the cells within the tableView.
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell: UITableViewCell = UITableViewCell(style: .Subtitle, reuseIdentifier: "Cell")
+		let cell: MaterialTableViewCell = MaterialTableViewCell(style: .Subtitle, reuseIdentifier: "Cell")
 		
 		let item: Item = items[indexPath.row]
 		cell.selectionStyle = .None

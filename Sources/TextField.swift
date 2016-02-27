@@ -490,7 +490,6 @@ public class TextField : UITextField {
 	/// Clears the textField text.
 	internal func handleClearButton() {
 		text = ""
-		sendActionsForControlEvents(.ValueChanged)
 	}
 	
 	/// Ahdnler when text value changed.

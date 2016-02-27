@@ -39,7 +39,6 @@ import Material
 private struct Item {
 	var text: String
 	var imageName: String
-	var selected: Bool
 }
 
 class AppLeftViewController: UIViewController {
@@ -76,8 +75,8 @@ class AppLeftViewController: UIViewController {
 	
 	/// Prepares the items that are displayed within the tableView.
 	private func prepareCells() {
-		items.append(Item(text: "Feed", imageName: "ic_today", selected: true))
-		items.append(Item(text: "Inbox", imageName: "ic_inbox", selected: true))
+		items.append(Item(text: "Feed", imageName: "ic_today"))
+		items.append(Item(text: "Inbox", imageName: "ic_inbox"))
 	}
 	
 	/// Prepares profile view.
@@ -134,15 +133,15 @@ extension AppLeftViewController: UITableViewDataSource {
 	/// Prepares the cells within the tableView.
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell: MaterialTableViewCell = tableView.dequeueReusableCellWithIdentifier("MaterialTableViewCell", forIndexPath: indexPath) as! MaterialTableViewCell
-		cell.backgroundColor = MaterialColor.clear
 		
 		let item: Item = items[indexPath.row]
+		
 		cell.textLabel!.text = item.text
+		cell.textLabel!.textColor = MaterialColor.grey.lighten2
 		cell.textLabel!.font = RobotoFont.medium
 		cell.imageView!.image = UIImage(named: item.imageName)?.imageWithRenderingMode(.AlwaysTemplate)
 		cell.imageView!.tintColor = MaterialColor.grey.lighten2
-		
-		cell.textLabel!.textColor = item.selected ? MaterialColor.cyan.lighten5 : MaterialColor.grey.lighten3
+		cell.backgroundColor = MaterialColor.clear
 		
 		return cell
 	}
@@ -162,10 +161,25 @@ extension AppLeftViewController: UITableViewDelegate {
 	
 	func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
 		let item: Item = items[indexPath.row]
+		
+		/**
+		An example of loading a new UIViewController in the AppNavigationBarViewController
+		if the UIViewController is not already loaded. This is a bit of a tricky example, as
+		we are diving deeper into the view hierarchy to transition only the mainViewController of the
+		AppNavigationBarViewController.
+		
+		Accessing the mainViewController of: SideNavigationViewController -> MenuViewController -> NavigationBarViewController.
+		*/
 		if let a: MenuViewController = sideNavigationViewController?.mainViewController as? MenuViewController {
 			if let b: NavigationBarViewController = a.mainViewController as? NavigationBarViewController {
-				b.transitionFromMainViewController("Feed" == item.text ? FeedViewController() : InboxViewController(), options: [.TransitionCrossDissolve]) { [weak self] _ in
-					self?.sideNavigationViewController?.closeLeftView()
+				if "Feed" == item.text && !(b.mainViewController is FeedViewController) {
+					b.transitionFromMainViewController(FeedViewController(), options: [.TransitionCrossDissolve]) { [weak self] _ in
+						self?.sideNavigationViewController?.closeLeftView()
+					}
+				} else if "Inbox" == item.text && !(b.mainViewController is InboxViewController) {
+					b.transitionFromMainViewController(InboxViewController(), options: [.TransitionCrossDissolve]) { [weak self] _ in
+						self?.sideNavigationViewController?.closeLeftView()
+					}
 				}
 			}
 		}
