@@ -57,7 +57,7 @@ class FeedViewController: UIViewController {
 	
 	/// Prepares view.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.grey.lighten4
+		view.backgroundColor = MaterialColor.blueGrey.lighten4
 	}
 	
 	/// Prepares the collectionView
@@ -81,8 +81,8 @@ extension FeedViewController: MaterialCollectionViewDataSource {
 		return [
 			MaterialDataSourceItem(
 				data: [
-					"title": "MaterialColor",
-					"detail": "MaterialColor is a complete Material Design color library. It uses base color values that expand to a range of lighter and darker shades, with the addition of accents.",
+					"title": "Summer BBQ",
+					"detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
 					"date": "February 26, 2016"
 				],
 				width: 150, // Applied when scrollDirection is .Horizontal
@@ -90,26 +90,26 @@ extension FeedViewController: MaterialCollectionViewDataSource {
 			),
 			MaterialDataSourceItem(
 				data: [
-					"title": "MaterialColor",
-					"detail": "MaterialColor is a complete Material Design color library. It uses base color values that expand to a range of lighter and darker shades, with the addition of accents.",
+					"title": "Birthday gift",
+					"detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
 					"date": "February 26, 2016"
 				],
 				width: 250, // Applied when scrollDirection is .Horizontal
-				height: 250 // Applied when scrollDirection is .Vertical
+				height: 150 // Applied when scrollDirection is .Vertical
 			),
 			MaterialDataSourceItem(
 				data: [
-					"title": "MaterialColor",
-					"detail": "MaterialColor is a complete Material Design color library. It uses base color values that expand to a range of lighter and darker shades, with the addition of accents.",
+					"title": "Brunch this weekend?",
+					"detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
 					"date": "February 26, 2016"
 				],
 				width: 350, // Applied when scrollDirection is .Horizontal
-				height: 350 // Applied when scrollDirection is .Vertical
+				height: 150 // Applied when scrollDirection is .Vertical
 			),
 			MaterialDataSourceItem(
 				data: [
-					"title": "MaterialColor",
-					"detail": "MaterialColor is a complete Material Design color library. It uses base color values that expand to a range of lighter and darker shades, with the addition of accents.",
+					"title": "Giants game",
+					"detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
 					"date": "February 26, 2016"
 				],
 				width: 150, // Applied when scrollDirection is .Horizontal
@@ -117,21 +117,21 @@ extension FeedViewController: MaterialCollectionViewDataSource {
 			),
 			MaterialDataSourceItem(
 				data: [
-					"title": "MaterialColor",
-					"detail": "MaterialColor is a complete Material Design color library. It uses base color values that expand to a range of lighter and darker shades, with the addition of accents.",
+					"title": "Recipe to try",
+					"detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
 					"date": "February 26, 2016"
 				],
 				width: 250, // Applied when scrollDirection is .Horizontal
-				height: 250 // Applied when scrollDirection is .Vertical
+				height: 150 // Applied when scrollDirection is .Vertical
 			),
 			MaterialDataSourceItem(
 				data: [
-					"title": "MaterialColor",
-					"detail": "MaterialColor is a complete Material Design color library. It uses base color values that expand to a range of lighter and darker shades, with the addition of accents.",
+					"title": "Interview",
+					"detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
 					"date": "February 26, 2016"
 				],
 				width: 350, // Applied when scrollDirection is .Horizontal
-				height: 350 // Applied when scrollDirection is .Vertical
+				height: 150 // Applied when scrollDirection is .Vertical
 			)
 		]
 	}
@@ -150,12 +150,55 @@ extension FeedViewController: MaterialCollectionViewDataSource {
 	func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
 		let c: MaterialCollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier("MaterialCollectionViewCell", forIndexPath: indexPath) as! MaterialCollectionViewCell
 		
-		c.backgroundColor = MaterialColor.grey.darken1
+		let item: MaterialDataSourceItem = items()[indexPath.item]
 		
-//		Access the item data property to set data values.
-//		let item: MaterialDataSourceItem = items()[indexPath.item]
-//		let data: Dictionary<String, AnyObject>? = item.data as? Dictionary<String, AnyObject>
-//		print(data)
+		if let data: Dictionary<String, AnyObject> =  item.data as? Dictionary<String, AnyObject> {
+			
+			var cardView: CardView? = c.contentView.subviews.first as? CardView
+			
+			// Only build the template if the cardView doesn't exist.
+			if nil == cardView {
+				
+				// CardView template example.
+				cardView = CardView()
+				c.contentView.addSubview(cardView!)
+				
+				cardView!.pulseColor = nil
+				cardView!.pulseScale = false
+				cardView!.divider = false
+				cardView!.depth = .None
+				
+				let titleLabel: UILabel = UILabel()
+				titleLabel.textColor = MaterialColor.blueGrey.darken4
+				titleLabel.font = RobotoFont.mediumWithSize(18)
+				titleLabel.text = data["title"] as? String
+				cardView!.titleLabel = titleLabel
+				
+				let detailLabel: UILabel = UILabel()
+				detailLabel.numberOfLines = 2
+				detailLabel.textColor = MaterialColor.blueGrey.darken2
+				detailLabel.font = RobotoFont.regular
+				detailLabel.text = data["detail"] as? String
+				cardView!.detailView = detailLabel
+				
+				let image: UIImage? =  UIImage(named: "ic_share_white")?.imageWithRenderingMode(.AlwaysTemplate)
+				
+				let shareButton: FlatButton = FlatButton()
+				shareButton.pulseColor = MaterialColor.blueGrey.base
+				shareButton.tintColor = MaterialColor.blueGrey.base
+				shareButton.setImage(image, forState: .Normal)
+				shareButton.setImage(image, forState: .Highlighted)
+				cardView!.rightButtons = [shareButton]
+				
+				c.contentView.addSubview(cardView!)
+			} else {
+				cardView?.titleLabel?.text = data["title"] as? String
+				(cardView?.detailView as? UILabel)?.text = data["detail"] as? String
+			}
+			
+			cardView!.frame = c.bounds
+			
+		}
 		
 		return c
 	}

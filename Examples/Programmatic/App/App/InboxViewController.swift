@@ -116,7 +116,7 @@ extension InboxViewController: UITableViewDataSource {
 		cell.textLabel!.font = RobotoFont.regular
 		cell.detailTextLabel!.text = item.detail
 		cell.detailTextLabel!.font = RobotoFont.regular
-		cell.detailTextLabel!.textColor = MaterialColor.grey.darken1
+		cell.detailTextLabel!.textColor = MaterialColor.blueGrey.darken1
 		cell.imageView!.image = item.image?.resize(toWidth: 40)
 		cell.imageView!.layer.cornerRadius = 20
 		
@@ -130,7 +130,7 @@ extension InboxViewController: UITableViewDataSource {
 		
 		let label: UILabel = UILabel()
 		label.font = RobotoFont.medium
-		label.textColor = MaterialColor.grey.darken1
+		label.textColor = MaterialColor.blueGrey.darken1
 		label.text = "Today"
 		
 		header.addSubview(label)

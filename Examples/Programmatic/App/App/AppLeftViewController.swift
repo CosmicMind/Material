@@ -70,7 +70,7 @@ class AppLeftViewController: UIViewController {
 	
 	/// General preparation statements.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.grey.darken4
+		view.backgroundColor = MaterialColor.blueGrey.darken4
 	}
 	
 	/// Prepares the items that are displayed within the tableView.
@@ -137,10 +137,10 @@ extension AppLeftViewController: UITableViewDataSource {
 		let item: Item = items[indexPath.row]
 		
 		cell.textLabel!.text = item.text
-		cell.textLabel!.textColor = MaterialColor.grey.lighten2
+		cell.textLabel!.textColor = MaterialColor.blueGrey.lighten2
 		cell.textLabel!.font = RobotoFont.medium
 		cell.imageView!.image = UIImage(named: item.imageName)?.imageWithRenderingMode(.AlwaysTemplate)
-		cell.imageView!.tintColor = MaterialColor.grey.lighten2
+		cell.imageView!.tintColor = MaterialColor.blueGrey.lighten2
 		cell.backgroundColor = MaterialColor.clear
 		
 		return cell

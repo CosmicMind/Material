@@ -32,6 +32,24 @@ import UIKit
 
 @objc(MaterialCollectionViewCell)
 public class MaterialCollectionViewCell : UICollectionViewCell {
+	/**
+	A property that manages an image for the visualLayer's contents
+	property. Images should not be set to the backing layer's contents
+	property to avoid conflicts when using clipsToBounds.
+	*/
+	public var image: UIImage? {
+		didSet {
+			visualLayer.contents = image?.CGImage
+		}
+	}
+	
+	/// Determines how content should be aligned within the visualLayer's bounds.
+	public var contentsGravity: MaterialGravity {
+		didSet {
+			visualLayer.contentsGravity = MaterialGravityToString(contentsGravity)
+		}
+	}
+	
 	/// A preset wrapper around contentInset.
 	public var contentInsetPreset: MaterialEdgeInset {
 		get {
@@ -321,6 +339,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 		depth = .None
 		cornerRadiusPreset = .None
 		shape = .None
+		contentsGravity = .ResizeAspectFill
 		super.init(coder: aDecoder)
 		prepareView()
 	}
@@ -335,6 +354,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 		depth = .None
 		cornerRadiusPreset = .None
 		shape = .None
+		contentsGravity = .ResizeAspectFill
 		super.init(frame: frame)
 		prepareView()
 	}
