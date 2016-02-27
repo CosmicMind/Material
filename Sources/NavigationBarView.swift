@@ -93,6 +93,12 @@ public class NavigationBarView : StatusBarView {
 		reloadView()
 	}
 	
+	/// Prepares the contentView.
+	public override func prepareContentView() {
+		super.prepareContentView()
+		contentView.grid.axis.direction = .Vertical
+	}
+	
 	/// Reloads the view.
 	public override func reloadView() {
 		super.reloadView()

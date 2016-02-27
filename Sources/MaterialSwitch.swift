@@ -50,7 +50,6 @@ public protocol MaterialSwitchDelegate {
 	/**
 	A MaterialSwitch delegate method for state changes.
 	- Parameter control: MaterialSwitch control.
-	- Parameter state: The new state for the control.
 	*/
 	func materialSwitchStateChanged(control: MaterialSwitch)
 }
@@ -278,10 +277,9 @@ public class MaterialSwitch: UIControl {
 	- Parameter aDecoder: A NSCoder instance.
 	*/
 	public required init?(coder aDecoder: NSCoder) {
-		trackLayer = MaterialLayer(frame: CGRectZero)
-		button = FabButton(frame: CGRectZero)
+		trackLayer = MaterialLayer()
+		button = FabButton()
 		super.init(coder: aDecoder)
-		prepareView()
 		prepareTrack()
 		prepareButton()
 		prepareSwitchSize(.Default)
@@ -296,10 +294,9 @@ public class MaterialSwitch: UIControl {
 	- Parameter size: A MaterialSwitchSize value.
 	*/
 	public init(state: MaterialSwitchState = .Off, style: MaterialSwitchStyle = .Default, size: MaterialSwitchSize = .Default) {
-		trackLayer = MaterialLayer(frame: CGRectZero)
-		button = FabButton(frame: CGRectZero)
-		super.init(frame: CGRectZero)
-		prepareView()
+		trackLayer = MaterialLayer()
+		button = FabButton()
+		super.init(frame: CGRectNull)
 		prepareTrack()
 		prepareButton()
 		prepareSwitchSize(size)
@@ -321,17 +318,6 @@ public class MaterialSwitch: UIControl {
 		case .Large:
 			return CGSizeMake(50, 40)
 		}
-	}
-	
-	/**
-	Prepares the view instance when intialized. When subclassing,
-	it is recommended to override the prepareView method
-	to initialize property values and other setup operations.
-	The super.prepareView method should always be called immediately
-	when subclassing.
-	*/
-	public func prepareView() {
-		addGestureRecognizer(UITapGestureRecognizer(target: self, action: "handleTapped:"))
 	}
 	
 	/**
@@ -363,22 +349,16 @@ public class MaterialSwitch: UIControl {
 			if animated {
 				animateToState(state) { [unowned self] _ in
 					self.sendActionsForControlEvents(.ValueChanged)
+					completion?(control: self)
 					self.delegate?.materialSwitchStateChanged(self)
 				}
 			} else {
 				button.x = .On == state ? self.onPosition : self.offPosition
 				styleForState(state)
 				sendActionsForControlEvents(.ValueChanged)
-				delegate?.materialSwitchStateChanged(self)
 				completion?(control: self)
+				delegate?.materialSwitchStateChanged(self)
 			}
-		}
-	}
-	
-	/// Handles the tap gesture.
-	internal func handleTapped(recognizer: UITapGestureRecognizer) {
-		if true == CGRectContainsPoint(trackLayer.frame, layer.convertPoint(recognizer.locationInView(self), fromLayer: layer)) {
-			setSwitchState(.On == internalSwitchState ? .Off : .On)
 		}
 	}
 	
@@ -392,14 +372,14 @@ public class MaterialSwitch: UIControl {
 	- Parameter sender: A UIButton.
 	- Parameter event: A UIEvent.
 	*/
-	internal func handleTouchUpOutsideOrCanceled(sender: FabButton, event: UIEvent) {
-		if let v: UITouch = event.touchesForView(sender)?.first {
-			let t: CGPoint = v.previousLocationInView(sender)
-			let p: CGPoint = v.locationInView(sender)
-			let q: CGFloat = sender.x + p.x - t.x
-			setSwitchState(q > (width - button.width) / 2 ? .On : .Off, animated: true)
-		}
-	}
+//	internal func handleTouchUpOutsideOrCanceled(sender: FabButton, event: UIEvent) {
+//		if let v: UITouch = event.touchesForView(sender)?.first {
+//			let t: CGPoint = v.previousLocationInView(sender)
+//			let p: CGPoint = v.locationInView(sender)
+//			let q: CGFloat = sender.x + p.x - t.x
+//			setSwitchState(q > (width - button.width) / 2 ? .On : .Off, animated: true)
+//		}
+//	}
 	
 	/**
 	Handle the TouchDragInside event.
@@ -425,10 +405,10 @@ public class MaterialSwitch: UIControl {
 	/// Prepares the button.
 	private func prepareButton() {
 		button.pulseColor = nil
-		button.addTarget(self, action: "handleTouchUpOutsideOrCanceled:event:", forControlEvents: .TouchUpOutside)
-		button.addTarget(self, action: "handleTouchUpInside", forControlEvents: .TouchUpInside)
-		button.addTarget(self, action: "handleTouchDragInside:event:", forControlEvents: .TouchDragInside)
-		button.addTarget(self, action: "handleTouchUpOutsideOrCanceled:event:", forControlEvents: .TouchCancel)
+//		button.addTarget(self, action: "handleTouchUpOutsideOrCanceled:event:", forControlEvents: .TouchUpOutside)
+//		button.addTarget(self, action: "handleTouchUpInside", forControlEvents: .TouchUpInside)
+//		button.addTarget(self, action: "handleTouchDragInside:event:", forControlEvents: .TouchDragInside)
+//		button.addTarget(self, action: "handleTouchUpOutsideOrCanceled:event:", forControlEvents: .TouchCancel)
 		addSubview(button)
 	}
 	

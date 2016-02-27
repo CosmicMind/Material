@@ -53,7 +53,7 @@ class FeedViewController: UIViewController {
 	
 	/// Prepares view.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.grey.lighten5
+		view.backgroundColor = MaterialColor.grey.lighten4
 	}
 	
 	/// Prepares the collectionView
@@ -165,7 +165,7 @@ extension FeedViewController: MaterialCollectionViewDataSource {
 				c.controlView = ControlView()
 				c.controlView!.backgroundColor = nil
 				
-				
+				// Create a date UILabel for the ControlView's contentView.
 				let date: UILabel = UILabel()
 				date.font = RobotoFont.regularWithSize(12)
 				date.textColor = MaterialColor.grey.base

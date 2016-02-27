@@ -78,13 +78,6 @@ public class BasicCollectionViewCell : MaterialCollectionViewCell {
 			v.removeFromSuperview()
 		}
 		
-		grid.views = []
-		
-		contentView.grid.views = []
-		contentView.grid.axis.rows = 12
-		contentView.grid.axis.direction = .Vertical
-		controlView?.grid.axis.columns = 0 < width ? Int(width / 48) : 12
-		
 		var a: Int = 0
 		var b: Int = 0
 		var c: Int = 0
@@ -175,11 +168,15 @@ public class BasicCollectionViewCell : MaterialCollectionViewCell {
 			contentView.grid.views?.append(v)
 		}
 		
+		contentView.grid.views = []
+		contentView.grid.axis.rows = 12
+		contentView.grid.axis.direction = .Vertical
+		controlView?.grid.axis.columns = 0 < width ? Int(width / 48) : 12
+		
 		grid.views = [
 			contentView
 		]
 		
 		contentView.grid.reloadLayout()
-		controlView?.reloadView()
 	}
 }

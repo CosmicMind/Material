@@ -173,8 +173,6 @@ public class ControlView : MaterialView {
 				}
 			}
 			
-			contentView.grid.columns -= contentView.grid.offset.columns
-			
 			grid.reloadLayout()
 			contentView.grid.reloadLayout()
 		}
@@ -195,7 +193,6 @@ public class ControlView : MaterialView {
 	/// Prepares the contentView.
 	public func prepareContentView() {
 		contentView.backgroundColor = nil
-		contentView.grid.axis.direction = .Vertical
 		addSubview(contentView)
 	}
 	

@@ -67,6 +67,7 @@
 		96CC089B1C80B82E0034FF84 /* BasicCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC089A1C80B82E0034FF84 /* BasicCollectionView.swift */; };
 		96CC089D1C80B8F70034FF84 /* BasicCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC089C1C80B8F70034FF84 /* BasicCollectionViewLayout.swift */; };
 		96CC08A01C80CB180034FF84 /* MaterialSpacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC089F1C80CB180034FF84 /* MaterialSpacing.swift */; };
+		96D527EE1C8121EF00D3BDD1 /* BasicCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D527ED1C8121EF00D3BDD1 /* BasicCollectionViewDataSource.swift */; };
 		96D88C1E1C1328D800B91418 /* CaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D88BF51C1328D800B91418 /* CaptureView.swift */; };
 		96D88C1F1C1328D800B91418 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D88BF61C1328D800B91418 /* CardView.swift */; };
 		96D88C201C1328D800B91418 /* CapturePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D88BF71C1328D800B91418 /* CapturePreviewView.swift */; };
@@ -184,6 +185,7 @@
 		96CC089A1C80B82E0034FF84 /* BasicCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicCollectionView.swift; sourceTree = "<group>"; };
 		96CC089C1C80B8F70034FF84 /* BasicCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicCollectionViewLayout.swift; sourceTree = "<group>"; };
 		96CC089F1C80CB180034FF84 /* MaterialSpacing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialSpacing.swift; sourceTree = "<group>"; };
+		96D527ED1C8121EF00D3BDD1 /* BasicCollectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		96D88BF51C1328D800B91418 /* CaptureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureView.swift; sourceTree = "<group>"; };
 		96D88BF61C1328D800B91418 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		96D88BF71C1328D800B91418 /* CapturePreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CapturePreviewView.swift; sourceTree = "<group>"; };
@@ -355,6 +357,7 @@
 				96CC08981C80B74F0034FF84 /* BasicCollectionViewCell.swift */,
 				96CC089A1C80B82E0034FF84 /* BasicCollectionView.swift */,
 				96CC089C1C80B8F70034FF84 /* BasicCollectionViewLayout.swift */,
+				96D527ED1C8121EF00D3BDD1 /* BasicCollectionViewDataSource.swift */,
 				96CC088B1C7FEC170034FF84 /* MaterialCollectionView.swift */,
 				96CC088C1C7FEC170034FF84 /* MaterialCollectionViewCell.swift */,
 				96CC088D1C7FEC170034FF84 /* MaterialCollectionViewDataSource.swift */,
@@ -713,6 +716,7 @@
 			files = (
 				96D88C3D1C1328D800B91418 /* MaterialView.swift in Sources */,
 				96CC089D1C80B8F70034FF84 /* BasicCollectionViewLayout.swift in Sources */,
+				96D527EE1C8121EF00D3BDD1 /* BasicCollectionViewDataSource.swift in Sources */,
 				960B23481C38480E00E96216 /* TextView.swift in Sources */,
 				96D88C291C1328D800B91418 /* MaterialBasicAnimation.swift in Sources */,
 				96D88C3A1C1328D800B91418 /* MaterialTextLayer.swift in Sources */,

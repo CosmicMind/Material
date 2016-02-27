@@ -46,6 +46,7 @@ class AppSearchBarViewController: SearchBarViewController {
 	override func viewWillDisappear(animated: Bool) {
 		super.viewWillDisappear(animated)
 		sideNavigationViewController?.enabled = true
+		searchBarView.textField.resignFirstResponder()
 	}
 	
 	override func viewWillAppear(animated: Bool) {
@@ -53,6 +54,7 @@ class AppSearchBarViewController: SearchBarViewController {
 		searchBarView.statusBarStyle = .Default
 		sideNavigationViewController?.delegate = self
 		sideNavigationViewController?.enabled = false
+		searchBarView.textField.becomeFirstResponder()
 	}
 	
 	/// Toggle SideSearchViewController left UIViewController.
@@ -71,7 +73,6 @@ class AppSearchBarViewController: SearchBarViewController {
 	override func prepareView() {
 		super.prepareView()
 		view.backgroundColor = MaterialColor.black
-		searchBarView.textField.becomeFirstResponder()
 	}
 	
 	/// Prepares the searchBarView.
