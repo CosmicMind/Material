@@ -171,17 +171,20 @@ public class TextField : UITextField {
 		didSet {
 			if let v: MaterialRadius = cornerRadiusPreset {
 				cornerRadius = MaterialRadiusToValue(v)
-				if .Circle == shape {
-					shape = .None
-				}
 			}
 		}
 	}
 	
 	/// A property that accesses the layer.cornerRadius.
-	public var cornerRadius: CGFloat = 0 {
-		didSet {
-			layer.cornerRadius = cornerRadius
+	public var cornerRadius: CGFloat {
+		get {
+			return layer.cornerRadius
+		}
+		set(value) {
+			layer.cornerRadius = value
+			if .Circle == shape {
+				shape = .None
+			}
 		}
 	}
 	
@@ -208,18 +211,24 @@ public class TextField : UITextField {
 			borderWidth = MaterialBorderToValue(borderWidthPreset)
 		}
 	}
-
+	
 	/// A property that accesses the layer.borderWith.
-	public var borderWidth: CGFloat = 0 {
-		didSet {
-			layer.borderWidth = borderWidth
+	public var borderWidth: CGFloat {
+		get {
+			return layer.borderWidth
+		}
+		set(value) {
+			layer.borderWidth = value
 		}
 	}
 	
 	/// A property that accesses the layer.borderColor property.
 	public var borderColor: UIColor? {
-		didSet {
-			layer.borderColor = borderColor?.CGColor
+		get {
+			return nil == layer.borderColor ? nil : UIColor(CGColor: layer.borderColor!)
+		}
+		set(value) {
+			layer.borderColor = value?.CGColor
 		}
 	}
 	
@@ -413,6 +422,7 @@ public class TextField : UITextField {
 		if self.layer == layer {
 			bottomBorderLayer.frame = CGRectMake(0, bounds.height + bottomBorderLayerDistance, bounds.width, 1)
 			layoutShape()
+			layoutShadowPath()
 		}
 	}
 	
@@ -538,6 +548,11 @@ public class TextField : UITextField {
 		if .Circle == shape {
 			layer.cornerRadius = width / 2
 		}
+	}
+	
+	/// Sets the shadow path.
+	internal func layoutShadowPath() {
+		layer.shadowPath = .None == depth ? nil : UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).CGPath
 	}
 	
 	/// Prepares the titleLabel property.

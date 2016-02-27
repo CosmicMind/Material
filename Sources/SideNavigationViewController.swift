@@ -650,7 +650,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 					
 					toggleStatusBar(true)
 					showView(v)
-					hideDepth(v)
+					showDepth(v)
 					
 					delegate?.sideNavigationViewPanDidBegin?(self, point: point, position: .Right)
 				case .Changed:
@@ -685,7 +685,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 					
 					toggleStatusBar(true)
 					showView(v)
-					hideDepth(v)
+					showDepth(v)
 					
 					delegate?.sideNavigationViewPanDidBegin?(self, point: point, position: .Left)
 				case .Changed:
