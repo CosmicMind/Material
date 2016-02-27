@@ -280,6 +280,7 @@ public class MaterialSwitch: UIControl {
 		trackLayer = MaterialLayer()
 		button = FabButton()
 		super.init(coder: aDecoder)
+		prepareView()
 		prepareTrack()
 		prepareButton()
 		prepareSwitchSize(.Default)
@@ -297,11 +298,23 @@ public class MaterialSwitch: UIControl {
 		trackLayer = MaterialLayer()
 		button = FabButton()
 		super.init(frame: CGRectNull)
+		prepareView()
 		prepareTrack()
 		prepareButton()
 		prepareSwitchSize(size)
 		prepareSwitchStyle(style)
 		prepareSwitchState(state)
+	}
+	
+	/**
+	Prepares the view instance when intialized. When subclassing,
+	it is recommended to override the prepareView method
+	to initialize property values and other setup operations.
+	The super.prepareView method should always be called immediately
+	when subclassing.
+	*/
+	public func prepareView() {
+		
 	}
 	
 	public override func willMoveToSuperview(newSuperview: UIView?) {
@@ -372,14 +385,14 @@ public class MaterialSwitch: UIControl {
 	- Parameter sender: A UIButton.
 	- Parameter event: A UIEvent.
 	*/
-//	internal func handleTouchUpOutsideOrCanceled(sender: FabButton, event: UIEvent) {
-//		if let v: UITouch = event.touchesForView(sender)?.first {
-//			let t: CGPoint = v.previousLocationInView(sender)
-//			let p: CGPoint = v.locationInView(sender)
-//			let q: CGFloat = sender.x + p.x - t.x
-//			setSwitchState(q > (width - button.width) / 2 ? .On : .Off, animated: true)
-//		}
-//	}
+	internal func handleTouchUpOutsideOrCanceled(sender: FabButton, event: UIEvent) {
+		if let v: UITouch = event.touchesForView(sender)?.first {
+			let t: CGPoint = v.previousLocationInView(sender)
+			let p: CGPoint = v.locationInView(sender)
+			let q: CGFloat = sender.x + p.x - t.x
+			setSwitchState(q > (width - button.width) / 2 ? .On : .Off, animated: true)
+		}
+	}
 	
 	/**
 	Handle the TouchDragInside event.
@@ -397,6 +410,12 @@ public class MaterialSwitch: UIControl {
 		}
 	}
 	
+	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+		if true == CGRectContainsPoint(trackLayer.frame, layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer)) {
+			setSwitchState(.On == internalSwitchState ? .Off : .On)
+		}
+	}
+	
 	/// Prepares the track.
 	private func prepareTrack() {
 		layer.addSublayer(trackLayer)
@@ -405,10 +424,10 @@ public class MaterialSwitch: UIControl {
 	/// Prepares the button.
 	private func prepareButton() {
 		button.pulseColor = nil
-//		button.addTarget(self, action: "handleTouchUpOutsideOrCanceled:event:", forControlEvents: .TouchUpOutside)
-//		button.addTarget(self, action: "handleTouchUpInside", forControlEvents: .TouchUpInside)
-//		button.addTarget(self, action: "handleTouchDragInside:event:", forControlEvents: .TouchDragInside)
-//		button.addTarget(self, action: "handleTouchUpOutsideOrCanceled:event:", forControlEvents: .TouchCancel)
+		button.addTarget(self, action: "handleTouchUpOutsideOrCanceled:event:", forControlEvents: .TouchUpOutside)
+		button.addTarget(self, action: "handleTouchUpInside", forControlEvents: .TouchUpInside)
+		button.addTarget(self, action: "handleTouchDragInside:event:", forControlEvents: .TouchDragInside)
+		button.addTarget(self, action: "handleTouchUpOutsideOrCanceled:event:", forControlEvents: .TouchCancel)
 		addSubview(button)
 	}
 	
