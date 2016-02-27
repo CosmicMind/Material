@@ -161,6 +161,7 @@ public class TextView: UITextView {
 			shadowOffset = value.offset
 			shadowOpacity = value.opacity
 			shadowRadius = value.radius
+			layoutShadowPath()
 		}
 	}
 	
@@ -184,6 +185,7 @@ public class TextView: UITextView {
 		}
 		set(value) {
 			layer.cornerRadius = value
+			layoutShadowPath()
 			if .Circle == shape {
 				shape = .None
 			}
@@ -203,6 +205,7 @@ public class TextView: UITextView {
 				} else {
 					frame.size.height = width
 				}
+				layoutShadowPath()
 			}
 		}
 	}

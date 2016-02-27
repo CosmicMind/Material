@@ -223,6 +223,7 @@ public class MaterialView : UIView {
 			shadowOffset = value.offset
 			shadowOpacity = value.opacity
 			shadowRadius = value.radius
+			layoutShadowPath()
 		}
 	}
 	
@@ -246,6 +247,7 @@ public class MaterialView : UIView {
 		}
 		set(value) {
 			layer.cornerRadius = value
+			layoutShadowPath()
 			if .Circle == shape {
 				shape = .None
 			}
@@ -265,6 +267,7 @@ public class MaterialView : UIView {
 				} else {
 					frame.size.height = width
 				}
+				layoutShadowPath()
 			}
 		}
 	}

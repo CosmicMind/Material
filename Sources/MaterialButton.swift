@@ -180,6 +180,7 @@ public class MaterialButton : UIButton {
 			shadowOffset = value.offset
 			shadowOpacity = value.opacity
 			shadowRadius = value.radius
+			layoutShadowPath()
 		}
 	}
 	
@@ -203,6 +204,7 @@ public class MaterialButton : UIButton {
 		}
 		set(value) {
 			layer.cornerRadius = value
+			layoutShadowPath()
 			if .Circle == shape {
 				shape = .None
 			}
@@ -222,6 +224,7 @@ public class MaterialButton : UIButton {
 				} else {
 					frame.size.height = width
 				}
+				layoutShadowPath()
 			}
 		}
 	}

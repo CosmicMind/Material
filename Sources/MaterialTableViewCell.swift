@@ -173,6 +173,7 @@ public class MaterialTableViewCell: UITableViewCell {
 			shadowOffset = value.offset
 			shadowOpacity = value.opacity
 			shadowRadius = value.radius
+			layoutShadowPath()
 		}
 	}
 	
@@ -196,6 +197,7 @@ public class MaterialTableViewCell: UITableViewCell {
 		}
 		set(value) {
 			layer.cornerRadius = value
+			layoutShadowPath()
 		}
 	}
 	

@@ -165,6 +165,7 @@ public class MaterialLayer : CAShapeLayer {
 			shadowOffset = value.offset
 			shadowOpacity = value.opacity
 			shadowRadius = value.radius
+			layoutShadowPath()
 		}
 	}
 	
@@ -188,6 +189,7 @@ public class MaterialLayer : CAShapeLayer {
 	*/
 	public override var cornerRadius: CGFloat {
 		didSet {
+			layoutShadowPath()
 			if .Circle == shape {
 				shape = .None
 			}
@@ -207,6 +209,7 @@ public class MaterialLayer : CAShapeLayer {
 				} else {
 					frame.size.height = width
 				}
+				layoutShadowPath()
 			}
 		}
 	}
@@ -324,5 +327,10 @@ public class MaterialLayer : CAShapeLayer {
 		if .Circle == shape {
 			cornerRadius = width / 2
 		}
+	}
+	
+	/// Sets the shadow path.
+	internal func layoutShadowPath() {
+		shadowPath = .None == depth ? nil : UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).CGPath
 	}
 }

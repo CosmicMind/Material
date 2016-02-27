@@ -159,6 +159,7 @@ public class TextField : UITextField {
 			shadowOffset = value.offset
 			shadowOpacity = value.opacity
 			shadowRadius = value.radius
+			layoutShadowPath()
 		}
 	}
 	
@@ -182,6 +183,7 @@ public class TextField : UITextField {
 		}
 		set(value) {
 			layer.cornerRadius = value
+			layoutShadowPath()
 			if .Circle == shape {
 				shape = .None
 			}
@@ -201,6 +203,7 @@ public class TextField : UITextField {
 				} else {
 					frame.size.height = width
 				}
+				layoutShadowPath()
 			}
 		}
 	}

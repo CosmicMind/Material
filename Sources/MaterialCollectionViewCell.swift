@@ -217,6 +217,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 			shadowOffset = value.offset
 			shadowOpacity = value.opacity
 			shadowRadius = value.radius
+			layoutShadowPath()
 		}
 	}
 	
@@ -240,6 +241,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 		}
 		set(value) {
 			layer.cornerRadius = value
+			layoutShadowPath()
 			if .Circle == shape {
 				shape = .None
 			}
@@ -259,6 +261,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 				} else {
 					frame.size.height = width
 				}
+				layoutShadowPath()
 			}
 		}
 	}
