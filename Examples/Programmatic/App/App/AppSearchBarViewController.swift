@@ -84,18 +84,18 @@ class AppSearchBarViewController: SearchBarViewController {
 		var image = UIImage(named: "ic_close_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		
 		let clearButton: FlatButton = FlatButton()
-		clearButton.pulseColor = MaterialColor.blueGrey.darken4
+		clearButton.pulseColor = MaterialColor.grey.darken4
 		clearButton.pulseScale = false
-		clearButton.tintColor = MaterialColor.blueGrey.darken4
+		clearButton.tintColor = MaterialColor.grey.darken4
 		clearButton.setImage(image, forState: .Normal)
 		clearButton.setImage(image, forState: .Highlighted)
 		
 		// Back button.
 		image = UIImage(named: "ic_arrow_back_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let backButton: FlatButton = FlatButton()
-		backButton.pulseColor = MaterialColor.blueGrey.darken4
+		backButton.pulseColor = MaterialColor.grey.darken4
 		backButton.pulseScale = false
-		backButton.tintColor = MaterialColor.blueGrey.darken4
+		backButton.tintColor = MaterialColor.grey.darken4
 		backButton.setImage(image, forState: .Normal)
 		backButton.setImage(image, forState: .Highlighted)
 		backButton.addTarget(self, action: "handleBackButton", forControlEvents: .TouchUpInside)
@@ -103,18 +103,18 @@ class AppSearchBarViewController: SearchBarViewController {
 		// More button.
 		image = UIImage(named: "ic_more_horiz_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let moreButton: FlatButton = FlatButton()
-		moreButton.pulseColor = MaterialColor.blueGrey.darken4
+		moreButton.pulseColor = MaterialColor.grey.darken4
 		moreButton.pulseScale = false
-		moreButton.tintColor = MaterialColor.blueGrey.darken4
+		moreButton.tintColor = MaterialColor.grey.darken4
 		moreButton.setImage(image, forState: .Normal)
 		moreButton.setImage(image, forState: .Highlighted)
 		moreButton.addTarget(self, action: "handleMoreButton", forControlEvents: .TouchUpInside)
 		
 		searchBarView.delegate = self
 		searchBarView.placeholder = "Search"
-		searchBarView.tintColor = MaterialColor.blueGrey.darken4
-		searchBarView.textColor = MaterialColor.blueGrey.darken4
-		searchBarView.placeholderTextColor = MaterialColor.blueGrey.darken4
+		searchBarView.tintColor = MaterialColor.grey.darken4
+		searchBarView.textColor = MaterialColor.grey.darken4
+		searchBarView.placeholderTextColor = MaterialColor.grey.darken4
 		searchBarView.textField.font = RobotoFont.regularWithSize(17)
 		searchBarView.textField.delegate = self
 		

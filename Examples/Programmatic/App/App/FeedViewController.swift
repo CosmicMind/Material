@@ -57,7 +57,7 @@ class FeedViewController: UIViewController {
 	
 	/// Prepares view.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.blueGrey.lighten4
+		view.backgroundColor = MaterialColor.grey.lighten4
 	}
 	
 	/// Prepares the collectionView
@@ -169,23 +169,23 @@ extension FeedViewController: MaterialCollectionViewDataSource {
 				cardView!.depth = .None
 				
 				let titleLabel: UILabel = UILabel()
-				titleLabel.textColor = MaterialColor.blueGrey.darken4
-				titleLabel.font = RobotoFont.mediumWithSize(18)
+				titleLabel.textColor = MaterialColor.grey.darken4
+				titleLabel.font = RobotoFont.regularWithSize(18)
 				titleLabel.text = data["title"] as? String
 				cardView!.titleLabel = titleLabel
 				
 				let detailLabel: UILabel = UILabel()
 				detailLabel.numberOfLines = 2
-				detailLabel.textColor = MaterialColor.blueGrey.darken2
+				detailLabel.textColor = MaterialColor.grey.darken2
 				detailLabel.font = RobotoFont.regular
 				detailLabel.text = data["detail"] as? String
 				cardView!.detailView = detailLabel
 				
-				let image: UIImage? =  UIImage(named: "ic_share_white")?.imageWithRenderingMode(.AlwaysTemplate)
+				let image: UIImage? =  UIImage(named: "ic_share_white_18pt")?.imageWithRenderingMode(.AlwaysTemplate)
 				
 				let shareButton: FlatButton = FlatButton()
-				shareButton.pulseColor = MaterialColor.blueGrey.base
-				shareButton.tintColor = MaterialColor.blueGrey.base
+				shareButton.pulseColor = MaterialColor.grey.base
+				shareButton.tintColor = MaterialColor.grey.base
 				shareButton.setImage(image, forState: .Normal)
 				shareButton.setImage(image, forState: .Highlighted)
 				cardView!.rightButtons = [shareButton]
