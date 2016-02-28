@@ -70,7 +70,7 @@ public class NavigationBarView : StatusBarView {
 	
 	public override func layoutSubviews() {
 		super.layoutSubviews()
-		
+	
 		// TitleView alignment.
 		if let v: UILabel = titleLabel {
 			if let d: UILabel = detailLabel {

@@ -83,15 +83,13 @@ public extension MaterialAnimation {
 	/**
 	:name: transition
 	*/
-	public static func transition(type: MaterialAnimationTransition, direction: MaterialAnimationTransitionSubType? = nil, duration: CFTimeInterval? = nil) -> CATransition {
+	public static func transition(type: MaterialAnimationTransition, direction: MaterialAnimationTransitionSubType? = nil, duration: CFTimeInterval = 0.25) -> CATransition {
 		let animation: CATransition = CATransition()
 		animation.type = MaterialAnimationTransitionToValue(type)
 		if let d = direction {
 			animation.subtype = MaterialAnimationTransitionSubTypeToValue(d)
 		}
-		if let d = duration {
-			animation.duration = d
-		}
+		animation.duration = duration
 		return animation
 	}
 }

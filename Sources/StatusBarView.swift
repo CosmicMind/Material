@@ -58,8 +58,8 @@ public class StatusBarView : ControlView {
 	
 	public override func layoutSubviews() {
 		super.layoutSubviews()
-		
 		width = UIScreen.mainScreen().bounds.width
+		
 		grid.axis.columns = Int(width / 48)
 		
 		// General alignment.
@@ -74,10 +74,10 @@ public class StatusBarView : ControlView {
 		reloadView()
 		
 		if frame.origin.x != oldFrame!.origin.x || frame.origin.y != oldFrame!.origin.y || frame.width != oldFrame!.width || frame.height != oldFrame!.height {
-			oldFrame = frame
 			if nil != delegate {
 				statusBarViewDidChangeLayout()
 			}
+			oldFrame = frame
 		}
 	}
 	

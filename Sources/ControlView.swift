@@ -125,7 +125,6 @@ public class ControlView : MaterialView {
 	
 	/// Reloads the view.
 	public func reloadView() {
-		
 		// clear constraints so new ones do not conflict
 		removeConstraints(constraints)
 		for v in subviews {
@@ -133,48 +132,49 @@ public class ControlView : MaterialView {
 				v.removeFromSuperview()
 			}
 		}
-		
-		// Size of single grid column.
-		if let g: CGFloat = width / CGFloat(0 < grid.axis.columns ? grid.axis.columns : 1) {
-			grid.views = []
-			contentView.grid.columns = grid.axis.columns
-			
-			// leftControls
-			if let v: Array<UIControl> = leftControls {
-				for c in v {
-					let w: CGFloat = c.intrinsicContentSize().width
-					if let b: UIButton = c as? UIButton {
-						b.contentEdgeInsets = UIEdgeInsetsZero
+		if 0 < width {
+			// Size of single grid column.
+			if let g: CGFloat = width / CGFloat(0 < grid.axis.columns ? grid.axis.columns : 1) {
+				grid.views = []
+				contentView.grid.columns = grid.axis.columns
+				
+				// leftControls
+				if let v: Array<UIControl> = leftControls {
+					for c in v {
+						let w: CGFloat = c.intrinsicContentSize().width
+						if let b: UIButton = c as? UIButton {
+							b.contentEdgeInsets = UIEdgeInsetsZero
+						}
+						
+						c.grid.columns = 0 == g ? 1 : Int(ceil(w / g))
+						contentView.grid.columns -= c.grid.columns
+						
+						addSubview(c)
+						grid.views?.append(c)
 					}
-					
-					c.grid.columns = 0 == g ? 1 : Int(ceil(w / g))
-					contentView.grid.columns -= c.grid.columns
-					
-					addSubview(c)
-					grid.views?.append(c)
 				}
-			}
-			
-			grid.views?.append(contentView)
-			
-			// rightControls
-			if let v: Array<UIControl> = rightControls {
-				for c in v {
-					let w: CGFloat = c.intrinsicContentSize().width
-					if let b: UIButton = c as? UIButton {
-						b.contentEdgeInsets = UIEdgeInsetsZero
+				
+				grid.views?.append(contentView)
+				
+				// rightControls
+				if let v: Array<UIControl> = rightControls {
+					for c in v {
+						let w: CGFloat = c.intrinsicContentSize().width
+						if let b: UIButton = c as? UIButton {
+							b.contentEdgeInsets = UIEdgeInsetsZero
+						}
+						
+						c.grid.columns = 0 == g ? 1 : Int(ceil(w / g))
+						contentView.grid.columns -= c.grid.columns
+						
+						addSubview(c)
+						grid.views?.append(c)
 					}
-					
-					c.grid.columns = 0 == g ? 1 : Int(ceil(w / g))
-					contentView.grid.columns -= c.grid.columns
-					
-					addSubview(c)
-					grid.views?.append(c)
 				}
+				
+				grid.reloadLayout()
+				contentView.grid.reloadLayout()
 			}
-			
-			grid.reloadLayout()
-			contentView.grid.reloadLayout()
 		}
 	}
 	

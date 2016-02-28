@@ -331,6 +331,12 @@ public class MaterialLayer : CAShapeLayer {
 	
 	/// Sets the shadow path.
 	internal func layoutShadowPath() {
-		shadowPath = .None == depth ? nil : UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).CGPath
+		if .None == self.depth {
+			shadowPath = nil
+		} else if nil == shadowPath {
+			shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).CGPath
+		} else {
+			animate(MaterialAnimation.shadowPath(UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).CGPath, duration: 0))
+		}
 	}
 }

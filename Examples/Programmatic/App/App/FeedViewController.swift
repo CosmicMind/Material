@@ -156,14 +156,14 @@ extension FeedViewController: MaterialCollectionViewDataSource {
 			
 			var cardView: CardView? = c.contentView.subviews.first as? CardView
 			
-			// Only build the template if the cardView doesn't exist.
+			// Only build the template if the CardView doesn't exist.
 			if nil == cardView {
-				
-				// CardView template example.
 				cardView = CardView()
+				
+				c.backgroundColor = nil
+				c.pulseColor = nil
 				c.contentView.addSubview(cardView!)
 				
-				cardView!.pulseColor = nil
 				cardView!.pulseScale = false
 				cardView!.divider = false
 				cardView!.depth = .None
@@ -197,7 +197,6 @@ extension FeedViewController: MaterialCollectionViewDataSource {
 			}
 			
 			cardView!.frame = c.bounds
-			
 		}
 		
 		return c

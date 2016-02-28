@@ -56,14 +56,12 @@ public extension MaterialAnimation {
 	/**
 	:name: path
 	*/
-	public static func path(bezierPath: UIBezierPath, mode: MaterialAnimationRotationMode = .Auto, duration: CFTimeInterval? = nil) -> CAKeyframeAnimation {
+	public static func path(bezierPath: UIBezierPath, mode: MaterialAnimationRotationMode = .Auto, duration: CFTimeInterval = 0.25) -> CAKeyframeAnimation {
 		let animation: CAKeyframeAnimation = CAKeyframeAnimation()
 		animation.keyPath = "position"
 		animation.path = bezierPath.CGPath
 		animation.rotationMode = MaterialAnimationRotationModeToValue(mode)
-		if let d = duration {
-			animation.duration = d
-		}
+		animation.duration = duration
 		return animation
 	}
 }
