@@ -43,7 +43,7 @@ public extension UIImage {
 		w = width * s
 		h = height * s
 		
-		UIGraphicsBeginImageContext(t)
+        UIGraphicsBeginImageContextWithOptions(t, false, UIScreen.mainScreen().scale);
 		drawInRect(b ? CGRectMake(-1 * (w - t.width) / 2, 0, w, h) : CGRectMake(0, -1 * (h - t.height) / 2, w, h), blendMode: .Normal, alpha: 1)
 		g = UIGraphicsGetImageFromCurrentImageContext()
 		UIGraphicsEndImageContext()
