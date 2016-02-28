@@ -154,6 +154,9 @@ public class MaterialLayer : CAShapeLayer {
 		}
 	}
 	
+	/// Enables automatic shadowPath sizing.
+	public var shadowPathAutoSizeEnabled: Bool = false
+	
 	/**
 	A property that sets the shadowOffset, shadowOpacity, and shadowRadius
 	for the backing layer. This is the preferred method of setting depth
@@ -331,12 +334,14 @@ public class MaterialLayer : CAShapeLayer {
 	
 	/// Sets the shadow path.
 	internal func layoutShadowPath() {
-		if .None == self.depth {
-			shadowPath = nil
-		} else if nil == shadowPath {
-			shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).CGPath
-		} else {
-			animate(MaterialAnimation.shadowPath(UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).CGPath, duration: 0))
+		if shadowPathAutoSizeEnabled {
+			if .None == self.depth {
+				shadowPath = nil
+			} else if nil == shadowPath {
+				shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).CGPath
+			} else {
+				animate(MaterialAnimation.shadowPath(UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).CGPath, duration: 0))
+			}
 		}
 	}
 }

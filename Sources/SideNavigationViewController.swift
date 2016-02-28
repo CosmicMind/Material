@@ -775,6 +775,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			leftView = MaterialView()
 			leftView!.frame = CGRectMake(0, 0, leftViewWidth, view.frame.height)
 			leftView!.backgroundColor = MaterialColor.clear
+			leftView!.shadowPathAutoSizeEnabled = true
 			view.addSubview(leftView!)
 			
 			leftView!.hidden = true
@@ -791,6 +792,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			rightView = MaterialView()
 			rightView!.frame = CGRectMake(0, 0, rightViewWidth, view.frame.height)
 			rightView!.backgroundColor = MaterialColor.clear
+			rightView!.shadowPathAutoSizeEnabled = true
 			view.addSubview(rightView!)
 			
 			rightView!.hidden = true
