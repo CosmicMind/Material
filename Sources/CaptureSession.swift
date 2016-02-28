@@ -579,7 +579,7 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 		dispatch_async(sessionQueue) {
 			if let v: AVCaptureConnection = self.imageOutput.connectionWithMediaType(AVMediaTypeVideo) {
 				v.videoOrientation = self.currentVideoOrientation
-				self.imageOutput.captureStillImageAsynchronouslyFromConnection(v) { (sampleBuffer: CMSampleBuffer!, error: NSError!) -> Void in
+				self.imageOutput.captureStillImageAsynchronouslyFromConnection(v) { [unowned self] (sampleBuffer: CMSampleBuffer!, error: NSError!) -> Void in
 					if nil == error {
 						let data: NSData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer)
 						self.delegate?.captureStillImageAsynchronously?(self, image: UIImage(data: data)!)
