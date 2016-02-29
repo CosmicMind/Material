@@ -643,6 +643,10 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 					let translationX: CGFloat = recognizer.translationInView(v).x
 					
 					v.position.x = originalX + translationX < view.bounds.width - (w / 2) ? view.bounds.width - (w / 2) : originalX + translationX
+					
+					let a: CGFloat = 1 - (view.bounds.width - v.position.x) / v.width
+					mainViewController.view.alpha = 0.5 < a ? a : 0.5
+					
 					delegate?.sideNavigationViewPanDidChange?(self, point: point, position: .Right)
 				case .Ended, .Cancelled, .Failed:
 					let p: CGPoint = recognizer.velocityInView(recognizer.view)
@@ -676,6 +680,10 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 					let translationX: CGFloat = recognizer.translationInView(v).x
 					
 					v.position.x = originalX + translationX > (w / 2) ? (w / 2) : originalX + translationX
+					
+					let a: CGFloat = 1 - v.position.x / v.width
+					mainViewController.view.alpha = 0.5 < a ? a : 0.5
+					
 					delegate?.sideNavigationViewPanDidChange?(self, point: point, position: .Left)
 				case .Ended, .Cancelled, .Failed:
 					let p: CGPoint = recognizer.velocityInView(recognizer.view)
