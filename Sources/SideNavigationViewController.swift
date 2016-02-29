@@ -107,6 +107,9 @@ public protocol SideNavigationViewControllerDelegate {
 
 @objc(SideNavigationViewController)
 public class SideNavigationViewController: UIViewController, UIGestureRecognizerDelegate {
+	private var animating: Bool = false
+	
+	
 	/**
 	A CGFloat property that is used internally to track
 	the original (x) position of the container view when panning.
@@ -367,39 +370,59 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	public func setLeftViewWidth(width: CGFloat, var hidden: Bool, animated: Bool, duration: NSTimeInterval = 0.5) {
 		if let v: MaterialView = leftView {
 			leftViewWidth = width
-			layoutSubviews()
 			
 			if openedRightView {
 				hidden = true
 			}
 			
 			if animated {
+				animating = true
+				v.shadowPath = nil
+				v.shadowPathAutoSizeEnabled = false
+				
 				if hidden {
 					UIView.animateWithDuration(duration,
-						animations: {
-							v.width = width
-							v.position = CGPointMake(-width / 2, v.height / 2)
-						}) { _ in
+						animations: { [unowned self] in
+							v.bounds.size.width = width
+							v.position.x = -width / 2
+							self.mainViewController.view.alpha = 1
+						}) { [unowned self] _ in
+							v.shadowPathAutoSizeEnabled = true
+							self.animating = false
+							self.layoutSubviews()
 							self.hideView(v)
-						}
+					}
 				} else {
-					showView(v)
 					UIView.animateWithDuration(duration,
-						animations: {
-							v.width = width
-							v.position = CGPointMake(width / 2, v.height / 2)
-						})
+						animations: { [unowned self] in
+							v.bounds.size.width = width
+							v.position.x = width / 2
+							self.mainViewController.view.alpha = 0.5
+						}) { [unowned self] _ in
+							v.shadowPathAutoSizeEnabled = true
+							self.animating = false
+							self.layoutSubviews()
+							self.showView(v)
+					}
 				}
 			} else {
-				v.width = width
+				v.bounds.size.width = width
 				if hidden {
 					hideView(v)
-					v.position = CGPointMake(-v.width / 2, v.height / 2)
+					v.position.x = -v.width / 2
+					mainViewController.view.alpha = 1
 				} else {
+					v.shadowPath = nil
+					v.shadowPathAutoSizeEnabled = false
+					
 					showView(v)
-					v.position = CGPointMake(v.width / 2, v.height / 2)
+					v.position.x = width / 2
+					mainViewController.view.alpha = 0.5
+					v.shadowPathAutoSizeEnabled = true
 				}
+				layoutSubviews()
 			}
+
 		}
 	}
 	
@@ -416,38 +439,57 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	public func setRightViewWidth(width: CGFloat, var hidden: Bool, animated: Bool, duration: NSTimeInterval = 0.5) {
 		if let v: MaterialView = rightView {
 			rightViewWidth = width
-			layoutSubviews()
 			
 			if openedLeftView {
 				hidden = true
 			}
 			
 			if animated {
+				animating = true
+				v.shadowPath = nil
+				v.shadowPathAutoSizeEnabled = false
+				
 				if hidden {
 					UIView.animateWithDuration(duration,
-						animations: {
-							v.width = width
-							v.position = CGPointMake(self.view.bounds.width + width / 2, v.height / 2)
-						}) { _ in
+						animations: { [unowned self] in
+							v.bounds.size.width = width
+							v.position.x = self.view.bounds.width + width / 2
+							self.mainViewController.view.alpha = 1
+						}) { [unowned self] _ in
+							v.shadowPathAutoSizeEnabled = true
+							self.animating = false
+							self.layoutSubviews()
 							self.hideView(v)
 						}
 				} else {
-					showView(v)
 					UIView.animateWithDuration(duration,
-						animations: {
-							v.width = width
-							v.position = CGPointMake(self.view.bounds.width - width / 2, v.height / 2)
-						})
+						animations: { [unowned self] in
+							v.bounds.size.width = width
+							v.position.x = self.view.bounds.width - width / 2
+							self.mainViewController.view.alpha = 0.5
+						}) { [unowned self] _ in
+							v.shadowPathAutoSizeEnabled = true
+							self.animating = false
+							self.layoutSubviews()
+							self.showView(v)
+						}
 				}
 			} else {
-				v.width = width
+				v.bounds.size.width = width
 				if hidden {
 					hideView(v)
-					v.position = CGPointMake(self.view.bounds.width + v.width / 2, v.height / 2)
+					v.position.x = view.bounds.width + v.width / 2
+					mainViewController.view.alpha = 1
 				} else {
+					v.shadowPath = nil
+					v.shadowPathAutoSizeEnabled = false
+					
 					showView(v)
-					v.position = CGPointMake(self.view.bounds.width - v.width / 2, v.height / 2)
+					v.position.x = view.bounds.width - width / 2
+					mainViewController.view.alpha = 0.5
+					v.shadowPathAutoSizeEnabled = true
 				}
+				layoutSubviews()
 			}
 		}
 	}
@@ -489,7 +531,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 				delegate?.sideNavigationViewWillOpen?(self, position: .Left)
 				UIView.animateWithDuration(Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.x / velocity)))),
 				animations: { [unowned self] in
-					v.position = CGPointMake(v.width / 2, v.height / 2)
+					v.position.x = v.width / 2
 					self.mainViewController.view.alpha = 0.5
 				}) { _ in
 					self.delegate?.sideNavigationViewDidOpen?(self, position: .Left)
@@ -513,7 +555,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 				delegate?.sideNavigationViewWillOpen?(self, position: .Right)
 				UIView.animateWithDuration(Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.x / velocity)))),
 					animations: { [unowned self] in
-						v.position = CGPointMake(self.view.bounds.width - v.width / 2, v.height / 2)
+						v.position.x = self.view.bounds.width - v.width / 2
 						self.mainViewController.view.alpha = 0.5
 					}) { _ in
 						self.delegate?.sideNavigationViewDidOpen?(self, position: .Right)
@@ -534,7 +576,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 				delegate?.sideNavigationViewWillClose?(self, position: .Left)
 				UIView.animateWithDuration(Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.x / velocity)))),
 				animations: { [unowned self] in
-					v.position = CGPointMake(-v.width / 2, v.height / 2)
+					v.position.x = -v.width / 2
 					self.mainViewController.view.alpha = 1
 				}) { _ in
 					self.toggleStatusBar()
@@ -557,7 +599,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 				delegate?.sideNavigationViewWillClose?(self, position: .Right)
 				UIView.animateWithDuration(Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.x / velocity)))),
 				animations: { [unowned self] in
-					v.position = CGPointMake(self.view.bounds.width + v.width / 2, v.height / 2)
+					v.position.x = self.view.bounds.width + v.width / 2
 					self.mainViewController.view.alpha = 1
 				}) { _ in
 					self.toggleStatusBar()
@@ -877,27 +919,29 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	
 	/// Layout subviews.
 	private func layoutSubviews() {
-		toggleStatusBar()
-		
-		if let v: MaterialView = leftView {
-			v.width = leftViewWidth
-			v.height = view.bounds.height
-			leftViewThreshold = leftViewWidth / 2
-			if let vc: UIViewController = leftViewController {
-				vc.view.frame.size.width = v.width
-				vc.view.frame.size.height = v.height
-				vc.view.center = CGPointMake(v.width / 2, v.height / 2)
+		if !animating {
+			toggleStatusBar()
+			
+			if let v: MaterialView = leftView {
+				v.width = leftViewWidth
+				v.height = view.bounds.height
+				leftViewThreshold = leftViewWidth / 2
+				if let vc: UIViewController = leftViewController {
+					vc.view.frame.size.width = v.width
+					vc.view.frame.size.height = v.height
+					vc.view.center = CGPointMake(v.width / 2, v.height / 2)
+				}
 			}
-		}
-		
-		if let v: MaterialView = rightView {
-			v.width = rightViewWidth
-			v.height = view.bounds.height
-			rightViewThreshold = view.bounds.width - rightViewWidth / 2
-			if let vc: UIViewController = rightViewController {
-				vc.view.frame.size.width = v.width
-				vc.view.frame.size.height = v.height
-				vc.view.center = CGPointMake(v.width / 2, v.height / 2)
+			
+			if let v: MaterialView = rightView {
+				v.width = rightViewWidth
+				v.height = view.bounds.height
+				rightViewThreshold = view.bounds.width - rightViewWidth / 2
+				if let vc: UIViewController = rightViewController {
+					vc.view.frame.size.width = v.width
+					vc.view.frame.size.height = v.height
+					vc.view.center = CGPointMake(v.width / 2, v.height / 2)
+				}
 			}
 		}
 	}
