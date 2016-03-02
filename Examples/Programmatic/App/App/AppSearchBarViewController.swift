@@ -55,11 +55,6 @@ class AppSearchBarViewController: SearchBarViewController {
 		sideNavigationViewController?.enabled = false
 	}
 	
-	override func viewDidAppear(animated: Bool) {
-		super.viewDidAppear(animated)
-		searchBarView.textField.becomeFirstResponder()
-	}
-	
 	/// Toggle SideSearchViewController left UIViewController.
 	internal func handleBackButton() {
 		searchBarView.textField.resignFirstResponder()
@@ -84,8 +79,8 @@ class AppSearchBarViewController: SearchBarViewController {
 		var image = UIImage(named: "ic_close_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		
 		let clearButton: FlatButton = FlatButton()
-		clearButton.pulseColor = MaterialColor.grey.darken4
 		clearButton.pulseScale = false
+		clearButton.pulseColor = MaterialColor.grey.darken4
 		clearButton.tintColor = MaterialColor.grey.darken4
 		clearButton.setImage(image, forState: .Normal)
 		clearButton.setImage(image, forState: .Highlighted)
@@ -93,8 +88,8 @@ class AppSearchBarViewController: SearchBarViewController {
 		// Back button.
 		image = UIImage(named: "ic_arrow_back_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let backButton: FlatButton = FlatButton()
-		backButton.pulseColor = MaterialColor.grey.darken4
 		backButton.pulseScale = false
+		backButton.pulseColor = MaterialColor.grey.darken4
 		backButton.tintColor = MaterialColor.grey.darken4
 		backButton.setImage(image, forState: .Normal)
 		backButton.setImage(image, forState: .Highlighted)
@@ -103,14 +98,13 @@ class AppSearchBarViewController: SearchBarViewController {
 		// More button.
 		image = UIImage(named: "ic_more_horiz_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let moreButton: FlatButton = FlatButton()
-		moreButton.pulseColor = MaterialColor.grey.darken4
 		moreButton.pulseScale = false
+		moreButton.pulseColor = MaterialColor.grey.darken4
 		moreButton.tintColor = MaterialColor.grey.darken4
 		moreButton.setImage(image, forState: .Normal)
 		moreButton.setImage(image, forState: .Highlighted)
 		moreButton.addTarget(self, action: "handleMoreButton", forControlEvents: .TouchUpInside)
 		
-		searchBarView.delegate = self
 		searchBarView.placeholder = "Search"
 		searchBarView.tintColor = MaterialColor.grey.darken4
 		searchBarView.textColor = MaterialColor.grey.darken4
@@ -136,7 +130,6 @@ extension AppSearchBarViewController: TextFieldDelegate {
 
 extension AppSearchBarViewController: SideNavigationViewControllerDelegate {
 	func sideNavigationViewDidClose(sideNavigationViewController: SideNavigationViewController, position: SideNavigationPosition) {
-		searchBarView.textField.becomeFirstResponder()
 		sideNavigationViewController.enabled = false
 	}
 }

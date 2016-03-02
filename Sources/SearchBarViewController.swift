@@ -49,13 +49,38 @@ public extension UIViewController {
 }
 
 public class SearchBarViewController: StatusBarViewController {
+	/// The height of the StatusBar.
+	public override var heightForStatusBar: CGFloat {
+		get {
+			return searchBarView.heightForStatusBar
+		}
+		set(value) {
+			searchBarView.heightForStatusBar = value
+		}
+	}
+	
+	/// The height when in Portrait orientation mode.
+	public override var heightForPortraitOrientation: CGFloat {
+		get {
+			return searchBarView.heightForPortraitOrientation
+		}
+		set(value) {
+			searchBarView.heightForPortraitOrientation = value
+		}
+	}
+	
+	/// The height when in Landscape orientation mode.
+	public override var heightForLandscapeOrientation: CGFloat {
+		get {
+			return searchBarView.heightForLandscapeOrientation
+		}
+		set(value) {
+			searchBarView.heightForLandscapeOrientation = value
+		}
+	}
+	
 	/// Reference to the SearchBarView.
 	public private(set) lazy var searchBarView: SearchBarView = SearchBarView()
-	
-	public override func viewWillLayoutSubviews() {
-		super.viewWillLayoutSubviews()
-		layoutSubviews()
-	}
 	
 	/**
 	Prepares the view instance when intialized. When subclassing,
@@ -71,22 +96,7 @@ public class SearchBarViewController: StatusBarViewController {
 	
 	/// Prepares the SearchBarView.
 	private func prepareSearchBarView() {
-		searchBarView.delegate = self
 		searchBarView.zPosition = 1000
 		view.addSubview(searchBarView)
-	}
-	
-	/// Layout subviews.
-	private func layoutSubviews() {
-		let size: CGSize = MaterialDevice.bounds.size
-		let h: CGFloat = UIApplication.sharedApplication().statusBarFrame.size.height
-		mainViewController.view.frame = CGRectMake(0, searchBarView.height, size.width, size.height - searchBarView.height - (20 >= h ? 0 : h - 20))
-	}
-}
-
-extension SearchBarViewController : SearchBarViewDelegate {
-	/// Monitor layout changes.
-	public func searchBarViewDidChangeLayout(searchBarView: SearchBarView) {
-		layoutSubviews()
 	}
 }

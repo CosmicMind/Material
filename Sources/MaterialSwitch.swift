@@ -167,24 +167,6 @@ public class MaterialSwitch: UIControl {
 		}
 	}
 	
-	public override var selected: Bool {
-		get {
-			return .On == internalSwitchState
-		}
-		set(value) {
-			setOn(value, animated: true)
-		}
-	}
-	
-	public override var highlighted: Bool {
-		get {
-			return .On == internalSwitchState
-		}
-		set(value) {
-			setOn(value, animated: true)
-		}
-	}
-	
 	/// A boolean indicating if the switch is on or not.
 	public var on: Bool {
 		get {
@@ -194,14 +176,7 @@ public class MaterialSwitch: UIControl {
 			setOn(value, animated: true)
 		}
 	}
-	
-	public override var state: UIControlState {
-		if enabled {
-			return selected ? [.Selected, .Highlighted] : [.Normal]
-		}
-		return selected ? [.Selected, .Highlighted, .Disabled] : [.Normal, .Disabled]
-	}
-	
+
 	/// MaterialSwitch state.
 	public var switchState: MaterialSwitchState {
 		get {

@@ -31,6 +31,15 @@
 import UIKit
 
 public class StatusBarViewController: UIViewController {
+	/// The height of the StatusBar.
+	public var heightForStatusBar: CGFloat = 20
+	
+	/// The height when in Portrait orientation mode.
+	public var heightForPortraitOrientation: CGFloat = 64
+	
+	/// The height when in Landscape orientation mode.
+	public var heightForLandscapeOrientation: CGFloat = 44
+	
 	/**
 	A Boolean property used to enable and disable interactivity
 	with the mainViewController.
@@ -114,15 +123,15 @@ public class StatusBarViewController: UIViewController {
 	
 	/// Layout subviews.
 	private func layoutSubviews() {
-		let size: CGSize = MaterialDevice.bounds.size
-		let h: CGFloat = UIApplication.sharedApplication().statusBarFrame.size.height
+		let h: CGFloat = MaterialDevice.height
+		let q: CGFloat = UIApplication.sharedApplication().statusBarFrame.size.height
 		
 		if .iPhone == MaterialDevice.type && MaterialDevice.landscape {
-			mainViewController.view.frame.origin.y = 44
-			mainViewController.view.frame.size.height = size.height - (20 >= h ? 44 : h - 64)
+			mainViewController.view.frame.origin.y = heightForLandscapeOrientation
+			mainViewController.view.frame.size.height = h - (heightForStatusBar >= q ? heightForLandscapeOrientation : q - heightForStatusBar - heightForLandscapeOrientation)
 		} else {
-			mainViewController.view.frame.origin.y = 64
-			mainViewController.view.frame.size.height = size.height - (20 >= h ? 64 : h - 84)
+			mainViewController.view.frame.origin.y = heightForPortraitOrientation
+			mainViewController.view.frame.size.height = h - (heightForStatusBar >= q ? heightForPortraitOrientation : q - heightForStatusBar - heightForPortraitOrientation)
 		}
 	}
 	

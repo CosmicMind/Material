@@ -56,6 +56,11 @@ public class NavigationBarView : StatusBarView {
 		}
 	}
 	
+	/// A convenience initializer.
+	public convenience init() {
+		self.init(frame: CGRectZero)
+	}
+	
 	/**
 	A convenience initializer with parameter settings.
 	- Parameter titleLabel: UILabel for the title.
@@ -64,7 +69,7 @@ public class NavigationBarView : StatusBarView {
 	- Parameter rightControls: An Array of UIControls that go on the right side.
 	*/
 	public convenience init?(titleLabel: UILabel? = nil, detailLabel: UILabel? = nil, leftControls: Array<UIControl>? = nil, rightControls: Array<UIControl>? = nil) {
-		self.init(frame: CGRectMake(0, 0, MaterialDevice.bounds.width, 64))
+		self.init(frame: CGRectZero)
 		prepareProperties(titleLabel, detailLabel: detailLabel, leftControls: leftControls, rightControls: rightControls)
 	}
 	
@@ -102,19 +107,16 @@ public class NavigationBarView : StatusBarView {
 	/// Reloads the view.
 	public override func reloadView() {
 		super.reloadView()
-		contentView.grid.views = []
-		if let v: UILabel = titleLabel {
-			contentView.grid.views?.append(v)
+		if 0 < width {
+			contentView.grid.views = []
+			if let v: UILabel = titleLabel {
+				contentView.grid.views?.append(v)
+			}
+			if let v: UILabel = detailLabel {
+				contentView.grid.views?.append(v)
+			}
+			contentView.grid.reloadLayout()
 		}
-		if let v: UILabel = detailLabel {
-			contentView.grid.views?.append(v)
-		}
-		contentView.grid.reloadLayout()
-	}
-	
-	/// Called when the NavigationBarView changes size.
-	public override func statusBarViewDidChangeLayout() {
-		(delegate as? NavigationBarViewDelegate)?.navigationBarViewDidChangeLayout?(self)
 	}
 	
 	/**

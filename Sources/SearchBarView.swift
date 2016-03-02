@@ -82,7 +82,13 @@ public class SearchBarView : StatusBarView {
 	
 	/// A convenience initializer.
 	public convenience init() {
-		self.init(frame: CGRectMake(0, 0, MaterialDevice.bounds.width, 64))
+		self.init(frame: CGRectZero)
+	}
+	
+	public override func reloadView() {
+		super.reloadView()
+		contentView.grid.views = [textField]
+		textField.reloadView()
 	}
 	
 	/**
@@ -97,17 +103,11 @@ public class SearchBarView : StatusBarView {
 		prepareTextField()
 	}
 	
-	/// Called when the SearchBarView changes size.
-	public override func statusBarViewDidChangeLayout() {
-		(delegate as? SearchBarViewDelegate)?.searchBarViewDidChangeLayout?(self)
-	}
-	
 	/// Prepares the textField.
 	private func prepareTextField() {
 		textField.placeholder = "Search"
 		textField.backgroundColor = MaterialColor.clear
 		textField.clearButtonMode = .WhileEditing
 		contentView.addSubview(textField)
-		contentView.grid.views = [textField]
 	}
 }

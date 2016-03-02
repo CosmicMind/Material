@@ -31,8 +31,14 @@
 import UIKit
 
 public class StatusBarView : ControlView {
-	/// Tracks the old frame size.
-	private var oldFrame: CGRect?
+	/// The height of the StatusBar.
+	public var heightForStatusBar: CGFloat = 20
+	
+	/// The height when in Portrait orientation mode.
+	public var heightForPortraitOrientation: CGFloat = 64
+	
+	/// The height when in Landscape orientation mode.
+	public var heightForLandscapeOrientation: CGFloat = 44
 	
 	/// Device status bar style.
 	public var statusBarStyle: UIStatusBarStyle = UIApplication.sharedApplication().statusBarStyle {
@@ -41,46 +47,45 @@ public class StatusBarView : ControlView {
 		}
 	}
 	
+	/// A convenience initializer.
+	public convenience init() {
+		self.init(frame: CGRectZero)
+	}
+	
 	/**
 	A convenience initializer with parameter settings.
 	- Parameter leftControls: An Array of UIControls that go on the left side.
 	- Parameter rightControls: An Array of UIControls that go on the right side.
 	*/
 	public convenience init?(leftControls: Array<UIControl>? = nil, rightControls: Array<UIControl>? = nil) {
-		self.init(frame: CGRectMake(0, 0, MaterialDevice.width, 64))
+		self.init(frame: CGRectZero)
 		prepareProperties(leftControls, rightControls: rightControls)
-	}
-	
-	/// A convenience initializer.
-	public convenience init() {
-		self.init(frame: CGRectMake(0, 0, MaterialDevice.width, 64))
 	}
 	
 	public override func layoutSubviews() {
 		super.layoutSubviews()
+		
+		// Ensures a width.
+		if 1 > width {
+			width = MaterialDevice.width
+		}
+		
 		grid.axis.columns = Int(width / 48)
 		
 		// General alignment.
 		if .iPhone == MaterialDevice.type && MaterialDevice.landscape {
 			grid.contentInset.top = 8
-			height = 44
+			height = heightForLandscapeOrientation
 		} else {
-			grid.contentInset.top = 28
-			height = 64
+			grid.contentInset.top = heightForStatusBar + 8
+			height = heightForPortraitOrientation
 		}
 		
 		reloadView()
-		
-		if frame.origin.x != oldFrame!.origin.x || frame.origin.y != oldFrame!.origin.y || frame.width != oldFrame!.width || frame.height != oldFrame!.height {
-			oldFrame = frame
-			if nil != delegate {
-				statusBarViewDidChangeLayout()
-			}
-		}
 	}
 	
 	public override func intrinsicContentSize() -> CGSize {
-		return CGSizeMake(MaterialDevice.width, .iPhone == MaterialDevice.type && MaterialDevice.landscape ? 44 : 64)
+		return CGSizeMake(MaterialDevice.width, .iPhone == MaterialDevice.type && MaterialDevice.landscape ? heightForLandscapeOrientation : heightForPortraitOrientation)
 	}
 	
 	/**
@@ -93,12 +98,8 @@ public class StatusBarView : ControlView {
 	public override func prepareView() {
 		super.prepareView()
 		depth = .Depth1
-		oldFrame = frame
-		grid.spacingPreset = .Spacing2
-		grid.contentInsetPreset = .Square2
+		spacingPreset = .Spacing2
+		contentInsetPreset = .Square2
 		autoresizingMask = .FlexibleWidth
 	}
-	
-	/// Chaining method for subclasses to offer delegation or other useful features.
-	public func statusBarViewDidChangeLayout() {}
 }

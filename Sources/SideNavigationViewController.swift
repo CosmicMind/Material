@@ -373,7 +373,6 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			}
 			
 			if animated {
-				v.shadowPath = nil
 				v.shadowPathAutoSizeEnabled = false
 				
 				if hidden {
@@ -406,7 +405,6 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 					v.position.x = -v.width / 2
 					mainViewController.view.alpha = 1
 				} else {
-					v.shadowPath = nil
 					v.shadowPathAutoSizeEnabled = false
 					
 					showView(v)
@@ -439,7 +437,6 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			}
 			
 			if animated {
-				v.shadowPath = nil
 				v.shadowPathAutoSizeEnabled = false
 				
 				if hidden {
@@ -472,7 +469,6 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 					v.position.x = view.bounds.width + v.width / 2
 					mainViewController.view.alpha = 1
 				} else {
-					v.shadowPath = nil
 					v.shadowPathAutoSizeEnabled = false
 					
 					showView(v)

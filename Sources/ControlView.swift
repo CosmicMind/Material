@@ -54,7 +54,7 @@ public class ControlView : MaterialView {
 	/// A preset wrapper around spacing.
 	public var spacingPreset: MaterialSpacing = .None {
 		didSet {
-			grid.spacing = MaterialSpacingToValue(spacingPreset)
+			spacing = MaterialSpacingToValue(spacingPreset)
 		}
 	}
 	
@@ -109,7 +109,7 @@ public class ControlView : MaterialView {
 	- Parameter rightControls: An Array of UIControls that go on the right side.
 	*/
 	public convenience init?(leftControls: Array<UIControl>? = nil, rightControls: Array<UIControl>? = nil) {
-		self.init(frame: CGRectNull)
+		self.init(frame: CGRectZero)
 		prepareProperties(leftControls, rightControls: rightControls)
 	}
 	
@@ -125,13 +125,10 @@ public class ControlView : MaterialView {
 	
 	/// Reloads the view.
 	public func reloadView() {
-		// clear constraints so new ones do not conflict
-		removeConstraints(constraints)
 		for v in subviews {
-			if v != contentView {
-				v.removeFromSuperview()
-			}
+			v.removeFromSuperview()
 		}
+		
 		if 0 < width {
 			// Size of single grid column.
 			if let g: CGFloat = width / CGFloat(0 < grid.axis.columns ? grid.axis.columns : 1) {
@@ -154,6 +151,7 @@ public class ControlView : MaterialView {
 					}
 				}
 				
+				addSubview(contentView)
 				grid.views?.append(contentView)
 				
 				// rightControls
@@ -193,7 +191,6 @@ public class ControlView : MaterialView {
 	/// Prepares the contentView.
 	public func prepareContentView() {
 		contentView.backgroundColor = nil
-		addSubview(contentView)
 	}
 	
 	/**

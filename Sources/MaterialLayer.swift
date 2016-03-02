@@ -155,7 +155,15 @@ public class MaterialLayer : CAShapeLayer {
 	}
 	
 	/// Enables automatic shadowPath sizing.
-	public var shadowPathAutoSizeEnabled: Bool = false
+	public var shadowPathAutoSizeEnabled: Bool = false {
+		didSet {
+			if shadowPathAutoSizeEnabled {
+				layoutShadowPath()
+			} else {
+				shadowPath = nil
+			}
+		}
+	}
 	
 	/**
 	A property that sets the shadowOffset, shadowOpacity, and shadowRadius
