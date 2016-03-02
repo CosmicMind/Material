@@ -60,7 +60,7 @@ class ViewController: UIViewController {
 	*/
 	private func prepareGeneralMaterialLayerExample() {
 		let diameter: CGFloat = 150
-		let point: CGFloat = UIScreen.mainScreen().bounds.width / 2 - diameter / 2
+		let point: CGFloat = MaterialDevice.bounds.width / 2 - diameter / 2
 		let materialLayer: MaterialLayer = MaterialLayer(frame: CGRectMake(point, point, diameter, diameter))
 		materialLayer.shape = .Circle
 		

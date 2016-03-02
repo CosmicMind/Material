@@ -51,7 +51,7 @@ class ViewController: UIViewController {
 	
 	/// Prepares the MaterialPulseView example.
 	private func prepareGeneralMaterialPulseViewExample() {
-		let point: CGFloat = (UIScreen.mainScreen().bounds.width - 150) / 2
+		let point: CGFloat = (MaterialDevice.bounds.width - 150) / 2
 		
 		let pulseView: MaterialPulseView = MaterialPulseView(frame: CGRectMake(point, point, 150, 150))
 		pulseView.image = UIImage(named: "Graph")

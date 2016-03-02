@@ -114,15 +114,21 @@ public class StatusBarViewController: UIViewController {
 	
 	/// Layout subviews.
 	private func layoutSubviews() {
-		let size: CGSize = UIScreen.mainScreen().bounds.size
+		let size: CGSize = MaterialDevice.bounds.size
 		let h: CGFloat = UIApplication.sharedApplication().statusBarFrame.size.height
-		print(size)
 		
-//		mainViewController.view.frame = CGRectMake(0, navigationBarView.height, size.width, size.height - navigationBarView.height - (20 >= h ? 0 : h - 20))
+		if .iPhone == MaterialDevice.type && MaterialDevice.landscape {
+			mainViewController.view.frame.origin.y = 44
+			mainViewController.view.frame.size.height = size.height - (20 >= h ? 44 : h - 64)
+		} else {
+			mainViewController.view.frame.origin.y = 64
+			mainViewController.view.frame.size.height = size.height - (20 >= h ? 64 : h - 84)
+		}
 	}
 	
 	/// A method that prepares the mainViewController.
 	private func prepareMainViewController() {
+		mainViewController.view.autoresizingMask = .FlexibleWidth
 		prepareViewControllerWithinContainer(mainViewController, container: view)
 	}
 	

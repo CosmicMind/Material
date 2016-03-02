@@ -47,20 +47,18 @@ public class StatusBarView : ControlView {
 	- Parameter rightControls: An Array of UIControls that go on the right side.
 	*/
 	public convenience init?(leftControls: Array<UIControl>? = nil, rightControls: Array<UIControl>? = nil) {
-		self.init(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 64))
+		self.init(frame: CGRectMake(0, 0, MaterialDevice.width, 64))
 		prepareProperties(leftControls, rightControls: rightControls)
 	}
 	
 	/// A convenience initializer.
 	public convenience init() {
-		self.init(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 64))
+		self.init(frame: CGRectMake(0, 0, MaterialDevice.width, 64))
 	}
 	
 	public override func layoutSubviews() {
 		super.layoutSubviews()
 		grid.axis.columns = Int(width / 48)
-		
-		print(UIDevice.currentDevice().userInterfaceIdiom)
 		
 		// General alignment.
 		if .iPhone == MaterialDevice.type && MaterialDevice.landscape {
@@ -82,11 +80,7 @@ public class StatusBarView : ControlView {
 	}
 	
 	public override func intrinsicContentSize() -> CGSize {
-		if UIApplication.sharedApplication().statusBarOrientation.isLandscape {
-			return CGSizeMake(UIScreen.mainScreen().bounds.width, 44)
-		} else {
-			return CGSizeMake(UIScreen.mainScreen().bounds.width, 64)
-		}
+		return CGSizeMake(MaterialDevice.width, .iPhone == MaterialDevice.type && MaterialDevice.landscape ? 44 : 64)
 	}
 	
 	/**

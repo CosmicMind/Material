@@ -78,7 +78,7 @@ public class SearchBarViewController: StatusBarViewController {
 	
 	/// Layout subviews.
 	private func layoutSubviews() {
-		let size: CGSize = UIScreen.mainScreen().bounds.size
+		let size: CGSize = MaterialDevice.bounds.size
 		let h: CGFloat = UIApplication.sharedApplication().statusBarFrame.size.height
 		mainViewController.view.frame = CGRectMake(0, searchBarView.height, size.width, size.height - searchBarView.height - (20 >= h ? 0 : h - 20))
 	}

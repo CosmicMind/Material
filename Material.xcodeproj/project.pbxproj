@@ -35,6 +35,14 @@
 		96442ADE1C28EF3700C3C574 /* MaterialTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96442ADD1C28EF3700C3C574 /* MaterialTableViewCell.swift */; };
 		96442ADF1C28EF3E00C3C574 /* MaterialTableViewCell.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96442ADD1C28EF3700C3C574 /* MaterialTableViewCell.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		965626421C874FAE004ADEF7 /* MaterialDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965626411C874FAE004ADEF7 /* MaterialDevice.swift */; };
+		965626431C8757B4004ADEF7 /* MaterialSpacing.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96CC089F1C80CB180034FF84 /* MaterialSpacing.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		965626441C8757B4004ADEF7 /* MaterialDevice.swift in Headers */ = {isa = PBXBuildFile; fileRef = 965626411C874FAE004ADEF7 /* MaterialDevice.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		965626451C8757B4004ADEF7 /* MaterialCollectionView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96CC088B1C7FEC170034FF84 /* MaterialCollectionView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		965626461C8757B4004ADEF7 /* MaterialCollectionViewCell.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96CC088C1C7FEC170034FF84 /* MaterialCollectionViewCell.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		965626471C8757B4004ADEF7 /* MaterialCollectionViewDataSource.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96CC088D1C7FEC170034FF84 /* MaterialCollectionViewDataSource.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		965626481C8757B4004ADEF7 /* MaterialCollectionViewDelegate.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96CC088E1C7FEC170034FF84 /* MaterialCollectionViewDelegate.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		965626491C8757B4004ADEF7 /* MaterialCollectionViewLayout.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96CC088F1C7FEC170034FF84 /* MaterialCollectionViewLayout.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		9656264A1C8757B4004ADEF7 /* MaterialDataSourceItem.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96CC08901C7FEC170034FF84 /* MaterialDataSourceItem.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9656CD0C1C6BD33700EBCEF1 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9656CD0B1C6BD33700EBCEF1 /* Grid.swift */; };
 		966F57B81C226D75009185B7 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966F57B71C226D75009185B7 /* TextField.swift */; };
 		96A71E911C6FBC2200C0C4AE /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71E901C6FBC2200C0C4AE /* MenuView.swift */; };
@@ -599,6 +607,14 @@
 				96CC08371C7CCB7C0034FF84 /* SearchBarViewController.swift in Headers */,
 				96CC08381C7CCB7C0034FF84 /* NavigationBarViewController.swift in Headers */,
 				96CC083E1C7CFF2A0034FF84 /* StatusBarViewController.swift in Headers */,
+				965626431C8757B4004ADEF7 /* MaterialSpacing.swift in Headers */,
+				965626441C8757B4004ADEF7 /* MaterialDevice.swift in Headers */,
+				965626451C8757B4004ADEF7 /* MaterialCollectionView.swift in Headers */,
+				965626461C8757B4004ADEF7 /* MaterialCollectionViewCell.swift in Headers */,
+				965626471C8757B4004ADEF7 /* MaterialCollectionViewDataSource.swift in Headers */,
+				965626481C8757B4004ADEF7 /* MaterialCollectionViewDelegate.swift in Headers */,
+				965626491C8757B4004ADEF7 /* MaterialCollectionViewLayout.swift in Headers */,
+				9656264A1C8757B4004ADEF7 /* MaterialDataSourceItem.swift in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

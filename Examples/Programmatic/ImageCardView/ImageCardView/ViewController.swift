@@ -59,7 +59,7 @@ class ViewController: UIViewController {
 		let imageCardView: ImageCardView = ImageCardView()
 		
 		// Image.
-		let size: CGSize = CGSizeMake(UIScreen.mainScreen().bounds.width - CGFloat(40), 150)
+		let size: CGSize = CGSizeMake(MaterialDevice.bounds.width - CGFloat(40), 150)
 		imageCardView.image = UIImage.imageWithColor(MaterialColor.cyan.darken1, size: size)
 		
 		// Title label.

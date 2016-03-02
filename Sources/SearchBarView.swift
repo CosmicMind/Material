@@ -82,7 +82,7 @@ public class SearchBarView : StatusBarView {
 	
 	/// A convenience initializer.
 	public convenience init() {
-		self.init(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 64))
+		self.init(frame: CGRectMake(0, 0, MaterialDevice.bounds.width, 64))
 	}
 	
 	/**
