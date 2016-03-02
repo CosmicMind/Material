@@ -130,11 +130,6 @@ public class NavigationBarViewController: StatusBarViewController {
 		}
 	}
 	
-	public override func viewWillLayoutSubviews() {
-		super.viewWillLayoutSubviews()
-		layoutSubviews()
-	}
-	
 	/**
 	Prepares the view instance when intialized. When subclassing,
 	it is recommended to override the prepareView method
@@ -149,22 +144,7 @@ public class NavigationBarViewController: StatusBarViewController {
 	
 	/// Prepares the NavigationBarView.
 	private func prepareNavigationBarView() {
-		navigationBarView.delegate = self
 		navigationBarView.zPosition = 1000
 		view.addSubview(navigationBarView)
-	}
-	
-	/// Layout subviews.
-	private func layoutSubviews() {
-		let size: CGSize = UIScreen.mainScreen().bounds.size
-		let h: CGFloat = UIApplication.sharedApplication().statusBarFrame.size.height
-		mainViewController.view.frame = CGRectMake(0, navigationBarView.height, size.width, size.height - navigationBarView.height - (20 >= h ? 0 : h - 20))
-	}
-}
-
-extension NavigationBarViewController : NavigationBarViewDelegate {
-	/// Monitor layout changes.
-	public func navigationBarViewDidChangeLayout(navigationBarView: NavigationBarView) {
-		layoutSubviews()
 	}
 }

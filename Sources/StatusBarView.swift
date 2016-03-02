@@ -58,12 +58,12 @@ public class StatusBarView : ControlView {
 	
 	public override func layoutSubviews() {
 		super.layoutSubviews()
-		width = UIScreen.mainScreen().bounds.width
-		
 		grid.axis.columns = Int(width / 48)
 		
+		print(UIDevice.currentDevice().userInterfaceIdiom)
+		
 		// General alignment.
-		if UIApplication.sharedApplication().statusBarOrientation.isLandscape {
+		if .iPhone == MaterialDevice.type && MaterialDevice.landscape {
 			grid.contentInset.top = 8
 			height = 44
 		} else {
@@ -74,10 +74,10 @@ public class StatusBarView : ControlView {
 		reloadView()
 		
 		if frame.origin.x != oldFrame!.origin.x || frame.origin.y != oldFrame!.origin.y || frame.width != oldFrame!.width || frame.height != oldFrame!.height {
+			oldFrame = frame
 			if nil != delegate {
 				statusBarViewDidChangeLayout()
 			}
-			oldFrame = frame
 		}
 	}
 	
@@ -102,6 +102,7 @@ public class StatusBarView : ControlView {
 		oldFrame = frame
 		grid.spacingPreset = .Spacing2
 		grid.contentInsetPreset = .Square2
+		autoresizingMask = .FlexibleWidth
 	}
 	
 	/// Chaining method for subclasses to offer delegation or other useful features.

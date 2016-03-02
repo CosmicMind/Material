@@ -107,6 +107,20 @@ public class StatusBarViewController: UIViewController {
 		prepareMainViewController()
 	}
 	
+	public override func viewWillLayoutSubviews() {
+		super.viewWillLayoutSubviews()
+		layoutSubviews()
+	}
+	
+	/// Layout subviews.
+	private func layoutSubviews() {
+		let size: CGSize = UIScreen.mainScreen().bounds.size
+		let h: CGFloat = UIApplication.sharedApplication().statusBarFrame.size.height
+		print(size)
+		
+//		mainViewController.view.frame = CGRectMake(0, navigationBarView.height, size.width, size.height - navigationBarView.height - (20 >= h ? 0 : h - 20))
+	}
+	
 	/// A method that prepares the mainViewController.
 	private func prepareMainViewController() {
 		prepareViewControllerWithinContainer(mainViewController, container: view)
