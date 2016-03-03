@@ -164,7 +164,7 @@ public class NavigationBarViewController: StatusBarViewController {
 	Prepares the view instance when intialized. When subclassing,
 	it is recommended to override the prepareView method
 	to initialize property values and other setup operations.
-	The super.prepareView method should always be called at the end
+	The super.prepareView method should always be called immediately
 	when subclassing.
 	*/
 	public override func prepareView() {

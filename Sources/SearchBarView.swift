@@ -85,23 +85,21 @@ public class SearchBarView : StatusBarView {
 		self.init(frame: CGRectZero)
 	}
 	
-	public override func reloadView() {
-		super.reloadView()
-		contentView.grid.views = [textField]
-		textField.reloadView()
+	public override func layoutSubviews() {
+		super.layoutSubviews()
+		if willRenderView {
+			contentView.grid.views?.append(textField)
+			textField.font = textField.font?.fontWithSize(20)
+			textField.reloadView()
+		}
 	}
 	
-	/**
-	Prepares the view instance when intialized. When subclassing,
-	it is recommended to override the prepareView method
-	to initialize property values and other setup operations.
-	The super.prepareView method should always be called immediately
-	when subclassing.
-	*/
-	public override func prepareView() {
-		super.prepareView()
+	/// Prepares the contentView.
+	public override func prepareContentView() {
+		super.prepareContentView()
 		prepareTextField()
 	}
+	
 	
 	/// Prepares the textField.
 	private func prepareTextField() {
