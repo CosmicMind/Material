@@ -113,7 +113,6 @@ class AppSearchBarViewController: SearchBarViewController {
 		*/
 		searchBarView.statusBarStyle = .Default
 		
-		searchBarView.delegate = self
 		searchBarView.placeholder = "Search"
 		searchBarView.tintColor = MaterialColor.blueGrey.darken4
 		searchBarView.textColor = MaterialColor.blueGrey.darken4
