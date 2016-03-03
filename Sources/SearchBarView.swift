@@ -89,6 +89,7 @@ public class SearchBarView : StatusBarView {
 		super.layoutSubviews()
 		if willRenderView {
 			contentView.grid.views?.append(textField)
+			contentView.grid.reloadLayout()
 			textField.font = textField.font?.fontWithSize(20)
 			textField.reloadView()
 		}

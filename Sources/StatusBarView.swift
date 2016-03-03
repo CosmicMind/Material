@@ -70,6 +70,7 @@ public class StatusBarView : ControlView {
 		
 		grid.axis.columns = Int(width / 48)
 		
+		// We can call super now that we have a width.
 		super.layoutSubviews()
 		
 		// General alignment.

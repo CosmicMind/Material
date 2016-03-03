@@ -75,9 +75,7 @@ public class NavigationBarView : StatusBarView {
 	
 	public override func layoutSubviews() {
 		super.layoutSubviews()
-	
 		if willRenderView {
-			
 			// TitleView alignment.
 			if let v: UILabel = titleLabel {
 				if let d: UILabel = detailLabel {
@@ -106,6 +104,7 @@ public class NavigationBarView : StatusBarView {
 				contentView.grid.views?.append(v)
 			}
 			
+			grid.reloadLayout()
 			contentView.grid.reloadLayout()
 		}
 	}
