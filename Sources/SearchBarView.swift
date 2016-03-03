@@ -30,11 +30,6 @@
 
 import UIKit
 
-@objc(SearchBarViewDelegate)
-public protocol SearchBarViewDelegate : MaterialDelegate {
-	optional func searchBarViewDidChangeLayout(searchBarView: SearchBarView)
-}
-
 public class SearchBarView : StatusBarView {
 	/// The UITextField for the searchBar.
 	public private(set) lazy var textField: TextField = TextField()

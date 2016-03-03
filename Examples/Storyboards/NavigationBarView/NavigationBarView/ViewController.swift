@@ -35,12 +35,16 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var navigationBarView: NavigationBarView!
 	
-	/// ************* This needs to be attached to the Storyboard. *************
 	@IBOutlet weak var navigationBarViewHeightConstraint: NSLayoutConstraint?
 	
 	override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
-		// if landscape
+		// If landscape.
 		if UIInterfaceOrientationIsLandscape(toInterfaceOrientation) {
+			/**
+			The height of the NavigationBarView is dependant on the device being used.
+			If the device is an iPad, the height should stay the same as in Portrait 
+			view, otherwise it should strink to the Landscape height for iPhone.
+			*/
 			navigationBarViewHeightConstraint?.constant = .iPad == MaterialDevice.type ? navigationBarView!.heightForPortraitOrientation :  navigationBarView!.heightForLandscapeOrientation
 		} else {
 			navigationBarViewHeightConstraint?.constant = navigationBarView!.heightForPortraitOrientation

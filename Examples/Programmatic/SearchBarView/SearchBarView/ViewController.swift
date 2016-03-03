@@ -91,12 +91,11 @@ class ViewController: UIViewController {
 		*/
 		searchBarView.statusBarStyle = .Default
 		
-		searchBarView.delegate = self
 		searchBarView.placeholder = "Search"
 		searchBarView.tintColor = MaterialColor.blueGrey.darken4
 		searchBarView.textColor = MaterialColor.blueGrey.darken4
 		searchBarView.placeholderTextColor = MaterialColor.blueGrey.darken4
-		searchBarView.textField.font = RobotoFont.regularWithSize(20)
+		searchBarView.textField.font = RobotoFont.regular
 		
 		searchBarView.clearButton = clearButton
 		searchBarView.leftControls = [backButton]
@@ -105,12 +104,3 @@ class ViewController: UIViewController {
 		view.addSubview(searchBarView)
 	}
 }
-
-
-/// SearchBarViewDelegate methods.
-extension ViewController: SearchBarViewDelegate {
-	func searchBarViewDidChangeLayout(searchBarView: SearchBarView) {
-		print("Updated Frame: \(searchBarView.frame)")
-	}
-}
-
