@@ -58,6 +58,45 @@ class ViewController: UIViewController {
 	:description:	General usage example.
 	*/
 	private func prepareGeneralCardViewExample() {
+//		let cardView: CardView = CardView()
+//		
+//		// Title label.
+//		let titleLabel: UILabel = UILabel()
+//		titleLabel.text = "Welcome Back!"
+//		titleLabel.textColor = MaterialColor.blue.darken1
+//		titleLabel.font = RobotoFont.mediumWithSize(20)
+//		cardView.titleLabel = titleLabel
+//		
+//		// Detail label.
+//		let detailLabel: UILabel = UILabel()
+//		detailLabel.text = "It’s been a while, have you read any new books lately?"
+//		detailLabel.numberOfLines = 0
+//		cardView.detailView = detailLabel
+//		
+//		// Yes button.
+//		let btn1: FlatButton = FlatButton()
+//		btn1.pulseColor = MaterialColor.blue.lighten1
+//		btn1.pulseScale = false
+//		btn1.setTitle("YES", forState: .Normal)
+//		btn1.setTitleColor(MaterialColor.blue.darken1, forState: .Normal)
+//		
+//		// No button.
+//		let btn2: FlatButton = FlatButton()
+//		btn2.pulseColor = MaterialColor.blue.lighten1
+//		btn2.pulseScale = false
+//		btn2.setTitle("NO", forState: .Normal)
+//		btn2.setTitleColor(MaterialColor.blue.darken1, forState: .Normal)
+//
+//		// Add buttons to left side.
+//		cardView.leftButtons = [btn1, btn2]
+//		
+//		// To support orientation changes, use MaterialLayout.
+//		view.addSubview(cardView)
+//		cardView.translatesAutoresizingMaskIntoConstraints = false
+//		MaterialLayout.alignFromTop(view, child: cardView, top: 100)
+//		MaterialLayout.alignToParentHorizontally(view, child: cardView, left: 20, right: 20)
+
+		
 		let cardView: CardView = CardView()
 		
 		// Title label.
@@ -86,7 +125,7 @@ class ViewController: UIViewController {
 		btn2.pulseScale = false
 		btn2.setTitle("NO", forState: .Normal)
 		btn2.setTitleColor(MaterialColor.blue.darken1, forState: .Normal)
-
+		
 		// Add buttons to left side.
 		cardView.leftButtons = [btn1, btn2]
 		
@@ -96,6 +135,7 @@ class ViewController: UIViewController {
 		MaterialLayout.alignFromTop(view, child: cardView, top: 100)
 		MaterialLayout.alignToParentHorizontally(view, child: cardView, left: 20, right: 20)
 		
+		cardView.animate(MaterialAnimation.translateY(200))
 	}
 	
 	/**

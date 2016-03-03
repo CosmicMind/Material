@@ -308,7 +308,11 @@ public class MaterialLayer : CAShapeLayer {
 	if interrupted.
 	*/
 	public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
-		if anim is CAPropertyAnimation {
+		if let a: CAPropertyAnimation = anim as? CAPropertyAnimation {
+			if let b: CABasicAnimation = a as? CABasicAnimation {
+				setValue(nil == b.toValue ? b.byValue : b.toValue, forKeyPath: b.keyPath!)
+			}
+			removeAnimationForKey(a.keyPath!)
 			(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStop?(anim, finished: flag)
 		} else if let a: CAAnimationGroup = anim as? CAAnimationGroup {
 			for x in a.animations! {

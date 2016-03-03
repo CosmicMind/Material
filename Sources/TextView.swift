@@ -432,7 +432,11 @@ public class TextView: UITextView {
 	if interrupted.
 	*/
 	public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
-		if anim is CAPropertyAnimation {
+		if let a: CAPropertyAnimation = anim as? CAPropertyAnimation {
+			if let b: CABasicAnimation = a as? CABasicAnimation {
+				layer.setValue(nil == b.toValue ? b.byValue : b.toValue, forKeyPath: b.keyPath!)
+			}
+			layer.removeAnimationForKey(a.keyPath!)
 			(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStop?(anim, finished: flag)
 		} else if let a: CAAnimationGroup = anim as? CAAnimationGroup {
 			for x in a.animations! {
