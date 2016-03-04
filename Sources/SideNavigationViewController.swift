@@ -516,13 +516,13 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 				showView(v)
 				
 				delegate?.sideNavigationViewWillOpen?(self, position: .Left)
+				mainViewController.view.alpha = 0.5
 				UIView.animateWithDuration(Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.x / velocity)))),
-				animations: { [unowned self] in
-					v.position.x = v.width / 2
-					self.mainViewController.view.alpha = 0.5
-				}) { _ in
-					self.delegate?.sideNavigationViewDidOpen?(self, position: .Left)
-				}
+					animations: {
+						v.position.x = v.width / 2
+					}) { [unowned self] _ in
+						self.delegate?.sideNavigationViewDidOpen?(self, position: .Left)
+					}
 			}
 		}
 	}
@@ -540,11 +540,11 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 				showView(v)
 				
 				delegate?.sideNavigationViewWillOpen?(self, position: .Right)
+				mainViewController.view.alpha = 0.5
 				UIView.animateWithDuration(Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.x / velocity)))),
 					animations: { [unowned self] in
 						v.position.x = self.view.bounds.width - v.width / 2
-						self.mainViewController.view.alpha = 0.5
-					}) { _ in
+					}) { [unowned self] _ in
 						self.delegate?.sideNavigationViewDidOpen?(self, position: .Right)
 					}
 			}
@@ -561,15 +561,15 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		if enabledLeftView {
 			if let v: MaterialView = leftView {
 				delegate?.sideNavigationViewWillClose?(self, position: .Left)
+				mainViewController.view.alpha = 1
 				UIView.animateWithDuration(Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.x / velocity)))),
-				animations: { [unowned self] in
-					v.position.x = -v.width / 2
-					self.mainViewController.view.alpha = 1
-				}) { _ in
-					self.toggleStatusBar()
-					self.hideView(v)
-					self.delegate?.sideNavigationViewDidClose?(self, position: .Left)
-				}
+					animations: {
+						v.position.x = -v.width / 2
+					}) { [unowned self] _ in
+						self.toggleStatusBar()
+						self.hideView(v)
+						self.delegate?.sideNavigationViewDidClose?(self, position: .Left)
+					}
 			}
 		}
 	}
@@ -584,15 +584,15 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		if enabledRightView {
 			if let v: MaterialView = rightView {
 				delegate?.sideNavigationViewWillClose?(self, position: .Right)
+				mainViewController.view.alpha = 1
 				UIView.animateWithDuration(Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.x / velocity)))),
-				animations: { [unowned self] in
-					v.position.x = self.view.bounds.width + v.width / 2
-					self.mainViewController.view.alpha = 1
-				}) { _ in
-					self.toggleStatusBar()
-					self.hideView(v)
-					self.delegate?.sideNavigationViewDidClose?(self, position: .Right)
-				}
+					animations: { [unowned self] in
+						v.position.x = self.view.bounds.width + v.width / 2
+					}) { [unowned self] _ in
+						self.toggleStatusBar()
+						self.hideView(v)
+						self.delegate?.sideNavigationViewDidClose?(self, position: .Right)
+					}
 			}
 		}
 	}
@@ -900,6 +900,14 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		userInteractionEnabled = false
 		container.depth = depth
 		container.hidden = false
+		container.layer.shouldRasterize = true
+		container.layer.rasterizationScale = MaterialDevice.scale
+		mainViewController.view.layer.shouldRasterize = true
+		mainViewController.view.layer.rasterizationScale = MaterialDevice.scale
+		leftViewController?.view.layer.shouldRasterize = true
+		leftViewController?.view.layer.rasterizationScale = MaterialDevice.scale
+		rightViewController?.view.layer.shouldRasterize = true
+		rightViewController?.view.layer.rasterizationScale = MaterialDevice.scale
 	}
 	
 	/**
@@ -910,6 +918,10 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		userInteractionEnabled = true
 		container.depth = .None
 		container.hidden = true
+		container.layer.shouldRasterize = false
+		mainViewController.view.layer.shouldRasterize = false
+		leftViewController?.view.layer.shouldRasterize = false
+		rightViewController?.view.layer.shouldRasterize = false
 	}
 	
 	/// Layout subviews.

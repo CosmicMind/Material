@@ -130,9 +130,7 @@ public class MenuViewController: UIViewController {
 	public func openMenu(completion: (() -> Void)? = nil) {
 		if true == userInteractionEnabled {
 			userInteractionEnabled = false
-			UIView.animateWithDuration(0.25, animations: { [unowned self] in
-				self.mainViewController.view.alpha = 0.5
-			})
+			mainViewController.view.alpha = 0.5
 			menuView.open(completion)
 		}
 	}
@@ -144,12 +142,11 @@ public class MenuViewController: UIViewController {
 	*/
 	public func closeMenu(completion: (() -> Void)? = nil) {
 		if false == userInteractionEnabled {
-			UIView.animateWithDuration(0.25, animations: { [unowned self] in
-				self.mainViewController.view.alpha = 1
-			}) { [weak self] _ in
+			mainViewController.view.alpha = 1
+			menuView.close({ [weak self] in
 				self?.userInteractionEnabled = true
-			}
-			menuView.close(completion)
+				completion?()
+			})
 		}
 	}
 	

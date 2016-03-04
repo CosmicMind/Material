@@ -135,8 +135,7 @@ public class MaterialLayer : CAShapeLayer {
 	/**
 	A floating point value that defines a ratio between the pixel
 	dimensions of the visualLayer's contents property and the size
-	of the layer. By default, this value is set to the UIScreen's
-	scale value, UIScreen.mainScreen().scale.
+	of the layer. By default, this value is set to the MaterialDevice.scale.
 	*/
 	public override var contentsScale: CGFloat {
 		didSet {
@@ -336,14 +335,16 @@ public class MaterialLayer : CAShapeLayer {
 	/// Manages the layout for the visualLayer property.
 	internal func layoutVisualLayer() {
 		visualLayer.frame = bounds
-		visualLayer.position = CGPointMake(width / 2, height / 2)
 		visualLayer.cornerRadius = cornerRadius
 	}
 	
 	/// Manages the layout for the shape of the layer instance.
 	internal func layoutShape() {
 		if .Circle == shape {
-			cornerRadius = width / 2
+			let w: CGFloat = (width / 2)
+			if w != cornerRadius {
+				cornerRadius = w
+			}
 		}
 	}
 	

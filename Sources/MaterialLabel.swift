@@ -113,7 +113,7 @@ public class MaterialLabel : UILabel {
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		wrapped = true
-		contentsScale = UIScreen.mainScreen().scale
+		contentsScale = MaterialDevice.scale
 		super.init(coder: aDecoder)
 	}
 	
@@ -122,7 +122,7 @@ public class MaterialLabel : UILabel {
 	*/
 	public override init(frame: CGRect) {
 		wrapped = true
-		contentsScale = UIScreen.mainScreen().scale
+		contentsScale = MaterialDevice.scale
 		super.init(frame: frame)
 		prepareView()
 	}

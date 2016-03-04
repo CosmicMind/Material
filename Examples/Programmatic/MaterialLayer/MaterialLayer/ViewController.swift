@@ -76,8 +76,8 @@ class ViewController: UIViewController {
 		view.layer.addSublayer(materialLayer)
 		
 		// Add a rotate animation.
-		MaterialAnimation.delay(3) {
-			materialLayer.animate(MaterialAnimation.rotate(3, duration: 3))
+		MaterialAnimation.delay(1) {
+			materialLayer.animate(MaterialAnimation.rotate(rotation: 3, duration: 3))
 		}
 	}
 }

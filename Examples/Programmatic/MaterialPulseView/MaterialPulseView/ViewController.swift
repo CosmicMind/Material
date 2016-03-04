@@ -68,8 +68,9 @@ class ViewController: UIViewController {
 		}
 		
 		pulseView.animate(MaterialAnimation.animationGroup([
-			MaterialAnimation.rotate(4.5),
-			MaterialAnimation.translateY(300)
+			MaterialAnimation.rotate(angle: 45),
+			MaterialAnimation.rotateX(rotation: 2),
+			MaterialAnimation.translateY(200)
 		], duration: 4))
 	}
 }

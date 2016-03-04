@@ -428,7 +428,6 @@ public class MaterialTableViewCell: UITableViewCell {
 	/// Manages the layout for the visualLayer property.
 	internal func layoutVisualLayer() {
 		visualLayer.frame = bounds
-		visualLayer.position = CGPointMake(width / 2, height / 2)
 		visualLayer.cornerRadius = cornerRadius
 	}
 	

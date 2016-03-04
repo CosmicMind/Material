@@ -71,4 +71,9 @@ public struct MaterialDevice {
 	public static var height: CGFloat {
 		return bounds.height
 	}
+	
+	/// Retrieves the device scale.
+	public static var scale: CGFloat {
+		return UIScreen.mainScreen().scale
+	}
 }

@@ -79,9 +79,13 @@ public extension MaterialAnimation {
 	/**
 	:name:	rotate
 	*/
-	public static func rotate(rotations: Double = 1, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+	public static func rotate(angle angle: CGFloat? = nil, rotation: CGFloat? = nil, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation: CABasicAnimation = CABasicAnimation(keyPath: "transform.rotation")
-		animation.byValue = (M_PI * 2 * rotations) as NSNumber
+		if let v: CGFloat = angle {
+			animation.toValue = (CGFloat(M_PI) * v / 180) as NSNumber
+		} else if let v: CGFloat = rotation {
+			animation.toValue = (CGFloat(M_PI * 2) * v) as NSNumber
+		}
 		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
 		animation.removedOnCompletion = false
 		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
@@ -94,9 +98,13 @@ public extension MaterialAnimation {
 	/**
 	:name:	rotateX
 	*/
-	public static func rotateX(rotations: Double = 1, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+	public static func rotateX(angle angle: CGFloat? = nil, rotation: CGFloat? = nil, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation: CABasicAnimation = CABasicAnimation(keyPath: "transform.rotation.x")
-		animation.byValue = (M_PI * 2 * rotations) as NSNumber
+		if let v: CGFloat = angle {
+			animation.toValue = (CGFloat(M_PI) * v / 180) as NSNumber
+		} else if let v: CGFloat = rotation {
+			animation.toValue = (CGFloat(M_PI * 2) * v) as NSNumber
+		}
 		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
 		animation.removedOnCompletion = false
 		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
@@ -109,9 +117,13 @@ public extension MaterialAnimation {
 	/**
 	:name:	rotateY
 	*/
-	public static func rotateY(rotations: Double = 1, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+	public static func rotateY(angle angle: CGFloat? = nil, rotation: CGFloat? = nil, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation: CABasicAnimation = CABasicAnimation(keyPath: "transform.rotation.y")
-		animation.byValue = (M_PI * 2 * rotations) as NSNumber
+		if let v: CGFloat = angle {
+			animation.toValue = (CGFloat(M_PI) * v / 180) as NSNumber
+		} else if let v: CGFloat = rotation {
+			animation.toValue = (CGFloat(M_PI * 2) * v) as NSNumber
+		}
 		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
 		animation.removedOnCompletion = false
 		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
@@ -124,9 +136,13 @@ public extension MaterialAnimation {
 	/**
 	:name:	rotateZ
 	*/
-	public static func rotateZ(rotations: Double = 1, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+	public static func rotateZ(angle angle: CGFloat? = nil, rotation: CGFloat? = nil, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation: CABasicAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
-		animation.byValue = (M_PI_4 * rotations) as NSNumber
+		if let v: CGFloat = angle {
+			animation.toValue = (CGFloat(M_PI) * v / 180) as NSNumber
+		} else if let v: CGFloat = rotation {
+			animation.toValue = (CGFloat(M_PI * 2) * v) as NSNumber
+		}
 		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
 		animation.removedOnCompletion = false
 		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)

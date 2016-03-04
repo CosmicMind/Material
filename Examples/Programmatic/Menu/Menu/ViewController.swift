@@ -90,7 +90,7 @@ class ViewController: UIViewController {
 		
 		// Add a nice rotation animation to the base button.
 		let first: MaterialButton? = fabMenu.views?.first as? MaterialButton
-		first?.animate(MaterialAnimation.rotate(1))
+		first?.animate(MaterialAnimation.rotate(rotation: 1))
 		first?.setImage(image, forState: .Normal)
 		first?.setImage(image, forState: .Highlighted)
 	}

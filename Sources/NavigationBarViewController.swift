@@ -111,6 +111,8 @@ public class NavigationBarViewController: StatusBarViewController {
 		}
 		set(value) {
 			if let v: UIViewController = internalFloatingViewController {
+				v.view.layer.rasterizationScale = MaterialDevice.scale
+				v.view.layer.shouldRasterize = true
 				delegate?.navigationBarViewControllerWillCloseFloatingViewController?(self)
 				internalFloatingViewController = nil
 				UIView.animateWithDuration(0.5,
@@ -122,6 +124,7 @@ public class NavigationBarViewController: StatusBarViewController {
 						v.willMoveToParentViewController(nil)
 						v.view.removeFromSuperview()
 						v.removeFromParentViewController()
+						v.view.layer.shouldRasterize = false
 						self.userInteractionEnabled = true
 						self.navigationBarView.userInteractionEnabled = true
 						dispatch_async(dispatch_get_main_queue()) { [unowned self] in
@@ -142,6 +145,10 @@ public class NavigationBarViewController: StatusBarViewController {
 				
 				// Animate the noteButton out and the noteViewController! in.
 				v.view.hidden = false
+				v.view.layer.rasterizationScale = MaterialDevice.scale
+				v.view.layer.shouldRasterize = true
+				view.layer.rasterizationScale = MaterialDevice.scale
+				view.layer.shouldRasterize = true
 				internalFloatingViewController = v
 				userInteractionEnabled = false
 				navigationBarView.userInteractionEnabled = false
@@ -152,6 +159,8 @@ public class NavigationBarViewController: StatusBarViewController {
 						self.navigationBarView.alpha = 0.5
 						self.mainViewController.view.alpha = 0.5
 					}) { [unowned self] _ in
+						v.view.layer.shouldRasterize = false
+						self.view.layer.shouldRasterize = false
 						dispatch_async(dispatch_get_main_queue()) { [unowned self] in
 							self.delegate?.navigationBarViewControllerDidOpenFloatingViewController?(self)
 						}

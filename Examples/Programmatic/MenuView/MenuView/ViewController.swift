@@ -59,12 +59,12 @@ class ViewController: UIViewController {
 	internal func handleMenu() {
 		if menuView.menu.opened {
 			menuView.menu.close()
-			(menuView.menu.views?.first as? MaterialButton)?.animate(MaterialAnimation.rotate(-0.125))
+			(menuView.menu.views?.first as? MaterialButton)?.animate(MaterialAnimation.rotate(rotation: 0))
 		} else {
 			menuView.menu.open() { (v: UIView) in
 				(v as? MaterialButton)?.pulse()
 			}
-			(menuView.menu.views?.first as? MaterialButton)?.animate(MaterialAnimation.rotate(0.125))
+			(menuView.menu.views?.first as? MaterialButton)?.animate(MaterialAnimation.rotate(rotation: 0.125))
 		}
 	}
 	

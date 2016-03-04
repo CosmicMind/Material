@@ -52,13 +52,13 @@ class AppMenuViewController: MenuViewController {
 	override func openMenu(completion: (() -> Void)? = nil) {
 		super.openMenu(completion)
 		sideNavigationViewController?.enabled = false
-		(menuView.menu.views?.first as? MaterialButton)?.animate(MaterialAnimation.rotate(0.125))
+		(menuView.menu.views?.first as? MaterialButton)?.animate(MaterialAnimation.rotate(angle: 45))
 	}
 	
 	override func closeMenu(completion: (() -> Void)? = nil) {
 		super.closeMenu(completion)
 		sideNavigationViewController?.enabled = true
-		(menuView.menu.views?.first as? MaterialButton)?.animate(MaterialAnimation.rotate(-0.125))
+		(menuView.menu.views?.first as? MaterialButton)?.animate(MaterialAnimation.rotate(angle: 0))
 	}
 	
 	/// Handler for blue button.

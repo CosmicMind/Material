@@ -574,7 +574,10 @@ public class TextField : UITextField {
 	/// Manages the layout for the shape of the view instance.
 	internal func layoutShape() {
 		if .Circle == shape {
-			layer.cornerRadius = width / 2
+			let w: CGFloat = (width / 2)
+			if w != cornerRadius {
+				cornerRadius = w
+			}
 		}
 	}
 	

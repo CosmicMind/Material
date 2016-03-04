@@ -81,8 +81,7 @@ public class MaterialView : UIView {
 	/**
 	A floating point value that defines a ratio between the pixel 
 	dimensions of the visualLayer's contents property and the size 
-	of the view. By default, this value is set to the UIScreen's 
-	scale value, UIScreen.mainScreen().scale.
+	of the view. By default, this value is set to the MaterialDevice.scale.
 	*/
 	public var contentsScale: CGFloat {
 		didSet {
@@ -347,7 +346,7 @@ public class MaterialView : UIView {
 	public required init?(coder aDecoder: NSCoder) {
 		contentsRect = CGRectMake(0, 0, 1, 1)
 		contentsCenter = CGRectMake(0, 0, 1, 1)
-		contentsScale = UIScreen.mainScreen().scale
+		contentsScale = MaterialDevice.scale
 		contentsGravity = .ResizeAspectFill
 		super.init(coder: aDecoder)
 		prepareView()
@@ -362,7 +361,7 @@ public class MaterialView : UIView {
 	public override init(frame: CGRect) {
 		contentsRect = CGRectMake(0, 0, 1, 1)
 		contentsCenter = CGRectMake(0, 0, 1, 1)
-		contentsScale = UIScreen.mainScreen().scale
+		contentsScale = MaterialDevice.scale
 		contentsGravity = .ResizeAspectFill
 		super.init(frame: frame)
 		prepareView()
@@ -435,7 +434,6 @@ public class MaterialView : UIView {
 				animationDidStop(x, finished: true)
 			}
 		}
-		layoutVisualLayer()
 	}
 	
 	/**
@@ -460,14 +458,16 @@ public class MaterialView : UIView {
 	/// Manages the layout for the visualLayer property.
 	internal func layoutVisualLayer() {
 		visualLayer.frame = bounds
-		visualLayer.position = CGPointMake(width / 2, height / 2)
 		visualLayer.cornerRadius = cornerRadius
 	}
 	
 	/// Manages the layout for the shape of the view instance.
 	internal func layoutShape() {
 		if .Circle == shape {
-			layer.cornerRadius = width / 2
+			let w: CGFloat = (width / 2)
+			if w != cornerRadius {
+				cornerRadius = w
+			}
 		}
 	}
 	

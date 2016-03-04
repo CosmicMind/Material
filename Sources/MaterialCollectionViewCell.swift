@@ -522,14 +522,16 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	/// Manages the layout for the visualLayer property.
 	internal func layoutVisualLayer() {
 		visualLayer.frame = bounds
-		visualLayer.position = CGPointMake(width / 2, height / 2)
 		visualLayer.cornerRadius = cornerRadius
 	}
 	
 	/// Manages the layout for the shape of the view instance.
 	internal func layoutShape() {
 		if .Circle == shape {
-			layer.cornerRadius = width / 2
+			let w: CGFloat = (width / 2)
+			if w != cornerRadius {
+				cornerRadius = w
+			}
 		}
 	}
 	
