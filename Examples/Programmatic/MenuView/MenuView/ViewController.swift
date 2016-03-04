@@ -57,23 +57,15 @@ class ViewController: UIViewController {
 	
 	/// Handle the menuView touch event.
 	internal func handleMenu() {
-		let image: UIImage?
-		
 		if menuView.menu.opened {
 			menuView.menu.close()
-			image = UIImage(named: "ic_add_white")?.imageWithRenderingMode(.AlwaysTemplate)
+			(menuView.menu.views?.first as? MaterialButton)?.animate(MaterialAnimation.rotate(-0.125))
 		} else {
 			menuView.menu.open() { (v: UIView) in
 				(v as? MaterialButton)?.pulse()
 			}
-			image = UIImage(named: "ic_close_white")?.imageWithRenderingMode(.AlwaysTemplate)
+			(menuView.menu.views?.first as? MaterialButton)?.animate(MaterialAnimation.rotate(0.125))
 		}
-		
-		// Add a nice rotation animation to the base button.
-		let first: MaterialButton? = menuView.menu.views?.first as? MaterialButton
-		first?.animate(MaterialAnimation.rotate(1))
-		first?.setImage(image, forState: .Normal)
-		first?.setImage(image, forState: .Highlighted)
 	}
 	
 	/// Handle the menuView touch event.

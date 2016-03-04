@@ -60,6 +60,7 @@ class AppNavigationBarViewController: NavigationBarViewController {
 	override func prepareView() {
 		super.prepareView()
 		view.backgroundColor = MaterialColor.black
+		navigationBarViewController?.delegate = self
 	}
 	
 	/// Toggle SideNavigationViewController left UIViewController.
@@ -108,3 +109,25 @@ class AppNavigationBarViewController: NavigationBarViewController {
 	}
 }
 
+
+extension AppNavigationBarViewController: NavigationBarViewControllerDelegate {
+		/// Delegation method that executes when the floatingViewController will open.
+	func navigationBarViewControllerWillOpenFloatingViewController(navigationBarViewController: NavigationBarViewController) {
+		print("Will Open")
+	}
+		
+		/// Delegation method that executes when the floatingViewController will close.
+	func navigationBarViewControllerWillCloseFloatingViewController(navigationBarViewController: NavigationBarViewController) {
+		print("Will Close")
+	}
+		
+		/// Delegation method that executes when the floatingViewController did open.
+	func navigationBarViewControllerDidOpenFloatingViewController(navigationBarViewController: NavigationBarViewController) {
+		print("Did Open")
+	}
+		
+		/// Delegation method that executes when the floatingViewController did close.
+	func navigationBarViewControllerDidCloseFloatingViewController(navigationBarViewController: NavigationBarViewController) {
+		print("Did Close")
+	}
+}

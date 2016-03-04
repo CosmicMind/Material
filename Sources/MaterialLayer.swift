@@ -310,16 +310,19 @@ public class MaterialLayer : CAShapeLayer {
 	public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
 		if let a: CAPropertyAnimation = anim as? CAPropertyAnimation {
 			if let b: CABasicAnimation = a as? CABasicAnimation {
-				setValue(nil == b.toValue ? b.byValue : b.toValue, forKeyPath: b.keyPath!)
+				if let v: AnyObject = b.toValue {
+					if let k: String = b.keyPath {
+						setValue(v, forKeyPath: k)
+						removeAnimationForKey(k)
+					}
+				}
 			}
-			removeAnimationForKey(a.keyPath!)
 			(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStop?(anim, finished: flag)
 		} else if let a: CAAnimationGroup = anim as? CAAnimationGroup {
 			for x in a.animations! {
 				animationDidStop(x, finished: true)
 			}
 		}
-		layoutVisualLayer()
 	}
 	
 	/// Prepares the visualLayer property.
@@ -347,7 +350,7 @@ public class MaterialLayer : CAShapeLayer {
 	/// Sets the shadow path.
 	internal func layoutShadowPath() {
 		if shadowPathAutoSizeEnabled {
-			if .None == self.depth {
+			if .None == depth {
 				shadowPath = nil
 			} else if nil == shadowPath {
 				shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).CGPath
