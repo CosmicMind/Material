@@ -207,6 +207,7 @@ extension FeedViewController: MaterialCollectionViewDataSource {
 extension FeedViewController: MaterialCollectionViewDelegate {
 	/// Executed when an item is selected.
 	func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-		print(indexPath)
+//		print(indexPath)
+		navigationController?.pushViewController(ViewController(), animated: true)
 	}
 }

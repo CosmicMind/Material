@@ -30,6 +30,9 @@
 		960B23511C38490D00E96216 /* TextStorage.swift in Headers */ = {isa = PBXBuildFile; fileRef = 960B23441C38480E00E96216 /* TextStorage.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		960B23521C38490D00E96216 /* TextView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 960B23451C38480E00E96216 /* TextView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9626C2DE1C795017007CA8E0 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9626C2DD1C795017007CA8E0 /* MenuViewController.swift */; };
+		96334EF61C8B84660083986B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96334EF51C8B84660083986B /* Assets.xcassets */; };
+		96334EF81C8B84880083986B /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96334EF71C8B84880083986B /* NavigationBar.swift */; };
+		96334EFA1C8B849A0083986B /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96334EF91C8B849A0083986B /* NavigationController.swift */; };
 		963832421B88DFD80015F710 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963832361B88DFD80015F710 /* Material.framework */; };
 		96442ADB1C28EEFA00C3C574 /* TextField.swift in Headers */ = {isa = PBXBuildFile; fileRef = 966F57B71C226D75009185B7 /* TextField.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96442ADE1C28EF3700C3C574 /* MaterialTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96442ADD1C28EF3700C3C574 /* MaterialTableViewCell.swift */; };
@@ -166,6 +169,9 @@
 		960B23441C38480E00E96216 /* TextStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextStorage.swift; sourceTree = "<group>"; };
 		960B23451C38480E00E96216 /* TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		9626C2DD1C795017007CA8E0 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		96334EF51C8B84660083986B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		96334EF71C8B84880083986B /* NavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
+		96334EF91C8B849A0083986B /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		963832361B88DFD80015F710 /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Material.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		963832411B88DFD80015F710 /* Material.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Material.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		963832591B88E31A0015F710 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -253,6 +259,8 @@
 			children = (
 				96D88C151C1328D800B91418 /* NavigationBarView.swift */,
 				96A71F2F1C72E41100C0C4AE /* NavigationBarViewController.swift */,
+				96334EF71C8B84880083986B /* NavigationBar.swift */,
+				96334EF91C8B849A0083986B /* NavigationController.swift */,
 			);
 			name = NavigationBar;
 			sourceTree = "<group>";
@@ -395,6 +403,7 @@
 				9626C2DB1C794FBB007CA8E0 /* SearchBar */,
 				9626C2DA1C794FA5007CA8E0 /* NavigationBar */,
 				9626C2DC1C794FE5007CA8E0 /* SideNavigation */,
+				96334EF51C8B84660083986B /* Assets.xcassets */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -703,6 +712,7 @@
 				96D88C431C1328D800B91418 /* Roboto-Regular.ttf in Resources */,
 				96D88C421C1328D800B91418 /* Roboto-Medium.ttf in Resources */,
 				96D88C411C1328D800B91418 /* Roboto-Light.ttf in Resources */,
+				96334EF61C8B84660083986B /* Assets.xcassets in Resources */,
 				96D88C401C1328D800B91418 /* Roboto-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -740,6 +750,7 @@
 				96D88C351C1328D800B91418 /* MaterialLayout.swift in Sources */,
 				96D88C2F1C1328D800B91418 /* MaterialGravity.swift in Sources */,
 				96D88C231C1328D800B91418 /* FlatButton.swift in Sources */,
+				96334EF81C8B84880083986B /* NavigationBar.swift in Sources */,
 				966F57B81C226D75009185B7 /* TextField.swift in Sources */,
 				96DBA7361C61198400844821 /* Material+UIImage+Color.swift in Sources */,
 				96CC08931C7FEC170034FF84 /* MaterialCollectionViewCell.swift in Sources */,
@@ -767,6 +778,7 @@
 				96D88C451C1328D800B91418 /* RobotoFont.swift in Sources */,
 				96D88C1F1C1328D800B91418 /* CardView.swift in Sources */,
 				96D88C2C1C1328D800B91418 /* MaterialColor.swift in Sources */,
+				96334EFA1C8B849A0083986B /* NavigationController.swift in Sources */,
 				96D88C301C1328D800B91418 /* MaterialEdgeInset.swift in Sources */,
 				96CC08A01C80CB180034FF84 /* MaterialSpacing.swift in Sources */,
 				96D88C211C1328D800B91418 /* CaptureSession.swift in Sources */,

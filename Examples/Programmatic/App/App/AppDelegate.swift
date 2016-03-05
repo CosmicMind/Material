@@ -39,7 +39,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
 		window = UIWindow(frame: UIScreen.mainScreen().bounds)
-		window!.rootViewController = SideNavigationViewController(mainViewController: AppMenuViewController(mainViewController: AppNavigationBarViewController(mainViewController: InboxViewController())), leftViewController: AppLeftViewController(), rightViewController: AppRightViewController())
+//		window!.rootViewController = SideNavigationViewController(mainViewController: AppMenuViewController(mainViewController: AppNavigationBarViewController(mainViewController: InboxViewController())), leftViewController: AppLeftViewController(), rightViewController: AppRightViewController())
+		window!.rootViewController = NavigationController(rootViewController: FeedViewController())
 		window!.makeKeyAndVisible()
 		return true
 	}
