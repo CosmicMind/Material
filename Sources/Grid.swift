@@ -222,48 +222,20 @@ public class Grid {
 	}
 }
 
-/**
-Gets the Obj-C reference for the Grid object within the UIView extension.
-- Parameter base: Base object.
-- Parameter key: Memory key pointer.
-- Parameter initializer: Object initializer.
-- Returns: The associated reference for the initializer object.
-*/
-private func GridAssociatedObject<T: AnyObject>(base: AnyObject, key: UnsafePointer<UInt8>, initializer: () -> T) -> T {
-	if let v: T = objc_getAssociatedObject(base, key) as? T {
-		return v
-	}
-	
-	let v: T = initializer()
-	objc_setAssociatedObject(base, key, v, .OBJC_ASSOCIATION_RETAIN)
-	return v
-}
-
-/**
-Sets the Obj-C reference for the Grid object within the UIView extension.
-- Parameter base: Base object.
-- Parameter key: Memory key pointer.
-- Parameter value: The object instance to set for the associated object.
-- Returns: The associated reference for the initializer object.
-*/
-private func GridAssociateObject<T: AnyObject>(base: AnyObject, key: UnsafePointer<UInt8>, value: T) {
-	objc_setAssociatedObject(base, key, value, .OBJC_ASSOCIATION_RETAIN)
-}
-
 /// A memory reference to the Grid instance for UIView extensions.
-private var gridKey: UInt8 = 0
+private var GridKey: UInt8 = 0
 
 /// Grid extension for UIView.
 public extension UIView {
 	/// Grid reference.
 	public var grid: Grid {
 		get {
-			return GridAssociatedObject(self, key: &gridKey) {
+			return MaterialObjectAssociatedObject(self, key: &GridKey) {
 				return Grid()
 			}
 		}
 		set(value) {
-			GridAssociateObject(self, key: &gridKey, value: value)
+			MaterialObjectAssociateObject(self, key: &GridKey, value: value)
 		}
 	}
 }

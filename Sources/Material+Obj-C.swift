@@ -28,22 +28,30 @@
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-import UIKit
-
-public extension UIImage {
-	/**
-	Creates an Image that is a color.
-	- Parameter color: The UIColor to create the image from.
-	- Parameter size: The size of the image to create.
-	- Returns: A UIImage that is the color passed in.
-	*/
-	public class func imageWithColor(color: UIColor, size: CGSize) -> UIImage {
-		let rect = CGRectMake(0, 0, size.width, size.height)
-		UIGraphicsBeginImageContextWithOptions(size, false, 0)
-		color.setFill()
-		UIRectFill(rect)
-		let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()
-		UIGraphicsEndImageContext()
-		return image
+/**
+Gets the Obj-C reference for the Grid object within the UIView extension.
+- Parameter base: Base object.
+- Parameter key: Memory key pointer.
+- Parameter initializer: Object initializer.
+- Returns: The associated reference for the initializer object.
+*/
+public func MaterialObjectAssociatedObject<T: AnyObject>(base: AnyObject, key: UnsafePointer<UInt8>, initializer: () -> T) -> T {
+	if let v: T = objc_getAssociatedObject(base, key) as? T {
+		return v
 	}
+	
+	let v: T = initializer()
+	objc_setAssociatedObject(base, key, v, .OBJC_ASSOCIATION_RETAIN)
+	return v
+}
+
+/**
+Sets the Obj-C reference for the Grid object within the UIView extension.
+- Parameter base: Base object.
+- Parameter key: Memory key pointer.
+- Parameter value: The object instance to set for the associated object.
+- Returns: The associated reference for the initializer object.
+*/
+public func MaterialObjectAssociateObject<T: AnyObject>(base: AnyObject, key: UnsafePointer<UInt8>, value: T) {
+	objc_setAssociatedObject(base, key, value, .OBJC_ASSOCIATION_RETAIN)
 }

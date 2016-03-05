@@ -48,7 +48,12 @@ public class NavigationController : UINavigationController {
 		prepareView()
 	}
 	
+	public override func viewDidLoad() {
+		super.viewDidLoad()
+		prepareView()
+	}
+	
 	public func prepareView() {
-		
+		navigationItem.title = "Title"
 	}
 }

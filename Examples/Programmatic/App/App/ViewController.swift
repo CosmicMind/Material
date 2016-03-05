@@ -43,9 +43,6 @@ class ViewController: UIViewController {
 	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
-		
-		navigationController?.navigationBar.backgroundColor = MaterialColor.blue.base
-	
 	}
 	
 	/// Prepares view.

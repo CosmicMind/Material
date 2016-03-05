@@ -52,7 +52,24 @@ class FeedViewController: UIViewController {
 	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
-		navigationBarViewController?.navigationBarView.titleLabel?.text = "Feed"
+		navigationController?.navigationBar.statusBarStyle = .LightContent
+		navigationController?.navigationBar.backgroundColor = MaterialColor.blue.base
+		
+		let image = UIImage(named: "ic_menu_white")
+		
+		// Menu button.
+		let menuButton: FlatButton = FlatButton()
+		menuButton.pulseColor = MaterialColor.white
+		menuButton.pulseScale = false
+		menuButton.setImage(image, forState: .Normal)
+		menuButton.setImage(image, forState: .Highlighted)
+		menuButton.addTarget(self, action: "handleMenuButton", forControlEvents: .TouchUpInside)
+		
+		navigationController?.navigationBar.rightControls = [menuButton]
+	}
+	
+	internal func handleMenuButton() {
+		print("handled")
 	}
 	
 	/// Prepares view.
@@ -184,6 +201,7 @@ extension FeedViewController: MaterialCollectionViewDataSource {
 				let image: UIImage? =  UIImage(named: "ic_share_white_18pt")?.imageWithRenderingMode(.AlwaysTemplate)
 				
 				let shareButton: FlatButton = FlatButton()
+				shareButton.pulseScale = false
 				shareButton.pulseColor = MaterialColor.grey.base
 				shareButton.tintColor = MaterialColor.grey.base
 				shareButton.setImage(image, forState: .Normal)
