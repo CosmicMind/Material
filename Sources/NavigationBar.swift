@@ -373,10 +373,54 @@ public class NavigationBar : UINavigationBar {
 	
 	public override func layoutSubviews() {
 		super.layoutSubviews()
-		if nil != backItem && nil != topItem {
-			backButton.setImage(backButtonImage, forState: .Normal)
-			backButton.setImage(backButtonImage, forState: .Highlighted)
-			leftControls = [backButton]
+		
+		if 1 < width {
+			// Size of single grid column.
+			if let g: CGFloat = width / CGFloat(0 < grid.axis.columns ? grid.axis.columns : 1) {
+				grid.views = []
+				grid.axis.columns = Int(width / 48)
+				
+				var columns: Int = grid.axis.columns
+				
+				// leftControls
+				if let v: Array<UIControl> = leftControls {
+					for c in v {
+						let w: CGFloat = c.intrinsicContentSize().width
+						if let b: UIButton = c as? UIButton {
+							b.contentEdgeInsets = UIEdgeInsetsZero
+						}
+						
+						c.grid.columns = 0 == g ? 1 : Int(ceil(w / g))
+						columns -= c.grid.columns
+						grid.views?.append(c)
+					}
+				}
+				
+				if nil == topItem?.titleView {
+					topItem?.titleView = MaterialView()
+					topItem?.titleView?.backgroundColor = nil
+				}
+				grid.views?.append(topItem!.titleView!)
+				
+				// rightControls
+				if let v: Array<UIControl> = rightControls {
+					for c in v {
+						let w: CGFloat = c.intrinsicContentSize().width
+						if let b: UIButton = c as? UIButton {
+							b.contentEdgeInsets = UIEdgeInsetsZero
+						}
+						
+						c.grid.columns = 0 == g ? 1 : Int(ceil(w / g))
+						columns -= c.grid.columns
+						
+						grid.views?.append(c)
+					}
+				}
+				topItem?.titleView?.grid.columns = columns
+//				rightControls?.first?.grid.offset.columns = columns
+				
+				grid.reloadLayout()
+			}
 		}
 	}
 	
@@ -394,7 +438,7 @@ public class NavigationBar : UINavigationBar {
 		backButtonImage = nil
 		backgroundColor = MaterialColor.white
 		depth = .Depth1
-		contentInsetPreset = .WideRectangle3
+		contentInsetPreset = .None
 		titleTextAttributes = [NSFontAttributeName: RobotoFont.regularWithSize(20)]
 		setTitleVerticalPositionAdjustment(1, forBarMetrics: .Default)
 		setTitleVerticalPositionAdjustment(2, forBarMetrics: .Compact)
@@ -429,44 +473,11 @@ public class NavigationBar : UINavigationBar {
 private var NavigationBarKey: UInt8 = 0
 
 public class NavigationBarControls {
-	/// A preset for contentInset.
-	public var contentInsetPreset: MaterialEdgeInset = .None {
-		didSet {
-			contentInset = MaterialEdgeInsetToValue(contentInsetPreset)
-		}
-	}
-	
-	/// A UIEdgeInsets for contentInset.
-	public var contentInset: UIEdgeInsets = MaterialEdgeInsetToValue(.None)
-	
-	/// Preset for spacing value.
-	public var spacingPreset: MaterialSpacing = .None {
-		didSet {
-			spacing = MaterialSpacingToValue(spacingPreset)
-		}
-	}
-	
-	/// Space between buttons.
-	public var spacing: CGFloat = 0
-	
-	/// Inset for spacer button.
-	public var inset: CGFloat {
-		return MaterialDevice.landscape ? -28 : -20
-	}
-	
-	public private(set) var backButton: MaterialButton
-	
 	/// Left controls.
 	public var leftControls: Array<UIControl>?
 	
 	/// Right controls.
 	public var rightControls: Array<UIControl>?
-	
-	public init() {
-		backButton = FlatButton()
-		backButton.pulseScale = false
-		backButton.pulseColor = MaterialColor.white
-	}
 }
 
 public extension UINavigationBar {
@@ -483,58 +494,53 @@ public extension UINavigationBar {
 	/// NavigationBarControls reference.
 	public internal(set) var controls: NavigationBarControls {
 		get {
-			return MaterialObjectAssociatedObject(self, key: &NavigationBarKey) {
+			return MaterialAssociatedObject(self, key: &NavigationBarKey) {
 				return NavigationBarControls()
 			}
 		}
 		set(value) {
-			MaterialObjectAssociateObject(self, key: &NavigationBarKey, value: value)
+			MaterialAssociateObject(self, key: &NavigationBarKey, value: value)
 		}
 	}
 	
 	/// A preset wrapper around contentInset.
 	public var contentInsetPreset: MaterialEdgeInset {
 		get {
-			return controls.contentInsetPreset
+			return grid.contentInsetPreset
 		}
 		set(value) {
-			controls.contentInsetPreset = value
+			grid.contentInsetPreset = value
 		}
 	}
 	
 	/// A wrapper around grid.contentInset.
 	public var contentInset: UIEdgeInsets {
 		get {
-			return controls.contentInset
+			return grid.contentInset
 		}
 		set(value) {
-			controls.contentInset = value
+			grid.contentInset = value
 		}
 	}
 	
 	/// A preset wrapper around spacing.
 	public var spacingPreset: MaterialSpacing {
 		get {
-			return controls.spacingPreset
+			return grid.spacingPreset
 		}
 		set(value) {
-			controls.spacingPreset = value
+			grid.spacingPreset = value
 		}
 	}
 	
 	/// A wrapper around grid.spacing.
 	public var spacing: CGFloat {
 		get {
-			return controls.spacing
+			return grid.spacing
 		}
 		set(value) {
-			controls.spacing = value
+			grid.spacing = value
 		}
-	}
-	
-	/// Back button.
-	public var backButton: MaterialButton {
-		return controls.backButton
 	}
 	
 	/// Left side UIControls.
@@ -546,17 +552,9 @@ public extension UINavigationBar {
 			var c: Array<UIBarButtonItem> = Array<UIBarButtonItem>()
 			if let v: Array<UIControl> = value {
 				for q in v {
-					q.frame.size = CGSizeMake(48 - spacing, 44 - contentInset.top - contentInset.bottom)
-					if let p: UIButton = q as? UIButton {
-						p.contentEdgeInsets = UIEdgeInsetsZero
-					}
 					c.append(UIBarButtonItem(customView: q))
 				}
 			}
-			
-			let spacer: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
-			spacer.width = controls.inset + contentInset.left
-			c.append(spacer)
 			
 			controls.leftControls = value
 			topItem?.leftBarButtonItems = c.reverse()
@@ -572,17 +570,9 @@ public extension UINavigationBar {
 			var c: Array<UIBarButtonItem> = Array<UIBarButtonItem>()
 			if let v: Array<UIControl> = value {
 				for q in v {
-					q.frame.size = CGSizeMake(48 - spacing, 44 - contentInset.top - contentInset.bottom)
-					if let p: UIButton = q as? UIButton {
-						p.contentEdgeInsets = UIEdgeInsetsZero
-					}
 					c.append(UIBarButtonItem(customView: q))
 				}
 			}
-			
-			let spacer: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
-			spacer.width = controls.inset + contentInset.right
-			c.append(spacer)
 			
 			controls.rightControls = value
 			topItem?.rightBarButtonItems = c.reverse()

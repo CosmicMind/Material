@@ -37,7 +37,7 @@ private struct Item {
 	var image: UIImage?
 }
 
-class InboxViewController: UIViewController {
+class MessagesViewController: UIViewController {
 	/// A tableView used to display Bond entries.
 	private let tableView: UITableView = UITableView()
 	
@@ -68,7 +68,7 @@ class InboxViewController: UIViewController {
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.white
 		
-		navigationItem.title = "Inbox"
+		navigationItem.title = "Messages"
 	}
 	
 	/// Prepares the items Array.
@@ -97,7 +97,7 @@ class InboxViewController: UIViewController {
 }
 
 /// TableViewDataSource methods.
-extension InboxViewController: UITableViewDataSource {
+extension MessagesViewController: UITableViewDataSource {
 	/// Determines the number of rows in the tableView.
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return items.count;
@@ -144,7 +144,7 @@ extension InboxViewController: UITableViewDataSource {
 }
 
 /// UITableViewDelegate methods.
-extension InboxViewController: UITableViewDelegate {
+extension MessagesViewController: UITableViewDelegate {
 	/// Sets the tableView cell height.
 	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 		return 80
@@ -153,10 +153,5 @@ extension InboxViewController: UITableViewDelegate {
 	/// Sets the tableView header height.
 	func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 		return 48
-	}
-	
-	/// Did select table.
-	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		navigationController?.pushViewController(MessagesViewController(), animated: true)
 	}
 }

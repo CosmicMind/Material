@@ -35,7 +35,7 @@ Gets the Obj-C reference for the Grid object within the UIView extension.
 - Parameter initializer: Object initializer.
 - Returns: The associated reference for the initializer object.
 */
-public func MaterialObjectAssociatedObject<T: AnyObject>(base: AnyObject, key: UnsafePointer<UInt8>, initializer: () -> T) -> T {
+public func MaterialAssociatedObject<T: AnyObject>(base: AnyObject, key: UnsafePointer<UInt8>, initializer: () -> T) -> T {
 	if let v: T = objc_getAssociatedObject(base, key) as? T {
 		return v
 	}
@@ -52,6 +52,6 @@ Sets the Obj-C reference for the Grid object within the UIView extension.
 - Parameter value: The object instance to set for the associated object.
 - Returns: The associated reference for the initializer object.
 */
-public func MaterialObjectAssociateObject<T: AnyObject>(base: AnyObject, key: UnsafePointer<UInt8>, value: T) {
+public func MaterialAssociateObject<T: AnyObject>(base: AnyObject, key: UnsafePointer<UInt8>, value: T) {
 	objc_setAssociatedObject(base, key, value, .OBJC_ASSOCIATION_RETAIN)
 }

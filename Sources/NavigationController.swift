@@ -30,7 +30,7 @@
 
 import UIKit
 
-public class NavigationController : UINavigationController {
+public class NavigationController : UINavigationController, UINavigationBarDelegate {
 	
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
@@ -48,15 +48,6 @@ public class NavigationController : UINavigationController {
 	public override func viewWillLayoutSubviews() {
 		super.viewWillLayoutSubviews()
 		interactivePopGestureRecognizer?.delegate = nil
-		if let v: NavigationBar = navigationBar as? NavigationBar {
-			v.layoutSubviews()
-			v.backButton.removeTarget(self, action: "handleBackButton", forControlEvents: .TouchUpInside)
-			v.backButton.addTarget(self, action: "handleBackButton", forControlEvents: .TouchUpInside)
-		}
-	}
-	
-	/// Handles the backButton.
-	internal func handleBackButton() {
-		popViewControllerAnimated(true)
+		navigationBar.layoutSubviews()
 	}
 }

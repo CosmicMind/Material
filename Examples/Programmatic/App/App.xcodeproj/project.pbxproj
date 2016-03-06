@@ -20,6 +20,7 @@
 		9663F9501C7A74FC00AF0965 /* AppRightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9663F94F1C7A74FC00AF0965 /* AppRightViewController.swift */; };
 		9663F9521C7A751D00AF0965 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9663F9511C7A751D00AF0965 /* FeedViewController.swift */; };
 		96CC08881C7FEBD60034FF84 /* InboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC08871C7FEBD60034FF84 /* InboxViewController.swift */; };
+		96FC37D31C8CE1290040A569 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FC37D21C8CE1290040A569 /* MessagesViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -51,6 +52,7 @@
 		9663F94F1C7A74FC00AF0965 /* AppRightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppRightViewController.swift; sourceTree = "<group>"; };
 		9663F9511C7A751D00AF0965 /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		96CC08871C7FEBD60034FF84 /* InboxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxViewController.swift; sourceTree = "<group>"; };
+		96FC37D21C8CE1290040A569 /* MessagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,8 +94,9 @@
 				9663F94D1C7A74EA00AF0965 /* AppLeftViewController.swift */,
 				9663F94F1C7A74FC00AF0965 /* AppRightViewController.swift */,
 				9663F9331C7A744600AF0965 /* SearchListViewController.swift */,
-				96CC08871C7FEBD60034FF84 /* InboxViewController.swift */,
 				9663F9511C7A751D00AF0965 /* FeedViewController.swift */,
+				96CC08871C7FEBD60034FF84 /* InboxViewController.swift */,
+				96FC37D21C8CE1290040A569 /* MessagesViewController.swift */,
 				9663F9381C7A744600AF0965 /* Assets.xcassets */,
 				9663F93A1C7A744600AF0965 /* LaunchScreen.storyboard */,
 				9663F93D1C7A744600AF0965 /* Info.plist */,
@@ -172,6 +175,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96FC37D31C8CE1290040A569 /* MessagesViewController.swift in Sources */,
 				9663F94A1C7A74B500AF0965 /* AppSearchBarViewController.swift in Sources */,
 				96CC08881C7FEBD60034FF84 /* InboxViewController.swift in Sources */,
 				9663F9501C7A74FC00AF0965 /* AppRightViewController.swift in Sources */,

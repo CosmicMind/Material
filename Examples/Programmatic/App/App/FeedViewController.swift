@@ -72,7 +72,13 @@ class FeedViewController: UIViewController {
 		prepareMenuButton()
 		prepareSearchButton()
 		
-		navigationItem.title = "Feed"
+//		navigationItem.title = "Feed"
+		
+		var label: UILabel = UILabel()
+		label.text = "Daniel"
+
+		navigationItem.titleView?.addSubview(label)
+
 		navigationController?.navigationBar.leftControls = [menuButton]
 		navigationController?.navigationBar.rightControls = [searchButton]
 		navigationController?.navigationBar.statusBarStyle = .LightContent
@@ -245,7 +251,6 @@ extension FeedViewController: MaterialCollectionViewDataSource {
 extension FeedViewController: MaterialCollectionViewDelegate {
 	/// Executed when an item is selected.
 	func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-//		print(indexPath)
 		navigationController?.pushViewController(InboxViewController(), animated: true)
 	}
 }

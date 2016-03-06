@@ -230,12 +230,12 @@ public extension UIView {
 	/// Grid reference.
 	public internal(set) var grid: Grid {
 		get {
-			return MaterialObjectAssociatedObject(self, key: &GridKey) {
+			return MaterialAssociatedObject(self, key: &GridKey) {
 				return Grid()
 			}
 		}
 		set(value) {
-			MaterialObjectAssociateObject(self, key: &GridKey, value: value)
+			MaterialAssociateObject(self, key: &GridKey, value: value)
 		}
 	}
 }
