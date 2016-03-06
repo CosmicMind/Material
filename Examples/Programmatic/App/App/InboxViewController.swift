@@ -46,8 +46,8 @@ class InboxViewController: UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		prepareView()
 		prepareItems()
+		prepareView()
 		prepareTableView()
 	}
 	
@@ -68,7 +68,18 @@ class InboxViewController: UIViewController {
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.white
 		
-		navigationItem.title = "Inbox"
+		let titleLabel: UILabel = UILabel()
+		titleLabel.text = "Inbox"
+		titleLabel.textAlignment = .Left
+		titleLabel.textColor = MaterialColor.white
+		
+		let detailLabel: UILabel = UILabel()
+		detailLabel.text = "\(items.count) Contacts"
+		detailLabel.textAlignment = .Left
+		detailLabel.textColor = MaterialColor.white
+		
+		navigationItem.titleLabel = titleLabel
+		navigationItem.detailLabel = detailLabel
 	}
 	
 	/// Prepares the items Array.

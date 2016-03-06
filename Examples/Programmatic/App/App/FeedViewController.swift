@@ -72,13 +72,19 @@ class FeedViewController: UIViewController {
 		prepareMenuButton()
 		prepareSearchButton()
 		
-//		navigationItem.title = "Feed"
+		let titleLabel: UILabel = UILabel()
+		titleLabel.text = "Material"
+		titleLabel.textAlignment = .Left
+		titleLabel.textColor = MaterialColor.white
 		
-		var label: UILabel = UILabel()
-		label.text = "Daniel"
-
-		navigationItem.titleView?.addSubview(label)
-
+		let detailLabel: UILabel = UILabel()
+		detailLabel.text = "Build Beautiful Software"
+		detailLabel.textAlignment = .Left
+		detailLabel.textColor = MaterialColor.white
+		
+		navigationItem.titleLabel = titleLabel
+		navigationItem.detailLabel = detailLabel
+		
 		navigationController?.navigationBar.leftControls = [menuButton]
 		navigationController?.navigationBar.rightControls = [searchButton]
 		navigationController?.navigationBar.statusBarStyle = .LightContent
