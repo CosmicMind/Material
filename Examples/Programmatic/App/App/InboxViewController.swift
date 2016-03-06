@@ -57,6 +57,14 @@ class InboxViewController: UIViewController {
 		navigationItem.title = "Messages"
 		navigationController?.navigationBar.topItem?.title = ""
 		navigationController?.navigationBar.leftControls = []
+		
+		sideNavigationViewController?.enabled = false
+	}
+	
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		navigationItem.title = "Messages"
+		navigationController?.navigationBar.leftControls = []
 	}
 	
 	/**

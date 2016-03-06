@@ -47,6 +47,7 @@ public class NavigationController : UINavigationController {
 	
 	public override func viewWillLayoutSubviews() {
 		super.viewWillLayoutSubviews()
+		interactivePopGestureRecognizer?.delegate = nil
 		if let v: NavigationBar = navigationBar as? NavigationBar {
 			v.layoutSubviews()
 			v.backButton.removeTarget(self, action: "handleBackButton", forControlEvents: .TouchUpInside)

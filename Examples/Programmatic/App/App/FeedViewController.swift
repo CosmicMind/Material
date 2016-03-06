@@ -28,15 +28,18 @@
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-/*
-The following example shows how to dynamically size MaterialCollectionViewCells.
-*/
-
 import UIKit
 import Material
 
 class FeedViewController: UIViewController {
-	private var collectionView: MaterialCollectionView = MaterialCollectionView()
+	/// Menu button at the top left of the navigation bar.
+	private lazy var menuButton: FlatButton = FlatButton()
+	
+	/// Search button at the top left of the navigation bar.
+	private lazy var searchButton: FlatButton = FlatButton()
+	
+	/// MaterialCollectionView.
+	private lazy var collectionView: MaterialCollectionView = MaterialCollectionView()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -53,31 +56,17 @@ class FeedViewController: UIViewController {
 		super.viewWillAppear(animated)
 		
 		navigationItem.title = "Feed"
-		
-		var image = UIImage(named: "ic_menu_white")
-		
-		// Menu button.
-		let menuButton: FlatButton = FlatButton()
-		menuButton.pulseScale = false
-		menuButton.pulseColor = MaterialColor.white
-		menuButton.setImage(image, forState: .Normal)
-		menuButton.setImage(image, forState: .Highlighted)
-		menuButton.addTarget(self, action: "handleMenuButton", forControlEvents: .TouchUpInside)
-		
-		// Switch control.
-		let switchControl: MaterialSwitch = MaterialSwitch(state: .Off, style: .LightContent, size: .Small)
-		
-		// Search button.
-		image = UIImage(named: "ic_search_white")
-		let searchButton: FlatButton = FlatButton()
-		searchButton.pulseScale = false
-		searchButton.pulseColor = MaterialColor.white
-		searchButton.setImage(image, forState: .Normal)
-		searchButton.setImage(image, forState: .Highlighted)
-		searchButton.addTarget(self, action: "handleSearchButton", forControlEvents: .TouchUpInside)
-		
 		navigationController?.navigationBar.leftControls = [menuButton]
-		navigationController?.navigationBar.rightControls = [switchControl, searchButton]
+		
+		sideNavigationViewController?.enabled = true
+	}
+	
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		
+		// Handles when the page is being panned left to right.
+		navigationItem.title = "Feed"
+		navigationController?.navigationBar.leftControls = [menuButton]
 	}
 	
 	internal func handleMenuButton() {
@@ -92,10 +81,36 @@ class FeedViewController: UIViewController {
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.grey.lighten4
 		
+		prepareMenuButton()
+		prepareSearchButton()
+		
 		navigationController?.navigationBar.statusBarStyle = .LightContent
 		navigationController?.navigationBar.tintColor = MaterialColor.white
 		navigationController?.navigationBar.backgroundColor = MaterialColor.blue.base
 		navigationController?.navigationBar.backButton.pulseColor = MaterialColor.white
+		
+		navigationController?.navigationBar.rightControls = [searchButton]
+	}
+	
+	/// Prepares the menuButton.
+	private func prepareMenuButton() {
+		let image: UIImage? = UIImage(named: "ic_menu_white")
+		menuButton.pulseScale = false
+		menuButton.pulseColor = MaterialColor.white
+		menuButton.setImage(image, forState: .Normal)
+		menuButton.setImage(image, forState: .Highlighted)
+		menuButton.addTarget(self, action: "handleMenuButton", forControlEvents: .TouchUpInside)
+	}
+	
+	/// Prepares the searchButton.
+	private func prepareSearchButton() {
+		// Search button.
+		let image: UIImage? = UIImage(named: "ic_search_white")
+		searchButton.pulseScale = false
+		searchButton.pulseColor = MaterialColor.white
+		searchButton.setImage(image, forState: .Normal)
+		searchButton.setImage(image, forState: .Highlighted)
+		searchButton.addTarget(self, action: "handleSearchButton", forControlEvents: .TouchUpInside)
 	}
 	
 	/// Prepares the collectionView
@@ -105,12 +120,9 @@ class FeedViewController: UIViewController {
 		collectionView.spacingPreset = .Spacing1
 		collectionView.registerClass(MaterialCollectionViewCell.self, forCellWithReuseIdentifier: "MaterialCollectionViewCell")
 		
-		// To avoid being hidden under the hovering MenuView.
 		view.addSubview(collectionView)
 		collectionView.translatesAutoresizingMaskIntoConstraints = false
 		MaterialLayout.alignToParent(view, child: collectionView)
-		
-//		collectionView.scrollDirection = .Horizontal // Uncomment to see the horizontal scroll direction.
 	}
 }
 
@@ -124,8 +136,7 @@ extension FeedViewController: MaterialCollectionViewDataSource {
 					"detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
 					"date": "February 26, 2016"
 				],
-				width: 150, // Applied when scrollDirection is .Horizontal
-				height: 150 // Applied when scrollDirection is .Vertical
+				height: 158
 			),
 			MaterialDataSourceItem(
 				data: [
@@ -133,8 +144,7 @@ extension FeedViewController: MaterialCollectionViewDataSource {
 					"detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
 					"date": "February 26, 2016"
 				],
-				width: 250, // Applied when scrollDirection is .Horizontal
-				height: 150 // Applied when scrollDirection is .Vertical
+				height: 158
 			),
 			MaterialDataSourceItem(
 				data: [
@@ -142,8 +152,7 @@ extension FeedViewController: MaterialCollectionViewDataSource {
 					"detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
 					"date": "February 26, 2016"
 				],
-				width: 350, // Applied when scrollDirection is .Horizontal
-				height: 150 // Applied when scrollDirection is .Vertical
+				height: 158
 			),
 			MaterialDataSourceItem(
 				data: [
@@ -151,8 +160,7 @@ extension FeedViewController: MaterialCollectionViewDataSource {
 					"detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
 					"date": "February 26, 2016"
 				],
-				width: 150, // Applied when scrollDirection is .Horizontal
-				height: 150 // Applied when scrollDirection is .Vertical
+				height: 158
 			),
 			MaterialDataSourceItem(
 				data: [
@@ -160,8 +168,7 @@ extension FeedViewController: MaterialCollectionViewDataSource {
 					"detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
 					"date": "February 26, 2016"
 				],
-				width: 250, // Applied when scrollDirection is .Horizontal
-				height: 150 // Applied when scrollDirection is .Vertical
+				height: 158
 			),
 			MaterialDataSourceItem(
 				data: [
@@ -169,8 +176,7 @@ extension FeedViewController: MaterialCollectionViewDataSource {
 					"detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
 					"date": "February 26, 2016"
 				],
-				width: 350, // Applied when scrollDirection is .Horizontal
-				height: 150 // Applied when scrollDirection is .Vertical
+				height: 158
 			)
 		]
 	}
@@ -206,7 +212,9 @@ extension FeedViewController: MaterialCollectionViewDataSource {
 				cardView!.pulseScale = false
 				cardView!.divider = false
 				cardView!.depth = .None
+				cardView!.contentInsetPreset = .Square3
 				cardView!.cornerRadiusPreset = .None
+				cardView!.rightButtonsInsetPreset = .None
 				
 				let titleLabel: UILabel = UILabel()
 				titleLabel.textColor = MaterialColor.grey.darken4

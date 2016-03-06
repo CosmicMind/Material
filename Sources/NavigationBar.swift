@@ -454,7 +454,7 @@ public class NavigationBarControls {
 	
 	/// Inset for spacer button.
 	public var inset: CGFloat {
-		return MaterialDevice.landscape ? -20 : -20
+		return MaterialDevice.landscape ? -28 : -20
 	}
 	
 	public private(set) var backButton: MaterialButton
