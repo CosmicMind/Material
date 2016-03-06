@@ -161,7 +161,7 @@ extension AppLeftViewController: UITableViewDelegate {
 	
 	func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
 		let item: Item = items[indexPath.row]
-		
+		print(sideNavigationViewController?.mainViewController.navigationController)
 		/**
 		An example of loading a new UIViewController in the AppNavigationBarViewController
 		if the UIViewController is not already loaded. This is a bit of a tricky example, as

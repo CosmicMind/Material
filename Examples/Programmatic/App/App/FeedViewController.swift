@@ -47,26 +47,14 @@ class FeedViewController: UIViewController {
 		prepareCollectionView()
 	}
 	
-	override func viewWillLayoutSubviews() {
-		super.viewWillLayoutSubviews()
-		collectionView.reloadData()
-	}
-	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
-		
-		navigationItem.title = "Feed"
-		navigationController?.navigationBar.leftControls = [menuButton]
-		
 		sideNavigationViewController?.enabled = true
 	}
 	
-	override func viewDidAppear(animated: Bool) {
-		super.viewDidAppear(animated)
-		
-		// Handles when the page is being panned left to right.
-		navigationItem.title = "Feed"
-		navigationController?.navigationBar.leftControls = [menuButton]
+	override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+		super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+		collectionView.reloadData()
 	}
 	
 	internal func handleMenuButton() {
@@ -84,12 +72,12 @@ class FeedViewController: UIViewController {
 		prepareMenuButton()
 		prepareSearchButton()
 		
+		navigationItem.title = "Feed"
+		navigationController?.navigationBar.leftControls = [menuButton]
+		navigationController?.navigationBar.rightControls = [searchButton]
 		navigationController?.navigationBar.statusBarStyle = .LightContent
 		navigationController?.navigationBar.tintColor = MaterialColor.white
 		navigationController?.navigationBar.backgroundColor = MaterialColor.blue.base
-		navigationController?.navigationBar.backButton.pulseColor = MaterialColor.white
-		
-		navigationController?.navigationBar.rightControls = [searchButton]
 	}
 	
 	/// Prepares the menuButton.
@@ -213,8 +201,9 @@ extension FeedViewController: MaterialCollectionViewDataSource {
 				cardView!.divider = false
 				cardView!.depth = .None
 				cardView!.contentInsetPreset = .Square3
+				cardView!.contentInset.bottom /= 2
 				cardView!.cornerRadiusPreset = .None
-				cardView!.rightButtonsInsetPreset = .None
+				cardView!.rightButtonsInset.right = -8
 				
 				let titleLabel: UILabel = UILabel()
 				titleLabel.textColor = MaterialColor.grey.darken4

@@ -53,18 +53,7 @@ class InboxViewController: UIViewController {
 	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
-		
-		navigationItem.title = "Messages"
-		navigationController?.navigationBar.topItem?.title = ""
-		navigationController?.navigationBar.leftControls = []
-		
 		sideNavigationViewController?.enabled = false
-	}
-	
-	override func viewDidAppear(animated: Bool) {
-		super.viewDidAppear(animated)
-		navigationItem.title = "Messages"
-		navigationController?.navigationBar.leftControls = []
 	}
 	
 	/**
@@ -78,6 +67,8 @@ class InboxViewController: UIViewController {
 	/// Prepares view.
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.white
+		
+		navigationItem.title = "Inbox"
 	}
 	
 	/// Prepares the items Array.

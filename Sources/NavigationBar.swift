@@ -373,9 +373,6 @@ public class NavigationBar : UINavigationBar {
 	
 	public override func layoutSubviews() {
 		super.layoutSubviews()
-		leftControls = leftControls
-		rightControls = rightControls
-		
 		if nil != backItem && nil != topItem {
 			backButton.setImage(backButtonImage, forState: .Normal)
 			backButton.setImage(backButtonImage, forState: .Highlighted)
@@ -467,8 +464,8 @@ public class NavigationBarControls {
 	
 	public init() {
 		backButton = FlatButton()
-		backButton.pulseColor = nil
 		backButton.pulseScale = false
+		backButton.pulseColor = MaterialColor.white
 	}
 }
 

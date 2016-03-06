@@ -75,7 +75,7 @@ public class CardView : MaterialPulseView {
 	/**
 	:name:	contentInsets
 	*/
-	public var contentInsetPreset: MaterialEdgeInset = .None {
+	public var contentInsetPreset: MaterialEdgeInset = .Square2 {
 		didSet {
 			contentInset = MaterialEdgeInsetToValue(contentInsetPreset)
 		}
@@ -93,7 +93,7 @@ public class CardView : MaterialPulseView {
 	/**
 	:name:	titleLabelInsets
 	*/
-	public var titleLabelInsetPreset: MaterialEdgeInset = .None {
+	public var titleLabelInsetPreset: MaterialEdgeInset = .Square2 {
 		didSet {
 			titleLabelInset = MaterialEdgeInsetToValue(titleLabelInsetPreset)
 		}
@@ -121,7 +121,7 @@ public class CardView : MaterialPulseView {
 	/**
 	:name:	detailViewInsets
 	*/
-	public var detailViewInsetPreset: MaterialEdgeInset = .None {
+	public var detailViewInsetPreset: MaterialEdgeInset = .Square2 {
 		didSet {
 			detailViewInset = MaterialEdgeInsetToValue(detailViewInsetPreset)
 		}
