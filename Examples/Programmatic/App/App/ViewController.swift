@@ -43,6 +43,11 @@ class ViewController: UIViewController {
 	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
+		
+		navigationItem.title = "Material"
+		
+		navigationController?.navigationBar.leftControls = []
+		navigationController?.navigationBar.rightControls = []
 	}
 	
 	/// Prepares view.

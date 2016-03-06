@@ -34,15 +34,26 @@ import UIKit
 private var NavigationBarKey: UInt8 = 0
 
 public class Controls {
+	/// A preset wrapper around contentInset.
+	public var contentInsetPreset: MaterialEdgeInset
+	
+	/// A wrapper around grid.contentInset.
+	public var contentInset: UIEdgeInsets
+	
 	/// Left controls.
 	public var leftControls: Array<UIControl>?
 	
 	/// Right controls.
 	public var rightControls: Array<UIControl>?
+	
+	public init() {
+		contentInsetPreset = .Square3
+		contentInset = MaterialEdgeInsetToValue(.Square3)
+	}
 }
 
 public extension UINavigationBar {
-	/// Grid reference.
+	/// Controls reference.
 	public var controls: Controls {
 		get {
 			return MaterialObjectAssociatedObject(self, key: &NavigationBarKey) {
@@ -51,15 +62,6 @@ public extension UINavigationBar {
 		}
 		set(value) {
 			MaterialObjectAssociateObject(self, key: &NavigationBarKey, value: value)
-		}
-	}
-	
-	public var title: String? {
-		get {
-			return topItem?.title
-		}
-		set(value) {
-			topItem?.title = value
 		}
 	}
 	
@@ -81,14 +83,22 @@ public extension UINavigationBar {
 			var c: Array<UIBarButtonItem> = Array<UIBarButtonItem>()
 			if let v: Array<UIControl> = value {
 				for q in v {
-					let b: UIBarButtonItem = UIBarButtonItem(customView: q)
-					b.width = q.intrinsicContentSize().width
-					c.append(b)
-					
+					if let p: UIButton = q as? UIButton {
+						p.frame.size = CGSizeMake(40, 28)
+						p.contentEdgeInsets = UIEdgeInsetsZero
+						c.append(UIBarButtonItem(customView: p))
+					} else {
+						c.append(UIBarButtonItem(customView: q))
+					}
 				}
 			}
+			
+			let spacer: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
+			spacer.width = -20 + controls.contentInset.left
+			c.append(spacer)
+			
 			controls.leftControls = value
-			topItem?.leftBarButtonItems = c
+			topItem?.leftBarButtonItems = c.reverse()
 		}
 	}
 	
@@ -100,19 +110,47 @@ public extension UINavigationBar {
 			var c: Array<UIBarButtonItem> = Array<UIBarButtonItem>()
 			if let v: Array<UIControl> = value {
 				for q in v {
-					let b: UIBarButtonItem = UIBarButtonItem(customView: q)
-					b.width = q.intrinsicContentSize().width
-					c.append(b)
-					
+					if let p: UIButton = q as? UIButton {
+						p.frame.size = CGSizeMake(40, 28)
+						p.contentEdgeInsets = UIEdgeInsetsZero
+						c.append(UIBarButtonItem(customView: p))
+					} else {
+						c.append(UIBarButtonItem(customView: q))
+					}
 				}
 			}
+			
+			let spacer: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
+			spacer.width = -20 + controls.contentInset.right
+			c.append(spacer)
+			
 			controls.rightControls = value
-			topItem?.rightBarButtonItems = c
+			topItem?.rightBarButtonItems = c.reverse()
 		}
 	}
 }
 
 public class NavigationBar : UINavigationBar {
+	/// A preset wrapper around contentInset.
+	public var contentInsetPreset: MaterialEdgeInset {
+		get {
+			return controls.contentInsetPreset
+		}
+		set(value) {
+			controls.contentInsetPreset = value
+		}
+	}
+	
+	/// A wrapper around grid.contentInset.
+	public var contentInset: UIEdgeInsets {
+		get {
+			return controls.contentInset
+		}
+		set(value) {
+			controls.contentInset = value
+		}
+	}
+	
 	/**
 	The back button image writes to the backIndicatorImage property and
 	backIndicatorTransitionMaskImage property.
@@ -223,5 +261,11 @@ public class NavigationBar : UINavigationBar {
 		backButtonImage = nil
 		backgroundColor = MaterialColor.white
 		depth = .Depth1
+		titleTextAttributes = [NSFontAttributeName: RobotoFont.regularWithSize(20)]
+	}
+	
+	public func reloadView() {
+		leftControls = controls.leftControls
+		rightControls = controls.rightControls
 	}
 }

@@ -52,10 +52,10 @@ class FeedViewController: UIViewController {
 	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
-		navigationController?.navigationBar.statusBarStyle = .LightContent
-		navigationController?.navigationBar.backgroundColor = MaterialColor.blue.base
 		
-		let image = UIImage(named: "ic_menu_white")
+		navigationItem.title = "Feed"
+		
+		var image = UIImage(named: "ic_menu_white")
 		
 		// Menu button.
 		let menuButton: FlatButton = FlatButton()
@@ -65,16 +65,36 @@ class FeedViewController: UIViewController {
 		menuButton.setImage(image, forState: .Highlighted)
 		menuButton.addTarget(self, action: "handleMenuButton", forControlEvents: .TouchUpInside)
 		
-		navigationController?.navigationBar.rightControls = [menuButton]
+		// Switch control.
+		let switchControl: MaterialSwitch = MaterialSwitch(state: .Off, style: .LightContent, size: .Small)
+		
+		// Search button.
+		image = UIImage(named: "ic_search_white")
+		let searchButton: FlatButton = FlatButton()
+		searchButton.pulseColor = MaterialColor.white
+		searchButton.pulseScale = false
+		searchButton.setImage(image, forState: .Normal)
+		searchButton.setImage(image, forState: .Highlighted)
+		searchButton.addTarget(self, action: "handleSearchButton", forControlEvents: .TouchUpInside)
+		
+		navigationController?.navigationBar.leftControls = [menuButton]
+		navigationController?.navigationBar.rightControls = [switchControl, searchButton]
 	}
 	
 	internal func handleMenuButton() {
 		print("handled")
 	}
 	
+	internal func handleSearchButton() {
+		print("handled")
+	}
+	
 	/// Prepares view.
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.grey.lighten4
+		
+		navigationController?.navigationBar.statusBarStyle = .LightContent
+		navigationController?.navigationBar.backgroundColor = MaterialColor.blue.base
 	}
 	
 	/// Prepares the collectionView

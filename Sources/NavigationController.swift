@@ -56,4 +56,11 @@ public class NavigationController : UINavigationController {
 	public func prepareView() {
 		navigationItem.title = "Title"
 	}
+	
+	public override func viewWillLayoutSubviews() {
+		super.viewWillLayoutSubviews()
+		if let v: NavigationBar = navigationBar as? NavigationBar {
+			v.reloadView()
+		}
+	}
 }
