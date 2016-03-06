@@ -34,26 +34,28 @@ public class NavigationController : UINavigationController {
 	
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
-		prepareView()
 	}
 	
 	public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-		prepareView()
 	}
 	
 	public override init(rootViewController: UIViewController) {
 		super.init(navigationBarClass: NavigationBar.self, toolbarClass: nil)
 		setViewControllers([rootViewController], animated: false)
-		prepareView()
 	}
 	
-	public override func viewDidLoad() {
-		super.viewDidLoad()
-		prepareView()
+	public override func viewWillLayoutSubviews() {
+		super.viewWillLayoutSubviews()
+		if let v: NavigationBar = navigationBar as? NavigationBar {
+			v.layoutSubviews()
+			v.backButton.removeTarget(self, action: "handleBackButton", forControlEvents: .TouchUpInside)
+			v.backButton.addTarget(self, action: "handleBackButton", forControlEvents: .TouchUpInside)
+		}
 	}
 	
-	public func prepareView() {
-		navigationItem.title = "Title"
+	/// Handles the backButton.
+	internal func handleBackButton() {
+		popViewControllerAnimated(true)
 	}
 }

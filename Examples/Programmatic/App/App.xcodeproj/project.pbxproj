@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		96334EFC1C8B85F40083986B /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96334EFB1C8B85F40083986B /* Material.framework */; };
 		96334EFD1C8B85F40083986B /* Material.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 96334EFB1C8B85F40083986B /* Material.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		96334EFF1C8B876E0083986B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96334EFE1C8B876E0083986B /* ViewController.swift */; };
 		9663F9321C7A744600AF0965 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9663F9311C7A744600AF0965 /* AppDelegate.swift */; };
 		9663F9341C7A744600AF0965 /* SearchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9663F9331C7A744600AF0965 /* SearchListViewController.swift */; };
 		9663F9391C7A744600AF0965 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9663F9381C7A744600AF0965 /* Assets.xcassets */; };
@@ -39,7 +38,6 @@
 
 /* Begin PBXFileReference section */
 		96334EFB1C8B85F40083986B /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = Material.framework; path = "/Users/danieldahan/Library/Developer/Xcode/DerivedData/Material-hbpnflxhoouqxebjcyhbbhqyesjd/Build/Products/Debug-iphoneos/Material.framework"; sourceTree = "<absolute>"; };
-		96334EFE1C8B876E0083986B /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		9663F92E1C7A744600AF0965 /* App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9663F9311C7A744600AF0965 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9663F9331C7A744600AF0965 /* SearchListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchListViewController.swift; sourceTree = "<group>"; };
@@ -99,7 +97,6 @@
 				9663F9381C7A744600AF0965 /* Assets.xcassets */,
 				9663F93A1C7A744600AF0965 /* LaunchScreen.storyboard */,
 				9663F93D1C7A744600AF0965 /* Info.plist */,
-				96334EFE1C8B876E0083986B /* ViewController.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -175,7 +172,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96334EFF1C8B876E0083986B /* ViewController.swift in Sources */,
 				9663F94A1C7A74B500AF0965 /* AppSearchBarViewController.swift in Sources */,
 				96CC08881C7FEBD60034FF84 /* InboxViewController.swift in Sources */,
 				9663F9501C7A74FC00AF0965 /* AppRightViewController.swift in Sources */,

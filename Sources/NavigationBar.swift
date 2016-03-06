@@ -30,106 +30,6 @@
 
 import UIKit
 
-/// A memory reference to the Grid instance for UIView extensions.
-private var NavigationBarKey: UInt8 = 0
-
-public class NavigationBarControls {
-	/// A preset wrapper around contentInset.
-	public var contentInsetPreset: MaterialEdgeInset {
-		didSet {
-			contentInset = MaterialEdgeInsetToValue(contentInsetPreset)
-		}
-	}
-	
-	/// A wrapper around grid.contentInset.
-	public var contentInset: UIEdgeInsets
-	
-	/// Left controls.
-	public var leftControls: Array<UIControl>?
-	
-	/// Right controls.
-	public var rightControls: Array<UIControl>?
-	
-	public init() {
-		contentInsetPreset = .Square2
-		contentInset = MaterialEdgeInsetToValue(.Square2)
-	}
-}
-
-public extension UINavigationBar {
-	/// NavigationBarControls reference.
-	public var controls: NavigationBarControls {
-		get {
-			return MaterialObjectAssociatedObject(self, key: &NavigationBarKey) {
-				return NavigationBarControls()
-			}
-		}
-		set(value) {
-			MaterialObjectAssociateObject(self, key: &NavigationBarKey, value: value)
-		}
-	}
-	
-	/// Device status bar style.
-	public var statusBarStyle: UIStatusBarStyle {
-		get {
-			return MaterialDevice.statusBarStyle
-		}
-		set(value) {
-			MaterialDevice.statusBarStyle = value
-		}
-	}
-	
-	public var leftControls: Array<UIControl>? {
-		get {
-			return controls.leftControls
-		}
-		set(value) {
-			var c: Array<UIBarButtonItem> = Array<UIBarButtonItem>()
-			if let v: Array<UIControl> = value {
-				for q in v {
-					q.frame.size = CGSizeMake(48, 32)
-					if let p: UIButton = q as? UIButton {
-						p.contentEdgeInsets = UIEdgeInsetsZero
-					}
-					c.append(UIBarButtonItem(customView: q))
-				}
-			}
-			
-			let spacer: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
-			spacer.width = -20 + controls.contentInset.left
-			c.append(spacer)
-			
-			controls.leftControls = value
-			topItem?.leftBarButtonItems = c.reverse()
-		}
-	}
-	
-	public var rightControls: Array<UIControl>? {
-		get {
-			return controls.rightControls
-		}
-		set(value) {
-			var c: Array<UIBarButtonItem> = Array<UIBarButtonItem>()
-			if let v: Array<UIControl> = value {
-				for q in v {
-					q.frame.size = CGSizeMake(48, 32)
-					if let p: UIButton = q as? UIButton {
-						p.contentEdgeInsets = UIEdgeInsetsZero
-					}
-					c.append(UIBarButtonItem(customView: q))
-				}
-			}
-			
-			let spacer: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
-			spacer.width = -20 + controls.contentInset.right
-			c.append(spacer)
-			
-			controls.rightControls = value
-			topItem?.rightBarButtonItems = c.reverse()
-		}
-	}
-}
-
 public class NavigationBar : UINavigationBar {
 	/**
 	A CAShapeLayer used to manage elements that would be affected by
@@ -221,43 +121,6 @@ public class NavigationBar : UINavigationBar {
 		}
 		set(value) {
 			layer.masksToBounds = value
-		}
-	}
-	
-	/// A preset wrapper around contentInset.
-	public var contentInsetPreset: MaterialEdgeInset {
-		get {
-			return grid.contentInsetPreset
-		}
-		set(value) {
-			grid.contentInsetPreset = value
-		}
-	}
-	
-	/// A wrapper around grid.contentInset.
-	public var contentInset: UIEdgeInsets {
-		get {
-			return grid.contentInset
-		}
-		set(value) {
-			grid.contentInset = value
-		}
-	}
-	
-	/// A preset wrapper around spacing.
-	public var spacingPreset: MaterialSpacing = .None {
-		didSet {
-			spacing = MaterialSpacingToValue(spacingPreset)
-		}
-	}
-	
-	/// A wrapper around grid.spacing.
-	public var spacing: CGFloat {
-		get {
-			return grid.spacing
-		}
-		set(value) {
-			grid.spacing = value
 		}
 	}
 	
@@ -405,7 +268,6 @@ public class NavigationBar : UINavigationBar {
 		}
 	}
 	
-	
 	/// A property that sets the cornerRadius of the backing layer.
 	public var cornerRadiusPreset: MaterialRadius = .None {
 		didSet {
@@ -473,29 +335,72 @@ public class NavigationBar : UINavigationBar {
 		}
 	}
 	
+	/**
+	An initializer that initializes the object with a NSCoder object.
+	- Parameter aDecoder: A NSCoder instance.
+	*/
 	public required init?(coder aDecoder: NSCoder) {
 		contentsGravityPreset = .ResizeAspectFill
 		super.init(coder: aDecoder)
 		prepareView()
 	}
 	
+	/**
+	An initializer that initializes the object with a CGRect object.
+	If AutoLayout is used, it is better to initilize the instance
+	using the init() initializer.
+	- Parameter frame: A CGRect instance.
+	*/
 	public override init(frame: CGRect) {
 		contentsGravityPreset = .ResizeAspectFill
 		super.init(frame: frame)
 		prepareView()
 	}
 	
+	/// A convenience initializer.
+	public convenience init() {
+		self.init(frame: CGRectNull)
+	}
+	
+	/// Overriding the layout callback for sublayers.
+	public override func layoutSublayersOfLayer(layer: CALayer) {
+		super.layoutSublayersOfLayer(layer)
+		if self.layer == layer {
+			layoutVisualLayer()
+			layoutShadowPath()
+		}
+	}
+	
+	public override func layoutSubviews() {
+		super.layoutSubviews()
+		leftControls = leftControls
+		rightControls = rightControls
+		
+		if nil != backItem && nil != topItem {
+			backButton.setImage(backButtonImage, forState: .Normal)
+			backButton.setImage(backButtonImage, forState: .Highlighted)
+			leftControls = [backButton]
+		}
+	}
+	
+	/**
+	Prepares the view instance when intialized. When subclassing,
+	it is recommended to override the prepareView method
+	to initialize property values and other setup operations.
+	The super.prepareView method should always be called immediately
+	when subclassing.
+	*/
 	public func prepareView() {
-		translucent = false
+		prepareVisualLayer()
 		barStyle = .Black
+		translucent = false
 		backButtonImage = nil
 		backgroundColor = MaterialColor.white
 		depth = .Depth1
-		spacingPreset = .Spacing2
-		contentInsetPreset = .Square2
+		contentInsetPreset = .WideRectangle3
 		titleTextAttributes = [NSFontAttributeName: RobotoFont.regularWithSize(20)]
-		prepareVisualLayer()
-		backgroundColor = MaterialColor.white
+		setTitleVerticalPositionAdjustment(1, forBarMetrics: .Default)
+		setTitleVerticalPositionAdjustment(2, forBarMetrics: .Compact)
 	}
 	
 	/// Prepares the visualLayer property.
@@ -510,7 +415,7 @@ public class NavigationBar : UINavigationBar {
 		visualLayer.frame = bounds
 		visualLayer.cornerRadius = cornerRadius
 	}
-	
+
 	/// Sets the shadow path.
 	internal func layoutShadowPath() {
 		if shadowPathAutoSizeEnabled {
@@ -519,6 +424,171 @@ public class NavigationBar : UINavigationBar {
 			} else if nil == shadowPath {
 				shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).CGPath
 			}
+		}
+	}
+}
+
+/// A memory reference to the Grid instance for UIView extensions.
+private var NavigationBarKey: UInt8 = 0
+
+public class NavigationBarControls {
+	/// A preset for contentInset.
+	public var contentInsetPreset: MaterialEdgeInset = .None {
+		didSet {
+			contentInset = MaterialEdgeInsetToValue(contentInsetPreset)
+		}
+	}
+	
+	/// A UIEdgeInsets for contentInset.
+	public var contentInset: UIEdgeInsets = MaterialEdgeInsetToValue(.None)
+	
+	/// Preset for spacing value.
+	public var spacingPreset: MaterialSpacing = .None {
+		didSet {
+			spacing = MaterialSpacingToValue(spacingPreset)
+		}
+	}
+	
+	/// Space between buttons.
+	public var spacing: CGFloat = 0
+	
+	/// Inset for spacer button.
+	public var inset: CGFloat {
+		return MaterialDevice.landscape ? -20 : -20
+	}
+	
+	public private(set) var backButton: MaterialButton
+	
+	/// Left controls.
+	public var leftControls: Array<UIControl>?
+	
+	/// Right controls.
+	public var rightControls: Array<UIControl>?
+	
+	public init() {
+		backButton = FlatButton()
+		backButton.pulseColor = nil
+		backButton.pulseScale = false
+	}
+}
+
+public extension UINavigationBar {
+	/// Device status bar style.
+	public var statusBarStyle: UIStatusBarStyle {
+		get {
+			return MaterialDevice.statusBarStyle
+		}
+		set(value) {
+			MaterialDevice.statusBarStyle = value
+		}
+	}
+	
+	/// NavigationBarControls reference.
+	public internal(set) var controls: NavigationBarControls {
+		get {
+			return MaterialObjectAssociatedObject(self, key: &NavigationBarKey) {
+				return NavigationBarControls()
+			}
+		}
+		set(value) {
+			MaterialObjectAssociateObject(self, key: &NavigationBarKey, value: value)
+		}
+	}
+	
+	/// A preset wrapper around contentInset.
+	public var contentInsetPreset: MaterialEdgeInset {
+		get {
+			return controls.contentInsetPreset
+		}
+		set(value) {
+			controls.contentInsetPreset = value
+		}
+	}
+	
+	/// A wrapper around grid.contentInset.
+	public var contentInset: UIEdgeInsets {
+		get {
+			return controls.contentInset
+		}
+		set(value) {
+			controls.contentInset = value
+		}
+	}
+	
+	/// A preset wrapper around spacing.
+	public var spacingPreset: MaterialSpacing {
+		get {
+			return controls.spacingPreset
+		}
+		set(value) {
+			controls.spacingPreset = value
+		}
+	}
+	
+	/// A wrapper around grid.spacing.
+	public var spacing: CGFloat {
+		get {
+			return controls.spacing
+		}
+		set(value) {
+			controls.spacing = value
+		}
+	}
+	
+	/// Back button.
+	public var backButton: MaterialButton {
+		return controls.backButton
+	}
+	
+	/// Left side UIControls.
+	public var leftControls: Array<UIControl>? {
+		get {
+			return controls.leftControls
+		}
+		set(value) {
+			var c: Array<UIBarButtonItem> = Array<UIBarButtonItem>()
+			if let v: Array<UIControl> = value {
+				for q in v {
+					q.frame.size = CGSizeMake(48 - spacing, 44 - contentInset.top - contentInset.bottom)
+					if let p: UIButton = q as? UIButton {
+						p.contentEdgeInsets = UIEdgeInsetsZero
+					}
+					c.append(UIBarButtonItem(customView: q))
+				}
+			}
+			
+			let spacer: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
+			spacer.width = controls.inset + contentInset.left
+			c.append(spacer)
+			
+			controls.leftControls = value
+			topItem?.leftBarButtonItems = c.reverse()
+		}
+	}
+	
+	/// Right side UIControls.
+	public var rightControls: Array<UIControl>? {
+		get {
+			return controls.rightControls
+		}
+		set(value) {
+			var c: Array<UIBarButtonItem> = Array<UIBarButtonItem>()
+			if let v: Array<UIControl> = value {
+				for q in v {
+					q.frame.size = CGSizeMake(48 - spacing, 44 - contentInset.top - contentInset.bottom)
+					if let p: UIButton = q as? UIButton {
+						p.contentEdgeInsets = UIEdgeInsetsZero
+					}
+					c.append(UIBarButtonItem(customView: q))
+				}
+			}
+			
+			let spacer: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
+			spacer.width = controls.inset + contentInset.right
+			c.append(spacer)
+			
+			controls.rightControls = value
+			topItem?.rightBarButtonItems = c.reverse()
 		}
 	}
 }

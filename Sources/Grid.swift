@@ -228,7 +228,7 @@ private var GridKey: UInt8 = 0
 /// Grid extension for UIView.
 public extension UIView {
 	/// Grid reference.
-	public var grid: Grid {
+	public internal(set) var grid: Grid {
 		get {
 			return MaterialObjectAssociatedObject(self, key: &GridKey) {
 				return Grid()

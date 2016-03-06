@@ -843,12 +843,14 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	*/
 	private func toggleStatusBar(hide: Bool = false) {
 		if hideStatusBar {
-			// General alignment.
-			if .iPhone == MaterialDevice.type && MaterialDevice.landscape {
-				UIApplication.sharedApplication().statusBarHidden = true
-			} else {
-				UIApplication.sharedApplication().statusBarHidden = opened ? true : hide
-			}
+			UIView.animateWithDuration(0.25, animations: { [weak self] in
+				// General alignment.
+				if .iPhone == MaterialDevice.type && MaterialDevice.landscape {
+					UIApplication.sharedApplication().statusBarHidden = true
+				} else {
+					UIApplication.sharedApplication().statusBarHidden = true == self?.opened ? true : hide
+				}
+			})
 		}
 	}
 	

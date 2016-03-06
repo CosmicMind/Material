@@ -53,7 +53,10 @@ class InboxViewController: UIViewController {
 	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
-		navigationBarViewController?.navigationBarView.titleLabel?.text = "Inbox"
+		
+		navigationItem.title = "Messages"
+		navigationController?.navigationBar.topItem?.title = ""
+		navigationController?.navigationBar.leftControls = []
 	}
 	
 	/**
@@ -135,7 +138,7 @@ extension InboxViewController: UITableViewDataSource {
 		
 		header.addSubview(label)
 		label.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignToParent(header, child: label, left: navigationBarViewController!.navigationBarView.contentInset.left + navigationBarViewController!.navigationBarView.spacing)
+		MaterialLayout.alignToParent(header, child: label, left: navigationController!.navigationBar.contentInset.left)
 		
 		return header
 	}

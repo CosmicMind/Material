@@ -46,7 +46,6 @@ class FeedViewController: UIViewController {
 	
 	override func viewWillLayoutSubviews() {
 		super.viewWillLayoutSubviews()
-		collectionView.frame = view.bounds
 		collectionView.reloadData()
 	}
 	
@@ -59,11 +58,11 @@ class FeedViewController: UIViewController {
 		
 		// Menu button.
 		let menuButton: FlatButton = FlatButton()
-		menuButton.pulseColor = MaterialColor.white
 		menuButton.pulseScale = false
+		menuButton.pulseColor = MaterialColor.white
 		menuButton.setImage(image, forState: .Normal)
 		menuButton.setImage(image, forState: .Highlighted)
-//		menuButton.addTarget(self, action: "handleMenuButton", forControlEvents: .TouchUpInside)
+		menuButton.addTarget(self, action: "handleMenuButton", forControlEvents: .TouchUpInside)
 		
 		// Switch control.
 		let switchControl: MaterialSwitch = MaterialSwitch(state: .Off, style: .LightContent, size: .Small)
@@ -71,18 +70,18 @@ class FeedViewController: UIViewController {
 		// Search button.
 		image = UIImage(named: "ic_search_white")
 		let searchButton: FlatButton = FlatButton()
-		searchButton.pulseColor = MaterialColor.white
 		searchButton.pulseScale = false
+		searchButton.pulseColor = MaterialColor.white
 		searchButton.setImage(image, forState: .Normal)
 		searchButton.setImage(image, forState: .Highlighted)
-//		searchButton.addTarget(self, action: "handleSearchButton", forControlEvents: .TouchUpInside)
+		searchButton.addTarget(self, action: "handleSearchButton", forControlEvents: .TouchUpInside)
 		
 		navigationController?.navigationBar.leftControls = [menuButton]
 		navigationController?.navigationBar.rightControls = [switchControl, searchButton]
 	}
 	
 	internal func handleMenuButton() {
-		print("handled")
+		sideNavigationViewController?.toggleLeftView()
 	}
 	
 	internal func handleSearchButton() {
@@ -94,7 +93,9 @@ class FeedViewController: UIViewController {
 		view.backgroundColor = MaterialColor.grey.lighten4
 		
 		navigationController?.navigationBar.statusBarStyle = .LightContent
+		navigationController?.navigationBar.tintColor = MaterialColor.white
 		navigationController?.navigationBar.backgroundColor = MaterialColor.blue.base
+		navigationController?.navigationBar.backButton.pulseColor = MaterialColor.white
 	}
 	
 	/// Prepares the collectionView
@@ -102,11 +103,12 @@ class FeedViewController: UIViewController {
 		collectionView.dataSource = self
 		collectionView.delegate = self
 		collectionView.spacingPreset = .Spacing1
-		collectionView.contentInsetPreset = .Square1
 		collectionView.registerClass(MaterialCollectionViewCell.self, forCellWithReuseIdentifier: "MaterialCollectionViewCell")
 		
 		// To avoid being hidden under the hovering MenuView.
 		view.addSubview(collectionView)
+		collectionView.translatesAutoresizingMaskIntoConstraints = false
+		MaterialLayout.alignToParent(view, child: collectionView)
 		
 //		collectionView.scrollDirection = .Horizontal // Uncomment to see the horizontal scroll direction.
 	}
@@ -204,6 +206,7 @@ extension FeedViewController: MaterialCollectionViewDataSource {
 				cardView!.pulseScale = false
 				cardView!.divider = false
 				cardView!.depth = .None
+				cardView!.cornerRadiusPreset = .None
 				
 				let titleLabel: UILabel = UILabel()
 				titleLabel.textColor = MaterialColor.grey.darken4
@@ -246,6 +249,6 @@ extension FeedViewController: MaterialCollectionViewDelegate {
 	/// Executed when an item is selected.
 	func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
 //		print(indexPath)
-		navigationController?.pushViewController(ViewController(), animated: true)
+		navigationController?.pushViewController(InboxViewController(), animated: true)
 	}
 }
