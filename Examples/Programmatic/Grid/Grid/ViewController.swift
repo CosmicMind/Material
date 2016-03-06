@@ -191,7 +191,7 @@ class ViewController: UIViewController {
 		var image: UIImage? = UIImage(named: "VeganCakeFull")
 		let imageView: MaterialView = MaterialView()
 		imageView.image = image
-		imageView.contentsGravity = .ResizeAspectFill
+		imageView.contentsGravityPreset = .ResizeAspectFill
 		cardView.addSubview(imageView)
 		
 		let contentView: MaterialView = MaterialView()
@@ -288,7 +288,7 @@ class ViewController: UIViewController {
 		var image: UIImage? = UIImage(named: "CosmicMindInverted")
 		let imageView: MaterialView = MaterialView()
 		imageView.image = image
-		imageView.contentsGravity = .ResizeAspectFill
+		imageView.contentsGravityPreset = .ResizeAspectFill
 		cardView.addSubview(imageView)
 		
 		let contentView: MaterialView = MaterialView()
@@ -387,17 +387,17 @@ class ViewController: UIViewController {
 		
 		let leftImageView: MaterialView = MaterialView()
 		leftImageView.image = image
-		leftImageView.contentsGravity = .ResizeAspectFill
+		leftImageView.contentsGravityPreset = .ResizeAspectFill
 		cardView.addSubview(leftImageView)
 
 		let topImageView: MaterialView = MaterialView()
 		topImageView.image = image
-		topImageView.contentsGravity = .ResizeAspectFill
+		topImageView.contentsGravityPreset = .ResizeAspectFill
 		cardView.addSubview(topImageView)
 
 		let bottomImageView: MaterialView = MaterialView()
 		bottomImageView.image = image
-		bottomImageView.contentsGravity = .ResizeAspectFill
+		bottomImageView.contentsGravityPreset = .ResizeAspectFill
 		cardView.addSubview(bottomImageView)
 
 		let contentView: MaterialView = MaterialView()

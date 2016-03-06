@@ -143,6 +143,13 @@ public class MaterialLayer : CAShapeLayer {
 		}
 	}
 	
+	/// A Preset for the contentsGravity property.
+	public var contentsGravityPreset: MaterialGravity {
+		didSet {
+			contentsGravity = MaterialGravityToString(contentsGravityPreset)
+		}
+	}
+	
 	/// Determines how content should be aligned within the visualLayer's bounds.
 	public override var contentsGravity: String {
 		get {
@@ -236,6 +243,7 @@ public class MaterialLayer : CAShapeLayer {
 	- Parameter aDecoder: A NSCoder instance.
 	*/
 	public required init?(coder aDecoder: NSCoder) {
+		contentsGravityPreset = .ResizeAspectFill
 		super.init(coder: aDecoder)
 		prepareVisualLayer()
 	}
@@ -246,12 +254,14 @@ public class MaterialLayer : CAShapeLayer {
 	- Parameter layer: AnyObject.
 	*/
 	public override init(layer: AnyObject) {
+		contentsGravityPreset = .ResizeAspectFill
 		super.init()
 		prepareVisualLayer()
 	}
 	
 	/// A convenience initializer.
 	public override init() {
+		contentsGravityPreset = .ResizeAspectFill
 		super.init()
 		prepareVisualLayer()
 	}

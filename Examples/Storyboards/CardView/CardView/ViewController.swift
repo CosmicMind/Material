@@ -100,7 +100,7 @@ class ViewController: UIViewController {
         
         // Image.
         secondCardView.image = UIImage(named: "Graph")?.resize(toHeight: 100)
-        secondCardView.contentsGravity = .TopLeft
+        secondCardView.contentsGravityPreset = .TopLeft
         
         // Title label.
         let titleLabel: UILabel = UILabel()

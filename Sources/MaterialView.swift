@@ -63,8 +63,11 @@ public class MaterialView : UIView {
 	terms of how the image is cropped and stretched.
 	*/
 	public var contentsRect: CGRect {
-		didSet {
-			visualLayer.contentsRect = contentsRect
+		get {
+			return visualLayer.contentsRect
+		}
+		set(value) {
+			visualLayer.contentsRect = value
 		}
 	}
 	
@@ -73,26 +76,42 @@ public class MaterialView : UIView {
 	with a fixed border around the edge.
 	*/
 	public var contentsCenter: CGRect {
-		didSet {
-			visualLayer.contentsCenter = contentsCenter
+		get {
+			return visualLayer.contentsCenter
+		}
+		set(value) {
+			visualLayer.contentsCenter = value
 		}
 	}
 	
 	/**
-	A floating point value that defines a ratio between the pixel 
-	dimensions of the visualLayer's contents property and the size 
+	A floating point value that defines a ratio between the pixel
+	dimensions of the visualLayer's contents property and the size
 	of the view. By default, this value is set to the MaterialDevice.scale.
 	*/
 	public var contentsScale: CGFloat {
+		get {
+			return visualLayer.contentsScale
+		}
+		set(value) {
+			visualLayer.contentsScale = value
+		}
+	}
+	
+	/// A Preset for the contentsGravity property.
+	public var contentsGravityPreset: MaterialGravity {
 		didSet {
-			visualLayer.contentsScale = contentsScale
+			contentsGravity = MaterialGravityToString(contentsGravityPreset)
 		}
 	}
 	
 	/// Determines how content should be aligned within the visualLayer's bounds.
-	public var contentsGravity: MaterialGravity {
-		didSet {
-			visualLayer.contentsGravity = MaterialGravityToString(contentsGravity)
+	public var contentsGravity: String {
+		get {
+			return visualLayer.contentsGravity
+		}
+		set(value) {
+			visualLayer.contentsGravity = value
 		}
 	}
 	
@@ -344,10 +363,7 @@ public class MaterialView : UIView {
 	- Parameter aDecoder: A NSCoder instance.
 	*/
 	public required init?(coder aDecoder: NSCoder) {
-		contentsRect = CGRectMake(0, 0, 1, 1)
-		contentsCenter = CGRectMake(0, 0, 1, 1)
-		contentsScale = MaterialDevice.scale
-		contentsGravity = .ResizeAspectFill
+		contentsGravityPreset = .ResizeAspectFill
 		super.init(coder: aDecoder)
 		prepareView()
 	}
@@ -359,10 +375,7 @@ public class MaterialView : UIView {
 	- Parameter frame: A CGRect instance.
 	*/
 	public override init(frame: CGRect) {
-		contentsRect = CGRectMake(0, 0, 1, 1)
-		contentsCenter = CGRectMake(0, 0, 1, 1)
-		contentsScale = MaterialDevice.scale
-		contentsGravity = .ResizeAspectFill
+		contentsGravityPreset = .ResizeAspectFill
 		super.init(frame: frame)
 		prepareView()
 	}

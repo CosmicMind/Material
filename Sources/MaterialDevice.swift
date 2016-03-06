@@ -76,4 +76,14 @@ public struct MaterialDevice {
 	public static var scale: CGFloat {
 		return UIScreen.mainScreen().scale
 	}
+	
+	/// Retrieves the device status bar style.
+	public static var statusBarStyle: UIStatusBarStyle {
+		get {
+			return UIApplication.sharedApplication().statusBarStyle
+		}
+		set(value) {
+			UIApplication.sharedApplication().statusBarStyle = value
+		}
+	}
 }

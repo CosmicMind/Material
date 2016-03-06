@@ -152,13 +152,14 @@ public class ImageCardView : MaterialPulseView {
 		}
 	}
 	
-	/**
-	:name:	contentsGravity
-	*/
-	public override var contentsGravity: MaterialGravity {
-		didSet {
+	/// Determines how content should be aligned within the visualLayer's bounds.
+	public override var contentsGravity: String {
+		get {
+			return nil == imageLayer ? "" : imageLayer!.contentsGravity
+		}
+		set(value) {
 			prepareImageLayer()
-			imageLayer?.contentsGravity = MaterialGravityToString(contentsGravity)
+			imageLayer?.contentsGravity = value
 		}
 	}
 	

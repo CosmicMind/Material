@@ -41,9 +41,12 @@ public class StatusBarView : ControlView {
 	public var heightForLandscapeOrientation: CGFloat = 44
 	
 	/// Device status bar style.
-	public var statusBarStyle: UIStatusBarStyle = UIApplication.sharedApplication().statusBarStyle {
-		didSet {
-			UIApplication.sharedApplication().statusBarStyle = statusBarStyle
+	public var statusBarStyle: UIStatusBarStyle {
+		get {
+			return MaterialDevice.statusBarStyle
+		}
+		set(value) {
+			MaterialDevice.statusBarStyle = value
 		}
 	}
 	
