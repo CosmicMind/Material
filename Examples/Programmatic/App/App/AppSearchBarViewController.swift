@@ -58,12 +58,13 @@ class AppSearchBarViewController: SearchBarViewController {
 	/// Toggle SideSearchViewController left UIViewController.
 	internal func handleBackButton() {
 		searchBarView.textField.resignFirstResponder()
-		navigationBarViewController?.floatingViewController = nil
+		dismissViewControllerAnimated(true, completion: nil)
 	}
 	
 	/// Toggle SideSearchViewController right UIViewController.
 	internal func handleMoreButton() {
 		searchBarView.textField.resignFirstResponder()
+		print(presentingViewController?.view.layer.zPosition)
 		sideNavigationViewController?.enabledRightView = true
 		sideNavigationViewController?.toggleRightView()
 	}

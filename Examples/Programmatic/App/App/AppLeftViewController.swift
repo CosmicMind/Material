@@ -158,31 +158,4 @@ extension AppLeftViewController: UITableViewDelegate {
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		print("Cell selected")
 	}
-	
-	func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-		let item: Item = items[indexPath.row]
-		print(sideNavigationViewController?.mainViewController.navigationController)
-		/**
-		An example of loading a new UIViewController in the AppNavigationBarViewController
-		if the UIViewController is not already loaded. This is a bit of a tricky example, as
-		we are diving deeper into the view hierarchy to transition only the mainViewController of the
-		AppNavigationBarViewController.
-		
-		Accessing the mainViewController of: SideNavigationViewController -> MenuViewController -> NavigationBarViewController.
-		*/
-		if let a: MenuViewController = sideNavigationViewController?.mainViewController as? MenuViewController {
-			if let b: NavigationBarViewController = a.mainViewController as? NavigationBarViewController {
-				if "Feed" == item.text && !(b.mainViewController is FeedViewController) {
-					b.transitionFromMainViewController(FeedViewController(), options: [.TransitionCrossDissolve]) { [weak self] _ in
-						self?.sideNavigationViewController?.closeLeftView()
-					}
-				} else if "Inbox" == item.text && !(b.mainViewController is InboxViewController) {
-					b.transitionFromMainViewController(InboxViewController(), options: [.TransitionCrossDissolve]) { [weak self] _ in
-						self?.sideNavigationViewController?.closeLeftView()
-					}
-				}
-			}
-		}
-		return indexPath
-	}
 }

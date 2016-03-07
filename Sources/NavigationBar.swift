@@ -30,6 +30,18 @@
 
 import UIKit
 
+public extension UINavigationBar {
+	/// Device status bar style.
+	public var statusBarStyle: UIStatusBarStyle {
+		get {
+			return MaterialDevice.statusBarStyle
+		}
+		set(value) {
+			MaterialDevice.statusBarStyle = value
+		}
+	}
+}
+
 public class NavigationBar : UINavigationBar {
 	/// Reference to the backButton.
 	public private(set) lazy var backButton: FlatButton = FlatButton()
@@ -233,27 +245,6 @@ public class NavigationBar : UINavigationBar {
 		}
 	}
 	
-	/// A property that accesses the backing layer's shadowPath.
-	public var shadowPath: CGPath? {
-		get {
-			return layer.shadowPath
-		}
-		set(value) {
-			layer.shadowPath = value
-		}
-	}
-	
-	/// Enables automatic shadowPath sizing.
-	public var shadowPathAutoSizeEnabled: Bool = false {
-		didSet {
-			if shadowPathAutoSizeEnabled {
-				layoutShadowPath()
-			} else {
-				shadowPath = nil
-			}
-		}
-	}
-	
 	/**
 	A property that sets the shadowOffset, shadowOpacity, and shadowRadius
 	for the backing layer. This is the preferred method of setting depth
@@ -265,7 +256,6 @@ public class NavigationBar : UINavigationBar {
 			shadowOffset = value.offset
 			shadowOpacity = value.opacity
 			shadowRadius = value.radius
-			layoutShadowPath()
 		}
 	}
 	
@@ -285,7 +275,6 @@ public class NavigationBar : UINavigationBar {
 		}
 		set(value) {
 			layer.cornerRadius = value
-			layoutShadowPath()
 		}
 	}
 	
@@ -368,12 +357,16 @@ public class NavigationBar : UINavigationBar {
 		super.layoutSublayersOfLayer(layer)
 		if self.layer == layer {
 			layoutVisualLayer()
-			layoutShadowPath()
 		}
 	}
 	
 	public override func layoutSubviews() {
 		super.layoutSubviews()
+		
+		/*
+		When rotating the device orientation, this adjusts the layout
+		of the titleView subviews.
+		*/
 		topItem?.titleView?.grid.reloadLayout()
 	}
 	
@@ -392,7 +385,7 @@ public class NavigationBar : UINavigationBar {
 		}
 		
 		if nil == item.titleView {
-			item.titleView = UIView(frame: CGRectMake(0, 2, 2000, 40))
+			item.titleView = UIView(frame: CGRectMake(0, 0, 2000, 44))
 			item.titleView!.backgroundColor = nil
 			item.titleView!.grid.axis.direction = .Vertical
 		}
@@ -402,9 +395,11 @@ public class NavigationBar : UINavigationBar {
 		// TitleView alignment.
 		if let t: UILabel = item.titleLabel {
 			t.grid.rows = 1
+			t.backgroundColor = MaterialColor.red.accent1
 			item.titleView!.addSubview(t)
 			item.titleView!.grid.views?.append(t)
 			if let d: UILabel = item.detailLabel {
+				d.backgroundColor = MaterialColor.red.accent3
 				t.font = t.font.fontWithSize(17)
 				d.grid.rows = 1
 				d.font = d.font.fontWithSize(12)
@@ -446,8 +441,6 @@ public class NavigationBar : UINavigationBar {
 		backButtonImage = nil
 		backgroundColor = MaterialColor.white
 		depth = .Depth1
-		spacingPreset = .Spacing2
-		contentInset = UIEdgeInsetsMake(8, 0, 8, 0)
 		prepareVisualLayer()
 		prepareBackButton()
 	}
@@ -472,25 +465,20 @@ public class NavigationBar : UINavigationBar {
 		backButton.setImage(backButtonImage, forState: .Normal)
 		backButton.setImage(backButtonImage, forState: .Highlighted)
 	}
-
-	/// Sets the shadow path.
-	internal func layoutShadowPath() {
-		if shadowPathAutoSizeEnabled {
-			if .None == depth {
-				shadowPath = nil
-			} else if nil == shadowPath {
-				shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).CGPath
-			}
-		}
-	}
 }
 
-/// A memory reference to the NavigationBarControls instance for UINavigationBar extensions.
-private var NavigationItemControlsKey: UInt8 = 0
+/// A memory reference to the NavigationItem instance for UINavigationBar extensions.
+private var NavigationItemKey: UInt8 = 0
 
-public class NavigationItemControls {
+public class NavigationItem {
 	/// Inset.
 	public var inset: CGFloat = -16
+	
+	/// Title label.
+	public var titleLabel: UILabel?
+	
+	/// Detail label.
+	public var detailLabel: UILabel?
 	
 	/// Left controls.
 	public var leftControls: Array<UIControl>?
@@ -499,141 +487,66 @@ public class NavigationItemControls {
 	public var rightControls: Array<UIControl>?
 }
 
-/// A memory reference to the NavigationItemLabels instance for UINavigationItem extensions.
-private var NavigationItemLabelsKey: UInt8 = 0
-
-public class NavigationItemLabels {
-	/// Title label.
-	public var titleLabel: UILabel?
-	
-	/// Detail label.
-	public var detailLabel: UILabel?
-}
-
 public extension UINavigationItem {
 	/// NavigationBarControls reference.
-	public internal(set) var labels: NavigationItemLabels {
+	public internal(set) var item: NavigationItem {
 		get {
-			return MaterialAssociatedObject(self, key: &NavigationItemLabelsKey) {
-				return NavigationItemLabels()
+			return MaterialAssociatedObject(self, key: &NavigationItemKey) {
+				return NavigationItem()
 			}
 		}
 		set(value) {
-			MaterialAssociateObject(self, key: &NavigationItemLabelsKey, value: value)
-		}
-	}
-	
-	/// Title Label.
-	public var titleLabel: UILabel? {
-		get {
-			return labels.titleLabel
-		}
-		set(value) {
-			labels.titleLabel = value
-		}
-	}
-	
-	/// Detail Label.
-	public var detailLabel: UILabel? {
-		get {
-			return labels.detailLabel
-		}
-		set(value) {
-			labels.detailLabel = value
-		}
-	}
-	
-	/// NavigationBarControls reference.
-	public internal(set) var controls: NavigationItemControls {
-		get {
-			return MaterialAssociatedObject(self, key: &NavigationItemControlsKey) {
-				return NavigationItemControls()
-			}
-		}
-		set(value) {
-			MaterialAssociateObject(self, key: &NavigationItemControlsKey, value: value)
+			MaterialAssociateObject(self, key: &NavigationItemKey, value: value)
 		}
 	}
 	
 	/// Inset.
 	public var inset: CGFloat {
 		get {
-			return controls.inset
+			return item.inset
 		}
 		set(value) {
-			controls.inset = value
+			item.inset = value
+		}
+	}
+	
+	/// Title Label.
+	public var titleLabel: UILabel? {
+		get {
+			return item.titleLabel
+		}
+		set(value) {
+			item.titleLabel = value
+		}
+	}
+	
+	/// Detail Label.
+	public var detailLabel: UILabel? {
+		get {
+			return item.detailLabel
+		}
+		set(value) {
+			item.detailLabel = value
 		}
 	}
 	
 	/// Left side UIControls.
 	public var leftControls: Array<UIControl>? {
 		get {
-			return controls.leftControls
+			return item.leftControls
 		}
 		set(value) {
-			controls.leftControls = value
+			item.leftControls = value
 		}
 	}
 	
 	/// Right side UIControls.
 	public var rightControls: Array<UIControl>? {
 		get {
-			return controls.rightControls
+			return item.rightControls
 		}
 		set(value) {
-			controls.rightControls = value
-		}
-	}
-}
-
-public extension UINavigationBar {
-	/// Device status bar style.
-	public var statusBarStyle: UIStatusBarStyle {
-		get {
-			return MaterialDevice.statusBarStyle
-		}
-		set(value) {
-			MaterialDevice.statusBarStyle = value
-		}
-	}
-	
-	/// A preset wrapper around contentInset.
-	public var contentInsetPreset: MaterialEdgeInset {
-		get {
-			return grid.contentInsetPreset
-		}
-		set(value) {
-			grid.contentInsetPreset = value
-		}
-	}
-	
-	/// A wrapper around grid.contentInset.
-	public var contentInset: UIEdgeInsets {
-		get {
-			return grid.contentInset
-		}
-		set(value) {
-			grid.contentInset = value
-		}
-	}
-	
-	/// A preset wrapper around spacing.
-	public var spacingPreset: MaterialSpacing {
-		get {
-			return grid.spacingPreset
-		}
-		set(value) {
-			grid.spacingPreset = value
-		}
-	}
-	
-	/// A wrapper around grid.spacing.
-	public var spacing: CGFloat {
-		get {
-			return grid.spacing
-		}
-		set(value) {
-			grid.spacing = value
+			item.rightControls = value
 		}
 	}
 }

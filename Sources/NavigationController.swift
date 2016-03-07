@@ -31,14 +31,27 @@
 import UIKit
 
 public class NavigationController : UINavigationController {
+	/**
+	An initializer that initializes the object with a NSCoder object.
+	- Parameter aDecoder: A NSCoder instance.
+	*/
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
 	
+	/**
+	An initializer that initializes the object with an Optional nib and bundle.
+	- Parameter nibNameOrNil: An Optional String for the nib.
+	- Parameter bundle: An Optional NSBundle where the nib is located.
+	*/
 	public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 	}
 	
+	/**
+	An initializer that initializes the object with a rootViewController.
+	- Parameter rootViewController: A UIViewController for the rootViewController.
+	*/
 	public override init(rootViewController: UIViewController) {
 		super.init(navigationBarClass: NavigationBar.self, toolbarClass: nil)
 		setViewControllers([rootViewController], animated: false)
@@ -46,26 +59,31 @@ public class NavigationController : UINavigationController {
 	
 	public override func viewDidLoad() {
 		super.viewDidLoad()
+		
+		// This ensures the panning gesture is available when going back between views.
 		interactivePopGestureRecognizer?.delegate = nil
-	}
-	
-	public override func viewWillLayoutSubviews() {
-		super.viewWillLayoutSubviews()
-		navigationBar.layoutSubviews()
 	}
 	
 	public override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 		if let v: UINavigationItem = navigationBar.topItem {
-			v.title = ""
+			prepareTitle(v)
 			(navigationBar as? NavigationBar)?.layoutNavigationItem(v)
 		}
 	}
 	
+	/**
+	Delegation method that is called when a new UINavigationItem is about to be pushed.
+	This is used to prepare the transitions between UIViewControllers on the stack.
+	- Parameter navigationBar: A UINavigationBar that is used in the NavigationController.
+	- Parameter item: The UINavigationItem that will be pushed on the stack.
+	- Returns: A Boolean value that indicates whether to push the item on to the stack or not. 
+	True is yes, false is no.
+	*/
 	public func navigationBar(navigationBar: UINavigationBar, shouldPushItem item: UINavigationItem) -> Bool {
-		item.title = ""
-		item.setHidesBackButton(true, animated: false)
 		if let v: NavigationBar = navigationBar as? NavigationBar {
+			prepareTitle(item)
+			item.setHidesBackButton(true, animated: false)
 			if var c: Array<UIControl> = item.leftControls {
 				c.append(v.backButton)
 				item.leftControls = c
@@ -79,7 +97,15 @@ public class NavigationController : UINavigationController {
 		return true
 	}
 	
+	/// Handler for the back button.
 	internal func handleBackButton() {
 		popViewControllerAnimated(true)
+	}
+	
+	/// Prepares the title if it's value is nil.
+	private func prepareTitle(item: UINavigationItem) {
+		if nil == item.title {
+			item.title = ""
+		}
 	}
 }

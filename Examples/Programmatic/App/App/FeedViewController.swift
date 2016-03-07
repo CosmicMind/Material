@@ -66,7 +66,7 @@ class FeedViewController: UIViewController {
 	
 	/// Handler for searchButton.
 	internal func handleSearchButton() {
-		print("handled")
+		presentViewController(AppSearchBarViewController(mainViewController: SearchListViewController()), animated: true, completion: nil)
 	}
 	
 	/// Prepares view.

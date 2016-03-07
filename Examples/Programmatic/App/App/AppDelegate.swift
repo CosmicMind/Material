@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Override point for customization after application launch.
 		window = UIWindow(frame: UIScreen.mainScreen().bounds)
 //		window!.rootViewController = SideNavigationViewController(mainViewController: AppMenuViewController(mainViewController: AppNavigationBarViewController(mainViewController: InboxViewController())), leftViewController: AppLeftViewController(), rightViewController: AppRightViewController())
-		window!.rootViewController = SideNavigationViewController(mainViewController: AppMenuViewController(mainViewController: AppNavigationController(rootViewController: FeedViewController())), leftViewController: AppLeftViewController())
+		window!.rootViewController = SideNavigationViewController(mainViewController: AppMenuViewController(mainViewController: AppNavigationController(rootViewController: FeedViewController())), leftViewController: AppLeftViewController(), rightViewController: AppRightViewController())
 		window!.makeKeyAndVisible()
 		return true
 	}
