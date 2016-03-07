@@ -61,7 +61,7 @@ class FeedViewController: UIViewController {
 	
 	/// Handler for menuButton.
 	internal func handleMenuButton() {
-//		sideNavigationViewController?.toggleLeftView()
+		sideNavigationViewController?.toggleLeftView()
 	}
 	
 	/// Handler for searchButton.
@@ -74,12 +74,12 @@ class FeedViewController: UIViewController {
 		view.backgroundColor = MaterialColor.grey.lighten4
 		
 		let titleLabel: UILabel = UILabel()
-		titleLabel.text = "Materialyyppgg"
+		titleLabel.text = "Material"
 		titleLabel.textAlignment = .Left
 		titleLabel.textColor = MaterialColor.white
 		
 		let detailLabel: UILabel = UILabel()
-		detailLabel.text = "Build Beautiful Softwareyyppgg"
+		detailLabel.text = "Build Beautiful Software"
 		detailLabel.textAlignment = .Left
 		detailLabel.textColor = MaterialColor.white
 		

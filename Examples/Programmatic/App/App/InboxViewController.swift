@@ -158,7 +158,7 @@ extension InboxViewController: UITableViewDataSource {
 		
 		header.addSubview(label)
 		label.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignToParent(header, child: label, left: navigationController!.navigationBar.contentInset.left)
+		MaterialLayout.alignToParent(header, child: label, left: 24)
 		
 		return header
 	}
