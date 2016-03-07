@@ -36,8 +36,7 @@ flow of your application.
 import UIKit
 import Material
 
-class AppNavigationController : NavigationController {
-	
+class AppNavigationController: NavigationController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		

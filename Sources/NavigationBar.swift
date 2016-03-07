@@ -31,6 +31,9 @@
 import UIKit
 
 public class NavigationBar : UINavigationBar {
+	/// Reference to the backButton.
+	public private(set) lazy var backButton: FlatButton = FlatButton()
+	
 	/**
 	A CAShapeLayer used to manage elements that would be affected by
 	the clipToBounds property of the backing layer. For example, this
@@ -369,38 +372,27 @@ public class NavigationBar : UINavigationBar {
 		}
 	}
 	
+	public override func layoutSubviews() {
+		super.layoutSubviews()
+		topItem?.titleView?.grid.reloadLayout()
+	}
+	
 	public func layoutNavigationItem(item: UINavigationItem) {
-		grid.views = []
-		grid.axis.columns = Int(width / 48)
-		
-		let g: CGFloat = width / CGFloat(grid.axis.columns)
-			
-		var columns: Int = grid.axis.columns
-		
 		// leftControls
 		if let v: Array<UIControl> = item.leftControls {
 			var n: Array<UIBarButtonItem> = Array<UIBarButtonItem>()
 			for c in v {
-				if let b: UIButton = c as? UIButton {
-					b.contentEdgeInsets = UIEdgeInsetsZero
-				}
-				
-				c.grid.columns = 0 == g ? 1 : Int(ceil(c.intrinsicContentSize().width / g))
-				columns -= c.grid.columns
-				
-				grid.views!.append(c)
+				c.bounds.size = c is MaterialSwitch ? backButton.bounds.size : c.intrinsicContentSize()
 				n.append(UIBarButtonItem(customView: c))
 			}
-			
-			//			let spacer: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
-			//			spacer.width = 0
-			//			c.append(spacer)
-			
+			let spacer: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
+			spacer.width = item.inset
+			n.append(spacer)
 			item.leftBarButtonItems = n.reverse()
 		}
 		
 		if nil == item.titleView {
-			item.titleView = UIView()
+			item.titleView = UIView(frame: CGRectMake(0, 2, 2000, 40))
 			item.titleView!.backgroundColor = nil
 			item.titleView!.grid.axis.direction = .Vertical
 		}
@@ -409,56 +401,36 @@ public class NavigationBar : UINavigationBar {
 		
 		// TitleView alignment.
 		if let t: UILabel = item.titleLabel {
+			t.grid.rows = 1
 			item.titleView!.addSubview(t)
 			item.titleView!.grid.views?.append(t)
-			
 			if let d: UILabel = item.detailLabel {
-				t.grid.rows = 2
 				t.font = t.font.fontWithSize(17)
-				d.grid.rows = 2
+				d.grid.rows = 1
 				d.font = d.font.fontWithSize(12)
 				item.titleView!.addSubview(d)
 				item.titleView!.grid.views?.append(d)
-				item.titleView!.grid.axis.rows = 3
-				item.titleView!.grid.spacing = -8
-				item.titleView!.grid.contentInset.top = -8
+				item.titleView!.grid.axis.rows = 2
 			} else {
-				t.grid.rows = 1
 				t.font = t.font?.fontWithSize(20)
 				item.titleView!.grid.axis.rows = 1
-				item.titleView!.grid.spacing = 0
-				item.titleView!.grid.contentInset.top = 0
 			}
 		}
-		
-		grid.views?.append(item.titleView!)
 		
 		// rightControls
 		if let v: Array<UIControl> = item.rightControls {
 			var n: Array<UIBarButtonItem> = Array<UIBarButtonItem>()
 			for c in v {
-				if let b: UIButton = c as? UIButton {
-					b.contentEdgeInsets = UIEdgeInsetsZero
-				}
-				
-				c.grid.columns = 0 == g ? 1 : Int(ceil(c.intrinsicContentSize().width / g))
-				columns -= c.grid.columns
-				
-				grid.views!.append(c)
+				c.bounds.size = c is MaterialSwitch ? backButton.bounds.size : c.intrinsicContentSize()
 				n.append(UIBarButtonItem(customView: c))
 			}
-			
-			//			let spacer: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
-			//			spacer.width = 0
-			//			c.append(spacer)
-			
+			let spacer: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
+			spacer.width = item.inset
+			n.append(spacer)
 			item.rightBarButtonItems = n.reverse()
 		}
 		
-		item.titleView!.grid.columns = columns
-		
-		grid.reloadLayout()
-		item.titleView?.grid.reloadLayout()
+		item.titleView!.grid.reloadLayout()
 	}
 	
 	/**
@@ -469,7 +441,6 @@ public class NavigationBar : UINavigationBar {
 	when subclassing.
 	*/
 	public func prepareView() {
-		prepareVisualLayer()
 		barStyle = .Black
 		translucent = false
 		backButtonImage = nil
@@ -477,6 +448,8 @@ public class NavigationBar : UINavigationBar {
 		depth = .Depth1
 		spacingPreset = .Spacing2
 		contentInset = UIEdgeInsetsMake(8, 0, 8, 0)
+		prepareVisualLayer()
+		prepareBackButton()
 	}
 	
 	/// Prepares the visualLayer property.
@@ -490,6 +463,14 @@ public class NavigationBar : UINavigationBar {
 	internal func layoutVisualLayer() {
 		visualLayer.frame = bounds
 		visualLayer.cornerRadius = cornerRadius
+	}
+	
+	/// Prepares the backButton.
+	internal func prepareBackButton() {
+		backButton.pulseScale = false
+		backButton.pulseColor = MaterialColor.white
+		backButton.setImage(backButtonImage, forState: .Normal)
+		backButton.setImage(backButtonImage, forState: .Highlighted)
 	}
 
 	/// Sets the shadow path.
@@ -508,6 +489,9 @@ public class NavigationBar : UINavigationBar {
 private var NavigationItemControlsKey: UInt8 = 0
 
 public class NavigationItemControls {
+	/// Inset.
+	public var inset: CGFloat = -16
+	
 	/// Left controls.
 	public var leftControls: Array<UIControl>?
 	
@@ -568,6 +552,16 @@ public extension UINavigationItem {
 		}
 		set(value) {
 			MaterialAssociateObject(self, key: &NavigationItemControlsKey, value: value)
+		}
+	}
+	
+	/// Inset.
+	public var inset: CGFloat {
+		get {
+			return controls.inset
+		}
+		set(value) {
+			controls.inset = value
 		}
 	}
 	

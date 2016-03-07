@@ -74,12 +74,12 @@ class FeedViewController: UIViewController {
 		view.backgroundColor = MaterialColor.grey.lighten4
 		
 		let titleLabel: UILabel = UILabel()
-		titleLabel.text = "Material"
+		titleLabel.text = "Materialyyppgg"
 		titleLabel.textAlignment = .Left
 		titleLabel.textColor = MaterialColor.white
 		
 		let detailLabel: UILabel = UILabel()
-		detailLabel.text = "Build Beautiful Software"
+		detailLabel.text = "Build Beautiful Softwareyyppgg"
 		detailLabel.textAlignment = .Left
 		detailLabel.textColor = MaterialColor.white
 		

@@ -78,8 +78,18 @@ class InboxViewController: UIViewController {
 		detailLabel.textAlignment = .Left
 		detailLabel.textColor = MaterialColor.white
 		
+		let switchControl: MaterialSwitch = MaterialSwitch(state: .Off, style: .LightContent, size: .Small)
+		
+		let image: UIImage? =  UIImage(named: "ic_share_white")
+		let shareButton: FlatButton = FlatButton()
+		shareButton.pulseScale = false
+		shareButton.pulseColor = MaterialColor.white
+		shareButton.setImage(image, forState: .Normal)
+		shareButton.setImage(image, forState: .Highlighted)
+		
 		navigationItem.titleLabel = titleLabel
-		navigationItem.detailLabel = detailLabel
+//		navigationItem.detailLabel = detailLabel
+		navigationItem.rightControls = [switchControl, shareButton]
 	}
 	
 	/// Prepares the items Array.
