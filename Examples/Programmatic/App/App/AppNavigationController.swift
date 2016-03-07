@@ -37,44 +37,13 @@ import UIKit
 import Material
 
 class AppNavigationController : NavigationController {
-	/// Menu button at the top left of the navigation bar.
-	private lazy var menuButton: FlatButton = FlatButton()
-	
-	/// Search button at the top left of the navigation bar.
-	private lazy var searchButton: FlatButton = FlatButton()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		prepareMenuButton()
-		prepareSearchButton()
-		
-		navigationBar.leftControls = [menuButton]
-		navigationBar.rightControls = [searchButton]
 		navigationBar.statusBarStyle = .LightContent
 		navigationBar.tintColor = MaterialColor.white
 		navigationBar.backgroundColor = MaterialColor.blue.base
-	}
-	
-	/// Prepares the menuButton.
-	private func prepareMenuButton() {
-		let image: UIImage? = UIImage(named: "ic_menu_white")
-		menuButton.pulseScale = false
-		menuButton.pulseColor = MaterialColor.white
-		menuButton.setImage(image, forState: .Normal)
-		menuButton.setImage(image, forState: .Highlighted)
-		menuButton.addTarget(self, action: "handleMenuButton", forControlEvents: .TouchUpInside)
-	}
-	
-	/// Prepares the searchButton.
-	private func prepareSearchButton() {
-		// Search button.
-		let image: UIImage? = UIImage(named: "ic_search_white")
-		searchButton.pulseScale = false
-		searchButton.pulseColor = MaterialColor.white
-		searchButton.setImage(image, forState: .Normal)
-		searchButton.setImage(image, forState: .Highlighted)
-		searchButton.addTarget(self, action: "handleSearchButton", forControlEvents: .TouchUpInside)
 	}
 }
 

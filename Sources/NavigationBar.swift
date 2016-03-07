@@ -133,8 +133,6 @@ public class NavigationBar : UINavigationBar {
 			if nil == backButtonImage {
 				backButtonImage = UIImage(named: "ic_arrow_back_white", inBundle: NSBundle(identifier: "io.cosmicmind.Material"), compatibleWithTraitCollection: nil)
 			}
-			backIndicatorImage = backButtonImage
-			backIndicatorTransitionMaskImage = backButtonImage
 		}
 	}
 	
@@ -371,85 +369,79 @@ public class NavigationBar : UINavigationBar {
 		}
 	}
 	
-	public override func layoutSubviews() {
-		super.layoutSubviews()
+	public func layoutNavigationItem(item: UINavigationItem) {
+		grid.views = []
+		grid.axis.columns = Int(width / 48)
 		
-		backItem?.title = ""
+		let g: CGFloat = width / CGFloat(grid.axis.columns)
+			
+		var columns: Int = grid.axis.columns
 		
-		// Size of single grid column.
-		if let g: CGFloat = width / CGFloat(0 < grid.axis.columns ? grid.axis.columns : 1) {
-			grid.views = []
-			grid.axis.columns = Int(width / 48)
-			
-			var columns: Int = grid.axis.columns
-			
-			// leftControls
-			if let v: Array<UIControl> = leftControls {
-				for c in v {
-					let w: CGFloat = c.intrinsicContentSize().width
-					if let b: UIButton = c as? UIButton {
-						b.contentEdgeInsets = UIEdgeInsetsZero
-					}
-					
-					c.grid.columns = 0 == g ? 1 : Int(ceil(w / g))
-					columns -= c.grid.columns
-					grid.views?.append(c)
-				}
-			}
-			
-			if let v: UINavigationItem = topItem {
-				if nil == v.titleView {
-					v.titleView = UIView()
-					v.titleView!.backgroundColor = nil
-					v.titleView!.grid.axis.direction = .Vertical
+		// leftControls
+		if let v: Array<UIControl> = item.leftControls {
+			for c in v {
+				if let b: UIButton = c as? UIButton {
+					b.contentEdgeInsets = UIEdgeInsetsZero
 				}
 				
-				v.titleView!.grid.views = []
-				
-				// TitleView alignment.
-				if let t: UILabel = v.titleLabel {
-					v.titleView!.addSubview(t)
-					v.titleView!.grid.views?.append(t)
-					if let d: UILabel = v.detailLabel {
-						v.titleView!.addSubview(d)
-						v.titleView!.grid.views?.append(d)
-						t.grid.rows = 2
-						t.font = t.font.fontWithSize(17)
-						d.grid.rows = 2
-						d.font = d.font.fontWithSize(12)
-						v.titleView!.grid.axis.rows = 3
-						v.titleView!.grid.spacing = -8
-						v.titleView!.grid.contentInset.top = -8
-					} else {
-						t.grid.rows = 1
-						t.font = t.font?.fontWithSize(20)
-						v.titleView!.grid.axis.rows = 1
-						v.titleView!.grid.spacing = 0
-						v.titleView!.grid.contentInset.top = 0
-					}
-				}
-				
-				grid.views?.append(v.titleView!)
+				c.grid.columns = 0 == g ? 1 : Int(ceil(c.intrinsicContentSize().width / g))
+				columns -= c.grid.columns
+				grid.views?.append(c)
 			}
-			
-			// rightControls
-			if let v: Array<UIControl> = rightControls {
-				for c in v {
-					let w: CGFloat = c.intrinsicContentSize().width
-					if let b: UIButton = c as? UIButton {
-						b.contentEdgeInsets = UIEdgeInsetsZero
-					}
-					
-					c.grid.columns = 0 == g ? 1 : Int(ceil(w / g))
-					columns -= c.grid.columns
-					
-					grid.views?.append(c)
-				}
-			}
-			topItem?.titleView?.grid.columns = columns
-			
-			grid.reloadLayout()
 		}
+		
+		if nil == item.titleView {
+			item.titleView = UIView()
+			item.titleView!.backgroundColor = nil
+			item.titleView!.grid.axis.direction = .Vertical
+		}
+		
+		item.titleView!.grid.views = []
+		
+		// TitleView alignment.
+		if let t: UILabel = item.titleLabel {
+			item.titleView!.addSubview(t)
+			item.titleView!.grid.views?.append(t)
+			
+			if let d: UILabel = item.detailLabel {
+				t.grid.rows = 2
+				t.font = t.font.fontWithSize(17)
+				d.grid.rows = 2
+				d.font = d.font.fontWithSize(12)
+				item.titleView!.addSubview(d)
+				item.titleView!.grid.views?.append(d)
+				item.titleView!.grid.axis.rows = 3
+				item.titleView!.grid.spacing = -8
+				item.titleView!.grid.contentInset.top = -8
+			} else {
+				t.grid.rows = 1
+				t.font = t.font?.fontWithSize(20)
+				item.titleView!.grid.axis.rows = 1
+				item.titleView!.grid.spacing = 0
+				item.titleView!.grid.contentInset.top = 0
+			}
+		}
+		
+		grid.views?.append(item.titleView!)
+		
+		// rightControls
+		if let v: Array<UIControl> = item.rightControls {
+			for c in v {
+				if let b: UIButton = c as? UIButton {
+					b.contentEdgeInsets = UIEdgeInsetsZero
+				}
+				
+				c.grid.columns = 0 == g ? 1 : Int(ceil(c.intrinsicContentSize().width / g))
+				columns -= c.grid.columns
+				
+				grid.views!.append(c)
+			}
+		}
+		
+		item.titleView!.grid.columns = columns
+		
+		grid.reloadLayout()
+		item.titleView?.grid.reloadLayout()
 	}
 	
 	/**
@@ -466,10 +458,8 @@ public class NavigationBar : UINavigationBar {
 		backButtonImage = nil
 		backgroundColor = MaterialColor.white
 		depth = .Depth1
+		spacingPreset = .Spacing2
 		contentInset = UIEdgeInsetsMake(8, 0, 8, 0)
-		titleTextAttributes = [NSFontAttributeName: RobotoFont.regularWithSize(20)]
-		setTitleVerticalPositionAdjustment(1, forBarMetrics: .Default)
-		setTitleVerticalPositionAdjustment(2, forBarMetrics: .Compact)
 	}
 	
 	/// Prepares the visualLayer property.
@@ -498,14 +488,115 @@ public class NavigationBar : UINavigationBar {
 }
 
 /// A memory reference to the NavigationBarControls instance for UINavigationBar extensions.
-private var NavigationBarKey: UInt8 = 0
+private var NavigationItemControlsKey: UInt8 = 0
 
-public class NavigationBarControls {
+public class NavigationItemControls {
 	/// Left controls.
 	public var leftControls: Array<UIControl>?
 	
 	/// Right controls.
 	public var rightControls: Array<UIControl>?
+}
+
+/// A memory reference to the NavigationItemLabels instance for UINavigationItem extensions.
+private var NavigationItemLabelsKey: UInt8 = 0
+
+public class NavigationItemLabels {
+	/// Title label.
+	public var titleLabel: UILabel?
+	
+	/// Detail label.
+	public var detailLabel: UILabel?
+}
+
+public extension UINavigationItem {
+	/// NavigationBarControls reference.
+	public internal(set) var labels: NavigationItemLabels {
+		get {
+			return MaterialAssociatedObject(self, key: &NavigationItemLabelsKey) {
+				return NavigationItemLabels()
+			}
+		}
+		set(value) {
+			MaterialAssociateObject(self, key: &NavigationItemLabelsKey, value: value)
+		}
+	}
+	
+	/// Title Label.
+	public var titleLabel: UILabel? {
+		get {
+			return labels.titleLabel
+		}
+		set(value) {
+			labels.titleLabel = value
+		}
+	}
+	
+	/// Detail Label.
+	public var detailLabel: UILabel? {
+		get {
+			return labels.detailLabel
+		}
+		set(value) {
+			labels.detailLabel = value
+		}
+	}
+	
+	/// NavigationBarControls reference.
+	public internal(set) var controls: NavigationItemControls {
+		get {
+			return MaterialAssociatedObject(self, key: &NavigationItemControlsKey) {
+				return NavigationItemControls()
+			}
+		}
+		set(value) {
+			MaterialAssociateObject(self, key: &NavigationItemControlsKey, value: value)
+		}
+	}
+	
+	/// Left side UIControls.
+	public var leftControls: Array<UIControl>? {
+		get {
+			return controls.leftControls
+		}
+		set(value) {
+			var c: Array<UIBarButtonItem> = Array<UIBarButtonItem>()
+			if let v: Array<UIControl> = value {
+				for q in v {
+					c.append(UIBarButtonItem(customView: q))
+				}
+			}
+			
+			let spacer: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
+			spacer.width = 0
+			c.append(spacer)
+			
+			controls.leftControls = value
+			leftBarButtonItems = c.reverse()
+		}
+	}
+	
+	/// Right side UIControls.
+	public var rightControls: Array<UIControl>? {
+		get {
+			return controls.rightControls
+		}
+		set(value) {
+			var c: Array<UIBarButtonItem> = Array<UIBarButtonItem>()
+			if let v: Array<UIControl> = value {
+				for q in v {
+					c.append(UIBarButtonItem(customView: q))
+				}
+			}
+			
+			let spacer: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
+			spacer.width = 0
+			c.append(spacer)
+			
+			controls.rightControls = value
+			rightBarButtonItems = c.reverse()
+		}
+	}
 }
 
 public extension UINavigationBar {
@@ -516,18 +607,6 @@ public extension UINavigationBar {
 		}
 		set(value) {
 			MaterialDevice.statusBarStyle = value
-		}
-	}
-	
-	/// NavigationBarControls reference.
-	public internal(set) var controls: NavigationBarControls {
-		get {
-			return MaterialAssociatedObject(self, key: &NavigationBarKey) {
-				return NavigationBarControls()
-			}
-		}
-		set(value) {
-			MaterialAssociateObject(self, key: &NavigationBarKey, value: value)
 		}
 	}
 	
@@ -568,95 +647,6 @@ public extension UINavigationBar {
 		}
 		set(value) {
 			grid.spacing = value
-		}
-	}
-	
-	/// Left side UIControls.
-	public var leftControls: Array<UIControl>? {
-		get {
-			return controls.leftControls
-		}
-		set(value) {
-			var c: Array<UIBarButtonItem> = Array<UIBarButtonItem>()
-			if let v: Array<UIControl> = value {
-				for q in v {
-					c.append(UIBarButtonItem(customView: q))
-				}
-			}
-			
-//			let spacer: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
-//			spacer.width = -12
-//			c.append(spacer)
-			
-			controls.leftControls = value
-			topItem?.leftBarButtonItems = c.reverse()
-		}
-	}
-	
-	/// Right side UIControls.
-	public var rightControls: Array<UIControl>? {
-		get {
-			return controls.rightControls
-		}
-		set(value) {
-			var c: Array<UIBarButtonItem> = Array<UIBarButtonItem>()
-			if let v: Array<UIControl> = value {
-				for q in v {
-					c.append(UIBarButtonItem(customView: q))
-				}
-			}
-			
-//			let spacer: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
-//			spacer.width = -12
-//			c.append(spacer)
-			
-			controls.rightControls = value
-			topItem?.rightBarButtonItems = c.reverse()
-		}
-	}
-}
-
-/// A memory reference to the NavigationItemLabels instance for UINavigationItem extensions.
-private var NavigationItemKey: UInt8 = 0
-
-public class NavigationItemLabels {
-	/// Title label.
-	public var titleLabel: UILabel?
-	
-	/// Detail label.
-	public var detailLabel: UILabel?
-}
-
-public extension UINavigationItem {
-	/// NavigationBarControls reference.
-	public internal(set) var labels: NavigationItemLabels {
-		get {
-			return MaterialAssociatedObject(self, key: &NavigationItemKey) {
-				return NavigationItemLabels()
-			}
-		}
-		set(value) {
-			MaterialAssociateObject(self, key: &NavigationItemKey, value: value)
-		}
-	}
-	
-	/// Title Label.
-	public var titleLabel: UILabel? {
-		get {
-			return labels.titleLabel
-		}
-		set(value) {
-			labels.titleLabel = value
-		}
-	}
-	
-	/// Detail Label.
-	public var detailLabel: UILabel? {
-		get {
-			return labels.detailLabel
-		}
-		set(value) {
-			labels.detailLabel = value
 		}
 	}
 }

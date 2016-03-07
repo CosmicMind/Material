@@ -32,12 +32,20 @@ import UIKit
 import Material
 
 class FeedViewController: UIViewController {
+	/// Menu button at the top left of the navigation bar.
+	private lazy var menuButton: FlatButton = FlatButton()
+	
+	/// Search button at the top left of the navigation bar.
+	private lazy var searchButton: FlatButton = FlatButton()
+	
 	/// MaterialCollectionView.
 	private lazy var collectionView: MaterialCollectionView = MaterialCollectionView()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
+		prepareMenuButton()
+		prepareSearchButton()
 		prepareCollectionView()
 	}
 	
@@ -51,10 +59,12 @@ class FeedViewController: UIViewController {
 		collectionView.reloadData()
 	}
 	
+	/// Handler for menuButton.
 	internal func handleMenuButton() {
-		sideNavigationViewController?.toggleLeftView()
+//		sideNavigationViewController?.toggleLeftView()
 	}
 	
+	/// Handler for searchButton.
 	internal func handleSearchButton() {
 		print("handled")
 	}
@@ -75,6 +85,29 @@ class FeedViewController: UIViewController {
 		
 		navigationItem.titleLabel = titleLabel
 		navigationItem.detailLabel = detailLabel
+		navigationItem.leftControls = [menuButton]
+		navigationItem.rightControls = [searchButton]
+	}
+	
+	/// Prepares the menuButton.
+	private func prepareMenuButton() {
+		let image: UIImage? = UIImage(named: "ic_menu_white")
+		menuButton.pulseScale = false
+		menuButton.pulseColor = MaterialColor.white
+		menuButton.setImage(image, forState: .Normal)
+		menuButton.setImage(image, forState: .Highlighted)
+		menuButton.addTarget(self, action: "handleMenuButton", forControlEvents: .TouchUpInside)
+	}
+	
+	/// Prepares the searchButton.
+	private func prepareSearchButton() {
+		// Search button.
+		let image: UIImage? = UIImage(named: "ic_search_white")
+		searchButton.pulseScale = false
+		searchButton.pulseColor = MaterialColor.white
+		searchButton.setImage(image, forState: .Normal)
+		searchButton.setImage(image, forState: .Highlighted)
+		searchButton.addTarget(self, action: "handleSearchButton", forControlEvents: .TouchUpInside)
 	}
 	
 	/// Prepares the collectionView

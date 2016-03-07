@@ -31,6 +31,7 @@
 import UIKit
 
 public class NavigationController : UINavigationController, UINavigationBarDelegate {
+	public private(set) lazy var backButton: FlatButton = FlatButton()
 	
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
@@ -45,9 +46,49 @@ public class NavigationController : UINavigationController, UINavigationBarDeleg
 		setViewControllers([rootViewController], animated: false)
 	}
 	
+	public override func viewDidLoad() {
+		super.viewDidLoad()
+		prepareBackButton()
+		interactivePopGestureRecognizer?.delegate = nil
+	}
+	
 	public override func viewWillLayoutSubviews() {
 		super.viewWillLayoutSubviews()
-		interactivePopGestureRecognizer?.delegate = nil
 		navigationBar.layoutSubviews()
+	}
+	
+	public override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		if let v: UINavigationItem = navigationBar.topItem {
+			v.title = ""
+			(navigationBar as? NavigationBar)?.layoutNavigationItem(v)
+		}
+	}
+	
+	public func navigationBar(navigationBar: UINavigationBar, shouldPushItem item: UINavigationItem) -> Bool {
+		item.title = ""
+		item.setHidesBackButton(true, animated: false)
+		return true
+	}
+	
+	public func navigationBar(navigationBar: UINavigationBar, didPushItem item: UINavigationItem) {
+		if let v: NavigationBar = navigationBar as? NavigationBar {
+			item.leftControls = [backButton]
+			v.layoutNavigationItem(item)
+		}
+	}
+	
+	internal func handleBackButton() {
+		popViewControllerAnimated(true)
+	}
+	
+	private func prepareBackButton() {
+		if let v: NavigationBar = navigationBar as? NavigationBar {
+			backButton.pulseScale = false
+			backButton.pulseColor = MaterialColor.white
+			backButton.setImage(v.backButtonImage, forState: .Normal)
+			backButton.setImage(v.backButtonImage, forState: .Highlighted)
+			backButton.addTarget(self, action: "handleBackButton", forControlEvents: .TouchUpInside)
+		}
 	}
 }

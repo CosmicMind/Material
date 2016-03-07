@@ -80,6 +80,16 @@ class MessagesViewController: UIViewController {
 		
 		navigationItem.titleLabel = titleLabel
 		navigationItem.detailLabel = detailLabel
+		
+		let image: UIImage? =  UIImage(named: "ic_share_white")?.imageWithRenderingMode(.AlwaysTemplate)
+		let shareButton: FlatButton = FlatButton()
+		shareButton.pulseScale = false
+		shareButton.pulseColor = MaterialColor.grey.base
+		shareButton.tintColor = MaterialColor.grey.base
+		shareButton.setImage(image, forState: .Normal)
+		shareButton.setImage(image, forState: .Highlighted)
+		
+		navigationItem.rightControls = [shareButton]
 	}
 	
 	/// Prepares the items Array.
