@@ -32,12 +32,6 @@ import UIKit
 import Material
 
 class FeedViewController: UIViewController {
-	/// Menu button at the top left of the navigation bar.
-	private lazy var menuButton: FlatButton = FlatButton()
-	
-	/// Search button at the top left of the navigation bar.
-	private lazy var searchButton: FlatButton = FlatButton()
-	
 	/// MaterialCollectionView.
 	private lazy var collectionView: MaterialCollectionView = MaterialCollectionView()
 	
@@ -69,9 +63,6 @@ class FeedViewController: UIViewController {
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.grey.lighten4
 		
-		prepareMenuButton()
-		prepareSearchButton()
-		
 		let titleLabel: UILabel = UILabel()
 		titleLabel.text = "Material"
 		titleLabel.textAlignment = .Left
@@ -84,33 +75,6 @@ class FeedViewController: UIViewController {
 		
 		navigationItem.titleLabel = titleLabel
 		navigationItem.detailLabel = detailLabel
-		
-		navigationController?.navigationBar.leftControls = [menuButton]
-		navigationController?.navigationBar.rightControls = [searchButton]
-		navigationController?.navigationBar.statusBarStyle = .LightContent
-		navigationController?.navigationBar.tintColor = MaterialColor.white
-		navigationController?.navigationBar.backgroundColor = MaterialColor.blue.base
-	}
-	
-	/// Prepares the menuButton.
-	private func prepareMenuButton() {
-		let image: UIImage? = UIImage(named: "ic_menu_white")
-		menuButton.pulseScale = false
-		menuButton.pulseColor = MaterialColor.white
-		menuButton.setImage(image, forState: .Normal)
-		menuButton.setImage(image, forState: .Highlighted)
-		menuButton.addTarget(self, action: "handleMenuButton", forControlEvents: .TouchUpInside)
-	}
-	
-	/// Prepares the searchButton.
-	private func prepareSearchButton() {
-		// Search button.
-		let image: UIImage? = UIImage(named: "ic_search_white")
-		searchButton.pulseScale = false
-		searchButton.pulseColor = MaterialColor.white
-		searchButton.setImage(image, forState: .Normal)
-		searchButton.setImage(image, forState: .Highlighted)
-		searchButton.addTarget(self, action: "handleSearchButton", forControlEvents: .TouchUpInside)
 	}
 	
 	/// Prepares the collectionView

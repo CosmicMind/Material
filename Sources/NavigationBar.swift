@@ -374,6 +374,8 @@ public class NavigationBar : UINavigationBar {
 	public override func layoutSubviews() {
 		super.layoutSubviews()
 		
+		backItem?.title = ""
+		
 		// Size of single grid column.
 		if let g: CGFloat = width / CGFloat(0 < grid.axis.columns ? grid.axis.columns : 1) {
 			grid.views = []
@@ -397,18 +399,11 @@ public class NavigationBar : UINavigationBar {
 			
 			if let v: UINavigationItem = topItem {
 				if nil == v.titleView {
-					if nil != backItem {
-						let button: FlatButton = FlatButton()
-						button.setImage(backButtonImage, forState: .Normal)
-						button.setImage(backButtonImage, forState: .Highlighted)
-						v.backBarButtonItem = UIBarButtonItem(customView: button)
-						backItem?.title = ""
-					}
 					v.titleView = UIView()
+					v.titleView!.backgroundColor = nil
+					v.titleView!.grid.axis.direction = .Vertical
 				}
 				
-				v.titleView!.backgroundColor = nil
-				v.titleView!.grid.axis.direction = .Vertical
 				v.titleView!.grid.views = []
 				
 				// TitleView alignment.
@@ -454,7 +449,6 @@ public class NavigationBar : UINavigationBar {
 			topItem?.titleView?.grid.columns = columns
 			
 			grid.reloadLayout()
-			topItem?.titleView?.grid.reloadLayout()
 		}
 	}
 	
@@ -472,9 +466,7 @@ public class NavigationBar : UINavigationBar {
 		backButtonImage = nil
 		backgroundColor = MaterialColor.white
 		depth = .Depth1
-		spacingPreset = .Spacing2
-		contentInsetPreset = .Square2
-		contentInset.left = 100
+		contentInset = UIEdgeInsetsMake(8, 0, 8, 0)
 		titleTextAttributes = [NSFontAttributeName: RobotoFont.regularWithSize(20)]
 		setTitleVerticalPositionAdjustment(1, forBarMetrics: .Default)
 		setTitleVerticalPositionAdjustment(2, forBarMetrics: .Compact)
@@ -514,20 +506,6 @@ public class NavigationBarControls {
 	
 	/// Right controls.
 	public var rightControls: Array<UIControl>?
-}
-
-/// A memory reference to the NavigationItemLabels instance for UINavigationItem extensions.
-private var NavigationItemKey: UInt8 = 0
-
-public class NavigationItemLabels {
-	/// Title view.
-	public var titleView: UIView?
-	
-	/// Title label.
-	public var titleLabel: UILabel?
-	
-	/// Detail label.
-	public var detailLabel: UILabel?
 }
 
 public extension UINavigationBar {
@@ -606,6 +584,10 @@ public extension UINavigationBar {
 				}
 			}
 			
+//			let spacer: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
+//			spacer.width = -12
+//			c.append(spacer)
+			
 			controls.leftControls = value
 			topItem?.leftBarButtonItems = c.reverse()
 		}
@@ -624,10 +606,25 @@ public extension UINavigationBar {
 				}
 			}
 			
+//			let spacer: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
+//			spacer.width = -12
+//			c.append(spacer)
+			
 			controls.rightControls = value
 			topItem?.rightBarButtonItems = c.reverse()
 		}
 	}
+}
+
+/// A memory reference to the NavigationItemLabels instance for UINavigationItem extensions.
+private var NavigationItemKey: UInt8 = 0
+
+public class NavigationItemLabels {
+	/// Title label.
+	public var titleLabel: UILabel?
+	
+	/// Detail label.
+	public var detailLabel: UILabel?
 }
 
 public extension UINavigationItem {
