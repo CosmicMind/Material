@@ -379,6 +379,7 @@ public class NavigationBar : UINavigationBar {
 		
 		// leftControls
 		if let v: Array<UIControl> = item.leftControls {
+			var n: Array<UIBarButtonItem> = Array<UIBarButtonItem>()
 			for c in v {
 				if let b: UIButton = c as? UIButton {
 					b.contentEdgeInsets = UIEdgeInsetsZero
@@ -386,8 +387,16 @@ public class NavigationBar : UINavigationBar {
 				
 				c.grid.columns = 0 == g ? 1 : Int(ceil(c.intrinsicContentSize().width / g))
 				columns -= c.grid.columns
-				grid.views?.append(c)
+				
+				grid.views!.append(c)
+				n.append(UIBarButtonItem(customView: c))
 			}
+			
+			//			let spacer: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
+			//			spacer.width = 0
+			//			c.append(spacer)
+			
+			item.leftBarButtonItems = n.reverse()
 		}
 		
 		if nil == item.titleView {
@@ -426,6 +435,7 @@ public class NavigationBar : UINavigationBar {
 		
 		// rightControls
 		if let v: Array<UIControl> = item.rightControls {
+			var n: Array<UIBarButtonItem> = Array<UIBarButtonItem>()
 			for c in v {
 				if let b: UIButton = c as? UIButton {
 					b.contentEdgeInsets = UIEdgeInsetsZero
@@ -435,7 +445,14 @@ public class NavigationBar : UINavigationBar {
 				columns -= c.grid.columns
 				
 				grid.views!.append(c)
+				n.append(UIBarButtonItem(customView: c))
 			}
+			
+			//			let spacer: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
+			//			spacer.width = 0
+			//			c.append(spacer)
+			
+			item.rightBarButtonItems = n.reverse()
 		}
 		
 		item.titleView!.grid.columns = columns
@@ -560,19 +577,7 @@ public extension UINavigationItem {
 			return controls.leftControls
 		}
 		set(value) {
-			var c: Array<UIBarButtonItem> = Array<UIBarButtonItem>()
-			if let v: Array<UIControl> = value {
-				for q in v {
-					c.append(UIBarButtonItem(customView: q))
-				}
-			}
-			
-			let spacer: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
-			spacer.width = 0
-			c.append(spacer)
-			
 			controls.leftControls = value
-			leftBarButtonItems = c.reverse()
 		}
 	}
 	
@@ -582,19 +587,7 @@ public extension UINavigationItem {
 			return controls.rightControls
 		}
 		set(value) {
-			var c: Array<UIBarButtonItem> = Array<UIBarButtonItem>()
-			if let v: Array<UIControl> = value {
-				for q in v {
-					c.append(UIBarButtonItem(customView: q))
-				}
-			}
-			
-			let spacer: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
-			spacer.width = 0
-			c.append(spacer)
-			
 			controls.rightControls = value
-			rightBarButtonItems = c.reverse()
 		}
 	}
 }

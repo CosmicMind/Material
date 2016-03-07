@@ -73,7 +73,12 @@ public class NavigationController : UINavigationController, UINavigationBarDeleg
 	
 	public func navigationBar(navigationBar: UINavigationBar, didPushItem item: UINavigationItem) {
 		if let v: NavigationBar = navigationBar as? NavigationBar {
-			item.leftControls = [backButton]
+			if var c: Array<UIControl> = item.leftControls {
+				c.append(backButton)
+				item.leftControls = c
+			} else {
+				item.leftControls = [backButton]
+			}
 			v.layoutNavigationItem(item)
 		}
 	}
