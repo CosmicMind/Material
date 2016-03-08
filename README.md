@@ -52,7 +52,7 @@ Material is a growing project and will encounter changes throughout its developm
 * Visit the Examples directory to see example projects using Material.
 * The [Installation](https://github.com/CosmicMind/Material/wiki/Installation) page has documentation on how to run the example projects.
 
-## A Tour  
+# Quick Access  
 
 #### Colors
 
@@ -112,14 +112,7 @@ Material is a growing project and will encounter changes throughout its developm
 
 * [CaptureView](#captureview)
 
-#### Upcoming
-
-* TabView
-* TabViewController
-* Scrolling Techniques
-* Snackbar
-* Advanced Camera / Audio Toolset & Views
-* More Examples
+# Explore
 
 <a name="materialcolor"></a>
 #### MaterialColor
@@ -359,7 +352,16 @@ Add a new dimension of interactivity with CaptureView. CaptureView is a fully fu
 
 [Learn More About CaptureView](https://github.com/CosmicMind/Material/wiki/CaptureView)
 
-## License
+# Upcoming
+
+* TabView
+* TabViewController
+* Scrolling Techniques
+* Snackbar
+* Advanced Camera / Audio Toolset & Views
+* More Examples
+
+# License
 
 Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.io>. All rights reserved.
 
