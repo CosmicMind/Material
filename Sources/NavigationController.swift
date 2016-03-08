@@ -66,9 +66,11 @@ public class NavigationController : UINavigationController {
 	
 	public override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
+		
 		if let v: UINavigationItem = navigationBar.topItem {
-			prepareTitle(v)
-			(navigationBar as? NavigationBar)?.layoutNavigationItem(v)
+			if let b: NavigationBar = navigationBar as? NavigationBar {
+				b.layoutNavigationItem(v)
+			}
 		}
 	}
 	
@@ -82,7 +84,6 @@ public class NavigationController : UINavigationController {
 	*/
 	public func navigationBar(navigationBar: UINavigationBar, shouldPushItem item: UINavigationItem) -> Bool {
 		if let v: NavigationBar = navigationBar as? NavigationBar {
-			prepareTitle(item)
 			item.setHidesBackButton(true, animated: false)
 			if var c: Array<UIControl> = item.leftControls {
 				c.append(v.backButton)
@@ -100,12 +101,5 @@ public class NavigationController : UINavigationController {
 	/// Handler for the back button.
 	internal func handleBackButton() {
 		popViewControllerAnimated(true)
-	}
-	
-	/// Prepares the title if it's value is nil.
-	private func prepareTitle(item: UINavigationItem) {
-		if nil == item.title {
-			item.title = ""
-		}
 	}
 }

@@ -29,7 +29,6 @@
 */
 
 import UIKit
-import Material
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -39,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
 		window = UIWindow(frame: UIScreen.mainScreen().bounds)
-		window!.rootViewController = SideNavigationViewController(mainViewController: AppMenuViewController(mainViewController: AppNavigationController(rootViewController: FeedViewController())), leftViewController: AppLeftViewController(), rightViewController: AppRightViewController())
+		window!.rootViewController = ViewController()
 		window!.makeKeyAndVisible()
 		return true
 	}

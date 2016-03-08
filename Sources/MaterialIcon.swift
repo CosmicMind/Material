@@ -31,9 +31,12 @@
 import UIKit
 
 public struct MaterialIcon {
+	public static let add: UIImage? = UIImage(named: "ic_add_white", inBundle: NSBundle(identifier: "io.cosmicmind.Material"), compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate)
 	public static let arrowBack: UIImage? = UIImage(named: "ic_arrow_back_white", inBundle: NSBundle(identifier: "io.cosmicmind.Material"), compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate)
-	
 	public static let arrowDownward: UIImage? = UIImage(named: "ic_arrow_downward_white", inBundle: NSBundle(identifier: "io.cosmicmind.Material"), compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate)
-	
+	public static let clear: UIImage? = UIImage(named: "ic_close_white", inBundle: NSBundle(identifier: "io.cosmicmind.Material"), compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate)
 	public static let close: UIImage? = UIImage(named: "ic_close_white", inBundle: NSBundle(identifier: "io.cosmicmind.Material"), compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate)
+	public static let menu: UIImage? = UIImage(named: "ic_menu_white", inBundle: NSBundle(identifier: "io.cosmicmind.Material"), compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate)
+	public static let search: UIImage? = UIImage(named: "ic_search_white", inBundle: NSBundle(identifier: "io.cosmicmind.Material"), compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate)
+	public static let share: UIImage? = UIImage(named: "ic_share_white", inBundle: NSBundle(identifier: "io.cosmicmind.Material"), compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate)
 }

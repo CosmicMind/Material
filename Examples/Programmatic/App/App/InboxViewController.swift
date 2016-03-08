@@ -38,16 +38,24 @@ private struct Item {
 }
 
 class InboxViewController: UIViewController {
+	/// NavigationBar title label.
+	private var titleLabel: UILabel!
+	
+	/// NavigationBar detail label.
+	private var detailLabel: UILabel!
+
 	/// A tableView used to display Bond entries.
-	private let tableView: UITableView = UITableView()
+	private var tableView: UITableView!
 	
 	/// A list of all the Author Bond types.
-	private var items: Array<Item> = Array<Item>()
+	private var items: Array<Item>!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareItems()
-		prepareView()
+		prepareTitleLabel()
+		prepareDetailLabel()
+		prepareNavigationBar()
 		prepareTableView()
 	}
 	
@@ -68,32 +76,19 @@ class InboxViewController: UIViewController {
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.white
 		
-		let titleLabel: UILabel = UILabel()
-		titleLabel.text = "Inbox"
-		titleLabel.textAlignment = .Left
-		titleLabel.textColor = MaterialColor.white
-		
-		let detailLabel: UILabel = UILabel()
-		detailLabel.text = "\(items.count) Contacts"
-		detailLabel.textAlignment = .Left
-		detailLabel.textColor = MaterialColor.white
-		
-		let switchControl: MaterialSwitch = MaterialSwitch(state: .Off, style: .LightContent, size: .Small)
-		
-		let image: UIImage? =  UIImage(named: "ic_share_white")
-		let shareButton: FlatButton = FlatButton()
-		shareButton.pulseScale = false
-		shareButton.pulseColor = MaterialColor.white
-		shareButton.setImage(image, forState: .Normal)
-		shareButton.setImage(image, forState: .Highlighted)
-		
 		navigationItem.titleLabel = titleLabel
-//		navigationItem.detailLabel = detailLabel
-		navigationItem.rightControls = [switchControl, shareButton]
+		navigationItem.detailLabel = detailLabel
+	}
+	
+	/// Prepares the NavigationBar.
+	private func prepareNavigationBar() {
+		navigationItem.titleLabel = titleLabel
+		navigationItem.detailLabel = detailLabel
 	}
 	
 	/// Prepares the items Array.
 	private func prepareItems() {
+		items = Array<Item>()
 		items.append(Item(text: "Summer BBQ", detail: "Wish I could come, but I am out of town this weekend.", image: UIImage(named: "Profile1")))
 		items.append(Item(text: "Birthday gift", detail: "Have any ideas about what we should get Heidi for her birthday?", image: UIImage(named: "Profile2")))
 		items.append(Item(text: "Brunch this weekend?", detail: "I'll be in your neighborhood doing errands this weekend.", image: UIImage(named: "Profile3")))
@@ -106,6 +101,7 @@ class InboxViewController: UIViewController {
 	
 	/// Prepares the tableView.
 	private func prepareTableView() {
+		tableView = UITableView()
 		tableView.registerClass(MaterialTableViewCell.self, forCellReuseIdentifier: "MaterialTableViewCell")
 		tableView.dataSource = self
 		tableView.delegate = self
@@ -114,6 +110,22 @@ class InboxViewController: UIViewController {
 		view.addSubview(tableView)
 		tableView.translatesAutoresizingMaskIntoConstraints = false
 		MaterialLayout.alignToParent(view, child: tableView)
+	}
+	
+	/// Prepares the titleLabel.
+	private func prepareTitleLabel() {
+		titleLabel = UILabel()
+		titleLabel.text = "Messages"
+		titleLabel.textAlignment = .Left
+		titleLabel.textColor = MaterialColor.white
+	}
+	
+	/// Prepares the detailLabel.
+	private func prepareDetailLabel() {
+		detailLabel = UILabel()
+		detailLabel.text = "\(items.count) Items"
+		detailLabel.textAlignment = .Left
+		detailLabel.textColor = MaterialColor.white
 	}
 }
 

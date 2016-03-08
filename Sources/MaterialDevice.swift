@@ -47,7 +47,7 @@ public struct MaterialDevice {
 			return .iPhone
 		case .TV:
 			return .TV
-		case .Unspecified:
+		default:
 			return .Unspecified
 		}
 	}

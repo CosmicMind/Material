@@ -32,27 +32,39 @@ import UIKit
 import Material
 
 class FeedViewController: UIViewController {
-	/// Menu button at the top left of the navigation bar.
-	private lazy var menuButton: FlatButton = FlatButton()
+	/// NavigationBar title label.
+	private var titleLabel: UILabel!
 	
-	/// Search button at the top left of the navigation bar.
-	private lazy var searchButton: FlatButton = FlatButton()
+	/// NavigationBar menu button.
+	private var menuButton: FlatButton!
 	
+	/// NavigationBar switch control.
+	private var switchControl: MaterialSwitch!
+	
+	/// NavigationBar search button.
+	private var searchButton: FlatButton!
+
 	/// MaterialCollectionView.
-	private lazy var collectionView: MaterialCollectionView = MaterialCollectionView()
+	private var collectionView: MaterialCollectionView!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
+		prepareTitleLabel()
 		prepareMenuButton()
+		prepareSwitchControl()
 		prepareSearchButton()
+		prepareNavigationBar()
 		prepareCollectionView()
 	}
 	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
+		
+		// Ensure that the SideNavigation is enabled.
 		sideNavigationViewController?.enabled = true
 		
+		// Ensure that the NavigationBar is styled correctly.
 		if let navigationbar: NavigationBar = navigationController?.navigationBar as? NavigationBar {
 			navigationbar.statusBarStyle = .LightContent
 			navigationbar.backgroundColor = MaterialColor.blue.base
@@ -72,36 +84,32 @@ class FeedViewController: UIViewController {
 	
 	/// Handler for searchButton.
 	internal func handleSearchButton() {
-		let vc: AppSearchBarViewController = AppSearchBarViewController(mainViewController: SearchListViewController())
-		navigationController?.modalPresentationStyle = .Popover
-		
-		
-		navigationController?.presentViewController(vc, animated: true, completion: nil)
+		navigationController?.presentViewController(AppSearchBarViewController(mainViewController: SearchListViewController()), animated: true, completion: nil)
+	}
+	
+	private func prepareView() {
+		view.backgroundColor = MaterialColor.grey.lighten4
 	}
 	
 	/// Prepares view.
-	private func prepareView() {
-		view.backgroundColor = MaterialColor.grey.lighten4
-		
-		let titleLabel: UILabel = UILabel()
-		titleLabel.text = "Material"
+	private func prepareNavigationBar() {
+		navigationItem.titleLabel = titleLabel
+		navigationItem.leftControls = [menuButton]
+		navigationItem.rightControls = [switchControl, searchButton]
+	}
+	
+	/// Prepares the titleLabel.
+	private func prepareTitleLabel() {
+		titleLabel = UILabel()
+		titleLabel.text = "Inbox"
 		titleLabel.textAlignment = .Left
 		titleLabel.textColor = MaterialColor.white
-		
-		let detailLabel: UILabel = UILabel()
-		detailLabel.text = "Build Beautiful Software"
-		detailLabel.textAlignment = .Left
-		detailLabel.textColor = MaterialColor.white
-		
-		navigationItem.titleLabel = titleLabel
-		navigationItem.detailLabel = detailLabel
-		navigationItem.leftControls = [menuButton]
-		navigationItem.rightControls = [searchButton]
 	}
 	
 	/// Prepares the menuButton.
 	private func prepareMenuButton() {
-		let image: UIImage? = UIImage(named: "ic_menu_white")
+		let image: UIImage? = MaterialIcon.menu
+		menuButton = FlatButton()
 		menuButton.pulseScale = false
 		menuButton.pulseColor = MaterialColor.white
 		menuButton.setImage(image, forState: .Normal)
@@ -109,10 +117,15 @@ class FeedViewController: UIViewController {
 		menuButton.addTarget(self, action: "handleMenuButton", forControlEvents: .TouchUpInside)
 	}
 	
+	/// Prepares the switchControl.
+	private func prepareSwitchControl() {
+		switchControl = MaterialSwitch(state: .Off, style: .LightContent, size: .Small)
+	}
+	
 	/// Prepares the searchButton.
 	private func prepareSearchButton() {
-		// Search button.
-		let image: UIImage? = UIImage(named: "ic_search_white")
+		let image: UIImage? = MaterialIcon.search
+		searchButton = FlatButton()
 		searchButton.pulseScale = false
 		searchButton.pulseColor = MaterialColor.white
 		searchButton.setImage(image, forState: .Normal)
@@ -120,13 +133,15 @@ class FeedViewController: UIViewController {
 		searchButton.addTarget(self, action: "handleSearchButton", forControlEvents: .TouchUpInside)
 	}
 	
-	/// Prepares the collectionView
+	/// Prepares the collectionView.
 	private func prepareCollectionView() {
+		collectionView = MaterialCollectionView()
 		collectionView.dataSource = self
 		collectionView.delegate = self
 		collectionView.spacingPreset = .Spacing1
 		collectionView.registerClass(MaterialCollectionViewCell.self, forCellWithReuseIdentifier: "MaterialCollectionViewCell")
 		
+		// Layout the collectionView.
 		view.addSubview(collectionView)
 		collectionView.translatesAutoresizingMaskIntoConstraints = false
 		MaterialLayout.alignToParent(view, child: collectionView)
@@ -206,11 +221,11 @@ extension FeedViewController: MaterialCollectionViewDataSource {
 		
 		if let data: Dictionary<String, AnyObject> =  item.data as? Dictionary<String, AnyObject> {
 			
-			var cardView: CardView? = c.contentView.subviews.first as? CardView
+			var cardView: ImageCardView? = c.contentView.subviews.first as? ImageCardView
 			
 			// Only build the template if the CardView doesn't exist.
 			if nil == cardView {
-				cardView = CardView()
+				cardView = ImageCardView()
 				
 				c.backgroundColor = nil
 				c.pulseColor = nil
