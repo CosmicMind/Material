@@ -52,6 +52,12 @@ class FeedViewController: UIViewController {
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 		sideNavigationViewController?.enabled = true
+		
+		if let navigationbar: NavigationBar = navigationController?.navigationBar as? NavigationBar {
+			navigationbar.statusBarStyle = .LightContent
+			navigationbar.backgroundColor = MaterialColor.blue.base
+			navigationbar.backButton.tintColor = MaterialColor.white
+		}
 	}
 	
 	override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
@@ -66,7 +72,11 @@ class FeedViewController: UIViewController {
 	
 	/// Handler for searchButton.
 	internal func handleSearchButton() {
-		presentViewController(AppSearchBarViewController(mainViewController: SearchListViewController()), animated: true, completion: nil)
+		let vc: AppSearchBarViewController = AppSearchBarViewController(mainViewController: SearchListViewController())
+		navigationController?.modalPresentationStyle = .Popover
+		
+		
+		navigationController?.presentViewController(vc, animated: true, completion: nil)
 	}
 	
 	/// Prepares view.

@@ -175,9 +175,4 @@ extension InboxViewController: UITableViewDelegate {
 	func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 		return 48
 	}
-	
-	/// Did select table.
-	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		navigationController?.pushViewController(MessagesViewController(), animated: true)
-	}
 }

@@ -53,7 +53,7 @@ public class NavigationBar : UINavigationBar {
 	public var backButtonImage: UIImage? {
 		didSet {
 			if nil == backButtonImage {
-				backButtonImage = UIImage(named: "ic_arrow_back_white", inBundle: NSBundle(identifier: "io.cosmicmind.Material"), compatibleWithTraitCollection: nil)
+				backButtonImage = MaterialIcon.arrowBack
 			}
 		}
 	}
@@ -275,19 +275,30 @@ public class NavigationBar : UINavigationBar {
 		// TitleView alignment.
 		if let t: UILabel = item.titleLabel {
 			t.grid.rows = 1
+			
 			item.titleView!.addSubview(t)
 			item.titleView!.grid.views?.append(t)
+			
 			if let d: UILabel = item.detailLabel {
 				d.grid.rows = 1
 				d.font = d.font.fontWithSize(12)
+				
 				t.font = t.font.fontWithSize(17)
+				
 				item.titleView!.addSubview(d)
-				item.titleView!.grid.views?.append(d)
 				item.titleView!.grid.axis.rows = 2
+				item.titleView!.grid.views?.append(d)
 			} else {
 				t.font = t.font?.fontWithSize(20)
+				
 				item.titleView!.grid.axis.rows = 1
 			}
+		} else if let d: UIView = item.detailView {
+			d.grid.rows = 1
+			
+			item.titleView!.addSubview(d)
+			item.titleView!.grid.axis.rows = 1
+			item.titleView!.grid.views?.append(d)
 		}
 		
 		// rightControls
@@ -341,6 +352,9 @@ public class NavigationItem {
 	/// Inset.
 	public var inset: CGFloat = -16
 	
+	/// Detail View.
+	public var detailView: UIView?
+	
 	/// Title label.
 	public var titleLabel: UILabel?
 	
@@ -374,6 +388,16 @@ public extension UINavigationItem {
 		}
 		set(value) {
 			item.inset = value
+		}
+	}
+	
+	/// Detail View.
+	public var detailView: UIView? {
+		get {
+			return item.detailView
+		}
+		set(value) {
+			item.detailView = value
 		}
 	}
 	

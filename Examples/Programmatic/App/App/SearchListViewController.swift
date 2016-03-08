@@ -38,6 +38,9 @@ private struct Item {
 }
 
 class SearchListViewController: UIViewController {
+	/// TextField for search.
+	private let textField: TextField = TextField()
+	
 	/// A tableView used to display Bond entries.
 	private let tableView: UITableView = UITableView()
 	
@@ -51,6 +54,15 @@ class SearchListViewController: UIViewController {
 		prepareTableView()
 	}
 	
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+	}
+
+	override func viewWillDisappear(animated: Bool) {
+		super.viewWillDisappear(animated)
+		textField.resignFirstResponder()
+	}
+	
 	/**
 	Handles the search button click, which opens the
 	SideNavigationViewController.
@@ -62,6 +74,30 @@ class SearchListViewController: UIViewController {
 	/// Prepares view.
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.white
+		
+		let image: UIImage? = MaterialIcon.close
+		
+		let clearButton: FlatButton = FlatButton()
+		clearButton.pulseScale = false
+		clearButton.pulseColor = MaterialColor.grey.darken4
+		clearButton.tintColor = MaterialColor.grey.darken4
+		clearButton.setImage(image, forState: .Normal)
+		clearButton.setImage(image, forState: .Highlighted)
+		
+		textField.backgroundColor = nil
+		textField.placeholder = "Search"
+		textField.placeholderTextColor = MaterialColor.grey.darken4
+		textField.font = RobotoFont.regularWithSize(20)
+		textField.tintColor = MaterialColor.grey.darken4
+		textField.clearButton = clearButton
+		
+		navigationItem.detailView = textField
+		
+		if let navigationbar: NavigationBar = navigationController?.navigationBar as? NavigationBar {
+			navigationbar.statusBarStyle = .Default
+			navigationbar.backgroundColor = MaterialColor.white
+			navigationbar.backButton.tintColor = MaterialColor.grey.darken4
+		}
 	}
 	
 	/// Prepares the items Array.

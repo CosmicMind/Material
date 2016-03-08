@@ -87,7 +87,7 @@ class AppSearchBarViewController: SearchBarViewController {
 		clearButton.setImage(image, forState: .Highlighted)
 		
 		// Back button.
-		image = UIImage(named: "ic_arrow_back_white")?.imageWithRenderingMode(.AlwaysTemplate)
+		image = MaterialIcon.arrowDownward
 		let backButton: FlatButton = FlatButton()
 		backButton.pulseScale = false
 		backButton.pulseColor = MaterialColor.grey.darken4
@@ -114,8 +114,7 @@ class AppSearchBarViewController: SearchBarViewController {
 		searchBarView.textField.delegate = self
 		
 		searchBarView.clearButton = clearButton
-		searchBarView.leftControls = [backButton]
-		searchBarView.rightControls = [moreButton]
+		searchBarView.rightControls = [backButton]
 	}
 }
 
