@@ -1,6 +1,6 @@
 ![Material](http://www.cosmicmind.io/MK/Material.png)
 
-# Welcome to Material
+# Welcome to Material [![codebeat](https://codebeat.co/badges/8763547b-a990-4228-b401-331d1985af5b)](https://codebeat.co/projects/github-com-cosmicmind-material)
 
 Express your creativity with Material, an animation and graphics framework for Google's Material Design and Apple's Flat UI in Swift.
 
