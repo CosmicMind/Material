@@ -110,15 +110,17 @@ public class ImageCardView : MaterialPulseView {
 	*/
 	public var maxImageHeight: CGFloat = 0 {
 		didSet {
-			if 0 < maxImageHeight {
-				prepareImageLayer()
-				let h: CGFloat = image!.size.height / contentsScale
-				imageLayer?.frame.size.height = maxImageHeight < h ? maxImageHeight : h
-			} else {
-				maxImageHeight = 0
-				imageLayer?.frame.size.height = nil == image ? 0 : image!.size.height / contentsScale
+			if let v: UIImage = image {
+				if 0 < maxImageHeight {
+					prepareImageLayer()
+					let h: CGFloat = v.size.height / contentsScale
+					imageLayer?.frame.size.height = maxImageHeight < h ? maxImageHeight : h
+				} else {
+					maxImageHeight = 0
+					imageLayer?.frame.size.height = nil == image ? 0 : v.size.height / contentsScale
+				}
+				reloadView()
 			}
-			reloadView()
 		}
 	}
 	

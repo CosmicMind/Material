@@ -70,7 +70,7 @@ class ViewController: UIViewController {
 	/// Prepares the titleLabel.
 	private func prepareTitleLabel() {
 		titleLabel = UILabel()
-		titleLabel.text = "Inbox"
+		titleLabel.text = "Recipes"
 		titleLabel.textAlignment = .Left
 		titleLabel.textColor = MaterialColor.white
 	}

@@ -636,7 +636,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 				}
 				pulseLayer.addAnimation(MaterialAnimation.scale(3 * d, duration: t), forKey: nil)
 				MaterialAnimation.delay(t) { [weak self] in
-					if nil != self && nil != self!.pulseColor && 0 < self!.pulseColorOpacity {
+					if nil != self?.pulseColor && 0 < self?.pulseColorOpacity {
 						MaterialAnimation.animateWithDuration(t, animations: {
 							pulseLayer.hidden = true
 						}) {
