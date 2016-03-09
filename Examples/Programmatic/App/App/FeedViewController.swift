@@ -48,7 +48,7 @@ class FeedViewController: UIViewController {
 	private var collectionView: MaterialCollectionView!
 	
 	/// Image thumbnail height.
-	private var thumbnailHieght: CGFloat = 112
+	private var thumbnailHieght: CGFloat = 300
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -141,7 +141,7 @@ class FeedViewController: UIViewController {
 		collectionView = MaterialCollectionView()
 		collectionView.dataSource = self
 		collectionView.delegate = self
-		collectionView.spacingPreset = .Spacing1
+		collectionView.spacingPreset = .Spacing2
 		collectionView.contentInsetPreset = .Square1
 		collectionView.registerClass(MaterialCollectionViewCell.self, forCellWithReuseIdentifier: "MaterialCollectionViewCell")
 		
@@ -231,46 +231,36 @@ extension FeedViewController: MaterialCollectionViewDataSource {
 		
 		if let data: Dictionary<String, AnyObject> =  item.data as? Dictionary<String, AnyObject> {
 			
-			var cardView: CardView? = cell.contentView.subviews.first as? CardView
+			var cardView: ImageCardView? = cell.contentView.subviews.first as? ImageCardView
 			
 			// Only build the template if the CardView doesn't exist.
 			if nil == cardView {
-				cardView = CardView()
+				cardView = ImageCardView()
 				
 				cell.backgroundColor = nil
 				cell.pulseColor = nil
 				cell.contentView.addSubview(cardView!)
 				
+				
 				cardView!.pulseScale = false
 				cardView!.divider = false
 				cardView!.depth = .None
-				cardView!.contentsGravityPreset = .Left
-				cardView!.contentInsetPreset = .Square3
+				cardView!.contentInsetPreset = .Square2
 				cardView!.contentInset.bottom /= 2
-				cardView!.cornerRadiusPreset = .Radius1
-				cardView!.rightButtonsInset.right = -8
+				cardView!.cornerRadius = 2
 				
 				let titleLabel: UILabel = UILabel()
 				titleLabel.textColor = MaterialColor.grey.darken4
 				titleLabel.font = RobotoFont.regularWithSize(18)
+				
 				cardView!.titleLabel = titleLabel
-				cardView!.titleLabelInset.left = 120
 				
 				let detailLabel: UILabel = UILabel()
 				detailLabel.textColor = MaterialColor.grey.darken2
 				detailLabel.font = RobotoFont.regular
+				detailLabel.numberOfLines = 0
+				
 				cardView!.detailView = detailLabel
-				cardView!.detailViewInset.left = 120
-				
-				let image: UIImage? =  UIImage(named: "ic_share_white_18pt")?.imageWithRenderingMode(.AlwaysTemplate)
-				
-				let shareButton: FlatButton = FlatButton()
-				shareButton.pulseScale = false
-				shareButton.pulseColor = MaterialColor.grey.base
-				shareButton.tintColor = MaterialColor.grey.base
-				shareButton.setImage(image, forState: .Normal)
-				shareButton.setImage(image, forState: .Highlighted)
-				cardView!.rightButtons = [shareButton]
 				
 				cell.contentView.addSubview(cardView!)
 			}
@@ -280,9 +270,9 @@ extension FeedViewController: MaterialCollectionViewDataSource {
 			(cardView?.detailView as? UILabel)?.text = data["detail"] as? String
 			
 			// Asynchronously the load image.
-			let height: CGFloat = thumbnailHieght
+			let height: CGFloat = 200
 			dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
-				let image: UIImage? = UIImage(named: data["image"] as! String)?.resize(toHeight: height)?.crop(toWidth: height, toHeight: height)
+				let image: UIImage? = UIImage(named: data["image"] as! String)?.resize(toWidth: cell.bounds.width)?.crop(toWidth: cell.bounds.width, toHeight: height)
 				dispatch_sync(dispatch_get_main_queue()) {
 					cardView?.image = image
 				}

@@ -31,12 +31,6 @@
 import UIKit
 import Material
 
-private struct Item {
-	var text: String
-	var detail: String
-	var image: UIImage?
-}
-
 class RecipesViewController: UIViewController {
 	/// NavigationBar title label.
 	private var titleLabel: UILabel!
@@ -51,7 +45,7 @@ class RecipesViewController: UIViewController {
 	private var tableView: UITableView!
 	
 	/// A list of all the Author Bond types.
-	private var items: Array<Item>!
+	private var items: Array<MaterialDataSourceItem>!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -93,15 +87,56 @@ class RecipesViewController: UIViewController {
 	
 	/// Prepares the items Array.
 	private func prepareItems() {
-		items = Array<Item>()
-		items.append(Item(text: "Summer BBQ", detail: "Wish I could come, but I am out of town this weekend.", image: UIImage(named: "Profile1")))
-		items.append(Item(text: "Birthday gift", detail: "Have any ideas about what we should get Heidi for her birthday?", image: UIImage(named: "Profile2")))
-		items.append(Item(text: "Brunch this weekend?", detail: "I'll be in your neighborhood doing errands this weekend.", image: UIImage(named: "Profile3")))
-		items.append(Item(text: "Giants game", detail: "Are we on this weekend for the game?", image: UIImage(named: "Profile4")))
-		items.append(Item(text: "Recipe to try", detail: "We should eat this: Squash, Corn and tomatillo Tacos.", image: UIImage(named: "Profile5")))
-		items.append(Item(text: "Interview", detail: "The candidate will be arriving at 11:30, are you free?", image: UIImage(named: "Profile6")))
-		items.append(Item(text: "Book recommendation", detail: "I found the book title, Surely You’re Joking, Mr. Feynman!", image: UIImage(named: "Profile7")))
-		items.append(Item(text: "Oui oui", detail: "Do you have Paris recommendations? Have you ever been?", image: UIImage(named: "Profile8")))
+		items = [
+			MaterialDataSourceItem(
+				data: [
+					"title": "Summer BBQ",
+					"detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+					"date": "February 26, 2016",
+					"image": "AssortmentOfDessert"
+				]
+			),
+			MaterialDataSourceItem(
+				data: [
+					"title": "Birthday gift",
+					"detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+					"date": "February 26, 2016",
+					"image": "AssortmentOfFood"
+				]
+			),
+			MaterialDataSourceItem(
+				data: [
+					"title": "Brunch this weekend?",
+					"detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+					"date": "February 26, 2016",
+					"image": "AvocadoIceCream"
+				]
+			),
+			MaterialDataSourceItem(
+				data: [
+					"title": "Giants game",
+					"detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+					"date": "February 26, 2016",
+					"image": "HeartCookies"
+				]
+			),
+			MaterialDataSourceItem(
+				data: [
+					"title": "Recipe to try",
+					"detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+					"date": "February 26, 2016",
+					"image": "VeganHempBalls"
+				]
+			),
+			MaterialDataSourceItem(
+				data: [
+					"title": "Interview",
+					"detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+					"date": "February 26, 2016",
+					"image": "VeganPieAbove"
+				]
+			)
+		]
 	}
 	
 	/// Prepares the tableView.
@@ -160,15 +195,19 @@ extension RecipesViewController: UITableViewDataSource {
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell: MaterialTableViewCell = MaterialTableViewCell(style: .Subtitle, reuseIdentifier: "MaterialTableViewCell")
 		
-		let item: Item = items[indexPath.row]
-		cell.selectionStyle = .None
-		cell.textLabel!.text = item.text
-		cell.textLabel!.font = RobotoFont.regular
-		cell.detailTextLabel!.text = item.detail
-		cell.detailTextLabel!.font = RobotoFont.regular
-		cell.detailTextLabel!.textColor = MaterialColor.grey.darken1
-		cell.imageView!.image = item.image?.resize(toWidth: 40)
-		cell.imageView!.layer.cornerRadius = 20
+		let item: MaterialDataSourceItem = items[indexPath.row]
+		
+		if let data: Dictionary<String, AnyObject> =  item.data as? Dictionary<String, AnyObject> {
+			
+			cell.selectionStyle = .None
+			cell.textLabel?.text = data["title"] as? String
+			cell.textLabel?.font = RobotoFont.regular
+			cell.detailTextLabel?.text = data["detail"] as? String
+			cell.detailTextLabel?.font = RobotoFont.regular
+			cell.detailTextLabel?.textColor = MaterialColor.grey.darken1
+			cell.imageView!.layer.cornerRadius = 32
+			cell.imageView!.image = UIImage(named: data["image"] as! String)?.crop(toWidth: 64, toHeight: 64)
+		}
 		
 		return cell
 	}
