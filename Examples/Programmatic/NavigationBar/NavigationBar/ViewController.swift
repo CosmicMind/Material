@@ -57,6 +57,11 @@ class ViewController: UIViewController {
 		prepareNavigationBar()
 	}
 	
+	override func viewWillLayoutSubviews() {
+		super.viewWillLayoutSubviews()
+		navigationBar.frame = CGRectMake(0, 0, view.bounds.width, MaterialDevice.landscape ? .iPad == MaterialDevice.type ? 64 : navigationBar.intrinsicContentSize().height : 64)
+	}
+	
 	/// General preparation statements.
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.white
@@ -100,17 +105,12 @@ class ViewController: UIViewController {
 		navigationBar = NavigationBar()
 		navigationBar.backgroundColor = MaterialColor.blue.base
 		navigationBar.tintColor = MaterialColor.white
+		view.addSubview(navigationBar)
 		
 		let item: UINavigationItem = UINavigationItem()
 		item.titleLabel = titleLabel
 		item.leftControls = [menuButton]
 		item.rightControls = [switchControl, searchButton]
-		
 		navigationBar.pushNavigationItem(item, animated: true)
-		
-		view.addSubview(navigationBar)
-		navigationBar.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignFromTop(view, child: navigationBar)
-		MaterialLayout.alignToParentHorizontally(view, child: navigationBar)
 	}
 }

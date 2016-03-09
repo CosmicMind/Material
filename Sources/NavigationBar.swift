@@ -58,6 +58,20 @@ public class NavigationBar : UINavigationBar {
 		}
 	}
 	
+	/// A preset for contentInset.
+	public var contentInsetPreset: MaterialEdgeInset = .None {
+		didSet {
+			contentInset = MaterialEdgeInsetToValue(contentInsetPreset)
+		}
+	}
+	
+	/// A UIEdgeInsets value for insetting the content.
+	public var contentInset: UIEdgeInsets = MaterialEdgeInsetToValue(.None) {
+		didSet {
+			layoutSubviews()
+		}
+	}
+	
 	/**
 	This property is the same as clipsToBounds. It crops any of the view's
 	contents from bleeding past the view's frame. If an image is set using
@@ -237,129 +251,102 @@ public class NavigationBar : UINavigationBar {
 		super.layoutSubviews()
 		if let item: UINavigationItem = topItem {
 			layoutNavigationItem(item)
-			sizeNavigationItem(item)
 		}
+	}
+	
+	public override func pushNavigationItem(item: UINavigationItem, animated: Bool) {
+		super.pushNavigationItem(item, animated: animated)
+		layoutNavigationItem(item)
 	}
 	
 	/**
 	Lays out the UINavigationItem.
 	- Parameter item: A UINavigationItem to layout.
 	*/
-	internal func layoutNavigationItem(item: UINavigationItem) {
+	public func layoutNavigationItem(item: UINavigationItem) {
 		prepareItem(item)
 		
-		// We only want to work with the intrinsic height.
+		let h: CGFloat = intrinsicContentSize().height
 		let inset: CGFloat = MaterialDevice.landscape ? item.landscapeInset : item.portraitInset
 		
 		// leftControls
 		if let v: Array<UIControl> = item.leftControls {
 			var n: Array<UIBarButtonItem> = Array<UIBarButtonItem>()
 			for c in v {
+				if let b: UIButton = c as? UIButton {
+					b.contentEdgeInsets.top = 0
+					b.contentEdgeInsets.bottom = 0
+				}
+				c.bounds.size = c is MaterialSwitch ? CGSizeMake(backButton.intrinsicContentSize().width, h - contentInset.top - contentInset.bottom) : CGSizeMake(c.intrinsicContentSize().width, h - contentInset.top - contentInset.bottom)
 				n.append(UIBarButtonItem(customView: c))
 			}
 			
 			// The spacer moves the UIBarButtonItems to the edge of the UINavigationBar.
 			let spacer: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
-			spacer.width = inset
+			spacer.width = inset + contentInset.left
 			n.append(spacer)
 			
 			item.leftBarButtonItems = n.reverse()
 		}
 		
-		let titleView: UIView = UIView()
-		titleView.grid.views = []
-		titleView.backgroundColor = nil
-		titleView.grid.axis.direction = .Vertical
+		if nil == item.titleView {
+			item.titleView = UIView(frame: CGRectMake(0, contentInset.top, MaterialDevice.width < MaterialDevice.height ? MaterialDevice.height : MaterialDevice.width, h - contentInset.top - contentInset.bottom))
+			item.titleView!.backgroundColor = nil
+			item.titleView!.grid.axis.direction = .Vertical
+		}
+		
+		item.titleView!.grid.views = []
 		
 		// TitleView alignment.
 		if let t: UILabel = item.titleLabel {
-			t.backgroundColor = MaterialColor.red.accent1
-			titleView.addSubview(t)
-			titleView.grid.views?.append(t)
+			t.grid.rows = 1
 			
-			if let d: UILabel = item.detailLabel {
-				d.backgroundColor = MaterialColor.red.accent3
-				titleView.addSubview(d)
-				titleView.grid.views?.append(d)
+			item.titleView!.addSubview(t)
+			item.titleView!.grid.views?.append(t)
+			
+			if 32 >= height || nil == item.detailLabel {
+				t.font = t.font?.fontWithSize(20)
+				
+				item.titleView!.grid.axis.rows = 1
+			} else if let d: UILabel = item.detailLabel {
+				d.grid.rows = 1
+				d.font = d.font.fontWithSize(12)
+				
+				t.font = t.font.fontWithSize(17)
+				
+				item.titleView!.addSubview(d)
+				item.titleView!.grid.axis.rows = 2
+				item.titleView!.grid.views?.append(d)
 			}
 		} else if let d: UIView = item.detailView {
-			titleView.addSubview(d)
-			titleView.grid.views?.append(d)
+			d.grid.rows = 1
+			
+			item.titleView!.addSubview(d)
+			item.titleView!.grid.axis.rows = 1
+			item.titleView!.grid.views?.append(d)
 		}
 		
 		// rightControls
 		if let v: Array<UIControl> = item.rightControls {
 			var n: Array<UIBarButtonItem> = Array<UIBarButtonItem>()
 			for c in v {
+				if let b: UIButton = c as? UIButton {
+					b.contentEdgeInsets.top = 0
+					b.contentEdgeInsets.bottom = 0
+				}
+				c.bounds.size = c is MaterialSwitch ? CGSizeMake(backButton.intrinsicContentSize().width, h - contentInset.top - contentInset.bottom) : CGSizeMake(c.intrinsicContentSize().width, h - contentInset.top - contentInset.bottom)
 				n.append(UIBarButtonItem(customView: c))
 			}
 			
 			// The spacer moves the UIBarButtonItems to the edge of the UINavigationBar.
 			let spacer: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
-			spacer.width = inset
+			spacer.width = inset + contentInset.left
 			n.append(spacer)
 			
 			item.rightBarButtonItems = n.reverse()
 		}
 		
-		item.titleView = titleView
-	}
-	
-	/**
-	Sizes out the UINavigationItem.
-	- Parameter item: A UINavigationItem to layout.
-	*/
-	internal func sizeNavigationItem(item: UINavigationItem) {
-		let h: CGFloat = height
-		
-		// leftControls
-		if let v: Array<UIControl> = item.leftControls {
-			for c in v {
-				if let b: UIButton = c as? UIButton {
-					b.contentEdgeInsets.top = 0
-					b.contentEdgeInsets.bottom = 0
-				}
-				c.bounds.size = c is MaterialSwitch ? CGSizeMake(backButton.bounds.width, h - 4) : CGSizeMake(c.intrinsicContentSize().width, h - 4)
-			}
-		}
-		
-		if let titleView: UIView = item.titleView {
-			
-			titleView.frame.size.height = h - 4
-			
-			// TitleView alignment.
-			if let t: UILabel = item.titleLabel {
-				t.grid.rows = 1
-				if 32 >= h || nil == item.detailLabel {
-					t.font = t.font?.fontWithSize(20)
-					titleView.grid.axis.rows = 1
-					item.detailLabel?.hidden = true
-				} else if let d: UILabel = item.detailLabel {
-					t.font = t.font.fontWithSize(17)
-					d.font = d.font.fontWithSize(12)
-					d.grid.rows = 1
-					d.hidden = false
-					titleView.grid.axis.rows = 2
-				}
-			} else if let d: UIView = item.detailView {
-				d.grid.rows = 1
-				titleView.grid.axis.rows = 1
-			}
-			
-			titleView.grid.reloadLayout()
-		}
-		
-		// rightControls
-		if let v: Array<UIControl> = item.rightControls {
-			for c in v {
-				if let b: UIButton = c as? UIButton {
-					b.contentEdgeInsets.top = 0
-					b.contentEdgeInsets.bottom = 0
-				}
-				print(c.intrinsicContentSize())
-				c.bounds.size = c is MaterialSwitch ? CGSizeMake(backButton.intrinsicContentSize().width, h - 4) : CGSizeMake(c.intrinsicContentSize().width, h - 4)
-			}
-		}
+		item.titleView!.grid.reloadLayout()
 	}
 	
 	/**
@@ -398,10 +385,9 @@ public class NavigationBar : UINavigationBar {
 private var NavigationItemKey: UInt8 = 0
 
 public class NavigationItem {
-	/// Portrait Inset.
-	public var portraitInset: CGFloat = -16
+	/// Inset.
+	public var portraitInset: CGFloat = .iPad == MaterialDevice.type || "iPhone 6s Plus" == MaterialDevice.model || "iPhone 6 Plus" == MaterialDevice.model ? -20 : -16
 	
-	/// Landscape Inset.
 	public var landscapeInset: CGFloat = -20
 	
 	/// Detail View.
@@ -433,7 +419,7 @@ public extension UINavigationItem {
 		}
 	}
 	
-	/// Portrait Inset.
+	/// Portrait inset.
 	public var portraitInset: CGFloat {
 		get {
 			return item.portraitInset
@@ -443,7 +429,7 @@ public extension UINavigationItem {
 		}
 	}
 	
-	/// Landscape Inset.
+	/// Landscape inset.
 	public var landscapeInset: CGFloat {
 		get {
 			return item.landscapeInset
