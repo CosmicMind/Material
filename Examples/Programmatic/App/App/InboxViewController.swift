@@ -44,6 +44,9 @@ class InboxViewController: UIViewController {
 	/// NavigationBar detail label.
 	private var detailLabel: UILabel!
 
+	/// NavigationBar share button.
+	private var shareButton: FlatButton!
+	
 	/// A tableView used to display Bond entries.
 	private var tableView: UITableView!
 	
@@ -55,6 +58,7 @@ class InboxViewController: UIViewController {
 		prepareItems()
 		prepareTitleLabel()
 		prepareDetailLabel()
+		prepareShareButton()
 		prepareNavigationBar()
 		prepareTableView()
 	}
@@ -84,6 +88,7 @@ class InboxViewController: UIViewController {
 	private func prepareNavigationBar() {
 		navigationItem.titleLabel = titleLabel
 		navigationItem.detailLabel = detailLabel
+		navigationItem.rightControls = [shareButton]
 	}
 	
 	/// Prepares the items Array.
@@ -126,6 +131,16 @@ class InboxViewController: UIViewController {
 		detailLabel.text = "\(items.count) Items"
 		detailLabel.textAlignment = .Left
 		detailLabel.textColor = MaterialColor.white
+	}
+	
+	/// Prepares the shareButton.
+	private func prepareShareButton() {
+		let image: UIImage? = MaterialIcon.share
+		shareButton = FlatButton()
+		shareButton.pulseScale = false
+		shareButton.pulseColor = MaterialColor.white
+		shareButton.setImage(image, forState: .Normal)
+		shareButton.setImage(image, forState: .Highlighted)
 	}
 }
 

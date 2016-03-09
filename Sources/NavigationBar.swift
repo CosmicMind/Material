@@ -249,7 +249,10 @@ public class NavigationBar : UINavigationBar {
 	
 	public override func layoutSubviews() {
 		super.layoutSubviews()
-		if let item: UINavigationItem = topItem {
+		
+		if let item: UINavigationItem = backItem {
+			item.titleView?.grid.reloadLayout()
+		} else if let item: UINavigationItem = topItem {
 			layoutNavigationItem(item)
 		}
 	}
@@ -267,6 +270,7 @@ public class NavigationBar : UINavigationBar {
 		prepareItem(item)
 		
 		let h: CGFloat = intrinsicContentSize().height
+		let w: CGFloat = backButton.intrinsicContentSize().width
 		let inset: CGFloat = MaterialDevice.landscape ? item.landscapeInset : item.portraitInset
 		
 		// leftControls
@@ -277,7 +281,7 @@ public class NavigationBar : UINavigationBar {
 					b.contentEdgeInsets.top = 0
 					b.contentEdgeInsets.bottom = 0
 				}
-				c.bounds.size = c is MaterialSwitch ? CGSizeMake(backButton.intrinsicContentSize().width, h - contentInset.top - contentInset.bottom) : CGSizeMake(c.intrinsicContentSize().width, h - contentInset.top - contentInset.bottom)
+				c.bounds.size = c is MaterialSwitch ? CGSizeMake(w, h - contentInset.top - contentInset.bottom) : CGSizeMake(c.intrinsicContentSize().width, h - contentInset.top - contentInset.bottom)
 				n.append(UIBarButtonItem(customView: c))
 			}
 			
@@ -290,11 +294,12 @@ public class NavigationBar : UINavigationBar {
 		}
 		
 		if nil == item.titleView {
-			item.titleView = UIView(frame: CGRectMake(0, contentInset.top, MaterialDevice.width < MaterialDevice.height ? MaterialDevice.height : MaterialDevice.width, h - contentInset.top - contentInset.bottom))
+			item.titleView = UIView()
 			item.titleView!.backgroundColor = nil
 			item.titleView!.grid.axis.direction = .Vertical
 		}
 		
+		item.titleView!.frame = CGRectMake(0, contentInset.top, MaterialDevice.width < MaterialDevice.height ? MaterialDevice.height : MaterialDevice.width, h - contentInset.top - contentInset.bottom)
 		item.titleView!.grid.views = []
 		
 		// TitleView alignment.
@@ -334,13 +339,13 @@ public class NavigationBar : UINavigationBar {
 					b.contentEdgeInsets.top = 0
 					b.contentEdgeInsets.bottom = 0
 				}
-				c.bounds.size = c is MaterialSwitch ? CGSizeMake(backButton.intrinsicContentSize().width, h - contentInset.top - contentInset.bottom) : CGSizeMake(c.intrinsicContentSize().width, h - contentInset.top - contentInset.bottom)
+				c.bounds.size = c is MaterialSwitch ? CGSizeMake(w, h - contentInset.top - contentInset.bottom) : CGSizeMake(c.intrinsicContentSize().width, h - contentInset.top - contentInset.bottom)
 				n.append(UIBarButtonItem(customView: c))
 			}
 			
 			// The spacer moves the UIBarButtonItems to the edge of the UINavigationBar.
 			let spacer: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
-			spacer.width = inset + contentInset.left
+			spacer.width = inset + contentInset.right
 			n.append(spacer)
 			
 			item.rightBarButtonItems = n.reverse()
@@ -362,6 +367,7 @@ public class NavigationBar : UINavigationBar {
 		backButtonImage = nil
 		backgroundColor = MaterialColor.white
 		depth = .Depth1
+		contentInset = UIEdgeInsetsMake(2, 6, 2, 6)
 		prepareBackButton()
 	}
 	
@@ -375,9 +381,7 @@ public class NavigationBar : UINavigationBar {
 	
 	/// Prepares the UINavigationItem for layout and sizing.
 	internal func prepareItem(item: UINavigationItem) {
-		if nil == item.title {
-			item.title = ""
-		}
+		item.title = ""
 	}
 }
 

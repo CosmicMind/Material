@@ -103,9 +103,13 @@ class ViewController: UIViewController {
 	/// Prepare navigationBar.
 	private func prepareNavigationBar() {
 		navigationBar = NavigationBar()
-		navigationBar.backgroundColor = MaterialColor.blue.base
+		navigationBar.statusBarStyle = .LightContent
 		navigationBar.tintColor = MaterialColor.white
+		navigationBar.backgroundColor = MaterialColor.blue.base
+		
 		view.addSubview(navigationBar)
+		
+		menuButton.backgroundColor = MaterialColor.yellow.accent1
 		
 		let item: UINavigationItem = UINavigationItem()
 		item.titleLabel = titleLabel

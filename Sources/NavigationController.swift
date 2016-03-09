@@ -64,16 +64,6 @@ public class NavigationController : UINavigationController {
 		interactivePopGestureRecognizer?.delegate = nil
 	}
 	
-	public override func viewDidAppear(animated: Bool) {
-		super.viewDidAppear(animated)
-		
-		if let v: UINavigationItem = navigationBar.topItem {
-			if let b: NavigationBar = navigationBar as? NavigationBar {
-				b.layoutNavigationItem(v)
-			}
-		}
-	}
-	
 	/**
 	Delegation method that is called when a new UINavigationItem is about to be pushed.
 	This is used to prepare the transitions between UIViewControllers on the stack.
