@@ -30,7 +30,7 @@
 
 import UIKit
 
-public class NavigationController : UINavigationController {
+public class NavigationController : UINavigationController, UIGestureRecognizerDelegate {
 	/**
 	An initializer that initializes the object with a NSCoder object.
 	- Parameter aDecoder: A NSCoder instance.
@@ -61,15 +61,32 @@ public class NavigationController : UINavigationController {
 		super.viewDidLoad()
 		
 		// This ensures the panning gesture is available when going back between views.
-		interactivePopGestureRecognizer?.delegate = nil
+		if let v: UIGestureRecognizer = interactivePopGestureRecognizer {
+			v.enabled = true
+			v.delegate = self
+		}
 	}
 	
-	public override func viewDidAppear(animated: Bool) {
-		super.viewDidAppear(animated)
-		if let v: UINavigationItem = navigationBar.topItem {
-			prepareTitle(v)
-			(navigationBar as? NavigationBar)?.layoutNavigationItem(v)
+	public override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+		if let v: UIGestureRecognizer = interactivePopGestureRecognizer {
+			if let x: SideNavigationViewController = sideNavigationViewController {
+				if let p: UIPanGestureRecognizer = x.panGesture {
+					p.requireGestureRecognizerToFail(v)
+				}
+			}
 		}
+	}
+	
+	/**
+	Detects the gesture recognizer being used. This is necessary when using 
+	SideNavigationViewController. It eliminates the conflict in panning.
+	- Parameter gestureRecognizer: A UIGestureRecognizer to detect.
+	- Parameter touch: The UITouch event.
+	- Returns: A Boolean of whether to continue the gesture or not, true yes, false no.
+	*/
+	public func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+		return interactivePopGestureRecognizer == gestureRecognizer && nil != navigationBar.backItem
 	}
 	
 	/**
@@ -82,7 +99,6 @@ public class NavigationController : UINavigationController {
 	*/
 	public func navigationBar(navigationBar: UINavigationBar, shouldPushItem item: UINavigationItem) -> Bool {
 		if let v: NavigationBar = navigationBar as? NavigationBar {
-			prepareTitle(item)
 			item.setHidesBackButton(true, animated: false)
 			if var c: Array<UIControl> = item.leftControls {
 				c.append(v.backButton)
@@ -97,15 +113,12 @@ public class NavigationController : UINavigationController {
 		return true
 	}
 	
+	public func sideNavigationStatusBarHiddenState(sideNavigationViewController: SideNavigationViewController, hidden: Bool) {
+		print(hidden)
+	}
+	
 	/// Handler for the back button.
 	internal func handleBackButton() {
 		popViewControllerAnimated(true)
-	}
-	
-	/// Prepares the title if it's value is nil.
-	private func prepareTitle(item: UINavigationItem) {
-		if nil == item.title {
-			item.title = ""
-		}
 	}
 }

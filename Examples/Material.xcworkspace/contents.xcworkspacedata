@@ -47,6 +47,9 @@
          location = "group:Programmatic/MenuViewController/MenuViewController.xcodeproj">
       </FileRef>
       <FileRef
+         location = "group:Programmatic/NavigationBar/NavigationBar.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:Programmatic/SearchBarView/SearchBarView.xcodeproj">
       </FileRef>
       <FileRef

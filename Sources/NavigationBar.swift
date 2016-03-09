@@ -47,80 +47,28 @@ public class NavigationBar : UINavigationBar {
 	public private(set) lazy var backButton: FlatButton = FlatButton()
 	
 	/**
-	A CAShapeLayer used to manage elements that would be affected by
-	the clipToBounds property of the backing layer. For example, this
-	allows the dropshadow effect on the backing layer, while clipping
-	the image to a desired shape within the visualLayer.
+	The back button image writes to the backIndicatorImage property and
+	backIndicatorTransitionMaskImage property.
 	*/
-	public private(set) lazy var visualLayer: CAShapeLayer = CAShapeLayer()
-	
-	/**
-	A property that manages an image for the visualLayer's contents
-	property. Images should not be set to the backing layer's contents
-	property to avoid conflicts when using clipsToBounds.
-	*/
-	public var image: UIImage? {
+	public var backButtonImage: UIImage? {
 		didSet {
-			visualLayer.contents = image?.CGImage
+			if nil == backButtonImage {
+				backButtonImage = MaterialIcon.arrowBack
+			}
 		}
 	}
 	
-	/**
-	Allows a relative subrectangle within the range of 0 to 1 to be
-	specified for the visualLayer's contents property. This allows
-	much greater flexibility than the contentsGravity property in
-	terms of how the image is cropped and stretched.
-	*/
-	public var contentsRect: CGRect {
-		get {
-			return visualLayer.contentsRect
-		}
-		set(value) {
-			visualLayer.contentsRect = value
-		}
-	}
-	
-	/**
-	A CGRect that defines a stretchable region inside the visualLayer
-	with a fixed border around the edge.
-	*/
-	public var contentsCenter: CGRect {
-		get {
-			return visualLayer.contentsCenter
-		}
-		set(value) {
-			visualLayer.contentsCenter = value
-		}
-	}
-	
-	/**
-	A floating point value that defines a ratio between the pixel
-	dimensions of the visualLayer's contents property and the size
-	of the view. By default, this value is set to the MaterialDevice.scale.
-	*/
-	public var contentsScale: CGFloat {
-		get {
-			return visualLayer.contentsScale
-		}
-		set(value) {
-			visualLayer.contentsScale = value
-		}
-	}
-	
-	/// A Preset for the contentsGravity property.
-	public var contentsGravityPreset: MaterialGravity {
+	/// A preset for contentInset.
+	public var contentInsetPreset: MaterialEdgeInset = .None {
 		didSet {
-			contentsGravity = MaterialGravityToString(contentsGravityPreset)
+			contentInset = MaterialEdgeInsetToValue(contentInsetPreset)
 		}
 	}
 	
-	/// Determines how content should be aligned within the visualLayer's bounds.
-	public var contentsGravity: String {
-		get {
-			return visualLayer.contentsGravity
-		}
-		set(value) {
-			visualLayer.contentsGravity = value
+	/// A UIEdgeInsets value for insetting the content.
+	public var contentInset: UIEdgeInsets = MaterialEdgeInsetToValue(.None) {
+		didSet {
+			layoutSubviews()
 		}
 	}
 	
@@ -136,18 +84,6 @@ public class NavigationBar : UINavigationBar {
 		}
 		set(value) {
 			layer.masksToBounds = value
-		}
-	}
-	
-	/**
-	The back button image writes to the backIndicatorImage property and
-	backIndicatorTransitionMaskImage property.
-	*/
-	public var backButtonImage: UIImage? {
-		didSet {
-			if nil == backButtonImage {
-				backButtonImage = UIImage(named: "ic_arrow_back_white", inBundle: NSBundle(identifier: "io.cosmicmind.Material"), compatibleWithTraitCollection: nil)
-			}
 		}
 	}
 	
@@ -259,25 +195,6 @@ public class NavigationBar : UINavigationBar {
 		}
 	}
 	
-	/// A property that sets the cornerRadius of the backing layer.
-	public var cornerRadiusPreset: MaterialRadius = .None {
-		didSet {
-			if let v: MaterialRadius = cornerRadiusPreset {
-				cornerRadius = MaterialRadiusToValue(v)
-			}
-		}
-	}
-	
-	/// A property that accesses the layer.cornerRadius.
-	public var cornerRadius: CGFloat {
-		get {
-			return layer.cornerRadius
-		}
-		set(value) {
-			layer.cornerRadius = value
-		}
-	}
-	
 	/// A preset property to set the borderWidth.
 	public var borderWidthPreset: MaterialBorder = .None {
 		didSet {
@@ -305,32 +222,11 @@ public class NavigationBar : UINavigationBar {
 		}
 	}
 	
-	/// A property that accesses the layer.position property.
-	public var position: CGPoint {
-		get {
-			return layer.position
-		}
-		set(value) {
-			layer.position = value
-		}
-	}
-	
-	/// A property that accesses the layer.zPosition property.
-	public var zPosition: CGFloat {
-		get {
-			return layer.zPosition
-		}
-		set(value) {
-			layer.zPosition = value
-		}
-	}
-	
 	/**
 	An initializer that initializes the object with a NSCoder object.
 	- Parameter aDecoder: A NSCoder instance.
 	*/
 	public required init?(coder aDecoder: NSCoder) {
-		contentsGravityPreset = .ResizeAspectFill
 		super.init(coder: aDecoder)
 		prepareView()
 	}
@@ -342,7 +238,6 @@ public class NavigationBar : UINavigationBar {
 	- Parameter frame: A CGRect instance.
 	*/
 	public override init(frame: CGRect) {
-		contentsGravityPreset = .ResizeAspectFill
 		super.init(frame: frame)
 		prepareView()
 	}
@@ -352,76 +247,106 @@ public class NavigationBar : UINavigationBar {
 		self.init(frame: CGRectNull)
 	}
 	
-	/// Overriding the layout callback for sublayers.
-	public override func layoutSublayersOfLayer(layer: CALayer) {
-		super.layoutSublayersOfLayer(layer)
-		if self.layer == layer {
-			layoutVisualLayer()
-		}
-	}
-	
 	public override func layoutSubviews() {
 		super.layoutSubviews()
 		
-		/*
-		When rotating the device orientation, this adjusts the layout
-		of the titleView subviews.
-		*/
+		if let item: UINavigationItem = topItem {
+			layoutNavigationItem(item)
+		}
+		
 		topItem?.titleView?.grid.reloadLayout()
 	}
 	
+	public override func pushNavigationItem(item: UINavigationItem, animated: Bool) {
+		super.pushNavigationItem(item, animated: animated)
+		layoutNavigationItem(item)
+	}
+	
+	/**
+	Lays out the UINavigationItem.
+	- Parameter item: A UINavigationItem to layout.
+	*/
 	public func layoutNavigationItem(item: UINavigationItem) {
+		prepareItem(item)
+		
+		let h: CGFloat = intrinsicContentSize().height
+		let w: CGFloat = backButton.intrinsicContentSize().width
+		let inset: CGFloat = MaterialDevice.landscape ? item.landscapeInset : item.portraitInset
+		
 		// leftControls
 		if let v: Array<UIControl> = item.leftControls {
 			var n: Array<UIBarButtonItem> = Array<UIBarButtonItem>()
 			for c in v {
-				c.bounds.size = c is MaterialSwitch ? backButton.bounds.size : c.intrinsicContentSize()
+				if let b: UIButton = c as? UIButton {
+					b.contentEdgeInsets.top = 0
+					b.contentEdgeInsets.bottom = 0
+				}
+				c.bounds.size = c is MaterialSwitch ? CGSizeMake(w, h - contentInset.top - contentInset.bottom) : CGSizeMake(c.intrinsicContentSize().width, h - contentInset.top - contentInset.bottom)
 				n.append(UIBarButtonItem(customView: c))
 			}
+			
+			// The spacer moves the UIBarButtonItems to the edge of the UINavigationBar.
 			let spacer: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
-			spacer.width = item.inset
+			spacer.width = inset + contentInset.left
 			n.append(spacer)
+			
 			item.leftBarButtonItems = n.reverse()
 		}
 		
 		if nil == item.titleView {
-			item.titleView = UIView(frame: CGRectMake(0, 0, 2000, 44))
+			item.titleView = UIView()
 			item.titleView!.backgroundColor = nil
 			item.titleView!.grid.axis.direction = .Vertical
 		}
 		
+		item.titleView!.frame = CGRectMake(0, contentInset.top, MaterialDevice.width < MaterialDevice.height ? MaterialDevice.height : MaterialDevice.width, h - contentInset.top - contentInset.bottom)
 		item.titleView!.grid.views = []
 		
 		// TitleView alignment.
 		if let t: UILabel = item.titleLabel {
 			t.grid.rows = 1
-			t.backgroundColor = MaterialColor.red.accent1
+			
 			item.titleView!.addSubview(t)
 			item.titleView!.grid.views?.append(t)
-			if let d: UILabel = item.detailLabel {
-				d.backgroundColor = MaterialColor.red.accent3
-				t.font = t.font.fontWithSize(17)
-				d.grid.rows = 1
-				d.font = d.font.fontWithSize(12)
-				item.titleView!.addSubview(d)
-				item.titleView!.grid.views?.append(d)
-				item.titleView!.grid.axis.rows = 2
-			} else {
+			
+			if 32 >= height || nil == item.detailLabel {
 				t.font = t.font?.fontWithSize(20)
 				item.titleView!.grid.axis.rows = 1
+				item.detailLabel?.hidden = true
+			} else if let d: UILabel = item.detailLabel {
+				d.grid.rows = 1
+				d.hidden = false
+				d.font = d.font.fontWithSize(12)
+				t.font = t.font.fontWithSize(17)
+				item.titleView!.addSubview(d)
+				item.titleView!.grid.axis.rows = 2
+				item.titleView!.grid.views?.append(d)
 			}
+		} else if let d: UIView = item.detailView {
+			d.grid.rows = 1
+			
+			item.titleView!.addSubview(d)
+			item.titleView!.grid.axis.rows = 1
+			item.titleView!.grid.views?.append(d)
 		}
 		
 		// rightControls
 		if let v: Array<UIControl> = item.rightControls {
 			var n: Array<UIBarButtonItem> = Array<UIBarButtonItem>()
 			for c in v {
-				c.bounds.size = c is MaterialSwitch ? backButton.bounds.size : c.intrinsicContentSize()
+				if let b: UIButton = c as? UIButton {
+					b.contentEdgeInsets.top = 0
+					b.contentEdgeInsets.bottom = 0
+				}
+				c.bounds.size = c is MaterialSwitch ? CGSizeMake(w, h - contentInset.top - contentInset.bottom) : CGSizeMake(c.intrinsicContentSize().width, h - contentInset.top - contentInset.bottom)
 				n.append(UIBarButtonItem(customView: c))
 			}
+			
+			// The spacer moves the UIBarButtonItems to the edge of the UINavigationBar.
 			let spacer: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
-			spacer.width = item.inset
+			spacer.width = inset + contentInset.right
 			n.append(spacer)
+			
 			item.rightBarButtonItems = n.reverse()
 		}
 		
@@ -441,21 +366,8 @@ public class NavigationBar : UINavigationBar {
 		backButtonImage = nil
 		backgroundColor = MaterialColor.white
 		depth = .Depth1
-		prepareVisualLayer()
+		contentInset = UIEdgeInsetsMake(2, 2, 2, 2)
 		prepareBackButton()
-	}
-	
-	/// Prepares the visualLayer property.
-	internal func prepareVisualLayer() {
-		visualLayer.zPosition = 0
-		visualLayer.masksToBounds = true
-		layer.addSublayer(visualLayer)
-	}
-	
-	/// Manages the layout for the visualLayer property.
-	internal func layoutVisualLayer() {
-		visualLayer.frame = bounds
-		visualLayer.cornerRadius = cornerRadius
 	}
 	
 	/// Prepares the backButton.
@@ -465,6 +377,11 @@ public class NavigationBar : UINavigationBar {
 		backButton.setImage(backButtonImage, forState: .Normal)
 		backButton.setImage(backButtonImage, forState: .Highlighted)
 	}
+	
+	/// Prepares the UINavigationItem for layout and sizing.
+	internal func prepareItem(item: UINavigationItem) {
+		item.title = ""
+	}
 }
 
 /// A memory reference to the NavigationItem instance for UINavigationBar extensions.
@@ -472,7 +389,12 @@ private var NavigationItemKey: UInt8 = 0
 
 public class NavigationItem {
 	/// Inset.
-	public var inset: CGFloat = -16
+	public var portraitInset: CGFloat = .iPad == MaterialDevice.type || "iPhone 6s Plus" == MaterialDevice.model || "iPhone 6 Plus" == MaterialDevice.model ? -20 : -16
+	
+	public var landscapeInset: CGFloat = -20
+	
+	/// Detail View.
+	public var detailView: UIView?
 	
 	/// Title label.
 	public var titleLabel: UILabel?
@@ -500,13 +422,33 @@ public extension UINavigationItem {
 		}
 	}
 	
-	/// Inset.
-	public var inset: CGFloat {
+	/// Portrait inset.
+	public var portraitInset: CGFloat {
 		get {
-			return item.inset
+			return item.portraitInset
 		}
 		set(value) {
-			item.inset = value
+			item.portraitInset = value
+		}
+	}
+	
+	/// Landscape inset.
+	public var landscapeInset: CGFloat {
+		get {
+			return item.landscapeInset
+		}
+		set(value) {
+			item.landscapeInset = value
+		}
+	}
+	
+	/// Detail View.
+	public var detailView: UIView? {
+		get {
+			return item.detailView
+		}
+		set(value) {
+			item.detailView = value
 		}
 	}
 	

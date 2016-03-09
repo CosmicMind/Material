@@ -76,7 +76,7 @@ class AppLeftViewController: UIViewController {
 	/// Prepares the items that are displayed within the tableView.
 	private func prepareCells() {
 		items.append(Item(text: "Feed", imageName: "ic_today"))
-		items.append(Item(text: "Inbox", imageName: "ic_inbox"))
+		items.append(Item(text: "Recipes", imageName: "ic_inbox"))
 	}
 	
 	/// Prepares profile view.

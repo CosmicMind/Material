@@ -60,6 +60,7 @@
 		96A71F451C74ABCB00C0C4AE /* MaterialBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71F441C74ABCB00C0C4AE /* MaterialBorder.swift */; };
 		96A71FB31C764E3200C0C4AE /* StatusBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71FB21C764E3200C0C4AE /* StatusBarView.swift */; };
 		96A71FB61C7651AA00C0C4AE /* ControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71FB01C7649F800C0C4AE /* ControlView.swift */; };
+		96BE340F1C8E68EF007D02BE /* MaterialIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE340E1C8E68EF007D02BE /* MaterialIcon.swift */; };
 		96CC08311C7CCB7C0034FF84 /* MaterialBorder.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96A71F441C74ABCB00C0C4AE /* MaterialBorder.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96CC08321C7CCB7C0034FF84 /* MenuViewController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9626C2DD1C795017007CA8E0 /* MenuViewController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96CC08331C7CCB7C0034FF84 /* MaterialSwitch.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96A71EC61C6FFF0500C0C4AE /* MaterialSwitch.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -185,6 +186,7 @@
 		96A71F441C74ABCB00C0C4AE /* MaterialBorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialBorder.swift; sourceTree = "<group>"; };
 		96A71FB01C7649F800C0C4AE /* ControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlView.swift; sourceTree = "<group>"; };
 		96A71FB21C764E3200C0C4AE /* StatusBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarView.swift; sourceTree = "<group>"; };
+		96BE340E1C8E68EF007D02BE /* MaterialIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialIcon.swift; sourceTree = "<group>"; };
 		96CC083C1C7CF9D40034FF84 /* StatusBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarViewController.swift; sourceTree = "<group>"; };
 		96CC088B1C7FEC170034FF84 /* MaterialCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialCollectionView.swift; sourceTree = "<group>"; };
 		96CC088C1C7FEC170034FF84 /* MaterialCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -349,6 +351,14 @@
 			name = Switch;
 			sourceTree = "<group>";
 		};
+		96BE340D1C8E68BB007D02BE /* Icon */ = {
+			isa = PBXGroup;
+			children = (
+				96BE340E1C8E68EF007D02BE /* MaterialIcon.swift */,
+			);
+			name = Icon;
+			sourceTree = "<group>";
+		};
 		96CC08561C7E0EC00034FF84 /* ControlView */ = {
 			isa = PBXGroup;
 			children = (
@@ -376,6 +386,8 @@
 				96D88BFD1C1328D800B91418 /* LICENSE */,
 				96D88BFC1C1328D800B91418 /* Info.plist */,
 				96D88C091C1328D800B91418 /* Material.h */,
+				96334EF51C8B84660083986B /* Assets.xcassets */,
+				96BE340D1C8E68BB007D02BE /* Icon */,
 				96D88C501C132A2C00B91418 /* Extensions */,
 				96D88C531C132A6900B91418 /* View */,
 				96D88C521C132A5700B91418 /* Layout */,
@@ -399,7 +411,6 @@
 				9626C2DB1C794FBB007CA8E0 /* SearchBar */,
 				9626C2DA1C794FA5007CA8E0 /* NavigationBar */,
 				9626C2DC1C794FE5007CA8E0 /* SideNavigation */,
-				96334EF51C8B84660083986B /* Assets.xcassets */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -754,6 +765,7 @@
 				96CC08921C7FEC170034FF84 /* MaterialCollectionView.swift in Sources */,
 				96A71EC71C6FFF0500C0C4AE /* MaterialSwitch.swift in Sources */,
 				96CC08951C7FEC170034FF84 /* MaterialCollectionViewDelegate.swift in Sources */,
+				96BE340F1C8E68EF007D02BE /* MaterialIcon.swift in Sources */,
 				96CC08971C7FEC170034FF84 /* MaterialDataSourceItem.swift in Sources */,
 				96D88C221C1328D800B91418 /* FabButton.swift in Sources */,
 				96D88C3F1C1328D800B91418 /* RaisedButton.swift in Sources */,
