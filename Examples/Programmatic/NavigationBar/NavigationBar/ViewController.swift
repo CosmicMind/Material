@@ -109,8 +109,6 @@ class ViewController: UIViewController {
 		
 		view.addSubview(navigationBar)
 		
-		menuButton.backgroundColor = MaterialColor.yellow.accent1
-		
 		let item: UINavigationItem = UINavigationItem()
 		item.titleLabel = titleLabel
 		item.leftControls = [menuButton]

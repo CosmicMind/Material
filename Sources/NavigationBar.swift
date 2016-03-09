@@ -250,11 +250,11 @@ public class NavigationBar : UINavigationBar {
 	public override func layoutSubviews() {
 		super.layoutSubviews()
 		
-		if let item: UINavigationItem = backItem {
-			item.titleView?.grid.reloadLayout()
-		} else if let item: UINavigationItem = topItem {
+		if let item: UINavigationItem = topItem {
 			layoutNavigationItem(item)
 		}
+		
+		topItem?.titleView?.grid.reloadLayout()
 	}
 	
 	public override func pushNavigationItem(item: UINavigationItem, animated: Bool) {
@@ -311,14 +311,13 @@ public class NavigationBar : UINavigationBar {
 			
 			if 32 >= height || nil == item.detailLabel {
 				t.font = t.font?.fontWithSize(20)
-				
 				item.titleView!.grid.axis.rows = 1
+				item.detailLabel?.hidden = true
 			} else if let d: UILabel = item.detailLabel {
 				d.grid.rows = 1
+				d.hidden = false
 				d.font = d.font.fontWithSize(12)
-				
 				t.font = t.font.fontWithSize(17)
-				
 				item.titleView!.addSubview(d)
 				item.titleView!.grid.axis.rows = 2
 				item.titleView!.grid.views?.append(d)
@@ -367,7 +366,7 @@ public class NavigationBar : UINavigationBar {
 		backButtonImage = nil
 		backgroundColor = MaterialColor.white
 		depth = .Depth1
-		contentInset = UIEdgeInsetsMake(2, 6, 2, 6)
+		contentInset = UIEdgeInsetsMake(2, 2, 2, 2)
 		prepareBackButton()
 	}
 	

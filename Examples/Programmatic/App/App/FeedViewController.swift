@@ -70,6 +70,8 @@ class FeedViewController: UIViewController {
 			navigationbar.backgroundColor = MaterialColor.blue.base
 			navigationbar.backButton.tintColor = MaterialColor.white
 		}
+		
+		collectionView.reloadData()
 	}
 	
 	override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {

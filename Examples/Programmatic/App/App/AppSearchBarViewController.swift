@@ -112,9 +112,11 @@ class AppSearchBarViewController: SearchBarViewController {
 		searchBarView.placeholderTextColor = MaterialColor.grey.darken4
 		searchBarView.textField.font = RobotoFont.regular
 		searchBarView.textField.delegate = self
+		searchBarView.contentInset.left = 8
+		searchBarView.contentInset.right = 8
 		
 		searchBarView.clearButton = clearButton
-		searchBarView.rightControls = [backButton]
+		searchBarView.leftControls = [backButton]
 	}
 }
 
