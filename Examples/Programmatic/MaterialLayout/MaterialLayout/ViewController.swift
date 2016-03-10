@@ -45,9 +45,7 @@ class ViewController: UIViewController {
 		prepareAlignToParentVerticallyExample()
 	}
 	
-	/// General preparation statements are placed here.
-    @IBOutlet weak var heightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var navigationBarViewConstraint: NavigationBarView!
+	/// General preparation statements.
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.white
 	}

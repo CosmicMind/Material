@@ -508,7 +508,7 @@ public class MaterialButton : UIButton {
 			let d: CGFloat = 2 * f
 			let s: CGFloat = 1.05
 			
-			var t: CFTimeInterval = CFTimeInterval(1.5 * width / MaterialDevice.bounds.width)
+			var t: CFTimeInterval = CFTimeInterval(1.5 * width / MaterialDevice.width)
 			if 0.55 < t || 0.25 > t {
 				t = 0.55
 			}
@@ -551,7 +551,7 @@ public class MaterialButton : UIButton {
 	/// Executes the shrink animation for the pulse effect.
 	internal func shrinkAnimation() {
 		if pulseScale {
-			var t: CFTimeInterval = CFTimeInterval(1.5 * width / MaterialDevice.bounds.width)
+			var t: CFTimeInterval = CFTimeInterval(1.5 * width / MaterialDevice.width)
 			if 0.55 < t || 0.25 > t {
 				t = 0.55
 			}

@@ -256,7 +256,6 @@ public class MaterialLayer : CAShapeLayer {
 	public override init(layer: AnyObject) {
 		contentsGravityPreset = .ResizeAspectFill
 		super.init()
-		prepareVisualLayer()
 	}
 	
 	/// A convenience initializer.
