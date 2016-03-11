@@ -103,5 +103,6 @@ public class StatusBarView : ControlView {
 		spacingPreset = .Spacing2
 		contentInsetPreset = .Square2
 		autoresizingMask = .FlexibleWidth
+		shadowPathAutoSizeEnabled = false
 	}
 }

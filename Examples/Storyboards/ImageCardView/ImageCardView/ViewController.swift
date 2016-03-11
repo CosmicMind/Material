@@ -48,6 +48,7 @@ class ViewController: UIViewController {
      */
     func prepareImageCardViewExample() {
 		imageCardView.divider = false
+		imageCardView.maxImageHeight = 130
 		
 		// Image.
 		imageCardView.image = UIImage(named: "MaterialImageCardViewBackgroundImage")

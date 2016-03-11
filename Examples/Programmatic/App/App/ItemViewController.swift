@@ -87,13 +87,9 @@ class ItemViewController: UIViewController {
 	/// Prepares the titleLabel.
 	private func prepareTitleLabel() {
 		titleLabel = UILabel()
+		titleLabel.text = "Recipe"
 		titleLabel.textAlignment = .Left
 		titleLabel.textColor = MaterialColor.white
-		
-		// Set the title of the view.
-		if let data: Dictionary<String, AnyObject> =  dataSource.data as? Dictionary<String, AnyObject> {
-			titleLabel.text = data["title"] as? String
-		}
 	}
 	
 	/// Prepares the detailLabel.
@@ -133,9 +129,14 @@ class ItemViewController: UIViewController {
 			imageCardView.pulseColor = nil
 			imageCardView.divider = false
 			imageCardView.depth = .None
-			imageCardView.contentInsetPreset = .Square2
-			imageCardView.contentInset.top = 0
+			imageCardView.contentInsetPreset = .Square3
 			imageCardView.cornerRadiusPreset = .None
+			
+			imageCardView.titleLabel = UILabel()
+			imageCardView.titleLabel?.text = data["title"] as? String
+			imageCardView.titleLabel?.textColor = MaterialColor.grey.darken4
+			imageCardView.titleLabel?.font = RobotoFont.regularWithSize(20)
+			imageCardView.titleLabelInset.top = height
 			
 			let detailLabel: UILabel = UILabel()
 			detailLabel.text = data["detail"] as? String
@@ -144,6 +145,7 @@ class ItemViewController: UIViewController {
 			detailLabel.numberOfLines = 0
 			
 			imageCardView.detailView = detailLabel
+			imageCardView.detailViewInset.top = 52
 			
 			// Asynchronously the load image.
 			dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) { [weak self] in

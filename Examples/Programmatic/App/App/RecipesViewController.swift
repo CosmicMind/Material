@@ -95,7 +95,11 @@ class RecipesViewController: UIViewController {
 	
 	/// Handles the searchButton.
 	internal func handleSearchButton() {
-		navigationController?.presentViewController(AppSearchBarViewController(mainViewController: RecommendationViewController(dataSourceItems: dataSourceItems)), animated: true, completion: nil)
+		var recommended: Array<MaterialDataSourceItem> = Array<MaterialDataSourceItem>()
+		recommended.append(dataSourceItems[0])
+		recommended.append(dataSourceItems[1])
+		recommended.append(dataSourceItems[2])
+		navigationController?.presentViewController(AppSearchBarViewController(mainViewController: RecommendationViewController(dataSourceItems: recommended)), animated: true, completion: nil)
 	}
 	
 	/// Prepares the items Array.

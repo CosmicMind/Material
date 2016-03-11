@@ -104,7 +104,6 @@ class AppSearchBarViewController: SearchBarViewController {
 		moreButton.tintColor = MaterialColor.grey.darken4
 		moreButton.setImage(image, forState: .Normal)
 		moreButton.setImage(image, forState: .Highlighted)
-		moreButton.addTarget(self, action: "handleMoreButton", forControlEvents: .TouchUpInside)
 		
 		searchBarView.placeholder = "Search"
 		searchBarView.tintColor = MaterialColor.grey.darken4
@@ -117,6 +116,7 @@ class AppSearchBarViewController: SearchBarViewController {
 		
 		searchBarView.clearButton = clearButton
 		searchBarView.leftControls = [backButton]
+		searchBarView.rightControls = [moreButton]
 	}
 }
 

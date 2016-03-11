@@ -102,8 +102,10 @@ Material is a growing project and will encounter changes throughout its developm
 
 * [MenuView](#menuview)
 * [MenuViewController](#menuviewcontroller)
-* [NavigationBar](#navigationbar) (New)
-* [NavigationController](#navigationcontroller) (New)
+* NavigationBar
+* [NavigationBarView](#navigationbarview)
+* NavigationController
+* [NavigationBarViewController](#navigationbarviewcontroller)
 * [SearchBarView](#searchbarview)
 * [SearchBarViewController](#searchbarviewcontroller)
 * [SideNavigationViewController](#sidenavigationviewcontroller)
@@ -304,19 +306,19 @@ A MenuViewController manages UIViewControllers using a MenuView component.
 
 ![MaterialMenuViewController](http://www.cosmicmind.io/MK/MaterialMenuViewController.gif)
 
-<a name="navigationbar"></a>
-#### NavigationBar
+<a name="navigationbarview"></a>
+#### NavigationBarView
 
-A NavigationBar is a fully featured navigation bar that supports orientation changes, background images, title and detail labels, both left and right UIControl sets, and status bar settings.
+A NavigationBarView is a fully featured navigation bar that supports orientation changes, background images, title and detail labels, both left and right UIControl sets, and status bar settings.
 
 ![MaterialNavigationBarView](http://www.cosmicmind.io/MK/MaterialNavigationBarView.gif)
 
 [Learn More About NavigationBarView](https://github.com/CosmicMind/Material/wiki/NavigationBarView)
 
-<a href="#navigationcontroller"></a>
-#### NavigationController
+<a href="#navigationbarviewcontroller"></a>
+#### NavigationBarViewController
 
-A NavigationController manages UIViewControllers using a NavigationBar component.
+A NavigationBarViewController manages UIViewControllers using a NavigationBar component.
 
 ![MaterialNavigationBarViewController](http://www.cosmicmind.io/MK/MaterialNavigationBarViewController.gif)
 
