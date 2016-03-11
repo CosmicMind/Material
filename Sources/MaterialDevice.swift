@@ -125,4 +125,14 @@ public struct MaterialDevice {
 			UIApplication.sharedApplication().statusBarStyle = value
 		}
 	}
+	
+	/// Retrieves the device status bar hidden state.
+	public static var statusBarHidden: Bool {
+		get {
+			return UIApplication.sharedApplication().statusBarHidden
+		}
+		set(value) {
+			UIApplication.sharedApplication().statusBarHidden = value
+		}
+	}
 }

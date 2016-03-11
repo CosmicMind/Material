@@ -50,6 +50,8 @@
 		9656264A1C8757B4004ADEF7 /* MaterialDataSourceItem.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96CC08901C7FEC170034FF84 /* MaterialDataSourceItem.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9656CD0C1C6BD33700EBCEF1 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9656CD0B1C6BD33700EBCEF1 /* Grid.swift */; };
 		966F57B81C226D75009185B7 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966F57B71C226D75009185B7 /* TextField.swift */; };
+		968F16F61C9260EC008CA3F6 /* NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968F16F51C9260EC008CA3F6 /* NavigationBarView.swift */; };
+		968F16F81C92612E008CA3F6 /* NavigationBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968F16F71C92612E008CA3F6 /* NavigationBarViewController.swift */; };
 		96A71E911C6FBC2200C0C4AE /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71E901C6FBC2200C0C4AE /* MenuView.swift */; };
 		96A71EB81C6FCFA300C0C4AE /* Material+UIImage+Color.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96DBA7351C61198400844821 /* Material+UIImage+Color.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96A71EB91C6FCFA300C0C4AE /* Grid.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9656CD0B1C6BD33700EBCEF1 /* Grid.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -180,6 +182,8 @@
 		965626411C874FAE004ADEF7 /* MaterialDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialDevice.swift; sourceTree = "<group>"; };
 		9656CD0B1C6BD33700EBCEF1 /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		966F57B71C226D75009185B7 /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
+		968F16F51C9260EC008CA3F6 /* NavigationBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = "<group>"; };
+		968F16F71C92612E008CA3F6 /* NavigationBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBarViewController.swift; sourceTree = "<group>"; };
 		96A71E901C6FBC2200C0C4AE /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		96A71EC61C6FFF0500C0C4AE /* MaterialSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialSwitch.swift; sourceTree = "<group>"; };
 		96A71EF51C71127100C0C4AE /* SearchBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
@@ -259,6 +263,8 @@
 			children = (
 				96334EF71C8B84880083986B /* NavigationBar.swift */,
 				96334EF91C8B849A0083986B /* NavigationController.swift */,
+				968F16F51C9260EC008CA3F6 /* NavigationBarView.swift */,
+				968F16F71C92612E008CA3F6 /* NavigationBarViewController.swift */,
 			);
 			name = NavigationBar;
 			sourceTree = "<group>";
@@ -738,6 +744,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				968F16F61C9260EC008CA3F6 /* NavigationBarView.swift in Sources */,
 				96D88C3D1C1328D800B91418 /* MaterialView.swift in Sources */,
 				960B23481C38480E00E96216 /* TextView.swift in Sources */,
 				96D88C291C1328D800B91418 /* MaterialBasicAnimation.swift in Sources */,
@@ -777,6 +784,7 @@
 				960B23301C383EAA00E96216 /* Material+UIImage+Network.swift in Sources */,
 				96D88C1E1C1328D800B91418 /* CaptureView.swift in Sources */,
 				96D88C2D1C1328D800B91418 /* MaterialDepth.swift in Sources */,
+				968F16F81C92612E008CA3F6 /* NavigationBarViewController.swift in Sources */,
 				96CC08941C7FEC170034FF84 /* MaterialCollectionViewDataSource.swift in Sources */,
 				96D88C331C1328D800B91418 /* MaterialLabel.swift in Sources */,
 				96D88C281C1328D800B91418 /* MaterialAnimation.swift in Sources */,

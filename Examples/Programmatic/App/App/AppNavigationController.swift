@@ -28,11 +28,6 @@
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-/*
-The following is an example of using a NavigationBarViewController to control the
-flow of your application.
-*/
-
 import UIKit
 import Material
 

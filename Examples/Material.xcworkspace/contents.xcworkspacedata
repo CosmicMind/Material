@@ -50,6 +50,12 @@
          location = "group:Programmatic/NavigationBar/NavigationBar.xcodeproj">
       </FileRef>
       <FileRef
+         location = "group:Programmatic/NavigationBarView/NavigationBarView.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/NavigationBarViewController/NavigationBarViewController.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:Programmatic/SearchBarView/SearchBarView.xcodeproj">
       </FileRef>
       <FileRef
@@ -82,6 +88,9 @@
       </FileRef>
       <FileRef
          location = "group:Storyboards/MaterialButton/MaterialButton.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Storyboards/NavigationBarView/NavigationBarView.xcodeproj">
       </FileRef>
       <FileRef
          location = "group:Storyboards/SideNavigationViewController/SideNavigationViewController.xcodeproj">

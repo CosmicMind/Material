@@ -14,8 +14,6 @@
 		9663F9151C7A6AC400AF0965 /* YellowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9663F9141C7A6AC400AF0965 /* YellowViewController.swift */; };
 		9663F9171C7A6AD100AF0965 /* GreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9663F9161C7A6AD100AF0965 /* GreenViewController.swift */; };
 		9663F9191C7A6ADB00AF0965 /* BlueViewcontroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9663F9181C7A6ADB00AF0965 /* BlueViewcontroller.swift */; };
-		968F16CF1C914422008CA3F6 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 968F16CE1C914422008CA3F6 /* Material.framework */; };
-		968F16D01C914422008CA3F6 /* Material.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 968F16CE1C914422008CA3F6 /* Material.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,7 +23,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				968F16D01C914422008CA3F6 /* Material.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -42,7 +39,6 @@
 		9663F9141C7A6AC400AF0965 /* YellowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowViewController.swift; sourceTree = "<group>"; };
 		9663F9161C7A6AD100AF0965 /* GreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreenViewController.swift; sourceTree = "<group>"; };
 		9663F9181C7A6ADB00AF0965 /* BlueViewcontroller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueViewcontroller.swift; sourceTree = "<group>"; };
-		968F16CE1C914422008CA3F6 /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = Material.framework; path = "/Users/danieldahan/Library/Developer/Xcode/DerivedData/Material-hbpnflxhoouqxebjcyhbbhqyesjd/Build/Products/Debug-iphoneos/Material.framework"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,7 +46,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				968F16CF1C914422008CA3F6 /* Material.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,7 +55,6 @@
 		9663F8F61C7A67FF00AF0965 = {
 			isa = PBXGroup;
 			children = (
-				968F16CE1C914422008CA3F6 /* Material.framework */,
 				9663F9011C7A67FF00AF0965 /* MenuViewController */,
 				9663F9001C7A67FF00AF0965 /* Products */,
 			);

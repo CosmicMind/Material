@@ -123,13 +123,13 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	A UIPanGestureRecognizer property internally used for the
 	pan gesture.
 	*/
-	internal var panGesture: UIPanGestureRecognizer?
+	internal private(set) var panGesture: UIPanGestureRecognizer?
 	
 	/**
 	A UITapGestureRecognizer property internally used for the 
 	tap gesture.
 	*/
-	internal var tapGesture: UITapGestureRecognizer?
+	internal private(set) var tapGesture: UITapGestureRecognizer?
 	
 	/**
 	A CGFloat property that accesses the leftView threshold of
@@ -198,13 +198,13 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	A Boolean property that enables and disables the leftView from
 	opening and closing. Defaults to true.
 	*/
-	public var enabledLeftView: Bool = false
+	public var enabledLeftView: Bool = true
 	
 	/**
 	A Boolean property that enables and disables the rightView from
 	opening and closing. Defaults to true.
 	*/
-	public var enabledRightView: Bool = false
+	public var enabledRightView: Bool = true
 	
 	/**
 	A Boolean property that triggers the status bar to be hidden
@@ -748,7 +748,6 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			leftView = MaterialView()
 			leftView!.frame = CGRectMake(0, 0, leftViewWidth, view.frame.height)
 			leftView!.backgroundColor = MaterialColor.clear
-			leftView!.shadowPathAutoSizeEnabled = true
 			view.addSubview(leftView!)
 			
 			leftView!.hidden = true
@@ -765,7 +764,6 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			rightView = MaterialView()
 			rightView!.frame = CGRectMake(0, 0, rightViewWidth, view.frame.height)
 			rightView!.backgroundColor = MaterialColor.clear
-			rightView!.shadowPathAutoSizeEnabled = true
 			view.addSubview(rightView!)
 			
 			rightView!.hidden = true
@@ -840,7 +838,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 			UIView.animateWithDuration(NSTimeInterval(UINavigationControllerHideShowBarDuration),
 				animations: { [weak self] in
 					self?.setNeedsStatusBarAppearanceUpdate()
-					UIApplication.sharedApplication().statusBarHidden = hidden
+					MaterialDevice.statusBarHidden = hidden
 				}) { [weak self] _ in
 					if false == self?.opened {
 						self?.userInteractionEnabled = true
