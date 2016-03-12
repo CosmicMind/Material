@@ -2,6 +2,8 @@
 
 # Welcome to Material
 
+[![Join the chat at https://gitter.im/CosmicMind/Material](https://badges.gitter.im/CosmicMind/Material.svg)](https://gitter.im/CosmicMind/Material?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Express your creativity with Material, an animation and graphics framework for Google's Material Design and Apple's Flat UI in Swift.
 
 ![MaterialApp](http://www.cosmicmind.io/MK/MaterialApp.gif)
