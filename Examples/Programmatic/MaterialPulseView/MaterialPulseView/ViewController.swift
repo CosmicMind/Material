@@ -63,16 +63,16 @@ class ViewController: UIViewController {
 		// Add pulseView to UIViewController.
 		view.addSubview(pulseView)
 		
-		// Trigger the pulse animation.
-		MaterialAnimation.delay(4) {
-			pulseView.pulse(CGPointMake(30, 30))
-		}
-		
-		pulseView.animate(MaterialAnimation.animationGroup([
-			MaterialAnimation.rotate(rotation: 0.5),
-			MaterialAnimation.rotateX(rotation: 2),
-			MaterialAnimation.translateY(200)
-		], duration: 4))
+//		// Trigger the pulse animation.
+//		MaterialAnimation.delay(4) {
+//			pulseView.pulse(CGPointMake(30, 30))
+//		}
+//		
+//		pulseView.animate(MaterialAnimation.animationGroup([
+//			MaterialAnimation.rotate(rotation: 0.5),
+//			MaterialAnimation.rotateX(rotation: 2),
+//			MaterialAnimation.translateY(200)
+//		], duration: 4))
 	}
 }
 

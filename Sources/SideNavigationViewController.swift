@@ -803,8 +803,8 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		
 		if nil == tapGesture {
 			tapGesture = UITapGestureRecognizer(target: self, action: "handleTapGesture:")
-			tapGesture!.cancelsTouchesInView = false
 			tapGesture!.delegate = self
+			tapGesture!.cancelsTouchesInView = false
 			view.addGestureRecognizer(tapGesture!)
 		}
 	}
@@ -900,14 +900,6 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		userInteractionEnabled = false
 		container.depth = depth
 		container.hidden = false
-		container.layer.shouldRasterize = true
-		container.layer.rasterizationScale = MaterialDevice.scale
-		mainViewController.view.layer.shouldRasterize = true
-		mainViewController.view.layer.rasterizationScale = MaterialDevice.scale
-		leftViewController?.view.layer.shouldRasterize = true
-		leftViewController?.view.layer.rasterizationScale = MaterialDevice.scale
-		rightViewController?.view.layer.shouldRasterize = true
-		rightViewController?.view.layer.rasterizationScale = MaterialDevice.scale
 	}
 	
 	/**
@@ -918,10 +910,6 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 		userInteractionEnabled = true
 		container.depth = .None
 		container.hidden = true
-		container.layer.shouldRasterize = false
-		mainViewController.view.layer.shouldRasterize = false
-		leftViewController?.view.layer.shouldRasterize = false
-		rightViewController?.view.layer.shouldRasterize = false
 	}
 	
 	/// Layout subviews.
