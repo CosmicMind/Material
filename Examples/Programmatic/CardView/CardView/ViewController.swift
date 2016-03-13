@@ -95,7 +95,6 @@ class ViewController: UIViewController {
 		cardView.translatesAutoresizingMaskIntoConstraints = false
 		MaterialLayout.alignFromTop(view, child: cardView, top: 100)
 		MaterialLayout.alignToParentHorizontally(view, child: cardView, left: 20, right: 20)
-		
 	}
 	
 	/**
@@ -110,7 +109,7 @@ class ViewController: UIViewController {
 		cardView.pulseColor = nil
 		
 		cardView.image = UIImage(named: "Material-iTunesArtWork")?.resize(toHeight: 150)
-		cardView.contentsGravity = .BottomRight
+		cardView.contentsGravityPreset = .BottomRight
 		
 		// Title label.
 		let titleLabel: UILabel = UILabel()
@@ -155,7 +154,7 @@ class ViewController: UIViewController {
 		
 		// Image.
 		cardView.image = UIImage(named: "Graph")?.resize(toHeight: 150)
-		cardView.contentsGravity = .Right
+		cardView.contentsGravityPreset = .Right
 		
 		// Title label.
 		let titleLabel: UILabel = UILabel()

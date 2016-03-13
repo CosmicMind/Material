@@ -31,6 +31,15 @@
 import UIKit
 
 public class StatusBarViewController: UIViewController {
+	/// The height of the StatusBar.
+	public var heightForStatusBar: CGFloat = 20
+	
+	/// The height when in Portrait orientation mode.
+	public var heightForPortraitOrientation: CGFloat = 64
+	
+	/// The height when in Landscape orientation mode.
+	public var heightForLandscapeOrientation: CGFloat = 44
+	
 	/**
 	A Boolean property used to enable and disable interactivity
 	with the mainViewController.
@@ -100,15 +109,35 @@ public class StatusBarViewController: UIViewController {
 	Prepares the view instance when intialized. When subclassing,
 	it is recommended to override the prepareView method
 	to initialize property values and other setup operations.
-	The super.prepareView method should always be called at the end
+	The super.prepareView method should always be called immediately
 	when subclassing.
 	*/
 	public func prepareView() {
 		prepareMainViewController()
 	}
 	
+	public override func viewWillLayoutSubviews() {
+		super.viewWillLayoutSubviews()
+		layoutSubviews()
+	}
+	
+	/// Layout subviews.
+	private func layoutSubviews() {
+		let h: CGFloat = MaterialDevice.height
+		let q: CGFloat = UIApplication.sharedApplication().statusBarFrame.size.height
+		
+		if .iPhone == MaterialDevice.type && MaterialDevice.landscape {
+			mainViewController.view.frame.origin.y = heightForLandscapeOrientation
+			mainViewController.view.frame.size.height = h - (heightForStatusBar >= q ? heightForLandscapeOrientation : q - heightForStatusBar - heightForLandscapeOrientation)
+		} else {
+			mainViewController.view.frame.origin.y = heightForPortraitOrientation
+			mainViewController.view.frame.size.height = h - (heightForStatusBar >= q ? heightForPortraitOrientation : q - heightForStatusBar - heightForPortraitOrientation)
+		}
+	}
+	
 	/// A method that prepares the mainViewController.
 	private func prepareMainViewController() {
+		mainViewController.view.autoresizingMask = .FlexibleWidth
 		prepareViewControllerWithinContainer(mainViewController, container: view)
 	}
 	

@@ -129,10 +129,9 @@ public class MenuViewController: UIViewController {
 	*/
 	public func openMenu(completion: (() -> Void)? = nil) {
 		if true == userInteractionEnabled {
-			menuView.open { [weak self] in
-				self?.userInteractionEnabled = false
-				completion?()
-			}
+			userInteractionEnabled = false
+			mainViewController.view.alpha = 0.5
+			menuView.open(completion)
 		}
 	}
 	
@@ -143,10 +142,11 @@ public class MenuViewController: UIViewController {
 	*/
 	public func closeMenu(completion: (() -> Void)? = nil) {
 		if false == userInteractionEnabled {
-			menuView.close { [weak self] in
+			mainViewController.view.alpha = 1
+			menuView.close({ [weak self] in
 				self?.userInteractionEnabled = true
 				completion?()
-			}
+			})
 		}
 	}
 	

@@ -28,12 +28,15 @@
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-public struct MaterialCollectionViewDataSourceItem {
-	var data: AnyObject
-	var height: CGFloat
-	
-	public init(data: AnyObject, height: CGFloat) {
-		self.data = data
-		self.height = height
+import UIKit
+import Material
+
+class AppNavigationController: NavigationController {
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		
+		navigationBar.statusBarStyle = .LightContent
+		navigationBar.tintColor = MaterialColor.white
+		navigationBar.backgroundColor = MaterialColor.blue.base
 	}
 }

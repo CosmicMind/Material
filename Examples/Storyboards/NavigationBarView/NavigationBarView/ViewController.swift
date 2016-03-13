@@ -35,15 +35,19 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var navigationBarView: NavigationBarView!
 	
-	/// ************* This needs to be attached to the Storyboard. *************
 	@IBOutlet weak var navigationBarViewHeightConstraint: NSLayoutConstraint?
 	
 	override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
-		// if landscape
+		// If landscape.
 		if UIInterfaceOrientationIsLandscape(toInterfaceOrientation) {
-			navigationBarViewHeightConstraint?.constant = 44
+			/**
+			The height of the NavigationBarView is dependant on the device being used.
+			If the device is an iPad, the height should stay the same as in Portrait 
+			view, otherwise it should strink to the Landscape height for iPhone.
+			*/
+			navigationBarViewHeightConstraint?.constant = .iPad == MaterialDevice.type ? navigationBarView!.heightForPortraitOrientation :  navigationBarView!.heightForLandscapeOrientation
 		} else {
-			navigationBarViewHeightConstraint?.constant = 64
+			navigationBarViewHeightConstraint?.constant = navigationBarView!.heightForPortraitOrientation
 		}
 	}
 	
@@ -86,7 +90,6 @@ class ViewController: UIViewController {
         // Menu button.
         let img1: UIImage? = UIImage(named: "ic_menu_white")
         let btn1: FlatButton = FlatButton()
-        btn1.pulseColor = nil
         btn1.pulseScale = false
         btn1.setImage(img1, forState: .Normal)
         btn1.setImage(img1, forState: .Highlighted)
@@ -94,7 +97,6 @@ class ViewController: UIViewController {
         // Star button.
         let img2: UIImage? = UIImage(named: "ic_star_white")
         let btn2: FlatButton = FlatButton()
-        btn2.pulseColor = nil
         btn2.pulseScale = false
         btn2.setImage(img2, forState: .Normal)
         btn2.setImage(img2, forState: .Highlighted)
@@ -102,7 +104,6 @@ class ViewController: UIViewController {
         // Search button.
         let img3: UIImage? = UIImage(named: "ic_search_white")
         let btn3: FlatButton = FlatButton()
-        btn3.pulseColor = nil
         btn3.pulseScale = false
         btn3.setImage(img3, forState: .Normal)
         btn3.setImage(img3, forState: .Highlighted)

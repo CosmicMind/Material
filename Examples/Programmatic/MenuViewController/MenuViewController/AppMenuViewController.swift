@@ -73,9 +73,9 @@ class AppMenuViewController: MenuViewController {
 	
 	/// Loads the YellowViewController into the menuViewControllers mainViewController.
 	func handleYellowButton() {
-		if (mainViewController as? NavigationBarViewController)?.mainViewController is YellowViewController {
-			return
-		}
+//		if (mainViewController as? NavigationBarViewController)?.mainViewController is YellowViewController {
+//			return
+//		}
 		
 		closeMenu { [weak self] in
 			self?.transitionFromMainViewController(YellowViewController(), options: [.TransitionCrossDissolve])

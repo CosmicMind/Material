@@ -41,43 +41,29 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		
-		// Examples of using MaterialLayer.
-		prepareGeneralMaterialLayerExample()
+		prepareMaterialLayer()
 	}
 	
-	/**
-	:name:	prepareView
-	:description: General preparation statements.
-	*/
+	/// General preparation statements.
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.white
 	}
 	
-	/**
-	:name:	prepareGeneralMaterialLayerExample
-	:description:	General usage example.
-	*/
-	private func prepareGeneralMaterialLayerExample() {
+	/// Prepare the MaterialLayer.
+	private func prepareMaterialLayer() {
 		let diameter: CGFloat = 150
-		let point: CGFloat = UIScreen.mainScreen().bounds.width / 2 - diameter / 2
+		let point: CGFloat = MaterialDevice.width / 2 - diameter / 2
+		
 		let materialLayer: MaterialLayer = MaterialLayer(frame: CGRectMake(point, point, diameter, diameter))
 		materialLayer.shape = .Circle
-		
-		UIImage.contentsOfURL(NSURL(string: "http://www.cosmicmind.io/CM/iTunesArtwork.png")!) { (image: UIImage?, error: NSError?) in
-			if let v: UIImage = image {
-				materialLayer.image = v
-			} else {
-				materialLayer.image = UIImage(named: "iTunesArtWork")
-			}
-		}
-		
+		materialLayer.image = UIImage(named: "iTunesArtwork")
+
 		// Add materialLayer to UIViewController.
 		view.layer.addSublayer(materialLayer)
 		
 		// Add a rotate animation.
-		MaterialAnimation.delay(3) {
-			materialLayer.animate(MaterialAnimation.rotate(3, duration: 3))
+		MaterialAnimation.delay(1) {
+			materialLayer.animate(MaterialAnimation.rotate(rotation: 3, duration: 3))
 		}
 	}
 }

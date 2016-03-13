@@ -35,9 +35,7 @@ public protocol TextFieldDelegate : UITextFieldDelegate {}
 public class TextField : UITextField {
 	/**
 	This property is the same as clipsToBounds. It crops any of the view's
-	contents from bleeding past the view's frame. If an image is set using
-	the image property, then this value does not need to be set, since the
-	visualLayer's maskToBounds is set to true by default.
+	contents from bleeding past the view's frame.
 	*/
 	public var masksToBounds: Bool {
 		get {
@@ -148,6 +146,27 @@ public class TextField : UITextField {
 		}
 	}
 	
+	/// A property that accesses the backing layer's shadowPath.
+	public var shadowPath: CGPath? {
+		get {
+			return layer.shadowPath
+		}
+		set(value) {
+			layer.shadowPath = value
+		}
+	}
+	
+	/// Enables automatic shadowPath sizing.
+	public var shadowPathAutoSizeEnabled: Bool = true {
+		didSet {
+			if shadowPathAutoSizeEnabled {
+				layoutShadowPath()
+			} else {
+				shadowPath = nil
+			}
+		}
+	}
+	
 	/**
 	A property that sets the shadowOffset, shadowOpacity, and shadowRadius
 	for the backing layer. This is the preferred method of setting depth
@@ -159,6 +178,7 @@ public class TextField : UITextField {
 			shadowOffset = value.offset
 			shadowOpacity = value.opacity
 			shadowRadius = value.radius
+			layoutShadowPath()
 		}
 	}
 	
@@ -171,17 +191,21 @@ public class TextField : UITextField {
 		didSet {
 			if let v: MaterialRadius = cornerRadiusPreset {
 				cornerRadius = MaterialRadiusToValue(v)
-				if .Circle == shape {
-					shape = .None
-				}
 			}
 		}
 	}
 	
 	/// A property that accesses the layer.cornerRadius.
-	@IBInspectable public var cornerRadius: CGFloat = 0 {
-		didSet {
-			layer.cornerRadius = cornerRadius
+	@IBInspectable public var cornerRadius: CGFloat {
+		get {
+			return layer.cornerRadius
+		}
+		set(value) {
+			layer.cornerRadius = value
+			layoutShadowPath()
+			if .Circle == shape {
+				shape = .None
+			}
 		}
 	}
 	
@@ -198,6 +222,7 @@ public class TextField : UITextField {
 				} else {
 					frame.size.height = width
 				}
+				layoutShadowPath()
 			}
 		}
 	}
@@ -208,18 +233,24 @@ public class TextField : UITextField {
 			borderWidth = MaterialBorderToValue(borderWidthPreset)
 		}
 	}
-
+	
 	/// A property that accesses the layer.borderWith.
-	@IBInspectable public var borderWidth: CGFloat = 0 {
-		didSet {
-			layer.borderWidth = borderWidth
+	@IBInspectable public var borderWidth: CGFloat {
+		get {
+			return layer.borderWidth
+		}
+		set(value) {
+			layer.borderWidth = value
 		}
 	}
 	
 	/// A property that accesses the layer.borderColor property.
 	@IBInspectable public var borderColor: UIColor? {
-		didSet {
-			layer.borderColor = borderColor?.CGColor
+		get {
+			return nil == layer.borderColor ? nil : UIColor(CGColor: layer.borderColor!)
+		}
+		set(value) {
+			layer.borderColor = value?.CGColor
 		}
 	}
 	
@@ -413,6 +444,7 @@ public class TextField : UITextField {
 		if self.layer == layer {
 			bottomBorderLayer.frame = CGRectMake(0, bounds.height + bottomBorderLayerDistance, bounds.width, 1)
 			layoutShape()
+			layoutShadowPath()
 		}
 	}
 	
@@ -453,7 +485,15 @@ public class TextField : UITextField {
 	if interrupted.
 	*/
 	public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
-		if anim is CAPropertyAnimation {
+		if let a: CAPropertyAnimation = anim as? CAPropertyAnimation {
+			if let b: CABasicAnimation = a as? CABasicAnimation {
+				if let v: AnyObject = b.toValue {
+					if let k: String = b.keyPath {
+						layer.setValue(v, forKeyPath: k)
+						layer.removeAnimationForKey(k)
+					}
+				}
+			}
 			(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStop?(anim, finished: flag)
 		} else if let a: CAAnimationGroup = anim as? CAAnimationGroup {
 			for x in a.animations! {
@@ -471,8 +511,6 @@ public class TextField : UITextField {
 	*/
 	public func prepareView() {
 		backgroundColor = MaterialColor.white
-		shadowColor = MaterialColor.black
-		borderColor = MaterialColor.black
 		masksToBounds = false
 		clearButtonMode = .WhileEditing
 		prepareBottomBorderLayer()
@@ -490,7 +528,6 @@ public class TextField : UITextField {
 	/// Clears the textField text.
 	internal func handleClearButton() {
 		text = ""
-		sendActionsForControlEvents(.ValueChanged)
 	}
 	
 	/// Ahdnler when text value changed.
@@ -537,7 +574,23 @@ public class TextField : UITextField {
 	/// Manages the layout for the shape of the view instance.
 	internal func layoutShape() {
 		if .Circle == shape {
-			layer.cornerRadius = width / 2
+			let w: CGFloat = (width / 2)
+			if w != cornerRadius {
+				cornerRadius = w
+			}
+		}
+	}
+	
+	/// Sets the shadow path.
+	internal func layoutShadowPath() {
+		if shadowPathAutoSizeEnabled {
+			if .None == depth {
+				shadowPath = nil
+			} else if nil == shadowPath {
+				shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).CGPath
+			} else {
+				animate(MaterialAnimation.shadowPath(UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).CGPath, duration: 0))
+			}
 		}
 	}
 	

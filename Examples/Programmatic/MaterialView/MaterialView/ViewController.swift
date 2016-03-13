@@ -52,9 +52,10 @@ class ViewController: UIViewController {
 	
 	/// Prepare the MaterialView.
 	private func prepareGeneralMaterialViewExample() {
-		let point: CGFloat = (UIScreen.mainScreen().bounds.width - 125) / 2
+		let diameter: CGFloat = 150
+		let point: CGFloat = (MaterialDevice.width - diameter) / 2
 		
-		let materialView: MaterialView = MaterialView(frame: CGRectMake(point, point, 125, 125))
+		let materialView: MaterialView = MaterialView(frame: CGRectMake(point, point, diameter, diameter))
 		materialView.image = UIImage(named: "CosmicMind")
 		materialView.shape = .Circle
 		materialView.depth = .Depth2

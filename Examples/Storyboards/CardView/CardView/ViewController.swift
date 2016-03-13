@@ -34,14 +34,12 @@ import Material
 class ViewController: UIViewController {
 
     @IBOutlet weak var cardView: CardView!
-    @IBOutlet weak var secondCardView: CardView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Examples of using CardView
         prepareCardViewExample()
-        prepareCardViewExampleTwo()
     }
     
     /**
@@ -87,42 +85,5 @@ class ViewController: UIViewController {
 		// Add buttons to left side.
 		cardView.leftButtons = [btn1, btn2]
 	}
-    
-    /**
-     :name:	prepareCardViewExampleTwo
-     :description:	General usage example.
-     */
-    func prepareCardViewExampleTwo() {
-        secondCardView.dividerInset.left = 100
-        secondCardView.titleLabelInset.left = 100
-        secondCardView.detailViewInset.left = 100
-        secondCardView.pulseColor = MaterialColor.teal.lighten4
-        
-        // Image.
-        secondCardView.image = UIImage(named: "Graph")?.resize(toHeight: 100)
-        secondCardView.contentsGravity = .TopLeft
-        
-        // Title label.
-        let titleLabel: UILabel = UILabel()
-        titleLabel.text = "Graph"
-        titleLabel.font = RobotoFont.mediumWithSize(24)
-        secondCardView.titleLabel = titleLabel
-        
-        // Detail label.
-        let detailLabel: UILabel = UILabel()
-        detailLabel.text = "Build scalable data-driven apps."
-        detailLabel.numberOfLines = 0
-        secondCardView.detailView = detailLabel
-        
-        // LEARN MORE button.
-		let btn1: FlatButton = FlatButton()
-		btn1.pulseColor = MaterialColor.blue.lighten1
-		btn1.pulseScale = false
-		btn1.setTitle("LEARN MORE", forState: .Normal)
-		btn1.setTitleColor(MaterialColor.blue.darken1, forState: .Normal)
-		
-        // Add buttons to right side.
-        secondCardView.rightButtons = [btn1]
-    }
 }
 

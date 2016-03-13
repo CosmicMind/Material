@@ -29,7 +29,7 @@
 */
 
 /**
-The following ViewController demonstrates using Grid to make complex layouts.
+The following UIViewController uses Grid to make complex layouts.
 */
 
 import UIKit
@@ -40,16 +40,16 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		prepareHorizontalGridViewExample()
+//		prepareHorizontalGridViewExample()
 //		prepareVerticalGridViewExample()
 //		prepareGridDirectionNoneExample()
-//		prepareSmallCardViewExample()
+		prepareSmallCardViewExample()
 //		prepareMediumCardViewExample()
 //		prepareLargeCardViewExample()
 	}
 	
 	
-	/// General preparation statements are placed here.
+	/// General preparation statements.
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.white
 	}
@@ -88,44 +88,19 @@ class ViewController: UIViewController {
 		btn2.grid.rows = 2
 		
 		btn3.grid.rows = 2
-//
-//		view.grid.columns = 9
+		
 		view.grid.axis.rows = 6
 		view.grid.spacing = 16
 		view.grid.axis.direction = .Vertical
 		view.grid.contentInset.left = 16
 		view.grid.contentInset.right = 16
 		view.grid.contentInset.top = 100
-//		view.grid.contentInset.bottom = 100
+		view.grid.contentInset.bottom = 100
 		view.grid.views = [btn2, btn1, btn3]
-		
-		btn2.backgroundColor = MaterialColor.blue.darken1
 		
 		for v in view.grid.views! {
 			print(v.frame)
 		}
-		
-		let menuButton: FabButton = FabButton()
-		let mb1: FabButton = FabButton()
-		let mb2: FabButton = FabButton()
-		let mb3: FabButton = FabButton()
-		
-		let menuView: MenuView = MenuView()
-		menuView.addSubview(mb1)
-		menuView.addSubview(mb2)
-		menuView.addSubview(mb3)
-		
-		// Initialize the menu and setup the configuration options.
-		menuView.menu.direction = .Up
-//		menuView.menu.baseViewSize = CGSizeMake(56, 56)
-		menuView.menu.views = [menuButton, mb1, mb2, mb3]
-		
-		view.addSubview(menuView)
-		menuView.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.size(view, child: menuView, width: 56, height: 56)
-		MaterialLayout.alignFromBottomLeft(view, child: menuView, bottom: 16, left: (view.bounds.width - 56) / 2)
-		menuView.backgroundColor = MaterialColor.green.base
-
 	}
 	
 	/// Prepares the Vertical GridView example.
@@ -211,10 +186,10 @@ class ViewController: UIViewController {
 		cardView.depth = .Depth1
 		view.addSubview(cardView)
 		
-		var image: UIImage? = UIImage(named: "VeganCakeFull")
+		var image: UIImage? = UIImage(named: "CosmicMindInverted")
 		let imageView: MaterialView = MaterialView()
 		imageView.image = image
-		imageView.contentsGravity = .ResizeAspectFill
+		imageView.contentsGravityPreset = .ResizeAspectFill
 		cardView.addSubview(imageView)
 		
 		let contentView: MaterialView = MaterialView()
@@ -290,7 +265,6 @@ class ViewController: UIViewController {
 		alarmButton.grid.offset.columns = 10
 		
 		contentView.grid.spacing = 8
-		contentView.grid.axis.inherited = false
 		contentView.grid.axis.direction = .None
 		contentView.grid.contentInsetPreset = .Square3
 		contentView.grid.views = [
@@ -312,7 +286,7 @@ class ViewController: UIViewController {
 		var image: UIImage? = UIImage(named: "CosmicMindInverted")
 		let imageView: MaterialView = MaterialView()
 		imageView.image = image
-		imageView.contentsGravity = .ResizeAspectFill
+		imageView.contentsGravityPreset = .ResizeAspectFill
 		cardView.addSubview(imageView)
 		
 		let contentView: MaterialView = MaterialView()
@@ -388,7 +362,6 @@ class ViewController: UIViewController {
 		alarmButton.grid.offset.columns = 9
 		
 		contentView.grid.spacing = 8
-		contentView.grid.axis.inherited = false
 		contentView.grid.axis.direction = .None
 		contentView.grid.contentInsetPreset = .Square3
 		contentView.grid.views = [
@@ -412,17 +385,17 @@ class ViewController: UIViewController {
 		
 		let leftImageView: MaterialView = MaterialView()
 		leftImageView.image = image
-		leftImageView.contentsGravity = .ResizeAspectFill
+		leftImageView.contentsGravityPreset = .ResizeAspectFill
 		cardView.addSubview(leftImageView)
 
 		let topImageView: MaterialView = MaterialView()
 		topImageView.image = image
-		topImageView.contentsGravity = .ResizeAspectFill
+		topImageView.contentsGravityPreset = .ResizeAspectFill
 		cardView.addSubview(topImageView)
 
 		let bottomImageView: MaterialView = MaterialView()
 		bottomImageView.image = image
-		bottomImageView.contentsGravity = .ResizeAspectFill
+		bottomImageView.contentsGravityPreset = .ResizeAspectFill
 		cardView.addSubview(bottomImageView)
 
 		let contentView: MaterialView = MaterialView()
@@ -513,7 +486,6 @@ class ViewController: UIViewController {
 		alarmButton.grid.offset.columns = 10
 		
 		contentView.grid.spacing = 8
-		contentView.grid.axis.inherited = false
 		contentView.grid.axis.direction = .None
 		contentView.grid.contentInsetPreset = .Square3
 		contentView.grid.views = [

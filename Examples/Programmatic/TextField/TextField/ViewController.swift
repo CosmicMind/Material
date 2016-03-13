@@ -100,7 +100,7 @@ class ViewController: UIViewController, TextFieldDelegate {
 		textField.detailLabel!.text = "Email is incorrect."
 		textField.detailLabel!.font = RobotoFont.mediumWithSize(12)
 		textField.detailLabelActiveColor = MaterialColor.red.accent3
-		textField.detailLabelAutoHideEnabled = false // Comment out this line to have automatic hiding.
+//		textField.detailLabelAutoHideEnabled = false // Uncomment this line to have manual hiding.
 		
 		let image = UIImage(named: "ic_close_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		

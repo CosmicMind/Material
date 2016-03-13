@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2015 - 20spacing, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.io>.
+* Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.io>.
 * All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without
@@ -41,7 +41,7 @@ public class GridAxis {
 	unowned var grid: Grid
 	
 	/// Inherit grid rows and columns.
-	public var inherited: Bool = true
+	public var inherited: Bool = false
 	
 	/// The direction the grid layouts its views out.
 	public var direction: GridAxisDirection = .Horizontal
@@ -139,6 +139,13 @@ public class Grid {
 		}
 	}
 	
+	/// A preset wrapper around spacing.
+	public var spacingPreset: MaterialSpacing = .None {
+		didSet {
+			spacing = MaterialSpacingToValue(spacingPreset)
+		}
+	}
+	
 	/// The space between grid columnss.
 	public var spacing: CGFloat {
 		didSet {
@@ -215,48 +222,20 @@ public class Grid {
 	}
 }
 
-/**
-Gets the Obj-C reference for the Grid object within the UIView extension.
-- Parameter base: Base object.
-- Parameter key: Memory key pointer.
-- Parameter initializer: Object initializer.
-- Returns: The associated reference for the initializer object.
-*/
-private func GridAssociatedObject<T: AnyObject>(base: AnyObject, key: UnsafePointer<UInt8>, initializer: () -> T) -> T {
-	if let v: T = objc_getAssociatedObject(base, key) as? T {
-		return v
-	}
-	
-	let v: T = initializer()
-	objc_setAssociatedObject(base, key, v, .OBJC_ASSOCIATION_RETAIN)
-	return v
-}
-
-/**
-Sets the Obj-C reference for the Grid object within the UIView extension.
-- Parameter base: Base object.
-- Parameter key: Memory key pointer.
-- Parameter value: The object instance to set for the associated object.
-- Returns: The associated reference for the initializer object.
-*/
-private func GridAssociateObject<T: AnyObject>(base: AnyObject, key: UnsafePointer<UInt8>, value: T) {
-	objc_setAssociatedObject(base, key, value, .OBJC_ASSOCIATION_RETAIN)
-}
-
 /// A memory reference to the Grid instance for UIView extensions.
-private var gridKey: UInt8 = 0
+private var GridKey: UInt8 = 0
 
 /// Grid extension for UIView.
 public extension UIView {
 	/// Grid reference.
-	public var grid: Grid {
+	public internal(set) var grid: Grid {
 		get {
-			return GridAssociatedObject(self, key: &gridKey) {
+			return MaterialAssociatedObject(self, key: &GridKey) {
 				return Grid()
 			}
 		}
 		set(value) {
-			GridAssociateObject(self, key: &gridKey, value: value)
+			MaterialAssociateObject(self, key: &GridKey, value: value)
 		}
 	}
 }

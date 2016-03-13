@@ -162,6 +162,27 @@ public class MaterialTableViewCell: UITableViewCell {
 		}
 	}
 	
+	/// A property that accesses the backing layer's shadowPath.
+	public var shadowPath: CGPath? {
+		get {
+			return layer.shadowPath
+		}
+		set(value) {
+			layer.shadowPath = value
+		}
+	}
+	
+	/// Enables automatic shadowPath sizing.
+	public var shadowPathAutoSizeEnabled: Bool = true {
+		didSet {
+			if shadowPathAutoSizeEnabled {
+				layoutShadowPath()
+			} else {
+				shadowPath = nil
+			}
+		}
+	}
+	
 	/**
 	A property that sets the shadowOffset, shadowOpacity, and shadowRadius
 	for the backing layer. This is the preferred method of setting depth
@@ -173,6 +194,7 @@ public class MaterialTableViewCell: UITableViewCell {
 			shadowOffset = value.offset
 			shadowOpacity = value.opacity
 			shadowRadius = value.radius
+			layoutShadowPath()
 		}
 	}
 	
@@ -190,9 +212,13 @@ public class MaterialTableViewCell: UITableViewCell {
 	}
 	
 	/// A property that accesses the layer.cornerRadius.
-	@IBInspectable public var cornerRadius: CGFloat = 0 {
-		didSet {
-			layer.cornerRadius = cornerRadius
+	@IBInspectable public var cornerRadius: CGFloat {
+		get {
+			return layer.cornerRadius
+		}
+		set(value) {
+			layer.cornerRadius = value
+			layoutShadowPath()
 		}
 	}
 	
@@ -204,16 +230,22 @@ public class MaterialTableViewCell: UITableViewCell {
 	}
 	
 	/// A property that accesses the layer.borderWith.
-	@IBInspectable public var borderWidth: CGFloat = 0 {
-		didSet {
-			layer.borderWidth = borderWidth
+	@IBInspectable public var borderWidth: CGFloat {
+		get {
+			return layer.borderWidth
+		}
+		set(value) {
+			layer.borderWidth = value
 		}
 	}
 	
 	/// A property that accesses the layer.borderColor property.
 	@IBInspectable public var borderColor: UIColor? {
-		didSet {
-			layer.borderColor = borderColor?.CGColor
+		get {
+			return nil == layer.borderColor ? nil : UIColor(CGColor: layer.borderColor!)
+		}
+		set(value) {
+			layer.borderColor = value?.CGColor
 		}
 	}
 	
@@ -261,6 +293,7 @@ public class MaterialTableViewCell: UITableViewCell {
 		super.layoutSublayersOfLayer(layer)
 		if self.layer == layer {
 			layoutVisualLayer()
+			layoutShadowPath()
 		}
 	}
 	
@@ -301,14 +334,21 @@ public class MaterialTableViewCell: UITableViewCell {
 	if interrupted.
 	*/
 	public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
-		if anim is CAPropertyAnimation {
+		if let a: CAPropertyAnimation = anim as? CAPropertyAnimation {
+			if let b: CABasicAnimation = a as? CABasicAnimation {
+				if let v: AnyObject = b.toValue {
+					if let k: String = b.keyPath {
+						layer.setValue(v, forKeyPath: k)
+						layer.removeAnimationForKey(k)
+					}
+				}
+			}
 			(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStop?(anim, finished: flag)
 		} else if let a: CAAnimationGroup = anim as? CAAnimationGroup {
 			for x in a.animations! {
 				animationDidStop(x, finished: true)
 			}
 		}
-		layoutVisualLayer()
 	}
 	
 	/**
@@ -388,8 +428,20 @@ public class MaterialTableViewCell: UITableViewCell {
 	/// Manages the layout for the visualLayer property.
 	internal func layoutVisualLayer() {
 		visualLayer.frame = bounds
-		visualLayer.position = CGPointMake(width / 2, height / 2)
-		visualLayer.cornerRadius = layer.cornerRadius
+		visualLayer.cornerRadius = cornerRadius
+	}
+	
+	/// Sets the shadow path.
+	internal func layoutShadowPath() {
+		if shadowPathAutoSizeEnabled {
+			if .None == depth {
+				shadowPath = nil
+			} else if nil == shadowPath {
+				shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).CGPath
+			} else {
+				animate(MaterialAnimation.shadowPath(UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).CGPath, duration: 0))
+			}
+		}
 	}
 	
 	/**
@@ -406,7 +458,7 @@ public class MaterialTableViewCell: UITableViewCell {
 			let d: CGFloat = 2 * f
 			let s: CGFloat = 1.05
 			
-			var t: CFTimeInterval = CFTimeInterval(1.5 * width / UIScreen.mainScreen().bounds.width)
+			var t: CFTimeInterval = CFTimeInterval(1.5 * width / MaterialDevice.width)
 			if 0.55 < t || 0.25 > t {
 				t = 0.55
 			}
@@ -428,7 +480,7 @@ public class MaterialTableViewCell: UITableViewCell {
 				}
 				pulseLayer.addAnimation(MaterialAnimation.scale(3 * d, duration: t), forKey: nil)
 				MaterialAnimation.delay(t) { [weak self] in
-					if nil != self && nil != self!.pulseColor && 0 < self!.pulseColorOpacity {
+					if nil != self?.pulseColor && 0 < self?.pulseColorOpacity {
 						MaterialAnimation.animateWithDuration(t, animations: {
 							pulseLayer.hidden = true
 						}) {
@@ -449,7 +501,7 @@ public class MaterialTableViewCell: UITableViewCell {
 	/// Executes the shrink animation for the pulse effect.
 	internal func shrinkAnimation() {
 		if pulseScale {
-			var t: CFTimeInterval = CFTimeInterval(1.5 * width / UIScreen.mainScreen().bounds.width)
+			var t: CFTimeInterval = CFTimeInterval(1.5 * width / MaterialDevice.width)
 			if 0.55 < t || 0.25 > t {
 				t = 0.55
 			}

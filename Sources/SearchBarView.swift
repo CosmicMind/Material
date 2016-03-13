@@ -30,11 +30,6 @@
 
 import UIKit
 
-@objc(SearchBarViewDelegate)
-public protocol SearchBarViewDelegate : MaterialDelegate {
-	optional func searchBarViewDidChangeLayout(searchBarView: SearchBarView)
-}
-
 public class SearchBarView : StatusBarView {
 	/// The UITextField for the searchBar.
 	public private(set) lazy var textField: TextField = TextField()
@@ -82,43 +77,25 @@ public class SearchBarView : StatusBarView {
 	
 	/// A convenience initializer.
 	public convenience init() {
-		self.init(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 64))
+		self.init(frame: CGRectZero)
 	}
 	
 	public override func layoutSubviews() {
 		super.layoutSubviews()
-		
-		grid.axis.columns = Int(width / 48)
-		
-		reloadView()
+		if willRenderView {
+			contentView.grid.views?.append(textField)
+			contentView.grid.reloadLayout()
+			textField.font = textField.font?.fontWithSize(20)
+			textField.reloadView()
+		}
 	}
 	
-	public override func didMoveToSuperview() {
-		super.didMoveToSuperview()
-		reloadView()
-	}
-	
-	/// Reloads the view.
-	public override func reloadView() {
-		super.reloadView()
-		
-		textField.grid.columns = contentView.grid.columns
-		textField.reloadView()
-		
-		grid.reloadLayout()
-	}
-	
-	/**
-	Prepares the view instance when intialized. When subclassing,
-	it is recommended to override the prepareView method
-	to initialize property values and other setup operations.
-	The super.prepareView method should always be called immediately
-	when subclassing.
-	*/
-	public override func prepareView() {
-		super.prepareView()
+	/// Prepares the contentView.
+	public override func prepareContentView() {
+		super.prepareContentView()
 		prepareTextField()
 	}
+	
 	
 	/// Prepares the textField.
 	private func prepareTextField() {
@@ -126,10 +103,5 @@ public class SearchBarView : StatusBarView {
 		textField.backgroundColor = MaterialColor.clear
 		textField.clearButtonMode = .WhileEditing
 		contentView.addSubview(textField)
-		contentView.grid.views = [textField]
-	}
-	
-	internal override func statusBarViewDidChangeLayout() {
-		(delegate as? SearchBarViewDelegate)?.searchBarViewDidChangeLayout?(self)
 	}
 }

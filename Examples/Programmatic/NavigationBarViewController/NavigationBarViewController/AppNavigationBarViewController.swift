@@ -61,9 +61,7 @@ class AppNavigationBarViewController: NavigationBarViewController {
 	
 	/// Toggle SideNavigationViewController left UIViewController.
 	internal func handleMenuButton() {
-		MaterialAnimation.delay(0.75) { [weak self] in
-			self?.transitionFromMainViewController(GreenViewController(), options: [.TransitionCrossDissolve])
-		}
+		transitionFromMainViewController(GreenViewController(), options: [.TransitionCrossDissolve])
 	}
 	
 	/// Toggle SideNavigationViewController right UIViewController.
@@ -97,7 +95,7 @@ class AppNavigationBarViewController: NavigationBarViewController {
 		
 		// Menu button.
 		let menuButton: FlatButton = FlatButton()
-		menuButton.pulseColor = MaterialColor.white
+		menuButton.pulseColor = nil
 		menuButton.pulseScale = false
 		menuButton.setImage(image, forState: .Normal)
 		menuButton.setImage(image, forState: .Highlighted)
@@ -110,7 +108,7 @@ class AppNavigationBarViewController: NavigationBarViewController {
 		// Search button.
 		image = UIImage(named: "ic_search_white")
 		let searchButton: FlatButton = FlatButton()
-		searchButton.pulseColor = MaterialColor.white
+		searchButton.pulseColor = nil
 		searchButton.pulseScale = false
 		searchButton.setImage(image, forState: .Normal)
 		searchButton.setImage(image, forState: .Highlighted)
@@ -125,11 +123,7 @@ class AppNavigationBarViewController: NavigationBarViewController {
 
 extension AppNavigationBarViewController: MaterialSwitchDelegate {
 	func materialSwitchStateChanged(control: MaterialSwitch) {
-		if .Off == control.switchState {
-			MaterialAnimation.delay(0.75) { [weak self] in
-				self?.transitionFromMainViewController(YellowViewController(), options: [.TransitionCrossDissolve])
-			}
-		}
+		transitionFromMainViewController(YellowViewController(), options: [.TransitionCrossDissolve])
 	}
 }
 

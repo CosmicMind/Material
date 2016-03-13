@@ -72,8 +72,8 @@ class ViewController: UIViewController {
 
 		// Menu button.
 		let menuButton: FlatButton = FlatButton()
-		menuButton.pulseColor = MaterialColor.white
 		menuButton.pulseScale = false
+		menuButton.pulseColor = MaterialColor.white
 		menuButton.setImage(image, forState: .Normal)
 		menuButton.setImage(image, forState: .Highlighted)
 
@@ -83,8 +83,8 @@ class ViewController: UIViewController {
 		// Search button.
 		image = UIImage(named: "ic_search_white")
 		let searchButton: FlatButton = FlatButton()
-		searchButton.pulseColor = MaterialColor.white
 		searchButton.pulseScale = false
+		searchButton.pulseColor = MaterialColor.white
 		searchButton.setImage(image, forState: .Normal)
 		searchButton.setImage(image, forState: .Highlighted)
 		
@@ -94,8 +94,7 @@ class ViewController: UIViewController {
 		to your info.plist file and set the following property.
 		*/
 		navigationBarView.statusBarStyle = .LightContent
-		
-		navigationBarView.delegate = self
+
 		navigationBarView.backgroundColor = MaterialColor.blue.base
 		navigationBarView.titleLabel = titleLabel
 		navigationBarView.detailLabel = detailLabel
@@ -105,11 +104,3 @@ class ViewController: UIViewController {
 		view.addSubview(navigationBarView)
 	}
 }
-
-/// NavigationBarViewDelegate methods.
-extension ViewController: NavigationBarViewDelegate {
-	func navigationBarViewDidChangeLayout(navigationBarView: NavigationBarView) {
-		print("Updated Frame: \(navigationBarView.frame)")
-	}
-}
-

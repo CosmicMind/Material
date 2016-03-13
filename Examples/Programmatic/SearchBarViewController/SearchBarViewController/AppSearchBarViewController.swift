@@ -48,10 +48,7 @@ class AppSearchBarViewController: SearchBarViewController {
 		if mainViewController is BlueViewController {
 			return
 		}
-		
-		MaterialAnimation.delay(0.75) { [weak self] in
-			self?.transitionFromMainViewController(BlueViewController(), options: [.TransitionCrossDissolve])
-		}
+		transitionFromMainViewController(BlueViewController(), options: [.TransitionCrossDissolve])
 	}
 	
 	/// Loads the GreenViewController into the searchBarViewControllers mainViewController.
@@ -59,10 +56,7 @@ class AppSearchBarViewController: SearchBarViewController {
 		if mainViewController is GreenViewController {
 			return
 		}
-		
-		MaterialAnimation.delay(0.75) { [weak self] in
-			self?.transitionFromMainViewController(GreenViewController(), options: [.TransitionCrossDissolve])
-		}
+		transitionFromMainViewController(GreenViewController(), options: [.TransitionCrossDissolve])
 	}
 	
 	/// Loads the YellowViewController into the searchBarViewControllers mainViewController.
@@ -70,11 +64,8 @@ class AppSearchBarViewController: SearchBarViewController {
 		if (mainViewController as? NavigationBarViewController)?.mainViewController is YellowViewController {
 			return
 		}
-		
-		MaterialAnimation.delay(0.75) { [weak self] in
-			self?.transitionFromMainViewController(YellowViewController(), options: [.TransitionCrossDissolve])
-			self?.searchBarView.textField.resignFirstResponder()
-		}
+		transitionFromMainViewController(YellowViewController(), options: [.TransitionCrossDissolve])
+		searchBarView.textField.resignFirstResponder()
 	}
 	
 	/// Prepares view.
@@ -88,7 +79,7 @@ class AppSearchBarViewController: SearchBarViewController {
 		var image = UIImage(named: "ic_close_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		
 		let clearButton: FlatButton = FlatButton()
-		clearButton.pulseColor = MaterialColor.blueGrey.darken4
+		clearButton.pulseColor = nil
 		clearButton.pulseScale = false
 		clearButton.tintColor = MaterialColor.blueGrey.darken4
 		clearButton.setImage(image, forState: .Normal)
@@ -98,7 +89,7 @@ class AppSearchBarViewController: SearchBarViewController {
 		// Back button.
 		image = UIImage(named: "ic_arrow_back_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let backButton: FlatButton = FlatButton()
-		backButton.pulseColor = MaterialColor.blueGrey.darken4
+		backButton.pulseColor = nil
 		backButton.pulseScale = false
 		backButton.tintColor = MaterialColor.blueGrey.darken4
 		backButton.setImage(image, forState: .Normal)
@@ -108,7 +99,7 @@ class AppSearchBarViewController: SearchBarViewController {
 		// More button.
 		image = UIImage(named: "ic_more_horiz_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let moreButton: FlatButton = FlatButton()
-		moreButton.pulseColor = MaterialColor.blueGrey.darken4
+		moreButton.pulseColor = nil
 		moreButton.pulseScale = false
 		moreButton.tintColor = MaterialColor.blueGrey.darken4
 		moreButton.setImage(image, forState: .Normal)
@@ -122,12 +113,11 @@ class AppSearchBarViewController: SearchBarViewController {
 		*/
 		searchBarView.statusBarStyle = .Default
 		
-		searchBarView.delegate = self
 		searchBarView.placeholder = "Search"
 		searchBarView.tintColor = MaterialColor.blueGrey.darken4
 		searchBarView.textColor = MaterialColor.blueGrey.darken4
 		searchBarView.placeholderTextColor = MaterialColor.blueGrey.darken4
-		searchBarView.textField.font = RobotoFont.regularWithSize(20)
+		searchBarView.textField.font = RobotoFont.regular
 		searchBarView.textField.delegate = self
 		
 		searchBarView.clearButton = clearButton

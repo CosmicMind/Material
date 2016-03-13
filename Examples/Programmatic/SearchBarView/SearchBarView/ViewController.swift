@@ -57,8 +57,8 @@ class ViewController: UIViewController {
 		var image = UIImage(named: "ic_close_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		
 		let clearButton: FlatButton = FlatButton()
-		clearButton.pulseColor = MaterialColor.blueGrey.darken4
 		clearButton.pulseScale = false
+		clearButton.pulseColor = MaterialColor.blueGrey.darken4
 		clearButton.tintColor = MaterialColor.blueGrey.darken4
 		clearButton.setImage(image, forState: .Normal)
 		clearButton.setImage(image, forState: .Highlighted)
@@ -66,8 +66,8 @@ class ViewController: UIViewController {
 		// Back button.
 		image = UIImage(named: "ic_arrow_back_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let backButton: FlatButton = FlatButton()
-		backButton.pulseColor = MaterialColor.blueGrey.darken4
 		backButton.pulseScale = false
+		backButton.pulseColor = MaterialColor.blueGrey.darken4
 		backButton.tintColor = MaterialColor.blueGrey.darken4
 		backButton.setImage(image, forState: .Normal)
 		backButton.setImage(image, forState: .Highlighted)
@@ -78,8 +78,8 @@ class ViewController: UIViewController {
 		// More button.
 		image = UIImage(named: "ic_more_horiz_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let moreButton: FlatButton = FlatButton()
-		moreButton.pulseColor = MaterialColor.blueGrey.darken4
 		moreButton.pulseScale = false
+		moreButton.pulseColor = MaterialColor.blueGrey.darken4
 		moreButton.tintColor = MaterialColor.blueGrey.darken4
 		moreButton.setImage(image, forState: .Normal)
 		moreButton.setImage(image, forState: .Highlighted)
@@ -91,12 +91,11 @@ class ViewController: UIViewController {
 		*/
 		searchBarView.statusBarStyle = .Default
 		
-		searchBarView.delegate = self
 		searchBarView.placeholder = "Search"
 		searchBarView.tintColor = MaterialColor.blueGrey.darken4
 		searchBarView.textColor = MaterialColor.blueGrey.darken4
 		searchBarView.placeholderTextColor = MaterialColor.blueGrey.darken4
-		searchBarView.textField.font = RobotoFont.regularWithSize(20)
+		searchBarView.textField.font = RobotoFont.regular
 		
 		searchBarView.clearButton = clearButton
 		searchBarView.leftControls = [backButton]
@@ -105,12 +104,3 @@ class ViewController: UIViewController {
 		view.addSubview(searchBarView)
 	}
 }
-
-
-/// SearchBarViewDelegate methods.
-extension ViewController: SearchBarViewDelegate {
-	func searchBarViewDidChangeLayout(searchBarView: SearchBarView) {
-		print("Updated Frame: \(searchBarView.frame)")
-	}
-}
-

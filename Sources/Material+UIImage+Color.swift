@@ -31,6 +31,12 @@
 import UIKit
 
 public extension UIImage {
+	/**
+	Creates an Image that is a color.
+	- Parameter color: The UIColor to create the image from.
+	- Parameter size: The size of the image to create.
+	- Returns: A UIImage that is the color passed in.
+	*/
 	public class func imageWithColor(color: UIColor, size: CGSize) -> UIImage {
 		let rect = CGRectMake(0, 0, size.width, size.height)
 		UIGraphicsBeginImageContextWithOptions(size, false, 0)

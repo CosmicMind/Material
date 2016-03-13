@@ -31,35 +31,73 @@
 import UIKit
 
 public class MaterialCollectionViewLayout : UICollectionViewLayout {
-	private var contentSize: CGSize = CGSizeZero
-	private var layoutItems: Array<(UICollectionViewLayoutAttributes, NSIndexPath)>?
-	private var offset: CGFloat = 0
+	/// Used to calculate the dimensions of the cells.
+	internal var offset: CGPoint = CGPointZero
+	
+	/// A preset wrapper around contentInset.
+	public var contentInsetPreset: MaterialEdgeInset = .None {
+		didSet {
+			contentInset = MaterialEdgeInsetToValue(contentInsetPreset)
+		}
+	}
+	
+	/// A wrapper around grid.contentInset.
+	public var contentInset: UIEdgeInsets = UIEdgeInsetsZero
+	
+	/// Size of the content.
+	public private(set) var contentSize: CGSize = CGSizeZero
+	
+	/// Layout attribute items.
+	public private(set) var layoutItems: Array<(UICollectionViewLayoutAttributes, NSIndexPath)> = Array<(UICollectionViewLayoutAttributes, NSIndexPath)>()
+	
+	/// Cell items.
+	public private(set) var items: Array<MaterialDataSourceItem>?
+	
+	/// Scroll direction.
+	public var scrollDirection: UICollectionViewScrollDirection = .Vertical
+	
+	/// A preset wrapper around spacing.
+	public var spacingPreset: MaterialSpacing = .None {
+		didSet {
+			spacing = MaterialSpacingToValue(spacingPreset)
+		}
+	}
+	
+	/// Spacing between items.
+	public var spacing: CGFloat = 0
+	
+	/**
+	Retrieves the index paths for the items within the passed in CGRect.
+	- Parameter rect: A CGRect that acts as the bounds to find the items within.
+	- Returns: An Array of NSIndexPath objects.
+	*/
+	public func indexPathsOfItemsInRect(rect: CGRect) -> Array<NSIndexPath> {
+		var paths: Array<NSIndexPath> = Array<NSIndexPath>()
+		for (attribute, indexPath) in layoutItems {
+			if CGRectIntersectsRect(rect, attribute.frame) {
+				paths.append(indexPath)
+			}
+		}
+		return paths
+	}
 	
 	public override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
 		let attributes: UICollectionViewLayoutAttributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: indexPath)
+		let item: MaterialDataSourceItem = items![indexPath.item]
 		
-		let dataSource: MaterialCollectionViewDataSource = collectionView!.dataSource as! MaterialCollectionViewDataSource
-		let items: Array<MaterialCollectionViewDataSourceItem> = dataSource.items()
-		
-		if 0 == indexPath.row {
-			offset = 0
+		switch scrollDirection {
+		case .Vertical:
+			attributes.frame = CGRectMake(contentInset.left, offset.y, collectionView!.bounds.width - contentInset.left - contentInset.right, nil == item.height ? collectionView!.bounds.height : item.height!)
+		case .Horizontal:
+			attributes.frame = CGRectMake(offset.x, contentInset.top, nil == item.width ? collectionView!.bounds.width : item.width!, collectionView!.bounds.height - contentInset.top - contentInset.bottom)
 		}
-		
-		
-		let item: MaterialCollectionViewDataSourceItem = items[indexPath.row]
-		let w: CGFloat = collectionView!.bounds.width
-		let h: CGFloat = item.height
-		
-		attributes.frame = CGRectMake(0, offset, w, h)
-		
-		offset += h
 		
 		return attributes
 	}
 	
 	public override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
 		var layoutAttributes: Array<UICollectionViewLayoutAttributes> = Array<UICollectionViewLayoutAttributes>()
-		for (attribute, _) in layoutItems! {
+		for (attribute, _) in layoutItems {
 			if CGRectIntersectsRect(rect, attribute.frame) {
 				layoutAttributes.append(attribute)
 			}
@@ -68,7 +106,7 @@ public class MaterialCollectionViewLayout : UICollectionViewLayout {
 	}
 	
 	public override func shouldInvalidateLayoutForBoundsChange(newBounds: CGRect) -> Bool {
-		return newBounds.width != collectionView!.bounds.width
+		return .Vertical == scrollDirection ? newBounds.width != collectionView!.bounds.width : newBounds.height != collectionView!.bounds.height
 	}
 	
 	public override func collectionViewContentSize() -> CGSize {
@@ -77,34 +115,37 @@ public class MaterialCollectionViewLayout : UICollectionViewLayout {
 	
 	public override func prepareLayout() {
 		let dataSource: MaterialCollectionViewDataSource = collectionView!.dataSource as! MaterialCollectionViewDataSource
-		let items: Array<MaterialCollectionViewDataSourceItem> = dataSource.items()
+		prepareLayoutForItems(dataSource.items())
+	}
+	
+	public func prepareLayoutForItems(items: Array<MaterialDataSourceItem>) {
+		self.items = items
+		layoutItems.removeAll()
 		
-		layoutItems = Array<(UICollectionViewLayoutAttributes, NSIndexPath)>()
+		offset.x = contentInset.left
+		offset.y = contentInset.top
 		
 		var indexPath: NSIndexPath?
-		var count: Int = 0
-		var height: CGFloat = 0
-		for item in items {
-			indexPath = NSIndexPath(forItem: count++, inSection: 0)
-			layoutItems?.append((layoutAttributesForItemAtIndexPath(indexPath!)!, indexPath!))
-			height += item.height
+		
+		for var i: Int = 0, l: Int = items.count - 1; i <= l; ++i {
+			let item: MaterialDataSourceItem = items[i]
+			indexPath = NSIndexPath(forItem: i, inSection: 0)
+			layoutItems.append((layoutAttributesForItemAtIndexPath(indexPath!)!, indexPath!))
+				
+			offset.x += spacing
+			offset.x += nil == item.width ? 0 : item.width!
+				
+			offset.y += spacing
+			offset.y += nil == item.height ? 0 : item.height!
 		}
 		
-		let w: CGFloat = collectionView!.bounds.width
-		contentSize = CGSizeMake(w, CGFloat(layoutItems!.count) * (height + offset))
+		offset.x += contentInset.right - spacing
+		offset.y += contentInset.bottom - spacing
+		
+		contentSize = .Vertical == scrollDirection ? CGSizeMake(collectionView!.bounds.width, offset.y) : CGSizeMake(offset.x, collectionView!.bounds.height)
 	}
 	
 	public override func targetContentOffsetForProposedContentOffset(proposedContentOffset: CGPoint) -> CGPoint {
 		return proposedContentOffset
-	}
-	
-	internal func indexPathsOfItemsInRect(rect: CGRect) -> Array<NSIndexPath> {
-		var paths: Array<NSIndexPath> = Array<NSIndexPath>()
-		for (attribute, indexPath) in layoutItems! {
-			if CGRectIntersectsRect(rect, attribute.frame) {
-				paths.append(indexPath)
-			}
-		}
-		return paths
 	}
 }

@@ -39,8 +39,8 @@ class ViewController: UIViewController {
 		// Examples of using ImageCardView.
 		// Uncomment different examples and read
 		// the comments below.
-		prepareGeneralImageCardViewExample()
-//		prepareImageCardViewWithoutDetailLabelAndDividerExample()
+//		prepareGeneralImageCardViewExample()
+		prepareImageCardViewWithoutDetailLabelAndDividerExample()
 	}
 	
 	/**
@@ -57,9 +57,10 @@ class ViewController: UIViewController {
 	*/
 	private func prepareGeneralImageCardViewExample() {
 		let imageCardView: ImageCardView = ImageCardView()
+		imageCardView.maxImageHeight = 150
 		
 		// Image.
-		let size: CGSize = CGSizeMake(UIScreen.mainScreen().bounds.width - CGFloat(40), 150)
+		let size: CGSize = CGSizeMake(MaterialDevice.width - CGFloat(40), 150)
 		imageCardView.image = UIImage.imageWithColor(MaterialColor.cyan.darken1, size: size)
 		
 		// Title label.
@@ -107,6 +108,7 @@ class ViewController: UIViewController {
 	private func prepareImageCardViewWithoutDetailLabelAndDividerExample() {
 		let imageCardView: ImageCardView = ImageCardView()
 		imageCardView.divider = false
+		imageCardView.maxImageHeight = 130
 		
 		// Image.
 		imageCardView.image = UIImage(named: "MaterialImageCardViewBackgroundImage")

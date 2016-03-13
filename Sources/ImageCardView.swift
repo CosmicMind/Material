@@ -111,15 +111,17 @@ public class ImageCardView : MaterialPulseView {
 	*/
 	public var maxImageHeight: CGFloat = 0 {
 		didSet {
-			if 0 < maxImageHeight {
-				prepareImageLayer()
-				let h: CGFloat = image!.size.height / contentsScale
-				imageLayer?.frame.size.height = maxImageHeight < h ? maxImageHeight : h
-			} else {
-				maxImageHeight = 0
-				imageLayer?.frame.size.height = nil == image ? 0 : image!.size.height / contentsScale
+			if let v: UIImage = image {
+				if 0 < maxImageHeight {
+					prepareImageLayer()
+					let h: CGFloat = v.size.height / contentsScale
+					imageLayer?.frame.size.height = maxImageHeight < h ? maxImageHeight : h
+				} else {
+					maxImageHeight = 0
+					imageLayer?.frame.size.height = nil == image ? 0 : v.size.height / contentsScale
+				}
+				reloadView()
 			}
-			reloadView()
 		}
 	}
 	
@@ -153,20 +155,21 @@ public class ImageCardView : MaterialPulseView {
 		}
 	}
 	
-	/**
-	:name:	contentsGravity
-	*/
-	public override var contentsGravity: MaterialGravity {
-		didSet {
+	/// Determines how content should be aligned within the visualLayer's bounds.
+	public override var contentsGravity: String {
+		get {
+			return nil == imageLayer ? "" : imageLayer!.contentsGravity
+		}
+		set(value) {
 			prepareImageLayer()
-			imageLayer?.contentsGravity = MaterialGravityToString(contentsGravity)
+			imageLayer?.contentsGravity = value
 		}
 	}
 	
 	/**
 	:name:	contentInsets
 	*/
-	public var contentInsetPreset: MaterialEdgeInset = .None {
+	public var contentInsetPreset: MaterialEdgeInset = .Square2 {
 		didSet {
 			contentInset = MaterialEdgeInsetToValue(contentInsetPreset)
 		}
@@ -184,7 +187,7 @@ public class ImageCardView : MaterialPulseView {
 	/**
 	:name:	titleLabelInsets
 	*/
-	public var titleLabelInsetPreset: MaterialEdgeInset = .None {
+	public var titleLabelInsetPreset: MaterialEdgeInset = .Square2 {
 		didSet {
 			titleLabelInset = MaterialEdgeInsetToValue(titleLabelInsetPreset)
 		}
@@ -212,7 +215,7 @@ public class ImageCardView : MaterialPulseView {
 	/**
 	:name:	detailViewInsets
 	*/
-	public var detailViewInsetPreset: MaterialEdgeInset = .None {
+	public var detailViewInsetPreset: MaterialEdgeInset = .Square2 {
 		didSet {
 			detailViewInset = MaterialEdgeInsetToValue(detailViewInsetPreset)
 		}
@@ -544,9 +547,10 @@ public class ImageCardView : MaterialPulseView {
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		pulseColor = MaterialColor.blueGrey.lighten4
+		pulseColor = MaterialColor.grey.lighten1
 		depth = .Depth1
-		dividerColor = MaterialColor.blueGrey.lighten5
+		dividerColor = MaterialColor.grey.lighten3
+		cornerRadiusPreset = .Radius1
 	}
 	
 	/**

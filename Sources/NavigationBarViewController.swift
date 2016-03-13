@@ -65,6 +65,36 @@ public protocol NavigationBarViewControllerDelegate : MaterialDelegate {
 
 @objc(NavigationBarViewController)
 public class NavigationBarViewController: StatusBarViewController {
+	/// The height of the StatusBar.
+	public override var heightForStatusBar: CGFloat {
+		get {
+			return navigationBarView.heightForStatusBar
+		}
+		set(value) {
+			navigationBarView.heightForStatusBar = value
+		}
+	}
+	
+	/// The height when in Portrait orientation mode.
+	public override var heightForPortraitOrientation: CGFloat {
+		get {
+			return navigationBarView.heightForPortraitOrientation
+		}
+		set(value) {
+			navigationBarView.heightForPortraitOrientation = value
+		}
+	}
+	
+	/// The height when in Landscape orientation mode.
+	public override var heightForLandscapeOrientation: CGFloat {
+		get {
+			return navigationBarView.heightForLandscapeOrientation
+		}
+		set(value) {
+			navigationBarView.heightForLandscapeOrientation = value
+		}
+	}
+	
 	/// Internal reference to the floatingViewController.
 	private var internalFloatingViewController: UIViewController?
 	
@@ -81,6 +111,8 @@ public class NavigationBarViewController: StatusBarViewController {
 		}
 		set(value) {
 			if let v: UIViewController = internalFloatingViewController {
+				v.view.layer.rasterizationScale = MaterialDevice.scale
+				v.view.layer.shouldRasterize = true
 				delegate?.navigationBarViewControllerWillCloseFloatingViewController?(self)
 				internalFloatingViewController = nil
 				UIView.animateWithDuration(0.5,
@@ -92,12 +124,13 @@ public class NavigationBarViewController: StatusBarViewController {
 						v.willMoveToParentViewController(nil)
 						v.view.removeFromSuperview()
 						v.removeFromParentViewController()
+						v.view.layer.shouldRasterize = false
 						self.userInteractionEnabled = true
 						self.navigationBarView.userInteractionEnabled = true
 						dispatch_async(dispatch_get_main_queue()) { [unowned self] in
 							self.delegate?.navigationBarViewControllerDidCloseFloatingViewController?(self)
 						}
-					}
+				}
 			}
 			
 			if let v: UIViewController = value {
@@ -112,6 +145,10 @@ public class NavigationBarViewController: StatusBarViewController {
 				
 				// Animate the noteButton out and the noteViewController! in.
 				v.view.hidden = false
+				v.view.layer.rasterizationScale = MaterialDevice.scale
+				v.view.layer.shouldRasterize = true
+				view.layer.rasterizationScale = MaterialDevice.scale
+				view.layer.shouldRasterize = true
 				internalFloatingViewController = v
 				userInteractionEnabled = false
 				navigationBarView.userInteractionEnabled = false
@@ -122,24 +159,21 @@ public class NavigationBarViewController: StatusBarViewController {
 						self.navigationBarView.alpha = 0.5
 						self.mainViewController.view.alpha = 0.5
 					}) { [unowned self] _ in
+						v.view.layer.shouldRasterize = false
+						self.view.layer.shouldRasterize = false
 						dispatch_async(dispatch_get_main_queue()) { [unowned self] in
 							self.delegate?.navigationBarViewControllerDidOpenFloatingViewController?(self)
 						}
-					}
+				}
 			}
 		}
-	}
-	
-	public override func viewWillLayoutSubviews() {
-		super.viewWillLayoutSubviews()
-		layoutSubviews()
 	}
 	
 	/**
 	Prepares the view instance when intialized. When subclassing,
 	it is recommended to override the prepareView method
 	to initialize property values and other setup operations.
-	The super.prepareView method should always be called at the end
+	The super.prepareView method should always be called immediately
 	when subclassing.
 	*/
 	public override func prepareView() {
@@ -149,22 +183,7 @@ public class NavigationBarViewController: StatusBarViewController {
 	
 	/// Prepares the NavigationBarView.
 	private func prepareNavigationBarView() {
-		navigationBarView.delegate = self
 		navigationBarView.zPosition = 1000
 		view.addSubview(navigationBarView)
-	}
-	
-	/// Layout subviews.
-	private func layoutSubviews() {
-		let size: CGSize = UIScreen.mainScreen().bounds.size
-		let h: CGFloat = UIApplication.sharedApplication().statusBarFrame.size.height
-		mainViewController.view.frame = CGRectMake(0, navigationBarView.height, size.width, size.height - navigationBarView.height - (20 >= h ? 0 : h - 20))
-	}
-}
-
-extension NavigationBarViewController : NavigationBarViewDelegate {
-	/// Monitor layout changes.
-	public func navigationBarViewDidChangeLayout(navigationBarView: NavigationBarView) {
-		layoutSubviews()
 	}
 }

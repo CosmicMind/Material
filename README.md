@@ -52,7 +52,7 @@ Material is a growing project and will encounter changes throughout its developm
 * Visit the Examples directory to see example projects using Material.
 * The [Installation](https://github.com/CosmicMind/Material/wiki/Installation) page has documentation on how to run the example projects.
 
-## A Tour  
+# Quick Access  
 
 #### Colors
 
@@ -78,48 +78,43 @@ Material is a growing project and will encounter changes throughout its developm
 
 #### Control
 
-* [MaterialSwitch](#materialswitch) (New)
+* [MaterialSwitch](#materialswitch)
 
 #### Collection Management
 
-* [Menu](#menu) (New)
+* [Menu](#menu)
 
 #### Layout
 
-* [Grid](#grid) (New)
+* [Grid](#grid)
 * MaterialLayout
 
 #### Collections
 
-* [MaterialTableViewCell](#materialtableviewcell) (New)
+* [MaterialTableViewCell](#materialtableviewcell)
 
 #### Cards
 
-* [CardView](#cardview) (New)
+* [CardView](#cardview)
 * [ImageCardView](#imagecardview)
 
 #### Navigation
 
-* [MenuView](#menuview) (New)
-* [MenuViewController](#menuviewcontroller) (New)
-* [NavigationBarView](#navigationbarview) (New)
-* [NavigationBarViewController](#navigationbarviewcontroller) (New)
-* [SearchBarView](#searchbarview) (New)
-* [SearchBarViewController](#searchbarviewcontroller) (New)
+* [MenuView](#menuview)
+* [MenuViewController](#menuviewcontroller)
+* NavigationBar
+* [NavigationBarView](#navigationbarview)
+* NavigationController
+* [NavigationBarViewController](#navigationbarviewcontroller)
+* [SearchBarView](#searchbarview)
+* [SearchBarViewController](#searchbarviewcontroller)
 * [SideNavigationViewController](#sidenavigationviewcontroller)
 
 #### Photo / Video Camera
 
 * [CaptureView](#captureview)
 
-#### Upcoming
-
-* TabView
-* TabViewController
-* Scrolling Techniques
-* Snackbar
-* Advanced Camera / Audio Toolset & Views
-* More Examples
+# Explore
 
 <a name="materialcolor"></a>
 #### MaterialColor
@@ -323,7 +318,7 @@ A NavigationBarView is a fully featured navigation bar that supports orientation
 <a href="#navigationbarviewcontroller"></a>
 #### NavigationBarViewController
 
-A NavigationBarViewController manages UIViewControllers using a NavigationBarView component.
+A NavigationBarViewController manages UIViewControllers using a NavigationBar component.
 
 ![MaterialNavigationBarViewController](http://www.cosmicmind.io/MK/MaterialNavigationBarViewController.gif)
 
@@ -359,7 +354,16 @@ Add a new dimension of interactivity with CaptureView. CaptureView is a fully fu
 
 [Learn More About CaptureView](https://github.com/CosmicMind/Material/wiki/CaptureView)
 
-## License
+# Upcoming
+
+* TabView
+* TabViewController
+* Scrolling Techniques
+* Snackbar
+* Advanced Camera / Audio Toolset & Views
+* More Examples
+
+# License
 
 Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.io>. All rights reserved.
 

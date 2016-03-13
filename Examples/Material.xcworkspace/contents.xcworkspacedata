@@ -47,6 +47,9 @@
          location = "group:Programmatic/MenuViewController/MenuViewController.xcodeproj">
       </FileRef>
       <FileRef
+         location = "group:Programmatic/NavigationBar/NavigationBar.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:Programmatic/NavigationBarView/NavigationBarView.xcodeproj">
       </FileRef>
       <FileRef
@@ -79,6 +82,9 @@
       name = "Storyboards">
       <FileRef
          location = "group:Storyboards/MaterialPulseView/MaterialPulseView.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Storyboards/TextField/TextField.xcodeproj">
       </FileRef>
       <FileRef
          location = "group:Storyboards/MaterialButton/MaterialButton.xcodeproj">

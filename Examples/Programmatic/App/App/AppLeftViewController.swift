@@ -36,10 +36,9 @@ within a SideNavigationViewController.
 import UIKit
 import Material
 
-private struct Cell {
+private struct Item {
 	var text: String
 	var imageName: String
-	var selected: Bool
 }
 
 class AppLeftViewController: UIViewController {
@@ -47,7 +46,7 @@ class AppLeftViewController: UIViewController {
 	private let tableView: UITableView = UITableView()
 	
 	/// A list of all the navigation items.
-	private var items: Array<Cell> = Array<Cell>()
+	private var items: Array<Item> = Array<Item>()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -71,17 +70,13 @@ class AppLeftViewController: UIViewController {
 	
 	/// General preparation statements.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.blueGrey.darken4
+		view.backgroundColor = MaterialColor.grey.darken4
 	}
 	
 	/// Prepares the items that are displayed within the tableView.
 	private func prepareCells() {
-		items.append(Cell(text: "Inbox", imageName: "ic_inbox", selected: true))
-		items.append(Cell(text: "Today", imageName: "ic_today", selected: false))
-		items.append(Cell(text: "Bookmarks", imageName: "ic_book", selected: false))
-		items.append(Cell(text: "Work", imageName: "ic_work", selected: false))
-		items.append(Cell(text: "Contacts", imageName: "ic_contacts", selected: false))
-		items.append(Cell(text: "Settings", imageName: "ic_settings", selected: false))
+		items.append(Item(text: "Feed", imageName: "ic_today"))
+		items.append(Item(text: "Recipes", imageName: "ic_inbox"))
 	}
 	
 	/// Prepares profile view.
@@ -138,15 +133,15 @@ extension AppLeftViewController: UITableViewDataSource {
 	/// Prepares the cells within the tableView.
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell: MaterialTableViewCell = tableView.dequeueReusableCellWithIdentifier("MaterialTableViewCell", forIndexPath: indexPath) as! MaterialTableViewCell
-		cell.backgroundColor = MaterialColor.clear
 		
-		let item: Cell = items[indexPath.row]
+		let item: Item = items[indexPath.row]
+		
 		cell.textLabel!.text = item.text
+		cell.textLabel!.textColor = MaterialColor.grey.lighten2
 		cell.textLabel!.font = RobotoFont.medium
 		cell.imageView!.image = UIImage(named: item.imageName)?.imageWithRenderingMode(.AlwaysTemplate)
 		cell.imageView!.tintColor = MaterialColor.grey.lighten2
-		
-		cell.textLabel!.textColor = item.selected ? MaterialColor.cyan.lighten5 : MaterialColor.grey.lighten3
+		cell.backgroundColor = MaterialColor.clear
 		
 		return cell
 	}

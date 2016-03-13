@@ -64,8 +64,11 @@ public class MaterialView : UIView {
 	terms of how the image is cropped and stretched.
 	*/
 	public var contentsRect: CGRect {
-		didSet {
-			visualLayer.contentsRect = contentsRect
+		get {
+			return visualLayer.contentsRect
+		}
+		set(value) {
+			visualLayer.contentsRect = value
 		}
 	}
 	
@@ -74,27 +77,42 @@ public class MaterialView : UIView {
 	with a fixed border around the edge.
 	*/
 	public var contentsCenter: CGRect {
-		didSet {
-			visualLayer.contentsCenter = contentsCenter
+		get {
+			return visualLayer.contentsCenter
+		}
+		set(value) {
+			visualLayer.contentsCenter = value
 		}
 	}
 	
 	/**
-	A floating point value that defines a ratio between the pixel 
-	dimensions of the visualLayer's contents property and the size 
-	of the view. By default, this value is set to the UIScreen's 
-	scale value, UIScreen.mainScreen().scale.
+	A floating point value that defines a ratio between the pixel
+	dimensions of the visualLayer's contents property and the size
+	of the view. By default, this value is set to the MaterialDevice.scale.
 	*/
 	public var contentsScale: CGFloat {
+		get {
+			return visualLayer.contentsScale
+		}
+		set(value) {
+			visualLayer.contentsScale = value
+		}
+	}
+	
+	/// A Preset for the contentsGravity property.
+	public var contentsGravityPreset: MaterialGravity {
 		didSet {
-			visualLayer.contentsScale = contentsScale
+			contentsGravity = MaterialGravityToString(contentsGravityPreset)
 		}
 	}
 	
 	/// Determines how content should be aligned within the visualLayer's bounds.
-	public var contentsGravity: MaterialGravity {
-		didSet {
-			visualLayer.contentsGravity = MaterialGravityToString(contentsGravity)
+	public var contentsGravity: String {
+		get {
+			return visualLayer.contentsGravity
+		}
+		set(value) {
+			visualLayer.contentsGravity = value
 		}
 	}
 	
@@ -213,6 +231,27 @@ public class MaterialView : UIView {
 		}
 	}
 	
+	/// A property that accesses the backing layer's shadowPath.
+	public var shadowPath: CGPath? {
+		get {
+			return layer.shadowPath
+		}
+		set(value) {
+			layer.shadowPath = value
+		}
+	}
+	
+	/// Enables automatic shadowPath sizing.
+	public var shadowPathAutoSizeEnabled: Bool = true {
+		didSet {
+			if shadowPathAutoSizeEnabled {
+				layoutShadowPath()
+			} else {
+				shadowPath = nil
+			}
+		}
+	}
+	
 	/**
 	A property that sets the shadowOffset, shadowOpacity, and shadowRadius 
 	for the backing layer. This is the preferred method of setting depth 
@@ -224,6 +263,7 @@ public class MaterialView : UIView {
 			shadowOffset = value.offset
 			shadowOpacity = value.opacity
 			shadowRadius = value.radius
+			layoutShadowPath()
 		}
 	}
 	
@@ -236,17 +276,20 @@ public class MaterialView : UIView {
 		didSet {
 			if let v: MaterialRadius = cornerRadiusPreset {
 				cornerRadius = MaterialRadiusToValue(v)
-				if .Circle == shape {
-					shape = .None
-				}
 			}
 		}
 	}
 	
 	/// A property that accesses the layer.cornerRadius.
-	@IBInspectable public var cornerRadius: CGFloat = 0 {
-		didSet {
-			layer.cornerRadius = cornerRadius
+	@IBInspectable public var cornerRadius: CGFloat {
+		get {
+			return layer.cornerRadius
+		}
+		set(value) {
+			layer.cornerRadius = value
+			if .Circle == shape {
+				shape = .None
+			}
 		}
 	}
 	
@@ -263,6 +306,7 @@ public class MaterialView : UIView {
 				} else {
 					frame.size.height = width
 				}
+				layoutShadowPath()
 			}
 		}
 	}
@@ -275,16 +319,22 @@ public class MaterialView : UIView {
 	}
 	
 	/// A property that accesses the layer.borderWith.
-	@IBInspectable public var borderWidth: CGFloat = 0 {
-		didSet {
-			layer.borderWidth = borderWidth
+	@IBInspectable public var borderWidth: CGFloat {
+		get {
+			return layer.borderWidth
+		}
+		set(value) {
+			layer.borderWidth = value
 		}
 	}
 	
-	/// A property that accesses the layer.borderColor property.
+	/// A property that accesses the layer.borderColor property
 	@IBInspectable public var borderColor: UIColor? {
-		didSet {
-			layer.borderColor = borderColor?.CGColor
+		get {
+			return nil == layer.borderColor ? nil : UIColor(CGColor: layer.borderColor!)
+		}
+		set(value) {
+			layer.borderColor = value?.CGColor
 		}
 	}
 	
@@ -313,10 +363,7 @@ public class MaterialView : UIView {
 	- Parameter aDecoder: A NSCoder instance.
 	*/
 	public required init?(coder aDecoder: NSCoder) {
-		contentsRect = CGRectMake(0, 0, 1, 1)
-		contentsCenter = CGRectMake(0, 0, 1, 1)
-		contentsScale = UIScreen.mainScreen().scale
-		contentsGravity = .ResizeAspectFill
+		contentsGravityPreset = .ResizeAspectFill
 		super.init(coder: aDecoder)
 		prepareView()
 	}
@@ -328,10 +375,7 @@ public class MaterialView : UIView {
 	- Parameter frame: A CGRect instance.
 	*/
 	public override init(frame: CGRect) {
-		contentsRect = CGRectMake(0, 0, 1, 1)
-		contentsCenter = CGRectMake(0, 0, 1, 1)
-		contentsScale = UIScreen.mainScreen().scale
-		contentsGravity = .ResizeAspectFill
+		contentsGravityPreset = .ResizeAspectFill
 		super.init(frame: frame)
 		prepareView()
 	}
@@ -347,6 +391,7 @@ public class MaterialView : UIView {
 		if self.layer == layer {
 			layoutShape()
 			layoutVisualLayer()
+			layoutShadowPath()
 		}
 	}
 	
@@ -387,14 +432,21 @@ public class MaterialView : UIView {
 	if interrupted.
 	*/
 	public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
-		if anim is CAPropertyAnimation {
+		if let a: CAPropertyAnimation = anim as? CAPropertyAnimation {
+			if let b: CABasicAnimation = a as? CABasicAnimation {
+				if let v: AnyObject = b.toValue {
+					if let k: String = b.keyPath {
+						layer.setValue(v, forKeyPath: k)
+						layer.removeAnimationForKey(k)
+					}
+				}
+			}
 			(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStop?(anim, finished: flag)
 		} else if let a: CAAnimationGroup = anim as? CAAnimationGroup {
 			for x in a.animations! {
 				animationDidStop(x, finished: true)
 			}
 		}
-		layoutVisualLayer()
 	}
 	
 	/**
@@ -407,8 +459,6 @@ public class MaterialView : UIView {
 	public func prepareView() {
 		prepareVisualLayer()
 		backgroundColor = MaterialColor.white
-		shadowColor = MaterialColor.black
-		borderColor = MaterialColor.black
 	}
 	
 	/// Prepares the visualLayer property.
@@ -421,14 +471,29 @@ public class MaterialView : UIView {
 	/// Manages the layout for the visualLayer property.
 	internal func layoutVisualLayer() {
 		visualLayer.frame = bounds
-		visualLayer.position = CGPointMake(width / 2, height / 2)
-		visualLayer.cornerRadius = layer.cornerRadius
+		visualLayer.cornerRadius = cornerRadius
 	}
 	
 	/// Manages the layout for the shape of the view instance.
 	internal func layoutShape() {
 		if .Circle == shape {
-			layer.cornerRadius = width / 2
+			let w: CGFloat = (width / 2)
+			if w != cornerRadius {
+				cornerRadius = w
+			}
+		}
+	}
+	
+	/// Sets the shadow path.
+	internal func layoutShadowPath() {
+		if shadowPathAutoSizeEnabled {
+			if .None == depth {
+				shadowPath = nil
+			} else if nil == shadowPath {
+				shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).CGPath
+			} else {
+				animate(MaterialAnimation.shadowPath(UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).CGPath, duration: 0))
+			}
 		}
 	}
 }
