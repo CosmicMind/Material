@@ -30,6 +30,7 @@
 
 import UIKit
 
+@IBDesignable
 public class MaterialLabel : UILabel {
 	/**
 	:name:	layerClass
@@ -48,7 +49,7 @@ public class MaterialLabel : UILabel {
 	/**
 	:name:	text
 	*/
-	public override var text: String? {
+	@IBInspectable public override var text: String? {
 		didSet {
 			textLayer.text = text
 		}
@@ -57,7 +58,7 @@ public class MaterialLabel : UILabel {
 	/**
 	:name:	textColor
 	*/
-	public override var textColor: UIColor? {
+	@IBInspectable public override var textColor: UIColor? {
 		didSet {
 			textLayer.textColor = textColor
 		}

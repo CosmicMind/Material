@@ -30,6 +30,7 @@
 
 import UIKit
 
+@IBDesignable
 public class ImageCardView : MaterialPulseView {
 	/**
 	:name:	dividerLayer
@@ -39,7 +40,7 @@ public class ImageCardView : MaterialPulseView {
 	/**
 	:name:	dividerColor
 	*/
-	public var dividerColor: UIColor? {
+	@IBInspectable public var dividerColor: UIColor? {
 		didSet {
 			dividerLayer?.backgroundColor = dividerColor?.CGColor
 		}
@@ -48,7 +49,7 @@ public class ImageCardView : MaterialPulseView {
 	/**
 	:name:	divider
 	*/
-	public var divider: Bool = true {
+	@IBInspectable public var divider: Bool = true {
 		didSet {
 			reloadView()
 		}
@@ -80,7 +81,7 @@ public class ImageCardView : MaterialPulseView {
 	/**
 	:name:	image
 	*/
-	public override var image: UIImage? {
+	@IBInspectable public override var image: UIImage? {
 		get {
 			return nil == imageLayer?.contents ? nil : UIImage(CGImage: imageLayer?.contents as! CGImage)
 		}
