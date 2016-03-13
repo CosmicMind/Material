@@ -31,6 +31,12 @@
 import UIKit
 
 public class MaterialPulseView : MaterialView {
+	/// To use a single pulse and have it focused when held.
+	public var pulseFocus: Bool = false
+	
+	/// A pulse layer for focus handling.
+	public private(set) var pulseLayer: CAShapeLayer?
+	
 	/// Sets whether the scaling animation should be used.
 	public lazy var pulseScale: Bool = true
 	
@@ -53,7 +59,7 @@ public class MaterialPulseView : MaterialView {
 		let duration: NSTimeInterval = MaterialAnimation.pulseDuration(width)
 		
 		if let v: UIColor = pulseColor {
-			MaterialAnimation.pulseAnimation(layer, visualLayer: visualLayer, color: v, opacity: pulseColorOpacity, point: point!, width: width, height: height, duration: duration)
+			MaterialAnimation.pulseAnimation(layer, visualLayer: visualLayer, color: v.colorWithAlphaComponent(pulseColorOpacity), point: point!, width: width, height: height, duration: duration)
 		}
 		
 		if pulseScale {
@@ -78,10 +84,14 @@ public class MaterialPulseView : MaterialView {
 		super.touchesBegan(touches, withEvent: event)
 		let duration: NSTimeInterval = MaterialAnimation.pulseDuration(width)
 		
+		if pulseFocus {
+			pulseLayer = CAShapeLayer()
+		}
+		
 		if let v: UIColor = pulseColor {
 			let point: CGPoint = layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer)
 
-			MaterialAnimation.pulseAnimation(layer, visualLayer: visualLayer, color: v, opacity: pulseColorOpacity, point: point, width: width, height: height, duration: duration)
+			MaterialAnimation.pulseAnimation(layer, visualLayer: visualLayer, color: v.colorWithAlphaComponent(pulseColorOpacity), point: point, width: width, height: height, duration: duration, pulseLayer: pulseLayer)
 		}
 		
 		if pulseScale {
@@ -97,8 +107,7 @@ public class MaterialPulseView : MaterialView {
 	*/
 	public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesEnded(touches, withEvent: event)
-		let duration: NSTimeInterval = MaterialAnimation.pulseDuration(width)
-		MaterialAnimation.shrinkAnimation(layer, width: width, duration: duration)
+		MaterialAnimation.shrinkAnimation(layer, width: width, duration: MaterialAnimation.pulseDuration(width), pulseLayer: pulseLayer)
 	}
 	
 	/**
@@ -109,8 +118,7 @@ public class MaterialPulseView : MaterialView {
 	*/
 	public override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
 		super.touchesCancelled(touches, withEvent: event)
-		let duration: NSTimeInterval = MaterialAnimation.pulseDuration(width)
-		MaterialAnimation.shrinkAnimation(layer, width: width, duration: duration)
+		MaterialAnimation.shrinkAnimation(layer, width: width, duration: MaterialAnimation.pulseDuration(width), pulseLayer: pulseLayer)
 	}
 	
 	/**

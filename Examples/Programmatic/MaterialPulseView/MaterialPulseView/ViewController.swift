@@ -59,6 +59,7 @@ class ViewController: UIViewController {
 		pulseView.shape = .Square
 		pulseView.depth = .Depth1
 		pulseView.cornerRadiusPreset = .Radius3
+		pulseView.pulseFocus = true
 		
 		// Add pulseView to UIViewController.
 		view.addSubview(pulseView)

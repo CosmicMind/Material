@@ -33,56 +33,96 @@ import UIKit
 internal extension MaterialAnimation {
 	/**
 	Triggers the pulse animation.
+	- Parameter layer: Container CALayer.
+	- Parameter visualLayer: A CAShapeLayer for the pulseLayer.
+	- Parameter color: The UIColor for the pulse.
 	- Parameter point: A point to pulse from.
-	- Returns: A Ooptional CFTimeInternal if the point exists within
-	the view. The time internal represents the animation time.
+	- Parameter width: Container width.
+	- Parameter height: Container height.
+	- Parameter duration: Animation duration.
+	- Parameter pulseLayer: An Optional pulseLayer to use in the animation.
 	*/
-	internal static func pulseAnimation(layer: CALayer, visualLayer: CALayer, color: UIColor, opacity: CGFloat, point: CGPoint, width: CGFloat, height: CGFloat, duration: NSTimeInterval) {
+	internal static func pulseAnimation(layer: CALayer, visualLayer: CALayer, color: UIColor, point: CGPoint, width: CGFloat, height: CGFloat, duration: NSTimeInterval, var pulseLayer: CAShapeLayer? = nil) {
 		
 		let r: CGFloat = (width < height ? height : width) / 2
 		let f: CGFloat = 3
 		let v: CGFloat = r / f
 		let d: CGFloat = 2 * f
 		
-		let pulseLayer: CAShapeLayer = CAShapeLayer()
-			
-		pulseLayer.hidden = true
-		pulseLayer.zPosition = 1
-		pulseLayer.backgroundColor = color.colorWithAlphaComponent(opacity).CGColor
-		visualLayer.addSublayer(pulseLayer)
+		var b: Bool = false
 		
-		MaterialAnimation.animationDisabled {
-			pulseLayer.bounds = CGRectMake(0, 0, v, v)
-			pulseLayer.position = point
-			pulseLayer.cornerRadius = r / d
-			pulseLayer.hidden = false
+		if nil == pulseLayer {
+			pulseLayer = CAShapeLayer()
+			b = true
 		}
 		
-		pulseLayer.addAnimation(MaterialAnimation.scale(3 * d, duration: duration), forKey: nil)
+		pulseLayer!.hidden = true
+		pulseLayer!.zPosition = 1
+		pulseLayer!.backgroundColor = color.CGColor
+		visualLayer.addSublayer(pulseLayer!)
 		
-		MaterialAnimation.delay(duration) {
-			MaterialAnimation.animateWithDuration(duration, animations: {
-				pulseLayer.hidden = true
-			}) {
-				pulseLayer.removeFromSuperlayer()
+		MaterialAnimation.animationDisabled {
+			pulseLayer!.bounds = CGRectMake(0, 0, v, v)
+			pulseLayer!.position = point
+			pulseLayer!.cornerRadius = r / d
+			pulseLayer!.hidden = false
+		}
+		
+		pulseLayer!.addAnimation(MaterialAnimation.scale(3 * d, duration: duration), forKey: nil)
+		
+		if b {
+			MaterialAnimation.delay(duration) {
+				MaterialAnimation.animateWithDuration(duration, animations: {
+					pulseLayer?.hidden = true
+				}) {
+					pulseLayer?.removeFromSuperlayer()
+				}
+			}
+		} else {
+			MaterialAnimation.delay(duration / 2) {
+				pulseLayer?.addAnimation(MaterialAnimation.scale(1.10 * d, duration: duration), forKey: nil)
 			}
 		}
 	}
 	
+	/**
+	Triggers the expanding animation.
+	- Parameter layer: Container CALayer.
+	- Parameter scale: The scale factor when expanding.
+	- Parameter duration: Animation duration.
+	*/
 	internal static func expandAnimation(layer: CALayer, scale: CGFloat, duration: NSTimeInterval) {
 		layer.addAnimation(MaterialAnimation.scale(scale, duration: duration), forKey: nil)
 	}
 	
-	internal static func shrinkAnimation(layer: CALayer, width: CGFloat, duration: NSTimeInterval) {
+	/**
+	Triggers the shrinking animation.
+	- Parameter layer: Container CALayer.
+	- Parameter width: Container width.
+	- Parameter duration: Animation duration.
+	- Parameter pulseLayer: An Optional pulseLayer to use in the animation.
+	*/
+	internal static func shrinkAnimation(layer: CALayer, width: CGFloat, duration: NSTimeInterval, pulseLayer: CAShapeLayer? = nil) {
+		if let v: CAShapeLayer = pulseLayer {
+			MaterialAnimation.animateWithDuration(duration, animations: {
+				v.hidden = true
+			}) {
+				v.removeFromSuperlayer()
+			}
+		}
 		layer.addAnimation(MaterialAnimation.scale(1, duration: duration), forKey: nil)
 	}
 	
+	/**
+	Retrieves the animation duration time.
+	- Parameter width: Container width.
+	- Returns: An NSTimeInterval value that represents the animation time.
+	*/
 	internal static func pulseDuration(width: CGFloat) -> NSTimeInterval {
 		var t: CFTimeInterval = CFTimeInterval(1.5 * width / MaterialDevice.width)
 		if 0.55 < t || 0.25 > t {
 			t = 0.55
 		}
-		t /= 1.3
-		return t
+		return t / 1.3
 	}
 }
