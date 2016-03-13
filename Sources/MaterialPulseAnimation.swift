@@ -68,7 +68,7 @@ internal extension MaterialAnimation {
 			pulseLayer!.hidden = false
 		}
 		
-		pulseLayer!.addAnimation(MaterialAnimation.scale(3 * d, duration: duration), forKey: nil)
+		pulseLayer!.addAnimation(MaterialAnimation.scale((b ? 3 : 1.7) * d, duration: duration), forKey: nil)
 		
 		if b {
 			MaterialAnimation.delay(duration) {
@@ -80,7 +80,7 @@ internal extension MaterialAnimation {
 			}
 		} else {
 			MaterialAnimation.delay(duration / 2) {
-				pulseLayer?.addAnimation(MaterialAnimation.scale(1.10 * d, duration: duration), forKey: nil)
+				pulseLayer?.addAnimation(MaterialAnimation.scale(1.3 * d, duration: duration), forKey: nil)
 			}
 		}
 	}
