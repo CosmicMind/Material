@@ -64,7 +64,7 @@ public class ControlView : MaterialView {
 	}
 	
 	/// A wrapper around grid.spacing.
-	public var spacing: CGFloat {
+	@IBInspectable public var spacing: CGFloat {
 		get {
 			return grid.spacing
 		}

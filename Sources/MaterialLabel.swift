@@ -48,7 +48,7 @@ public class MaterialLabel : UILabel {
 	/**
 	:name:	text
 	*/
-	public override var text: String? {
+	@IBInspectable public override var text: String? {
 		didSet {
 			textLayer.text = text
 		}
@@ -57,7 +57,7 @@ public class MaterialLabel : UILabel {
 	/**
 	:name:	textColor
 	*/
-	public override var textColor: UIColor? {
+	@IBInspectable public override var textColor: UIColor? {
 		didSet {
 			textLayer.textColor = textColor
 		}
@@ -84,7 +84,7 @@ public class MaterialLabel : UILabel {
 	/**
 	:name:	wrapped
 	*/
-	public var wrapped: Bool {
+	@IBInspectable public var wrapped: Bool {
 		didSet {
 			textLayer.wrapped = wrapped
 		}
@@ -93,7 +93,7 @@ public class MaterialLabel : UILabel {
 	/**
 	:name:	contentsScale
 	*/
-	public var contentsScale: CGFloat {
+	@IBInspectable public var contentsScale: CGFloat {
 		didSet {
 			textLayer.contentsScale = contentsScale
 		}

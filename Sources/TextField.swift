@@ -37,7 +37,7 @@ public class TextField : UITextField {
 	This property is the same as clipsToBounds. It crops any of the view's
 	contents from bleeding past the view's frame.
 	*/
-	public var masksToBounds: Bool {
+	@IBInspectable public var masksToBounds: Bool {
 		get {
 			return layer.masksToBounds
 		}
@@ -47,14 +47,14 @@ public class TextField : UITextField {
 	}
 	
 	/// A property that accesses the backing layer's backgroundColor.
-	public override var backgroundColor: UIColor? {
+	@IBInspectable public override var backgroundColor: UIColor? {
 		didSet {
 			layer.backgroundColor = backgroundColor?.CGColor
 		}
 	}
 	
 	/// A property that accesses the layer.frame.origin.x property.
-	public var x: CGFloat {
+	@IBInspectable public var x: CGFloat {
 		get {
 			return layer.frame.origin.x
 		}
@@ -64,7 +64,7 @@ public class TextField : UITextField {
 	}
 	
 	/// A property that accesses the layer.frame.origin.y property.
-	public var y: CGFloat {
+	@IBInspectable public var y: CGFloat {
 		get {
 			return layer.frame.origin.y
 		}
@@ -79,7 +79,7 @@ public class TextField : UITextField {
 	value that is not .None, the height will be adjusted to maintain the correct
 	shape.
 	*/
-	public var width: CGFloat {
+	@IBInspectable public var width: CGFloat {
 		get {
 			return layer.frame.size.width
 		}
@@ -97,7 +97,7 @@ public class TextField : UITextField {
 	value that is not .None, the width will be adjusted to maintain the correct
 	shape.
 	*/
-	public var height: CGFloat {
+	@IBInspectable public var height: CGFloat {
 		get {
 			return layer.frame.size.height
 		}
@@ -110,7 +110,7 @@ public class TextField : UITextField {
 	}
 	
 	/// A property that accesses the backing layer's shadowColor.
-	public var shadowColor: UIColor? {
+	@IBInspectable public var shadowColor: UIColor? {
 		didSet {
 			layer.shadowColor = shadowColor?.CGColor
 		}
@@ -127,7 +127,7 @@ public class TextField : UITextField {
 	}
 	
 	/// A property that accesses the backing layer's shadowOpacity.
-	public var shadowOpacity: Float {
+	@IBInspectable public var shadowOpacity: Float {
 		get {
 			return layer.shadowOpacity
 		}
@@ -137,7 +137,7 @@ public class TextField : UITextField {
 	}
 	
 	/// A property that accesses the backing layer's shadowRadius.
-	public var shadowRadius: CGFloat {
+	@IBInspectable public var shadowRadius: CGFloat {
 		get {
 			return layer.shadowRadius
 		}
@@ -157,7 +157,7 @@ public class TextField : UITextField {
 	}
 	
 	/// Enables automatic shadowPath sizing.
-	public var shadowPathAutoSizeEnabled: Bool = true {
+	@IBInspectable public var shadowPathAutoSizeEnabled: Bool = true {
 		didSet {
 			if shadowPathAutoSizeEnabled {
 				layoutShadowPath()
@@ -196,7 +196,7 @@ public class TextField : UITextField {
 	}
 	
 	/// A property that accesses the layer.cornerRadius.
-	public var cornerRadius: CGFloat {
+	@IBInspectable public var cornerRadius: CGFloat {
 		get {
 			return layer.cornerRadius
 		}
@@ -235,7 +235,7 @@ public class TextField : UITextField {
 	}
 	
 	/// A property that accesses the layer.borderWith.
-	public var borderWidth: CGFloat {
+	@IBInspectable public var borderWidth: CGFloat {
 		get {
 			return layer.borderWidth
 		}
@@ -245,7 +245,7 @@ public class TextField : UITextField {
 	}
 	
 	/// A property that accesses the layer.borderColor property.
-	public var borderColor: UIColor? {
+	@IBInspectable public var borderColor: UIColor? {
 		get {
 			return nil == layer.borderColor ? nil : UIColor(CGColor: layer.borderColor!)
 		}
@@ -255,7 +255,7 @@ public class TextField : UITextField {
 	}
 	
 	/// A property that accesses the layer.position property.
-	public var position: CGPoint {
+	@IBInspectable public var position: CGPoint {
 		get {
 			return layer.position
 		}
@@ -265,7 +265,7 @@ public class TextField : UITextField {
 	}
 	
 	/// A property that accesses the layer.zPosition property.
-	public var zPosition: CGFloat {
+	@IBInspectable public var zPosition: CGFloat {
 		get {
 			return layer.zPosition
 		}
@@ -298,7 +298,7 @@ public class TextField : UITextField {
 	A property that sets the distance between the textField and
 	bottomBorderLayer.
 	*/
-	public var bottomBorderLayerDistance: CGFloat = 4
+	@IBInspectable public var bottomBorderLayerDistance: CGFloat = 4
 	
 	/**
 	The title UILabel that is displayed when there is text. The
@@ -312,7 +312,7 @@ public class TextField : UITextField {
 	}
 	
 	/// The color of the titleLabel text when the textField is not active.
-	public var titleLabelColor: UIColor? {
+	@IBInspectable public var titleLabelColor: UIColor? {
 		didSet {
 			titleLabel?.textColor = titleLabelColor
 			MaterialAnimation.animationDisabled { [unowned self] in
@@ -322,16 +322,16 @@ public class TextField : UITextField {
 	}
 	
 	/// The color of the titleLabel text when the textField is active.
-	public var titleLabelActiveColor: UIColor?
+	@IBInspectable public var titleLabelActiveColor: UIColor?
 	
 	/**
 	A property that sets the distance between the textField and
 	titleLabel.
 	*/
-	public var titleLabelAnimationDistance: CGFloat = 8
+	@IBInspectable public var titleLabelAnimationDistance: CGFloat = 8
 	
 	/// An override to the text property.
-	public override var text: String? {
+	@IBInspectable public override var text: String? {
 		didSet {
 			textFieldDidChange()
 		}
@@ -351,7 +351,7 @@ public class TextField : UITextField {
 	The color of the detailLabel text when the detailLabelHidden property
 	is set to false.
 	*/
-	public var detailLabelActiveColor: UIColor? {
+	@IBInspectable public var detailLabelActiveColor: UIColor? {
 		didSet {
 			if !detailLabelHidden {
 				detailLabel?.textColor = detailLabelActiveColor
@@ -366,18 +366,18 @@ public class TextField : UITextField {
 	A property that sets the distance between the textField and
 	detailLabel.
 	*/
-	public var detailLabelAnimationDistance: CGFloat = 8
+	@IBInspectable public var detailLabelAnimationDistance: CGFloat = 8
 	
 	/**
 	A Boolean that indicates the detailLabel should hide
 	automatically when text changes.
 	*/
-	public var detailLabelAutoHideEnabled: Bool = true
+	@IBInspectable public var detailLabelAutoHideEnabled: Bool = true
 	
 	/**
 	:name:	detailLabelHidden
 	*/
-	public var detailLabelHidden: Bool = true {
+	@IBInspectable public var detailLabelHidden: Bool = true {
 		didSet {
 			if detailLabelHidden {
 				detailLabel?.textColor = titleLabelColor
@@ -396,7 +396,7 @@ public class TextField : UITextField {
 	}
 	
 	/// A wrapper for searchBar.placeholder.
-	public override var placeholder: String? {
+	@IBInspectable public override var placeholder: String? {
 		didSet {
 			if let v: String = placeholder {
 				attributedPlaceholder = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderTextColor])
@@ -405,7 +405,7 @@ public class TextField : UITextField {
 	}
 	
 	/// Placeholder textColor.
-	public var placeholderTextColor: UIColor = MaterialColor.black {
+	@IBInspectable public var placeholderTextColor: UIColor = MaterialColor.black {
 		didSet {
 			if let v: String = placeholder {
 				attributedPlaceholder = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderTextColor])

@@ -123,7 +123,7 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 	/**
 	:name:	tapToFocusEnabled
 	*/
-	public var tapToFocusEnabled: Bool = false {
+	@IBInspectable public var tapToFocusEnabled: Bool = false {
 		didSet {
 			if tapToFocusEnabled {
 				tapToResetEnabled = true
@@ -143,7 +143,7 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 	/**
 	:name:	tapToExposeEnabled
 	*/
-	public var tapToExposeEnabled: Bool = false {
+	@IBInspectable public var tapToExposeEnabled: Bool = false {
 		didSet {
 			if tapToExposeEnabled {
 				tapToResetEnabled = true
@@ -163,7 +163,7 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 	/**
 	:name:	tapToResetEnabled
 	*/
-	public var tapToResetEnabled: Bool = false {
+	@IBInspectable public var tapToResetEnabled: Bool = false {
 		didSet {
 			if tapToResetEnabled {
 				prepareResetLayer()

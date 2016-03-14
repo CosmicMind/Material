@@ -74,7 +74,7 @@ public class MaterialSwitch: UIControl {
 	private var bounceOffset: CGFloat = 3
 	
 	/// A property that accesses the layer.frame.origin.x property.
-	public var x: CGFloat {
+	@IBInspectable public var x: CGFloat {
 		get {
 			return layer.frame.origin.x
 		}
@@ -84,7 +84,7 @@ public class MaterialSwitch: UIControl {
 	}
 	
 	/// A property that accesses the layer.frame.origin.y property.
-	public var y: CGFloat {
+	@IBInspectable public var y: CGFloat {
 		get {
 			return layer.frame.origin.y
 		}
@@ -94,7 +94,7 @@ public class MaterialSwitch: UIControl {
 	}
 	
 	/// A property that accesses the layer.frame.origin.width property.
-	public var width: CGFloat {
+	@IBInspectable public var width: CGFloat {
 		get {
 			return layer.frame.size.width
 		}
@@ -104,7 +104,7 @@ public class MaterialSwitch: UIControl {
 	}
 	
 	/// A property that accesses the layer.frame.origin.height property.
-	public var height: CGFloat {
+	@IBInspectable public var height: CGFloat {
 		get {
 			return layer.frame.size.height
 		}
@@ -117,35 +117,35 @@ public class MaterialSwitch: UIControl {
 	public var delegate: MaterialSwitchDelegate?
 	
 	/// Indicates if the animation should bounce.
-	public var bounceable: Bool = true {
+	@IBInspectable public var bounceable: Bool = true {
 		didSet {
 			bounceOffset = bounceable ? 3 : 0
 		}
 	}
 	
 	/// Button on color.
-	public var buttonOnColor: UIColor = MaterialColor.clear
+	@IBInspectable public var buttonOnColor: UIColor = MaterialColor.clear
 	
 	/// Button off color.
-	public var buttonOffColor: UIColor = MaterialColor.clear
+	@IBInspectable public var buttonOffColor: UIColor = MaterialColor.clear
 	
 	/// Track on color.
-	public var trackOnColor: UIColor = MaterialColor.clear
+	@IBInspectable public var trackOnColor: UIColor = MaterialColor.clear
 	
 	/// Track off color.
-	public var trackOffColor: UIColor = MaterialColor.clear
+	@IBInspectable public var trackOffColor: UIColor = MaterialColor.clear
 	
 	/// Button on disabled color.
-	public var buttonOnDisabledColor: UIColor = MaterialColor.clear
+	@IBInspectable public var buttonOnDisabledColor: UIColor = MaterialColor.clear
 	
 	/// Track on disabled color.
-	public var trackOnDisabledColor: UIColor = MaterialColor.clear
+	@IBInspectable public var trackOnDisabledColor: UIColor = MaterialColor.clear
 	
 	/// Button off disabled color.
-	public var buttonOffDisabledColor: UIColor = MaterialColor.clear
+	@IBInspectable public var buttonOffDisabledColor: UIColor = MaterialColor.clear
 	
 	/// Track off disabled color.
-	public var trackOffDisabledColor: UIColor = MaterialColor.clear
+	@IBInspectable public var trackOffDisabledColor: UIColor = MaterialColor.clear
 	
 	/// Track view reference.
 	public private(set) var trackLayer: MaterialLayer {
@@ -161,14 +161,14 @@ public class MaterialSwitch: UIControl {
 		}
 	}
 	
-	public override var enabled: Bool {
+	@IBInspectable public override var enabled: Bool {
 		didSet {
 			styleForState(internalSwitchState)
 		}
 	}
 	
 	/// A boolean indicating if the switch is on or not.
-	public var on: Bool {
+	@IBInspectable public var on: Bool {
 		get {
 			return .On == internalSwitchState
 		}

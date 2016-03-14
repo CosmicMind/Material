@@ -46,7 +46,7 @@ public class MaterialTextLayer : CATextLayer {
 	/**
 	:name:	text
 	*/
-	public var text: String? {
+	@IBInspectable public var text: String? {
 		didSet {
 			string = text as? AnyObject
 		}
@@ -55,7 +55,7 @@ public class MaterialTextLayer : CATextLayer {
 	/**
 	:name:	pointSize
 	*/
-	public var pointSize: CGFloat = 10 {
+	@IBInspectable public var pointSize: CGFloat = 10 {
 		didSet {
 			fontSize = pointSize
 		}
@@ -64,7 +64,7 @@ public class MaterialTextLayer : CATextLayer {
 	/**
 	:name:	textColor
 	*/
-	public var textColor: UIColor? {
+	@IBInspectable public var textColor: UIColor? {
 		didSet {
 			foregroundColor = textColor?.CGColor
 		}
@@ -115,7 +115,7 @@ public class MaterialTextLayer : CATextLayer {
 	/**
 	:name:	x
 	*/
-	public var x: CGFloat {
+	@IBInspectable public var x: CGFloat {
 		get {
 			return frame.origin.x
 		}
@@ -127,7 +127,7 @@ public class MaterialTextLayer : CATextLayer {
 	/**
 	:name:	y
 	*/
-	public var y: CGFloat {
+	@IBInspectable public var y: CGFloat {
 		get {
 			return frame.origin.y
 		}
@@ -139,7 +139,7 @@ public class MaterialTextLayer : CATextLayer {
 	/**
 	:name:	width
 	*/
-	public var width: CGFloat {
+	@IBInspectable public var width: CGFloat {
 		get {
 			return frame.size.width
 		}
@@ -151,7 +151,7 @@ public class MaterialTextLayer : CATextLayer {
 	/**
 	:name:	height
 	*/
-	public var height: CGFloat {
+	@IBInspectable public var height: CGFloat {
 		get {
 			return frame.size.height
 		}

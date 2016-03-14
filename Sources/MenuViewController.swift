@@ -56,7 +56,7 @@ public class MenuViewController: UIViewController {
 	A Boolean property used to enable and disable interactivity
 	with the mainViewController.
 	*/
-	public var userInteractionEnabled: Bool {
+	@IBInspectable public var userInteractionEnabled: Bool {
 		get {
 			return mainViewController.view.userInteractionEnabled
 		}

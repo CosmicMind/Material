@@ -45,28 +45,28 @@ public class SearchBarView : StatusBarView {
 	}
 	
 	/// TintColor for searchBar.
-	public override var tintColor: UIColor? {
+	@IBInspectable public override var tintColor: UIColor? {
 		didSet {
 			textField.tintColor = tintColor
 		}
 	}
 	
 	/// TextColor for searchBar.
-	public var textColor: UIColor? {
+	@IBInspectable public var textColor: UIColor? {
 		didSet {
 			textField.textColor = textColor
 		}
 	}
 	
 	/// A wrapper for searchBar.placeholder.
-	public var placeholder: String? {
+	@IBInspectable public var placeholder: String? {
 		didSet {
 			textField.placeholder = placeholder
 		}
 	}
 	
 	/// Placeholder textColor.
-	public var placeholderTextColor: UIColor {
+	@IBInspectable public var placeholderTextColor: UIColor {
 		get {
 			return textField.placeholderTextColor
 		}

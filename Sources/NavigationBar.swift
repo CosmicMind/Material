@@ -50,11 +50,15 @@ public class NavigationBar : UINavigationBar {
 	The back button image writes to the backIndicatorImage property and
 	backIndicatorTransitionMaskImage property.
 	*/
-	public var backButtonImage: UIImage? {
+	@IBInspectable public var backButtonImage: UIImage? {
 		didSet {
 			if nil == backButtonImage {
 				backButtonImage = MaterialIcon.arrowBack
 			}
+			backIndicatorImage = backButtonImage
+			backIndicatorTransitionMaskImage = backButtonImage
+			backButton.setImage(backButtonImage, forState: .Normal)
+			backButton.setImage(backButtonImage, forState: .Highlighted)
 		}
 	}
 	
@@ -78,7 +82,7 @@ public class NavigationBar : UINavigationBar {
 	the image property, then this value does not need to be set, since the
 	visualLayer's maskToBounds is set to true by default.
 	*/
-	public var masksToBounds: Bool {
+	@IBInspectable public var masksToBounds: Bool {
 		get {
 			return layer.masksToBounds
 		}
@@ -88,14 +92,14 @@ public class NavigationBar : UINavigationBar {
 	}
 	
 	/// A property that accesses the backing layer's backgroundColor.
-	public override var backgroundColor: UIColor? {
+	@IBInspectable public override var backgroundColor: UIColor? {
 		didSet {
 			barTintColor = backgroundColor
 		}
 	}
 	
 	/// A property that accesses the layer.frame.origin.x property.
-	public var x: CGFloat {
+	@IBInspectable public var x: CGFloat {
 		get {
 			return layer.frame.origin.x
 		}
@@ -105,7 +109,7 @@ public class NavigationBar : UINavigationBar {
 	}
 	
 	/// A property that accesses the layer.frame.origin.y property.
-	public var y: CGFloat {
+	@IBInspectable public var y: CGFloat {
 		get {
 			return layer.frame.origin.y
 		}
@@ -120,7 +124,7 @@ public class NavigationBar : UINavigationBar {
 	value that is not .None, the height will be adjusted to maintain the correct
 	shape.
 	*/
-	public var width: CGFloat {
+	@IBInspectable public var width: CGFloat {
 		get {
 			return layer.frame.size.width
 		}
@@ -135,7 +139,7 @@ public class NavigationBar : UINavigationBar {
 	value that is not .None, the width will be adjusted to maintain the correct
 	shape.
 	*/
-	public var height: CGFloat {
+	@IBInspectable public var height: CGFloat {
 		get {
 			return layer.frame.size.height
 		}
@@ -145,7 +149,7 @@ public class NavigationBar : UINavigationBar {
 	}
 	
 	/// A property that accesses the backing layer's shadowColor.
-	public var shadowColor: UIColor? {
+	@IBInspectable public var shadowColor: UIColor? {
 		didSet {
 			layer.shadowColor = shadowColor?.CGColor
 		}
@@ -162,7 +166,7 @@ public class NavigationBar : UINavigationBar {
 	}
 	
 	/// A property that accesses the backing layer's shadowOpacity.
-	public var shadowOpacity: Float {
+	@IBInspectable public var shadowOpacity: Float {
 		get {
 			return layer.shadowOpacity
 		}
@@ -172,7 +176,7 @@ public class NavigationBar : UINavigationBar {
 	}
 	
 	/// A property that accesses the backing layer's shadowRadius.
-	public var shadowRadius: CGFloat {
+	@IBInspectable public var shadowRadius: CGFloat {
 		get {
 			return layer.shadowRadius
 		}
@@ -203,7 +207,7 @@ public class NavigationBar : UINavigationBar {
 	}
 	
 	/// A property that accesses the layer.borderWith.
-	public var borderWidth: CGFloat {
+	@IBInspectable public var borderWidth: CGFloat {
 		get {
 			return layer.borderWidth
 		}
@@ -213,7 +217,7 @@ public class NavigationBar : UINavigationBar {
 	}
 	
 	/// A property that accesses the layer.borderColor property.
-	public var borderColor: UIColor? {
+	@IBInspectable public var borderColor: UIColor? {
 		get {
 			return nil == layer.borderColor ? nil : UIColor(CGColor: layer.borderColor!)
 		}

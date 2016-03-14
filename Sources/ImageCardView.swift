@@ -39,7 +39,7 @@ public class ImageCardView : MaterialPulseView {
 	/**
 	:name:	dividerColor
 	*/
-	public var dividerColor: UIColor? {
+	@IBInspectable public var dividerColor: UIColor? {
 		didSet {
 			dividerLayer?.backgroundColor = dividerColor?.CGColor
 		}
@@ -48,7 +48,7 @@ public class ImageCardView : MaterialPulseView {
 	/**
 	:name:	divider
 	*/
-	public var divider: Bool = true {
+	@IBInspectable public var divider: Bool = true {
 		didSet {
 			reloadView()
 		}
@@ -80,7 +80,7 @@ public class ImageCardView : MaterialPulseView {
 	/**
 	:name:	image
 	*/
-	public override var image: UIImage? {
+	@IBInspectable public override var image: UIImage? {
 		get {
 			return nil == imageLayer?.contents ? nil : UIImage(CGImage: imageLayer?.contents as! CGImage)
 		}
@@ -108,7 +108,7 @@ public class ImageCardView : MaterialPulseView {
 	/**
 	:name:	maxImageHeight
 	*/
-	public var maxImageHeight: CGFloat = 0 {
+	@IBInspectable public var maxImageHeight: CGFloat = 0 {
 		didSet {
 			if let v: UIImage = image {
 				if 0 < maxImageHeight {
@@ -147,7 +147,7 @@ public class ImageCardView : MaterialPulseView {
 	/**
 	:name:	contentsScale
 	*/
-	public override var contentsScale: CGFloat {
+	@IBInspectable public override var contentsScale: CGFloat {
 		didSet {
 			prepareImageLayer()
 			imageLayer?.contentsScale = contentsScale
@@ -155,7 +155,7 @@ public class ImageCardView : MaterialPulseView {
 	}
 	
 	/// Determines how content should be aligned within the visualLayer's bounds.
-	public override var contentsGravity: String {
+	@IBInspectable public override var contentsGravity: String {
 		get {
 			return nil == imageLayer ? "" : imageLayer!.contentsGravity
 		}

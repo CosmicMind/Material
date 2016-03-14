@@ -45,21 +45,27 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	*/
 	public weak var delegate: MaterialDelegate?
 	
+	/// To use a single pulse and have it focused when held.
+	@IBInspectable public var pulseFocus: Bool = false
+	
+	/// A pulse layer for focus handling.
+	public private(set) var pulseLayer: CAShapeLayer?
+	
 	/// Sets whether the scaling animation should be used.
-	public lazy var pulseScale: Bool = true
+	@IBInspectable public lazy var pulseScale: Bool = true
 	
 	/// The opcaity value for the pulse animation.
-	public var pulseColorOpacity: CGFloat = 0.25
+	@IBInspectable public var pulseOpacity: CGFloat = 0.25
 	
 	/// The color of the pulse effect.
-	public var pulseColor: UIColor?
+	@IBInspectable public var pulseColor: UIColor?
 	
 	/**
 	A property that manages an image for the visualLayer's contents
 	property. Images should not be set to the backing layer's contents
 	property to avoid conflicts when using clipsToBounds.
 	*/
-	public var image: UIImage? {
+	@IBInspectable public var image: UIImage? {
 		didSet {
 			visualLayer.contents = image?.CGImage
 		}
@@ -98,7 +104,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	dimensions of the visualLayer's contents property and the size
 	of the view. By default, this value is set to the MaterialDevice.scale.
 	*/
-	public var contentsScale: CGFloat {
+	@IBInspectable public var contentsScale: CGFloat {
 		get {
 			return visualLayer.contentsScale
 		}
@@ -115,7 +121,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	}
 	
 	/// Determines how content should be aligned within the visualLayer's bounds.
-	public var contentsGravity: String {
+	@IBInspectable public var contentsGravity: String {
 		get {
 			return visualLayer.contentsGravity
 		}
@@ -152,7 +158,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	}
 	
 	/// A wrapper around grid.spacing.
-	public var spacing: CGFloat {
+	@IBInspectable public var spacing: CGFloat {
 		get {
 			return contentView.grid.spacing
 		}
@@ -167,7 +173,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	the image property, then this value does not need to be set, since the
 	visualLayer's maskToBounds is set to true by default.
 	*/
-	public var masksToBounds: Bool {
+	@IBInspectable public var masksToBounds: Bool {
 		get {
 			return layer.masksToBounds
 		}
@@ -177,14 +183,14 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	}
 	
 	/// A property that accesses the backing layer's backgroundColor.
-	public override var backgroundColor: UIColor? {
+	@IBInspectable public override var backgroundColor: UIColor? {
 		didSet {
 			layer.backgroundColor = backgroundColor?.CGColor
 		}
 	}
 	
 	/// A property that accesses the layer.frame.origin.x property.
-	public var x: CGFloat {
+	@IBInspectable public var x: CGFloat {
 		get {
 			return layer.frame.origin.x
 		}
@@ -194,7 +200,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	}
 	
 	/// A property that accesses the layer.frame.origin.y property.
-	public var y: CGFloat {
+	@IBInspectable public var y: CGFloat {
 		get {
 			return layer.frame.origin.y
 		}
@@ -209,7 +215,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	value that is not .None, the height will be adjusted to maintain the correct
 	shape.
 	*/
-	public var width: CGFloat {
+	@IBInspectable public var width: CGFloat {
 		get {
 			return layer.frame.size.width
 		}
@@ -227,7 +233,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	value that is not .None, the width will be adjusted to maintain the correct
 	shape.
 	*/
-	public var height: CGFloat {
+	@IBInspectable public var height: CGFloat {
 		get {
 			return layer.frame.size.height
 		}
@@ -240,7 +246,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	}
 	
 	/// A property that accesses the backing layer's shadowColor.
-	public var shadowColor: UIColor? {
+	@IBInspectable public var shadowColor: UIColor? {
 		didSet {
 			layer.shadowColor = shadowColor?.CGColor
 		}
@@ -257,7 +263,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	}
 	
 	/// A property that accesses the backing layer's shadowOpacity.
-	public var shadowOpacity: Float {
+	@IBInspectable public var shadowOpacity: Float {
 		get {
 			return layer.shadowOpacity
 		}
@@ -267,7 +273,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	}
 	
 	/// A property that accesses the backing layer's shadowRadius.
-	public var shadowRadius: CGFloat {
+	@IBInspectable public var shadowRadius: CGFloat {
 		get {
 			return layer.shadowRadius
 		}
@@ -287,7 +293,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	}
 	
 	/// Enables automatic shadowPath sizing.
-	public var shadowPathAutoSizeEnabled: Bool = true {
+	@IBInspectable public var shadowPathAutoSizeEnabled: Bool = true {
 		didSet {
 			if shadowPathAutoSizeEnabled {
 				layoutShadowPath()
@@ -326,7 +332,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	}
 	
 	/// A property that accesses the layer.cornerRadius.
-	public var cornerRadius: CGFloat {
+	@IBInspectable public var cornerRadius: CGFloat {
 		get {
 			return layer.cornerRadius
 		}
@@ -365,7 +371,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	}
 	
 	/// A property that accesses the layer.borderWith.
-	public var borderWidth: CGFloat {
+	@IBInspectable public var borderWidth: CGFloat {
 		get {
 			return layer.borderWidth
 		}
@@ -375,7 +381,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	}
 	
 	/// A property that accesses the layer.borderColor property.
-	public var borderColor: UIColor? {
+	@IBInspectable public var borderColor: UIColor? {
 		get {
 			return nil == layer.borderColor ? nil : UIColor(CGColor: layer.borderColor!)
 		}
@@ -395,7 +401,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	}
 	
 	/// A property that accesses the layer.zPosition property.
-	public var zPosition: CGFloat {
+	@IBInspectable public var zPosition: CGFloat {
 		get {
 			return layer.zPosition
 		}
@@ -502,6 +508,34 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	}
 	
 	/**
+	Triggers the pulse animation.
+	- Parameter point: A Optional point to pulse from, otherwise pulses
+	from the center.
+	*/
+	public func pulse(var point: CGPoint? = nil) {
+		if nil == point {
+			point = CGPointMake(CGFloat(width / 2), CGFloat(height / 2))
+		}
+		
+		let duration: NSTimeInterval = MaterialAnimation.pulseDuration(width)
+		
+		if let v: UIColor = pulseColor {
+			MaterialAnimation.pulseAnimation(layer, visualLayer: visualLayer, color: v.colorWithAlphaComponent(pulseOpacity), point: point!, width: width, height: height, duration: duration)
+		}
+		
+		if pulseScale {
+			MaterialAnimation.expandAnimation(layer, scale: 1.05, duration: duration)
+			MaterialAnimation.delay(duration) { [weak self] in
+				if let l: CALayer = self?.layer {
+					if let w: CGFloat = self?.width {
+						MaterialAnimation.shrinkAnimation(l, width: w, duration: duration)
+					}
+				}
+			}
+		}
+	}
+	
+	/**
 	A delegation method that is executed when the view has began a
 	touch event.
 	- Parameter touches: A set of UITouch objects.
@@ -509,7 +543,19 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	*/
 	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesBegan(touches, withEvent: event)
-		pulseAnimation(layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer))
+		let duration: NSTimeInterval = MaterialAnimation.pulseDuration(width)
+		
+		if pulseFocus {
+			pulseLayer = CAShapeLayer()
+		}
+		
+		if let v: UIColor = pulseColor {
+			MaterialAnimation.pulseAnimation(layer, visualLayer: visualLayer, color: v.colorWithAlphaComponent(pulseOpacity), point: layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer), width: width, height: height, duration: duration, pulseLayer: pulseLayer)
+		}
+		
+		if pulseScale {
+			MaterialAnimation.expandAnimation(layer, scale: 1.05, duration: duration)
+		}
 	}
 	
 	/**
@@ -520,7 +566,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	*/
 	public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesEnded(touches, withEvent: event)
-		shrinkAnimation()
+		MaterialAnimation.shrinkAnimation(layer, width: width, duration: MaterialAnimation.pulseDuration(width), pulseLayer: pulseLayer)
 	}
 	
 	/**
@@ -531,24 +577,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	*/
 	public override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
 		super.touchesCancelled(touches, withEvent: event)
-		shrinkAnimation()
-	}
-	
-	/**
-	Triggers the pulse animation.
-	- Parameter point: A Optional point to pulse from, otherwise pulses
-	from the center.
-	*/
-	public func pulse(var point: CGPoint? = nil) {
-		if nil == point {
-			point = CGPointMake(CGFloat(width / 2), CGFloat(height / 2))
-		}
-		
-		if let v: CFTimeInterval = pulseAnimation(point!) {
-			MaterialAnimation.delay(v) { [weak self] in
-				self?.shrinkAnimation()
-			}
-		}
+		MaterialAnimation.shrinkAnimation(layer, width: width, duration: MaterialAnimation.pulseDuration(width), pulseLayer: pulseLayer)
 	}
 	
 	/**
@@ -597,72 +626,6 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 			} else {
 				animate(MaterialAnimation.shadowPath(UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).CGPath, duration: 0))
 			}
-		}
-	}
-	
-	/**
-	Triggers the pulse animation.
-	- Parameter point: A point to pulse from.
-	- Returns: A Ooptional CFTimeInternal if the point exists within
-	the view. The time internal represents the animation time.
-	*/
-	internal func pulseAnimation(point: CGPoint) -> CFTimeInterval? {
-		if true == layer.containsPoint(point) {
-			let r: CGFloat = (width < height ? height : width) / 2
-			let f: CGFloat = 3
-			let v: CGFloat = r / f
-			let d: CGFloat = 2 * f
-			let s: CGFloat = 1.05
-			
-			var t: CFTimeInterval = CFTimeInterval(1.5 * width / MaterialDevice.width)
-			if 0.55 < t || 0.25 > t {
-				t = 0.55
-			}
-			t /= 1.3
-			
-			if nil != pulseColor && 0 < pulseColorOpacity {
-				let pulseLayer: CAShapeLayer = CAShapeLayer()
-				
-				pulseLayer.hidden = true
-				pulseLayer.zPosition = 1
-				pulseLayer.backgroundColor = pulseColor?.colorWithAlphaComponent(pulseColorOpacity).CGColor
-				visualLayer.addSublayer(pulseLayer)
-				
-				MaterialAnimation.animationDisabled {
-					pulseLayer.bounds = CGRectMake(0, 0, v, v)
-					pulseLayer.position = point
-					pulseLayer.cornerRadius = r / d
-					pulseLayer.hidden = false
-				}
-				pulseLayer.addAnimation(MaterialAnimation.scale(3 * d, duration: t), forKey: nil)
-				MaterialAnimation.delay(t) { [weak self] in
-					if nil != self?.pulseColor && 0 < self?.pulseColorOpacity {
-						MaterialAnimation.animateWithDuration(t, animations: {
-							pulseLayer.hidden = true
-						}) {
-							pulseLayer.removeFromSuperlayer()
-						}
-					}
-				}
-			}
-			
-			if pulseScale {
-				layer.addAnimation(MaterialAnimation.scale(s, duration: t), forKey: nil)
-				return t
-			}
-		}
-		return nil
-	}
-	
-	/// Executes the shrink animation for the pulse effect.
-	internal func shrinkAnimation() {
-		if pulseScale {
-			var t: CFTimeInterval = CFTimeInterval(1.5 * width / MaterialDevice.width)
-			if 0.55 < t || 0.25 > t {
-				t = 0.55
-			}
-			t /= 1.3
-			layer.addAnimation(MaterialAnimation.scale(1, duration: t), forKey: nil)
 		}
 	}
 }

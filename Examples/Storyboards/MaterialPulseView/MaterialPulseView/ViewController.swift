@@ -37,25 +37,16 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Examples of using MaterialPulseView.
-        prepareGeneralMaterialPulseViewExample()
+        prepareMaterialPulseView()
     }
-    
-    /**
-     :name:	prepareView
-     :description: General preparation statements.
-     */
+	
+	/// General preparation statements.
     private func prepareView() {
         view.backgroundColor = MaterialColor.white
     }
-    
-    /**
-     :name:	prepareGeneralMaterialPulseViewExample
-     :description:	General usage example.
-     */
-    private func prepareGeneralMaterialPulseViewExample() {
-        pulseView.image = UIImage(named: "ContentAppIcon")
+	
+	/// Prepares the pulseView.
+    private func prepareMaterialPulseView() {
         pulseView.shape = .Circle
         pulseView.depth = .Depth2
     }

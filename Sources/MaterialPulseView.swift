@@ -32,19 +32,19 @@ import UIKit
 
 public class MaterialPulseView : MaterialView {
 	/// To use a single pulse and have it focused when held.
-	public var pulseFocus: Bool = false
+	@IBInspectable public var pulseFocus: Bool = false
 	
 	/// A pulse layer for focus handling.
 	public private(set) var pulseLayer: CAShapeLayer?
 	
 	/// Sets whether the scaling animation should be used.
-	public lazy var pulseScale: Bool = true
+	@IBInspectable public lazy var pulseScale: Bool = true
 	
 	/// The opcaity value for the pulse animation.
-	public var pulseColorOpacity: CGFloat = 0.25
+	@IBInspectable public var pulseOpacity: CGFloat = 0.25
 	
 	/// The color of the pulse effect.
-	public var pulseColor: UIColor?
+	@IBInspectable public var pulseColor: UIColor?
 	
 	/**
 	Triggers the pulse animation.
@@ -59,7 +59,7 @@ public class MaterialPulseView : MaterialView {
 		let duration: NSTimeInterval = MaterialAnimation.pulseDuration(width)
 		
 		if let v: UIColor = pulseColor {
-			MaterialAnimation.pulseAnimation(layer, visualLayer: visualLayer, color: v.colorWithAlphaComponent(pulseColorOpacity), point: point!, width: width, height: height, duration: duration)
+			MaterialAnimation.pulseAnimation(layer, visualLayer: visualLayer, color: v.colorWithAlphaComponent(pulseOpacity), point: point!, width: width, height: height, duration: duration)
 		}
 		
 		if pulseScale {
@@ -89,9 +89,7 @@ public class MaterialPulseView : MaterialView {
 		}
 		
 		if let v: UIColor = pulseColor {
-			let point: CGPoint = layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer)
-
-			MaterialAnimation.pulseAnimation(layer, visualLayer: visualLayer, color: v.colorWithAlphaComponent(pulseColorOpacity), point: point, width: width, height: height, duration: duration, pulseLayer: pulseLayer)
+			MaterialAnimation.pulseAnimation(layer, visualLayer: visualLayer, color: v.colorWithAlphaComponent(pulseOpacity), point: layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer), width: width, height: height, duration: duration, pulseLayer: pulseLayer)
 		}
 		
 		if pulseScale {

@@ -139,7 +139,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	leftView is closed. The leftViewThreshold is always at half
 	the width of the leftView.
 	*/
-	public private(set) var leftViewThreshold: CGFloat = 0
+	@IBInspectable public var leftViewThreshold: CGFloat = 0
 	
 	/**
 	A CGFloat property that accesses the rightView threshold of
@@ -149,7 +149,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	rightView is opened. The rightViewThreshold is always at half
 	the width of the rightView.
 	*/
-	public private(set) var rightViewThreshold: CGFloat = 0
+	@IBInspectable public var rightViewThreshold: CGFloat = 0
 	
 	/**
 	A SideNavigationViewControllerDelegate property used to bind
@@ -161,7 +161,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	A Boolean property used to enable and disable interactivity
 	with the mainViewController.
 	*/
-	public var userInteractionEnabled: Bool {
+	@IBInspectable public var userInteractionEnabled: Bool {
 		get {
 			return mainViewController.view.userInteractionEnabled
 		}
@@ -174,13 +174,13 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	A CGFloat property that sets the animation duration of the
 	leftView when closing and opening. Defaults to 0.25.
 	*/
-	public var animationDuration: CGFloat = 0.25
+	@IBInspectable public var animationDuration: CGFloat = 0.25
 	
 	/**
 	A Boolean property that enables and disables the leftView from
 	opening and closing. Defaults to true.
 	*/
-	public var enabled: Bool {
+	@IBInspectable public var enabled: Bool {
 		get {
 			return enabledLeftView || enabledRightView
 		}
@@ -198,19 +198,19 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	A Boolean property that enables and disables the leftView from
 	opening and closing. Defaults to true.
 	*/
-	public var enabledLeftView: Bool = true
+	@IBInspectable public var enabledLeftView: Bool = true
 	
 	/**
 	A Boolean property that enables and disables the rightView from
 	opening and closing. Defaults to true.
 	*/
-	public var enabledRightView: Bool = true
+	@IBInspectable public var enabledRightView: Bool = true
 	
 	/**
 	A Boolean property that triggers the status bar to be hidden
 	when the leftView is opened. Defaults to true.
 	*/
-	public var hideStatusBar: Bool = true
+	@IBInspectable public var hideStatusBar: Bool = true
 	
 	/**
 	A MaterialDepth property that is used to set the depth of the
@@ -277,13 +277,13 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 	A CGFloat property to access the width that the leftView
 	opens up to.
 	*/
-	public private(set) var leftViewWidth: CGFloat = 240
+	@IBInspectable public private(set) var leftViewWidth: CGFloat = 240
 	
 	/**
 	A CGFloat property to access the width that the rightView
 	opens up to.
 	*/
-	public private(set) var rightViewWidth: CGFloat = 240
+	@IBInspectable public private(set) var rightViewWidth: CGFloat = 240
 	
 	/**
 	An initializer for the SideNavigationViewController.

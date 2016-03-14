@@ -39,7 +39,7 @@ public class TextView: UITextView {
 	This property is the same as clipsToBounds. It crops any of the view's
 	contents from bleeding past the view's frame.
 	*/
-	public var masksToBounds: Bool {
+	@IBInspectable public var masksToBounds: Bool {
 		get {
 			return layer.masksToBounds
 		}
@@ -49,14 +49,14 @@ public class TextView: UITextView {
 	}
 	
 	/// A property that accesses the backing layer's backgroundColor.
-	public override var backgroundColor: UIColor? {
+	@IBInspectable public override var backgroundColor: UIColor? {
 		didSet {
 			layer.backgroundColor = backgroundColor?.CGColor
 		}
 	}
 	
 	/// A property that accesses the layer.frame.origin.x property.
-	public var x: CGFloat {
+	@IBInspectable public var x: CGFloat {
 		get {
 			return layer.frame.origin.x
 		}
@@ -66,7 +66,7 @@ public class TextView: UITextView {
 	}
 	
 	/// A property that accesses the layer.frame.origin.y property.
-	public var y: CGFloat {
+	@IBInspectable public var y: CGFloat {
 		get {
 			return layer.frame.origin.y
 		}
@@ -81,7 +81,7 @@ public class TextView: UITextView {
 	value that is not .None, the height will be adjusted to maintain the correct
 	shape.
 	*/
-	public var width: CGFloat {
+	@IBInspectable public var width: CGFloat {
 		get {
 			return layer.frame.size.width
 		}
@@ -99,7 +99,7 @@ public class TextView: UITextView {
 	value that is not .None, the width will be adjusted to maintain the correct
 	shape.
 	*/
-	public var height: CGFloat {
+	@IBInspectable public var height: CGFloat {
 		get {
 			return layer.frame.size.height
 		}
@@ -112,7 +112,7 @@ public class TextView: UITextView {
 	}
 	
 	/// A property that accesses the backing layer's shadowColor.
-	public var shadowColor: UIColor? {
+	@IBInspectable public var shadowColor: UIColor? {
 		didSet {
 			layer.shadowColor = shadowColor?.CGColor
 		}
@@ -129,7 +129,7 @@ public class TextView: UITextView {
 	}
 	
 	/// A property that accesses the backing layer's shadowOpacity.
-	public var shadowOpacity: Float {
+	@IBInspectable public var shadowOpacity: Float {
 		get {
 			return layer.shadowOpacity
 		}
@@ -139,7 +139,7 @@ public class TextView: UITextView {
 	}
 	
 	/// A property that accesses the backing layer's shadowRadius.
-	public var shadowRadius: CGFloat {
+	@IBInspectable public var shadowRadius: CGFloat {
 		get {
 			return layer.shadowRadius
 		}
@@ -159,7 +159,7 @@ public class TextView: UITextView {
 	}
 	
 	/// Enables automatic shadowPath sizing.
-	public var shadowPathAutoSizeEnabled: Bool = true {
+	@IBInspectable public var shadowPathAutoSizeEnabled: Bool = true {
 		didSet {
 			if shadowPathAutoSizeEnabled {
 				layoutShadowPath()
@@ -198,7 +198,7 @@ public class TextView: UITextView {
 	}
 	
 	/// A property that accesses the layer.cornerRadius.
-	public var cornerRadius: CGFloat {
+	@IBInspectable public var cornerRadius: CGFloat {
 		get {
 			return layer.cornerRadius
 		}
@@ -237,7 +237,7 @@ public class TextView: UITextView {
 	}
 	
 	/// A property that accesses the layer.borderWith.
-	public var borderWidth: CGFloat {
+	@IBInspectable public var borderWidth: CGFloat {
 		get {
 			return layer.borderWidth
 		}
@@ -247,7 +247,7 @@ public class TextView: UITextView {
 	}
 	
 	/// A property that accesses the layer.borderColor property.
-	public var borderColor: UIColor? {
+	@IBInspectable public var borderColor: UIColor? {
 		get {
 			return nil == layer.borderColor ? nil : UIColor(CGColor: layer.borderColor!)
 		}
@@ -267,7 +267,7 @@ public class TextView: UITextView {
 	}
 	
 	/// A property that accesses the layer.zPosition property.
-	public var zPosition: CGFloat {
+	@IBInspectable public var zPosition: CGFloat {
 		get {
 			return layer.zPosition
 		}
@@ -288,20 +288,20 @@ public class TextView: UITextView {
 	}
 	
 	/// The color of the titleLabel text when the textView is not active.
-	public var titleLabelColor: UIColor? {
+	@IBInspectable public var titleLabelColor: UIColor? {
 		didSet {
 			titleLabel?.textColor = titleLabelColor
 		}
 	}
 	
 	/// The color of the titleLabel text when the textView is active.
-	public var titleLabelActiveColor: UIColor?
+	@IBInspectable public var titleLabelActiveColor: UIColor?
 	
 	/**
 	A property that sets the distance between the textView and
 	titleLabel.
 	*/
-	public var titleLabelAnimationDistance: CGFloat = 8
+	@IBInspectable public var titleLabelAnimationDistance: CGFloat = 8
 	
 	/// Placeholder UILabel view.
 	public var placeholderLabel: UILabel? {
@@ -311,7 +311,7 @@ public class TextView: UITextView {
 	}
 	
 	/// An override to the text property.
-	public override var text: String! {
+	@IBInspectable public override var text: String! {
 		didSet {
 			handleTextViewTextDidChange()
 		}

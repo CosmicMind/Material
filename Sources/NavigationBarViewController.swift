@@ -66,7 +66,7 @@ public protocol NavigationBarViewControllerDelegate : MaterialDelegate {
 @objc(NavigationBarViewController)
 public class NavigationBarViewController: StatusBarViewController {
 	/// The height of the StatusBar.
-	public override var heightForStatusBar: CGFloat {
+	@IBInspectable public override var heightForStatusBar: CGFloat {
 		get {
 			return navigationBarView.heightForStatusBar
 		}
@@ -76,7 +76,7 @@ public class NavigationBarViewController: StatusBarViewController {
 	}
 	
 	/// The height when in Portrait orientation mode.
-	public override var heightForPortraitOrientation: CGFloat {
+	@IBInspectable public override var heightForPortraitOrientation: CGFloat {
 		get {
 			return navigationBarView.heightForPortraitOrientation
 		}
@@ -86,7 +86,7 @@ public class NavigationBarViewController: StatusBarViewController {
 	}
 	
 	/// The height when in Landscape orientation mode.
-	public override var heightForLandscapeOrientation: CGFloat {
+	@IBInspectable public override var heightForLandscapeOrientation: CGFloat {
 		get {
 			return navigationBarView.heightForLandscapeOrientation
 		}

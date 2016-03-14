@@ -68,7 +68,7 @@ public class MaterialCollectionView : UICollectionView {
 	}
 	
 	/// Spacing between items.
-	public var spacing: CGFloat {
+	@IBInspectable public var spacing: CGFloat {
 		get {
 			return (collectionViewLayout as? MaterialCollectionViewLayout)!.spacing
 		}

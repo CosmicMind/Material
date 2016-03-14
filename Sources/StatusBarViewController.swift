@@ -32,19 +32,19 @@ import UIKit
 
 public class StatusBarViewController: UIViewController {
 	/// The height of the StatusBar.
-	public var heightForStatusBar: CGFloat = 20
+	@IBInspectable public var heightForStatusBar: CGFloat = 20
 	
 	/// The height when in Portrait orientation mode.
-	public var heightForPortraitOrientation: CGFloat = 64
+	@IBInspectable public var heightForPortraitOrientation: CGFloat = 64
 	
 	/// The height when in Landscape orientation mode.
-	public var heightForLandscapeOrientation: CGFloat = 44
+	@IBInspectable public var heightForLandscapeOrientation: CGFloat = 44
 	
 	/**
 	A Boolean property used to enable and disable interactivity
 	with the mainViewController.
 	*/
-	public var userInteractionEnabled: Bool {
+	@IBInspectable public var userInteractionEnabled: Bool {
 		get {
 			return mainViewController.view.userInteractionEnabled
 		}

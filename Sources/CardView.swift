@@ -39,7 +39,7 @@ public class CardView : MaterialPulseView {
 	/**
 	:name:	dividerColor
 	*/
-	public var dividerColor: UIColor? {
+	@IBInspectable public var dividerColor: UIColor? {
 		didSet {
 			dividerLayer?.backgroundColor = dividerColor?.CGColor
 		}
@@ -48,7 +48,7 @@ public class CardView : MaterialPulseView {
 	/**
 	:name:	divider
 	*/
-	public var divider: Bool = true {
+	@IBInspectable public var divider: Bool = true {
 		didSet {
 			reloadView()
 		}

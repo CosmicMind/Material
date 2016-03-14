@@ -489,9 +489,9 @@
 		96D88C4D1C1329BB00B91418 /* Animation */ = {
 			isa = PBXGroup;
 			children = (
-				96D88C131C1328D800B91418 /* MaterialTransitionAnimation.swift */,
 				96D88BFF1C1328D800B91418 /* MaterialAnimation.swift */,
 				96D88C001C1328D800B91418 /* MaterialBasicAnimation.swift */,
+				96D88C131C1328D800B91418 /* MaterialTransitionAnimation.swift */,
 				96D88C081C1328D800B91418 /* MaterialKeyframeAnimation.swift */,
 				968F17211C94B10B008CA3F6 /* MaterialPulseAnimation.swift */,
 			);

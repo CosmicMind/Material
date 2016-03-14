@@ -50,7 +50,7 @@ public extension UIViewController {
 
 public class SearchBarViewController: StatusBarViewController {
 	/// The height of the StatusBar.
-	public override var heightForStatusBar: CGFloat {
+	@IBInspectable public override var heightForStatusBar: CGFloat {
 		get {
 			return searchBarView.heightForStatusBar
 		}
@@ -60,7 +60,7 @@ public class SearchBarViewController: StatusBarViewController {
 	}
 	
 	/// The height when in Portrait orientation mode.
-	public override var heightForPortraitOrientation: CGFloat {
+	@IBInspectable public override var heightForPortraitOrientation: CGFloat {
 		get {
 			return searchBarView.heightForPortraitOrientation
 		}
@@ -70,7 +70,7 @@ public class SearchBarViewController: StatusBarViewController {
 	}
 	
 	/// The height when in Landscape orientation mode.
-	public override var heightForLandscapeOrientation: CGFloat {
+	@IBInspectable public override var heightForLandscapeOrientation: CGFloat {
 		get {
 			return searchBarView.heightForLandscapeOrientation
 		}

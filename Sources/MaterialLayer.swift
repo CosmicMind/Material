@@ -44,7 +44,7 @@ public class MaterialLayer : CAShapeLayer {
 	public private(set) lazy var visualLayer: CAShapeLayer = CAShapeLayer()
 
 	/// A property that accesses the layer.frame.origin.x property.
-	public var x: CGFloat {
+	@IBInspectable public var x: CGFloat {
 		get {
 			return frame.origin.x
 		}
@@ -54,7 +54,7 @@ public class MaterialLayer : CAShapeLayer {
 	}
 	
 	/// A property that accesses the layer.frame.origin.y property.
-	public var y: CGFloat {
+	@IBInspectable public var y: CGFloat {
 		get {
 			return frame.origin.y
 		}
@@ -69,7 +69,7 @@ public class MaterialLayer : CAShapeLayer {
 	value that is not .None, the height will be adjusted to maintain the correct
 	shape.
 	*/
-	public var width: CGFloat {
+	@IBInspectable public var width: CGFloat {
 		get {
 			return frame.size.width
 		}
@@ -87,7 +87,7 @@ public class MaterialLayer : CAShapeLayer {
 	value that is not .None, the width will be adjusted to maintain the correct
 	shape.
 	*/
-	public var height: CGFloat {
+	@IBInspectable public var height: CGFloat {
 		get {
 			return frame.size.height
 		}
@@ -104,7 +104,7 @@ public class MaterialLayer : CAShapeLayer {
 	property. Images should not be set to the backing layer's contents
 	property to avoid conflicts when using clipsToBounds.
 	*/
-	public var image: UIImage? {
+	@IBInspectable public var image: UIImage? {
 		didSet {
 			visualLayer.contents = image?.CGImage
 		}
@@ -137,7 +137,7 @@ public class MaterialLayer : CAShapeLayer {
 	dimensions of the visualLayer's contents property and the size
 	of the layer. By default, this value is set to the MaterialDevice.scale.
 	*/
-	public override var contentsScale: CGFloat {
+	@IBInspectable public override var contentsScale: CGFloat {
 		didSet {
 			visualLayer.contentsScale = contentsScale
 		}
@@ -151,7 +151,7 @@ public class MaterialLayer : CAShapeLayer {
 	}
 	
 	/// Determines how content should be aligned within the visualLayer's bounds.
-	public override var contentsGravity: String {
+	@IBInspectable public override var contentsGravity: String {
 		get {
 			return visualLayer.contentsGravity
 		}
@@ -161,7 +161,7 @@ public class MaterialLayer : CAShapeLayer {
 	}
 	
 	/// Enables automatic shadowPath sizing.
-	public var shadowPathAutoSizeEnabled: Bool = true {
+	@IBInspectable public var shadowPathAutoSizeEnabled: Bool = true {
 		didSet {
 			if shadowPathAutoSizeEnabled {
 				layoutShadowPath()
@@ -204,7 +204,7 @@ public class MaterialLayer : CAShapeLayer {
 	property has a value of .Circle when the cornerRadius is set, it will
 	become .None, as it no longer maintains its circle shape.
 	*/
-	public override var cornerRadius: CGFloat {
+	@IBInspectable public override var cornerRadius: CGFloat {
 		didSet {
 			layoutShadowPath()
 			if .Circle == shape {

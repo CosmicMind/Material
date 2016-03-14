@@ -32,13 +32,13 @@ import UIKit
 
 public class StatusBarView : ControlView {
 	/// The height of the StatusBar.
-	public var heightForStatusBar: CGFloat = 20
+	@IBInspectable public var heightForStatusBar: CGFloat = 20
 	
 	/// The height when in Portrait orientation mode.
-	public var heightForPortraitOrientation: CGFloat = 64
+	@IBInspectable public var heightForPortraitOrientation: CGFloat = 64
 	
 	/// The height when in Landscape orientation mode.
-	public var heightForLandscapeOrientation: CGFloat = 44
+	@IBInspectable public var heightForLandscapeOrientation: CGFloat = 44
 	
 	/// Device status bar style.
 	public var statusBarStyle: UIStatusBarStyle {
