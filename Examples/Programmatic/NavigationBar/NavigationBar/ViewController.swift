@@ -35,6 +35,9 @@ class ViewController: UIViewController {
 	/// NavigationBar title label.
 	private var titleLabel: UILabel!
 	
+	/// NavigationBar detail label.
+	private var detailLabel: UILabel!
+	
 	/// NavigationBar menu button.
 	private var menuButton: FlatButton!
 	
@@ -51,6 +54,7 @@ class ViewController: UIViewController {
 		super.viewDidLoad()
 		prepareView()
 		prepareTitleLabel()
+		prepareDetailLabel()
 		prepareMenuButton()
 		prepareSwitchControl()
 		prepareSearchButton()
@@ -73,6 +77,14 @@ class ViewController: UIViewController {
 		titleLabel.text = "Recipes"
 		titleLabel.textAlignment = .Left
 		titleLabel.textColor = MaterialColor.white
+	}
+	
+	/// Prepares the titleLabel.
+	private func prepareDetailLabel() {
+		detailLabel = UILabel()
+		detailLabel.text = "8 Items"
+		detailLabel.textAlignment = .Left
+		detailLabel.textColor = MaterialColor.white
 	}
 	
 	/// Prepares the menuButton.
@@ -111,6 +123,7 @@ class ViewController: UIViewController {
 		
 		let item: UINavigationItem = UINavigationItem()
 		item.titleLabel = titleLabel
+		item.detailLabel = detailLabel
 		item.leftControls = [menuButton]
 		item.rightControls = [switchControl, searchButton]
 		navigationBar.pushNavigationItem(item, animated: true)

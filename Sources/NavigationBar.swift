@@ -254,7 +254,44 @@ public class NavigationBar : UINavigationBar {
 	
 	public override func layoutSubviews() {
 		super.layoutSubviews()
-		topItem?.titleView?.backgroundColor = MaterialColor.green.base
+		
+		let h: CGFloat = intrinsicContentSize().height
+		let w: CGFloat = backButton.intrinsicContentSize().width
+		
+		if let v: Array<UIControl> = topItem?.leftControls {
+			for c in v {
+				c.bounds.size = c is MaterialSwitch ? CGSizeMake(w, h - contentInset.top - contentInset.bottom) : CGSizeMake(c.intrinsicContentSize().width, h - contentInset.top - contentInset.bottom)
+			}
+		}
+		
+		if let t: UILabel = topItem?.titleLabel {
+			t.grid.rows = 1
+			topItem?.titleView?.grid.views = [t]
+			
+			if 32 >= height || nil == topItem?.detailLabel {
+				t.font = t.font.fontWithSize(20)
+				
+				topItem?.titleView?.grid.axis.rows = 1
+				topItem?.detailLabel?.hidden = true
+			} else if let d: UILabel = topItem?.detailLabel {
+				d.grid.rows = 1
+				d.hidden = false
+				d.font = d.font.fontWithSize(12)
+
+				t.font = t.font.fontWithSize(17)
+				
+				topItem?.titleView?.grid.axis.rows = 2
+				topItem?.titleView?.grid.views?.append(d)
+			}
+		}
+		
+		if let v: Array<UIControl> = topItem?.rightControls {
+			for c in v {
+				c.bounds.size = c is MaterialSwitch ? CGSizeMake(w, h - contentInset.top - contentInset.bottom) : CGSizeMake(c.intrinsicContentSize().width, h - contentInset.top - contentInset.bottom)
+			}
+		}
+		
+		topItem?.titleView?.grid.reloadLayout()
 	}
 	
 	public override func pushNavigationItem(item: UINavigationItem, animated: Bool) {
@@ -293,10 +330,11 @@ public class NavigationBar : UINavigationBar {
 			item.leftBarButtonItems = n.reverse()
 		}
 		
-		// If title is empty
-		if "" == item.title {
+		// Set the titleView if title is empty.
+		if nil == item.title {
 			if nil == item.titleView {
 				item.titleView = UIView(frame: CGRectMake(0, contentInset.top, MaterialDevice.width, h - contentInset.top - contentInset.bottom))
+				item.titleView!.autoresizingMask = .FlexibleWidth
 				item.titleView!.grid.axis.direction = .Vertical
 			}
 			
@@ -309,12 +347,7 @@ public class NavigationBar : UINavigationBar {
 				item.titleView!.addSubview(t)
 				item.titleView!.grid.views?.append(t)
 				
-				if 32 >= height || nil == item.detailLabel {
-					t.font = t.font?.fontWithSize(17)
-					
-					item.titleView!.grid.axis.rows = 1
-					item.detailLabel?.hidden = true
-				} else if let d: UILabel = item.detailLabel {
+				if let d: UILabel = item.detailLabel {
 					d.grid.rows = 1
 					d.hidden = false
 					d.font = d.font.fontWithSize(12)
@@ -324,6 +357,11 @@ public class NavigationBar : UINavigationBar {
 					item.titleView!.addSubview(d)
 					item.titleView!.grid.axis.rows = 2
 					item.titleView!.grid.views?.append(d)
+				} else {
+					t.font = t.font?.fontWithSize(20)
+					
+					item.titleView!.grid.axis.rows = 1
+					item.detailLabel?.hidden = true
 				}
 			} else if let d: UIView = item.detailView {
 				d.grid.rows = 1
@@ -382,8 +420,8 @@ public class NavigationBar : UINavigationBar {
 	
 	/// Prepares the UINavigationItem for layout and sizing.
 	internal func prepareItem(item: UINavigationItem) {
-		if nil == item.title {
-			item.title = ""
+		if "" == item.title {
+			item.title = nil
 		}
 	}
 }

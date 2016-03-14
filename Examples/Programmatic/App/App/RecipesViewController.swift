@@ -165,7 +165,7 @@ class RecipesViewController: UIViewController {
 	private func prepareTitleLabel() {
 		titleLabel = UILabel()
 		titleLabel.text = "Recipes"
-		titleLabel.textAlignment = .Center
+		titleLabel.textAlignment = .Left
 		titleLabel.textColor = MaterialColor.white
 	}
 	
@@ -198,10 +198,9 @@ class RecipesViewController: UIViewController {
 	
 	/// Prepares the NavigationBar.
 	private func prepareNavigationBar() {
-//		navigationItem.title = "Recipes"
 		navigationItem.titleLabel = titleLabel
-//		navigationItem.leftControls = [menuButton]
-//		navigationItem.rightControls = [switchControl, searchButton]
+		navigationItem.leftControls = [menuButton]
+		navigationItem.rightControls = [switchControl, searchButton]
 	}
 	
 	/// Prepares the tableView.
