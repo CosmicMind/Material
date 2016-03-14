@@ -30,7 +30,8 @@
 
 import UIKit
 
-public class StatusBarViewController: UIViewController {
+@IBDesignable
+public class StatusBarViewController : UIViewController {
 	/// The height of the StatusBar.
 	@IBInspectable public var heightForStatusBar: CGFloat = 20
 	

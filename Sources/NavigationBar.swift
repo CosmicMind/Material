@@ -42,6 +42,7 @@ public extension UINavigationBar {
 	}
 }
 
+@IBDesignable
 public class NavigationBar : UINavigationBar {
 	/// Reference to the backButton.
 	public private(set) lazy var backButton: FlatButton = FlatButton()
@@ -253,12 +254,7 @@ public class NavigationBar : UINavigationBar {
 	
 	public override func layoutSubviews() {
 		super.layoutSubviews()
-		
-		if let item: UINavigationItem = topItem {
-			layoutNavigationItem(item)
-		}
-		
-		topItem?.titleView?.grid.reloadLayout()
+		topItem?.titleView?.backgroundColor = MaterialColor.green.base
 	}
 	
 	public override func pushNavigationItem(item: UINavigationItem, animated: Bool) {
@@ -297,41 +293,45 @@ public class NavigationBar : UINavigationBar {
 			item.leftBarButtonItems = n.reverse()
 		}
 		
-		if nil == item.titleView {
-			item.titleView = UIView()
-			item.titleView!.backgroundColor = nil
-			item.titleView!.grid.axis.direction = .Vertical
-		}
-		
-		item.titleView!.frame = CGRectMake(0, contentInset.top, MaterialDevice.width < MaterialDevice.height ? MaterialDevice.height : MaterialDevice.width, h - contentInset.top - contentInset.bottom)
-		item.titleView!.grid.views = []
-		
-		// TitleView alignment.
-		if let t: UILabel = item.titleLabel {
-			t.grid.rows = 1
+		// If title is empty
+		if "" == item.title {
+			if nil == item.titleView {
+				item.titleView = UIView(frame: CGRectMake(0, contentInset.top, MaterialDevice.width, h - contentInset.top - contentInset.bottom))
+				item.titleView!.grid.axis.direction = .Vertical
+			}
 			
-			item.titleView!.addSubview(t)
-			item.titleView!.grid.views?.append(t)
+			item.titleView!.grid.views = []
 			
-			if 32 >= height || nil == item.detailLabel {
-				t.font = t.font?.fontWithSize(20)
-				item.titleView!.grid.axis.rows = 1
-				item.detailLabel?.hidden = true
-			} else if let d: UILabel = item.detailLabel {
+			// TitleView alignment.
+			if let t: UILabel = item.titleLabel {
+				t.grid.rows = 1
+				
+				item.titleView!.addSubview(t)
+				item.titleView!.grid.views?.append(t)
+				
+				if 32 >= height || nil == item.detailLabel {
+					t.font = t.font?.fontWithSize(17)
+					
+					item.titleView!.grid.axis.rows = 1
+					item.detailLabel?.hidden = true
+				} else if let d: UILabel = item.detailLabel {
+					d.grid.rows = 1
+					d.hidden = false
+					d.font = d.font.fontWithSize(12)
+					
+					t.font = t.font.fontWithSize(17)
+					
+					item.titleView!.addSubview(d)
+					item.titleView!.grid.axis.rows = 2
+					item.titleView!.grid.views?.append(d)
+				}
+			} else if let d: UIView = item.detailView {
 				d.grid.rows = 1
-				d.hidden = false
-				d.font = d.font.fontWithSize(12)
-				t.font = t.font.fontWithSize(17)
+				
 				item.titleView!.addSubview(d)
-				item.titleView!.grid.axis.rows = 2
+				item.titleView!.grid.axis.rows = 1
 				item.titleView!.grid.views?.append(d)
 			}
-		} else if let d: UIView = item.detailView {
-			d.grid.rows = 1
-			
-			item.titleView!.addSubview(d)
-			item.titleView!.grid.axis.rows = 1
-			item.titleView!.grid.views?.append(d)
 		}
 		
 		// rightControls
@@ -353,8 +353,6 @@ public class NavigationBar : UINavigationBar {
 			
 			item.rightBarButtonItems = n.reverse()
 		}
-		
-		item.titleView!.grid.reloadLayout()
 	}
 	
 	/**
@@ -384,7 +382,9 @@ public class NavigationBar : UINavigationBar {
 	
 	/// Prepares the UINavigationItem for layout and sizing.
 	internal func prepareItem(item: UINavigationItem) {
-		item.title = ""
+		if nil == item.title {
+			item.title = ""
+		}
 	}
 }
 

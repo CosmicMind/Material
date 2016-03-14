@@ -48,7 +48,8 @@ public extension UIViewController {
 	}
 }
 
-public class MenuViewController: UIViewController {
+@IBDesignable
+public class MenuViewController : UIViewController {
 	/// Reference to the MenuView.
 	public private(set) lazy var menuView: MenuView = MenuView()
 	

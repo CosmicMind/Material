@@ -30,6 +30,7 @@
 
 import UIKit
 
+@IBDesignable
 @objc(MaterialView)
 public class MaterialView : UIView {
 	/**

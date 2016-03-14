@@ -30,6 +30,7 @@
 
 import UIKit
 
+@IBDesignable
 public class NavigationController : UINavigationController, UIGestureRecognizerDelegate {
 	/**
 	An initializer that initializes the object with a NSCoder object.
@@ -75,6 +76,14 @@ public class NavigationController : UINavigationController, UIGestureRecognizerD
 					p.requireGestureRecognizerToFail(v)
 				}
 			}
+		}
+	}
+	
+	public override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		// Load the initial topItem.
+		if let v: UINavigationItem = navigationBar.topItem {
+			(navigationBar as? NavigationBar)?.layoutNavigationItem(v)
 		}
 	}
 	

@@ -12,8 +12,6 @@
 		96212DCB1C1696D000F31053 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96212DC31C1696D000F31053 /* LaunchScreen.storyboard */; };
 		96212DCC1C1696D000F31053 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96212DC51C1696D000F31053 /* Main.storyboard */; };
 		96212DCE1C1696D000F31053 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96212DC81C1696D000F31053 /* ViewController.swift */; };
-		963236151C96578E00282A94 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963236141C96578E00282A94 /* Material.framework */; };
-		963236161C96578E00282A94 /* Material.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 963236141C96578E00282A94 /* Material.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,7 +21,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				963236161C96578E00282A94 /* Material.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -37,7 +34,6 @@
 		96212DC61C1696D000F31053 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		96212DC71C1696D000F31053 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96212DC81C1696D000F31053 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		963236141C96578E00282A94 /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = Material.framework; path = "/Users/danieldahan/Library/Developer/Xcode/DerivedData/Material-hbpnflxhoouqxebjcyhbbhqyesjd/Build/Products/Debug-iphoneos/Material.framework"; sourceTree = "<absolute>"; };
 		9ABEC4EF1C14F08200F6895E /* MaterialPulseView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MaterialPulseView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -46,7 +42,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				963236151C96578E00282A94 /* Material.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,7 +64,6 @@
 		9ABEC4E61C14F08200F6895E = {
 			isa = PBXGroup;
 			children = (
-				963236141C96578E00282A94 /* Material.framework */,
 				96212DC01C1696D000F31053 /* MaterialPulseView */,
 				9ABEC4F01C14F08200F6895E /* Products */,
 			);

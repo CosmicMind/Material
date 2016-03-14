@@ -111,8 +111,9 @@ public protocol SideNavigationViewControllerDelegate {
 	optional func sideNavigationStatusBarHiddenState(sideNavigationViewController: SideNavigationViewController, hidden: Bool)
 }
 
+@IBDesignable
 @objc(SideNavigationViewController)
-public class SideNavigationViewController: UIViewController, UIGestureRecognizerDelegate {
+public class SideNavigationViewController : UIViewController, UIGestureRecognizerDelegate {
 	/**
 	A CGFloat property that is used internally to track
 	the original (x) position of the container view when panning.
@@ -375,7 +376,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 							v.shadowPathAutoSizeEnabled = true
 							self.layoutSubviews()
 							self.hideView(v)
-					}
+						}
 				} else {
 					UIView.animateWithDuration(duration,
 						animations: { [unowned self] in
@@ -386,7 +387,7 @@ public class SideNavigationViewController: UIViewController, UIGestureRecognizer
 							v.shadowPathAutoSizeEnabled = true
 							self.layoutSubviews()
 							self.showView(v)
-					}
+						}
 				}
 			} else {
 				v.bounds.size.width = width

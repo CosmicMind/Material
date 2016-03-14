@@ -30,6 +30,7 @@
 
 import UIKit
 
+@IBDesignable
 public class MaterialLabel : UILabel {
 	/**
 	:name:	layerClass

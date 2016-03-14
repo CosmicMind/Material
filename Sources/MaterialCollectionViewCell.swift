@@ -30,6 +30,7 @@
 
 import UIKit
 
+@IBDesignable
 @objc(MaterialCollectionViewCell)
 public class MaterialCollectionViewCell : UICollectionViewCell {
 	/**

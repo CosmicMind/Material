@@ -64,7 +64,7 @@ public protocol NavigationBarViewControllerDelegate : MaterialDelegate {
 }
 
 @objc(NavigationBarViewController)
-public class NavigationBarViewController: StatusBarViewController {
+public class NavigationBarViewController : StatusBarViewController {
 	/// The height of the StatusBar.
 	@IBInspectable public override var heightForStatusBar: CGFloat {
 		get {

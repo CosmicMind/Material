@@ -32,6 +32,7 @@ import UIKit
 
 public protocol TextFieldDelegate : UITextFieldDelegate {}
 
+@IBDesignable
 public class TextField : UITextField {
 	/**
 	This property is the same as clipsToBounds. It crops any of the view's

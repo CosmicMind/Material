@@ -30,6 +30,7 @@
 
 import UIKit
 
+@IBDesignable
 @objc(MaterialButton)
 public class MaterialButton : UIButton {
 	/**

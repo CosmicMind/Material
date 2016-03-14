@@ -87,7 +87,7 @@ class ItemViewController: UIViewController {
 	/// Prepares the titleLabel.
 	private func prepareTitleLabel() {
 		titleLabel = UILabel()
-		titleLabel.text = "Recipe"
+		titleLabel.text = "Item"
 		titleLabel.textAlignment = .Left
 		titleLabel.textColor = MaterialColor.white
 	}

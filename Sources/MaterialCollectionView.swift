@@ -30,6 +30,7 @@
 
 import UIKit
 
+@IBDesignable
 public class MaterialCollectionView : UICollectionView {
 	/// A preset wrapper around contentInset.
 	public var contentInsetPreset: MaterialEdgeInset {

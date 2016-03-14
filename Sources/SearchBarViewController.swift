@@ -48,7 +48,7 @@ public extension UIViewController {
 	}
 }
 
-public class SearchBarViewController: StatusBarViewController {
+public class SearchBarViewController : StatusBarViewController {
 	/// The height of the StatusBar.
 	@IBInspectable public override var heightForStatusBar: CGFloat {
 		get {

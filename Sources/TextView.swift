@@ -33,6 +33,7 @@ import UIKit
 @objc(TextViewDelegate)
 public protocol TextViewDelegate : UITextViewDelegate {}
 
+@IBDesignable
 @objc(TextView)
 public class TextView: UITextView {
 	/**

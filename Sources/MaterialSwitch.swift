@@ -54,7 +54,8 @@ public protocol MaterialSwitchDelegate {
 	func materialSwitchStateChanged(control: MaterialSwitch)
 }
 
-public class MaterialSwitch: UIControl {
+@IBDesignable
+public class MaterialSwitch : UIControl {
 	/// An internal reference to the switchState public property.
 	private var internalSwitchState: MaterialSwitchState = .Off
 	
