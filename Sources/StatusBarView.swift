@@ -71,19 +71,18 @@ public class StatusBarView : ControlView {
 			width = MaterialDevice.width
 		}
 		
-		grid.axis.columns = Int(width / 48)
-		
-		// We can call super now that we have a width.
-		super.layoutSubviews()
+		grid.axis.columns = Int(width / 56)
 		
 		// General alignment.
 		if .iPhone == MaterialDevice.type && MaterialDevice.landscape {
-			grid.contentInset.top = 8
+			contentInset.top = 0
 			height = heightForLandscapeOrientation
 		} else {
-			grid.contentInset.top = heightForStatusBar + 8
+			contentInset.top = heightForStatusBar
 			height = heightForPortraitOrientation
 		}
+		// We can call super now that we have a width.
+		super.layoutSubviews()
 	}
 	
 	public override func intrinsicContentSize() -> CGSize {
