@@ -92,8 +92,9 @@ class AppMenuViewController: MenuViewController {
 	
 	/// Prepares the add button.
 	private func prepareMenuView() {
-		var image: UIImage? = UIImage(named: "ic_add_white")
+		var image: UIImage? = MaterialIcon.add
 		let menuButton: FabButton = FabButton()
+		menuButton.tintColor = MaterialColor.white
 		menuButton.setImage(image, forState: .Normal)
 		menuButton.setImage(image, forState: .Highlighted)
 		menuButton.addTarget(self, action: "handleMenu", forControlEvents: .TouchUpInside)

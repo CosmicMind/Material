@@ -84,7 +84,7 @@ class RecipesViewController: UIViewController {
 		// Hide the menuView.
 		menuViewController?.menuView.animate(MaterialAnimation.animationGroup([
 			MaterialAnimation.rotate(rotation: 3),
-			MaterialAnimation.translateY(100)
+			MaterialAnimation.translateY(150)
 		]))
 	}
 	
@@ -96,10 +96,13 @@ class RecipesViewController: UIViewController {
 	/// Handles the searchButton.
 	internal func handleSearchButton() {
 		var recommended: Array<MaterialDataSourceItem> = Array<MaterialDataSourceItem>()
-		recommended.append(dataSourceItems[0])
 		recommended.append(dataSourceItems[1])
-		recommended.append(dataSourceItems[2])
-		navigationController?.presentViewController(AppSearchBarController(mainViewController: RecommendationViewController(dataSourceItems: recommended)), animated: true, completion: nil)
+		recommended.append(dataSourceItems[3])
+		recommended.append(dataSourceItems[5])
+		
+		let vc: AppSearchBarController = AppSearchBarController(mainViewController: RecommendationViewController(dataSourceItems: recommended))
+		vc.modalTransitionStyle = .CrossDissolve
+		navigationController?.presentViewController(vc, animated: true, completion: nil)
 	}
 	
 	/// Prepares the items Array.

@@ -97,6 +97,7 @@ class AppToolbarController: ToolbarController {
 		let menuButton: FlatButton = FlatButton()
 		menuButton.pulseColor = nil
 		menuButton.pulseScale = false
+		menuButton.tintColor = MaterialColor.white
 		menuButton.setImage(image, forState: .Normal)
 		menuButton.setImage(image, forState: .Highlighted)
 		menuButton.addTarget(self, action: "handleMenuButton", forControlEvents: .TouchUpInside)
@@ -106,10 +107,11 @@ class AppToolbarController: ToolbarController {
 		switchControl.delegate = self
 		
 		// Search button.
-		image = UIImage(named: "ic_search_white")
+		image = MaterialIcon.search
 		let searchButton: FlatButton = FlatButton()
 		searchButton.pulseColor = nil
 		searchButton.pulseScale = false
+		searchButton.tintColor = MaterialColor.white
 		searchButton.setImage(image, forState: .Normal)
 		searchButton.setImage(image, forState: .Highlighted)
 		searchButton.addTarget(self, action: "handleSearchButton", forControlEvents: .TouchUpInside)

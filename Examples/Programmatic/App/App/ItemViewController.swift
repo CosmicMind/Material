@@ -147,14 +147,9 @@ class ItemViewController: UIViewController {
 			imageCardView.detailView = detailLabel
 			imageCardView.detailViewInset.top = 52
 			
-			// Asynchronously the load image.
-			dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) { [weak self] in
-				if let v: CGFloat = self?.view.bounds.width {
-					let image: UIImage? = UIImage(named: data["image"] as! String)?.resize(toWidth: v)?.crop(toWidth: v, toHeight: height)
-					dispatch_sync(dispatch_get_main_queue()) { [weak self] in
-						self?.imageCardView.image = image
-					}
-				}
+			if let v: CGFloat = view.bounds.width {
+				let image: UIImage? = UIImage(named: data["image"] as! String)?.resize(toWidth: v)?.crop(toWidth: v, toHeight: height)
+				imageCardView.image = image
 			}
 
 			view.addSubview(imageCardView)

@@ -45,12 +45,14 @@ class AppSearchBarController: SearchBarController {
 	
 	override func viewWillDisappear(animated: Bool) {
 		super.viewWillDisappear(animated)
+		searchBar.textField.resignFirstResponder()
 		sideNavigationController?.enabled = true
 	}
 	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 		searchBar.statusBarStyle = .Default
+		searchBar.textField.becomeFirstResponder()
 		sideNavigationController?.delegate = self
 		sideNavigationController?.enabled = false
 	}
@@ -87,7 +89,7 @@ class AppSearchBarController: SearchBarController {
 		clearButton.setImage(image, forState: .Highlighted)
 		
 		// Back button.
-		image = MaterialIcon.arrowDownward
+		image = MaterialIcon.arrowBack
 		let backButton: FlatButton = FlatButton()
 		backButton.pulseScale = false
 		backButton.pulseColor = MaterialColor.grey.darken4

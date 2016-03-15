@@ -305,12 +305,6 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 		layoutSubviews()
 	}
 	
-	public override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
-		if let v: MaterialView = rightView {
-			v.x = view.bounds.height - (openedRightView ? rightViewWidth : 0)
-		}
-	}
-	
 	/**
 	A method to swap mainViewController objects.
 	- Parameter toViewController: The UIViewController to swap 
@@ -557,7 +551,7 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 					animations: {
 						v.position.x = -v.width / 2
 					}) { [unowned self] _ in
-						self.toggleStatusBar()
+						self.toggleStatusBar(MaterialDevice.landscape && .iPhone == MaterialDevice.type)
 						self.hideView(v)
 						self.delegate?.sideNavigationDidClose?(self, position: .Left)
 					}
@@ -580,7 +574,7 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 					animations: { [unowned self] in
 						v.position.x = self.view.bounds.width + v.width / 2
 					}) { [unowned self] _ in
-						self.toggleStatusBar()
+						self.toggleStatusBar(MaterialDevice.landscape && .iPhone == MaterialDevice.type)
 						self.hideView(v)
 						self.delegate?.sideNavigationDidClose?(self, position: .Right)
 					}
@@ -833,20 +827,20 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	the status bar.
 	*/
 	private func toggleStatusBar(hide: Bool = false) {
-		if hideStatusBar {
-			userInteractionEnabled = false
-			let hidden: Bool = .iPhone == MaterialDevice.type && MaterialDevice.landscape || opened ? true : hide
-			UIView.animateWithDuration(NSTimeInterval(UINavigationControllerHideShowBarDuration),
-				animations: { [weak self] in
-					self?.setNeedsStatusBarAppearanceUpdate()
-					MaterialDevice.statusBarHidden = hidden
-				}) { [weak self] _ in
-					if false == self?.opened {
-						self?.userInteractionEnabled = true
-					}
-				}
-			delegate?.sideNavigationStatusBarHiddenState?(self, hidden: hidden)
-		}
+//		if hideStatusBar {
+//			userInteractionEnabled = false
+//			let hidden: Bool = opened ? true : hide
+//			UIView.animateWithDuration(NSTimeInterval(UINavigationControllerHideShowBarDuration),
+//				animations: { [weak self] in
+//					self?.setNeedsStatusBarAppearanceUpdate()
+//					MaterialDevice.statusBarHidden = hidden
+//				}) { [weak self] _ in
+//					if false == self?.opened {
+//						self?.userInteractionEnabled = true
+//					}
+//				}
+//			delegate?.sideNavigationStatusBarHiddenState?(self, hidden: hidden)
+//		}
 	}
 	
 	public override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
@@ -915,8 +909,8 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	
 	/// Layout subviews.
 	private func layoutSubviews() {
-		toggleStatusBar()
-			
+		toggleStatusBar(MaterialDevice.landscape && .iPhone == MaterialDevice.type)
+		
 		if let v: MaterialView = leftView {
 			v.width = leftViewWidth
 			v.height = view.bounds.height

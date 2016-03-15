@@ -74,6 +74,7 @@ class ViewController: UIViewController {
 		let menuButton: FlatButton = FlatButton()
 		menuButton.pulseScale = false
 		menuButton.pulseColor = MaterialColor.white
+		menuButton.tintColor = MaterialColor.white
 		menuButton.setImage(image, forState: .Normal)
 		menuButton.setImage(image, forState: .Highlighted)
 
@@ -81,10 +82,11 @@ class ViewController: UIViewController {
 		let switchControl: MaterialSwitch = MaterialSwitch(state: .Off, style: .LightContent, size: .Small)
 
 		// Search button.
-		image = UIImage(named: "ic_search_white")
+		image = MaterialIcon.search
 		let searchButton: FlatButton = FlatButton()
 		searchButton.pulseScale = false
 		searchButton.pulseColor = MaterialColor.white
+		searchButton.tintColor = MaterialColor.white
 		searchButton.setImage(image, forState: .Normal)
 		searchButton.setImage(image, forState: .Highlighted)
 		
@@ -94,7 +96,6 @@ class ViewController: UIViewController {
 		to your info.plist file and set the following property.
 		*/
 		toolbar.statusBarStyle = .LightContent
-
 		toolbar.backgroundColor = MaterialColor.blue.base
 		toolbar.titleLabel = titleLabel
 		toolbar.detailLabel = detailLabel

@@ -35,7 +35,9 @@ private var NavigationItemKey: UInt8 = 0
 
 public class NavigationItem {
 	/// Inset.
-	public var inset: CGFloat = -20
+	public var portraitInset: CGFloat
+	
+	public var landscapeInset: CGFloat
 	
 	/// Detail View.
 	public var detailView: UIView?
@@ -51,6 +53,11 @@ public class NavigationItem {
 	
 	/// Right controls.
 	public var rightControls: Array<UIControl>?
+	
+	public init(portraitInset: CGFloat, landscapeInset: CGFloat) {
+		self.portraitInset = portraitInset
+		self.landscapeInset = landscapeInset
+	}
 }
 
 public extension UINavigationItem {
@@ -58,7 +65,7 @@ public extension UINavigationItem {
 	public internal(set) var item: NavigationItem {
 		get {
 			return MaterialAssociatedObject(self, key: &NavigationItemKey) {
-				return NavigationItem()
+				return NavigationItem(portraitInset: .iPad == MaterialDevice.type || "iPhone 6s Plus" == MaterialDevice.model || "iPhone 6 Plus" == MaterialDevice.model ? -20 : -16, landscapeInset: -20)
 			}
 		}
 		set(value) {
@@ -66,13 +73,23 @@ public extension UINavigationItem {
 		}
 	}
 	
-	/// Inset.
-	public var inset: CGFloat {
+	/// Portrait inset.
+	public var portraitInset: CGFloat {
 		get {
-			return item.inset
+			return item.portraitInset
 		}
 		set(value) {
-			item.inset = value
+			item.portraitInset = value
+		}
+	}
+	
+	/// Landscape inset.
+	public var landscapeInset: CGFloat {
+		get {
+			return item.landscapeInset
+		}
+		set(value) {
+			item.landscapeInset = value
 		}
 	}
 	
