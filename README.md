@@ -103,12 +103,12 @@ Material is a growing project and will encounter changes throughout its developm
 * [MenuView](#menuview)
 * [MenuViewController](#menuviewcontroller)
 * NavigationBar
-* [NavigationBarView](#navigationbarview)
+* [Toolbar](#toolbar)
 * NavigationController
-* [NavigationBarViewController](#navigationbarviewcontroller)
-* [SearchBarView](#searchbarview)
-* [SearchBarViewController](#searchbarviewcontroller)
-* [SideNavigationViewController](#sidenavigationviewcontroller)
+* [ToolbarController](#toolbarcontroller)
+* [SearchBar](#searchbarview)
+* [SearchBarController](#searchbarviewcontroller)
+* [SideNavigationController](#sidenavigationviewcontroller)
 
 #### Photo / Video Camera
 
@@ -306,44 +306,44 @@ A MenuViewController manages UIViewControllers using a MenuView component.
 
 ![MaterialMenuViewController](http://www.cosmicmind.io/MK/MaterialMenuViewController.gif)
 
-<a name="navigationbarview"></a>
-#### NavigationBarView
+<a name="toolbar"></a>
+#### Toolbar
 
-A NavigationBarView is a fully featured navigation bar that supports orientation changes, background images, title and detail labels, both left and right UIControl sets, and status bar settings.
+A Toolbar is a fully featured navigation bar that supports orientation changes, background images, title and detail labels, both left and right UIControl sets, and status bar settings.
 
-![MaterialNavigationBarView](http://www.cosmicmind.io/MK/MaterialNavigationBarView.gif)
+![MaterialToolbar](http://www.cosmicmind.io/MK/MaterialToolbar.gif)
 
-[Learn More About NavigationBarView](https://github.com/CosmicMind/Material/wiki/NavigationBarView)
+[Learn More About Toolbar](https://github.com/CosmicMind/Material/wiki/Toolbar)
 
-<a href="#navigationbarviewcontroller"></a>
-#### NavigationBarViewController
+<a href="#toolbarcontroller"></a>
+#### ToolbarController
 
-A NavigationBarViewController manages UIViewControllers using a NavigationBar component.
+A ToolbarController manages UIViewControllers using a NavigationBar component.
 
-![MaterialNavigationBarViewController](http://www.cosmicmind.io/MK/MaterialNavigationBarViewController.gif)
+![MaterialToolbarController](http://www.cosmicmind.io/MK/MaterialToolbarController.gif)
 
 <a name="searchbarview"></a>
-#### SearchBarView
+#### SearchBar
 
-A SearchBarView is a fully featured search bar that supports orientation changes, background images, title and detail labels, both left and right UIControl sets, and status bar settings.
+A SearchBar is a fully featured search bar that supports orientation changes, background images, title and detail labels, both left and right UIControl sets, and status bar settings.
 
-![MaterialSearchBarView](http://www.cosmicmind.io/MK/MaterialSearchBarView.gif)
+![MaterialSearchBar](http://www.cosmicmind.io/MK/MaterialSearchBar.gif)
 
-[Learn More About SearchBarView](https://github.com/CosmicMind/Material/wiki/SearchBarView)
+[Learn More About SearchBar](https://github.com/CosmicMind/Material/wiki/SearchBar)
 
 <a href="#searchbarviewcontroller"></a>
-#### SearchBarViewController
+#### SearchBarController
 
-A SearchBarViewController manages UIViewControllers using a SearchBarView component.
+A SearchBarController manages UIViewControllers using a SearchBar component.
 
-![MaterialSearchBarViewController](http://www.cosmicmind.io/MK/MaterialSearchBarViewController.gif)
+![MaterialSearchBarController](http://www.cosmicmind.io/MK/MaterialSearchBarController.gif)
 
 <a href="#sidenavigationviewcontroller"></a>
-#### SideNavigationViewController
+#### SideNavigationController
 
-A SideNavigationViewController manages UIViewControllers that are available as hidden drawers on the left and right of the view port.
+A SideNavigationController manages UIViewControllers that are available as hidden drawers on the left and right of the view port.
 
-![MaterialSideNavigationViewController](http://www.cosmicmind.io/MK/MaterialSideNavigationViewController.gif)
+![MaterialSideNavigationController](http://www.cosmicmind.io/MK/MaterialSideNavigationController.gif)
 
 <a name="captureview"></a>
 #### CaptureView
