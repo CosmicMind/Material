@@ -94,7 +94,7 @@ class ViewController: UIViewController {
         toolbar.detailLabel = detailLabel
 		
         // Menu button.
-        let img1: UIImage? = UIImage(named: "ic_menu_white")
+        let img1: UIImage? = MaterialIcon.menu
         let btn1: FlatButton = FlatButton()
         btn1.pulseScale = false
         btn1.setImage(img1, forState: .Normal)

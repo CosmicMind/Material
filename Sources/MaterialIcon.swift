@@ -37,6 +37,8 @@ public struct MaterialIcon {
 	public static let clear: UIImage? = UIImage(named: "ic_close_white", inBundle: NSBundle(identifier: "io.cosmicmind.Material"), compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate)
 	public static let close: UIImage? = UIImage(named: "ic_close_white", inBundle: NSBundle(identifier: "io.cosmicmind.Material"), compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate)
 	public static let menu: UIImage? = UIImage(named: "ic_menu_white", inBundle: NSBundle(identifier: "io.cosmicmind.Material"), compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate)
+	public static let moreHorizontal: UIImage? = UIImage(named: "ic_more_horiz_white", inBundle: NSBundle(identifier: "io.cosmicmind.Material"), compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate)
+	public static let moreVertical: UIImage? = UIImage(named: "ic_more_vert_white", inBundle: NSBundle(identifier: "io.cosmicmind.Material"), compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate)
 	public static let search: UIImage? = UIImage(named: "ic_search_white", inBundle: NSBundle(identifier: "io.cosmicmind.Material"), compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate)
 	public static let share: UIImage? = UIImage(named: "ic_share_white", inBundle: NSBundle(identifier: "io.cosmicmind.Material"), compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate)
 }

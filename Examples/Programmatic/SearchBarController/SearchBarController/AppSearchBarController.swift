@@ -76,10 +76,10 @@ class AppSearchBarController: SearchBarController {
 	
 	/// Prepares the searchBar.
 	private func prepareSearchBar() {
-		var image = UIImage(named: "ic_close_white")?.imageWithRenderingMode(.AlwaysTemplate)
+		var image: UIImage? = MaterialIcon.close
 		
 		let clearButton: FlatButton = FlatButton()
-		clearButton.pulseColor = nil
+//		clearButton.pulseColor = nil
 		clearButton.pulseScale = false
 		clearButton.tintColor = MaterialColor.blueGrey.darken4
 		clearButton.setImage(image, forState: .Normal)
@@ -87,9 +87,9 @@ class AppSearchBarController: SearchBarController {
 		clearButton.addTarget(self, action: "handleYellowButton", forControlEvents: .TouchUpInside)
 		
 		// Back button.
-		image = UIImage(named: "ic_arrow_back_white")?.imageWithRenderingMode(.AlwaysTemplate)
+		image = MaterialIcon.arrowBack
 		let backButton: FlatButton = FlatButton()
-		backButton.pulseColor = nil
+//		backButton.pulseColor = nil
 		backButton.pulseScale = false
 		backButton.tintColor = MaterialColor.blueGrey.darken4
 		backButton.setImage(image, forState: .Normal)
@@ -97,9 +97,9 @@ class AppSearchBarController: SearchBarController {
 		backButton.addTarget(self, action: "handleBlueButton", forControlEvents: .TouchUpInside)
 		
 		// More button.
-		image = UIImage(named: "ic_more_horiz_white")?.imageWithRenderingMode(.AlwaysTemplate)
+		image = MaterialIcon.moreHorizontal
 		let moreButton: FlatButton = FlatButton()
-		moreButton.pulseColor = nil
+//		moreButton.pulseColor = nil
 		moreButton.pulseScale = false
 		moreButton.tintColor = MaterialColor.blueGrey.darken4
 		moreButton.setImage(image, forState: .Normal)

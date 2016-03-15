@@ -80,12 +80,12 @@ class ViewController: UIViewController {
 		
 		if fabMenu.opened {
 			fabMenu.close()
-			image = UIImage(named: "ic_add_white")
+			image = MaterialIcon.add
 		} else {
 			fabMenu.open() { (v: UIView) in
 				(v as? MaterialButton)?.pulse()
 			}
-			image = UIImage(named: "ic_close_white")
+			image = MaterialIcon.close
 		}
 		
 		// Add a nice rotation animation to the base button.

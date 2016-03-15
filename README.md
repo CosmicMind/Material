@@ -12,7 +12,7 @@ Express your creativity with Material, an animation and graphics framework for G
 - [x] Grid System For Complex UIs
 - [x] Layout Library To Simplify AutoLayout
 - [x] Base Material Layers & Material Views To Create New UI Components
-- [x] Navigation Controllers
+- [x] Navigation Controls
 - [x] Material Buttons
 - [x] Material Switch
 - [x] Material Card Views
@@ -91,6 +91,7 @@ Material is a growing project and will encounter changes throughout its developm
 
 #### Collections
 
+* MaterialCollectionViewCell
 * [MaterialTableViewCell](#materialtableviewcell)
 
 #### Cards
@@ -98,17 +99,17 @@ Material is a growing project and will encounter changes throughout its developm
 * [CardView](#cardview)
 * [ImageCardView](#imagecardview)
 
-#### Navigation
+#### Navigation Controls
 
 * [MenuView](#menuview)
 * [MenuViewController](#menuviewcontroller)
 * NavigationBar
-* [Toolbar](#toolbar)
 * NavigationController
+* [Toolbar](#toolbar)
 * [ToolbarController](#toolbarcontroller)
-* [SearchBar](#searchbarview)
-* [SearchBarController](#searchbarviewcontroller)
-* [SideNavigationController](#sidenavigationviewcontroller)
+* [SearchBar](#searchbar)
+* [SearchBarController](#searchbarcontroller)
+* [SideNavigationController](#sidenavigationcontroller)
 
 #### Photo / Video Camera
 
@@ -286,7 +287,7 @@ Remove elements, such as details to create a fresh look for your images.
 
 [Learn More About ImageCardView](https://github.com/CosmicMind/Material/wiki/ImageCardView)
 
-#### Navigation
+#### Navigation Controls
 
 Navigation controls create smooth transitions between UIViewControllers. They may be used individually or stacked. Transitions are customizable and dimensions are flexible with auto management for both Portrait and Landscape modes.
 
@@ -322,7 +323,7 @@ A ToolbarController manages UIViewControllers using a NavigationBar component.
 
 ![MaterialToolbarController](http://www.cosmicmind.io/MK/MaterialToolbarController.gif)
 
-<a name="searchbarview"></a>
+<a name="searchbar"></a>
 #### SearchBar
 
 A SearchBar is a fully featured search bar that supports orientation changes, background images, title and detail labels, both left and right UIControl sets, and status bar settings.
@@ -331,14 +332,14 @@ A SearchBar is a fully featured search bar that supports orientation changes, ba
 
 [Learn More About SearchBar](https://github.com/CosmicMind/Material/wiki/SearchBar)
 
-<a href="#searchbarviewcontroller"></a>
+<a href="#searchbarcontroller"></a>
 #### SearchBarController
 
 A SearchBarController manages UIViewControllers using a SearchBar component.
 
 ![MaterialSearchBarController](http://www.cosmicmind.io/MK/MaterialSearchBarController.gif)
 
-<a href="#sidenavigationviewcontroller"></a>
+<a href="#sidenavigationcontroller"></a>
 #### SideNavigationController
 
 A SideNavigationController manages UIViewControllers that are available as hidden drawers on the left and right of the view port.

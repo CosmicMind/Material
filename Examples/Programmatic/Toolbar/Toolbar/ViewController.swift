@@ -68,7 +68,7 @@ class ViewController: UIViewController {
 		detailLabel.textColor = MaterialColor.white
 		detailLabel.font = RobotoFont.regular
 		
-		var image = UIImage(named: "ic_menu_white")
+		var image: UIImage? = MaterialIcon.menu
 
 		// Menu button.
 		let menuButton: FlatButton = FlatButton()

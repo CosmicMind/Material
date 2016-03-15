@@ -91,7 +91,7 @@ class AppToolbarController: ToolbarController {
 		//		detailLabel.font = RobotoFont.regular
 		//		toolbar.detailLabel = detailLabel
 		
-		var image = UIImage(named: "ic_menu_white")
+		var image: UIImage? = MaterialIcon.menu
 		
 		// Menu button.
 		let menuButton: FlatButton = FlatButton()

@@ -67,7 +67,7 @@ class ViewController: UIViewController, TextFieldDelegate {
 		nameField.titleLabelColor = MaterialColor.grey.base
 		nameField.titleLabelActiveColor = MaterialColor.blue.accent3
 		
-		let image = UIImage(named: "ic_close_white")?.imageWithRenderingMode(.AlwaysTemplate)
+		let image: UIImage? = MaterialIcon.close
 		
 		let clearButton: FlatButton = FlatButton()
 		clearButton.pulseColor = MaterialColor.grey.base
@@ -103,7 +103,7 @@ class ViewController: UIViewController, TextFieldDelegate {
 		emailField.detailLabelActiveColor = MaterialColor.red.accent3
 //		emailField.detailLabelAutoHideEnabled = false // Uncomment this line to have manual hiding.
 		
-		let image = UIImage(named: "ic_close_white")?.imageWithRenderingMode(.AlwaysTemplate)
+		let image: UIImage? = MaterialIcon.close
 		
 		let clearButton: FlatButton = FlatButton()
 		clearButton.pulseColor = MaterialColor.grey.base

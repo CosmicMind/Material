@@ -54,7 +54,7 @@ class ViewController: UIViewController {
 	
 	/// Prepare toolbar.
 	private func prepareSearchBar() {
-		var image = UIImage(named: "ic_close_white")?.imageWithRenderingMode(.AlwaysTemplate)
+		var image: UIImage? = MaterialIcon.close
 		
 		let clearButton: FlatButton = FlatButton()
 		clearButton.pulseScale = false
@@ -64,7 +64,7 @@ class ViewController: UIViewController {
 		clearButton.setImage(image, forState: .Highlighted)
 		
 		// Back button.
-		image = UIImage(named: "ic_arrow_back_white")?.imageWithRenderingMode(.AlwaysTemplate)
+		image = MaterialIcon.arrowBack
 		let backButton: FlatButton = FlatButton()
 		backButton.pulseScale = false
 		backButton.pulseColor = MaterialColor.blueGrey.darken4
@@ -76,7 +76,7 @@ class ViewController: UIViewController {
 		let switchControl: MaterialSwitch = MaterialSwitch(state: .Off, style: .Default, size: .Small)
 		
 		// More button.
-		image = UIImage(named: "ic_more_horiz_white")?.imageWithRenderingMode(.AlwaysTemplate)
+		image = MaterialIcon.moreHorizontal
 		let moreButton: FlatButton = FlatButton()
 		moreButton.pulseScale = false
 		moreButton.pulseColor = MaterialColor.blueGrey.darken4

@@ -50,6 +50,9 @@ public class StatusBarView : ControlView {
 		}
 	}
 	
+	/// Handles the rotation factor top inset.
+	internal var rotationFactor: CGFloat = 0
+	
 	/// A convenience initializer.
 	public convenience init() {
 		self.init(frame: CGRectZero)
@@ -75,12 +78,19 @@ public class StatusBarView : ControlView {
 		
 		// General alignment.
 		if .iPhone == MaterialDevice.type && MaterialDevice.landscape {
-			contentInset.top = 0
+			if heightForStatusBar == rotationFactor {
+				contentInset.top -= rotationFactor
+				rotationFactor = 0
+			}
 			height = heightForLandscapeOrientation
 		} else {
-			contentInset.top = heightForStatusBar
+			if 0 == rotationFactor {
+				rotationFactor = heightForStatusBar
+				contentInset.top += rotationFactor
+			}
 			height = heightForPortraitOrientation
 		}
+		
 		// We can call super now that we have a width.
 		super.layoutSubviews()
 	}
@@ -99,8 +109,8 @@ public class StatusBarView : ControlView {
 	public override func prepareView() {
 		super.prepareView()
 		depth = .Depth1
-		spacingPreset = .Spacing2
-//		contentInset = UIEdgeInsetsMake(2, 2, 2, 2)
+		spacingPreset = .Spacing1
+		contentInset = UIEdgeInsetsMake(2, 2, 2, 2)
 		autoresizingMask = .FlexibleWidth
 		shadowPathAutoSizeEnabled = false
 	}
