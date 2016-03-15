@@ -50,19 +50,19 @@
          location = "group:/Users/danieldahan/Dropbox/CosmicMind/Technology/Repositories/Material/Examples/Programmatic/NavigationBar/NavigationBar.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:/Users/danieldahan/Dropbox/CosmicMind/Technology/Repositories/Material/Examples/Programmatic/NavigationBarView/Toolbar.xcodeproj">
+         location = "group:Programmatic/Toolbar/Toolbar.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:/Users/danieldahan/Dropbox/CosmicMind/Technology/Repositories/Material/Examples/Programmatic/NavigationBarViewController/ToolbarController.xcodeproj">
+         location = "group:Programmatic/ToolbarController/ToolbarController.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:/Users/danieldahan/Dropbox/CosmicMind/Technology/Repositories/Material/Examples/Programmatic/SearchBarView/SearchBar.xcodeproj">
+         location = "group:Programmatic/SearchBar/SearchBar.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:/Users/danieldahan/Dropbox/CosmicMind/Technology/Repositories/Material/Examples/Programmatic/SearchBarViewController/SearchBarController.xcodeproj">
+         location = "group:Programmatic/SearchBarController/SearchBarController.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:/Users/danieldahan/Dropbox/CosmicMind/Technology/Repositories/Material/Examples/Programmatic/SideNavigationViewController/SideNavigationController.xcodeproj">
+         location = "group:Programmatic/SideNavigationController/SideNavigationController.xcodeproj">
       </FileRef>
       <FileRef
          location = "group:Programmatic/CardView/CardView.xcodeproj">
@@ -90,16 +90,16 @@
          location = "group:Storyboards/MaterialButton/MaterialButton.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:Storyboards/NavigationBarView/NavigationBarView.xcodeproj">
-      </FileRef>
-      <FileRef
-         location = "group:Storyboards/SideNavigationViewController/SideNavigationViewController.xcodeproj">
-      </FileRef>
-      <FileRef
          location = "group:Storyboards/CardView/CardView.xcodeproj">
       </FileRef>
       <FileRef
          location = "group:Storyboards/ImageCardView/ImageCardView.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Storyboards/Toolbar/Toolbar.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Storyboards/SideNavigationController/SideNavigationController.xcodeproj">
       </FileRef>
    </Group>
 </Workspace>

@@ -57,6 +57,11 @@ public struct MaterialDevice {
 		return UIApplication.sharedApplication().statusBarOrientation.isLandscape
 	}
 	
+	/// The current UIInterfaceOrientation value.
+	public static var orientation: UIInterfaceOrientation {
+		return UIApplication.sharedApplication().statusBarOrientation
+	}
+	
 	/// Retrieves the device bounds.
 	public static var bounds: CGRect {
 		return UIScreen.mainScreen().bounds

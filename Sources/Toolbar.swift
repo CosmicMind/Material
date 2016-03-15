@@ -71,32 +71,26 @@ public class Toolbar : StatusBarView {
 	public override func layoutSubviews() {
 		super.layoutSubviews()
 		if willRenderView {
-			// TitleView alignment.
-			if let v: UILabel = titleLabel {
-				if let d: UILabel = detailLabel {
-					v.grid.rows = 2
-					v.font = v.font.fontWithSize(17)
-					d.grid.rows = 2
-					d.font = d.font.fontWithSize(12)
-					contentView.grid.axis.rows = 3
-					contentView.grid.spacing = -8
-					contentView.grid.contentInset.top = -8
-				} else {
-					v.grid.rows = 1
-					v.font = v.font?.fontWithSize(20)
-					contentView.grid.axis.rows = 1
-					contentView.grid.spacing = 0
-					contentView.grid.contentInset.top = 0
-				}
-			}
 			
 			contentView.grid.views = []
 			
-			if let v: UILabel = titleLabel {
-				contentView.grid.views?.append(v)
-			}
-			if let v: UILabel = detailLabel {
-				contentView.grid.views?.append(v)
+			// TitleView alignment.
+			if let t: UILabel = titleLabel {
+				t.grid.rows = 1
+				contentView.grid.views?.append(t)
+				
+				if let d: UILabel = detailLabel {
+					t.font = t.font.fontWithSize(17)
+					
+					d.grid.rows = 1
+					d.font = d.font.fontWithSize(12)
+					
+					contentView.grid.axis.rows = 2
+					contentView.grid.views?.append(d)
+				} else {
+					t.font = t.font?.fontWithSize(20)
+					contentView.grid.axis.rows = 1
+				}
 			}
 			
 			grid.reloadLayout()

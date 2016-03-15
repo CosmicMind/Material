@@ -38,11 +38,23 @@ class ViewController: UIViewController {
 	@IBOutlet weak var toolbarHeightConstraint: NSLayoutConstraint?
 	
 	override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
+		adjustToOrientation(toInterfaceOrientation)
+	}
+	
+    override func viewDidLoad() {
+        super.viewDidLoad()
+		prepareView()
+		prepareToolbar()
+		adjustToOrientation(MaterialDevice.orientation)
+    }
+	
+	/// Adjusts the Toolbar height to the correct height based on the orientation value.
+	private func adjustToOrientation(toInterfaceOrientation: UIInterfaceOrientation) {
 		// If landscape.
 		if UIInterfaceOrientationIsLandscape(toInterfaceOrientation) {
 			/**
 			The height of the Toolbar is dependant on the device being used.
-			If the device is an iPad, the height should stay the same as in Portrait 
+			If the device is an iPad, the height should stay the same as in Portrait
 			view, otherwise it should strink to the Landscape height for iPhone.
 			*/
 			toolbarHeightConstraint?.constant = .iPad == MaterialDevice.type ? toolbar!.heightForPortraitOrientation :  toolbar!.heightForLandscapeOrientation
@@ -50,12 +62,6 @@ class ViewController: UIViewController {
 			toolbarHeightConstraint?.constant = toolbar!.heightForPortraitOrientation
 		}
 	}
-	
-    override func viewDidLoad() {
-        super.viewDidLoad()
-		prepareView()
-		prepareToolbar()
-    }
 	
 	/// General preparation statements.
     private func prepareView() {
