@@ -29,7 +29,7 @@
 */
 
 /*
-A SearchBarView is a fully featured SearchBar that supports orientation
+A SearchBar is a fully featured SearchBar that supports orientation
 changes, background images, both left and right UIControl sets, and status bar 
 settings. Below is an example of its usage.
 */
@@ -38,13 +38,13 @@ import UIKit
 import Material
 
 class ViewController: UIViewController {
-	/// Reference for SearchBarView.
-	private var searchBarView: SearchBarView = SearchBarView()
+	/// Reference for SearchBar.
+	private var searchBar: SearchBar = SearchBar()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		prepareSearchBarView()
+		prepareSearchBar()
 	}
 	
 	/// General preparation statements.
@@ -52,8 +52,8 @@ class ViewController: UIViewController {
 		view.backgroundColor = MaterialColor.white
 	}
 	
-	/// Prepare navigationBarView.
-	private func prepareSearchBarView() {
+	/// Prepare toolbar.
+	private func prepareSearchBar() {
 		var image = UIImage(named: "ic_close_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		
 		let clearButton: FlatButton = FlatButton()
@@ -89,18 +89,18 @@ class ViewController: UIViewController {
 		"View controller-based status bar appearance = NO"
 		to your info.plist file and set the following property.
 		*/
-		searchBarView.statusBarStyle = .Default
+		searchBar.statusBarStyle = .Default
 		
-		searchBarView.placeholder = "Search"
-		searchBarView.tintColor = MaterialColor.blueGrey.darken4
-		searchBarView.textColor = MaterialColor.blueGrey.darken4
-		searchBarView.placeholderTextColor = MaterialColor.blueGrey.darken4
-		searchBarView.textField.font = RobotoFont.regular
+		searchBar.placeholder = "Search"
+		searchBar.tintColor = MaterialColor.blueGrey.darken4
+		searchBar.textColor = MaterialColor.blueGrey.darken4
+		searchBar.placeholderTextColor = MaterialColor.blueGrey.darken4
+		searchBar.textField.font = RobotoFont.regular
 		
-		searchBarView.clearButton = clearButton
-		searchBarView.leftControls = [backButton]
-		searchBarView.rightControls = [switchControl, moreButton]
+		searchBar.clearButton = clearButton
+		searchBar.leftControls = [backButton]
+		searchBar.rightControls = [switchControl, moreButton]
 		
-		view.addSubview(searchBarView)
+		view.addSubview(searchBar)
 	}
 }

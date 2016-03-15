@@ -32,15 +32,15 @@ import UIKit
 
 public extension UIViewController {
 	/**
-	A convenience property that provides access to the NavigationBarViewController.
-	This is the recommended method of accessing the NavigationBarViewController
+	A convenience property that provides access to the ToolbarController.
+	This is the recommended method of accessing the ToolbarController
 	through child UIViewControllers.
 	*/
-	public var navigationBarViewController: NavigationBarViewController? {
+	public var toolbarController: ToolbarController? {
 		var viewController: UIViewController? = self
 		while nil != viewController {
-			if viewController is NavigationBarViewController {
-				return viewController as? NavigationBarViewController
+			if viewController is ToolbarController {
+				return viewController as? ToolbarController
 			}
 			viewController = viewController?.parentViewController
 		}
@@ -48,61 +48,61 @@ public extension UIViewController {
 	}
 }
 
-@objc(NavigationBarViewControllerDelegate)
-public protocol NavigationBarViewControllerDelegate : MaterialDelegate {
+@objc(ToolbarControllerDelegate)
+public protocol ToolbarControllerDelegate : MaterialDelegate {
 	/// Delegation method that executes when the floatingViewController will open.
-	optional func navigationBarViewControllerWillOpenFloatingViewController(navigationBarViewController: NavigationBarViewController)
+	optional func toolbarControllerWillOpenFloatingViewController(toolbarController: ToolbarController)
 	
 	/// Delegation method that executes when the floatingViewController will close.
-	optional func navigationBarViewControllerWillCloseFloatingViewController(navigationBarViewController: NavigationBarViewController)
+	optional func toolbarControllerWillCloseFloatingViewController(toolbarController: ToolbarController)
 	
 	/// Delegation method that executes when the floatingViewController did open.
-	optional func navigationBarViewControllerDidOpenFloatingViewController(navigationBarViewController: NavigationBarViewController)
+	optional func toolbarControllerDidOpenFloatingViewController(toolbarController: ToolbarController)
 	
 	/// Delegation method that executes when the floatingViewController did close.
-	optional func navigationBarViewControllerDidCloseFloatingViewController(navigationBarViewController: NavigationBarViewController)
+	optional func toolbarControllerDidCloseFloatingViewController(toolbarController: ToolbarController)
 }
 
-@objc(NavigationBarViewController)
-public class NavigationBarViewController : StatusBarViewController {
+@objc(ToolbarController)
+public class ToolbarController : StatusBarViewController {
 	/// The height of the StatusBar.
 	@IBInspectable public override var heightForStatusBar: CGFloat {
 		get {
-			return navigationBarView.heightForStatusBar
+			return toolbar.heightForStatusBar
 		}
 		set(value) {
-			navigationBarView.heightForStatusBar = value
+			toolbar.heightForStatusBar = value
 		}
 	}
 	
 	/// The height when in Portrait orientation mode.
 	@IBInspectable public override var heightForPortraitOrientation: CGFloat {
 		get {
-			return navigationBarView.heightForPortraitOrientation
+			return toolbar.heightForPortraitOrientation
 		}
 		set(value) {
-			navigationBarView.heightForPortraitOrientation = value
+			toolbar.heightForPortraitOrientation = value
 		}
 	}
 	
 	/// The height when in Landscape orientation mode.
 	@IBInspectable public override var heightForLandscapeOrientation: CGFloat {
 		get {
-			return navigationBarView.heightForLandscapeOrientation
+			return toolbar.heightForLandscapeOrientation
 		}
 		set(value) {
-			navigationBarView.heightForLandscapeOrientation = value
+			toolbar.heightForLandscapeOrientation = value
 		}
 	}
 	
 	/// Internal reference to the floatingViewController.
 	private var internalFloatingViewController: UIViewController?
 	
-	/// Reference to the NavigationBarView.
-	public private(set) lazy var navigationBarView: NavigationBarView = NavigationBarView()
+	/// Reference to the Toolbar.
+	public private(set) lazy var toolbar: Toolbar = Toolbar()
 	
 	/// Delegation handler.
-	public weak var delegate: NavigationBarViewControllerDelegate?
+	public weak var delegate: ToolbarControllerDelegate?
 	
 	/// A floating UIViewController.
 	public var floatingViewController: UIViewController? {
@@ -113,12 +113,12 @@ public class NavigationBarViewController : StatusBarViewController {
 			if let v: UIViewController = internalFloatingViewController {
 				v.view.layer.rasterizationScale = MaterialDevice.scale
 				v.view.layer.shouldRasterize = true
-				delegate?.navigationBarViewControllerWillCloseFloatingViewController?(self)
+				delegate?.toolbarControllerWillCloseFloatingViewController?(self)
 				internalFloatingViewController = nil
 				UIView.animateWithDuration(0.5,
 					animations: { [unowned self] in
 						v.view.center.y = 2 * self.view.bounds.height
-						self.navigationBarView.alpha = 1
+						self.toolbar.alpha = 1
 						self.mainViewController.view.alpha = 1
 					}) { [unowned self] _ in
 						v.willMoveToParentViewController(nil)
@@ -126,9 +126,9 @@ public class NavigationBarViewController : StatusBarViewController {
 						v.removeFromParentViewController()
 						v.view.layer.shouldRasterize = false
 						self.userInteractionEnabled = true
-						self.navigationBarView.userInteractionEnabled = true
+						self.toolbar.userInteractionEnabled = true
 						dispatch_async(dispatch_get_main_queue()) { [unowned self] in
-							self.delegate?.navigationBarViewControllerDidCloseFloatingViewController?(self)
+							self.delegate?.toolbarControllerDidCloseFloatingViewController?(self)
 						}
 				}
 			}
@@ -139,7 +139,7 @@ public class NavigationBarViewController : StatusBarViewController {
 				v.view.frame = view.bounds
 				v.view.center.y = 2 * view.bounds.height
 				v.view.hidden = true
-				view.insertSubview(v.view, aboveSubview: navigationBarView)
+				view.insertSubview(v.view, aboveSubview: toolbar)
 				v.view.layer.zPosition = 1500
 				v.didMoveToParentViewController(self)
 				
@@ -151,18 +151,18 @@ public class NavigationBarViewController : StatusBarViewController {
 				view.layer.shouldRasterize = true
 				internalFloatingViewController = v
 				userInteractionEnabled = false
-				navigationBarView.userInteractionEnabled = false
-				delegate?.navigationBarViewControllerWillOpenFloatingViewController?(self)
+				toolbar.userInteractionEnabled = false
+				delegate?.toolbarControllerWillOpenFloatingViewController?(self)
 				UIView.animateWithDuration(0.5,
 					animations: { [unowned self] in
 						v.view.center.y = self.view.bounds.height / 2
-						self.navigationBarView.alpha = 0.5
+						self.toolbar.alpha = 0.5
 						self.mainViewController.view.alpha = 0.5
 					}) { [unowned self] _ in
 						v.view.layer.shouldRasterize = false
 						self.view.layer.shouldRasterize = false
 						dispatch_async(dispatch_get_main_queue()) { [unowned self] in
-							self.delegate?.navigationBarViewControllerDidOpenFloatingViewController?(self)
+							self.delegate?.toolbarControllerDidOpenFloatingViewController?(self)
 						}
 				}
 			}
@@ -178,12 +178,12 @@ public class NavigationBarViewController : StatusBarViewController {
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		prepareNavigationBarView()
+		prepareToolbar()
 	}
 	
-	/// Prepares the NavigationBarView.
-	private func prepareNavigationBarView() {
-		navigationBarView.zPosition = 1000
-		view.addSubview(navigationBarView)
+	/// Prepares the Toolbar.
+	private func prepareToolbar() {
+		toolbar.zPosition = 1000
+		view.addSubview(toolbar)
 	}
 }

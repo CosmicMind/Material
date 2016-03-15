@@ -34,7 +34,7 @@ import AVFoundation
 
 class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDelegate {
 	lazy var captureView: CaptureView = CaptureView()
-	lazy var navigationBarView: NavigationBarView = NavigationBarView()
+	lazy var toolbar: Toolbar = Toolbar()
 	lazy var cameraButton: FlatButton = FlatButton()
 	lazy var videoButton: FlatButton = FlatButton()
 	lazy var switchCamerasButton: FlatButton = FlatButton()
@@ -50,7 +50,7 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 		prepareSwitchCamerasButton()
 		prepareFlashButton()
 		prepareCaptureView()
-		prepareNavigationBarView()
+		prepareToolbar()
 	}
 	
 	/**
@@ -99,24 +99,24 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 	}
 	
 	func captureViewDidStartRecordTimer(captureView: CaptureView) {
-		navigationBarView.titleLabel!.text = "00:00:00"
-		navigationBarView.titleLabel!.hidden = false
-		navigationBarView.detailLabel!.hidden = false
+		toolbar.titleLabel!.text = "00:00:00"
+		toolbar.titleLabel!.hidden = false
+		toolbar.detailLabel!.hidden = false
 	}
 	
 	/**
 	:name:	captureViewDidUpdateRecordTimer
 	*/
 	func captureViewDidUpdateRecordTimer(captureView: CaptureView, hours: Int, minutes: Int, seconds: Int) {
-		navigationBarView.titleLabel!.text = String(format: "%02i:%02i:%02i", arguments: [hours, minutes, seconds])
+		toolbar.titleLabel!.text = String(format: "%02i:%02i:%02i", arguments: [hours, minutes, seconds])
 	}
 	
 	/**
 	:name:	captureViewDidStopRecordTimer
 	*/
 	func captureViewDidStopRecordTimer(captureView: CaptureView, hours: Int, minutes: Int, seconds: Int) {
-		navigationBarView.titleLabel!.hidden = true
-		navigationBarView.detailLabel!.hidden = true
+		toolbar.titleLabel!.hidden = true
+		toolbar.detailLabel!.hidden = true
 	}
 	
 	/**
@@ -231,12 +231,12 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 	}
 	
 	/**
-	:name:	prepareNavigationBarView
+	:name:	prepareToolbar
 	*/
-	private func prepareNavigationBarView() {
-		navigationBarView.backgroundColor = nil
-		navigationBarView.depth = .None
-		navigationBarView.statusBarStyle = .LightContent
+	private func prepareToolbar() {
+		toolbar.backgroundColor = nil
+		toolbar.depth = .None
+		toolbar.statusBarStyle = .LightContent
 		
 		// Title label.
 		let titleLabel: UILabel = UILabel()
@@ -244,7 +244,7 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 		titleLabel.textAlignment = .Center
 		titleLabel.textColor = MaterialColor.white
 		titleLabel.font = RobotoFont.regular
-		navigationBarView.titleLabel = titleLabel
+		toolbar.titleLabel = titleLabel
 		
 		// Detail label.
 		let detailLabel: UILabel = UILabel()
@@ -253,12 +253,12 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 		detailLabel.textAlignment = .Center
 		detailLabel.textColor = MaterialColor.red.accent1
 		detailLabel.font = RobotoFont.regular
-		navigationBarView.detailLabel = detailLabel
+		toolbar.detailLabel = detailLabel
 		
-		navigationBarView.leftControls = [switchCamerasButton]
-		navigationBarView.rightControls = [flashButton]
+		toolbar.leftControls = [switchCamerasButton]
+		toolbar.rightControls = [flashButton]
 		
-		view.addSubview(navigationBarView)
+		view.addSubview(toolbar)
 	}
 	
 	/**

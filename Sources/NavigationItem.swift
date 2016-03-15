@@ -30,78 +30,99 @@
 
 import UIKit
 
-public class SearchBarView : StatusBarView {
-	/// The UITextField for the searchBar.
-	public private(set) lazy var textField: TextField = TextField()
+/// A memory reference to the NavigationItem instance.
+private var NavigationItemKey: UInt8 = 0
+
+public class NavigationItem {
+	/// Inset.
+	public var inset: CGFloat = -20
 	
-	/// The UIImage for the clear icon.
-	public var clearButton: UIButton? {
+	/// Detail View.
+	public var detailView: UIView?
+	
+	/// Title label.
+	public var titleLabel: UILabel?
+	
+	/// Detail label.
+	public var detailLabel: UILabel?
+	
+	/// Left controls.
+	public var leftControls: Array<UIControl>?
+	
+	/// Right controls.
+	public var rightControls: Array<UIControl>?
+}
+
+public extension UINavigationItem {
+	/// NavigationBarControls reference.
+	public internal(set) var item: NavigationItem {
 		get {
-			return textField.clearButton
+			return MaterialAssociatedObject(self, key: &NavigationItemKey) {
+				return NavigationItem()
+			}
 		}
 		set(value) {
-			textField.clearButton = value
+			MaterialAssociateObject(self, key: &NavigationItemKey, value: value)
 		}
 	}
 	
-	/// TintColor for searchBar.
-	@IBInspectable public override var tintColor: UIColor? {
-		didSet {
-			textField.tintColor = tintColor
-		}
-	}
-	
-	/// TextColor for searchBar.
-	@IBInspectable public var textColor: UIColor? {
-		didSet {
-			textField.textColor = textColor
-		}
-	}
-	
-	/// A wrapper for searchBar.placeholder.
-	@IBInspectable public var placeholder: String? {
-		didSet {
-			textField.placeholder = placeholder
-		}
-	}
-	
-	/// Placeholder textColor.
-	@IBInspectable public var placeholderTextColor: UIColor {
+	/// Inset.
+	public var inset: CGFloat {
 		get {
-			return textField.placeholderTextColor
+			return item.inset
 		}
 		set(value) {
-			textField.placeholderTextColor = value
+			item.inset = value
 		}
 	}
 	
-	/// A convenience initializer.
-	public convenience init() {
-		self.init(frame: CGRectZero)
-	}
-	
-	public override func layoutSubviews() {
-		super.layoutSubviews()
-		if willRenderView {
-			contentView.grid.views?.append(textField)
-			contentView.grid.reloadLayout()
-			textField.font = textField.font?.fontWithSize(20)
-			textField.reloadView()
+	/// Detail View.
+	public var detailView: UIView? {
+		get {
+			return item.detailView
+		}
+		set(value) {
+			item.detailView = value
 		}
 	}
 	
-	/// Prepares the contentView.
-	public override func prepareContentView() {
-		super.prepareContentView()
-		prepareTextField()
+	/// Title Label.
+	public var titleLabel: UILabel? {
+		get {
+			return item.titleLabel
+		}
+		set(value) {
+			item.titleLabel = value
+		}
 	}
 	
+	/// Detail Label.
+	public var detailLabel: UILabel? {
+		get {
+			return item.detailLabel
+		}
+		set(value) {
+			item.detailLabel = value
+		}
+	}
 	
-	/// Prepares the textField.
-	private func prepareTextField() {
-		textField.placeholder = "Search"
-		textField.backgroundColor = MaterialColor.clear
-		textField.clearButtonMode = .WhileEditing
-		contentView.addSubview(textField)
+	/// Left side UIControls.
+	public var leftControls: Array<UIControl>? {
+		get {
+			return item.leftControls
+		}
+		set(value) {
+			item.leftControls = value
+		}
+	}
+	
+	/// Right side UIControls.
+	public var rightControls: Array<UIControl>? {
+		get {
+			return item.rightControls
+		}
+		set(value) {
+			item.rightControls = value
+		}
 	}
 }

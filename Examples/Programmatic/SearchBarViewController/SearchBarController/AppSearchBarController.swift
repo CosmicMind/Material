@@ -29,21 +29,21 @@
 */
 
 /*
-The following is an example of using a SearchBarViewController to control the
+The following is an example of using a SearchBarController to control the
 flow of your application.
 */
 
 import UIKit
 import Material
 
-class AppSearchBarViewController: SearchBarViewController {
+class AppSearchBarController: SearchBarController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		prepareSearchBarView()
+		prepareSearchBar()
 	}
 	
-	/// Loads the BlueViewController into the searchBarViewControllers mainViewController.
+	/// Loads the BlueViewController into the searchBarControllers mainViewController.
 	func handleBlueButton() {
 		if mainViewController is BlueViewController {
 			return
@@ -51,7 +51,7 @@ class AppSearchBarViewController: SearchBarViewController {
 		transitionFromMainViewController(BlueViewController(), options: [.TransitionCrossDissolve])
 	}
 	
-	/// Loads the GreenViewController into the searchBarViewControllers mainViewController.
+	/// Loads the GreenViewController into the searchBarControllers mainViewController.
 	func handleGreenButton() {
 		if mainViewController is GreenViewController {
 			return
@@ -59,13 +59,13 @@ class AppSearchBarViewController: SearchBarViewController {
 		transitionFromMainViewController(GreenViewController(), options: [.TransitionCrossDissolve])
 	}
 	
-	/// Loads the YellowViewController into the searchBarViewControllers mainViewController.
+	/// Loads the YellowViewController into the searchBarControllers mainViewController.
 	func handleYellowButton() {
-		if (mainViewController as? NavigationBarViewController)?.mainViewController is YellowViewController {
+		if (mainViewController as? ToolbarController)?.mainViewController is YellowViewController {
 			return
 		}
 		transitionFromMainViewController(YellowViewController(), options: [.TransitionCrossDissolve])
-		searchBarView.textField.resignFirstResponder()
+		searchBar.textField.resignFirstResponder()
 	}
 	
 	/// Prepares view.
@@ -74,8 +74,8 @@ class AppSearchBarViewController: SearchBarViewController {
 		view.backgroundColor = MaterialColor.black
 	}
 	
-	/// Prepares the searchBarView.
-	private func prepareSearchBarView() {
+	/// Prepares the searchBar.
+	private func prepareSearchBar() {
 		var image = UIImage(named: "ic_close_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		
 		let clearButton: FlatButton = FlatButton()
@@ -111,22 +111,22 @@ class AppSearchBarViewController: SearchBarViewController {
 		"View controller-based status bar appearance = NO"
 		to your info.plist file and set the following property.
 		*/
-		searchBarView.statusBarStyle = .Default
+		searchBar.statusBarStyle = .Default
 		
-		searchBarView.placeholder = "Search"
-		searchBarView.tintColor = MaterialColor.blueGrey.darken4
-		searchBarView.textColor = MaterialColor.blueGrey.darken4
-		searchBarView.placeholderTextColor = MaterialColor.blueGrey.darken4
-		searchBarView.textField.font = RobotoFont.regular
-		searchBarView.textField.delegate = self
+		searchBar.placeholder = "Search"
+		searchBar.tintColor = MaterialColor.blueGrey.darken4
+		searchBar.textColor = MaterialColor.blueGrey.darken4
+		searchBar.placeholderTextColor = MaterialColor.blueGrey.darken4
+		searchBar.textField.font = RobotoFont.regular
+		searchBar.textField.delegate = self
 		
-		searchBarView.clearButton = clearButton
-		searchBarView.leftControls = [backButton]
-		searchBarView.rightControls = [moreButton]
+		searchBar.clearButton = clearButton
+		searchBar.leftControls = [backButton]
+		searchBar.rightControls = [moreButton]
 	}
 }
 
-extension AppSearchBarViewController: TextFieldDelegate {
+extension AppSearchBarController: TextFieldDelegate {
 	func textFieldDidBeginEditing(textField: UITextField) {
 		mainViewController.view.alpha = 0.5
 		mainViewController.view.userInteractionEnabled = false

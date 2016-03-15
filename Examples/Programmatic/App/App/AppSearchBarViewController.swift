@@ -29,44 +29,44 @@
 */
 
 /*
-The following is an example of using a SearchBarViewController to control the
+The following is an example of using a SearchBarController to control the
 flow of your application.
 */
 
 import UIKit
 import Material
 
-class AppSearchBarViewController: SearchBarViewController {
+class AppSearchBarController: SearchBarController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		prepareSearchBarView()
+		prepareSearchBar()
 	}
 	
 	override func viewWillDisappear(animated: Bool) {
 		super.viewWillDisappear(animated)
-		sideNavigationViewController?.enabled = true
+		sideNavigationController?.enabled = true
 	}
 	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
-		searchBarView.statusBarStyle = .Default
-		sideNavigationViewController?.delegate = self
-		sideNavigationViewController?.enabled = false
+		searchBar.statusBarStyle = .Default
+		sideNavigationController?.delegate = self
+		sideNavigationController?.enabled = false
 	}
 	
 	/// Toggle SideSearchViewController left UIViewController.
 	internal func handleBackButton() {
-		searchBarView.textField.resignFirstResponder()
+		searchBar.textField.resignFirstResponder()
 		dismissViewControllerAnimated(true, completion: nil)
 	}
 	
 	/// Toggle SideSearchViewController right UIViewController.
 	internal func handleMoreButton() {
-		searchBarView.textField.resignFirstResponder()
+		searchBar.textField.resignFirstResponder()
 		print(presentingViewController?.view.layer.zPosition)
-		sideNavigationViewController?.enabledRightView = true
-		sideNavigationViewController?.toggleRightView()
+		sideNavigationController?.enabledRightView = true
+		sideNavigationController?.toggleRightView()
 	}
 	
 	/// Prepares view.
@@ -75,8 +75,8 @@ class AppSearchBarViewController: SearchBarViewController {
 		view.backgroundColor = MaterialColor.black
 	}
 	
-	/// Prepares the searchBarView.
-	private func prepareSearchBarView() {
+	/// Prepares the searchBar.
+	private func prepareSearchBar() {
 		var image = UIImage(named: "ic_close_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		
 		let clearButton: FlatButton = FlatButton()
@@ -105,22 +105,22 @@ class AppSearchBarViewController: SearchBarViewController {
 		moreButton.setImage(image, forState: .Normal)
 		moreButton.setImage(image, forState: .Highlighted)
 		
-		searchBarView.placeholder = "Search"
-		searchBarView.tintColor = MaterialColor.grey.darken4
-		searchBarView.textColor = MaterialColor.grey.darken4
-		searchBarView.placeholderTextColor = MaterialColor.grey.darken4
-		searchBarView.textField.font = RobotoFont.regular
-		searchBarView.textField.delegate = self
-		searchBarView.contentInset.left = 8
-		searchBarView.contentInset.right = 8
+		searchBar.placeholder = "Search"
+		searchBar.tintColor = MaterialColor.grey.darken4
+		searchBar.textColor = MaterialColor.grey.darken4
+		searchBar.placeholderTextColor = MaterialColor.grey.darken4
+		searchBar.textField.font = RobotoFont.regular
+		searchBar.textField.delegate = self
+		searchBar.contentInset.left = 8
+		searchBar.contentInset.right = 8
 		
-		searchBarView.clearButton = clearButton
-		searchBarView.leftControls = [backButton]
-		searchBarView.rightControls = [moreButton]
+		searchBar.clearButton = clearButton
+		searchBar.leftControls = [backButton]
+		searchBar.rightControls = [moreButton]
 	}
 }
 
-extension AppSearchBarViewController: TextFieldDelegate {
+extension AppSearchBarController: TextFieldDelegate {
 	func textFieldDidBeginEditing(textField: UITextField) {
 		print("Begin searching....")
 	}
@@ -130,8 +130,8 @@ extension AppSearchBarViewController: TextFieldDelegate {
 	}
 }
 
-extension AppSearchBarViewController: SideNavigationViewControllerDelegate {
-	func sideNavigationViewDidClose(sideNavigationViewController: SideNavigationViewController, position: SideNavigationPosition) {
-		sideNavigationViewController.enabled = false
+extension AppSearchBarController: SideNavigationControllerDelegate {
+	func sideNavigationDidClose(sideNavigationController: SideNavigationController, position: SideNavigationPosition) {
+		sideNavigationController.enabled = false
 	}
 }

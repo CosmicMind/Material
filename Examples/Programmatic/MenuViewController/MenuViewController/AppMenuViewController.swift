@@ -73,7 +73,7 @@ class AppMenuViewController: MenuViewController {
 	
 	/// Loads the YellowViewController into the menuViewControllers mainViewController.
 	func handleYellowButton() {
-//		if (mainViewController as? NavigationBarViewController)?.mainViewController is YellowViewController {
+//		if (mainViewController as? ToolbarController)?.mainViewController is YellowViewController {
 //			return
 //		}
 		

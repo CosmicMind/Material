@@ -30,7 +30,7 @@
 
 /*
 The following is an example of setting a UITableView as the LeftViewController
-within a SideNavigationViewController.
+within a SideNavigationController.
 */
 
 import UIKit

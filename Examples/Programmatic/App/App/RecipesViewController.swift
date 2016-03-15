@@ -67,7 +67,7 @@ class RecipesViewController: UIViewController {
 		navigationController?.navigationBar.statusBarStyle = .LightContent
 		
 		// Enable the SideNavigation.
-		sideNavigationViewController?.enabled = true
+		sideNavigationController?.enabled = true
 		
 		// Show the menuView.
 		menuViewController?.menuView.animate(MaterialAnimation.animationGroup([
@@ -79,7 +79,7 @@ class RecipesViewController: UIViewController {
 	override func viewWillDisappear(animated: Bool) {
 		super.viewWillDisappear(animated)
 		// Disable the SideNavigation.
-		sideNavigationViewController?.enabled = false
+		sideNavigationController?.enabled = false
 		
 		// Hide the menuView.
 		menuViewController?.menuView.animate(MaterialAnimation.animationGroup([
@@ -90,7 +90,7 @@ class RecipesViewController: UIViewController {
 	
 	/// Handles the menuButton.
 	internal func handleMenuButton() {
-		sideNavigationViewController?.openLeftView()
+		sideNavigationController?.openLeftView()
 	}
 	
 	/// Handles the searchButton.
@@ -99,7 +99,7 @@ class RecipesViewController: UIViewController {
 		recommended.append(dataSourceItems[0])
 		recommended.append(dataSourceItems[1])
 		recommended.append(dataSourceItems[2])
-		navigationController?.presentViewController(AppSearchBarViewController(mainViewController: RecommendationViewController(dataSourceItems: recommended)), animated: true, completion: nil)
+		navigationController?.presentViewController(AppSearchBarController(mainViewController: RecommendationViewController(dataSourceItems: recommended)), animated: true, completion: nil)
 	}
 	
 	/// Prepares the items Array.

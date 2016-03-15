@@ -52,14 +52,15 @@ public class NavigationBar : UINavigationBar {
 	backIndicatorTransitionMaskImage property.
 	*/
 	@IBInspectable public var backButtonImage: UIImage? {
-		didSet {
-			if nil == backButtonImage {
-				backButtonImage = MaterialIcon.arrowBack
-			}
-			backIndicatorImage = backButtonImage
-			backIndicatorTransitionMaskImage = backButtonImage
-			backButton.setImage(backButtonImage, forState: .Normal)
-			backButton.setImage(backButtonImage, forState: .Highlighted)
+		get {
+			return backIndicatorImage
+		}
+		set(value) {
+			let image: UIImage? = nil == value ? MaterialIcon.arrowBack : value
+			backIndicatorImage = image
+			backIndicatorTransitionMaskImage = image
+			backButton.setImage(image, forState: .Normal)
+			backButton.setImage(image, forState: .Highlighted)
 		}
 	}
 	
@@ -255,15 +256,6 @@ public class NavigationBar : UINavigationBar {
 	public override func layoutSubviews() {
 		super.layoutSubviews()
 		
-		let h: CGFloat = intrinsicContentSize().height
-		let w: CGFloat = backButton.intrinsicContentSize().width
-		
-		if let v: Array<UIControl> = topItem?.leftControls {
-			for c in v {
-				c.bounds.size = c is MaterialSwitch ? CGSizeMake(w, h - contentInset.top - contentInset.bottom) : CGSizeMake(c.intrinsicContentSize().width, h - contentInset.top - contentInset.bottom)
-			}
-		}
-		
 		if let t: UILabel = topItem?.titleLabel {
 			t.grid.rows = 1
 			topItem?.titleView?.grid.views = [t]
@@ -285,12 +277,6 @@ public class NavigationBar : UINavigationBar {
 			}
 		}
 		
-		if let v: Array<UIControl> = topItem?.rightControls {
-			for c in v {
-				c.bounds.size = c is MaterialSwitch ? CGSizeMake(w, h - contentInset.top - contentInset.bottom) : CGSizeMake(c.intrinsicContentSize().width, h - contentInset.top - contentInset.bottom)
-			}
-		}
-		
 		topItem?.titleView?.grid.reloadLayout()
 	}
 	
@@ -308,7 +294,7 @@ public class NavigationBar : UINavigationBar {
 		
 		let h: CGFloat = intrinsicContentSize().height
 		let w: CGFloat = backButton.intrinsicContentSize().width
-		let inset: CGFloat = MaterialDevice.landscape ? item.landscapeInset : item.portraitInset
+		let inset: CGFloat = item.inset
 		
 		// leftControls
 		if let v: Array<UIControl> = item.leftControls {
@@ -331,44 +317,25 @@ public class NavigationBar : UINavigationBar {
 		}
 		
 		// Set the titleView if title is empty.
-		if nil == item.title {
+		if "" == item.title {
 			if nil == item.titleView {
 				item.titleView = UIView(frame: CGRectMake(0, contentInset.top, MaterialDevice.width, h - contentInset.top - contentInset.bottom))
 				item.titleView!.autoresizingMask = .FlexibleWidth
 				item.titleView!.grid.axis.direction = .Vertical
 			}
 			
-			item.titleView!.grid.views = []
-			
 			// TitleView alignment.
 			if let t: UILabel = item.titleLabel {
-				t.grid.rows = 1
-				
 				item.titleView!.addSubview(t)
-				item.titleView!.grid.views?.append(t)
 				
 				if let d: UILabel = item.detailLabel {
-					d.grid.rows = 1
 					d.hidden = false
-					d.font = d.font.fontWithSize(12)
-					
-					t.font = t.font.fontWithSize(17)
-					
 					item.titleView!.addSubview(d)
-					item.titleView!.grid.axis.rows = 2
-					item.titleView!.grid.views?.append(d)
 				} else {
-					t.font = t.font?.fontWithSize(20)
-					
-					item.titleView!.grid.axis.rows = 1
 					item.detailLabel?.hidden = true
 				}
 			} else if let d: UIView = item.detailView {
-				d.grid.rows = 1
-				
 				item.titleView!.addSubview(d)
-				item.titleView!.grid.axis.rows = 1
-				item.titleView!.grid.views?.append(d)
 			}
 		}
 		
@@ -420,117 +387,8 @@ public class NavigationBar : UINavigationBar {
 	
 	/// Prepares the UINavigationItem for layout and sizing.
 	internal func prepareItem(item: UINavigationItem) {
-		if "" == item.title {
-			item.title = nil
-		}
-	}
-}
-
-/// A memory reference to the NavigationItem instance for UINavigationBar extensions.
-private var NavigationItemKey: UInt8 = 0
-
-public class NavigationItem {
-	/// Inset.
-	public var portraitInset: CGFloat = .iPad == MaterialDevice.type || "iPhone 6s Plus" == MaterialDevice.model || "iPhone 6 Plus" == MaterialDevice.model ? -20 : -16
-	
-	public var landscapeInset: CGFloat = -20
-	
-	/// Detail View.
-	public var detailView: UIView?
-	
-	/// Title label.
-	public var titleLabel: UILabel?
-	
-	/// Detail label.
-	public var detailLabel: UILabel?
-	
-	/// Left controls.
-	public var leftControls: Array<UIControl>?
-	
-	/// Right controls.
-	public var rightControls: Array<UIControl>?
-}
-
-public extension UINavigationItem {
-	/// NavigationBarControls reference.
-	public internal(set) var item: NavigationItem {
-		get {
-			return MaterialAssociatedObject(self, key: &NavigationItemKey) {
-				return NavigationItem()
-			}
-		}
-		set(value) {
-			MaterialAssociateObject(self, key: &NavigationItemKey, value: value)
-		}
-	}
-	
-	/// Portrait inset.
-	public var portraitInset: CGFloat {
-		get {
-			return item.portraitInset
-		}
-		set(value) {
-			item.portraitInset = value
-		}
-	}
-	
-	/// Landscape inset.
-	public var landscapeInset: CGFloat {
-		get {
-			return item.landscapeInset
-		}
-		set(value) {
-			item.landscapeInset = value
-		}
-	}
-	
-	/// Detail View.
-	public var detailView: UIView? {
-		get {
-			return item.detailView
-		}
-		set(value) {
-			item.detailView = value
-		}
-	}
-	
-	/// Title Label.
-	public var titleLabel: UILabel? {
-		get {
-			return item.titleLabel
-		}
-		set(value) {
-			item.titleLabel = value
-		}
-	}
-	
-	/// Detail Label.
-	public var detailLabel: UILabel? {
-		get {
-			return item.detailLabel
-		}
-		set(value) {
-			item.detailLabel = value
-		}
-	}
-	
-	/// Left side UIControls.
-	public var leftControls: Array<UIControl>? {
-		get {
-			return item.leftControls
-		}
-		set(value) {
-			item.leftControls = value
-		}
-	}
-	
-	/// Right side UIControls.
-	public var rightControls: Array<UIControl>? {
-		get {
-			return item.rightControls
-		}
-		set(value) {
-			item.rightControls = value
+		if nil == item.title {
+			item.title = ""
 		}
 	}
 }

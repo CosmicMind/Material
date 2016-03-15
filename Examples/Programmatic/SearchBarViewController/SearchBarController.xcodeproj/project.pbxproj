@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		960036011C77E0D400EBA579 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960036001C77E0D400EBA579 /* AppDelegate.swift */; };
-		960036031C77E0D400EBA579 /* AppSearchBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960036021C77E0D400EBA579 /* AppSearchBarViewController.swift */; };
-		960036081C77E0D400EBA579 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 960036071C77E0D400EBA579 /* Assets.xcassets */; };
-		9600360B1C77E0D400EBA579 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 960036091C77E0D400EBA579 /* LaunchScreen.storyboard */; };
-		960036131C77E13D00EBA579 /* YellowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960036121C77E13D00EBA579 /* YellowViewController.swift */; };
-		9663F91F1C7A6E3D00AF0965 /* BlueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9663F91E1C7A6E3D00AF0965 /* BlueViewController.swift */; };
-		9663F9211C7A6E4800AF0965 /* GreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9663F9201C7A6E4800AF0965 /* GreenViewController.swift */; };
+		96F2F1F41C97A60800A5FE27 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F2F1EB1C97A60800A5FE27 /* AppDelegate.swift */; };
+		96F2F1F51C97A60800A5FE27 /* AppSearchBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F2F1EC1C97A60800A5FE27 /* AppSearchBarController.swift */; };
+		96F2F1F61C97A60800A5FE27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96F2F1ED1C97A60800A5FE27 /* Assets.xcassets */; };
+		96F2F1F71C97A60800A5FE27 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96F2F1EE1C97A60800A5FE27 /* LaunchScreen.storyboard */; };
+		96F2F1F81C97A60800A5FE27 /* BlueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F2F1F01C97A60800A5FE27 /* BlueViewController.swift */; };
+		96F2F1F91C97A60800A5FE27 /* GreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F2F1F11C97A60800A5FE27 /* GreenViewController.swift */; };
+		96F2F1FB1C97A60800A5FE27 /* YellowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F2F1F31C97A60800A5FE27 /* YellowViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -30,15 +30,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		960035FD1C77E0D400EBA579 /* SearchBarViewController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SearchBarViewController.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		960036001C77E0D400EBA579 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		960036021C77E0D400EBA579 /* AppSearchBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSearchBarViewController.swift; sourceTree = "<group>"; };
-		960036071C77E0D400EBA579 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		9600360A1C77E0D400EBA579 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		9600360C1C77E0D400EBA579 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		960036121C77E13D00EBA579 /* YellowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowViewController.swift; sourceTree = "<group>"; };
-		9663F91E1C7A6E3D00AF0965 /* BlueViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueViewController.swift; sourceTree = "<group>"; };
-		9663F9201C7A6E4800AF0965 /* GreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreenViewController.swift; sourceTree = "<group>"; };
+		960035FD1C77E0D400EBA579 /* SearchBarController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SearchBarController.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		96F2F1EB1C97A60800A5FE27 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		96F2F1EC1C97A60800A5FE27 /* AppSearchBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSearchBarController.swift; sourceTree = "<group>"; };
+		96F2F1ED1C97A60800A5FE27 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		96F2F1EF1C97A60800A5FE27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		96F2F1F01C97A60800A5FE27 /* BlueViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueViewController.swift; sourceTree = "<group>"; };
+		96F2F1F11C97A60800A5FE27 /* GreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreenViewController.swift; sourceTree = "<group>"; };
+		96F2F1F21C97A60800A5FE27 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		96F2F1F31C97A60800A5FE27 /* YellowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,7 +55,7 @@
 		960035F41C77E0D400EBA579 = {
 			isa = PBXGroup;
 			children = (
-				960035FF1C77E0D400EBA579 /* SearchBarViewController */,
+				96F2F1EA1C97A60800A5FE27 /* SearchBarController */,
 				960035FE1C77E0D400EBA579 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -63,32 +63,32 @@
 		960035FE1C77E0D400EBA579 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				960035FD1C77E0D400EBA579 /* SearchBarViewController.app */,
+				960035FD1C77E0D400EBA579 /* SearchBarController.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		960035FF1C77E0D400EBA579 /* SearchBarViewController */ = {
+		96F2F1EA1C97A60800A5FE27 /* SearchBarController */ = {
 			isa = PBXGroup;
 			children = (
-				960036001C77E0D400EBA579 /* AppDelegate.swift */,
-				960036021C77E0D400EBA579 /* AppSearchBarViewController.swift */,
-				960036121C77E13D00EBA579 /* YellowViewController.swift */,
-				9663F91E1C7A6E3D00AF0965 /* BlueViewController.swift */,
-				9663F9201C7A6E4800AF0965 /* GreenViewController.swift */,
-				960036071C77E0D400EBA579 /* Assets.xcassets */,
-				960036091C77E0D400EBA579 /* LaunchScreen.storyboard */,
-				9600360C1C77E0D400EBA579 /* Info.plist */,
+				96F2F1EB1C97A60800A5FE27 /* AppDelegate.swift */,
+				96F2F1EC1C97A60800A5FE27 /* AppSearchBarController.swift */,
+				96F2F1F01C97A60800A5FE27 /* BlueViewController.swift */,
+				96F2F1F11C97A60800A5FE27 /* GreenViewController.swift */,
+				96F2F1F31C97A60800A5FE27 /* YellowViewController.swift */,
+				96F2F1ED1C97A60800A5FE27 /* Assets.xcassets */,
+				96F2F1EE1C97A60800A5FE27 /* LaunchScreen.storyboard */,
+				96F2F1F21C97A60800A5FE27 /* Info.plist */,
 			);
-			path = SearchBarViewController;
+			path = SearchBarController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		960035FC1C77E0D400EBA579 /* SearchBarViewController */ = {
+		960035FC1C77E0D400EBA579 /* SearchBarController */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9600360F1C77E0D400EBA579 /* Build configuration list for PBXNativeTarget "SearchBarViewController" */;
+			buildConfigurationList = 9600360F1C77E0D400EBA579 /* Build configuration list for PBXNativeTarget "SearchBarController" */;
 			buildPhases = (
 				960035F91C77E0D400EBA579 /* Sources */,
 				960035FA1C77E0D400EBA579 /* Frameworks */,
@@ -99,9 +99,9 @@
 			);
 			dependencies = (
 			);
-			name = SearchBarViewController;
+			name = SearchBarController;
 			productName = SearchBarViewController;
-			productReference = 960035FD1C77E0D400EBA579 /* SearchBarViewController.app */;
+			productReference = 960035FD1C77E0D400EBA579 /* SearchBarController.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -119,7 +119,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 960035F81C77E0D400EBA579 /* Build configuration list for PBXProject "SearchBarViewController" */;
+			buildConfigurationList = 960035F81C77E0D400EBA579 /* Build configuration list for PBXProject "SearchBarController" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -132,7 +132,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				960035FC1C77E0D400EBA579 /* SearchBarViewController */,
+				960035FC1C77E0D400EBA579 /* SearchBarController */,
 			);
 		};
 /* End PBXProject section */
@@ -142,8 +142,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9600360B1C77E0D400EBA579 /* LaunchScreen.storyboard in Resources */,
-				960036081C77E0D400EBA579 /* Assets.xcassets in Resources */,
+				96F2F1F61C97A60800A5FE27 /* Assets.xcassets in Resources */,
+				96F2F1F71C97A60800A5FE27 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,21 +154,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				960036131C77E13D00EBA579 /* YellowViewController.swift in Sources */,
-				960036031C77E0D400EBA579 /* AppSearchBarViewController.swift in Sources */,
-				9663F91F1C7A6E3D00AF0965 /* BlueViewController.swift in Sources */,
-				960036011C77E0D400EBA579 /* AppDelegate.swift in Sources */,
-				9663F9211C7A6E4800AF0965 /* GreenViewController.swift in Sources */,
+				96F2F1F91C97A60800A5FE27 /* GreenViewController.swift in Sources */,
+				96F2F1F51C97A60800A5FE27 /* AppSearchBarController.swift in Sources */,
+				96F2F1F81C97A60800A5FE27 /* BlueViewController.swift in Sources */,
+				96F2F1F41C97A60800A5FE27 /* AppDelegate.swift in Sources */,
+				96F2F1FB1C97A60800A5FE27 /* YellowViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		960036091C77E0D400EBA579 /* LaunchScreen.storyboard */ = {
+		96F2F1EE1C97A60800A5FE27 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				9600360A1C77E0D400EBA579 /* Base */,
+				96F2F1EF1C97A60800A5FE27 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -263,10 +263,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = SearchBarViewController/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/SearchBarController/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.SearchBarViewController;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.SearchBarController;
+				PRODUCT_NAME = SearchBarController;
 			};
 			name = Debug;
 		};
@@ -274,17 +274,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = SearchBarViewController/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/SearchBarController/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.SearchBarViewController;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.SearchBarController;
+				PRODUCT_NAME = SearchBarController;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		960035F81C77E0D400EBA579 /* Build configuration list for PBXProject "SearchBarViewController" */ = {
+		960035F81C77E0D400EBA579 /* Build configuration list for PBXProject "SearchBarController" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9600360D1C77E0D400EBA579 /* Debug */,
@@ -293,7 +293,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9600360F1C77E0D400EBA579 /* Build configuration list for PBXNativeTarget "SearchBarViewController" */ = {
+		9600360F1C77E0D400EBA579 /* Build configuration list for PBXNativeTarget "SearchBarController" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				960036101C77E0D400EBA579 /* Debug */,

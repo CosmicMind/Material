@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		96EFD71A1C8F73C70063F49E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EFD7191C8F73C70063F49E /* AppDelegate.swift */; };
-		96EFD71C1C8F73C70063F49E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EFD71B1C8F73C70063F49E /* ViewController.swift */; };
-		96EFD7211C8F73C70063F49E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96EFD7201C8F73C70063F49E /* Assets.xcassets */; };
-		96EFD7241C8F73C70063F49E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96EFD7221C8F73C70063F49E /* LaunchScreen.storyboard */; };
+		96F2F1BB1C97A4F800A5FE27 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F2F1B51C97A4F800A5FE27 /* AppDelegate.swift */; };
+		96F2F1BC1C97A4F800A5FE27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96F2F1B61C97A4F800A5FE27 /* Assets.xcassets */; };
+		96F2F1BD1C97A4F800A5FE27 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96F2F1B71C97A4F800A5FE27 /* LaunchScreen.storyboard */; };
+		96F2F1BF1C97A4F800A5FE27 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F2F1BA1C97A4F800A5FE27 /* ViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,11 +28,11 @@
 
 /* Begin PBXFileReference section */
 		96EFD7161C8F73C60063F49E /* NavigationBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NavigationBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		96EFD7191C8F73C70063F49E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		96EFD71B1C8F73C70063F49E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		96EFD7201C8F73C70063F49E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		96EFD7231C8F73C70063F49E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		96EFD7251C8F73C70063F49E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		96F2F1B51C97A4F800A5FE27 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		96F2F1B61C97A4F800A5FE27 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		96F2F1B81C97A4F800A5FE27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		96F2F1B91C97A4F800A5FE27 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		96F2F1BA1C97A4F800A5FE27 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,7 +49,7 @@
 		96EFD70D1C8F73C60063F49E = {
 			isa = PBXGroup;
 			children = (
-				96EFD7181C8F73C60063F49E /* NavigationBar */,
+				96F2F1B41C97A4F800A5FE27 /* NavigationBar */,
 				96EFD7171C8F73C60063F49E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -62,14 +62,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		96EFD7181C8F73C60063F49E /* NavigationBar */ = {
+		96F2F1B41C97A4F800A5FE27 /* NavigationBar */ = {
 			isa = PBXGroup;
 			children = (
-				96EFD7191C8F73C70063F49E /* AppDelegate.swift */,
-				96EFD71B1C8F73C70063F49E /* ViewController.swift */,
-				96EFD7201C8F73C70063F49E /* Assets.xcassets */,
-				96EFD7221C8F73C70063F49E /* LaunchScreen.storyboard */,
-				96EFD7251C8F73C70063F49E /* Info.plist */,
+				96F2F1B51C97A4F800A5FE27 /* AppDelegate.swift */,
+				96F2F1BA1C97A4F800A5FE27 /* ViewController.swift */,
+				96F2F1B61C97A4F800A5FE27 /* Assets.xcassets */,
+				96F2F1B71C97A4F800A5FE27 /* LaunchScreen.storyboard */,
+				96F2F1B91C97A4F800A5FE27 /* Info.plist */,
 			);
 			path = NavigationBar;
 			sourceTree = "<group>";
@@ -133,8 +133,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96EFD7241C8F73C70063F49E /* LaunchScreen.storyboard in Resources */,
-				96EFD7211C8F73C70063F49E /* Assets.xcassets in Resources */,
+				96F2F1BC1C97A4F800A5FE27 /* Assets.xcassets in Resources */,
+				96F2F1BD1C97A4F800A5FE27 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,18 +145,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96EFD71C1C8F73C70063F49E /* ViewController.swift in Sources */,
-				96EFD71A1C8F73C70063F49E /* AppDelegate.swift in Sources */,
+				96F2F1BF1C97A4F800A5FE27 /* ViewController.swift in Sources */,
+				96F2F1BB1C97A4F800A5FE27 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		96EFD7221C8F73C70063F49E /* LaunchScreen.storyboard */ = {
+		96F2F1B71C97A4F800A5FE27 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				96EFD7231C8F73C70063F49E /* Base */,
+				96F2F1B81C97A4F800A5FE27 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -254,7 +254,7 @@
 				INFOPLIST_FILE = NavigationBar/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.NavigationBar;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = NavigationBar;
 			};
 			name = Debug;
 		};
@@ -265,7 +265,7 @@
 				INFOPLIST_FILE = NavigationBar/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.NavigationBar;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = NavigationBar;
 			};
 			name = Release;
 		};

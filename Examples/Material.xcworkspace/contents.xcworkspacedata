@@ -47,22 +47,22 @@
          location = "group:Programmatic/MenuViewController/MenuViewController.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:Programmatic/NavigationBar/NavigationBar.xcodeproj">
+         location = "group:/Users/danieldahan/Dropbox/CosmicMind/Technology/Repositories/Material/Examples/Programmatic/NavigationBar/NavigationBar.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:Programmatic/NavigationBarView/NavigationBarView.xcodeproj">
+         location = "group:/Users/danieldahan/Dropbox/CosmicMind/Technology/Repositories/Material/Examples/Programmatic/NavigationBarView/Toolbar.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:Programmatic/NavigationBarViewController/NavigationBarViewController.xcodeproj">
+         location = "group:/Users/danieldahan/Dropbox/CosmicMind/Technology/Repositories/Material/Examples/Programmatic/NavigationBarViewController/ToolbarController.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:Programmatic/SearchBarView/SearchBarView.xcodeproj">
+         location = "group:/Users/danieldahan/Dropbox/CosmicMind/Technology/Repositories/Material/Examples/Programmatic/SearchBarView/SearchBar.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:Programmatic/SearchBarViewController/SearchBarViewController.xcodeproj">
+         location = "group:/Users/danieldahan/Dropbox/CosmicMind/Technology/Repositories/Material/Examples/Programmatic/SearchBarViewController/SearchBarController.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:Programmatic/SideNavigationViewController/SideNavigationViewController.xcodeproj">
+         location = "group:/Users/danieldahan/Dropbox/CosmicMind/Technology/Repositories/Material/Examples/Programmatic/SideNavigationViewController/SideNavigationController.xcodeproj">
       </FileRef>
       <FileRef
          location = "group:Programmatic/CardView/CardView.xcodeproj">

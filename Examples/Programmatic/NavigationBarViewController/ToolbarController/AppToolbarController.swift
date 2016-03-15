@@ -29,18 +29,18 @@
 */
 
 /*
-The following is an example of using a NavigationBarViewController to control the
+The following is an example of using a ToolbarController to control the
 flow of your application.
 */
 
 import UIKit
 import Material
 
-class AppNavigationBarViewController: NavigationBarViewController {
+class AppToolbarController: ToolbarController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		prepareNavigationBarView()
+		prepareToolbar()
 	}
 	
 	override func viewWillAppear(animated: Bool) {
@@ -50,7 +50,7 @@ class AppNavigationBarViewController: NavigationBarViewController {
 		"View controller-based status bar appearance = NO"
 		to your info.plist file and set the following property.
 		*/
-		navigationBarView.statusBarStyle = .LightContent
+		toolbar.statusBarStyle = .LightContent
 	}
 	
 	/// Prepares view.
@@ -59,12 +59,12 @@ class AppNavigationBarViewController: NavigationBarViewController {
 		view.backgroundColor = MaterialColor.black
 	}
 	
-	/// Toggle SideNavigationViewController left UIViewController.
+	/// Toggle SideNavigationController left UIViewController.
 	internal func handleMenuButton() {
 		transitionFromMainViewController(GreenViewController(), options: [.TransitionCrossDissolve])
 	}
 	
-	/// Toggle SideNavigationViewController right UIViewController.
+	/// Toggle SideNavigationController right UIViewController.
 	internal func handleSearchButton() {
 		floatingViewController = BlueViewController()
 		
@@ -74,8 +74,8 @@ class AppNavigationBarViewController: NavigationBarViewController {
 		}
 	}
 	
-	/// Prepares the navigationBarView.
-	private func prepareNavigationBarView() {
+	/// Prepares the toolbar.
+	private func prepareToolbar() {
 		// Title label.
 		let titleLabel: UILabel = UILabel()
 		titleLabel.text = "Material"
@@ -89,7 +89,7 @@ class AppNavigationBarViewController: NavigationBarViewController {
 		//		detailLabel.textAlignment = .Left
 		//		detailLabel.textColor = MaterialColor.white
 		//		detailLabel.font = RobotoFont.regular
-		//		navigationBarView.detailLabel = detailLabel
+		//		toolbar.detailLabel = detailLabel
 		
 		var image = UIImage(named: "ic_menu_white")
 		
@@ -114,14 +114,14 @@ class AppNavigationBarViewController: NavigationBarViewController {
 		searchButton.setImage(image, forState: .Highlighted)
 		searchButton.addTarget(self, action: "handleSearchButton", forControlEvents: .TouchUpInside)
 		
-		navigationBarView.backgroundColor = MaterialColor.blue.base
-		navigationBarView.titleLabel = titleLabel
-		navigationBarView.leftControls = [menuButton]
-		navigationBarView.rightControls = [switchControl, searchButton]
+		toolbar.backgroundColor = MaterialColor.blue.base
+		toolbar.titleLabel = titleLabel
+		toolbar.leftControls = [menuButton]
+		toolbar.rightControls = [switchControl, searchButton]
 	}
 }
 
-extension AppNavigationBarViewController: MaterialSwitchDelegate {
+extension AppToolbarController: MaterialSwitchDelegate {
 	func materialSwitchStateChanged(control: MaterialSwitch) {
 		transitionFromMainViewController(YellowViewController(), options: [.TransitionCrossDissolve])
 	}

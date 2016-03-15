@@ -30,70 +30,78 @@
 
 import UIKit
 
-public enum MaterialDeviceType {
-	case iPad
-	case iPhone
-	case TV
-	case Unspecified
-}
-
-public struct MaterialDevice {
-	/// Retrieves the current device type.
-	public static var type: MaterialDeviceType {
-		switch UIDevice.currentDevice().userInterfaceIdiom {
-		case .Pad:
-			return .iPad
-		case .Phone:
-			return .iPhone
-		case .TV:
-			return .TV
-		default:
-			return .Unspecified
-		}
-	}
+public class SearchBar : StatusBarView {
+	/// The UITextField for the searchBar.
+	public private(set) lazy var textField: TextField = TextField()
 	
-	/// A Boolean indicating if the device is in Landscape mode.
-	public static var landscape: Bool {
-		return UIApplication.sharedApplication().statusBarOrientation.isLandscape
-	}
-	
-	/// Retrieves the device bounds.
-	public static var bounds: CGRect {
-		return UIScreen.mainScreen().bounds
-	}
-	
-	/// Retrieves the device width.
-	public static var width: CGFloat {
-		return bounds.width
-	}
-	
-	/// Retrieves the device height.
-	public static var height: CGFloat {
-		return bounds.height
-	}
-	
-	/// Retrieves the device scale.
-	public static var scale: CGFloat {
-		return UIScreen.mainScreen().scale
-	}
-	
-	/// Retrieves the device status bar style.
-	public static var statusBarStyle: UIStatusBarStyle {
+	/// The UIImage for the clear icon.
+	public var clearButton: UIButton? {
 		get {
-			return UIApplication.sharedApplication().statusBarStyle
+			return textField.clearButton
 		}
 		set(value) {
-			UIApplication.sharedApplication().statusBarStyle = value
+			textField.clearButton = value
 		}
 	}
 	
-	/// Retrieves the device status bar hidden state.
-	public static var statusBarHidden: Bool {
+	/// TintColor for searchBar.
+	@IBInspectable public override var tintColor: UIColor? {
+		didSet {
+			textField.tintColor = tintColor
+		}
+	}
+	
+	/// TextColor for searchBar.
+	@IBInspectable public var textColor: UIColor? {
+		didSet {
+			textField.textColor = textColor
+		}
+	}
+	
+	/// A wrapper for searchBar.placeholder.
+	@IBInspectable public var placeholder: String? {
+		didSet {
+			textField.placeholder = placeholder
+		}
+	}
+	
+	/// Placeholder textColor.
+	@IBInspectable public var placeholderTextColor: UIColor {
 		get {
-			return UIApplication.sharedApplication().statusBarHidden
+			return textField.placeholderTextColor
 		}
 		set(value) {
-			UIApplication.sharedApplication().statusBarHidden = value
+			textField.placeholderTextColor = value
 		}
+	}
+	
+	/// A convenience initializer.
+	public convenience init() {
+		self.init(frame: CGRectZero)
+	}
+	
+	public override func layoutSubviews() {
+		super.layoutSubviews()
+		if willRenderView {
+			contentView.grid.views?.append(textField)
+			contentView.grid.reloadLayout()
+			textField.font = textField.font?.fontWithSize(20)
+			textField.reloadView()
+		}
+	}
+	
+	/// Prepares the contentView.
+	public override func prepareContentView() {
+		super.prepareContentView()
+		prepareTextField()
+	}
+	
+	
+	/// Prepares the textField.
+	private func prepareTextField() {
+		textField.placeholder = "Search"
+		textField.backgroundColor = MaterialColor.clear
+		textField.clearButtonMode = .WhileEditing
+		contentView.addSubview(textField)
 	}
 }

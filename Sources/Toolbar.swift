@@ -30,7 +30,7 @@
 
 import UIKit
 
-public class NavigationBarView : StatusBarView {
+public class Toolbar : StatusBarView {
 	/// Title label.
 	public var titleLabel: UILabel? {
 		didSet {

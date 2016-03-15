@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9600361B1C7828BB00EBA579 /* BlueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9600361A1C7828BB00EBA579 /* BlueViewController.swift */; };
-		9600361D1C7829EF00EBA579 /* GreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9600361C1C7829EF00EBA579 /* GreenViewController.swift */; };
-		96A71FC41C765FDF00C0C4AE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71FC31C765FDF00C0C4AE /* AppDelegate.swift */; };
-		96A71FC61C765FDF00C0C4AE /* AppNavigationBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71FC51C765FDF00C0C4AE /* AppNavigationBarViewController.swift */; };
-		96A71FCB1C765FDF00C0C4AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96A71FCA1C765FDF00C0C4AE /* Assets.xcassets */; };
-		96A71FCE1C765FDF00C0C4AE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96A71FCC1C765FDF00C0C4AE /* LaunchScreen.storyboard */; };
-		96A71FD61C76618D00C0C4AE /* YellowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71FD51C76618D00C0C4AE /* YellowViewController.swift */; };
+		96F2F1D61C97A55B00A5FE27 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F2F1CD1C97A55B00A5FE27 /* AppDelegate.swift */; };
+		96F2F1D71C97A55B00A5FE27 /* AppToolbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F2F1CE1C97A55B00A5FE27 /* AppToolbarController.swift */; };
+		96F2F1D81C97A55B00A5FE27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96F2F1CF1C97A55B00A5FE27 /* Assets.xcassets */; };
+		96F2F1D91C97A55B00A5FE27 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96F2F1D01C97A55B00A5FE27 /* LaunchScreen.storyboard */; };
+		96F2F1DA1C97A55B00A5FE27 /* BlueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F2F1D21C97A55B00A5FE27 /* BlueViewController.swift */; };
+		96F2F1DB1C97A55B00A5FE27 /* GreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F2F1D31C97A55B00A5FE27 /* GreenViewController.swift */; };
+		96F2F1DD1C97A55B00A5FE27 /* YellowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F2F1D51C97A55B00A5FE27 /* YellowViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -30,15 +30,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		9600361A1C7828BB00EBA579 /* BlueViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueViewController.swift; sourceTree = "<group>"; };
-		9600361C1C7829EF00EBA579 /* GreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreenViewController.swift; sourceTree = "<group>"; };
-		96A71FC01C765FDF00C0C4AE /* NavigationBarViewController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NavigationBarViewController.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		96A71FC31C765FDF00C0C4AE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		96A71FC51C765FDF00C0C4AE /* AppNavigationBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigationBarViewController.swift; sourceTree = "<group>"; };
-		96A71FCA1C765FDF00C0C4AE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		96A71FCD1C765FDF00C0C4AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		96A71FCF1C765FDF00C0C4AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		96A71FD51C76618D00C0C4AE /* YellowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowViewController.swift; sourceTree = "<group>"; };
+		96A71FC01C765FDF00C0C4AE /* ToolbarController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToolbarController.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		96F2F1CD1C97A55B00A5FE27 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		96F2F1CE1C97A55B00A5FE27 /* AppToolbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppToolbarController.swift; sourceTree = "<group>"; };
+		96F2F1CF1C97A55B00A5FE27 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		96F2F1D11C97A55B00A5FE27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		96F2F1D21C97A55B00A5FE27 /* BlueViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueViewController.swift; sourceTree = "<group>"; };
+		96F2F1D31C97A55B00A5FE27 /* GreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreenViewController.swift; sourceTree = "<group>"; };
+		96F2F1D41C97A55B00A5FE27 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		96F2F1D51C97A55B00A5FE27 /* YellowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,7 +55,7 @@
 		96A71FB71C765FDF00C0C4AE = {
 			isa = PBXGroup;
 			children = (
-				96A71FC21C765FDF00C0C4AE /* NavigationBarViewController */,
+				96F2F1CC1C97A55B00A5FE27 /* ToolbarController */,
 				96A71FC11C765FDF00C0C4AE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -63,32 +63,32 @@
 		96A71FC11C765FDF00C0C4AE /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				96A71FC01C765FDF00C0C4AE /* NavigationBarViewController.app */,
+				96A71FC01C765FDF00C0C4AE /* ToolbarController.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		96A71FC21C765FDF00C0C4AE /* NavigationBarViewController */ = {
+		96F2F1CC1C97A55B00A5FE27 /* ToolbarController */ = {
 			isa = PBXGroup;
 			children = (
-				96A71FC31C765FDF00C0C4AE /* AppDelegate.swift */,
-				96A71FC51C765FDF00C0C4AE /* AppNavigationBarViewController.swift */,
-				96A71FD51C76618D00C0C4AE /* YellowViewController.swift */,
-				9600361A1C7828BB00EBA579 /* BlueViewController.swift */,
-				9600361C1C7829EF00EBA579 /* GreenViewController.swift */,
-				96A71FCA1C765FDF00C0C4AE /* Assets.xcassets */,
-				96A71FCC1C765FDF00C0C4AE /* LaunchScreen.storyboard */,
-				96A71FCF1C765FDF00C0C4AE /* Info.plist */,
+				96F2F1CD1C97A55B00A5FE27 /* AppDelegate.swift */,
+				96F2F1CE1C97A55B00A5FE27 /* AppToolbarController.swift */,
+				96F2F1D21C97A55B00A5FE27 /* BlueViewController.swift */,
+				96F2F1D31C97A55B00A5FE27 /* GreenViewController.swift */,
+				96F2F1D51C97A55B00A5FE27 /* YellowViewController.swift */,
+				96F2F1CF1C97A55B00A5FE27 /* Assets.xcassets */,
+				96F2F1D01C97A55B00A5FE27 /* LaunchScreen.storyboard */,
+				96F2F1D41C97A55B00A5FE27 /* Info.plist */,
 			);
-			path = NavigationBarViewController;
+			path = ToolbarController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		96A71FBF1C765FDF00C0C4AE /* NavigationBarViewController */ = {
+		96A71FBF1C765FDF00C0C4AE /* ToolbarController */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 96A71FD21C765FDF00C0C4AE /* Build configuration list for PBXNativeTarget "NavigationBarViewController" */;
+			buildConfigurationList = 96A71FD21C765FDF00C0C4AE /* Build configuration list for PBXNativeTarget "ToolbarController" */;
 			buildPhases = (
 				96A71FBC1C765FDF00C0C4AE /* Sources */,
 				96A71FBD1C765FDF00C0C4AE /* Frameworks */,
@@ -99,9 +99,9 @@
 			);
 			dependencies = (
 			);
-			name = NavigationBarViewController;
+			name = ToolbarController;
 			productName = NavigationBarViewController;
-			productReference = 96A71FC01C765FDF00C0C4AE /* NavigationBarViewController.app */;
+			productReference = 96A71FC01C765FDF00C0C4AE /* ToolbarController.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -119,7 +119,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 96A71FBB1C765FDF00C0C4AE /* Build configuration list for PBXProject "NavigationBarViewController" */;
+			buildConfigurationList = 96A71FBB1C765FDF00C0C4AE /* Build configuration list for PBXProject "ToolbarController" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -132,7 +132,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				96A71FBF1C765FDF00C0C4AE /* NavigationBarViewController */,
+				96A71FBF1C765FDF00C0C4AE /* ToolbarController */,
 			);
 		};
 /* End PBXProject section */
@@ -142,8 +142,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96A71FCE1C765FDF00C0C4AE /* LaunchScreen.storyboard in Resources */,
-				96A71FCB1C765FDF00C0C4AE /* Assets.xcassets in Resources */,
+				96F2F1D81C97A55B00A5FE27 /* Assets.xcassets in Resources */,
+				96F2F1D91C97A55B00A5FE27 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,21 +154,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9600361B1C7828BB00EBA579 /* BlueViewController.swift in Sources */,
-				96A71FD61C76618D00C0C4AE /* YellowViewController.swift in Sources */,
-				9600361D1C7829EF00EBA579 /* GreenViewController.swift in Sources */,
-				96A71FC61C765FDF00C0C4AE /* AppNavigationBarViewController.swift in Sources */,
-				96A71FC41C765FDF00C0C4AE /* AppDelegate.swift in Sources */,
+				96F2F1DB1C97A55B00A5FE27 /* GreenViewController.swift in Sources */,
+				96F2F1D71C97A55B00A5FE27 /* AppToolbarController.swift in Sources */,
+				96F2F1DA1C97A55B00A5FE27 /* BlueViewController.swift in Sources */,
+				96F2F1D61C97A55B00A5FE27 /* AppDelegate.swift in Sources */,
+				96F2F1DD1C97A55B00A5FE27 /* YellowViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		96A71FCC1C765FDF00C0C4AE /* LaunchScreen.storyboard */ = {
+		96F2F1D01C97A55B00A5FE27 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				96A71FCD1C765FDF00C0C4AE /* Base */,
+				96F2F1D11C97A55B00A5FE27 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -263,10 +263,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = NavigationBarViewController/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/ToolbarController/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.NavigationBarViewController;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.ToolbarController;
+				PRODUCT_NAME = ToolbarController;
 			};
 			name = Debug;
 		};
@@ -274,17 +274,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = NavigationBarViewController/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/ToolbarController/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.NavigationBarViewController;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.ToolbarController;
+				PRODUCT_NAME = ToolbarController;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		96A71FBB1C765FDF00C0C4AE /* Build configuration list for PBXProject "NavigationBarViewController" */ = {
+		96A71FBB1C765FDF00C0C4AE /* Build configuration list for PBXProject "ToolbarController" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				96A71FD01C765FDF00C0C4AE /* Debug */,
@@ -293,7 +293,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		96A71FD21C765FDF00C0C4AE /* Build configuration list for PBXNativeTarget "NavigationBarViewController" */ = {
+		96A71FD21C765FDF00C0C4AE /* Build configuration list for PBXNativeTarget "ToolbarController" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				96A71FD31C765FDF00C0C4AE /* Debug */,

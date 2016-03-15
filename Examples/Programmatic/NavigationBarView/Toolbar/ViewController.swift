@@ -29,7 +29,7 @@
 */
 
 /*
-A NavigationBarView is a fully featured NavigationBar that supports orientation 
+A Toolbar is a fully featured NavigationBar that supports orientation 
 changes, background images, title and detail labels, both left and right UIControl
 sets, and status bar settings. Below is an example of its usage.
 */
@@ -38,13 +38,13 @@ import UIKit
 import Material
 
 class ViewController: UIViewController {
-	/// Reference for NavigationBarView.
-	private var navigationBarView: NavigationBarView = NavigationBarView()
+	/// Reference for Toolbar.
+	private var toolbar: Toolbar = Toolbar()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		prepareNavigationBarView()
+		prepareToolbar()
 	}
 	
 	/// General preparation statements.
@@ -52,8 +52,8 @@ class ViewController: UIViewController {
 		view.backgroundColor = MaterialColor.white
 	}
 	
-	/// Prepares the navigationBarView
-	private func prepareNavigationBarView() {
+	/// Prepares the toolbar
+	private func prepareToolbar() {
 		// Title label.
 		let titleLabel: UILabel = UILabel()
 		titleLabel.text = "Material"
@@ -93,14 +93,14 @@ class ViewController: UIViewController {
 		"View controller-based status bar appearance = NO"
 		to your info.plist file and set the following property.
 		*/
-		navigationBarView.statusBarStyle = .LightContent
+		toolbar.statusBarStyle = .LightContent
 
-		navigationBarView.backgroundColor = MaterialColor.blue.base
-		navigationBarView.titleLabel = titleLabel
-		navigationBarView.detailLabel = detailLabel
-		navigationBarView.leftControls = [menuButton]
-		navigationBarView.rightControls = [switchControl, searchButton]
+		toolbar.backgroundColor = MaterialColor.blue.base
+		toolbar.titleLabel = titleLabel
+		toolbar.detailLabel = detailLabel
+		toolbar.leftControls = [menuButton]
+		toolbar.rightControls = [switchControl, searchButton]
 		
-		view.addSubview(navigationBarView)
+		view.addSubview(toolbar)
 	}
 }

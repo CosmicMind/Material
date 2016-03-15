@@ -38,15 +38,15 @@ public enum SideNavigationPosition : NSInteger {
 
 public extension UIViewController {
 	/**
-	A convenience property that provides access to the SideNavigationViewController. 
-	This is the recommended method of accessing the SideNavigationViewController
+	A convenience property that provides access to the SideNavigationController. 
+	This is the recommended method of accessing the SideNavigationController
 	through child UIViewControllers.
 	*/
-	public var sideNavigationViewController: SideNavigationViewController? {
+	public var sideNavigationController: SideNavigationController? {
 		var viewController: UIViewController? = self
 		while nil != viewController {
-			if viewController is SideNavigationViewController {
-				return viewController as? SideNavigationViewController
+			if viewController is SideNavigationController {
+				return viewController as? SideNavigationController
 			}
 			viewController = viewController?.parentViewController
 		}
@@ -54,66 +54,66 @@ public extension UIViewController {
 	}
 }
 
-@objc(SideNavigationViewControllerDelegate)
-public protocol SideNavigationViewControllerDelegate {
+@objc(SideNavigationControllerDelegate)
+public protocol SideNavigationControllerDelegate {
 	/**
 	An optional delegation method that is fired before the 
-	SideNavigationViewController opens.
+	SideNavigationController opens.
 	*/
-	optional func sideNavigationViewWillOpen(sideNavigationViewController: SideNavigationViewController, position: SideNavigationPosition)
+	optional func sideNavigationWillOpen(sideNavigationController: SideNavigationController, position: SideNavigationPosition)
 	
 	/**
 	An optional delegation method that is fired after the
-	SideNavigationViewController opened.
+	SideNavigationController opened.
 	*/
-	optional func sideNavigationViewDidOpen(sideNavigationViewController: SideNavigationViewController, position: SideNavigationPosition)
+	optional func sideNavigationDidOpen(sideNavigationController: SideNavigationController, position: SideNavigationPosition)
 	
 	/**
 	An optional delegation method that is fired before the
-	SideNavigationViewController closes.
+	SideNavigationController closes.
 	*/
-	optional func sideNavigationViewWillClose(sideNavigationViewController: SideNavigationViewController, position: SideNavigationPosition)
+	optional func sideNavigationWillClose(sideNavigationController: SideNavigationController, position: SideNavigationPosition)
 	
 	/**
 	An optional delegation method that is fired after the
-	SideNavigationViewController closed.
+	SideNavigationController closed.
 	*/
-	optional func sideNavigationViewDidClose(sideNavigationViewController: SideNavigationViewController, position: SideNavigationPosition)
+	optional func sideNavigationDidClose(sideNavigationController: SideNavigationController, position: SideNavigationPosition)
 	
 	/**
 	An optional delegation method that is fired when the
-	SideNavigationViewController pan gesture begins.
+	SideNavigationController pan gesture begins.
 	*/
-	optional func sideNavigationViewPanDidBegin(sideNavigationViewController: SideNavigationViewController, point: CGPoint, position: SideNavigationPosition)
+	optional func sideNavigationPanDidBegin(sideNavigationController: SideNavigationController, point: CGPoint, position: SideNavigationPosition)
 	
 	/**
 	An optional delegation method that is fired when the
-	SideNavigationViewController pan gesture changes position.
+	SideNavigationController pan gesture changes position.
 	*/
-	optional func sideNavigationViewPanDidChange(sideNavigationViewController: SideNavigationViewController, point: CGPoint, position: SideNavigationPosition)
+	optional func sideNavigationPanDidChange(sideNavigationController: SideNavigationController, point: CGPoint, position: SideNavigationPosition)
 	
 	/**
 	An optional delegation method that is fired when the
-	SideNavigationViewController pan gesture ends.
+	SideNavigationController pan gesture ends.
 	*/
-	optional func sideNavigationViewPanDidEnd(sideNavigationViewController: SideNavigationViewController, point: CGPoint, position: SideNavigationPosition)
+	optional func sideNavigationPanDidEnd(sideNavigationController: SideNavigationController, point: CGPoint, position: SideNavigationPosition)
 	
 	/**
 	An optional delegation method that is fired when the
-	SideNavigationViewController tap gesture executes.
+	SideNavigationController tap gesture executes.
 	*/
-	optional func sideNavigationViewDidTap(sideNavigationViewController: SideNavigationViewController, point: CGPoint, position: SideNavigationPosition)
+	optional func sideNavigationDidTap(sideNavigationController: SideNavigationController, point: CGPoint, position: SideNavigationPosition)
 
 	/**
 	An optional delegation method that is fired when the
 	status bar is about to change display, hidden or not.
 	*/
-	optional func sideNavigationStatusBarHiddenState(sideNavigationViewController: SideNavigationViewController, hidden: Bool)
+	optional func sideNavigationStatusBarHiddenState(sideNavigationController: SideNavigationController, hidden: Bool)
 }
 
 @IBDesignable
-@objc(SideNavigationViewController)
-public class SideNavigationViewController : UIViewController, UIGestureRecognizerDelegate {
+@objc(SideNavigationController)
+public class SideNavigationController : UIViewController, UIGestureRecognizerDelegate {
 	/**
 	A CGFloat property that is used internally to track
 	the original (x) position of the container view when panning.
@@ -134,7 +134,7 @@ public class SideNavigationViewController : UIViewController, UIGestureRecognize
 	
 	/**
 	A CGFloat property that accesses the leftView threshold of
-	the SideNavigationViewController. When the panning gesture has
+	the SideNavigationController. When the panning gesture has
 	ended, if the position is beyond the threshold,
 	the leftView is opened, if it is below the threshold, the
 	leftView is closed. The leftViewThreshold is always at half
@@ -144,7 +144,7 @@ public class SideNavigationViewController : UIViewController, UIGestureRecognize
 	
 	/**
 	A CGFloat property that accesses the rightView threshold of
-	the SideNavigationViewController. When the panning gesture has
+	the SideNavigationController. When the panning gesture has
 	ended, if the position is beyond the threshold,
 	the rightView is closed, if it is below the threshold, the
 	rightView is opened. The rightViewThreshold is always at half
@@ -153,10 +153,10 @@ public class SideNavigationViewController : UIViewController, UIGestureRecognize
 	@IBInspectable public var rightViewThreshold: CGFloat = 0
 	
 	/**
-	A SideNavigationViewControllerDelegate property used to bind
+	A SideNavigationControllerDelegate property used to bind
 	the delegation object.
 	*/
-	public weak var delegate: SideNavigationViewControllerDelegate?
+	public weak var delegate: SideNavigationControllerDelegate?
 	
 	/**
 	A Boolean property used to enable and disable interactivity
@@ -287,7 +287,7 @@ public class SideNavigationViewController : UIViewController, UIGestureRecognize
 	@IBInspectable public private(set) var rightViewWidth: CGFloat = 240
 	
 	/**
-	An initializer for the SideNavigationViewController.
+	An initializer for the SideNavigationController.
 	- Parameter mainViewController: The main UIViewController.
 	- Parameter leftViewController: An Optional left UIViewController.
 	- Parameter rightViewController: An Optional right UIViewController.
@@ -506,13 +506,13 @@ public class SideNavigationViewController : UIViewController, UIGestureRecognize
 				toggleStatusBar(true)
 				showView(v)
 				
-				delegate?.sideNavigationViewWillOpen?(self, position: .Left)
+				delegate?.sideNavigationWillOpen?(self, position: .Left)
 				mainViewController.view.alpha = 0.5
 				UIView.animateWithDuration(Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.x / velocity)))),
 					animations: {
 						v.position.x = v.width / 2
 					}) { [unowned self] _ in
-						self.delegate?.sideNavigationViewDidOpen?(self, position: .Left)
+						self.delegate?.sideNavigationDidOpen?(self, position: .Left)
 					}
 			}
 		}
@@ -530,13 +530,13 @@ public class SideNavigationViewController : UIViewController, UIGestureRecognize
 				toggleStatusBar(true)
 				showView(v)
 				
-				delegate?.sideNavigationViewWillOpen?(self, position: .Right)
+				delegate?.sideNavigationWillOpen?(self, position: .Right)
 				mainViewController.view.alpha = 0.5
 				UIView.animateWithDuration(Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.x / velocity)))),
 					animations: { [unowned self] in
 						v.position.x = self.view.bounds.width - v.width / 2
 					}) { [unowned self] _ in
-						self.delegate?.sideNavigationViewDidOpen?(self, position: .Right)
+						self.delegate?.sideNavigationDidOpen?(self, position: .Right)
 					}
 			}
 		}
@@ -551,7 +551,7 @@ public class SideNavigationViewController : UIViewController, UIGestureRecognize
 	public func closeLeftView(velocity: CGFloat = 0) {
 		if enabledLeftView {
 			if let v: MaterialView = leftView {
-				delegate?.sideNavigationViewWillClose?(self, position: .Left)
+				delegate?.sideNavigationWillClose?(self, position: .Left)
 				mainViewController.view.alpha = 1
 				UIView.animateWithDuration(Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.x / velocity)))),
 					animations: {
@@ -559,7 +559,7 @@ public class SideNavigationViewController : UIViewController, UIGestureRecognize
 					}) { [unowned self] _ in
 						self.toggleStatusBar()
 						self.hideView(v)
-						self.delegate?.sideNavigationViewDidClose?(self, position: .Left)
+						self.delegate?.sideNavigationDidClose?(self, position: .Left)
 					}
 			}
 		}
@@ -574,7 +574,7 @@ public class SideNavigationViewController : UIViewController, UIGestureRecognize
 	public func closeRightView(velocity: CGFloat = 0) {
 		if enabledRightView {
 			if let v: MaterialView = rightView {
-				delegate?.sideNavigationViewWillClose?(self, position: .Right)
+				delegate?.sideNavigationWillClose?(self, position: .Right)
 				mainViewController.view.alpha = 1
 				UIView.animateWithDuration(Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.x / velocity)))),
 					animations: { [unowned self] in
@@ -582,7 +582,7 @@ public class SideNavigationViewController : UIViewController, UIGestureRecognize
 					}) { [unowned self] _ in
 						self.toggleStatusBar()
 						self.hideView(v)
-						self.delegate?.sideNavigationViewDidClose?(self, position: .Right)
+						self.delegate?.sideNavigationDidClose?(self, position: .Right)
 					}
 			}
 		}
@@ -603,7 +603,7 @@ public class SideNavigationViewController : UIViewController, UIGestureRecognize
 	
 	/**
 	A method that is fired when the pan gesture is recognized
-	for the SideNavigationViewController.
+	for the SideNavigationController.
 	- Parameter recognizer: A UIPanGestureRecognizer that is
 	passed to the handler when recognized.
 	*/
@@ -621,7 +621,7 @@ public class SideNavigationViewController : UIViewController, UIGestureRecognize
 					toggleStatusBar(true)
 					showView(v)
 					
-					delegate?.sideNavigationViewPanDidBegin?(self, point: point, position: .Right)
+					delegate?.sideNavigationPanDidBegin?(self, point: point, position: .Right)
 				case .Changed:
 					let w: CGFloat = v.width
 					let translationX: CGFloat = recognizer.translationInView(v).x
@@ -631,12 +631,12 @@ public class SideNavigationViewController : UIViewController, UIGestureRecognize
 					let a: CGFloat = 1 - (view.bounds.width - v.position.x) / v.width
 					mainViewController.view.alpha = 0.5 < a ? a : 0.5
 					
-					delegate?.sideNavigationViewPanDidChange?(self, point: point, position: .Right)
+					delegate?.sideNavigationPanDidChange?(self, point: point, position: .Right)
 				case .Ended, .Cancelled, .Failed:
 					let p: CGPoint = recognizer.velocityInView(recognizer.view)
 					let x: CGFloat = p.x >= 1000 || p.x <= -1000 ? p.x : 0
 					
-					delegate?.sideNavigationViewPanDidEnd?(self, point: point, position: .Right)
+					delegate?.sideNavigationPanDidEnd?(self, point: point, position: .Right)
 					
 					if v.x >= rightViewThreshold || x > 1000 {
 						closeRightView(x)
@@ -658,7 +658,7 @@ public class SideNavigationViewController : UIViewController, UIGestureRecognize
 					toggleStatusBar(true)
 					showView(v)
 					
-					delegate?.sideNavigationViewPanDidBegin?(self, point: point, position: .Left)
+					delegate?.sideNavigationPanDidBegin?(self, point: point, position: .Left)
 				case .Changed:
 					let w: CGFloat = v.width
 					let translationX: CGFloat = recognizer.translationInView(v).x
@@ -668,12 +668,12 @@ public class SideNavigationViewController : UIViewController, UIGestureRecognize
 					let a: CGFloat = 1 - v.position.x / v.width
 					mainViewController.view.alpha = 0.5 < a ? a : 0.5
 					
-					delegate?.sideNavigationViewPanDidChange?(self, point: point, position: .Left)
+					delegate?.sideNavigationPanDidChange?(self, point: point, position: .Left)
 				case .Ended, .Cancelled, .Failed:
 					let p: CGPoint = recognizer.velocityInView(recognizer.view)
 					let x: CGFloat = p.x >= 1000 || p.x <= -1000 ? p.x : 0
 					
-					delegate?.sideNavigationViewPanDidEnd?(self, point: point, position: .Left)
+					delegate?.sideNavigationPanDidEnd?(self, point: point, position: .Left)
 					
 					if v.x <= -leftViewWidth + leftViewThreshold || x < -1000 {
 						closeLeftView(x)
@@ -688,14 +688,14 @@ public class SideNavigationViewController : UIViewController, UIGestureRecognize
 	
 	/**
 	A method that is fired when the tap gesture is recognized
-	for the SideNavigationViewController.
+	for the SideNavigationController.
 	- Parameter recognizer: A UITapGestureRecognizer that is
 	passed to the handler when recognized.
 	*/
 	internal func handleTapGesture(recognizer: UITapGestureRecognizer) {
 		if openedLeftView {
 			if let v: MaterialView = leftView {
-				delegate?.sideNavigationViewDidTap?(self, point: recognizer.locationInView(view), position: .Left)
+				delegate?.sideNavigationDidTap?(self, point: recognizer.locationInView(view), position: .Left)
 				if enabledLeftView && openedLeftView && !isPointContainedWithinView(v, point: recognizer.locationInView(v)) {
 					closeLeftView()
 				}
@@ -703,7 +703,7 @@ public class SideNavigationViewController : UIViewController, UIGestureRecognize
 		}
 		if openedRightView {
 			if let v: MaterialView = rightView {
-				delegate?.sideNavigationViewDidTap?(self, point: recognizer.locationInView(view), position: .Right)
+				delegate?.sideNavigationDidTap?(self, point: recognizer.locationInView(view), position: .Right)
 				if enabledRightView && openedRightView && !isPointContainedWithinView(v, point: recognizer.locationInView(v)) {
 					closeRightView()
 				}
@@ -711,7 +711,7 @@ public class SideNavigationViewController : UIViewController, UIGestureRecognize
 		}
 	}
 	
-	/// A method that generally prepares the SideNavigationViewController.
+	/// A method that generally prepares the SideNavigationController.
 	private func prepareView() {
 		prepareMainViewController()
 		prepareLeftView()
@@ -777,7 +777,7 @@ public class SideNavigationViewController : UIViewController, UIGestureRecognize
 	
 	/**
 	A method that adds the passed in controller as a child of 
-	the SideNavigationViewController within the passed in 
+	the SideNavigationController within the passed in 
 	container view.
 	- Parameter viewController: A UIViewController to add as a child.
 	- Parameter container: A UIView that is the parent of the 
@@ -793,7 +793,7 @@ public class SideNavigationViewController : UIViewController, UIGestureRecognize
 	
 	/**
 	A method that prepares the gestures used within the 
-	SideNavigationViewController.
+	SideNavigationController.
 	*/
 	private func prepareGestures() {
 		if nil == panGesture {
@@ -856,7 +856,7 @@ public class SideNavigationViewController : UIViewController, UIGestureRecognize
 	/**
 	A method that determines whether the passed point is
 	contained within the bounds of the leftViewThreshold
-	and height of the SideNavigationViewController view frame
+	and height of the SideNavigationController view frame
 	property.
 	- Parameter point: A CGPoint to test against.
 	- Returns: A Boolean of the result, true if yes, false 
@@ -869,7 +869,7 @@ public class SideNavigationViewController : UIViewController, UIGestureRecognize
 	/**
 	A method that determines whether the passed point is
 	contained within the bounds of the rightViewThreshold
-	and height of the SideNavigationViewController view frame
+	and height of the SideNavigationController view frame
 	property.
 	- Parameter point: A CGPoint to test against.
 	- Returns: A Boolean of the result, true if yes, false

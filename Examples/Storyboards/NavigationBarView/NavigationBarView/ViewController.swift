@@ -33,28 +33,28 @@ import Material
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var navigationBarView: NavigationBarView!
+    @IBOutlet weak var toolbar: Toolbar!
 	
-	@IBOutlet weak var navigationBarViewHeightConstraint: NSLayoutConstraint?
+	@IBOutlet weak var toolbarHeightConstraint: NSLayoutConstraint?
 	
 	override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
 		// If landscape.
 		if UIInterfaceOrientationIsLandscape(toInterfaceOrientation) {
 			/**
-			The height of the NavigationBarView is dependant on the device being used.
+			The height of the Toolbar is dependant on the device being used.
 			If the device is an iPad, the height should stay the same as in Portrait 
 			view, otherwise it should strink to the Landscape height for iPhone.
 			*/
-			navigationBarViewHeightConstraint?.constant = .iPad == MaterialDevice.type ? navigationBarView!.heightForPortraitOrientation :  navigationBarView!.heightForLandscapeOrientation
+			toolbarHeightConstraint?.constant = .iPad == MaterialDevice.type ? toolbar!.heightForPortraitOrientation :  toolbar!.heightForLandscapeOrientation
 		} else {
-			navigationBarViewHeightConstraint?.constant = navigationBarView!.heightForPortraitOrientation
+			toolbarHeightConstraint?.constant = toolbar!.heightForPortraitOrientation
 		}
 	}
 	
     override func viewDidLoad() {
         super.viewDidLoad()
 		prepareView()
-		prepareNavigationBarView()
+		prepareToolbar()
     }
 	
 	/// General preparation statements.
@@ -62,14 +62,14 @@ class ViewController: UIViewController {
 		view.backgroundColor = MaterialColor.white
     }
 	
-	/// Prepare the navigationBarView.
-    func prepareNavigationBarView() {
+	/// Prepare the toolbar.
+    func prepareToolbar() {
 		// Stylize.
-        navigationBarView.backgroundColor = MaterialColor.indigo.darken1
+        toolbar.backgroundColor = MaterialColor.indigo.darken1
 		
         // To lighten the status bar add the "View controller-based status bar appearance = NO"
         // to your info.plist file and set the following property.
-        navigationBarView.statusBarStyle = .LightContent
+        toolbar.statusBarStyle = .LightContent
         
         // Title label.
         let titleLabel: UILabel = UILabel()
@@ -77,7 +77,7 @@ class ViewController: UIViewController {
         titleLabel.textAlignment = .Left
         titleLabel.textColor = MaterialColor.white
         titleLabel.font = RobotoFont.regular
-        navigationBarView.titleLabel = titleLabel
+        toolbar.titleLabel = titleLabel
 		
         // Detail label.
         let detailLabel: UILabel = UILabel()
@@ -85,7 +85,7 @@ class ViewController: UIViewController {
         detailLabel.textAlignment = .Left
         detailLabel.textColor = MaterialColor.white
         detailLabel.font = RobotoFont.regular
-        navigationBarView.detailLabel = detailLabel
+        toolbar.detailLabel = detailLabel
 		
         // Menu button.
         let img1: UIImage? = UIImage(named: "ic_menu_white")
@@ -109,10 +109,10 @@ class ViewController: UIViewController {
         btn3.setImage(img3, forState: .Highlighted)
         
         // Add buttons to left side.
-        navigationBarView.leftControls = [btn1]
+        toolbar.leftControls = [btn1]
         
         // Add buttons to right side.
-        navigationBarView.rightControls = [btn2, btn3]
+        toolbar.rightControls = [btn2, btn3]
     }
 }
 

@@ -51,13 +51,13 @@ class AppMenuViewController: MenuViewController {
 	
 	override func openMenu(completion: (() -> Void)? = nil) {
 		super.openMenu(completion)
-		sideNavigationViewController?.enabled = false
+		sideNavigationController?.enabled = false
 		(menuView.menu.views?.first as? MaterialButton)?.animate(MaterialAnimation.rotate(angle: 45))
 	}
 	
 	override func closeMenu(completion: (() -> Void)? = nil) {
 		super.closeMenu(completion)
-		sideNavigationViewController?.enabled = true
+		sideNavigationController?.enabled = true
 		(menuView.menu.views?.first as? MaterialButton)?.animate(MaterialAnimation.rotate(angle: 0))
 	}
 	

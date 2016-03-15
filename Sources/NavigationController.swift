@@ -71,7 +71,7 @@ public class NavigationController : UINavigationController, UIGestureRecognizerD
 	public override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 		if let v: UIGestureRecognizer = interactivePopGestureRecognizer {
-			if let x: SideNavigationViewController = sideNavigationViewController {
+			if let x: SideNavigationController = sideNavigationController {
 				if let p: UIPanGestureRecognizer = x.panGesture {
 					p.requireGestureRecognizerToFail(v)
 				}
@@ -89,7 +89,7 @@ public class NavigationController : UINavigationController, UIGestureRecognizerD
 	
 	/**
 	Detects the gesture recognizer being used. This is necessary when using 
-	SideNavigationViewController. It eliminates the conflict in panning.
+	SideNavigationController. It eliminates the conflict in panning.
 	- Parameter gestureRecognizer: A UIGestureRecognizer to detect.
 	- Parameter touch: The UITouch event.
 	- Returns: A Boolean of whether to continue the gesture or not, true yes, false no.
@@ -122,7 +122,7 @@ public class NavigationController : UINavigationController, UIGestureRecognizerD
 		return true
 	}
 	
-	public func sideNavigationStatusBarHiddenState(sideNavigationViewController: SideNavigationViewController, hidden: Bool) {
+	public func sideNavigationStatusBarHiddenState(sideNavigationController: SideNavigationController, hidden: Bool) {
 		print(hidden)
 	}
 	
