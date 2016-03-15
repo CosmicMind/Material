@@ -559,9 +559,7 @@ public class TextView: UITextView {
 		if let v: UILabel = titleLabel {
 			if v.hidden {
 				if let s: String = placeholderLabel?.text {
-					if 0 == v.text?.utf16.count || nil == v.text {
-						v.text = s
-					}
+                    v.text = s
 				}
 				let h: CGFloat = ceil(v.font.lineHeight)
 				v.frame = CGRectMake(0, -h, bounds.width, h)
