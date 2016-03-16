@@ -253,7 +253,7 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 		guard nil != rightView else {
 			return false
 		}
-		return rightView!.x != view.bounds.width
+		return rightView!.x != MaterialDevice.width
 	}
 	
 	/**

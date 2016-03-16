@@ -203,7 +203,7 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 	/**
 	:name:	previewView
 	*/
-	public private(set) lazy var previewView: CapturePreviewView = CapturePreviewView()
+	public private(set) lazy var previewView: CapturePreview = CapturePreview()
 	
 	/**
 	:name:	capture

@@ -31,7 +31,7 @@
 import UIKit
 import AVFoundation
 
-public class CapturePreviewView : MaterialView {
+public class CapturePreview : MaterialView {
 	/**
 	:name:	layerClass
 	*/

@@ -127,7 +127,7 @@ public class ImageCardView : MaterialPulseView {
 	/**
 	:name:	contentsRect
 	*/
-	public override var contentsRect: CGRect {
+	@IBInspectable public override var contentsRect: CGRect {
 		didSet {
 			prepareImageLayer()
 			imageLayer?.contentsRect = contentsRect
@@ -137,7 +137,7 @@ public class ImageCardView : MaterialPulseView {
 	/**
 	:name:	contentsCenter
 	*/
-	public override var contentsCenter: CGRect {
+	@IBInspectable public override var contentsCenter: CGRect {
 		didSet {
 			prepareImageLayer()
 			imageLayer?.contentsCenter = contentsCenter

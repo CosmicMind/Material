@@ -78,7 +78,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	much greater flexibility than the contentsGravity property in
 	terms of how the image is cropped and stretched.
 	*/
-	public var contentsRect: CGRect {
+	@IBInspectable public var contentsRect: CGRect {
 		get {
 			return visualLayer.contentsRect
 		}
@@ -91,7 +91,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	A CGRect that defines a stretchable region inside the visualLayer
 	with a fixed border around the edge.
 	*/
-	public var contentsCenter: CGRect {
+	@IBInspectable public var contentsCenter: CGRect {
 		get {
 			return visualLayer.contentsCenter
 		}
@@ -254,7 +254,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	}
 	
 	/// A property that accesses the backing layer's shadowOffset.
-	public var shadowOffset: CGSize {
+	@IBInspectable public var shadowOffset: CGSize {
 		get {
 			return layer.shadowOffset
 		}
@@ -284,7 +284,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	}
 	
 	/// A property that accesses the backing layer's shadowPath.
-	public var shadowPath: CGPath? {
+	@IBInspectable public var shadowPath: CGPath? {
 		get {
 			return layer.shadowPath
 		}
@@ -392,7 +392,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	}
 	
 	/// A property that accesses the layer.position property.
-	public var position: CGPoint {
+	@IBInspectable public var position: CGPoint {
 		get {
 			return layer.position
 		}

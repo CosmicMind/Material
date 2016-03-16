@@ -118,7 +118,7 @@ public class TextField : UITextField {
 	}
 	
 	/// A property that accesses the backing layer's shadowOffset.
-	public var shadowOffset: CGSize {
+	@IBInspectable public var shadowOffset: CGSize {
 		get {
 			return layer.shadowOffset
 		}
@@ -148,7 +148,7 @@ public class TextField : UITextField {
 	}
 	
 	/// A property that accesses the backing layer's shadowPath.
-	public var shadowPath: CGPath? {
+	@IBInspectable public var shadowPath: CGPath? {
 		get {
 			return layer.shadowPath
 		}

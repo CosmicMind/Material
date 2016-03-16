@@ -120,7 +120,7 @@ public class TextView: UITextView {
 	}
 	
 	/// A property that accesses the backing layer's shadowOffset.
-	public var shadowOffset: CGSize {
+	@IBInspectable public var shadowOffset: CGSize {
 		get {
 			return layer.shadowOffset
 		}
@@ -150,7 +150,7 @@ public class TextView: UITextView {
 	}
 	
 	/// A property that accesses the backing layer's shadowPath.
-	public var shadowPath: CGPath? {
+	@IBInspectable public var shadowPath: CGPath? {
 		get {
 			return layer.shadowPath
 		}
@@ -258,7 +258,7 @@ public class TextView: UITextView {
 	}
 	
 	/// A property that accesses the layer.position property.
-	public var position: CGPoint {
+	@IBInspectable public var position: CGPoint {
 		get {
 			return layer.position
 		}
