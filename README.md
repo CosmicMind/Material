@@ -91,8 +91,8 @@ Material is a growing project and will encounter changes throughout its developm
 
 #### Collections
 
-* MaterialCollectionViewCell
 * [MaterialTableViewCell](#materialtableviewcell)
+* MaterialCollectionViewCell
 
 #### Cards
 
