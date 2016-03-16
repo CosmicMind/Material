@@ -294,9 +294,11 @@ public class NavigationBar : UINavigationBar {
 		
 		// Set the titleView if title is empty.
 		if "" == item.title {
-			item.titleView = UIView(frame: CGRectMake(0, contentInset.top, MaterialDevice.width < MaterialDevice.height ? MaterialDevice.height : MaterialDevice.width, intrinsicContentSize().height - contentInset.top - contentInset.bottom))
-			item.titleView!.autoresizingMask = [.FlexibleWidth]
-			item.titleView!.grid.axis.direction = .Vertical
+			if nil == item.titleView {
+				item.titleView = UIView(frame: CGRectMake(0, contentInset.top, MaterialDevice.width < MaterialDevice.height ? MaterialDevice.height : MaterialDevice.width, intrinsicContentSize().height - contentInset.top - contentInset.bottom))
+				item.titleView!.autoresizingMask = [.FlexibleWidth]
+				item.titleView!.grid.axis.direction = .Vertical
+			}
 			
 			// TitleView alignment.
 			if let t: UILabel = item.titleLabel {
@@ -352,6 +354,7 @@ public class NavigationBar : UINavigationBar {
 			leftSpacer.width = inset + contentInset.left
 		}
 		
+		item.titleView?.frame.size.width = width
 		item.titleView?.frame.size.height = height - contentInset.top - contentInset.bottom
 		
 		if let t: UILabel = item.titleLabel {

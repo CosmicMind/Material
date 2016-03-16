@@ -140,7 +140,8 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	leftView is closed. The leftViewThreshold is always at half
 	the width of the leftView.
 	*/
-	@IBInspectable public var leftViewThreshold: CGFloat = 0
+	@IBInspectable public var leftThreshold: CGFloat?
+	private var leftViewThreshold: CGFloat = 0
 	
 	/**
 	A CGFloat property that accesses the rightView threshold of
@@ -150,7 +151,8 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	rightView is opened. The rightViewThreshold is always at half
 	the width of the rightView.
 	*/
-	@IBInspectable public var rightViewThreshold: CGFloat = 0
+	@IBInspectable public var rightThreshold: CGFloat?
+	private var rightViewThreshold: CGFloat = 0
 	
 	/**
 	A SideNavigationControllerDelegate property used to bind
@@ -865,7 +867,7 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	
 	/// Toggles the statusBar
 	private func toggleStatusBar() {
-		if MaterialDevice.landscape && .iPhone == MaterialDevice.type {
+		if opened || MaterialDevice.landscape && .iPhone == MaterialDevice.type {
 			hideStatusBar()
 		} else {
 			showStatusBar()
@@ -939,7 +941,7 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 		if let v: MaterialView = leftView {
 			v.width = leftViewWidth
 			v.height = view.bounds.height
-			leftViewThreshold = leftViewWidth / 2
+			leftViewThreshold = nil == leftThreshold ? leftViewWidth / 2 : leftThreshold!
 			if let vc: UIViewController = leftViewController {
 				vc.view.frame.size.width = v.width
 				vc.view.frame.size.height = v.height
@@ -950,7 +952,7 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 		if let v: MaterialView = rightView {
 			v.width = rightViewWidth
 			v.height = view.bounds.height
-			rightViewThreshold = view.bounds.width - rightViewWidth / 2
+			rightViewThreshold = nil == rightThreshold ? view.bounds.width - rightViewWidth / 2 : view.bounds.width - rightThreshold!
 			if let vc: UIViewController = rightViewController {
 				vc.view.frame.size.width = v.width
 				vc.view.frame.size.height = v.height

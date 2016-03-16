@@ -34,9 +34,10 @@ import UIKit
 private var NavigationItemKey: UInt8 = 0
 
 public class NavigationItem {
-	/// Inset.
+	/// Portrait inset.
 	public var portraitInset: CGFloat
 	
+	/// Landscape inset.
 	public var landscapeInset: CGFloat
 	
 	/// Detail View.
