@@ -52,23 +52,18 @@ class AppSearchBarController: SearchBarController {
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 		searchBar.statusBarStyle = .Default
-		searchBar.textField.becomeFirstResponder()
-		sideNavigationController?.delegate = self
 		sideNavigationController?.enabled = false
+	}
+	
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		searchBar.textField.becomeFirstResponder()
 	}
 	
 	/// Toggle SideSearchViewController left UIViewController.
 	internal func handleBackButton() {
 		searchBar.textField.resignFirstResponder()
 		dismissViewControllerAnimated(true, completion: nil)
-	}
-	
-	/// Toggle SideSearchViewController right UIViewController.
-	internal func handleMoreButton() {
-		searchBar.textField.resignFirstResponder()
-		print(presentingViewController?.view.layer.zPosition)
-		sideNavigationController?.enabledRightView = true
-		sideNavigationController?.toggleRightView()
 	}
 	
 	/// Prepares view.
@@ -129,11 +124,5 @@ extension AppSearchBarController: TextFieldDelegate {
 	
 	func textFieldDidEndEditing(textField: UITextField) {
 		print("End searching....")
-	}
-}
-
-extension AppSearchBarController: SideNavigationControllerDelegate {
-	func sideNavigationDidClose(sideNavigationController: SideNavigationController, position: SideNavigationPosition) {
-		sideNavigationController.enabled = false
 	}
 }

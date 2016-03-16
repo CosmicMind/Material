@@ -521,7 +521,7 @@ public class TextField : UITextField {
 	public func reloadView() {
 		/// Prepare the clearButton.
 		if let v: UIButton = clearButton {
-			v.frame = CGRectMake(0, 0, height, height)
+			v.frame = CGRectMake(width - height, 0, height, height)
 		}
 	}
 	

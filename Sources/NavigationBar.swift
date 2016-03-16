@@ -297,7 +297,6 @@ public class NavigationBar : UINavigationBar {
 			item.titleView = UIView(frame: CGRectMake(0, contentInset.top, MaterialDevice.width < MaterialDevice.height ? MaterialDevice.height : MaterialDevice.width, intrinsicContentSize().height - contentInset.top - contentInset.bottom))
 			item.titleView!.autoresizingMask = [.FlexibleWidth]
 			item.titleView!.grid.axis.direction = .Vertical
-			item.titleView!.backgroundColor = MaterialColor.green.base
 			
 			// TitleView alignment.
 			if let t: UILabel = item.titleLabel {

@@ -35,10 +35,10 @@ public struct MaterialColor {
 	public static let clear: UIColor = UIColor.clearColor()
 	
 	// white
-	public static let white: UIColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
+	public static let white: UIColor = UIColor.whiteColor()
 	
 	// black
-	public static let black: UIColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1)
+	public static let black: UIColor = UIColor.blackColor()
 	
 	// red
 	public struct red {
