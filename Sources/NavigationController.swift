@@ -122,10 +122,6 @@ public class NavigationController : UINavigationController, UIGestureRecognizerD
 		return true
 	}
 	
-	public func sideNavigationStatusBarHiddenState(sideNavigationController: SideNavigationController, hidden: Bool) {
-		print(hidden)
-	}
-	
 	/// Handler for the back button.
 	internal func handleBackButton() {
 		popViewControllerAnimated(true)
