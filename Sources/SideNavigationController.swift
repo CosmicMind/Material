@@ -280,13 +280,13 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	A CGFloat property to access the width that the leftView
 	opens up to.
 	*/
-	@IBInspectable public private(set) var leftViewWidth: CGFloat = 240
+	@IBInspectable public private(set) var leftViewWidth: CGFloat = .iPhone == MaterialDevice.type ? 280 : 320
 	
 	/**
 	A CGFloat property to access the width that the rightView
 	opens up to.
 	*/
-	@IBInspectable public private(set) var rightViewWidth: CGFloat = 240
+	@IBInspectable public private(set) var rightViewWidth: CGFloat = .iPhone == MaterialDevice.type ? 280 : 320
 	
 	/**
 	An initializer for the SideNavigationController.

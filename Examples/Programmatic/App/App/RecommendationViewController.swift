@@ -90,19 +90,17 @@ extension RecommendationViewController: UITableViewDataSource {
 	/// Prepares the cells within the tableView.
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell: MaterialTableViewCell = MaterialTableViewCell(style: .Subtitle, reuseIdentifier: "MaterialTableViewCell")
-		
 		let item: MaterialDataSourceItem = dataSourceItems[indexPath.row]
 		
 		if let data: Dictionary<String, AnyObject> =  item.data as? Dictionary<String, AnyObject> {
-			
 			cell.selectionStyle = .None
 			cell.textLabel?.text = data["title"] as? String
 			cell.textLabel?.font = RobotoFont.regular
 			cell.detailTextLabel?.text = data["detail"] as? String
 			cell.detailTextLabel?.font = RobotoFont.regular
 			cell.detailTextLabel?.textColor = MaterialColor.grey.darken1
-			cell.imageView!.layer.cornerRadius = 32
-			cell.imageView!.image = UIImage(named: data["image"] as! String)?.crop(toWidth: 64, toHeight: 64)
+			cell.imageView?.layer.cornerRadius = 32
+			cell.imageView?.image = UIImage(named: data["image"] as! String)?.crop(toWidth: 64, toHeight: 64)
 		}
 		
 		return cell
