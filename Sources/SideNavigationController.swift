@@ -276,17 +276,50 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	*/
 	public private(set) var rightViewController: UIViewController?
 	
-	/**
-	A CGFloat property to access the width that the leftView
-	opens up to.
-	*/
-	@IBInspectable public private(set) var leftViewWidth: CGFloat = 240
-	
-	/**
-	A CGFloat property to access the width that the rightView
-	opens up to.
-	*/
-	@IBInspectable public private(set) var rightViewWidth: CGFloat = 240
+    /**
+     A CGFloat property to access the width that the leftView
+     opens up to.
+     */
+    @IBInspectable public private(set) var leftViewWidth: CGFloat! {
+        get {
+            if let leftViewWidth = _leftViewWidth {
+                return leftViewWidth
+            }
+            
+            let maximumWidth = CGFloat(320)
+            let width = MaterialDevice.width - 56
+            
+            if width <= maximumWidth {
+                return width
+            }
+            
+            return maximumWidth
+        }
+        set {
+            _leftViewWidth = newValue
+        }
+    }
+    
+    private var _leftViewWidth: CGFloat?
+    
+    /**
+     A CGFloat property to access the width that the rightView
+     opens up to.
+     */
+    @IBInspectable public private(set) var rightViewWidth: CGFloat! {
+        get {
+            if let rightViewWidth = _rightViewWidth {
+                return rightViewWidth
+            }
+            
+            return MaterialDevice.width
+        }
+        set {
+            _leftViewWidth = newValue
+        }
+    }
+    
+    private var _rightViewWidth: CGFloat?
 	
 	/**
 	An initializer for the SideNavigationController.
