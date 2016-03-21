@@ -51,7 +51,7 @@
 		9656CD0C1C6BD33700EBCEF1 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9656CD0B1C6BD33700EBCEF1 /* Grid.swift */; };
 		966F57B81C226D75009185B7 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966F57B71C226D75009185B7 /* TextField.swift */; };
 		967887871C9775900037F6C9 /* NavigationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967887861C9775900037F6C9 /* NavigationItem.swift */; };
-		967887891C9777CB0037F6C9 /* MaterialViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967887881C9777CB0037F6C9 /* MaterialViewTests.swift */; };
+		96815B381CA07BA20006CBE2 /* MaterialViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967887881C9777CB0037F6C9 /* MaterialViewTests.swift */; };
 		968F16F61C9260EC008CA3F6 /* Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968F16F51C9260EC008CA3F6 /* Toolbar.swift */; };
 		968F16F81C92612E008CA3F6 /* ToolbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968F16F71C92612E008CA3F6 /* ToolbarController.swift */; };
 		968F17171C9266D0008CA3F6 /* MaterialIcon.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BE340E1C8E68EF007D02BE /* MaterialIcon.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -852,7 +852,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				967887891C9777CB0037F6C9 /* MaterialViewTests.swift in Sources */,
+				96815B381CA07BA20006CBE2 /* MaterialViewTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

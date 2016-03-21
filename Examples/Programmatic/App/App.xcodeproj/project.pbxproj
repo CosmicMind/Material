@@ -21,7 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		9663F9461C7A746B00AF0965 /* Embed Frameworks */ = {
+		96815B361CA07B0A0006CBE2 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
@@ -105,7 +105,7 @@
 				9663F92A1C7A744600AF0965 /* Sources */,
 				9663F92B1C7A744600AF0965 /* Frameworks */,
 				9663F92C1C7A744600AF0965 /* Resources */,
-				9663F9461C7A746B00AF0965 /* Embed Frameworks */,
+				96815B361CA07B0A0006CBE2 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

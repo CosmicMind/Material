@@ -29,7 +29,6 @@
 */
 
 import XCTest
-@testable import Material
 
 class MaterialViewTests: XCTestCase {
 	

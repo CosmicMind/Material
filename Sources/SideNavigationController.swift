@@ -280,13 +280,13 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	A CGFloat property to access the width that the leftView
 	opens up to.
 	*/
-	@IBInspectable public private(set) var leftViewWidth: CGFloat = .iPhone == MaterialDevice.type ? 280 : 320
+	@IBInspectable public private(set) var leftViewWidth: CGFloat!
 	
 	/**
 	A CGFloat property to access the width that the rightView
 	opens up to.
 	*/
-	@IBInspectable public private(set) var rightViewWidth: CGFloat = .iPhone == MaterialDevice.type ? 280 : 320
+	@IBInspectable public private(set) var rightViewWidth: CGFloat!
 	
 	/**
 	An initializer for the SideNavigationController.
@@ -754,6 +754,7 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	/// A method that prepares the leftView.
 	private func prepareLeftView() {
 		if nil != leftViewController {
+			leftViewWidth = .iPhone == MaterialDevice.type ? 280 : 320
 			leftView = MaterialView()
 			leftView!.frame = CGRectMake(0, 0, leftViewWidth, view.frame.height)
 			leftView!.backgroundColor = MaterialColor.clear
@@ -770,6 +771,7 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	/// A method that prepares the leftView.
 	private func prepareRightView() {
 		if nil != rightViewController {
+			rightViewWidth = .iPhone == MaterialDevice.type ? 280 : 320
 			rightView = MaterialView()
 			rightView!.frame = CGRectMake(0, 0, rightViewWidth, view.frame.height)
 			rightView!.backgroundColor = MaterialColor.clear
