@@ -300,7 +300,33 @@ public class TextField : UITextField {
 	bottomBorderLayer.
 	*/
 	@IBInspectable public var bottomBorderLayerDistance: CGFloat = 4
-	
+    
+    /// The color of the bottomBorderLayer when the textField is not active.
+    @IBInspectable public var bottomBorderColor: UIColor? {
+        didSet {
+            MaterialAnimation.animationDisabled { [unowned self] in
+                self.bottomBorderLayer.backgroundColor = self.bottomBorderColor?.CGColor
+            }
+        }
+    }
+    
+    /// The color of the bottomBorderLayer when the textField is active.
+    @IBInspectable public var bottomBorderTitleActiveColor: UIColor?
+    
+    /**
+     The color of the bottomBorderLayer when the detailLabelHidden property is
+     set to false.
+     */
+    @IBInspectable public var bottomBorderDetailActiveColor: UIColor? {
+        didSet {
+            if !detailLabelHidden {
+                MaterialAnimation.animationDisabled { [unowned self] in
+                    self.bottomBorderLayer.backgroundColor = self.bottomBorderDetailActiveColor?.CGColor
+                }
+            }
+        }
+    }
+
 	/**
 	The title UILabel that is displayed when there is text. The
 	titleLabel text value is updated with the placeholder text 
@@ -313,14 +339,16 @@ public class TextField : UITextField {
 	}
 	
 	/// The color of the titleLabel text when the textField is not active.
-	@IBInspectable public var titleLabelColor: UIColor? {
-		didSet {
-			titleLabel?.textColor = titleLabelColor
-			MaterialAnimation.animationDisabled { [unowned self] in
-				self.bottomBorderLayer.backgroundColor = self.titleLabelColor?.CGColor
-			}
-		}
-	}
+    @IBInspectable public var titleLabelColor: UIColor? {
+        didSet {
+            titleLabel?.textColor = titleLabelColor
+            MaterialAnimation.animationDisabled { [unowned self] in
+                if nil != self.bottomBorderTitleActiveColor {
+                    self.bottomBorderLayer.backgroundColor = self.titleLabelColor?.CGColor
+                }
+            }
+        }
+    }
 	
 	/// The color of the titleLabel text when the textField is active.
 	@IBInspectable public var titleLabelActiveColor: UIColor?
@@ -352,16 +380,18 @@ public class TextField : UITextField {
 	The color of the detailLabel text when the detailLabelHidden property
 	is set to false.
 	*/
-	@IBInspectable public var detailLabelActiveColor: UIColor? {
-		didSet {
-			if !detailLabelHidden {
-				detailLabel?.textColor = detailLabelActiveColor
-				MaterialAnimation.animationDisabled { [unowned self] in
-					self.bottomBorderLayer.backgroundColor = self.detailLabelActiveColor?.CGColor
-				}
-			}
-		}
-	}
+    @IBInspectable public var detailLabelActiveColor: UIColor? {
+        didSet {
+            if !detailLabelHidden {
+                detailLabel?.textColor = detailLabelActiveColor
+                MaterialAnimation.animationDisabled { [unowned self] in
+                    if nil != self.bottomBorderDetailActiveColor {
+                        self.bottomBorderLayer.backgroundColor = self.detailLabelActiveColor?.CGColor
+                    }
+                }
+            }
+        }
+    }
 	
 	/**
 	A property that sets the distance between the textField and
@@ -378,23 +408,40 @@ public class TextField : UITextField {
 	/**
 	:name:	detailLabelHidden
 	*/
-	@IBInspectable public var detailLabelHidden: Bool = true {
-		didSet {
-			if detailLabelHidden {
-				detailLabel?.textColor = titleLabelColor
-				MaterialAnimation.animationDisabled { [unowned self] in
-					self.bottomBorderLayer.backgroundColor = self.editing ? self.titleLabelActiveColor?.CGColor : self.titleLabelColor?.CGColor
-				}
-				hideDetailLabel()
-			} else {
-				detailLabel?.textColor = detailLabelActiveColor
-				MaterialAnimation.animationDisabled { [unowned self] in
-					self.bottomBorderLayer.backgroundColor = self.detailLabelActiveColor?.CGColor
-				}
-				showDetailLabel()
-			}
-		}
-	}
+    @IBInspectable public var detailLabelHidden: Bool = true {
+        didSet {
+            if detailLabelHidden {
+                detailLabel?.textColor = titleLabelColor
+                MaterialAnimation.animationDisabled { [unowned self] in
+                    var activeColor: CGColor? = self.titleLabelActiveColor?.CGColor
+                    var inactiveColor: CGColor? = self.titleLabelColor?.CGColor
+                    
+                    if let bottomBorderColor: CGColor = self.bottomBorderTitleActiveColor?.CGColor {
+                        activeColor = bottomBorderColor
+                    }
+                    
+                    if let bottomBorderColor: CGColor = self.bottomBorderColor?.CGColor {
+                        inactiveColor = bottomBorderColor
+                    }
+                    
+                    self.bottomBorderLayer.backgroundColor = self.editing ? activeColor : inactiveColor
+                }
+                hideDetailLabel()
+            } else {
+                detailLabel?.textColor = detailLabelActiveColor
+                MaterialAnimation.animationDisabled { [unowned self] in
+                    var activeColor: CGColor? = self.detailLabelActiveColor?.CGColor
+                    
+                    if let bottomBorderColor: CGColor = self.bottomBorderDetailActiveColor?.CGColor {
+                        activeColor = bottomBorderColor
+                    }
+                    
+                    self.bottomBorderLayer.backgroundColor = activeColor
+                }
+                showDetailLabel()
+            }
+        }
+    }
 	
 	/// A wrapper for searchBar.placeholder.
 	@IBInspectable public override var placeholder: String? {
@@ -532,22 +579,40 @@ public class TextField : UITextField {
 	}
 	
 	/// Ahdnler when text value changed.
-	internal func textFieldValueChanged() {
-		if detailLabelAutoHideEnabled && !detailLabelHidden {
-			detailLabelHidden = true
-			MaterialAnimation.animationDisabled { [unowned self] in
-				self.bottomBorderLayer.backgroundColor = self.titleLabelActiveColor?.CGColor
-			}
-		}
-	}
+    internal func textFieldValueChanged() {
+        if detailLabelAutoHideEnabled && !detailLabelHidden {
+            detailLabelHidden = true
+            MaterialAnimation.animationDisabled { [unowned self] in
+                var activeColor: CGColor? = self.titleLabelActiveColor?.CGColor
+                
+                if let bottomBorderColor: CGColor = self.bottomBorderTitleActiveColor?.CGColor {
+                    activeColor = bottomBorderColor
+                }
+                
+                self.bottomBorderLayer.backgroundColor = activeColor
+            }
+        }
+    }
 	
 	/// Handler for text editing began.
-	internal func textFieldDidBegin() {
-		titleLabel?.textColor = titleLabelActiveColor
-		MaterialAnimation.animationDisabled { [unowned self] in
-			self.bottomBorderLayer.backgroundColor = self.detailLabelHidden ? self.titleLabelActiveColor?.CGColor : self.detailLabelActiveColor?.CGColor
-		}
-	}
+    internal func textFieldDidBegin() {
+        titleLabel?.textColor = titleLabelActiveColor
+        MaterialAnimation.animationDisabled { [unowned self] in
+            var titleActiveColor: CGColor? = self.titleLabelActiveColor?.CGColor
+            var detailActiveColor: CGColor? = self.detailLabelActiveColor?.CGColor
+            
+            if let bottomBorderColor: CGColor = self.bottomBorderTitleActiveColor?.CGColor {
+                titleActiveColor = bottomBorderColor
+            }
+            
+            if let bottomBorderColor: CGColor = self.bottomBorderDetailActiveColor?.CGColor {
+                detailActiveColor = bottomBorderColor
+            }
+            
+            self.bottomBorderLayer.backgroundColor = self.detailLabelHidden ? titleActiveColor : detailActiveColor
+        }
+    }
+
 	
 	/// Handler for text changed.
 	internal func textFieldDidChange() {
@@ -560,17 +625,28 @@ public class TextField : UITextField {
 	}
 	
 	/// Handler for text editing ended.
-	internal func textFieldDidEnd() {
-		if 0 < text?.utf16.count {
-			showTitleLabel()
-		} else if 0 == text?.utf16.count {
-			hideTitleLabel()
-		}
-		titleLabel?.textColor = titleLabelColor
-		MaterialAnimation.animationDisabled { [unowned self] in
-			self.bottomBorderLayer.backgroundColor = self.detailLabelHidden ? self.titleLabelColor?.CGColor : self.detailLabelActiveColor?.CGColor
-		}
-	}
+    internal func textFieldDidEnd() {
+        if 0 < text?.utf16.count {
+            showTitleLabel()
+        } else if 0 == text?.utf16.count {
+            hideTitleLabel()
+        }
+        titleLabel?.textColor = titleLabelColor
+        MaterialAnimation.animationDisabled { [unowned self] in
+            var borderColor: CGColor? = self.titleLabelColor?.CGColor
+            var detailActiveColor: CGColor? = self.detailLabelActiveColor?.CGColor
+            
+            if let bottomBorderColor: CGColor = self.bottomBorderColor?.CGColor {
+                borderColor = bottomBorderColor
+            }
+            
+            if let bottomBorderColor: CGColor = self.bottomBorderDetailActiveColor?.CGColor {
+                detailActiveColor = bottomBorderColor
+            }
+            
+            self.bottomBorderLayer.backgroundColor = self.detailLabelHidden ? borderColor : detailActiveColor
+        }
+    }
 	
 	/// Manages the layout for the shape of the view instance.
 	internal func layoutShape() {
