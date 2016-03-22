@@ -63,6 +63,7 @@ public struct MaterialDevice {
 		case "iPhone7,1":									return "iPhone 6 Plus"
 		case "iPhone8,1":									return "iPhone 6s"
 		case "iPhone8,2":									return "iPhone 6s Plus"
+		case "iPhone8,4":									return "iPhone SE"
 		case "iPad2,1", "iPad2,2", "iPad2,3", "iPad2,4":	return "iPad 2"
 		case "iPad3,1", "iPad3,2", "iPad3,3":				return "iPad 3"
 		case "iPad3,4", "iPad3,5", "iPad3,6":				return "iPad 4"
@@ -72,7 +73,8 @@ public struct MaterialDevice {
 		case "iPad4,4", "iPad4,5", "iPad4,6":				return "iPad Mini 2"
 		case "iPad4,7", "iPad4,8", "iPad4,9":				return "iPad Mini 3"
 		case "iPad5,1", "iPad5,2":							return "iPad Mini 4"
-		case "iPad6,7", "iPad6,8":							return "iPad Pro"
+		case "iPad6,3", "iPad6,4":							return "iPad Pro 9.7-inch"
+		case "iPad6,7", "iPad6,8":							return "iPad Pro 12.9-inch"
 		case "AppleTV5,3":									return "Apple TV"
 		case "i386", "x86_64":								return "Simulator"
 		default:											return identifier
