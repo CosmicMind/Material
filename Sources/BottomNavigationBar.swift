@@ -32,12 +32,6 @@ import UIKit
 
 @IBDesignable
 public class BottomNavigationBar : UITabBar {
-	/// Left spacer moves the items to the left edge of the NavigationBar.
-	private var leftSpacer: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
-	
-	/// Right spacer moves the items to the right edge of the NavigationBar.
-	private var rightSpacer: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
-	
 	/// A preset for contentInset.
 	public var contentInsetPreset: MaterialEdgeInset = .None {
 		didSet {
@@ -229,7 +223,18 @@ public class BottomNavigationBar : UITabBar {
 	
 	public override func layoutSubviews() {
 		super.layoutSubviews()
-		
+		if let v: Array<UITabBarItem> = items {
+			for item in v {
+				if nil == item.title {
+					item.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0)
+				} else {
+					item.titlePositionAdjustment.vertical = -8
+				}
+			}
+		}
+		if let v: UIView = superview {
+			frame = CGRectMake(0, v.bounds.height - 56, v.bounds.width, 56)
+		}
 	}
 	
 	/**

@@ -41,11 +41,6 @@ class ViewController: UIViewController {
 		prepareBottomNavigationBar()
 	}
 	
-	override func viewWillLayoutSubviews() {
-		super.viewWillLayoutSubviews()
-		bottomNavigationBar.frame = CGRectMake(0, view.bounds.height - 56, view.bounds.width, 56)
-	}
-	
 	/// General preparation statements.
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.white
@@ -56,5 +51,21 @@ class ViewController: UIViewController {
 		bottomNavigationBar = BottomNavigationBar()
 		bottomNavigationBar.backgroundColor = MaterialColor.teal.base
 		view.addSubview(bottomNavigationBar)
+		
+		let item1: BottomNavigationBarItem = BottomNavigationBarItem(title: "Music", image: UIImage(named:"ic_music_note_white")?.imageWithRenderingMode(.AlwaysOriginal), selectedImage: UIImage(named:"ic_music_note_white"))
+		item1.setTitleColor(MaterialColor.white, forState: .Normal)
+		item1.setTitleColor(MaterialColor.white, forState: .Selected)
+		
+		
+		let item2: BottomNavigationBarItem = BottomNavigationBarItem(title: "Music", image: UIImage(named:"ic_music_note_white")?.imageWithRenderingMode(.AlwaysOriginal), selectedImage: UIImage(named:"ic_music_note_white"))
+		item2.setTitleColor(MaterialColor.white, forState: .Normal)
+		item2.setTitleColor(MaterialColor.white, forState: .Selected)
+		
+		let item3: BottomNavigationBarItem = BottomNavigationBarItem(title: "Music", image: UIImage(named:"ic_music_note_white"), selectedImage: UIImage(named:"ic_music_note_white"))
+		item3.setTitleColor(MaterialColor.blue.lighten3, forState: .Normal)
+		item3.setTitleColor(MaterialColor.white, forState: .Selected)
+		
+		bottomNavigationBar.setItems([item1, item2, item3], animated: true)
+//		bottomNavigationBar.tintColor = MaterialColor.white
 	}
 }
