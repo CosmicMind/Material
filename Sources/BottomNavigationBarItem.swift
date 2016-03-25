@@ -33,7 +33,7 @@ import UIKit
 @IBDesignable
 public class BottomNavigationBarItem : UITabBarItem {
 	/// Sets the color of the title color for a state.
-	public func setTitleColor(color: UIColor?, forState: UIControlState) {
-		setTitleTextAttributes([NSForegroundColorAttributeName: MaterialColor.white], forState: .Normal)
+	public func setTitleColor(color: UIColor, forState state: UIControlState) {
+		setTitleTextAttributes([NSForegroundColorAttributeName: color], forState: state)
 	}
 }
