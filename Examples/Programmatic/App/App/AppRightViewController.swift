@@ -60,11 +60,6 @@ class AppRightViewController: UIViewController {
 		view.backgroundColor = MaterialColor.grey.darken4
 	}
 	
-	override func viewWillAppear(animated: Bool) {
-		super.viewWillAppear(animated)
-	}
-	
-	
 	/// Prepares the items that are displayed within the tableView.
 	private func prepareCells() {
 		items.append(Item(text: "Recipes", imageName: "ic_inbox"))

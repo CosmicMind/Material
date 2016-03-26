@@ -30,8 +30,39 @@
 
 import UIKit
 
+public class BottomNavigationFadeAnimatedTransitioning : NSObject, UIViewControllerAnimatedTransitioning {
+	public func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+		let fromView : UIView = transitionContext.viewForKey(UITransitionContextFromViewKey)!
+		let toView : UIView = transitionContext.viewForKey(UITransitionContextToViewKey)!
+		toView.alpha = 0
+		
+		transitionContext.containerView()!.addSubview(fromView)
+		transitionContext.containerView()!.addSubview(toView)
+		
+		UIView.animateWithDuration(transitionDuration(transitionContext),
+			animations: { _ in
+				toView.alpha = 1
+				fromView.alpha = 0
+			}) { _ in
+				transitionContext.completeTransition(true)
+			}
+	}
+	
+	public func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+		return 0.35
+	}
+}
+
+public enum BottomNavigationTransitionAnimation {
+	case None
+	case Fade
+}
+
 @IBDesignable
-public class BottomNavigationController : UITabBarController {
+public class BottomNavigationController : UITabBarController, UITabBarControllerDelegate {
+	/// The transition animation to use when selecting a new tab.
+	public var transitionAnimation: BottomNavigationTransitionAnimation = .Fade
+	
 	/**
 	An initializer that initializes the object with a NSCoder object.
 	- Parameter aDecoder: A NSCoder instance.
@@ -60,14 +91,18 @@ public class BottomNavigationController : UITabBarController {
 	}
 	
 	public func layoutSubviews() {
-		tabBar.frame = CGRectMake(0, view.bounds.height - 56, view.bounds.width, 56)
 		if let v: Array<UITabBarItem> = tabBar.items {
 			for item in v {
 				if nil == item.title {
-					item.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0)
+					item.imageInsets = UIEdgeInsetsMake(5, 0, -5, 0)
 				} else {
-					item.titlePositionAdjustment.vertical = -8
+					item.titlePositionAdjustment.vertical = -5
 				}
+			}
+		}
+		if let v: Array<UIViewController> = viewControllers {
+			for controller in v {
+				controller.edgesForExtendedLayout = .None
 			}
 		}
 	}
@@ -80,9 +115,14 @@ public class BottomNavigationController : UITabBarController {
 	when subclassing.
 	*/
 	public func prepareView() {
+		delegate = self
 		tabBar.depth = .Depth1
 		tabBar.backgroundColor = MaterialColor.white
 		tabBar.shadowImage = UIImage.imageWithColor(MaterialColor.clear, size: CGSizeMake(1, 1))
 		tabBar.backgroundImage = UIImage()
+	}
+	
+	public func tabBarController(tabBarController: UITabBarController, animationControllerForTransitionFromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+		return .Fade == transitionAnimation ? BottomNavigationFadeAnimatedTransitioning() : nil
 	}
 }

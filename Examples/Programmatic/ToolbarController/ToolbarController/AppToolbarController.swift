@@ -100,7 +100,7 @@ class AppToolbarController: ToolbarController {
 		menuButton.tintColor = MaterialColor.white
 		menuButton.setImage(image, forState: .Normal)
 		menuButton.setImage(image, forState: .Highlighted)
-		menuButton.addTarget(self, action: "handleMenuButton", forControlEvents: .TouchUpInside)
+		menuButton.addTarget(self, action: #selector(handleMenuButton), forControlEvents: .TouchUpInside)
 		
 		// Switch control.
 		let switchControl: MaterialSwitch = MaterialSwitch(state: .Off, style: .LightContent, size: .Small)
@@ -114,7 +114,7 @@ class AppToolbarController: ToolbarController {
 		searchButton.tintColor = MaterialColor.white
 		searchButton.setImage(image, forState: .Normal)
 		searchButton.setImage(image, forState: .Highlighted)
-		searchButton.addTarget(self, action: "handleSearchButton", forControlEvents: .TouchUpInside)
+		searchButton.addTarget(self, action: #selector(handleSearchButton), forControlEvents: .TouchUpInside)
 		
 		toolbar.backgroundColor = MaterialColor.blue.base
 		toolbar.titleLabel = titleLabel

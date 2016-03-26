@@ -91,7 +91,7 @@ class AppSearchBarController: SearchBarController {
 		backButton.tintColor = MaterialColor.grey.darken4
 		backButton.setImage(image, forState: .Normal)
 		backButton.setImage(image, forState: .Highlighted)
-		backButton.addTarget(self, action: "handleBackButton", forControlEvents: .TouchUpInside)
+		backButton.addTarget(self, action: #selector(handleBackButton), forControlEvents: .TouchUpInside)
 		
 		// More button.
 		image = MaterialIcon.moreHorizontal

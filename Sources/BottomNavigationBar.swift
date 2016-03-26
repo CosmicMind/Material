@@ -198,15 +198,16 @@ public class BottomNavigationBar : UITabBar {
 		if let v: Array<UITabBarItem> = items {
 			for item in v {
 				if nil == item.title {
-					item.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0)
+					item.imageInsets = UIEdgeInsetsMake(5, 0, -5, 0)
 				} else {
-					item.titlePositionAdjustment.vertical = -8
+					item.titlePositionAdjustment.vertical = -5
 				}
 			}
 		}
 		if translatesAutoresizingMaskIntoConstraints {
 			if let v: UIView = superview {
-				frame = CGRectMake(0, v.bounds.height - 56, v.bounds.width, 56)
+				let h: CGFloat = intrinsicContentSize().height
+				frame = CGRectMake(0, v.bounds.height - h, v.bounds.width, h)
 			}
 		}
 	}
@@ -221,8 +222,9 @@ public class BottomNavigationBar : UITabBar {
 	public func prepareView() {
 		depth = .Depth1
 		backgroundColor = MaterialColor.white
-		shadowImage = UIImage.imageWithColor(MaterialColor.clear, size: CGSizeMake(1, 1))
-		backgroundImage = UIImage()
+		let image: UIImage? = UIImage.imageWithColor(MaterialColor.clear, size: CGSizeMake(1, 1))
+		shadowImage = image
+		backgroundImage = image
 	}
 }
 

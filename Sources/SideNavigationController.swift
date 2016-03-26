@@ -615,6 +615,7 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	- Parameter recognizer: A UIPanGestureRecognizer that is
 	passed to the handler when recognized.
 	*/
+	@objc(handlePanGesture:)
 	internal func handlePanGesture(recognizer: UIPanGestureRecognizer) {
 		// Deterine which view to pan.
 		if enabledRightView && (openedRightView || !openedLeftView && isPointContainedWithinRightViewThreshold(recognizer.locationInView(view))) {
@@ -700,6 +701,7 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	- Parameter recognizer: A UITapGestureRecognizer that is
 	passed to the handler when recognized.
 	*/
+	@objc(handleTapGesture:)
 	internal func handleTapGesture(recognizer: UITapGestureRecognizer) {
 		if openedLeftView {
 			if let v: MaterialView = leftView {
@@ -807,13 +809,13 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	*/
 	private func prepareGestures() {
 		if nil == panGesture {
-			panGesture = UIPanGestureRecognizer(target: self, action: "handlePanGesture:")
+			panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
 			panGesture!.delegate = self
 			view.addGestureRecognizer(panGesture!)
 		}
 		
 		if nil == tapGesture {
-			tapGesture = UITapGestureRecognizer(target: self, action: "handleTapGesture:")
+			tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture(_:)))
 			tapGesture!.delegate = self
 			tapGesture!.cancelsTouchesInView = false
 			view.addGestureRecognizer(tapGesture!)

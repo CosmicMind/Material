@@ -69,6 +69,7 @@ class ViewController: UIViewController {
 	}
 	
 	/// Handle the menuView touch event.
+	@objc(handleButton:)
 	internal func handleButton(button: UIButton) {
 		print("Hit Button \(button)")
 	}
@@ -90,7 +91,7 @@ class ViewController: UIViewController {
 		btn1.borderWidth = 1
 		btn1.setImage(image, forState: .Normal)
 		btn1.setImage(image, forState: .Highlighted)
-		btn1.addTarget(self, action: "handleMenu", forControlEvents: .TouchUpInside)
+		btn1.addTarget(self, action: #selector(handleMenu), forControlEvents: .TouchUpInside)
 		menuView.addSubview(btn1)
 		
 		image = UIImage(named: "ic_create_white")?.imageWithRenderingMode(.AlwaysTemplate)
@@ -103,7 +104,7 @@ class ViewController: UIViewController {
 		btn2.borderWidth = 1
 		btn2.setImage(image, forState: .Normal)
 		btn2.setImage(image, forState: .Highlighted)
-		btn2.addTarget(self, action: "handleButton:", forControlEvents: .TouchUpInside)
+		btn2.addTarget(self, action: #selector(handleButton(_:)), forControlEvents: .TouchUpInside)
 		menuView.addSubview(btn2)
 		
 		image = UIImage(named: "ic_photo_camera_white")?.imageWithRenderingMode(.AlwaysTemplate)
@@ -116,7 +117,7 @@ class ViewController: UIViewController {
 		btn3.borderWidth = 1
 		btn3.setImage(image, forState: .Normal)
 		btn3.setImage(image, forState: .Highlighted)
-		btn3.addTarget(self, action: "handleButton:", forControlEvents: .TouchUpInside)
+		btn3.addTarget(self, action: #selector(handleButton(_:)), forControlEvents: .TouchUpInside)
 		menuView.addSubview(btn3)
 		
 		image = UIImage(named: "ic_note_add_white")?.imageWithRenderingMode(.AlwaysTemplate)
@@ -129,7 +130,7 @@ class ViewController: UIViewController {
 		btn4.borderWidth = 1
 		btn4.setImage(image, forState: .Normal)
 		btn4.setImage(image, forState: .Highlighted)
-		btn4.addTarget(self, action: "handleButton:", forControlEvents: .TouchUpInside)
+		btn4.addTarget(self, action: #selector(handleButton(_:)), forControlEvents: .TouchUpInside)
 		menuView.addSubview(btn4)
 		
 		// Initialize the menu and setup the configuration options.

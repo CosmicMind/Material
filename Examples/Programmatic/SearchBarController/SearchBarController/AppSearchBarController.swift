@@ -84,7 +84,7 @@ class AppSearchBarController: SearchBarController {
 		clearButton.tintColor = MaterialColor.blueGrey.darken4
 		clearButton.setImage(image, forState: .Normal)
 		clearButton.setImage(image, forState: .Highlighted)
-		clearButton.addTarget(self, action: "handleYellowButton", forControlEvents: .TouchUpInside)
+		clearButton.addTarget(self, action: #selector(handleYellowButton), forControlEvents: .TouchUpInside)
 		
 		// Back button.
 		image = MaterialIcon.arrowBack
@@ -94,7 +94,7 @@ class AppSearchBarController: SearchBarController {
 		backButton.tintColor = MaterialColor.blueGrey.darken4
 		backButton.setImage(image, forState: .Normal)
 		backButton.setImage(image, forState: .Highlighted)
-		backButton.addTarget(self, action: "handleBlueButton", forControlEvents: .TouchUpInside)
+		backButton.addTarget(self, action: #selector(handleBlueButton), forControlEvents: .TouchUpInside)
 		
 		// More button.
 		image = MaterialIcon.moreHorizontal
@@ -104,7 +104,7 @@ class AppSearchBarController: SearchBarController {
 		moreButton.tintColor = MaterialColor.blueGrey.darken4
 		moreButton.setImage(image, forState: .Normal)
 		moreButton.setImage(image, forState: .Highlighted)
-		moreButton.addTarget(self, action: "handleGreenButton", forControlEvents: .TouchUpInside)
+		moreButton.addTarget(self, action: #selector(handleGreenButton), forControlEvents: .TouchUpInside)
 		
 		/*
 		To lighten the status bar - add the

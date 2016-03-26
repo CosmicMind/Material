@@ -115,8 +115,8 @@ public class NavigationController : UINavigationController, UIGestureRecognizerD
 			} else {
 				item.leftControls = [v.backButton]
 			}
-			v.backButton.removeTarget(self, action: "handleBackButton", forControlEvents: .TouchUpInside)
-			v.backButton.addTarget(self, action: "handleBackButton", forControlEvents: .TouchUpInside)
+			v.backButton.removeTarget(self, action: #selector(handleBackButton), forControlEvents: .TouchUpInside)
+			v.backButton.addTarget(self, action: #selector(handleBackButton), forControlEvents: .TouchUpInside)
 			v.layoutNavigationItem(item)
 		}
 		return true

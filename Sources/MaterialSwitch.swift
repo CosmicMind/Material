@@ -338,16 +338,12 @@ public class MaterialSwitch : UIControl {
 		}
 	}
 	
-	/// Handles the TouchUpInside event.
-	internal func handleTouchUpInside() {
-		toggle()
-	}
-	
 	/**
 	Handle the TouchUpOutside and TouchCancel events.
 	- Parameter sender: A UIButton.
 	- Parameter event: A UIEvent.
 	*/
+	@objc(handleTouchUpOutsideOrCanceled:event:)
 	internal func handleTouchUpOutsideOrCanceled(sender: FabButton, event: UIEvent) {
 		if let v: UITouch = event.touchesForView(sender)?.first {
 			let q: CGFloat = sender.x + v.locationInView(sender).x - v.previousLocationInView(sender).x
@@ -355,11 +351,17 @@ public class MaterialSwitch : UIControl {
 		}
 	}
 	
+	/// Handles the TouchUpInside event.
+	internal func handleTouchUpInside() {
+		toggle()
+	}
+	
 	/**
 	Handle the TouchDragInside event.
 	- Parameter sender: A UIButton.
 	- Parameter event: A UIEvent.
 	*/
+	@objc(handleTouchDragInside:event:)
 	internal func handleTouchDragInside(sender: FabButton, event: UIEvent) {
 		if let v = event.touchesForView(sender)?.first {
 			let q: CGFloat = max(min(sender.x + v.locationInView(sender).x - v.previousLocationInView(sender).x, onPosition), offPosition)
@@ -383,10 +385,10 @@ public class MaterialSwitch : UIControl {
 	/// Prepares the button.
 	private func prepareButton() {
 		button.pulseColor = nil
-		button.addTarget(self, action: "handleTouchUpOutsideOrCanceled:event:", forControlEvents: .TouchUpOutside)
-		button.addTarget(self, action: "handleTouchUpInside", forControlEvents: .TouchUpInside)
-		button.addTarget(self, action: "handleTouchDragInside:event:", forControlEvents: .TouchDragInside)
-		button.addTarget(self, action: "handleTouchUpOutsideOrCanceled:event:", forControlEvents: .TouchCancel)
+		button.addTarget(self, action: #selector(handleTouchUpInside), forControlEvents: .TouchUpInside)
+		button.addTarget(self, action: #selector(handleTouchDragInside(_: _:), forControlEvents: .TouchDragInside)
+		button.addTarget(self, action: #selector(handleTouchUpOutsideOrCanceled(_: _:)), forControlEvents: .TouchCancel)
+		button.addTarget(self, action: #selector(handleTouchUpOutsideOrCanceled(_: _:)), forControlEvents: .TouchUpOutside)
 		addSubview(button)
 	}
 	

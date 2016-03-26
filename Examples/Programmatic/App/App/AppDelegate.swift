@@ -37,9 +37,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var window: UIWindow?
 	
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+		
+		let bottomNavigationController: BottomNavigationController = BottomNavigationController()
+		bottomNavigationController.viewControllers = [AppMenuViewController(mainViewController: AppNavigationController(rootViewController: RecipesViewController())), VideoViewController(), PhotoViewController()]
+		bottomNavigationController.selectedIndex = 0
+		bottomNavigationController.tabBar.tintColor = MaterialColor.lightBlue.base
+		bottomNavigationController.tabBar.backgroundColor = MaterialColor.grey.darken4
+		
 		// Override point for customization after application launch.
 		window = UIWindow(frame: UIScreen.mainScreen().bounds)
-		window!.rootViewController = SideNavigationController(mainViewController: AppMenuViewController(mainViewController: AppNavigationController(rootViewController: RecipesViewController())), leftViewController: AppLeftViewController(), rightViewController: AppRightViewController())
+		window!.rootViewController = SideNavigationController(mainViewController: bottomNavigationController, leftViewController: AppLeftViewController(), rightViewController: AppRightViewController())
 		window!.makeKeyAndVisible()
 		return true
 	}

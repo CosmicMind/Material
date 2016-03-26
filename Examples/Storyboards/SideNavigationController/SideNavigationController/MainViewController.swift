@@ -41,7 +41,7 @@ class MainViewController: UIViewController {
 		let fabButton: FabButton = FabButton()
 		fabButton.setImage(img, forState: .Normal)
 		fabButton.setImage(img, forState: .Highlighted)
-		fabButton.addTarget(self, action: "handleFabButton", forControlEvents: .TouchUpInside)
+		fabButton.addTarget(self, action: #selector(handleFabButton), forControlEvents: .TouchUpInside)
 		
 		view.addSubview(fabButton)
 		fabButton.translatesAutoresizingMaskIntoConstraints = false

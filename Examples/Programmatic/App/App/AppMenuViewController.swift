@@ -43,10 +43,28 @@ class AppMenuViewController: MenuViewController {
 	/// MenuView inset.
 	private let menuViewInset: CGFloat = 16
 	
+	required init?(coder aDecoder: NSCoder) {
+		super.init(coder: aDecoder)
+	}
+	
+	override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+	}
+	
+	init() {
+		super.init(nibName: nil, bundle: nil)
+		prepareTabBarItem()
+	}
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
 		prepareMenuView()
+	}
+	
+	override func viewWillDisappear(animated: Bool) {
+		super.viewWillDisappear(animated)
+		closeMenu()
 	}
 	
 	override func openMenu(completion: (() -> Void)? = nil) {
@@ -97,7 +115,7 @@ class AppMenuViewController: MenuViewController {
 		menuButton.tintColor = MaterialColor.white
 		menuButton.setImage(image, forState: .Normal)
 		menuButton.setImage(image, forState: .Highlighted)
-		menuButton.addTarget(self, action: "handleMenu", forControlEvents: .TouchUpInside)
+		menuButton.addTarget(self, action: #selector(handleMenu), forControlEvents: .TouchUpInside)
 		menuView.addSubview(menuButton)
 		
 		image = UIImage(named: "ic_create_white")
@@ -106,7 +124,7 @@ class AppMenuViewController: MenuViewController {
 		blueButton.setImage(image, forState: .Normal)
 		blueButton.setImage(image, forState: .Highlighted)
 		menuView.addSubview(blueButton)
-		blueButton.addTarget(self, action: "handleBlueButton", forControlEvents: .TouchUpInside)
+		blueButton.addTarget(self, action: #selector(handleBlueButton), forControlEvents: .TouchUpInside)
 		
 		image = UIImage(named: "ic_photo_camera_white")
 		let greenButton: FabButton = FabButton()
@@ -114,7 +132,7 @@ class AppMenuViewController: MenuViewController {
 		greenButton.setImage(image, forState: .Normal)
 		greenButton.setImage(image, forState: .Highlighted)
 		menuView.addSubview(greenButton)
-		greenButton.addTarget(self, action: "handleGreenButton", forControlEvents: .TouchUpInside)
+		greenButton.addTarget(self, action: #selector(handleGreenButton), forControlEvents: .TouchUpInside)
 		
 		image = UIImage(named: "ic_note_add_white")
 		let yellowButton: FabButton = FabButton()
@@ -122,7 +140,7 @@ class AppMenuViewController: MenuViewController {
 		yellowButton.setImage(image, forState: .Normal)
 		yellowButton.setImage(image, forState: .Highlighted)
 		menuView.addSubview(yellowButton)
-		yellowButton.addTarget(self, action: "handleYellowButton", forControlEvents: .TouchUpInside)
+		yellowButton.addTarget(self, action: #selector(handleYellowButton), forControlEvents: .TouchUpInside)
 		
 		// Initialize the menu and setup the configuration options.
 		menuView.menu.baseViewSize = baseViewSize
@@ -132,6 +150,14 @@ class AppMenuViewController: MenuViewController {
 		menuView.translatesAutoresizingMaskIntoConstraints = false
 		MaterialLayout.size(view, child: menuView, width: baseViewSize.width, height: baseViewSize.height)
 		MaterialLayout.alignFromBottomRight(view, child: menuView, bottom: menuViewInset, right: menuViewInset)
+	}
+	
+	/// Prepare tabBarItem.
+	private func prepareTabBarItem() {
+		tabBarItem.title = "Recipes"
+		tabBarItem.image = MaterialIcon.photoLibrary
+		tabBarItem.setTitleColor(MaterialColor.grey.base, forState: .Normal)
+		tabBarItem.setTitleColor(MaterialColor.lightBlue.base, forState: .Selected)
 	}
 }
 

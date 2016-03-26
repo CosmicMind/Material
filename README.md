@@ -109,6 +109,8 @@ Material is a growing project and will encounter changes throughout its developm
 * [ToolbarController](#toolbarcontroller)
 * [SearchBar](#searchbar)
 * [SearchBarController](#searchbarcontroller)
+* BottomNavigationBar
+* BottomNavigationController
 * [SideNavigationController](#sidenavigationcontroller)
 
 #### Photo / Video Camera

@@ -282,7 +282,7 @@ public class TextField : UITextField {
 				clearButtonMode = .Never
 				rightViewMode = .WhileEditing
 				v.contentEdgeInsets = UIEdgeInsetsZero
-				v.addTarget(self, action: "handleClearButton", forControlEvents: .TouchUpInside)
+				v.addTarget(self, action: #selector(handleClearButton), forControlEvents: .TouchUpInside)
 			} else {
 				clearButtonMode = .WhileEditing
 				rightViewMode = .Never
@@ -681,9 +681,9 @@ public class TextField : UITextField {
 			} else {
 				v.alpha = 0
 			}
-			addTarget(self, action: "textFieldDidBegin", forControlEvents: .EditingDidBegin)
-			addTarget(self, action: "textFieldDidChange", forControlEvents: .EditingChanged)
-			addTarget(self, action: "textFieldDidEnd", forControlEvents: .EditingDidEnd)
+			addTarget(self, action: #selector(textFieldDidBegin), forControlEvents: .EditingDidBegin)
+			addTarget(self, action: #selector(textFieldDidChange), forControlEvents: .EditingChanged)
+			addTarget(self, action: #selector(textFieldDidEnd), forControlEvents: .EditingDidEnd)
 		}
 	}
 	
@@ -698,11 +698,11 @@ public class TextField : UITextField {
 				showDetailLabel()
 			}
 			if nil == titleLabel {
-				addTarget(self, action: "textFieldDidBegin", forControlEvents: .EditingDidBegin)
-				addTarget(self, action: "textFieldDidChange", forControlEvents: .EditingChanged)
-				addTarget(self, action: "textFieldDidEnd", forControlEvents: .EditingDidEnd)
+				addTarget(self, action: #selector(textFieldDidBegin), forControlEvents: .EditingDidBegin)
+				addTarget(self, action: #selector(textFieldDidChange), forControlEvents: .EditingChanged)
+				addTarget(self, action: #selector(textFieldDidEnd), forControlEvents: .EditingDidEnd)
 			}
-			addTarget(self, action: "textFieldValueChanged", forControlEvents: .ValueChanged)
+			addTarget(self, action: #selector(textFieldValueChanged), forControlEvents: .ValueChanged)
 		}
 	}
 	

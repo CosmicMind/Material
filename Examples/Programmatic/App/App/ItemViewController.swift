@@ -108,7 +108,7 @@ class ItemViewController: UIViewController {
 		shareButton.pulseColor = MaterialColor.white
 		shareButton.setImage(image, forState: .Normal)
 		shareButton.setImage(image, forState: .Highlighted)
-		shareButton.addTarget(self, action: "handleShareButton", forControlEvents: .TouchUpInside)
+		shareButton.addTarget(self, action: #selector(handleShareButton), forControlEvents: .TouchUpInside)
 	}
 	
 	/// Prepares view.
