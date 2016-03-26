@@ -60,6 +60,8 @@ public class NavigationController : UINavigationController, UIGestureRecognizerD
 	
 	public override func viewDidLoad() {
 		super.viewDidLoad()
+		edgesForExtendedLayout = .None
+		view.clipsToBounds = true
 		
 		// This ensures the panning gesture is available when going back between views.
 		if let v: UIGestureRecognizer = interactivePopGestureRecognizer {

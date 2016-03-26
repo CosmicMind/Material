@@ -100,11 +100,6 @@ public class BottomNavigationController : UITabBarController, UITabBarController
 				}
 			}
 		}
-		if let v: Array<UIViewController> = viewControllers {
-			for controller in v {
-				controller.edgesForExtendedLayout = .None
-			}
-		}
 	}
 	
 	/**
@@ -115,6 +110,7 @@ public class BottomNavigationController : UITabBarController, UITabBarController
 	when subclassing.
 	*/
 	public func prepareView() {
+		view.clipsToBounds = true
 		delegate = self
 		tabBar.depth = .Depth1
 		tabBar.backgroundColor = MaterialColor.white
@@ -122,6 +118,7 @@ public class BottomNavigationController : UITabBarController, UITabBarController
 		tabBar.backgroundImage = UIImage()
 	}
 	
+	/// Handles transitions when tabBarItems are pressed.
 	public func tabBarController(tabBarController: UITabBarController, animationControllerForTransitionFromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
 		return .Fade == transitionAnimation ? BottomNavigationFadeAnimatedTransitioning() : nil
 	}

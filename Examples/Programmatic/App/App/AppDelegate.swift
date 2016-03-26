@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		
 		let bottomNavigationController: BottomNavigationController = BottomNavigationController()
-		bottomNavigationController.viewControllers = [AppNavigationController(rootViewController: RecipesViewController()), VideoViewController(), PhotoViewController()]
+		bottomNavigationController.viewControllers = [AppMenuViewController(mainViewController: AppNavigationController(rootViewController: RecipesViewController())), VideoViewController(), PhotoViewController()]
 		bottomNavigationController.selectedIndex = 0
 		bottomNavigationController.tabBar.tintColor = MaterialColor.lightBlue.base
 		bottomNavigationController.tabBar.backgroundColor = MaterialColor.grey.darken4

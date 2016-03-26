@@ -153,6 +153,8 @@ public class MenuViewController : UIViewController {
 	
 	/// A method that generally prepares the MenuViewController.
 	private func prepareView() {
+		edgesForExtendedLayout = .None
+		view.clipsToBounds = true
 		prepareMenuView()
 		prepareMainViewController()
 	}

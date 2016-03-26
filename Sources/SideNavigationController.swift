@@ -723,6 +723,7 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	
 	/// A method that generally prepares the SideNavigationController.
 	private func prepareView() {
+		edgesForExtendedLayout = .None
 		prepareMainViewController()
 		prepareLeftView()
 		prepareRightView()
@@ -733,6 +734,7 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	
 	/// A method that prepares the mainViewController.
 	private func prepareMainViewController() {
+		mainViewController.view.clipsToBounds = true
 		prepareViewControllerWithinContainer(mainViewController, container: view)
 	}
 	

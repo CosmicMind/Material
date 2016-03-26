@@ -114,6 +114,8 @@ public class StatusBarViewController : UIViewController {
 	when subclassing.
 	*/
 	public func prepareView() {
+		edgesForExtendedLayout = .None
+		view.clipsToBounds = true
 		prepareMainViewController()
 	}
 	
