@@ -17,31 +17,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tabBar contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sMP-AS-Zl9" customClass="BottomNavigationBar" customModule="Material">
+                            <tabBar contentMode="scaleToFill" misplaced="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sMP-AS-Zl9" customClass="BottomNavigationBar" customModule="Material">
                                 <rect key="frame" x="0.0" y="551" width="600" height="49"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="56" id="k7G-L7-HGU"/>
+                                    <constraint firstAttribute="height" constant="56" id="2xR-RQ-MBH"/>
                                 </constraints>
                                 <items>
                                     <tabBarItem title="Video" id="BkO-Yq-m1c" customClass="BottomNavigationBarItem" customModule="Material"/>
                                     <tabBarItem title="Photo" id="vsG-AI-jYq" customClass="BottomNavigationBarItem" customModule="Material"/>
                                     <tabBarItem title="Library" id="3fX-Ej-FRM" customClass="BottomNavigationBarItem" customModule="Material"/>
                                 </items>
-                                <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                        <color key="value" red="0.0" green="0.56862745100000001" blue="0.99607843139999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="height">
-                                        <real key="value" value="56"/>
+                                        <color key="value" red="0.12941176470588234" green="0.12941176470588234" blue="0.12941176470588234" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </tabBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="sMP-AS-Zl9" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Kyz-7k-p0J"/>
+                            <constraint firstItem="sMP-AS-Zl9" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="8LA-GW-uqq"/>
+                            <constraint firstItem="sMP-AS-Zl9" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="S7K-32-n4f"/>
+                            <constraint firstAttribute="trailing" secondItem="sMP-AS-Zl9" secondAttribute="trailing" id="oIw-fR-Dot"/>
                         </constraints>
                     </view>
                     <connections>

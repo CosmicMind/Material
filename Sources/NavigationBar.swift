@@ -164,7 +164,7 @@ public class NavigationBar : UINavigationBar {
 	}
 	
 	/// A property that accesses the backing layer's shadowOffset.
-	public var shadowOffset: CGSize {
+	@IBInspectable public var shadowOffset: CGSize {
 		get {
 			return layer.shadowOffset
 		}

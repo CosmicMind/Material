@@ -14,6 +14,19 @@
 		96162C171CA6F2BC00E3A235 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96162C151CA6F2BC00E3A235 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		96162C211CA7037600E3A235 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		96162C091CA6F2BC00E3A235 /* BottomNavigationBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BottomNavigationBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96162C0C1CA6F2BC00E3A235 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -74,6 +87,7 @@
 				96162C051CA6F2BC00E3A235 /* Sources */,
 				96162C061CA6F2BC00E3A235 /* Frameworks */,
 				96162C071CA6F2BC00E3A235 /* Resources */,
+				96162C211CA7037600E3A235 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -286,6 +300,7 @@
 				96162C1D1CA6F2BC00E3A235 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

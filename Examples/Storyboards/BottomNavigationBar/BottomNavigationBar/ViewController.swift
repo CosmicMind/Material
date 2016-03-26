@@ -41,8 +41,19 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		videoItem.image = MaterialIcon.videocam
+		videoItem.setTitleColor(MaterialColor.grey.base, forState: .Normal)
+		videoItem.setTitleColor(MaterialColor.teal.base, forState: .Selected)
+		
 		photoItem.image = MaterialIcon.photoCamera
+		photoItem.setTitleColor(MaterialColor.grey.base, forState: .Normal)
+		photoItem.setTitleColor(MaterialColor.teal.base, forState: .Selected)
+		
 		libraryItem.image = MaterialIcon.photoLibrary
+		libraryItem.setTitleColor(MaterialColor.grey.base, forState: .Normal)
+		libraryItem.setTitleColor(MaterialColor.teal.base, forState: .Selected)
+		
+		bottomNavigationBar.tintColor = MaterialColor.teal.base // Sets the image color when highlighted.
+		bottomNavigationBar.selectedItem = videoItem
 	}
 
 }
