@@ -29,6 +29,11 @@
 		960B23501C38490D00E96216 /* Text.swift in Headers */ = {isa = PBXBuildFile; fileRef = 960B23431C38480E00E96216 /* Text.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		960B23511C38490D00E96216 /* TextStorage.swift in Headers */ = {isa = PBXBuildFile; fileRef = 960B23441C38480E00E96216 /* TextStorage.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		960B23521C38490D00E96216 /* TextView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 960B23451C38480E00E96216 /* TextView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96162BFB1CA6E89F00E3A235 /* MaterialPulseAnimation.swift in Headers */ = {isa = PBXBuildFile; fileRef = 968F17211C94B10B008CA3F6 /* MaterialPulseAnimation.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96162BFC1CA6E89F00E3A235 /* NavigationItem.swift in Headers */ = {isa = PBXBuildFile; fileRef = 967887861C9775900037F6C9 /* NavigationItem.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96162BFD1CA6E89F00E3A235 /* BottomNavigationBar.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96A536641CA3A2C80069B3CC /* BottomNavigationBar.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96162BFE1CA6E89F00E3A235 /* BottomNavigationBarItem.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BAECE71CA3B4620048037C /* BottomNavigationBarItem.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96162BFF1CA6E89F00E3A235 /* BottomNavigationController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BAECE91CA3B8B90048037C /* BottomNavigationController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9626C2DE1C795017007CA8E0 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9626C2DD1C795017007CA8E0 /* MenuViewController.swift */; };
 		96334EF61C8B84660083986B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96334EF51C8B84660083986B /* Assets.xcassets */; };
 		96334EF81C8B84880083986B /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96334EF71C8B84880083986B /* NavigationBar.swift */; };
@@ -685,6 +690,11 @@
 				968F171B1C9266D0008CA3F6 /* NavigationController.swift in Headers */,
 				968F171C1C9266D0008CA3F6 /* Toolbar.swift in Headers */,
 				968F171D1C9266D0008CA3F6 /* ToolbarController.swift in Headers */,
+				96162BFB1CA6E89F00E3A235 /* MaterialPulseAnimation.swift in Headers */,
+				96162BFC1CA6E89F00E3A235 /* NavigationItem.swift in Headers */,
+				96162BFD1CA6E89F00E3A235 /* BottomNavigationBar.swift in Headers */,
+				96162BFE1CA6E89F00E3A235 /* BottomNavigationBarItem.swift in Headers */,
+				96162BFF1CA6E89F00E3A235 /* BottomNavigationController.swift in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
