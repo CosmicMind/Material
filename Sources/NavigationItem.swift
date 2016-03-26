@@ -62,7 +62,7 @@ public class NavigationItem {
 }
 
 public extension UINavigationItem {
-	/// NavigationBarControls reference.
+	/// NavigationItem reference.
 	public internal(set) var item: NavigationItem {
 		get {
 			return MaterialAssociatedObject(self, key: &NavigationItemKey) {

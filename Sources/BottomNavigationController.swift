@@ -32,5 +32,57 @@ import UIKit
 
 @IBDesignable
 public class BottomNavigationController : UITabBarController {
+	/**
+	An initializer that initializes the object with a NSCoder object.
+	- Parameter aDecoder: A NSCoder instance.
+	*/
+	public required init?(coder aDecoder: NSCoder) {
+		super.init(coder: aDecoder)
+	}
 	
+	/**
+	An initializer that initializes the object with an Optional nib and bundle.
+	- Parameter nibNameOrNil: An Optional String for the nib.
+	- Parameter bundle: An Optional NSBundle where the nib is located.
+	*/
+	public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+	}
+	
+	public init() {
+		super.init(nibName: nil, bundle: nil)
+		prepareView()
+	}
+	
+	public override func viewWillLayoutSubviews() {
+		super.viewWillLayoutSubviews()
+		layoutSubviews()
+	}
+	
+	public func layoutSubviews() {
+		tabBar.frame = CGRectMake(0, view.bounds.height - 56, view.bounds.width, 56)
+		if let v: Array<UITabBarItem> = tabBar.items {
+			for item in v {
+				if nil == item.title {
+					item.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0)
+				} else {
+					item.titlePositionAdjustment.vertical = -8
+				}
+			}
+		}
+	}
+	
+	/**
+	Prepares the view instance when intialized. When subclassing,
+	it is recommended to override the prepareView method
+	to initialize property values and other setup operations.
+	The super.prepareView method should always be called immediately
+	when subclassing.
+	*/
+	public func prepareView() {
+		tabBar.depth = .Depth1
+		tabBar.backgroundColor = MaterialColor.white
+		tabBar.shadowImage = UIImage.imageWithColor(MaterialColor.clear, size: CGSizeMake(1, 1))
+		tabBar.backgroundImage = UIImage()
+	}
 }

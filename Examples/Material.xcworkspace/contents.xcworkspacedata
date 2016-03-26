@@ -65,6 +65,9 @@
          location = "group:Programmatic/BottomNavigationBar/BottomNavigationBar.xcodeproj">
       </FileRef>
       <FileRef
+         location = "group:Programmatic/BottomNavigationController/BottomNavigationController.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:Programmatic/SideNavigationController/SideNavigationController.xcodeproj">
       </FileRef>
       <FileRef

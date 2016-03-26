@@ -32,20 +32,6 @@ import UIKit
 
 @IBDesignable
 public class BottomNavigationBar : UITabBar {
-	/// A preset for contentInset.
-	public var contentInsetPreset: MaterialEdgeInset = .None {
-		didSet {
-			contentInset = MaterialEdgeInsetToValue(contentInsetPreset)
-		}
-	}
-	
-	/// A UIEdgeInsets value for insetting the content.
-	public var contentInset: UIEdgeInsets = MaterialEdgeInsetToValue(.None) {
-		didSet {
-			layoutSubviews()
-		}
-	}
-	
 	/**
 	This property is the same as clipsToBounds. It crops any of the view's
 	contents from bleeding past the view's frame. If an image is set using
@@ -155,20 +141,6 @@ public class BottomNavigationBar : UITabBar {
 		}
 	}
 	
-	/**
-	A property that sets the shadowOffset, shadowOpacity, and shadowRadius
-	for the backing layer. This is the preferred method of setting depth
-	in order to maintain consitency across UI objects.
-	*/
-	public var depth: MaterialDepth = .None {
-		didSet {
-			let value: MaterialDepthType = MaterialDepthToValue(depth)
-			shadowOffset = value.offset
-			shadowOpacity = value.opacity
-			shadowRadius = value.radius
-		}
-	}
-	
 	/// A preset property to set the borderWidth.
 	public var borderWidthPreset: MaterialBorder = .None {
 		didSet {
@@ -247,10 +219,56 @@ public class BottomNavigationBar : UITabBar {
 	when subclassing.
 	*/
 	public func prepareView() {
-		backgroundColor = MaterialColor.white
 		depth = .Depth1
+		backgroundColor = MaterialColor.white
 		shadowImage = UIImage.imageWithColor(MaterialColor.clear, size: CGSizeMake(1, 1))
 		backgroundImage = UIImage()
-		contentInsetPreset = .None
+	}
+}
+
+/// A memory reference to the TabBarItem instance.
+private var TabBarKey: UInt8 = 0
+
+public class TabBar {
+	/**
+	A property that sets the shadowOffset, shadowOpacity, and shadowRadius
+	for the backing layer. This is the preferred method of setting depth
+	in order to maintain consitency across UI objects.
+	*/
+	public var depth: MaterialDepth
+	
+	public init(depth: MaterialDepth) {
+		self.depth = depth
+	}
+}
+
+public extension UITabBar {
+	/// TabBarItem reference.
+	public internal(set) var item: TabBar {
+		get {
+			return MaterialAssociatedObject(self, key: &TabBarKey) {
+				return TabBar(depth: .None)
+			}
+		}
+		set(value) {
+			MaterialAssociateObject(self, key: &TabBarKey, value: value)
+		}
+	}
+	
+	/**
+	A property that sets the shadowOffset, shadowOpacity, and shadowRadius
+	for the backing layer. This is the preferred method of setting depth
+	in order to maintain consitency across UI objects.
+	*/
+	public var depth: MaterialDepth {
+		get {
+			return item.depth
+		}
+		set(value) {
+			let v: MaterialDepthType = MaterialDepthToValue(value)
+			layer.shadowOffset = v.offset
+			layer.shadowOpacity = v.opacity
+			layer.shadowRadius = v.radius
+		}
 	}
 }
