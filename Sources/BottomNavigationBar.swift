@@ -232,13 +232,10 @@ public class BottomNavigationBar : UITabBar {
 				}
 			}
 		}
-		if let v: UIView = superview {
-			frame = CGRectMake(0, v.bounds.height - 56, v.bounds.width, 56)
-		}
-		if MaterialDevice.landscape {
-			itemPositioning = .Centered
-		} else {
-			itemPositioning = .Fill
+		if translatesAutoresizingMaskIntoConstraints {
+			if let v: UIView = superview {
+				frame = CGRectMake(0, v.bounds.height - 56, v.bounds.width, 56)
+			}
 		}
 	}
 	

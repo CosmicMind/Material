@@ -102,6 +102,9 @@
          location = "group:Storyboards/Toolbar/Toolbar.xcodeproj">
       </FileRef>
       <FileRef
+         location = "group:Storyboards/BottomNavigationBar/BottomNavigationBar.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:Storyboards/SideNavigationController/SideNavigationController.xcodeproj">
       </FileRef>
    </Group>

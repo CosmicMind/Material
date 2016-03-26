@@ -32,43 +32,18 @@ import UIKit
 import Material
 
 class ViewController: UIViewController {
-	/// Reference for NavigationBar.
-	private var bottomNavigationBar: BottomNavigationBar!
+
+	@IBOutlet weak var bottomNavigationBar: BottomNavigationBar!
+	@IBOutlet weak var videoItem: BottomNavigationBarItem!
+	@IBOutlet weak var photoItem: BottomNavigationBarItem!
+	@IBOutlet weak var libraryItem: BottomNavigationBarItem!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		prepareView()
-		prepareBottomNavigationBar()
+		videoItem.image = MaterialIcon.videocam
+		photoItem.image = MaterialIcon.photoCamera
+		libraryItem.image = MaterialIcon.photoLibrary
 	}
-	
-	/// General preparation statements.
-	private func prepareView() {
-		view.backgroundColor = MaterialColor.white
-	}
-	
-	/// Prepare bottomNavigationBar.
-	private func prepareBottomNavigationBar() {
-		bottomNavigationBar = BottomNavigationBar()
-		bottomNavigationBar.backgroundColor = MaterialColor.grey.darken4
-		view.addSubview(bottomNavigationBar)
-		
-		let videoItem: BottomNavigationBarItem = BottomNavigationBarItem(title: "Video", image: MaterialIcon.videocam, selectedImage: nil)
-		videoItem.setTitleColor(MaterialColor.grey.base, forState: .Normal)
-		videoItem.setTitleColor(MaterialColor.teal.base, forState: .Selected)
-		
-		
-		let photoItem: BottomNavigationBarItem = BottomNavigationBarItem(title: "Photo", image: MaterialIcon.photoCamera, selectedImage: nil)
-		photoItem.setTitleColor(MaterialColor.grey.base, forState: .Normal)
-		photoItem.setTitleColor(MaterialColor.teal.base, forState: .Selected)
-		
-		let libraryItem: BottomNavigationBarItem = BottomNavigationBarItem(title: "Library", image: MaterialIcon.photoLibrary, selectedImage: nil)
-		libraryItem.setTitleColor(MaterialColor.grey.base, forState: .Normal)
-		libraryItem.setTitleColor(MaterialColor.teal.base, forState: .Selected)
-		
-		bottomNavigationBar.setItems([videoItem, photoItem, libraryItem], animated: true)
-		bottomNavigationBar.tintColor = MaterialColor.teal.base // Sets the image color when highlighted.
-		bottomNavigationBar.itemPositioning = .Automatic // Sets the alignment of the BottomNavigationBarItems.
-		bottomNavigationBar.selectedItem = videoItem
-		
-	}
+
 }
+
