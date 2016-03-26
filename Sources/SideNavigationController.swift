@@ -734,7 +734,6 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	/// A method that prepares the mainViewController.
 	private func prepareMainViewController() {
 		prepareViewControllerWithinContainer(mainViewController, container: view)
-		mainViewController.view.frame = view.bounds
 	}
 	
 	/// A method that prepares the leftViewController.
@@ -809,13 +808,13 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	*/
 	private func prepareGestures() {
 		if nil == panGesture {
-			panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
+			panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
 			panGesture!.delegate = self
 			view.addGestureRecognizer(panGesture!)
 		}
 		
 		if nil == tapGesture {
-			tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture(_:)))
+			tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
 			tapGesture!.delegate = self
 			tapGesture!.cancelsTouchesInView = false
 			view.addGestureRecognizer(tapGesture!)

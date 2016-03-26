@@ -386,9 +386,9 @@ public class MaterialSwitch : UIControl {
 	private func prepareButton() {
 		button.pulseColor = nil
 		button.addTarget(self, action: #selector(handleTouchUpInside), forControlEvents: .TouchUpInside)
-		button.addTarget(self, action: #selector(handleTouchDragInside(_: _:), forControlEvents: .TouchDragInside)
-		button.addTarget(self, action: #selector(handleTouchUpOutsideOrCanceled(_: _:)), forControlEvents: .TouchCancel)
-		button.addTarget(self, action: #selector(handleTouchUpOutsideOrCanceled(_: _:)), forControlEvents: .TouchUpOutside)
+		button.addTarget(self, action: #selector(handleTouchDragInside), forControlEvents: .TouchDragInside)
+		button.addTarget(self, action: #selector(handleTouchUpOutsideOrCanceled), forControlEvents: .TouchCancel)
+		button.addTarget(self, action: #selector(handleTouchUpOutsideOrCanceled), forControlEvents: .TouchUpOutside)
 		addSubview(button)
 	}
 	

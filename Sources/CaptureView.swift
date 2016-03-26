@@ -128,7 +128,7 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 			if tapToFocusEnabled {
 				tapToResetEnabled = true
 				prepareFocusLayer()
-				prepareTapGesture(&tapToFocusGesture, numberOfTapsRequired: 1, numberOfTouchesRequired: 1, selector: #selector(handleTapToFocusGesture(_:)))
+				prepareTapGesture(&tapToFocusGesture, numberOfTapsRequired: 1, numberOfTouchesRequired: 1, selector: #selector(handleTapToFocusGesture))
 				if let v: UITapGestureRecognizer = tapToExposeGesture {
 					tapToFocusGesture!.requireGestureRecognizerToFail(v)
 				}
@@ -148,7 +148,7 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 			if tapToExposeEnabled {
 				tapToResetEnabled = true
 				prepareExposureLayer()
-				prepareTapGesture(&tapToExposeGesture, numberOfTapsRequired: 2, numberOfTouchesRequired: 1, selector: #selector(handleTapToExposeGesture(_:)))
+				prepareTapGesture(&tapToExposeGesture, numberOfTapsRequired: 2, numberOfTouchesRequired: 1, selector: #selector(handleTapToExposeGesture))
 				if let v: UITapGestureRecognizer = tapToFocusGesture {
 					v.requireGestureRecognizerToFail(tapToExposeGesture!)
 				}
@@ -167,7 +167,7 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 		didSet {
 			if tapToResetEnabled {
 				prepareResetLayer()
-				prepareTapGesture(&tapToResetGesture, numberOfTapsRequired: 2, numberOfTouchesRequired: 2, selector: #selector(handleTapToResetGesture(_:)))
+				prepareTapGesture(&tapToResetGesture, numberOfTapsRequired: 2, numberOfTouchesRequired: 2, selector: #selector(handleTapToResetGesture))
 				if let v: UITapGestureRecognizer = tapToFocusGesture {
 					v.requireGestureRecognizerToFail(tapToResetGesture!)
 				}
