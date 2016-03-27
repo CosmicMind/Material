@@ -231,7 +231,7 @@ public class BottomNavigationBar : UITabBar {
 	
 	public override func didMoveToSuperview() {
 		super.didMoveToSuperview()
-		if autoLayoutToSuperview && translatesAutoresizingMaskIntoConstraints {
+		if autoLayoutToSuperview {
 			if let v: UIView = superview {
 				translatesAutoresizingMaskIntoConstraints = false
 				MaterialLayout.alignFromBottom(v, child: self)
