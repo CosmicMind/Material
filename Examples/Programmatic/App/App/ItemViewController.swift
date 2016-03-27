@@ -73,6 +73,12 @@ class ItemViewController: UIViewController {
 		prepareImageCardView()
 	}
 	
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+		// Stops the scrollView contentInsets from being automatically adjusted.
+		automaticallyAdjustsScrollViewInsets = false
+	}
+	
 	override func viewWillLayoutSubviews() {
 		super.viewWillLayoutSubviews()
 		scrollView.frame = view.bounds

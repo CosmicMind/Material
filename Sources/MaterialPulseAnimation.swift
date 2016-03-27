@@ -42,7 +42,7 @@ internal extension MaterialAnimation {
 	- Parameter duration: Animation duration.
 	- Parameter pulseLayer: An Optional pulseLayer to use in the animation.
 	*/
-	internal static func pulseAnimation(layer: CALayer, visualLayer: CALayer, color: UIColor, point: CGPoint, width: CGFloat, height: CGFloat, duration: NSTimeInterval, var pulseLayer: CAShapeLayer? = nil) {
+	internal static func pulseAnimation(layer: CALayer, visualLayer: CALayer, color: UIColor, point: CGPoint, width: CGFloat, height: CGFloat, duration: NSTimeInterval, pulseLayer: CAShapeLayer? = nil) {
 		
 		let r: CGFloat = (width < height ? height : width) / 2
 		let f: CGFloat = 3
@@ -50,37 +50,40 @@ internal extension MaterialAnimation {
 		let d: CGFloat = 2 * f
 		
 		var b: Bool = false
+		var pLayer: CAShapeLayer?
 		
 		if nil == pulseLayer {
-			pulseLayer = CAShapeLayer()
+			pLayer = CAShapeLayer()
 			b = true
+		} else {
+			pLayer = pulseLayer
 		}
 		
-		pulseLayer!.hidden = true
-		pulseLayer!.zPosition = 1
-		pulseLayer!.backgroundColor = color.CGColor
-		visualLayer.addSublayer(pulseLayer!)
+		pLayer!.hidden = true
+		pLayer!.zPosition = 1
+		pLayer!.backgroundColor = color.CGColor
+		visualLayer.addSublayer(pLayer!)
 		
 		MaterialAnimation.animationDisabled {
-			pulseLayer!.bounds = CGRectMake(0, 0, v, v)
-			pulseLayer!.position = point
-			pulseLayer!.cornerRadius = r / d
-			pulseLayer!.hidden = false
+			pLayer!.bounds = CGRectMake(0, 0, v, v)
+			pLayer!.position = point
+			pLayer!.cornerRadius = r / d
+			pLayer!.hidden = false
 		}
 		
-		pulseLayer!.addAnimation(MaterialAnimation.scale((b ? 3 : 1.7) * d, duration: duration), forKey: nil)
+		pLayer!.addAnimation(MaterialAnimation.scale((b ? 3 : 1.7) * d, duration: duration), forKey: nil)
 		
 		if b {
 			MaterialAnimation.delay(duration) {
 				MaterialAnimation.animateWithDuration(duration, animations: {
-					pulseLayer?.hidden = true
+					pLayer?.hidden = true
 				}) {
-					pulseLayer?.removeFromSuperlayer()
+					pLayer?.removeFromSuperlayer()
 				}
 			}
 		} else {
 			MaterialAnimation.delay(duration / 2) {
-				pulseLayer?.addAnimation(MaterialAnimation.scale(1.3 * d, duration: duration), forKey: nil)
+				pLayer?.addAnimation(MaterialAnimation.scale(1.3 * d, duration: duration), forKey: nil)
 			}
 		}
 	}

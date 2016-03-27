@@ -365,18 +365,20 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	- Parameter animated: A Boolean value that indicates to animate
 	the leftView width change.
 	*/
-	public func setLeftViewWidth(width: CGFloat, var hidden: Bool, animated: Bool, duration: NSTimeInterval = 0.5) {
+	public func setLeftViewWidth(width: CGFloat, hidden: Bool, animated: Bool, duration: NSTimeInterval = 0.5) {
 		if let v: MaterialView = leftView {
 			leftViewWidth = width
 			
+			var hide: Bool = hidden
+			
 			if openedRightView {
-				hidden = true
+				hide = true
 			}
 			
 			if animated {
 				v.shadowPathAutoSizeEnabled = false
 				
-				if hidden {
+				if hide {
 					UIView.animateWithDuration(duration,
 						animations: { [unowned self] in
 							v.bounds.size.width = width
@@ -401,7 +403,7 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 				}
 			} else {
 				v.bounds.size.width = width
-				if hidden {
+				if hide {
 					hideView(v)
 					v.position.x = -v.width / 2
 					rootViewController.view.alpha = 1
@@ -429,18 +431,20 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	- Parameter animated: A Boolean value that indicates to animate
 	the rightView width change.
 	*/
-	public func setRightViewWidth(width: CGFloat, var hidden: Bool, animated: Bool, duration: NSTimeInterval = 0.5) {
+	public func setRightViewWidth(width: CGFloat, hidden: Bool, animated: Bool, duration: NSTimeInterval = 0.5) {
 		if let v: MaterialView = rightView {
 			rightViewWidth = width
 			
+			var hide: Bool = hidden
+			
 			if openedLeftView {
-				hidden = true
+				hide = true
 			}
 			
 			if animated {
 				v.shadowPathAutoSizeEnabled = false
 				
-				if hidden {
+				if hide {
 					UIView.animateWithDuration(duration,
 						animations: { [unowned self] in
 							v.bounds.size.width = width
@@ -465,7 +469,7 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 				}
 			} else {
 				v.bounds.size.width = width
-				if hidden {
+				if hide {
 					hideView(v)
 					v.position.x = view.bounds.width + v.width / 2
 					rootViewController.view.alpha = 1

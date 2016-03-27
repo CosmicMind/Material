@@ -66,7 +66,8 @@ public struct MaterialLayout {
 			var i: Int = 1
 			var views: Dictionary<String, UIView> = Dictionary<String, UIView>()
 			for v in children {
-				let k: String = "view\(i++)"
+				let k: String = "view\(i)"
+				i += 1
 				views[k] = v
 				format += i > children.count ? "[\(k)(==view1)]-(right)-|" : "[\(k)(==view1)]-(spacing)-"
 			}
@@ -83,7 +84,8 @@ public struct MaterialLayout {
 			var i: Int = 1
 			var views: Dictionary<String, UIView> = Dictionary<String, UIView>()
 			for v in children {
-				let k: String = "view\(i++)"
+				let k: String = "view\(i)"
+				i += 1
 				views[k] = v
 				format += i > children.count ? "[\(k)(==view1)]-(bottom)-|" : "[\(k)(==view1)]-(spacing)-"
 			}

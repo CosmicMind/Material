@@ -43,12 +43,6 @@ class AppSearchBarController: SearchBarController {
 		prepareSearchBar()
 	}
 	
-	override func viewWillDisappear(animated: Bool) {
-		super.viewWillDisappear(animated)
-		searchBar.textField.resignFirstResponder()
-		sideNavigationController?.enabled = true
-	}
-	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 		searchBar.statusBarStyle = .Default
@@ -58,6 +52,12 @@ class AppSearchBarController: SearchBarController {
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 		searchBar.textField.becomeFirstResponder()
+	}
+	
+	override func viewWillDisappear(animated: Bool) {
+		super.viewWillDisappear(animated)
+		searchBar.textField.resignFirstResponder()
+		sideNavigationController?.enabled = true
 	}
 	
 	/// Toggle SideSearchViewController left UIViewController.
@@ -108,8 +108,6 @@ class AppSearchBarController: SearchBarController {
 		searchBar.placeholderTextColor = MaterialColor.grey.darken4
 		searchBar.textField.font = RobotoFont.regular
 		searchBar.textField.delegate = self
-		searchBar.contentInset.left = 8
-		searchBar.contentInset.right = 8
 		
 		searchBar.clearButton = clearButton
 		searchBar.leftControls = [backButton]

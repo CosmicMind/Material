@@ -51,15 +51,12 @@ public class MaterialPulseView : MaterialView {
 	- Parameter point: A Optional point to pulse from, otherwise pulses
 	from the center.
 	*/
-	public func pulse(var point: CGPoint? = nil) {
-		if nil == point {
-			point = CGPointMake(CGFloat(width / 2), CGFloat(height / 2))
-		}
-		
+	public func pulse(point: CGPoint? = nil) {
+		let p: CGPoint = nil == point ? CGPointMake(CGFloat(width / 2), CGFloat(height / 2)) : point!
 		let duration: NSTimeInterval = MaterialAnimation.pulseDuration(width)
 		
 		if let v: UIColor = pulseColor {
-			MaterialAnimation.pulseAnimation(layer, visualLayer: visualLayer, color: v.colorWithAlphaComponent(pulseOpacity), point: point!, width: width, height: height, duration: duration)
+			MaterialAnimation.pulseAnimation(layer, visualLayer: visualLayer, color: v.colorWithAlphaComponent(pulseOpacity), point: p, width: width, height: height, duration: duration)
 		}
 		
 		if pulseScale {

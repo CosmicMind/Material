@@ -322,7 +322,7 @@ public class CardView : MaterialPulseView {
 					
 					d[k] = b
 					
-					if 0 == i++ {
+					if 0 == i {
 						h += "-(left)-"
 					} else {
 						h += "-(left_right)-"
@@ -332,6 +332,8 @@ public class CardView : MaterialPulseView {
 					
 					addSubview(b)
 					MaterialLayout.alignFromBottom(self, child: b, bottom: contentInset.bottom + leftButtonsInset.bottom)
+					
+					i += 1
 				}
 				
 				addConstraints(MaterialLayout.constraint(h, options: [], metrics: ["left" : contentInset.left + leftButtonsInset.left, "left_right" : leftButtonsInset.left + leftButtonsInset.right], views: d))
@@ -352,7 +354,7 @@ public class CardView : MaterialPulseView {
 					
 					h += "[\(k)]"
 					
-					if 0 == i-- {
+					if 0 == i {
 						h += "-(right)-"
 					} else {
 						h += "-(right_left)-"
@@ -360,6 +362,8 @@ public class CardView : MaterialPulseView {
 					
 					addSubview(b)
 					MaterialLayout.alignFromBottom(self, child: b, bottom: contentInset.bottom + rightButtonsInset.bottom)
+					
+					i -= 1
 				}
 				
 				addConstraints(MaterialLayout.constraint(h + "|", options: [], metrics: ["right" : contentInset.right + rightButtonsInset.right, "right_left" : rightButtonsInset.right + rightButtonsInset.left], views: d))

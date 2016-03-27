@@ -63,6 +63,9 @@ class RecipesViewController: UIViewController {
 	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
+		// Stops the tableView contentInsets from being automatically adjusted.
+		automaticallyAdjustsScrollViewInsets = false
+		
 		// Set the navigationBar style.
 		navigationController?.navigationBar.statusBarStyle = .LightContent
 		
@@ -213,7 +216,6 @@ class RecipesViewController: UIViewController {
 	/// Prepares view.
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.white
-		automaticallyAdjustsScrollViewInsets = false
 	}
 	
 	/// Prepares the titleLabel.

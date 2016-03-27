@@ -34,14 +34,14 @@ public extension UIImage {
 	/**
 		:name:	crop
 	*/
-	public func crop(var toWidth w: CGFloat, var toHeight h: CGFloat) -> UIImage? {
+	public func crop(toWidth tw: CGFloat, toHeight th: CGFloat) -> UIImage? {
 		let g: UIImage?
 		let b: Bool = width > height
-		let s: CGFloat = b ? h / height : w / width
-		let t: CGSize = CGSizeMake(w, h)
+		let s: CGFloat = b ? th / height : tw / width
+		let t: CGSize = CGSizeMake(tw, th)
 		
-		w = width * s
-		h = height * s
+		let w = width * s
+		let h = height * s
 		
 		UIGraphicsBeginImageContext(t)
 		drawInRect(b ? CGRectMake(-1 * (w - t.width) / 2, 0, w, h) : CGRectMake(0, -1 * (h - t.height) / 2, w, h), blendMode: .Normal, alpha: 1)
