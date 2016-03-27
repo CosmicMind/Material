@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		let bottomNavigationController: BottomNavigationController = BottomNavigationController()
 		bottomNavigationController.viewControllers = [AppMenuViewController(rootViewController: AppNavigationController(rootViewController: RecipesViewController())), VideoViewController(), PhotoViewController()]
 		bottomNavigationController.selectedIndex = 0
-		bottomNavigationController.tabBar.tintColor = MaterialColor.lightBlue.base
+		bottomNavigationController.tabBar.tintColor = MaterialColor.white
 		bottomNavigationController.tabBar.backgroundColor = MaterialColor.grey.darken4
 		
 		// Override point for customization after application launch.

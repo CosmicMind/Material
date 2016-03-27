@@ -154,10 +154,9 @@ class AppMenuViewController: MenuViewController {
 	
 	/// Prepare tabBarItem.
 	private func prepareTabBarItem() {
-		tabBarItem.title = "Recipes"
 		tabBarItem.image = MaterialIcon.photoLibrary
 		tabBarItem.setTitleColor(MaterialColor.grey.base, forState: .Normal)
-		tabBarItem.setTitleColor(MaterialColor.lightBlue.base, forState: .Selected)
+		tabBarItem.setTitleColor(MaterialColor.white, forState: .Selected)
 	}
 }
 

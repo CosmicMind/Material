@@ -119,7 +119,7 @@ public class MenuViewController : UIViewController {
 				self.rootViewController.removeFromParentViewController()
 				self.rootViewController = toViewController
 				self.rootViewController.view.clipsToBounds = true
-				self.rootViewController.view.autoresizingMask = .FlexibleWidth
+				self.rootViewController.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
 				self.view.sendSubviewToBack(self.rootViewController.view)
 				completion?(result)
 			})
@@ -169,7 +169,7 @@ public class MenuViewController : UIViewController {
 	/// A method that prepares the rootViewController.
 	private func prepareRootViewController() {
 		rootViewController.view.clipsToBounds = true
-		rootViewController.view.autoresizingMask = .FlexibleWidth
+		rootViewController.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
 		prepareViewControllerWithinContainer(rootViewController, container: view)
 	}
 	
