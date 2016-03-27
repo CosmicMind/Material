@@ -50,9 +50,6 @@ class ItemViewController: UIViewController {
 	/// MaterialScrollView.
 	private var scrollView: UIScrollView!
 	
-	/// Image height for the imageCardView.
-	private var imageHeight: CGFloat = 300
-	
 	override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 	}
@@ -85,12 +82,12 @@ class ItemViewController: UIViewController {
 		scrollView.contentSize = CGSizeMake(view.bounds.width, imageCardView.height)
 		imageCardView.reloadView()
 		imageCardView.contentsGravityPreset = .ResizeAspectFill
-		print(scrollView.frame)
-		print(scrollView.contentSize)
+		imageCardView.titleLabelInset.top = imageCardView.imageLayer!.frame.height
 	}
 	
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.white
+		automaticallyAdjustsScrollViewInsets = false
 	}
 	
 	/// Prepares the titleLabel.
@@ -144,12 +141,12 @@ class ItemViewController: UIViewController {
 			imageCardView.depth = .None
 			imageCardView.contentInsetPreset = .Square3
 			imageCardView.cornerRadiusPreset = .None
+			imageCardView.maxImageHeight = 300
 			
 			imageCardView.titleLabel = UILabel()
 			imageCardView.titleLabel?.text = data["title"] as? String
 			imageCardView.titleLabel?.textColor = MaterialColor.grey.darken4
 			imageCardView.titleLabel?.font = RobotoFont.regularWithSize(20)
-			imageCardView.titleLabelInset.top = imageHeight
 			
 			let detailLabel: UILabel = UILabel()
 			detailLabel.text = data["detail"] as? String
@@ -160,11 +157,9 @@ class ItemViewController: UIViewController {
 			imageCardView.detailView = detailLabel
 			imageCardView.detailViewInset.top = 52
 			
-			if let v: CGFloat = view.bounds.width {
-				let image: UIImage? = UIImage(named: data["image"] as! String)?.resize(toWidth: v)?.crop(toWidth: v, toHeight: imageHeight)
-				imageCardView.image = image
-			}
-
+			let image: UIImage? = UIImage(named: data["image"] as! String)
+			imageCardView.image = image
+			
 			scrollView.addSubview(imageCardView)
 			imageCardView.translatesAutoresizingMaskIntoConstraints = false
 		}

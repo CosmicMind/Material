@@ -119,10 +119,10 @@ class AppSearchBarController: SearchBarController {
 
 extension AppSearchBarController: TextFieldDelegate {
 	func textFieldDidBeginEditing(textField: UITextField) {
-		print("Begin searching....")
+//		print("Begin searching....")
 	}
 	
 	func textFieldDidEndEditing(textField: UITextField) {
-		print("End searching....")
+//		print("End searching....")
 	}
 }

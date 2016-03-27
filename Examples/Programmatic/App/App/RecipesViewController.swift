@@ -75,7 +75,7 @@ class RecipesViewController: UIViewController {
 		// Show the menuView.
 		menuViewController?.menuView.animate(MaterialAnimation.animationGroup([
 			MaterialAnimation.rotate(rotation: 3),
-			MaterialAnimation.translateY(0 - tabBarController!.tabBar.frame.height)
+			MaterialAnimation.translateY(0)
 		]))
 	}
 	
@@ -87,7 +87,7 @@ class RecipesViewController: UIViewController {
 		// Hide the menuView.
 		menuViewController?.menuView.animate(MaterialAnimation.animationGroup([
 			MaterialAnimation.rotate(rotation: 3),
-			MaterialAnimation.translateY(150 + tabBarController!.tabBar.frame.height)
+			MaterialAnimation.translateY(150)
 		]))
 	}
 	
@@ -158,6 +158,54 @@ class RecipesViewController: UIViewController {
 					"date": "February 26, 2016",
 					"image": "VeganPieAbove"
 				]
+			),
+			MaterialDataSourceItem(
+				data: [
+					"title": "Crepe Indulgence",
+					"detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+					"date": "February 26, 2016",
+					"image": "AssortmentOfDessert"
+				]
+			),
+			MaterialDataSourceItem(
+				data: [
+					"title": "Avocado Chocolate Cake",
+					"detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+					"date": "February 26, 2016",
+					"image": "AssortmentOfFood"
+				]
+			),
+			MaterialDataSourceItem(
+				data: [
+					"title": "Avocado Ice-Cream",
+					"detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+					"date": "February 26, 2016",
+					"image": "AvocadoIceCream"
+				]
+			),
+			MaterialDataSourceItem(
+				data: [
+					"title": "Raw Vegan Chocolate Cookies",
+					"detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+					"date": "February 26, 2016",
+					"image": "HeartCookies"
+				]
+			),
+			MaterialDataSourceItem(
+				data: [
+					"title": "Raw Vegan Nutty Sweets",
+					"detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+					"date": "February 26, 2016",
+					"image": "VeganHempBalls"
+				]
+			),
+			MaterialDataSourceItem(
+				data: [
+					"title": "Blueberry Tart",
+					"detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+					"date": "February 26, 2016",
+					"image": "VeganPieAbove"
+				]
 			)
 		]
 	}
@@ -165,6 +213,7 @@ class RecipesViewController: UIViewController {
 	/// Prepares view.
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.white
+		automaticallyAdjustsScrollViewInsets = false
 	}
 	
 	/// Prepares the titleLabel.
