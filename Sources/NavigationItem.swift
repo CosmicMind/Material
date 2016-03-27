@@ -31,9 +31,9 @@
 import UIKit
 
 /// A memory reference to the NavigationItem instance.
-private var NavigationItemKey: UInt8 = 0
+private var MaterialAssociatedObjectNavigationItemKey: UInt8 = 0
 
-public class NavigationItem {
+public class MaterialAssociatedObjectNavigationItem {
 	/// Portrait inset.
 	public var portraitInset: CGFloat
 	
@@ -63,14 +63,14 @@ public class NavigationItem {
 
 public extension UINavigationItem {
 	/// NavigationItem reference.
-	public internal(set) var item: NavigationItem {
+	public internal(set) var item: MaterialAssociatedObjectNavigationItem {
 		get {
-			return MaterialAssociatedObject(self, key: &NavigationItemKey) {
-				return NavigationItem(portraitInset: .iPad == MaterialDevice.type || "iPhone 6s Plus" == MaterialDevice.model || "iPhone 6 Plus" == MaterialDevice.model ? -20 : -16, landscapeInset: -20)
+			return MaterialAssociatedObject(self, key: &MaterialAssociatedObjectNavigationItemKey) {
+				return MaterialAssociatedObjectNavigationItem(portraitInset: .iPad == MaterialDevice.type || "iPhone 6s Plus" == MaterialDevice.model || "iPhone 6 Plus" == MaterialDevice.model ? -20 : -16, landscapeInset: -20)
 			}
 		}
 		set(value) {
-			MaterialAssociateObject(self, key: &NavigationItemKey, value: value)
+			MaterialAssociateObject(self, key: &MaterialAssociatedObjectNavigationItemKey, value: value)
 		}
 	}
 	

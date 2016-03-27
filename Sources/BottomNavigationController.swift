@@ -93,10 +93,23 @@ public class BottomNavigationController : UITabBarController, UITabBarController
 	public func layoutSubviews() {
 		if let v: Array<UITabBarItem> = tabBar.items {
 			for item in v {
-				if nil == item.title {
-					item.imageInsets = UIEdgeInsetsMake(5, 0, -5, 0)
+				if .iPhone == MaterialDevice.type {
+					if nil == item.title {
+						let inset: CGFloat = 7
+						item.imageInsets = UIEdgeInsetsMake(inset, 0, -inset, 0)
+					} else {
+						let inset: CGFloat = 6
+						item.titlePositionAdjustment.vertical = -inset
+					}
 				} else {
-					item.titlePositionAdjustment.vertical = -5
+					if nil == item.title {
+						let inset: CGFloat = 9
+						item.imageInsets = UIEdgeInsetsMake(inset, 0, -inset, 0)
+					} else {
+						let inset: CGFloat = 3
+						item.imageInsets = UIEdgeInsetsMake(inset, 0, -inset, 0)
+						item.titlePositionAdjustment.vertical = -inset
+					}
 				}
 			}
 		}

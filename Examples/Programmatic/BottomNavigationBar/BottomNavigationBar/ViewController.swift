@@ -49,25 +49,25 @@ class ViewController: UIViewController {
 	/// Prepare bottomNavigationBar.
 	private func prepareBottomNavigationBar() {
 		bottomNavigationBar = BottomNavigationBar()
+		// bottomNavigationBar.autoLayoutToSuperview // Set to false if you want to handle the layout yourself.
 		bottomNavigationBar.backgroundColor = MaterialColor.grey.darken4
 		view.addSubview(bottomNavigationBar)
 		
-		let videoItem: BottomNavigationBarItem = BottomNavigationBarItem(title: "Video", image: MaterialIcon.videocam, selectedImage: nil)
+		let videoItem: UITabBarItem = UITabBarItem(title: "Video", image: MaterialIcon.videocam, selectedImage: nil)
 		videoItem.setTitleColor(MaterialColor.grey.base, forState: .Normal)
 		videoItem.setTitleColor(MaterialColor.teal.base, forState: .Selected)
 		
-		
-		let photoItem: BottomNavigationBarItem = BottomNavigationBarItem(title: "Photo", image: MaterialIcon.photoCamera, selectedImage: nil)
+		let photoItem: UITabBarItem = UITabBarItem(title: "Photo", image: MaterialIcon.photoCamera, selectedImage: nil)
 		photoItem.setTitleColor(MaterialColor.grey.base, forState: .Normal)
 		photoItem.setTitleColor(MaterialColor.teal.base, forState: .Selected)
 		
-		let libraryItem: BottomNavigationBarItem = BottomNavigationBarItem(title: "Library", image: MaterialIcon.photoLibrary, selectedImage: nil)
+		let libraryItem: UITabBarItem = UITabBarItem(title: "Library", image: MaterialIcon.photoLibrary, selectedImage: nil)
 		libraryItem.setTitleColor(MaterialColor.grey.base, forState: .Normal)
 		libraryItem.setTitleColor(MaterialColor.teal.base, forState: .Selected)
 		
 		bottomNavigationBar.setItems([videoItem, photoItem, libraryItem], animated: true)
 		bottomNavigationBar.tintColor = MaterialColor.teal.base // Sets the image color when highlighted.
-		bottomNavigationBar.itemPositioning = .Automatic // Sets the alignment of the BottomNavigationBarItems.
+		bottomNavigationBar.itemPositioning = .Automatic // Sets the alignment of the UITabBarItems.
 		bottomNavigationBar.selectedItem = videoItem
 	}
 }

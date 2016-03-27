@@ -359,8 +359,8 @@ Add a new dimension of interactivity with CaptureView. CaptureView is a fully fu
 
 # Upcoming
 
-* TabView
-* TabViewController
+* TabBar
+* TabBarController
 * Scrolling Techniques
 * Snackbar
 * Advanced Camera / Audio Toolset & Views

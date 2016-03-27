@@ -30,8 +30,18 @@
 
 import UIKit
 
+public extension UITabBarItem {
+	/// Sets the color of the title color for a state.
+	public func setTitleColor(color: UIColor, forState state: UIControlState) {
+		setTitleTextAttributes([NSForegroundColorAttributeName: color], forState: state)
+	}
+}
+
 @IBDesignable
 public class BottomNavigationBar : UITabBar {
+	/// Automatically aligns the BottomNavigationBar to the superview.
+	public var autoLayoutToSuperview: Bool = true
+	
 	/**
 	This property is the same as clipsToBounds. It crops any of the view's
 	contents from bleeding past the view's frame. If an image is set using
@@ -197,17 +207,35 @@ public class BottomNavigationBar : UITabBar {
 		super.layoutSubviews()
 		if let v: Array<UITabBarItem> = items {
 			for item in v {
-				if nil == item.title {
-					item.imageInsets = UIEdgeInsetsMake(5, 0, -5, 0)
+				if .iPhone == MaterialDevice.type {
+					if nil == item.title {
+						let inset: CGFloat = 7
+						item.imageInsets = UIEdgeInsetsMake(inset, 0, -inset, 0)
+					} else {
+						let inset: CGFloat = 6
+						item.titlePositionAdjustment.vertical = -inset
+					}
 				} else {
-					item.titlePositionAdjustment.vertical = -5
+					if nil == item.title {
+						let inset: CGFloat = 9
+						item.imageInsets = UIEdgeInsetsMake(inset, 0, -inset, 0)
+					} else {
+						let inset: CGFloat = 3
+						item.imageInsets = UIEdgeInsetsMake(inset, 0, -inset, 0)
+						item.titlePositionAdjustment.vertical = -inset
+					}
 				}
 			}
 		}
-		if translatesAutoresizingMaskIntoConstraints {
+	}
+	
+	public override func didMoveToSuperview() {
+		super.didMoveToSuperview()
+		if autoLayoutToSuperview && translatesAutoresizingMaskIntoConstraints {
 			if let v: UIView = superview {
-				let h: CGFloat = intrinsicContentSize().height
-				frame = CGRectMake(0, v.bounds.height - h, v.bounds.width, h)
+				translatesAutoresizingMaskIntoConstraints = false
+				MaterialLayout.alignFromBottom(v, child: self)
+				MaterialLayout.alignToParentHorizontally(v, child: self)
 			}
 		}
 	}
@@ -229,9 +257,9 @@ public class BottomNavigationBar : UITabBar {
 }
 
 /// A memory reference to the TabBarItem instance.
-private var TabBarKey: UInt8 = 0
+private var MaterialAssociatedObjectTabBarKey: UInt8 = 0
 
-public class TabBar {
+public class MaterialAssociatedObjectTabBar {
 	/**
 	A property that sets the shadowOffset, shadowOpacity, and shadowRadius
 	for the backing layer. This is the preferred method of setting depth
@@ -246,14 +274,14 @@ public class TabBar {
 
 public extension UITabBar {
 	/// TabBarItem reference.
-	public internal(set) var item: TabBar {
+	public internal(set) var item: MaterialAssociatedObjectTabBar {
 		get {
-			return MaterialAssociatedObject(self, key: &TabBarKey) {
-				return TabBar(depth: .None)
+			return MaterialAssociatedObject(self, key: &MaterialAssociatedObjectTabBarKey) {
+				return MaterialAssociatedObjectTabBar(depth: .None)
 			}
 		}
 		set(value) {
-			MaterialAssociateObject(self, key: &TabBarKey, value: value)
+			MaterialAssociateObject(self, key: &MaterialAssociatedObjectTabBarKey, value: value)
 		}
 	}
 	
