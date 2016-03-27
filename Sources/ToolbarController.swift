@@ -119,7 +119,7 @@ public class ToolbarController : StatusBarViewController {
 					animations: { [unowned self] in
 						v.view.center.y = 2 * self.view.bounds.height
 						self.toolbar.alpha = 1
-						self.mainViewController.view.alpha = 1
+						self.rootViewController.view.alpha = 1
 					}) { [unowned self] _ in
 						v.willMoveToParentViewController(nil)
 						v.view.removeFromSuperview()
@@ -157,7 +157,7 @@ public class ToolbarController : StatusBarViewController {
 					animations: { [unowned self] in
 						v.view.center.y = self.view.bounds.height / 2
 						self.toolbar.alpha = 0.5
-						self.mainViewController.view.alpha = 0.5
+						self.rootViewController.view.alpha = 0.5
 					}) { [unowned self] _ in
 						v.view.layer.shouldRasterize = false
 						self.view.layer.shouldRasterize = false

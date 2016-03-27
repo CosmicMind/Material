@@ -34,7 +34,11 @@ import Material
 class AppNavigationController: NavigationController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
+		prepareNavigationBar()
+	}
+	
+	/// Prepares the navigationBar
+	private func prepareNavigationBar() {
 		navigationBar.statusBarStyle = .LightContent
 		navigationBar.tintColor = MaterialColor.white
 		navigationBar.backgroundColor = MaterialColor.blue.base

@@ -43,28 +43,28 @@ class AppSearchBarController: SearchBarController {
 		prepareSearchBar()
 	}
 	
-	/// Loads the BlueViewController into the searchBarControllers mainViewController.
+	/// Loads the BlueViewController into the searchBarControllers rootViewController.
 	func handleBlueButton() {
-		if mainViewController is BlueViewController {
+		if rootViewController is BlueViewController {
 			return
 		}
-		transitionFromMainViewController(BlueViewController(), options: [.TransitionCrossDissolve])
+		transitionFromRootViewController(BlueViewController(), options: [.TransitionCrossDissolve])
 	}
 	
-	/// Loads the GreenViewController into the searchBarControllers mainViewController.
+	/// Loads the GreenViewController into the searchBarControllers rootViewController.
 	func handleGreenButton() {
-		if mainViewController is GreenViewController {
+		if rootViewController is GreenViewController {
 			return
 		}
-		transitionFromMainViewController(GreenViewController(), options: [.TransitionCrossDissolve])
+		transitionFromRootViewController(GreenViewController(), options: [.TransitionCrossDissolve])
 	}
 	
-	/// Loads the YellowViewController into the searchBarControllers mainViewController.
+	/// Loads the YellowViewController into the searchBarControllers rootViewController.
 	func handleYellowButton() {
-		if (mainViewController as? ToolbarController)?.mainViewController is YellowViewController {
+		if (rootViewController as? ToolbarController)?.rootViewController is YellowViewController {
 			return
 		}
-		transitionFromMainViewController(YellowViewController(), options: [.TransitionCrossDissolve])
+		transitionFromRootViewController(YellowViewController(), options: [.TransitionCrossDissolve])
 		searchBar.textField.resignFirstResponder()
 	}
 	
@@ -128,12 +128,12 @@ class AppSearchBarController: SearchBarController {
 
 extension AppSearchBarController: TextFieldDelegate {
 	func textFieldDidBeginEditing(textField: UITextField) {
-		mainViewController.view.alpha = 0.5
-		mainViewController.view.userInteractionEnabled = false
+		rootViewController.view.alpha = 0.5
+		rootViewController.view.userInteractionEnabled = false
 	}
 	
 	func textFieldDidEndEditing(textField: UITextField) {
-		mainViewController.view.alpha = 1
-		mainViewController.view.userInteractionEnabled = true
+		rootViewController.view.alpha = 1
+		rootViewController.view.userInteractionEnabled = true
 	}
 }

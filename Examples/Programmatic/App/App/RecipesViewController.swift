@@ -75,7 +75,7 @@ class RecipesViewController: UIViewController {
 		// Show the menuView.
 		menuViewController?.menuView.animate(MaterialAnimation.animationGroup([
 			MaterialAnimation.rotate(rotation: 3),
-			MaterialAnimation.translateY(0)
+			MaterialAnimation.translateY(0 - tabBarController!.tabBar.frame.height)
 		]))
 	}
 	
@@ -87,7 +87,7 @@ class RecipesViewController: UIViewController {
 		// Hide the menuView.
 		menuViewController?.menuView.animate(MaterialAnimation.animationGroup([
 			MaterialAnimation.rotate(rotation: 3),
-			MaterialAnimation.translateY(150)
+			MaterialAnimation.translateY(150 + tabBarController!.tabBar.frame.height)
 		]))
 	}
 	
@@ -103,7 +103,7 @@ class RecipesViewController: UIViewController {
 		recommended.append(dataSourceItems[3])
 		recommended.append(dataSourceItems[5])
 		
-		let vc: AppSearchBarController = AppSearchBarController(mainViewController: RecommendationViewController(dataSourceItems: recommended))
+		let vc: AppSearchBarController = AppSearchBarController(rootViewController: RecommendationViewController(dataSourceItems: recommended))
 		vc.modalTransitionStyle = .CrossDissolve
 		navigationController?.presentViewController(vc, animated: true, completion: nil)
 	}

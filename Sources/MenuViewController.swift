@@ -55,32 +55,32 @@ public class MenuViewController : UIViewController {
 	
 	/**
 	A Boolean property used to enable and disable interactivity
-	with the mainViewController.
+	with the rootViewController.
 	*/
 	@IBInspectable public var userInteractionEnabled: Bool {
 		get {
-			return mainViewController.view.userInteractionEnabled
+			return rootViewController.view.userInteractionEnabled
 		}
 		set(value) {
-			mainViewController.view.userInteractionEnabled = value
+			rootViewController.view.userInteractionEnabled = value
 		}
 	}
 	
 	/**
 	A UIViewController property that references the active
-	main UIViewController. To swap the mainViewController, it
-	is recommended to use the transitionFromMainViewController
+	main UIViewController. To swap the rootViewController, it
+	is recommended to use the transitionFromRootViewController
 	helper method.
 	*/
-	public private(set) var mainViewController: UIViewController!
+	public private(set) var rootViewController: UIViewController!
 	
 	/**
 	An initializer for the MenuViewController.
-	- Parameter mainViewController: The main UIViewController.
+	- Parameter rootViewController: The main UIViewController.
 	*/
-	public convenience init(mainViewController: UIViewController) {
+	public convenience init(rootViewController: UIViewController) {
 		self.init()
-		self.mainViewController = mainViewController
+		self.rootViewController = rootViewController
 		prepareView()
 	}
 	
@@ -90,35 +90,37 @@ public class MenuViewController : UIViewController {
 	}
 	
 	/**
-	A method to swap mainViewController objects.
+	A method to swap rootViewController objects.
 	- Parameter toViewController: The UIViewController to swap
-	with the active mainViewController.
+	with the active rootViewController.
 	- Parameter duration: A NSTimeInterval that sets the
 	animation duration of the transition.
 	- Parameter options: UIViewAnimationOptions thst are used
-	when animating the transition from the active mainViewController
+	when animating the transition from the active rootViewController
 	to the toViewController.
 	- Parameter animations: An animation block that is executed during
-	the transition from the active mainViewController
+	the transition from the active rootViewController
 	to the toViewController.
 	- Parameter completion: A completion block that is execited after
-	the transition animation from the active mainViewController
+	the transition animation from the active rootViewController
 	to the toViewController has completed.
 	*/
-	public func transitionFromMainViewController(toViewController: UIViewController, duration: NSTimeInterval = 0.5, options: UIViewAnimationOptions = [], animations: (() -> Void)? = nil, completion: ((Bool) -> Void)? = nil) {
-		mainViewController.willMoveToParentViewController(nil)
+	public func transitionFromRootViewController(toViewController: UIViewController, duration: NSTimeInterval = 0.5, options: UIViewAnimationOptions = [], animations: (() -> Void)? = nil, completion: ((Bool) -> Void)? = nil) {
+		rootViewController.willMoveToParentViewController(nil)
 		addChildViewController(toViewController)
-		toViewController.view.frame = mainViewController.view.frame
-		transitionFromViewController(mainViewController,
+		toViewController.view.frame = rootViewController.view.frame
+		transitionFromViewController(rootViewController,
 			toViewController: toViewController,
 			duration: duration,
 			options: options,
 			animations: animations,
 			completion: { [unowned self] (result: Bool) in
 				toViewController.didMoveToParentViewController(self)
-				self.mainViewController.removeFromParentViewController()
-				self.mainViewController = toViewController
-				self.view.sendSubviewToBack(self.mainViewController.view)
+				self.rootViewController.removeFromParentViewController()
+				self.rootViewController = toViewController
+				self.rootViewController.view.clipsToBounds = true
+				self.rootViewController.view.autoresizingMask = .FlexibleWidth
+				self.view.sendSubviewToBack(self.rootViewController.view)
 				completion?(result)
 			})
 	}
@@ -131,7 +133,7 @@ public class MenuViewController : UIViewController {
 	public func openMenu(completion: (() -> Void)? = nil) {
 		if true == userInteractionEnabled {
 			userInteractionEnabled = false
-			mainViewController.view.alpha = 0.5
+			rootViewController.view.alpha = 0.5
 			menuView.open(completion)
 		}
 	}
@@ -143,7 +145,7 @@ public class MenuViewController : UIViewController {
 	*/
 	public func closeMenu(completion: (() -> Void)? = nil) {
 		if false == userInteractionEnabled {
-			mainViewController.view.alpha = 1
+			rootViewController.view.alpha = 1
 			menuView.close({ [weak self] in
 				self?.userInteractionEnabled = true
 				completion?()
@@ -153,10 +155,9 @@ public class MenuViewController : UIViewController {
 	
 	/// A method that generally prepares the MenuViewController.
 	private func prepareView() {
-		edgesForExtendedLayout = .None
 		view.clipsToBounds = true
 		prepareMenuView()
-		prepareMainViewController()
+		prepareRootViewController()
 	}
 	
 	/// Prepares the MenuView.
@@ -165,9 +166,11 @@ public class MenuViewController : UIViewController {
 		view.addSubview(menuView)
 	}
 	
-	/// A method that prepares the mainViewController.
-	private func prepareMainViewController() {
-		prepareViewControllerWithinContainer(mainViewController, container: view)
+	/// A method that prepares the rootViewController.
+	private func prepareRootViewController() {
+		rootViewController.view.clipsToBounds = true
+		rootViewController.view.autoresizingMask = .FlexibleWidth
+		prepareViewControllerWithinContainer(rootViewController, container: view)
 	}
 	
 	/**
@@ -181,13 +184,14 @@ public class MenuViewController : UIViewController {
 	private func prepareViewControllerWithinContainer(viewController: UIViewController?, container: UIView) {
 		if let v: UIViewController = viewController {
 			addChildViewController(v)
-			container.insertSubview(v.view, atIndex: 0)
+			container.addSubview(v.view)
+			container.sendSubviewToBack(v.view)
 			v.didMoveToParentViewController(self)
 		}
 	}
 	
 	/// Layout subviews.
 	private func layoutSubviews() {
-		mainViewController.view.frame = view.bounds
+		rootViewController.view.frame = view.bounds
 	}
 }

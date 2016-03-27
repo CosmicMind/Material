@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
 		window = UIWindow(frame: UIScreen.mainScreen().bounds)
-		window!.rootViewController = AppMenuViewController(mainViewController: YellowViewController())
+		window!.rootViewController = AppMenuViewController(rootViewController: YellowViewController())
 		window!.makeKeyAndVisible()
 		return true
 	}

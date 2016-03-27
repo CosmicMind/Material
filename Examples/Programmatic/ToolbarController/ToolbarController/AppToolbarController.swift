@@ -61,7 +61,7 @@ class AppToolbarController: ToolbarController {
 	
 	/// Toggle SideNavigationController left UIViewController.
 	internal func handleMenuButton() {
-		transitionFromMainViewController(GreenViewController(), options: [.TransitionCrossDissolve])
+		transitionFromRootViewController(GreenViewController(), options: [.TransitionCrossDissolve])
 	}
 	
 	/// Toggle SideNavigationController right UIViewController.
@@ -125,7 +125,7 @@ class AppToolbarController: ToolbarController {
 
 extension AppToolbarController: MaterialSwitchDelegate {
 	func materialSwitchStateChanged(control: MaterialSwitch) {
-		transitionFromMainViewController(YellowViewController(), options: [.TransitionCrossDissolve])
+		transitionFromRootViewController(YellowViewController(), options: [.TransitionCrossDissolve])
 	}
 }
 

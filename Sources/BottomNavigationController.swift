@@ -112,14 +112,19 @@ public class BottomNavigationController : UITabBarController, UITabBarController
 	public func prepareView() {
 		view.clipsToBounds = true
 		delegate = self
-		tabBar.depth = .Depth1
-		tabBar.backgroundColor = MaterialColor.white
-		tabBar.shadowImage = UIImage.imageWithColor(MaterialColor.clear, size: CGSizeMake(1, 1))
-		tabBar.backgroundImage = UIImage()
+		prepareTabBar()
 	}
 	
 	/// Handles transitions when tabBarItems are pressed.
 	public func tabBarController(tabBarController: UITabBarController, animationControllerForTransitionFromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
 		return .Fade == transitionAnimation ? BottomNavigationFadeAnimatedTransitioning() : nil
+	}
+	
+	/// Prepares the tabBar.
+	private func prepareTabBar() {
+		tabBar.depth = .Depth1
+		tabBar.backgroundColor = MaterialColor.white
+		tabBar.shadowImage = UIImage.imageWithColor(MaterialColor.clear, size: CGSizeMake(1, 1))
+		tabBar.backgroundImage = UIImage()
 	}
 }

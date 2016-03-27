@@ -31,7 +31,7 @@
 import UIKit
 import Material
 
-class MainViewController: UIViewController {
+class RootViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
