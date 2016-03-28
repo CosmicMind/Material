@@ -32,13 +32,13 @@ import UIKit
 import Material
 
 class ViewController: UIViewController {
-	/// Reference for BottomNavigationBar.
-	private var bottomNavigationBar: BottomNavigationBar!
+	/// Reference for TabBar.
+	private var tabBar: TabBar!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		prepareBottomNavigationBar()
+		prepareTabBar()
 	}
 	
 	/// General preparation statements.
@@ -46,12 +46,12 @@ class ViewController: UIViewController {
 		view.backgroundColor = MaterialColor.white
 	}
 	
-	/// Prepare bottomNavigationBar.
-	private func prepareBottomNavigationBar() {
-		bottomNavigationBar = BottomNavigationBar()
-		// bottomNavigationBar.autoLayoutToSuperview // Set to false if you want to handle the layout yourself.
-		bottomNavigationBar.backgroundColor = MaterialColor.grey.darken4
-		view.addSubview(bottomNavigationBar)
+	/// Prepare tabBar.
+	private func prepareTabBar() {
+		tabBar = TabBar()
+		// tabBar.autoLayoutToSuperview // Set to false if you want to handle the layout yourself.
+		tabBar.backgroundColor = MaterialColor.grey.darken4
+		view.addSubview(tabBar)
 		
 		let videoItem: UITabBarItem = UITabBarItem(title: "Video", image: MaterialIcon.videocam, selectedImage: nil)
 		videoItem.setTitleColor(MaterialColor.grey.base, forState: .Normal)
@@ -64,10 +64,10 @@ class ViewController: UIViewController {
 		let libraryItem: UITabBarItem = UITabBarItem(title: "Library", image: MaterialIcon.photoLibrary, selectedImage: nil)
 		libraryItem.setTitleColor(MaterialColor.grey.base, forState: .Normal)
 		libraryItem.setTitleColor(MaterialColor.teal.base, forState: .Selected)
-		
-		bottomNavigationBar.setItems([videoItem, photoItem, libraryItem], animated: true)
-		bottomNavigationBar.tintColor = MaterialColor.teal.base // Sets the image color when highlighted.
-		bottomNavigationBar.itemPositioning = .Automatic // Sets the alignment of the UITabBarItems.
-		bottomNavigationBar.selectedItem = videoItem
+
+		tabBar.setItems([videoItem, photoItem, libraryItem], animated: true)
+		tabBar.tintColor = MaterialColor.teal.base // Sets the image color when highlighted.
+		tabBar.itemPositioning = .Automatic // Sets the alignment of the UITabBarItems.
+		tabBar.selectedItem = videoItem
 	}
 }

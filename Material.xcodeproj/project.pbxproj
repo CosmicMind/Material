@@ -29,7 +29,7 @@
 		960B23521C38490D00E96216 /* TextView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 960B23451C38480E00E96216 /* TextView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96162BFB1CA6E89F00E3A235 /* MaterialPulseAnimation.swift in Headers */ = {isa = PBXBuildFile; fileRef = 968F17211C94B10B008CA3F6 /* MaterialPulseAnimation.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96162BFC1CA6E89F00E3A235 /* NavigationItem.swift in Headers */ = {isa = PBXBuildFile; fileRef = 967887861C9775900037F6C9 /* NavigationItem.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		96162BFD1CA6E89F00E3A235 /* BottomNavigationBar.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96A536641CA3A2C80069B3CC /* BottomNavigationBar.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96162BFD1CA6E89F00E3A235 /* TabBar.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96A536641CA3A2C80069B3CC /* TabBar.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96162BFF1CA6E89F00E3A235 /* BottomNavigationController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BAECE91CA3B8B90048037C /* BottomNavigationController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9626C2DE1C795017007CA8E0 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9626C2DD1C795017007CA8E0 /* MenuViewController.swift */; };
 		96334EF61C8B84660083986B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96334EF51C8B84660083986B /* Assets.xcassets */; };
@@ -64,7 +64,7 @@
 		968F171C1C9266D0008CA3F6 /* Toolbar.swift in Headers */ = {isa = PBXBuildFile; fileRef = 968F16F51C9260EC008CA3F6 /* Toolbar.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		968F171D1C9266D0008CA3F6 /* ToolbarController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 968F16F71C92612E008CA3F6 /* ToolbarController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		968F17221C94B10B008CA3F6 /* MaterialPulseAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968F17211C94B10B008CA3F6 /* MaterialPulseAnimation.swift */; };
-		96A536651CA3A2C80069B3CC /* BottomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A536641CA3A2C80069B3CC /* BottomNavigationBar.swift */; };
+		96A536651CA3A2C80069B3CC /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A536641CA3A2C80069B3CC /* TabBar.swift */; };
 		96A71E911C6FBC2200C0C4AE /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A71E901C6FBC2200C0C4AE /* MenuView.swift */; };
 		96A71EB81C6FCFA300C0C4AE /* Material+UIImage+Color.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96DBA7351C61198400844821 /* Material+UIImage+Color.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96A71EB91C6FCFA300C0C4AE /* Grid.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9656CD0B1C6BD33700EBCEF1 /* Grid.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -200,7 +200,7 @@
 		968F16F51C9260EC008CA3F6 /* Toolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toolbar.swift; sourceTree = "<group>"; };
 		968F16F71C92612E008CA3F6 /* ToolbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolbarController.swift; sourceTree = "<group>"; };
 		968F17211C94B10B008CA3F6 /* MaterialPulseAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialPulseAnimation.swift; sourceTree = "<group>"; };
-		96A536641CA3A2C80069B3CC /* BottomNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomNavigationBar.swift; sourceTree = "<group>"; };
+		96A536641CA3A2C80069B3CC /* TabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		96A71E901C6FBC2200C0C4AE /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		96A71EC61C6FFF0500C0C4AE /* MaterialSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialSwitch.swift; sourceTree = "<group>"; };
 		96A71EF51C71127100C0C4AE /* SearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
@@ -360,7 +360,6 @@
 		96A536631CA3A2400069B3CC /* BottomNavigation */ = {
 			isa = PBXGroup;
 			children = (
-				96A536641CA3A2C80069B3CC /* BottomNavigationBar.swift */,
 				96BAECE91CA3B8B90048037C /* BottomNavigationController.swift */,
 			);
 			name = BottomNavigation;
@@ -442,6 +441,7 @@
 				96CC08561C7E0EC00034FF84 /* ControlView */,
 				96D88C541C132A7700B91418 /* StatusBar */,
 				96F2F1B31C97A40600A5FE27 /* Toolbar */,
+				96FBE38C1CA9A93E001E2932 /* TabBar */,
 				9626C2DB1C794FBB007CA8E0 /* SearchBar */,
 				9626C2DA1C794FA5007CA8E0 /* NavigationBar */,
 				9626C2DC1C794FE5007CA8E0 /* SideNavigation */,
@@ -606,6 +606,14 @@
 			name = Toolbar;
 			sourceTree = "<group>";
 		};
+		96FBE38C1CA9A93E001E2932 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				96A536641CA3A2C80069B3CC /* TabBar.swift */,
+			);
+			name = TabBar;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -683,7 +691,7 @@
 				968F171D1C9266D0008CA3F6 /* ToolbarController.swift in Headers */,
 				96162BFB1CA6E89F00E3A235 /* MaterialPulseAnimation.swift in Headers */,
 				96162BFC1CA6E89F00E3A235 /* NavigationItem.swift in Headers */,
-				96162BFD1CA6E89F00E3A235 /* BottomNavigationBar.swift in Headers */,
+				96162BFD1CA6E89F00E3A235 /* TabBar.swift in Headers */,
 				96162BFF1CA6E89F00E3A235 /* BottomNavigationController.swift in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -847,7 +855,7 @@
 				96334EFA1C8B849A0083986B /* NavigationController.swift in Sources */,
 				96D88C301C1328D800B91418 /* MaterialEdgeInset.swift in Sources */,
 				96CC08A01C80CB180034FF84 /* MaterialSpacing.swift in Sources */,
-				96A536651CA3A2C80069B3CC /* BottomNavigationBar.swift in Sources */,
+				96A536651CA3A2C80069B3CC /* TabBar.swift in Sources */,
 				96D88C211C1328D800B91418 /* CaptureSession.swift in Sources */,
 				96442ADE1C28EF3700C3C574 /* MaterialTableViewCell.swift in Sources */,
 				960B23271C383E5500E96216 /* Material+String.swift in Sources */,
