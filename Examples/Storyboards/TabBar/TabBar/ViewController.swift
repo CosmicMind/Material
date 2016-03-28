@@ -33,7 +33,7 @@ import Material
 
 class ViewController: UIViewController {
 
-	@IBOutlet weak var bottomNavigationBar: BottomNavigationBar!
+	@IBOutlet weak var tabBar: TabBar!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -49,10 +49,10 @@ class ViewController: UIViewController {
 		libraryItem.setTitleColor(MaterialColor.grey.base, forState: .Normal)
 		libraryItem.setTitleColor(MaterialColor.teal.base, forState: .Selected)
 		
-		bottomNavigationBar.setItems([videoItem, photoItem, libraryItem], animated: true)
-		bottomNavigationBar.tintColor = MaterialColor.teal.base // Sets the image color when highlighted.
-		bottomNavigationBar.itemPositioning = .Automatic // Sets the alignment of the UITabBarItems.
-		bottomNavigationBar.selectedItem = videoItem
+		tabBar.setItems([videoItem, photoItem, libraryItem], animated: true)
+		tabBar.tintColor = MaterialColor.teal.base // Sets the image color when highlighted.
+		tabBar.itemPositioning = .Automatic // Sets the alignment of the UITabBarItems.
+		tabBar.selectedItem = videoItem
 	}
 
 }

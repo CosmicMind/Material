@@ -11,7 +11,6 @@
 		96FBE3A31CA9ABAF001E2932 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96FBE39B1CA9ABAF001E2932 /* Assets.xcassets */; };
 		96FBE3A41CA9ABAF001E2932 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96FBE39C1CA9ABAF001E2932 /* LaunchScreen.storyboard */; };
 		96FBE3A51CA9ABAF001E2932 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96FBE39E1CA9ABAF001E2932 /* Main.storyboard */; };
-		96FBE3A61CA9ABAF001E2932 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 96FBE3A01CA9ABAF001E2932 /* Info.plist */; };
 		96FBE3A71CA9ABAF001E2932 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FBE3A11CA9ABAF001E2932 /* ViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -137,7 +136,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96FBE3A61CA9ABAF001E2932 /* Info.plist in Resources */,
 				96FBE3A51CA9ABAF001E2932 /* Main.storyboard in Resources */,
 				96FBE3A31CA9ABAF001E2932 /* Assets.xcassets in Resources */,
 				96FBE3A41CA9ABAF001E2932 /* LaunchScreen.storyboard in Resources */,
@@ -265,9 +263,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = BottomNavigationBar/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/TabBar/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.BottomNavigationBar;
+				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.TabBar;
 				PRODUCT_NAME = TabBar;
 			};
 			name = Debug;
@@ -276,9 +274,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = BottomNavigationBar/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/TabBar/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.BottomNavigationBar;
+				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.TabBar;
 				PRODUCT_NAME = TabBar;
 			};
 			name = Release;

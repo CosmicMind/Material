@@ -35,15 +35,13 @@ import Material
 class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegate {
 	
 	var window: UIWindow?
-	var bottomNavigationController: BottomNavigationController?
 	
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-		bottomNavigationController = BottomNavigationController()
-		bottomNavigationController!.selectedIndex = 0
-		bottomNavigationController!.tabBar.tintColor = MaterialColor.teal.base
-		bottomNavigationController!.tabBar.backgroundColor = MaterialColor.grey.darken4
-		
-		bottomNavigationController!.delegate = self
+		let bottomNavigationController: BottomNavigationController = BottomNavigationController()
+		bottomNavigationController.viewControllers = [VideoViewController(), PhotoViewController(), LibraryViewController()]
+		bottomNavigationController.selectedIndex = 0
+		bottomNavigationController.tabBar.tintColor = MaterialColor.teal.base
+		bottomNavigationController.tabBar.backgroundColor = MaterialColor.grey.darken4
 		
 		// Override point for customization after application launch.
 		window = UIWindow(frame: UIScreen.mainScreen().bounds)
@@ -68,8 +66,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
 	
 	func applicationDidBecomeActive(application: UIApplication) {
 		// Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-		bottomNavigationController!.viewControllers = [VideoViewController(), PhotoViewController(), LibraryViewController()]
-		
 	}
 	
 	func applicationWillTerminate(application: UIApplication) {

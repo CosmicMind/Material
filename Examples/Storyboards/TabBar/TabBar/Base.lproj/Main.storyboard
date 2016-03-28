@@ -35,7 +35,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="bottomNavigationBar" destination="sMP-AS-Zl9" id="sTP-Ix-Cds"/>
+                        <outlet property="tabBar" destination="sMP-AS-Zl9" id="zaC-4Z-zf1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
