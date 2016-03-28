@@ -132,7 +132,7 @@ public class BottomNavigationController : UITabBarController, UITabBarController
 	public func tabBarController(tabBarController: UITabBarController, animationControllerForTransitionFromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
 		let fromVC: UIViewController? = fromVC
 	    	let toVC: UIViewController? = toVC
-	    	if nill == fromVC || nil == toVC {
+	    	if nil == fromVC || nil == toVC {
 	      		return nil
 	    	}
 		return .Fade == transitionAnimation ? BottomNavigationFadeAnimatedTransitioning() : nil
