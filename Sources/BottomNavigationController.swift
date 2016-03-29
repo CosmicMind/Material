@@ -130,11 +130,11 @@ public class BottomNavigationController : UITabBarController, UITabBarController
 	
 	/// Handles transitions when tabBarItems are pressed.
 	public func tabBarController(tabBarController: UITabBarController, animationControllerForTransitionFromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-		let fromVC: UIViewController? = fromVC
-	    	let toVC: UIViewController? = toVC
-	    	if nil == fromVC || nil == toVC {
-	      		return nil
-	    	}
+		let fVC: UIViewController? = fromVC
+		let tVC: UIViewController? = toVC
+		if nil == fVC || nil == tVC {
+			return nil
+		}
 		return .Fade == transitionAnimation ? BottomNavigationFadeAnimatedTransitioning() : nil
 	}
 	
