@@ -8,7 +8,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="TabBar" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="BottomTabBar" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tabBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sMP-AS-Zl9" customClass="TabBar" customModule="Material">
+                            <tabBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sMP-AS-Zl9" customClass="BottomTabBar" customModule="Material">
                                 <rect key="frame" x="0.0" y="551" width="600" height="49"/>
                                 <items/>
                                 <userDefinedRuntimeAttributes>
@@ -35,7 +35,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="tabBar" destination="sMP-AS-Zl9" id="zaC-4Z-zf1"/>
+                        <outlet property="bottomTabBar" destination="sMP-AS-Zl9" id="lTV-UP-u6I"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
