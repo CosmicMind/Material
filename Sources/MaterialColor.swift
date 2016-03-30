@@ -214,7 +214,7 @@ public struct MaterialColor {
 		public static let darken4: UIColor = UIColor(red: 0/255, green: 77/255, blue: 64/255, alpha: 1)
 		public static let accent1: UIColor = UIColor(red: 167/255, green: 255/255, blue: 235/255, alpha: 1)
 		public static let accent2: UIColor = UIColor(red: 100/255, green: 255/255, blue: 218/255, alpha: 1)
-		public static let accent3: UIColor = UIColor(red: 29/255, green: 133/255, blue: 182/255, alpha: 1)
+		public static let accent3: UIColor = UIColor(red: 29/255, green: 233/255, blue: 182/255, alpha: 1)
 		public static let accent4: UIColor = UIColor(red: 0/255, green: 191/255, blue: 165/255, alpha: 1)
 	}
 	
