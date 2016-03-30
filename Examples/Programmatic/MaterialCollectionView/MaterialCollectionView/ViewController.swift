@@ -50,13 +50,15 @@ class ViewController: UIViewController {
 		dataSourceItems = [
 			MaterialDataSourceItem(
 				data: [
-					"placeholder": "Field Placeholder"
+					"placeholder": "Field Placeholder",
+					"detailLabelHidden": false
 				],
 				height: 80
 			),
 			MaterialDataSourceItem(
 				data: [
-					"placeholder": "Field Placeholder"
+					"placeholder": "Field Placeholder",
+					"detailLabelHidden": false
 				],
 				height: 80
 			),
@@ -113,8 +115,11 @@ extension ViewController: MaterialCollectionViewDataSource {
 		let item: MaterialDataSourceItem = dataSourceItems[indexPath.item]
 		
 		if let data: Dictionary<String, AnyObject> =  item.data as? Dictionary<String, AnyObject> {
+			cell.pulseColor = nil
+			cell.pulseScale = false
+			
 			let textField: TextField = TextField(frame: CGRectMake(16, 16, view.bounds.width - 32, 32))
-//			textField.delegate = self
+			textField.delegate = self
 			textField.placeholder = "Email"
 			textField.placeholderTextColor = MaterialColor.grey.base
 			textField.font = RobotoFont.regularWithSize(20)
@@ -135,7 +140,7 @@ extension ViewController: MaterialCollectionViewDataSource {
 				textField.detailLabel = detailLabel
 				textField.detailLabel!.font = RobotoFont.mediumWithSize(12)
 				textField.detailLabelActiveColor = MaterialColor.red.accent3
-				//		textField.detailLabelAutoHideEnabled = false // Uncomment this line to have manual hiding.
+//				textField.detailLabelAutoHideEnabled = false // Uncomment this line to have manual hiding.
 				
 				textField.detailLabelHidden = v
 			}
@@ -148,8 +153,9 @@ extension ViewController: MaterialCollectionViewDataSource {
 
 /// MaterialCollectionViewDelegate methods.
 extension ViewController : TextFieldDelegate {
+	/// Handle textField return.
 	func textFieldShouldReturn(textField: UITextField) -> Bool {
-		// handle detail label here.
+		(textField as? TextField)?.detailLabelHidden = false
 		return true
 	}
 }
