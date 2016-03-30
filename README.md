@@ -26,7 +26,7 @@ Express your creativity with Material, an animation and graphics framework for G
 ## Requirements
 
 * iOS 8.0+
-* Xcode 7.2+
+* Xcode 7.3+
 
 ## Communication
 

@@ -38,6 +38,9 @@
          location = "group:Programmatic/MaterialSwitch/MaterialSwitch.xcodeproj">
       </FileRef>
       <FileRef
+         location = "group:Programmatic/MaterialCollectionView/MaterialCollectionView.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:Programmatic/Menu/Menu.xcodeproj">
       </FileRef>
       <FileRef
