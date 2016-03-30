@@ -47,11 +47,12 @@ class RecipesViewController: UIViewController {
 	/// NavigationBar search button.
 	private var searchButton: FlatButton!
 	
-	/// A tableView used to display Bond entries.
+	/// A tableView used to display items.
 	private var tableView: UITableView!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		prepareView()
 		prepareItems()
 		prepareTitleLabel()
 		prepareMenuButton()

@@ -38,6 +38,9 @@
          location = "group:Programmatic/MaterialSwitch/MaterialSwitch.xcodeproj">
       </FileRef>
       <FileRef
+         location = "group:Programmatic/MaterialCollectionView/MaterialCollectionView.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:Programmatic/Menu/Menu.xcodeproj">
       </FileRef>
       <FileRef
@@ -69,6 +72,9 @@
       </FileRef>
       <FileRef
          location = "group:Programmatic/SideNavigationController/SideNavigationController.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/ControlView/ControlView.xcodeproj">
       </FileRef>
       <FileRef
          location = "group:Programmatic/CardView/CardView.xcodeproj">
@@ -106,6 +112,9 @@
       </FileRef>
       <FileRef
          location = "group:Storyboards/BottomTabBar/BottomTabBar.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Storyboards/NavigationController/NavigationController.xcodeproj">
       </FileRef>
       <FileRef
          location = "group:Storyboards/SideNavigationController/SideNavigationController.xcodeproj">

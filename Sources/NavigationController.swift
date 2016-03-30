@@ -83,8 +83,10 @@ public class NavigationController : UINavigationController, UIGestureRecognizerD
 	public override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 		// Load the initial topItem.
-		if let v: UINavigationItem = navigationBar.topItem {
-			(navigationBar as? NavigationBar)?.layoutNavigationItem(v)
+		if let v: NavigationBar = navigationBar as? NavigationBar {
+			if let item: UINavigationItem = v.topItem {
+				v.layoutNavigationItem(item)
+			}
 		}
 	}
 	

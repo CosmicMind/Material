@@ -29,7 +29,7 @@
 */
 
 /*
-A Toolbar is a fully featured NavigationBar that supports orientation 
+A Toolbar is a fully featured Toolbar that supports orientation 
 changes, background images, title and detail labels, both left and right UIControl
 sets, and status bar settings. Below is an example of its usage.
 */
