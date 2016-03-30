@@ -52,6 +52,7 @@ class RecipesViewController: UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		prepareView()
 		prepareItems()
 		prepareTitleLabel()
 		prepareMenuButton()

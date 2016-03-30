@@ -33,7 +33,7 @@ import Material
 
 class AppNavigationController: NavigationController {
 	/// StatusBar color reference.
-	private var statusBarView: MaterialView!
+	private var statusBarView: MaterialView?
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -43,19 +43,19 @@ class AppNavigationController: NavigationController {
 	
 	override func viewWillLayoutSubviews() {
 		super.viewWillLayoutSubviews()
-		statusBarView.hidden = MaterialDevice.statusBarHidden
+		statusBarView?.hidden = MaterialDevice.statusBarHidden
 	}
 	
 	/// Prepares the statusBarView
 	private func prepareStatusBarView() {
 		statusBarView = MaterialView()
-		statusBarView.backgroundColor = MaterialColor.blue.darken2
+		statusBarView!.backgroundColor = MaterialColor.blue.darken2
 		
-		view.addSubview(statusBarView)
-		statusBarView.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignFromTop(view, child: statusBarView)
-		MaterialLayout.alignToParentHorizontally(view, child: statusBarView)
-		MaterialLayout.height(view, child: statusBarView, height: 20)
+		view.addSubview(statusBarView!)
+		statusBarView!.translatesAutoresizingMaskIntoConstraints = false
+		MaterialLayout.alignFromTop(view, child: statusBarView!)
+		MaterialLayout.alignToParentHorizontally(view, child: statusBarView!)
+		MaterialLayout.height(view, child: statusBarView!, height: 20)
 		
 	}
 	

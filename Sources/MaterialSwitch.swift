@@ -227,8 +227,8 @@ public class MaterialSwitch : UIControl {
 		didSet {
 			switch switchStyle {
 			case .LightContent:
-				buttonOnColor = MaterialColor.lightBlue.darken3
-				trackOnColor = MaterialColor.lightBlue.lighten3
+				buttonOnColor = MaterialColor.blue.darken2
+				trackOnColor = MaterialColor.blue.lighten3
 				buttonOffColor = MaterialColor.blueGrey.lighten4
 				trackOffColor = MaterialColor.blueGrey.lighten3
 				buttonOnDisabledColor = MaterialColor.grey.lighten2
@@ -236,8 +236,8 @@ public class MaterialSwitch : UIControl {
 				buttonOffDisabledColor = MaterialColor.grey.lighten2
 				trackOffDisabledColor = MaterialColor.grey.lighten3
 			case .Default:
-				buttonOnColor = MaterialColor.lightBlue.lighten1
-				trackOnColor = MaterialColor.lightBlue.lighten2.colorWithAlphaComponent(0.5)
+				buttonOnColor = MaterialColor.blue.lighten1
+				trackOnColor = MaterialColor.blue.lighten2.colorWithAlphaComponent(0.5)
 				buttonOffColor = MaterialColor.blueGrey.lighten3
 				trackOffColor = MaterialColor.blueGrey.lighten4.colorWithAlphaComponent(0.5)
 				buttonOnDisabledColor = MaterialColor.grey.darken3
