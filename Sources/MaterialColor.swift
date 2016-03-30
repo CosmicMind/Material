@@ -59,8 +59,8 @@ public struct MaterialColor {
 	// red
 	public struct red {
 		public static let lighten5: UIColor = UIColor(red: 255/255, green: 235/255, blue: 238/255, alpha: 1)
-		public static let lighten4: UIColor = UIColor(red: 225/255, green: 205/255, blue: 210/255, alpha: 1)
-		public static let lighten3: UIColor = UIColor(red: 239/255, green: 154/255, blue: 254/255, alpha: 1)
+		public static let lighten4: UIColor = UIColor(red: 255/255, green: 205/255, blue: 210/255, alpha: 1)
+		public static let lighten3: UIColor = UIColor(red: 239/255, green: 154/255, blue: 154/255, alpha: 1)
 		public static let lighten2: UIColor = UIColor(red: 229/255, green: 115/255, blue: 115/255, alpha: 1)
 		public static let lighten1: UIColor = UIColor(red: 229/255, green: 83/255, blue: 80/255, alpha: 1)
 		public static let base: UIColor = UIColor(red: 244/255, green: 67/255, blue: 54/255, alpha: 1)
@@ -77,13 +77,13 @@ public struct MaterialColor {
 	// pink
 	public struct pink {
 		public static let lighten5: UIColor = UIColor(red: 252/255, green: 228/255, blue: 236/255, alpha: 1)
-		public static let lighten4: UIColor = UIColor(red: 248/255, green: 107/255, blue: 208/255, alpha: 1)
+		public static let lighten4: UIColor = UIColor(red: 248/255, green: 187/255, blue: 208/255, alpha: 1)
 		public static let lighten3: UIColor = UIColor(red: 244/255, green: 143/255, blue: 177/255, alpha: 1)
 		public static let lighten2: UIColor = UIColor(red: 240/255, green: 98/255, blue: 146/255, alpha: 1)
 		public static let lighten1: UIColor = UIColor(red: 236/255, green: 64/255, blue: 122/255, alpha: 1)
 		public static let base: UIColor = UIColor(red: 233/255, green: 30/255, blue: 99/255, alpha: 1)
 		public static let darken1: UIColor = UIColor(red: 216/255, green: 27/255, blue: 96/255, alpha: 1)
-		public static let darken2: UIColor = UIColor(red: 194/255, green: 24/255, blue: 191/255, alpha: 1)
+		public static let darken2: UIColor = UIColor(red: 194/255, green: 24/255, blue: 91/255, alpha: 1)
 		public static let darken3: UIColor = UIColor(red: 173/255, green: 20/255, blue: 87/255, alpha: 1)
 		public static let darken4: UIColor = UIColor(red: 136/255, green: 14/255, blue: 79/255, alpha: 1)
 		public static let accent1: UIColor = UIColor(red: 255/255, green: 128/255, blue: 171/255, alpha: 1)
