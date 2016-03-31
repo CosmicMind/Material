@@ -16,6 +16,7 @@ Express your creativity with Material, an animation and graphics framework for G
 - [x] Material Buttons
 - [x] Material Switch
 - [x] Material Card Views
+- [x] Material Icons
 - [x] Menu Toolset To Create Animated Menus
 - [x] Camera / Video Extension With Extensive Functionality
 - [x] Animation Extension To Create Intricate Animations
@@ -57,6 +58,7 @@ Material is a growing project and will encounter changes throughout its developm
 #### Colors
 
 * [MaterialColor](#materialcolor)
+* MaterialIcon
 
 #### Base Layers & Views
 
