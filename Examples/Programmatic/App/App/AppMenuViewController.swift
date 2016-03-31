@@ -118,24 +118,27 @@ class AppMenuViewController: MenuViewController {
 		menuButton.addTarget(self, action: #selector(handleMenu), forControlEvents: .TouchUpInside)
 		menuView.addSubview(menuButton)
 		
-		image = UIImage(named: "ic_create_white")
+		image = MaterialIcon.pen
 		let blueButton: FabButton = FabButton()
+		blueButton.tintColor = MaterialColor.white
 		blueButton.backgroundColor = MaterialColor.blue.base
 		blueButton.setImage(image, forState: .Normal)
 		blueButton.setImage(image, forState: .Highlighted)
 		menuView.addSubview(blueButton)
 		blueButton.addTarget(self, action: #selector(handleBlueButton), forControlEvents: .TouchUpInside)
 		
-		image = UIImage(named: "ic_photo_camera_white")
+		image = MaterialIcon.photoCamera
 		let greenButton: FabButton = FabButton()
+		greenButton.tintColor = MaterialColor.white
 		greenButton.backgroundColor = MaterialColor.green.base
 		greenButton.setImage(image, forState: .Normal)
 		greenButton.setImage(image, forState: .Highlighted)
 		menuView.addSubview(greenButton)
 		greenButton.addTarget(self, action: #selector(handleGreenButton), forControlEvents: .TouchUpInside)
 		
-		image = UIImage(named: "ic_note_add_white")
+		image = MaterialIcon.star
 		let yellowButton: FabButton = FabButton()
+		yellowButton.tintColor = MaterialColor.white
 		yellowButton.backgroundColor = MaterialColor.yellow.base
 		yellowButton.setImage(image, forState: .Normal)
 		yellowButton.setImage(image, forState: .Highlighted)
