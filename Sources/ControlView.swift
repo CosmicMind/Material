@@ -77,7 +77,7 @@ public class ControlView : MaterialView {
 	public private(set) lazy var contentView: MaterialView = MaterialView()
 	
 	/// Left side UIControls.
-	public var leftControls: Array<UIControl>? {
+	@IBInspectable public var leftControls: Array<UIControl>? {
 		didSet {
 			if let v: Array<UIControl> = oldValue {
 				for b in v {
@@ -95,7 +95,7 @@ public class ControlView : MaterialView {
 	}
 	
 	/// Right side UIControls.
-	public var rightControls: Array<UIControl>? {
+	@IBInspectable public var rightControls: Array<UIControl>? {
 		didSet {
 			if let v: Array<UIControl> = oldValue {
 				for b in v {

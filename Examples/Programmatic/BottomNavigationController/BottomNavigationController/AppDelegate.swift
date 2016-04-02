@@ -43,7 +43,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
 		bottomNavigationController.tabBar.tintColor = MaterialColor.teal.base
 		bottomNavigationController.tabBar.backgroundColor = MaterialColor.grey.darken4
 		
-		// Override point for customization after application launch.
 		window = UIWindow(frame: UIScreen.mainScreen().bounds)
 		window!.rootViewController = bottomNavigationController
 		window!.makeKeyAndVisible()

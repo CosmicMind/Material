@@ -110,7 +110,7 @@ public class StatusBarView : ControlView {
 		super.prepareView()
 		depth = .Depth1
 		spacingPreset = .Spacing1
-		contentInset = UIEdgeInsetsMake(2, 2, 2, 2)
+		contentInsetPreset = .Square1
 		autoresizingMask = .FlexibleWidth
 		shadowPathAutoSizeEnabled = false
 	}

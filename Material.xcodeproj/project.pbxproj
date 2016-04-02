@@ -158,6 +158,7 @@
 		96D88C731C132ACC00B91418 /* MaterialAnimation.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96D88BFF1C1328D800B91418 /* MaterialAnimation.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96D88C741C132ACC00B91418 /* MaterialBasicAnimation.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96D88C001C1328D800B91418 /* MaterialBasicAnimation.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96DBA7361C61198400844821 /* Material+UIImage+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DBA7351C61198400844821 /* Material+UIImage+Color.swift */; };
+		96E01FB21CB0437700411B61 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E01FB11CB0437700411B61 /* TabBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -255,6 +256,7 @@
 		96D88C1C1C1328D800B91418 /* RobotoFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RobotoFont.swift; sourceTree = "<group>"; };
 		96D88C1D1C1328D800B91418 /* SideNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideNavigationController.swift; sourceTree = "<group>"; };
 		96DBA7351C61198400844821 /* Material+UIImage+Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIImage+Color.swift"; sourceTree = "<group>"; };
+		96E01FB11CB0437700411B61 /* TabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -442,6 +444,7 @@
 				96CC08561C7E0EC00034FF84 /* ControlView */,
 				96D88C541C132A7700B91418 /* StatusBar */,
 				96F2F1B31C97A40600A5FE27 /* Toolbar */,
+				96E01FB01CB0421400411B61 /* TabBar */,
 				9626C2DB1C794FBB007CA8E0 /* SearchBar */,
 				9626C2DA1C794FA5007CA8E0 /* NavigationBar */,
 				9626C2DC1C794FE5007CA8E0 /* SideNavigation */,
@@ -595,6 +598,14 @@
 				96D88C031C1328D800B91418 /* MaterialColor.swift */,
 			);
 			name = Color;
+			sourceTree = "<group>";
+		};
+		96E01FB01CB0421400411B61 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				96E01FB11CB0437700411B61 /* TabBar.swift */,
+			);
+			name = TabBar;
 			sourceTree = "<group>";
 		};
 		96F2F1B31C97A40600A5FE27 /* Toolbar */ = {
@@ -819,6 +830,7 @@
 				96CC08931C7FEC170034FF84 /* MaterialCollectionViewCell.swift in Sources */,
 				96D88C201C1328D800B91418 /* CapturePreview.swift in Sources */,
 				96CC08921C7FEC170034FF84 /* MaterialCollectionView.swift in Sources */,
+				96E01FB21CB0437700411B61 /* TabBar.swift in Sources */,
 				967887871C9775900037F6C9 /* NavigationItem.swift in Sources */,
 				96A71EC71C6FFF0500C0C4AE /* MaterialSwitch.swift in Sources */,
 				96CC08951C7FEC170034FF84 /* MaterialCollectionViewDelegate.swift in Sources */,

@@ -401,7 +401,7 @@ public class NavigationBar : UINavigationBar {
 		backButtonImage = nil
 		backgroundColor = MaterialColor.white
 		depth = .Depth1
-		contentInset = UIEdgeInsetsMake(2, 2, 2, 2)
+		contentInsetPreset = .Square1
 		prepareBackButton()
 	}
 	

@@ -97,21 +97,27 @@ class ViewController: UIViewController {
         let img1: UIImage? = MaterialIcon.menu
         let btn1: FlatButton = FlatButton()
         btn1.pulseScale = false
-        btn1.setImage(img1, forState: .Normal)
+		btn1.pulseColor = MaterialColor.white
+		btn1.tintColor = MaterialColor.white
+		btn1.setImage(img1, forState: .Normal)
         btn1.setImage(img1, forState: .Highlighted)
         
         // Star button.
-        let img2: UIImage? = UIImage(named: "ic_star_white")
+        let img2: UIImage? = MaterialIcon.star
         let btn2: FlatButton = FlatButton()
         btn2.pulseScale = false
+		btn2.pulseColor = MaterialColor.white
+		btn2.tintColor = MaterialColor.white
         btn2.setImage(img2, forState: .Normal)
         btn2.setImage(img2, forState: .Highlighted)
         
         // Search button.
-        let img3: UIImage? = UIImage(named: "ic_search_white")
+        let img3: UIImage? = MaterialIcon.search
         let btn3: FlatButton = FlatButton()
         btn3.pulseScale = false
-        btn3.setImage(img3, forState: .Normal)
+        btn3.pulseColor = MaterialColor.white
+		btn3.tintColor = MaterialColor.white
+		btn3.setImage(img3, forState: .Normal)
         btn3.setImage(img3, forState: .Highlighted)
         
         // Add buttons to left side.
