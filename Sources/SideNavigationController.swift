@@ -850,32 +850,22 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	
 	/// Shows the statusBar.
 	private func showStatusBar() {
-		userInteractionEnabled = false
 		UIView.animateWithDuration(NSTimeInterval(UINavigationControllerHideShowBarDuration),
 			animations: { [weak self] in
 				self?.setNeedsStatusBarAppearanceUpdate()
 				MaterialDevice.statusBarHidden = false
-			}) { [weak self] _ in
-				if false == self?.opened {
-					self?.userInteractionEnabled = true
-				}
-			}
+			})
 		delegate?.sideNavigationStatusBarHiddenState?(self, hidden: false)
 	}
 	
 	/// Hides the statusBar.
 	private func hideStatusBar() {
 		if enableHideStatusbar {
-			userInteractionEnabled = false
 			UIView.animateWithDuration(NSTimeInterval(UINavigationControllerHideShowBarDuration),
 				animations: { [weak self] in
 					self?.setNeedsStatusBarAppearanceUpdate()
 					MaterialDevice.statusBarHidden = true
-				}) { [weak self] _ in
-					if false == self?.opened {
-						self?.userInteractionEnabled = true
-					}
-				}
+				})
 			delegate?.sideNavigationStatusBarHiddenState?(self, hidden: true)
 		}
 	}
