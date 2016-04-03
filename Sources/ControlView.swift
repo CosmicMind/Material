@@ -47,7 +47,7 @@ public class ControlView : MaterialView {
 	}
 	
 	/// A wrapper around grid.contentInset.
-	public var contentInset: UIEdgeInsets {
+	@IBInspectable public var contentInset: UIEdgeInsets {
 		get {
 			return grid.contentInset
 		}
@@ -77,7 +77,7 @@ public class ControlView : MaterialView {
 	public private(set) lazy var contentView: MaterialView = MaterialView()
 	
 	/// Left side UIControls.
-	@IBInspectable public var leftControls: Array<UIControl>? {
+	public var leftControls: Array<UIControl>? {
 		didSet {
 			if let v: Array<UIControl> = oldValue {
 				for b in v {
@@ -95,7 +95,7 @@ public class ControlView : MaterialView {
 	}
 	
 	/// Right side UIControls.
-	@IBInspectable public var rightControls: Array<UIControl>? {
+	public var rightControls: Array<UIControl>? {
 		didSet {
 			if let v: Array<UIControl> = oldValue {
 				for b in v {

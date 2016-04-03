@@ -142,7 +142,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	}
 	
 	/// A wrapper around grid.contentInset.
-	public var contentInset: UIEdgeInsets {
+	@IBInspectable public var contentInset: UIEdgeInsets {
 		get {
 			return contentView.grid.contentInset
 		}

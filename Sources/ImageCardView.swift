@@ -66,7 +66,7 @@ public class ImageCardView : MaterialPulseView {
 	/**
 	:name:	dividerInset
 	*/
-	public var dividerInset: UIEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0) {
+	@IBInspectable public var dividerInset: UIEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0) {
 		didSet {
 			reloadView()
 		}
@@ -177,7 +177,7 @@ public class ImageCardView : MaterialPulseView {
 	/**
 	:name:	contentInset
 	*/
-	public var contentInset: UIEdgeInsets = MaterialEdgeInsetToValue(.Square2) {
+	@IBInspectable public var contentInset: UIEdgeInsets = MaterialEdgeInsetToValue(.Square2) {
 		didSet {
 			reloadView()
 		}
@@ -195,7 +195,7 @@ public class ImageCardView : MaterialPulseView {
 	/**
 	:name:	titleLabelInset
 	*/
-	public var titleLabelInset: UIEdgeInsets = MaterialEdgeInsetToValue(.Square2) {
+	@IBInspectable public var titleLabelInset: UIEdgeInsets = MaterialEdgeInsetToValue(.Square2) {
 		didSet {
 			reloadView()
 		}
@@ -204,7 +204,7 @@ public class ImageCardView : MaterialPulseView {
 	/**
 	:name:	titleLabel
 	*/
-	public var titleLabel: UILabel? {
+	@IBInspectable public var titleLabel: UILabel? {
 		didSet {
 			titleLabel?.translatesAutoresizingMaskIntoConstraints = false
 			reloadView()
@@ -223,7 +223,7 @@ public class ImageCardView : MaterialPulseView {
 	/**
 	:name:	detailViewInset
 	*/
-	public var detailViewInset: UIEdgeInsets = MaterialEdgeInsetToValue(.Square2) {
+	@IBInspectable public var detailViewInset: UIEdgeInsets = MaterialEdgeInsetToValue(.Square2) {
 		didSet {
 			reloadView()
 		}
@@ -232,7 +232,7 @@ public class ImageCardView : MaterialPulseView {
 	/**
 	:name:	detailView
 	*/
-	public var detailView: UIView? {
+	@IBInspectable public var detailView: UIView? {
 		didSet {
 			detailView?.translatesAutoresizingMaskIntoConstraints = false
 			reloadView()
@@ -251,7 +251,7 @@ public class ImageCardView : MaterialPulseView {
 	/**
 	:name:	leftButtonsInset
 	*/
-	public var leftButtonsInset: UIEdgeInsets = MaterialEdgeInsetToValue(.None) {
+	@IBInspectable public var leftButtonsInset: UIEdgeInsets = MaterialEdgeInsetToValue(.None) {
 		didSet {
 			reloadView()
 		}
@@ -283,7 +283,7 @@ public class ImageCardView : MaterialPulseView {
 	/**
 	:name:	rightButtonsInset
 	*/
-	public var rightButtonsInset: UIEdgeInsets = MaterialEdgeInsetToValue(.None) {
+	@IBInspectable public var rightButtonsInset: UIEdgeInsets = MaterialEdgeInsetToValue(.None) {
 		didSet {
 			reloadView()
 		}
