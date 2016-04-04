@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		96E01FD61CB0474500411B61 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96E01FD51CB0474500411B61 /* Material.framework */; };
-		96E01FD71CB0474500411B61 /* Material.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 96E01FD51CB0474500411B61 /* Material.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		96F2F2151C97AFC600A5FE27 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F2F20D1C97AFC600A5FE27 /* AppDelegate.swift */; };
 		96F2F2161C97AFC600A5FE27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96F2F20E1C97AFC600A5FE27 /* Assets.xcassets */; };
 		96F2F2171C97AFC600A5FE27 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96F2F20F1C97AFC600A5FE27 /* LaunchScreen.storyboard */; };
@@ -23,7 +21,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				96E01FD71CB0474500411B61 /* Material.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -31,7 +28,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		96E01FD51CB0474500411B61 /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = Material.framework; path = "/Users/danieldahan/Library/Developer/Xcode/DerivedData/Material-hbpnflxhoouqxebjcyhbbhqyesjd/Build/Products/Debug-iphonesimulator/Material.framework"; sourceTree = "<absolute>"; };
 		96F2F20D1C97AFC600A5FE27 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96F2F20E1C97AFC600A5FE27 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		96F2F2101C97AFC600A5FE27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -46,7 +42,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96E01FD61CB0474500411B61 /* Material.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,7 +64,6 @@
 		9ABEC5081C15085400F6895E = {
 			isa = PBXGroup;
 			children = (
-				96E01FD51CB0474500411B61 /* Material.framework */,
 				96F2F20C1C97AFC600A5FE27 /* Toolbar */,
 				9ABEC5121C15085400F6895E /* Products */,
 			);

@@ -58,7 +58,7 @@ class RecipesViewController: UIViewController {
 		prepareMenuButton()
 		prepareSwitchControl()
 		prepareSearchButton()
-		prepareNavigationBar()
+		prepareNavigationItem()
 		prepareTableView()
 	}
 	
@@ -255,7 +255,7 @@ class RecipesViewController: UIViewController {
 	}
 	
 	/// Prepares the navigationItem.
-	private func prepareNavigationBar() {
+	private func prepareNavigationItem() {
 		navigationItem.titleLabel = titleLabel
 		navigationItem.leftControls = [menuButton]
 		navigationItem.rightControls = [switchControl, searchButton]

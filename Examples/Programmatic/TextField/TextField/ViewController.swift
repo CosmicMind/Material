@@ -64,17 +64,6 @@ class ViewController: UIViewController, TextFieldDelegate {
 		textField.titleLabelColor = MaterialColor.grey.base
 		textField.titleLabelActiveColor = MaterialColor.blue.accent3
 		
-		let image: UIImage? = MaterialIcon.close
-		
-		let clearButton: FlatButton = FlatButton()
-		clearButton.pulseColor = MaterialColor.grey.base
-		clearButton.pulseScale = false
-		clearButton.tintColor = MaterialColor.grey.base
-		clearButton.setImage(image, forState: .Normal)
-		clearButton.setImage(image, forState: .Highlighted)
-		
-		textField.clearButton = clearButton
-		
 		view.addSubview(textField)
 	}
 	
@@ -101,17 +90,6 @@ class ViewController: UIViewController, TextFieldDelegate {
 		textField.detailLabel!.font = RobotoFont.mediumWithSize(12)
 		textField.detailLabelActiveColor = MaterialColor.red.accent3
 //		textField.detailLabelAutoHideEnabled = false // Uncomment this line to have manual hiding.
-		
-		let image: UIImage? = MaterialIcon.close
-		
-		let clearButton: FlatButton = FlatButton()
-		clearButton.pulseColor = MaterialColor.grey.base
-		clearButton.pulseScale = false
-		clearButton.tintColor = MaterialColor.grey.base
-		clearButton.setImage(image, forState: .Normal)
-		clearButton.setImage(image, forState: .Highlighted)
-		
-		textField.clearButton = clearButton
 		
 		view.addSubview(textField)
 	}

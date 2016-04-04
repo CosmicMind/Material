@@ -34,16 +34,6 @@ public class SearchBar : StatusBarView {
 	/// The UITextField for the searchBar.
 	public private(set) lazy var textField: TextField = TextField()
 	
-	/// The UIImage for the clear icon.
-	public var clearButton: UIButton? {
-		get {
-			return textField.clearButton
-		}
-		set(value) {
-			textField.clearButton = value
-		}
-	}
-	
 	/// TintColor for searchBar.
 	@IBInspectable public override var tintColor: UIColor? {
 		didSet {
