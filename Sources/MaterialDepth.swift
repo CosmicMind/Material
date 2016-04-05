@@ -1,5 +1,6 @@
 /*
-* Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.io>. All rights reserved.
+* Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.io>.
+* All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without
 * modification, are permitted provided that the following conditions are met:
@@ -40,7 +41,9 @@ public enum MaterialDepth {
 	case Depth5
 }
 
-/// Converts the MaterialDepth enum to a MaterialDepthType value.
+/**
+	:name:	MaterialDepthToValue
+*/
 public func MaterialDepthToValue(depth: MaterialDepth) -> MaterialDepthType {
 	switch depth {
 	case .None:
