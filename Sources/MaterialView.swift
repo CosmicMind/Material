@@ -102,7 +102,7 @@ public class MaterialView : UIView {
 	/// A Preset for the contentsGravity property.
 	@IBInspectable public var contentsGravityPreset: MaterialGravity {
 		didSet {
-			contentsGravity = MaterialGravityToString(contentsGravityPreset)
+			contentsGravity = MaterialGravityToValue(contentsGravityPreset)
 		}
 	}
 	

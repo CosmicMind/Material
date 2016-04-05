@@ -41,9 +41,7 @@ public enum MaterialDepth {
 	case Depth5
 }
 
-/**
-	:name:	MaterialDepthToValue
-*/
+/// Converts the MaterialDepth enum to a MaterialDepthType value.
 public func MaterialDepthToValue(depth: MaterialDepth) -> MaterialDepthType {
 	switch depth {
 	case .None:

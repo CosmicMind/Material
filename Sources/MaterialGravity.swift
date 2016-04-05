@@ -45,10 +45,8 @@ public enum MaterialGravity {
 	case ResizeAspectFill
 }
 
-/**
-	:name:	MaterialGravityToString
-*/
-public func MaterialGravityToString(gravity: MaterialGravity) -> String {
+/// Converts the MaterialGravity enum to a String value.
+public func MaterialGravityToValue(gravity: MaterialGravity) -> String {
 	switch gravity {
 	case .Center:
 		return kCAGravityCenter

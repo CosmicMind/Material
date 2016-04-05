@@ -43,9 +43,7 @@ public enum MaterialBorder {
 	case Border9
 }
 
-/**
-:name:	MaterialBorderToValue
-*/
+/// Converts the MaterialBorder enum to a CGFloat value.
 public func MaterialBorderToValue(border: MaterialBorder) -> CGFloat {
 	switch border {
 	case .None:

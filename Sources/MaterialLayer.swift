@@ -146,7 +146,7 @@ public class MaterialLayer : CAShapeLayer {
 	/// A Preset for the contentsGravity property.
 	public var contentsGravityPreset: MaterialGravity {
 		didSet {
-			contentsGravity = MaterialGravityToString(contentsGravityPreset)
+			contentsGravity = MaterialGravityToValue(contentsGravityPreset)
 		}
 	}
 	
