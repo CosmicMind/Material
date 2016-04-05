@@ -59,11 +59,6 @@ class ViewController: UIViewController, TextFieldDelegate {
 		textField.font = RobotoFont.regularWithSize(20)
 		textField.textColor = MaterialColor.black
 		
-		textField.titleLabel = UILabel()
-		textField.titleLabel!.font = RobotoFont.mediumWithSize(12)
-		textField.titleLabelColor = MaterialColor.grey.base
-		textField.titleLabelActiveColor = MaterialColor.blue.accent3
-		
 		view.addSubview(textField)
 	}
 	
@@ -75,11 +70,6 @@ class ViewController: UIViewController, TextFieldDelegate {
 		textField.placeholderTextColor = MaterialColor.grey.base
 		textField.font = RobotoFont.regularWithSize(20)
 		textField.textColor = MaterialColor.black
-		
-		textField.titleLabel = UILabel()
-		textField.titleLabel!.font = RobotoFont.mediumWithSize(12)
-		textField.titleLabelColor = MaterialColor.grey.base
-		textField.titleLabelActiveColor = MaterialColor.blue.accent3
 		
 		/*
 		Used to display the error message, which is displayed when
