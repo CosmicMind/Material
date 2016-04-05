@@ -1,6 +1,5 @@
 /*
-* Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.io>.
-* All rights reserved.
+* Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.io>. All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without
 * modification, are permitted provided that the following conditions are met:
@@ -45,10 +44,8 @@ public enum MaterialGravity {
 	case ResizeAspectFill
 }
 
-/**
-	:name:	MaterialGravityToString
-*/
-public func MaterialGravityToString(gravity: MaterialGravity) -> String {
+/// Converts the MaterialGravity enum to a String value.
+public func MaterialGravityToValue(gravity: MaterialGravity) -> String {
 	switch gravity {
 	case .Center:
 		return kCAGravityCenter

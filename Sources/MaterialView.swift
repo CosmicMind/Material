@@ -1,6 +1,5 @@
 /*
-* Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.io>.
-* All rights reserved.
+* Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.io>. All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without
 * modification, are permitted provided that the following conditions are met:
@@ -102,7 +101,7 @@ public class MaterialView : UIView {
 	/// A Preset for the contentsGravity property.
 	@IBInspectable public var contentsGravityPreset: MaterialGravity {
 		didSet {
-			contentsGravity = MaterialGravityToString(contentsGravityPreset)
+			contentsGravity = MaterialGravityToValue(contentsGravityPreset)
 		}
 	}
 	
