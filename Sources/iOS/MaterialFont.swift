@@ -58,4 +58,47 @@ public struct MaterialFont : MaterialFontType {
 	public static func italicSystemFontWithSize(size: CGFloat) -> UIFont {
 		return UIFont.italicSystemFontOfSize(size)
 	}
+    
+    public static func loadFontIfNeeded(fontName:String) {
+        FontLoader.loadFontIfNeeded(fontName)
+    }
+}
+
+
+private class FontLoader {
+    
+    static var loadedFonts:[String: String] = [:]
+    
+    static func loadFontIfNeeded(fontName:String) {
+        let loadedFont = FontLoader.loadedFonts[fontName]
+        if (loadedFont == nil && UIFont(name: fontName, size: 1) == nil) {
+            FontLoader.loadedFonts[fontName] = fontName
+            
+            let bundle = NSBundle(forClass: FontLoader.self)
+            var fontURL:NSURL? = nil
+            let identifier = bundle.bundleIdentifier
+            
+            if identifier?.hasPrefix("org.cocoapods") == true {
+                
+                fontURL = bundle.URLForResource(fontName, withExtension: "ttf", subdirectory: "io.cosmicmind.material.fonts.bundle")
+            } else {
+                fontURL = bundle.URLForResource(fontName, withExtension: "ttf")
+            }
+            if fontURL != nil {
+                let data = NSData(contentsOfURL: fontURL!)!
+                
+                let provider = CGDataProviderCreateWithCFData(data)
+                let font = CGFontCreateWithDataProvider(provider)!
+                
+                var error: Unmanaged<CFError>?
+                if !CTFontManagerRegisterGraphicsFont(font, &error) {
+                    
+                    let errorDescription: CFStringRef = CFErrorCopyDescription(error!.takeUnretainedValue())
+                    let nsError = error!.takeUnretainedValue() as AnyObject as! NSError
+                    NSException(name: NSInternalInconsistencyException, reason: errorDescription as String, userInfo: [NSUnderlyingErrorKey: nsError]).raise()
+                }
+            }
+            
+        }
+    }
 }
