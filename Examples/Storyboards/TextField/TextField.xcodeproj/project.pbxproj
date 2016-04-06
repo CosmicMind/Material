@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		96BCB8671CB4AC9600C806FE /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96BCB8661CB4AC9600C806FE /* Material.framework */; };
-		96BCB8681CB4AC9600C806FE /* Material.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 96BCB8661CB4AC9600C806FE /* Material.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		96D528021C8198AD00D3BDD1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D528011C8198AD00D3BDD1 /* AppDelegate.swift */; };
 		96D528041C8198AD00D3BDD1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D528031C8198AD00D3BDD1 /* ViewController.swift */; };
 		96D528071C8198AD00D3BDD1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96D528051C8198AD00D3BDD1 /* Main.storyboard */; };
@@ -23,7 +21,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				96BCB8681CB4AC9600C806FE /* Material.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -31,7 +28,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		96BCB8661CB4AC9600C806FE /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = Material.framework; path = "/Users/danieldahan/Library/Developer/Xcode/DerivedData/Material-bshwisidfobstlbomegqyybbrygh/Build/Products/Debug-iphoneos/Material.framework"; sourceTree = "<absolute>"; };
 		96D527FE1C8198AD00D3BDD1 /* TextField.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TextField.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96D528011C8198AD00D3BDD1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96D528031C8198AD00D3BDD1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -46,7 +42,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96BCB8671CB4AC9600C806FE /* Material.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,7 +51,6 @@
 		96D527F51C8198AD00D3BDD1 = {
 			isa = PBXGroup;
 			children = (
-				96BCB8661CB4AC9600C806FE /* Material.framework */,
 				96D528001C8198AD00D3BDD1 /* TextField */,
 				96D527FF1C8198AD00D3BDD1 /* Products */,
 			);
