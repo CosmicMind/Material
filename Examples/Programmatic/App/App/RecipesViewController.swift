@@ -86,7 +86,6 @@ class RecipesViewController: UIViewController {
 	override func viewWillDisappear(animated: Bool) {
 		super.viewWillDisappear(animated)
 		// Disable the SideNavigation.
-		sideNavigationController?.enabled = false
 		
 		// Hide the menuView.
 		menuViewController?.menuView.animate(MaterialAnimation.animationGroup([

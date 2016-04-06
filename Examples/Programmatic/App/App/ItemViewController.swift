@@ -75,6 +75,8 @@ class ItemViewController: UIViewController {
 	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
+		sideNavigationController?.enabled = false
+		
 		// Stops the scrollView contentInsets from being automatically adjusted.
 		automaticallyAdjustsScrollViewInsets = false
 	}
