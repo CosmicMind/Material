@@ -43,19 +43,49 @@ public struct MaterialIcon {
 		return MaterialIcon.internalBundle!
 	}
     
-	public static let add: UIImage? = UIImage(named: "ic_add_white", inBundle: bundle, compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate)
-	public static let arrowBack: UIImage? = UIImage(named: "ic_arrow_back_white", inBundle: bundle, compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate)
-	public static let arrowDownward: UIImage? = UIImage(named: "ic_arrow_downward_white", inBundle: bundle, compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate)
-	public static let clear: UIImage? = UIImage(named: "ic_close_white", inBundle: bundle, compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate)
-	public static let close: UIImage? = UIImage(named: "ic_close_white", inBundle: bundle, compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate)
-	public static let menu: UIImage? = UIImage(named: "ic_menu_white", inBundle: bundle, compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate)
-	public static let moreHorizontal: UIImage? = UIImage(named: "ic_more_horiz_white", inBundle: bundle, compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate)
-	public static let moreVertical: UIImage? = UIImage(named: "ic_more_vert_white", inBundle: bundle, compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate)
-	public static let pen: UIImage? = UIImage(named: "ic_pen_white", inBundle: bundle, compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate)
-	public static let photoCamera: UIImage? = UIImage(named: "ic_photo_camera_white", inBundle: bundle, compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate)
-	public static let photoLibrary: UIImage? = UIImage(named: "ic_photo_library_white", inBundle: bundle, compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate)
-	public static let search: UIImage? = UIImage(named: "ic_search_white", inBundle: bundle, compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate)
-	public static let share: UIImage? = UIImage(named: "ic_share_white", inBundle: bundle, compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate)
-	public static let star: UIImage? = UIImage(named: "ic_star_white", inBundle: bundle, compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate)
-	public static let videocam: UIImage? = UIImage(named: "ic_videocam_white", inBundle: bundle, compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate)
+    private static func image(name:String!) -> UIImage {
+        return (UIImage(named: name, inBundle: bundle, compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate))!
+    }
+    
+    public static let add: UIImage? = MaterialIcon.image("ic_add_white")
+    public static let addCircle: UIImage? = MaterialIcon.image("ic_add_circle_white")
+    public static let addCircleOutline: UIImage? = MaterialIcon.image("ic_add_circle_outline_white")
+    
+	public static let arrowBack: UIImage? = MaterialIcon.image("ic_arrow_back_white")
+	public static let arrowDownward: UIImage? = MaterialIcon.image("ic_arrow_downward_white")
+    
+    public static let audio: UIImage? = MaterialIcon.image("ic_audiotrack_white")
+    
+	public static let clear: UIImage? = MaterialIcon.image("ic_close_white")
+    public static let close: UIImage? = MaterialIcon.image("ic_close_white")
+    
+    public static let edit: UIImage? = MaterialIcon.image("ic_edit_white")
+    
+    public static let history: UIImage? = MaterialIcon.image("ic_history_white")
+    
+    public static let picture: UIImage? = MaterialIcon.image("ic_image_white")
+    
+    public static let menu: UIImage? = MaterialIcon.image("ic_menu_white")
+    
+	public static let moreHorizontal: UIImage? = MaterialIcon.image("ic_more_horiz_white")
+    public static let moreVertical: UIImage? = MaterialIcon.image("ic_more_vert_white")
+    
+    public static let movie: UIImage? = MaterialIcon.image("ic_movie_white")
+    
+    public static let pen: UIImage? = MaterialIcon.image("ic_edit_white")
+    
+	public static let photoCamera: UIImage? = MaterialIcon.image("ic_photo_camera_white")
+	public static let photoLibrary: UIImage? = MaterialIcon.image("ic_photo_library_white")
+    
+    public static let search: UIImage? = MaterialIcon.image("ic_search_white")
+    
+    public static let settings: UIImage? = MaterialIcon.image("ic_settings_white")
+    
+    public static let share: UIImage? = MaterialIcon.image("ic_share_white")
+    
+    public static let star: UIImage? = MaterialIcon.image("ic_star_white")
+    public static let starBorder: UIImage? = MaterialIcon.image("ic_star_border_white")
+    public static let starHalf: UIImage? = MaterialIcon.image("ic_star_half_white")
+    
+	public static let videocam: UIImage? = MaterialIcon.image("ic_videocam_white")
 }
