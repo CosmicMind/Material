@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Material'
-  s.version = '1.39.2'
+  s.version = '1.39.3'
   s.license = 'BSD'
   s.summary = 'Express your creativity with Material, an animation and graphics framework for Google\'s Material Design and Apple\'s Flat UI in Swift.'
   s.homepage = 'http://cosmicmind.io'
@@ -13,6 +13,7 @@ Pod::Spec.new do |s|
   s.osx.source_files = 'Sources/OSX/**/*.swift'
   s.requires_arc = true
   s.resource_bundles = {
-      'Fonts' => ['Sources/**/*.ttf']
+      'io.cosmicmind.material.fonts' => ['Sources/**/*.ttf'],
+      'io.cosmicmind.material.icons' => ['Sources/Assets.xcassets/**/*.png']
   }
 end

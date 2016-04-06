@@ -35,14 +35,14 @@ public struct MaterialIcon {
 	public static var bundle: NSBundle {
 		if nil == MaterialIcon.internalBundle {
 			MaterialIcon.internalBundle = NSBundle(forClass: MaterialView.self)
-			let b: NSBundle? = NSBundle(URL: MaterialIcon.internalBundle!.resourceURL!.URLByAppendingPathComponent("io.cosmicmind.Material.bundle"))
+			let b: NSBundle? = NSBundle(URL: MaterialIcon.internalBundle!.resourceURL!.URLByAppendingPathComponent("io.cosmicmind.material.icons.bundle"))
 			if let v: NSBundle = b {
 				MaterialIcon.internalBundle = v
 			}
 		}
 		return MaterialIcon.internalBundle!
 	}
-	
+
 	/// Default Google icons.
 	public static let add: UIImage? = UIImage(named: "ic_add_white", inBundle: bundle, compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate)
 	public static let arrowBack: UIImage? = UIImage(named: "ic_arrow_back_white", inBundle: bundle, compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate)
@@ -56,7 +56,7 @@ public struct MaterialIcon {
 	public static let share: UIImage? = UIImage(named: "ic_share_white", inBundle: bundle, compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate)
 	public static let star: UIImage? = UIImage(named: "ic_star_white", inBundle: bundle, compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate)
 	public static let videocam: UIImage? = UIImage(named: "ic_videocam_white", inBundle: bundle, compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate)
-	
+
 	/// Custom CosmicMind icons.
 	public struct cm {
 		public static let add: UIImage? = UIImage(named: "cm_add_white", inBundle: bundle, compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate)
