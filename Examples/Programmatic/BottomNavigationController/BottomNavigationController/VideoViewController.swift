@@ -58,7 +58,7 @@ class VideoViewController: UIViewController {
 	/// Prepare tabBarItem.
 	private func prepareTabBarItem() {
 		tabBarItem.title = "Video"
-		tabBarItem.image = MaterialIcon.videocam
+		tabBarItem.image = MaterialIcon.cm.videocam
 		tabBarItem.setTitleColor(MaterialColor.grey.base, forState: .Normal)
 		tabBarItem.setTitleColor(MaterialColor.teal.base, forState: .Selected)
 	}

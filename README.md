@@ -26,7 +26,7 @@ Express your creativity with Material, an animation and graphics framework for G
 
 ## Requirements
 
-* iOS 8.0+
+* iOS 8.0+ / Mac OS X 10.9+
 * Xcode 7.3+
 
 ## Communication
@@ -39,7 +39,7 @@ Express your creativity with Material, an animation and graphics framework for G
 
 ## Installation
 
-> **Embedded frameworks require a minimum deployment target of iOS 8.**
+> **Embedded frameworks require a minimum deployment target of iOS 8 or OS X Mavericks (10.9).**
 > - [Download Material](https://github.com/CosmicMind/Material/archive/master.zip)
 
 Visit the [Installation](https://github.com/CosmicMind/Material/wiki/Installation) page to learn how to install Material using [CocoaPods](http://cocoapods.org) and [Carthage](https://github.com/Carthage/Carthage).
@@ -365,6 +365,11 @@ Add a new dimension of interactivity with CaptureView. CaptureView is a fully fu
 * TabBarController
 * Scrolling Techniques
 * Snackbar
+* BottomNavigationController with Snackbar.
+* Bottom Sheets
+* Dialogs
+* Collapsing Toolbar
+* RTL Support
 * Advanced Camera / Audio Toolset & Views
 * More Examples
 

@@ -110,7 +110,7 @@ class AppMenuViewController: MenuViewController {
 	
 	/// Prepares the add button.
 	private func prepareMenuView() {
-		var image: UIImage? = MaterialIcon.add
+		var image: UIImage? = MaterialIcon.cm.add
 		let menuButton: FabButton = FabButton()
 		menuButton.tintColor = MaterialColor.white
 		menuButton.setImage(image, forState: .Normal)
@@ -118,7 +118,7 @@ class AppMenuViewController: MenuViewController {
 		menuButton.addTarget(self, action: #selector(handleMenu), forControlEvents: .TouchUpInside)
 		menuView.addSubview(menuButton)
 		
-		image = MaterialIcon.pen
+		image = MaterialIcon.cm.pen
 		let blueButton: FabButton = FabButton()
 		blueButton.tintColor = MaterialColor.white
 		blueButton.backgroundColor = MaterialColor.blue.base
@@ -127,7 +127,7 @@ class AppMenuViewController: MenuViewController {
 		menuView.addSubview(blueButton)
 		blueButton.addTarget(self, action: #selector(handleBlueButton), forControlEvents: .TouchUpInside)
 		
-		image = MaterialIcon.photoCamera
+		image = MaterialIcon.cm.photoCamera
 		let greenButton: FabButton = FabButton()
 		greenButton.tintColor = MaterialColor.white
 		greenButton.backgroundColor = MaterialColor.green.base
@@ -136,7 +136,7 @@ class AppMenuViewController: MenuViewController {
 		menuView.addSubview(greenButton)
 		greenButton.addTarget(self, action: #selector(handleGreenButton), forControlEvents: .TouchUpInside)
 		
-		image = MaterialIcon.star
+		image = MaterialIcon.cm.star
 		let yellowButton: FabButton = FabButton()
 		yellowButton.tintColor = MaterialColor.white
 		yellowButton.backgroundColor = MaterialColor.yellow.base
@@ -157,7 +157,7 @@ class AppMenuViewController: MenuViewController {
 	
 	/// Prepare tabBarItem.
 	private func prepareTabBarItem() {
-		tabBarItem.image = MaterialIcon.photoLibrary
+		tabBarItem.image = MaterialIcon.cm.photoLibrary
 		tabBarItem.setTitleColor(MaterialColor.grey.base, forState: .Normal)
 		tabBarItem.setTitleColor(MaterialColor.white, forState: .Selected)
 	}

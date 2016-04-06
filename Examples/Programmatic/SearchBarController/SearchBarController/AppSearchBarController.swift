@@ -76,18 +76,9 @@ class AppSearchBarController: SearchBarController {
 	
 	/// Prepares the searchBar.
 	private func prepareSearchBar() {
-		var image: UIImage? = MaterialIcon.close
-		
-		let clearButton: FlatButton = FlatButton()
-		clearButton.pulseColor = nil
-		clearButton.pulseScale = false
-		clearButton.tintColor = MaterialColor.blueGrey.darken4
-		clearButton.setImage(image, forState: .Normal)
-		clearButton.setImage(image, forState: .Highlighted)
-		clearButton.addTarget(self, action: #selector(handleYellowButton), forControlEvents: .TouchUpInside)
+		var image: UIImage? = MaterialIcon.cm.arrowBack
 		
 		// Back button.
-		image = MaterialIcon.arrowBack
 		let backButton: FlatButton = FlatButton()
 		backButton.pulseColor = nil
 		backButton.pulseScale = false
@@ -97,7 +88,7 @@ class AppSearchBarController: SearchBarController {
 		backButton.addTarget(self, action: #selector(handleBlueButton), forControlEvents: .TouchUpInside)
 		
 		// More button.
-		image = MaterialIcon.moreHorizontal
+		image = MaterialIcon.cm.moreHorizontal
 		let moreButton: FlatButton = FlatButton()
 		moreButton.pulseColor = nil
 		moreButton.pulseScale = false
@@ -112,15 +103,7 @@ class AppSearchBarController: SearchBarController {
 		to your info.plist file and set the following property.
 		*/
 		searchBar.statusBarStyle = .Default
-		
-		searchBar.placeholder = "Search"
-		searchBar.tintColor = MaterialColor.blueGrey.darken4
-		searchBar.textColor = MaterialColor.blueGrey.darken4
-		searchBar.placeholderTextColor = MaterialColor.blueGrey.darken4
-		searchBar.textField.font = RobotoFont.regular
 		searchBar.textField.delegate = self
-		
-		searchBar.clearButton = clearButton
 		searchBar.leftControls = [backButton]
 		searchBar.rightControls = [moreButton]
 	}

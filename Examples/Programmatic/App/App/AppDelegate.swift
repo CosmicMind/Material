@@ -51,7 +51,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		let sideNavigationController: SideNavigationController = SideNavigationController(rootViewController: bottomNavigationController, leftViewController: AppLeftViewController())
 		
-		// Override point for customization after application launch.
 		window = UIWindow(frame: UIScreen.mainScreen().bounds)
 		window!.rootViewController = sideNavigationController
 		window!.makeKeyAndVisible()

@@ -91,7 +91,7 @@ class AppToolbarController: ToolbarController {
 		//		detailLabel.font = RobotoFont.regular
 		//		toolbar.detailLabel = detailLabel
 		
-		var image: UIImage? = MaterialIcon.menu
+		var image: UIImage? = MaterialIcon.cm.menu
 		
 		// Menu button.
 		let menuButton: FlatButton = FlatButton()
@@ -107,7 +107,7 @@ class AppToolbarController: ToolbarController {
 		switchControl.delegate = self
 		
 		// Search button.
-		image = MaterialIcon.search
+		image = MaterialIcon.cm.search
 		let searchButton: FlatButton = FlatButton()
 		searchButton.pulseColor = nil
 		searchButton.pulseScale = false

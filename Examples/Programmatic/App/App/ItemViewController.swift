@@ -68,7 +68,7 @@ class ItemViewController: UIViewController {
 		prepareView()
 		prepareTitleLabel()
 		prepareShareButton()
-		prepareNavigationBar()
+		prepareNavigationItem()
 		prepareScrollView()
 		prepareImageCardView()
 	}
@@ -114,7 +114,7 @@ class ItemViewController: UIViewController {
 	
 	/// Prepares the shareButton.
 	private func prepareShareButton() {
-		let image: UIImage? = MaterialIcon.share
+		let image: UIImage? = MaterialIcon.cm.share
 		shareButton = FlatButton()
 		shareButton.pulseScale = false
 		shareButton.pulseColor = MaterialColor.white
@@ -123,7 +123,7 @@ class ItemViewController: UIViewController {
 	}
 	
 	/// Prepares the navigationItem.
-	private func prepareNavigationBar() {
+	private func prepareNavigationItem() {
 		navigationItem.titleLabel = titleLabel
 		navigationItem.detailLabel = detailLabel
 		navigationItem.rightControls = [shareButton]
