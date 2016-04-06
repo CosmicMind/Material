@@ -62,7 +62,7 @@ public class NavigationBar : UINavigationBar {
 			return backIndicatorImage
 		}
 		set(value) {
-			let image: UIImage? = nil == value ? MaterialIcon.arrowBack : value
+			let image: UIImage? = nil == value ? MaterialIcon.cm.arrowBack : value
 			backIndicatorImage = image
 			backIndicatorTransitionMaskImage = image
 			backButton.setImage(image, forState: .Normal)

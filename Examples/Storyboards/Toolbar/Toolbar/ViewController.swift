@@ -94,7 +94,7 @@ class ViewController: UIViewController {
         toolbar.detailLabel = detailLabel
 		
         // Menu button.
-        let img1: UIImage? = MaterialIcon.menu
+        let img1: UIImage? = MaterialIcon.cm.menu
         let btn1: FlatButton = FlatButton()
         btn1.pulseScale = false
 		btn1.pulseColor = MaterialColor.white
@@ -103,7 +103,7 @@ class ViewController: UIViewController {
         btn1.setImage(img1, forState: .Highlighted)
         
         // Star button.
-        let img2: UIImage? = MaterialIcon.star
+        let img2: UIImage? = MaterialIcon.cm.star
         let btn2: FlatButton = FlatButton()
         btn2.pulseScale = false
 		btn2.pulseColor = MaterialColor.white
@@ -112,7 +112,7 @@ class ViewController: UIViewController {
         btn2.setImage(img2, forState: .Highlighted)
         
         // Search button.
-        let img3: UIImage? = MaterialIcon.search
+        let img3: UIImage? = MaterialIcon.cm.search
         let btn3: FlatButton = FlatButton()
         btn3.pulseScale = false
         btn3.pulseColor = MaterialColor.white

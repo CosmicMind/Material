@@ -68,7 +68,7 @@ class ViewController: UIViewController {
 		detailLabel.textColor = MaterialColor.white
 		detailLabel.font = RobotoFont.regular
 		
-		var image: UIImage? = MaterialIcon.menu
+		var image: UIImage? = MaterialIcon.cm.menu
 
 		// Menu button.
 		let menuButton: FlatButton = FlatButton()
@@ -82,7 +82,7 @@ class ViewController: UIViewController {
 		let switchControl: MaterialSwitch = MaterialSwitch(state: .Off, style: .LightContent, size: .Small)
 
 		// Search button.
-		image = MaterialIcon.search
+		image = MaterialIcon.cm.search
 		let searchButton: FlatButton = FlatButton()
 		searchButton.pulseScale = false
 		searchButton.pulseColor = MaterialColor.white

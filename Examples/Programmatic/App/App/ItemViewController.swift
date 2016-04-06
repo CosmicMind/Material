@@ -114,7 +114,7 @@ class ItemViewController: UIViewController {
 	
 	/// Prepares the shareButton.
 	private func prepareShareButton() {
-		let image: UIImage? = MaterialIcon.share
+		let image: UIImage? = MaterialIcon.cm.share
 		shareButton = FlatButton()
 		shareButton.pulseScale = false
 		shareButton.pulseColor = MaterialColor.white

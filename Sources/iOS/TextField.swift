@@ -275,6 +275,16 @@ public class TextField : UITextField {
 		}
 	}
 	
+	/// Handle the clearButton manually.
+	@IBInspectable public var clearButtonAutoHandleEnabled: Bool = true {
+		didSet {
+			clearButton.removeTarget(self, action: #selector(handleClearButton), forControlEvents: .TouchUpInside)
+			if clearButtonAutoHandleEnabled {
+				clearButton.addTarget(self, action: #selector(handleClearButton), forControlEvents: .TouchUpInside)
+			}
+		}
+	}
+	
 	/// Reference to the clearButton.
 	public private(set) var clearButton: FlatButton!
 	
@@ -624,7 +634,7 @@ public class TextField : UITextField {
 	
 	/// Prepares the clearButton.
 	private func prepareClearButton() {
-		let image: UIImage? = MaterialIcon.close
+		let image: UIImage? = MaterialIcon.cm.close
 		clearButton = FlatButton()
 		clearButton.contentEdgeInsets = UIEdgeInsetsZero
 		clearButton.pulseColor = MaterialColor.grey.base
@@ -632,7 +642,9 @@ public class TextField : UITextField {
 		clearButton.tintColor = MaterialColor.grey.base
 		clearButton.setImage(image, forState: .Normal)
 		clearButton.setImage(image, forState: .Highlighted)
-		clearButton.addTarget(self, action: #selector(handleClearButton), forControlEvents: .TouchUpInside)
+		if clearButtonAutoHandleEnabled {
+			clearButton.addTarget(self, action: #selector(handleClearButton), forControlEvents: .TouchUpInside)
+		}
 		clearButtonMode = .Never
 		rightViewMode = .WhileEditing
 		rightView = clearButton
