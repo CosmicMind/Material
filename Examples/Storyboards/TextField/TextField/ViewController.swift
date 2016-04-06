@@ -70,7 +70,7 @@ class ViewController: UIViewController, TextFieldDelegate {
 		*/
 		emailField.detailLabel = UILabel()
 		emailField.detailLabel!.text = "Email is incorrect."
-		emailField.detailLabel!.font = RobotoFont.mediumWithSize(12)
+		emailField.detailLabel!.font = RobotoFont.regularWithSize(12)
 		emailField.detailLabelActiveColor = MaterialColor.red.accent3
 //		emailField.detailLabelAutoHideEnabled = false // Uncomment this line to have manual hiding.
 	}

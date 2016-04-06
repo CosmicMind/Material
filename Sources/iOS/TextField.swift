@@ -557,10 +557,11 @@ public class TextField : UITextField {
 		titleLabel = UILabel()
 		titleLabel.hidden = true
 		titleLabel.font = RobotoFont.mediumWithSize(12)
+		addSubview(titleLabel)
+		
 		titleLabelColor = MaterialColor.grey.base
 		titleLabelActiveColor = MaterialColor.blue.accent3
 		
-		addSubview(titleLabel)
 		if 0 < text?.utf16.count {
 			showTitleLabel()
 		} else {
@@ -632,7 +633,7 @@ public class TextField : UITextField {
 			titleLabel.hidden = false
 			UIView.animateWithDuration(0.15, animations: { [unowned self] in
 				self.titleLabel.alpha = 1
-				self.titleLabel.font = self.font?.fontWithSize(12)
+				self.titleLabel.transform = CGAffineTransformScale(self.titleLabel.transform, 0.75, 0.75)
 				self.titleLabel.frame = CGRectMake(0, -(self.titleLabelAnimationDistance + h), self.bounds.width, h)
 			})
 		}
@@ -640,15 +641,12 @@ public class TextField : UITextField {
 	
 	/// Hides and animates the titleLabel property.
 	private func hideTitleLabel() {
-		UIView.animateWithDuration(0.1, animations: { [unowned self] in
+		UIView.animateWithDuration(0.15, animations: { [unowned self] in
+			self.titleLabel.transform = CGAffineTransformIdentity
 			self.titleLabel.frame = self.bounds
 		}) { [unowned self] _ in
-			UIView.animateWithDuration(0.15, animations: { [unowned self] in
-				self.titleLabel.font = self.font
-			}) { [unowned self] _ in
-				self.placeholder = self.placeholderText
-				self.titleLabel.hidden = true
-			}
+			self.placeholder = self.placeholderText
+			self.titleLabel.hidden = true
 		}
 	}
 	

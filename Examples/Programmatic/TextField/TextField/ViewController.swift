@@ -53,14 +53,18 @@ class ViewController: UIViewController, TextFieldDelegate {
 	
 	/// Prepares the name TextField.
 	private func prepareNameField() {
-		let textField: TextField = TextField(frame: CGRectMake(57, 100, 300, 24))
+		let w: CGFloat = 300
+		let x: CGFloat = (MaterialDevice.width - w) / 2
+		let textField: TextField = TextField(frame: CGRectMake(x, 100, w, 24))
 		textField.placeholder = "First Name"
 		view.addSubview(textField)
 	}
 	
 	/// Prepares the email TextField.
 	private func prepareEmailField() {
-		let textField: TextField = TextField(frame: CGRectMake(57, 200, 300, 24))
+		let w: CGFloat = 300
+		let x: CGFloat = (MaterialDevice.width - w) / 2
+		let textField: TextField = TextField(frame: CGRectMake(x, 200, w, 24))
 		textField.delegate = self
 		textField.placeholder = "Email"
 		
@@ -70,7 +74,7 @@ class ViewController: UIViewController, TextFieldDelegate {
 		*/
 		textField.detailLabel = UILabel()
 		textField.detailLabel!.text = "Email is incorrect."
-		textField.detailLabel!.font = RobotoFont.mediumWithSize(12)
+		textField.detailLabel!.font = RobotoFont.regularWithSize(12)
 		textField.detailLabelActiveColor = MaterialColor.red.accent3
 //		textField.detailLabelAutoHideEnabled = false // Uncomment this line to have manual hiding.
 		
