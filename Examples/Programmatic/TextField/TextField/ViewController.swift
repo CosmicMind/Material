@@ -53,14 +53,14 @@ class ViewController: UIViewController, TextFieldDelegate {
 	
 	/// Prepares the name TextField.
 	private func prepareNameField() {
-		let textField: TextField = TextField(frame: CGRectMake(57, 100, 300, 32))
+		let textField: TextField = TextField(frame: CGRectMake(57, 100, 300, 24))
 		textField.placeholder = "First Name"
 		view.addSubview(textField)
 	}
 	
 	/// Prepares the email TextField.
 	private func prepareEmailField() {
-		let textField: TextField = TextField(frame: CGRectMake(57, 200, 300, 32))
+		let textField: TextField = TextField(frame: CGRectMake(57, 200, 300, 24))
 		textField.delegate = self
 		textField.placeholder = "Email"
 		

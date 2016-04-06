@@ -485,7 +485,7 @@ public class TextField : UITextField {
 		backgroundColor = MaterialColor.white
 		masksToBounds = false
 		placeholderTextColor = MaterialColor.grey.base
-		font = RobotoFont.regularWithSize(20)
+		font = RobotoFont.regularWithSize(16)
 		textColor = MaterialColor.grey.darken4
 		borderStyle = .None
 		prepareClearButton()
