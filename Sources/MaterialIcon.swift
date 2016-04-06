@@ -74,6 +74,8 @@ public struct MaterialIcon {
     
     public static let pen: UIImage? = MaterialIcon.image("ic_edit_white")
     
+    public static let place: UIImage? = MaterialIcon.image("ic_place_white")
+    
 	public static let photoCamera: UIImage? = MaterialIcon.image("ic_photo_camera_white")
 	public static let photoLibrary: UIImage? = MaterialIcon.image("ic_photo_library_white")
     
