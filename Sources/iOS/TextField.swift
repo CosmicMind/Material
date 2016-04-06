@@ -74,39 +74,23 @@ public class TextField : UITextField {
 		}
 	}
 	
-	/**
-	A property that accesses the layer.frame.origin.width property.
-	When setting this property in conjunction with the shape property having a
-	value that is not .None, the height will be adjusted to maintain the correct
-	shape.
-	*/
+	/// A property that accesses the layer.frame.size.width property.
 	@IBInspectable public var width: CGFloat {
 		get {
 			return layer.frame.size.width
 		}
 		set(value) {
 			layer.frame.size.width = value
-			if .None != shape {
-				layer.frame.size.height = value
-			}
 		}
 	}
 	
-	/**
-	A property that accesses the layer.frame.origin.height property.
-	When setting this property in conjunction with the shape property having a
-	value that is not .None, the width will be adjusted to maintain the correct
-	shape.
-	*/
+	/// A property that accesses the layer.frame.size.height property.
 	@IBInspectable public var height: CGFloat {
 		get {
 			return layer.frame.size.height
 		}
 		set(value) {
 			layer.frame.size.height = value
-			if .None != shape {
-				layer.frame.size.width = value
-			}
 		}
 	}
 	
@@ -183,11 +167,7 @@ public class TextField : UITextField {
 		}
 	}
 	
-	/**
-	A property that sets the cornerRadius of the backing layer. If the shape
-	property has a value of .Circle when the cornerRadius is set, it will
-	become .None, as it no longer maintains its circle shape.
-	*/
+	/// A property that sets the cornerRadius of the backing layer.
 	public var cornerRadiusPreset: MaterialRadius = .None {
 		didSet {
 			if let v: MaterialRadius = cornerRadiusPreset {
@@ -204,27 +184,6 @@ public class TextField : UITextField {
 		set(value) {
 			layer.cornerRadius = value
 			layoutShadowPath()
-			if .Circle == shape {
-				shape = .None
-			}
-		}
-	}
-	
-	/**
-	A property that manages the overall shape for the object. If either the
-	width or height property is set, the other will be automatically adjusted
-	to maintain the shape of the object.
-	*/
-	public var shape: MaterialShape = .None {
-		didSet {
-			if .None != shape {
-				if width < height {
-					frame.size.width = height
-				} else {
-					frame.size.height = width
-				}
-				layoutShadowPath()
-			}
 		}
 	}
 	
@@ -436,7 +395,6 @@ public class TextField : UITextField {
 		super.layoutSublayersOfLayer(layer)
 		if self.layer == layer {
 			bottomBorderLayer.frame = CGRectMake(0, bounds.height + bottomBorderLayerDistance, bounds.width, 1)
-			layoutShape()
 			layoutShadowPath()
 		}
 	}
@@ -513,10 +471,8 @@ public class TextField : UITextField {
 	
 	/// Reloads the view.
 	public func reloadView() {
-		/// Prepare the clearButton.
-		if let v: FlatButton = clearButton {
-			v.frame = CGRectMake(width - height, 0, height, height)
-		}
+		/// Align the clearButton.
+		clearButton.frame = CGRectMake(width - height, 0, height, height)
 	}
 	
 	
@@ -563,16 +519,6 @@ public class TextField : UITextField {
 		titleLabel.textColor = titleLabelColor
 		MaterialAnimation.animationDisabled { [unowned self] in
 			self.bottomBorderLayer.backgroundColor = self.detailLabelHidden ? self.titleLabelColor?.CGColor : self.detailLabelActiveColor?.CGColor
-		}
-	}
-	
-	/// Manages the layout for the shape of the view instance.
-	internal func layoutShape() {
-		if .Circle == shape {
-			let w: CGFloat = (width / 2)
-			if w != cornerRadius {
-				cornerRadius = w
-			}
 		}
 	}
 	
@@ -642,9 +588,7 @@ public class TextField : UITextField {
 		clearButton.tintColor = MaterialColor.grey.base
 		clearButton.setImage(image, forState: .Normal)
 		clearButton.setImage(image, forState: .Highlighted)
-		if clearButtonAutoHandleEnabled {
-			clearButton.addTarget(self, action: #selector(handleClearButton), forControlEvents: .TouchUpInside)
-		}
+		clearButtonAutoHandleEnabled = true
 		clearButtonMode = .Never
 		rightViewMode = .WhileEditing
 		rightView = clearButton

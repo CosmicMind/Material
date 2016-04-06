@@ -159,7 +159,7 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-	A property that accesses the layer.frame.origin.width property.
+	A property that accesses the layer.frame.size.width property.
 	When setting this property in conjunction with the shape property having a 
 	value that is not .None, the height will be adjusted to maintain the correct 
 	shape.
@@ -177,7 +177,7 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-	A property that accesses the layer.frame.origin.height property.
+	A property that accesses the layer.frame.size.height property.
 	When setting this property in conjunction with the shape property having a
 	value that is not .None, the width will be adjusted to maintain the correct
 	shape.

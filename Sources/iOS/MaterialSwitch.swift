@@ -94,7 +94,7 @@ public class MaterialSwitch : UIControl {
 		}
 	}
 	
-	/// A property that accesses the layer.frame.origin.width property.
+	/// A property that accesses the layer.frame.size.width property.
 	@IBInspectable public var width: CGFloat {
 		get {
 			return layer.frame.size.width
@@ -104,7 +104,7 @@ public class MaterialSwitch : UIControl {
 		}
 	}
 	
-	/// A property that accesses the layer.frame.origin.height property.
+	/// A property that accesses the layer.frame.size.height property.
 	@IBInspectable public var height: CGFloat {
 		get {
 			return layer.frame.size.height

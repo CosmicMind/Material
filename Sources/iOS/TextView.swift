@@ -76,39 +76,23 @@ public class TextView: UITextView {
 		}
 	}
 	
-	/**
-	A property that accesses the layer.frame.origin.width property.
-	When setting this property in conjunction with the shape property having a
-	value that is not .None, the height will be adjusted to maintain the correct
-	shape.
-	*/
+	/// A property that accesses the layer.frame.size.width property.
 	@IBInspectable public var width: CGFloat {
 		get {
 			return layer.frame.size.width
 		}
 		set(value) {
 			layer.frame.size.width = value
-			if .None != shape {
-				layer.frame.size.height = value
-			}
 		}
 	}
 	
-	/**
-	A property that accesses the layer.frame.origin.height property.
-	When setting this property in conjunction with the shape property having a
-	value that is not .None, the width will be adjusted to maintain the correct
-	shape.
-	*/
+	/// A property that accesses the layer.frame.size.height property.
 	@IBInspectable public var height: CGFloat {
 		get {
 			return layer.frame.size.height
 		}
 		set(value) {
 			layer.frame.size.height = value
-			if .None != shape {
-				layer.frame.size.width = value
-			}
 		}
 	}
 	
@@ -185,11 +169,7 @@ public class TextView: UITextView {
 		}
 	}
 	
-	/**
-	A property that sets the cornerRadius of the backing layer. If the shape
-	property has a value of .Circle when the cornerRadius is set, it will
-	become .None, as it no longer maintains its circle shape.
-	*/
+	/// A property that sets the cornerRadius of the backing layer.
 	public var cornerRadiusPreset: MaterialRadius = .None {
 		didSet {
 			if let v: MaterialRadius = cornerRadiusPreset {
@@ -206,27 +186,6 @@ public class TextView: UITextView {
 		set(value) {
 			layer.cornerRadius = value
 			layoutShadowPath()
-			if .Circle == shape {
-				shape = .None
-			}
-		}
-	}
-	
-	/**
-	A property that manages the overall shape for the object. If either the
-	width or height property is set, the other will be automatically adjusted
-	to maintain the shape of the object.
-	*/
-	public var shape: MaterialShape = .None {
-		didSet {
-			if .None != shape {
-				if width < height {
-					frame.size.width = height
-				} else {
-					frame.size.height = width
-				}
-				layoutShadowPath()
-			}
 		}
 	}
 	
@@ -389,7 +348,6 @@ public class TextView: UITextView {
 	public override func layoutSublayersOfLayer(layer: CALayer) {
 		super.layoutSublayersOfLayer(layer)
 		if self.layer == layer {
-			layoutShape()
 			layoutShadowPath()
 		}
 	}
@@ -487,16 +445,6 @@ public class TextView: UITextView {
 			hideTitleLabel()
 		}
 		titleLabel?.textColor = titleLabelColor
-	}
-	
-	/// Manages the layout for the shape of the view instance.
-	internal func layoutShape() {
-		if .Circle == shape {
-			let w: CGFloat = (width / 2)
-			if w != cornerRadius {
-				cornerRadius = w
-			}
-		}
 	}
 	
 	/// Sets the shadow path.
