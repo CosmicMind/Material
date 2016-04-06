@@ -365,9 +365,11 @@ Add a new dimension of interactivity with CaptureView. CaptureView is a fully fu
 * TabBarController
 * Scrolling Techniques
 * Snackbar
+* BottomNavigationController with Snackbar.
 * Bottom Sheets
 * Dialogs
 * Collapsing Toolbar
+* RTL Support
 * Advanced Camera / Audio Toolset & Views
 * More Examples
 

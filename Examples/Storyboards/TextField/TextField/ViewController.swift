@@ -57,20 +57,12 @@ class ViewController: UIViewController, TextFieldDelegate {
 	/// Prepares the name TextField.
 	private func prepareNameField() {
 		nameField.placeholder = "First Name"
-		nameField.placeholderTextColor = MaterialColor.grey.base
-		nameField.font = RobotoFont.regularWithSize(20)
-		nameField.textColor = MaterialColor.black
-		nameField.borderStyle = .None
 	}
 	
 	/// Prepares the email TextField.
 	private func prepareEmailField() {
 		emailField.delegate = self
 		emailField.placeholder = "Email"
-		emailField.placeholderTextColor = MaterialColor.grey.base
-		emailField.font = RobotoFont.regularWithSize(20)
-		emailField.textColor = MaterialColor.black
-		emailField.borderStyle = .None
 		
 		/*
 		Used to display the error message, which is displayed when

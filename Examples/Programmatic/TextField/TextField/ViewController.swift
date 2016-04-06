@@ -53,23 +53,16 @@ class ViewController: UIViewController, TextFieldDelegate {
 	
 	/// Prepares the name TextField.
 	private func prepareNameField() {
-		let textField: TextField = TextField(frame: CGRectMake(57, 100, 300, 24))
+		let textField: TextField = TextField(frame: CGRectMake(57, 100, 300, 32))
 		textField.placeholder = "First Name"
-		textField.placeholderTextColor = MaterialColor.grey.base
-		textField.font = RobotoFont.regularWithSize(20)
-		textField.textColor = MaterialColor.black
-		
 		view.addSubview(textField)
 	}
 	
 	/// Prepares the email TextField.
 	private func prepareEmailField() {
-		let textField: TextField = TextField(frame: CGRectMake(57, 200, 300, 24))
+		let textField: TextField = TextField(frame: CGRectMake(57, 200, 300, 32))
 		textField.delegate = self
 		textField.placeholder = "Email"
-		textField.placeholderTextColor = MaterialColor.grey.base
-		textField.font = RobotoFont.regularWithSize(20)
-		textField.textColor = MaterialColor.black
 		
 		/*
 		Used to display the error message, which is displayed when
@@ -79,7 +72,7 @@ class ViewController: UIViewController, TextFieldDelegate {
 		textField.detailLabel!.text = "Email is incorrect."
 		textField.detailLabel!.font = RobotoFont.mediumWithSize(12)
 		textField.detailLabelActiveColor = MaterialColor.red.accent3
-//		textField.detailLabelAutoHideEnabled = false // Uncomment this line to have manual hiding.
+		textField.detailLabelAutoHideEnabled = false // Uncomment this line to have manual hiding.
 		
 		view.addSubview(textField)
 	}

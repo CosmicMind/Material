@@ -125,7 +125,7 @@ public class SearchBar : StatusBarView {
 		textField.font = RobotoFont.regularWithSize(20)
 		textField.backgroundColor = MaterialColor.clear
 		textField.clearButtonMode = .WhileEditing
-		tintColor = MaterialColor.grey.darken4
+		tintColor = MaterialColor.grey.base
 		textColor = MaterialColor.grey.darken4
 		placeholder = "Search"
 		placeholderTextColor = MaterialColor.grey.base
@@ -139,7 +139,7 @@ public class SearchBar : StatusBarView {
 		clearButton.contentEdgeInsets = UIEdgeInsetsZero
 		clearButton.pulseColor = MaterialColor.grey.base
 		clearButton.pulseScale = false
-		clearButton.tintColor = MaterialColor.grey.darken4
+		clearButton.tintColor = MaterialColor.grey.base
 		clearButton.setImage(image, forState: .Normal)
 		clearButton.setImage(image, forState: .Highlighted)
 		clearButtonAutoHandleEnabled = true

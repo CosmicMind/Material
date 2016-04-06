@@ -34,6 +34,9 @@ public protocol TextFieldDelegate : UITextFieldDelegate {}
 
 @IBDesignable
 public class TextField : UITextField {
+	/// A reference to the placeholder value.
+	private var placeholderText: String?
+	
 	/**
 	This property is the same as clipsToBounds. It crops any of the view's
 	contents from bleeding past the view's frame.
@@ -248,13 +251,29 @@ public class TextField : UITextField {
 	public private(set) var clearButton: FlatButton!
 	
 	/// The bottom border layer.
-	public private(set) lazy var bottomBorderLayer: CAShapeLayer = CAShapeLayer()
+	public private(set) lazy var lineLayer: CAShapeLayer = CAShapeLayer()
 	
 	/**
 	A property that sets the distance between the textField and
-	bottomBorderLayer.
+	lineLayer.
 	*/
-	@IBInspectable public var bottomBorderLayerDistance: CGFloat = 4
+	@IBInspectable public var lineLayerDistance: CGFloat = 4
+	
+	/// The lineLayer color when inactive.
+	@IBInspectable public var lineLayerColor: UIColor? {
+		didSet {
+			lineLayer.backgroundColor = lineLayerColor?.CGColor
+		}
+	}
+	
+	/// The lineLayer active color.
+	@IBInspectable public var lineLayerActiveColor: UIColor?
+	
+	/// The lineLayer detail color when inactive.
+	@IBInspectable public var lineLayerDetailColor: UIColor?
+	
+	/// The lineLayer detail active color.
+	@IBInspectable public var lineLayerDetailActiveColor: UIColor?
 	
 	/**
 	The title UILabel that is displayed when there is text. The
@@ -267,20 +286,26 @@ public class TextField : UITextField {
 	@IBInspectable public var titleLabelColor: UIColor? {
 		didSet {
 			titleLabel.textColor = titleLabelColor
-			MaterialAnimation.animationDisabled { [unowned self] in
-				self.bottomBorderLayer.backgroundColor = self.titleLabelColor?.CGColor
+			if nil == lineLayerColor {
+				lineLayerColor = titleLabelColor
 			}
 		}
 	}
 	
 	/// The color of the titleLabel text when the textField is active.
-	@IBInspectable public var titleLabelActiveColor: UIColor?
+	@IBInspectable public var titleLabelActiveColor: UIColor? {
+		didSet {
+			if nil == lineLayerActiveColor {
+				lineLayerActiveColor = titleLabelActiveColor
+			}
+		}
+	}
 	
 	/**
 	A property that sets the distance between the textField and
 	titleLabel.
 	*/
-	@IBInspectable public var titleLabelAnimationDistance: CGFloat = 8
+	@IBInspectable public var titleLabelAnimationDistance: CGFloat = 4
 	
 	/// An override to the text property.
 	@IBInspectable public override var text: String? {
@@ -307,8 +332,8 @@ public class TextField : UITextField {
 		didSet {
 			if !detailLabelHidden {
 				detailLabel?.textColor = detailLabelActiveColor
-				MaterialAnimation.animationDisabled { [unowned self] in
-					self.bottomBorderLayer.backgroundColor = self.detailLabelActiveColor?.CGColor
+				if nil == lineLayerDetailActiveColor {
+					lineLayerDetailActiveColor = detailLabelActiveColor
 				}
 			}
 		}
@@ -333,15 +358,11 @@ public class TextField : UITextField {
 		didSet {
 			if detailLabelHidden {
 				detailLabel?.textColor = titleLabelColor
-				MaterialAnimation.animationDisabled { [unowned self] in
-					self.bottomBorderLayer.backgroundColor = self.editing ? self.titleLabelActiveColor?.CGColor : self.titleLabelColor?.CGColor
-				}
+				lineLayer.backgroundColor = (editing ? lineLayerActiveColor : lineLayerColor)?.CGColor
 				hideDetailLabel()
 			} else {
 				detailLabel?.textColor = detailLabelActiveColor
-				MaterialAnimation.animationDisabled { [unowned self] in
-					self.bottomBorderLayer.backgroundColor = self.detailLabelActiveColor?.CGColor
-				}
+				lineLayer.backgroundColor = (nil == lineLayerDetailActiveColor ? detailLabelActiveColor : lineLayerDetailActiveColor)?.CGColor
 				showDetailLabel()
 			}
 		}
@@ -394,7 +415,7 @@ public class TextField : UITextField {
 	public override func layoutSublayersOfLayer(layer: CALayer) {
 		super.layoutSublayersOfLayer(layer)
 		if self.layer == layer {
-			bottomBorderLayer.frame = CGRectMake(0, bounds.height + bottomBorderLayerDistance, bounds.width, 1)
+			layoutLineLayer()
 			layoutShadowPath()
 		}
 	}
@@ -463,9 +484,13 @@ public class TextField : UITextField {
 	public func prepareView() {
 		backgroundColor = MaterialColor.white
 		masksToBounds = false
-		prepareBottomBorderLayer()
+		placeholderTextColor = MaterialColor.grey.base
+		font = RobotoFont.regularWithSize(20)
+		textColor = MaterialColor.grey.darken4
+		borderStyle = .None
 		prepareClearButton()
 		prepareTitleLabel()
+		prepareLineLayer()
 		reloadView()
 	}
 	
@@ -485,27 +510,20 @@ public class TextField : UITextField {
 	internal func textFieldValueChanged() {
 		if detailLabelAutoHideEnabled && !detailLabelHidden {
 			detailLabelHidden = true
-			MaterialAnimation.animationDisabled { [unowned self] in
-				self.bottomBorderLayer.backgroundColor = self.titleLabelActiveColor?.CGColor
-			}
+			lineLayer.backgroundColor = (nil == lineLayerActiveColor ? titleLabelActiveColor : lineLayerActiveColor)?.CGColor
 		}
 	}
 	
 	/// Handler for text editing began.
 	internal func textFieldDidBegin() {
+		showTitleLabel()
 		titleLabel.textColor = titleLabelActiveColor
-		MaterialAnimation.animationDisabled { [unowned self] in
-			self.bottomBorderLayer.backgroundColor = self.detailLabelHidden ? self.titleLabelActiveColor?.CGColor : self.detailLabelActiveColor?.CGColor
-		}
+		lineLayer.frame = CGRectMake(0, bounds.height + lineLayerDistance, bounds.width, 2)
+		lineLayer.backgroundColor = (detailLabelHidden ? nil == lineLayerActiveColor ? titleLabelActiveColor : lineLayerActiveColor : nil == lineLayerDetailActiveColor ? detailLabelActiveColor : lineLayerDetailActiveColor)?.CGColor
 	}
 	
 	/// Handler for text changed.
 	internal func textFieldDidChange() {
-		if 0 < text?.utf16.count {
-			showTitleLabel()
-		} else if 0 == text?.utf16.count {
-			hideTitleLabel()
-		}
 		sendActionsForControlEvents(.ValueChanged)
 	}
 	
@@ -517,9 +535,8 @@ public class TextField : UITextField {
 			hideTitleLabel()
 		}
 		titleLabel.textColor = titleLabelColor
-		MaterialAnimation.animationDisabled { [unowned self] in
-			self.bottomBorderLayer.backgroundColor = self.detailLabelHidden ? self.titleLabelColor?.CGColor : self.detailLabelActiveColor?.CGColor
-		}
+		lineLayer.frame = CGRectMake(0, bounds.height + lineLayerDistance, bounds.width, 1)
+		lineLayer.backgroundColor = (detailLabelHidden ? nil == lineLayerColor ? titleLabelColor : lineLayerColor : nil == lineLayerDetailColor ? detailLabelActiveColor : lineLayerDetailColor)?.CGColor
 	}
 	
 	/// Sets the shadow path.
@@ -535,7 +552,7 @@ public class TextField : UITextField {
 		}
 	}
 	
-	/// Prepares the titleLabel property.
+	/// Prepares the titleLabel.
 	private func prepareTitleLabel() {
 		titleLabel = UILabel()
 		titleLabel.hidden = true
@@ -554,7 +571,7 @@ public class TextField : UITextField {
 		addTarget(self, action: #selector(textFieldDidEnd), forControlEvents: .EditingDidEnd)
 	}
 	
-	/// Prepares the detailLabel property.
+	/// Prepares the detailLabel.
 	private func prepareDetailLabel() {
 		if let v: UILabel = detailLabel {
 			v.hidden = true
@@ -573,9 +590,16 @@ public class TextField : UITextField {
 		}
 	}
 	
-	/// Prepares the bottomBorderLayer property.
-	private func prepareBottomBorderLayer() {
-		layer.addSublayer(bottomBorderLayer)
+	/// Prepares the lineLayer.
+	private func prepareLineLayer() {
+		layoutLineLayer()
+		layer.addSublayer(lineLayer)
+	}
+	
+	/// Layout the lineLayer.
+	private func layoutLineLayer() {
+		let h: CGFloat = 1 < lineLayer.frame.height ? lineLayer.frame.height : 1
+		lineLayer.frame = CGRectMake(0, bounds.height + lineLayerDistance, bounds.width, h)
 	}
 	
 	/// Prepares the clearButton.
@@ -598,26 +622,29 @@ public class TextField : UITextField {
 	private func showTitleLabel() {
 		if titleLabel.hidden {
 			if let s: String = placeholder {
-				if 0 == titleLabel.text?.utf16.count || nil == titleLabel.text {
-					titleLabel.text = s
-				}
+				titleLabel.text = s
+				placeholderText = s
+				placeholder = nil
 			}
 			let h: CGFloat = ceil(titleLabel.font.lineHeight)
-			titleLabel.frame = CGRectMake(0, -h, bounds.width, h)
+			titleLabel.frame = bounds
+			titleLabel.font = font
 			titleLabel.hidden = false
-			UIView.animateWithDuration(0.25, animations: { [unowned self] in
+			UIView.animateWithDuration(0.15, animations: { [unowned self] in
 				self.titleLabel.alpha = 1
-				self.titleLabel.frame.origin.y -= self.titleLabelAnimationDistance
+				self.titleLabel.font = self.font?.fontWithSize(12)
+				self.titleLabel.frame = CGRectMake(0, -(self.titleLabelAnimationDistance + h), self.bounds.width, h)
 			})
 		}
 	}
 	
 	/// Hides and animates the titleLabel property.
 	private func hideTitleLabel() {
-		UIView.animateWithDuration(0.25, animations: { [unowned self] in
-			self.titleLabel.alpha = 0
-			self.titleLabel.frame.origin.y += self.titleLabelAnimationDistance
-		}) { _ in
+		UIView.animateWithDuration(0.15, animations: { [unowned self] in
+			self.titleLabel.font = self.font
+			self.titleLabel.frame = self.bounds
+		}) { [unowned self] _ in
+			self.placeholder = self.placeholderText
 			self.titleLabel.hidden = true
 		}
 	}
@@ -627,10 +654,10 @@ public class TextField : UITextField {
 		if let v: UILabel = detailLabel {
 			if v.hidden {
 				let h: CGFloat = ceil(v.font.lineHeight)
-				v.frame = CGRectMake(0, bounds.height + bottomBorderLayerDistance, bounds.width, h)
+				v.frame = CGRectMake(0, bounds.height + lineLayerDistance, bounds.width, h)
 				v.hidden = false
-				UIView.animateWithDuration(0.25, animations: { [unowned self] in
-					v.frame.origin.y = self.frame.height + self.bottomBorderLayerDistance + self.detailLabelAnimationDistance
+				UIView.animateWithDuration(0.15, animations: { [unowned self] in
+					v.frame.origin.y = self.frame.height + self.lineLayerDistance + self.detailLabelAnimationDistance
 					v.alpha = 1
 				})
 			}
@@ -640,7 +667,7 @@ public class TextField : UITextField {
 	/// Hides and animates the detailLabel property.
 	private func hideDetailLabel() {
 		if let v: UILabel = detailLabel {
-			UIView.animateWithDuration(0.25, animations: { [unowned self] in
+			UIView.animateWithDuration(0.15, animations: { [unowned self] in
 				v.alpha = 0
 				v.frame.origin.y -= self.detailLabelAnimationDistance
 			}) { _ in
