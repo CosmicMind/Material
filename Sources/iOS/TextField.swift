@@ -640,7 +640,6 @@ public class TextField : UITextField {
 	
 	/// Hides and animates the titleLabel property.
 	private func hideTitleLabel() {
-		let h: CGFloat = ceil(titleLabel.font.lineHeight)
 		UIView.animateWithDuration(0.1, animations: { [unowned self] in
 			self.titleLabel.frame = self.bounds
 		}) { [unowned self] _ in
