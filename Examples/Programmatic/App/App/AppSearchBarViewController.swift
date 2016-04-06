@@ -74,20 +74,12 @@ class AppSearchBarController: SearchBarController {
 	
 	/// Prepares the searchBar.
 	private func prepareSearchBar() {
-		var image: UIImage? = MaterialIcon.cm.close
-		
-		let clearButton: FlatButton = FlatButton()
-		clearButton.pulseScale = false
-		clearButton.pulseColor = MaterialColor.grey.darken4
-		clearButton.tintColor = MaterialColor.grey.darken4
-		clearButton.setImage(image, forState: .Normal)
-		clearButton.setImage(image, forState: .Highlighted)
+		var image: UIImage? = MaterialIcon.cm.arrowBack
 		
 		// Back button.
-		image = MaterialIcon.cm.arrowBack
 		let backButton: FlatButton = FlatButton()
 		backButton.pulseScale = false
-		backButton.pulseColor = MaterialColor.grey.darken4
+		backButton.pulseColor = MaterialColor.grey.base
 		backButton.tintColor = MaterialColor.grey.darken4
 		backButton.setImage(image, forState: .Normal)
 		backButton.setImage(image, forState: .Highlighted)
@@ -97,19 +89,12 @@ class AppSearchBarController: SearchBarController {
 		image = MaterialIcon.cm.moreHorizontal
 		let moreButton: FlatButton = FlatButton()
 		moreButton.pulseScale = false
-		moreButton.pulseColor = MaterialColor.grey.darken4
+		moreButton.pulseColor = MaterialColor.grey.base
 		moreButton.tintColor = MaterialColor.grey.darken4
 		moreButton.setImage(image, forState: .Normal)
 		moreButton.setImage(image, forState: .Highlighted)
 		
-		searchBar.placeholder = "Search"
-		searchBar.tintColor = MaterialColor.grey.darken4
-		searchBar.textColor = MaterialColor.grey.darken4
-		searchBar.placeholderTextColor = MaterialColor.grey.darken4
-		searchBar.textField.font = RobotoFont.regular
 		searchBar.textField.delegate = self
-		
-		searchBar.clearButton = clearButton
 		searchBar.leftControls = [backButton]
 		searchBar.rightControls = [moreButton]
 	}

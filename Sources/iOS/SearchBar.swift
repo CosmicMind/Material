@@ -32,36 +32,57 @@ import UIKit
 
 public class SearchBar : StatusBarView {
 	/// The UITextField for the searchBar.
-	public private(set) lazy var textField: TextField = TextField()
+	public private(set) var textField: UITextField!
+	
+	/// Reference to the clearButton.
+	public private(set) var clearButton: FlatButton!
+	
+	/// Handle the clearButton manually.
+	@IBInspectable public var clearButtonAutoHandleEnabled: Bool = true {
+		didSet {
+			clearButton.removeTarget(self, action: #selector(handleClearButton), forControlEvents: .TouchUpInside)
+			if clearButtonAutoHandleEnabled {
+				clearButton.addTarget(self, action: #selector(handleClearButton), forControlEvents: .TouchUpInside)
+			}
+		}
+	}
 	
 	/// TintColor for searchBar.
 	@IBInspectable public override var tintColor: UIColor? {
-		didSet {
-			textField.tintColor = tintColor
+		get {
+			return textField.tintColor
+		}
+		set(value) {
+			textField.tintColor = value
 		}
 	}
 	
 	/// TextColor for searchBar.
 	@IBInspectable public var textColor: UIColor? {
-		didSet {
-			textField.textColor = textColor
+		get {
+			return textField.textColor
+		}
+		set(value) {
+			textField.textColor = value
 		}
 	}
 	
 	/// A wrapper for searchBar.placeholder.
 	@IBInspectable public var placeholder: String? {
-		didSet {
-			textField.placeholder = placeholder
+		get {
+			return textField.placeholder
+		}
+		set(value) {
+			textField.placeholder = value
 		}
 	}
 	
 	/// Placeholder textColor.
-	@IBInspectable public var placeholderTextColor: UIColor {
-		get {
-			return textField.placeholderTextColor
-		}
-		set(value) {
-			textField.placeholderTextColor = value
+	@IBInspectable public var placeholderTextColor: UIColor = MaterialColor.grey.base {
+		didSet {
+			if let v: String = textField.placeholder {
+				textField.attributedPlaceholder = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderTextColor])
+			}
 		}
 	}
 	
@@ -75,23 +96,55 @@ public class SearchBar : StatusBarView {
 		if willRenderView {
 			contentView.grid.views?.append(textField)
 			contentView.grid.reloadLayout()
-			textField.font = textField.font?.fontWithSize(20)
-			textField.reloadView()
+			reloadView()
 		}
+	}
+	
+	/// Reloads the view.
+	public func reloadView() {
+		/// Align the clearButton.
+		let h: CGFloat = textField.frame.height
+		clearButton.frame = CGRectMake(textField.frame.width - h, 0, h, h)
 	}
 	
 	/// Prepares the contentView.
 	public override func prepareContentView() {
 		super.prepareContentView()
 		prepareTextField()
+		prepareClearButton()
 	}
 	
+	/// Clears the textField text.
+	internal func handleClearButton() {
+		textField.text = ""
+	}
 	
 	/// Prepares the textField.
 	private func prepareTextField() {
-		textField.placeholder = "Search"
+		textField = UITextField()
+		textField.font = RobotoFont.regularWithSize(20)
 		textField.backgroundColor = MaterialColor.clear
 		textField.clearButtonMode = .WhileEditing
+		tintColor = MaterialColor.grey.darken4
+		textColor = MaterialColor.grey.darken4
+		placeholder = "Search"
+		placeholderTextColor = MaterialColor.grey.base
 		contentView.addSubview(textField)
+	}
+	
+	/// Prepares the clearButton.
+	private func prepareClearButton() {
+		let image: UIImage? = MaterialIcon.cm.close
+		clearButton = FlatButton()
+		clearButton.contentEdgeInsets = UIEdgeInsetsZero
+		clearButton.pulseColor = MaterialColor.grey.base
+		clearButton.pulseScale = false
+		clearButton.tintColor = MaterialColor.grey.darken4
+		clearButton.setImage(image, forState: .Normal)
+		clearButton.setImage(image, forState: .Highlighted)
+		clearButtonAutoHandleEnabled = true
+		textField.clearButtonMode = .Never
+		textField.rightViewMode = .WhileEditing
+		textField.rightView = clearButton
 	}
 }
