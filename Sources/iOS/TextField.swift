@@ -640,12 +640,16 @@ public class TextField : UITextField {
 	
 	/// Hides and animates the titleLabel property.
 	private func hideTitleLabel() {
-		UIView.animateWithDuration(0.15, animations: { [unowned self] in
-			self.titleLabel.font = self.font
+		let h: CGFloat = ceil(titleLabel.font.lineHeight)
+		UIView.animateWithDuration(0.1, animations: { [unowned self] in
 			self.titleLabel.frame = self.bounds
 		}) { [unowned self] _ in
-			self.placeholder = self.placeholderText
-			self.titleLabel.hidden = true
+			UIView.animateWithDuration(0.15, animations: { [unowned self] in
+				self.titleLabel.font = self.font
+			}) { [unowned self] _ in
+				self.placeholder = self.placeholderText
+				self.titleLabel.hidden = true
+			}
 		}
 	}
 	
