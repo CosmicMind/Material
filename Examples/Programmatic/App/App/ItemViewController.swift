@@ -85,9 +85,12 @@ class ItemViewController: UIViewController {
 		super.viewWillLayoutSubviews()
 		scrollView.frame = view.bounds
 		scrollView.removeConstraints(scrollView.constraints)
+		
 		MaterialLayout.width(scrollView, child: imageCardView, width: scrollView.bounds.width)
 		imageCardView.layoutIfNeeded()
+		
 		scrollView.contentSize = CGSizeMake(view.bounds.width, imageCardView.height)
+		
 		imageCardView.reloadView()
 		imageCardView.contentsGravityPreset = .ResizeAspectFill
 		imageCardView.titleLabelInset.top = imageCardView.imageLayer!.frame.height
