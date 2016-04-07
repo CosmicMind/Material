@@ -38,12 +38,8 @@ import Material
 
 private struct Item {
     var name: String
-    var mdIcon:UIImage?
-    var cmIcon:UIImage?
-}
-
-extension MaterialIcon {
-    init(){}
+    var mdIcon: UIImage?
+    var cmIcon: UIImage?
 }
 
 class ViewController: UIViewController {
@@ -68,32 +64,32 @@ class ViewController: UIViewController {
 	
 	/// Prepares the items Array.
     private func prepareItems() {
-        icons.append(Item(name: "add", mdIcon:MaterialIcon.add, cmIcon: MaterialIcon.cm.add))
-        icons.append(Item(name: "addCircle", mdIcon:MaterialIcon.addCircle, cmIcon: MaterialIcon.cm.addCircle))
-        icons.append(Item(name: "addCircleOutline", mdIcon:MaterialIcon.addCircleOutline, cmIcon: MaterialIcon.cm.addCircleOutline))
-        icons.append(Item(name: "arrowBack", mdIcon:MaterialIcon.arrowBack, cmIcon: MaterialIcon.cm.arrowBack))
-        icons.append(Item(name: "arrowDownward", mdIcon:MaterialIcon.arrowDownward, cmIcon: MaterialIcon.cm.arrowDownward))
-        icons.append(Item(name: "audio", mdIcon:MaterialIcon.audio, cmIcon: MaterialIcon.cm.audio))
-        icons.append(Item(name: "clear", mdIcon:MaterialIcon.clear, cmIcon: MaterialIcon.cm.clear))
-        icons.append(Item(name: "close", mdIcon:MaterialIcon.close, cmIcon: MaterialIcon.cm.close))
-        icons.append(Item(name: "edit", mdIcon:MaterialIcon.edit, cmIcon: MaterialIcon.cm.edit))
-        icons.append(Item(name: "history", mdIcon:MaterialIcon.history, cmIcon: MaterialIcon.cm.history))
-        icons.append(Item(name: "image", mdIcon:MaterialIcon.image, cmIcon: MaterialIcon.cm.image))
-        icons.append(Item(name: "menu", mdIcon:MaterialIcon.menu, cmIcon: MaterialIcon.cm.menu))
-        icons.append(Item(name: "moreVertical", mdIcon:MaterialIcon.moreHorizontal, cmIcon: MaterialIcon.cm.moreHorizontal))
-        icons.append(Item(name: "moreHorizontal", mdIcon:MaterialIcon.moreVertical, cmIcon: MaterialIcon.cm.moreVertical))
-        icons.append(Item(name: "movie", mdIcon:MaterialIcon.movie, cmIcon: MaterialIcon.cm.movie))
-        icons.append(Item(name: "pen", mdIcon:MaterialIcon.pen, cmIcon: MaterialIcon.cm.pen))
-        icons.append(Item(name: "place", mdIcon:MaterialIcon.place, cmIcon: MaterialIcon.cm.place))
-        icons.append(Item(name: "photoCamera", mdIcon:MaterialIcon.photoCamera, cmIcon: MaterialIcon.cm.photoCamera))
-        icons.append(Item(name: "photoLibrary", mdIcon:MaterialIcon.photoLibrary, cmIcon: MaterialIcon.cm.photoLibrary))
-        icons.append(Item(name: "search", mdIcon:MaterialIcon.search, cmIcon: MaterialIcon.cm.search))
-        icons.append(Item(name: "settings", mdIcon:MaterialIcon.settings, cmIcon: MaterialIcon.cm.settings))
-        icons.append(Item(name: "share", mdIcon:MaterialIcon.share, cmIcon: MaterialIcon.cm.share))
-        icons.append(Item(name: "star", mdIcon:MaterialIcon.star, cmIcon: MaterialIcon.cm.star))
-        icons.append(Item(name: "starBorder", mdIcon:MaterialIcon.starBorder, cmIcon: MaterialIcon.cm.starBorder))
-        icons.append(Item(name: "starHalf", mdIcon:MaterialIcon.starHalf, cmIcon: MaterialIcon.cm.starHalf))
-        icons.append(Item(name: "videocam", mdIcon:MaterialIcon.videocam, cmIcon: MaterialIcon.cm.videocam))
+        icons.append(Item(name: "add", mdIcon: MaterialIcon.add, cmIcon: MaterialIcon.cm.add))
+        icons.append(Item(name: "addCircle", mdIcon: MaterialIcon.addCircle, cmIcon: MaterialIcon.cm.addCircle))
+        icons.append(Item(name: "addCircleOutline", mdIcon: MaterialIcon.addCircleOutline, cmIcon: MaterialIcon.cm.addCircleOutline))
+        icons.append(Item(name: "arrowBack", mdIcon: MaterialIcon.arrowBack, cmIcon: MaterialIcon.cm.arrowBack))
+        icons.append(Item(name: "arrowDownward", mdIcon: MaterialIcon.arrowDownward, cmIcon: MaterialIcon.cm.arrowDownward))
+        icons.append(Item(name: "audio", mdIcon: MaterialIcon.audio, cmIcon: MaterialIcon.cm.audio))
+        icons.append(Item(name: "clear", mdIcon: MaterialIcon.clear, cmIcon: MaterialIcon.cm.clear))
+        icons.append(Item(name: "close", mdIcon: MaterialIcon.close, cmIcon: MaterialIcon.cm.close))
+        icons.append(Item(name: "edit", mdIcon: MaterialIcon.edit, cmIcon: MaterialIcon.cm.edit))
+        icons.append(Item(name: "history", mdIcon: MaterialIcon.history, cmIcon: MaterialIcon.cm.history))
+        icons.append(Item(name: "image", mdIcon: MaterialIcon.image, cmIcon: MaterialIcon.cm.image))
+        icons.append(Item(name: "menu", mdIcon: MaterialIcon.menu, cmIcon: MaterialIcon.cm.menu))
+        icons.append(Item(name: "moreVertical", mdIcon: MaterialIcon.moreHorizontal, cmIcon: MaterialIcon.cm.moreHorizontal))
+        icons.append(Item(name: "moreHorizontal", mdIcon: MaterialIcon.moreVertical, cmIcon: MaterialIcon.cm.moreVertical))
+        icons.append(Item(name: "movie", mdIcon: MaterialIcon.movie, cmIcon: MaterialIcon.cm.movie))
+        icons.append(Item(name: "pen", mdIcon: MaterialIcon.pen, cmIcon: MaterialIcon.cm.pen))
+        icons.append(Item(name: "place", mdIcon: MaterialIcon.place, cmIcon: MaterialIcon.cm.place))
+        icons.append(Item(name: "photoCamera", mdIcon: MaterialIcon.photoCamera, cmIcon: MaterialIcon.cm.photoCamera))
+        icons.append(Item(name: "photoLibrary", mdIcon: MaterialIcon.photoLibrary, cmIcon: MaterialIcon.cm.photoLibrary))
+        icons.append(Item(name: "search", mdIcon: MaterialIcon.search, cmIcon: MaterialIcon.cm.search))
+        icons.append(Item(name: "settings", mdIcon: MaterialIcon.settings, cmIcon: MaterialIcon.cm.settings))
+        icons.append(Item(name: "share", mdIcon: MaterialIcon.share, cmIcon: MaterialIcon.cm.share))
+        icons.append(Item(name: "star", mdIcon: MaterialIcon.star, cmIcon: MaterialIcon.cm.star))
+        icons.append(Item(name: "starBorder", mdIcon: MaterialIcon.starBorder, cmIcon: MaterialIcon.cm.starBorder))
+        icons.append(Item(name: "starHalf", mdIcon: MaterialIcon.starHalf, cmIcon: MaterialIcon.cm.starHalf))
+        icons.append(Item(name: "videocam", mdIcon: MaterialIcon.videocam, cmIcon: MaterialIcon.cm.videocam))
 	}
 	
 	/// Prepares the tableView.
@@ -158,12 +154,14 @@ extension ViewController: UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let v = UIView()
+		let v: UIView = UIView()
         v.backgroundColor = MaterialColor.grey.lighten4
-        let leftLabel = UILabel()
+		
+		let leftLabel: UILabel = UILabel()
         leftLabel.grid.columns = 6
         leftLabel.text = "Google Icons"
-        let rightLabel = UILabel()
+		
+		let rightLabel: UILabel = UILabel()
         rightLabel.grid.columns = 6
         rightLabel.text = "CosmicMind Icons"
         rightLabel.textAlignment = .Right

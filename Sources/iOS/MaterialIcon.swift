@@ -31,7 +31,13 @@
 import UIKit
 
 public struct MaterialIcon {
+	/// An internal reference to the icons bundle.
 	private static var internalBundle: NSBundle?
+	
+	/**
+	A public reference to the icons bundle, that aims to detect
+	the correct bundle to use.
+	*/
 	public static var bundle: NSBundle {
 		if nil == MaterialIcon.internalBundle {
 			MaterialIcon.internalBundle = NSBundle(forClass: MaterialView.self)
@@ -42,13 +48,13 @@ public struct MaterialIcon {
 		}
 		return MaterialIcon.internalBundle!
 	}
-    
-    private static func icon(name:String!) -> UIImage {
-        return (UIImage(named: name, inBundle: bundle, compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate))!
+	
+	/// Get the icon by the file name.
+    public static func icon(name: String) -> UIImage? {
+        return UIImage(named: name, inBundle: bundle, compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate)
     }
     
-    
-    /// Default Google icons.
+    /// Google icons.
     public static let add: UIImage? = MaterialIcon.icon("ic_add_white")
     public static let arrowBack: UIImage? = MaterialIcon.icon("ic_arrow_back_white")
     public static let arrowDownward: UIImage? = MaterialIcon.icon("ic_arrow_downward_white")
@@ -78,7 +84,7 @@ public struct MaterialIcon {
     public static let videocam: UIImage? = MaterialIcon.icon("ic_videocam_white")
     public static let video: UIImage? = MaterialIcon.icon("cm_video_white")
     
-	/// Custom CosmicMind icons.
+	/// CosmicMind icons.
     public struct cm {
         public static let add: UIImage? = MaterialIcon.icon("cm_add_white")
         public static let addCircle: UIImage? = MaterialIcon.icon("ic_add_circle_white")
