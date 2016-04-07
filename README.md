@@ -58,7 +58,7 @@ Material is a growing project and will encounter changes throughout its developm
 #### Colors
 
 * [MaterialColor](#materialcolor)
-* MaterialIcon
+* [MaterialIcon](#materialicon)
 
 #### Base Layers & Views
 
@@ -128,7 +128,12 @@ MaterialColor is a complete Material Design color library. It uses base color va
 
 ![MaterialMaterialColorPalette](http://www.cosmicmind.io/MK/MaterialMaterialColorPalette.png)
 
-[Learn More About MaterialColor](https://github.com/CosmicMind/Material/wiki/MaterialColor)
+<a name="materialicon"></a>
+#### MaterialIcon
+
+MaterialIcon is a library of Google and CosmicMind icons that are available for use within your iOS applications.
+
+![MaterialMaterialIcon](http://www.cosmicmind.io/MK/MaterialMaterialIcon.png)
 
 <a name="materiallayer"></a>
 #### MaterialLayer
