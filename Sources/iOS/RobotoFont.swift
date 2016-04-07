@@ -48,7 +48,8 @@ public struct RobotoFont : MaterialFontType {
 	/**
 	:name:	thinWithSize
 	*/
-	public static func thinWithSize(size: CGFloat) -> UIFont {
+    public static func thinWithSize(size: CGFloat) -> UIFont {
+        MaterialFont.loadFontIfNeeded("Roboto-Thin")
 		if let f = UIFont(name: "Roboto-Thin", size: size) {
 			return f
 		}
@@ -65,7 +66,8 @@ public struct RobotoFont : MaterialFontType {
 	/**
 	:name:	lightWithSize
 	*/
-	public static func lightWithSize(size: CGFloat) -> UIFont {
+    public static func lightWithSize(size: CGFloat) -> UIFont {
+        MaterialFont.loadFontIfNeeded("Roboto-Light")
 		if let f = UIFont(name: "Roboto-Light", size: size) {
 			return f
 		}
@@ -82,7 +84,8 @@ public struct RobotoFont : MaterialFontType {
 	/**
 	:name:	regularWithSize
 	*/
-	public static func regularWithSize(size: CGFloat) -> UIFont {
+    public static func regularWithSize(size: CGFloat) -> UIFont {
+        MaterialFont.loadFontIfNeeded("Roboto-Regular")
 		if let f = UIFont(name: "Roboto-Regular", size: size) {
 			return f
 		}
@@ -92,7 +95,8 @@ public struct RobotoFont : MaterialFontType {
 	/**
 	:name:	mediumWithSize
 	*/
-	public static func mediumWithSize(size: CGFloat) -> UIFont {
+    public static func mediumWithSize(size: CGFloat) -> UIFont {
+        MaterialFont.loadFontIfNeeded("Roboto-Medium")
 		if let f = UIFont(name: "Roboto-Medium", size: size) {
 			return f
 		}
@@ -117,6 +121,7 @@ public struct RobotoFont : MaterialFontType {
 	:name:	boldWithSize
 	*/
 	public static func boldWithSize(size: CGFloat) -> UIFont {
+        MaterialFont.loadFontIfNeeded("Roboto-Bold")
 		if let f = UIFont(name: "Roboto-Bold", size: size) {
 			return f
 		}
