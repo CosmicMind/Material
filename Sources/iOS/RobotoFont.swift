@@ -31,24 +31,18 @@
 import UIKit
 
 public struct RobotoFont : MaterialFontType {
-	/**
-	:name:	pointSize
-	*/
+	/// Size of font.
 	public static var pointSize: CGFloat {
 		return MaterialFont.pointSize
 	}
 
-	/**
-	:name:	thin
-	*/
+	/// Thin font.
 	public static var thin: UIFont {
 		return thinWithSize(MaterialFont.pointSize)
 	}
 	
-	/**
-	:name:	thinWithSize
-	*/
-    public static func thinWithSize(size: CGFloat) -> UIFont {
+	/// Thin with size font.
+	public static func thinWithSize(size: CGFloat) -> UIFont {
         MaterialFont.loadFontIfNeeded("Roboto-Thin")
 		if let f = UIFont(name: "Roboto-Thin", size: size) {
 			return f
@@ -56,17 +50,13 @@ public struct RobotoFont : MaterialFontType {
 		return MaterialFont.systemFontWithSize(size)
 	}
 	
-	/**
-	:name:	light
-	*/
+	/// Light font.
 	public static var light: UIFont {
 		return lightWithSize(MaterialFont.pointSize)
 	}
 	
-	/**
-	:name:	lightWithSize
-	*/
-    public static func lightWithSize(size: CGFloat) -> UIFont {
+	/// Light with size font.
+	public static func lightWithSize(size: CGFloat) -> UIFont {
         MaterialFont.loadFontIfNeeded("Roboto-Light")
 		if let f = UIFont(name: "Roboto-Light", size: size) {
 			return f
@@ -74,17 +64,13 @@ public struct RobotoFont : MaterialFontType {
 		return MaterialFont.systemFontWithSize(size)
 	}
 	
-	/**
-	:name:	regular
-	*/
+	/// Regular font.
 	public static var regular: UIFont {
 		return regularWithSize(MaterialFont.pointSize)
 	}
 	
-	/**
-	:name:	regularWithSize
-	*/
-    public static func regularWithSize(size: CGFloat) -> UIFont {
+	/// Regular with size font.
+	public static func regularWithSize(size: CGFloat) -> UIFont {
         MaterialFont.loadFontIfNeeded("Roboto-Regular")
 		if let f = UIFont(name: "Roboto-Regular", size: size) {
 			return f
@@ -92,34 +78,26 @@ public struct RobotoFont : MaterialFontType {
 		return MaterialFont.systemFontWithSize(size)
 	}
 	
-	/**
-	:name:	mediumWithSize
-	*/
-    public static func mediumWithSize(size: CGFloat) -> UIFont {
-        MaterialFont.loadFontIfNeeded("Roboto-Medium")
+	/// Medium font.
+	public static var medium: UIFont {
+		return mediumWithSize(MaterialFont.pointSize)
+	}
+	
+	/// Medium with size font.
+	public static func mediumWithSize(size: CGFloat) -> UIFont {
+		MaterialFont.loadFontIfNeeded("Roboto-Medium")
 		if let f = UIFont(name: "Roboto-Medium", size: size) {
 			return f
 		}
 		return MaterialFont.boldSystemFontWithSize(size)
 	}
 	
-	/**
-	:name:	medium
-	*/
-	public static var medium: UIFont {
-		return mediumWithSize(MaterialFont.pointSize)
-	}
-	
-	/**
-	:name:	bold
-	*/
+	/// Bold font.
 	public static var bold: UIFont {
 		return boldWithSize(MaterialFont.pointSize)
 	}
 	
-	/**
-	:name:	boldWithSize
-	*/
+	/// Bold with size font.
 	public static func boldWithSize(size: CGFloat) -> UIFont {
         MaterialFont.loadFontIfNeeded("Roboto-Bold")
 		if let f = UIFont(name: "Roboto-Bold", size: size) {
