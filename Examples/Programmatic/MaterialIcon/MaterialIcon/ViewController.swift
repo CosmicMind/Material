@@ -65,31 +65,42 @@ class ViewController: UIViewController {
 	/// Prepares the items Array.
     private func prepareItems() {
         icons.append(Item(name: "add", mdIcon: MaterialIcon.add, cmIcon: MaterialIcon.cm.add))
-        icons.append(Item(name: "addCircle", mdIcon: MaterialIcon.addCircle, cmIcon: MaterialIcon.cm.addCircle))
-        icons.append(Item(name: "addCircleOutline", mdIcon: MaterialIcon.addCircleOutline, cmIcon: MaterialIcon.cm.addCircleOutline))
+        icons.append(Item(name: "addCircle", mdIcon: MaterialIcon.addCircle, cmIcon: nil))
+        icons.append(Item(name: "addCircleOutline", mdIcon: MaterialIcon.addCircleOutline, cmIcon: nil))
         icons.append(Item(name: "arrowBack", mdIcon: MaterialIcon.arrowBack, cmIcon: MaterialIcon.cm.arrowBack))
         icons.append(Item(name: "arrowDownward", mdIcon: MaterialIcon.arrowDownward, cmIcon: MaterialIcon.cm.arrowDownward))
         icons.append(Item(name: "audio", mdIcon: MaterialIcon.audio, cmIcon: MaterialIcon.cm.audio))
-        icons.append(Item(name: "clear", mdIcon: MaterialIcon.clear, cmIcon: MaterialIcon.cm.clear))
-        icons.append(Item(name: "close", mdIcon: MaterialIcon.close, cmIcon: MaterialIcon.cm.close))
+		icons.append(Item(name: "bell", mdIcon: nil, cmIcon: MaterialIcon.cm.bell))
+		icons.append(Item(name: "check", mdIcon: nil, cmIcon: MaterialIcon.cm.check))
+		icons.append(Item(name: "clear", mdIcon: MaterialIcon.clear, cmIcon: MaterialIcon.cm.clear))
+		icons.append(Item(name: "close", mdIcon: MaterialIcon.close, cmIcon: MaterialIcon.cm.close))
         icons.append(Item(name: "edit", mdIcon: MaterialIcon.edit, cmIcon: MaterialIcon.cm.edit))
-        icons.append(Item(name: "history", mdIcon: MaterialIcon.history, cmIcon: MaterialIcon.cm.history))
+        icons.append(Item(name: "history", mdIcon: MaterialIcon.history, cmIcon: nil))
         icons.append(Item(name: "image", mdIcon: MaterialIcon.image, cmIcon: MaterialIcon.cm.image))
         icons.append(Item(name: "menu", mdIcon: MaterialIcon.menu, cmIcon: MaterialIcon.cm.menu))
-        icons.append(Item(name: "moreVertical", mdIcon: MaterialIcon.moreHorizontal, cmIcon: MaterialIcon.cm.moreHorizontal))
+		icons.append(Item(name: "microphone", mdIcon: nil, cmIcon: MaterialIcon.cm.microphone))
+		icons.append(Item(name: "moreVertical", mdIcon: MaterialIcon.moreHorizontal, cmIcon: MaterialIcon.cm.moreHorizontal))
         icons.append(Item(name: "moreHorizontal", mdIcon: MaterialIcon.moreVertical, cmIcon: MaterialIcon.cm.moreVertical))
         icons.append(Item(name: "movie", mdIcon: MaterialIcon.movie, cmIcon: MaterialIcon.cm.movie))
-        icons.append(Item(name: "pen", mdIcon: MaterialIcon.pen, cmIcon: MaterialIcon.cm.pen))
-        icons.append(Item(name: "place", mdIcon: MaterialIcon.place, cmIcon: MaterialIcon.cm.place))
+		icons.append(Item(name: "pause", mdIcon: nil, cmIcon: MaterialIcon.cm.pause))
+		icons.append(Item(name: "pen", mdIcon: MaterialIcon.pen, cmIcon: MaterialIcon.cm.pen))
+        icons.append(Item(name: "place", mdIcon: MaterialIcon.place, cmIcon: nil))
         icons.append(Item(name: "photoCamera", mdIcon: MaterialIcon.photoCamera, cmIcon: MaterialIcon.cm.photoCamera))
         icons.append(Item(name: "photoLibrary", mdIcon: MaterialIcon.photoLibrary, cmIcon: MaterialIcon.cm.photoLibrary))
-        icons.append(Item(name: "search", mdIcon: MaterialIcon.search, cmIcon: MaterialIcon.cm.search))
+		icons.append(Item(name: "play", mdIcon: nil, cmIcon: MaterialIcon.cm.play))
+		icons.append(Item(name: "search", mdIcon: MaterialIcon.search, cmIcon: MaterialIcon.cm.search))
         icons.append(Item(name: "settings", mdIcon: MaterialIcon.settings, cmIcon: MaterialIcon.cm.settings))
         icons.append(Item(name: "share", mdIcon: MaterialIcon.share, cmIcon: MaterialIcon.cm.share))
-        icons.append(Item(name: "star", mdIcon: MaterialIcon.star, cmIcon: MaterialIcon.cm.star))
-        icons.append(Item(name: "starBorder", mdIcon: MaterialIcon.starBorder, cmIcon: MaterialIcon.cm.starBorder))
-        icons.append(Item(name: "starHalf", mdIcon: MaterialIcon.starHalf, cmIcon: MaterialIcon.cm.starHalf))
+		icons.append(Item(name: "shuffle", mdIcon: nil, cmIcon: MaterialIcon.cm.shuffle))
+		icons.append(Item(name: "skipBackward", mdIcon: nil, cmIcon: MaterialIcon.cm.skipBackward))
+		icons.append(Item(name: "skipForward", mdIcon: nil, cmIcon: MaterialIcon.cm.skipForward))
+		icons.append(Item(name: "star", mdIcon: MaterialIcon.star, cmIcon: MaterialIcon.cm.star))
+        icons.append(Item(name: "starBorder", mdIcon: MaterialIcon.starBorder, cmIcon: nil))
+        icons.append(Item(name: "starHalf", mdIcon: MaterialIcon.starHalf, cmIcon: nil))
         icons.append(Item(name: "videocam", mdIcon: MaterialIcon.videocam, cmIcon: MaterialIcon.cm.videocam))
+		icons.append(Item(name: "volumeHigh", mdIcon: nil, cmIcon: MaterialIcon.cm.volumeHigh))
+		icons.append(Item(name: "volumeMedium", mdIcon: nil, cmIcon: MaterialIcon.cm.volumeMedium))
+		icons.append(Item(name: "volumeOff", mdIcon: nil, cmIcon: MaterialIcon.cm.volumeOff))
 	}
 	
 	/// Prepares the tableView.
@@ -134,7 +145,7 @@ extension ViewController: UITableViewDataSource {
 		cell.imageView!.image = item.mdIcon
         cell.imageView!.contentMode = .Center
         
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
+		let imageView: UIImageView = UIImageView(frame: CGRectMake(0, 0, 24, 24))
             imageView.image = item.cmIcon
             
         cell.accessoryView = imageView
@@ -149,7 +160,8 @@ extension ViewController: UITableViewDelegate {
 		return 44
 	}
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+	/// Sets the tableView header height.
+	func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
     }
     
@@ -158,12 +170,13 @@ extension ViewController: UITableViewDelegate {
         v.backgroundColor = MaterialColor.grey.lighten4
 		
 		let leftLabel: UILabel = UILabel()
-        leftLabel.grid.columns = 6
-        leftLabel.text = "Google Icons"
+        leftLabel.grid.columns = 5
+		leftLabel.grid.offset.columns = 1
+		leftLabel.text = "Google Icons"
 		
 		let rightLabel: UILabel = UILabel()
-        rightLabel.grid.columns = 6
-        rightLabel.text = "CosmicMind Icons"
+        rightLabel.grid.columns = 5
+		rightLabel.text = "CosmicMind Icons"
         rightLabel.textAlignment = .Right
         
         v.addSubview(leftLabel)

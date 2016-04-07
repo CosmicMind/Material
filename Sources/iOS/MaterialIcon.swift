@@ -101,7 +101,7 @@ public struct MaterialIcon {
 		public static let microphone: UIImage? = MaterialIcon.icon("cm_microphone_white")
 		public static let moreHorizontal: UIImage? = MaterialIcon.icon("cm_more_horiz_white")
         public static let moreVertical: UIImage? = MaterialIcon.icon("cm_more_vert_white")
-        public static let movie: UIImage? = MaterialIcon.icon("ic_movie_white")
+        public static let movie: UIImage? = MaterialIcon.icon("cm_movie_white")
 		public static let pause: UIImage? = MaterialIcon.icon("cm_pause_white")
 		public static let pen: UIImage? = MaterialIcon.icon("cm_pen_white")
         public static let photoCamera: UIImage? = MaterialIcon.icon("cm_photo_camera_white")
@@ -115,8 +115,8 @@ public struct MaterialIcon {
 		public static let skipForward: UIImage? = MaterialIcon.icon("cm_skip_forward_white")
 		public static let star: UIImage? = MaterialIcon.icon("cm_star_white")
         public static let videocam: UIImage? = MaterialIcon.icon("cm_videocam_white")
-		public static let volumnHigh: UIImage? = MaterialIcon.icon("cm_volumn_high_white")
-		public static let volumnMedium: UIImage? = MaterialIcon.icon("cm_volumn_medium_white")
-		public static let volumnOff: UIImage? = MaterialIcon.icon("cm_volumn_off_white")
+		public static let volumeHigh: UIImage? = MaterialIcon.icon("cm_volume_high_white")
+		public static let volumeMedium: UIImage? = MaterialIcon.icon("cm_volume_medium_white")
+		public static let volumeOff: UIImage? = MaterialIcon.icon("cm_volume_off_white")
 	}
 }
