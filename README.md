@@ -16,6 +16,7 @@ Express your creativity with Material, an animation and graphics framework for G
 - [x] Material Buttons
 - [x] Material Switch
 - [x] Material Card Views
+- [x] Material Icons
 - [x] Menu Toolset To Create Animated Menus
 - [x] Camera / Video Extension With Extensive Functionality
 - [x] Animation Extension To Create Intricate Animations
@@ -25,8 +26,8 @@ Express your creativity with Material, an animation and graphics framework for G
 
 ## Requirements
 
-* iOS 8.0+
-* Xcode 7.2+
+* iOS 8.0+ / Mac OS X 10.9+
+* Xcode 7.3+
 
 ## Communication
 
@@ -38,7 +39,7 @@ Express your creativity with Material, an animation and graphics framework for G
 
 ## Installation
 
-> **Embedded frameworks require a minimum deployment target of iOS 8.**
+> **Embedded frameworks require a minimum deployment target of iOS 8 or OS X Mavericks (10.9).**
 > - [Download Material](https://github.com/CosmicMind/Material/archive/master.zip)
 
 Visit the [Installation](https://github.com/CosmicMind/Material/wiki/Installation) page to learn how to install Material using [CocoaPods](http://cocoapods.org) and [Carthage](https://github.com/Carthage/Carthage).
@@ -57,6 +58,7 @@ Material is a growing project and will encounter changes throughout its developm
 #### Colors
 
 * [MaterialColor](#materialcolor)
+* [MaterialIcon](#materialicon)
 
 #### Base Layers & Views
 
@@ -109,6 +111,8 @@ Material is a growing project and will encounter changes throughout its developm
 * [ToolbarController](#toolbarcontroller)
 * [SearchBar](#searchbar)
 * [SearchBarController](#searchbarcontroller)
+* BottomTabBar
+* BottomNavigationController
 * [SideNavigationController](#sidenavigationcontroller)
 
 #### Photo / Video Camera
@@ -124,7 +128,12 @@ MaterialColor is a complete Material Design color library. It uses base color va
 
 ![MaterialMaterialColorPalette](http://www.cosmicmind.io/MK/MaterialMaterialColorPalette.png)
 
-[Learn More About MaterialColor](https://github.com/CosmicMind/Material/wiki/MaterialColor)
+<a name="materialicon"></a>
+#### MaterialIcon
+
+MaterialIcon is a library of Google and CosmicMind icons that are available for use within your iOS applications.
+
+![MaterialMaterialIcon](http://www.cosmicmind.io/MK/MaterialMaterialIcon.png)
 
 <a name="materiallayer"></a>
 #### MaterialLayer
@@ -357,10 +366,15 @@ Add a new dimension of interactivity with CaptureView. CaptureView is a fully fu
 
 # Upcoming
 
-* TabView
-* TabViewController
+* TabBar
+* TabBarController
 * Scrolling Techniques
 * Snackbar
+* BottomNavigationController with Snackbar.
+* Bottom Sheets
+* Dialogs
+* Collapsing Toolbar
+* RTL Support
 * Advanced Camera / Audio Toolset & Views
 * More Examples
 

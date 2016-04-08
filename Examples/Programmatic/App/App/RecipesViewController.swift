@@ -47,28 +47,35 @@ class RecipesViewController: UIViewController {
 	/// NavigationBar search button.
 	private var searchButton: FlatButton!
 	
-	/// A tableView used to display Bond entries.
+	/// A tableView used to display items.
 	private var tableView: UITableView!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		prepareView()
 		prepareItems()
 		prepareTitleLabel()
 		prepareMenuButton()
 		prepareSwitchControl()
 		prepareSearchButton()
-		prepareNavigationBar()
+		prepareNavigationItem()
 		prepareTableView()
 	}
 	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
+		// Stops the tableView contentInsets from being automatically adjusted.
+		automaticallyAdjustsScrollViewInsets = false
+		
 		// Set the navigationBar style.
 		navigationController?.navigationBar.statusBarStyle = .LightContent
 		
 		// Enable the SideNavigation.
 		sideNavigationController?.enabled = true
-		
+	}
+	
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
 		// Show the menuView.
 		menuViewController?.menuView.animate(MaterialAnimation.animationGroup([
 			MaterialAnimation.rotate(rotation: 3),
@@ -79,7 +86,6 @@ class RecipesViewController: UIViewController {
 	override func viewWillDisappear(animated: Bool) {
 		super.viewWillDisappear(animated)
 		// Disable the SideNavigation.
-		sideNavigationController?.enabled = false
 		
 		// Hide the menuView.
 		menuViewController?.menuView.animate(MaterialAnimation.animationGroup([
@@ -100,7 +106,7 @@ class RecipesViewController: UIViewController {
 		recommended.append(dataSourceItems[3])
 		recommended.append(dataSourceItems[5])
 		
-		let vc: AppSearchBarController = AppSearchBarController(mainViewController: RecommendationViewController(dataSourceItems: recommended))
+		let vc: AppSearchBarController = AppSearchBarController(rootViewController: RecommendationViewController(dataSourceItems: recommended))
 		vc.modalTransitionStyle = .CrossDissolve
 		navigationController?.presentViewController(vc, animated: true, completion: nil)
 	}
@@ -108,6 +114,54 @@ class RecipesViewController: UIViewController {
 	/// Prepares the items Array.
 	private func prepareItems() {
 		dataSourceItems = [
+			MaterialDataSourceItem(
+				data: [
+					"title": "Crepe Indulgence",
+					"detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+					"date": "February 26, 2016",
+					"image": "AssortmentOfDessert"
+				]
+			),
+			MaterialDataSourceItem(
+				data: [
+					"title": "Avocado Chocolate Cake",
+					"detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+					"date": "February 26, 2016",
+					"image": "AssortmentOfFood"
+				]
+			),
+			MaterialDataSourceItem(
+				data: [
+					"title": "Avocado Ice-Cream",
+					"detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+					"date": "February 26, 2016",
+					"image": "AvocadoIceCream"
+				]
+			),
+			MaterialDataSourceItem(
+				data: [
+					"title": "Raw Vegan Chocolate Cookies",
+					"detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+					"date": "February 26, 2016",
+					"image": "HeartCookies"
+				]
+			),
+			MaterialDataSourceItem(
+				data: [
+					"title": "Raw Vegan Nutty Sweets",
+					"detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+					"date": "February 26, 2016",
+					"image": "VeganHempBalls"
+				]
+			),
+			MaterialDataSourceItem(
+				data: [
+					"title": "Blueberry Tart",
+					"detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+					"date": "February 26, 2016",
+					"image": "VeganPieAbove"
+				]
+			),
 			MaterialDataSourceItem(
 				data: [
 					"title": "Crepe Indulgence",
@@ -174,13 +228,13 @@ class RecipesViewController: UIViewController {
 	
 	/// Prepares the menuButton.
 	private func prepareMenuButton() {
-		let image: UIImage? = MaterialIcon.menu
+		let image: UIImage? = MaterialIcon.cm.menu
 		menuButton = FlatButton()
 		menuButton.pulseScale = false
 		menuButton.pulseColor = MaterialColor.white
 		menuButton.setImage(image, forState: .Normal)
 		menuButton.setImage(image, forState: .Highlighted)
-		menuButton.addTarget(self, action: "handleMenuButton", forControlEvents: .TouchUpInside)
+		menuButton.addTarget(self, action: #selector(handleMenuButton), forControlEvents: .TouchUpInside)
 	}
 	
 	/// Prepares the switchControl.
@@ -190,17 +244,17 @@ class RecipesViewController: UIViewController {
 	
 	/// Prepares the searchButton.
 	private func prepareSearchButton() {
-		let image: UIImage? = MaterialIcon.search
+		let image: UIImage? = MaterialIcon.cm.search
 		searchButton = FlatButton()
 		searchButton.pulseScale = false
 		searchButton.pulseColor = MaterialColor.white
 		searchButton.setImage(image, forState: .Normal)
 		searchButton.setImage(image, forState: .Highlighted)
-		searchButton.addTarget(self, action: "handleSearchButton", forControlEvents: .TouchUpInside)
+		searchButton.addTarget(self, action: #selector(handleSearchButton), forControlEvents: .TouchUpInside)
 	}
 	
-	/// Prepares the NavigationBar.
-	private func prepareNavigationBar() {
+	/// Prepares the navigationItem.
+	private func prepareNavigationItem() {
 		navigationItem.titleLabel = titleLabel
 		navigationItem.leftControls = [menuButton]
 		navigationItem.rightControls = [switchControl, searchButton]

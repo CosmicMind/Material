@@ -43,12 +43,6 @@ class AppSearchBarController: SearchBarController {
 		prepareSearchBar()
 	}
 	
-	override func viewWillDisappear(animated: Bool) {
-		super.viewWillDisappear(animated)
-		searchBar.textField.resignFirstResponder()
-		sideNavigationController?.enabled = true
-	}
-	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 		searchBar.statusBarStyle = .Default
@@ -58,6 +52,12 @@ class AppSearchBarController: SearchBarController {
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 		searchBar.textField.becomeFirstResponder()
+	}
+	
+	override func viewWillDisappear(animated: Bool) {
+		super.viewWillDisappear(animated)
+		searchBar.textField.resignFirstResponder()
+		sideNavigationController?.enabled = true
 	}
 	
 	/// Toggle SideSearchViewController left UIViewController.
@@ -74,44 +74,27 @@ class AppSearchBarController: SearchBarController {
 	
 	/// Prepares the searchBar.
 	private func prepareSearchBar() {
-		var image: UIImage? = MaterialIcon.close
-		
-		let clearButton: FlatButton = FlatButton()
-		clearButton.pulseScale = false
-		clearButton.pulseColor = MaterialColor.grey.darken4
-		clearButton.tintColor = MaterialColor.grey.darken4
-		clearButton.setImage(image, forState: .Normal)
-		clearButton.setImage(image, forState: .Highlighted)
+		var image: UIImage? = MaterialIcon.cm.arrowBack
 		
 		// Back button.
-		image = MaterialIcon.arrowBack
 		let backButton: FlatButton = FlatButton()
 		backButton.pulseScale = false
-		backButton.pulseColor = MaterialColor.grey.darken4
+		backButton.pulseColor = MaterialColor.grey.base
 		backButton.tintColor = MaterialColor.grey.darken4
 		backButton.setImage(image, forState: .Normal)
 		backButton.setImage(image, forState: .Highlighted)
-		backButton.addTarget(self, action: "handleBackButton", forControlEvents: .TouchUpInside)
+		backButton.addTarget(self, action: #selector(handleBackButton), forControlEvents: .TouchUpInside)
 		
 		// More button.
-		image = MaterialIcon.moreHorizontal
+		image = MaterialIcon.cm.moreHorizontal
 		let moreButton: FlatButton = FlatButton()
 		moreButton.pulseScale = false
-		moreButton.pulseColor = MaterialColor.grey.darken4
+		moreButton.pulseColor = MaterialColor.grey.base
 		moreButton.tintColor = MaterialColor.grey.darken4
 		moreButton.setImage(image, forState: .Normal)
 		moreButton.setImage(image, forState: .Highlighted)
 		
-		searchBar.placeholder = "Search"
-		searchBar.tintColor = MaterialColor.grey.darken4
-		searchBar.textColor = MaterialColor.grey.darken4
-		searchBar.placeholderTextColor = MaterialColor.grey.darken4
-		searchBar.textField.font = RobotoFont.regular
 		searchBar.textField.delegate = self
-		searchBar.contentInset.left = 8
-		searchBar.contentInset.right = 8
-		
-		searchBar.clearButton = clearButton
 		searchBar.leftControls = [backButton]
 		searchBar.rightControls = [moreButton]
 	}
@@ -119,10 +102,10 @@ class AppSearchBarController: SearchBarController {
 
 extension AppSearchBarController: TextFieldDelegate {
 	func textFieldDidBeginEditing(textField: UITextField) {
-		print("Begin searching....")
+//		print("Begin searching....")
 	}
 	
 	func textFieldDidEndEditing(textField: UITextField) {
-		print("End searching....")
+//		print("End searching....")
 	}
 }

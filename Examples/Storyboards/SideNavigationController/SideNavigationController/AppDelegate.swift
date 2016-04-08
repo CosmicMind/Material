@@ -40,12 +40,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Get view controllers from storyboard
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let mainViewController = storyboard.instantiateViewControllerWithIdentifier("MainViewController") as! MainViewController
+        let rootViewController = storyboard.instantiateViewControllerWithIdentifier("RootViewController") as! RootViewController
         let sideViewController = storyboard.instantiateViewControllerWithIdentifier("SideViewController") as! SideViewController
         
         // Configure the window with the SideNavigationController as the root view controller
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        window?.rootViewController = SideNavigationController(mainViewController: mainViewController, leftViewController: sideViewController)
+        window?.rootViewController = SideNavigationController(rootViewController: rootViewController, leftViewController: sideViewController)
         window?.makeKeyAndVisible()
         return true
     }

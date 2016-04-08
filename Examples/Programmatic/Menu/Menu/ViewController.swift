@@ -80,12 +80,12 @@ class ViewController: UIViewController {
 		
 		if fabMenu.opened {
 			fabMenu.close()
-			image = MaterialIcon.add
+			image = MaterialIcon.cm.add
 		} else {
 			fabMenu.open() { (v: UIView) in
 				(v as? MaterialButton)?.pulse()
 			}
-			image = MaterialIcon.close
+			image = MaterialIcon.cm.close
 		}
 		
 		// Add a nice rotation animation to the base button.
@@ -131,7 +131,7 @@ class ViewController: UIViewController {
 		btn1.pulseColor = nil
 		btn1.setImage(image, forState: .Normal)
 		btn1.setImage(image, forState: .Highlighted)
-		btn1.addTarget(self, action: "handleFabMenu", forControlEvents: .TouchUpInside)
+		btn1.addTarget(self, action: #selector(handleFabMenu), forControlEvents: .TouchUpInside)
 		view.addSubview(btn1)
 		
 		image = UIImage(named: "ic_create_white")
@@ -165,7 +165,7 @@ class ViewController: UIViewController {
 	/// Prepares the FlatMenu example.
 	private func prepareFlatbMenuExample() {
 		let btn1: FlatButton = FlatButton()
-		btn1.addTarget(self, action: "handleFlatMenu", forControlEvents: .TouchUpInside)
+		btn1.addTarget(self, action: #selector(handleFlatMenu), forControlEvents: .TouchUpInside)
 		btn1.setTitleColor(MaterialColor.white, forState: .Normal)
 		btn1.backgroundColor = MaterialColor.blue.accent3
 		btn1.pulseColor = MaterialColor.white
@@ -212,7 +212,7 @@ class ViewController: UIViewController {
 		btn1.tintColor = MaterialColor.blueGrey.darken4
 		btn1.setImage(image, forState: .Normal)
 		btn1.setImage(image, forState: .Highlighted)
-		btn1.addTarget(self, action: "handleFlashMenu", forControlEvents: .TouchUpInside)
+		btn1.addTarget(self, action: #selector(handleFlashMenu), forControlEvents: .TouchUpInside)
 		view.addSubview(btn1)
 		
 		image = UIImage(named: "ic_flash_off_white")?.imageWithRenderingMode(.AlwaysTemplate)

@@ -57,41 +57,12 @@ class ViewController: UIViewController, TextFieldDelegate {
 	/// Prepares the name TextField.
 	private func prepareNameField() {
 		nameField.placeholder = "First Name"
-		nameField.placeholderTextColor = MaterialColor.grey.base
-		nameField.font = RobotoFont.regularWithSize(20)
-		nameField.textColor = MaterialColor.black
-		nameField.borderStyle = .None
-		
-		nameField.titleLabel = UILabel()
-		nameField.titleLabel!.font = RobotoFont.mediumWithSize(12)
-		nameField.titleLabelColor = MaterialColor.grey.base
-		nameField.titleLabelActiveColor = MaterialColor.blue.accent3
-		
-		let image: UIImage? = MaterialIcon.close
-		
-		let clearButton: FlatButton = FlatButton()
-		clearButton.pulseColor = MaterialColor.grey.base
-		clearButton.pulseScale = false
-		clearButton.tintColor = MaterialColor.grey.base
-		clearButton.setImage(image, forState: .Normal)
-		clearButton.setImage(image, forState: .Highlighted)
-		
-		nameField.clearButton = clearButton
 	}
 	
 	/// Prepares the email TextField.
 	private func prepareEmailField() {
 		emailField.delegate = self
 		emailField.placeholder = "Email"
-		emailField.placeholderTextColor = MaterialColor.grey.base
-		emailField.font = RobotoFont.regularWithSize(20)
-		emailField.textColor = MaterialColor.black
-		emailField.borderStyle = .None
-		
-		emailField.titleLabel = UILabel()
-		emailField.titleLabel!.font = RobotoFont.mediumWithSize(12)
-		emailField.titleLabelColor = MaterialColor.grey.base
-		emailField.titleLabelActiveColor = MaterialColor.blue.accent3
 		
 		/*
 		Used to display the error message, which is displayed when
@@ -99,20 +70,9 @@ class ViewController: UIViewController, TextFieldDelegate {
 		*/
 		emailField.detailLabel = UILabel()
 		emailField.detailLabel!.text = "Email is incorrect."
-		emailField.detailLabel!.font = RobotoFont.mediumWithSize(12)
+		emailField.detailLabel!.font = RobotoFont.regularWithSize(12)
 		emailField.detailLabelActiveColor = MaterialColor.red.accent3
 //		emailField.detailLabelAutoHideEnabled = false // Uncomment this line to have manual hiding.
-		
-		let image: UIImage? = MaterialIcon.close
-		
-		let clearButton: FlatButton = FlatButton()
-		clearButton.pulseColor = MaterialColor.grey.base
-		clearButton.pulseScale = false
-		clearButton.tintColor = MaterialColor.grey.base
-		clearButton.setImage(image, forState: .Normal)
-		clearButton.setImage(image, forState: .Highlighted)
-		
-		emailField.clearButton = clearButton
 	}
 	
 	/// Executed when the 'return' key is pressed when using the emailField.

@@ -47,11 +47,8 @@ class ItemViewController: UIViewController {
 	/// NavigationBar share button.
 	private var shareButton: FlatButton!
 	
-	/// MaterialCollectionView.
-	private var collectionView: MaterialCollectionView!
-	
-	/// Image thumbnail height.
-	private var thumbnailHieght: CGFloat = 300
+	/// MaterialScrollView.
+	private var scrollView: UIScrollView!
 	
 	override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -71,17 +68,37 @@ class ItemViewController: UIViewController {
 		prepareView()
 		prepareTitleLabel()
 		prepareShareButton()
-		prepareNavigationBar()
+		prepareNavigationItem()
+		prepareScrollView()
 		prepareImageCardView()
 	}
 	
-	/// Handler for shareButton.
-	internal func handleShareButton() {
-		print("Share Button Pressed")
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+		sideNavigationController?.enabled = false
+		
+		// Stops the scrollView contentInsets from being automatically adjusted.
+		automaticallyAdjustsScrollViewInsets = false
+	}
+	
+	override func viewWillLayoutSubviews() {
+		super.viewWillLayoutSubviews()
+		scrollView.frame = view.bounds
+		scrollView.removeConstraints(scrollView.constraints)
+		
+		MaterialLayout.width(scrollView, child: imageCardView, width: scrollView.bounds.width)
+		imageCardView.layoutIfNeeded()
+		
+		scrollView.contentSize = CGSizeMake(view.bounds.width, imageCardView.height)
+		
+		imageCardView.reloadView()
+		imageCardView.contentsGravityPreset = .ResizeAspectFill
+		imageCardView.titleLabelInset.top = imageCardView.imageLayer!.frame.height
 	}
 	
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.white
+		automaticallyAdjustsScrollViewInsets = false
 	}
 	
 	/// Prepares the titleLabel.
@@ -102,26 +119,30 @@ class ItemViewController: UIViewController {
 	
 	/// Prepares the shareButton.
 	private func prepareShareButton() {
-		let image: UIImage? = MaterialIcon.share
+		let image: UIImage? = MaterialIcon.cm.share
 		shareButton = FlatButton()
 		shareButton.pulseScale = false
 		shareButton.pulseColor = MaterialColor.white
 		shareButton.setImage(image, forState: .Normal)
 		shareButton.setImage(image, forState: .Highlighted)
-		shareButton.addTarget(self, action: "handleShareButton", forControlEvents: .TouchUpInside)
 	}
 	
-	/// Prepares view.
-	private func prepareNavigationBar() {
+	/// Prepares the navigationItem.
+	private func prepareNavigationItem() {
 		navigationItem.titleLabel = titleLabel
 		navigationItem.detailLabel = detailLabel
 		navigationItem.rightControls = [shareButton]
 	}
 	
+	/// Prepares the scrollView.
+	private func prepareScrollView() {
+		scrollView = UIScrollView(frame: view.bounds)
+		view.addSubview(scrollView)
+	}
+	
 	/// Prepares the imageCardView.
 	private func prepareImageCardView() {
 		if let data: Dictionary<String, AnyObject> =  dataSource.data as? Dictionary<String, AnyObject> {
-			let height: CGFloat = 300
 			
 			imageCardView = ImageCardView()
 			
@@ -131,12 +152,12 @@ class ItemViewController: UIViewController {
 			imageCardView.depth = .None
 			imageCardView.contentInsetPreset = .Square3
 			imageCardView.cornerRadiusPreset = .None
+			imageCardView.maxImageHeight = 300
 			
 			imageCardView.titleLabel = UILabel()
 			imageCardView.titleLabel?.text = data["title"] as? String
 			imageCardView.titleLabel?.textColor = MaterialColor.grey.darken4
 			imageCardView.titleLabel?.font = RobotoFont.regularWithSize(20)
-			imageCardView.titleLabelInset.top = height
 			
 			let detailLabel: UILabel = UILabel()
 			detailLabel.text = data["detail"] as? String
@@ -147,15 +168,11 @@ class ItemViewController: UIViewController {
 			imageCardView.detailView = detailLabel
 			imageCardView.detailViewInset.top = 52
 			
-			if let v: CGFloat = view.bounds.width {
-				let image: UIImage? = UIImage(named: data["image"] as! String)?.resize(toWidth: v)?.crop(toWidth: v, toHeight: height)
-				imageCardView.image = image
-			}
-
-			view.addSubview(imageCardView)
+			let image: UIImage? = UIImage(named: data["image"] as! String)
+			imageCardView.image = image
+			
+			scrollView.addSubview(imageCardView)
 			imageCardView.translatesAutoresizingMaskIntoConstraints = false
-			MaterialLayout.alignFromTop(view, child: imageCardView)
-			MaterialLayout.alignToParentHorizontally(view, child: imageCardView)
 		}
 	}
 }

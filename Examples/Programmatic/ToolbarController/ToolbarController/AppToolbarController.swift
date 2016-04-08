@@ -61,7 +61,7 @@ class AppToolbarController: ToolbarController {
 	
 	/// Toggle SideNavigationController left UIViewController.
 	internal func handleMenuButton() {
-		transitionFromMainViewController(GreenViewController(), options: [.TransitionCrossDissolve])
+		transitionFromRootViewController(GreenViewController(), options: [.TransitionCrossDissolve])
 	}
 	
 	/// Toggle SideNavigationController right UIViewController.
@@ -91,7 +91,7 @@ class AppToolbarController: ToolbarController {
 		//		detailLabel.font = RobotoFont.regular
 		//		toolbar.detailLabel = detailLabel
 		
-		var image: UIImage? = MaterialIcon.menu
+		var image: UIImage? = MaterialIcon.cm.menu
 		
 		// Menu button.
 		let menuButton: FlatButton = FlatButton()
@@ -100,21 +100,21 @@ class AppToolbarController: ToolbarController {
 		menuButton.tintColor = MaterialColor.white
 		menuButton.setImage(image, forState: .Normal)
 		menuButton.setImage(image, forState: .Highlighted)
-		menuButton.addTarget(self, action: "handleMenuButton", forControlEvents: .TouchUpInside)
+		menuButton.addTarget(self, action: #selector(handleMenuButton), forControlEvents: .TouchUpInside)
 		
 		// Switch control.
 		let switchControl: MaterialSwitch = MaterialSwitch(state: .Off, style: .LightContent, size: .Small)
 		switchControl.delegate = self
 		
 		// Search button.
-		image = MaterialIcon.search
+		image = MaterialIcon.cm.search
 		let searchButton: FlatButton = FlatButton()
 		searchButton.pulseColor = nil
 		searchButton.pulseScale = false
 		searchButton.tintColor = MaterialColor.white
 		searchButton.setImage(image, forState: .Normal)
 		searchButton.setImage(image, forState: .Highlighted)
-		searchButton.addTarget(self, action: "handleSearchButton", forControlEvents: .TouchUpInside)
+		searchButton.addTarget(self, action: #selector(handleSearchButton), forControlEvents: .TouchUpInside)
 		
 		toolbar.backgroundColor = MaterialColor.blue.base
 		toolbar.titleLabel = titleLabel
@@ -125,7 +125,7 @@ class AppToolbarController: ToolbarController {
 
 extension AppToolbarController: MaterialSwitchDelegate {
 	func materialSwitchStateChanged(control: MaterialSwitch) {
-		transitionFromMainViewController(YellowViewController(), options: [.TransitionCrossDissolve])
+		transitionFromRootViewController(YellowViewController(), options: [.TransitionCrossDissolve])
 	}
 }
 

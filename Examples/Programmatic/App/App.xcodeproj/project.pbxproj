@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		96162C6C1CA71C8700E3A235 /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96162C6B1CA71C8700E3A235 /* VideoViewController.swift */; };
+		96162C6E1CA7274E00E3A235 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96162C6D1CA7274E00E3A235 /* PhotoViewController.swift */; };
 		9663F9321C7A744600AF0965 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9663F9311C7A744600AF0965 /* AppDelegate.swift */; };
 		9663F9341C7A744600AF0965 /* RecommendationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9663F9331C7A744600AF0965 /* RecommendationViewController.swift */; };
 		9663F9391C7A744600AF0965 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9663F9381C7A744600AF0965 /* Assets.xcassets */; };
@@ -15,7 +17,6 @@
 		9663F94A1C7A74B500AF0965 /* AppSearchBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9663F9491C7A74B500AF0965 /* AppSearchBarViewController.swift */; };
 		9663F94C1C7A74C700AF0965 /* AppMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9663F94B1C7A74C700AF0965 /* AppMenuViewController.swift */; };
 		9663F94E1C7A74EA00AF0965 /* AppLeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9663F94D1C7A74EA00AF0965 /* AppLeftViewController.swift */; };
-		9663F9501C7A74FC00AF0965 /* AppRightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9663F94F1C7A74FC00AF0965 /* AppRightViewController.swift */; };
 		9663F9521C7A751D00AF0965 /* ItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9663F9511C7A751D00AF0965 /* ItemViewController.swift */; };
 		96CC08881C7FEBD60034FF84 /* RecipesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC08871C7FEBD60034FF84 /* RecipesViewController.swift */; };
 /* End PBXBuildFile section */
@@ -34,6 +35,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		96162C6B1CA71C8700E3A235 /* VideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
+		96162C6D1CA7274E00E3A235 /* PhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		9663F92E1C7A744600AF0965 /* App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9663F9311C7A744600AF0965 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9663F9331C7A744600AF0965 /* RecommendationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationViewController.swift; sourceTree = "<group>"; };
@@ -44,7 +47,6 @@
 		9663F9491C7A74B500AF0965 /* AppSearchBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSearchBarViewController.swift; sourceTree = "<group>"; };
 		9663F94B1C7A74C700AF0965 /* AppMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppMenuViewController.swift; sourceTree = "<group>"; };
 		9663F94D1C7A74EA00AF0965 /* AppLeftViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppLeftViewController.swift; sourceTree = "<group>"; };
-		9663F94F1C7A74FC00AF0965 /* AppRightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppRightViewController.swift; sourceTree = "<group>"; };
 		9663F9511C7A751D00AF0965 /* ItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemViewController.swift; sourceTree = "<group>"; };
 		96CC08871C7FEBD60034FF84 /* RecipesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipesViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -84,10 +86,11 @@
 				9663F9491C7A74B500AF0965 /* AppSearchBarViewController.swift */,
 				9663F94B1C7A74C700AF0965 /* AppMenuViewController.swift */,
 				9663F94D1C7A74EA00AF0965 /* AppLeftViewController.swift */,
-				9663F94F1C7A74FC00AF0965 /* AppRightViewController.swift */,
 				96CC08871C7FEBD60034FF84 /* RecipesViewController.swift */,
 				9663F9331C7A744600AF0965 /* RecommendationViewController.swift */,
 				9663F9511C7A751D00AF0965 /* ItemViewController.swift */,
+				96162C6B1CA71C8700E3A235 /* VideoViewController.swift */,
+				96162C6D1CA7274E00E3A235 /* PhotoViewController.swift */,
 				9663F9381C7A744600AF0965 /* Assets.xcassets */,
 				9663F93A1C7A744600AF0965 /* LaunchScreen.storyboard */,
 				9663F93D1C7A744600AF0965 /* Info.plist */,
@@ -168,13 +171,14 @@
 			files = (
 				9663F94A1C7A74B500AF0965 /* AppSearchBarViewController.swift in Sources */,
 				96CC08881C7FEBD60034FF84 /* RecipesViewController.swift in Sources */,
-				9663F9501C7A74FC00AF0965 /* AppRightViewController.swift in Sources */,
 				9663F9481C7A749400AF0965 /* AppNavigationController.swift in Sources */,
 				9663F9341C7A744600AF0965 /* RecommendationViewController.swift in Sources */,
 				9663F94C1C7A74C700AF0965 /* AppMenuViewController.swift in Sources */,
 				9663F9321C7A744600AF0965 /* AppDelegate.swift in Sources */,
 				9663F9521C7A751D00AF0965 /* ItemViewController.swift in Sources */,
+				96162C6C1CA71C8700E3A235 /* VideoViewController.swift in Sources */,
 				9663F94E1C7A74EA00AF0965 /* AppLeftViewController.swift in Sources */,
+				96162C6E1CA7274E00E3A235 /* PhotoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

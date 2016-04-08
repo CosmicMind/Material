@@ -43,28 +43,28 @@ class AppSearchBarController: SearchBarController {
 		prepareSearchBar()
 	}
 	
-	/// Loads the BlueViewController into the searchBarControllers mainViewController.
+	/// Loads the BlueViewController into the searchBarControllers rootViewController.
 	func handleBlueButton() {
-		if mainViewController is BlueViewController {
+		if rootViewController is BlueViewController {
 			return
 		}
-		transitionFromMainViewController(BlueViewController(), options: [.TransitionCrossDissolve])
+		transitionFromRootViewController(BlueViewController(), options: [.TransitionCrossDissolve])
 	}
 	
-	/// Loads the GreenViewController into the searchBarControllers mainViewController.
+	/// Loads the GreenViewController into the searchBarControllers rootViewController.
 	func handleGreenButton() {
-		if mainViewController is GreenViewController {
+		if rootViewController is GreenViewController {
 			return
 		}
-		transitionFromMainViewController(GreenViewController(), options: [.TransitionCrossDissolve])
+		transitionFromRootViewController(GreenViewController(), options: [.TransitionCrossDissolve])
 	}
 	
-	/// Loads the YellowViewController into the searchBarControllers mainViewController.
+	/// Loads the YellowViewController into the searchBarControllers rootViewController.
 	func handleYellowButton() {
-		if (mainViewController as? ToolbarController)?.mainViewController is YellowViewController {
+		if (rootViewController as? ToolbarController)?.rootViewController is YellowViewController {
 			return
 		}
-		transitionFromMainViewController(YellowViewController(), options: [.TransitionCrossDissolve])
+		transitionFromRootViewController(YellowViewController(), options: [.TransitionCrossDissolve])
 		searchBar.textField.resignFirstResponder()
 	}
 	
@@ -76,35 +76,26 @@ class AppSearchBarController: SearchBarController {
 	
 	/// Prepares the searchBar.
 	private func prepareSearchBar() {
-		var image: UIImage? = MaterialIcon.close
-		
-		let clearButton: FlatButton = FlatButton()
-		clearButton.pulseColor = nil
-		clearButton.pulseScale = false
-		clearButton.tintColor = MaterialColor.blueGrey.darken4
-		clearButton.setImage(image, forState: .Normal)
-		clearButton.setImage(image, forState: .Highlighted)
-		clearButton.addTarget(self, action: "handleYellowButton", forControlEvents: .TouchUpInside)
+		var image: UIImage? = MaterialIcon.cm.arrowBack
 		
 		// Back button.
-		image = MaterialIcon.arrowBack
 		let backButton: FlatButton = FlatButton()
 		backButton.pulseColor = nil
 		backButton.pulseScale = false
 		backButton.tintColor = MaterialColor.blueGrey.darken4
 		backButton.setImage(image, forState: .Normal)
 		backButton.setImage(image, forState: .Highlighted)
-		backButton.addTarget(self, action: "handleBlueButton", forControlEvents: .TouchUpInside)
+		backButton.addTarget(self, action: #selector(handleBlueButton), forControlEvents: .TouchUpInside)
 		
 		// More button.
-		image = MaterialIcon.moreHorizontal
+		image = MaterialIcon.cm.moreHorizontal
 		let moreButton: FlatButton = FlatButton()
 		moreButton.pulseColor = nil
 		moreButton.pulseScale = false
 		moreButton.tintColor = MaterialColor.blueGrey.darken4
 		moreButton.setImage(image, forState: .Normal)
 		moreButton.setImage(image, forState: .Highlighted)
-		moreButton.addTarget(self, action: "handleGreenButton", forControlEvents: .TouchUpInside)
+		moreButton.addTarget(self, action: #selector(handleGreenButton), forControlEvents: .TouchUpInside)
 		
 		/*
 		To lighten the status bar - add the
@@ -112,15 +103,7 @@ class AppSearchBarController: SearchBarController {
 		to your info.plist file and set the following property.
 		*/
 		searchBar.statusBarStyle = .Default
-		
-		searchBar.placeholder = "Search"
-		searchBar.tintColor = MaterialColor.blueGrey.darken4
-		searchBar.textColor = MaterialColor.blueGrey.darken4
-		searchBar.placeholderTextColor = MaterialColor.blueGrey.darken4
-		searchBar.textField.font = RobotoFont.regular
 		searchBar.textField.delegate = self
-		
-		searchBar.clearButton = clearButton
 		searchBar.leftControls = [backButton]
 		searchBar.rightControls = [moreButton]
 	}
@@ -128,12 +111,12 @@ class AppSearchBarController: SearchBarController {
 
 extension AppSearchBarController: TextFieldDelegate {
 	func textFieldDidBeginEditing(textField: UITextField) {
-		mainViewController.view.alpha = 0.5
-		mainViewController.view.userInteractionEnabled = false
+		rootViewController.view.alpha = 0.5
+		rootViewController.view.userInteractionEnabled = false
 	}
 	
 	func textFieldDidEndEditing(textField: UITextField) {
-		mainViewController.view.alpha = 1
-		mainViewController.view.userInteractionEnabled = true
+		rootViewController.view.alpha = 1
+		rootViewController.view.userInteractionEnabled = true
 	}
 }

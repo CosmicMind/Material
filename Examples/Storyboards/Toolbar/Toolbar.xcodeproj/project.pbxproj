@@ -53,9 +53,9 @@
 			children = (
 				96F2F20D1C97AFC600A5FE27 /* AppDelegate.swift */,
 				96F2F2141C97AFC600A5FE27 /* ViewController.swift */,
+				96F2F2111C97AFC600A5FE27 /* Main.storyboard */,
 				96F2F20E1C97AFC600A5FE27 /* Assets.xcassets */,
 				96F2F20F1C97AFC600A5FE27 /* LaunchScreen.storyboard */,
-				96F2F2111C97AFC600A5FE27 /* Main.storyboard */,
 				96F2F2131C97AFC600A5FE27 /* Info.plist */,
 			);
 			path = Toolbar;

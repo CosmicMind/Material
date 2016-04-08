@@ -31,7 +31,7 @@
 import UIKit
 import Material
 
-class MainViewController: UIViewController {
+class RootViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -41,7 +41,7 @@ class MainViewController: UIViewController {
 		let fabButton: FabButton = FabButton()
 		fabButton.setImage(img, forState: .Normal)
 		fabButton.setImage(img, forState: .Highlighted)
-		fabButton.addTarget(self, action: "handleFabButton", forControlEvents: .TouchUpInside)
+		fabButton.addTarget(self, action: #selector(handleFabButton), forControlEvents: .TouchUpInside)
 		
 		view.addSubview(fabButton)
 		fabButton.translatesAutoresizingMaskIntoConstraints = false

@@ -49,46 +49,46 @@ class AppMenuViewController: MenuViewController {
 		prepareMenuView()
 	}
 	
-	/// Loads the BlueViewController into the menuViewControllers mainViewController.
+	/// Loads the BlueViewController into the menuViewControllers rootViewController.
 	func handleBlueButton() {
-		if mainViewController is BlueViewController {
+		if rootViewController is BlueViewController {
 			return
 		}
 		
 		closeMenu { [weak self] in
-			self?.transitionFromMainViewController(BlueViewController(), options: [.TransitionCrossDissolve])
+			self?.transitionFromRootViewController(BlueViewController(), options: [.TransitionCrossDissolve])
 		}
 	}
 	
-	/// Loads the GreenViewController into the menuViewControllers mainViewController.
+	/// Loads the GreenViewController into the menuViewControllers rootViewController.
 	func handleGreenButton() {
-		if mainViewController is GreenViewController {
+		if rootViewController is GreenViewController {
 			return
 		}
 		
 		closeMenu { [weak self] in
-			self?.transitionFromMainViewController(GreenViewController(), options: [.TransitionCrossDissolve])
+			self?.transitionFromRootViewController(GreenViewController(), options: [.TransitionCrossDissolve])
 		}
 	}
 	
-	/// Loads the YellowViewController into the menuViewControllers mainViewController.
+	/// Loads the YellowViewController into the menuViewControllers rootViewController.
 	func handleYellowButton() {
-//		if (mainViewController as? ToolbarController)?.mainViewController is YellowViewController {
+//		if (rootViewController as? ToolbarController)?.rootViewController is YellowViewController {
 //			return
 //		}
 		
 		closeMenu { [weak self] in
-			self?.transitionFromMainViewController(YellowViewController(), options: [.TransitionCrossDissolve])
+			self?.transitionFromRootViewController(YellowViewController(), options: [.TransitionCrossDissolve])
 		}
 	}
 	
 	/// Handle the menuView touch event.
 	func handleMenu() {
 		if menuView.menu.opened {
-			menuViewController?.mainViewController.view.alpha = 1
+			menuViewController?.rootViewController.view.alpha = 1
 			closeMenu()
 		} else {
-			menuViewController?.mainViewController.view.alpha = 0.5
+			menuViewController?.rootViewController.view.alpha = 0.5
 			openMenu()
 		}
 	}
@@ -104,7 +104,7 @@ class AppMenuViewController: MenuViewController {
 		let btn1: FabButton = FabButton()
 		btn1.setImage(image, forState: .Normal)
 		btn1.setImage(image, forState: .Highlighted)
-		btn1.addTarget(self, action: "handleMenu", forControlEvents: .TouchUpInside)
+		btn1.addTarget(self, action: #selector(handleMenu), forControlEvents: .TouchUpInside)
 		menuView.addSubview(btn1)
 		
 		image = UIImage(named: "ic_create_white")
@@ -113,7 +113,7 @@ class AppMenuViewController: MenuViewController {
 		btn2.setImage(image, forState: .Normal)
 		btn2.setImage(image, forState: .Highlighted)
 		menuView.addSubview(btn2)
-		btn2.addTarget(self, action: "handleBlueButton", forControlEvents: .TouchUpInside)
+		btn2.addTarget(self, action: #selector(handleBlueButton), forControlEvents: .TouchUpInside)
 		
 		image = UIImage(named: "ic_photo_camera_white")
 		let btn3: FabButton = FabButton()
@@ -121,7 +121,7 @@ class AppMenuViewController: MenuViewController {
 		btn3.setImage(image, forState: .Normal)
 		btn3.setImage(image, forState: .Highlighted)
 		menuView.addSubview(btn3)
-		btn3.addTarget(self, action: "handleGreenButton", forControlEvents: .TouchUpInside)
+		btn3.addTarget(self, action: #selector(handleGreenButton), forControlEvents: .TouchUpInside)
 		
 		image = UIImage(named: "ic_note_add_white")
 		let btn4: FabButton = FabButton()
@@ -129,7 +129,7 @@ class AppMenuViewController: MenuViewController {
 		btn4.setImage(image, forState: .Normal)
 		btn4.setImage(image, forState: .Highlighted)
 		menuView.addSubview(btn4)
-		btn4.addTarget(self, action: "handleYellowButton", forControlEvents: .TouchUpInside)
+		btn4.addTarget(self, action: #selector(handleYellowButton), forControlEvents: .TouchUpInside)
 		
 		// Initialize the menu and setup the configuration options.
 		menuView.menu.baseViewSize = baseViewSize
