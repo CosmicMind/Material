@@ -31,65 +31,62 @@
 import UIKit
 import Accelerate
 
+/// Creates an effect buffer for images that are already effected.
+private func createEffectBuffer(context: CGContext) -> vImage_Buffer {
+	let data = CGBitmapContextGetData(context)
+	let width = vImagePixelCount(CGBitmapContextGetWidth(context))
+	let height = vImagePixelCount(CGBitmapContextGetHeight(context))
+	let rowBytes = CGBitmapContextGetBytesPerRow(context)
+	return vImage_Buffer(data: data, height: height, width: width, rowBytes: rowBytes)
+}
+
 public extension UIImage {
 	/**
-	Applies a blur effect to a UIImage
-	- Parameter blurRadius: The radius of the blur effect
-	- Parameter tintColor: The color used for the blur effect (optional)
-	- Parameter saturationDeltaFactor: The delta factor for the saturation of the blur effect
-	- Returns: a UIImage
+	Applies a blur effect to a UIImage.
+	- Parameter blurRadius: The radius of the blur effect.
+	- Parameter tintColor: The color used for the blur effect (optional).
+	- Parameter saturationDeltaFactor: The delta factor for the saturation of the blur effect.
+	- Returns: a UIImage.
 	*/
-	func applyBlur(blurRadius: CGFloat, tintColor: UIColor?, saturationDeltaFactor: CGFloat) -> UIImage? {
-		let screenScale = UIScreen.mainScreen().scale
-		let imageRect = CGRect(origin: CGPointZero, size: size)
-		var effectImage = self
+	func filterBlur(blurRadius: CGFloat = 0, tintColor: UIColor? = nil, saturationDeltaFactor: CGFloat = 0) -> UIImage? {
+		var effectImage: UIImage = self
 		
-		let hasBlur = blurRadius > CGFloat(FLT_EPSILON)
-		let hasSaturationChange = fabs(saturationDeltaFactor - 1.0) > CGFloat(FLT_EPSILON)
+		let screenScale: CGFloat = MaterialDevice.scale
+		let imageRect: CGRect = CGRect(origin: CGPointZero, size: size)
+		let hasBlur: Bool = blurRadius > CGFloat(FLT_EPSILON)
+		let hasSaturationChange: Bool = fabs(saturationDeltaFactor - 1.0) > CGFloat(FLT_EPSILON)
 		
 		if hasBlur || hasSaturationChange {
-			func createEffectBuffer(context: CGContext) -> vImage_Buffer {
-				let data = CGBitmapContextGetData(context)
-				let width = vImagePixelCount(CGBitmapContextGetWidth(context))
-				let height = vImagePixelCount(CGBitmapContextGetHeight(context))
-				let rowBytes = CGBitmapContextGetBytesPerRow(context)
-				
-				return vImage_Buffer(data: data, height: height, width: width, rowBytes: rowBytes)
-			}
-			
 			UIGraphicsBeginImageContextWithOptions(size, false, screenScale)
-			let effectInContext = UIGraphicsGetCurrentContext()
-			
+			let effectInContext: CGContext = UIGraphicsGetCurrentContext()!
 			CGContextScaleCTM(effectInContext, 1.0, -1.0)
 			CGContextTranslateCTM(effectInContext, 0, -size.height)
 			CGContextDrawImage(effectInContext, imageRect, self.CGImage)
-			
-			var effectInBuffer = createEffectBuffer(effectInContext!)
+			var effectInBuffer: vImage_Buffer = createEffectBuffer(effectInContext)
 			
 			UIGraphicsBeginImageContextWithOptions(size, false, screenScale)
-			let effectOutContext = UIGraphicsGetCurrentContext()
-			
-			var effectOutBuffer = createEffectBuffer(effectOutContext!)
+			let effectOutContext: CGContext = UIGraphicsGetCurrentContext()!
+			var effectOutBuffer: vImage_Buffer = createEffectBuffer(effectOutContext)
 			
 			if hasBlur {
-				let inputRadius = blurRadius * screenScale
-				var radius = UInt32(floor(inputRadius * 3.0 * CGFloat(sqrt(2 * M_PI)) / 4 + 0.5))
-				if radius % 2 != 1 {
+				let inputRadius: CGFloat = blurRadius * screenScale
+				var radius: UInt32 = UInt32(floor(inputRadius * 3.0 * CGFloat(sqrt(2 * M_PI)) / 4 + 0.5))
+				if 1 != radius % 2 {
 					radius += 1 // force radius to be odd so that the three box-blur methodology works.
 				}
 				
-				let imageEdgeExtendFlags = vImage_Flags(kvImageEdgeExtend)
+				let imageEdgeExtendFlags: UInt32 = vImage_Flags(kvImageEdgeExtend)
 				
 				vImageBoxConvolve_ARGB8888(&effectInBuffer, &effectOutBuffer, nil, 0, 0, radius, radius, nil, imageEdgeExtendFlags)
 				vImageBoxConvolve_ARGB8888(&effectOutBuffer, &effectInBuffer, nil, 0, 0, radius, radius, nil, imageEdgeExtendFlags)
 				vImageBoxConvolve_ARGB8888(&effectInBuffer, &effectOutBuffer, nil, 0, 0, radius, radius, nil, imageEdgeExtendFlags)
 			}
 			
-			var effectImageBuffersAreSwapped = false
+			var effectImageBuffersAreSwapped: Bool = false
 			
 			if hasSaturationChange {
 				let s: CGFloat = saturationDeltaFactor
-				let floatingPointSaturationMatrix: [CGFloat] = [
+				let floatingPointSaturationMatrix: Array<CGFloat> = [
 					0.0722 + 0.9278 * s,  0.0722 - 0.0722 * s,  0.0722 - 0.0722 * s,  0,
 					0.7152 - 0.7152 * s,  0.7152 + 0.2848 * s,  0.7152 - 0.7152 * s,  0,
 					0.2126 - 0.2126 * s,  0.2126 - 0.2126 * s,  0.2126 + 0.7873 * s,  0,
@@ -97,8 +94,8 @@ public extension UIImage {
 				]
 				
 				let divisor: CGFloat = 256
-				let matrixSize = floatingPointSaturationMatrix.count
-				var saturationMatrix = [Int16](count: matrixSize, repeatedValue: 0)
+				let matrixSize: Int = floatingPointSaturationMatrix.count
+				var saturationMatrix: Array<Int16> = Array<Int16>(count: matrixSize, repeatedValue: 0)
 				
 				for i: Int in 0 ..< matrixSize {
 					saturationMatrix[i] = Int16(round(floatingPointSaturationMatrix[i] * divisor))
@@ -127,7 +124,7 @@ public extension UIImage {
 		
 		// Set up output context.
 		UIGraphicsBeginImageContextWithOptions(size, false, screenScale)
-		let outputContext = UIGraphicsGetCurrentContext()
+		let outputContext: CGContext = UIGraphicsGetCurrentContext()!
 		CGContextScaleCTM(outputContext, 1.0, -1.0)
 		CGContextTranslateCTM(outputContext, 0, -size.height)
 		
@@ -142,15 +139,15 @@ public extension UIImage {
 		}
 		
 		// Add in color tint.
-		if let color = tintColor {
+		if let v: UIColor = tintColor {
 			CGContextSaveGState(outputContext)
-			CGContextSetFillColorWithColor(outputContext, color.CGColor)
+			CGContextSetFillColorWithColor(outputContext, v.CGColor)
 			CGContextFillRect(outputContext, imageRect)
 			CGContextRestoreGState(outputContext)
 		}
 		
 		// Output image is ready.
-		let outputImage = UIGraphicsGetImageFromCurrentImageContext()
+		let outputImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()
 		UIGraphicsEndImageContext()
 		
 		return outputImage

@@ -32,13 +32,11 @@ import UIKit
 import Material
 
 class ViewController: UIViewController {
-	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
 		blurImage()
 	}
-	
 	
 	/// General preparation statements.
 	private func prepareView() {
@@ -47,12 +45,10 @@ class ViewController: UIViewController {
 	
 	/// Blur image.
 	private func blurImage() {
-		
-		let v: MaterialView = MaterialView(frame: view.bounds)
-		v.image = UIImage(named: "CosmicMindFlat")?.applyBlur(25, tintColor: MaterialColor.blue.base.colorWithAlphaComponent(0.1), saturationDeltaFactor: 100)
-		v.contentsGravityPreset = .ResizeAspectFill
-		view.addSubview(v)
-		
+		let materialView: MaterialView = MaterialView(frame: view.bounds)
+		materialView.image = UIImage(named: "CosmicMindFlat")?.filterBlur(25, tintColor: MaterialColor.blue.base.colorWithAlphaComponent(0.1), saturationDeltaFactor: 100)
+		materialView.contentsGravityPreset = .ResizeAspectFill
+		view.addSubview(materialView)
 	}
 }
 

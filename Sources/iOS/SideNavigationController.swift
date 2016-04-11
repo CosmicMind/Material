@@ -114,6 +114,9 @@ public protocol SideNavigationControllerDelegate {
 @IBDesignable
 @objc(SideNavigationController)
 public class SideNavigationController : UIViewController, UIGestureRecognizerDelegate {
+	/// A Boolean to determine if the statusBar will be hidden.
+	private var willHideStatusBar: Bool = false
+	
 	/**
 	A CGFloat property that is used internally to track
 	the original (x) position of the container view when panning.
@@ -153,6 +156,12 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	*/
 	@IBInspectable public var rightThreshold: CGFloat?
 	private var rightViewThreshold: CGFloat = 0
+	
+	/// Sets the animation type for the statusBar when hiding.
+	public var statusBarUpdateAnimation: UIStatusBarAnimation = .Fade
+	
+	/// Sets the statusBar style.
+	public var statusBarStyle: UIStatusBarStyle = .Default
 	
 	/**
 	A SideNavigationControllerDelegate property used to bind
@@ -317,6 +326,18 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 		if let v: MaterialView = rightView {
 			v.x = size.width - (openedRightView ? rightViewWidth : 0)
 		}
+	}
+	
+	public override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
+		return statusBarUpdateAnimation
+	}
+	
+	public override func prefersStatusBarHidden() -> Bool {
+		return willHideStatusBar
+	}
+	
+	public override func preferredStatusBarStyle() -> UIStatusBarStyle {
+		return statusBarStyle
 	}
 	
 	/**
@@ -850,6 +871,7 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	
 	/// Shows the statusBar.
 	private func showStatusBar() {
+		willHideStatusBar = false
 		UIView.animateWithDuration(NSTimeInterval(UINavigationControllerHideShowBarDuration),
 			animations: { [weak self] in
 				self?.setNeedsStatusBarAppearanceUpdate()
@@ -861,6 +883,7 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	/// Hides the statusBar.
 	private func hideStatusBar() {
 		if enableHideStatusbar {
+			willHideStatusBar = true
 			UIView.animateWithDuration(NSTimeInterval(UINavigationControllerHideShowBarDuration),
 				animations: { [weak self] in
 					self?.setNeedsStatusBarAppearanceUpdate()

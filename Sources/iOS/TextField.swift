@@ -369,7 +369,7 @@ public class TextField : UITextField {
 		}
 	}
 	
-	/// A wrapper for searchBar.placeholder.
+	/// Sets the placeholder value.
 	@IBInspectable public override var placeholder: String? {
 		didSet {
 			if let v: String = placeholder {
@@ -379,7 +379,7 @@ public class TextField : UITextField {
 	}
 	
 	/// Placeholder textColor.
-	@IBInspectable public var placeholderTextColor: UIColor = MaterialColor.black {
+	@IBInspectable public var placeholderTextColor: UIColor = MaterialColor.darkText.others {
 		didSet {
 			if let v: String = placeholder {
 				attributedPlaceholder = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderTextColor])
@@ -485,7 +485,6 @@ public class TextField : UITextField {
 	public func prepareView() {
 		backgroundColor = MaterialColor.white
 		masksToBounds = false
-		placeholderTextColor = MaterialColor.darkText.others
 		font = RobotoFont.regularWithSize(16)
 		textColor = MaterialColor.darkText.primary
 		borderStyle = .None

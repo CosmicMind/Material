@@ -67,20 +67,19 @@ public class SearchBar : StatusBarView {
 		}
 	}
 	
-	/// A wrapper for searchBar.placeholder.
+	/// Sets the textField placeholder value.
 	@IBInspectable public var placeholder: String? {
-		get {
-			return textField.placeholder
-		}
-		set(value) {
-			textField.placeholder = value
+		didSet {
+			if let v: String = placeholder {
+				textField.attributedPlaceholder = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderTextColor])
+			}
 		}
 	}
 	
 	/// Placeholder textColor.
-	@IBInspectable public var placeholderTextColor: UIColor = MaterialColor.grey.base {
+	@IBInspectable public var placeholderTextColor: UIColor = MaterialColor.darkText.others {
 		didSet {
-			if let v: String = textField.placeholder {
+			if let v: String = placeholder {
 				textField.attributedPlaceholder = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderTextColor])
 			}
 		}
@@ -125,10 +124,9 @@ public class SearchBar : StatusBarView {
 		textField.font = RobotoFont.regularWithSize(20)
 		textField.backgroundColor = MaterialColor.clear
 		textField.clearButtonMode = .WhileEditing
-		tintColor = MaterialColor.grey.base
-		textColor = MaterialColor.grey.darken4
+		tintColor = placeholderTextColor
+		textColor = MaterialColor.darkText.primary
 		placeholder = "Search"
-		placeholderTextColor = MaterialColor.grey.base
 		contentView.addSubview(textField)
 	}
 	
@@ -137,9 +135,10 @@ public class SearchBar : StatusBarView {
 		let image: UIImage? = MaterialIcon.cm.close
 		clearButton = FlatButton()
 		clearButton.contentEdgeInsets = UIEdgeInsetsZero
-		clearButton.pulseColor = MaterialColor.grey.base
+		clearButton.pulseColor = MaterialColor.black
+		clearButton.pulseOpacity = 0.12
 		clearButton.pulseScale = false
-		clearButton.tintColor = MaterialColor.grey.base
+		clearButton.tintColor = placeholderTextColor
 		clearButton.setImage(image, forState: .Normal)
 		clearButton.setImage(image, forState: .Highlighted)
 		clearButtonAutoHandleEnabled = true

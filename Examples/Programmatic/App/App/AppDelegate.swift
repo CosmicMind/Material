@@ -50,6 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		bottomNavigationController.tabBar.backgroundColor = MaterialColor.grey.darken4
 		
 		let sideNavigationController: SideNavigationController = SideNavigationController(rootViewController: bottomNavigationController, leftViewController: AppLeftViewController())
+		sideNavigationController.statusBarStyle = .LightContent
 		
 		window = UIWindow(frame: UIScreen.mainScreen().bounds)
 		window!.rootViewController = sideNavigationController
