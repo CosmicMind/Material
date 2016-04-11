@@ -20,6 +20,9 @@
          location = "group:Programmatic/Grid/Grid.xcodeproj">
       </FileRef>
       <FileRef
+         location = "group:Programmatic/ImageBlur/ImageBlur.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:Programmatic/MaterialLayer/MaterialLayer.xcodeproj">
       </FileRef>
       <FileRef

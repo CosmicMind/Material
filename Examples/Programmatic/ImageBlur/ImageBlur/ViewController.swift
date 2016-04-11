@@ -29,21 +29,30 @@
 */
 
 import UIKit
+import Material
 
-public extension UIImage {
-	/**
-	Creates an Image that is a color.
-	- Parameter color: The UIColor to create the image from.
-	- Parameter size: The size of the image to create.
-	- Returns: A UIImage that is the color passed in.
-	*/
-	public class func imageWithColor(color: UIColor, size: CGSize) -> UIImage {
-		let rect = CGRectMake(0, 0, size.width, size.height)
-		UIGraphicsBeginImageContextWithOptions(size, false, 0)
-		color.setFill()
-		UIRectFill(rect)
-		let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()
-		UIGraphicsEndImageContext()
-		return image
+class ViewController: UIViewController {
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		prepareView()
+		blurImage()
+	}
+	
+	
+	/// General preparation statements.
+	private func prepareView() {
+		view.backgroundColor = MaterialColor.white
+	}
+	
+	/// Blur image.
+	private func blurImage() {
+		
+		let v: MaterialView = MaterialView(frame: view.bounds)
+		v.image = UIImage(named: "CosmicMindFlat")?.applyBlur(25, tintColor: MaterialColor.blue.base.colorWithAlphaComponent(0.1), saturationDeltaFactor: 100)
+		v.contentsGravityPreset = .ResizeAspectFill
+		view.addSubview(v)
+		
 	}
 }
+

@@ -119,7 +119,7 @@ Material is a growing project and will encounter changes throughout its developm
 
 * [CaptureView](#captureview)
 
-# Explore
+## Explore
 
 <a name="materialcolor"></a>
 #### MaterialColor
@@ -364,7 +364,7 @@ Add a new dimension of interactivity with CaptureView. CaptureView is a fully fu
 
 [Learn More About CaptureView](https://github.com/CosmicMind/Material/wiki/CaptureView)
 
-# Upcoming
+## Upcoming
 
 * TabBar
 * TabBarController
@@ -378,7 +378,7 @@ Add a new dimension of interactivity with CaptureView. CaptureView is a fully fu
 * Advanced Camera / Audio Toolset & Views
 * More Examples
 
-# License
+## License
 
 Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.io>. All rights reserved.
 

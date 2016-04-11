@@ -298,7 +298,6 @@ public class TextField : UITextField {
 			if nil == lineLayerActiveColor {
 				lineLayerActiveColor = titleLabelActiveColor
 			}
-            
             tintColor = titleLabelActiveColor
 		}
 	}
