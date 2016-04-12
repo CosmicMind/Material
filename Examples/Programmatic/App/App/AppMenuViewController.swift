@@ -108,7 +108,7 @@ class AppMenuViewController: MenuViewController {
 		view.backgroundColor = MaterialColor.black
 	}
 	
-	/// Prepares the add button.
+	/// Prepares the menuView.
 	private func prepareMenuView() {
 		var image: UIImage? = MaterialIcon.cm.add
 		let menuButton: FabButton = FabButton()

@@ -492,6 +492,10 @@ public class TextField : UITextField {
 		prepareTitleLabel()
 		prepareLineLayer()
 		reloadView()
+		addTarget(self, action: #selector(textFieldDidBegin), forControlEvents: .EditingDidBegin)
+		addTarget(self, action: #selector(textFieldDidChange), forControlEvents: .EditingChanged)
+		addTarget(self, action: #selector(textFieldDidEnd), forControlEvents: .EditingDidEnd)
+		addTarget(self, action: #selector(textFieldValueChanged), forControlEvents: .ValueChanged)
 	}
 	
 	/// Reloads the view.
@@ -503,7 +507,11 @@ public class TextField : UITextField {
 	
 	/// Clears the textField text.
 	internal func handleClearButton() {
+		if false == delegate?.textFieldShouldClear?(self) {
+			return
+		}
 		text = ""
+		sendActionsForControlEvents(.ValueChanged)
 	}
 	
 	/// Ahdnler when text value changed.
@@ -567,9 +575,6 @@ public class TextField : UITextField {
 		} else {
 			titleLabel.alpha = 0
 		}
-		addTarget(self, action: #selector(textFieldDidBegin), forControlEvents: .EditingDidBegin)
-		addTarget(self, action: #selector(textFieldDidChange), forControlEvents: .EditingChanged)
-		addTarget(self, action: #selector(textFieldDidEnd), forControlEvents: .EditingDidEnd)
 	}
 	
 	/// Prepares the detailLabel.
@@ -582,12 +587,6 @@ public class TextField : UITextField {
 			} else {
 				showDetailLabel()
 			}
-			if nil == titleLabel {
-				addTarget(self, action: #selector(textFieldDidBegin), forControlEvents: .EditingDidBegin)
-				addTarget(self, action: #selector(textFieldDidChange), forControlEvents: .EditingChanged)
-				addTarget(self, action: #selector(textFieldDidEnd), forControlEvents: .EditingDidEnd)
-			}
-			addTarget(self, action: #selector(textFieldValueChanged), forControlEvents: .ValueChanged)
 		}
 	}
 	

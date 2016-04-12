@@ -84,6 +84,34 @@ class ViewController: UIViewController, TextFieldDelegate {
 	/// Executed when the 'return' key is pressed when using the emailField.
 	func textFieldShouldReturn(textField: UITextField) -> Bool {
 		(textField as! TextField).detailLabelHidden = 0 == textField.text?.utf16.count
-		return false
+		return true
+	}
+	
+	func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+		print("Should Begin")
+		return true
+	}
+	
+	func textFieldDidBeginEditing(textField: UITextField) {
+		print("Did Begin")
+	}
+	
+	func textFieldShouldEndEditing(textField: UITextField) -> Bool {
+		print("Should End")
+		return true
+	}
+	
+	func textFieldDidEndEditing(textField: UITextField) {
+		print("Did End")
+	}
+	
+	func textFieldShouldClear(textField: UITextField) -> Bool {
+		print("Should Clear")
+		return true
+	}
+	
+	func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+		print("Should Change")
+		return true
 	}
 }
