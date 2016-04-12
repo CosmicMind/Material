@@ -80,7 +80,7 @@ public class TextField : UITextField {
 	/// A property that accesses the layer.frame.size.width property.
 	@IBInspectable public var width: CGFloat {
 		get {
-			return layer.frame.size.width
+			return layer.frame.width
 		}
 		set(value) {
 			layer.frame.size.width = value
@@ -90,7 +90,7 @@ public class TextField : UITextField {
 	/// A property that accesses the layer.frame.size.height property.
 	@IBInspectable public var height: CGFloat {
 		get {
-			return layer.frame.size.height
+			return layer.frame.height
 		}
 		set(value) {
 			layer.frame.size.height = value

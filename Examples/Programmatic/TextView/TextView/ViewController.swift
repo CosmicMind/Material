@@ -56,28 +56,13 @@ class ViewController: UIViewController, TextDelegate {
 	
 	/// Prepares the textView.
 	func prepareTextView() {
-		let layoutManager: NSLayoutManager = NSLayoutManager()
-		let textContainer: NSTextContainer = NSTextContainer(size: view.bounds.size)
-		layoutManager.addTextContainer(textContainer)
-		
-		text.delegate = self
-		text.textStorage.addLayoutManager(layoutManager)
-		
-		textView = TextView(textContainer: textContainer)
-		textView.font = RobotoFont.regular
-		
-		textView.placeholderLabel = UILabel()
-		textView.placeholderLabel!.textColor = MaterialColor.grey.base
-		textView.placeholderLabel!.text = "Description"
-		
-		textView.titleLabel = UILabel()
-		textView.titleLabel!.font = RobotoFont.mediumWithSize(12)
-		textView.titleLabelColor = MaterialColor.grey.base
-		textView.titleLabelActiveColor = MaterialColor.blue.accent3
+		textView = TextView()
+//		textView.font = RobotoFont.regular
+		textView.backgroundColor = MaterialColor.grey.base
 		
 		view.addSubview(textView)
 		textView!.translatesAutoresizingMaskIntoConstraints = false
-		MaterialLayout.alignToParent(view, child: textView!, top: 124, left: 24, bottom: 24, right: 24)
+		MaterialLayout.alignToParent(view, child: textView!, top: 124, left: 24, bottom: 200, right: 24)
 	}
 	
 	/**
@@ -97,4 +82,3 @@ class ViewController: UIViewController, TextDelegate {
 		textStorage.addAttribute(NSFontAttributeName, value: UIFont.boldSystemFontOfSize(16), range: result!.range)
 	}
 }
-

@@ -30,41 +30,15 @@
 
 import UIKit
 
+@objc(MaterialTextViewDelegate)
+public protocol MaterialTextViewDelegate : UITextViewDelegate {}
+
 @IBDesignable
-public class MaterialTableViewCell : UITableViewCell {
-	/**
-	A CAShapeLayer used to manage elements that would be affected by
-	the clipToBounds property of the backing layer. For example, this
-	allows the dropshadow effect on the backing layer, while clipping
-	the image to a desired shape within the visualLayer.
-	*/
-	public private(set) lazy var visualLayer: CAShapeLayer = CAShapeLayer()
-	
-	/**
-	A base delegate reference used when subclassing MaterialView.
-	*/
-	public weak var delegate: MaterialDelegate?
-	
-	/// To use a single pulse and have it focused when held.
-	@IBInspectable public var pulseFocus: Bool = false
-	
-	/// A pulse layer for focus handling.
-	public private(set) var pulseLayer: CAShapeLayer?
-	
-	/// Sets whether the scaling animation should be used.
-	@IBInspectable public lazy var pulseScale: Bool = true
-	
-	/// The opcaity value for the pulse animation.
-	@IBInspectable public var pulseOpacity: CGFloat = 0.25
-	
-	/// The color of the pulse effect.
-	@IBInspectable public var pulseColor: UIColor?
-	
+@objc(MaterialTextView)
+public class MaterialTextView: UITextView {
 	/**
 	This property is the same as clipsToBounds. It crops any of the view's
-	contents from bleeding past the view's frame. If an image is set using
-	the image property, then this value does not need to be set, since the
-	visualLayer's maskToBounds is set to true by default.
+	contents from bleeding past the view's frame.
 	*/
 	@IBInspectable public var masksToBounds: Bool {
 		get {
@@ -102,12 +76,7 @@ public class MaterialTableViewCell : UITableViewCell {
 		}
 	}
 	
-	/**
-	A property that accesses the layer.frame.size.width property.
-	When setting this property in conjunction with the shape property having a
-	value that is not .None, the height will be adjusted to maintain the correct
-	shape.
-	*/
+	/// A property that accesses the layer.frame.size.width property.
 	@IBInspectable public var width: CGFloat {
 		get {
 			return layer.frame.width
@@ -117,12 +86,7 @@ public class MaterialTableViewCell : UITableViewCell {
 		}
 	}
 	
-	/**
-	A property that accesses the layer.frame.size.height property.
-	When setting this property in conjunction with the shape property having a
-	value that is not .None, the width will be adjusted to maintain the correct
-	shape.
-	*/
+	/// A property that accesses the layer.frame.size.height property.
 	@IBInspectable public var height: CGFloat {
 		get {
 			return layer.frame.height
@@ -205,11 +169,7 @@ public class MaterialTableViewCell : UITableViewCell {
 		}
 	}
 	
-	/**
-	A property that sets the cornerRadius of the backing layer. If the shape
-	property has a value of .Circle when the cornerRadius is set, it will
-	become .None, as it no longer maintains its circle shape.
-	*/
+	/// A property that sets the cornerRadius of the backing layer.
 	public var cornerRadiusPreset: MaterialRadius = .None {
 		didSet {
 			if let v: MaterialRadius = cornerRadiusPreset {
@@ -277,6 +237,16 @@ public class MaterialTableViewCell : UITableViewCell {
 	}
 	
 	/**
+	Text container UIEdgeInset preset property. This updates the
+	textContainerInset property with a preset value.
+	*/
+	public var textContainerInsetPreset: MaterialEdgeInset = .None {
+		didSet {
+			textContainerInset = MaterialEdgeInsetToValue(textContainerInsetPreset)
+		}
+	}
+	
+	/**
 	An initializer that initializes the object with a NSCoder object.
 	- Parameter aDecoder: A NSCoder instance.
 	*/
@@ -286,20 +256,57 @@ public class MaterialTableViewCell : UITableViewCell {
 	}
 	
 	/**
-	An initializer that initializes the object.
-	- Parameter style: A UITableViewCellStyle enum.
-	- Parameter reuseIdentifier: A String identifier.
+	An initializer that initializes the object with a CGRect object.
+	If AutoLayout is used, it is better to initilize the instance
+	using the init() initializer.
+	- Parameter frame: A CGRect instance.
+	- Parameter textContainer: A NSTextContainer instance.
 	*/
-	public override init(style: UITableViewCellStyle, reuseIdentifier: String!) {
-		super.init(style: style, reuseIdentifier: reuseIdentifier)
+	public override init(frame: CGRect, textContainer: NSTextContainer?) {
+		let lm: NSLayoutManager = NSLayoutManager()
+		let tc: NSTextContainer = nil == textContainer ? NSTextContainer(size: CGSizeZero) : textContainer!
+		let ts: NSTextStorage = NSTextStorage()
+		lm.addTextContainer(tc)
+		ts.addLayoutManager(lm)
+		
+		super.init(frame: frame, textContainer: tc)
 		prepareView()
+	}
+	
+	/**
+	A convenience initializer that is mostly used with AutoLayout.
+	*/
+	public convenience init() {
+		self.init(frame: CGRectNull, textContainer: nil)
+	}
+	
+	/**
+	A convenience initializer that is mostly used with AutoLayout.
+	- Parameter textContainer: A NSTextContainer instance.
+	*/
+	public convenience init(textContainer: NSTextContainer) {
+		self.init(frame: CGRectNull, textContainer: textContainer)
+	}
+	
+	/**
+	A convenience initializer.
+	- Parameter frame: A CGRect defining the frame of the view.
+	*/
+	public convenience init(frame: CGRect) {
+		self.init(frame: frame, textContainer: nil)
+	}
+	
+	/** Denitializer. This should never be called unless you know
+	what you are doing.
+	*/
+	deinit {
+		removeNotificationHandlers()
 	}
 	
 	/// Overriding the layout callback for sublayers.
 	public override func layoutSublayersOfLayer(layer: CALayer) {
 		super.layoutSublayersOfLayer(layer)
 		if self.layer == layer {
-			layoutVisualLayer()
 			layoutShadowPath()
 		}
 	}
@@ -358,104 +365,19 @@ public class MaterialTableViewCell : UITableViewCell {
 		}
 	}
 	
-	/**
-	Triggers the pulse animation.
-	- Parameter point: A Optional point to pulse from, otherwise pulses
-	from the center.
-	*/
-	public func pulse(point: CGPoint? = nil) {
-		let p: CGPoint = nil == point ? CGPointMake(CGFloat(width / 2), CGFloat(height / 2)) : point!
-		let duration: NSTimeInterval = MaterialAnimation.pulseDuration(width)
+	/// Notification handler for when text editing began.
+	internal func handleTextViewTextDidBegin() {
 		
-		if let v: UIColor = pulseColor {
-			MaterialAnimation.pulseAnimation(layer, visualLayer: visualLayer, color: v.colorWithAlphaComponent(pulseOpacity), point: p, width: width, height: height, duration: duration)
-		}
+	}
+	
+	/// Notification handler for when text changed.
+	internal func handleTextViewTextDidChange() {
 		
-		if pulseScale {
-			MaterialAnimation.expandAnimation(layer, scale: 1.05, duration: duration)
-			MaterialAnimation.delay(duration) { [weak self] in
-				if let l: CALayer = self?.layer {
-					if let w: CGFloat = self?.width {
-						MaterialAnimation.shrinkAnimation(l, width: w, duration: duration)
-					}
-				}
-			}
-		}
 	}
 	
-	/**
-	A delegation method that is executed when the view has began a
-	touch event.
-	- Parameter touches: A set of UITouch objects.
-	- Parameter event: A UIEvent object.
-	*/
-	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-		super.touchesBegan(touches, withEvent: event)
-		let duration: NSTimeInterval = MaterialAnimation.pulseDuration(width)
+	/// Notification handler for when text editing ended.
+	internal func handleTextViewTextDidEnd() {
 		
-		if pulseFocus {
-			pulseLayer = CAShapeLayer()
-		}
-		
-		if let v: UIColor = pulseColor {
-			MaterialAnimation.pulseAnimation(layer, visualLayer: visualLayer, color: v.colorWithAlphaComponent(pulseOpacity), point: layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer), width: width, height: height, duration: duration, pulseLayer: pulseLayer)
-		}
-		
-		if pulseScale {
-			MaterialAnimation.expandAnimation(layer, scale: 1.05, duration: duration)
-		}
-	}
-	
-	/**
-	A delegation method that is executed when the view touch event has
-	ended.
-	- Parameter touches: A set of UITouch objects.
-	- Parameter event: A UIEvent object.
-	*/
-	public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-		super.touchesEnded(touches, withEvent: event)
-		MaterialAnimation.shrinkAnimation(layer, width: width, duration: MaterialAnimation.pulseDuration(width), pulseLayer: pulseLayer)
-	}
-	
-	/**
-	A delegation method that is executed when the view touch event has
-	been cancelled.
-	- Parameter touches: A set of UITouch objects.
-	- Parameter event: A UIEvent object.
-	*/
-	public override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
-		super.touchesCancelled(touches, withEvent: event)
-		MaterialAnimation.shrinkAnimation(layer, width: width, duration: MaterialAnimation.pulseDuration(width), pulseLayer: pulseLayer)
-	}
-	
-	/**
-	Prepares the view instance when intialized. When subclassing,
-	it is recommended to override the prepareView method
-	to initialize property values and other setup operations.
-	The super.prepareView method should always be called immediately
-	when subclassing.
-	*/
-	public func prepareView() {
-		prepareVisualLayer()
-		selectionStyle = .None
-		pulseColor = MaterialColor.grey.lighten1
-		pulseScale = false
-		imageView?.userInteractionEnabled = false
-		textLabel?.userInteractionEnabled = false
-		detailTextLabel?.userInteractionEnabled = false
-	}
-	
-	/// Prepares the visualLayer property.
-	internal func prepareVisualLayer() {
-		visualLayer.zPosition = 0
-		visualLayer.masksToBounds = true
-		contentView.layer.addSublayer(visualLayer)
-	}
-	
-	/// Manages the layout for the visualLayer property.
-	internal func layoutVisualLayer() {
-		visualLayer.frame = bounds
-		visualLayer.cornerRadius = cornerRadius
 	}
 	
 	/// Sets the shadow path.
@@ -469,5 +391,36 @@ public class MaterialTableViewCell : UITableViewCell {
 				animate(MaterialAnimation.shadowPath(UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).CGPath, duration: 0))
 			}
 		}
+	}
+	
+	/**
+	Prepares the view instance when intialized. When subclassing,
+	it is recommended to override the prepareView method
+	to initialize property values and other setup operations.
+	The super.prepareView method should always be called immediately
+	when subclassing.
+	*/
+	private func prepareView() {
+		textContainerInsetPreset = .Square3
+		backgroundColor = MaterialColor.white
+		textColor = MaterialColor.darkText.primary
+		removeNotificationHandlers()
+		prepareNotificationHandlers()
+	}
+	
+	/// Prepares the Notification handlers.
+	private func prepareNotificationHandlers() {
+		let dc: NSNotificationCenter = NSNotificationCenter.defaultCenter()
+		dc.addObserver(self, selector: #selector(handleTextViewTextDidBegin), name: UITextViewTextDidBeginEditingNotification, object: nil)
+		dc.addObserver(self, selector: #selector(handleTextViewTextDidChange), name: UITextViewTextDidChangeNotification, object: nil)
+		dc.addObserver(self, selector: #selector(handleTextViewTextDidEnd), name: UITextViewTextDidEndEditingNotification, object: nil)
+	}
+	
+	/// Removes the Notification handlers.
+	private func removeNotificationHandlers() {
+		let dc: NSNotificationCenter = NSNotificationCenter.defaultCenter()
+		dc.removeObserver(self, name: UITextViewTextDidBeginEditingNotification, object: nil)
+		dc.removeObserver(self, name: UITextViewTextDidChangeNotification, object: nil)
+		dc.removeObserver(self, name: UITextViewTextDidEndEditingNotification, object: nil)
 	}
 }
