@@ -339,7 +339,6 @@ public class MaterialButton : UIButton {
 		self.init(frame: CGRectNull)
 	}
 	
-	/// Overriding the layout callback for sublayers.
 	public override func layoutSublayersOfLayer(layer: CALayer) {
 		super.layoutSublayersOfLayer(layer)
 		if self.layer == layer {

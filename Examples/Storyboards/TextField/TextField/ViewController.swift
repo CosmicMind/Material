@@ -61,8 +61,8 @@ class ViewController: UIViewController, TextFieldDelegate {
 	
 	/// Prepares the email TextField.
 	private func prepareEmailField() {
-		emailField.delegate = self
 		emailField.placeholder = "Email"
+		emailField.delegate = self
 		
 		/*
 		Used to display the error message, which is displayed when

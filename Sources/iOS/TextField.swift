@@ -358,9 +358,7 @@ public class TextField : UITextField {
 	*/
 	@IBInspectable public var detailLabelAutoHideEnabled: Bool = true
 	
-	/**
-	:name:	detailLabelHidden
-	*/
+	/// A boolean that indicates to hide or not hide the detailLabel.
 	@IBInspectable public var detailLabelHidden: Bool = true {
 		didSet {
 			if detailLabelHidden {
@@ -418,7 +416,11 @@ public class TextField : UITextField {
 		self.init(frame: CGRectNull)
 	}
 	
-	/// Overriding the layout callback for sublayers.
+	public override func layoutSubviews() {
+		super.layoutSubviews()
+		layoutClearButton()
+	}
+	
 	public override func layoutSublayersOfLayer(layer: CALayer) {
 		super.layoutSublayersOfLayer(layer)
 		if self.layer == layer {
@@ -489,26 +491,18 @@ public class TextField : UITextField {
 	when subclassing.
 	*/
 	public func prepareView() {
-		backgroundColor = MaterialColor.white
 		masksToBounds = false
-		font = RobotoFont.regularWithSize(16)
+		backgroundColor = MaterialColor.white
 		textColor = MaterialColor.darkText.primary
-		borderStyle = .None
+		font = RobotoFont.regularWithSize(16)
 		prepareClearButton()
 		prepareTitleLabel()
 		prepareLineLayer()
-		reloadView()
 		addTarget(self, action: #selector(textFieldDidBegin), forControlEvents: .EditingDidBegin)
 		addTarget(self, action: #selector(textFieldDidChange), forControlEvents: .EditingChanged)
 		addTarget(self, action: #selector(textFieldDidEnd), forControlEvents: .EditingDidEnd)
 		addTarget(self, action: #selector(textFieldValueChanged), forControlEvents: .ValueChanged)
 	}
-	
-	/// Reloads the view.
-	public func reloadView() {
-//		clearButton.frame = CGRectMake(width - height, 0, height, height)
-	}
-	
 	
 	/// Clears the textField text.
 	internal func handleClearButton() {
@@ -516,7 +510,6 @@ public class TextField : UITextField {
 			return
 		}
 		text = ""
-		sendActionsForControlEvents(.ValueChanged)
 	}
 	
 	/// Ahdnler when text value changed.
@@ -622,6 +615,13 @@ public class TextField : UITextField {
 		clearButtonMode = .Never
 		rightViewMode = .WhileEditing
 		rightView = clearButton
+	}
+	
+	/// Layout the clearButton.
+	private func layoutClearButton() {
+		if 0 < width && 0 < height {
+			clearButton.frame = CGRectMake(width - height, 0, height, height)
+		}
 	}
 	
 	/// Shows and animates the titleLabel property.

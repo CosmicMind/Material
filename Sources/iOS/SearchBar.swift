@@ -95,15 +95,8 @@ public class SearchBar : StatusBarView {
 		if willRenderView {
 			contentView.grid.views?.append(textField)
 			contentView.grid.reloadLayout()
-			reloadView()
+			layoutClearButton()
 		}
-	}
-	
-	/// Reloads the view.
-	public func reloadView() {
-		/// Align the clearButton.
-		let h: CGFloat = textField.frame.height
-		clearButton.frame = CGRectMake(textField.frame.width - h, 0, h, h)
 	}
 	
 	/// Prepares the contentView.
@@ -145,5 +138,11 @@ public class SearchBar : StatusBarView {
 		textField.clearButtonMode = .Never
 		textField.rightViewMode = .WhileEditing
 		textField.rightView = clearButton
+	}
+	
+	/// Layout the clearButton.
+	private func layoutClearButton() {
+		let h: CGFloat = textField.frame.height
+		clearButton.frame = CGRectMake(textField.frame.width - h, 0, h, h)
 	}
 }

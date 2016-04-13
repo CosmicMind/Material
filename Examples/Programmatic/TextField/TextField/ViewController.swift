@@ -65,9 +65,9 @@ class ViewController: UIViewController, TextFieldDelegate {
 		let w: CGFloat = 300
 		let x: CGFloat = (MaterialDevice.width - w) / 2
 		let textField: TextField = TextField(frame: CGRectMake(x, 200, w, 24))
-		textField.delegate = self
 		textField.placeholder = "Email"
-		
+		textField.delegate = self
+
 		/*
 		Used to display the error message, which is displayed when
 		the user presses the 'return' key.
@@ -76,10 +76,6 @@ class ViewController: UIViewController, TextFieldDelegate {
 		textField.detailLabel!.text = "Email is incorrect."
 		textField.detailLabel!.font = RobotoFont.regularWithSize(12)
 		textField.detailLabelActiveColor = MaterialColor.red.accent3
-		
-		textField.lineLayerThickness = 3
-		textField.lineLayerActiveThickness = 5
-		
 //		textField.detailLabelAutoHideEnabled = false // Uncomment this line to have manual hiding.
 		
 		view.addSubview(textField)
