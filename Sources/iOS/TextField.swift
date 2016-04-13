@@ -631,22 +631,28 @@ public class TextField : UITextField {
 			titleLabel.frame = bounds
 			titleLabel.font = font
 			titleLabel.hidden = false
-			UIView.animateWithDuration(0.15, animations: { [unowned self] in
-				self.titleLabel.alpha = 1
-				self.titleLabel.transform = CGAffineTransformScale(self.titleLabel.transform, 0.75, 0.75)
-				self.titleLabel.frame = CGRectMake(0, -(self.titleLabelAnimationDistance + h), self.bounds.width, h)
+			UIView.animateWithDuration(0.15, animations: { [weak self] in
+                if nil != self {
+                    self!.titleLabel.alpha = 1
+                    self!.titleLabel.transform = CGAffineTransformScale(self!.titleLabel.transform, 0.75, 0.75)
+                    self!.titleLabel.frame = CGRectMake(0, -(self!.titleLabelAnimationDistance + h), self!.bounds.width, h)
+                }
 			})
 		}
 	}
 	
 	/// Hides and animates the titleLabel property.
 	private func hideTitleLabel() {
-		UIView.animateWithDuration(0.15, animations: { [unowned self] in
-			self.titleLabel.transform = CGAffineTransformIdentity
-			self.titleLabel.frame = self.bounds
-		}) { [unowned self] _ in
-			self.placeholder = self.placeholderText
-			self.titleLabel.hidden = true
+		UIView.animateWithDuration(0.15, animations: { [weak self] in
+            if nil != self {
+                self!.titleLabel.transform = CGAffineTransformIdentity
+                self!.titleLabel.frame = self!.bounds
+            }
+		}) { [weak self] _ in
+            if nil != self {
+                self!.placeholder = self!.placeholderText
+                self!.titleLabel.hidden = true
+            }
 		}
 	}
 	
@@ -657,9 +663,11 @@ public class TextField : UITextField {
 				let h: CGFloat = ceil(v.font.lineHeight)
 				v.frame = CGRectMake(0, bounds.height + lineLayerDistance, bounds.width, h)
 				v.hidden = false
-				UIView.animateWithDuration(0.15, animations: { [unowned self] in
-					v.frame.origin.y = self.frame.height + self.lineLayerDistance + self.detailLabelAnimationDistance
-					v.alpha = 1
+				UIView.animateWithDuration(0.15, animations: { [weak self] in
+                    if nil != self {
+                        v.frame.origin.y = self!.frame.height + self!.lineLayerDistance + self!.detailLabelAnimationDistance
+                        v.alpha = 1
+                    }
 				})
 			}
 		}
@@ -668,9 +676,11 @@ public class TextField : UITextField {
 	/// Hides and animates the detailLabel property.
 	private func hideDetailLabel() {
 		if let v: UILabel = detailLabel {
-			UIView.animateWithDuration(0.15, animations: { [unowned self] in
-				v.alpha = 0
-				v.frame.origin.y -= self.detailLabelAnimationDistance
+			UIView.animateWithDuration(0.15, animations: { [weak self] in
+                if nil != self {
+                    v.alpha = 0
+                    v.frame.origin.y -= self!.detailLabelAnimationDistance
+                }
 			}) { _ in
 				v.hidden = true
 			}
