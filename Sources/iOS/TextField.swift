@@ -259,6 +259,12 @@ public class TextField : UITextField {
 	*/
 	@IBInspectable public var lineLayerDistance: CGFloat = 4
 	
+	/// The height of the line when not active.
+	@IBInspectable public var lineLayerThickness: CGFloat = 1
+	
+	/// The height of the line when active.
+	@IBInspectable public var lineLayerActiveThickness: CGFloat = 2
+	
 	/// The lineLayer color when inactive.
 	@IBInspectable public var lineLayerColor: UIColor? {
 		didSet {
@@ -500,8 +506,7 @@ public class TextField : UITextField {
 	
 	/// Reloads the view.
 	public func reloadView() {
-		/// Align the clearButton.
-		clearButton.frame = CGRectMake(width - height, 2, height - 4, height - 4)
+//		clearButton.frame = CGRectMake(width - height, 0, height, height)
 	}
 	
 	
@@ -526,7 +531,7 @@ public class TextField : UITextField {
 	internal func textFieldDidBegin() {
 		showTitleLabel()
 		titleLabel.textColor = titleLabelActiveColor
-		lineLayer.frame = CGRectMake(0, bounds.height + lineLayerDistance, bounds.width, 2)
+		lineLayer.frame.size.height = lineLayerActiveThickness
 		lineLayer.backgroundColor = (detailLabelHidden ? nil == lineLayerActiveColor ? titleLabelActiveColor : lineLayerActiveColor : nil == lineLayerDetailActiveColor ? detailLabelActiveColor : lineLayerDetailActiveColor)?.CGColor
 	}
 	
@@ -543,7 +548,7 @@ public class TextField : UITextField {
 			hideTitleLabel()
 		}
 		titleLabel.textColor = titleLabelColor
-		lineLayer.frame = CGRectMake(0, bounds.height + lineLayerDistance, bounds.width, 1)
+		lineLayer.frame.size.height = lineLayerThickness
 		lineLayer.backgroundColor = (detailLabelHidden ? nil == lineLayerColor ? titleLabelColor : lineLayerColor : nil == lineLayerDetailColor ? detailLabelActiveColor : lineLayerDetailColor)?.CGColor
 	}
 	
@@ -598,7 +603,7 @@ public class TextField : UITextField {
 	
 	/// Layout the lineLayer.
 	private func layoutLineLayer() {
-		let h: CGFloat = 1 < lineLayer.frame.height ? lineLayer.frame.height : 1
+		let h: CGFloat = lineLayerActiveThickness == lineLayer.frame.height ? lineLayerActiveThickness : lineLayerThickness
 		lineLayer.frame = CGRectMake(0, bounds.height + lineLayerDistance, bounds.width, h)
 	}
 	

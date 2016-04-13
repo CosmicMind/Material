@@ -76,6 +76,10 @@ class ViewController: UIViewController, TextFieldDelegate {
 		textField.detailLabel!.text = "Email is incorrect."
 		textField.detailLabel!.font = RobotoFont.regularWithSize(12)
 		textField.detailLabelActiveColor = MaterialColor.red.accent3
+		
+		textField.lineLayerThickness = 3
+		textField.lineLayerActiveThickness = 5
+		
 //		textField.detailLabelAutoHideEnabled = false // Uncomment this line to have manual hiding.
 		
 		view.addSubview(textField)
