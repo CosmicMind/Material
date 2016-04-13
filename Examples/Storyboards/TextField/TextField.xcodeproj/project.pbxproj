@@ -12,6 +12,9 @@
 		96D528071C8198AD00D3BDD1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96D528051C8198AD00D3BDD1 /* Main.storyboard */; };
 		96D528091C8198AD00D3BDD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96D528081C8198AD00D3BDD1 /* Assets.xcassets */; };
 		96D5280C1C8198AD00D3BDD1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96D5280A1C8198AD00D3BDD1 /* LaunchScreen.storyboard */; };
+		F602C1681CBDEEB8003DFE27 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F602C1671CBDEEB8003DFE27 /* Material.framework */; };
+		F602C1691CBDEEB8003DFE27 /* Material.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F602C1671CBDEEB8003DFE27 /* Material.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F602C16B1CBDEEE4003DFE27 /* ViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = F602C16A1CBDEEE4003DFE27 /* ViewController2.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -21,6 +24,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				F602C1691CBDEEB8003DFE27 /* Material.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -35,6 +39,9 @@
 		96D528081C8198AD00D3BDD1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		96D5280B1C8198AD00D3BDD1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		96D5280D1C8198AD00D3BDD1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F602C1651CBDEE85003DFE27 /* Material.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Material.framework; path = "../../../build/Debug-iphoneos/Material.framework"; sourceTree = "<group>"; };
+		F602C1671CBDEEB8003DFE27 /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = Material.framework; path = "/Users/ramon/Library/Developer/Xcode/DerivedData/Material-himrdtrjxqulxbgtyvxqqgkjdthx/Build/Products/Debug-iphonesimulator/Material.framework"; sourceTree = "<absolute>"; };
+		F602C16A1CBDEEE4003DFE27 /* ViewController2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController2.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F602C1681CBDEEB8003DFE27 /* Material.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,6 +59,8 @@
 		96D527F51C8198AD00D3BDD1 = {
 			isa = PBXGroup;
 			children = (
+				F602C1671CBDEEB8003DFE27 /* Material.framework */,
+				F602C1651CBDEE85003DFE27 /* Material.framework */,
 				96D528001C8198AD00D3BDD1 /* TextField */,
 				96D527FF1C8198AD00D3BDD1 /* Products */,
 			);
@@ -73,6 +83,7 @@
 				96D528081C8198AD00D3BDD1 /* Assets.xcassets */,
 				96D5280A1C8198AD00D3BDD1 /* LaunchScreen.storyboard */,
 				96D5280D1C8198AD00D3BDD1 /* Info.plist */,
+				F602C16A1CBDEEE4003DFE27 /* ViewController2.swift */,
 			);
 			path = TextField;
 			sourceTree = "<group>";
@@ -151,6 +162,7 @@
 			files = (
 				96D528041C8198AD00D3BDD1 /* ViewController.swift in Sources */,
 				96D528021C8198AD00D3BDD1 /* AppDelegate.swift in Sources */,
+				F602C16B1CBDEEE4003DFE27 /* ViewController2.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
