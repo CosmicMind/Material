@@ -25,16 +25,27 @@
                                     <constraint firstAttribute="height" constant="200" id="fB1-Lj-ku6"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ylj-hn-p8r" customClass="CardView" customModule="Material">
+                                <rect key="frame" x="20" y="361" width="560" height="185"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="RUo-o3-zj2"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="ylj-hn-p8r" firstAttribute="leading" secondItem="dkT-RV-hy3" secondAttribute="leading" id="5w9-za-1gm"/>
                             <constraint firstItem="dkT-RV-hy3" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="88" id="6OV-Jx-9WC"/>
                             <constraint firstAttribute="trailingMargin" secondItem="dkT-RV-hy3" secondAttribute="trailing" id="ETS-RI-4Ow"/>
                             <constraint firstItem="dkT-RV-hy3" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="JyX-Ka-Od1"/>
+                            <constraint firstItem="ylj-hn-p8r" firstAttribute="trailing" secondItem="dkT-RV-hy3" secondAttribute="trailing" id="aQK-5e-qe2"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ylj-hn-p8r" secondAttribute="bottom" constant="54" id="piH-oh-PBB"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="cardView" destination="dkT-RV-hy3" id="2UC-zJ-Eh4"/>
+                        <outlet property="bottomCardView" destination="ylj-hn-p8r" id="Nd1-xc-hkc"/>
+                        <outlet property="topCardView" destination="dkT-RV-hy3" id="1mM-nh-GoH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

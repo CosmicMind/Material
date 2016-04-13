@@ -32,12 +32,14 @@ import UIKit
 import Material
 
 class ViewController: UIViewController {
-    @IBOutlet weak var cardView: CardView!
+    @IBOutlet weak var topCardView: CardView!
+	@IBOutlet weak var bottomCardView: CardView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 		prepareView()
-        prepareCardView()
+        prepareTopCardView()
+		prepareBottomCardView()
     }
 	
 	/// Prepares the view.
@@ -45,20 +47,20 @@ class ViewController: UIViewController {
         view.backgroundColor = MaterialColor.white
     }
 	
-	/// Prepares the cardView.
-    func prepareCardView() {
+	/// Prepares the topCardView.
+    func prepareTopCardView() {
         // Title label.
 		let titleLabel: UILabel = UILabel()
 		titleLabel.text = "Welcome Back!"
 		titleLabel.textColor = MaterialColor.blue.darken1
 		titleLabel.font = RobotoFont.mediumWithSize(20)
-		cardView.titleLabel = titleLabel
+		topCardView.titleLabel = titleLabel
 		
 		// Detail label.
 		let detailLabel: UILabel = UILabel()
 		detailLabel.text = "It’s been a while, have you read any new books lately?"
 		detailLabel.numberOfLines = 0
-		cardView.detailView = detailLabel
+		topCardView.detailView = detailLabel
 		
 		// Yes button.
 		let btn1: FlatButton = FlatButton()
@@ -75,7 +77,40 @@ class ViewController: UIViewController {
 		btn2.setTitleColor(MaterialColor.blue.darken1, forState: .Normal)
 		
 		// Add buttons to left side.
-		cardView.leftButtons = [btn1, btn2]
+		topCardView.leftButtons = [btn1, btn2]
+	}
+	
+	/// Prepares the bottomCardView.
+	func prepareBottomCardView() {
+		// Title label.
+		let titleLabel: UILabel = UILabel()
+		titleLabel.text = "Welcome Back!"
+		titleLabel.textColor = MaterialColor.blue.darken1
+		titleLabel.font = RobotoFont.mediumWithSize(20)
+		bottomCardView.titleLabel = titleLabel
+		
+		// Detail label.
+		let detailLabel: UILabel = UILabel()
+		detailLabel.text = "It’s been a while, have you read any new books lately?"
+		detailLabel.numberOfLines = 0
+		bottomCardView.detailView = detailLabel
+		
+		// Yes button.
+		let btn1: FlatButton = FlatButton()
+		btn1.pulseColor = MaterialColor.blue.lighten1
+		btn1.pulseScale = false
+		btn1.setTitle("YES", forState: .Normal)
+		btn1.setTitleColor(MaterialColor.blue.darken1, forState: .Normal)
+		
+		// No button.
+		let btn2: FlatButton = FlatButton()
+		btn2.pulseColor = MaterialColor.blue.lighten1
+		btn2.pulseScale = false
+		btn2.setTitle("NO", forState: .Normal)
+		btn2.setTitleColor(MaterialColor.blue.darken1, forState: .Normal)
+		
+		// Add buttons to left side.
+		bottomCardView.leftButtons = [btn1, btn2]
 	}
 }
 
