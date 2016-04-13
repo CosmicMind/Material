@@ -110,7 +110,7 @@ public class MaterialTableViewCell : UITableViewCell {
 	*/
 	@IBInspectable public var width: CGFloat {
 		get {
-			return layer.frame.width
+			return layer.frame.size.width
 		}
 		set(value) {
 			layer.frame.size.width = value
@@ -125,7 +125,7 @@ public class MaterialTableViewCell : UITableViewCell {
 	*/
 	@IBInspectable public var height: CGFloat {
 		get {
-			return layer.frame.height
+			return layer.frame.size.height
 		}
 		set(value) {
 			layer.frame.size.height = value
