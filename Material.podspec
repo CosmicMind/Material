@@ -1,8 +1,8 @@
 Pod::Spec.new do |s|
   s.name = 'Material'
-  s.version = '1.39.9'
+  s.version = '1.39.10'
   s.license = 'BSD'
-  s.summary = 'Express your creativity with Material, an animation and graphics framework for Google\'s Material Design and Apple\'s Flat UI in Swift.'
+  s.summary = 'An animation and graphics framework for Material Design in Swift.'
   s.homepage = 'http://cosmicmind.io'
   s.social_media_url = 'https://www.facebook.com/graphkit'
   s.authors = { 'CosmicMind, Inc.' => 'support@cosmicmind.io' }

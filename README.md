@@ -2,7 +2,7 @@
 
 # Welcome to Material
 
-Express your creativity with Material, an animation and graphics framework for Google's Material Design and Apple's Flat UI in Swift.
+An animation and graphics framework for Material Design in Swift.
 
 ![MaterialApp](http://www.cosmicmind.io/MK/MaterialApp.gif)
 
