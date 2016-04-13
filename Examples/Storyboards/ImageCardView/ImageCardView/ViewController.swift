@@ -32,61 +32,62 @@ import UIKit
 import Material
 
 class ViewController: UIViewController {
-
-    @IBOutlet weak var imageCardView: ImageCardView!
-    
+    @IBOutlet weak var topCardView: ImageCardView!
+	
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Example of image card view
-        prepareImageCardViewExample()
+		prepareView()
+		prepareTopCardView()
     }
-    
-    /**
-     :name:	prepareImageCardViewExample
-     :description: General preparation statements.
-     */
-    func prepareImageCardViewExample() {
-		imageCardView.divider = false
-		imageCardView.maxImageHeight = 130
-		
-		// Image.
-		imageCardView.image = UIImage(named: "MaterialImageCardViewBackgroundImage")
+	
+	/// Prepares the view.
+	private func prepareView() {
+		view.backgroundColor = MaterialColor.white
+	}
+	
+	/// Prepares the topCardView.
+    func prepareTopCardView() {
+		topCardView.divider = false
+		topCardView.maxImageHeight = 130
+		topCardView.image = UIImage(named: "MaterialDesign")
 		
 		// Title label.
 		let titleLabel: UILabel = UILabel()
 		titleLabel.text = "Material Design"
 		titleLabel.textColor = MaterialColor.white
 		titleLabel.font = RobotoFont.regularWithSize(24)
-		imageCardView.titleLabel = titleLabel
-		imageCardView.titleLabelInset.top = 80
+		topCardView.titleLabel = titleLabel
+		topCardView.titleLabelInset.top = 80
 		
 		// Star button.
-		let img1: UIImage? = UIImage(named: "ic_star_grey_darken_2")
+		let img1: UIImage? = MaterialIcon.cm.star
 		let btn1: FlatButton = FlatButton()
 		btn1.pulseColor = MaterialColor.blueGrey.lighten1
+		btn1.tintColor = MaterialColor.blueGrey.lighten1
 		btn1.pulseScale = false
 		btn1.setImage(img1, forState: .Normal)
 		btn1.setImage(img1, forState: .Highlighted)
 		
-		// Favorite button.
-		let img2: UIImage? = UIImage(named: "ic_favorite_grey_darken_2")
+		// Bell button.
+		let img2: UIImage? = MaterialIcon.cm.bell
 		let btn2: FlatButton = FlatButton()
 		btn2.pulseColor = MaterialColor.blueGrey.lighten1
+		btn2.tintColor = MaterialColor.blueGrey.lighten1
 		btn2.pulseScale = false
 		btn2.setImage(img2, forState: .Normal)
 		btn2.setImage(img2, forState: .Highlighted)
 		
 		// Share button.
-		let img3: UIImage? = UIImage(named: "ic_share_grey_darken_2")
+		let img3: UIImage? = MaterialIcon.cm.share
 		let btn3: FlatButton = FlatButton()
 		btn3.pulseColor = MaterialColor.blueGrey.lighten1
+		btn3.tintColor = MaterialColor.blueGrey.lighten1
 		btn3.pulseScale = false
 		btn3.setImage(img3, forState: .Normal)
 		btn3.setImage(img3, forState: .Highlighted)
 		
 		// Add buttons to right side.
-		imageCardView.rightButtons = [btn1, btn2, btn3]
+		topCardView.rightButtons = [btn1, btn2, btn3]
     }
 }
 

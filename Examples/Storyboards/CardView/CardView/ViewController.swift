@@ -32,29 +32,21 @@ import UIKit
 import Material
 
 class ViewController: UIViewController {
-
     @IBOutlet weak var cardView: CardView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Examples of using CardView
-        prepareCardViewExample()
+		prepareView()
+        prepareCardView()
     }
-    
-    /**
-     :name:	prepareView
-     :description: General preparation statements.
-     */
+	
+	/// Prepares the view.
     private func prepareView() {
         view.backgroundColor = MaterialColor.white
     }
-    
-    /**
-     :name:	prepareCardViewExample
-     :description:	General usage example.
-     */
-    func prepareCardViewExample() {
+	
+	/// Prepares the cardView.
+    func prepareCardView() {
         // Title label.
 		let titleLabel: UILabel = UILabel()
 		titleLabel.text = "Welcome Back!"

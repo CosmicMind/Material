@@ -501,7 +501,7 @@ public class TextField : UITextField {
 	/// Reloads the view.
 	public func reloadView() {
 		/// Align the clearButton.
-		clearButton.frame = CGRectMake(width - height, 0, height, height)
+		clearButton.frame = CGRectMake(width - height, 2, height - 4, height - 4)
 	}
 	
 	
@@ -622,9 +622,9 @@ public class TextField : UITextField {
 	/// Shows and animates the titleLabel property.
 	private func showTitleLabel() {
 		if titleLabel.hidden {
-			if let s: String = placeholder {
-				titleLabel.text = s
-				placeholderText = s
+			if let v: String = placeholder {
+				titleLabel.text = v
+				placeholderText = v
 				placeholder = nil
 			}
 			let h: CGFloat = ceil(titleLabel.font.lineHeight)
@@ -632,10 +632,10 @@ public class TextField : UITextField {
 			titleLabel.font = font
 			titleLabel.hidden = false
 			UIView.animateWithDuration(0.15, animations: { [weak self] in
-                if nil != self {
-                    self!.titleLabel.alpha = 1
-                    self!.titleLabel.transform = CGAffineTransformScale(self!.titleLabel.transform, 0.75, 0.75)
-                    self!.titleLabel.frame = CGRectMake(0, -(self!.titleLabelAnimationDistance + h), self!.bounds.width, h)
+                if let v: TextField = self {
+                    v.titleLabel.alpha = 1
+                    v.titleLabel.transform = CGAffineTransformScale(v.titleLabel.transform, 0.75, 0.75)
+                    v.titleLabel.frame = CGRectMake(0, -(v.titleLabelAnimationDistance + h), v.bounds.width, h)
                 }
 			})
 		}
@@ -644,14 +644,14 @@ public class TextField : UITextField {
 	/// Hides and animates the titleLabel property.
 	private func hideTitleLabel() {
 		UIView.animateWithDuration(0.15, animations: { [weak self] in
-            if nil != self {
-                self!.titleLabel.transform = CGAffineTransformIdentity
-                self!.titleLabel.frame = self!.bounds
+			if let v: TextField = self {
+                v.titleLabel.transform = CGAffineTransformIdentity
+                v.titleLabel.frame = v.bounds
             }
 		}) { [weak self] _ in
-            if nil != self {
-                self!.placeholder = self!.placeholderText
-                self!.titleLabel.hidden = true
+            if let v: TextField = self {
+                v.placeholder = v.placeholderText
+                v.titleLabel.hidden = true
             }
 		}
 	}
@@ -664,8 +664,8 @@ public class TextField : UITextField {
 				v.frame = CGRectMake(0, bounds.height + lineLayerDistance, bounds.width, h)
 				v.hidden = false
 				UIView.animateWithDuration(0.15, animations: { [weak self] in
-                    if nil != self {
-                        v.frame.origin.y = self!.frame.height + self!.lineLayerDistance + self!.detailLabelAnimationDistance
+                    if let s: TextField = self {
+                        v.frame.origin.y = s.frame.height + s.lineLayerDistance + s.detailLabelAnimationDistance
                         v.alpha = 1
                     }
 				})
@@ -677,9 +677,9 @@ public class TextField : UITextField {
 	private func hideDetailLabel() {
 		if let v: UILabel = detailLabel {
 			UIView.animateWithDuration(0.15, animations: { [weak self] in
-                if nil != self {
+                if let s: TextField = self {
                     v.alpha = 0
-                    v.frame.origin.y -= self!.detailLabelAnimationDistance
+                    v.frame.origin.y -= s.detailLabelAnimationDistance
                 }
 			}) { _ in
 				v.hidden = true
