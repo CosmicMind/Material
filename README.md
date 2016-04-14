@@ -53,6 +53,14 @@ Material is a growing project and will encounter changes throughout its developm
 * Visit the Examples directory to see example projects using Material.
 * The [Installation](https://github.com/CosmicMind/Material/wiki/Installation) page has documentation on how to run the example projects.
 
+## Sticker Sheet
+
+To help template your project, checkout our latest addition, Material Sticker Sheet.
+
+![MaterialStickerSheet](http://www.materialkit.io/material/images/stickers/material_iso_1.png)
+
+[Purchase the Sticker Sheet](http://www.materialup.com/posts/material-design-sticker-sheets)
+
 ## Quick Access  
 
 #### Colors

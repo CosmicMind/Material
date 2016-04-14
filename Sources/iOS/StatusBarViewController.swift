@@ -62,13 +62,23 @@ public class StatusBarViewController : UIViewController {
 	*/
 	public private(set) var rootViewController: UIViewController!
 	
+	public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+		prepareView()
+	}
+	
 	/**
 	An initializer for the StatusBarViewController.
 	- Parameter rootViewController: The main UIViewController.
 	*/
-	public convenience init(rootViewController: UIViewController) {
-		self.init()
+	public init(rootViewController: UIViewController) {
+		super.init(nibName: nil, bundle: nil)
 		self.rootViewController = rootViewController
+		prepareView()
+	}
+	
+	public required init?(coder aDecoder: NSCoder) {
+		super.init(coder: aDecoder)
 		prepareView()
 	}
 	
