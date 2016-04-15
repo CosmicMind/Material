@@ -354,7 +354,6 @@ public class NavigationBar : UINavigationBar {
 			leftSpacer.width = inset + contentInset.left
 		}
 		
-		item.titleView?.frame.size.width = width
 		item.titleView?.frame.size.height = height - contentInset.top - contentInset.bottom
 		
 		if let t: UILabel = item.titleLabel {
