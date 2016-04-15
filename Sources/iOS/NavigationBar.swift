@@ -308,7 +308,6 @@ public class NavigationBar : UINavigationBar {
         if "" != item.detail {
             item.detailLabel = detailLabel
             item.detailLabel?.text = item.detail
-            item.detailLabel?.font = titleTextAttributes?[NSSecondaryFontAttributeName] as? UIFont
             item.detailLabel?.textColor = titleTextAttributes?[NSForegroundColorAttributeName] as? UIColor
             item.detailLabel?.textAlignment = .Left
         }
