@@ -762,6 +762,7 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	/// A method that prepares the rootViewController.
 	private func prepareRootViewController() {
 		rootViewController.view.clipsToBounds = true
+        rootViewController.view.frame = view.bounds
 		rootViewController.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
 		prepareViewControllerWithinContainer(rootViewController, container: view)
 	}
