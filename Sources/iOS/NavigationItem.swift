@@ -38,10 +38,13 @@ public class MaterialAssociatedObjectNavigationItem {
 	public var portraitInset: CGFloat
 	
 	/// Landscape inset.
-	public var landscapeInset: CGFloat
-	
-	/// Detail View.
-	public var detailView: UIView?
+    public var landscapeInset: CGFloat
+    
+    /// Detail View.
+    public var detailView: UIView?
+    
+    /// Detail Text.
+    public var detail: String?
 	
 	/// Title label.
 	public var titleLabel: UILabel?
@@ -114,15 +117,24 @@ public extension UINavigationItem {
 		}
 	}
 	
-	/// Detail Label.
-	public var detailLabel: UILabel? {
-		get {
-			return item.detailLabel
-		}
-		set(value) {
-			item.detailLabel = value
-		}
-	}
+    /// Detail Label.
+    public var detailLabel: UILabel? {
+        get {
+            return item.detailLabel
+        }
+        set(value) {
+            item.detailLabel = value
+        }
+    }
+    
+    public var detail: String? {
+        get {
+            return item.detail
+        }
+        set(value) {
+            item.detail = value
+        }
+    }
 	
 	/// Left side UIControls.
 	public var leftControls: Array<UIControl>? {
