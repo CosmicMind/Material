@@ -326,7 +326,7 @@ extension RecipesViewController: UITableViewDelegate {
 	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let viewController = ItemViewController(dataSource: dataSourceItems[indexPath.row])
-//		navigationController?.pushViewController(viewController, animated: true)
-        presentViewController(AppNavigationController(rootViewController: viewController), animated: true, completion: nil)
+		navigationController?.pushViewController(viewController, animated: true)
+//        presentViewController(AppNavigationController(rootViewController: viewController), animated: true, completion: nil)
 	}
 }

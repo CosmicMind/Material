@@ -53,8 +53,6 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		prepareTitleLabel()
-		prepareDetailLabel()
 		prepareMenuButton()
 		prepareSwitchControl()
 		prepareSearchButton()
@@ -69,22 +67,6 @@ class ViewController: UIViewController {
 	/// General preparation statements.
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.white
-	}
-	
-	/// Prepares the titleLabel.
-	private func prepareTitleLabel() {
-		titleLabel = UILabel()
-		titleLabel.text = "Recipes"
-		titleLabel.textAlignment = .Left
-		titleLabel.textColor = MaterialColor.white
-	}
-	
-	/// Prepares the titleLabel.
-	private func prepareDetailLabel() {
-		detailLabel = UILabel()
-		detailLabel.text = "8 Items"
-		detailLabel.textAlignment = .Left
-		detailLabel.textColor = MaterialColor.white
 	}
 	
 	/// Prepares the menuButton.
@@ -114,6 +96,13 @@ class ViewController: UIViewController {
 	
 	/// Prepare navigationBar.
 	private func prepareNavigationBar() {
+        
+        UINavigationBar.appearance().titleTextAttributes = [
+            NSFontAttributeName: RobotoFont.thinWithSize(20),
+            NSSecondaryFontAttributeName: RobotoFont.boldWithSize(13),
+            NSForegroundColorAttributeName: MaterialColor.white
+        ]
+        
 		navigationBar = NavigationBar()
 		navigationBar.statusBarStyle = .LightContent
 		navigationBar.tintColor = MaterialColor.white
@@ -122,10 +111,10 @@ class ViewController: UIViewController {
 		view.addSubview(navigationBar)
 		
 		let item: UINavigationItem = UINavigationItem()
-		item.titleLabel = titleLabel
-		item.detailLabel = detailLabel
 		item.leftControls = [menuButton]
 		item.rightControls = [switchControl, searchButton]
+        item.title = "Recipes"
+        item.detail = "8 Itens"
 		navigationBar.pushNavigationItem(item, animated: true)
 	}
 }
