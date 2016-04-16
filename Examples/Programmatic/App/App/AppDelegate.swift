@@ -37,6 +37,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var window: UIWindow?
 	
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .Left
+        
+        UINavigationBar.appearance().titleTextAttributes = [
+            NSFontAttributeName: RobotoFont.regularWithSize(18),
+            NSForegroundColorAttributeName: MaterialColor.white,
+            NSSecondaryFontAttributeName: RobotoFont.regularWithSize(12),
+            NSParagraphStyleAttributeName: paragraphStyle
+        ]
 		
 		let navigationController: AppNavigationController = AppNavigationController(rootViewController: RecipesViewController())
 		
