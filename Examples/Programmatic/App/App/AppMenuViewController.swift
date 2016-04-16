@@ -47,18 +47,13 @@ class AppMenuViewController: MenuViewController {
 		super.init(coder: aDecoder)
 	}
 	
-	override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-	}
-	
-	init() {
-		super.init(nibName: nil, bundle: nil)
+	override init(rootViewController: UIViewController) {
+		super.init(rootViewController: rootViewController)
 		prepareTabBarItem()
 	}
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		prepareView()
 		prepareMenuView()
 	}
 	
@@ -101,11 +96,6 @@ class AppMenuViewController: MenuViewController {
 		} else {
 			openMenu()
 		}
-	}
-	
-	/// Prepares view.
-	private func prepareView() {
-		view.backgroundColor = MaterialColor.black
 	}
 	
 	/// Prepares the menuView.
