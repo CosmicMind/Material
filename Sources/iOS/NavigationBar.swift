@@ -354,8 +354,9 @@ public class NavigationBar : UINavigationBar {
 			}
 			leftSpacer.width = inset + contentInset.left
 		}
-		
-		item.titleView?.frame.size.height = height - contentInset.top - contentInset.bottom
+        
+        let _h = height > 44 ? height + inset : height
+        item.titleView?.frame.size.height = _h - contentInset.top - contentInset.bottom
 		
 		if "" != item.title {
 			if 32 >= height || "" == item.detail {
