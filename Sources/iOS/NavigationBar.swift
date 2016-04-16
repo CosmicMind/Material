@@ -53,10 +53,6 @@ public class NavigationBar : UINavigationBar {
 	
 	/// Reference to the backButton.
     public private(set) lazy var backButton: FlatButton = FlatButton()
-    
-    public private(set) lazy var titleLabel: UILabel = UILabel()
-    
-    public private(set) lazy var detailLabel: UILabel = UILabel()
 	
 	/**
 	The back button image writes to the backIndicatorImage property and
@@ -265,12 +261,12 @@ public class NavigationBar : UINavigationBar {
 	}
 	
 	public override func layoutSubviews() {
-		super.layoutSubviews()
+        super.layoutSubviews()
+        if let v: UINavigationItem = backItem {
+            layoutNavigationItem(v)
+        }
+        
 		if let v: UINavigationItem = topItem {
-			layoutNavigationItem(v)
-		}
-		
-		if let v: UINavigationItem = backItem {
 			layoutNavigationItem(v)
 		}
 	}
@@ -297,20 +293,6 @@ public class NavigationBar : UINavigationBar {
 			item.leftBarButtonItems = n.reverse()
 		}
         
-        if "" != item.title {
-            item.titleLabel = titleLabel
-            item.titleLabel?.text = item.title
-            item.titleLabel?.font = titleTextAttributes?[NSFontAttributeName] as? UIFont
-            item.titleLabel?.textColor = titleTextAttributes?[NSForegroundColorAttributeName] as? UIColor
-            item.titleLabel?.textAlignment = .Left
-        }
-        
-        if "" != item.detail {
-            item.detailLabel = detailLabel
-            item.detailLabel?.text = item.detail
-            item.detailLabel?.textColor = titleTextAttributes?[NSForegroundColorAttributeName] as? UIColor
-            item.detailLabel?.textAlignment = .Left
-        }
 		
 		// Set the titleView
         if nil == item.titleView {
@@ -319,21 +301,22 @@ public class NavigationBar : UINavigationBar {
             item.titleView!.grid.axis.direction = .Vertical
         }
         
-        // TitleView alignment.
-        if let t: UILabel = item.titleLabel {
-            t.grid.rows = 1
-            item.titleView!.addSubview(t)
+        if "" != item.title {
+            item.titleLabel!.text = item.title
+            item.titleLabel!.grid.rows = 1
+            item.titleView!.addSubview(item.titleLabel!)
             
-            if let d: UILabel = item.detailLabel {
-                d.grid.rows = 1
-                item.titleView!.addSubview(d)
-                item.titleView!.grid.views = [t, d]
+            if "" != item.detail {
+                item.detailLabel!.text = item.detail
+                item.detailLabel!.grid.rows = 1
+                item.titleView!.addSubview(item.detailLabel!)
+                item.titleView!.grid.views = [item.titleLabel!, item.detailLabel!]
             } else {
-                item.titleView!.grid.views = [t]
+                item.detailLabel!.removeFromSuperview()
+                item.titleView!.grid.views = [item.titleLabel!]
             }
         } else if let d: UIView = item.detailView {
             d.grid.rows = 1
-            item.titleView!.addSubview(d)
             item.titleView!.grid.views = [d]
         }
 		
@@ -374,19 +357,12 @@ public class NavigationBar : UINavigationBar {
 		
 		item.titleView?.frame.size.height = height - contentInset.top - contentInset.bottom
 		
-		if let t: UILabel = item.titleLabel {
-			if 32 >= height || nil == item.detailLabel {
+		if "" != item.title {
+			if 32 >= height || "" == item.detail {
 				item.detailLabel?.hidden = true
 				item.titleView?.grid.axis.rows = 1
-            } else if let d: UILabel = item.detailLabel {
-                var detailFont = titleTextAttributes?[NSSecondaryFontAttributeName] as? UIFont
-                if nil == detailFont {
-                    detailFont = titleLabel.font.fontWithSize(titleLabel.font.pointSize-2)
-                }
-				d.font = detailFont
-				
-				d.hidden = false
-				
+            } else if "" != item.detail {
+				item.detailLabel!.hidden = false
 				item.titleView?.grid.axis.rows = 2
 			}
 		} else if let _: UIView = item.detailView {
