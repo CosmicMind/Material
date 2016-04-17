@@ -62,6 +62,20 @@ public class StatusBarViewController : UIViewController {
 	*/
 	public private(set) var rootViewController: UIViewController!
 	
+	/**
+	An initializer that initializes the object with a NSCoder object.
+	- Parameter aDecoder: A NSCoder instance.
+	*/
+	public required init?(coder aDecoder: NSCoder) {
+		super.init(coder: aDecoder)
+		prepareView()
+	}
+	
+	/**
+	An initializer that initializes the object with an Optional nib and bundle.
+	- Parameter nibNameOrNil: An Optional String for the nib.
+	- Parameter bundle: An Optional NSBundle where the nib is located.
+	*/
 	public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 		prepareView()
@@ -74,11 +88,6 @@ public class StatusBarViewController : UIViewController {
 	public init(rootViewController: UIViewController) {
 		super.init(nibName: nil, bundle: nil)
 		self.rootViewController = rootViewController
-		prepareView()
-	}
-	
-	public required init?(coder aDecoder: NSCoder) {
-		super.init(coder: aDecoder)
 		prepareView()
 	}
 	

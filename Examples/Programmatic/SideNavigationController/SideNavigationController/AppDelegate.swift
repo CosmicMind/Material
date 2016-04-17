@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		window = UIWindow(frame: UIScreen.mainScreen().bounds)
-		window!.rootViewController = SideNavigationController(rootViewController: YellowViewController(), leftViewController: GreenViewController(), rightViewController: BlueViewController())
+		window!.rootViewController = SideNavigationController(rootViewController: YellowViewController(), leftViewController: AppLeftViewController(), rightViewController: BlueViewController())
 		window!.makeKeyAndVisible()
 		return true
 	}
