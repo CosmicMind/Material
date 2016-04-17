@@ -139,7 +139,7 @@ To help template your project, checkout our latest addition, Material Sticker Sh
 <a name="materialcolor"></a>
 #### MaterialColor
 
-MaterialColor is a complete Material Design color library. It uses base color values that expand to a range of lighter and darker shades, with the addition of accents.
+MaterialColor is a complete Material Design color library available within Material. To help with color choices, visit [MaterialColor.io](http://www.materialcolor.io).
 
 ![MaterialMaterialColorPalette](http://www.cosmicmind.io/MK/MaterialMaterialColorPalette.png)
 
