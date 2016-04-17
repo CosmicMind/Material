@@ -379,6 +379,7 @@ public class TextField : UITextField {
 			if let v: String = placeholder {
 				attributedPlaceholder = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderTextColor])
 			}
+			placeholderText = placeholder
 		}
 	}
 	
