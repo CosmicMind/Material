@@ -35,9 +35,6 @@ class RecipesViewController: UIViewController {
 	/// A list of all the data source items.
 	private var dataSourceItems: Array<MaterialDataSourceItem>!
 	
-	/// NavigationBar title label.
-	private var titleLabel: UILabel!
-	
 	/// NavigationBar menu button.
 	private var menuButton: FlatButton!
 	
@@ -54,7 +51,6 @@ class RecipesViewController: UIViewController {
 		super.viewDidLoad()
 		prepareView()
 		prepareItems()
-		prepareTitleLabel()
 		prepareMenuButton()
 		prepareSwitchControl()
 		prepareSearchButton()
@@ -218,14 +214,6 @@ class RecipesViewController: UIViewController {
 		view.backgroundColor = MaterialColor.white
 	}
 	
-	/// Prepares the titleLabel.
-	private func prepareTitleLabel() {
-		titleLabel = UILabel()
-		titleLabel.text = "Recipes"
-		titleLabel.textAlignment = .Left
-		titleLabel.textColor = MaterialColor.white
-	}
-	
 	/// Prepares the menuButton.
 	private func prepareMenuButton() {
 		let image: UIImage? = MaterialIcon.cm.menu
@@ -255,9 +243,10 @@ class RecipesViewController: UIViewController {
 	
 	/// Prepares the navigationItem.
 	private func prepareNavigationItem() {
-		navigationItem.titleLabel = titleLabel
 		navigationItem.leftControls = [menuButton]
-		navigationItem.rightControls = [switchControl, searchButton]
+        navigationItem.rightControls = [switchControl, searchButton]
+        self.title = "Recipes"
+        self.navigationItem.detail = "All Recipes"
 	}
 	
 	/// Prepares the tableView.
@@ -336,6 +325,8 @@ extension RecipesViewController: UITableViewDelegate {
 	}
 	
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		navigationController?.pushViewController(ItemViewController(dataSource: dataSourceItems[indexPath.row]), animated: true)
+        let viewController = ItemViewController(dataSource: dataSourceItems[indexPath.row])
+		navigationController?.pushViewController(viewController, animated: true)
+//        presentViewController(AppNavigationController(rootViewController: viewController), animated: true, completion: nil)
 	}
 }

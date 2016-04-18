@@ -41,6 +41,7 @@ public extension UINavigationBar {
 		}
 	}
 }
+public let NSSecondaryFontAttributeName = "NSSecondaryFontAttributeName"
 
 @IBDesignable
 public class NavigationBar : UINavigationBar {
@@ -51,7 +52,7 @@ public class NavigationBar : UINavigationBar {
 	private var rightSpacer: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
 	
 	/// Reference to the backButton.
-	public private(set) lazy var backButton: FlatButton = FlatButton()
+    public private(set) lazy var backButton: FlatButton = FlatButton()
 	
 	/**
 	The back button image writes to the backIndicatorImage property and
@@ -260,13 +261,13 @@ public class NavigationBar : UINavigationBar {
 	}
 	
 	public override func layoutSubviews() {
-		super.layoutSubviews()
+        super.layoutSubviews()
+        if let v: UINavigationItem = backItem {
+            layoutNavigationItem(v)
+        }
+        
 		if let v: UINavigationItem = topItem {
-			sizeNavigationItem(v)
-		}
-		
-		if let v: UINavigationItem = backItem {
-			sizeNavigationItem(v)
+			layoutNavigationItem(v)
 		}
 	}
 	
@@ -291,33 +292,33 @@ public class NavigationBar : UINavigationBar {
 			n.append(leftSpacer)
 			item.leftBarButtonItems = n.reverse()
 		}
+        
 		
-		// Set the titleView if title is empty.
-		if "" == item.title {
-			if nil == item.titleView {
-				item.titleView = UIView(frame: CGRectMake(0, contentInset.top, MaterialDevice.width < MaterialDevice.height ? MaterialDevice.height : MaterialDevice.width, intrinsicContentSize().height - contentInset.top - contentInset.bottom))
-				item.titleView!.autoresizingMask = [.FlexibleWidth]
-				item.titleView!.grid.axis.direction = .Vertical
-			}
-			
-			// TitleView alignment.
-			if let t: UILabel = item.titleLabel {
-				t.grid.rows = 1
-				item.titleView!.addSubview(t)
-				
-				if let d: UILabel = item.detailLabel {
-					d.grid.rows = 1
-					item.titleView!.addSubview(d)
-					item.titleView!.grid.views = [t, d]
-				} else {
-					item.titleView!.grid.views = [t]
-				}
-			} else if let d: UIView = item.detailView {
-				d.grid.rows = 1
-				item.titleView!.addSubview(d)
-				item.titleView!.grid.views = [d]
-			}
-		}
+		// Set the titleView
+        if nil == item.titleView {
+            item.titleView = UIView(frame: CGRectMake(0, contentInset.top, MaterialDevice.width < MaterialDevice.height ? MaterialDevice.height : MaterialDevice.width, intrinsicContentSize().height - contentInset.top - contentInset.bottom))
+            item.titleView!.autoresizingMask = [.FlexibleWidth]
+            item.titleView!.grid.axis.direction = .Vertical
+        }
+        
+        if "" != item.title {
+            item.titleLabel!.text = item.title
+            item.titleLabel!.grid.rows = 1
+            item.titleView!.addSubview(item.titleLabel!)
+            
+            if "" != item.detail {
+                item.detailLabel!.text = item.detail
+                item.detailLabel!.grid.rows = 1
+                item.titleView!.addSubview(item.detailLabel!)
+                item.titleView!.grid.views = [item.titleLabel!, item.detailLabel!]
+            } else {
+                item.detailLabel!.removeFromSuperview()
+                item.titleView!.grid.views = [item.titleLabel!]
+            }
+        } else if let d: UIView = item.detailView {
+            d.grid.rows = 1
+            item.titleView!.grid.views = [d]
+        }
 		
 		// rightControls
 		if let v: Array<UIControl> = item.rightControls {
@@ -353,22 +354,16 @@ public class NavigationBar : UINavigationBar {
 			}
 			leftSpacer.width = inset + contentInset.left
 		}
+        
+        let _h = height > 44 ? height + inset : height
+        item.titleView?.frame.size.height = _h - contentInset.top - contentInset.bottom
 		
-		item.titleView?.frame.size.width = width
-		item.titleView?.frame.size.height = height - contentInset.top - contentInset.bottom
-		
-		if let t: UILabel = item.titleLabel {
-			if 32 >= height || nil == item.detailLabel {
-				t.font = t.font.fontWithSize(20)
-				
+		if "" != item.title {
+			if 32 >= height || "" == item.detail {
 				item.detailLabel?.hidden = true
 				item.titleView?.grid.axis.rows = 1
-			} else if let d: UILabel = item.detailLabel {
-				t.font = t.font.fontWithSize(17)
-				
-				d.hidden = false
-				d.font = d.font.fontWithSize(12)
-				
+            } else if "" != item.detail {
+				item.detailLabel!.hidden = false
 				item.titleView?.grid.axis.rows = 2
 			}
 		} else if let _: UIView = item.detailView {
@@ -414,9 +409,12 @@ public class NavigationBar : UINavigationBar {
 	}
 	
 	/// Prepares the UINavigationItem for layout and sizing.
-	internal func prepareItem(item: UINavigationItem) {
-		if nil == item.title {
-			item.title = ""
-		}
+    internal func prepareItem(item: UINavigationItem) {
+        if nil == item.title {
+            item.title = ""
+        }
+        if nil == item.detail {
+            item.detail = ""
+        }
 	}
 }

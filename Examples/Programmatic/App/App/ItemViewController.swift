@@ -38,9 +38,6 @@ class ItemViewController: UIViewController {
 	/// ImageCardView to display item.
 	private var imageCardView: ImageCardView!
 	
-	/// NavigationBar title label.
-	private var titleLabel: UILabel!
-	
 	/// NavigationBar detail label.
 	private var detailLabel: UILabel!
 	
@@ -66,11 +63,12 @@ class ItemViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		prepareTitleLabel()
 		prepareShareButton()
 		prepareNavigationItem()
 		prepareScrollView()
 		prepareImageCardView()
+        
+        self.title = "Item"
 	}
 	
 	override func viewWillAppear(animated: Bool) {
@@ -101,22 +99,6 @@ class ItemViewController: UIViewController {
 		automaticallyAdjustsScrollViewInsets = false
 	}
 	
-	/// Prepares the titleLabel.
-	private func prepareTitleLabel() {
-		titleLabel = UILabel()
-		titleLabel.text = "Item"
-		titleLabel.textAlignment = .Left
-		titleLabel.textColor = MaterialColor.white
-	}
-	
-	/// Prepares the detailLabel.
-	private func prepareDetailLabel() {
-		detailLabel = UILabel()
-		detailLabel.text = "January 22, 2016"
-		detailLabel.textAlignment = .Left
-		detailLabel.textColor = MaterialColor.white
-	}
-	
 	/// Prepares the shareButton.
 	private func prepareShareButton() {
 		let image: UIImage? = MaterialIcon.cm.share
@@ -129,8 +111,6 @@ class ItemViewController: UIViewController {
 	
 	/// Prepares the navigationItem.
 	private func prepareNavigationItem() {
-		navigationItem.titleLabel = titleLabel
-		navigationItem.detailLabel = detailLabel
 		navigationItem.rightControls = [shareButton]
 	}
 	

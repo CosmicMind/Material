@@ -38,16 +38,53 @@ public class MaterialAssociatedObjectNavigationItem {
 	public var portraitInset: CGFloat
 	
 	/// Landscape inset.
-	public var landscapeInset: CGFloat
-	
-	/// Detail View.
-	public var detailView: UIView?
-	
-	/// Title label.
-	public var titleLabel: UILabel?
-	
-	/// Detail label.
-	public var detailLabel: UILabel?
+    public var landscapeInset: CGFloat
+    
+    /// Detail View.
+    public var detailView: UIView?
+    
+    /// Detail Text.
+    public var detail: String?
+    
+    public private(set) lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        let titleTextAttributes = UINavigationBar.appearance().titleTextAttributes
+        
+        if let font = titleTextAttributes?[NSFontAttributeName] as? UIFont {
+            label.font = font
+        }
+        
+        if let color = titleTextAttributes?[NSForegroundColorAttributeName] as? UIColor {
+            label.textColor = color
+        }
+        
+        if let paragraphStyle = titleTextAttributes?[NSParagraphStyleAttributeName] as? NSParagraphStyle {
+            label.textAlignment = paragraphStyle.alignment
+        }
+        
+        return label
+    }()
+    
+    public private(set) lazy var detailLabel: UILabel = {
+        let label = UILabel()
+        let titleTextAttributes = UINavigationBar.appearance().titleTextAttributes
+        
+        if let font = titleTextAttributes?[NSSecondaryFontAttributeName] as? UIFont {
+            label.font = font
+        } else if let titleFont = titleTextAttributes?[NSFontAttributeName] as? UIFont{
+            label.font = titleFont.fontWithSize(titleFont.pointSize-2)
+        }
+        
+        if let color = titleTextAttributes?[NSForegroundColorAttributeName] as? UIColor {
+            label.textColor = color
+        }
+        
+        if let paragraphStyle = titleTextAttributes?[NSParagraphStyleAttributeName] as? NSParagraphStyle {
+            label.textAlignment = paragraphStyle.alignment
+        }
+        
+        return label
+    }()
 	
 	/// Left controls.
 	public var leftControls: Array<UIControl>?
@@ -109,20 +146,23 @@ public extension UINavigationItem {
 		get {
 			return item.titleLabel
 		}
-		set(value) {
-			item.titleLabel = value
-		}
 	}
 	
-	/// Detail Label.
-	public var detailLabel: UILabel? {
-		get {
-			return item.detailLabel
-		}
-		set(value) {
-			item.detailLabel = value
-		}
-	}
+    /// Detail Label.
+    public var detailLabel: UILabel? {
+        get {
+            return item.detailLabel
+        }
+    }
+    
+    public var detail: String? {
+        get {
+            return item.detail
+        }
+        set(value) {
+            item.detail = value
+        }
+    }
 	
 	/// Left side UIControls.
 	public var leftControls: Array<UIControl>? {
