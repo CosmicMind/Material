@@ -59,7 +59,7 @@ To help template your project, checkout our latest addition, Material Sticker Sh
 
 ![MaterialStickerSheet](http://www.materialkit.io/material/images/stickers/material_iso_1.png)
 
-[Purchase the Sticker Sheet](http://www.materialup.com/posts/material-design-sticker-sheets)
+[Get the Sticker Sheet](http://www.materialup.com/posts/material-design-sticker-sheets)
 
 ## Quick Access  
 
@@ -146,7 +146,7 @@ MaterialColor is a complete Material Design color library available within Mater
 <a name="materialicon"></a>
 #### MaterialIcon
 
-MaterialIcon is a library of Google and CosmicMind icons that are available for use within your iOS applications.
+MaterialIcon is a library of Google and CosmicMind icons that are available for use within your iOS applications. To help with icon choices, visit [MaterialIcon.io](http://www.materialicon.io).
 
 ![MaterialMaterialIcon](http://www.cosmicmind.io/MK/MaterialMaterialIcon.png)
 
