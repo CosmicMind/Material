@@ -55,11 +55,14 @@ public class MaterialButton : UIButton {
 	/// Sets whether the scaling animation should be used.
 	@IBInspectable public lazy var pulseScale: Bool = true
 	
-	/// The opcaity value for the pulse animation.
+	/// The opacity value for the pulse animation.
 	@IBInspectable public var pulseOpacity: CGFloat = 0.25
 	
 	/// The color of the pulse effect.
 	@IBInspectable public var pulseColor: UIColor?
+	
+	/// Sets a pulse animation to always radiate from the center
+	@IBInspectable public var pulseCenter: Bool = false
 	
 	/**
 	This property is the same as clipsToBounds. It crops any of the view's
@@ -436,13 +439,14 @@ public class MaterialButton : UIButton {
 	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesBegan(touches, withEvent: event)
 		let duration: NSTimeInterval = MaterialAnimation.pulseDuration(width)
+		let point: CGPoint = pulseCenter ? CGPointMake(CGFloat(width / 2), CGFloat(height / 2)) : layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer)
 		
 		if pulseFocus {
 			pulseLayer = CAShapeLayer()
 		}
 		
 		if let v: UIColor = pulseColor {
-			MaterialAnimation.pulseAnimation(layer, visualLayer: visualLayer, color: v.colorWithAlphaComponent(pulseOpacity), point: layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer), width: width, height: height, duration: duration, pulseLayer: pulseLayer)
+			MaterialAnimation.pulseAnimation(layer, visualLayer: visualLayer, color: v.colorWithAlphaComponent(pulseOpacity), point: point, width: width, height: height, duration: duration, pulseLayer: pulseLayer)
 		}
 		
 		if pulseScale {
