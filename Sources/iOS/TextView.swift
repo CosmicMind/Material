@@ -466,7 +466,7 @@ public class TextView: UITextView {
 	The super.prepareView method should always be called immediately
 	when subclassing.
 	*/
-	private func prepareView() {
+	public func prepareView() {
 		textContainerInset = MaterialEdgeInsetToValue(.None)
 		backgroundColor = MaterialColor.white
 		masksToBounds = false
