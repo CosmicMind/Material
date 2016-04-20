@@ -396,6 +396,7 @@ Add a new dimension of interactivity with CaptureView. CaptureView is a fully fu
 * Bottom Sheets
 * Dialogs
 * Collapsing Toolbar
+* Pull to Refresh
 * RTL Support
 * Advanced Camera / Audio Toolset & Views
 * More Examples

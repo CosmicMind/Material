@@ -61,6 +61,9 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	/// The color of the pulse effect.
 	@IBInspectable public var pulseColor: UIColor?
 	
+	/// Sets a pulse animation to always radiate from the center
+	@IBInspectable public var pulseCenter: Bool = false
+	
 	/**
 	A property that manages an image for the visualLayer's contents
 	property. Images should not be set to the backing layer's contents
@@ -547,7 +550,8 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 		}
 		
 		if let v: UIColor = pulseColor {
-			MaterialAnimation.pulseAnimation(layer, visualLayer: visualLayer, color: v.colorWithAlphaComponent(pulseOpacity), point: layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer), width: width, height: height, duration: duration, pulseLayer: pulseLayer)
+			let point: CGPoint = pulseCenter ? CGPointMake(CGFloat(width / 2), CGFloat(height / 2)) : layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer)
+			MaterialAnimation.pulseAnimation(layer, visualLayer: visualLayer, color: v.colorWithAlphaComponent(pulseOpacity), point: point, width: width, height: height, duration: duration, pulseLayer: pulseLayer)
 		}
 		
 		if pulseScale {

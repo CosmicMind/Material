@@ -452,9 +452,9 @@
 		96BCB8031CB40F4B00C806FE /* Button */ = {
 			isa = PBXGroup;
 			children = (
+				96BCB7701CB40DC500C806FE /* MaterialButton.swift */,
 				96BCB75F1CB40DC500C806FE /* FabButton.swift */,
 				96BCB7601CB40DC500C806FE /* FlatButton.swift */,
-				96BCB7701CB40DC500C806FE /* MaterialButton.swift */,
 				96BCB7931CB40DC500C806FE /* RaisedButton.swift */,
 			);
 			name = Button;

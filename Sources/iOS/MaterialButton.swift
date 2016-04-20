@@ -439,13 +439,13 @@ public class MaterialButton : UIButton {
 	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesBegan(touches, withEvent: event)
 		let duration: NSTimeInterval = MaterialAnimation.pulseDuration(width)
-		let point: CGPoint = pulseCenter ? CGPointMake(CGFloat(width / 2), CGFloat(height / 2)) : layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer)
 		
 		if pulseFocus {
 			pulseLayer = CAShapeLayer()
 		}
 		
 		if let v: UIColor = pulseColor {
+			let point: CGPoint = pulseCenter ? CGPointMake(CGFloat(width / 2), CGFloat(height / 2)) : layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer)
 			MaterialAnimation.pulseAnimation(layer, visualLayer: visualLayer, color: v.colorWithAlphaComponent(pulseOpacity), point: point, width: width, height: height, duration: duration, pulseLayer: pulseLayer)
 		}
 		

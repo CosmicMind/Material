@@ -314,13 +314,6 @@ public class TextField : UITextField {
 	*/
 	@IBInspectable public var titleLabelAnimationDistance: CGFloat = 4
 	
-	/// An override to the text property.
-	@IBInspectable public override var text: String? {
-		didSet {
-			textFieldDidChange()
-		}
-	}
-	
 	/**
 	The detail UILabel that is displayed when the detailLabelHidden property
 	is set to false.
@@ -373,13 +366,31 @@ public class TextField : UITextField {
 		}
 	}
 	
+	/// An override to the text property.
+	@IBInspectable public override var text: String? {
+		didSet {
+			textFieldDidChange()
+		}
+	}
+	
 	/// Sets the placeholder value.
 	@IBInspectable public override var placeholder: String? {
-		didSet {
-			if let v: String = placeholder {
+		get {
+			return editing ? nil : placeholderText
+		}
+		set(value) {
+			if let v: String = value {
+				placeholderText = v
 				attributedPlaceholder = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderTextColor])
+			} else {
+				super.placeholder = nil
+				if !editing {
+					placeholderText = nil
+				}
 			}
-			placeholderText = placeholder
+			if 0 < text?.utf16.count {
+				titleLabel.text = placeholderText
+			}
 		}
 	}
 	
@@ -505,6 +516,11 @@ public class TextField : UITextField {
 		addTarget(self, action: #selector(textFieldValueChanged), forControlEvents: .ValueChanged)
 	}
 	
+	/// Handler for text changed.
+	internal func textFieldDidChange() {
+		sendActionsForControlEvents(.ValueChanged)
+	}
+	
 	/// Clears the textField text.
 	internal func handleClearButton() {
 		if false == delegate?.textFieldShouldClear?(self) {
@@ -524,21 +540,15 @@ public class TextField : UITextField {
 	/// Handler for text editing began.
 	internal func textFieldDidBegin() {
 		showTitleLabel()
+		placeholder = nil
 		titleLabel.textColor = titleLabelActiveColor
 		lineLayer.frame.size.height = lineLayerActiveThickness
 		lineLayer.backgroundColor = (detailLabelHidden ? nil == lineLayerActiveColor ? titleLabelActiveColor : lineLayerActiveColor : nil == lineLayerDetailActiveColor ? detailLabelActiveColor : lineLayerDetailActiveColor)?.CGColor
 	}
 	
-	/// Handler for text changed.
-	internal func textFieldDidChange() {
-		sendActionsForControlEvents(.ValueChanged)
-	}
-	
 	/// Handler for text editing ended.
 	internal func textFieldDidEnd() {
-		if 0 < text?.utf16.count {
-			showTitleLabel()
-		} else if 0 == text?.utf16.count {
+		if 0 == text?.utf16.count {
 			hideTitleLabel()
 		}
 		titleLabel.textColor = titleLabelColor
@@ -628,14 +638,10 @@ public class TextField : UITextField {
 	/// Shows and animates the titleLabel property.
 	private func showTitleLabel() {
 		if titleLabel.hidden {
-			if let v: String = placeholder {
-				titleLabel.text = v
-				placeholderText = v
-				placeholder = nil
-			}
 			let h: CGFloat = ceil(titleLabel.font.lineHeight)
 			titleLabel.frame = bounds
 			titleLabel.font = font
+			titleLabel.text = placeholderText
 			titleLabel.hidden = false
 			UIView.animateWithDuration(0.15, animations: { [weak self] in
                 if let v: TextField = self {
@@ -656,8 +662,8 @@ public class TextField : UITextField {
             }
 		}) { [weak self] _ in
             if let v: TextField = self {
-                v.placeholder = v.placeholderText
                 v.titleLabel.hidden = true
+				v.placeholder = v.placeholderText
             }
 		}
 	}

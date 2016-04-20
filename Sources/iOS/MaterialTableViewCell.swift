@@ -60,6 +60,9 @@ public class MaterialTableViewCell : UITableViewCell {
 	/// The color of the pulse effect.
 	@IBInspectable public var pulseColor: UIColor?
 	
+	/// Sets a pulse animation to always radiate from the center
+	@IBInspectable public var pulseCenter: Bool = false
+	
 	/**
 	This property is the same as clipsToBounds. It crops any of the view's
 	contents from bleeding past the view's frame. If an image is set using
@@ -397,7 +400,8 @@ public class MaterialTableViewCell : UITableViewCell {
 		}
 		
 		if let v: UIColor = pulseColor {
-			MaterialAnimation.pulseAnimation(layer, visualLayer: visualLayer, color: v.colorWithAlphaComponent(pulseOpacity), point: layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer), width: width, height: height, duration: duration, pulseLayer: pulseLayer)
+			let point: CGPoint = pulseCenter ? CGPointMake(CGFloat(width / 2), CGFloat(height / 2)) : layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer)
+			MaterialAnimation.pulseAnimation(layer, visualLayer: visualLayer, color: v.colorWithAlphaComponent(pulseOpacity), point: point, width: width, height: height, duration: duration, pulseLayer: pulseLayer)
 		}
 		
 		if pulseScale {
