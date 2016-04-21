@@ -370,6 +370,11 @@ public class TextField : UITextField {
 	@IBInspectable public override var text: String? {
 		didSet {
 			textFieldDidChange()
+     if(!editing){
+      if text == nil || text!.isEmpty {
+       hideTitleLabel()
+      }
+     }
 		}
 	}
 	
