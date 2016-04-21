@@ -288,7 +288,7 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 	:name:	init
 	*/
 	public convenience init() {
-		self.init(frame: CGRectNull)
+		self.init(frame: CGRectZero)
 	}
 	
 	/**

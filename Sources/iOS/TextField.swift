@@ -428,7 +428,7 @@ public class TextField : UITextField {
 	
 	/// A convenience initializer.
 	public convenience init() {
-		self.init(frame: CGRectNull)
+		self.init(frame: CGRectZero)
 	}
 	
 	public override func layoutSubviews() {
@@ -571,7 +571,7 @@ public class TextField : UITextField {
 	
 	/// Prepares the titleLabel.
 	private func prepareTitleLabel() {
-		titleLabel = UILabel()
+		titleLabel = UILabel(frame: CGRectZero)
 		titleLabel.hidden = true
 		titleLabel.font = RobotoFont.mediumWithSize(12)
 		addSubview(titleLabel)

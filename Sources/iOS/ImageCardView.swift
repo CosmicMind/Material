@@ -321,14 +321,14 @@ public class ImageCardView : MaterialPulseView {
 	:name:	init
 	*/
 	public convenience init() {
-		self.init(frame: CGRectNull)
+		self.init(frame: CGRectZero)
 	}
 	
 	/**
 	:name:	init
 	*/
 	public convenience init?(image: UIImage? = nil, titleLabel: UILabel? = nil, detailView: UIView? = nil, leftButtons: Array<UIButton>? = nil, rightButtons: Array<UIButton>? = nil) {
-		self.init(frame: CGRectNull)
+		self.init(frame: CGRectZero)
 		prepareProperties(image, titleLabel: titleLabel, detailView: detailView, leftButtons: leftButtons, rightButtons: rightButtons)
 	}
 	

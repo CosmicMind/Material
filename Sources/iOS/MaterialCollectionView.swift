@@ -107,7 +107,7 @@ public class MaterialCollectionView : UICollectionView {
 	
 	/// A convenience initializer that initializes the object.
 	public convenience init() {
-		self.init(frame: CGRectNull)
+		self.init(frame: CGRectZero)
 	}
 	
 	/**

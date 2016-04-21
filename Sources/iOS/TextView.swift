@@ -327,7 +327,7 @@ public class TextView: UITextView {
 	- Parameter textContainer: A NSTextContainer instance.
 	*/
 	public convenience init(textContainer: NSTextContainer?) {
-		self.init(frame: CGRectNull, textContainer: textContainer)
+		self.init(frame: CGRectZero, textContainer: textContainer)
 	}
 	
 	/** Denitializer. This should never be called unless you know

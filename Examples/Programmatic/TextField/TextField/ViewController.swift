@@ -56,11 +56,14 @@ class ViewController: UIViewController, TextFieldDelegate {
 	
 	/// Prepares the name TextField.
 	private func prepareNameField() {
-		let w: CGFloat = 300
-		let x: CGFloat = (MaterialDevice.width - w) / 2
-		nameField = TextField(frame: CGRectMake(x, 100, w, 24))
+		nameField = TextField()
 		nameField.placeholder = "Name"
 		view.addSubview(nameField)
+		
+		nameField.translatesAutoresizingMaskIntoConstraints = false
+		MaterialLayout.alignFromTop(view, child: nameField, top: 100)
+		MaterialLayout.alignToParentHorizontally(view, child: nameField, left: 20, right: 20)
+		
 	}
 	
 	/// Prepares the email TextField.

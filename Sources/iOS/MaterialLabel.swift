@@ -132,7 +132,7 @@ public class MaterialLabel : UILabel {
 	:name:	init
 	*/
 	public convenience init() {
-		self.init(frame: CGRectNull)
+		self.init(frame: CGRectZero)
 		prepareView()
 	}
 	

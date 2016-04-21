@@ -339,7 +339,7 @@ public class MaterialButton : UIButton {
 	
 	/// A convenience initializer.
 	public convenience init() {
-		self.init(frame: CGRectNull)
+		self.init(frame: CGRectZero)
 	}
 	
 	public override func layoutSublayersOfLayer(layer: CALayer) {
