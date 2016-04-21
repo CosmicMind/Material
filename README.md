@@ -57,7 +57,7 @@ Material is a growing project and will encounter changes throughout its developm
 
 To help template your project, checkout our latest addition, Material Sticker Sheet.
 
-![MaterialStickerSheet](http://www.materialkit.io/material/images/stickers/material_iso_1.png)
+![MaterialStickerSheet](http://www.cosmicmind.io/MK/material_iso_1.png)
 
 [Get the Sticker Sheet](http://www.materialup.com/posts/material-design-sticker-sheets)
 
