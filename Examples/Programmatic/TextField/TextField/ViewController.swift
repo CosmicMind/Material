@@ -58,6 +58,7 @@ class ViewController: UIViewController, TextFieldDelegate {
 	private func prepareNameField() {
 		nameField = TextField()
 		nameField.placeholder = "Name"
+		nameField.delegate = self
 		view.addSubview(nameField)
 		
 		nameField.translatesAutoresizingMaskIntoConstraints = false
@@ -78,9 +79,8 @@ class ViewController: UIViewController, TextFieldDelegate {
 		Used to display the error message, which is displayed when
 		the user presses the 'return' key.
 		*/
-		emailField.detailLabel = UILabel()
-		emailField.detailLabel!.text = "Email is incorrect."
-		emailField.detailLabel!.font = RobotoFont.regularWithSize(12)
+		emailField.detailLabel.text = "Email is incorrect."
+		emailField.detailLabel.font = RobotoFont.regularWithSize(12)
 		emailField.detailLabelActiveColor = MaterialColor.red.accent3
 //		emailField.detailLabelAutoHideEnabled = false // Uncomment this line to have manual hiding.
 		
@@ -89,7 +89,8 @@ class ViewController: UIViewController, TextFieldDelegate {
 	
 	/// Executed when the 'return' key is pressed when using the emailField.
 	func textFieldShouldReturn(textField: UITextField) -> Bool {
-		(textField as! TextField).detailLabelHidden = 0 == textField.text?.utf16.count
+		emailField.text = nil
+//		(textField as! TextField).detailLabelHidden = 0 == textField.text?.utf16.count
 		return true
 	}
 	
