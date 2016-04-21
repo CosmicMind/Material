@@ -369,12 +369,10 @@ public class TextField : UITextField {
 	/// An override to the text property.
 	@IBInspectable public override var text: String? {
 		didSet {
-			textFieldDidChange()
-     if(!editing){
-      if text == nil || text!.isEmpty {
-       hideTitleLabel()
-      }
-     }
+			handleValueChanged()
+			if !editing && (nil == text || text!.isEmpty) {
+				hideTitleLabel()
+			}
 		}
 	}
 	
@@ -515,14 +513,14 @@ public class TextField : UITextField {
 		prepareClearButton()
 		prepareTitleLabel()
 		prepareLineLayer()
-		addTarget(self, action: #selector(textFieldDidBegin), forControlEvents: .EditingDidBegin)
-		addTarget(self, action: #selector(textFieldDidChange), forControlEvents: .EditingChanged)
-		addTarget(self, action: #selector(textFieldDidEnd), forControlEvents: .EditingDidEnd)
-		addTarget(self, action: #selector(textFieldValueChanged), forControlEvents: .ValueChanged)
+		addTarget(self, action: #selector(handleEditingDidBegin), forControlEvents: .EditingDidBegin)
+		addTarget(self, action: #selector(handleEditingChanged), forControlEvents: .EditingChanged)
+		addTarget(self, action: #selector(handleEditingDidEnd), forControlEvents: .EditingDidEnd)
+		addTarget(self, action: #selector(handleValueChanged), forControlEvents: .ValueChanged)
 	}
 	
-	/// Handler for text changed.
-	internal func textFieldDidChange() {
+	/// Handler for editing changed.
+	internal func handleEditingChanged() {
 		sendActionsForControlEvents(.ValueChanged)
 	}
 	
@@ -531,11 +529,11 @@ public class TextField : UITextField {
 		if false == delegate?.textFieldShouldClear?(self) {
 			return
 		}
-		text = ""
+		text = nil
 	}
 	
 	/// Ahdnler when text value changed.
-	internal func textFieldValueChanged() {
+	internal func handleValueChanged() {
 		if detailLabelAutoHideEnabled && !detailLabelHidden {
 			detailLabelHidden = true
 			lineLayer.backgroundColor = (nil == lineLayerActiveColor ? titleLabelActiveColor : lineLayerActiveColor)?.CGColor
@@ -543,7 +541,7 @@ public class TextField : UITextField {
 	}
 	
 	/// Handler for text editing began.
-	internal func textFieldDidBegin() {
+	internal func handleEditingDidBegin() {
 		showTitleLabel()
 		placeholder = nil
 		titleLabel.textColor = titleLabelActiveColor
@@ -552,10 +550,7 @@ public class TextField : UITextField {
 	}
 	
 	/// Handler for text editing ended.
-	internal func textFieldDidEnd() {
-		if 0 == text?.utf16.count {
-			hideTitleLabel()
-		}
+	internal func handleEditingDidEnd() {
 		titleLabel.textColor = titleLabelColor
 		lineLayer.frame.size.height = lineLayerThickness
 		lineLayer.backgroundColor = (detailLabelHidden ? nil == lineLayerColor ? titleLabelColor : lineLayerColor : nil == lineLayerDetailColor ? detailLabelActiveColor : lineLayerDetailColor)?.CGColor
@@ -586,8 +581,6 @@ public class TextField : UITextField {
 		
 		if 0 < text?.utf16.count {
 			showTitleLabel()
-		} else {
-			titleLabel.alpha = 0
 		}
 	}
 	
@@ -650,7 +643,6 @@ public class TextField : UITextField {
 			titleLabel.hidden = false
 			UIView.animateWithDuration(0.15, animations: { [weak self] in
                 if let v: TextField = self {
-                    v.titleLabel.alpha = 1
                     v.titleLabel.transform = CGAffineTransformScale(v.titleLabel.transform, 0.75, 0.75)
                     v.titleLabel.frame = CGRectMake(0, -(v.titleLabelAnimationDistance + h), v.bounds.width, h)
                 }
