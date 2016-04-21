@@ -34,6 +34,9 @@ public protocol TextFieldDelegate : UITextFieldDelegate {}
 
 @IBDesignable
 public class TextField : UITextField {
+	/// A boolean that indicates if the titleLabel is animating.
+	private var titleLabelAnimating: Bool = false
+	
 	/// A reference to the placeholder value.
 	private var placeholderText: String?
 	
@@ -362,14 +365,6 @@ public class TextField : UITextField {
 		}
 	}
 	
-	/// An override to the text property.
-//	@IBInspectable public override var text: String? {
-//		didSet {
-//			handleValueChanged()
-//			handleEditingDidEnd()
-//		}
-//	}
-	
 	/// Sets the placeholder value.
 	@IBInspectable public override var placeholder: String? {
 		get {
@@ -403,7 +398,10 @@ public class TextField : UITextField {
 	/// An override to the text property.
 	@IBInspectable public override var text: String? {
 		didSet {
-			
+			sendActionsForControlEvents(.ValueChanged)
+			if nil != oldValue && true == text?.isEmpty && !editing {
+				handleEditingDidEnd()
+			}
 		}
 	}
 	
@@ -508,6 +506,7 @@ public class TextField : UITextField {
 	*/
 	public func prepareView() {
 		masksToBounds = false
+		borderStyle = .None
 		backgroundColor = MaterialColor.white
 		textColor = MaterialColor.darkText.primary
 		font = RobotoFont.regularWithSize(16)
@@ -532,7 +531,6 @@ public class TextField : UITextField {
 			return
 		}
 		text = nil
-		handleValueChanged()
 	}
 	
 	/// Ahdnler when text value changed.
@@ -554,7 +552,7 @@ public class TextField : UITextField {
 	
 	/// Handler for text editing ended.
 	internal func handleEditingDidEnd() {
-		if true == text?.isEmpty {
+		if true == text?.isEmpty && !titleLabelAnimating {
 			hideTitleLabel()
 		}
 		titleLabel.textColor = titleLabelColor
@@ -657,6 +655,7 @@ public class TextField : UITextField {
 	
 	/// Hides and animates the titleLabel property.
 	private func hideTitleLabel() {
+		titleLabelAnimating = true
 		UIView.animateWithDuration(0.15, animations: { [weak self] in
 			if let s: TextField = self {
                 s.titleLabel.transform = CGAffineTransformIdentity
@@ -666,6 +665,7 @@ public class TextField : UITextField {
             if let s: TextField = self {
                 s.titleLabel.hidden = true
 				s.placeholder = s.placeholderText
+				s.titleLabelAnimating = false
             }
 		}
 	}

@@ -58,7 +58,6 @@ class ViewController: UIViewController, TextFieldDelegate {
 	private func prepareNameField() {
 		nameField = TextField()
 		nameField.placeholder = "Name"
-		nameField.delegate = self
 		view.addSubview(nameField)
 		
 		nameField.translatesAutoresizingMaskIntoConstraints = false
@@ -89,8 +88,7 @@ class ViewController: UIViewController, TextFieldDelegate {
 	
 	/// Executed when the 'return' key is pressed when using the emailField.
 	func textFieldShouldReturn(textField: UITextField) -> Bool {
-		emailField.text = nil
-//		(textField as! TextField).detailLabelHidden = 0 == textField.text?.utf16.count
+		(textField as! TextField).detailLabelHidden = 0 == textField.text?.utf16.count
 		return true
 	}
 	
