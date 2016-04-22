@@ -23,6 +23,9 @@
          location = "group:Programmatic/FilterBlur/FilterBlur.xcodeproj">
       </FileRef>
       <FileRef
+         location = "group:Programmatic/MaterialDepth/MaterialDepth.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:Programmatic/MaterialLayer/MaterialLayer.xcodeproj">
       </FileRef>
       <FileRef

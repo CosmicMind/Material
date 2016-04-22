@@ -47,14 +47,14 @@ public func MaterialDepthToValue(depth: MaterialDepth) -> MaterialDepthType {
 	case .None:
 		return (offset: CGSizeZero, opacity: 0, radius: 0)
 	case .Depth1:
-		return (offset: CGSizeMake(0.2, 0.2), opacity: 0.5, radius: 1)
+		return (offset: CGSizeMake(0, 1), opacity: 0.3, radius: 1)
 	case .Depth2:
-		return (offset: CGSizeMake(0.4, 0.4), opacity: 0.5, radius: 2)
+		return (offset: CGSizeMake(0, 2), opacity: 0.3, radius: 2)
 	case .Depth3:
-		return (offset: CGSizeMake(0.6, 0.6), opacity: 0.5, radius: 3)
+		return (offset: CGSizeMake(0, 3), opacity: 0.3, radius: 3)
 	case .Depth4:
-		return (offset: CGSizeMake(0.8, 0.8), opacity: 0.5, radius: 4)
+		return (offset: CGSizeMake(0, 4), opacity: 0.3, radius: 4)
 	case .Depth5:
-		return (offset: CGSizeMake(1, 1), opacity: 0.5, radius: 5)
+		return (offset: CGSizeMake(0, 5), opacity: 0.3, radius: 5)
 	}
 }

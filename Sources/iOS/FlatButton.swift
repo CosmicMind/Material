@@ -40,9 +40,8 @@ public class FlatButton : MaterialButton {
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		setTitleColor(MaterialColor.blue.accent3, forState: .Normal)
-		pulseColor = MaterialColor.blue.accent3
 		cornerRadiusPreset = .Radius1
 		contentEdgeInsetsPreset = .WideRectangle3
+		pulseColor = MaterialColor.blue.accent3
 	}
 }

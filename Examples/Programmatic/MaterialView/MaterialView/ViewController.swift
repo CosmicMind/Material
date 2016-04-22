@@ -42,7 +42,7 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		prepareGeneralMaterialViewExample()
+		prepareMaterialView()
 	}
 	
 	/// General preparation statements.
@@ -50,8 +50,8 @@ class ViewController: UIViewController {
 		view.backgroundColor = MaterialColor.white
 	}
 	
-	/// Prepare the MaterialView.
-	private func prepareGeneralMaterialViewExample() {
+	/// Prepares the MaterialView.
+	private func prepareMaterialView() {
 		let diameter: CGFloat = 150
 		let point: CGFloat = (MaterialDevice.width - diameter) / 2
 		
