@@ -295,7 +295,7 @@ public class MTextField : UITextField {
 		} else if CGAffineTransformIsIdentity(placeholderLabel.transform) {
 			placeholderLabel.frame = bounds
 			placeholderLabel.transform = CGAffineTransformScale(placeholderLabel.transform, 0.75, 0.75)
-			placeholderLabel.frame.origin = CGPointMake(0, -16)
+			placeholderLabel.frame.origin = CGPointMake(0, -24)
 		}
 	}
 	
@@ -324,9 +324,11 @@ public class MTextField : UITextField {
 			UIView.animateWithDuration(0.15, animations: { [weak self] in
 				if let s: MTextField = self {
 					s.placeholderLabel.transform = CGAffineTransformScale(s.placeholderLabel.transform, 0.75, 0.75)
-					s.placeholderLabel.frame.origin = CGPointMake(0, -16)
+					s.placeholderLabel.frame.origin = CGPointMake(0, -24)
 				}
-			})
+			}) { [unowned self] _ in
+				print(self.placeholderLabel.frame)
+			}
 		}
 	}
 	
