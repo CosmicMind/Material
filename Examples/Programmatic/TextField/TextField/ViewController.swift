@@ -38,8 +38,57 @@ under the TextField.
 import UIKit
 import Material
 
+//extension TextField {
+//	
+//	func setDefaultLabelSpecs(titleColor titleColor: UIColor, detailColor: UIColor) {
+//		// ref: https://www.google.com/design/spec/components/text-fields.html#text-fields-labels
+//		// ref: https://www.google.com/design/spec/patterns/errors.html#errors-user-input-errors
+//		// ref: https://www.google.com/design/spec/layout/metrics-keylines.html#metrics-keylines-touch-target-size
+//		assert(height == 80, "Height must be 80, based on Material design spec.")
+//		
+//		backgroundColor = nil
+//		
+//		let derivedDetailLabelHeight: CGFloat = 15
+//		let paddingAboveAndBelowErrorText: CGFloat = 4
+//		
+//		detailLabel.font = RobotoFont.regularWithSize(12)
+//		detailLabelActiveColor = detailColor
+//		detailLabelAnimationDistance = lineLayerThickness + paddingAboveAndBelowErrorText
+//		
+//		lineLayerActiveColor = titleColor
+//		lineLayerColor = MaterialColor.darkText.dividers
+//		lineLayerDistance = 0 - (derivedDetailLabelHeight + (paddingAboveAndBelowErrorText * 2) + lineLayerThickness)
+//		
+//		let derivedTitleLabelHeight: CGFloat = 20
+//		let paddingAboveLabelText: CGFloat = 8
+//		
+//		titleLabelActiveColor = lineLayerActiveColor
+//		titleLabelAnimationDistance = 0 - (derivedTitleLabelHeight + paddingAboveLabelText)
+//		
+//		if let clearButton = clearButton {
+//			let touchTargetHeight: CGFloat = 48
+//			let spacing = (height - touchTargetHeight) / 2
+//			let origin = CGPoint(x: width - touchTargetHeight - spacing, y: spacing)
+//			let size = CGSize(width: touchTargetHeight, height: touchTargetHeight)
+//			
+//			clearButton.frame = CGRect(origin: origin, size: size)
+//			
+//			clearButton.contentHorizontalAlignment = .Right
+//			
+//			// Use PDF for better rendering
+//			let clearImage = UIImage(named: "Material/Navigation/Close")
+//			clearButton.setImage(clearImage, forState: .Normal)
+//			clearButton.setImage(clearImage, forState: .Highlighted)
+//			
+//			// Hide it since it bleeds over the lineLayer, and doesn't look good
+//			// with the horizontal alignment.
+//			clearButton.pulseOpacity = 0
+//		}
+//	}
+//}
+
 class ViewController: UIViewController, TextFieldDelegate {
-	private var nameField: TextField!
+	private var nameField: MTextField!
 	private var emailField: TextField!
 	
 	override func viewDidLoad() {
@@ -56,14 +105,16 @@ class ViewController: UIViewController, TextFieldDelegate {
 	
 	/// Prepares the name TextField.
 	private func prepareNameField() {
-		nameField = TextField()
+		nameField = MTextField()
 		nameField.placeholder = "Name"
+		nameField.detail = "Error, incorrect password. yy ypp ggg"
+		nameField.placeholderTextColor = MaterialColor.green.base
 		view.addSubview(nameField)
 		
 		nameField.translatesAutoresizingMaskIntoConstraints = false
 		MaterialLayout.alignFromTop(view, child: nameField, top: 100)
 		MaterialLayout.alignToParentHorizontally(view, child: nameField, left: 20, right: 20)
-		
+		print(nameField)
 	}
 	
 	/// Prepares the email TextField.
@@ -73,6 +124,7 @@ class ViewController: UIViewController, TextFieldDelegate {
 		emailField = TextField(frame: CGRectMake(x, 200, w, 24))
 		emailField.placeholder = "Email"
 		emailField.delegate = self
+		emailField.text = "Hello World"
 
 		/*
 		Used to display the error message, which is displayed when

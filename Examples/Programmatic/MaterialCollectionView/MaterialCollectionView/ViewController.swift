@@ -125,8 +125,7 @@ extension ViewController: MaterialCollectionViewDataSource {
 			textField.font = RobotoFont.regularWithSize(20)
 			textField.textColor = MaterialColor.black
 			
-			textField.titleLabel = UILabel()
-			textField.titleLabel!.font = RobotoFont.mediumWithSize(12)
+			textField.titleLabel.font = RobotoFont.mediumWithSize(12)
 			textField.titleLabelColor = MaterialColor.grey.base
 			textField.titleLabelActiveColor = MaterialColor.blue.accent3
 			
@@ -135,10 +134,8 @@ extension ViewController: MaterialCollectionViewDataSource {
 				Used to display the error message, which is displayed when
 				the user presses the 'return' key.
 				*/
-				let detailLabel: UILabel = UILabel()
-				detailLabel.text = "detail text..."
-				textField.detailLabel = detailLabel
-				textField.detailLabel!.font = RobotoFont.mediumWithSize(12)
+				textField.detailLabel.text = "detail text..."
+				textField.detailLabel.font = RobotoFont.mediumWithSize(12)
 				textField.detailLabelActiveColor = MaterialColor.red.accent3
 //				textField.detailLabelAutoHideEnabled = false // Uncomment this line to have manual hiding.
 				

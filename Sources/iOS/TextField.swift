@@ -632,7 +632,7 @@ public class TextField : UITextField {
 	/// Layout the clearButton.
 	private func layoutClearButton() {
 		if 0 < width && 0 < height {
-			clearButton.frame = CGRectMake(width - height, 0, height, height)
+//			clearButton.frame = CGRectMake(width - height, 0, height, height)
 		}
 	}
 	

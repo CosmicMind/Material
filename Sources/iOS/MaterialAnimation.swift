@@ -64,9 +64,7 @@ public func MaterialAnimationFillModeToValue(mode: MaterialAnimationFillMode) ->
 public typealias MaterialAnimationDelayCancelBlock = (cancel : Bool) -> Void
 
 public struct MaterialAnimation {
-	/**
-	:name:	delay
-	*/
+	/// Delay helper method.
 	public static func delay(time: NSTimeInterval, completion: ()-> Void) ->  MaterialAnimationDelayCancelBlock? {
 		
 		func dispatch_later(completion: ()-> Void) {
@@ -109,7 +107,7 @@ public struct MaterialAnimation {
 	/**
 	:name:	animateWithDuration
 	*/
-	public static func animateWithDuration(duration: CFTimeInterval, animations: (() -> Void), options: UIViewAnimationOptions? = nil, completion: (() -> Void)? = nil) {
+	public static func animateWithDuration(duration: CFTimeInterval, animations: (() -> Void), completion: (() -> Void)? = nil) {
 		CATransaction.begin()
 		CATransaction.setAnimationDuration(duration)
 		CATransaction.setCompletionBlock(completion)
@@ -134,9 +132,9 @@ public struct MaterialAnimation {
 	/**
 	:name:	animateWithDelay
 	*/
-	public static func animateWithDelay(delay d: CFTimeInterval, duration: CFTimeInterval, animations: (() -> Void), options: UIViewAnimationOptions? = nil, completion: (() -> Void)? = nil) {
+	public static func animateWithDelay(delay d: CFTimeInterval, duration: CFTimeInterval, animations: (() -> Void), completion: (() -> Void)? = nil) {
 		delay(d) {
-			animateWithDuration(duration, animations: animations, options: options, completion: completion)
+			animateWithDuration(duration, animations: animations, completion: completion)
 		}
 	}
 }
