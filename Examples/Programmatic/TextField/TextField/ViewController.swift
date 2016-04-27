@@ -106,9 +106,9 @@ class ViewController: UIViewController, TextFieldDelegate {
 	/// Prepares the name TextField.
 	private func prepareNameField() {
 		nameField = MTextField()
-		nameField.placeholder = "Name"
+		nameField.placeholder = "Name yyy yyy "
 		nameField.detail = "Error, incorrect password. yy ypp ggg"
-		nameField.placeholderTextColor = MaterialColor.green.base
+		nameField.text = "Testing Text ppp ppp"
 		view.addSubview(nameField)
 		
 		nameField.translatesAutoresizingMaskIntoConstraints = false

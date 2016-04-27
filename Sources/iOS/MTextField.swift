@@ -259,7 +259,9 @@ public class MTextField : UITextField {
 	/// Handles the text editing did end state.
 	public func handleEditingDidEnd() {
 		dividerEditingDidEndAnimation()
-		placeholderEditingDidEndAnimation()
+		if true == text?.isEmpty {
+			placeholderEditingDidEndAnimation()
+		}
 	}
 	
 	/**
@@ -290,6 +292,10 @@ public class MTextField : UITextField {
 	public func layoutPlaceholderLabel() {
 		if true == text?.isEmpty {
 			placeholderLabel.frame = bounds
+		} else if CGAffineTransformIsIdentity(placeholderLabel.transform) {
+			placeholderLabel.frame = bounds
+			placeholderLabel.transform = CGAffineTransformScale(placeholderLabel.transform, 0.75, 0.75)
+			placeholderLabel.frame.origin = CGPointMake(0, -16)
 		}
 	}
 	
@@ -314,11 +320,11 @@ public class MTextField : UITextField {
 	/// The animation for the placeholder when editing begins.
 	public func placeholderEditingDidBeginAnimation() {
 		placeholderLabel.textColor = placeholderTextColor
-		if true == text?.isEmpty {
+		if CGAffineTransformIsIdentity(placeholderLabel.transform) {
 			UIView.animateWithDuration(0.15, animations: { [weak self] in
 				if let s: MTextField = self {
 					s.placeholderLabel.transform = CGAffineTransformScale(s.placeholderLabel.transform, 0.75, 0.75)
-					s.placeholderLabel.frame = CGRectMake(0, -16, s.bounds.width, 12)
+					s.placeholderLabel.frame.origin = CGPointMake(0, -16)
 				}
 			})
 		}
@@ -326,14 +332,12 @@ public class MTextField : UITextField {
 	
 	/// The animation for the placeholder when editing ends.
 	public func placeholderEditingDidEndAnimation() {
-		if true == text?.isEmpty {
-			UIView.animateWithDuration(0.15, animations: { [weak self] in
-				if let s: MTextField = self {
-					s.placeholderLabel.transform = CGAffineTransformIdentity
-					s.placeholderLabel.frame = s.bounds
-				}
-			})
-		}
+		UIView.animateWithDuration(0.15, animations: { [weak self] in
+			if let s: MTextField = self {
+				s.placeholderLabel.transform = CGAffineTransformIdentity
+				s.placeholderLabel.frame = s.bounds
+			}
+		})
 	}
 	
 	/// Prepares the divider.
@@ -345,13 +349,14 @@ public class MTextField : UITextField {
 	
 	/// Prepares the placeholderLabel.
 	private func preparePlaceholderLabel() {
-		placeholderLabel = UILabel()
+		placeholderLabel = UILabel(frame: CGRectZero)
+		placeholderLabel.font = font
 		addSubview(placeholderLabel)
 	}
 	
 	/// Prepares the detailLabel.
 	private func prepareDetailLabel() {
-		detailLabel = UILabel()
+		detailLabel = UILabel(frame: CGRectZero)
 		detailLabel.font = RobotoFont.regularWithSize(12)
 		addSubview(detailLabel)
 	}
