@@ -89,7 +89,7 @@ import Material
 
 class ViewController: UIViewController, TextFieldDelegate {
 	private var nameField: MTextField!
-	private var emailField: TextField!
+	private var emailField: MTextField!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -106,41 +106,31 @@ class ViewController: UIViewController, TextFieldDelegate {
 	/// Prepares the name TextField.
 	private func prepareNameField() {
 		nameField = MTextField()
-		nameField.placeholder = "Name yyy yyy "
-		nameField.detail = "Error, incorrect password. yy ypp ggg"
-		nameField.text = "Testing Text ppp ppp"
+		nameField.placeholder = "Email"
+		nameField.detail = "Enter your email address."
+		
+		// The translatesAutoresizingMaskIntoConstraints property must be set to enable AutoLayout correctly.
+		nameField.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(nameField)
 		
-		nameField.translatesAutoresizingMaskIntoConstraints = false
+		// Size the TextField to the maximum width, less 20 pixels on either side
+		// with a top margin of 100 pixels.
 		MaterialLayout.alignFromTop(view, child: nameField, top: 100)
 		MaterialLayout.alignToParentHorizontally(view, child: nameField, left: 20, right: 20)
-		print(nameField)
 	}
 	
 	/// Prepares the email TextField.
 	private func prepareEmailField() {
-		let w: CGFloat = 300
-		let x: CGFloat = (MaterialDevice.width - w) / 2
-		emailField = TextField(frame: CGRectMake(x, 200, w, 24))
+		emailField = MTextField(frame: CGRectMake(20, 200, view.bounds.width - 40, 16))
 		emailField.placeholder = "Email"
+		emailField.detail = "Error, incorrect email."
 		emailField.delegate = self
-		emailField.text = "Hello World"
-
-		/*
-		Used to display the error message, which is displayed when
-		the user presses the 'return' key.
-		*/
-		emailField.detailLabel.text = "Email is incorrect."
-		emailField.detailLabel.font = RobotoFont.regularWithSize(12)
-		emailField.detailLabelActiveColor = MaterialColor.red.accent3
-//		emailField.detailLabelAutoHideEnabled = false // Uncomment this line to have manual hiding.
 		
 		view.addSubview(emailField)
 	}
 	
 	/// Executed when the 'return' key is pressed when using the emailField.
 	func textFieldShouldReturn(textField: UITextField) -> Bool {
-		(textField as! TextField).detailLabelHidden = 0 == textField.text?.utf16.count
 		return true
 	}
 	

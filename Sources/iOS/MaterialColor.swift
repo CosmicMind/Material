@@ -42,18 +42,18 @@ public struct MaterialColor {
 	
 	// dark text
 	public struct darkText {
-		public static let primary: UIColor = UIColor.blackColor().colorWithAlphaComponent(0.87)
-		public static let secondary: UIColor = UIColor.blackColor().colorWithAlphaComponent(0.54)
-		public static let others: UIColor = UIColor.blackColor().colorWithAlphaComponent(0.38)
-		public static let dividers: UIColor = UIColor.blackColor().colorWithAlphaComponent(0.12)
+		public static let primary: UIColor = MaterialColor.black.colorWithAlphaComponent(0.87)
+		public static let secondary: UIColor = MaterialColor.black.colorWithAlphaComponent(0.54)
+		public static let others: UIColor = MaterialColor.black.colorWithAlphaComponent(0.38)
+		public static let dividers: UIColor = MaterialColor.black.colorWithAlphaComponent(0.12)
 	}
 	
 	// light text
 	public struct lightText {
-		public static let primary: UIColor = UIColor.whiteColor()
-		public static let secondary: UIColor = UIColor.whiteColor().colorWithAlphaComponent(0.7)
-		public static let others: UIColor = UIColor.whiteColor().colorWithAlphaComponent(0.5)
-		public static let dividers: UIColor = UIColor.whiteColor().colorWithAlphaComponent(0.12)
+		public static let primary: UIColor = MaterialColor.white
+		public static let secondary: UIColor = MaterialColor.white.colorWithAlphaComponent(0.7)
+		public static let others: UIColor = MaterialColor.white.colorWithAlphaComponent(0.5)
+		public static let dividers: UIColor = MaterialColor.white.colorWithAlphaComponent(0.12)
 	}
 	
 	// red

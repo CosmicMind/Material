@@ -115,14 +115,34 @@ public class MTextField : UITextField {
 	}
 	
 	/// Reference to the divider.
-	public private(set) var divider: CAShapeLayer!
+	public private(set) lazy var divider: CAShapeLayer = CAShapeLayer()
 	
+	/// Divider height.
+	@IBInspectable public var dividerHeight: CGFloat = 1
+	
+	/// Divider active state height.
+	@IBInspectable  public var dividerActiveHeight: CGFloat = 2
+	
+	/// The placeholderLabel font value.
+	@IBInspectable public override var font: UIFont? {
+		get {
+			return placeholderLabel.font
+		}
+		set(value) {
+			placeholderLabel.font = value
+		}
+	}
+	
+	/// The placeholderLabel text value.
 	@IBInspectable public override var placeholder: String? {
 		get {
 			return placeholderLabel.text
 		}
 		set(value) {
 			placeholderLabel.text = value
+			if let v: String = value {
+				placeholderLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderTextColor])
+			}
 		}
 	}
 	
@@ -131,7 +151,7 @@ public class MTextField : UITextField {
 	placeholderLabel text value is updated with the placeholder text
 	value before being displayed.
 	*/
-	@IBInspectable public private(set) var placeholderLabel: UILabel!
+	@IBInspectable public private(set) lazy var placeholderLabel: UILabel = UILabel(frame: CGRectZero)
 	
 	/// Placeholder textColor.
 	@IBInspectable public var placeholderTextColor: UIColor = MaterialColor.darkText.others {
@@ -143,12 +163,28 @@ public class MTextField : UITextField {
 	}
 	
 	/// The detailLabel UILabel that is displayed.
-	@IBInspectable public private(set) var detailLabel: UILabel!
+	@IBInspectable public private(set) lazy var detailLabel: UILabel = UILabel(frame: CGRectZero)
 	
 	
+	/// The detailLabel text value.
 	@IBInspectable public var detail: String? {
+		get {
+			return detailLabel.text
+		}
+		set(value) {
+			detailLabel.text = value
+			if let v: String = value {
+				detailLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderTextColor])
+			}
+		}
+	}
+	
+	/// Detail textColor.
+	@IBInspectable public var detailTextColor: UIColor = MaterialColor.darkText.others {
 		didSet {
-			detailLabel.text = detail
+			if let v: String = detail {
+				detailLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: detailTextColor])
+			}
 		}
 	}
 	
@@ -180,7 +216,6 @@ public class MTextField : UITextField {
 	public override func layoutSubviews() {
 		super.layoutSubviews()
 		if !editing {
-			layoutIfNeeded()
 			layoutPlaceholderLabel()
 			layoutDetailLabel()
 		}
@@ -190,7 +225,6 @@ public class MTextField : UITextField {
 		super.layoutSublayersOfLayer(layer)
 		if self.layer == layer {
 			if !editing {
-				layoutIfNeeded()
 				layoutDivider()
 			}
 		}
@@ -285,7 +319,7 @@ public class MTextField : UITextField {
 	
 	/// Layout the divider.
 	public func layoutDivider() {
-		divider.frame = CGRectMake(0, height + 8, width, 1)
+		divider.frame = CGRectMake(0, height + 8, width, dividerHeight)
 	}
 	
 	/// Layout the placeholderLabel.
@@ -307,13 +341,13 @@ public class MTextField : UITextField {
 	
 	/// The animation for the divider when editing begins.
 	public func dividerEditingDidBeginAnimation() {
-		divider.frame.size.height = 2
+		divider.frame.size.height = dividerActiveHeight
 		divider.backgroundColor = MaterialColor.blue.base.CGColor
 	}
 	
 	/// The animation for the divider when editing ends.
 	public func dividerEditingDidEndAnimation() {
-		divider.frame.size.height = 1
+		divider.frame.size.height = dividerHeight
 		divider.backgroundColor = MaterialColor.darkText.dividers.CGColor
 	}
 	
@@ -326,9 +360,7 @@ public class MTextField : UITextField {
 					s.placeholderLabel.transform = CGAffineTransformScale(s.placeholderLabel.transform, 0.75, 0.75)
 					s.placeholderLabel.frame.origin = CGPointMake(0, -24)
 				}
-			}) { [unowned self] _ in
-				print(self.placeholderLabel.frame)
-			}
+			})
 		}
 	}
 	
@@ -344,22 +376,21 @@ public class MTextField : UITextField {
 	
 	/// Prepares the divider.
 	private func prepareDivider() {
-		divider = CAShapeLayer()
 		divider.backgroundColor = MaterialColor.darkText.dividers.CGColor
 		layer.addSublayer(divider)
 	}
 	
 	/// Prepares the placeholderLabel.
 	private func preparePlaceholderLabel() {
-		placeholderLabel = UILabel(frame: CGRectZero)
 		placeholderLabel.font = font
+		placeholderTextColor = MaterialColor.darkText.others
 		addSubview(placeholderLabel)
 	}
 	
 	/// Prepares the detailLabel.
 	private func prepareDetailLabel() {
-		detailLabel = UILabel(frame: CGRectZero)
 		detailLabel.font = RobotoFont.regularWithSize(12)
+		detailTextColor = MaterialColor.darkText.others
 		addSubview(detailLabel)
 	}
 	
