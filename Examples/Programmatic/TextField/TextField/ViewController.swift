@@ -94,6 +94,7 @@ class ViewController: UIViewController, TextFieldDelegate {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
+		prepareResignResponderButton()
 		prepareNameField()
 		prepareEmailField()
 	}
@@ -103,11 +104,32 @@ class ViewController: UIViewController, TextFieldDelegate {
 		view.backgroundColor = MaterialColor.white
 	}
 	
+	/// Prepares the resign responder button.
+	private func prepareResignResponderButton() {
+		let btn: RaisedButton = RaisedButton()
+		btn.translatesAutoresizingMaskIntoConstraints = false
+		btn.addTarget(self, action: #selector(handleResignResponderButton), forControlEvents: .TouchUpInside)
+		btn.setTitle("Resign", forState: .Normal)
+		btn.setTitleColor(MaterialColor.blue.base, forState: .Normal)
+		btn.setTitleColor(MaterialColor.blue.base, forState: .Highlighted)
+		view.addSubview(btn)
+		
+		MaterialLayout.alignFromBottomRight(view, child: btn, bottom: 24, right: 24)
+		MaterialLayout.size(view, child: btn, width: 100, height: 50)
+	}
+	
+	/// Handle the resign responder button.
+	internal func handleResignResponderButton() {
+		nameField?.resignFirstResponder()
+		emailField?.resignFirstResponder()
+	}
+	
 	/// Prepares the name TextField.
 	private func prepareNameField() {
 		nameField = MTextField()
 		nameField.placeholder = "Email"
 		nameField.detail = "Enter your email address."
+		nameField.clearButtonMode = .WhileEditing
 		
 		// The translatesAutoresizingMaskIntoConstraints property must be set to enable AutoLayout correctly.
 		nameField.translatesAutoresizingMaskIntoConstraints = false
@@ -116,15 +138,16 @@ class ViewController: UIViewController, TextFieldDelegate {
 		// Size the TextField to the maximum width, less 20 pixels on either side
 		// with a top margin of 100 pixels.
 		MaterialLayout.alignFromTop(view, child: nameField, top: 100)
-		MaterialLayout.alignToParentHorizontally(view, child: nameField, left: 20, right: 20)
+		MaterialLayout.alignToParentHorizontally(view, child: nameField, left: 40, right: 40)
 	}
 	
 	/// Prepares the email TextField.
 	private func prepareEmailField() {
-		emailField = MTextField(frame: CGRectMake(20, 200, view.bounds.width - 40, 16))
+		emailField = MTextField(frame: CGRectMake(40, 200, view.bounds.width - 80, 21))
 		emailField.placeholder = "Email"
 		emailField.detail = "Error, incorrect email."
 		emailField.delegate = self
+		emailField.clearButtonMode = .WhileEditing
 		
 		view.addSubview(emailField)
 	}
@@ -135,30 +158,24 @@ class ViewController: UIViewController, TextFieldDelegate {
 	}
 	
 	func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
-		print("Should Begin")
 		return true
 	}
 	
 	func textFieldDidBeginEditing(textField: UITextField) {
-		print("Did Begin")
 	}
 	
 	func textFieldShouldEndEditing(textField: UITextField) -> Bool {
-		print("Should End")
 		return true
 	}
 	
 	func textFieldDidEndEditing(textField: UITextField) {
-		print("Did End")
 	}
 	
 	func textFieldShouldClear(textField: UITextField) -> Bool {
-		print("Should Clear")
 		return true
 	}
 	
 	func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-		print("Should Change")
 		return true
 	}
 }
