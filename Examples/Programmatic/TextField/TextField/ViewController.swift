@@ -160,8 +160,8 @@ class ViewController: UIViewController, TextFieldDelegate {
 		
 		emailField.placeholderColor = MaterialColor.amber.darken4
 		emailField.placeholderActiveColor = MaterialColor.pink.base
-		emailField.detailColor = MaterialColor.indigo.accent1
 		emailField.dividerColor = MaterialColor.cyan.base
+		emailField.detailColor = MaterialColor.indigo.accent1
 		
 		view.addSubview(emailField)
 	}
