@@ -158,6 +158,11 @@ class ViewController: UIViewController, TextFieldDelegate {
 		emailField.delegate = self
 		emailField.clearButtonMode = .WhileEditing
 		
+		emailField.placeholderColor = MaterialColor.amber.darken4
+		emailField.placeholderActiveColor = MaterialColor.pink.base
+		emailField.detailColor = MaterialColor.indigo.accent1
+		emailField.dividerColor = MaterialColor.cyan.base
+		
 		view.addSubview(emailField)
 	}
 	

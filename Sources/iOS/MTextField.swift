@@ -126,7 +126,13 @@ public class MTextField : UITextField {
 	@IBInspectable public var dividerActiveHeight: CGFloat = 2
 	
 	/// Sets the divider and tintColor.
-	@IBInspectable public var dividerColor: UIColor = MaterialColor.darkText.dividers
+	@IBInspectable public var dividerColor: UIColor = MaterialColor.darkText.dividers {
+		didSet {
+			if !editing {
+				divider.backgroundColor = dividerColor.CGColor
+			}
+		}
+	}
 	
 	/// The placeholderLabel font value.
 	@IBInspectable public override var font: UIFont? {
@@ -159,10 +165,26 @@ public class MTextField : UITextField {
 	@IBInspectable public private(set) lazy var placeholderLabel: UILabel = UILabel(frame: CGRectZero)
 	
 	/// Placeholder textColor.
-	@IBInspectable public var placeholderColor: UIColor = MaterialColor.darkText.others
+	@IBInspectable public var placeholderColor: UIColor = MaterialColor.darkText.others {
+		didSet {
+			if !editing {
+				if let v: String = placeholder {
+					placeholderLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderColor])
+				}
+			}
+		}
+	}
 	
 	/// Placeholder active textColor.
-	@IBInspectable public var placeholderActiveColor: UIColor = MaterialColor.blue.base
+	@IBInspectable public var placeholderActiveColor: UIColor = MaterialColor.blue.base {
+		didSet {
+			if editing {
+				if let v: String = placeholder {
+					placeholderLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderActiveColor])
+				}
+			}
+		}
+	}
 	
 	/// The detailLabel UILabel that is displayed.
 	@IBInspectable public private(set) lazy var detailLabel: UILabel = UILabel(frame: CGRectZero)
@@ -182,7 +204,13 @@ public class MTextField : UITextField {
 	}
 	
 	/// Detail textColor.
-	@IBInspectable public var detailColor: UIColor = MaterialColor.darkText.others
+	@IBInspectable public var detailColor: UIColor = MaterialColor.darkText.others {
+		didSet {
+			if let v: String = detailLabel.text {
+				detailLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: detailColor])
+			}
+		}
+	}
 	
 	/// Handles the textAlignment of the placeholderLabel.
 	public override var textAlignment: NSTextAlignment {
@@ -403,7 +431,7 @@ public class MTextField : UITextField {
 	
 	/// Prepares the divider.
 	private func prepareDivider() {
-		divider.backgroundColor = MaterialColor.darkText.dividers.CGColor
+		dividerColor = MaterialColor.darkText.dividers
 		layer.addSublayer(divider)
 	}
 	

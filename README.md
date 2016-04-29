@@ -194,7 +194,7 @@ under the TextField.
 
 ![MaterialTextField](http://www.cosmicmind.io/MK/MaterialTextField.gif)
 
-[Learn More About TextField](https://github.com/CosmicMind/Material/wiki/TextField)
+[Learn More About TextField](http://cosmicmind.sandbox.local/material/textfield)
 
 <a name="textview"></a>
 #### TextView
