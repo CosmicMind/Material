@@ -126,19 +126,7 @@ public class MTextField : UITextField {
 	@IBInspectable public var dividerActiveHeight: CGFloat = 2
 	
 	/// Sets the divider and tintColor.
-	@IBInspectable public var dividerColor: UIColor? {
-		get {
-			return nil == divider.backgroundColor ? nil : UIColor(CGColor: divider.backgroundColor!)
-		}
-		set(value) {
-			divider.backgroundColor = dividerColor?.CGColor
-			if let v: UIColor = dividerColor {
-				tintColor = v
-			} else {
-				tintColor = MaterialColor.darkText.dividers
-			}
-		}
-	}
+	@IBInspectable public var dividerColor: UIColor = MaterialColor.darkText.dividers
 	
 	/// The placeholderLabel font value.
 	@IBInspectable public override var font: UIFont? {
@@ -171,13 +159,10 @@ public class MTextField : UITextField {
 	@IBInspectable public private(set) lazy var placeholderLabel: UILabel = UILabel(frame: CGRectZero)
 	
 	/// Placeholder textColor.
-	@IBInspectable public var placeholderColor: UIColor = MaterialColor.darkText.others {
-		didSet {
-			if let v: String = placeholder {
-				placeholderLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderColor])
-			}
-		}
-	}
+	@IBInspectable public var placeholderColor: UIColor = MaterialColor.darkText.others
+	
+	/// Placeholder active textColor.
+	@IBInspectable public var placeholderActiveColor: UIColor = MaterialColor.blue.base
 	
 	/// The detailLabel UILabel that is displayed.
 	@IBInspectable public private(set) lazy var detailLabel: UILabel = UILabel(frame: CGRectZero)
@@ -191,17 +176,22 @@ public class MTextField : UITextField {
 		set(value) {
 			detailLabel.text = value
 			if let v: String = value {
-				detailLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderColor])
+				detailLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: detailColor])
 			}
 		}
 	}
 	
 	/// Detail textColor.
-	@IBInspectable public var detailColor: UIColor = MaterialColor.darkText.others {
-		didSet {
-			if let v: String = detail {
-				detailLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: detailColor])
-			}
+	@IBInspectable public var detailColor: UIColor = MaterialColor.darkText.others
+	
+	/// Handles the textAlignment of the placeholderLabel.
+	public override var textAlignment: NSTextAlignment {
+		get {
+			return placeholderLabel.textAlignment
+		}
+		set(value) {
+			super.textAlignment = value
+			placeholderLabel.textAlignment = value
 		}
 	}
 	
@@ -245,6 +235,11 @@ public class MTextField : UITextField {
 				layoutDivider()
 			}
 		}
+	}
+	
+	/// Default size when using AutoLayout.
+	public override func intrinsicContentSize() -> CGSize {
+		return CGSizeMake(width, 32)
 	}
 	
 	/**
@@ -310,9 +305,7 @@ public class MTextField : UITextField {
 	/// Handles the text editing did end state.
 	public func handleEditingDidEnd() {
 		dividerEditingDidEndAnimation()
-		if true == text?.isEmpty {
-			placeholderEditingDidEndAnimation()
-		}
+		placeholderEditingDidEndAnimation()
 	}
 	
 	/**
@@ -336,7 +329,7 @@ public class MTextField : UITextField {
 	
 	/// Layout the divider.
 	public func layoutDivider() {
-		divider.frame = CGRectMake(0, height + 8, width, dividerHeight)
+		divider.frame = CGRectMake(0, height, width, dividerHeight)
 	}
 	
 	/// Layout the placeholderLabel.
@@ -345,28 +338,29 @@ public class MTextField : UITextField {
 			placeholderLabel.frame = bounds
 		} else if CGAffineTransformIsIdentity(placeholderLabel.transform) {
 			placeholderLabel.frame = bounds
-			placeholderLabel.transform = CGAffineTransformScale(placeholderLabel.transform, 0.75, 0.75)
+			placeholderLabel.transform = CGAffineTransformMakeScale(0.75, 0.75)
 			placeholderLabel.frame.origin.x = 0
-			placeholderLabel.frame.origin.y = -21
+			placeholderLabel.frame.origin.y = -placeholderLabel.frame.size.height
+			placeholderLabel.textColor = placeholderColor
 		}
 	}
 	
 	/// Layout the detailLabel.
 	public func layoutDetailLabel() {
-		detailLabel.frame = CGRectMake(0, height + 16, width, 12)
+		detailLabel.frame = CGRectMake(0, height + 8, width, 12)
 		detailLabel.sizeToFit()
 	}
 	
 	/// The animation for the divider when editing begins.
 	public func dividerEditingDidBeginAnimation() {
 		divider.frame.size.height = dividerActiveHeight
-		divider.backgroundColor = MaterialColor.blue.base.CGColor
+		divider.backgroundColor = placeholderActiveColor.CGColor
 	}
 	
 	/// The animation for the divider when editing ends.
 	public func dividerEditingDidEndAnimation() {
 		divider.frame.size.height = dividerHeight
-		divider.backgroundColor = MaterialColor.darkText.dividers.CGColor
+		divider.backgroundColor = dividerColor.CGColor
 	}
 	
 	/// The animation for the placeholder when editing begins.
@@ -377,27 +371,33 @@ public class MTextField : UITextField {
 				if let v: MTextField = self {
 					v.placeholderLabel.transform = CGAffineTransformMakeScale(0.75, 0.75)
 					v.placeholderLabel.frame.origin.x = 0
-					v.placeholderLabel.frame.origin.y = -21
+					v.placeholderLabel.frame.origin.y = -v.placeholderLabel.frame.size.height
+					v.placeholderLabel.textColor = v.placeholderActiveColor
 				}
 			}) { [weak self] _ in
 				self?.animating = false
 			}
+		} else if editing {
+			placeholderLabel.textColor = placeholderActiveColor
 		}
 	}
 	
 	/// The animation for the placeholder when editing ends.
 	public func placeholderEditingDidEndAnimation() {
-		if !CGAffineTransformIsIdentity(placeholderLabel.transform) {
+		if !CGAffineTransformIsIdentity(placeholderLabel.transform) && true == text?.isEmpty {
 			animating = true
 			UIView.animateWithDuration(0.15, animations: { [weak self] in
 				if let v: MTextField = self {
 					v.placeholderLabel.transform = CGAffineTransformIdentity
 					v.placeholderLabel.frame.origin.x = 0
 					v.placeholderLabel.frame.origin.y = 0
+					v.placeholderLabel.textColor = v.placeholderColor
 				}
 			}) { [weak self] _ in
 				self?.animating = false
 			}
+		} else if !editing {
+			placeholderLabel.textColor = placeholderColor
 		}
 	}
 	
@@ -409,7 +409,6 @@ public class MTextField : UITextField {
 	
 	/// Prepares the placeholderLabel.
 	private func preparePlaceholderLabel() {
-		placeholderLabel.font = font
 		placeholderColor = MaterialColor.darkText.others
 		addSubview(placeholderLabel)
 	}

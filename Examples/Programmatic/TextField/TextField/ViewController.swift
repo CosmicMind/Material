@@ -99,6 +99,11 @@ class ViewController: UIViewController, TextFieldDelegate {
 		prepareEmailField()
 	}
 	
+	/// Programmatic update for the textField as it rotates.
+	override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
+		emailField.width = view.bounds.height
+	}
+	
 	/// General preparation statements.
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.white
@@ -130,6 +135,10 @@ class ViewController: UIViewController, TextFieldDelegate {
 		nameField.placeholder = "Email"
 		nameField.detail = "Enter your email address."
 		nameField.clearButtonMode = .WhileEditing
+		nameField.textAlignment = .Center
+		nameField.text = "daniel@dahan"
+		nameField.backgroundColor = MaterialColor.green.accent1
+		nameField.placeholderLabel.backgroundColor = MaterialColor.green.accent3
 		
 		// The translatesAutoresizingMaskIntoConstraints property must be set to enable AutoLayout correctly.
 		nameField.translatesAutoresizingMaskIntoConstraints = false
@@ -143,7 +152,7 @@ class ViewController: UIViewController, TextFieldDelegate {
 	
 	/// Prepares the email TextField.
 	private func prepareEmailField() {
-		emailField = MTextField(frame: CGRectMake(40, 200, view.bounds.width - 80, 21))
+		emailField = MTextField(frame: CGRectMake(40, 200, view.bounds.width - 80, 32))
 		emailField.placeholder = "Email"
 		emailField.detail = "Error, incorrect email."
 		emailField.delegate = self
