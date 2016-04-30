@@ -194,6 +194,7 @@ public class MTextField : UITextField {
 					placeholderLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderActiveColor])
 				}
 			}
+			tintColor = placeholderActiveColor
 		}
 	}
 	
@@ -235,6 +236,87 @@ public class MTextField : UITextField {
 			detailLabel.textAlignment = value
 		}
 	}
+	
+	/// Enables the clearFlatButton.
+	@IBInspectable public var enableClearFlatButton: Bool {
+		get {
+			return nil != clearFlatButton
+		}
+		set(value) {
+			if value {
+				if nil == clearFlatButton {
+					let image: UIImage? = MaterialIcon.cm.clear
+					clearFlatButton = FlatButton(frame: CGRectZero)
+					clearFlatButton!.contentEdgeInsets = UIEdgeInsetsZero
+					clearFlatButton!.pulseColor = nil
+					clearFlatButton!.pulseScale = false
+					clearFlatButton!.tintColor = placeholderColor
+					clearFlatButton!.setImage(image, forState: .Normal)
+					clearButtonMode = .Never
+					rightViewMode = .WhileEditing
+					rightView = clearFlatButton
+					clearFlatButtonAutoHandle = clearFlatButtonAutoHandle ? true : false
+				}
+			} else {
+				clearFlatButton?.removeTarget(self, action: #selector(handleClearButton), forControlEvents: .TouchUpInside)
+				clearFlatButton = nil
+			}
+		}
+	}
+	
+	/// Enables the automatic handling of the clearFlatButton.
+	@IBInspectable public var clearFlatButtonAutoHandle: Bool = true {
+		didSet {
+			clearFlatButton?.removeTarget(self, action: #selector(handleClearButton), forControlEvents: .TouchUpInside)
+			if clearFlatButtonAutoHandle {
+				clearFlatButton?.addTarget(self, action: #selector(handleClearButton), forControlEvents: .TouchUpInside)
+			}
+		}
+	}
+	
+	/// Enables the visibilityFlatButton.
+	@IBInspectable public var enableVisibilityFlatButton: Bool {
+		get {
+			return nil != visibilityFlatButton
+		}
+		set(value) {
+			if value {
+				if nil == visibilityFlatButton {
+					let image: UIImage? = MaterialIcon.visibility
+					visibilityFlatButton = FlatButton(frame: CGRectZero)
+					visibilityFlatButton!.contentEdgeInsets = UIEdgeInsetsZero
+					visibilityFlatButton!.pulseColor = nil
+					visibilityFlatButton!.pulseScale = false
+					visibilityFlatButton!.tintColor = placeholderColor
+					visibilityFlatButton!.setImage(image, forState: .Normal)
+					secureTextEntry = true
+					clearButtonMode = .Never
+					rightViewMode = .WhileEditing
+					rightView = visibilityFlatButton
+					visibilityFlatButtonAutoHandle = visibilityFlatButtonAutoHandle ? true : false
+				}
+			} else {
+				visibilityFlatButton?.removeTarget(self, action: #selector(handleClearButton), forControlEvents: .TouchUpInside)
+				visibilityFlatButton = nil
+			}
+		}
+	}
+	
+	/// Enables the automatic handling of the visibilityFlatButton.
+	@IBInspectable public var visibilityFlatButtonAutoHandle: Bool = true {
+		didSet {
+			visibilityFlatButton?.removeTarget(self, action: #selector(handleVisibilityButton), forControlEvents: .TouchUpInside)
+			if visibilityFlatButtonAutoHandle {
+				visibilityFlatButton?.addTarget(self, action: #selector(handleVisibilityButton), forControlEvents: .TouchUpInside)
+			}
+		}
+	}
+	
+	/// A reference to the clearFlatButton.
+	public private(set) var clearFlatButton: FlatButton?
+	
+	/// A reference to the visibilityFlatButton.
+	public private(set) var visibilityFlatButton: FlatButton?
 	
 	/**
 	An initializer that initializes the object with a NSCoder object.
@@ -344,6 +426,20 @@ public class MTextField : UITextField {
 		placeholderEditingDidEndAnimation()
 	}
 	
+	/// Handles the clearFlatButton TouchUpInside event.
+	public func handleClearButton() {
+		if false == delegate?.textFieldShouldClear?(self) {
+			return
+		}
+		text = nil
+	}
+	
+	/// Handles the visibilityFlatButton TouchUpInside event.
+	public func handleVisibilityButton() {
+		secureTextEntry = !secureTextEntry
+		visibilityFlatButton?.tintColor = placeholderColor.colorWithAlphaComponent(secureTextEntry ? 0.38 : 0.54)
+	}
+	
 	/**
 	Prepares the view instance when intialized. When subclassing,
 	it is recommended to override the prepareView method
@@ -368,6 +464,8 @@ public class MTextField : UITextField {
 		if !animating {
 			layoutPlaceholderLabel()
 			layoutDetailLabel()
+			layoutClearFlatButton()
+			layoutVisibilityFlatButton()
 		}
 	}
 	
@@ -410,6 +508,24 @@ public class MTextField : UITextField {
 	public func layoutDetailLabel() {
 		var h: CGFloat = nil == detail ? 12 : detailLabel.font.stringSize(detail!, constrainedToWidth: Double(width)).height
 		detailLabel.frame = CGRectMake(0, divider.frame.origin.y + 8, width, h)
+	}
+	
+	/// Layout the clearFlatButton.
+	public func layoutClearFlatButton() {
+		if let v: FlatButton = clearFlatButton {
+			if 0 < width && 0 < height {
+				v.frame = CGRectMake(width - height, 0, height, height)
+			}
+		}
+	}
+	
+	/// Layout the visibilityFlatButton.
+	public func layoutVisibilityFlatButton() {
+		if let v: FlatButton = visibilityFlatButton {
+			if 0 < width && 0 < height {
+				v.frame = CGRectMake(width - height, 0, height, height)
+			}
+		}
 	}
 	
 	/// The animation for the divider when editing begins.

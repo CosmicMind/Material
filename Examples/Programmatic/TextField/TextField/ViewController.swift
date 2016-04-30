@@ -109,7 +109,7 @@ class ViewController: UIViewController, TextFieldDelegate {
 		emailField = MTextField(frame: CGRectMake(40, 120, view.bounds.width - 80, 32))
 		emailField.placeholder = "Email"
 		emailField.detail = "Error, incorrect email"
-		emailField.clearButtonMode = .WhileEditing
+		emailField.enableClearFlatButton = true
 		emailField.delegate = self
 		
 		emailField.placeholderColor = MaterialColor.amber.darken4
@@ -126,8 +126,7 @@ class ViewController: UIViewController, TextFieldDelegate {
 		passwordField.placeholder = "Password"
 		passwordField.detail = "At least 8 characters"
 		passwordField.clearButtonMode = .WhileEditing
-		passwordField.textAlignment = .Right
-		passwordField.secureTextEntry = true
+		passwordField.enableVisibilityFlatButton = true
 		passwordField.delegate = self
 		
 		// The translatesAutoresizingMaskIntoConstraints property must be set to enable AutoLayout correctly.
