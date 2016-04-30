@@ -252,8 +252,10 @@ public class MTextField : UITextField {
 	
 	public override func layoutSubviews() {
 		super.layoutSubviews()
-		layoutPlaceholderLabel()
-		layoutDetailLabel()
+		if !editing && !animating {
+			layoutPlaceholderLabel()
+			layoutDetailLabel()
+		}
 	}
 	
 	public override func layoutSublayersOfLayer(layer: CALayer) {
@@ -360,25 +362,20 @@ public class MTextField : UITextField {
 	
 	/// Layout the placeholderLabel.
 	public func layoutPlaceholderLabel() {
-		if !editing && !animating {
-			if true == text?.isEmpty {
-				placeholderLabel.frame = bounds
-			} else if CGAffineTransformIsIdentity(placeholderLabel.transform) {
-				placeholderLabel.frame = bounds
-				placeholderLabel.transform = CGAffineTransformMakeScale(0.75, 0.75)
-				switch textAlignment {
-				case .Left, .Natural:
-					placeholderLabel.frame.origin.x = 0
-				case .Right:
-					placeholderLabel.frame.origin.x = width - placeholderLabel.frame.width
-				default:break;
-				}
-				placeholderLabel.frame.origin.y = -placeholderLabel.frame.size.height
-				placeholderLabel.textColor = placeholderColor
+		if true == text?.isEmpty {
+			placeholderLabel.frame = bounds
+		} else if CGAffineTransformIsIdentity(placeholderLabel.transform) {
+			placeholderLabel.frame = bounds
+			placeholderLabel.transform = CGAffineTransformMakeScale(0.75, 0.75)
+			switch textAlignment {
+			case .Left, .Natural:
+				placeholderLabel.frame.origin.x = 0
+			case .Right:
+				placeholderLabel.frame.origin.x = width - placeholderLabel.frame.width
+			default:break;
 			}
-		} else if !animating {
-			placeholderLabel.frame.origin.x = 0
-			placeholderLabel.frame.size.width = width
+			placeholderLabel.frame.origin.y = -placeholderLabel.frame.size.height
+			placeholderLabel.textColor = placeholderColor
 		}
 	}
 	

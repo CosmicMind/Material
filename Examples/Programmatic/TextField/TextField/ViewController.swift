@@ -38,65 +38,18 @@ under the TextField.
 import UIKit
 import Material
 
-//extension TextField {
-//	
-//	func setDefaultLabelSpecs(titleColor titleColor: UIColor, detailColor: UIColor) {
-//		// ref: https://www.google.com/design/spec/components/text-fields.html#text-fields-labels
-//		// ref: https://www.google.com/design/spec/patterns/errors.html#errors-user-input-errors
-//		// ref: https://www.google.com/design/spec/layout/metrics-keylines.html#metrics-keylines-touch-target-size
-//		assert(height == 80, "Height must be 80, based on Material design spec.")
-//		
-//		backgroundColor = nil
-//		
-//		let derivedDetailLabelHeight: CGFloat = 15
-//		let paddingAboveAndBelowErrorText: CGFloat = 4
-//		
-//		detailLabel.font = RobotoFont.regularWithSize(12)
-//		detailLabelActiveColor = detailColor
-//		detailLabelAnimationDistance = lineLayerThickness + paddingAboveAndBelowErrorText
-//		
-//		lineLayerActiveColor = titleColor
-//		lineLayerColor = MaterialColor.darkText.dividers
-//		lineLayerDistance = 0 - (derivedDetailLabelHeight + (paddingAboveAndBelowErrorText * 2) + lineLayerThickness)
-//		
-//		let derivedTitleLabelHeight: CGFloat = 20
-//		let paddingAboveLabelText: CGFloat = 8
-//		
-//		titleLabelActiveColor = lineLayerActiveColor
-//		titleLabelAnimationDistance = 0 - (derivedTitleLabelHeight + paddingAboveLabelText)
-//		
-//		if let clearButton = clearButton {
-//			let touchTargetHeight: CGFloat = 48
-//			let spacing = (height - touchTargetHeight) / 2
-//			let origin = CGPoint(x: width - touchTargetHeight - spacing, y: spacing)
-//			let size = CGSize(width: touchTargetHeight, height: touchTargetHeight)
-//			
-//			clearButton.frame = CGRect(origin: origin, size: size)
-//			
-//			clearButton.contentHorizontalAlignment = .Right
-//			
-//			// Use PDF for better rendering
-//			let clearImage = UIImage(named: "Material/Navigation/Close")
-//			clearButton.setImage(clearImage, forState: .Normal)
-//			clearButton.setImage(clearImage, forState: .Highlighted)
-//			
-//			// Hide it since it bleeds over the lineLayer, and doesn't look good
-//			// with the horizontal alignment.
-//			clearButton.pulseOpacity = 0
-//		}
-//	}
-//}
-
 class ViewController: UIViewController, TextFieldDelegate {
 	private var nameField: MTextField!
 	private var emailField: MTextField!
+	private var passwordField: MTextField!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		prepareResignResponderButton()
 		prepareNameField()
 		prepareEmailField()
+		preparePasswordField()
+		prepareResignResponderButton()
 	}
 	
 	/// Programmatic update for the textField as it rotates.
@@ -132,11 +85,11 @@ class ViewController: UIViewController, TextFieldDelegate {
 	/// Prepares the name TextField.
 	private func prepareNameField() {
 		nameField = MTextField()
-		nameField.placeholder = "Email"
-		nameField.detail = "Enter your email address.yyypppggg"
+		nameField.placeholder = "Name"
+		nameField.detail = "Your given name"
 		nameField.clearButtonMode = .WhileEditing
 		nameField.textAlignment = .Center
-		nameField.text = "daniel@dahan"
+		nameField.text = "Daniel Dahan"
 		nameField.backgroundColor = MaterialColor.green.accent1
 		nameField.placeholderLabel.backgroundColor = MaterialColor.green.accent3
 		
@@ -144,8 +97,8 @@ class ViewController: UIViewController, TextFieldDelegate {
 		nameField.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(nameField)
 		
-		// Size the TextField to the maximum width, less 20 pixels on either side
-		// with a top margin of 100 pixels.
+		// Size the TextField to the maximum width, less 40 pixels on either side
+		// with a top margin of 40 pixels.
 		MaterialLayout.alignFromTop(view, child: nameField, top: 40)
 		MaterialLayout.alignToParentHorizontally(view, child: nameField, left: 40, right: 40)
 	}
@@ -167,6 +120,27 @@ class ViewController: UIViewController, TextFieldDelegate {
 		emailField.placeholderLabel.backgroundColor = MaterialColor.green.accent3
 		
 		view.addSubview(emailField)
+	}
+	
+	/// Prepares the password TextField.
+	private func preparePasswordField() {
+		passwordField = MTextField()
+		passwordField.placeholder = "Password"
+		passwordField.detail = "At least 8 characters"
+		passwordField.clearButtonMode = .WhileEditing
+		passwordField.textAlignment = .Right
+		passwordField.secureTextEntry = true
+		passwordField.backgroundColor = MaterialColor.green.accent1
+		passwordField.placeholderLabel.backgroundColor = MaterialColor.green.accent3
+		
+		// The translatesAutoresizingMaskIntoConstraints property must be set to enable AutoLayout correctly.
+		passwordField.translatesAutoresizingMaskIntoConstraints = false
+		view.addSubview(passwordField)
+		
+		// Size the TextField to the maximum width, less 40 pixels on either side
+		// with a top margin of 200 pixels.
+		MaterialLayout.alignFromTop(view, child: passwordField, top: 200)
+		MaterialLayout.alignToParentHorizontally(view, child: passwordField, left: 40, right: 40)
 	}
 	
 	/// Executed when the 'return' key is pressed when using the emailField.
