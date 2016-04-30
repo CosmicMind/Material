@@ -80,18 +80,19 @@ class ViewController: UIViewController, TextFieldDelegate {
 	internal func handleResignResponderButton() {
 		nameField?.resignFirstResponder()
 		emailField?.resignFirstResponder()
+		passwordField?.resignFirstResponder()
 	}
 	
 	/// Prepares the name TextField.
 	private func prepareNameField() {
 		nameField = MTextField()
+		nameField.text = "Daniel Dahan"
 		nameField.placeholder = "Name"
 		nameField.detail = "Your given name"
-		nameField.clearButtonMode = .WhileEditing
 		nameField.textAlignment = .Center
-		nameField.text = "Daniel Dahan"
-		nameField.backgroundColor = MaterialColor.green.accent1
-		nameField.placeholderLabel.backgroundColor = MaterialColor.green.accent3
+		nameField.clearButtonMode = .WhileEditing
+		nameField.dividerActiveColor = MaterialColor.green.base
+		nameField.delegate = self
 		
 		// The translatesAutoresizingMaskIntoConstraints property must be set to enable AutoLayout correctly.
 		nameField.translatesAutoresizingMaskIntoConstraints = false
@@ -108,16 +109,13 @@ class ViewController: UIViewController, TextFieldDelegate {
 		emailField = MTextField(frame: CGRectMake(40, 120, view.bounds.width - 80, 32))
 		emailField.placeholder = "Email"
 		emailField.detail = "Error, incorrect email.yyppggg"
-		emailField.delegate = self
 		emailField.clearButtonMode = .WhileEditing
+		emailField.delegate = self
 		
 		emailField.placeholderColor = MaterialColor.amber.darken4
 		emailField.placeholderActiveColor = MaterialColor.pink.base
 		emailField.dividerColor = MaterialColor.cyan.base
 		emailField.detailColor = MaterialColor.indigo.accent1
-		
-		emailField.backgroundColor = MaterialColor.green.accent1
-		emailField.placeholderLabel.backgroundColor = MaterialColor.green.accent3
 		
 		view.addSubview(emailField)
 	}
@@ -130,8 +128,7 @@ class ViewController: UIViewController, TextFieldDelegate {
 		passwordField.clearButtonMode = .WhileEditing
 		passwordField.textAlignment = .Right
 		passwordField.secureTextEntry = true
-		passwordField.backgroundColor = MaterialColor.green.accent1
-		passwordField.placeholderLabel.backgroundColor = MaterialColor.green.accent3
+		passwordField.delegate = self
 		
 		// The translatesAutoresizingMaskIntoConstraints property must be set to enable AutoLayout correctly.
 		passwordField.translatesAutoresizingMaskIntoConstraints = false

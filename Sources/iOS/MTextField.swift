@@ -125,11 +125,22 @@ public class MTextField : UITextField {
 	/// Divider active state height.
 	@IBInspectable public var dividerActiveHeight: CGFloat = 2
 	
-	/// Sets the divider and tintColor.
+	/// Sets the divider.
 	@IBInspectable public var dividerColor: UIColor = MaterialColor.darkText.dividers {
 		didSet {
 			if !editing {
 				divider.backgroundColor = dividerColor.CGColor
+			}
+		}
+	}
+	
+	/// Sets the divider.
+	@IBInspectable public var dividerActiveColor: UIColor? {
+		didSet {
+			if let v: UIColor = dividerActiveColor {
+				if editing {
+					divider.backgroundColor = v.CGColor
+				}
 			}
 		}
 	}
@@ -252,10 +263,7 @@ public class MTextField : UITextField {
 	
 	public override func layoutSubviews() {
 		super.layoutSubviews()
-		if !editing && !animating {
-			layoutPlaceholderLabel()
-			layoutDetailLabel()
-		}
+		layoutToSize()
 	}
 	
 	public override func layoutSublayersOfLayer(layer: CALayer) {
@@ -355,6 +363,45 @@ public class MTextField : UITextField {
 		prepareTargetHandlers()
 	}
 	
+	/// Ensures that the components are sized correctly.
+	public func layoutToSize() {
+		if !animating {
+			if editing {
+				switch textAlignment {
+				case .Left, .Natural:
+					placeholderLabel.frame.origin.x = 0
+					detailLabel.frame.origin.x = 0
+				case .Right:
+					placeholderLabel.frame.origin.x = width - placeholderLabel.frame.width
+					detailLabel.frame.origin.x = placeholderLabel.frame.origin.x
+				case .Center:
+					placeholderLabel.center.x = width / 2
+					detailLabel.center.x = placeholderLabel.center.x
+				default:break
+				}
+				placeholderLabel.frame.size.width = width * 0.75
+				detailLabel.frame.size.width = placeholderLabel.frame.width
+			} else {
+				layoutPlaceholderLabel()
+				layoutDetailLabel()
+				switch textAlignment {
+				case .Left, .Natural:
+					placeholderLabel.frame.origin.x = 0
+					detailLabel.frame.origin.x = 0
+				case .Right:
+					placeholderLabel.frame.origin.x = width - placeholderLabel.frame.width
+					detailLabel.frame.origin.x = placeholderLabel.frame.origin.x
+				case .Center:
+					placeholderLabel.center.x = width / 2
+					detailLabel.center.x = placeholderLabel.center.x
+				default:break
+				}
+				placeholderLabel.frame.size.width = true == text?.isEmpty ? width : width * 0.75
+				detailLabel.frame.size.width = placeholderLabel.frame.width
+			}
+		}
+	}
+	
 	/// Layout the divider.
 	public func layoutDivider() {
 		divider.frame = CGRectMake(0, height, width, editing ? dividerActiveHeight : dividerHeight)
@@ -372,7 +419,7 @@ public class MTextField : UITextField {
 				placeholderLabel.frame.origin.x = 0
 			case .Right:
 				placeholderLabel.frame.origin.x = width - placeholderLabel.frame.width
-			default:break;
+			default:break
 			}
 			placeholderLabel.frame.origin.y = -placeholderLabel.frame.size.height
 			placeholderLabel.textColor = placeholderColor
@@ -381,18 +428,14 @@ public class MTextField : UITextField {
 	
 	/// Layout the detailLabel.
 	public func layoutDetailLabel() {
-		var h: CGFloat = 12
-		if let v: String = detail {
-			let size: CGSize = detailLabel.font.stringSize(v, constrainedToWidth: Double(width))
-			h = size.height
-		}
+		var h: CGFloat = nil == detail ? 12 : detailLabel.font.stringSize(detail!, constrainedToWidth: Double(width)).height
 		detailLabel.frame = CGRectMake(0, height + 8, width, h)
 	}
 	
 	/// The animation for the divider when editing begins.
 	public func dividerEditingDidBeginAnimation() {
 		divider.frame.size.height = dividerActiveHeight
-		divider.backgroundColor = placeholderActiveColor.CGColor
+		divider.backgroundColor = nil == dividerActiveColor ? placeholderActiveColor.CGColor : dividerActiveColor!.CGColor
 	}
 	
 	/// The animation for the divider when editing ends.
@@ -413,7 +456,7 @@ public class MTextField : UITextField {
 						v.placeholderLabel.frame.origin.x = 0
 					case .Right:
 						v.placeholderLabel.frame.origin.x = v.width - v.placeholderLabel.frame.width
-					default:break;
+					default:break
 					}
 					v.placeholderLabel.frame.origin.y = -v.placeholderLabel.frame.size.height
 					v.placeholderLabel.textColor = v.placeholderActiveColor
