@@ -101,7 +101,7 @@ class ViewController: UIViewController, TextFieldDelegate {
 	
 	/// Programmatic update for the textField as it rotates.
 	override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
-		emailField.width = view.bounds.height
+		emailField.width = view.bounds.height - 80
 	}
 	
 	/// General preparation statements.
@@ -133,7 +133,7 @@ class ViewController: UIViewController, TextFieldDelegate {
 	private func prepareNameField() {
 		nameField = MTextField()
 		nameField.placeholder = "Email"
-		nameField.detail = "Enter your email address."
+		nameField.detail = "Enter your email address.yyypppggg"
 		nameField.clearButtonMode = .WhileEditing
 		nameField.textAlignment = .Center
 		nameField.text = "daniel@dahan"
@@ -146,15 +146,15 @@ class ViewController: UIViewController, TextFieldDelegate {
 		
 		// Size the TextField to the maximum width, less 20 pixels on either side
 		// with a top margin of 100 pixels.
-		MaterialLayout.alignFromTop(view, child: nameField, top: 100)
+		MaterialLayout.alignFromTop(view, child: nameField, top: 40)
 		MaterialLayout.alignToParentHorizontally(view, child: nameField, left: 40, right: 40)
 	}
 	
 	/// Prepares the email TextField.
 	private func prepareEmailField() {
-		emailField = MTextField(frame: CGRectMake(40, 200, view.bounds.width - 80, 32))
+		emailField = MTextField(frame: CGRectMake(40, 120, view.bounds.width - 80, 32))
 		emailField.placeholder = "Email"
-		emailField.detail = "Error, incorrect email."
+		emailField.detail = "Error, incorrect email.yyppggg"
 		emailField.delegate = self
 		emailField.clearButtonMode = .WhileEditing
 		
@@ -162,6 +162,9 @@ class ViewController: UIViewController, TextFieldDelegate {
 		emailField.placeholderActiveColor = MaterialColor.pink.base
 		emailField.dividerColor = MaterialColor.cyan.base
 		emailField.detailColor = MaterialColor.indigo.accent1
+		
+		emailField.backgroundColor = MaterialColor.green.accent1
+		emailField.placeholderLabel.backgroundColor = MaterialColor.green.accent3
 		
 		view.addSubview(emailField)
 	}

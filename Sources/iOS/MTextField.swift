@@ -200,6 +200,7 @@ public class MTextField : UITextField {
 			if let v: String = value {
 				detailLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: detailColor])
 			}
+			layoutDetailLabel()
 		}
 	}
 	
@@ -215,11 +216,12 @@ public class MTextField : UITextField {
 	/// Handles the textAlignment of the placeholderLabel.
 	public override var textAlignment: NSTextAlignment {
 		get {
-			return placeholderLabel.textAlignment
+			return super.textAlignment
 		}
 		set(value) {
 			super.textAlignment = value
 			placeholderLabel.textAlignment = value
+			detailLabel.textAlignment = value
 		}
 	}
 	
@@ -250,18 +252,14 @@ public class MTextField : UITextField {
 	
 	public override func layoutSubviews() {
 		super.layoutSubviews()
-		if !editing && !animating {
-			layoutPlaceholderLabel()
-			layoutDetailLabel()
-		}
+		layoutPlaceholderLabel()
+		layoutDetailLabel()
 	}
 	
 	public override func layoutSublayersOfLayer(layer: CALayer) {
 		super.layoutSublayersOfLayer(layer)
 		if self.layer == layer {
-			if !editing {
-				layoutDivider()
-			}
+			layoutDivider()
 		}
 	}
 	
@@ -357,26 +355,41 @@ public class MTextField : UITextField {
 	
 	/// Layout the divider.
 	public func layoutDivider() {
-		divider.frame = CGRectMake(0, height, width, dividerHeight)
+		divider.frame = CGRectMake(0, height, width, editing ? dividerActiveHeight : dividerHeight)
 	}
 	
 	/// Layout the placeholderLabel.
 	public func layoutPlaceholderLabel() {
-		if true == text?.isEmpty {
-			placeholderLabel.frame = bounds
-		} else if CGAffineTransformIsIdentity(placeholderLabel.transform) {
-			placeholderLabel.frame = bounds
-			placeholderLabel.transform = CGAffineTransformMakeScale(0.75, 0.75)
+		if !editing && !animating {
+			if true == text?.isEmpty {
+				placeholderLabel.frame = bounds
+			} else if CGAffineTransformIsIdentity(placeholderLabel.transform) {
+				placeholderLabel.frame = bounds
+				placeholderLabel.transform = CGAffineTransformMakeScale(0.75, 0.75)
+				switch textAlignment {
+				case .Left, .Natural:
+					placeholderLabel.frame.origin.x = 0
+				case .Right:
+					placeholderLabel.frame.origin.x = width - placeholderLabel.frame.width
+				default:break;
+				}
+				placeholderLabel.frame.origin.y = -placeholderLabel.frame.size.height
+				placeholderLabel.textColor = placeholderColor
+			}
+		} else if !animating {
 			placeholderLabel.frame.origin.x = 0
-			placeholderLabel.frame.origin.y = -placeholderLabel.frame.size.height
-			placeholderLabel.textColor = placeholderColor
+			placeholderLabel.frame.size.width = width
 		}
 	}
 	
 	/// Layout the detailLabel.
 	public func layoutDetailLabel() {
-		detailLabel.frame = CGRectMake(0, height + 8, width, 12)
-		detailLabel.sizeToFit()
+		var h: CGFloat = 12
+		if let v: String = detail {
+			let size: CGSize = detailLabel.font.stringSize(v, constrainedToWidth: Double(width))
+			h = size.height
+		}
+		detailLabel.frame = CGRectMake(0, height + 8, width, h)
 	}
 	
 	/// The animation for the divider when editing begins.
@@ -398,7 +411,13 @@ public class MTextField : UITextField {
 			UIView.animateWithDuration(0.15, animations: { [weak self] in
 				if let v: MTextField = self {
 					v.placeholderLabel.transform = CGAffineTransformMakeScale(0.75, 0.75)
-					v.placeholderLabel.frame.origin.x = 0
+					switch v.textAlignment {
+					case .Left, .Natural:
+						v.placeholderLabel.frame.origin.x = 0
+					case .Right:
+						v.placeholderLabel.frame.origin.x = v.width - v.placeholderLabel.frame.width
+					default:break;
+					}
 					v.placeholderLabel.frame.origin.y = -v.placeholderLabel.frame.size.height
 					v.placeholderLabel.textColor = v.placeholderActiveColor
 				}
