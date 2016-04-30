@@ -108,7 +108,7 @@ class ViewController: UIViewController, TextFieldDelegate {
 	private func prepareEmailField() {
 		emailField = MTextField(frame: CGRectMake(40, 120, view.bounds.width - 80, 32))
 		emailField.placeholder = "Email"
-		emailField.detail = "Error, incorrect email.yyppggg"
+		emailField.detail = "Error, incorrect email"
 		emailField.clearButtonMode = .WhileEditing
 		emailField.delegate = self
 		

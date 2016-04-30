@@ -366,39 +366,8 @@ public class MTextField : UITextField {
 	/// Ensures that the components are sized correctly.
 	public func layoutToSize() {
 		if !animating {
-			if editing {
-				switch textAlignment {
-				case .Left, .Natural:
-					placeholderLabel.frame.origin.x = 0
-					detailLabel.frame.origin.x = 0
-				case .Right:
-					placeholderLabel.frame.origin.x = width - placeholderLabel.frame.width
-					detailLabel.frame.origin.x = placeholderLabel.frame.origin.x
-				case .Center:
-					placeholderLabel.center.x = width / 2
-					detailLabel.center.x = placeholderLabel.center.x
-				default:break
-				}
-				placeholderLabel.frame.size.width = width * 0.75
-				detailLabel.frame.size.width = placeholderLabel.frame.width
-			} else {
-				layoutPlaceholderLabel()
-				layoutDetailLabel()
-				switch textAlignment {
-				case .Left, .Natural:
-					placeholderLabel.frame.origin.x = 0
-					detailLabel.frame.origin.x = 0
-				case .Right:
-					placeholderLabel.frame.origin.x = width - placeholderLabel.frame.width
-					detailLabel.frame.origin.x = placeholderLabel.frame.origin.x
-				case .Center:
-					placeholderLabel.center.x = width / 2
-					detailLabel.center.x = placeholderLabel.center.x
-				default:break
-				}
-				placeholderLabel.frame.size.width = true == text?.isEmpty ? width : width * 0.75
-				detailLabel.frame.size.width = placeholderLabel.frame.width
-			}
+			layoutPlaceholderLabel()
+			layoutDetailLabel()
 		}
 	}
 	
@@ -409,7 +378,7 @@ public class MTextField : UITextField {
 	
 	/// Layout the placeholderLabel.
 	public func layoutPlaceholderLabel() {
-		if true == text?.isEmpty {
+		if !editing && true == text?.isEmpty {
 			placeholderLabel.frame = bounds
 		} else if CGAffineTransformIsIdentity(placeholderLabel.transform) {
 			placeholderLabel.frame = bounds
@@ -423,13 +392,24 @@ public class MTextField : UITextField {
 			}
 			placeholderLabel.frame.origin.y = -placeholderLabel.frame.size.height
 			placeholderLabel.textColor = placeholderColor
+		} else {
+			switch textAlignment {
+			case .Left, .Natural:
+				placeholderLabel.frame.origin.x = 0
+			case .Right:
+				placeholderLabel.frame.origin.x = width - placeholderLabel.frame.width
+			case .Center:
+				placeholderLabel.center.x = width / 2
+			default:break
+			}
+			placeholderLabel.frame.size.width = width * 0.75
 		}
 	}
 	
 	/// Layout the detailLabel.
 	public func layoutDetailLabel() {
 		var h: CGFloat = nil == detail ? 12 : detailLabel.font.stringSize(detail!, constrainedToWidth: Double(width)).height
-		detailLabel.frame = CGRectMake(0, height + 8, width, h)
+		detailLabel.frame = CGRectMake(0, divider.frame.origin.y + 8, width, h)
 	}
 	
 	/// The animation for the divider when editing begins.
