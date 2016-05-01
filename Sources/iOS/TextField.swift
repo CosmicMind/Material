@@ -147,11 +147,8 @@ public class TextField : UITextField {
 	
 	/// The placeholderLabel font value.
 	@IBInspectable public override var font: UIFont? {
-		get {
-			return placeholderLabel.font
-		}
-		set(value) {
-			placeholderLabel.font = value
+		didSet {
+			placeholderLabel.font = self.font
 		}
 	}
 	
