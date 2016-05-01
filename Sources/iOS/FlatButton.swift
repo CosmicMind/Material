@@ -42,6 +42,5 @@ public class FlatButton : MaterialButton {
 		super.prepareView()
 		cornerRadiusPreset = .Radius1
 		contentEdgeInsetsPreset = .WideRectangle3
-		pulseColor = MaterialColor.blue.accent3
 	}
 }

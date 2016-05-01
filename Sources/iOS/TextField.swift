@@ -152,14 +152,14 @@ public class TextField : UITextField {
 		}
 	}
  
-  /// TextField's text property observer.
- public override var text: String? {
-  didSet {
-   if (text == nil || text!.isEmpty) && !self.isFirstResponder() {
-    placeholderEditingDidEndAnimation()
-   }
-  }
- }
+	/// TextField's text property observer.
+	@IBInspectable public override var text: String? {
+		didSet {
+			if (nil == text || text!.isEmpty) && !isFirstResponder() {
+				placeholderEditingDidEndAnimation()
+			}
+		}
+	}
 	
 	/// The placeholderLabel text value.
 	@IBInspectable public override var placeholder: String? {
@@ -255,7 +255,6 @@ public class TextField : UITextField {
 					clearFlatButton = FlatButton(frame: CGRectZero)
 					clearFlatButton!.contentEdgeInsets = UIEdgeInsetsZero
 					clearFlatButton!.pulseColor = nil
-					clearFlatButton!.pulseScale = false
 					clearFlatButton!.tintColor = placeholderColor
 					clearFlatButton!.setImage(image, forState: .Normal)
 					clearFlatButton!.setImage(image, forState: .Highlighted)
@@ -293,7 +292,6 @@ public class TextField : UITextField {
 					visibilityFlatButton = FlatButton(frame: CGRectZero)
 					visibilityFlatButton!.contentEdgeInsets = UIEdgeInsetsZero
 					visibilityFlatButton!.pulseColor = nil
-					visibilityFlatButton!.pulseScale = false
 					visibilityFlatButton!.tintColor = placeholderColor
 					visibilityFlatButton!.setImage(image, forState: .Normal)
 					visibilityFlatButton!.setImage(image, forState: .Highlighted)
@@ -516,7 +514,7 @@ public class TextField : UITextField {
 	
 	/// Layout the detailLabel.
 	public func layoutDetailLabel() {
-		var h: CGFloat = nil == detail ? 12 : detailLabel.font.stringSize(detail!, constrainedToWidth: Double(width)).height
+		let h: CGFloat = nil == detail ? 12 : detailLabel.font.stringSize(detail!, constrainedToWidth: Double(width)).height
 		detailLabel.frame = CGRectMake(0, divider.frame.origin.y + 8, width, h)
 	}
 	

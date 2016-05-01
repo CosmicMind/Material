@@ -32,100 +32,69 @@ import UIKit
 
 internal extension MaterialAnimation {
 	/**
-	Triggers the pulse animation.
+	Triggers the expanding animation.
 	- Parameter layer: Container CALayer.
 	- Parameter visualLayer: A CAShapeLayer for the pulseLayer.
-	- Parameter color: The UIColor for the pulse.
+	- Parameter pulseColor: The UIColor for the pulse.
 	- Parameter point: A point to pulse from.
 	- Parameter width: Container width.
 	- Parameter height: Container height.
 	- Parameter duration: Animation duration.
-	- Parameter pulseLayer: An Optional pulseLayer to use in the animation.
+	- Parameter pulseLayers: An Array of CAShapeLayers used in the animation.
 	*/
-	internal static func pulseAnimation(layer: CALayer, visualLayer: CALayer, color: UIColor, point: CGPoint, width: CGFloat, height: CGFloat, duration: NSTimeInterval, pulseLayer: CAShapeLayer? = nil) {
-		
-		let r: CGFloat = (width < height ? height : width) / 2
-		let f: CGFloat = 3
-		let v: CGFloat = r / f
-		let d: CGFloat = 2 * f
-		
-		var b: Bool = false
-		var pLayer: CAShapeLayer?
-		
-		if nil == pulseLayer {
-			pLayer = CAShapeLayer()
-			b = true
-		} else {
-			pLayer = pulseLayer
-		}
-		
-		pLayer!.hidden = true
-		pLayer!.zPosition = 1
-		pLayer!.backgroundColor = color.CGColor
-		visualLayer.addSublayer(pLayer!)
-		
-		MaterialAnimation.animationDisabled {
-			pLayer!.bounds = CGRectMake(0, 0, v, v)
-			pLayer!.position = point
-			pLayer!.cornerRadius = r / d
-			pLayer!.hidden = false
-		}
-		
-		pLayer!.addAnimation(MaterialAnimation.scale((b ? 3 : 1.7) * d, duration: duration), forKey: nil)
-		
-		if b {
-			MaterialAnimation.delay(duration) {
-				MaterialAnimation.animateWithDuration(duration, animations: {
-					pLayer?.hidden = true
-				}) {
-					pLayer?.removeFromSuperlayer()
+	internal static func pulseExpandAnimation(layer: CALayer, visualLayer: CALayer, pulseColor: UIColor?, pulseOpacity: CGFloat, point: CGPoint, width: CGFloat, height: CGFloat, inout pulseLayers: Array<CAShapeLayer>) {
+		if let color: UIColor = pulseColor {
+			if let n: CGFloat = width < height ? height : width {
+				if let pOpacity: CGFloat = pulseOpacity {
+					let bLayer: CAShapeLayer = CAShapeLayer()
+					let pLayer: CAShapeLayer = CAShapeLayer()
+					bLayer.addSublayer(pLayer)
+					pulseLayers.insert(bLayer, atIndex: 0)
+					visualLayer.insertSublayer(bLayer, atIndex: 0)
+					MaterialAnimation.animationDisabled({
+						bLayer.frame = visualLayer.bounds
+						pLayer.bounds = CGRectMake(0, 0, n, n)
+						pLayer.position = point
+						pLayer.cornerRadius = n / 2
+						pLayer.backgroundColor = color.colorWithAlphaComponent(pOpacity).CGColor
+						pLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransformMakeScale(0, 0))
+					})
+					bLayer.setValue(false, forKey: "animated")
+					bLayer.addAnimation(MaterialAnimation.backgroundColor(color.colorWithAlphaComponent(pOpacity / 2), duration: 0.35), forKey: nil)
+					pLayer.addAnimation(MaterialAnimation.scale(1, duration: 0.35), forKey: nil)
+					MaterialAnimation.delay(0.35, completion: {
+						bLayer.setValue(true, forKey: "animated")
+					})
 				}
 			}
-		} else {
-			MaterialAnimation.delay(duration / 2) {
-				pLayer?.addAnimation(MaterialAnimation.scale(1.3 * d, duration: duration), forKey: nil)
+		}
+	}
+	
+	/**
+	Triggers the contracting animation.
+	- Parameter layer: Container CALayer.
+	- Parameter pulseColor: The UIColor for the pulse.
+	- Parameter pulseLayers: An Array of CAShapeLayers used in the animation.
+	*/
+	internal static func pulseContractAnimation(layer: CALayer, pulseColor: UIColor?, inout pulseLayers: Array<CAShapeLayer>) {
+		if let color: UIColor = pulseColor {
+			if let bLayer: CAShapeLayer = pulseLayers.popLast() {
+				let animated: Bool? = bLayer.valueForKey("animated") as? Bool
+				MaterialAnimation.delay(true == animated ? 0 : 0.10) {
+					if let pLayer: CAShapeLayer = bLayer.sublayers?.first as? CAShapeLayer {
+						bLayer.addAnimation(MaterialAnimation.backgroundColor(color.colorWithAlphaComponent(0), duration: 0.35), forKey: nil)
+						pLayer.addAnimation(MaterialAnimation.animationGroup([
+							MaterialAnimation.scale(1.35),
+							MaterialAnimation.backgroundColor(color.colorWithAlphaComponent(0))
+							], duration: 0.35), forKey: nil)
+						
+						MaterialAnimation.delay(0.35) {
+							pLayer.removeFromSuperlayer()
+							bLayer.removeFromSuperlayer()
+						}
+					}
+				}
 			}
 		}
-	}
-	
-	/**
-	Triggers the expanding animation.
-	- Parameter layer: Container CALayer.
-	- Parameter scale: The scale factor when expanding.
-	- Parameter duration: Animation duration.
-	*/
-	internal static func expandAnimation(layer: CALayer, scale: CGFloat, duration: NSTimeInterval) {
-		layer.addAnimation(MaterialAnimation.scale(scale, duration: duration), forKey: nil)
-	}
-	
-	/**
-	Triggers the shrinking animation.
-	- Parameter layer: Container CALayer.
-	- Parameter width: Container width.
-	- Parameter duration: Animation duration.
-	- Parameter pulseLayer: An Optional pulseLayer to use in the animation.
-	*/
-	internal static func shrinkAnimation(layer: CALayer, width: CGFloat, duration: NSTimeInterval, pulseLayer: CAShapeLayer? = nil) {
-		if let v: CAShapeLayer = pulseLayer {
-			MaterialAnimation.animateWithDuration(duration, animations: {
-				v.hidden = true
-			}) {
-				v.removeFromSuperlayer()
-			}
-		}
-		layer.addAnimation(MaterialAnimation.scale(1, duration: duration), forKey: nil)
-	}
-	
-	/**
-	Retrieves the animation duration time.
-	- Parameter width: Container width.
-	- Returns: An NSTimeInterval value that represents the animation time.
-	*/
-	internal static func pulseDuration(width: CGFloat) -> NSTimeInterval {
-		var t: CFTimeInterval = CFTimeInterval(1.5 * width / MaterialDevice.width)
-		if 0.55 < t || 0.25 > t {
-			t = 0.55
-		}
-		return t / 1.3
 	}
 }

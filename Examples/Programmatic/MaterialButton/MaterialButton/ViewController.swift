@@ -45,6 +45,10 @@ class ViewController: UIViewController {
 		prepareFabButtonExample()
 	}
 	
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+	}
+	
 	/// General preparation statements.
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.white
@@ -52,9 +56,12 @@ class ViewController: UIViewController {
 	
 	/// Prepares the FlatButton.
 	private func prepareFlatButtonExample() {
-		let button: FlatButton = FlatButton(frame: CGRectMake(107, 107, 200, 65))
+		let w: CGFloat = 200
+		let button: FlatButton = FlatButton(frame: CGRectMake((view.bounds.width - w) / 2, 100, w, 48))
 		button.setTitle("Flat", forState: .Normal)
-		button.titleLabel!.font = RobotoFont.mediumWithSize(32)
+		button.setTitleColor(MaterialColor.blue.base, forState: .Normal)
+		button.pulseColor = MaterialColor.blue.base
+		button.titleLabel!.font = RobotoFont.mediumWithSize(24)
 		
 		// Add button to UIViewController.
 		view.addSubview(button)
@@ -62,9 +69,12 @@ class ViewController: UIViewController {
 	
 	/// Prepares the RaisedButton.
 	private func prepareRaisedButtonExample() {
-		let button: RaisedButton = RaisedButton(frame: CGRectMake(107, 207, 200, 65))
+		let w: CGFloat = 200
+		let button: RaisedButton = RaisedButton(frame: CGRectMake((view.bounds.width - w) / 2, 200, w, 48))
 		button.setTitle("Raised", forState: .Normal)
-		button.titleLabel!.font = RobotoFont.mediumWithSize(32)
+		button.setTitleColor(MaterialColor.blue.base, forState: .Normal)
+		button.pulseColor = MaterialColor.blue.base
+		button.titleLabel!.font = RobotoFont.mediumWithSize(24)
 		
 		// Add button to UIViewController.
 		view.addSubview(button)
@@ -72,8 +82,9 @@ class ViewController: UIViewController {
 	
 	/// Prepares the FabButton.
 	private func prepareFabButtonExample() {
-		let img: UIImage? = UIImage(named: "ic_create_white")
-		let button: FabButton = FabButton(frame: CGRectMake(175, 315, 64, 64))
+		let w: CGFloat = 64
+		let img: UIImage? = MaterialIcon.cm.pen
+		let button: FabButton = FabButton(frame: CGRectMake((view.bounds.width - w) / 2, 300, w, 64))
 		button.setImage(img, forState: .Normal)
 		button.setImage(img, forState: .Highlighted)
 		

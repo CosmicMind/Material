@@ -130,7 +130,6 @@ public class SearchBar : StatusBarView {
 		clearButton.contentEdgeInsets = UIEdgeInsetsZero
 		clearButton.pulseColor = MaterialColor.black
 		clearButton.pulseOpacity = 0.12
-		clearButton.pulseScale = false
 		clearButton.tintColor = placeholderTextColor
 		clearButton.setImage(image, forState: .Normal)
 		clearButton.setImage(image, forState: .Highlighted)

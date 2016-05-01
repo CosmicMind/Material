@@ -34,20 +34,14 @@ public class MaterialPulseView : MaterialView {
 	/// To use a single pulse and have it focused when held.
 	@IBInspectable public var pulseFocus: Bool = false
 	
-	/// A pulse layer for focus handling.
-	public private(set) var pulseLayer: CAShapeLayer?
-	
-	/// Sets whether the scaling animation should be used.
-	@IBInspectable public lazy var pulseScale: Bool = true
+	/// An Array of pulse layers.
+	public private(set) lazy var pulseLayers: Array<CAShapeLayer> = Array<CAShapeLayer>()
 	
 	/// The opcaity value for the pulse animation.
 	@IBInspectable public var pulseOpacity: CGFloat = 0.25
 	
 	/// The color of the pulse effect.
 	@IBInspectable public var pulseColor: UIColor?
-	
-	/// Sets a pulse animation to always radiate from the center
-	@IBInspectable public var pulseCenter: Bool = false
 	
 	/**
 	Triggers the pulse animation.
@@ -56,20 +50,12 @@ public class MaterialPulseView : MaterialView {
 	*/
 	public func pulse(point: CGPoint? = nil) {
 		let p: CGPoint = nil == point ? CGPointMake(CGFloat(width / 2), CGFloat(height / 2)) : point!
-		let duration: NSTimeInterval = MaterialAnimation.pulseDuration(width)
-		
-		if let v: UIColor = pulseColor {
-			MaterialAnimation.pulseAnimation(layer, visualLayer: visualLayer, color: v.colorWithAlphaComponent(pulseOpacity), point: p, width: width, height: height, duration: duration)
+		if let color: UIColor = pulseColor {
+			MaterialAnimation.pulseExpandAnimation(layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseOpacity: pulseOpacity, point: p, width: width, height: height, pulseLayers: &pulseLayers)
 		}
-		
-		if pulseScale {
-			MaterialAnimation.expandAnimation(layer, scale: 1.05, duration: duration)
-			MaterialAnimation.delay(duration) { [weak self] in
-				if let l: CALayer = self?.layer {
-					if let w: CGFloat = self?.width {
-						MaterialAnimation.shrinkAnimation(l, width: w, duration: duration)
-					}
-				}
+		MaterialAnimation.delay(0.35) { [weak self] in
+			if let s: MaterialPulseView = self {
+				MaterialAnimation.pulseContractAnimation(s.layer, pulseColor: s.pulseColor, pulseLayers: &s.pulseLayers)
 			}
 		}
 	}
@@ -82,20 +68,7 @@ public class MaterialPulseView : MaterialView {
 	*/
 	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesBegan(touches, withEvent: event)
-		let duration: NSTimeInterval = MaterialAnimation.pulseDuration(width)
-		
-		if pulseFocus {
-			pulseLayer = CAShapeLayer()
-		}
-		
-		if let v: UIColor = pulseColor {
-			let point: CGPoint = pulseCenter ? CGPointMake(CGFloat(width / 2), CGFloat(height / 2)) : layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer)
-			MaterialAnimation.pulseAnimation(layer, visualLayer: visualLayer, color: v.colorWithAlphaComponent(pulseOpacity), point: point, width: width, height: height, duration: duration, pulseLayer: pulseLayer)
-		}
-		
-		if pulseScale {
-			MaterialAnimation.expandAnimation(layer, scale: 1.05, duration: duration)
-		}
+		MaterialAnimation.pulseExpandAnimation(layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseOpacity: pulseOpacity, point: layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer), width: width, height: height, pulseLayers: &pulseLayers)
 	}
 	
 	/**
@@ -106,7 +79,7 @@ public class MaterialPulseView : MaterialView {
 	*/
 	public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesEnded(touches, withEvent: event)
-		MaterialAnimation.shrinkAnimation(layer, width: width, duration: MaterialAnimation.pulseDuration(width), pulseLayer: pulseLayer)
+		MaterialAnimation.pulseContractAnimation(layer, pulseColor: pulseColor, pulseLayers: &pulseLayers)
 	}
 	
 	/**
@@ -117,7 +90,7 @@ public class MaterialPulseView : MaterialView {
 	*/
 	public override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
 		super.touchesCancelled(touches, withEvent: event)
-		MaterialAnimation.shrinkAnimation(layer, width: width, duration: MaterialAnimation.pulseDuration(width), pulseLayer: pulseLayer)
+		MaterialAnimation.pulseContractAnimation(layer, pulseColor: pulseColor, pulseLayers: &pulseLayers)
 	}
 	
 	/**
@@ -129,6 +102,7 @@ public class MaterialPulseView : MaterialView {
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		pulseColor = MaterialColor.white
+		pulseColor = MaterialColor.black
+		contentScaleFactor = MaterialDevice.scale
 	}
 }

@@ -407,7 +407,6 @@ public class NavigationBar : UINavigationBar {
 	
 	/// Prepares the backButton.
 	internal func prepareBackButton() {
-		backButton.pulseScale = false
 		backButton.pulseColor = MaterialColor.white
 		backButton.setImage(backButtonImage, forState: .Normal)
 		backButton.setImage(backButtonImage, forState: .Highlighted)
