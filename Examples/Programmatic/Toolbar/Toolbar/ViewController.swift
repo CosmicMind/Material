@@ -72,7 +72,6 @@ class ViewController: UIViewController {
 
 		// Menu button.
 		let menuButton: FlatButton = FlatButton()
-		menuButton.pulseScale = false
 		menuButton.pulseColor = MaterialColor.white
 		menuButton.tintColor = MaterialColor.white
 		menuButton.setImage(image, forState: .Normal)
@@ -84,7 +83,6 @@ class ViewController: UIViewController {
 		// Search button.
 		image = MaterialIcon.cm.search
 		let searchButton: FlatButton = FlatButton()
-		searchButton.pulseScale = false
 		searchButton.pulseColor = MaterialColor.white
 		searchButton.tintColor = MaterialColor.white
 		searchButton.setImage(image, forState: .Normal)

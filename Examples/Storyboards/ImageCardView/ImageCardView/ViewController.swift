@@ -64,7 +64,6 @@ class ViewController: UIViewController {
 		let btn1: FlatButton = FlatButton()
 		btn1.pulseColor = MaterialColor.blueGrey.lighten1
 		btn1.tintColor = MaterialColor.blueGrey.lighten1
-		btn1.pulseScale = false
 		btn1.setImage(img1, forState: .Normal)
 		btn1.setImage(img1, forState: .Highlighted)
 		
@@ -73,7 +72,6 @@ class ViewController: UIViewController {
 		let btn2: FlatButton = FlatButton()
 		btn2.pulseColor = MaterialColor.blueGrey.lighten1
 		btn2.tintColor = MaterialColor.blueGrey.lighten1
-		btn2.pulseScale = false
 		btn2.setImage(img2, forState: .Normal)
 		btn2.setImage(img2, forState: .Highlighted)
 		
@@ -82,7 +80,6 @@ class ViewController: UIViewController {
 		let btn3: FlatButton = FlatButton()
 		btn3.pulseColor = MaterialColor.blueGrey.lighten1
 		btn3.tintColor = MaterialColor.blueGrey.lighten1
-		btn3.pulseScale = false
 		btn3.setImage(img3, forState: .Normal)
 		btn3.setImage(img3, forState: .Highlighted)
 		

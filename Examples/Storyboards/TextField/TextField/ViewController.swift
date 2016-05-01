@@ -68,15 +68,11 @@ class ViewController: UIViewController, TextFieldDelegate {
 		Used to display the error message, which is displayed when
 		the user presses the 'return' key.
 		*/
-		emailField.detailLabel.text = "Email is incorrect."
-		emailField.detailLabel.font = RobotoFont.regularWithSize(12)
-		emailField.detailLabelActiveColor = MaterialColor.red.accent3
-//		emailField.detailLabelAutoHideEnabled = false // Uncomment this line to have manual hiding.
+		emailField.detail = "Email is incorrect."
 	}
 	
 	/// Executed when the 'return' key is pressed when using the emailField.
 	func textFieldShouldReturn(textField: UITextField) -> Bool {
-		(textField as! TextField).detailLabelHidden = 0 == textField.text?.utf16.count
 		return false
 	}
 }

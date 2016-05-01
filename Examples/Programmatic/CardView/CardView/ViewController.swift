@@ -36,28 +36,18 @@ class ViewController: UIViewController {
 		super.viewDidLoad()
 		prepareView()
 		
-		// Examples of using CardView.
-		// Uncomment different examples and read
-		// the comments below.
-		prepareGeneralCardViewExample()
+		prepareBasicCardViewExample()
 //		prepareCardViewWithoutPulseBackgroundImageExample()
 //		prepareCardViewWithPulseBackgroundImageExample()
 //		prepareCardViewButtonBarExample()
 	}
 	
-	/**
-	:name:	prepareView
-	:description: General preparation statements.
-	*/
+	/// General preparation statements.
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.white
 	}
 	
-	/**
-	:name:	prepareGeneralCardViewExample
-	:description:	General usage example.
-	*/
-	private func prepareGeneralCardViewExample() {
+	private func prepareBasicCardViewExample() {
 		let cardView: CardView = CardView()
 		
 		// Title label.
@@ -76,14 +66,12 @@ class ViewController: UIViewController {
 		// Yes button.
 		let btn1: FlatButton = FlatButton()
 		btn1.pulseColor = MaterialColor.blue.lighten1
-		btn1.pulseScale = false
 		btn1.setTitle("YES", forState: .Normal)
 		btn1.setTitleColor(MaterialColor.blue.darken1, forState: .Normal)
 		
 		// No button.
 		let btn2: FlatButton = FlatButton()
 		btn2.pulseColor = MaterialColor.blue.lighten1
-		btn2.pulseScale = false
 		btn2.setTitle("NO", forState: .Normal)
 		btn2.setTitleColor(MaterialColor.blue.darken1, forState: .Normal)
 
@@ -97,18 +85,13 @@ class ViewController: UIViewController {
 		MaterialLayout.alignToParentHorizontally(view, child: cardView, left: 20, right: 20)
 	}
 	
-	/**
-	:name:	prepareCardViewWithoutPulseBackgroundImageExample
-	:description:	An example of the CardView without the pulse animation and an added background image.
-	*/
 	private func prepareCardViewWithoutPulseBackgroundImageExample() {
 		let cardView: CardView = CardView()
 		cardView.divider = false
 		cardView.backgroundColor = MaterialColor.red.base
-		cardView.pulseScale = false
 		cardView.pulseColor = nil
 		
-		cardView.image = UIImage(named: "Material-iTunesArtWork")?.resize(toHeight: 150)
+		cardView.image = UIImage(named: "Material-iTunesArtWork")?.resize(toHeight: 75)
 		cardView.contentsGravityPreset = .BottomRight
 		
 		// Title label.
@@ -125,11 +108,11 @@ class ViewController: UIViewController {
 		detailLabel.numberOfLines = 0
 		cardView.detailView = detailLabel
 		
-		// Favorite button.
-		let img1: UIImage? = UIImage(named: "ic_favorite_white")
+		// Share button.
+		let img1: UIImage? = MaterialIcon.cm.share
 		let btn1: FlatButton = FlatButton()
 		btn1.pulseColor = MaterialColor.white
-		btn1.pulseScale = false
+		btn1.tintColor = MaterialColor.white
 		btn1.setImage(img1, forState: .Normal)
 		btn1.setImage(img1, forState: .Highlighted)
 		
@@ -143,17 +126,13 @@ class ViewController: UIViewController {
 		MaterialLayout.alignToParentHorizontally(view, child: cardView, left: 20, right: 20)
 	}
 	
-	/**
-	:name:	prepareCardViewWithPulseBackgroundImageExample
-	:description:	An example of the CardView with the pulse animation and an added background image.
-	*/
 	private func prepareCardViewWithPulseBackgroundImageExample() {
 		let cardView: CardView = CardView()
 		cardView.backgroundColor = MaterialColor.blue.base
 		cardView.divider = false
 		
 		// Image.
-		cardView.image = UIImage(named: "Graph")?.resize(toHeight: 150)
+		cardView.image = UIImage(named: "Graph")?.resize(toHeight: 75)
 		cardView.contentsGravityPreset = .Right
 		
 		// Title label.
@@ -170,11 +149,11 @@ class ViewController: UIViewController {
 		detailLabel.numberOfLines = 0
 		cardView.detailView = detailLabel
 		
-		// Favorite button.
-		let img1: UIImage? = UIImage(named: "ic_favorite_white")
+		// Share button.
+		let img1: UIImage? = MaterialIcon.cm.share
 		let btn1: FlatButton = FlatButton()
 		btn1.pulseColor = MaterialColor.white
-		btn1.pulseScale = false
+		btn1.tintColor = MaterialColor.white
 		btn1.setImage(img1, forState: .Normal)
 		btn1.setImage(img1, forState: .Highlighted)
 		
@@ -188,29 +167,23 @@ class ViewController: UIViewController {
 		MaterialLayout.alignToParentHorizontally(view, child: cardView, left: 20, right: 20)
 	}
 	
-	/**
-	:name:	prepareCardViewButtonBarExample
-	:description:	An example of the CardView with only buttons to create a button bar.
-	*/
 	private func prepareCardViewButtonBarExample() {
 		let cardView: CardView = CardView()
 		cardView.divider = false
 		cardView.pulseColor = nil
-		cardView.pulseScale = false
 		cardView.backgroundColor = MaterialColor.blueGrey.darken4
 		
-		// Favorite button.
-		let img1: UIImage? = UIImage(named: "ic_search_white")
+		// Search button.
+		let img1: UIImage? = MaterialIcon.cm.search
 		let btn1: FlatButton = FlatButton()
 		btn1.pulseColor = MaterialColor.white
-		btn1.pulseScale = false
+		btn1.tintColor = MaterialColor.white
 		btn1.setImage(img1, forState: .Normal)
 		btn1.setImage(img1, forState: .Highlighted)
 		
 		// BUTTON 1 button.
 		let btn2: FlatButton = FlatButton()
 		btn2.pulseColor = MaterialColor.teal.lighten3
-		btn2.pulseScale = false
 		btn2.setTitle("BUTTON 1", forState: .Normal)
 		btn2.setTitleColor(MaterialColor.teal.lighten3, forState: .Normal)
 		btn2.titleLabel!.font = RobotoFont.regularWithSize(20)
@@ -218,7 +191,6 @@ class ViewController: UIViewController {
 		// BUTTON 2 button.
 		let btn3: FlatButton = FlatButton()
 		btn3.pulseColor = MaterialColor.teal.lighten3
-		btn3.pulseScale = false
 		btn3.setTitle("BUTTON 2", forState: .Normal)
 		btn3.setTitleColor(MaterialColor.teal.lighten3, forState: .Normal)
 		btn3.titleLabel!.font = RobotoFont.regularWithSize(20)

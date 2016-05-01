@@ -52,7 +52,6 @@ class ViewController: UIViewController {
 		
 		// Undo button.
 		let undoButton: FlatButton = FlatButton()
-		undoButton.pulseScale = false
 		undoButton.pulseColor = MaterialColor.white
 		undoButton.setTitle("UNDO", forState: .Normal)
 		undoButton.setTitleColor(MaterialColor.teal.accent1, forState: .Normal)

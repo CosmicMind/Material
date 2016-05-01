@@ -91,7 +91,6 @@ class ViewController: UIViewController {
 	private func prepareMenuButton() {
 		let image: UIImage? = MaterialIcon.cm.menu
 		menuButton = FlatButton()
-		menuButton.pulseScale = false
 		menuButton.pulseColor = MaterialColor.white
 		menuButton.setImage(image, forState: .Normal)
 		menuButton.setImage(image, forState: .Highlighted)
@@ -106,7 +105,6 @@ class ViewController: UIViewController {
 	private func prepareSearchButton() {
 		let image: UIImage? = MaterialIcon.cm.search
 		searchButton = FlatButton()
-		searchButton.pulseScale = false
 		searchButton.pulseColor = MaterialColor.white
 		searchButton.setImage(image, forState: .Normal)
 		searchButton.setImage(image, forState: .Highlighted)

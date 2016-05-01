@@ -121,7 +121,6 @@ class ItemViewController: UIViewController {
 	private func prepareShareButton() {
 		let image: UIImage? = MaterialIcon.cm.share
 		shareButton = FlatButton()
-		shareButton.pulseScale = false
 		shareButton.pulseColor = MaterialColor.white
 		shareButton.setImage(image, forState: .Normal)
 		shareButton.setImage(image, forState: .Highlighted)
@@ -146,7 +145,6 @@ class ItemViewController: UIViewController {
 			
 			imageCardView = ImageCardView()
 			
-			imageCardView.pulseScale = false
 			imageCardView.pulseColor = nil
 			imageCardView.divider = false
 			imageCardView.depth = .None

@@ -50,7 +50,7 @@ internal extension MaterialAnimation {
 					let pLayer: CAShapeLayer = CAShapeLayer()
 					bLayer.addSublayer(pLayer)
 					pulseLayers.insert(bLayer, atIndex: 0)
-					visualLayer.insertSublayer(bLayer, atIndex: 0)
+					visualLayer.addSublayer(bLayer)
 					MaterialAnimation.animationDisabled({
 						bLayer.frame = visualLayer.bounds
 						pLayer.bounds = CGRectMake(0, 0, n, n)
@@ -80,7 +80,7 @@ internal extension MaterialAnimation {
 		if let color: UIColor = pulseColor {
 			if let bLayer: CAShapeLayer = pulseLayers.popLast() {
 				let animated: Bool? = bLayer.valueForKey("animated") as? Bool
-				MaterialAnimation.delay(true == animated ? 0 : 0.10) {
+				MaterialAnimation.delay(true == animated ? 0 : 0.15) {
 					if let pLayer: CAShapeLayer = bLayer.sublayers?.first as? CAShapeLayer {
 						bLayer.addAnimation(MaterialAnimation.backgroundColor(color.colorWithAlphaComponent(0), duration: 0.35), forKey: nil)
 						pLayer.addAnimation(MaterialAnimation.animationGroup([

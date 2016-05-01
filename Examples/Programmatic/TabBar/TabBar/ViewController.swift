@@ -44,25 +44,21 @@ class ViewController: UIViewController {
 		
 		let btn1: FlatButton = FlatButton()
 		btn1.pulseColor = MaterialColor.white
-		btn1.pulseScale = false
 		btn1.setTitle("ONE", forState: .Normal)
 		btn1.setTitleColor(MaterialColor.white, forState: .Normal)
 		
 		let btn2: FlatButton = FlatButton()
 		btn2.pulseColor = MaterialColor.white
-		btn2.pulseScale = false
 		btn2.setTitle("TWO", forState: .Normal)
 		btn2.setTitleColor(MaterialColor.white, forState: .Normal)
 		
 		let btn3: FlatButton = FlatButton()
 		btn3.pulseColor = MaterialColor.white
-		btn3.pulseScale = false
 		btn3.setTitle("THREE", forState: .Normal)
 		btn3.setTitleColor(MaterialColor.white, forState: .Normal)
 
 		let btn4: FlatButton = FlatButton()
 		btn4.pulseColor = MaterialColor.white
-		btn4.pulseScale = false
 		btn4.setTitle("FOUR", forState: .Normal)
 		btn4.setTitleColor(MaterialColor.white, forState: .Normal)
 

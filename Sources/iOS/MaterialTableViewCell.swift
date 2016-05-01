@@ -49,7 +49,7 @@ public class MaterialTableViewCell : UITableViewCell {
 	public private(set) lazy var pulseLayers: Array<CAShapeLayer> = Array<CAShapeLayer>()
 	
 	/// The opcaity value for the pulse animation.
-	@IBInspectable public var pulseOpacity: CGFloat = 0.25
+	@IBInspectable public var pulseOpacity: CGFloat = 0.12
 	
 	/// The color of the pulse effect.
 	@IBInspectable public var pulseColor: UIColor?

@@ -81,7 +81,6 @@ class AppSearchBarController: SearchBarController {
 		// Back button.
 		let backButton: FlatButton = FlatButton()
 		backButton.pulseColor = nil
-		backButton.pulseScale = false
 		backButton.tintColor = MaterialColor.blueGrey.darken4
 		backButton.setImage(image, forState: .Normal)
 		backButton.setImage(image, forState: .Highlighted)
@@ -91,7 +90,6 @@ class AppSearchBarController: SearchBarController {
 		image = MaterialIcon.cm.moreHorizontal
 		let moreButton: FlatButton = FlatButton()
 		moreButton.pulseColor = nil
-		moreButton.pulseScale = false
 		moreButton.tintColor = MaterialColor.blueGrey.darken4
 		moreButton.setImage(image, forState: .Normal)
 		moreButton.setImage(image, forState: .Highlighted)

@@ -40,8 +40,8 @@ class ViewController: UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		prepareItems()
 		prepareView()
+		prepareItems()
 		prepareCollectionView()
 	}
 	
@@ -74,7 +74,7 @@ class ViewController: UIViewController {
 	
 	/// Prepares view.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.white
+		view.backgroundColor = MaterialColor.grey.lighten3
 	}
 	
 	/// Prepares the tableView.
@@ -114,45 +114,10 @@ extension ViewController: MaterialCollectionViewDataSource {
 		let cell: MaterialCollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier("MaterialCollectionViewCell", forIndexPath: indexPath) as! MaterialCollectionViewCell
 		let item: MaterialDataSourceItem = dataSourceItems[indexPath.item]
 		
-		if let data: Dictionary<String, AnyObject> =  item.data as? Dictionary<String, AnyObject> {
-			cell.pulseColor = nil
-			cell.pulseScale = false
-			
-			let textField: TextField = TextField(frame: CGRectMake(16, 16, view.bounds.width - 32, 32))
-			textField.delegate = self
-			textField.placeholder = "Email"
-			textField.placeholderTextColor = MaterialColor.grey.base
-			textField.font = RobotoFont.regularWithSize(20)
-			textField.textColor = MaterialColor.black
-			
-			textField.titleLabel.font = RobotoFont.mediumWithSize(12)
-			textField.titleLabelColor = MaterialColor.grey.base
-			textField.titleLabelActiveColor = MaterialColor.blue.accent3
-			
-			if let v: Bool = data["detailLabelHidden"] as? Bool {
-				/*
-				Used to display the error message, which is displayed when
-				the user presses the 'return' key.
-				*/
-				textField.detailLabel.text = "detail text..."
-				textField.detailLabel.font = RobotoFont.mediumWithSize(12)
-				textField.detailLabelActiveColor = MaterialColor.red.accent3
-//				textField.detailLabelAutoHideEnabled = false // Uncomment this line to have manual hiding.
-				
-				textField.detailLabelHidden = v
-			}
-			cell.contentView.addSubview(textField)
+		if let _: Dictionary<String, AnyObject> =  item.data as? Dictionary<String, AnyObject> {
+			cell.backgroundColor = MaterialColor.white
 		}
 		
 		return cell
-	}
-}
-
-/// MaterialCollectionViewDelegate methods.
-extension ViewController : TextFieldDelegate {
-	/// Handle textField return.
-	func textFieldShouldReturn(textField: UITextField) -> Bool {
-		(textField as? TextField)?.detailLabelHidden = false
-		return true
 	}
 }

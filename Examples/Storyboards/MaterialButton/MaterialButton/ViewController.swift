@@ -32,7 +32,6 @@ import UIKit
 import Material
 
 class ViewController: UIViewController {
-
     @IBOutlet weak var flatButton: FlatButton!
     @IBOutlet weak var raisedButton: RaisedButton!
     @IBOutlet weak var fabButton: FabButton!
