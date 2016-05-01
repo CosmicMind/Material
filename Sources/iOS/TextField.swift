@@ -147,11 +147,8 @@ public class TextField : UITextField {
 	
 	/// The placeholderLabel font value.
 	@IBInspectable public override var font: UIFont? {
-		get {
-			return placeholderLabel.font
-		}
-		set(value) {
-			placeholderLabel.font = value
+		didSet {
+			placeholderLabel.font = self.font
 		}
 	}
 	
@@ -454,6 +451,7 @@ public class TextField : UITextField {
 		masksToBounds = false
 		borderStyle = .None
 		backgroundColor = nil
+    super.placeholder = nil
 		textColor = MaterialColor.darkText.primary
 		font = RobotoFont.regularWithSize(16)
 		prepareDivider()
