@@ -451,6 +451,7 @@ public class TextField : UITextField {
 		masksToBounds = false
 		borderStyle = .None
 		backgroundColor = nil
+    super.placeholder = nil
 		textColor = MaterialColor.darkText.primary
 		font = RobotoFont.regularWithSize(16)
 		prepareDivider()
