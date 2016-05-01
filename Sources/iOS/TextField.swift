@@ -151,6 +151,15 @@ public class TextField : UITextField {
 			placeholderLabel.font = self.font
 		}
 	}
+ 
+  /// TextField's text property observer.
+ public override var text: String? {
+  didSet {
+   if (text == nil || text!.isEmpty) && !self.isFirstResponder() {
+    placeholderEditingDidEndAnimation()
+   }
+  }
+ }
 	
 	/// The placeholderLabel text value.
 	@IBInspectable public override var placeholder: String? {
