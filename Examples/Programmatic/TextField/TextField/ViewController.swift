@@ -39,9 +39,9 @@ import UIKit
 import Material
 
 class ViewController: UIViewController, TextFieldDelegate {
-	private var nameField: MTextField!
-	private var emailField: MTextField!
-	private var passwordField: MTextField!
+	private var nameField: TextField!
+	private var emailField: TextField!
+	private var passwordField: TextField!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -85,7 +85,7 @@ class ViewController: UIViewController, TextFieldDelegate {
 	
 	/// Prepares the name TextField.
 	private func prepareNameField() {
-		nameField = MTextField()
+		nameField = TextField()
 		nameField.text = "Daniel Dahan"
 		nameField.placeholder = "Name"
 		nameField.detail = "Your given name"
@@ -106,7 +106,7 @@ class ViewController: UIViewController, TextFieldDelegate {
 	
 	/// Prepares the email TextField.
 	private func prepareEmailField() {
-		emailField = MTextField(frame: CGRectMake(40, 120, view.bounds.width - 80, 32))
+		emailField = TextField(frame: CGRectMake(40, 120, view.bounds.width - 80, 32))
 		emailField.placeholder = "Email"
 		emailField.detail = "Error, incorrect email"
 		emailField.enableClearFlatButton = true
@@ -122,12 +122,15 @@ class ViewController: UIViewController, TextFieldDelegate {
 	
 	/// Prepares the password TextField.
 	private func preparePasswordField() {
-		passwordField = MTextField()
+		passwordField = TextField()
 		passwordField.placeholder = "Password"
 		passwordField.detail = "At least 8 characters"
 		passwordField.clearButtonMode = .WhileEditing
 		passwordField.enableVisibilityFlatButton = true
 		passwordField.delegate = self
+		
+		// Setting the visibilityFlatButton color.
+		passwordField.visibilityFlatButton?.tintColor = MaterialColor.green.base.colorWithAlphaComponent(passwordField.secureTextEntry ? 0.38 : 0.54)
 		
 		// The translatesAutoresizingMaskIntoConstraints property must be set to enable AutoLayout correctly.
 		passwordField.translatesAutoresizingMaskIntoConstraints = false
