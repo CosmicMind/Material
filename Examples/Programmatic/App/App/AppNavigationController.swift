@@ -41,27 +41,21 @@ class AppNavigationController: NavigationController {
 		prepareNavigationBar()
 	}
 	
-	/**
-	Uncomment the code to set a statusBar that is colored, different
-	from the NavigationBar. Note, if using the .CenterRadialBeyondBounds 
-	pulseAnimation value, it will cover the animation radial effect.
-	*/
-	
 	override func viewWillLayoutSubviews() {
 		super.viewWillLayoutSubviews()
-//		statusBarView?.hidden = MaterialDevice.statusBarHidden
+		statusBarView?.hidden = MaterialDevice.statusBarHidden
 	}
 	
 	/// Prepares the statusBarView
 	private func prepareStatusBarView() {
-//		statusBarView = MaterialView()
-//		statusBarView!.backgroundColor = MaterialColor.blue.darken2
+		statusBarView = MaterialView()
+		statusBarView!.backgroundColor = MaterialColor.blue.darken2
 		
-//		view.addSubview(statusBarView!)
-//		statusBarView!.translatesAutoresizingMaskIntoConstraints = false
-//		MaterialLayout.alignFromTop(view, child: statusBarView!)
-//		MaterialLayout.alignToParentHorizontally(view, child: statusBarView!)
-//		MaterialLayout.height(view, child: statusBarView!, height: 20)
+		view.addSubview(statusBarView!)
+		statusBarView!.translatesAutoresizingMaskIntoConstraints = false
+		MaterialLayout.alignFromTop(view, child: statusBarView!)
+		MaterialLayout.alignToParentHorizontally(view, child: statusBarView!)
+		MaterialLayout.height(view, child: statusBarView!, height: 20)
 	}
 	
 	/// Prepares the navigationBar

@@ -73,8 +73,11 @@ public class NavigationController : UINavigationController, UIGestureRecognizerD
 		super.viewWillAppear(animated)
 		if let v: UIGestureRecognizer = interactivePopGestureRecognizer {
 			if let x: SideNavigationController = sideNavigationController {
-				if let p: UIPanGestureRecognizer = x.panGesture {
-					p.requireGestureRecognizerToFail(v)
+				if let l: UIPanGestureRecognizer = x.panLeftViewGesture {
+					l.requireGestureRecognizerToFail(v)
+				}
+				if let r: UIPanGestureRecognizer = x.panRightViewGesture {
+					r.requireGestureRecognizerToFail(v)
 				}
 			}
 		}

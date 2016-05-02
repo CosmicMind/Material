@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9658F21F1CD7ACD600B902C1 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9658F21E1CD7ACD600B902C1 /* Material.framework */; };
+		9658F2201CD7ACD600B902C1 /* Material.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9658F21E1CD7ACD600B902C1 /* Material.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		96E5E4671CC1E5EC0054837B /* PurpleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E5E4661CC1E5EC0054837B /* PurpleViewController.swift */; };
 		96E5E4691CC1E6130054837B /* OrangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E5E4681CC1E6130054837B /* OrangeViewController.swift */; };
 		96E5E46B1CC1E8FB0054837B /* AppLeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E5E46A1CC1E8FB0054837B /* AppLeftViewController.swift */; };
@@ -25,6 +27,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				9658F2201CD7ACD600B902C1 /* Material.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -32,6 +35,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9658F21E1CD7ACD600B902C1 /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = Material.framework; path = "/Users/danieldahan/Library/Developer/Xcode/DerivedData/Material-bshwisidfobstlbomegqyybbrygh/Build/Products/Debug-iphoneos/Material.framework"; sourceTree = "<absolute>"; };
 		9663F9651C7ADCB600AF0965 /* SideNavigationController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SideNavigationController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96E5E4661CC1E5EC0054837B /* PurpleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurpleViewController.swift; sourceTree = "<group>"; };
 		96E5E4681CC1E6130054837B /* OrangeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrangeViewController.swift; sourceTree = "<group>"; };
@@ -50,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9658F21F1CD7ACD600B902C1 /* Material.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +64,7 @@
 		9663F95C1C7ADCB600AF0965 = {
 			isa = PBXGroup;
 			children = (
+				9658F21E1CD7ACD600B902C1 /* Material.framework */,
 				96F2F1FC1C97A68800A5FE27 /* SideNavigationController */,
 				9663F9661C7ADCB600AF0965 /* Products */,
 			);
