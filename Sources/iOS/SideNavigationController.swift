@@ -614,7 +614,6 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	public func closeLeftView(velocity: CGFloat = 0) {
 		if enabledLeftView {
 			if let v: MaterialView = leftView {
-				showStatusBar()
 				userInteractionEnabled = true
 				delegate?.sideNavigationWillClose?(self, position: .Left)
 				UIView.animateWithDuration(Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.x / velocity)))),
@@ -623,6 +622,7 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 						self.rootViewController.view.alpha = 1
 					}) { [unowned self] _ in
 						self.hideView(v)
+						self.toggleStatusBar()
 						self.delegate?.sideNavigationDidClose?(self, position: .Left)
 					}
 			}
@@ -647,6 +647,7 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 						self.rootViewController.view.alpha = 1
 					}) { [unowned self] _ in
 						self.hideView(v)
+						self.toggleStatusBar()
 						self.delegate?.sideNavigationDidClose?(self, position: .Right)
 					}
 			}
@@ -960,28 +961,24 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	/// Shows the statusBar.
 	private func showStatusBar() {
 		willHideStatusBar = false
-		if MaterialDevice.statusBarHidden {
-			UIView.animateWithDuration(NSTimeInterval(UINavigationControllerHideShowBarDuration),
-				animations: { [weak self] in
-					self?.setNeedsStatusBarAppearanceUpdate()
-					MaterialDevice.statusBarHidden = false
-				})
-			delegate?.sideNavigationStatusBarHiddenState?(self, hidden: false)
-		}
+		UIView.animateWithDuration(NSTimeInterval(UINavigationControllerHideShowBarDuration),
+			animations: { [weak self] in
+				self?.setNeedsStatusBarAppearanceUpdate()
+				MaterialDevice.statusBarHidden = false
+			})
+		delegate?.sideNavigationStatusBarHiddenState?(self, hidden: false)
 	}
 	
 	/// Hides the statusBar.
 	private func hideStatusBar() {
 		if enableHideStatusbar {
-			if !MaterialDevice.statusBarHidden {
-				willHideStatusBar = true
-				UIView.animateWithDuration(NSTimeInterval(UINavigationControllerHideShowBarDuration),
-					animations: { [weak self] in
-						self?.setNeedsStatusBarAppearanceUpdate()
-						MaterialDevice.statusBarHidden = true
-					})
-				delegate?.sideNavigationStatusBarHiddenState?(self, hidden: true)
-			}
+			willHideStatusBar = true
+			UIView.animateWithDuration(NSTimeInterval(UINavigationControllerHideShowBarDuration),
+				animations: { [weak self] in
+					self?.setNeedsStatusBarAppearanceUpdate()
+					MaterialDevice.statusBarHidden = true
+				})
+			delegate?.sideNavigationStatusBarHiddenState?(self, hidden: true)
 		}
 	}
 	
