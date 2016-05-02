@@ -29,44 +29,19 @@
 */
 
 import UIKit
-import Material
 
-class AppNavigationController: NavigationController {
-	/// StatusBar color reference.
-	private var statusBarView: MaterialView?
-	
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		prepareStatusBarView()
-		prepareNavigationBar()
-	}
-	
+public class IconButton : MaterialButton {
 	/**
-	Uncomment the code to set a statusBar that is colored, different
-	from the NavigationBar. Note, if using the .CenterRadialBeyondBounds 
-	pulseAnimation value, it will cover the animation radial effect.
+	Prepares the view instance when intialized. When subclassing,
+	it is recommended to override the prepareView method
+	to initialize property values and other setup operations.
+	The super.prepareView method should always be called immediately
+	when subclassing.
 	*/
-	
-	override func viewWillLayoutSubviews() {
-		super.viewWillLayoutSubviews()
-//		statusBarView?.hidden = MaterialDevice.statusBarHidden
-	}
-	
-	/// Prepares the statusBarView
-	private func prepareStatusBarView() {
-//		statusBarView = MaterialView()
-//		statusBarView!.backgroundColor = MaterialColor.blue.darken2
-		
-//		view.addSubview(statusBarView!)
-//		statusBarView!.translatesAutoresizingMaskIntoConstraints = false
-//		MaterialLayout.alignFromTop(view, child: statusBarView!)
-//		MaterialLayout.alignToParentHorizontally(view, child: statusBarView!)
-//		MaterialLayout.height(view, child: statusBarView!, height: 20)
-	}
-	
-	/// Prepares the navigationBar
-	private func prepareNavigationBar() {
-		navigationBar.tintColor = MaterialColor.white
-		navigationBar.backgroundColor = MaterialColor.blue.base
+	public override func prepareView() {
+		super.prepareView()
+		cornerRadiusPreset = .Radius1
+		contentEdgeInsetsPreset = .WideRectangle3
+		pulseAnimation = .Center
 	}
 }

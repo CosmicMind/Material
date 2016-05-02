@@ -110,7 +110,7 @@ class ViewController: UIViewController {
 		
 		// Share button.
 		let img1: UIImage? = MaterialIcon.cm.share
-		let btn1: FlatButton = FlatButton()
+		let btn1: IconButton = IconButton()
 		btn1.pulseColor = MaterialColor.white
 		btn1.tintColor = MaterialColor.white
 		btn1.setImage(img1, forState: .Normal)
@@ -151,7 +151,7 @@ class ViewController: UIViewController {
 		
 		// Share button.
 		let img1: UIImage? = MaterialIcon.cm.share
-		let btn1: FlatButton = FlatButton()
+		let btn1: IconButton = IconButton()
 		btn1.pulseColor = MaterialColor.white
 		btn1.tintColor = MaterialColor.white
 		btn1.setImage(img1, forState: .Normal)
@@ -175,7 +175,7 @@ class ViewController: UIViewController {
 		
 		// Search button.
 		let img1: UIImage? = MaterialIcon.cm.search
-		let btn1: FlatButton = FlatButton()
+		let btn1: IconButton = IconButton()
 		btn1.pulseColor = MaterialColor.white
 		btn1.tintColor = MaterialColor.white
 		btn1.setImage(img1, forState: .Normal)

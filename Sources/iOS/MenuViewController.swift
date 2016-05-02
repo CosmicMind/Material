@@ -172,9 +172,16 @@ public class MenuViewController : UIViewController {
 		}
 	}
 	
-	/// A method that generally prepares the MenuViewController.
-	private func prepareView() {
+	/**
+	Prepares the view instance when intialized. When subclassing,
+	it is recommended to override the prepareView method
+	to initialize property values and other setup operations.
+	The super.prepareView method should always be called immediately
+	when subclassing.
+	*/
+	public func prepareView() {
 		view.clipsToBounds = true
+		view.contentScaleFactor = MaterialDevice.scale
 		prepareMenuView()
 		prepareRootViewController()
 	}

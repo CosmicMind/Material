@@ -38,13 +38,17 @@ public class MaterialPulseView : MaterialView {
 	public private(set) lazy var pulseLayers: Array<CAShapeLayer> = Array<CAShapeLayer>()
 	
 	/// The opcaity value for the pulse animation.
-	@IBInspectable public var pulseOpacity: CGFloat = 0.12
+	@IBInspectable public var pulseOpacity: CGFloat = 0.25
 	
 	/// The color of the pulse effect.
-	@IBInspectable public var pulseColor: UIColor?
+	@IBInspectable public var pulseColor: UIColor = MaterialColor.grey.base
 	
 	/// The type of PulseAnimation.
-	public var pulseAnimation: PulseAnimation = .AtPointWithBacking
+	public var pulseAnimation: PulseAnimation = .AtPointWithBacking {
+		didSet {
+			visualLayer.masksToBounds = .CenterRadialBeyondBounds != pulseAnimation
+		}
+	}
 	
 	/**
 	Triggers the pulse animation.
@@ -58,7 +62,7 @@ public class MaterialPulseView : MaterialView {
 		}
 		MaterialAnimation.delay(0.35) { [weak self] in
 			if let s: MaterialPulseView = self {
-				MaterialAnimation.pulseContractAnimation(s.layer, pulseColor: s.pulseColor, pulseLayers: &s.pulseLayers, pulseAnimation: s.pulseAnimation)
+				MaterialAnimation.pulseContractAnimation(s.layer, visualLayer: s.visualLayer, pulseColor: s.pulseColor, pulseLayers: &s.pulseLayers, pulseAnimation: s.pulseAnimation)
 			}
 		}
 	}
@@ -82,7 +86,7 @@ public class MaterialPulseView : MaterialView {
 	*/
 	public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesEnded(touches, withEvent: event)
-		MaterialAnimation.pulseContractAnimation(layer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
+		MaterialAnimation.pulseContractAnimation(layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
 	}
 	
 	/**
@@ -93,19 +97,6 @@ public class MaterialPulseView : MaterialView {
 	*/
 	public override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
 		super.touchesCancelled(touches, withEvent: event)
-		MaterialAnimation.pulseContractAnimation(layer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
-	}
-	
-	/**
-	Prepares the view instance when intialized. When subclassing,
-	it is recommended to override the prepareView method
-	to initialize property values and other setup operations.
-	The super.prepareView method should always be called immediately
-	when subclassing.
-	*/
-	public override func prepareView() {
-		super.prepareView()
-		pulseColor = MaterialColor.black
-		contentScaleFactor = MaterialDevice.scale
+		MaterialAnimation.pulseContractAnimation(layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
 	}
 }

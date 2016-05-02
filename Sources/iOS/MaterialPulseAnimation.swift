@@ -34,6 +34,7 @@ public enum PulseAnimation {
 	case None
 	case Center
 	case CenterWithBacking
+	case CenterRadialBeyondBounds
 	case Backing
 	case AtPoint
 	case AtPointWithBacking
@@ -51,45 +52,41 @@ internal extension MaterialAnimation {
 	- Parameter duration: Animation duration.
 	- Parameter pulseLayers: An Array of CAShapeLayers used in the animation.
 	*/
-	internal static func pulseExpandAnimation(layer: CALayer, visualLayer: CALayer, pulseColor: UIColor?, pulseOpacity: CGFloat, point: CGPoint, width: CGFloat, height: CGFloat, inout pulseLayers: Array<CAShapeLayer>, pulseAnimation: PulseAnimation) {
+	internal static func pulseExpandAnimation(layer: CALayer, visualLayer: CALayer, pulseColor: UIColor, pulseOpacity: CGFloat, point: CGPoint, width: CGFloat, height: CGFloat, inout pulseLayers: Array<CAShapeLayer>, pulseAnimation: PulseAnimation) {
 		if .None != pulseAnimation {
-			if let color: UIColor = pulseColor {
-				if let n: CGFloat = width < height ? height : width {
-					if let pOpacity: CGFloat = pulseOpacity {
-						let bLayer: CAShapeLayer = CAShapeLayer()
-						let pLayer: CAShapeLayer = CAShapeLayer()
-						bLayer.addSublayer(pLayer)
-						pulseLayers.insert(bLayer, atIndex: 0)
-						visualLayer.addSublayer(bLayer)
-						MaterialAnimation.animationDisabled({
-							bLayer.frame = visualLayer.bounds
-							pLayer.bounds = CGRectMake(0, 0, n, n)
-							switch pulseAnimation {
-							case .Center, .CenterWithBacking:
-								pLayer.position = CGPointMake(width / 2, height / 2)
-							default:
-								pLayer.position = point
-							}
-							pLayer.cornerRadius = n / 2
-							pLayer.backgroundColor = color.colorWithAlphaComponent(pOpacity).CGColor
-							pLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransformMakeScale(0, 0))
-						})
-						bLayer.setValue(false, forKey: "animated")
-						switch pulseAnimation {
-						case .CenterWithBacking, .Backing, .AtPointWithBacking:
-							bLayer.addAnimation(MaterialAnimation.backgroundColor(color.colorWithAlphaComponent(pOpacity / 2), duration: 0.35), forKey: nil)
-						default:break
-						}
-						switch pulseAnimation {
-						case .Center, .CenterWithBacking, .AtPoint, .AtPointWithBacking:
-							pLayer.addAnimation(MaterialAnimation.scale(1, duration: 0.35), forKey: nil)
-						default:break
-						}
-						MaterialAnimation.delay(0.35, completion: {
-							bLayer.setValue(true, forKey: "animated")
-						})
+			if let n: CGFloat = .Center == pulseAnimation ? width < height ? width : height : width < height ? height : width {
+				let bLayer: CAShapeLayer = CAShapeLayer()
+				let pLayer: CAShapeLayer = CAShapeLayer()
+				bLayer.addSublayer(pLayer)
+				pulseLayers.insert(bLayer, atIndex: 0)
+				visualLayer.addSublayer(bLayer)
+				MaterialAnimation.animationDisabled({
+					bLayer.frame = visualLayer.bounds
+					pLayer.bounds = CGRectMake(0, 0, n, n)
+					switch pulseAnimation {
+					case .Center, .CenterWithBacking, .CenterRadialBeyondBounds:
+						pLayer.position = CGPointMake(width / 2, height / 2)
+					default:
+						pLayer.position = point
 					}
+					pLayer.cornerRadius = n / 2
+					pLayer.backgroundColor = pulseColor.colorWithAlphaComponent(pulseOpacity).CGColor
+					pLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransformMakeScale(0, 0))
+				})
+				bLayer.setValue(false, forKey: "animated")
+				switch pulseAnimation {
+				case .CenterWithBacking, .Backing, .AtPointWithBacking:
+					bLayer.addAnimation(MaterialAnimation.backgroundColor(pulseColor.colorWithAlphaComponent(pulseOpacity / 2), duration: 0.325), forKey: nil)
+				default:break
 				}
+				switch pulseAnimation {
+				case .Center, .CenterWithBacking, .CenterRadialBeyondBounds, .AtPoint, .AtPointWithBacking:
+					pLayer.addAnimation(MaterialAnimation.scale(1, duration: 0.325), forKey: nil)
+				default:break
+				}
+				MaterialAnimation.delay(0.325, completion: {
+					bLayer.setValue(true, forKey: "animated")
+				})
 			}
 		}
 	}
@@ -100,29 +97,27 @@ internal extension MaterialAnimation {
 	- Parameter pulseColor: The UIColor for the pulse.
 	- Parameter pulseLayers: An Array of CAShapeLayers used in the animation.
 	*/
-	internal static func pulseContractAnimation(layer: CALayer, pulseColor: UIColor?, inout pulseLayers: Array<CAShapeLayer>, pulseAnimation: PulseAnimation) {
-		if let color: UIColor = pulseColor {
-			if let bLayer: CAShapeLayer = pulseLayers.popLast() {
-				let animated: Bool? = bLayer.valueForKey("animated") as? Bool
-				MaterialAnimation.delay(true == animated ? 0 : 0.15) {
-					if let pLayer: CAShapeLayer = bLayer.sublayers?.first as? CAShapeLayer {
-						switch pulseAnimation {
-						case .CenterWithBacking, .Backing, .AtPointWithBacking:
-							bLayer.addAnimation(MaterialAnimation.backgroundColor(color.colorWithAlphaComponent(0), duration: 0.35), forKey: nil)
-						default:break
-						}
-						switch pulseAnimation {
-						case .Center, .CenterWithBacking, .AtPoint, .AtPointWithBacking:
-							pLayer.addAnimation(MaterialAnimation.animationGroup([
-								MaterialAnimation.scale(1.35),
-								MaterialAnimation.backgroundColor(color.colorWithAlphaComponent(0))
-							], duration: 0.35), forKey: nil)
-						default:break
-						}
-						MaterialAnimation.delay(0.35) {
-							pLayer.removeFromSuperlayer()
-							bLayer.removeFromSuperlayer()
-						}
+	internal static func pulseContractAnimation(layer: CALayer, visualLayer: CALayer, pulseColor: UIColor, inout pulseLayers: Array<CAShapeLayer>, pulseAnimation: PulseAnimation) {
+		if let bLayer: CAShapeLayer = pulseLayers.popLast() {
+			let animated: Bool? = bLayer.valueForKey("animated") as? Bool
+			MaterialAnimation.delay(true == animated ? 0 : 0.15) {
+				if let pLayer: CAShapeLayer = bLayer.sublayers?.first as? CAShapeLayer {
+					switch pulseAnimation {
+					case .CenterWithBacking, .Backing, .AtPointWithBacking:
+						bLayer.addAnimation(MaterialAnimation.backgroundColor(pulseColor.colorWithAlphaComponent(0), duration: 0.325), forKey: nil)
+					default:break
+					}
+					switch pulseAnimation {
+					case .Center, .CenterWithBacking, .CenterRadialBeyondBounds, .AtPoint, .AtPointWithBacking:
+						pLayer.addAnimation(MaterialAnimation.animationGroup([
+							MaterialAnimation.scale(.Center == pulseAnimation ? 1 : 1.325),
+							MaterialAnimation.backgroundColor(pulseColor.colorWithAlphaComponent(0))
+						], duration: 0.325), forKey: nil)
+					default:break
+					}
+					MaterialAnimation.delay(0.325) {
+						pLayer.removeFromSuperlayer()
+						bLayer.removeFromSuperlayer()
 					}
 				}
 			}

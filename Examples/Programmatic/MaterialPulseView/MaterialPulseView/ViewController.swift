@@ -59,7 +59,7 @@ class ViewController: UIViewController {
 		pulseView.shape = .Square
 		pulseView.depth = .Depth1
 		pulseView.cornerRadiusPreset = .Radius3
-//		pulseView.pulseAnimation = .CenterWithBacking // Set a different type of pulse animation.
+		pulseView.pulseAnimation = .CenterRadialBeyondBounds
 		
 		// Add pulseView to UIViewController.
 		view.addSubview(pulseView)
@@ -69,11 +69,11 @@ class ViewController: UIViewController {
 //			pulseView.pulse(CGPointMake(30, 30))
 //		}
 		
-		pulseView.animate(MaterialAnimation.animationGroup([
-			MaterialAnimation.rotate(rotation: 0.5),
-			MaterialAnimation.rotateX(rotation: 2),
-			MaterialAnimation.translateY(200)
-		], duration: 4))
+//		pulseView.animate(MaterialAnimation.animationGroup([
+//			MaterialAnimation.rotate(rotation: 0.5),
+//			MaterialAnimation.rotateX(rotation: 2),
+//			MaterialAnimation.translateY(200)
+//		], duration: 4))
 	}
 }
 

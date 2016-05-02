@@ -147,6 +147,7 @@ public class MaterialLabel : UILabel {
 	:name:	prepareView
 	*/
 	public func prepareView() {
+		contentScaleFactor = MaterialDevice.scale
 		textAlignment = .Left
 	}
 }

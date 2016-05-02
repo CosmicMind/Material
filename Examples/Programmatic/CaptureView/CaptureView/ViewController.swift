@@ -35,10 +35,10 @@ import AVFoundation
 class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDelegate {
 	lazy var captureView: CaptureView = CaptureView()
 	lazy var toolbar: Toolbar = Toolbar()
-	lazy var cameraButton: FlatButton = FlatButton()
-	lazy var videoButton: FlatButton = FlatButton()
-	lazy var switchCamerasButton: FlatButton = FlatButton()
-	lazy var flashButton: FlatButton = FlatButton()
+	lazy var cameraButton: IconButton = IconButton()
+	lazy var videoButton: IconButton = IconButton()
+	lazy var switchCamerasButton: IconButton = IconButton()
+	lazy var flashButton: IconButton = IconButton()
 	lazy var captureButton: FabButton = FabButton()
 	
 	override func viewDidLoad() {

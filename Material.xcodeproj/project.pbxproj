@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		96334EF61C8B84660083986B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96334EF51C8B84660083986B /* Assets.xcassets */; };
 		963832421B88DFD80015F710 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963832361B88DFD80015F710 /* Material.framework */; };
+		9658F2171CD6FA4700B902C1 /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9658F2161CD6FA4700B902C1 /* IconButton.swift */; };
 		9660161D1CB2ED6C00AAB661 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 966016131CB2ED6C00AAB661 /* Material.framework */; };
 		9660162A1CB2F04E00AAB661 /* Material.h in Headers */ = {isa = PBXBuildFile; fileRef = 96D88C091C1328D800B91418 /* Material.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9679CEAB1CC69E080021685B /* Material+UIImage+TintColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679CEAA1CC69E080021685B /* Material+UIImage+TintColor.swift */; };
@@ -196,6 +197,7 @@
 		963832361B88DFD80015F710 /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Material.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		963832411B88DFD80015F710 /* Material.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Material.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		963832591B88E31A0015F710 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9658F2161CD6FA4700B902C1 /* IconButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
 		966016131CB2ED6C00AAB661 /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Material.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9660161C1CB2ED6C00AAB661 /* Material OSX Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Material OSX Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		967887881C9777CB0037F6C9 /* MaterialViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialViewTests.swift; sourceTree = "<group>"; };
@@ -456,6 +458,7 @@
 				96BCB75F1CB40DC500C806FE /* FabButton.swift */,
 				96BCB7601CB40DC500C806FE /* FlatButton.swift */,
 				96BCB7931CB40DC500C806FE /* RaisedButton.swift */,
+				9658F2161CD6FA4700B902C1 /* IconButton.swift */,
 			);
 			name = Button;
 			sourceTree = "<group>";
@@ -869,6 +872,7 @@
 				96BCB7C01CB40DC500C806FE /* MaterialDataSourceItem.swift in Sources */,
 				96BCB7AC1CB40DC500C806FE /* Material+Obj-C.swift in Sources */,
 				9679CEAB1CC69E080021685B /* Material+UIImage+TintColor.swift in Sources */,
+				9658F2171CD6FA4700B902C1 /* IconButton.swift in Sources */,
 				96BCB7BB1CB40DC500C806FE /* MaterialCollectionViewCell.swift in Sources */,
 				96BCB7CF1CB40DC500C806FE /* MaterialShape.swift in Sources */,
 				96BCB7DF1CB40DC500C806FE /* SearchBarController.swift in Sources */,

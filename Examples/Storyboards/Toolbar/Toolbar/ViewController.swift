@@ -95,7 +95,7 @@ class ViewController: UIViewController {
 		
         // Menu button.
         let img1: UIImage? = MaterialIcon.cm.menu
-        let btn1: FlatButton = FlatButton()
+        let btn1: IconButton = IconButton()
         btn1.pulseColor = MaterialColor.white
 		btn1.tintColor = MaterialColor.white
 		btn1.setImage(img1, forState: .Normal)
@@ -103,7 +103,7 @@ class ViewController: UIViewController {
         
         // Star button.
         let img2: UIImage? = MaterialIcon.cm.star
-        let btn2: FlatButton = FlatButton()
+        let btn2: IconButton = IconButton()
         btn2.pulseColor = MaterialColor.white
 		btn2.tintColor = MaterialColor.white
         btn2.setImage(img2, forState: .Normal)
@@ -111,7 +111,7 @@ class ViewController: UIViewController {
         
         // Search button.
         let img3: UIImage? = MaterialIcon.cm.search
-        let btn3: FlatButton = FlatButton()
+        let btn3: IconButton = IconButton()
         btn3.pulseColor = MaterialColor.white
 		btn3.tintColor = MaterialColor.white
 		btn3.setImage(img3, forState: .Normal)

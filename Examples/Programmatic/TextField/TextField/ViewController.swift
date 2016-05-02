@@ -92,7 +92,6 @@ class ViewController: UIViewController, TextFieldDelegate {
 		nameField.detail = "Your given name"
 		nameField.textAlignment = .Center
 		nameField.clearButtonMode = .WhileEditing
-		nameField.dividerActiveColor = MaterialColor.green.base
 		nameField.delegate = self
 		
 		// The translatesAutoresizingMaskIntoConstraints property must be set to enable AutoLayout correctly.
@@ -110,7 +109,7 @@ class ViewController: UIViewController, TextFieldDelegate {
 		emailField = TextField(frame: CGRectMake(40, 120, view.bounds.width - 80, 32))
 		emailField.placeholder = "Email"
 		emailField.detail = "Error, incorrect email"
-		emailField.enableClearFlatButton = true
+		emailField.enableClearIconButton = true
 		emailField.delegate = self
 		
 		emailField.placeholderColor = MaterialColor.amber.darken4
@@ -127,11 +126,11 @@ class ViewController: UIViewController, TextFieldDelegate {
 		passwordField.placeholder = "Password"
 		passwordField.detail = "At least 8 characters"
 		passwordField.clearButtonMode = .WhileEditing
-		passwordField.enableVisibilityFlatButton = true
+		passwordField.enableVisibilityIconButton = true
 		passwordField.delegate = self
 		
 		// Setting the visibilityFlatButton color.
-		passwordField.visibilityFlatButton?.tintColor = MaterialColor.green.base.colorWithAlphaComponent(passwordField.secureTextEntry ? 0.38 : 0.54)
+		passwordField.visibilityIconButton?.tintColor = MaterialColor.green.base.colorWithAlphaComponent(passwordField.secureTextEntry ? 0.38 : 0.54)
 		
 		// The translatesAutoresizingMaskIntoConstraints property must be set to enable AutoLayout correctly.
 		passwordField.translatesAutoresizingMaskIntoConstraints = false

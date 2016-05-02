@@ -50,13 +50,17 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	public private(set) lazy var pulseLayers: Array<CAShapeLayer> = Array<CAShapeLayer>()
 	
 	/// The opcaity value for the pulse animation.
-	@IBInspectable public var pulseOpacity: CGFloat = 0.12
+	@IBInspectable public var pulseOpacity: CGFloat = 0.25
 	
 	/// The color of the pulse effect.
-	@IBInspectable public var pulseColor: UIColor?
+	@IBInspectable public var pulseColor: UIColor = MaterialColor.grey.base
 	
 	/// The type of PulseAnimation.
-	public var pulseAnimation: PulseAnimation = .AtPointWithBacking
+	public var pulseAnimation: PulseAnimation = .AtPointWithBacking {
+		didSet {
+			visualLayer.masksToBounds = .CenterRadialBeyondBounds != pulseAnimation
+		}
+	}
 	
 	/**
 	A property that manages an image for the visualLayer's contents
@@ -516,7 +520,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 		}
 		MaterialAnimation.delay(0.35) { [weak self] in
 			if let s: MaterialCollectionViewCell = self {
-				MaterialAnimation.pulseContractAnimation(s.layer, pulseColor: s.pulseColor, pulseLayers: &s.pulseLayers, pulseAnimation: s.pulseAnimation)
+				MaterialAnimation.pulseContractAnimation(s.layer, visualLayer: s.visualLayer, pulseColor: s.pulseColor, pulseLayers: &s.pulseLayers, pulseAnimation: s.pulseAnimation)
 			}
 		}
 	}
@@ -540,7 +544,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	*/
 	public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesEnded(touches, withEvent: event)
-		MaterialAnimation.pulseContractAnimation(layer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
+		MaterialAnimation.pulseContractAnimation(layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
 	}
 	
 	/**
@@ -551,7 +555,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	*/
 	public override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
 		super.touchesCancelled(touches, withEvent: event)
-		MaterialAnimation.pulseContractAnimation(layer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
+		MaterialAnimation.pulseContractAnimation(layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
 	}
 	
 	/**
@@ -562,7 +566,6 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	when subclassing.
 	*/
 	public func prepareView() {
-		pulseColor = MaterialColor.black
 		contentScaleFactor = MaterialDevice.scale
 		prepareVisualLayer()
 	}

@@ -57,7 +57,7 @@ class ViewController: UIViewController {
 	/// Prepares the Horizontal GridView example.
 	private func prepareHorizontalGridViewExample() {
 		var image: UIImage? = UIImage(named: "ic_flash_auto_white")?.imageWithRenderingMode(.AlwaysTemplate)
-		let btn1: FlatButton = FlatButton()
+		let btn1: IconButton = IconButton()
 		btn1.pulseColor = MaterialColor.blueGrey.darken4
 		btn1.tintColor = MaterialColor.blueGrey.darken4
 		btn1.backgroundColor = MaterialColor.grey.lighten3
@@ -66,7 +66,7 @@ class ViewController: UIViewController {
 		view.addSubview(btn1)
 		
 		image = UIImage(named: "ic_flash_off_white")?.imageWithRenderingMode(.AlwaysTemplate)
-		let btn2: FlatButton = FlatButton()
+		let btn2: IconButton = IconButton()
 		btn2.pulseColor = MaterialColor.blueGrey.darken4
 		btn2.tintColor = MaterialColor.blueGrey.darken4
 		btn2.backgroundColor = MaterialColor.grey.lighten3
@@ -75,7 +75,7 @@ class ViewController: UIViewController {
 		view.addSubview(btn2)
 		
 		image = UIImage(named: "ic_flash_on_white")?.imageWithRenderingMode(.AlwaysTemplate)
-		let btn3: FlatButton = FlatButton()
+		let btn3: IconButton = IconButton()
 		btn3.pulseColor = MaterialColor.blueGrey.darken4
 		btn3.tintColor = MaterialColor.blueGrey.darken4
 		btn3.backgroundColor = MaterialColor.grey.lighten3
@@ -106,7 +106,7 @@ class ViewController: UIViewController {
 	/// Prepares the Vertical GridView example.
 	private func prepareVerticalGridViewExample() {
 		var image: UIImage? = UIImage(named: "ic_flash_auto_white")?.imageWithRenderingMode(.AlwaysTemplate)
-		let btn1: FlatButton = FlatButton()
+		let btn1: IconButton = IconButton()
 		btn1.pulseColor = MaterialColor.blueGrey.darken4
 		btn1.tintColor = MaterialColor.blueGrey.darken4
 		btn1.backgroundColor = MaterialColor.grey.lighten3
@@ -115,7 +115,7 @@ class ViewController: UIViewController {
 		view.addSubview(btn1)
 		
 		image = UIImage(named: "ic_flash_off_white")?.imageWithRenderingMode(.AlwaysTemplate)
-		let btn2: FlatButton = FlatButton()
+		let btn2: IconButton = IconButton()
 		btn2.pulseColor = MaterialColor.blueGrey.darken4
 		btn2.tintColor = MaterialColor.blueGrey.darken4
 		btn2.backgroundColor = MaterialColor.grey.lighten3
@@ -124,7 +124,7 @@ class ViewController: UIViewController {
 		view.addSubview(btn2)
 		
 		image = UIImage(named: "ic_flash_on_white")?.imageWithRenderingMode(.AlwaysTemplate)
-		let btn3: FlatButton = FlatButton()
+		let btn3: IconButton = IconButton()
 		btn3.pulseColor = MaterialColor.blueGrey.darken4
 		btn3.tintColor = MaterialColor.blueGrey.darken4
 		btn3.backgroundColor = MaterialColor.grey.lighten3
@@ -203,7 +203,7 @@ class ViewController: UIViewController {
 		contentView.addSubview(titleLabel)
 		
 		image = MaterialIcon.cm.moreVertical
-		let moreButton: FlatButton = FlatButton()
+		let moreButton: IconButton = IconButton()
 		moreButton.contentEdgeInsetsPreset = .None
 		moreButton.pulseColor = MaterialColor.blueGrey.darken4
 		moreButton.tintColor = MaterialColor.blueGrey.darken4
@@ -228,7 +228,7 @@ class ViewController: UIViewController {
 		contentView.addSubview(alarmLabel)
 		
 		image = UIImage(named: "ic_alarm_white")?.imageWithRenderingMode(.AlwaysTemplate)
-		let alarmButton: FlatButton = FlatButton()
+		let alarmButton: IconButton = IconButton()
 		alarmButton.contentEdgeInsetsPreset = .None
 		alarmButton.pulseColor = MaterialColor.blueGrey.darken4
 		alarmButton.tintColor = MaterialColor.red.base
@@ -300,7 +300,7 @@ class ViewController: UIViewController {
 		contentView.addSubview(titleLabel)
 		
 		image = MaterialIcon.cm.moreVertical
-		let moreButton: FlatButton = FlatButton()
+		let moreButton: IconButton = IconButton()
 		moreButton.contentEdgeInsetsPreset = .None
 		moreButton.pulseColor = MaterialColor.blueGrey.darken4
 		moreButton.tintColor = MaterialColor.blueGrey.darken4
@@ -325,7 +325,7 @@ class ViewController: UIViewController {
 		contentView.addSubview(alarmLabel)
 		
 		image = UIImage(named: "ic_alarm_white")?.imageWithRenderingMode(.AlwaysTemplate)
-		let alarmButton: FlatButton = FlatButton()
+		let alarmButton: IconButton = IconButton()
 		alarmButton.contentEdgeInsetsPreset = .None
 		alarmButton.pulseColor = MaterialColor.blueGrey.darken4
 		alarmButton.tintColor = MaterialColor.red.base
@@ -409,7 +409,7 @@ class ViewController: UIViewController {
 		contentView.addSubview(titleLabel)
 		
 		image = MaterialIcon.cm.moreHorizontal
-		let moreButton: FlatButton = FlatButton()
+		let moreButton: IconButton = IconButton()
 		moreButton.contentEdgeInsetsPreset = .None
 		moreButton.pulseColor = MaterialColor.blueGrey.darken4
 		moreButton.tintColor = MaterialColor.blueGrey.darken4
@@ -434,7 +434,7 @@ class ViewController: UIViewController {
 		contentView.addSubview(alarmLabel)
 		
 		image = UIImage(named: "ic_alarm_white")?.imageWithRenderingMode(.AlwaysTemplate)
-		let alarmButton: FlatButton = FlatButton()
+		let alarmButton: IconButton = IconButton()
 		alarmButton.contentEdgeInsetsPreset = .None
 		alarmButton.pulseColor = MaterialColor.blueGrey.darken4
 		alarmButton.tintColor = MaterialColor.red.base

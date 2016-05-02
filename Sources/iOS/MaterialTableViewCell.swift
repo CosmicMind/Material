@@ -49,13 +49,17 @@ public class MaterialTableViewCell : UITableViewCell {
 	public private(set) lazy var pulseLayers: Array<CAShapeLayer> = Array<CAShapeLayer>()
 	
 	/// The opcaity value for the pulse animation.
-	@IBInspectable public var pulseOpacity: CGFloat = 0.12
+	@IBInspectable public var pulseOpacity: CGFloat = 0.25
 	
 	/// The color of the pulse effect.
-	@IBInspectable public var pulseColor: UIColor?
+	@IBInspectable public var pulseColor: UIColor = MaterialColor.grey.base
 	
 	/// The type of PulseAnimation.
-	public var pulseAnimation: PulseAnimation = .AtPointWithBacking
+	public var pulseAnimation: PulseAnimation = .AtPointWithBacking {
+		didSet {
+			visualLayer.masksToBounds = .CenterRadialBeyondBounds != pulseAnimation
+		}
+	}
 	
 	/**
 	This property is the same as clipsToBounds. It crops any of the view's
@@ -366,7 +370,7 @@ public class MaterialTableViewCell : UITableViewCell {
 		}
 		MaterialAnimation.delay(0.35) { [weak self] in
 			if let s: MaterialTableViewCell = self {
-				MaterialAnimation.pulseContractAnimation(s.layer, pulseColor: s.pulseColor, pulseLayers: &s.pulseLayers, pulseAnimation: s.pulseAnimation)
+				MaterialAnimation.pulseContractAnimation(s.layer, visualLayer: s.visualLayer, pulseColor: s.pulseColor, pulseLayers: &s.pulseLayers, pulseAnimation: s.pulseAnimation)
 			}
 		}
 	}
@@ -390,7 +394,7 @@ public class MaterialTableViewCell : UITableViewCell {
 	*/
 	public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesEnded(touches, withEvent: event)
-		MaterialAnimation.pulseContractAnimation(layer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
+		MaterialAnimation.pulseContractAnimation(layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
 	}
 	
 	/**
@@ -401,7 +405,7 @@ public class MaterialTableViewCell : UITableViewCell {
 	*/
 	public override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
 		super.touchesCancelled(touches, withEvent: event)
-		MaterialAnimation.pulseContractAnimation(layer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
+		MaterialAnimation.pulseContractAnimation(layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
 	}
 	
 	/**
@@ -412,13 +416,12 @@ public class MaterialTableViewCell : UITableViewCell {
 	when subclassing.
 	*/
 	public func prepareView() {
-		prepareVisualLayer()
 		selectionStyle = .None
-		pulseColor = MaterialColor.black
 		contentScaleFactor = MaterialDevice.scale
 		imageView?.userInteractionEnabled = false
 		textLabel?.userInteractionEnabled = false
 		detailTextLabel?.userInteractionEnabled = false
+		prepareVisualLayer()
 	}
 	
 	/// Prepares the visualLayer property.

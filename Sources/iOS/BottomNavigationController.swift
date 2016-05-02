@@ -126,6 +126,7 @@ public class BottomNavigationController : UITabBarController, UITabBarController
 	*/
 	public func prepareView() {
 		view.clipsToBounds = true
+		view.contentScaleFactor = MaterialDevice.scale
 		delegate = self
 		prepareTabBar()
 	}

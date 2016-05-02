@@ -457,8 +457,9 @@ public class MaterialView : UIView {
 	when subclassing.
 	*/
 	public func prepareView() {
-		prepareVisualLayer()
+		contentScaleFactor = MaterialDevice.scale
 		backgroundColor = MaterialColor.white
+		prepareVisualLayer()
 	}
 	
 	/// Prepares the visualLayer property.

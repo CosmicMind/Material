@@ -148,7 +148,7 @@ public class TextField : UITextField {
 	/// The placeholderLabel font value.
 	@IBInspectable public override var font: UIFont? {
 		didSet {
-			placeholderLabel.font = self.font
+			placeholderLabel.font = font
 		}
 	}
  
@@ -243,87 +243,87 @@ public class TextField : UITextField {
 		}
 	}
 	
-	/// Enables the clearFlatButton.
-	@IBInspectable public var enableClearFlatButton: Bool {
+	/// Enables the clearIconButton.
+	@IBInspectable public var enableClearIconButton: Bool {
 		get {
-			return nil != clearFlatButton
+			return nil != clearIconButton
 		}
 		set(value) {
 			if value {
-				if nil == clearFlatButton {
+				if nil == clearIconButton {
 					let image: UIImage? = MaterialIcon.cm.clear
-					clearFlatButton = FlatButton(frame: CGRectZero)
-					clearFlatButton!.contentEdgeInsets = UIEdgeInsetsZero
-					clearFlatButton!.pulseColor = nil
-					clearFlatButton!.tintColor = placeholderColor
-					clearFlatButton!.setImage(image, forState: .Normal)
-					clearFlatButton!.setImage(image, forState: .Highlighted)
+					clearIconButton = IconButton(frame: CGRectZero)
+					clearIconButton!.contentEdgeInsets = UIEdgeInsetsZero
+					clearIconButton!.pulseAnimation = .Center
+					clearIconButton!.tintColor = placeholderColor
+					clearIconButton!.setImage(image, forState: .Normal)
+					clearIconButton!.setImage(image, forState: .Highlighted)
 					clearButtonMode = .Never
 					rightViewMode = .WhileEditing
-					rightView = clearFlatButton
-					clearFlatButtonAutoHandle = clearFlatButtonAutoHandle ? true : false
+					rightView = clearIconButton
+					clearIconButtonAutoHandle = clearIconButtonAutoHandle ? true : false
 				}
 			} else {
-				clearFlatButton?.removeTarget(self, action: #selector(handleClearButton), forControlEvents: .TouchUpInside)
-				clearFlatButton = nil
+				clearIconButton?.removeTarget(self, action: #selector(handleClearButton), forControlEvents: .TouchUpInside)
+				clearIconButton = nil
 			}
 		}
 	}
 	
-	/// Enables the automatic handling of the clearFlatButton.
-	@IBInspectable public var clearFlatButtonAutoHandle: Bool = true {
+	/// Enables the automatic handling of the clearIconButton.
+	@IBInspectable public var clearIconButtonAutoHandle: Bool = true {
 		didSet {
-			clearFlatButton?.removeTarget(self, action: #selector(handleClearButton), forControlEvents: .TouchUpInside)
-			if clearFlatButtonAutoHandle {
-				clearFlatButton?.addTarget(self, action: #selector(handleClearButton), forControlEvents: .TouchUpInside)
+			clearIconButton?.removeTarget(self, action: #selector(handleClearButton), forControlEvents: .TouchUpInside)
+			if clearIconButtonAutoHandle {
+				clearIconButton?.addTarget(self, action: #selector(handleClearButton), forControlEvents: .TouchUpInside)
 			}
 		}
 	}
 	
-	/// Enables the visibilityFlatButton.
-	@IBInspectable public var enableVisibilityFlatButton: Bool {
+	/// Enables the visibilityIconButton.
+	@IBInspectable public var enableVisibilityIconButton: Bool {
 		get {
-			return nil != visibilityFlatButton
+			return nil != visibilityIconButton
 		}
 		set(value) {
 			if value {
-				if nil == visibilityFlatButton {
+				if nil == visibilityIconButton {
 					let image: UIImage? = MaterialIcon.visibility
-					visibilityFlatButton = FlatButton(frame: CGRectZero)
-					visibilityFlatButton!.contentEdgeInsets = UIEdgeInsetsZero
-					visibilityFlatButton!.pulseColor = nil
-					visibilityFlatButton!.tintColor = placeholderColor
-					visibilityFlatButton!.setImage(image, forState: .Normal)
-					visibilityFlatButton!.setImage(image, forState: .Highlighted)
-					visibilityFlatButton!.tintColor = placeholderColor.colorWithAlphaComponent(secureTextEntry ? 0.38 : 0.54)
+					visibilityIconButton = IconButton(frame: CGRectZero)
+					visibilityIconButton!.contentEdgeInsets = UIEdgeInsetsZero
+					visibilityIconButton!.pulseAnimation = .Center
+					visibilityIconButton!.tintColor = placeholderColor
+					visibilityIconButton!.setImage(image, forState: .Normal)
+					visibilityIconButton!.setImage(image, forState: .Highlighted)
+					visibilityIconButton!.tintColor = placeholderColor.colorWithAlphaComponent(secureTextEntry ? 0.38 : 0.54)
 					secureTextEntry = true
 					clearButtonMode = .Never
 					rightViewMode = .WhileEditing
-					rightView = visibilityFlatButton
-					visibilityFlatButtonAutoHandle = visibilityFlatButtonAutoHandle ? true : false
+					rightView = visibilityIconButton
+					visibilityIconButtonAutoHandle = visibilityIconButtonAutoHandle ? true : false
 				}
 			} else {
-				visibilityFlatButton?.removeTarget(self, action: #selector(handleClearButton), forControlEvents: .TouchUpInside)
-				visibilityFlatButton = nil
+				visibilityIconButton?.removeTarget(self, action: #selector(handleClearButton), forControlEvents: .TouchUpInside)
+				visibilityIconButton = nil
 			}
 		}
 	}
 	
-	/// Enables the automatic handling of the visibilityFlatButton.
-	@IBInspectable public var visibilityFlatButtonAutoHandle: Bool = true {
+	/// Enables the automatic handling of the visibilityIconButton.
+	@IBInspectable public var visibilityIconButtonAutoHandle: Bool = true {
 		didSet {
-			visibilityFlatButton?.removeTarget(self, action: #selector(handleVisibilityButton), forControlEvents: .TouchUpInside)
-			if visibilityFlatButtonAutoHandle {
-				visibilityFlatButton?.addTarget(self, action: #selector(handleVisibilityButton), forControlEvents: .TouchUpInside)
+			visibilityIconButton?.removeTarget(self, action: #selector(handleVisibilityButton), forControlEvents: .TouchUpInside)
+			if visibilityIconButtonAutoHandle {
+				visibilityIconButton?.addTarget(self, action: #selector(handleVisibilityButton), forControlEvents: .TouchUpInside)
 			}
 		}
 	}
 	
-	/// A reference to the clearFlatButton.
-	public private(set) var clearFlatButton: FlatButton?
+	/// A reference to the clearIconButton.
+	public private(set) var clearIconButton: IconButton?
 	
-	/// A reference to the visibilityFlatButton.
-	public private(set) var visibilityFlatButton: FlatButton?
+	/// A reference to the visibilityIconButton.
+	public private(set) var visibilityIconButton: IconButton?
 	
 	/**
 	An initializer that initializes the object with a NSCoder object.
@@ -433,7 +433,7 @@ public class TextField : UITextField {
 		placeholderEditingDidEndAnimation()
 	}
 	
-	/// Handles the clearFlatButton TouchUpInside event.
+	/// Handles the clearIconButton TouchUpInside event.
 	public func handleClearButton() {
 		if false == delegate?.textFieldShouldClear?(self) {
 			return
@@ -441,10 +441,10 @@ public class TextField : UITextField {
 		text = nil
 	}
 	
-	/// Handles the visibilityFlatButton TouchUpInside event.
+	/// Handles the visibilityIconButton TouchUpInside event.
 	public func handleVisibilityButton() {
 		secureTextEntry = !secureTextEntry
-		visibilityFlatButton?.tintColor = visibilityFlatButton?.tintColor.colorWithAlphaComponent(secureTextEntry ? 0.38 : 0.54)
+		visibilityIconButton?.tintColor = visibilityIconButton?.tintColor.colorWithAlphaComponent(secureTextEntry ? 0.38 : 0.54)
 	}
 	
 	/**
@@ -455,12 +455,13 @@ public class TextField : UITextField {
 	when subclassing.
 	*/
 	public func prepareView() {
+		super.placeholder = nil
 		masksToBounds = false
 		borderStyle = .None
 		backgroundColor = nil
-    super.placeholder = nil
 		textColor = MaterialColor.darkText.primary
 		font = RobotoFont.regularWithSize(16)
+		contentScaleFactor = MaterialDevice.scale
 		prepareDivider()
 		preparePlaceholderLabel()
 		prepareDetailLabel()
@@ -472,8 +473,8 @@ public class TextField : UITextField {
 		if !animating {
 			layoutPlaceholderLabel()
 			layoutDetailLabel()
-			layoutClearFlatButton()
-			layoutVisibilityFlatButton()
+			layoutClearIconButton()
+			layoutVisibilityIconButton()
 		}
 	}
 	
@@ -518,18 +519,18 @@ public class TextField : UITextField {
 		detailLabel.frame = CGRectMake(0, divider.frame.origin.y + 8, width, h)
 	}
 	
-	/// Layout the clearFlatButton.
-	public func layoutClearFlatButton() {
-		if let v: FlatButton = clearFlatButton {
+	/// Layout the clearIconButton.
+	public func layoutClearIconButton() {
+		if let v: IconButton = clearIconButton {
 			if 0 < width && 0 < height {
 				v.frame = CGRectMake(width - height, 0, height, height)
 			}
 		}
 	}
 	
-	/// Layout the visibilityFlatButton.
-	public func layoutVisibilityFlatButton() {
-		if let v: FlatButton = visibilityFlatButton {
+	/// Layout the visibilityIconButton.
+	public func layoutVisibilityIconButton() {
+		if let v: IconButton = visibilityIconButton {
 			if 0 < width && 0 < height {
 				v.frame = CGRectMake(width - height, 0, height, height)
 			}

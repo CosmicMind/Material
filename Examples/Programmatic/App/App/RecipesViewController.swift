@@ -39,13 +39,13 @@ class RecipesViewController: UIViewController {
 	private var titleLabel: UILabel!
 	
 	/// NavigationBar menu button.
-	private var menuButton: FlatButton!
+	private var menuButton: IconButton!
 	
 	/// NavigationBar switch control.
 	private var switchControl: MaterialSwitch!
 	
 	/// NavigationBar search button.
-	private var searchButton: FlatButton!
+	private var searchButton: IconButton!
 	
 	/// A tableView used to display items.
 	private var tableView: UITableView!
@@ -229,7 +229,7 @@ class RecipesViewController: UIViewController {
 	/// Prepares the menuButton.
 	private func prepareMenuButton() {
 		let image: UIImage? = MaterialIcon.cm.menu
-		menuButton = FlatButton()
+		menuButton = IconButton()
 		menuButton.pulseColor = MaterialColor.white
 		menuButton.setImage(image, forState: .Normal)
 		menuButton.setImage(image, forState: .Highlighted)
@@ -244,7 +244,7 @@ class RecipesViewController: UIViewController {
 	/// Prepares the searchButton.
 	private func prepareSearchButton() {
 		let image: UIImage? = MaterialIcon.cm.search
-		searchButton = FlatButton()
+		searchButton = IconButton()
 		searchButton.pulseColor = MaterialColor.white
 		searchButton.setImage(image, forState: .Normal)
 		searchButton.setImage(image, forState: .Highlighted)

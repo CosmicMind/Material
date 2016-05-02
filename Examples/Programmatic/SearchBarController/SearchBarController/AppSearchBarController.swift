@@ -79,8 +79,7 @@ class AppSearchBarController: SearchBarController {
 		var image: UIImage? = MaterialIcon.cm.arrowBack
 		
 		// Back button.
-		let backButton: FlatButton = FlatButton()
-		backButton.pulseColor = nil
+		let backButton: IconButton = IconButton()
 		backButton.tintColor = MaterialColor.blueGrey.darken4
 		backButton.setImage(image, forState: .Normal)
 		backButton.setImage(image, forState: .Highlighted)
@@ -88,8 +87,7 @@ class AppSearchBarController: SearchBarController {
 		
 		// More button.
 		image = MaterialIcon.cm.moreHorizontal
-		let moreButton: FlatButton = FlatButton()
-		moreButton.pulseColor = nil
+		let moreButton: IconButton = IconButton()
 		moreButton.tintColor = MaterialColor.blueGrey.darken4
 		moreButton.setImage(image, forState: .Normal)
 		moreButton.setImage(image, forState: .Highlighted)

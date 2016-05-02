@@ -51,7 +51,7 @@ public class NavigationBar : UINavigationBar {
 	private var rightSpacer: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
 	
 	/// Reference to the backButton.
-	public private(set) lazy var backButton: FlatButton = FlatButton()
+	public private(set) lazy var backButton: IconButton = IconButton()
 	
 	/**
 	The back button image writes to the backIndicatorImage property and
@@ -402,6 +402,7 @@ public class NavigationBar : UINavigationBar {
 		backgroundColor = MaterialColor.white
 		depth = .Depth1
 		contentInsetPreset = .Square1
+		contentScaleFactor = MaterialDevice.scale
 		prepareBackButton()
 	}
 	

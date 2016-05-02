@@ -107,7 +107,7 @@ class ViewController: UIViewController {
 		
 		// Star button.
 		let img1: UIImage? = MaterialIcon.cm.star
-		let btn1: FlatButton = FlatButton()
+		let btn1: IconButton = IconButton()
 		btn1.pulseColor = MaterialColor.blueGrey.lighten1
 		btn1.tintColor = MaterialColor.blueGrey.darken3
 		btn1.setImage(img1, forState: .Normal)
@@ -115,7 +115,7 @@ class ViewController: UIViewController {
 
 		// Library button.
 		let img2: UIImage? = MaterialIcon.cm.audioLibrary
-		let btn2: FlatButton = FlatButton()
+		let btn2: IconButton = IconButton()
 		btn2.pulseColor = MaterialColor.blueGrey.lighten1
 		btn2.tintColor = MaterialColor.blueGrey.darken3
 		btn2.setImage(img2, forState: .Normal)
@@ -123,7 +123,7 @@ class ViewController: UIViewController {
 		
 		// Share button.
 		let img3: UIImage? = MaterialIcon.share
-		let btn3: FlatButton = FlatButton()
+		let btn3: IconButton = IconButton()
 		btn3.pulseColor = MaterialColor.blueGrey.lighten1
 		btn3.tintColor = MaterialColor.blueGrey.darken3
 		btn3.setImage(img3, forState: .Normal)

@@ -105,8 +105,8 @@ class ViewController: UIViewController {
 		let closeButton: FlatButton = FlatButton()
 		closeButton.setTitle("Close", forState: .Normal)
 		
-		let image: UIImage? = UIImage(named: "ic_settings")?.imageWithRenderingMode(.AlwaysTemplate)
-		let settingButton: FlatButton = FlatButton()
+		let image: UIImage? = MaterialIcon.cm.settings
+		let settingButton: IconButton = IconButton()
 		settingButton.tintColor = MaterialColor.blue.accent3
 		settingButton.setImage(image, forState: .Normal)
 		settingButton.setImage(image, forState: .Highlighted)

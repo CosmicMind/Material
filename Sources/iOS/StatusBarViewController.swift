@@ -136,6 +136,7 @@ public class StatusBarViewController : UIViewController {
 	*/
 	public func prepareView() {
 		view.clipsToBounds = true
+		view.contentScaleFactor = MaterialDevice.scale
 		prepareRootViewController()
 	}
 	

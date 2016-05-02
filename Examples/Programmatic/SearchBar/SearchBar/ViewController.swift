@@ -57,7 +57,7 @@ class ViewController: UIViewController {
 		var image: UIImage? = MaterialIcon.cm.arrowBack
 		
 		// Back button.
-		let backButton: FlatButton = FlatButton()
+		let backButton: IconButton = IconButton()
 		backButton.pulseColor = MaterialColor.grey.base
 		backButton.tintColor = MaterialColor.grey.darken4
 		backButton.setImage(image, forState: .Normal)
@@ -68,7 +68,7 @@ class ViewController: UIViewController {
 		
 		// More button.
 		image = MaterialIcon.cm.moreHorizontal
-		let moreButton: FlatButton = FlatButton()
+		let moreButton: IconButton = IconButton()
 		moreButton.pulseColor = MaterialColor.grey.base
 		moreButton.tintColor = MaterialColor.grey.darken4
 		moreButton.setImage(image, forState: .Normal)

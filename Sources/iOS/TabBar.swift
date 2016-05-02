@@ -107,6 +107,7 @@ public class TabBar : MaterialView {
 	public override func prepareView() {
 		super.prepareView()
 		autoresizingMask = .FlexibleWidth
+		contentScaleFactor = MaterialDevice.scale
 		prepareBottomLayer()
 	}
 	

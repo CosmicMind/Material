@@ -467,6 +467,7 @@ public class TextView: UITextView {
 	when subclassing.
 	*/
 	public func prepareView() {
+		contentScaleFactor = MaterialDevice.scale
 		textContainerInset = MaterialEdgeInsetToValue(.None)
 		backgroundColor = MaterialColor.white
 		masksToBounds = false
