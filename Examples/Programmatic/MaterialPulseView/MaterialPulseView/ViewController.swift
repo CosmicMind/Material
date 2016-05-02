@@ -41,7 +41,7 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		prepareGeneralMaterialPulseViewExample()
+		prepareMaterialPulseView()
 	}
 	
 	/// General preparation statements.
@@ -50,16 +50,16 @@ class ViewController: UIViewController {
 	}
 	
 	/// Prepares the MaterialPulseView example.
-	private func prepareGeneralMaterialPulseViewExample() {
+	private func prepareMaterialPulseView() {
 		let diameter: CGFloat = 150
 		let point: CGFloat = (MaterialDevice.width - diameter) / 2
 		
 		let pulseView: MaterialPulseView = MaterialPulseView(frame: CGRectMake(point, point, diameter, diameter))
-		pulseView.image = UIImage(named: "Graph")
+//		pulseView.image = UIImage(named: "Graph")
 		pulseView.shape = .Square
 		pulseView.depth = .Depth1
 		pulseView.cornerRadiusPreset = .Radius3
-//		pulseView.pulseFocus = true // Optional focus animation.
+//		pulseView.pulseAnimation = .CenterWithBacking // Set a different type of pulse animation.
 		
 		// Add pulseView to UIViewController.
 		view.addSubview(pulseView)

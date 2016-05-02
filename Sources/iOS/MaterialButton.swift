@@ -55,6 +55,9 @@ public class MaterialButton : UIButton {
 	/// The color of the pulse effect.
 	@IBInspectable public var pulseColor: UIColor?
 	
+	/// The type of PulseAnimation.
+	public var pulseAnimation: PulseAnimation = .AtPointWithBacking
+	
 	/**
 	This property is the same as clipsToBounds. It crops any of the view's
 	contents from bleeding past the view's frame. If an image is set using
@@ -404,11 +407,11 @@ public class MaterialButton : UIButton {
 	public func pulse(point: CGPoint? = nil) {
 		let p: CGPoint = nil == point ? CGPointMake(CGFloat(width / 2), CGFloat(height / 2)) : point!
 		if let color: UIColor = pulseColor {
-			MaterialAnimation.pulseExpandAnimation(layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseOpacity: pulseOpacity, point: p, width: width, height: height, pulseLayers: &pulseLayers)
+			MaterialAnimation.pulseExpandAnimation(layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseOpacity: pulseOpacity, point: p, width: width, height: height, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
 		}
 		MaterialAnimation.delay(0.35) { [weak self] in
 			if let s: MaterialButton = self {
-				MaterialAnimation.pulseContractAnimation(s.layer, pulseColor: s.pulseColor, pulseLayers: &s.pulseLayers)
+				MaterialAnimation.pulseContractAnimation(s.layer, pulseColor: s.pulseColor, pulseLayers: &s.pulseLayers, pulseAnimation: s.pulseAnimation)
 			}
 		}
 	}
@@ -421,7 +424,7 @@ public class MaterialButton : UIButton {
 	*/
 	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesBegan(touches, withEvent: event)
-		MaterialAnimation.pulseExpandAnimation(layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseOpacity: pulseOpacity, point: layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer), width: width, height: height, pulseLayers: &pulseLayers)
+		MaterialAnimation.pulseExpandAnimation(layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseOpacity: pulseOpacity, point: layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer), width: width, height: height, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
 	}
 	
 	/**
@@ -432,7 +435,7 @@ public class MaterialButton : UIButton {
 	*/
 	public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesEnded(touches, withEvent: event)
-		MaterialAnimation.pulseContractAnimation(layer, pulseColor: pulseColor, pulseLayers: &pulseLayers)
+		MaterialAnimation.pulseContractAnimation(layer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
 	}
 	
 	/**
@@ -443,7 +446,7 @@ public class MaterialButton : UIButton {
 	*/
 	public override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
 		super.touchesCancelled(touches, withEvent: event)
-		MaterialAnimation.pulseContractAnimation(layer, pulseColor: pulseColor, pulseLayers: &pulseLayers)
+		MaterialAnimation.pulseContractAnimation(layer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
 	}
 	
 	/**
