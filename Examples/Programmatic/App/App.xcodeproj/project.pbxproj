@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		96162C6C1CA71C8700E3A235 /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96162C6B1CA71C8700E3A235 /* VideoViewController.swift */; };
 		96162C6E1CA7274E00E3A235 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96162C6D1CA7274E00E3A235 /* PhotoViewController.swift */; };
+		9658F2221CD7B30700B902C1 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9658F2211CD7B30700B902C1 /* Material.framework */; };
+		9658F2231CD7B30700B902C1 /* Material.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9658F2211CD7B30700B902C1 /* Material.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9663F9321C7A744600AF0965 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9663F9311C7A744600AF0965 /* AppDelegate.swift */; };
 		9663F9341C7A744600AF0965 /* RecommendationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9663F9331C7A744600AF0965 /* RecommendationViewController.swift */; };
 		9663F9391C7A744600AF0965 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9663F9381C7A744600AF0965 /* Assets.xcassets */; };
@@ -28,6 +30,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				9658F2231CD7B30700B902C1 /* Material.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -37,6 +40,7 @@
 /* Begin PBXFileReference section */
 		96162C6B1CA71C8700E3A235 /* VideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
 		96162C6D1CA7274E00E3A235 /* PhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
+		9658F2211CD7B30700B902C1 /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = Material.framework; path = "/Users/danieldahan/Library/Developer/Xcode/DerivedData/Material-bshwisidfobstlbomegqyybbrygh/Build/Products/Debug-iphoneos/Material.framework"; sourceTree = "<absolute>"; };
 		9663F92E1C7A744600AF0965 /* App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9663F9311C7A744600AF0965 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9663F9331C7A744600AF0965 /* RecommendationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationViewController.swift; sourceTree = "<group>"; };
@@ -56,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9658F2221CD7B30700B902C1 /* Material.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +70,7 @@
 		9663F9251C7A744500AF0965 = {
 			isa = PBXGroup;
 			children = (
+				9658F2211CD7B30700B902C1 /* Material.framework */,
 				9663F9301C7A744600AF0965 /* App */,
 				9663F92F1C7A744600AF0965 /* Products */,
 			);

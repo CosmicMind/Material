@@ -568,11 +568,12 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 			if let v: MaterialView = leftView {
 				hideStatusBar()
 				showView(v)
+				userInteractionEnabled = false
 				delegate?.sideNavigationWillOpen?(self, position: .Left)
-				rootViewController.view.alpha = 0.5
 				UIView.animateWithDuration(Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.x / velocity)))),
 					animations: {
 						v.position.x = v.width / 2
+						self.rootViewController.view.alpha = 0.5
 					}) { [unowned self] _ in
 						self.delegate?.sideNavigationDidOpen?(self, position: .Left)
 					}
@@ -591,11 +592,12 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 			if let v: MaterialView = rightView {
 				hideStatusBar()
 				showView(v)
+				userInteractionEnabled = false
 				delegate?.sideNavigationWillOpen?(self, position: .Right)
-				rootViewController.view.alpha = 0.5
 				UIView.animateWithDuration(Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.x / velocity)))),
 					animations: { [unowned self] in
 						v.position.x = self.view.bounds.width - v.width / 2
+						self.rootViewController.view.alpha = 0.5
 					}) { [unowned self] _ in
 						self.delegate?.sideNavigationDidOpen?(self, position: .Right)
 					}
@@ -613,11 +615,12 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 		if enabledLeftView {
 			if let v: MaterialView = leftView {
 				showStatusBar()
+				userInteractionEnabled = true
 				delegate?.sideNavigationWillClose?(self, position: .Left)
-				rootViewController.view.alpha = 1
 				UIView.animateWithDuration(Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.x / velocity)))),
-					animations: {
+					animations: { [unowned self] in
 						v.position.x = -v.width / 2
+						self.rootViewController.view.alpha = 1
 					}) { [unowned self] _ in
 						self.hideView(v)
 						self.delegate?.sideNavigationDidClose?(self, position: .Left)
@@ -636,11 +639,12 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 		if enabledRightView {
 			if let v: MaterialView = rightView {
 				showStatusBar()
+				userInteractionEnabled = true
 				delegate?.sideNavigationWillClose?(self, position: .Right)
-				rootViewController.view.alpha = 1
 				UIView.animateWithDuration(Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.x / velocity)))),
 					animations: { [unowned self] in
 						v.position.x = self.view.bounds.width + v.width / 2
+						self.rootViewController.view.alpha = 1
 					}) { [unowned self] _ in
 						self.hideView(v)
 						self.delegate?.sideNavigationDidClose?(self, position: .Right)
@@ -695,9 +699,9 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 					v.position.x = originalX + translationX > (w / 2) ? (w / 2) : originalX + translationX
 					
 					let a: CGFloat = 1 - v.position.x / v.width
-					rootViewController.view.alpha = 0.5 < a ? a : 0.5
+					rootViewController.view.alpha = 0.5 < a && v.position.x <= v.width / 2 ? a : 0.5
 					
-					if v.position.x >= leftThreshold {
+					if translationX >= leftThreshold {
 						hideStatusBar()
 					}
 					
@@ -743,9 +747,9 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 					v.position.x = originalX + translationX < view.bounds.width - (w / 2) ? view.bounds.width - (w / 2) : originalX + translationX
 					
 					let a: CGFloat = 1 - (view.bounds.width - v.position.x) / v.width
-					rootViewController.view.alpha = 0.5 < a ? a : 0.5
+					rootViewController.view.alpha = 0.5 < a && v.position.x >= v.width / 2 ? a : 0.5
 					
-					if v.position.x <= view.bounds.width - rightThreshold {
+					if translationX <= view.bounds.width - rightThreshold {
 						hideStatusBar()
 					}
 					
@@ -1035,7 +1039,6 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	- Parameter container: A container view.
 	*/
 	private func showView(container: MaterialView) {
-		userInteractionEnabled = false
 		container.depth = depth
 		container.hidden = false
 	}
@@ -1045,7 +1048,6 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	- Parameter container: A container view.
 	*/
 	private func hideView(container: MaterialView) {
-		userInteractionEnabled = true
 		container.depth = .None
 		container.hidden = true
 	}

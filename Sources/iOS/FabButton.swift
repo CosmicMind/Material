@@ -45,6 +45,6 @@ public class FabButton : MaterialButton {
 		pulseAnimation = .Center
 		pulseColor = MaterialColor.white
 		tintColor = MaterialColor.white
-		backgroundColor = MaterialColor.blue.base
+		backgroundColor = MaterialColor.red.base
 	}
 }
