@@ -155,7 +155,7 @@ public class TextField : UITextField {
 	/// TextField's text property observer.
 	@IBInspectable public override var text: String? {
 		didSet {
-			if (nil == text || text!.isEmpty) && !isFirstResponder() {
+			if true == text?.isEmpty && !isFirstResponder() {
 				placeholderEditingDidEndAnimation()
 			}
 		}

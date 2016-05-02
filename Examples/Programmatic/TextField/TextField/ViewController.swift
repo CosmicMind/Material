@@ -81,6 +81,7 @@ class ViewController: UIViewController, TextFieldDelegate {
 		nameField?.resignFirstResponder()
 		emailField?.resignFirstResponder()
 		passwordField?.resignFirstResponder()
+		
 	}
 	
 	/// Prepares the name TextField.
