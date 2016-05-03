@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		961F18E81CD93E3E008927C5 /* ErrorTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961F18E71CD93E3E008927C5 /* ErrorTextField.swift */; };
 		96334EF61C8B84660083986B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96334EF51C8B84660083986B /* Assets.xcassets */; };
 		963832421B88DFD80015F710 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963832361B88DFD80015F710 /* Material.framework */; };
 		9658F2171CD6FA4700B902C1 /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9658F2161CD6FA4700B902C1 /* IconButton.swift */; };
@@ -193,6 +194,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		961F18E71CD93E3E008927C5 /* ErrorTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorTextField.swift; sourceTree = "<group>"; };
 		96334EF51C8B84660083986B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		963832361B88DFD80015F710 /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Material.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		963832411B88DFD80015F710 /* Material.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Material.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -581,6 +583,7 @@
 			children = (
 				96BCB79B1CB40DC500C806FE /* Text.swift */,
 				96BCB79C1CB40DC500C806FE /* TextField.swift */,
+				961F18E71CD93E3E008927C5 /* ErrorTextField.swift */,
 				96BCB79D1CB40DC500C806FE /* TextStorage.swift */,
 				96BCB79E1CB40DC500C806FE /* TextView.swift */,
 			);
@@ -895,6 +898,7 @@
 				96BCB7C81CB40DC500C806FE /* MaterialLabel.swift in Sources */,
 				96BCB7A21CB40DC500C806FE /* BottomTabBar.swift in Sources */,
 				96BCB7BD1CB40DC500C806FE /* MaterialCollectionViewDelegate.swift in Sources */,
+				961F18E81CD93E3E008927C5 /* ErrorTextField.swift in Sources */,
 				96BCB7AF1CB40DC500C806FE /* Material+UIImage+Blank.swift in Sources */,
 				96BCB7D01CB40DC500C806FE /* MaterialSpacing.swift in Sources */,
 				96BCB7B31CB40DC500C806FE /* Material+UIImage+Resize.swift in Sources */,

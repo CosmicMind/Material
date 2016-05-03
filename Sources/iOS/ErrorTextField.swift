@@ -30,8 +30,7 @@
 
 import UIKit
 
-public class ErrorTextField: TextField {
-    
+public class ErrorTextField : TextField {
     /// Controls the visibility of detailLabel
     @IBInspectable public var revealError: Bool = false {
         didSet {
@@ -47,11 +46,8 @@ public class ErrorTextField: TextField {
      when subclassing.
      */
     override public func prepareView() {
-        
         super.prepareView()
-        detailLabel.hidden = true
+        revealError = false
         detailColor = MaterialColor.red.base
-        
     }
-    
 }

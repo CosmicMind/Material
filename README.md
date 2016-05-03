@@ -84,6 +84,7 @@ To help template your project, checkout our latest addition, Material Sticker Sh
 #### Text
 
 * [TextField](#textfield)
+* ErrorTextField
 * [TextView](#textview)
 
 #### Buttons

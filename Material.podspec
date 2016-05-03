@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Material'
-  s.version = '1.39.17'
+  s.version = '1.40.0'
   s.license = 'BSD'
   s.summary = 'An animation and graphics framework for Material Design in Swift.'
   s.homepage = 'http://cosmicmind.io'

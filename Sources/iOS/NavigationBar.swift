@@ -340,7 +340,7 @@ public class NavigationBar : UINavigationBar {
 	internal func sizeNavigationItem(item: UINavigationItem) {
 		let h: CGFloat = intrinsicContentSize().height
 		let w: CGFloat = backButton.intrinsicContentSize().width
-		let inset: CGFloat = MaterialDevice.landscape ? item.landscapeInset : item.portraitInset
+		let inset: CGFloat = MaterialDevice.isLandscape ? item.landscapeInset : item.portraitInset
 		
 		// leftControls
 		if let v: Array<UIControl> = item.leftControls {
@@ -398,7 +398,7 @@ public class NavigationBar : UINavigationBar {
 	public func prepareView() {
 		barStyle = .Default
 		translucent = false
-		backButtonImage = UIImage.imageWithColor(MaterialColor.clear, size: CGSizeMake(1, 1))
+		backButtonImage = nil
 		backgroundColor = MaterialColor.white
 		depth = .Depth1
 		contentInsetPreset = .Square1

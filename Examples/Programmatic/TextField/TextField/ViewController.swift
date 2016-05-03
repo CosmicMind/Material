@@ -40,7 +40,7 @@ import Material
 
 class ViewController: UIViewController, TextFieldDelegate {
 	private var nameField: TextField!
-	private var emailField: TextField!
+	private var emailField: ErrorTextField!
 	private var passwordField: TextField!
 	
 	override func viewDidLoad() {
@@ -92,7 +92,6 @@ class ViewController: UIViewController, TextFieldDelegate {
 		nameField.detail = "Your given name"
 		nameField.textAlignment = .Center
 		nameField.clearButtonMode = .WhileEditing
-		nameField.delegate = self
 		
 		// The translatesAutoresizingMaskIntoConstraints property must be set to enable AutoLayout correctly.
 		nameField.translatesAutoresizingMaskIntoConstraints = false
@@ -106,7 +105,7 @@ class ViewController: UIViewController, TextFieldDelegate {
 	
 	/// Prepares the email TextField.
 	private func prepareEmailField() {
-		emailField = TextField(frame: CGRectMake(40, 120, view.bounds.width - 80, 32))
+		emailField = ErrorTextField(frame: CGRectMake(40, 120, view.bounds.width - 80, 32))
 		emailField.placeholder = "Email"
 		emailField.detail = "Error, incorrect email"
 		emailField.enableClearIconButton = true
@@ -115,7 +114,6 @@ class ViewController: UIViewController, TextFieldDelegate {
 		emailField.placeholderColor = MaterialColor.amber.darken4
 		emailField.placeholderActiveColor = MaterialColor.pink.base
 		emailField.dividerColor = MaterialColor.cyan.base
-		emailField.detailColor = MaterialColor.indigo.accent1
 		
 		view.addSubview(emailField)
 	}
@@ -127,7 +125,6 @@ class ViewController: UIViewController, TextFieldDelegate {
 		passwordField.detail = "At least 8 characters"
 		passwordField.clearButtonMode = .WhileEditing
 		passwordField.enableVisibilityIconButton = true
-		passwordField.delegate = self
 		
 		// Setting the visibilityFlatButton color.
 		passwordField.visibilityIconButton?.tintColor = MaterialColor.green.base.colorWithAlphaComponent(passwordField.secureTextEntry ? 0.38 : 0.54)
@@ -144,6 +141,7 @@ class ViewController: UIViewController, TextFieldDelegate {
 	
 	/// Executed when the 'return' key is pressed when using the emailField.
 	func textFieldShouldReturn(textField: UITextField) -> Bool {
+		(textField as? ErrorTextField)?.revealError = true
 		return true
 	}
 	
@@ -159,13 +157,16 @@ class ViewController: UIViewController, TextFieldDelegate {
 	}
 	
 	func textFieldDidEndEditing(textField: UITextField) {
+		(textField as? ErrorTextField)?.revealError = false
 	}
 	
 	func textFieldShouldClear(textField: UITextField) -> Bool {
+		(textField as? ErrorTextField)?.revealError = false
 		return true
 	}
 	
 	func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+		(textField as? ErrorTextField)?.revealError = false
 		return true
 	}
 }

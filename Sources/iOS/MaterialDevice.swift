@@ -96,8 +96,13 @@ public struct MaterialDevice {
 	}
 	
 	/// A Boolean indicating if the device is in Landscape mode.
-	public static var landscape: Bool {
+	public static var isLandscape: Bool {
 		return UIApplication.sharedApplication().statusBarOrientation.isLandscape
+	}
+	
+	/// A Boolean indicating if the device is in Portrait mode.
+	public static var isPortrait: Bool {
+		return !MaterialDevice.isLandscape
 	}
 	
 	/// The current UIInterfaceOrientation value.

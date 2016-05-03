@@ -150,7 +150,7 @@ public class StatusBarViewController : UIViewController {
 		let h: CGFloat = MaterialDevice.height
 		let q: CGFloat = UIApplication.sharedApplication().statusBarFrame.size.height
 		
-		if .iPhone == MaterialDevice.type && MaterialDevice.landscape {
+		if .iPhone == MaterialDevice.type && MaterialDevice.isLandscape {
 			rootViewController.view.frame.origin.y = heightForLandscapeOrientation
 			rootViewController.view.frame.size.height = h - (heightForStatusBar >= q ? heightForLandscapeOrientation : q - heightForStatusBar - heightForLandscapeOrientation)
 		} else {

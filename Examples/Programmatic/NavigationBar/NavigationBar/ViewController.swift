@@ -63,7 +63,7 @@ class ViewController: UIViewController {
 	
 	override func viewWillLayoutSubviews() {
 		super.viewWillLayoutSubviews()
-		navigationBar.frame = CGRectMake(0, 0, view.bounds.width, MaterialDevice.landscape ? .iPad == MaterialDevice.type ? 64 : navigationBar.intrinsicContentSize().height : 64)
+		navigationBar.frame = CGRectMake(0, 0, view.bounds.width, MaterialDevice.isLandscape ? .iPad == MaterialDevice.type ? 64 : navigationBar.intrinsicContentSize().height : 64)
 	}
 	
 	/// General preparation statements.
