@@ -31,27 +31,27 @@
 import UIKit
 
 public class ErrorTextField: TextField {
- 
-  /// Controls the visibility of detailLabel
- @IBInspectable public var revealError: Bool = false {
-  didSet {
-   detailLabel.hidden = !revealError
-  }
- }
- 
- /**
-  Prepares the view instance when intialized. When subclassing,
-  it is recommended to override the prepareView method
-  to initialize property values and other setup operations.
-  The super.prepareView method should always be called immediately
-  when subclassing.
-  */
- override public func prepareView() {
-  
-  super.prepareView()
-  detailLabel.hidden = true
-  detailColor = MaterialColor.red.base
-  
- }
-
+    
+    /// Controls the visibility of detailLabel
+    @IBInspectable public var revealError: Bool = false {
+        didSet {
+            detailLabel.hidden = !revealError
+        }
+    }
+    
+    /**
+     Prepares the view instance when intialized. When subclassing,
+     it is recommended to override the prepareView method
+     to initialize property values and other setup operations.
+     The super.prepareView method should always be called immediately
+     when subclassing.
+     */
+    override public func prepareView() {
+        
+        super.prepareView()
+        detailLabel.hidden = true
+        detailColor = MaterialColor.red.base
+        
+    }
+    
 }
