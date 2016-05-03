@@ -175,6 +175,16 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	/// Sets the statusBar style.
 	public var statusBarStyle: UIStatusBarStyle = .Default
 	
+	/// Sets the statusBar to hidden or not.
+	public var statusBarHidden: Bool {
+		get {
+			return MaterialDevice.statusBarHidden
+		}
+		set(value) {
+			MaterialDevice.statusBarHidden = value
+		}
+	}
+	
 	/**
 	A SideNavigationControllerDelegate property used to bind
 	the delegation object.
@@ -958,49 +968,29 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 		}
 	}
 	
-//	/// Shows the statusBar.
-//	private func showStatusBar() {
-//		willHideStatusBar = false
-//		UIView.animateWithDuration(NSTimeInterval(UINavigationControllerHideShowBarDuration),
-//			animations: { [weak self] in
-//				self?.setNeedsStatusBarAppearanceUpdate()
-//				MaterialDevice.statusBarHidden = false
-//			})
-//		delegate?.sideNavigationStatusBarHiddenState?(self, hidden: false)
-//	}
-//	
-//	/// Hides the statusBar.
-//	private func hideStatusBar() {
-//		if enableHideStatusbar {
-//			willHideStatusBar = true
-//			UIView.animateWithDuration(NSTimeInterval(UINavigationControllerHideShowBarDuration),
-//				animations: { [weak self] in
-//					self?.setNeedsStatusBarAppearanceUpdate()
-//					MaterialDevice.statusBarHidden = true
-//				})
-//			delegate?.sideNavigationStatusBarHiddenState?(self, hidden: true)
-//		}
-//	}
-	
 	/// Shows the statusBar.
 	private func showStatusBar() {
-		willHideStatusBar = false
-		UIView.animateWithDuration(NSTimeInterval(UINavigationControllerHideShowBarDuration),
-		                           animations: { [weak self] in
-									self?.setNeedsStatusBarAppearanceUpdate()
-									MaterialDevice.statusBarHidden = false
-			})
-		delegate?.sideNavigationStatusBarHiddenState?(self, hidden: false)
+		if statusBarHidden {
+			willHideStatusBar = false
+			print("show")
+			UIView.animateWithDuration(NSTimeInterval(UINavigationControllerHideShowBarDuration),
+				animations: { [weak self] in
+					self?.setNeedsStatusBarAppearanceUpdate()
+					self?.statusBarHidden = false
+				})
+			delegate?.sideNavigationStatusBarHiddenState?(self, hidden: false)
+		}
 	}
 	
 	/// Hides the statusBar.
 	private func hideStatusBar() {
-		if enableHideStatusbar {
+		if enableHideStatusbar && !statusBarHidden {
 			willHideStatusBar = true
+			print("hide")
 			UIView.animateWithDuration(NSTimeInterval(UINavigationControllerHideShowBarDuration),
-			                           animations: { [weak self] in
-										self?.setNeedsStatusBarAppearanceUpdate()
-										MaterialDevice.statusBarHidden = true
+				animations: { [weak self] in
+					self?.setNeedsStatusBarAppearanceUpdate()
+					self?.statusBarHidden = true
 				})
 			delegate?.sideNavigationStatusBarHiddenState?(self, hidden: true)
 		}
@@ -1075,7 +1065,7 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	
 	/// Layout subviews.
 	private func layoutSubviews() {
-		toggleStatusBar()
+//		toggleStatusBar()
 		if let v: MaterialView = leftView {
 			v.width = leftViewWidth
 			v.height = view.bounds.height

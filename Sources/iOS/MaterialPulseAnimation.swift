@@ -74,17 +74,20 @@ internal extension MaterialAnimation {
 					pLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransformMakeScale(0, 0))
 				})
 				bLayer.setValue(false, forKey: "animated")
+				
+				let duration: CFTimeInterval = .Center == pulseAnimation ? 0.16125 : 0.325
+				
 				switch pulseAnimation {
 				case .CenterWithBacking, .Backing, .AtPointWithBacking:
-					bLayer.addAnimation(MaterialAnimation.backgroundColor(pulseColor.colorWithAlphaComponent(pulseOpacity / 2), duration: 0.325), forKey: nil)
+					bLayer.addAnimation(MaterialAnimation.backgroundColor(pulseColor.colorWithAlphaComponent(pulseOpacity / 2), duration: duration), forKey: nil)
 				default:break
 				}
 				switch pulseAnimation {
 				case .Center, .CenterWithBacking, .CenterRadialBeyondBounds, .AtPoint, .AtPointWithBacking:
-					pLayer.addAnimation(MaterialAnimation.scale(1, duration: 0.325), forKey: nil)
+					pLayer.addAnimation(MaterialAnimation.scale(1, duration: duration), forKey: nil)
 				default:break
 				}
-				MaterialAnimation.delay(0.325, completion: {
+				MaterialAnimation.delay(duration, completion: {
 					bLayer.setValue(true, forKey: "animated")
 				})
 			}
@@ -102,20 +105,23 @@ internal extension MaterialAnimation {
 			let animated: Bool? = bLayer.valueForKey("animated") as? Bool
 			MaterialAnimation.delay(true == animated ? 0 : 0.15) {
 				if let pLayer: CAShapeLayer = bLayer.sublayers?.first as? CAShapeLayer {
+					let duration: CFTimeInterval = 0.325
+					
 					switch pulseAnimation {
 					case .CenterWithBacking, .Backing, .AtPointWithBacking:
 						bLayer.addAnimation(MaterialAnimation.backgroundColor(pulseColor.colorWithAlphaComponent(0), duration: 0.325), forKey: nil)
 					default:break
 					}
+					
 					switch pulseAnimation {
 					case .Center, .CenterWithBacking, .CenterRadialBeyondBounds, .AtPoint, .AtPointWithBacking:
 						pLayer.addAnimation(MaterialAnimation.animationGroup([
 							MaterialAnimation.scale(.Center == pulseAnimation ? 1 : 1.325),
 							MaterialAnimation.backgroundColor(pulseColor.colorWithAlphaComponent(0))
-						], duration: 0.325), forKey: nil)
+						], duration: duration), forKey: nil)
 					default:break
 					}
-					MaterialAnimation.delay(0.325) {
+					MaterialAnimation.delay(duration) {
 						pLayer.removeFromSuperlayer()
 						bLayer.removeFromSuperlayer()
 					}

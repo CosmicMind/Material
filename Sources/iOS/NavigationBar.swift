@@ -396,9 +396,9 @@ public class NavigationBar : UINavigationBar {
 	when subclassing.
 	*/
 	public func prepareView() {
-		barStyle = .Black
+		barStyle = .Default
 		translucent = false
-		backButtonImage = nil
+		backButtonImage = UIImage.imageWithColor(MaterialColor.clear, size: CGSizeMake(1, 1))
 		backgroundColor = MaterialColor.white
 		depth = .Depth1
 		contentInsetPreset = .Square1

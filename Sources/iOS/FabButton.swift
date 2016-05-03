@@ -42,7 +42,7 @@ public class FabButton : MaterialButton {
 		super.prepareView()
 		depth = .Depth1
 		shape = .Circle
-		pulseAnimation = .Center
+		pulseAnimation = .CenterWithBacking
 		pulseColor = MaterialColor.white
 		tintColor = MaterialColor.white
 		backgroundColor = MaterialColor.red.base
