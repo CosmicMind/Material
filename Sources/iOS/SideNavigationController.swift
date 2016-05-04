@@ -675,21 +675,21 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	- Parameter touch: The UITouch event.
 	- Returns: A Boolean of whether to continue the gesture or not.
 	*/
-	public func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
-		if !openedRightView && gestureRecognizer == panLeftViewGesture && (openedLeftView || isPointContainedWithinLeftThreshold(touch.locationInView(view))) {
-			return true
-		}
-		if !openedLeftView && gestureRecognizer == panRightViewGesture && (openedRightView || isPointContainedWithinRighThreshold(touch.locationInView(view))) {
-			return true
-		}
-		if openedLeftView && gestureRecognizer == tapLeftViewGesture {
-			return true
-		}
-		if openedRightView && gestureRecognizer == tapRightViewGesture {
-			return true
-		}
-		return false
-	}
+    public func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+        if !openedRightView && gestureRecognizer == panLeftViewGesture && (openedLeftView || isPointContainedWithinLeftThreshold(touch.locationInView(view))) && leftView != nil {
+            return true
+        }
+        if !openedLeftView && gestureRecognizer == panRightViewGesture && (openedRightView || isPointContainedWithinRighThreshold(touch.locationInView(view))) && rightView != nil {
+            return true
+        }
+        if openedLeftView && gestureRecognizer == tapLeftViewGesture {
+            return true
+        }
+        if openedRightView && gestureRecognizer == tapRightViewGesture {
+            return true
+        }
+        return false
+    }
 	
 	/**
 	A method that is fired when the pan gesture is recognized
