@@ -127,25 +127,25 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	A UIPanGestureRecognizer property internally used for the
 	leftView pan gesture.
 	*/
-	internal private(set) var panLeftViewGesture: UIPanGestureRecognizer?
+	internal private(set) var leftPanGesture: UIPanGestureRecognizer?
 	
 	/**
 	A UIPanGestureRecognizer property internally used for the
 	rightView pan gesture.
 	*/
-	internal private(set) var panRightViewGesture: UIPanGestureRecognizer?
+	internal private(set) var rightPanGesture: UIPanGestureRecognizer?
 	
 	/**
 	A UITapGestureRecognizer property internally used for the 
 	leftView tap gesture.
 	*/
-	internal private(set) var tapLeftViewGesture: UITapGestureRecognizer?
+	internal private(set) var leftTapGesture: UITapGestureRecognizer?
 	
 	/**
 	A UITapGestureRecognizer property internally used for the
 	rightView tap gesture.
 	*/
-	internal private(set) var tapRightViewGesture: UITapGestureRecognizer?
+	internal private(set) var rightTapGesture: UITapGestureRecognizer?
 	
 	/**
 	A CGFloat property that accesses the leftView threshold of
@@ -155,7 +155,7 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	leftView is closed. The leftViewThreshold is always at half
 	the width of the leftView.
 	*/
-	@IBInspectable public var leftThreshold: CGFloat = 32
+	@IBInspectable public var leftThreshold: CGFloat = 64
 	private var leftViewThreshold: CGFloat = 0
 	
 	/**
@@ -166,7 +166,7 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	rightView is opened. The rightViewThreshold is always at half
 	the width of the rightView.
 	*/
-	@IBInspectable public var rightThreshold: CGFloat = 32
+	@IBInspectable public var rightThreshold: CGFloat = 64
 	private var rightViewThreshold: CGFloat = 0
 	
 	/// Sets the animation type for the statusBar when hiding.
@@ -242,6 +242,28 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 		}
 	}
 	
+	/// Enables the left pan gesture.
+	@IBInspectable public var enabledLeftPanGesture: Bool = true {
+		didSet {
+			if enabledLeftPanGesture {
+				prepareLeftPanGesture()
+			} else {
+				removeLeftPanGesture()
+			}
+		}
+	}
+	
+	/// Enables the left tap gesture.
+	@IBInspectable public var enabledLeftTapGesture: Bool = true {
+		didSet {
+			if enabledLeftTapGesture {
+				prepareLeftTapGesture()
+			} else {
+				removeLeftTapGesture()
+			}
+		}
+	}
+	
 	/**
 	A Boolean property that enables and disables the rightView from
 	opening and closing. Defaults to true.
@@ -252,6 +274,28 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 				prepareRightViewGestures()
 			} else {
 				removeRightViewGestures()
+			}
+		}
+	}
+	
+	/// Enables the right pan gesture.
+	@IBInspectable public var enabledRightPanGesture: Bool = true {
+		didSet {
+			if enabledRightPanGesture {
+				prepareRightPanGesture()
+			} else {
+				removeRightPanGesture()
+			}
+		}
+	}
+	
+	/// Enables the right tap gesture.
+	@IBInspectable public var enabledRightTapGesture: Bool = true {
+		didSet {
+			if enabledRightTapGesture {
+				prepareRightTapGesture()
+			} else {
+				removeRightTapGesture()
 			}
 		}
 	}
@@ -676,16 +720,16 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	- Returns: A Boolean of whether to continue the gesture or not.
 	*/
 	public func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
-		if !openedRightView && gestureRecognizer == panLeftViewGesture && (openedLeftView || isPointContainedWithinLeftThreshold(touch.locationInView(view))) {
+		if !openedRightView && gestureRecognizer == leftPanGesture && (openedLeftView || isPointContainedWithinLeftThreshold(touch.locationInView(view))) {
 			return true
 		}
-		if !openedLeftView && gestureRecognizer == panRightViewGesture && (openedRightView || isPointContainedWithinRighThreshold(touch.locationInView(view))) {
+		if !openedLeftView && gestureRecognizer == rightPanGesture && (openedRightView || isPointContainedWithinRighThreshold(touch.locationInView(view))) {
 			return true
 		}
-		if openedLeftView && gestureRecognizer == tapLeftViewGesture {
+		if openedLeftView && gestureRecognizer == leftTapGesture {
 			return true
 		}
-		if openedRightView && gestureRecognizer == tapRightViewGesture {
+		if openedRightView && gestureRecognizer == rightTapGesture {
 			return true
 		}
 		return false
@@ -834,10 +878,6 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 		prepareRootViewController()
 		prepareLeftView()
 		prepareRightView()
-		prepareLeftViewController()
-		prepareRightViewController()
-		prepareLeftViewGestures()
-		prepareRightViewGestures()
 	}
 	
 	/// A method that prepares the rootViewController.
@@ -854,6 +894,7 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 			leftViewController?.view.clipsToBounds = true
 			leftViewController?.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
 			prepareViewControllerWithinContainer(leftViewController, container: v)
+			prepareLeftViewGestures()
 		}
 	}
 	
@@ -863,6 +904,7 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 			rightViewController?.view.clipsToBounds = true
 			leftViewController?.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
 			prepareViewControllerWithinContainer(rightViewController, container: v)
+			prepareRightViewGestures()
 		}
 	}
 	
@@ -870,6 +912,8 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	private func prepareLeftView() {
 		if nil == leftViewController {
 			enabledLeftView = false
+			enabledLeftPanGesture = false
+			enabledLeftTapGesture = false
 		} else {
 			leftViewWidth = .iPhone == MaterialDevice.type ? 280 : 320
 			leftView = MaterialView()
@@ -880,6 +924,7 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 			leftView!.hidden = true
 			leftView!.position.x = -leftViewWidth / 2
 			leftView!.zPosition = 2000
+			prepareLeftViewController()
 		}
 	}
 	
@@ -887,6 +932,8 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	private func prepareRightView() {
 		if nil == rightViewController {
 			enabledRightView = false
+			enabledRightPanGesture = false
+			enabledRightTapGesture = false
 		} else {
 			rightViewWidth = .iPhone == MaterialDevice.type ? 280 : 320
 			rightView = MaterialView()
@@ -897,6 +944,7 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 			rightView!.hidden = true
 			rightView!.position.x = view.bounds.width + rightViewWidth / 2
 			rightView!.zPosition = 2000
+			prepareRightViewController()
 		}
 	}
 	
@@ -919,57 +967,96 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	
 	/// A method that prepares the gestures used within the leftView.
 	private func prepareLeftViewGestures() {
-		if nil == panLeftViewGesture {
-			panLeftViewGesture = UIPanGestureRecognizer(target: self, action: #selector(handleLeftViewPanGesture(_:)))
-			panLeftViewGesture!.delegate = self
-			view.addGestureRecognizer(panLeftViewGesture!)
+		prepareLeftPanGesture()
+		prepareLeftTapGesture()
+	}
+	
+	/// Prepare the left pan gesture. 
+	private func prepareLeftPanGesture() {
+		if nil == leftPanGesture {
+			leftPanGesture = UIPanGestureRecognizer(target: self, action: #selector(handleLeftViewPanGesture(_:)))
+			leftPanGesture!.delegate = self
+			view.addGestureRecognizer(leftPanGesture!)
 		}
-		
-		if nil == tapLeftViewGesture {
-			tapLeftViewGesture = UITapGestureRecognizer(target: self, action: #selector(handleLeftViewTapGesture(_:)))
-			tapLeftViewGesture!.delegate = self
-			tapLeftViewGesture!.cancelsTouchesInView = false
-			view.addGestureRecognizer(tapLeftViewGesture!)
+	}
+	
+	/// Prepare the left tap gesture.
+	private func prepareLeftTapGesture() {
+		if nil == leftTapGesture {
+			leftTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleLeftViewTapGesture(_:)))
+			leftTapGesture!.delegate = self
+			leftTapGesture!.cancelsTouchesInView = false
+			view.addGestureRecognizer(leftTapGesture!)
 		}
 	}
 	
 	/// A method that prepares the gestures used within the rightView.
 	private func prepareRightViewGestures() {
-		if nil == panRightViewGesture {
-			panRightViewGesture = UIPanGestureRecognizer(target: self, action: #selector(handleRightViewPanGesture(_:)))
-			panRightViewGesture!.delegate = self
-			view.addGestureRecognizer(panRightViewGesture!)
+		prepareRightPanGesture()
+		prepareRightTapGesture()
+	}
+	
+	/// Prepares the right pan gesture.
+	private func prepareRightPanGesture() {
+		if nil == rightPanGesture {
+			rightPanGesture = UIPanGestureRecognizer(target: self, action: #selector(handleRightViewPanGesture(_:)))
+			rightPanGesture!.delegate = self
+			view.addGestureRecognizer(rightPanGesture!)
 		}
-		
-		if nil == tapRightViewGesture {
-			tapRightViewGesture = UITapGestureRecognizer(target: self, action: #selector(handleRightViewTapGesture(_:)))
-			tapRightViewGesture!.delegate = self
-			tapRightViewGesture!.cancelsTouchesInView = false
-			view.addGestureRecognizer(tapRightViewGesture!)
+	}
+	
+	/// Prepares the right tap gesture.
+	private func prepareRightTapGesture() {
+		if nil == rightTapGesture {
+			rightTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleRightViewTapGesture(_:)))
+			rightTapGesture!.delegate = self
+			rightTapGesture!.cancelsTouchesInView = false
+			view.addGestureRecognizer(rightTapGesture!)
 		}
 	}
 	
 	/// A method that removes the passed in pan and leftView tap gesture recognizers.
 	private func removeLeftViewGestures() {
-		if let v: UIPanGestureRecognizer = panLeftViewGesture {
+		removeLeftPanGesture()
+		removeLeftTapGesture()
+	}
+	
+	/// Removes the left pan gesture.
+	private func removeLeftPanGesture() {
+		if let v: UIPanGestureRecognizer = leftPanGesture {
 			view.removeGestureRecognizer(v)
-			panLeftViewGesture = nil
+			leftPanGesture = nil
 		}
-		if let v: UITapGestureRecognizer = tapLeftViewGesture {
+	}
+	
+	/// Removes the left tap gesture.
+	private func removeLeftTapGesture() {
+		if let v: UITapGestureRecognizer = leftTapGesture {
 			view.removeGestureRecognizer(v)
-			tapLeftViewGesture = nil
+			leftTapGesture = nil
 		}
 	}
 	
 	/// A method that removes the passed in pan and rightView tap gesture recognizers.
 	private func removeRightViewGestures() {
-		if let v: UIPanGestureRecognizer = panRightViewGesture {
+		removeRightPanGesture()
+		removeRightTapGesture()
+		
+	}
+	
+	/// Removes the right pan gesture.
+	private func removeRightPanGesture() {
+		if let v: UIPanGestureRecognizer = rightPanGesture {
 			view.removeGestureRecognizer(v)
-			panRightViewGesture = nil
+			rightPanGesture = nil
 		}
-		if let v: UITapGestureRecognizer = tapRightViewGesture {
+	}
+	
+	/// Removes the right tap gesture.
+	private func removeRightTapGesture() {
+		if let v: UITapGestureRecognizer = rightTapGesture {
 			view.removeGestureRecognizer(v)
-			tapRightViewGesture = nil
+			rightTapGesture = nil
 		}
 	}
 	

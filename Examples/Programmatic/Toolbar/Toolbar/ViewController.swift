@@ -39,7 +39,7 @@ import Material
 
 class ViewController: UIViewController {
 	/// Reference for Toolbar.
-	private var toolbar: Toolbar = Toolbar()
+	private var toolbar: Toolbar!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -54,6 +54,8 @@ class ViewController: UIViewController {
 	
 	/// Prepares the toolbar
 	private func prepareToolbar() {
+		toolbar = Toolbar()
+		
 		// Title label.
 		let titleLabel: UILabel = UILabel()
 		titleLabel.text = "Material"

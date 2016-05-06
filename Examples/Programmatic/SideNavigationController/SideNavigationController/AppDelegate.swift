@@ -37,8 +37,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var window: UIWindow?
 	
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+		let sideNavigationController: SideNavigationController = SideNavigationController(rootViewController: YellowViewController(), leftViewController: AppLeftViewController(), rightViewController: BlueViewController())
+		
+//		sideNavigationController.enabled = true
+//		
+//		sideNavigationController.enabledLeftView = true
+//		sideNavigationController.enabledLeftTapGesture = true
+//		sideNavigationController.enabledLeftPanGesture = true
+//		
+//		sideNavigationController.enabledRightView = true
+//		sideNavigationController.enabledRightTapGesture = true
+//		sideNavigationController.enabledRightPanGesture = true
+		
 		window = UIWindow(frame: UIScreen.mainScreen().bounds)
-		window!.rootViewController = SideNavigationController(rootViewController: YellowViewController(), leftViewController: AppLeftViewController(), rightViewController: BlueViewController())
+		window!.rootViewController = sideNavigationController
 		window!.makeKeyAndVisible()
 		return true
 	}

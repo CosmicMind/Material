@@ -37,6 +37,11 @@ class YellowViewController: UIViewController {
 		prepareView()
 	}
 	
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+		sideNavigationController?.openRightView()
+	}
+	
 	/// Prepares view.
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.yellow.base

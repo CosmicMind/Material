@@ -7,12 +7,12 @@
     },
     {
       "idiom" : "universal",
-      "filename" : "cm_photo_camera_white_2x.png",
+      "filename" : "cm_photo_camera_white@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "cm_photo_camera_white_3x.png",
+      "filename" : "cm_photo_camera_white@3x.png",
       "scale" : "3x"
     }
   ],

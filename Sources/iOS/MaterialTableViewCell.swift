@@ -415,6 +415,7 @@ public class MaterialTableViewCell : UITableViewCell {
 	*/
 	public func prepareView() {
 		selectionStyle = .None
+		separatorInset = UIEdgeInsetsZero
 		contentScaleFactor = MaterialDevice.scale
 		imageView?.userInteractionEnabled = false
 		textLabel?.userInteractionEnabled = false

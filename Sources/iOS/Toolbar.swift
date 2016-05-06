@@ -51,9 +51,12 @@ public class Toolbar : StatusBarView {
 		}
 	}
 	
-	/// A convenience initializer.
-	public convenience init() {
-		self.init(frame: CGRectZero)
+	/**
+	An initializer that initializes the object with a NSCoder object.
+	- Parameter aDecoder: A NSCoder instance.
+	*/
+	public required init?(coder aDecoder: NSCoder) {
+		super.init(coder: aDecoder)
 	}
 	
 	/**
@@ -63,8 +66,8 @@ public class Toolbar : StatusBarView {
 	- Parameter leftControls: An Array of UIControls that go on the left side.
 	- Parameter rightControls: An Array of UIControls that go on the right side.
 	*/
-	public convenience init?(titleLabel: UILabel? = nil, detailLabel: UILabel? = nil, leftControls: Array<UIControl>? = nil, rightControls: Array<UIControl>? = nil) {
-		self.init(frame: CGRectZero)
+	public init(titleLabel: UILabel? = nil, detailLabel: UILabel? = nil, leftControls: Array<UIControl>? = nil, rightControls: Array<UIControl>? = nil) {
+		super.init(frame: CGRectZero)
 		prepareProperties(titleLabel, detailLabel: detailLabel, leftControls: leftControls, rightControls: rightControls)
 	}
 	
