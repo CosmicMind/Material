@@ -212,29 +212,29 @@ public class ImageCardView : MaterialPulseView {
 	}
 	
 	/**
-	:name:	detailViewInsets
+	:name:	contentViewInsets
 	*/
-	public var detailViewInsetPreset: MaterialEdgeInset = .Square2 {
+	public var contentViewInsetPreset: MaterialEdgeInset = .Square2 {
 		didSet {
-			detailViewInset = MaterialEdgeInsetToValue(detailViewInsetPreset)
+			contentViewInset = MaterialEdgeInsetToValue(contentViewInsetPreset)
 		}
 	}
 	
 	/**
-	:name:	detailViewInset
+	:name:	contentViewInset
 	*/
-	@IBInspectable public var detailViewInset: UIEdgeInsets = MaterialEdgeInsetToValue(.Square2) {
+	@IBInspectable public var contentViewInset: UIEdgeInsets = MaterialEdgeInsetToValue(.Square2) {
 		didSet {
 			reloadView()
 		}
 	}
 	
 	/**
-	:name:	detailView
+	:name:	contentView
 	*/
-	@IBInspectable public var detailView: UIView? {
+	@IBInspectable public var contentView: UIView? {
 		didSet {
-			detailView?.translatesAutoresizingMaskIntoConstraints = false
+			contentView?.translatesAutoresizingMaskIntoConstraints = false
 			reloadView()
 		}
 	}
@@ -327,9 +327,9 @@ public class ImageCardView : MaterialPulseView {
 	/**
 	:name:	init
 	*/
-	public convenience init?(image: UIImage? = nil, titleLabel: UILabel? = nil, detailView: UIView? = nil, leftButtons: Array<UIButton>? = nil, rightButtons: Array<UIButton>? = nil) {
+	public convenience init?(image: UIImage? = nil, titleLabel: UILabel? = nil, contentView: UIView? = nil, leftButtons: Array<UIButton>? = nil, rightButtons: Array<UIButton>? = nil) {
 		self.init(frame: CGRectZero)
-		prepareProperties(image, titleLabel: titleLabel, detailView: detailView, leftButtons: leftButtons, rightButtons: rightButtons)
+		prepareProperties(image, titleLabel: titleLabel, contentView: contentView, leftButtons: leftButtons, rightButtons: rightButtons)
 	}
 	
 	/**
@@ -379,9 +379,9 @@ public class ImageCardView : MaterialPulseView {
 		} else if nil != titleLabel {
 			verticalFormat += "-(insetTop)"
 			metrics["insetTop"] = contentInset.top + titleLabelInset.top
-		} else if nil != detailView {
+		} else if nil != contentView {
 			verticalFormat += "-(insetTop)"
-			metrics["insetTop"] = contentInset.top + detailViewInset.top
+			metrics["insetTop"] = contentInset.top + contentViewInset.top
 		}
 		
 		// title
@@ -398,20 +398,20 @@ public class ImageCardView : MaterialPulseView {
 		}
 		
 		// detail
-		if let v: UIView = detailView {
+		if let v: UIView = contentView {
 			addSubview(v)
 			
 			if nil == imageLayer?.contents && nil != titleLabel {
 				verticalFormat += "-(insetB)"
-				metrics["insetB"] = titleLabelInset.bottom + detailViewInset.top
+				metrics["insetB"] = titleLabelInset.bottom + contentViewInset.top
 			} else {
-				metrics["insetTop"] = (metrics["insetTop"] as! CGFloat) + detailViewInset.top
+				metrics["insetTop"] = (metrics["insetTop"] as! CGFloat) + contentViewInset.top
 			}
 			
-			verticalFormat += "-[detailView]"
-			views["detailView"] = v
+			verticalFormat += "-[contentView]"
+			views["contentView"] = v
 			
-			MaterialLayout.alignToParentHorizontally(self, child: v, left: contentInset.left + detailViewInset.left, right: contentInset.right + detailViewInset.right)
+			MaterialLayout.alignToParentHorizontally(self, child: v, left: contentInset.left + contentViewInset.left, right: contentInset.right + contentViewInset.right)
 		}
 		
 		// leftButtons
@@ -486,11 +486,11 @@ public class ImageCardView : MaterialPulseView {
 				metrics["insetBottom"] = contentInset.bottom + rightButtonsInset.bottom
 			}
 			
-			if nil != detailView {
+			if nil != contentView {
 				if nil == metrics["insetC"] {
-					metrics["insetBottom"] = contentInset.bottom + detailViewInset.bottom + (divider ? dividerInset.top + dividerInset.bottom : 0)
+					metrics["insetBottom"] = contentInset.bottom + contentViewInset.bottom + (divider ? dividerInset.top + dividerInset.bottom : 0)
 				} else {
-					metrics["insetC"] = (metrics["insetC"] as! CGFloat) + detailViewInset.bottom + (divider ? dividerInset.top + dividerInset.bottom : 0)
+					metrics["insetC"] = (metrics["insetC"] as! CGFloat) + contentViewInset.bottom + (divider ? dividerInset.top + dividerInset.bottom : 0)
 				}
 			} else if nil != titleLabel {
 				if nil == metrics["insetC"] {
@@ -501,7 +501,7 @@ public class ImageCardView : MaterialPulseView {
 			} else if nil != metrics["insetC"] {
 				metrics["insetC"] = (metrics["insetC"] as! CGFloat) + contentInset.top + (divider ? dividerInset.top + dividerInset.bottom : 0)
 			}
-		} else if nil != detailView {
+		} else if nil != contentView {
 			if 0 < leftButtons?.count {
 				verticalFormat += "-(insetC)-[button]"
 				views["button"] = leftButtons![0]
@@ -515,9 +515,9 @@ public class ImageCardView : MaterialPulseView {
 			}
 			
 			if nil == metrics["insetC"] {
-				metrics["insetBottom"] = contentInset.bottom + detailViewInset.bottom + (divider ? dividerInset.top + dividerInset.bottom : 0)
+				metrics["insetBottom"] = contentInset.bottom + contentViewInset.bottom + (divider ? dividerInset.top + dividerInset.bottom : 0)
 			} else {
-				metrics["insetC"] = (metrics["insetC"] as! CGFloat) + detailViewInset.bottom + (divider ? dividerInset.top + dividerInset.bottom : 0)
+				metrics["insetC"] = (metrics["insetC"] as! CGFloat) + contentViewInset.bottom + (divider ? dividerInset.top + dividerInset.bottom : 0)
 			}
 		} else {
 			if 0 < leftButtons?.count {
@@ -583,10 +583,10 @@ public class ImageCardView : MaterialPulseView {
 	/**
 	:name:	prepareProperties
 	*/
-	internal func prepareProperties(image: UIImage?, titleLabel: UILabel?, detailView: UIView?, leftButtons: Array<UIButton>?, rightButtons: Array<UIButton>?) {
+	internal func prepareProperties(image: UIImage?, titleLabel: UILabel?, contentView: UIView?, leftButtons: Array<UIButton>?, rightButtons: Array<UIButton>?) {
 		self.image = image
 		self.titleLabel = titleLabel
-		self.detailView = detailView
+		self.contentView = contentView
 		self.leftButtons = leftButtons
 		self.rightButtons = rightButtons
 	}

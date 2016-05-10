@@ -35,19 +35,27 @@ private var MaterialAssociatedObjectNavigationItemKey: UInt8 = 0
 
 public class MaterialAssociatedObjectNavigationItem {
 	/// Detail View.
-	public var detailView: UIView?
+	public var contentView: UIView?
 	
 	/// Title label.
-	public var titleLabel: UILabel?
+	public var titleLabel: UILabel
+	
+	/// Detail text.
+	public var detail: String?
 	
 	/// Detail label.
-	public var detailLabel: UILabel?
+	public var detailLabel: UILabel
 	
 	/// Left controls.
 	public var leftControls: Array<UIControl>?
 	
 	/// Right controls.
 	public var rightControls: Array<UIControl>?
+	
+	public init() {
+		titleLabel = UILabel()
+		detailLabel = UILabel()
+	}
 }
 
 public extension UINavigationItem {
@@ -64,17 +72,17 @@ public extension UINavigationItem {
 	}
 	
 	/// Detail View.
-	public var detailView: UIView? {
+	public internal(set) var contentView: UIView? {
 		get {
-			return item.detailView
+			return item.contentView
 		}
 		set(value) {
-			item.detailView = value
+			item.contentView = value
 		}
 	}
 	
 	/// Title Label.
-	public var titleLabel: UILabel? {
+	public internal(set) var titleLabel: UILabel {
 		get {
 			return item.titleLabel
 		}
@@ -83,8 +91,18 @@ public extension UINavigationItem {
 		}
 	}
 	
+	/// Detail text.
+	public var detail: String? {
+		get {
+			return item.detail
+		}
+		set(value) {
+			item.detail = value
+		}
+	}
+	
 	/// Detail Label.
-	public var detailLabel: UILabel? {
+	public internal(set) var detailLabel: UILabel {
 		get {
 			return item.detailLabel
 		}

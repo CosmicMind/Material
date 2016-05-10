@@ -61,7 +61,7 @@ class ViewController: UIViewController {
 		let detailLabel: UILabel = UILabel()
 		detailLabel.text = "It’s been a while, have you read any new books lately?"
 		detailLabel.numberOfLines = 0
-		cardView.detailView = detailLabel
+		cardView.contentView = detailLabel
 		
 		// Yes button.
 		let btn1: FlatButton = FlatButton()
@@ -106,7 +106,7 @@ class ViewController: UIViewController {
 		detailLabel.text = "Beautiful Material Design"
 		detailLabel.textColor = MaterialColor.white
 		detailLabel.numberOfLines = 0
-		cardView.detailView = detailLabel
+		cardView.contentView = detailLabel
 		
 		// Share button.
 		let img1: UIImage? = MaterialIcon.cm.share
@@ -147,7 +147,7 @@ class ViewController: UIViewController {
 		detailLabel.text = "Data-Driven Framework"
 		detailLabel.textColor = MaterialColor.white
 		detailLabel.numberOfLines = 0
-		cardView.detailView = detailLabel
+		cardView.contentView = detailLabel
 		
 		// Share button.
 		let img1: UIImage? = MaterialIcon.cm.share

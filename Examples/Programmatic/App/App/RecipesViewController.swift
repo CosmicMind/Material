@@ -54,7 +54,6 @@ class RecipesViewController: UIViewController {
 		super.viewDidLoad()
 		prepareView()
 		prepareItems()
-		prepareTitleLabel()
 		prepareMenuButton()
 		prepareSwitchControl()
 		prepareSearchButton()
@@ -218,14 +217,6 @@ class RecipesViewController: UIViewController {
 		view.backgroundColor = MaterialColor.white
 	}
 	
-	/// Prepares the titleLabel.
-	private func prepareTitleLabel() {
-		titleLabel = UILabel()
-		titleLabel.text = "Recipes"
-		titleLabel.textAlignment = .Left
-		titleLabel.textColor = MaterialColor.white
-	}
-	
 	/// Prepares the menuButton.
 	private func prepareMenuButton() {
 		let image: UIImage? = MaterialIcon.cm.menu
@@ -253,7 +244,10 @@ class RecipesViewController: UIViewController {
 	
 	/// Prepares the navigationItem.
 	private func prepareNavigationItem() {
-		navigationItem.titleLabel = titleLabel
+		navigationItem.title = "Recipes"
+		navigationItem.titleLabel.textAlignment = .Left
+		navigationItem.titleLabel.textColor = MaterialColor.white
+		
 		navigationItem.leftControls = [menuButton]
 		navigationItem.rightControls = [switchControl, searchButton]
 	}

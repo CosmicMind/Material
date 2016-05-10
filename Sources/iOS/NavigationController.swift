@@ -114,7 +114,7 @@ public class NavigationController : UINavigationController, UIGestureRecognizerD
 	*/
 	public func navigationBar(navigationBar: UINavigationBar, shouldPushItem item: UINavigationItem) -> Bool {
 		if let v: NavigationBar = navigationBar as? NavigationBar {
-			item.setHidesBackButton(true, animated: false)
+			item.hidesBackButton = true
 			if var c: Array<UIControl> = item.leftControls {
 				c.append(v.backButton)
 				item.leftControls = c

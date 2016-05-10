@@ -29,7 +29,7 @@
 */
 
 /*
-The following is an example of setting a UITableView as the detailView for a
+The following is an example of setting a UITableView as the contentView for a
 CardView.
 */
 

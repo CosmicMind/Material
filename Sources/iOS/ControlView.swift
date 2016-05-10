@@ -196,12 +196,6 @@ public class ControlView : MaterialView {
 		prepareContentView()
 	}
 	
-	/// Prepares the contentView.
-	public func prepareContentView() {
-		contentView.backgroundColor = nil
-		addSubview(contentView)
-	}
-	
 	/**
 	Used to trigger property changes that initializers avoid.
 	- Parameter leftControls: An Array of UIControls that go on the left side.
@@ -210,5 +204,11 @@ public class ControlView : MaterialView {
 	internal func prepareProperties(leftControls: Array<UIControl>?, rightControls: Array<UIControl>?) {
 		self.leftControls = leftControls
 		self.rightControls = rightControls
+	}
+	
+	/// Prepares the contentView.
+	private func prepareContentView() {
+		contentView.backgroundColor = nil
+		addSubview(contentView)
 	}
 }

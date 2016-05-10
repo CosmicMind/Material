@@ -66,7 +66,6 @@ class ItemViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		prepareTitleLabel()
 		prepareShareButton()
 		prepareNavigationItem()
 		prepareScrollView()
@@ -101,22 +100,6 @@ class ItemViewController: UIViewController {
 		automaticallyAdjustsScrollViewInsets = false
 	}
 	
-	/// Prepares the titleLabel.
-	private func prepareTitleLabel() {
-		titleLabel = UILabel()
-		titleLabel.text = "Item"
-		titleLabel.textAlignment = .Left
-		titleLabel.textColor = MaterialColor.white
-	}
-	
-	/// Prepares the detailLabel.
-	private func prepareDetailLabel() {
-		detailLabel = UILabel()
-		detailLabel.text = "January 22, 2016"
-		detailLabel.textAlignment = .Left
-		detailLabel.textColor = MaterialColor.white
-	}
-	
 	/// Prepares the shareButton.
 	private func prepareShareButton() {
 		let image: UIImage? = MaterialIcon.cm.share
@@ -128,8 +111,14 @@ class ItemViewController: UIViewController {
 	
 	/// Prepares the navigationItem.
 	private func prepareNavigationItem() {
-		navigationItem.titleLabel = titleLabel
-		navigationItem.detailLabel = detailLabel
+		navigationItem.title = "Item"
+		navigationItem.titleLabel.textAlignment = .Left
+		navigationItem.titleLabel.textColor = MaterialColor.white
+		
+		navigationItem.detail = "January 22, 2016"
+		navigationItem.detailLabel.textAlignment = .Left
+		navigationItem.detailLabel.textColor = MaterialColor.white
+		
 		navigationItem.rightControls = [shareButton]
 	}
 	
@@ -163,8 +152,8 @@ class ItemViewController: UIViewController {
 			detailLabel.font = RobotoFont.regular
 			detailLabel.numberOfLines = 0
 			
-			imageCardView.detailView = detailLabel
-			imageCardView.detailViewInset.top = 52
+			imageCardView.contentView = detailLabel
+			imageCardView.contentViewInset.top = 52
 			
 			let image: UIImage? = UIImage(named: data["image"] as! String)
 			imageCardView.image = image
