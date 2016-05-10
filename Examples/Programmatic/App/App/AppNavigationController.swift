@@ -44,7 +44,6 @@ class AppNavigationController: NavigationController {
 	override func viewWillLayoutSubviews() {
 		super.viewWillLayoutSubviews()
 		statusBarView?.hidden = MaterialDevice.statusBarHidden
-		print(MaterialDevice.statusBarHidden)
 	}
 	
 	/// Prepares the statusBarView

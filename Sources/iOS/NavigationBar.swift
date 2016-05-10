@@ -44,6 +44,12 @@ public extension UINavigationBar {
 
 @IBDesignable
 public class NavigationBar : UINavigationBar {
+	/// The current layout.
+	private var isLandscape: Bool = false
+	
+	/// the spacer inset value.
+	private var spacerInset: CGFloat = 0
+	
 	/// Left spacer moves the items to the left edge of the NavigationBar.
 	private var leftSpacer: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
 	
@@ -261,12 +267,29 @@ public class NavigationBar : UINavigationBar {
 	
 	public override func layoutSubviews() {
 		super.layoutSubviews()
+		
+		if !isLandscape && MaterialDevice.isLandscape {
+			isLandscape = true
+			spacerInset = 0
+		} else if isLandscape && MaterialDevice.isPortrait {
+			isLandscape = false
+			spacerInset = 0
+		}
+		
 		if let v: UINavigationItem = topItem {
-			sizeNavigationItem(v)
+			if 0 == spacerInset {
+				layoutNavigationItem(v)
+			} else {
+				sizeNavigationItem(v)
+			}
 		}
 		
 		if let v: UINavigationItem = backItem {
-			sizeNavigationItem(v)
+			if 0 == spacerInset {
+				layoutNavigationItem(v)
+			} else {
+				sizeNavigationItem(v)
+			}
 		}
 	}
 	
@@ -284,19 +307,23 @@ public class NavigationBar : UINavigationBar {
 		
 		// leftControls
 		if let v: Array<UIControl> = item.leftControls {
-			var n: Array<UIBarButtonItem> = Array<UIBarButtonItem>()
-			for c in v {
-				n.append(UIBarButtonItem(customView: c))
+			if 0 < v.count {
+				var n: Array<UIBarButtonItem> = Array<UIBarButtonItem>()
+				for c in v {
+					n.append(UIBarButtonItem(customView: c))
+				}
+				n.append(leftSpacer)
+				item.leftBarButtonItems = n.reverse()
+				if 0 == spacerInset {
+					spacerInset = n.first!.customView!.frame.origin.x
+				}
 			}
-			n.append(leftSpacer)
-			item.leftBarButtonItems = n.reverse()
 		}
 		
 		// Set the titleView if title is empty.
 		if "" == item.title {
 			if nil == item.titleView {
 				item.titleView = UIView(frame: CGRectMake(0, contentInset.top, MaterialDevice.width < MaterialDevice.height ? MaterialDevice.height : MaterialDevice.width, intrinsicContentSize().height - contentInset.top - contentInset.bottom))
-				item.titleView!.autoresizingMask = [.FlexibleWidth]
 				item.titleView!.grid.axis.direction = .Vertical
 			}
 			
@@ -321,15 +348,19 @@ public class NavigationBar : UINavigationBar {
 		
 		// rightControls
 		if let v: Array<UIControl> = item.rightControls {
-			var n: Array<UIBarButtonItem> = Array<UIBarButtonItem>()
-			for c in v {
-				n.append(UIBarButtonItem(customView: c))
+			if 0 < v.count {
+				var n: Array<UIBarButtonItem> = Array<UIBarButtonItem>()
+				for c in v {
+					n.append(UIBarButtonItem(customView: c))
+				}
+				
+				n.append(rightSpacer)
+				item.rightBarButtonItems = n.reverse()
+				if 0 == spacerInset {
+					spacerInset = width - n[n.count - 2].customView!.frame.origin.x - n[n.count - 2].customView!.frame.width
+				}
 			}
-			
-			n.append(rightSpacer)
-			item.rightBarButtonItems = n.reverse()
 		}
-		
 		sizeNavigationItem(item)
 	}
 	
@@ -338,9 +369,11 @@ public class NavigationBar : UINavigationBar {
 	- Parameter item: A UINavigationItem to size.
 	*/
 	internal func sizeNavigationItem(item: UINavigationItem) {
+		print(spacerInset)
 		let h: CGFloat = intrinsicContentSize().height
-		let w: CGFloat = backButton.intrinsicContentSize().width
-		let inset: CGFloat = MaterialDevice.isLandscape ? item.landscapeInset : item.portraitInset
+		var spaceLeft: CGFloat = 0
+		var spaceRight: CGFloat = 0
+		var capturedSpace: Bool = false
 		
 		// leftControls
 		if let v: Array<UIControl> = item.leftControls {
@@ -349,9 +382,12 @@ public class NavigationBar : UINavigationBar {
 					b.contentEdgeInsets.top = 0
 					b.contentEdgeInsets.bottom = 0
 				}
-				c.bounds.size = c is MaterialSwitch ? CGSizeMake(w, h - contentInset.top - contentInset.bottom) : CGSizeMake(c.intrinsicContentSize().width, h - contentInset.top - contentInset.bottom)
+				c.bounds.size = CGSizeMake(c.intrinsicContentSize().width, h - contentInset.top - contentInset.bottom)
+				c.backgroundColor = MaterialColor.purple.base
+				spaceLeft += c.bounds.size.width + contentInset.left
 			}
-			leftSpacer.width = inset + contentInset.left
+			leftSpacer.width = contentInset.left - spacerInset
+			spaceLeft += contentInset.left
 		}
 		
 		item.titleView?.frame.size.width = width
@@ -382,10 +418,18 @@ public class NavigationBar : UINavigationBar {
 					b.contentEdgeInsets.top = 0
 					b.contentEdgeInsets.bottom = 0
 				}
-				c.bounds.size = c is MaterialSwitch ? CGSizeMake(w, h - contentInset.top - contentInset.bottom) : CGSizeMake(c.intrinsicContentSize().width, h - contentInset.top - contentInset.bottom)
+				c.bounds.size = CGSizeMake(c.intrinsicContentSize().width, h - contentInset.top - contentInset.bottom)
+				c.backgroundColor = MaterialColor.purple.base.colorWithAlphaComponent(0.1)
+				spaceRight += c.bounds.size.width + contentInset.right
 			}
-			rightSpacer.width = inset + contentInset.right
+			rightSpacer.width = contentInset.right - spacerInset
+			spaceRight += contentInset.right
 		}
+		
+		item.titleView?.backgroundColor = MaterialColor.green.base
+		item.titleView?.frame.size.width = width - spaceLeft - spaceRight
+		item.titleView?.frame.origin.x = spaceLeft
+		item.titleView?.grid.reloadLayout()
 	}
 	
 	/**
@@ -396,6 +440,7 @@ public class NavigationBar : UINavigationBar {
 	when subclassing.
 	*/
 	public func prepareView() {
+		isLandscape = MaterialDevice.isLandscape
 		barStyle = .Default
 		translucent = false
 		backButtonImage = nil
