@@ -159,7 +159,6 @@ class ItemViewController: UIViewController {
 			imageCardView.image = image
 			
 			scrollView.addSubview(imageCardView)
-			imageCardView.translatesAutoresizingMaskIntoConstraints = false
 		}
 	}
 }

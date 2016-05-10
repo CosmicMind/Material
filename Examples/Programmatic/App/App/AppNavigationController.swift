@@ -52,7 +52,6 @@ class AppNavigationController: NavigationController {
 		statusBarView!.backgroundColor = MaterialColor.blue.darken2
 		
 		view.addSubview(statusBarView!)
-		statusBarView!.translatesAutoresizingMaskIntoConstraints = false
 		MaterialLayout.alignFromTop(view, child: statusBarView!)
 		MaterialLayout.alignToParentHorizontally(view, child: statusBarView!)
 		MaterialLayout.height(view, child: statusBarView!, height: 20)

@@ -261,7 +261,6 @@ class RecipesViewController: UIViewController {
 		
 		// Use MaterialLayout to easily align the tableView.
 		view.addSubview(tableView)
-		tableView.translatesAutoresizingMaskIntoConstraints = false
 		MaterialLayout.alignToParent(view, child: tableView)
 	}
 }
@@ -308,7 +307,6 @@ extension RecipesViewController: UITableViewDataSource {
 		label.text = "Favorites"
 		
 		header.addSubview(label)
-		label.translatesAutoresizingMaskIntoConstraints = false
 		MaterialLayout.alignToParent(header, child: label, left: 24)
 		
 		return header

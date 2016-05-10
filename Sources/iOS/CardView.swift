@@ -113,7 +113,6 @@ public class CardView : MaterialPulseView {
 	*/
 	@IBInspectable public var titleLabel: UILabel? {
 		didSet {
-			titleLabel?.translatesAutoresizingMaskIntoConstraints = false
 			reloadView()
 		}
 	}
@@ -141,7 +140,6 @@ public class CardView : MaterialPulseView {
 	*/
 	@IBInspectable public var contentView: UIView? {
 		didSet {
-			contentView?.translatesAutoresizingMaskIntoConstraints = false
 			reloadView()
 		}
 	}
@@ -169,11 +167,6 @@ public class CardView : MaterialPulseView {
 	*/
 	public var leftButtons: Array<UIButton>? {
 		didSet {
-			if let v = leftButtons {
-				for b in v {
-					b.translatesAutoresizingMaskIntoConstraints = false
-				}
-			}
 			reloadView()
 		}
 	}
@@ -201,11 +194,6 @@ public class CardView : MaterialPulseView {
 	*/
 	public var rightButtons: Array<UIButton>? {
 		didSet {
-			if let v = rightButtons {
-				for b in v {
-					b.translatesAutoresizingMaskIntoConstraints = false
-				}
-			}
 			reloadView()
 		}
 	}
