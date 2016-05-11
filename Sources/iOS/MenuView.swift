@@ -87,6 +87,9 @@ public class MenuView : MaterialPulseView {
 		Since the subviews will be outside the bounds of this view,
 		we need to look at the subviews to see if we have a hit.
 		*/
+        guard !hidden else {
+            return nil
+        }
 		for v in subviews {
 			let p: CGPoint = v.convertPoint(point, fromView: self)
 			if CGRectContainsPoint(v.bounds, p) {
