@@ -143,42 +143,56 @@ public class ControlView : MaterialView {
 	public override func layoutSubviews() {
 		super.layoutSubviews()
 		if willRenderView {
-			// Size of single grid column.
-			if let g: CGFloat = width / CGFloat(0 < grid.axis.columns ? grid.axis.columns : 1) {
+			let factor: CGFloat = 24
+			if let g: Int = Int(width / factor) {
+				let columns: Int = g + 1
+				
+				frame.origin = CGPointZero
+				frame.size = intrinsicContentSize()
 				grid.views = []
-				contentView.grid.views = []
-				contentView.grid.columns = grid.axis.columns
+				grid.axis.columns = columns
+				
+				contentView.grid.columns = columns
 				
 				// leftControls
 				if let v: Array<UIControl> = leftControls {
 					for c in v {
 						let w: CGFloat = c.intrinsicContentSize().width
-						if let b: UIButton = c as? UIButton {
-							b.contentEdgeInsets = UIEdgeInsetsZero
-						}
-						c.frame.size.height = height - contentInset.top - contentInset.bottom
-						c.grid.columns = 0 == g ? 1 : Int(ceil(w / g))
+						(c as? UIButton)?.contentEdgeInsets = UIEdgeInsetsZero
+						c.frame.size.height = frame.size.height - contentInset.top - contentInset.bottom
+						
+						let q: Int = Int(w / factor)
+						c.grid.columns = q + 1
+						
 						contentView.grid.columns -= c.grid.columns
+						
+						addSubview(c)
 						grid.views?.append(c)
 					}
 				}
 				
+				addSubview(contentView)
 				grid.views?.append(contentView)
 				
 				// rightControls
 				if let v: Array<UIControl> = rightControls {
 					for c in v {
 						let w: CGFloat = c.intrinsicContentSize().width
-						if let b: UIButton = c as? UIButton {
-							b.contentEdgeInsets = UIEdgeInsetsZero
-						}
-						c.frame.size.height = height - contentInset.top - contentInset.bottom
-						c.grid.columns = 0 == g ? 1 : Int(ceil(w / g))
+						(c as? UIButton)?.contentEdgeInsets = UIEdgeInsetsZero
+						c.frame.size.height = frame.size.height - contentInset.top - contentInset.bottom
+						
+						let q: Int = Int(w / factor)
+						c.grid.columns = q + 1
+						
 						contentView.grid.columns -= c.grid.columns
+						
+						addSubview(c)
 						grid.views?.append(c)
 					}
 				}
 				
+				grid.contentInset = contentInset
+				grid.spacing = spacing
 				grid.reloadLayout()
 			}
 		}

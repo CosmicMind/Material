@@ -93,8 +93,7 @@ public class SearchBar : StatusBarView {
 	public override func layoutSubviews() {
 		super.layoutSubviews()
 		if willRenderView {
-			contentView.grid.views?.append(textField)
-			contentView.grid.reloadLayout()
+			textField.frame = contentView.bounds
 			layoutClearButton()
 		}
 	}

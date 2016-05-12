@@ -244,8 +244,9 @@ class RecipesViewController: UIViewController {
 	
 	/// Prepares the navigationItem.
 	private func prepareNavigationItem() {
-		navigationItem.titleLabel.text = "Recipesqqggyy"
+		navigationItem.titleLabel.text = "Recipes"
 		navigationItem.titleLabel.textColor = MaterialColor.white
+		navigationItem.titleLabel.font = RobotoFont.mediumWithSize(20)
 		
 		navigationItem.leftControls = [menuButton]
 		navigationItem.rightControls = [switchControl, searchButton]

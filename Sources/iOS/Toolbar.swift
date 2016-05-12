@@ -32,72 +32,38 @@ import UIKit
 
 public class Toolbar : StatusBarView {
 	/// Title label.
-	public var titleLabel: UILabel? {
-		didSet {
-			if let v: UILabel = titleLabel {
-				contentView.addSubview(v)
-			}
-			layoutSubviews()
-		}
-	}
+	public private(set) var titleLabel: UILabel!
 	
 	/// Detail label.
-	public var detailLabel: UILabel? {
-		didSet {
-			if let v: UILabel = detailLabel {
-				contentView.addSubview(v)
-			}
-			layoutSubviews()
-		}
-	}
-	
-	/**
-	An initializer that initializes the object with a NSCoder object.
-	- Parameter aDecoder: A NSCoder instance.
-	*/
-	public required init?(coder aDecoder: NSCoder) {
-		super.init(coder: aDecoder)
-	}
-	
-	/**
-	A convenience initializer with parameter settings.
-	- Parameter titleLabel: UILabel for the title.
-	- Parameter detailLabel: UILabel for the details.
-	- Parameter leftControls: An Array of UIControls that go on the left side.
-	- Parameter rightControls: An Array of UIControls that go on the right side.
-	*/
-	public init(titleLabel: UILabel? = nil, detailLabel: UILabel? = nil, leftControls: Array<UIControl>? = nil, rightControls: Array<UIControl>? = nil) {
-		super.init(frame: CGRectZero)
-		prepareProperties(titleLabel, detailLabel: detailLabel, leftControls: leftControls, rightControls: rightControls)
-	}
+	public private(set) var detailLabel: UILabel!
 	
 	public override func layoutSubviews() {
 		super.layoutSubviews()
 		if willRenderView {
-			
-			contentView.grid.views = []
-			
-			// TitleView alignment.
-			if let t: UILabel = titleLabel {
-				t.grid.rows = 1
-				contentView.grid.views?.append(t)
-				
-				if let d: UILabel = detailLabel {
-					t.font = t.font.fontWithSize(17)
-					
-					d.grid.rows = 1
-					d.font = d.font.fontWithSize(12)
-					
-					contentView.grid.axis.rows = 2
-					contentView.grid.views?.append(d)
-				} else {
-					t.font = t.font?.fontWithSize(20)
-					contentView.grid.axis.rows = 1
+			if let _: String = titleLabel.text {
+				if nil == titleLabel.superview {
+					contentView.addSubview(titleLabel)
 				}
+				
+				if let _: String = detailLabel.text {
+					if nil == detailLabel.superview {
+						contentView.addSubview(detailLabel)
+					}
+					
+					titleLabel.sizeToFit()
+					detailLabel.sizeToFit()
+					let diff: CGFloat = (contentView.frame.height - titleLabel.frame.height - detailLabel.frame.height) / 2
+					titleLabel.frame.size.height += diff
+					detailLabel.frame.size.height += diff
+					detailLabel.frame.origin.y = titleLabel.frame.height
+				} else {
+					detailLabel.removeFromSuperview()
+					titleLabel.frame = contentView.bounds
+				}
+			} else {
+				titleLabel.removeFromSuperview()
+				contentView.grid.reloadLayout()
 			}
-			
-			grid.reloadLayout()
-			contentView.grid.reloadLayout()
 		}
 	}
 	
@@ -110,19 +76,21 @@ public class Toolbar : StatusBarView {
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		contentView.grid.axis.direction = .Vertical
+		prepareTitleLabel()
+		prepareDetailLabel()
 	}
 	
-	/**
-	Used to trigger property changes  that initializers avoid.
-	- Parameter titleLabel: UILabel for the title.
-	- Parameter detailLabel: UILabel for the details.
-	- Parameter leftControls: An Array of UIControls that go on the left side.
-	- Parameter rightControls: An Array of UIControls that go on the right side.
-	*/
-	internal func prepareProperties(titleLabel: UILabel?, detailLabel: UILabel?, leftControls: Array<UIControl>?, rightControls: Array<UIControl>?) {
-		prepareProperties(leftControls, rightControls: rightControls)
-		self.titleLabel = titleLabel
-		self.detailLabel = detailLabel
+	/// Prepares the titleLabel.
+	private func prepareTitleLabel() {
+		titleLabel = UILabel()
+		titleLabel.font = RobotoFont.mediumWithSize(17)
+		titleLabel.textAlignment = .Left
+	}
+	
+	/// Prepares the detailLabel.
+	private func prepareDetailLabel() {
+		detailLabel = UILabel()
+		detailLabel.font = RobotoFont.regularWithSize(12)
+		detailLabel.textAlignment = .Left
 	}
 }

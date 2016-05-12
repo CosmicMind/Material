@@ -87,9 +87,6 @@ public class NavigationBar : UINavigationBar {
 		}
 	}
 	
-	/// Reference to the backButton.
-	public private(set) lazy var backButton: IconButton = IconButton()
-	
 	/**
 	The back button image writes to the backIndicatorImage property and
 	backIndicatorTransitionMaskImage property.
@@ -99,11 +96,9 @@ public class NavigationBar : UINavigationBar {
 			return backIndicatorImage
 		}
 		set(value) {
-			let image: UIImage? = nil == value ? MaterialIcon.cm.arrowBack : value
+			let image: UIImage? = value
 			backIndicatorImage = image
 			backIndicatorTransitionMaskImage = image
-			backButton.setImage(image, forState: .Normal)
-			backButton.setImage(image, forState: .Highlighted)
 		}
 	}
 	
@@ -324,9 +319,9 @@ public class NavigationBar : UINavigationBar {
 			if let titleView: UIView = prepareTitleView(item) {
 				if let contentView: UIView = prepareContentView(item) {
 					let factor: CGFloat = 24
-					if let grid: Int = Int(width / factor) {
-						let columns: Int = grid + 1
-
+					if let g: Int = Int(width / factor) {
+						let columns: Int = g + 1
+						
 						titleView.frame.origin = CGPointZero
 						titleView.frame.size = intrinsicContentSize()
 						titleView.grid.views = []
@@ -424,26 +419,25 @@ public class NavigationBar : UINavigationBar {
 		spacingPreset = .Spacing1
 		contentInsetPreset = .Square1
 		contentScaleFactor = MaterialDevice.scale
-		prepareBackButton()
-	}
-	
-	/// Prepares the backButton.
-	private func prepareBackButton() {
-		backButton.pulseColor = MaterialColor.white
-		backButton.setImage(backButtonImage, forState: .Normal)
-		backButton.setImage(backButtonImage, forState: .Highlighted)
-		backButtonImage = nil
+		backButtonImage = MaterialIcon.cm.arrowBack
 		let image: UIImage? = UIImage.imageWithColor(MaterialColor.clear, size: CGSizeMake(1, 1))
 		shadowImage = image
 		setBackgroundImage(image, forBarMetrics: .Default)
 	}
 	
-	/// Prepares the item.
+	/**
+	Prepare the item by setting the title property to equal an empty string.
+	- Parameter item: A UINavigationItem to layout.
+	*/
 	private func prepareItem(item: UINavigationItem) {
 		item.title = ""
 	}
 	
-	/// Prepare the titleView.
+	/**
+	Prepare the titleView.
+	- Parameter item: A UINavigationItem to layout.
+	- Returns: A UIView, which is the item.titleView.
+	*/
 	private func prepareTitleView(item: UINavigationItem) -> UIView {
 		if nil == item.titleView {
 			item.titleView = UIView(frame: CGRectZero)
@@ -451,7 +445,11 @@ public class NavigationBar : UINavigationBar {
 		return item.titleView!
 	}
 	
-	/// Prepare the contentView.
+	/**
+	Prepare the contentView.
+	- Parameter item: A UINavigationItem to layout.
+	- Returns: A UIView, which is the item.contentView.
+	*/
 	private func prepareContentView(item: UINavigationItem) -> UIView {
 		if nil == item.contentView {
 			item.contentView = UIView(frame: CGRectZero)

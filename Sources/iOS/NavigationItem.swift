@@ -34,7 +34,10 @@ import UIKit
 private var MaterialAssociatedObjectNavigationItemKey: UInt8 = 0
 
 public class MaterialAssociatedObjectNavigationItem {
-	/// Detail View.
+	/// Back Button.
+	public var backButton: IconButton?
+	
+	/// Content View.
 	public var contentView: UIView?
 	
 	/// Title label.
@@ -86,7 +89,17 @@ public extension UINavigationItem {
 		}
 	}
 	
-	/// Detail View.
+	/// Back Button.
+	public internal(set) var backButton: IconButton? {
+		get {
+			return item.backButton
+		}
+		set(value) {
+			item.backButton = value
+		}
+	}
+	
+	/// Content View.
 	public internal(set) var contentView: UIView? {
 		get {
 			return item.contentView
