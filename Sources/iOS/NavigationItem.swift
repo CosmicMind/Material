@@ -38,13 +38,13 @@ public class MaterialAssociatedObjectNavigationItem {
 	public var contentView: UIView?
 	
 	/// Title label.
-	public var titleLabel: UILabel
+	public private(set) var titleLabel: UILabel!
 	
 	/// Detail text.
 	public var detail: String?
 	
 	/// Detail label.
-	public var detailLabel: UILabel
+	public private(set) var detailLabel: UILabel!
 	
 	/// Left controls.
 	public var leftControls: Array<UIControl>?
@@ -52,9 +52,24 @@ public class MaterialAssociatedObjectNavigationItem {
 	/// Right controls.
 	public var rightControls: Array<UIControl>?
 	
+	/// Initializer.
 	public init() {
+		prepareTitleLabel()
+		prepareDetailLabel()
+	}
+	
+	/// Prepares the titleLabel.
+	private func prepareTitleLabel() {
 		titleLabel = UILabel()
+		titleLabel.font = RobotoFont.mediumWithSize(17)
+		titleLabel.textAlignment = .Left
+	}
+	
+	/// Prepares the detailLabel.
+	private func prepareDetailLabel() {
 		detailLabel = UILabel()
+		detailLabel.font = RobotoFont.regularWithSize(12)
+		detailLabel.textAlignment = .Left
 	}
 }
 

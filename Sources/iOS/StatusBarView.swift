@@ -74,7 +74,7 @@ public class StatusBarView : ControlView {
 			width = MaterialDevice.width
 		}
 		
-		grid.axis.columns = Int(width / 48)
+		grid.axis.columns = Int(width / 24)
 		
 		// General alignment.
 		if .iPhone == MaterialDevice.type && MaterialDevice.isLandscape {

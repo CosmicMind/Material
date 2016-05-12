@@ -46,27 +46,22 @@ class ViewController: UIViewController {
 	/// Prepares the MaterialDepth.
 	private func prepareMaterialDepth() {
 		let v1: MaterialView = MaterialView()
-		v1.translatesAutoresizingMaskIntoConstraints = false
 		v1.depth = .Depth1
 		view.addSubview(v1)
 		
 		let v2: MaterialView = MaterialView()
-		v2.translatesAutoresizingMaskIntoConstraints = false
 		v2.depth = .Depth2
 		view.addSubview(v2)
 		
 		let v3: MaterialView = MaterialView()
-		v3.translatesAutoresizingMaskIntoConstraints = false
 		v3.depth = .Depth3
 		view.addSubview(v3)
 		
 		let v4: MaterialView = MaterialView()
-		v4.translatesAutoresizingMaskIntoConstraints = false
 		v4.depth = .Depth4
 		view.addSubview(v4)
 		
 		let v5: MaterialView = MaterialView()
-		v5.translatesAutoresizingMaskIntoConstraints = false
 		v5.depth = .Depth5
 		view.addSubview(v5)
 		

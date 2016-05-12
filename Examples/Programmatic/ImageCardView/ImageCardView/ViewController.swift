@@ -84,7 +84,6 @@ class ViewController: UIViewController {
 		
 		// To support orientation changes, use MaterialLayout.
 		view.addSubview(imageCardView)
-		imageCardView.translatesAutoresizingMaskIntoConstraints = false
 		MaterialLayout.alignFromTop(view, child: imageCardView, top: 100)
 		MaterialLayout.alignToParentHorizontally(view, child: imageCardView, left: 20, right: 20)
 	}
@@ -134,7 +133,6 @@ class ViewController: UIViewController {
 		
 		// To support orientation changes, use MaterialLayout.
 		view.addSubview(imageCardView)
-		imageCardView.translatesAutoresizingMaskIntoConstraints = false
 		MaterialLayout.alignFromTop(view, child: imageCardView, top: 100)
 		MaterialLayout.alignToParentHorizontally(view, child: imageCardView, left: 20, right: 20)
 	}

@@ -111,11 +111,11 @@ class ItemViewController: UIViewController {
 	
 	/// Prepares the navigationItem.
 	private func prepareNavigationItem() {
-		navigationItem.title = "Item"
+		navigationItem.titleLabel.text = "Itempppyyggg"
 		navigationItem.titleLabel.textAlignment = .Left
 		navigationItem.titleLabel.textColor = MaterialColor.white
 		
-		navigationItem.detail = "January 22, 2016"
+		navigationItem.detailLabel.text = "January 22pppyyyggg, 2016"
 		navigationItem.detailLabel.textAlignment = .Left
 		navigationItem.detailLabel.textColor = MaterialColor.white
 		
@@ -141,22 +141,22 @@ class ItemViewController: UIViewController {
 			imageCardView.cornerRadiusPreset = .None
 			imageCardView.maxImageHeight = 300
 			
-			imageCardView.titleLabel = UILabel()
-			imageCardView.titleLabel?.text = data["title"] as? String
-			imageCardView.titleLabel?.textColor = MaterialColor.grey.darken4
-			imageCardView.titleLabel?.font = RobotoFont.regularWithSize(20)
-			
+//			imageCardView.titleLabel = UILabel()
+//			imageCardView.titleLabel?.text = data["title"] as? String
+//			imageCardView.titleLabel?.textColor = MaterialColor.grey.darken4
+//			imageCardView.titleLabel?.font = RobotoFont.regularWithSize(20)
+//
 			let detailLabel: UILabel = UILabel()
 			detailLabel.text = data["detail"] as? String
 			detailLabel.textColor = MaterialColor.grey.darken2
 			detailLabel.font = RobotoFont.regular
 			detailLabel.numberOfLines = 0
-			
+
 			imageCardView.contentView = detailLabel
 			imageCardView.contentViewInset.top = 52
-			
-			let image: UIImage? = UIImage(named: data["image"] as! String)
-			imageCardView.image = image
+//
+//			let image: UIImage? = UIImage(named: data["image"] as! String)
+//			imageCardView.image = image
 			
 			scrollView.addSubview(imageCardView)
 		}

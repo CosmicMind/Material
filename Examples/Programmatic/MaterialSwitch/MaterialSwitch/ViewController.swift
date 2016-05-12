@@ -51,10 +51,8 @@ class ViewController: UIViewController, MaterialSwitchDelegate {
 		view.backgroundColor = MaterialColor.white
 		
 		view.addSubview(topView)
-		topView.translatesAutoresizingMaskIntoConstraints = false
 		
 		view.addSubview(bottomView)
-		bottomView.translatesAutoresizingMaskIntoConstraints = false
 		bottomView.backgroundColor = MaterialColor.grey.darken4
 		
 		MaterialLayout.alignToParentHorizontally(view, child: topView)
@@ -66,18 +64,15 @@ class ViewController: UIViewController, MaterialSwitchDelegate {
 	private func prepareLightContentMaterialSwitch() {
 		let c1: MaterialSwitch = MaterialSwitch(state: .Off, style: .LightContent, size: .Small)
 		c1.delegate = self
-		c1.translatesAutoresizingMaskIntoConstraints = false
 		topView.addSubview(c1)
 		
 		let c2: MaterialSwitch = MaterialSwitch(state: .On, style: .LightContent)
 		c2.delegate = self
-		c2.translatesAutoresizingMaskIntoConstraints = false
 		topView.addSubview(c2)
 		
 		let c3: MaterialSwitch = MaterialSwitch(state: .Off, style: .LightContent, size: .Large)
 		c3.delegate = self
 		c3.enabled = false
-		c3.translatesAutoresizingMaskIntoConstraints = false
 		topView.addSubview(c3)
 		
 		MaterialLayout.alignToParentHorizontally(topView, child: c1)
@@ -90,18 +85,15 @@ class ViewController: UIViewController, MaterialSwitchDelegate {
 	private func prepareDefaultMaterialSwitch() {
 		let c1: MaterialSwitch = MaterialSwitch(state: .Off, style: .Default, size: .Small)
 		c1.delegate = self
-		c1.translatesAutoresizingMaskIntoConstraints = false
 		bottomView.addSubview(c1)
 		
 		let c2: MaterialSwitch = MaterialSwitch(state: .On)
 		c2.delegate = self
-		c2.translatesAutoresizingMaskIntoConstraints = false
 		bottomView.addSubview(c2)
 		
 		let c3: MaterialSwitch = MaterialSwitch(state: .Off, style: .Default, size: .Large)
 		c3.delegate = self
 		c3.enabled = false
-		c3.translatesAutoresizingMaskIntoConstraints = false
 		bottomView.addSubview(c3)
 		
 		MaterialLayout.alignToParentHorizontally(bottomView, child: c1)

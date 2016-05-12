@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		96162C6C1CA71C8700E3A235 /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96162C6B1CA71C8700E3A235 /* VideoViewController.swift */; };
 		96162C6E1CA7274E00E3A235 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96162C6D1CA7274E00E3A235 /* PhotoViewController.swift */; };
-		961F19321CE2579D008927C5 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961F19311CE2579D008927C5 /* Material.framework */; };
-		961F19331CE2579D008927C5 /* Material.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 961F19311CE2579D008927C5 /* Material.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9663F9321C7A744600AF0965 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9663F9311C7A744600AF0965 /* AppDelegate.swift */; };
 		9663F9341C7A744600AF0965 /* RecommendationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9663F9331C7A744600AF0965 /* RecommendationViewController.swift */; };
 		9663F9391C7A744600AF0965 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9663F9381C7A744600AF0965 /* Assets.xcassets */; };
@@ -20,6 +18,8 @@
 		9663F94C1C7A74C700AF0965 /* AppMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9663F94B1C7A74C700AF0965 /* AppMenuViewController.swift */; };
 		9663F94E1C7A74EA00AF0965 /* AppLeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9663F94D1C7A74EA00AF0965 /* AppLeftViewController.swift */; };
 		9663F9521C7A751D00AF0965 /* ItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9663F9511C7A751D00AF0965 /* ItemViewController.swift */; };
+		9692C91F1CE4303F008C2766 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9692C91E1CE4303F008C2766 /* Material.framework */; };
+		9692C9201CE4303F008C2766 /* Material.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9692C91E1CE4303F008C2766 /* Material.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		96CC08881C7FEBD60034FF84 /* RecipesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC08871C7FEBD60034FF84 /* RecipesViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -30,7 +30,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				961F19331CE2579D008927C5 /* Material.framework in Embed Frameworks */,
+				9692C9201CE4303F008C2766 /* Material.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -40,7 +40,6 @@
 /* Begin PBXFileReference section */
 		96162C6B1CA71C8700E3A235 /* VideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
 		96162C6D1CA7274E00E3A235 /* PhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
-		961F19311CE2579D008927C5 /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = Material.framework; path = "/Users/danieldahan/Library/Developer/Xcode/DerivedData/CosmicMind-hgvxkqfizbxkrsfcxbtlafgqkbve/Build/Products/Debug-iphoneos/Material.framework"; sourceTree = "<absolute>"; };
 		9663F92E1C7A744600AF0965 /* App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9663F9311C7A744600AF0965 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9663F9331C7A744600AF0965 /* RecommendationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationViewController.swift; sourceTree = "<group>"; };
@@ -52,6 +51,7 @@
 		9663F94B1C7A74C700AF0965 /* AppMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppMenuViewController.swift; sourceTree = "<group>"; };
 		9663F94D1C7A74EA00AF0965 /* AppLeftViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppLeftViewController.swift; sourceTree = "<group>"; };
 		9663F9511C7A751D00AF0965 /* ItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemViewController.swift; sourceTree = "<group>"; };
+		9692C91E1CE4303F008C2766 /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = Material.framework; path = "/Users/danieldahan/Library/Developer/Xcode/DerivedData/CosmicMind-hgvxkqfizbxkrsfcxbtlafgqkbve/Build/Products/Debug-iphoneos/Material.framework"; sourceTree = "<absolute>"; };
 		96CC08871C7FEBD60034FF84 /* RecipesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipesViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -60,7 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				961F19321CE2579D008927C5 /* Material.framework in Frameworks */,
+				9692C91F1CE4303F008C2766 /* Material.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,7 +70,7 @@
 		9663F9251C7A744500AF0965 = {
 			isa = PBXGroup;
 			children = (
-				961F19311CE2579D008927C5 /* Material.framework */,
+				9692C91E1CE4303F008C2766 /* Material.framework */,
 				9663F9301C7A744600AF0965 /* App */,
 				9663F92F1C7A744600AF0965 /* Products */,
 			);

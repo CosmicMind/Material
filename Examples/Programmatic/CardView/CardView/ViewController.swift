@@ -80,7 +80,6 @@ class ViewController: UIViewController {
 		
 		// To support orientation changes, use MaterialLayout.
 		view.addSubview(cardView)
-		cardView.translatesAutoresizingMaskIntoConstraints = false
 		MaterialLayout.alignFromTop(view, child: cardView, top: 100)
 		MaterialLayout.alignToParentHorizontally(view, child: cardView, left: 20, right: 20)
 	}
@@ -89,7 +88,6 @@ class ViewController: UIViewController {
 		let cardView: CardView = CardView()
 		cardView.divider = false
 		cardView.backgroundColor = MaterialColor.red.base
-		cardView.pulseColor = nil
 		
 		cardView.image = UIImage(named: "Material-iTunesArtWork")?.resize(toHeight: 75)
 		cardView.contentsGravityPreset = .BottomRight
@@ -121,7 +119,6 @@ class ViewController: UIViewController {
 		
 		// To support orientation changes, use MaterialLayout.
 		view.addSubview(cardView)
-		cardView.translatesAutoresizingMaskIntoConstraints = false
 		MaterialLayout.alignFromTop(view, child: cardView, top: 100)
 		MaterialLayout.alignToParentHorizontally(view, child: cardView, left: 20, right: 20)
 	}
@@ -162,7 +159,6 @@ class ViewController: UIViewController {
 		
 		// To support orientation changes, use MaterialLayout.
 		view.addSubview(cardView)
-		cardView.translatesAutoresizingMaskIntoConstraints = false
 		MaterialLayout.alignFromTop(view, child: cardView, top: 100)
 		MaterialLayout.alignToParentHorizontally(view, child: cardView, left: 20, right: 20)
 	}
@@ -170,7 +166,6 @@ class ViewController: UIViewController {
 	private func prepareCardViewButtonBarExample() {
 		let cardView: CardView = CardView()
 		cardView.divider = false
-		cardView.pulseColor = nil
 		cardView.backgroundColor = MaterialColor.blueGrey.darken4
 		
 		// Search button.
@@ -203,7 +198,6 @@ class ViewController: UIViewController {
 		
 		// To support orientation changes, use MaterialLayout.
 		view.addSubview(cardView)
-		cardView.translatesAutoresizingMaskIntoConstraints = false
 		MaterialLayout.alignFromTop(view, child: cardView, top: 100)
 		MaterialLayout.alignToParentHorizontally(view, child: cardView, left: 20, right: 20)
 	}

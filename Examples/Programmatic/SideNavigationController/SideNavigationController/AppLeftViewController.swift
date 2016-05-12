@@ -76,7 +76,6 @@ class AppLeftViewController: UIViewController {
 		
 		// Use MaterialLayout to easily align the tableView.
 		view.addSubview(tableView)
-		tableView.translatesAutoresizingMaskIntoConstraints = false
 		MaterialLayout.alignToParent(view, child: tableView)
 	}
 }

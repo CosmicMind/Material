@@ -109,7 +109,6 @@ class ViewController: UIViewController {
 		tableView.registerClass(MaterialTableViewCell.self, forCellReuseIdentifier: "Cell")
 		tableView.dataSource = self
         tableView.delegate = self
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(tableView)
         

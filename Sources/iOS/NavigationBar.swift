@@ -30,6 +30,13 @@
 
 import UIKit
 
+/// NavigationBar styles.
+public enum NavigationBarStyle {
+	case Tiny
+	case Default
+	case Medium
+}
+
 public extension UINavigationBar {
 	/// Device status bar style.
 	public var statusBarStyle: UIStatusBarStyle {
@@ -44,6 +51,9 @@ public extension UINavigationBar {
 
 @IBDesignable
 public class NavigationBar : UINavigationBar {
+	/// NavigationBarStyle value.
+	public var navigationBarStyle: NavigationBarStyle = .Default
+	
 	/// Will render the view.
 	public var willRenderView: Bool {
 		return 0 < width
@@ -273,7 +283,14 @@ public class NavigationBar : UINavigationBar {
 	}
 	
 	public override func intrinsicContentSize() -> CGSize {
-		return CGSizeMake(MaterialDevice.width, 44)
+		switch navigationBarStyle {
+		case .Tiny:
+			return CGSizeMake(MaterialDevice.width, 32)
+		case .Default:
+			return CGSizeMake(MaterialDevice.width, 44)
+		case .Medium:
+			return CGSizeMake(MaterialDevice.width, 56)
+		}
 	}
 
 	public override func sizeThatFits(size: CGSize) -> CGSize {
@@ -302,41 +319,38 @@ public class NavigationBar : UINavigationBar {
 	*/
 	internal func layoutNavigationItem(item: UINavigationItem) {
 		if willRenderView {
-			if nil == item.titleView {
-				item.titleView = UIView(frame: CGRectZero)
-			}
+			prepareItem(item)
 			
-			if let titleView: UIView = item.titleView {
-				titleView.frame.origin = CGPointZero
-				titleView.frame.size = intrinsicContentSize()
-				titleView.grid.axis.columns = Int(width / 48)
-				
-				if nil == item.contentView {
-					item.contentView = UIView()
-				}
-				
-				if let contentView: UIView = item.contentView {
-					contentView.grid.columns = titleView.grid.axis.columns
-					
-					// Size of single grid column.
-					if let g: CGFloat = width / CGFloat(0 < titleView.grid.axis.columns ? titleView.grid.axis.columns : 1) {
+			if let titleView: UIView = prepareTitleView(item) {
+				if let contentView: UIView = prepareContentView(item) {
+					let factor: CGFloat = 24
+					if let grid: Int = Int(width / factor) {
+						let columns: Int = grid + 1
+
+						titleView.frame.origin = CGPointZero
+						titleView.frame.size = intrinsicContentSize()
 						titleView.grid.views = []
+						titleView.grid.axis.columns = columns
+						
+						contentView.grid.columns = columns
 						
 						// leftControls
 						if let v: Array<UIControl> = item.leftControls {
 							for c in v {
 								let w: CGFloat = c.intrinsicContentSize().width
-								if let b: UIButton = c as? UIButton {
-									b.contentEdgeInsets = UIEdgeInsetsZero
-								}
+								(c as? UIButton)?.contentEdgeInsets = UIEdgeInsetsZero
 								c.frame.size.height = titleView.frame.size.height - contentInset.top - contentInset.bottom
-								c.grid.columns = 0 == g ? 1 : Int(ceil(w / g))
+								
+								let q: Int = Int(w / factor)
+								c.grid.columns = q + 1
+								
 								contentView.grid.columns -= c.grid.columns
+								
 								titleView.addSubview(c)
 								titleView.grid.views?.append(c)
 							}
 						}
-						
+	
 						titleView.addSubview(contentView)
 						titleView.grid.views?.append(contentView)
 						
@@ -344,57 +358,53 @@ public class NavigationBar : UINavigationBar {
 						if let v: Array<UIControl> = item.rightControls {
 							for c in v {
 								let w: CGFloat = c.intrinsicContentSize().width
-								if let b: UIButton = c as? UIButton {
-									b.contentEdgeInsets = UIEdgeInsetsZero
-								}
+								(c as? UIButton)?.contentEdgeInsets = UIEdgeInsetsZero
 								c.frame.size.height = titleView.frame.size.height - contentInset.top - contentInset.bottom
-								c.grid.columns = 0 == g ? 1 : Int(ceil(w / g))
+								
+								let q: Int = Int(w / factor)
+								c.grid.columns = q + 1
+								
 								contentView.grid.columns -= c.grid.columns
+								
 								titleView.addSubview(c)
 								titleView.grid.views?.append(c)
 							}
 						}
-					}
-					
-					contentView.grid.views = []
-					
-					// contentView alignment.
-					if let title: String = item.title {
-						if let t: UILabel = item.titleLabel {
-							if "" != title {
-								t.text = title
-							}
-							item.title = ""
-							if "" != t.text {
-								t.grid.rows = 1
-								contentView.addSubview(t)
-								contentView.grid.views?.append(t)
-								
-								if let detail: String = item.detail {
-									if let d: UILabel = item.detailLabel {
-										t.font = t.font.fontWithSize(17)
-										
-										d.text = detail
-										d.grid.rows = 1
-										d.font = d.font.fontWithSize(12)
-										
-										contentView.addSubview(d)
-										contentView.grid.axis.rows = 2
-										contentView.grid.views?.append(d)
-									}
-								} else {
-									t.font = t.font?.fontWithSize(20)
-									contentView.grid.axis.rows = 1
+	
+						titleView.grid.contentInset = contentInset
+						titleView.grid.spacing = spacing
+						titleView.grid.reloadLayout()
+						
+						// contentView alignment.
+						if let titleLabel: UILabel = item.titleLabel {
+							if let _: String = titleLabel.text {
+								if nil == titleLabel.superview {
+									contentView.addSubview(titleLabel)
 								}
+								
+								if let detailLabel: UILabel = item.detailLabel {
+									if let _: String = detailLabel.text {
+										if nil == detailLabel.superview {
+											contentView.addSubview(detailLabel)
+										}
+										
+										titleLabel.sizeToFit()
+										detailLabel.sizeToFit()
+										let diff: CGFloat = (contentView.frame.height - titleLabel.frame.height - detailLabel.frame.height) / 2
+										titleLabel.frame.size.height += diff
+										detailLabel.frame.size.height += diff
+										detailLabel.frame.origin.y = titleLabel.frame.height
+									} else {
+										detailLabel.removeFromSuperview()
+										titleLabel.frame = contentView.bounds
+									}
+								}
+							} else {
+								titleLabel.removeFromSuperview()
+								contentView.grid.reloadLayout()
 							}
 						}
 					}
-					
-					titleView.grid.contentInset = contentInset
-					titleView.grid.spacing = spacing
-					titleView.grid.reloadLayout()
-					contentView.grid.axis.direction = .Vertical
-					contentView.grid.reloadLayout()
 				}
 			}
 		}
@@ -426,5 +436,27 @@ public class NavigationBar : UINavigationBar {
 		let image: UIImage? = UIImage.imageWithColor(MaterialColor.clear, size: CGSizeMake(1, 1))
 		shadowImage = image
 		setBackgroundImage(image, forBarMetrics: .Default)
+	}
+	
+	/// Prepares the item.
+	private func prepareItem(item: UINavigationItem) {
+		item.title = ""
+	}
+	
+	/// Prepare the titleView.
+	private func prepareTitleView(item: UINavigationItem) -> UIView {
+		if nil == item.titleView {
+			item.titleView = UIView(frame: CGRectZero)
+		}
+		return item.titleView!
+	}
+	
+	/// Prepare the contentView.
+	private func prepareContentView(item: UINavigationItem) -> UIView {
+		if nil == item.contentView {
+			item.contentView = UIView(frame: CGRectZero)
+		}
+		item.contentView!.grid.axis.direction = .Vertical
+		return item.contentView!
 	}
 }

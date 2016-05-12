@@ -44,7 +44,6 @@ class RootViewController: UIViewController {
 		fabButton.addTarget(self, action: #selector(handleFabButton), forControlEvents: .TouchUpInside)
 		
 		view.addSubview(fabButton)
-		fabButton.translatesAutoresizingMaskIntoConstraints = false
 		MaterialLayout.alignFromBottomRight(view, child: fabButton, bottom: 16, right: 16)
 		MaterialLayout.size(view, child: fabButton, width: 64, height: 64)
     }
