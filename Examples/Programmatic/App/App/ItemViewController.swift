@@ -122,11 +122,9 @@ class ItemViewController: UIViewController {
 	/// Prepares the navigationItem.
 	private func prepareNavigationItem() {
 		navigationItem.titleLabel.text = "Item"
-		navigationItem.titleLabel.textAlignment = .Left
 		navigationItem.titleLabel.textColor = MaterialColor.white
 		
 		navigationItem.detailLabel.text = "January 22, 2016"
-		navigationItem.detailLabel.textAlignment = .Left
 		navigationItem.detailLabel.textColor = MaterialColor.white
 		
 		navigationItem.rightControls = [shareButton]

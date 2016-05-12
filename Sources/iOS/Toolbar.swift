@@ -52,9 +52,12 @@ public class Toolbar : StatusBarView {
 					
 					titleLabel.sizeToFit()
 					detailLabel.sizeToFit()
+					
 					let diff: CGFloat = (contentView.frame.height - titleLabel.frame.height - detailLabel.frame.height) / 2
 					titleLabel.frame.size.height += diff
+					titleLabel.frame.size.width = contentView.frame.width
 					detailLabel.frame.size.height += diff
+					detailLabel.frame.size.width = contentView.frame.width
 					detailLabel.frame.origin.y = titleLabel.frame.height
 				} else {
 					detailLabel.removeFromSuperview()
