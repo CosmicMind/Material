@@ -57,18 +57,12 @@ class ViewController: UIViewController {
 		toolbar = Toolbar()
 		
 		// Title label.
-		let titleLabel: UILabel = UILabel()
-		titleLabel.text = "Material"
-		titleLabel.textAlignment = .Left
-		titleLabel.textColor = MaterialColor.white
-		titleLabel.font = RobotoFont.regular
+		toolbar.titleLabel.text = "Material"
+		toolbar.titleLabel.textColor = MaterialColor.white
 		
 		// Detail label.
-		let detailLabel: UILabel = UILabel()
-		detailLabel.text = "Build Beautiful Software"
-		detailLabel.textAlignment = .Left
-		detailLabel.textColor = MaterialColor.white
-		detailLabel.font = RobotoFont.regular
+		toolbar.detailLabel.text = "Build Beautiful Software"
+		toolbar.detailLabel.textColor = MaterialColor.white
 		
 		var image: UIImage? = MaterialIcon.cm.menu
 
@@ -97,8 +91,6 @@ class ViewController: UIViewController {
 		*/
 		toolbar.statusBarStyle = .LightContent
 		toolbar.backgroundColor = MaterialColor.blue.base
-		toolbar.titleLabel = titleLabel
-		toolbar.detailLabel = detailLabel
 		toolbar.leftControls = [menuButton]
 		toolbar.rightControls = [switchControl, searchButton]
 		

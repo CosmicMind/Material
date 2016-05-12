@@ -11,8 +11,6 @@
 		96F2F1F51C97A60800A5FE27 /* AppSearchBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F2F1EC1C97A60800A5FE27 /* AppSearchBarController.swift */; };
 		96F2F1F61C97A60800A5FE27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96F2F1ED1C97A60800A5FE27 /* Assets.xcassets */; };
 		96F2F1F71C97A60800A5FE27 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96F2F1EE1C97A60800A5FE27 /* LaunchScreen.storyboard */; };
-		96F2F1F81C97A60800A5FE27 /* BlueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F2F1F01C97A60800A5FE27 /* BlueViewController.swift */; };
-		96F2F1F91C97A60800A5FE27 /* GreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F2F1F11C97A60800A5FE27 /* GreenViewController.swift */; };
 		96F2F1FB1C97A60800A5FE27 /* YellowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F2F1F31C97A60800A5FE27 /* YellowViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -35,8 +33,6 @@
 		96F2F1EC1C97A60800A5FE27 /* AppSearchBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSearchBarController.swift; sourceTree = "<group>"; };
 		96F2F1ED1C97A60800A5FE27 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		96F2F1EF1C97A60800A5FE27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		96F2F1F01C97A60800A5FE27 /* BlueViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueViewController.swift; sourceTree = "<group>"; };
-		96F2F1F11C97A60800A5FE27 /* GreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreenViewController.swift; sourceTree = "<group>"; };
 		96F2F1F21C97A60800A5FE27 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96F2F1F31C97A60800A5FE27 /* YellowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -73,8 +69,6 @@
 			children = (
 				96F2F1EB1C97A60800A5FE27 /* AppDelegate.swift */,
 				96F2F1EC1C97A60800A5FE27 /* AppSearchBarController.swift */,
-				96F2F1F01C97A60800A5FE27 /* BlueViewController.swift */,
-				96F2F1F11C97A60800A5FE27 /* GreenViewController.swift */,
 				96F2F1F31C97A60800A5FE27 /* YellowViewController.swift */,
 				96F2F1ED1C97A60800A5FE27 /* Assets.xcassets */,
 				96F2F1EE1C97A60800A5FE27 /* LaunchScreen.storyboard */,
@@ -154,9 +148,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96F2F1F91C97A60800A5FE27 /* GreenViewController.swift in Sources */,
 				96F2F1F51C97A60800A5FE27 /* AppSearchBarController.swift in Sources */,
-				96F2F1F81C97A60800A5FE27 /* BlueViewController.swift in Sources */,
 				96F2F1F41C97A60800A5FE27 /* AppDelegate.swift in Sources */,
 				96F2F1FB1C97A60800A5FE27 /* YellowViewController.swift in Sources */,
 			);

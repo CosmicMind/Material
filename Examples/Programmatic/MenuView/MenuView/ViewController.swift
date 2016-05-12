@@ -85,7 +85,6 @@ class ViewController: UIViewController {
 		let btn1: FabButton = FabButton()
 		btn1.depth = .None
 		btn1.tintColor = MaterialColor.blue.accent3
-		btn1.pulseColor = nil
 		btn1.borderColor = MaterialColor.blue.accent3
 		btn1.backgroundColor = MaterialColor.white
 		btn1.borderWidth = 1
@@ -139,7 +138,6 @@ class ViewController: UIViewController {
 		menuView.menu.views = [btn1, btn2, btn3, btn4]
 		
 		view.addSubview(menuView)
-		menuView.translatesAutoresizingMaskIntoConstraints = false
 		MaterialLayout.size(view, child: menuView, width: diameter, height: diameter)
 		MaterialLayout.alignFromBottomLeft(view, child: menuView, bottom: 16, left: (view.bounds.width - diameter) / 2)
 	}

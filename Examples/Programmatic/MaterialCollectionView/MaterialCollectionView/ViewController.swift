@@ -87,7 +87,6 @@ class ViewController: UIViewController {
 		
 		// Use MaterialLayout to easily align the tableView.
 		view.addSubview(collectionView)
-		collectionView.translatesAutoresizingMaskIntoConstraints = false
 		MaterialLayout.alignToParent(view, child: collectionView)
 	}
 }

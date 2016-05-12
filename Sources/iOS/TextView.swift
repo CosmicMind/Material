@@ -479,7 +479,6 @@ public class TextView: UITextView {
 	/// prepares the placeholderLabel property.
 	private func preparePlaceholderLabel() {
 		if let v: UILabel = placeholderLabel {
-			v.translatesAutoresizingMaskIntoConstraints = false
 			v.font = font
 			v.textAlignment = textAlignment
 			v.numberOfLines = 0

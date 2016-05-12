@@ -43,31 +43,6 @@ class AppSearchBarController: SearchBarController {
 		prepareSearchBar()
 	}
 	
-	/// Loads the BlueViewController into the searchBarControllers rootViewController.
-	func handleBlueButton() {
-		if rootViewController is BlueViewController {
-			return
-		}
-		transitionFromRootViewController(BlueViewController(), options: [.TransitionCrossDissolve])
-	}
-	
-	/// Loads the GreenViewController into the searchBarControllers rootViewController.
-	func handleGreenButton() {
-		if rootViewController is GreenViewController {
-			return
-		}
-		transitionFromRootViewController(GreenViewController(), options: [.TransitionCrossDissolve])
-	}
-	
-	/// Loads the YellowViewController into the searchBarControllers rootViewController.
-	func handleYellowButton() {
-		if (rootViewController as? ToolbarController)?.rootViewController is YellowViewController {
-			return
-		}
-		transitionFromRootViewController(YellowViewController(), options: [.TransitionCrossDissolve])
-		searchBar.textField.resignFirstResponder()
-	}
-	
 	/// Prepares view.
 	override func prepareView() {
 		super.prepareView()
@@ -83,7 +58,6 @@ class AppSearchBarController: SearchBarController {
 		backButton.tintColor = MaterialColor.blueGrey.darken4
 		backButton.setImage(image, forState: .Normal)
 		backButton.setImage(image, forState: .Highlighted)
-		backButton.addTarget(self, action: #selector(handleBlueButton), forControlEvents: .TouchUpInside)
 		
 		// More button.
 		image = MaterialIcon.cm.moreHorizontal
@@ -91,7 +65,6 @@ class AppSearchBarController: SearchBarController {
 		moreButton.tintColor = MaterialColor.blueGrey.darken4
 		moreButton.setImage(image, forState: .Normal)
 		moreButton.setImage(image, forState: .Highlighted)
-		moreButton.addTarget(self, action: #selector(handleGreenButton), forControlEvents: .TouchUpInside)
 		
 		/*
 		To lighten the status bar - add the

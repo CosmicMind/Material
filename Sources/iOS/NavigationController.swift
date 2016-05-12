@@ -114,15 +114,21 @@ public class NavigationController : UINavigationController, UIGestureRecognizerD
 	*/
 	public func navigationBar(navigationBar: UINavigationBar, shouldPushItem item: UINavigationItem) -> Bool {
 		if let v: NavigationBar = navigationBar as? NavigationBar {
-			item.setHidesBackButton(true, animated: false)
+			let backButton: IconButton = IconButton()
+			backButton.pulseColor = MaterialColor.white
+			backButton.setImage(v.backButtonImage, forState: .Normal)
+			backButton.setImage(v.backButtonImage, forState: .Highlighted)
+			backButton.addTarget(self, action: #selector(handleBackButton), forControlEvents: .TouchUpInside)
+			
 			if var c: Array<UIControl> = item.leftControls {
-				c.append(v.backButton)
+				c.append(backButton)
 				item.leftControls = c
 			} else {
-				item.leftControls = [v.backButton]
+				item.leftControls = [backButton]
 			}
-			v.backButton.removeTarget(self, action: #selector(handleBackButton), forControlEvents: .TouchUpInside)
-			v.backButton.addTarget(self, action: #selector(handleBackButton), forControlEvents: .TouchUpInside)
+			
+			item.backButton = backButton
+			item.hidesBackButton = true
 			v.layoutNavigationItem(item)
 		}
 		return true

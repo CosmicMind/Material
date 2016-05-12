@@ -59,14 +59,9 @@ class AppToolbarController: ToolbarController {
 		view.backgroundColor = MaterialColor.black
 	}
 	
-	/// Toggle SideNavigationController left UIViewController.
-	internal func handleMenuButton() {
-		transitionFromRootViewController(GreenViewController(), options: [.TransitionCrossDissolve])
-	}
-	
 	/// Toggle SideNavigationController right UIViewController.
 	internal func handleSearchButton() {
-		floatingViewController = BlueViewController()
+		floatingViewController = GreenViewController()
 		
 		MaterialAnimation.delay(1.5) { [weak self] in
 			// Removes the ViewController from the view stack.
@@ -77,32 +72,28 @@ class AppToolbarController: ToolbarController {
 	/// Prepares the toolbar.
 	private func prepareToolbar() {
 		// Title label.
-		let titleLabel: UILabel = UILabel()
-		titleLabel.text = "Material"
-		titleLabel.textAlignment = .Left
-		titleLabel.textColor = MaterialColor.white
-		titleLabel.font = RobotoFont.regular
+		toolbar.titleLabel.text = "Material"
+		toolbar.titleLabel.textAlignment = .Left
+		toolbar.titleLabel.textColor = MaterialColor.white
+		toolbar.titleLabel.font = RobotoFont.regular
 		
 		// Detail label. Uncomment the code below to use a detail label.
-		//		let detailLabel: UILabel = UILabel()
-		//		detailLabel.text = "Build Beautiful Software"
-		//		detailLabel.textAlignment = .Left
-		//		detailLabel.textColor = MaterialColor.white
-		//		detailLabel.font = RobotoFont.regular
-		//		toolbar.detailLabel = detailLabel
+		//		toolbar.detailLabel.text = "Build Beautiful Software"
+		//		toolbar.detailLabel.textAlignment = .Left
+		//		toolbar.detailLabel.textColor = MaterialColor.white
+		//		toolbar.detailLabel.font = RobotoFont.regular
 		
 		var image: UIImage? = MaterialIcon.cm.menu
 		
 		// Menu button.
 		let menuButton: IconButton = IconButton()
 		menuButton.tintColor = MaterialColor.white
+		menuButton.pulseColor = MaterialColor.white
 		menuButton.setImage(image, forState: .Normal)
 		menuButton.setImage(image, forState: .Highlighted)
-		menuButton.addTarget(self, action: #selector(handleMenuButton), forControlEvents: .TouchUpInside)
 		
 		// Switch control.
 		let switchControl: MaterialSwitch = MaterialSwitch(state: .Off, style: .LightContent, size: .Small)
-		switchControl.delegate = self
 		
 		// Search button.
 		image = MaterialIcon.cm.search
@@ -112,16 +103,8 @@ class AppToolbarController: ToolbarController {
 		searchButton.setImage(image, forState: .Highlighted)
 		searchButton.addTarget(self, action: #selector(handleSearchButton), forControlEvents: .TouchUpInside)
 		
-		toolbar.backgroundColor = MaterialColor.blue.base
-		toolbar.titleLabel = titleLabel
 		toolbar.leftControls = [menuButton]
 		toolbar.rightControls = [switchControl, searchButton]
+		toolbar.backgroundColor = MaterialColor.blue.base
 	}
 }
-
-extension AppToolbarController: MaterialSwitchDelegate {
-	func materialSwitchStateChanged(control: MaterialSwitch) {
-		transitionFromRootViewController(YellowViewController(), options: [.TransitionCrossDissolve])
-	}
-}
-

@@ -136,7 +136,6 @@ class AppMenuViewController: MenuViewController {
 		menuView.menu.views = [btn1, btn2, btn3, btn4]
 		
 		view.addSubview(menuView)
-		menuView.translatesAutoresizingMaskIntoConstraints = false
 		MaterialLayout.size(view, child: menuView, width: baseViewSize.width, height: baseViewSize.height)
 		MaterialLayout.alignFromBottomRight(view, child: menuView, bottom: menuViewInset, right: menuViewInset)
 	}

@@ -349,6 +349,10 @@ public class MaterialButton : UIButton {
 		}
 	}
 	
+	public override func alignmentRectInsets() -> UIEdgeInsets {
+		return UIEdgeInsetsZero
+	}
+	
 	/**
 	A method that accepts CAAnimation objects and executes them on the
 	view's backing layer.

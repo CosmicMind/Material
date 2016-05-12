@@ -60,7 +60,7 @@ class ViewController: UIViewController {
 		let detailLabel: UILabel = UILabel()
 		detailLabel.text = "It’s been a while, have you read any new books lately?"
 		detailLabel.numberOfLines = 0
-		topCardView.detailView = detailLabel
+		topCardView.contentView = detailLabel
 		
 		// Yes button.
 		let btn1: FlatButton = FlatButton()
@@ -91,7 +91,7 @@ class ViewController: UIViewController {
 		let detailLabel: UILabel = UILabel()
 		detailLabel.text = "It’s been a while, have you read any new books lately?"
 		detailLabel.numberOfLines = 0
-		bottomCardView.detailView = detailLabel
+		bottomCardView.contentView = detailLabel
 		
 		// Yes button.
 		let btn1: FlatButton = FlatButton()

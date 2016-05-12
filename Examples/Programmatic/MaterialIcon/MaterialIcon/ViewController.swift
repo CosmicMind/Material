@@ -29,7 +29,7 @@
 */
 
 /*
-The following is an example of setting a UITableView as the detailView for a
+The following is an example of setting a UITableView as the contentView for a
 CardView.
 */
 
@@ -109,7 +109,6 @@ class ViewController: UIViewController {
 		tableView.registerClass(MaterialTableViewCell.self, forCellReuseIdentifier: "Cell")
 		tableView.dataSource = self
         tableView.delegate = self
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(tableView)
         

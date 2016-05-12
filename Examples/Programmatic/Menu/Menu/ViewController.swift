@@ -128,7 +128,6 @@ class ViewController: UIViewController {
 	private func prepareFabMenuExample() {
 		var image: UIImage? = UIImage(named: "ic_add_white")
 		let btn1: FabButton = FabButton()
-		btn1.pulseColor = nil
 		btn1.setImage(image, forState: .Normal)
 		btn1.setImage(image, forState: .Highlighted)
 		btn1.addTarget(self, action: #selector(handleFabMenu), forControlEvents: .TouchUpInside)

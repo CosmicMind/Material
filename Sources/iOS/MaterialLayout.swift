@@ -31,35 +31,27 @@
 import UIKit
 
 public struct MaterialLayout {
-	/**
-	:name:	width
-	*/
+	/// Width
 	public static func width(parent: UIView, child: UIView, width: CGFloat = 0, options: NSLayoutFormatOptions = []) {
 		let metrics: Dictionary<String, AnyObject> = ["width" : width]
 		let views: Dictionary<String, AnyObject> = ["child" : child]
 		parent.addConstraints(constraint("H:[child(width)]", options: options, metrics: metrics, views: views))
 	}
 	
-	/**
-	:name:	height
-	*/
+	/// Height
 	public static func height(parent: UIView, child: UIView, height: CGFloat = 0, options: NSLayoutFormatOptions = []) {
 		let metrics: Dictionary<String, AnyObject> = ["height" : height]
 		let views: Dictionary<String, AnyObject> = ["child" : child]
 		parent.addConstraints(constraint("V:[child(height)]", options: options, metrics: metrics, views: views))
 	}
 	
-	/**
-	:name:	size
-	*/
+	/// Size
 	public static func size(parent: UIView, child: UIView, width: CGFloat = 0, height: CGFloat = 0, options: NSLayoutFormatOptions = []) {
 		MaterialLayout.width(parent, child: child, width: width)
 		MaterialLayout.height(parent, child: child, height: height)
 	}
 	
-	/**
-	:name:	alignToParentHorizontally
-	*/
+	/// AlignToParentHorizontally
 	public static func alignToParentHorizontally(parent: UIView, children: Array<UIView>, left: CGFloat = 0, right: CGFloat = 0, spacing: CGFloat = 0, options: NSLayoutFormatOptions = []) {
 		if 0 < children.count {
 			var format: String = "H:|-(left)-"
@@ -75,9 +67,7 @@ public struct MaterialLayout {
 		}
 	}
 	
-	/**
-	:name:	alignToParentVertically
-	*/
+	/// AlignToParentVertically
 	public static func alignToParentVertically(parent: UIView, children: Array<UIView>, top: CGFloat = 0, bottom: CGFloat = 0, spacing: CGFloat = 0, options: NSLayoutFormatOptions = []) {
 		if 0 < children.count {
 			var format: String = "V:|-(top)-"
@@ -93,92 +83,73 @@ public struct MaterialLayout {
 		}
 	}
 	
-	/**
-	:name:	alignToParentHorizontally
-	*/
+	/// AlignToParentHorizontally
 	public static func alignToParentHorizontally(parent: UIView, child: UIView, left: CGFloat = 0, right: CGFloat = 0, options: NSLayoutFormatOptions = []) {
 		parent.addConstraints(constraint("H:|-(left)-[child]-(right)-|", options: options, metrics: ["left": left, "right": right], views: ["child" : child]))
 	}
 	
-	/**
-	:name:	alignToParentVertically
-	*/
+	/// AlignToParentVertically
 	public static func alignToParentVertically(parent: UIView, child: UIView, top: CGFloat = 0, bottom: CGFloat = 0, options: NSLayoutFormatOptions = []) {
 		parent.addConstraints(constraint("V:|-(top)-[child]-(bottom)-|", options: options, metrics: ["bottom": bottom, "top": top], views: ["child" : child]))
 	}
 	
-	/**
-	:name:	alignToParent
-	*/
+	/// AlignToParent
 	public static func alignToParent(parent: UIView, child: UIView, top: CGFloat = 0, left: CGFloat = 0, bottom: CGFloat = 0, right: CGFloat = 0, options: NSLayoutFormatOptions = []) {
 		alignToParentHorizontally(parent, child: child, left: left, right: right)
 		alignToParentVertically(parent, child: child, top: top, bottom: bottom)
 	}
 	
-	/**
-	:name:	alignFromTopLeft
-	*/
+	/// AlignFromTopLeft
 	public static func alignFromTopLeft(parent: UIView, child: UIView, top: CGFloat = 0, left: CGFloat = 0, options: NSLayoutFormatOptions = []) {
 		alignFromTop(parent, child: child, top: top)
 		alignFromLeft(parent, child: child, left: left)
 	}
 	
-	/**
-	:name:	alignFromTopRight
-	*/
+	/// AlignFromTopRight
 	public static func alignFromTopRight(parent: UIView, child: UIView, top: CGFloat = 0, right: CGFloat = 0, options: NSLayoutFormatOptions = []) {
 		alignFromTop(parent, child: child, top: top)
 		alignFromRight(parent, child: child, right: right)
 	}
 	
-	/**
-	:name:	alignFromBottomLeft
-	*/
+	/// AlignFromBottomLeft
 	public static func alignFromBottomLeft(parent: UIView, child: UIView, bottom: CGFloat = 0, left: CGFloat = 0, options: NSLayoutFormatOptions = []) {
 		alignFromBottom(parent, child: child, bottom: bottom)
 		alignFromLeft(parent, child: child, left: left)
 	}
 	
-	/**
-	:name:	alignFromBottomRight
-	*/
+	/// AlignFromBottomRight
 	public static func alignFromBottomRight(parent: UIView, child: UIView, bottom: CGFloat = 0, right: CGFloat = 0, options: NSLayoutFormatOptions = []) {
 		alignFromBottom(parent, child: child, bottom: bottom)
 		alignFromRight(parent, child: child, right: right)
 	}
 	
-	/**
-	:name:	alignFromTop
-	*/
+	/// AlignFromTop
 	public static func alignFromTop(parent: UIView, child: UIView, top: CGFloat = 0, options: NSLayoutFormatOptions = []) {
 		parent.addConstraints(constraint("V:|-(top)-[child]", options: options, metrics: ["top" : top], views: ["child" : child]))
 	}
 	
-	/**
-	:name:	alignFromLeft
-	*/
+	/// AlignFromLeft
 	public static func alignFromLeft(parent: UIView, child: UIView, left: CGFloat = 0, options: NSLayoutFormatOptions = []) {
 		parent.addConstraints(constraint("H:|-(left)-[child]", options: options, metrics: ["left" : left], views: ["child" : child]))
 	}
 	
-	/**
-	:name:	alignFromBottom
-	*/
+	/// AlignFromBottom
 	public static func alignFromBottom(parent: UIView, child: UIView, bottom: CGFloat = 0, options: NSLayoutFormatOptions = []) {
 		parent.addConstraints(constraint("V:[child]-(bottom)-|", options: options, metrics: ["bottom" : bottom], views: ["child" : child]))
 	}
 	
-	/**
-	:name:	alignFromRight
-	*/
+	/// AlignFromRight
 	public static func alignFromRight(parent: UIView, child: UIView, right: CGFloat = 0, options: NSLayoutFormatOptions = []) {
 		parent.addConstraints(constraint("H:[child]-(right)-|", options: options, metrics: ["right" : right], views: ["child" : child]))
 	}
 	
-	/**
-	:name:	constraint
-	*/
+	/// Constraint
 	public static func constraint(format: String, options: NSLayoutFormatOptions, metrics: Dictionary<String, AnyObject>?, views: Dictionary<String, AnyObject>) -> Array<NSLayoutConstraint> {
+		for (_, a) in views {
+			if let v: UIView = a as? UIView {
+				v.translatesAutoresizingMaskIntoConstraints = false
+			}
+		}
 		return NSLayoutConstraint.constraintsWithVisualFormat(
 			format,
 			options: options,

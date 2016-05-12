@@ -65,7 +65,6 @@ class ViewController: UIViewController, TextFieldDelegate {
 	/// Prepares the resign responder button.
 	private func prepareResignResponderButton() {
 		let btn: RaisedButton = RaisedButton()
-		btn.translatesAutoresizingMaskIntoConstraints = false
 		btn.addTarget(self, action: #selector(handleResignResponderButton), forControlEvents: .TouchUpInside)
 		btn.setTitle("Resign", forState: .Normal)
 		btn.setTitleColor(MaterialColor.blue.base, forState: .Normal)
@@ -93,8 +92,6 @@ class ViewController: UIViewController, TextFieldDelegate {
 		nameField.textAlignment = .Center
 		nameField.clearButtonMode = .WhileEditing
 		
-		// The translatesAutoresizingMaskIntoConstraints property must be set to enable AutoLayout correctly.
-		nameField.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(nameField)
 		
 		// Size the TextField to the maximum width, less 40 pixels on either side
@@ -129,8 +126,6 @@ class ViewController: UIViewController, TextFieldDelegate {
 		// Setting the visibilityFlatButton color.
 		passwordField.visibilityIconButton?.tintColor = MaterialColor.green.base.colorWithAlphaComponent(passwordField.secureTextEntry ? 0.38 : 0.54)
 		
-		// The translatesAutoresizingMaskIntoConstraints property must be set to enable AutoLayout correctly.
-		passwordField.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(passwordField)
 		
 		// Size the TextField to the maximum width, less 40 pixels on either side

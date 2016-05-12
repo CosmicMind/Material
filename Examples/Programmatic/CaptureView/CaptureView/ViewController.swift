@@ -224,7 +224,6 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 		view.addSubview(captureView)
 		captureView.tapToFocusEnabled = true
 		captureView.tapToExposeEnabled = true
-		captureView.translatesAutoresizingMaskIntoConstraints = false
 		captureView.delegate = self
 		captureView.captureSession.delegate = self
 		MaterialLayout.alignToParent(view, child: captureView)
@@ -283,7 +282,6 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 		let img4: UIImage? = UIImage(named: "ic_photo_camera_white_36pt")
 		cameraButton.width = 72
 		cameraButton.height = 72
-		cameraButton.pulseColor = nil
 		cameraButton.setImage(img4, forState: .Normal)
 		cameraButton.setImage(img4, forState: .Highlighted)
 		
@@ -297,7 +295,6 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 		let img5: UIImage? = UIImage(named: "ic_videocam_white_36pt")
 		videoButton.width = 72
 		videoButton.height = 72
-		videoButton.pulseColor = nil
 		videoButton.setImage(img5, forState: .Normal)
 		videoButton.setImage(img5, forState: .Highlighted)
 		
@@ -309,7 +306,6 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 	*/
 	private func prepareSwitchCamerasButton() {
 		let img: UIImage? = UIImage(named: "ic_camera_front_white")
-		switchCamerasButton.pulseColor = nil
 		switchCamerasButton.setImage(img, forState: .Normal)
 		switchCamerasButton.setImage(img, forState: .Highlighted)
 		
@@ -321,7 +317,6 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 	*/
 	private func prepareFlashButton() {
 		let img: UIImage? = UIImage(named: "ic_flash_auto_white")
-		flashButton.pulseColor = nil
 		flashButton.setImage(img, forState: .Normal)
 		flashButton.setImage(img, forState: .Highlighted)
 		

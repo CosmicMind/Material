@@ -71,7 +71,6 @@ class RecommendationViewController: UIViewController {
 		
 		// Use MaterialLayout to easily align the tableView.
 		view.addSubview(tableView)
-		tableView.translatesAutoresizingMaskIntoConstraints = false
 		MaterialLayout.alignToParent(view, child: tableView)
 	}
 }
@@ -118,7 +117,6 @@ extension RecommendationViewController: UITableViewDataSource {
 		label.text = "Recommendations"
 		
 		header.addSubview(label)
-		label.translatesAutoresizingMaskIntoConstraints = false
 		MaterialLayout.alignToParent(header, child: label, left: 24)
 		
 		return header

@@ -53,28 +53,24 @@ class ViewController: UIViewController {
 	/// Layout views horizontally with equal width.
 	private func prepareAlignToParentHorizontallyExample() {
 		let label1: UILabel = UILabel()
-		label1.translatesAutoresizingMaskIntoConstraints = false
 		label1.backgroundColor = MaterialColor.red.base
 		label1.text = "A"
 		label1.textAlignment = .Center
 		view.addSubview(label1)
 		
 		let label2: UILabel = UILabel()
-		label2.translatesAutoresizingMaskIntoConstraints = false
 		label2.backgroundColor = MaterialColor.green.base
 		label2.text = "B"
 		label2.textAlignment = .Center
 		view.addSubview(label2)
 		
 		let label3: UILabel = UILabel()
-		label3.translatesAutoresizingMaskIntoConstraints = false
 		label3.backgroundColor = MaterialColor.blue.base
 		label3.text = "C"
 		label3.textAlignment = .Center
 		view.addSubview(label3)
 		
 		let label4: UILabel = UILabel()
-		label4.translatesAutoresizingMaskIntoConstraints = false
 		label4.backgroundColor = MaterialColor.yellow.base
 		label4.text = "D"
 		label4.textAlignment = .Center
@@ -103,28 +99,24 @@ class ViewController: UIViewController {
 	/// Layout views vertically with equal height.
 	private func prepareAlignToParentVerticallyExample() {
 		let label1: UILabel = UILabel()
-		label1.translatesAutoresizingMaskIntoConstraints = false
 		label1.backgroundColor = MaterialColor.red.base
 		label1.text = "A"
 		label1.textAlignment = .Center
 		view.addSubview(label1)
 		
 		let label2: UILabel = UILabel()
-		label2.translatesAutoresizingMaskIntoConstraints = false
 		label2.backgroundColor = MaterialColor.green.base
 		label2.text = "B"
 		label2.textAlignment = .Center
 		view.addSubview(label2)
 		
 		let label3: UILabel = UILabel()
-		label3.translatesAutoresizingMaskIntoConstraints = false
 		label3.backgroundColor = MaterialColor.blue.base
 		label3.text = "C"
 		label3.textAlignment = .Center
 		view.addSubview(label3)
 		
 		let label4: UILabel = UILabel()
-		label4.translatesAutoresizingMaskIntoConstraints = false
 		label4.backgroundColor = MaterialColor.yellow.base
 		label4.text = "D"
 		label4.textAlignment = .Center

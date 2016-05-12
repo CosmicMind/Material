@@ -65,7 +65,7 @@ class ViewController: UIViewController {
 		let detailLabel: UILabel = UILabel()
 		detailLabel.text = "It’s been a while, have you read any new books lately?"
 		detailLabel.numberOfLines = 0
-		imageCardView.detailView = detailLabel
+		imageCardView.contentView = detailLabel
 		
 		// Yes button.
 		let btn1: FlatButton = FlatButton()
@@ -84,7 +84,6 @@ class ViewController: UIViewController {
 		
 		// To support orientation changes, use MaterialLayout.
 		view.addSubview(imageCardView)
-		imageCardView.translatesAutoresizingMaskIntoConstraints = false
 		MaterialLayout.alignFromTop(view, child: imageCardView, top: 100)
 		MaterialLayout.alignToParentHorizontally(view, child: imageCardView, left: 20, right: 20)
 	}
@@ -134,7 +133,6 @@ class ViewController: UIViewController {
 		
 		// To support orientation changes, use MaterialLayout.
 		view.addSubview(imageCardView)
-		imageCardView.translatesAutoresizingMaskIntoConstraints = false
 		MaterialLayout.alignFromTop(view, child: imageCardView, top: 100)
 		MaterialLayout.alignToParentHorizontally(view, child: imageCardView, left: 20, right: 20)
 	}

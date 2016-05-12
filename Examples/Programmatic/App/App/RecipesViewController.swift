@@ -54,7 +54,6 @@ class RecipesViewController: UIViewController {
 		super.viewDidLoad()
 		prepareView()
 		prepareItems()
-		prepareTitleLabel()
 		prepareMenuButton()
 		prepareSwitchControl()
 		prepareSearchButton()
@@ -218,14 +217,6 @@ class RecipesViewController: UIViewController {
 		view.backgroundColor = MaterialColor.white
 	}
 	
-	/// Prepares the titleLabel.
-	private func prepareTitleLabel() {
-		titleLabel = UILabel()
-		titleLabel.text = "Recipes"
-		titleLabel.textAlignment = .Left
-		titleLabel.textColor = MaterialColor.white
-	}
-	
 	/// Prepares the menuButton.
 	private func prepareMenuButton() {
 		let image: UIImage? = MaterialIcon.cm.menu
@@ -253,7 +244,10 @@ class RecipesViewController: UIViewController {
 	
 	/// Prepares the navigationItem.
 	private func prepareNavigationItem() {
-		navigationItem.titleLabel = titleLabel
+		navigationItem.titleLabel.text = "Recipes"
+		navigationItem.titleLabel.textColor = MaterialColor.white
+		navigationItem.titleLabel.font = RobotoFont.mediumWithSize(20)
+		
 		navigationItem.leftControls = [menuButton]
 		navigationItem.rightControls = [switchControl, searchButton]
 	}
@@ -267,7 +261,6 @@ class RecipesViewController: UIViewController {
 		
 		// Use MaterialLayout to easily align the tableView.
 		view.addSubview(tableView)
-		tableView.translatesAutoresizingMaskIntoConstraints = false
 		MaterialLayout.alignToParent(view, child: tableView)
 	}
 }
@@ -314,7 +307,6 @@ extension RecipesViewController: UITableViewDataSource {
 		label.text = "Favorites"
 		
 		header.addSubview(label)
-		label.translatesAutoresizingMaskIntoConstraints = false
 		MaterialLayout.alignToParent(header, child: label, left: 24)
 		
 		return header

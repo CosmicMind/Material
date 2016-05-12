@@ -7,12 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9692C92A1CE44C0C008C2766 /* GreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9692C9281CE44C0C008C2766 /* GreenViewController.swift */; };
 		96F2F1D61C97A55B00A5FE27 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F2F1CD1C97A55B00A5FE27 /* AppDelegate.swift */; };
 		96F2F1D71C97A55B00A5FE27 /* AppToolbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F2F1CE1C97A55B00A5FE27 /* AppToolbarController.swift */; };
 		96F2F1D81C97A55B00A5FE27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96F2F1CF1C97A55B00A5FE27 /* Assets.xcassets */; };
 		96F2F1D91C97A55B00A5FE27 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96F2F1D01C97A55B00A5FE27 /* LaunchScreen.storyboard */; };
-		96F2F1DA1C97A55B00A5FE27 /* BlueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F2F1D21C97A55B00A5FE27 /* BlueViewController.swift */; };
-		96F2F1DB1C97A55B00A5FE27 /* GreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F2F1D31C97A55B00A5FE27 /* GreenViewController.swift */; };
 		96F2F1DD1C97A55B00A5FE27 /* YellowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F2F1D51C97A55B00A5FE27 /* YellowViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -30,13 +29,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9692C9281CE44C0C008C2766 /* GreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreenViewController.swift; sourceTree = "<group>"; };
 		96A71FC01C765FDF00C0C4AE /* ToolbarController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToolbarController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96F2F1CD1C97A55B00A5FE27 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96F2F1CE1C97A55B00A5FE27 /* AppToolbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppToolbarController.swift; sourceTree = "<group>"; };
 		96F2F1CF1C97A55B00A5FE27 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		96F2F1D11C97A55B00A5FE27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		96F2F1D21C97A55B00A5FE27 /* BlueViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueViewController.swift; sourceTree = "<group>"; };
-		96F2F1D31C97A55B00A5FE27 /* GreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreenViewController.swift; sourceTree = "<group>"; };
 		96F2F1D41C97A55B00A5FE27 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96F2F1D51C97A55B00A5FE27 /* YellowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -73,8 +71,7 @@
 			children = (
 				96F2F1CD1C97A55B00A5FE27 /* AppDelegate.swift */,
 				96F2F1CE1C97A55B00A5FE27 /* AppToolbarController.swift */,
-				96F2F1D21C97A55B00A5FE27 /* BlueViewController.swift */,
-				96F2F1D31C97A55B00A5FE27 /* GreenViewController.swift */,
+				9692C9281CE44C0C008C2766 /* GreenViewController.swift */,
 				96F2F1D51C97A55B00A5FE27 /* YellowViewController.swift */,
 				96F2F1CF1C97A55B00A5FE27 /* Assets.xcassets */,
 				96F2F1D01C97A55B00A5FE27 /* LaunchScreen.storyboard */,
@@ -154,11 +151,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96F2F1DB1C97A55B00A5FE27 /* GreenViewController.swift in Sources */,
 				96F2F1D71C97A55B00A5FE27 /* AppToolbarController.swift in Sources */,
-				96F2F1DA1C97A55B00A5FE27 /* BlueViewController.swift in Sources */,
 				96F2F1D61C97A55B00A5FE27 /* AppDelegate.swift in Sources */,
 				96F2F1DD1C97A55B00A5FE27 /* YellowViewController.swift in Sources */,
+				9692C92A1CE44C0C008C2766 /* GreenViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

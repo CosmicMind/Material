@@ -29,7 +29,7 @@
 */
 
 /*
-The following is an example of setting a UITableView as the detailView for a
+The following is an example of setting a UITableView as the contentView for a
 CardView.
 */
 
@@ -84,14 +84,13 @@ class ViewController: UIViewController {
 	/// Prepares the CardView.
 	func prepareCardView() {
 		let cardView: CardView = CardView()
-		cardView.pulseColor = nil
 		cardView.backgroundColor = MaterialColor.grey.lighten5
 		cardView.cornerRadiusPreset = .Radius1
 		cardView.divider = false
 		cardView.contentInsetPreset = .None
 		cardView.leftButtonsInsetPreset = .Square2
 		cardView.rightButtonsInsetPreset = .Square2
-		cardView.detailViewInsetPreset = .None
+		cardView.contentViewInsetPreset = .None
 		
 		let titleLabel: UILabel = UILabel()
 		titleLabel.font = RobotoFont.mediumWithSize(20)
@@ -113,11 +112,10 @@ class ViewController: UIViewController {
 		
 		// Use MaterialLayout to easily align the tableView.
 		cardView.titleLabel = titleLabel
-		cardView.detailView = tableView
+		cardView.contentView = tableView
 		cardView.leftButtons = [closeButton]
 		cardView.rightButtons = [settingButton]
 		
-		cardView.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(cardView)
 		MaterialLayout.alignToParent(view, child: cardView, left: 10, right: 10, top: 100, bottom: 100)
 	}
