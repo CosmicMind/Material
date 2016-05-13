@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.osx.source_files = 'Sources/OSX/**/*.swift'
   s.requires_arc = true
   s.resource_bundles = {
-      'io.cosmicmind.material.fonts' => ['Sources/**/*.ttf'],
-      'io.cosmicmind.material.icons' => ['Sources/Assets.xcassets/**/*.png']
+      'io.cosmicmind.material.icons' => ['Sources/**/*.xcassets'],
+	  'io.cosmicmind.material.fonts' => ['Sources/**/*.ttf']
   }
 end
