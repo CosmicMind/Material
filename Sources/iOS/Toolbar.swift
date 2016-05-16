@@ -40,32 +40,18 @@ public class Toolbar : StatusBarView {
 	public override func layoutSubviews() {
 		super.layoutSubviews()
 		if willRenderView {
-			if let _: String = titleLabel.text {
-				if nil == titleLabel.superview {
-					contentView.addSubview(titleLabel)
-				}
+			if let _: String = detailLabel.text {
+				titleLabel.sizeToFit()
+				detailLabel.sizeToFit()
 				
-				if let _: String = detailLabel.text {
-					if nil == detailLabel.superview {
-						contentView.addSubview(detailLabel)
-					}
-					
-					titleLabel.sizeToFit()
-					detailLabel.sizeToFit()
-					
-					let diff: CGFloat = (contentView.frame.height - titleLabel.frame.height - detailLabel.frame.height) / 2
-					titleLabel.frame.size.height += diff
-					titleLabel.frame.size.width = contentView.frame.width
-					detailLabel.frame.size.height += diff
-					detailLabel.frame.size.width = contentView.frame.width
-					detailLabel.frame.origin.y = titleLabel.frame.height
-				} else {
-					detailLabel.removeFromSuperview()
-					titleLabel.frame = contentView.bounds
-				}
+				let diff: CGFloat = (contentView.frame.height - titleLabel.frame.height - detailLabel.frame.height) / 2
+				titleLabel.frame.size.height += diff
+				titleLabel.frame.size.width = contentView.frame.width
+				detailLabel.frame.size.height += diff
+				detailLabel.frame.size.width = contentView.frame.width
+				detailLabel.frame.origin.y = titleLabel.frame.height
 			} else {
-				titleLabel.removeFromSuperview()
-				contentView.grid.reloadLayout()
+				titleLabel.frame = contentView.bounds
 			}
 		}
 	}
@@ -88,6 +74,7 @@ public class Toolbar : StatusBarView {
 		titleLabel = UILabel()
 		titleLabel.font = RobotoFont.mediumWithSize(17)
 		titleLabel.textAlignment = .Left
+		contentView.addSubview(titleLabel)
 	}
 	
 	/// Prepares the detailLabel.
@@ -95,5 +82,6 @@ public class Toolbar : StatusBarView {
 		detailLabel = UILabel()
 		detailLabel.font = RobotoFont.regularWithSize(12)
 		detailLabel.textAlignment = .Left
+		contentView.addSubview(detailLabel)
 	}
 }

@@ -56,6 +56,8 @@ class ViewController: UIViewController {
 	private func prepareToolbar() {
 		toolbar = Toolbar()
 		
+		view.addSubview(toolbar)
+		
 		// Title label.
 		toolbar.titleLabel.text = "Material"
 		toolbar.titleLabel.textColor = MaterialColor.white
@@ -63,7 +65,7 @@ class ViewController: UIViewController {
 		// Detail label.
 		toolbar.detailLabel.text = "Build Beautiful Software"
 		toolbar.detailLabel.textColor = MaterialColor.white
-		
+
 		var image: UIImage? = MaterialIcon.cm.menu
 
 		// Menu button.
@@ -93,7 +95,5 @@ class ViewController: UIViewController {
 		toolbar.backgroundColor = MaterialColor.blue.base
 		toolbar.leftControls = [menuButton]
 		toolbar.rightControls = [switchControl, searchButton]
-		
-		view.addSubview(toolbar)
 	}
 }
