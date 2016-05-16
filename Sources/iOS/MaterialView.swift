@@ -386,6 +386,12 @@ public class MaterialView : UIView {
 		self.init(frame: CGRectZero)
 	}
 	
+  public override func willMoveToSuperview(newSuperview: UIView?) {
+    super.willMoveToSuperview(newSuperview)
+    guard let _ = newSuperview else { return }
+    prepareView()
+  }
+  
 	public override func layoutSublayersOfLayer(layer: CALayer) {
 		super.layoutSublayersOfLayer(layer)
 		if self.layer == layer {
