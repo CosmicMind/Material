@@ -32,11 +32,8 @@ import UIKit
 import Material
 
 class ViewController: UIViewController {
-	/// NavigationBar title label.
-	private var titleLabel: UILabel!
-	
-	/// NavigationBar detail label.
-	private var detailLabel: UILabel!
+	/// NavigationBar item.
+	private var item: UINavigationItem!
 	
 	/// NavigationBar menu button.
 	private var menuButton: FlatButton!
@@ -53,8 +50,7 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		prepareTitleLabel()
-		prepareDetailLabel()
+		prepareItem()
 		prepareMenuButton()
 		prepareSwitchControl()
 		prepareSearchButton()
@@ -63,28 +59,13 @@ class ViewController: UIViewController {
 	
 	override func viewWillLayoutSubviews() {
 		super.viewWillLayoutSubviews()
-		navigationBar.frame = CGRectMake(0, 0, view.bounds.width, MaterialDevice.isLandscape ? .iPad == MaterialDevice.type ? 64 : navigationBar.intrinsicContentSize().height : 64)
+		
+		item.contentView?.frame.origin.y = 20
 	}
 	
 	/// General preparation statements.
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.white
-	}
-	
-	/// Prepares the titleLabel.
-	private func prepareTitleLabel() {
-		titleLabel = UILabel()
-		titleLabel.text = "Recipes"
-		titleLabel.textAlignment = .Left
-		titleLabel.textColor = MaterialColor.white
-	}
-	
-	/// Prepares the titleLabel.
-	private func prepareDetailLabel() {
-		detailLabel = UILabel()
-		detailLabel.text = "8 Items"
-		detailLabel.textAlignment = .Left
-		detailLabel.textColor = MaterialColor.white
 	}
 	
 	/// Prepares the menuButton.
@@ -116,12 +97,22 @@ class ViewController: UIViewController {
 		navigationBar.statusBarStyle = .LightContent
 		navigationBar.tintColor = MaterialColor.white
 		navigationBar.backgroundColor = MaterialColor.blue.base
+		navigationBar.barStyle = .Default
 		
 		view.addSubview(navigationBar)
+		MaterialLayout.alignFromTop(view, child: navigationBar)
+		MaterialLayout.alignToParentHorizontally(view, child: navigationBar)
+		MaterialLayout.height(view, child: navigationBar, height: 64)
+	}
+	
+	/// Prepares the item.
+	private func prepareItem() {
+		item.titleLabel.text = "Recipes"
+		item.titleLabel.textColor = MaterialColor.white
 		
-		let item: UINavigationItem = UINavigationItem()
-		item.titleLabel = titleLabel
-		item.detailLabel = detailLabel
+		item.detailLabel.text = "8 Items"
+		item.detailLabel.textColor = MaterialColor.white
+		
 		item.leftControls = [menuButton]
 		item.rightControls = [switchControl, searchButton]
 		navigationBar.pushNavigationItem(item, animated: true)

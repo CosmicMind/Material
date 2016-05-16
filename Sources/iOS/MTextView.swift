@@ -30,11 +30,14 @@
 
 import UIKit
 
-public protocol TextFieldDelegate : UITextFieldDelegate {}
+public protocol MTextViewDelegate : UITextViewDelegate {}
 
 @IBDesignable
-public class TextField : UITextField {
-	/// A Boolean that indicates if the TextField is in an animating state.
+public class MTextView: UITextView {
+	/// A Boolean that indicates if the TextView is in an editing state.
+	public private(set) var editing: Bool = false
+	
+	/// A Boolean that indicates if the TextView is in an animating state.
 	public private(set) var animating: Bool = false
 	
 	/**
@@ -152,18 +155,18 @@ public class TextField : UITextField {
 			placeholderLabel.font = font
 		}
 	}
- 
+	
 	/// TextField's text property observer.
 	@IBInspectable public override var text: String? {
 		didSet {
 			if true == text?.isEmpty && !isFirstResponder() {
-				placeholderEditingDidEndAnimation()
+				
 			}
 		}
 	}
 	
 	/// The placeholderLabel text value.
-	@IBInspectable public override var placeholder: String? {
+	@IBInspectable public var placeholder: String? {
 		get {
 			return placeholderLabel.text
 		}
@@ -215,7 +218,7 @@ public class TextField : UITextField {
 			if let v: String = value {
 				detailLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: detailColor])
 			}
-			layoutDetailLabel()
+//			layoutDetailLabel()
 		}
 	}
 	
@@ -240,88 +243,6 @@ public class TextField : UITextField {
 		}
 	}
 	
-	/// Enables the clearIconButton.
-	@IBInspectable public var enableClearIconButton: Bool {
-		get {
-			return nil != clearIconButton
-		}
-		set(value) {
-			if value {
-				if nil == clearIconButton {
-					let image: UIImage? = MaterialIcon.cm.clear
-					clearIconButton = IconButton(frame: CGRectZero)
-					clearIconButton!.contentEdgeInsets = UIEdgeInsetsZero
-					clearIconButton!.pulseAnimation = .Center
-					clearIconButton!.tintColor = placeholderColor
-					clearIconButton!.setImage(image, forState: .Normal)
-					clearIconButton!.setImage(image, forState: .Highlighted)
-					clearButtonMode = .Never
-					rightViewMode = .WhileEditing
-					rightView = clearIconButton
-					clearIconButtonAutoHandle = clearIconButtonAutoHandle ? true : false
-				}
-			} else {
-				clearIconButton?.removeTarget(self, action: #selector(handleClearButton), forControlEvents: .TouchUpInside)
-				clearIconButton = nil
-			}
-		}
-	}
-	
-	/// Enables the automatic handling of the clearIconButton.
-	@IBInspectable public var clearIconButtonAutoHandle: Bool = true {
-		didSet {
-			clearIconButton?.removeTarget(self, action: #selector(handleClearButton), forControlEvents: .TouchUpInside)
-			if clearIconButtonAutoHandle {
-				clearIconButton?.addTarget(self, action: #selector(handleClearButton), forControlEvents: .TouchUpInside)
-			}
-		}
-	}
-	
-	/// Enables the visibilityIconButton.
-	@IBInspectable public var enableVisibilityIconButton: Bool {
-		get {
-			return nil != visibilityIconButton
-		}
-		set(value) {
-			if value {
-				if nil == visibilityIconButton {
-					let image: UIImage? = MaterialIcon.visibility
-					visibilityIconButton = IconButton(frame: CGRectZero)
-					visibilityIconButton!.contentEdgeInsets = UIEdgeInsetsZero
-					visibilityIconButton!.pulseAnimation = .Center
-					visibilityIconButton!.tintColor = placeholderColor
-					visibilityIconButton!.setImage(image, forState: .Normal)
-					visibilityIconButton!.setImage(image, forState: .Highlighted)
-					visibilityIconButton!.tintColor = placeholderColor.colorWithAlphaComponent(secureTextEntry ? 0.38 : 0.54)
-					secureTextEntry = true
-					clearButtonMode = .Never
-					rightViewMode = .WhileEditing
-					rightView = visibilityIconButton
-					visibilityIconButtonAutoHandle = visibilityIconButtonAutoHandle ? true : false
-				}
-			} else {
-				visibilityIconButton?.removeTarget(self, action: #selector(handleClearButton), forControlEvents: .TouchUpInside)
-				visibilityIconButton = nil
-			}
-		}
-	}
-	
-	/// Enables the automatic handling of the visibilityIconButton.
-	@IBInspectable public var visibilityIconButtonAutoHandle: Bool = true {
-		didSet {
-			visibilityIconButton?.removeTarget(self, action: #selector(handleVisibilityButton), forControlEvents: .TouchUpInside)
-			if visibilityIconButtonAutoHandle {
-				visibilityIconButton?.addTarget(self, action: #selector(handleVisibilityButton), forControlEvents: .TouchUpInside)
-			}
-		}
-	}
-	
-	/// A reference to the clearIconButton.
-	public private(set) var clearIconButton: IconButton?
-	
-	/// A reference to the visibilityIconButton.
-	public private(set) var visibilityIconButton: IconButton?
-	
 	/**
 	An initializer that initializes the object with a NSCoder object.
 	- Parameter aDecoder: A NSCoder instance.
@@ -336,32 +257,39 @@ public class TextField : UITextField {
 	If AutoLayout is used, it is better to initilize the instance
 	using the init() initializer.
 	- Parameter frame: A CGRect instance.
+	- Parameter textContainer: A NSTextContainer instance.
 	*/
-	public override init(frame: CGRect) {
-		super.init(frame: frame)
+	public override init(frame: CGRect, textContainer: NSTextContainer?) {
+		super.init(frame: frame, textContainer: textContainer)
 		prepareView()
 	}
 	
-	/// A convenience initializer.
-	public convenience init() {
-		self.init(frame: CGRectZero)
+	/**
+	A convenience initializer that is mostly used with AutoLayout.
+	- Parameter textContainer: A NSTextContainer instance.
+	*/
+	public convenience init(textContainer: NSTextContainer?) {
+		self.init(frame: CGRectZero, textContainer: textContainer)
 	}
 	
+	/** Denitializer. This should never be called unless you know
+	what you are doing.
+	*/
+	deinit {
+		removeNotificationHandlers()
+	}
+	
+	/// Overriding the layout callback for subviews.
 	public override func layoutSubviews() {
 		super.layoutSubviews()
-		layoutToSize()
+		
 	}
 	
 	public override func layoutSublayersOfLayer(layer: CALayer) {
 		super.layoutSublayersOfLayer(layer)
 		if self.layer == layer {
-			layoutDivider()
+			
 		}
-	}
-	
-	/// Default size when using AutoLayout.
-	public override func intrinsicContentSize() -> CGSize {
-		return CGSizeMake(width, 32)
 	}
 	
 	/**
@@ -418,30 +346,19 @@ public class TextField : UITextField {
 		}
 	}
 	
-	/// Handles the text editing did begin state.
-	public func handleEditingDidBegin() {
-		dividerEditingDidBeginAnimation()
-		placeholderEditingDidBeginAnimation()
+	/// Notification handler for when text editing began.
+	internal func handleTextViewTextDidBegin() {
+		
 	}
 	
-	/// Handles the text editing did end state.
-	public func handleEditingDidEnd() {
-		dividerEditingDidEndAnimation()
-		placeholderEditingDidEndAnimation()
+	/// Notification handler for when text changed.
+	internal func handleTextViewTextDidChange() {
+	
 	}
 	
-	/// Handles the clearIconButton TouchUpInside event.
-	public func handleClearButton() {
-		if false == delegate?.textFieldShouldClear?(self) {
-			return
-		}
-		text = nil
-	}
-	
-	/// Handles the visibilityIconButton TouchUpInside event.
-	public func handleVisibilityButton() {
-		secureTextEntry = !secureTextEntry
-		visibilityIconButton?.tintColor = visibilityIconButton?.tintColor.colorWithAlphaComponent(secureTextEntry ? 0.38 : 0.54)
+	/// Notification handler for when text editing ended.
+	internal func handleTextViewTextDidEnd() {
+		
 	}
 	
 	/**
@@ -452,17 +369,14 @@ public class TextField : UITextField {
 	when subclassing.
 	*/
 	public func prepareView() {
-		super.placeholder = nil
-		masksToBounds = false
-		borderStyle = .None
-		backgroundColor = nil
-		textColor = MaterialColor.darkText.primary
-		font = RobotoFont.regularWithSize(16)
 		contentScaleFactor = MaterialDevice.scale
+		textContainerInset = UIEdgeInsetsZero
+		backgroundColor = MaterialColor.white
+		masksToBounds = false
 		prepareDivider()
 		preparePlaceholderLabel()
 		prepareDetailLabel()
-		prepareTargetHandlers()
+		prepareNotificationHandlers()
 	}
 	
 	/// Ensures that the components are sized correctly.
@@ -470,8 +384,6 @@ public class TextField : UITextField {
 		if !animating {
 			layoutPlaceholderLabel()
 			layoutDetailLabel()
-			layoutClearIconButton()
-			layoutVisibilityIconButton()
 		}
 	}
 	
@@ -516,80 +428,6 @@ public class TextField : UITextField {
 		detailLabel.frame = CGRectMake(0, divider.frame.origin.y + 8, width, h)
 	}
 	
-	/// Layout the clearIconButton.
-	public func layoutClearIconButton() {
-		if let v: IconButton = clearIconButton {
-			if 0 < width && 0 < height {
-				v.frame = CGRectMake(width - height, 0, height, height)
-			}
-		}
-	}
-	
-	/// Layout the visibilityIconButton.
-	public func layoutVisibilityIconButton() {
-		if let v: IconButton = visibilityIconButton {
-			if 0 < width && 0 < height {
-				v.frame = CGRectMake(width - height, 0, height, height)
-			}
-		}
-	}
-	
-	/// The animation for the divider when editing begins.
-	public func dividerEditingDidBeginAnimation() {
-		divider.frame.size.height = dividerActiveHeight
-		divider.backgroundColor = nil == dividerActiveColor ? placeholderActiveColor.CGColor : dividerActiveColor!.CGColor
-	}
-	
-	/// The animation for the divider when editing ends.
-	public func dividerEditingDidEndAnimation() {
-		divider.frame.size.height = dividerHeight
-		divider.backgroundColor = dividerColor.CGColor
-	}
-	
-	/// The animation for the placeholder when editing begins.
-	public func placeholderEditingDidBeginAnimation() {
-		if CGAffineTransformIsIdentity(placeholderLabel.transform) {
-			animating = true
-			UIView.animateWithDuration(0.15, animations: { [weak self] in
-				if let v: TextField = self {
-					v.placeholderLabel.transform = CGAffineTransformMakeScale(0.75, 0.75)
-					switch v.textAlignment {
-					case .Left, .Natural:
-						v.placeholderLabel.frame.origin.x = 0
-					case .Right:
-						v.placeholderLabel.frame.origin.x = v.width - v.placeholderLabel.frame.width
-					default:break
-					}
-					v.placeholderLabel.frame.origin.y = -v.placeholderLabel.frame.size.height
-					v.placeholderLabel.textColor = v.placeholderActiveColor
-				}
-			}) { [weak self] _ in
-				self?.animating = false
-			}
-		} else if editing {
-			placeholderLabel.textColor = placeholderActiveColor
-		}
-	}
-	
-	/// The animation for the placeholder when editing ends.
-	public func placeholderEditingDidEndAnimation() {
-		if !CGAffineTransformIsIdentity(placeholderLabel.transform) && true == text?.isEmpty {
-			animating = true
-			UIView.animateWithDuration(0.15, animations: { [weak self] in
-				if let v: TextField = self {
-					v.placeholderLabel.transform = CGAffineTransformIdentity
-					v.placeholderLabel.frame.origin.x = 0
-					v.placeholderLabel.frame.origin.y = 0
-					v.placeholderLabel.textColor = v.placeholderColor
-				}
-			}) { [weak self] _ in
-				self?.animating = false
-			}
-		} else if !editing {
-			placeholderLabel.textColor = placeholderColor
-		}
-	}
-	
 	/// Prepares the divider.
 	private func prepareDivider() {
 		dividerColor = MaterialColor.darkText.dividers
@@ -609,9 +447,17 @@ public class TextField : UITextField {
 		addSubview(detailLabel)
 	}
 	
-	/// Prepares the target handlers.
-	private func prepareTargetHandlers() {
-		addTarget(self, action: #selector(handleEditingDidBegin), forControlEvents: .EditingDidBegin)
-		addTarget(self, action: #selector(handleEditingDidEnd), forControlEvents: .EditingDidEnd)
+	/// Prepares the Notification handlers.
+	private func prepareNotificationHandlers() {
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleTextViewTextDidBegin), name: UITextViewTextDidBeginEditingNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleTextViewTextDidChange), name: UITextViewTextDidChangeNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleTextViewTextDidEnd), name: UITextViewTextDidEndEditingNotification, object: nil)
+	}
+	
+	/// Removes the Notification handlers.
+	private func removeNotificationHandlers() {
+		NSNotificationCenter.defaultCenter().removeObserver(self, name: UITextViewTextDidBeginEditingNotification, object: nil)
+		NSNotificationCenter.defaultCenter().removeObserver(self, name: UITextViewTextDidChangeNotification, object: nil)
+		NSNotificationCenter.defaultCenter().removeObserver(self, name: UITextViewTextDidEndEditingNotification, object: nil)
 	}
 }
