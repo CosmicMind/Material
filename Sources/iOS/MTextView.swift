@@ -33,7 +33,10 @@ import UIKit
 public protocol MTextViewDelegate : UITextViewDelegate {}
 
 @IBDesignable
-public class MTextView: UITextView {
+public class MTextView: UITextView, TextDelegate {
+	/// A Text storage object that monitors the changes within the textView.
+	public private(set) lazy var mText: Text = Text()
+	
 	/// A Boolean that indicates if the TextView is in an editing state.
 	public private(set) var editing: Bool = false
 	
@@ -218,7 +221,7 @@ public class MTextView: UITextView {
 			if let v: String = value {
 				detailLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: detailColor])
 			}
-//			layoutDetailLabel()
+			layoutDetailLabel()
 		}
 	}
 	
@@ -272,6 +275,17 @@ public class MTextView: UITextView {
 		self.init(frame: CGRectZero, textContainer: textContainer)
 	}
 	
+	/// Convenience initializer.
+	public convenience init() {
+		let layoutManager: NSLayoutManager = NSLayoutManager()
+		let textContainer: NSTextContainer = NSTextContainer(size: CGSizeZero)
+		layoutManager.addTextContainer(textContainer)
+		
+		self.init(frame: CGRectZero, textContainer: textContainer)
+		mText.textStorage.addLayoutManager(layoutManager)
+		mText.delegate = self
+	}
+	
 	/** Denitializer. This should never be called unless you know
 	what you are doing.
 	*/
@@ -282,13 +296,13 @@ public class MTextView: UITextView {
 	/// Overriding the layout callback for subviews.
 	public override func layoutSubviews() {
 		super.layoutSubviews()
-		
+		layoutToSize()
 	}
 	
 	public override func layoutSublayersOfLayer(layer: CALayer) {
 		super.layoutSublayersOfLayer(layer)
 		if self.layer == layer {
-			
+			layoutDivider()
 		}
 	}
 	
@@ -348,7 +362,9 @@ public class MTextView: UITextView {
 	
 	/// Notification handler for when text editing began.
 	internal func handleTextViewTextDidBegin() {
-		
+		editing = true
+		dividerEditingDidBeginAnimation()
+		placeholderEditingDidBeginAnimation()
 	}
 	
 	/// Notification handler for when text changed.
@@ -358,7 +374,9 @@ public class MTextView: UITextView {
 	
 	/// Notification handler for when text editing ended.
 	internal func handleTextViewTextDidEnd() {
-		
+		editing = false
+		dividerEditingDidEndAnimation()
+		placeholderEditingDidEndAnimation()
 	}
 	
 	/**
@@ -373,6 +391,8 @@ public class MTextView: UITextView {
 		textContainerInset = UIEdgeInsetsZero
 		backgroundColor = MaterialColor.white
 		masksToBounds = false
+		textColor = MaterialColor.darkText.primary
+		font = RobotoFont.regularWithSize(16)
 		prepareDivider()
 		preparePlaceholderLabel()
 		prepareDetailLabel()
@@ -426,6 +446,62 @@ public class MTextView: UITextView {
 	public func layoutDetailLabel() {
 		let h: CGFloat = nil == detail ? 12 : detailLabel.font.stringSize(detail!, constrainedToWidth: Double(width)).height
 		detailLabel.frame = CGRectMake(0, divider.frame.origin.y + 8, width, h)
+	}
+	
+	/// The animation for the divider when editing begins.
+	public func dividerEditingDidBeginAnimation() {
+		divider.frame.size.height = dividerActiveHeight
+		divider.backgroundColor = nil == dividerActiveColor ? placeholderActiveColor.CGColor : dividerActiveColor!.CGColor
+	}
+	
+	/// The animation for the divider when editing ends.
+	public func dividerEditingDidEndAnimation() {
+		divider.frame.size.height = dividerHeight
+		divider.backgroundColor = dividerColor.CGColor
+	}
+	
+	/// The animation for the placeholder when editing begins.
+	public func placeholderEditingDidBeginAnimation() {
+		if CGAffineTransformIsIdentity(placeholderLabel.transform) {
+			animating = true
+			UIView.animateWithDuration(0.15, animations: { [weak self] in
+				if let v: MTextView = self {
+					v.placeholderLabel.transform = CGAffineTransformMakeScale(0.75, 0.75)
+					switch v.textAlignment {
+					case .Left, .Natural:
+						v.placeholderLabel.frame.origin.x = 0
+					case .Right:
+						v.placeholderLabel.frame.origin.x = v.width - v.placeholderLabel.frame.width
+					default:break
+					}
+					v.placeholderLabel.frame.origin.y = -v.placeholderLabel.frame.size.height
+					v.placeholderLabel.textColor = v.placeholderActiveColor
+				}
+			}) { [weak self] _ in
+				self?.animating = false
+			}
+		} else if editing {
+			placeholderLabel.textColor = placeholderActiveColor
+		}
+	}
+	
+	/// The animation for the placeholder when editing ends.
+	public func placeholderEditingDidEndAnimation() {
+		if !CGAffineTransformIsIdentity(placeholderLabel.transform) && true == text?.isEmpty {
+			animating = true
+			UIView.animateWithDuration(0.15, animations: { [weak self] in
+				if let v: MTextView = self {
+					v.placeholderLabel.transform = CGAffineTransformIdentity
+					v.placeholderLabel.frame.origin.x = 0
+					v.placeholderLabel.frame.origin.y = 0
+					v.placeholderLabel.textColor = v.placeholderColor
+				}
+			}) { [weak self] _ in
+				self?.animating = false
+			}
+		} else if !editing {
+			placeholderLabel.textColor = placeholderColor
+		}
 	}
 	
 	/// Prepares the divider.

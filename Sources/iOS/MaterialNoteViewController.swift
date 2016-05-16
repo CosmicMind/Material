@@ -32,20 +32,38 @@ import UIKit
 
 public class MaterialNoteViewController : UIViewController {
 	/// Reference to the textView.
-	public private(set) var textView: TextView!
+	public private(set) var textView: MTextView!
 	
 	public override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
 	}
 	
+	public override func viewWillDisappear(animated: Bool) {
+		super.viewWillDisappear(animated)
+		textView.resignFirstResponder()
+	}
+	
+	public override func viewWillLayoutSubviews() {
+		super.viewWillLayoutSubviews()
+		layoutTextView()
+	}
+	
 	/// Prepares the view.
 	public func prepareView() {
 		view.backgroundColor = MaterialColor.white
+		prepareTextView()
+	}
+	
+	/// Layout the textView.
+	public func layoutTextView() {
+		textView.frame = view.bounds
 	}
 	
 	/// Prepares the textView.
 	private func prepareTextView() {
-		textView = TextView()
+		textView = MTextView()
+		textView.placeholder = "Placeholder"
+		view.addSubview(textView)
 	}
 }

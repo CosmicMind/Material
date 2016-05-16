@@ -261,7 +261,7 @@ public class TextField : UITextField {
 					clearIconButtonAutoHandle = clearIconButtonAutoHandle ? true : false
 				}
 			} else {
-				clearIconButton?.removeTarget(self, action: #selector(handleClearButton), forControlEvents: .TouchUpInside)
+				clearIconButton?.removeTarget(self, action: #selector(handleClearIconButton), forControlEvents: .TouchUpInside)
 				clearIconButton = nil
 			}
 		}
@@ -270,9 +270,9 @@ public class TextField : UITextField {
 	/// Enables the automatic handling of the clearIconButton.
 	@IBInspectable public var clearIconButtonAutoHandle: Bool = true {
 		didSet {
-			clearIconButton?.removeTarget(self, action: #selector(handleClearButton), forControlEvents: .TouchUpInside)
+			clearIconButton?.removeTarget(self, action: #selector(handleClearIconButton), forControlEvents: .TouchUpInside)
 			if clearIconButtonAutoHandle {
-				clearIconButton?.addTarget(self, action: #selector(handleClearButton), forControlEvents: .TouchUpInside)
+				clearIconButton?.addTarget(self, action: #selector(handleClearIconButton), forControlEvents: .TouchUpInside)
 			}
 		}
 	}
@@ -300,7 +300,7 @@ public class TextField : UITextField {
 					visibilityIconButtonAutoHandle = visibilityIconButtonAutoHandle ? true : false
 				}
 			} else {
-				visibilityIconButton?.removeTarget(self, action: #selector(handleClearButton), forControlEvents: .TouchUpInside)
+				visibilityIconButton?.removeTarget(self, action: #selector(handleVisibilityIconButton), forControlEvents: .TouchUpInside)
 				visibilityIconButton = nil
 			}
 		}
@@ -309,9 +309,9 @@ public class TextField : UITextField {
 	/// Enables the automatic handling of the visibilityIconButton.
 	@IBInspectable public var visibilityIconButtonAutoHandle: Bool = true {
 		didSet {
-			visibilityIconButton?.removeTarget(self, action: #selector(handleVisibilityButton), forControlEvents: .TouchUpInside)
+			visibilityIconButton?.removeTarget(self, action: #selector(handleVisibilityIconButton), forControlEvents: .TouchUpInside)
 			if visibilityIconButtonAutoHandle {
-				visibilityIconButton?.addTarget(self, action: #selector(handleVisibilityButton), forControlEvents: .TouchUpInside)
+				visibilityIconButton?.addTarget(self, action: #selector(handleVisibilityIconButton), forControlEvents: .TouchUpInside)
 			}
 		}
 	}
@@ -431,7 +431,7 @@ public class TextField : UITextField {
 	}
 	
 	/// Handles the clearIconButton TouchUpInside event.
-	public func handleClearButton() {
+	public func handleClearIconButton() {
 		if false == delegate?.textFieldShouldClear?(self) {
 			return
 		}
@@ -439,7 +439,7 @@ public class TextField : UITextField {
 	}
 	
 	/// Handles the visibilityIconButton TouchUpInside event.
-	public func handleVisibilityButton() {
+	public func handleVisibilityIconButton() {
 		secureTextEntry = !secureTextEntry
 		visibilityIconButton?.tintColor = visibilityIconButton?.tintColor.colorWithAlphaComponent(secureTextEntry ? 0.38 : 0.54)
 	}
