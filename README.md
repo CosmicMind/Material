@@ -97,6 +97,12 @@ A MenuView manages a group of UIViews that may be animated with default and cust
 
 ![MenuView](http://www.cosmicmind.io/gifs/MenuView.gif)
 
+#### Material Switch
+
+Enjoy flexible switch controls to add that little extra to your application.
+
+![Switch](http://www.cosmicmind.io/gifs/Switch.gif)
+
 #### Grid
 
 Grid is an extension of UIView that enables any collection of subviews to be managed in a flexible grid system.
