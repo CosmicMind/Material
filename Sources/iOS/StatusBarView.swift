@@ -96,7 +96,7 @@ public class StatusBarView : ControlView {
 	}
 	
 	public override func intrinsicContentSize() -> CGSize {
-		return CGSizeMake(MaterialDevice.width, .iPhone == MaterialDevice.type && MaterialDevice.isLandscape ? heightForLandscapeOrientation : heightForPortraitOrientation)
+		return CGSizeMake(width, 0 < height ? height : .iPhone == MaterialDevice.type && MaterialDevice.isLandscape ? heightForLandscapeOrientation : heightForPortraitOrientation)
 	}
 	
 	/**

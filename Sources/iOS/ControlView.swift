@@ -147,8 +147,6 @@ public class ControlView : MaterialView {
 			if let g: Int = Int(width / factor) {
 				let columns: Int = g + 1
 				
-				frame.origin = CGPointZero
-				frame.size = intrinsicContentSize()
 				grid.views = []
 				grid.axis.columns = columns
 				
