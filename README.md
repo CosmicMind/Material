@@ -119,11 +119,15 @@ Toolbars are super flexible and add excellent control to your navigation flow.
 
 ![Toolbar](http://www.cosmicmind.io/gifs/Toolbar.gif)
 
-### SearchBar
+#### SearchBar
 
 SearchBars are sleek and powerful. Customize a SearchBar in anyway you like.
 
 ![SearchBar](http://www.cosmicmind.io/gifs/SearchBar.gif)
+
+#### Much More...
+
+So much more inside. Enjoy!
 
 ## License
 
