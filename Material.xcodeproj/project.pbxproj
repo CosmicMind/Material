@@ -15,9 +15,6 @@
 		9660162A1CB2F04E00AAB661 /* Material.h in Headers */ = {isa = PBXBuildFile; fileRef = 96D88C091C1328D800B91418 /* Material.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9679CEAB1CC69E080021685B /* Material+UIImage+TintColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679CEAA1CC69E080021685B /* Material+UIImage+TintColor.swift */; };
 		96815B381CA07BA20006CBE2 /* MaterialViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967887881C9777CB0037F6C9 /* MaterialViewTests.swift */; };
-		9692C9651CE92EA4008C2766 /* MaterialEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9692C9641CE92EA4008C2766 /* MaterialEditorViewController.swift */; };
-		9692C9671CE92EB1008C2766 /* MaterialNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9692C9661CE92EB1008C2766 /* MaterialNoteViewController.swift */; };
-		9692C9691CE964A8008C2766 /* MTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9692C9681CE964A8008C2766 /* MTextView.swift */; };
 		96977DA61CBB2E49000BEFC4 /* Material+UIImage+FilterBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96977DA51CBB2E49000BEFC4 /* Material+UIImage+FilterBlur.swift */; };
 		96BCB7A11CB40DC500C806FE /* BottomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7581CB40DC500C806FE /* BottomNavigationController.swift */; };
 		96BCB7A21CB40DC500C806FE /* BottomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7591CB40DC500C806FE /* BottomTabBar.swift */; };
@@ -207,9 +204,6 @@
 		9660161C1CB2ED6C00AAB661 /* Material OSX Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Material OSX Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		967887881C9777CB0037F6C9 /* MaterialViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialViewTests.swift; sourceTree = "<group>"; };
 		9679CEAA1CC69E080021685B /* Material+UIImage+TintColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIImage+TintColor.swift"; sourceTree = "<group>"; };
-		9692C9641CE92EA4008C2766 /* MaterialEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialEditorViewController.swift; sourceTree = "<group>"; };
-		9692C9661CE92EB1008C2766 /* MaterialNoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialNoteViewController.swift; sourceTree = "<group>"; };
-		9692C9681CE964A8008C2766 /* MTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTextView.swift; sourceTree = "<group>"; };
 		96977DA51CBB2E49000BEFC4 /* Material+UIImage+FilterBlur.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIImage+FilterBlur.swift"; sourceTree = "<group>"; };
 		96BCB7581CB40DC500C806FE /* BottomNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomNavigationController.swift; sourceTree = "<group>"; };
 		96BCB7591CB40DC500C806FE /* BottomTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomTabBar.swift; sourceTree = "<group>"; };
@@ -357,15 +351,6 @@
 			path = Tests;
 			sourceTree = "<group>";
 		};
-		9692C9631CE92E84008C2766 /* Editor */ = {
-			isa = PBXGroup;
-			children = (
-				9692C9641CE92EA4008C2766 /* MaterialEditorViewController.swift */,
-				9692C9661CE92EB1008C2766 /* MaterialNoteViewController.swift */,
-			);
-			name = Editor;
-			sourceTree = "<group>";
-		};
 		96BCB7571CB40DC500C806FE /* iOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -376,7 +361,6 @@
 				96BCB8051CB40F9C00C806FE /* Collection */,
 				96BCB8001CB40F0300C806FE /* Color */,
 				96BCB80B1CB410CC00C806FE /* Device */,
-				9692C9631CE92E84008C2766 /* Editor */,
 				96BCB80A1CB410A100C806FE /* Extension */,
 				96BCB8071CB4101C00C806FE /* Font */,
 				96BCB8081CB4105E00C806FE /* Icon */,
@@ -602,7 +586,6 @@
 				961F18E71CD93E3E008927C5 /* ErrorTextField.swift */,
 				96BCB79D1CB40DC500C806FE /* TextStorage.swift */,
 				96BCB79E1CB40DC500C806FE /* TextView.swift */,
-				9692C9681CE964A8008C2766 /* MTextView.swift */,
 			);
 			name = Text;
 			sourceTree = "<group>";
@@ -891,7 +874,6 @@
 			files = (
 				96BCB7C01CB40DC500C806FE /* MaterialDataSourceItem.swift in Sources */,
 				96BCB7AC1CB40DC500C806FE /* Material+Obj-C.swift in Sources */,
-				9692C9691CE964A8008C2766 /* MTextView.swift in Sources */,
 				9679CEAB1CC69E080021685B /* Material+UIImage+TintColor.swift in Sources */,
 				9658F2171CD6FA4700B902C1 /* IconButton.swift in Sources */,
 				96BCB7BB1CB40DC500C806FE /* MaterialCollectionViewCell.swift in Sources */,
@@ -906,7 +888,6 @@
 				96BCB7CA1CB40DC500C806FE /* MaterialLayout.swift in Sources */,
 				96BCB7D11CB40DC500C806FE /* MaterialSwitch.swift in Sources */,
 				96BCB7BA1CB40DC500C806FE /* MaterialCollectionView.swift in Sources */,
-				9692C9671CE92EB1008C2766 /* MaterialNoteViewController.swift in Sources */,
 				96BCB7A31CB40DC500C806FE /* CapturePreview.swift in Sources */,
 				96BCB7BC1CB40DC500C806FE /* MaterialCollectionViewDataSource.swift in Sources */,
 				96BCB7C71CB40DC500C806FE /* MaterialKeyframeAnimation.swift in Sources */,
@@ -939,7 +920,6 @@
 				96BCB7DE1CB40DC500C806FE /* SearchBar.swift in Sources */,
 				96BCB7B11CB40DC500C806FE /* Material+UIImage+Crop.swift in Sources */,
 				96BCB7B81CB40DC500C806FE /* MaterialBorder.swift in Sources */,
-				9692C9651CE92EA4008C2766 /* MaterialEditorViewController.swift in Sources */,
 				96BCB7A61CB40DC500C806FE /* CardView.swift in Sources */,
 				96BCB7C91CB40DC500C806FE /* MaterialLayer.swift in Sources */,
 				96BCB7E21CB40DC500C806FE /* StatusBarViewController.swift in Sources */,
