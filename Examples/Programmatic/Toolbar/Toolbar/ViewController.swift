@@ -54,7 +54,7 @@ class ViewController: UIViewController {
 	
 	/// Prepares the toolbar
 	private func prepareToolbar() {
-		toolbar = Toolbar(frame: CGRectMake(0, 0, 300, 64))
+		toolbar = Toolbar()
 		
 		view.addSubview(toolbar)
 		

@@ -149,6 +149,8 @@ MaterialColor is a complete Material Design color library available within Mater
 
 MaterialIcon is a library of Google and CosmicMind icons that are available for use within your iOS applications. To help with icon choices, visit [MaterialIcon.io](http://www.materialicon.io).
 
+![MaterialMaterialIcon](http://www.cosmicmind.io/MK/MaterialMaterialIcon.png)
+
 <a name="materiallayer"></a>
 #### MaterialLayer
 
@@ -328,10 +330,14 @@ A SearchBar is a fully featured search bar that supports orientation changes, ba
 
 A SearchBarController manages UIViewControllers using a SearchBar component.
 
+![MaterialSearchBarController](http://www.cosmicmind.io/MK/MaterialSearchBarController.gif)
+
 <a href="#sidenavigationcontroller"></a>
 #### SideNavigationController
 
 A SideNavigationController manages UIViewControllers that are available as hidden drawers on the left and right of the view port.
+
+![MaterialSideNavigationController](http://www.cosmicmind.io/MK/MaterialSideNavigationController.gif)
 
 <a name="captureview"></a>
 #### CaptureView
