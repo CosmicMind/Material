@@ -50,7 +50,30 @@ public extension UIViewController {
 
 public class SearchBarController : BarViewController {
 	/// Reference to the SearchBar.
-	public private(set) lazy var searchBar: SearchBar = SearchBar()
+	public private(set) var searchBar: SearchBar!
+	
+	public override func viewWillLayoutSubviews() {
+		super.viewWillLayoutSubviews()
+		layoutSubviews()
+	}
+	
+	/// Layout subviews.
+	public func layoutSubviews() {
+		let w: CGFloat = MaterialDevice.width
+		let h: CGFloat = MaterialDevice.height
+		
+		if .iPhone == MaterialDevice.type && MaterialDevice.isLandscape {
+			searchBar.contentInset.top = 4
+		} else {
+			searchBar.contentInset.top = 24
+		}
+		
+		searchBar.width = w
+		
+		let p: CGFloat = searchBar.intrinsicContentSize().height
+		rootViewController.view.frame.origin.y = p
+		rootViewController.view.frame.size.height = h - p
+	}
 	
 	/**
 	Prepares the view instance when intialized. When subclassing,
@@ -66,7 +89,10 @@ public class SearchBarController : BarViewController {
 	
 	/// Prepares the SearchBar.
 	private func prepareSearchBar() {
-		searchBar.zPosition = 1000
-		view.addSubview(searchBar)
+		if nil == searchBar {
+			searchBar = SearchBar()
+			searchBar.zPosition = 1000
+			view.addSubview(searchBar)
+		}
 	}
 }

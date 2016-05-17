@@ -50,17 +50,8 @@ class ViewController: UIViewController {
 	
 	/// Adjusts the Toolbar height to the correct height based on the orientation value.
 	private func adjustToOrientation(toInterfaceOrientation: UIInterfaceOrientation) {
-		// If landscape.
-		if UIInterfaceOrientationIsLandscape(toInterfaceOrientation) {
-			/**
-			The height of the Toolbar is dependant on the device being used.
-			If the device is an iPad, the height should stay the same as in Portrait
-			view, otherwise it should strink to the Landscape height for iPhone.
-			*/
-			toolbarHeightConstraint?.constant = .iPad == MaterialDevice.type ? toolbar!.heightForPortraitOrientation :  toolbar!.heightForLandscapeOrientation
-		} else {
-			toolbarHeightConstraint?.constant = toolbar!.heightForPortraitOrientation
-		}
+		toolbar.contentInset.top = .iPad == MaterialDevice.type || UIInterfaceOrientationIsPortrait(toInterfaceOrientation) ? 20 : 4
+		toolbarHeightConstraint?.constant = toolbar.intrinsicContentSize().height
 	}
 	
 	/// General preparation statements.

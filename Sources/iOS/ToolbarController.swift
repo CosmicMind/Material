@@ -69,7 +69,7 @@ public class ToolbarController : BarViewController {
 	private var internalFloatingViewController: UIViewController?
 	
 	/// Reference to the Toolbar.
-	public private(set) lazy var toolbar: Toolbar = Toolbar()
+	public private(set) var toolbar: Toolbar!
 	
 	/// Delegation handler.
 	public weak var delegate: ToolbarControllerDelegate?
@@ -144,6 +144,24 @@ public class ToolbarController : BarViewController {
 		layoutSubviews()
 	}
 	
+	/// Layout subviews.
+	public func layoutSubviews() {
+		let w: CGFloat = MaterialDevice.width
+		let h: CGFloat = MaterialDevice.height
+		
+		if .iPhone == MaterialDevice.type && MaterialDevice.isLandscape {
+			toolbar.contentInset.top = 4
+		} else {
+			toolbar.contentInset.top = 24
+		}
+		
+		toolbar.width = w
+		
+		let p: CGFloat = toolbar.intrinsicContentSize().height
+		rootViewController.view.frame.origin.y = p
+		rootViewController.view.frame.size.height = h - p
+	}
+	
 	/**
 	Prepares the view instance when intialized. When subclassing,
 	it is recommended to override the prepareView method
@@ -156,24 +174,12 @@ public class ToolbarController : BarViewController {
 		prepareToolbar()
 	}
 	
-	/// Layout subviews.
-	public func layoutSubviews() {
-		let h: CGFloat = MaterialDevice.height
-		
-		if .iPhone == MaterialDevice.type && MaterialDevice.isLandscape {
-			toolbar.contentInset.top = 24
-		} else {
-			toolbar.contentInset.top = 4
-		}
-		
-		let p: CGFloat = toolbar.intrinsicContentSize().height
-		rootViewController.view.frame.origin.y = p
-		rootViewController.view.frame.size.height = h - p
-	}
-	
 	/// Prepares the Toolbar.
 	private func prepareToolbar() {
-		toolbar.zPosition = 1000
-		view.addSubview(toolbar)
+		if nil == toolbar {
+			toolbar = Toolbar()
+			toolbar.zPosition = 1000
+			view.addSubview(toolbar)
+		}
 	}
 }

@@ -37,16 +37,10 @@ import UIKit
 import Material
 
 class AppSearchBarController: SearchBarController {
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		prepareView()
-		prepareSearchBar()
-	}
-	
-	/// Prepares view.
+	/// Prepares the view.
 	override func prepareView() {
 		super.prepareView()
-		view.backgroundColor = MaterialColor.black
+		prepareSearchBar()
 	}
 	
 	/// Prepares the searchBar.

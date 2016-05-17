@@ -56,10 +56,6 @@ public class BarView : ControlView {
 		prepareProperties(leftControls, rightControls: rightControls)
 	}
 	
-	public override func intrinsicContentSize() -> CGSize {
-		return CGSizeMake(width, 44 + contentInset.top + contentInset.bottom)
-	}
-	
 	/**
 	Prepares the view instance when intialized. When subclassing,
 	it is recommended to override the prepareView method

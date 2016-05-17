@@ -102,7 +102,6 @@ class ViewController: UIViewController {
 		"View controller-based status bar appearance = NO"
 		to your info.plist file and set the following property.
 		*/
-		toolbar.statusBarStyle = .LightContent
 		toolbar.backgroundColor = MaterialColor.blue.base
 		toolbar.leftControls = [menuButton]
 		toolbar.rightControls = [switchControl, searchButton]

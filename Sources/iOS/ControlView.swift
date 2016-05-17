@@ -144,10 +144,7 @@ public class ControlView : MaterialView {
 		super.layoutSubviews()
 		if willRenderView {
 			layoutIfNeeded()
-			
-			if 0 == frame.size.height {
-				frame.size.height = intrinsicContentSize().height
-			}
+			frame.size.height = intrinsicContentSize().height
 			
 			let factor: CGFloat = 24
 			if let g: Int = Int(width / factor) {
@@ -200,6 +197,10 @@ public class ControlView : MaterialView {
 				grid.reloadLayout()
 			}
 		}
+	}
+	
+	public override func intrinsicContentSize() -> CGSize {
+		return CGSizeMake(width, 36 + contentInset.top + contentInset.bottom)
 	}
 	
 	/**

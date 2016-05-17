@@ -71,16 +71,16 @@ public class SearchBar : BarView {
 	@IBInspectable public var placeholder: String? {
 		didSet {
 			if let v: String = placeholder {
-				textField.attributedPlaceholder = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderTextColor])
+				textField.attributedPlaceholder = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderColor])
 			}
 		}
 	}
 	
 	/// Placeholder textColor.
-	@IBInspectable public var placeholderTextColor: UIColor = MaterialColor.darkText.others {
+	@IBInspectable public var placeholderColor: UIColor = MaterialColor.darkText.others {
 		didSet {
 			if let v: String = placeholder {
-				textField.attributedPlaceholder = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderTextColor])
+				textField.attributedPlaceholder = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderColor])
 			}
 		}
 	}
@@ -111,18 +111,24 @@ public class SearchBar : BarView {
 		prepareClearButton()
 	}
 	
+	/// Layout the clearButton.
+	public func layoutClearButton() {
+		let h: CGFloat = textField.frame.height
+		clearButton.frame = CGRectMake(textField.frame.width - h, 0, h, h)
+	}
+	
 	/// Clears the textField text.
 	internal func handleClearButton() {
-		textField.text = ""
+		textField.text = nil
 	}
 	
 	/// Prepares the textField.
 	private func prepareTextField() {
 		textField = UITextField()
-		textField.font = RobotoFont.regularWithSize(20)
+		textField.font = RobotoFont.regularWithSize(17)
 		textField.backgroundColor = MaterialColor.clear
 		textField.clearButtonMode = .WhileEditing
-		tintColor = placeholderTextColor
+		tintColor = placeholderColor
 		textColor = MaterialColor.darkText.primary
 		placeholder = "Search"
 		contentView.addSubview(textField)
@@ -133,18 +139,12 @@ public class SearchBar : BarView {
 		let image: UIImage? = MaterialIcon.cm.close
 		clearButton = IconButton()
 		clearButton.contentEdgeInsets = UIEdgeInsetsZero
-		clearButton.tintColor = placeholderTextColor
+		clearButton.tintColor = placeholderColor
 		clearButton.setImage(image, forState: .Normal)
 		clearButton.setImage(image, forState: .Highlighted)
 		clearButtonAutoHandleEnabled = true
 		textField.clearButtonMode = .Never
 		textField.rightViewMode = .WhileEditing
 		textField.rightView = clearButton
-	}
-	
-	/// Layout the clearButton.
-	private func layoutClearButton() {
-		let h: CGFloat = textField.frame.height
-		clearButton.frame = CGRectMake(textField.frame.width - h, 0, h, h)
 	}
 }

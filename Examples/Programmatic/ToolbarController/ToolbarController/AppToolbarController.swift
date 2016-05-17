@@ -37,20 +37,9 @@ import UIKit
 import Material
 
 class AppToolbarController: ToolbarController {
-	override func viewWillAppear(animated: Bool) {
-		super.viewWillAppear(animated)
-		/*
-		To lighten the status bar - add the
-		"View controller-based status bar appearance = NO"
-		to your info.plist file and set the following property.
-		*/
-		toolbar.statusBarStyle = .LightContent
-	}
-	
-	/// Prepares view.
+	/// Prepares the view.
 	override func prepareView() {
 		super.prepareView()
-		view.backgroundColor = MaterialColor.black
 		prepareToolbar()
 	}
 	
@@ -92,10 +81,12 @@ class AppToolbarController: ToolbarController {
 		image = MaterialIcon.cm.search
 		let searchButton: IconButton = IconButton()
 		searchButton.tintColor = MaterialColor.white
+		searchButton.pulseColor = MaterialColor.white
 		searchButton.setImage(image, forState: .Normal)
 		searchButton.setImage(image, forState: .Highlighted)
 		searchButton.addTarget(self, action: #selector(handleSearchButton), forControlEvents: .TouchUpInside)
 		
+		toolbar.statusBarStyle = .LightContent
 		toolbar.leftControls = [menuButton]
 		toolbar.rightControls = [switchControl, searchButton]
 		toolbar.backgroundColor = MaterialColor.blue.base

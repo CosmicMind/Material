@@ -38,12 +38,16 @@ import UIKit
 import Material
 
 class ViewController: UIViewController {
+	/// Reference for containerView.
+	private var containerView: UIView!
+	
 	/// Reference for SearchBar.
-	private var searchBar: SearchBar = SearchBar()
+	private var searchBar: SearchBar!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
+		prepareContainerView()
 		prepareSearchBar()
 	}
 	
@@ -52,22 +56,22 @@ class ViewController: UIViewController {
 		view.backgroundColor = MaterialColor.white
 	}
 	
-	/// Prepare toolbar.
+	/// Prepares the containerView.
+	private func prepareContainerView() {
+		containerView = UIView()
+		view.addSubview(containerView)
+		
+		MaterialLayout.alignToParent(view, child: containerView, top: 100, left: 20, right: 20)
+	}
+	
+	/// Prepares the toolbar
 	private func prepareSearchBar() {
-		var image: UIImage? = MaterialIcon.cm.arrowBack
+		searchBar = SearchBar()
+		containerView.addSubview(searchBar)
 		
-		// Back button.
-		let backButton: IconButton = IconButton()
-		backButton.pulseColor = MaterialColor.grey.base
-		backButton.tintColor = MaterialColor.grey.darken4
-		backButton.setImage(image, forState: .Normal)
-		backButton.setImage(image, forState: .Highlighted)
-		
-		// Switch control.
-		let switchControl: MaterialSwitch = MaterialSwitch(state: .Off, style: .Default, size: .Small)
+		let image: UIImage? = MaterialIcon.cm.moreVertical
 		
 		// More button.
-		image = MaterialIcon.cm.moreHorizontal
 		let moreButton: IconButton = IconButton()
 		moreButton.pulseColor = MaterialColor.grey.base
 		moreButton.tintColor = MaterialColor.grey.darken4
@@ -79,10 +83,6 @@ class ViewController: UIViewController {
 		"View controller-based status bar appearance = NO"
 		to your info.plist file and set the following property.
 		*/
-		searchBar.statusBarStyle = .Default
-		searchBar.leftControls = [backButton]
-		searchBar.rightControls = [switchControl, moreButton]
-		
-		view.addSubview(searchBar)
+		searchBar.leftControls = [moreButton]
 	}
 }
