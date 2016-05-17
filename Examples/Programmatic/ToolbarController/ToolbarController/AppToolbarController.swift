@@ -37,12 +37,6 @@ import UIKit
 import Material
 
 class AppToolbarController: ToolbarController {
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		prepareView()
-		prepareToolbar()
-	}
-	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 		/*
@@ -57,6 +51,7 @@ class AppToolbarController: ToolbarController {
 	override func prepareView() {
 		super.prepareView()
 		view.backgroundColor = MaterialColor.black
+		prepareToolbar()
 	}
 	
 	/// Toggle SideNavigationController right UIViewController.
@@ -73,9 +68,7 @@ class AppToolbarController: ToolbarController {
 	private func prepareToolbar() {
 		// Title label.
 		toolbar.titleLabel.text = "Material"
-		toolbar.titleLabel.textAlignment = .Left
 		toolbar.titleLabel.textColor = MaterialColor.white
-		toolbar.titleLabel.font = RobotoFont.regular
 		
 		// Detail label. Uncomment the code below to use a detail label.
 		//		toolbar.detailLabel.text = "Build Beautiful Software"

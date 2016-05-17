@@ -143,6 +143,12 @@ public class ControlView : MaterialView {
 	public override func layoutSubviews() {
 		super.layoutSubviews()
 		if willRenderView {
+			layoutIfNeeded()
+			
+			if 0 == frame.size.height {
+				frame.size.height = intrinsicContentSize().height
+			}
+			
 			let factor: CGFloat = 24
 			if let g: Int = Int(width / factor) {
 				let columns: Int = g + 1

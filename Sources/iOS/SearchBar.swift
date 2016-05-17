@@ -30,7 +30,7 @@
 
 import UIKit
 
-public class SearchBar : StatusBarView {
+public class SearchBar : BarView {
 	/// The UITextField for the searchBar.
 	public private(set) var textField: UITextField!
 	

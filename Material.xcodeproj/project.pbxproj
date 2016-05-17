@@ -79,8 +79,8 @@
 		96BCB7DE1CB40DC500C806FE /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7951CB40DC500C806FE /* SearchBar.swift */; };
 		96BCB7DF1CB40DC500C806FE /* SearchBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7961CB40DC500C806FE /* SearchBarController.swift */; };
 		96BCB7E01CB40DC500C806FE /* SideNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7971CB40DC500C806FE /* SideNavigationController.swift */; };
-		96BCB7E11CB40DC500C806FE /* StatusBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7981CB40DC500C806FE /* StatusBarView.swift */; };
-		96BCB7E21CB40DC500C806FE /* StatusBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7991CB40DC500C806FE /* StatusBarViewController.swift */; };
+		96BCB7E11CB40DC500C806FE /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7981CB40DC500C806FE /* BarView.swift */; };
+		96BCB7E21CB40DC500C806FE /* BarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7991CB40DC500C806FE /* BarViewController.swift */; };
 		96BCB7E31CB40DC500C806FE /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB79A1CB40DC500C806FE /* TabBar.swift */; };
 		96BCB7E41CB40DC500C806FE /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB79B1CB40DC500C806FE /* Text.swift */; };
 		96BCB7E51CB40DC500C806FE /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB79C1CB40DC500C806FE /* TextField.swift */; };
@@ -143,8 +143,8 @@
 		96BCB8391CB4115200C806FE /* SearchBar.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7951CB40DC500C806FE /* SearchBar.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB83A1CB4115200C806FE /* SearchBarController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7961CB40DC500C806FE /* SearchBarController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB83B1CB4115200C806FE /* SideNavigationController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7971CB40DC500C806FE /* SideNavigationController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		96BCB83C1CB4115200C806FE /* StatusBarView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7981CB40DC500C806FE /* StatusBarView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		96BCB83D1CB4115200C806FE /* StatusBarViewController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7991CB40DC500C806FE /* StatusBarViewController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96BCB83C1CB4115200C806FE /* BarView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7981CB40DC500C806FE /* BarView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96BCB83D1CB4115200C806FE /* BarViewController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7991CB40DC500C806FE /* BarViewController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB83E1CB4115200C806FE /* Menu.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB78D1CB40DC500C806FE /* Menu.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB83F1CB4115200C806FE /* MenuView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB78E1CB40DC500C806FE /* MenuView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8401CB4115200C806FE /* MenuViewController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB78F1CB40DC500C806FE /* MenuViewController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -268,8 +268,8 @@
 		96BCB7951CB40DC500C806FE /* SearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		96BCB7961CB40DC500C806FE /* SearchBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarController.swift; sourceTree = "<group>"; };
 		96BCB7971CB40DC500C806FE /* SideNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideNavigationController.swift; sourceTree = "<group>"; };
-		96BCB7981CB40DC500C806FE /* StatusBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarView.swift; sourceTree = "<group>"; };
-		96BCB7991CB40DC500C806FE /* StatusBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarViewController.swift; sourceTree = "<group>"; };
+		96BCB7981CB40DC500C806FE /* BarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
+		96BCB7991CB40DC500C806FE /* BarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarViewController.swift; sourceTree = "<group>"; };
 		96BCB79A1CB40DC500C806FE /* TabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		96BCB79B1CB40DC500C806FE /* Text.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
 		96BCB79C1CB40DC500C806FE /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
@@ -424,11 +424,11 @@
 			isa = PBXGroup;
 			children = (
 				96BCB75E1CB40DC500C806FE /* ControlView.swift */,
+				96BCB7981CB40DC500C806FE /* BarView.swift */,
+				96BCB7991CB40DC500C806FE /* BarViewController.swift */,
 				96BCB7951CB40DC500C806FE /* SearchBar.swift */,
 				96BCB7961CB40DC500C806FE /* SearchBarController.swift */,
 				96BCB7971CB40DC500C806FE /* SideNavigationController.swift */,
-				96BCB7981CB40DC500C806FE /* StatusBarView.swift */,
-				96BCB7991CB40DC500C806FE /* StatusBarViewController.swift */,
 				96BCB78D1CB40DC500C806FE /* Menu.swift */,
 				96BCB78E1CB40DC500C806FE /* MenuView.swift */,
 				96BCB78F1CB40DC500C806FE /* MenuViewController.swift */,
@@ -664,8 +664,8 @@
 				96BCB8391CB4115200C806FE /* SearchBar.swift in Headers */,
 				96BCB83A1CB4115200C806FE /* SearchBarController.swift in Headers */,
 				96BCB83B1CB4115200C806FE /* SideNavigationController.swift in Headers */,
-				96BCB83C1CB4115200C806FE /* StatusBarView.swift in Headers */,
-				96BCB83D1CB4115200C806FE /* StatusBarViewController.swift in Headers */,
+				96BCB83C1CB4115200C806FE /* BarView.swift in Headers */,
+				96BCB83D1CB4115200C806FE /* BarViewController.swift in Headers */,
 				96BCB83E1CB4115200C806FE /* Menu.swift in Headers */,
 				96BCB83F1CB4115200C806FE /* MenuView.swift in Headers */,
 				96BCB8401CB4115200C806FE /* MenuViewController.swift in Headers */,
@@ -909,7 +909,7 @@
 				96BCB7E71CB40DC500C806FE /* TextView.swift in Sources */,
 				96BCB7C31CB40DC500C806FE /* MaterialEdgeInset.swift in Sources */,
 				96BCB7CE1CB40DC500C806FE /* MaterialRadius.swift in Sources */,
-				96BCB7E11CB40DC500C806FE /* StatusBarView.swift in Sources */,
+				96BCB7E11CB40DC500C806FE /* BarView.swift in Sources */,
 				96BCB7A11CB40DC500C806FE /* BottomNavigationController.swift in Sources */,
 				96BCB7D81CB40DC500C806FE /* MenuViewController.swift in Sources */,
 				96BCB7D41CB40DC500C806FE /* MaterialTransitionAnimation.swift in Sources */,
@@ -922,7 +922,7 @@
 				96BCB7B81CB40DC500C806FE /* MaterialBorder.swift in Sources */,
 				96BCB7A61CB40DC500C806FE /* CardView.swift in Sources */,
 				96BCB7C91CB40DC500C806FE /* MaterialLayer.swift in Sources */,
-				96BCB7E21CB40DC500C806FE /* StatusBarViewController.swift in Sources */,
+				96BCB7E21CB40DC500C806FE /* BarViewController.swift in Sources */,
 				96BCB7DC1CB40DC500C806FE /* RaisedButton.swift in Sources */,
 				96BCB7DD1CB40DC500C806FE /* RobotoFont.swift in Sources */,
 				96BCB7D71CB40DC500C806FE /* MenuView.swift in Sources */,

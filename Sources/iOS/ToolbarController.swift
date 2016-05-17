@@ -64,37 +64,7 @@ public protocol ToolbarControllerDelegate : MaterialDelegate {
 }
 
 @objc(ToolbarController)
-public class ToolbarController : StatusBarViewController {
-	/// The height of the StatusBar.
-	@IBInspectable public override var heightForStatusBar: CGFloat {
-		get {
-			return toolbar.heightForStatusBar
-		}
-		set(value) {
-			toolbar.heightForStatusBar = value
-		}
-	}
-	
-	/// The height when in Portrait orientation mode.
-	@IBInspectable public override var heightForPortraitOrientation: CGFloat {
-		get {
-			return toolbar.heightForPortraitOrientation
-		}
-		set(value) {
-			toolbar.heightForPortraitOrientation = value
-		}
-	}
-	
-	/// The height when in Landscape orientation mode.
-	@IBInspectable public override var heightForLandscapeOrientation: CGFloat {
-		get {
-			return toolbar.heightForLandscapeOrientation
-		}
-		set(value) {
-			toolbar.heightForLandscapeOrientation = value
-		}
-	}
-	
+public class ToolbarController : BarViewController {
 	/// Internal reference to the floatingViewController.
 	private var internalFloatingViewController: UIViewController?
 	
@@ -130,7 +100,7 @@ public class ToolbarController : StatusBarViewController {
 						dispatch_async(dispatch_get_main_queue()) { [unowned self] in
 							self.delegate?.toolbarControllerDidCloseFloatingViewController?(self)
 						}
-				}
+					}
 			}
 			
 			if let v: UIViewController = value {
@@ -164,9 +134,14 @@ public class ToolbarController : StatusBarViewController {
 						dispatch_async(dispatch_get_main_queue()) { [unowned self] in
 							self.delegate?.toolbarControllerDidOpenFloatingViewController?(self)
 						}
-				}
+					}
 			}
 		}
+	}
+	
+	public override func viewWillLayoutSubviews() {
+		super.viewWillLayoutSubviews()
+		layoutSubviews()
 	}
 	
 	/**
@@ -179,6 +154,21 @@ public class ToolbarController : StatusBarViewController {
 	public override func prepareView() {
 		super.prepareView()
 		prepareToolbar()
+	}
+	
+	/// Layout subviews.
+	public func layoutSubviews() {
+		let h: CGFloat = MaterialDevice.height
+		
+		if .iPhone == MaterialDevice.type && MaterialDevice.isLandscape {
+			toolbar.contentInset.top = 24
+		} else {
+			toolbar.contentInset.top = 4
+		}
+		
+		let p: CGFloat = toolbar.intrinsicContentSize().height
+		rootViewController.view.frame.origin.y = p
+		rootViewController.view.frame.size.height = h - p
 	}
 	
 	/// Prepares the Toolbar.

@@ -94,7 +94,7 @@ public class MenuViewController : UIViewController {
 	}
 	
 	/**
-	An initializer for the StatusBarViewController.
+	An initializer for the BarViewController.
 	- Parameter rootViewController: The main UIViewController.
 	*/
 	public init(rootViewController: UIViewController) {

@@ -48,37 +48,7 @@ public extension UIViewController {
 	}
 }
 
-public class SearchBarController : StatusBarViewController {
-	/// The height of the StatusBar.
-	@IBInspectable public override var heightForStatusBar: CGFloat {
-		get {
-			return searchBar.heightForStatusBar
-		}
-		set(value) {
-			searchBar.heightForStatusBar = value
-		}
-	}
-	
-	/// The height when in Portrait orientation mode.
-	@IBInspectable public override var heightForPortraitOrientation: CGFloat {
-		get {
-			return searchBar.heightForPortraitOrientation
-		}
-		set(value) {
-			searchBar.heightForPortraitOrientation = value
-		}
-	}
-	
-	/// The height when in Landscape orientation mode.
-	@IBInspectable public override var heightForLandscapeOrientation: CGFloat {
-		get {
-			return searchBar.heightForLandscapeOrientation
-		}
-		set(value) {
-			searchBar.heightForLandscapeOrientation = value
-		}
-	}
-	
+public class SearchBarController : BarViewController {
 	/// Reference to the SearchBar.
 	public private(set) lazy var searchBar: SearchBar = SearchBar()
 	

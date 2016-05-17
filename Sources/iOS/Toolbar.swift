@@ -30,7 +30,7 @@
 
 import UIKit
 
-public class Toolbar : StatusBarView {
+public class Toolbar : BarView {
 	/// Title label.
 	public private(set) var titleLabel: UILabel!
 	

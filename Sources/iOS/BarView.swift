@@ -30,16 +30,7 @@
 
 import UIKit
 
-public class StatusBarView : ControlView {
-	/// The height of the StatusBar.
-	@IBInspectable public var heightForStatusBar: CGFloat = 20
-	
-	/// The height when in Portrait orientation mode.
-	@IBInspectable public var heightForPortraitOrientation: CGFloat = 64
-	
-	/// The height when in Landscape orientation mode.
-	@IBInspectable public var heightForLandscapeOrientation: CGFloat = 44
-	
+public class BarView : ControlView {
 	/// Device status bar style.
 	public var statusBarStyle: UIStatusBarStyle {
 		get {
@@ -49,9 +40,6 @@ public class StatusBarView : ControlView {
 			MaterialDevice.statusBarStyle = value
 		}
 	}
-	
-	/// Handles the rotation factor top inset.
-	internal var rotationFactor: CGFloat = 0
 	
 	/// A convenience initializer.
 	public convenience init() {
@@ -68,35 +56,8 @@ public class StatusBarView : ControlView {
 		prepareProperties(leftControls, rightControls: rightControls)
 	}
 	
-	public override func layoutSubviews() {
-		// Ensures a width.
-		if !willRenderView {
-			width = MaterialDevice.width
-		}
-		
-		grid.axis.columns = Int(width / 24)
-		
-		// General alignment.
-		if .iPhone == MaterialDevice.type && MaterialDevice.isLandscape {
-			if heightForStatusBar == rotationFactor {
-				contentInset.top -= rotationFactor
-				rotationFactor = 0
-			}
-			height = heightForLandscapeOrientation
-		} else {
-			if 0 == rotationFactor {
-				rotationFactor = heightForStatusBar
-				contentInset.top += rotationFactor
-			}
-			height = heightForPortraitOrientation
-		}
-		
-		// We can call super now that we have a width.
-		super.layoutSubviews()
-	}
-	
 	public override func intrinsicContentSize() -> CGSize {
-		return CGSizeMake(width, 0 < height ? height : .iPhone == MaterialDevice.type && MaterialDevice.isLandscape ? heightForLandscapeOrientation : heightForPortraitOrientation)
+		return CGSizeMake(width, 44 + contentInset.top + contentInset.bottom)
 	}
 	
 	/**

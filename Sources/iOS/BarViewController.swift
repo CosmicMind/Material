@@ -31,15 +31,7 @@
 import UIKit
 
 @IBDesignable
-public class StatusBarViewController : UIViewController {
-	/// The height of the StatusBar.
-	@IBInspectable public var heightForStatusBar: CGFloat = 20
-	
-	/// The height when in Portrait orientation mode.
-	@IBInspectable public var heightForPortraitOrientation: CGFloat = 64
-	
-	/// The height when in Landscape orientation mode.
-	@IBInspectable public var heightForLandscapeOrientation: CGFloat = 44
+public class BarViewController : UIViewController {
 	
 	/**
 	A Boolean property used to enable and disable interactivity
@@ -82,7 +74,7 @@ public class StatusBarViewController : UIViewController {
 	}
 	
 	/**
-	An initializer for the StatusBarViewController.
+	An initializer for the BarViewController.
 	- Parameter rootViewController: The main UIViewController.
 	*/
 	public init(rootViewController: UIViewController) {
@@ -140,25 +132,6 @@ public class StatusBarViewController : UIViewController {
 		prepareRootViewController()
 	}
 	
-	public override func viewWillLayoutSubviews() {
-		super.viewWillLayoutSubviews()
-		layoutSubviews()
-	}
-	
-	/// Layout subviews.
-	private func layoutSubviews() {
-		let h: CGFloat = MaterialDevice.height
-		let q: CGFloat = UIApplication.sharedApplication().statusBarFrame.size.height
-		
-		if .iPhone == MaterialDevice.type && MaterialDevice.isLandscape {
-			rootViewController.view.frame.origin.y = heightForLandscapeOrientation
-			rootViewController.view.frame.size.height = h - (heightForStatusBar >= q ? heightForLandscapeOrientation : q - heightForStatusBar - heightForLandscapeOrientation)
-		} else {
-			rootViewController.view.frame.origin.y = heightForPortraitOrientation
-			rootViewController.view.frame.size.height = h - (heightForStatusBar >= q ? heightForPortraitOrientation : q - heightForStatusBar - heightForPortraitOrientation)
-		}
-	}
-	
 	/// A method that prepares the rootViewController.
 	private func prepareRootViewController() {
 		rootViewController.view.clipsToBounds = true
@@ -168,7 +141,7 @@ public class StatusBarViewController : UIViewController {
 	
 	/**
 	A method that adds the passed in controller as a child of
-	the StatusBarViewController within the passed in
+	the BarViewController within the passed in
 	container view.
 	- Parameter viewController: A UIViewController to add as a child.
 	- Parameter container: A UIView that is the parent of the

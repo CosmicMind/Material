@@ -38,12 +38,16 @@ import UIKit
 import Material
 
 class ViewController: UIViewController {
+	/// Reference for containerView.
+	private var containerView: UIView!
+	
 	/// Reference for Toolbar.
 	private var toolbar: Toolbar!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
+		prepareContainerView()
 		prepareToolbar()
 	}
 	
@@ -52,11 +56,18 @@ class ViewController: UIViewController {
 		view.backgroundColor = MaterialColor.white
 	}
 	
+	/// Prepares the containerView.
+	private func prepareContainerView() {
+		containerView = UIView()
+		view.addSubview(containerView)
+		
+		MaterialLayout.alignToParent(view, child: containerView, top: 100, left: 20, right: 20)
+	}
+	
 	/// Prepares the toolbar
 	private func prepareToolbar() {
 		toolbar = Toolbar()
-		
-		view.addSubview(toolbar)
+		containerView.addSubview(toolbar)
 		
 		// Title label.
 		toolbar.titleLabel.text = "Material"
