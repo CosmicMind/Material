@@ -59,7 +59,7 @@ To help template your project, checkout Material Sticker Sheet.
 
 ![MaterialStickerSheet](http://www.cosmicmind.io/MK/material_iso_1.png)
 
-[StickerSheet](http://www.materialup.com/posts/material-design-sticker-sheets)
+[Get Material Sticker Sheet](http://www.materialup.com/posts/material-design-sticker-sheets)
 
 ## Material Colors
 
@@ -75,7 +75,7 @@ Take a look at some components in Material.
 
 #### Material Icons
 
-MaterialIcon is a library of Google and CosmicMind icons that are available for use within your iOS applications. To help with icon choices, visit [MaterialIcon.io](http://www.materialicon.io).
+Material Icons is a library of Google and CosmicMind icons that are available for use within your iOS applications. To help with icon choices, visit [MaterialIcon.io](http://www.materialicon.io).
 
 ![MaterialIcon](http://www.cosmicmind.io/MK/MaterialMaterialIcon.png)
 
@@ -127,7 +127,7 @@ Toolbars are super flexible and add excellent control to your navigation flow.
 
 #### SearchBar
 
-SearchBars are sleek and powerful. Customize a SearchBar in anyway you like.
+SearchBars are sleek and powerful. Customize a SearchBar in any way you like.
 
 ![SearchBar](http://www.cosmicmind.io/gifs/SearchBar.gif)
 
