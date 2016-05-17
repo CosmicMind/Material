@@ -90,6 +90,7 @@ class ViewController: UIViewController {
 	
 	private func prepareImageCardViewWithoutDetailLabelAndDividerExample() {
 		let imageCardView: ImageCardView = ImageCardView()
+		imageCardView.pulseColor = MaterialColor.purple.base
 		imageCardView.divider = false
 		imageCardView.maxImageHeight = 130
 		

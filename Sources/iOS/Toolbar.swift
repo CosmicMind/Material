@@ -72,6 +72,7 @@ public class Toolbar : BarView {
 	/// Prepares the titleLabel.
 	private func prepareTitleLabel() {
 		titleLabel = UILabel()
+		titleLabel.contentScaleFactor = MaterialDevice.scale
 		titleLabel.font = RobotoFont.mediumWithSize(17)
 		titleLabel.textAlignment = .Left
 		contentView.addSubview(titleLabel)
@@ -80,6 +81,7 @@ public class Toolbar : BarView {
 	/// Prepares the detailLabel.
 	private func prepareDetailLabel() {
 		detailLabel = UILabel()
+		detailLabel.contentScaleFactor = MaterialDevice.scale
 		detailLabel.font = RobotoFont.regularWithSize(12)
 		detailLabel.textAlignment = .Left
 		contentView.addSubview(detailLabel)

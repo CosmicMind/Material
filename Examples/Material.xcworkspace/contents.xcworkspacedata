@@ -62,9 +62,6 @@
          location = "group:Programmatic/TabBar/TabBar.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:Programmatic/NavigationBar/NavigationBar.xcodeproj">
-      </FileRef>
-      <FileRef
          location = "group:Programmatic/Toolbar/Toolbar.xcodeproj">
       </FileRef>
       <FileRef

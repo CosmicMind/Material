@@ -31,9 +31,6 @@
 import UIKit
 
 public class MaterialPulseView : MaterialView {
-	/// To use a single pulse and have it focused when held.
-	@IBInspectable public var pulseFocus: Bool = false
-	
 	/// An Array of pulse layers.
 	public private(set) lazy var pulseLayers: Array<CAShapeLayer> = Array<CAShapeLayer>()
 	

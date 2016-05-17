@@ -43,9 +43,9 @@ class ViewController: UIViewController {
 //		prepareHorizontalGridViewExample()
 //		prepareVerticalGridViewExample()
 //		prepareGridDirectionNoneExample()
-		prepareSmallCardViewExample()
+//		prepareSmallCardViewExample()
 //		prepareMediumCardViewExample()
-//		prepareLargeCardViewExample()
+		prepareLargeCardViewExample()
 	}
 	
 	

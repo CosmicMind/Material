@@ -4,7 +4,7 @@
 
 An animation and graphics framework for Material Design in Swift.
 
-![MaterialApp](http://www.cosmicmind.io/MK/MaterialApp.gif)
+![App](http://www.cosmicmind.io/gifs/App.gif)
 
 ## Features
 
@@ -55,122 +55,30 @@ Material is a growing project and will encounter changes throughout its developm
 
 ## Sticker Sheet
 
-To help template your project, checkout our latest addition, Material Sticker Sheet.
+To help template your project, checkout Material Sticker Sheet.
 
 ![MaterialStickerSheet](http://www.cosmicmind.io/MK/material_iso_1.png)
 
-[Get the Sticker Sheet](http://www.materialup.com/posts/material-design-sticker-sheets)
+[StickerSheet](http://www.materialup.com/posts/material-design-sticker-sheets)
 
-## Quick Access  
+## Material Colors
 
-#### Colors
+Try the Material Colors app to see the wonderful colors available in Material, or use the online version at [MaterialColors.io](http://materialcolors.io)
 
-* [MaterialColor](#materialcolor)
+![MaterialColors](http://www.cosmicmind.io/gifs/MaterialColors.gif)
 
-#### Icons
+[Get Material Colors on the AppStore](https://itunes.apple.com/app/x/id1111994400?mt=8)
 
-* [MaterialIcon](#materialicon)
+## A Quick Tour
 
-#### Base Layers & Views
-
-* [MaterialLayer](#materiallayer)
-* [MaterialView](#materialview)
-* [MaterialPulseView](#materialpulseview)
-
-#### Text
-
-* [TextField](#textfield)
-* ErrorTextField
-* [TextView](#textview)
-
-#### Buttons
-
-* MaterialButton
-* [FlatButton](#flatbutton)
-* [RaisedButton](#raisedbutton)
-* [FabButton](#fabbutton)
-
-#### Control
-
-* [MaterialSwitch](#materialswitch)
-
-#### Collection Management
-
-* [Menu](#menu)
-
-#### Layout
-
-* [Grid](#grid)
-* MaterialLayout
-
-#### Collections
-
-* [MaterialTableViewCell](#materialtableviewcell)
-* MaterialCollectionViewCell
-
-#### Cards
-
-* [CardView](#cardview)
-* [ImageCardView](#imagecardview)
-
-#### Navigation Controls
-
-* [MenuView](#menuview)
-* [MenuViewController](#menuviewcontroller)
-* NavigationBar
-* NavigationController
-* [Toolbar](#toolbar)
-* [ToolbarController](#toolbarcontroller)
-* [SearchBar](#searchbar)
-* [SearchBarController](#searchbarcontroller)
-* BottomTabBar
-* BottomNavigationController
-* [SideNavigationController](#sidenavigationcontroller)
-
-#### Photo / Video Camera
-
-* [CaptureView](#captureview)
-
-#### Filters
-
-* [Blur](#filterblur)
-
-## Explore
-
-<a name="materialcolor"></a>
-#### MaterialColor
-
-MaterialColor is a complete Material Design color library available within Material. To help with color choices, visit [MaterialColor.io](http://www.materialcolor.io).
-
-![MaterialMaterialColorPalette](http://www.cosmicmind.io/MK/MaterialMaterialColorPalette.png)
+Take a look at some components in Material.
 
 <a name="materialicon"></a>
-#### MaterialIcon
+#### Material Icons
 
 MaterialIcon is a library of Google and CosmicMind icons that are available for use within your iOS applications. To help with icon choices, visit [MaterialIcon.io](http://www.materialicon.io).
 
-![MaterialMaterialIcon](http://www.cosmicmind.io/MK/MaterialMaterialIcon.png)
-
-<a name="materiallayer"></a>
-#### MaterialLayer
-
-MaterialLayer is a lightweight CAShapeLayer used throughout Material. It is designed to easily take shape, depth, and animations.
-
-![MaterialMaterialLayer](http://www.cosmicmind.io/MK/MaterialMaterialLayer.gif)
-
-<a name="materialview"></a>
-#### MaterialView
-
-MaterialView is the base UIView class used throughout Material. Like MaterialLayer, it is designed to easily take shape, depth, and animations. The major difference is that MaterialView has all the added features of the UIView class.
-
-![MaterialMaterialView](http://www.cosmicmind.io/MK/MaterialMaterialView.gif)
-
-<a name="materialpulseview"></a>
-#### MaterialPulseView
-
-MaterialPulseView is at the heart of all pulse animations. Any view that subclasses MaterialPulseView instantly inherits the pulse animation with full customizability.
-
-![MaterialMaterialPulseView](http://www.cosmicmind.io/MK/MaterialMaterialPulseView.gif)
+![MaterialIcon](http://www.cosmicmind.io/MK/MaterialMaterialIcon.png)
 
 <a name="textfield"></a>
 #### TextField

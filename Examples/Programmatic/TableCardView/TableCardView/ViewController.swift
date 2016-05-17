@@ -103,6 +103,7 @@ class ViewController: UIViewController {
 		
 		let closeButton: FlatButton = FlatButton()
 		closeButton.setTitle("Close", forState: .Normal)
+		closeButton.setTitleColor(MaterialColor.blue.accent3, forState: .Normal)
 		
 		let image: UIImage? = MaterialIcon.cm.settings
 		let settingButton: IconButton = IconButton()

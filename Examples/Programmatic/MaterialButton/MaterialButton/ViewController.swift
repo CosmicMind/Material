@@ -43,6 +43,7 @@ class ViewController: UIViewController {
 		prepareFlatButtonExample()
 		prepareRaisedButtonExample()
 		prepareFabButtonExample()
+		prepareIconButtonExample()
 	}
 	
 	override func viewDidAppear(animated: Bool) {
@@ -84,7 +85,19 @@ class ViewController: UIViewController {
 	private func prepareFabButtonExample() {
 		let w: CGFloat = 64
 		let img: UIImage? = MaterialIcon.cm.pen
-		let button: FabButton = FabButton(frame: CGRectMake((view.bounds.width - w) / 2, 300, w, 64))
+		let button: FabButton = FabButton(frame: CGRectMake((view.bounds.width - w) / 2, 300, w, w))
+		button.setImage(img, forState: .Normal)
+		button.setImage(img, forState: .Highlighted)
+		
+		// Add button to UIViewController.
+		view.addSubview(button)
+	}
+	
+	/// Prepares the IconButton.
+	private func prepareIconButtonExample() {
+		let w: CGFloat = 64
+		let img: UIImage? = MaterialIcon.cm.search
+		let button: IconButton = IconButton(frame: CGRectMake((view.bounds.width - w) / 2, 400, w, w))
 		button.setImage(img, forState: .Normal)
 		button.setImage(img, forState: .Highlighted)
 		
