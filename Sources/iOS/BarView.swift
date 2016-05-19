@@ -41,9 +41,27 @@ public class BarView : ControlView {
 		}
 	}
 	
-	/// A convenience initializer.
-	public convenience init() {
-		self.init(frame: CGRectZero)
+	/**
+	An initializer that initializes the object with a NSCoder object.
+	- Parameter aDecoder: A NSCoder instance.
+	*/
+	public required init?(coder aDecoder: NSCoder) {
+		super.init(coder: aDecoder)
+	}
+	
+	/**
+	An initializer that initializes the object with a CGRect object.
+	If AutoLayout is used, it is better to initilize the instance
+	using the init() initializer.
+	- Parameter frame: A CGRect instance.
+	*/
+	public override init(frame: CGRect) {
+		super.init(frame: frame)
+	}
+	
+	/// Basic initializer.
+	public override init() {
+		super.init()
 	}
 	
 	/**
@@ -51,9 +69,8 @@ public class BarView : ControlView {
 	- Parameter leftControls: An Array of UIControls that go on the left side.
 	- Parameter rightControls: An Array of UIControls that go on the right side.
 	*/
-	public convenience init?(leftControls: Array<UIControl>? = nil, rightControls: Array<UIControl>? = nil) {
-		self.init(frame: CGRectZero)
-		prepareProperties(leftControls, rightControls: rightControls)
+	public override init(leftControls: Array<UIControl>, rightControls: Array<UIControl>) {
+		super.init(leftControls: leftControls, rightControls: rightControls)
 	}
 	
 	/**

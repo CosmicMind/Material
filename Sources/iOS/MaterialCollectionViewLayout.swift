@@ -110,7 +110,7 @@ public class MaterialCollectionViewLayout : UICollectionViewLayout {
 	}
 	
 	public override func shouldInvalidateLayoutForBoundsChange(newBounds: CGRect) -> Bool {
-		return .Vertical == scrollDirection ? newBounds.width != collectionView!.bounds.width : newBounds.height != collectionView!.bounds.height
+		return .Vertical == scrollDirection ? newBounds.width != collectionView?.bounds.width : newBounds.height != collectionView?.bounds.height
 	}
 	
 	public override func collectionViewContentSize() -> CGSize {
