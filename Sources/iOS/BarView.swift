@@ -83,9 +83,5 @@ public class BarView : ControlView {
 	public override func prepareView() {
 		super.prepareView()
 		depth = .Depth1
-		spacingPreset = .Spacing1
-		contentInsetPreset = .Square1
-		autoresizingMask = .FlexibleWidth
-		shadowPathAutoSizeEnabled = false
 	}
 }

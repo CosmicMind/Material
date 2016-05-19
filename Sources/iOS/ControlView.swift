@@ -136,6 +136,7 @@ public class ControlView : MaterialView {
 	public init() {
 		super.init(frame: CGRectZero)
 		frame.size = intrinsicContentSize()
+		frame.size.width = MaterialDevice.width
 		prepareView()
 	}
 	
@@ -154,7 +155,6 @@ public class ControlView : MaterialView {
 		super.layoutSubviews()
 		if willRenderView {
 			layoutIfNeeded()
-			frame.size.height = intrinsicContentSize().height
 			
 			let factor: CGFloat = 24
 			if let g: Int = Int(width / factor) {
@@ -222,6 +222,10 @@ public class ControlView : MaterialView {
 	*/
 	public override func prepareView() {
 		super.prepareView()
+		spacingPreset = .Spacing1
+		contentInsetPreset = .Square1
+		autoresizingMask = .FlexibleWidth
+		shadowPathAutoSizeEnabled = false
 		prepareContentView()
 	}
 	

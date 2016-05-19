@@ -77,6 +77,7 @@ public class Toolbar : BarView {
 	/// Basic initializer.
 	public override init() {
 		super.init()
+		print("Toolbar", intrinsicContentSize())
 	}
 	
 	/**

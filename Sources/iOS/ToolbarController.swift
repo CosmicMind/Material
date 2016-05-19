@@ -146,18 +146,19 @@ public class ToolbarController : BarViewController {
 	
 	/// Layout subviews.
 	public func layoutSubviews() {
-		let w: CGFloat = MaterialDevice.width
-		let h: CGFloat = MaterialDevice.height
-		
 		if .iPhone == MaterialDevice.type && MaterialDevice.isLandscape {
 			toolbar.contentInset.top = 4
 		} else {
 			toolbar.contentInset.top = 24
 		}
 		
-		toolbar.width = w
-		
+		let h: CGFloat = MaterialDevice.height
+		let w: CGFloat = MaterialDevice.width
 		let p: CGFloat = toolbar.intrinsicContentSize().height
+		
+		toolbar.width = w
+		toolbar.height = p
+		
 		rootViewController.view.frame.origin.y = p
 		rootViewController.view.frame.size.height = h - p
 	}
