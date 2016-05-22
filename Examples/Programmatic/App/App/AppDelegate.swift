@@ -37,7 +37,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var window: UIWindow?
 	
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-		
 		let navigationController: AppNavigationController = AppNavigationController(rootViewController: RecipesViewController())
 		
 		let menuViewController: AppMenuViewController = AppMenuViewController(rootViewController: navigationController)
