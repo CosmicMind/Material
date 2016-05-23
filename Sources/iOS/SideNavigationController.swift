@@ -1065,9 +1065,9 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 		if statusBarHidden {
 			willHideStatusBar = false
 			UIView.animateWithDuration(NSTimeInterval(UINavigationControllerHideShowBarDuration),
-				animations: { [weak self] in
-					self?.setNeedsStatusBarAppearanceUpdate()
-					self?.statusBarHidden = false
+				animations: {
+					self.setNeedsStatusBarAppearanceUpdate()
+					self.statusBarHidden = false
 				})
 			delegate?.sideNavigationStatusBarHiddenState?(self, hidden: false)
 		}
@@ -1079,9 +1079,9 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 			willHideStatusBar = true
 			if !statusBarHidden {
 				UIView.animateWithDuration(NSTimeInterval(UINavigationControllerHideShowBarDuration),
-					animations: { [weak self] in
-						self?.setNeedsStatusBarAppearanceUpdate()
-						self?.statusBarHidden = true
+					animations: {
+						self.setNeedsStatusBarAppearanceUpdate()
+						self.statusBarHidden = true
 					})
 				delegate?.sideNavigationStatusBarHiddenState?(self, hidden: true)
 			}
