@@ -550,21 +550,19 @@ public class TextField : UITextField {
 	public func placeholderEditingDidBeginAnimation() {
 		if CGAffineTransformIsIdentity(placeholderLabel.transform) {
 			animating = true
-			UIView.animateWithDuration(0.15, animations: { [weak self] in
-				if let v: TextField = self {
-					v.placeholderLabel.transform = CGAffineTransformMakeScale(0.75, 0.75)
-					switch v.textAlignment {
+			UIView.animateWithDuration(0.15, animations: {
+					self.placeholderLabel.transform = CGAffineTransformMakeScale(0.75, 0.75)
+					switch self.textAlignment {
 					case .Left, .Natural:
-						v.placeholderLabel.frame.origin.x = 0
+						self.placeholderLabel.frame.origin.x = 0
 					case .Right:
-						v.placeholderLabel.frame.origin.x = v.width - v.placeholderLabel.frame.width
+						self.placeholderLabel.frame.origin.x = self.width - self.placeholderLabel.frame.width
 					default:break
 					}
-					v.placeholderLabel.frame.origin.y = -v.placeholderLabel.frame.size.height
-					v.placeholderLabel.textColor = v.placeholderActiveColor
-				}
-			}) { [weak self] _ in
-				self?.animating = false
+					self.placeholderLabel.frame.origin.y = -self.placeholderLabel.frame.size.height
+					self.placeholderLabel.textColor = self.placeholderActiveColor
+			}) { _ in
+				self.animating = false
 			}
 		} else if editing {
 			placeholderLabel.textColor = placeholderActiveColor
@@ -575,15 +573,13 @@ public class TextField : UITextField {
 	public func placeholderEditingDidEndAnimation() {
 		if !CGAffineTransformIsIdentity(placeholderLabel.transform) && true == text?.isEmpty {
 			animating = true
-			UIView.animateWithDuration(0.15, animations: { [weak self] in
-				if let v: TextField = self {
-					v.placeholderLabel.transform = CGAffineTransformIdentity
-					v.placeholderLabel.frame.origin.x = 0
-					v.placeholderLabel.frame.origin.y = 0
-					v.placeholderLabel.textColor = v.placeholderColor
-				}
-			}) { [weak self] _ in
-				self?.animating = false
+			UIView.animateWithDuration(0.15, animations: {
+                self.placeholderLabel.transform = CGAffineTransformIdentity
+                self.placeholderLabel.frame.origin.x = 0
+                self.placeholderLabel.frame.origin.y = 0
+                self.placeholderLabel.textColor = self.placeholderColor
+			}) { _ in
+				self.animating = false
 			}
 		} else if !editing {
 			placeholderLabel.textColor = placeholderColor
