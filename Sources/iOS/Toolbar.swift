@@ -30,8 +30,25 @@
 
 import UIKit
 
+public enum BarHeight {
+    case Default
+    case Short
+    case Tall
+    case FrameHeight
+    
+}
+
+
 public class Toolbar : BarView {
-	/// Title label.
+
+    /// ToolBar's height.
+    public var toolbarHeight: BarHeight = BarHeight.Default {
+        didSet {
+            layoutSubviews()
+        }
+    }
+    
+    /// Title label.
 	public private(set) var titleLabel: UILabel!
 	
 	/// Detail label.
@@ -56,6 +73,39 @@ public class Toolbar : BarView {
 		}
 	}
 	
+    
+    /// A convenience initializer.
+    public convenience init() {
+        self.init(frame: CGRect(x: 0, y: 0, width: MaterialDevice.width, height: 32.0))
+    }
+    
+    /// A convenience using BarHeight preset.
+    public convenience init(heightPreset: BarHeight) {
+        self.init(frame: CGRect(x: 0, y: 0, width: MaterialDevice.width, height: 32.0))
+        toolbarHeight = heightPreset
+    }
+    
+    /// Returns the intrinsinc content size for toolbar.
+    public override func intrinsicContentSize() -> CGSize {
+        var result: CGSize = super.intrinsicContentSize()
+        var height: CGFloat = 32.0
+        let insetHeight = contentInset.top + contentInset.bottom
+        switch toolbarHeight {
+        case .Default:
+            height = 32.0 + insetHeight
+        case .Short:
+            height = 21.0 + insetHeight
+        case .Tall:
+            height = 64.0 + insetHeight
+        case .FrameHeight:
+            height = frame.height
+        }
+        result.height = height
+        return result
+    }
+
+    
+    
 	/**
 	An initializer that initializes the object with a NSCoder object.
 	- Parameter aDecoder: A NSCoder instance.
