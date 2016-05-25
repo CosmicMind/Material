@@ -29,25 +29,19 @@
 */
 
 /*
-The following is an example of using a MenuViewController to control the
+The following is an example of using a MenuController to control the
 flow of your application.
 */
 
 import UIKit
 import Material
 
-class AppMenuViewController: MenuViewController {
+class AppMenuController: MenuController {
 	/// MenuView diameter.
-	private let baseViewSize: CGSize = CGSizeMake(56, 56)
+	private let baseSize: CGSize = CGSizeMake(56, 56)
 	
 	/// MenuView inset.
 	private let menuViewInset: CGFloat = 16
-	
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		prepareView()
-		prepareMenuView()
-	}
 	
 	/// Loads the BlueViewController into the menuViewControllers rootViewController.
 	func handleBlueButton() {
@@ -94,8 +88,10 @@ class AppMenuViewController: MenuViewController {
 	}
 	
 	/// Prepares view.
-	private func prepareView() {
+	override func prepareView() {
+		super.prepareView()
 		view.backgroundColor = MaterialColor.black
+		prepareMenuView()
 	}
 	
 	/// Prepares the add button.
@@ -132,11 +128,11 @@ class AppMenuViewController: MenuViewController {
 		btn4.addTarget(self, action: #selector(handleYellowButton), forControlEvents: .TouchUpInside)
 		
 		// Initialize the menu and setup the configuration options.
-		menuView.menu.baseViewSize = baseViewSize
+		menuView.menu.baseSize = baseSize
 		menuView.menu.views = [btn1, btn2, btn3, btn4]
 		
 		view.addSubview(menuView)
-		MaterialLayout.size(view, child: menuView, width: baseViewSize.width, height: baseViewSize.height)
+		MaterialLayout.size(view, child: menuView, width: baseSize.width, height: baseSize.height)
 		MaterialLayout.alignFromBottomRight(view, child: menuView, bottom: menuViewInset, right: menuViewInset)
 	}
 }

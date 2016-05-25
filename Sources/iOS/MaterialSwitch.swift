@@ -373,10 +373,12 @@ public class MaterialSwitch : UIControl {
 		if enabled && internalSwitchState != state {
 			internalSwitchState = state
 			if animated {
-				animateToState(state) { [unowned self] _ in
-					self.sendActionsForControlEvents(.ValueChanged)
-					completion?(control: self)
-					self.delegate?.materialSwitchStateChanged(self)
+				animateToState(state) { [weak self] _ in
+					if let s: MaterialSwitch = self {
+						s.sendActionsForControlEvents(.ValueChanged)
+						completion?(control: s)
+						s.delegate?.materialSwitchStateChanged(s)
+					}
 				}
 			} else {
 				button.x = .On == state ? self.onPosition : self.offPosition
@@ -545,16 +547,22 @@ public class MaterialSwitch : UIControl {
 		UIView.animateWithDuration(0.15,
 			delay: 0.05,
 			options: .CurveEaseInOut,
-			animations: { [unowned self] in
-				self.button.x = .On == state ? self.onPosition + self.bounceOffset : self.offPosition - self.bounceOffset
-				self.styleForState(state)
-			}) { [unowned self] _ in
+			animations: { [weak self] in
+				if let s: MaterialSwitch = self {
+					s.button.x = .On == state ? s.onPosition + s.bounceOffset : s.offPosition - s.bounceOffset
+					s.styleForState(state)
+				}
+			}) { [weak self] _ in
 				UIView.animateWithDuration(0.15,
-					animations: { [unowned self] in
-						self.button.x = .On == state ? self.onPosition : self.offPosition
-					}) { [unowned self] _ in
-						self.userInteractionEnabled = true
-						completion?(control: self)
+					animations: { [weak self] in
+						if let s: MaterialSwitch = self {
+							s.button.x = .On == state ? s.onPosition : s.offPosition
+						}
+					}) { [weak self] _ in
+						if let s: MaterialSwitch = self {
+							s.userInteractionEnabled = true
+							completion?(control: s)
+						}
 					}
 			}
 	}

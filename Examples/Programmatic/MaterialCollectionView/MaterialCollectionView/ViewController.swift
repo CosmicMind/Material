@@ -104,7 +104,7 @@ extension ViewController: MaterialCollectionViewDataSource {
 	}
 	
 	/// Returns the number of sections.
-	func numberOfSectionsInCollectionView(tableView: UICollectionView) -> Int {
+	func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
 		return 1
 	}
 	

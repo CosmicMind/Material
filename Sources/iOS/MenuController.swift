@@ -32,15 +32,15 @@ import UIKit
 
 public extension UIViewController {
 	/**
-	A convenience property that provides access to the MenuViewController.
-	This is the recommended method of accessing the MenuViewController
+	A convenience property that provides access to the MenuController.
+	This is the recommended method of accessing the MenuController
 	through child UIViewControllers.
 	*/
-	public var menuViewController: MenuViewController? {
+	public var menuViewController: MenuController? {
 		var viewController: UIViewController? = self
 		while nil != viewController {
-			if viewController is MenuViewController {
-				return viewController as? MenuViewController
+			if viewController is MenuController {
+				return viewController as? MenuController
 			}
 			viewController = viewController?.parentViewController
 		}
@@ -49,7 +49,7 @@ public extension UIViewController {
 }
 
 @IBDesignable
-public class MenuViewController : UIViewController {
+public class MenuController : UIViewController {
 	/// Reference to the MenuView.
 	public private(set) lazy var menuView: MenuView = MenuView()
 	
@@ -133,14 +133,16 @@ public class MenuViewController : UIViewController {
 			duration: duration,
 			options: options,
 			animations: animations,
-			completion: { [unowned self] (result: Bool) in
-				toViewController.didMoveToParentViewController(self)
-				self.rootViewController.removeFromParentViewController()
-				self.rootViewController = toViewController
-				self.rootViewController.view.clipsToBounds = true
-				self.rootViewController.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-				self.view.sendSubviewToBack(self.rootViewController.view)
-				completion?(result)
+			completion: { [weak self] (result: Bool) in
+				if let s: MenuController = self {
+					toViewController.didMoveToParentViewController(s)
+					s.rootViewController.removeFromParentViewController()
+					s.rootViewController = toViewController
+					s.rootViewController.view.clipsToBounds = true
+					s.rootViewController.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+					s.view.sendSubviewToBack(s.rootViewController.view)
+					completion?(result)
+				}
 			})
 	}
 	
@@ -201,7 +203,7 @@ public class MenuViewController : UIViewController {
 	
 	/**
 	A method that adds the passed in controller as a child of
-	the MenuViewController within the passed in
+	the MenuController within the passed in
 	container view.
 	- Parameter viewController: A UIViewController to add as a child.
 	- Parameter container: A UIView that is the parent of the

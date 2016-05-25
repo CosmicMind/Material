@@ -134,7 +134,7 @@ class ViewController: UIViewController {
 		
 		// Initialize the menu and setup the configuration options.
 		menuView.menu.direction = .Up
-		menuView.menu.baseViewSize = CGSizeMake(diameter, diameter)
+		menuView.menu.baseSize = CGSizeMake(diameter, diameter)
 		menuView.menu.views = [btn1, btn2, btn3, btn4]
 		
 		view.addSubview(menuView)

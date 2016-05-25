@@ -56,7 +56,7 @@
          location = "group:Programmatic/MenuView/MenuView.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:Programmatic/MenuViewController/MenuViewController.xcodeproj">
+         location = "group:Programmatic/MenuController/MenuController.xcodeproj">
       </FileRef>
       <FileRef
          location = "group:Programmatic/TabBar/TabBar.xcodeproj">

@@ -108,14 +108,16 @@ public class BarViewController : UIViewController {
 			duration: duration,
 			options: options,
 			animations: animations,
-			completion: { [unowned self] (result: Bool) in
-				toViewController.didMoveToParentViewController(self)
-				self.rootViewController.removeFromParentViewController()
-				self.rootViewController = toViewController
-				self.rootViewController.view.clipsToBounds = true
-				self.rootViewController.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-				self.view.sendSubviewToBack(self.rootViewController.view)
-				completion?(result)
+			completion: { [weak self] (result: Bool) in
+				if let s: BarViewController = self {
+					toViewController.didMoveToParentViewController(s)
+					s.rootViewController.removeFromParentViewController()
+					s.rootViewController = toViewController
+					s.rootViewController.view.clipsToBounds = true
+					s.rootViewController.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+					s.view.sendSubviewToBack(s.rootViewController.view)
+					completion?(result)
+				}
 			})
 	}
 	

@@ -80,10 +80,10 @@ public class Menu {
 	}
 
 	/// Size of views, not including the first view.
-	public var itemViewSize: CGSize = CGSizeMake(48, 48)
+	public var itemSize: CGSize = CGSizeMake(48, 48)
 
 	/// An Optional base view size.
-	public var baseViewSize: CGSize?
+	public var baseSize: CGSize?
 
 	/**
 	Initializer.
@@ -178,13 +178,17 @@ public class Menu {
 					usingSpringWithDamping: usingSpringWithDamping,
 					initialSpringVelocity: initialSpringVelocity,
 					options: options,
-					animations: { [unowned self] in
-						view.alpha = 1
-						view.frame.origin.y = base!.frame.origin.y - CGFloat(i) * self.itemViewSize.height - CGFloat(i) * self.spacing
-						animations?(view)
-					}) { [unowned self] _ in
-						completion?(view)
-						self.enable(view)
+					animations: { [weak self] in
+						if let s: Menu = self {
+							view.alpha = 1
+							view.frame.origin.y = base!.frame.origin.y - CGFloat(i) * s.itemSize.height - CGFloat(i) * s.spacing
+							animations?(view)
+						}
+					}) { [weak self] _ in
+						if let s: Menu = self {
+							completion?(view)
+							s.enable(view)
+						}
 					}
 			}
 			opened = true
@@ -211,14 +215,18 @@ public class Menu {
 					usingSpringWithDamping: usingSpringWithDamping,
 					initialSpringVelocity: initialSpringVelocity,
 					options: options,
-					animations: { [unowned self] in
-						view.alpha = 0
-						view.frame.origin.y = self.origin.y
-						animations?(view)
-					}) { [unowned self] _ in
-						view.hidden = true
-						completion?(view)
-						self.enable(view)
+					animations: { [weak self] in
+						if let s: Menu = self {
+							view.alpha = 0
+							view.frame.origin.y = s.origin.y
+							animations?(view)
+						}
+					}) { [weak self] _ in
+						if let s: Menu = self {
+							view.hidden = true
+							completion?(view)
+							s.enable(view)
+						}
 					}
 			}
 			opened = false
@@ -246,19 +254,23 @@ public class Menu {
 				let view: UIView = v[i]
 				view.hidden = false
 
-				let h: CGFloat = nil == baseViewSize ? itemViewSize.height : baseViewSize!.height
+				let h: CGFloat = nil == baseSize ? itemSize.height : baseSize!.height
 				UIView.animateWithDuration(Double(i) * duration,
 					delay: delay,
 					usingSpringWithDamping: usingSpringWithDamping,
 					initialSpringVelocity: initialSpringVelocity,
 					options: options,
-					animations: { [unowned self] in
-						view.alpha = 1
-						view.frame.origin.y = base!.frame.origin.y + h + CGFloat(i - 1) * self.itemViewSize.height + CGFloat(i) * self.spacing
-						animations?(view)
-					}) { [unowned self] _ in
-						completion?(view)
-						self.enable(view)
+					animations: { [weak self] in
+						if let s: Menu = self {
+							view.alpha = 1
+							view.frame.origin.y = base!.frame.origin.y + h + CGFloat(i - 1) * s.itemSize.height + CGFloat(i) * s.spacing
+							animations?(view)
+						}
+					}) { [weak self] _ in
+						if let s: Menu = self {
+							completion?(view)
+							s.enable(view)
+						}
 					}
 			}
 			opened = true
@@ -280,20 +292,24 @@ public class Menu {
 			for i in 1..<v.count {
 				let view: UIView = v[i]
 
-				let h: CGFloat = nil == baseViewSize ? itemViewSize.height : baseViewSize!.height
+				let h: CGFloat = nil == baseSize ? itemSize.height : baseSize!.height
 				UIView.animateWithDuration(Double(i) * duration,
 					delay: delay,
 					usingSpringWithDamping: usingSpringWithDamping,
 					initialSpringVelocity: initialSpringVelocity,
 					options: options,
-					animations: { [unowned self] in
-						view.alpha = 0
-						view.frame.origin.y = self.origin.y + h
-						animations?(view)
-					}) { [unowned self] _ in
-						view.hidden = true
-						completion?(view)
-						self.enable(view)
+					animations: { [weak self] in
+						if let s: Menu = self {
+							view.alpha = 0
+							view.frame.origin.y = s.origin.y + h
+							animations?(view)
+						}
+					}) { [weak self] _ in
+						if let s: Menu = self {
+							view.hidden = true
+							completion?(view)
+							s.enable(view)
+						}
 					}
 			}
 			opened = false
@@ -326,13 +342,17 @@ public class Menu {
 					usingSpringWithDamping: usingSpringWithDamping,
 					initialSpringVelocity: initialSpringVelocity,
 					options: options,
-					animations: { [unowned self] in
-						view.alpha = 1
-						view.frame.origin.x = base!.frame.origin.x - CGFloat(i) * self.itemViewSize.width - CGFloat(i) * self.spacing
-						animations?(view)
-					}) { [unowned self] _ in
-						completion?(view)
-						self.enable(view)
+					animations: { [weak self] in
+						if let s: Menu = self {
+							view.alpha = 1
+							view.frame.origin.x = base!.frame.origin.x - CGFloat(i) * s.itemSize.width - CGFloat(i) * s.spacing
+							animations?(view)
+						}
+					}) { [weak self] _ in
+						if let s: Menu = self {
+							completion?(view)
+							s.enable(view)
+						}
 					}
 			}
 			opened = true
@@ -358,14 +378,18 @@ public class Menu {
 					usingSpringWithDamping: usingSpringWithDamping,
 					initialSpringVelocity: initialSpringVelocity,
 					options: options,
-					animations: { [unowned self] in
-						view.alpha = 0
-						view.frame.origin.x = self.origin.x
-						animations?(view)
-					}) { [unowned self] _ in
-						view.hidden = true
-						completion?(view)
-						self.enable(view)
+					animations: { [weak self] in
+						if let s: Menu = self {
+							view.alpha = 0
+							view.frame.origin.x = s.origin.x
+							animations?(view)
+						}
+					}) { [weak self] _ in
+						if let s: Menu = self {
+							view.hidden = true
+							completion?(view)
+							s.enable(view)
+						}
 					}
 			}
 			opened = false
@@ -392,19 +416,23 @@ public class Menu {
 				let view: UIView = v[i]
 				view.hidden = false
 
-				let h: CGFloat = nil == baseViewSize ? itemViewSize.height : baseViewSize!.height
+				let h: CGFloat = nil == baseSize ? itemSize.height : baseSize!.height
 				UIView.animateWithDuration(Double(i) * duration,
 					delay: delay,
 					usingSpringWithDamping: usingSpringWithDamping,
 					initialSpringVelocity: initialSpringVelocity,
 					options: options,
-					animations: { [unowned self] in
-						view.alpha = 1
-						view.frame.origin.x = base!.frame.origin.x + h + CGFloat(i - 1) * self.itemViewSize.width + CGFloat(i) * self.spacing
-						animations?(view)
-					}) { [unowned self] _ in
-						completion?(view)
-						self.enable(view)
+					animations: { [weak self] in
+						if let s: Menu = self {
+							view.alpha = 1
+							view.frame.origin.x = base!.frame.origin.x + h + CGFloat(i - 1) * s.itemSize.width + CGFloat(i) * s.spacing
+							animations?(view)
+						}
+					}) { [weak self] _ in
+						if let s: Menu = self {
+							completion?(view)
+							s.enable(view)
+						}
 					}
 			}
 			opened = true
@@ -426,20 +454,24 @@ public class Menu {
 			for i in 1..<v.count {
 				let view: UIView = v[i]
 
-				let w: CGFloat = nil == baseViewSize ? itemViewSize.width : baseViewSize!.width
+				let w: CGFloat = nil == baseSize ? itemSize.width : baseSize!.width
 				UIView.animateWithDuration(Double(i) * duration,
 					delay: delay,
 					usingSpringWithDamping: usingSpringWithDamping,
 					initialSpringVelocity: initialSpringVelocity,
 					options: options,
-					animations: { [unowned self] in
-						view.alpha = 0
-						view.frame.origin.x = self.origin.x + w
-						animations?(view)
-					}) { [unowned self] _ in
-						view.hidden = true
-						completion?(view)
-						self.enable(view)
+					animations: { [weak self] in
+						if let s: Menu = self {
+							view.alpha = 0
+							view.frame.origin.x = s.origin.x + w
+							animations?(view)
+						}
+					}) { [weak self] _ in
+						if let s: Menu = self {
+							view.hidden = true
+							completion?(view)
+							s.enable(view)
+						}
 					}
 			}
 			opened = false
@@ -449,7 +481,7 @@ public class Menu {
 	/// Layout the views.
 	private func layoutButtons() {
 		if let v: Array<UIView> = views {
-			let size: CGSize = nil == baseViewSize ? itemViewSize : baseViewSize!
+			let size: CGSize = nil == baseSize ? itemSize : baseSize!
 			for i in 0..<v.count {
 				let view: UIView = v[i]
 				if 0 == i {
@@ -459,9 +491,9 @@ public class Menu {
 				} else {
 					view.alpha = 0
 					view.hidden = true
-					view.frame.size = itemViewSize
-					view.frame.origin.x = origin.x + (size.width - itemViewSize.width) / 2
-					view.frame.origin.y = origin.y + (size.height - itemViewSize.height) / 2
+					view.frame.size = itemSize
+					view.frame.origin.x = origin.x + (size.width - itemSize.width) / 2
+					view.frame.origin.y = origin.y + (size.height - itemSize.height) / 2
 					view.layer.zPosition = CGFloat(10000 - v.count - i)
 				}
 			}

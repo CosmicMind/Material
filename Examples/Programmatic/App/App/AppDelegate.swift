@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		let navigationController: AppNavigationController = AppNavigationController(rootViewController: RecipesViewController())
 		
-		let menuViewController: AppMenuViewController = AppMenuViewController(rootViewController: navigationController)
+		let menuViewController: AppMenuController = AppMenuController(rootViewController: navigationController)
 		menuViewController.edgesForExtendedLayout = .None
 		
 		let bottomNavigationController: BottomNavigationController = BottomNavigationController()

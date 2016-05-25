@@ -116,11 +116,15 @@ public class Text : NSObject {
 	
 	/// Prepares the pre and post processing callbacks.
 	private func prepareTextStorageProcessingCallbacks() {
-		textStorage.textWillProcessEdit = { [unowned self] (textStorage: TextStorage, string: String, range: NSRange) -> Void in
-			self.delegate?.textWillProcessEdit?(self, textStorage: textStorage, string: string, range: range)
+		textStorage.textWillProcessEdit = { [weak self] (textStorage: TextStorage, string: String, range: NSRange) -> Void in
+			if let s: Text = self {
+				s.delegate?.textWillProcessEdit?(s, textStorage: textStorage, string: string, range: range)
+			}
 		}
-		textStorage.textDidProcessEdit = { [unowned self] (textStorage: TextStorage, result: NSTextCheckingResult?, flags: NSMatchingFlags, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
-			self.delegate?.textDidProcessEdit?(self, textStorage: textStorage, string: textStorage.string, result: result, flags: flags, stop: stop)
+		textStorage.textDidProcessEdit = { [weak self] (textStorage: TextStorage, result: NSTextCheckingResult?, flags: NSMatchingFlags, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
+			if let s: Text = self {
+				s.delegate?.textDidProcessEdit?(s, textStorage: textStorage, string: textStorage.string, result: result, flags: flags, stop: stop)
+			}
 		}
 	}
 }

@@ -91,9 +91,11 @@ public class TabBar : MaterialView {
 	
 	/// Handles the button touch event.
 	internal func handleButton(button: UIButton) {
-		UIView.animateWithDuration(0.25, animations: { [unowned self] in
-			self.line.frame.origin.x = button.frame.origin.x
-			self.line.frame.size.width = button.frame.size.width
+		UIView.animateWithDuration(0.25, animations: { [weak self] in
+			if let s: TabBar = self {
+				s.line.frame.origin.x = button.frame.origin.x
+				s.line.frame.size.width = button.frame.size.width
+			}
 		})
 	}
 	

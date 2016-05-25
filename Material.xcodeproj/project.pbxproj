@@ -13,6 +13,7 @@
 		9658F2171CD6FA4700B902C1 /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9658F2161CD6FA4700B902C1 /* IconButton.swift */; };
 		9660161D1CB2ED6C00AAB661 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 966016131CB2ED6C00AAB661 /* Material.framework */; };
 		9660162A1CB2F04E00AAB661 /* Material.h in Headers */ = {isa = PBXBuildFile; fileRef = 96D88C091C1328D800B91418 /* Material.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		966ECF2A1CF4C20100BB0BDF /* MaterialCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966ECF291CF4C20100BB0BDF /* MaterialCollectionReusableView.swift */; };
 		9679CEAB1CC69E080021685B /* Material+UIImage+TintColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679CEAA1CC69E080021685B /* Material+UIImage+TintColor.swift */; };
 		96815B381CA07BA20006CBE2 /* MaterialViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967887881C9777CB0037F6C9 /* MaterialViewTests.swift */; };
 		96977DA61CBB2E49000BEFC4 /* Material+UIImage+FilterBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96977DA51CBB2E49000BEFC4 /* Material+UIImage+FilterBlur.swift */; };
@@ -70,7 +71,7 @@
 		96BCB7D51CB40DC500C806FE /* MaterialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB78C1CB40DC500C806FE /* MaterialView.swift */; };
 		96BCB7D61CB40DC500C806FE /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB78D1CB40DC500C806FE /* Menu.swift */; };
 		96BCB7D71CB40DC500C806FE /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB78E1CB40DC500C806FE /* MenuView.swift */; };
-		96BCB7D81CB40DC500C806FE /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB78F1CB40DC500C806FE /* MenuViewController.swift */; };
+		96BCB7D81CB40DC500C806FE /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB78F1CB40DC500C806FE /* MenuController.swift */; };
 		96BCB7D91CB40DC500C806FE /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7901CB40DC500C806FE /* NavigationBar.swift */; };
 		96BCB7DA1CB40DC500C806FE /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7911CB40DC500C806FE /* NavigationController.swift */; };
 		96BCB7DB1CB40DC500C806FE /* NavigationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7921CB40DC500C806FE /* NavigationItem.swift */; };
@@ -147,7 +148,7 @@
 		96BCB83D1CB4115200C806FE /* BarViewController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7991CB40DC500C806FE /* BarViewController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB83E1CB4115200C806FE /* Menu.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB78D1CB40DC500C806FE /* Menu.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB83F1CB4115200C806FE /* MenuView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB78E1CB40DC500C806FE /* MenuView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		96BCB8401CB4115200C806FE /* MenuViewController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB78F1CB40DC500C806FE /* MenuViewController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96BCB8401CB4115200C806FE /* MenuController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB78F1CB40DC500C806FE /* MenuController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8411CB4115200C806FE /* TabBar.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB79A1CB40DC500C806FE /* TabBar.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8421CB4115200C806FE /* Toolbar.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB79F1CB40DC500C806FE /* Toolbar.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8431CB4115200C806FE /* ToolbarController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7A01CB40DC500C806FE /* ToolbarController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -202,6 +203,7 @@
 		9658F2161CD6FA4700B902C1 /* IconButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
 		966016131CB2ED6C00AAB661 /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Material.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9660161C1CB2ED6C00AAB661 /* Material OSX Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Material OSX Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		966ECF291CF4C20100BB0BDF /* MaterialCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialCollectionReusableView.swift; sourceTree = "<group>"; };
 		967887881C9777CB0037F6C9 /* MaterialViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialViewTests.swift; sourceTree = "<group>"; };
 		9679CEAA1CC69E080021685B /* Material+UIImage+TintColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIImage+TintColor.swift"; sourceTree = "<group>"; };
 		96977DA51CBB2E49000BEFC4 /* Material+UIImage+FilterBlur.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIImage+FilterBlur.swift"; sourceTree = "<group>"; };
@@ -259,7 +261,7 @@
 		96BCB78C1CB40DC500C806FE /* MaterialView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialView.swift; sourceTree = "<group>"; };
 		96BCB78D1CB40DC500C806FE /* Menu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 		96BCB78E1CB40DC500C806FE /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; tabWidth = 4; };
-		96BCB78F1CB40DC500C806FE /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		96BCB78F1CB40DC500C806FE /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		96BCB7901CB40DC500C806FE /* NavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		96BCB7911CB40DC500C806FE /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		96BCB7921CB40DC500C806FE /* NavigationItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationItem.swift; sourceTree = "<group>"; };
@@ -351,6 +353,14 @@
 			path = Tests;
 			sourceTree = "<group>";
 		};
+		966ECF2B1CF4C21B00BB0BDF /* Table */ = {
+			isa = PBXGroup;
+			children = (
+				96BCB7891CB40DC500C806FE /* MaterialTableViewCell.swift */,
+			);
+			name = Table;
+			sourceTree = "<group>";
+		};
 		96BCB7571CB40DC500C806FE /* iOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -367,6 +377,7 @@
 				96BCB80D1CB410FD00C806FE /* Layer */,
 				96BCB8041CB40F6C00C806FE /* Layout */,
 				96BCB8011CB40F1700C806FE /* Navigation */,
+				966ECF2B1CF4C21B00BB0BDF /* Table */,
 				96BCB80E1CB4110E00C806FE /* Text */,
 				96BCB8061CB40FD000C806FE /* Type */,
 				96BCB80C1CB410DD00C806FE /* View */,
@@ -433,7 +444,7 @@
 				96BCB7971CB40DC500C806FE /* SideNavigationController.swift */,
 				96BCB78D1CB40DC500C806FE /* Menu.swift */,
 				96BCB78E1CB40DC500C806FE /* MenuView.swift */,
-				96BCB78F1CB40DC500C806FE /* MenuViewController.swift */,
+				96BCB78F1CB40DC500C806FE /* MenuController.swift */,
 				96BCB79A1CB40DC500C806FE /* TabBar.swift */,
 				96BCB7581CB40DC500C806FE /* BottomNavigationController.swift */,
 				96BCB7591CB40DC500C806FE /* BottomTabBar.swift */,
@@ -483,7 +494,7 @@
 				96BCB7731CB40DC500C806FE /* MaterialCollectionViewDataSource.swift */,
 				96BCB7741CB40DC500C806FE /* MaterialCollectionViewDelegate.swift */,
 				96BCB7751CB40DC500C806FE /* MaterialCollectionViewLayout.swift */,
-				96BCB7891CB40DC500C806FE /* MaterialTableViewCell.swift */,
+				966ECF291CF4C20100BB0BDF /* MaterialCollectionReusableView.swift */,
 			);
 			name = Collection;
 			sourceTree = "<group>";
@@ -668,7 +679,7 @@
 				96BCB83D1CB4115200C806FE /* BarViewController.swift in Headers */,
 				96BCB83E1CB4115200C806FE /* Menu.swift in Headers */,
 				96BCB83F1CB4115200C806FE /* MenuView.swift in Headers */,
-				96BCB8401CB4115200C806FE /* MenuViewController.swift in Headers */,
+				96BCB8401CB4115200C806FE /* MenuController.swift in Headers */,
 				96BCB8411CB4115200C806FE /* TabBar.swift in Headers */,
 				96BCB8421CB4115200C806FE /* Toolbar.swift in Headers */,
 				96BCB8431CB4115200C806FE /* ToolbarController.swift in Headers */,
@@ -911,7 +922,7 @@
 				96BCB7CE1CB40DC500C806FE /* MaterialRadius.swift in Sources */,
 				96BCB7E11CB40DC500C806FE /* BarView.swift in Sources */,
 				96BCB7A11CB40DC500C806FE /* BottomNavigationController.swift in Sources */,
-				96BCB7D81CB40DC500C806FE /* MenuViewController.swift in Sources */,
+				96BCB7D81CB40DC500C806FE /* MenuController.swift in Sources */,
 				96BCB7D41CB40DC500C806FE /* MaterialTransitionAnimation.swift in Sources */,
 				96BCB7C21CB40DC500C806FE /* MaterialDevice.swift in Sources */,
 				96BCB7A41CB40DC500C806FE /* CaptureSession.swift in Sources */,
@@ -926,6 +937,7 @@
 				96BCB7DC1CB40DC500C806FE /* RaisedButton.swift in Sources */,
 				96BCB7DD1CB40DC500C806FE /* RobotoFont.swift in Sources */,
 				96BCB7D71CB40DC500C806FE /* MenuView.swift in Sources */,
+				966ECF2A1CF4C20100BB0BDF /* MaterialCollectionReusableView.swift in Sources */,
 				96BCB7E51CB40DC500C806FE /* TextField.swift in Sources */,
 				96BCB7D21CB40DC500C806FE /* MaterialTableViewCell.swift in Sources */,
 				96BCB7B61CB40DC500C806FE /* MaterialAnimation.swift in Sources */,

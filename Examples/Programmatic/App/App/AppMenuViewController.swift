@@ -29,16 +29,16 @@
 */
 
 /*
-The following is an example of using a MenuViewController to control the
+The following is an example of using a MenuController to control the
 flow of your application.
 */
 
 import UIKit
 import Material
 
-class AppMenuViewController: MenuViewController {
+class AppMenuController: MenuController {
 	/// MenuView diameter.
-	private let baseViewSize: CGSize = CGSizeMake(56, 56)
+	private let baseSize: CGSize = CGSizeMake(56, 56)
 	
 	/// MenuView inset.
 	private let menuViewInset: CGFloat = 16
@@ -136,11 +136,11 @@ class AppMenuViewController: MenuViewController {
 		yellowButton.addTarget(self, action: #selector(handleYellowButton), forControlEvents: .TouchUpInside)
 		
 		// Initialize the menu and setup the configuration options.
-		menuView.menu.baseViewSize = baseViewSize
+		menuView.menu.baseSize = baseSize
 		menuView.menu.views = [menuButton, blueButton, greenButton, yellowButton]
 		
 		view.addSubview(menuView)
-		MaterialLayout.size(view, child: menuView, width: baseViewSize.width, height: baseViewSize.height)
+		MaterialLayout.size(view, child: menuView, width: baseSize.width, height: baseSize.height)
 		MaterialLayout.alignFromBottomRight(view, child: menuView, bottom: menuViewInset, right: menuViewInset)
 	}
 	

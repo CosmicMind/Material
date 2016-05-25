@@ -512,9 +512,11 @@ public class TextView: UITextView {
 				let h: CGFloat = ceil(v.font.lineHeight)
 				v.frame = CGRectMake(0, -h, bounds.width, h)
 				v.hidden = false
-				UIView.animateWithDuration(0.25, animations: { [unowned self] in
-					v.alpha = 1
-					v.frame.origin.y = -v.frame.height - self.titleLabelAnimationDistance
+				UIView.animateWithDuration(0.25, animations: { [weak self] in
+					if let s: TextView = self {
+						v.alpha = 1
+						v.frame.origin.y = -v.frame.height - s.titleLabelAnimationDistance
+					}
 				})
 			}
 		}
