@@ -280,11 +280,11 @@ public class NavigationBar : UINavigationBar {
 	public override func intrinsicContentSize() -> CGSize {
 		switch navigationBarStyle {
 		case .Tiny:
-			return CGSizeMake(MaterialDevice.width, 32)
+			return CGSizeMake(superview?.bounds.width ?? MaterialDevice.width, 32)
 		case .Default:
-			return CGSizeMake(MaterialDevice.width, 44)
+			return CGSizeMake(superview?.bounds.width ?? MaterialDevice.width, 44)
 		case .Medium:
-			return CGSizeMake(MaterialDevice.width, 56)
+			return CGSizeMake(superview?.bounds.width ?? MaterialDevice.width, 56)
 		}
 	}
 
