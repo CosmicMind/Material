@@ -49,6 +49,11 @@ public class TextField : UITextField {
 			layer.masksToBounds = value
 		}
 	}
+    
+    /**
+     This property adds a padding to placeholder y position animation
+     */
+    public var placeholderAnimationPadding: CGFloat = 0
 	
 	/// A property that accesses the backing layer's backgroundColor.
 	@IBInspectable public override var backgroundColor: UIColor? {
@@ -227,6 +232,9 @@ public class TextField : UITextField {
 			}
 		}
 	}
+    
+    /// Vertical distance of detail label to divider
+    public var detailDistance: CGFloat = 8
 	
 	/// Handles the textAlignment of the placeholderLabel.
 	public override var textAlignment: NSTextAlignment {
@@ -513,7 +521,7 @@ public class TextField : UITextField {
 	/// Layout the detailLabel.
 	public func layoutDetailLabel() {
 		let h: CGFloat = nil == detail ? 12 : detailLabel.font.stringSize(detail!, constrainedToWidth: Double(width)).height
-		detailLabel.frame = CGRectMake(0, divider.frame.origin.y + 8, width, h)
+		detailLabel.frame = CGRectMake(0, divider.frame.origin.y + detailDistance, width, h)
 	}
 	
 	/// Layout the clearIconButton.
@@ -560,7 +568,7 @@ public class TextField : UITextField {
 						v.placeholderLabel.frame.origin.x = v.width - v.placeholderLabel.frame.width
 					default:break
 					}
-					v.placeholderLabel.frame.origin.y = -v.placeholderLabel.frame.size.height
+					v.placeholderLabel.frame.origin.y = -v.placeholderLabel.frame.size.height + v.placeholderAnimationPadding
 					v.placeholderLabel.textColor = v.placeholderActiveColor
 				}
 			}) { [weak self] _ in
