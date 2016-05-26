@@ -31,16 +31,6 @@
 import UIKit
 
 public class BarView : ControlView {
-	/// Device status bar style.
-	public var statusBarStyle: UIStatusBarStyle {
-		get {
-			return MaterialDevice.statusBarStyle
-		}
-		set(value) {
-			MaterialDevice.statusBarStyle = value
-		}
-	}
-	
 	/**
 	An initializer that initializes the object with a NSCoder object.
 	- Parameter aDecoder: A NSCoder instance.

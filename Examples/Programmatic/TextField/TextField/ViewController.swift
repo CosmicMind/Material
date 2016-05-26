@@ -106,7 +106,7 @@ class ViewController: UIViewController, TextFieldDelegate {
 		emailField.placeholder = "Email"
 		emailField.detail = "Error, incorrect email"
 		emailField.enableClearIconButton = true
-		emailField.delegate = self
+		emailField.delegate = self 
 		
 		emailField.placeholderColor = MaterialColor.amber.darken4
 		emailField.placeholderActiveColor = MaterialColor.pink.base

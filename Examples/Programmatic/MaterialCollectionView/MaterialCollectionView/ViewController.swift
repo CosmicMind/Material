@@ -77,7 +77,7 @@ class ViewController: UIViewController {
 		view.backgroundColor = MaterialColor.grey.lighten3
 	}
 	
-	/// Prepares the tableView.
+	/// Prepares the collectionView.
 	private func prepareCollectionView() {
 		collectionView = MaterialCollectionView(frame: view.bounds)
 		collectionView.registerClass(MaterialCollectionViewCell.self, forCellWithReuseIdentifier: "MaterialCollectionViewCell")
@@ -85,7 +85,6 @@ class ViewController: UIViewController {
 		collectionView.contentInset.top = 100
 		collectionView.spacing = 16
 		
-		// Use MaterialLayout to easily align the tableView.
 		view.addSubview(collectionView)
 		MaterialLayout.alignToParent(view, child: collectionView)
 	}

@@ -32,6 +32,15 @@ import UIKit
 
 @IBDesignable
 public class BarController : UIViewController {
+	/// Device status bar style.
+	public var statusBarStyle: UIStatusBarStyle {
+		get {
+			return MaterialDevice.statusBarStyle
+		}
+		set(value) {
+			MaterialDevice.statusBarStyle = value
+		}
+	}
 	
 	/**
 	A Boolean property used to enable and disable interactivity

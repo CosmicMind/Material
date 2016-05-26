@@ -217,7 +217,7 @@ public class ControlView : MaterialView {
 	}
 	
 	public override func intrinsicContentSize() -> CGSize {
-		return CGSizeMake(width, 36 + contentInset.top + contentInset.bottom)
+		return CGSizeMake(width, 44)
 	}
 	
 	/**
