@@ -121,7 +121,7 @@ public class SearchBar : BarView {
 	- Parameter leftControls: An Array of UIControls that go on the left side.
 	- Parameter rightControls: An Array of UIControls that go on the right side.
 	*/
-	public override init(leftControls: Array<UIControl>, rightControls: Array<UIControl>) {
+	public override init(leftControls: Array<UIControl>?, rightControls: Array<UIControl>?) {
 		super.init(leftControls: leftControls, rightControls: rightControls)
 	}
 	

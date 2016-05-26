@@ -61,7 +61,7 @@ public class BarView : ControlView {
 	
 	/// Basic initializer.
 	public override init() {
-		super.init()
+		super.init(leftControls: nil, rightControls: nil)
 	}
 	
 	/**
@@ -69,7 +69,7 @@ public class BarView : ControlView {
 	- Parameter leftControls: An Array of UIControls that go on the left side.
 	- Parameter rightControls: An Array of UIControls that go on the right side.
 	*/
-	public override init(leftControls: Array<UIControl>, rightControls: Array<UIControl>) {
+	public override init(leftControls: Array<UIControl>?, rightControls: Array<UIControl>?) {
 		super.init(leftControls: leftControls, rightControls: rightControls)
 	}
 	

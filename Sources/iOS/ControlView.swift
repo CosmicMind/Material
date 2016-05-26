@@ -145,7 +145,7 @@ public class ControlView : MaterialView {
 	- Parameter leftControls: An Array of UIControls that go on the left side.
 	- Parameter rightControls: An Array of UIControls that go on the right side.
 	*/
-	public init(leftControls: Array<UIControl>, rightControls: Array<UIControl>) {
+	public init(leftControls: Array<UIControl>? = nil, rightControls: Array<UIControl>? = nil) {
 		super.init(frame: CGRectZero)
 		prepareView()
 		prepareProperties(leftControls, rightControls: rightControls)
