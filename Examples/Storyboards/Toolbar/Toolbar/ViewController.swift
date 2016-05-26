@@ -69,12 +69,12 @@ class ViewController: UIViewController {
         toolbar.statusBarStyle = .LightContent
         
         // Title label.
-        toolbar.titleLabel.text = "Material"
+        toolbar.title = "Material"
         toolbar.titleLabel.textColor = MaterialColor.white
 		
         // Detail label.
-        toolbar.detailLabel.text = "Build Beautiful Software"
-        toolbar.detailLabel.textColor = MaterialColor.white
+        toolbar.detail = "Build Beautiful Software"
+		toolbar.detailLabel.textColor = MaterialColor.white
 		
         // Menu button.
         let img1: UIImage? = MaterialIcon.cm.menu

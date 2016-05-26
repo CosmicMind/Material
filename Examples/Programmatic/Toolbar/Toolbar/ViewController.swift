@@ -70,11 +70,11 @@ class ViewController: UIViewController {
 		containerView.addSubview(toolbar)
 		
 		// Title label.
-		toolbar.titleLabel.text = "Material"
+		toolbar.title = "Material"
 		toolbar.titleLabel.textColor = MaterialColor.white
 		
 		// Detail label.
-		toolbar.detailLabel.text = "Build Beautiful Software"
+		toolbar.detail = "Build Beautiful Software"
 		toolbar.detailLabel.textColor = MaterialColor.white
 
 		var image: UIImage? = MaterialIcon.cm.menu

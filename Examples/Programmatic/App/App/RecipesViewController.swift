@@ -244,7 +244,8 @@ class RecipesViewController: UIViewController {
 	
 	/// Prepares the navigationItem.
 	private func prepareNavigationItem() {
-		navigationItem.titleLabel.text = "Recipes"
+		navigationItem.title = "Recipes"
+		navigationItem.titleLabel.textAlignment = .Left
 		navigationItem.titleLabel.textColor = MaterialColor.white
 		navigationItem.titleLabel.font = RobotoFont.mediumWithSize(20)
 		

@@ -43,9 +43,6 @@ public class MaterialAssociatedObjectNavigationItem {
 	/// Title label.
 	public private(set) var titleLabel: UILabel!
 	
-	/// Detail text.
-	public var detail: String?
-	
 	/// Detail label.
 	public private(set) var detailLabel: UILabel!
 	
@@ -122,10 +119,10 @@ public extension UINavigationItem {
 	/// Detail text.
 	public var detail: String? {
 		get {
-			return item.detail
+			return detailLabel.text
 		}
 		set(value) {
-			item.detail = value
+			detailLabel.text = value
 		}
 	}
 	

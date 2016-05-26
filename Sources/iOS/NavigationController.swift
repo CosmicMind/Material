@@ -128,7 +128,6 @@ public class NavigationController : UINavigationController, UIGestureRecognizerD
 			}
 			
 			item.backButton = backButton
-			item.hidesBackButton = true
 			v.layoutNavigationItem(item)
 		}
 		return true

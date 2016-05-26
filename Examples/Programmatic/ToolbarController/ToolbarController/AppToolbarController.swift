@@ -56,7 +56,7 @@ class AppToolbarController: ToolbarController {
 	/// Prepares the toolbar.
 	private func prepareToolbar() {
 		// Title label.
-		toolbar.titleLabel.text = "Material"
+		toolbar.title = "Material"
 		toolbar.titleLabel.textColor = MaterialColor.white
 		
 		// Detail label. Uncomment the code below to use a detail label.
@@ -87,8 +87,8 @@ class AppToolbarController: ToolbarController {
 		searchButton.addTarget(self, action: #selector(handleSearchButton), forControlEvents: .TouchUpInside)
 		
 		toolbar.statusBarStyle = .LightContent
+		toolbar.backgroundColor = MaterialColor.blue.base
 		toolbar.leftControls = [menuButton]
 		toolbar.rightControls = [switchControl, searchButton]
-		toolbar.backgroundColor = MaterialColor.blue.base
 	}
 }
