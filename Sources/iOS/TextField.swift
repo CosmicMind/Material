@@ -451,6 +451,10 @@ public class TextField : UITextField {
 	/// Handles the visibilityIconButton TouchUpInside event.
 	public func handleVisibilityIconButton() {
 		secureTextEntry = !secureTextEntry
+		if !secureTextEntry {
+			super.font = nil
+			font = placeholderLabel.font
+		}
 		visibilityIconButton?.tintColor = visibilityIconButton?.tintColor.colorWithAlphaComponent(secureTextEntry ? 0.38 : 0.54)
 	}
 	
