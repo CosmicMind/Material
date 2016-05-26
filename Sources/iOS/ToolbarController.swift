@@ -64,7 +64,7 @@ public protocol ToolbarControllerDelegate : MaterialDelegate {
 }
 
 @objc(ToolbarController)
-public class ToolbarController : BarViewController {
+public class ToolbarController : BarController {
 	/// Internal reference to the floatingViewController.
 	private var internalFloatingViewController: UIViewController?
 	

@@ -31,7 +31,7 @@
 import UIKit
 
 @IBDesignable
-public class BarViewController : UIViewController {
+public class BarController : UIViewController {
 	
 	/**
 	A Boolean property used to enable and disable interactivity
@@ -74,7 +74,7 @@ public class BarViewController : UIViewController {
 	}
 	
 	/**
-	An initializer for the BarViewController.
+	An initializer for the BarController.
 	- Parameter rootViewController: The main UIViewController.
 	*/
 	public init(rootViewController: UIViewController) {
@@ -109,7 +109,7 @@ public class BarViewController : UIViewController {
 			options: options,
 			animations: animations,
 			completion: { [weak self] (result: Bool) in
-				if let s: BarViewController = self {
+				if let s: BarController = self {
 					toViewController.didMoveToParentViewController(s)
 					s.rootViewController.removeFromParentViewController()
 					s.rootViewController = toViewController
@@ -143,7 +143,7 @@ public class BarViewController : UIViewController {
 	
 	/**
 	A method that adds the passed in controller as a child of
-	the BarViewController within the passed in
+	the BarController within the passed in
 	container view.
 	- Parameter viewController: A UIViewController to add as a child.
 	- Parameter container: A UIView that is the parent of the
