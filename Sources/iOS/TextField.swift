@@ -229,7 +229,7 @@ public class TextField : UITextField {
 	}
     
 	/// Vertical distance for the detailLabel from the divider.
-	@IBInspectable public var detailVerticalDistanceFromDivider: CGFloat = 8 {
+	@IBInspectable public var detailVerticalOffset: CGFloat = 8 {
 		didSet {
 			layoutDetailLabel()
 		}
@@ -330,7 +330,7 @@ public class TextField : UITextField {
 	public private(set) var visibilityIconButton: IconButton?
 	
 	/// This property adds a padding to placeholder y position animation
-	public var placeholderVerticalAnimationOffset: CGFloat = 0
+	public var placeholderVerticalOffset: CGFloat = 0
 	
 	/**
 	An initializer that initializes the object with a NSCoder object.
@@ -523,7 +523,7 @@ public class TextField : UITextField {
 	/// Layout the detailLabel.
 	public func layoutDetailLabel() {
 		let h: CGFloat = nil == detail ? 12 : detailLabel.font.stringSize(detail!, constrainedToWidth: Double(width)).height
-		detailLabel.frame = CGRectMake(0, divider.frame.origin.y + detailVerticalDistanceFromDivider, width, h)
+		detailLabel.frame = CGRectMake(0, divider.frame.origin.y + detailVerticalOffset, width, h)
 	}
 	
 	/// Layout the clearIconButton.
@@ -570,7 +570,7 @@ public class TextField : UITextField {
 						v.placeholderLabel.frame.origin.x = v.width - v.placeholderLabel.frame.width
 					default:break
 					}
-					v.placeholderLabel.frame.origin.y = -v.placeholderLabel.frame.size.height + v.placeholderVerticalAnimationOffset
+					v.placeholderLabel.frame.origin.y = -v.placeholderLabel.frame.size.height + v.placeholderVerticalOffset
 					v.placeholderLabel.textColor = v.placeholderActiveColor
 				}
 			}) { [weak self] _ in
