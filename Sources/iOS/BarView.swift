@@ -59,17 +59,12 @@ public class BarView : ControlView {
 		super.init(frame: frame)
 	}
 	
-	/// Convenience initializer.
-	public convenience init() {
-		self.init(frame: CGRectZero)
-	}
-	
 	/**
 	A convenience initializer with parameter settings.
 	- Parameter leftControls: An Array of UIControls that go on the left side.
 	- Parameter rightControls: An Array of UIControls that go on the right side.
 	*/
-	public override init(leftControls: Array<UIControl>?, rightControls: Array<UIControl>?) {
+	public override init(leftControls: Array<UIControl>? = nil, rightControls: Array<UIControl>? = nil) {
 		super.init(leftControls: leftControls, rightControls: rightControls)
 	}
 	

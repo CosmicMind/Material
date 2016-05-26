@@ -59,21 +59,23 @@ public class SearchBarController : BarController {
 	
 	/// Layout subviews.
 	public func layoutSubviews() {
-		if .iPhone == MaterialDevice.type && MaterialDevice.isLandscape {
-			searchBar.contentInset.top = 4
-		} else {
-			searchBar.contentInset.top = 24
+		if let v: SearchBar = searchBar {
+			if .iPhone == MaterialDevice.type && MaterialDevice.isLandscape {
+				v.contentInset.top = 4
+			} else {
+				v.contentInset.top = 24
+			}
+			
+			let h: CGFloat = MaterialDevice.height
+			let w: CGFloat = MaterialDevice.width
+			let p: CGFloat = searchBar.intrinsicContentSize().height
+			
+			v.width = w
+			v.height = p
+			
+			rootViewController.view.frame.origin.y = p
+			rootViewController.view.frame.size.height = h - p
 		}
-		
-		let h: CGFloat = MaterialDevice.height
-		let w: CGFloat = MaterialDevice.width
-		let p: CGFloat = searchBar.intrinsicContentSize().height
-		
-		searchBar.width = w
-		searchBar.height = p
-		
-		rootViewController.view.frame.origin.y = p
-		rootViewController.view.frame.size.height = h - p
 	}
 	
 	/**

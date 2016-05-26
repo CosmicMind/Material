@@ -73,8 +73,16 @@ public class ControlView : MaterialView {
 		}
 	}
 	
+	/// Grid cell factor.
+	@IBInspectable public var gridFactor: CGFloat = 24 {
+		didSet {
+			assert(0 < gridFactor, "[Material Error: gridFactor must be greater than 0.]")
+			layoutSubviews()
+		}
+	}
+
 	/// ContentView that holds the any desired subviews.
-	public private(set) lazy var contentView: MaterialView = MaterialView()
+	public private(set) var contentView: MaterialView!
 	
 	/// Left side UIControls.
 	public var leftControls: Array<UIControl>? {
@@ -136,7 +144,6 @@ public class ControlView : MaterialView {
 	public init() {
 		super.init(frame: CGRectZero)
 		frame.size = intrinsicContentSize()
-		frame.size.width = MaterialDevice.width
 		prepareView()
 	}
 	
@@ -147,6 +154,7 @@ public class ControlView : MaterialView {
 	*/
 	public init(leftControls: Array<UIControl>? = nil, rightControls: Array<UIControl>? = nil) {
 		super.init(frame: CGRectZero)
+		frame.size = intrinsicContentSize()
 		prepareView()
 		prepareProperties(leftControls, rightControls: rightControls)
 	}
@@ -156,8 +164,7 @@ public class ControlView : MaterialView {
 		if willRenderView {
 			layoutIfNeeded()
 			
-			let factor: CGFloat = 24
-			if let g: Int = Int(width / factor) {
+			if let g: Int = Int(width / gridFactor) {
 				let columns: Int = g + 1
 				
 				grid.views = []
@@ -172,7 +179,7 @@ public class ControlView : MaterialView {
 						(c as? UIButton)?.contentEdgeInsets = UIEdgeInsetsZero
 						c.frame.size.height = frame.size.height - contentInset.top - contentInset.bottom
 						
-						let q: Int = Int(w / factor)
+						let q: Int = Int(w / gridFactor)
 						c.grid.columns = q + 1
 						
 						contentView.grid.columns -= c.grid.columns
@@ -192,7 +199,7 @@ public class ControlView : MaterialView {
 						(c as? UIButton)?.contentEdgeInsets = UIEdgeInsetsZero
 						c.frame.size.height = frame.size.height - contentInset.top - contentInset.bottom
 						
-						let q: Int = Int(w / factor)
+						let q: Int = Int(w / gridFactor)
 						c.grid.columns = q + 1
 						
 						contentView.grid.columns -= c.grid.columns
@@ -241,6 +248,7 @@ public class ControlView : MaterialView {
 	
 	/// Prepares the contentView.
 	private func prepareContentView() {
+		contentView = MaterialView()
 		contentView.backgroundColor = nil
 		addSubview(contentView)
 	}

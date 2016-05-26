@@ -50,12 +50,7 @@ public class TextField : UITextField {
 		}
 	}
     
-    /**
-     This property adds a padding to placeholder y position animation
-     */
-    public var placeholderAnimationPadding: CGFloat = 0
-	
-	/// A property that accesses the backing layer's backgroundColor.
+    /// A property that accesses the backing layer's backgroundColor.
 	@IBInspectable public override var backgroundColor: UIColor? {
 		didSet {
 			layer.backgroundColor = backgroundColor?.CGColor
@@ -233,9 +228,6 @@ public class TextField : UITextField {
 		}
 	}
     
-    /// Vertical distance of detail label to divider
-    public var detailDistance: CGFloat = 8
-	
 	/// Vertical distance for the detailLabel from the divider.
 	@IBInspectable public var detailVerticalDistanceFromDivider: CGFloat = 8 {
 		didSet {
