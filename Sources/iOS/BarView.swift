@@ -59,9 +59,9 @@ public class BarView : ControlView {
 		super.init(frame: frame)
 	}
 	
-	/// Basic initializer.
-	public override init() {
-		super.init(leftControls: nil, rightControls: nil)
+	/// Convenience initializer.
+	public convenience init() {
+		self.init(frame: CGRectZero)
 	}
 	
 	/**

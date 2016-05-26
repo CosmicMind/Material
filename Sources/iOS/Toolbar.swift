@@ -74,9 +74,9 @@ public class Toolbar : BarView {
 		super.init(frame: frame)
 	}
 	
-	/// Basic initializer.
-	public override init() {
-		super.init()
+	/// Convenience initializer.
+	public convenience init() {
+		self.init(frame: CGRectZero)
 	}
 	
 	/**

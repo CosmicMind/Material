@@ -75,7 +75,7 @@ public class MaterialCollectionView : UICollectionView {
 	/// A preset wrapper around contentInset.
 	public var contentInsetPreset: MaterialEdgeInset {
 		get {
-			return (collectionViewLayout as! MaterialCollectionViewLayout).contentInsetPreset
+			return (collectionViewLayout as? MaterialCollectionViewLayout)!.contentInsetPreset
 		}
 		set(value) {
 			(collectionViewLayout as? MaterialCollectionViewLayout)!.contentInsetPreset = value
@@ -84,20 +84,20 @@ public class MaterialCollectionView : UICollectionView {
 	
 	public override var contentInset: UIEdgeInsets {
 		get {
-			return (collectionViewLayout as! MaterialCollectionViewLayout).contentInset
+			return (collectionViewLayout as? MaterialCollectionViewLayout)!.contentInset
 		}
 		set(value) {
-			(collectionViewLayout as! MaterialCollectionViewLayout).contentInset = value
+			(collectionViewLayout as? MaterialCollectionViewLayout)!.contentInset = value
 		}
 	}
 	
 	/// Scroll direction.
 	public var scrollDirection: UICollectionViewScrollDirection {
 		get {
-			return (collectionViewLayout as! MaterialCollectionViewLayout).scrollDirection
+			return (collectionViewLayout as? MaterialCollectionViewLayout)!.scrollDirection
 		}
 		set(value) {
-			(collectionViewLayout as! MaterialCollectionViewLayout).scrollDirection = value
+			(collectionViewLayout as? MaterialCollectionViewLayout)!.scrollDirection = value
 		}
 	}
 	
@@ -111,20 +111,10 @@ public class MaterialCollectionView : UICollectionView {
 	/// Spacing between items.
 	@IBInspectable public var spacing: CGFloat {
 		get {
-			return (collectionViewLayout as! MaterialCollectionViewLayout).spacing
+			return (collectionViewLayout as? MaterialCollectionViewLayout)!.spacing
 		}
 		set(value) {
-			(collectionViewLayout as! MaterialCollectionViewLayout).spacing = value
-		}
-	}
-	
-	/// The layout alignment direction.
-	public var alignmentDirection: MaterialAlignmentDirection {
-		get {
-			return (collectionViewLayout as! MaterialCollectionViewLayout).alignmentDirection
-		}
-		set(value) {
-			(collectionViewLayout as! MaterialCollectionViewLayout).alignmentDirection = value
+			(collectionViewLayout as? MaterialCollectionViewLayout)!.spacing = value
 		}
 	}
 	
@@ -142,10 +132,7 @@ public class MaterialCollectionView : UICollectionView {
 	- Parameter collectionViewLayout: A UICollectionViewLayout reference.
 	*/
 	public override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
-		guard let l = layout as? MaterialCollectionViewLayout else {
-			assert(false, "[MaterialCollectionView Error: Must use a class that subclasses MaterialCollectionViewLayout]")
-		}
-		super.init(frame: frame, collectionViewLayout: l)
+		super.init(frame: frame, collectionViewLayout: layout)
 		prepareView()
 	}
 	
@@ -174,6 +161,5 @@ public class MaterialCollectionView : UICollectionView {
 		contentScaleFactor = MaterialDevice.scale
 		backgroundColor = MaterialColor.clear
 		contentInset = UIEdgeInsetsZero
-		alignmentDirection = .None
 	}
 }
