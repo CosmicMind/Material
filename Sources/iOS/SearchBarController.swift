@@ -60,17 +60,13 @@ public class SearchBarController : BarController {
 	/// Layout subviews.
 	public func layoutSubviews() {
 		if let v: SearchBar = searchBar {
-			if .iPhone == MaterialDevice.type && MaterialDevice.isLandscape {
-				v.contentInset.top = 4
-			} else {
-				v.contentInset.top = 24
-			}
+			v.grid.layoutInset.top = .iPhone == MaterialDevice.type && MaterialDevice.isLandscape ? 0 : 20
 			
 			let h: CGFloat = MaterialDevice.height
 			let w: CGFloat = MaterialDevice.width
-			let p: CGFloat = searchBar.intrinsicContentSize().height
+			let p: CGFloat = v.intrinsicContentSize().height + v.grid.layoutInset.top + v.grid.layoutInset.bottom
 			
-			v.width = w
+			v.width = w + v.grid.layoutInset.left + v.grid.layoutInset.right
 			v.height = p
 			
 			rootViewController.view.frame.origin.y = p

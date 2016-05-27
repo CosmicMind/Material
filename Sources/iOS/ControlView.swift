@@ -212,6 +212,7 @@ public class ControlView : MaterialView {
 				grid.contentInset = contentInset
 				grid.spacing = spacing
 				grid.reloadLayout()
+				contentView.grid.reloadLayout()
 			}
 		}
 	}

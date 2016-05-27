@@ -163,9 +163,9 @@ public class ToolbarController : BarController {
 			
 			let h: CGFloat = MaterialDevice.height
 			let w: CGFloat = MaterialDevice.width
-			let p: CGFloat = v.intrinsicContentSize().height + v.grid.layoutInset.top
+			let p: CGFloat = v.intrinsicContentSize().height + v.grid.layoutInset.top + v.grid.layoutInset.bottom
 			
-			v.width = w
+			v.width = w + v.grid.layoutInset.left + v.grid.layoutInset.right
 			v.height = p
 			
 			rootViewController.view.frame.origin.y = p
