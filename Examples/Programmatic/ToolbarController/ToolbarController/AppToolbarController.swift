@@ -40,6 +40,7 @@ class AppToolbarController: ToolbarController {
 	/// Prepares the view.
 	override func prepareView() {
 		super.prepareView()
+		statusBarStyle = .LightContent
 		prepareToolbar()
 	}
 	
@@ -86,7 +87,6 @@ class AppToolbarController: ToolbarController {
 		searchButton.setImage(image, forState: .Highlighted)
 		searchButton.addTarget(self, action: #selector(handleSearchButton), forControlEvents: .TouchUpInside)
 		
-		toolbar.statusBarStyle = .LightContent
 		toolbar.backgroundColor = MaterialColor.blue.base
 		toolbar.leftControls = [menuButton]
 		toolbar.rightControls = [switchControl, searchButton]

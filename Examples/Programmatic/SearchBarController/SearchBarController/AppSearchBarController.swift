@@ -40,6 +40,7 @@ class AppSearchBarController: SearchBarController {
 	/// Prepares the view.
 	override func prepareView() {
 		super.prepareView()
+		statusBarStyle = .Default
 		prepareSearchBar()
 	}
 	
@@ -65,7 +66,6 @@ class AppSearchBarController: SearchBarController {
 		"View controller-based status bar appearance = NO"
 		to your info.plist file and set the following property.
 		*/
-		searchBar.statusBarStyle = .Default
 		searchBar.textField.delegate = self
 		searchBar.leftControls = [backButton]
 		searchBar.rightControls = [moreButton]

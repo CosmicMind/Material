@@ -49,13 +49,14 @@ class ViewController: UIViewController {
     }
 	
 	/// Adjusts the Toolbar height to the correct height based on the orientation value.
-	private func adjustToOrientation(toInterfaceOrientation: UIInterfaceOrientation) {
-		toolbar.contentInset.top = .iPad == MaterialDevice.type || UIInterfaceOrientationIsPortrait(toInterfaceOrientation) ? 20 : 4
-		toolbarHeightConstraint?.constant = toolbar.intrinsicContentSize().height
+	private func adjustToOrientation(interfaceOrientation: UIInterfaceOrientation) {
+		toolbar.grid.layoutInset.top = .iPad == MaterialDevice.type || UIInterfaceOrientationIsPortrait(interfaceOrientation) ? 20 : 0
+		toolbarHeightConstraint?.constant = toolbar.intrinsicContentSize().height + toolbar.grid.layoutInset.top
 	}
 	
 	/// General preparation statements.
     private func prepareView() {
+		MaterialDevice.statusBarStyle = .LightContent
 		view.backgroundColor = MaterialColor.white
     }
 	
@@ -64,10 +65,6 @@ class ViewController: UIViewController {
 		// Stylize.
         toolbar.backgroundColor = MaterialColor.indigo.darken1
 		
-        // To lighten the status bar add the "View controller-based status bar appearance = NO"
-        // to your info.plist file and set the following property.
-        toolbar.statusBarStyle = .LightContent
-        
         // Title label.
         toolbar.title = "Material"
         toolbar.titleLabel.textColor = MaterialColor.white

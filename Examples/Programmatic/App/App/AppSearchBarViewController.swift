@@ -45,7 +45,7 @@ class AppSearchBarController: SearchBarController {
 	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
-		searchBar.statusBarStyle = .Default
+		statusBarStyle = .Default
 		sideNavigationController?.enabled = false
 	}
 	

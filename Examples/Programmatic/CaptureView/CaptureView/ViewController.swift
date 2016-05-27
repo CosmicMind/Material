@@ -235,7 +235,6 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 	private func prepareToolbar() {
 		toolbar.backgroundColor = nil
 		toolbar.depth = .None
-		toolbar.statusBarStyle = .LightContent
 		
 		// Title label.
 		let titleLabel: UILabel = UILabel()
