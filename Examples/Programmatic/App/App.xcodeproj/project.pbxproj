@@ -15,7 +15,7 @@
 		9663F93C1C7A744600AF0965 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9663F93A1C7A744600AF0965 /* LaunchScreen.storyboard */; };
 		9663F9481C7A749400AF0965 /* AppNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9663F9471C7A749400AF0965 /* AppNavigationController.swift */; };
 		9663F94A1C7A74B500AF0965 /* AppSearchBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9663F9491C7A74B500AF0965 /* AppSearchBarViewController.swift */; };
-		9663F94C1C7A74C700AF0965 /* AppMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9663F94B1C7A74C700AF0965 /* AppMenuViewController.swift */; };
+		9663F94C1C7A74C700AF0965 /* AppMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9663F94B1C7A74C700AF0965 /* AppMenuController.swift */; };
 		9663F94E1C7A74EA00AF0965 /* AppLeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9663F94D1C7A74EA00AF0965 /* AppLeftViewController.swift */; };
 		9663F9521C7A751D00AF0965 /* ItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9663F9511C7A751D00AF0965 /* ItemViewController.swift */; };
 		96CC08881C7FEBD60034FF84 /* RecipesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC08871C7FEBD60034FF84 /* RecipesViewController.swift */; };
@@ -45,7 +45,7 @@
 		9663F93D1C7A744600AF0965 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9663F9471C7A749400AF0965 /* AppNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppNavigationController.swift; sourceTree = "<group>"; };
 		9663F9491C7A74B500AF0965 /* AppSearchBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSearchBarViewController.swift; sourceTree = "<group>"; };
-		9663F94B1C7A74C700AF0965 /* AppMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppMenuViewController.swift; sourceTree = "<group>"; };
+		9663F94B1C7A74C700AF0965 /* AppMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppMenuController.swift; sourceTree = "<group>"; };
 		9663F94D1C7A74EA00AF0965 /* AppLeftViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppLeftViewController.swift; sourceTree = "<group>"; };
 		9663F9511C7A751D00AF0965 /* ItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemViewController.swift; sourceTree = "<group>"; };
 		96CC08871C7FEBD60034FF84 /* RecipesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipesViewController.swift; sourceTree = "<group>"; };
@@ -84,7 +84,7 @@
 				9663F9311C7A744600AF0965 /* AppDelegate.swift */,
 				9663F9471C7A749400AF0965 /* AppNavigationController.swift */,
 				9663F9491C7A74B500AF0965 /* AppSearchBarViewController.swift */,
-				9663F94B1C7A74C700AF0965 /* AppMenuViewController.swift */,
+				9663F94B1C7A74C700AF0965 /* AppMenuController.swift */,
 				9663F94D1C7A74EA00AF0965 /* AppLeftViewController.swift */,
 				96CC08871C7FEBD60034FF84 /* RecipesViewController.swift */,
 				9663F9331C7A744600AF0965 /* RecommendationViewController.swift */,
@@ -173,7 +173,7 @@
 				96CC08881C7FEBD60034FF84 /* RecipesViewController.swift in Sources */,
 				9663F9481C7A749400AF0965 /* AppNavigationController.swift in Sources */,
 				9663F9341C7A744600AF0965 /* RecommendationViewController.swift in Sources */,
-				9663F94C1C7A74C700AF0965 /* AppMenuViewController.swift in Sources */,
+				9663F94C1C7A74C700AF0965 /* AppMenuController.swift in Sources */,
 				9663F9321C7A744600AF0965 /* AppDelegate.swift in Sources */,
 				9663F9521C7A751D00AF0965 /* ItemViewController.swift in Sources */,
 				96162C6C1CA71C8700E3A235 /* VideoViewController.swift in Sources */,
