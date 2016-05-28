@@ -94,6 +94,11 @@ public class Menu {
 		self.origin = origin
 		self.spacing = spacing
 	}
+	
+	/// Convenience initializer.
+	public convenience init() {
+		self.init(origin: CGPointZero)
+	}
 
 	/// Reload the view layout.
 	public func reloadLayout() {
@@ -186,12 +191,14 @@ public class Menu {
 						}
 					}) { [weak self] _ in
 						if let s: Menu = self {
-							completion?(view)
 							s.enable(view)
+							if view == v.last {
+								s.opened = true
+							}
+							completion?(view)
 						}
 					}
 			}
-			opened = true
 		}
 	}
 
@@ -224,12 +231,14 @@ public class Menu {
 					}) { [weak self] _ in
 						if let s: Menu = self {
 							view.hidden = true
-							completion?(view)
 							s.enable(view)
+							if view == v.last {
+								s.opened = false
+							}
+							completion?(view)
 						}
 					}
 			}
-			opened = false
 		}
 	}
 
@@ -268,12 +277,14 @@ public class Menu {
 						}
 					}) { [weak self] _ in
 						if let s: Menu = self {
-							completion?(view)
 							s.enable(view)
+							if view == v.last {
+								s.opened = true
+							}
+							completion?(view)
 						}
 					}
 			}
-			opened = true
 		}
 	}
 
@@ -307,12 +318,14 @@ public class Menu {
 					}) { [weak self] _ in
 						if let s: Menu = self {
 							view.hidden = true
-							completion?(view)
 							s.enable(view)
+							if view == v.last {
+								s.opened = false
+							}
+							completion?(view)
 						}
 					}
 			}
-			opened = false
 		}
 	}
 
@@ -350,12 +363,14 @@ public class Menu {
 						}
 					}) { [weak self] _ in
 						if let s: Menu = self {
-							completion?(view)
 							s.enable(view)
+							if view == v.last {
+								s.opened = true
+							}
+							completion?(view)
 						}
 					}
 			}
-			opened = true
 		}
 	}
 
@@ -387,12 +402,14 @@ public class Menu {
 					}) { [weak self] _ in
 						if let s: Menu = self {
 							view.hidden = true
-							completion?(view)
 							s.enable(view)
+							if view == v.last {
+								s.opened = false
+							}
+							completion?(view)
 						}
 					}
 			}
-			opened = false
 		}
 	}
 
@@ -430,12 +447,14 @@ public class Menu {
 						}
 					}) { [weak self] _ in
 						if let s: Menu = self {
-							completion?(view)
 							s.enable(view)
+							if view == v.last {
+								s.opened = true
+							}
+							completion?(view)
 						}
 					}
 			}
-			opened = true
 		}
 	}
 
@@ -453,7 +472,7 @@ public class Menu {
 		if let v: Array<UIView> = views {
 			for i in 1..<v.count {
 				let view: UIView = v[i]
-
+				
 				let w: CGFloat = nil == baseSize ? itemSize.width : baseSize!.width
 				UIView.animateWithDuration(Double(i) * duration,
 					delay: delay,
@@ -469,12 +488,14 @@ public class Menu {
 					}) { [weak self] _ in
 						if let s: Menu = self {
 							view.hidden = true
-							completion?(view)
 							s.enable(view)
+							if view == v.last {
+								s.opened = false
+							}
+							completion?(view)
 						}
 					}
 			}
-			opened = false
 		}
 	}
 

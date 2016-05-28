@@ -76,7 +76,7 @@ class RecipesViewController: UIViewController {
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
 		// Show the menuView.
-		menuViewController?.menuView.animate(MaterialAnimation.animationGroup([
+		menuController?.menuView.animate(MaterialAnimation.animationGroup([
 			MaterialAnimation.rotate(rotation: 3),
 			MaterialAnimation.translateY(0)
 		]))
@@ -87,7 +87,7 @@ class RecipesViewController: UIViewController {
 		// Disable the SideNavigation.
 		
 		// Hide the menuView.
-		menuViewController?.menuView.animate(MaterialAnimation.animationGroup([
+		menuController?.menuView.animate(MaterialAnimation.animationGroup([
 			MaterialAnimation.rotate(rotation: 3),
 			MaterialAnimation.translateY(150)
 		]))

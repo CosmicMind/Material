@@ -36,7 +36,7 @@ public extension UIViewController {
 	This is the recommended method of accessing the MenuController
 	through child UIViewControllers.
 	*/
-	public var menuViewController: MenuController? {
+	public var menuController: MenuController? {
 		var viewController: UIViewController? = self
 		while nil != viewController {
 			if viewController is MenuController {

@@ -39,11 +39,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		let navigationController: AppNavigationController = AppNavigationController(rootViewController: RecipesViewController())
 		
-		let menuViewController: AppMenuController = AppMenuController(rootViewController: navigationController)
-		menuViewController.edgesForExtendedLayout = .None
+		let menuController: AppMenuController = AppMenuController(rootViewController: navigationController)
+		menuController.edgesForExtendedLayout = .None
 		
 		let bottomNavigationController: BottomNavigationController = BottomNavigationController()
-		bottomNavigationController.viewControllers = [menuViewController, VideoViewController(), PhotoViewController()]
+		bottomNavigationController.viewControllers = [menuController, VideoViewController(), PhotoViewController()]
 		bottomNavigationController.selectedIndex = 0
 		bottomNavigationController.tabBar.tintColor = MaterialColor.white
 		bottomNavigationController.tabBar.backgroundColor = MaterialColor.grey.darken4

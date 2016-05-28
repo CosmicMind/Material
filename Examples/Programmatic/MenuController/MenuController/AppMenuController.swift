@@ -36,14 +36,14 @@ flow of your application.
 import UIKit
 import Material
 
-class AppMenuController: MenuController {
+class AppMenuController: MenuController, MenuViewDelegate {
 	/// MenuView diameter.
 	private let baseSize: CGSize = CGSizeMake(56, 56)
 	
 	/// MenuView inset.
 	private let menuViewInset: CGFloat = 16
 	
-	/// Loads the BlueViewController into the menuViewControllers rootViewController.
+	/// Loads the BlueViewController into the menuControllers rootViewController.
 	func handleBlueButton() {
 		if rootViewController is BlueViewController {
 			return
@@ -54,7 +54,7 @@ class AppMenuController: MenuController {
 		}
 	}
 	
-	/// Loads the GreenViewController into the menuViewControllers rootViewController.
+	/// Loads the GreenViewController into the menuControllers rootViewController.
 	func handleGreenButton() {
 		if rootViewController is GreenViewController {
 			return
@@ -65,11 +65,11 @@ class AppMenuController: MenuController {
 		}
 	}
 	
-	/// Loads the YellowViewController into the menuViewControllers rootViewController.
+	/// Loads the YellowViewController into the menuControllers rootViewController.
 	func handleYellowButton() {
-//		if (rootViewController as? ToolbarController)?.rootViewController is YellowViewController {
-//			return
-//		}
+		if rootViewController is YellowViewController {
+			return
+		}
 		
 		closeMenu { [weak self] in
 			self?.transitionFromRootViewController(YellowViewController(), options: [.TransitionCrossDissolve])
@@ -79,11 +79,23 @@ class AppMenuController: MenuController {
 	/// Handle the menuView touch event.
 	func handleMenu() {
 		if menuView.menu.opened {
-			menuViewController?.rootViewController.view.alpha = 1
 			closeMenu()
 		} else {
-			menuViewController?.rootViewController.view.alpha = 0.5
 			openMenu()
+		}
+	}
+	
+	override func openMenu(completion: (() -> Void)? = nil) {
+		super.openMenu(completion)
+		if menuView.menu.opened {
+			rootViewController.view.alpha = 0.5
+		}
+	}
+	
+	override func closeMenu(completion: (() -> Void)? = nil) {
+		super.closeMenu(completion)
+		if !menuView.menu.opened {
+			rootViewController.view.alpha = 1
 		}
 	}
 	
@@ -94,16 +106,20 @@ class AppMenuController: MenuController {
 		prepareMenuView()
 	}
 	
+	func menuViewDidTapOutside(menuView: MenuView) {
+		closeMenu()
+	}
+	
 	/// Prepares the add button.
 	private func prepareMenuView() {
-		var image: UIImage? = UIImage(named: "ic_add_white")
+		var image: UIImage? = MaterialIcon.cm.add
 		let btn1: FabButton = FabButton()
 		btn1.setImage(image, forState: .Normal)
 		btn1.setImage(image, forState: .Highlighted)
 		btn1.addTarget(self, action: #selector(handleMenu), forControlEvents: .TouchUpInside)
 		menuView.addSubview(btn1)
 		
-		image = UIImage(named: "ic_create_white")
+		image = MaterialIcon.cm.videocam
 		let btn2: FabButton = FabButton()
 		btn2.backgroundColor = MaterialColor.blue.base
 		btn2.setImage(image, forState: .Normal)
@@ -111,7 +127,7 @@ class AppMenuController: MenuController {
 		menuView.addSubview(btn2)
 		btn2.addTarget(self, action: #selector(handleBlueButton), forControlEvents: .TouchUpInside)
 		
-		image = UIImage(named: "ic_photo_camera_white")
+		image = MaterialIcon.cm.photoLibrary
 		let btn3: FabButton = FabButton()
 		btn3.backgroundColor = MaterialColor.green.base
 		btn3.setImage(image, forState: .Normal)
@@ -119,7 +135,7 @@ class AppMenuController: MenuController {
 		menuView.addSubview(btn3)
 		btn3.addTarget(self, action: #selector(handleGreenButton), forControlEvents: .TouchUpInside)
 		
-		image = UIImage(named: "ic_note_add_white")
+		image = MaterialIcon.cm.pen
 		let btn4: FabButton = FabButton()
 		btn4.backgroundColor = MaterialColor.yellow.base
 		btn4.setImage(image, forState: .Normal)
@@ -130,6 +146,7 @@ class AppMenuController: MenuController {
 		// Initialize the menu and setup the configuration options.
 		menuView.menu.baseSize = baseSize
 		menuView.menu.views = [btn1, btn2, btn3, btn4]
+		menuView.delegate = self
 		
 		view.addSubview(menuView)
 		MaterialLayout.size(view, child: menuView, width: baseSize.width, height: baseSize.height)
