@@ -142,6 +142,9 @@ class AppMenuController: MenuController {
 		view.addSubview(menuView)
 		MaterialLayout.size(view, child: menuView, width: baseSize.width, height: baseSize.height)
 		MaterialLayout.alignFromBottomRight(view, child: menuView, bottom: menuViewInset, right: menuViewInset)
+        menuView.touchOutsideHandler = { _ in
+            self.closeMenu()
+        }
 	}
 	
 	/// Prepare tabBarItem.
