@@ -33,7 +33,7 @@ import UIKit
 @objc(MenuViewDelegate)
 public protocol MenuViewDelegate: MaterialDelegate {
     
-    // Gets called when the user taps outside menu buttons.
+    /// Gets called when the user taps outside menu buttons.
     optional func menuViewDidTapOutside(menuView: MenuView)
     
 }
