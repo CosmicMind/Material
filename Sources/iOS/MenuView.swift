@@ -34,6 +34,9 @@ public class MenuView : MaterialPulseView {
 	/// References the Menu instance.
 	public private(set) lazy var menu: Menu = Menu(origin: CGPointZero)
 	
+    // Handler for tapping outside buttons
+    public var touchOutsideHandler: ((menuView: MenuView) -> Void)?
+    
 	/**
 	Prepares the view instance when intialized. When subclassing,
 	it is recommended to override the prepareView method
@@ -96,6 +99,9 @@ public class MenuView : MaterialPulseView {
 				return v.hitTest(p, withEvent: event)
 			}
 		}
+        if let touchOutside = touchOutsideHandler {
+            touchOutside(menuView: self)
+        }
 		return super.hitTest(point, withEvent: event)
 	}
 }
