@@ -36,7 +36,7 @@ flow of your application.
 import UIKit
 import Material
 
-class AppMenuController: MenuController, MenuViewDelegate {
+class AppMenuController: MenuController {
 	/// MenuView diameter.
 	private let baseSize: CGSize = CGSizeMake(56, 56)
 	
@@ -74,11 +74,6 @@ class AppMenuController: MenuController, MenuViewDelegate {
 		(menuView.menu.views?.first as? MaterialButton)?.animate(MaterialAnimation.rotate(angle: 0))
 	}
 	
-    // Handles touch outside
-    func menuViewDidTapOutside(menuView: MenuView) {
-        closeMenu()
-    }
-    
 	/// Handler for blue button.
 	func handleBlueButton() {
 		closeMenu()
@@ -102,7 +97,6 @@ class AppMenuController: MenuController, MenuViewDelegate {
 			openMenu()
 		}
 	}
-	
 	
 	/// Prepares the menuView.
 	private func prepareMenuView() {
@@ -156,6 +150,13 @@ class AppMenuController: MenuController, MenuViewDelegate {
 		tabBarItem.image = MaterialIcon.cm.photoLibrary
 		tabBarItem.setTitleColor(MaterialColor.grey.base, forState: .Normal)
 		tabBarItem.setTitleColor(MaterialColor.white, forState: .Selected)
+	}
+}
+
+/// MenuViewDelegate.
+extension AppMenuController: MenuViewDelegate {
+	func menuViewDidTapOutside(menuView: MenuView) {
+		closeMenu()
 	}
 }
 

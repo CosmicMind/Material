@@ -237,21 +237,13 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 		toolbar.depth = .None
 		
 		// Title label.
-		let titleLabel: UILabel = UILabel()
-		titleLabel.hidden = true
-		titleLabel.textAlignment = .Center
-		titleLabel.textColor = MaterialColor.white
-		titleLabel.font = RobotoFont.regular
-		toolbar.titleLabel = titleLabel
+		toolbar.titleLabel.hidden = true
+		toolbar.titleLabel.textColor = MaterialColor.white
 		
 		// Detail label.
-		let detailLabel: UILabel = UILabel()
-		detailLabel.hidden = true
-		detailLabel.text = "Recording"
-		detailLabel.textAlignment = .Center
-		detailLabel.textColor = MaterialColor.red.accent1
-		detailLabel.font = RobotoFont.regular
-		toolbar.detailLabel = detailLabel
+		toolbar.detail = "Recording"
+		toolbar.detailLabel.hidden = true
+		toolbar.detailLabel.textColor = MaterialColor.red.accent1
 		
 		toolbar.leftControls = [switchCamerasButton]
 		toolbar.rightControls = [flashButton]

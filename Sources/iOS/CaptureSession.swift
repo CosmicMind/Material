@@ -279,7 +279,7 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 				var userInfo: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
 				userInfo[NSLocalizedDescriptionKey] = "[Material Error: Unsupported focusMode.]"
 				userInfo[NSLocalizedFailureReasonErrorKey] = "[Material Error: Unsupported focusMode.]"
-				error = NSError(domain: "io.material.CaptureView", code: 0001, userInfo: userInfo)
+				error = NSError(domain: "io.cosmicmind.Material.CaptureView", code: 0001, userInfo: userInfo)
 				userInfo[NSUnderlyingErrorKey] = error
 			}
 			if let e: NSError = error {
@@ -310,7 +310,7 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 				var userInfo: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
 				userInfo[NSLocalizedDescriptionKey] = "[Material Error: Unsupported flashMode.]"
 				userInfo[NSLocalizedFailureReasonErrorKey] = "[Material Error: Unsupported flashMode.]"
-				error = NSError(domain: "io.material.CaptureView", code: 0002, userInfo: userInfo)
+				error = NSError(domain: "io.cosmicmind.Material.CaptureView", code: 0002, userInfo: userInfo)
 				userInfo[NSUnderlyingErrorKey] = error
 			}
 			if let e: NSError = error {
@@ -341,7 +341,7 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 				var userInfo: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
 				userInfo[NSLocalizedDescriptionKey] = "[Material Error: Unsupported torchMode.]"
 				userInfo[NSLocalizedFailureReasonErrorKey] = "[Material Error: Unsupported torchMode.]"
-				error = NSError(domain: "io.material.CaptureView", code: 0003, userInfo: userInfo)
+				error = NSError(domain: "io.cosmicmind.Material.CaptureView", code: 0003, userInfo: userInfo)
 				userInfo[NSUnderlyingErrorKey] = error
 			}
 			if let e: NSError = error {
@@ -350,92 +350,78 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 		}
 	}
 	
-	/**
-	:name:	sessionPreset
-	*/
+	/// The session quality preset.
 	public var sessionPreset: CaptureSessionPreset {
 		didSet {
 			session.sessionPreset = CaptureSessionPresetToString(sessionPreset)
 		}
 	}
 	
-	/**
-	:name:	sessionPreset
-	*/
-	public var currentVideoOrientation: AVCaptureVideoOrientation {
-		var orientation: AVCaptureVideoOrientation
+	/// The capture video orientation.
+	public var videoOrientation: AVCaptureVideoOrientation {
+		var o: AVCaptureVideoOrientation
 		switch UIDevice.currentDevice().orientation {
 		case .Portrait:
-			orientation = .Portrait
+			o = .Portrait
 		case .LandscapeRight:
-			orientation = .LandscapeLeft
+			o = .LandscapeLeft
 		case .PortraitUpsideDown:
-			orientation = .PortraitUpsideDown
+			o = .PortraitUpsideDown
 		default:
-			orientation = .LandscapeRight
+			o = .LandscapeRight
 		}
-		return orientation
+		return o
 	}
 	
-	/**
-	:name:	delegate
-	*/
+	/// A delegation property for CaptureSessionDelegate.
 	public weak var delegate: CaptureSessionDelegate?
 	
-	/**
-	:name:	init
-	*/
+	/// Initializer.
 	public override init() {
 		sessionPreset = .PresetHigh
 		super.init()
 		prepareSession()
 	}
 	
-	/**
-	:name:	startSession
-	*/
+	/// Starts the session.
 	public func startSession() {
 		if !isRunning {
-			dispatch_async(sessionQueue) {
-				self.session.startRunning()
+			dispatch_async(sessionQueue) { [weak self] in
+				self?.session.startRunning()
 			}
 		}
 	}
 	
-	/**
-	:name:	startSession
-	*/
+	/// Stops the session.
 	public func stopSession() {
 		if isRunning {
-			dispatch_async(sessionQueue) {
-				self.session.stopRunning()
+			dispatch_async(sessionQueue) { [weak self] in
+				self?.session.stopRunning()
 			}
 		}
 	}
 	
-	/**
-	:name:	switchCameras
-	*/
+	/// Switches the camera if possible.
 	public func switchCameras() {
 		if canSwitchCameras {
 			do {
-				if let v: AVCaptureDevicePosition = self.cameraPosition {
-					self.delegate?.captureSessionWillSwitchCameras?(self, position: v)
-					let videoInput: AVCaptureDeviceInput? = try AVCaptureDeviceInput(device: self.inactiveCamera!)
-					self.session.beginConfiguration()
-					self.session.removeInput(self.activeVideoInput)
+				if let v: AVCaptureDevicePosition = cameraPosition {
+					delegate?.captureSessionWillSwitchCameras?(self, position: v)
+					let videoInput: AVCaptureDeviceInput? = try AVCaptureDeviceInput(device: inactiveCamera!)
+					session.beginConfiguration()
+					session.removeInput(activeVideoInput)
 					
-					if self.session.canAddInput(videoInput) {
-						self.session.addInput(videoInput)
-						self.activeVideoInput = videoInput
+					if session.canAddInput(videoInput) {
+						session.addInput(videoInput)
+						activeVideoInput = videoInput
 					} else {
-						self.session.addInput(self.activeVideoInput)
+						session.addInput(activeVideoInput)
 					}
-					self.session.commitConfiguration()
-					self.delegate?.captureSessionDidSwitchCameras?(self, position: self.cameraPosition!)
+					session.commitConfiguration()
+					delegate?.captureSessionDidSwitchCameras?(self, position: cameraPosition!)
 				}
 			} catch let e as NSError {
-				self.delegate?.captureSessionFailedWithError?(self, error: e)
+				delegate?.captureSessionFailedWithError?(self, error: e)
 			}
 		}
 	}
@@ -487,7 +473,7 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 			var userInfo: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
 			userInfo[NSLocalizedDescriptionKey] = "[Material Error: Unsupported focusAtPoint.]"
 			userInfo[NSLocalizedFailureReasonErrorKey] = "[Material Error: Unsupported focusAtPoint.]"
-			error = NSError(domain: "io.material.CaptureView", code: 0004, userInfo: userInfo)
+			error = NSError(domain: "io.cosmicmind.Material.CaptureView", code: 0004, userInfo: userInfo)
 			userInfo[NSUnderlyingErrorKey] = error
 		}
 		if let e: NSError = error {
@@ -517,7 +503,7 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 			var userInfo: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
 			userInfo[NSLocalizedDescriptionKey] = "[Material Error: Unsupported exposeAtPoint.]"
 			userInfo[NSLocalizedFailureReasonErrorKey] = "[Material Error: Unsupported exposeAtPoint.]"
-			error = NSError(domain: "io.material.CaptureView", code: 0005, userInfo: userInfo)
+			error = NSError(domain: "io.cosmicmind.Material.CaptureView", code: 0005, userInfo: userInfo)
 			userInfo[NSUnderlyingErrorKey] = error
 		}
 		if let e: NSError = error {
@@ -576,16 +562,37 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 	:name:	captureStillImage
 	*/
 	public func captureStillImage() {
-		dispatch_async(sessionQueue) {
-			if let v: AVCaptureConnection = self.imageOutput.connectionWithMediaType(AVMediaTypeVideo) {
-				v.videoOrientation = self.currentVideoOrientation
-				self.imageOutput.captureStillImageAsynchronouslyFromConnection(v) { [weak self] (sampleBuffer: CMSampleBuffer!, error: NSError!) -> Void in
-					if let s: CaptureSession = self {
-						if nil == error {
-							let data: NSData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer)
-							s.delegate?.captureStillImageAsynchronously?(s, image: UIImage(data: data)!)
-						} else {
-							s.delegate?.captureStillImageAsynchronouslyFailedWithError?(s, error: error!)
+		dispatch_async(sessionQueue) { [weak self] in
+			if let s: CaptureSession = self {
+				if let v: AVCaptureConnection = s.imageOutput.connectionWithMediaType(AVMediaTypeVideo) {
+					v.videoOrientation = s.videoOrientation
+					s.imageOutput.captureStillImageAsynchronouslyFromConnection(v) { [weak self] (sampleBuffer: CMSampleBuffer!, error: NSError!) -> Void in
+						if let s: CaptureSession = self {
+							var captureError: NSError? = error
+							if nil == captureError {
+								let data: NSData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer)
+								if let image1: UIImage = UIImage(data: data) {
+									if let image2: UIImage = s.adjustOrientationForImage(image1) {
+										s.delegate?.captureStillImageAsynchronously?(s, image: image2)
+									} else {
+										var userInfo: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
+										userInfo[NSLocalizedDescriptionKey] = "[Material Error: Cannot fix image orientation.]"
+										userInfo[NSLocalizedFailureReasonErrorKey] = "[Material Error: Cannot fix image orientation.]"
+										captureError = NSError(domain: "io.cosmicmind.Material.CaptureView", code: 0006, userInfo: userInfo)
+										userInfo[NSUnderlyingErrorKey] = error
+									}
+								} else {
+									var userInfo: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
+									userInfo[NSLocalizedDescriptionKey] = "[Material Error: Cannot capture image from data.]"
+									userInfo[NSLocalizedFailureReasonErrorKey] = "[Material Error: Cannot capture image from data.]"
+									captureError = NSError(domain: "io.cosmicmind.Material.CaptureView", code: 0007, userInfo: userInfo)
+									userInfo[NSUnderlyingErrorKey] = error
+								}
+							}
+							
+							if let e: NSError = captureError {
+								s.delegate?.captureStillImageAsynchronouslyFailedWithError?(s, error: e)
+							}
 						}
 					}
 				}
@@ -598,25 +605,27 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 	*/
 	public func startRecording() {
 		if !isRecording {
-			dispatch_async(sessionQueue) {
-				if let v: AVCaptureConnection = self.movieOutput.connectionWithMediaType(AVMediaTypeVideo) {
-					v.videoOrientation = self.currentVideoOrientation
-					v.preferredVideoStabilizationMode = .Auto
-				}
-				if let v: AVCaptureDevice = self.activeCamera {
-					if v.smoothAutoFocusSupported {
-						do {
-							try v.lockForConfiguration()
-							v.smoothAutoFocusEnabled = true
-							v.unlockForConfiguration()
-						} catch let e as NSError {
-							self.delegate?.captureSessionFailedWithError?(self, error: e)
-						}
+			dispatch_async(sessionQueue) { [weak self] in
+				if let s: CaptureSession = self {
+					if let v: AVCaptureConnection = s.movieOutput.connectionWithMediaType(AVMediaTypeVideo) {
+						v.videoOrientation = s.videoOrientation
+						v.preferredVideoStabilizationMode = .Auto
 					}
-					
-					self.movieOutputURL = self.uniqueURL()
-					if let v: NSURL = self.movieOutputURL {
-						self.movieOutput.startRecordingToOutputFileURL(v, recordingDelegate: self)
+					if let v: AVCaptureDevice = s.activeCamera {
+						if v.smoothAutoFocusSupported {
+							do {
+								try v.lockForConfiguration()
+								v.smoothAutoFocusEnabled = true
+								v.unlockForConfiguration()
+							} catch let e as NSError {
+								s.delegate?.captureSessionFailedWithError?(s, error: e)
+							}
+						}
+						
+						s.movieOutputURL = s.uniqueURL()
+						if let v: NSURL = s.movieOutputURL {
+							s.movieOutput.startRecordingToOutputFileURL(v, recordingDelegate: s)
+						}
 					}
 				}
 			}
@@ -732,5 +741,65 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 			delegate?.captureCreateMovieFileFailedWithError?(self, error: e)
 		}
 		return nil
+	}
+	
+	/**
+	Adjusts the orientation of the image from the capture orientation.
+	This is an issue when taking images, the capture orientation is not set correctly
+	when using Portrait.
+	- Parameter image: A UIImage to adjust.
+	- Returns: An optional UIImage if successful.
+	*/
+	private func adjustOrientationForImage(image: UIImage) -> UIImage? {
+		guard .Up != image.imageOrientation else {
+			return image
+		}
+		
+		var transform: CGAffineTransform = CGAffineTransformIdentity
+		
+		// Rotate if Left, Right, or Down.
+		switch image.imageOrientation {
+		case .Down, .DownMirrored:
+			transform = CGAffineTransformTranslate(transform, image.size.width, image.size.height)
+			transform = CGAffineTransformRotate(transform, CGFloat(M_PI))
+		case .Left, .LeftMirrored:
+			transform = CGAffineTransformTranslate(transform, image.size.width, 0)
+			transform = CGAffineTransformRotate(transform, CGFloat(M_PI_2))
+		case .Right, .RightMirrored:
+			transform = CGAffineTransformTranslate(transform, 0, image.size.height)
+			transform = CGAffineTransformRotate(transform, -CGFloat(M_PI_2))
+		default:break
+		}
+		
+		// Flip if mirrored.
+		switch image.imageOrientation {
+		case .UpMirrored, .DownMirrored:
+			transform = CGAffineTransformTranslate(transform, image.size.width, 0)
+			transform = CGAffineTransformScale(transform, -1, 1)
+		case .LeftMirrored, .RightMirrored:
+			transform = CGAffineTransformTranslate(transform, image.size.height, 0)
+			transform = CGAffineTransformScale(transform, -1, 1)
+		default:break
+		}
+		
+		// Draw the underlying CGImage with the calculated transform.
+		guard let context = CGBitmapContextCreate(nil, Int(image.size.width), Int(image.size.height), CGImageGetBitsPerComponent(image.CGImage), 0, CGImageGetColorSpace(image.CGImage), CGImageGetBitmapInfo(image.CGImage).rawValue) else {
+			return nil
+		}
+		
+		CGContextConcatCTM(context, transform)
+		
+		switch image.imageOrientation {
+		case .Left, .LeftMirrored, .Right, .RightMirrored:
+			CGContextDrawImage(context, CGRect(x: 0, y: 0, width: image.size.height, height: image.size.width), image.CGImage)
+		default:
+			CGContextDrawImage(context, CGRect(origin: .zero, size: image.size), image.CGImage)
+		}
+		
+		guard let CGImage = CGBitmapContextCreateImage(context) else {
+			return nil
+		}
+		
+		return UIImage(CGImage: CGImage)
 	}
 }

@@ -36,7 +36,7 @@ flow of your application.
 import UIKit
 import Material
 
-class AppMenuController: MenuController, MenuViewDelegate {
+class AppMenuController: MenuController {
 	/// MenuView diameter.
 	private let baseSize: CGSize = CGSizeMake(56, 56)
 	
@@ -105,11 +105,7 @@ class AppMenuController: MenuController, MenuViewDelegate {
 		view.backgroundColor = MaterialColor.black
 		prepareMenuView()
 	}
-	
-	func menuViewDidTapOutside(menuView: MenuView) {
-		closeMenu()
-	}
-	
+	
 	/// Prepares the add button.
 	private func prepareMenuView() {
 		var image: UIImage? = MaterialIcon.cm.add
@@ -155,6 +151,13 @@ class AppMenuController: MenuController, MenuViewDelegate {
 		view.addSubview(menuView)
 		MaterialLayout.size(view, child: menuView, width: baseSize.width, height: baseSize.height)
 		MaterialLayout.alignFromBottomRight(view, child: menuView, bottom: menuViewInset, right: menuViewInset)
+	}
+}
+
+/// MenuViewDelegate.
+extension AppMenuController: MenuViewDelegate {
+	func menuViewDidTapOutside(menuView: MenuView) {
+		closeMenu()
 	}
 }
 
