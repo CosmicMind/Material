@@ -113,39 +113,43 @@ class AppMenuController: MenuController, MenuViewDelegate {
 	/// Prepares the add button.
 	private func prepareMenuView() {
 		var image: UIImage? = MaterialIcon.cm.add
-		let btn1: FabButton = FabButton()
-		btn1.setImage(image, forState: .Normal)
-		btn1.setImage(image, forState: .Highlighted)
-		btn1.addTarget(self, action: #selector(handleMenu), forControlEvents: .TouchUpInside)
-		menuView.addSubview(btn1)
-		
-		image = MaterialIcon.cm.videocam
-		let btn2: FabButton = FabButton()
-		btn2.backgroundColor = MaterialColor.blue.base
-		btn2.setImage(image, forState: .Normal)
-		btn2.setImage(image, forState: .Highlighted)
-		menuView.addSubview(btn2)
-		btn2.addTarget(self, action: #selector(handleBlueButton), forControlEvents: .TouchUpInside)
-		
-		image = MaterialIcon.cm.photoLibrary
-		let btn3: FabButton = FabButton()
-		btn3.backgroundColor = MaterialColor.green.base
-		btn3.setImage(image, forState: .Normal)
-		btn3.setImage(image, forState: .Highlighted)
-		menuView.addSubview(btn3)
-		btn3.addTarget(self, action: #selector(handleGreenButton), forControlEvents: .TouchUpInside)
+		let menuButton: FabButton = FabButton()
+		menuButton.tintColor = MaterialColor.white
+		menuButton.setImage(image, forState: .Normal)
+		menuButton.setImage(image, forState: .Highlighted)
+		menuButton.addTarget(self, action: #selector(handleMenu), forControlEvents: .TouchUpInside)
+		menuView.addSubview(menuButton)
 		
 		image = MaterialIcon.cm.pen
-		let btn4: FabButton = FabButton()
-		btn4.backgroundColor = MaterialColor.yellow.base
-		btn4.setImage(image, forState: .Normal)
-		btn4.setImage(image, forState: .Highlighted)
-		menuView.addSubview(btn4)
-		btn4.addTarget(self, action: #selector(handleYellowButton), forControlEvents: .TouchUpInside)
+		let blueButton: FabButton = FabButton()
+		blueButton.tintColor = MaterialColor.white
+		blueButton.backgroundColor = MaterialColor.blue.base
+		blueButton.setImage(image, forState: .Normal)
+		blueButton.setImage(image, forState: .Highlighted)
+		menuView.addSubview(blueButton)
+		blueButton.addTarget(self, action: #selector(handleBlueButton), forControlEvents: .TouchUpInside)
+		
+		image = MaterialIcon.cm.photoCamera
+		let greenButton: FabButton = FabButton()
+		greenButton.tintColor = MaterialColor.white
+		greenButton.backgroundColor = MaterialColor.green.base
+		greenButton.setImage(image, forState: .Normal)
+		greenButton.setImage(image, forState: .Highlighted)
+		menuView.addSubview(greenButton)
+		greenButton.addTarget(self, action: #selector(handleGreenButton), forControlEvents: .TouchUpInside)
+		
+		image = MaterialIcon.cm.star
+		let yellowButton: FabButton = FabButton()
+		yellowButton.tintColor = MaterialColor.white
+		yellowButton.backgroundColor = MaterialColor.yellow.base
+		yellowButton.setImage(image, forState: .Normal)
+		yellowButton.setImage(image, forState: .Highlighted)
+		menuView.addSubview(yellowButton)
+		yellowButton.addTarget(self, action: #selector(handleYellowButton), forControlEvents: .TouchUpInside)
 		
 		// Initialize the menu and setup the configuration options.
 		menuView.menu.baseSize = baseSize
-		menuView.menu.views = [btn1, btn2, btn3, btn4]
+		menuView.menu.views = [menuButton, blueButton, greenButton, yellowButton]
 		menuView.delegate = self
 		
 		view.addSubview(menuView)

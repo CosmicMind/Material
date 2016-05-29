@@ -105,9 +105,9 @@ public class MenuView : MaterialPulseView {
 			}
 		}
 		
-//		if menu.opened {
-//			(delegate as? MenuViewDelegate)?.menuViewDidTapOutside?(self)
-//		}
+		if menu.opened {
+			(delegate as? MenuViewDelegate)?.menuViewDidTapOutside?(self)
+		}
 		
 		return super.hitTest(point, withEvent: event)
 	}

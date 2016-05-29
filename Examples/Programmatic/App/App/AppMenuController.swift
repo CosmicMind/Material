@@ -103,12 +103,10 @@ class AppMenuController: MenuController, MenuViewDelegate {
 		}
 	}
 	
+	
 	/// Prepares the menuView.
 	private func prepareMenuView() {
-        
-        menuView.delegate = self
-        
-		var image: UIImage? = MaterialIcon.cm.add
+        var image: UIImage? = MaterialIcon.cm.add
 		let menuButton: FabButton = FabButton()
 		menuButton.tintColor = MaterialColor.white
 		menuButton.setImage(image, forState: .Normal)
@@ -146,6 +144,7 @@ class AppMenuController: MenuController, MenuViewDelegate {
 		// Initialize the menu and setup the configuration options.
 		menuView.menu.baseSize = baseSize
 		menuView.menu.views = [menuButton, blueButton, greenButton, yellowButton]
+		menuView.delegate = self
 		
 		view.addSubview(menuView)
 		MaterialLayout.size(view, child: menuView, width: baseSize.width, height: baseSize.height)
