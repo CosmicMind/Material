@@ -447,7 +447,7 @@ public class NavigationBar : UINavigationBar {
 		} else {
 			item.titleLabel.text = item.title
 		}
-		item.hidesBackButton = true
+		item.hidesBackButton = false
 		item.setHidesBackButton(true, animated: false)
 	}
 	
