@@ -107,7 +107,7 @@ extension ViewController: MaterialCollectionViewDataSource {
 		return 1
 	}
 	
-	/// Prepares the cells within the tableView.
+	/// Prepares the cells within the collectionView.
 	func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
 		let cell: MaterialCollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier("MaterialCollectionViewCell", forIndexPath: indexPath) as! MaterialCollectionViewCell
 		let item: MaterialDataSourceItem = dataSourceItems[indexPath.item]
