@@ -45,7 +45,7 @@ public extension UIImage {
 		}
 		
 		let g: UIImage?
-		let t: CGRect = CGRectMake(0, 0, nil == w ? tw : w!, nil == h ? th : h!)
+		let t: CGRect = CGRectMake(0, 0, w ?? tw, h ?? th)
 		UIGraphicsBeginImageContextWithOptions(t.size, false, MaterialDevice.scale)
 		drawInRect(t, blendMode: .Normal, alpha: 1)
 		g = UIGraphicsGetImageFromCurrentImageContext()
