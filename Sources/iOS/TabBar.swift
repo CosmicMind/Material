@@ -37,7 +37,7 @@ public enum TabBarLineAlignment {
 
 public class TabBar : MaterialView {
 	/// A reference to the line UIView.
-	public internal(set) var line: UIView!
+	public private(set) var line: UIView!
 	
 	/// A value for the line alignment.
 	public var lineAlignment: TabBarLineAlignment = .Bottom {

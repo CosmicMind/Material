@@ -51,7 +51,7 @@ public extension UIViewController {
 @IBDesignable
 public class MenuController : UIViewController {
 	/// Reference to the MenuView.
-	public internal(set) lazy var menuView: MenuView = MenuView()
+	public private(set) lazy var menuView: MenuView = MenuView()
 	
 	/**
 	A Boolean property used to enable and disable interactivity
@@ -72,7 +72,7 @@ public class MenuController : UIViewController {
 	is recommended to use the transitionFromRootViewController
 	helper method.
 	*/
-	public internal(set) var rootViewController: UIViewController!
+	public private(set) var rootViewController: UIViewController!
 	
 	/**
 	An initializer that initializes the object with a NSCoder object.

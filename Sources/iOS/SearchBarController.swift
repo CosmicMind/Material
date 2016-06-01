@@ -50,7 +50,7 @@ public extension UIViewController {
 
 public class SearchBarController : BarController {
 	/// Reference to the SearchBar.
-	public internal(set) var searchBar: SearchBar!
+	public private(set) var searchBar: SearchBar!
 	
 	public override func viewWillLayoutSubviews() {
 		super.viewWillLayoutSubviews()

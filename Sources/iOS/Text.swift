@@ -73,7 +73,7 @@ public class Text : NSObject {
 	}
 	
 	/// TextStorage instance that is observed while editing.
-	public internal(set) var textStorage: TextStorage = TextStorage()
+	public private(set) var textStorage: TextStorage = TextStorage()
 	
 	/// Delegation object for pre and post text processing.
 	public weak var delegate: TextDelegate?

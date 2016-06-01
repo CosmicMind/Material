@@ -203,27 +203,27 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 	/**
 	:name:	previewView
 	*/
-	public internal(set) lazy var previewView: CapturePreview = CapturePreview()
+	public private(set) lazy var previewView: CapturePreview = CapturePreview()
 	
 	/**
 	:name:	capture
 	*/
-	public internal(set) lazy var captureSession: CaptureSession = CaptureSession()
+	public private(set) lazy var captureSession: CaptureSession = CaptureSession()
 	
 	/**
 	:name:	focusLayer
 	*/
-	public internal(set) var focusLayer: MaterialLayer?
+	public private(set) var focusLayer: MaterialLayer?
 	
 	/**
 	:name:	exposureLayer
 	*/
-	public internal(set) var exposureLayer: MaterialLayer?
+	public private(set) var exposureLayer: MaterialLayer?
 	
 	/**
 	:name:	resetLayer
 	*/
-	public internal(set) var resetLayer: MaterialLayer?
+	public private(set) var resetLayer: MaterialLayer?
 	
 	/**
 	:name:	cameraButton
