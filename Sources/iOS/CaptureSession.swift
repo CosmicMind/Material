@@ -359,18 +359,18 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 	
 	/// The capture video orientation.
 	public var videoOrientation: AVCaptureVideoOrientation {
-		var o: AVCaptureVideoOrientation
+		var orientation: AVCaptureVideoOrientation
 		switch UIDevice.currentDevice().orientation {
 		case .Portrait:
-			o = .Portrait
+			orientation = .Portrait
 		case .LandscapeRight:
-			o = .LandscapeLeft
+			orientation = .LandscapeLeft
 		case .PortraitUpsideDown:
-			o = .PortraitUpsideDown
+			orientation = .PortraitUpsideDown
 		default:
-			o = .LandscapeRight
+			orientation = .LandscapeRight
 		}
-		return o
+		return orientation
 	}
 	
 	/// A delegation property for CaptureSessionDelegate.
