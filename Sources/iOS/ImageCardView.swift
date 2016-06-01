@@ -75,7 +75,7 @@ public class ImageCardView : MaterialPulseView {
 	/**
 	:name:	imageLayer
 	*/
-	public internal(set) var imageLayer: CAShapeLayer?
+	public private(set) var imageLayer: CAShapeLayer?
 	
 	/**
 	:name:	image

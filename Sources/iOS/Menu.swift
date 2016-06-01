@@ -39,7 +39,7 @@ public enum MenuDirection {
 
 public class Menu {
 	/// A Boolean that indicates if the menu is open or not.
-	public internal(set) var opened: Bool = false
+	public private(set) var opened: Bool = false
 
 	/// The rectangular bounds that the menu animates.
 	public var origin: CGPoint {

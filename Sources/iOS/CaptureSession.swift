@@ -172,12 +172,12 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 	/**
 	:name:	isRunning
 	*/
-	public internal(set) lazy var isRunning: Bool = false
+	public private(set) lazy var isRunning: Bool = false
 	
 	/**
 	:name:	isRecording
 	*/
-	public internal(set) lazy var isRecording: Bool = false
+	public private(set) lazy var isRecording: Bool = false
 	
 	/**
 	:name:	recordedDuration

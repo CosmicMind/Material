@@ -39,7 +39,7 @@ public class MaterialView : UIView {
 	allows the dropshadow effect on the backing layer, while clipping 
 	the image to a desired shape within the visualLayer.
 	*/
-	public internal(set) lazy var visualLayer: CAShapeLayer = CAShapeLayer()
+	public private(set) lazy var visualLayer: CAShapeLayer = CAShapeLayer()
 	
 	/**
 	A base delegate reference used when subclassing MaterialView.

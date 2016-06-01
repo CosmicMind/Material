@@ -32,7 +32,7 @@ import UIKit
 
 public class MaterialPulseView : MaterialView {
 	/// An Array of pulse layers.
-	public internal(set) lazy var pulseLayers: Array<CAShapeLayer> = Array<CAShapeLayer>()
+	public private(set) lazy var pulseLayers: Array<CAShapeLayer> = Array<CAShapeLayer>()
 	
 	/// The opcaity value for the pulse animation.
 	@IBInspectable public var pulseOpacity: CGFloat = 0.25

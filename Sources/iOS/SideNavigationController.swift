@@ -127,25 +127,25 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	A UIPanGestureRecognizer property internally used for the
 	leftView pan gesture.
 	*/
-	internal internal(set) var leftPanGesture: UIPanGestureRecognizer?
+	internal private(set) var leftPanGesture: UIPanGestureRecognizer?
 	
 	/**
 	A UIPanGestureRecognizer property internally used for the
 	rightView pan gesture.
 	*/
-	internal internal(set) var rightPanGesture: UIPanGestureRecognizer?
+	internal private(set) var rightPanGesture: UIPanGestureRecognizer?
 	
 	/**
 	A UITapGestureRecognizer property internally used for the 
 	leftView tap gesture.
 	*/
-	internal internal(set) var leftTapGesture: UITapGestureRecognizer?
+	internal private(set) var leftTapGesture: UITapGestureRecognizer?
 	
 	/**
 	A UITapGestureRecognizer property internally used for the
 	rightView tap gesture.
 	*/
-	internal internal(set) var rightTapGesture: UITapGestureRecognizer?
+	internal private(set) var rightTapGesture: UITapGestureRecognizer?
 	
 	/**
 	A CGFloat property that accesses the leftView threshold of
@@ -317,14 +317,14 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	leftViewController. It is very rare that this property will
 	need to be accessed externally.
 	*/
-	public internal(set) var leftView: MaterialView?
+	public private(set) var leftView: MaterialView?
 	
 	/**
 	A MaterialView property that is used to hide and reveal the
 	rightViewController. It is very rare that this property will
 	need to be accessed externally.
 	*/
-	public internal(set) var rightView: MaterialView?
+	public private(set) var rightView: MaterialView?
 	
 	/// Indicates whether the leftView or rightView is opened.
 	public var opened: Bool {
@@ -353,31 +353,31 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	is recommended to use the transitionFromRootViewController
 	helper method.
 	*/
-	public internal(set) var rootViewController: UIViewController!
+	public private(set) var rootViewController: UIViewController!
 	
 	/**
 	A UIViewController property that references the 
 	active left UIViewController.
 	*/
-	public internal(set) var leftViewController: UIViewController?
+	public private(set) var leftViewController: UIViewController?
 	
 	/**
 	A UIViewController property that references the
 	active right UIViewController.
 	*/
-	public internal(set) var rightViewController: UIViewController?
+	public private(set) var rightViewController: UIViewController?
 	
 	/**
 	A CGFloat property to access the width that the leftView
 	opens up to.
 	*/
-	@IBInspectable public internal(set) var leftViewWidth: CGFloat!
+	@IBInspectable public private(set) var leftViewWidth: CGFloat!
 	
 	/**
 	A CGFloat property to access the width that the rightView
 	opens up to.
 	*/
-	@IBInspectable public internal(set) var rightViewWidth: CGFloat!
+	@IBInspectable public private(set) var rightViewWidth: CGFloat!
 	
 	/**
 	An initializer for the SideNavigationController.

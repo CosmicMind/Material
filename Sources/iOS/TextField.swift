@@ -35,7 +35,7 @@ public protocol TextFieldDelegate : UITextFieldDelegate {}
 @IBDesignable
 public class TextField : UITextField {
 	/// A Boolean that indicates if the TextField is in an animating state.
-	public internal(set) var animating: Bool = false
+	public private(set) var animating: Bool = false
 	
 	/**
 	This property is the same as clipsToBounds. It crops any of the view's
@@ -118,7 +118,7 @@ public class TextField : UITextField {
 	}
 	
 	/// Reference to the divider.
-	public internal(set) lazy var divider: CAShapeLayer = CAShapeLayer()
+	public private(set) lazy var divider: CAShapeLayer = CAShapeLayer()
 	
 	/// Divider height.
 	@IBInspectable public var dividerHeight: CGFloat = 1
@@ -176,7 +176,7 @@ public class TextField : UITextField {
 	}
 	
 	/// The placeholder UILabel.
-	@IBInspectable public internal(set) lazy var placeholderLabel: UILabel = UILabel(frame: CGRectZero)
+	@IBInspectable public private(set) lazy var placeholderLabel: UILabel = UILabel(frame: CGRectZero)
 	
 	/// Placeholder textColor.
 	@IBInspectable public var placeholderColor: UIColor = MaterialColor.darkText.others {
@@ -205,7 +205,7 @@ public class TextField : UITextField {
 	public var placeholderVerticalOffset: CGFloat = 0
 	
 	/// The detailLabel UILabel that is displayed.
-	@IBInspectable public internal(set) lazy var detailLabel: UILabel = UILabel(frame: CGRectZero)
+	@IBInspectable public private(set) lazy var detailLabel: UILabel = UILabel(frame: CGRectZero)
 	
 	
 	/// The detailLabel text value.
@@ -327,10 +327,10 @@ public class TextField : UITextField {
 	}
 	
 	/// A reference to the clearIconButton.
-	public internal(set) var clearIconButton: IconButton?
+	public private(set) var clearIconButton: IconButton?
 	
 	/// A reference to the visibilityIconButton.
-	public internal(set) var visibilityIconButton: IconButton?
+	public private(set) var visibilityIconButton: IconButton?
 	
 	/**
 	An initializer that initializes the object with a NSCoder object.

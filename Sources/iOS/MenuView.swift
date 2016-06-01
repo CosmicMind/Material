@@ -39,7 +39,7 @@ public protocol MenuViewDelegate : MaterialDelegate {
 
 public class MenuView : MaterialPulseView {
 	/// References the Menu instance.
-	public internal(set) lazy var menu: Menu = Menu()
+	public private(set) lazy var menu: Menu = Menu()
 	
 	/**
 	Prepares the view instance when intialized. When subclassing,

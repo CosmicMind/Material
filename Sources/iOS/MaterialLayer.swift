@@ -41,7 +41,7 @@ public class MaterialLayer : CAShapeLayer {
 	allows the dropshadow effect on the backing layer, while clipping
 	the image to a desired shape within the visualLayer.
 	*/
-	public internal(set) lazy var visualLayer: CAShapeLayer = CAShapeLayer()
+	public private(set) lazy var visualLayer: CAShapeLayer = CAShapeLayer()
 
 	/// A property that accesses the layer.frame.origin.x property.
 	@IBInspectable public var x: CGFloat {

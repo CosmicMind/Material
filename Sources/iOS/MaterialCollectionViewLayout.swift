@@ -48,13 +48,13 @@ public class MaterialCollectionViewLayout : UICollectionViewLayout {
 	public var contentInset: UIEdgeInsets = UIEdgeInsetsZero
 	
 	/// Size of the content.
-	public internal(set) var contentSize: CGSize = CGSizeZero
+	public private(set) var contentSize: CGSize = CGSizeZero
 	
 	/// Layout attribute items.
-	public internal(set) var layoutItems: Array<(UICollectionViewLayoutAttributes, NSIndexPath)> = Array<(UICollectionViewLayoutAttributes, NSIndexPath)>()
+	public private(set) var layoutItems: Array<(UICollectionViewLayoutAttributes, NSIndexPath)> = Array<(UICollectionViewLayoutAttributes, NSIndexPath)>()
 	
 	/// Cell data source items.
-	public internal(set) var dataSourceItems: Array<MaterialDataSourceItem>?
+	public private(set) var dataSourceItems: Array<MaterialDataSourceItem>?
 	
 	/// Scroll direction.
 	public var scrollDirection: UICollectionViewScrollDirection = .Vertical
