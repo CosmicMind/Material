@@ -39,7 +39,7 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 	allows the dropshadow effect on the backing layer, while clipping
 	the image to a desired shape within the visualLayer.
 	*/
-	public private(set) lazy var visualLayer: CAShapeLayer = CAShapeLayer()
+	public internal(set) lazy var visualLayer: CAShapeLayer = CAShapeLayer()
 	
 	/**
 	A base delegate reference used when subclassing MaterialView.
@@ -47,7 +47,7 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 	public weak var delegate: MaterialDelegate?
 	
 	/// An Array of pulse layers.
-	public private(set) lazy var pulseLayers: Array<CAShapeLayer> = Array<CAShapeLayer>()
+	public internal(set) lazy var pulseLayers: Array<CAShapeLayer> = Array<CAShapeLayer>()
 	
 	/// The opcaity value for the pulse animation.
 	@IBInspectable public var pulseOpacity: CGFloat = 0.25

@@ -41,10 +41,10 @@ public class MaterialAssociatedObjectNavigationItem {
 	public var contentView: UIView?
 	
 	/// Title label.
-	public private(set) var titleLabel: UILabel!
+	public internal(set) var titleLabel: UILabel!
 	
 	/// Detail label.
-	public private(set) var detailLabel: UILabel!
+	public internal(set) var detailLabel: UILabel!
 	
 	/// Left controls.
 	public var leftControls: Array<UIControl>?

@@ -181,14 +181,14 @@ public class MaterialSwitch : UIControl {
 	}
 	
 	/// Track view reference.
-	public private(set) var trackLayer: MaterialLayer {
+	public internal(set) var trackLayer: MaterialLayer {
 		didSet {
 			prepareTrack()
 		}
 	}
 	
 	/// Button view reference.
-	public private(set) var button: FabButton {
+	public internal(set) var button: FabButton {
 		didSet {
 			prepareButton()
 		}

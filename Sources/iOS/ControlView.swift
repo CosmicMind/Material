@@ -82,7 +82,7 @@ public class ControlView : MaterialView {
 	}
 
 	/// ContentView that holds the any desired subviews.
-	public private(set) var contentView: MaterialView!
+	public internal(set) var contentView: MaterialView!
 	
 	/// Left side UIControls.
 	public var leftControls: Array<UIControl>? {

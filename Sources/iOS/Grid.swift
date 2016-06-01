@@ -120,10 +120,10 @@ public class Grid {
 	}
 	
 	/// Offsets for rows and columns.
-	public private(set) var offset: GridOffset!
+	public internal(set) var offset: GridOffset!
 	
 	/// The axis in which the Grid is laying out its views.
-	public private(set) var axis: GridAxis!
+	public internal(set) var axis: GridAxis!
 	
 	/// Preset inset value for grid.
 	public var layoutInsetPreset: MaterialEdgeInset = .None {
@@ -242,7 +242,7 @@ private var GridKey: UInt8 = 0
 /// Grid extension for UIView.
 public extension UIView {
 	/// Grid reference.
-	public private(set) var grid: Grid {
+	public internal(set) var grid: Grid {
 		get {
 			return MaterialAssociatedObject(self, key: &GridKey) {
 				return Grid()

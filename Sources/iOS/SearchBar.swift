@@ -32,10 +32,10 @@ import UIKit
 
 public class SearchBar : BarView {
 	/// The UITextField for the searchBar.
-	public private(set) var textField: UITextField!
+	public internal(set) var textField: UITextField!
 	
 	/// Reference to the clearButton.
-	public private(set) var clearButton: IconButton!
+	public internal(set) var clearButton: IconButton!
 	
 	/// Handle the clearButton manually.
 	@IBInspectable public var clearButtonAutoHandleEnabled: Bool = true {

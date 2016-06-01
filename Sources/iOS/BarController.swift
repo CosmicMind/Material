@@ -61,7 +61,7 @@ public class BarController : UIViewController {
 	is recommended to use the transitionFromRootViewController
 	helper method.
 	*/
-	public private(set) var rootViewController: UIViewController!
+	public internal(set) var rootViewController: UIViewController!
 	
 	/**
 	An initializer that initializes the object with a NSCoder object.

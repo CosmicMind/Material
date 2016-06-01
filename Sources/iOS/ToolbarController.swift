@@ -69,7 +69,7 @@ public class ToolbarController : BarController {
 	private var internalFloatingViewController: UIViewController?
 	
 	/// Reference to the Toolbar.
-	public private(set) var toolbar: Toolbar!
+	public internal(set) var toolbar: Toolbar!
 	
 	/// Delegation handler.
 	public weak var delegate: ToolbarControllerDelegate?
