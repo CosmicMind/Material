@@ -201,6 +201,9 @@ public class TextField : UITextField {
 		}
 	}
 	
+	/// This property adds a padding to placeholder y position animation
+	public var placeholderVerticalOffset: CGFloat = 0
+	
 	/// The detailLabel UILabel that is displayed.
 	@IBInspectable public private(set) lazy var detailLabel: UILabel = UILabel(frame: CGRectZero)
 	
@@ -328,9 +331,6 @@ public class TextField : UITextField {
 	
 	/// A reference to the visibilityIconButton.
 	public private(set) var visibilityIconButton: IconButton?
-	
-	/// This property adds a padding to placeholder y position animation
-	public var placeholderVerticalOffset: CGFloat = 0
 	
 	/**
 	An initializer that initializes the object with a NSCoder object.
