@@ -449,6 +449,7 @@ public class NavigationBar : UINavigationBar {
 		}
 		item.hidesBackButton = false
 		item.setHidesBackButton(true, animated: false)
+		item.addTitleObserver()
 	}
 	
 	/**

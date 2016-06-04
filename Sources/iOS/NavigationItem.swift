@@ -30,10 +30,19 @@
 
 import UIKit
 
+/// A context for observing the title property for the NavigationItem.
+private var MaterialNavigationItemTitleContext: UInt8 = 1
+
 /// A memory reference to the NavigationItem instance.
 private var MaterialAssociatedObjectNavigationItemKey: UInt8 = 0
 
 public class MaterialAssociatedObjectNavigationItem {
+	/**
+	A boolean indicating whether keys are being observed
+	on the UINavigationItem.
+	*/
+	internal var observed: Bool = false
+	
 	/// Back Button.
 	public var backButton: IconButton?
 	
@@ -103,6 +112,22 @@ public extension UINavigationItem {
 		}
 		set(value) {
 			item.contentView = value
+		}
+	}
+	
+	/// Sets the title property to be observed.
+	internal func addTitleObserver() {
+		if !item.observed {
+			item.observed = true
+			addObserver(self, forKeyPath: "title", options: .New, context: &MaterialNavigationItemTitleContext)
+		}
+	}
+	
+	public override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+		if context == &MaterialNavigationItemTitleContext {
+			titleLabel.text = change?["new"] as? String
+		} else {
+			super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
 		}
 	}
 	
