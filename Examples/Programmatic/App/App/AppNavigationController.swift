@@ -32,31 +32,11 @@ import UIKit
 import Material
 
 class AppNavigationController: NavigationController {
-	/// StatusBar color reference.
-//	private var statusBarView: MaterialView?
-	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-//		prepareStatusBarView()
 		prepareNavigationBar()
 	}
-	
-	override func viewWillLayoutSubviews() {
-		super.viewWillLayoutSubviews()
-//		statusBarView?.hidden = MaterialDevice.statusBarHidden
-	}
-	
-	/// Prepares the statusBarView
-//	private func prepareStatusBarView() {
-//		statusBarView = MaterialView()
-//		statusBarView!.backgroundColor = MaterialColor.blue.darken2
-//		
-//		view.addSubview(statusBarView!)
-//		Layout.alignFromTop(view, child: statusBarView!)
-//		Layout.alignToParentHorizontally(view, child: statusBarView!)
-//		Layout.height(view, child: statusBarView!, height: 20)
-//	}
-	
+		
 	/// Prepares the navigationBar
 	private func prepareNavigationBar() {
 		navigationBar.tintColor = MaterialColor.white

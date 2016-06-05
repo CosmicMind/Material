@@ -85,8 +85,7 @@ class ViewController: UIViewController {
 		collectionView.contentInset.top = 100
 		collectionView.spacing = 16
 		
-		view.addSubview(collectionView)
-		Layout.alignToParent(view, child: collectionView)
+		view.layout.align(collectionView)
 	}
 }
 

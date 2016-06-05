@@ -75,8 +75,7 @@ class ViewController: UIViewController, TextDelegate {
 		textView.titleLabelColor = MaterialColor.grey.base
 		textView.titleLabelActiveColor = MaterialColor.blue.accent3
 		
-		view.addSubview(textView)
-		Layout.alignToParent(view, child: textView!, top: 124, left: 24, bottom: 24, right: 24)
+		view.layout.align(textView!, top: 124, left: 24, bottom: 24, right: 24)
 	}
 	
 	/**

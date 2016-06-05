@@ -117,8 +117,7 @@ class ViewController: UIViewController {
 		cardView.leftButtons = [closeButton]
 		cardView.rightButtons = [settingButton]
 		
-		view.addSubview(cardView)
-		Layout.alignToParent(view, child: cardView, left: 10, right: 10, top: 100, bottom: 100)
+		view.layout.align(cardView, left: 10, right: 10, top: 100, bottom: 100)
 	}
 }
 

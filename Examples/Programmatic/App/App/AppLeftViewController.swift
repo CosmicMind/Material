@@ -90,19 +90,17 @@ class AppLeftViewController: UIViewController {
 		profileView.shape = .Circle
 		profileView.borderColor = MaterialColor.white
 		profileView.borderWidth = 3
-		view.addSubview(profileView)
 		
 		let nameLabel: UILabel = UILabel()
 		nameLabel.text = "Michael Smith"
 		nameLabel.textColor = MaterialColor.white
 		nameLabel.font = RobotoFont.mediumWithSize(18)
-		view.addSubview(nameLabel)
 		
-		Layout.alignFromTopLeft(view, child: profileView, top: 30, left: (view.bounds.width - 72) / 2)
-		Layout.size(view, child: profileView, width: 72, height: 72)
+		view.layout.size(profileView, width: 72, height: 72)
+		view.layout.alignFromTopLeft(profileView, top: 30, left: (view.bounds.width - 72) / 2)
 		
-		Layout.alignFromTop(view, child: nameLabel, top: 130)
-		Layout.alignToParentHorizontally(view, child: nameLabel, left: 20, right: 20)
+		view.layout.alignFromTop(nameLabel, top: 130)
+		view.layout.horizontally(nameLabel, left: 20, right: 20)
 	}
 	
 	/// Prepares the tableView.
@@ -114,8 +112,7 @@ class AppLeftViewController: UIViewController {
 		tableView.separatorStyle = .None
 		
 		// Use Layout to easily align the tableView.
-		view.addSubview(tableView)
-		Layout.alignToParent(view, child: tableView, top: 170)
+		view.layout.align(tableView, top: 170)
 	}
 }
 

@@ -43,9 +43,8 @@ class RootViewController: UIViewController {
 		fabButton.setImage(img, forState: .Highlighted)
 		fabButton.addTarget(self, action: #selector(handleFabButton), forControlEvents: .TouchUpInside)
 		
-		view.addSubview(fabButton)
-		Layout.alignFromBottomRight(view, child: fabButton, bottom: 16, right: 16)
-		Layout.size(view, child: fabButton, width: 64, height: 64)
+		view.layout.size(fabButton, width: 64, height: 64)
+		view.layout.alignFromBottomRight(fabButton, bottom: 16, right: 16)
     }
 	
 	// FabButton handler.

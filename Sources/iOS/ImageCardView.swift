@@ -374,21 +374,17 @@ public class ImageCardView : MaterialPulseView {
 		
 		// title
 		if let v: UILabel = titleLabel {
-			addSubview(v)
-			
 			if nil == imageLayer?.contents {
 				verticalFormat += "-[titleLabel]"
 				views["titleLabel"] = v
 			} else {
-				Layout.alignFromTop(self, child: v, top: contentInset.top + titleLabelInset.top)
+				layout.alignFromTop(v, top: contentInset.top + titleLabelInset.top)
 			}
-			Layout.alignToParentHorizontally(self, child: v, left: contentInset.left + titleLabelInset.left, right: contentInset.right + titleLabelInset.right)
+			layout.horizontally(v, left: contentInset.left + titleLabelInset.left, right: contentInset.right + titleLabelInset.right)
 		}
 		
 		// detail
 		if let v: UIView = contentView {
-			addSubview(v)
-			
 			if nil == imageLayer?.contents && nil != titleLabel {
 				verticalFormat += "-(insetB)"
 				metrics["insetB"] = titleLabelInset.bottom + contentViewInset.top
@@ -399,7 +395,7 @@ public class ImageCardView : MaterialPulseView {
 			verticalFormat += "-[contentView]"
 			views["contentView"] = v
 			
-			Layout.alignToParentHorizontally(self, child: v, left: contentInset.left + contentViewInset.left, right: contentInset.right + contentViewInset.right)
+			layout.horizontally(v, left: contentInset.left + contentViewInset.left, right: contentInset.right + contentViewInset.right)
 		}
 		
 		// leftButtons
@@ -421,8 +417,7 @@ public class ImageCardView : MaterialPulseView {
 					
 					h += "[\(k)]"
 					
-					addSubview(b)
-					Layout.alignFromBottom(self, child: b, bottom: contentInset.bottom + leftButtonsInset.bottom)
+					layout.alignFromBottom(b, bottom: contentInset.bottom + leftButtonsInset.bottom)
 					
 					i += 1
 				}
@@ -451,8 +446,7 @@ public class ImageCardView : MaterialPulseView {
 						h += "-(right_left)-"
 					}
 					
-					addSubview(b)
-					Layout.alignFromBottom(self, child: b, bottom: contentInset.bottom + rightButtonsInset.bottom)
+					layout.alignFromBottom(b, bottom: contentInset.bottom + rightButtonsInset.bottom)
 					
 					i -= 1
 				}

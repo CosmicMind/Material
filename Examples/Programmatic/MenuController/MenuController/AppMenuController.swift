@@ -148,9 +148,8 @@ class AppMenuController: MenuController {
 		menuView.menu.views = [menuButton, blueButton, greenButton, yellowButton]
 		menuView.delegate = self
 		
-		view.addSubview(menuView)
-		Layout.size(view, child: menuView, width: baseSize.width, height: baseSize.height)
-		Layout.alignFromBottomRight(view, child: menuView, bottom: menuViewInset, right: menuViewInset)
+		view.layout.size(menuView, width: baseSize.width, height: baseSize.height)
+		view.layout.alignFromBottomRight(menuView, bottom: menuViewInset, right: menuViewInset)
 	}
 }
 

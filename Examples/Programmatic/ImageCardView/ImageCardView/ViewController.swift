@@ -83,9 +83,8 @@ class ViewController: UIViewController {
 		imageCardView.leftButtons = [btn1, btn2]
 		
 		// To support orientation changes, use Layout.
-		view.addSubview(imageCardView)
-		Layout.alignFromTop(view, child: imageCardView, top: 100)
-		Layout.alignToParentHorizontally(view, child: imageCardView, left: 20, right: 20)
+		view.layout.alignFromTop(imageCardView, top: 100)
+		view.layout.horizontally(imageCardView, left: 20, right: 20)
 	}
 	
 	private func prepareImageCardViewWithoutDetailLabelAndDividerExample() {
@@ -133,9 +132,8 @@ class ViewController: UIViewController {
 		imageCardView.rightButtons = [btn1, btn2, btn3]
 		
 		// To support orientation changes, use Layout.
-		view.addSubview(imageCardView)
-		Layout.alignFromTop(view, child: imageCardView, top: 100)
-		Layout.alignToParentHorizontally(view, child: imageCardView, left: 20, right: 20)
+		view.layout.alignFromTop(imageCardView, top: 100)
+		view.layout.horizontally(imageCardView, left: 20, right: 20)
 	}
 }
 

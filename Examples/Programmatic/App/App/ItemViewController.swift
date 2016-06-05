@@ -95,7 +95,7 @@ class ItemViewController: UIViewController {
 		scrollView.frame = view.bounds
 		scrollView.removeConstraints(scrollView.constraints)
 		
-		Layout.width(scrollView, child: imageCardView, width: scrollView.bounds.width)
+		scrollView.layout.width(imageCardView, width: scrollView.bounds.width)
 		imageCardView.layoutIfNeeded()
 		
 		scrollView.contentSize = CGSizeMake(view.bounds.width, imageCardView.height)
@@ -167,9 +167,6 @@ class ItemViewController: UIViewController {
 
 			let image: UIImage? = UIImage(named: data["image"] as! String)
 			imageCardView.image = image
-			
-			scrollView.addSubview(imageCardView)
-			imageCardView.translatesAutoresizingMaskIntoConstraints = false
 		}
 	}
 }

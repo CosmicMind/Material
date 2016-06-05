@@ -137,9 +137,8 @@ class ViewController: UIViewController {
 		menuView.menu.baseSize = CGSizeMake(diameter, diameter)
 		menuView.menu.views = [btn1, btn2, btn3, btn4]
 		
-		view.addSubview(menuView)
-		Layout.size(view, child: menuView, width: diameter, height: diameter)
-		Layout.alignFromBottomLeft(view, child: menuView, bottom: 16, left: (view.bounds.width - diameter) / 2)
+		view.layout.size(menuView, width: diameter, height: diameter)
+		view.layout.alignFromBottomLeft(menuView, bottom: 16, left: (view.bounds.width - diameter) / 2)
 	}
 }
 
