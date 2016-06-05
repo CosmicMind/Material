@@ -43,6 +43,7 @@ class ViewController: UIViewController {
 		prepareView()
 		prepareAlignToParentHorizontallyExample()
 		prepareAlignToParentVerticallyExample()
+        prepareCenterExample()
 	}
 	
 	/// General preparation statements.
@@ -141,5 +142,49 @@ class ViewController: UIViewController {
 			print(v.frame)
 		}
 	}
+    
+    // Lays out test views to the center of different axes
+    private func prepareCenterExample() {
+        
+        let length: CGFloat = 100
+        
+        let labelCX = UILabel()
+        labelCX.backgroundColor = MaterialColor.grey.base
+        labelCX.text = "centerX"
+        labelCX.textAlignment = .Center
+        labelCX.layer.cornerRadius = length / 2.0
+        labelCX.clipsToBounds = true
+        view.addSubview(labelCX)
+        
+        MaterialLayout.width(view, child: labelCX, width: length)
+        MaterialLayout.height(view, child: labelCX, height: length)
+        MaterialLayout.centerHorizontally(view, child: labelCX)
+        
+        let labelCY = UILabel()
+        labelCY.backgroundColor = MaterialColor.grey.base
+        labelCY.text = "centerY"
+        labelCY.textAlignment = .Center
+        labelCY.layer.cornerRadius = length / 2.0
+        labelCY.clipsToBounds = true
+        view.addSubview(labelCY)
+        
+        MaterialLayout.width(view, child: labelCY, width: length)
+        MaterialLayout.height(view, child: labelCY, height: length)
+        MaterialLayout.centerVertically(view, child: labelCY)
+        
+        let labelCXY = UILabel()
+        labelCXY.backgroundColor = MaterialColor.grey.base
+        labelCXY.text = "centerXY"
+        labelCXY.textAlignment = .Center
+        labelCXY.layer.cornerRadius = length / 2.0
+        labelCXY.clipsToBounds = true
+        view.addSubview(labelCXY)
+        
+        MaterialLayout.width(view, child: labelCXY, width: length)
+        MaterialLayout.height(view, child: labelCXY, height: length)
+        MaterialLayout.center(view, child: labelCXY)
+
+        
+    }
 }
 
