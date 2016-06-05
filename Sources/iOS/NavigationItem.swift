@@ -30,9 +30,6 @@
 
 import UIKit
 
-/// A context for observing the title property for the NavigationItem.
-private var MaterialNavigationItemTitleContext: UInt8 = 1
-
 /// A memory reference to the NavigationItem instance.
 private var MaterialAssociatedObjectNavigationItemKey: UInt8 = 0
 
@@ -115,19 +112,13 @@ public extension UINavigationItem {
 		}
 	}
 	
-	/// Sets the title property to be observed.
-	internal func addTitleObserver() {
-		if !item.observed {
-			item.observed = true
-			addObserver(self, forKeyPath: "title", options: .New, context: &MaterialNavigationItemTitleContext)
+	@nonobjc
+	public var title: String? {
+		get {
+			return titleLabel.text
 		}
-	}
-	
-	public override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-		if context == &MaterialNavigationItemTitleContext {
-			titleLabel.text = change?["new"] as? String
-		} else {
-			super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
+		set(value) {
+			titleLabel.text = value
 		}
 	}
 	

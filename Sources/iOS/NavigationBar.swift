@@ -440,16 +440,8 @@ public class NavigationBar : UINavigationBar {
 	- Parameter item: A UINavigationItem to layout.
 	*/
 	private func prepareItem(item: UINavigationItem) {
-		if let v: String = item.titleLabel.text {
-			if v != item.title {
-				item.title = v
-			}
-		} else {
-			item.titleLabel.text = item.title
-		}
 		item.hidesBackButton = false
 		item.setHidesBackButton(true, animated: false)
-		item.addTitleObserver()
 	}
 	
 	/**
