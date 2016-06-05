@@ -353,9 +353,6 @@ public class ImageCardView : MaterialPulseView {
 	public func reloadView() {
 		// clear constraints so new ones do not conflict
 		removeConstraints(constraints)
-		for v in subviews {
-			v.removeFromSuperview()
-		}
 		
 		var verticalFormat: String = "V:|"
 		var views: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()

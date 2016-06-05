@@ -41,8 +41,8 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		prepareAlignToParentHorizontallyAndVerticallyExample()
-//		prepareCenterExample()
+//		prepareAlignToParentHorizontallyAndVerticallyExample()
+		prepareCenterExample()
 	}
 	
 	/// General preparation statements.
