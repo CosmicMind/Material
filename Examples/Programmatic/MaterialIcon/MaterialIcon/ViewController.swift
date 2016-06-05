@@ -115,7 +115,7 @@ class ViewController: UIViewController {
         
         view.addSubview(tableView)
         
-        MaterialLayout.alignToParent(view, child: tableView, top: 20, left: 0, bottom: 0, right: 0)
+        Layout.alignToParent(view, child: tableView, top: 20, left: 0, bottom: 0, right: 0)
 	}
     
     private func image(iconName:String!) -> UIImage? {

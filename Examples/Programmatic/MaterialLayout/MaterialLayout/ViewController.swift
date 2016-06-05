@@ -29,7 +29,7 @@
 */
 
 /**
-MaterialLayout is an excellent tool to ease the use of AutoLayout. The following
+Layout is an excellent tool to ease the use of AutoLayout. The following
 examples demonstrate laying out a collection of UILabel objects, both vertically
 and horizontally.
 */
@@ -41,8 +41,8 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-		prepareAlignToParentHorizontallyExample()
-		prepareAlignToParentVerticallyExample()
+//		prepareAlignToParentHorizontallyExample()
+//		prepareAlignToParentVerticallyExample()
         prepareCenterExample()
 	}
 	
@@ -57,38 +57,29 @@ class ViewController: UIViewController {
 		label1.backgroundColor = MaterialColor.red.base
 		label1.text = "A"
 		label1.textAlignment = .Center
-		view.addSubview(label1)
 		
 		let label2: UILabel = UILabel()
 		label2.backgroundColor = MaterialColor.green.base
 		label2.text = "B"
 		label2.textAlignment = .Center
-		view.addSubview(label2)
 		
 		let label3: UILabel = UILabel()
 		label3.backgroundColor = MaterialColor.blue.base
 		label3.text = "C"
 		label3.textAlignment = .Center
-		view.addSubview(label3)
 		
 		let label4: UILabel = UILabel()
 		label4.backgroundColor = MaterialColor.yellow.base
 		label4.text = "D"
 		label4.textAlignment = .Center
-		view.addSubview(label4)
 		
 		let children: Array<UIView> = [label1, label2, label3, label4]
 		
-		// Align the labels horizontally with an equal width.
-		MaterialLayout.alignToParentHorizontally(view, children: children, left: 30, right: 30, spacing: 30)
+		// Align the labels vertically with an equal height.
+		view.layout.vertically(children, top: 100, bottom: 100)
 		
-		/*
-		Individually set the labels' vertical alignment.
-		If this is left out, the intrinsic value is used for the view.
-		*/
-		for v in children {
-			MaterialLayout.alignToParentVertically(view, child: v, top: 100, bottom: 100)
-		}
+		// Align the labels horizontally with an equal width.
+		view.layout.horizontally(children, left: 30, right: 30, spacing: 30)
 		
 		// Print out the dimensions of the labels.
 		for v in children {
@@ -103,38 +94,29 @@ class ViewController: UIViewController {
 		label1.backgroundColor = MaterialColor.red.base
 		label1.text = "A"
 		label1.textAlignment = .Center
-		view.addSubview(label1)
 		
 		let label2: UILabel = UILabel()
 		label2.backgroundColor = MaterialColor.green.base
 		label2.text = "B"
 		label2.textAlignment = .Center
-		view.addSubview(label2)
 		
 		let label3: UILabel = UILabel()
 		label3.backgroundColor = MaterialColor.blue.base
 		label3.text = "C"
 		label3.textAlignment = .Center
-		view.addSubview(label3)
 		
 		let label4: UILabel = UILabel()
 		label4.backgroundColor = MaterialColor.yellow.base
 		label4.text = "D"
 		label4.textAlignment = .Center
-		view.addSubview(label4)
 		
 		let children: Array<UIView> = [label1, label2, label3, label4]
 		
 		// Align the labels vertically with an equal height.
-		MaterialLayout.alignToParentVertically(view, children: children, top: 100, bottom: 100, spacing: 100)
+		view.layout.vertically(children, top: 100, bottom: 100, spacing: 10)
 		
-		/*
-		Individually set the labels' horizontal alignment.
-		If this is left out, the intrinsic value is used for the view.
-		*/
-		for v in children {
-			MaterialLayout.alignToParentHorizontally(view, child: v, left: 100, right: 100)
-		}
+		// Align the labels horizontally with an equal width.
+		view.layout.horizontally(children, left: 100, right: 100)
 		
 		// Print out the dimensions of the labels.
 		for v in children {
@@ -145,7 +127,6 @@ class ViewController: UIViewController {
     
     // Lays out test views to the center of different axes
     private func prepareCenterExample() {
-        
         let length: CGFloat = 100
         
         let labelCX = UILabel()
@@ -154,11 +135,9 @@ class ViewController: UIViewController {
         labelCX.textAlignment = .Center
         labelCX.layer.cornerRadius = length / 2.0
         labelCX.clipsToBounds = true
-        view.addSubview(labelCX)
-        
-        MaterialLayout.width(view, child: labelCX, width: length)
-        MaterialLayout.height(view, child: labelCX, height: length)
-        MaterialLayout.centerHorizontally(view, child: labelCX)
+		
+		view.layout.size(labelCX, width: length, height: length)
+        view.layout.centerHorizontally(labelCX)
         
         let labelCY = UILabel()
         labelCY.backgroundColor = MaterialColor.grey.base
@@ -166,25 +145,19 @@ class ViewController: UIViewController {
         labelCY.textAlignment = .Center
         labelCY.layer.cornerRadius = length / 2.0
         labelCY.clipsToBounds = true
-        view.addSubview(labelCY)
-        
-        MaterialLayout.width(view, child: labelCY, width: length)
-        MaterialLayout.height(view, child: labelCY, height: length)
-        MaterialLayout.centerVertically(view, child: labelCY)
-        
+		
+		view.layout.size(labelCY, width: length, height: length)
+		view.layout.centerVertically(labelCY)
+		
         let labelCXY = UILabel()
         labelCXY.backgroundColor = MaterialColor.grey.base
         labelCXY.text = "centerXY"
         labelCXY.textAlignment = .Center
         labelCXY.layer.cornerRadius = length / 2.0
         labelCXY.clipsToBounds = true
-        view.addSubview(labelCXY)
-        
-        MaterialLayout.width(view, child: labelCXY, width: length)
-        MaterialLayout.height(view, child: labelCXY, height: length)
-        MaterialLayout.center(view, child: labelCXY)
-
-        
+		
+		view.layout.size(labelCXY, width: length, height: length)
+		view.layout.center(labelCXY)
     }
 }
 

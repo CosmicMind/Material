@@ -78,10 +78,10 @@ class ViewController: UIViewController {
 		// Add buttons to left side.
 		cardView.leftButtons = [btn1, btn2]
 		
-		// To support orientation changes, use MaterialLayout.
+		// To support orientation changes, use Layout.
 		view.addSubview(cardView)
-		MaterialLayout.alignFromTop(view, child: cardView, top: 100)
-		MaterialLayout.alignToParentHorizontally(view, child: cardView, left: 20, right: 20)
+		Layout.alignFromTop(view, child: cardView, top: 100)
+		Layout.alignToParentHorizontally(view, child: cardView, left: 20, right: 20)
 	}
 	
 	private func prepareCardViewWithoutPulseBackgroundImageExample() {
@@ -117,10 +117,10 @@ class ViewController: UIViewController {
 		// Add buttons to left side.
 		cardView.leftButtons = [btn1]
 		
-		// To support orientation changes, use MaterialLayout.
+		// To support orientation changes, use Layout.
 		view.addSubview(cardView)
-		MaterialLayout.alignFromTop(view, child: cardView, top: 100)
-		MaterialLayout.alignToParentHorizontally(view, child: cardView, left: 20, right: 20)
+		Layout.alignFromTop(view, child: cardView, top: 100)
+		Layout.alignToParentHorizontally(view, child: cardView, left: 20, right: 20)
 	}
 	
 	private func prepareCardViewWithPulseBackgroundImageExample() {
@@ -157,10 +157,10 @@ class ViewController: UIViewController {
 		// Add buttons to left side.
 		cardView.leftButtons = [btn1]
 		
-		// To support orientation changes, use MaterialLayout.
+		// To support orientation changes, use Layout.
 		view.addSubview(cardView)
-		MaterialLayout.alignFromTop(view, child: cardView, top: 100)
-		MaterialLayout.alignToParentHorizontally(view, child: cardView, left: 20, right: 20)
+		Layout.alignFromTop(view, child: cardView, top: 100)
+		Layout.alignToParentHorizontally(view, child: cardView, left: 20, right: 20)
 	}
 	
 	private func prepareCardViewButtonBarExample() {
@@ -196,10 +196,10 @@ class ViewController: UIViewController {
 		// Add buttons to right side.
 		cardView.rightButtons = [btn2, btn3]
 		
-		// To support orientation changes, use MaterialLayout.
+		// To support orientation changes, use Layout.
 		view.addSubview(cardView)
-		MaterialLayout.alignFromTop(view, child: cardView, top: 100)
-		MaterialLayout.alignToParentHorizontally(view, child: cardView, left: 20, right: 20)
+		Layout.alignFromTop(view, child: cardView, top: 100)
+		Layout.alignToParentHorizontally(view, child: cardView, left: 20, right: 20)
 	}
 }
 

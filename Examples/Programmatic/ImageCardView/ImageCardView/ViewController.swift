@@ -82,10 +82,10 @@ class ViewController: UIViewController {
 		// Add buttons to left side.
 		imageCardView.leftButtons = [btn1, btn2]
 		
-		// To support orientation changes, use MaterialLayout.
+		// To support orientation changes, use Layout.
 		view.addSubview(imageCardView)
-		MaterialLayout.alignFromTop(view, child: imageCardView, top: 100)
-		MaterialLayout.alignToParentHorizontally(view, child: imageCardView, left: 20, right: 20)
+		Layout.alignFromTop(view, child: imageCardView, top: 100)
+		Layout.alignToParentHorizontally(view, child: imageCardView, left: 20, right: 20)
 	}
 	
 	private func prepareImageCardViewWithoutDetailLabelAndDividerExample() {
@@ -132,10 +132,10 @@ class ViewController: UIViewController {
 		// Add buttons to right side.
 		imageCardView.rightButtons = [btn1, btn2, btn3]
 		
-		// To support orientation changes, use MaterialLayout.
+		// To support orientation changes, use Layout.
 		view.addSubview(imageCardView)
-		MaterialLayout.alignFromTop(view, child: imageCardView, top: 100)
-		MaterialLayout.alignToParentHorizontally(view, child: imageCardView, left: 20, right: 20)
+		Layout.alignFromTop(view, child: imageCardView, top: 100)
+		Layout.alignToParentHorizontally(view, child: imageCardView, left: 20, right: 20)
 	}
 }
 

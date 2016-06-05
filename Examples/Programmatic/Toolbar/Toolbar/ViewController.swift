@@ -61,7 +61,7 @@ class ViewController: UIViewController {
 		containerView = UIView()
 		view.addSubview(containerView)
 		
-		MaterialLayout.alignToParent(view, child: containerView, top: 100, left: 20, right: 20)
+		Layout.alignToParent(view, child: containerView, top: 100, left: 20, right: 20)
 	}
 	
 	/// Prepares the toolbar

@@ -74,9 +74,9 @@ class AppLeftViewController: UIViewController {
 		tableView.delegate = self
 		tableView.separatorStyle = .None
 		
-		// Use MaterialLayout to easily align the tableView.
+		// Use Layout to easily align the tableView.
 		view.addSubview(tableView)
-		MaterialLayout.alignToParent(view, child: tableView)
+		Layout.alignToParent(view, child: tableView)
 	}
 }
 

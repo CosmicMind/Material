@@ -52,9 +52,9 @@ class AppNavigationController: NavigationController {
 //		statusBarView!.backgroundColor = MaterialColor.blue.darken2
 //		
 //		view.addSubview(statusBarView!)
-//		MaterialLayout.alignFromTop(view, child: statusBarView!)
-//		MaterialLayout.alignToParentHorizontally(view, child: statusBarView!)
-//		MaterialLayout.height(view, child: statusBarView!, height: 20)
+//		Layout.alignFromTop(view, child: statusBarView!)
+//		Layout.alignToParentHorizontally(view, child: statusBarView!)
+//		Layout.height(view, child: statusBarView!, height: 20)
 //	}
 	
 	/// Prepares the navigationBar

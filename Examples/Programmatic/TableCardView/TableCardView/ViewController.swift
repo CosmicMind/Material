@@ -111,14 +111,14 @@ class ViewController: UIViewController {
 		settingButton.setImage(image, forState: .Normal)
 		settingButton.setImage(image, forState: .Highlighted)
 		
-		// Use MaterialLayout to easily align the tableView.
+		// Use Layout to easily align the tableView.
 		cardView.titleLabel = titleLabel
 		cardView.contentView = tableView
 		cardView.leftButtons = [closeButton]
 		cardView.rightButtons = [settingButton]
 		
 		view.addSubview(cardView)
-		MaterialLayout.alignToParent(view, child: cardView, left: 10, right: 10, top: 100, bottom: 100)
+		Layout.alignToParent(view, child: cardView, left: 10, right: 10, top: 100, bottom: 100)
 	}
 }
 

@@ -86,7 +86,7 @@ class ViewController: UIViewController {
 		collectionView.spacing = 16
 		
 		view.addSubview(collectionView)
-		MaterialLayout.alignToParent(view, child: collectionView)
+		Layout.alignToParent(view, child: collectionView)
 	}
 }
 

@@ -55,9 +55,9 @@ class ViewController: UIViewController, MaterialSwitchDelegate {
 		view.addSubview(bottomView)
 		bottomView.backgroundColor = MaterialColor.grey.darken4
 		
-		MaterialLayout.alignToParentHorizontally(view, child: topView)
-		MaterialLayout.alignToParentHorizontally(view, child: bottomView)
-		MaterialLayout.alignToParentVertically(view, children: [topView, bottomView])
+		Layout.alignToParentHorizontally(view, child: topView)
+		Layout.alignToParentHorizontally(view, child: bottomView)
+		Layout.alignToParentVertically(view, children: [topView, bottomView])
 	}
 	
 	/// Prepares the LightContent MaterialSwitch.
@@ -75,10 +75,10 @@ class ViewController: UIViewController, MaterialSwitchDelegate {
 		c3.enabled = false
 		topView.addSubview(c3)
 		
-		MaterialLayout.alignToParentHorizontally(topView, child: c1)
-		MaterialLayout.alignToParentHorizontally(topView, child: c2)
-		MaterialLayout.alignToParentHorizontally(topView, child: c3)
-		MaterialLayout.alignToParentVertically(topView, children: [c1, c2, c3])
+		Layout.alignToParentHorizontally(topView, child: c1)
+		Layout.alignToParentHorizontally(topView, child: c2)
+		Layout.alignToParentHorizontally(topView, child: c3)
+		Layout.alignToParentVertically(topView, children: [c1, c2, c3])
 	}
 	
 	/// Prepares the LightContent MaterialSwitch.
@@ -96,10 +96,10 @@ class ViewController: UIViewController, MaterialSwitchDelegate {
 		c3.enabled = false
 		bottomView.addSubview(c3)
 		
-		MaterialLayout.alignToParentHorizontally(bottomView, child: c1)
-		MaterialLayout.alignToParentHorizontally(bottomView, child: c2)
-		MaterialLayout.alignToParentHorizontally(bottomView, child: c3)
-		MaterialLayout.alignToParentVertically(bottomView, children: [c1, c2, c3])
+		Layout.alignToParentHorizontally(bottomView, child: c1)
+		Layout.alignToParentHorizontally(bottomView, child: c2)
+		Layout.alignToParentHorizontally(bottomView, child: c3)
+		Layout.alignToParentVertically(bottomView, children: [c1, c2, c3])
 	}
 	
 	internal func materialSwitchStateChanged(control: MaterialSwitch) {

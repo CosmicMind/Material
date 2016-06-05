@@ -98,11 +98,11 @@ class AppLeftViewController: UIViewController {
 		nameLabel.font = RobotoFont.mediumWithSize(18)
 		view.addSubview(nameLabel)
 		
-		MaterialLayout.alignFromTopLeft(view, child: profileView, top: 30, left: (view.bounds.width - 72) / 2)
-		MaterialLayout.size(view, child: profileView, width: 72, height: 72)
+		Layout.alignFromTopLeft(view, child: profileView, top: 30, left: (view.bounds.width - 72) / 2)
+		Layout.size(view, child: profileView, width: 72, height: 72)
 		
-		MaterialLayout.alignFromTop(view, child: nameLabel, top: 130)
-		MaterialLayout.alignToParentHorizontally(view, child: nameLabel, left: 20, right: 20)
+		Layout.alignFromTop(view, child: nameLabel, top: 130)
+		Layout.alignToParentHorizontally(view, child: nameLabel, left: 20, right: 20)
 	}
 	
 	/// Prepares the tableView.
@@ -113,9 +113,9 @@ class AppLeftViewController: UIViewController {
 		tableView.delegate = self
 		tableView.separatorStyle = .None
 		
-		// Use MaterialLayout to easily align the tableView.
+		// Use Layout to easily align the tableView.
 		view.addSubview(tableView)
-		MaterialLayout.alignToParent(view, child: tableView, top: 170)
+		Layout.alignToParent(view, child: tableView, top: 170)
 	}
 }
 

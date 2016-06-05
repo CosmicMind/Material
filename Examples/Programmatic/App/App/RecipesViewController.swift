@@ -260,9 +260,9 @@ class RecipesViewController: UIViewController {
 		tableView.dataSource = self
 		tableView.delegate = self
 		
-		// Use MaterialLayout to easily align the tableView.
+		// Use Layout to easily align the tableView.
 		view.addSubview(tableView)
-		MaterialLayout.alignToParent(view, child: tableView)
+		Layout.alignToParent(view, child: tableView)
 	}
 }
 
@@ -308,7 +308,7 @@ extension RecipesViewController: UITableViewDataSource {
 		label.text = "Favorites"
 		
 		header.addSubview(label)
-		MaterialLayout.alignToParent(header, child: label, left: 24)
+		Layout.alignToParent(header, child: label, left: 24)
 		
 		return header
 	}

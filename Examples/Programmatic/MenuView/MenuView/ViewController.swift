@@ -138,8 +138,8 @@ class ViewController: UIViewController {
 		menuView.menu.views = [btn1, btn2, btn3, btn4]
 		
 		view.addSubview(menuView)
-		MaterialLayout.size(view, child: menuView, width: diameter, height: diameter)
-		MaterialLayout.alignFromBottomLeft(view, child: menuView, bottom: 16, left: (view.bounds.width - diameter) / 2)
+		Layout.size(view, child: menuView, width: diameter, height: diameter)
+		Layout.alignFromBottomLeft(view, child: menuView, bottom: 16, left: (view.bounds.width - diameter) / 2)
 	}
 }
 

@@ -226,7 +226,7 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 		captureView.tapToExposeEnabled = true
 		captureView.delegate = self
 		captureView.captureSession.delegate = self
-		MaterialLayout.alignToParent(view, child: captureView)
+		Layout.alignToParent(view, child: captureView)
 	}
 	
 	/**

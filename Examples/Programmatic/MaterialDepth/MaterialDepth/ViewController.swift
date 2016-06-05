@@ -68,14 +68,14 @@ class ViewController: UIViewController {
 		let children: Array<UIView> = [v1, v2, v3, v4, v5]
 		
 		// Align the vs vertically with an equal height.
-		MaterialLayout.alignToParentVertically(view, children: children, top: 100, bottom: 100, spacing: 20)
+		Layout.alignToParentVertically(view, children: children, top: 100, bottom: 100, spacing: 20)
 		
 		/*
 		Individually set the vs' horizontal alignment.
 		If this is left out, the intrinsic value is used for the view.
 		*/
 		for v in children {
-			MaterialLayout.alignToParentHorizontally(view, child: v, left: 20, right: 20)
+			Layout.alignToParentHorizontally(view, child: v, left: 20, right: 20)
 		}
 	}
 }

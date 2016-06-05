@@ -433,6 +433,7 @@ public class NavigationBar : UINavigationBar {
 		let image: UIImage? = UIImage.imageWithColor(MaterialColor.clear, size: CGSizeMake(1, 1))
 		shadowImage = image
 		setBackgroundImage(image, forBarMetrics: .Default)
+		backgroundColor = MaterialColor.white
 	}
 	
 	/**
