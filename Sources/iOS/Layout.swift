@@ -195,13 +195,13 @@ public extension Layout {
 	/// Width
 	public class func width(parent: UIView, child: UIView, width: CGFloat = 0) {
 		prepareForConstraint(parent, children: [child])
-		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .Width, multiplier: 1.0, constant: width))
+		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .Width, multiplier: 1, constant: width))
 	}
 	
 	/// Height
 	public class func height(parent: UIView, child: UIView, height: CGFloat = 0) {
 		prepareForConstraint(parent, children: [child])
-		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .Height, multiplier: 1.0, constant: height))
+		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .Height, multiplier: 1, constant: height))
 	}
 	
 	/// Size
@@ -214,12 +214,12 @@ public extension Layout {
 	public class func alignToParentHorizontally(parent: UIView, children: Array<UIView>, left: CGFloat = 0, right: CGFloat = 0, spacing: CGFloat = 0) {
 		prepareForConstraint(parent, children: children)
 		if 0 < children.count {
-			parent.addConstraint(NSLayoutConstraint(item: children[0], attribute: .Left, relatedBy: .Equal, toItem: parent, attribute: .Left, multiplier: 1.0, constant: left))
+			parent.addConstraint(NSLayoutConstraint(item: children[0], attribute: .Left, relatedBy: .Equal, toItem: parent, attribute: .Left, multiplier: 1, constant: left))
 			for i in 1..<children.count {
-				parent.addConstraint(NSLayoutConstraint(item: children[i], attribute: .Left, relatedBy: .Equal, toItem: children[i-1], attribute: .Right, multiplier: 1.0, constant: spacing))
-				parent.addConstraint(NSLayoutConstraint(item: children[i], attribute: .Width, relatedBy: .Equal, toItem: children[0], attribute: .Width, multiplier: 1.0, constant: 0.0))
+				parent.addConstraint(NSLayoutConstraint(item: children[i], attribute: .Left, relatedBy: .Equal, toItem: children[i - 1], attribute: .Right, multiplier: 1, constant: spacing))
+				parent.addConstraint(NSLayoutConstraint(item: children[i], attribute: .Width, relatedBy: .Equal, toItem: children[0], attribute: .Width, multiplier: 1, constant: 0))
 			}
-			parent.addConstraint(NSLayoutConstraint(item: children[children.count-1], attribute: .Right, relatedBy: .Equal, toItem: parent, attribute: .Right, multiplier: 1.0, constant: -right))
+			parent.addConstraint(NSLayoutConstraint(item: children[children.count - 1], attribute: .Right, relatedBy: .Equal, toItem: parent, attribute: .Right, multiplier: 1, constant: -right))
 		}
 	}
 	
@@ -227,27 +227,27 @@ public extension Layout {
 	public class func alignToParentVertically(parent: UIView, children: Array<UIView>, top: CGFloat = 0, bottom: CGFloat = 0, spacing: CGFloat = 0) {
 		prepareForConstraint(parent, children: children)
 		if 0 < children.count {
-			parent.addConstraint(NSLayoutConstraint(item: children[0], attribute: .Top, relatedBy: .Equal, toItem: parent, attribute: .Top, multiplier: 1.0, constant: top))
+			parent.addConstraint(NSLayoutConstraint(item: children[0], attribute: .Top, relatedBy: .Equal, toItem: parent, attribute: .Top, multiplier: 1, constant: top))
 			for i in 1..<children.count {
-				parent.addConstraint(NSLayoutConstraint(item: children[i], attribute: .Top, relatedBy: .Equal, toItem: children[i-1], attribute: .Bottom, multiplier: 1.0, constant: spacing))
-				parent.addConstraint(NSLayoutConstraint(item: children[i], attribute: .Height, relatedBy: .Equal, toItem: children[0], attribute: .Height, multiplier: 1.0, constant: 0.0))
+				parent.addConstraint(NSLayoutConstraint(item: children[i], attribute: .Top, relatedBy: .Equal, toItem: children[i - 1], attribute: .Bottom, multiplier: 1, constant: spacing))
+				parent.addConstraint(NSLayoutConstraint(item: children[i], attribute: .Height, relatedBy: .Equal, toItem: children[0], attribute: .Height, multiplier: 1, constant: 0))
 			}
-			parent.addConstraint(NSLayoutConstraint(item: children[children.count-1], attribute: .Bottom, relatedBy: .Equal, toItem: parent, attribute: .Bottom, multiplier: 1.0, constant: -bottom))
+			parent.addConstraint(NSLayoutConstraint(item: children[children.count - 1], attribute: .Bottom, relatedBy: .Equal, toItem: parent, attribute: .Bottom, multiplier: 1, constant: -bottom))
 		}
 	}
 	
 	/// AlignToParentHorizontally
 	public class func alignToParentHorizontally(parent: UIView, child: UIView, left: CGFloat = 0, right: CGFloat = 0) {
 		prepareForConstraint(parent, children: [child])
-		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .Left, relatedBy: .Equal, toItem: parent, attribute: .Left, multiplier: 1.0, constant: left))
-		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .Right, relatedBy: .Equal, toItem: parent, attribute: .Right, multiplier: 1.0, constant: -right))
+		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .Left, relatedBy: .Equal, toItem: parent, attribute: .Left, multiplier: 1, constant: left))
+		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .Right, relatedBy: .Equal, toItem: parent, attribute: .Right, multiplier: 1, constant: -right))
 	}
 	
 	/// AlignToParentVertically
 	public class func alignToParentVertically(parent: UIView, child: UIView, top: CGFloat = 0, bottom: CGFloat = 0) {
 		prepareForConstraint(parent, children: [child])
-		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .Top, relatedBy: .Equal, toItem: parent, attribute: .Top, multiplier: 1.0, constant: top))
-		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .Bottom, relatedBy: .Equal, toItem: parent, attribute: .Bottom, multiplier: 1.0, constant: -bottom))
+		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .Top, relatedBy: .Equal, toItem: parent, attribute: .Top, multiplier: 1, constant: top))
+		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .Bottom, relatedBy: .Equal, toItem: parent, attribute: .Bottom, multiplier: 1, constant: -bottom))
 	}
 	
 	/// AlignToParent
@@ -283,25 +283,25 @@ public extension Layout {
 	/// AlignFromTop
 	public class func alignFromTop(parent: UIView, child: UIView, top: CGFloat = 0) {
 		prepareForConstraint(parent, children: [child])
-		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .Top, relatedBy: .Equal, toItem: parent, attribute: .Top, multiplier: 1.0, constant: top))
+		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .Top, relatedBy: .Equal, toItem: parent, attribute: .Top, multiplier: 1, constant: top))
 	}
 	
 	/// AlignFromLeft
 	public class func alignFromLeft(parent: UIView, child: UIView, left: CGFloat = 0) {
 		prepareForConstraint(parent, children: [child])
-		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .Left, relatedBy: .Equal, toItem: parent, attribute: .Left, multiplier: 1.0, constant: left))
+		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .Left, relatedBy: .Equal, toItem: parent, attribute: .Left, multiplier: 1, constant: left))
 	}
 	
 	/// AlignFromBottom
 	public class func alignFromBottom(parent: UIView, child: UIView, bottom: CGFloat = 0) {
 		prepareForConstraint(parent, children: [child])
-		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .Bottom, relatedBy: .Equal, toItem: parent, attribute: .Bottom, multiplier: 1.0, constant: -bottom))
+		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .Bottom, relatedBy: .Equal, toItem: parent, attribute: .Bottom, multiplier: 1, constant: -bottom))
 	}
 	
 	/// AlignFromRight
 	public class func alignFromRight(parent: UIView, child: UIView, right: CGFloat = 0) {
 		prepareForConstraint(parent, children: [child])
-		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .Right, relatedBy: .Equal, toItem: parent, attribute: .Right, multiplier: 1.0, constant: -right))
+		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .Right, relatedBy: .Equal, toItem: parent, attribute: .Right, multiplier: 1, constant: -right))
 	}
 	
 	/// Center
@@ -313,13 +313,13 @@ public extension Layout {
 	/// CenterHorizontally
 	public class func centerHorizontally(parent: UIView, child: UIView, constant: CGFloat = 0) {
 		prepareForConstraint(parent, children: [child])
-		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .CenterX, relatedBy: .Equal, toItem: parent, attribute: .CenterX, multiplier: 1.0, constant: constant))
+		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .CenterX, relatedBy: .Equal, toItem: parent, attribute: .CenterX, multiplier: 1, constant: constant))
 	}
 	
 	/// CenterVertically
 	public class func centerVertically(parent: UIView, child: UIView, constant: CGFloat = 0) {
 		prepareForConstraint(parent, children: [child])
-		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .CenterY, relatedBy: .Equal, toItem: parent, attribute: .CenterY, multiplier: 1.0, constant: constant))
+		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .CenterY, relatedBy: .Equal, toItem: parent, attribute: .CenterY, multiplier: 1, constant: constant))
 	}
 	
 	/// Constraint
