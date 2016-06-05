@@ -147,7 +147,24 @@ public struct MaterialLayout {
 		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .Right, relatedBy: .Equal, toItem: parent, attribute: .Right, multiplier: 1.0, constant: -right))
 	}
 	
+    /// CenterHorizontally
+    public static func centerHorizontally(parent: UIView, child: UIView, constant: CGFloat = 0) {
+        prepareForConstraint([child])
+        parent.addConstraint(NSLayoutConstraint(item: child, attribute: .CenterX, relatedBy: .Equal, toItem: parent, attribute: .CenterX, multiplier: 1.0, constant: constant))
+    }
 	
+    /// CenterVertically
+    public static func centerVertically(parent: UIView, child: UIView, constant: CGFloat = 0) {
+        prepareForConstraint([child])
+        parent.addConstraint(NSLayoutConstraint(item: child, attribute: .CenterY, relatedBy: .Equal, toItem: parent, attribute: .CenterY, multiplier: 1.0, constant: constant))
+    }
+    
+    /// Center
+    public static func center(parent: UIView, child: UIView, constantX: CGFloat = 0, constantY: CGFloat = 0) {
+        centerHorizontally(parent, child: child, constant: constantX)
+        centerVertically(parent, child: child, constant: constantY)
+    }
+    
     /// prepareForConstraint
     private static func prepareForConstraint(views: [UIView]) {
         for v in views {
