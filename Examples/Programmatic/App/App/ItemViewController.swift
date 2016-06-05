@@ -79,9 +79,22 @@ class ItemViewController: UIViewController {
 		// Stops the scrollView contentInsets from being automatically adjusted.
 		automaticallyAdjustsScrollViewInsets = false
 		
+        UIView.animateWithDuration(0.25) { 
+            self.tabBarController?.view.frame.size.height += self.tabBarController?.tabBar.frame.height ?? 0.0
+        }
+        
 		// Customize the navigationItem.backButton image here.
 //		(navigationController?.navigationBar as? NavigationBar)?.backButtonImage = MaterialIcon.cm.audioLibrary
 	}
+    
+    override func viewWillDisappear(animated: Bool) {
+        
+        UIView.animateWithDuration(0.25) {
+            self.tabBarController?.view.frame.size.height -= self.tabBarController?.tabBar.frame.height ?? 0.0
+        }
+        
+        super.viewWillDisappear(animated)
+    }
 	
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)

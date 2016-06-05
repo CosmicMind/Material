@@ -255,14 +255,17 @@ class RecipesViewController: UIViewController {
 	
 	/// Prepares the tableView.
 	private func prepareTableView() {
-		tableView = UITableView()
+		
+        let tabBarHeight = tabBarController?.tabBar.frame.height ?? 0.0
+        tableView = UITableView()
 		tableView.registerClass(MaterialTableViewCell.self, forCellReuseIdentifier: "MaterialTableViewCell")
 		tableView.dataSource = self
 		tableView.delegate = self
+        tableView.contentInset.bottom += tabBarHeight
 		
 		// Use MaterialLayout to easily align the tableView.
 		view.addSubview(tableView)
-		MaterialLayout.alignToParent(view, child: tableView)
+        MaterialLayout.alignToParent(view, child: tableView, top: 0.0, bottom: -tabBarHeight)
 	}
 }
 
