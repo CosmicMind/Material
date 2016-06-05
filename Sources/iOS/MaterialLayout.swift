@@ -55,7 +55,7 @@ public struct MaterialLayout {
         if 0 < children.count {
             parent.addConstraint(NSLayoutConstraint(item: children[0], attribute: .Left, relatedBy: .Equal, toItem: parent, attribute: .Left, multiplier: 1.0, constant: left))
             if 1 < children.count {
-                for i in 1 ... (children.count - 1) {
+                for i in 1...(children.count - 1) {
                  parent.addConstraint(NSLayoutConstraint(item: children[i], attribute: .Left, relatedBy: .Equal, toItem: children[i-1], attribute: .Right, multiplier: 1.0, constant: spacing))
                  parent.addConstraint(NSLayoutConstraint(item: children[i], attribute: .Width, relatedBy: .Equal, toItem: children[0], attribute: .Width, multiplier: 1.0, constant: 0.0))
                 }
@@ -70,7 +70,7 @@ public struct MaterialLayout {
         if 0 < children.count {
             parent.addConstraint(NSLayoutConstraint(item: children[0], attribute: .Top, relatedBy: .Equal, toItem: parent, attribute: .Top, multiplier: 1.0, constant: top))
             if 1 < children.count {
-                for i in 1 ... (children.count - 1) {
+                for i in 1...(children.count - 1) {
                     parent.addConstraint(NSLayoutConstraint(item: children[i], attribute: .Top, relatedBy: .Equal, toItem: children[i-1], attribute: .Bottom, multiplier: 1.0, constant: spacing))
                     parent.addConstraint(NSLayoutConstraint(item: children[i], attribute: .Height, relatedBy: .Equal, toItem: children[0], attribute: .Height, multiplier: 1.0, constant: 0.0))
                 }
