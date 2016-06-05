@@ -165,8 +165,6 @@ public class MaterialLayer : CAShapeLayer {
 		didSet {
 			if shadowPathAutoSizeEnabled {
 				layoutShadowPath()
-			} else {
-				shadowPath = nil
 			}
 		}
 	}
@@ -278,6 +276,7 @@ public class MaterialLayer : CAShapeLayer {
 		super.layoutSublayers()
 		layoutShape()
 		layoutVisualLayer()
+		layoutShadowPath()
 	}
 	
 	/**

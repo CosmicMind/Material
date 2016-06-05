@@ -185,8 +185,6 @@ public class MaterialTableViewCell : UITableViewCell {
 		didSet {
 			if shadowPathAutoSizeEnabled {
 				layoutShadowPath()
-			} else {
-				shadowPath = nil
 			}
 		}
 	}
@@ -300,8 +298,12 @@ public class MaterialTableViewCell : UITableViewCell {
 		super.layoutSublayersOfLayer(layer)
 		if self.layer == layer {
 			layoutVisualLayer()
-			layoutShadowPath()
 		}
+	}
+	
+	public override func layoutSubviews() {
+		super.layoutSubviews()
+		layoutShadowPath()
 	}
 	
 	/**

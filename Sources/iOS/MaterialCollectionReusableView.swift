@@ -299,8 +299,6 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 		didSet {
 			if shadowPathAutoSizeEnabled {
 				layoutShadowPath()
-			} else {
-				shadowPath = nil
 			}
 		}
 	}
@@ -450,8 +448,12 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 		if self.layer == layer {
 			layoutShape()
 			layoutVisualLayer()
-			layoutShadowPath()
 		}
+	}
+	
+	public override func layoutSubviews() {
+		super.layoutSubviews()
+		layoutShadowPath()
 	}
 	
 	/**
