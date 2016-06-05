@@ -55,7 +55,9 @@ public class Layout {
 	init(context: UIView?) {
 		self.context = context
 	}
-	
+}
+
+public extension Layout {
 	/// Width
 	public func width(child: UIView, width: CGFloat = 0) {
 		if let v: UIView = context {
