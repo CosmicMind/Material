@@ -99,8 +99,11 @@ class AppLeftViewController: UIViewController {
 		view.layout.size(profileView, width: 72, height: 72)
 		view.layout.alignFromTopLeft(profileView, top: 30, left: (view.bounds.width - 72) / 2)
 		
-		view.layout.alignFromTop(nameLabel, top: 130)
-		view.layout.horizontally(nameLabel, left: 20, right: 20)
+		view.addSubview(nameLabel)
+		Layout.alignFromTop(view, child: nameLabel, top: 130)
+		Layout.alignToParentHorizontally(view, child: nameLabel, left: 20, right: 20)
+//		view.layout.alignFromTop(nameLabel, top: 130)
+//		view.layout.horizontally(nameLabel, left: 20, right: 20)
 	}
 	
 	/// Prepares the tableView.
