@@ -50,5 +50,4 @@ class AppNavigationController: NavigationController {
         tabBarItem.setTitleColor(MaterialColor.grey.base, forState: .Normal)
         tabBarItem.setTitleColor(MaterialColor.white, forState: .Selected)
     }
-
 }

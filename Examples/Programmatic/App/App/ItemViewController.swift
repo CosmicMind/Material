@@ -75,20 +75,13 @@ class ItemViewController: UIViewController {
 	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
+		(menuController as? AppMenuController)?.hideMenu()
 		sideNavigationController?.enabled = false
-		
-		// Stops the scrollView contentInsets from being automatically adjusted.
-		automaticallyAdjustsScrollViewInsets = false
-		
-		// Customize the navigationItem.backButton image here.
-//		(navigationController?.navigationBar as? NavigationBar)?.backButtonImage = MaterialIcon.cm.audioLibrary
 	}
 	
-	override func viewDidAppear(animated: Bool) {
-		super.viewDidAppear(animated)
-		
-		// Access the navigationItem.backButton here.
-//		navigationItem.backButton
+	override func viewWillDisappear(animated: Bool) {
+		super.viewWillDisappear(animated)
+		(menuController as? AppMenuController)?.showMenu()
 	}
 	
 	override func viewWillLayoutSubviews() {
