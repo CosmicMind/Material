@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		menuController.edgesForExtendedLayout = .None
 		
 		let bottomNavigationController: BottomNavigationController = BottomNavigationController()
-		bottomNavigationController.viewControllers = [menuController, VideoViewController(), PhotoViewController()]
+		bottomNavigationController.viewControllers = [/*menuController*/navigationController, VideoViewController(), PhotoViewController()]
 		bottomNavigationController.selectedIndex = 0
 		bottomNavigationController.tabBar.tintColor = MaterialColor.white
 		bottomNavigationController.tabBar.backgroundColor = MaterialColor.grey.darken4

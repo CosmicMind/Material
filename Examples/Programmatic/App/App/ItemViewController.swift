@@ -57,6 +57,7 @@ class ItemViewController: UIViewController {
 	convenience init(dataSource: MaterialDataSourceItem) {
 		self.init(nibName: nil, bundle: nil)
 		self.dataSource = dataSource
+        hidesBottomBarWhenPushed = true
 	}
 
 	required init?(coder aDecoder: NSCoder) {
