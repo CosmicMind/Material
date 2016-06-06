@@ -35,6 +35,7 @@ class AppNavigationController: NavigationController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareNavigationBar()
+        prepareTabBarItem()
 	}
 		
 	/// Prepares the navigationBar
@@ -42,4 +43,12 @@ class AppNavigationController: NavigationController {
 		navigationBar.tintColor = MaterialColor.white
 		navigationBar.backgroundColor = MaterialColor.blue.base
 	}
+    
+    /// Prepare tabBarItem.
+    private func prepareTabBarItem() {
+        tabBarItem.image = MaterialIcon.cm.photoLibrary
+        tabBarItem.setTitleColor(MaterialColor.grey.base, forState: .Normal)
+        tabBarItem.setTitleColor(MaterialColor.white, forState: .Selected)
+    }
+
 }

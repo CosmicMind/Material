@@ -48,8 +48,7 @@ class AppMenuController: MenuController {
 	}
 	
 	override init(rootViewController: UIViewController) {
-		super.init(rootViewController: rootViewController)
-		prepareTabBarItem()
+		super.init(rootViewController: rootViewController)		
 	}
 	
 	override func viewDidLoad() {
@@ -143,13 +142,7 @@ class AppMenuController: MenuController {
 		view.layout.size(menuView, width: baseSize.width, height: baseSize.height)
 		view.layout.alignFromBottomRight(menuView, bottom: menuViewInset, right: menuViewInset)
 	}
-	
-	/// Prepare tabBarItem.
-	private func prepareTabBarItem() {
-		tabBarItem.image = MaterialIcon.cm.photoLibrary
-		tabBarItem.setTitleColor(MaterialColor.grey.base, forState: .Normal)
-		tabBarItem.setTitleColor(MaterialColor.white, forState: .Selected)
-	}
+		
 }
 
 /// MenuViewDelegate.
