@@ -30,144 +30,320 @@
 
 import UIKit
 
-public class Layout {
+public class Align {
 	/// UIView context.
 	internal weak var context: UIView?
 	
 	init(context: UIView?) {
 		self.context = context
 	}
+	
+	/// Edges
+	public func edges(child: UIView, top: CGFloat = 0, left: CGFloat = 0, bottom: CGFloat = 0, right: CGFloat = 0) {
+		if let v: UIView = context {
+			Layout.alignToParent(v, child: child, top: top, left: left, bottom: bottom, right: right)
+		}
+	}
+	
+	/// TopLeft
+	public func topLeft(child: UIView, top: CGFloat = 0, left: CGFloat = 0) {
+		if let v: UIView = context {
+			Layout.alignFromTopLeft(v, child: child, top: top, left: left)
+		}
+	}
+	
+	/// TopRight
+	public func topRight(child: UIView, top: CGFloat = 0, right: CGFloat = 0) {
+		if let v: UIView = context {
+			Layout.alignFromTopRight(v, child: child, top: top, right: right)
+		}
+	}
+	
+	/// BottomLeft
+	public func bottomLeft(child: UIView, bottom: CGFloat = 0, left: CGFloat = 0) {
+		if let v: UIView = context {
+			Layout.alignFromBottomLeft(v, child: child, bottom: bottom, left: left)
+		}
+	}
+	
+	/// BottomRight
+	public func bottomRight(child: UIView, bottom: CGFloat = 0, right: CGFloat = 0) {
+		if let v: UIView = context {
+			Layout.alignFromBottomRight(v, child: child, bottom: bottom, right: right)
+		}
+	}
+	
+	/// Top
+	public func top(child: UIView, top: CGFloat = 0) {
+		if let v: UIView = context {
+			Layout.alignFromTop(v, child: child, top: top)
+		}
+	}
+	
+	/// Left
+	public func left(child: UIView, left: CGFloat = 0) {
+		if let v: UIView = context {
+			Layout.alignFromLeft(v, child: child, left: left)
+		}
+	}
+	
+	/// Bottom
+	public func bottom(child: UIView, bottom: CGFloat = 0) {
+		if let v: UIView = context {
+			Layout.alignFromBottom(v, child: child, bottom: bottom)
+		}
+	}
+	
+	/// Right
+	public func right(child: UIView, right: CGFloat = 0) {
+		if let v: UIView = context {
+			Layout.alignFromRight(v, child: child, right: right)
+		}
+	}
+}
+
+public class Layout {
+	/// Reference to Align.
+	public private(set) var align: Align
+	
+	/// UIView context.
+	internal weak var context: UIView?
+	
+	init(context: UIView?) {
+		self.context = context
+		self.align = Align(context: context)
+	}
 
 	/// Width
 	public func width(child: UIView, width: CGFloat = 0) {
 		if let v: UIView = context {
-			MaterialLayout.width(v, child: child, width: width)
+			Layout.width(v, child: child, width: width)
 		}
 	}
 	
 	/// Height
 	public func height(child: UIView, height: CGFloat = 0) {
 		if let v: UIView = context {
-			MaterialLayout.height(v, child: child, height: height)
+			Layout.height(v, child: child, height: height)
 		}
 	}
 	
 	/// Size
 	public func size(child: UIView, width: CGFloat = 0, height: CGFloat = 0) {
 		if let v: UIView = context {
-			MaterialLayout.size(v, child: child, width: width, height: height)
+			Layout.size(v, child: child, width: width, height: height)
 		}
 	}
 	
 	/// Array of UIViews horizontally aligned.
 	public func horizontally(children: Array<UIView>, left: CGFloat = 0, right: CGFloat = 0, spacing: CGFloat = 0) {
 		if let v: UIView = context {
-			MaterialLayout.alignToParentHorizontally(v, children: children, left: left, right: right, spacing: spacing)
+			Layout.alignToParentHorizontally(v, children: children, left: left, right: right, spacing: spacing)
 		}
 	}
 	
 	/// Array of UIViews vertically aligned.
 	public func vertically(children: Array<UIView>, top: CGFloat = 0, bottom: CGFloat = 0, spacing: CGFloat = 0) {
 		if let v: UIView = context {
-			MaterialLayout.alignToParentVertically(v, children: children, top: top, bottom: bottom, spacing: spacing)
+			Layout.alignToParentVertically(v, children: children, top: top, bottom: bottom, spacing: spacing)
 		}
 	}
 	
 	/// Horizontally aligned.
 	public func horizontally(child: UIView, left: CGFloat = 0, right: CGFloat = 0) {
 		if let v: UIView = context {
-			MaterialLayout.alignToParentHorizontally(v, child: child, left: left, right: right)
+			Layout.alignToParentHorizontally(v, child: child, left: left, right: right)
 		}
 	}
 	
 	/// Vertically aligned.
 	public func vertically(child: UIView, top: CGFloat = 0, bottom: CGFloat = 0) {
 		if let v: UIView = context {
-			MaterialLayout.alignToParentVertically(v, child: child, top: top, bottom: bottom)
-		}
-	}
-	
-	/// Layout
-	public func align(child: UIView, top: CGFloat = 0, left: CGFloat = 0, bottom: CGFloat = 0, right: CGFloat = 0) {
-		if let v: UIView = context {
-			MaterialLayout.alignToParent(v, child: child, top: top, left: left, bottom: bottom, right: right)
-		}
-	}
-	
-	/// LayoutFromTopLeft
-	public func alignFromTopLeft(child: UIView, top: CGFloat = 0, left: CGFloat = 0) {
-		if let v: UIView = context {
-			MaterialLayout.alignFromTopLeft(v, child: child, top: top, left: left)
-		}
-	}
-	
-	/// LayoutFromTopRight
-	public func alignFromTopRight(child: UIView, top: CGFloat = 0, right: CGFloat = 0) {
-		if let v: UIView = context {
-			MaterialLayout.alignFromTopRight(v, child: child, top: top, right: right)
-		}
-	}
-	
-	/// LayoutFromBottomLeft
-	public func alignFromBottomLeft(child: UIView, bottom: CGFloat = 0, left: CGFloat = 0) {
-		if let v: UIView = context {
-			MaterialLayout.alignFromBottomLeft(v, child: child, bottom: bottom, left: left)
-		}
-	}
-	
-	/// LayoutFromBottomRight
-	public func alignFromBottomRight(child: UIView, bottom: CGFloat = 0, right: CGFloat = 0) {
-		if let v: UIView = context {
-			MaterialLayout.alignFromBottomRight(v, child: child, bottom: bottom, right: right)
-		}
-	}
-	
-	/// LayoutFromTop
-	public func alignFromTop(child: UIView, top: CGFloat = 0) {
-		if let v: UIView = context {
-			MaterialLayout.alignFromTop(v, child: child, top: top)
-		}
-	}
-	
-	/// LayoutFromLeft
-	public func alignFromLeft(child: UIView, left: CGFloat = 0) {
-		if let v: UIView = context {
-			MaterialLayout.alignFromLeft(v, child: child, left: left)
-		}
-	}
-	
-	/// LayoutFromBottom
-	public func alignFromBottom(child: UIView, bottom: CGFloat = 0) {
-		if let v: UIView = context {
-			MaterialLayout.alignFromBottom(v, child: child, bottom: bottom)
-		}
-	}
-	
-	/// LayoutFromRight
-	public func alignFromRight(child: UIView, right: CGFloat = 0) {
-		if let v: UIView = context {
-			MaterialLayout.alignFromRight(v, child: child, right: right)
+			Layout.alignToParentVertically(v, child: child, top: top, bottom: bottom)
 		}
 	}
 	
 	/// Center
 	public func center(child: UIView, constantX: CGFloat = 0, constantY: CGFloat = 0) {
 		if let v: UIView = context {
-			MaterialLayout.center(v, child: child, constantX: constantX, constantY: constantY)
+			Layout.center(v, child: child, constantX: constantX, constantY: constantY)
 		}
 	}
 	
 	/// CenterHorizontally
 	public func centerHorizontally(child: UIView, constant: CGFloat = 0) {
 		if let v: UIView = context {
-			MaterialLayout.centerHorizontally(v, child: child, constant: constant)
+			Layout.centerHorizontally(v, child: child, constant: constant)
 		}
 	}
 	
 	/// CenterVertically
 	public func centerVertically(child: UIView, constant: CGFloat = 0) {
 		if let v: UIView = context {
-			MaterialLayout.centerVertically(v, child: child, constant: constant)
+			Layout.centerVertically(v, child: child, constant: constant)
+		}
+	}
+}
+
+/// Layout
+public extension Layout {
+	/// Width
+	public class func width(parent: UIView, child: UIView, width: CGFloat = 0) {
+		prepareForConstraint(parent, child: child)
+		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .Width, multiplier: 1, constant: width))
+	}
+	
+	/// Height
+	public class func height(parent: UIView, child: UIView, height: CGFloat = 0) {
+		prepareForConstraint(parent, child: child)
+		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .Height, multiplier: 1, constant: height))
+	}
+	
+	/// Size
+	public class func size(parent: UIView, child: UIView, width: CGFloat = 0, height: CGFloat = 0) {
+		Layout.width(parent, child: child, width: width)
+		Layout.height(parent, child: child, height: height)
+	}
+	
+	/// AlignToParentHorizontally
+	public class func alignToParentHorizontally(parent: UIView, children: Array<UIView>, left: CGFloat = 0, right: CGFloat = 0, spacing: CGFloat = 0) {
+		prepareForConstraint(parent, children: children)
+		if 0 < children.count {
+			parent.addConstraint(NSLayoutConstraint(item: children[0], attribute: .Left, relatedBy: .Equal, toItem: parent, attribute: .Left, multiplier: 1, constant: left))
+			for i in 1..<children.count {
+				parent.addConstraint(NSLayoutConstraint(item: children[i], attribute: .Left, relatedBy: .Equal, toItem: children[i - 1], attribute: .Right, multiplier: 1, constant: spacing))
+				parent.addConstraint(NSLayoutConstraint(item: children[i], attribute: .Width, relatedBy: .Equal, toItem: children[0], attribute: .Width, multiplier: 1, constant: 0))
+			}
+			parent.addConstraint(NSLayoutConstraint(item: children[children.count - 1], attribute: .Right, relatedBy: .Equal, toItem: parent, attribute: .Right, multiplier: 1, constant: -right))
+		}
+	}
+	
+	/// AlignToParentVertically
+	public class func alignToParentVertically(parent: UIView, children: Array<UIView>, top: CGFloat = 0, bottom: CGFloat = 0, spacing: CGFloat = 0) {
+		prepareForConstraint(parent, children: children)
+		if 0 < children.count {
+			parent.addConstraint(NSLayoutConstraint(item: children[0], attribute: .Top, relatedBy: .Equal, toItem: parent, attribute: .Top, multiplier: 1, constant: top))
+			for i in 1..<children.count {
+				parent.addConstraint(NSLayoutConstraint(item: children[i], attribute: .Top, relatedBy: .Equal, toItem: children[i - 1], attribute: .Bottom, multiplier: 1, constant: spacing))
+				parent.addConstraint(NSLayoutConstraint(item: children[i], attribute: .Height, relatedBy: .Equal, toItem: children[0], attribute: .Height, multiplier: 1, constant: 0))
+			}
+			parent.addConstraint(NSLayoutConstraint(item: children[children.count - 1], attribute: .Bottom, relatedBy: .Equal, toItem: parent, attribute: .Bottom, multiplier: 1, constant: -bottom))
+		}
+	}
+	
+	/// AlignToParentHorizontally
+	public class func alignToParentHorizontally(parent: UIView, child: UIView, left: CGFloat = 0, right: CGFloat = 0) {
+		prepareForConstraint(parent, child: child)
+		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .Left, relatedBy: .Equal, toItem: parent, attribute: .Left, multiplier: 1, constant: left))
+		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .Right, relatedBy: .Equal, toItem: parent, attribute: .Right, multiplier: 1, constant: -right))
+	}
+	
+	/// AlignToParentVertically
+	public class func alignToParentVertically(parent: UIView, child: UIView, top: CGFloat = 0, bottom: CGFloat = 0) {
+		prepareForConstraint(parent, child: child)
+		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .Top, relatedBy: .Equal, toItem: parent, attribute: .Top, multiplier: 1, constant: top))
+		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .Bottom, relatedBy: .Equal, toItem: parent, attribute: .Bottom, multiplier: 1, constant: -bottom))
+	}
+	
+	/// AlignToParent
+	public class func alignToParent(parent: UIView, child: UIView, top: CGFloat = 0, left: CGFloat = 0, bottom: CGFloat = 0, right: CGFloat = 0) {
+		alignToParentHorizontally(parent, child: child, left: left, right: right)
+		alignToParentVertically(parent, child: child, top: top, bottom: bottom)
+	}
+	
+	/// AlignFromTopLeft
+	public class func alignFromTopLeft(parent: UIView, child: UIView, top: CGFloat = 0, left: CGFloat = 0) {
+		alignFromTop(parent, child: child, top: top)
+		alignFromLeft(parent, child: child, left: left)
+	}
+	
+	/// AlignFromTopRight
+	public class func alignFromTopRight(parent: UIView, child: UIView, top: CGFloat = 0, right: CGFloat = 0) {
+		alignFromTop(parent, child: child, top: top)
+		alignFromRight(parent, child: child, right: right)
+	}
+	
+	/// AlignFromBottomLeft
+	public class func alignFromBottomLeft(parent: UIView, child: UIView, bottom: CGFloat = 0, left: CGFloat = 0) {
+		alignFromBottom(parent, child: child, bottom: bottom)
+		alignFromLeft(parent, child: child, left: left)
+	}
+	
+	/// AlignFromBottomRight
+	public class func alignFromBottomRight(parent: UIView, child: UIView, bottom: CGFloat = 0, right: CGFloat = 0) {
+		alignFromBottom(parent, child: child, bottom: bottom)
+		alignFromRight(parent, child: child, right: right)
+	}
+	
+	/// AlignFromTop
+	public class func alignFromTop(parent: UIView, child: UIView, top: CGFloat = 0) {
+		prepareForConstraint(parent, child: child)
+		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .Top, relatedBy: .Equal, toItem: parent, attribute: .Top, multiplier: 1, constant: top))
+	}
+	
+	/// AlignFromLeft
+	public class func alignFromLeft(parent: UIView, child: UIView, left: CGFloat = 0) {
+		prepareForConstraint(parent, child: child)
+		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .Left, relatedBy: .Equal, toItem: parent, attribute: .Left, multiplier: 1, constant: left))
+	}
+	
+	/// AlignFromBottom
+	public class func alignFromBottom(parent: UIView, child: UIView, bottom: CGFloat = 0) {
+		prepareForConstraint(parent, child: child)
+		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .Bottom, relatedBy: .Equal, toItem: parent, attribute: .Bottom, multiplier: 1, constant: -bottom))
+	}
+	
+	/// AlignFromRight
+	public class func alignFromRight(parent: UIView, child: UIView, right: CGFloat = 0) {
+		prepareForConstraint(parent, child: child)
+		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .Right, relatedBy: .Equal, toItem: parent, attribute: .Right, multiplier: 1, constant: -right))
+	}
+	
+	/// Center
+	public class func center(parent: UIView, child: UIView, constantX: CGFloat = 0, constantY: CGFloat = 0) {
+		centerHorizontally(parent, child: child, constant: constantX)
+		centerVertically(parent, child: child, constant: constantY)
+	}
+	
+	/// CenterHorizontally
+	public class func centerHorizontally(parent: UIView, child: UIView, constant: CGFloat = 0) {
+		prepareForConstraint(parent, child: child)
+		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .CenterX, relatedBy: .Equal, toItem: parent, attribute: .CenterX, multiplier: 1, constant: constant))
+	}
+	
+	/// CenterVertically
+	public class func centerVertically(parent: UIView, child: UIView, constant: CGFloat = 0) {
+		prepareForConstraint(parent, child: child)
+		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .CenterY, relatedBy: .Equal, toItem: parent, attribute: .CenterY, multiplier: 1, constant: constant))
+	}
+	
+	/// Constraint
+	public class func constraint(format: String, options: NSLayoutFormatOptions, metrics: Dictionary<String, AnyObject>?, views: Dictionary<String, AnyObject>) -> Array<NSLayoutConstraint> {
+		for (_, a) in views {
+			if let v: UIView = a as? UIView {
+				v.translatesAutoresizingMaskIntoConstraints = false
+			}
+		}
+		return NSLayoutConstraint.constraintsWithVisualFormat(
+			format,
+			options: options,
+			metrics: metrics,
+			views: views
+		)
+	}
+	
+	/// prepareForConstraint
+	private class func prepareForConstraint(parent: UIView, child: UIView) {
+		if parent != child.superview {
+			parent.addSubview(child)
+		}
+		child.translatesAutoresizingMaskIntoConstraints = false
+	}
+	
+	/// prepareForConstraint
+	private class func prepareForConstraint(parent: UIView, children: [UIView]) {
+		for v in children {
+			prepareForConstraint(parent, child: v)
 		}
 	}
 }
@@ -175,7 +351,7 @@ public class Layout {
 /// A memory reference to the LayoutKey instance for UIView extensions.
 private var LayoutKey: UInt8 = 0
 
-/// MaterialLayout extension for UIView.
+/// Layout extension for UIView.
 public extension UIView {
 	/// Layout reference.
 	public private(set) var layout: Layout {

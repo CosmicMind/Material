@@ -140,7 +140,7 @@ class AppMenuController: MenuController {
 		menuView.delegate = self
 		
 		view.layout.size(menuView, width: baseSize.width, height: baseSize.height)
-		view.layout.alignFromBottomRight(menuView, bottom: 65, right: 16)
+		view.layout.align.bottomRight(menuView, bottom: 65, right: 16)
 	}
 }
 

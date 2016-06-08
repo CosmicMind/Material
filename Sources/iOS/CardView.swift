@@ -314,7 +314,7 @@ public class CardView : MaterialPulseView {
 					
 					h += "[\(k)]"
 					
-					layout.alignFromBottom(b, bottom: contentInset.bottom + leftButtonsInset.bottom)
+					layout.align.bottom(b, bottom: contentInset.bottom + leftButtonsInset.bottom)
 					
 					i += 1
 				}
@@ -343,7 +343,7 @@ public class CardView : MaterialPulseView {
 						h += "-(right_left)-"
 					}
 					
-					layout.alignFromBottom(b, bottom: contentInset.bottom + rightButtonsInset.bottom)
+					layout.align.bottom(b, bottom: contentInset.bottom + rightButtonsInset.bottom)
 					
 					i -= 1
 				}
