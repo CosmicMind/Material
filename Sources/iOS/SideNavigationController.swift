@@ -1098,9 +1098,10 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 			willHideStatusBar = false
 			UIView.animateWithDuration(NSTimeInterval(UINavigationControllerHideShowBarDuration),
 				animations: { [weak self] in
-					self?.setNeedsStatusBarAppearanceUpdate()
+					
 					self?.statusBarHidden = false
 				})
+            self.setNeedsStatusBarAppearanceUpdate()
 			delegate?.sideNavigationStatusBarHiddenState?(self, hidden: false)
 		}
 	}
@@ -1112,9 +1113,10 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 			if !statusBarHidden {
 				UIView.animateWithDuration(NSTimeInterval(UINavigationControllerHideShowBarDuration),
 					animations: { [weak self] in
-						self?.setNeedsStatusBarAppearanceUpdate()
+						
 						self?.statusBarHidden = true
 					})
+                self.setNeedsStatusBarAppearanceUpdate()
 				delegate?.sideNavigationStatusBarHiddenState?(self, hidden: true)
 			}
 		}
