@@ -285,6 +285,21 @@ public class NavigationBar : UINavigationBar {
 		self.init(frame: CGRectZero)
 	}
 	
+    private func statusbarOffset() -> CGFloat {
+        var result: CGFloat = 0
+        switch MaterialDevice.type {
+        case .iPad:
+            result = MaterialDevice.statusBarHidden ? 20 : 0
+        case .iPhone:
+            result = MaterialDevice.isPortrait && MaterialDevice.statusBarHidden ? 20 : 0
+        case .TV:
+            break
+        case .Unspecified:
+            break
+        }
+        return result;
+    }
+    
 	public override func intrinsicContentSize() -> CGSize {
 		switch navigationBarStyle {
 		case .Tiny:
@@ -297,7 +312,9 @@ public class NavigationBar : UINavigationBar {
 	}
 
 	public override func sizeThatFits(size: CGSize) -> CGSize {
-		return intrinsicContentSize()
+        var result: CGSize = intrinsicContentSize()
+        result.height += statusbarOffset()
+        return result
 	}
 	
 	public override func layoutSubviews() {
@@ -328,8 +345,8 @@ public class NavigationBar : UINavigationBar {
 				if let contentView: UIView = prepareContentView(item) {
 					if let g: Int = Int(width / gridFactor) {
 						let columns: Int = g + 1
-						
-						titleView.frame.origin = CGPointZero
+						                        
+						titleView.frame.origin = CGPoint(x: 0, y: statusbarOffset())
 						titleView.frame.size = intrinsicContentSize()
 						titleView.grid.views = []
 						titleView.grid.axis.columns = columns
