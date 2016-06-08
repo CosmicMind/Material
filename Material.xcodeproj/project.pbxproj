@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		65A3F0161D07DBF30047EDD9 /* MaterialLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A3F0151D07DBF30047EDD9 /* MaterialLayout.swift */; };
+		65A3F0181D07DBFD0047EDD9 /* Align.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A3F0171D07DBFD0047EDD9 /* Align.swift */; };
 		961F18E81CD93E3E008927C5 /* ErrorTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961F18E71CD93E3E008927C5 /* ErrorTextField.swift */; };
 		96334EF61C8B84660083986B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96334EF51C8B84660083986B /* Assets.xcassets */; };
 		963832421B88DFD80015F710 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963832361B88DFD80015F710 /* Material.framework */; };
@@ -195,6 +197,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		65A3F0151D07DBF30047EDD9 /* MaterialLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialLayout.swift; sourceTree = "<group>"; };
+		65A3F0171D07DBFD0047EDD9 /* Align.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Align.swift; sourceTree = "<group>"; };
 		961F18E71CD93E3E008927C5 /* ErrorTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorTextField.swift; sourceTree = "<group>"; };
 		96334EF51C8B84660083986B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		963832361B88DFD80015F710 /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Material.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -479,8 +483,10 @@
 		96BCB8041CB40F6C00C806FE /* Layout */ = {
 			isa = PBXGroup;
 			children = (
-				96BCB7611CB40DC500C806FE /* Grid.swift */,
+				65A3F0151D07DBF30047EDD9 /* MaterialLayout.swift */,
 				96BCB7811CB40DC500C806FE /* Layout.swift */,
+				65A3F0171D07DBFD0047EDD9 /* Align.swift */,
+				96BCB7611CB40DC500C806FE /* Grid.swift */,
 			);
 			name = Layout;
 			sourceTree = "<group>";
@@ -919,6 +925,7 @@
 				96BCB7AA1CB40DC500C806FE /* Grid.swift in Sources */,
 				96BCB7E71CB40DC500C806FE /* TextView.swift in Sources */,
 				96BCB7C31CB40DC500C806FE /* MaterialEdgeInset.swift in Sources */,
+				65A3F0161D07DBF30047EDD9 /* MaterialLayout.swift in Sources */,
 				96BCB7CE1CB40DC500C806FE /* MaterialRadius.swift in Sources */,
 				96BCB7E11CB40DC500C806FE /* BarView.swift in Sources */,
 				96BCB7A11CB40DC500C806FE /* BottomNavigationController.swift in Sources */,
@@ -934,6 +941,7 @@
 				96BCB7A61CB40DC500C806FE /* CardView.swift in Sources */,
 				96BCB7C91CB40DC500C806FE /* MaterialLayer.swift in Sources */,
 				96BCB7E21CB40DC500C806FE /* BarController.swift in Sources */,
+				65A3F0181D07DBFD0047EDD9 /* Align.swift in Sources */,
 				96BCB7DC1CB40DC500C806FE /* RaisedButton.swift in Sources */,
 				96BCB7DD1CB40DC500C806FE /* RobotoFont.swift in Sources */,
 				96BCB7D71CB40DC500C806FE /* MenuView.swift in Sources */,

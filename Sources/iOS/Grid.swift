@@ -184,8 +184,8 @@ public class Grid {
 		self.rows = rows
 		self.columns = columns
 		self.spacing = spacing
-		self.offset = GridOffset(grid: self)
-		self.axis = GridAxis(grid: self)
+		offset = GridOffset(grid: self)
+		axis = GridAxis(grid: self)
 	}
 	
 	/// Reload the button layout.
