@@ -35,9 +35,6 @@ class RecipesViewController: UIViewController {
 	/// A list of all the data source items.
 	private var dataSourceItems: Array<MaterialDataSourceItem>!
 	
-	/// NavigationBar title label.
-	private var titleLabel: UILabel!
-	
 	/// NavigationBar menu button.
 	private var menuButton: IconButton!
 	

@@ -37,21 +37,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var window: UIWindow?
 	
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-		let navigationController: NavigationController = NavigationController(rootViewController: YellowViewController())
-		let sideNavigationController: SideNavigationController = SideNavigationController(rootViewController: navigationController, leftViewController: AppLeftViewController(), rightViewController: BlueViewController())
-		
-//		sideNavigationController.enabled = true
-//		
-//		sideNavigationController.enabledLeftView = true
-//		sideNavigationController.enabledLeftTapGesture = true
-//		sideNavigationController.enabledLeftPanGesture = true
-//		
-//		sideNavigationController.enabledRightView = true
-//		sideNavigationController.enabledRightTapGesture = true
-//		sideNavigationController.enabledRightPanGesture = true
-		
 		window = UIWindow(frame: UIScreen.mainScreen().bounds)
-		window!.rootViewController = sideNavigationController
+		window!.rootViewController = NavigationController(rootViewController: ViewController())
 		window!.makeKeyAndVisible()
 		return true
 	}
