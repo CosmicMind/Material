@@ -1096,12 +1096,13 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 						v.animating = true
 					}
 					self?.statusBarHidden = false
-					self?.setNeedsStatusBarAppearanceUpdate()
+					
 				}) { [weak self] _ in
 					if let v: NavigationBar = (self?.rootViewController as? NavigationController)?.navigationBar as? NavigationBar {
 						v.animating = false
 					}
 				}
+            self.setNeedsStatusBarAppearanceUpdate()
             delegate?.sideNavigationStatusBarHiddenState?(self, hidden: false)
 		}
 	}
@@ -1117,12 +1118,13 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 							v.animating = true
 						}
 						self?.statusBarHidden = true
-						self?.setNeedsStatusBarAppearanceUpdate()
+						
 					}) { [weak self] _ in
 						if let v: NavigationBar = (self?.rootViewController as? NavigationController)?.navigationBar as? NavigationBar {
 							v.animating = false
 						}
 					}
+                self.setNeedsStatusBarAppearanceUpdate()
                 delegate?.sideNavigationStatusBarHiddenState?(self, hidden: true)
 			}
 		}

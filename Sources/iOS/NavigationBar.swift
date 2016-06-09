@@ -313,8 +313,6 @@ public class NavigationBar : UINavigationBar {
 	public override func sizeThatFits(size: CGSize) -> CGSize {
 		var result: CGSize = intrinsicContentSize()
 		result.height += statusbarOffset()
-		print(MaterialDevice.isPortrait, result.height)
-		
 		return result
 	}
 	
