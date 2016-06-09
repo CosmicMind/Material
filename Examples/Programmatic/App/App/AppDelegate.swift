@@ -37,9 +37,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var window: UIWindow?
 	
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-		let navigationController: AppNavigationController = AppNavigationController(rootViewController: RecipesViewController())
-        
-        let menuController: AppMenuController = AppMenuController(rootViewController: navigationController)
+		
+        let menuController: AppMenuController = AppMenuController(rootViewController: RecipesViewController())
         menuController.edgesForExtendedLayout = .None
         
 		let bottomNavigationController: BottomNavigationController = BottomNavigationController()
@@ -48,7 +47,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		bottomNavigationController.tabBar.tintColor = MaterialColor.white
 		bottomNavigationController.tabBar.backgroundColor = MaterialColor.grey.darken4
 		
-		let sideNavigationController: SideNavigationController = SideNavigationController(rootViewController: bottomNavigationController, leftViewController: AppLeftViewController())
+		let navigationController: AppNavigationController = AppNavigationController(rootViewController: bottomNavigationController)
+		
+		let sideNavigationController: SideNavigationController = SideNavigationController(rootViewController: navigationController, leftViewController: AppLeftViewController())
 		sideNavigationController.statusBarStyle = .LightContent
 		
 		window = UIWindow(frame: UIScreen.mainScreen().bounds)
