@@ -441,7 +441,6 @@
 				96BCB7961CB40DC500C806FE /* SearchBarController.swift */,
 				96BCB79F1CB40DC500C806FE /* Toolbar.swift */,
 				96BCB7A01CB40DC500C806FE /* ToolbarController.swift */,
-				96BCB7971CB40DC500C806FE /* SideNavigationController.swift */,
 				96BCB78D1CB40DC500C806FE /* Menu.swift */,
 				96BCB78E1CB40DC500C806FE /* MenuView.swift */,
 				96BCB78F1CB40DC500C806FE /* MenuController.swift */,
@@ -451,6 +450,7 @@
 				96BCB7901CB40DC500C806FE /* NavigationBar.swift */,
 				96BCB7911CB40DC500C806FE /* NavigationController.swift */,
 				96BCB7921CB40DC500C806FE /* NavigationItem.swift */,
+				96BCB7971CB40DC500C806FE /* SideNavigationController.swift */,
 			);
 			name = Navigation;
 			sourceTree = "<group>";

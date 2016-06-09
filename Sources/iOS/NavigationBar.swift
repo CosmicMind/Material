@@ -54,6 +54,8 @@ public class NavigationBar : UINavigationBar {
 	/// NavigationBarStyle value.
 	public var navigationBarStyle: NavigationBarStyle = .Default
 	
+	internal var animating: Bool = false
+	
 	/// Will render the view.
 	public var willRenderView: Bool {
 		return 0 < width && 0 < height
@@ -285,21 +287,18 @@ public class NavigationBar : UINavigationBar {
 		self.init(frame: CGRectZero)
 	}
 	
-    private func statusbarOffset() -> CGFloat {
-        var result: CGFloat = 0
-        switch MaterialDevice.type {
-        case .iPad:
-            result = MaterialDevice.statusBarHidden ? 20 : 0
-        case .iPhone:
-            result = MaterialDevice.isPortrait && MaterialDevice.statusBarHidden ? 20 : 0
-        case .TV:
-            break
-        case .Unspecified:
-            break
-        }
-        return result;
-    }
-    
+	/// Calculates the offset for the statusbar.
+	private func statusbarOffset() -> CGFloat {
+		switch MaterialDevice.type {
+		case .iPad:
+			return MaterialDevice.statusBarHidden ? 20 : 0
+		case .iPhone:
+			return MaterialDevice.isPortrait && MaterialDevice.statusBarHidden ? 20 : 0
+		default:
+			return 0
+		}
+	}
+	
 	public override func intrinsicContentSize() -> CGSize {
 		switch navigationBarStyle {
 		case .Tiny:
@@ -310,11 +309,13 @@ public class NavigationBar : UINavigationBar {
 			return CGSizeMake(superview?.bounds.width ?? MaterialDevice.width, 56)
 		}
 	}
-
+	
 	public override func sizeThatFits(size: CGSize) -> CGSize {
-        var result: CGSize = intrinsicContentSize()
-        result.height += statusbarOffset()
-        return result
+		var result: CGSize = intrinsicContentSize()
+		result.height += statusbarOffset()
+		print(MaterialDevice.isPortrait, result.height)
+		
+		return result
 	}
 	
 	public override func layoutSubviews() {
@@ -338,14 +339,14 @@ public class NavigationBar : UINavigationBar {
 	- Parameter item: A UINavigationItem to layout.
 	*/
 	internal func layoutNavigationItem(item: UINavigationItem) {
-		if willRenderView {
+		if willRenderView && !animating {
 			prepareItem(item)
 			
 			if let titleView: UIView = prepareTitleView(item) {
 				if let contentView: UIView = prepareContentView(item) {
 					if let g: Int = Int(width / gridFactor) {
 						let columns: Int = g + 1
-						                        
+						
 						titleView.frame.origin = CGPoint(x: 0, y: statusbarOffset())
 						titleView.frame.size = intrinsicContentSize()
 						titleView.grid.views = []
@@ -369,7 +370,7 @@ public class NavigationBar : UINavigationBar {
 								titleView.grid.views?.append(c)
 							}
 						}
-	
+						
 						titleView.addSubview(contentView)
 						titleView.grid.views?.append(contentView)
 						
@@ -389,7 +390,7 @@ public class NavigationBar : UINavigationBar {
 								titleView.grid.views?.append(c)
 							}
 						}
-	
+						
 						titleView.grid.contentInset = contentInset
 						titleView.grid.spacing = spacing
 						titleView.grid.reloadLayout()
