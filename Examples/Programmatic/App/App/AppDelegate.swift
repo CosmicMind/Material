@@ -39,9 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		
         let bottomNavigationController: AppBottomNavigationController = AppBottomNavigationController()
-		
 		let navigationController: AppNavigationController = AppNavigationController(rootViewController: bottomNavigationController)
-		
 		let sideNavigationController: SideNavigationController = SideNavigationController(rootViewController: navigationController, leftViewController: AppLeftViewController())
 		sideNavigationController.statusBarStyle = .LightContent
 		
