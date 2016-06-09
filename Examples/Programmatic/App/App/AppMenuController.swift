@@ -97,6 +97,22 @@ class AppMenuController: MenuController {
 			openMenu()
 		}
 	}
+    
+    /// Shows the menuView.
+    func showMenu() {
+        menuView.animate(MaterialAnimation.animationGroup([
+            MaterialAnimation.rotate(rotation: 3),
+            MaterialAnimation.translateY(0)
+            ]))
+    }
+    
+    /// Hides the menuView.
+    func hideMenu() {
+        menuView.animate(MaterialAnimation.animationGroup([
+            MaterialAnimation.rotate(rotation: 3),
+            MaterialAnimation.translateY(150)
+            ]))
+    }
 	
 	/// Prepares the menuView.
 	private func prepareMenuView() {

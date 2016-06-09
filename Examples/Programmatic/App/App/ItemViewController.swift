@@ -77,16 +77,14 @@ class ItemViewController: UIViewController {
 		sideNavigationController?.enabled = false
         // Stops the scrollView contentInsets from being automatically adjusted.
         automaticallyAdjustsScrollViewInsets = false
+        (menuController as? AppMenuController)?.hideMenu()
         
 	}
 	
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        // Access the navigationItem.backButton here.
-        //		navigationItem.backButton
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        (menuController as? AppMenuController)?.showMenu()
     }
-    
 	
 	override func viewWillLayoutSubviews() {
 		super.viewWillLayoutSubviews()
