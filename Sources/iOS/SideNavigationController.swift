@@ -400,6 +400,12 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	
 	public override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
 		super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        // Portrait will be Lanscape when this method is done.
+        if MaterialDevice.isPortrait && .iPhone == MaterialDevice.type {
+            hideStatusBar()
+        } else {
+            showStatusBar()
+        }
 		closeLeftView()
 		closeRightView()
 		
@@ -1092,17 +1098,9 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 			willHideStatusBar = false
 			UIView.animateWithDuration(NSTimeInterval(UINavigationControllerHideShowBarDuration),
 				animations: { [weak self] in
-					if let v: NavigationBar = (self?.rootViewController as? NavigationController)?.navigationBar as? NavigationBar {
-						v.animating = true
-					}
-					self?.statusBarHidden = false
-					
-				}) { [weak self] _ in
-					if let v: NavigationBar = (self?.rootViewController as? NavigationController)?.navigationBar as? NavigationBar {
-						v.animating = false
-					}
-				}
-            self.setNeedsStatusBarAppearanceUpdate()
+                    self?.setNeedsStatusBarAppearanceUpdate()
+                    self?.statusBarHidden = false
+                })
             delegate?.sideNavigationStatusBarHiddenState?(self, hidden: false)
 		}
 	}
@@ -1114,17 +1112,9 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 			if !statusBarHidden {
 				UIView.animateWithDuration(NSTimeInterval(UINavigationControllerHideShowBarDuration),
 					animations: { [weak self] in
-						if let v: NavigationBar = (self?.rootViewController as? NavigationController)?.navigationBar as? NavigationBar {
-							v.animating = true
-						}
-						self?.statusBarHidden = true
-						
-					}) { [weak self] _ in
-						if let v: NavigationBar = (self?.rootViewController as? NavigationController)?.navigationBar as? NavigationBar {
-							v.animating = false
-						}
-					}
-                self.setNeedsStatusBarAppearanceUpdate()
+                        self?.setNeedsStatusBarAppearanceUpdate()
+                        self?.statusBarHidden = true
+                    })
                 delegate?.sideNavigationStatusBarHiddenState?(self, hidden: true)
 			}
 		}

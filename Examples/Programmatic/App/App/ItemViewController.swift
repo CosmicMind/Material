@@ -57,7 +57,6 @@ class ItemViewController: UIViewController {
 	convenience init(dataSource: MaterialDataSourceItem) {
 		self.init(nibName: nil, bundle: nil)
 		self.dataSource = dataSource
-        hidesBottomBarWhenPushed = true
 	}
 
 	required init?(coder aDecoder: NSCoder) {
@@ -75,14 +74,19 @@ class ItemViewController: UIViewController {
 	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
-		(menuController as? AppMenuController)?.hideMenu()
 		sideNavigationController?.enabled = false
+        // Stops the scrollView contentInsets from being automatically adjusted.
+        automaticallyAdjustsScrollViewInsets = false
+        
 	}
 	
-	override func viewWillDisappear(animated: Bool) {
-		super.viewWillDisappear(animated)
-		(menuController as? AppMenuController)?.showMenu()
-	}
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // Access the navigationItem.backButton here.
+        //		navigationItem.backButton
+    }
+    
 	
 	override func viewWillLayoutSubviews() {
 		super.viewWillLayoutSubviews()
@@ -161,6 +165,9 @@ class ItemViewController: UIViewController {
 
 			let image: UIImage? = UIImage(named: data["image"] as! String)
 			imageCardView.image = image
+            
+            scrollView.addSubview(imageCardView)
+            imageCardView.translatesAutoresizingMaskIntoConstraints = false
 		}
 	}
 }
