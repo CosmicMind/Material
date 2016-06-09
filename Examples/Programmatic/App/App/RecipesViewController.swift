@@ -70,6 +70,21 @@ class RecipesViewController: UIViewController {
 		sideNavigationController?.enabled = true
 	}
 	
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        // Show the menuView.
+        
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        // Disable the SideNavigation.
+        
+        // Hide the menuView.
+        
+    }
+
+    
 	/// Handles the menuButton.
 	internal func handleMenuButton() {
 		sideNavigationController?.openLeftView()
