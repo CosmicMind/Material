@@ -42,7 +42,7 @@ class AppMenuController: MenuController {
 	
     /// MenuView inset.
     private let menuViewInset: CGFloat = 16
-    
+	
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -103,7 +103,7 @@ class AppMenuController: MenuController {
         menuView.animate(MaterialAnimation.animationGroup([
             MaterialAnimation.rotate(rotation: 3),
             MaterialAnimation.translateY(0)
-            ]))
+		]))
     }
     
     /// Hides the menuView.
@@ -111,9 +111,9 @@ class AppMenuController: MenuController {
         menuView.animate(MaterialAnimation.animationGroup([
             MaterialAnimation.rotate(rotation: 3),
             MaterialAnimation.translateY(150)
-            ]))
+		]))
     }
-	
+
 	/// Prepares the menuView.
 	private func prepareMenuView() {
         var image: UIImage? = MaterialIcon.cm.add

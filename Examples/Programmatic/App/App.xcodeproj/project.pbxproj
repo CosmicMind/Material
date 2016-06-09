@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		960CDA461D09F84000387CE8 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 960CDA451D09F84000387CE8 /* Material.framework */; };
-		960CDA471D09F84000387CE8 /* Material.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 960CDA451D09F84000387CE8 /* Material.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		960CDA491D09FF3E00387CE8 /* AppBottomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960CDA481D09FF3E00387CE8 /* AppBottomNavigationController.swift */; };
 		96162C6C1CA71C8700E3A235 /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96162C6B1CA71C8700E3A235 /* VideoViewController.swift */; };
 		96162C6E1CA7274E00E3A235 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96162C6D1CA7274E00E3A235 /* PhotoViewController.swift */; };
 		9663F9321C7A744600AF0965 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9663F9311C7A744600AF0965 /* AppDelegate.swift */; };
@@ -30,7 +29,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				960CDA471D09F84000387CE8 /* Material.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -38,7 +36,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		960CDA451D09F84000387CE8 /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = Material.framework; path = "/Users/danieldahan/Library/Developer/Xcode/DerivedData/Material-dciwtavdzrmtrifplxfnouazaqvx/Build/Products/Debug-iphoneos/Material.framework"; sourceTree = "<absolute>"; };
+		960CDA481D09FF3E00387CE8 /* AppBottomNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppBottomNavigationController.swift; sourceTree = "<group>"; };
 		96162C6B1CA71C8700E3A235 /* VideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
 		96162C6D1CA7274E00E3A235 /* PhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		9663F92E1C7A744600AF0965 /* App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -60,7 +58,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				960CDA461D09F84000387CE8 /* Material.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,7 +67,6 @@
 		9663F9251C7A744500AF0965 = {
 			isa = PBXGroup;
 			children = (
-				960CDA451D09F84000387CE8 /* Material.framework */,
 				9663F9301C7A744600AF0965 /* App */,
 				9663F92F1C7A744600AF0965 /* Products */,
 			);
@@ -89,14 +85,15 @@
 			children = (
 				9663F9311C7A744600AF0965 /* AppDelegate.swift */,
 				9663F9471C7A749400AF0965 /* AppNavigationController.swift */,
+				960CDA481D09FF3E00387CE8 /* AppBottomNavigationController.swift */,
 				9663F9491C7A74B500AF0965 /* AppSearchBarViewController.swift */,
 				9663F94B1C7A74C700AF0965 /* AppMenuController.swift */,
 				9663F94D1C7A74EA00AF0965 /* AppLeftViewController.swift */,
 				96CC08871C7FEBD60034FF84 /* RecipesViewController.swift */,
-				9663F9331C7A744600AF0965 /* RecommendationViewController.swift */,
 				9663F9511C7A751D00AF0965 /* ItemViewController.swift */,
 				96162C6B1CA71C8700E3A235 /* VideoViewController.swift */,
 				96162C6D1CA7274E00E3A235 /* PhotoViewController.swift */,
+				9663F9331C7A744600AF0965 /* RecommendationViewController.swift */,
 				9663F9381C7A744600AF0965 /* Assets.xcassets */,
 				9663F93A1C7A744600AF0965 /* LaunchScreen.storyboard */,
 				9663F93D1C7A744600AF0965 /* Info.plist */,
@@ -185,6 +182,7 @@
 				96162C6C1CA71C8700E3A235 /* VideoViewController.swift in Sources */,
 				9663F94E1C7A74EA00AF0965 /* AppLeftViewController.swift in Sources */,
 				96162C6E1CA7274E00E3A235 /* PhotoViewController.swift in Sources */,
+				960CDA491D09FF3E00387CE8 /* AppBottomNavigationController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -35,15 +35,6 @@ class RecipesViewController: UIViewController {
 	/// A list of all the data source items.
 	private var dataSourceItems: Array<MaterialDataSourceItem>!
 	
-	/// NavigationBar menu button.
-	private var menuButton: IconButton!
-	
-	/// NavigationBar switch control.
-	private var switchControl: MaterialSwitch!
-	
-	/// NavigationBar search button.
-	private var searchButton: IconButton!
-	
 	/// A tableView used to display items.
 	private var tableView: UITableView!
 	
@@ -51,10 +42,6 @@ class RecipesViewController: UIViewController {
 		super.viewDidLoad()
 		prepareView()
 		prepareItems()
-		prepareMenuButton()
-		prepareSwitchControl()
-		prepareSearchButton()
-		prepareNavigationItem()
 		prepareTableView()
 	}
 	
@@ -63,43 +50,8 @@ class RecipesViewController: UIViewController {
 		// Stops the tableView contentInsets from being automatically adjusted.
 		automaticallyAdjustsScrollViewInsets = true
 		
-		// Set the navigationBar style.
-		navigationController?.navigationBar.statusBarStyle = .LightContent
-		
 		// Enable the SideNavigation.
 		sideNavigationController?.enabled = true
-	}
-	
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        // Show the menuView.
-        
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        // Disable the SideNavigation.
-        
-        // Hide the menuView.
-        
-    }
-
-    
-	/// Handles the menuButton.
-	internal func handleMenuButton() {
-		sideNavigationController?.openLeftView()
-	}
-	
-	/// Handles the searchButton.
-	internal func handleSearchButton() {
-		var recommended: Array<MaterialDataSourceItem> = Array<MaterialDataSourceItem>()
-		recommended.append(dataSourceItems[1])
-		recommended.append(dataSourceItems[3])
-		recommended.append(dataSourceItems[5])
-		
-		let vc: AppSearchBarController = AppSearchBarController(rootViewController: RecommendationViewController(dataSourceItems: recommended))
-		vc.modalTransitionStyle = .CrossDissolve
-		presentViewController(vc, animated: true, completion: nil)
 	}
 	
 	/// Prepares the items Array.
@@ -207,42 +159,6 @@ class RecipesViewController: UIViewController {
 	/// Prepares view.
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.white
-	}
-	
-	/// Prepares the menuButton.
-	private func prepareMenuButton() {
-		let image: UIImage? = MaterialIcon.cm.menu
-		menuButton = IconButton()
-		menuButton.pulseColor = MaterialColor.white
-		menuButton.setImage(image, forState: .Normal)
-		menuButton.setImage(image, forState: .Highlighted)
-		menuButton.addTarget(self, action: #selector(handleMenuButton), forControlEvents: .TouchUpInside)
-	}
-	
-	/// Prepares the switchControl.
-	private func prepareSwitchControl() {
-		switchControl = MaterialSwitch(state: .Off, style: .LightContent, size: .Small)
-	}
-	
-	/// Prepares the searchButton.
-	private func prepareSearchButton() {
-		let image: UIImage? = MaterialIcon.cm.search
-		searchButton = IconButton()
-		searchButton.pulseColor = MaterialColor.white
-		searchButton.setImage(image, forState: .Normal)
-		searchButton.setImage(image, forState: .Highlighted)
-		searchButton.addTarget(self, action: #selector(handleSearchButton), forControlEvents: .TouchUpInside)
-	}
-	
-	/// Prepares the navigationItem.
-	private func prepareNavigationItem() {
-		navigationItem.title = "Recipes"
-		navigationItem.titleLabel.textAlignment = .Left
-		navigationItem.titleLabel.textColor = MaterialColor.white
-		navigationItem.titleLabel.font = RobotoFont.mediumWithSize(20)
-		
-		navigationItem.leftControls = [menuButton]
-		navigationItem.rightControls = [switchControl, searchButton]
 	}
 	
 	/// Prepares the tableView.
