@@ -40,11 +40,28 @@ class AppMenuController: MenuController {
 	/// MenuView diameter.
 	private let baseSize: CGSize = CGSizeMake(56, 56)
 	
+    /// MenuView inset.
+    private let menuViewInset: CGFloat = 16
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    override init(rootViewController: UIViewController) {
+        super.init(rootViewController: rootViewController)
+        prepareTabBarItem()
+    }
+    
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareMenuView()
 	}
 	
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        closeMenu()
+    }
+    
 	override func openMenu(completion: (() -> Void)? = nil) {
 		super.openMenu(completion)
 		sideNavigationController?.enabled = false
@@ -79,22 +96,6 @@ class AppMenuController: MenuController {
 		} else {
 			openMenu()
 		}
-	}
-	
-	/// Shows the menuView.
-	func showMenu() {
-		menuView.animate(MaterialAnimation.animationGroup([
-			MaterialAnimation.rotate(rotation: 3),
-			MaterialAnimation.translateY(0)
-		]))
-	}
-	
-	/// Hides the menuView.
-	func hideMenu() {
-		menuView.animate(MaterialAnimation.animationGroup([
-			MaterialAnimation.rotate(rotation: 3),
-			MaterialAnimation.translateY(150)
-		]))
 	}
 	
 	/// Prepares the menuView.
@@ -138,10 +139,17 @@ class AppMenuController: MenuController {
 		menuView.menu.baseSize = baseSize
 		menuView.menu.views = [menuButton, blueButton, greenButton, yellowButton]
 		menuView.delegate = self
-		
+        
 		view.layout.size(menuView, width: baseSize.width, height: baseSize.height)
-		view.layout.align.bottomRight(menuView, bottom: 65, right: 16)
+		view.layout.align.bottomRight(menuView, bottom: menuViewInset, right: menuViewInset)
 	}
+    
+    /// Prepare tabBarItem.
+    private func prepareTabBarItem() {
+        tabBarItem.image = MaterialIcon.cm.photoLibrary
+        tabBarItem.setTitleColor(MaterialColor.grey.base, forState: .Normal)
+        tabBarItem.setTitleColor(MaterialColor.white, forState: .Selected)
+    }
 }
 
 /// MenuViewDelegate.
