@@ -234,7 +234,7 @@ public class BottomTabBar : UITabBar {
 		if autoLayoutToSuperview {
 			if let v: UIView = superview {
 				v.layout(self).bottom()
-				v.layout.horizontally(self)
+				v.layout(self).horizontally()
 			}
 		}
 	}

@@ -95,7 +95,7 @@ public class Layout {
     
     /// Size (Assuming a child context)
     /// - returns: current layout instance
-    public func size(width: CGFloat, height: CGFloat) -> Layout {
+    public func size(width width: CGFloat, height: CGFloat) -> Layout {
         if let c: UIView = childContext {
             size(c, width: width, height: height)
         }
@@ -131,7 +131,7 @@ public class Layout {
     
     /// Horizontally aligned (Assuming a child context)
     /// - returns: current layout instance
-    public func horizontally(left: CGFloat = 0, right: CGFloat = 0) -> Layout {
+    public func horizontally(left left: CGFloat = 0, right: CGFloat = 0) -> Layout {
         if let c: UIView = childContext {
             horizontally(c, left: left, right: right)
         }
@@ -149,7 +149,7 @@ public class Layout {
     
     /// Vertically aligned (Assuming a child context)
     /// - returns: current layout instance
-    public func vertically(top: CGFloat = 0, bottom: CGFloat = 0) -> Layout {
+    public func vertically(top top: CGFloat = 0, bottom: CGFloat = 0) -> Layout {
         if let c: UIView = childContext {
             vertically(c, top: top, bottom: bottom)
         }
@@ -167,7 +167,7 @@ public class Layout {
     
     /// Center (Assuming a child context)
     /// - returns: current layout instance
-    public func center(constantX: CGFloat = 0, constantY: CGFloat = 0) -> Layout {
+    public func center(constantX constantX: CGFloat = 0, constantY: CGFloat = 0) -> Layout {
         if let c: UIView = childContext {
             center(c, constantX: constantX, constantY: constantY)
         }
@@ -221,7 +221,7 @@ public class Layout {
     
     /// Align Edges (Assuming a child context)
     /// - returns: current layout instance
-    public func edges(top: CGFloat = 0, left: CGFloat = 0, bottom: CGFloat = 0, right: CGFloat = 0) -> Layout {
+    public func edges(top top: CGFloat = 0, left: CGFloat = 0, bottom: CGFloat = 0, right: CGFloat = 0) -> Layout {
         if let c: UIView = childContext {
             edges(c, top: top, left: left, bottom: bottom, right: right)
         }
@@ -239,7 +239,7 @@ public class Layout {
     
     /// Align to TopLeft (Assuming a child context)
     /// - returns: current layout instance
-    public func topLeft(top: CGFloat = 0, left: CGFloat = 0) -> Layout {
+    public func topLeft(top top: CGFloat = 0, left: CGFloat = 0) -> Layout {
         if let c: UIView = childContext {
             topLeft(c, top: top, left: left)
         }
@@ -257,7 +257,7 @@ public class Layout {
     
     /// Align to TopRight (Assuming a child context)
     /// - returns: current layout instance
-    public func topRight(top: CGFloat = 0, right: CGFloat = 0) -> Layout {
+    public func topRight(top top: CGFloat = 0, right: CGFloat = 0) -> Layout {
         if let c: UIView = childContext {
             topRight(c, top: top, right: right)
         }
@@ -275,7 +275,7 @@ public class Layout {
     
     /// Align to BottomLeft (Assuming a child context)
     /// - returns: current layout instance
-    public func bottomLeft(bottom: CGFloat = 0, left: CGFloat = 0) -> Layout {
+    public func bottomLeft(bottom bottom: CGFloat = 0, left: CGFloat = 0) -> Layout {
         if let c: UIView = childContext {
             bottomLeft(c, bottom: bottom, left: left)
         }
@@ -294,7 +294,7 @@ public class Layout {
     
     /// Align to BottomRight (Assuming a child context)
     /// - returns: current layout instance
-    public func bottomRight(bottom: CGFloat = 0, right: CGFloat = 0) -> Layout {
+    public func bottomRight(bottom bottom: CGFloat = 0, right: CGFloat = 0) -> Layout {
         if let c: UIView = childContext {
             bottomRight(c, bottom: bottom, right: right)
         }

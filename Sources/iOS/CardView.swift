@@ -277,7 +277,7 @@ public class CardView : MaterialPulseView {
 			verticalFormat += "-[titleLabel]"
 			views["titleLabel"] = v
 			
-			layout.horizontally(v, left: contentInset.left + titleLabelInset.left, right: contentInset.right + titleLabelInset.right)
+			layout(v).horizontally(left: contentInset.left + titleLabelInset.left, right: contentInset.right + titleLabelInset.right)
 		}
 		
 		// detail
@@ -292,7 +292,7 @@ public class CardView : MaterialPulseView {
 			verticalFormat += "-[contentView]"
 			views["contentView"] = v
 			
-			layout.horizontally(v, left: contentInset.left + contentViewInset.left, right: contentInset.right + contentViewInset.right)
+			layout(v).horizontally(left: contentInset.left + contentViewInset.left, right: contentInset.right + contentViewInset.right)
 		}
 		
 		// leftButtons
@@ -314,7 +314,7 @@ public class CardView : MaterialPulseView {
 					
 					h += "[\(k)]"
 					
-					layout.bottom(b, bottom: contentInset.bottom + leftButtonsInset.bottom)
+					layout(b).bottom(contentInset.bottom + leftButtonsInset.bottom)
 					
 					i += 1
 				}
@@ -343,7 +343,7 @@ public class CardView : MaterialPulseView {
 						h += "-(right_left)-"
 					}
 					
-					layout.bottom(b, bottom: contentInset.bottom + rightButtonsInset.bottom)
+					layout(b).bottom(contentInset.bottom + rightButtonsInset.bottom)
 					
 					i -= 1
 				}
