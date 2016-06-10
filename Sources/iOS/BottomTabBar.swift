@@ -233,7 +233,7 @@ public class BottomTabBar : UITabBar {
 		super.didMoveToSuperview()
 		if autoLayoutToSuperview {
 			if let v: UIView = superview {
-				v.layout.align.bottom(self)
+				v.layout(self).bottom()
 				v.layout.horizontally(self)
 			}
 		}

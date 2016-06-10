@@ -30,159 +30,314 @@
 
 import UIKit
 
-public class Align {
-	/// UIView context.
-	internal weak var context: UIView?
-	
-	init(context: UIView?) {
-		self.context = context
-	}
-	
-	/// Edges
-	public func edges(child: UIView, top: CGFloat = 0, left: CGFloat = 0, bottom: CGFloat = 0, right: CGFloat = 0) {
-		if let v: UIView = context {
-			Layout.alignToParent(v, child: child, top: top, left: left, bottom: bottom, right: right)
-		}
-	}
-	
-	/// TopLeft
-	public func topLeft(child: UIView, top: CGFloat = 0, left: CGFloat = 0) {
-		if let v: UIView = context {
-			Layout.alignFromTopLeft(v, child: child, top: top, left: left)
-		}
-	}
-	
-	/// TopRight
-	public func topRight(child: UIView, top: CGFloat = 0, right: CGFloat = 0) {
-		if let v: UIView = context {
-			Layout.alignFromTopRight(v, child: child, top: top, right: right)
-		}
-	}
-	
-	/// BottomLeft
-	public func bottomLeft(child: UIView, bottom: CGFloat = 0, left: CGFloat = 0) {
-		if let v: UIView = context {
-			Layout.alignFromBottomLeft(v, child: child, bottom: bottom, left: left)
-		}
-	}
-	
-	/// BottomRight
-	public func bottomRight(child: UIView, bottom: CGFloat = 0, right: CGFloat = 0) {
-		if let v: UIView = context {
-			Layout.alignFromBottomRight(v, child: child, bottom: bottom, right: right)
-		}
-	}
-	
-	/// Top
-	public func top(child: UIView, top: CGFloat = 0) {
-		if let v: UIView = context {
-			Layout.alignFromTop(v, child: child, top: top)
-		}
-	}
-	
-	/// Left
-	public func left(child: UIView, left: CGFloat = 0) {
-		if let v: UIView = context {
-			Layout.alignFromLeft(v, child: child, left: left)
-		}
-	}
-	
-	/// Bottom
-	public func bottom(child: UIView, bottom: CGFloat = 0) {
-		if let v: UIView = context {
-			Layout.alignFromBottom(v, child: child, bottom: bottom)
-		}
-	}
-	
-	/// Right
-	public func right(child: UIView, right: CGFloat = 0) {
-		if let v: UIView = context {
-			Layout.alignFromRight(v, child: child, right: right)
-		}
-	}
-}
-
 public class Layout {
 	/// Reference to Align.
-	public private(set) var align: Align
 	
 	/// UIView context.
 	internal weak var context: UIView?
+    
+    /// Child UIView context.
+    internal weak var childContext: UIView?
 	
 	init(context: UIView?) {
 		self.context = context
-		self.align = Align(context: context)
 	}
+    
+    init(context: UIView?, childContext: UIView?) {
+        self.context = context
+        self.childContext = childContext
+    }
 
 	/// Width
-	public func width(child: UIView, width: CGFloat = 0) {
+	public func width(child: UIView, width: CGFloat) -> Layout {
 		if let v: UIView = context {
 			Layout.width(v, child: child, width: width)
 		}
+        return self
 	}
+    
+    /// Width (Assuming a child context)
+    public func width(width: CGFloat) -> Layout {
+        if let c: UIView = childContext {
+            self.width(c, width: width)
+        }
+        return self
+    }
 	
 	/// Height
-	public func height(child: UIView, height: CGFloat = 0) {
+	public func height(child: UIView, height: CGFloat) -> Layout {
 		if let v: UIView = context {
 			Layout.height(v, child: child, height: height)
 		}
+        return self
 	}
 	
+    /// Height (Assuming a child context)
+    public func height(height: CGFloat) -> Layout {
+        if let c: UIView = childContext {
+            self.height(c, height: height)
+        }
+        return self
+    }
+    
 	/// Size
-	public func size(child: UIView, width: CGFloat = 0, height: CGFloat = 0) {
+	public func size(child: UIView, width: CGFloat, height: CGFloat) -> Layout {
 		if let v: UIView = context {
 			Layout.size(v, child: child, width: width, height: height)
 		}
+        return self
 	}
+    
+    /// Size (Assuming a child context)
+    public func size(width: CGFloat, height: CGFloat) -> Layout {
+        if let c: UIView = childContext {
+            self.size(c, width: width, height: height)
+        }
+        return self
+    }
 	
 	/// Array of UIViews horizontally aligned.
-	public func horizontally(children: Array<UIView>, left: CGFloat = 0, right: CGFloat = 0, spacing: CGFloat = 0) {
+	public func horizontally(children: Array<UIView>, left: CGFloat = 0, right: CGFloat = 0, spacing: CGFloat = 0) -> Layout {
 		if let v: UIView = context {
 			Layout.alignToParentHorizontally(v, children: children, left: left, right: right, spacing: spacing)
 		}
+        return self
 	}
 	
 	/// Array of UIViews vertically aligned.
-	public func vertically(children: Array<UIView>, top: CGFloat = 0, bottom: CGFloat = 0, spacing: CGFloat = 0) {
+	public func vertically(children: Array<UIView>, top: CGFloat = 0, bottom: CGFloat = 0, spacing: CGFloat = 0) -> Layout {
 		if let v: UIView = context {
 			Layout.alignToParentVertically(v, children: children, top: top, bottom: bottom, spacing: spacing)
 		}
+        return self
 	}
 	
 	/// Horizontally aligned.
-	public func horizontally(child: UIView, left: CGFloat = 0, right: CGFloat = 0) {
+	public func horizontally(child: UIView, left: CGFloat = 0, right: CGFloat = 0) -> Layout {
 		if let v: UIView = context {
 			Layout.alignToParentHorizontally(v, child: child, left: left, right: right)
 		}
+        return self
 	}
+    
+    /// Horizontally aligned (Assuming a child context)
+    public func horizontally(left: CGFloat = 0, right: CGFloat = 0) -> Layout {
+        if let c: UIView = childContext {
+            self.horizontally(c, left: left, right: right)
+        }
+        return self
+    }
 	
 	/// Vertically aligned.
-	public func vertically(child: UIView, top: CGFloat = 0, bottom: CGFloat = 0) {
+	public func vertically(child: UIView, top: CGFloat = 0, bottom: CGFloat = 0) -> Layout {
 		if let v: UIView = context {
 			Layout.alignToParentVertically(v, child: child, top: top, bottom: bottom)
 		}
+        return self
 	}
+    
+    /// Vertically aligned (Assuming a child context)
+    public func vertically(top: CGFloat = 0, bottom: CGFloat = 0) -> Layout {
+        if let c: UIView = childContext {
+            self.vertically(c, top: top, bottom: bottom)
+        }
+        return self
+    }
 	
 	/// Center
-	public func center(child: UIView, constantX: CGFloat = 0, constantY: CGFloat = 0) {
+	public func center(child: UIView, constantX: CGFloat = 0, constantY: CGFloat = 0) -> Layout {
 		if let v: UIView = context {
 			Layout.center(v, child: child, constantX: constantX, constantY: constantY)
 		}
+        return self
 	}
+    
+    /// Center (Assuming a child context)
+    public func center(constantX: CGFloat = 0, constantY: CGFloat = 0) -> Layout {
+        if let c: UIView = childContext {
+            self.center(c, constantX: constantX, constantY: constantY)
+        }
+        return self
+    }
 	
-	/// CenterHorizontally
-	public func centerHorizontally(child: UIView, constant: CGFloat = 0) {
+	/// Center Horizontally
+	public func centerHorizontally(child: UIView, constant: CGFloat = 0) -> Layout {
 		if let v: UIView = context {
 			Layout.centerHorizontally(v, child: child, constant: constant)
 		}
+        return self
 	}
+    
+    /// Center Horizontally (Assuming a child context)
+    public func centerHorizontally(constant: CGFloat = 0) -> Layout {
+        if let c: UIView = childContext {
+            self.centerHorizontally(c, constant: constant)
+        }
+        return self
+    }
 	
-	/// CenterVertically
-	public func centerVertically(child: UIView, constant: CGFloat = 0) {
+	/// Center Vertically
+	public func centerVertically(child: UIView, constant: CGFloat = 0) -> Layout {
 		if let v: UIView = context {
 			Layout.centerVertically(v, child: child, constant: constant)
 		}
+        return self
 	}
+    
+    /// Center Vertically (Assuming a child context)
+    public func centerVertically(constant: CGFloat = 0) -> Layout {
+        if let c: UIView = childContext {
+            self.centerVertically(c, constant: constant)
+        }
+        return self
+    }
+    
+    /// Align Edges
+    public func edges(child: UIView, top: CGFloat = 0, left: CGFloat = 0, bottom: CGFloat = 0, right: CGFloat = 0) -> Layout {
+        if let v: UIView = context {
+            Layout.alignToParent(v, child: child, top: top, left: left, bottom: bottom, right: right)
+        }
+        return self
+    }
+    
+    /// Align Edges (Assuming a child context)
+    public func edges(top: CGFloat = 0, left: CGFloat = 0, bottom: CGFloat = 0, right: CGFloat = 0) -> Layout {
+        if let c: UIView = childContext {
+            self.edges(c, top: top, left: left, bottom: bottom, right: right)
+        }
+        return self
+    }
+    
+    /// Align to TopLeft
+    public func topLeft(child: UIView, top: CGFloat = 0, left: CGFloat = 0) -> Layout {
+        if let v: UIView = context {
+            Layout.alignFromTopLeft(v, child: child, top: top, left: left)
+        }
+        return self
+    }
+    
+    /// Align to TopLeft (Assuming a child context)
+    public func topLeft(top: CGFloat = 0, left: CGFloat = 0) -> Layout {
+        if let c: UIView = childContext {
+            self.topLeft(c, top: top, left: left)
+        }
+        return self
+    }
+    
+    /// Align to TopRight
+    public func topRight(child: UIView, top: CGFloat = 0, right: CGFloat = 0) -> Layout {
+        if let v: UIView = context {
+            Layout.alignFromTopRight(v, child: child, top: top, right: right)
+        }
+        return self
+    }
+    
+    /// Align to TopRight (Assuming a child context)
+    public func topRight(top: CGFloat = 0, right: CGFloat = 0) -> Layout {
+        if let c: UIView = childContext {
+            self.topRight(c, top: top, right: right)
+        }
+        return self
+    }
+    
+    /// Align to BottomLeft
+    public func bottomLeft(child: UIView, bottom: CGFloat = 0, left: CGFloat = 0) -> Layout {
+        if let v: UIView = context {
+            Layout.alignFromBottomLeft(v, child: child, bottom: bottom, left: left)
+        }
+        return self
+    }
+    
+    /// Align to BottomLeft (Assuming a child context)
+    public func bottomLeft(bottom: CGFloat = 0, left: CGFloat = 0) -> Layout {
+        if let c: UIView = childContext {
+            self.bottomLeft(c, bottom: bottom, left: left)
+        }
+        return self
+    }
+    
+    /// Align to BottomRight
+    public func bottomRight(child: UIView, bottom: CGFloat = 0, right: CGFloat = 0) -> Layout {
+        if let v: UIView = context {
+            Layout.alignFromBottomRight(v, child: child, bottom: bottom, right: right)
+        }
+        
+        return self
+    }
+    
+    /// Align to BottomRight (Assuming a child context)
+    public func bottomRight(bottom: CGFloat = 0, right: CGFloat = 0) -> Layout {
+        if let c: UIView = childContext {
+            self.bottomRight(c, bottom: bottom, right: right)
+        }
+        return self
+    }
+    
+    /// Align to Top
+    public func top(child: UIView, top: CGFloat = 0) -> Layout {
+        if let v: UIView = context {
+            Layout.alignFromTop(v, child: child, top: top)
+        }
+        return self
+    }
+    
+    /// Align to Top (Assuming a child context)
+    public func top(top: CGFloat = 0) -> Layout {
+        if let c: UIView = childContext {
+            self.top(c, top: top)
+        }
+        return self
+    }
+    
+    /// Align to Left
+    public func left(child: UIView, left: CGFloat = 0) -> Layout {
+        if let v: UIView = context {
+            Layout.alignFromLeft(v, child: child, left: left)
+        }
+        return self
+    }
+    
+    /// Align to Left (Assuming a child context)
+    public func left(left: CGFloat = 0) -> Layout {
+        if let c: UIView = childContext {
+            self.left(c, left: left)
+        }
+        return self
+    }
+    
+    /// Align to Bottom
+    public func bottom(child: UIView, bottom: CGFloat = 0) -> Layout {
+        if let v: UIView = context {
+            Layout.alignFromBottom(v, child: child, bottom: bottom)
+        }
+        return self
+    }
+    
+    /// Align to Bottom (Assuming a child context)
+    public func bottom(bottom: CGFloat = 0) -> Layout {
+        if let c: UIView = childContext {
+            self.bottom(c, bottom: bottom)
+        }
+        return self
+    }
+    
+    
+    /// Align to Right
+    public func right(child: UIView, right: CGFloat = 0) -> Layout {
+        if let v: UIView = context {
+            Layout.alignFromRight(v, child: child, right: right)
+        }
+        
+        return self
+    }
+    
+    /// Align to Right (Assuming a child context)
+    public func right(right: CGFloat = 0) -> Layout {
+        if let c: UIView = childContext {
+            self.right(c, right: right)
+        }
+        return self
+    }
 }
 
 /// Layout
@@ -364,4 +519,10 @@ public extension UIView {
 			MaterialAssociateObject(self, key: &LayoutKey, value: value)
 		}
 	}
+    
+    /// Layout reference with a child context.
+    public func layout(child: UIView) -> Layout {
+        return Layout(context: self, childContext: child)
+    }
+    
 }

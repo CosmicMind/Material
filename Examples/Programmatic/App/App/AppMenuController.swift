@@ -157,7 +157,7 @@ class AppMenuController: MenuController {
 		menuView.delegate = self
         
 		view.layout.size(menuView, width: baseSize.width, height: baseSize.height)
-		view.layout.align.bottomRight(menuView, bottom: menuViewInset, right: menuViewInset)
+		view.layout.bottomRight(menuView, bottom: menuViewInset, right: menuViewInset)
 	}
     
     /// Prepare tabBarItem.

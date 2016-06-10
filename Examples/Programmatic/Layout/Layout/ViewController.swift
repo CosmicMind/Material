@@ -41,7 +41,7 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
-//		prepareAlignToParentHorizontallyAndVerticallyExample()
+		prepareAlignToParentHorizontallyAndVerticallyExample()
 		prepareCenterExample()
 	}
 	
@@ -75,10 +75,13 @@ class ViewController: UIViewController {
 		let children: Array<UIView> = [label1, label2, label3, label4]
 		
 		// Align the labels vertically with an equal height.
-		view.layout.vertically(children, top: 100, bottom: 100)
+//		view.layout.vertically(children, top: 100, bottom: 100)
 		
 		// Align the labels horizontally with an equal width.
-		view.layout.horizontally(children, left: 30, right: 30, spacing: 30)
+//		view.layout.horizontally(children, left: 30, right: 30, spacing: 30)
+        
+        view.layout.horizontally(children, left: 30, right: 30, spacing: 30).vertically(children, top: 100, bottom: 100)
+        
 		
 		// Print out the dimensions of the labels.
 		for v in children {
