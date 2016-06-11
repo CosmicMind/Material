@@ -53,7 +53,10 @@ public class Layout {
 	public func width(child: UIView, width: CGFloat) -> Layout {
 		if let v: UIView = context {
 			Layout.width(v, child: child, width: width)
-		}
+        } else {
+            debugPrint("Parent context not available.")
+        }
+        
         return self
 	}
     
@@ -62,7 +65,10 @@ public class Layout {
     public func width(width: CGFloat) -> Layout {
         if let c: UIView = childContext {
             self.width(c, width: width)
+        } else {
+            debugPrint("Child view context not available.")
         }
+        
         return self
     }
 	
@@ -71,7 +77,10 @@ public class Layout {
 	public func height(child: UIView, height: CGFloat) -> Layout {
 		if let v: UIView = context {
 			Layout.height(v, child: child, height: height)
-		}
+        } else {
+            debugPrint("Parent context not available.")
+        }
+        
         return self
 	}
 	
@@ -80,7 +89,10 @@ public class Layout {
     public func height(height: CGFloat) -> Layout {
         if let c: UIView = childContext {
             self.height(c, height: height)
+        } else {
+            debugPrint("Child view context not available.")
         }
+        
         return self
     }
     
@@ -89,7 +101,10 @@ public class Layout {
 	public func size(child: UIView, width: CGFloat, height: CGFloat) -> Layout {
 		if let v: UIView = context {
 			Layout.size(v, child: child, width: width, height: height)
-		}
+        } else {
+            debugPrint("Parent context not available.")
+        }
+        
         return self
 	}
     
@@ -98,7 +113,10 @@ public class Layout {
     public func size(width width: CGFloat, height: CGFloat) -> Layout {
         if let c: UIView = childContext {
             size(c, width: width, height: height)
+        } else {
+            debugPrint("Child view context not available.")
         }
+        
         return self
     }
 	
@@ -107,7 +125,10 @@ public class Layout {
 	public func horizontally(children: Array<UIView>, left: CGFloat = 0, right: CGFloat = 0, spacing: CGFloat = 0) -> Layout {
 		if let v: UIView = context {
 			Layout.alignToParentHorizontally(v, children: children, left: left, right: right, spacing: spacing)
-		}
+        } else {
+            debugPrint("Parent context not available.")
+        }
+        
         return self
 	}
 	
@@ -116,7 +137,10 @@ public class Layout {
 	public func vertically(children: Array<UIView>, top: CGFloat = 0, bottom: CGFloat = 0, spacing: CGFloat = 0) -> Layout {
 		if let v: UIView = context {
 			Layout.alignToParentVertically(v, children: children, top: top, bottom: bottom, spacing: spacing)
-		}
+        } else {
+            debugPrint("Parent context not available.")
+        }
+        
         return self
 	}
 	
@@ -125,7 +149,10 @@ public class Layout {
 	public func horizontally(child: UIView, left: CGFloat = 0, right: CGFloat = 0) -> Layout {
 		if let v: UIView = context {
 			Layout.alignToParentHorizontally(v, child: child, left: left, right: right)
-		}
+        } else {
+            debugPrint("Parent context not available.")
+        }
+        
         return self
 	}
     
@@ -134,7 +161,10 @@ public class Layout {
     public func horizontally(left left: CGFloat = 0, right: CGFloat = 0) -> Layout {
         if let c: UIView = childContext {
             horizontally(c, left: left, right: right)
+        } else {
+            debugPrint("Child view context not available.")
         }
+        
         return self
     }
 	
@@ -143,7 +173,10 @@ public class Layout {
 	public func vertically(child: UIView, top: CGFloat = 0, bottom: CGFloat = 0) -> Layout {
 		if let v: UIView = context {
 			Layout.alignToParentVertically(v, child: child, top: top, bottom: bottom)
-		}
+        } else {
+            debugPrint("Parent context not available.")
+        }
+        
         return self
 	}
     
@@ -152,7 +185,10 @@ public class Layout {
     public func vertically(top top: CGFloat = 0, bottom: CGFloat = 0) -> Layout {
         if let c: UIView = childContext {
             vertically(c, top: top, bottom: bottom)
+        } else {
+            debugPrint("Child view context not available.")
         }
+        
         return self
     }
 	
@@ -161,7 +197,10 @@ public class Layout {
 	public func center(child: UIView, constantX: CGFloat = 0, constantY: CGFloat = 0) -> Layout {
 		if let v: UIView = context {
 			Layout.center(v, child: child, constantX: constantX, constantY: constantY)
-		}
+        } else {
+            debugPrint("Parent context not available.")
+        }
+        
         return self
 	}
     
@@ -170,7 +209,10 @@ public class Layout {
     public func center(constantX constantX: CGFloat = 0, constantY: CGFloat = 0) -> Layout {
         if let c: UIView = childContext {
             center(c, constantX: constantX, constantY: constantY)
+        } else {
+            debugPrint("Child view context not available.")
         }
+        
         return self
     }
 	
@@ -179,7 +221,10 @@ public class Layout {
 	public func centerHorizontally(child: UIView, constant: CGFloat = 0) -> Layout {
 		if let v: UIView = context {
 			Layout.centerHorizontally(v, child: child, constant: constant)
-		}
+        } else {
+            debugPrint("Parent context not available.")
+        }
+        
         return self
 	}
     
@@ -188,7 +233,10 @@ public class Layout {
     public func centerHorizontally(constant: CGFloat = 0) -> Layout {
         if let c: UIView = childContext {
             centerHorizontally(c, constant: constant)
+        } else {
+            debugPrint("Child view context not available.")
         }
+        
         return self
     }
 	
@@ -197,7 +245,10 @@ public class Layout {
 	public func centerVertically(child: UIView, constant: CGFloat = 0) -> Layout {
 		if let v: UIView = context {
 			Layout.centerVertically(v, child: child, constant: constant)
-		}
+        } else {
+            debugPrint("Parent context not available.")
+        }
+        
         return self
 	}
     
@@ -206,7 +257,10 @@ public class Layout {
     public func centerVertically(constant: CGFloat = 0) -> Layout {
         if let c: UIView = childContext {
             centerVertically(c, constant: constant)
+        }  else {
+            debugPrint("Child view context not available.")
         }
+        
         return self
     }
     
@@ -215,7 +269,10 @@ public class Layout {
     public func edges(child: UIView, top: CGFloat = 0, left: CGFloat = 0, bottom: CGFloat = 0, right: CGFloat = 0) -> Layout {
         if let v: UIView = context {
             Layout.alignToParent(v, child: child, top: top, left: left, bottom: bottom, right: right)
+        } else {
+            debugPrint("Parent context not available.")
         }
+        
         return self
     }
     
@@ -224,7 +281,10 @@ public class Layout {
     public func edges(top top: CGFloat = 0, left: CGFloat = 0, bottom: CGFloat = 0, right: CGFloat = 0) -> Layout {
         if let c: UIView = childContext {
             edges(c, top: top, left: left, bottom: bottom, right: right)
+        } else {
+            debugPrint("Child view context not available.")
         }
+        
         return self
     }
     
@@ -233,7 +293,10 @@ public class Layout {
     public func topLeft(child: UIView, top: CGFloat = 0, left: CGFloat = 0) -> Layout {
         if let v: UIView = context {
             Layout.alignFromTopLeft(v, child: child, top: top, left: left)
+        } else {
+            debugPrint("Parent context not available.")
         }
+        
         return self
     }
     
@@ -242,7 +305,10 @@ public class Layout {
     public func topLeft(top top: CGFloat = 0, left: CGFloat = 0) -> Layout {
         if let c: UIView = childContext {
             topLeft(c, top: top, left: left)
+        } else {
+            debugPrint("Child view context not available.")
         }
+        
         return self
     }
     
@@ -251,7 +317,10 @@ public class Layout {
     public func topRight(child: UIView, top: CGFloat = 0, right: CGFloat = 0) -> Layout {
         if let v: UIView = context {
             Layout.alignFromTopRight(v, child: child, top: top, right: right)
+        } else {
+            debugPrint("Parent context not available.")
         }
+        
         return self
     }
     
@@ -260,7 +329,10 @@ public class Layout {
     public func topRight(top top: CGFloat = 0, right: CGFloat = 0) -> Layout {
         if let c: UIView = childContext {
             topRight(c, top: top, right: right)
+        } else {
+            debugPrint("Child view context not available.")
         }
+        
         return self
     }
     
@@ -269,7 +341,10 @@ public class Layout {
     public func bottomLeft(child: UIView, bottom: CGFloat = 0, left: CGFloat = 0) -> Layout {
         if let v: UIView = context {
             Layout.alignFromBottomLeft(v, child: child, bottom: bottom, left: left)
+        } else {
+            debugPrint("Parent context not available.")
         }
+        
         return self
     }
     
@@ -278,7 +353,10 @@ public class Layout {
     public func bottomLeft(bottom bottom: CGFloat = 0, left: CGFloat = 0) -> Layout {
         if let c: UIView = childContext {
             bottomLeft(c, bottom: bottom, left: left)
+        } else {
+            debugPrint("Child view context not available.")
         }
+        
         return self
     }
     
@@ -287,6 +365,8 @@ public class Layout {
     public func bottomRight(child: UIView, bottom: CGFloat = 0, right: CGFloat = 0) -> Layout {
         if let v: UIView = context {
             Layout.alignFromBottomRight(v, child: child, bottom: bottom, right: right)
+        } else {
+            debugPrint("Parent context not available.")
         }
         
         return self
@@ -297,7 +377,10 @@ public class Layout {
     public func bottomRight(bottom bottom: CGFloat = 0, right: CGFloat = 0) -> Layout {
         if let c: UIView = childContext {
             bottomRight(c, bottom: bottom, right: right)
+        } else {
+            debugPrint("Child view context not available.")
         }
+        
         return self
     }
     
@@ -306,7 +389,10 @@ public class Layout {
     public func top(child: UIView, top: CGFloat = 0) -> Layout {
         if let v: UIView = context {
             Layout.alignFromTop(v, child: child, top: top)
+        } else {
+            debugPrint("Parent context not available.")
         }
+        
         return self
     }
     
@@ -315,7 +401,10 @@ public class Layout {
     public func top(top: CGFloat = 0) -> Layout {
         if let c: UIView = childContext {
             self.top(c, top: top)
+        }  else {
+            debugPrint("Child view context not available.")
         }
+        
         return self
     }
     
@@ -324,7 +413,10 @@ public class Layout {
     public func left(child: UIView, left: CGFloat = 0) -> Layout {
         if let v: UIView = context {
             Layout.alignFromLeft(v, child: child, left: left)
+        } else {
+            debugPrint("Parent context not available.")
         }
+        
         return self
     }
     
@@ -333,7 +425,10 @@ public class Layout {
     public func left(left: CGFloat = 0) -> Layout {
         if let c: UIView = childContext {
             self.left(c, left: left)
+        } else {
+            debugPrint("Child view context not available.")
         }
+        
         return self
     }
     
@@ -342,7 +437,10 @@ public class Layout {
     public func bottom(child: UIView, bottom: CGFloat = 0) -> Layout {
         if let v: UIView = context {
             Layout.alignFromBottom(v, child: child, bottom: bottom)
+        } else {
+            debugPrint("Parent context not available.")
         }
+        
         return self
     }
     
@@ -351,7 +449,10 @@ public class Layout {
     public func bottom(bottom: CGFloat = 0) -> Layout {
         if let c: UIView = childContext {
             self.bottom(c, bottom: bottom)
+        } else {
+            debugPrint("Child view context not available.")
         }
+        
         return self
     }
     
@@ -361,6 +462,8 @@ public class Layout {
     public func right(child: UIView, right: CGFloat = 0) -> Layout {
         if let v: UIView = context {
             Layout.alignFromRight(v, child: child, right: right)
+        } else {
+            debugPrint("Parent context not available.")
         }
         
         return self
@@ -371,7 +474,10 @@ public class Layout {
     public func right(right: CGFloat = 0) -> Layout {
         if let c: UIView = childContext {
             self.right(c, right: right)
+        } else {
+            debugPrint("Child view context not available.")
         }
+        
         return self
     }
 }
