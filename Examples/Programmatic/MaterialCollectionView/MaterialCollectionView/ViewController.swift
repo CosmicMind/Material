@@ -85,7 +85,7 @@ class ViewController: UIViewController {
 		collectionView.contentInset.top = 100
 		collectionView.spacing = 16
 		
-		view.layout.align(collectionView)
+		view.layout(collectionView).edges()
 	}
 }
 

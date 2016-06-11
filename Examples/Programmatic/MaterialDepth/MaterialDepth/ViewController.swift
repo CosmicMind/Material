@@ -70,7 +70,7 @@ class ViewController: UIViewController {
 		If this is left out, the intrinsic value is used for the view.
 		*/
 		for v in children {
-			view.layout.horizontally(v, left: 20, right: 20)
+			view.layout(v).horizontally(left: 20, right: 20)
 		}
 	}
 }

@@ -79,8 +79,7 @@ class ViewController: UIViewController {
 		cardView.leftButtons = [btn1, btn2]
 		
 		// To support orientation changes, use Layout.
-		view.layout.alignFromTop(cardView, top: 100)
-		view.layout.horizontally(cardView, left: 20, right: 20)
+        view.layout(cardView).top(100).left(20).right(20)
 	}
 	
 	private func prepareCardViewWithoutPulseBackgroundImageExample() {
@@ -117,8 +116,7 @@ class ViewController: UIViewController {
 		cardView.leftButtons = [btn1]
 		
 		// To support orientation changes, use Layout.
-		view.layout.alignFromTop(cardView, top: 100)
-		view.layout.horizontally(cardView, left: 20, right: 20)
+		view.layout(cardView).top(100).left(20).right(20)
 	}
 	
 	private func prepareCardViewWithPulseBackgroundImageExample() {
@@ -156,8 +154,7 @@ class ViewController: UIViewController {
 		cardView.leftButtons = [btn1]
 		
 		// To support orientation changes, use Layout.
-		view.layout.alignFromTop(cardView, top: 100)
-		view.layout.horizontally(cardView, left: 20, right: 20)
+		view.layout(cardView).top(100).left(20).right(20)
 	}
 	
 	private func prepareCardViewButtonBarExample() {
@@ -194,8 +191,7 @@ class ViewController: UIViewController {
 		cardView.rightButtons = [btn2, btn3]
 		
 		// To support orientation changes, use Layout.
-		view.layout.alignFromTop(cardView, top: 100)
-		view.layout.horizontally(cardView, left: 20, right: 20)
+		view.layout(cardView).top(100).left(20).right(20)		
 	}
 }
 

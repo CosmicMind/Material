@@ -74,12 +74,7 @@ class ViewController: UIViewController {
 		
 		let children: Array<UIView> = [label1, label2, label3, label4]
 		
-		// Align the labels vertically with an equal height.
-//		view.layout.vertically(children, top: 100, bottom: 100)
-		
-		// Align the labels horizontally with an equal width.
-//		view.layout.horizontally(children, left: 30, right: 30, spacing: 30)
-        
+		// Align the labels horizontally with an equal width and vertically with an equal height.
         view.layout.horizontally(children, left: 30, right: 30, spacing: 30).vertically(children, top: 100, bottom: 100)
         
 		
@@ -101,8 +96,7 @@ class ViewController: UIViewController {
 		labelCX.layer.cornerRadius = length / 2.0
 		labelCX.clipsToBounds = true
 		
-		view.layout.size(labelCX, width: length, height: length)
-		view.layout.centerHorizontally(labelCX)
+		view.layout(labelCX).width(length).height(length).centerHorizontally()
 		
 		let labelCY = UILabel()
 		labelCY.backgroundColor = MaterialColor.grey.base
@@ -111,8 +105,7 @@ class ViewController: UIViewController {
 		labelCY.layer.cornerRadius = length / 2.0
 		labelCY.clipsToBounds = true
 		
-		view.layout.size(labelCY, width: length, height: length)
-		view.layout.centerVertically(labelCY)
+		view.layout(labelCY).width(length).height(length).centerVertically()
 		
 		let labelCXY = UILabel()
 		labelCXY.backgroundColor = MaterialColor.grey.base
@@ -121,8 +114,7 @@ class ViewController: UIViewController {
 		labelCXY.layer.cornerRadius = length / 2.0
 		labelCXY.clipsToBounds = true
 		
-		view.layout.size(labelCXY, width: length, height: length)
-		view.layout.center(labelCXY)
+        view.layout(labelCXY).width(length).height(length).center()		
 	}
 }
 

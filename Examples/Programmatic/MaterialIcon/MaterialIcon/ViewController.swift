@@ -109,11 +109,11 @@ class ViewController: UIViewController {
 	
 	/// Prepares the tableView.
 	private func prepareTableView() {
-		tableView.registerClass(MaterialTableViewCell.self, forCellReuseIdentifier: "Cell")
+        view.layout(tableView).edges(top: 20)
+        tableView.registerClass(MaterialTableViewCell.self, forCellReuseIdentifier: "Cell")
 		tableView.dataSource = self
         tableView.delegate = self
         
-        view.layout.align(tableView, top: 20)
 	}
     
     private func image(iconName:String!) -> UIImage? {

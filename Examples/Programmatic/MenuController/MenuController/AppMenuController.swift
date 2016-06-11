@@ -105,7 +105,7 @@ class AppMenuController: MenuController {
 		view.backgroundColor = MaterialColor.black
 		prepareMenuView()
 	}
-	
+	
 	/// Prepares the add button.
 	private func prepareMenuView() {
 		var image: UIImage? = MaterialIcon.cm.add
@@ -148,8 +148,7 @@ class AppMenuController: MenuController {
 		menuView.menu.views = [menuButton, blueButton, greenButton, yellowButton]
 		menuView.delegate = self
 		
-		view.layout.size(menuView, width: baseSize.width, height: baseSize.height)
-		view.layout.alignFromBottomRight(menuView, bottom: menuViewInset, right: menuViewInset)
+		view.layout(menuView).width(baseSize.width).height(baseSize.height).bottom(menuViewInset).right(menuViewInset)		
 	}
 }
 

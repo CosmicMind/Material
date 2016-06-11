@@ -169,7 +169,7 @@ class RecipesViewController: UIViewController {
 		tableView.delegate = self
 		
 		// Use Layout to easily align the tableView.
-		view.layout.edges(tableView)
+		view.layout(tableView).edges()
 	}
 }
 
@@ -214,7 +214,7 @@ extension RecipesViewController: UITableViewDataSource {
 		label.textColor = MaterialColor.grey.darken1
 		label.text = "Favorites"
 		
-		header.layout.edges(label, left: 24)
+		header.layout(label).edges(left: 24)
 		
 		return header
 	}

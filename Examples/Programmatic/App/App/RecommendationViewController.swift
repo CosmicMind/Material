@@ -70,7 +70,7 @@ class RecommendationViewController: UIViewController {
 		tableView.delegate = self
 		
 		// Use Layout to easily align the tableView.
-		view.layout.edges(tableView)
+		view.layout(tableView).edges()
 	}
 }
 
@@ -115,7 +115,7 @@ extension RecommendationViewController: UITableViewDataSource {
 		label.textColor = MaterialColor.grey.darken1
 		label.text = "Recommendations"
 		
-		header.layout.edges(label, left: 24)
+		header.layout(label).edges(left: 24)
 		
 		return header
 	}

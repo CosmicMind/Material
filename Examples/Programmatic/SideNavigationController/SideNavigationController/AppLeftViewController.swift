@@ -74,8 +74,8 @@ class AppLeftViewController: UIViewController {
 		tableView.delegate = self
 		tableView.separatorStyle = .None
 		
-		// Use Layout to easily align the tableView.
-		view.layout.align.edges(tableView)
+		// Use Layout to easily align the tableView.        
+        view.layout(tableView).edges(top: 170)
 	}
 }
 
