@@ -96,15 +96,8 @@ class AppLeftViewController: UIViewController {
 		nameLabel.textColor = MaterialColor.white
 		nameLabel.font = RobotoFont.mediumWithSize(18)
 		
-		view.layout.size(profileView, width: 72, height: 72)
-		view.layout.align.topLeft(profileView, top: 30, left: (view.bounds.width - 72) / 2)
-		
-		view.addSubview(nameLabel)
-		view.layout.align
-		Layout.alignFromTop(view, child: nameLabel, top: 130)
-		Layout.alignToParentHorizontally(view, child: nameLabel, left: 20, right: 20)
-//		view.layout.alignFromTop(nameLabel, top: 130)
-//		view.layout.horizontally(nameLabel, left: 20, right: 20)
+		view.layout(profileView).width(72).height(72).top(30).centerHorizontally()
+        view.layout(nameLabel).top(130).left(20).right(20)
 	}
 	
 	/// Prepares the tableView.
@@ -116,7 +109,7 @@ class AppLeftViewController: UIViewController {
 		tableView.separatorStyle = .None
 		
 		// Use Layout to easily align the tableView.
-		view.layout.align.edges(tableView, top: 170)
+        view.layout(tableView).edges(top: 170)
 	}
 }
 

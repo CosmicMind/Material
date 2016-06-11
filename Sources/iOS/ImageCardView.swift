@@ -378,9 +378,9 @@ public class ImageCardView : MaterialPulseView {
 				verticalFormat += "-[titleLabel]"
 				views["titleLabel"] = v
 			} else {
-				layout.align.top(v, top: contentInset.top + titleLabelInset.top)
+				layout(v).top(contentInset.top + titleLabelInset.top)
 			}
-			layout.horizontally(v, left: contentInset.left + titleLabelInset.left, right: contentInset.right + titleLabelInset.right)
+			layout(v).horizontally(left: contentInset.left + titleLabelInset.left, right: contentInset.right + titleLabelInset.right)
 		}
 		
 		// detail
@@ -395,7 +395,7 @@ public class ImageCardView : MaterialPulseView {
 			verticalFormat += "-[contentView]"
 			views["contentView"] = v
 			
-			layout.horizontally(v, left: contentInset.left + contentViewInset.left, right: contentInset.right + contentViewInset.right)
+			layout(v).horizontally(left: contentInset.left + contentViewInset.left, right: contentInset.right + contentViewInset.right)
 		}
 		
 		// leftButtons
@@ -417,7 +417,7 @@ public class ImageCardView : MaterialPulseView {
 					
 					h += "[\(k)]"
 					
-					layout.align.bottom(b, bottom: contentInset.bottom + leftButtonsInset.bottom)
+					layout(b).bottom(contentInset.bottom + leftButtonsInset.bottom)
 					
 					i += 1
 				}
@@ -446,7 +446,7 @@ public class ImageCardView : MaterialPulseView {
 						h += "-(right_left)-"
 					}
 					
-					layout.align.bottom(b, bottom: contentInset.bottom + rightButtonsInset.bottom)
+					layout(b).bottom(contentInset.bottom + rightButtonsInset.bottom)
 					
 					i -= 1
 				}

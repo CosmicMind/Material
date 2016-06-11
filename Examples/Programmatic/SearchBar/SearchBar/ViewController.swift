@@ -59,7 +59,7 @@ class ViewController: UIViewController {
 	/// Prepares the containerView.
 	private func prepareContainerView() {
 		containerView = UIView()
-		view.layout.align(containerView, top: 100, left: 20, right: 20)
+		view.layout(containerView).edges(top: 100, left: 20, right: 20)
 	}
 	
 	/// Prepares the toolbar

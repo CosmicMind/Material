@@ -82,7 +82,7 @@ class ItemViewController: UIViewController {
 		scrollView.frame = view.bounds
 		scrollView.removeConstraints(scrollView.constraints)
 		
-		scrollView.layout.width(imageCardView, width: scrollView.bounds.width)
+		scrollView.layout(imageCardView).width(scrollView.bounds.width)
 		imageCardView.layoutIfNeeded()
 		
 		scrollView.contentSize = CGSizeMake(view.bounds.width, imageCardView.height)

@@ -70,8 +70,7 @@ class ViewController: UIViewController, TextFieldDelegate {
 		btn.setTitleColor(MaterialColor.blue.base, forState: .Normal)
 		btn.setTitleColor(MaterialColor.blue.base, forState: .Highlighted)
 		
-		view.layout.size(btn, width: 100, height: 50)
-		view.layout.alignFromBottomRight(btn, bottom: 24, right: 24)
+		view.layout(btn).width(100).height(50).bottom(24).right(24)
 	}
 	
 	/// Handle the resign responder button.
@@ -93,8 +92,7 @@ class ViewController: UIViewController, TextFieldDelegate {
 		
 		// Size the TextField to the maximum width, less 40 pixels on either side
 		// with a top margin of 40 pixels.
-		view.layout.alignFromTop(nameField, top: 40)
-		view.layout.horizontally(nameField, left: 40, right: 40)
+		view.layout(nameField).top(40).horizontally(left: 40, right: 40)
 	}
 	
 	/// Prepares the email TextField.
@@ -125,8 +123,7 @@ class ViewController: UIViewController, TextFieldDelegate {
 		
 		// Size the TextField to the maximum width, less 40 pixels on either side
 		// with a top margin of 200 pixels.
-		view.layout.alignFromTop(passwordField, top: 200)
-		view.layout.horizontally(passwordField, left: 40, right: 40)
+		view.layout(passwordField).top(200).horizontally(left: 40, right: 40)		
 	}
 	
 	/// Executed when the 'return' key is pressed when using the emailField.
