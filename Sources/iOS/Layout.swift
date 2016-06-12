@@ -57,19 +57,23 @@ public class Layout {
 	
 	/**
 	Prints a debug message when the parent context is not available.
+	- Parameter function: A String representation of the function that
+	caused the issue.
 	- Returns: The current Layout instance.
 	*/
-	public func debugParentNotAvailableMessage() -> Layout {
-		debugPrint("[Material Layout Error: Parent view context is not available.")
+	public func debugParentNotAvailableMessage(function: String = #function) -> Layout {
+		debugPrint("[Material Layout Error: Parent view context is not available for \(function).")
 		return self
 	}
 	
 	/**
 	Prints a debug message when the child context is not available.
+	- Parameter function: A String representation of the function that
+	caused the issue.
 	- Returns: The current Layout instance.
 	*/
-	public func debugChildNotAvailableMessage() -> Layout {
-		debugPrint("[Material Layout Error: Chld view context is not available.")
+	public func debugChildNotAvailableMessage(function: String = #function) -> Layout {
+		debugPrint("[Material Layout Error: Chld view context is not available for \(function).")
 		return self
 	}
 
@@ -83,6 +87,7 @@ public class Layout {
 		guard let v: UIView = parent else {
 			return debugParentNotAvailableMessage()
         }
+		self.child = child
 		Layout.width(v, child: child, width: width)
         return self
 	}
@@ -109,6 +114,7 @@ public class Layout {
 		guard let v: UIView = parent else {
 			return debugParentNotAvailableMessage()
         }
+		self.child = child
         Layout.height(v, child: child, height: height)
 		return self
 	}
@@ -136,6 +142,7 @@ public class Layout {
 		guard let v: UIView = parent else {
 			return debugParentNotAvailableMessage()
         }
+		self.child = child
         Layout.size(v, child: child, width: width, height: height)
         return self
 	}
@@ -198,6 +205,7 @@ public class Layout {
 		guard let v: UIView = parent else {
 			return debugParentNotAvailableMessage()
         }
+		self.child = child
         Layout.horizontally(v, child: child, left: left, right: right)
         return self
 	}
@@ -226,6 +234,7 @@ public class Layout {
 		guard let v: UIView = parent else {
 			return debugParentNotAvailableMessage()
         }
+		self.child = child
         Layout.vertically(v, child: child, top: top, bottom: bottom)
         return self
 	}
@@ -256,6 +265,7 @@ public class Layout {
 		guard let v: UIView = parent else {
 			return debugParentNotAvailableMessage()
 		}
+		self.child = child
 		Layout.edges(v, child: child, top: top, left: left, bottom: bottom, right: right)
 		return self
 	}
@@ -286,6 +296,7 @@ public class Layout {
 		guard let v: UIView = parent else {
 			return debugParentNotAvailableMessage()
 		}
+		self.child = child
 		Layout.top(v, child: child, top: top)
 		return self
 	}
@@ -312,6 +323,7 @@ public class Layout {
 		guard let v: UIView = parent else {
 			return debugParentNotAvailableMessage()
 		}
+		self.child = child
 		Layout.left(v, child: child, left: left)
 		return self
 	}
@@ -338,6 +350,7 @@ public class Layout {
 		guard let v: UIView = parent else {
 			return debugParentNotAvailableMessage()
 		}
+		self.child = child
 		Layout.bottom(v, child: child, bottom: bottom)
 		return self
 	}
@@ -365,6 +378,7 @@ public class Layout {
 		guard let v: UIView = parent else {
 			return debugParentNotAvailableMessage()
 		}
+		self.child = child
 		Layout.right(v, child: child, right: right)
 		return self
 	}
@@ -392,6 +406,7 @@ public class Layout {
 		guard let v: UIView = parent else {
 			return debugParentNotAvailableMessage()
 		}
+		self.child = child
 		Layout.topLeft(v, child: child, top: top, left: left)
 		return self
 	}
@@ -420,6 +435,7 @@ public class Layout {
 		guard let v: UIView = parent else {
 			return debugParentNotAvailableMessage()
 		}
+		self.child = child
 		Layout.topRight(v, child: child, top: top, right: right)
 		return self
 	}
@@ -448,6 +464,7 @@ public class Layout {
 		guard let v: UIView = parent else {
 			return debugParentNotAvailableMessage()
 		}
+		self.child = child
 		Layout.bottomLeft(v, child: child, bottom: bottom, left: left)
 		return self
 	}
@@ -476,6 +493,7 @@ public class Layout {
 		guard let v: UIView = parent else {
 			return debugParentNotAvailableMessage()
 		}
+		self.child = child
 		Layout.bottomRight(v, child: child, bottom: bottom, right: right)
 		return self
 	}
@@ -504,6 +522,7 @@ public class Layout {
 		guard let v: UIView = parent else {
 			return debugParentNotAvailableMessage()
         }
+		self.child = child
 		Layout.center(v, child: child, offsetX: offsetX, offsetY: offsetY)
         return self
 	}
@@ -531,6 +550,7 @@ public class Layout {
 		guard let v: UIView = parent else {
 			return debugParentNotAvailableMessage()
         }
+		self.child = child
         Layout.centerHorizontally(v, child: child, offset: offset)
         return self
 	}
@@ -557,6 +577,7 @@ public class Layout {
 		guard let v: UIView = parent else {
 			return debugParentNotAvailableMessage()
         }
+		self.child = child
         Layout.centerVertically(v, child: child, offset: offset)
         return self
 	}
