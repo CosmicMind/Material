@@ -74,7 +74,7 @@ class ItemViewController: UIViewController {
 	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
-		sideNavigationController?.enabled = false
+		navigationDrawerController?.enabled = false
 	}
 	
 	override func viewWillLayoutSubviews() {

@@ -51,7 +51,7 @@ class RecipesViewController: UIViewController {
 		automaticallyAdjustsScrollViewInsets = true
 		
 		// Enable the SideNavigation.
-		sideNavigationController?.enabled = true
+		navigationDrawerController?.enabled = true
 	}
 	
 	/// Prepares the items Array.

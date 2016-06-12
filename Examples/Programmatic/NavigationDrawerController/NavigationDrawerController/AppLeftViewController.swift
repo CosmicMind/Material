@@ -74,8 +74,8 @@ class AppLeftViewController: UIViewController {
 		tableView.delegate = self
 		tableView.separatorStyle = .None
 		
-		// Use Layout to easily align the tableView.        
-        view.layout(tableView).edges(top: 170)
+		// Use Layout to easily align the tableView.
+		view.layout(tableView).edges(top: 170)
 	}
 }
 
@@ -116,22 +116,22 @@ extension AppLeftViewController: UITableViewDelegate {
 		
 		switch item.text {
 		case "Orange":
-			sideNavigationController?.transitionFromRootViewController(OrangeViewController())
+			navigationDrawerController?.transitionFromRootViewController(OrangeViewController())
 		case "Purple":
-			sideNavigationController?.transitionFromRootViewController(PurpleViewController())
+			navigationDrawerController?.transitionFromRootViewController(PurpleViewController())
 		case "Green":
-			sideNavigationController?.transitionFromRootViewController(GreenViewController())
+			navigationDrawerController?.transitionFromRootViewController(GreenViewController())
 		case "Blue":
-			sideNavigationController?.transitionFromRootViewController(BlueViewController())
+			navigationDrawerController?.transitionFromRootViewController(BlueViewController())
 		case "Yellow":
-			// To close the sideNavigationController after loading the UIViewController, use the following.
-			sideNavigationController?.transitionFromRootViewController(YellowViewController(),
-				duration: 1,
-				options: .TransitionNone,
-				animations: nil,
-				completion: { [weak self] _ in
-					self?.sideNavigationController?.closeLeftView()
-				})
+			// To close the navigationDrawerController after loading the UIViewController, use the following.
+			navigationDrawerController?.transitionFromRootViewController(YellowViewController(),
+			   duration: 1,
+			   options: .TransitionNone,
+			   animations: nil,
+			   completion: { [weak self] _ in
+				self?.navigationDrawerController?.closeLeftView()
+			   })
 		default:break
 		}
 	}

@@ -36,23 +36,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	var window: UIWindow?
 	
+	
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-		let navigationController: NavigationController = NavigationController(rootViewController: YellowViewController())
-		let sideNavigationController: SideNavigationController = SideNavigationController(rootViewController: navigationController, leftViewController: AppLeftViewController(), rightViewController: BlueViewController())
+		// Get view controllers from storyboard
+		let storyboard = UIStoryboard(name: "Main", bundle: nil)
+		let rootViewController = storyboard.instantiateViewControllerWithIdentifier("RootViewController") as! RootViewController
+		let drawerViewController = storyboard.instantiateViewControllerWithIdentifier("DrawerViewController") as! DrawerViewController
 		
-//		sideNavigationController.enabled = true
-//		
-//		sideNavigationController.enabledLeftView = true
-//		sideNavigationController.enabledLeftTapGesture = true
-//		sideNavigationController.enabledLeftPanGesture = true
-//		
-//		sideNavigationController.enabledRightView = true
-//		sideNavigationController.enabledRightTapGesture = true
-//		sideNavigationController.enabledRightPanGesture = true
-		
+		// Configure the window with the NavigationDrawerController as the root view controller
 		window = UIWindow(frame: UIScreen.mainScreen().bounds)
-		window!.rootViewController = sideNavigationController
-		window!.makeKeyAndVisible()
+		window?.rootViewController = NavigationDrawerController(rootViewController: rootViewController, leftViewController: drawerViewController)
+		window?.makeKeyAndVisible()
 		return true
 	}
 	
@@ -77,5 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func applicationWillTerminate(application: UIApplication) {
 		// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 	}
+	
+	
 }
 

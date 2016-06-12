@@ -58,7 +58,7 @@ class AppBottomNavigationController: BottomNavigationController {
 	
 	/// Handles the menuButton.
 	internal func handleMenuButton() {
-		sideNavigationController?.openLeftView()
+		navigationDrawerController?.openLeftView()
 	}
 	
 	/// Handles the searchButton.

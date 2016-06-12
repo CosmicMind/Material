@@ -44,7 +44,7 @@ class AppToolbarController: ToolbarController {
 		prepareToolbar()
 	}
 	
-	/// Toggle SideNavigationController right UIViewController.
+	/// Toggle NavigationDrawerController right UIViewController.
 	internal func handleSearchButton() {
 		floatingViewController = GreenViewController()
 		

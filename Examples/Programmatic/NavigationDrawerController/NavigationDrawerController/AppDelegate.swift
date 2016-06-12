@@ -37,11 +37,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var window: UIWindow?
 	
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+		let navigationController: NavigationController = NavigationController(rootViewController: YellowViewController())
+		let navigationDrawerController: NavigationDrawerController = NavigationDrawerController(rootViewController: navigationController, leftViewController: AppLeftViewController(), rightViewController: BlueViewController())
 		
-        let bottomNavigationController: AppBottomNavigationController = AppBottomNavigationController()
-		let navigationController: AppNavigationController = AppNavigationController(rootViewController: bottomNavigationController)
-		let navigationDrawerController: NavigationDrawerController = NavigationDrawerController(rootViewController: navigationController, leftViewController: AppLeftViewController())
-		navigationDrawerController.statusBarStyle = .LightContent
+		//		navigationDrawerController.enabled = true
+		//
+		//		navigationDrawerController.enabledLeftView = true
+		//		navigationDrawerController.enabledLeftTapGesture = true
+		//		navigationDrawerController.enabledLeftPanGesture = true
+		//
+		//		navigationDrawerController.enabledRightView = true
+		//		navigationDrawerController.enabledRightTapGesture = true
+		//		navigationDrawerController.enabledRightPanGesture = true
 		
 		window = UIWindow(frame: UIScreen.mainScreen().bounds)
 		window!.rootViewController = navigationDrawerController

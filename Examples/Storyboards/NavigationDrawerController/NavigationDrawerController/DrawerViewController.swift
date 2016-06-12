@@ -29,26 +29,11 @@
 */
 
 import UIKit
-import Material
 
-class RootViewController: UIViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-		
-		// Toggle SideNavigationController.
-		let img: UIImage? = UIImage(named: "ic_create_white")
-		let fabButton: FabButton = FabButton()
-		fabButton.setImage(img, forState: .Normal)
-		fabButton.setImage(img, forState: .Highlighted)
-		fabButton.addTarget(self, action: #selector(handleFabButton), forControlEvents: .TouchUpInside)
-		
-		view.layout(fabButton).width(64).height(64).bottom(16).right(16)
-    }
-	
-	// FabButton handler.
-	func handleFabButton() {
-		sideNavigationController?.toggleLeftView()
+class DrawerViewController: UIViewController {
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		// Do any additional setup after loading the view, typically from a nib.
 	}
 }
 

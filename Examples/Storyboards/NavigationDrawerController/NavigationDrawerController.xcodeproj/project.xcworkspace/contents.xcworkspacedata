@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:SideNavigationViewController.xcodeproj">
+      location = "self:NavigationDrawerController.xcodeproj">
    </FileRef>
 </Workspace>

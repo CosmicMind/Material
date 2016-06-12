@@ -41,7 +41,7 @@ public class Layout {
 	An initializer that takes in a parent context.
 	- Parameter parent: An optional parent UIView.
 	*/
-	init(parent: UIView?) {
+	public init(parent: UIView?) {
 		self.parent = parent
 	}
 
@@ -50,7 +50,7 @@ public class Layout {
 	- Parameter parent: An optional parent UIView.
 	- Parameter child: An optional child UIView.
 	*/
-	init(parent: UIView?, child: UIView?) {
+	public init(parent: UIView?, child: UIView?) {
         self.parent = parent
         self.child = child
     }
@@ -61,7 +61,7 @@ public class Layout {
 	caused the issue.
 	- Returns: The current Layout instance.
 	*/
-	public func debugParentNotAvailableMessage(function: String = #function) -> Layout {
+	internal func debugParentNotAvailableMessage(function: String = #function) -> Layout {
 		debugPrint("[Material Layout Error: Parent view context is not available for \(function).")
 		return self
 	}
@@ -72,7 +72,7 @@ public class Layout {
 	caused the issue.
 	- Returns: The current Layout instance.
 	*/
-	public func debugChildNotAvailableMessage(function: String = #function) -> Layout {
+	internal func debugChildNotAvailableMessage(function: String = #function) -> Layout {
 		debugPrint("[Material Layout Error: Chld view context is not available for \(function).")
 		return self
 	}
