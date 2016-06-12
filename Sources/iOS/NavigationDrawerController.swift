@@ -400,13 +400,7 @@ public class NavigationDrawerController : UIViewController, UIGestureRecognizerD
 	
 	public override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
 		super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-        // Portrait will be Lanscape when this method is done.
-        if MaterialDevice.isPortrait && .iPhone == MaterialDevice.type {
-            hideStatusBar()
-        } else {
-            showStatusBar()
-        }
-		closeLeftView()
+        closeLeftView()
 		closeRightView()
 		
 		// Ensures the view is hidden.
@@ -725,7 +719,6 @@ public class NavigationDrawerController : UIViewController, UIGestureRecognizerD
 	public func closeRightView(velocity: CGFloat = 0) {
 		if enabledRightView {
 			if let v: MaterialView = rightView {
-				showStatusBar()
 				userInteractionEnabled = true
 				delegate?.navigationDrawerWillClose?(self, position: .Right)
 				UIView.animateWithDuration(Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.x / velocity)))),
@@ -841,7 +834,7 @@ public class NavigationDrawerController : UIViewController, UIGestureRecognizerD
 					let a: CGFloat = 1 - (view.bounds.width - v.position.x) / v.width
 					rootViewController.view.alpha = 0.5 < a && v.position.x >= v.width / 2 ? a : 0.5
 					
-					if translationX <= view.bounds.width - rightThreshold {
+					if translationX <= -rightThreshold {
 						hideStatusBar()
 					}
 					
@@ -914,17 +907,12 @@ public class NavigationDrawerController : UIViewController, UIGestureRecognizerD
 	
 	/// A method that prepares the rootViewController.
 	private func prepareRootViewController() {
-		rootViewController.view.clipsToBounds = true
-        rootViewController.view.frame = view.bounds
-		rootViewController.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
 		prepareViewControllerWithinContainer(rootViewController, container: view)
 	}
 	
 	/// A method that prepares the leftViewController.
 	private func prepareLeftViewController() {
 		if let v: MaterialView = leftView {
-			leftViewController?.view.clipsToBounds = true
-			leftViewController?.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
 			prepareViewControllerWithinContainer(leftViewController, container: v)
 			prepareLeftViewGestures()
 		}
@@ -933,8 +921,6 @@ public class NavigationDrawerController : UIViewController, UIGestureRecognizerD
 	/// A method that prepares the rightViewController.
 	private func prepareRightViewController() {
 		if let v: MaterialView = rightView {
-			rightViewController?.view.clipsToBounds = true
-			leftViewController?.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
 			prepareViewControllerWithinContainer(rightViewController, container: v)
 			prepareRightViewGestures()
 		}
@@ -991,9 +977,11 @@ public class NavigationDrawerController : UIViewController, UIGestureRecognizerD
 	private func prepareViewControllerWithinContainer(viewController: UIViewController?, container: UIView) {
 		if let v: UIViewController = viewController {
 			addChildViewController(v)
+			v.didMoveToParentViewController(self)
+			v.view.clipsToBounds = true
+			v.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
 			container.addSubview(v.view)
 			container.sendSubviewToBack(v.view)
-			v.didMoveToParentViewController(self)
 		}
 	}
 	
@@ -1098,8 +1086,8 @@ public class NavigationDrawerController : UIViewController, UIGestureRecognizerD
 			willHideStatusBar = false
 			UIView.animateWithDuration(NSTimeInterval(UINavigationControllerHideShowBarDuration),
 				animations: { [weak self] in
-                    self?.setNeedsStatusBarAppearanceUpdate()
-                    self?.statusBarHidden = false
+					self?.statusBarHidden = false
+					self?.setNeedsStatusBarAppearanceUpdate()
                 })
             delegate?.navigationDrawerStatusBarHiddenState?(self, hidden: false)
 		}
@@ -1112,8 +1100,8 @@ public class NavigationDrawerController : UIViewController, UIGestureRecognizerD
 			if !statusBarHidden {
 				UIView.animateWithDuration(NSTimeInterval(UINavigationControllerHideShowBarDuration),
 					animations: { [weak self] in
-                        self?.setNeedsStatusBarAppearanceUpdate()
-                        self?.statusBarHidden = true
+						self?.statusBarHidden = true
+						self?.setNeedsStatusBarAppearanceUpdate()
                     })
                 delegate?.navigationDrawerStatusBarHiddenState?(self, hidden: true)
 			}

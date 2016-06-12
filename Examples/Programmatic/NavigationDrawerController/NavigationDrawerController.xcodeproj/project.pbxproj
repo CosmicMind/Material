@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		967A48071D0E0EA300B8CEB7 /* AppRightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967A48061D0E0EA300B8CEB7 /* AppRightViewController.swift */; };
+		967A48091D0E127200B8CEB7 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 967A48081D0E127200B8CEB7 /* Material.framework */; };
+		967A480A1D0E127200B8CEB7 /* Material.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 967A48081D0E127200B8CEB7 /* Material.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		96CB75011D0DFDBB0012D9F2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CB75001D0DFDBB0012D9F2 /* AppDelegate.swift */; };
 		96CB75031D0DFDBB0012D9F2 /* AppLeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CB75021D0DFDBB0012D9F2 /* AppLeftViewController.swift */; };
 		96CB75081D0DFDBB0012D9F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96CB75071D0DFDBB0012D9F2 /* Assets.xcassets */; };
@@ -25,6 +28,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				967A480A1D0E127200B8CEB7 /* Material.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -32,6 +36,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		967A48061D0E0EA300B8CEB7 /* AppRightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppRightViewController.swift; sourceTree = "<group>"; };
+		967A48081D0E127200B8CEB7 /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = Material.framework; path = "/Users/danieldahan/Library/Developer/Xcode/DerivedData/Material-dciwtavdzrmtrifplxfnouazaqvx/Build/Products/Debug-iphoneos/Material.framework"; sourceTree = "<absolute>"; };
 		96CB74FD1D0DFDBB0012D9F2 /* NavigationDrawerController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NavigationDrawerController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96CB75001D0DFDBB0012D9F2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96CB75021D0DFDBB0012D9F2 /* AppLeftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLeftViewController.swift; sourceTree = "<group>"; };
@@ -50,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				967A48091D0E127200B8CEB7 /* Material.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +66,7 @@
 		96CB74F41D0DFDBB0012D9F2 = {
 			isa = PBXGroup;
 			children = (
+				967A48081D0E127200B8CEB7 /* Material.framework */,
 				96CB74FF1D0DFDBB0012D9F2 /* NavigationDrawerController */,
 				96CB74FE1D0DFDBB0012D9F2 /* Products */,
 			);
@@ -77,6 +85,7 @@
 			children = (
 				96CB75001D0DFDBB0012D9F2 /* AppDelegate.swift */,
 				96CB75021D0DFDBB0012D9F2 /* AppLeftViewController.swift */,
+				967A48061D0E0EA300B8CEB7 /* AppRightViewController.swift */,
 				96CB75121D0DFF6F0012D9F2 /* YellowViewController.swift */,
 				96CB75141D0DFF840012D9F2 /* BlueViewController.swift */,
 				96CB75161D0DFF9C0012D9F2 /* GreenViewController.swift */,
@@ -165,6 +174,7 @@
 				96CB75191D0DFFAE0012D9F2 /* PurpleViewController.swift in Sources */,
 				96CB75151D0DFF840012D9F2 /* BlueViewController.swift in Sources */,
 				96CB75011D0DFDBB0012D9F2 /* AppDelegate.swift in Sources */,
+				967A48071D0E0EA300B8CEB7 /* AppRightViewController.swift in Sources */,
 				96CB751B1D0DFFC10012D9F2 /* OrangeViewController.swift in Sources */,
 				96CB75171D0DFF9C0012D9F2 /* GreenViewController.swift in Sources */,
 			);

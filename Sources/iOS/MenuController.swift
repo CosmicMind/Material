@@ -196,8 +196,6 @@ public class MenuController : UIViewController {
 	
 	/// A method that prepares the rootViewController.
 	private func prepareRootViewController() {
-		rootViewController.view.clipsToBounds = true
-		rootViewController.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
 		prepareViewControllerWithinContainer(rootViewController, container: view)
 	}
 	
@@ -212,9 +210,11 @@ public class MenuController : UIViewController {
 	private func prepareViewControllerWithinContainer(viewController: UIViewController?, container: UIView) {
 		if let v: UIViewController = viewController {
 			addChildViewController(v)
+			v.didMoveToParentViewController(self)
+			v.view.clipsToBounds = true
+			v.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
 			container.addSubview(v.view)
 			container.sendSubviewToBack(v.view)
-			v.didMoveToParentViewController(self)
 		}
 	}
 	

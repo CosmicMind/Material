@@ -38,8 +38,8 @@ class YellowViewController: UIViewController {
 	/// NavigationBar switch control.
 	private var switchControl: MaterialSwitch!
 	
-	/// NavigationBar search button.
-	private var searchButton: IconButton!
+	/// NavigationBar more button.
+	private var moreButton: IconButton!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -58,6 +58,10 @@ class YellowViewController: UIViewController {
 	
 	internal func handleMenuButton() {
 		navigationDrawerController?.openLeftView()
+	}
+	
+	internal func handleMoreButton() {
+		navigationDrawerController?.openRightView()
 	}
 	
 	/// Prepares the view.
@@ -82,11 +86,12 @@ class YellowViewController: UIViewController {
 	
 	/// Prepares the searchButton.
 	private func prepareSearchButton() {
-		let image: UIImage? = MaterialIcon.cm.search
-		searchButton = IconButton()
-		searchButton.pulseColor = MaterialColor.white
-		searchButton.setImage(image, forState: .Normal)
-		searchButton.setImage(image, forState: .Highlighted)
+		let image: UIImage? = MaterialIcon.cm.moreVertical
+		moreButton = IconButton()
+		moreButton.pulseColor = MaterialColor.white
+		moreButton.setImage(image, forState: .Normal)
+		moreButton.setImage(image, forState: .Highlighted)
+		moreButton.addTarget(self, action: #selector(handleMoreButton), forControlEvents: .TouchUpInside)
 	}
 	
 	/// Prepares the navigationItem.
@@ -96,7 +101,7 @@ class YellowViewController: UIViewController {
 		navigationItem.titleLabel.font = RobotoFont.mediumWithSize(20)
 		
 		navigationItem.leftControls = [menuButton]
-		navigationItem.rightControls = [switchControl, searchButton]
+		navigationItem.rightControls = [switchControl, moreButton]
 	}
 	
 	/// Prepares the navigationBar.
