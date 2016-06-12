@@ -107,9 +107,7 @@ class AppBottomNavigationController: BottomNavigationController {
 	
 	/// Prepares the view controllers.
 	private func prepareViewControllers() {
-		let menuController: AppMenuController = AppMenuController(rootViewController: RecipesViewController())
-		menuController.edgesForExtendedLayout = .None
-		viewControllers = [menuController, VideoViewController(), PhotoViewController()]
+		viewControllers = [RecipesViewController(), VideoViewController(), PhotoViewController()]
 		selectedIndex = 0
 	}
 	

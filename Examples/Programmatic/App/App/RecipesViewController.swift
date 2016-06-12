@@ -38,6 +38,19 @@ class RecipesViewController: UIViewController {
 	/// A tableView used to display items.
 	private var tableView: UITableView!
 	
+	required init?(coder aDecoder: NSCoder) {
+		super.init(coder: aDecoder)
+	}
+	
+	override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+	}
+	
+	init() {
+		super.init(nibName: nil, bundle: nil)
+		prepareTabBarItem()
+	}
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
@@ -48,7 +61,7 @@ class RecipesViewController: UIViewController {
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 		// Stops the tableView contentInsets from being automatically adjusted.
-		automaticallyAdjustsScrollViewInsets = true
+		edgesForExtendedLayout = .None
 		
 		// Enable the SideNavigation.
 		navigationDrawerController?.enabled = true
@@ -170,6 +183,13 @@ class RecipesViewController: UIViewController {
 		
 		// Use Layout to easily align the tableView.
 		view.layout(tableView).edges()
+	}
+	
+	/// Prepare tabBarItem.
+	private func prepareTabBarItem() {
+		tabBarItem.image = MaterialIcon.cm.photoLibrary
+		tabBarItem.setTitleColor(MaterialColor.grey.base, forState: .Normal)
+		tabBarItem.setTitleColor(MaterialColor.white, forState: .Selected)
 	}
 }
 
