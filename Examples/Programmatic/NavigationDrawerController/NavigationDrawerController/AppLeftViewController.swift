@@ -41,7 +41,7 @@ class AppLeftViewController: UIViewController {
 	private var tableView: UITableView!
 	
 	/// A list of all the navigation items.
-	private var items: Array<Item>!
+	private var dataSourceItems: Array<Item>!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -57,12 +57,11 @@ class AppLeftViewController: UIViewController {
 	
 	/// Prepares the items that are displayed within the tableView.
 	private func prepareCells() {
-		items = Array<Item>()
-		items.append(Item(text: "Orange", image: MaterialIcon.cm.audioLibrary))
-		items.append(Item(text: "Purple", image: MaterialIcon.cm.photoLibrary))
-		items.append(Item(text: "Green", image: MaterialIcon.cm.microphone))
-		items.append(Item(text: "Blue", image: MaterialIcon.cm.audio))
-		items.append(Item(text: "Yellow", image: MaterialIcon.cm.settings))
+		dataSourceItems = Array<Item>()
+		dataSourceItems.append(Item(text: "Orange", image: MaterialIcon.cm.audioLibrary))
+		dataSourceItems.append(Item(text: "Purple", image: MaterialIcon.cm.photoLibrary))
+		dataSourceItems.append(Item(text: "Green", image: MaterialIcon.cm.microphone))
+		dataSourceItems.append(Item(text: "Blue", image: MaterialIcon.cm.audio))
 	}
 	
 	/// Prepares the tableView.
@@ -75,7 +74,7 @@ class AppLeftViewController: UIViewController {
 		tableView.separatorStyle = .None
 		
 		// Use Layout to easily align the tableView.
-		view.layout(tableView).edges(top: 170)
+		view.layout(tableView).edges(top: 64)
 	}
 }
 
@@ -83,14 +82,14 @@ class AppLeftViewController: UIViewController {
 extension AppLeftViewController: UITableViewDataSource {
 	/// Determines the number of rows in the tableView.
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return items.count;
+		return dataSourceItems.count;
 	}
 	
 	/// Prepares the cells within the tableView.
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell: MaterialTableViewCell = tableView.dequeueReusableCellWithIdentifier("MaterialTableViewCell", forIndexPath: indexPath) as! MaterialTableViewCell
 		
-		let item: Item = items[indexPath.row]
+		let item: Item = dataSourceItems[indexPath.row]
 		
 		cell.textLabel!.text = item.text
 		cell.textLabel!.textColor = MaterialColor.grey.lighten2
@@ -112,27 +111,20 @@ extension AppLeftViewController: UITableViewDelegate {
 	
 	/// Select item at row in tableView.
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		let item: Item = items[indexPath.row]
+		let item: Item = dataSourceItems[indexPath.row]
 		
-		switch item.text {
-		case "Orange":
-			navigationDrawerController?.transitionFromRootViewController(OrangeViewController())
-		case "Purple":
-			navigationDrawerController?.transitionFromRootViewController(PurpleViewController())
-		case "Green":
-			navigationDrawerController?.transitionFromRootViewController(GreenViewController())
-		case "Blue":
-			navigationDrawerController?.transitionFromRootViewController(BlueViewController())
-		case "Yellow":
-			// To close the navigationDrawerController after loading the UIViewController, use the following.
-			navigationDrawerController?.transitionFromRootViewController(YellowViewController(),
-			   duration: 1,
-			   options: .TransitionNone,
-			   animations: nil,
-			   completion: { [weak self] _ in
-				self?.navigationDrawerController?.closeLeftView()
-			   })
-		default:break
+		if let v: NavigationController = navigationDrawerController?.rootViewController as? NavigationController {
+			switch item.text {
+			case "Orange":
+				v.pushViewController(OrangeViewController(), animated: true)
+			case "Purple":
+				v.pushViewController(PurpleViewController(), animated: true)
+			case "Green":
+				v.pushViewController(GreenViewController(), animated: true)
+			case "Blue":
+				v.pushViewController(BlueViewController(), animated: true)
+			default:break
+			}
 		}
 	}
 }

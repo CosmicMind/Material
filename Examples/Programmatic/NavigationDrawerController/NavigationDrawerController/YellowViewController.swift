@@ -51,9 +51,18 @@ class YellowViewController: UIViewController {
 		prepareNavigationBar()
 	}
 	
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		navigationDrawerController?.enabled = true
+	}
+	
+	internal func handleMenuButton() {
+		navigationDrawerController?.openLeftView()
+	}
+	
 	/// Prepares the view.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.grey.lighten5
+		view.backgroundColor = MaterialColor.yellow.base
 	}
 	
 	/// Prepares the menuButton.
@@ -63,6 +72,7 @@ class YellowViewController: UIViewController {
 		menuButton.pulseColor = MaterialColor.white
 		menuButton.setImage(image, forState: .Normal)
 		menuButton.setImage(image, forState: .Highlighted)
+		menuButton.addTarget(self, action: #selector(handleMenuButton), forControlEvents: .TouchUpInside)
 	}
 	
 	/// Prepares the switchControl.
@@ -81,7 +91,7 @@ class YellowViewController: UIViewController {
 	
 	/// Prepares the navigationItem.
 	private func prepareNavigationItem() {
-		navigationItem.title = "Recipes"
+		navigationItem.title = "Yellow"
 		navigationItem.titleLabel.textAlignment = .Left
 		navigationItem.titleLabel.font = RobotoFont.mediumWithSize(20)
 		

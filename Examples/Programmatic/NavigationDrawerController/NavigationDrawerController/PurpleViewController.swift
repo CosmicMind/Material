@@ -35,10 +35,24 @@ class PurpleViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
+		prepareNavigationItem()
 	}
 	
-	/// Prepares view.
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		navigationDrawerController?.closeLeftView()
+		navigationDrawerController?.enabled = false
+	}
+	
+	/// Prepares the view.
 	private func prepareView() {
 		view.backgroundColor = MaterialColor.purple.base
+	}
+	
+	/// Prepares the navigationItem.
+	private func prepareNavigationItem() {
+		navigationItem.title = "Purple"
+		navigationItem.titleLabel.textAlignment = .Left
+		navigationItem.titleLabel.font = RobotoFont.mediumWithSize(20)
 	}
 }

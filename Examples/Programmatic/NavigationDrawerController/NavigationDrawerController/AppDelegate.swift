@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		let navigationController: NavigationController = NavigationController(rootViewController: YellowViewController())
-		let navigationDrawerController: NavigationDrawerController = NavigationDrawerController(rootViewController: navigationController, leftViewController: AppLeftViewController(), rightViewController: BlueViewController())
+		let navigationDrawerController: NavigationDrawerController = NavigationDrawerController(rootViewController: navigationController, leftViewController: AppLeftViewController())
 		
 		//		navigationDrawerController.enabled = true
 		//

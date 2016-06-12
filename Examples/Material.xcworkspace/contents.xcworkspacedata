@@ -125,8 +125,5 @@
       <FileRef
          location = "group:Storyboards/BottomTabBar/BottomTabBar.xcodeproj">
       </FileRef>
-      <FileRef
-         location = "group:Storyboards/NavigationDrawerController/NavigationDrawerController.xcodeproj">
-      </FileRef>
    </Group>
 </Workspace>
