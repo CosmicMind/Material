@@ -1083,11 +1083,13 @@ public class NavigationDrawerController : UIViewController, UIGestureRecognizerD
 	/// Shows the statusBar.
 	private func showStatusBar() {
 		if statusBarHidden {
-			willHideStatusBar = false
 			UIView.animateWithDuration(NSTimeInterval(UINavigationControllerHideShowBarDuration),
 				animations: { [weak self] in
-					self?.statusBarHidden = false
-					self?.setNeedsStatusBarAppearanceUpdate()
+					if let s: NavigationDrawerController = self {
+						s.statusBarHidden = false
+						s.willHideStatusBar = false
+						s.setNeedsStatusBarAppearanceUpdate()
+					}
                 })
             delegate?.navigationDrawerStatusBarHiddenState?(self, hidden: false)
 		}
@@ -1096,12 +1098,14 @@ public class NavigationDrawerController : UIViewController, UIGestureRecognizerD
 	/// Hides the statusBar.
 	private func hideStatusBar() {
 		if enableHideStatusbar {
-			willHideStatusBar = true
 			if !statusBarHidden {
 				UIView.animateWithDuration(NSTimeInterval(UINavigationControllerHideShowBarDuration),
 					animations: { [weak self] in
-						self?.statusBarHidden = true
-						self?.setNeedsStatusBarAppearanceUpdate()
+						if let s: NavigationDrawerController = self {
+							s.statusBarHidden = true
+							s.willHideStatusBar = true
+							s.setNeedsStatusBarAppearanceUpdate()
+						}
                     })
                 delegate?.navigationDrawerStatusBarHiddenState?(self, hidden: true)
 			}
@@ -1177,6 +1181,8 @@ public class NavigationDrawerController : UIViewController, UIGestureRecognizerD
 	
 	/// Layout subviews.
 	private func layoutSubviews() {
+		rootViewController.view.frame = view.bounds
+		
 		if let v: MaterialView = leftView {
 			v.width = leftViewWidth
 			v.height = view.bounds.height
