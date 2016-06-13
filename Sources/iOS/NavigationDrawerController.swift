@@ -304,7 +304,7 @@ public class NavigationDrawerController : UIViewController, UIGestureRecognizerD
 	A Boolean property that triggers the status bar to be hidden
 	when the leftView is opened. Defaults to true.
 	*/
-	@IBInspectable public var enableHideStatusbar: Bool = true
+	@IBInspectable public var enableHideStatusbar: Bool = false
 	
 	/**
 	A MaterialDepth property that is used to set the depth of the
@@ -400,7 +400,7 @@ public class NavigationDrawerController : UIViewController, UIGestureRecognizerD
 	
 	public override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
 		super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-        closeLeftView()
+		closeLeftView()
 		closeRightView()
 		
 		// Ensures the view is hidden.

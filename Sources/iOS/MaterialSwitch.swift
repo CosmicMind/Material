@@ -181,7 +181,7 @@ public class MaterialSwitch : UIControl {
 	}
 	
 	/// Track view reference.
-	public private(set) var trackLayer: MaterialLayer {
+	public private(set) var trackLayer: CAShapeLayer {
 		didSet {
 			prepareTrack()
 		}
@@ -285,7 +285,7 @@ public class MaterialSwitch : UIControl {
 	- Parameter aDecoder: A NSCoder instance.
 	*/
 	public required init?(coder aDecoder: NSCoder) {
-		trackLayer = MaterialLayer()
+		trackLayer = CAShapeLayer()
 		button = FabButton()
 		super.init(coder: aDecoder)
 		prepareTrack()
@@ -303,7 +303,7 @@ public class MaterialSwitch : UIControl {
 	- Parameter frame: A CGRect instance.
 	*/
 	public override init(frame: CGRect) {
-		trackLayer = MaterialLayer()
+		trackLayer = CAShapeLayer()
 		button = FabButton()
 		super.init(frame: frame)
 		prepareTrack()
@@ -320,7 +320,7 @@ public class MaterialSwitch : UIControl {
 	- Parameter size: A MaterialSwitchSize value.
 	*/
 	public init(state: MaterialSwitchState = .Off, style: MaterialSwitchStyle = .Default, size: MaterialSwitchSize = .Default) {
-		trackLayer = MaterialLayer()
+		trackLayer = CAShapeLayer()
 		button = FabButton()
 		super.init(frame: CGRectNull)
 		prepareTrack()
@@ -526,7 +526,7 @@ public class MaterialSwitch : UIControl {
 		let px: CGFloat = (width - w) / 2
 		
 		trackLayer.frame = CGRectMake(px, (height - trackThickness) / 2, w, trackThickness)
-		trackLayer.cornerRadius = min(trackLayer.height, trackLayer.width) / 2
+		trackLayer.cornerRadius = min(trackLayer.frame.height, trackLayer.frame.width) / 2
 		
 		button.frame = CGRectMake(px, (height - buttonDiameter) / 2, buttonDiameter, buttonDiameter)
 		onPosition = width - px - buttonDiameter

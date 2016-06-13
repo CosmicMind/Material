@@ -37,14 +37,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var window: UIWindow?
 	
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-		
-        let bottomNavigationController: AppBottomNavigationController = AppBottomNavigationController()
+		let bottomNavigationController: AppBottomNavigationController = AppBottomNavigationController()
 		let navigationController: AppNavigationController = AppNavigationController(rootViewController: bottomNavigationController)
-		let navigationDrawerController: NavigationDrawerController = NavigationDrawerController(rootViewController: navigationController, leftViewController: AppLeftViewController())
-		navigationDrawerController.statusBarStyle = .LightContent
+		let navigationDrawerController: AppNavigationDrawerController = AppNavigationDrawerController(rootViewController: navigationController, leftViewController: AppLeftViewController())
+		let statusBarController: AppStatusBarController = AppStatusBarController(rootViewController: navigationDrawerController)
 		
 		window = UIWindow(frame: UIScreen.mainScreen().bounds)
-		window!.rootViewController = navigationDrawerController
+		window!.rootViewController = statusBarController
 		window!.makeKeyAndVisible()
 		return true
 	}

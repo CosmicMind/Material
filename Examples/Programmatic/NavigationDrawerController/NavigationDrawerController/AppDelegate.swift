@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		let navigationController: NavigationController = NavigationController(rootViewController: YellowViewController())
-		let navigationDrawerController: NavigationDrawerController = NavigationDrawerController(rootViewController: navigationController, leftViewController: AppLeftViewController(), rightViewController: AppRightViewController())
+		let navigationDrawerController: AppNavigationDrawerController = AppNavigationDrawerController(rootViewController: navigationController, leftViewController: AppLeftViewController(), rightViewController: AppRightViewController())
 		
 		//		navigationDrawerController.enabled = true
 		//
@@ -50,8 +50,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		//		navigationDrawerController.enabledRightTapGesture = true
 		//		navigationDrawerController.enabledRightPanGesture = true
 		
+		let statusBarController: AppStatusBarController = AppStatusBarController(rootViewController: navigationDrawerController)
+		
 		window = UIWindow(frame: UIScreen.mainScreen().bounds)
-		window!.rootViewController = navigationDrawerController
+		window!.rootViewController = statusBarController
 		window!.makeKeyAndVisible()
 		return true
 	}

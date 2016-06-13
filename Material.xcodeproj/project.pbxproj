@@ -15,6 +15,7 @@
 		9660162A1CB2F04E00AAB661 /* Material.h in Headers */ = {isa = PBXBuildFile; fileRef = 96D88C091C1328D800B91418 /* Material.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		966ECF2A1CF4C20100BB0BDF /* MaterialCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966ECF291CF4C20100BB0BDF /* MaterialCollectionReusableView.swift */; };
 		9679CEAB1CC69E080021685B /* Material+UIImage+TintColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9679CEAA1CC69E080021685B /* Material+UIImage+TintColor.swift */; };
+		967A48191D0F425A00B8CEB7 /* StatusBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967A48181D0F425A00B8CEB7 /* StatusBarController.swift */; };
 		96815B381CA07BA20006CBE2 /* MaterialViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967887881C9777CB0037F6C9 /* MaterialViewTests.swift */; };
 		96977DA61CBB2E49000BEFC4 /* Material+UIImage+FilterBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96977DA51CBB2E49000BEFC4 /* Material+UIImage+FilterBlur.swift */; };
 		96BCB7A11CB40DC500C806FE /* BottomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7581CB40DC500C806FE /* BottomNavigationController.swift */; };
@@ -206,6 +207,7 @@
 		966ECF291CF4C20100BB0BDF /* MaterialCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialCollectionReusableView.swift; sourceTree = "<group>"; };
 		967887881C9777CB0037F6C9 /* MaterialViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialViewTests.swift; sourceTree = "<group>"; };
 		9679CEAA1CC69E080021685B /* Material+UIImage+TintColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIImage+TintColor.swift"; sourceTree = "<group>"; };
+		967A48181D0F425A00B8CEB7 /* StatusBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarController.swift; sourceTree = "<group>"; };
 		96977DA51CBB2E49000BEFC4 /* Material+UIImage+FilterBlur.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIImage+FilterBlur.swift"; sourceTree = "<group>"; };
 		96BCB7581CB40DC500C806FE /* BottomNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomNavigationController.swift; sourceTree = "<group>"; };
 		96BCB7591CB40DC500C806FE /* BottomTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomTabBar.swift; sourceTree = "<group>"; };
@@ -361,6 +363,14 @@
 			name = Table;
 			sourceTree = "<group>";
 		};
+		967A48171D0F424B00B8CEB7 /* StatusBar */ = {
+			isa = PBXGroup;
+			children = (
+				967A48181D0F425A00B8CEB7 /* StatusBarController.swift */,
+			);
+			name = StatusBar;
+			sourceTree = "<group>";
+		};
 		96BCB7571CB40DC500C806FE /* iOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -377,6 +387,7 @@
 				96BCB80D1CB410FD00C806FE /* Layer */,
 				96BCB8041CB40F6C00C806FE /* Layout */,
 				96BCB8011CB40F1700C806FE /* Navigation */,
+				967A48171D0F424B00B8CEB7 /* StatusBar */,
 				966ECF2B1CF4C21B00BB0BDF /* Table */,
 				96BCB80E1CB4110E00C806FE /* Text */,
 				96BCB8061CB40FD000C806FE /* Type */,
@@ -924,6 +935,7 @@
 				96BCB7A11CB40DC500C806FE /* BottomNavigationController.swift in Sources */,
 				96BCB7D81CB40DC500C806FE /* MenuController.swift in Sources */,
 				96BCB7D41CB40DC500C806FE /* MaterialTransitionAnimation.swift in Sources */,
+				967A48191D0F425A00B8CEB7 /* StatusBarController.swift in Sources */,
 				96BCB7C21CB40DC500C806FE /* MaterialDevice.swift in Sources */,
 				96BCB7A41CB40DC500C806FE /* CaptureSession.swift in Sources */,
 				96BCB7C51CB40DC500C806FE /* MaterialGravity.swift in Sources */,
