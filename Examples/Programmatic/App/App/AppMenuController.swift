@@ -47,7 +47,7 @@ class AppMenuController: MenuController {
 	private let menuViewRightInset: CGFloat = 16
 	
 	/// Reference if the menuView is hidden.
-	public private(set) var isMenuViewHidden: Bool = false
+	private(set) var isMenuViewHidden: Bool = false
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
