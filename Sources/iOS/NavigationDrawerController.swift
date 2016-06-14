@@ -391,6 +391,45 @@ public class NavigationDrawerController : UIViewController, UIGestureRecognizerD
 		layoutSubviews()
 	}
 	
+	/// Layout subviews.
+	public func layoutSubviews() {
+		if opened {
+			hideStatusBar()
+		} else {
+			showStatusBar()
+		}
+		
+		if let v: MaterialView = leftView {
+			v.width = leftViewWidth
+			v.height = view.bounds.height
+			leftViewThreshold = leftViewWidth / 2
+			if let vc: UIViewController = leftViewController {
+				vc.view.frame.size.width = v.width
+				vc.view.frame.size.height = v.height
+				vc.view.center = CGPointMake(v.width / 2, v.height / 2)
+			}
+		}
+		
+		if let v: MaterialView = rightView {
+			v.width = rightViewWidth
+			v.height = view.bounds.height
+			rightViewThreshold = view.bounds.width - rightViewWidth / 2
+			if let vc: UIViewController = rightViewController {
+				vc.view.frame.size.width = v.width
+				vc.view.frame.size.height = v.height
+				vc.view.center = CGPointMake(v.width / 2, v.height / 2)
+			}
+		}
+	}
+	
+	public override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+		super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+		// Ensures the view is hidden.
+		if let v: MaterialView = rightView {
+			v.position.x = size.width + (openedRightView ? -v.width : v.width) / 2
+		}
+	}
+	
 	/**
 	A method to swap rootViewController objects.
 	- Parameter toViewController: The UIViewController to swap 
@@ -1158,36 +1197,5 @@ public class NavigationDrawerController : UIViewController, UIGestureRecognizerD
 	private func hideView(container: MaterialView) {
 		container.depth = .None
 		container.hidden = true
-	}
-	
-	/// Layout subviews.
-	private func layoutSubviews() {
-		if opened {
-			hideStatusBar()
-		} else {
-			showStatusBar()
-		}
-		
-		if let v: MaterialView = leftView {
-			v.width = leftViewWidth
-			v.height = view.bounds.height
-			leftViewThreshold = leftViewWidth / 2
-			if let vc: UIViewController = leftViewController {
-				vc.view.frame.size.width = v.width
-				vc.view.frame.size.height = v.height
-				vc.view.center = CGPointMake(v.width / 2, v.height / 2)
-			}
-		}
-		
-		if let v: MaterialView = rightView {
-			v.width = rightViewWidth
-			v.height = view.bounds.height
-			rightViewThreshold = view.bounds.width - rightViewWidth / 2
-			if let vc: UIViewController = rightViewController {
-				vc.view.frame.size.width = v.width
-				vc.view.frame.size.height = v.height
-				vc.view.center = CGPointMake(v.width / 2, v.height / 2)
-			}
-		}
 	}
 }
