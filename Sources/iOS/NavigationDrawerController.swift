@@ -114,9 +114,6 @@ public protocol NavigationDrawerControllerDelegate {
 @IBDesignable
 @objc(NavigationDrawerController)
 public class NavigationDrawerController : UIViewController, UIGestureRecognizerDelegate {
-	/// A Boolean to determine if the statusBar will be hidden.
-	private var willHideStatusBar: Bool = false
-	
 	/**
 	A CGFloat property that is used internally to track
 	the original (x) position of the container view when panning.
@@ -168,22 +165,6 @@ public class NavigationDrawerController : UIViewController, UIGestureRecognizerD
 	*/
 	@IBInspectable public var rightThreshold: CGFloat = 64
 	private var rightViewThreshold: CGFloat = 0
-	
-	/// Sets the animation type for the statusBar when hiding.
-	public var statusBarUpdateAnimation: UIStatusBarAnimation = .Fade
-	
-	/// Sets the statusBar style.
-	public var statusBarStyle: UIStatusBarStyle = .Default
-	
-	/// Sets the statusBar to hidden or not.
-	public var statusBarHidden: Bool {
-		get {
-			return MaterialDevice.statusBarHidden
-		}
-		set(value) {
-			MaterialDevice.statusBarHidden = value
-		}
-	}
 	
 	/**
 	A NavigationDrawerControllerDelegate property used to bind
@@ -304,7 +285,10 @@ public class NavigationDrawerController : UIViewController, UIGestureRecognizerD
 	A Boolean property that triggers the status bar to be hidden
 	when the leftView is opened. Defaults to true.
 	*/
-	@IBInspectable public var enableHideStatusbar: Bool = false
+	@IBInspectable public var enableHideStatusbar: Bool = true
+	
+	/// Sets the statusBar to hidden or not.
+	public private(set) var statusBarHidden: Bool = false
 	
 	/**
 	A MaterialDepth property that is used to set the depth of the
@@ -407,18 +391,6 @@ public class NavigationDrawerController : UIViewController, UIGestureRecognizerD
 		if let v: MaterialView = rightView {
 			v.position.x = size.width + v.width / 2
 		}
-	}
-	
-	public override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
-		return statusBarUpdateAnimation
-	}
-	
-	public override func prefersStatusBarHidden() -> Bool {
-		return willHideStatusBar
-	}
-	
-	public override func preferredStatusBarStyle() -> UIStatusBarStyle {
-		return statusBarStyle
 	}
 	
 	/**
@@ -907,7 +879,13 @@ public class NavigationDrawerController : UIViewController, UIGestureRecognizerD
 	
 	/// A method that prepares the rootViewController.
 	private func prepareRootViewController() {
-		prepareViewControllerWithinContainer(rootViewController, container: view)
+		let vc: UIViewController = UIViewController()
+		vc.view.frame = view.bounds
+		vc.view.backgroundColor = MaterialColor.black
+		prepareViewControllerWithinContainer(vc, container: view)
+		
+		rootViewController.view.frame = view.bounds
+		prepareViewControllerWithinContainer(rootViewController, container: vc.view)
 	}
 	
 	/// A method that prepares the leftViewController.
@@ -1083,15 +1061,15 @@ public class NavigationDrawerController : UIViewController, UIGestureRecognizerD
 	/// Shows the statusBar.
 	private func showStatusBar() {
 		if statusBarHidden {
-			UIView.animateWithDuration(NSTimeInterval(UINavigationControllerHideShowBarDuration),
-				animations: { [weak self] in
-					if let s: NavigationDrawerController = self {
-						s.statusBarHidden = false
-						s.willHideStatusBar = false
-						s.setNeedsStatusBarAppearanceUpdate()
+			statusBarHidden = false
+			dispatch_async(dispatch_get_main_queue(), { [weak self] in
+				if let s: NavigationDrawerController = self {
+					if let v: UIWindow = UIApplication.sharedApplication().keyWindow {
+						v.windowLevel = UIWindowLevelNormal
+						s.delegate?.navigationDrawerStatusBarHiddenState?(s, hidden: false)
 					}
-                })
-            delegate?.navigationDrawerStatusBarHiddenState?(self, hidden: false)
+				}
+			})
 		}
 	}
 	
@@ -1099,15 +1077,15 @@ public class NavigationDrawerController : UIViewController, UIGestureRecognizerD
 	private func hideStatusBar() {
 		if enableHideStatusbar {
 			if !statusBarHidden {
-				UIView.animateWithDuration(NSTimeInterval(UINavigationControllerHideShowBarDuration),
-					animations: { [weak self] in
-						if let s: NavigationDrawerController = self {
-							s.statusBarHidden = true
-							s.willHideStatusBar = true
-							s.setNeedsStatusBarAppearanceUpdate()
+				statusBarHidden = true
+				dispatch_async(dispatch_get_main_queue(), { [weak self] in
+					if let s: NavigationDrawerController = self {
+						if let v: UIWindow = UIApplication.sharedApplication().keyWindow {
+							v.windowLevel = UIWindowLevelStatusBar + 1
+							s.delegate?.navigationDrawerStatusBarHiddenState?(s, hidden: true)
 						}
-                    })
-                delegate?.navigationDrawerStatusBarHiddenState?(self, hidden: true)
+					}
+				})
 			}
 		}
 	}
@@ -1181,8 +1159,6 @@ public class NavigationDrawerController : UIViewController, UIGestureRecognizerD
 	
 	/// Layout subviews.
 	private func layoutSubviews() {
-		rootViewController.view.frame = view.bounds
-		
 		if let v: MaterialView = leftView {
 			v.width = leftViewWidth
 			v.height = view.bounds.height

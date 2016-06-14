@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		967A48071D0E0EA300B8CEB7 /* AppRightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967A48061D0E0EA300B8CEB7 /* AppRightViewController.swift */; };
 		967A48221D0F601B00B8CEB7 /* AppNavigationDrawerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967A48211D0F601B00B8CEB7 /* AppNavigationDrawerController.swift */; };
-		967A48241D0F603200B8CEB7 /* AppStatusBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967A48231D0F603200B8CEB7 /* AppStatusBarController.swift */; };
 		96CB75011D0DFDBB0012D9F2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CB75001D0DFDBB0012D9F2 /* AppDelegate.swift */; };
 		96CB75031D0DFDBB0012D9F2 /* AppLeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CB75021D0DFDBB0012D9F2 /* AppLeftViewController.swift */; };
 		96CB75081D0DFDBB0012D9F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96CB75071D0DFDBB0012D9F2 /* Assets.xcassets */; };
@@ -37,7 +36,6 @@
 /* Begin PBXFileReference section */
 		967A48061D0E0EA300B8CEB7 /* AppRightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppRightViewController.swift; sourceTree = "<group>"; };
 		967A48211D0F601B00B8CEB7 /* AppNavigationDrawerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppNavigationDrawerController.swift; sourceTree = "<group>"; };
-		967A48231D0F603200B8CEB7 /* AppStatusBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppStatusBarController.swift; sourceTree = "<group>"; };
 		96CB74FD1D0DFDBB0012D9F2 /* NavigationDrawerController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NavigationDrawerController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96CB75001D0DFDBB0012D9F2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96CB75021D0DFDBB0012D9F2 /* AppLeftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLeftViewController.swift; sourceTree = "<group>"; };
@@ -82,7 +80,6 @@
 			isa = PBXGroup;
 			children = (
 				96CB75001D0DFDBB0012D9F2 /* AppDelegate.swift */,
-				967A48231D0F603200B8CEB7 /* AppStatusBarController.swift */,
 				967A48211D0F601B00B8CEB7 /* AppNavigationDrawerController.swift */,
 				96CB75021D0DFDBB0012D9F2 /* AppLeftViewController.swift */,
 				967A48061D0E0EA300B8CEB7 /* AppRightViewController.swift */,
@@ -174,7 +171,6 @@
 				96CB75131D0DFF6F0012D9F2 /* YellowViewController.swift in Sources */,
 				96CB75191D0DFFAE0012D9F2 /* PurpleViewController.swift in Sources */,
 				96CB75151D0DFF840012D9F2 /* BlueViewController.swift in Sources */,
-				967A48241D0F603200B8CEB7 /* AppStatusBarController.swift in Sources */,
 				96CB75011D0DFDBB0012D9F2 /* AppDelegate.swift in Sources */,
 				967A48071D0E0EA300B8CEB7 /* AppRightViewController.swift in Sources */,
 				96CB751B1D0DFFC10012D9F2 /* OrangeViewController.swift in Sources */,

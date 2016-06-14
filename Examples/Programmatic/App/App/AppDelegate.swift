@@ -39,11 +39,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		let bottomNavigationController: AppBottomNavigationController = AppBottomNavigationController()
 		let navigationController: AppNavigationController = AppNavigationController(rootViewController: bottomNavigationController)
-		let navigationDrawerController: AppNavigationDrawerController = AppNavigationDrawerController(rootViewController: navigationController, leftViewController: AppLeftViewController())
-		let statusBarController: AppStatusBarController = AppStatusBarController(rootViewController: navigationDrawerController)
+		let menuController: AppMenuController = AppMenuController(rootViewController: navigationController)
+		let navigationDrawerController: AppNavigationDrawerController = AppNavigationDrawerController(rootViewController: menuController, leftViewController: AppLeftViewController())
 		
 		window = UIWindow(frame: UIScreen.mainScreen().bounds)
-		window!.rootViewController = statusBarController
+		window!.rootViewController = navigationDrawerController
 		window!.makeKeyAndVisible()
 		return true
 	}

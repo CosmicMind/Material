@@ -40,20 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		let navigationController: NavigationController = NavigationController(rootViewController: YellowViewController())
 		let navigationDrawerController: AppNavigationDrawerController = AppNavigationDrawerController(rootViewController: navigationController, leftViewController: AppLeftViewController(), rightViewController: AppRightViewController())
 		
-		//		navigationDrawerController.enabled = true
-		//
-		//		navigationDrawerController.enabledLeftView = true
-		//		navigationDrawerController.enabledLeftTapGesture = true
-		//		navigationDrawerController.enabledLeftPanGesture = true
-		//
-		//		navigationDrawerController.enabledRightView = true
-		//		navigationDrawerController.enabledRightTapGesture = true
-		//		navigationDrawerController.enabledRightPanGesture = true
-		
-		let statusBarController: AppStatusBarController = AppStatusBarController(rootViewController: navigationDrawerController)
-		
 		window = UIWindow(frame: UIScreen.mainScreen().bounds)
-		window!.rootViewController = statusBarController
+		window!.rootViewController = navigationDrawerController
 		window!.makeKeyAndVisible()
 		return true
 	}

@@ -38,32 +38,38 @@ class AppNavigationDrawerController: NavigationDrawerController, NavigationDrawe
 	}
 	
 	func navigationDrawerPanDidBegin(navigationDrawerController: NavigationDrawerController, point: CGPoint, position: SideNavigationPosition) {
-		showStatusBarView()
+		print("NavigationDrawerController - Pan Began");
 	}
 	
 	func navigationDrawerPanDidEnd(navigationDrawerController: NavigationDrawerController, point: CGPoint, position: SideNavigationPosition) {
-		hideStatusBarView()
+		print("NavigationDrawerController - Pan Ended");
 	}
 	
 	func navigationDrawerWillOpen(navigationDrawerController: NavigationDrawerController, position: SideNavigationPosition) {
-		showStatusBarView()
+		print("NavigationDrawerController - Will Open");
+	}
+	
+	func navigationDrawerDidOpen(navigationDrawerController: NavigationDrawerController, position: SideNavigationPosition) {
+		print("NavigationDrawerController - DId Open");
 	}
 	
 	func navigationDrawerWillClose(navigationDrawerController: NavigationDrawerController, position: SideNavigationPosition) {
-		hideStatusBarView()
+		print("NavigationDrawerController - Will Close");
 	}
 	
-	/// Shows the transparent statusBarView.
-	private func showStatusBarView() {
-		UIView.animateWithDuration(0.25, animations: { [weak self] in
-			self?.statusBarController?.statusBarView.alpha = 1
-		})
+	func navigationDrawerDidClose(navigationDrawerController: NavigationDrawerController, position: SideNavigationPosition) {
+		print("NavigationDrawerController - Did Close");
 	}
 	
-	/// Hides the transparent statusBarView.
-	private func hideStatusBarView() {
-		UIView.animateWithDuration(0.25, animations: { [weak self] in
-			self?.statusBarController?.statusBarView.alpha = 0
-		})
+	func navigationDrawerStatusBarHiddenState(navigationDrawerController: NavigationDrawerController, hidden: Bool) {
+		print("NavigationDrawerController - Status Bar Hidden: ", hidden ? "Yes" : "No");
+	}
+	
+	func navigationDrawerDidTap(navigationDrawerController: NavigationDrawerController, point: CGPoint, position: SideNavigationPosition) {
+		print("NavigationDrawerController - Did Tap");
+	}
+	
+	func navigationDrawerPanDidChange(navigationDrawerController: NavigationDrawerController, point: CGPoint, position: SideNavigationPosition) {
+//		print("NavigationDrawerController - Did Change");
 	}
 }
