@@ -62,9 +62,13 @@ class RecipesViewController: UIViewController {
 		super.viewWillAppear(animated)
 		// Stops the tableView contentInsets from being automatically adjusted.
 		edgesForExtendedLayout = .None
-		
+	}
+	
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
 		// Enable the SideNavigation.
 		navigationDrawerController?.enabled = true
+		(menuController as? AppMenuController)?.showMenuView()
 	}
 	
 	/// Prepares the items Array.

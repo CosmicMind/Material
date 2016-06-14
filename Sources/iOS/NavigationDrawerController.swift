@@ -331,6 +331,15 @@ public class NavigationDrawerController : UIViewController, UIGestureRecognizerD
 		return rightView!.x != MaterialDevice.width
 	}
 	
+	/** 
+	Content view controller to encompase the entire component. This is 
+	primarily used when the StatusBar is being hidden. The alpha value of 
+	the rootViewController decreases, and shows the StatusBar. To avoid 
+	this, and to add a hidden transition viewController for complex 
+	situations, the contentViewController was added.
+	*/
+	public private(set) var contentViewController: UIViewController!
+	
 	/**
 	A UIViewController property that references the active 
 	main UIViewController. To swap the rootViewController, it 
@@ -380,17 +389,6 @@ public class NavigationDrawerController : UIViewController, UIGestureRecognizerD
 	public override func viewWillLayoutSubviews() {
 		super.viewWillLayoutSubviews()
 		layoutSubviews()
-	}
-	
-	public override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-		super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-		closeLeftView()
-		closeRightView()
-		
-		// Ensures the view is hidden.
-		if let v: MaterialView = rightView {
-			v.position.x = size.width + v.width / 2
-		}
 	}
 	
 	/**
@@ -872,20 +870,24 @@ public class NavigationDrawerController : UIViewController, UIGestureRecognizerD
 	public func prepareView() {
 		view.clipsToBounds = true
 		view.contentScaleFactor = MaterialDevice.scale
+		prepareContentViewController()
 		prepareRootViewController()
 		prepareLeftView()
 		prepareRightView()
 	}
 	
+	/// Prepares the contentViewController.
+	private func prepareContentViewController() {
+		contentViewController = UIViewController()
+		contentViewController.view.frame = view.bounds
+		contentViewController.view.backgroundColor = MaterialColor.black
+		prepareViewControllerWithinContainer(contentViewController, container: view)
+	}
+	
 	/// A method that prepares the rootViewController.
 	private func prepareRootViewController() {
-		let vc: UIViewController = UIViewController()
-		vc.view.frame = view.bounds
-		vc.view.backgroundColor = MaterialColor.black
-		prepareViewControllerWithinContainer(vc, container: view)
-		
-		rootViewController.view.frame = view.bounds
-		prepareViewControllerWithinContainer(rootViewController, container: vc.view)
+		rootViewController.view.frame = contentViewController.view.bounds
+		prepareViewControllerWithinContainer(rootViewController, container: contentViewController.view)
 	}
 	
 	/// A method that prepares the leftViewController.
@@ -958,6 +960,7 @@ public class NavigationDrawerController : UIViewController, UIGestureRecognizerD
 			v.didMoveToParentViewController(self)
 			v.view.clipsToBounds = true
 			v.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+			v.view.contentScaleFactor = MaterialDevice.scale
 			container.addSubview(v.view)
 			container.sendSubviewToBack(v.view)
 		}
@@ -1159,6 +1162,12 @@ public class NavigationDrawerController : UIViewController, UIGestureRecognizerD
 	
 	/// Layout subviews.
 	private func layoutSubviews() {
+		if opened {
+			hideStatusBar()
+		} else {
+			showStatusBar()
+		}
+		
 		if let v: MaterialView = leftView {
 			v.width = leftViewWidth
 			v.height = view.bounds.height

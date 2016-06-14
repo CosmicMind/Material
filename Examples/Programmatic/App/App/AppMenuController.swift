@@ -40,8 +40,14 @@ class AppMenuController: MenuController {
 	/// MenuView diameter.
 	private let baseSize: CGSize = CGSizeMake(56, 56)
 	
-    /// MenuView inset.
-    private let menuViewInset: CGFloat = 16
+    /// MenuView bottom inset.
+    private let menuViewBottomInset: CGFloat = 65
+	
+	/// MenuView right inset.
+	private let menuViewRightInset: CGFloat = 16
+	
+	/// Reference if the menuView is hidden.
+	public private(set) var isMenuViewHidden: Bool = false
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -90,19 +96,25 @@ class AppMenuController: MenuController {
 	}
     
     /// Shows the menuView.
-    func showMenu() {
-        menuView.animate(MaterialAnimation.animationGroup([
-            MaterialAnimation.rotate(rotation: 3),
-            MaterialAnimation.translateY(0)
-		]))
+    func showMenuView() {
+		if isMenuViewHidden {
+			isMenuViewHidden = false
+			menuView.animate(MaterialAnimation.animationGroup([
+				MaterialAnimation.rotate(rotation: 3),
+				MaterialAnimation.translateY(0)
+			]))
+		}
     }
     
     /// Hides the menuView.
-    func hideMenu() {
-        menuView.animate(MaterialAnimation.animationGroup([
-            MaterialAnimation.rotate(rotation: 3),
-            MaterialAnimation.translateY(150)
-		]))
+    func hideMenuView() {
+		if !isMenuViewHidden {
+			isMenuViewHidden = true
+			menuView.animate(MaterialAnimation.animationGroup([
+				MaterialAnimation.rotate(rotation: 3),
+				MaterialAnimation.translateY(150)
+			]))
+		}
     }
 
 	/// Prepares the menuView.
@@ -147,7 +159,11 @@ class AppMenuController: MenuController {
 		menuView.menu.views = [menuButton, blueButton, greenButton, yellowButton]
 		menuView.delegate = self
         
-        view.layout(menuView).width(baseSize.width).height(baseSize.height).bottom(menuViewInset).right(menuViewInset)
+        view.layout(menuView)
+			.width(baseSize.width)
+			.height(baseSize.height)
+			.bottom(menuViewBottomInset)
+			.right(menuViewRightInset)
         
 	}
 }
