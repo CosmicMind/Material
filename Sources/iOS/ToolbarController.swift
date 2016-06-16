@@ -64,7 +64,7 @@ public protocol ToolbarControllerDelegate : MaterialDelegate {
 }
 
 @objc(ToolbarController)
-public class ToolbarController : BarController {
+public class ToolbarController : RootController {
 	/// Internal reference to the floatingViewController.
 	private var internalFloatingViewController: UIViewController?
 	
@@ -151,13 +151,13 @@ public class ToolbarController : BarController {
 		}
 	}
 	
-	public override func viewWillLayoutSubviews() {
-		super.viewWillLayoutSubviews()
-		layoutSubviews()
-	}
-	
-	/// Layout subviews.
-	public func layoutSubviews() {
+	/**
+	To execute in the order of the layout chain, override this
+	method. LayoutSubviews should be called immediately, unless you
+	have a certain need.
+	*/
+	public override func layoutSubviews() {
+		super.layoutSubviews()
 		if let v: Toolbar = toolbar {
 			v.grid.layoutInset.top = .iPhone == MaterialDevice.type && MaterialDevice.isLandscape ? 0 : 20
 			

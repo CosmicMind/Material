@@ -31,7 +31,7 @@
 import UIKit
 
 @IBDesignable
-public class BarController : UIViewController {
+public class RootController : UIViewController {
 	/// Device status bar style.
 	public var statusBarStyle: UIStatusBarStyle {
 		get {
@@ -92,6 +92,11 @@ public class BarController : UIViewController {
 		prepareView()
 	}
 	
+	public override func viewWillLayoutSubviews() {
+		super.viewWillLayoutSubviews()
+		layoutSubviews()
+	}
+	
 	/**
 	A method to swap rootViewController objects.
 	- Parameter toViewController: The UIViewController to swap
@@ -118,17 +123,23 @@ public class BarController : UIViewController {
 			options: options,
 			animations: animations,
 			completion: { [weak self] (result: Bool) in
-				if let s: BarController = self {
+				if let s: RootController = self {
 					toViewController.didMoveToParentViewController(s)
 					s.rootViewController.removeFromParentViewController()
 					s.rootViewController = toViewController
 					s.rootViewController.view.clipsToBounds = true
 					s.rootViewController.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-					s.view.sendSubviewToBack(s.rootViewController.view)
 					completion?(result)
 				}
 			})
 	}
+	
+	/**
+	To execute in the order of the layout chain, override this
+	method. LayoutSubviews should be called immediately, unless you
+	have a certain need.
+	*/
+	public func layoutSubviews() {}
 	
 	/**
 	Prepares the view instance when intialized. When subclassing,
@@ -144,7 +155,7 @@ public class BarController : UIViewController {
 	}
 	
 	/// A method that prepares the rootViewController.
-	private func prepareRootViewController() {
+	internal func prepareRootViewController() {
 		prepareViewControllerWithinContainer(rootViewController, container: view)
 	}
 	
@@ -156,14 +167,15 @@ public class BarController : UIViewController {
 	- Parameter container: A UIView that is the parent of the
 	passed in controller view within the view hierarchy.
 	*/
-	private func prepareViewControllerWithinContainer(viewController: UIViewController?, container: UIView) {
+	internal func prepareViewControllerWithinContainer(viewController: UIViewController?, container: UIView) {
 		if let v: UIViewController = viewController {
 			addChildViewController(v)
+			container.addSubview(v.view)
+			container.sendSubviewToBack(v.view)
 			v.didMoveToParentViewController(self)
 			v.view.clipsToBounds = true
 			v.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-			container.addSubview(v.view)
-			container.sendSubviewToBack(v.view)
+			v.view.contentScaleFactor = MaterialDevice.scale
 		}
 	}
 }

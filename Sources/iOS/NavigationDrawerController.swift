@@ -31,7 +31,7 @@
 import UIKit
 
 @objc
-public enum SideNavigationPosition : NSInteger {
+public enum NavigationDrawerPosition : NSInteger {
 	case Left
 	case Right
 }
@@ -60,49 +60,49 @@ public protocol NavigationDrawerControllerDelegate {
 	An optional delegation method that is fired before the 
 	NavigationDrawerController opens.
 	*/
-	optional func navigationDrawerWillOpen(navigationDrawerController: NavigationDrawerController, position: SideNavigationPosition)
+	optional func navigationDrawerWillOpen(navigationDrawerController: NavigationDrawerController, position: NavigationDrawerPosition)
 	
 	/**
 	An optional delegation method that is fired after the
 	NavigationDrawerController opened.
 	*/
-	optional func navigationDrawerDidOpen(navigationDrawerController: NavigationDrawerController, position: SideNavigationPosition)
+	optional func navigationDrawerDidOpen(navigationDrawerController: NavigationDrawerController, position: NavigationDrawerPosition)
 	
 	/**
 	An optional delegation method that is fired before the
 	NavigationDrawerController closes.
 	*/
-	optional func navigationDrawerWillClose(navigationDrawerController: NavigationDrawerController, position: SideNavigationPosition)
+	optional func navigationDrawerWillClose(navigationDrawerController: NavigationDrawerController, position: NavigationDrawerPosition)
 	
 	/**
 	An optional delegation method that is fired after the
 	NavigationDrawerController closed.
 	*/
-	optional func navigationDrawerDidClose(navigationDrawerController: NavigationDrawerController, position: SideNavigationPosition)
+	optional func navigationDrawerDidClose(navigationDrawerController: NavigationDrawerController, position: NavigationDrawerPosition)
 	
 	/**
 	An optional delegation method that is fired when the
 	NavigationDrawerController pan gesture begins.
 	*/
-	optional func navigationDrawerPanDidBegin(navigationDrawerController: NavigationDrawerController, point: CGPoint, position: SideNavigationPosition)
+	optional func navigationDrawerPanDidBegin(navigationDrawerController: NavigationDrawerController, point: CGPoint, position: NavigationDrawerPosition)
 	
 	/**
 	An optional delegation method that is fired when the
 	NavigationDrawerController pan gesture changes position.
 	*/
-	optional func navigationDrawerPanDidChange(navigationDrawerController: NavigationDrawerController, point: CGPoint, position: SideNavigationPosition)
+	optional func navigationDrawerPanDidChange(navigationDrawerController: NavigationDrawerController, point: CGPoint, position: NavigationDrawerPosition)
 	
 	/**
 	An optional delegation method that is fired when the
 	NavigationDrawerController pan gesture ends.
 	*/
-	optional func navigationDrawerPanDidEnd(navigationDrawerController: NavigationDrawerController, point: CGPoint, position: SideNavigationPosition)
+	optional func navigationDrawerPanDidEnd(navigationDrawerController: NavigationDrawerController, point: CGPoint, position: NavigationDrawerPosition)
 	
 	/**
 	An optional delegation method that is fired when the
 	NavigationDrawerController tap gesture executes.
 	*/
-	optional func navigationDrawerDidTap(navigationDrawerController: NavigationDrawerController, point: CGPoint, position: SideNavigationPosition)
+	optional func navigationDrawerDidTap(navigationDrawerController: NavigationDrawerController, point: CGPoint, position: NavigationDrawerPosition)
 
 	/**
 	An optional delegation method that is fired when the
@@ -113,7 +113,7 @@ public protocol NavigationDrawerControllerDelegate {
 
 @IBDesignable
 @objc(NavigationDrawerController)
-public class NavigationDrawerController : UIViewController, UIGestureRecognizerDelegate {
+public class NavigationDrawerController : RootController, UIGestureRecognizerDelegate {
 	/**
 	A CGFloat property that is used internally to track
 	the original (x) position of the container view when panning.
@@ -171,19 +171,6 @@ public class NavigationDrawerController : UIViewController, UIGestureRecognizerD
 	the delegation object.
 	*/
 	public weak var delegate: NavigationDrawerControllerDelegate?
-	
-	/**
-	A Boolean property used to enable and disable interactivity
-	with the rootViewController.
-	*/
-	@IBInspectable public var userInteractionEnabled: Bool {
-		get {
-			return rootViewController.view.userInteractionEnabled
-		}
-		set(value) {
-			rootViewController.view.userInteractionEnabled = value
-		}
-	}
 	
 	/**
 	A CGFloat property that sets the animation duration of the
@@ -331,23 +318,6 @@ public class NavigationDrawerController : UIViewController, UIGestureRecognizerD
 		return rightView!.x != MaterialDevice.width
 	}
 	
-	/** 
-	Content view controller to encompase the entire component. This is 
-	primarily used when the StatusBar is being hidden. The alpha value of 
-	the rootViewController decreases, and shows the StatusBar. To avoid 
-	this, and to add a hidden transition viewController for complex 
-	situations, the contentViewController was added.
-	*/
-	public private(set) var contentViewController: UIViewController!
-	
-	/**
-	A UIViewController property that references the active 
-	main UIViewController. To swap the rootViewController, it 
-	is recommended to use the transitionFromRootViewController
-	helper method.
-	*/
-	public private(set) var rootViewController: UIViewController!
-	
 	/**
 	A UIViewController property that references the 
 	active left UIViewController.
@@ -373,26 +343,29 @@ public class NavigationDrawerController : UIViewController, UIGestureRecognizerD
 	@IBInspectable public private(set) var rightViewWidth: CGFloat!
 	
 	/**
+	An initializer that initializes the object with a NSCoder object.
+	- Parameter aDecoder: A NSCoder instance.
+	*/
+	public required init?(coder aDecoder: NSCoder) {
+		super.init(coder: aDecoder)
+		prepareView()
+	}
+	
+	/**
 	An initializer for the NavigationDrawerController.
 	- Parameter rootViewController: The main UIViewController.
 	- Parameter leftViewController: An Optional left UIViewController.
 	- Parameter rightViewController: An Optional right UIViewController.
 	*/
-	public convenience init(rootViewController: UIViewController, leftViewController: UIViewController? = nil, rightViewController: UIViewController? = nil) {
-		self.init()
-		self.rootViewController = rootViewController
+	public init(rootViewController: UIViewController, leftViewController: UIViewController? = nil, rightViewController: UIViewController? = nil) {
+		super.init(rootViewController: rootViewController)
 		self.leftViewController = leftViewController
 		self.rightViewController = rightViewController
 		prepareView()
 	}
 	
-	public override func viewWillLayoutSubviews() {
-		super.viewWillLayoutSubviews()
-		layoutSubviews()
-	}
-	
 	/// Layout subviews.
-	public func layoutSubviews() {
+	public override func layoutSubviews() {
 		if opened {
 			hideStatusBar()
 		} else {
@@ -428,44 +401,6 @@ public class NavigationDrawerController : UIViewController, UIGestureRecognizerD
 		if let v: MaterialView = rightView {
 			v.position.x = size.width + (openedRightView ? -v.width : v.width) / 2
 		}
-	}
-	
-	/**
-	A method to swap rootViewController objects.
-	- Parameter toViewController: The UIViewController to swap 
-	with the active rootViewController.
-	- Parameter duration: A NSTimeInterval that sets the
-	animation duration of the transition.
-	- Parameter options: UIViewAnimationOptions thst are used 
-	when animating the transition from the active rootViewController
-	to the toViewController.
-	- Parameter animations: An animation block that is executed during
-	the transition from the active rootViewController
-	to the toViewController.
-	- Parameter completion: A completion block that is execited after
-	the transition animation from the active rootViewController
-	to the toViewController has completed.
-	*/
-	public func transitionFromRootViewController(toViewController: UIViewController, duration: NSTimeInterval = 0.5, options: UIViewAnimationOptions = [], animations: (() -> Void)? = nil, completion: ((Bool) -> Void)? = nil) {
-		rootViewController.willMoveToParentViewController(nil)
-		addChildViewController(toViewController)
-		toViewController.view.frame = rootViewController.view.frame
-		transitionFromViewController(rootViewController,
-			toViewController: toViewController,
-			duration: duration,
-			options: options,
-			animations: animations,
-			completion: { [weak self] (result: Bool) in
-				if let s: NavigationDrawerController = self {
-					toViewController.didMoveToParentViewController(s)
-					s.rootViewController.removeFromParentViewController()
-					s.rootViewController = toViewController
-					s.rootViewController.view.clipsToBounds = true
-					s.rootViewController.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-					s.view.sendSubviewToBack(s.rootViewController.view)
-					completion?(result)
-				}
-			})
 	}
 	
 	/**
@@ -906,27 +841,10 @@ public class NavigationDrawerController : UIViewController, UIGestureRecognizerD
 	The super.prepareView method should always be called immediately
 	when subclassing.
 	*/
-	public func prepareView() {
-		view.clipsToBounds = true
-		view.contentScaleFactor = MaterialDevice.scale
-		prepareContentViewController()
-		prepareRootViewController()
+	public override func prepareView() {
+		super.prepareView()
 		prepareLeftView()
 		prepareRightView()
-	}
-	
-	/// Prepares the contentViewController.
-	private func prepareContentViewController() {
-		contentViewController = UIViewController()
-		contentViewController.view.frame = view.bounds
-		contentViewController.view.backgroundColor = MaterialColor.black
-		prepareViewControllerWithinContainer(contentViewController, container: view)
-	}
-	
-	/// A method that prepares the rootViewController.
-	private func prepareRootViewController() {
-		rootViewController.view.frame = contentViewController.view.bounds
-		prepareViewControllerWithinContainer(rootViewController, container: contentViewController.view)
 	}
 	
 	/// A method that prepares the leftViewController.
@@ -982,26 +900,6 @@ public class NavigationDrawerController : UIViewController, UIGestureRecognizerD
 			rightView!.position.x = view.bounds.width + rightViewWidth / 2
 			rightView!.zPosition = 2000
 			prepareRightViewController()
-		}
-	}
-	
-	/**
-	A method that adds the passed in controller as a child of 
-	the NavigationDrawerController within the passed in 
-	container view.
-	- Parameter viewController: A UIViewController to add as a child.
-	- Parameter container: A UIView that is the parent of the 
-	passed in controller view within the view hierarchy.
-	*/
-	private func prepareViewControllerWithinContainer(viewController: UIViewController?, container: UIView) {
-		if let v: UIViewController = viewController {
-			addChildViewController(v)
-			v.didMoveToParentViewController(self)
-			v.view.clipsToBounds = true
-			v.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-			v.view.contentScaleFactor = MaterialDevice.scale
-			container.addSubview(v.view)
-			container.sendSubviewToBack(v.view)
 		}
 	}
 	

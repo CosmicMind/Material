@@ -116,7 +116,8 @@ extension AppLeftViewController: UITableViewDelegate {
 		if let v: NavigationController = navigationDrawerController?.rootViewController as? NavigationController {
 			switch item.text {
 			case "Orange":
-				v.pushViewController(OrangeViewController(), animated: true)
+				navigationDrawerController?.transitionFromRootViewController(OrangeViewController())
+//				v.pushViewController(OrangeViewController(), animated: true)
 			case "Purple":
 				v.pushViewController(PurpleViewController(), animated: true)
 			case "Green":

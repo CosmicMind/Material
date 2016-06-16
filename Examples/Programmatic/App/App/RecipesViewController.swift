@@ -66,7 +66,7 @@ class RecipesViewController: UIViewController {
 	
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
-		// Enable the SideNavigation.
+		// Enable the NavigationDrawer.
 		navigationDrawerController?.enabled = true
 		(menuController as? AppMenuController)?.showMenuView()
 	}

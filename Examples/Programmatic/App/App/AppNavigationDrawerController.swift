@@ -37,27 +37,27 @@ class AppNavigationDrawerController: NavigationDrawerController, NavigationDrawe
 		delegate = self
 	}
 	
-	func navigationDrawerPanDidBegin(navigationDrawerController: NavigationDrawerController, point: CGPoint, position: SideNavigationPosition) {
+	func navigationDrawerPanDidBegin(navigationDrawerController: NavigationDrawerController, point: CGPoint, position: NavigationDrawerPosition) {
 		print("NavigationDrawerController - Pan Began");
 	}
 	
-	func navigationDrawerPanDidEnd(navigationDrawerController: NavigationDrawerController, point: CGPoint, position: SideNavigationPosition) {
+	func navigationDrawerPanDidEnd(navigationDrawerController: NavigationDrawerController, point: CGPoint, position: NavigationDrawerPosition) {
 		print("NavigationDrawerController - Pan Ended");
 	}
 	
-	func navigationDrawerWillOpen(navigationDrawerController: NavigationDrawerController, position: SideNavigationPosition) {
+	func navigationDrawerWillOpen(navigationDrawerController: NavigationDrawerController, position: NavigationDrawerPosition) {
 		print("NavigationDrawerController - Will Open");
 	}
 	
-	func navigationDrawerDidOpen(navigationDrawerController: NavigationDrawerController, position: SideNavigationPosition) {
+	func navigationDrawerDidOpen(navigationDrawerController: NavigationDrawerController, position: NavigationDrawerPosition) {
 		print("NavigationDrawerController - DId Open");
 	}
 	
-	func navigationDrawerWillClose(navigationDrawerController: NavigationDrawerController, position: SideNavigationPosition) {
+	func navigationDrawerWillClose(navigationDrawerController: NavigationDrawerController, position: NavigationDrawerPosition) {
 		print("NavigationDrawerController - Will Close");
 	}
 	
-	func navigationDrawerDidClose(navigationDrawerController: NavigationDrawerController, position: SideNavigationPosition) {
+	func navigationDrawerDidClose(navigationDrawerController: NavigationDrawerController, position: NavigationDrawerPosition) {
 		print("NavigationDrawerController - Did Close");
 	}
 	
@@ -65,11 +65,11 @@ class AppNavigationDrawerController: NavigationDrawerController, NavigationDrawe
 		print("NavigationDrawerController - Status Bar Hidden: ", hidden ? "Yes" : "No");
 	}
 	
-	func navigationDrawerDidTap(navigationDrawerController: NavigationDrawerController, point: CGPoint, position: SideNavigationPosition) {
+	func navigationDrawerDidTap(navigationDrawerController: NavigationDrawerController, point: CGPoint, position: NavigationDrawerPosition) {
 		print("NavigationDrawerController - Did Tap");
 	}
 	
-	func navigationDrawerPanDidChange(navigationDrawerController: NavigationDrawerController, point: CGPoint, position: SideNavigationPosition) {
+	func navigationDrawerPanDidChange(navigationDrawerController: NavigationDrawerController, point: CGPoint, position: NavigationDrawerPosition) {
 //		print("NavigationDrawerController - Did Change");
 	}
 }

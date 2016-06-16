@@ -49,102 +49,9 @@ public extension UIViewController {
 }
 
 @IBDesignable
-public class MenuController : UIViewController {
+public class MenuController : RootController {
 	/// Reference to the MenuView.
 	public private(set) lazy var menuView: MenuView = MenuView()
-	
-	/**
-	A Boolean property used to enable and disable interactivity
-	with the rootViewController.
-	*/
-	@IBInspectable public var userInteractionEnabled: Bool {
-		get {
-			return rootViewController.view.userInteractionEnabled
-		}
-		set(value) {
-			rootViewController.view.userInteractionEnabled = value
-		}
-	}
-	
-	/**
-	A UIViewController property that references the active
-	main UIViewController. To swap the rootViewController, it
-	is recommended to use the transitionFromRootViewController
-	helper method.
-	*/
-	public private(set) var rootViewController: UIViewController!
-	
-	/**
-	An initializer that initializes the object with a NSCoder object.
-	- Parameter aDecoder: A NSCoder instance.
-	*/
-	public required init?(coder aDecoder: NSCoder) {
-		super.init(coder: aDecoder)
-		prepareView()
-	}
-	
-	/**
-	An initializer that initializes the object with an Optional nib and bundle.
-	- Parameter nibNameOrNil: An Optional String for the nib.
-	- Parameter bundle: An Optional NSBundle where the nib is located.
-	*/
-	public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-		prepareView()
-	}
-	
-	/**
-	An initializer for the BarController.
-	- Parameter rootViewController: The main UIViewController.
-	*/
-	public init(rootViewController: UIViewController) {
-		super.init(nibName: nil, bundle: nil)
-		self.rootViewController = rootViewController
-		prepareView()
-	}
-	
-	public override func viewWillLayoutSubviews() {
-		super.viewWillLayoutSubviews()
-		layoutSubviews()
-	}
-	
-	/**
-	A method to swap rootViewController objects.
-	- Parameter toViewController: The UIViewController to swap
-	with the active rootViewController.
-	- Parameter duration: A NSTimeInterval that sets the
-	animation duration of the transition.
-	- Parameter options: UIViewAnimationOptions thst are used
-	when animating the transition from the active rootViewController
-	to the toViewController.
-	- Parameter animations: An animation block that is executed during
-	the transition from the active rootViewController
-	to the toViewController.
-	- Parameter completion: A completion block that is execited after
-	the transition animation from the active rootViewController
-	to the toViewController has completed.
-	*/
-	public func transitionFromRootViewController(toViewController: UIViewController, duration: NSTimeInterval = 0.5, options: UIViewAnimationOptions = [], animations: (() -> Void)? = nil, completion: ((Bool) -> Void)? = nil) {
-		rootViewController.willMoveToParentViewController(nil)
-		addChildViewController(toViewController)
-		toViewController.view.frame = rootViewController.view.frame
-		transitionFromViewController(rootViewController,
-			toViewController: toViewController,
-			duration: duration,
-			options: options,
-			animations: animations,
-			completion: { [weak self] (result: Bool) in
-				if let s: MenuController = self {
-					toViewController.didMoveToParentViewController(s)
-					s.rootViewController.removeFromParentViewController()
-					s.rootViewController = toViewController
-					s.rootViewController.view.clipsToBounds = true
-					s.rootViewController.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-					s.view.sendSubviewToBack(s.rootViewController.view)
-					completion?(result)
-				}
-			})
-	}
 	
 	/**
 	Opens the menu with a callback.
@@ -175,51 +82,30 @@ public class MenuController : UIViewController {
 	}
 	
 	/**
+	To execute in the order of the layout chain, override this
+	method. LayoutSubviews should be called immediately, unless you
+	have a certain need.
+	*/
+	public override func layoutSubviews() {
+		super.layoutSubviews()
+		rootViewController.view.frame = view.bounds
+	}
+	
+	/**
 	Prepares the view instance when intialized. When subclassing,
 	it is recommended to override the prepareView method
 	to initialize property values and other setup operations.
 	The super.prepareView method should always be called immediately
 	when subclassing.
 	*/
-	public func prepareView() {
-		view.clipsToBounds = true
-		view.contentScaleFactor = MaterialDevice.scale
+	public override func prepareView() {
+		super.prepareView()
 		prepareMenuView()
-		prepareRootViewController()
 	}
 	
 	/// Prepares the MenuView.
 	private func prepareMenuView() {
 		menuView.zPosition = 1000
 		view.addSubview(menuView)
-	}
-	
-	/// A method that prepares the rootViewController.
-	private func prepareRootViewController() {
-		prepareViewControllerWithinContainer(rootViewController, container: view)
-	}
-	
-	/**
-	A method that adds the passed in controller as a child of
-	the MenuController within the passed in
-	container view.
-	- Parameter viewController: A UIViewController to add as a child.
-	- Parameter container: A UIView that is the parent of the
-	passed in controller view within the view hierarchy.
-	*/
-	private func prepareViewControllerWithinContainer(viewController: UIViewController?, container: UIView) {
-		if let v: UIViewController = viewController {
-			addChildViewController(v)
-			v.didMoveToParentViewController(self)
-			v.view.clipsToBounds = true
-			v.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-			container.addSubview(v.view)
-			container.sendSubviewToBack(v.view)
-		}
-	}
-	
-	/// Layout subviews.
-	private func layoutSubviews() {
-		rootViewController.view.frame = view.bounds
 	}
 }

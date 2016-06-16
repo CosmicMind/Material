@@ -48,17 +48,17 @@ public extension UIViewController {
 	}
 }
 
-public class SearchBarController : BarController {
+public class SearchBarController : RootController {
 	/// Reference to the SearchBar.
 	public private(set) var searchBar: SearchBar!
 	
-	public override func viewWillLayoutSubviews() {
-		super.viewWillLayoutSubviews()
-		layoutSubviews()
-	}
-	
-	/// Layout subviews.
-	public func layoutSubviews() {
+	/**
+	To execute in the order of the layout chain, override this
+	method. LayoutSubviews should be called immediately, unless you
+	have a certain need.
+	*/
+	public override func layoutSubviews() {
+		super.layoutSubviews()
 		if let v: SearchBar = searchBar {
 			v.grid.layoutInset.top = .iPhone == MaterialDevice.type && MaterialDevice.isLandscape ? 0 : 20
 			
