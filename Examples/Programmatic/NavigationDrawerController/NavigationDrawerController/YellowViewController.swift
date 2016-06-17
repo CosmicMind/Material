@@ -98,7 +98,8 @@ class YellowViewController: UIViewController {
 	private func prepareNavigationItem() {
 		navigationItem.title = "Yellow"
 		navigationItem.titleLabel.textAlignment = .Left
-		navigationItem.titleLabel.font = RobotoFont.mediumWithSize(20)
+		
+		navigationItem.detailLabel.textAlignment = .Left
 		
 		navigationItem.leftControls = [menuButton]
 		navigationItem.rightControls = [switchControl, moreButton]

@@ -53,6 +53,5 @@ class PurpleViewController: UIViewController {
 	private func prepareNavigationItem() {
 		navigationItem.title = "Purple"
 		navigationItem.titleLabel.textAlignment = .Left
-		navigationItem.titleLabel.font = RobotoFont.mediumWithSize(20)
 	}
 }

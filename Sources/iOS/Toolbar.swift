@@ -62,19 +62,41 @@ public class Toolbar : BarView {
 	public override func layoutSubviews() {
 		super.layoutSubviews()
 		if willRenderView {
-			if let _: String = detail {
-				titleLabel.sizeToFit()
-				detailLabel.sizeToFit()
-				
-				let diff: CGFloat = (contentView.frame.height - titleLabel.frame.height - detailLabel.frame.height) / 2
-				titleLabel.frame.size.height += diff
-				titleLabel.frame.size.width = contentView.frame.width
-				detailLabel.frame.size.height += diff
-				detailLabel.frame.size.width = contentView.frame.width
-				detailLabel.frame.origin.y = titleLabel.frame.height
-			} else {
+
+			if nil != title && "" != title {
+				if nil == titleLabel.superview {
+					contentView.addSubview(titleLabel)
+				}
 				titleLabel.frame = contentView.bounds
+			} else {
+				titleLabel.removeFromSuperview()
 			}
+			
+			if nil != detail && "" != detail {
+				if nil == detailLabel.superview {
+					contentView.addSubview(detailLabel)
+				}
+				
+				if nil == titleLabel.superview {
+					detailLabel.frame = contentView.bounds
+				} else {
+					titleLabel.sizeToFit()
+					detailLabel.sizeToFit()
+					
+					let diff: CGFloat = (contentView.frame.height - titleLabel.frame.height - detailLabel.frame.height) / 2
+					
+					titleLabel.frame.size.height += diff
+					titleLabel.frame.size.width = contentView.frame.width
+					
+					detailLabel.frame.size.height += diff
+					detailLabel.frame.size.width = contentView.frame.width
+					detailLabel.frame.origin.y = titleLabel.frame.height
+				}
+			} else {
+				detailLabel.removeFromSuperview()
+			}
+			
+			contentView.grid.reloadLayout()
 		}
 	}
 	
@@ -124,7 +146,6 @@ public class Toolbar : BarView {
 		titleLabel.contentScaleFactor = MaterialDevice.scale
 		titleLabel.font = RobotoFont.mediumWithSize(17)
 		titleLabel.textAlignment = .Left
-		contentView.addSubview(titleLabel)
 	}
 	
 	/// Prepares the detailLabel.
@@ -133,6 +154,5 @@ public class Toolbar : BarView {
 		detailLabel.contentScaleFactor = MaterialDevice.scale
 		detailLabel.font = RobotoFont.regularWithSize(12)
 		detailLabel.textAlignment = .Left
-		contentView.addSubview(detailLabel)
 	}
 }

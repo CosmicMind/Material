@@ -126,7 +126,6 @@ public class ControlView : MaterialView {
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
-		prepareView()
 	}
 	
 	/**
@@ -137,14 +136,12 @@ public class ControlView : MaterialView {
 	*/
 	public override init(frame: CGRect) {
 		super.init(frame: frame)
-		prepareView()
 	}
 	
 	/// Basic initializer.
 	public init() {
 		super.init(frame: CGRectZero)
 		frame.size = intrinsicContentSize()
-		prepareView()
 	}
 	
 	/**
@@ -155,7 +152,6 @@ public class ControlView : MaterialView {
 	public init(leftControls: Array<UIControl>? = nil, rightControls: Array<UIControl>? = nil) {
 		super.init(frame: CGRectZero)
 		frame.size = intrinsicContentSize()
-		prepareView()
 		prepareProperties(leftControls, rightControls: rightControls)
 	}
 	

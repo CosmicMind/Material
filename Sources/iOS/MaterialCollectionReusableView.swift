@@ -420,7 +420,6 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 		shape = .None
 		contentsGravityPreset = .ResizeAspectFill
 		super.init(coder: aDecoder)
-		prepareView()
 	}
 	
 	/**

@@ -184,7 +184,6 @@ public class BottomTabBar : UITabBar {
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
-		prepareView()
 	}
 	
 	/**

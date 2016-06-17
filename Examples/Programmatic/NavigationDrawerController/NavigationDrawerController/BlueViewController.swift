@@ -53,6 +53,5 @@ class BlueViewController: UIViewController {
 	private func prepareNavigationItem() {
 		navigationItem.title = "Blue"
 		navigationItem.titleLabel.textAlignment = .Left
-		navigationItem.titleLabel.font = RobotoFont.mediumWithSize(20)
 	}
 }

@@ -281,7 +281,6 @@ public class MaterialTableViewCell : UITableViewCell {
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
-		prepareView()
 	}
 	
 	/**

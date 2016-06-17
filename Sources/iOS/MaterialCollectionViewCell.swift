@@ -420,7 +420,6 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 		shape = .None
 		contentsGravityPreset = .ResizeAspectFill
 		super.init(coder: aDecoder)
-		prepareView()
 	}
 	
 	/**

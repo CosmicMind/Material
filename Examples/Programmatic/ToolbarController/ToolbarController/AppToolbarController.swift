@@ -44,8 +44,13 @@ class AppToolbarController: ToolbarController {
 		prepareToolbar()
 	}
 	
+	/// Swaps rootViewControllers.
+	func handleMenuButton() {
+		transitionFromRootViewController(rootViewController.isKindOfClass(YellowViewController) ? GreenViewController() : YellowViewController())
+	}
+	
 	/// Toggle NavigationDrawerController right UIViewController.
-	internal func handleSearchButton() {
+	func handleSearchButton() {
 		floatingViewController = GreenViewController()
 		
 		MaterialAnimation.delay(1.5) { [weak self] in
@@ -60,11 +65,9 @@ class AppToolbarController: ToolbarController {
 		toolbar.title = "Material"
 		toolbar.titleLabel.textColor = MaterialColor.white
 		
-		// Detail label. Uncomment the code below to use a detail label.
-		//		toolbar.detailLabel.text = "Build Beautiful Software"
-		//		toolbar.detailLabel.textAlignment = .Left
-		//		toolbar.detailLabel.textColor = MaterialColor.white
-		//		toolbar.detailLabel.font = RobotoFont.regular
+		toolbar.detail = "Build Beautiful Software"
+		toolbar.detailLabel.textAlignment = .Left
+		toolbar.detailLabel.textColor = MaterialColor.white
 		
 		var image: UIImage? = MaterialIcon.cm.menu
 		
@@ -74,6 +77,7 @@ class AppToolbarController: ToolbarController {
 		menuButton.pulseColor = MaterialColor.white
 		menuButton.setImage(image, forState: .Normal)
 		menuButton.setImage(image, forState: .Highlighted)
+		menuButton.addTarget(self, action: #selector(handleMenuButton), forControlEvents: .TouchUpInside)
 		
 		// Switch control.
 		let switchControl: MaterialSwitch = MaterialSwitch(state: .Off, style: .LightContent, size: .Small)

@@ -268,7 +268,6 @@ public class NavigationBar : UINavigationBar {
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
-		prepareView()
 	}
 	
 	/**
@@ -380,37 +379,40 @@ public class NavigationBar : UINavigationBar {
 						titleView.grid.reloadLayout()
 						
 						// contentView alignment.
-						if let titleLabel: UILabel = item.titleLabel {
-							if let _: String = titleLabel.text {
-								if nil == titleLabel.superview {
-									contentView.addSubview(titleLabel)
-								}
-								
-								if let detailLabel: UILabel = item.detailLabel {
-									if let _: String = detailLabel.text {
-										if nil == detailLabel.superview {
-											contentView.addSubview(detailLabel)
-										}
-										
-										titleLabel.sizeToFit()
-										detailLabel.sizeToFit()
-										
-										let diff: CGFloat = (contentView.frame.height - titleLabel.frame.height - detailLabel.frame.height) / 2
-										titleLabel.frame.size.height += diff
-										titleLabel.frame.size.width = contentView.frame.width
-										detailLabel.frame.size.height += diff
-										detailLabel.frame.size.width = contentView.frame.width
-										detailLabel.frame.origin.y = titleLabel.frame.height
-									} else {
-										detailLabel.removeFromSuperview()
-										titleLabel.frame = contentView.bounds
-									}
-								}
-							} else {
-								titleLabel.removeFromSuperview()
-								contentView.grid.reloadLayout()
+						if nil != item.title && "" != item.title {
+							if nil == item.titleLabel.superview {
+								contentView.addSubview(item.titleLabel)
 							}
+							item.titleLabel.frame = contentView.bounds
+						} else {
+							item.titleLabel.removeFromSuperview()
 						}
+						
+						if nil != item.detail && "" != item.detail {
+							if nil == item.detailLabel.superview {
+								contentView.addSubview(item.detailLabel)
+							}
+							
+							if nil == item.titleLabel.superview {
+								item.detailLabel.frame = contentView.bounds
+							} else {
+								item.titleLabel.sizeToFit()
+								item.detailLabel.sizeToFit()
+								
+								let diff: CGFloat = (contentView.frame.height - item.titleLabel.frame.height - item.detailLabel.frame.height) / 2
+								
+								item.titleLabel.frame.size.height += diff
+								item.titleLabel.frame.size.width = contentView.frame.width
+								
+								item.detailLabel.frame.size.height += diff
+								item.detailLabel.frame.size.width = contentView.frame.width
+								item.detailLabel.frame.origin.y = item.titleLabel.frame.height
+							}
+						} else {
+							item.detailLabel.removeFromSuperview()
+						}
+						
+						contentView.grid.reloadLayout()
 					}
 				}
 			}

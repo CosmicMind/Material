@@ -61,7 +61,7 @@ public class RootController : UIViewController {
 	is recommended to use the transitionFromRootViewController
 	helper method.
 	*/
-	public private(set) var rootViewController: UIViewController!
+	public internal(set) var rootViewController: UIViewController!
 	
 	/**
 	An initializer that initializes the object with a NSCoder object.
@@ -69,7 +69,6 @@ public class RootController : UIViewController {
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
-		prepareView()
 	}
 	
 	/**
@@ -79,7 +78,6 @@ public class RootController : UIViewController {
 	*/
 	public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-		prepareView()
 	}
 	
 	/**

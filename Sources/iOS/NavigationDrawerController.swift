@@ -319,6 +319,15 @@ public class NavigationDrawerController : RootController, UIGestureRecognizerDel
 	}
 	
 	/**
+	Content view controller to encompase the entire component. This is
+	primarily used when the StatusBar is being hidden. The alpha value of
+	the rootViewController decreases, and shows the StatusBar. To avoid
+	this, and to add a hidden transition viewController for complex
+	situations, the contentViewController was added.
+	*/
+	public private(set) var contentViewController: UIViewController?
+	
+	/**
 	A UIViewController property that references the 
 	active left UIViewController.
 	*/
@@ -348,7 +357,15 @@ public class NavigationDrawerController : RootController, UIGestureRecognizerDel
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
-		prepareView()
+	}
+	
+	/**
+	An initializer that initializes the object with an Optional nib and bundle.
+	- Parameter nibNameOrNil: An Optional String for the nib.
+	- Parameter bundle: An Optional NSBundle where the nib is located.
+	*/
+	public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 	}
 	
 	/**
@@ -362,6 +379,20 @@ public class NavigationDrawerController : RootController, UIGestureRecognizerDel
 		self.leftViewController = leftViewController
 		self.rightViewController = rightViewController
 		prepareView()
+	}
+	
+	/**
+	Prepares the view instance when intialized. When subclassing,
+	it is recommended to override the prepareView method
+	to initialize property values and other setup operations.
+	The super.prepareView method should always be called immediately
+	when subclassing.
+	*/
+	public override func prepareView() {
+		super.prepareView()
+		prepareContentViewController()
+		prepareLeftView()
+		prepareRightView()
 	}
 	
 	/// Layout subviews.
@@ -834,17 +865,13 @@ public class NavigationDrawerController : RootController, UIGestureRecognizerDel
 		}
 	}
 	
-	/**
-	Prepares the view instance when intialized. When subclassing,
-	it is recommended to override the prepareView method
-	to initialize property values and other setup operations.
-	The super.prepareView method should always be called immediately
-	when subclassing.
-	*/
-	public override func prepareView() {
-		super.prepareView()
-		prepareLeftView()
-		prepareRightView()
+	/// Prepares the contentViewController.
+	private func prepareContentViewController() {
+		if nil == contentViewController {
+			contentViewController = UIViewController()
+			contentViewController!.view.backgroundColor = MaterialColor.black
+		}
+		prepareViewControllerWithinContainer(contentViewController, container: view)
 	}
 	
 	/// A method that prepares the leftViewController.
@@ -869,7 +896,7 @@ public class NavigationDrawerController : RootController, UIGestureRecognizerDel
 			enabledLeftView = false
 			enabledLeftPanGesture = false
 			enabledLeftTapGesture = false
-		} else {
+		} else if nil == leftView {
 			leftViewWidth = .iPhone == MaterialDevice.type ? 280 : 320
 			leftView = MaterialView()
 			leftView!.frame = CGRectMake(0, 0, leftViewWidth, view.frame.height)
@@ -889,7 +916,7 @@ public class NavigationDrawerController : RootController, UIGestureRecognizerDel
 			enabledRightView = false
 			enabledRightPanGesture = false
 			enabledRightTapGesture = false
-		} else {
+		} else if nil == rightView {
 			rightViewWidth = .iPhone == MaterialDevice.type ? 280 : 320
 			rightView = MaterialView()
 			rightView!.frame = CGRectMake(0, 0, rightViewWidth, view.frame.height)
