@@ -116,6 +116,7 @@ public class MaterialLabel : UILabel {
 		wrapped = true
 		contentsScale = MaterialDevice.scale
 		super.init(coder: aDecoder)
+		prepareView()
 	}
 	
 	/**

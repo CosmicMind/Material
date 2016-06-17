@@ -272,7 +272,7 @@ public class NavigationDrawerController : RootController, UIGestureRecognizerDel
 	A Boolean property that triggers the status bar to be hidden
 	when the leftView is opened. Defaults to true.
 	*/
-	@IBInspectable public var enableHideStatusbar: Bool = true
+	@IBInspectable public var enableHideStatusBar: Bool = true
 	
 	/// Sets the statusBar to hidden or not.
 	public private(set) var statusBarHidden: Bool = false
@@ -1042,7 +1042,7 @@ public class NavigationDrawerController : RootController, UIGestureRecognizerDel
 	
 	/// Hides the statusBar.
 	private func hideStatusBar() {
-		if enableHideStatusbar {
+		if enableHideStatusBar {
 			if !statusBarHidden {
 				statusBarHidden = true
 				dispatch_async(dispatch_get_main_queue(), { [weak self] in

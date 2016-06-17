@@ -318,6 +318,7 @@ public class MaterialButton : UIButton {
 	public required init?(coder aDecoder: NSCoder) {
 		contentEdgeInsetsPreset = .None
 		super.init(coder: aDecoder)
+		prepareView()
 	}
 	
 	/**

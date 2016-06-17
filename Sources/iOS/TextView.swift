@@ -305,6 +305,7 @@ public class TextView: UITextView {
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
+		prepareView()
 	}
 	
 	/**

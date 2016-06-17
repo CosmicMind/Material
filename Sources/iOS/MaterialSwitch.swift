@@ -46,6 +46,7 @@ public enum MaterialSwitchSize {
 	case Large
 }
 
+@objc(MaterialSwitchDelegate)
 public protocol MaterialSwitchDelegate {
 	/**
 	A MaterialSwitch delegate method for state changes.
@@ -54,6 +55,7 @@ public protocol MaterialSwitchDelegate {
 	func materialSwitchStateChanged(control: MaterialSwitch)
 }
 
+@objc(MaterialSwitch)
 @IBDesignable
 public class MaterialSwitch : UIControl {
 	/// An internal reference to the switchState public property.
@@ -115,7 +117,7 @@ public class MaterialSwitch : UIControl {
 	}
 	
 	/// An Optional delegation method.
-	public var delegate: MaterialSwitchDelegate?
+	public weak var delegate: MaterialSwitchDelegate?
 	
 	/// Indicates if the animation should bounce.
 	@IBInspectable public var bounceable: Bool = true {

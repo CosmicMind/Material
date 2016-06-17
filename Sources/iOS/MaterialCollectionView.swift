@@ -124,6 +124,7 @@ public class MaterialCollectionView : UICollectionView {
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
+		prepareView()
 	}
 	
 	/**

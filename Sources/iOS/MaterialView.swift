@@ -364,6 +364,7 @@ public class MaterialView : UIView {
 	public required init?(coder aDecoder: NSCoder) {
 		contentsGravityPreset = .ResizeAspectFill
 		super.init(coder: aDecoder)
+		prepareView()
 	}
 	
 	/**

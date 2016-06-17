@@ -268,6 +268,7 @@ public class NavigationBar : UINavigationBar {
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
+		prepareView()
 	}
 	
 	/**
