@@ -69,7 +69,6 @@ public class BottomNavigationController : UITabBarController, UITabBarController
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
-		prepareView()
 	}
 	
 	/**
@@ -79,11 +78,14 @@ public class BottomNavigationController : UITabBarController, UITabBarController
 	*/
 	public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-		prepareView()
 	}
 	
 	public init() {
 		super.init(nibName: nil, bundle: nil)
+	}
+	
+	public override func viewDidLoad() {
+		super.viewDidLoad()
 		prepareView()
 	}
 	

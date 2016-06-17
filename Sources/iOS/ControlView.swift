@@ -140,7 +140,7 @@ public class ControlView : MaterialView {
 	
 	/// Basic initializer.
 	public init() {
-		super.init(frame: CGRectZero)
+		super.init(frame: CGRect.zero)
 		frame.size = intrinsicContentSize()
 	}
 	
@@ -150,7 +150,7 @@ public class ControlView : MaterialView {
 	- Parameter rightControls: An Array of UIControls that go on the right side.
 	*/
 	public init(leftControls: Array<UIControl>? = nil, rightControls: Array<UIControl>? = nil) {
-		super.init(frame: CGRectZero)
+		super.init(frame: CGRect.zero)
 		frame.size = intrinsicContentSize()
 		prepareProperties(leftControls, rightControls: rightControls)
 	}

@@ -176,7 +176,7 @@ public class TextField : UITextField {
 	}
 	
 	/// The placeholder UILabel.
-	@IBInspectable public private(set) lazy var placeholderLabel: UILabel = UILabel(frame: CGRectZero)
+	@IBInspectable public private(set) lazy var placeholderLabel: UILabel = UILabel(frame: CGRect.zero)
 	
 	/// Placeholder textColor.
 	@IBInspectable public var placeholderColor: UIColor = MaterialColor.darkText.others {
@@ -205,7 +205,7 @@ public class TextField : UITextField {
 	public var placeholderVerticalOffset: CGFloat = 0
 	
 	/// The detailLabel UILabel that is displayed.
-	@IBInspectable public private(set) lazy var detailLabel: UILabel = UILabel(frame: CGRectZero)
+	@IBInspectable public private(set) lazy var detailLabel: UILabel = UILabel(frame: CGRect.zero)
 	
 	
 	/// The detailLabel text value.
@@ -259,7 +259,7 @@ public class TextField : UITextField {
 			if value {
 				if nil == clearIconButton {
 					let image: UIImage? = MaterialIcon.cm.clear
-					clearIconButton = IconButton(frame: CGRectZero)
+					clearIconButton = IconButton(frame: CGRect.zero)
 					clearIconButton!.contentEdgeInsets = UIEdgeInsetsZero
 					clearIconButton!.pulseAnimation = .Center
 					clearIconButton!.tintColor = placeholderColor
@@ -296,7 +296,7 @@ public class TextField : UITextField {
 			if value {
 				if nil == visibilityIconButton {
 					let image: UIImage? = MaterialIcon.visibility
-					visibilityIconButton = IconButton(frame: CGRectZero)
+					visibilityIconButton = IconButton(frame: CGRect.zero)
 					visibilityIconButton!.contentEdgeInsets = UIEdgeInsetsZero
 					visibilityIconButton!.pulseAnimation = .Center
 					visibilityIconButton!.tintColor = placeholderColor
@@ -354,7 +354,7 @@ public class TextField : UITextField {
 	
 	/// A convenience initializer.
 	public convenience init() {
-		self.init(frame: CGRectZero)
+		self.init(frame: CGRect.zero)
 	}
 	
 	public override func layoutSubviews() {

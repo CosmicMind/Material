@@ -200,7 +200,7 @@ public class BottomTabBar : UITabBar {
 	
 	/// A convenience initializer.
 	public convenience init() {
-		self.init(frame: CGRectZero)
+		self.init(frame: CGRect.zero)
 	}
 	
 	public override func layoutSubviews() {

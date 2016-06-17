@@ -58,11 +58,6 @@ public class NavigationController : UINavigationController, UIGestureRecognizerD
 		setViewControllers([rootViewController], animated: false)
 	}
 	
-	public override func viewDidLoad() {
-		super.viewDidLoad()
-		prepareView()
-	}
-	
 	public override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 		if let v: UIGestureRecognizer = interactivePopGestureRecognizer {
@@ -75,6 +70,11 @@ public class NavigationController : UINavigationController, UIGestureRecognizerD
 				}
 			}
 		}
+	}
+	
+	public override func viewDidLoad() {
+		super.viewDidLoad()
+		prepareView()
 	}
 	
 	public override func viewDidAppear(animated: Bool) {

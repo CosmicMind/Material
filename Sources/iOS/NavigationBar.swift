@@ -284,7 +284,7 @@ public class NavigationBar : UINavigationBar {
 	
 	/// A convenience initializer.
 	public convenience init() {
-		self.init(frame: CGRectZero)
+		self.init(frame: CGRect.zero)
 	}
 	
 	public override func intrinsicContentSize() -> CGSize {
@@ -304,6 +304,7 @@ public class NavigationBar : UINavigationBar {
 	
 	public override func layoutSubviews() {
 		super.layoutSubviews()
+		
 		if let v: UINavigationItem = topItem {
 			layoutNavigationItem(v)
 		}
@@ -456,7 +457,7 @@ public class NavigationBar : UINavigationBar {
 	*/
 	private func prepareTitleView(item: UINavigationItem) -> UIView {
 		if nil == item.titleView {
-			item.titleView = UIView(frame: CGRectZero)
+			item.titleView = UIView(frame: CGRect.zero)
 		}
 		return item.titleView!
 	}
@@ -468,7 +469,7 @@ public class NavigationBar : UINavigationBar {
 	*/
 	private func prepareContentView(item: UINavigationItem) -> UIView {
 		if nil == item.contentView {
-			item.contentView = UIView(frame: CGRectZero)
+			item.contentView = UIView(frame: CGRect.zero)
 		}
 		item.contentView!.grid.axis.direction = .Vertical
 		return item.contentView!
