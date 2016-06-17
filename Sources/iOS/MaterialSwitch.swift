@@ -46,7 +46,7 @@ public enum MaterialSwitchSize {
 	case Large
 }
 
-public protocol MaterialSwitchDelegate {
+public protocol MaterialSwitchDelegate: class {
 	/**
 	A MaterialSwitch delegate method for state changes.
 	- Parameter control: MaterialSwitch control.
@@ -115,7 +115,7 @@ public class MaterialSwitch : UIControl {
 	}
 	
 	/// An Optional delegation method.
-	public var delegate: MaterialSwitchDelegate?
+	public weak var delegate: MaterialSwitchDelegate?
 	
 	/// Indicates if the animation should bounce.
 	@IBInspectable public var bounceable: Bool = true {
