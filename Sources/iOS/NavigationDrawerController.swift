@@ -200,18 +200,15 @@ public class NavigationDrawerController : RootController, UIGestureRecognizerDel
 	A Boolean property that enables and disables the leftView from
 	opening and closing. Defaults to true.
 	*/
-	@IBInspectable public var enabledLeftView: Bool = true {
+	@IBInspectable public var enabledLeftView: Bool = false {
 		didSet {
-			if enabledLeftView {
-				prepareLeftViewGestures()
-			} else {
-				removeLeftViewGestures()
-			}
+			enabledLeftPanGesture = enabledLeftView
+			enabledLeftTapGesture = enabledLeftView
 		}
 	}
 	
 	/// Enables the left pan gesture.
-	@IBInspectable public var enabledLeftPanGesture: Bool = true {
+	@IBInspectable public var enabledLeftPanGesture: Bool = false {
 		didSet {
 			if enabledLeftPanGesture {
 				prepareLeftPanGesture()
@@ -222,7 +219,7 @@ public class NavigationDrawerController : RootController, UIGestureRecognizerDel
 	}
 	
 	/// Enables the left tap gesture.
-	@IBInspectable public var enabledLeftTapGesture: Bool = true {
+	@IBInspectable public var enabledLeftTapGesture: Bool = false {
 		didSet {
 			if enabledLeftTapGesture {
 				prepareLeftTapGesture()
@@ -236,18 +233,15 @@ public class NavigationDrawerController : RootController, UIGestureRecognizerDel
 	A Boolean property that enables and disables the rightView from
 	opening and closing. Defaults to true.
 	*/
-	@IBInspectable public var enabledRightView: Bool = true {
+	@IBInspectable public var enabledRightView: Bool = false {
 		didSet {
-			if enabledRightView {
-				prepareRightViewGestures()
-			} else {
-				removeRightViewGestures()
-			}
+			enabledRightPanGesture = enabledRightView
+			enabledRightTapGesture = enabledRightView
 		}
 	}
 	
 	/// Enables the right pan gesture.
-	@IBInspectable public var enabledRightPanGesture: Bool = true {
+	@IBInspectable public var enabledRightPanGesture: Bool = false {
 		didSet {
 			if enabledRightPanGesture {
 				prepareRightPanGesture()
@@ -258,7 +252,7 @@ public class NavigationDrawerController : RootController, UIGestureRecognizerDel
 	}
 	
 	/// Enables the right tap gesture.
-	@IBInspectable public var enabledRightTapGesture: Bool = true {
+	@IBInspectable public var enabledRightTapGesture: Bool = false {
 		didSet {
 			if enabledRightTapGesture {
 				prepareRightTapGesture()
@@ -878,7 +872,6 @@ public class NavigationDrawerController : RootController, UIGestureRecognizerDel
 	private func prepareLeftViewController() {
 		if let v: MaterialView = leftView {
 			prepareViewControllerWithinContainer(leftViewController, container: v)
-			prepareLeftViewGestures()
 		}
 	}
 	
@@ -886,57 +879,50 @@ public class NavigationDrawerController : RootController, UIGestureRecognizerDel
 	private func prepareRightViewController() {
 		if let v: MaterialView = rightView {
 			prepareViewControllerWithinContainer(rightViewController, container: v)
-			prepareRightViewGestures()
 		}
 	}
 	
 	/// A method that prepares the leftView.
 	private func prepareLeftView() {
-		if nil == leftViewController {
-			enabledLeftView = false
-			enabledLeftPanGesture = false
-			enabledLeftTapGesture = false
-		} else if nil == leftView {
-			leftViewWidth = .iPhone == MaterialDevice.type ? 280 : 320
-			leftView = MaterialView()
-			leftView!.frame = CGRectMake(0, 0, leftViewWidth, view.frame.height)
-			leftView!.backgroundColor = MaterialColor.clear
-			view.addSubview(leftView!)
-			
-			leftView!.hidden = true
-			leftView!.position.x = -leftViewWidth / 2
-			leftView!.zPosition = 2000
-			prepareLeftViewController()
+		guard let _: UIViewController = leftViewController else {
+			return
 		}
+		
+		enabledLeftView = true
+		
+		leftViewWidth = .iPhone == MaterialDevice.type ? 280 : 320
+		leftView = MaterialView()
+		leftView!.frame = CGRectMake(0, 0, leftViewWidth, view.frame.height)
+		leftView!.backgroundColor = MaterialColor.clear
+		view.addSubview(leftView!)
+		
+		leftView!.hidden = true
+		leftView!.position.x = -leftViewWidth / 2
+		leftView!.zPosition = 2000
+		prepareLeftViewController()
 	}
 	
 	/// A method that prepares the leftView.
 	private func prepareRightView() {
-		if nil == rightViewController {
-			enabledRightView = false
-			enabledRightPanGesture = false
-			enabledRightTapGesture = false
-		} else if nil == rightView {
-			rightViewWidth = .iPhone == MaterialDevice.type ? 280 : 320
-			rightView = MaterialView()
-			rightView!.frame = CGRectMake(0, 0, rightViewWidth, view.frame.height)
-			rightView!.backgroundColor = MaterialColor.clear
-			view.addSubview(rightView!)
-			
-			rightView!.hidden = true
-			rightView!.position.x = view.bounds.width + rightViewWidth / 2
-			rightView!.zPosition = 2000
-			prepareRightViewController()
+		guard let _: UIViewController = rightViewController else {
+			return
 		}
+		
+		enabledRightView = true
+		
+		rightViewWidth = .iPhone == MaterialDevice.type ? 280 : 320
+		rightView = MaterialView()
+		rightView!.frame = CGRectMake(0, 0, rightViewWidth, view.frame.height)
+		rightView!.backgroundColor = MaterialColor.clear
+		view.addSubview(rightView!)
+		
+		rightView!.hidden = true
+		rightView!.position.x = view.bounds.width + rightViewWidth / 2
+		rightView!.zPosition = 2000
+		prepareRightViewController()
 	}
 	
-	/// A method that prepares the gestures used within the leftView.
-	private func prepareLeftViewGestures() {
-		prepareLeftPanGesture()
-		prepareLeftTapGesture()
-	}
-	
-	/// Prepare the left pan gesture. 
+	/// Prepare the left pan gesture.
 	private func prepareLeftPanGesture() {
 		if nil == leftPanGesture {
 			leftPanGesture = UIPanGestureRecognizer(target: self, action: #selector(handleLeftViewPanGesture(_:)))
@@ -953,12 +939,6 @@ public class NavigationDrawerController : RootController, UIGestureRecognizerDel
 			leftTapGesture!.cancelsTouchesInView = false
 			view.addGestureRecognizer(leftTapGesture!)
 		}
-	}
-	
-	/// A method that prepares the gestures used within the rightView.
-	private func prepareRightViewGestures() {
-		prepareRightPanGesture()
-		prepareRightTapGesture()
 	}
 	
 	/// Prepares the right pan gesture.
