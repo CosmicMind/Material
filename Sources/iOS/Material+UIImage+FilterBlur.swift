@@ -52,7 +52,7 @@ public extension UIImage {
 		var effectImage: UIImage = self
 		
 		let screenScale: CGFloat = MaterialDevice.scale
-		let imageRect: CGRect = CGRect(origin: CGPointZero, size: size)
+		let imageRect: CGRect = CGRect(origin: CGPoint.zero, size: size)
 		let hasBlur: Bool = blurRadius > CGFloat(FLT_EPSILON)
 		let hasSaturationChange: Bool = fabs(saturationDeltaFactor - 1.0) > CGFloat(FLT_EPSILON)
 		

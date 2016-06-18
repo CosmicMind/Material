@@ -33,7 +33,7 @@ import UIKit
 public class ControlView : MaterialView {
 	/// Will render the view.
 	public var willRenderView: Bool {
-		return 0 < width
+		return 0 < width && 0 < height
 	}
 	
 	/// A preset wrapper around contentInset.

@@ -319,7 +319,7 @@ public class NavigationDrawerController : RootController, UIGestureRecognizerDel
 	this, and to add a hidden transition viewController for complex
 	situations, the contentViewController was added.
 	*/
-	public private(set) var contentViewController: UIViewController?
+	public private(set) lazy var contentViewController: UIViewController = UIViewController()
 	
 	/**
 	A UIViewController property that references the 
@@ -861,11 +861,9 @@ public class NavigationDrawerController : RootController, UIGestureRecognizerDel
 	
 	/// Prepares the contentViewController.
 	private func prepareContentViewController() {
-		if nil == contentViewController {
-			contentViewController = UIViewController()
-			contentViewController!.view.backgroundColor = MaterialColor.black
-		}
+		contentViewController.view.backgroundColor = MaterialColor.black
 		prepareViewControllerWithinContainer(contentViewController, container: view)
+		view.sendSubviewToBack(contentViewController.view)
 	}
 	
 	/// A method that prepares the leftViewController.

@@ -97,7 +97,7 @@ public class Menu {
 	
 	/// Convenience initializer.
 	public convenience init() {
-		self.init(origin: CGPointZero)
+		self.init(origin: CGPoint.zero)
 	}
 
 	/// Reload the view layout.

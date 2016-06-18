@@ -45,7 +45,7 @@ public enum MaterialDepth {
 public func MaterialDepthToValue(depth: MaterialDepth) -> MaterialDepthType {
 	switch depth {
 	case .None:
-		return (offset: CGSizeZero, opacity: 0, radius: 0)
+		return (offset: CGSize.zero, opacity: 0, radius: 0)
 	case .Depth1:
 		return (offset: CGSizeMake(0, 1), opacity: 0.3, radius: 1)
 	case .Depth2:

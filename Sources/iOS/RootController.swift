@@ -129,6 +129,7 @@ public class RootController : UIViewController {
 					s.rootViewController = toViewController
 					s.rootViewController.view.clipsToBounds = true
 					s.rootViewController.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+					s.rootViewController.view.contentScaleFactor = MaterialDevice.scale
 					completion?(result)
 				}
 			})
@@ -171,7 +172,6 @@ public class RootController : UIViewController {
 		if let v: UIViewController = viewController {
 			addChildViewController(v)
 			container.addSubview(v.view)
-			container.sendSubviewToBack(v.view)
 			v.didMoveToParentViewController(self)
 			v.view.clipsToBounds = true
 			v.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]

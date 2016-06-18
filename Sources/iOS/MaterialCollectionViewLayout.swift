@@ -32,10 +32,10 @@ import UIKit
 
 public class MaterialCollectionViewLayout : UICollectionViewLayout {
 	/// Used to calculate the dimensions of the cells.
-	internal var offset: CGPoint = CGPointZero
+	internal var offset: CGPoint = CGPoint.zero
 	
 	/// The size of items.
-	public var itemSize: CGSize = CGSizeZero
+	public var itemSize: CGSize = CGSize.zero
 	
 	/// A preset wrapper around contentInset.
 	public var contentInsetPreset: MaterialEdgeInset = .None {
@@ -48,7 +48,7 @@ public class MaterialCollectionViewLayout : UICollectionViewLayout {
 	public var contentInset: UIEdgeInsets = UIEdgeInsetsZero
 	
 	/// Size of the content.
-	public private(set) var contentSize: CGSize = CGSizeZero
+	public private(set) var contentSize: CGSize = CGSize.zero
 	
 	/// Layout attribute items.
 	public private(set) var layoutItems: Array<(UICollectionViewLayoutAttributes, NSIndexPath)> = Array<(UICollectionViewLayoutAttributes, NSIndexPath)>()
