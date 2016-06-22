@@ -72,6 +72,7 @@ public class StatusBarController : RootController {
 	when subclassing.
 	*/
 	public override func prepareView() {
+        super.prepareView()
 		prepareStatusBarView()
 	}
 	

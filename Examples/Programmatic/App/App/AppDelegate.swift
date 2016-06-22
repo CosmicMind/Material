@@ -40,7 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		let bottomNavigationController: AppBottomNavigationController = AppBottomNavigationController()
 		let navigationController: AppNavigationController = AppNavigationController(rootViewController: bottomNavigationController)
 		let menuController: AppMenuController = AppMenuController(rootViewController: navigationController)
-		let navigationDrawerController: AppNavigationDrawerController = AppNavigationDrawerController(rootViewController: menuController, leftViewController: AppLeftViewController())
+        let statusBarController: StatusBarController = StatusBarController(rootViewController: menuController)
+		let navigationDrawerController: AppNavigationDrawerController = AppNavigationDrawerController(rootViewController: statusBarController, leftViewController: AppLeftViewController())
 		
 		window = UIWindow(frame: UIScreen.mainScreen().bounds)
 		window!.rootViewController = navigationDrawerController
