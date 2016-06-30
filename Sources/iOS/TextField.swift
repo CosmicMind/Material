@@ -632,6 +632,6 @@ public class TextField : UITextField {
     
     /// Prepares the textAlignment.
     private func prepareTextAlignment() {
-        textAlignment = UIApplication.sharedApplication().userInterfaceLayoutDirection == .RightToLeft ? .Right : .Left
+        textAlignment = .RightToLeft == UIApplication.sharedApplication().userInterfaceLayoutDirection ? .Right : .Left
     }
 }
