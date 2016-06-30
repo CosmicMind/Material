@@ -630,13 +630,8 @@ public class TextField : UITextField {
 		addTarget(self, action: #selector(handleEditingDidEnd), forControlEvents: .EditingDidEnd)
 	}
     
-    /// Prepares the target handlers.
+    /// Prepares the textAlignment.
     private func prepareTextAlignment() {
-        if (UIApplication.sharedApplication().userInterfaceLayoutDirection == .RightToLeft) {
-            self.textAlignment = .Right
-        }
-        else {
-            self.textAlignment = .Left
-        }
+        textAlignment = UIApplication.sharedApplication().userInterfaceLayoutDirection == .RightToLeft ? .Right : .Left
     }
 }
