@@ -429,6 +429,7 @@ public class NavigationBar : UINavigationBar {
 	when subclassing.
 	*/
 	public func prepareView() {
+        barStyle = .Black
 		translucent = false
 		depth = .Depth1
 		spacingPreset = .Spacing1
