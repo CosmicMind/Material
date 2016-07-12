@@ -46,8 +46,8 @@ class ViewController: UIViewController {
 	/// FlashMenu component.
 	private var flashMenu: Menu!
 	
-	/// Default spacing size
-	let spacing: CGFloat = 16
+	/// Default interimSpace size
+	let interimSpace: CGFloat = 16
 	
 	/// Diameter for FabButtons.
 	let diameter: CGFloat = 56
@@ -70,8 +70,8 @@ class ViewController: UIViewController {
 		super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
 		
 		// Handle orientation change.
-		fabMenu.origin = CGPointMake(view.bounds.height - diameter - spacing, view.bounds.width - diameter - spacing)
-		flatMenu.origin = CGPointMake(spacing, view.bounds.height - height - spacing)
+		fabMenu.origin = CGPointMake(view.bounds.height - diameter - interimSpace, view.bounds.width - diameter - interimSpace)
+		flatMenu.origin = CGPointMake(interimSpace, view.bounds.height - height - interimSpace)
 	}
 	
 	/// Handle the fabMenu touch event.
@@ -155,7 +155,7 @@ class ViewController: UIViewController {
 		view.addSubview(btn4)
 		
 		// Initialize the menu and setup the configuration options.
-		fabMenu = Menu(origin: CGPointMake(view.bounds.width - diameter - spacing, view.bounds.height - diameter - spacing))
+		fabMenu = Menu(origin: CGPointMake(view.bounds.width - diameter - interimSpace, view.bounds.height - diameter - interimSpace))
 		fabMenu.direction = .Up
 		fabMenu.baseSize = CGSizeMake(diameter, diameter)
 		fabMenu.views = [btn1, btn2, btn3, btn4]
@@ -196,9 +196,9 @@ class ViewController: UIViewController {
 		view.addSubview(btn4)
 		
 		// Initialize the menu and setup the configuration options.
-		flatMenu = Menu(origin: CGPointMake(spacing, view.bounds.height - height - spacing))
+		flatMenu = Menu(origin: CGPointMake(interimSpace, view.bounds.height - height - interimSpace))
 		flatMenu.direction = .Up
-		flatMenu.spacing = 8
+		flatMenu.interimSpace = 8
 		flatMenu.itemSize = CGSizeMake(120, height)
 		flatMenu.views = [btn1, btn2, btn3, btn4]
 	}

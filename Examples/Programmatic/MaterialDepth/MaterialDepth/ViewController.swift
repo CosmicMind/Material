@@ -63,7 +63,7 @@ class ViewController: UIViewController {
 		let children: Array<UIView> = [v1, v2, v3, v4, v5]
 		
 		// Align the vs vertically with an equal height.
-		view.layout.vertically(children, top: 100, bottom: 100, spacing: 20)
+		view.layout.vertically(children, top: 100, bottom: 100, interimSpace: 20)
 		
 		/*
 		Individually set the vs' horizontal alignment.

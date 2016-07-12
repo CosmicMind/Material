@@ -48,15 +48,15 @@ public class Menu {
 		}
 	}
 
-	/// A preset wrapper around spacing.
-	public var spacingPreset: MaterialSpacing = .None {
+	/// A preset wrapper around interimSpace.
+	public var interimSpacePreset: InterimSpace = .none {
 		didSet {
-			spacing = MaterialSpacingToValue(spacingPreset)
+			interimSpace = interimSpaceToValue(interimSpacePreset)
 		}
 	}
 
 	/// The space between views.
-	public var spacing: CGFloat {
+	public var interimSpace: CGFloat {
 		didSet {
 			reloadLayout()
 		}
@@ -88,11 +88,11 @@ public class Menu {
 	/**
 	Initializer.
 	- Parameter origin: The origin position of the Menu.
-	- Parameter spacing: The spacing size between views.
+	- Parameter interimSpace: The interimSpace size between views.
 	*/
-	public init(origin: CGPoint, spacing: CGFloat = 16) {
+	public init(origin: CGPoint, interimSpace: CGFloat = 16) {
 		self.origin = origin
-		self.spacing = spacing
+		self.interimSpace = interimSpace
 	}
 	
 	/// Convenience initializer.
@@ -186,7 +186,7 @@ public class Menu {
 					animations: { [weak self] in
 						if let s: Menu = self {
 							view.alpha = 1
-							view.frame.origin.y = base!.frame.origin.y - CGFloat(i) * s.itemSize.height - CGFloat(i) * s.spacing
+							view.frame.origin.y = base!.frame.origin.y - CGFloat(i) * s.itemSize.height - CGFloat(i) * s.interimSpace
 							animations?(view)
 						}
 					}) { [weak self] _ in
@@ -272,7 +272,7 @@ public class Menu {
 					animations: { [weak self] in
 						if let s: Menu = self {
 							view.alpha = 1
-							view.frame.origin.y = base!.frame.origin.y + h + CGFloat(i - 1) * s.itemSize.height + CGFloat(i) * s.spacing
+							view.frame.origin.y = base!.frame.origin.y + h + CGFloat(i - 1) * s.itemSize.height + CGFloat(i) * s.interimSpace
 							animations?(view)
 						}
 					}) { [weak self] _ in
@@ -358,7 +358,7 @@ public class Menu {
 					animations: { [weak self] in
 						if let s: Menu = self {
 							view.alpha = 1
-							view.frame.origin.x = base!.frame.origin.x - CGFloat(i) * s.itemSize.width - CGFloat(i) * s.spacing
+							view.frame.origin.x = base!.frame.origin.x - CGFloat(i) * s.itemSize.width - CGFloat(i) * s.interimSpace
 							animations?(view)
 						}
 					}) { [weak self] _ in
@@ -442,7 +442,7 @@ public class Menu {
 					animations: { [weak self] in
 						if let s: Menu = self {
 							view.alpha = 1
-							view.frame.origin.x = base!.frame.origin.x + h + CGFloat(i - 1) * s.itemSize.width + CGFloat(i) * s.spacing
+							view.frame.origin.x = base!.frame.origin.x + h + CGFloat(i - 1) * s.itemSize.width + CGFloat(i) * s.interimSpace
 							animations?(view)
 						}
 					}) { [weak self] _ in

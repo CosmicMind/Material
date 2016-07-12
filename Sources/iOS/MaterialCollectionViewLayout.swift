@@ -59,15 +59,15 @@ public class MaterialCollectionViewLayout : UICollectionViewLayout {
 	/// Scroll direction.
 	public var scrollDirection: UICollectionViewScrollDirection = .Vertical
 	
-	/// A preset wrapper around spacing.
-	public var spacingPreset: MaterialSpacing = .None {
+	/// A preset wrapper around interimSpace.
+	public var interimSpacePreset: InterimSpace = .none {
 		didSet {
-			spacing = MaterialSpacingToValue(spacingPreset)
+			interimSpace = interimSpaceToValue(interimSpacePreset)
 		}
 	}
 	
 	/// Spacing between items.
-	public var spacing: CGFloat = 0
+	public var interimSpace: CGFloat = 0
 	
 	/**
 	Retrieves the index paths for the items within the passed in CGRect.
@@ -141,15 +141,15 @@ public class MaterialCollectionViewLayout : UICollectionViewLayout {
 			indexPath = NSIndexPath(forItem: i, inSection: 0)
 			layoutItems.append((layoutAttributesForItemAtIndexPath(indexPath!)!, indexPath!))
 			
-			offset.x += spacing
+			offset.x += interimSpace
 			offset.x += nil == item.width ? itemSize.width : item.width!
 			
-			offset.y += spacing
+			offset.y += interimSpace
 			offset.y += nil == item.height ? itemSize.height : item.height!
 		}
 		
-		offset.x += contentInset.right - spacing
-		offset.y += contentInset.bottom - spacing
+		offset.x += contentInset.right - interimSpace
+		offset.y += contentInset.bottom - interimSpace
 		
 		if 0 < itemSize.width && 0 < itemSize.height {
 			contentSize = CGSizeMake(offset.x, offset.y)

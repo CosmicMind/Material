@@ -75,15 +75,15 @@ public class NavigationBar : UINavigationBar {
 		}
 	}
 	
-	/// A preset wrapper around spacing.
-	public var spacingPreset: MaterialSpacing = .None {
+	/// A preset wrapper around interimSpace.
+	public var interimSpacePreset: InterimSpace = .none {
 		didSet {
-			spacing = MaterialSpacingToValue(spacingPreset)
+			interimSpace = interimSpaceToValue(interimSpacePreset)
 		}
 	}
 	
-	/// A wrapper around grid.spacing.
-	@IBInspectable public var spacing: CGFloat = 0 {
+	/// A wrapper around grid.interimSpace.
+	@IBInspectable public var interimSpace: CGFloat = 0 {
 		didSet {
 			layoutSubviews()
 		}
@@ -377,7 +377,7 @@ public class NavigationBar : UINavigationBar {
 						}
 						
 						titleView.grid.contentInset = contentInset
-						titleView.grid.spacing = spacing
+						titleView.grid.interimSpace = interimSpace
 						titleView.grid.reloadLayout()
 						
 						// contentView alignment.
@@ -432,7 +432,7 @@ public class NavigationBar : UINavigationBar {
         barStyle = .Black
 		translucent = false
 		depth = .Depth1
-		spacingPreset = .Spacing1
+		interimSpacePreset = .interimSpace1
 		contentInsetPreset = .Square1
 		contentScaleFactor = MaterialDevice.scale
 		backButtonImage = Icon.cm.arrowBack

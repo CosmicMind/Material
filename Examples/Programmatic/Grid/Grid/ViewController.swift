@@ -90,7 +90,7 @@ class ViewController: UIViewController {
 		btn3.grid.rows = 2
 		
 		view.grid.axis.rows = 6
-		view.grid.spacing = 16
+		view.grid.interimSpace = 16
 		view.grid.axis.direction = .Vertical
 		view.grid.contentInset.left = 16
 		view.grid.contentInset.right = 16
@@ -139,7 +139,7 @@ class ViewController: UIViewController {
 		btn3.grid.rows = 3
 		
 		view.grid.rows = 9
-		view.grid.spacing = 16
+		view.grid.interimSpace = 16
 		view.grid.contentInset.left = 16
 		view.grid.contentInset.right = 16
 		view.grid.contentInset.top = 100
@@ -173,7 +173,7 @@ class ViewController: UIViewController {
 		labelB.grid.offset.rows = 6
 		labelB.grid.offset.columns = 6
 		
-		view.grid.spacing = 16
+		view.grid.interimSpace = 16
 		view.grid.axis.direction = .None
 		view.grid.contentInsetPreset = .Square6
 		view.grid.views = [labelA, labelB]
@@ -264,7 +264,7 @@ class ViewController: UIViewController {
 		alarmButton.grid.columns = 2
 		alarmButton.grid.offset.columns = 10
 		
-		contentView.grid.spacing = 8
+		contentView.grid.interimSpace = 8
 		contentView.grid.axis.direction = .None
 		contentView.grid.contentInsetPreset = .Square3
 		contentView.grid.views = [
@@ -361,7 +361,7 @@ class ViewController: UIViewController {
 		alarmButton.grid.columns = 3
 		alarmButton.grid.offset.columns = 9
 		
-		contentView.grid.spacing = 8
+		contentView.grid.interimSpace = 8
 		contentView.grid.axis.direction = .None
 		contentView.grid.contentInsetPreset = .Square3
 		contentView.grid.views = [
@@ -458,7 +458,7 @@ class ViewController: UIViewController {
 		contentView.grid.offset.rows = 7
 		
 		cardView.grid.axis.direction = .None
-		cardView.grid.spacing = 4
+		cardView.grid.interimSpace = 4
 		cardView.grid.views = [
 			leftImageView,
 			topImageView,
@@ -485,7 +485,7 @@ class ViewController: UIViewController {
 		alarmButton.grid.columns = 2
 		alarmButton.grid.offset.columns = 10
 		
-		contentView.grid.spacing = 8
+		contentView.grid.interimSpace = 8
 		contentView.grid.axis.direction = .None
 		contentView.grid.contentInsetPreset = .Square3
 		contentView.grid.views = [

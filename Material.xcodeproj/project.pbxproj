@@ -64,7 +64,7 @@
 		96BCB7CD1CB40DC500C806FE /* MaterialPulseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7841CB40DC500C806FE /* MaterialPulseView.swift */; };
 		96BCB7CE1CB40DC500C806FE /* MaterialRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7851CB40DC500C806FE /* MaterialRadius.swift */; };
 		96BCB7CF1CB40DC500C806FE /* MaterialShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7861CB40DC500C806FE /* MaterialShape.swift */; };
-		96BCB7D01CB40DC500C806FE /* MaterialSpacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7871CB40DC500C806FE /* MaterialSpacing.swift */; };
+		96BCB7D01CB40DC500C806FE /* InterimSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7871CB40DC500C806FE /* InterimSpace.swift */; };
 		96BCB7D11CB40DC500C806FE /* MaterialSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7881CB40DC500C806FE /* MaterialSwitch.swift */; };
 		96BCB7D21CB40DC500C806FE /* MaterialTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7891CB40DC500C806FE /* MaterialTableViewCell.swift */; };
 		96BCB7D31CB40DC500C806FE /* MaterialTextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB78A1CB40DC500C806FE /* MaterialTextLayer.swift */; };
@@ -163,7 +163,7 @@
 		96BCB84B1CB4115200C806FE /* TextStorage.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB79D1CB40DC500C806FE /* TextStorage.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB84C1CB4115200C806FE /* TextView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB79E1CB40DC500C806FE /* TextView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB84D1CB4115200C806FE /* MaterialBorder.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB76F1CB40DC500C806FE /* MaterialBorder.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		96BCB84E1CB4115200C806FE /* MaterialSpacing.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7871CB40DC500C806FE /* MaterialSpacing.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96BCB84E1CB4115200C806FE /* InterimSpace.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7871CB40DC500C806FE /* InterimSpace.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB84F1CB4115200C806FE /* MaterialDepth.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7781CB40DC500C806FE /* MaterialDepth.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8501CB4115200C806FE /* MaterialEdgeInset.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB77A1CB40DC500C806FE /* MaterialEdgeInset.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8511CB4115200C806FE /* MaterialGravity.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB77C1CB40DC500C806FE /* MaterialGravity.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -255,7 +255,7 @@
 		96BCB7841CB40DC500C806FE /* MaterialPulseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialPulseView.swift; sourceTree = "<group>"; };
 		96BCB7851CB40DC500C806FE /* MaterialRadius.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialRadius.swift; sourceTree = "<group>"; };
 		96BCB7861CB40DC500C806FE /* MaterialShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialShape.swift; sourceTree = "<group>"; };
-		96BCB7871CB40DC500C806FE /* MaterialSpacing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialSpacing.swift; sourceTree = "<group>"; };
+		96BCB7871CB40DC500C806FE /* InterimSpace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterimSpace.swift; sourceTree = "<group>"; };
 		96BCB7881CB40DC500C806FE /* MaterialSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialSwitch.swift; sourceTree = "<group>"; };
 		96BCB7891CB40DC500C806FE /* MaterialTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialTableViewCell.swift; sourceTree = "<group>"; };
 		96BCB78A1CB40DC500C806FE /* MaterialTextLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialTextLayer.swift; sourceTree = "<group>"; };
@@ -514,7 +514,7 @@
 			isa = PBXGroup;
 			children = (
 				96BCB76F1CB40DC500C806FE /* MaterialBorder.swift */,
-				96BCB7871CB40DC500C806FE /* MaterialSpacing.swift */,
+				96BCB7871CB40DC500C806FE /* InterimSpace.swift */,
 				96BCB7781CB40DC500C806FE /* MaterialDepth.swift */,
 				96BCB77A1CB40DC500C806FE /* MaterialEdgeInset.swift */,
 				96BCB77C1CB40DC500C806FE /* MaterialGravity.swift */,
@@ -704,7 +704,7 @@
 				96BCB84B1CB4115200C806FE /* TextStorage.swift in Headers */,
 				96BCB84C1CB4115200C806FE /* TextView.swift in Headers */,
 				96BCB84D1CB4115200C806FE /* MaterialBorder.swift in Headers */,
-				96BCB84E1CB4115200C806FE /* MaterialSpacing.swift in Headers */,
+				96BCB84E1CB4115200C806FE /* InterimSpace.swift in Headers */,
 				96BCB84F1CB4115200C806FE /* MaterialDepth.swift in Headers */,
 				96BCB8501CB4115200C806FE /* MaterialEdgeInset.swift in Headers */,
 				96BCB8511CB4115200C806FE /* MaterialGravity.swift in Headers */,
@@ -922,7 +922,7 @@
 				96BCB7BD1CB40DC500C806FE /* MaterialCollectionViewDelegate.swift in Sources */,
 				961F18E81CD93E3E008927C5 /* ErrorTextField.swift in Sources */,
 				96BCB7AF1CB40DC500C806FE /* Material+UIImage+Blank.swift in Sources */,
-				96BCB7D01CB40DC500C806FE /* MaterialSpacing.swift in Sources */,
+				96BCB7D01CB40DC500C806FE /* InterimSpace.swift in Sources */,
 				96BCB7B31CB40DC500C806FE /* Material+UIImage+Resize.swift in Sources */,
 				96BCB7E81CB40DC500C806FE /* Toolbar.swift in Sources */,
 				96BCB7C41CB40DC500C806FE /* MaterialFont.swift in Sources */,

@@ -101,20 +101,20 @@ public class MaterialCollectionView : UICollectionView {
 		}
 	}
 	
-	/// A preset wrapper around spacing.
-	public var spacingPreset: MaterialSpacing = .None {
+	/// A preset wrapper around interimSpace.
+	public var interimSpacePreset: InterimSpace = .none {
 		didSet {
-			spacing = MaterialSpacingToValue(spacingPreset)
+			interimSpace = interimSpaceToValue(interimSpacePreset)
 		}
 	}
 	
 	/// Spacing between items.
-	@IBInspectable public var spacing: CGFloat {
+	@IBInspectable public var interimSpace: CGFloat {
 		get {
-			return (collectionViewLayout as? MaterialCollectionViewLayout)!.spacing
+			return (collectionViewLayout as? MaterialCollectionViewLayout)!.interimSpace
 		}
 		set(value) {
-			(collectionViewLayout as? MaterialCollectionViewLayout)!.spacing = value
+			(collectionViewLayout as? MaterialCollectionViewLayout)!.interimSpace = value
 		}
 	}
 	

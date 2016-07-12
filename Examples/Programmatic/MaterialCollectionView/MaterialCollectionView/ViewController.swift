@@ -83,7 +83,7 @@ class ViewController: UIViewController {
 		collectionView.registerClass(MaterialCollectionViewCell.self, forCellWithReuseIdentifier: "MaterialCollectionViewCell")
 		collectionView.dataSource = self
 		collectionView.contentInset.top = 100
-		collectionView.spacing = 16
+		collectionView.interimSpace = 16
 		
 		view.layout(collectionView).edges()
 	}

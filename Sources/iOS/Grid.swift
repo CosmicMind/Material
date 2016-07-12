@@ -153,15 +153,15 @@ public class Grid {
 		}
 	}
 	
-	/// A preset wrapper around spacing.
-	public var spacingPreset: MaterialSpacing = .None {
+	/// A preset wrapper around interimSpace.
+	public var interimSpacePreset: InterimSpace = .none {
 		didSet {
-			spacing = MaterialSpacingToValue(spacingPreset)
+			interimSpace = interimSpaceToValue(interimSpacePreset)
 		}
 	}
 	
 	/// The space between grid columnss.
-	public var spacing: CGFloat {
+	public var interimSpace: CGFloat {
 		didSet {
 			reloadLayout()
 		}
@@ -178,12 +178,12 @@ public class Grid {
 	Initializer.
 	- Parameter rows: The number of rows, Vertical axis the grid will use.
 	- Parameter columns: The number of columns, Horizontal axis the grid will use.
-	- Parameter spacing: The spacing between rows or columns.
+	- Parameter interimSpace: The interimSpace between rows or columns.
 	*/
-	public init(rows: Int = 12, columns: Int = 12, spacing: CGFloat = 0) {
+	public init(rows: Int = 12, columns: Int = 12, interimSpace: CGFloat = 0) {
 		self.rows = rows
 		self.columns = columns
-		self.spacing = spacing
+		self.interimSpace = interimSpace
 		offset = GridOffset(grid: self)
 		axis = GridAxis(grid: self)
 	}
@@ -200,34 +200,34 @@ public class Grid {
 					sv.layoutIfNeeded()
 					switch axis.direction {
 					case .Horizontal:
-						let w: CGFloat = (sv.bounds.width - contentInset.left - contentInset.right - layoutInset.left - layoutInset.right + spacing) / CGFloat(gc)
+						let w: CGFloat = (sv.bounds.width - contentInset.left - contentInset.right - layoutInset.left - layoutInset.right + interimSpace) / CGFloat(gc)
 						let c: Int = view.grid.columns
 						let co: Int = view.grid.offset.columns
 						let vh: CGFloat = sv.bounds.height - contentInset.top - contentInset.bottom - layoutInset.top - layoutInset.bottom
 						let vl: CGFloat = CGFloat(i + n + co) * w + contentInset.left + layoutInset.left
-						let vw: CGFloat = w * CGFloat(c) - spacing
+						let vw: CGFloat = w * CGFloat(c) - interimSpace
 						view.frame = CGRectMake(vl, contentInset.top + layoutInset.top, vw, vh)
 						n += c + co - 1
 					case .Vertical:
-						let h: CGFloat = (sv.bounds.height - contentInset.top - contentInset.bottom - layoutInset.top - layoutInset.bottom + spacing) / CGFloat(gr)
+						let h: CGFloat = (sv.bounds.height - contentInset.top - contentInset.bottom - layoutInset.top - layoutInset.bottom + interimSpace) / CGFloat(gr)
 						let r: Int = view.grid.rows
 						let ro: Int = view.grid.offset.rows
 						let vw: CGFloat = sv.bounds.width - contentInset.left - contentInset.right - layoutInset.left - layoutInset.right
 						let vt: CGFloat = CGFloat(i + n + ro) * h + contentInset.top + layoutInset.top
-						let vh: CGFloat = h * CGFloat(r) - spacing
+						let vh: CGFloat = h * CGFloat(r) - interimSpace
 						view.frame = CGRectMake(contentInset.left + layoutInset.left, vt, vw, vh)
 						n += r + ro - 1
 					case .None:
-						let w: CGFloat = (sv.bounds.width - contentInset.left - contentInset.right - layoutInset.left - layoutInset.right + spacing) / CGFloat(gc)
+						let w: CGFloat = (sv.bounds.width - contentInset.left - contentInset.right - layoutInset.left - layoutInset.right + interimSpace) / CGFloat(gc)
 						let c: Int = view.grid.columns
 						let co: Int = view.grid.offset.columns
-						let h: CGFloat = (sv.bounds.height - contentInset.top - contentInset.bottom - layoutInset.top - layoutInset.bottom + spacing) / CGFloat(gr)
+						let h: CGFloat = (sv.bounds.height - contentInset.top - contentInset.bottom - layoutInset.top - layoutInset.bottom + interimSpace) / CGFloat(gr)
 						let r: Int = view.grid.rows
 						let ro: Int = view.grid.offset.rows
 						let vt: CGFloat = CGFloat(ro) * h + contentInset.top + layoutInset.top
 						let vl: CGFloat = CGFloat(co) * w + contentInset.left + layoutInset.left
-						let vh: CGFloat = h * CGFloat(r) - spacing
-						let vw: CGFloat = w * CGFloat(c) - spacing
+						let vh: CGFloat = h * CGFloat(r) - interimSpace
+						let vw: CGFloat = w * CGFloat(c) - interimSpace
 						view.frame = CGRectMake(vl, vt, vw, vh)
 					}
 				}

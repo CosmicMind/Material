@@ -40,8 +40,8 @@ class ViewController: UIViewController {
 	/// MenuView reference.
 	private lazy var menuView: MenuView = MenuView()
 	
-	/// Default spacing size
-	let spacing: CGFloat = 16
+	/// Default interimSpace size
+	let interimSpace: CGFloat = 16
 	
 	/// Diameter for FabButtons.
 	let diameter: CGFloat = 56

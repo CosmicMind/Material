@@ -56,20 +56,20 @@ public class ControlView : MaterialView {
 		}
 	}
 	
-	/// A preset wrapper around spacing.
-	public var spacingPreset: MaterialSpacing = .None {
+	/// A preset wrapper around interimSpace.
+	public var interimSpacePreset: InterimSpace = .none {
 		didSet {
-			spacing = MaterialSpacingToValue(spacingPreset)
+			interimSpace = interimSpaceToValue(interimSpacePreset)
 		}
 	}
 	
-	/// A wrapper around grid.spacing.
-	@IBInspectable public var spacing: CGFloat {
+	/// A wrapper around grid.interimSpace.
+	@IBInspectable public var interimSpace: CGFloat {
 		get {
-			return grid.spacing
+			return grid.interimSpace
 		}
 		set(value) {
-			grid.spacing = value
+			grid.interimSpace = value
 		}
 	}
 	
@@ -206,7 +206,7 @@ public class ControlView : MaterialView {
 				}
 				
 				grid.contentInset = contentInset
-				grid.spacing = spacing
+				grid.interimSpace = interimSpace
 				grid.reloadLayout()
 				contentView.grid.reloadLayout()
 			}
@@ -226,7 +226,7 @@ public class ControlView : MaterialView {
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		spacingPreset = .Spacing1
+		interimSpacePreset = .interimSpace1
 		contentInsetPreset = .Square1
 		autoresizingMask = .FlexibleWidth
 		shadowPathAutoSizeEnabled = false

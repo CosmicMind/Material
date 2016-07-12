@@ -162,35 +162,35 @@ public class Layout {
 	
 	/**
 	A collection of children views are horizontally stretched with optional left, 
-	right padding and interim spacing.
+	right padding and interim interimSpace.
 	- Parameter children: An Array UIView to layout.
 	- Parameter left: A CGFloat value for padding the left side.
 	- Parameter right: A CGFloat value for padding the right side.
-	- Parameter spacing: A CGFloat value for interim spacing.
+	- Parameter interimSpace: A CGFloat value for interim interimSpace.
 	- Returns: The current Layout instance.
 	*/
-	public func horizontally(children: Array<UIView>, left: CGFloat = 0, right: CGFloat = 0, spacing: CGFloat = 0) -> Layout {
+	public func horizontally(children: Array<UIView>, left: CGFloat = 0, right: CGFloat = 0, interimSpace: CGFloat = 0) -> Layout {
 		guard let v: UIView = parent else {
 			return debugParentNotAvailableMessage()
         }
-        Layout.horizontally(v, children: children, left: left, right: right, spacing: spacing)
+        Layout.horizontally(v, children: children, left: left, right: right, interimSpace: interimSpace)
         return self
 	}
 	
 	/**
 	A collection of children views are vertically stretched with optional top,
-	bottom padding and interim spacing.
+	bottom padding and interim interimSpace.
 	- Parameter children: An Array UIView to layout.
 	- Parameter top: A CGFloat value for padding the top side.
 	- Parameter bottom: A CGFloat value for padding the bottom side.
-	- Parameter spacing: A CGFloat value for interim spacing.
+	- Parameter interimSpace: A CGFloat value for interim interimSpace.
 	- Returns: The current Layout instance.
 	*/
-	public func vertically(children: Array<UIView>, top: CGFloat = 0, bottom: CGFloat = 0, spacing: CGFloat = 0) -> Layout {
+	public func vertically(children: Array<UIView>, top: CGFloat = 0, bottom: CGFloat = 0, interimSpace: CGFloat = 0) -> Layout {
 		guard let v: UIView = parent else {
 			return debugParentNotAvailableMessage()
         }
-        Layout.vertically(v, children: children, top: top, bottom: bottom, spacing: spacing)
+        Layout.vertically(v, children: children, top: top, bottom: bottom, interimSpace: interimSpace)
         return self
 	}
 	
@@ -633,19 +633,19 @@ public extension Layout {
 	
 	/**
 	A collection of children views are horizontally stretched with optional left,
-	right padding and interim spacing.
+	right padding and interim interimSpace.
 	- Parameter parent: A parent UIView context.
 	- Parameter children: An Array UIView to layout.
 	- Parameter left: A CGFloat value for padding the left side.
 	- Parameter right: A CGFloat value for padding the right side.
-	- Parameter spacing: A CGFloat value for interim spacing.
+	- Parameter interimSpace: A CGFloat value for interim interimSpace.
 	*/
-	public class func horizontally(parent: UIView, children: Array<UIView>, left: CGFloat = 0, right: CGFloat = 0, spacing: CGFloat = 0) {
+	public class func horizontally(parent: UIView, children: Array<UIView>, left: CGFloat = 0, right: CGFloat = 0, interimSpace: CGFloat = 0) {
 		prepareForConstraint(parent, children: children)
 		if 0 < children.count {
 			parent.addConstraint(NSLayoutConstraint(item: children[0], attribute: .Left, relatedBy: .Equal, toItem: parent, attribute: .Left, multiplier: 1, constant: left))
 			for i in 1..<children.count {
-				parent.addConstraint(NSLayoutConstraint(item: children[i], attribute: .Left, relatedBy: .Equal, toItem: children[i - 1], attribute: .Right, multiplier: 1, constant: spacing))
+				parent.addConstraint(NSLayoutConstraint(item: children[i], attribute: .Left, relatedBy: .Equal, toItem: children[i - 1], attribute: .Right, multiplier: 1, constant: interimSpace))
 				parent.addConstraint(NSLayoutConstraint(item: children[i], attribute: .Width, relatedBy: .Equal, toItem: children[0], attribute: .Width, multiplier: 1, constant: 0))
 			}
 			parent.addConstraint(NSLayoutConstraint(item: children[children.count - 1], attribute: .Right, relatedBy: .Equal, toItem: parent, attribute: .Right, multiplier: 1, constant: -right))
@@ -654,19 +654,19 @@ public extension Layout {
 	
 	/**
 	A collection of children views are vertically stretched with optional top,
-	bottom padding and interim spacing.
+	bottom padding and interim interimSpace.
 	- Parameter parent: A parent UIView context.
 	- Parameter children: An Array UIView to layout.
 	- Parameter top: A CGFloat value for padding the top side.
 	- Parameter bottom: A CGFloat value for padding the bottom side.
-	- Parameter spacing: A CGFloat value for interim spacing.
+	- Parameter interimSpace: A CGFloat value for interim interimSpace.
 	*/
-	public class func vertically(parent: UIView, children: Array<UIView>, top: CGFloat = 0, bottom: CGFloat = 0, spacing: CGFloat = 0) {
+	public class func vertically(parent: UIView, children: Array<UIView>, top: CGFloat = 0, bottom: CGFloat = 0, interimSpace: CGFloat = 0) {
 		prepareForConstraint(parent, children: children)
 		if 0 < children.count {
 			parent.addConstraint(NSLayoutConstraint(item: children[0], attribute: .Top, relatedBy: .Equal, toItem: parent, attribute: .Top, multiplier: 1, constant: top))
 			for i in 1..<children.count {
-				parent.addConstraint(NSLayoutConstraint(item: children[i], attribute: .Top, relatedBy: .Equal, toItem: children[i - 1], attribute: .Bottom, multiplier: 1, constant: spacing))
+				parent.addConstraint(NSLayoutConstraint(item: children[i], attribute: .Top, relatedBy: .Equal, toItem: children[i - 1], attribute: .Bottom, multiplier: 1, constant: interimSpace))
 				parent.addConstraint(NSLayoutConstraint(item: children[i], attribute: .Height, relatedBy: .Equal, toItem: children[0], attribute: .Height, multiplier: 1, constant: 0))
 			}
 			parent.addConstraint(NSLayoutConstraint(item: children[children.count - 1], attribute: .Bottom, relatedBy: .Equal, toItem: parent, attribute: .Bottom, multiplier: 1, constant: -bottom))

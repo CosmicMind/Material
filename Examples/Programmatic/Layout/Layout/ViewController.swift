@@ -75,7 +75,7 @@ class ViewController: UIViewController {
 		let children: Array<UIView> = [label1, label2, label3, label4]
 		
 		// Align the labels horizontally with an equal width and vertically with an equal height.
-        view.layout.horizontally(children, left: 30, right: 30, spacing: 30).vertically(children, top: 100, bottom: 100)
+        view.layout.horizontally(children, left: 30, right: 30, interimSpace: 30).vertically(children, top: 100, bottom: 100)
         
 		
 		// Print out the dimensions of the labels.

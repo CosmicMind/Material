@@ -152,20 +152,20 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 		}
 	}
 	
-	/// A preset wrapper around spacing.
-	public var spacingPreset: MaterialSpacing = .None {
+	/// A preset wrapper around interimSpace.
+	public var interimSpacePreset: InterimSpace = .none {
 		didSet {
-			spacing = MaterialSpacingToValue(spacingPreset)
+			interimSpace = interimSpaceToValue(interimSpacePreset)
 		}
 	}
 	
-	/// A wrapper around grid.spacing.
-	@IBInspectable public var spacing: CGFloat {
+	/// A wrapper around grid.interimSpace.
+	@IBInspectable public var interimSpace: CGFloat {
 		get {
-			return contentView.grid.spacing
+			return contentView.grid.interimSpace
 		}
 		set(value) {
-			contentView.grid.spacing = value
+			contentView.grid.interimSpace = value
 		}
 	}
 	
