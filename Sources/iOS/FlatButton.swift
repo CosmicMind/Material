@@ -30,7 +30,7 @@
 
 import UIKit
 
-public class FlatButton : MaterialButton {
+public class FlatButton: Button {
 	/**
 	Prepares the view instance when intialized. When subclassing,
 	it is recommended to override the prepareView method

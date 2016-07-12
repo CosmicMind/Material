@@ -31,8 +31,8 @@
 import UIKit
 
 @IBDesignable
-@objc(MaterialButton)
-public class MaterialButton : UIButton {
+@objc(Button)
+public class Button: UIButton {
 	/**
 	A CAShapeLayer used to manage elements that would be affected by
 	the clipToBounds property of the backing layer. For example, this
@@ -418,7 +418,7 @@ public class MaterialButton : UIButton {
 		let p: CGPoint = nil == point ? CGPointMake(CGFloat(width / 2), CGFloat(height / 2)) : point!
 		MaterialAnimation.pulseExpandAnimation(layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseOpacity: pulseOpacity, point: p, width: width, height: height, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
 		MaterialAnimation.delay(0.35) { [weak self] in
-			if let s: MaterialButton = self {
+			if let s: Button = self {
 				MaterialAnimation.pulseContractAnimation(s.layer, visualLayer: s.visualLayer, pulseColor: s.pulseColor, pulseLayers: &s.pulseLayers, pulseAnimation: s.pulseAnimation)
 			}
 		}

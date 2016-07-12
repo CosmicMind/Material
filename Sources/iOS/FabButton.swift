@@ -30,7 +30,7 @@
 
 import UIKit
 
-public class FabButton : MaterialButton {	
+public class FabButton: Button {	
 	/**
 	Prepares the view instance when intialized. When subclassing,
 	it is recommended to override the prepareView method

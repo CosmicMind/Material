@@ -30,7 +30,7 @@
 
 import UIKit
 
-public class RaisedButton : MaterialButton {
+public class RaisedButton: Button {
 	/**
 	Prepares the view instance when intialized. When subclassing,
 	it is recommended to override the prepareView method
