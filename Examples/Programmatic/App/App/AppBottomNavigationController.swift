@@ -73,7 +73,7 @@ class AppBottomNavigationController: BottomNavigationController {
 	private func prepareMenuButton() {
 		let image: UIImage? = MaterialIcon.cm.menu
 		menuButton = IconButton()
-		menuButton.pulseColor = MaterialColor.white
+		menuButton.pulseColor = Color.white
 		menuButton.setImage(image, forState: .Normal)
 		menuButton.setImage(image, forState: .Highlighted)
 		menuButton.addTarget(self, action: #selector(handleMenuButton), forControlEvents: .TouchUpInside)
@@ -88,7 +88,7 @@ class AppBottomNavigationController: BottomNavigationController {
 	private func prepareSearchButton() {
 		let image: UIImage? = MaterialIcon.cm.search
 		searchButton = IconButton()
-		searchButton.pulseColor = MaterialColor.white
+		searchButton.pulseColor = Color.white
 		searchButton.setImage(image, forState: .Normal)
 		searchButton.setImage(image, forState: .Highlighted)
 		searchButton.addTarget(self, action: #selector(handleSearchButton), forControlEvents: .TouchUpInside)
@@ -98,7 +98,7 @@ class AppBottomNavigationController: BottomNavigationController {
 	private func prepareNavigationItem() {
 		navigationItem.title = "Recipes"
 		navigationItem.titleLabel.textAlignment = .Left
-		navigationItem.titleLabel.textColor = MaterialColor.white
+		navigationItem.titleLabel.textColor = Color.white
 		navigationItem.titleLabel.font = RobotoFont.mediumWithSize(20)
 		
 		navigationItem.leftControls = [menuButton]
@@ -113,8 +113,8 @@ class AppBottomNavigationController: BottomNavigationController {
 	
 	/// Prepares the tabBar.
 	private func prepareTabBar() {
-		tabBar.tintColor = MaterialColor.white
-		tabBar.backgroundColor = MaterialColor.grey.darken4
+		tabBar.tintColor = Color.white
+		tabBar.backgroundColor = Color.grey.darken4
 	}
 }
 

@@ -121,7 +121,7 @@ class ViewController: UIViewController {
 	
 	/// General preparation statements are placed here.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.white
+		view.backgroundColor = Color.white
 	}
 	
 	/// Prepares the FabMenu example.
@@ -135,21 +135,21 @@ class ViewController: UIViewController {
 		
 		image = UIImage(named: "ic_create_white")
 		let btn2: FabButton = FabButton()
-		btn2.backgroundColor = MaterialColor.blue.base
+		btn2.backgroundColor = Color.blue.base
 		btn2.setImage(image, forState: .Normal)
 		btn2.setImage(image, forState: .Highlighted)
 		view.addSubview(btn2)
 		
 		image = UIImage(named: "ic_photo_camera_white")
 		let btn3: FabButton = FabButton()
-		btn3.backgroundColor = MaterialColor.green.base
+		btn3.backgroundColor = Color.green.base
 		btn3.setImage(image, forState: .Normal)
 		btn3.setImage(image, forState: .Highlighted)
 		view.addSubview(btn3)
 		
 		image = UIImage(named: "ic_note_add_white")
 		let btn4: FabButton = FabButton()
-		btn4.backgroundColor = MaterialColor.amber.base
+		btn4.backgroundColor = Color.amber.base
 		btn4.setImage(image, forState: .Normal)
 		btn4.setImage(image, forState: .Highlighted)
 		view.addSubview(btn4)
@@ -165,32 +165,32 @@ class ViewController: UIViewController {
 	private func prepareFlatbMenuExample() {
 		let btn1: FlatButton = FlatButton()
 		btn1.addTarget(self, action: #selector(handleFlatMenu), forControlEvents: .TouchUpInside)
-		btn1.setTitleColor(MaterialColor.white, forState: .Normal)
-		btn1.backgroundColor = MaterialColor.blue.accent3
-		btn1.pulseColor = MaterialColor.white
+		btn1.setTitleColor(Color.white, forState: .Normal)
+		btn1.backgroundColor = Color.blue.accent3
+		btn1.pulseColor = Color.white
 		btn1.setTitle("Base", forState: .Normal)
 		view.addSubview(btn1)
 		
 		let btn2: FlatButton = FlatButton()
-		btn2.setTitleColor(MaterialColor.blue.accent3, forState: .Normal)
-		btn2.borderColor = MaterialColor.blue.accent3
-		btn2.pulseColor = MaterialColor.blue.accent3
+		btn2.setTitleColor(Color.blue.accent3, forState: .Normal)
+		btn2.borderColor = Color.blue.accent3
+		btn2.pulseColor = Color.blue.accent3
 		btn2.borderWidth = 1
 		btn2.setTitle("Item", forState: .Normal)
 		view.addSubview(btn2)
 		
 		let btn3: FlatButton = FlatButton()
-		btn3.setTitleColor(MaterialColor.blue.accent3, forState: .Normal)
-		btn3.borderColor = MaterialColor.blue.accent3
-		btn3.pulseColor = MaterialColor.blue.accent3
+		btn3.setTitleColor(Color.blue.accent3, forState: .Normal)
+		btn3.borderColor = Color.blue.accent3
+		btn3.pulseColor = Color.blue.accent3
 		btn3.borderWidth = 1
 		btn3.setTitle("Item", forState: .Normal)
 		view.addSubview(btn3)
 		
 		let btn4: FlatButton = FlatButton()
-		btn4.setTitleColor(MaterialColor.blue.accent3, forState: .Normal)
-		btn4.borderColor = MaterialColor.blue.accent3
-		btn4.pulseColor = MaterialColor.blue.accent3
+		btn4.setTitleColor(Color.blue.accent3, forState: .Normal)
+		btn4.borderColor = Color.blue.accent3
+		btn4.pulseColor = Color.blue.accent3
 		btn4.borderWidth = 1
 		btn4.setTitle("Item", forState: .Normal)
 		view.addSubview(btn4)
@@ -207,8 +207,8 @@ class ViewController: UIViewController {
 	private func prepareFlashMenuExample() {
 		var image: UIImage? = UIImage(named: "ic_flash_auto_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let btn1: FlatButton = FlatButton()
-		btn1.pulseColor = MaterialColor.blueGrey.darken4
-		btn1.tintColor = MaterialColor.blueGrey.darken4
+		btn1.pulseColor = Color.blueGrey.darken4
+		btn1.tintColor = Color.blueGrey.darken4
 		btn1.setImage(image, forState: .Normal)
 		btn1.setImage(image, forState: .Highlighted)
 		btn1.addTarget(self, action: #selector(handleFlashMenu), forControlEvents: .TouchUpInside)
@@ -216,16 +216,16 @@ class ViewController: UIViewController {
 		
 		image = UIImage(named: "ic_flash_off_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let btn2: FlatButton = FlatButton()
-		btn2.pulseColor = MaterialColor.blueGrey.darken4
-		btn2.tintColor = MaterialColor.blueGrey.darken4
+		btn2.pulseColor = Color.blueGrey.darken4
+		btn2.tintColor = Color.blueGrey.darken4
 		btn2.setImage(image, forState: .Normal)
 		btn2.setImage(image, forState: .Highlighted)
 		view.addSubview(btn2)
 		
 		image = UIImage(named: "ic_flash_on_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let btn3: FlatButton = FlatButton()
-		btn3.pulseColor = MaterialColor.blueGrey.darken4
-		btn3.tintColor = MaterialColor.blueGrey.darken4
+		btn3.pulseColor = Color.blueGrey.darken4
+		btn3.tintColor = Color.blueGrey.darken4
 		btn3.setImage(image, forState: .Normal)
 		btn3.setImage(image, forState: .Highlighted)
 		view.addSubview(btn3)

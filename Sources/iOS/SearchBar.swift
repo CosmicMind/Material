@@ -77,7 +77,7 @@ public class SearchBar : BarView {
 	}
 	
 	/// Placeholder textColor.
-	@IBInspectable public var placeholderColor: UIColor = MaterialColor.darkText.others {
+	@IBInspectable public var placeholderColor: UIColor = Color.darkText.others {
 		didSet {
 			if let v: String = placeholder {
 				textField.attributedPlaceholder = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderColor])
@@ -149,10 +149,10 @@ public class SearchBar : BarView {
 		textField = UITextField()
 		textField.contentScaleFactor = MaterialDevice.scale
 		textField.font = RobotoFont.regularWithSize(17)
-		textField.backgroundColor = MaterialColor.clear
+		textField.backgroundColor = Color.clear
 		textField.clearButtonMode = .WhileEditing
 		tintColor = placeholderColor
-		textColor = MaterialColor.darkText.primary
+		textColor = Color.darkText.primary
 		placeholder = "Search"
 		contentView.addSubview(textField)
 	}

@@ -39,6 +39,6 @@ class AppRightViewController: UIViewController {
 	
 	/// General preparation statements.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.grey.darken4
+		view.backgroundColor = Color.grey.darken4
 	}
 }

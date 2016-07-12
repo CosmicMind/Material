@@ -70,7 +70,7 @@ class AppLeftViewController: UIViewController {
 	
 	/// General preparation statements.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.grey.darken4
+		view.backgroundColor = Color.grey.darken4
 	}
 	
 	/// Prepares the items that are displayed within the tableView.
@@ -86,14 +86,14 @@ class AppLeftViewController: UIViewController {
 		
 		let profileView: MaterialView = MaterialView()
 		profileView.image = UIImage(named: "Profile9")?.resize(toWidth: 72)
-		profileView.backgroundColor = MaterialColor.clear
+		profileView.backgroundColor = Color.clear
 		profileView.shape = .Circle
-		profileView.borderColor = MaterialColor.white
+		profileView.borderColor = Color.white
 		profileView.borderWidth = 3
 		
 		let nameLabel: UILabel = UILabel()
 		nameLabel.text = "Michael Smith"
-		nameLabel.textColor = MaterialColor.white
+		nameLabel.textColor = Color.white
 		nameLabel.font = RobotoFont.mediumWithSize(18)
 		
 		view.layout(profileView).width(72).height(72).top(30).centerHorizontally()
@@ -103,7 +103,7 @@ class AppLeftViewController: UIViewController {
 	/// Prepares the tableView.
 	private func prepareTableView() {
 		tableView.registerClass(MaterialTableViewCell.self, forCellReuseIdentifier: "MaterialTableViewCell")
-		tableView.backgroundColor = MaterialColor.clear
+		tableView.backgroundColor = Color.clear
 		tableView.dataSource = self
 		tableView.delegate = self
 		tableView.separatorStyle = .None
@@ -127,11 +127,11 @@ extension AppLeftViewController: UITableViewDataSource {
 		let item: Item = items[indexPath.row]
 		
 		cell.textLabel!.text = item.text
-		cell.textLabel!.textColor = MaterialColor.grey.lighten2
+		cell.textLabel!.textColor = Color.grey.lighten2
 		cell.textLabel!.font = RobotoFont.medium
 		cell.imageView!.image = UIImage(named: item.imageName)?.imageWithRenderingMode(.AlwaysTemplate)
-		cell.imageView!.tintColor = MaterialColor.grey.lighten2
-		cell.backgroundColor = MaterialColor.clear
+		cell.imageView!.tintColor = Color.grey.lighten2
+		cell.backgroundColor = Color.clear
 		
 		return cell
 	}

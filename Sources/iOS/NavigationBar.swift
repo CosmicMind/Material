@@ -436,10 +436,10 @@ public class NavigationBar : UINavigationBar {
 		contentInsetPreset = .Square1
 		contentScaleFactor = MaterialDevice.scale
 		backButtonImage = MaterialIcon.cm.arrowBack
-		let image: UIImage? = UIImage.imageWithColor(MaterialColor.clear, size: CGSizeMake(1, 1))
+		let image: UIImage? = UIImage.imageWithColor(Color.clear, size: CGSizeMake(1, 1))
 		shadowImage = image
 		setBackgroundImage(image, forBarMetrics: .Default)
-		backgroundColor = MaterialColor.white
+		backgroundColor = Color.white
 	}
 	
 	/**

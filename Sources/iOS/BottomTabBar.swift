@@ -249,8 +249,8 @@ public class BottomTabBar : UITabBar {
 	public func prepareView() {
 		depth = .Depth1
 		contentScaleFactor = MaterialDevice.scale
-		backgroundColor = MaterialColor.white
-		let image: UIImage? = UIImage.imageWithColor(MaterialColor.clear, size: CGSizeMake(1, 1))
+		backgroundColor = Color.white
+		let image: UIImage? = UIImage.imageWithColor(Color.clear, size: CGSizeMake(1, 1))
 		shadowImage = image
 		backgroundImage = image
 	}

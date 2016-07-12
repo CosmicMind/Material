@@ -59,7 +59,7 @@ class ViewController: UIViewController, TextFieldDelegate {
 	
 	/// General preparation statements.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.white
+		view.backgroundColor = Color.white
 	}
 	
 	/// Prepares the resign responder button.
@@ -67,8 +67,8 @@ class ViewController: UIViewController, TextFieldDelegate {
 		let btn: RaisedButton = RaisedButton()
 		btn.addTarget(self, action: #selector(handleResignResponderButton), forControlEvents: .TouchUpInside)
 		btn.setTitle("Resign", forState: .Normal)
-		btn.setTitleColor(MaterialColor.blue.base, forState: .Normal)
-		btn.setTitleColor(MaterialColor.blue.base, forState: .Highlighted)
+		btn.setTitleColor(Color.blue.base, forState: .Normal)
+		btn.setTitleColor(Color.blue.base, forState: .Highlighted)
 		
 		view.layout(btn).width(100).height(50).bottom(24).right(24)
 	}
@@ -103,9 +103,9 @@ class ViewController: UIViewController, TextFieldDelegate {
 		emailField.enableClearIconButton = true
 		emailField.delegate = self 
 		
-		emailField.placeholderColor = MaterialColor.amber.darken4
-		emailField.placeholderActiveColor = MaterialColor.pink.base
-		emailField.dividerColor = MaterialColor.cyan.base
+		emailField.placeholderColor = Color.amber.darken4
+		emailField.placeholderActiveColor = Color.pink.base
+		emailField.dividerColor = Color.cyan.base
 		
 		view.addSubview(emailField)
 	}
@@ -119,7 +119,7 @@ class ViewController: UIViewController, TextFieldDelegate {
 		passwordField.enableVisibilityIconButton = true
 		
 		// Setting the visibilityFlatButton color.
-		passwordField.visibilityIconButton?.tintColor = MaterialColor.green.base.colorWithAlphaComponent(passwordField.secureTextEntry ? 0.38 : 0.54)
+		passwordField.visibilityIconButton?.tintColor = Color.green.base.colorWithAlphaComponent(passwordField.secureTextEntry ? 0.38 : 0.54)
 		
 		// Size the TextField to the maximum width, less 40 pixels on either side
 		// with a top margin of 200 pixels.

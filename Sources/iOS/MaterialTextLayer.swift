@@ -208,7 +208,7 @@ public class MaterialTextLayer : CATextLayer {
 	:name:	prepareLayer
 	*/
 	internal func prepareLayer() {
-		textColor = MaterialColor.black
+		textColor = Color.black
 		textAlignment = .Left
 		wrapped = true
 		contentsScale = MaterialDevice.scale

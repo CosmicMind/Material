@@ -38,29 +38,29 @@ class ViewController: UIViewController {
 		prepareView()
 		
 		let tabBar: TabBar = TabBar(frame: CGRectMake(0, 100, view.bounds.width, 44))
-		tabBar.backgroundColor = MaterialColor.blue.base
+		tabBar.backgroundColor = Color.blue.base
 		
 		view.addSubview(tabBar)
 		
 		let btn1: FlatButton = FlatButton()
-		btn1.pulseColor = MaterialColor.white
+		btn1.pulseColor = Color.white
 		btn1.setTitle("ONE", forState: .Normal)
-		btn1.setTitleColor(MaterialColor.white, forState: .Normal)
+		btn1.setTitleColor(Color.white, forState: .Normal)
 		
 		let btn2: FlatButton = FlatButton()
-		btn2.pulseColor = MaterialColor.white
+		btn2.pulseColor = Color.white
 		btn2.setTitle("TWO", forState: .Normal)
-		btn2.setTitleColor(MaterialColor.white, forState: .Normal)
+		btn2.setTitleColor(Color.white, forState: .Normal)
 		
 		let btn3: FlatButton = FlatButton()
-		btn3.pulseColor = MaterialColor.white
+		btn3.pulseColor = Color.white
 		btn3.setTitle("THREE", forState: .Normal)
-		btn3.setTitleColor(MaterialColor.white, forState: .Normal)
+		btn3.setTitleColor(Color.white, forState: .Normal)
 
 		let btn4: FlatButton = FlatButton()
-		btn4.pulseColor = MaterialColor.white
+		btn4.pulseColor = Color.white
 		btn4.setTitle("FOUR", forState: .Normal)
-		btn4.setTitleColor(MaterialColor.white, forState: .Normal)
+		btn4.setTitleColor(Color.white, forState: .Normal)
 
 		
 		tabBar.buttons = [btn1, btn2, btn3, btn4]
@@ -68,7 +68,7 @@ class ViewController: UIViewController {
 	
 	/// Prepares view.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.white
+		view.backgroundColor = Color.white
 	}
 }
 

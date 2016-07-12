@@ -43,7 +43,7 @@ class ViewController: UIViewController {
 	
 	/// General preparation statements.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.white
+		view.backgroundColor = Color.white
 	}
 	
 	/// Prepares the controlView
@@ -52,15 +52,15 @@ class ViewController: UIViewController {
 		
 		// Undo button.
 		let undoButton: FlatButton = FlatButton()
-		undoButton.pulseColor = MaterialColor.white
+		undoButton.pulseColor = Color.white
 		undoButton.setTitle("UNDO", forState: .Normal)
-		undoButton.setTitleColor(MaterialColor.teal.accent1, forState: .Normal)
+		undoButton.setTitleColor(Color.teal.accent1, forState: .Normal)
 		
 		let label: UILabel = UILabel()
 		label.text = "Archived"
-		label.textColor = MaterialColor.white
+		label.textColor = Color.white
 		
-		controlView.backgroundColor = MaterialColor.grey.darken4
+		controlView.backgroundColor = Color.grey.darken4
 		controlView.contentView.addSubview(label)
 		controlView.rightControls = [undoButton]
 		controlView.contentInsetPreset = .WideRectangle3

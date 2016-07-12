@@ -57,43 +57,43 @@ class ViewController: UIViewController {
 	/// General preparation statements.
     private func prepareView() {
 		MaterialDevice.statusBarStyle = .LightContent
-		view.backgroundColor = MaterialColor.white
+		view.backgroundColor = Color.white
     }
 	
 	/// Prepare the toolbar.
     func prepareToolbar() {
 		// Stylize.
-        toolbar.backgroundColor = MaterialColor.indigo.darken1
+        toolbar.backgroundColor = Color.indigo.darken1
 		
         // Title label.
         toolbar.title = "Material"
-        toolbar.titleLabel.textColor = MaterialColor.white
+        toolbar.titleLabel.textColor = Color.white
 		
         // Detail label.
         toolbar.detail = "Build Beautiful Software"
-		toolbar.detailLabel.textColor = MaterialColor.white
+		toolbar.detailLabel.textColor = Color.white
 		
         // Menu button.
         let img1: UIImage? = MaterialIcon.cm.menu
         let btn1: IconButton = IconButton()
-        btn1.pulseColor = MaterialColor.white
-		btn1.tintColor = MaterialColor.white
+        btn1.pulseColor = Color.white
+		btn1.tintColor = Color.white
 		btn1.setImage(img1, forState: .Normal)
         btn1.setImage(img1, forState: .Highlighted)
         
         // Star button.
         let img2: UIImage? = MaterialIcon.cm.star
         let btn2: IconButton = IconButton()
-        btn2.pulseColor = MaterialColor.white
-		btn2.tintColor = MaterialColor.white
+        btn2.pulseColor = Color.white
+		btn2.tintColor = Color.white
         btn2.setImage(img2, forState: .Normal)
         btn2.setImage(img2, forState: .Highlighted)
         
         // Search button.
         let img3: UIImage? = MaterialIcon.cm.search
         let btn3: IconButton = IconButton()
-        btn3.pulseColor = MaterialColor.white
-		btn3.tintColor = MaterialColor.white
+        btn3.pulseColor = Color.white
+		btn3.tintColor = Color.white
 		btn3.setImage(img3, forState: .Normal)
         btn3.setImage(img3, forState: .Highlighted)
         

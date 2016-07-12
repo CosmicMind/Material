@@ -52,7 +52,7 @@ class ViewController: UIViewController {
 	
 	/// General preparation statements.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.white
+		view.backgroundColor = Color.white
 	}
 	
 	/// Prepares the FlatButton.
@@ -60,8 +60,8 @@ class ViewController: UIViewController {
 		let w: CGFloat = 200
 		let button: FlatButton = FlatButton(frame: CGRectMake((view.bounds.width - w) / 2, 100, w, 48))
 		button.setTitle("Flat", forState: .Normal)
-		button.setTitleColor(MaterialColor.blue.base, forState: .Normal)
-		button.pulseColor = MaterialColor.blue.base
+		button.setTitleColor(Color.blue.base, forState: .Normal)
+		button.pulseColor = Color.blue.base
 		button.titleLabel!.font = RobotoFont.mediumWithSize(24)
 		
 		// Add button to UIViewController.
@@ -73,8 +73,8 @@ class ViewController: UIViewController {
 		let w: CGFloat = 200
 		let button: RaisedButton = RaisedButton(frame: CGRectMake((view.bounds.width - w) / 2, 200, w, 48))
 		button.setTitle("Raised", forState: .Normal)
-		button.setTitleColor(MaterialColor.blue.base, forState: .Normal)
-		button.pulseColor = MaterialColor.blue.base
+		button.setTitleColor(Color.blue.base, forState: .Normal)
+		button.pulseColor = Color.blue.base
 		button.titleLabel!.font = RobotoFont.mediumWithSize(24)
 		
 		// Add button to UIViewController.

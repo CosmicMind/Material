@@ -65,7 +65,7 @@ public class CapturePreview : MaterialView {
 	:name:	preparePreviewLayer
 	*/
 	private func preparePreviewLayer() {
-		layer.backgroundColor = MaterialColor.black.CGColor
+		layer.backgroundColor = Color.black.CGColor
 		layer.masksToBounds = true
 		(layer as! AVCaptureVideoPreviewLayer).videoGravity = AVLayerVideoGravityResizeAspectFill
 	}

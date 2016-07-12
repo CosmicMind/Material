@@ -59,7 +59,7 @@ class ViewController: UIViewController {
 	
 	/// Prepares view.
 	private func prepareView() {
-        view.backgroundColor = MaterialColor.white
+        view.backgroundColor = Color.white
 	}
 	
 	/// Prepares the items Array.
@@ -168,7 +168,7 @@ extension ViewController: UITableViewDelegate {
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		let v: UIView = UIView()
-        v.backgroundColor = MaterialColor.grey.lighten4
+        v.backgroundColor = Color.grey.lighten4
 		
 		let leftLabel: UILabel = UILabel()
         leftLabel.grid.columns = 5

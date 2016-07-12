@@ -861,7 +861,7 @@ public class NavigationDrawerController : RootController, UIGestureRecognizerDel
 	
 	/// Prepares the contentViewController.
 	private func prepareContentViewController() {
-		contentViewController.view.backgroundColor = MaterialColor.black
+		contentViewController.view.backgroundColor = Color.black
 		prepareViewControllerWithinContainer(contentViewController, container: view)
 		view.sendSubviewToBack(contentViewController.view)
 	}
@@ -891,7 +891,7 @@ public class NavigationDrawerController : RootController, UIGestureRecognizerDel
 		leftViewWidth = .iPhone == MaterialDevice.type ? 280 : 320
 		leftView = MaterialView()
 		leftView!.frame = CGRectMake(0, 0, leftViewWidth, view.frame.height)
-		leftView!.backgroundColor = MaterialColor.clear
+		leftView!.backgroundColor = Color.clear
 		view.addSubview(leftView!)
 		
 		leftView!.hidden = true
@@ -911,7 +911,7 @@ public class NavigationDrawerController : RootController, UIGestureRecognizerDel
 		rightViewWidth = .iPhone == MaterialDevice.type ? 280 : 320
 		rightView = MaterialView()
 		rightView!.frame = CGRectMake(0, 0, rightViewWidth, view.frame.height)
-		rightView!.backgroundColor = MaterialColor.clear
+		rightView!.backgroundColor = Color.clear
 		view.addSubview(rightView!)
 		
 		rightView!.hidden = true

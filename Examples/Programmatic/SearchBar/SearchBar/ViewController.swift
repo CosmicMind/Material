@@ -53,7 +53,7 @@ class ViewController: UIViewController {
 	
 	/// General preparation statements.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.white
+		view.backgroundColor = Color.white
 	}
 	
 	/// Prepares the containerView.
@@ -71,8 +71,8 @@ class ViewController: UIViewController {
 		
 		// More button.
 		let moreButton: IconButton = IconButton()
-		moreButton.pulseColor = MaterialColor.grey.base
-		moreButton.tintColor = MaterialColor.grey.darken4
+		moreButton.pulseColor = Color.grey.base
+		moreButton.tintColor = Color.grey.darken4
 		moreButton.setImage(image, forState: .Normal)
 		moreButton.setImage(image, forState: .Highlighted)
 		

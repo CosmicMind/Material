@@ -48,9 +48,9 @@ class ViewController: UIViewController, MaterialSwitchDelegate {
 	
 	/// General preparation statements.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.white
+		view.backgroundColor = Color.white
 		
-		bottomView.backgroundColor = MaterialColor.grey.darken4
+		bottomView.backgroundColor = Color.grey.darken4
 		
 		view.layout.horizontally(topView)
 		view.layout.horizontally(bottomView)

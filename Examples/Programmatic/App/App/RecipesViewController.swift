@@ -175,7 +175,7 @@ class RecipesViewController: UIViewController {
 	
 	/// Prepares view.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.white
+		view.backgroundColor = Color.white
 	}
 	
 	/// Prepares the tableView.
@@ -192,8 +192,8 @@ class RecipesViewController: UIViewController {
 	/// Prepare tabBarItem.
 	private func prepareTabBarItem() {
 		tabBarItem.image = MaterialIcon.cm.photoLibrary
-		tabBarItem.setTitleColor(MaterialColor.grey.base, forState: .Normal)
-		tabBarItem.setTitleColor(MaterialColor.white, forState: .Selected)
+		tabBarItem.setTitleColor(Color.grey.base, forState: .Normal)
+		tabBarItem.setTitleColor(Color.white, forState: .Selected)
 	}
 }
 
@@ -220,7 +220,7 @@ extension RecipesViewController: UITableViewDataSource {
 			cell.textLabel?.font = RobotoFont.regular
 			cell.detailTextLabel?.text = data["detail"] as? String
 			cell.detailTextLabel?.font = RobotoFont.regular
-			cell.detailTextLabel?.textColor = MaterialColor.grey.darken1
+			cell.detailTextLabel?.textColor = Color.grey.darken1
 			cell.imageView?.layer.cornerRadius = 32
 			cell.imageView?.image = UIImage(named: data["image"] as! String)?.crop(toWidth: 64, toHeight: 64)
 		}
@@ -231,11 +231,11 @@ extension RecipesViewController: UITableViewDataSource {
 	/// Prepares the header within the tableView.
 	func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		let header = UIView(frame: CGRectMake(0, 0, view.bounds.width, 48))
-		header.backgroundColor = MaterialColor.white
+		header.backgroundColor = Color.white
 		
 		let label: UILabel = UILabel()
 		label.font = RobotoFont.medium
-		label.textColor = MaterialColor.grey.darken1
+		label.textColor = Color.grey.darken1
 		label.text = "Favorites"
 		
 		header.layout(label).edges(left: 24)

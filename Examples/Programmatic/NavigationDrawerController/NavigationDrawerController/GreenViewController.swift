@@ -46,7 +46,7 @@ class GreenViewController: UIViewController {
 	
 	/// Prepares the view.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.green.base
+		view.backgroundColor = Color.green.base
 	}
 	
 	/// Prepares the navigationItem.

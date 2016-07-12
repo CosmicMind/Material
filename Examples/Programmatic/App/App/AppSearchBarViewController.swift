@@ -69,7 +69,7 @@ class AppSearchBarController: SearchBarController {
 	/// Prepares view.
 	override func prepareView() {
 		super.prepareView()
-		view.backgroundColor = MaterialColor.black
+		view.backgroundColor = Color.black
 	}
 	
 	/// Prepares the searchBar.
@@ -78,8 +78,8 @@ class AppSearchBarController: SearchBarController {
 		
 		// Back button.
 		let backButton: IconButton = IconButton()
-		backButton.pulseColor = MaterialColor.grey.base
-		backButton.tintColor = MaterialColor.grey.darken4
+		backButton.pulseColor = Color.grey.base
+		backButton.tintColor = Color.grey.darken4
 		backButton.setImage(image, forState: .Normal)
 		backButton.setImage(image, forState: .Highlighted)
 		backButton.addTarget(self, action: #selector(handleBackButton), forControlEvents: .TouchUpInside)
@@ -87,8 +87,8 @@ class AppSearchBarController: SearchBarController {
 		// More button.
 		image = MaterialIcon.cm.moreHorizontal
 		let moreButton: IconButton = IconButton()
-		moreButton.pulseColor = MaterialColor.grey.base
-		moreButton.tintColor = MaterialColor.grey.darken4
+		moreButton.pulseColor = Color.grey.base
+		moreButton.tintColor = Color.grey.darken4
 		moreButton.setImage(image, forState: .Normal)
 		moreButton.setImage(image, forState: .Highlighted)
 		

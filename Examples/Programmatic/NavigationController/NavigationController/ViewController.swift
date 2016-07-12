@@ -53,14 +53,14 @@ class ViewController: UIViewController {
 	
 	/// Prepares the view.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.grey.lighten5
+		view.backgroundColor = Color.grey.lighten5
 	}
 	
 	/// Prepares the menuButton.
 	private func prepareMenuButton() {
 		let image: UIImage? = MaterialIcon.cm.menu
 		menuButton = IconButton()
-		menuButton.pulseColor = MaterialColor.white
+		menuButton.pulseColor = Color.white
 		menuButton.setImage(image, forState: .Normal)
 		menuButton.setImage(image, forState: .Highlighted)
 	}
@@ -74,7 +74,7 @@ class ViewController: UIViewController {
 	private func prepareSearchButton() {
 		let image: UIImage? = MaterialIcon.cm.search
 		searchButton = IconButton()
-		searchButton.pulseColor = MaterialColor.white
+		searchButton.pulseColor = Color.white
 		searchButton.setImage(image, forState: .Normal)
 		searchButton.setImage(image, forState: .Highlighted)
 	}

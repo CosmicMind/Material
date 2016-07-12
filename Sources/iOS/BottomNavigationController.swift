@@ -146,9 +146,9 @@ public class BottomNavigationController : UITabBarController, UITabBarController
 	/// Prepares the tabBar.
 	private func prepareTabBar() {
 		tabBar.depth = .Depth1
-		let image: UIImage? = UIImage.imageWithColor(MaterialColor.clear, size: CGSizeMake(1, 1))
+		let image: UIImage? = UIImage.imageWithColor(Color.clear, size: CGSizeMake(1, 1))
 		tabBar.shadowImage = image
 		tabBar.backgroundImage = image
-		tabBar.backgroundColor = MaterialColor.white
+		tabBar.backgroundColor = Color.white
 	}
 }

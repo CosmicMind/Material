@@ -460,7 +460,7 @@ public class MaterialView : UIView {
 	*/
 	public func prepareView() {
 		contentScaleFactor = MaterialDevice.scale
-		backgroundColor = MaterialColor.white
+		backgroundColor = Color.white
 		prepareVisualLayer()
 	}
 	

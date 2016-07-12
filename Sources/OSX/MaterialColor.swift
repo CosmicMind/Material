@@ -30,7 +30,7 @@
 
 import AppKit
 
-public struct MaterialColor {
+public struct Color {
 	// clear
 	public static let clear: NSColor = NSColor.clearColor()
 	

@@ -51,7 +51,7 @@ class ViewController: UIViewController, TextFieldDelegate {
 	
 	/// General preparation statements.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.white
+		view.backgroundColor = Color.white
 	}
 	
 	/// Prepares the name TextField.

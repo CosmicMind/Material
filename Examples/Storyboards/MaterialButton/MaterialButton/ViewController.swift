@@ -71,7 +71,7 @@ class ViewController: UIViewController {
         let img: UIImage? = MaterialIcon.cm.edit
         fabButton.setImage(img, forState: .Normal)
         fabButton.setImage(img, forState: .Highlighted)
-        fabButton.tintColor = MaterialColor.white
+        fabButton.tintColor = Color.white
     }
 }
 

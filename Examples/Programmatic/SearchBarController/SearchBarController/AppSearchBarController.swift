@@ -50,14 +50,14 @@ class AppSearchBarController: SearchBarController {
 		
 		// Back button.
 		let backButton: IconButton = IconButton()
-		backButton.tintColor = MaterialColor.blueGrey.darken4
+		backButton.tintColor = Color.blueGrey.darken4
 		backButton.setImage(image, forState: .Normal)
 		backButton.setImage(image, forState: .Highlighted)
 		
 		// More button.
 		image = MaterialIcon.cm.moreHorizontal
 		let moreButton: IconButton = IconButton()
-		moreButton.tintColor = MaterialColor.blueGrey.darken4
+		moreButton.tintColor = Color.blueGrey.darken4
 		moreButton.setImage(image, forState: .Normal)
 		moreButton.setImage(image, forState: .Highlighted)
 		

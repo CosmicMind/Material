@@ -127,7 +127,7 @@ public class TextField : UITextField {
 	@IBInspectable public var dividerActiveHeight: CGFloat = 2
 	
 	/// Sets the divider.
-	@IBInspectable public var dividerColor: UIColor = MaterialColor.darkText.dividers {
+	@IBInspectable public var dividerColor: UIColor = Color.darkText.dividers {
 		didSet {
 			if !editing {
 				divider.backgroundColor = dividerColor.CGColor
@@ -179,7 +179,7 @@ public class TextField : UITextField {
 	@IBInspectable public private(set) lazy var placeholderLabel: UILabel = UILabel(frame: CGRect.zero)
 	
 	/// Placeholder textColor.
-	@IBInspectable public var placeholderColor: UIColor = MaterialColor.darkText.others {
+	@IBInspectable public var placeholderColor: UIColor = Color.darkText.others {
 		didSet {
 			if !editing {
 				if let v: String = placeholder {
@@ -190,7 +190,7 @@ public class TextField : UITextField {
 	}
 	
 	/// Placeholder active textColor.
-	@IBInspectable public var placeholderActiveColor: UIColor = MaterialColor.blue.base {
+	@IBInspectable public var placeholderActiveColor: UIColor = Color.blue.base {
 		didSet {
 			if editing {
 				if let v: String = placeholder {
@@ -223,7 +223,7 @@ public class TextField : UITextField {
 	}
 	
 	/// Detail textColor.
-	@IBInspectable public var detailColor: UIColor = MaterialColor.darkText.others {
+	@IBInspectable public var detailColor: UIColor = Color.darkText.others {
 		didSet {
 			if let v: String = detailLabel.text {
 				detailLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: detailColor])
@@ -470,7 +470,7 @@ public class TextField : UITextField {
 		masksToBounds = false
 		borderStyle = .None
 		backgroundColor = nil
-		textColor = MaterialColor.darkText.primary
+		textColor = Color.darkText.primary
 		font = RobotoFont.regularWithSize(16)
 		contentScaleFactor = MaterialDevice.scale
 		prepareDivider()
@@ -607,20 +607,20 @@ public class TextField : UITextField {
 	
 	/// Prepares the divider.
 	private func prepareDivider() {
-		dividerColor = MaterialColor.darkText.dividers
+		dividerColor = Color.darkText.dividers
 		layer.addSublayer(divider)
 	}
 	
 	/// Prepares the placeholderLabel.
 	private func preparePlaceholderLabel() {
-		placeholderColor = MaterialColor.darkText.others
+		placeholderColor = Color.darkText.others
 		addSubview(placeholderLabel)
 	}
 	
 	/// Prepares the detailLabel.
 	private func prepareDetailLabel() {
 		detailLabel.font = RobotoFont.regularWithSize(12)
-		detailColor = MaterialColor.darkText.others
+		detailColor = Color.darkText.others
 		addSubview(detailLabel)
 	}
 	

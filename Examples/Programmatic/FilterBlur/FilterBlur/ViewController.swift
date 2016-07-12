@@ -40,13 +40,13 @@ class ViewController: UIViewController {
 	
 	/// General preparation statements.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.white
+		view.backgroundColor = Color.white
 	}
 	
 	/// Blur image.
 	private func blurImage() {
 		let materialView: MaterialView = MaterialView(frame: view.bounds)
-		materialView.image = UIImage(named: "CosmicMindFlat")?.filterBlur(25, tintColor: MaterialColor.blue.base.colorWithAlphaComponent(0.1), saturationDeltaFactor: 100)
+		materialView.image = UIImage(named: "CosmicMindFlat")?.filterBlur(25, tintColor: Color.blue.base.colorWithAlphaComponent(0.1), saturationDeltaFactor: 100)
 		materialView.contentsGravityPreset = .ResizeAspectFill
 		view.addSubview(materialView)
 	}

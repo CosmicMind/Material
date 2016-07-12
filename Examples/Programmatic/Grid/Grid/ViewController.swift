@@ -51,34 +51,34 @@ class ViewController: UIViewController {
 	
 	/// General preparation statements.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.white
+		view.backgroundColor = Color.white
 	}
 	
 	/// Prepares the Horizontal GridView example.
 	private func prepareHorizontalGridViewExample() {
 		var image: UIImage? = UIImage(named: "ic_flash_auto_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let btn1: IconButton = IconButton()
-		btn1.pulseColor = MaterialColor.blueGrey.darken4
-		btn1.tintColor = MaterialColor.blueGrey.darken4
-		btn1.backgroundColor = MaterialColor.grey.lighten3
+		btn1.pulseColor = Color.blueGrey.darken4
+		btn1.tintColor = Color.blueGrey.darken4
+		btn1.backgroundColor = Color.grey.lighten3
 		btn1.setImage(image, forState: .Normal)
 		btn1.setImage(image, forState: .Highlighted)
 		view.addSubview(btn1)
 		
 		image = UIImage(named: "ic_flash_off_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let btn2: IconButton = IconButton()
-		btn2.pulseColor = MaterialColor.blueGrey.darken4
-		btn2.tintColor = MaterialColor.blueGrey.darken4
-		btn2.backgroundColor = MaterialColor.grey.lighten3
+		btn2.pulseColor = Color.blueGrey.darken4
+		btn2.tintColor = Color.blueGrey.darken4
+		btn2.backgroundColor = Color.grey.lighten3
 		btn2.setImage(image, forState: .Normal)
 		btn2.setImage(image, forState: .Highlighted)
 		view.addSubview(btn2)
 		
 		image = UIImage(named: "ic_flash_on_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let btn3: IconButton = IconButton()
-		btn3.pulseColor = MaterialColor.blueGrey.darken4
-		btn3.tintColor = MaterialColor.blueGrey.darken4
-		btn3.backgroundColor = MaterialColor.grey.lighten3
+		btn3.pulseColor = Color.blueGrey.darken4
+		btn3.tintColor = Color.blueGrey.darken4
+		btn3.backgroundColor = Color.grey.lighten3
 		btn3.setImage(image, forState: .Normal)
 		btn3.setImage(image, forState: .Highlighted)
 		view.addSubview(btn3)
@@ -107,27 +107,27 @@ class ViewController: UIViewController {
 	private func prepareVerticalGridViewExample() {
 		var image: UIImage? = UIImage(named: "ic_flash_auto_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let btn1: IconButton = IconButton()
-		btn1.pulseColor = MaterialColor.blueGrey.darken4
-		btn1.tintColor = MaterialColor.blueGrey.darken4
-		btn1.backgroundColor = MaterialColor.grey.lighten3
+		btn1.pulseColor = Color.blueGrey.darken4
+		btn1.tintColor = Color.blueGrey.darken4
+		btn1.backgroundColor = Color.grey.lighten3
 		btn1.setImage(image, forState: .Normal)
 		btn1.setImage(image, forState: .Highlighted)
 		view.addSubview(btn1)
 		
 		image = UIImage(named: "ic_flash_off_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let btn2: IconButton = IconButton()
-		btn2.pulseColor = MaterialColor.blueGrey.darken4
-		btn2.tintColor = MaterialColor.blueGrey.darken4
-		btn2.backgroundColor = MaterialColor.grey.lighten3
+		btn2.pulseColor = Color.blueGrey.darken4
+		btn2.tintColor = Color.blueGrey.darken4
+		btn2.backgroundColor = Color.grey.lighten3
 		btn2.setImage(image, forState: .Normal)
 		btn2.setImage(image, forState: .Highlighted)
 		view.addSubview(btn2)
 		
 		image = UIImage(named: "ic_flash_on_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let btn3: IconButton = IconButton()
-		btn3.pulseColor = MaterialColor.blueGrey.darken4
-		btn3.tintColor = MaterialColor.blueGrey.darken4
-		btn3.backgroundColor = MaterialColor.grey.lighten3
+		btn3.pulseColor = Color.blueGrey.darken4
+		btn3.tintColor = Color.blueGrey.darken4
+		btn3.backgroundColor = Color.grey.lighten3
 		btn3.setImage(image, forState: .Normal)
 		btn3.setImage(image, forState: .Highlighted)
 		view.addSubview(btn3)
@@ -156,13 +156,13 @@ class ViewController: UIViewController {
 		let labelA: UILabel = UILabel()
 		labelA.text = "A"
 		labelA.textAlignment = .Center
-		labelA.backgroundColor = MaterialColor.yellow.lighten3
+		labelA.backgroundColor = Color.yellow.lighten3
 		view.addSubview(labelA)
 		
 		let labelB: UILabel = UILabel()
 		labelB.text = "B"
 		labelB.textAlignment = .Center
-		labelB.backgroundColor = MaterialColor.green.lighten3
+		labelB.backgroundColor = Color.green.lighten3
 		view.addSubview(labelB)
 		
 		labelA.grid.rows = 6
@@ -182,7 +182,7 @@ class ViewController: UIViewController {
 	/// Prepares the small card example.
 	private func prepareSmallCardViewExample() {
 		let cardView: MaterialPulseView = MaterialPulseView(frame: CGRectMake(16, 100, view.bounds.width - 32, 152))
-		cardView.pulseColor = MaterialColor.blueGrey.base
+		cardView.pulseColor = Color.blueGrey.base
 		cardView.depth = .Depth1
 		view.addSubview(cardView)
 		
@@ -193,20 +193,20 @@ class ViewController: UIViewController {
 		cardView.addSubview(imageView)
 		
 		let contentView: MaterialView = MaterialView()
-		contentView.backgroundColor = MaterialColor.clear
+		contentView.backgroundColor = Color.clear
 		cardView.addSubview(contentView)
 		
 		let titleLabel: UILabel = UILabel()
 		titleLabel.text = "Material"
-		titleLabel.textColor = MaterialColor.blueGrey.darken4
-		titleLabel.backgroundColor = MaterialColor.clear
+		titleLabel.textColor = Color.blueGrey.darken4
+		titleLabel.backgroundColor = Color.clear
 		contentView.addSubview(titleLabel)
 		
 		image = MaterialIcon.cm.moreVertical
 		let moreButton: IconButton = IconButton()
 		moreButton.contentEdgeInsetsPreset = .None
-		moreButton.pulseColor = MaterialColor.blueGrey.darken4
-		moreButton.tintColor = MaterialColor.blueGrey.darken4
+		moreButton.pulseColor = Color.blueGrey.darken4
+		moreButton.tintColor = Color.blueGrey.darken4
 		moreButton.setImage(image, forState: .Normal)
 		moreButton.setImage(image, forState: .Highlighted)
 		contentView.addSubview(moreButton)
@@ -216,22 +216,22 @@ class ViewController: UIViewController {
 		detailLabel.lineBreakMode = .ByTruncatingTail
 		detailLabel.font = RobotoFont.regularWithSize(12)
 		detailLabel.text = "Express your creativity with Material, an animation and graphics framework for Google's Material Design and Apple's Flat UI in Swift."
-		detailLabel.textColor = MaterialColor.blueGrey.darken4
-		detailLabel.backgroundColor = MaterialColor.clear
+		detailLabel.textColor = Color.blueGrey.darken4
+		detailLabel.backgroundColor = Color.clear
 		contentView.addSubview(detailLabel)
 		
 		let alarmLabel: UILabel = UILabel()
 		alarmLabel.font = RobotoFont.regularWithSize(12)
 		alarmLabel.text = "34 min"
-		alarmLabel.textColor = MaterialColor.blueGrey.darken4
-		alarmLabel.backgroundColor = MaterialColor.clear
+		alarmLabel.textColor = Color.blueGrey.darken4
+		alarmLabel.backgroundColor = Color.clear
 		contentView.addSubview(alarmLabel)
 		
 		image = UIImage(named: "ic_alarm_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let alarmButton: IconButton = IconButton()
 		alarmButton.contentEdgeInsetsPreset = .None
-		alarmButton.pulseColor = MaterialColor.blueGrey.darken4
-		alarmButton.tintColor = MaterialColor.red.base
+		alarmButton.pulseColor = Color.blueGrey.darken4
+		alarmButton.tintColor = Color.red.base
 		alarmButton.setImage(image, forState: .Normal)
 		alarmButton.setImage(image, forState: .Highlighted)
 		contentView.addSubview(alarmButton)
@@ -279,7 +279,7 @@ class ViewController: UIViewController {
 	/// Prepares the medium card example.
 	private func prepareMediumCardViewExample() {
 		let cardView: MaterialPulseView = MaterialPulseView(frame: CGRectMake(16, 100, view.bounds.width - 32, 240))
-		cardView.pulseColor = MaterialColor.blueGrey.base
+		cardView.pulseColor = Color.blueGrey.base
 		cardView.depth = .Depth1
 		view.addSubview(cardView)
 		
@@ -290,20 +290,20 @@ class ViewController: UIViewController {
 		cardView.addSubview(imageView)
 		
 		let contentView: MaterialView = MaterialView()
-		contentView.backgroundColor = MaterialColor.clear
+		contentView.backgroundColor = Color.clear
 		cardView.addSubview(contentView)
 		
 		let titleLabel: UILabel = UILabel()
 		titleLabel.text = "Material"
-		titleLabel.textColor = MaterialColor.blueGrey.darken4
-		titleLabel.backgroundColor = MaterialColor.clear
+		titleLabel.textColor = Color.blueGrey.darken4
+		titleLabel.backgroundColor = Color.clear
 		contentView.addSubview(titleLabel)
 		
 		image = MaterialIcon.cm.moreVertical
 		let moreButton: IconButton = IconButton()
 		moreButton.contentEdgeInsetsPreset = .None
-		moreButton.pulseColor = MaterialColor.blueGrey.darken4
-		moreButton.tintColor = MaterialColor.blueGrey.darken4
+		moreButton.pulseColor = Color.blueGrey.darken4
+		moreButton.tintColor = Color.blueGrey.darken4
 		moreButton.setImage(image, forState: .Normal)
 		moreButton.setImage(image, forState: .Highlighted)
 		contentView.addSubview(moreButton)
@@ -313,22 +313,22 @@ class ViewController: UIViewController {
 		detailLabel.lineBreakMode = .ByTruncatingTail
 		detailLabel.font = RobotoFont.regularWithSize(12)
 		detailLabel.text = "Express your creativity with Material, an animation and graphics framework for Google's Material Design and Apple's Flat UI in Swift."
-		detailLabel.textColor = MaterialColor.blueGrey.darken4
-		detailLabel.backgroundColor = MaterialColor.clear
+		detailLabel.textColor = Color.blueGrey.darken4
+		detailLabel.backgroundColor = Color.clear
 		contentView.addSubview(detailLabel)
 		
 		let alarmLabel: UILabel = UILabel()
 		alarmLabel.font = RobotoFont.regularWithSize(12)
 		alarmLabel.text = "34 min"
-		alarmLabel.textColor = MaterialColor.blueGrey.darken4
-		alarmLabel.backgroundColor = MaterialColor.clear
+		alarmLabel.textColor = Color.blueGrey.darken4
+		alarmLabel.backgroundColor = Color.clear
 		contentView.addSubview(alarmLabel)
 		
 		image = UIImage(named: "ic_alarm_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let alarmButton: IconButton = IconButton()
 		alarmButton.contentEdgeInsetsPreset = .None
-		alarmButton.pulseColor = MaterialColor.blueGrey.darken4
-		alarmButton.tintColor = MaterialColor.red.base
+		alarmButton.pulseColor = Color.blueGrey.darken4
+		alarmButton.tintColor = Color.red.base
 		alarmButton.setImage(image, forState: .Normal)
 		alarmButton.setImage(image, forState: .Highlighted)
 		contentView.addSubview(alarmButton)
@@ -379,7 +379,7 @@ class ViewController: UIViewController {
 		var image: UIImage? = UIImage(named: "CosmicMindInverted")
 		
 		let cardView: MaterialPulseView = MaterialPulseView(frame: CGRectMake(16, 100, view.bounds.width - 32, 400))
-		cardView.pulseColor = MaterialColor.blueGrey.base
+		cardView.pulseColor = Color.blueGrey.base
 		cardView.depth = .Depth1
 		view.addSubview(cardView)
 		
@@ -399,20 +399,20 @@ class ViewController: UIViewController {
 		cardView.addSubview(bottomImageView)
 
 		let contentView: MaterialView = MaterialView()
-		contentView.backgroundColor = MaterialColor.clear
+		contentView.backgroundColor = Color.clear
 		cardView.addSubview(contentView)
 		
 		let titleLabel: UILabel = UILabel()
 		titleLabel.text = "Material"
-		titleLabel.textColor = MaterialColor.blueGrey.darken4
-		titleLabel.backgroundColor = MaterialColor.clear
+		titleLabel.textColor = Color.blueGrey.darken4
+		titleLabel.backgroundColor = Color.clear
 		contentView.addSubview(titleLabel)
 		
 		image = MaterialIcon.cm.moreHorizontal
 		let moreButton: IconButton = IconButton()
 		moreButton.contentEdgeInsetsPreset = .None
-		moreButton.pulseColor = MaterialColor.blueGrey.darken4
-		moreButton.tintColor = MaterialColor.blueGrey.darken4
+		moreButton.pulseColor = Color.blueGrey.darken4
+		moreButton.tintColor = Color.blueGrey.darken4
 		moreButton.setImage(image, forState: .Normal)
 		moreButton.setImage(image, forState: .Highlighted)
 		contentView.addSubview(moreButton)
@@ -422,22 +422,22 @@ class ViewController: UIViewController {
 		detailLabel.lineBreakMode = .ByTruncatingTail
 		detailLabel.font = RobotoFont.regularWithSize(12)
 		detailLabel.text = "Express your creativity with Material, an animation and graphics framework for Google's Material Design and Apple's Flat UI in Swift."
-		detailLabel.textColor = MaterialColor.blueGrey.darken4
-		detailLabel.backgroundColor = MaterialColor.clear
+		detailLabel.textColor = Color.blueGrey.darken4
+		detailLabel.backgroundColor = Color.clear
 		contentView.addSubview(detailLabel)
 
 		let alarmLabel: UILabel = UILabel()
 		alarmLabel.font = RobotoFont.regularWithSize(12)
 		alarmLabel.text = "34 min"
-		alarmLabel.textColor = MaterialColor.blueGrey.darken4
-		alarmLabel.backgroundColor = MaterialColor.clear
+		alarmLabel.textColor = Color.blueGrey.darken4
+		alarmLabel.backgroundColor = Color.clear
 		contentView.addSubview(alarmLabel)
 		
 		image = UIImage(named: "ic_alarm_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let alarmButton: IconButton = IconButton()
 		alarmButton.contentEdgeInsetsPreset = .None
-		alarmButton.pulseColor = MaterialColor.blueGrey.darken4
-		alarmButton.tintColor = MaterialColor.red.base
+		alarmButton.pulseColor = Color.blueGrey.darken4
+		alarmButton.tintColor = Color.red.base
 		alarmButton.setImage(image, forState: .Normal)
 		alarmButton.setImage(image, forState: .Highlighted)
 		contentView.addSubview(alarmButton)

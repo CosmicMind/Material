@@ -48,6 +48,6 @@ public class ErrorTextField : TextField {
     override public func prepareView() {
         super.prepareView()
         revealError = false
-        detailColor = MaterialColor.red.base
+        detailColor = Color.red.base
     }
 }

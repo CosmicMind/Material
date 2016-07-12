@@ -320,7 +320,7 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		backgroundColor = MaterialColor.black
+		backgroundColor = Color.black
 		preparePreviewView()
 	}
 	
@@ -511,7 +511,7 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 			focusLayer = MaterialLayer(frame: CGRectMake(0, 0, 150, 150))
 			focusLayer!.hidden = true
 			focusLayer!.borderWidth = 2
-			focusLayer!.borderColor = MaterialColor.white.CGColor
+			focusLayer!.borderColor = Color.white.CGColor
 			previewView.layer.addSublayer(focusLayer!)
 		}
 	}
@@ -524,7 +524,7 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 			exposureLayer = MaterialLayer(frame: CGRectMake(0, 0, 150, 150))
 			exposureLayer!.hidden = true
 			exposureLayer!.borderWidth = 2
-			exposureLayer!.borderColor = MaterialColor.yellow.darken1.CGColor
+			exposureLayer!.borderColor = Color.yellow.darken1.CGColor
 			previewView.layer.addSublayer(exposureLayer!)
 		}
 	}
@@ -537,7 +537,7 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 			resetLayer = MaterialLayer(frame: CGRectMake(0, 0, 150, 150))
 			resetLayer!.hidden = true
 			resetLayer!.borderWidth = 2
-			resetLayer!.borderColor = MaterialColor.red.accent1.CGColor
+			resetLayer!.borderColor = Color.red.accent1.CGColor
 			previewView.layer.addSublayer(resetLayer!)
 		}
 	}

@@ -52,14 +52,14 @@ class VideoViewController: UIViewController {
 	
 	/// General preparation statements.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.yellow.base
+		view.backgroundColor = Color.yellow.base
 	}
 	
 	/// Prepare tabBarItem.
 	private func prepareTabBarItem() {
 		tabBarItem.title = "Video"
 		tabBarItem.image = MaterialIcon.cm.videocam
-		tabBarItem.setTitleColor(MaterialColor.grey.base, forState: .Normal)
-		tabBarItem.setTitleColor(MaterialColor.teal.base, forState: .Selected)
+		tabBarItem.setTitleColor(Color.grey.base, forState: .Normal)
+		tabBarItem.setTitleColor(Color.teal.base, forState: .Selected)
 	}
 }

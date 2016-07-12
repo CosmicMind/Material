@@ -182,14 +182,14 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 	:name:	captureViewDidPressCameraButton
 	*/
 	func captureViewDidPressCameraButton(captureView: CaptureView, button: UIButton) {
-		captureButton.backgroundColor = MaterialColor.blue.darken1.colorWithAlphaComponent(0.3)
+		captureButton.backgroundColor = Color.blue.darken1.colorWithAlphaComponent(0.3)
 	}
 	
 	/**
 	:name:	captureViewDidPressVideoButton
 	*/
 	func captureViewDidPressVideoButton(captureView: CaptureView, button: UIButton) {
-		captureButton.backgroundColor = MaterialColor.red.darken1.colorWithAlphaComponent(0.3)
+		captureButton.backgroundColor = Color.red.darken1.colorWithAlphaComponent(0.3)
 	}
 	
 	/**
@@ -214,7 +214,7 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 	:name:	prepareView
 	*/
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.black
+		view.backgroundColor = Color.black
 	}
 	
 	/**
@@ -238,12 +238,12 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 		
 		// Title label.
 		toolbar.titleLabel.hidden = true
-		toolbar.titleLabel.textColor = MaterialColor.white
+		toolbar.titleLabel.textColor = Color.white
 		
 		// Detail label.
 		toolbar.detail = "Recording"
 		toolbar.detailLabel.hidden = true
-		toolbar.detailLabel.textColor = MaterialColor.red.accent1
+		toolbar.detailLabel.textColor = Color.red.accent1
 		
 		toolbar.leftControls = [switchCamerasButton]
 		toolbar.rightControls = [flashButton]
@@ -257,10 +257,10 @@ class ViewController: UIViewController, CaptureViewDelegate, CaptureSessionDeleg
 	private func prepareCaptureButton() {
 		captureButton.width = 72
 		captureButton.height = 72
-		captureButton.pulseColor = MaterialColor.white
-		captureButton.backgroundColor = MaterialColor.red.darken1.colorWithAlphaComponent(0.3)
+		captureButton.pulseColor = Color.white
+		captureButton.backgroundColor = Color.red.darken1.colorWithAlphaComponent(0.3)
 		captureButton.borderWidth =  2
-		captureButton.borderColor = MaterialColor.white
+		captureButton.borderColor = Color.white
 		captureButton.depth = .None
 		
 		captureView.captureButton = captureButton

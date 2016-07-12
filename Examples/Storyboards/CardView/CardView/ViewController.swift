@@ -44,7 +44,7 @@ class ViewController: UIViewController {
 	
 	/// Prepares the view.
     private func prepareView() {
-        view.backgroundColor = MaterialColor.white
+        view.backgroundColor = Color.white
     }
 	
 	/// Prepares the topCardView.
@@ -52,7 +52,7 @@ class ViewController: UIViewController {
         // Title label.
 		let titleLabel: UILabel = UILabel()
 		titleLabel.text = "Welcome Back!"
-		titleLabel.textColor = MaterialColor.blue.darken1
+		titleLabel.textColor = Color.blue.darken1
 		titleLabel.font = RobotoFont.mediumWithSize(20)
 		topCardView.titleLabel = titleLabel
 		
@@ -64,15 +64,15 @@ class ViewController: UIViewController {
 		
 		// Yes button.
 		let btn1: FlatButton = FlatButton()
-		btn1.pulseColor = MaterialColor.blue.lighten1
+		btn1.pulseColor = Color.blue.lighten1
 		btn1.setTitle("YES", forState: .Normal)
-		btn1.setTitleColor(MaterialColor.blue.darken1, forState: .Normal)
+		btn1.setTitleColor(Color.blue.darken1, forState: .Normal)
 		
 		// No button.
 		let btn2: FlatButton = FlatButton()
-		btn2.pulseColor = MaterialColor.blue.lighten1
+		btn2.pulseColor = Color.blue.lighten1
 		btn2.setTitle("NO", forState: .Normal)
-		btn2.setTitleColor(MaterialColor.blue.darken1, forState: .Normal)
+		btn2.setTitleColor(Color.blue.darken1, forState: .Normal)
 		
 		// Add buttons to left side.
 		topCardView.leftButtons = [btn1, btn2]
@@ -83,7 +83,7 @@ class ViewController: UIViewController {
 		// Title label.
 		let titleLabel: UILabel = UILabel()
 		titleLabel.text = "Welcome Back!"
-		titleLabel.textColor = MaterialColor.blue.darken1
+		titleLabel.textColor = Color.blue.darken1
 		titleLabel.font = RobotoFont.mediumWithSize(20)
 		bottomCardView.titleLabel = titleLabel
 		
@@ -95,15 +95,15 @@ class ViewController: UIViewController {
 		
 		// Yes button.
 		let btn1: FlatButton = FlatButton()
-		btn1.pulseColor = MaterialColor.blue.lighten1
+		btn1.pulseColor = Color.blue.lighten1
 		btn1.setTitle("YES", forState: .Normal)
-		btn1.setTitleColor(MaterialColor.blue.darken1, forState: .Normal)
+		btn1.setTitleColor(Color.blue.darken1, forState: .Normal)
 		
 		// No button.
 		let btn2: FlatButton = FlatButton()
-		btn2.pulseColor = MaterialColor.blue.lighten1
+		btn2.pulseColor = Color.blue.lighten1
 		btn2.setTitle("NO", forState: .Normal)
-		btn2.setTitleColor(MaterialColor.blue.darken1, forState: .Normal)
+		btn2.setTitleColor(Color.blue.darken1, forState: .Normal)
 		
 		// Add buttons to left side.
 		bottomCardView.leftButtons = [btn1, btn2]

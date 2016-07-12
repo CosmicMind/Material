@@ -47,28 +47,28 @@ class ViewController: UIViewController {
 	
 	/// General preparation statements.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.white
+		view.backgroundColor = Color.white
 	}
 	
 	/// Layout views horizontally with equal width.
 	private func prepareAlignToParentHorizontallyAndVerticallyExample() {
 		let label1: UILabel = UILabel()
-		label1.backgroundColor = MaterialColor.red.base
+		label1.backgroundColor = Color.red.base
 		label1.text = "A"
 		label1.textAlignment = .Center
 		
 		let label2: UILabel = UILabel()
-		label2.backgroundColor = MaterialColor.green.base
+		label2.backgroundColor = Color.green.base
 		label2.text = "B"
 		label2.textAlignment = .Center
 		
 		let label3: UILabel = UILabel()
-		label3.backgroundColor = MaterialColor.blue.base
+		label3.backgroundColor = Color.blue.base
 		label3.text = "C"
 		label3.textAlignment = .Center
 		
 		let label4: UILabel = UILabel()
-		label4.backgroundColor = MaterialColor.yellow.base
+		label4.backgroundColor = Color.yellow.base
 		label4.text = "D"
 		label4.textAlignment = .Center
 		
@@ -90,7 +90,7 @@ class ViewController: UIViewController {
 		let length: CGFloat = 100
 		
 		let labelCX = UILabel()
-		labelCX.backgroundColor = MaterialColor.grey.base
+		labelCX.backgroundColor = Color.grey.base
 		labelCX.text = "centerX"
 		labelCX.textAlignment = .Center
 		labelCX.layer.cornerRadius = length / 2.0
@@ -99,7 +99,7 @@ class ViewController: UIViewController {
 		view.layout(labelCX).width(length).height(length).centerHorizontally()
 		
 		let labelCY = UILabel()
-		labelCY.backgroundColor = MaterialColor.grey.base
+		labelCY.backgroundColor = Color.grey.base
 		labelCY.text = "centerY"
 		labelCY.textAlignment = .Center
 		labelCY.layer.cornerRadius = length / 2.0
@@ -108,7 +108,7 @@ class ViewController: UIViewController {
 		view.layout(labelCY).width(length).height(length).centerVertically()
 		
 		let labelCXY = UILabel()
-		labelCXY.backgroundColor = MaterialColor.grey.base
+		labelCXY.backgroundColor = Color.grey.base
 		labelCXY.text = "centerXY"
 		labelCXY.textAlignment = .Center
 		labelCXY.layer.cornerRadius = length / 2.0

@@ -46,7 +46,7 @@ class PurpleViewController: UIViewController {
 	
 	/// Prepares the view.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.purple.base
+		view.backgroundColor = Color.purple.base
 	}
 	
 	/// Prepares the navigationItem.

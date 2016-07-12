@@ -127,56 +127,56 @@ public class MaterialSwitch : UIControl {
 	}
 	
 	/// Button on color.
-	@IBInspectable public var buttonOnColor: UIColor = MaterialColor.clear {
+	@IBInspectable public var buttonOnColor: UIColor = Color.clear {
 		didSet {
 			styleForState(switchState)
 		}
 	}
 	
 	/// Button off color.
-	@IBInspectable public var buttonOffColor: UIColor = MaterialColor.clear {
+	@IBInspectable public var buttonOffColor: UIColor = Color.clear {
 		didSet {
 			styleForState(switchState)
 		}
 	}
 	
 	/// Track on color.
-	@IBInspectable public var trackOnColor: UIColor = MaterialColor.clear {
+	@IBInspectable public var trackOnColor: UIColor = Color.clear {
 		didSet {
 			styleForState(switchState)
 		}
 	}
 	
 	/// Track off color.
-	@IBInspectable public var trackOffColor: UIColor = MaterialColor.clear {
+	@IBInspectable public var trackOffColor: UIColor = Color.clear {
 		didSet {
 			styleForState(switchState)
 		}
 	}
 	
 	/// Button on disabled color.
-	@IBInspectable public var buttonOnDisabledColor: UIColor = MaterialColor.clear {
+	@IBInspectable public var buttonOnDisabledColor: UIColor = Color.clear {
 		didSet {
 			styleForState(switchState)
 		}
 	}
 	
 	/// Track on disabled color.
-	@IBInspectable public var trackOnDisabledColor: UIColor = MaterialColor.clear {
+	@IBInspectable public var trackOnDisabledColor: UIColor = Color.clear {
 		didSet {
 			styleForState(switchState)
 		}
 	}
 	
 	/// Button off disabled color.
-	@IBInspectable public var buttonOffDisabledColor: UIColor = MaterialColor.clear {
+	@IBInspectable public var buttonOffDisabledColor: UIColor = Color.clear {
 		didSet {
 			styleForState(switchState)
 		}
 	}
 	
 	/// Track off disabled color.
-	@IBInspectable public var trackOffDisabledColor: UIColor = MaterialColor.clear {
+	@IBInspectable public var trackOffDisabledColor: UIColor = Color.clear {
 		didSet {
 			styleForState(switchState)
 		}
@@ -229,23 +229,23 @@ public class MaterialSwitch : UIControl {
 		didSet {
 			switch switchStyle {
 			case .LightContent:
-				buttonOnColor = MaterialColor.blue.darken2
-				trackOnColor = MaterialColor.blue.lighten3
-				buttonOffColor = MaterialColor.blueGrey.lighten4
-				trackOffColor = MaterialColor.blueGrey.lighten3
-				buttonOnDisabledColor = MaterialColor.grey.lighten2
-				trackOnDisabledColor = MaterialColor.grey.lighten3
-				buttonOffDisabledColor = MaterialColor.grey.lighten2
-				trackOffDisabledColor = MaterialColor.grey.lighten3
+				buttonOnColor = Color.blue.darken2
+				trackOnColor = Color.blue.lighten3
+				buttonOffColor = Color.blueGrey.lighten4
+				trackOffColor = Color.blueGrey.lighten3
+				buttonOnDisabledColor = Color.grey.lighten2
+				trackOnDisabledColor = Color.grey.lighten3
+				buttonOffDisabledColor = Color.grey.lighten2
+				trackOffDisabledColor = Color.grey.lighten3
 			case .Default:
-				buttonOnColor = MaterialColor.blue.lighten1
-				trackOnColor = MaterialColor.blue.lighten2.colorWithAlphaComponent(0.5)
-				buttonOffColor = MaterialColor.blueGrey.lighten3
-				trackOffColor = MaterialColor.blueGrey.lighten4.colorWithAlphaComponent(0.5)
-				buttonOnDisabledColor = MaterialColor.grey.darken3
-				trackOnDisabledColor = MaterialColor.grey.lighten1.colorWithAlphaComponent(0.2)
-				buttonOffDisabledColor = MaterialColor.grey.darken3
-				trackOffDisabledColor = MaterialColor.grey.lighten1.colorWithAlphaComponent(0.2)
+				buttonOnColor = Color.blue.lighten1
+				trackOnColor = Color.blue.lighten2.colorWithAlphaComponent(0.5)
+				buttonOffColor = Color.blueGrey.lighten3
+				trackOffColor = Color.blueGrey.lighten4.colorWithAlphaComponent(0.5)
+				buttonOnDisabledColor = Color.grey.darken3
+				trackOnDisabledColor = Color.grey.lighten1.colorWithAlphaComponent(0.2)
+				buttonOffDisabledColor = Color.grey.darken3
+				trackOffDisabledColor = Color.grey.lighten1.colorWithAlphaComponent(0.2)
 			}
 		}
 	}

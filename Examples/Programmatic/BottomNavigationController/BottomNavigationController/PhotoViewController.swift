@@ -52,14 +52,14 @@ class PhotoViewController: UIViewController {
 	
 	/// General preparation statements.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.green.base
+		view.backgroundColor = Color.green.base
 	}
 	
 	/// Prepare tabBarItem.
 	private func prepareTabBarItem() {
 		tabBarItem.title = "Photo"
 		tabBarItem.image = MaterialIcon.cm.photoCamera
-		tabBarItem.setTitleColor(MaterialColor.grey.base, forState: .Normal)
-		tabBarItem.setTitleColor(MaterialColor.teal.base, forState: .Selected)
+		tabBarItem.setTitleColor(Color.grey.base, forState: .Normal)
+		tabBarItem.setTitleColor(Color.teal.base, forState: .Selected)
 	}
 }

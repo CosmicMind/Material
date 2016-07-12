@@ -52,7 +52,7 @@ class AppLeftViewController: UIViewController {
 	
 	/// General preparation statements.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.grey.darken4
+		view.backgroundColor = Color.grey.darken4
 	}
 	
 	/// Prepares the items that are displayed within the tableView.
@@ -68,7 +68,7 @@ class AppLeftViewController: UIViewController {
 	private func prepareTableView() {
 		tableView = UITableView()
 		tableView.registerClass(MaterialTableViewCell.self, forCellReuseIdentifier: "MaterialTableViewCell")
-		tableView.backgroundColor = MaterialColor.clear
+		tableView.backgroundColor = Color.clear
 		tableView.dataSource = self
 		tableView.delegate = self
 		tableView.separatorStyle = .None
@@ -92,11 +92,11 @@ extension AppLeftViewController: UITableViewDataSource {
 		let item: Item = dataSourceItems[indexPath.row]
 		
 		cell.textLabel!.text = item.text
-		cell.textLabel!.textColor = MaterialColor.grey.lighten2
+		cell.textLabel!.textColor = Color.grey.lighten2
 		cell.textLabel!.font = RobotoFont.medium
 		cell.imageView!.image = item.image
-		cell.imageView!.tintColor = MaterialColor.grey.lighten2
-		cell.backgroundColor = MaterialColor.clear
+		cell.imageView!.tintColor = Color.grey.lighten2
+		cell.backgroundColor = Color.clear
 		
 		return cell
 	}

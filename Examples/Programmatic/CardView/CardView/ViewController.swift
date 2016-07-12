@@ -44,7 +44,7 @@ class ViewController: UIViewController {
 	
 	/// General preparation statements.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.white
+		view.backgroundColor = Color.white
 	}
 	
 	private func prepareBasicCardViewExample() {
@@ -53,7 +53,7 @@ class ViewController: UIViewController {
 		// Title label.
 		let titleLabel: UILabel = UILabel()
 		titleLabel.text = "Welcome Back!"
-		titleLabel.textColor = MaterialColor.blue.darken1
+		titleLabel.textColor = Color.blue.darken1
 		titleLabel.font = RobotoFont.mediumWithSize(20)
 		cardView.titleLabel = titleLabel
 		
@@ -65,15 +65,15 @@ class ViewController: UIViewController {
 		
 		// Yes button.
 		let btn1: FlatButton = FlatButton()
-		btn1.pulseColor = MaterialColor.blue.lighten1
+		btn1.pulseColor = Color.blue.lighten1
 		btn1.setTitle("YES", forState: .Normal)
-		btn1.setTitleColor(MaterialColor.blue.darken1, forState: .Normal)
+		btn1.setTitleColor(Color.blue.darken1, forState: .Normal)
 		
 		// No button.
 		let btn2: FlatButton = FlatButton()
-		btn2.pulseColor = MaterialColor.blue.lighten1
+		btn2.pulseColor = Color.blue.lighten1
 		btn2.setTitle("NO", forState: .Normal)
-		btn2.setTitleColor(MaterialColor.blue.darken1, forState: .Normal)
+		btn2.setTitleColor(Color.blue.darken1, forState: .Normal)
 
 		// Add buttons to left side.
 		cardView.leftButtons = [btn1, btn2]
@@ -85,7 +85,7 @@ class ViewController: UIViewController {
 	private func prepareCardViewWithoutPulseBackgroundImageExample() {
 		let cardView: CardView = CardView()
 		cardView.divider = false
-		cardView.backgroundColor = MaterialColor.red.base
+		cardView.backgroundColor = Color.red.base
 		
 		cardView.image = UIImage(named: "Material-iTunesArtWork")?.resize(toHeight: 75)
 		cardView.contentsGravityPreset = .BottomRight
@@ -93,22 +93,22 @@ class ViewController: UIViewController {
 		// Title label.
 		let titleLabel: UILabel = UILabel()
 		titleLabel.text = "Material"
-		titleLabel.textColor = MaterialColor.white
+		titleLabel.textColor = Color.white
 		titleLabel.font = RobotoFont.mediumWithSize(24)
 		cardView.titleLabel = titleLabel
 		
 		// Detail label.
 		let detailLabel: UILabel = UILabel()
 		detailLabel.text = "Beautiful Material Design"
-		detailLabel.textColor = MaterialColor.white
+		detailLabel.textColor = Color.white
 		detailLabel.numberOfLines = 0
 		cardView.contentView = detailLabel
 		
 		// Share button.
 		let img1: UIImage? = MaterialIcon.cm.share
 		let btn1: IconButton = IconButton()
-		btn1.pulseColor = MaterialColor.white
-		btn1.tintColor = MaterialColor.white
+		btn1.pulseColor = Color.white
+		btn1.tintColor = Color.white
 		btn1.setImage(img1, forState: .Normal)
 		btn1.setImage(img1, forState: .Highlighted)
 		
@@ -121,7 +121,7 @@ class ViewController: UIViewController {
 	
 	private func prepareCardViewWithPulseBackgroundImageExample() {
 		let cardView: CardView = CardView()
-		cardView.backgroundColor = MaterialColor.blue.base
+		cardView.backgroundColor = Color.blue.base
 		cardView.divider = false
 		
 		// Image.
@@ -131,22 +131,22 @@ class ViewController: UIViewController {
 		// Title label.
 		let titleLabel: UILabel = UILabel()
 		titleLabel.text = "Graph"
-		titleLabel.textColor = MaterialColor.white
+		titleLabel.textColor = Color.white
 		titleLabel.font = RobotoFont.mediumWithSize(24)
 		cardView.titleLabel = titleLabel
 		
 		// Detail label.
 		let detailLabel: UILabel = UILabel()
 		detailLabel.text = "Data-Driven Framework"
-		detailLabel.textColor = MaterialColor.white
+		detailLabel.textColor = Color.white
 		detailLabel.numberOfLines = 0
 		cardView.contentView = detailLabel
 		
 		// Share button.
 		let img1: UIImage? = MaterialIcon.cm.share
 		let btn1: IconButton = IconButton()
-		btn1.pulseColor = MaterialColor.white
-		btn1.tintColor = MaterialColor.white
+		btn1.pulseColor = Color.white
+		btn1.tintColor = Color.white
 		btn1.setImage(img1, forState: .Normal)
 		btn1.setImage(img1, forState: .Highlighted)
 		
@@ -160,28 +160,28 @@ class ViewController: UIViewController {
 	private func prepareCardViewButtonBarExample() {
 		let cardView: CardView = CardView()
 		cardView.divider = false
-		cardView.backgroundColor = MaterialColor.blueGrey.darken4
+		cardView.backgroundColor = Color.blueGrey.darken4
 		
 		// Search button.
 		let img1: UIImage? = MaterialIcon.cm.search
 		let btn1: IconButton = IconButton()
-		btn1.pulseColor = MaterialColor.white
-		btn1.tintColor = MaterialColor.white
+		btn1.pulseColor = Color.white
+		btn1.tintColor = Color.white
 		btn1.setImage(img1, forState: .Normal)
 		btn1.setImage(img1, forState: .Highlighted)
 		
 		// BUTTON 1 button.
 		let btn2: FlatButton = FlatButton()
-		btn2.pulseColor = MaterialColor.teal.lighten3
+		btn2.pulseColor = Color.teal.lighten3
 		btn2.setTitle("BUTTON 1", forState: .Normal)
-		btn2.setTitleColor(MaterialColor.teal.lighten3, forState: .Normal)
+		btn2.setTitleColor(Color.teal.lighten3, forState: .Normal)
 		btn2.titleLabel!.font = RobotoFont.regularWithSize(20)
 		
 		// BUTTON 2 button.
 		let btn3: FlatButton = FlatButton()
-		btn3.pulseColor = MaterialColor.teal.lighten3
+		btn3.pulseColor = Color.teal.lighten3
 		btn3.setTitle("BUTTON 2", forState: .Normal)
-		btn3.setTitleColor(MaterialColor.teal.lighten3, forState: .Normal)
+		btn3.setTitleColor(Color.teal.lighten3, forState: .Normal)
 		btn3.titleLabel!.font = RobotoFont.regularWithSize(20)
 		
 		// Add buttons to left side.

@@ -51,7 +51,7 @@ class ViewController: UIViewController, TextDelegate {
 	
 	/// General preparation statements.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.white
+		view.backgroundColor = Color.white
 	}
 	
 	/// Prepares the textView.
@@ -67,13 +67,13 @@ class ViewController: UIViewController, TextDelegate {
 		textView.font = RobotoFont.regular
 		
 		textView.placeholderLabel = UILabel()
-		textView.placeholderLabel!.textColor = MaterialColor.grey.base
+		textView.placeholderLabel!.textColor = Color.grey.base
 		textView.placeholderLabel!.text = "Description"
 		
 		textView.titleLabel = UILabel()
 		textView.titleLabel!.font = RobotoFont.mediumWithSize(12)
-		textView.titleLabelColor = MaterialColor.grey.base
-		textView.titleLabelActiveColor = MaterialColor.blue.accent3
+		textView.titleLabelColor = Color.grey.base
+		textView.titleLabelActiveColor = Color.blue.accent3
 		
 		view.layout(textView!).edges(top: 124, left: 24, bottom: 24, right: 24)
 	}

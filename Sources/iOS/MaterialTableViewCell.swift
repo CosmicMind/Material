@@ -52,7 +52,7 @@ public class MaterialTableViewCell : UITableViewCell {
 	@IBInspectable public var pulseOpacity: CGFloat = 0.25
 	
 	/// The color of the pulse effect.
-	@IBInspectable public var pulseColor: UIColor = MaterialColor.grey.base
+	@IBInspectable public var pulseColor: UIColor = Color.grey.base
 	
 	/// The type of PulseAnimation.
 	public var pulseAnimation: PulseAnimation = .AtPointWithBacking {

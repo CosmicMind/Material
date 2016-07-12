@@ -63,18 +63,18 @@ class AppToolbarController: ToolbarController {
 	private func prepareToolbar() {
 		// Title label.
 		toolbar.title = "Material"
-		toolbar.titleLabel.textColor = MaterialColor.white
+		toolbar.titleLabel.textColor = Color.white
 		
 		toolbar.detail = "Build Beautiful Software"
 		toolbar.detailLabel.textAlignment = .Left
-		toolbar.detailLabel.textColor = MaterialColor.white
+		toolbar.detailLabel.textColor = Color.white
 		
 		var image: UIImage? = MaterialIcon.cm.menu
 		
 		// Menu button.
 		let menuButton: IconButton = IconButton()
-		menuButton.tintColor = MaterialColor.white
-		menuButton.pulseColor = MaterialColor.white
+		menuButton.tintColor = Color.white
+		menuButton.pulseColor = Color.white
 		menuButton.setImage(image, forState: .Normal)
 		menuButton.setImage(image, forState: .Highlighted)
 		menuButton.addTarget(self, action: #selector(handleMenuButton), forControlEvents: .TouchUpInside)
@@ -85,13 +85,13 @@ class AppToolbarController: ToolbarController {
 		// Search button.
 		image = MaterialIcon.cm.search
 		let searchButton: IconButton = IconButton()
-		searchButton.tintColor = MaterialColor.white
-		searchButton.pulseColor = MaterialColor.white
+		searchButton.tintColor = Color.white
+		searchButton.pulseColor = Color.white
 		searchButton.setImage(image, forState: .Normal)
 		searchButton.setImage(image, forState: .Highlighted)
 		searchButton.addTarget(self, action: #selector(handleSearchButton), forControlEvents: .TouchUpInside)
 		
-		toolbar.backgroundColor = MaterialColor.blue.base
+		toolbar.backgroundColor = Color.blue.base
 		toolbar.leftControls = [menuButton]
 		toolbar.rightControls = [switchControl, searchButton]
 	}

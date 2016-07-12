@@ -48,7 +48,7 @@
 		96BCB7BC1CB40DC500C806FE /* MaterialCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7731CB40DC500C806FE /* MaterialCollectionViewDataSource.swift */; };
 		96BCB7BD1CB40DC500C806FE /* MaterialCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7741CB40DC500C806FE /* MaterialCollectionViewDelegate.swift */; };
 		96BCB7BE1CB40DC500C806FE /* MaterialCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7751CB40DC500C806FE /* MaterialCollectionViewLayout.swift */; };
-		96BCB7BF1CB40DC500C806FE /* MaterialColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7761CB40DC500C806FE /* MaterialColor.swift */; };
+		96BCB7BF1CB40DC500C806FE /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7761CB40DC500C806FE /* Color.swift */; };
 		96BCB7C01CB40DC500C806FE /* MaterialDataSourceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7771CB40DC500C806FE /* MaterialDataSourceItem.swift */; };
 		96BCB7C11CB40DC500C806FE /* MaterialDepth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7781CB40DC500C806FE /* MaterialDepth.swift */; };
 		96BCB7C21CB40DC500C806FE /* MaterialDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7791CB40DC500C806FE /* MaterialDevice.swift */; };
@@ -122,7 +122,7 @@
 		96BCB8221CB4115200C806FE /* MaterialCollectionViewDelegate.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7741CB40DC500C806FE /* MaterialCollectionViewDelegate.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8231CB4115200C806FE /* MaterialCollectionViewLayout.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7751CB40DC500C806FE /* MaterialCollectionViewLayout.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8241CB4115200C806FE /* MaterialTableViewCell.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7891CB40DC500C806FE /* MaterialTableViewCell.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		96BCB8251CB4115200C806FE /* MaterialColor.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7761CB40DC500C806FE /* MaterialColor.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96BCB8251CB4115200C806FE /* Color.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7761CB40DC500C806FE /* Color.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8261CB4115200C806FE /* MaterialDevice.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7791CB40DC500C806FE /* MaterialDevice.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8271CB4115200C806FE /* Material+Obj-C.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7631CB40DC500C806FE /* Material+Obj-C.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8281CB4115200C806FE /* Material+String.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7641CB40DC500C806FE /* Material+String.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -239,7 +239,7 @@
 		96BCB7731CB40DC500C806FE /* MaterialCollectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		96BCB7741CB40DC500C806FE /* MaterialCollectionViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialCollectionViewDelegate.swift; sourceTree = "<group>"; };
 		96BCB7751CB40DC500C806FE /* MaterialCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialCollectionViewLayout.swift; sourceTree = "<group>"; };
-		96BCB7761CB40DC500C806FE /* MaterialColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialColor.swift; sourceTree = "<group>"; };
+		96BCB7761CB40DC500C806FE /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		96BCB7771CB40DC500C806FE /* MaterialDataSourceItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialDataSourceItem.swift; sourceTree = "<group>"; };
 		96BCB7781CB40DC500C806FE /* MaterialDepth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialDepth.swift; sourceTree = "<group>"; };
 		96BCB7791CB40DC500C806FE /* MaterialDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialDevice.swift; sourceTree = "<group>"; };
@@ -437,7 +437,7 @@
 		96BCB8001CB40F0300C806FE /* Color */ = {
 			isa = PBXGroup;
 			children = (
-				96BCB7761CB40DC500C806FE /* MaterialColor.swift */,
+				96BCB7761CB40DC500C806FE /* Color.swift */,
 			);
 			name = Color;
 			sourceTree = "<group>";
@@ -663,7 +663,7 @@
 				96BCB8221CB4115200C806FE /* MaterialCollectionViewDelegate.swift in Headers */,
 				96BCB8231CB4115200C806FE /* MaterialCollectionViewLayout.swift in Headers */,
 				96BCB8241CB4115200C806FE /* MaterialTableViewCell.swift in Headers */,
-				96BCB8251CB4115200C806FE /* MaterialColor.swift in Headers */,
+				96BCB8251CB4115200C806FE /* Color.swift in Headers */,
 				96BCB8261CB4115200C806FE /* MaterialDevice.swift in Headers */,
 				96BCB8271CB4115200C806FE /* Material+Obj-C.swift in Headers */,
 				96BCB8281CB4115200C806FE /* Material+String.swift in Headers */,
@@ -914,7 +914,7 @@
 				96BCB7BC1CB40DC500C806FE /* MaterialCollectionViewDataSource.swift in Sources */,
 				96BCB7C71CB40DC500C806FE /* MaterialKeyframeAnimation.swift in Sources */,
 				96BCB7BE1CB40DC500C806FE /* MaterialCollectionViewLayout.swift in Sources */,
-				96BCB7BF1CB40DC500C806FE /* MaterialColor.swift in Sources */,
+				96BCB7BF1CB40DC500C806FE /* Color.swift in Sources */,
 				96BCB7C61CB40DC500C806FE /* MaterialIcon.swift in Sources */,
 				96BCB7E91CB40DC500C806FE /* ToolbarController.swift in Sources */,
 				96BCB7C81CB40DC500C806FE /* MaterialLabel.swift in Sources */,

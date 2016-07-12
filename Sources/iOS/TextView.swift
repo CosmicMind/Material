@@ -460,7 +460,7 @@ public class TextView: UITextView {
 	public func prepareView() {
 		contentScaleFactor = MaterialDevice.scale
 		textContainerInset = MaterialEdgeInsetToValue(.None)
-		backgroundColor = MaterialColor.white
+		backgroundColor = Color.white
 		masksToBounds = false
 		removeNotificationHandlers()
 		prepareNotificationHandlers()
@@ -473,7 +473,7 @@ public class TextView: UITextView {
 			v.font = font
 			v.textAlignment = textAlignment
 			v.numberOfLines = 0
-			v.backgroundColor = MaterialColor.clear
+			v.backgroundColor = Color.clear
 			addSubview(v)
 			reloadView()
 			handleTextViewTextDidChange()

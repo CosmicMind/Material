@@ -94,7 +94,7 @@ class ItemViewController: UIViewController {
 	}
 	
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.white
+		view.backgroundColor = Color.white
 		automaticallyAdjustsScrollViewInsets = false
 	}
 	
@@ -102,7 +102,7 @@ class ItemViewController: UIViewController {
 	private func prepareShareButton() {
 		let image: UIImage? = MaterialIcon.cm.share
 		shareButton = IconButton()
-		shareButton.pulseColor = MaterialColor.white
+		shareButton.pulseColor = Color.white
 		shareButton.setImage(image, forState: .Normal)
 		shareButton.setImage(image, forState: .Highlighted)
 	}
@@ -111,11 +111,11 @@ class ItemViewController: UIViewController {
 	private func prepareNavigationItem() {
 		navigationItem.title = "Item"
 		navigationItem.titleLabel.textAlignment = .Left
-		navigationItem.titleLabel.textColor = MaterialColor.white
+		navigationItem.titleLabel.textColor = Color.white
 		
 		navigationItem.detail = "January 22, 2016"
 		navigationItem.detailLabel.textAlignment = .Left
-		navigationItem.detailLabel.textColor = MaterialColor.white
+		navigationItem.detailLabel.textColor = Color.white
 		
 		navigationItem.rightControls = [shareButton]
 	}
@@ -141,12 +141,12 @@ class ItemViewController: UIViewController {
 			
 			imageCardView.titleLabel = UILabel()
 			imageCardView.titleLabel?.text = data["title"] as? String
-			imageCardView.titleLabel?.textColor = MaterialColor.grey.darken4
+			imageCardView.titleLabel?.textColor = Color.grey.darken4
 			imageCardView.titleLabel?.font = RobotoFont.regularWithSize(20)
 
 			let detailLabel: UILabel = UILabel()
 			detailLabel.text = data["detail"] as? String
-			detailLabel.textColor = MaterialColor.grey.darken2
+			detailLabel.textColor = Color.grey.darken2
 			detailLabel.font = RobotoFont.regular
 			detailLabel.numberOfLines = 0
 

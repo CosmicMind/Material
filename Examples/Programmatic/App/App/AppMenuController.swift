@@ -121,7 +121,7 @@ class AppMenuController: MenuController {
 	private func prepareMenuView() {
         var image: UIImage? = MaterialIcon.cm.add
 		let menuButton: FabButton = FabButton()
-		menuButton.tintColor = MaterialColor.white
+		menuButton.tintColor = Color.white
 		menuButton.setImage(image, forState: .Normal)
 		menuButton.setImage(image, forState: .Highlighted)
 		menuButton.addTarget(self, action: #selector(handleMenu), forControlEvents: .TouchUpInside)
@@ -129,8 +129,8 @@ class AppMenuController: MenuController {
 		
 		image = MaterialIcon.cm.pen
 		let blueButton: FabButton = FabButton()
-		blueButton.tintColor = MaterialColor.white
-		blueButton.backgroundColor = MaterialColor.blue.base
+		blueButton.tintColor = Color.white
+		blueButton.backgroundColor = Color.blue.base
 		blueButton.setImage(image, forState: .Normal)
 		blueButton.setImage(image, forState: .Highlighted)
 		menuView.addSubview(blueButton)
@@ -138,8 +138,8 @@ class AppMenuController: MenuController {
 		
 		image = MaterialIcon.cm.photoCamera
 		let greenButton: FabButton = FabButton()
-		greenButton.tintColor = MaterialColor.white
-		greenButton.backgroundColor = MaterialColor.green.base
+		greenButton.tintColor = Color.white
+		greenButton.backgroundColor = Color.green.base
 		greenButton.setImage(image, forState: .Normal)
 		greenButton.setImage(image, forState: .Highlighted)
 		menuView.addSubview(greenButton)
@@ -147,8 +147,8 @@ class AppMenuController: MenuController {
 		
 		image = MaterialIcon.cm.star
 		let yellowButton: FabButton = FabButton()
-		yellowButton.tintColor = MaterialColor.white
-		yellowButton.backgroundColor = MaterialColor.yellow.base
+		yellowButton.tintColor = Color.white
+		yellowButton.backgroundColor = Color.yellow.base
 		yellowButton.setImage(image, forState: .Normal)
 		yellowButton.setImage(image, forState: .Highlighted)
 		menuView.addSubview(yellowButton)

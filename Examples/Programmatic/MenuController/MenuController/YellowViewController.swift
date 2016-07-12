@@ -39,6 +39,6 @@ class YellowViewController: UIViewController {
 	
 	/// Prepares view.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.yellow.base
+		view.backgroundColor = Color.yellow.base
 	}
 }

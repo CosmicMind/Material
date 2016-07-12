@@ -40,8 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
 		let bottomNavigationController: BottomNavigationController = BottomNavigationController()
 		bottomNavigationController.viewControllers = [VideoViewController(), PhotoViewController(), LibraryViewController()]
 		bottomNavigationController.selectedIndex = 0
-		bottomNavigationController.tabBar.tintColor = MaterialColor.teal.base
-		bottomNavigationController.tabBar.backgroundColor = MaterialColor.grey.darken4
+		bottomNavigationController.tabBar.tintColor = Color.teal.base
+		bottomNavigationController.tabBar.backgroundColor = Color.grey.darken4
 		
 		window = UIWindow(frame: UIScreen.mainScreen().bounds)
 		window!.rootViewController = bottomNavigationController

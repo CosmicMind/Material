@@ -52,14 +52,14 @@ class LibraryViewController: UIViewController {
 	
 	/// General preparation statements.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.blue.base
+		view.backgroundColor = Color.blue.base
 	}
 	
 	/// Prepare tabBarItem.
 	private func prepareTabBarItem() {
 		tabBarItem.title = "Library"
 		tabBarItem.image = MaterialIcon.cm.photoLibrary
-		tabBarItem.setTitleColor(MaterialColor.grey.base, forState: .Normal)
-		tabBarItem.setTitleColor(MaterialColor.teal.base, forState: .Selected)
+		tabBarItem.setTitleColor(Color.grey.base, forState: .Normal)
+		tabBarItem.setTitleColor(Color.teal.base, forState: .Selected)
 	}
 }

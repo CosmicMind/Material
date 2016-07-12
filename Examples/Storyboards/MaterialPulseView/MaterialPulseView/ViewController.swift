@@ -42,7 +42,7 @@ class ViewController: UIViewController {
 	
 	/// General preparation statements.
     private func prepareView() {
-        view.backgroundColor = MaterialColor.white
+        view.backgroundColor = Color.white
     }
 	
 	/// Prepares the pulseView.

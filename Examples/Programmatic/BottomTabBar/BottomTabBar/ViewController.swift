@@ -43,30 +43,30 @@ class ViewController: UIViewController {
 	
 	/// General preparation statements.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.white
+		view.backgroundColor = Color.white
 	}
 	
 	/// Prepare tabBar.
 	private func prepareTabBar() {
 		bottomTabBar = BottomTabBar()
 		// tabBar.autoLayoutToSuperview // Set to false if you want to handle the layout yourself.
-		bottomTabBar.backgroundColor = MaterialColor.grey.darken4
+		bottomTabBar.backgroundColor = Color.grey.darken4
 		view.addSubview(bottomTabBar)
 		
 		let videoItem: UITabBarItem = UITabBarItem(title: "Video", image: MaterialIcon.cm.videocam, selectedImage: nil)
-		videoItem.setTitleColor(MaterialColor.grey.base, forState: .Normal)
-		videoItem.setTitleColor(MaterialColor.teal.base, forState: .Selected)
+		videoItem.setTitleColor(Color.grey.base, forState: .Normal)
+		videoItem.setTitleColor(Color.teal.base, forState: .Selected)
 		
 		let photoItem: UITabBarItem = UITabBarItem(title: "Photo", image: MaterialIcon.cm.photoCamera, selectedImage: nil)
-		photoItem.setTitleColor(MaterialColor.grey.base, forState: .Normal)
-		photoItem.setTitleColor(MaterialColor.teal.base, forState: .Selected)
+		photoItem.setTitleColor(Color.grey.base, forState: .Normal)
+		photoItem.setTitleColor(Color.teal.base, forState: .Selected)
 		
 		let libraryItem: UITabBarItem = UITabBarItem(title: "Library", image: MaterialIcon.cm.photoLibrary, selectedImage: nil)
-		libraryItem.setTitleColor(MaterialColor.grey.base, forState: .Normal)
-		libraryItem.setTitleColor(MaterialColor.teal.base, forState: .Selected)
+		libraryItem.setTitleColor(Color.grey.base, forState: .Normal)
+		libraryItem.setTitleColor(Color.teal.base, forState: .Selected)
 
 		bottomTabBar.setItems([videoItem, photoItem, libraryItem], animated: true)
-		bottomTabBar.tintColor = MaterialColor.teal.base // Sets the image color when highlighted.
+		bottomTabBar.tintColor = Color.teal.base // Sets the image color when highlighted.
 		bottomTabBar.itemPositioning = .Automatic // Sets the alignment of the UITabBarItems.
 		bottomTabBar.selectedItem = videoItem
 	}

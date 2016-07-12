@@ -74,7 +74,7 @@ class ViewController: UIViewController {
 	
 	/// Prepares view.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.grey.lighten3
+		view.backgroundColor = Color.grey.lighten3
 	}
 	
 	/// Prepares the collectionView.
@@ -112,7 +112,7 @@ extension ViewController: MaterialCollectionViewDataSource {
 		let item: MaterialDataSourceItem = dataSourceItems[indexPath.item]
 		
 		if let _: Dictionary<String, AnyObject> =  item.data as? Dictionary<String, AnyObject> {
-			cell.backgroundColor = MaterialColor.white
+			cell.backgroundColor = Color.white
 		}
 		
 		return cell

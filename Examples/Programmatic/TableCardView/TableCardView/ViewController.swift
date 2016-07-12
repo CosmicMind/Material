@@ -59,7 +59,7 @@ class ViewController: UIViewController {
 	
 	/// Prepares view.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.white
+		view.backgroundColor = Color.white
 	}
 	
 	/// Prepares the items Array.
@@ -84,7 +84,7 @@ class ViewController: UIViewController {
 	/// Prepares the CardView.
 	func prepareCardView() {
 		let cardView: CardView = CardView()
-		cardView.backgroundColor = MaterialColor.grey.lighten5
+		cardView.backgroundColor = Color.grey.lighten5
 		cardView.cornerRadiusPreset = .Radius1
 		cardView.divider = false
 		cardView.contentInsetPreset = .None
@@ -96,18 +96,18 @@ class ViewController: UIViewController {
 		titleLabel.font = RobotoFont.mediumWithSize(20)
 		titleLabel.text = "Messages"
 		titleLabel.textAlignment = .Center
-		titleLabel.textColor = MaterialColor.blueGrey.darken4
+		titleLabel.textColor = Color.blueGrey.darken4
 		
 		let v: UIView = UIView()
-		v.backgroundColor = MaterialColor.blue.accent1
+		v.backgroundColor = Color.blue.accent1
 		
 		let closeButton: FlatButton = FlatButton()
 		closeButton.setTitle("Close", forState: .Normal)
-		closeButton.setTitleColor(MaterialColor.blue.accent3, forState: .Normal)
+		closeButton.setTitleColor(Color.blue.accent3, forState: .Normal)
 		
 		let image: UIImage? = MaterialIcon.cm.settings
 		let settingButton: IconButton = IconButton()
-		settingButton.tintColor = MaterialColor.blue.accent3
+		settingButton.tintColor = Color.blue.accent3
 		settingButton.setImage(image, forState: .Normal)
 		settingButton.setImage(image, forState: .Highlighted)
 		
@@ -143,7 +143,7 @@ extension ViewController: UITableViewDataSource {
 		cell.textLabel!.font = RobotoFont.regular
 		cell.detailTextLabel!.text = item.detail
 		cell.detailTextLabel!.font = RobotoFont.regular
-		cell.detailTextLabel!.textColor = MaterialColor.grey.darken1
+		cell.detailTextLabel!.textColor = Color.grey.darken1
 		cell.imageView!.image = item.image?.resize(toWidth: 40)
 		cell.imageView!.layer.cornerRadius = 20
 		

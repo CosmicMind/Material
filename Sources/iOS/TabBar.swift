@@ -116,7 +116,7 @@ public class TabBar : MaterialView {
 	// Prepares the bottomLayer.
 	private func prepareBottomLayer() {
 		line = UIView()
-		line.backgroundColor = MaterialColor.yellow.base
+		line.backgroundColor = Color.yellow.base
 		addSubview(line)
 	}
 }

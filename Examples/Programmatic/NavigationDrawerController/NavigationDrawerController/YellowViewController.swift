@@ -66,14 +66,14 @@ class YellowViewController: UIViewController {
 	
 	/// Prepares the view.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.yellow.base
+		view.backgroundColor = Color.yellow.base
 	}
 	
 	/// Prepares the menuButton.
 	private func prepareMenuButton() {
 		let image: UIImage? = MaterialIcon.cm.menu
 		menuButton = IconButton()
-		menuButton.pulseColor = MaterialColor.white
+		menuButton.pulseColor = Color.white
 		menuButton.setImage(image, forState: .Normal)
 		menuButton.setImage(image, forState: .Highlighted)
 		menuButton.addTarget(self, action: #selector(handleMenuButton), forControlEvents: .TouchUpInside)
@@ -88,7 +88,7 @@ class YellowViewController: UIViewController {
 	private func prepareSearchButton() {
 		let image: UIImage? = MaterialIcon.cm.moreVertical
 		moreButton = IconButton()
-		moreButton.pulseColor = MaterialColor.white
+		moreButton.pulseColor = Color.white
 		moreButton.setImage(image, forState: .Normal)
 		moreButton.setImage(image, forState: .Highlighted)
 		moreButton.addTarget(self, action: #selector(handleMoreButton), forControlEvents: .TouchUpInside)

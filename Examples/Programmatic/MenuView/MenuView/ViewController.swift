@@ -76,7 +76,7 @@ class ViewController: UIViewController {
 	
 	/// General preparation statements are placed here.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.white
+		view.backgroundColor = Color.white
 	}
 	
 	/// Prepares the MenuView example.
@@ -84,9 +84,9 @@ class ViewController: UIViewController {
 		var image: UIImage? = UIImage(named: "ic_add_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let btn1: FabButton = FabButton()
 		btn1.depth = .None
-		btn1.tintColor = MaterialColor.blue.accent3
-		btn1.borderColor = MaterialColor.blue.accent3
-		btn1.backgroundColor = MaterialColor.white
+		btn1.tintColor = Color.blue.accent3
+		btn1.borderColor = Color.blue.accent3
+		btn1.backgroundColor = Color.white
 		btn1.borderWidth = 1
 		btn1.setImage(image, forState: .Normal)
 		btn1.setImage(image, forState: .Highlighted)
@@ -96,10 +96,10 @@ class ViewController: UIViewController {
 		image = UIImage(named: "ic_create_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let btn2: FabButton = FabButton()
 		btn2.depth = .None
-		btn2.tintColor = MaterialColor.blue.accent3
-		btn2.pulseColor = MaterialColor.blue.accent3
-		btn2.borderColor = MaterialColor.blue.accent3
-		btn2.backgroundColor = MaterialColor.white
+		btn2.tintColor = Color.blue.accent3
+		btn2.pulseColor = Color.blue.accent3
+		btn2.borderColor = Color.blue.accent3
+		btn2.backgroundColor = Color.white
 		btn2.borderWidth = 1
 		btn2.setImage(image, forState: .Normal)
 		btn2.setImage(image, forState: .Highlighted)
@@ -109,10 +109,10 @@ class ViewController: UIViewController {
 		image = UIImage(named: "ic_photo_camera_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let btn3: FabButton = FabButton()
 		btn3.depth = .None
-		btn3.tintColor = MaterialColor.blue.accent3
-		btn3.pulseColor = MaterialColor.blue.accent3
-		btn3.borderColor = MaterialColor.blue.accent3
-		btn3.backgroundColor = MaterialColor.white
+		btn3.tintColor = Color.blue.accent3
+		btn3.pulseColor = Color.blue.accent3
+		btn3.borderColor = Color.blue.accent3
+		btn3.backgroundColor = Color.white
 		btn3.borderWidth = 1
 		btn3.setImage(image, forState: .Normal)
 		btn3.setImage(image, forState: .Highlighted)
@@ -122,10 +122,10 @@ class ViewController: UIViewController {
 		image = UIImage(named: "ic_note_add_white")?.imageWithRenderingMode(.AlwaysTemplate)
 		let btn4: FabButton = FabButton()
 		btn4.depth = .None
-		btn4.tintColor = MaterialColor.blue.accent3
-		btn4.pulseColor = MaterialColor.blue.accent3
-		btn4.borderColor = MaterialColor.blue.accent3
-		btn4.backgroundColor = MaterialColor.white
+		btn4.tintColor = Color.blue.accent3
+		btn4.pulseColor = Color.blue.accent3
+		btn4.borderColor = Color.blue.accent3
+		btn4.backgroundColor = Color.white
 		btn4.borderWidth = 1
 		btn4.setImage(image, forState: .Normal)
 		btn4.setImage(image, forState: .Highlighted)

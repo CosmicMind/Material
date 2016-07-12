@@ -46,7 +46,7 @@ class OrangeViewController: UIViewController {
 	
 	/// Prepares the view.
 	private func prepareView() {
-		view.backgroundColor = MaterialColor.orange.base
+		view.backgroundColor = Color.orange.base
 	}
 	
 	/// Prepares the navigationItem.
