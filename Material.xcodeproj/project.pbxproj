@@ -55,7 +55,7 @@
 		96BCB7C31CB40DC500C806FE /* MaterialEdgeInset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB77A1CB40DC500C806FE /* MaterialEdgeInset.swift */; };
 		96BCB7C41CB40DC500C806FE /* MaterialFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB77B1CB40DC500C806FE /* MaterialFont.swift */; };
 		96BCB7C51CB40DC500C806FE /* MaterialGravity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB77C1CB40DC500C806FE /* MaterialGravity.swift */; };
-		96BCB7C61CB40DC500C806FE /* MaterialIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB77D1CB40DC500C806FE /* MaterialIcon.swift */; };
+		96BCB7C61CB40DC500C806FE /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB77D1CB40DC500C806FE /* Icon.swift */; };
 		96BCB7C71CB40DC500C806FE /* MaterialKeyframeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB77E1CB40DC500C806FE /* MaterialKeyframeAnimation.swift */; };
 		96BCB7C81CB40DC500C806FE /* MaterialLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB77F1CB40DC500C806FE /* MaterialLabel.swift */; };
 		96BCB7C91CB40DC500C806FE /* MaterialLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7801CB40DC500C806FE /* MaterialLayer.swift */; };
@@ -136,7 +136,7 @@
 		96BCB8301CB4115200C806FE /* Material+UIImage.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB76C1CB40DC500C806FE /* Material+UIImage.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8311CB4115200C806FE /* MaterialFont.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB77B1CB40DC500C806FE /* MaterialFont.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8321CB4115200C806FE /* RobotoFont.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7941CB40DC500C806FE /* RobotoFont.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		96BCB8331CB4115200C806FE /* MaterialIcon.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB77D1CB40DC500C806FE /* MaterialIcon.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96BCB8331CB4115200C806FE /* Icon.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB77D1CB40DC500C806FE /* Icon.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8341CB4115200C806FE /* MaterialLayer.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7801CB40DC500C806FE /* MaterialLayer.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8351CB4115200C806FE /* MaterialTextLayer.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB78A1CB40DC500C806FE /* MaterialTextLayer.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8361CB4115200C806FE /* Grid.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7611CB40DC500C806FE /* Grid.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -246,7 +246,7 @@
 		96BCB77A1CB40DC500C806FE /* MaterialEdgeInset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialEdgeInset.swift; sourceTree = "<group>"; };
 		96BCB77B1CB40DC500C806FE /* MaterialFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialFont.swift; sourceTree = "<group>"; };
 		96BCB77C1CB40DC500C806FE /* MaterialGravity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialGravity.swift; sourceTree = "<group>"; };
-		96BCB77D1CB40DC500C806FE /* MaterialIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialIcon.swift; sourceTree = "<group>"; };
+		96BCB77D1CB40DC500C806FE /* Icon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
 		96BCB77E1CB40DC500C806FE /* MaterialKeyframeAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialKeyframeAnimation.swift; sourceTree = "<group>"; };
 		96BCB77F1CB40DC500C806FE /* MaterialLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialLabel.swift; sourceTree = "<group>"; };
 		96BCB7801CB40DC500C806FE /* MaterialLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialLayer.swift; sourceTree = "<group>"; };
@@ -536,7 +536,7 @@
 		96BCB8081CB4105E00C806FE /* Icon */ = {
 			isa = PBXGroup;
 			children = (
-				96BCB77D1CB40DC500C806FE /* MaterialIcon.swift */,
+				96BCB77D1CB40DC500C806FE /* Icon.swift */,
 			);
 			name = Icon;
 			sourceTree = "<group>";
@@ -677,7 +677,7 @@
 				96BCB8301CB4115200C806FE /* Material+UIImage.swift in Headers */,
 				96BCB8311CB4115200C806FE /* MaterialFont.swift in Headers */,
 				96BCB8321CB4115200C806FE /* RobotoFont.swift in Headers */,
-				96BCB8331CB4115200C806FE /* MaterialIcon.swift in Headers */,
+				96BCB8331CB4115200C806FE /* Icon.swift in Headers */,
 				96BCB8341CB4115200C806FE /* MaterialLayer.swift in Headers */,
 				96BCB8351CB4115200C806FE /* MaterialTextLayer.swift in Headers */,
 				96BCB8361CB4115200C806FE /* Grid.swift in Headers */,
@@ -915,7 +915,7 @@
 				96BCB7C71CB40DC500C806FE /* MaterialKeyframeAnimation.swift in Sources */,
 				96BCB7BE1CB40DC500C806FE /* MaterialCollectionViewLayout.swift in Sources */,
 				96BCB7BF1CB40DC500C806FE /* Color.swift in Sources */,
-				96BCB7C61CB40DC500C806FE /* MaterialIcon.swift in Sources */,
+				96BCB7C61CB40DC500C806FE /* Icon.swift in Sources */,
 				96BCB7E91CB40DC500C806FE /* ToolbarController.swift in Sources */,
 				96BCB7C81CB40DC500C806FE /* MaterialLabel.swift in Sources */,
 				96BCB7A21CB40DC500C806FE /* BottomTabBar.swift in Sources */,
