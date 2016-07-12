@@ -83,12 +83,12 @@ public extension UINavigationItem {
 	/// NavigationItem reference.
 	public internal(set) var item: MaterialAssociatedObjectNavigationItem {
 		get {
-			return MaterialAssociatedObject(self, key: &MaterialAssociatedObjectNavigationItemKey) {
+			return associatedObject(self, key: &MaterialAssociatedObjectNavigationItemKey) {
 				return MaterialAssociatedObjectNavigationItem()
 			}
 		}
 		set(value) {
-			MaterialAssociateObject(self, key: &MaterialAssociatedObjectNavigationItemKey, value: value)
+			associateObject(self, key: &MaterialAssociatedObjectNavigationItemKey, value: value)
 		}
 	}
 	

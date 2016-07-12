@@ -908,12 +908,12 @@ public extension UIView {
 	/// Layout reference.
 	public private(set) var layout: Layout {
 		get {
-			return MaterialAssociatedObject(self, key: &LayoutKey) {
+			return associatedObject(self, key: &LayoutKey) {
 				return Layout(parent: self)
 			}
 		}
 		set(value) {
-			MaterialAssociateObject(self, key: &LayoutKey, value: value)
+			associateObject(self, key: &LayoutKey, value: value)
 		}
 	}
     

@@ -29,29 +29,29 @@
 */
 
 /**
-Gets the Obj-C reference for the Grid object within the UIView extension.
-- Parameter base: Base object.
-- Parameter key: Memory key pointer.
-- Parameter initializer: Object initializer.
-- Returns: The associated reference for the initializer object.
-*/
-public func MaterialAssociatedObject<T: AnyObject>(base: AnyObject, key: UnsafePointer<UInt8>, initializer: () -> T) -> T {
-	if let v: T = objc_getAssociatedObject(base, key) as? T {
-		return v
-	}
-	
-	let v: T = initializer()
-	objc_setAssociatedObject(base, key, v, .OBJC_ASSOCIATION_RETAIN)
-	return v
+ Gets the Obj-C reference for the instance object within the UIView extension.
+ - Parameter base: Base object.
+ - Parameter key: Memory key pointer.
+ - Parameter initializer: Object initializer.
+ - Returns: The associated reference for the initializer object.
+ */
+internal func associatedObject<T: AnyObject>(base: AnyObject, key: UnsafePointer<UInt8>, initializer: () -> T) -> T {
+    if let v: T = objc_getAssociatedObject(base, key) as? T {
+        return v
+    }
+    
+    let v: T = initializer()
+    objc_setAssociatedObject(base, key, v, .OBJC_ASSOCIATION_RETAIN)
+    return v
 }
 
 /**
-Sets the Obj-C reference for the Grid object within the UIView extension.
-- Parameter base: Base object.
-- Parameter key: Memory key pointer.
-- Parameter value: The object instance to set for the associated object.
-- Returns: The associated reference for the initializer object.
-*/
-public func MaterialAssociateObject<T: AnyObject>(base: AnyObject, key: UnsafePointer<UInt8>, value: T) {
-	objc_setAssociatedObject(base, key, value, .OBJC_ASSOCIATION_RETAIN)
+ Sets the Obj-C reference for the instance object within the UIView extension.
+ - Parameter base: Base object.
+ - Parameter key: Memory key pointer.
+ - Parameter value: The object instance to set for the associated object.
+ - Returns: The associated reference for the initializer object.
+ */
+internal func associateObject<T: AnyObject>(base: AnyObject, key: UnsafePointer<UInt8>, value: T) {
+    objc_setAssociatedObject(base, key, value, .OBJC_ASSOCIATION_RETAIN)
 }

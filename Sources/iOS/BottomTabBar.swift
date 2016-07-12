@@ -276,12 +276,12 @@ public extension UITabBar {
 	/// TabBarItem reference.
 	public internal(set) var item: MaterialAssociatedObjectTabBar {
 		get {
-			return MaterialAssociatedObject(self, key: &MaterialAssociatedObjectTabBarKey) {
+			return associatedObject(self, key: &MaterialAssociatedObjectTabBarKey) {
 				return MaterialAssociatedObjectTabBar(depth: .None)
 			}
 		}
 		set(value) {
-			MaterialAssociateObject(self, key: &MaterialAssociatedObjectTabBarKey, value: value)
+			associateObject(self, key: &MaterialAssociatedObjectTabBarKey, value: value)
 		}
 	}
 	

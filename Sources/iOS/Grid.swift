@@ -244,12 +244,12 @@ public extension UIView {
 	/// Grid reference.
 	public private(set) var grid: Grid {
 		get {
-			return MaterialAssociatedObject(self, key: &GridKey) {
+			return associatedObject(self, key: &GridKey) {
 				return Grid()
 			}
 		}
 		set(value) {
-			MaterialAssociateObject(self, key: &GridKey, value: value)
+			associateObject(self, key: &GridKey, value: value)
 		}
 	}
 }
