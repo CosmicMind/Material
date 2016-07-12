@@ -74,7 +74,7 @@ class AppSearchBarController: SearchBarController {
 	
 	/// Prepares the searchBar.
 	private func prepareSearchBar() {
-		var image: UIImage? = MaterialIcon.cm.arrowBack
+		var image: UIImage? = Icon.cm.arrowBack
 		
 		// Back button.
 		let backButton: IconButton = IconButton()
@@ -85,7 +85,7 @@ class AppSearchBarController: SearchBarController {
 		backButton.addTarget(self, action: #selector(handleBackButton), forControlEvents: .TouchUpInside)
 		
 		// More button.
-		image = MaterialIcon.cm.moreHorizontal
+		image = Icon.cm.moreHorizontal
 		let moreButton: IconButton = IconButton()
 		moreButton.pulseColor = Color.grey.base
 		moreButton.tintColor = Color.grey.darken4

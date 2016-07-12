@@ -46,7 +46,7 @@ class AppSearchBarController: SearchBarController {
 	
 	/// Prepares the searchBar.
 	private func prepareSearchBar() {
-		var image: UIImage? = MaterialIcon.cm.arrowBack
+		var image: UIImage? = Icon.cm.arrowBack
 		
 		// Back button.
 		let backButton: IconButton = IconButton()
@@ -55,7 +55,7 @@ class AppSearchBarController: SearchBarController {
 		backButton.setImage(image, forState: .Highlighted)
 		
 		// More button.
-		image = MaterialIcon.cm.moreHorizontal
+		image = Icon.cm.moreHorizontal
 		let moreButton: IconButton = IconButton()
 		moreButton.tintColor = Color.blueGrey.darken4
 		moreButton.setImage(image, forState: .Normal)

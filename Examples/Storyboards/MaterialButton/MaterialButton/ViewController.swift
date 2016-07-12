@@ -68,7 +68,7 @@ class ViewController: UIViewController {
      :description: General preparation statements.
      */
     func prepareFabButtonExample() {
-        let img: UIImage? = MaterialIcon.cm.edit
+        let img: UIImage? = Icon.cm.edit
         fabButton.setImage(img, forState: .Normal)
         fabButton.setImage(img, forState: .Highlighted)
         fabButton.tintColor = Color.white

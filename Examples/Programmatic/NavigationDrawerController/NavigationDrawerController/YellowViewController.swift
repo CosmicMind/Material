@@ -71,7 +71,7 @@ class YellowViewController: UIViewController {
 	
 	/// Prepares the menuButton.
 	private func prepareMenuButton() {
-		let image: UIImage? = MaterialIcon.cm.menu
+		let image: UIImage? = Icon.cm.menu
 		menuButton = IconButton()
 		menuButton.pulseColor = Color.white
 		menuButton.setImage(image, forState: .Normal)
@@ -86,7 +86,7 @@ class YellowViewController: UIViewController {
 	
 	/// Prepares the searchButton.
 	private func prepareSearchButton() {
-		let image: UIImage? = MaterialIcon.cm.moreVertical
+		let image: UIImage? = Icon.cm.moreVertical
 		moreButton = IconButton()
 		moreButton.pulseColor = Color.white
 		moreButton.setImage(image, forState: .Normal)

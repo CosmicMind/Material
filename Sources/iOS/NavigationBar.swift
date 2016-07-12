@@ -435,7 +435,7 @@ public class NavigationBar : UINavigationBar {
 		spacingPreset = .Spacing1
 		contentInsetPreset = .Square1
 		contentScaleFactor = MaterialDevice.scale
-		backButtonImage = MaterialIcon.cm.arrowBack
+		backButtonImage = Icon.cm.arrowBack
 		let image: UIImage? = UIImage.imageWithColor(Color.clear, size: CGSizeMake(1, 1))
 		shadowImage = image
 		setBackgroundImage(image, forBarMetrics: .Default)

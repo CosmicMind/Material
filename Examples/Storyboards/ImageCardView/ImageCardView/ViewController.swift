@@ -60,7 +60,7 @@ class ViewController: UIViewController {
 		topCardView.titleLabelInset.top = 80
 		
 		// Star button.
-		let img1: UIImage? = MaterialIcon.cm.star
+		let img1: UIImage? = Icon.cm.star
 		let btn1: IconButton = IconButton()
 		btn1.pulseColor = Color.blueGrey.lighten1
 		btn1.tintColor = Color.blueGrey.lighten1
@@ -68,7 +68,7 @@ class ViewController: UIViewController {
 		btn1.setImage(img1, forState: .Highlighted)
 		
 		// Bell button.
-		let img2: UIImage? = MaterialIcon.cm.bell
+		let img2: UIImage? = Icon.cm.bell
 		let btn2: IconButton = IconButton()
 		btn2.pulseColor = Color.blueGrey.lighten1
 		btn2.tintColor = Color.blueGrey.lighten1
@@ -76,7 +76,7 @@ class ViewController: UIViewController {
 		btn2.setImage(img2, forState: .Highlighted)
 		
 		// Share button.
-		let img3: UIImage? = MaterialIcon.cm.share
+		let img3: UIImage? = Icon.cm.share
 		let btn3: IconButton = IconButton()
 		btn3.pulseColor = Color.blueGrey.lighten1
 		btn3.tintColor = Color.blueGrey.lighten1

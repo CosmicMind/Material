@@ -84,7 +84,7 @@ class ViewController: UIViewController {
 	/// Prepares the FabButton.
 	private func prepareFabButtonExample() {
 		let w: CGFloat = 64
-		let img: UIImage? = MaterialIcon.cm.pen
+		let img: UIImage? = Icon.cm.pen
 		let button: FabButton = FabButton(frame: CGRectMake((view.bounds.width - w) / 2, 300, w, w))
 		button.setImage(img, forState: .Normal)
 		button.setImage(img, forState: .Highlighted)
@@ -96,7 +96,7 @@ class ViewController: UIViewController {
 	/// Prepares the IconButton.
 	private func prepareIconButtonExample() {
 		let w: CGFloat = 64
-		let img: UIImage? = MaterialIcon.cm.search
+		let img: UIImage? = Icon.cm.search
 		let button: IconButton = IconButton(frame: CGRectMake((view.bounds.width - w) / 2, 400, w, w))
 		button.setImage(img, forState: .Normal)
 		button.setImage(img, forState: .Highlighted)

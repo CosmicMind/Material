@@ -58,7 +58,7 @@ class LibraryViewController: UIViewController {
 	/// Prepare tabBarItem.
 	private func prepareTabBarItem() {
 		tabBarItem.title = "Library"
-		tabBarItem.image = MaterialIcon.cm.photoLibrary
+		tabBarItem.image = Icon.cm.photoLibrary
 		tabBarItem.setTitleColor(Color.grey.base, forState: .Normal)
 		tabBarItem.setTitleColor(Color.teal.base, forState: .Selected)
 	}

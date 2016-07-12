@@ -105,7 +105,7 @@ class ViewController: UIViewController {
 		closeButton.setTitle("Close", forState: .Normal)
 		closeButton.setTitleColor(Color.blue.accent3, forState: .Normal)
 		
-		let image: UIImage? = MaterialIcon.cm.settings
+		let image: UIImage? = Icon.cm.settings
 		let settingButton: IconButton = IconButton()
 		settingButton.tintColor = Color.blue.accent3
 		settingButton.setImage(image, forState: .Normal)

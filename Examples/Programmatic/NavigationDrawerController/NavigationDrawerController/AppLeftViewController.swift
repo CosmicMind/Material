@@ -58,10 +58,10 @@ class AppLeftViewController: UIViewController {
 	/// Prepares the items that are displayed within the tableView.
 	private func prepareCells() {
 		dataSourceItems = Array<Item>()
-		dataSourceItems.append(Item(text: "Orange", image: MaterialIcon.cm.audioLibrary))
-		dataSourceItems.append(Item(text: "Purple", image: MaterialIcon.cm.photoLibrary))
-		dataSourceItems.append(Item(text: "Green", image: MaterialIcon.cm.microphone))
-		dataSourceItems.append(Item(text: "Blue", image: MaterialIcon.cm.audio))
+		dataSourceItems.append(Item(text: "Orange", image: Icon.cm.audioLibrary))
+		dataSourceItems.append(Item(text: "Purple", image: Icon.cm.photoLibrary))
+		dataSourceItems.append(Item(text: "Green", image: Icon.cm.microphone))
+		dataSourceItems.append(Item(text: "Blue", image: Icon.cm.audio))
 	}
 	
 	/// Prepares the tableView.

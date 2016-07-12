@@ -258,7 +258,7 @@ public class TextField : UITextField {
 		set(value) {
 			if value {
 				if nil == clearIconButton {
-					let image: UIImage? = MaterialIcon.cm.clear
+					let image: UIImage? = Icon.cm.clear
 					clearIconButton = IconButton(frame: CGRect.zero)
 					clearIconButton!.contentEdgeInsets = UIEdgeInsetsZero
 					clearIconButton!.pulseAnimation = .Center
@@ -295,7 +295,7 @@ public class TextField : UITextField {
 		set(value) {
 			if value {
 				if nil == visibilityIconButton {
-					let image: UIImage? = MaterialIcon.visibility
+					let image: UIImage? = Icon.visibility
 					visibilityIconButton = IconButton(frame: CGRect.zero)
 					visibilityIconButton!.contentEdgeInsets = UIEdgeInsetsZero
 					visibilityIconButton!.pulseAnimation = .Center

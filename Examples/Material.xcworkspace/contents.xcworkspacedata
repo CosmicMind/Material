@@ -11,9 +11,6 @@
          location = "group:Programmatic/App/App.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:Programmatic/MaterialIcon/MaterialIcon.xcodeproj">
-      </FileRef>
-      <FileRef
          location = "group:Programmatic/Layout/Layout.xcodeproj">
       </FileRef>
       <FileRef

@@ -75,7 +75,7 @@ class ViewController: UIViewController {
 		toolbar.detail = "Build Beautiful Software"
 		toolbar.detailLabel.textColor = Color.white
 
-		var image: UIImage? = MaterialIcon.cm.menu
+		var image: UIImage? = Icon.cm.menu
 
 		// Menu button.
 		let menuButton: IconButton = IconButton()
@@ -88,7 +88,7 @@ class ViewController: UIViewController {
 		let switchControl: MaterialSwitch = MaterialSwitch(state: .Off, style: .LightContent, size: .Small)
 
 		// Search button.
-		image = MaterialIcon.cm.search
+		image = Icon.cm.search
 		let searchButton: IconButton = IconButton()
 		searchButton.pulseColor = Color.white
 		searchButton.tintColor = Color.white

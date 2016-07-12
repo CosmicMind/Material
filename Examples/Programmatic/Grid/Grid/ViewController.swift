@@ -202,7 +202,7 @@ class ViewController: UIViewController {
 		titleLabel.backgroundColor = Color.clear
 		contentView.addSubview(titleLabel)
 		
-		image = MaterialIcon.cm.moreVertical
+		image = Icon.cm.moreVertical
 		let moreButton: IconButton = IconButton()
 		moreButton.contentEdgeInsetsPreset = .None
 		moreButton.pulseColor = Color.blueGrey.darken4
@@ -299,7 +299,7 @@ class ViewController: UIViewController {
 		titleLabel.backgroundColor = Color.clear
 		contentView.addSubview(titleLabel)
 		
-		image = MaterialIcon.cm.moreVertical
+		image = Icon.cm.moreVertical
 		let moreButton: IconButton = IconButton()
 		moreButton.contentEdgeInsetsPreset = .None
 		moreButton.pulseColor = Color.blueGrey.darken4
@@ -408,7 +408,7 @@ class ViewController: UIViewController {
 		titleLabel.backgroundColor = Color.clear
 		contentView.addSubview(titleLabel)
 		
-		image = MaterialIcon.cm.moreHorizontal
+		image = Icon.cm.moreHorizontal
 		let moreButton: IconButton = IconButton()
 		moreButton.contentEdgeInsetsPreset = .None
 		moreButton.pulseColor = Color.blueGrey.darken4

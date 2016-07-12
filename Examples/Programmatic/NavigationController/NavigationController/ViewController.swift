@@ -58,7 +58,7 @@ class ViewController: UIViewController {
 	
 	/// Prepares the menuButton.
 	private func prepareMenuButton() {
-		let image: UIImage? = MaterialIcon.cm.menu
+		let image: UIImage? = Icon.cm.menu
 		menuButton = IconButton()
 		menuButton.pulseColor = Color.white
 		menuButton.setImage(image, forState: .Normal)
@@ -72,7 +72,7 @@ class ViewController: UIViewController {
 	
 	/// Prepares the searchButton.
 	private func prepareSearchButton() {
-		let image: UIImage? = MaterialIcon.cm.search
+		let image: UIImage? = Icon.cm.search
 		searchButton = IconButton()
 		searchButton.pulseColor = Color.white
 		searchButton.setImage(image, forState: .Normal)

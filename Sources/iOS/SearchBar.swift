@@ -159,7 +159,7 @@ public class SearchBar : BarView {
 	
 	/// Prepares the clearButton.
 	private func prepareClearButton() {
-		let image: UIImage? = MaterialIcon.cm.close
+		let image: UIImage? = Icon.cm.close
 		clearButton = IconButton()
 		clearButton.contentEdgeInsets = UIEdgeInsetsZero
 		clearButton.tintColor = placeholderColor

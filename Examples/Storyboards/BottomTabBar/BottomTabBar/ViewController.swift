@@ -37,15 +37,15 @@ class ViewController: UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		let videoItem: UITabBarItem = UITabBarItem(title: "Video", image: MaterialIcon.cm.videocam, selectedImage: nil)
+		let videoItem: UITabBarItem = UITabBarItem(title: "Video", image: Icon.cm.videocam, selectedImage: nil)
 		videoItem.setTitleColor(Color.grey.base, forState: .Normal)
 		videoItem.setTitleColor(Color.teal.base, forState: .Selected)
 		
-		let photoItem: UITabBarItem = UITabBarItem(title: "Photo", image: MaterialIcon.cm.photoCamera, selectedImage: nil)
+		let photoItem: UITabBarItem = UITabBarItem(title: "Photo", image: Icon.cm.photoCamera, selectedImage: nil)
 		photoItem.setTitleColor(Color.grey.base, forState: .Normal)
 		photoItem.setTitleColor(Color.teal.base, forState: .Selected)
 		
-		let libraryItem: UITabBarItem = UITabBarItem(title: "Library", image: MaterialIcon.cm.photoLibrary, selectedImage: nil)
+		let libraryItem: UITabBarItem = UITabBarItem(title: "Library", image: Icon.cm.photoLibrary, selectedImage: nil)
 		libraryItem.setTitleColor(Color.grey.base, forState: .Normal)
 		libraryItem.setTitleColor(Color.teal.base, forState: .Selected)
 		

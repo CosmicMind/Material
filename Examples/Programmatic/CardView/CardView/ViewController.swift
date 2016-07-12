@@ -105,7 +105,7 @@ class ViewController: UIViewController {
 		cardView.contentView = detailLabel
 		
 		// Share button.
-		let img1: UIImage? = MaterialIcon.cm.share
+		let img1: UIImage? = Icon.cm.share
 		let btn1: IconButton = IconButton()
 		btn1.pulseColor = Color.white
 		btn1.tintColor = Color.white
@@ -143,7 +143,7 @@ class ViewController: UIViewController {
 		cardView.contentView = detailLabel
 		
 		// Share button.
-		let img1: UIImage? = MaterialIcon.cm.share
+		let img1: UIImage? = Icon.cm.share
 		let btn1: IconButton = IconButton()
 		btn1.pulseColor = Color.white
 		btn1.tintColor = Color.white
@@ -163,7 +163,7 @@ class ViewController: UIViewController {
 		cardView.backgroundColor = Color.blueGrey.darken4
 		
 		// Search button.
-		let img1: UIImage? = MaterialIcon.cm.search
+		let img1: UIImage? = Icon.cm.search
 		let btn1: IconButton = IconButton()
 		btn1.pulseColor = Color.white
 		btn1.tintColor = Color.white

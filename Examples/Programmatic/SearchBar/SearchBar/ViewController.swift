@@ -67,7 +67,7 @@ class ViewController: UIViewController {
 		searchBar = SearchBar()
 		containerView.addSubview(searchBar)
 		
-		let image: UIImage? = MaterialIcon.cm.moreVertical
+		let image: UIImage? = Icon.cm.moreVertical
 		
 		// More button.
 		let moreButton: IconButton = IconButton()
