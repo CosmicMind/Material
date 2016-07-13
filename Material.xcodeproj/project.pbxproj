@@ -100,7 +100,7 @@
 		96BCB7FA1CB40DE900C806FE /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96BCB7F11CB40DE900C806FE /* Roboto-Regular.ttf */; };
 		96BCB7FB1CB40DE900C806FE /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96BCB7F21CB40DE900C806FE /* Roboto-Thin.ttf */; };
 		96BCB7FC1CB40DE900C806FE /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96BCB7F21CB40DE900C806FE /* Roboto-Thin.ttf */; };
-		96BCB7FE1CB40E1D00C806FE /* MaterialColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7FD1CB40E1D00C806FE /* MaterialColor.swift */; };
+		96BCB7FE1CB40E1D00C806FE /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7FD1CB40E1D00C806FE /* Color.swift */; };
 		96BCB8101CB4115200C806FE /* MaterialTransitionAnimation.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB78B1CB40DC500C806FE /* MaterialTransitionAnimation.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8111CB4115200C806FE /* MaterialAnimation.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB76D1CB40DC500C806FE /* MaterialAnimation.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8121CB4115200C806FE /* MaterialBasicAnimation.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB76E1CB40DC500C806FE /* MaterialBasicAnimation.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -173,7 +173,7 @@
 		96BCB8551CB4115200C806FE /* PulseView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7841CB40DC500C806FE /* PulseView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8561CB4115200C806FE /* Switch.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7881CB40DC500C806FE /* Switch.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8571CB4115200C806FE /* View.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB78C1CB40DC500C806FE /* View.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		96BCB8581CB4116800C806FE /* MaterialColor.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7FD1CB40E1D00C806FE /* MaterialColor.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96BCB8581CB4116800C806FE /* Color.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7FD1CB40E1D00C806FE /* Color.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8591CB4118E00C806FE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96334EF51C8B84660083986B /* Assets.xcassets */; };
 		96D88C321C1328D800B91418 /* Material.h in Headers */ = {isa = PBXBuildFile; fileRef = 96D88C091C1328D800B91418 /* Material.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
@@ -286,7 +286,7 @@
 		96BCB7F01CB40DE900C806FE /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		96BCB7F11CB40DE900C806FE /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		96BCB7F21CB40DE900C806FE /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
-		96BCB7FD1CB40E1D00C806FE /* MaterialColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialColor.swift; sourceTree = "<group>"; };
+		96BCB7FD1CB40E1D00C806FE /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		96D88BFC1C1328D800B91418 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96D88BFD1C1328D800B91418 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		96D88C091C1328D800B91418 /* Material.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Material.h; sourceTree = "<group>"; };
@@ -631,7 +631,7 @@
 		96BCB80F1CB4111F00C806FE /* Color */ = {
 			isa = PBXGroup;
 			children = (
-				96BCB7FD1CB40E1D00C806FE /* MaterialColor.swift */,
+				96BCB7FD1CB40E1D00C806FE /* Color.swift */,
 			);
 			name = Color;
 			sourceTree = "<group>";
@@ -738,7 +738,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9660162A1CB2F04E00AAB661 /* Material.h in Headers */,
-				96BCB8581CB4116800C806FE /* MaterialColor.swift in Headers */,
+				96BCB8581CB4116800C806FE /* Color.swift in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1003,7 +1003,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96BCB7FE1CB40E1D00C806FE /* MaterialColor.swift in Sources */,
+				96BCB7FE1CB40E1D00C806FE /* Color.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

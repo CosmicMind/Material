@@ -49,9 +49,9 @@ public enum SwitchSize {
 @objc(SwitchDelegate)
 public protocol SwitchDelegate {
 	/**
-	A Switch delegate method for state changes.
-	- Parameter control: Switch control.
-	*/
+     A Switch delegate method for state changes.
+     - Parameter control: Switch control.
+     */
 	func switchStateChanged(control: Switch)
 }
 
