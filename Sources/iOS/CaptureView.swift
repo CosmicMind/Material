@@ -223,13 +223,13 @@ public class CaptureView : View, UIGestureRecognizerDelegate {
 	public private(set) var captureSession: CaptureSession!
 	
 	/// A reference to the focus layer used in focus animations.
-	public private(set) var focusLayer: MaterialLayer?
+	public private(set) var focusLayer: Layer?
 	
     /// A reference to the exposure layer used in exposure animations.
-    public private(set) var exposureLayer: MaterialLayer?
+    public private(set) var exposureLayer: Layer?
 	
     /// A reference to the reset layer used in reset animations.
-    public private(set) var resetLayer: MaterialLayer?
+    public private(set) var resetLayer: Layer?
 	
 	/// A reference to the cameraButton.
 	public var cameraButton: UIButton? {
@@ -513,7 +513,7 @@ public class CaptureView : View, UIGestureRecognizerDelegate {
 	/// Prepares the focusLayer.
 	private func prepareFocusLayer() {
 		if nil == focusLayer {
-            focusLayer = MaterialLayer(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
+            focusLayer = Layer(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
 			focusLayer!.isHidden = true
 			focusLayer!.borderWidth = 2
 			focusLayer!.borderColor = Color.white.cgColor
@@ -524,7 +524,7 @@ public class CaptureView : View, UIGestureRecognizerDelegate {
 	/// Prepares the exposureLayer.
 	private func prepareExposureLayer() {
 		if nil == exposureLayer {
-            exposureLayer = MaterialLayer(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
+            exposureLayer = Layer(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
 			exposureLayer!.isHidden = true
 			exposureLayer!.borderWidth = 2
 			exposureLayer!.borderColor = Color.yellow.darken1.cgColor
@@ -535,7 +535,7 @@ public class CaptureView : View, UIGestureRecognizerDelegate {
 	/// Prepares the resetLayer.
 	private func prepareResetLayer() {
 		if nil == resetLayer {
-			resetLayer = MaterialLayer(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
+			resetLayer = Layer(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
 			resetLayer!.isHidden = true
 			resetLayer!.borderWidth = 2
 			resetLayer!.borderColor = Color.red.accent1.cgColor
@@ -544,7 +544,7 @@ public class CaptureView : View, UIGestureRecognizerDelegate {
 	}
 	
 	/// Animates the tap and layer.
-	private func animateTapLayer(layer v: MaterialLayer, point: CGPoint) {
+	private func animateTapLayer(layer v: Layer, point: CGPoint) {
 		MaterialAnimation.animationDisabled {
 			v.transform = CATransform3DIdentity
 			v.position = point

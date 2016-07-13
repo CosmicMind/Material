@@ -326,7 +326,6 @@ public struct Color {
 		public static let accent4: NSColor = NSColor(red: 255/255, green: 109/255, blue: 0/255, alpha: 1)
 	}
 	
-	
 	// deep orange
 	public struct deepOrange {
 		public static let lighten5: NSColor = NSColor(red: 251/255, green: 233/255, blue: 231/255, alpha: 1)
@@ -344,8 +343,7 @@ public struct Color {
 		public static let accent3: NSColor = NSColor(red: 255/255, green: 61/255, blue: 0/255, alpha: 1)
 		public static let accent4: NSColor = NSColor(red: 221/255, green: 44/255, blue: 0/255, alpha: 1)
 	}
-	
-	
+
 	// brown
 	public struct brown {
 		public static let lighten5: NSColor = NSColor(red: 239/255, green: 235/255, blue: 233/255, alpha: 1)
