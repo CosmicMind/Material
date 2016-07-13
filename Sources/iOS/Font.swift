@@ -30,59 +30,74 @@
 
 import UIKit
 
-public protocol MaterialFontType {}
+public protocol FontType {}
 
-public struct MaterialFont : MaterialFontType {
+public struct Font: FontType {
 	/// Size of font.
 	public static let pointSize: CGFloat = 16
 	
-	/// Retrieves the system font with a specified size.
-	public static func systemFontWithSize(size: CGFloat) -> UIFont {
-		return UIFont.systemFontOfSize(size)
+	/** 
+     Retrieves the system font with a specified size.
+     - Parameter fontName: A String font name.
+     */
+    public static func systemFontWithSize(size: CGFloat) -> UIFont {
+		return UIFont.systemFont(ofSize: size)
 	}
 	
-	/// Retrieves the bold system font with a specified size.
-	public static func boldSystemFontWithSize(size: CGFloat) -> UIFont {
-		return UIFont.boldSystemFontOfSize(size)
+	/**
+     Retrieves the bold system font with a specified size..
+     - Parameter fontName: A String font name.
+     */
+    public static func boldSystemFontWithSize(size: CGFloat) -> UIFont {
+		return UIFont.boldSystemFont(ofSize: size)
 	}
 	
-	/// Retrieves the italic system font with a specified size.
-	public static func italicSystemFontWithSize(size: CGFloat) -> UIFont {
-		return UIFont.italicSystemFontOfSize(size)
+	/**
+     Retrieves the italic system font with a specified size.
+     - Parameter fontName: A String font name.
+     */
+    public static func italicSystemFontWithSize(size: CGFloat) -> UIFont {
+		return UIFont.italicSystemFont(ofSize: size)
 	}
     
-	/// Loads a font if it is needed.
-	public static func loadFontIfNeeded(fontName: String) {
-        MaterialFontLoader.loadFontIfNeeded(fontName)
+	/**
+     Loads a given font if needed.
+     - Parameter name: A String font name.
+     */
+    public static func loadFontIfNeeded(name: String) {
+        FontLoader.loadFontIfNeeded(name: name)
     }
 }
 
 /// Loads fonts packaged with Material.
-private class MaterialFontLoader {
+private class FontLoader {
     /// A Dictionary of the fonts already loaded.
     static var loadedFonts: Dictionary<String, String> = Dictionary<String, String>()
 	
-	/// Loads a font specified if needed.
-    static func loadFontIfNeeded(fontName: String) {
-		let loadedFont: String? = MaterialFontLoader.loadedFonts[fontName]
+    /**
+     Loads a given font if needed.
+     - Parameter fontName: A String font name.
+     */
+    static func loadFontIfNeeded(name: String) {
+		let loadedFont: String? = FontLoader.loadedFonts[name]
 		
-        if nil == loadedFont && nil == UIFont(name: fontName, size: 1) {
-			MaterialFontLoader.loadedFonts[fontName] = fontName
+        if nil == loadedFont && nil == UIFont(name: name, size: 1) {
+			FontLoader.loadedFonts[name] = name
 			
-			let bundle: NSBundle = NSBundle(forClass: MaterialFontLoader.self)
-			let identifier: String? = bundle.bundleIdentifier
-			let fontURL: NSURL? = true == identifier?.hasPrefix("org.cocoapods") ? bundle.URLForResource(fontName, withExtension: "ttf", subdirectory: "io.cosmicmind.material.fonts.bundle") : bundle.URLForResource(fontName, withExtension: "ttf")
+			let bundle = Bundle(for: FontLoader.self)
+			let identifier = bundle.bundleIdentifier
+			let fontURL = true == identifier?.hasPrefix("org.cocoapods") ? bundle.urlForResource(name, withExtension: "ttf", subdirectory: "io.cosmicmind.material.fonts.bundle") : bundle.urlForResource(name, withExtension: "ttf")
 			
-			if let v: NSURL = fontURL {
-				let data: NSData = NSData(contentsOfURL: v)!
-                let provider: CGDataProvider = CGDataProviderCreateWithCFData(data)!
-				let font: CGFont = CGFontCreateWithDataProvider(provider)!
+			if let v = fontURL {
+				let data = NSData(contentsOf: v as URL)!
+                let provider = CGDataProvider(data: data)!
+				let font = CGFont(provider)
                 
                 var error: Unmanaged<CFError>?
                 if !CTFontManagerRegisterGraphicsFont(font, &error) {
-                    let errorDescription: CFStringRef = CFErrorCopyDescription(error!.takeUnretainedValue())
+                    let errorDescription: CFString = CFErrorCopyDescription(error!.takeUnretainedValue())
 					let nsError: NSError = error!.takeUnretainedValue() as AnyObject as! NSError
-                    NSException(name: NSInternalInconsistencyException, reason: errorDescription as String, userInfo: [NSUnderlyingErrorKey: nsError]).raise()
+                    NSException(name: .internalInconsistencyException, reason: errorDescription as String, userInfo: [NSUnderlyingErrorKey: nsError]).raise()
                 }
             }
         }
