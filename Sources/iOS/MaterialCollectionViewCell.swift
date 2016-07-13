@@ -155,7 +155,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	/// A preset wrapper around interimSpace.
 	public var interimSpacePreset: InterimSpace = .none {
 		didSet {
-			interimSpace = interimSpaceToValue(interimSpacePreset)
+			interimSpace = InterimSpaceToValue(interimSpacePreset)
 		}
 	}
 	

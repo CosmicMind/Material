@@ -433,9 +433,9 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
      */
     @objc
 	internal func handleTapToFocusGesture(recognizer: UITapGestureRecognizer) {
-		if enableTapToFocus && captureSession.cameraSupportsTapToFocus {
+		if enableTapToFocus && captureSession.isFocusPointOfInterestSupported {
 			let point: CGPoint = recognizer.location(in: self)
-			captureSession.focusAtPoint(point: previewView.captureDevicePointOfInterestForPoint(point: point))
+			captureSession.focus(point: previewView.captureDevicePointOfInterestForPoint(point: point))
 			animateTapLayer(layer: focusLayer!, point: point)
 			(delegate as? CaptureViewDelegate)?.captureViewDidTapToFocusAtPoint?(captureView: self, point: point)
 		}
@@ -447,9 +447,9 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
      */
     @objc
 	internal func handleTapToExposeGesture(recognizer: UITapGestureRecognizer) {
-		if enableTapToExpose && captureSession.cameraSupportsTapToExpose {
+		if enableTapToExpose && captureSession.isExposurePointOfInterestSupported {
 			let point: CGPoint = recognizer.location(in: self)
-			captureSession.exposeAtPoint(point: previewView.captureDevicePointOfInterestForPoint(point: point))
+			captureSession.expose(point: previewView.captureDevicePointOfInterestForPoint(point: point))
 			animateTapLayer(layer: exposureLayer!, point: point)
 			(delegate as? CaptureViewDelegate)?.captureViewDidTapToExposeAtPoint?(captureView: self, point: point)
 		}
@@ -462,7 +462,7 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
     @objc
 	internal func handleTapToResetGesture(recognizer: UITapGestureRecognizer) {
 		if enableTapToReset {
-			captureSession.resetFocusAndExposureModes()
+			captureSession.reset()
             let point: CGPoint = previewView.pointForCaptureDevicePointOfInterest(point: CGPoint(x: 0.5, y: 0.5))
 			animateTapLayer(layer: resetLayer!, point: point)
 			(delegate as? CaptureViewDelegate)?.captureViewDidTapToResetAtPoint?(captureView: self, point: point)

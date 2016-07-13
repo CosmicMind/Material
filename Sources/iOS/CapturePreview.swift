@@ -53,9 +53,13 @@ public class CapturePreview : MaterialView {
 		return (layer as! AVCaptureVideoPreviewLayer).pointForCaptureDevicePoint(ofInterest: point)
 	}
 
-	/**
-	:name:	prepareView
-	*/
+    /**
+     Prepares the view instance when intialized. When subclassing,
+     it is recommended to override the prepareView method
+     to initialize property values and other setup operations.
+     The super.prepareView method should always be called immediately
+     when subclassing.
+     */
 	public override func prepareView() {
 		super.prepareView()
 		preparePreviewLayer()

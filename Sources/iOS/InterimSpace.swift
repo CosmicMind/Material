@@ -44,7 +44,7 @@ public enum InterimSpace {
 }
 
 /// Converts the InterimSpace enum to a CGFloat value.
-public func interimSpaceToValue(interimSpace: InterimSpace) -> CGFloat {
+public func InterimSpaceToValue(interimSpace: InterimSpace) -> CGFloat {
     switch interimSpace {
     case .none:
         return 0

@@ -104,7 +104,7 @@ public class MaterialCollectionView : UICollectionView {
 	/// A preset wrapper around interimSpace.
 	public var interimSpacePreset: InterimSpace = .none {
 		didSet {
-			interimSpace = interimSpaceToValue(interimSpacePreset)
+			interimSpace = InterimSpaceToValue(interimSpacePreset)
 		}
 	}
 	
