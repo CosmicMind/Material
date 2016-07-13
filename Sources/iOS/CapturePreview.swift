@@ -32,23 +32,26 @@ import UIKit
 import AVFoundation
 
 public class CapturePreview : MaterialView {
-	/**
-	:name:	layerClass
-	*/
 	public override class func layerClass() -> AnyClass {
 		return AVCaptureVideoPreviewLayer.self
 	}
 
-	/**
-	:name:	captureDevicePointOfInterestForPoint
-	*/
-	public func captureDevicePointOfInterestForPoint(point: CGPoint) -> CGPoint {
+    /**
+     Converts a point in layer coordinates to a point of interest 
+     in the coordinate space of the capture device providing input 
+     to the layer.
+     - Returns: A CGPoint that is converted.
+     */
+    public func captureDevicePointOfInterestForPoint(point: CGPoint) -> CGPoint {
 		return (layer as! AVCaptureVideoPreviewLayer).captureDevicePointOfInterest(for: point)
 	}
 
 	/**
-	:name:	pointForCaptureDevicePointOfInterest
-	*/
+     Converts a point of interest in the coordinate space of the 
+     capture device providing input to the layer to a point in 
+     layer coordinates.
+     - Returns: A CGPoint that is converted.
+     */
 	public func pointForCaptureDevicePointOfInterest(point: CGPoint) -> CGPoint {
 		return (layer as! AVCaptureVideoPreviewLayer).pointForCaptureDevicePoint(ofInterest: point)
 	}
@@ -65,9 +68,7 @@ public class CapturePreview : MaterialView {
 		preparePreviewLayer()
 	}
 
-	/**
-	:name:	preparePreviewLayer
-	*/
+    /// Prepares the previewLayer.
 	private func preparePreviewLayer() {
 		layer.backgroundColor = Color.black.cgColor
 		layer.masksToBounds = true
