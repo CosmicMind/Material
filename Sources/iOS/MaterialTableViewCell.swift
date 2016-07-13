@@ -41,7 +41,7 @@ public class MaterialTableViewCell : UITableViewCell {
 	public private(set) lazy var visualLayer: CAShapeLayer = CAShapeLayer()
 	
 	/**
-	A base delegate reference used when subclassing MaterialView.
+	A base delegate reference used when subclassing View.
 	*/
 	public weak var delegate: MaterialDelegate?
 	

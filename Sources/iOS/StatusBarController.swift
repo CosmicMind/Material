@@ -51,7 +51,7 @@ public extension UIViewController {
 @IBDesignable
 public class StatusBarController : RootController {
 	/// A reference to the statusBarView.
-	public private(set) var statusBarView: MaterialView!
+	public private(set) var statusBarView: View!
 	
 	/**
 	To execute in the order of the layout chain, override this
@@ -78,7 +78,7 @@ public class StatusBarController : RootController {
 	
 	/// Prepares the statusBarView.
 	private func prepareStatusBarView() {
-		statusBarView = MaterialView()
+		statusBarView = View()
 		statusBarView.zPosition = 3000
 		statusBarView.backgroundColor = Color.black.colorWithAlphaComponent(0.12)
 		view.layout(statusBarView).top(0).horizontally().height(20)

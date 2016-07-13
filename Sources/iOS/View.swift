@@ -31,38 +31,36 @@
 import UIKit
 
 @IBDesignable
-@objc(MaterialView)
-public class MaterialView : UIView {
+@objc(View)
+public class View: UIView {
 	/**
-	A CAShapeLayer used to manage elements that would be affected by
-	the clipToBounds property of the backing layer. For example, this
-	allows the dropshadow effect on the backing layer, while clipping 
-	the image to a desired shape within the visualLayer.
-	*/
-	public private(set) lazy var visualLayer: CAShapeLayer = CAShapeLayer()
+     A CAShapeLayer used to manage elements that would be affected by
+     the clipToBounds property of the backing layer. For example, this
+     allows the dropshadow effect on the backing layer, while clipping
+     the image to a desired shape within the visualLayer.
+     */
+	public private(set) var visualLayer: CAShapeLayer!
 	
-	/**
-	A base delegate reference used when subclassing MaterialView.
-	*/
+	/// A base delegate reference used when subclassing View.
 	public weak var delegate: MaterialDelegate?
 	
 	/**
-	A property that manages an image for the visualLayer's contents 
-	property. Images should not be set to the backing layer's contents 
-	property to avoid conflicts when using clipsToBounds.
-	*/
+     A property that manages an image for the visualLayer's contents
+     property. Images should not be set to the backing layer's contents
+     property to avoid conflicts when using clipsToBounds.
+     */
 	@IBInspectable public var image: UIImage? {
 		didSet {
-			visualLayer.contents = image?.CGImage
+			visualLayer.contents = image?.cgImage
 		}
 	}
 	
 	/**
-	Allows a relative subrectangle within the range of 0 to 1 to be
-	specified for the visualLayer's contents property. This allows
-	much greater flexibility than the contentsGravity property in
-	terms of how the image is cropped and stretched.
-	*/
+     Allows a relative subrectangle within the range of 0 to 1 to be
+     specified for the visualLayer's contents property. This allows
+     much greater flexibility than the contentsGravity property in
+     terms of how the image is cropped and stretched.
+     */
 	@IBInspectable public var contentsRect: CGRect {
 		get {
 			return visualLayer.contentsRect
@@ -73,9 +71,9 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-	A CGRect that defines a stretchable region inside the visualLayer
-	with a fixed border around the edge.
-	*/
+     A CGRect that defines a stretchable region inside the visualLayer
+     with a fixed border around the edge.
+     */
 	@IBInspectable public var contentsCenter: CGRect {
 		get {
 			return visualLayer.contentsCenter
@@ -86,10 +84,10 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-	A floating point value that defines a ratio between the pixel
-	dimensions of the visualLayer's contents property and the size
-	of the view. By default, this value is set to the MaterialDevice.scale.
-	*/
+     A floating point value that defines a ratio between the pixel
+     dimensions of the visualLayer's contents property and the size
+     of the view. By default, this value is set to the MaterialDevice.scale.
+     */
 	@IBInspectable public var contentsScale: CGFloat {
 		get {
 			return visualLayer.contentsScale
@@ -102,7 +100,7 @@ public class MaterialView : UIView {
 	/// A Preset for the contentsGravity property.
 	@IBInspectable public var contentsGravityPreset: MaterialGravity {
 		didSet {
-			contentsGravity = MaterialGravityToValue(contentsGravityPreset)
+			contentsGravity = MaterialGravityToValue(gravity: contentsGravityPreset)
 		}
 	}
 	
@@ -117,11 +115,11 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-	This property is the same as clipsToBounds. It crops any of the view's 
-	contents from bleeding past the view's frame. If an image is set using 
-	the image property, then this value does not need to be set, since the 
-	visualLayer's maskToBounds is set to true by default.
-	*/
+     This property is the same as clipsToBounds. It crops any of the view's
+     contents from bleeding past the view's frame. If an image is set using
+     the image property, then this value does not need to be set, since the
+     visualLayer's maskToBounds is set to true by default.
+     */
 	@IBInspectable public var masksToBounds: Bool {
 		get {
 			return layer.masksToBounds
@@ -134,7 +132,7 @@ public class MaterialView : UIView {
 	/// A property that accesses the backing layer's backgroundColor.
 	@IBInspectable public override var backgroundColor: UIColor? {
 		didSet {
-			layer.backgroundColor = backgroundColor?.CGColor
+			layer.backgroundColor = backgroundColor?.cgColor
 		}
 	}
 	
@@ -159,11 +157,11 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-	A property that accesses the layer.frame.size.width property.
-	When setting this property in conjunction with the shape property having a 
-	value that is not .None, the height will be adjusted to maintain the correct 
-	shape.
-	*/
+     A property that accesses the layer.frame.size.width property.
+     When setting this property in conjunction with the shape property having a
+     value that is not .None, the height will be adjusted to maintain the correct
+     shape.
+     */
 	@IBInspectable public var width: CGFloat {
 		get {
 			return layer.frame.size.width
@@ -177,11 +175,11 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-	A property that accesses the layer.frame.size.height property.
-	When setting this property in conjunction with the shape property having a
-	value that is not .None, the width will be adjusted to maintain the correct
-	shape.
-	*/
+     A property that accesses the layer.frame.size.height property.
+     When setting this property in conjunction with the shape property having a
+     value that is not .None, the width will be adjusted to maintain the correct
+     shape.
+     */
 	@IBInspectable public var height: CGFloat {
 		get {
 			return layer.frame.size.height
@@ -197,7 +195,7 @@ public class MaterialView : UIView {
 	/// A property that accesses the backing layer's shadowColor.
 	@IBInspectable public var shadowColor: UIColor? {
 		didSet {
-			layer.shadowColor = shadowColor?.CGColor
+			layer.shadowColor = shadowColor?.cgColor
 		}
 	}
 	
@@ -251,13 +249,13 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-	A property that sets the shadowOffset, shadowOpacity, and shadowRadius 
-	for the backing layer. This is the preferred method of setting depth 
-	in order to maintain consitency across UI objects.
-	*/
+     A property that sets the shadowOffset, shadowOpacity, and shadowRadius
+     for the backing layer. This is the preferred method of setting depth
+     in order to maintain consitency across UI objects.
+     */
 	public var depth: MaterialDepth = .None {
 		didSet {
-			let value: MaterialDepthType = MaterialDepthToValue(depth)
+			let value: MaterialDepthType = MaterialDepthToValue(depth: depth)
 			shadowOffset = value.offset
 			shadowOpacity = value.opacity
 			shadowRadius = value.radius
@@ -266,14 +264,14 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-	A property that sets the cornerRadius of the backing layer. If the shape 
-	property has a value of .Circle when the cornerRadius is set, it will 
-	become .None, as it no longer maintains its circle shape.
-	*/
+     A property that sets the cornerRadius of the backing layer. If the shape
+     property has a value of .Circle when the cornerRadius is set, it will
+     become .None, as it no longer maintains its circle shape.
+     */
 	public var cornerRadiusPreset: MaterialRadius = .None {
 		didSet {
 			if let v: MaterialRadius = cornerRadiusPreset {
-				cornerRadius = MaterialRadiusToValue(v)
+				cornerRadius = MaterialRadiusToValue(radius: v)
 			}
 		}
 	}
@@ -293,10 +291,10 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-	A property that manages the overall shape for the object. If either the 
-	width or height property is set, the other will be automatically adjusted 
-	to maintain the shape of the object.
-	*/
+     A property that manages the overall shape for the object. If either the
+     width or height property is set, the other will be automatically adjusted
+     to maintain the shape of the object.
+     */
 	public var shape: MaterialShape = .None {
 		didSet {
 			if .None != shape {
@@ -313,7 +311,7 @@ public class MaterialView : UIView {
 	/// A preset property to set the borderWidth.
 	public var borderWidthPreset: MaterialBorder = .None {
 		didSet {
-			borderWidth = MaterialBorderToValue(borderWidthPreset)
+			borderWidth = MaterialBorderToValue(border: borderWidthPreset)
 		}
 	}
 	
@@ -330,10 +328,10 @@ public class MaterialView : UIView {
 	/// A property that accesses the layer.borderColor property.
 	@IBInspectable public var borderColor: UIColor? {
 		get {
-			return nil == layer.borderColor ? nil : UIColor(CGColor: layer.borderColor!)
+			return nil == layer.borderColor ? nil : UIColor(cgColor: layer.borderColor!)
 		}
 		set(value) {
-			layer.borderColor = value?.CGColor
+			layer.borderColor = value?.cgColor
 		}
 	}
 	
@@ -358,9 +356,9 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-	An initializer that initializes the object with a NSCoder object.
-	- Parameter aDecoder: A NSCoder instance.
-	*/
+     An initializer that initializes the object with a NSCoder object.
+     - Parameter aDecoder: A NSCoder instance.
+     */
 	public required init?(coder aDecoder: NSCoder) {
 		contentsGravityPreset = .ResizeAspectFill
 		super.init(coder: aDecoder)
@@ -368,11 +366,11 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-	An initializer that initializes the object with a CGRect object.
-	If AutoLayout is used, it is better to initilize the instance
-	using the init() initializer.
-	- Parameter frame: A CGRect instance.
-	*/
+     An initializer that initializes the object with a CGRect object.
+     If AutoLayout is used, it is better to initilize the instance
+     using the init() initializer.
+     - Parameter frame: A CGRect instance.
+     */
 	public override init(frame: CGRect) {
 		contentsGravityPreset = .ResizeAspectFill
 		super.init(frame: frame)
@@ -384,8 +382,8 @@ public class MaterialView : UIView {
 		self.init(frame: CGRect.zero)
 	}
 	
-	public override func layoutSublayersOfLayer(layer: CALayer) {
-		super.layoutSublayersOfLayer(layer)
+	public override func layoutSublayers(of layer: CALayer) {
+		super.layoutSublayers(of: layer)
 		if self.layer == layer {
 			layoutShape()
 			layoutVisualLayer()
@@ -398,53 +396,53 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-	A method that accepts CAAnimation objects and executes them on the 
-	view's backing layer.
-	- Parameter animation: A CAAnimation instance.
-	*/
+     A method that accepts CAAnimation objects and executes them on the
+     view's backing layer.
+     - Parameter animation: A CAAnimation instance.
+     */
 	public func animate(animation: CAAnimation) {
 		animation.delegate = self
 		if let a: CABasicAnimation = animation as? CABasicAnimation {
-			a.fromValue = (nil == layer.presentationLayer() ? layer : layer.presentationLayer() as! CALayer).valueForKeyPath(a.keyPath!)
+			a.fromValue = (nil == layer.presentation() ? layer : layer.presentation()!).value(forKeyPath: a.keyPath!)
 		}
 		if let a: CAPropertyAnimation = animation as? CAPropertyAnimation {
-			layer.addAnimation(a, forKey: a.keyPath!)
+			layer.add(a, forKey: a.keyPath!)
 		} else if let a: CAAnimationGroup = animation as? CAAnimationGroup {
-			layer.addAnimation(a, forKey: nil)
+			layer.add(a, forKey: nil)
 		} else if let a: CATransition = animation as? CATransition {
-			layer.addAnimation(a, forKey: kCATransition)
+			layer.add(a, forKey: kCATransition)
 		}
 	}
 	
 	/**
-	A delegation method that is executed when the backing layer starts
-	running an animation.
-	- Parameter anim: The currently running CAAnimation instance.
-	*/
-	public override func animationDidStart(anim: CAAnimation) {
-		(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStart?(anim)
+     A delegation method that is executed when the backing layer starts
+     running an animation.
+     - Parameter anim: The currently running CAAnimation instance.
+     */
+	public override func animationDidStart(_ anim: CAAnimation) {
+		(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStart?(animation: anim)
 	}
 	
 	/**
-	A delegation method that is executed when the backing layer stops
-	running an animation.
-	- Parameter anim: The CAAnimation instance that stopped running.
-	- Parameter flag: A boolean that indicates if the animation stopped
-	because it was completed or interrupted. True if completed, false 
-	if interrupted.
-	*/
-	public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
-		if let a: CAPropertyAnimation = anim as? CAPropertyAnimation {
+     A delegation method that is executed when the backing layer stops
+     running an animation.
+     - Parameter animation: The CAAnimation instance that stopped running.
+     - Parameter flag: A boolean that indicates if the animation stopped
+     because it was completed or interrupted. True if completed, false
+     if interrupted.
+     */
+	public override func animationDidStop(_ animation: CAAnimation, finished flag: Bool) {
+		if let a: CAPropertyAnimation = animation as? CAPropertyAnimation {
 			if let b: CABasicAnimation = a as? CABasicAnimation {
 				if let v: AnyObject = b.toValue {
 					if let k: String = b.keyPath {
 						layer.setValue(v, forKeyPath: k)
-						layer.removeAnimationForKey(k)
+						layer.removeAnimation(forKey: k)
 					}
 				}
 			}
-			(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStop?(anim, finished: flag)
-		} else if let a: CAAnimationGroup = anim as? CAAnimationGroup {
+			(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStop?(animation: animation, finished: flag)
+		} else if let a: CAAnimationGroup = animation as? CAAnimationGroup {
 			for x in a.animations! {
 				animationDidStop(x, finished: true)
 			}
@@ -452,12 +450,12 @@ public class MaterialView : UIView {
 	}
 	
 	/**
-	Prepares the view instance when intialized. When subclassing, 
-	it is recommended to override the prepareView method
-	to initialize property values and other setup operations.
-	The super.prepareView method should always be called immediately
-	when subclassing.
-	*/
+     Prepares the view instance when intialized. When subclassing,
+     it is recommended to override the prepareView method
+     to initialize property values and other setup operations.
+     The super.prepareView method should always be called immediately
+     when subclassing.
+     */
 	public func prepareView() {
 		contentScaleFactor = MaterialDevice.scale
 		backgroundColor = Color.white
@@ -493,9 +491,9 @@ public class MaterialView : UIView {
 			if .None == depth {
 				shadowPath = nil
 			} else if nil == shadowPath {
-				shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).CGPath
+				shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
 			} else {
-				animate(MaterialAnimation.shadowPath(UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).CGPath, duration: 0))
+				animate(animation: MaterialAnimation.shadowPath(path: UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath, duration: 0))
 			}
 		}
 	}

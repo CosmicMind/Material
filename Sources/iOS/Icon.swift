@@ -40,7 +40,7 @@ public struct Icon {
 	*/
 	public static var bundle: NSBundle {
 		if nil == Icon.internalBundle {
-			Icon.internalBundle = NSBundle(forClass: MaterialView.self)
+			Icon.internalBundle = NSBundle(forClass: View.self)
 			let b: NSBundle? = NSBundle(URL: Icon.internalBundle!.resourceURL!.URLByAppendingPathComponent("io.cosmicmind.material.icons.bundle"))
 			if let v: NSBundle = b {
 				Icon.internalBundle = v

@@ -31,7 +31,7 @@
 import UIKit
 import AVFoundation
 
-public class CapturePreview : MaterialView {
+public class CapturePreview: View {
 	public override class func layerClass() -> AnyClass {
 		return AVCaptureVideoPreviewLayer.self
 	}

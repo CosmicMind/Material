@@ -37,7 +37,7 @@ public protocol MenuViewDelegate : MaterialDelegate {
     
 }
 
-public class MenuView : MaterialPulseView {
+public class MenuView : PulseView {
 	/// References the Menu instance.
 	public private(set) lazy var menu: Menu = Menu()
 	

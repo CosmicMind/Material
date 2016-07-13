@@ -30,7 +30,7 @@
 
 import UIKit
 
-public class ControlView : MaterialView {
+public class ControlView : View {
 	/// Will render the view.
 	public var willRenderView: Bool {
 		return 0 < width && 0 < height
@@ -82,7 +82,7 @@ public class ControlView : MaterialView {
 	}
 
 	/// ContentView that holds the any desired subviews.
-	public private(set) var contentView: MaterialView!
+	public private(set) var contentView: View!
 	
 	/// Left side UIControls.
 	public var leftControls: Array<UIControl>? {
@@ -245,7 +245,7 @@ public class ControlView : MaterialView {
 	
 	/// Prepares the contentView.
 	private func prepareContentView() {
-		contentView = MaterialView()
+		contentView = View()
 		contentView.backgroundColor = nil
 		addSubview(contentView)
 	}

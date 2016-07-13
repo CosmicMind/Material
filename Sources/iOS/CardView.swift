@@ -30,7 +30,7 @@
 
 import UIKit
 
-public class CardView : MaterialPulseView {
+public class CardView : PulseView {
 	/**
 	:name:	dividerLayer
 	*/

@@ -34,16 +34,16 @@ import UIKit
 @objc(Button)
 public class Button: UIButton {
 	/**
-	A CAShapeLayer used to manage elements that would be affected by
-	the clipToBounds property of the backing layer. For example, this
-	allows the dropshadow effect on the backing layer, while clipping
-	the image to a desired shape within the visualLayer.
-	*/
+     A CAShapeLayer used to manage elements that would be affected by
+     the clipToBounds property of the backing layer. For example, this
+     allows the dropshadow effect on the backing layer, while clipping
+     the image to a desired shape within the visualLayer.
+     */
 	public private(set) lazy var visualLayer: CAShapeLayer = CAShapeLayer()
 	
 	/**
-	A base delegate reference used when subclassing MaterialView.
-	*/
+     A base delegate reference used when subclassing View.
+     */
 	public weak var delegate: MaterialDelegate?
 	
 	/// An Array of pulse layers.
@@ -63,11 +63,11 @@ public class Button: UIButton {
 	}
 	
 	/**
-	This property is the same as clipsToBounds. It crops any of the view's
-	contents from bleeding past the view's frame. If an image is set using
-	the image property, then this value does not need to be set, since the
-	visualLayer's maskToBounds is set to true by default.
-	*/
+     This property is the same as clipsToBounds. It crops any of the view's
+     contents from bleeding past the view's frame. If an image is set using
+     the image property, then this value does not need to be set, since the
+     visualLayer's maskToBounds is set to true by default.
+     */
 	@IBInspectable public var masksToBounds: Bool {
 		get {
 			return layer.masksToBounds
@@ -80,7 +80,7 @@ public class Button: UIButton {
 	/// A property that accesses the backing layer's backgroundColor.
 	@IBInspectable public override var backgroundColor: UIColor? {
 		didSet {
-			layer.backgroundColor = backgroundColor?.CGColor
+			layer.backgroundColor = backgroundColor?.cgColor
 		}
 	}
 	
@@ -105,11 +105,11 @@ public class Button: UIButton {
 	}
 	
 	/**
-	A property that accesses the layer.frame.size.width property.
-	When setting this property in conjunction with the shape property having a
-	value that is not .None, the height will be adjusted to maintain the correct
-	shape.
-	*/
+     A property that accesses the layer.frame.size.width property.
+     When setting this property in conjunction with the shape property having a
+     value that is not .None, the height will be adjusted to maintain the correct
+     shape.
+     */
 	@IBInspectable public var width: CGFloat {
 		get {
 			return layer.frame.size.width
@@ -123,11 +123,11 @@ public class Button: UIButton {
 	}
 	
 	/**
-	A property that accesses the layer.frame.size.height property.
-	When setting this property in conjunction with the shape property having a
-	value that is not .None, the width will be adjusted to maintain the correct
-	shape.
-	*/
+     A property that accesses the layer.frame.size.height property.
+     When setting this property in conjunction with the shape property having a
+     value that is not .None, the width will be adjusted to maintain the correct
+     shape.
+     */
 	@IBInspectable public var height: CGFloat {
 		get {
 			return layer.frame.size.height
@@ -143,7 +143,7 @@ public class Button: UIButton {
 	/// A property that accesses the backing layer's shadowColor.
 	@IBInspectable public var shadowColor: UIColor? {
 		didSet {
-			layer.shadowColor = shadowColor?.CGColor
+			layer.shadowColor = shadowColor?.cgColor
 		}
 	}
 	
@@ -197,13 +197,13 @@ public class Button: UIButton {
 	}
 	
 	/**
-	A property that sets the shadowOffset, shadowOpacity, and shadowRadius
-	for the backing layer. This is the preferred method of setting depth
-	in order to maintain consitency across UI objects.
-	*/
+     A property that sets the shadowOffset, shadowOpacity, and shadowRadius
+     for the backing layer. This is the preferred method of setting depth
+     in order to maintain consitency across UI objects.
+     */
 	public var depth: MaterialDepth = .None {
 		didSet {
-			let value: MaterialDepthType = MaterialDepthToValue(depth)
+			let value: MaterialDepthType = MaterialDepthToValue(depth: depth)
 			shadowOffset = value.offset
 			shadowOpacity = value.opacity
 			shadowRadius = value.radius
@@ -212,14 +212,14 @@ public class Button: UIButton {
 	}
 	
 	/**
-	A property that sets the cornerRadius of the backing layer. If the shape
-	property has a value of .Circle when the cornerRadius is set, it will
-	become .None, as it no longer maintains its circle shape.
-	*/
+     A property that sets the cornerRadius of the backing layer. If the shape
+     property has a value of .Circle when the cornerRadius is set, it will
+     become .None, as it no longer maintains its circle shape.
+     */
 	public var cornerRadiusPreset: MaterialRadius = .None {
 		didSet {
 			if let v: MaterialRadius = cornerRadiusPreset {
-				cornerRadius = MaterialRadiusToValue(v)
+				cornerRadius = MaterialRadiusToValue(radius: v)
 			}
 		}
 	}
@@ -239,10 +239,10 @@ public class Button: UIButton {
 	}
 	
 	/**
-	A property that manages the overall shape for the object. If either the
-	width or height property is set, the other will be automatically adjusted
-	to maintain the shape of the object.
-	*/
+     A property that manages the overall shape for the object. If either the
+     width or height property is set, the other will be automatically adjusted
+     to maintain the shape of the object.
+     */
 	public var shape: MaterialShape = .None {
 		didSet {
 			if .None != shape {
@@ -259,7 +259,7 @@ public class Button: UIButton {
 	/// A preset property to set the borderWidth.
 	public var borderWidthPreset: MaterialBorder = .None {
 		didSet {
-			borderWidth = MaterialBorderToValue(borderWidthPreset)
+			borderWidth = MaterialBorderToValue(border: borderWidthPreset)
 		}
 	}
 	
@@ -276,10 +276,10 @@ public class Button: UIButton {
 	/// A property that accesses the layer.borderColor property.
 	@IBInspectable public var borderColor: UIColor? {
 		get {
-			return nil == layer.borderColor ? nil : UIColor(CGColor: layer.borderColor!)
+			return nil == layer.borderColor ? nil : UIColor(cgColor: layer.borderColor!)
 		}
 		set(value) {
-			layer.borderColor = value?.CGColor
+			layer.borderColor = value?.cgColor
 		}
 	}
 	
@@ -306,15 +306,15 @@ public class Button: UIButton {
 	/// A preset property for updated contentEdgeInsets.
 	public var contentEdgeInsetsPreset: MaterialEdgeInset {
 		didSet {
-			let value: UIEdgeInsets = MaterialEdgeInsetToValue(contentEdgeInsetsPreset)
+			let value: UIEdgeInsets = MaterialEdgeInsetToValue(inset: contentEdgeInsetsPreset)
 			contentEdgeInsets = UIEdgeInsetsMake(value.top, value.left, value.bottom, value.right)
 		}
 	}
 	
 	/**
-	An initializer that initializes the object with a NSCoder object.
-	- Parameter aDecoder: A NSCoder instance.
-	*/
+     An initializer that initializes the object with a NSCoder object.
+     - Parameter aDecoder: A NSCoder instance.
+     */
 	public required init?(coder aDecoder: NSCoder) {
 		contentEdgeInsetsPreset = .None
 		super.init(coder: aDecoder)
@@ -322,11 +322,11 @@ public class Button: UIButton {
 	}
 	
 	/**
-	An initializer that initializes the object with a CGRect object.
-	If AutoLayout is used, it is better to initilize the instance
-	using the init() initializer.
-	- Parameter frame: A CGRect instance.
-	*/
+     An initializer that initializes the object with a CGRect object.
+     If AutoLayout is used, it is better to initilize the instance
+     using the init() initializer.
+     - Parameter frame: A CGRect instance.
+     */
 	public override init(frame: CGRect) {
 		contentEdgeInsetsPreset = .None
 		super.init(frame: frame)
@@ -338,8 +338,8 @@ public class Button: UIButton {
 		self.init(frame: CGRect.zero)
 	}
 	
-	public override func layoutSublayersOfLayer(layer: CALayer) {
-		super.layoutSublayersOfLayer(layer)
+	public override func layoutSublayers(of layer: CALayer) {
+		super.layoutSublayers(of: layer)
 		if self.layer == layer {
 			layoutShape()
 			layoutVisualLayer()
@@ -356,53 +356,53 @@ public class Button: UIButton {
 	}
 	
 	/**
-	A method that accepts CAAnimation objects and executes them on the
-	view's backing layer.
-	- Parameter animation: A CAAnimation instance.
-	*/
+     A method that accepts CAAnimation objects and executes them on the
+     view's backing layer.
+     - Parameter animation: A CAAnimation instance.
+     */
 	public func animate(animation: CAAnimation) {
 		animation.delegate = self
 		if let a: CABasicAnimation = animation as? CABasicAnimation {
-			a.fromValue = (nil == layer.presentationLayer() ? layer : layer.presentationLayer() as! CALayer).valueForKeyPath(a.keyPath!)
+			a.fromValue = (nil == layer.presentation() ? layer : layer.presentation()!).value(forKeyPath: a.keyPath!)
 		}
 		if let a: CAPropertyAnimation = animation as? CAPropertyAnimation {
-			layer.addAnimation(a, forKey: a.keyPath!)
+			layer.add(a, forKey: a.keyPath!)
 		} else if let a: CAAnimationGroup = animation as? CAAnimationGroup {
-			layer.addAnimation(a, forKey: nil)
+			layer.add(a, forKey: nil)
 		} else if let a: CATransition = animation as? CATransition {
-			layer.addAnimation(a, forKey: kCATransition)
+			layer.add(a, forKey: kCATransition)
 		}
 	}
 	
 	/**
-	A delegation method that is executed when the backing layer starts
-	running an animation.
-	- Parameter anim: The currently running CAAnimation instance.
-	*/
-	public override func animationDidStart(anim: CAAnimation) {
-		(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStart?(anim)
+     A delegation method that is executed when the backing layer starts
+     running an animation.
+     - Parameter animation: The currently running CAAnimation instance.
+     */
+	public override func animationDidStart(_ animation: CAAnimation) {
+		(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStart?(animation: animation)
 	}
 	
 	/**
-	A delegation method that is executed when the backing layer stops
-	running an animation.
-	- Parameter anim: The CAAnimation instance that stopped running.
-	- Parameter flag: A boolean that indicates if the animation stopped
-	because it was completed or interrupted. True if completed, false
-	if interrupted.
-	*/
-	public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
-		if let a: CAPropertyAnimation = anim as? CAPropertyAnimation {
+     A delegation method that is executed when the backing layer stops
+     running an animation.
+     - Parameter anim: The CAAnimation instance that stopped running.
+     - Parameter flag: A boolean that indicates if the animation stopped
+     because it was completed or interrupted. True if completed, false
+     if interrupted.
+     */
+	public override func animationDidStop(_ animation: CAAnimation, finished flag: Bool) {
+		if let a: CAPropertyAnimation = animation as? CAPropertyAnimation {
 			if let b: CABasicAnimation = a as? CABasicAnimation {
 				if let v: AnyObject = b.toValue {
 					if let k: String = b.keyPath {
 						layer.setValue(v, forKeyPath: k)
-						layer.removeAnimationForKey(k)
+						layer.removeAnimation(forKey: k)
 					}
 				}
 			}
-			(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStop?(anim, finished: flag)
-		} else if let a: CAAnimationGroup = anim as? CAAnimationGroup {
+			(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStop?(animation: animation, finished: flag)
+		} else if let a: CAAnimationGroup = animation as? CAAnimationGroup {
 			for x in a.animations! {
 				animationDidStop(x, finished: true)
 			}
@@ -415,7 +415,7 @@ public class Button: UIButton {
 	from the center.
 	*/
 	public func pulse(point: CGPoint? = nil) {
-		let p: CGPoint = nil == point ? CGPointMake(CGFloat(width / 2), CGFloat(height / 2)) : point!
+        let p: CGPoint = nil == point ? CGPoint(x: CGFloat(width / 2), y: CGFloat(height / 2)) : point!
 		MaterialAnimation.pulseExpandAnimation(layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseOpacity: pulseOpacity, point: p, width: width, height: height, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
 		MaterialAnimation.delay(0.35) { [weak self] in
 			if let s: Button = self {
@@ -430,8 +430,8 @@ public class Button: UIButton {
 	- Parameter touches: A set of UITouch objects.
 	- Parameter event: A UIEvent object.
 	*/
-	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-		super.touchesBegan(touches, withEvent: event)
+	public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+		super.touchesBegan(touches, with: event)
 		MaterialAnimation.pulseExpandAnimation(layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseOpacity: pulseOpacity, point: layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer), width: width, height: height, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
 	}
 	
@@ -441,8 +441,8 @@ public class Button: UIButton {
 	- Parameter touches: A set of UITouch objects.
 	- Parameter event: A UIEvent object.
 	*/
-	public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-		super.touchesEnded(touches, withEvent: event)
+	public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+		super.touchesEnded(touches, with: event)
 		MaterialAnimation.pulseContractAnimation(layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
 	}
 	
@@ -452,8 +452,8 @@ public class Button: UIButton {
 	- Parameter touches: A set of UITouch objects.
 	- Parameter event: A UIEvent object.
 	*/
-	public override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
-		super.touchesCancelled(touches, withEvent: event)
+	public override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+		super.touchesCancelled(touches, with: event)
 		MaterialAnimation.pulseContractAnimation(layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
 	}
 	

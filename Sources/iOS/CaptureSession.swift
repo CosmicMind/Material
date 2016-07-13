@@ -211,9 +211,9 @@ public class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 		var device: AVCaptureDevice?
 		if 1 < cameraCount {
 			if activeCamera?.position == .back {
-				device = camera(position: .front)
+				device = camera(at: .front)
 			} else {
-				device = camera(position: .back)
+				device = camera(at: .back)
 			}
 		}
 		return device

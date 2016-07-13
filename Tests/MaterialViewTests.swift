@@ -30,7 +30,7 @@
 
 import XCTest
 
-class MaterialViewTests: XCTestCase {
+class ViewTests: XCTestCase {
 	
 	override func setUp() {
 		super.setUp()
