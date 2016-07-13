@@ -87,57 +87,76 @@ public func CaptureSessionPresetToString(preset: CaptureSessionPreset) -> String
 @objc(CaptureSessionDelegate)
 public protocol CaptureSessionDelegate {
 	/**
-	:name:	captureSessionFailedWithError
-	*/
-	optional func captureSessionFailedWithError(capture: CaptureSession, error: NSError)
+     A delegation method that is fired when the captureSesstion failes with an error.
+     - Parameter captureSession: A reference to the calling CaptureSession.
+     - Parameter error: A NSError corresponding to the error.
+     */
+	@objc
+    optional func captureSessionFailedWithError(captureSession: CaptureSession, error: NSError)
 	
-	/**
-	:name:	captureSessionDidSwitchCameras
-	*/
-	optional func captureSessionDidSwitchCameras(capture: CaptureSession, position: AVCaptureDevicePosition)
+    /**
+     A delegation method that is fired when the camera has been switched to another.
+     - Parameter captureSession: A reference to the calling CaptureSession.
+     - Parameter position: An AVCaptureDevicePosition that the camera has switched to.
+     */
+    @objc
+    optional func captureSessionDidSwitchCameras(captureSession: CaptureSession, position: AVCaptureDevicePosition)
 	
-	/**
-	:name:	captureSessionWillSwitchCameras
-	*/
-	optional func captureSessionWillSwitchCameras(capture: CaptureSession, position: AVCaptureDevicePosition)
+    /**
+     A delegation method that is fired before the camera has been switched to another.
+     - Parameter captureSession: A reference to the calling CaptureSession.
+     - Parameter position: An AVCaptureDevicePosition that the camera will switch to.
+     */
+    @objc
+	optional func captureSessionWillSwitchCameras(captureSession: CaptureSession, position: AVCaptureDevicePosition)
 	
-	/**
-	:name:	captureStillImageAsynchronously
-	*/
-	optional func captureStillImageAsynchronously(capture: CaptureSession, image: UIImage)
+    /**
+     A delegation method that is fired when an image has been captured asynchronously.
+     - Parameter captureSession: A reference to the calling CaptureSession.
+     - Parameter image: An image that has been captured.
+     */
+    @objc
+	optional func captureStillImageAsynchronously(captureSession: CaptureSession, image: UIImage)
 	
-	/**
-	:name:	captureStillImageAsynchronouslyFailedWithError
-	*/
-	optional func captureStillImageAsynchronouslyFailedWithError(capture: CaptureSession, error: NSError)
+    /**
+     A delegation method that is fired when capturing an image asynchronously has failed.
+     - Parameter captureSession: A reference to the calling CaptureSession.
+     - Parameter error: A NSError corresponding to the error.
+     */
+    @objc
+	optional func captureStillImageAsynchronouslyFailedWithError(captureSession: CaptureSession, error: NSError)
 	
 	/**
 	:name:	captureCreateMovieFileFailedWithError
 	*/
-	optional func captureCreateMovieFileFailedWithError(capture: CaptureSession, error: NSError)
+    @objc
+	optional func captureCreateMovieFileFailedWithError(captureSession: CaptureSession, error: NSError)
 	
 	/**
 	:name:	captureMovieFailedWithError
 	*/
-	optional func captureMovieFailedWithError(capture: CaptureSession, error: NSError)
+    @objc
+	optional func captureMovieFailedWithError(captureSession: CaptureSession, error: NSError)
 	
 	/**
 	:name:	captureDidStartRecordingToOutputFileAtURL
 	*/
-	optional func captureDidStartRecordingToOutputFileAtURL(capture: CaptureSession, captureOutput: AVCaptureFileOutput, fileURL: NSURL, fromConnections connections: [AnyObject])
+    @objc
+	optional func captureDidStartRecordingToOutputFileAtURL(captureSession: CaptureSession, captureOutput: AVCaptureFileOutput, fileURL: NSURL, fromConnections connections: [AnyObject])
 	
 	/**
 	:name:	captureDidFinishRecordingToOutputFileAtURL
 	*/
-	optional func captureDidFinishRecordingToOutputFileAtURL(capture: CaptureSession, captureOutput: AVCaptureFileOutput, outputFileURL: NSURL, fromConnections connections: [AnyObject], error: NSError!)
+    @objc
+	optional func captureDidFinishRecordingToOutputFileAtURL(captureSession: CaptureSession, captureOutput: AVCaptureFileOutput, outputFileURL: NSURL, fromConnections connections: [AnyObject], error: NSError!)
 }
 
 @objc(CaptureSession)
-public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
+public class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 	/**
 	:name:	sessionQueue
 	*/
-	private lazy var sessionQueue: dispatch_queue_t = dispatch_queue_create("io.material.CaptureSession", DISPATCH_QUEUE_SERIAL)
+    private var sessionQueue: DispatchQueue!
 	
 	/**
 	:name:	activeVideoInput
@@ -199,10 +218,10 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 	public var inactiveCamera: AVCaptureDevice? {
 		var device: AVCaptureDevice?
 		if 1 < cameraCount {
-			if activeCamera?.position == .Back {
-				device = cameraWithPosition(.Front)
+			if activeCamera?.position == .back {
+				device = cameraWithPosition(position: .front)
 			} else {
-				device = cameraWithPosition(.Back)
+				device = cameraWithPosition(position: .back)
 			}
 		}
 		return device
@@ -212,7 +231,7 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 	:name:	cameraCount
 	*/
 	public var cameraCount: Int {
-		return AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo).count
+		return AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo).count
 	}
 	
 	/**
@@ -226,14 +245,14 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 	:name:	caneraSupportsTapToFocus
 	*/
 	public var cameraSupportsTapToFocus: Bool {
-		return nil == activeCamera ? false : activeCamera!.focusPointOfInterestSupported
+		return nil == activeCamera ? false : activeCamera!.isFocusPointOfInterestSupported
 	}
 	
 	/**
 	:name:	cameraSupportsTapToExpose
 	*/
 	public var cameraSupportsTapToExpose: Bool {
-		return nil == activeCamera ? false : activeCamera!.exposurePointOfInterestSupported
+		return nil == activeCamera ? false : activeCamera!.isExposurePointOfInterestSupported
 	}
 	
 	/**
@@ -266,7 +285,7 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 		}
 		set(value) {
 			var error: NSError?
-			if isFocusModeSupported(focusMode) {
+			if isFocusModeSupported(focusMode: focusMode) {
 				do {
 					let device: AVCaptureDevice = activeCamera!
 					try device.lockForConfiguration()
@@ -283,7 +302,7 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 				userInfo[NSUnderlyingErrorKey] = error
 			}
 			if let e: NSError = error {
-				delegate?.captureSessionFailedWithError?(self, error: e)
+				delegate?.captureSessionFailedWithError?(capture: self, error: e)
 			}
 		}
 	}
@@ -297,7 +316,7 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 		}
 		set(value) {
 			var error: NSError?
-			if isFlashModeSupported(flashMode) {
+			if isFlashModeSupported(flashMode: flashMode) {
 				do {
 					let device: AVCaptureDevice = activeCamera!
 					try device.lockForConfiguration()
@@ -314,7 +333,7 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 				userInfo[NSUnderlyingErrorKey] = error
 			}
 			if let e: NSError = error {
-				delegate?.captureSessionFailedWithError?(self, error: e)
+				delegate?.captureSessionFailedWithError?(capture: self, error: e)
 			}
 		}
 	}
@@ -328,7 +347,7 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 		}
 		set(value) {
 			var error: NSError?
-			if isTorchModeSupported(torchMode) {
+			if isTorchModeSupported(torchMode: torchMode) {
 				do {
 					let device: AVCaptureDevice = activeCamera!
 					try device.lockForConfiguration()
@@ -345,7 +364,7 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 				userInfo[NSUnderlyingErrorKey] = error
 			}
 			if let e: NSError = error {
-				delegate?.captureSessionFailedWithError?(self, error: e)
+				delegate?.captureSessionFailedWithError?(capture: self, error: e)
 			}
 		}
 	}
@@ -353,22 +372,22 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 	/// The session quality preset.
 	public var sessionPreset: CaptureSessionPreset {
 		didSet {
-			session.sessionPreset = CaptureSessionPresetToString(sessionPreset)
+			session.sessionPreset = CaptureSessionPresetToString(preset: sessionPreset)
 		}
 	}
 	
 	/// The capture video orientation.
 	public var videoOrientation: AVCaptureVideoOrientation {
 		var orientation: AVCaptureVideoOrientation
-		switch UIDevice.currentDevice().orientation {
-		case .Portrait:
-			orientation = .Portrait
-		case .LandscapeRight:
-			orientation = .LandscapeLeft
-		case .PortraitUpsideDown:
-			orientation = .PortraitUpsideDown
+		switch UIDevice.current().orientation {
+		case .portrait:
+			orientation = .portrait
+		case .landscapeRight:
+			orientation = .landscapeLeft
+		case .portraitUpsideDown:
+			orientation = .portraitUpsideDown
 		default:
-			orientation = .LandscapeRight
+			orientation = .landscapeRight
 		}
 		return orientation
 	}
@@ -386,7 +405,7 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 	/// Starts the session.
 	public func startSession() {
 		if !isRunning {
-			dispatch_async(sessionQueue) { [weak self] in
+			sessionQueue.async() { [weak self] in
 				self?.session.startRunning()
 			}
 		}
@@ -395,7 +414,7 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 	/// Stops the session.
 	public func stopSession() {
 		if isRunning {
-			dispatch_async(sessionQueue) { [weak self] in
+			sessionQueue.async() { [weak self] in
 				self?.session.stopRunning()
 			}
 		}
@@ -406,7 +425,7 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 		if canSwitchCameras {
 			do {
 				if let v: AVCaptureDevicePosition = cameraPosition {
-					delegate?.captureSessionWillSwitchCameras?(self, position: v)
+					delegate?.captureSessionWillSwitchCameras?(capture: self, position: v)
 					let videoInput: AVCaptureDeviceInput? = try AVCaptureDeviceInput(device: inactiveCamera!)
 					session.beginConfiguration()
 					session.removeInput(activeVideoInput)
@@ -418,10 +437,10 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 						session.addInput(activeVideoInput)
 					}
 					session.commitConfiguration()
-					delegate?.captureSessionDidSwitchCameras?(self, position: cameraPosition!)
+					delegate?.captureSessionDidSwitchCameras?(capture: self, position: cameraPosition!)
 				}
 			} catch let e as NSError {
-				delegate?.captureSessionFailedWithError?(self, error: e)
+				delegate?.captureSessionFailedWithError?(capture: self, error: e)
 			}
 		}
 	}
@@ -459,12 +478,12 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 	*/
 	public func focusAtPoint(point: CGPoint) {
 		var error: NSError?
-		if cameraSupportsTapToFocus && isFocusModeSupported(.AutoFocus) {
+		if cameraSupportsTapToFocus && isFocusModeSupported(focusMode: .autoFocus) {
 			do {
 				let device: AVCaptureDevice = activeCamera!
 				try device.lockForConfiguration()
 				device.focusPointOfInterest = point
-				device.focusMode = .AutoFocus
+				device.focusMode = .autoFocus
 				device.unlockForConfiguration()
 			} catch let e as NSError {
 				error = e
@@ -477,7 +496,7 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 			userInfo[NSUnderlyingErrorKey] = error
 		}
 		if let e: NSError = error {
-			delegate?.captureSessionFailedWithError?(self, error: e)
+			delegate?.captureSessionFailedWithError?(capture: self, error: e)
 		}
 	}
 	
@@ -486,14 +505,14 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 	*/
 	public func exposeAtPoint(point: CGPoint) {
 		var error: NSError?
-		if cameraSupportsTapToExpose && isExposureModeSupported(.ContinuousAutoExposure) {
+		if cameraSupportsTapToExpose && isExposureModeSupported(exposureMode: .continuousAutoExposure) {
 			do {
 				let device: AVCaptureDevice = activeCamera!
 				try device.lockForConfiguration()
 				device.exposurePointOfInterest = point
-				device.exposureMode = .ContinuousAutoExposure
-				if device.isExposureModeSupported(.Locked) {
-					device.addObserver(self, forKeyPath: "adjustingExposure", options: .New, context: &CaptureSessionAdjustingExposureContext)
+				device.exposureMode = .continuousAutoExposure
+				if device.isExposureModeSupported(.locked) {
+					device.addObserver(self, forKeyPath: "adjustingExposure", options: .new, context: &CaptureSessionAdjustingExposureContext)
 				}
 				device.unlockForConfiguration()
 			} catch let e as NSError {
@@ -507,30 +526,30 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 			userInfo[NSUnderlyingErrorKey] = error
 		}
 		if let e: NSError = error {
-			delegate?.captureSessionFailedWithError?(self, error: e)
+			delegate?.captureSessionFailedWithError?(capture: self, error: e)
 		}
 	}
 	
 	/**
 	:name:	observeValueForKeyPath
 	*/
-	public override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+	public override func observeValue(forKeyPath keyPath: String?, of object: AnyObject?, change: [NSKeyValueChangeKey: AnyObject]?, context: UnsafeMutablePointer<Void>?) {
 		if context == &CaptureSessionAdjustingExposureContext {
 			let device: AVCaptureDevice = object as! AVCaptureDevice
-			if !device.adjustingExposure && device.isExposureModeSupported(.Locked) {
+			if !device.isAdjustingExposure && device.isExposureModeSupported(.locked) {
 				object!.removeObserver(self, forKeyPath: "adjustingExposure", context: &CaptureSessionAdjustingExposureContext)
-				dispatch_async(dispatch_get_main_queue()) {
+				DispatchQueue.main.async() {
 					do {
 						try device.lockForConfiguration()
-						device.exposureMode = .Locked
+						device.exposureMode = .locked
 						device.unlockForConfiguration()
 					} catch let e as NSError {
-						self.delegate?.captureSessionFailedWithError?(self, error: e)
+						self.delegate?.captureSessionFailedWithError?(capture: self, error: e)
 					}
 				}
 			}
 		} else {
-			super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
+            super.observeValue(forKeyPath: keyPath, of : object, change: change, context: context)
 		}
 	}
 	
@@ -539,22 +558,22 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 	*/
 	public func resetFocusAndExposureModes() {
 		let device: AVCaptureDevice = activeCamera!
-		let canResetFocus: Bool = device.focusPointOfInterestSupported && device.isFocusModeSupported(.ContinuousAutoFocus)
-		let canResetExposure: Bool = device.exposurePointOfInterestSupported && device.isExposureModeSupported(.ContinuousAutoExposure)
-		let centerPoint: CGPoint = CGPointMake(0.5, 0.5)
+		let canResetFocus: Bool = device.isFocusPointOfInterestSupported && device.isFocusModeSupported(.continuousAutoFocus)
+		let canResetExposure: Bool = device.isExposurePointOfInterestSupported && device.isExposureModeSupported(.continuousAutoExposure)
+        let centerPoint: CGPoint = CGPoint(x: 0.5, y: 0.5)
 		do {
 			try device.lockForConfiguration()
 			if canResetFocus {
-				device.focusMode = .ContinuousAutoFocus
+				device.focusMode = .continuousAutoFocus
 				device.focusPointOfInterest = centerPoint
 			}
 			if canResetExposure {
-				device.exposureMode = .ContinuousAutoExposure
+				device.exposureMode = .continuousAutoExposure
 				device.exposurePointOfInterest = centerPoint
 			}
 			device.unlockForConfiguration()
 		} catch let e as NSError {
-			delegate?.captureSessionFailedWithError?(self, error: e)
+			delegate?.captureSessionFailedWithError?(capture: self, error: e)
 		}
 	}
 	
@@ -562,18 +581,18 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 	:name:	captureStillImage
 	*/
 	public func captureStillImage() {
-		dispatch_async(sessionQueue) { [weak self] in
+		sessionQueue.async() { [weak self] in
 			if let s: CaptureSession = self {
-				if let v: AVCaptureConnection = s.imageOutput.connectionWithMediaType(AVMediaTypeVideo) {
+				if let v: AVCaptureConnection = s.imageOutput.connection(withMediaType: AVMediaTypeVideo) {
 					v.videoOrientation = s.videoOrientation
-					s.imageOutput.captureStillImageAsynchronouslyFromConnection(v) { [weak self] (sampleBuffer: CMSampleBuffer!, error: NSError!) -> Void in
+                    s.imageOutput.captureStillImageAsynchronously(from: v) { [weak self] (sampleBuffer: CMSampleBuffer?, error: NSError?) -> Void in
 						if let s: CaptureSession = self {
 							var captureError: NSError? = error
 							if nil == captureError {
 								let data: NSData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer)
-								if let image1: UIImage = UIImage(data: data) {
-									if let image2: UIImage = s.adjustOrientationForImage(image1) {
-										s.delegate?.captureStillImageAsynchronously?(s, image: image2)
+								if let image1: UIImage = UIImage(data: data as Data) {
+									if let image2: UIImage = s.adjustOrientationForImage(image: image1) {
+										s.delegate?.captureStillImageAsynchronously?(capture: s, image: image2)
 									} else {
 										var userInfo: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
 										userInfo[NSLocalizedDescriptionKey] = "[Material Error: Cannot fix image orientation.]"
@@ -591,7 +610,7 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 							}
 							
 							if let e: NSError = captureError {
-								s.delegate?.captureStillImageAsynchronouslyFailedWithError?(s, error: e)
+								s.delegate?.captureStillImageAsynchronouslyFailedWithError?(capture: s, error: e)
 							}
 						}
 					}
@@ -605,26 +624,26 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 	*/
 	public func startRecording() {
 		if !isRecording {
-			dispatch_async(sessionQueue) { [weak self] in
+			sessionQueue.async() { [weak self] in
 				if let s: CaptureSession = self {
-					if let v: AVCaptureConnection = s.movieOutput.connectionWithMediaType(AVMediaTypeVideo) {
+					if let v: AVCaptureConnection = s.movieOutput.connection(withMediaType: AVMediaTypeVideo) {
 						v.videoOrientation = s.videoOrientation
-						v.preferredVideoStabilizationMode = .Auto
+						v.preferredVideoStabilizationMode = .auto
 					}
 					if let v: AVCaptureDevice = s.activeCamera {
-						if v.smoothAutoFocusSupported {
+						if v.isSmoothAutoFocusSupported {
 							do {
 								try v.lockForConfiguration()
-								v.smoothAutoFocusEnabled = true
+								v.isSmoothAutoFocusEnabled = true
 								v.unlockForConfiguration()
 							} catch let e as NSError {
-								s.delegate?.captureSessionFailedWithError?(s, error: e)
+								s.delegate?.captureSessionFailedWithError?(capture: s, error: e)
 							}
 						}
 						
 						s.movieOutputURL = s.uniqueURL()
 						if let v: NSURL = s.movieOutputURL {
-							s.movieOutput.startRecordingToOutputFileURL(v, recordingDelegate: s)
+							s.movieOutput.startRecording(toOutputFileURL: v as URL!, recordingDelegate: s)
 						}
 					}
 				}
@@ -644,18 +663,23 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 	/**
 	:name:	captureOutput
 	*/
-	public func captureOutput(captureOutput: AVCaptureFileOutput!, didStartRecordingToOutputFileAtURL fileURL: NSURL!, fromConnections connections: [AnyObject]!) {
-		isRecording = true
-		delegate?.captureDidStartRecordingToOutputFileAtURL?(self, captureOutput: captureOutput, fileURL: fileURL, fromConnections: connections)
+    public func capture(_ captureOutput: AVCaptureFileOutput!, didStartRecordingToOutputFileAt fileURL: URL!, fromConnections connections: [AnyObject]!) {
+        isRecording = true
+		delegate?.captureDidStartRecordingToOutputFileAtURL?(capture: self, captureOutput: captureOutput, fileURL: fileURL, fromConnections: connections)
 	}
 	
 	/**
 	:name:	captureOutput
 	*/
-	public func captureOutput(captureOutput: AVCaptureFileOutput!, didFinishRecordingToOutputFileAtURL outputFileURL: NSURL!, fromConnections connections: [AnyObject]!, error: NSError!) {
-		isRecording = false
-		delegate?.captureDidFinishRecordingToOutputFileAtURL?(self, captureOutput: captureOutput, outputFileURL: outputFileURL, fromConnections: connections, error: error)
+    public func capture(_ captureOutput: AVCaptureFileOutput!, didFinishRecordingToOutputFileAt outputFileURL: URL!, fromConnections connections: [AnyObject]!, error: NSError!) {
+    	isRecording = false
+		delegate?.captureDidFinishRecordingToOutputFileAtURL?(capture: self, captureOutput: captureOutput, outputFileURL: outputFileURL, fromConnections: connections, error: error)
 	}
+    
+    /// Prepares the sessionQueue.
+    private func prepareSessionQueue() {
+        sessionQueue = DispatchQueue(label: "io.cosmicmind.Material.CaptureSession", attributes: .serial, target: nil)
+    }
 	
 	/**
 	:name:	prepareSession
@@ -672,12 +696,12 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 	*/
 	private func prepareVideoInput() {
 		do {
-			activeVideoInput = try AVCaptureDeviceInput(device: AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo))
+			activeVideoInput = try AVCaptureDeviceInput(device: AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo))
 			if session.canAddInput(activeVideoInput) {
 				session.addInput(activeVideoInput)
 			}
 		} catch let e as NSError {
-			delegate?.captureSessionFailedWithError?(self, error: e)
+			delegate?.captureSessionFailedWithError?(capture: self, error: e)
 		}
 	}
 	
@@ -686,12 +710,12 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 	*/
 	private func prepareAudioInput() {
 		do {
-			activeAudioInput = try AVCaptureDeviceInput(device: AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeAudio))
+			activeAudioInput = try AVCaptureDeviceInput(device: AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeAudio))
 			if session.canAddInput(activeAudioInput) {
 				session.addInput(activeAudioInput)
 			}
 		} catch let e as NSError {
-			delegate?.captureSessionFailedWithError?(self, error: e)
+			delegate?.captureSessionFailedWithError?(capture: self, error: e)
 		}
 	}
 	
@@ -718,7 +742,7 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 	:name:	cameraWithPosition
 	*/
 	private func cameraWithPosition(position: AVCaptureDevicePosition) -> AVCaptureDevice? {
-		let devices: Array<AVCaptureDevice> = AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo) as! Array<AVCaptureDevice>
+		let devices: Array<AVCaptureDevice> = AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo) as! Array<AVCaptureDevice>
 		for device in devices {
 			if device.position == position {
 				return device
@@ -732,13 +756,13 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 	*/
 	private func uniqueURL() -> NSURL? {
 		do {
-			let directory: NSURL = try NSFileManager.defaultManager().URLForDirectory(.DocumentDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: true)
-			let dateFormatter = NSDateFormatter()
-			dateFormatter.dateStyle = .FullStyle
-			dateFormatter.timeStyle = .FullStyle
-			return directory.URLByAppendingPathComponent(dateFormatter.stringFromDate(NSDate()) + ".mov")
+			let directory: NSURL = try FileManager.default().urlForDirectory(.documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+			let dateFormatter = DateFormatter()
+			dateFormatter.dateStyle = .fullStyle
+			dateFormatter.timeStyle = .fullStyle
+			return directory.appendingPathComponent(dateFormatter.string(from: NSDate() as Date) + ".mov")
 		} catch let e as NSError {
-			delegate?.captureCreateMovieFileFailedWithError?(self, error: e)
+			delegate?.captureCreateMovieFileFailedWithError?(capture: self, error: e)
 		}
 		return nil
 	}
@@ -751,55 +775,55 @@ public class CaptureSession : NSObject, AVCaptureFileOutputRecordingDelegate {
 	- Returns: An optional UIImage if successful.
 	*/
 	private func adjustOrientationForImage(image: UIImage) -> UIImage? {
-		guard .Up != image.imageOrientation else {
+		guard .up != image.imageOrientation else {
 			return image
 		}
 		
-		var transform: CGAffineTransform = CGAffineTransformIdentity
+		var transform: CGAffineTransform = .identity
 		
 		// Rotate if Left, Right, or Down.
 		switch image.imageOrientation {
-		case .Down, .DownMirrored:
-			transform = CGAffineTransformTranslate(transform, image.size.width, image.size.height)
-			transform = CGAffineTransformRotate(transform, CGFloat(M_PI))
-		case .Left, .LeftMirrored:
-			transform = CGAffineTransformTranslate(transform, image.size.width, 0)
-			transform = CGAffineTransformRotate(transform, CGFloat(M_PI_2))
-		case .Right, .RightMirrored:
-			transform = CGAffineTransformTranslate(transform, 0, image.size.height)
-			transform = CGAffineTransformRotate(transform, -CGFloat(M_PI_2))
+		case .down, .downMirrored:
+			transform = transform.translateBy(x: image.size.width, y: image.size.height)
+			transform = transform.rotate(CGFloat(M_PI))
+		case .left, .leftMirrored:
+			transform = transform.translateBy(x: image.size.width, y: 0)
+			transform = transform.rotate(CGFloat(M_PI_2))
+		case .right, .rightMirrored:
+			transform = transform.translateBy(x: 0, y: image.size.height)
+			transform = transform.rotate(-CGFloat(M_PI_2))
 		default:break
 		}
 		
 		// Flip if mirrored.
 		switch image.imageOrientation {
-		case .UpMirrored, .DownMirrored:
-			transform = CGAffineTransformTranslate(transform, image.size.width, 0)
-			transform = CGAffineTransformScale(transform, -1, 1)
-		case .LeftMirrored, .RightMirrored:
-			transform = CGAffineTransformTranslate(transform, image.size.height, 0)
-			transform = CGAffineTransformScale(transform, -1, 1)
+		case .upMirrored, .downMirrored:
+			transform = transform.translateBy(x: image.size.width, y: 0)
+			transform = transform.scaleBy(x: -1, y: 1)
+		case .leftMirrored, .rightMirrored:
+			transform = transform.translateBy(x: image.size.height, y: 0)
+			transform = transform.scaleBy(x: -1, y: 1)
 		default:break
 		}
 		
 		// Draw the underlying CGImage with the calculated transform.
-		guard let context = CGBitmapContextCreate(nil, Int(image.size.width), Int(image.size.height), CGImageGetBitsPerComponent(image.CGImage), 0, CGImageGetColorSpace(image.CGImage), CGImageGetBitmapInfo(image.CGImage).rawValue) else {
+		guard let context = CGContext(data: nil, width: Int(image.size.width), height: Int(image.size.height), bitsPerComponent: image.cgImage!.bitsPerComponent, bytesPerRow: 0, space: image.cgImage!.colorSpace!, bitmapInfo: image.cgImage!.bitmapInfo.rawValue) else {
 			return nil
 		}
 		
-		CGContextConcatCTM(context, transform)
+		context.concatCTM(transform)
 		
 		switch image.imageOrientation {
-		case .Left, .LeftMirrored, .Right, .RightMirrored:
-			CGContextDrawImage(context, CGRect(x: 0, y: 0, width: image.size.height, height: image.size.width), image.CGImage)
+		case .left, .leftMirrored, .right, .rightMirrored:
+			context.draw(in: CGRect(x: 0, y: 0, width: image.size.height, height: image.size.width), image: image.cgImage!)
 		default:
-			CGContextDrawImage(context, CGRect(origin: .zero, size: image.size), image.CGImage)
+			context.draw(in: CGRect(origin: .zero, size: image.size), image: image.cgImage!)
 		}
 		
-		guard let CGImage = CGBitmapContextCreateImage(context) else {
+		guard let cgImage = context.makeImage() else {
 			return nil
 		}
 		
-		return UIImage(CGImage: CGImage)
+		return UIImage(cgImage: cgImage)
 	}
 }

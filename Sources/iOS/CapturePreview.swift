@@ -43,14 +43,14 @@ public class CapturePreview : MaterialView {
 	:name:	captureDevicePointOfInterestForPoint
 	*/
 	public func captureDevicePointOfInterestForPoint(point: CGPoint) -> CGPoint {
-		return (layer as! AVCaptureVideoPreviewLayer).captureDevicePointOfInterestForPoint(point)
+		return (layer as! AVCaptureVideoPreviewLayer).captureDevicePointOfInterest(for: point)
 	}
 
 	/**
 	:name:	pointForCaptureDevicePointOfInterest
 	*/
 	public func pointForCaptureDevicePointOfInterest(point: CGPoint) -> CGPoint {
-		return (layer as! AVCaptureVideoPreviewLayer).pointForCaptureDevicePointOfInterest(point)
+		return (layer as! AVCaptureVideoPreviewLayer).pointForCaptureDevicePoint(ofInterest: point)
 	}
 
 	/**
@@ -65,7 +65,7 @@ public class CapturePreview : MaterialView {
 	:name:	preparePreviewLayer
 	*/
 	private func preparePreviewLayer() {
-		layer.backgroundColor = Color.black.CGColor
+		layer.backgroundColor = Color.black.cgColor
 		layer.masksToBounds = true
 		(layer as! AVCaptureVideoPreviewLayer).videoGravity = AVLayerVideoGravityResizeAspectFill
 	}
