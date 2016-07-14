@@ -608,7 +608,7 @@ public class NavigationDrawerController : RootController, UIGestureRecognizerDel
 			if let v: View = leftView {
 				hideStatusBar()
 				showView(v)
-				userInteractionEnabled = false
+				isUserInteractionEnabled = false
 				delegate?.navigationDrawerWillOpen?(self, position: .Left)
 				UIView.animateWithDuration(Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.x / velocity)))),
 					animations: {
@@ -634,7 +634,7 @@ public class NavigationDrawerController : RootController, UIGestureRecognizerDel
 			if let v: View = rightView {
 				hideStatusBar()
 				showView(v)
-				userInteractionEnabled = false
+				isUserInteractionEnabled = false
 				delegate?.navigationDrawerWillOpen?(self, position: .Right)
 				UIView.animateWithDuration(Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.x / velocity)))),
 					animations: { [weak self] in
@@ -660,7 +660,7 @@ public class NavigationDrawerController : RootController, UIGestureRecognizerDel
 	public func closeLeftView(velocity: CGFloat = 0) {
 		if enabledLeftView {
 			if let v: View = leftView {
-				userInteractionEnabled = true
+				isUserInteractionEnabled = true
 				delegate?.navigationDrawerWillClose?(self, position: .Left)
 				UIView.animateWithDuration(Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.x / velocity)))),
 					animations: { [weak self] in
@@ -688,7 +688,7 @@ public class NavigationDrawerController : RootController, UIGestureRecognizerDel
 	public func closeRightView(velocity: CGFloat = 0) {
 		if enabledRightView {
 			if let v: View = rightView {
-				userInteractionEnabled = true
+				isUserInteractionEnabled = true
 				delegate?.navigationDrawerWillClose?(self, position: .Right)
 				UIView.animateWithDuration(Double(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.x / velocity)))),
 					animations: { [weak self] in

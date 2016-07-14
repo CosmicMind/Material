@@ -61,11 +61,11 @@ public class MenuView : PulseView {
 	all menu items have been opened.
 	*/
 	public func open(completion: (() -> Void)? = nil) {
-		if true == menu.views?.first?.userInteractionEnabled {
-			menu.views?.first?.userInteractionEnabled = false
+		if true == menu.views?.first?.isUserInteractionEnabled {
+			menu.views?.first?.isUserInteractionEnabled = false
 			menu.open { [weak self] (v: UIView) in
 				if self?.menu.views?.last == v {
-					self?.menu.views?.first?.userInteractionEnabled = true
+					self?.menu.views?.first?.isUserInteractionEnabled = true
 					completion?()
 				}
 			}
@@ -78,11 +78,11 @@ public class MenuView : PulseView {
 	all menu items have been closed.
 	*/
 	public func close(completion: (() -> Void)? = nil) {
-		if true == menu.views?.first?.userInteractionEnabled {
-			menu.views?.first?.userInteractionEnabled = false
+		if true == menu.views?.first?.isUserInteractionEnabled {
+			menu.views?.first?.isUserInteractionEnabled = false
 			menu.close { [weak self] (v: UIView) in
 				if self?.menu.views?.last == v {
-					self?.menu.views?.first?.userInteractionEnabled = true
+					self?.menu.views?.first?.isUserInteractionEnabled = true
 					completion?()
 				}
 			}

@@ -46,12 +46,12 @@ public class RootController : UIViewController {
 	A Boolean property used to enable and disable interactivity
 	with the rootViewController.
 	*/
-	@IBInspectable public var userInteractionEnabled: Bool {
+	@IBInspectable public var isUserInteractionEnabled: Bool {
 		get {
-			return rootViewController.view.userInteractionEnabled
+			return rootViewController.view.isUserInteractionEnabled
 		}
 		set(value) {
-			rootViewController.view.userInteractionEnabled = value
+			rootViewController.view.isUserInteractionEnabled = value
 		}
 	}
 	
@@ -77,7 +77,7 @@ public class RootController : UIViewController {
 	- Parameter nibNameOrNil: An Optional String for the nib.
 	- Parameter bundle: An Optional NSBundle where the nib is located.
 	*/
-	public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+	public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 		prepareView()
 	}

@@ -59,8 +59,8 @@ public class MenuController : RootController {
 	all menu items have been opened.
 	*/
 	public func openMenu(completion: (() -> Void)? = nil) {
-		if true == userInteractionEnabled {
-			userInteractionEnabled = false
+		if true == isUserInteractionEnabled {
+			isUserInteractionEnabled = false
 			rootViewController.view.alpha = 0.5
 			menuView.open(completion)
 		}
@@ -72,10 +72,10 @@ public class MenuController : RootController {
 	all menu items have been closed.
 	*/
 	public func closeMenu(completion: (() -> Void)? = nil) {
-		if false == userInteractionEnabled {
+		if false == isUserInteractionEnabled {
 			rootViewController.view.alpha = 1
 			menuView.close({ [weak self] in
-				self?.userInteractionEnabled = true
+				self?.isUserInteractionEnabled = true
 				completion?()
 			})
 		}

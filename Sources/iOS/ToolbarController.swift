@@ -98,8 +98,8 @@ public class ToolbarController : RootController {
 							v.view.removeFromSuperview()
 							v.removeFromParentViewController()
 							v.view.layer.shouldRasterize = false
-							s.userInteractionEnabled = true
-							s.toolbar.userInteractionEnabled = true
+							s.isUserInteractionEnabled = true
+							s.toolbar.isUserInteractionEnabled = true
 							dispatch_async(dispatch_get_main_queue()) { [weak self] in
 								if let s: ToolbarController = self {
 									s.delegate?.toolbarControllerDidCloseFloatingViewController?(s)
@@ -126,8 +126,8 @@ public class ToolbarController : RootController {
 				view.layer.rasterizationScale = Device.scale
 				view.layer.shouldRasterize = true
 				internalFloatingViewController = v
-				userInteractionEnabled = false
-				toolbar.userInteractionEnabled = false
+				isUserInteractionEnabled = false
+				toolbar.isUserInteractionEnabled = false
 				delegate?.toolbarControllerWillOpenFloatingViewController?(self)
 				UIView.animateWithDuration(0.5,
 					animations: { [weak self] in
