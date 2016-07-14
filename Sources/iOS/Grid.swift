@@ -31,209 +31,217 @@
 import UIKit
 
 public enum GridAxisDirection {
-	case None
-	case Horizontal
-	case Vertical
+    case none
+    case horizontal
+    case vertical
 }
 
 public class GridAxis {
-	/// Grid reference.
-	unowned var grid: Grid
-	
-	/// Inherit grid rows and columns.
-	public var inherited: Bool = false
-	
-	/// The direction the grid layouts its views out.
-	public var direction: GridAxisDirection = .Horizontal
-	
-	/// The rows size.
-	public var rows: Int {
-		didSet {
-			grid.reloadLayout()
-		}
-	}
-	
-	/// The columns size.
-	public var columns: Int {
-		didSet {
-			grid.reloadLayout()
-		}
-	}
-	
-	/**
-	Initializer.
-	- Parameter grid: The Grid reference used for offset values.
-	- Parameter rows: The number of rows, Vertical axis the grid will use.
-	- Parameter columns: The number of columns, Horizontal axis the grid will use.
-	*/
-	public init(grid: Grid, rows: Int = 12, columns: Int = 12) {
-		self.grid = grid
-		self.rows = rows
-		self.columns = columns
-	}
+    /// Grid reference.
+    unowned var grid: Grid
+    
+    /// Inherit grid rows and columns.
+    public var inherited: Bool = false
+    
+    /// The direction the grid lays its views out.
+    public var direction: GridAxisDirection = .horizontal
+    
+    /// The rows size.
+    public var rows: Int {
+        didSet {
+            grid.reload()
+        }
+    }
+    
+    /// The columns size.
+    public var columns: Int {
+        didSet {
+            grid.reload()
+        }
+    }
+    
+    /**
+     Initializer.
+     - Parameter grid: The Grid reference used for offset values.
+     - Parameter rows: The number of rows, vertical axis the grid will use.
+     - Parameter columns: The number of columns, horizontal axis the grid will use.
+     */
+    public init(grid: Grid, rows: Int = 12, columns: Int = 12) {
+        self.grid = grid
+        self.rows = rows
+        self.columns = columns
+    }
 }
 
 public class GridOffset {
-	/// Grid reference.
-	unowned var grid: Grid
-	
-	/// The rows size.
-	public var rows: Int {
-		didSet {
-			grid.reloadLayout()
-		}
-	}
-	
-	/// The columns size.
-	public var columns: Int {
-		didSet {
-			grid.reloadLayout()
-		}
-	}
-	
-	/**
-	Initializer.
-	- Parameter grid: The Grid reference used for offset values.
-	- Parameter rows: The number of rows, Vertical axis the grid will use.
-	- Parameter columns: The number of columns, Horizontal axis the grid will use.
-	*/
-	public init(grid: Grid, rows: Int = 0, columns: Int = 0) {
-		self.grid = grid
-		self.rows = rows
-		self.columns = columns
-	}
+    /// Grid reference.
+    unowned var grid: Grid
+    
+    /// The rows size.
+    public var rows: Int {
+        didSet {
+            grid.reload()
+        }
+    }
+    
+    /// The columns size.
+    public var columns: Int {
+        didSet {
+            grid.reload()
+        }
+    }
+    
+    /**
+     Initializer.
+     - Parameter grid: The Grid reference used for offset values.
+     - Parameter rows: The number of rows, vertical axis the grid will use.
+     - Parameter columns: The number of columns, horizontal axis the grid will use.
+     */
+    public init(grid: Grid, rows: Int = 0, columns: Int = 0) {
+        self.grid = grid
+        self.rows = rows
+        self.columns = columns
+    }
 }
 
 public class Grid {
-	/// The rows size.
-	public var rows: Int {
-		didSet {
-			reloadLayout()
-		}
-	}
-	
-	/// The columns size.
-	public var columns: Int {
-		didSet {
-			reloadLayout()
-		}
-	}
-	
-	/// Offsets for rows and columns.
-	public private(set) var offset: GridOffset!
-	
-	/// The axis in which the Grid is laying out its views.
-	public private(set) var axis: GridAxis!
-	
-	/// Preset inset value for grid.
-	public var layoutInsetPreset: MaterialEdgeInset = .None {
-		didSet {
-			layoutInset = MaterialEdgeInsetToValue(contentInsetPreset)
-		}
-	}
-	
-	/// Insets value for grid.
-	public var layoutInset: UIEdgeInsets = MaterialEdgeInsetToValue(.None) {
-		didSet {
-			reloadLayout()
-		}
-	}
-	
-	/// Preset inset value for grid.
-	public var contentInsetPreset: MaterialEdgeInset = .None {
-		didSet {
-			contentInset = MaterialEdgeInsetToValue(contentInsetPreset)
-		}
-	}
-	
-	/// Insets value for grid.
-	public var contentInset: UIEdgeInsets = MaterialEdgeInsetToValue(.None) {
-		didSet {
-			reloadLayout()
-		}
-	}
-	
-	/// A preset wrapper around interimSpace.
-	public var interimSpacePreset: InterimSpace = .none {
-		didSet {
-			interimSpace = InterimSpaceToValue(interimSpacePreset)
-		}
-	}
-	
-	/// The space between grid columnss.
-	public var interimSpace: CGFloat {
-		didSet {
-			reloadLayout()
-		}
-	}
-	
-	/// An Array of UIButtons.
-	public var views: Array<UIView>? {
-		didSet {
-			reloadLayout()
-		}
-	}
-	
-	/**
-	Initializer.
-	- Parameter rows: The number of rows, Vertical axis the grid will use.
-	- Parameter columns: The number of columns, Horizontal axis the grid will use.
-	- Parameter interimSpace: The interimSpace between rows or columns.
-	*/
-	public init(rows: Int = 12, columns: Int = 12, interimSpace: CGFloat = 0) {
-		self.rows = rows
-		self.columns = columns
-		self.interimSpace = interimSpace
-		offset = GridOffset(grid: self)
-		axis = GridAxis(grid: self)
-	}
-	
-	/// Reload the button layout.
-	public func reloadLayout() {
-		if let v: Array<UIView> = views {
-			let gc: Int = axis.inherited ? columns : axis.columns
-			let gr: Int = axis.inherited ? rows : axis.rows
-			var n: Int = 0
-			for i in 0..<v.count {
-				let view: UIView = v[i]
-				if let sv: UIView = view.superview {
-					sv.layoutIfNeeded()
-					switch axis.direction {
-					case .Horizontal:
-						let w: CGFloat = (sv.bounds.width - contentInset.left - contentInset.right - layoutInset.left - layoutInset.right + interimSpace) / CGFloat(gc)
-						let c: Int = view.grid.columns
-						let co: Int = view.grid.offset.columns
-						let vh: CGFloat = sv.bounds.height - contentInset.top - contentInset.bottom - layoutInset.top - layoutInset.bottom
-						let vl: CGFloat = CGFloat(i + n + co) * w + contentInset.left + layoutInset.left
-						let vw: CGFloat = w * CGFloat(c) - interimSpace
-						view.frame = CGRectMake(vl, contentInset.top + layoutInset.top, vw, vh)
-						n += c + co - 1
-					case .Vertical:
-						let h: CGFloat = (sv.bounds.height - contentInset.top - contentInset.bottom - layoutInset.top - layoutInset.bottom + interimSpace) / CGFloat(gr)
-						let r: Int = view.grid.rows
-						let ro: Int = view.grid.offset.rows
-						let vw: CGFloat = sv.bounds.width - contentInset.left - contentInset.right - layoutInset.left - layoutInset.right
-						let vt: CGFloat = CGFloat(i + n + ro) * h + contentInset.top + layoutInset.top
-						let vh: CGFloat = h * CGFloat(r) - interimSpace
-						view.frame = CGRectMake(contentInset.left + layoutInset.left, vt, vw, vh)
-						n += r + ro - 1
-					case .None:
-						let w: CGFloat = (sv.bounds.width - contentInset.left - contentInset.right - layoutInset.left - layoutInset.right + interimSpace) / CGFloat(gc)
-						let c: Int = view.grid.columns
-						let co: Int = view.grid.offset.columns
-						let h: CGFloat = (sv.bounds.height - contentInset.top - contentInset.bottom - layoutInset.top - layoutInset.bottom + interimSpace) / CGFloat(gr)
-						let r: Int = view.grid.rows
-						let ro: Int = view.grid.offset.rows
-						let vt: CGFloat = CGFloat(ro) * h + contentInset.top + layoutInset.top
-						let vl: CGFloat = CGFloat(co) * w + contentInset.left + layoutInset.left
-						let vh: CGFloat = h * CGFloat(r) - interimSpace
-						let vw: CGFloat = w * CGFloat(c) - interimSpace
-						view.frame = CGRectMake(vl, vt, vw, vh)
-					}
-				}
-			}
-		}
-	}
+    /// Context view.
+    internal weak var context: UIView?
+    
+    /// Number of rows.
+    public var rows: Int {
+        didSet {
+            reload()
+        }
+    }
+    
+    /// Number of columns.
+    public var columns: Int {
+        didSet {
+            reload()
+        }
+    }
+    
+    /// Offsets for rows and columns.
+    public private(set) var offset: GridOffset!
+    
+    /// The axis in which the Grid is laying out its views.
+    public private(set) var axis: GridAxis!
+    
+    /// Preset inset value for grid.
+    public var layoutInsetsPreset: InsetsPreset = .none {
+        didSet {
+            layoutInsets = InsetsPresetToValue(insets: contentInsetsPreset)
+        }
+    }
+    
+    /// Insets value for grid.
+    public var layoutInsets: Insets = InsetsPresetToValue(insets: .none) {
+        didSet {
+            reload()
+        }
+    }
+    
+    /// Preset inset value for grid.
+    public var contentInsetsPreset: InsetsPreset = .none {
+        didSet {
+            contentInsets = InsetsPresetToValue(insets: contentInsetsPreset)
+        }
+    }
+    
+    /// Insets value for grid.
+    public var contentInsets: Insets = InsetsPresetToValue(insets: .none) {
+        didSet {
+            reload()
+        }
+    }
+    
+    /// A preset wrapper for interim space.
+    public var interimSpacePreset: InterimSpace = .none {
+        didSet {
+            interimSpace = InterimSpaceToValue(interimSpace: interimSpacePreset)
+        }
+    }
+    
+    /// The space between grid rows and columnss.
+    public var interimSpace: CGFloat {
+        didSet {
+            reload()
+        }
+    }
+    
+    /// An Array of UIButtons.
+    public var views: Array<UIView>? {
+        didSet {
+            reload()
+        }
+    }
+    
+    /**
+     Initializer.
+     - Parameter rows: The number of rows, vertical axis the grid will use.
+     - Parameter columns: The number of columns, horizontal axis the grid will use.
+     - Parameter interimSpace: The interimSpace between rows or columns.
+     */
+    public init(context: UIView?, rows: Int = 12, columns: Int = 12, interimSpace: CGFloat = 0) {
+        self.context = context
+        self.rows = rows
+        self.columns = columns
+        self.interimSpace = interimSpace
+        offset = GridOffset(grid: self)
+        axis = GridAxis(grid: self)
+    }
+    
+    /// Reload the button layout.
+    public func reload() {
+        if let v: Array<UIView> = views {
+            let gc: Int = axis.inherited ? columns : axis.columns
+            let gr: Int = axis.inherited ? rows : axis.rows
+            var n: Int = 0
+            for i in 0..<v.count {
+                let child: UIView = v[i]
+                if let parent: UIView = context {
+                    if parent != child.superview {
+                        child.removeFromSuperview()
+                        parent.addSubview(child)
+                    }
+                    parent.layoutIfNeeded()
+                    switch axis.direction {
+                    case .horizontal:
+                        let w: CGFloat = (parent.bounds.width - contentInsets.left - contentInsets.right - layoutInsets.left - layoutInsets.right + interimSpace) / CGFloat(gc)
+                        let c: Int = child.grid.columns
+                        let co: Int = child.grid.offset.columns
+                        let vh: CGFloat = parent.bounds.height - contentInsets.top - contentInsets.bottom - layoutInsets.top - layoutInsets.bottom
+                        let vl: CGFloat = CGFloat(i + n + co) * w + contentInsets.left + layoutInsets.left
+                        let vw: CGFloat = w * CGFloat(c) - interimSpace
+                        child.frame = CGRect(x: vl, y: contentInsets.top + layoutInsets.top, width: vw, height: vh)
+                        n += c + co - 1
+                    case .vertical:
+                        let h: CGFloat = (parent.bounds.height - contentInsets.top - contentInsets.bottom - layoutInsets.top - layoutInsets.bottom + interimSpace) / CGFloat(gr)
+                        let r: Int = child.grid.rows
+                        let ro: Int = child.grid.offset.rows
+                        let vw: CGFloat = parent.bounds.width - contentInsets.left - contentInsets.right - layoutInsets.left - layoutInsets.right
+                        let vt: CGFloat = CGFloat(i + n + ro) * h + contentInsets.top + layoutInsets.top
+                        let vh: CGFloat = h * CGFloat(r) - interimSpace
+                        child.frame = CGRect(x: contentInsets.left + layoutInsets.left, y: vt, width: vw, height: vh)
+                        n += r + ro - 1
+                    case .none:
+                        let w: CGFloat = (parent.bounds.width - contentInsets.left - contentInsets.right - layoutInsets.left - layoutInsets.right + interimSpace) / CGFloat(gc)
+                        let c: Int = child.grid.columns
+                        let co: Int = child.grid.offset.columns
+                        let h: CGFloat = (parent.bounds.height - contentInsets.top - contentInsets.bottom - layoutInsets.top - layoutInsets.bottom + interimSpace) / CGFloat(gr)
+                        let r: Int = child.grid.rows
+                        let ro: Int = child.grid.offset.rows
+                        let vt: CGFloat = CGFloat(ro) * h + contentInsets.top + layoutInsets.top
+                        let vl: CGFloat = CGFloat(co) * w + contentInsets.left + layoutInsets.left
+                        let vh: CGFloat = h * CGFloat(r) - interimSpace
+                        let vw: CGFloat = w * CGFloat(c) - interimSpace
+                        child.frame = CGRect(x: vl, y: vt, width: vw, height: vh)
+                    }
+                }
+            }
+        }
+    }
 }
 
 /// A memory reference to the Grid instance for UIView extensions.
@@ -241,15 +249,15 @@ private var GridKey: UInt8 = 0
 
 /// Grid extension for UIView.
 public extension UIView {
-	/// Grid reference.
-	public private(set) var grid: Grid {
-		get {
-			return associatedObject(self, key: &GridKey) {
-				return Grid()
-			}
-		}
-		set(value) {
-			associateObject(self, key: &GridKey, value: value)
-		}
-	}
+    /// Grid reference.
+    public private(set) var grid: Grid {
+        get {
+            return AssociatedObject(base: self, key: &GridKey) {
+                return Grid(context: self)
+            }
+        }
+        set(value) {
+            AssociateObject(base: self, key: &GridKey, value: value)
+        }
+    }
 }

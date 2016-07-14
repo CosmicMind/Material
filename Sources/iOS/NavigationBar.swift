@@ -378,7 +378,7 @@ public class NavigationBar : UINavigationBar {
 						
 						titleView.grid.contentInset = contentInset
 						titleView.grid.interimSpace = interimSpace
-						titleView.grid.reloadLayout()
+						titleView.grid.reload()
 						
 						// contentView alignment.
 						if nil != item.title && "" != item.title {
@@ -414,7 +414,7 @@ public class NavigationBar : UINavigationBar {
 							item.detailLabel.removeFromSuperview()
 						}
 						
-						contentView.grid.reloadLayout()
+						contentView.grid.reload()
 					}
 				}
 			}

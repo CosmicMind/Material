@@ -96,7 +96,7 @@ public class Toolbar : BarView {
 				detailLabel.removeFromSuperview()
 			}
 			
-			contentView.grid.reloadLayout()
+			contentView.grid.reload()
 		}
 	}
 	

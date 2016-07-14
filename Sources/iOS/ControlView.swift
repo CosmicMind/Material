@@ -207,8 +207,8 @@ public class ControlView : View {
 				
 				grid.contentInset = contentInset
 				grid.interimSpace = interimSpace
-				grid.reloadLayout()
-				contentView.grid.reloadLayout()
+				grid.reload()
+				contentView.grid.reload()
 			}
 		}
 	}

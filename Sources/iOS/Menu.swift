@@ -44,7 +44,7 @@ public class Menu {
 	/// The rectangular bounds that the menu animates.
 	public var origin: CGPoint {
 		didSet {
-			reloadLayout()
+			reload()
 		}
 	}
 
@@ -58,7 +58,7 @@ public class Menu {
 	/// The space between views.
 	public var interimSpace: CGFloat {
 		didSet {
-			reloadLayout()
+			reload()
 		}
 	}
 
@@ -68,14 +68,14 @@ public class Menu {
 	/// The direction in which the animation opens the menu.
 	public var direction: MenuDirection = .Up {
 		didSet {
-			reloadLayout()
+			reload()
 		}
 	}
 
 	/// An Array of UIViews.
 	public var views: Array<UIView>? {
 		didSet {
-			reloadLayout()
+			reload()
 		}
 	}
 
@@ -101,7 +101,7 @@ public class Menu {
 	}
 
 	/// Reload the view layout.
-	public func reloadLayout() {
+	public func reload() {
 		opened = false
 		layoutButtons()
 	}
