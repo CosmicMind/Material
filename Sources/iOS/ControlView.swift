@@ -37,7 +37,7 @@ public class ControlView : View {
 	}
 	
 	/// A preset wrapper around contentInset.
-	public var contentInsetPreset: MaterialEdgeInset {
+	public var contentInsetPreset: InsetsPreset {
 		get {
 			return grid.contentInsetPreset
 		}
@@ -47,7 +47,7 @@ public class ControlView : View {
 	}
 	
 	/// A wrapper around grid.contentInset.
-	@IBInspectable public var contentInset: UIEdgeInsets {
+	@IBInspectable public var contentInset: Insets {
 		get {
 			return grid.contentInset
 		}
@@ -57,14 +57,14 @@ public class ControlView : View {
 	}
 	
 	/// A preset wrapper around interimSpace.
-	public var interimSpacePreset: InterimSpace = .none {
+	public var interimSpacePreset: InterimSpacePreset = .none {
 		didSet {
-			interimSpace = InterimSpaceToValue(interimSpacePreset)
+            interimSpace = InterimSpacePresetToValue(preset: interimSpacePreset)
 		}
 	}
 	
 	/// A wrapper around grid.interimSpace.
-	@IBInspectable public var interimSpace: CGFloat {
+	@IBInspectable public var interimSpace: InterimSpace {
 		get {
 			return grid.interimSpace
 		}

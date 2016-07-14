@@ -97,8 +97,8 @@ public struct Insets {
     }
     
     /**
-     Static constructor for Insets with values of all 0.
-     - Returns: An Insets struct with values of all 0.
+     Static constructor for Insets with values of 0.
+     - Returns: An Insets struct with values of 0.
      */
     static var zero: Insets {
         return Insets()
@@ -106,8 +106,8 @@ public struct Insets {
 }
 
 /// Converts the InsetsPreset to a Insets value.
-public func InsetsPresetToValue(insets: InsetsPreset) -> Insets {
-    switch insets {
+public func InsetsPresetToValue(preset: InsetsPreset) -> Insets {
+    switch preset {
     case .none:
         return Insets.zero
         

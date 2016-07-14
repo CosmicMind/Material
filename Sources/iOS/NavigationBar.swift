@@ -62,28 +62,28 @@ public class NavigationBar : UINavigationBar {
 	}
 	
 	/// A preset wrapper around contentInset.
-	public var contentInsetPreset: MaterialEdgeInset = .None {
+	public var contentInsetPreset: InsetsPreset = .none {
 		didSet {
-			contentInset = MaterialEdgeInsetToValue(contentInsetPreset)
+            contentInset = InsetsPresetToValue(preset: contentInsetPreset)
 		}
 	}
 	
 	/// A wrapper around grid.contentInset.
-	@IBInspectable public var contentInset: UIEdgeInsets = UIEdgeInsetsZero {
+	@IBInspectable public var contentInset: Insets = Insets.zero {
 		didSet {
 			layoutSubviews()
 		}
 	}
 	
 	/// A preset wrapper around interimSpace.
-	public var interimSpacePreset: InterimSpace = .none {
+	public var interimSpacePreset: InterimSpacePreset = .none {
 		didSet {
-			interimSpace = InterimSpaceToValue(interimSpacePreset)
+            interimSpace = InterimSpacePresetToValue(preset: interimSpacePreset)
 		}
 	}
 	
 	/// A wrapper around grid.interimSpace.
-	@IBInspectable public var interimSpace: CGFloat = 0 {
+	@IBInspectable public var interimSpace: InterimSpace = 0 {
 		didSet {
 			layoutSubviews()
 		}
@@ -226,9 +226,9 @@ public class NavigationBar : UINavigationBar {
 	for the backing layer. This is the preferred method of setting depth
 	in order to maintain consitency across UI objects.
 	*/
-	public var depth: MaterialDepth = .None {
+	public var depthPreset = .none {
 		didSet {
-			let value: MaterialDepthType = MaterialDepthToValue(depth)
+			let value: Depth = DepthPresetToValue(preset)
 			shadowOffset = value.offset
 			shadowOpacity = value.opacity
 			shadowRadius = value.radius
@@ -431,7 +431,7 @@ public class NavigationBar : UINavigationBar {
 	public func prepareView() {
         barStyle = .Black
 		translucent = false
-		depth = .Depth1
+		depth = .depth1
 		interimSpacePreset = .interimSpace1
 		contentInsetPreset = .Square1
 		contentScaleFactor = Device.scale

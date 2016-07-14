@@ -67,6 +67,6 @@ public class BarView : ControlView {
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		depth = .Depth1
+		depth = .depth1
 	}
 }

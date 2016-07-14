@@ -233,8 +233,7 @@ public class BottomTabBar : UITabBar {
 		super.didMoveToSuperview()
 		if autoLayoutToSuperview {
 			if let v: UIView = superview {
-				v.layout(self).bottom()
-				v.layout(self).horizontally()
+				v.layout(self).bottom().horizontally()
 			}
 		}
 	}
@@ -247,7 +246,7 @@ public class BottomTabBar : UITabBar {
 	when subclassing.
 	*/
 	public func prepareView() {
-		depth = .Depth1
+		depth = .depth1
 		contentScaleFactor = Device.scale
 		backgroundColor = Color.white
 		let image: UIImage? = UIImage.imageWithColor(Color.clear, size: CGSizeMake(1, 1))
@@ -265,9 +264,9 @@ public class MaterialAssociatedObjectTabBar {
 	for the backing layer. This is the preferred method of setting depth
 	in order to maintain consitency across UI objects.
 	*/
-	public var depth: MaterialDepth
+	public var depthPreset
 	
-	public init(depth: MaterialDepth) {
+	public init(depthPreset) {
 		self.depth = depth
 	}
 }
@@ -276,12 +275,12 @@ public extension UITabBar {
 	/// TabBarItem reference.
 	public internal(set) var item: MaterialAssociatedObjectTabBar {
 		get {
-			return AssociatedObject(self, key: &MaterialAssociatedObjectTabBarKey) {
-				return MaterialAssociatedObjectTabBar(depth: .None)
+			return AssociatedObject(base: self, key: &MaterialAssociatedObjectTabBarKey) {
+				return MaterialAssociatedObjectTabBar(depth: .none)
 			}
 		}
 		set(value) {
-			AssociateObject(self, key: &MaterialAssociatedObjectTabBarKey, value: value)
+			AssociateObject(base: self, key: &MaterialAssociatedObjectTabBarKey, value: value)
 		}
 	}
 	
@@ -290,12 +289,12 @@ public extension UITabBar {
 	for the backing layer. This is the preferred method of setting depth
 	in order to maintain consitency across UI objects.
 	*/
-	public var depth: MaterialDepth {
+	public var depthPreset {
 		get {
 			return item.depth
 		}
 		set(value) {
-			let v: MaterialDepthType = MaterialDepthToValue(value)
+			let v = DepthPresetToValue(preset: value)
 			layer.shadowOffset = v.offset
 			layer.shadowOpacity = v.opacity
 			layer.shadowRadius = v.radius

@@ -202,15 +202,15 @@ public class CaptureView : View, UIGestureRecognizerDelegate {
 		}
 	}
 	
-	/// MaterialEdgeInset preset value for content.
-	public var contentInsetPreset: MaterialEdgeInset = .None {
+	/// Insets preset value for content.
+	public var contentInsetPreset: InsetsPreset = .none {
 		didSet {
-			contentInset = MaterialEdgeInsetToValue(inset: contentInsetPreset)
+			contentInset = InsetsPresetToValue(preset: contentInsetPreset)
 		}
 	}
 	
 	/// Content insert value.
-	public var contentInset: UIEdgeInsets = MaterialEdgeInsetToValue(inset: .Square4) {
+	public var contentInset: Insets = InsetsPresetToValue(preset: .square4) {
 		didSet {
 			reloadView()
 		}
@@ -435,7 +435,7 @@ public class CaptureView : View, UIGestureRecognizerDelegate {
 	internal func handleTapToFocusGesture(recognizer: UITapGestureRecognizer) {
 		if enableTapToFocus && captureSession.isFocusPointOfInterestSupported {
 			let point: CGPoint = recognizer.location(in: self)
-			captureSession.focus(point: previewView.captureDevicePointOfInterestForPoint(point: point))
+			captureSession.focus(at: previewView.captureDevicePointOfInterestForPoint(point: point))
 			animateTapLayer(layer: focusLayer!, point: point)
 			(delegate as? CaptureViewDelegate)?.captureViewDidTapToFocusAtPoint?(captureView: self, point: point)
 		}
@@ -449,7 +449,7 @@ public class CaptureView : View, UIGestureRecognizerDelegate {
 	internal func handleTapToExposeGesture(recognizer: UITapGestureRecognizer) {
 		if enableTapToExpose && captureSession.isExposurePointOfInterestSupported {
 			let point: CGPoint = recognizer.location(in: self)
-			captureSession.expose(point: previewView.captureDevicePointOfInterestForPoint(point: point))
+			captureSession.expose(at: previewView.captureDevicePointOfInterestForPoint(point: point))
 			animateTapLayer(layer: exposureLayer!, point: point)
 			(delegate as? CaptureViewDelegate)?.captureViewDidTapToExposeAtPoint?(captureView: self, point: point)
 		}

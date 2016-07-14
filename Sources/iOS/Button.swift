@@ -201,15 +201,23 @@ public class Button: UIButton {
      for the backing layer. This is the preferred method of setting depth
      in order to maintain consitency across UI objects.
      */
-	public var depth: MaterialDepth = .None {
+	public var depthPreset = .none {
 		didSet {
-			let value: MaterialDepthType = MaterialDepthToValue(depth: depth)
-			shadowOffset = value.offset
-			shadowOpacity = value.opacity
-			shadowRadius = value.radius
+			let v = DepthPresetToValue(preset: depthPreset)
+			shadowOffset = v.offset
+			shadowOpacity = v.opacity
+			shadowRadius = v.radius
 			layoutShadowPath()
 		}
 	}
+    
+    public var depth = Depth.zero {
+        didSet {
+            shadowOffset = depth.offset
+            shadowOpacity = depth.opacity
+            shadowRadius = depth.radius
+        }
+    }
 	
 	/**
      A property that sets the cornerRadius of the backing layer. If the shape
@@ -304,9 +312,9 @@ public class Button: UIButton {
 	}
 	
 	/// A preset property for updated contentEdgeInsets.
-	public var contentEdgeInsetsPreset: MaterialEdgeInset {
+	public var contentEdgeInsetsPreset: InsetsPreset {
 		didSet {
-			let value: UIEdgeInsets = MaterialEdgeInsetToValue(inset: contentEdgeInsetsPreset)
+			let value: Insets = InsetsPresetToValue(preset: contentEdgeInsetsPreset)
 			contentEdgeInsets = UIEdgeInsetsMake(value.top, value.left, value.bottom, value.right)
 		}
 	}
@@ -316,7 +324,7 @@ public class Button: UIButton {
      - Parameter aDecoder: A NSCoder instance.
      */
 	public required init?(coder aDecoder: NSCoder) {
-		contentEdgeInsetsPreset = .None
+		contentEdgeInsetsPreset = .none
 		super.init(coder: aDecoder)
 		prepareView()
 	}

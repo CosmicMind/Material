@@ -30,31 +30,60 @@
 
 import UIKit
 
-public typealias MaterialDepthType = (offset: CGSize, opacity: Float, radius: CGFloat)
-
-public enum MaterialDepth {
-	case None
-	case Depth1
-	case Depth2
-	case Depth3
-	case Depth4
-	case Depth5
+public enum DepthPreset {
+	case none
+	case depth1
+	case depth2
+	case depth3
+	case depth4
+	case depth5
 }
 
-/// Converts the MaterialDepth enum to a MaterialDepthType value.
-public func MaterialDepthToValue(depth: MaterialDepth) -> MaterialDepthType {
-	switch depth {
-	case .None:
-		return (offset: CGSize.zero, opacity: 0, radius: 0)
-	case .Depth1:
-		return (offset: CGSizeMake(0, 1), opacity: 0.3, radius: 1)
-	case .Depth2:
-		return (offset: CGSizeMake(0, 2), opacity: 0.3, radius: 2)
-	case .Depth3:
-		return (offset: CGSizeMake(0, 3), opacity: 0.3, radius: 3)
-	case .Depth4:
-		return (offset: CGSizeMake(0, 4), opacity: 0.3, radius: 4)
-	case .Depth5:
-		return (offset: CGSizeMake(0, 5), opacity: 0.3, radius: 5)
+public struct Depth {
+    /// Offset.
+    public var offset: UIOffset
+    
+    /// Opacity.
+    public var opacity: Float
+    
+    /// Radius.
+    public var radius: CGFloat
+    
+    /**
+     Initializer.
+     - Parameter offset: UIOffset.
+     - Parameter opacity: Float.
+     - Parameter radius: CGFloat.
+     */
+    public init(offset: UIOffset = UIOffset.zero, opacity: Float = 0, radius: CGFloat = 0) {
+        self.offset = offset
+        self.opacity = opacity
+        self.radius = radius
+    }
+    
+    /**
+     Static constructor for Depth with values of 0.
+     - Returns: A Depth struct with values of 0.
+     */
+    static var zero: Depth {
+        return Depth()
+    }
+}
+
+/// Converts the DepthPreset enum to a Depth value.
+public func DepthPresetToValue(preset: DepthPreset) -> Depth {
+	switch preset {
+	case .none:
+		return Depth.zero
+	case .depth1:
+        return Depth(offset: UIOffset(horizontal: 0, vertical: 1), opacity: 0.3, radius: 1)
+	case .depth2:
+        return Depth(offset: UIOffset(horizontal: 0, vertical: 2), opacity: 0.3, radius: 2)
+	case .depth3:
+        return Depth(offset: UIOffset(horizontal: 0, vertical: 3), opacity: 0.3, radius: 3)
+	case .depth4:
+        return Depth(offset: UIOffset(horizontal: 0, vertical: 4), opacity: 0.3, radius: 4)
+	case .depth5:
+        return Depth(offset: UIOffset(horizontal: 0, vertical: 5), opacity: 0.3, radius: 5)
 	}
 }

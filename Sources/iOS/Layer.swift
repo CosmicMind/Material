@@ -174,9 +174,9 @@ public class Layer: CAShapeLayer {
      for the backing layer. This is the preferred method of setting depth
      in order to maintain consitency across UI objects.
      */
-	public var depth: MaterialDepth = .None {
+	public var depthPreset = .none {
 		didSet {
-			let value: MaterialDepthType = MaterialDepthToValue(depth: depth)
+			let value: Depth = DepthPresetToValue(preset: depth)
 			shadowOffset = value.offset
 			shadowOpacity = value.opacity
 			shadowRadius = value.radius

@@ -30,7 +30,7 @@
 
 import UIKit
 
-public enum InterimSpace {
+public enum InterimSpacePreset {
     case none
     case interimSpace1
     case interimSpace2
@@ -43,9 +43,11 @@ public enum InterimSpace {
     case interimSpace9
 }
 
-/// Converts the InterimSpace enum to a CGFloat value.
-public func InterimSpaceToValue(interimSpace: InterimSpace) -> CGFloat {
-    switch interimSpace {
+public typealias InterimSpace = CGFloat
+
+/// Converts the InterimSpacePreset enum to an InterimSpace value.
+public func InterimSpacePresetToValue(preset: InterimSpacePreset) -> InterimSpace {
+    switch preset {
     case .none:
         return 0
     case .interimSpace1:

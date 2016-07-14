@@ -73,7 +73,7 @@ public class MaterialCollectionView : UICollectionView {
 	}
 	
 	/// A preset wrapper around contentInset.
-	public var contentInsetPreset: MaterialEdgeInset {
+	public var contentInsetPreset: Insets {
 		get {
 			return (collectionViewLayout as? MaterialCollectionViewLayout)!.contentInsetPreset
 		}
@@ -104,12 +104,12 @@ public class MaterialCollectionView : UICollectionView {
 	/// A preset wrapper around interimSpace.
 	public var interimSpacePreset: InterimSpace = .none {
 		didSet {
-			interimSpace = InterimSpaceToValue(interimSpacePreset)
+			interimSpace = InterimSpacePresetToValue(interimSpacePreset)
 		}
 	}
 	
 	/// Spacing between items.
-	@IBInspectable public var interimSpace: CGFloat {
+	@IBInspectable public var interimSpace: InterimSpace {
 		get {
 			return (collectionViewLayout as? MaterialCollectionViewLayout)!.interimSpace
 		}

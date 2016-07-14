@@ -40,7 +40,7 @@ public class RaisedButton: Button {
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		depth = .Depth1
+		depth = .depth1
 		cornerRadiusPreset = .Radius1
 		contentEdgeInsetsPreset = .WideRectangle3
 		backgroundColor = Color.white

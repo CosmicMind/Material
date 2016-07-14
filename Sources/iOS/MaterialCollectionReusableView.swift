@@ -133,7 +133,7 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 	}
 	
 	/// A preset wrapper around contentInset.
-	public var contentInsetPreset: MaterialEdgeInset {
+	public var contentInsetPreset: Insets {
 		get {
 			return grid.contentInsetPreset
 		}
@@ -155,12 +155,12 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 	/// A preset wrapper around interimSpace.
 	public var interimSpacePreset: InterimSpace = .none {
 		didSet {
-			interimSpace = InterimSpaceToValue(interimSpacePreset)
+			interimSpace = InterimSpacePresetToValue(interimSpacePreset)
 		}
 	}
 	
 	/// A wrapper around grid.interimSpace.
-	@IBInspectable public var interimSpace: CGFloat {
+	@IBInspectable public var interimSpace: InterimSpace {
 		get {
 			return grid.interimSpace
 		}
@@ -308,9 +308,9 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 	for the backing layer. This is the preferred method of setting depth
 	in order to maintain consitency across UI objects.
 	*/
-	public var depth: MaterialDepth {
+	public var depthPreset {
 		didSet {
-			let value: MaterialDepthType = MaterialDepthToValue(depth)
+			let value: Depth = DepthPresetToValue(preset)
 			shadowOffset = value.offset
 			shadowOpacity = value.opacity
 			shadowRadius = value.radius

@@ -38,14 +38,14 @@ public class MaterialCollectionViewLayout : UICollectionViewLayout {
 	public var itemSize: CGSize = CGSize.zero
 	
 	/// A preset wrapper around contentInset.
-	public var contentInsetPreset: MaterialEdgeInset = .None {
+	public var contentInsetPreset: InsetsPreset = .none {
 		didSet {
-			contentInset = MaterialEdgeInsetToValue(contentInsetPreset)
+			contentInset = InsetsPresetToValue(preset: contentInsetPreset)
 		}
 	}
 	
 	/// A wrapper around grid.contentInset.
-	public var contentInset: UIEdgeInsets = UIEdgeInsetsZero
+	public var contentInset = Insets.zero
 	
 	/// Size of the content.
 	public private(set) var contentSize: CGSize = CGSize.zero
@@ -57,17 +57,17 @@ public class MaterialCollectionViewLayout : UICollectionViewLayout {
 	public private(set) var dataSourceItems: Array<MaterialDataSourceItem>?
 	
 	/// Scroll direction.
-	public var scrollDirection: UICollectionViewScrollDirection = .Vertical
+	public var scrollDirection: UICollectionViewScrollDirection = .vertical
 	
 	/// A preset wrapper around interimSpace.
-	public var interimSpacePreset: InterimSpace = .none {
+	public var interimSpacePreset: InterimSpacePreset = .none {
 		didSet {
-			interimSpace = InterimSpaceToValue(interimSpacePreset)
+            interimSpace = InterimSpacePresetToValue(preset: interimSpacePreset)
 		}
 	}
 	
 	/// Spacing between items.
-	public var interimSpace: CGFloat = 0
+	public var interimSpace: InterimSpace = 0
 	
 	/**
 	Retrieves the index paths for the items within the passed in CGRect.

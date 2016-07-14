@@ -57,16 +57,16 @@ public class ImageCardView : PulseView {
 	/**
 	:name:	dividerInsets
 	*/
-	public var dividerInsetPreset: MaterialEdgeInset = .None {
+	public var dividerInsetPreset: InsetsPreset = .none {
 		didSet {
-			dividerInset = MaterialEdgeInsetToValue(dividerInsetPreset)
+			dividerInset = InsetsPresetToValue(preset: dividerInsetPreset)
 		}
 	}
 	
 	/**
 	:name:	dividerInset
 	*/
-	@IBInspectable public var dividerInset: UIEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0) {
+	@IBInspectable public var dividerInset = Insets(top: 8, left: 0, bottom: 8, right: 0) {
 		didSet {
 			reloadView()
 		}
@@ -168,16 +168,16 @@ public class ImageCardView : PulseView {
 	/**
 	:name:	contentInsets
 	*/
-	public var contentInsetPreset: MaterialEdgeInset = .Square2 {
+	public var contentInsetPreset: InsetsPreset = .square2 {
 		didSet {
-			contentInset = MaterialEdgeInsetToValue(contentInsetPreset)
+			contentInset = InsetsPresetToValue(preset: contentInsetPreset)
 		}
 	}
 	
 	/**
 	:name:	contentInset
 	*/
-	@IBInspectable public var contentInset: UIEdgeInsets = MaterialEdgeInsetToValue(.Square2) {
+	@IBInspectable public var contentInset = InsetsPresetToValue(preset: .square2) {
 		didSet {
 			reloadView()
 		}
@@ -186,16 +186,16 @@ public class ImageCardView : PulseView {
 	/**
 	:name:	titleLabelInsets
 	*/
-	public var titleLabelInsetPreset: MaterialEdgeInset = .Square2 {
+	public var titleLabelInsetPreset: InsetsPreset = .square2 {
 		didSet {
-			titleLabelInset = MaterialEdgeInsetToValue(titleLabelInsetPreset)
+			titleLabelInset = InsetsPresetToValue(preset: titleLabelInsetPreset)
 		}
 	}
 	
 	/**
 	:name:	titleLabelInset
 	*/
-	@IBInspectable public var titleLabelInset: UIEdgeInsets = MaterialEdgeInsetToValue(.Square2) {
+	@IBInspectable public var titleLabelInset = InsetsPresetToValue(preset: .square2) {
 		didSet {
 			reloadView()
 		}
@@ -213,16 +213,16 @@ public class ImageCardView : PulseView {
 	/**
 	:name:	contentViewInsets
 	*/
-	public var contentViewInsetPreset: MaterialEdgeInset = .Square2 {
+	public var contentViewInsetPreset: InsetsPreset = .square2 {
 		didSet {
-			contentViewInset = MaterialEdgeInsetToValue(contentViewInsetPreset)
+			contentViewInset = InsetsPresetToValue(preset: contentViewInsetPreset)
 		}
 	}
 	
 	/**
 	:name:	contentViewInset
 	*/
-	@IBInspectable public var contentViewInset: UIEdgeInsets = MaterialEdgeInsetToValue(.Square2) {
+	@IBInspectable public var contentViewInset = InsetsPresetToValue(preset: .square2) {
 		didSet {
 			reloadView()
 		}
@@ -240,16 +240,16 @@ public class ImageCardView : PulseView {
 	/**
 	:name:	leftButtonsInsets
 	*/
-	public var leftButtonsInsetPreset: MaterialEdgeInset = .None {
+	public var leftButtonsInsetPreset: InsetsPreset = .none {
 		didSet {
-			leftButtonsInset = MaterialEdgeInsetToValue(leftButtonsInsetPreset)
+			leftButtonsInset = InsetsPresetToValue(preset: leftButtonsInsetPreset)
 		}
 	}
 	
 	/**
 	:name:	leftButtonsInset
 	*/
-	@IBInspectable public var leftButtonsInset: UIEdgeInsets = MaterialEdgeInsetToValue(.None) {
+	@IBInspectable public var leftButtonsInset = Insets.zero {
 		didSet {
 			reloadView()
 		}
@@ -267,16 +267,16 @@ public class ImageCardView : PulseView {
 	/**
 	:name:	rightButtonsInsets
 	*/
-	public var rightButtonsInsetPreset: MaterialEdgeInset = .None {
+	public var rightButtonsInsetPreset: InsetsPreset = .none {
 		didSet {
-			rightButtonsInset = MaterialEdgeInsetToValue(rightButtonsInsetPreset)
+			rightButtonsInset = InsetsPresetToValue(preset: rightButtonsInsetPreset)
 		}
 	}
 	
 	/**
 	:name:	rightButtonsInset
 	*/
-	@IBInspectable public var rightButtonsInset: UIEdgeInsets = MaterialEdgeInsetToValue(.None) {
+	@IBInspectable public var rightButtonsInset = Insets.zero {
 		didSet {
 			reloadView()
 		}
@@ -317,14 +317,14 @@ public class ImageCardView : PulseView {
 	*/
 	public convenience init?(image: UIImage? = nil, titleLabel: UILabel? = nil, contentView: UIView? = nil, leftButtons: Array<UIButton>? = nil, rightButtons: Array<UIButton>? = nil) {
 		self.init(frame: CGRect.zero)
-		prepareProperties(image, titleLabel: titleLabel, contentView: contentView, leftButtons: leftButtons, rightButtons: rightButtons)
+		prepareProperties(image: image, titleLabel: titleLabel, contentView: contentView, leftButtons: leftButtons, rightButtons: rightButtons)
 	}
 	
 	/**
 	:name:	layoutSublayersOfLayer
 	*/
-	public override func layoutSublayersOfLayer(layer: CALayer) {
-		super.layoutSublayersOfLayer(layer)
+	public override func layoutSublayers(of layer: CALayer) {
+		super.layoutSublayers(of: layer)
 		if self.layer == layer {
 			// image
 			imageLayer?.frame.size.width = bounds.width
@@ -338,7 +338,7 @@ public class ImageCardView : PulseView {
 					y += rightButtonsInset.top + rightButtonsInset.bottom + rightButtons![0].frame.height
 				}
 				if 0 < y {
-					prepareDivider(bounds.height - y - 0.5, width: bounds.width)
+					prepareDivider(y: bounds.height - y - 0.5, width: bounds.width)
 				}
 			} else {
 				dividerLayer?.removeFromSuperlayer()
@@ -422,7 +422,7 @@ public class ImageCardView : PulseView {
 					i += 1
 				}
 				
-				addConstraints(Layout.constraint(h, options: [], metrics: ["left" : contentInset.left + leftButtonsInset.left, "left_right" : leftButtonsInset.left + leftButtonsInset.right], views: d))
+				addConstraints(Layout.constraint(format: h, options: [], metrics: ["left" : contentInset.left + leftButtonsInset.left, "left_right" : leftButtonsInset.left + leftButtonsInset.right], views: d))
 			}
 		}
 		
@@ -451,7 +451,7 @@ public class ImageCardView : PulseView {
 					i -= 1
 				}
 				
-				addConstraints(Layout.constraint(h + "|", options: [], metrics: ["right" : contentInset.right + rightButtonsInset.right, "right_left" : rightButtonsInset.right + rightButtonsInset.left], views: d))
+				addConstraints(Layout.constraint(format: h + "|", options: [], metrics: ["right" : contentInset.right + rightButtonsInset.right, "right_left" : rightButtonsInset.right + rightButtonsInset.left], views: d))
 			}
 		}
 		
@@ -514,7 +514,7 @@ public class ImageCardView : PulseView {
 				metrics["insetBottom"] = contentInset.bottom + rightButtonsInset.bottom
 			} else {
 				if translatesAutoresizingMaskIntoConstraints {
-					addConstraints(Layout.constraint("V:[view(height)]", options: [], metrics: ["height": imageLayer!.frame.height], views: ["view": self]))
+					addConstraints(Layout.constraint(format: "V:[view(height)]", options: [], metrics: ["height": imageLayer!.frame.height], views: ["view": self]))
 				} else {
 					height = imageLayer!.frame.height
 				}
@@ -523,7 +523,7 @@ public class ImageCardView : PulseView {
 		
 		if 0 < views.count {
 			verticalFormat += "-(insetBottom)-|"
-			addConstraints(Layout.constraint(verticalFormat, options: [], metrics: metrics, views: views))
+			addConstraints(Layout.constraint(format: verticalFormat, options: [], metrics: metrics, views: views))
 		}
 	}
 	
@@ -532,7 +532,7 @@ public class ImageCardView : PulseView {
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		depth = .Depth1
+		depth = .depth1
 		dividerColor = Color.grey.lighten3
 		cornerRadiusPreset = .Radius1
 	}
@@ -558,8 +558,8 @@ public class ImageCardView : PulseView {
 			dividerLayer!.zPosition = 0
 			layer.addSublayer(dividerLayer!)
 		}
-		dividerLayer?.backgroundColor = dividerColor?.CGColor
-		dividerLayer?.frame = CGRectMake(dividerInset.left, y, width - dividerInset.left - dividerInset.right, 1)
+		dividerLayer?.backgroundColor = dividerColor?.cgColor
+        dividerLayer?.frame = CGRect(x: dividerInset.left, y: y, width: width - dividerInset.left - dividerInset.right, height: 1)
 	}
 	
 	/**

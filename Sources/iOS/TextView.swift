@@ -157,9 +157,9 @@ public class TextView: UITextView {
 	for the backing layer. This is the preferred method of setting depth
 	in order to maintain consitency across UI objects.
 	*/
-	public var depth: MaterialDepth = .None {
+	public var depthPreset = .none {
 		didSet {
-			let value: MaterialDepthType = MaterialDepthToValue(depth)
+			let value: Depth = DepthPresetToValue(preset)
 			shadowOffset = value.offset
 			shadowOpacity = value.opacity
 			shadowRadius = value.radius
@@ -286,14 +286,14 @@ public class TextView: UITextView {
 	Text container UIEdgeInset preset property. This updates the 
 	textContainerInset property with a preset value.
 	*/
-	public var textContainerInsetPreset: MaterialEdgeInset = .None {
+	public var textContainerInsetPreset: InsetsPreset = .none {
 		didSet {
-			textContainerInset = MaterialEdgeInsetToValue(textContainerInsetPreset)
+			textContainerInset = InsetsPresetToValue(preset: textContainerInsetPreset)
 		}
 	}
 	
 	/// Text container UIEdgeInset property.
-	public override var textContainerInset: UIEdgeInsets {
+	public override var textContainerInset: Insets {
 		didSet {
 			reloadView()
 		}
@@ -459,7 +459,7 @@ public class TextView: UITextView {
 	*/
 	public func prepareView() {
 		contentScaleFactor = Device.scale
-		textContainerInset = MaterialEdgeInsetToValue(.None)
+		textContainerInset = Insets.zero
 		backgroundColor = Color.white
 		masksToBounds = false
 		removeNotificationHandlers()

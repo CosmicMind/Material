@@ -49,14 +49,14 @@ public class Menu {
 	}
 
 	/// A preset wrapper around interimSpace.
-	public var interimSpacePreset: InterimSpace = .none {
+	public var interimSpacePreset: InterimSpacePreset = .none {
 		didSet {
-			interimSpace = InterimSpaceToValue(interimSpacePreset)
+            interimSpace = InterimSpacePresetToValue(preset: interimSpacePreset)
 		}
 	}
 
 	/// The space between views.
-	public var interimSpace: CGFloat {
+	public var interimSpace: InterimSpace {
 		didSet {
 			reload()
 		}
@@ -90,7 +90,7 @@ public class Menu {
 	- Parameter origin: The origin position of the Menu.
 	- Parameter interimSpace: The interimSpace size between views.
 	*/
-	public init(origin: CGPoint, interimSpace: CGFloat = 16) {
+	public init(origin: CGPoint, interimSpace: InterimSpace = 16) {
 		self.origin = origin
 		self.interimSpace = interimSpace
 	}

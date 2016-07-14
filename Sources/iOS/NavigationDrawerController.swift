@@ -48,7 +48,7 @@ public extension UIViewController {
 			if viewController is NavigationDrawerController {
 				return viewController as? NavigationDrawerController
 			}
-			viewController = viewController?.parentViewController
+			viewController = viewController?.parent
 		}
 		return nil
 	}
@@ -272,10 +272,10 @@ public class NavigationDrawerController : RootController, UIGestureRecognizerDel
 	public private(set) var isStatusBarHidden: Bool = false
 	
 	/**
-	A MaterialDepth property that is used to set the depth of the
+	A DepthPreset property that is used to set the depth of the
 	leftView when opened.
 	*/
-	public var depth: MaterialDepth = .Depth1
+	public var depthPreset = .depth1
 	
 	/**
 	A View property that is used to hide and reveal the

@@ -50,7 +50,7 @@
 		96BCB7BE1CB40DC500C806FE /* MaterialCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7751CB40DC500C806FE /* MaterialCollectionViewLayout.swift */; };
 		96BCB7BF1CB40DC500C806FE /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7761CB40DC500C806FE /* Color.swift */; };
 		96BCB7C01CB40DC500C806FE /* MaterialDataSourceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7771CB40DC500C806FE /* MaterialDataSourceItem.swift */; };
-		96BCB7C11CB40DC500C806FE /* MaterialDepth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7781CB40DC500C806FE /* MaterialDepth.swift */; };
+		96BCB7C11CB40DC500C806FE /* Depth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7781CB40DC500C806FE /* Depth.swift */; };
 		96BCB7C21CB40DC500C806FE /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7791CB40DC500C806FE /* Device.swift */; };
 		96BCB7C31CB40DC500C806FE /* Insets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB77A1CB40DC500C806FE /* Insets.swift */; };
 		96BCB7C41CB40DC500C806FE /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB77B1CB40DC500C806FE /* Font.swift */; };
@@ -164,7 +164,7 @@
 		96BCB84C1CB4115200C806FE /* TextView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB79E1CB40DC500C806FE /* TextView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB84D1CB4115200C806FE /* MaterialBorder.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB76F1CB40DC500C806FE /* MaterialBorder.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB84E1CB4115200C806FE /* InterimSpace.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7871CB40DC500C806FE /* InterimSpace.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		96BCB84F1CB4115200C806FE /* MaterialDepth.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7781CB40DC500C806FE /* MaterialDepth.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96BCB84F1CB4115200C806FE /* Depth.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7781CB40DC500C806FE /* Depth.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8501CB4115200C806FE /* Insets.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB77A1CB40DC500C806FE /* Insets.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8511CB4115200C806FE /* MaterialGravity.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB77C1CB40DC500C806FE /* MaterialGravity.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8521CB4115200C806FE /* MaterialRadius.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7851CB40DC500C806FE /* MaterialRadius.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -241,7 +241,7 @@
 		96BCB7751CB40DC500C806FE /* MaterialCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialCollectionViewLayout.swift; sourceTree = "<group>"; };
 		96BCB7761CB40DC500C806FE /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		96BCB7771CB40DC500C806FE /* MaterialDataSourceItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialDataSourceItem.swift; sourceTree = "<group>"; };
-		96BCB7781CB40DC500C806FE /* MaterialDepth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialDepth.swift; sourceTree = "<group>"; };
+		96BCB7781CB40DC500C806FE /* Depth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Depth.swift; sourceTree = "<group>"; };
 		96BCB7791CB40DC500C806FE /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		96BCB77A1CB40DC500C806FE /* Insets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Insets.swift; sourceTree = "<group>"; };
 		96BCB77B1CB40DC500C806FE /* Font.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
@@ -533,7 +533,7 @@
 			children = (
 				96BCB76F1CB40DC500C806FE /* MaterialBorder.swift */,
 				96BCB7871CB40DC500C806FE /* InterimSpace.swift */,
-				96BCB7781CB40DC500C806FE /* MaterialDepth.swift */,
+				96BCB7781CB40DC500C806FE /* Depth.swift */,
 				96BCB77A1CB40DC500C806FE /* Insets.swift */,
 				96BCB77C1CB40DC500C806FE /* MaterialGravity.swift */,
 				96BCB7851CB40DC500C806FE /* MaterialRadius.swift */,
@@ -721,7 +721,7 @@
 				96BCB84C1CB4115200C806FE /* TextView.swift in Headers */,
 				96BCB84D1CB4115200C806FE /* MaterialBorder.swift in Headers */,
 				96BCB84E1CB4115200C806FE /* InterimSpace.swift in Headers */,
-				96BCB84F1CB4115200C806FE /* MaterialDepth.swift in Headers */,
+				96BCB84F1CB4115200C806FE /* Depth.swift in Headers */,
 				96BCB8501CB4115200C806FE /* Insets.swift in Headers */,
 				96BCB8511CB4115200C806FE /* MaterialGravity.swift in Headers */,
 				96BCB8521CB4115200C806FE /* MaterialRadius.swift in Headers */,
@@ -920,7 +920,7 @@
 				96BCB7CF1CB40DC500C806FE /* MaterialShape.swift in Sources */,
 				96BCB7DF1CB40DC500C806FE /* SearchBarController.swift in Sources */,
 				96BCB7D31CB40DC500C806FE /* MaterialTextLayer.swift in Sources */,
-				96BCB7C11CB40DC500C806FE /* MaterialDepth.swift in Sources */,
+				96BCB7C11CB40DC500C806FE /* Depth.swift in Sources */,
 				96BCB7D61CB40DC500C806FE /* Menu.swift in Sources */,
 				96BCB7E61CB40DC500C806FE /* TextStorage.swift in Sources */,
 				96BCB7B21CB40DC500C806FE /* Material+UIImage+Network.swift in Sources */,
@@ -1129,6 +1129,7 @@
 		9638324D1B88DFD80015F710 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ANALYZER_OBJC_UNUSED_IVARS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1137,6 +1138,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_WARN_UNUSED_VALUE = YES;
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1151,6 +1153,7 @@
 		9638324E1B88DFD80015F710 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ANALYZER_OBJC_UNUSED_IVARS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1159,6 +1162,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_WARN_UNUSED_VALUE = YES;
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

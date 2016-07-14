@@ -131,12 +131,12 @@ public class Grid {
     /// Preset inset value for grid.
     public var layoutInsetsPreset: InsetsPreset = .none {
         didSet {
-            layoutInsets = InsetsPresetToValue(insets: contentInsetsPreset)
+            layoutInsets = InsetsPresetToValue(preset: contentInsetsPreset)
         }
     }
     
     /// Insets value for grid.
-    public var layoutInsets: Insets = InsetsPresetToValue(insets: .none) {
+    public var layoutInsets: Insets = InsetsPresetToValue(preset: .none) {
         didSet {
             reload()
         }
@@ -145,26 +145,26 @@ public class Grid {
     /// Preset inset value for grid.
     public var contentInsetsPreset: InsetsPreset = .none {
         didSet {
-            contentInsets = InsetsPresetToValue(insets: contentInsetsPreset)
+            contentInsets = InsetsPresetToValue(preset: contentInsetsPreset)
         }
     }
     
     /// Insets value for grid.
-    public var contentInsets: Insets = InsetsPresetToValue(insets: .none) {
+    public var contentInsets: Insets = InsetsPresetToValue(preset: .none) {
         didSet {
             reload()
         }
     }
     
     /// A preset wrapper for interim space.
-    public var interimSpacePreset: InterimSpace = .none {
+    public var interimSpacePreset: InterimSpacePreset = .none {
         didSet {
-            interimSpace = InterimSpaceToValue(interimSpace: interimSpacePreset)
+            interimSpace = InterimSpacePresetToValue(preset: interimSpacePreset)
         }
     }
     
     /// The space between grid rows and columnss.
-    public var interimSpace: CGFloat {
+    public var interimSpace: InterimSpace {
         didSet {
             reload()
         }
@@ -181,9 +181,9 @@ public class Grid {
      Initializer.
      - Parameter rows: The number of rows, vertical axis the grid will use.
      - Parameter columns: The number of columns, horizontal axis the grid will use.
-     - Parameter interimSpace: The interimSpace between rows or columns.
+     - Parameter interimSpace: The interim space between rows or columns.
      */
-    public init(context: UIView?, rows: Int = 12, columns: Int = 12, interimSpace: CGFloat = 0) {
+    public init(context: UIView?, rows: Int = 12, columns: Int = 12, interimSpace: InterimSpace = 0) {
         self.context = context
         self.rows = rows
         self.columns = columns
