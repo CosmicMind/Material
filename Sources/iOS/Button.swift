@@ -209,7 +209,7 @@ public class Button: UIButton {
      */
     public var depth = Depth.zero {
         didSet {
-            shadowOffset = depth.offsetAsSize
+            shadowOffset = depth.offset.asSize
             shadowOpacity = depth.opacity
             shadowRadius = depth.radius
             layoutShadowPath()

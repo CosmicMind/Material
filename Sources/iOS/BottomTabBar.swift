@@ -33,12 +33,12 @@ import UIKit
 public extension UITabBarItem {
 	/// Sets the color of the title color for a state.
 	public func setTitleColor(color: UIColor, forState state: UIControlState) {
-		setTitleTextAttributes([NSForegroundColorAttributeName: color], forState: state)
+		setTitleTextAttributes([NSForegroundColorAttributeName: color], for: state)
 	}
 }
 
 @IBDesignable
-public class BottomTabBar : UITabBar {
+public class BottomTabBar: UITabBar {
 	/// Automatically aligns the BottomNavigationBar to the superview.
 	public var autoLayoutToSuperview: Bool = true
 	
@@ -117,7 +117,7 @@ public class BottomTabBar : UITabBar {
 	/// A property that accesses the backing layer's shadowColor.
 	@IBInspectable public var shadowColor: UIColor? {
 		didSet {
-			layer.shadowColor = shadowColor?.CGColor
+			layer.shadowColor = shadowColor?.cgColor
 		}
 	}
 	
@@ -154,7 +154,7 @@ public class BottomTabBar : UITabBar {
 	/// A preset property to set the borderWidth.
 	public var borderWidthPreset: MaterialBorder = .None {
 		didSet {
-			borderWidth = MaterialBorderToValue(borderWidthPreset)
+			borderWidth = MaterialBorderToValue(border: borderWidthPreset)
 		}
 	}
 	
@@ -171,10 +171,10 @@ public class BottomTabBar : UITabBar {
 	/// A property that accesses the layer.borderColor property.
 	@IBInspectable public var borderColor: UIColor? {
 		get {
-			return nil == layer.borderColor ? nil : UIColor(CGColor: layer.borderColor!)
+			return nil == layer.borderColor ? nil : UIColor(cgColor: layer.borderColor!)
 		}
 		set(value) {
-			layer.borderColor = value?.CGColor
+			layer.borderColor = value?.cgColor
 		}
 	}
 	
@@ -246,10 +246,10 @@ public class BottomTabBar : UITabBar {
 	when subclassing.
 	*/
 	public func prepareView() {
-		depth = .depth1
+		depthPreset = .depth1
 		contentScaleFactor = Device.scale
 		backgroundColor = Color.white
-		let image: UIImage? = UIImage.imageWithColor(Color.clear, size: CGSizeMake(1, 1))
+        let image: UIImage? = UIImage.imageWithColor(color: Color.clear, size: CGSize(width: 1, height: 1))
 		shadowImage = image
 		backgroundImage = image
 	}
@@ -260,14 +260,14 @@ private var MaterialAssociatedObjectTabBarKey: UInt8 = 0
 
 public class MaterialAssociatedObjectTabBar {
 	/**
-	A property that sets the shadowOffset, shadowOpacity, and shadowRadius
-	for the backing layer. This is the preferred method of setting depth
-	in order to maintain consitency across UI objects.
-	*/
-	public var depthPreset
+     A property that sets the shadowOffset, shadowOpacity, and shadowRadius
+     for the backing layer. This is the preferred method of setting depth
+     in order to maintain consitency across UI objects.
+     */
+    public var depthPreset: DepthPreset
 	
-	public init(depthPreset) {
-		self.depth = depth
+    public init(depthPreset: DepthPreset) {
+		self.depthPreset = depthPreset
 	}
 }
 
@@ -276,7 +276,7 @@ public extension UITabBar {
 	public internal(set) var item: MaterialAssociatedObjectTabBar {
 		get {
 			return AssociatedObject(base: self, key: &MaterialAssociatedObjectTabBarKey) {
-				return MaterialAssociatedObjectTabBar(depth: .none)
+				return MaterialAssociatedObjectTabBar(depthPreset: .none)
 			}
 		}
 		set(value) {
@@ -285,17 +285,17 @@ public extension UITabBar {
 	}
 	
 	/**
-	A property that sets the shadowOffset, shadowOpacity, and shadowRadius
-	for the backing layer. This is the preferred method of setting depth
-	in order to maintain consitency across UI objects.
-	*/
-	public var depthPreset {
+     A property that sets the shadowOffset, shadowOpacity, and shadowRadius
+     for the backing layer. This is the preferred method of setting depth
+     in order to maintain consitency across UI objects.
+     */
+    public var depthPreset: DepthPreset {
 		get {
-			return item.depth
+			return item.depthPreset
 		}
 		set(value) {
 			let v = DepthPresetToValue(preset: value)
-			layer.shadowOffset = v.offset
+			layer.shadowOffset = v.offset.asSize
 			layer.shadowOpacity = v.opacity
 			layer.shadowRadius = v.radius
 		}

@@ -41,6 +41,6 @@ public class IconButton: Button {
 	public override func prepareView() {
 		super.prepareView()
 		cornerRadiusPreset = .Radius1
-		pulseAnimation = .Center
+		pulseAnimation = .center
 	}
 }

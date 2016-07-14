@@ -82,7 +82,7 @@ public class TabBar : View {
 						b.removeTarget(self, action: #selector(handleButton(_:)), forControlEvents: .TouchUpInside)
 						b.addTarget(self, action: #selector(handleButton(_:)), forControlEvents: .TouchUpInside)
 					}
-					grid.views = v as Array<UIView>
+					grid.views = v as [UIView]
 					line.frame = CGRectMake(0, .Bottom == lineAlignment ? height - 3 : 0, v.first!.frame.width, 3)
 				}
 			}

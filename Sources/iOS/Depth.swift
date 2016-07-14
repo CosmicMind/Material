@@ -41,7 +41,7 @@ public enum DepthPreset {
 
 public struct Depth {
     /// Offset.
-    public var offset: UIOffset
+    public var offset: Offset
     
     /// Opacity.
     public var opacity: Float
@@ -49,18 +49,13 @@ public struct Depth {
     /// Radius.
     public var radius: CGFloat
     
-    /// Offset as size.
-    public var offsetAsSize: CGSize {
-        return CGSize(width: offset.horizontal, height: offset.vertical)
-    }
-    
     /**
      Initializer.
      - Parameter offset: UIOffset.
      - Parameter opacity: Float.
      - Parameter radius: CGFloat.
      */
-    public init(offset: UIOffset = UIOffset.zero, opacity: Float = 0, radius: CGFloat = 0) {
+    public init(offset: Offset = Offset.zero, opacity: Float = 0, radius: CGFloat = 0) {
         self.offset = offset
         self.opacity = opacity
         self.radius = radius
@@ -81,14 +76,14 @@ public func DepthPresetToValue(preset: DepthPreset) -> Depth {
 	case .none:
 		return Depth.zero
 	case .depth1:
-        return Depth(offset: UIOffset(horizontal: 0, vertical: 1), opacity: 0.3, radius: 1)
+        return Depth(offset: Offset(horizontal: 0, vertical: 1), opacity: 0.3, radius: 1)
 	case .depth2:
-        return Depth(offset: UIOffset(horizontal: 0, vertical: 2), opacity: 0.3, radius: 2)
+        return Depth(offset: Offset(horizontal: 0, vertical: 2), opacity: 0.3, radius: 2)
 	case .depth3:
-        return Depth(offset: UIOffset(horizontal: 0, vertical: 3), opacity: 0.3, radius: 3)
+        return Depth(offset: Offset(horizontal: 0, vertical: 3), opacity: 0.3, radius: 3)
 	case .depth4:
-        return Depth(offset: UIOffset(horizontal: 0, vertical: 4), opacity: 0.3, radius: 4)
+        return Depth(offset: Offset(horizontal: 0, vertical: 4), opacity: 0.3, radius: 4)
 	case .depth5:
-        return Depth(offset: UIOffset(horizontal: 0, vertical: 5), opacity: 0.3, radius: 5)
+        return Depth(offset: Offset(horizontal: 0, vertical: 5), opacity: 0.3, radius: 5)
 	}
 }

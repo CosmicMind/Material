@@ -101,7 +101,7 @@ public class RootController : UIViewController {
 	A method to swap rootViewController objects.
 	- Parameter toViewController: The UIViewController to swap
 	with the active rootViewController.
-	- Parameter duration: A NSTimeInterval that sets the
+	- Parameter duration: A TimeInterval that sets the
 	animation duration of the transition.
 	- Parameter options: UIViewAnimationOptions thst are used
 	when animating the transition from the active rootViewController
@@ -113,7 +113,7 @@ public class RootController : UIViewController {
 	the transition animation from the active rootViewController
 	to the toViewController has completed.
 	*/
-	public func transitionFromRootViewController(toViewController: UIViewController, duration: NSTimeInterval = 0.5, options: UIViewAnimationOptions = [], animations: (() -> Void)? = nil, completion: ((Bool) -> Void)? = nil) {
+	public func transitionFromRootViewController(toViewController: UIViewController, duration: TimeInterval = 0.5, options: UIViewAnimationOptions = [], animations: (() -> Void)? = nil, completion: ((Bool) -> Void)? = nil) {
 		rootViewController.willMoveToParentViewController(nil)
 		addChildViewController(toViewController)
 		toViewController.view.frame = rootViewController.view.frame

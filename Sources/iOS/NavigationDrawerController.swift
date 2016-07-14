@@ -438,7 +438,7 @@ public class NavigationDrawerController : RootController, UIGestureRecognizerDel
 	- Parameter animated: A Boolean value that indicates to animate
 	the leftView width change.
 	*/
-	public func setLeftViewWidth(width: CGFloat, hidden: Bool, animated: Bool, duration: NSTimeInterval = 0.5) {
+	public func setLeftViewWidth(width: CGFloat, hidden: Bool, animated: Bool, duration: TimeInterval = 0.5) {
 		if let v: View = leftView {
 			leftViewWidth = width
 			
@@ -512,7 +512,7 @@ public class NavigationDrawerController : RootController, UIGestureRecognizerDel
 	- Parameter animated: A Boolean value that indicates to animate
 	the rightView width change.
 	*/
-	public func setRightViewWidth(width: CGFloat, hidden: Bool, animated: Bool, duration: NSTimeInterval = 0.5) {
+	public func setRightViewWidth(width: CGFloat, hidden: Bool, animated: Bool, duration: TimeInterval = 0.5) {
 		if let v: View = rightView {
 			rightViewWidth = width
 			

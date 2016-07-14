@@ -171,7 +171,7 @@ public class Grid {
     }
     
     /// An Array of UIButtons.
-    public var views: Array<UIView>? {
+    public var views: [UIView]? {
         didSet {
             reload()
         }
@@ -194,9 +194,9 @@ public class Grid {
     
     /// Reload the button layout.
     public func reload() {
-        if let v: Array<UIView> = views {
-            let gc: Int = axis.inherited ? columns : axis.columns
-            let gr: Int = axis.inherited ? rows : axis.rows
+        if let v = views {
+            let gc = axis.inherited ? columns : axis.columns
+            let gr = axis.inherited ? rows : axis.rows
             var n: Int = 0
             for i in 0..<v.count {
                 let child: UIView = v[i]

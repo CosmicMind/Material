@@ -48,7 +48,7 @@ public class BottomNavigationFadeAnimatedTransitioning : NSObject, UIViewControl
 			}
 	}
 	
-	public func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+	public func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
 		return 0.35
 	}
 }

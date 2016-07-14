@@ -65,7 +65,7 @@ public typealias MaterialAnimationDelayCancelBlock = (cancel : Bool) -> Void
 
 public struct MaterialAnimation {
 	/// Delay helper method.
-	public static func delay(time: NSTimeInterval, completion: ()-> Void) ->  MaterialAnimationDelayCancelBlock? {
+	public static func delay(time: TimeInterval, completion: ()-> Void) ->  MaterialAnimationDelayCancelBlock? {
 		
 		func dispatch_later(completion: ()-> Void) {
 			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), completion)
