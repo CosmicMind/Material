@@ -141,7 +141,7 @@ public class NavigationController : UINavigationController, UIGestureRecognizerD
 	*/
 	public func prepareView() {
 		view.clipsToBounds = true
-		view.contentScaleFactor = MaterialDevice.scale
+		view.contentScaleFactor = Device.scale
 		
 		// This ensures the panning gesture is available when going back between views.
 		if let v: UIGestureRecognizer = interactivePopGestureRecognizer {

@@ -269,7 +269,7 @@ public class NavigationDrawerController : RootController, UIGestureRecognizerDel
 	@IBInspectable public var enableHideStatusBar: Bool = true
 	
 	/// Sets the statusBar to hidden or not.
-	public private(set) var statusBarHidden: Bool = false
+	public private(set) var isStatusBarHidden: Bool = false
 	
 	/**
 	A MaterialDepth property that is used to set the depth of the
@@ -309,7 +309,7 @@ public class NavigationDrawerController : RootController, UIGestureRecognizerDel
 		guard nil != rightView else {
 			return false
 		}
-		return rightView!.x != MaterialDevice.width
+		return rightView!.x != Device.width
 	}
 	
 	/**
@@ -888,7 +888,7 @@ public class NavigationDrawerController : RootController, UIGestureRecognizerDel
 		
 		enabledLeftView = true
 		
-		leftViewWidth = .iPhone == MaterialDevice.type ? 280 : 320
+		leftViewWidth = .phone == Device.userInterfaceIdiom ? 280 : 320
 		leftView = View()
 		leftView!.frame = CGRectMake(0, 0, leftViewWidth, view.frame.height)
 		leftView!.backgroundColor = Color.clear
@@ -908,7 +908,7 @@ public class NavigationDrawerController : RootController, UIGestureRecognizerDel
 		
 		enabledRightView = true
 		
-		rightViewWidth = .iPhone == MaterialDevice.type ? 280 : 320
+		rightViewWidth = .phone == Device.userInterfaceIdiom ? 280 : 320
 		rightView = View()
 		rightView!.frame = CGRectMake(0, 0, rightViewWidth, view.frame.height)
 		rightView!.backgroundColor = Color.clear
@@ -1005,8 +1005,8 @@ public class NavigationDrawerController : RootController, UIGestureRecognizerDel
 	
 	/// Shows the statusBar.
 	private func showStatusBar() {
-		if statusBarHidden {
-			statusBarHidden = false
+		if isStatusBarHidden {
+			isStatusBarHidden = false
 			dispatch_async(dispatch_get_main_queue(), { [weak self] in
 				if let s: NavigationDrawerController = self {
 					if let v: UIWindow = UIApplication.sharedApplication().keyWindow {
@@ -1021,8 +1021,8 @@ public class NavigationDrawerController : RootController, UIGestureRecognizerDel
 	/// Hides the statusBar.
 	private func hideStatusBar() {
 		if enableHideStatusBar {
-			if !statusBarHidden {
-				statusBarHidden = true
+			if !isStatusBarHidden {
+				isStatusBarHidden = true
 				dispatch_async(dispatch_get_main_queue(), { [weak self] in
 					if let s: NavigationDrawerController = self {
 						if let v: UIWindow = UIApplication.sharedApplication().keyWindow {
@@ -1037,7 +1037,7 @@ public class NavigationDrawerController : RootController, UIGestureRecognizerDel
 	
 	/// Toggles the statusBar
 	private func toggleStatusBar() {
-		if opened || MaterialDevice.isLandscape && .iPhone == MaterialDevice.type {
+		if opened || Device.isLandscape && .phone == Device.userInterfaceIdiom {
 			hideStatusBar()
 		} else {
 			showStatusBar()

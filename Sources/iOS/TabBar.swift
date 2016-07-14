@@ -109,7 +109,7 @@ public class TabBar : View {
 	public override func prepareView() {
 		super.prepareView()
 		autoresizingMask = .FlexibleWidth
-		contentScaleFactor = MaterialDevice.scale
+		contentScaleFactor = Device.scale
 		prepareBottomLayer()
 	}
 	

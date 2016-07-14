@@ -97,7 +97,7 @@ public class BottomNavigationController : UITabBarController, UITabBarController
 	public func layoutSubviews() {
 		if let v: Array<UITabBarItem> = tabBar.items {
 			for item in v {
-				if .iPhone == MaterialDevice.type {
+				if .phone == Device.userInterfaceIdiom {
 					if nil == item.title {
 						let inset: CGFloat = 7
 						item.imageInsets = UIEdgeInsetsMake(inset, 0, -inset, 0)
@@ -128,7 +128,7 @@ public class BottomNavigationController : UITabBarController, UITabBarController
 	*/
 	public func prepareView() {
 		view.clipsToBounds = true
-		view.contentScaleFactor = MaterialDevice.scale
+		view.contentScaleFactor = Device.scale
 		delegate = self
 		prepareTabBar()
 	}

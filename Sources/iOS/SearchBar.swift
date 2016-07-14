@@ -147,7 +147,7 @@ public class SearchBar : BarView {
 	/// Prepares the textField.
 	private func prepareTextField() {
 		textField = UITextField()
-		textField.contentScaleFactor = MaterialDevice.scale
+		textField.contentScaleFactor = Device.scale
 		textField.font = RobotoFont.regularWithSize(17)
 		textField.backgroundColor = Color.clear
 		textField.clearButtonMode = .WhileEditing

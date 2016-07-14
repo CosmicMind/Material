@@ -41,10 +41,10 @@ public extension UINavigationBar {
 	/// Device status bar style.
 	public var statusBarStyle: UIStatusBarStyle {
 		get {
-			return MaterialDevice.statusBarStyle
+			return Device.statusBarStyle
 		}
 		set(value) {
-			MaterialDevice.statusBarStyle = value
+			Device.statusBarStyle = value
 		}
 	}
 }
@@ -290,11 +290,11 @@ public class NavigationBar : UINavigationBar {
 	public override func intrinsicContentSize() -> CGSize {
 		switch navigationBarStyle {
 		case .Tiny:
-			return CGSize(width: MaterialDevice.width, height: 32)
+			return CGSize(width: Device.width, height: 32)
 		case .Default:
-			return CGSize(width: MaterialDevice.width, height: 44)
+			return CGSize(width: Device.width, height: 44)
 		case .Medium:
-			return CGSize(width: MaterialDevice.width, height: 56)
+			return CGSize(width: Device.width, height: 56)
 		}
 	}
 	
@@ -434,7 +434,7 @@ public class NavigationBar : UINavigationBar {
 		depth = .Depth1
 		interimSpacePreset = .interimSpace1
 		contentInsetPreset = .Square1
-		contentScaleFactor = MaterialDevice.scale
+		contentScaleFactor = Device.scale
 		backButtonImage = Icon.cm.arrowBack
 		let image: UIImage? = UIImage.imageWithColor(Color.clear, size: CGSizeMake(1, 1))
 		shadowImage = image

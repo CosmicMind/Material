@@ -465,7 +465,7 @@ public class Button: UIButton {
 	when subclassing.
 	*/
 	public func prepareView() {
-		contentScaleFactor = MaterialDevice.scale
+		contentScaleFactor = Device.scale
 		prepareVisualLayer()
 	}
 	

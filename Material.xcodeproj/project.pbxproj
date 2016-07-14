@@ -51,7 +51,7 @@
 		96BCB7BF1CB40DC500C806FE /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7761CB40DC500C806FE /* Color.swift */; };
 		96BCB7C01CB40DC500C806FE /* MaterialDataSourceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7771CB40DC500C806FE /* MaterialDataSourceItem.swift */; };
 		96BCB7C11CB40DC500C806FE /* MaterialDepth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7781CB40DC500C806FE /* MaterialDepth.swift */; };
-		96BCB7C21CB40DC500C806FE /* MaterialDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7791CB40DC500C806FE /* MaterialDevice.swift */; };
+		96BCB7C21CB40DC500C806FE /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7791CB40DC500C806FE /* Device.swift */; };
 		96BCB7C31CB40DC500C806FE /* Insets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB77A1CB40DC500C806FE /* Insets.swift */; };
 		96BCB7C41CB40DC500C806FE /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB77B1CB40DC500C806FE /* Font.swift */; };
 		96BCB7C51CB40DC500C806FE /* MaterialGravity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB77C1CB40DC500C806FE /* MaterialGravity.swift */; };
@@ -123,7 +123,7 @@
 		96BCB8231CB4115200C806FE /* MaterialCollectionViewLayout.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7751CB40DC500C806FE /* MaterialCollectionViewLayout.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8241CB4115200C806FE /* MaterialTableViewCell.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7891CB40DC500C806FE /* MaterialTableViewCell.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8251CB4115200C806FE /* Color.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7761CB40DC500C806FE /* Color.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		96BCB8261CB4115200C806FE /* MaterialDevice.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7791CB40DC500C806FE /* MaterialDevice.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96BCB8261CB4115200C806FE /* Device.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7791CB40DC500C806FE /* Device.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8271CB4115200C806FE /* Material+Obj-C.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7631CB40DC500C806FE /* Material+Obj-C.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8281CB4115200C806FE /* Material+String.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7641CB40DC500C806FE /* Material+String.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8291CB4115200C806FE /* Material+UIFont.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7651CB40DC500C806FE /* Material+UIFont.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -242,7 +242,7 @@
 		96BCB7761CB40DC500C806FE /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		96BCB7771CB40DC500C806FE /* MaterialDataSourceItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialDataSourceItem.swift; sourceTree = "<group>"; };
 		96BCB7781CB40DC500C806FE /* MaterialDepth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialDepth.swift; sourceTree = "<group>"; };
-		96BCB7791CB40DC500C806FE /* MaterialDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialDevice.swift; sourceTree = "<group>"; };
+		96BCB7791CB40DC500C806FE /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		96BCB77A1CB40DC500C806FE /* Insets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Insets.swift; sourceTree = "<group>"; };
 		96BCB77B1CB40DC500C806FE /* Font.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		96BCB77C1CB40DC500C806FE /* MaterialGravity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialGravity.swift; sourceTree = "<group>"; };
@@ -593,7 +593,7 @@
 		96BCB80B1CB410CC00C806FE /* Device */ = {
 			isa = PBXGroup;
 			children = (
-				96BCB7791CB40DC500C806FE /* MaterialDevice.swift */,
+				96BCB7791CB40DC500C806FE /* Device.swift */,
 			);
 			name = Device;
 			sourceTree = "<group>";
@@ -680,7 +680,7 @@
 				96BCB8231CB4115200C806FE /* MaterialCollectionViewLayout.swift in Headers */,
 				96BCB8241CB4115200C806FE /* MaterialTableViewCell.swift in Headers */,
 				96BCB8251CB4115200C806FE /* Color.swift in Headers */,
-				96BCB8261CB4115200C806FE /* MaterialDevice.swift in Headers */,
+				96BCB8261CB4115200C806FE /* Device.swift in Headers */,
 				96BCB8271CB4115200C806FE /* Material+Obj-C.swift in Headers */,
 				96BCB8281CB4115200C806FE /* Material+String.swift in Headers */,
 				96BCB8291CB4115200C806FE /* Material+UIFont.swift in Headers */,
@@ -830,6 +830,8 @@
 				TargetAttributes = {
 					963832351B88DFD80015F710 = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = 9Z76XCNLGL;
+						DevelopmentTeamName = "CosmicMind Inc.";
 					};
 					963832401B88DFD80015F710 = {
 						CreatedOnToolsVersion = 6.4;
@@ -952,7 +954,7 @@
 				96BCB7D81CB40DC500C806FE /* MenuController.swift in Sources */,
 				96BCB7D41CB40DC500C806FE /* MaterialTransitionAnimation.swift in Sources */,
 				967A48191D0F425A00B8CEB7 /* StatusBarController.swift in Sources */,
-				96BCB7C21CB40DC500C806FE /* MaterialDevice.swift in Sources */,
+				96BCB7C21CB40DC500C806FE /* Device.swift in Sources */,
 				96BCB7A41CB40DC500C806FE /* CaptureSession.swift in Sources */,
 				96BCB7C51CB40DC500C806FE /* MaterialGravity.swift in Sources */,
 				96BCB7D51CB40DC500C806FE /* View.swift in Sources */,

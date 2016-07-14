@@ -35,10 +35,10 @@ public class RootController : UIViewController {
 	/// Device status bar style.
 	public var statusBarStyle: UIStatusBarStyle {
 		get {
-			return MaterialDevice.statusBarStyle
+			return Device.statusBarStyle
 		}
 		set(value) {
-			MaterialDevice.statusBarStyle = value
+			Device.statusBarStyle = value
 		}
 	}
 	
@@ -129,7 +129,7 @@ public class RootController : UIViewController {
 					s.rootViewController = toViewController
 					s.rootViewController.view.clipsToBounds = true
 					s.rootViewController.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-					s.rootViewController.view.contentScaleFactor = MaterialDevice.scale
+					s.rootViewController.view.contentScaleFactor = Device.scale
 					completion?(result)
 				}
 			})
@@ -151,7 +151,7 @@ public class RootController : UIViewController {
 	*/
 	public func prepareView() {
 		view.clipsToBounds = true
-		view.contentScaleFactor = MaterialDevice.scale
+		view.contentScaleFactor = Device.scale
 		prepareRootViewController()
 	}
 	
@@ -175,7 +175,7 @@ public class RootController : UIViewController {
 			v.didMoveToParentViewController(self)
 			v.view.clipsToBounds = true
 			v.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-			v.view.contentScaleFactor = MaterialDevice.scale
+			v.view.contentScaleFactor = Device.scale
 		}
 	}
 }

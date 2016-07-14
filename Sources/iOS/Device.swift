@@ -30,21 +30,21 @@
 
 import UIKit
 
-public enum MaterialDeviceType {
-	case iPad
-	case iPhone
+public enum DeviceType {
+	case pad
+	case phone
 	case TV
-	case Unspecified
+	case unspecified
 }
 
-public struct MaterialDevice {
+public struct Device {
 	/// Gets the model name for the device.
 	public static var model: String {
-		var systemInfo: utsname = utsname()
+		var systemInfo = utsname()
 		uname(&systemInfo)
 		
-		let machineMirror: Mirror = Mirror(reflecting: systemInfo.machine)
-		let identifier: String = machineMirror.children.reduce("") { (identifier, element) in
+		let machineMirror = Mirror(reflecting: systemInfo.machine)
+		let identifier = machineMirror.children.reduce("") { (identifier, element) in
 			guard let value = element.value as? Int8 where value != 0 else {
 				return identifier
 			}
@@ -82,57 +82,48 @@ public struct MaterialDevice {
 	}
 	
 	/// Retrieves the current device type.
-	public static var type: MaterialDeviceType {
-		switch UIDevice.currentDevice().userInterfaceIdiom {
-		case .Pad:
-			return .iPad
-		case .Phone:
-			return .iPhone
-		case .TV:
-			return .TV
-		default:
-			return .Unspecified
-		}
+	public static var userInterfaceIdiom: UIUserInterfaceIdiom {
+		return UIDevice.current().userInterfaceIdiom
 	}
 	
 	/// A Boolean indicating if the device is in Landscape mode.
 	public static var isLandscape: Bool {
-		return UIApplication.sharedApplication().statusBarOrientation.isLandscape
+		return UIApplication.shared().statusBarOrientation.isLandscape
 	}
 	
 	/// A Boolean indicating if the device is in Portrait mode.
 	public static var isPortrait: Bool {
-		return !MaterialDevice.isLandscape
+		return !isLandscape
 	}
 	
 	/// The current UIInterfaceOrientation value.
 	public static var orientation: UIInterfaceOrientation {
-		return UIApplication.sharedApplication().statusBarOrientation
+		return UIApplication.shared().statusBarOrientation
 	}
 	
 	/// Retrieves the device status bar style.
 	public static var statusBarStyle: UIStatusBarStyle {
 		get {
-		return UIApplication.sharedApplication().statusBarStyle
+            return UIApplication.shared().statusBarStyle
 		}
 		set(value) {
-			UIApplication.sharedApplication().statusBarStyle = value
+			UIApplication.shared().statusBarStyle = value
 		}
 	}
 	
 	/// Retrieves the device status bar hidden state.
-	public static var statusBarHidden: Bool {
+	public static var isStatusBarHidden: Bool {
 		get {
-		return UIApplication.sharedApplication().statusBarHidden
+            return UIApplication.shared().isStatusBarHidden
 		}
 		set(value) {
-			UIApplication.sharedApplication().statusBarHidden = value
+			UIApplication.shared().isStatusBarHidden = value
 		}
 	}
 	
 	/// Retrieves the device bounds.
 	public static var bounds: CGRect {
-		return UIScreen.mainScreen().bounds
+		return UIScreen.main().bounds
 	}
 	
 	/// Retrieves the device width.
@@ -147,6 +138,6 @@ public struct MaterialDevice {
 	
 	/// Retrieves the device scale.
 	public static var scale: CGFloat {
-		return UIScreen.mainScreen().scale
+		return UIScreen.main().scale
 	}
 }

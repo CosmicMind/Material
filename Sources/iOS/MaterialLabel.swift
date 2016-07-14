@@ -114,7 +114,7 @@ public class MaterialLabel : UILabel {
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		wrapped = true
-		contentsScale = MaterialDevice.scale
+		contentsScale = Device.scale
 		super.init(coder: aDecoder)
 		prepareView()
 	}
@@ -124,7 +124,7 @@ public class MaterialLabel : UILabel {
 	*/
 	public override init(frame: CGRect) {
 		wrapped = true
-		contentsScale = MaterialDevice.scale
+		contentsScale = Device.scale
 		super.init(frame: frame)
 		prepareView()
 	}
@@ -147,7 +147,7 @@ public class MaterialLabel : UILabel {
 	:name:	prepareView
 	*/
 	public func prepareView() {
-		contentScaleFactor = MaterialDevice.scale
+		contentScaleFactor = Device.scale
 		textAlignment = .Left
 	}
 }

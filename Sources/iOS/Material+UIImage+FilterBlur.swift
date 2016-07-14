@@ -51,7 +51,7 @@ public extension UIImage {
 	func filterBlur(blurRadius: CGFloat = 0, tintColor: UIColor? = nil, saturationDeltaFactor: CGFloat = 0) -> UIImage? {
 		var effectImage: UIImage = self
 		
-		let screenScale: CGFloat = MaterialDevice.scale
+		let screenScale: CGFloat = Device.scale
 		let imageRect: CGRect = CGRect(origin: CGPoint.zero, size: size)
 		let hasBlur: Bool = blurRadius > CGFloat(FLT_EPSILON)
 		let hasSaturationChange: Bool = fabs(saturationDeltaFactor - 1.0) > CGFloat(FLT_EPSILON)

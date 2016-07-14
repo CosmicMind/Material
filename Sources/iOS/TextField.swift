@@ -472,7 +472,7 @@ public class TextField : UITextField {
 		backgroundColor = nil
 		textColor = Color.darkText.primary
 		font = RobotoFont.regularWithSize(16)
-		contentScaleFactor = MaterialDevice.scale
+		contentScaleFactor = Device.scale
 		prepareDivider()
 		preparePlaceholderLabel()
 		prepareDetailLabel()

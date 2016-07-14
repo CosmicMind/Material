@@ -207,7 +207,7 @@ public class BottomTabBar : UITabBar {
 		super.layoutSubviews()
 		if let v: Array<UITabBarItem> = items {
 			for item in v {
-				if .iPhone == MaterialDevice.type {
+				if .phone == Device.userInterfaceIdiom {
 					if nil == item.title {
 						let inset: CGFloat = 7
 						item.imageInsets = UIEdgeInsetsMake(inset, 0, -inset, 0)
@@ -248,7 +248,7 @@ public class BottomTabBar : UITabBar {
 	*/
 	public func prepareView() {
 		depth = .Depth1
-		contentScaleFactor = MaterialDevice.scale
+		contentScaleFactor = Device.scale
 		backgroundColor = Color.white
 		let image: UIImage? = UIImage.imageWithColor(Color.clear, size: CGSizeMake(1, 1))
 		shadowImage = image

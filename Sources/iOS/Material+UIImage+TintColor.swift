@@ -37,7 +37,7 @@ public extension UIImage {
 	- Returns: A UIImage that is the color passed in.
 	*/
 	public func tintWithColor(color: UIColor) -> UIImage {
-		UIGraphicsBeginImageContextWithOptions(size, false, MaterialDevice.scale)
+		UIGraphicsBeginImageContextWithOptions(size, false, Device.scale)
 		let context = UIGraphicsGetCurrentContext()
 
 		CGContextScaleCTM(context, 1.0, -1.0)

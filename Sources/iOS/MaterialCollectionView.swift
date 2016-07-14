@@ -159,7 +159,7 @@ public class MaterialCollectionView : UICollectionView {
 	when subclassing.
 	*/
 	public func prepareView() {
-		contentScaleFactor = MaterialDevice.scale
+		contentScaleFactor = Device.scale
 		backgroundColor = Color.clear
 		contentInset = UIEdgeInsetsZero
 	}
