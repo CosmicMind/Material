@@ -32,7 +32,7 @@ import UIKit
 
 import UIKit
 
-public enum InsetsPreset {
+public enum InsetPreset {
     case none
     
     // square
@@ -69,7 +69,7 @@ public enum InsetsPreset {
     case tallRectangle9
 }
 
-public struct Insets {
+public struct Inset {
     /// Top inset.
     public var top: CGFloat
     
@@ -81,6 +81,10 @@ public struct Insets {
     
     /// Right inset.
     public var right: CGFloat
+    
+    public var asEdgeInsets: UIEdgeInsets {
+        return UIEdgeInsets(top: top, left: left, bottom: bottom, right: right)
+    }
     
     /**
      Initializer.
@@ -97,78 +101,78 @@ public struct Insets {
     }
     
     /**
-     Static constructor for Insets with values of 0.
-     - Returns: An Insets struct with values of 0.
+     Static constructor for Inset with values of 0.
+     - Returns: An Inset struct with values of 0.
      */
-    static var zero: Insets {
-        return Insets()
+    static var zero: Inset {
+        return Inset()
     }
 }
 
-/// Converts the InsetsPreset to a Insets value.
-public func InsetsPresetToValue(preset: InsetsPreset) -> Insets {
+/// Converts the InsetPreset to a Inset value.
+public func InsetPresetToValue(preset: InsetPreset) -> Inset {
     switch preset {
     case .none:
-        return Insets.zero
+        return Inset.zero
         
     // square
     case .square1:
-        return Insets(top: 4, left: 4, bottom: 4, right: 4)
+        return Inset(top: 4, left: 4, bottom: 4, right: 4)
     case .square2:
-        return Insets(top: 8, left: 8, bottom: 8, right: 8)
+        return Inset(top: 8, left: 8, bottom: 8, right: 8)
     case .square3:
-        return Insets(top: 16, left: 16, bottom: 16, right: 16)
+        return Inset(top: 16, left: 16, bottom: 16, right: 16)
     case .square4:
-        return Insets(top: 24, left: 24, bottom: 24, right: 24)
+        return Inset(top: 24, left: 24, bottom: 24, right: 24)
     case .square5:
-        return Insets(top: 32, left: 32, bottom: 32, right: 32)
+        return Inset(top: 32, left: 32, bottom: 32, right: 32)
     case .square6:
-        return Insets(top: 40, left: 40, bottom: 40, right: 40)
+        return Inset(top: 40, left: 40, bottom: 40, right: 40)
     case .square7:
-        return Insets(top: 48, left: 48, bottom: 48, right: 48)
+        return Inset(top: 48, left: 48, bottom: 48, right: 48)
     case .square8:
-        return Insets(top: 56, left: 56, bottom: 56, right: 56)
+        return Inset(top: 56, left: 56, bottom: 56, right: 56)
     case .square9:
-        return Insets(top: 64, left: 64, bottom: 64, right: 64)
+        return Inset(top: 64, left: 64, bottom: 64, right: 64)
         
     // rectangle
     case .wideRectangle1:
-        return Insets(top: 2, left: 4, bottom: 2, right: 4)
+        return Inset(top: 2, left: 4, bottom: 2, right: 4)
     case .wideRectangle2:
-        return Insets(top: 4, left: 8, bottom: 4, right: 8)
+        return Inset(top: 4, left: 8, bottom: 4, right: 8)
     case .wideRectangle3:
-        return Insets(top: 8, left: 16, bottom: 8, right: 16)
+        return Inset(top: 8, left: 16, bottom: 8, right: 16)
     case .wideRectangle4:
-        return Insets(top: 12, left: 24, bottom: 12, right: 24)
+        return Inset(top: 12, left: 24, bottom: 12, right: 24)
     case .wideRectangle5:
-        return Insets(top: 16, left: 32, bottom: 16, right: 32)
+        return Inset(top: 16, left: 32, bottom: 16, right: 32)
     case .wideRectangle6:
-        return Insets(top: 20, left: 40, bottom: 20, right: 40)
+        return Inset(top: 20, left: 40, bottom: 20, right: 40)
     case .wideRectangle7:
-        return Insets(top: 24, left: 48, bottom: 24, right: 48)
+        return Inset(top: 24, left: 48, bottom: 24, right: 48)
     case .wideRectangle8:
-        return Insets(top: 28, left: 56, bottom: 28, right: 56)
+        return Inset(top: 28, left: 56, bottom: 28, right: 56)
     case .wideRectangle9:
-        return Insets(top: 32, left: 64, bottom: 32, right: 64)
+        return Inset(top: 32, left: 64, bottom: 32, right: 64)
         
     // flipped rectangle
     case .tallRectangle1:
-        return Insets(top: 4, left: 2, bottom: 4, right: 2)
+        return Inset(top: 4, left: 2, bottom: 4, right: 2)
     case .tallRectangle2:
-        return Insets(top: 8, left: 4, bottom: 8, right: 4)
+        return Inset(top: 8, left: 4, bottom: 8, right: 4)
     case .tallRectangle3:
-        return Insets(top: 16, left: 8, bottom: 16, right: 8)
+        return Inset(top: 16, left: 8, bottom: 16, right: 8)
     case .tallRectangle4:
-        return Insets(top: 24, left: 12, bottom: 24, right: 12)
+        return Inset(top: 24, left: 12, bottom: 24, right: 12)
     case .tallRectangle5:
-        return Insets(top: 32, left: 16, bottom: 32, right: 16)
+        return Inset(top: 32, left: 16, bottom: 32, right: 16)
     case .tallRectangle6:
-        return Insets(top: 40, left: 20, bottom: 40, right: 20)
+        return Inset(top: 40, left: 20, bottom: 40, right: 20)
     case .tallRectangle7:
-        return Insets(top: 48, left: 24, bottom: 48, right: 24)
+        return Inset(top: 48, left: 24, bottom: 48, right: 24)
     case .tallRectangle8:
-        return Insets(top: 56, left: 28, bottom: 56, right: 28)
+        return Inset(top: 56, left: 28, bottom: 56, right: 28)
     case .tallRectangle9:
-        return Insets(top: 64, left: 32, bottom: 64, right: 32)
+        return Inset(top: 64, left: 32, bottom: 64, right: 32)
     }
 }

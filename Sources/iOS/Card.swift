@@ -30,25 +30,25 @@
 
 import UIKit
 
-public class ImageCardView : PulseView {
+public class Card: PulseView {
 	/**
 	:name:	dividerLayer
 	*/
-	private var dividerLayer: CAShapeLayer?
+	internal var dividerLayer: CAShapeLayer?
 	
 	/**
 	:name:	dividerColor
 	*/
 	@IBInspectable public var dividerColor: UIColor? {
 		didSet {
-			dividerLayer?.backgroundColor = dividerColor?.CGColor
+			dividerLayer?.backgroundColor = dividerColor?.cgColor
 		}
 	}
 	
 	/**
 	:name:	divider
 	*/
-	@IBInspectable public var divider: Bool = true {
+	@IBInspectable public var divider = true {
 		didSet {
 			reloadView()
 		}
@@ -57,127 +57,34 @@ public class ImageCardView : PulseView {
 	/**
 	:name:	dividerInsets
 	*/
-	public var dividerInsetPreset: InsetsPreset = .none {
+	public var dividerInsetPreset: InsetPreset = .none {
 		didSet {
-			dividerInset = InsetsPresetToValue(preset: dividerInsetPreset)
+			dividerInset = InsetPresetToValue(preset: dividerInsetPreset)
 		}
 	}
 	
 	/**
 	:name:	dividerInset
 	*/
-	@IBInspectable public var dividerInset = Insets(top: 8, left: 0, bottom: 8, right: 0) {
+	@IBInspectable public var dividerInset = Inset(top: 8, left: 0, bottom: 8, right: 0) {
 		didSet {
 			reloadView()
-		}
-	}
-	
-	/**
-	:name:	imageLayer
-	*/
-	public private(set) var imageLayer: CAShapeLayer?
-	
-	/**
-	:name:	image
-	*/
-	@IBInspectable public override var image: UIImage? {
-		get {
-			return nil == imageLayer?.contents ? nil : UIImage(CGImage: imageLayer?.contents as! CGImage)
-		}
-		set(value) {
-			if let v = value {
-				prepareImageLayer()
-				imageLayer?.contents = v.CGImage
-				if 0 == maxImageHeight {
-					imageLayer?.frame.size.height = image!.size.height / contentsScale
-				} else {
-					let h: CGFloat = image!.size.height / contentsScale
-					imageLayer?.frame.size.height = maxImageHeight < h ? maxImageHeight : h
-				}
-				imageLayer?.hidden = false
-			} else {
-				imageLayer?.contents = nil
-				imageLayer?.frame = CGRect.zero
-				imageLayer?.hidden = true
-				imageLayer?.removeFromSuperlayer()
-			}
-			reloadView()
-		}
-	}
-	
-	/**
-	:name:	maxImageHeight
-	*/
-	@IBInspectable public var maxImageHeight: CGFloat = 0 {
-		didSet {
-			if let v: UIImage = image {
-				if 0 < maxImageHeight {
-					prepareImageLayer()
-					let h: CGFloat = v.size.height / contentsScale
-					imageLayer?.frame.size.height = maxImageHeight < h ? maxImageHeight : h
-				} else {
-					maxImageHeight = 0
-					imageLayer?.frame.size.height = nil == image ? 0 : v.size.height / contentsScale
-				}
-				reloadView()
-			}
-		}
-	}
-	
-	/**
-	:name:	contentsRect
-	*/
-	@IBInspectable public override var contentsRect: CGRect {
-		didSet {
-			prepareImageLayer()
-			imageLayer?.contentsRect = contentsRect
-		}
-	}
-	
-	/**
-	:name:	contentsCenter
-	*/
-	@IBInspectable public override var contentsCenter: CGRect {
-		didSet {
-			prepareImageLayer()
-			imageLayer?.contentsCenter = contentsCenter
-		}
-	}
-	
-	/**
-	:name:	contentsScale
-	*/
-	@IBInspectable public override var contentsScale: CGFloat {
-		didSet {
-			prepareImageLayer()
-			imageLayer?.contentsScale = contentsScale
-		}
-	}
-	
-	/// Determines how content should be aligned within the visualLayer's bounds.
-	@IBInspectable public override var contentsGravity: String {
-		get {
-			return nil == imageLayer ? "" : imageLayer!.contentsGravity
-		}
-		set(value) {
-			prepareImageLayer()
-			imageLayer?.contentsGravity = value
 		}
 	}
 	
 	/**
 	:name:	contentInsets
 	*/
-	public var contentInsetPreset: InsetsPreset = .square2 {
+	public var contentInsetPreset: InsetPreset = .square2 {
 		didSet {
-			contentInset = InsetsPresetToValue(preset: contentInsetPreset)
+			contentInset = InsetPresetToValue(preset: contentInsetPreset)
 		}
 	}
 	
 	/**
 	:name:	contentInset
 	*/
-	@IBInspectable public var contentInset = InsetsPresetToValue(preset: .square2) {
+	@IBInspectable public var contentInset = InsetPresetToValue(preset: .square2) {
 		didSet {
 			reloadView()
 		}
@@ -186,16 +93,16 @@ public class ImageCardView : PulseView {
 	/**
 	:name:	titleLabelInsets
 	*/
-	public var titleLabelInsetPreset: InsetsPreset = .square2 {
+	public var titleLabelInsetPreset: InsetPreset = .square2 {
 		didSet {
-			titleLabelInset = InsetsPresetToValue(preset: titleLabelInsetPreset)
+			titleLabelInset = InsetPresetToValue(preset: titleLabelInsetPreset)
 		}
 	}
 	
 	/**
 	:name:	titleLabelInset
 	*/
-	@IBInspectable public var titleLabelInset = InsetsPresetToValue(preset: .square2) {
+	@IBInspectable public var titleLabelInset = InsetPresetToValue(preset: .square2) {
 		didSet {
 			reloadView()
 		}
@@ -213,16 +120,16 @@ public class ImageCardView : PulseView {
 	/**
 	:name:	contentViewInsets
 	*/
-	public var contentViewInsetPreset: InsetsPreset = .square2 {
+	public var contentViewInsetPreset: InsetPreset = .square2 {
 		didSet {
-			contentViewInset = InsetsPresetToValue(preset: contentViewInsetPreset)
+			contentViewInset = InsetPresetToValue(preset: contentViewInsetPreset)
 		}
 	}
 	
 	/**
 	:name:	contentViewInset
 	*/
-	@IBInspectable public var contentViewInset = InsetsPresetToValue(preset: .square2) {
+	@IBInspectable public var contentViewInset = InsetPresetToValue(preset: .square2) {
 		didSet {
 			reloadView()
 		}
@@ -240,16 +147,16 @@ public class ImageCardView : PulseView {
 	/**
 	:name:	leftButtonsInsets
 	*/
-	public var leftButtonsInsetPreset: InsetsPreset = .none {
+	public var leftButtonsInsetPreset: InsetPreset = .none {
 		didSet {
-			leftButtonsInset = InsetsPresetToValue(preset: leftButtonsInsetPreset)
+			leftButtonsInset = InsetPresetToValue(preset: leftButtonsInsetPreset)
 		}
 	}
 	
 	/**
 	:name:	leftButtonsInset
 	*/
-	@IBInspectable public var leftButtonsInset = Insets.zero {
+	@IBInspectable public var leftButtonsInset = Inset.zero {
 		didSet {
 			reloadView()
 		}
@@ -267,16 +174,16 @@ public class ImageCardView : PulseView {
 	/**
 	:name:	rightButtonsInsets
 	*/
-	public var rightButtonsInsetPreset: InsetsPreset = .none {
+	public var rightButtonsInsetPreset: InsetPreset = .none {
 		didSet {
-			rightButtonsInset = InsetsPresetToValue(preset: rightButtonsInsetPreset)
+            rightButtonsInset = InsetPresetToValue(preset: rightButtonsInsetPreset)
 		}
 	}
 	
 	/**
 	:name:	rightButtonsInset
 	*/
-	@IBInspectable public var rightButtonsInset = Insets.zero {
+	@IBInspectable public var rightButtonsInset = Inset.zero {
 		didSet {
 			reloadView()
 		}
@@ -326,10 +233,6 @@ public class ImageCardView : PulseView {
 	public override func layoutSublayers(of layer: CALayer) {
 		super.layoutSublayers(of: layer)
 		if self.layer == layer {
-			// image
-			imageLayer?.frame.size.width = bounds.width
-			
-			// divider
 			if divider {
 				var y: CGFloat = contentInset.bottom + dividerInset.bottom
 				if 0 < leftButtons?.count {
@@ -361,10 +264,7 @@ public class ImageCardView : PulseView {
 		var views: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
 		var metrics: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
 		
-		if nil != imageLayer?.contents {
-			verticalFormat += "-(insetTop)"
-			metrics["insetTop"] = imageLayer!.frame.height
-		} else if nil != titleLabel {
+		if nil != titleLabel {
 			verticalFormat += "-(insetTop)"
 			metrics["insetTop"] = contentInset.top + titleLabelInset.top
 		} else if nil != contentView {
@@ -374,22 +274,19 @@ public class ImageCardView : PulseView {
 		
 		// title
 		if let v: UILabel = titleLabel {
-			if nil == imageLayer?.contents {
-				verticalFormat += "-[titleLabel]"
-				views["titleLabel"] = v
-			} else {
-				layout(v).top(contentInset.top + titleLabelInset.top)
-			}
+			verticalFormat += "-[titleLabel]"
+			views["titleLabel"] = v
+			
 			layout(v).horizontally(left: contentInset.left + titleLabelInset.left, right: contentInset.right + titleLabelInset.right)
 		}
 		
 		// detail
 		if let v: UIView = contentView {
-			if nil == imageLayer?.contents && nil != titleLabel {
+			if nil == titleLabel {
+				metrics["insetTop"] = (metrics["insetTop"] as! CGFloat) + contentViewInset.top
+			} else {
 				verticalFormat += "-(insetB)"
 				metrics["insetB"] = titleLabelInset.bottom + contentViewInset.top
-			} else {
-				metrics["insetTop"] = (metrics["insetTop"] as! CGFloat) + contentViewInset.top
 			}
 			
 			verticalFormat += "-[contentView]"
@@ -455,70 +352,32 @@ public class ImageCardView : PulseView {
 			}
 		}
 		
-		if nil == imageLayer?.contents {
-			if 0 < leftButtons?.count {
-				verticalFormat += "-(insetC)-[button]"
-				views["button"] = leftButtons![0]
-				metrics["insetC"] = leftButtonsInset.top
-				metrics["insetBottom"] = contentInset.bottom + leftButtonsInset.bottom
-			} else if 0 < rightButtons?.count {
-				verticalFormat += "-(insetC)-[button]"
-				views["button"] = rightButtons![0]
-				metrics["insetC"] = rightButtonsInset.top
-				metrics["insetBottom"] = contentInset.bottom + rightButtonsInset.bottom
-			}
-			
-			if nil != contentView {
-				if nil == metrics["insetC"] {
-					metrics["insetBottom"] = contentInset.bottom + contentViewInset.bottom + (divider ? dividerInset.top + dividerInset.bottom : 0)
-				} else {
-					metrics["insetC"] = (metrics["insetC"] as! CGFloat) + contentViewInset.bottom + (divider ? dividerInset.top + dividerInset.bottom : 0)
-				}
-			} else if nil != titleLabel {
-				if nil == metrics["insetC"] {
-					metrics["insetBottom"] = contentInset.bottom + titleLabelInset.bottom + (divider ? dividerInset.top + dividerInset.bottom : 0)
-				} else {
-					metrics["insetC"] = (metrics["insetC"] as! CGFloat) + titleLabelInset.bottom + (divider ? dividerInset.top + dividerInset.bottom : 0)
-				}
-			} else if nil != metrics["insetC"] {
-				metrics["insetC"] = (metrics["insetC"] as! CGFloat) + contentInset.top + (divider ? dividerInset.top + dividerInset.bottom : 0)
-			}
-		} else if nil != contentView {
-			if 0 < leftButtons?.count {
-				verticalFormat += "-(insetC)-[button]"
-				views["button"] = leftButtons![0]
-				metrics["insetC"] = leftButtonsInset.top
-				metrics["insetBottom"] = contentInset.bottom + leftButtonsInset.bottom
-			} else if 0 < rightButtons?.count {
-				verticalFormat += "-(insetC)-[button]"
-				views["button"] = rightButtons![0]
-				metrics["insetC"] = rightButtonsInset.top
-				metrics["insetBottom"] = contentInset.bottom + rightButtonsInset.bottom
-			}
-			
+		if 0 < leftButtons?.count {
+			verticalFormat += "-(insetC)-[button]"
+			views["button"] = leftButtons![0]
+			metrics["insetC"] = leftButtonsInset.top
+			metrics["insetBottom"] = contentInset.bottom + leftButtonsInset.bottom
+		} else if 0 < rightButtons?.count {
+			verticalFormat += "-(insetC)-[button]"
+			views["button"] = rightButtons![0]
+			metrics["insetC"] = rightButtonsInset.top
+			metrics["insetBottom"] = contentInset.bottom + rightButtonsInset.bottom
+		}
+		
+		if nil != contentView {
 			if nil == metrics["insetC"] {
 				metrics["insetBottom"] = contentInset.bottom + contentViewInset.bottom + (divider ? dividerInset.top + dividerInset.bottom : 0)
 			} else {
 				metrics["insetC"] = (metrics["insetC"] as! CGFloat) + contentViewInset.bottom + (divider ? dividerInset.top + dividerInset.bottom : 0)
 			}
-		} else {
-			if 0 < leftButtons?.count {
-				verticalFormat += "-[button]"
-				views["button"] = leftButtons![0]
-				metrics["insetTop"] = (metrics["insetTop"] as! CGFloat) + contentInset.top + leftButtonsInset.top + (divider ? dividerInset.top + dividerInset.bottom : 0)
-				metrics["insetBottom"] = contentInset.bottom + leftButtonsInset.bottom
-			} else if 0 < rightButtons?.count {
-				verticalFormat += "-[button]"
-				views["button"] = rightButtons![0]
-				metrics["insetTop"] = (metrics["insetTop"] as! CGFloat) + contentInset.top + rightButtonsInset.top + (divider ? dividerInset.top + dividerInset.bottom : 0)
-				metrics["insetBottom"] = contentInset.bottom + rightButtonsInset.bottom
+		} else if nil != titleLabel {
+			if nil == metrics["insetC"] {
+				metrics["insetBottom"] = contentInset.bottom + titleLabelInset.bottom + (divider ? dividerInset.top + dividerInset.bottom : 0)
 			} else {
-				if translatesAutoresizingMaskIntoConstraints {
-					addConstraints(Layout.constraint(format: "V:[view(height)]", options: [], metrics: ["height": imageLayer!.frame.height], views: ["view": self]))
-				} else {
-					height = imageLayer!.frame.height
-				}
+				metrics["insetC"] = (metrics["insetTop"] as! CGFloat) + titleLabelInset.bottom + (divider ? dividerInset.top + dividerInset.bottom : 0)
 			}
+		} else if nil != metrics["insetC"] {
+			metrics["insetC"] = (metrics["insetC"] as! CGFloat) + contentInset.top + (divider ? dividerInset.top + dividerInset.bottom : 0)
 		}
 		
 		if 0 < views.count {
@@ -532,21 +391,9 @@ public class ImageCardView : PulseView {
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		depth = .depth1
+		depthPreset = .depth1
 		dividerColor = Color.grey.lighten3
 		cornerRadiusPreset = .Radius1
-	}
-	
-	/**
-	:name:	prepareImageLayer
-	*/
-	internal func prepareImageLayer() {
-		if nil == imageLayer {
-			imageLayer = CAShapeLayer()
-			imageLayer!.masksToBounds = true
-			imageLayer!.zPosition = 0
-			visualLayer.addSublayer(imageLayer!)
-		}
 	}
 	
 	/**

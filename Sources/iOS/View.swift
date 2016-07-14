@@ -248,20 +248,25 @@ public class View: UIView {
 		}
 	}
 	
-	/**
+    /// A preset value for Depth.
+    public var depthPreset: DepthPreset = .none {
+        didSet {
+            depth = DepthPresetToValue(preset: depthPreset)
+        }
+    }
+    
+    /**
      A property that sets the shadowOffset, shadowOpacity, and shadowRadius
-     for the backing layer. This is the preferred method of setting depth
-     in order to maintain consitency across UI objects.
+     for the backing layer.
      */
-	public var depthPreset = .none {
-		didSet {
-			let value: Depth = DepthPresetToValue(preset: depth)
-			shadowOffset = value.offset
-			shadowOpacity = value.opacity
-			shadowRadius = value.radius
-			layoutShadowPath()
-		}
-	}
+    public var depth = Depth.zero {
+        didSet {
+            shadowOffset = depth.offsetAsSize
+            shadowOpacity = depth.opacity
+            shadowRadius = depth.radius
+            layoutShadowPath()
+        }
+    }
 	
 	/**
      A property that sets the cornerRadius of the backing layer. If the shape

@@ -894,7 +894,7 @@ public class NavigationDrawerController : RootController, UIGestureRecognizerDel
 		leftView!.backgroundColor = Color.clear
 		view.addSubview(leftView!)
 		
-		leftView!.hidden = true
+		leftView!.isHidden = true
 		leftView!.position.x = -leftViewWidth / 2
 		leftView!.zPosition = 2000
 		prepareLeftViewController()
@@ -914,7 +914,7 @@ public class NavigationDrawerController : RootController, UIGestureRecognizerDel
 		rightView!.backgroundColor = Color.clear
 		view.addSubview(rightView!)
 		
-		rightView!.hidden = true
+		rightView!.isHidden = true
 		rightView!.position.x = view.bounds.width + rightViewWidth / 2
 		rightView!.zPosition = 2000
 		prepareRightViewController()
@@ -1090,7 +1090,7 @@ public class NavigationDrawerController : RootController, UIGestureRecognizerDel
 	*/
 	private func showView(container: View) {
 		container.depth = depth
-		container.hidden = false
+		container.isHidden = false
 	}
 	
 	/**
@@ -1099,6 +1099,6 @@ public class NavigationDrawerController : RootController, UIGestureRecognizerDel
 	*/
 	private func hideView(container: View) {
 		container.depth = .None
-		container.hidden = true
+		container.isHidden = true
 	}
 }

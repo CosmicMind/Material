@@ -34,7 +34,7 @@ public class ErrorTextField : TextField {
     /// Controls the visibility of detailLabel
     @IBInspectable public var revealError: Bool = false {
         didSet {
-            detailLabel.hidden = !revealError
+            detailLabel.isHidden = !revealError
         }
     }
     

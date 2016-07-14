@@ -61,7 +61,7 @@ public extension UIImage {
 			let effectInContext: CGContext = UIGraphicsGetCurrentContext()!
 			CGContextScaleCTM(effectInContext, 1.0, -1.0)
 			CGContextTranslateCTM(effectInContext, 0, -size.height)
-			CGContextDrawImage(effectInContext, imageRect, self.CGImage)
+			CGContextDrawImage(effectInContext, imageRect, self.cgImage)
 			var effectInBuffer: vImage_Buffer = createEffectBuffer(effectInContext)
 			
 			UIGraphicsBeginImageContextWithOptions(size, false, screenScale)
@@ -129,12 +129,12 @@ public extension UIImage {
 		CGContextTranslateCTM(outputContext, 0, -size.height)
 		
 		// Draw base image.
-		CGContextDrawImage(outputContext, imageRect, self.CGImage)
+		CGContextDrawImage(outputContext, imageRect, self.cgImage)
 		
 		// Draw effect image.
 		if hasBlur {
 			CGContextSaveGState(outputContext)
-			CGContextDrawImage(outputContext, imageRect, effectImage.CGImage)
+			CGContextDrawImage(outputContext, imageRect, effectImage.cgImage)
 			CGContextRestoreGState(outputContext)
 		}
 		

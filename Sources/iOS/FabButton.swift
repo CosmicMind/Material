@@ -32,15 +32,15 @@ import UIKit
 
 public class FabButton: Button {	
 	/**
-	Prepares the view instance when intialized. When subclassing,
-	it is recommended to override the prepareView method
-	to initialize property values and other setup operations.
-	The super.prepareView method should always be called immediately
-	when subclassing.
-	*/
+     Prepares the view instance when intialized. When subclassing,
+     it is recommended to override the prepareView method
+     to initialize property values and other setup operations.
+     The super.prepareView method should always be called immediately
+     when subclassing.
+     */
 	public override func prepareView() {
 		super.prepareView()
-		depth = .depth1
+		depthPreset = .depth1
 		shape = .Circle
 		pulseAnimation = .CenterWithBacking
 		pulseColor = Color.white

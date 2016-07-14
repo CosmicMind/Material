@@ -37,7 +37,7 @@ public class ControlView : View {
 	}
 	
 	/// A preset wrapper around contentInset.
-	public var contentInsetPreset: InsetsPreset {
+	public var contentInsetPreset: InsetPreset {
 		get {
 			return grid.contentInsetPreset
 		}
@@ -47,7 +47,7 @@ public class ControlView : View {
 	}
 	
 	/// A wrapper around grid.contentInset.
-	@IBInspectable public var contentInset: Insets {
+	@IBInspectable public var contentInset: Inset {
 		get {
 			return grid.contentInset
 		}

@@ -69,7 +69,7 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 	*/
 	@IBInspectable public var image: UIImage? {
 		didSet {
-			visualLayer.contents = image?.CGImage
+			visualLayer.contents = image?.cgImage
 		}
 	}
 	

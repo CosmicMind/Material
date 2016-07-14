@@ -36,101 +36,101 @@ public enum CaptureMode {
 	case video
 }
 
-@objc(CaptureViewDelegate)
-public protocol CaptureViewDelegate: MaterialDelegate {
+@objc(CaptureDelegate)
+public protocol CaptureDelegate: MaterialDelegate {
 	/**
      A delegation method that is fired when the record timer has started.
-     - Parameter captureView: A reference to the calling captureView.
+     - Parameter capture: A reference to the calling capture.
 	*/
 	@objc
-    optional func captureViewDidStartRecordTimer(captureView: CaptureView)
+    optional func captureDidStartRecordTimer(capture: Capture)
 	
     /**
      A delegation method that is fired when the record timer was updated.
-     - Parameter captureView: A reference to the calling captureView.
+     - Parameter capture: A reference to the calling capture.
      - Parameter hours: An integer representing hours.
      - Parameter minutes: An integer representing minutes.
      - Parameter seconds: An integer representing seconds.
      */
     @objc
-    optional func captureViewDidUpdateRecordTimer(captureView: CaptureView, hours: Int, minutes: Int, seconds: Int)
+    optional func captureDidUpdateRecordTimer(capture: Capture, hours: Int, minutes: Int, seconds: Int)
 	
     /**
      A delegation method that is fired when the record timer has stopped.
-     - Parameter captureView: A reference to the calling captureView.
+     - Parameter capture: A reference to the calling capture.
      - Parameter hours: An integer representing hours.
      - Parameter minutes: An integer representing minutes.
      - Parameter seconds: An integer representing seconds.
      */
     @objc
-    optional func captureViewDidStopRecordTimer(captureView: CaptureView, hours: Int, minutes: Int, seconds: Int)
+    optional func captureDidStopRecordTimer(capture: Capture, hours: Int, minutes: Int, seconds: Int)
 	
     /**
      A delegation method that is fired when the user tapped to adjust the focus.
-     - Parameter captureView: A reference to the calling captureView.
+     - Parameter capture: A reference to the calling capture.
      - Parameter point: CGPoint that the user tapped at.
      */
     @objc
-    optional func captureViewDidTapToFocusAtPoint(captureView: CaptureView, point: CGPoint)
+    optional func captureDidTapToFocusAtPoint(capture: Capture, point: CGPoint)
 	
     /**
      A delegation method that is fired when the user tapped to adjust the exposure.
-     - Parameter captureView: A reference to the calling captureView.
+     - Parameter capture: A reference to the calling capture.
      - Parameter point: CGPoint that the user tapped at.
      */
     @objc
-    optional func captureViewDidTapToExposeAtPoint(captureView: CaptureView, point: CGPoint)
+    optional func captureDidTapToExposeAtPoint(capture: Capture, point: CGPoint)
 	
     /**
      A delegation method that is fired when the user tapped to reset.
-     - Parameter captureView: A reference to the calling captureView.
+     - Parameter capture: A reference to the calling capture.
      - Parameter point: CGPoint that the user tapped at.
      */
     @objc
-    optional func captureViewDidTapToResetAtPoint(captureView: CaptureView, point: CGPoint)
+    optional func captureDidTapToResetAtPoint(capture: Capture, point: CGPoint)
 	
     /**
      A delegation method that is fired when the user pressed the flash button.
-     - Parameter captureView: A reference to the calling captureView.
+     - Parameter capture: A reference to the calling capture.
      - Parameter button: A reference to the UIButton that the user pressed.
      */
     @objc
-    optional func captureViewDidPressFlashButton(captureView: CaptureView, button: UIButton)
+    optional func captureDidPressFlashButton(capture: Capture, button: UIButton)
 	
     /**
      A delegation method that is fired when the user pressed the switch camera button.
-     - Parameter captureView: A reference to the calling captureView.
+     - Parameter capture: A reference to the calling capture.
      - Parameter button: A reference to the UIButton that the user pressed.
      */
 	@objc
-    optional func captureViewDidPressSwitchCamerasButton(captureView: CaptureView, button: UIButton)
+    optional func captureDidPressSwitchCamerasButton(capture: Capture, button: UIButton)
 	
     /**
      A delegation method that is fired when the user pressed capture button.
-     - Parameter captureView: A reference to the calling captureView.
+     - Parameter capture: A reference to the calling capture.
      - Parameter button: A reference to the UIButton that the user pressed.
      */
     @objc
-    optional func captureViewDidPressCaptureButton(captureView: CaptureView, button: UIButton)
+    optional func captureDidPressCaptureButton(capture: Capture, button: UIButton)
 	
     /**
      A delegation method that is fired when the user enabled the photo camera.
-     - Parameter captureView: A reference to the calling captureView.
+     - Parameter capture: A reference to the calling capture.
      - Parameter button: A reference to the UIButton that the user pressed.
      */
     @objc
-    optional func captureViewDidPressCameraButton(captureView: CaptureView, button: UIButton)
+    optional func captureDidPressCameraButton(capture: Capture, button: UIButton)
 	
     /**
      A delegation method that is fired when the user enabled the video camera.
-     - Parameter captureView: A reference to the calling captureView.
+     - Parameter capture: A reference to the calling capture.
      - Parameter button: A reference to the UIButton that the user pressed.
      */
     @objc
-    optional func captureViewDidPressVideoButton(captureView: CaptureView, button: UIButton)
+    optional func captureDidPressVideoButton(capture: Capture, button: UIButton)
 }
 
-public class CaptureView : View, UIGestureRecognizerDelegate {
+public class Capture : View, UIGestureRecognizerDelegate {
 	/// A Timer reference for when recording is enabled.
 	private var timer: Timer?
 	
@@ -203,14 +203,14 @@ public class CaptureView : View, UIGestureRecognizerDelegate {
 	}
 	
 	/// Insets preset value for content.
-	public var contentInsetPreset: InsetsPreset = .none {
+	public var contentInsetPreset: InsetPreset = .none {
 		didSet {
-			contentInset = InsetsPresetToValue(preset: contentInsetPreset)
+			contentInset = InsetPresetToValue(preset: contentInsetPreset)
 		}
 	}
 	
 	/// Content insert value.
-	public var contentInset: Insets = InsetsPresetToValue(preset: .square4) {
+	public var contentInset: Inset = InsetPresetToValue(preset: .square4) {
 		didSet {
 			reloadView()
 		}
@@ -348,7 +348,7 @@ public class CaptureView : View, UIGestureRecognizerDelegate {
 		timer?.invalidate()
 		timer = Timer(timeInterval: 0.5, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
 		RunLoop.main().add(timer!, forMode: .commonModes)
-		(delegate as? CaptureViewDelegate)?.captureViewDidStartRecordTimer?(captureView: self)
+		(delegate as? CaptureDelegate)?.captureDidStartRecordTimer?(capture: self)
 	}
 	
 	/// Updates the timer when recording.
@@ -358,7 +358,7 @@ public class CaptureView : View, UIGestureRecognizerDelegate {
 		let hours: Int = Int(time / 3600)
 		let minutes: Int = Int((time / 60).truncatingRemainder(dividingBy: 60))
 		let seconds: Int = Int(time.truncatingRemainder(dividingBy: 60))
-		(delegate as? CaptureViewDelegate)?.captureViewDidUpdateRecordTimer?(captureView: self, hours: hours, minutes: minutes, seconds: seconds)
+		(delegate as? CaptureDelegate)?.captureDidUpdateRecordTimer?(capture: self, hours: hours, minutes: minutes, seconds: seconds)
 	}
 	
 	/// Stops the timer when recording.
@@ -370,7 +370,7 @@ public class CaptureView : View, UIGestureRecognizerDelegate {
         let seconds: Int = Int(time.truncatingRemainder(dividingBy: 60))
         timer?.invalidate()
 		timer = nil
-		(delegate as? CaptureViewDelegate)?.captureViewDidStopRecordTimer?(captureView: self, hours: hours, minutes: minutes, seconds: seconds)
+		(delegate as? CaptureDelegate)?.captureDidStopRecordTimer?(capture: self, hours: hours, minutes: minutes, seconds: seconds)
 	}
 	
 	/**
@@ -378,7 +378,7 @@ public class CaptureView : View, UIGestureRecognizerDelegate {
      - Parameter button: A UIButton that is associated with the event.
      */
 	internal func handleFlashButton(button: UIButton) {
-		(delegate as? CaptureViewDelegate)?.captureViewDidPressFlashButton?(captureView: self, button: button)
+		(delegate as? CaptureDelegate)?.captureDidPressFlashButton?(capture: self, button: button)
 	}
 	
     /**
@@ -387,7 +387,7 @@ public class CaptureView : View, UIGestureRecognizerDelegate {
      */
     internal func handleSwitchCamerasButton(button: UIButton) {
 		captureSession.switchCameras()
-		(delegate as? CaptureViewDelegate)?.captureViewDidPressSwitchCamerasButton?(captureView: self, button: button)
+		(delegate as? CaptureDelegate)?.captureDidPressSwitchCamerasButton?(capture: self, button: button)
 	}
 	
     /**
@@ -406,7 +406,7 @@ public class CaptureView : View, UIGestureRecognizerDelegate {
 				startTimer()
 			}
 		}
-		(delegate as? CaptureViewDelegate)?.captureViewDidPressCaptureButton?(captureView: self, button: button)
+		(delegate as? CaptureDelegate)?.captureDidPressCaptureButton?(capture: self, button: button)
 	}
 	
     /**
@@ -415,7 +415,7 @@ public class CaptureView : View, UIGestureRecognizerDelegate {
      */
     internal func handleCameraButton(button: UIButton) {
 		captureMode = .photo
-		(delegate as? CaptureViewDelegate)?.captureViewDidPressCameraButton?(captureView: self, button: button)
+		(delegate as? CaptureDelegate)?.captureDidPressCameraButton?(capture: self, button: button)
 	}
 	
     /**
@@ -424,7 +424,7 @@ public class CaptureView : View, UIGestureRecognizerDelegate {
      */
     internal func handleVideoButton(button: UIButton) {
 		captureMode = .video
-		(delegate as? CaptureViewDelegate)?.captureViewDidPressVideoButton?(captureView: self, button: button)
+		(delegate as? CaptureDelegate)?.captureDidPressVideoButton?(capture: self, button: button)
 	}
 	
     /**
@@ -437,7 +437,7 @@ public class CaptureView : View, UIGestureRecognizerDelegate {
 			let point: CGPoint = recognizer.location(in: self)
 			captureSession.focus(at: previewView.captureDevicePointOfInterestForPoint(point: point))
 			animateTapLayer(layer: focusLayer!, point: point)
-			(delegate as? CaptureViewDelegate)?.captureViewDidTapToFocusAtPoint?(captureView: self, point: point)
+			(delegate as? CaptureDelegate)?.captureDidTapToFocusAtPoint?(capture: self, point: point)
 		}
 	}
 	
@@ -451,7 +451,7 @@ public class CaptureView : View, UIGestureRecognizerDelegate {
 			let point: CGPoint = recognizer.location(in: self)
 			captureSession.expose(at: previewView.captureDevicePointOfInterestForPoint(point: point))
 			animateTapLayer(layer: exposureLayer!, point: point)
-			(delegate as? CaptureViewDelegate)?.captureViewDidTapToExposeAtPoint?(captureView: self, point: point)
+			(delegate as? CaptureDelegate)?.captureDidTapToExposeAtPoint?(capture: self, point: point)
 		}
 	}
 	
@@ -465,7 +465,7 @@ public class CaptureView : View, UIGestureRecognizerDelegate {
 			captureSession.reset()
             let point: CGPoint = previewView.pointForCaptureDevicePointOfInterest(point: CGPoint(x: 0.5, y: 0.5))
 			animateTapLayer(layer: resetLayer!, point: point)
-			(delegate as? CaptureViewDelegate)?.captureViewDidTapToResetAtPoint?(captureView: self, point: point)
+			(delegate as? CaptureDelegate)?.captureDidTapToResetAtPoint?(capture: self, point: point)
 		}
 	}
 	

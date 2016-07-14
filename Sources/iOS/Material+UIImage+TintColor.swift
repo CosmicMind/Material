@@ -46,7 +46,7 @@ public extension UIImage {
 		CGContextSetBlendMode(context, .Multiply)
 		
 		let rect = CGRectMake(0, 0, size.width, size.height)
-		CGContextClipToMask(context, rect, CGImage)
+		CGContextClipToMask(context, rect, cgImage)
 		color.setFill()
 		CGContextFillRect(context, rect)
 		

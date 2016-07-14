@@ -274,7 +274,7 @@ public class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 				var userInfo: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
 				userInfo[NSLocalizedDescriptionKey] = "[Material Error: Unsupported focusMode.]"
 				userInfo[NSLocalizedFailureReasonErrorKey] = "[Material Error: Unsupported focusMode.]"
-				error = NSError(domain: "io.cosmicmind.Material.CaptureView", code: 0001, userInfo: userInfo)
+				error = NSError(domain: "io.cosmicmind.Material.Capture", code: 0001, userInfo: userInfo)
 				userInfo[NSUnderlyingErrorKey] = error
 			}
 			if let e: NSError = error {
@@ -303,7 +303,7 @@ public class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 				var userInfo: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
 				userInfo[NSLocalizedDescriptionKey] = "[Material Error: Unsupported flashMode.]"
 				userInfo[NSLocalizedFailureReasonErrorKey] = "[Material Error: Unsupported flashMode.]"
-				error = NSError(domain: "io.cosmicmind.Material.CaptureView", code: 0002, userInfo: userInfo)
+				error = NSError(domain: "io.cosmicmind.Material.Capture", code: 0002, userInfo: userInfo)
 				userInfo[NSUnderlyingErrorKey] = error
 			}
 			if let e: NSError = error {
@@ -332,7 +332,7 @@ public class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 				var userInfo: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
 				userInfo[NSLocalizedDescriptionKey] = "[Material Error: Unsupported torchMode.]"
 				userInfo[NSLocalizedFailureReasonErrorKey] = "[Material Error: Unsupported torchMode.]"
-				error = NSError(domain: "io.cosmicmind.Material.CaptureView", code: 0003, userInfo: userInfo)
+				error = NSError(domain: "io.cosmicmind.Material.Capture", code: 0003, userInfo: userInfo)
 				userInfo[NSUnderlyingErrorKey] = error
 			}
 			if let e: NSError = error {
@@ -477,7 +477,7 @@ public class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 			var userInfo: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
 			userInfo[NSLocalizedDescriptionKey] = "[Material Error: Unsupported focus.]"
 			userInfo[NSLocalizedFailureReasonErrorKey] = "[Material Error: Unsupported focus.]"
-			error = NSError(domain: "io.cosmicmind.Material.CaptureView", code: 0004, userInfo: userInfo)
+			error = NSError(domain: "io.cosmicmind.Material.Capture", code: 0004, userInfo: userInfo)
 			userInfo[NSUnderlyingErrorKey] = error
 		}
 		if let e: NSError = error {
@@ -508,7 +508,7 @@ public class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 			var userInfo: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
 			userInfo[NSLocalizedDescriptionKey] = "[Material Error: Unsupported expose.]"
 			userInfo[NSLocalizedFailureReasonErrorKey] = "[Material Error: Unsupported expose.]"
-			error = NSError(domain: "io.cosmicmind.Material.CaptureView", code: 0005, userInfo: userInfo)
+			error = NSError(domain: "io.cosmicmind.Material.Capture", code: 0005, userInfo: userInfo)
 			userInfo[NSUnderlyingErrorKey] = error
 		}
 		if let e: NSError = error {
@@ -580,14 +580,14 @@ public class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 										var userInfo: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
 										userInfo[NSLocalizedDescriptionKey] = "[Material Error: Cannot fix image orientation.]"
 										userInfo[NSLocalizedFailureReasonErrorKey] = "[Material Error: Cannot fix image orientation.]"
-										captureError = NSError(domain: "io.cosmicmind.Material.CaptureView", code: 0006, userInfo: userInfo)
+										captureError = NSError(domain: "io.cosmicmind.Material.Capture", code: 0006, userInfo: userInfo)
 										userInfo[NSUnderlyingErrorKey] = error
 									}
 								} else {
 									var userInfo: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
 									userInfo[NSLocalizedDescriptionKey] = "[Material Error: Cannot capture image from data.]"
 									userInfo[NSLocalizedFailureReasonErrorKey] = "[Material Error: Cannot capture image from data.]"
-									captureError = NSError(domain: "io.cosmicmind.Material.CaptureView", code: 0007, userInfo: userInfo)
+									captureError = NSError(domain: "io.cosmicmind.Material.Capture", code: 0007, userInfo: userInfo)
 									userInfo[NSUnderlyingErrorKey] = error
 								}
 							}
@@ -771,7 +771,7 @@ public class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 		default:break
 		}
 		
-		// Draw the underlying CGImage with the calculated transform.
+		// Draw the underlying cgImage with the calculated transform.
 		guard let context = CGContext(data: nil, width: Int(image.size.width), height: Int(image.size.height), bitsPerComponent: image.cgImage!.bitsPerComponent, bytesPerRow: 0, space: image.cgImage!.colorSpace!, bitmapInfo: image.cgImage!.bitmapInfo.rawValue) else {
 			return nil
 		}

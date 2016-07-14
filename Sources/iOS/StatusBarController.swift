@@ -60,7 +60,7 @@ public class StatusBarController : RootController {
 	*/
 	public override func layoutSubviews() {
 		super.layoutSubviews()
-		statusBarView.hidden = Device.isLandscape && .phone == Device.userInterfaceIdiom
+		statusBarView.isHidden = Device.isLandscape && .phone == Device.userInterfaceIdiom
 		rootViewController.view.frame = view.bounds
 	}
 	

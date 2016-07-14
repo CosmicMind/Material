@@ -114,13 +114,13 @@ public class ToolbarController : RootController {
 				addChildViewController(v)
 				v.view.frame = view.bounds
 				v.view.center.y = 2 * view.bounds.height
-				v.view.hidden = true
+				v.view.isHidden = true
 				view.insertSubview(v.view, aboveSubview: toolbar)
 				v.view.layer.zPosition = 1500
 				v.didMoveToParentViewController(self)
 				
 				// Animate the noteButton out and the noteViewController! in.
-				v.view.hidden = false
+				v.view.isHidden = false
 				v.view.layer.rasterizationScale = Device.scale
 				v.view.layer.shouldRasterize = true
 				view.layer.rasterizationScale = Device.scale

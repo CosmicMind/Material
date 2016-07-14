@@ -39,7 +39,7 @@ public class Button: UIButton {
      allows the dropshadow effect on the backing layer, while clipping
      the image to a desired shape within the visualLayer.
      */
-	public private(set) lazy var visualLayer: CAShapeLayer = CAShapeLayer()
+	public private(set) var visualLayer: CAShapeLayer!
 	
 	/**
      A base delegate reference used when subclassing View.
@@ -196,26 +196,23 @@ public class Button: UIButton {
 		}
 	}
 	
-	/**
-     A property that sets the shadowOffset, shadowOpacity, and shadowRadius
-     for the backing layer. This is the preferred method of setting depth
-     in order to maintain consitency across UI objects.
-     */
-	public var depthPreset = .none {
+	/// A preset value for Depth.
+    public var depthPreset: DepthPreset = .none {
 		didSet {
-			let v = DepthPresetToValue(preset: depthPreset)
-			shadowOffset = v.offset
-			shadowOpacity = v.opacity
-			shadowRadius = v.radius
-			layoutShadowPath()
+			depth = DepthPresetToValue(preset: depthPreset)
 		}
 	}
     
+    /**
+     A property that sets the shadowOffset, shadowOpacity, and shadowRadius
+     for the backing layer.
+     */
     public var depth = Depth.zero {
         didSet {
-            shadowOffset = depth.offset
+            shadowOffset = depth.offsetAsSize
             shadowOpacity = depth.opacity
             shadowRadius = depth.radius
+            layoutShadowPath()
         }
     }
 	
@@ -312,19 +309,26 @@ public class Button: UIButton {
 	}
 	
 	/// A preset property for updated contentEdgeInsets.
-	public var contentEdgeInsetsPreset: InsetsPreset {
+	public var contentInsetPreset: InsetPreset = .none {
 		didSet {
-			let value: Insets = InsetsPresetToValue(preset: contentEdgeInsetsPreset)
-			contentEdgeInsets = UIEdgeInsetsMake(value.top, value.left, value.bottom, value.right)
+			contentInset = InsetPresetToValue(preset: contentInsetPreset)
 		}
 	}
 	
+    /**
+     :name:	contentInset
+     */
+    @IBInspectable public var contentInset = Inset.zero {
+        didSet {
+            contentEdgeInsets = contentInset.asEdgeInsets
+        }
+    }
+    
 	/**
      An initializer that initializes the object with a NSCoder object.
      - Parameter aDecoder: A NSCoder instance.
      */
 	public required init?(coder aDecoder: NSCoder) {
-		contentEdgeInsetsPreset = .none
 		super.init(coder: aDecoder)
 		prepareView()
 	}
@@ -336,7 +340,6 @@ public class Button: UIButton {
      - Parameter frame: A CGRect instance.
      */
 	public override init(frame: CGRect) {
-		contentEdgeInsetsPreset = .None
 		super.init(frame: frame)
 		prepareView()
 	}
@@ -360,7 +363,7 @@ public class Button: UIButton {
 	}
 	
 	public override func alignmentRectInsets() -> UIEdgeInsets {
-		return UIEdgeInsetsZero
+		return UIEdgeInset.zero
 	}
 	
 	/**
@@ -473,13 +476,14 @@ public class Button: UIButton {
 	when subclassing.
 	*/
 	public func prepareView() {
-		contentScaleFactor = Device.scale
+        contentScaleFactor = Device.scale
 		prepareVisualLayer()
 	}
 	
 	/// Prepares the visualLayer property.
 	internal func prepareVisualLayer() {
-		visualLayer.zPosition = 0
+        visualLayer = CAShapeLayer()
+        visualLayer.zPosition = 0
 		visualLayer.masksToBounds = true
 		layer.addSublayer(visualLayer)
 	}
@@ -503,12 +507,12 @@ public class Button: UIButton {
 	/// Sets the shadow path.
 	internal func layoutShadowPath() {
 		if shadowPathAutoSizeEnabled {
-			if .None == depth {
+			if .none == depthPreset {
 				shadowPath = nil
 			} else if nil == shadowPath {
-				shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).CGPath
+				shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
 			} else {
-				animate(MaterialAnimation.shadowPath(UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).CGPath, duration: 0))
+				animate(animation: MaterialAnimation.shadowPath(path: UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath, duration: 0))
 			}
 		}
 	}

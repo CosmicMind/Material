@@ -286,9 +286,9 @@ public class TextView: UITextView {
 	Text container UIEdgeInset preset property. This updates the 
 	textContainerInset property with a preset value.
 	*/
-	public var textContainerInsetPreset: InsetsPreset = .none {
+	public var textContainerInsetPreset: InsetPreset = .none {
 		didSet {
-			textContainerInset = InsetsPresetToValue(preset: textContainerInsetPreset)
+			textContainerInset = InsetPresetToValue(preset: textContainerInsetPreset)
 		}
 	}
 	
@@ -417,7 +417,7 @@ public class TextView: UITextView {
 	/// Notification handler for when text changed.
 	internal func handleTextViewTextDidChange() {
 		if let p = placeholderLabel {
-			p.hidden = !(true == text?.isEmpty)
+			p.isHidden = !(true == text?.isEmpty)
 		}
 		
 		if 0 < text?.utf16.count {
@@ -459,7 +459,7 @@ public class TextView: UITextView {
 	*/
 	public func prepareView() {
 		contentScaleFactor = Device.scale
-		textContainerInset = Insets.zero
+		textContainerInset = Inset.zero
 		backgroundColor = Color.white
 		masksToBounds = false
 		removeNotificationHandlers()
@@ -483,7 +483,7 @@ public class TextView: UITextView {
 	/// Prepares the titleLabel property.
 	private func prepareTitleLabel() {
 		if let v: UILabel = titleLabel {
-			v.hidden = true
+			v.isHidden = true
 			addSubview(v)
 			if 0 < text?.utf16.count {
 				showTitleLabel()
@@ -496,13 +496,13 @@ public class TextView: UITextView {
 	/// Shows and animates the titleLabel property.
 	private func showTitleLabel() {
 		if let v: UILabel = titleLabel {
-			if v.hidden {
+			if v.isHidden {
 				if let s: String = placeholderLabel?.text {
                     v.text = s
 				}
 				let h: CGFloat = ceil(v.font.lineHeight)
 				v.frame = CGRectMake(0, -h, bounds.width, h)
-				v.hidden = false
+				v.isHidden = false
 				UIView.animateWithDuration(0.25, animations: { [weak self] in
 					if let s: TextView = self {
 						v.alpha = 1
@@ -516,12 +516,12 @@ public class TextView: UITextView {
 	/// Hides and animates the titleLabel property.
 	private func hideTitleLabel() {
 		if let v: UILabel = titleLabel {
-			if !v.hidden {
+			if !v.isHidden {
 				UIView.animateWithDuration(0.25, animations: {
 					v.alpha = 0
 					v.frame.origin.y = -v.frame.height
 				}) { _ in
-					v.hidden = true
+					v.isHidden = true
 				}
 			}
 		}

@@ -176,7 +176,7 @@ public class Menu {
 					base = v[0]
 				}
 				let view: UIView = v[i]
-				view.hidden = false
+				view.isHidden = false
 
 				UIView.animateWithDuration(Double(i) * duration,
 					delay: delay,
@@ -230,7 +230,7 @@ public class Menu {
 						}
 					}) { [weak self] _ in
 						if let s: Menu = self {
-							view.hidden = true
+							view.isHidden = true
 							s.enable(view)
 							if view == v.last {
 								s.opened = false
@@ -261,7 +261,7 @@ public class Menu {
 				}
 
 				let view: UIView = v[i]
-				view.hidden = false
+				view.isHidden = false
 
 				let h: CGFloat = nil == baseSize ? itemSize.height : baseSize!.height
 				UIView.animateWithDuration(Double(i) * duration,
@@ -317,7 +317,7 @@ public class Menu {
 						}
 					}) { [weak self] _ in
 						if let s: Menu = self {
-							view.hidden = true
+							view.isHidden = true
 							s.enable(view)
 							if view == v.last {
 								s.opened = false
@@ -348,7 +348,7 @@ public class Menu {
 				}
 
 				let view: UIView = v[i]
-				view.hidden = false
+				view.isHidden = false
 
 				UIView.animateWithDuration(Double(i) * duration,
 					delay: delay,
@@ -401,7 +401,7 @@ public class Menu {
 						}
 					}) { [weak self] _ in
 						if let s: Menu = self {
-							view.hidden = true
+							view.isHidden = true
 							s.enable(view)
 							if view == v.last {
 								s.opened = false
@@ -431,7 +431,7 @@ public class Menu {
 					base = v[0]
 				}
 				let view: UIView = v[i]
-				view.hidden = false
+				view.isHidden = false
 
 				let h: CGFloat = nil == baseSize ? itemSize.height : baseSize!.height
 				UIView.animateWithDuration(Double(i) * duration,
@@ -487,7 +487,7 @@ public class Menu {
 						}
 					}) { [weak self] _ in
 						if let s: Menu = self {
-							view.hidden = true
+							view.isHidden = true
 							s.enable(view)
 							if view == v.last {
 								s.opened = false
@@ -511,7 +511,7 @@ public class Menu {
 					view.layer.zPosition = 10000
 				} else {
 					view.alpha = 0
-					view.hidden = true
+					view.isHidden = true
 					view.frame.size = itemSize
 					view.frame.origin.x = origin.x + (size.width - itemSize.width) / 2
 					view.frame.origin.y = origin.y + (size.height - itemSize.height) / 2

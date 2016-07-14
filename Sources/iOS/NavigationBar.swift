@@ -62,14 +62,14 @@ public class NavigationBar : UINavigationBar {
 	}
 	
 	/// A preset wrapper around contentInset.
-	public var contentInsetPreset: InsetsPreset = .none {
+	public var contentInsetPreset: InsetPreset = .none {
 		didSet {
-            contentInset = InsetsPresetToValue(preset: contentInsetPreset)
+            contentInset = InsetPresetToValue(preset: contentInsetPreset)
 		}
 	}
 	
 	/// A wrapper around grid.contentInset.
-	@IBInspectable public var contentInset: Insets = Insets.zero {
+	@IBInspectable public var contentInset: Insets = Inset.zero {
 		didSet {
 			layoutSubviews()
 		}

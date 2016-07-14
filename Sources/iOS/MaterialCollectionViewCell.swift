@@ -69,7 +69,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	*/
 	@IBInspectable public var image: UIImage? {
 		didSet {
-			visualLayer.contents = image?.CGImage
+			visualLayer.contents = image?.cgImage
 		}
 	}
 	
@@ -133,7 +133,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	}
 	
 	/// A preset wrapper around contentInset.
-	public var contentInsetPreset: Insets {
+	public var contentInsetPreset: InsetPreset {
 		get {
 			return contentView.grid.contentInsetPreset
 		}

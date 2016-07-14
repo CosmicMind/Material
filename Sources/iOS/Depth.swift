@@ -49,6 +49,11 @@ public struct Depth {
     /// Radius.
     public var radius: CGFloat
     
+    /// Offset as size.
+    public var offsetAsSize: CGSize {
+        return CGSize(width: offset.horizontal, height: offset.vertical)
+    }
+    
     /**
      Initializer.
      - Parameter offset: UIOffset.
