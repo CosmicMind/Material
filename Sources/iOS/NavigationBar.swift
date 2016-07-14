@@ -187,7 +187,7 @@ public class NavigationBar : UINavigationBar {
 	/// A property that accesses the backing layer's shadowColor.
 	@IBInspectable public var shadowColor: UIColor? {
 		didSet {
-			layer.shadowColor = shadowColor?.CGColor
+			layer.shadowColor = shadowColor?.cgColor
 		}
 	}
 	
@@ -255,10 +255,10 @@ public class NavigationBar : UINavigationBar {
 	/// A property that accesses the layer.borderColor property.
 	@IBInspectable public var borderColor: UIColor? {
 		get {
-			return nil == layer.borderColor ? nil : UIColor(CGColor: layer.borderColor!)
+			return nil == layer.borderColor ? nil : UIColor(cgColor: layer.borderColor!)
 		}
 		set(value) {
-			layer.borderColor = value?.CGColor
+			layer.borderColor = value?.cgColor
 		}
 	}
 	

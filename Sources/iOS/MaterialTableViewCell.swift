@@ -55,9 +55,9 @@ public class MaterialTableViewCell : UITableViewCell {
 	@IBInspectable public var pulseColor: UIColor = Color.grey.base
 	
 	/// The type of PulseAnimation.
-	public var pulseAnimation: PulseAnimation = .AtPointWithBacking {
+	public var pulseAnimation: PulseAnimation = .pointWithBacking {
 		didSet {
-			visualLayer.masksToBounds = .CenterRadialBeyondBounds != pulseAnimation
+			visualLayer.masksToBounds = .centerRadialBeyondBounds != pulseAnimation
 		}
 	}
 	
@@ -79,7 +79,7 @@ public class MaterialTableViewCell : UITableViewCell {
 	/// A property that accesses the backing layer's backgroundColor.
 	@IBInspectable public override var backgroundColor: UIColor? {
 		didSet {
-			layer.backgroundColor = backgroundColor?.CGColor
+			layer.backgroundColor = backgroundColor?.cgColor
 		}
 	}
 	
@@ -136,7 +136,7 @@ public class MaterialTableViewCell : UITableViewCell {
 	/// A property that accesses the backing layer's shadowColor.
 	@IBInspectable public var shadowColor: UIColor? {
 		didSet {
-			layer.shadowColor = shadowColor?.CGColor
+			layer.shadowColor = shadowColor?.cgColor
 		}
 	}
 	
@@ -189,20 +189,25 @@ public class MaterialTableViewCell : UITableViewCell {
 		}
 	}
 	
-	/**
-	A property that sets the shadowOffset, shadowOpacity, and shadowRadius
-	for the backing layer. This is the preferred method of setting depth
-	in order to maintain consitency across UI objects.
-	*/
-	public var depthPreset = .none {
-		didSet {
-			let value: Depth = DepthPresetToValue(preset)
-			shadowOffset = value.offset
-			shadowOpacity = value.opacity
-			shadowRadius = value.radius
-			layoutShadowPath()
-		}
-	}
+    /// A preset value for Depth.
+    public var depthPreset: DepthPreset = .none {
+        didSet {
+            depth = DepthPresetToValue(preset: depthPreset)
+        }
+    }
+    
+    /**
+     A property that sets the shadowOffset, shadowOpacity, and shadowRadius
+     for the backing layer.
+     */
+    public var depth = Depth.zero {
+        didSet {
+            shadowOffset = depth.offset.asSize
+            shadowOpacity = depth.opacity
+            shadowRadius = depth.radius
+            layoutShadowPath()
+        }
+    }
 	
 	/**
 	A property that sets the cornerRadius of the backing layer. If the shape
@@ -212,7 +217,7 @@ public class MaterialTableViewCell : UITableViewCell {
 	public var cornerRadiusPreset: MaterialRadius = .None {
 		didSet {
 			if let v: MaterialRadius = cornerRadiusPreset {
-				cornerRadius = MaterialRadiusToValue(v)
+				cornerRadius = MaterialRadiusToValue(radius: v)
 			}
 		}
 	}
@@ -231,7 +236,7 @@ public class MaterialTableViewCell : UITableViewCell {
 	/// A preset property to set the borderWidth.
 	public var borderWidthPreset: MaterialBorder = .None {
 		didSet {
-			borderWidth = MaterialBorderToValue(borderWidthPreset)
+			borderWidth = MaterialBorderToValue(border: borderWidthPreset)
 		}
 	}
 	
@@ -248,10 +253,10 @@ public class MaterialTableViewCell : UITableViewCell {
 	/// A property that accesses the layer.borderColor property.
 	@IBInspectable public var borderColor: UIColor? {
 		get {
-			return nil == layer.borderColor ? nil : UIColor(CGColor: layer.borderColor!)
+			return nil == layer.borderColor ? nil : UIColor(cgColor: layer.borderColor!)
 		}
 		set(value) {
-			layer.borderColor = value?.CGColor
+			layer.borderColor = value?.cgColor
 		}
 	}
 	

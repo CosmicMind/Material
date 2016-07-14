@@ -53,7 +53,7 @@ public class TextField : UITextField {
     /// A property that accesses the backing layer's backgroundColor.
 	@IBInspectable public override var backgroundColor: UIColor? {
 		didSet {
-			layer.backgroundColor = backgroundColor?.CGColor
+			layer.backgroundColor = backgroundColor?.cgColor
 		}
 	}
 	
@@ -130,7 +130,7 @@ public class TextField : UITextField {
 	@IBInspectable public var dividerColor: UIColor = Color.darkText.dividers {
 		didSet {
 			if !editing {
-				divider.backgroundColor = dividerColor.CGColor
+				divider.backgroundColor = dividerColor.cgColor
 			}
 		}
 	}
@@ -140,7 +140,7 @@ public class TextField : UITextField {
 		didSet {
 			if let v: UIColor = dividerActiveColor {
 				if editing {
-					divider.backgroundColor = v.CGColor
+					divider.backgroundColor = v.cgColor
 				}
 			}
 		}
@@ -552,13 +552,13 @@ public class TextField : UITextField {
 	/// The animation for the divider when editing begins.
 	public func dividerEditingDidBeginAnimation() {
 		divider.frame.size.height = dividerActiveHeight
-		divider.backgroundColor = nil == dividerActiveColor ? placeholderActiveColor.CGColor : dividerActiveColor!.CGColor
+		divider.backgroundColor = nil == dividerActiveColor ? placeholderActiveColor.cgColor : dividerActiveColor!.cgColor
 	}
 	
 	/// The animation for the divider when editing ends.
 	public func dividerEditingDidEndAnimation() {
 		divider.frame.size.height = dividerHeight
-		divider.backgroundColor = dividerColor.CGColor
+		divider.backgroundColor = dividerColor.cgColor
 	}
 	
 	/// The animation for the placeholder when editing begins.

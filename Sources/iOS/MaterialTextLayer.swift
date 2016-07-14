@@ -66,7 +66,7 @@ public class MaterialTextLayer : CATextLayer {
 	*/
 	@IBInspectable public var textColor: UIColor? {
 		didSet {
-			foregroundColor = textColor?.CGColor
+			foregroundColor = textColor?.cgColor
 		}
 	}
 	

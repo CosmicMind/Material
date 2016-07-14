@@ -56,9 +56,9 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 	@IBInspectable public var pulseColor: UIColor = Color.grey.base
 	
 	/// The type of PulseAnimation.
-	public var pulseAnimation: PulseAnimation = .AtPointWithBacking {
+	public var pulseAnimation: PulseAnimation = .pointWithBacking {
 		didSet {
-			visualLayer.masksToBounds = .CenterRadialBeyondBounds != pulseAnimation
+			visualLayer.masksToBounds = .centerRadialBeyondBounds != pulseAnimation
 		}
 	}
 	
@@ -187,7 +187,7 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 	/// A property that accesses the backing layer's backgroundColor.
 	@IBInspectable public override var backgroundColor: UIColor? {
 		didSet {
-			layer.backgroundColor = backgroundColor?.CGColor
+			layer.backgroundColor = backgroundColor?.cgColor
 		}
 	}
 	
@@ -250,7 +250,7 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 	/// A property that accesses the backing layer's shadowColor.
 	@IBInspectable public var shadowColor: UIColor? {
 		didSet {
-			layer.shadowColor = shadowColor?.CGColor
+			layer.shadowColor = shadowColor?.cgColor
 		}
 	}
 	
@@ -366,7 +366,7 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 	/// A preset property to set the borderWidth.
 	public var borderWidthPreset: MaterialBorder = .None {
 		didSet {
-			borderWidth = MaterialBorderToValue(borderWidthPreset)
+			borderWidth = MaterialBorderToValue(border: borderWidthPreset)
 		}
 	}
 	
@@ -383,10 +383,10 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 	/// A property that accesses the layer.borderColor property.
 	@IBInspectable public var borderColor: UIColor? {
 		get {
-			return nil == layer.borderColor ? nil : UIColor(CGColor: layer.borderColor!)
+			return nil == layer.borderColor ? nil : UIColor(cgColor: layer.borderColor!)
 		}
 		set(value) {
-			layer.borderColor = value?.CGColor
+			layer.borderColor = value?.cgColor
 		}
 	}
 	
@@ -415,7 +415,7 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 	- Parameter aDecoder: A NSCoder instance.
 	*/
 	public required init?(coder aDecoder: NSCoder) {
-		depth = .None
+		depthPreset = .none
 		cornerRadiusPreset = .None
 		shape = .None
 		contentsGravityPreset = .ResizeAspectFill
@@ -430,7 +430,7 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 	- Parameter frame: A CGRect instance.
 	*/
 	public override init(frame: CGRect) {
-		depth = .None
+		depthPreset = .none
 		cornerRadiusPreset = .None
 		shape = .None
 		contentsGravityPreset = .ResizeAspectFill
@@ -443,8 +443,8 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 		self.init(frame: CGRect.zero)
 	}
 	
-	public override func layoutSublayersOfLayer(layer: CALayer) {
-		super.layoutSublayersOfLayer(layer)
+	public override func layoutSublayers(of layer: CALayer) {
+		super.layoutSublayers(of: layer)
 		if self.layer == layer {
 			layoutShape()
 			layoutVisualLayer()
@@ -498,7 +498,7 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 				if let v: AnyObject = b.toValue {
 					if let k: String = b.keyPath {
 						layer.setValue(v, forKeyPath: k)
-						layer.removeAnimationForKey(k)
+						layer.removeAnimation(forKey: k)
 					}
 				}
 			}
@@ -531,9 +531,9 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 	- Parameter touches: A set of UITouch objects.
 	- Parameter event: A UIEvent object.
 	*/
-	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-		super.touchesBegan(touches, withEvent: event)
-		MaterialAnimation.pulseExpandAnimation(layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseOpacity: pulseOpacity, point: layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer), width: width, height: height, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
+	public override func touchesBegan(touches: Set<UITouch>, with event: UIEvent?) {
+		super.touchesBegan(touches, with: event)
+		MaterialAnimation.pulseExpandAnimation(layer: layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseOpacity: pulseOpacity, point: layer.convert(touches.first!.location(in: self), from: layer), width: width, height: height, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
 	}
 	
 	/**
@@ -542,9 +542,9 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 	- Parameter touches: A set of UITouch objects.
 	- Parameter event: A UIEvent object.
 	*/
-	public override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-		super.touchesEnded(touches, withEvent: event)
-		MaterialAnimation.pulseContractAnimation(layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
+	public override func touchesEnded(touches: Set<UITouch>, with event: UIEvent?) {
+		super.touchesEnded(touches, with: event)
+		MaterialAnimation.pulseContractAnimation(layer: layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
 	}
 	
 	/**
@@ -553,9 +553,9 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 	- Parameter touches: A set of UITouch objects.
 	- Parameter event: A UIEvent object.
 	*/
-	public override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
-		super.touchesCancelled(touches, withEvent: event)
-		MaterialAnimation.pulseContractAnimation(layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
+	public override func touchesCancelled(touches: Set<UITouch>, with event: UIEvent?) {
+		super.touchesCancelled(touches, with: event)
+		MaterialAnimation.pulseContractAnimation(layer: layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
 	}
 	
 	/**
@@ -567,7 +567,7 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 	*/
 	public func prepareView() {
 		contentScaleFactor = Device.scale
-		pulseAnimation = .None
+		pulseAnimation = .none
 		prepareVisualLayer()
 	}
 	
@@ -597,12 +597,12 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 	/// Sets the shadow path.
 	internal func layoutShadowPath() {
 		if shadowPathAutoSizeEnabled {
-			if .None == depth {
+			if .none == depthPreset {
 				shadowPath = nil
 			} else if nil == shadowPath {
-				shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).CGPath
+				shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
 			} else {
-				animate(MaterialAnimation.shadowPath(UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).CGPath, duration: 0))
+				animate(animation: MaterialAnimation.shadowPath(path: UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath, duration: 0))
 			}
 		}
 	}

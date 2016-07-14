@@ -36,9 +36,9 @@ public extension MaterialAnimation {
 	*/
 	public static func backgroundColor(color: UIColor, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation: CABasicAnimation = CABasicAnimation(keyPath: "backgroundColor")
-		animation.toValue = color.CGColor
-		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
-		animation.removedOnCompletion = false
+		animation.toValue = color.cgColor
+		animation.fillMode = MaterialAnimationFillModeToValue(mode: .Forwards)
+		animation.isRemovedOnCompletion = false
 		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
 		if let v: CFTimeInterval = duration {
 			animation.duration = v
@@ -53,7 +53,7 @@ public extension MaterialAnimation {
 		let animation: CABasicAnimation = CABasicAnimation(keyPath: "cornerRadius")
 		animation.toValue = radius
 		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
-		animation.removedOnCompletion = false
+		animation.isRemovedOnCompletion = false
 		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
 		if let v: CFTimeInterval = duration {
 			animation.duration = v
@@ -68,7 +68,7 @@ public extension MaterialAnimation {
 		let animation: CABasicAnimation = CABasicAnimation(keyPath: "transform")
 		animation.toValue = NSValue(CATransform3D: transform)
 		animation.fillMode = MaterialAnimationFillModeToValue(.Forwards)
-		animation.removedOnCompletion = false
+		animation.isRemovedOnCompletion = false
 		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
 		if let v: CFTimeInterval = duration {
 			animation.duration = v

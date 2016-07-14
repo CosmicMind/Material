@@ -141,7 +141,7 @@ public extension UIImage {
 		// Add in color tint.
 		if let v: UIColor = tintColor {
 			CGContextSaveGState(outputContext)
-			CGContextSetFillColorWithColor(outputContext, v.CGColor)
+			CGContextSetFillColorWithColor(outputContext, v.cgColor)
 			CGContextFillRect(outputContext, imageRect)
 			CGContextRestoreGState(outputContext)
 		}
