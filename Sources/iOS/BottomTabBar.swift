@@ -87,7 +87,7 @@ public class BottomTabBar: UITabBar {
 	/**
 	A property that accesses the layer.frame.size.width property.
 	When setting this property in conjunction with the shape property having a
-	value that is not .None, the height will be adjusted to maintain the correct
+	value that is not .none, the height will be adjusted to maintain the correct
 	shape.
 	*/
 	@IBInspectable public var width: CGFloat {
@@ -102,7 +102,7 @@ public class BottomTabBar: UITabBar {
 	/**
 	A property that accesses the layer.frame.size.height property.
 	When setting this property in conjunction with the shape property having a
-	value that is not .None, the width will be adjusted to maintain the correct
+	value that is not .none, the width will be adjusted to maintain the correct
 	shape.
 	*/
 	@IBInspectable public var height: CGFloat {
@@ -122,7 +122,7 @@ public class BottomTabBar: UITabBar {
 	}
 	
 	/// A property that accesses the backing layer's shadowOffset.
-	@IBInspectable public var shadowOffset: CGSize {
+	@IBInspectable public var shadowOffset: Offset {
 		get {
 			return layer.shadowOffset
 		}
@@ -152,9 +152,9 @@ public class BottomTabBar: UITabBar {
 	}
 	
 	/// A preset property to set the borderWidth.
-	public var borderWidthPreset: MaterialBorder = .None {
+	public var borderWidthPreset: BorderWidthPreset = .none {
 		didSet {
-			borderWidth = MaterialBorderToValue(border: borderWidthPreset)
+			borderWidth = BorderWidthPresetToValue(preset: borderWidthPreset)
 		}
 	}
 	

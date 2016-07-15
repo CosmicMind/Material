@@ -28,8 +28,43 @@
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-public enum MaterialShape {
-	case None
-	case Square
-	case Circle
+import UIKit
+
+public enum RadiusPreset {
+	case none
+	case radius1
+	case radius2
+	case radius3
+	case radius4
+	case radius5
+	case radius6
+	case radius7
+	case radius8
+	case radius9
+}
+
+/// Converts the RadiusPreset enum to a CGFloat value.
+public func RadiusPresetToValue(preset: RadiusPreset) -> CGFloat {
+	switch preset {
+	case .none:
+		return 0
+	case .radius1:
+		return 4
+	case .radius2:
+		return 8
+	case .radius3:
+		return 16
+	case .radius4:
+		return 24
+	case .radius5:
+		return 32
+	case .radius6:
+		return 40
+	case .radius7:
+		return 48
+	case .radius8:
+		return 56
+	case .radius9:
+		return 64
+	}
 }

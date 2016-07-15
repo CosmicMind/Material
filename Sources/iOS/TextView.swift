@@ -104,7 +104,7 @@ public class TextView: UITextView {
 	}
 	
 	/// A property that accesses the backing layer's shadowOffset.
-	@IBInspectable public var shadowOffset: CGSize {
+	@IBInspectable public var shadowOffset: Offset {
 		get {
 			return layer.shadowOffset
 		}
@@ -168,10 +168,10 @@ public class TextView: UITextView {
 	}
 	
 	/// A property that sets the cornerRadius of the backing layer.
-	public var cornerRadiusPreset: MaterialRadius = .None {
+	public var cornerRadiusPreset: RadiusPreset = .none {
 		didSet {
-			if let v: MaterialRadius = cornerRadiusPreset {
-				cornerRadius = MaterialRadiusToValue(v)
+			if let v: RadiusPreset = cornerRadiusPreset {
+				cornerRadius = RadiusPresetToValue(v)
 			}
 		}
 	}
@@ -188,9 +188,9 @@ public class TextView: UITextView {
 	}
 	
 	/// A preset property to set the borderWidth.
-	public var borderWidthPreset: MaterialBorder = .None {
+	public var borderWidthPreset: BorderWidthPreset = .none {
 		didSet {
-			borderWidth = MaterialBorderToValue(borderWidthPreset)
+			borderWidth = BorderWidthPresetToValue(presetWidthPreset)
 		}
 	}
 	
@@ -286,9 +286,9 @@ public class TextView: UITextView {
 	Text container UIEdgeInset preset property. This updates the 
 	textContainerInset property with a preset value.
 	*/
-	public var textContainerInsetPreset: InsetPreset = .none {
+	public var textContainerEdgeInsetsPreset: EdgeInsetsPreset = .none {
 		didSet {
-			textContainerInset = InsetPresetToValue(preset: textContainerInsetPreset)
+			textContainerInset = EdgeInsetsPresetToValue(preset: textContainerEdgeInsetsPreset)
 		}
 	}
 	
@@ -440,7 +440,7 @@ public class TextView: UITextView {
 	/// Sets the shadow path.
 	internal func layoutShadowPath() {
 		if shadowPathAutoSizeEnabled {
-			if .None == depth {
+			if .none == depth {
 				shadowPath = nil
 			} else if nil == shadowPath {
 				shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).CGPath
@@ -459,7 +459,7 @@ public class TextView: UITextView {
 	*/
 	public func prepareView() {
 		contentScaleFactor = Device.scale
-		textContainerInset = Inset.zero
+		textContainerInset = EdgeInsets.zero
 		backgroundColor = Color.white
 		masksToBounds = false
 		removeNotificationHandlers()

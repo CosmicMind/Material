@@ -203,14 +203,14 @@ public class Capture : View, UIGestureRecognizerDelegate {
 	}
 	
 	/// Insets preset value for content.
-	public var contentInsetPreset: InsetPreset = .none {
+	public var contentEdgeInsetsPreset: EdgeInsetsPreset = .none {
 		didSet {
-			contentInset = InsetPresetToValue(preset: contentInsetPreset)
+			contentInset = EdgeInsetsPresetToValue(preset: contentEdgeInsetsPreset)
 		}
 	}
 	
 	/// Content insert value.
-	public var contentInset: Inset = InsetPresetToValue(preset: .square4) {
+	public var contentInset: Inset = EdgeInsetsPresetToValue(preset: .square4) {
 		didSet {
 			reloadView()
 		}

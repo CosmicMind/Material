@@ -41,6 +41,6 @@ public class FlatButton: Button {
 	public override func prepareView() {
 		super.prepareView()
 		cornerRadiusPreset = .Radius1
-		contentInsetPreset = .wideRectangle3
+		contentEdgeInsetsPreset = .wideRectangle3
 	}
 }

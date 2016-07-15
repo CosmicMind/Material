@@ -57,16 +57,16 @@ public class ImageCard: PulseView {
 	/**
 	:name:	dividerInsets
 	*/
-	public var dividerInsetPreset: InsetPreset = .none {
+	public var dividerEdgeInsetsPreset: EdgeInsetsPreset = .none {
 		didSet {
-			dividerInset = InsetPresetToValue(preset: dividerInsetPreset)
+			dividerInset = EdgeInsetsPresetToValue(preset: dividerEdgeInsetsPreset)
 		}
 	}
 	
 	/**
 	:name:	dividerInset
 	*/
-	@IBInspectable public var dividerInset = Inset(top: 8, left: 0, bottom: 8, right: 0) {
+	@IBInspectable public var dividerInset = EdgeInsets(top: 8, left: 0, bottom: 8, right: 0) {
 		didSet {
 			reloadView()
 		}
@@ -168,16 +168,16 @@ public class ImageCard: PulseView {
 	/**
 	:name:	contentInsets
 	*/
-	public var contentInsetPreset: InsetPreset = .square2 {
+	public var contentEdgeInsetsPreset: EdgeInsetsPreset = .square2 {
 		didSet {
-			contentInset = InsetPresetToValue(preset: contentInsetPreset)
+			contentInset = EdgeInsetsPresetToValue(preset: contentEdgeInsetsPreset)
 		}
 	}
 	
 	/**
 	:name:	contentInset
 	*/
-	@IBInspectable public var contentInset = InsetPresetToValue(preset: .square2) {
+	@IBInspectable public var contentInset = EdgeInsetsPresetToValue(preset: .square2) {
 		didSet {
 			reloadView()
 		}
@@ -186,16 +186,16 @@ public class ImageCard: PulseView {
 	/**
 	:name:	titleLabelInsets
 	*/
-	public var titleLabelInsetPreset: InsetPreset = .square2 {
+	public var titleLabelEdgeInsetsPreset: EdgeInsetsPreset = .square2 {
 		didSet {
-			titleLabelInset = InsetPresetToValue(preset: titleLabelInsetPreset)
+			titleLabelInset = EdgeInsetsPresetToValue(preset: titleLabelEdgeInsetsPreset)
 		}
 	}
 	
 	/**
 	:name:	titleLabelInset
 	*/
-	@IBInspectable public var titleLabelInset = InsetPresetToValue(preset: .square2) {
+	@IBInspectable public var titleLabelInset = EdgeInsetsPresetToValue(preset: .square2) {
 		didSet {
 			reloadView()
 		}
@@ -213,16 +213,16 @@ public class ImageCard: PulseView {
 	/**
 	:name:	contentViewInsets
 	*/
-	public var contentViewInsetPreset: InsetPreset = .square2 {
+	public var contentViewEdgeInsetsPreset: EdgeInsetsPreset = .square2 {
 		didSet {
-			contentViewInset = InsetPresetToValue(preset: contentViewInsetPreset)
+			contentViewInset = EdgeInsetsPresetToValue(preset: contentViewEdgeInsetsPreset)
 		}
 	}
 	
 	/**
 	:name:	contentViewInset
 	*/
-	@IBInspectable public var contentViewInset = InsetPresetToValue(preset: .square2) {
+	@IBInspectable public var contentViewInset = EdgeInsetsPresetToValue(preset: .square2) {
 		didSet {
 			reloadView()
 		}
@@ -240,16 +240,16 @@ public class ImageCard: PulseView {
 	/**
 	:name:	leftButtonsInsets
 	*/
-	public var leftButtonsInsetPreset: InsetPreset = .none {
+	public var leftButtonsEdgeInsetsPreset: EdgeInsetsPreset = .none {
 		didSet {
-			leftButtonsInset = InsetPresetToValue(preset: leftButtonsInsetPreset)
+			leftButtonsInset = EdgeInsetsPresetToValue(preset: leftButtonsEdgeInsetsPreset)
 		}
 	}
 	
 	/**
 	:name:	leftButtonsInset
 	*/
-	@IBInspectable public var leftButtonsInset = Inset.zero {
+	@IBInspectable public var leftButtonsInset = EdgeInsets.zero {
 		didSet {
 			reloadView()
 		}
@@ -267,16 +267,16 @@ public class ImageCard: PulseView {
 	/**
 	:name:	rightButtonsInsets
 	*/
-	public var rightButtonsInsetPreset: InsetPreset = .none {
+	public var rightButtonsEdgeInsetsPreset: EdgeInsetsPreset = .none {
 		didSet {
-			rightButtonsInset = InsetPresetToValue(preset: rightButtonsInsetPreset)
+			rightButtonsInset = EdgeInsetsPresetToValue(preset: rightButtonsEdgeInsetsPreset)
 		}
 	}
 	
 	/**
 	:name:	rightButtonsInset
 	*/
-	@IBInspectable public var rightButtonsInset = Inset.zero {
+	@IBInspectable public var rightButtonsInset = EdgeInsets.zero {
 		didSet {
 			reloadView()
 		}

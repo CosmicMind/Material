@@ -133,12 +133,12 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	}
 	
 	/// A preset wrapper around contentInset.
-	public var contentInsetPreset: InsetPreset {
+	public var contentEdgeInsetsPreset: EdgeInsetsPreset {
 		get {
-			return contentView.grid.contentInsetPreset
+			return contentView.grid.contentEdgeInsetsPreset
 		}
 		set(value) {
-			contentView.grid.contentInsetPreset = value
+			contentView.grid.contentEdgeInsetsPreset = value
 		}
 	}
 	
@@ -214,7 +214,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	/**
 	A property that accesses the layer.frame.size.width property.
 	When setting this property in conjunction with the shape property having a
-	value that is not .None, the height will be adjusted to maintain the correct
+	value that is not .none, the height will be adjusted to maintain the correct
 	shape.
 	*/
 	@IBInspectable public var width: CGFloat {
@@ -223,7 +223,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 		}
 		set(value) {
 			layer.frame.size.width = value
-			if .None != shape {
+			if .none != shape {
 				layer.frame.size.height = value
 			}
 		}
@@ -232,7 +232,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	/**
 	A property that accesses the layer.frame.size.height property.
 	When setting this property in conjunction with the shape property having a
-	value that is not .None, the width will be adjusted to maintain the correct
+	value that is not .none, the width will be adjusted to maintain the correct
 	shape.
 	*/
 	@IBInspectable public var height: CGFloat {
@@ -241,7 +241,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 		}
 		set(value) {
 			layer.frame.size.height = value
-			if .None != shape {
+			if .none != shape {
 				layer.frame.size.width = value
 			}
 		}
@@ -255,7 +255,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	}
 	
 	/// A property that accesses the backing layer's shadowOffset.
-	@IBInspectable public var shadowOffset: CGSize {
+	@IBInspectable public var shadowOffset: Offset {
 		get {
 			return layer.shadowOffset
 		}
@@ -320,13 +320,13 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	
 	/**
 	A property that sets the cornerRadius of the backing layer. If the shape
-	property has a value of .Circle when the cornerRadius is set, it will
-	become .None, as it no longer maintains its circle shape.
+	property has a value of .circle when the cornerRadius is set, it will
+	become .none, as it no longer maintains its circle shape.
 	*/
-	public var cornerRadiusPreset: MaterialRadius {
+	public var cornerRadiusPreset: RadiusPreset {
 		didSet {
-			if let v: MaterialRadius = cornerRadiusPreset {
-				cornerRadius = MaterialRadiusToValue(v)
+			if let v: RadiusPreset = cornerRadiusPreset {
+				cornerRadius = RadiusPresetToValue(v)
 			}
 		}
 	}
@@ -339,8 +339,8 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 		set(value) {
 			layer.cornerRadius = value
 			layoutShadowPath()
-			if .Circle == shape {
-				shape = .None
+			if .circle == shape {
+				shape = .none
 			}
 		}
 	}
@@ -350,9 +350,9 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	width or height property is set, the other will be automatically adjusted
 	to maintain the shape of the object.
 	*/
-	public var shape: MaterialShape {
+	public var shape: ShapePreset {
 		didSet {
-			if .None != shape {
+			if .none != shape {
 				if width < height {
 					frame.size.width = height
 				} else {
@@ -364,9 +364,9 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	}
 	
 	/// A preset property to set the borderWidth.
-	public var borderWidthPreset: MaterialBorder = .None {
+	public var borderWidthPreset: BorderWidthPreset = .none {
 		didSet {
-			borderWidth = MaterialBorderToValue(borderWidthPreset)
+			borderWidth = BorderWidthPresetToValue(presetWidthPreset)
 		}
 	}
 	
@@ -415,9 +415,9 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	- Parameter aDecoder: A NSCoder instance.
 	*/
 	public required init?(coder aDecoder: NSCoder) {
-		depth = .None
-		cornerRadiusPreset = .None
-		shape = .None
+		depth = .none
+		cornerRadiusPreset = .none
+		shape = .none
 		contentsGravityPreset = .ResizeAspectFill
 		super.init(coder: aDecoder)
 		prepareView()
@@ -430,9 +430,9 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	- Parameter frame: A CGRect instance.
 	*/
 	public override init(frame: CGRect) {
-		depth = .None
-		cornerRadiusPreset = .None
-		shape = .None
+		depth = .none
+		cornerRadiusPreset = .none
+		shape = .none
 		contentsGravityPreset = .ResizeAspectFill
 		super.init(frame: frame)
 		prepareView()
@@ -585,7 +585,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	
 	/// Manages the layout for the shape of the view instance.
 	internal func layoutShape() {
-		if .Circle == shape {
+		if .circle == shape {
 			let w: CGFloat = (width / 2)
 			if w != cornerRadius {
 				cornerRadius = w
@@ -596,7 +596,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	/// Sets the shadow path.
 	internal func layoutShadowPath() {
 		if shadowPathAutoSizeEnabled {
-			if .None == depth {
+			if .none == depth {
 				shadowPath = nil
 			} else if nil == shadowPath {
 				shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).CGPath

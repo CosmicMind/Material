@@ -43,7 +43,7 @@
 		96BCB7B51CB40DC500C806FE /* Material+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB76C1CB40DC500C806FE /* Material+UIImage.swift */; };
 		96BCB7B61CB40DC500C806FE /* MaterialAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB76D1CB40DC500C806FE /* MaterialAnimation.swift */; };
 		96BCB7B71CB40DC500C806FE /* MaterialBasicAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB76E1CB40DC500C806FE /* MaterialBasicAnimation.swift */; };
-		96BCB7B81CB40DC500C806FE /* MaterialBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB76F1CB40DC500C806FE /* MaterialBorder.swift */; };
+		96BCB7B81CB40DC500C806FE /* Border.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB76F1CB40DC500C806FE /* Border.swift */; };
 		96BCB7B91CB40DC500C806FE /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7701CB40DC500C806FE /* Button.swift */; };
 		96BCB7BA1CB40DC500C806FE /* MaterialCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7711CB40DC500C806FE /* MaterialCollectionView.swift */; };
 		96BCB7BB1CB40DC500C806FE /* MaterialCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7721CB40DC500C806FE /* MaterialCollectionViewCell.swift */; };
@@ -54,7 +54,7 @@
 		96BCB7C01CB40DC500C806FE /* MaterialDataSourceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7771CB40DC500C806FE /* MaterialDataSourceItem.swift */; };
 		96BCB7C11CB40DC500C806FE /* Depth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7781CB40DC500C806FE /* Depth.swift */; };
 		96BCB7C21CB40DC500C806FE /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7791CB40DC500C806FE /* Device.swift */; };
-		96BCB7C31CB40DC500C806FE /* Insets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB77A1CB40DC500C806FE /* Insets.swift */; };
+		96BCB7C31CB40DC500C806FE /* EdgeInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB77A1CB40DC500C806FE /* EdgeInsets.swift */; };
 		96BCB7C41CB40DC500C806FE /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB77B1CB40DC500C806FE /* Font.swift */; };
 		96BCB7C51CB40DC500C806FE /* MaterialGravity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB77C1CB40DC500C806FE /* MaterialGravity.swift */; };
 		96BCB7C61CB40DC500C806FE /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB77D1CB40DC500C806FE /* Icon.swift */; };
@@ -64,8 +64,8 @@
 		96BCB7CA1CB40DC500C806FE /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7811CB40DC500C806FE /* Layout.swift */; };
 		96BCB7CB1CB40DC500C806FE /* MaterialPulseAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7821CB40DC500C806FE /* MaterialPulseAnimation.swift */; };
 		96BCB7CD1CB40DC500C806FE /* PulseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7841CB40DC500C806FE /* PulseView.swift */; };
-		96BCB7CE1CB40DC500C806FE /* MaterialRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7851CB40DC500C806FE /* MaterialRadius.swift */; };
-		96BCB7CF1CB40DC500C806FE /* MaterialShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7861CB40DC500C806FE /* MaterialShape.swift */; };
+		96BCB7CE1CB40DC500C806FE /* Radius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7851CB40DC500C806FE /* Radius.swift */; };
+		96BCB7CF1CB40DC500C806FE /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7861CB40DC500C806FE /* Shape.swift */; };
 		96BCB7D01CB40DC500C806FE /* InterimSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7871CB40DC500C806FE /* InterimSpace.swift */; };
 		96BCB7D11CB40DC500C806FE /* Switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7881CB40DC500C806FE /* Switch.swift */; };
 		96BCB7D21CB40DC500C806FE /* MaterialTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7891CB40DC500C806FE /* MaterialTableViewCell.swift */; };
@@ -164,13 +164,13 @@
 		96BCB84A1CB4115200C806FE /* TextField.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB79C1CB40DC500C806FE /* TextField.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB84B1CB4115200C806FE /* TextStorage.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB79D1CB40DC500C806FE /* TextStorage.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB84C1CB4115200C806FE /* TextView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB79E1CB40DC500C806FE /* TextView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		96BCB84D1CB4115200C806FE /* MaterialBorder.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB76F1CB40DC500C806FE /* MaterialBorder.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96BCB84D1CB4115200C806FE /* Border.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB76F1CB40DC500C806FE /* Border.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB84E1CB4115200C806FE /* InterimSpace.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7871CB40DC500C806FE /* InterimSpace.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB84F1CB4115200C806FE /* Depth.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7781CB40DC500C806FE /* Depth.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		96BCB8501CB4115200C806FE /* Insets.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB77A1CB40DC500C806FE /* Insets.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96BCB8501CB4115200C806FE /* EdgeInsets.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB77A1CB40DC500C806FE /* EdgeInsets.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8511CB4115200C806FE /* MaterialGravity.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB77C1CB40DC500C806FE /* MaterialGravity.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		96BCB8521CB4115200C806FE /* MaterialRadius.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7851CB40DC500C806FE /* MaterialRadius.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		96BCB8531CB4115200C806FE /* MaterialShape.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7861CB40DC500C806FE /* MaterialShape.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96BCB8521CB4115200C806FE /* Radius.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7851CB40DC500C806FE /* Radius.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96BCB8531CB4115200C806FE /* Shape.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7861CB40DC500C806FE /* Shape.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8541CB4115200C806FE /* MaterialLabel.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB77F1CB40DC500C806FE /* MaterialLabel.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8551CB4115200C806FE /* PulseView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7841CB40DC500C806FE /* PulseView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8561CB4115200C806FE /* Switch.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7881CB40DC500C806FE /* Switch.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -236,7 +236,7 @@
 		96BCB76C1CB40DC500C806FE /* Material+UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIImage.swift"; sourceTree = "<group>"; };
 		96BCB76D1CB40DC500C806FE /* MaterialAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialAnimation.swift; sourceTree = "<group>"; };
 		96BCB76E1CB40DC500C806FE /* MaterialBasicAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialBasicAnimation.swift; sourceTree = "<group>"; };
-		96BCB76F1CB40DC500C806FE /* MaterialBorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialBorder.swift; sourceTree = "<group>"; };
+		96BCB76F1CB40DC500C806FE /* Border.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Border.swift; sourceTree = "<group>"; };
 		96BCB7701CB40DC500C806FE /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		96BCB7711CB40DC500C806FE /* MaterialCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialCollectionView.swift; sourceTree = "<group>"; };
 		96BCB7721CB40DC500C806FE /* MaterialCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -247,7 +247,7 @@
 		96BCB7771CB40DC500C806FE /* MaterialDataSourceItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialDataSourceItem.swift; sourceTree = "<group>"; };
 		96BCB7781CB40DC500C806FE /* Depth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Depth.swift; sourceTree = "<group>"; };
 		96BCB7791CB40DC500C806FE /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
-		96BCB77A1CB40DC500C806FE /* Insets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Insets.swift; sourceTree = "<group>"; };
+		96BCB77A1CB40DC500C806FE /* EdgeInsets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdgeInsets.swift; sourceTree = "<group>"; };
 		96BCB77B1CB40DC500C806FE /* Font.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		96BCB77C1CB40DC500C806FE /* MaterialGravity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialGravity.swift; sourceTree = "<group>"; };
 		96BCB77D1CB40DC500C806FE /* Icon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
@@ -257,8 +257,8 @@
 		96BCB7811CB40DC500C806FE /* Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
 		96BCB7821CB40DC500C806FE /* MaterialPulseAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialPulseAnimation.swift; sourceTree = "<group>"; };
 		96BCB7841CB40DC500C806FE /* PulseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PulseView.swift; sourceTree = "<group>"; };
-		96BCB7851CB40DC500C806FE /* MaterialRadius.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialRadius.swift; sourceTree = "<group>"; };
-		96BCB7861CB40DC500C806FE /* MaterialShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialShape.swift; sourceTree = "<group>"; };
+		96BCB7851CB40DC500C806FE /* Radius.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Radius.swift; sourceTree = "<group>"; };
+		96BCB7861CB40DC500C806FE /* Shape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shape.swift; sourceTree = "<group>"; };
 		96BCB7871CB40DC500C806FE /* InterimSpace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterimSpace.swift; sourceTree = "<group>"; };
 		96BCB7881CB40DC500C806FE /* Switch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Switch.swift; sourceTree = "<group>"; };
 		96BCB7891CB40DC500C806FE /* MaterialTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialTableViewCell.swift; sourceTree = "<group>"; };
@@ -535,13 +535,13 @@
 		96BCB8061CB40FD000C806FE /* Type */ = {
 			isa = PBXGroup;
 			children = (
-				96BCB76F1CB40DC500C806FE /* MaterialBorder.swift */,
+				96BCB76F1CB40DC500C806FE /* Border.swift */,
 				96BCB7871CB40DC500C806FE /* InterimSpace.swift */,
 				96BCB7781CB40DC500C806FE /* Depth.swift */,
-				96BCB77A1CB40DC500C806FE /* Insets.swift */,
+				96BCB77A1CB40DC500C806FE /* EdgeInsets.swift */,
 				96BCB77C1CB40DC500C806FE /* MaterialGravity.swift */,
-				96BCB7851CB40DC500C806FE /* MaterialRadius.swift */,
-				96BCB7861CB40DC500C806FE /* MaterialShape.swift */,
+				96BCB7851CB40DC500C806FE /* Radius.swift */,
+				96BCB7861CB40DC500C806FE /* Shape.swift */,
 				968C99441D37730B000074FF /* Direction.swift */,
 				968C99461D377849000074FF /* Offset.swift */,
 			);
@@ -725,13 +725,13 @@
 				96BCB84A1CB4115200C806FE /* TextField.swift in Headers */,
 				96BCB84B1CB4115200C806FE /* TextStorage.swift in Headers */,
 				96BCB84C1CB4115200C806FE /* TextView.swift in Headers */,
-				96BCB84D1CB4115200C806FE /* MaterialBorder.swift in Headers */,
+				96BCB84D1CB4115200C806FE /* Border.swift in Headers */,
 				96BCB84E1CB4115200C806FE /* InterimSpace.swift in Headers */,
 				96BCB84F1CB4115200C806FE /* Depth.swift in Headers */,
-				96BCB8501CB4115200C806FE /* Insets.swift in Headers */,
+				96BCB8501CB4115200C806FE /* EdgeInsets.swift in Headers */,
 				96BCB8511CB4115200C806FE /* MaterialGravity.swift in Headers */,
-				96BCB8521CB4115200C806FE /* MaterialRadius.swift in Headers */,
-				96BCB8531CB4115200C806FE /* MaterialShape.swift in Headers */,
+				96BCB8521CB4115200C806FE /* Radius.swift in Headers */,
+				96BCB8531CB4115200C806FE /* Shape.swift in Headers */,
 				96BCB8541CB4115200C806FE /* MaterialLabel.swift in Headers */,
 				96BCB8551CB4115200C806FE /* PulseView.swift in Headers */,
 				96BCB8561CB4115200C806FE /* Switch.swift in Headers */,
@@ -923,7 +923,7 @@
 				9679CEAB1CC69E080021685B /* Material+UIImage+TintColor.swift in Sources */,
 				9658F2171CD6FA4700B902C1 /* IconButton.swift in Sources */,
 				96BCB7BB1CB40DC500C806FE /* MaterialCollectionViewCell.swift in Sources */,
-				96BCB7CF1CB40DC500C806FE /* MaterialShape.swift in Sources */,
+				96BCB7CF1CB40DC500C806FE /* Shape.swift in Sources */,
 				96BCB7DF1CB40DC500C806FE /* SearchBarController.swift in Sources */,
 				96BCB7D31CB40DC500C806FE /* MaterialTextLayer.swift in Sources */,
 				96BCB7C11CB40DC500C806FE /* Depth.swift in Sources */,
@@ -954,8 +954,8 @@
 				96BCB7B41CB40DC500C806FE /* Material+UIImage+Size.swift in Sources */,
 				96BCB7AA1CB40DC500C806FE /* Grid.swift in Sources */,
 				96BCB7E71CB40DC500C806FE /* TextView.swift in Sources */,
-				96BCB7C31CB40DC500C806FE /* Insets.swift in Sources */,
-				96BCB7CE1CB40DC500C806FE /* MaterialRadius.swift in Sources */,
+				96BCB7C31CB40DC500C806FE /* EdgeInsets.swift in Sources */,
+				96BCB7CE1CB40DC500C806FE /* Radius.swift in Sources */,
 				96BCB7E11CB40DC500C806FE /* BarView.swift in Sources */,
 				96BCB7A11CB40DC500C806FE /* BottomNavigationController.swift in Sources */,
 				96BCB7D81CB40DC500C806FE /* MenuController.swift in Sources */,
@@ -968,7 +968,7 @@
 				96BCB7D51CB40DC500C806FE /* View.swift in Sources */,
 				96BCB7DE1CB40DC500C806FE /* SearchBar.swift in Sources */,
 				96BCB7B11CB40DC500C806FE /* Material+UIImage+Crop.swift in Sources */,
-				96BCB7B81CB40DC500C806FE /* MaterialBorder.swift in Sources */,
+				96BCB7B81CB40DC500C806FE /* Border.swift in Sources */,
 				96BCB7A61CB40DC500C806FE /* Card.swift in Sources */,
 				96BCB7C91CB40DC500C806FE /* Layer.swift in Sources */,
 				96BCB7E21CB40DC500C806FE /* RootController.swift in Sources */,
@@ -1078,7 +1078,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1122,7 +1122,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = Material;

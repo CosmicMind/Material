@@ -1098,7 +1098,7 @@ public class NavigationDrawerController : RootController, UIGestureRecognizerDel
 	- Parameter container: A container view.
 	*/
 	private func hideView(container: View) {
-		container.depth = .None
+		container.depth = .none
 		container.isHidden = true
 	}
 }

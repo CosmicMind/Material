@@ -30,41 +30,41 @@
 
 import UIKit
 
-public enum MaterialRadius {
-	case None
-	case Radius1
-	case Radius2
-	case Radius3
-	case Radius4
-	case Radius5
-	case Radius6
-	case Radius7
-	case Radius8
-	case Radius9
+public enum BorderWidthPreset {
+	case none
+	case border1
+	case border2
+	case border3
+	case border4
+	case border5
+	case border6
+	case border7
+	case border8
+	case border9
 }
 
-/// Converts the MaterialRadius enum to a CGFloat value.
-public func MaterialRadiusToValue(radius: MaterialRadius) -> CGFloat {
-	switch radius {
-	case .None:
+/// Converts the BorderWidthPreset enum to a CGFloat value.
+public func BorderWidthPresetToValue(preset: BorderWidthPreset) -> CGFloat {
+	switch preset {
+	case .none:
 		return 0
-	case .Radius1:
+	case .border1:
+		return 0.5
+	case .border2:
+		return 1
+	case .border3:
+		return 2
+	case .border4:
+		return 3
+	case .border5:
 		return 4
-	case .Radius2:
+	case .border6:
+		return 5
+	case .border7:
+		return 6
+	case .border8:
+		return 7
+	case .border9:
 		return 8
-	case .Radius3:
-		return 16
-	case .Radius4:
-		return 24
-	case .Radius5:
-		return 32
-	case .Radius6:
-		return 40
-	case .Radius7:
-		return 48
-	case .Radius8:
-		return 56
-	case .Radius9:
-		return 64
 	}
 }

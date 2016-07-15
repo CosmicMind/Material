@@ -43,7 +43,7 @@ public enum MaterialAnimationRotationMode {
 */
 public func MaterialAnimationRotationModeToValue(mode: MaterialAnimationRotationMode) -> MaterialAnimationRotationModeType? {
 	switch mode {
-	case .None:
+	case .none:
 		return nil
 	case .Auto:
 		return kCAAnimationRotateAuto

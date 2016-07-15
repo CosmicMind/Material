@@ -159,7 +159,7 @@ public class View: UIView {
 	/**
      A property that accesses the layer.frame.size.width property.
      When setting this property in conjunction with the shape property having a
-     value that is not .None, the height will be adjusted to maintain the correct
+     value that is not .none, the height will be adjusted to maintain the correct
      shape.
      */
 	@IBInspectable public var width: CGFloat {
@@ -168,7 +168,7 @@ public class View: UIView {
 		}
 		set(value) {
 			layer.frame.size.width = value
-			if .None != shape {
+			if .none != shape {
 				layer.frame.size.height = value
 			}
 		}
@@ -177,7 +177,7 @@ public class View: UIView {
 	/**
      A property that accesses the layer.frame.size.height property.
      When setting this property in conjunction with the shape property having a
-     value that is not .None, the width will be adjusted to maintain the correct
+     value that is not .none, the width will be adjusted to maintain the correct
      shape.
      */
 	@IBInspectable public var height: CGFloat {
@@ -186,7 +186,7 @@ public class View: UIView {
 		}
 		set(value) {
 			layer.frame.size.height = value
-			if .None != shape {
+			if .none != shape {
 				layer.frame.size.width = value
 			}
 		}
@@ -200,7 +200,7 @@ public class View: UIView {
 	}
 	
 	/// A property that accesses the backing layer's shadowOffset.
-	@IBInspectable public var shadowOffset: CGSize {
+	@IBInspectable public var shadowOffset: Offset {
 		get {
 			return layer.shadowOffset
 		}
@@ -261,7 +261,7 @@ public class View: UIView {
      */
     public var depth = Depth.zero {
         didSet {
-            shadowOffset = depth.offset.asSize
+            shadowOffset = depth.offset
             shadowOpacity = depth.opacity
             shadowRadius = depth.radius
             layoutShadowPath()
@@ -270,13 +270,13 @@ public class View: UIView {
 	
 	/**
      A property that sets the cornerRadius of the backing layer. If the shape
-     property has a value of .Circle when the cornerRadius is set, it will
-     become .None, as it no longer maintains its circle shape.
+     property has a value of .circle when the cornerRadius is set, it will
+     become .none, as it no longer maintains its circle shape.
      */
-	public var cornerRadiusPreset: MaterialRadius = .None {
+	public var cornerRadiusPreset: RadiusPreset = .none {
 		didSet {
-			if let v: MaterialRadius = cornerRadiusPreset {
-				cornerRadius = MaterialRadiusToValue(radius: v)
+			if let v: RadiusPreset = cornerRadiusPreset {
+				cornerRadius = RadiusPresetToValue(preset: v)
 			}
 		}
 	}
@@ -289,8 +289,8 @@ public class View: UIView {
 		set(value) {
 			layer.cornerRadius = value
 			layoutShadowPath()
-			if .Circle == shape {
-				shape = .None
+			if .circle == shape {
+				shape = .none
 			}
 		}
 	}
@@ -300,9 +300,9 @@ public class View: UIView {
      width or height property is set, the other will be automatically adjusted
      to maintain the shape of the object.
      */
-	public var shape: MaterialShape = .None {
+	public var shape: ShapePreset = .none {
 		didSet {
-			if .None != shape {
+			if .none != shape {
 				if width < height {
 					frame.size.width = height
 				} else {
@@ -314,9 +314,9 @@ public class View: UIView {
 	}
 	
 	/// A preset property to set the borderWidth.
-	public var borderWidthPreset: MaterialBorder = .None {
+	public var borderWidthPreset: BorderWidthPreset = .none {
 		didSet {
-			borderWidth = MaterialBorderToValue(border: borderWidthPreset)
+			borderWidth = BorderWidthPresetToValue(preset: borderWidthPreset)
 		}
 	}
 	
@@ -482,7 +482,7 @@ public class View: UIView {
 	
 	/// Manages the layout for the shape of the view instance.
 	internal func layoutShape() {
-		if .Circle == shape {
+		if .circle == shape {
 			let w: CGFloat = (width / 2)
 			if w != cornerRadius {
 				cornerRadius = w
@@ -493,7 +493,7 @@ public class View: UIView {
 	/// Sets the shadow path.
 	internal func layoutShadowPath() {
 		if shadowPathAutoSizeEnabled {
-			if .None == depth {
+			if .none == depth {
 				shadowPath = nil
 			} else if nil == shadowPath {
 				shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath

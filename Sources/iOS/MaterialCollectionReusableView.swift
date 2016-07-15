@@ -133,12 +133,12 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 	}
 	
 	/// A preset wrapper around contentInset.
-	public var contentInsetPreset: Insets {
+	public var contentEdgeInsetsPreset: Insets {
 		get {
-			return grid.contentInsetPreset
+			return grid.contentEdgeInsetsPreset
 		}
 		set(value) {
-			grid.contentInsetPreset = value
+			grid.contentEdgeInsetsPreset = value
 		}
 	}
 	
@@ -214,7 +214,7 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 	/**
 	A property that accesses the layer.frame.size.width property.
 	When setting this property in conjunction with the shape property having a
-	value that is not .None, the height will be adjusted to maintain the correct
+	value that is not .none, the height will be adjusted to maintain the correct
 	shape.
 	*/
 	@IBInspectable public var width: CGFloat {
@@ -223,7 +223,7 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 		}
 		set(value) {
 			layer.frame.size.width = value
-			if .None != shape {
+			if .none != shape {
 				layer.frame.size.height = value
 			}
 		}
@@ -232,7 +232,7 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 	/**
 	A property that accesses the layer.frame.size.height property.
 	When setting this property in conjunction with the shape property having a
-	value that is not .None, the width will be adjusted to maintain the correct
+	value that is not .none, the width will be adjusted to maintain the correct
 	shape.
 	*/
 	@IBInspectable public var height: CGFloat {
@@ -241,7 +241,7 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 		}
 		set(value) {
 			layer.frame.size.height = value
-			if .None != shape {
+			if .none != shape {
 				layer.frame.size.width = value
 			}
 		}
@@ -255,7 +255,7 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 	}
 	
 	/// A property that accesses the backing layer's shadowOffset.
-	@IBInspectable public var shadowOffset: CGSize {
+	@IBInspectable public var shadowOffset: Offset {
 		get {
 			return layer.shadowOffset
 		}
@@ -303,30 +303,35 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 		}
 	}
 	
-	/**
-	A property that sets the shadowOffset, shadowOpacity, and shadowRadius
-	for the backing layer. This is the preferred method of setting depth
-	in order to maintain consitency across UI objects.
-	*/
-	public var depthPreset {
-		didSet {
-			let value: Depth = DepthPresetToValue(preset)
-			shadowOffset = value.offset
-			shadowOpacity = value.opacity
-			shadowRadius = value.radius
-			layoutShadowPath()
-		}
-	}
+    /// A preset value for Depth.
+    public var depthPreset: DepthPreset = .none {
+        didSet {
+            depth = DepthPresetToValue(preset: depthPreset)
+        }
+    }
+    
+    /**
+     A property that sets the shadowOffset, shadowOpacity, and shadowRadius
+     for the backing layer.
+     */
+    public var depth = Depth.zero {
+        didSet {
+            shadowOffset = depth.offset.asSize
+            shadowOpacity = depth.opacity
+            shadowRadius = depth.radius
+            layoutShadowPath()
+        }
+    }
 	
 	/**
 	A property that sets the cornerRadius of the backing layer. If the shape
-	property has a value of .Circle when the cornerRadius is set, it will
-	become .None, as it no longer maintains its circle shape.
+	property has a value of .circle when the cornerRadius is set, it will
+	become .none, as it no longer maintains its circle shape.
 	*/
-	public var cornerRadiusPreset: MaterialRadius {
+	public var cornerRadiusPreset: RadiusPreset {
 		didSet {
-			if let v: MaterialRadius = cornerRadiusPreset {
-				cornerRadius = MaterialRadiusToValue(v)
+			if let v: RadiusPreset = cornerRadiusPreset {
+				cornerRadius = RadiusPresetToValue(v)
 			}
 		}
 	}
@@ -339,8 +344,8 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 		set(value) {
 			layer.cornerRadius = value
 			layoutShadowPath()
-			if .Circle == shape {
-				shape = .None
+			if .circle == shapePreset {
+				shapePreset = .none
 			}
 		}
 	}
@@ -350,9 +355,9 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 	width or height property is set, the other will be automatically adjusted
 	to maintain the shape of the object.
 	*/
-	public var shape: MaterialShape {
+	public var shapePreset: ShapePreset = .none {
 		didSet {
-			if .None != shape {
+			if .none != shapePreset {
 				if width < height {
 					frame.size.width = height
 				} else {
@@ -364,9 +369,9 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 	}
 	
 	/// A preset property to set the borderWidth.
-	public var borderWidthPreset: MaterialBorder = .None {
+	public var borderWidthPreset: BorderWidthPreset = .none {
 		didSet {
-			borderWidth = MaterialBorderToValue(border: borderWidthPreset)
+			borderWidth = BorderWidthPresetToValue(preset: borderWidthPreset)
 		}
 	}
 	
@@ -416,8 +421,7 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		depthPreset = .none
-		cornerRadiusPreset = .None
-		shape = .None
+		cornerRadiusPreset = .none
 		contentsGravityPreset = .ResizeAspectFill
 		super.init(coder: aDecoder)
 		prepareView()
@@ -431,8 +435,7 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 	*/
 	public override init(frame: CGRect) {
 		depthPreset = .none
-		cornerRadiusPreset = .None
-		shape = .None
+		cornerRadiusPreset = .none
 		contentsGravityPreset = .ResizeAspectFill
 		super.init(frame: frame)
 		prepareView()
@@ -464,36 +467,36 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 	public func animate(animation: CAAnimation) {
 		animation.delegate = self
 		if let a: CABasicAnimation = animation as? CABasicAnimation {
-			a.fromValue = (nil == layer.presentationLayer() ? layer : layer.presentationLayer() as! CALayer).valueForKeyPath(a.keyPath!)
+			a.fromValue = (nil == layer.presentation() ? layer : layer.presentation()!).value(forKeyPath: a.keyPath!)
 		}
 		if let a: CAPropertyAnimation = animation as? CAPropertyAnimation {
-			layer.addAnimation(a, forKey: a.keyPath!)
+			layer.add(a, forKey: a.keyPath!)
 		} else if let a: CAAnimationGroup = animation as? CAAnimationGroup {
-			layer.addAnimation(a, forKey: nil)
+			layer.add(a, forKey: nil)
 		} else if let a: CATransition = animation as? CATransition {
-			layer.addAnimation(a, forKey: kCATransition)
+			layer.add(a, forKey: kCATransition)
 		}
 	}
 	
 	/**
 	A delegation method that is executed when the backing layer starts
 	running an animation.
-	- Parameter anim: The currently running CAAnimation instance.
+	- Parameter animation: The currently running CAAnimation instance.
 	*/
-	public override func animationDidStart(anim: CAAnimation) {
-		(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStart?(anim)
+	public override func animationDidStart(_ animation: CAAnimation) {
+		(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStart?(animation: animation)
 	}
 	
 	/**
 	A delegation method that is executed when the backing layer stops
 	running an animation.
-	- Parameter anim: The CAAnimation instance that stopped running.
+	- Parameter animation: The CAAnimation instance that stopped running.
 	- Parameter flag: A boolean that indicates if the animation stopped
 	because it was completed or interrupted. True if completed, false
 	if interrupted.
 	*/
-	public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
-		if let a: CAPropertyAnimation = anim as? CAPropertyAnimation {
+	public override func animationDidStop(_ animation: CAAnimation, finished flag: Bool) {
+		if let a: CAPropertyAnimation = animation as? CAPropertyAnimation {
 			if let b: CABasicAnimation = a as? CABasicAnimation {
 				if let v: AnyObject = b.toValue {
 					if let k: String = b.keyPath {
@@ -502,10 +505,10 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 					}
 				}
 			}
-			(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStop?(anim, finished: flag)
-		} else if let a: CAAnimationGroup = anim as? CAAnimationGroup {
+			(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStop?(animation: animation, finished: flag)
+		} else if let a: CAAnimationGroup = animation as? CAAnimationGroup {
 			for x in a.animations! {
-				animationDidStop(x, finished: true)
+                animationDidStop(x, finished: true)
 			}
 		}
 	}
@@ -516,11 +519,11 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 	from the center.
 	*/
 	public func pulse(point: CGPoint? = nil) {
-		let p: CGPoint = nil == point ? CGPointMake(CGFloat(width / 2), CGFloat(height / 2)) : point!
-		MaterialAnimation.pulseExpandAnimation(layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseOpacity: pulseOpacity, point: p, width: width, height: height, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
-		MaterialAnimation.delay(0.35) { [weak self] in
+        let p: CGPoint = nil == point ? CGPoint(x: CGFloat(width / 2), y: CGFloat(height / 2)) : point!
+		MaterialAnimation.pulseExpandAnimation(layer: layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseOpacity: pulseOpacity, point: p, width: width, height: height, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
+		MaterialAnimation.delay(time: 0.35) { [weak self] in
 			if let s: MaterialCollectionReusableView = self {
-				MaterialAnimation.pulseContractAnimation(s.layer, visualLayer: s.visualLayer, pulseColor: s.pulseColor, pulseLayers: &s.pulseLayers, pulseAnimation: s.pulseAnimation)
+				MaterialAnimation.pulseContractAnimation(layer: s.layer, visualLayer: s.visualLayer, pulseColor: s.pulseColor, pulseLayers: &s.pulseLayers, pulseAnimation: s.pulseAnimation)
 			}
 		}
 	}
@@ -586,7 +589,7 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 	
 	/// Manages the layout for the shape of the view instance.
 	internal func layoutShape() {
-		if .Circle == shape {
+		if .circle == shapePreset {
 			let w: CGFloat = (width / 2)
 			if w != cornerRadius {
 				cornerRadius = w

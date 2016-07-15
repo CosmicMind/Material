@@ -106,7 +106,7 @@ public class MaterialTableViewCell : UITableViewCell {
 	/**
 	A property that accesses the layer.frame.size.width property.
 	When setting this property in conjunction with the shape property having a
-	value that is not .None, the height will be adjusted to maintain the correct
+	value that is not .none, the height will be adjusted to maintain the correct
 	shape.
 	*/
 	@IBInspectable public var width: CGFloat {
@@ -121,7 +121,7 @@ public class MaterialTableViewCell : UITableViewCell {
 	/**
 	A property that accesses the layer.frame.size.height property.
 	When setting this property in conjunction with the shape property having a
-	value that is not .None, the width will be adjusted to maintain the correct
+	value that is not .none, the width will be adjusted to maintain the correct
 	shape.
 	*/
 	@IBInspectable public var height: CGFloat {
@@ -141,7 +141,7 @@ public class MaterialTableViewCell : UITableViewCell {
 	}
 	
 	/// A property that accesses the backing layer's shadowOffset.
-	@IBInspectable public var shadowOffset: CGSize {
+	@IBInspectable public var shadowOffset: Offset {
 		get {
 			return layer.shadowOffset
 		}
@@ -211,13 +211,13 @@ public class MaterialTableViewCell : UITableViewCell {
 	
 	/**
 	A property that sets the cornerRadius of the backing layer. If the shape
-	property has a value of .Circle when the cornerRadius is set, it will
-	become .None, as it no longer maintains its circle shape.
+	property has a value of .circle when the cornerRadius is set, it will
+	become .none, as it no longer maintains its circle shape.
 	*/
-	public var cornerRadiusPreset: MaterialRadius = .None {
+	public var cornerRadiusPreset: RadiusPreset = .none {
 		didSet {
-			if let v: MaterialRadius = cornerRadiusPreset {
-				cornerRadius = MaterialRadiusToValue(radius: v)
+			if let v: RadiusPreset = cornerRadiusPreset {
+				cornerRadius = RadiusPresetToValue(preset: v)
 			}
 		}
 	}
@@ -234,9 +234,9 @@ public class MaterialTableViewCell : UITableViewCell {
 	}
 	
 	/// A preset property to set the borderWidth.
-	public var borderWidthPreset: MaterialBorder = .None {
+	public var borderWidthPreset: BorderWidthPreset = .none {
 		didSet {
-			borderWidth = MaterialBorderToValue(border: borderWidthPreset)
+			borderWidth = BorderWidthPresetToValue(preset: borderWidthPreset)
 		}
 	}
 	
@@ -421,7 +421,7 @@ public class MaterialTableViewCell : UITableViewCell {
 	when subclassing.
 	*/
 	public func prepareView() {
-		selectionStyle = .None
+		selectionStyle = .none
 		separatorInset = UIEdgeInsetsZero
 		contentScaleFactor = Device.scale
 		imageView?.isUserInteractionEnabled = false
@@ -446,7 +446,7 @@ public class MaterialTableViewCell : UITableViewCell {
 	/// Sets the shadow path.
 	internal func layoutShadowPath() {
 		if shadowPathAutoSizeEnabled {
-			if .None == depth {
+			if .none == depth {
 				shadowPath = nil
 			} else if nil == shadowPath {
 				shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).CGPath

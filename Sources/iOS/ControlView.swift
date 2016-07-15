@@ -37,12 +37,12 @@ public class ControlView : View {
 	}
 	
 	/// A preset wrapper around contentInset.
-	public var contentInsetPreset: InsetPreset {
+	public var contentEdgeInsetsPreset: EdgeInsetsPreset {
 		get {
-			return grid.contentInsetPreset
+			return grid.contentEdgeInsetsPreset
 		}
 		set(value) {
-			grid.contentInsetPreset = value
+			grid.contentEdgeInsetsPreset = value
 		}
 	}
 	
@@ -227,7 +227,7 @@ public class ControlView : View {
 	public override func prepareView() {
 		super.prepareView()
 		interimSpacePreset = .interimSpace1
-		contentInsetPreset = .Square1
+		contentEdgeInsetsPreset = .Square1
 		autoresizingMask = .FlexibleWidth
 		shadowPathAutoSizeEnabled = false
 		prepareContentView()

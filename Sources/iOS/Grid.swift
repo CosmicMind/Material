@@ -129,28 +129,28 @@ public class Grid {
     public private(set) var axis: GridAxis!
     
     /// Preset inset value for grid.
-    public var layoutInsetPreset: InsetPreset = .none {
+    public var layoutEdgeInsetsPreset: EdgeInsetsPreset = .none {
         didSet {
-            layoutInset = InsetPresetToValue(preset: contentInsetPreset)
+            layoutInset = EdgeInsetsPresetToValue(preset: contentEdgeInsetsPreset)
         }
     }
     
     /// Insets value for grid.
-    public var layoutInset = Inset.zero {
+    public var layoutInset = EdgeInsets.zero {
         didSet {
             reload()
         }
     }
     
     /// Preset inset value for grid.
-    public var contentInsetPreset: InsetPreset = .none {
+    public var contentEdgeInsetsPreset: EdgeInsetsPreset = .none {
         didSet {
-            contentInset = InsetPresetToValue(preset: contentInsetPreset)
+            contentInset = EdgeInsetsPresetToValue(preset: contentEdgeInsetsPreset)
         }
     }
     
     /// Insets value for grid.
-    public var contentInset: Inset = InsetPresetToValue(preset: .none) {
+    public var contentInset: Inset = EdgeInsetsPresetToValue(preset: .none) {
         didSet {
             reload()
         }

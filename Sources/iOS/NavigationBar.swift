@@ -62,14 +62,14 @@ public class NavigationBar : UINavigationBar {
 	}
 	
 	/// A preset wrapper around contentInset.
-	public var contentInsetPreset: InsetPreset = .none {
+	public var contentEdgeInsetsPreset: EdgeInsetsPreset = .none {
 		didSet {
-            contentInset = InsetPresetToValue(preset: contentInsetPreset)
+            contentInset = EdgeInsetsPresetToValue(preset: contentEdgeInsetsPreset)
 		}
 	}
 	
 	/// A wrapper around grid.contentInset.
-	@IBInspectable public var contentInset: Insets = Inset.zero {
+	@IBInspectable public var contentInset: Insets = EdgeInsets.zero {
 		didSet {
 			layoutSubviews()
 		}
@@ -157,7 +157,7 @@ public class NavigationBar : UINavigationBar {
 	/**
 	A property that accesses the layer.frame.size.width property.
 	When setting this property in conjunction with the shape property having a
-	value that is not .None, the height will be adjusted to maintain the correct
+	value that is not .none, the height will be adjusted to maintain the correct
 	shape.
 	*/
 	@IBInspectable public var width: CGFloat {
@@ -172,7 +172,7 @@ public class NavigationBar : UINavigationBar {
 	/**
 	A property that accesses the layer.frame.size.height property.
 	When setting this property in conjunction with the shape property having a
-	value that is not .None, the width will be adjusted to maintain the correct
+	value that is not .none, the width will be adjusted to maintain the correct
 	shape.
 	*/
 	@IBInspectable public var height: CGFloat {
@@ -192,7 +192,7 @@ public class NavigationBar : UINavigationBar {
 	}
 	
 	/// A property that accesses the backing layer's shadowOffset.
-	@IBInspectable public var shadowOffset: CGSize {
+	@IBInspectable public var shadowOffset: Offset {
 		get {
 			return layer.shadowOffset
 		}
@@ -236,9 +236,9 @@ public class NavigationBar : UINavigationBar {
 	}
 	
 	/// A preset property to set the borderWidth.
-	public var borderWidthPreset: MaterialBorder = .None {
+	public var borderWidthPreset: BorderWidthPreset = .none {
 		didSet {
-			borderWidth = MaterialBorderToValue(borderWidthPreset)
+			borderWidth = BorderWidthPresetToValue(presetWidthPreset)
 		}
 	}
 	
@@ -433,7 +433,7 @@ public class NavigationBar : UINavigationBar {
 		translucent = false
 		depth = .depth1
 		interimSpacePreset = .interimSpace1
-		contentInsetPreset = .Square1
+		contentEdgeInsetsPreset = .Square1
 		contentScaleFactor = Device.scale
 		backButtonImage = Icon.cm.arrowBack
 		let image: UIImage? = UIImage.imageWithColor(Color.clear, size: CGSizeMake(1, 1))

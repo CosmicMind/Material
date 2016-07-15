@@ -468,7 +468,7 @@ public class TextField : UITextField {
 	public func prepareView() {
 		super.placeholder = nil
 		masksToBounds = false
-		borderStyle = .None
+		borderStyle = .none
 		backgroundColor = nil
 		textColor = Color.darkText.primary
 		font = RobotoFont.regularWithSize(16)

@@ -107,7 +107,7 @@ public class Button: UIButton {
 	/**
      A property that accesses the layer.frame.size.width property.
      When setting this property in conjunction with the shape property having a
-     value that is not .None, the height will be adjusted to maintain the correct
+     value that is not .none, the height will be adjusted to maintain the correct
      shape.
      */
 	@IBInspectable public var width: CGFloat {
@@ -116,7 +116,7 @@ public class Button: UIButton {
 		}
 		set(value) {
 			layer.frame.size.width = value
-			if .None != shape {
+			if .none != shapePreset {
 				layer.frame.size.height = value
 			}
 		}
@@ -125,7 +125,7 @@ public class Button: UIButton {
 	/**
      A property that accesses the layer.frame.size.height property.
      When setting this property in conjunction with the shape property having a
-     value that is not .None, the width will be adjusted to maintain the correct
+     value that is not .none, the width will be adjusted to maintain the correct
      shape.
      */
 	@IBInspectable public var height: CGFloat {
@@ -134,7 +134,7 @@ public class Button: UIButton {
 		}
 		set(value) {
 			layer.frame.size.height = value
-			if .None != shape {
+			if .none != shapePreset {
 				layer.frame.size.width = value
 			}
 		}
@@ -148,12 +148,12 @@ public class Button: UIButton {
 	}
 	
 	/// A property that accesses the backing layer's shadowOffset.
-	@IBInspectable public var shadowOffset: CGSize {
+	@IBInspectable public var shadowOffset: Offset {
 		get {
-			return layer.shadowOffset
+			return layer.shadowOffset.asOffset
 		}
 		set(value) {
-			layer.shadowOffset = value
+			layer.shadowOffset = value.asSize
 		}
 	}
 	
@@ -218,13 +218,13 @@ public class Button: UIButton {
 	
 	/**
      A property that sets the cornerRadius of the backing layer. If the shape
-     property has a value of .Circle when the cornerRadius is set, it will
-     become .None, as it no longer maintains its circle shape.
+     property has a value of .circle when the cornerRadius is set, it will
+     become .none, as it no longer maintains its circle shape.
      */
-	public var cornerRadiusPreset: MaterialRadius = .None {
+	public var cornerRadiusPreset: RadiusPreset = .none {
 		didSet {
-			if let v: MaterialRadius = cornerRadiusPreset {
-				cornerRadius = MaterialRadiusToValue(radius: v)
+			if let v: RadiusPreset = cornerRadiusPreset {
+				cornerRadius = RadiusPresetToValue(preset: v)
 			}
 		}
 	}
@@ -237,8 +237,8 @@ public class Button: UIButton {
 		set(value) {
 			layer.cornerRadius = value
 			layoutShadowPath()
-			if .Circle == shape {
-				shape = .None
+			if .circle == shapePreset {
+				shapePreset = .none
 			}
 		}
 	}
@@ -248,9 +248,9 @@ public class Button: UIButton {
      width or height property is set, the other will be automatically adjusted
      to maintain the shape of the object.
      */
-	public var shape: MaterialShape = .None {
+	public var shapePreset: ShapePreset = .none {
 		didSet {
-			if .None != shape {
+			if .none != shapePreset {
 				if width < height {
 					frame.size.width = height
 				} else {
@@ -262,9 +262,9 @@ public class Button: UIButton {
 	}
 	
 	/// A preset property to set the borderWidth.
-	public var borderWidthPreset: MaterialBorder = .None {
+	public var borderWidthPreset: BorderWidthPreset = .none {
 		didSet {
-			borderWidth = MaterialBorderToValue(border: borderWidthPreset)
+			borderWidth = BorderWidthPresetToValue(preset: borderWidthPreset)
 		}
 	}
 	
@@ -309,16 +309,16 @@ public class Button: UIButton {
 	}
 	
 	/// A preset property for updated contentEdgeInsets.
-	public var contentInsetPreset: InsetPreset = .none {
+	public var contentEdgeInsetsPreset: EdgeInsetsPreset = .none {
 		didSet {
-			contentInset = InsetPresetToValue(preset: contentInsetPreset)
+			contentInset = EdgeInsetsPresetToValue(preset: contentEdgeInsetsPreset)
 		}
 	}
 	
     /**
      :name:	contentInset
      */
-    @IBInspectable public var contentInset = Inset.zero {
+    @IBInspectable public var contentInset = EdgeInsets.zero {
         didSet {
             contentEdgeInsets = contentInset.asEdgeInsets
         }
@@ -363,7 +363,7 @@ public class Button: UIButton {
 	}
 	
 	public override func alignmentRectInsets() -> UIEdgeInsets {
-		return UIEdgeInset.zero
+		return UIEdgeInsets.zero
 	}
 	
 	/**
@@ -403,17 +403,17 @@ public class Button: UIButton {
      if interrupted.
      */
 	public override func animationDidStop(_ animation: CAAnimation, finished flag: Bool) {
-		if let a: CAPropertyAnimation = animation as? CAPropertyAnimation {
-			if let b: CABasicAnimation = a as? CABasicAnimation {
-				if let v: AnyObject = b.toValue {
-					if let k: String = b.keyPath {
+		if let a = animation as? CAPropertyAnimation {
+			if let b = a as? CABasicAnimation {
+				if let v = b.toValue {
+					if let k = b.keyPath {
 						layer.setValue(v, forKeyPath: k)
 						layer.removeAnimation(forKey: k)
 					}
 				}
 			}
 			(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStop?(animation: animation, finished: flag)
-		} else if let a: CAAnimationGroup = animation as? CAAnimationGroup {
+		} else if let a = animation as? CAAnimationGroup {
 			for x in a.animations! {
 				animationDidStop(x, finished: true)
 			}
@@ -427,10 +427,10 @@ public class Button: UIButton {
 	*/
 	public func pulse(point: CGPoint? = nil) {
         let p: CGPoint = nil == point ? CGPoint(x: CGFloat(width / 2), y: CGFloat(height / 2)) : point!
-		MaterialAnimation.pulseExpandAnimation(layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseOpacity: pulseOpacity, point: p, width: width, height: height, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
-		MaterialAnimation.delay(0.35) { [weak self] in
-			if let s: Button = self {
-				MaterialAnimation.pulseContractAnimation(s.layer, visualLayer: s.visualLayer, pulseColor: s.pulseColor, pulseLayers: &s.pulseLayers, pulseAnimation: s.pulseAnimation)
+		MaterialAnimation.pulseExpandAnimation(layer: layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseOpacity: pulseOpacity, point: p, width: width, height: height, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
+		MaterialAnimation.delay(time: 0.35) { [weak self] in
+			if let s = self {
+				MaterialAnimation.pulseContractAnimation(layer: s.layer, visualLayer: s.visualLayer, pulseColor: s.pulseColor, pulseLayers: &s.pulseLayers, pulseAnimation: s.pulseAnimation)
 			}
 		}
 	}
@@ -443,7 +443,7 @@ public class Button: UIButton {
 	*/
 	public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 		super.touchesBegan(touches, with: event)
-		MaterialAnimation.pulseExpandAnimation(layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseOpacity: pulseOpacity, point: layer.convertPoint(touches.first!.locationInView(self), fromLayer: layer), width: width, height: height, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
+		MaterialAnimation.pulseExpandAnimation(layer: layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseOpacity: pulseOpacity, point: layer.convert(touches.first!.location(in: self), from: layer), width: width, height: height, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
 	}
 	
 	/**
@@ -454,7 +454,7 @@ public class Button: UIButton {
 	*/
 	public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
 		super.touchesEnded(touches, with: event)
-		MaterialAnimation.pulseContractAnimation(layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
+		MaterialAnimation.pulseContractAnimation(layer: layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
 	}
 	
 	/**
@@ -465,7 +465,7 @@ public class Button: UIButton {
 	*/
 	public override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
 		super.touchesCancelled(touches, with: event)
-		MaterialAnimation.pulseContractAnimation(layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
+		MaterialAnimation.pulseContractAnimation(layer: layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
 	}
 	
 	/**
@@ -496,7 +496,7 @@ public class Button: UIButton {
 	
 	/// Manages the layout for the shape of the view instance.
 	internal func layoutShape() {
-		if .Circle == shape {
+		if .circle == shapePreset {
 			let w: CGFloat = (width / 2)
 			if w != cornerRadius {
 				cornerRadius = w

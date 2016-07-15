@@ -38,14 +38,14 @@ public class MaterialCollectionViewLayout : UICollectionViewLayout {
 	public var itemSize: CGSize = CGSize.zero
 	
 	/// A preset wrapper around contentInset.
-	public var contentInsetPreset: InsetPreset = .none {
+	public var contentEdgeInsetsPreset: EdgeInsetsPreset = .none {
 		didSet {
-			contentInset = InsetPresetToValue(preset: contentInsetPreset)
+			contentInset = EdgeInsetsPresetToValue(preset: contentEdgeInsetsPreset)
 		}
 	}
 	
 	/// A wrapper around grid.contentInset.
-	public var contentInset = Inset.zero
+	public var contentInset = EdgeInsets.zero
 	
 	/// Size of the content.
 	public private(set) var contentSize: CGSize = CGSize.zero

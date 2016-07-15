@@ -73,12 +73,12 @@ public class MaterialCollectionView : UICollectionView {
 	}
 	
 	/// A preset wrapper around contentInset.
-	public var contentInsetPreset: Insets {
+	public var contentEdgeInsetsPreset: Insets {
 		get {
-			return (collectionViewLayout as? MaterialCollectionViewLayout)!.contentInsetPreset
+			return (collectionViewLayout as? MaterialCollectionViewLayout)!.contentEdgeInsetsPreset
 		}
 		set(value) {
-			(collectionViewLayout as? MaterialCollectionViewLayout)!.contentInsetPreset = value
+			(collectionViewLayout as? MaterialCollectionViewLayout)!.contentEdgeInsetsPreset = value
 		}
 	}
 	

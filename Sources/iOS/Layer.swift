@@ -41,7 +41,7 @@ public class Layer: CAShapeLayer {
      allows the dropshadow effect on the backing layer, while clipping
      the image to a desired shape within the visualLayer.
      */
-	public private(set) lazy var visualLayer: CAShapeLayer = CAShapeLayer()
+	public private(set) var visualLayer: CAShapeLayer!
 
 	/// A property that accesses the layer.frame.origin.x property.
 	@IBInspectable public var x: CGFloat {
@@ -66,7 +66,7 @@ public class Layer: CAShapeLayer {
 	/**
      A property that accesses the layer.frame.size.width property.
      When setting this property in conjunction with the shape property having a
-     value that is not .None, the height will be adjusted to maintain the correct
+     value that is not .none, the height will be adjusted to maintain the correct
      shape.
      */
 	@IBInspectable public var width: CGFloat {
@@ -75,7 +75,7 @@ public class Layer: CAShapeLayer {
 		}
 		set(value) {
 			frame.size.width = value
-			if .None != shape {
+			if .none != shapePreset {
 				frame.size.height = value
 			}
 		}
@@ -84,7 +84,7 @@ public class Layer: CAShapeLayer {
 	/**
      A property that accesses the layer.frame.size.height property.
      When setting this property in conjunction with the shape property having a
-     value that is not .None, the width will be adjusted to maintain the correct
+     value that is not .none, the width will be adjusted to maintain the correct
      shape.
      */
 	@IBInspectable public var height: CGFloat {
@@ -93,7 +93,7 @@ public class Layer: CAShapeLayer {
 		}
 		set(value) {
 			frame.size.height = value
-			if .None != shape {
+			if .none != shapePreset {
 				frame.size.width = value
 			}
 		}
@@ -169,44 +169,49 @@ public class Layer: CAShapeLayer {
 		}
 	}
 	
-	/**
+    /// A preset value for Depth.
+    public var depthPreset: DepthPreset = .none {
+        didSet {
+            depth = DepthPresetToValue(preset: depthPreset)
+        }
+    }
+    
+    /**
      A property that sets the shadowOffset, shadowOpacity, and shadowRadius
-     for the backing layer. This is the preferred method of setting depth
-     in order to maintain consitency across UI objects.
+     for the backing layer.
      */
-	public var depthPreset = .none {
-		didSet {
-			let value: Depth = DepthPresetToValue(preset: depth)
-			shadowOffset = value.offset
-			shadowOpacity = value.opacity
-			shadowRadius = value.radius
-			layoutShadowPath()
-		}
-	}
+    public var depth = Depth.zero {
+        didSet {
+            shadowOffset = depth.offset.asSize
+            shadowOpacity = depth.opacity
+            shadowRadius = depth.radius
+            layoutShadowPath()
+        }
+    }
 	
 	/**
      A property that sets the cornerRadius of the backing layer. If the shape
-     property has a value of .Circle when the cornerRadius is set, it will
-     become .None, as it no longer maintains its circle shape.
+     property has a value of .circle when the cornerRadius is set, it will
+     become .none, as it no longer maintains its circle shape.
      */
-	public var cornerRadiusPreset: MaterialRadius = .None {
+	public var cornerRadiusPreset: RadiusPreset = .none {
 		didSet {
-			if let v: MaterialRadius = cornerRadiusPreset {
-				cornerRadius = MaterialRadiusToValue(radius: v)
+			if let v: RadiusPreset = cornerRadiusPreset {
+				cornerRadius = RadiusPresetToValue(preset: v)
 			}
 		}
 	}
 	
 	/**
      A property that sets the cornerRadius of the backing layer. If the shape
-     property has a value of .Circle when the cornerRadius is set, it will
-     become .None, as it no longer maintains its circle shape.
+     property has a value of .circle when the cornerRadius is set, it will
+     become .none, as it no longer maintains its circle shape.
      */
 	@IBInspectable public override var cornerRadius: CGFloat {
 		didSet {
 			layoutShadowPath()
-			if .Circle == shape {
-				shape = .None
+			if .circle == shapePreset {
+				shapePreset = .none
 			}
 		}
 	}
@@ -216,9 +221,9 @@ public class Layer: CAShapeLayer {
      width or height property is set, the other will be automatically adjusted
      to maintain the shape of the object.
      */
-	public var shape: MaterialShape = .None {
+	public var shapePreset: ShapePreset = .none {
 		didSet {
-			if .None != shape {
+			if .none != shapePreset {
 				if width < height {
 					frame.size.width = height
 				} else {
@@ -230,9 +235,9 @@ public class Layer: CAShapeLayer {
 	}
 	
 	/// A preset property to set the borderWidth.
-	public var borderWidthPreset: MaterialBorder = .None {
+	public var borderWidthPreset: BorderWidthPreset = .none {
 		didSet {
-			borderWidth = MaterialBorderToValue(border: borderWidthPreset)
+			borderWidth = BorderWidthPresetToValue(preset: borderWidthPreset)
 		}
 	}
 	
@@ -335,8 +340,8 @@ public class Layer: CAShapeLayer {
 	
 	/// Prepares the visualLayer property.
 	public func prepareVisualLayer() {
-		// visualLayer
-		visualLayer.zPosition = 0
+		visualLayer = CAShapeLayer(Z
+        visualLayer.zPosition = 0
 		visualLayer.masksToBounds = true
 		addSublayer(visualLayer)
 	}
@@ -349,8 +354,8 @@ public class Layer: CAShapeLayer {
 	
 	/// Manages the layout for the shape of the layer instance.
 	internal func layoutShape() {
-		if .Circle == shape {
-			let w: CGFloat = (width / 2)
+		if .circle == shapePreset {
+			let w = width / 2
 			if w != cornerRadius {
 				cornerRadius = w
 			}
@@ -360,7 +365,7 @@ public class Layer: CAShapeLayer {
 	/// Sets the shadow path.
 	internal func layoutShadowPath() {
 		if shadowPathAutoSizeEnabled {
-			if .None == depth {
+			if .none == depthPreset {
 				shadowPath = nil
 			} else if nil == shadowPath {
 				shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath

@@ -42,7 +42,7 @@ public class RaisedButton: Button {
 		super.prepareView()
 		depthPreset = .depth1
 		cornerRadiusPreset = .Radius1
-		contentInsetPreset = .wideRectangle3
+		contentEdgeInsetsPreset = .wideRectangle3
 		backgroundColor = Color.white
 	}
 }

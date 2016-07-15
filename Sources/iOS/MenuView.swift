@@ -50,7 +50,7 @@ public class MenuView : PulseView {
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		pulseAnimation = .None
+		pulseAnimation = .none
 		clipsToBounds = false
 		backgroundColor = nil
 	}
