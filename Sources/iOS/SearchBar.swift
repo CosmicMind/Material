@@ -161,7 +161,7 @@ public class SearchBar : BarView {
 	private func prepareClearButton() {
 		let image: UIImage? = Icon.cm.close
 		clearButton = IconButton()
-		clearButton.contentEdgeInsets = UIEdgeInsetsZero
+		clearButton.contentEdgeInsets = UIEdgeInsets.zero
 		clearButton.tintColor = placeholderColor
 		clearButton.setImage(image, forState: .Normal)
 		clearButton.setImage(image, forState: .Highlighted)

@@ -210,53 +210,54 @@ public class Button: UIButton {
 		return UIEdgeInsets.zero
 	}
 	
-	/**
-	Triggers the pulse animation.
-	- Parameter point: A Optional point to pulse from, otherwise pulses
-	from the center.
-	*/
-	public func pulse(point: CGPoint? = nil) {
+    /**
+     Triggers the pulse animation.
+     - Parameter point: A Optional point to pulse from, otherwise pulses
+     from the center.
+     */
+    public func pulse(point: CGPoint? = nil) {
         let p: CGPoint = nil == point ? CGPoint(x: CGFloat(width / 2), y: CGFloat(height / 2)) : point!
-		MaterialAnimation.pulseExpandAnimation(layer: layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseOpacity: pulseOpacity, point: p, width: width, height: height, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
-		MaterialAnimation.delay(time: 0.35) { [weak self] in
-			if let s = self {
-				MaterialAnimation.pulseContractAnimation(layer: s.layer, visualLayer: s.visualLayer, pulseColor: s.pulseColor, pulseLayers: &s.pulseLayers, pulseAnimation: s.pulseAnimation)
-			}
-		}
-	}
-	
-	/**
-	A delegation method that is executed when the view has began a
-	touch event.
-	- Parameter touches: A set of UITouch objects.
-	- Parameter event: A UIEvent object.
-	*/
-	public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-		super.touchesBegan(touches, with: event)
-		MaterialAnimation.pulseExpandAnimation(layer: layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseOpacity: pulseOpacity, point: layer.convert(touches.first!.location(in: self), from: layer), width: width, height: height, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
-	}
-	
-	/**
-	A delegation method that is executed when the view touch event has
-	ended.
-	- Parameter touches: A set of UITouch objects.
-	- Parameter event: A UIEvent object.
-	*/
-	public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-		super.touchesEnded(touches, with: event)
-		MaterialAnimation.pulseContractAnimation(layer: layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
-	}
-	
-	/**
-	A delegation method that is executed when the view touch event has
-	been cancelled.
-	- Parameter touches: A set of UITouch objects.
-	- Parameter event: A UIEvent object.
-	*/
-	public override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-		super.touchesCancelled(touches, with: event)
-		MaterialAnimation.pulseContractAnimation(layer: layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
-	}
+        MaterialAnimation.pulseExpandAnimation(layer: layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseOpacity: pulseOpacity, point: p, width: width, height: height, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
+        MaterialAnimation.delay(time: 0.35) { [weak self] in
+            guard let s = self else {
+                return
+            }
+            MaterialAnimation.pulseContractAnimation(layer: s.layer, visualLayer: s.visualLayer, pulseColor: s.pulseColor, pulseLayers: &s.pulseLayers, pulseAnimation: s.pulseAnimation)
+        }
+    }
+    
+    /**
+     A delegation method that is executed when the view has began a
+     touch event.
+     - Parameter touches: A set of UITouch objects.
+     - Parameter event: A UIEvent object.
+     */
+    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        MaterialAnimation.pulseExpandAnimation(layer: layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseOpacity: pulseOpacity, point: layer.convert(touches.first!.location(in: self), from: layer), width: width, height: height, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
+    }
+    
+    /**
+     A delegation method that is executed when the view touch event has
+     ended.
+     - Parameter touches: A set of UITouch objects.
+     - Parameter event: A UIEvent object.
+     */
+    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        MaterialAnimation.pulseContractAnimation(layer: layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
+    }
+    
+    /**
+     A delegation method that is executed when the view touch event has
+     been cancelled.
+     - Parameter touches: A set of UITouch objects.
+     - Parameter event: A UIEvent object.
+     */
+    public override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesCancelled(touches, with: event)
+        MaterialAnimation.pulseContractAnimation(layer: layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
+    }
 	
 	/**
 	Prepares the view instance when intialized. When subclassing,

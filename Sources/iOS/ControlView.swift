@@ -172,7 +172,7 @@ public class ControlView : View {
 				if let v: Array<UIControl> = leftControls {
 					for c in v {
 						let w: CGFloat = c.intrinsicContentSize().width
-						(c as? UIButton)?.contentEdgeInsets = UIEdgeInsetsZero
+						(c as? UIButton)?.contentEdgeInsets = UIEdgeInsets.zero
 						c.frame.size.height = frame.size.height - contentInset.top - contentInset.bottom
 						
 						let q: Int = Int(w / gridFactor)
@@ -192,7 +192,7 @@ public class ControlView : View {
 				if let v: Array<UIControl> = rightControls {
 					for c in v {
 						let w: CGFloat = c.intrinsicContentSize().width
-						(c as? UIButton)?.contentEdgeInsets = UIEdgeInsetsZero
+						(c as? UIButton)?.contentEdgeInsets = UIEdgeInsets.zero
 						c.frame.size.height = frame.size.height - contentInset.top - contentInset.bottom
 						
 						let q: Int = Int(w / gridFactor)

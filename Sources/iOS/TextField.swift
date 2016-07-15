@@ -227,7 +227,7 @@ public class TextField : UITextField {
 				if nil == clearIconButton {
 					let image: UIImage? = Icon.cm.clear
 					clearIconButton = IconButton(frame: CGRect.zero)
-					clearIconButton!.contentEdgeInsets = UIEdgeInsetsZero
+					clearIconButton!.contentEdgeInsets = UIEdgeInsets.zero
 					clearIconButton!.pulseAnimation = .Center
 					clearIconButton!.tintColor = placeholderColor
 					clearIconButton!.setImage(image, forState: .Normal)
@@ -264,7 +264,7 @@ public class TextField : UITextField {
 				if nil == visibilityIconButton {
 					let image: UIImage? = Icon.visibility
 					visibilityIconButton = IconButton(frame: CGRect.zero)
-					visibilityIconButton!.contentEdgeInsets = UIEdgeInsetsZero
+					visibilityIconButton!.contentEdgeInsets = UIEdgeInsets.zero
 					visibilityIconButton!.pulseAnimation = .Center
 					visibilityIconButton!.tintColor = placeholderColor
 					visibilityIconButton!.setImage(image, forState: .Normal)

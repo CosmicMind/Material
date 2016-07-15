@@ -250,7 +250,7 @@ public class NavigationBar : UINavigationBar {
 						if let v: Array<UIControl> = item.leftControls {
 							for c in v {
 								let w: CGFloat = c.intrinsicContentSize().width
-								(c as? UIButton)?.contentEdgeInsets = UIEdgeInsetsZero
+								(c as? UIButton)?.contentEdgeInsets = UIEdgeInsets.zero
 								c.frame.size.height = titleView.frame.size.height - contentInset.top - contentInset.bottom
 								
 								let q: Int = Int(w / gridFactor)
@@ -270,7 +270,7 @@ public class NavigationBar : UINavigationBar {
 						if let v: Array<UIControl> = item.rightControls {
 							for c in v {
 								let w: CGFloat = c.intrinsicContentSize().width
-								(c as? UIButton)?.contentEdgeInsets = UIEdgeInsetsZero
+								(c as? UIButton)?.contentEdgeInsets = UIEdgeInsets.zero
 								c.frame.size.height = titleView.frame.size.height - contentInset.top - contentInset.bottom
 								
 								let q: Int = Int(w / gridFactor)

@@ -161,6 +161,6 @@ public class MaterialCollectionView : UICollectionView {
 	public func prepareView() {
 		contentScaleFactor = Device.scale
 		backgroundColor = Color.clear
-		contentInset = UIEdgeInsetsZero
+		contentInset = UIEdgeInsets.zero
 	}
 }
