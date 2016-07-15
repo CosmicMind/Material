@@ -92,33 +92,6 @@ public class TextView: UITextView {
 		}
 	}
 	
-	/// A property that sets the cornerRadius of the backing layer.
-	public var cornerRadiusPreset: RadiusPreset = .none {
-		didSet {
-			if let v: RadiusPreset = cornerRadiusPreset {
-				cornerRadius = RadiusPresetToValue(v)
-			}
-		}
-	}
-	
-	/// A property that accesses the layer.cornerRadius.
-	@IBInspectable public var cornerRadius: CGFloat {
-		get {
-			return layer.cornerRadius
-		}
-		set(value) {
-			layer.cornerRadius = value
-			layoutShadowPath()
-		}
-	}
-	
-	/// A preset property to set the borderWidth.
-	public var borderWidthPreset: BorderWidthPreset = .none {
-		didSet {
-			borderWidth = BorderWidthPresetToValue(presetWidthPreset)
-		}
-	}
-	
 	/**
 	The title UILabel that is displayed when there is text. The 
 	titleLabel text value is updated with the placeholderLabel

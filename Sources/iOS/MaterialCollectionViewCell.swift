@@ -242,48 +242,6 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	}
 	
 	/**
-	A property that sets the shadowOffset, shadowOpacity, and shadowRadius
-	for the backing layer. This is the preferred method of setting depth
-	in order to maintain consitency across UI objects.
-	*/
-	public var depthPreset {
-		didSet {
-			let value: Depth = DepthPresetToValue(preset)
-			shadowOffset = value.offset
-			shadowOpacity = value.opacity
-			shadowRadius = value.radius
-			layoutShadowPath()
-		}
-	}
-	
-	/**
-	A property that sets the cornerRadius of the backing layer. If the shape
-	property has a value of .circle when the cornerRadius is set, it will
-	become .none, as it no longer maintains its circle shape.
-	*/
-	public var cornerRadiusPreset: RadiusPreset {
-		didSet {
-			if let v: RadiusPreset = cornerRadiusPreset {
-				cornerRadius = RadiusPresetToValue(v)
-			}
-		}
-	}
-	
-	/// A property that accesses the layer.cornerRadius.
-	@IBInspectable public var cornerRadius: CGFloat {
-		get {
-			return layer.cornerRadius
-		}
-		set(value) {
-			layer.cornerRadius = value
-			layoutShadowPath()
-			if .circle == shape {
-				shape = .none
-			}
-		}
-	}
-	
-	/**
 	A property that manages the overall shape for the object. If either the
 	width or height property is set, the other will be automatically adjusted
 	to maintain the shape of the object.
@@ -298,13 +256,6 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 				}
 				layoutShadowPath()
 			}
-		}
-	}
-	
-	/// A preset property to set the borderWidth.
-	public var borderWidthPreset: BorderWidthPreset = .none {
-		didSet {
-			borderWidth = BorderWidthPresetToValue(presetWidthPreset)
 		}
 	}
 	

@@ -194,10 +194,10 @@ public class Layer: CAShapeLayer {
      property has a value of .circle when the cornerRadius is set, it will
      become .none, as it no longer maintains its circle shape.
      */
-	public var cornerRadiusPreset: RadiusPreset = .none {
+	public var cornerRadiusPreset: CornerRadiusPreset = .none {
 		didSet {
-			if let v: RadiusPreset = cornerRadiusPreset {
-				cornerRadius = RadiusPresetToValue(preset: v)
+			if let v: CornerRadiusPreset = cornerRadiusPreset {
+				cornerRadius = CornerRadiusPresetToValue(preset: v)
 			}
 		}
 	}

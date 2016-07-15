@@ -42,6 +42,32 @@ public class Material {
         self.view = view
     }
     
+    /// A property that sets the cornerRadius of the backing layer.
+    public var cornerRadiusPreset: CornerRadiusPreset {
+        didSet {
+            guard let v = view else {
+                return
+            }
+            
+            if let preset: CornerRadiusPreset = cornerRadiusPreset {
+                v.cornerRadius = CornerRadiusPresetToValue(preset: preset)
+            }
+        }
+    }
+    
+    /// A preset property to set the borderWidth.
+    public var borderWidthPreset: BorderWidthPreset {
+        didSet {
+            guard let v = view else {
+                return
+            }
+            
+            if let preset: BorderWidthPreset = borderWidthPreset {
+                v.borderWidth = BorderWidthPresetToValue(preset: preset)
+            }
+        }
+    }
+    
     /// A preset value for Depth.
     public var depthPreset: DepthPreset {
         get {
@@ -139,6 +165,37 @@ public extension UIView {
         }
         set(value) {
             layer.shadowPath = value
+        }
+    }
+    
+    /// A property that sets the cornerRadius of the backing layer.
+    public var cornerRadiusPreset: CornerRadiusPreset {
+        get {
+            return material.cornerRadiusPreset
+        }
+        set(value) {
+            material.cornerRadiusPreset = value
+        }
+    }
+    
+    /// A property that accesses the layer.cornerRadius.
+    @IBInspectable
+    public var cornerRadius: CGFloat {
+        get {
+            return layer.cornerRadius
+        }
+        set(value) {
+            layer.cornerRadius = value
+        }
+    }
+    
+    /// A preset property to set the borderWidth.
+    public var borderWidthPreset: BorderWidthPreset {
+        get {
+            return material.borderWidthPreset
+        }
+        set(value) {
+            material.borderWidthPreset = value
         }
     }
     

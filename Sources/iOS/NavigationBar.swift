@@ -169,13 +169,6 @@ public class NavigationBar : UINavigationBar {
 		}
 	}
 	
-	/// A preset property to set the borderWidth.
-	public var borderWidthPreset: BorderWidthPreset = .none {
-		didSet {
-			borderWidth = BorderWidthPresetToValue(presetWidthPreset)
-		}
-	}
-	
 	/**
 	An initializer that initializes the object with a NSCoder object.
 	- Parameter aDecoder: A NSCoder instance.

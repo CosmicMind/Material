@@ -128,37 +128,6 @@ public class MaterialTableViewCell : UITableViewCell {
 	}
 	
 	/**
-	A property that sets the cornerRadius of the backing layer. If the shape
-	property has a value of .circle when the cornerRadius is set, it will
-	become .none, as it no longer maintains its circle shape.
-	*/
-	public var cornerRadiusPreset: RadiusPreset = .none {
-		didSet {
-			if let v: RadiusPreset = cornerRadiusPreset {
-				cornerRadius = RadiusPresetToValue(preset: v)
-			}
-		}
-	}
-	
-	/// A property that accesses the layer.cornerRadius.
-	@IBInspectable public var cornerRadius: CGFloat {
-		get {
-			return layer.cornerRadius
-		}
-		set(value) {
-			layer.cornerRadius = value
-			layoutShadowPath()
-		}
-	}
-	
-	/// A preset property to set the borderWidth.
-	public var borderWidthPreset: BorderWidthPreset = .none {
-		didSet {
-			borderWidth = BorderWidthPresetToValue(preset: borderWidthPreset)
-		}
-	}
-	
-	/**
 	An initializer that initializes the object with a NSCoder object.
 	- Parameter aDecoder: A NSCoder instance.
 	*/
@@ -177,8 +146,8 @@ public class MaterialTableViewCell : UITableViewCell {
 		prepareView()
 	}
 	
-	public override func layoutSublayersOfLayer(layer: CALayer) {
-		super.layoutSublayersOfLayer(layer)
+	public override func layoutSublayers(of layer: CALayer) {
+		super.layoutSublayers(of: layer)
 		if self.layer == layer {
 			layoutVisualLayer()
 		}

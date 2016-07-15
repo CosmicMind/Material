@@ -186,19 +186,6 @@ public class View: UIView {
 		}
 	}
 	
-	/**
-     A property that sets the cornerRadius of the backing layer. If the shape
-     property has a value of .circle when the cornerRadius is set, it will
-     become .none, as it no longer maintains its circle shape.
-     */
-	public var cornerRadiusPreset: RadiusPreset = .none {
-		didSet {
-			if let v: RadiusPreset = cornerRadiusPreset {
-				cornerRadius = RadiusPresetToValue(preset: v)
-			}
-		}
-	}
-	
 	/// A property that accesses the layer.cornerRadius.
 	@IBInspectable public var cornerRadius: CGFloat {
 		get {
@@ -228,13 +215,6 @@ public class View: UIView {
 				}
 				layoutShadowPath()
 			}
-		}
-	}
-	
-	/// A preset property to set the borderWidth.
-	public var borderWidthPreset: BorderWidthPreset = .none {
-		didSet {
-			borderWidth = BorderWidthPresetToValue(preset: borderWidthPreset)
 		}
 	}
 	

@@ -242,33 +242,6 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 	}
 	
 	/**
-	A property that sets the cornerRadius of the backing layer. If the shape
-	property has a value of .circle when the cornerRadius is set, it will
-	become .none, as it no longer maintains its circle shape.
-	*/
-	public var cornerRadiusPreset: RadiusPreset {
-		didSet {
-			if let v: RadiusPreset = cornerRadiusPreset {
-				cornerRadius = RadiusPresetToValue(v)
-			}
-		}
-	}
-	
-	/// A property that accesses the layer.cornerRadius.
-	@IBInspectable public var cornerRadius: CGFloat {
-		get {
-			return layer.cornerRadius
-		}
-		set(value) {
-			layer.cornerRadius = value
-			layoutShadowPath()
-			if .circle == shapePreset {
-				shapePreset = .none
-			}
-		}
-	}
-	
-	/**
 	A property that manages the overall shape for the object. If either the
 	width or height property is set, the other will be automatically adjusted
 	to maintain the shape of the object.
@@ -283,13 +256,6 @@ public class MaterialCollectionReusableView : UICollectionReusableView {
 				}
 				layoutShadowPath()
 			}
-		}
-	}
-	
-	/// A preset property to set the borderWidth.
-	public var borderWidthPreset: BorderWidthPreset = .none {
-		didSet {
-			borderWidth = BorderWidthPresetToValue(preset: borderWidthPreset)
 		}
 	}
 	

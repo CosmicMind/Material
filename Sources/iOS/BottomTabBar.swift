@@ -99,13 +99,6 @@ public class BottomTabBar: UITabBar {
 		}
 	}
 	
-	/// A preset property to set the borderWidth.
-	public var borderWidthPreset: BorderWidthPreset = .none {
-		didSet {
-			borderWidth = BorderWidthPresetToValue(preset: borderWidthPreset)
-		}
-	}
-	
 	/**
 	An initializer that initializes the object with a CGRect object.
 	If AutoLayout is used, it is better to initilize the instance

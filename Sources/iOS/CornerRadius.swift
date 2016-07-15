@@ -30,41 +30,41 @@
 
 import UIKit
 
-public enum RadiusPreset {
+public enum CornerRadiusPreset {
 	case none
-	case radius1
-	case radius2
-	case radius3
-	case radius4
-	case radius5
-	case radius6
-	case radius7
-	case radius8
-	case radius9
+	case cornerRadius1
+	case cornerRadius2
+	case cornerRadius3
+	case cornerRadius4
+	case cornerRadius5
+	case cornerRadius6
+	case cornerRadius7
+	case cornerRadius8
+	case cornerRadius9
 }
 
-/// Converts the RadiusPreset enum to a CGFloat value.
-public func RadiusPresetToValue(preset: RadiusPreset) -> CGFloat {
+/// Converts the CornerRadiusPreset enum to a CGFloat value.
+public func CornerRadiusPresetToValue(preset: CornerRadiusPreset) -> CGFloat {
 	switch preset {
 	case .none:
 		return 0
-	case .radius1:
+	case .cornerRadius1:
 		return 4
-	case .radius2:
+	case .cornerRadius2:
 		return 8
-	case .radius3:
+	case .cornerRadius3:
 		return 16
-	case .radius4:
+	case .cornerRadius4:
 		return 24
-	case .radius5:
+	case .cornerRadius5:
 		return 32
-	case .radius6:
+	case .cornerRadius6:
 		return 40
-	case .radius7:
+	case .cornerRadius7:
 		return 48
-	case .radius8:
+	case .cornerRadius8:
 		return 56
-	case .radius9:
+	case .cornerRadius9:
 		return 64
 	}
 }

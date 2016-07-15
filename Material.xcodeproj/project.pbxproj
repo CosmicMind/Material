@@ -64,7 +64,7 @@
 		96BCB7CA1CB40DC500C806FE /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7811CB40DC500C806FE /* Layout.swift */; };
 		96BCB7CB1CB40DC500C806FE /* MaterialPulseAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7821CB40DC500C806FE /* MaterialPulseAnimation.swift */; };
 		96BCB7CD1CB40DC500C806FE /* PulseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7841CB40DC500C806FE /* PulseView.swift */; };
-		96BCB7CE1CB40DC500C806FE /* Radius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7851CB40DC500C806FE /* Radius.swift */; };
+		96BCB7CE1CB40DC500C806FE /* CornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7851CB40DC500C806FE /* CornerRadius.swift */; };
 		96BCB7CF1CB40DC500C806FE /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7861CB40DC500C806FE /* Shape.swift */; };
 		96BCB7D01CB40DC500C806FE /* InterimSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7871CB40DC500C806FE /* InterimSpace.swift */; };
 		96BCB7D11CB40DC500C806FE /* Switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7881CB40DC500C806FE /* Switch.swift */; };
@@ -169,7 +169,7 @@
 		96BCB84F1CB4115200C806FE /* Depth.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7781CB40DC500C806FE /* Depth.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8501CB4115200C806FE /* EdgeInsets.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB77A1CB40DC500C806FE /* EdgeInsets.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8511CB4115200C806FE /* MaterialGravity.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB77C1CB40DC500C806FE /* MaterialGravity.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		96BCB8521CB4115200C806FE /* Radius.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7851CB40DC500C806FE /* Radius.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96BCB8521CB4115200C806FE /* CornerRadius.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7851CB40DC500C806FE /* CornerRadius.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8531CB4115200C806FE /* Shape.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7861CB40DC500C806FE /* Shape.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8541CB4115200C806FE /* MaterialLabel.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB77F1CB40DC500C806FE /* MaterialLabel.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8551CB4115200C806FE /* PulseView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7841CB40DC500C806FE /* PulseView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -258,7 +258,7 @@
 		96BCB7811CB40DC500C806FE /* Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
 		96BCB7821CB40DC500C806FE /* MaterialPulseAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialPulseAnimation.swift; sourceTree = "<group>"; };
 		96BCB7841CB40DC500C806FE /* PulseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PulseView.swift; sourceTree = "<group>"; };
-		96BCB7851CB40DC500C806FE /* Radius.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Radius.swift; sourceTree = "<group>"; };
+		96BCB7851CB40DC500C806FE /* CornerRadius.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CornerRadius.swift; sourceTree = "<group>"; };
 		96BCB7861CB40DC500C806FE /* Shape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shape.swift; sourceTree = "<group>"; };
 		96BCB7871CB40DC500C806FE /* InterimSpace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterimSpace.swift; sourceTree = "<group>"; };
 		96BCB7881CB40DC500C806FE /* Switch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Switch.swift; sourceTree = "<group>"; };
@@ -542,7 +542,7 @@
 				96BCB7781CB40DC500C806FE /* Depth.swift */,
 				96BCB77A1CB40DC500C806FE /* EdgeInsets.swift */,
 				96BCB77C1CB40DC500C806FE /* MaterialGravity.swift */,
-				96BCB7851CB40DC500C806FE /* Radius.swift */,
+				96BCB7851CB40DC500C806FE /* CornerRadius.swift */,
 				96BCB7861CB40DC500C806FE /* Shape.swift */,
 				968C99441D37730B000074FF /* Direction.swift */,
 				968C99461D377849000074FF /* Offset.swift */,
@@ -733,7 +733,7 @@
 				96BCB84F1CB4115200C806FE /* Depth.swift in Headers */,
 				96BCB8501CB4115200C806FE /* EdgeInsets.swift in Headers */,
 				96BCB8511CB4115200C806FE /* MaterialGravity.swift in Headers */,
-				96BCB8521CB4115200C806FE /* Radius.swift in Headers */,
+				96BCB8521CB4115200C806FE /* CornerRadius.swift in Headers */,
 				96BCB8531CB4115200C806FE /* Shape.swift in Headers */,
 				96BCB8541CB4115200C806FE /* MaterialLabel.swift in Headers */,
 				96BCB8551CB4115200C806FE /* PulseView.swift in Headers */,
@@ -959,7 +959,7 @@
 				96BCB7AA1CB40DC500C806FE /* Grid.swift in Sources */,
 				96BCB7E71CB40DC500C806FE /* TextView.swift in Sources */,
 				96BCB7C31CB40DC500C806FE /* EdgeInsets.swift in Sources */,
-				96BCB7CE1CB40DC500C806FE /* Radius.swift in Sources */,
+				96BCB7CE1CB40DC500C806FE /* CornerRadius.swift in Sources */,
 				96BCB7E11CB40DC500C806FE /* BarView.swift in Sources */,
 				96BCB7A11CB40DC500C806FE /* BottomNavigationController.swift in Sources */,
 				96BCB7D81CB40DC500C806FE /* MenuController.swift in Sources */,
