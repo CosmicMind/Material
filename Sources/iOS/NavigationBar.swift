@@ -112,21 +112,6 @@ public class NavigationBar : UINavigationBar {
 		}
 	}
 	
-	/**
-	This property is the same as clipsToBounds. It crops any of the view's
-	contents from bleeding past the view's frame. If an image is set using
-	the image property, then this value does not need to be set, since the
-	visualLayer's maskToBounds is set to true by default.
-	*/
-	@IBInspectable public var masksToBounds: Bool {
-		get {
-			return layer.masksToBounds
-		}
-		set(value) {
-			layer.masksToBounds = value
-		}
-	}
-	
 	/// A property that accesses the backing layer's backgroundColor.
 	@IBInspectable public override var backgroundColor: UIColor? {
 		didSet {
@@ -184,81 +169,10 @@ public class NavigationBar : UINavigationBar {
 		}
 	}
 	
-	/// A property that accesses the backing layer's shadowColor.
-	@IBInspectable public var shadowColor: UIColor? {
-		didSet {
-			layer.shadowColor = shadowColor?.cgColor
-		}
-	}
-	
-	/// A property that accesses the backing layer's shadowOffset.
-	@IBInspectable public var shadowOffset: Offset {
-		get {
-			return layer.shadowOffset
-		}
-		set(value) {
-			layer.shadowOffset = value
-		}
-	}
-	
-	/// A property that accesses the backing layer's shadowOpacity.
-	@IBInspectable public var shadowOpacity: Float {
-		get {
-			return layer.shadowOpacity
-		}
-		set(value) {
-			layer.shadowOpacity = value
-		}
-	}
-	
-	/// A property that accesses the backing layer's shadowRadius.
-	@IBInspectable public var shadowRadius: CGFloat {
-		get {
-			return layer.shadowRadius
-		}
-		set(value) {
-			layer.shadowRadius = value
-		}
-	}
-	
-	/**
-	A property that sets the shadowOffset, shadowOpacity, and shadowRadius
-	for the backing layer. This is the preferred method of setting depth
-	in order to maintain consitency across UI objects.
-	*/
-	public var depthPreset = .none {
-		didSet {
-			let value: Depth = DepthPresetToValue(preset)
-			shadowOffset = value.offset
-			shadowOpacity = value.opacity
-			shadowRadius = value.radius
-		}
-	}
-	
 	/// A preset property to set the borderWidth.
 	public var borderWidthPreset: BorderWidthPreset = .none {
 		didSet {
 			borderWidth = BorderWidthPresetToValue(presetWidthPreset)
-		}
-	}
-	
-	/// A property that accesses the layer.borderWith.
-	@IBInspectable public var borderWidth: CGFloat {
-		get {
-			return layer.borderWidth
-		}
-		set(value) {
-			layer.borderWidth = value
-		}
-	}
-	
-	/// A property that accesses the layer.borderColor property.
-	@IBInspectable public var borderColor: UIColor? {
-		get {
-			return nil == layer.borderColor ? nil : UIColor(cgColor: layer.borderColor!)
-		}
-		set(value) {
-			layer.borderColor = value?.cgColor
 		}
 	}
 	

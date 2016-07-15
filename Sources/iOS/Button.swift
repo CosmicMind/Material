@@ -62,21 +62,6 @@ public class Button: UIButton {
 		}
 	}
 	
-	/**
-     This property is the same as clipsToBounds. It crops any of the view's
-     contents from bleeding past the view's frame. If an image is set using
-     the image property, then this value does not need to be set, since the
-     visualLayer's maskToBounds is set to true by default.
-     */
-	@IBInspectable public var masksToBounds: Bool {
-		get {
-			return layer.masksToBounds
-		}
-		set(value) {
-			layer.masksToBounds = value
-		}
-	}
-	
 	/// A property that accesses the backing layer's backgroundColor.
 	@IBInspectable public override var backgroundColor: UIColor? {
 		didSet {
@@ -140,53 +125,6 @@ public class Button: UIButton {
 		}
 	}
 	
-	/// A property that accesses the backing layer's shadowColor.
-	@IBInspectable public var shadowColor: UIColor? {
-		didSet {
-			layer.shadowColor = shadowColor?.cgColor
-		}
-	}
-	
-	/// A property that accesses the backing layer's shadowOffset.
-	@IBInspectable public var shadowOffset: Offset {
-		get {
-			return layer.shadowOffset.asOffset
-		}
-		set(value) {
-			layer.shadowOffset = value.asSize
-		}
-	}
-	
-	/// A property that accesses the backing layer's shadowOpacity.
-	@IBInspectable public var shadowOpacity: Float {
-		get {
-			return layer.shadowOpacity
-		}
-		set(value) {
-			layer.shadowOpacity = value
-		}
-	}
-	
-	/// A property that accesses the backing layer's shadowRadius.
-	@IBInspectable public var shadowRadius: CGFloat {
-		get {
-			return layer.shadowRadius
-		}
-		set(value) {
-			layer.shadowRadius = value
-		}
-	}
-	
-	/// A property that accesses the backing layer's shadowPath.
-	@IBInspectable public var shadowPath: CGPath? {
-		get {
-			return layer.shadowPath
-		}
-		set(value) {
-			layer.shadowPath = value
-		}
-	}
-	
 	/// Enables automatic shadowPath sizing.
 	@IBInspectable public var shadowPathAutoSizeEnabled: Bool = true {
 		didSet {
@@ -195,26 +133,6 @@ public class Button: UIButton {
 			}
 		}
 	}
-	
-	/// A preset value for Depth.
-    public var depthPreset: DepthPreset = .none {
-		didSet {
-			depth = DepthPresetToValue(preset: depthPreset)
-		}
-	}
-    
-    /**
-     A property that sets the shadowOffset, shadowOpacity, and shadowRadius
-     for the backing layer.
-     */
-    public var depth = Depth.zero {
-        didSet {
-            shadowOffset = depth.offset.asSize
-            shadowOpacity = depth.opacity
-            shadowRadius = depth.radius
-            layoutShadowPath()
-        }
-    }
 	
 	/**
      A property that sets the cornerRadius of the backing layer. If the shape
@@ -265,46 +183,6 @@ public class Button: UIButton {
 	public var borderWidthPreset: BorderWidthPreset = .none {
 		didSet {
 			borderWidth = BorderWidthPresetToValue(preset: borderWidthPreset)
-		}
-	}
-	
-	/// A property that accesses the layer.borderWith.
-	@IBInspectable public var borderWidth: CGFloat {
-		get {
-			return layer.borderWidth
-		}
-		set(value) {
-			layer.borderWidth = value
-		}
-	}
-	
-	/// A property that accesses the layer.borderColor property.
-	@IBInspectable public var borderColor: UIColor? {
-		get {
-			return nil == layer.borderColor ? nil : UIColor(cgColor: layer.borderColor!)
-		}
-		set(value) {
-			layer.borderColor = value?.cgColor
-		}
-	}
-	
-	/// A property that accesses the layer.position property.
-	@IBInspectable public var position: CGPoint {
-		get {
-			return layer.position
-		}
-		set(value) {
-			layer.position = value
-		}
-	}
-	
-	/// A property that accesses the layer.zPosition property.
-	@IBInspectable public var zPosition: CGFloat {
-		get {
-			return layer.zPosition
-		}
-		set(value) {
-			layer.zPosition = value
 		}
 	}
 	
@@ -364,60 +242,6 @@ public class Button: UIButton {
 	
 	public override func alignmentRectInsets() -> UIEdgeInsets {
 		return UIEdgeInsets.zero
-	}
-	
-	/**
-     A method that accepts CAAnimation objects and executes them on the
-     view's backing layer.
-     - Parameter animation: A CAAnimation instance.
-     */
-	public func animate(animation: CAAnimation) {
-		animation.delegate = self
-		if let a: CABasicAnimation = animation as? CABasicAnimation {
-			a.fromValue = (nil == layer.presentation() ? layer : layer.presentation()!).value(forKeyPath: a.keyPath!)
-		}
-		if let a: CAPropertyAnimation = animation as? CAPropertyAnimation {
-			layer.add(a, forKey: a.keyPath!)
-		} else if let a: CAAnimationGroup = animation as? CAAnimationGroup {
-			layer.add(a, forKey: nil)
-		} else if let a: CATransition = animation as? CATransition {
-			layer.add(a, forKey: kCATransition)
-		}
-	}
-	
-	/**
-     A delegation method that is executed when the backing layer starts
-     running an animation.
-     - Parameter animation: The currently running CAAnimation instance.
-     */
-	public override func animationDidStart(_ animation: CAAnimation) {
-		(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStart?(animation: animation)
-	}
-	
-	/**
-     A delegation method that is executed when the backing layer stops
-     running an animation.
-     - Parameter anim: The CAAnimation instance that stopped running.
-     - Parameter flag: A boolean that indicates if the animation stopped
-     because it was completed or interrupted. True if completed, false
-     if interrupted.
-     */
-	public override func animationDidStop(_ animation: CAAnimation, finished flag: Bool) {
-		if let a = animation as? CAPropertyAnimation {
-			if let b = a as? CABasicAnimation {
-				if let v = b.toValue {
-					if let k = b.keyPath {
-						layer.setValue(v, forKeyPath: k)
-						layer.removeAnimation(forKey: k)
-					}
-				}
-			}
-			(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStop?(animation: animation, finished: flag)
-		} else if let a = animation as? CAAnimationGroup {
-			for x in a.animations! {
-				animationDidStop(x, finished: true)
-			}
-		}
 	}
 	
 	/**

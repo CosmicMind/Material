@@ -178,6 +178,7 @@
 		96BCB8581CB4116800C806FE /* Color.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7FD1CB40E1D00C806FE /* Color.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8591CB4118E00C806FE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96334EF51C8B84660083986B /* Assets.xcassets */; };
 		96D88C321C1328D800B91418 /* Material.h in Headers */ = {isa = PBXBuildFile; fileRef = 96D88C091C1328D800B91418 /* Material.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		96E3C3941D397AE90086A024 /* Material.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E3C3931D397AE90086A024 /* Material.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -294,6 +295,7 @@
 		96D88BFC1C1328D800B91418 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96D88BFD1C1328D800B91418 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		96D88C091C1328D800B91418 /* Material.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Material.h; sourceTree = "<group>"; };
+		96E3C3931D397AE90086A024 /* Material.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Material.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -580,6 +582,7 @@
 		96BCB80A1CB410A100C806FE /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				96E3C3931D397AE90086A024 /* Material.swift */,
 				96BCB7631CB40DC500C806FE /* Material+Obj-C.swift */,
 				96BCB7641CB40DC500C806FE /* Material+String.swift */,
 				96BCB7651CB40DC500C806FE /* Material+UIFont.swift */,
@@ -937,6 +940,7 @@
 				96BCB7BA1CB40DC500C806FE /* MaterialCollectionView.swift in Sources */,
 				96BCB7A31CB40DC500C806FE /* CapturePreview.swift in Sources */,
 				96BCB7BC1CB40DC500C806FE /* MaterialCollectionViewDataSource.swift in Sources */,
+				96E3C3941D397AE90086A024 /* Material.swift in Sources */,
 				96BCB7C71CB40DC500C806FE /* MaterialKeyframeAnimation.swift in Sources */,
 				96BCB7BE1CB40DC500C806FE /* MaterialCollectionViewLayout.swift in Sources */,
 				96BCB7BF1CB40DC500C806FE /* Color.swift in Sources */,

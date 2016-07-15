@@ -49,8 +49,18 @@ public struct Depth {
     /// Radius.
     public var radius: CGFloat
     
+    /// Preset.
+    public var preset: DepthPreset {
+        didSet {
+            let depth = DepthPresetToValue(preset: preset)
+            offset = depth.offset
+            opacity = depth.opacity
+            radius = depth.radius
+        }
+    }
+    
     /**
-     Initializer.
+     Initializer that takes in an offset, opacity, and radius.
      - Parameter offset: UIOffset.
      - Parameter opacity: Float.
      - Parameter radius: CGFloat.
@@ -59,6 +69,14 @@ public struct Depth {
         self.offset = offset
         self.opacity = opacity
         self.radius = radius
+    }
+    
+    /**
+     Initializer that takes in a DepthPreset.
+     - Parameter preset: DepthPreset.
+     */
+    public init(preset: DepthPreset) {
+        self.preset = preset
     }
     
     /**
@@ -86,4 +104,27 @@ public func DepthPresetToValue(preset: DepthPreset) -> Depth {
 	case .depth5:
         return Depth(offset: Offset(horizontal: 0, vertical: 5), opacity: 0.3, radius: 5)
 	}
+}
+
+/// Grid extension for UIView.
+public extension UIView {
+    /// A preset value for Depth.
+    public var depthPreset: DepthPreset {
+        get {
+            return material.depthPreset
+        }
+        set(value) {
+            material.depthPreset = value
+        }
+    }
+    
+    /// Grid reference.
+    public var depth: Depth {
+        get {
+            return material.depth
+        }
+        set(value) {
+            material.depth = value
+        }
+    }
 }
