@@ -30,38 +30,36 @@
 
 import UIKit
 
-public typealias MaterialAnimationRotationModeType = String
-
-public enum MaterialAnimationRotationMode {
-	case None
-	case Auto
-	case AutoReverse
+public enum AnimationRotationMode {
+	case none
+	case auto
+	case autoReverse
 }
 
 /**
-	:name:	MaterialAnimationRotationModeToValue
+	:name:	AnimationRotationModeToValue
 */
-public func MaterialAnimationRotationModeToValue(mode: MaterialAnimationRotationMode) -> MaterialAnimationRotationModeType? {
+public func AnimationRotationModeToValue(mode: AnimationRotationMode) -> String? {
 	switch mode {
 	case .none:
 		return nil
-	case .Auto:
+	case .auto:
 		return kCAAnimationRotateAuto
-	case .AutoReverse:
+	case .autoReverse:
 		return kCAAnimationRotateAutoReverse
 	}
 }
 
-public extension MaterialAnimation {
+public extension Animation {
 	/**
 	:name: path
 	*/
-	public static func path(bezierPath: UIBezierPath, mode: MaterialAnimationRotationMode = .Auto, duration: CFTimeInterval? = nil) -> CAKeyframeAnimation {
+	public static func path(bezierPath: UIBezierPath, mode: AnimationRotationMode = .auto, duration: CFTimeInterval? = nil) -> CAKeyframeAnimation {
 		let animation: CAKeyframeAnimation = CAKeyframeAnimation()
 		animation.keyPath = "position"
-		animation.path = bezierPath.CGPath
-		animation.rotationMode = MaterialAnimationRotationModeToValue(mode)
-		if let v: CFTimeInterval = duration {
+		animation.path = bezierPath.cgPath
+        animation.rotationMode = AnimationRotationModeToValue(mode: mode)
+		if let v = duration {
 			animation.duration = v
 		}
 		return animation

@@ -41,8 +41,8 @@ public class FabButton: Button {
 	public override func prepareView() {
 		super.prepareView()
 		depthPreset = .depth1
-		shape = .circle
-		pulseAnimation = .CenterWithBacking
+		shapePreset = .circle
+		pulseAnimation = .centerWithBacking
 		pulseColor = Color.white
 		tintColor = Color.white
 		backgroundColor = Color.red.base

@@ -31,7 +31,7 @@
 import UIKit
 
 @IBDesignable
-public class MaterialCollectionView : UICollectionView {
+public class MaterialCollectionView: UICollectionView {
 	/// A property that accesses the layer.frame.origin.x property.
 	@IBInspectable public var x: CGFloat {
 		get {
@@ -73,12 +73,12 @@ public class MaterialCollectionView : UICollectionView {
 	}
 	
 	/// A preset wrapper around contentInset.
-	public var contentEdgeInsetsPreset: Insets {
+	public var contentEdgeInsetsPreset: EdgeInsets {
 		get {
-			return (collectionViewLayout as? MaterialCollectionViewLayout)!.contentEdgeInsetsPreset
+			return (collectionViewLayout as? MaterialCollectionViewLayout)!.contentInset
 		}
 		set(value) {
-			(collectionViewLayout as? MaterialCollectionViewLayout)!.contentEdgeInsetsPreset = value
+			(collectionViewLayout as? MaterialCollectionViewLayout)!.contentInset = value
 		}
 	}
 	
@@ -102,9 +102,9 @@ public class MaterialCollectionView : UICollectionView {
 	}
 	
 	/// A preset wrapper around interimSpace.
-	public var interimSpacePreset: InterimSpace = .none {
+	public var interimSpacePreset: InterimSpacePreset = .none {
 		didSet {
-			interimSpace = InterimSpacePresetToValue(interimSpacePreset)
+            interimSpace = InterimSpacePresetToValue(preset: interimSpacePreset)
 		}
 	}
 	

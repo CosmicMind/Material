@@ -393,7 +393,7 @@ public class Card: PulseView {
 		super.prepareView()
 		depthPreset = .depth1
 		dividerColor = Color.grey.lighten3
-		cornerRadiusPreset = .Radius1
+		cornerRadiusPreset = .cornerRadius1
 	}
 	
 	/**

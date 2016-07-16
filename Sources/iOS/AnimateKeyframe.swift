@@ -30,10 +30,40 @@
 
 import UIKit
 
-public protocol MaterialCollectionViewDataSource: UICollectionViewDataSource {
+public typealias AnimateRotationModeType = String
+
+public enum AnimateRotationMode {
+	case None
+	case Auto
+	case AutoReverse
+}
+
+/**
+	:name:	AnimateRotationModeToValue
+*/
+public func AnimateRotationModeToValue(mode: AnimateRotationMode) -> AnimateRotationModeType? {
+	switch mode {
+	case .none:
+		return nil
+	case .Auto:
+		return kCAAnimationRotateAuto
+	case .AutoReverse:
+		return kCAAnimationRotateAutoReverse
+	}
+}
+
+public extension Animate {
 	/**
-	Retrieves the items for the collectionView.
-	- Returns: An Array of Arrays of MaterialDataSourceItem objects.
+	:name: path
 	*/
-	func items() -> [MaterialDataSourceItem]
+	public static func path(bezierPath: UIBezierPath, mode: AnimateRotationMode = .Auto, duration: CFTimeInterval? = nil) -> CAKeyframeAnimation {
+		let animation: CAKeyframeAnimation = CAKeyframeAnimation()
+		animation.keyPath = "position"
+		animation.path = bezierPath.CGPath
+		animation.rotationMode = AnimateRotationModeToValue(mode)
+		if let v: CFTimeInterval = duration {
+			animation.duration = v
+		}
+		return animation
+	}
 }

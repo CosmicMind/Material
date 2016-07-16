@@ -30,7 +30,7 @@
 
 import UIKit
 
-public class MaterialCollectionViewLayout : UICollectionViewLayout {
+public class MaterialCollectionViewLayout: UICollectionViewLayout {
 	/// Used to calculate the dimensions of the cells.
 	internal var offset: CGPoint = CGPoint.zero
 	

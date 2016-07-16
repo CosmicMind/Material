@@ -210,7 +210,7 @@ public class Capture : View, UIGestureRecognizerDelegate {
 	}
 	
 	/// Content insert value.
-	public var contentInset: Inset = EdgeInsetsPresetToValue(preset: .square4) {
+	public var contentInset: EdgeInsets = EdgeInsetsPresetToValue(preset: .square4) {
 		didSet {
 			reloadView()
 		}
@@ -544,17 +544,26 @@ public class Capture : View, UIGestureRecognizerDelegate {
 	}
 	
 	/// Animates the tap and layer.
-	private func animateTapLayer(layer v: Layer, point: CGPoint) {
-		MaterialAnimation.animationDisabled {
+	private func animateTapLayer(layer: Layer, point: CGPoint) {
+		Animation.animationDisabled { [weak layer] in
+            guard let v = layer else {
+                return
+            }
 			v.transform = CATransform3DIdentity
 			v.position = point
 			v.isHidden = false
 		}
-		MaterialAnimation.animateWithDuration(duration: 0.25, animations: {
+		Animation.animateWithDuration(duration: 0.25, animations: { [weak layer] in
+            guard let v = layer else {
+                return
+            }
 			v.transform = CATransform3DMakeScale(0.5, 0.5, 1)
 		}) {
-			MaterialAnimation.delay(0.4) {
-				MaterialAnimation.animationDisabled {
+			Animation.delay(time: 0.4) { [weak layer] in
+                Animation.animationDisabled { [weak layer] in
+                    guard let v = layer else {
+                        return
+                    }
 					v.isHidden = true
 				}
 			}

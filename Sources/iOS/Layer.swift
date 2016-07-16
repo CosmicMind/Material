@@ -309,7 +309,7 @@ public class Layer: CAShapeLayer {
      - Parameter animation: The currently running CAAnimation instance.
      */
 	public override func animationDidStart(_ animation: CAAnimation) {
-        (delegate as? MaterialAnimationDelegate)?.materialAnimationDidStart?(animation: animation)
+        (delegate as? AnimationDelegate)?.materialAnimationDidStart?(animation: animation)
 	}
 	
 	/**
@@ -330,7 +330,7 @@ public class Layer: CAShapeLayer {
 					}
 				}
 			}
-            (delegate as? MaterialAnimationDelegate)?.materialAnimationDidStop?(animation: animation, finished: flag)
+            (delegate as? AnimationDelegate)?.materialAnimationDidStop?(animation: animation, finished: flag)
 		} else if let a: CAAnimationGroup = animation as? CAAnimationGroup {
 			for x in a.animations! {
 				animationDidStop(x, finished: true)
@@ -370,7 +370,7 @@ public class Layer: CAShapeLayer {
 			} else if nil == shadowPath {
 				shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
 			} else {
-				animate(animation: MaterialAnimation.shadowPath(path: UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath, duration: 0))
+				animate(animation: Animation.shadowPath(path: UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath, duration: 0))
 			}
 		}
 	}

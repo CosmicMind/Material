@@ -118,7 +118,7 @@ public class MaterialCollectionReusableView: UICollectionReusableView {
 	/// A Preset for the contentsGravity property.
 	public var contentsGravityPreset: MaterialGravity {
 		didSet {
-			contentsGravity = MaterialGravityToValue(contentsGravityPreset)
+			contentsGravity = MaterialGravityToValue(gravity: contentsGravityPreset)
 		}
 	}
 	
@@ -133,7 +133,7 @@ public class MaterialCollectionReusableView: UICollectionReusableView {
 	}
 	
 	/// A preset wrapper around contentInset.
-	public var contentEdgeInsetsPreset: Insets {
+	public var contentEdgeInsetsPreset: EdgeInsetsPreset {
 		get {
 			return grid.contentEdgeInsetsPreset
 		}
@@ -153,9 +153,9 @@ public class MaterialCollectionReusableView: UICollectionReusableView {
 	}
 	
 	/// A preset wrapper around interimSpace.
-	public var interimSpacePreset: InterimSpace = .none {
+	public var interimSpacePreset: InterimSpacePreset = .none {
 		didSet {
-			interimSpace = InterimSpacePresetToValue(interimSpacePreset)
+            interimSpace = InterimSpacePresetToValue(preset: interimSpacePreset)
 		}
 	}
 	
@@ -208,7 +208,7 @@ public class MaterialCollectionReusableView: UICollectionReusableView {
 		}
 		set(value) {
 			layer.frame.size.width = value
-			if .none != shape {
+			if .none != shapePreset {
 				layer.frame.size.height = value
 			}
 		}
@@ -226,7 +226,7 @@ public class MaterialCollectionReusableView: UICollectionReusableView {
 		}
 		set(value) {
 			layer.frame.size.height = value
-			if .none != shape {
+			if .none != shapePreset {
 				layer.frame.size.width = value
 			}
 		}
@@ -310,12 +310,12 @@ public class MaterialCollectionReusableView: UICollectionReusableView {
      */
     public func pulse(point: CGPoint? = nil) {
         let p: CGPoint = nil == point ? CGPoint(x: CGFloat(width / 2), y: CGFloat(height / 2)) : point!
-        MaterialAnimation.pulseExpandAnimation(layer: layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseOpacity: pulseOpacity, point: p, width: width, height: height, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
-        MaterialAnimation.delay(time: 0.35) { [weak self] in
+        Animation.pulseExpandAnimation(layer: layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseOpacity: pulseOpacity, point: p, width: width, height: height, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
+        Animation.delay(time: 0.35) { [weak self] in
             guard let s = self else {
                 return
             }
-            MaterialAnimation.pulseContractAnimation(layer: s.layer, visualLayer: s.visualLayer, pulseColor: s.pulseColor, pulseLayers: &s.pulseLayers, pulseAnimation: s.pulseAnimation)
+            Animation.pulseContractAnimation(layer: s.layer, visualLayer: s.visualLayer, pulseColor: s.pulseColor, pulseLayers: &s.pulseLayers, pulseAnimation: s.pulseAnimation)
         }
     }
     
@@ -327,7 +327,7 @@ public class MaterialCollectionReusableView: UICollectionReusableView {
      */
     public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        MaterialAnimation.pulseExpandAnimation(layer: layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseOpacity: pulseOpacity, point: layer.convert(touches.first!.location(in: self), from: layer), width: width, height: height, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
+        Animation.pulseExpandAnimation(layer: layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseOpacity: pulseOpacity, point: layer.convert(touches.first!.location(in: self), from: layer), width: width, height: height, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
     }
     
     /**
@@ -338,7 +338,7 @@ public class MaterialCollectionReusableView: UICollectionReusableView {
      */
     public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
-        MaterialAnimation.pulseContractAnimation(layer: layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
+        Animation.pulseContractAnimation(layer: layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
     }
     
     /**
@@ -349,7 +349,7 @@ public class MaterialCollectionReusableView: UICollectionReusableView {
      */
     public override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesCancelled(touches, with: event)
-        MaterialAnimation.pulseContractAnimation(layer: layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
+        Animation.pulseContractAnimation(layer: layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
     }
 	
 	/**
@@ -396,7 +396,7 @@ public class MaterialCollectionReusableView: UICollectionReusableView {
 			} else if nil == shadowPath {
 				shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
 			} else {
-				animate(animation: MaterialAnimation.shadowPath(path: UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath, duration: 0))
+				animate(animation: Animation.shadowPath(path: UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath, duration: 0))
 			}
 		}
 	}

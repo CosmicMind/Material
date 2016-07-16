@@ -32,28 +32,28 @@ import UIKit
 
 public struct Color {
 	// clear
-	public static let clear: UIColor = UIColor.clearColor()
+	public static let clear: UIColor = UIColor.clear()
 	
 	// white
-	public static let white: UIColor = UIColor.whiteColor()
+	public static let white: UIColor = UIColor.white()
 	
 	// black
-	public static let black: UIColor = UIColor.blackColor()
+	public static let black: UIColor = UIColor.black()
 	
 	// dark text
 	public struct darkText {
-		public static let primary: UIColor = Color.black.colorWithAlphaComponent(0.87)
-		public static let secondary: UIColor = Color.black.colorWithAlphaComponent(0.54)
-		public static let others: UIColor = Color.black.colorWithAlphaComponent(0.38)
-		public static let dividers: UIColor = Color.black.colorWithAlphaComponent(0.12)
+		public static let primary: UIColor = Color.black.withAlphaComponent(0.87)
+		public static let secondary: UIColor = Color.black.withAlphaComponent(0.54)
+		public static let others: UIColor = Color.black.withAlphaComponent(0.38)
+		public static let dividers: UIColor = Color.black.withAlphaComponent(0.12)
 	}
 	
 	// light text
 	public struct lightText {
 		public static let primary: UIColor = Color.white
-		public static let secondary: UIColor = Color.white.colorWithAlphaComponent(0.7)
-		public static let others: UIColor = Color.white.colorWithAlphaComponent(0.5)
-		public static let dividers: UIColor = Color.white.colorWithAlphaComponent(0.12)
+		public static let secondary: UIColor = Color.white.withAlphaComponent(0.7)
+		public static let others: UIColor = Color.white.withAlphaComponent(0.5)
+		public static let dividers: UIColor = Color.white.withAlphaComponent(0.12)
 	}
 	
 	// red
