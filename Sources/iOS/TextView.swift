@@ -134,7 +134,7 @@ public class TextView: UITextView {
 	}
 	
 	/// An override to the attributedText property.
-	public override var attributedText: NSAttributedString! {
+	public override var attributedText: AttributedString! {
 		didSet {
 			handleTextViewTextDidChange()
 		}
@@ -151,7 +151,7 @@ public class TextView: UITextView {
 	}
 	
 	/// Text container UIEdgeInset property.
-	public override var textContainerInset: Insets {
+	public override var textContainerInset: EdgeInsets {
 		didSet {
 			reloadView()
 		}
@@ -244,12 +244,12 @@ public class TextView: UITextView {
 	/// Sets the shadow path.
 	internal func layoutShadowPath() {
 		if shadowPathAutoSizeEnabled {
-			if .none == depth {
+			if .none == depthPreset {
 				shadowPath = nil
 			} else if nil == shadowPath {
 				shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
 			} else {
-				animate(Animation.shadowPath(UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath, duration: 0))
+				animate(animation: Animation.shadowPath(path: UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath, duration: 0))
 			}
 		}
 	}
@@ -265,7 +265,7 @@ public class TextView: UITextView {
 		contentScaleFactor = Device.scale
 		textContainerInset = EdgeInsets.zero
 		backgroundColor = Color.white
-		masksToBounds = false
+		clipsToBounds = false
 		removeNotificationHandlers()
 		prepareNotificationHandlers()
 		reloadView()
@@ -305,9 +305,9 @@ public class TextView: UITextView {
                     v.text = s
 				}
 				let h: CGFloat = ceil(v.font.lineHeight)
-				v.frame = CGRectMake(0, -h, bounds.width, h)
+                v.frame = CGRect(x: 0, y: -h, width: bounds.width, height: h)
 				v.isHidden = false
-				UIView.animateWithDuration(0.25, animations: { [weak self] in
+				UIView.animate(withDuration: 0.25, animations: { [weak self] in
 					if let s: TextView = self {
 						v.alpha = 1
 						v.frame.origin.y = -v.frame.height - s.titleLabelAnimationDistance
@@ -321,7 +321,7 @@ public class TextView: UITextView {
 	private func hideTitleLabel() {
 		if let v: UILabel = titleLabel {
 			if !v.isHidden {
-				UIView.animateWithDuration(0.25, animations: {
+				UIView.animate(withDuration: 0.25, animations: {
 					v.alpha = 0
 					v.frame.origin.y = -v.frame.height
 				}) { _ in
@@ -333,15 +333,17 @@ public class TextView: UITextView {
 	
 	/// Prepares the Notification handlers.
 	private func prepareNotificationHandlers() {
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleTextViewTextDidBegin), name: UITextViewTextDidBeginEditingNotification, object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleTextViewTextDidChange), name: UITextViewTextDidChangeNotification, object: nil)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(handleTextViewTextDidEnd), name: UITextViewTextDidEndEditingNotification, object: nil)
+		let defaultCenter = NotificationCenter.default()
+        defaultCenter.addObserver(self, selector: #selector(handleTextViewTextDidBegin), name: NSNotification.Name.UITextViewTextDidBeginEditing, object: self)
+		defaultCenter.addObserver(self, selector: #selector(handleTextViewTextDidChange), name: NSNotification.Name.UITextViewTextDidChange, object: self)
+		defaultCenter.addObserver(self, selector: #selector(handleTextViewTextDidEnd), name: NSNotification.Name.UITextViewTextDidEndEditing, object: self)
 	}
 	
 	/// Removes the Notification handlers.
 	private func removeNotificationHandlers() {
-		NSNotificationCenter.defaultCenter().removeObserver(self, name: UITextViewTextDidBeginEditingNotification, object: nil)
-		NSNotificationCenter.defaultCenter().removeObserver(self, name: UITextViewTextDidChangeNotification, object: nil)
-		NSNotificationCenter.defaultCenter().removeObserver(self, name: UITextViewTextDidEndEditingNotification, object: nil)
+        let defaultCenter = NotificationCenter.default()
+        defaultCenter.removeObserver(self, name: NSNotification.Name.UITextViewTextDidBeginEditing, object: self)
+		defaultCenter.removeObserver(self, name: NSNotification.Name.UITextViewTextDidChange, object: self)
+		defaultCenter.removeObserver(self, name: NSNotification.Name.UITextViewTextDidEndEditing, object: self)
 	}
 }

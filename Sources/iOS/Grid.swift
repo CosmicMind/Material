@@ -150,7 +150,7 @@ public class Grid {
     }
     
     /// Insets value for grid.
-    public var contentInset: Inset = EdgeInsetsPresetToValue(preset: .none) {
+    public var contentInset: EdgeInsets = EdgeInsetsPresetToValue(preset: .none) {
         didSet {
             reload()
         }

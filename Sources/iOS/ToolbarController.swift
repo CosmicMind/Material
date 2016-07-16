@@ -42,7 +42,7 @@ public extension UIViewController {
 			if viewController is ToolbarController {
 				return viewController as? ToolbarController
 			}
-			viewController = viewController?.parentViewController
+			viewController = viewController?.parent
 		}
 		return nil
 	}
@@ -51,16 +51,20 @@ public extension UIViewController {
 @objc(ToolbarControllerDelegate)
 public protocol ToolbarControllerDelegate : MaterialDelegate {
 	/// Delegation method that executes when the floatingViewController will open.
-	optional func toolbarControllerWillOpenFloatingViewController(toolbarController: ToolbarController)
+	@objc
+    optional func toolbarControllerWillOpenFloatingViewController(toolbarController: ToolbarController)
 	
 	/// Delegation method that executes when the floatingViewController will close.
-	optional func toolbarControllerWillCloseFloatingViewController(toolbarController: ToolbarController)
+	@objc
+    optional func toolbarControllerWillCloseFloatingViewController(toolbarController: ToolbarController)
 	
 	/// Delegation method that executes when the floatingViewController did open.
-	optional func toolbarControllerDidOpenFloatingViewController(toolbarController: ToolbarController)
+	@objc
+    optional func toolbarControllerDidOpenFloatingViewController(toolbarController: ToolbarController)
 	
 	/// Delegation method that executes when the floatingViewController did close.
-	optional func toolbarControllerDidCloseFloatingViewController(toolbarController: ToolbarController)
+	@objc
+    optional func toolbarControllerDidCloseFloatingViewController(toolbarController: ToolbarController)
 }
 
 @objc(ToolbarController)
@@ -83,26 +87,26 @@ public class ToolbarController : RootController {
 			if let v: UIViewController = internalFloatingViewController {
 				v.view.layer.rasterizationScale = Device.scale
 				v.view.layer.shouldRasterize = true
-				delegate?.toolbarControllerWillCloseFloatingViewController?(self)
+				delegate?.toolbarControllerWillCloseFloatingViewController?(toolbarController: self)
 				internalFloatingViewController = nil
-				UIView.animateWithDuration(0.5,
+				UIView.animate(withDuration: 0.5,
 					animations: { [weak self] in
-						if let s: ToolbarController = self {
+						if let s = self {
 							v.view.center.y = 2 * s.view.bounds.height
 							s.toolbar.alpha = 1
 							s.rootViewController.view.alpha = 1
 						}
 					}) { [weak self] _ in
-						if let s: ToolbarController = self {
-							v.willMoveToParentViewController(nil)
+						if let s = self {
+							v.willMove(toParentViewController: nil)
 							v.view.removeFromSuperview()
 							v.removeFromParentViewController()
 							v.view.layer.shouldRasterize = false
 							s.isUserInteractionEnabled = true
 							s.toolbar.isUserInteractionEnabled = true
-							dispatch_async(dispatch_get_main_queue()) { [weak self] in
-								if let s: ToolbarController = self {
-									s.delegate?.toolbarControllerDidCloseFloatingViewController?(s)
+							DispatchQueue.main.async { [weak self] in
+								if let s = self {
+									s.delegate?.toolbarControllerDidCloseFloatingViewController?(toolbarController: s)
 								}
 							}
 						}
@@ -117,7 +121,7 @@ public class ToolbarController : RootController {
 				v.view.isHidden = true
 				view.insertSubview(v.view, aboveSubview: toolbar)
 				v.view.layer.zPosition = 1500
-				v.didMoveToParentViewController(self)
+				v.didMove(toParentViewController: self)
 				
 				// Animate the noteButton out and the noteViewController! in.
 				v.view.isHidden = false
@@ -128,21 +132,21 @@ public class ToolbarController : RootController {
 				internalFloatingViewController = v
 				isUserInteractionEnabled = false
 				toolbar.isUserInteractionEnabled = false
-				delegate?.toolbarControllerWillOpenFloatingViewController?(self)
-				UIView.animateWithDuration(0.5,
+				delegate?.toolbarControllerWillOpenFloatingViewController?(toolbarController: self)
+				UIView.animate(withDuration: 0.5,
 					animations: { [weak self] in
-						if let s: ToolbarController = self {
+						if let s = self {
 							v.view.center.y = s.view.bounds.height / 2
 							s.toolbar.alpha = 0.5
 							s.rootViewController.view.alpha = 0.5
 						}
 					}) { [weak self] _ in
-						if let s: ToolbarController = self {
+						if let s = self {
 							v.view.layer.shouldRasterize = false
 							s.view.layer.shouldRasterize = false
-							dispatch_async(dispatch_get_main_queue()) { [weak self] in
-								if let s: ToolbarController = self {
-									s.delegate?.toolbarControllerDidOpenFloatingViewController?(s)
+							DispatchQueue.main.async { [weak self] in
+								if let s = self {
+									s.delegate?.toolbarControllerDidOpenFloatingViewController?(toolbarController: s)
 								}
 							}
 						}

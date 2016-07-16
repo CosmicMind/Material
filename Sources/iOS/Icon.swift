@@ -32,26 +32,29 @@ import UIKit
 
 public struct Icon {
 	/// An internal reference to the icons bundle.
-	private static var internalBundle: NSBundle?
+	private static var internalBundle: Bundle?
 	
 	/**
 	A public reference to the icons bundle, that aims to detect
 	the correct bundle to use.
 	*/
-	public static var bundle: NSBundle {
+	public static var bundle: Bundle {
 		if nil == Icon.internalBundle {
-			Icon.internalBundle = NSBundle(forClass: View.self)
-			let b: NSBundle? = NSBundle(URL: Icon.internalBundle!.resourceURL!.URLByAppendingPathComponent("io.cosmicmind.material.icons.bundle"))
-			if let v: NSBundle = b {
-				Icon.internalBundle = v
-			}
+			Icon.internalBundle = Bundle(for: View.self)
+			let url = Icon.internalBundle!.resourceURL!
+            do {
+                let b = Bundle(url: try url.appendingPathComponent("io.cosmicmind.material.icons.bundle"))
+                if let v = b {
+                    Icon.internalBundle = v
+                }
+            } catch {}
 		}
 		return Icon.internalBundle!
 	}
 	
 	/// Get the icon by the file name.
-    public static func icon(name: String) -> UIImage? {
-        return UIImage(named: name, inBundle: bundle, compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate)
+    public static func icon(_ name: String) -> UIImage? {
+        return UIImage(named: name, in: bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     }
     
     /// Google icons.

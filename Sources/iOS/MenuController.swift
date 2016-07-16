@@ -42,7 +42,7 @@ public extension UIViewController {
 			if viewController is MenuController {
 				return viewController as? MenuController
 			}
-			viewController = viewController?.parentViewController
+			viewController = viewController?.parent
 		}
 		return nil
 	}
@@ -62,7 +62,7 @@ public class MenuController : RootController {
 		if true == isUserInteractionEnabled {
 			isUserInteractionEnabled = false
 			rootViewController.view.alpha = 0.5
-			menuView.open(completion)
+			menuView.open(completion: completion)
 		}
 	}
 	
@@ -74,7 +74,7 @@ public class MenuController : RootController {
 	public func closeMenu(completion: (() -> Void)? = nil) {
 		if false == isUserInteractionEnabled {
 			rootViewController.view.alpha = 1
-			menuView.close({ [weak self] in
+			menuView.close(completion: { [weak self] in
 				self?.isUserInteractionEnabled = true
 				completion?()
 			})

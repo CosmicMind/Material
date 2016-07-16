@@ -42,7 +42,7 @@ public extension UIViewController {
 			if viewController is StatusBarController {
 				return viewController as? StatusBarController
 			}
-			viewController = viewController?.parentViewController
+			viewController = viewController?.parent
 		}
 		return nil
 	}
@@ -80,7 +80,7 @@ public class StatusBarController : RootController {
 	private func prepareStatusBarView() {
 		statusBarView = View()
 		statusBarView.zPosition = 3000
-		statusBarView.backgroundColor = Color.black.colorWithAlphaComponent(0.12)
+		statusBarView.backgroundColor = Color.black.withAlphaComponent(0.12)
 		view.layout(statusBarView).top(0).horizontally().height(20)
 	}
 }

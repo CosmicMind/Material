@@ -285,62 +285,53 @@ public class Layer: CAShapeLayer {
 		layoutShadowPath()
 	}
 	
-	/**
-     A method that accepts CAAnimation objects and executes.
+    /**
+     A method that accepts CAAnimation objects and executes them on the
+     view's backing layer.
      - Parameter animation: A CAAnimation instance.
      */
-	public func animate(animation: CAAnimation) {
-		animation.delegate = self
-		if let a: CABasicAnimation = animation as? CABasicAnimation {
-			a.fromValue = (nil == presentation() ? self : presentation()!).value(forKeyPath: a.keyPath!)
-		}
-		if let a: CAPropertyAnimation = animation as? CAPropertyAnimation {
-			add(a, forKey: a.keyPath!)
-		} else if let a: CAAnimationGroup = animation as? CAAnimationGroup {
-			add(a, forKey: nil)
-		} else if let a: CATransition = animation as? CATransition {
-			add(a, forKey: kCATransition)
-		}
-	}
-	
-	/**
-     A delegation method that is executed when the layer starts
+    public func animate(animation: CAAnimation) {
+        animation.delegate = self
+        if let a = animation as? CABasicAnimation {
+            a.fromValue = (nil == presentation() ? self : presentation()!).value(forKeyPath: a.keyPath!)
+        }
+        if let a = animation as? CAPropertyAnimation {
+            add(a, forKey: a.keyPath!)
+        } else if let a = animation as? CAAnimationGroup {
+            add(a, forKey: nil)
+        } else if let a = animation as? CATransition {
+            add(a, forKey: kCATransition)
+        }
+    }
+    
+    /**
+     A delegation method that is executed when the backing layer stops
      running an animation.
-     - Parameter animation: The currently running CAAnimation instance.
-     */
-	public override func animationDidStart(_ animation: CAAnimation) {
-        (delegate as? AnimationDelegate)?.materialAnimationDidStart?(animation: animation)
-	}
-	
-	/**
-     A delegation method that is executed when the layer stops
-     running an animation.
-     - Parameter anim: The CAAnimation instance that stopped running.
+     - Parameter animation: The CAAnimation instance that stopped running.
      - Parameter flag: A boolean that indicates if the animation stopped
      because it was completed or interrupted. True if completed, false
      if interrupted.
      */
-	public override func animationDidStop(_ animation: CAAnimation, finished flag: Bool) {
-		if let a: CAPropertyAnimation = animation as? CAPropertyAnimation {
-			if let b: CABasicAnimation = a as? CABasicAnimation {
-				if let v: AnyObject = b.toValue {
-					if let k: String = b.keyPath {
-						setValue(v, forKeyPath: k)
-						removeAnimation(forKey: k)
-					}
-				}
-			}
-            (delegate as? AnimationDelegate)?.materialAnimationDidStop?(animation: animation, finished: flag)
-		} else if let a: CAAnimationGroup = animation as? CAAnimationGroup {
-			for x in a.animations! {
-				animationDidStop(x, finished: true)
-			}
-		}
-	}
+    public override func animationDidStop(_ animation: CAAnimation, finished flag: Bool) {
+        if let a = animation as? CAPropertyAnimation {
+            if let b = a as? CABasicAnimation {
+                if let v = b.toValue {
+                    if let k = b.keyPath {
+                        setValue(v, forKeyPath: k)
+                        removeAnimation(forKey: k)
+                    }
+                }
+            }
+        } else if let a = animation as? CAAnimationGroup {
+            for x in a.animations! {
+                animationDidStop(x, finished: true)
+            }
+        }
+    }
 	
 	/// Prepares the visualLayer property.
 	public func prepareVisualLayer() {
-		visualLayer = CAShapeLayer(Z
+		visualLayer = CAShapeLayer()
         visualLayer.zPosition = 0
 		visualLayer.masksToBounds = true
 		addSublayer(visualLayer)

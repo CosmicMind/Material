@@ -30,7 +30,7 @@
 
 import UIKit
 
-public class ErrorTextField : TextField {
+public class ErrorTextField: TextField {
     /// Controls the visibility of detailLabel
     @IBInspectable public var revealError: Bool = false {
         didSet {

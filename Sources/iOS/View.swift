@@ -186,20 +186,6 @@ public class View: UIView {
 		}
 	}
 	
-	/// A property that accesses the layer.cornerRadius.
-	@IBInspectable public var cornerRadius: CGFloat {
-		get {
-			return layer.cornerRadius
-		}
-		set(value) {
-			layer.cornerRadius = value
-			layoutShadowPath()
-			if .circle == shape {
-				shape = .none
-			}
-		}
-	}
-	
 	/**
      A property that manages the overall shape for the object. If either the
      width or height property is set, the other will be automatically adjusted

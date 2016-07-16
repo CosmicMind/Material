@@ -164,7 +164,7 @@ public class Button: UIButton {
      */
     @IBInspectable public var contentInset = EdgeInsets.zero {
         didSet {
-            contentEdgeInsets = contentInset.asEdgeInsets
+            contentEdgeInsets = contentInset
         }
     }
     

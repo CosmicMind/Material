@@ -264,7 +264,6 @@ public class MaterialCollectionViewCell: UICollectionViewCell {
 	- Parameter aDecoder: A NSCoder instance.
 	*/
 	public required init?(coder aDecoder: NSCoder) {
-		cornerRadiusPreset = .none
 		shape = .none
 		contentsGravityPreset = .ResizeAspectFill
 		super.init(coder: aDecoder)
@@ -278,7 +277,6 @@ public class MaterialCollectionViewCell: UICollectionViewCell {
 	- Parameter frame: A CGRect instance.
 	*/
 	public override init(frame: CGRect) {
-		cornerRadiusPreset = .none
 		shape = .none
 		contentsGravityPreset = .ResizeAspectFill
 		super.init(frame: frame)

@@ -43,7 +43,7 @@ public class Material {
     }
     
     /// A property that sets the cornerRadius of the backing layer.
-    public var cornerRadiusPreset: CornerRadiusPreset {
+    public var cornerRadiusPreset: CornerRadiusPreset = .none {
         didSet {
             guard let v = view else {
                 return
@@ -56,7 +56,7 @@ public class Material {
     }
     
     /// A preset property to set the borderWidth.
-    public var borderWidthPreset: BorderWidthPreset {
+    public var borderWidthPreset: BorderWidthPreset = .none {
         didSet {
             guard let v = view else {
                 return
@@ -79,7 +79,7 @@ public class Material {
     }
 
     /// Grid reference.
-    public var depth: Depth {
+    public var depth: Depth = Depth.zero {
         didSet {
             guard let v = view else {
                 return
@@ -98,7 +98,7 @@ private var MaterialKey: UInt8 = 0
 /// Grid extension for UIView.
 public extension UIView {
     /// Material Reference.
-    private var material: Material {
+    internal var material: Material {
         get {
             return AssociatedObject(base: self, key: &MaterialKey) {
                 return Material(view: self)

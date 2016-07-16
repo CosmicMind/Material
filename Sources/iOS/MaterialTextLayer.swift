@@ -37,7 +37,7 @@ public class MaterialTextLayer : CATextLayer {
 	public var fontType: UIFont? {
 		didSet {
 			if let v: UIFont = fontType {
-				super.font = CGFontCreateWithFontName(v.fontName as CFStringRef)!
+				super.font = CGFont(v.fontName as CFString)!
 				pointSize = v.pointSize
 			}
 		}
@@ -73,18 +73,18 @@ public class MaterialTextLayer : CATextLayer {
 	/**
 	:name:	textAlignment
 	*/
-	public var textAlignment: NSTextAlignment = .Left {
+	public var textAlignment: NSTextAlignment = .left {
 		didSet {
 			switch textAlignment {
-			case .Left:
+			case .left:
 				alignmentMode = kCAAlignmentLeft
-			case .Center:
+			case .center:
 				alignmentMode = kCAAlignmentCenter
-			case .Right:
+			case .right:
 				alignmentMode = kCAAlignmentRight
-			case .Justified:
+			case .justified:
 				alignmentMode = kCAAlignmentJustified
-			case .Natural:
+			case .natural:
 				alignmentMode = kCAAlignmentNatural
 			}
 		}
@@ -93,20 +93,20 @@ public class MaterialTextLayer : CATextLayer {
 	/**
 	:name:	lineBreakMode
 	*/
-	public var lineBreakMode: NSLineBreakMode = .ByWordWrapping {
+	public var lineBreakMode: NSLineBreakMode = .byWordWrapping {
 		didSet {
 			switch lineBreakMode {
-			case .ByWordWrapping: // Wrap at word boundaries, default
+			case .byWordWrapping: // Wrap at word boundaries, default
 				truncationMode = kCATruncationNone
-			case .ByCharWrapping: // Wrap at character boundaries
+			case .byCharWrapping: // Wrap at character boundaries
 				truncationMode = kCATruncationNone
-			case .ByClipping: // Simply clip
+			case .byClipping: // Simply clip
 				truncationMode = kCATruncationNone
-			case .ByTruncatingHead: // Truncate at head of line: "...wxyz"
+			case .byTruncatingHead: // Truncate at head of line: "...wxyz"
 				truncationMode = kCATruncationStart
-			case .ByTruncatingTail: // Truncate at tail of line: "abcd..."
+			case .byTruncatingTail: // Truncate at tail of line: "abcd..."
 				truncationMode = kCATruncationEnd
-			case .ByTruncatingMiddle: // Truncate middle of line:  "ab...yz"
+			case .byTruncatingMiddle: // Truncate middle of line:  "ab...yz"
 				truncationMode = kCATruncationMiddle
 			}
 		}
@@ -196,9 +196,9 @@ public class MaterialTextLayer : CATextLayer {
 	:name:	stringSize
 	*/
 	public func stringSize(constrainedToWidth width: Double) -> CGSize {
-		if let v: UIFont = fontType {
+		if let v = fontType {
 			if 0 < text?.utf16.count {
-				return v.stringSize(text!, constrainedToWidth: width)
+				return v.stringSize(string: text!, constrainedToWidth: width)
 			}
 		}
 		return CGSize.zero
@@ -209,9 +209,9 @@ public class MaterialTextLayer : CATextLayer {
 	*/
 	internal func prepareLayer() {
 		textColor = Color.black
-		textAlignment = .Left
-		wrapped = true
+		textAlignment = .left
+		isWrapped = true
 		contentsScale = Device.scale
-		lineBreakMode = .ByWordWrapping
+		lineBreakMode = .byWordWrapping
 	}
 }

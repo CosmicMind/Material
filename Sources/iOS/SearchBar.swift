@@ -40,9 +40,9 @@ public class SearchBar : BarView {
 	/// Handle the clearButton manually.
 	@IBInspectable public var clearButtonAutoHandleEnabled: Bool = true {
 		didSet {
-			clearButton.removeTarget(self, action: #selector(handleClearButton), forControlEvents: .TouchUpInside)
+			clearButton.removeTarget(self, action: #selector(handleClearButton), for: .touchUpInside)
 			if clearButtonAutoHandleEnabled {
-				clearButton.addTarget(self, action: #selector(handleClearButton), forControlEvents: .TouchUpInside)
+				clearButton.addTarget(self, action: #selector(handleClearButton), for: .touchUpInside)
 			}
 		}
 	}
@@ -71,7 +71,7 @@ public class SearchBar : BarView {
 	@IBInspectable public var placeholder: String? {
 		didSet {
 			if let v: String = placeholder {
-				textField.attributedPlaceholder = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderColor])
+				textField.attributedPlaceholder = AttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderColor])
 			}
 		}
 	}
@@ -80,7 +80,7 @@ public class SearchBar : BarView {
 	@IBInspectable public var placeholderColor: UIColor = Color.darkText.others {
 		didSet {
 			if let v: String = placeholder {
-				textField.attributedPlaceholder = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderColor])
+				textField.attributedPlaceholder = AttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderColor])
 			}
 		}
 	}
@@ -136,7 +136,7 @@ public class SearchBar : BarView {
 	/// Layout the clearButton.
 	public func layoutClearButton() {
 		let h: CGFloat = textField.frame.height
-		clearButton.frame = CGRectMake(textField.frame.width - h, 0, h, h)
+        clearButton.frame = CGRect(x: textField.frame.width - h, y: 0, width: h, height: h)
 	}
 	
 	/// Clears the textField text.
@@ -148,9 +148,9 @@ public class SearchBar : BarView {
 	private func prepareTextField() {
 		textField = UITextField()
 		textField.contentScaleFactor = Device.scale
-		textField.font = RobotoFont.regularWithSize(17)
+		textField.font = RobotoFont.regularWithSize(size: 17)
 		textField.backgroundColor = Color.clear
-		textField.clearButtonMode = .WhileEditing
+		textField.clearButtonMode = .whileEditing
 		tintColor = placeholderColor
 		textColor = Color.darkText.primary
 		placeholder = "Search"
@@ -163,11 +163,10 @@ public class SearchBar : BarView {
 		clearButton = IconButton()
 		clearButton.contentEdgeInsets = UIEdgeInsets.zero
 		clearButton.tintColor = placeholderColor
-		clearButton.setImage(image, forState: .Normal)
-		clearButton.setImage(image, forState: .Highlighted)
+		clearButton.setImage(image, for: .highlighted)
 		clearButtonAutoHandleEnabled = true
-		textField.clearButtonMode = .Never
-		textField.rightViewMode = .WhileEditing
+		textField.clearButtonMode = .never
+		textField.rightViewMode = .whileEditing
 		textField.rightView = clearButton
 	}
 }

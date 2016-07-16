@@ -50,7 +50,7 @@ public struct Depth {
     public var radius: CGFloat
     
     /// Preset.
-    public var preset: DepthPreset {
+    public var preset: DepthPreset = .none {
         didSet {
             let depth = DepthPresetToValue(preset: preset)
             offset = depth.offset
@@ -76,6 +76,7 @@ public struct Depth {
      - Parameter preset: DepthPreset.
      */
     public init(preset: DepthPreset) {
+        self.init()
         self.preset = preset
     }
     

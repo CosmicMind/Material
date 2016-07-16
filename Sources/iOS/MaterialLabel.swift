@@ -87,7 +87,7 @@ public class MaterialLabel : UILabel {
 	*/
 	@IBInspectable public var wrapped: Bool {
 		didSet {
-			textLayer.wrapped = wrapped
+			textLayer.isWrapped = wrapped
 		}
 	}
 	
@@ -148,6 +148,6 @@ public class MaterialLabel : UILabel {
 	*/
 	public func prepareView() {
 		contentScaleFactor = Device.scale
-		textAlignment = .Left
+		textAlignment = .left
 	}
 }

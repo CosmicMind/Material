@@ -144,15 +144,15 @@ public class Toolbar : BarView {
 	private func prepareTitleLabel() {
 		titleLabel = UILabel()
 		titleLabel.contentScaleFactor = Device.scale
-		titleLabel.font = RobotoFont.mediumWithSize(17)
-		titleLabel.textAlignment = .Left
+		titleLabel.font = RobotoFont.mediumWithSize(size: 17)
+		titleLabel.textAlignment = .left
 	}
 	
 	/// Prepares the detailLabel.
 	private func prepareDetailLabel() {
 		detailLabel = UILabel()
 		detailLabel.contentScaleFactor = Device.scale
-		detailLabel.font = RobotoFont.regularWithSize(12)
-		detailLabel.textAlignment = .Left
+		detailLabel.font = RobotoFont.regularWithSize(size: 12)
+		detailLabel.textAlignment = .left
 	}
 }

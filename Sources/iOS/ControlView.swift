@@ -47,7 +47,7 @@ public class ControlView : View {
 	}
 	
 	/// A wrapper around grid.contentInset.
-	@IBInspectable public var contentInset: Inset {
+	@IBInspectable public var contentInset: EdgeInsets {
 		get {
 			return grid.contentInset
 		}
@@ -152,7 +152,7 @@ public class ControlView : View {
 	public init(leftControls: Array<UIControl>? = nil, rightControls: Array<UIControl>? = nil) {
 		super.init(frame: CGRect.zero)
 		frame.size = intrinsicContentSize()
-		prepareProperties(leftControls, rightControls: rightControls)
+		prepareProperties(leftControls: leftControls, rightControls: rightControls)
 	}
 	
 	public override func layoutSubviews() {
@@ -214,7 +214,7 @@ public class ControlView : View {
 	}
 	
 	public override func intrinsicContentSize() -> CGSize {
-		return CGSizeMake(width, 44)
+        return CGSize(width: width, height: 44)
 	}
 	
 	/**
@@ -227,8 +227,8 @@ public class ControlView : View {
 	public override func prepareView() {
 		super.prepareView()
 		interimSpacePreset = .interimSpace1
-		contentEdgeInsetsPreset = .Square1
-		autoresizingMask = .FlexibleWidth
+		contentEdgeInsetsPreset = .square1
+		autoresizingMask = .flexibleWidth
 		shadowPathAutoSizeEnabled = false
 		prepareContentView()
 	}

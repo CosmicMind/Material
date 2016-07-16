@@ -114,6 +114,11 @@ public class BottomTabBar: UITabBar {
 	public convenience init() {
 		self.init(frame: CGRect.zero)
 	}
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        prepareView()
+    }
 	
 	public override func layoutSubviews() {
 		super.layoutSubviews()

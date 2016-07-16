@@ -69,7 +69,7 @@ public struct Animation {
 		
 		let delayed: AnimationDelayCancelBlock = { (cancel: Bool) in
 			if !cancel {
-				DispatchQueue.main.asynchronously(execute: completion)
+				DispatchQueue.main.async(execute: completion)
 			}
 			cancelable = nil
 		}

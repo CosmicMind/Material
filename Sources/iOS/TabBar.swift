@@ -31,8 +31,8 @@
 import UIKit
 
 public enum TabBarLineAlignment {
-	case Top
-	case Bottom
+	case top
+	case bottom
 }
 
 public class TabBar : View {
@@ -40,7 +40,7 @@ public class TabBar : View {
 	public private(set) var line: UIView!
 	
 	/// A value for the line alignment.
-	public var lineAlignment: TabBarLineAlignment = .Bottom {
+	public var lineAlignment: TabBarLineAlignment = .bottom {
 		didSet {
 			layoutSubviews()
 		}
@@ -79,20 +79,21 @@ public class TabBar : View {
 						b.grid.columns = columns
 						b.contentEdgeInsets = UIEdgeInsets.zero
 						b.layer.cornerRadius = 0
-						b.removeTarget(self, action: #selector(handleButton(_:)), forControlEvents: .TouchUpInside)
-						b.addTarget(self, action: #selector(handleButton(_:)), forControlEvents: .TouchUpInside)
+                        b.removeTarget(self, action: #selector(handleButton(button:)), for: .touchUpInside)
+						b.addTarget(self, action: #selector(handleButton(button:)), for: .touchUpInside)
 					}
 					grid.views = v as [UIView]
-					line.frame = CGRectMake(0, .Bottom == lineAlignment ? height - 3 : 0, v.first!.frame.width, 3)
+                    line.frame = CGRect(x: 0, y: .bottom == lineAlignment ? height - 3 : 0, width: v.first!.frame.width, height: 3)
 				}
 			}
 		}
 	}
 	
 	/// Handles the button touch event.
+    @objc
 	internal func handleButton(button: UIButton) {
-		UIView.animateWithDuration(0.25, animations: { [weak self] in
-			if let s: TabBar = self {
+		UIView.animate(withDuration: 0.25, animations: { [weak self] in
+			if let s = self {
 				s.line.frame.origin.x = button.frame.origin.x
 				s.line.frame.size.width = button.frame.size.width
 			}
@@ -108,7 +109,7 @@ public class TabBar : View {
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		autoresizingMask = .FlexibleWidth
+		autoresizingMask = .flexibleWidth
 		contentScaleFactor = Device.scale
 		prepareBottomLayer()
 	}

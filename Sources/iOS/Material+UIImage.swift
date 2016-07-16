@@ -30,7 +30,151 @@
 
 import UIKit
 
-public enum ImageFormatType {
-	case PNG
-	case JPEG
+public enum ImageFormat {
+	case png
+	case jpeg
+}
+
+public extension UIImage {
+    /**
+     :name:	width
+     */
+    public var width: CGFloat {
+        return size.width
+    }
+    
+    /**
+     :name:	height
+     */
+    public var height: CGFloat {
+        return size.height
+    }
+    
+    /**
+     :name:	internalResize
+     */
+    private func internalResize(toWidth tw: CGFloat = 0, toHeight th: CGFloat = 0) -> UIImage? {
+        var w: CGFloat?
+        var h: CGFloat?
+        
+        if 0 < tw {
+            h = height * tw / width
+        } else if 0 < th {
+            w = width * th / height
+        }
+        
+        let g: UIImage?
+        let t: CGRect = CGRect(x: 0, y: 0, width: w ?? tw, height: h ?? th)
+        UIGraphicsBeginImageContextWithOptions(t.size, false, Device.scale)
+        draw(in: t, blendMode: .normal, alpha: 1)
+        g = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return g
+    }
+    
+    /**
+     :name:	resize
+     */
+    public func resize(toWidth w: CGFloat) -> UIImage? {
+        return internalResize(toWidth: w)
+    }
+    
+    /**
+     :name:	resize
+     */
+    public func resize(toHeight h: CGFloat) -> UIImage? {
+        return internalResize(toHeight: h)
+    }
+    
+    /**
+     Creates a new image with the passed in color.
+     - Parameter color: The UIColor to create the image from.
+     - Returns: A UIImage that is the color passed in.
+     */
+    public func tintWithColor(color: UIColor) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(size, false, Device.scale)
+        guard let context = UIGraphicsGetCurrentContext() else {
+            return nil
+        }
+        
+        context.scale(x: 1.0, y: -1.0)
+        context.translate(x: 0.0, y: -size.height)
+        
+        context.setBlendMode(.multiply)
+        
+        let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        context.clipToMask(rect, mask: cgImage!)
+        color.setFill()
+        context.fill(rect)
+        
+        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return image
+    }
+    
+    /**
+     Creates an Image that is a color.
+     - Parameter color: The UIColor to create the image from.
+     - Parameter size: The size of the image to create.
+     - Returns: A UIImage that is the color passed in.
+     */
+    public class func imageWithColor(color: UIColor, size: CGSize) -> UIImage? {
+        let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        UIGraphicsBeginImageContextWithOptions(size, false, 0)
+        color.setFill()
+        UIRectFill(rect)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
+    
+    /**
+     :name:	crop
+     */
+    public func crop(toWidth tw: CGFloat, toHeight th: CGFloat) -> UIImage? {
+        let g: UIImage?
+        let b: Bool = width > height
+        let s: CGFloat = b ? th / height : tw / width
+        let t: CGSize = CGSize(width: tw, height: th)
+        
+        let w = width * s
+        let h = height * s
+        
+        UIGraphicsBeginImageContext(t)
+        draw(in: b ? CGRect(x: -1 * (w - t.width) / 2, y: 0, width: w, height: h) : CGRect(x: 0, y: -1 * (h - t.height) / 2, width: w, height: h), blendMode: .normal, alpha: 1)
+        g = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return g
+    }
+    
+    /**
+     Creates an clear image.
+     - Returns: A UIImage that is clear.
+     */
+    public class func clear(size: CGSize = CGSize(width: 16, height: 16)) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(size, false, 0)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
+    
+    /**
+     Asynchronously load images with a completion block.
+     - Parameter URL: A URL destination to fetch the image from.
+     - Parameter completion: A completion block that is executed once the image
+     has been retrieved.
+     */
+    public class func contentsOfURL(url: URL, completion: ((image: UIImage?, error: NSError?) -> Void)) {
+        URLSession.shared().dataTask(with: URLRequest(url: url)) { (data: Data?, response: URLResponse?, error: NSError?) in
+            DispatchQueue.main.async {
+                if let v = error {
+                    completion(image: nil, error: v)
+                } else if let v = data {
+                    completion(image: UIImage(data: v), error: nil)
+                }
+            }
+            }.resume()
+    }
 }

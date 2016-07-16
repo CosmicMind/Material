@@ -264,8 +264,6 @@ public class MaterialCollectionReusableView: UICollectionReusableView {
 	- Parameter aDecoder: A NSCoder instance.
 	*/
 	public required init?(coder aDecoder: NSCoder) {
-		depthPreset = .none
-		cornerRadiusPreset = .none
 		contentsGravityPreset = .ResizeAspectFill
 		super.init(coder: aDecoder)
 		prepareView()
@@ -278,8 +276,6 @@ public class MaterialCollectionReusableView: UICollectionReusableView {
 	- Parameter frame: A CGRect instance.
 	*/
 	public override init(frame: CGRect) {
-		depthPreset = .none
-		cornerRadiusPreset = .none
 		contentsGravityPreset = .ResizeAspectFill
 		super.init(frame: frame)
 		prepareView()

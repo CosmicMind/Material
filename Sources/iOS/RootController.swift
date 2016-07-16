@@ -114,21 +114,21 @@ public class RootController : UIViewController {
 	to the toViewController has completed.
 	*/
 	public func transitionFromRootViewController(toViewController: UIViewController, duration: TimeInterval = 0.5, options: UIViewAnimationOptions = [], animations: (() -> Void)? = nil, completion: ((Bool) -> Void)? = nil) {
-		rootViewController.willMoveToParentViewController(nil)
+		rootViewController.willMove(toParentViewController: nil)
 		addChildViewController(toViewController)
 		toViewController.view.frame = rootViewController.view.frame
-		transitionFromViewController(rootViewController,
-			toViewController: toViewController,
+        transition(from: rootViewController,
+                   to: toViewController,
 			duration: duration,
 			options: options,
 			animations: animations,
 			completion: { [weak self] (result: Bool) in
 				if let s: RootController = self {
-					toViewController.didMoveToParentViewController(s)
+					toViewController.didMove(toParentViewController: s)
 					s.rootViewController.removeFromParentViewController()
 					s.rootViewController = toViewController
 					s.rootViewController.view.clipsToBounds = true
-					s.rootViewController.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+					s.rootViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 					s.rootViewController.view.contentScaleFactor = Device.scale
 					completion?(result)
 				}
@@ -157,7 +157,7 @@ public class RootController : UIViewController {
 	
 	/// A method that prepares the rootViewController.
 	internal func prepareRootViewController() {
-		prepareViewControllerWithinContainer(rootViewController, container: view)
+		prepareViewControllerWithinContainer(viewController: rootViewController, container: view)
 	}
 	
 	/**
@@ -172,9 +172,9 @@ public class RootController : UIViewController {
 		if let v: UIViewController = viewController {
 			addChildViewController(v)
 			container.addSubview(v.view)
-			v.didMoveToParentViewController(self)
+			v.didMove(toParentViewController: self)
 			v.view.clipsToBounds = true
-			v.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+			v.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 			v.view.contentScaleFactor = Device.scale
 		}
 	}

@@ -42,7 +42,7 @@ public extension UIViewController {
 			if viewController is SearchBarController {
 				return viewController as? SearchBarController
 			}
-			viewController = viewController?.parentViewController
+			viewController = viewController?.parent
 		}
 		return nil
 	}
