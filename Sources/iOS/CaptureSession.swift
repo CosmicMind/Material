@@ -372,6 +372,7 @@ public class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 		preset = .presetHigh
 		super.init()
 		prepareSession()
+        prepareSessionQueue()
         prepareActiveVideoInput()
         prepareActiveAudioInput()
         prepareImageOutput()
@@ -685,18 +686,18 @@ public class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 	
     /// Prepares the imageOutput.
 	private func prepareImageOutput() {
-		if session.canAddOutput(imageOutput) {
-			imageOutput = AVCaptureStillImageOutput()
-            imageOutput.outputSettings = [AVVideoCodecKey: AVVideoCodecJPEG]
+        imageOutput = AVCaptureStillImageOutput()
+        if session.canAddOutput(imageOutput) {
+			imageOutput.outputSettings = [AVVideoCodecKey: AVVideoCodecJPEG]
 			session.addOutput(imageOutput)
 		}
 	}
 	
 	/// Prepares the movieOutput.
 	private func prepareMovieOutput() {
-		if session.canAddOutput(movieOutput) {
-            movieOutput = AVCaptureMovieFileOutput()
-			session.addOutput(movieOutput)
+        movieOutput = AVCaptureMovieFileOutput()
+        if session.canAddOutput(movieOutput) {
+            session.addOutput(movieOutput)
 		}
 	}
 	
