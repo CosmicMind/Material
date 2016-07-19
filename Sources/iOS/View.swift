@@ -259,7 +259,8 @@ public class View: UIView {
 	
 	/// Prepares the visualLayer property.
 	internal func prepareVisualLayer() {
-		visualLayer.zPosition = 0
+		visualLayer = CAShapeLayer()
+        visualLayer.zPosition = 0
 		visualLayer.masksToBounds = true
 		layer.addSublayer(visualLayer)
 	}

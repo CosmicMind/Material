@@ -347,7 +347,7 @@ public class Capture : View, UIGestureRecognizerDelegate {
 	internal func startTimer() {
 		timer?.invalidate()
 		timer = Timer(timeInterval: 0.5, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
-		RunLoop.main().add(timer!, forMode: .commonModes)
+		RunLoop.main.add(timer!, forMode: .commonModes)
 		(delegate as? CaptureDelegate)?.captureDidStartRecordTimer?(capture: self)
 	}
 	

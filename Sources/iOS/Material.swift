@@ -252,7 +252,7 @@ public extension UIView {
      - Parameter animation: A CAAnimation instance.
      */
     public func animate(animation: CAAnimation) {
-        animation.delegate = self
+//        animation.delegate = self
         if let a = animation as? CABasicAnimation {
             a.fromValue = (nil == layer.presentation() ? layer : layer.presentation()!).value(forKeyPath: a.keyPath!)
         }
@@ -273,7 +273,7 @@ public extension UIView {
      because it was completed or interrupted. True if completed, false
      if interrupted.
      */
-    public override func animationDidStop(_ animation: CAAnimation, finished flag: Bool) {
+    public func animationDidStop(_ animation: CAAnimation, finished flag: Bool) {
         if let a = animation as? CAPropertyAnimation {
             if let b = a as? CABasicAnimation {
                 if let v = b.toValue {

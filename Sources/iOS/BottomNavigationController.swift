@@ -31,7 +31,7 @@
 import UIKit
 
 public class BottomNavigationFadeAnimatedTransitioning : NSObject, UIViewControllerAnimatedTransitioning {
-	public func animateTransition(_ transitionContext: UIViewControllerContextTransitioning) {
+	public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
 		let fromView : UIView = transitionContext.view(forKey: UITransitionContextFromViewKey)!
 		let toView : UIView = transitionContext.view(forKey: UITransitionContextToViewKey)!
 		toView.alpha = 0
@@ -39,7 +39,7 @@ public class BottomNavigationFadeAnimatedTransitioning : NSObject, UIViewControl
 		transitionContext.containerView().addSubview(fromView)
 		transitionContext.containerView().addSubview(toView)
 		
-		UIView.animate(withDuration: transitionDuration(transitionContext),
+		UIView.animate(withDuration: transitionDuration(using: transitionContext),
 			animations: { _ in
 				toView.alpha = 1
 				fromView.alpha = 0
@@ -48,7 +48,7 @@ public class BottomNavigationFadeAnimatedTransitioning : NSObject, UIViewControl
 			}
 	}
 	
-	public func transitionDuration(_ transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+	public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
 		return 0.35
 	}
 }

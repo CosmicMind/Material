@@ -333,7 +333,7 @@ public class TextView: UITextView {
 	
 	/// Prepares the Notification handlers.
 	private func prepareNotificationHandlers() {
-		let defaultCenter = NotificationCenter.default()
+		let defaultCenter = NotificationCenter.default
         defaultCenter.addObserver(self, selector: #selector(handleTextViewTextDidBegin), name: NSNotification.Name.UITextViewTextDidBeginEditing, object: self)
 		defaultCenter.addObserver(self, selector: #selector(handleTextViewTextDidChange), name: NSNotification.Name.UITextViewTextDidChange, object: self)
 		defaultCenter.addObserver(self, selector: #selector(handleTextViewTextDidEnd), name: NSNotification.Name.UITextViewTextDidEndEditing, object: self)
@@ -341,7 +341,7 @@ public class TextView: UITextView {
 	
 	/// Removes the Notification handlers.
 	private func removeNotificationHandlers() {
-        let defaultCenter = NotificationCenter.default()
+        let defaultCenter = NotificationCenter.default
         defaultCenter.removeObserver(self, name: NSNotification.Name.UITextViewTextDidBeginEditing, object: self)
 		defaultCenter.removeObserver(self, name: NSNotification.Name.UITextViewTextDidChange, object: self)
 		defaultCenter.removeObserver(self, name: NSNotification.Name.UITextViewTextDidEndEditing, object: self)

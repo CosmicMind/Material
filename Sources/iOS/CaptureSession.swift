@@ -721,10 +721,10 @@ public class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 	*/
 	private func uniqueURL() -> NSURL? {
 		do {
-			let directory: NSURL = try FileManager.default().urlForDirectory(.documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+			let directory: NSURL = try FileManager.default.urlForDirectory(.documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
 			let dateFormatter = DateFormatter()
-			dateFormatter.dateStyle = .fullStyle
-			dateFormatter.timeStyle = .fullStyle
+			dateFormatter.dateStyle = .full
+			dateFormatter.timeStyle = .full
 			return directory.appendingPathComponent(dateFormatter.string(from: NSDate() as Date) + ".mov")
 		} catch let e as NSError {
 			delegate?.captureSessionCreateMovieFileFailedWithError?(captureSession: self, error: e)

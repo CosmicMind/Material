@@ -86,7 +86,7 @@ public class MaterialCollectionViewLayout: UICollectionViewLayout {
 	
 	public override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
-		let item: MaterialDataSourceItem = dataSourceItems![indexPath.item!]
+		let item: MaterialDataSourceItem = dataSourceItems![indexPath.item]
 		
 		if 0 < itemSize.width && 0 < itemSize.height {
             attributes.frame = CGRect(x: offset.x, y: offset.y, width: itemSize.width - contentInset.left - contentInset.right, height: itemSize.height - contentInset.top - contentInset.bottom)

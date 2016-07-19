@@ -167,7 +167,7 @@ public extension UIImage {
      has been retrieved.
      */
     public class func contentsOfURL(url: URL, completion: ((image: UIImage?, error: NSError?) -> Void)) {
-        URLSession.shared().dataTask(with: URLRequest(url: url)) { (data: Data?, response: URLResponse?, error: NSError?) in
+        URLSession.shared.dataTask(with: URLRequest(url: url)) { (data: Data?, response: URLResponse?, error: NSError?) in
             DispatchQueue.main.async {
                 if let v = error {
                     completion(image: nil, error: v)
@@ -175,6 +175,6 @@ public extension UIImage {
                     completion(image: UIImage(data: v), error: nil)
                 }
             }
-            }.resume()
+        }.resume()
     }
 }
