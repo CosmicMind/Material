@@ -13,12 +13,12 @@
 		9658F2171CD6FA4700B902C1 /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9658F2161CD6FA4700B902C1 /* IconButton.swift */; };
 		9660161D1CB2ED6C00AAB661 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 966016131CB2ED6C00AAB661 /* Material.framework */; };
 		9660162A1CB2F04E00AAB661 /* Material.h in Headers */ = {isa = PBXBuildFile; fileRef = 96D88C091C1328D800B91418 /* Material.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9661222E1D3EC414008BB4CB /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9661222D1D3EC414008BB4CB /* Color.swift */; };
 		966ECF2A1CF4C20100BB0BDF /* MaterialCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966ECF291CF4C20100BB0BDF /* MaterialCollectionReusableView.swift */; };
 		967A48191D0F425A00B8CEB7 /* StatusBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967A48181D0F425A00B8CEB7 /* StatusBarController.swift */; };
 		96815B381CA07BA20006CBE2 /* MaterialViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967887881C9777CB0037F6C9 /* MaterialViewTests.swift */; };
 		968C99451D37730B000074FF /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968C99441D37730B000074FF /* Direction.swift */; };
 		968C99471D377849000074FF /* Offset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968C99461D377849000074FF /* Offset.swift */; };
-		96977DA61CBB2E49000BEFC4 /* Material+UIImage+FilterBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96977DA51CBB2E49000BEFC4 /* Material+UIImage+FilterBlur.swift */; };
 		96BCB7A11CB40DC500C806FE /* BottomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7581CB40DC500C806FE /* BottomNavigationController.swift */; };
 		96BCB7A21CB40DC500C806FE /* BottomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7591CB40DC500C806FE /* BottomTabBar.swift */; };
 		96BCB7A31CB40DC500C806FE /* CapturePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB75A1CB40DC500C806FE /* CapturePreview.swift */; };
@@ -94,7 +94,6 @@
 		96BCB7FA1CB40DE900C806FE /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96BCB7F11CB40DE900C806FE /* Roboto-Regular.ttf */; };
 		96BCB7FB1CB40DE900C806FE /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96BCB7F21CB40DE900C806FE /* Roboto-Thin.ttf */; };
 		96BCB7FC1CB40DE900C806FE /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96BCB7F21CB40DE900C806FE /* Roboto-Thin.ttf */; };
-		96BCB7FE1CB40E1D00C806FE /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7FD1CB40E1D00C806FE /* Color.swift */; };
 		96BCB8101CB4115200C806FE /* TransitionAnimation.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB78B1CB40DC500C806FE /* TransitionAnimation.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8111CB4115200C806FE /* Animation.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB76D1CB40DC500C806FE /* Animation.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8131CB4115200C806FE /* KeyframeAnimation.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB77E1CB40DC500C806FE /* KeyframeAnimation.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -160,14 +159,12 @@
 		96BCB8551CB4115200C806FE /* PulseView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7841CB40DC500C806FE /* PulseView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8561CB4115200C806FE /* Switch.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7881CB40DC500C806FE /* Switch.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8571CB4115200C806FE /* View.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB78C1CB40DC500C806FE /* View.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		96BCB8581CB4116800C806FE /* Color.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7FD1CB40E1D00C806FE /* Color.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8591CB4118E00C806FE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96334EF51C8B84660083986B /* Assets.xcassets */; };
 		96D88C321C1328D800B91418 /* Material.h in Headers */ = {isa = PBXBuildFile; fileRef = 96D88C091C1328D800B91418 /* Material.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		96E3C3941D397AE90086A024 /* Material.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E3C3931D397AE90086A024 /* Material.swift */; };
 		96E3C3951D3A1CC20086A024 /* IconButton.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9658F2161CD6FA4700B902C1 /* IconButton.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96E3C3961D3A1CC20086A024 /* MaterialCollectionReusableView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 966ECF291CF4C20100BB0BDF /* MaterialCollectionReusableView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96E3C3971D3A1CC20086A024 /* Material.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96E3C3931D397AE90086A024 /* Material.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		96E3C3981D3A1CC20086A024 /* Material+UIImage+FilterBlur.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96977DA51CBB2E49000BEFC4 /* Material+UIImage+FilterBlur.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96E3C3991D3A1CC20086A024 /* StatusBarController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 967A48181D0F425A00B8CEB7 /* StatusBarController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96E3C39A1D3A1CC20086A024 /* ErrorTextField.swift in Headers */ = {isa = PBXBuildFile; fileRef = 961F18E71CD93E3E008927C5 /* ErrorTextField.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96E3C39B1D3A1CC20086A024 /* Direction.swift in Headers */ = {isa = PBXBuildFile; fileRef = 968C99441D37730B000074FF /* Direction.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -200,13 +197,13 @@
 		963832591B88E31A0015F710 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9658F2161CD6FA4700B902C1 /* IconButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
 		966016131CB2ED6C00AAB661 /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Material.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9660161C1CB2ED6C00AAB661 /* Material OSX Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Material OSX Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9660161C1CB2ED6C00AAB661 /* Material macOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Material macOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9661222D1D3EC414008BB4CB /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		966ECF291CF4C20100BB0BDF /* MaterialCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialCollectionReusableView.swift; sourceTree = "<group>"; };
 		967887881C9777CB0037F6C9 /* MaterialViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialViewTests.swift; sourceTree = "<group>"; };
 		967A48181D0F425A00B8CEB7 /* StatusBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarController.swift; sourceTree = "<group>"; };
 		968C99441D37730B000074FF /* Direction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
 		968C99461D377849000074FF /* Offset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Offset.swift; sourceTree = "<group>"; };
-		96977DA51CBB2E49000BEFC4 /* Material+UIImage+FilterBlur.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIImage+FilterBlur.swift"; sourceTree = "<group>"; };
 		96BCB7581CB40DC500C806FE /* BottomNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomNavigationController.swift; sourceTree = "<group>"; };
 		96BCB7591CB40DC500C806FE /* BottomTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomTabBar.swift; sourceTree = "<group>"; };
 		96BCB75A1CB40DC500C806FE /* CapturePreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CapturePreview.swift; sourceTree = "<group>"; };
@@ -277,7 +274,6 @@
 		96BCB7F01CB40DE900C806FE /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		96BCB7F11CB40DE900C806FE /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		96BCB7F21CB40DE900C806FE /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
-		96BCB7FD1CB40E1D00C806FE /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		96D88BFC1C1328D800B91418 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96D88BFD1C1328D800B91418 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		96D88C091C1328D800B91418 /* Material.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Material.h; sourceTree = "<group>"; };
@@ -334,7 +330,7 @@
 				963832361B88DFD80015F710 /* Material.framework */,
 				963832411B88DFD80015F710 /* Material.xctest */,
 				966016131CB2ED6C00AAB661 /* Material.framework */,
-				9660161C1CB2ED6C00AAB661 /* Material OSX Tests.xctest */,
+				9660161C1CB2ED6C00AAB661 /* Material macOS Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -346,6 +342,22 @@
 				967887881C9777CB0037F6C9 /* MaterialViewTests.swift */,
 			);
 			path = Tests;
+			sourceTree = "<group>";
+		};
+		9661222C1D3EC414008BB4CB /* macOS */ = {
+			isa = PBXGroup;
+			children = (
+				9661222F1D3EC419008BB4CB /* Color */,
+			);
+			path = macOS;
+			sourceTree = "<group>";
+		};
+		9661222F1D3EC419008BB4CB /* Color */ = {
+			isa = PBXGroup;
+			children = (
+				9661222D1D3EC414008BB4CB /* Color.swift */,
+			);
+			name = Color;
 			sourceTree = "<group>";
 		};
 		966ECF2B1CF4C21B00BB0BDF /* Table */ = {
@@ -405,14 +417,6 @@
 				96BCB80C1CB410DD00C806FE /* View */,
 			);
 			path = iOS;
-			sourceTree = "<group>";
-		};
-		96BCB7EB1CB40DDC00C806FE /* OSX */ = {
-			isa = PBXGroup;
-			children = (
-				96BCB80F1CB4111F00C806FE /* Color */,
-			);
-			path = OSX;
 			sourceTree = "<group>";
 		};
 		96BCB7EC1CB40DE900C806FE /* Font */ = {
@@ -574,7 +578,6 @@
 				96BCB7641CB40DC500C806FE /* Material+String.swift */,
 				96BCB7651CB40DC500C806FE /* Material+UIFont.swift */,
 				96BCB76C1CB40DC500C806FE /* Material+UIImage.swift */,
-				96977DA51CBB2E49000BEFC4 /* Material+UIImage+FilterBlur.swift */,
 			);
 			name = Extension;
 			sourceTree = "<group>";
@@ -617,14 +620,6 @@
 			name = Text;
 			sourceTree = "<group>";
 		};
-		96BCB80F1CB4111F00C806FE /* Color */ = {
-			isa = PBXGroup;
-			children = (
-				96BCB7FD1CB40E1D00C806FE /* Color.swift */,
-			);
-			name = Color;
-			sourceTree = "<group>";
-		};
 		96D88BF41C1328D800B91418 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -634,7 +629,7 @@
 				96334EF51C8B84660083986B /* Assets.xcassets */,
 				96BCB7EC1CB40DE900C806FE /* Font */,
 				96BCB7571CB40DC500C806FE /* iOS */,
-				96BCB7EB1CB40DDC00C806FE /* OSX */,
+				9661222C1D3EC414008BB4CB /* macOS */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -715,7 +710,6 @@
 				96E3C3951D3A1CC20086A024 /* IconButton.swift in Headers */,
 				96E3C3961D3A1CC20086A024 /* MaterialCollectionReusableView.swift in Headers */,
 				96E3C3971D3A1CC20086A024 /* Material.swift in Headers */,
-				96E3C3981D3A1CC20086A024 /* Material+UIImage+FilterBlur.swift in Headers */,
 				96E3C3991D3A1CC20086A024 /* StatusBarController.swift in Headers */,
 				96E3C39A1D3A1CC20086A024 /* ErrorTextField.swift in Headers */,
 				96E3C39B1D3A1CC20086A024 /* Direction.swift in Headers */,
@@ -728,7 +722,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9660162A1CB2F04E00AAB661 /* Material.h in Headers */,
-				96BCB8581CB4116800C806FE /* Color.swift in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -771,9 +764,9 @@
 			productReference = 963832411B88DFD80015F710 /* Material.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		966016121CB2ED6C00AAB661 /* Material OSX */ = {
+		966016121CB2ED6C00AAB661 /* Material macOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 966016241CB2ED6C00AAB661 /* Build configuration list for PBXNativeTarget "Material OSX" */;
+			buildConfigurationList = 966016241CB2ED6C00AAB661 /* Build configuration list for PBXNativeTarget "Material macOS" */;
 			buildPhases = (
 				9660160E1CB2ED6C00AAB661 /* Sources */,
 				9660160F1CB2ED6C00AAB661 /* Frameworks */,
@@ -784,14 +777,14 @@
 			);
 			dependencies = (
 			);
-			name = "Material OSX";
+			name = "Material macOS";
 			productName = "Material OSX";
 			productReference = 966016131CB2ED6C00AAB661 /* Material.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		9660161B1CB2ED6C00AAB661 /* Material OSX Tests */ = {
+		9660161B1CB2ED6C00AAB661 /* Material macOS Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 966016271CB2ED6C00AAB661 /* Build configuration list for PBXNativeTarget "Material OSX Tests" */;
+			buildConfigurationList = 966016271CB2ED6C00AAB661 /* Build configuration list for PBXNativeTarget "Material macOS Tests" */;
 			buildPhases = (
 				966016181CB2ED6C00AAB661 /* Sources */,
 				966016191CB2ED6C00AAB661 /* Frameworks */,
@@ -802,9 +795,9 @@
 			dependencies = (
 				9660161F1CB2ED6C00AAB661 /* PBXTargetDependency */,
 			);
-			name = "Material OSX Tests";
+			name = "Material macOS Tests";
 			productName = "Material OSXTests";
-			productReference = 9660161C1CB2ED6C00AAB661 /* Material OSX Tests.xctest */;
+			productReference = 9660161C1CB2ED6C00AAB661 /* Material macOS Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -822,15 +815,25 @@
 						CreatedOnToolsVersion = 6.4;
 						DevelopmentTeam = 9Z76XCNLGL;
 						DevelopmentTeamName = "CosmicMind Inc.";
+						LastSwiftMigration = 0800;
 					};
 					963832401B88DFD80015F710 = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = 9Z76XCNLGL;
+						DevelopmentTeamName = "CosmicMind Inc.";
+						LastSwiftMigration = 0800;
 					};
 					966016121CB2ED6C00AAB661 = {
 						CreatedOnToolsVersion = 7.3;
+						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
 					};
 					9660161B1CB2ED6C00AAB661 = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 9Z76XCNLGL;
+						DevelopmentTeamName = "CosmicMind Inc.";
+						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -847,9 +850,9 @@
 			projectRoot = "";
 			targets = (
 				963832351B88DFD80015F710 /* Material iOS */,
-				966016121CB2ED6C00AAB661 /* Material OSX */,
+				966016121CB2ED6C00AAB661 /* Material macOS */,
 				963832401B88DFD80015F710 /* Material iOS Tests */,
-				9660161B1CB2ED6C00AAB661 /* Material OSX Tests */,
+				9660161B1CB2ED6C00AAB661 /* Material macOS Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -972,7 +975,6 @@
 				96BCB7A81CB40DC500C806FE /* FabButton.swift in Sources */,
 				96BCB7E41CB40DC500C806FE /* Text.swift in Sources */,
 				96BCB7AB1CB40DC500C806FE /* ImageCard.swift in Sources */,
-				96977DA61CBB2E49000BEFC4 /* Material+UIImage+FilterBlur.swift in Sources */,
 				96BCB7CB1CB40DC500C806FE /* PulseAnimation.swift in Sources */,
 				96BCB7AE1CB40DC500C806FE /* Material+UIFont.swift in Sources */,
 				96BCB7D91CB40DC500C806FE /* NavigationBar.swift in Sources */,
@@ -991,7 +993,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96BCB7FE1CB40E1D00C806FE /* Color.swift in Sources */,
+				9661222E1D3EC414008BB4CB /* Color.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1012,7 +1014,7 @@
 		};
 		9660161F1CB2ED6C00AAB661 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 966016121CB2ED6C00AAB661 /* Material OSX */;
+			target = 966016121CB2ED6C00AAB661 /* Material macOS */;
 			targetProxy = 9660161E1CB2ED6C00AAB661 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1056,7 +1058,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1100,7 +1102,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = Material;
@@ -1133,6 +1135,7 @@
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -1157,6 +1160,7 @@
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -1177,6 +1181,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "io.cosmicmind.Material-iOS-Tests";
 				PRODUCT_NAME = Material;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -1193,6 +1198,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "io.cosmicmind.Material-iOS-Tests";
 				PRODUCT_NAME = Material;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -1201,7 +1207,7 @@
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
@@ -1217,6 +1223,7 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -1225,7 +1232,7 @@
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -1240,6 +1247,7 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -1247,7 +1255,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				INFOPLIST_FILE = Tests/Info.plist;
@@ -1256,6 +1264,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "io.cosmicmind.Material-OSX-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -1263,7 +1272,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
@@ -1271,6 +1280,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "io.cosmicmind.Material-OSX-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -1304,7 +1314,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		966016241CB2ED6C00AAB661 /* Build configuration list for PBXNativeTarget "Material OSX" */ = {
+		966016241CB2ED6C00AAB661 /* Build configuration list for PBXNativeTarget "Material macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				966016251CB2ED6C00AAB661 /* Debug */,
@@ -1313,7 +1323,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		966016271CB2ED6C00AAB661 /* Build configuration list for PBXNativeTarget "Material OSX Tests" */ = {
+		966016271CB2ED6C00AAB661 /* Build configuration list for PBXNativeTarget "Material macOS Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				966016281CB2ED6C00AAB661 /* Debug */,
