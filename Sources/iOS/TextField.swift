@@ -230,7 +230,8 @@ public class TextField: UITextField {
 					clearIconButton!.contentEdgeInsets = UIEdgeInsets.zero
 					clearIconButton!.pulseAnimation = .center
 					clearIconButton!.tintColor = placeholderColor
-					clearIconButton!.setImage(image, for: .highlighted)
+					clearIconButton!.setImage(image, for: .normal)
+                    clearIconButton!.setImage(image, for: .highlighted)
 					clearButtonMode = .never
 					rightViewMode = .whileEditing
 					rightView = clearIconButton
@@ -266,7 +267,8 @@ public class TextField: UITextField {
 					visibilityIconButton!.contentEdgeInsets = UIEdgeInsets.zero
 					visibilityIconButton!.pulseAnimation = .center
 					visibilityIconButton!.tintColor = placeholderColor
-					visibilityIconButton!.setImage(image, for: .highlighted)
+                    visibilityIconButton!.setImage(image, for: .normal)
+                    visibilityIconButton!.setImage(image, for: .highlighted)
 					visibilityIconButton!.tintColor = placeholderColor.withAlphaComponent(isSecureTextEntry ? 0.38 : 0.54)
 					isSecureTextEntry = true
 					clearButtonMode = .never

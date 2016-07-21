@@ -110,7 +110,8 @@ public class NavigationController : UINavigationController, UIGestureRecognizerD
 		if let v: NavigationBar = navigationBar as? NavigationBar {
 			let backButton: IconButton = IconButton()
 			backButton.pulseColor = Color.white
-			backButton.setImage(v.backButtonImage, for: .highlighted)
+            backButton.setImage(v.backButtonImage, for: .normal)
+            backButton.setImage(v.backButtonImage, for: .highlighted)
 			backButton.addTarget(self, action: #selector(handleBackButton), for: .touchUpInside)
 			
 			if var c: Array<UIControl> = item.leftControls {

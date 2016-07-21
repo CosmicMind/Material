@@ -163,7 +163,8 @@ public class SearchBar : BarView {
 		clearButton = IconButton()
 		clearButton.contentEdgeInsets = UIEdgeInsets.zero
 		clearButton.tintColor = placeholderColor
-		clearButton.setImage(image, for: .highlighted)
+        clearButton.setImage(image, for: .normal)
+        clearButton.setImage(image, for: .highlighted)
 		clearButtonAutoHandleEnabled = true
 		textField.clearButtonMode = .never
 		textField.rightViewMode = .whileEditing
