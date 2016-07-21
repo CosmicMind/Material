@@ -31,8 +31,8 @@
 import UIKit
 
 @IBDesignable
-@objc(MaterialCollectionReusableView)
-public class MaterialCollectionReusableView: UICollectionReusableView {
+@objc(CollectionViewCell)
+public class CollectionViewCell: UICollectionViewCell {
 	/**
 	A CAShapeLayer used to manage elements that would be affected by
 	the clipToBounds property of the backing layer. For example, this
@@ -118,7 +118,7 @@ public class MaterialCollectionReusableView: UICollectionReusableView {
 	/// A Preset for the contentsGravity property.
 	public var contentsGravityPreset: MaterialGravity {
 		didSet {
-			contentsGravity = MaterialGravityToValue(gravity: contentsGravityPreset)
+            contentsGravity = MaterialGravityToValue(gravity: contentsGravityPreset)
 		}
 	}
 	
@@ -135,20 +135,20 @@ public class MaterialCollectionReusableView: UICollectionReusableView {
 	/// A preset wrapper around contentInset.
 	public var contentEdgeInsetsPreset: EdgeInsetsPreset {
 		get {
-			return grid.contentEdgeInsetsPreset
+			return contentView.grid.contentEdgeInsetsPreset
 		}
 		set(value) {
-			grid.contentEdgeInsetsPreset = value
+			contentView.grid.contentEdgeInsetsPreset = value
 		}
 	}
 	
 	/// A wrapper around grid.contentInset.
 	@IBInspectable public var contentInset: UIEdgeInsets {
 		get {
-			return grid.contentInset
+			return contentView.grid.contentInset
 		}
 		set(value) {
-			grid.contentInset = value
+			contentView.grid.contentInset = value
 		}
 	}
 	
@@ -162,10 +162,10 @@ public class MaterialCollectionReusableView: UICollectionReusableView {
 	/// A wrapper around grid.interimSpace.
 	@IBInspectable public var interimSpace: InterimSpace {
 		get {
-			return grid.interimSpace
+			return contentView.grid.interimSpace
 		}
 		set(value) {
-			grid.interimSpace = value
+			contentView.grid.interimSpace = value
 		}
 	}
 	
@@ -176,62 +176,6 @@ public class MaterialCollectionReusableView: UICollectionReusableView {
 		}
 	}
 	
-	/// A property that accesses the layer.frame.origin.x property.
-	@IBInspectable public var x: CGFloat {
-		get {
-			return layer.frame.origin.x
-		}
-		set(value) {
-			layer.frame.origin.x = value
-		}
-	}
-	
-	/// A property that accesses the layer.frame.origin.y property.
-	@IBInspectable public var y: CGFloat {
-		get {
-			return layer.frame.origin.y
-		}
-		set(value) {
-			layer.frame.origin.y = value
-		}
-	}
-	
-	/**
-	A property that accesses the layer.frame.size.width property.
-	When setting this property in conjunction with the shape property having a
-	value that is not .none, the height will be adjusted to maintain the correct
-	shape.
-	*/
-	@IBInspectable public var width: CGFloat {
-		get {
-			return layer.frame.size.width
-		}
-		set(value) {
-			layer.frame.size.width = value
-			if .none != shapePreset {
-				layer.frame.size.height = value
-			}
-		}
-	}
-	
-	/**
-	A property that accesses the layer.frame.size.height property.
-	When setting this property in conjunction with the shape property having a
-	value that is not .none, the width will be adjusted to maintain the correct
-	shape.
-	*/
-	@IBInspectable public var height: CGFloat {
-		get {
-			return layer.frame.size.height
-		}
-		set(value) {
-			layer.frame.size.height = value
-			if .none != shapePreset {
-				layer.frame.size.width = value
-			}
-		}
-	}
-		
 	/// Enables automatic shadowPath sizing.
 	@IBInspectable public var shadowPathAutoSizeEnabled: Bool = true {
 		didSet {
@@ -246,9 +190,9 @@ public class MaterialCollectionReusableView: UICollectionReusableView {
 	width or height property is set, the other will be automatically adjusted
 	to maintain the shape of the object.
 	*/
-	public var shapePreset: ShapePreset = .none {
+	public var shape: ShapePreset {
 		didSet {
-			if .none != shapePreset {
+			if .none != shape {
 				if width < height {
 					frame.size.width = height
 				} else {
@@ -264,6 +208,7 @@ public class MaterialCollectionReusableView: UICollectionReusableView {
 	- Parameter aDecoder: A NSCoder instance.
 	*/
 	public required init?(coder aDecoder: NSCoder) {
+		shape = .none
 		contentsGravityPreset = .ResizeAspectFill
 		super.init(coder: aDecoder)
 		prepareView()
@@ -276,6 +221,7 @@ public class MaterialCollectionReusableView: UICollectionReusableView {
 	- Parameter frame: A CGRect instance.
 	*/
 	public override init(frame: CGRect) {
+		shape = .none
 		contentsGravityPreset = .ResizeAspectFill
 		super.init(frame: frame)
 		prepareView()
@@ -357,7 +303,6 @@ public class MaterialCollectionReusableView: UICollectionReusableView {
 	*/
 	public func prepareView() {
 		contentScaleFactor = Device.scale
-		pulseAnimation = .none
 		prepareVisualLayer()
 	}
 	
@@ -376,7 +321,7 @@ public class MaterialCollectionReusableView: UICollectionReusableView {
 	
 	/// Manages the layout for the shape of the view instance.
 	internal func layoutShape() {
-		if .circle == shapePreset {
+		if .circle == shape {
 			let w: CGFloat = (width / 2)
 			if w != cornerRadius {
 				cornerRadius = w

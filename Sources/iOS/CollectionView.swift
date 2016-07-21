@@ -31,73 +31,33 @@
 import UIKit
 
 @IBDesignable
-public class MaterialCollectionView: UICollectionView {
-	/// A property that accesses the layer.frame.origin.x property.
-	@IBInspectable public var x: CGFloat {
-		get {
-			return layer.frame.origin.x
-		}
-		set(value) {
-			layer.frame.origin.x = value
-		}
-	}
-	
-	/// A property that accesses the layer.frame.origin.y property.
-	@IBInspectable public var y: CGFloat {
-		get {
-			return layer.frame.origin.y
-		}
-		set(value) {
-			layer.frame.origin.y = value
-		}
-	}
-	
-	/// A property that accesses the layer.frame.size.width property.
-	@IBInspectable public var width: CGFloat {
-		get {
-			return layer.frame.size.width
-		}
-		set(value) {
-			layer.frame.size.width = value
-		}
-	}
-	
-	/// A property that accesses the layer.frame.size.height property.
-	@IBInspectable public var height: CGFloat {
-		get {
-			return layer.frame.size.height
-		}
-		set(value) {
-			layer.frame.size.height = value
-		}
-	}
-	
+public class CollectionView: UICollectionView {
 	/// A preset wrapper around contentInset.
 	public var contentEdgeInsetsPreset: EdgeInsets {
 		get {
-			return (collectionViewLayout as? MaterialCollectionViewLayout)!.contentInset
+			return (collectionViewLayout as? CollectionViewLayout)!.contentInset
 		}
 		set(value) {
-			(collectionViewLayout as? MaterialCollectionViewLayout)!.contentInset = value
+			(collectionViewLayout as? CollectionViewLayout)!.contentInset = value
 		}
 	}
 	
 	public override var contentInset: UIEdgeInsets {
 		get {
-			return (collectionViewLayout as? MaterialCollectionViewLayout)!.contentInset
+			return (collectionViewLayout as? CollectionViewLayout)!.contentInset
 		}
 		set(value) {
-			(collectionViewLayout as? MaterialCollectionViewLayout)!.contentInset = value
+			(collectionViewLayout as? CollectionViewLayout)!.contentInset = value
 		}
 	}
 	
 	/// Scroll direction.
 	public var scrollDirection: UICollectionViewScrollDirection {
 		get {
-			return (collectionViewLayout as? MaterialCollectionViewLayout)!.scrollDirection
+			return (collectionViewLayout as? CollectionViewLayout)!.scrollDirection
 		}
 		set(value) {
-			(collectionViewLayout as? MaterialCollectionViewLayout)!.scrollDirection = value
+			(collectionViewLayout as? CollectionViewLayout)!.scrollDirection = value
 		}
 	}
 	
@@ -111,10 +71,10 @@ public class MaterialCollectionView: UICollectionView {
 	/// Spacing between items.
 	@IBInspectable public var interimSpace: InterimSpace {
 		get {
-			return (collectionViewLayout as? MaterialCollectionViewLayout)!.interimSpace
+			return (collectionViewLayout as? CollectionViewLayout)!.interimSpace
 		}
 		set(value) {
-			(collectionViewLayout as? MaterialCollectionViewLayout)!.interimSpace = value
+			(collectionViewLayout as? CollectionViewLayout)!.interimSpace = value
 		}
 	}
 	
@@ -142,7 +102,7 @@ public class MaterialCollectionView: UICollectionView {
 	- Parameter frame: A CGRect defining the view's frame.
 	*/
 	public init(frame: CGRect) {
-		super.init(frame: frame, collectionViewLayout: MaterialCollectionViewLayout())
+		super.init(frame: frame, collectionViewLayout: CollectionViewLayout())
 		prepareView()
 	}
 	

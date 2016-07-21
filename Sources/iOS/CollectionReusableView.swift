@@ -31,8 +31,8 @@
 import UIKit
 
 @IBDesignable
-@objc(MaterialCollectionViewCell)
-public class MaterialCollectionViewCell: UICollectionViewCell {
+@objc(MaterialCollectionReusableView)
+public class MaterialCollectionReusableView: UICollectionReusableView {
 	/**
 	A CAShapeLayer used to manage elements that would be affected by
 	the clipToBounds property of the backing layer. For example, this
@@ -118,7 +118,7 @@ public class MaterialCollectionViewCell: UICollectionViewCell {
 	/// A Preset for the contentsGravity property.
 	public var contentsGravityPreset: MaterialGravity {
 		didSet {
-            contentsGravity = MaterialGravityToValue(gravity: contentsGravityPreset)
+			contentsGravity = MaterialGravityToValue(gravity: contentsGravityPreset)
 		}
 	}
 	
@@ -135,20 +135,20 @@ public class MaterialCollectionViewCell: UICollectionViewCell {
 	/// A preset wrapper around contentInset.
 	public var contentEdgeInsetsPreset: EdgeInsetsPreset {
 		get {
-			return contentView.grid.contentEdgeInsetsPreset
+			return grid.contentEdgeInsetsPreset
 		}
 		set(value) {
-			contentView.grid.contentEdgeInsetsPreset = value
+			grid.contentEdgeInsetsPreset = value
 		}
 	}
 	
 	/// A wrapper around grid.contentInset.
 	@IBInspectable public var contentInset: UIEdgeInsets {
 		get {
-			return contentView.grid.contentInset
+			return grid.contentInset
 		}
 		set(value) {
-			contentView.grid.contentInset = value
+			grid.contentInset = value
 		}
 	}
 	
@@ -162,10 +162,10 @@ public class MaterialCollectionViewCell: UICollectionViewCell {
 	/// A wrapper around grid.interimSpace.
 	@IBInspectable public var interimSpace: InterimSpace {
 		get {
-			return contentView.grid.interimSpace
+			return grid.interimSpace
 		}
 		set(value) {
-			contentView.grid.interimSpace = value
+			grid.interimSpace = value
 		}
 	}
 	
@@ -173,62 +173,6 @@ public class MaterialCollectionViewCell: UICollectionViewCell {
 	@IBInspectable public override var backgroundColor: UIColor? {
 		didSet {
 			layer.backgroundColor = backgroundColor?.cgColor
-		}
-	}
-	
-	/// A property that accesses the layer.frame.origin.x property.
-	@IBInspectable public var x: CGFloat {
-		get {
-			return layer.frame.origin.x
-		}
-		set(value) {
-			layer.frame.origin.x = value
-		}
-	}
-	
-	/// A property that accesses the layer.frame.origin.y property.
-	@IBInspectable public var y: CGFloat {
-		get {
-			return layer.frame.origin.y
-		}
-		set(value) {
-			layer.frame.origin.y = value
-		}
-	}
-	
-	/**
-	A property that accesses the layer.frame.size.width property.
-	When setting this property in conjunction with the shape property having a
-	value that is not .none, the height will be adjusted to maintain the correct
-	shape.
-	*/
-	@IBInspectable public var width: CGFloat {
-		get {
-			return layer.frame.size.width
-		}
-		set(value) {
-			layer.frame.size.width = value
-			if .none != shape {
-				layer.frame.size.height = value
-			}
-		}
-	}
-	
-	/**
-	A property that accesses the layer.frame.size.height property.
-	When setting this property in conjunction with the shape property having a
-	value that is not .none, the width will be adjusted to maintain the correct
-	shape.
-	*/
-	@IBInspectable public var height: CGFloat {
-		get {
-			return layer.frame.size.height
-		}
-		set(value) {
-			layer.frame.size.height = value
-			if .none != shape {
-				layer.frame.size.width = value
-			}
 		}
 	}
 	
@@ -242,29 +186,10 @@ public class MaterialCollectionViewCell: UICollectionViewCell {
 	}
 	
 	/**
-	A property that manages the overall shape for the object. If either the
-	width or height property is set, the other will be automatically adjusted
-	to maintain the shape of the object.
-	*/
-	public var shape: ShapePreset {
-		didSet {
-			if .none != shape {
-				if width < height {
-					frame.size.width = height
-				} else {
-					frame.size.height = width
-				}
-				layoutShadowPath()
-			}
-		}
-	}
-	
-	/**
 	An initializer that initializes the object with a NSCoder object.
 	- Parameter aDecoder: A NSCoder instance.
 	*/
 	public required init?(coder aDecoder: NSCoder) {
-		shape = .none
 		contentsGravityPreset = .ResizeAspectFill
 		super.init(coder: aDecoder)
 		prepareView()
@@ -277,7 +202,6 @@ public class MaterialCollectionViewCell: UICollectionViewCell {
 	- Parameter frame: A CGRect instance.
 	*/
 	public override init(frame: CGRect) {
-		shape = .none
 		contentsGravityPreset = .ResizeAspectFill
 		super.init(frame: frame)
 		prepareView()
@@ -359,6 +283,7 @@ public class MaterialCollectionViewCell: UICollectionViewCell {
 	*/
 	public func prepareView() {
 		contentScaleFactor = Device.scale
+		pulseAnimation = .none
 		prepareVisualLayer()
 	}
 	
@@ -377,7 +302,7 @@ public class MaterialCollectionViewCell: UICollectionViewCell {
 	
 	/// Manages the layout for the shape of the view instance.
 	internal func layoutShape() {
-		if .circle == shape {
+		if .circle == shapePreset {
 			let w: CGFloat = (width / 2)
 			if w != cornerRadius {
 				cornerRadius = w

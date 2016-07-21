@@ -68,6 +68,23 @@ public class Material {
         }
     }
     
+    /// A preset property to set the shape.
+    public var shapePreset: ShapePreset = .none {
+        didSet {
+            guard let v = view else {
+                return
+            }
+            
+            if .none != shapePreset {
+                if v.width < v.height {
+                    v.frame.size.width = v.height
+                } else {
+                    v.frame.size.height = v.width
+                }
+            }
+        }
+    }
+    
     /// A preset value for Depth.
     public var depthPreset: DepthPreset {
         get {
@@ -106,6 +123,70 @@ public extension UIView {
         }
         set(value) {
             AssociateObject(base: self, key: &MaterialKey, value: value)
+        }
+    }
+    
+    /// A property that accesses the layer.frame.origin.x property.
+    @IBInspectable
+    public var x: CGFloat {
+        get {
+            return layer.frame.origin.x
+        }
+        set(value) {
+            layer.frame.origin.x = value
+        }
+    }
+    
+    /// A property that accesses the layer.frame.origin.y property.
+    @IBInspectable
+    public var y: CGFloat {
+        get {
+            return layer.frame.origin.y
+        }
+        set(value) {
+            layer.frame.origin.y = value
+        }
+    }
+    
+    /// A property that accesses the layer.frame.size.width property.
+    @IBInspectable
+    public var width: CGFloat {
+        get {
+            return layer.frame.size.width
+        }
+        set(value) {
+            layer.frame.size.width = value
+            if .none != shapePreset {
+                layer.frame.size.height = value
+            }
+        }
+    }
+    
+    /// A property that accesses the layer.frame.size.height property.
+    @IBInspectable
+    public var height: CGFloat {
+        get {
+            return layer.frame.size.height
+        }
+        set(value) {
+            layer.frame.size.height = value
+            if .none != shapePreset {
+                layer.frame.size.width = value
+            }
+        }
+    }
+    
+    /**
+     A property that manages the overall shape for the object. If either the
+     width or height property is set, the other will be automatically adjusted
+     to maintain the shape of the object.
+     */
+    public var shapePreset: ShapePreset {
+        get {
+            return material.shapePreset
+        }
+        set(value) {
+            material.shapePreset = value
         }
     }
     
@@ -252,7 +333,6 @@ public extension UIView {
      - Parameter animation: A CAAnimation instance.
      */
     public func animate(animation: CAAnimation) {
-//        animation.delegate = self
         if let a = animation as? CABasicAnimation {
             a.fromValue = (nil == layer.presentation() ? layer : layer.presentation()!).value(forKeyPath: a.keyPath!)
         }

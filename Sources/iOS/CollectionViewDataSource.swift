@@ -30,6 +30,10 @@
 
 import UIKit
 
-public protocol MaterialCollectionViewDelegate: MaterialDelegate, UICollectionViewDelegate {
-	
+public protocol CollectionViewDataSource: UICollectionViewDataSource {
+	/**
+	Retrieves the items for the collectionView.
+	- Returns: An Array of Arrays of MaterialDataSourceItem objects.
+	*/
+	func items() -> [MaterialDataSourceItem]
 }

@@ -30,7 +30,7 @@
 
 import UIKit
 
-public class MaterialCollectionViewLayout: UICollectionViewLayout {
+public class CollectionViewLayout: UICollectionViewLayout {
 	/// Used to calculate the dimensions of the cells.
 	internal var offset: CGPoint = CGPoint.zero
 	
@@ -118,7 +118,7 @@ public class MaterialCollectionViewLayout: UICollectionViewLayout {
 	}
 	
 	public override func prepare() {
-		if let dataSource: MaterialCollectionViewDataSource = collectionView?.dataSource as? MaterialCollectionViewDataSource {
+		if let dataSource: CollectionViewDataSource = collectionView?.dataSource as? CollectionViewDataSource {
 			prepareLayoutForItems(dataSourceItems: dataSource.items())
 		}
 	}

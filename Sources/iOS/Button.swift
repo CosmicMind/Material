@@ -68,34 +68,15 @@ public class Button: UIButton {
 			layer.backgroundColor = backgroundColor?.cgColor
 		}
 	}
-	
-	/// A property that accesses the layer.frame.origin.x property.
-	@IBInspectable public var x: CGFloat {
-		get {
-			return layer.frame.origin.x
-		}
-		set(value) {
-			layer.frame.origin.x = value
-		}
-	}
-	
-	/// A property that accesses the layer.frame.origin.y property.
-	@IBInspectable public var y: CGFloat {
-		get {
-			return layer.frame.origin.y
-		}
-		set(value) {
-			layer.frame.origin.y = value
-		}
-	}
-	
+		
 	/**
      A property that accesses the layer.frame.size.width property.
      When setting this property in conjunction with the shape property having a
      value that is not .none, the height will be adjusted to maintain the correct
      shape.
      */
-	@IBInspectable public var width: CGFloat {
+	@IBInspectable
+    public override var width: CGFloat {
 		get {
 			return layer.frame.size.width
 		}
@@ -113,7 +94,8 @@ public class Button: UIButton {
      value that is not .none, the width will be adjusted to maintain the correct
      shape.
      */
-	@IBInspectable public var height: CGFloat {
+	@IBInspectable
+    public override var height: CGFloat {
 		get {
 			return layer.frame.size.height
 		}
@@ -129,24 +111,6 @@ public class Button: UIButton {
 	@IBInspectable public var shadowPathAutoSizeEnabled: Bool = true {
 		didSet {
 			if shadowPathAutoSizeEnabled {
-				layoutShadowPath()
-			}
-		}
-	}
-	
-	/**
-     A property that manages the overall shape for the object. If either the
-     width or height property is set, the other will be automatically adjusted
-     to maintain the shape of the object.
-     */
-	public var shapePreset: ShapePreset = .none {
-		didSet {
-			if .none != shapePreset {
-				if width < height {
-					frame.size.width = height
-				} else {
-					frame.size.height = width
-				}
 				layoutShadowPath()
 			}
 		}
