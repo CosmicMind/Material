@@ -85,15 +85,15 @@ public class ControlView : View {
 	public private(set) var contentView: View!
 	
 	/// Left side UIControls.
-	public var leftControls: Array<UIControl>? {
+	public var leftControls: [UIView]? {
 		didSet {
-			if let v: Array<UIControl> = oldValue {
+			if let v = oldValue {
 				for b in v {
 					b.removeFromSuperview()
 				}
 			}
 			
-			if let v: Array<UIControl> = leftControls {
+			if let v = leftControls {
 				for b in v {
 					addSubview(b)
 				}
@@ -103,15 +103,15 @@ public class ControlView : View {
 	}
 	
 	/// Right side UIControls.
-	public var rightControls: Array<UIControl>? {
+	public var rightControls: [UIView]? {
 		didSet {
-			if let v: Array<UIControl> = oldValue {
+			if let v = oldValue {
 				for b in v {
 					b.removeFromSuperview()
 				}
 			}
 			
-			if let v: Array<UIControl> = rightControls {
+			if let v = rightControls {
 				for b in v {
 					addSubview(b)
 				}
@@ -149,7 +149,7 @@ public class ControlView : View {
 	- Parameter leftControls: An Array of UIControls that go on the left side.
 	- Parameter rightControls: An Array of UIControls that go on the right side.
 	*/
-	public init(leftControls: Array<UIControl>? = nil, rightControls: Array<UIControl>? = nil) {
+	public init(leftControls: [UIView]? = nil, rightControls: [UIView]? = nil) {
 		super.init(frame: CGRect.zero)
 		frame.size = intrinsicContentSize()
 		prepareProperties(leftControls: leftControls, rightControls: rightControls)
@@ -169,7 +169,7 @@ public class ControlView : View {
 				contentView.grid.columns = columns
 				
 				// leftControls
-				if let v: Array<UIControl> = leftControls {
+				if let v = leftControls {
 					for c in v {
 						let w: CGFloat = c.intrinsicContentSize().width
 						(c as? UIButton)?.contentEdgeInsets = UIEdgeInsets.zero
@@ -189,7 +189,7 @@ public class ControlView : View {
 				grid.views?.append(contentView)
 				
 				// rightControls
-				if let v: Array<UIControl> = rightControls {
+				if let v = rightControls {
 					for c in v {
 						let w: CGFloat = c.intrinsicContentSize().width
 						(c as? UIButton)?.contentEdgeInsets = UIEdgeInsets.zero
@@ -238,7 +238,7 @@ public class ControlView : View {
 	- Parameter leftControls: An Array of UIControls that go on the left side.
 	- Parameter rightControls: An Array of UIControls that go on the right side.
 	*/
-	internal func prepareProperties(leftControls: Array<UIControl>?, rightControls: Array<UIControl>?) {
+	internal func prepareProperties(leftControls: [UIView]?, rightControls: [UIView]?) {
 		self.leftControls = leftControls
 		self.rightControls = rightControls
 	}
