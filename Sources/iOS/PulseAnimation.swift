@@ -98,7 +98,7 @@ internal extension Animation {
         default:break
         }
         
-        Animation.delay(time: duration) {
+        _ = Animation.delay(time: duration) {
             bLayer.setValue(true, forKey: "animated")
         }
 	}
@@ -118,7 +118,7 @@ internal extension Animation {
             return
         }
         
-        Animation.delay(time: animated ? 0 : 0.15) {
+        _ = Animation.delay(time: animated ? 0 : 0.15) {
             guard let pLayer: CAShapeLayer = bLayer.sublayers?.first as? CAShapeLayer else {
                 return
             }
@@ -140,7 +140,7 @@ internal extension Animation {
             default:break
             }
             
-            Animation.delay(time: duration) {
+            _ = Animation.delay(time: duration) {
                 pLayer.removeFromSuperlayer()
                 bLayer.removeFromSuperlayer()
             }

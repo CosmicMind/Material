@@ -81,6 +81,6 @@ public class StatusBarController : RootController {
 		statusBarView = View()
 		statusBarView.zPosition = 3000
 		statusBarView.backgroundColor = Color.black.withAlphaComponent(0.12)
-		view.layout(statusBarView).top(0).horizontally().height(20)
+		_ = view.layout(statusBarView).top(0).horizontally().height(20)
 	}
 }

@@ -205,11 +205,11 @@ public class TextView: UITextView {
 	internal func reloadView() {
 		if let p = placeholderLabel {
 			removeConstraints(constraints)
-			layout(p).edges(
-				top: textContainerInset.top,
-				left: textContainerInset.left + textContainer.lineFragmentPadding,
-				bottom: textContainerInset.bottom,
-				right: textContainerInset.right + textContainer.lineFragmentPadding)
+			_ = layout(p).edges(
+                    top: textContainerInset.top,
+                    left: textContainerInset.left + textContainer.lineFragmentPadding,
+                    bottom: textContainerInset.bottom,
+                    right: textContainerInset.right + textContainer.lineFragmentPadding)
 		}
 	}
 	
