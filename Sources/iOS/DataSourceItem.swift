@@ -30,7 +30,7 @@
 
 import UIKit
 
-public struct MaterialDataSourceItem {
+public struct DataSourceItem {
 	/// Stores an the data for the item.
 	public var data: AnyObject?
 	
