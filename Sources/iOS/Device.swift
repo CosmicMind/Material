@@ -30,13 +30,6 @@
 
 import UIKit
 
-public enum DeviceType {
-	case pad
-	case phone
-	case TV
-	case unspecified
-}
-
 public struct Device {
 	/// Gets the model name for the device.
 	public static var model: String {
@@ -80,8 +73,8 @@ public struct Device {
 		default:											return identifier
 		}
 	}
-	
-	/// Retrieves the current device type.
+    
+    /// Retrieves the current device type.
 	public static var userInterfaceIdiom: UIUserInterfaceIdiom {
 		return UIDevice.current().userInterfaceIdiom
 	}
