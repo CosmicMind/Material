@@ -56,11 +56,7 @@ public class Button: UIButton {
 	@IBInspectable public var pulseColor: UIColor = Color.grey.base
 	
 	/// The type of PulseAnimation.
-	public var pulseAnimation: PulseAnimation = .pointWithBacking {
-		didSet {
-			visualLayer.masksToBounds = .centerRadialBeyondBounds != pulseAnimation
-		}
-	}
+	public var pulseAnimation: PulseAnimation = .pointWithBacking
 	
 	/// A property that accesses the backing layer's backgroundColor.
 	@IBInspectable public override var backgroundColor: UIColor? {

@@ -41,11 +41,7 @@ public class PulseView: View {
 	@IBInspectable public var pulseColor: UIColor = Color.grey.base
 	
 	/// The type of PulseAnimation.
-	public var pulseAnimation: PulseAnimation = .pointWithBacking {
-		didSet {
-			visualLayer.masksToBounds = .centerRadialBeyondBounds != pulseAnimation
-		}
-	}
+	public var pulseAnimation: PulseAnimation = .pointWithBacking
 	
 	/**
 	Triggers the pulse animation.

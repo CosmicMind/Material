@@ -35,6 +35,7 @@ public enum PulseAnimation {
 	case center
 	case centerWithBacking
 	case centerRadialBeyondBounds
+    case radialBeyondBounds
 	case backing
 	case point
 	case pointWithBacking
@@ -59,12 +60,16 @@ internal extension Animation {
         
         let n = .center == pulseAnimation ? width < height ? width : height : width < height ? height : width
         
-        let bLayer: CAShapeLayer = CAShapeLayer()
-        let pLayer: CAShapeLayer = CAShapeLayer()
+        let bLayer = CAShapeLayer()
+        let pLayer = CAShapeLayer()
         
         bLayer.addSublayer(pLayer)
         pulseLayers.insert(bLayer, at: 0)
         visualLayer.addSublayer(bLayer)
+        
+        if .centerRadialBeyondBounds == pulseAnimation || .radialBeyondBounds == pulseAnimation {
+            visualLayer.masksToBounds = false
+        }
         
         Animation.animationDisabled(animations: {
             bLayer.frame = visualLayer.bounds
@@ -93,7 +98,7 @@ internal extension Animation {
         }
         
         switch pulseAnimation {
-        case .center, .centerWithBacking, .centerRadialBeyondBounds, .point, .pointWithBacking:
+        case .center, .centerWithBacking, .centerRadialBeyondBounds, .radialBeyondBounds, .point, .pointWithBacking:
             pLayer.add(Animation.scale(scale: 1, duration: duration), forKey: nil)
         default:break
         }
@@ -110,7 +115,7 @@ internal extension Animation {
      - Parameter pulseLayers: An Array of CAShapeLayers used in the animation.
      */
 	internal static func pulseContractAnimation(layer: CALayer, visualLayer: CALayer, pulseColor: UIColor, pulseLayers: inout Array<CAShapeLayer>, pulseAnimation: PulseAnimation) {
-        guard let bLayer: CAShapeLayer = pulseLayers.popLast() else {
+        guard let bLayer = pulseLayers.popLast() else {
             return
         }
         
@@ -119,7 +124,7 @@ internal extension Animation {
         }
         
         _ = Animation.delay(time: animated ? 0 : 0.15) {
-            guard let pLayer: CAShapeLayer = bLayer.sublayers?.first as? CAShapeLayer else {
+            guard let pLayer = bLayer.sublayers?.first as? CAShapeLayer else {
                 return
             }
             
@@ -132,7 +137,7 @@ internal extension Animation {
             }
             
             switch pulseAnimation {
-            case .center, .centerWithBacking, .centerRadialBeyondBounds, .point, .pointWithBacking:
+            case .center, .centerWithBacking, .centerRadialBeyondBounds, .radialBeyondBounds, .point, .pointWithBacking:
                 pLayer.add(Animation.animationGroup(animations: [
                     Animation.scale(scale: .center == pulseAnimation ? 1 : 1.325),
                     Animation.backgroundColor(color: pulseColor.withAlphaComponent(0))

@@ -56,11 +56,7 @@ public class MaterialCollectionReusableView: UICollectionReusableView {
 	@IBInspectable public var pulseColor: UIColor = Color.grey.base
 	
 	/// The type of PulseAnimation.
-	public var pulseAnimation: PulseAnimation = .pointWithBacking {
-		didSet {
-			visualLayer.masksToBounds = .centerRadialBeyondBounds != pulseAnimation
-		}
-	}
+	public var pulseAnimation: PulseAnimation = .pointWithBacking
 	
 	/**
 	A property that manages an image for the visualLayer's contents
