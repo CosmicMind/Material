@@ -31,7 +31,7 @@
 import UIKit
 
 @IBDesignable
-public class RootController : UIViewController {
+public class RootController: UIViewController {
 	/// Device status bar style.
 	public var statusBarStyle: UIStatusBarStyle {
 		get {

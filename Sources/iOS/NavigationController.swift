@@ -60,12 +60,12 @@ public class NavigationController : UINavigationController, UIGestureRecognizerD
 	
 	public override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		if let v: UIGestureRecognizer = interactivePopGestureRecognizer {
-			if let x: NavigationDrawerController = navigationDrawerController {
-				if let l: UIPanGestureRecognizer = x.leftPanGesture {
+		if let v = interactivePopGestureRecognizer {
+			if let x = navigationDrawerController {
+				if let l = x.leftPanGesture {
 					l.require(toFail: v)
 				}
-				if let r: UIPanGestureRecognizer = x.rightPanGesture {
+				if let r = x.rightPanGesture {
 					r.require(toFail: v)
 				}
 			}
@@ -80,8 +80,8 @@ public class NavigationController : UINavigationController, UIGestureRecognizerD
 	public override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		// Load the initial topItem.
-		if let v: NavigationBar = navigationBar as? NavigationBar {
-			if let item: UINavigationItem = v.topItem {
+		if let v = navigationBar as? NavigationBar {
+			if let item = v.topItem {
 				v.layoutNavigationItem(item: item)
 			}
 		}
@@ -107,14 +107,14 @@ public class NavigationController : UINavigationController, UIGestureRecognizerD
 	True is yes, false is no.
 	*/
 	public func navigationBar(navigationBar: UINavigationBar, shouldPushItem item: UINavigationItem) -> Bool {
-		if let v: NavigationBar = navigationBar as? NavigationBar {
-			let backButton: IconButton = IconButton()
+		if let v = navigationBar as? NavigationBar {
+			let backButton = IconButton()
 			backButton.pulseColor = Color.white
             backButton.setImage(v.backButtonImage, for: .normal)
             backButton.setImage(v.backButtonImage, for: .highlighted)
 			backButton.addTarget(self, action: #selector(handleBackButton), for: .touchUpInside)
 			
-			if var c: Array<UIControl> = item.leftControls {
+			if var c = item.leftControls {
 				c.append(backButton)
 				item.leftControls = c
 			} else {
@@ -144,7 +144,7 @@ public class NavigationController : UINavigationController, UIGestureRecognizerD
 		view.contentScaleFactor = Device.scale
 		
 		// This ensures the panning gesture is available when going back between views.
-		if let v: UIGestureRecognizer = interactivePopGestureRecognizer {
+		if let v = interactivePopGestureRecognizer {
 			v.isEnabled = true
 			v.delegate = self
 		}
