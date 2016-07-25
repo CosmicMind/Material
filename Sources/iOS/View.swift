@@ -131,24 +131,6 @@ public class View: UIView {
 	}
 	
 	/**
-     A property that manages the overall shape for the object. If either the
-     width or height property is set, the other will be automatically adjusted
-     to maintain the shape of the object.
-     */
-	public var shape: ShapePreset = .none {
-		didSet {
-			if .none != shape {
-				if width < height {
-					frame.size.width = height
-				} else {
-					frame.size.height = width
-				}
-				layoutShadowPath()
-			}
-		}
-	}
-	
-	/**
      An initializer that initializes the object with a NSCoder object.
      - Parameter aDecoder: A NSCoder instance.
      */
@@ -217,7 +199,7 @@ public class View: UIView {
 	
 	/// Manages the layout for the shape of the view instance.
 	internal func layoutShape() {
-		if .circle == shape {
+		if .circle == shapePreset {
 			let w: CGFloat = (width / 2)
 			if w != cornerRadius {
 				cornerRadius = w

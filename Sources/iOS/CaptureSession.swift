@@ -575,7 +575,7 @@ public class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 							if nil == captureError {
 								let data: NSData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer)
 								if let image1: UIImage = UIImage(data: data as Data) {
-									if let image2: UIImage = s.adjustOrientationForImage(image: image1) {
+                                    if let image2: UIImage = image1.adjustOrientation() {
 										s.delegate?.captureSessionStillImageAsynchronously?(captureSession: s, image: image2)
 									} else {
 										var userInfo: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
@@ -731,65 +731,5 @@ public class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 			delegate?.captureSessionCreateMovieFileFailedWithError?(captureSession: self, error: e)
 		}
 		return nil
-	}
-	
-	/**
-	Adjusts the orientation of the image from the capture orientation.
-	This is an issue when taking images, the capture orientation is not set correctly
-	when using Portrait.
-	- Parameter image: A UIImage to adjust.
-	- Returns: An optional UIImage if successful.
-	*/
-	private func adjustOrientationForImage(image: UIImage) -> UIImage? {
-		guard .up != image.imageOrientation else {
-			return image
-		}
-		
-		var transform: CGAffineTransform = .identity
-		
-		// Rotate if Left, Right, or Down.
-		switch image.imageOrientation {
-		case .down, .downMirrored:
-			transform = transform.translateBy(x: image.size.width, y: image.size.height)
-			transform = transform.rotate(CGFloat(M_PI))
-		case .left, .leftMirrored:
-			transform = transform.translateBy(x: image.size.width, y: 0)
-			transform = transform.rotate(CGFloat(M_PI_2))
-		case .right, .rightMirrored:
-			transform = transform.translateBy(x: 0, y: image.size.height)
-			transform = transform.rotate(-CGFloat(M_PI_2))
-		default:break
-		}
-		
-		// Flip if mirrored.
-		switch image.imageOrientation {
-		case .upMirrored, .downMirrored:
-			transform = transform.translateBy(x: image.size.width, y: 0)
-			transform = transform.scaleBy(x: -1, y: 1)
-		case .leftMirrored, .rightMirrored:
-			transform = transform.translateBy(x: image.size.height, y: 0)
-			transform = transform.scaleBy(x: -1, y: 1)
-		default:break
-		}
-		
-		// Draw the underlying cgImage with the calculated transform.
-		guard let context = CGContext(data: nil, width: Int(image.size.width), height: Int(image.size.height), bitsPerComponent: image.cgImage!.bitsPerComponent, bytesPerRow: 0, space: image.cgImage!.colorSpace!, bitmapInfo: image.cgImage!.bitmapInfo.rawValue) else {
-			return nil
-		}
-		
-		context.concatCTM(transform)
-		
-		switch image.imageOrientation {
-		case .left, .leftMirrored, .right, .rightMirrored:
-			context.draw(in: CGRect(x: 0, y: 0, width: image.size.height, height: image.size.width), image: image.cgImage!)
-		default:
-			context.draw(in: CGRect(origin: .zero, size: image.size), image: image.cgImage!)
-		}
-		
-		guard let cgImage = context.makeImage() else {
-			return nil
-		}
-		
-		return UIImage(cgImage: cgImage)
 	}
 }

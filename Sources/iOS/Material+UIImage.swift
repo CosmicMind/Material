@@ -177,4 +177,63 @@ public extension UIImage {
             }
         }.resume()
     }
+    
+    /**
+     Adjusts the orientation of the image from the capture orientation.
+     This is an issue when taking images, the capture orientation is not set correctly
+     when using Portrait.
+     - Returns: An optional UIImage if successful.
+     */
+    public func adjustOrientation() -> UIImage? {
+        guard .up != imageOrientation else {
+            return self
+        }
+        
+        var transform: CGAffineTransform = .identity
+        
+        // Rotate if Left, Right, or Down.
+        switch imageOrientation {
+        case .down, .downMirrored:
+            transform = transform.translateBy(x: size.width, y: size.height)
+            transform = transform.rotate(CGFloat(M_PI))
+        case .left, .leftMirrored:
+            transform = transform.translateBy(x: size.width, y: 0)
+            transform = transform.rotate(CGFloat(M_PI_2))
+        case .right, .rightMirrored:
+            transform = transform.translateBy(x: 0, y: size.height)
+            transform = transform.rotate(-CGFloat(M_PI_2))
+        default:break
+        }
+        
+        // Flip if mirrored.
+        switch imageOrientation {
+        case .upMirrored, .downMirrored:
+            transform = transform.translateBy(x: size.width, y: 0)
+            transform = transform.scaleBy(x: -1, y: 1)
+        case .leftMirrored, .rightMirrored:
+            transform = transform.translateBy(x: size.height, y: 0)
+            transform = transform.scaleBy(x: -1, y: 1)
+        default:break
+        }
+        
+        // Draw the underlying cgImage with the calculated transform.
+        guard let context = CGContext(data: nil, width: Int(size.width), height: Int(size.height), bitsPerComponent: cgImage!.bitsPerComponent, bytesPerRow: 0, space: cgImage!.colorSpace!, bitmapInfo: cgImage!.bitmapInfo.rawValue) else {
+            return nil
+        }
+        
+        context.concatCTM(transform)
+        
+        switch imageOrientation {
+        case .left, .leftMirrored, .right, .rightMirrored:
+            context.draw(in: CGRect(x: 0, y: 0, width: size.height, height: size.width), image: cgImage!)
+        default:
+            context.draw(in: CGRect(origin: .zero, size: size), image: cgImage!)
+        }
+        
+        guard let cgImage = context.makeImage() else {
+            return nil
+        }
+        
+        return UIImage(cgImage: cgImage)
+    }
 }
