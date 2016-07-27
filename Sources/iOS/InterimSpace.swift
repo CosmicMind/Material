@@ -51,22 +51,22 @@ public func InterimSpacePresetToValue(preset: InterimSpacePreset) -> InterimSpac
     case .none:
         return 0
     case .interimSpace1:
-        return 4
+        return 1
     case .interimSpace2:
-        return 8
+        return 2
     case .interimSpace3:
-        return 16
+        return 4
     case .interimSpace4:
-        return 24
+        return 8
     case .interimSpace5:
-        return 32
+        return 12
     case .interimSpace6:
-        return 40
+        return 16
     case .interimSpace7:
-        return 48
+        return 20
     case .interimSpace8:
-        return 56
+        return 24
     case .interimSpace9:
-        return 64
+        return 28
     }
 }
