@@ -48,7 +48,7 @@ public extension UIViewController {
 	}
 }
 
-public class SearchBarController : RootController {
+public class SearchBarController: RootController {
 	/// Reference to the SearchBar.
 	public private(set) var searchBar: SearchBar!
 	

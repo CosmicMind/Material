@@ -130,7 +130,7 @@ public protocol CaptureDelegate: MaterialDelegate {
     optional func captureDidPressVideoButton(capture: Capture, button: UIButton)
 }
 
-public class Capture : View, UIGestureRecognizerDelegate {
+public class Capture: View, UIGestureRecognizerDelegate {
 	/// A Timer reference for when recording is enabled.
 	private var timer: Timer?
 	

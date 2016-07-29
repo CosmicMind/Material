@@ -50,7 +50,7 @@ public extension UINavigationBar {
 }
 
 @IBDesignable
-public class NavigationBar : UINavigationBar {
+public class NavigationBar: UINavigationBar {
 	/// NavigationBarStyle value.
 	public var navigationBarStyle: NavigationBarStyle = .Default
 	
@@ -158,9 +158,17 @@ public class NavigationBar : UINavigationBar {
 	public override func sizeThatFits(_ size: CGSize) -> CGSize {
 		return intrinsicContentSize()
 	}
+    
+    public override func layoutSublayers(of layer: CALayer) {
+        super.layoutSublayers(of: layer)
+        if self.layer == layer {
+            layoutShape()
+        }
+    }
 	
 	public override func layoutSubviews() {
 		super.layoutSubviews()
+        layoutShadowPath()
 		
 		if let v = topItem {
 			layoutNavigationItem(item: v)

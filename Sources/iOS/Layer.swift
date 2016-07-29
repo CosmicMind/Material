@@ -161,9 +161,9 @@ public class Layer: CAShapeLayer {
 	}
 	
 	/// Enables automatic shadowPath sizing.
-	@IBInspectable public var shadowPathAutoSizeEnabled: Bool = true {
+	@IBInspectable public var isShadowPathAutoSizing: Bool = true {
 		didSet {
-			if shadowPathAutoSizeEnabled {
+			if isShadowPathAutoSizing {
 				layoutShadowPath()
 			}
 		}
@@ -354,7 +354,7 @@ public class Layer: CAShapeLayer {
 	
 	/// Sets the shadow path.
 	internal func layoutShadowPath() {
-		if shadowPathAutoSizeEnabled {
+		if isShadowPathAutoSizing {
 			if .none == depthPreset {
 				shadowPath = nil
 			} else if nil == shadowPath {

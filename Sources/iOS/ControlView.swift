@@ -229,7 +229,7 @@ public class ControlView : View {
 		interimSpacePreset = .interimSpace1
 		contentEdgeInsetsPreset = .square1
 		autoresizingMask = .flexibleWidth
-		shadowPathAutoSizeEnabled = false
+		isShadowPathAutoSizing = false
 		prepareContentView()
 	}
 	

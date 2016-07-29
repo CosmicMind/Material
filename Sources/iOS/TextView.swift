@@ -43,15 +43,6 @@ public class TextView: UITextView {
 		}
 	}
 	
-	/// Enables automatic shadowPath sizing.
-	@IBInspectable public var shadowPathAutoSizeEnabled: Bool = true {
-		didSet {
-			if shadowPathAutoSizeEnabled {
-				layoutShadowPath()
-			}
-		}
-	}
-	
 	/**
 	The title UILabel that is displayed when there is text. The 
 	titleLabel text value is updated with the placeholderLabel
@@ -153,8 +144,14 @@ public class TextView: UITextView {
 		removeNotificationHandlers()
 	}
 	
-	/// Overriding the layout callback for subviews.
-	public override func layoutSubviews() {
+    public override func layoutSublayers(of layer: CALayer) {
+        super.layoutSublayers(of: layer)
+        if self.layer == layer {
+            layoutShape()
+        }
+    }
+    
+    public override func layoutSubviews() {
 		super.layoutSubviews()
 		layoutShadowPath()
 		placeholderLabel?.preferredMaxLayoutWidth = textContainer.size.width - textContainer.lineFragmentPadding * 2
@@ -199,19 +196,6 @@ public class TextView: UITextView {
 			hideTitleLabel()
 		}
 		titleLabel?.textColor = titleLabelColor
-	}
-	
-	/// Sets the shadow path.
-	internal func layoutShadowPath() {
-		if shadowPathAutoSizeEnabled {
-			if .none == depthPreset {
-				shadowPath = nil
-			} else if nil == shadowPath {
-				shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
-			} else {
-				animate(animation: Animation.shadowPath(path: UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath, duration: 0))
-			}
-		}
 	}
 	
 	/**

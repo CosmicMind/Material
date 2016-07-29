@@ -30,7 +30,7 @@
 
 import UIKit
 
-public class Toolbar : BarView {
+public class Toolbar: BarView {
 	/// A convenience property to set the titleLabel text.
 	public var title: String? {
 		get {

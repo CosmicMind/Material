@@ -172,39 +172,11 @@ public class CollectionViewCell: UICollectionViewCell {
 		}
 	}
 	
-	/// Enables automatic shadowPath sizing.
-	@IBInspectable public var shadowPathAutoSizeEnabled: Bool = true {
-		didSet {
-			if shadowPathAutoSizeEnabled {
-				layoutShadowPath()
-			}
-		}
-	}
-	
-	/**
-	A property that manages the overall shape for the object. If either the
-	width or height property is set, the other will be automatically adjusted
-	to maintain the shape of the object.
-	*/
-	public var shape: ShapePreset {
-		didSet {
-			if .none != shape {
-				if width < height {
-					frame.size.width = height
-				} else {
-					frame.size.height = width
-				}
-				layoutShadowPath()
-			}
-		}
-	}
-	
 	/**
 	An initializer that initializes the object with a NSCoder object.
 	- Parameter aDecoder: A NSCoder instance.
 	*/
 	public required init?(coder aDecoder: NSCoder) {
-		shape = .none
 		contentsGravityPreset = .ResizeAspectFill
 		super.init(coder: aDecoder)
 		prepareView()
@@ -217,7 +189,6 @@ public class CollectionViewCell: UICollectionViewCell {
 	- Parameter frame: A CGRect instance.
 	*/
 	public override init(frame: CGRect) {
-		shape = .none
 		contentsGravityPreset = .ResizeAspectFill
 		super.init(frame: frame)
 		prepareView()
@@ -313,28 +284,5 @@ public class CollectionViewCell: UICollectionViewCell {
 	internal func layoutVisualLayer() {
 		visualLayer.frame = bounds
 		visualLayer.cornerRadius = cornerRadius
-	}
-	
-	/// Manages the layout for the shape of the view instance.
-	internal func layoutShape() {
-		if .circle == shape {
-			let w: CGFloat = (width / 2)
-			if w != cornerRadius {
-				cornerRadius = w
-			}
-		}
-	}
-	
-	/// Sets the shadow path.
-	internal func layoutShadowPath() {
-		if shadowPathAutoSizeEnabled {
-			if .none == depthPreset {
-				shadowPath = nil
-			} else if nil == shadowPath {
-				shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
-			} else {
-				animate(animation: Animation.shadowPath(path: UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath, duration: 0))
-			}
-		}
 	}
 }

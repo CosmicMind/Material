@@ -49,7 +49,7 @@ public extension UIViewController {
 }
 
 @IBDesignable
-public class StatusBarController : RootController {
+public class StatusBarController: RootController {
 	/// A reference to the statusBarView.
 	public private(set) var statusBarView: View!
 	

@@ -286,12 +286,14 @@ public class TextField: UITextField {
 	
 	public override func layoutSubviews() {
 		super.layoutSubviews()
-		layoutToSize()
+		
+        layoutToSize()
 	}
 	
 	public override func layoutSublayers(of layer: CALayer) {
 		super.layoutSublayers(of: layer)
 		if self.layer == layer {
+            layoutShape()
 			layoutDivider()
 		}
 	}

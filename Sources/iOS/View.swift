@@ -121,15 +121,6 @@ public class View: UIView {
 		}
 	}
 	
-	/// Enables automatic shadowPath sizing.
-	@IBInspectable public var shadowPathAutoSizeEnabled: Bool = true {
-		didSet {
-			if shadowPathAutoSizeEnabled {
-				layoutShadowPath()
-			}
-		}
-	}
-	
 	/**
      An initializer that initializes the object with a NSCoder object.
      - Parameter aDecoder: A NSCoder instance.
@@ -195,28 +186,5 @@ public class View: UIView {
 	internal func layoutVisualLayer() {
 		visualLayer.frame = bounds
 		visualLayer.cornerRadius = cornerRadius
-	}
-	
-	/// Manages the layout for the shape of the view instance.
-	internal func layoutShape() {
-		if .circle == shapePreset {
-			let w: CGFloat = (width / 2)
-			if w != cornerRadius {
-				cornerRadius = w
-			}
-		}
-	}
-	
-	/// Sets the shadow path.
-	internal func layoutShadowPath() {
-		if shadowPathAutoSizeEnabled {
-			if .none == depthPreset {
-				shadowPath = nil
-			} else if nil == shadowPath {
-				shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
-			} else {
-				animate(animation: Animation.shadowPath(path: UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath, duration: 0))
-			}
-		}
 	}
 }

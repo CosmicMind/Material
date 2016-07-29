@@ -81,6 +81,7 @@ public class Material {
                 } else {
                     v.frame.size.height = v.width
                 }
+                v.layoutShadowPath()
             }
         }
     }
@@ -105,6 +106,16 @@ public class Material {
             v.layer.shadowOffset = depth.offset.asSize
             v.layer.shadowOpacity = depth.opacity
             v.layer.shadowRadius = depth.radius
+            v.layoutShadowPath()
+        }
+    }
+    
+    /// Enables automatic shadowPath sizing.
+    public var isShadowPathAutoSizing: Bool = true {
+        didSet {
+            if isShadowPathAutoSizing {
+                view?.layoutShadowPath()
+            }
         }
     }
 }
@@ -187,6 +198,8 @@ public extension UIView {
         }
         set(value) {
             material.shapePreset = value
+            layoutShape()
+            layoutShadowPath()
         }
     }
     
@@ -249,6 +262,17 @@ public extension UIView {
         }
     }
     
+    /// Enables automatic shadowPath sizing.
+    @IBInspectable
+    public var isShadowPathAutoSizing: Bool {
+        get {
+            return material.isShadowPathAutoSizing
+        }
+        set(value) {
+            material.isShadowPathAutoSizing = value
+        }
+    }
+    
     /// A property that sets the cornerRadius of the backing layer.
     public var cornerRadiusPreset: CornerRadiusPreset {
         get {
@@ -267,6 +291,10 @@ public extension UIView {
         }
         set(value) {
             layer.cornerRadius = value
+            layoutShadowPath()
+            if .circle == shapePreset {
+                shapePreset = .none
+            }
         }
     }
     
@@ -366,6 +394,29 @@ public extension UIView {
         } else if let a = animation as? CAAnimationGroup {
             for x in a.animations! {
                 animationDidStop(x, finished: true)
+            }
+        }
+    }
+    
+    /// Manages the layout for the shape of the view instance.
+    internal func layoutShape() {
+        if .circle == shapePreset {
+            let w: CGFloat = (width / 2)
+            if w != cornerRadius {
+                cornerRadius = w
+            }
+        }
+    }
+    
+    /// Sets the shadow path.
+    internal func layoutShadowPath() {
+        if isShadowPathAutoSizing {
+            if .none == depthPreset {
+                shadowPath = nil
+            } else if nil == shadowPath {
+                shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
+            } else {
+                animate(animation: Animation.shadowPath(path: UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath, duration: 0))
             }
         }
     }

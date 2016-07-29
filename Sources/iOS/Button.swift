@@ -64,53 +64,6 @@ public class Button: UIButton {
 			layer.backgroundColor = backgroundColor?.cgColor
 		}
 	}
-		
-	/**
-     A property that accesses the layer.frame.size.width property.
-     When setting this property in conjunction with the shape property having a
-     value that is not .none, the height will be adjusted to maintain the correct
-     shape.
-     */
-	@IBInspectable
-    public override var width: CGFloat {
-		get {
-			return layer.frame.size.width
-		}
-		set(value) {
-			layer.frame.size.width = value
-			if .none != shapePreset {
-				layer.frame.size.height = value
-			}
-		}
-	}
-	
-	/**
-     A property that accesses the layer.frame.size.height property.
-     When setting this property in conjunction with the shape property having a
-     value that is not .none, the width will be adjusted to maintain the correct
-     shape.
-     */
-	@IBInspectable
-    public override var height: CGFloat {
-		get {
-			return layer.frame.size.height
-		}
-		set(value) {
-			layer.frame.size.height = value
-			if .none != shapePreset {
-				layer.frame.size.width = value
-			}
-		}
-	}
-	
-	/// Enables automatic shadowPath sizing.
-	@IBInspectable public var shadowPathAutoSizeEnabled: Bool = true {
-		didSet {
-			if shadowPathAutoSizeEnabled {
-				layoutShadowPath()
-			}
-		}
-	}
 	
 	/// A preset property for updated contentEdgeInsets.
 	public var contentEdgeInsetsPreset: EdgeInsetsPreset = .none {
@@ -153,18 +106,18 @@ public class Button: UIButton {
 		self.init(frame: CGRect.zero)
 	}
 	
-	public override func layoutSublayers(of layer: CALayer) {
-		super.layoutSublayers(of: layer)
-		if self.layer == layer {
-			layoutShape()
-			layoutVisualLayer()
-		}
-	}
-	
-	public override func layoutSubviews() {
-		super.layoutSubviews()
-		layoutShadowPath()
-	}
+    public override func layoutSublayers(of layer: CALayer) {
+        super.layoutSublayers(of: layer)
+        if self.layer == layer {
+            layoutShape()
+            layoutVisualLayer()
+        }
+    }
+    
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        layoutShadowPath()
+    }
 	
 	public override func alignmentRectInsets() -> UIEdgeInsets {
 		return UIEdgeInsets.zero
@@ -243,28 +196,5 @@ public class Button: UIButton {
 	internal func layoutVisualLayer() {
 		visualLayer.frame = bounds
 		visualLayer.cornerRadius = cornerRadius
-	}
-	
-	/// Manages the layout for the shape of the view instance.
-	internal func layoutShape() {
-		if .circle == shapePreset {
-			let w: CGFloat = (width / 2)
-			if w != cornerRadius {
-				cornerRadius = w
-			}
-		}
-	}
-	
-	/// Sets the shadow path.
-	internal func layoutShadowPath() {
-		if shadowPathAutoSizeEnabled {
-			if .none == depthPreset {
-				shadowPath = nil
-			} else if nil == shadowPath {
-				shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
-			} else {
-				animate(animation: Animation.shadowPath(path: UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath, duration: 0))
-			}
-		}
 	}
 }

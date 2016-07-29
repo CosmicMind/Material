@@ -70,8 +70,16 @@ public class BottomTabBar: UITabBar {
         prepareView()
     }
 	
+    public override func layoutSublayers(of layer: CALayer) {
+        super.layoutSublayers(of: layer)
+        if self.layer == layer {
+            layoutShape()
+        }
+    }
+    
 	public override func layoutSubviews() {
 		super.layoutSubviews()
+        layoutShadowPath()
 		if let v: Array<UITabBarItem> = items {
 			for item in v {
 				if .phone == Device.userInterfaceIdiom {
