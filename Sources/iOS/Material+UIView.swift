@@ -399,7 +399,7 @@ public extension UIView {
     }
     
     /// Manages the layout for the shape of the view instance.
-    internal func layoutShape() {
+    public func layoutShape() {
         if .circle == shapePreset {
             let w: CGFloat = (width / 2)
             if w != cornerRadius {
@@ -409,7 +409,7 @@ public extension UIView {
     }
     
     /// Sets the shadow path.
-    internal func layoutShadowPath() {
+    public func layoutShadowPath() {
         if isShadowPathAutoSizing {
             if .none == depthPreset {
                 shadowPath = nil
