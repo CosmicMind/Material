@@ -30,7 +30,7 @@
 
 import UIKit
 
-@objc
+@objc(NavigationDrawerPosition)
 public enum NavigationDrawerPosition: Int {
 	case left
 	case right

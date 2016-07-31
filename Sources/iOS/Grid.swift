@@ -30,7 +30,7 @@
 
 import UIKit
 
-@objc
+@objc(GridAxisDirection)
 public enum GridAxisDirection: Int {
     case none
     case horizontal

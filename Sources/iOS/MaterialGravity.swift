@@ -30,7 +30,7 @@
 
 import UIKit
 
-@objc
+@objc(MaterialGravity)
 public enum MaterialGravity: Int {
 	case Center
 	case Top

@@ -30,7 +30,7 @@
 
 import UIKit
 
-@objc
+@objc(AnimationRotationMode)
 public enum AnimationRotationMode: Int {
 	case none
 	case auto

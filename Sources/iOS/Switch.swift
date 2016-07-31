@@ -30,19 +30,19 @@
 
 import UIKit
 
-@objc
+@objc(SwitchStyle)
 public enum SwitchStyle: Int {
 	case light
 	case dark
 }
 
-@objc
+@objc(SwitchState)
 public enum SwitchState: Int {
 	case on
 	case off
 }
 
-@objc
+@objc(SwitchSize)
 public enum SwitchSize: Int {
 	case small
 	case medium
@@ -360,7 +360,7 @@ public class Switch: UIControl {
      - Parameter sender: A UIButton.
      - Parameter event: A UIEvent.
      */
-	@objc(handleTouchUpOutsideOrCanceled:event:)
+	@objc
 	internal func handleTouchUpOutsideOrCanceled(sender: FabButton, event: UIEvent) {
 		if let v: UITouch = event.touches(for: sender)?.first {
 			let q: CGFloat = sender.x + v.location(in: sender).x - v.previousLocation(in: sender).x
@@ -369,7 +369,8 @@ public class Switch: UIControl {
 	}
 	
 	/// Handles the TouchUpInside event.
-	internal func handleTouchUpInside() {
+	@objc
+    internal func handleTouchUpInside() {
 		toggle()
 	}
 	
@@ -378,7 +379,7 @@ public class Switch: UIControl {
      - Parameter sender: A UIButton.
      - Parameter event: A UIEvent.
      */
-	@objc(handleTouchDragInside:event:)
+	@objc
 	internal func handleTouchDragInside(sender: FabButton, event: UIEvent) {
 		if let v = event.touches(for: sender)?.first {
 			let q: CGFloat = max(min(sender.x + v.location(in: sender).x - v.previousLocation(in: sender).x, onPosition), offPosition)

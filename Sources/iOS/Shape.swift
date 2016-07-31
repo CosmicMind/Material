@@ -28,7 +28,7 @@
 * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-@objc
+@objc(ShapePreset)
 public enum ShapePreset: Int {
 	case none
 	case square

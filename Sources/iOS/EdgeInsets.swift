@@ -30,7 +30,7 @@
 
 import UIKit
 
-@objc
+@objc(EdgeInsetsPreset)
 public enum EdgeInsetsPreset: Int {
     case none
     

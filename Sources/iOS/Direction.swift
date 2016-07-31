@@ -28,7 +28,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-@objc
+@objc(Direction)
 public enum Direction: Int {
     case up
     case down
