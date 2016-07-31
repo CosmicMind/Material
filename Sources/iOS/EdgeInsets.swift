@@ -30,9 +30,8 @@
 
 import UIKit
 
-import UIKit
-
-public enum EdgeInsetsPreset {
+@objc
+public enum EdgeInsetsPreset: Int {
     case none
     
     // square

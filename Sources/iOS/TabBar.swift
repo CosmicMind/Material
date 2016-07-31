@@ -30,7 +30,8 @@
 
 import UIKit
 
-public enum TabBarLineAlignment {
+@objc
+public enum TabBarLineAlignment: Int {
 	case top
 	case bottom
 }

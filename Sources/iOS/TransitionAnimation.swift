@@ -33,14 +33,16 @@ import UIKit
 public typealias AnimationTransitionType = String
 public typealias AnimationTransitionSubTypeType = String
 
-public enum AnimationTransition {
+@objc
+public enum AnimationTransition: Int {
 	case Fade
 	case MoveIn
 	case Push
 	case Reveal
 }
 
-public enum AnimationTransitionSubType {
+@objc
+public enum AnimationTransitionSubType: Int {
 	case Right
 	case Left
 	case Top

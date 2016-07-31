@@ -31,7 +31,8 @@
 import UIKit
 
 /// NavigationBar styles.
-public enum NavigationBarStyle {
+@objc
+public enum NavigationBarStyle: Int {
 	case Tiny
 	case Default
 	case Medium

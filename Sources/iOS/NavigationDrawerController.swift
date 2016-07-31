@@ -31,7 +31,7 @@
 import UIKit
 
 @objc
-public enum NavigationDrawerPosition: NSInteger {
+public enum NavigationDrawerPosition: Int {
 	case left
 	case right
 }

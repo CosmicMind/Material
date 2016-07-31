@@ -30,28 +30,48 @@
 
 import UIKit
 
-public enum ImageFormat {
+@objc
+public enum ImageFormat: Int {
 	case png
 	case jpeg
 }
 
 public extension UIImage {
-    /**
-     :name:	width
-     */
+    /// Width of the UIImage.
     public var width: CGFloat {
         return size.width
     }
     
-    /**
-     :name:	height
-     */
+    /// Height of the UIImage.
     public var height: CGFloat {
         return size.height
     }
+}
+
+public extension UIImage {
+    /**
+     Resizes an image based on a given width.
+     - Parameter toWidth w: A width value.
+     - Returns: An optional UIImage.
+     */
+    public func resize(toWidth w: CGFloat) -> UIImage? {
+        return internalResize(toWidth: w)
+    }
     
     /**
-     :name:	internalResize
+     Resizes an image based on a given height.
+     - Parameter toHeight h: A height value.
+     - Returns: An optional UIImage.
+     */
+    public func resize(toHeight h: CGFloat) -> UIImage? {
+        return internalResize(toHeight: h)
+    }
+    
+    /**
+     Internally resizes the image.
+     - Parameter toWidth tw: A width.
+     - Parameter toHeight th: A height.
+     - Returns: An optional UIImage.
      */
     private func internalResize(toWidth tw: CGFloat = 0, toHeight th: CGFloat = 0) -> UIImage? {
         var w: CGFloat?
@@ -72,21 +92,9 @@ public extension UIImage {
         
         return g
     }
-    
-    /**
-     :name:	resize
-     */
-    public func resize(toWidth w: CGFloat) -> UIImage? {
-        return internalResize(toWidth: w)
-    }
-    
-    /**
-     :name:	resize
-     */
-    public func resize(toHeight h: CGFloat) -> UIImage? {
-        return internalResize(toHeight: h)
-    }
-    
+}
+
+public extension UIImage {
     /**
      Creates a new image with the passed in color.
      - Parameter color: The UIColor to create the image from.
@@ -112,7 +120,9 @@ public extension UIImage {
         UIGraphicsEndImageContext()
         return image
     }
-    
+}
+
+public extension UIImage {
     /**
      Creates an Image that is a color.
      - Parameter color: The UIColor to create the image from.
@@ -128,9 +138,14 @@ public extension UIImage {
         UIGraphicsEndImageContext()
         return image
     }
-    
+}
+
+public extension UIImage {
     /**
-     :name:	crop
+     Crops an image to a specified width and height.
+     - Parameter toWidth tw: A specified width.
+     - Parameter toHeight th: A specified height.
+     - Returns: An optional UIImage.
      */
     public func crop(toWidth tw: CGFloat, toHeight th: CGFloat) -> UIImage? {
         let g: UIImage?
@@ -148,7 +163,9 @@ public extension UIImage {
         
         return g
     }
-    
+}
+
+public extension UIImage {
     /**
      Creates an clear image.
      - Returns: A UIImage that is clear.
@@ -159,7 +176,9 @@ public extension UIImage {
         UIGraphicsEndImageContext()
         return image
     }
-    
+}
+
+public extension UIImage {
     /**
      Asynchronously load images with a completion block.
      - Parameter URL: A URL destination to fetch the image from.
@@ -177,7 +196,9 @@ public extension UIImage {
             }
         }.resume()
     }
-    
+}
+
+public extension UIImage {
     /**
      Adjusts the orientation of the image from the capture orientation.
      This is an issue when taking images, the capture orientation is not set correctly

@@ -30,17 +30,20 @@
 
 import UIKit
 
-public enum SwitchStyle {
+@objc
+public enum SwitchStyle: Int {
 	case light
 	case dark
 }
 
-public enum SwitchState {
+@objc
+public enum SwitchState: Int {
 	case on
 	case off
 }
 
-public enum SwitchSize {
+@objc
+public enum SwitchSize: Int {
 	case small
 	case medium
 	case large

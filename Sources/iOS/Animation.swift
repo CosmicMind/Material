@@ -32,7 +32,8 @@ import UIKit
 
 public typealias AnimationFillModeType = String
 
-public enum AnimationFillMode {
+@objc
+public enum AnimationFillMode: Int {
 	case forwards
 	case backwards
 	case both

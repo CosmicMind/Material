@@ -31,7 +31,8 @@
 import UIKit
 import AVFoundation
 
-public enum CaptureMode {
+@objc
+public enum CaptureMode: Int {
 	case photo
 	case video
 }

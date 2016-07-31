@@ -30,7 +30,8 @@
 
 import UIKit
 
-public enum CornerRadiusPreset {
+@objc
+public enum CornerRadiusPreset: Int {
 	case none
 	case cornerRadius1
 	case cornerRadius2

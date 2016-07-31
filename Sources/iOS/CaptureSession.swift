@@ -33,7 +33,8 @@ import AVFoundation
 
 private var CaptureSessionAdjustingExposureContext: UInt8 = 1
 
-public enum CaptureSessionPreset {
+@objc
+public enum CaptureSessionPreset: Int {
 	case presetPhoto
 	case presetHigh
 	case presetMedium
