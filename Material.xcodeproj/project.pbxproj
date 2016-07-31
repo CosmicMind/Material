@@ -172,6 +172,7 @@
 		96E3C39C1D3A1CC20086A024 /* Offset.swift in Headers */ = {isa = PBXBuildFile; fileRef = 968C99461D377849000074FF /* Offset.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96E3C39E1D3A1D0C0086A024 /* BasicAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E3C39D1D3A1D0C0086A024 /* BasicAnimation.swift */; };
 		96EA9A431D4E68F80052C74D /* PhotoLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EA9A421D4E68F80052C74D /* PhotoLibrary.swift */; };
+		96EA9A4B1D4E7A430052C74D /* PhotoLibraryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EA9A4A1D4E7A430052C74D /* PhotoLibraryController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -283,6 +284,7 @@
 		96E3C3931D397AE90086A024 /* Material+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIView.swift"; sourceTree = "<group>"; };
 		96E3C39D1D3A1D0C0086A024 /* BasicAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicAnimation.swift; sourceTree = "<group>"; };
 		96EA9A421D4E68F80052C74D /* PhotoLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibrary.swift; sourceTree = "<group>"; };
+		96EA9A4A1D4E7A430052C74D /* PhotoLibraryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibraryController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -652,6 +654,7 @@
 			isa = PBXGroup;
 			children = (
 				96EA9A421D4E68F80052C74D /* PhotoLibrary.swift */,
+				96EA9A4A1D4E7A430052C74D /* PhotoLibraryController.swift */,
 			);
 			name = PhotoLibrary;
 			sourceTree = "<group>";
@@ -946,6 +949,7 @@
 				96BCB7BA1CB40DC500C806FE /* CollectionView.swift in Sources */,
 				96BCB7A31CB40DC500C806FE /* CapturePreview.swift in Sources */,
 				96BCB7BC1CB40DC500C806FE /* CollectionViewDataSource.swift in Sources */,
+				96EA9A4B1D4E7A430052C74D /* PhotoLibraryController.swift in Sources */,
 				96E3C3941D397AE90086A024 /* Material+UIView.swift in Sources */,
 				96BCB7C71CB40DC500C806FE /* KeyframeAnimation.swift in Sources */,
 				96BCB7BE1CB40DC500C806FE /* CollectionViewLayout.swift in Sources */,
