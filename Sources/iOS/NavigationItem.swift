@@ -63,6 +63,14 @@ public class MaterialAssociatedObjectNavigationItem {
 		prepareTitleLabel()
 		prepareDetailLabel()
 	}
+    
+    /// Reloads the subviews for the NavigationBar.
+    internal func reloadNavigationBar() {
+        guard let navigationBar = contentView?.superview?.superview as? NavigationBar else {
+            return
+        }
+        navigationBar.layoutSubviews()
+    }
 	
 	/// Prepares the titleLabel.
 	private func prepareTitleLabel() {
@@ -119,17 +127,13 @@ public extension UINavigationItem {
 		}
 		set(value) {
 			titleLabel.text = value
+            item.reloadNavigationBar()
 		}
 	}
 	
 	/// Title Label.
-	public internal(set) var titleLabel: UILabel {
-		get {
-			return item.titleLabel
-		}
-		set(value) {
-			item.titleLabel = value
-		}
+	public var titleLabel: UILabel {
+		return item.titleLabel
 	}
 	
 	/// Detail text.
@@ -139,17 +143,13 @@ public extension UINavigationItem {
 		}
 		set(value) {
 			detailLabel.text = value
+            item.reloadNavigationBar()
 		}
 	}
 	
 	/// Detail Label.
-	public internal(set) var detailLabel: UILabel {
-		get {
-			return item.detailLabel
-		}
-		set(value) {
-			item.detailLabel = value
-		}
+	public var detailLabel: UILabel {
+		return item.detailLabel
 	}
 	
 	/// Left side UIControls.
