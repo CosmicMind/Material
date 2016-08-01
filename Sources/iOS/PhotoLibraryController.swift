@@ -30,11 +30,6 @@
 
 import Photos
 
-public struct Item {
-    var album: PHAssetCollection
-    var assets: [PHAsset]
-}
-
 public class PhotoLibraryController: UIViewController, PhotoLibraryDelegate {
     /// A reference to a PhotoLibrary.
     public private(set) var photoLibrary: PhotoLibrary!

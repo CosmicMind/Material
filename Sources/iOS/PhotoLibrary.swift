@@ -30,6 +30,11 @@
 
 import Photos
 
+public struct PhotoLibraryDataSource {
+    public private(set) var collection: PHAssetCollection
+    public private(set) var assets: [PHAsset]
+}
+
 @objc(PhotoLibraryDelegate)
 public protocol PhotoLibraryDelegate {
     /**
@@ -106,15 +111,15 @@ public class PhotoLibrary: NSObject {
     public private(set) var fetchResult: PHFetchResult<PHAssetCollection>?
     
     /// The assets used in the album.
-    public private(set) var collections: [PHAssetCollection: [PHAsset]]! {
+    public private(set) var collections: [PhotoLibraryDataSource]! {
         willSet {
             cachingImageManager.stopCachingImagesForAllAssets()
         }
         
         didSet {
             cachingImageManager.allowsCachingHighQualityImages = true
-            for (_, assets) in collections {
-                cachingImageManager.startCachingImages(for: assets, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFit, options: nil)
+            for dataSource in collections {
+                cachingImageManager.startCachingImages(for: dataSource.assets, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFit, options: nil)
             }
         }
     }
@@ -182,7 +187,7 @@ public class PhotoLibrary: NSObject {
      - Parameter subtype: A PHAssetCollectionSubtype.
      - Parameter completion: An optional completion block.
      */
-    public func fetch(type: PHAssetCollectionType, subtype: PHAssetCollectionSubtype, completion: ([PHAssetCollection: [PHAsset]]) -> Void) {
+    public func fetch(type: PHAssetCollectionType, subtype: PHAssetCollectionSubtype, completion: ([PhotoLibraryDataSource]) -> Void) {
         DispatchQueue.global(attributes: DispatchQueue.GlobalAttributes.qosDefault).async { [weak self, type = type, subtype = subtype, completion = completion] in
             guard let s = self else {
                 return
@@ -200,7 +205,7 @@ public class PhotoLibrary: NSObject {
             options.wantsIncrementalChangeDetails = false
             
             s.fetchResult = PHAssetCollection.fetchAssetCollections(with: type, subtype: subtype, options: options)
-            s.fetchResult?.enumerateObjects(options: []) { [weak self] (collection, _, _) in
+            s.fetchResult?.enumerateObjects(options: [.concurrent]) { [weak self] (collection, _, _) in
                 guard let s = self else {
                     return
                 }
@@ -216,7 +221,7 @@ public class PhotoLibrary: NSObject {
                     assets.append(asset)
                 }
                 
-                s.collections[collection] = assets
+                s.collections.append(PhotoLibraryDataSource(collection: collection, assets: assets))
             }
         }
     }
@@ -229,7 +234,7 @@ public class PhotoLibrary: NSObject {
     
     /// Prepares the collections.
     private func prepareCollections() {
-        collections = [PHAssetCollection: [PHAsset]]()
+        collections = [PhotoLibraryDataSource]()
     }
     
     /// A method used to enable change observation.
@@ -239,7 +244,7 @@ public class PhotoLibrary: NSObject {
     
 //    public func moments(in momentList: PHCollectionList, options: PHFetchOptions?) -> [PHAssetCollection] {
 //        var v = [PHAssetCollection]()
-//        PHAssetCollection.fetchMoments(inMomentList: momentList, options: options).enumerateObjects(options: EnumerationOptions.concurrent) { (collection, _, _) in
+//        PHAssetCollection.fetchMoments(inMomentList: momentList, options: options).enumerateObjects(options: [.concurrent]) { (collection, _, _) in
 //            v.append(collection)
 //        }
 //        return v
@@ -308,7 +313,7 @@ extension PhotoLibrary: PHPhotoLibraryChangeObserver {
         delegate?.photoLibrary?(photoLibrary: self, didChange: changeInfo)
         
         // Notifiy about specific changes.
-        fetchResult?.enumerateObjects(options: EnumerationOptions.concurrent) { [weak self, changeInfo = changeInfo] (collection, _, _) in
+        fetchResult?.enumerateObjects(options: .concurrent) { [weak self, changeInfo = changeInfo] (collection, _, _) in
             guard let s = self else {
                 return
             }
