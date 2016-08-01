@@ -88,6 +88,13 @@ public protocol PhotoLibraryDelegate {
      */
     @objc
     optional func photoLibrary(photoLibrary: PhotoLibrary, beforeChanges: PHObject, afterChanges: PHObject, assetContentChanged: Bool, objectWasDeleted: Bool)
+    
+    /**
+     A delegation method that is executed when there is a change in the
+     fetchResult object.
+     */
+    @objc
+    optional func photoLibrary(photoLibrary: PhotoLibrary, fetchBeforeChanges: PHFetchResult<PHObject>, fetchAfterChanges: PHFetchResult<PHObject>)
 }
 
 @objc(PhotoLibrary)
@@ -243,18 +250,47 @@ public class PhotoLibrary: NSObject {
 //        return result
 //    }
 //    
-    public func performChanges(_ changeBlock: () -> Void, completionHandler: ((Bool, NSError?) -> Void)? = nil) {
-        PHPhotoLibrary.shared().performChanges(changeBlock, completionHandler: completionHandler)
+    
+    /**
+     Performes an asynchronous change to the PHPhotoLibrary database.
+     - Parameter _ block: A transactional block that ensures that
+     all changes to the PHPhotoLibrary are atomic. 
+     - Parameter completion: A completion block that is executed once the
+     transaction has been completed.
+     */
+    public func performChanges(_ block: () -> Void, completion: ((Bool, NSError?) -> Void)? = nil) {
+        PHPhotoLibrary.shared().performChanges(block, completionHandler: completion)
     }
     
+    /**
+     Retrieves an optional UIImage for a given PHAsset that allows for a targetSize
+     and contentMode. 
+     - Parameter for asset: A PHAsset.
+     - Parameter targetSize: A CGSize.
+     - Parameter contentMode: A PHImageContentMode.
+     - Parameter options: A PHImageRequestOptions.
+     - Parameter completion: A completion block.
+     - Returns: A PHImageRequestID.
+     */
     public func image(for asset: PHAsset, targetSize: CGSize, contentMode: PHImageContentMode, options: PHImageRequestOptions?, completion: (UIImage?, [NSObject: AnyObject]?) -> Void) -> PHImageRequestID {
         return PHImageManager.default().requestImage(for: asset, targetSize: targetSize, contentMode: contentMode, options: options, resultHandler: completion)
     }
     
+    /**
+     Retrieves an optional Data object for a given PHAsset.
+     - Parameter for asset: A PHAsset.
+     - Parameter options: A PHImageRequestOptions.
+     - Parameter completion: A completion block.
+     - Returns: A PHImageRequestID.
+     */
     public func data(for asset: PHAsset, options: PHImageRequestOptions?, completion: (Data?, String?, UIImageOrientation, [NSObject: AnyObject]?) -> Void) -> PHImageRequestID {
         return PHImageManager.default().requestImageData(for: asset, options: options, resultHandler: completion)
     }
 
+    /**
+     Cance;s an image request for a given PHImageRequestID.
+     - Parameter for requestID: A PHImageRequestID.
+     */
     public func cancel(for requestID: PHImageRequestID) {
         PHImageManager.default().cancelImageRequest(requestID)
     }
@@ -268,13 +304,11 @@ extension PhotoLibrary: PHPhotoLibraryChangeObserver {
      photo library.
      */
     public func photoLibraryDidChange(_ changeInfo: PHChange) {
+        // Notify about the general change.
         delegate?.photoLibrary?(photoLibrary: self, didChange: changeInfo)
         
-        guard let result = fetchResult else {
-            return
-        }
-        
-        result.enumerateObjects(options: []) { [weak self, changeInfo = changeInfo] (collection, _, _) in
+        // Notifiy about specific changes.
+        fetchResult?.enumerateObjects(options: EnumerationOptions.concurrent) { [weak self, changeInfo = changeInfo] (collection, _, _) in
             guard let s = self else {
                 return
             }
@@ -289,5 +323,15 @@ extension PhotoLibrary: PHPhotoLibraryChangeObserver {
             
             s.delegate?.photoLibrary?(photoLibrary: s, beforeChanges: details.objectBeforeChanges, afterChanges: afterChanges, assetContentChanged: details.assetContentChanged, objectWasDeleted: details.objectWasDeleted)
         }
+        
+        guard let result = fetchResult as? PHFetchResult<AnyObject> else {
+            return
+        }
+        
+        guard let details = changeInfo.changeDetails(for: result) else {
+            return
+        }
+        
+        delegate?.photoLibrary?(photoLibrary: self, fetchBeforeChanges: details.fetchResultBeforeChanges, fetchAfterChanges: details.fetchResultAfterChanges)
     }
 }
