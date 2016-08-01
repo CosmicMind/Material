@@ -62,7 +62,7 @@ public protocol TextDelegate {
 	publishing or resolving.
 	*/
 	@objc
-    optional func textDidProcessEdit(text: Text, textStorage: TextStorage, string: String, result: TextCheckingResult?, flags: RegularExpression.MatchingFlags, stop: UnsafeMutablePointer<ObjCBool>)
+    optional func textDidProcessEdit(text: Text, textStorage: TextStorage, string: String, result: NSTextCheckingResult?, flags: NSRegularExpression.MatchingFlags, stop: UnsafeMutablePointer<ObjCBool>)
 }
 
 @objc(Text)
@@ -113,7 +113,7 @@ public class Text : NSObject {
 	
 	/// Prepares the TextStorage regular expression for matching.
 	private func prepareTextStorageExpression() {
-		textStorage.expression = try? RegularExpression(pattern: pattern, options: [])
+		textStorage.expression = try? NSRegularExpression(pattern: pattern, options: [])
 	}
 	
 	/// Prepares the pre and post processing callbacks.
@@ -123,7 +123,7 @@ public class Text : NSObject {
 				s.delegate?.textWillProcessEdit?(text: s, textStorage: textStorage, string: string, range: range)
 			}
 		}
-		textStorage.textDidProcessEdit = { [weak self] (textStorage: TextStorage, result: TextCheckingResult?, flags: RegularExpression.MatchingFlags, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
+		textStorage.textDidProcessEdit = { [weak self] (textStorage: TextStorage, result: NSTextCheckingResult?, flags: NSRegularExpression.MatchingFlags, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
 			if let s: Text = self {
 				s.delegate?.textDidProcessEdit?(text: s, textStorage: textStorage, string: textStorage.string, result: result, flags: flags, stop: stop)
 			}

@@ -76,12 +76,12 @@ public struct Device {
     
     /// Retrieves the current device type.
 	public static var userInterfaceIdiom: UIUserInterfaceIdiom {
-		return UIDevice.current().userInterfaceIdiom
+		return UIDevice.current.userInterfaceIdiom
 	}
 	
 	/// A Boolean indicating if the device is in Landscape mode.
 	public static var isLandscape: Bool {
-		return UIApplication.shared().statusBarOrientation.isLandscape
+		return UIApplication.shared.statusBarOrientation.isLandscape
 	}
 	
 	/// A Boolean indicating if the device is in Portrait mode.
@@ -91,32 +91,32 @@ public struct Device {
 	
 	/// The current UIInterfaceOrientation value.
 	public static var orientation: UIInterfaceOrientation {
-		return UIApplication.shared().statusBarOrientation
+		return UIApplication.shared.statusBarOrientation
 	}
 	
 	/// Retrieves the device status bar style.
 	public static var statusBarStyle: UIStatusBarStyle {
 		get {
-            return UIApplication.shared().statusBarStyle
+            return UIApplication.shared.statusBarStyle
 		}
 		set(value) {
-			UIApplication.shared().statusBarStyle = value
+			UIApplication.shared.statusBarStyle = value
 		}
 	}
 	
 	/// Retrieves the device status bar hidden state.
 	public static var isStatusBarHidden: Bool {
 		get {
-            return UIApplication.shared().isStatusBarHidden
+            return UIApplication.shared.isStatusBarHidden
 		}
 		set(value) {
-			UIApplication.shared().isStatusBarHidden = value
+			UIApplication.shared.isStatusBarHidden = value
 		}
 	}
 	
 	/// Retrieves the device bounds.
 	public static var bounds: CGRect {
-		return UIScreen.main().bounds
+		return UIScreen.main.bounds
 	}
 	
 	/// Retrieves the device width.
@@ -131,6 +131,6 @@ public struct Device {
 	
 	/// Retrieves the device scale.
 	public static var scale: CGFloat {
-		return UIScreen.main().scale
+		return UIScreen.main.scale
 	}
 }

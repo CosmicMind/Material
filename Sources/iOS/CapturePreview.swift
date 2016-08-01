@@ -32,7 +32,7 @@ import UIKit
 import AVFoundation
 
 public class CapturePreview: View {
-	public override class func layerClass() -> AnyClass {
+    public override class var layerClass: AnyClass {
 		return AVCaptureVideoPreviewLayer.self
 	}
 

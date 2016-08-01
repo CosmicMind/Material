@@ -244,6 +244,17 @@ public class Switch: UIControl {
 			layoutSwitch()
 		}
 	}
+    
+    public override var intrinsicContentSize: CGSize {
+        switch switchSize {
+        case .small:
+            return CGSize(width: 30, height: 25)
+        case .medium:
+            return CGSize(width: 40, height: 30)
+        case .large:
+            return CGSize(width: 50, height: 40)
+        }
+    }
 	
 	/**
      An initializer that initializes the object with a NSCoder object.
@@ -298,17 +309,6 @@ public class Switch: UIControl {
 	public override func willMove(toSuperview newSuperview: UIView?) {
 		super.willMove(toSuperview: newSuperview)
 		styleForState(state: internalSwitchState)
-	}
-	
-	public override func intrinsicContentSize() -> CGSize {
-		switch switchSize {
-		case .small:
-            return CGSize(width: 30, height: 25)
-        case .medium:
-            return CGSize(width: 40, height: 30)
-		case .large:
-            return CGSize(width: 50, height: 40)
-		}
 	}
 	
 	/**

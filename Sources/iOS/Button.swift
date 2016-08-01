@@ -119,10 +119,6 @@ public class Button: UIButton {
         layoutShadowPath()
     }
 	
-	public override func alignmentRectInsets() -> UIEdgeInsets {
-		return UIEdgeInsets.zero
-	}
-	
     /**
      Triggers the pulse animation.
      - Parameter point: A Optional point to pulse from, otherwise pulses

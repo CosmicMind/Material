@@ -188,7 +188,7 @@ public class PhotoLibrary: NSObject {
      - Parameter completion: An optional completion block.
      */
     public func fetch(type: PHAssetCollectionType, subtype: PHAssetCollectionSubtype, completion: ([PhotoLibraryDataSource]) -> Void) {
-        DispatchQueue.global(attributes: DispatchQueue.GlobalAttributes.qosDefault).async { [weak self, type = type, subtype = subtype, completion = completion] in
+        DispatchQueue.global(qos: .default).async { [weak self, type = type, subtype = subtype, completion = completion] in
             guard let s = self else {
                 return
             }
@@ -211,7 +211,7 @@ public class PhotoLibrary: NSObject {
                 }
                 
                 let options = PHFetchOptions()
-                let descriptor = SortDescriptor(key: "creationDate", ascending: false)
+                let descriptor = NSSortDescriptor(key: "creationDate", ascending: false)
                 options.sortDescriptors = [descriptor]
                 options.includeHiddenAssets = true
                 options.includeAllBurstAssets = true
@@ -263,7 +263,7 @@ public class PhotoLibrary: NSObject {
      - Parameter completion: A completion block that is executed once the
      transaction has been completed.
      */
-    public func performChanges(_ block: () -> Void, completion: ((Bool, NSError?) -> Void)? = nil) {
+    public func performChanges(_ block: () -> Void, completion: ((Bool, Error?) -> Void)? = nil) {
         PHPhotoLibrary.shared().performChanges(block, completionHandler: completion)
     }
     

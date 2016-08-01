@@ -86,7 +86,7 @@ private class FontLoader {
 			
 			let bundle = Bundle(for: FontLoader.self)
 			let identifier = bundle.bundleIdentifier
-			let fontURL = true == identifier?.hasPrefix("org.cocoapods") ? bundle.urlForResource(name, withExtension: "ttf", subdirectory: "io.cosmicmind.material.fonts.bundle") : bundle.urlForResource(name, withExtension: "ttf")
+            let fontURL = true == identifier?.hasPrefix("org.cocoapods") ? bundle.url(forResource: name, withExtension: "ttf", subdirectory: "io.cosmicmind.material.fonts.bundle") : bundle.url(forResource: name, withExtension: "ttf")
 			
 			if let v = fontURL {
 				let data = NSData(contentsOf: v as URL)!
@@ -95,9 +95,9 @@ private class FontLoader {
                 
                 var error: Unmanaged<CFError>?
                 if !CTFontManagerRegisterGraphicsFont(font, &error) {
-                    let errorDescription: CFString = CFErrorCopyDescription(error!.takeUnretainedValue())
-					let nsError: NSError = error!.takeUnretainedValue() as AnyObject as! NSError
-                    NSException(name: .internalInconsistencyException, reason: errorDescription as String, userInfo: [NSUnderlyingErrorKey: nsError]).raise()
+                    let errorDescription = CFErrorCopyDescription(error!.takeUnretainedValue())
+					let nsError = error!.takeUnretainedValue() as AnyObject as! Error
+                    NSException(name: .internalInconsistencyException, reason: errorDescription as? String, userInfo: [NSUnderlyingErrorKey: nsError as AnyObject]).raise()
                 }
             }
         }

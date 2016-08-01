@@ -32,13 +32,13 @@ import UIKit
 
 public struct Color {
 	// clear
-	public static let clear: UIColor = UIColor.clear()
+	public static let clear: UIColor = UIColor.clear
 	
 	// white
-	public static let white: UIColor = UIColor.white()
+	public static let white: UIColor = UIColor.white
 	
 	// black
-	public static let black: UIColor = UIColor.black()
+	public static let black: UIColor = UIColor.black
 	
 	// dark text
 	public struct darkText {

@@ -69,6 +69,10 @@ public class CollectionViewLayout: UICollectionViewLayout {
 	/// Spacing between items.
 	public var interimSpace: InterimSpace = 0
 	
+    public override var collectionViewContentSize: CGSize {
+        return contentSize
+    }
+    
 	/**
 	Retrieves the index paths for the items within the passed in CGRect.
 	- Parameter rect: A CGRect that acts as the bounds to find the items within.
@@ -111,10 +115,6 @@ public class CollectionViewLayout: UICollectionViewLayout {
 	
 	public override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
 		return .vertical == scrollDirection ? newBounds.width != collectionView!.bounds.width : newBounds.height != collectionView!.bounds.height
-	}
-	
-	public override func collectionViewContentSize() -> CGSize {
-		return contentSize
 	}
 	
 	public override func prepare() {

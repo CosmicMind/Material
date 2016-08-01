@@ -31,7 +31,7 @@
 import UIKit
 
 internal typealias TextWillProcessEdit = (TextStorage, String, NSRange) -> Void
-internal typealias TextDidProcessEdit = (TextStorage, TextCheckingResult?, RegularExpression.MatchingFlags, UnsafeMutablePointer<ObjCBool>) -> Void
+internal typealias TextDidProcessEdit = (TextStorage, NSTextCheckingResult?, NSRegularExpression.MatchingFlags, UnsafeMutablePointer<ObjCBool>) -> Void
 
 public class TextStorage: NSTextStorage {
 	/// A callback that is executed when a process edit will happen.
@@ -44,7 +44,7 @@ public class TextStorage: NSTextStorage {
 	public lazy var store: NSMutableAttributedString = NSMutableAttributedString()
 	
 	/// The regular expression to match text fragments against.
-	public var expression: RegularExpression?
+	public var expression: NSRegularExpression?
 	
 	/// Initializer.
 	public required init?(coder aDecoder: NSCoder) {
@@ -67,7 +67,7 @@ public class TextStorage: NSTextStorage {
 		
 		textWillProcessEdit?(self, string, range)
 		
-		expression!.enumerateMatches(in: string, options: [], range: range) { (result: TextCheckingResult?, flags: RegularExpression.MatchingFlags, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
+		expression!.enumerateMatches(in: string, options: [], range: range) { (result: NSTextCheckingResult?, flags: NSRegularExpression.MatchingFlags, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
 			self.textDidProcessEdit?(self, result, flags, stop)
 		}
 		super.processEditing()

@@ -63,7 +63,7 @@ public struct Animation {
 	public static func delay(time: TimeInterval, completion: ()-> Void) ->  AnimationDelayCancelBlock? {
 		
 		func dispatch_later(completion: ()-> Void) {
-			DispatchQueue.main.after(when: DispatchTime.now() + time, execute: completion)
+			DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time, execute: completion)
         }
 		
 		var cancelable: AnimationDelayCancelBlock?

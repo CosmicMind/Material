@@ -35,7 +35,7 @@ public class MaterialLabel : UILabel {
 	/**
 	:name:	layerClass
 	*/
-	public override class func layerClass() -> AnyClass {
+    public override class var layerClass: AnyClass {
 		return MaterialTextLayer.self
 	}
 	

@@ -36,8 +36,8 @@ public class BottomNavigationFadeAnimatedTransitioning : NSObject, UIViewControl
 		let toView : UIView = transitionContext.view(forKey: UITransitionContextToViewKey)!
 		toView.alpha = 0
 		
-		transitionContext.containerView().addSubview(fromView)
-		transitionContext.containerView().addSubview(toView)
+		transitionContext.containerView.addSubview(fromView)
+		transitionContext.containerView.addSubview(toView)
 		
 		UIView.animate(withDuration: transitionDuration(using: transitionContext),
 			animations: { _ in

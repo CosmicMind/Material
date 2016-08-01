@@ -42,12 +42,10 @@ public struct Icon {
 		if nil == Icon.internalBundle {
 			Icon.internalBundle = Bundle(for: View.self)
 			let url = Icon.internalBundle!.resourceURL!
-            do {
-                let b = Bundle(url: try url.appendingPathComponent("io.cosmicmind.material.icons.bundle"))
-                if let v = b {
-                    Icon.internalBundle = v
-                }
-            } catch {}
+            let b = Bundle(url: url.appendingPathComponent("io.cosmicmind.material.icons.bundle"))
+            if let v = b {
+                Icon.internalBundle = v
+            }
 		}
 		return Icon.internalBundle!
 	}

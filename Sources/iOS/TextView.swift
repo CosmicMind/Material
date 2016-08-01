@@ -85,7 +85,7 @@ public class TextView: UITextView {
 	}
 	
 	/// An override to the attributedText property.
-	public override var attributedText: AttributedString! {
+	public override var attributedText: NSAttributedString! {
 		didSet {
 			handleTextViewTextDidChange()
 		}

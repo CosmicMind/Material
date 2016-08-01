@@ -106,13 +106,13 @@ public extension UIImage {
             return nil
         }
         
-        context.scale(x: 1.0, y: -1.0)
-        context.translate(x: 0.0, y: -size.height)
+        context.scaleBy(x: 1.0, y: -1.0)
+        context.translateBy(x: 0.0, y: -size.height)
         
         context.setBlendMode(.multiply)
         
         let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-        context.clipToMask(rect, mask: cgImage!)
+        context.clip(to: rect, mask: cgImage!)
         color.setFill()
         context.fill(rect)
         
@@ -185,8 +185,8 @@ public extension UIImage {
      - Parameter completion: A completion block that is executed once the image
      has been retrieved.
      */
-    public class func contentsOfURL(url: URL, completion: ((image: UIImage?, error: NSError?) -> Void)) {
-        URLSession.shared.dataTask(with: URLRequest(url: url)) { (data: Data?, response: URLResponse?, error: NSError?) in
+    public class func contentsOfURL(url: URL, completion: ((image: UIImage?, error: Error?) -> Void)) {
+        URLSession.shared.dataTask(with: URLRequest(url: url)) { (data: Data?, response: URLResponse?, error: Error?) in
             DispatchQueue.main.async {
                 if let v = error {
                     completion(image: nil, error: v)
@@ -215,25 +215,25 @@ public extension UIImage {
         // Rotate if Left, Right, or Down.
         switch imageOrientation {
         case .down, .downMirrored:
-            transform = transform.translateBy(x: size.width, y: size.height)
-            transform = transform.rotate(CGFloat(M_PI))
+            transform = transform.translatedBy(x: size.width, y: size.height)
+            transform = transform.rotated(by: CGFloat(M_PI))
         case .left, .leftMirrored:
-            transform = transform.translateBy(x: size.width, y: 0)
-            transform = transform.rotate(CGFloat(M_PI_2))
+            transform = transform.translatedBy(x: size.width, y: 0)
+            transform = transform.rotated(by: CGFloat(M_PI_2))
         case .right, .rightMirrored:
-            transform = transform.translateBy(x: 0, y: size.height)
-            transform = transform.rotate(-CGFloat(M_PI_2))
+            transform = transform.translatedBy(x: 0, y: size.height)
+            transform = transform.rotated(by: -CGFloat(M_PI_2))
         default:break
         }
         
         // Flip if mirrored.
         switch imageOrientation {
         case .upMirrored, .downMirrored:
-            transform = transform.translateBy(x: size.width, y: 0)
-            transform = transform.scaleBy(x: -1, y: 1)
+            transform = transform.translatedBy(x: size.width, y: 0)
+            transform = transform.scaledBy(x: -1, y: 1)
         case .leftMirrored, .rightMirrored:
-            transform = transform.translateBy(x: size.height, y: 0)
-            transform = transform.scaleBy(x: -1, y: 1)
+            transform = transform.translatedBy(x: size.height, y: 0)
+            transform = transform.scaledBy(x: -1, y: 1)
         default:break
         }
         
@@ -242,7 +242,7 @@ public extension UIImage {
             return nil
         }
         
-        context.concatCTM(transform)
+        context.concatenate(transform)
         
         switch imageOrientation {
         case .left, .leftMirrored, .right, .rightMirrored:

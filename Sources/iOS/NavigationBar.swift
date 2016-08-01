@@ -52,6 +52,17 @@ public extension UINavigationBar {
 
 @IBDesignable
 public class NavigationBar: UINavigationBar {
+    public override var intrinsicContentSize: CGSize {
+        switch navigationBarStyle {
+        case .Tiny:
+            return CGSize(width: Device.width, height: 32)
+        case .Default:
+            return CGSize(width: Device.width, height: 44)
+        case .Medium:
+            return CGSize(width: Device.width, height: 56)
+        }
+    }
+    
 	/// NavigationBarStyle value.
 	public var navigationBarStyle: NavigationBarStyle = .Default
 	
@@ -145,19 +156,8 @@ public class NavigationBar: UINavigationBar {
 		self.init(frame: CGRect.zero)
 	}
 	
-	public override func intrinsicContentSize() -> CGSize {
-		switch navigationBarStyle {
-		case .Tiny:
-			return CGSize(width: Device.width, height: 32)
-		case .Default:
-			return CGSize(width: Device.width, height: 44)
-		case .Medium:
-			return CGSize(width: Device.width, height: 56)
-		}
-	}
-	
 	public override func sizeThatFits(_ size: CGSize) -> CGSize {
-		return intrinsicContentSize()
+		return intrinsicContentSize
 	}
     
     public override func layoutSublayers(of layer: CALayer) {
@@ -200,7 +200,7 @@ public class NavigationBar: UINavigationBar {
                 let columns: Int = g + 1
                 
                 titleView.frame.origin = CGPoint.zero
-                titleView.frame.size = intrinsicContentSize()
+                titleView.frame.size = intrinsicContentSize
                 titleView.grid.views = []
                 titleView.grid.axis.columns = columns
                 
@@ -209,7 +209,7 @@ public class NavigationBar: UINavigationBar {
                 // leftControls
                 if let v: Array<UIControl> = item.leftControls {
                     for c in v {
-                        let w: CGFloat = c.intrinsicContentSize().width
+                        let w: CGFloat = c.intrinsicContentSize.width
                         (c as? UIButton)?.contentEdgeInsets = UIEdgeInsets.zero
                         c.frame.size.height = titleView.frame.size.height - contentInset.top - contentInset.bottom
                         
@@ -229,7 +229,7 @@ public class NavigationBar: UINavigationBar {
                 // rightControls
                 if let v: Array<UIControl> = item.rightControls {
                     for c in v {
-                        let w: CGFloat = c.intrinsicContentSize().width
+                        let w: CGFloat = c.intrinsicContentSize.width
                         (c as? UIButton)?.contentEdgeInsets = UIEdgeInsets.zero
                         c.frame.size.height = titleView.frame.size.height - contentInset.top - contentInset.bottom
                         

@@ -71,7 +71,7 @@ public class SearchBar: BarView {
 	@IBInspectable public var placeholder: String? {
 		didSet {
 			if let v: String = placeholder {
-				textField.attributedPlaceholder = AttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderColor])
+				textField.attributedPlaceholder = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderColor])
 			}
 		}
 	}
@@ -80,7 +80,7 @@ public class SearchBar: BarView {
 	@IBInspectable public var placeholderColor: UIColor = Color.darkText.others {
 		didSet {
 			if let v: String = placeholder {
-				textField.attributedPlaceholder = AttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderColor])
+				textField.attributedPlaceholder = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderColor])
 			}
 		}
 	}

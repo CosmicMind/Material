@@ -30,7 +30,7 @@
 
 import UIKit
 
-public class ControlView : View {
+public class ControlView: View {
 	/// Will render the view.
 	public var willRenderView: Bool {
 		return 0 < width && 0 < height
@@ -73,6 +73,10 @@ public class ControlView : View {
 		}
 	}
 	
+    public override var intrinsicContentSize: CGSize {
+        return CGSize(width: width, height: 44)
+    }
+    
 	/// Grid cell factor.
 	@IBInspectable public var gridFactor: CGFloat = 24 {
 		didSet {
@@ -141,7 +145,7 @@ public class ControlView : View {
 	/// Basic initializer.
 	public init() {
 		super.init(frame: CGRect.zero)
-		frame.size = intrinsicContentSize()
+		frame.size = intrinsicContentSize
 	}
 	
 	/**
@@ -151,7 +155,7 @@ public class ControlView : View {
 	*/
 	public init(leftControls: [UIView]? = nil, rightControls: [UIView]? = nil) {
 		super.init(frame: CGRect.zero)
-		frame.size = intrinsicContentSize()
+		frame.size = intrinsicContentSize
 		prepareProperties(leftControls: leftControls, rightControls: rightControls)
 	}
 	
@@ -171,7 +175,7 @@ public class ControlView : View {
 				// leftControls
 				if let v = leftControls {
 					for c in v {
-						let w: CGFloat = c.intrinsicContentSize().width
+						let w: CGFloat = c.intrinsicContentSize.width
 						(c as? UIButton)?.contentEdgeInsets = UIEdgeInsets.zero
 						c.frame.size.height = frame.size.height - contentInset.top - contentInset.bottom
 						
@@ -191,7 +195,7 @@ public class ControlView : View {
 				// rightControls
 				if let v = rightControls {
 					for c in v {
-						let w: CGFloat = c.intrinsicContentSize().width
+						let w: CGFloat = c.intrinsicContentSize.width
 						(c as? UIButton)?.contentEdgeInsets = UIEdgeInsets.zero
 						c.frame.size.height = frame.size.height - contentInset.top - contentInset.bottom
 						
@@ -212,11 +216,7 @@ public class ControlView : View {
 			}
 		}
 	}
-	
-	public override func intrinsicContentSize() -> CGSize {
-        return CGSize(width: width, height: 44)
-	}
-	
+    
 	/**
 	Prepares the view instance when intialized. When subclassing,
 	it is recommended to override the prepareView method

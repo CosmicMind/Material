@@ -34,7 +34,12 @@ public protocol TextFieldDelegate: UITextFieldDelegate {}
 
 @IBDesignable
 public class TextField: UITextField {
-	/// A Boolean that indicates if the TextField is in an animating state.
+    /// Default size when using AutoLayout.
+    public override var intrinsicContentSize: CGSize {
+        return CGSize(width: width, height: 32)
+    }
+    
+    /// A Boolean that indicates if the TextField is in an animating state.
 	public private(set) var animating: Bool = false
 	
 	/// A property that accesses the backing layer's backgroundColor.
@@ -83,7 +88,7 @@ public class TextField: UITextField {
 	/// TextField's text property observer.
 	@IBInspectable public override var text: String? {
 		didSet {
-			if true == text?.isEmpty && !isFirstResponder() {
+			if true == text?.isEmpty && !isFirstResponder {
 				placeholderEditingDidEndAnimation()
 			}
 		}
@@ -97,7 +102,7 @@ public class TextField: UITextField {
 		set(value) {
 			placeholderLabel.text = value
 			if let v: String = value {
-				placeholderLabel.attributedText = AttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderColor])
+				placeholderLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderColor])
 			}
 		}
 	}
@@ -110,7 +115,7 @@ public class TextField: UITextField {
 		didSet {
 			if !isEditing {
 				if let v: String = placeholder {
-					placeholderLabel.attributedText = AttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderColor])
+					placeholderLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderColor])
 				}
 			}
 		}
@@ -121,7 +126,7 @@ public class TextField: UITextField {
 		didSet {
 			if isEditing {
 				if let v: String = placeholder {
-					placeholderLabel.attributedText = AttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderActiveColor])
+					placeholderLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderActiveColor])
 				}
 			}
 			tintColor = placeholderActiveColor
@@ -143,7 +148,7 @@ public class TextField: UITextField {
 		set(value) {
 			detailLabel.text = value
 			if let v: String = value {
-				detailLabel.attributedText = AttributedString(string: v, attributes: [NSForegroundColorAttributeName: detailColor])
+				detailLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: detailColor])
 			}
 			layoutDetailLabel()
 		}
@@ -153,7 +158,7 @@ public class TextField: UITextField {
 	@IBInspectable public var detailColor: UIColor = Color.darkText.others {
 		didSet {
 			if let v: String = detailLabel.text {
-				detailLabel.attributedText = AttributedString(string: v, attributes: [NSForegroundColorAttributeName: detailColor])
+				detailLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: detailColor])
 			}
 		}
 	}
@@ -296,11 +301,6 @@ public class TextField: UITextField {
             layoutShape()
 			layoutDivider()
 		}
-	}
-	
-	/// Default size when using AutoLayout.
-	public override func intrinsicContentSize() -> CGSize {
-        return CGSize(width: width, height: 32)
 	}
 	
 	/// Handles the text editing did begin state.
@@ -507,6 +507,6 @@ public class TextField: UITextField {
     
     /// Prepares the textAlignment.
     private func prepareTextAlignment() {
-        textAlignment = .rightToLeft == UIApplication.shared().userInterfaceLayoutDirection ? .right : .left
+        textAlignment = .rightToLeft == UIApplication.shared.userInterfaceLayoutDirection ? .right : .left
     }
 }
