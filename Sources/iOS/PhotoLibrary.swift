@@ -31,9 +31,33 @@
 import Photos
 
 public struct PhotoLibraryDataSource {
+    /// A reference to the calling PHFetchResult.
     public private(set) var fetchResult: PHFetchResult<PHAsset>
+    
+    /// A reference to a PHAssetCollection returned from the fetchResult.
     public private(set) var collection: PHAssetCollection
+    
+    /// A reference to an Array of PHAssets for the PHAssetCollection.
     public private(set) var assets: [PHAsset]
+}
+
+@objc(PhotoLibraryMove)
+public class PhotoLibraryMove: NSObject {
+    /// An index that is being moved from.
+    public private(set) var from: Int
+    
+    /// An index that is being moved to.
+    public private(set) var to: Int
+    
+    /**
+     An initializer that accepts a `from` and `to` Int value.
+     - Parameter from: An Int.
+     - Parameter to: An Int.
+     */
+    public init(from: Int, to: Int) {
+        self.from = from
+        self.to = to
+    }
 }
 
 @objc(PhotoLibraryDelegate)
@@ -101,11 +125,10 @@ public protocol PhotoLibraryDelegate {
      - Parameter photoLibrary: A reference to the PhotoLibrary.
      - Parameter fetchBeforeChanges: A PHFetchResult<PHObject> before changes.
      - Parameter fetchAfterChanges: A PHFetchResult<PHObject> after changes.
-     - Parameter hasIncrementalChanges: A boolean indicating whether incremental
      changes exist. True if yes, false otherwise.
      */
     @objc
-    optional func photoLibrary(photoLibrary: PhotoLibrary, fetchBeforeChanges: PHFetchResult<PHObject>, fetchAfterChanges: PHFetchResult<PHObject>, hasIncrementalChanges: Bool)
+    optional func photoLibrary(photoLibrary: PhotoLibrary, fetchBeforeChanges: PHFetchResult<PHObject>, fetchAfterChanges: PHFetchResult<PHObject>)
     
     /**
      A delegation method that is executed when there are moved objects.
@@ -141,19 +164,10 @@ public protocol PhotoLibraryDelegate {
      - Parameter removedIndexes: An IndexSet of the changed indexes.
      - Parameter insertedIndexes: An IndexSet of the inserted indexes.
      - Parameter changedIndexes: An IndexSet of the changed indexes.
+     - Parameter has moves: An Array of move coordinates.
      */
     @objc
-    optional func photoLibrary(photoLibrary: PhotoLibrary, removedIndexes: IndexSet?, insertedIndexes: IndexSet?, changedIndexes: IndexSet?)
-    
-    /**
-     A delegation method that is executed when there are moves
-     within the photo library.
-     - Parameter photoLibrary: A reference to the PhotoLibrary.
-     - Parameter hasMoves from: The from index.
-     - Parameter to: The to index.
-     */
-    @objc
-    optional func photoLibrary(photoLibrary: PhotoLibrary, hasMoves from: Int, to: Int)
+    optional func photoLibrary(photoLibrary: PhotoLibrary, removedIndexes: IndexSet?, insertedIndexes: IndexSet?, changedIndexes: IndexSet?, has moves: [PhotoLibraryMove])
 }
 
 @objc(PhotoLibrary)
@@ -425,7 +439,7 @@ extension PhotoLibrary: PHPhotoLibraryChangeObserver {
                     let dataSource = oldCollections[i]
                     
                     if let details = changeInfo.changeDetails(for: dataSource.fetchResult as! PHFetchResult<AnyObject>) {
-                        s.delegate?.photoLibrary?(photoLibrary: s, fetchBeforeChanges: details.fetchResultBeforeChanges, fetchAfterChanges: details.fetchResultAfterChanges, hasIncrementalChanges: details.hasIncrementalChanges)
+                        s.delegate?.photoLibrary?(photoLibrary: s, fetchBeforeChanges: details.fetchResultBeforeChanges, fetchAfterChanges: details.fetchResultAfterChanges)
                         
                         guard details.hasIncrementalChanges else {
                             return
@@ -447,13 +461,15 @@ extension PhotoLibrary: PHPhotoLibraryChangeObserver {
                             s.delegate?.photoLibrary?(photoLibrary: s, changed: changedIndexes!, for: details.changedObjects)
                         }
                         
-                        s.delegate?.photoLibrary?(photoLibrary: s, removedIndexes: removedIndexes, insertedIndexes: insertedIndexes, changedIndexes: changedIndexes)
+                        var moves = [PhotoLibraryMove]()
                         
                         if details.hasMoves {
                             details.enumerateMoves { (from, to) in
-                                s.delegate?.photoLibrary?(photoLibrary: s, hasMoves: from, to: to)
+                                moves.append(PhotoLibraryMove(from: from, to: to))
                             }
                         }
+                        
+                        s.delegate?.photoLibrary?(photoLibrary: s, removedIndexes: removedIndexes, insertedIndexes: insertedIndexes, changedIndexes: changedIndexes, has: moves)
                     }
                 }
             }
