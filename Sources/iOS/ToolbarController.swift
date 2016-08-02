@@ -12,7 +12,7 @@
 *		this list of conditions and the following disclaimer in the documentation
 *		and/or other materials provided with the distribution.
 *
-*	*	Neither the name of Material nor the names of its
+*	*	Neither the name of CosmicMind nor the names of its
 *		contributors may be used to endorse or promote products derived from
 *		this software without specific prior written permission.
 *
@@ -42,7 +42,7 @@ public extension UIViewController {
 			if viewController is ToolbarController {
 				return viewController as? ToolbarController
 			}
-			viewController = viewController?.parentViewController
+			viewController = viewController?.parent
 		}
 		return nil
 	}
@@ -51,20 +51,24 @@ public extension UIViewController {
 @objc(ToolbarControllerDelegate)
 public protocol ToolbarControllerDelegate : MaterialDelegate {
 	/// Delegation method that executes when the floatingViewController will open.
-	optional func toolbarControllerWillOpenFloatingViewController(toolbarController: ToolbarController)
+	@objc
+    optional func toolbarControllerWillOpenFloatingViewController(toolbarController: ToolbarController)
 	
 	/// Delegation method that executes when the floatingViewController will close.
-	optional func toolbarControllerWillCloseFloatingViewController(toolbarController: ToolbarController)
+	@objc
+    optional func toolbarControllerWillCloseFloatingViewController(toolbarController: ToolbarController)
 	
 	/// Delegation method that executes when the floatingViewController did open.
-	optional func toolbarControllerDidOpenFloatingViewController(toolbarController: ToolbarController)
+	@objc
+    optional func toolbarControllerDidOpenFloatingViewController(toolbarController: ToolbarController)
 	
 	/// Delegation method that executes when the floatingViewController did close.
-	optional func toolbarControllerDidCloseFloatingViewController(toolbarController: ToolbarController)
+	@objc
+    optional func toolbarControllerDidCloseFloatingViewController(toolbarController: ToolbarController)
 }
 
 @objc(ToolbarController)
-public class ToolbarController : RootController {
+public class ToolbarController: RootController {
 	/// Internal reference to the floatingViewController.
 	private var internalFloatingViewController: UIViewController?
 	
@@ -81,28 +85,28 @@ public class ToolbarController : RootController {
 		}
 		set(value) {
 			if let v: UIViewController = internalFloatingViewController {
-				v.view.layer.rasterizationScale = MaterialDevice.scale
+				v.view.layer.rasterizationScale = Device.scale
 				v.view.layer.shouldRasterize = true
-				delegate?.toolbarControllerWillCloseFloatingViewController?(self)
+				delegate?.toolbarControllerWillCloseFloatingViewController?(toolbarController: self)
 				internalFloatingViewController = nil
-				UIView.animateWithDuration(0.5,
+				UIView.animate(withDuration: 0.5,
 					animations: { [weak self] in
-						if let s: ToolbarController = self {
+						if let s = self {
 							v.view.center.y = 2 * s.view.bounds.height
 							s.toolbar.alpha = 1
 							s.rootViewController.view.alpha = 1
 						}
 					}) { [weak self] _ in
-						if let s: ToolbarController = self {
-							v.willMoveToParentViewController(nil)
+						if let s = self {
+							v.willMove(toParentViewController: nil)
 							v.view.removeFromSuperview()
 							v.removeFromParentViewController()
 							v.view.layer.shouldRasterize = false
-							s.userInteractionEnabled = true
-							s.toolbar.userInteractionEnabled = true
-							dispatch_async(dispatch_get_main_queue()) { [weak self] in
-								if let s: ToolbarController = self {
-									s.delegate?.toolbarControllerDidCloseFloatingViewController?(s)
+							s.isUserInteractionEnabled = true
+							s.toolbar.isUserInteractionEnabled = true
+							DispatchQueue.main.async { [weak self] in
+								if let s = self {
+									s.delegate?.toolbarControllerDidCloseFloatingViewController?(toolbarController: s)
 								}
 							}
 						}
@@ -114,35 +118,35 @@ public class ToolbarController : RootController {
 				addChildViewController(v)
 				v.view.frame = view.bounds
 				v.view.center.y = 2 * view.bounds.height
-				v.view.hidden = true
+				v.view.isHidden = true
 				view.insertSubview(v.view, aboveSubview: toolbar)
 				v.view.layer.zPosition = 1500
-				v.didMoveToParentViewController(self)
+				v.didMove(toParentViewController: self)
 				
 				// Animate the noteButton out and the noteViewController! in.
-				v.view.hidden = false
-				v.view.layer.rasterizationScale = MaterialDevice.scale
+				v.view.isHidden = false
+				v.view.layer.rasterizationScale = Device.scale
 				v.view.layer.shouldRasterize = true
-				view.layer.rasterizationScale = MaterialDevice.scale
+				view.layer.rasterizationScale = Device.scale
 				view.layer.shouldRasterize = true
 				internalFloatingViewController = v
-				userInteractionEnabled = false
-				toolbar.userInteractionEnabled = false
-				delegate?.toolbarControllerWillOpenFloatingViewController?(self)
-				UIView.animateWithDuration(0.5,
+				isUserInteractionEnabled = false
+				toolbar.isUserInteractionEnabled = false
+				delegate?.toolbarControllerWillOpenFloatingViewController?(toolbarController: self)
+				UIView.animate(withDuration: 0.5,
 					animations: { [weak self] in
-						if let s: ToolbarController = self {
+						if let s = self {
 							v.view.center.y = s.view.bounds.height / 2
 							s.toolbar.alpha = 0.5
 							s.rootViewController.view.alpha = 0.5
 						}
 					}) { [weak self] _ in
-						if let s: ToolbarController = self {
+						if let s = self {
 							v.view.layer.shouldRasterize = false
 							s.view.layer.shouldRasterize = false
-							dispatch_async(dispatch_get_main_queue()) { [weak self] in
-								if let s: ToolbarController = self {
-									s.delegate?.toolbarControllerDidOpenFloatingViewController?(s)
+							DispatchQueue.main.async { [weak self] in
+								if let s = self {
+									s.delegate?.toolbarControllerDidOpenFloatingViewController?(toolbarController: s)
 								}
 							}
 						}
@@ -159,10 +163,10 @@ public class ToolbarController : RootController {
 	public override func layoutSubviews() {
 		super.layoutSubviews()
 		if let v: Toolbar = toolbar {
-			v.grid.layoutInset.top = .iPhone == MaterialDevice.type && MaterialDevice.isLandscape ? 0 : 20
+			v.grid.layoutInset.top = .phone == Device.userInterfaceIdiom && Device.isLandscape ? 0 : 20
 			
-			let h: CGFloat = MaterialDevice.height
-			let w: CGFloat = MaterialDevice.width
+			let h: CGFloat = Device.height
+			let w: CGFloat = Device.width
 			let p: CGFloat = v.intrinsicContentSize().height + v.grid.layoutInset.top + v.grid.layoutInset.bottom
 			
 			v.width = w + v.grid.layoutInset.left + v.grid.layoutInset.right

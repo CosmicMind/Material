@@ -12,7 +12,7 @@
 *		this list of conditions and the following disclaimer in the documentation
 *		and/or other materials provided with the distribution.
 *
-*	*	Neither the name of Material nor the names of its
+*	*	Neither the name of CosmicMind nor the names of its
 *		contributors may be used to endorse or promote products derived from
 *		this software without specific prior written permission.
 *
@@ -31,7 +31,8 @@
 import UIKit
 
 /// NavigationBar styles.
-public enum NavigationBarStyle {
+@objc(NavigationBarStyle)
+public enum NavigationBarStyle: Int {
 	case Tiny
 	case Default
 	case Medium
@@ -41,16 +42,16 @@ public extension UINavigationBar {
 	/// Device status bar style.
 	public var statusBarStyle: UIStatusBarStyle {
 		get {
-			return MaterialDevice.statusBarStyle
+			return Device.statusBarStyle
 		}
 		set(value) {
-			MaterialDevice.statusBarStyle = value
+			Device.statusBarStyle = value
 		}
 	}
 }
 
 @IBDesignable
-public class NavigationBar : UINavigationBar {
+public class NavigationBar: UINavigationBar {
 	/// NavigationBarStyle value.
 	public var navigationBarStyle: NavigationBarStyle = .Default
 	
@@ -62,28 +63,28 @@ public class NavigationBar : UINavigationBar {
 	}
 	
 	/// A preset wrapper around contentInset.
-	public var contentInsetPreset: MaterialEdgeInset = .None {
+	public var contentEdgeInsetsPreset: EdgeInsetsPreset = .none {
 		didSet {
-			contentInset = MaterialEdgeInsetToValue(contentInsetPreset)
+            contentInset = EdgeInsetsPresetToValue(preset: contentEdgeInsetsPreset)
 		}
 	}
 	
 	/// A wrapper around grid.contentInset.
-	@IBInspectable public var contentInset: UIEdgeInsets = UIEdgeInsetsZero {
+	@IBInspectable public var contentInset: EdgeInsets = EdgeInsets.zero {
 		didSet {
 			layoutSubviews()
 		}
 	}
 	
-	/// A preset wrapper around spacing.
-	public var spacingPreset: MaterialSpacing = .None {
+	/// A preset wrapper around interimSpace.
+	public var interimSpacePreset: InterimSpacePreset = .none {
 		didSet {
-			spacing = MaterialSpacingToValue(spacingPreset)
+            interimSpace = InterimSpacePresetToValue(preset: interimSpacePreset)
 		}
 	}
 	
-	/// A wrapper around grid.spacing.
-	@IBInspectable public var spacing: CGFloat = 0 {
+	/// A wrapper around grid.interimSpace.
+	@IBInspectable public var interimSpace: InterimSpace = 0 {
 		didSet {
 			layoutSubviews()
 		}
@@ -112,153 +113,10 @@ public class NavigationBar : UINavigationBar {
 		}
 	}
 	
-	/**
-	This property is the same as clipsToBounds. It crops any of the view's
-	contents from bleeding past the view's frame. If an image is set using
-	the image property, then this value does not need to be set, since the
-	visualLayer's maskToBounds is set to true by default.
-	*/
-	@IBInspectable public var masksToBounds: Bool {
-		get {
-			return layer.masksToBounds
-		}
-		set(value) {
-			layer.masksToBounds = value
-		}
-	}
-	
 	/// A property that accesses the backing layer's backgroundColor.
 	@IBInspectable public override var backgroundColor: UIColor? {
 		didSet {
 			barTintColor = backgroundColor
-		}
-	}
-	
-	/// A property that accesses the layer.frame.origin.x property.
-	@IBInspectable public var x: CGFloat {
-		get {
-			return layer.frame.origin.x
-		}
-		set(value) {
-			layer.frame.origin.x = value
-		}
-	}
-	
-	/// A property that accesses the layer.frame.origin.y property.
-	@IBInspectable public var y: CGFloat {
-		get {
-			return layer.frame.origin.y
-		}
-		set(value) {
-			layer.frame.origin.y = value
-		}
-	}
-	
-	/**
-	A property that accesses the layer.frame.size.width property.
-	When setting this property in conjunction with the shape property having a
-	value that is not .None, the height will be adjusted to maintain the correct
-	shape.
-	*/
-	@IBInspectable public var width: CGFloat {
-		get {
-			return layer.frame.size.width
-		}
-		set(value) {
-			layer.frame.size.width = value
-		}
-	}
-	
-	/**
-	A property that accesses the layer.frame.size.height property.
-	When setting this property in conjunction with the shape property having a
-	value that is not .None, the width will be adjusted to maintain the correct
-	shape.
-	*/
-	@IBInspectable public var height: CGFloat {
-		get {
-			return layer.frame.size.height
-		}
-		set(value) {
-			layer.frame.size.height = value
-		}
-	}
-	
-	/// A property that accesses the backing layer's shadowColor.
-	@IBInspectable public var shadowColor: UIColor? {
-		didSet {
-			layer.shadowColor = shadowColor?.CGColor
-		}
-	}
-	
-	/// A property that accesses the backing layer's shadowOffset.
-	@IBInspectable public var shadowOffset: CGSize {
-		get {
-			return layer.shadowOffset
-		}
-		set(value) {
-			layer.shadowOffset = value
-		}
-	}
-	
-	/// A property that accesses the backing layer's shadowOpacity.
-	@IBInspectable public var shadowOpacity: Float {
-		get {
-			return layer.shadowOpacity
-		}
-		set(value) {
-			layer.shadowOpacity = value
-		}
-	}
-	
-	/// A property that accesses the backing layer's shadowRadius.
-	@IBInspectable public var shadowRadius: CGFloat {
-		get {
-			return layer.shadowRadius
-		}
-		set(value) {
-			layer.shadowRadius = value
-		}
-	}
-	
-	/**
-	A property that sets the shadowOffset, shadowOpacity, and shadowRadius
-	for the backing layer. This is the preferred method of setting depth
-	in order to maintain consitency across UI objects.
-	*/
-	public var depth: MaterialDepth = .None {
-		didSet {
-			let value: MaterialDepthType = MaterialDepthToValue(depth)
-			shadowOffset = value.offset
-			shadowOpacity = value.opacity
-			shadowRadius = value.radius
-		}
-	}
-	
-	/// A preset property to set the borderWidth.
-	public var borderWidthPreset: MaterialBorder = .None {
-		didSet {
-			borderWidth = MaterialBorderToValue(borderWidthPreset)
-		}
-	}
-	
-	/// A property that accesses the layer.borderWith.
-	@IBInspectable public var borderWidth: CGFloat {
-		get {
-			return layer.borderWidth
-		}
-		set(value) {
-			layer.borderWidth = value
-		}
-	}
-	
-	/// A property that accesses the layer.borderColor property.
-	@IBInspectable public var borderColor: UIColor? {
-		get {
-			return nil == layer.borderColor ? nil : UIColor(CGColor: layer.borderColor!)
-		}
-		set(value) {
-			layer.borderColor = value?.CGColor
 		}
 	}
 	
@@ -290,33 +148,41 @@ public class NavigationBar : UINavigationBar {
 	public override func intrinsicContentSize() -> CGSize {
 		switch navigationBarStyle {
 		case .Tiny:
-			return CGSize(width: MaterialDevice.width, height: 32)
+			return CGSize(width: Device.width, height: 32)
 		case .Default:
-			return CGSize(width: MaterialDevice.width, height: 44)
+			return CGSize(width: Device.width, height: 44)
 		case .Medium:
-			return CGSize(width: MaterialDevice.width, height: 56)
+			return CGSize(width: Device.width, height: 56)
 		}
 	}
 	
-	public override func sizeThatFits(size: CGSize) -> CGSize {
+	public override func sizeThatFits(_ size: CGSize) -> CGSize {
 		return intrinsicContentSize()
 	}
+    
+    public override func layoutSublayers(of layer: CALayer) {
+        super.layoutSublayers(of: layer)
+        if self.layer == layer {
+            layoutShape()
+        }
+    }
 	
 	public override func layoutSubviews() {
 		super.layoutSubviews()
+        layoutShadowPath()
 		
-		if let v: UINavigationItem = topItem {
-			layoutNavigationItem(v)
+		if let v = topItem {
+			layoutNavigationItem(item: v)
 		}
 		
-		if let v: UINavigationItem = backItem {
-			layoutNavigationItem(v)
+		if let v = backItem {
+			layoutNavigationItem(item: v)
 		}
 	}
 	
-	public override func pushNavigationItem(item: UINavigationItem, animated: Bool) {
-		super.pushNavigationItem(item, animated: animated)
-		layoutNavigationItem(item)
+	public override func pushItem(_ item: UINavigationItem, animated: Bool) {
+		super.pushItem(item, animated: animated)
+		layoutNavigationItem(item: item)
 	}
 	
 	/**
@@ -325,100 +191,99 @@ public class NavigationBar : UINavigationBar {
 	*/
 	internal func layoutNavigationItem(item: UINavigationItem) {
 		if willRenderView {
-			prepareItem(item)
+			prepareItem(item: item)
 			
-			if let titleView: UIView = prepareTitleView(item) {
-				if let contentView: UIView = prepareContentView(item) {
-					if let g: Int = Int(width / gridFactor) {
-						let columns: Int = g + 1
-						
-						titleView.frame.origin = CGPoint.zero
-						titleView.frame.size = intrinsicContentSize()
-						titleView.grid.views = []
-						titleView.grid.axis.columns = columns
-						
-						contentView.grid.columns = columns
-						
-						// leftControls
-						if let v: Array<UIControl> = item.leftControls {
-							for c in v {
-								let w: CGFloat = c.intrinsicContentSize().width
-								(c as? UIButton)?.contentEdgeInsets = UIEdgeInsetsZero
-								c.frame.size.height = titleView.frame.size.height - contentInset.top - contentInset.bottom
-								
-								let q: Int = Int(w / gridFactor)
-								c.grid.columns = q + 1
-								
-								contentView.grid.columns -= c.grid.columns
-								
-								titleView.addSubview(c)
-								titleView.grid.views?.append(c)
-							}
-						}
-						
-						titleView.addSubview(contentView)
-						titleView.grid.views?.append(contentView)
-						
-						// rightControls
-						if let v: Array<UIControl> = item.rightControls {
-							for c in v {
-								let w: CGFloat = c.intrinsicContentSize().width
-								(c as? UIButton)?.contentEdgeInsets = UIEdgeInsetsZero
-								c.frame.size.height = titleView.frame.size.height - contentInset.top - contentInset.bottom
-								
-								let q: Int = Int(w / gridFactor)
-								c.grid.columns = q + 1
-								
-								contentView.grid.columns -= c.grid.columns
-								
-								titleView.addSubview(c)
-								titleView.grid.views?.append(c)
-							}
-						}
-						
-						titleView.grid.contentInset = contentInset
-						titleView.grid.spacing = spacing
-						titleView.grid.reloadLayout()
-						
-						// contentView alignment.
-						if nil != item.title && "" != item.title {
-							if nil == item.titleLabel.superview {
-								contentView.addSubview(item.titleLabel)
-							}
-							item.titleLabel.frame = contentView.bounds
-						} else {
-							item.titleLabel.removeFromSuperview()
-						}
-						
-						if nil != item.detail && "" != item.detail {
-							if nil == item.detailLabel.superview {
-								contentView.addSubview(item.detailLabel)
-							}
-							
-							if nil == item.titleLabel.superview {
-								item.detailLabel.frame = contentView.bounds
-							} else {
-								item.titleLabel.sizeToFit()
-								item.detailLabel.sizeToFit()
-								
-								let diff: CGFloat = (contentView.frame.height - item.titleLabel.frame.height - item.detailLabel.frame.height) / 2
-								
-								item.titleLabel.frame.size.height += diff
-								item.titleLabel.frame.size.width = contentView.frame.width
-								
-								item.detailLabel.frame.size.height += diff
-								item.detailLabel.frame.size.width = contentView.frame.width
-								item.detailLabel.frame.origin.y = item.titleLabel.frame.height
-							}
-						} else {
-							item.detailLabel.removeFromSuperview()
-						}
-						
-						contentView.grid.reloadLayout()
-					}
-				}
-			}
-		}
+			let titleView = prepareTitleView(item: item)
+            let contentView = prepareContentView(item: item)
+            
+            if let g: Int = Int(width / gridFactor) {
+                let columns: Int = g + 1
+                
+                titleView.frame.origin = CGPoint.zero
+                titleView.frame.size = intrinsicContentSize()
+                titleView.grid.views = []
+                titleView.grid.axis.columns = columns
+                
+                contentView.grid.columns = columns
+                
+                // leftControls
+                if let v: Array<UIControl> = item.leftControls {
+                    for c in v {
+                        let w: CGFloat = c.intrinsicContentSize().width
+                        (c as? UIButton)?.contentEdgeInsets = UIEdgeInsets.zero
+                        c.frame.size.height = titleView.frame.size.height - contentInset.top - contentInset.bottom
+                        
+                        let q: Int = Int(w / gridFactor)
+                        c.grid.columns = q + 1
+                        
+                        contentView.grid.columns -= c.grid.columns
+                        
+                        titleView.addSubview(c)
+                        titleView.grid.views?.append(c)
+                    }
+                }
+                
+                titleView.addSubview(contentView)
+                titleView.grid.views?.append(contentView)
+                
+                // rightControls
+                if let v: Array<UIControl> = item.rightControls {
+                    for c in v {
+                        let w: CGFloat = c.intrinsicContentSize().width
+                        (c as? UIButton)?.contentEdgeInsets = UIEdgeInsets.zero
+                        c.frame.size.height = titleView.frame.size.height - contentInset.top - contentInset.bottom
+                        
+                        let q: Int = Int(w / gridFactor)
+                        c.grid.columns = q + 1
+                        
+                        contentView.grid.columns -= c.grid.columns
+                        
+                        titleView.addSubview(c)
+                        titleView.grid.views?.append(c)
+                    }
+                }
+                
+                titleView.grid.contentInset = contentInset
+                titleView.grid.interimSpace = interimSpace
+                titleView.grid.reload()
+                
+                // contentView alignment.
+                if nil != item.title && "" != item.title {
+                    if nil == item.titleLabel.superview {
+                        contentView.addSubview(item.titleLabel)
+                    }
+                    item.titleLabel.frame = contentView.bounds
+                } else {
+                    item.titleLabel.removeFromSuperview()
+                }
+                
+                if nil != item.detail && "" != item.detail {
+                    if nil == item.detailLabel.superview {
+                        contentView.addSubview(item.detailLabel)
+                    }
+                    
+                    if nil == item.titleLabel.superview {
+                        item.detailLabel.frame = contentView.bounds
+                    } else {
+                        item.titleLabel.sizeToFit()
+                        item.detailLabel.sizeToFit()
+                        
+                        let diff: CGFloat = (contentView.frame.height - item.titleLabel.frame.height - item.detailLabel.frame.height) / 2
+                        
+                        item.titleLabel.frame.size.height += diff
+                        item.titleLabel.frame.size.width = contentView.frame.width
+                        
+                        item.detailLabel.frame.size.height += diff
+                        item.detailLabel.frame.size.width = contentView.frame.width
+                        item.detailLabel.frame.origin.y = item.titleLabel.frame.height
+                    }
+                } else {
+                    item.detailLabel.removeFromSuperview()
+                }
+                
+                contentView.grid.reload()
+            }
+        }
 	}
 	
 	/**
@@ -429,17 +294,17 @@ public class NavigationBar : UINavigationBar {
 	when subclassing.
 	*/
 	public func prepareView() {
-        barStyle = .Black
-		translucent = false
-		depth = .Depth1
-		spacingPreset = .Spacing1
-		contentInsetPreset = .Square1
-		contentScaleFactor = MaterialDevice.scale
-		backButtonImage = MaterialIcon.cm.arrowBack
-		let image: UIImage? = UIImage.imageWithColor(MaterialColor.clear, size: CGSizeMake(1, 1))
+        barStyle = .black
+		isTranslucent = false
+		depthPreset = .depth1
+		interimSpacePreset = .interimSpace1
+		contentEdgeInsetsPreset = .square1
+		contentScaleFactor = Device.scale
+		backButtonImage = Icon.cm.arrowBack
+        let image: UIImage? = UIImage.imageWithColor(color: Color.clear, size: CGSize(width: 1, height: 1))
 		shadowImage = image
-		setBackgroundImage(image, forBarMetrics: .Default)
-		backgroundColor = MaterialColor.white
+		setBackgroundImage(image, for: .default)
+		backgroundColor = Color.white
 	}
 	
 	/**
@@ -472,7 +337,7 @@ public class NavigationBar : UINavigationBar {
 		if nil == item.contentView {
 			item.contentView = UIView(frame: CGRect.zero)
 		}
-		item.contentView!.grid.axis.direction = .Vertical
+		item.contentView!.grid.axis.direction = .vertical
 		return item.contentView!
 	}
 }

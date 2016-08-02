@@ -12,7 +12,7 @@
 *		this list of conditions and the following disclaimer in the documentation
 *		and/or other materials provided with the distribution.
 *
-*	*	Neither the name of Material nor the names of its
+*	*	Neither the name of CosmicMind nor the names of its
 *		contributors may be used to endorse or promote products derived from
 *		this software without specific prior written permission.
 *
@@ -42,16 +42,16 @@ public extension UIViewController {
 			if viewController is StatusBarController {
 				return viewController as? StatusBarController
 			}
-			viewController = viewController?.parentViewController
+			viewController = viewController?.parent
 		}
 		return nil
 	}
 }
 
 @IBDesignable
-public class StatusBarController : RootController {
+public class StatusBarController: RootController {
 	/// A reference to the statusBarView.
-	public private(set) var statusBarView: MaterialView!
+	public private(set) var statusBarView: View!
 	
 	/**
 	To execute in the order of the layout chain, override this
@@ -60,7 +60,7 @@ public class StatusBarController : RootController {
 	*/
 	public override func layoutSubviews() {
 		super.layoutSubviews()
-		statusBarView.hidden = MaterialDevice.isLandscape && .iPhone == MaterialDevice.type
+		statusBarView.isHidden = Device.isLandscape && .phone == Device.userInterfaceIdiom
 		rootViewController.view.frame = view.bounds
 	}
 	
@@ -78,9 +78,9 @@ public class StatusBarController : RootController {
 	
 	/// Prepares the statusBarView.
 	private func prepareStatusBarView() {
-		statusBarView = MaterialView()
+		statusBarView = View()
 		statusBarView.zPosition = 3000
-		statusBarView.backgroundColor = MaterialColor.black.colorWithAlphaComponent(0.12)
-		view.layout(statusBarView).top(0).horizontally().height(20)
+		statusBarView.backgroundColor = Color.black.withAlphaComponent(0.12)
+		_ = view.layout(statusBarView).top(0).horizontally().height(20)
 	}
 }

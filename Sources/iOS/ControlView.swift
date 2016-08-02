@@ -12,7 +12,7 @@
 *		this list of conditions and the following disclaimer in the documentation
 *		and/or other materials provided with the distribution.
 *
-*	*	Neither the name of Material nor the names of its
+*	*	Neither the name of CosmicMind nor the names of its
 *		contributors may be used to endorse or promote products derived from
 *		this software without specific prior written permission.
 *
@@ -30,24 +30,24 @@
 
 import UIKit
 
-public class ControlView : MaterialView {
+public class ControlView : View {
 	/// Will render the view.
 	public var willRenderView: Bool {
 		return 0 < width && 0 < height
 	}
 	
 	/// A preset wrapper around contentInset.
-	public var contentInsetPreset: MaterialEdgeInset {
+	public var contentEdgeInsetsPreset: EdgeInsetsPreset {
 		get {
-			return grid.contentInsetPreset
+			return grid.contentEdgeInsetsPreset
 		}
 		set(value) {
-			grid.contentInsetPreset = value
+			grid.contentEdgeInsetsPreset = value
 		}
 	}
 	
 	/// A wrapper around grid.contentInset.
-	@IBInspectable public var contentInset: UIEdgeInsets {
+	@IBInspectable public var contentInset: EdgeInsets {
 		get {
 			return grid.contentInset
 		}
@@ -56,20 +56,20 @@ public class ControlView : MaterialView {
 		}
 	}
 	
-	/// A preset wrapper around spacing.
-	public var spacingPreset: MaterialSpacing = .None {
+	/// A preset wrapper around interimSpace.
+	public var interimSpacePreset: InterimSpacePreset = .none {
 		didSet {
-			spacing = MaterialSpacingToValue(spacingPreset)
+            interimSpace = InterimSpacePresetToValue(preset: interimSpacePreset)
 		}
 	}
 	
-	/// A wrapper around grid.spacing.
-	@IBInspectable public var spacing: CGFloat {
+	/// A wrapper around grid.interimSpace.
+	@IBInspectable public var interimSpace: InterimSpace {
 		get {
-			return grid.spacing
+			return grid.interimSpace
 		}
 		set(value) {
-			grid.spacing = value
+			grid.interimSpace = value
 		}
 	}
 	
@@ -82,18 +82,18 @@ public class ControlView : MaterialView {
 	}
 
 	/// ContentView that holds the any desired subviews.
-	public private(set) var contentView: MaterialView!
+	public private(set) var contentView: View!
 	
 	/// Left side UIControls.
-	public var leftControls: Array<UIControl>? {
+	public var leftControls: [UIView]? {
 		didSet {
-			if let v: Array<UIControl> = oldValue {
+			if let v = oldValue {
 				for b in v {
 					b.removeFromSuperview()
 				}
 			}
 			
-			if let v: Array<UIControl> = leftControls {
+			if let v = leftControls {
 				for b in v {
 					addSubview(b)
 				}
@@ -103,15 +103,15 @@ public class ControlView : MaterialView {
 	}
 	
 	/// Right side UIControls.
-	public var rightControls: Array<UIControl>? {
+	public var rightControls: [UIView]? {
 		didSet {
-			if let v: Array<UIControl> = oldValue {
+			if let v = oldValue {
 				for b in v {
 					b.removeFromSuperview()
 				}
 			}
 			
-			if let v: Array<UIControl> = rightControls {
+			if let v = rightControls {
 				for b in v {
 					addSubview(b)
 				}
@@ -149,10 +149,10 @@ public class ControlView : MaterialView {
 	- Parameter leftControls: An Array of UIControls that go on the left side.
 	- Parameter rightControls: An Array of UIControls that go on the right side.
 	*/
-	public init(leftControls: Array<UIControl>? = nil, rightControls: Array<UIControl>? = nil) {
+	public init(leftControls: [UIView]? = nil, rightControls: [UIView]? = nil) {
 		super.init(frame: CGRect.zero)
 		frame.size = intrinsicContentSize()
-		prepareProperties(leftControls, rightControls: rightControls)
+		prepareProperties(leftControls: leftControls, rightControls: rightControls)
 	}
 	
 	public override func layoutSubviews() {
@@ -169,10 +169,10 @@ public class ControlView : MaterialView {
 				contentView.grid.columns = columns
 				
 				// leftControls
-				if let v: Array<UIControl> = leftControls {
+				if let v = leftControls {
 					for c in v {
 						let w: CGFloat = c.intrinsicContentSize().width
-						(c as? UIButton)?.contentEdgeInsets = UIEdgeInsetsZero
+						(c as? UIButton)?.contentEdgeInsets = UIEdgeInsets.zero
 						c.frame.size.height = frame.size.height - contentInset.top - contentInset.bottom
 						
 						let q: Int = Int(w / gridFactor)
@@ -189,10 +189,10 @@ public class ControlView : MaterialView {
 				grid.views?.append(contentView)
 				
 				// rightControls
-				if let v: Array<UIControl> = rightControls {
+				if let v = rightControls {
 					for c in v {
 						let w: CGFloat = c.intrinsicContentSize().width
-						(c as? UIButton)?.contentEdgeInsets = UIEdgeInsetsZero
+						(c as? UIButton)?.contentEdgeInsets = UIEdgeInsets.zero
 						c.frame.size.height = frame.size.height - contentInset.top - contentInset.bottom
 						
 						let q: Int = Int(w / gridFactor)
@@ -206,15 +206,15 @@ public class ControlView : MaterialView {
 				}
 				
 				grid.contentInset = contentInset
-				grid.spacing = spacing
-				grid.reloadLayout()
-				contentView.grid.reloadLayout()
+				grid.interimSpace = interimSpace
+				grid.reload()
+				contentView.grid.reload()
 			}
 		}
 	}
 	
 	public override func intrinsicContentSize() -> CGSize {
-		return CGSizeMake(width, 44)
+        return CGSize(width: width, height: 44)
 	}
 	
 	/**
@@ -226,10 +226,10 @@ public class ControlView : MaterialView {
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		spacingPreset = .Spacing1
-		contentInsetPreset = .Square1
-		autoresizingMask = .FlexibleWidth
-		shadowPathAutoSizeEnabled = false
+		interimSpacePreset = .interimSpace1
+		contentEdgeInsetsPreset = .square1
+		autoresizingMask = .flexibleWidth
+		isShadowPathAutoSizing = false
 		prepareContentView()
 	}
 	
@@ -238,14 +238,14 @@ public class ControlView : MaterialView {
 	- Parameter leftControls: An Array of UIControls that go on the left side.
 	- Parameter rightControls: An Array of UIControls that go on the right side.
 	*/
-	internal func prepareProperties(leftControls: Array<UIControl>?, rightControls: Array<UIControl>?) {
+	internal func prepareProperties(leftControls: [UIView]?, rightControls: [UIView]?) {
 		self.leftControls = leftControls
 		self.rightControls = rightControls
 	}
 	
 	/// Prepares the contentView.
 	private func prepareContentView() {
-		contentView = MaterialView()
+		contentView = View()
 		contentView.backgroundColor = nil
 		addSubview(contentView)
 	}

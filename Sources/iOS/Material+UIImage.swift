@@ -12,7 +12,7 @@
 *		this list of conditions and the following disclaimer in the documentation
 *		and/or other materials provided with the distribution.
 *
-*	*	Neither the name of Material nor the names of its
+*	*	Neither the name of CosmicMind nor the names of its
 *		contributors may be used to endorse or promote products derived from
 *		this software without specific prior written permission.
 *
@@ -30,7 +30,231 @@
 
 import UIKit
 
-public enum ImageFormatType {
-	case PNG
-	case JPEG
+@objc(ImageFormat)
+public enum ImageFormat: Int {
+	case png
+	case jpeg
+}
+
+public extension UIImage {
+    /// Width of the UIImage.
+    public var width: CGFloat {
+        return size.width
+    }
+    
+    /// Height of the UIImage.
+    public var height: CGFloat {
+        return size.height
+    }
+}
+
+public extension UIImage {
+    /**
+     Resizes an image based on a given width.
+     - Parameter toWidth w: A width value.
+     - Returns: An optional UIImage.
+     */
+    public func resize(toWidth w: CGFloat) -> UIImage? {
+        return internalResize(toWidth: w)
+    }
+    
+    /**
+     Resizes an image based on a given height.
+     - Parameter toHeight h: A height value.
+     - Returns: An optional UIImage.
+     */
+    public func resize(toHeight h: CGFloat) -> UIImage? {
+        return internalResize(toHeight: h)
+    }
+    
+    /**
+     Internally resizes the image.
+     - Parameter toWidth tw: A width.
+     - Parameter toHeight th: A height.
+     - Returns: An optional UIImage.
+     */
+    private func internalResize(toWidth tw: CGFloat = 0, toHeight th: CGFloat = 0) -> UIImage? {
+        var w: CGFloat?
+        var h: CGFloat?
+        
+        if 0 < tw {
+            h = height * tw / width
+        } else if 0 < th {
+            w = width * th / height
+        }
+        
+        let g: UIImage?
+        let t: CGRect = CGRect(x: 0, y: 0, width: w ?? tw, height: h ?? th)
+        UIGraphicsBeginImageContextWithOptions(t.size, false, Device.scale)
+        draw(in: t, blendMode: .normal, alpha: 1)
+        g = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return g
+    }
+}
+
+public extension UIImage {
+    /**
+     Creates a new image with the passed in color.
+     - Parameter color: The UIColor to create the image from.
+     - Returns: A UIImage that is the color passed in.
+     */
+    public func tintWithColor(color: UIColor) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(size, false, Device.scale)
+        guard let context = UIGraphicsGetCurrentContext() else {
+            return nil
+        }
+        
+        context.scale(x: 1.0, y: -1.0)
+        context.translate(x: 0.0, y: -size.height)
+        
+        context.setBlendMode(.multiply)
+        
+        let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        context.clipToMask(rect, mask: cgImage!)
+        color.setFill()
+        context.fill(rect)
+        
+        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return image
+    }
+}
+
+public extension UIImage {
+    /**
+     Creates an Image that is a color.
+     - Parameter color: The UIColor to create the image from.
+     - Parameter size: The size of the image to create.
+     - Returns: A UIImage that is the color passed in.
+     */
+    public class func imageWithColor(color: UIColor, size: CGSize) -> UIImage? {
+        let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        UIGraphicsBeginImageContextWithOptions(size, false, 0)
+        color.setFill()
+        UIRectFill(rect)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
+}
+
+public extension UIImage {
+    /**
+     Crops an image to a specified width and height.
+     - Parameter toWidth tw: A specified width.
+     - Parameter toHeight th: A specified height.
+     - Returns: An optional UIImage.
+     */
+    public func crop(toWidth tw: CGFloat, toHeight th: CGFloat) -> UIImage? {
+        let g: UIImage?
+        let b: Bool = width > height
+        let s: CGFloat = b ? th / height : tw / width
+        let t: CGSize = CGSize(width: tw, height: th)
+        
+        let w = width * s
+        let h = height * s
+        
+        UIGraphicsBeginImageContext(t)
+        draw(in: b ? CGRect(x: -1 * (w - t.width) / 2, y: 0, width: w, height: h) : CGRect(x: 0, y: -1 * (h - t.height) / 2, width: w, height: h), blendMode: .normal, alpha: 1)
+        g = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return g
+    }
+}
+
+public extension UIImage {
+    /**
+     Creates an clear image.
+     - Returns: A UIImage that is clear.
+     */
+    public class func clear(size: CGSize = CGSize(width: 16, height: 16)) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(size, false, 0)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
+}
+
+public extension UIImage {
+    /**
+     Asynchronously load images with a completion block.
+     - Parameter URL: A URL destination to fetch the image from.
+     - Parameter completion: A completion block that is executed once the image
+     has been retrieved.
+     */
+    public class func contentsOfURL(url: URL, completion: ((image: UIImage?, error: NSError?) -> Void)) {
+        URLSession.shared.dataTask(with: URLRequest(url: url)) { (data: Data?, response: URLResponse?, error: NSError?) in
+            DispatchQueue.main.async {
+                if let v = error {
+                    completion(image: nil, error: v)
+                } else if let v = data {
+                    completion(image: UIImage(data: v), error: nil)
+                }
+            }
+        }.resume()
+    }
+}
+
+public extension UIImage {
+    /**
+     Adjusts the orientation of the image from the capture orientation.
+     This is an issue when taking images, the capture orientation is not set correctly
+     when using Portrait.
+     - Returns: An optional UIImage if successful.
+     */
+    public func adjustOrientation() -> UIImage? {
+        guard .up != imageOrientation else {
+            return self
+        }
+        
+        var transform: CGAffineTransform = .identity
+        
+        // Rotate if Left, Right, or Down.
+        switch imageOrientation {
+        case .down, .downMirrored:
+            transform = transform.translateBy(x: size.width, y: size.height)
+            transform = transform.rotate(CGFloat(M_PI))
+        case .left, .leftMirrored:
+            transform = transform.translateBy(x: size.width, y: 0)
+            transform = transform.rotate(CGFloat(M_PI_2))
+        case .right, .rightMirrored:
+            transform = transform.translateBy(x: 0, y: size.height)
+            transform = transform.rotate(-CGFloat(M_PI_2))
+        default:break
+        }
+        
+        // Flip if mirrored.
+        switch imageOrientation {
+        case .upMirrored, .downMirrored:
+            transform = transform.translateBy(x: size.width, y: 0)
+            transform = transform.scaleBy(x: -1, y: 1)
+        case .leftMirrored, .rightMirrored:
+            transform = transform.translateBy(x: size.height, y: 0)
+            transform = transform.scaleBy(x: -1, y: 1)
+        default:break
+        }
+        
+        // Draw the underlying cgImage with the calculated transform.
+        guard let context = CGContext(data: nil, width: Int(size.width), height: Int(size.height), bitsPerComponent: cgImage!.bitsPerComponent, bytesPerRow: 0, space: cgImage!.colorSpace!, bitmapInfo: cgImage!.bitmapInfo.rawValue) else {
+            return nil
+        }
+        
+        context.concatCTM(transform)
+        
+        switch imageOrientation {
+        case .left, .leftMirrored, .right, .rightMirrored:
+            context.draw(in: CGRect(x: 0, y: 0, width: size.height, height: size.width), image: cgImage!)
+        default:
+            context.draw(in: CGRect(origin: .zero, size: size), image: cgImage!)
+        }
+        
+        guard let cgImage = context.makeImage() else {
+            return nil
+        }
+        
+        return UIImage(cgImage: cgImage)
+    }
 }

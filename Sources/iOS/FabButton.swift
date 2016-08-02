@@ -12,7 +12,7 @@
 *		this list of conditions and the following disclaimer in the documentation
 *		and/or other materials provided with the distribution.
 *
-*	*	Neither the name of Material nor the names of its
+*	*	Neither the name of CosmicMind nor the names of its
 *		contributors may be used to endorse or promote products derived from
 *		this software without specific prior written permission.
 *
@@ -30,21 +30,21 @@
 
 import UIKit
 
-public class FabButton : MaterialButton {	
+public class FabButton: Button {	
 	/**
-	Prepares the view instance when intialized. When subclassing,
-	it is recommended to override the prepareView method
-	to initialize property values and other setup operations.
-	The super.prepareView method should always be called immediately
-	when subclassing.
-	*/
+     Prepares the view instance when intialized. When subclassing,
+     it is recommended to override the prepareView method
+     to initialize property values and other setup operations.
+     The super.prepareView method should always be called immediately
+     when subclassing.
+     */
 	public override func prepareView() {
 		super.prepareView()
-		depth = .Depth1
-		shape = .Circle
-		pulseAnimation = .CenterWithBacking
-		pulseColor = MaterialColor.white
-		tintColor = MaterialColor.white
-		backgroundColor = MaterialColor.red.base
+		depthPreset = .depth1
+		shapePreset = .circle
+		pulseAnimation = .centerWithBacking
+		pulseColor = Color.white
+		tintColor = Color.white
+		backgroundColor = Color.red.base
 	}
 }

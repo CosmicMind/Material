@@ -12,7 +12,7 @@
 *		this list of conditions and the following disclaimer in the documentation
 *		and/or other materials provided with the distribution.
 *
-*	*	Neither the name of Material nor the names of its
+*	*	Neither the name of CosmicMind nor the names of its
 *		contributors may be used to endorse or promote products derived from
 *		this software without specific prior written permission.
 *
@@ -67,15 +67,15 @@ public class MaterialAssociatedObjectNavigationItem {
 	/// Prepares the titleLabel.
 	private func prepareTitleLabel() {
 		titleLabel = UILabel()
-		titleLabel.font = RobotoFont.mediumWithSize(17)
-		titleLabel.textAlignment = .Center
+		titleLabel.font = RobotoFont.mediumWithSize(size: 17)
+		titleLabel.textAlignment = .center
 	}
 	
 	/// Prepares the detailLabel.
 	private func prepareDetailLabel() {
 		detailLabel = UILabel()
-		detailLabel.font = RobotoFont.regularWithSize(12)
-		detailLabel.textAlignment = .Center
+		detailLabel.font = RobotoFont.regularWithSize(size: 12)
+		detailLabel.textAlignment = .center
 	}
 }
 
@@ -83,12 +83,12 @@ public extension UINavigationItem {
 	/// NavigationItem reference.
 	public internal(set) var item: MaterialAssociatedObjectNavigationItem {
 		get {
-			return MaterialAssociatedObject(self, key: &MaterialAssociatedObjectNavigationItemKey) {
+			return AssociatedObject(base: self, key: &MaterialAssociatedObjectNavigationItemKey) {
 				return MaterialAssociatedObjectNavigationItem()
 			}
 		}
 		set(value) {
-			MaterialAssociateObject(self, key: &MaterialAssociatedObjectNavigationItemKey, value: value)
+			AssociateObject(base: self, key: &MaterialAssociatedObjectNavigationItemKey, value: value)
 		}
 	}
 	

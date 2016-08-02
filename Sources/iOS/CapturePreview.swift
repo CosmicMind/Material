@@ -12,7 +12,7 @@
 *		this list of conditions and the following disclaimer in the documentation
 *		and/or other materials provided with the distribution.
 *
-*	*	Neither the name of Material nor the names of its
+*	*	Neither the name of CosmicMind nor the names of its
 *		contributors may be used to endorse or promote products derived from
 *		this software without specific prior written permission.
 *
@@ -31,41 +31,46 @@
 import UIKit
 import AVFoundation
 
-public class CapturePreview : MaterialView {
-	/**
-	:name:	layerClass
-	*/
+public class CapturePreview: View {
 	public override class func layerClass() -> AnyClass {
 		return AVCaptureVideoPreviewLayer.self
 	}
 
-	/**
-	:name:	captureDevicePointOfInterestForPoint
-	*/
-	public func captureDevicePointOfInterestForPoint(point: CGPoint) -> CGPoint {
-		return (layer as! AVCaptureVideoPreviewLayer).captureDevicePointOfInterestForPoint(point)
+    /**
+     Converts a point in layer coordinates to a point of interest 
+     in the coordinate space of the capture device providing input 
+     to the layer.
+     - Returns: A CGPoint that is converted.
+     */
+    public func captureDevicePointOfInterestForPoint(point: CGPoint) -> CGPoint {
+		return (layer as! AVCaptureVideoPreviewLayer).captureDevicePointOfInterest(for: point)
 	}
 
 	/**
-	:name:	pointForCaptureDevicePointOfInterest
-	*/
+     Converts a point of interest in the coordinate space of the 
+     capture device providing input to the layer to a point in 
+     layer coordinates.
+     - Returns: A CGPoint that is converted.
+     */
 	public func pointForCaptureDevicePointOfInterest(point: CGPoint) -> CGPoint {
-		return (layer as! AVCaptureVideoPreviewLayer).pointForCaptureDevicePointOfInterest(point)
+		return (layer as! AVCaptureVideoPreviewLayer).pointForCaptureDevicePoint(ofInterest: point)
 	}
 
-	/**
-	:name:	prepareView
-	*/
+    /**
+     Prepares the view instance when intialized. When subclassing,
+     it is recommended to override the prepareView method
+     to initialize property values and other setup operations.
+     The super.prepareView method should always be called immediately
+     when subclassing.
+     */
 	public override func prepareView() {
 		super.prepareView()
 		preparePreviewLayer()
 	}
 
-	/**
-	:name:	preparePreviewLayer
-	*/
+    /// Prepares the previewLayer.
 	private func preparePreviewLayer() {
-		layer.backgroundColor = MaterialColor.black.CGColor
+		layer.backgroundColor = Color.black.cgColor
 		layer.masksToBounds = true
 		(layer as! AVCaptureVideoPreviewLayer).videoGravity = AVLayerVideoGravityResizeAspectFill
 	}

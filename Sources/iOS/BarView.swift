@@ -12,7 +12,7 @@
 *		this list of conditions and the following disclaimer in the documentation
 *		and/or other materials provided with the distribution.
 *
-*	*	Neither the name of Material nor the names of its
+*	*	Neither the name of CosmicMind nor the names of its
 *		contributors may be used to endorse or promote products derived from
 *		this software without specific prior written permission.
 *
@@ -30,7 +30,7 @@
 
 import UIKit
 
-public class BarView : ControlView {
+public class BarView: ControlView {
 	/**
 	An initializer that initializes the object with a NSCoder object.
 	- Parameter aDecoder: A NSCoder instance.
@@ -54,7 +54,7 @@ public class BarView : ControlView {
 	- Parameter leftControls: An Array of UIControls that go on the left side.
 	- Parameter rightControls: An Array of UIControls that go on the right side.
 	*/
-	public override init(leftControls: Array<UIControl>? = nil, rightControls: Array<UIControl>? = nil) {
+	public override init(leftControls: [UIView]? = nil, rightControls: [UIView]? = nil) {
 		super.init(leftControls: leftControls, rightControls: rightControls)
 	}
 	
@@ -67,6 +67,6 @@ public class BarView : ControlView {
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		depth = .Depth1
+		depthPreset = .depth1
 	}
 }

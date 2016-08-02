@@ -12,7 +12,7 @@
 *		this list of conditions and the following disclaimer in the documentation
 *		and/or other materials provided with the distribution.
 *
-*	*	Neither the name of Material nor the names of its
+*	*	Neither the name of CosmicMind nor the names of its
 *		contributors may be used to endorse or promote products derived from
 *		this software without specific prior written permission.
 *
@@ -42,13 +42,13 @@ public extension UIViewController {
 			if viewController is SearchBarController {
 				return viewController as? SearchBarController
 			}
-			viewController = viewController?.parentViewController
+			viewController = viewController?.parent
 		}
 		return nil
 	}
 }
 
-public class SearchBarController : RootController {
+public class SearchBarController: RootController {
 	/// Reference to the SearchBar.
 	public private(set) var searchBar: SearchBar!
 	
@@ -60,10 +60,10 @@ public class SearchBarController : RootController {
 	public override func layoutSubviews() {
 		super.layoutSubviews()
 		if let v: SearchBar = searchBar {
-			v.grid.layoutInset.top = .iPhone == MaterialDevice.type && MaterialDevice.isLandscape ? 0 : 20
+			v.grid.layoutInset.top = .phone == Device.userInterfaceIdiom && Device.isLandscape ? 0 : 20
 			
-			let h: CGFloat = MaterialDevice.height
-			let w: CGFloat = MaterialDevice.width
+			let h: CGFloat = Device.height
+			let w: CGFloat = Device.width
 			let p: CGFloat = v.intrinsicContentSize().height + v.grid.layoutInset.top + v.grid.layoutInset.bottom
 			
 			v.width = w + v.grid.layoutInset.left + v.grid.layoutInset.right

@@ -12,7 +12,7 @@
 *		this list of conditions and the following disclaimer in the documentation
 *		and/or other materials provided with the distribution.
 *
-*	*	Neither the name of Material nor the names of its
+*	*	Neither the name of CosmicMind nor the names of its
 *		contributors may be used to endorse or promote products derived from
 *		this software without specific prior written permission.
 *
@@ -30,7 +30,7 @@
 
 import UIKit
 
-public class Toolbar : BarView {
+public class Toolbar: BarView {
 	/// A convenience property to set the titleLabel text.
 	public var title: String? {
 		get {
@@ -96,7 +96,7 @@ public class Toolbar : BarView {
 				detailLabel.removeFromSuperview()
 			}
 			
-			contentView.grid.reloadLayout()
+			contentView.grid.reload()
 		}
 	}
 	
@@ -123,7 +123,7 @@ public class Toolbar : BarView {
 	- Parameter leftControls: An Array of UIControls that go on the left side.
 	- Parameter rightControls: An Array of UIControls that go on the right side.
 	*/
-	public override init(leftControls: Array<UIControl>? = nil, rightControls: Array<UIControl>? = nil) {
+	public override init(leftControls: [UIView]? = nil, rightControls: [UIView]? = nil) {
 		super.init(leftControls: leftControls, rightControls: rightControls)
 	}
 	
@@ -143,16 +143,16 @@ public class Toolbar : BarView {
 	/// Prepares the titleLabel.
 	private func prepareTitleLabel() {
 		titleLabel = UILabel()
-		titleLabel.contentScaleFactor = MaterialDevice.scale
-		titleLabel.font = RobotoFont.mediumWithSize(17)
-		titleLabel.textAlignment = .Left
+		titleLabel.contentScaleFactor = Device.scale
+		titleLabel.font = RobotoFont.mediumWithSize(size: 17)
+		titleLabel.textAlignment = .left
 	}
 	
 	/// Prepares the detailLabel.
 	private func prepareDetailLabel() {
 		detailLabel = UILabel()
-		detailLabel.contentScaleFactor = MaterialDevice.scale
-		detailLabel.font = RobotoFont.regularWithSize(12)
-		detailLabel.textAlignment = .Left
+		detailLabel.contentScaleFactor = Device.scale
+		detailLabel.font = RobotoFont.regularWithSize(size: 12)
+		detailLabel.textAlignment = .left
 	}
 }

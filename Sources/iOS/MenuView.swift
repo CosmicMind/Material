@@ -12,7 +12,7 @@
 *		this list of conditions and the following disclaimer in the documentation
 *		and/or other materials provided with the distribution.
 *
-*	*	Neither the name of Material nor the names of its
+*	*	Neither the name of CosmicMind nor the names of its
 *		contributors may be used to endorse or promote products derived from
 *		this software without specific prior written permission.
 *
@@ -33,11 +33,12 @@ import UIKit
 @objc(MenuViewDelegate)
 public protocol MenuViewDelegate : MaterialDelegate {
     /// Gets called when the user taps outside menu buttons.
+    @objc
     optional func menuViewDidTapOutside(menuView: MenuView)
     
 }
 
-public class MenuView : MaterialPulseView {
+public class MenuView : PulseView {
 	/// References the Menu instance.
 	public private(set) lazy var menu: Menu = Menu()
 	
@@ -50,7 +51,7 @@ public class MenuView : MaterialPulseView {
 	*/
 	public override func prepareView() {
 		super.prepareView()
-		pulseAnimation = .None
+		pulseAnimation = .none
 		clipsToBounds = false
 		backgroundColor = nil
 	}
@@ -61,11 +62,11 @@ public class MenuView : MaterialPulseView {
 	all menu items have been opened.
 	*/
 	public func open(completion: (() -> Void)? = nil) {
-		if true == menu.views?.first?.userInteractionEnabled {
-			menu.views?.first?.userInteractionEnabled = false
+		if true == menu.views?.first?.isUserInteractionEnabled {
+			menu.views?.first?.isUserInteractionEnabled = false
 			menu.open { [weak self] (v: UIView) in
 				if self?.menu.views?.last == v {
-					self?.menu.views?.first?.userInteractionEnabled = true
+					self?.menu.views?.first?.isUserInteractionEnabled = true
 					completion?()
 				}
 			}
@@ -78,37 +79,37 @@ public class MenuView : MaterialPulseView {
 	all menu items have been closed.
 	*/
 	public func close(completion: (() -> Void)? = nil) {
-		if true == menu.views?.first?.userInteractionEnabled {
-			menu.views?.first?.userInteractionEnabled = false
+		if true == menu.views?.first?.isUserInteractionEnabled {
+			menu.views?.first?.isUserInteractionEnabled = false
 			menu.close { [weak self] (v: UIView) in
 				if self?.menu.views?.last == v {
-					self?.menu.views?.first?.userInteractionEnabled = true
+					self?.menu.views?.first?.isUserInteractionEnabled = true
 					completion?()
 				}
 			}
 		}
 	}
 	
-	public override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
+	public override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
 		/**
 		Since the subviews will be outside the bounds of this view,
 		we need to look at the subviews to see if we have a hit.
 		*/
-        guard !hidden else {
+        guard !isHidden else {
             return nil
         }
 		
 		for v in subviews {
-			let p: CGPoint = v.convertPoint(point, fromView: self)
-			if CGRectContainsPoint(v.bounds, p) {
-				return v.hitTest(p, withEvent: event)
+			let p = v.convert(point, from: self)
+			if v.bounds.contains(p) {
+				return v.hitTest(p, with: event)
 			}
 		}
 		
-		if menu.opened {
-			(delegate as? MenuViewDelegate)?.menuViewDidTapOutside?(self)
+		if menu.isOpened {
+			(delegate as? MenuViewDelegate)?.menuViewDidTapOutside?(menuView: self)
 		}
 		
-		return super.hitTest(point, withEvent: event)
+		return super.hitTest(point, with: event)
 	}
 }

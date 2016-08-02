@@ -12,7 +12,7 @@
 *		this list of conditions and the following disclaimer in the documentation
 *		and/or other materials provided with the distribution.
 *
-*	*	Neither the name of Material nor the names of its
+*	*	Neither the name of CosmicMind nor the names of its
 *		contributors may be used to endorse or promote products derived from
 *		this software without specific prior written permission.
 *
@@ -29,29 +29,29 @@
 */
 
 /**
-Gets the Obj-C reference for the Grid object within the UIView extension.
-- Parameter base: Base object.
-- Parameter key: Memory key pointer.
-- Parameter initializer: Object initializer.
-- Returns: The associated reference for the initializer object.
-*/
-public func MaterialAssociatedObject<T: AnyObject>(base: AnyObject, key: UnsafePointer<UInt8>, initializer: () -> T) -> T {
-	if let v: T = objc_getAssociatedObject(base, key) as? T {
-		return v
-	}
-	
-	let v: T = initializer()
-	objc_setAssociatedObject(base, key, v, .OBJC_ASSOCIATION_RETAIN)
-	return v
+ Gets the Obj-C reference for the instance object within the UIView extension.
+ - Parameter base: Base object.
+ - Parameter key: Memory key pointer.
+ - Parameter initializer: Object initializer.
+ - Returns: The associated reference for the initializer object.
+ */
+internal func AssociatedObject<T: AnyObject>(base: AnyObject, key: UnsafePointer<UInt8>, initializer: () -> T) -> T {
+    if let v: T = objc_getAssociatedObject(base, key) as? T {
+        return v
+    }
+    
+    let v: T = initializer()
+    objc_setAssociatedObject(base, key, v, .OBJC_ASSOCIATION_RETAIN)
+    return v
 }
 
 /**
-Sets the Obj-C reference for the Grid object within the UIView extension.
-- Parameter base: Base object.
-- Parameter key: Memory key pointer.
-- Parameter value: The object instance to set for the associated object.
-- Returns: The associated reference for the initializer object.
-*/
-public func MaterialAssociateObject<T: AnyObject>(base: AnyObject, key: UnsafePointer<UInt8>, value: T) {
-	objc_setAssociatedObject(base, key, value, .OBJC_ASSOCIATION_RETAIN)
+ Sets the Obj-C reference for the instance object within the UIView extension.
+ - Parameter base: Base object.
+ - Parameter key: Memory key pointer.
+ - Parameter value: The object instance to set for the associated object.
+ - Returns: The associated reference for the initializer object.
+ */
+internal func AssociateObject<T: AnyObject>(base: AnyObject, key: UnsafePointer<UInt8>, value: T) {
+    objc_setAssociatedObject(base, key, value, .OBJC_ASSOCIATION_RETAIN)
 }

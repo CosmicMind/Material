@@ -12,7 +12,7 @@
 *		this list of conditions and the following disclaimer in the documentation
 *		and/or other materials provided with the distribution.
 *
-*	*	Neither the name of Material nor the names of its
+*	*	Neither the name of CosmicMind nor the names of its
 *		contributors may be used to endorse or promote products derived from
 *		this software without specific prior written permission.
 *
@@ -42,14 +42,14 @@ public extension UIViewController {
 			if viewController is MenuController {
 				return viewController as? MenuController
 			}
-			viewController = viewController?.parentViewController
+			viewController = viewController?.parent
 		}
 		return nil
 	}
 }
 
 @IBDesignable
-public class MenuController : RootController {
+public class MenuController: RootController {
 	/// Reference to the MenuView.
 	public private(set) lazy var menuView: MenuView = MenuView()
 	
@@ -59,10 +59,10 @@ public class MenuController : RootController {
 	all menu items have been opened.
 	*/
 	public func openMenu(completion: (() -> Void)? = nil) {
-		if true == userInteractionEnabled {
-			userInteractionEnabled = false
+		if true == isUserInteractionEnabled {
+			isUserInteractionEnabled = false
 			rootViewController.view.alpha = 0.5
-			menuView.open(completion)
+			menuView.open(completion: completion)
 		}
 	}
 	
@@ -72,10 +72,10 @@ public class MenuController : RootController {
 	all menu items have been closed.
 	*/
 	public func closeMenu(completion: (() -> Void)? = nil) {
-		if false == userInteractionEnabled {
+		if false == isUserInteractionEnabled {
 			rootViewController.view.alpha = 1
-			menuView.close({ [weak self] in
-				self?.userInteractionEnabled = true
+			menuView.close(completion: { [weak self] in
+				self?.isUserInteractionEnabled = true
 				completion?()
 			})
 		}

@@ -12,7 +12,7 @@
 *		this list of conditions and the following disclaimer in the documentation
 *		and/or other materials provided with the distribution.
 *
-*	*	Neither the name of Material nor the names of its
+*	*	Neither the name of CosmicMind nor the names of its
 *		contributors may be used to endorse or promote products derived from
 *		this software without specific prior written permission.
 *
@@ -30,7 +30,7 @@
 
 import UIKit
 
-public class SearchBar : BarView {
+public class SearchBar: BarView {
 	/// The UITextField for the searchBar.
 	public private(set) var textField: UITextField!
 	
@@ -40,9 +40,9 @@ public class SearchBar : BarView {
 	/// Handle the clearButton manually.
 	@IBInspectable public var clearButtonAutoHandleEnabled: Bool = true {
 		didSet {
-			clearButton.removeTarget(self, action: #selector(handleClearButton), forControlEvents: .TouchUpInside)
+			clearButton.removeTarget(self, action: #selector(handleClearButton), for: .touchUpInside)
 			if clearButtonAutoHandleEnabled {
-				clearButton.addTarget(self, action: #selector(handleClearButton), forControlEvents: .TouchUpInside)
+				clearButton.addTarget(self, action: #selector(handleClearButton), for: .touchUpInside)
 			}
 		}
 	}
@@ -71,16 +71,16 @@ public class SearchBar : BarView {
 	@IBInspectable public var placeholder: String? {
 		didSet {
 			if let v: String = placeholder {
-				textField.attributedPlaceholder = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderColor])
+				textField.attributedPlaceholder = AttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderColor])
 			}
 		}
 	}
 	
 	/// Placeholder textColor.
-	@IBInspectable public var placeholderColor: UIColor = MaterialColor.darkText.others {
+	@IBInspectable public var placeholderColor: UIColor = Color.darkText.others {
 		didSet {
 			if let v: String = placeholder {
-				textField.attributedPlaceholder = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderColor])
+				textField.attributedPlaceholder = AttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderColor])
 			}
 		}
 	}
@@ -116,7 +116,7 @@ public class SearchBar : BarView {
 	- Parameter leftControls: An Array of UIControls that go on the left side.
 	- Parameter rightControls: An Array of UIControls that go on the right side.
 	*/
-	public override init(leftControls: Array<UIControl>? = nil, rightControls: Array<UIControl>? = nil) {
+	public override init(leftControls: [UIView]? = nil, rightControls: [UIView]? = nil) {
 		super.init(leftControls: leftControls, rightControls: rightControls)
 	}
 	
@@ -136,7 +136,7 @@ public class SearchBar : BarView {
 	/// Layout the clearButton.
 	public func layoutClearButton() {
 		let h: CGFloat = textField.frame.height
-		clearButton.frame = CGRectMake(textField.frame.width - h, 0, h, h)
+        clearButton.frame = CGRect(x: textField.frame.width - h, y: 0, width: h, height: h)
 	}
 	
 	/// Clears the textField text.
@@ -147,27 +147,27 @@ public class SearchBar : BarView {
 	/// Prepares the textField.
 	private func prepareTextField() {
 		textField = UITextField()
-		textField.contentScaleFactor = MaterialDevice.scale
-		textField.font = RobotoFont.regularWithSize(17)
-		textField.backgroundColor = MaterialColor.clear
-		textField.clearButtonMode = .WhileEditing
+		textField.contentScaleFactor = Device.scale
+		textField.font = RobotoFont.regularWithSize(size: 17)
+		textField.backgroundColor = Color.clear
+		textField.clearButtonMode = .whileEditing
 		tintColor = placeholderColor
-		textColor = MaterialColor.darkText.primary
+		textColor = Color.darkText.primary
 		placeholder = "Search"
 		contentView.addSubview(textField)
 	}
 	
 	/// Prepares the clearButton.
 	private func prepareClearButton() {
-		let image: UIImage? = MaterialIcon.cm.close
+		let image: UIImage? = Icon.cm.close
 		clearButton = IconButton()
-		clearButton.contentEdgeInsets = UIEdgeInsetsZero
+		clearButton.contentEdgeInsets = UIEdgeInsets.zero
 		clearButton.tintColor = placeholderColor
-		clearButton.setImage(image, forState: .Normal)
-		clearButton.setImage(image, forState: .Highlighted)
+        clearButton.setImage(image, for: .normal)
+        clearButton.setImage(image, for: .highlighted)
 		clearButtonAutoHandleEnabled = true
-		textField.clearButtonMode = .Never
-		textField.rightViewMode = .WhileEditing
+		textField.clearButtonMode = .never
+		textField.rightViewMode = .whileEditing
 		textField.rightView = clearButton
 	}
 }

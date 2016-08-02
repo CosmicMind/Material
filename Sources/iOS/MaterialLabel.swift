@@ -12,7 +12,7 @@
 *		this list of conditions and the following disclaimer in the documentation
 *		and/or other materials provided with the distribution.
 *
-*	*	Neither the name of Material nor the names of its
+*	*	Neither the name of CosmicMind nor the names of its
 *		contributors may be used to endorse or promote products derived from
 *		this software without specific prior written permission.
 *
@@ -87,7 +87,7 @@ public class MaterialLabel : UILabel {
 	*/
 	@IBInspectable public var wrapped: Bool {
 		didSet {
-			textLayer.wrapped = wrapped
+			textLayer.isWrapped = wrapped
 		}
 	}
 	
@@ -114,7 +114,7 @@ public class MaterialLabel : UILabel {
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		wrapped = true
-		contentsScale = MaterialDevice.scale
+		contentsScale = Device.scale
 		super.init(coder: aDecoder)
 		prepareView()
 	}
@@ -124,7 +124,7 @@ public class MaterialLabel : UILabel {
 	*/
 	public override init(frame: CGRect) {
 		wrapped = true
-		contentsScale = MaterialDevice.scale
+		contentsScale = Device.scale
 		super.init(frame: frame)
 		prepareView()
 	}
@@ -147,7 +147,7 @@ public class MaterialLabel : UILabel {
 	:name:	prepareView
 	*/
 	public func prepareView() {
-		contentScaleFactor = MaterialDevice.scale
-		textAlignment = .Left
+		contentScaleFactor = Device.scale
+		textAlignment = .left
 	}
 }

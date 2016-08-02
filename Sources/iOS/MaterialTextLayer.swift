@@ -12,7 +12,7 @@
 *		this list of conditions and the following disclaimer in the documentation
 *		and/or other materials provided with the distribution.
 *
-*	*	Neither the name of Material nor the names of its
+*	*	Neither the name of CosmicMind nor the names of its
 *		contributors may be used to endorse or promote products derived from
 *		this software without specific prior written permission.
 *
@@ -37,7 +37,7 @@ public class MaterialTextLayer : CATextLayer {
 	public var fontType: UIFont? {
 		didSet {
 			if let v: UIFont = fontType {
-				super.font = CGFontCreateWithFontName(v.fontName as CFStringRef)!
+				super.font = CGFont(v.fontName as CFString)!
 				pointSize = v.pointSize
 			}
 		}
@@ -66,25 +66,25 @@ public class MaterialTextLayer : CATextLayer {
 	*/
 	@IBInspectable public var textColor: UIColor? {
 		didSet {
-			foregroundColor = textColor?.CGColor
+			foregroundColor = textColor?.cgColor
 		}
 	}
 	
 	/**
 	:name:	textAlignment
 	*/
-	public var textAlignment: NSTextAlignment = .Left {
+	public var textAlignment: NSTextAlignment = .left {
 		didSet {
 			switch textAlignment {
-			case .Left:
+			case .left:
 				alignmentMode = kCAAlignmentLeft
-			case .Center:
+			case .center:
 				alignmentMode = kCAAlignmentCenter
-			case .Right:
+			case .right:
 				alignmentMode = kCAAlignmentRight
-			case .Justified:
+			case .justified:
 				alignmentMode = kCAAlignmentJustified
-			case .Natural:
+			case .natural:
 				alignmentMode = kCAAlignmentNatural
 			}
 		}
@@ -93,20 +93,20 @@ public class MaterialTextLayer : CATextLayer {
 	/**
 	:name:	lineBreakMode
 	*/
-	public var lineBreakMode: NSLineBreakMode = .ByWordWrapping {
+	public var lineBreakMode: NSLineBreakMode = .byWordWrapping {
 		didSet {
 			switch lineBreakMode {
-			case .ByWordWrapping: // Wrap at word boundaries, default
+			case .byWordWrapping: // Wrap at word boundaries, default
 				truncationMode = kCATruncationNone
-			case .ByCharWrapping: // Wrap at character boundaries
+			case .byCharWrapping: // Wrap at character boundaries
 				truncationMode = kCATruncationNone
-			case .ByClipping: // Simply clip
+			case .byClipping: // Simply clip
 				truncationMode = kCATruncationNone
-			case .ByTruncatingHead: // Truncate at head of line: "...wxyz"
+			case .byTruncatingHead: // Truncate at head of line: "...wxyz"
 				truncationMode = kCATruncationStart
-			case .ByTruncatingTail: // Truncate at tail of line: "abcd..."
+			case .byTruncatingTail: // Truncate at tail of line: "abcd..."
 				truncationMode = kCATruncationEnd
-			case .ByTruncatingMiddle: // Truncate middle of line:  "ab...yz"
+			case .byTruncatingMiddle: // Truncate middle of line:  "ab...yz"
 				truncationMode = kCATruncationMiddle
 			}
 		}
@@ -196,9 +196,9 @@ public class MaterialTextLayer : CATextLayer {
 	:name:	stringSize
 	*/
 	public func stringSize(constrainedToWidth width: Double) -> CGSize {
-		if let v: UIFont = fontType {
+		if let v = fontType {
 			if 0 < text?.utf16.count {
-				return v.stringSize(text!, constrainedToWidth: width)
+				return v.stringSize(string: text!, constrainedToWidth: width)
 			}
 		}
 		return CGSize.zero
@@ -208,10 +208,10 @@ public class MaterialTextLayer : CATextLayer {
 	:name:	prepareLayer
 	*/
 	internal func prepareLayer() {
-		textColor = MaterialColor.black
-		textAlignment = .Left
-		wrapped = true
-		contentsScale = MaterialDevice.scale
-		lineBreakMode = .ByWordWrapping
+		textColor = Color.black
+		textAlignment = .left
+		isWrapped = true
+		contentsScale = Device.scale
+		lineBreakMode = .byWordWrapping
 	}
 }

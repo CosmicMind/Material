@@ -12,7 +12,7 @@
 *		this list of conditions and the following disclaimer in the documentation
 *		and/or other materials provided with the distribution.
 *
-*	*	Neither the name of Material nor the names of its
+*	*	Neither the name of CosmicMind nor the names of its
 *		contributors may be used to endorse or promote products derived from
 *		this software without specific prior written permission.
 *
@@ -31,14 +31,14 @@
 import UIKit
 
 @IBDesignable
-public class RootController : UIViewController {
+public class RootController: UIViewController {
 	/// Device status bar style.
 	public var statusBarStyle: UIStatusBarStyle {
 		get {
-			return MaterialDevice.statusBarStyle
+			return Device.statusBarStyle
 		}
 		set(value) {
-			MaterialDevice.statusBarStyle = value
+			Device.statusBarStyle = value
 		}
 	}
 	
@@ -46,12 +46,12 @@ public class RootController : UIViewController {
 	A Boolean property used to enable and disable interactivity
 	with the rootViewController.
 	*/
-	@IBInspectable public var userInteractionEnabled: Bool {
+	@IBInspectable public var isUserInteractionEnabled: Bool {
 		get {
-			return rootViewController.view.userInteractionEnabled
+			return rootViewController.view.isUserInteractionEnabled
 		}
 		set(value) {
-			rootViewController.view.userInteractionEnabled = value
+			rootViewController.view.isUserInteractionEnabled = value
 		}
 	}
 	
@@ -77,7 +77,7 @@ public class RootController : UIViewController {
 	- Parameter nibNameOrNil: An Optional String for the nib.
 	- Parameter bundle: An Optional NSBundle where the nib is located.
 	*/
-	public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+	public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 		prepareView()
 	}
@@ -101,7 +101,7 @@ public class RootController : UIViewController {
 	A method to swap rootViewController objects.
 	- Parameter toViewController: The UIViewController to swap
 	with the active rootViewController.
-	- Parameter duration: A NSTimeInterval that sets the
+	- Parameter duration: A TimeInterval that sets the
 	animation duration of the transition.
 	- Parameter options: UIViewAnimationOptions thst are used
 	when animating the transition from the active rootViewController
@@ -113,23 +113,23 @@ public class RootController : UIViewController {
 	the transition animation from the active rootViewController
 	to the toViewController has completed.
 	*/
-	public func transitionFromRootViewController(toViewController: UIViewController, duration: NSTimeInterval = 0.5, options: UIViewAnimationOptions = [], animations: (() -> Void)? = nil, completion: ((Bool) -> Void)? = nil) {
-		rootViewController.willMoveToParentViewController(nil)
+	public func transitionFromRootViewController(toViewController: UIViewController, duration: TimeInterval = 0.5, options: UIViewAnimationOptions = [], animations: (() -> Void)? = nil, completion: ((Bool) -> Void)? = nil) {
+		rootViewController.willMove(toParentViewController: nil)
 		addChildViewController(toViewController)
 		toViewController.view.frame = rootViewController.view.frame
-		transitionFromViewController(rootViewController,
-			toViewController: toViewController,
+        transition(from: rootViewController,
+                   to: toViewController,
 			duration: duration,
 			options: options,
 			animations: animations,
 			completion: { [weak self] (result: Bool) in
 				if let s: RootController = self {
-					toViewController.didMoveToParentViewController(s)
+					toViewController.didMove(toParentViewController: s)
 					s.rootViewController.removeFromParentViewController()
 					s.rootViewController = toViewController
 					s.rootViewController.view.clipsToBounds = true
-					s.rootViewController.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-					s.rootViewController.view.contentScaleFactor = MaterialDevice.scale
+					s.rootViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+					s.rootViewController.view.contentScaleFactor = Device.scale
 					completion?(result)
 				}
 			})
@@ -151,13 +151,13 @@ public class RootController : UIViewController {
 	*/
 	public func prepareView() {
 		view.clipsToBounds = true
-		view.contentScaleFactor = MaterialDevice.scale
+		view.contentScaleFactor = Device.scale
 		prepareRootViewController()
 	}
 	
 	/// A method that prepares the rootViewController.
 	internal func prepareRootViewController() {
-		prepareViewControllerWithinContainer(rootViewController, container: view)
+		prepareViewControllerWithinContainer(viewController: rootViewController, container: view)
 	}
 	
 	/**
@@ -172,10 +172,10 @@ public class RootController : UIViewController {
 		if let v: UIViewController = viewController {
 			addChildViewController(v)
 			container.addSubview(v.view)
-			v.didMoveToParentViewController(self)
+			v.didMove(toParentViewController: self)
 			v.view.clipsToBounds = true
-			v.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-			v.view.contentScaleFactor = MaterialDevice.scale
+			v.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+			v.view.contentScaleFactor = Device.scale
 		}
 	}
 }

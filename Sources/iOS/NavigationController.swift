@@ -12,7 +12,7 @@
 *		this list of conditions and the following disclaimer in the documentation
 *		and/or other materials provided with the distribution.
 *
-*	*	Neither the name of Material nor the names of its
+*	*	Neither the name of CosmicMind nor the names of its
 *		contributors may be used to endorse or promote products derived from
 *		this software without specific prior written permission.
 *
@@ -45,7 +45,7 @@ public class NavigationController : UINavigationController, UIGestureRecognizerD
 	- Parameter nibNameOrNil: An Optional String for the nib.
 	- Parameter bundle: An Optional NSBundle where the nib is located.
 	*/
-	public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+	public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 	}
 	
@@ -58,15 +58,15 @@ public class NavigationController : UINavigationController, UIGestureRecognizerD
 		setViewControllers([rootViewController], animated: false)
 	}
 	
-	public override func viewWillAppear(animated: Bool) {
+	public override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		if let v: UIGestureRecognizer = interactivePopGestureRecognizer {
-			if let x: NavigationDrawerController = navigationDrawerController {
-				if let l: UIPanGestureRecognizer = x.leftPanGesture {
-					l.requireGestureRecognizerToFail(v)
+		if let v = interactivePopGestureRecognizer {
+			if let x = navigationDrawerController {
+				if let l = x.leftPanGesture {
+					l.require(toFail: v)
 				}
-				if let r: UIPanGestureRecognizer = x.rightPanGesture {
-					r.requireGestureRecognizerToFail(v)
+				if let r = x.rightPanGesture {
+					r.require(toFail: v)
 				}
 			}
 		}
@@ -77,12 +77,12 @@ public class NavigationController : UINavigationController, UIGestureRecognizerD
 		prepareView()
 	}
 	
-	public override func viewDidAppear(animated: Bool) {
+	public override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		// Load the initial topItem.
-		if let v: NavigationBar = navigationBar as? NavigationBar {
-			if let item: UINavigationItem = v.topItem {
-				v.layoutNavigationItem(item)
+		if let v = navigationBar as? NavigationBar {
+			if let item = v.topItem {
+				v.layoutNavigationItem(item: item)
 			}
 		}
 	}
@@ -94,7 +94,7 @@ public class NavigationController : UINavigationController, UIGestureRecognizerD
 	- Parameter touch: The UITouch event.
 	- Returns: A Boolean of whether to continue the gesture or not, true yes, false no.
 	*/
-	public func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+	public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
 		return interactivePopGestureRecognizer == gestureRecognizer && nil != navigationBar.backItem
 	}
 	
@@ -107,14 +107,14 @@ public class NavigationController : UINavigationController, UIGestureRecognizerD
 	True is yes, false is no.
 	*/
 	public func navigationBar(navigationBar: UINavigationBar, shouldPushItem item: UINavigationItem) -> Bool {
-		if let v: NavigationBar = navigationBar as? NavigationBar {
-			let backButton: IconButton = IconButton()
-			backButton.pulseColor = MaterialColor.white
-			backButton.setImage(v.backButtonImage, forState: .Normal)
-			backButton.setImage(v.backButtonImage, forState: .Highlighted)
-			backButton.addTarget(self, action: #selector(handleBackButton), forControlEvents: .TouchUpInside)
+		if let v = navigationBar as? NavigationBar {
+			let backButton = IconButton()
+			backButton.pulseColor = Color.white
+            backButton.setImage(v.backButtonImage, for: .normal)
+            backButton.setImage(v.backButtonImage, for: .highlighted)
+			backButton.addTarget(self, action: #selector(handleBackButton), for: .touchUpInside)
 			
-			if var c: Array<UIControl> = item.leftControls {
+			if var c = item.leftControls {
 				c.append(backButton)
 				item.leftControls = c
 			} else {
@@ -122,14 +122,14 @@ public class NavigationController : UINavigationController, UIGestureRecognizerD
 			}
 			
 			item.backButton = backButton
-			v.layoutNavigationItem(item)
+			v.layoutNavigationItem(item: item)
 		}
 		return true
 	}
 	
 	/// Handler for the back button.
 	internal func handleBackButton() {
-		popViewControllerAnimated(true)
+		popViewController(animated: true)
 	}
 	
 	/**
@@ -141,11 +141,11 @@ public class NavigationController : UINavigationController, UIGestureRecognizerD
 	*/
 	public func prepareView() {
 		view.clipsToBounds = true
-		view.contentScaleFactor = MaterialDevice.scale
+		view.contentScaleFactor = Device.scale
 		
 		// This ensures the panning gesture is available when going back between views.
-		if let v: UIGestureRecognizer = interactivePopGestureRecognizer {
-			v.enabled = true
+		if let v = interactivePopGestureRecognizer {
+			v.isEnabled = true
 			v.delegate = self
 		}
 	}
