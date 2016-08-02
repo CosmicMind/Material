@@ -32,13 +32,13 @@ import AppKit
 
 public struct Color {
     // clear
-    public static let clear: NSColor = NSColor.clear()
+    public static let clear: NSColor = NSColor.clear
     
     // white
-    public static let white: NSColor = NSColor.white()
+    public static let white: NSColor = NSColor.white
     
     // black
-    public static let black: NSColor = NSColor.black()
+    public static let black: NSColor = NSColor.black
     
     // dark text
     public struct darkText {
