@@ -39,15 +39,6 @@ public class PhotoLibraryController: UIViewController, PhotoLibraryDelegate {
         preparePhotoLibrary()
     }
     
-    /**
-     Executes an authorization request with an optional completion block.
-     - Parameter completion: An optional completion block that is executed when
-     authorization status is determined.
-     */
-    public func authorizePhotoLibrary(_ completion: ((PHAuthorizationStatus) -> Void)? = nil) {
-        photoLibrary.requestAuthorization(completion)
-    }
-    
     /// Prepares the photoLibrary.
     private func preparePhotoLibrary() {
         photoLibrary = PhotoLibrary()
