@@ -36,7 +36,7 @@ public enum ImageFormat: Int {
 	case jpeg
 }
 
-public extension UIImage {
+extension UIImage {
     /// Width of the UIImage.
     public var width: CGFloat {
         return size.width
@@ -48,7 +48,7 @@ public extension UIImage {
     }
 }
 
-public extension UIImage {
+extension UIImage {
     /**
      Resizes an image based on a given width.
      - Parameter toWidth w: A width value.
@@ -94,7 +94,7 @@ public extension UIImage {
     }
 }
 
-public extension UIImage {
+extension UIImage {
     /**
      Creates a new image with the passed in color.
      - Parameter color: The UIColor to create the image from.
@@ -122,7 +122,7 @@ public extension UIImage {
     }
 }
 
-public extension UIImage {
+extension UIImage {
     /**
      Creates an Image that is a color.
      - Parameter color: The UIColor to create the image from.
@@ -140,7 +140,7 @@ public extension UIImage {
     }
 }
 
-public extension UIImage {
+extension UIImage {
     /**
      Crops an image to a specified width and height.
      - Parameter toWidth tw: A specified width.
@@ -165,7 +165,7 @@ public extension UIImage {
     }
 }
 
-public extension UIImage {
+extension UIImage {
     /**
      Creates an clear image.
      - Returns: A UIImage that is clear.
@@ -178,7 +178,7 @@ public extension UIImage {
     }
 }
 
-public extension UIImage {
+extension UIImage {
     /**
      Asynchronously load images with a completion block.
      - Parameter URL: A URL destination to fetch the image from.
@@ -198,7 +198,7 @@ public extension UIImage {
     }
 }
 
-public extension UIImage {
+extension UIImage {
     /**
      Adjusts the orientation of the image from the capture orientation.
      This is an issue when taking images, the capture orientation is not set correctly

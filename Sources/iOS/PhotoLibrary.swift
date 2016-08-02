@@ -232,7 +232,7 @@ public class PhotoLibrary: NSObject {
      enum that describes the response for the authorization request.
      */
     public func requestAuthorization(_ completion: ((PHAuthorizationStatus) -> Void)? = nil) {
-        PHPhotoLibrary.requestAuthorization { [weak self] (status) in
+        PHPhotoLibrary.requestAuthorization { [weak self, completion = completion] (status) in
             guard let s = self else {
                 return
             }
@@ -262,13 +262,12 @@ public class PhotoLibrary: NSObject {
     }
     
     /**
-     Fetch different PHAssetCollections asynchronously based on different types and subtypes
-     with an optional completion block.
+     Fetch all the PHAssetCollections asynchronously based on a type and subtype.
      - Parameter type: A PHAssetCollectionType.
      - Parameter subtype: A PHAssetCollectionSubtype.
-     - Parameter completion: An optional completion block.
+     - Parameter completion: A completion block.
      */
-    public func fetch(type: PHAssetCollectionType, subtype: PHAssetCollectionSubtype, completion: ([PhotoLibraryDataSource]) -> Void) {
+    public func fetchAssetCollections(with type: PHAssetCollectionType, subtype: PHAssetCollectionSubtype, completion: ([PhotoLibraryDataSource]) -> Void) {
         self.type = type
         self.subtype = subtype
         
@@ -279,6 +278,9 @@ public class PhotoLibrary: NSObject {
             
             defer {
                 DispatchQueue.main.async { [weak self] in
+                    guard let s = self else {
+                        return
+                    }
                     completion(s.collections)
                 }
             }
@@ -302,14 +304,55 @@ public class PhotoLibrary: NSObject {
                 options.includeAllBurstAssets = true
                 options.wantsIncrementalChangeDetails = true
                 
-                var assets = [PHAsset]()
-                let fetchResult = PHAsset.fetchAssets(in: collection, options: options)
-                fetchResult.enumerateObjects(options: []) { (asset, _, _) in
-                    assets.append(asset)
+                s.fetchAssets(in: collection, options: options) { [weak self] (assets, fetchResult) in
+                    guard let s = self else {
+                        return
+                    }
+                    s.collections.append(PhotoLibraryDataSource(fetchResult: fetchResult, collection: collection, assets: assets))
                 }
-                s.collections.append(PhotoLibraryDataSource(fetchResult: fetchResult, collection: collection, assets: assets))
             }
         }
+    }
+    
+    /**
+     Fetch the PHAssets in a given PHAssetCollection.
+     - Parameter in assetCollection: A PHAssetCollection.
+     - Parameter options: An optional PHFetchOptions object.
+     - Parameter completion: A completion block.
+     */
+    public func fetchAssets(in assetCollection: PHAssetCollection, options: PHFetchOptions?, completion: ([PHAsset], PHFetchResult<PHAsset>) -> Void) {
+        var fetchResult: PHFetchResult<PHAsset>!
+        var assets = [PHAsset]()
+        
+        defer {
+            DispatchQueue.main.async { [assets = assets, fetchResult = fetchResult, completion = completion] in
+                completion(assets, fetchResult!)
+            }
+        }
+        
+        fetchResult = PHAsset.fetchAssets(in: assetCollection, options: options)
+        
+        fetchResult.enumerateObjects(options: []) { (asset, _, _) in
+            assets.append(asset)
+        }
+    }
+    
+    /**
+     
+     */
+    public func fetchAssets(with mediaType: PHAssetMediaType, options: PHFetchOptions?) -> PHFetchResult<PHAsset> {
+        return PHAsset.fetchAssets(with: mediaType, options: options)
+    }
+    
+    /**
+     Performes an asynchronous change to the PHPhotoLibrary database.
+     - Parameter _ block: A transactional block that ensures that
+     all changes to the PHPhotoLibrary are atomic. 
+     - Parameter completion: A completion block that is executed once the
+     transaction has been completed.
+     */
+    public func performChanges(_ block: () -> Void, completion: ((Bool, Error?) -> Void)? = nil) {
+        PHPhotoLibrary.shared().performChanges(block, completionHandler: completion)
     }
     
     /// A method used to prepare the instance object.
@@ -327,35 +370,13 @@ public class PhotoLibrary: NSObject {
     private func prepareChangeObservers() {
         PHPhotoLibrary.shared().register(self)
     }
-    
-//    public func moments(in momentList: PHCollectionList, options: PHFetchOptions?) -> [PHAssetCollection] {
-//        var v = [PHAssetCollection]()
-//        PHAssetCollection.fetchMoments(inMomentList: momentList, options: options).enumerateObjects(options: [.concurrent]) { (collection, _, _) in
-//            v.append(collection)
-//        }
-//        return v
-//    }
-//    
-//    public func fetch(with type: PHAssetCollectionType, subtype: PHAssetCollectionSubtype, options: PHFetchOptions?) -> PHFetchResult<PHAssetCollection> {
-//        let result = PHAssetCollection.fetchAssetCollections(with: type, subtype: subtype, options: options)
-//        return result
-//    }
-//    
-    
-    /**
-     Performes an asynchronous change to the PHPhotoLibrary database.
-     - Parameter _ block: A transactional block that ensures that
-     all changes to the PHPhotoLibrary are atomic. 
-     - Parameter completion: A completion block that is executed once the
-     transaction has been completed.
-     */
-    public func performChanges(_ block: () -> Void, completion: ((Bool, Error?) -> Void)? = nil) {
-        PHPhotoLibrary.shared().performChanges(block, completionHandler: completion)
-    }
-    
+}
+
+/// PHImageManager.
+extension PhotoLibrary {
     /**
      Retrieves an optional UIImage for a given PHAsset that allows for a targetSize
-     and contentMode. 
+     and contentMode.
      - Parameter for asset: A PHAsset.
      - Parameter targetSize: A CGSize.
      - Parameter contentMode: A PHImageContentMode.
@@ -363,7 +384,7 @@ public class PhotoLibrary: NSObject {
      - Parameter completion: A completion block.
      - Returns: A PHImageRequestID.
      */
-    public func image(for asset: PHAsset, targetSize: CGSize, contentMode: PHImageContentMode, options: PHImageRequestOptions?, completion: (UIImage?, [NSObject: AnyObject]?) -> Void) -> PHImageRequestID {
+    public func requestImage(for asset: PHAsset, targetSize: CGSize, contentMode: PHImageContentMode, options: PHImageRequestOptions?, completion: (UIImage?, [NSObject: AnyObject]?) -> Void) -> PHImageRequestID {
         return PHImageManager.default().requestImage(for: asset, targetSize: targetSize, contentMode: contentMode, options: options, resultHandler: completion)
     }
     
@@ -374,16 +395,95 @@ public class PhotoLibrary: NSObject {
      - Parameter completion: A completion block.
      - Returns: A PHImageRequestID.
      */
-    public func data(for asset: PHAsset, options: PHImageRequestOptions?, completion: (Data?, String?, UIImageOrientation, [NSObject: AnyObject]?) -> Void) -> PHImageRequestID {
+    public func requestImageData(for asset: PHAsset, options: PHImageRequestOptions?, completion: (Data?, String?, UIImageOrientation, [NSObject: AnyObject]?) -> Void) -> PHImageRequestID {
         return PHImageManager.default().requestImageData(for: asset, options: options, resultHandler: completion)
     }
-
+    
     /**
-     Cance;s an image request for a given PHImageRequestID.
+     Cancels an image request for a given PHImageRequestID.
      - Parameter for requestID: A PHImageRequestID.
      */
-    public func cancel(for requestID: PHImageRequestID) {
+    public func cancelImageRequest(for requestID: PHImageRequestID) {
         PHImageManager.default().cancelImageRequest(requestID)
+    }
+    
+    /**
+    
+     */
+    @available(iOS 9.1, *)
+    public func requestLivePhoto(for asset: PHAsset, targetSize: CGSize, contentMode: PHImageContentMode, options: PHLivePhotoRequestOptions?, completion: (PHLivePhoto?, [NSObject : AnyObject]?) -> Void) -> PHImageRequestID {
+        return PHImageManager.default().requestLivePhoto(for: asset, targetSize: targetSize, contentMode: contentMode, options: options, resultHandler: completion)
+    }
+    
+    /**
+     
+     */
+    public func requestPlayerItem(forVideo asset: PHAsset, options: PHVideoRequestOptions?, completion: (AVPlayerItem?, [NSObject : AnyObject]?) -> Swift.Void) -> PHImageRequestID {
+        return PHImageManager.default().requestPlayerItem(forVideo: asset, options: options, resultHandler: completion)
+    }
+    
+    /**
+     
+     */
+    public func requestExportSession(forVideo asset: PHAsset, options: PHVideoRequestOptions?, exportPreset: String, completion: (AVAssetExportSession?, [NSObject : AnyObject]?) -> Void) -> PHImageRequestID {
+        return PHImageManager.default().requestExportSession(forVideo: asset, options: options, exportPreset: exportPreset, resultHandler: completion)
+    }
+    
+    /**
+     
+     */
+    public func requestAVAsset(forVideo asset: PHAsset, options: PHVideoRequestOptions?, completion: (AVAsset?, AVAudioMix?, [NSObject : AnyObject]?) -> Void) -> PHImageRequestID {
+        return PHImageManager.default().requestAVAsset(forVideo: asset, options: options, resultHandler: completion)
+    }
+}
+
+/// PHCollection.
+extension PhotoLibrary {
+    /**
+     Fetch PHCollection based on a type and subtype.
+     - Parameter with type: A PHCollectionListType.
+     - Parameter subtype: A PHCollectionListSubtype.
+     - Parameter options: An optional PHFetchOptions object.
+     - Parameter completion: A completion callback.
+     */
+    public func fetchTopLevelUserCollections(with options: PHFetchOptions?, completion: ([PHCollection], PHFetchResult<PHCollection>) -> Void) {
+        var collections = [PHCollection]()
+        let fetchResult = PHCollection.fetchTopLevelUserCollections(with: nil)
+        
+        defer {
+            DispatchQueue.main.async { [collections = collections, fetchResult = fetchResult, completion = completion] in
+                completion(collections, fetchResult)
+            }
+        }
+        
+        fetchResult.enumerateObjects(options: [.concurrent]) { (collection, _, _) in
+            collections.append(collection)
+        }
+    }
+}
+
+/// PHCollectionList.
+extension PhotoLibrary {
+    /**
+     Fetch PHCollectionLists based on a type and subtype.
+     - Parameter with type: A PHCollectionListType.
+     - Parameter subtype: A PHCollectionListSubtype.
+     - Parameter options: An optional PHFetchOptions object.
+     - Parameter completion: A completion callback.
+     */
+    public func fetchCollectionList(with type: PHCollectionListType, subtype: PHCollectionListSubtype, options: PHFetchOptions?, completion: ([PHCollectionList], PHFetchResult<PHCollectionList>) -> Void) {
+        var lists = [PHCollectionList]()
+        let fetchResult = PHCollectionList.fetchCollectionLists(with: type, subtype: subtype, options: options)
+        
+        defer {
+            DispatchQueue.main.async { [lists = lists, fetchResult = fetchResult, completion = completion] in
+                completion(lists, fetchResult)
+            }
+        }
+        
+        fetchResult.enumerateObjects(options: [.concurrent]) { (list, _, _) in
+            lists.append(list)
+        }
     }
 }
 
@@ -409,7 +509,7 @@ extension PhotoLibrary: PHPhotoLibraryChangeObserver {
         
         collections.removeAll()
         
-        fetch(type: t, subtype: st) { [weak self, oldCollections = oldCollections] _ in
+        fetchAssetCollections(with: t, subtype: st) { [weak self, oldCollections = oldCollections] _ in
             DispatchQueue.main.async { [weak self, oldCollections = oldCollections] in
                 guard let s = self else {
                     return
