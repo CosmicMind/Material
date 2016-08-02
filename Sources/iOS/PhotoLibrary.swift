@@ -31,6 +31,7 @@
 import Photos
 
 public struct PhotoLibraryDataSource {
+    public private(set) var fetchResult: PHFetchResult<PHAsset>
     public private(set) var collection: PHAssetCollection
     public private(set) var assets: [PHAsset]
 }
@@ -100,9 +101,11 @@ public protocol PhotoLibraryDelegate {
      - Parameter photoLibrary: A reference to the PhotoLibrary.
      - Parameter fetchBeforeChanges: A PHFetchResult<PHObject> before changes.
      - Parameter fetchAfterChanges: A PHFetchResult<PHObject> after changes.
+     - Parameter hasIncrementalChanges: A boolean indicating whether incremental
+     changes exist. True if yes, false otherwise.
      */
     @objc
-    optional func photoLibrary(photoLibrary: PhotoLibrary, fetchBeforeChanges: PHFetchResult<PHObject>, fetchAfterChanges: PHFetchResult<PHObject>)
+    optional func photoLibrary(photoLibrary: PhotoLibrary, fetchBeforeChanges: PHFetchResult<PHObject>, fetchAfterChanges: PHFetchResult<PHObject>, hasIncrementalChanges: Bool)
     
     /**
      A delegation method that is executed when there are moved objects.
@@ -125,23 +128,47 @@ public protocol PhotoLibraryDelegate {
     /**
      A delegation method that is executed when there are changed objects.
      - Parameter photoLibrary: A reference to the PhotoLibrary.
-     - Parameter removed indexes: An IndexSet of the changed indexes.
+     - Parameter changed indexes: An IndexSet of the changed indexes.
      - Parameter for objects: An Array of PHObjects that have been changed.
      */
     @objc
     optional func photoLibrary(photoLibrary: PhotoLibrary, changed indexes: IndexSet, for objects: [PHObject])
+    
+    /**
+     A delegation method that is executed describing the removed, inserted
+     and changed indexes.
+     - Parameter photoLibrary: A reference to the PhotoLibrary.
+     - Parameter removedIndexes: An IndexSet of the changed indexes.
+     - Parameter insertedIndexes: An IndexSet of the inserted indexes.
+     - Parameter changedIndexes: An IndexSet of the changed indexes.
+     */
+    @objc
+    optional func photoLibrary(photoLibrary: PhotoLibrary, removedIndexes: IndexSet?, insertedIndexes: IndexSet?, changedIndexes: IndexSet?)
+    
+    /**
+     A delegation method that is executed when there are moves
+     within the photo library.
+     - Parameter photoLibrary: A reference to the PhotoLibrary.
+     - Parameter hasMoves from: The from index.
+     - Parameter to: The to index.
+     */
+    @objc
+    optional func photoLibrary(photoLibrary: PhotoLibrary, hasMoves from: Int, to: Int)
 }
 
 @objc(PhotoLibrary)
 public class PhotoLibrary: NSObject {
+    /// A reference to the type currently being managed.
+    public private(set) var type: PHAssetCollectionType?
+    
+    /// A reference to the subtype currently being managed.
+    public private(set) var subtype: PHAssetCollectionSubtype?
+    
     /// A reference to the PHCachingImageManager.
     public private(set) lazy var cachingImageManager = PHCachingImageManager()
     
     /// A reference to the collection PHFetchResult.
     public private(set) var collectionFetchResult: PHFetchResult<PHAssetCollection>?
-    
-    /// An array of PHFetchResult<PHAsset> types.
-    public private(set) var assetFetchResults: [PHFetchResult<PHAsset>]!
     
     /// The assets used in the album.
     public private(set) var collections: [PhotoLibraryDataSource]! {
@@ -228,6 +255,9 @@ public class PhotoLibrary: NSObject {
      - Parameter completion: An optional completion block.
      */
     public func fetch(type: PHAssetCollectionType, subtype: PHAssetCollectionSubtype, completion: ([PhotoLibraryDataSource]) -> Void) {
+        self.type = type
+        self.subtype = subtype
+        
         DispatchQueue.global(qos: .default).async { [weak self, type = type, subtype = subtype, completion = completion] in
             guard let s = self else {
                 return
@@ -259,27 +289,19 @@ public class PhotoLibrary: NSObject {
                 options.wantsIncrementalChangeDetails = true
                 
                 var assets = [PHAsset]()
-                let result = PHAsset.fetchAssets(in: collection, options: options)
-                result.enumerateObjects(options: []) { (asset, _, _) in
+                let fetchResult = PHAsset.fetchAssets(in: collection, options: options)
+                fetchResult.enumerateObjects(options: []) { (asset, _, _) in
                     assets.append(asset)
                 }
-                s.assetFetchResults.append(result)
-                
-                s.collections.append(PhotoLibraryDataSource(collection: collection, assets: assets))
+                s.collections.append(PhotoLibraryDataSource(fetchResult: fetchResult, collection: collection, assets: assets))
             }
         }
     }
     
     /// A method used to prepare the instance object.
     private func prepare() {
-        prepareAssetFetchResults()
         prepareCollections()
         prepareChangeObservers()
-    }
-    
-    /// Prepares the collectionFetchResult.
-    private func prepareAssetFetchResults() {
-        assetFetchResults = [PHFetchResult<PHAsset>]()
     }
     
     /// Prepares the collections.
@@ -359,53 +381,79 @@ extension PhotoLibrary: PHPhotoLibraryChangeObserver {
      photo library.
      */
     public func photoLibraryDidChange(_ changeInfo: PHChange) {
-        DispatchQueue.main.async { [weak self] in
-            guard let s = self else {
-                return
-            }
-            
-            // Notify about the general change.
-            s.delegate?.photoLibrary?(photoLibrary: s, didChange: changeInfo)
-            
-            // Notifiy about specific changes.
-            s.collectionFetchResult?.enumerateObjects(options: .concurrent) { [weak self, changeInfo = changeInfo] (collection, _, _) in
+        guard let t = type else {
+            return
+        }
+        
+        guard let st = subtype else {
+            return
+        }
+        
+        guard let oldCollections = collections else {
+            return
+        }
+        
+        collections.removeAll()
+        
+        fetch(type: t, subtype: st) { [weak self, oldCollections = oldCollections] _ in
+            DispatchQueue.main.async { [weak self, oldCollections = oldCollections] in
                 guard let s = self else {
                     return
                 }
                 
-                guard let details = changeInfo.changeDetails(for: collection) else {
-                    return
-                }
+                // Notify about the general change.
+                s.delegate?.photoLibrary?(photoLibrary: s, didChange: changeInfo)
                 
-                guard let afterChanges = details.objectAfterChanges else {
-                    return
-                }
-                
-                s.delegate?.photoLibrary?(photoLibrary: s, beforeChanges: details.objectBeforeChanges, afterChanges: afterChanges, assetContentChanged: details.assetContentChanged, objectWasDeleted: details.objectWasDeleted)
-            }
-            
-            s.assetFetchResults.forEach { [weak self] (result) in
-                guard let s = self else {
-                    return
-                }
-                
-                if let details = changeInfo.changeDetails(for: result as! PHFetchResult<AnyObject>) {
-                    s.delegate?.photoLibrary?(photoLibrary: s, fetchBeforeChanges: details.fetchResultBeforeChanges, fetchAfterChanges: details.fetchResultAfterChanges)
-                    
-                    guard details.hasIncrementalChanges else {
+                // Notifiy about specific changes.
+                s.collectionFetchResult?.enumerateObjects(options: .concurrent) { [weak self, changeInfo = changeInfo] (collection, _, _) in
+                    guard let s = self else {
                         return
                     }
                     
-                    if let removedIndexes = details.removedIndexes {
-                        s.delegate?.photoLibrary?(photoLibrary: s, removed: removedIndexes, for: details.removedObjects)
+                    guard let details = changeInfo.changeDetails(for: collection) else {
+                        return
                     }
                     
-                    if let insertedIndexes = details.insertedIndexes {
-                        s.delegate?.photoLibrary?(photoLibrary: s, inserted: insertedIndexes, for: details.insertedObjects)
+                    guard let afterChanges = details.objectAfterChanges else {
+                        return
                     }
                     
-                    if let changedIndexes = details.changedIndexes {
-                        s.delegate?.photoLibrary?(photoLibrary: s, changed: changedIndexes, for: details.changedObjects)
+                    s.delegate?.photoLibrary?(photoLibrary: s, beforeChanges: details.objectBeforeChanges, afterChanges: afterChanges, assetContentChanged: details.assetContentChanged, objectWasDeleted: details.objectWasDeleted)
+                }
+                
+                for i in 0..<oldCollections.count {
+                    let dataSource = oldCollections[i]
+                    
+                    if let details = changeInfo.changeDetails(for: dataSource.fetchResult as! PHFetchResult<AnyObject>) {
+                        s.delegate?.photoLibrary?(photoLibrary: s, fetchBeforeChanges: details.fetchResultBeforeChanges, fetchAfterChanges: details.fetchResultAfterChanges, hasIncrementalChanges: details.hasIncrementalChanges)
+                        
+                        guard details.hasIncrementalChanges else {
+                            return
+                        }
+                        
+                        let removedIndexes = details.removedIndexes
+                        let insertedIndexes = details.insertedIndexes
+                        let changedIndexes = details.changedIndexes
+                        
+                        if nil != removedIndexes {
+                            s.delegate?.photoLibrary?(photoLibrary: s, removed: removedIndexes!, for: details.removedObjects)
+                        }
+                        
+                        if nil != insertedIndexes {
+                            s.delegate?.photoLibrary?(photoLibrary: s, inserted: insertedIndexes!, for: details.insertedObjects)
+                        }
+                        
+                        if nil != changedIndexes {
+                            s.delegate?.photoLibrary?(photoLibrary: s, changed: changedIndexes!, for: details.changedObjects)
+                        }
+                        
+                        s.delegate?.photoLibrary?(photoLibrary: s, removedIndexes: removedIndexes, insertedIndexes: insertedIndexes, changedIndexes: changedIndexes)
+                        
+                        if details.hasMoves {
+                            details.enumerateMoves { (from, to) in
+                                s.delegate?.photoLibrary?(photoLibrary: s, hasMoves: from, to: to)
+                            }
+                        }
                     }
                 }
             }
