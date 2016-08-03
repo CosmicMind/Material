@@ -60,6 +60,11 @@ public class PhotoLibraryMove: NSObject {
     }
 }
 
+public struct PhotoLibraryFetchResultDataSource {
+    public private(set) var fetchResult: PHFetchResult<PHObject>
+    public private(set) var objects: [PHObject]
+}
+
 @objc(PhotoLibraryDelegate)
 public protocol PhotoLibraryDelegate {
     /**
@@ -172,20 +177,14 @@ public protocol PhotoLibraryDelegate {
 
 @objc(PhotoLibrary)
 public class PhotoLibrary: NSObject {
-    /// A reference to the type currently being managed.
-    public private(set) var type: PHAssetCollectionType?
-    
-    /// A reference to the subtype currently being managed.
-    public private(set) var subtype: PHAssetCollectionSubtype?
-    
     /// A reference to the PHCachingImageManager.
     public private(set) lazy var cachingImageManager = PHCachingImageManager()
     
-    /// A reference to the collection PHFetchResult.
-    public private(set) var collectionFetchResult: PHFetchResult<PHAssetCollection>?
+    /// A reference to all current PHFetchResults.
+    public private(set) lazy var fetchResults = [PhotoLibraryFetchResultDataSource]()
     
     /// The assets used in the album.
-    public private(set) var collections: [PhotoLibraryDataSource]! {
+    public private(set) var collections = [PhotoLibraryDataSource]() {
         willSet {
             guard .authorized == authorizationStatus else {
                 return
@@ -224,58 +223,58 @@ public class PhotoLibrary: NSObject {
         prepare()
     }
     
-    /**
-     Fetch all the PHAssetCollections asynchronously based on a type and subtype.
-     - Parameter type: A PHAssetCollectionType.
-     - Parameter subtype: A PHAssetCollectionSubtype.
-     - Parameter completion: A completion block.
-     */
-    public func fetchAssetCollections(with type: PHAssetCollectionType, subtype: PHAssetCollectionSubtype, completion: ([PhotoLibraryDataSource]) -> Void) {
-        self.type = type
-        self.subtype = subtype
-        
-        DispatchQueue.global(qos: .default).async { [weak self, type = type, subtype = subtype, completion = completion] in
-            guard let s = self else {
-                return
-            }
-            
-            defer {
-                DispatchQueue.main.async { [weak self] in
-                    guard let s = self else {
-                        return
-                    }
-                    completion(s.collections)
-                }
-            }
-            
-            let options = PHFetchOptions()
-            options.includeHiddenAssets = true
-            options.includeAllBurstAssets = true
-            options.wantsIncrementalChangeDetails = true
-            
-            s.collectionFetchResult = PHAssetCollection.fetchAssetCollections(with: type, subtype: subtype, options: options)
-            
-            s.collectionFetchResult?.enumerateObjects(options: [.concurrent]) { [weak self] (collection, _, _) in
-                guard let s = self else {
-                    return
-                }
-                
-                let options = PHFetchOptions()
-                let descriptor = NSSortDescriptor(key: "creationDate", ascending: false)
-                options.sortDescriptors = [descriptor]
-                options.includeHiddenAssets = true
-                options.includeAllBurstAssets = true
-                options.wantsIncrementalChangeDetails = true
-                
-                s.fetchAssets(in: collection, options: options) { [weak self] (assets, fetchResult) in
-                    guard let s = self else {
-                        return
-                    }
-                    s.collections.append(PhotoLibraryDataSource(fetchResult: fetchResult, collection: collection, assets: assets))
-                }
-            }
-        }
-    }
+//    /**
+//     Fetch all the PHAssetCollections asynchronously based on a type and subtype.
+//     - Parameter type: A PHAssetCollectionType.
+//     - Parameter subtype: A PHAssetCollectionSubtype.
+//     - Parameter completion: A completion block.
+//     */
+//    public func fetchAssetCollections(with type: PHAssetCollectionType, subtype: PHAssetCollectionSubtype, completion: ([PhotoLibraryDataSource]) -> Void) {
+//        self.type = type
+//        self.subtype = subtype
+//        
+//        DispatchQueue.global(qos: .default).async { [weak self, type = type, subtype = subtype, completion = completion] in
+//            guard let s = self else {
+//                return
+//            }
+//            
+//            defer {
+//                DispatchQueue.main.async { [weak self] in
+//                    guard let s = self else {
+//                        return
+//                    }
+//                    completion(s.collections)
+//                }
+//            }
+//            
+//            let options = PHFetchOptions()
+//            options.includeHiddenAssets = true
+//            options.includeAllBurstAssets = true
+//            options.wantsIncrementalChangeDetails = true
+//            
+//            s.collectionFetchResult = PHAssetCollection.fetchAssetCollections(with: type, subtype: subtype, options: options)
+//            
+//            s.collectionFetchResult?.enumerateObjects(options: [.concurrent]) { [weak self] (collection, _, _) in
+//                guard let s = self else {
+//                    return
+//                }
+//                
+//                let options = PHFetchOptions()
+//                let descriptor = NSSortDescriptor(key: "creationDate", ascending: false)
+//                options.sortDescriptors = [descriptor]
+//                options.includeHiddenAssets = true
+//                options.includeAllBurstAssets = true
+//                options.wantsIncrementalChangeDetails = true
+//                
+//                s.fetchAssets(in: collection, options: options) { [weak self] (assets, fetchResult) in
+//                    guard let s = self else {
+//                        return
+//                    }
+//                    s.collections.append(PhotoLibraryDataSource(fetchResult: fetchResult, collection: collection, assets: assets))
+//                }
+//            }
+//        }
+//    }
     
     /**
      Performes an asynchronous change to the PHPhotoLibrary database.
@@ -290,13 +289,7 @@ public class PhotoLibrary: NSObject {
     
     /// A method used to prepare the instance object.
     private func prepare() {
-        prepareCollections()
         prepareChangeObservers()
-    }
-    
-    /// Prepares the collections.
-    private func prepareCollections() {
-        collections = [PhotoLibraryDataSource]()
     }
     
     /// A method used to enable change observation.
@@ -443,6 +436,11 @@ extension PhotoLibrary {
      */
     private func fetch<T: PHFetchResult<U>, U: PHObject>(result: T, completion: ([U], T) -> Void) {
         var objects = [U]()
+        
+        defer {
+            // Stores for change observation.
+            fetchResults.append(PhotoLibraryFetchResultDataSource(fetchResult: result as! PHFetchResult<PHObject>, objects: objects))
+        }
         
         result.enumerateObjects({ (collection, _, _) in
             objects.append(collection)
@@ -709,84 +707,74 @@ extension PhotoLibrary: PHPhotoLibraryChangeObserver {
      photo library.
      */
     public func photoLibraryDidChange(_ changeInfo: PHChange) {
-        guard let t = type else {
-            return
+        for dataSource in fetchResults {
+            print(dataSource)
         }
         
-        guard let st = subtype else {
-            return
-        }
-        
-        guard let oldCollections = collections else {
-            return
-        }
-        
-        collections.removeAll()
-        
-        fetchAssetCollections(with: t, subtype: st) { [weak self, oldCollections = oldCollections] _ in
-            DispatchQueue.main.async { [weak self, oldCollections = oldCollections] in
-                guard let s = self else {
-                    return
-                }
-                
-                // Notify about the general change.
-                s.delegate?.photoLibrary?(photoLibrary: s, didChange: changeInfo)
-                
-                // Notifiy about specific changes.
-                s.collectionFetchResult?.enumerateObjects(options: .concurrent) { [weak self, changeInfo = changeInfo] (collection, _, _) in
-                    guard let s = self else {
-                        return
-                    }
-                    
-                    guard let details = changeInfo.changeDetails(for: collection) else {
-                        return
-                    }
-                    
-                    guard let afterChanges = details.objectAfterChanges else {
-                        return
-                    }
-                    
-                    s.delegate?.photoLibrary?(photoLibrary: s, beforeChanges: details.objectBeforeChanges, afterChanges: afterChanges, assetContentChanged: details.assetContentChanged, objectWasDeleted: details.objectWasDeleted)
-                }
-                
-                for i in 0..<oldCollections.count {
-                    let dataSource = oldCollections[i]
-                    
-                    if let details = changeInfo.changeDetails(for: dataSource.fetchResult as! PHFetchResult<AnyObject>) {
-                        s.delegate?.photoLibrary?(photoLibrary: s, fetchBeforeChanges: details.fetchResultBeforeChanges, fetchAfterChanges: details.fetchResultAfterChanges)
-                        
-                        guard details.hasIncrementalChanges else {
-                            return
-                        }
-                        
-                        let removedIndexes = details.removedIndexes
-                        let insertedIndexes = details.insertedIndexes
-                        let changedIndexes = details.changedIndexes
-                        
-                        if nil != removedIndexes {
-                            s.delegate?.photoLibrary?(photoLibrary: s, removed: removedIndexes!, for: details.removedObjects)
-                        }
-                        
-                        if nil != insertedIndexes {
-                            s.delegate?.photoLibrary?(photoLibrary: s, inserted: insertedIndexes!, for: details.insertedObjects)
-                        }
-                        
-                        if nil != changedIndexes {
-                            s.delegate?.photoLibrary?(photoLibrary: s, changed: changedIndexes!, for: details.changedObjects)
-                        }
-                        
-                        var moves = [PhotoLibraryMove]()
-                        
-                        if details.hasMoves {
-                            details.enumerateMoves { (from, to) in
-                                moves.append(PhotoLibraryMove(from: from, to: to))
-                            }
-                        }
-                        
-                        s.delegate?.photoLibrary?(photoLibrary: s, removedIndexes: removedIndexes, insertedIndexes: insertedIndexes, changedIndexes: changedIndexes, has: moves)
-                    }
-                }
-            }
-        }
+//        fetchAssetCollections(with: t, subtype: st) { [weak self, oldCollections = oldCollections] _ in
+//            DispatchQueue.main.async { [weak self, oldCollections = oldCollections] in
+//                guard let s = self else {
+//                    return
+//                }
+//                
+//                // Notify about the general change.
+//                s.delegate?.photoLibrary?(photoLibrary: s, didChange: changeInfo)
+//                
+//                // Notifiy about specific changes.
+//                s.collectionFetchResult?.enumerateObjects(options: .concurrent) { [weak self, changeInfo = changeInfo] (collection, _, _) in
+//                    guard let s = self else {
+//                        return
+//                    }
+//                    
+//                    guard let details = changeInfo.changeDetails(for: collection) else {
+//                        return
+//                    }
+//                    
+//                    guard let afterChanges = details.objectAfterChanges else {
+//                        return
+//                    }
+//                    
+//                    s.delegate?.photoLibrary?(photoLibrary: s, beforeChanges: details.objectBeforeChanges, afterChanges: afterChanges, assetContentChanged: details.assetContentChanged, objectWasDeleted: details.objectWasDeleted)
+//                }
+//                
+//                for i in 0..<oldCollections.count {
+//                    let dataSource = oldCollections[i]
+//                    
+//                    if let details = changeInfo.changeDetails(for: dataSource.fetchResult as! PHFetchResult<AnyObject>) {
+//                        s.delegate?.photoLibrary?(photoLibrary: s, fetchBeforeChanges: details.fetchResultBeforeChanges, fetchAfterChanges: details.fetchResultAfterChanges)
+//                        
+//                        guard details.hasIncrementalChanges else {
+//                            return
+//                        }
+//                        
+//                        let removedIndexes = details.removedIndexes
+//                        let insertedIndexes = details.insertedIndexes
+//                        let changedIndexes = details.changedIndexes
+//                        
+//                        if nil != removedIndexes {
+//                            s.delegate?.photoLibrary?(photoLibrary: s, removed: removedIndexes!, for: details.removedObjects)
+//                        }
+//                        
+//                        if nil != insertedIndexes {
+//                            s.delegate?.photoLibrary?(photoLibrary: s, inserted: insertedIndexes!, for: details.insertedObjects)
+//                        }
+//                        
+//                        if nil != changedIndexes {
+//                            s.delegate?.photoLibrary?(photoLibrary: s, changed: changedIndexes!, for: details.changedObjects)
+//                        }
+//                        
+//                        var moves = [PhotoLibraryMove]()
+//                        
+//                        if details.hasMoves {
+//                            details.enumerateMoves { (from, to) in
+//                                moves.append(PhotoLibraryMove(from: from, to: to))
+//                            }
+//                        }
+//                        
+//                        s.delegate?.photoLibrary?(photoLibrary: s, removedIndexes: removedIndexes, insertedIndexes: insertedIndexes, changedIndexes: changedIndexes, has: moves)
+//                    }
+//                }
+//            }
+//        }
     }
 }
