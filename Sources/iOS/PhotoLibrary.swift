@@ -434,6 +434,26 @@ extension PhotoLibrary {
     }
 }
 
+/// Fetch.
+extension PhotoLibrary {
+    /**
+     Fetches generic type T for a given PHFetchResult<T>.
+     - Parameter fetchResult: A PHFetchResult<T>.
+     - Parameter completion: A completion block.
+     */
+    private func fetch<T: PHFetchResult<U>, U: PHObject>(result: T, completion: ([U], T) -> Void) {
+        var objects = [U]()
+        
+        result.enumerateObjects({ (collection, _, _) in
+            objects.append(collection)
+        })
+        
+        DispatchQueue.main.async { [objects = objects, result = result, completion = completion] in
+            completion(objects, result)
+        }
+    }
+}
+
 /// PHCollectionList.
 extension PhotoLibrary {
     /**
@@ -446,7 +466,7 @@ extension PhotoLibrary {
      - Parameter completion: A completion callback.
      */
     public func fetchCollectionListsContaining(_ collection: PHCollection, options: PHFetchOptions?, completion: ([PHCollectionList], PHFetchResult<PHCollectionList>) -> Void) {
-        fetchCollectionLists(fetchResult: PHCollectionList.fetchCollectionListsContaining(collection, options: options), completion: completion)
+        fetch(result: PHCollectionList.fetchCollectionListsContaining(collection, options: options), completion: completion)
     }
     
     /**
@@ -457,7 +477,7 @@ extension PhotoLibrary {
      - Parameter completion: A completion callback.
      */
     public func fetchCollectionList(with type: PHCollectionListType, subtype: PHCollectionListSubtype, options: PHFetchOptions?, completion: ([PHCollectionList], PHFetchResult<PHCollectionList>) -> Void) {
-        fetchCollectionLists(fetchResult: PHCollectionList.fetchCollectionLists(with: type, subtype: subtype, options: options), completion: completion)
+        fetch(result: PHCollectionList.fetchCollectionLists(with: type, subtype: subtype, options: options), completion: completion)
     }
     
     /**
@@ -470,7 +490,7 @@ extension PhotoLibrary {
      - Parameter completion: A completion callback.
      */
     public func fetchCollectionLists(withLocalIdentifiers identifiers: [String], options: PHFetchOptions?, completion: ([PHCollectionList], PHFetchResult<PHCollectionList>) -> Void) {
-        fetchCollectionLists(fetchResult: PHCollectionList.fetchCollectionLists(withLocalIdentifiers: identifiers, options: options), completion: completion)
+        fetch(result: PHCollectionList.fetchCollectionLists(withLocalIdentifiers: identifiers, options: options), completion: completion)
     }
     
     /**
@@ -483,7 +503,7 @@ extension PhotoLibrary {
      - Parameter completion: A completion callback.
      */
     public func fetchCollectionLists(with collectionListType: PHCollectionListType, subtype: PHCollectionListSubtype, options: PHFetchOptions?, completion: ([PHCollectionList], PHFetchResult<PHCollectionList>) -> Void) {
-        fetchCollectionLists(fetchResult: PHCollectionList.fetchCollectionLists(with: collectionListType, subtype: subtype, options: options), completion: completion)
+        fetch(result: PHCollectionList.fetchCollectionLists(with: collectionListType, subtype: subtype, options: options), completion: completion)
     }
     
     /**
@@ -494,7 +514,7 @@ extension PhotoLibrary {
      - Parameter completion: A completion callback.
      */
     public func fetchMomentLists(with momentListSubtype: PHCollectionListSubtype, containingMoment moment: PHAssetCollection, options: PHFetchOptions?, completion: ([PHCollectionList], PHFetchResult<PHCollectionList>) -> Void) {
-        fetchCollectionLists(fetchResult: PHCollectionList.fetchMomentLists(with: momentListSubtype, containingMoment: moment, options: options), completion: completion)
+        fetch(result: PHCollectionList.fetchMomentLists(with: momentListSubtype, containingMoment: moment, options: options), completion: completion)
     }
     
     /**
@@ -504,24 +524,7 @@ extension PhotoLibrary {
      - Parameter completion: A completion callback.
      */
     public func fetchMomentLists(with momentListSubtype: PHCollectionListSubtype, options: PHFetchOptions?, completion: ([PHCollectionList], PHFetchResult<PHCollectionList>) -> Void) {
-        fetchCollectionLists(fetchResult: PHCollectionList.fetchMomentLists(with: momentListSubtype, options: options), completion: completion)
-    }
-    
-    /**
-     Fetches PHCollectionLists for a given PHFetchResult<PHCollectionList>.
-     - Parameter fetchResult: A PHFetchResult<PHCollectionList>.
-     - Parameter completion: A completion block.
-     */
-    private func fetchCollectionLists(fetchResult: PHFetchResult<PHCollectionList>, completion: ([PHCollectionList], PHFetchResult<PHCollectionList>) -> Void) {
-        var lists = [PHCollectionList]()
-        
-        fetchResult.enumerateObjects({ (list, _, _) in
-            lists.append(list)
-        })
-        
-        DispatchQueue.main.async { [lists = lists, fetchResult = fetchResult, completion = completion] in
-            completion(lists, fetchResult)
-        }
+        fetch(result: PHCollectionList.fetchMomentLists(with: momentListSubtype, options: options), completion: completion)
     }
 }
 
@@ -534,7 +537,7 @@ extension PhotoLibrary {
      - Parameter completion: A completion callback.
      */
     public func fetchCollections(in collectionList: PHCollectionList, options: PHFetchOptions?, completion: ([PHCollection], PHFetchResult<PHCollection>) -> Void) {
-        fetchCollections(fetchResult: PHCollection.fetchCollections(in: collectionList, options: options), completion: completion)
+        fetch(result: PHCollection.fetchCollections(in: collectionList, options: options), completion: completion)
     }
     
     /**
@@ -545,24 +548,7 @@ extension PhotoLibrary {
      - Parameter completion: A completion callback.
      */
     public func fetchTopLevelUserCollections(with options: PHFetchOptions?, completion: ([PHCollection], PHFetchResult<PHCollection>) -> Void) {
-        fetchCollections(fetchResult: PHCollection.fetchTopLevelUserCollections(with: nil), completion: completion)
-    }
-    
-    /**
-     Fetches PHCollections for a given PHFetchResult<PHCollection>.
-     - Parameter fetchResult: A PHFetchResult<PHCollection>.
-     - Parameter completion: A completion block.
-     */
-    private func fetchCollections(fetchResult: PHFetchResult<PHCollection>, completion: ([PHCollection], PHFetchResult<PHCollection>) -> Void) {
-        var collections = [PHCollection]()
-        
-        fetchResult.enumerateObjects({ (collection, _, _) in
-            collections.append(collection)
-        })
-        
-        DispatchQueue.main.async { [collections = collections, fetchResult = fetchResult, completion = completion] in
-            completion(collections, fetchResult)
-        }
+        fetch(result: PHCollection.fetchTopLevelUserCollections(with: nil), completion: completion)
     }
 }
 
@@ -576,7 +562,7 @@ extension PhotoLibrary {
      - Parameter completion: A completion block.
      */
     public func fetchAssetCollections(withLocalIdentifiers identifiers: [String], options: PHFetchOptions?, completion: ([PHAssetCollection], PHFetchResult<PHAssetCollection>) -> Void) {
-        fetchAssetCollections(fetchResult: PHAssetCollection.fetchAssetCollections(withLocalIdentifiers: identifiers, options: options), completion: completion)
+        fetch(result: PHAssetCollection.fetchAssetCollections(withLocalIdentifiers: identifiers, options: options), completion: completion)
     }
     
     /**
@@ -588,7 +574,7 @@ extension PhotoLibrary {
      - Parameter completion: A completion block.
      */
     public func fetchAssetCollections(with type: PHAssetCollectionType, subtype: PHAssetCollectionSubtype, options: PHFetchOptions?, completion: ([PHAssetCollection], PHFetchResult<PHAssetCollection>) -> Void) {
-        fetchAssetCollections(fetchResult: PHAssetCollection.fetchAssetCollections(with: type, subtype: subtype, options: options), completion: completion)
+        fetch(result: PHAssetCollection.fetchAssetCollections(with: type, subtype: subtype, options: options), completion: completion)
     }
     
     /**
@@ -599,7 +585,7 @@ extension PhotoLibrary {
      - Parameter completion: A completion block.
      */
     public func fetchAssetCollectionsContaining(_ asset: PHAsset, with type: PHAssetCollectionType, options: PHFetchOptions?, completion: ([PHAssetCollection], PHFetchResult<PHAssetCollection>) -> Void) {
-        fetchAssetCollections(fetchResult: PHAssetCollection.fetchAssetCollectionsContaining(asset, with: type, options: options), completion: completion)
+        fetch(result: PHAssetCollection.fetchAssetCollectionsContaining(asset, with: type, options: options), completion: completion)
     }
     
     /**
@@ -611,7 +597,7 @@ extension PhotoLibrary {
      - Parameter completion: A completion block.
      */
     public func fetchAssetCollections(withALAssetGroupURLs assetGroupURLs: [URL], options: PHFetchOptions?, completion: ([PHAssetCollection], PHFetchResult<PHAssetCollection>) -> Void) {
-        fetchAssetCollections(fetchResult: PHAssetCollection.fetchAssetCollections(withALAssetGroupURLs: assetGroupURLs, options: options), completion: completion)
+        fetch(result: PHAssetCollection.fetchAssetCollections(withALAssetGroupURLs: assetGroupURLs, options: options), completion: completion)
     }
     
     /**
@@ -621,7 +607,7 @@ extension PhotoLibrary {
      - Parameter completion: A completion block.
      */
     public func fetchMoments(inMomentList momentList: PHCollectionList, options: PHFetchOptions?, completion: ([PHAssetCollection], PHFetchResult<PHAssetCollection>) -> Void) {
-        fetchAssetCollections(fetchResult: PHAssetCollection.fetchMoments(inMomentList: momentList, options: options), completion: completion)
+        fetch(result: PHAssetCollection.fetchMoments(inMomentList: momentList, options: options), completion: completion)
     }
     
     /**
@@ -630,24 +616,7 @@ extension PhotoLibrary {
      - Parameter completion: A completion block.
      */
     public func fetchMoments(with options: PHFetchOptions?, completion: ([PHAssetCollection], PHFetchResult<PHAssetCollection>) -> Void) {
-        fetchAssetCollections(fetchResult: PHAssetCollection.fetchMoments(with: options), completion: completion)
-    }
-    
-    /**
-     Fetches PHAssetCollections for a given PHFetchResult<PHAssetCollection>.
-     - Parameter fetchResult: A PHFetchResult<PHAssetCollection>.
-     - Parameter completion: A completion block.
-     */
-    private func fetchAssetCollections(fetchResult: PHFetchResult<PHAssetCollection>, completion: ([PHAssetCollection], PHFetchResult<PHAssetCollection>) -> Void) {
-        var collections = [PHAssetCollection]()
-        
-        fetchResult.enumerateObjects({ (collection, _, _) in
-            collections.append(collection)
-        })
-        
-        DispatchQueue.main.async { [collections = collections, fetchResult = fetchResult, completion = completion] in
-            completion(collections, fetchResult)
-        }
+        fetch(result: PHAssetCollection.fetchMoments(with: options), completion: completion)
     }
 }
 
@@ -660,7 +629,7 @@ extension PhotoLibrary {
      - Parameter completion: A completion block.
      */
     public func fetchAssets(in assetCollection: PHAssetCollection, options: PHFetchOptions?, completion: ([PHAsset], PHFetchResult<PHAsset>) -> Void) {
-        fetchAssets(fetchResult: PHAsset.fetchAssets(in: assetCollection, options: options), completion: completion)
+        fetch(result: PHAsset.fetchAssets(in: assetCollection, options: options), completion: completion)
     }
     
     /**
@@ -671,7 +640,7 @@ extension PhotoLibrary {
      - Parameter completion: A completion block.
      */
     public func fetchAssets(withLocalIdentifiers identifiers: [String], options: PHFetchOptions?, completion: ([PHAsset], PHFetchResult<PHAsset>) -> Void) {
-        fetchAssets(fetchResult: PHAsset.fetchAssets(withLocalIdentifiers: identifiers, options: options), completion: completion)
+        fetch(result: PHAsset.fetchAssets(withLocalIdentifiers: identifiers, options: options), completion: completion)
     }
     
     /**
@@ -685,7 +654,7 @@ extension PhotoLibrary {
         guard let fetchResult = PHAsset.fetchKeyAssets(in: assetCollection, options: options) else {
             return nil
         }
-        fetchAssets(fetchResult: fetchResult, completion: completion)
+        fetch(result: fetchResult, completion: completion)
         return fetchResult
     }
     
@@ -697,7 +666,7 @@ extension PhotoLibrary {
      - Parameter completion: A completion block.
      */
     public func fetchAssets(withBurstIdentifier burstIdentifier: String, options: PHFetchOptions?, completion: ([PHAsset], PHFetchResult<PHAsset>) -> Void) {
-        fetchAssets(fetchResult: PHAsset.fetchAssets(withBurstIdentifier: burstIdentifier, options: options), completion: completion)
+        fetch(result: PHAsset.fetchAssets(withBurstIdentifier: burstIdentifier, options: options), completion: completion)
     }
     
     /**
@@ -707,7 +676,7 @@ extension PhotoLibrary {
      - Parameter completion: A completion block.
      */
     public func fetchAssets(with options: PHFetchOptions?, completion: ([PHAsset], PHFetchResult<PHAsset>) -> Void) {
-        fetchAssets(fetchResult: PHAsset.fetchAssets(with: options), completion: completion)
+        fetch(result: PHAsset.fetchAssets(with: options), completion: completion)
     }
     
     /**
@@ -717,7 +686,7 @@ extension PhotoLibrary {
      - Parameter completion: A completion block.
      */
     public func fetchAssets(with mediaType: PHAssetMediaType, options: PHFetchOptions?, completion: ([PHAsset], PHFetchResult<PHAsset>) -> Void) {
-        fetchAssets(fetchResult: PHAsset.fetchAssets(with: mediaType, options: options), completion: completion)
+        fetch(result: PHAsset.fetchAssets(with: mediaType, options: options), completion: completion)
     }
     
     /**
@@ -728,24 +697,7 @@ extension PhotoLibrary {
      - Parameter completion: A completion block.
      */
     public func fetchAssets(withALAssetURLs assetURLs: [URL], options: PHFetchOptions?, completion: ([PHAsset], PHFetchResult<PHAsset>) -> Void) {
-        fetchAssets(fetchResult: PHAsset.fetchAssets(withALAssetURLs: assetURLs, options: options), completion: completion)
-    }
-    
-    /**
-     Fetches PHAssets for a given PHFetchResult<PHAsset>.
-     - Parameter fetchResult: A PHFetchResult<PHAsset>.
-     - Parameter completion: A completion block.
-     */
-    private func fetchAssets(fetchResult: PHFetchResult<PHAsset>, completion: ([PHAsset], PHFetchResult<PHAsset>) -> Void) {
-        var assets = [PHAsset]()
-        
-        fetchResult.enumerateObjects({ (asset, _, _) in
-            assets.append(asset)
-        })
-        
-        DispatchQueue.main.async { [assets = assets, fetchResult = fetchResult, completion = completion] in
-            completion(assets, fetchResult)
-        }
+        fetch(result: PHAsset.fetchAssets(withALAssetURLs: assetURLs, options: options), completion: completion)
     }
 }
 
