@@ -462,6 +462,30 @@ extension PhotoLibrary {
 /// PHCollectionList.
 extension PhotoLibrary {
     /**
+     A PHAssetCollectionTypeMoment collection type will be contained 
+     by a PHCollectionListSubtypeMomentListCluster and a 
+     PHCollectionListSubtypeMomentListYear. Non-moment PHAssetCollections 
+     will only be contained by a single collection list.
+     - Parameter _ collection: A PHCollection.
+     - Parameter options: An optional PHFetchOptions object.
+     - Parameter completion: A completion callback.
+     */
+    public func fetchCollectionListsContaining(_ collection: PHCollection, options: PHFetchOptions?, completion: ([PHCollectionList], PHFetchResult<PHCollectionList>) -> Void) {
+        var lists = [PHCollectionList]()
+        let fetchResult = PHCollectionList.fetchCollectionListsContaining(collection, options: options)
+        
+        defer {
+            DispatchQueue.main.async { [lists = lists, fetchResult = fetchResult, completion = completion] in
+                completion(lists, fetchResult)
+            }
+        }
+        
+        fetchResult.enumerateObjects({ (list, _, _) in
+            lists.append(list)
+        })
+    }
+    
+    /**
      Fetch PHCollectionLists based on a type and subtype.
      - Parameter with type: A PHCollectionListType.
      - Parameter subtype: A PHCollectionListSubtype.
@@ -478,9 +502,100 @@ extension PhotoLibrary {
             }
         }
         
-        fetchResult.enumerateObjects(options: [.concurrent]) { (list, _, _) in
+        fetchResult.enumerateObjects({ (list, _, _) in
             lists.append(list)
+        })
+    }
+    
+    /**
+     Fetch collection lists of a single type matching the 
+     provided local identifiers (type is inferred from the 
+     local identifiers).
+     - Parameter withLocalIdentifier identifiers: An Array 
+     of String identifiers.
+     - Parameter options: An optional PHFetchOptions object.
+     - Parameter completion: A completion callback.
+     */
+    public func fetchCollectionLists(withLocalIdentifiers identifiers: [String], options: PHFetchOptions?, completion: ([PHCollectionList], PHFetchResult<PHCollectionList>) -> Void) {
+        var lists = [PHCollectionList]()
+        let fetchResult = PHCollectionList.fetchCollectionLists(withLocalIdentifiers: identifiers, options: options)
+        
+        defer {
+            DispatchQueue.main.async { [lists = lists, fetchResult = fetchResult, completion = completion] in
+                completion(lists, fetchResult)
+            }
         }
+        
+        fetchResult.enumerateObjects({ (list, _, _) in
+            lists.append(list)
+        })
+    }
+    
+    /**
+     Fetch asset collections of a single type and subtype 
+     provided (use PHCollectionListSubtypeAny to match all 
+     subtypes).
+     - Parameter with collectionListType: A PHCollectionListType.
+     - Parameter subtype: A PHCollectionListSubtype.
+     - Parameter options: An optional PHFetchOptions object.
+     - Parameter completion: A completion callback.
+     */
+    public class func fetchCollectionLists(with collectionListType: PHCollectionListType, subtype: PHCollectionListSubtype, options: PHFetchOptions?, completion: ([PHCollectionList], PHFetchResult<PHCollectionList>) -> Void) {
+        var lists = [PHCollectionList]()
+        let fetchResult = PHCollectionList.fetchCollectionLists(with: collectionListType, subtype: subtype, options: options)
+        
+        defer {
+            DispatchQueue.main.async { [lists = lists, fetchResult = fetchResult, completion = completion] in
+                completion(lists, fetchResult)
+            }
+        }
+        
+        fetchResult.enumerateObjects({ (list, _, _) in
+            lists.append(list)
+        })
+    }
+    
+    /**
+     Fetch moment lists containing a given moment.
+     - Parameter with momentListSubtype: A PHCollectionListSubtype.
+     - Parameter containingMoment moment: A PHAssetCollection.
+     - Parameter options: An optional PHFetchOptions object.
+     - Parameter completion: A completion callback.
+     */
+    public class func fetchMomentLists(with momentListSubtype: PHCollectionListSubtype, containingMoment moment: PHAssetCollection, options: PHFetchOptions?, completion: ([PHCollectionList], PHFetchResult<PHCollectionList>) -> Void) {
+        var lists = [PHCollectionList]()
+        let fetchResult = PHCollectionList.fetchMomentLists(with: momentListSubtype, containingMoment: moment, options: options)
+        
+        defer {
+            DispatchQueue.main.async { [lists = lists, fetchResult = fetchResult, completion = completion] in
+                completion(lists, fetchResult)
+            }
+        }
+        
+        fetchResult.enumerateObjects({ (list, _, _) in
+            lists.append(list)
+        })
+    }
+    
+    /**
+     Fetch moment lists.
+     - Parameter with momentListSubtype: A PHCollectionListSubtype.
+     - Parameter options: An optional PHFetchOptions object.
+     - Parameter completion: A completion callback.
+     */
+    public func fetchMomentLists(with momentListSubtype: PHCollectionListSubtype, options: PHFetchOptions?, completion: ([PHCollectionList], PHFetchResult<PHCollectionList>) -> Void) {
+        var lists = [PHCollectionList]()
+        let fetchResult = PHCollectionList.fetchMomentLists(with: momentListSubtype, options: options)
+        
+        defer {
+            DispatchQueue.main.async { [lists = lists, fetchResult = fetchResult, completion = completion] in
+                completion(lists, fetchResult)
+            }
+        }
+        
+        fetchResult.enumerateObjects({ (list, _, _) in
+            lists.append(list)
+        })
     }
 }
 
@@ -504,9 +619,9 @@ extension PhotoLibrary {
         
         fetchResult = PHAsset.fetchAssets(in: assetCollection, options: options)
         
-        fetchResult.enumerateObjects(options: []) { (asset, _, _) in
+        fetchResult.enumerateObjects({ (asset, _, _) in
             assets.append(asset)
-        }
+        })
     }
     
     /**
@@ -527,9 +642,9 @@ extension PhotoLibrary {
         
         fetchResult = PHAsset.fetchAssets(with: mediaType, options: options)
         
-        fetchResult.enumerateObjects(options: []) { (asset, _, _) in
+        fetchResult.enumerateObjects({ (asset, _, _) in
             assets.append(asset)
-        }
+        })
     }
 }
 
