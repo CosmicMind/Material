@@ -225,43 +225,6 @@ public class PhotoLibrary: NSObject {
     }
     
     /**
-     A method to request authorization from the user to enable photo library access. In order
-     for this to work, set the "Privacy - Photo Library Usage Description" value in the
-     application's info.plist.
-     - Parameter _ completion: A completion block that passes in a PHAuthorizationStatus
-     enum that describes the response for the authorization request.
-     */
-    public func requestAuthorization(_ completion: ((PHAuthorizationStatus) -> Void)? = nil) {
-        PHPhotoLibrary.requestAuthorization { [weak self, completion = completion] (status) in
-            guard let s = self else {
-                return
-            }
-            
-            switch status {
-            case .authorized:
-                s.delegate?.photoLibrary?(photoLibrary: s, status: .authorized)
-                s.delegate?.photoLibrary?(authorized: s)
-                completion?(.authorized)
-                
-            case .denied:
-                s.delegate?.photoLibrary?(photoLibrary: s, status: .denied)
-                s.delegate?.photoLibrary?(denied: s)
-                completion?(.denied)
-                
-            case .notDetermined:
-                s.delegate?.photoLibrary?(photoLibrary: s, status: .notDetermined)
-                s.delegate?.photoLibrary?(notDetermined: s)
-                completion?(.notDetermined)
-                
-            case .restricted:
-                s.delegate?.photoLibrary?(photoLibrary: s, status: .restricted)
-                s.delegate?.photoLibrary?(restricted: s)
-                completion?(.restricted)
-            }
-        }
-    }
-    
-    /**
      Fetch all the PHAssetCollections asynchronously based on a type and subtype.
      - Parameter type: A PHAssetCollectionType.
      - Parameter subtype: A PHAssetCollectionSubtype.
@@ -315,36 +278,6 @@ public class PhotoLibrary: NSObject {
     }
     
     /**
-     Fetch the PHAssets in a given PHAssetCollection.
-     - Parameter in assetCollection: A PHAssetCollection.
-     - Parameter options: An optional PHFetchOptions object.
-     - Parameter completion: A completion block.
-     */
-    public func fetchAssets(in assetCollection: PHAssetCollection, options: PHFetchOptions?, completion: ([PHAsset], PHFetchResult<PHAsset>) -> Void) {
-        var fetchResult: PHFetchResult<PHAsset>!
-        var assets = [PHAsset]()
-        
-        defer {
-            DispatchQueue.main.async { [assets = assets, fetchResult = fetchResult, completion = completion] in
-                completion(assets, fetchResult!)
-            }
-        }
-        
-        fetchResult = PHAsset.fetchAssets(in: assetCollection, options: options)
-        
-        fetchResult.enumerateObjects(options: []) { (asset, _, _) in
-            assets.append(asset)
-        }
-    }
-    
-    /**
-     
-     */
-    public func fetchAssets(with mediaType: PHAssetMediaType, options: PHFetchOptions?) -> PHFetchResult<PHAsset> {
-        return PHAsset.fetchAssets(with: mediaType, options: options)
-    }
-    
-    /**
      Performes an asynchronous change to the PHPhotoLibrary database.
      - Parameter _ block: A transactional block that ensures that
      all changes to the PHPhotoLibrary are atomic. 
@@ -369,6 +302,46 @@ public class PhotoLibrary: NSObject {
     /// A method used to enable change observation.
     private func prepareChangeObservers() {
         PHPhotoLibrary.shared().register(self)
+    }
+}
+
+/// Authorization.
+extension PhotoLibrary {
+    /**
+     A method to request authorization from the user to enable photo library access. In order
+     for this to work, set the "Privacy - Photo Library Usage Description" value in the
+     application's info.plist.
+     - Parameter _ completion: A completion block that passes in a PHAuthorizationStatus
+     enum that describes the response for the authorization request.
+     */
+    public func requestAuthorization(_ completion: ((PHAuthorizationStatus) -> Void)? = nil) {
+        PHPhotoLibrary.requestAuthorization { [weak self, completion = completion] (status) in
+            guard let s = self else {
+                return
+            }
+            
+            switch status {
+            case .authorized:
+                s.delegate?.photoLibrary?(photoLibrary: s, status: .authorized)
+                s.delegate?.photoLibrary?(authorized: s)
+                completion?(.authorized)
+                
+            case .denied:
+                s.delegate?.photoLibrary?(photoLibrary: s, status: .denied)
+                s.delegate?.photoLibrary?(denied: s)
+                completion?(.denied)
+                
+            case .notDetermined:
+                s.delegate?.photoLibrary?(photoLibrary: s, status: .notDetermined)
+                s.delegate?.photoLibrary?(notDetermined: s)
+                completion?(.notDetermined)
+                
+            case .restricted:
+                s.delegate?.photoLibrary?(photoLibrary: s, status: .restricted)
+                s.delegate?.photoLibrary?(restricted: s)
+                completion?(.restricted)
+            }
+        }
     }
 }
 
@@ -408,7 +381,19 @@ extension PhotoLibrary {
     }
     
     /**
-    
+     Requests a live photo representation of the asset. With 
+     oportunistic (or if no 
+     options are specified), the resultHandler block may be 
+     called more than once (the first call may occur before 
+     the method returns). The PHImageResultIsDegradedKey key 
+     in the result handler's info parameter indicates when a 
+     temporary low-quality live photo is provided.
+     - Parameter for asset: A PHAsset.
+     - Parameter targetSize: A CGSize.
+     - Parameter contentMode: A PHImageContentMode.
+     - Parameter options: A PHImageRequestOptions.
+     - Parameter completion: A completion block.
+     - Returns: A PHImageRequestID.
      */
     @available(iOS 9.1, *)
     public func requestLivePhoto(for asset: PHAsset, targetSize: CGSize, contentMode: PHImageContentMode, options: PHLivePhotoRequestOptions?, completion: (PHLivePhoto?, [NSObject : AnyObject]?) -> Void) -> PHImageRequestID {
@@ -416,21 +401,33 @@ extension PhotoLibrary {
     }
     
     /**
-     
+     For playback only.
+     - Parameter forVideo asset: A PHAsset.
+     - Parameter options: A PHImageRequestOptions.
+     - Parameter completion: A completion block.
+     - Returns: A PHImageRequestID.
      */
     public func requestPlayerItem(forVideo asset: PHAsset, options: PHVideoRequestOptions?, completion: (AVPlayerItem?, [NSObject : AnyObject]?) -> Swift.Void) -> PHImageRequestID {
         return PHImageManager.default().requestPlayerItem(forVideo: asset, options: options, resultHandler: completion)
     }
     
     /**
-     
+     Export.
+     - Parameter forVideo asset: A PHAsset.
+     - Parameter options: A PHImageRequestOptions.
+     - Parameter completion: A completion block.
+     - Returns: A PHImageRequestID.
      */
     public func requestExportSession(forVideo asset: PHAsset, options: PHVideoRequestOptions?, exportPreset: String, completion: (AVAssetExportSession?, [NSObject : AnyObject]?) -> Void) -> PHImageRequestID {
         return PHImageManager.default().requestExportSession(forVideo: asset, options: options, exportPreset: exportPreset, resultHandler: completion)
     }
     
     /**
-     
+     For all other requests.
+     - Parameter forVideo asset: A PHAsset.
+     - Parameter options: A PHImageRequestOptions.
+     - Parameter completion: A completion block.
+     - Returns: A PHImageRequestID.
      */
     public func requestAVAsset(forVideo asset: PHAsset, options: PHVideoRequestOptions?, completion: (AVAsset?, AVAudioMix?, [NSObject : AnyObject]?) -> Void) -> PHImageRequestID {
         return PHImageManager.default().requestAVAsset(forVideo: asset, options: options, resultHandler: completion)
@@ -483,6 +480,55 @@ extension PhotoLibrary {
         
         fetchResult.enumerateObjects(options: [.concurrent]) { (list, _, _) in
             lists.append(list)
+        }
+    }
+}
+
+/// PHAsset.
+extension PhotoLibrary {
+    /**
+     Fetch the PHAssets in a given PHAssetCollection.
+     - Parameter in assetCollection: A PHAssetCollection.
+     - Parameter options: An optional PHFetchOptions object.
+     - Parameter completion: A completion block.
+     */
+    public func fetchAssets(in assetCollection: PHAssetCollection, options: PHFetchOptions?, completion: ([PHAsset], PHFetchResult<PHAsset>) -> Void) {
+        var fetchResult: PHFetchResult<PHAsset>!
+        var assets = [PHAsset]()
+        
+        defer {
+            DispatchQueue.main.async { [assets = assets, fetchResult = fetchResult, completion = completion] in
+                completion(assets, fetchResult!)
+            }
+        }
+        
+        fetchResult = PHAsset.fetchAssets(in: assetCollection, options: options)
+        
+        fetchResult.enumerateObjects(options: []) { (asset, _, _) in
+            assets.append(asset)
+        }
+    }
+    
+    /**
+     Fetch the PHAssets with a given media type.
+     - Parameter in mediaType: A PHAssetMediaType.
+     - Parameter options: An optional PHFetchOptions object.
+     - Parameter completion: A completion block.
+     */
+    public func fetchAssets(with mediaType: PHAssetMediaType, options: PHFetchOptions?, completion: ([PHAsset], PHFetchResult<PHAsset>) -> Void) {
+        var fetchResult: PHFetchResult<PHAsset>!
+        var assets = [PHAsset]()
+        
+        defer {
+            DispatchQueue.main.async { [assets = assets, fetchResult = fetchResult, completion = completion] in
+                completion(assets, fetchResult!)
+            }
+        }
+        
+        fetchResult = PHAsset.fetchAssets(with: mediaType, options: options)
+        
+        fetchResult.enumerateObjects(options: []) { (asset, _, _) in
+            assets.append(asset)
         }
     }
 }
