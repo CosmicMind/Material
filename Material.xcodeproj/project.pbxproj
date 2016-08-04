@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		961F18E81CD93E3E008927C5 /* ErrorTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961F18E71CD93E3E008927C5 /* ErrorTextField.swift */; };
+		9628645A1D53FE3E00690B69 /* Material+UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962864591D53FE3E00690B69 /* Material+UIWindow.swift */; };
 		96334EF61C8B84660083986B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96334EF51C8B84660083986B /* Assets.xcassets */; };
 		963832421B88DFD80015F710 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963832361B88DFD80015F710 /* Material.framework */; };
 		9658F2171CD6FA4700B902C1 /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9658F2161CD6FA4700B902C1 /* IconButton.swift */; };
@@ -194,6 +195,7 @@
 
 /* Begin PBXFileReference section */
 		961F18E71CD93E3E008927C5 /* ErrorTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorTextField.swift; sourceTree = "<group>"; };
+		962864591D53FE3E00690B69 /* Material+UIWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIWindow.swift"; sourceTree = "<group>"; };
 		96334EF51C8B84660083986B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		963832361B88DFD80015F710 /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Material.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		963832411B88DFD80015F710 /* Material.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Material.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -594,6 +596,7 @@
 				96BCB7651CB40DC500C806FE /* Material+UIFont.swift */,
 				96BCB76C1CB40DC500C806FE /* Material+UIImage.swift */,
 				96C1C8801D42C62800E6608F /* Material+Array.swift */,
+				962864591D53FE3E00690B69 /* Material+UIWindow.swift */,
 			);
 			name = Extension;
 			sourceTree = "<group>";
@@ -979,6 +982,7 @@
 				968C99471D377849000074FF /* Offset.swift in Sources */,
 				96BCB7D51CB40DC500C806FE /* View.swift in Sources */,
 				96BCB7DE1CB40DC500C806FE /* SearchBar.swift in Sources */,
+				9628645A1D53FE3E00690B69 /* Material+UIWindow.swift in Sources */,
 				96BCB7B81CB40DC500C806FE /* Border.swift in Sources */,
 				96BCB7A61CB40DC500C806FE /* Card.swift in Sources */,
 				96BCB7C91CB40DC500C806FE /* Layer.swift in Sources */,
