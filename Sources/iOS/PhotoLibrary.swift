@@ -194,12 +194,12 @@ public class PhotoLibrary: NSObject {
         prepare()
     }
     
-    /// A method used to prepare the instance object.
+    /// Prepare the instance object.
     private func prepare() {
         prepareChangeObservers()
     }
     
-    /// A method used to enable change observation.
+    /// Prepares the PHPhotoLibrary change observation.
     private func prepareChangeObservers() {
         PHPhotoLibrary.shared().register(self)
     }
