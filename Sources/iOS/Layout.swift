@@ -134,30 +134,28 @@ public class Layout {
 	/**
      Sets the width and height of a view.
      - Parameter child: A child UIView to layout.
-     - Parameter width: A CGFloat value.
-     - Parameter height: A CGFloat value.
+     - Parameter size: A CGSize value.
      - Returns: The current Layout instance.
      */
-	public func size(_ child: UIView, width: CGFloat, height: CGFloat) -> Layout {
+    public func size(_ child: UIView, size: CGSize) -> Layout {
 		guard let v = parent else {
 			return debugParentNotAvailableMessage()
         }
 		self.child = child
-        Layout.size(parent: v, child: child, width: width, height: height)
+        Layout.size(parent: v, child: child, size: size)
         return self
 	}
     
 	/**
      Sets the width and height of a view assuming a child context view.
-     - Parameter width: A CGFloat value.
-     - Parameter height: A CGFloat value.
+     - Parameter size: A CGSize value.
      - Returns: The current Layout instance.
      */
-	public func size(width: CGFloat, height: CGFloat) -> Layout {
+    public func size(_ size: CGSize = CGSize.zero) -> Layout {
         guard let v = child else {
 			return debugChildNotAvailableMessage()
         }
-        return size(v, width: width, height: height)
+        return self.size(v, size: size)
     }
 	
 	/**
@@ -622,12 +620,11 @@ public extension Layout {
      Sets the width and height of a view.
      - Parameter parent: A parent UIView context.
      - Parameter child: A child UIView to layout.
-     - Parameter width: A CGFloat value.
-     - Parameter height: A CGFloat value.
+     - Parameter size: A CGSize value.
      */
-	public class func size(parent: UIView, child: UIView, width: CGFloat = 0, height: CGFloat = 0) {
-		Layout.width(parent: parent, child: child, width: width)
-		Layout.height(parent: parent, child: child, height: height)
+	public class func size(parent: UIView, child: UIView, size: CGSize = CGSize.zero) {
+		Layout.width(parent: parent, child: child, width: size.width)
+		Layout.height(parent: parent, child: child, height: size.height)
 	}
 	
 	/**

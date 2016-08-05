@@ -401,9 +401,14 @@ public extension UIView {
     /// Manages the layout for the shape of the view instance.
     public func layoutShape() {
         if .circle == shapePreset {
-            let w: CGFloat = (width / 2)
-            if w != cornerRadius {
-                cornerRadius = w
+            if width < height {
+                width = height
+            } else {
+                height = width
+            }
+            let r = width / 2
+            if r != cornerRadius {
+                cornerRadius = r
             }
         }
     }

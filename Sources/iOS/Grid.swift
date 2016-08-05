@@ -199,14 +199,18 @@ public class Grid {
             let gc = axis.inherited ? columns : axis.columns
             let gr = axis.inherited ? rows : axis.rows
             var n: Int = 0
+            
             for i in 0..<v.count {
                 let child: UIView = v[i]
+                
                 if let parent: UIView = context {
                     if parent != child.superview {
                         child.removeFromSuperview()
                         parent.addSubview(child)
                     }
+                    
                     parent.layoutIfNeeded()
+                    
                     switch axis.direction {
                     case .horizontal:
                         let w = (parent.bounds.width - contentInset.left - contentInset.right - layoutInset.left - layoutInset.right + interimSpace) / CGFloat(gc)
@@ -215,8 +219,14 @@ public class Grid {
                         let vh = parent.bounds.height - contentInset.top - contentInset.bottom - layoutInset.top - layoutInset.bottom
                         let vl = CGFloat(i + n + co) * w + contentInset.left + layoutInset.left
                         let vw = w * CGFloat(c) - interimSpace
-                        child.frame = CGRect(x: vl, y: contentInset.top + layoutInset.top, width: vw, height: vh)
+                        
+                        child.x = vl
+                        child.y = contentInset.top + layoutInset.top
+                        child.width = vw
+                        child.height = vh
+                        
                         n += c + co - 1
+                        
                     case .vertical:
                         let h = (parent.bounds.height - contentInset.top - contentInset.bottom - layoutInset.top - layoutInset.bottom + interimSpace) / CGFloat(gr)
                         let r = child.grid.rows
@@ -224,8 +234,14 @@ public class Grid {
                         let vw = parent.bounds.width - contentInset.left - contentInset.right - layoutInset.left - layoutInset.right
                         let vt = CGFloat(i + n + ro) * h + contentInset.top + layoutInset.top
                         let vh = h * CGFloat(r) - interimSpace
-                        child.frame = CGRect(x: contentInset.left + layoutInset.left, y: vt, width: vw, height: vh)
+                        
+                        child.x = contentInset.left + layoutInset.left
+                        child.y = vt
+                        child.width = vw
+                        child.height = vh
+                        
                         n += r + ro - 1
+                    
                     case .none:
                         let w = (parent.bounds.width - contentInset.left - contentInset.right - layoutInset.left - layoutInset.right + interimSpace) / CGFloat(gc)
                         let c = child.grid.columns
@@ -237,7 +253,11 @@ public class Grid {
                         let vl = CGFloat(co) * w + contentInset.left + layoutInset.left
                         let vh = h * CGFloat(r) - interimSpace
                         let vw = w * CGFloat(c) - interimSpace
-                        child.frame = CGRect(x: vl, y: vt, width: vw, height: vh)
+                        
+                        child.x = vl
+                        child.y = vt
+                        child.width = vw
+                        child.height = vh
                     }
                 }
             }
