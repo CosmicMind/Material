@@ -42,6 +42,29 @@ public class MenuView : PulseView {
 	/// References the Menu instance.
 	public private(set) lazy var menu: Menu = Menu()
 	
+    public override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        /**
+         Since the subviews will be outside the bounds of this view,
+         we need to look at the subviews to see if we have a hit.
+         */
+        guard !isHidden else {
+            return nil
+        }
+        
+        for v in subviews {
+            let p = v.convert(point, from: self)
+            if v.bounds.contains(p) {
+                return v.hitTest(p, with: event)
+            }
+        }
+        
+        if menu.isOpened {
+            (delegate as? MenuViewDelegate)?.menuViewDidTapOutside?(menuView: self)
+        }
+        
+        return super.hitTest(point, with: event)
+    }
+    
 	/**
 	Prepares the view instance when intialized. When subclassing,
 	it is recommended to override the prepareView method
@@ -88,28 +111,5 @@ public class MenuView : PulseView {
 				}
 			}
 		}
-	}
-	
-	public override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-		/**
-		Since the subviews will be outside the bounds of this view,
-		we need to look at the subviews to see if we have a hit.
-		*/
-        guard !isHidden else {
-            return nil
-        }
-		
-		for v in subviews {
-			let p = v.convert(point, from: self)
-			if v.bounds.contains(p) {
-				return v.hitTest(p, with: event)
-			}
-		}
-		
-		if menu.isOpened {
-			(delegate as? MenuViewDelegate)?.menuViewDidTapOutside?(menuView: self)
-		}
-		
-		return super.hitTest(point, with: event)
 	}
 }
