@@ -30,7 +30,7 @@
 
 import UIKit
 
-public extension Animation {
+extension Animation {
 	/**
 	:name:	backgroundColor
 	*/

@@ -30,7 +30,7 @@
 
 import UIKit
 
-public extension UIViewController {
+extension UIViewController {
 	/**
 	A convenience property that provides access to the SearchBarController.
 	This is the recommended method of accessing the SearchBarController

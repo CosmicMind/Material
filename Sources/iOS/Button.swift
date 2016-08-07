@@ -47,13 +47,13 @@ public class Button: UIButton {
 	public weak var delegate: MaterialDelegate?
 	
 	/// An Array of pulse layers.
-	public private(set) lazy var pulseLayers: Array<CAShapeLayer> = Array<CAShapeLayer>()
+	public private(set) lazy var pulseLayers = Array<CAShapeLayer>()
 	
 	/// The opacity value for the pulse animation.
 	@IBInspectable public var pulseOpacity: CGFloat = 0.25
 	
 	/// The color of the pulse effect.
-	@IBInspectable public var pulseColor: UIColor = Color.grey.base
+	@IBInspectable public var pulseColor = Color.grey.base
 	
 	/// The type of PulseAnimation.
 	public var pulseAnimation: PulseAnimation = .pointWithBacking
@@ -68,18 +68,9 @@ public class Button: UIButton {
 	/// A preset property for updated contentEdgeInsets.
 	public var contentEdgeInsetsPreset: EdgeInsetsPreset = .none {
 		didSet {
-			contentInset = EdgeInsetsPresetToValue(preset: contentEdgeInsetsPreset)
+			contentEdgeInsets = EdgeInsetsPresetToValue(preset: contentEdgeInsetsPreset)
 		}
 	}
-	
-    /**
-     :name:	contentInset
-     */
-    @IBInspectable public var contentInset = EdgeInsets.zero {
-        didSet {
-            contentEdgeInsets = contentInset
-        }
-    }
     
 	/**
      An initializer that initializes the object with a NSCoder object.
@@ -169,12 +160,12 @@ public class Button: UIButton {
     }
 	
 	/**
-	Prepares the view instance when intialized. When subclassing,
-	it is recommended to override the prepareView method
-	to initialize property values and other setup operations.
-	The super.prepareView method should always be called immediately
-	when subclassing.
-	*/
+     Prepares the view instance when intialized. When subclassing,
+     it is recommended to override the prepareView method
+     to initialize property values and other setup operations.
+     The super.prepareView method should always be called immediately
+     when subclassing.
+     */
 	public func prepareView() {
         contentScaleFactor = Device.scale
 		prepareVisualLayer()

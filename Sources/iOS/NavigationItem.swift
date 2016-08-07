@@ -87,7 +87,7 @@ public class MaterialAssociatedObjectNavigationItem {
 	}
 }
 
-public extension UINavigationItem {
+extension UINavigationItem {
 	/// NavigationItem reference.
 	public internal(set) var item: MaterialAssociatedObjectNavigationItem {
 		get {

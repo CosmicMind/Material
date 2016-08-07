@@ -30,7 +30,7 @@
 
 import UIKit
 
-public extension UIFont {
+extension UIFont {
 	/**
 	:name:	stringSize
 	*/

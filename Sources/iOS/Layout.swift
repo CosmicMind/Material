@@ -593,7 +593,7 @@ public class Layout {
 }
 
 /// Layout
-public extension Layout {
+extension Layout {
 	/**
      Sets the width of a view.
      - Parameter parent: A parent UIView context.
@@ -900,7 +900,7 @@ public extension Layout {
 private var LayoutKey: UInt8 = 0
 
 /// Layout extension for UIView.
-public extension UIView {
+extension UIView {
 	/// Layout reference.
 	public private(set) var layout: Layout {
 		get {

@@ -28,7 +28,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-public extension Array where Element: Equatable {
+extension Array where Element: Equatable {
     /**
      Slices a out a segment of an array based on the start
      and end positions.

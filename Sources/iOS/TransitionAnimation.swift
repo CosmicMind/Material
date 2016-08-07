@@ -81,7 +81,7 @@ public func AnimationTransitionSubTypeToValue(direction: AnimationTransitionSubT
 	}
 }
 
-public extension Animation {
+extension Animation {
 	/**
 	:name: transition
 	*/

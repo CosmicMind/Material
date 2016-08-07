@@ -30,7 +30,7 @@
 
 import UIKit
 
-public extension UIWindow {
+extension UIWindow {
     /**
      Captures a screenshot of the contents in the apps keyWindow.
      - Returns: An optional UIImage.

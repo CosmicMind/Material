@@ -42,5 +42,7 @@ public class IconButton: Button {
 		super.prepareView()
 		cornerRadiusPreset = .cornerRadius1
 		pulseAnimation = .center
+        shapePreset = .circle
+        contentEdgeInsetsPreset = .none
 	}
 }

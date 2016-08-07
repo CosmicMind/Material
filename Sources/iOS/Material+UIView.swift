@@ -69,22 +69,7 @@ public class Material {
     }
     
     /// A preset property to set the shape.
-    public var shapePreset: ShapePreset = .none {
-        didSet {
-            guard let v = view else {
-                return
-            }
-            
-            if .none != shapePreset {
-                if v.width < v.height {
-                    v.frame.size.width = v.height
-                } else {
-                    v.frame.size.height = v.width
-                }
-                v.layoutShadowPath()
-            }
-        }
-    }
+    public var shapePreset: ShapePreset = .none
     
     /// A preset value for Depth.
     public var depthPreset: DepthPreset {
@@ -111,7 +96,7 @@ public class Material {
     }
     
     /// Enables automatic shadowPath sizing.
-    public var isShadowPathAutoSizing: Bool = true {
+    public var isShadowPathAutoSizing: Bool = false {
         didSet {
             if isShadowPathAutoSizing {
                 view?.layoutShadowPath()
@@ -124,7 +109,7 @@ public class Material {
 private var MaterialKey: UInt8 = 0
 
 /// Grid extension for UIView.
-public extension UIView {
+extension UIView {
     /// Material Reference.
     internal var material: Material {
         get {
@@ -145,6 +130,8 @@ public extension UIView {
         }
         set(value) {
             layer.frame.origin.x = value
+            
+            layoutShadowPath()
         }
     }
     
@@ -156,6 +143,8 @@ public extension UIView {
         }
         set(value) {
             layer.frame.origin.y = value
+            
+            layoutShadowPath()
         }
     }
     
@@ -167,9 +156,9 @@ public extension UIView {
         }
         set(value) {
             layer.frame.size.width = value
-            if .none != shapePreset {
-                layer.frame.size.height = value
-            }
+            
+            layoutShape()
+            layoutShadowPath()
         }
     }
     
@@ -181,9 +170,9 @@ public extension UIView {
         }
         set(value) {
             layer.frame.size.height = value
-            if .none != shapePreset {
-                layer.frame.size.width = value
-            }
+            
+            layoutShape()
+            layoutShadowPath()
         }
     }
     
@@ -198,6 +187,7 @@ public extension UIView {
         }
         set(value) {
             material.shapePreset = value
+            
             layoutShape()
             layoutShadowPath()
         }
@@ -291,9 +281,11 @@ public extension UIView {
         }
         set(value) {
             layer.cornerRadius = value
-            layoutShadowPath()
+            
             if .circle == shapePreset {
                 shapePreset = .none
+            } else {
+                layoutShadowPath()
             }
         }
     }
@@ -400,16 +392,16 @@ public extension UIView {
     
     /// Manages the layout for the shape of the view instance.
     public func layoutShape() {
-        if .circle == shapePreset {
+        if .none != shapePreset {
             if width < height {
-                width = height
-            } else {
-                height = width
+                layer.frame.size.width = height
+            } else if width > height {
+                layer.frame.size.height = width
             }
-            let r = width / 2
-            if r != cornerRadius {
-                cornerRadius = r
-            }
+        }
+        
+        if .circle == shapePreset {
+            layer.cornerRadius = width / 2
         }
     }
     

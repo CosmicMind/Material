@@ -30,7 +30,7 @@
 
 import UIKit
 
-public extension String {
+extension String {
 	/**
 	:name:	lines
 	*/

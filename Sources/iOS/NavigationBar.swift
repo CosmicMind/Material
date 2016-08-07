@@ -38,7 +38,7 @@ public enum NavigationBarStyle: Int {
 	case Medium
 }
 
-public extension UINavigationBar {
+extension UINavigationBar {
 	/// Device status bar style.
 	public var statusBarStyle: UIStatusBarStyle {
 		get {

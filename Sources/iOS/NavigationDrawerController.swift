@@ -36,7 +36,7 @@ public enum NavigationDrawerPosition: Int {
 	case right
 }
 
-public extension UIViewController {
+extension UIViewController {
 	/**
 	A convenience property that provides access to the NavigationDrawerController. 
 	This is the recommended method of accessing the NavigationDrawerController

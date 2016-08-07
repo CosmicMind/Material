@@ -51,7 +51,7 @@ public func AnimationRotationModeToValue(mode: AnimationRotationMode) -> String?
 	}
 }
 
-public extension Animation {
+extension Animation {
 	/**
 	:name: path
 	*/

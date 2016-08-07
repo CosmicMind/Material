@@ -201,9 +201,9 @@ public class Grid {
             var n: Int = 0
             
             for i in 0..<v.count {
-                let child: UIView = v[i]
+                let child = v[i]
                 
-                if let parent: UIView = context {
+                if let parent = context {
                     if parent != child.superview {
                         child.removeFromSuperview()
                         parent.addSubview(child)
@@ -213,17 +213,15 @@ public class Grid {
                     
                     switch axis.direction {
                     case .horizontal:
-                        let w = (parent.bounds.width - contentInset.left - contentInset.right - layoutInset.left - layoutInset.right + interimSpace) / CGFloat(gc)
                         let c = child.grid.columns
                         let co = child.grid.offset.columns
-                        let vh = parent.bounds.height - contentInset.top - contentInset.bottom - layoutInset.top - layoutInset.bottom
-                        let vl = CGFloat(i + n + co) * w + contentInset.left + layoutInset.left
-                        let vw = w * CGFloat(c) - interimSpace
                         
-                        child.x = vl
+                        let w = (parent.bounds.width - contentInset.left - contentInset.right - layoutInset.left - layoutInset.right + interimSpace) / CGFloat(gc)
+                        
+                        child.x = CGFloat(i + n + co) * w + contentInset.left + layoutInset.left
                         child.y = contentInset.top + layoutInset.top
-                        child.width = vw
-                        child.height = vh
+                        child.width = w * CGFloat(c) - interimSpace
+                        child.height = parent.bounds.height - contentInset.top - contentInset.bottom - layoutInset.top - layoutInset.bottom
                         
                         n += c + co - 1
                         
@@ -243,21 +241,24 @@ public class Grid {
                         n += r + ro - 1
                     
                     case .none:
-                        let w = (parent.bounds.width - contentInset.left - contentInset.right - layoutInset.left - layoutInset.right + interimSpace) / CGFloat(gc)
                         let c = child.grid.columns
                         let co = child.grid.offset.columns
-                        let h = (parent.bounds.height - contentInset.top - contentInset.bottom - layoutInset.top - layoutInset.bottom + interimSpace) / CGFloat(gr)
+                        
+                        var w = (parent.bounds.width - contentInset.left - contentInset.right - layoutInset.left - layoutInset.right + interimSpace) / CGFloat(gc)
+                        var h = (parent.bounds.height - contentInset.top - contentInset.bottom - layoutInset.top - layoutInset.bottom + interimSpace) / CGFloat(gr)
+                        
                         let r = child.grid.rows
                         let ro = child.grid.offset.rows
-                        let vt = CGFloat(ro) * h + contentInset.top + layoutInset.top
-                        let vl = CGFloat(co) * w + contentInset.left + layoutInset.left
-                        let vh = h * CGFloat(r) - interimSpace
-                        let vw = w * CGFloat(c) - interimSpace
+                        let x = CGFloat(co) * w + contentInset.left + layoutInset.left
+                        let y = CGFloat(ro) * h + contentInset.top + layoutInset.top
                         
-                        child.x = vl
-                        child.y = vt
-                        child.width = vw
-                        child.height = vh
+                        w = w * CGFloat(c) - interimSpace
+                        h = h * CGFloat(r) - interimSpace
+                        
+                        child.x = x
+                        child.y = y
+                        child.width = w
+                        child.height = h
                     }
                 }
             }
@@ -269,7 +270,7 @@ public class Grid {
 private var GridKey: UInt8 = 0
 
 /// Grid extension for UIView.
-public extension UIView {
+extension UIView {
     /// Grid reference.
     public private(set) var grid: Grid {
         get {

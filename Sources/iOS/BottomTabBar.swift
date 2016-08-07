@@ -30,7 +30,7 @@
 
 import UIKit
 
-public extension UITabBarItem {
+extension UITabBarItem {
 	/// Sets the color of the title color for a state.
 	public func setTitleColor(color: UIColor, forState state: UIControlState) {
 		setTitleTextAttributes([NSForegroundColorAttributeName: color], for: state)
@@ -146,7 +146,7 @@ public class MaterialAssociatedObjectTabBar {
 	}
 }
 
-public extension UITabBar {
+extension UITabBar {
 	/// TabBarItem reference.
 	public internal(set) var item: MaterialAssociatedObjectTabBar {
 		get {

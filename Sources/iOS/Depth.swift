@@ -109,7 +109,7 @@ public func DepthPresetToValue(preset: DepthPreset) -> Depth {
 }
 
 /// Grid extension for UIView.
-public extension UIView {
+extension UIView {
     /// A preset value for Depth.
     public var depthPreset: DepthPreset {
         get {
