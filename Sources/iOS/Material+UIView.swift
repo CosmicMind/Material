@@ -122,56 +122,64 @@ extension UIView {
         }
     }
     
-    /// A property that accesses the layer.frame.origin.x property.
+    /// A property that accesses the frame.origin.x property.
     @IBInspectable
     public var x: CGFloat {
         get {
-            return layer.frame.origin.x
+            return frame.origin.x
         }
         set(value) {
-            layer.frame.origin.x = value
+            frame.origin.x = value
             
             layoutShadowPath()
         }
     }
     
-    /// A property that accesses the layer.frame.origin.y property.
+    /// A property that accesses the frame.origin.y property.
     @IBInspectable
     public var y: CGFloat {
         get {
-            return layer.frame.origin.y
+            return frame.origin.y
         }
         set(value) {
-            layer.frame.origin.y = value
+            frame.origin.y = value
             
             layoutShadowPath()
         }
     }
     
-    /// A property that accesses the layer.frame.size.width property.
+    /// A property that accesses the frame.size.width property.
     @IBInspectable
     public var width: CGFloat {
         get {
-            return layer.frame.size.width
+            return frame.size.width
         }
         set(value) {
-            layer.frame.size.width = value
+            frame.size.width = value
             
-            layoutShape()
+            if .none != shapePreset {
+                frame.size.height = value
+                layoutShape()
+            }
+            
             layoutShadowPath()
         }
     }
     
-    /// A property that accesses the layer.frame.size.height property.
+    /// A property that accesses the frame.size.height property.
     @IBInspectable
     public var height: CGFloat {
         get {
-            return layer.frame.size.height
+            return frame.size.height
         }
         set(value) {
-            layer.frame.size.height = value
+            frame.size.height = value
             
-            layoutShape()
+            if .none != shapePreset {
+                frame.size.width = value
+                layoutShape()
+            }
+            
             layoutShadowPath()
         }
     }
@@ -394,9 +402,9 @@ extension UIView {
     public func layoutShape() {
         if .none != shapePreset {
             if width < height {
-                layer.frame.size.width = height
+                frame.size.width = height
             } else if width > height {
-                layer.frame.size.height = width
+                frame.size.height = width
             }
         }
         
