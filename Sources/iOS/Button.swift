@@ -168,6 +168,7 @@ public class Button: UIButton {
      */
 	public func prepareView() {
         contentScaleFactor = Device.scale
+        contentEdgeInsetsPreset = .none
 		prepareVisualLayer()
 	}
 	
