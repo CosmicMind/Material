@@ -32,7 +32,7 @@ import UIKit
 
 @objc(GridAxisDirection)
 public enum GridAxisDirection: Int {
-    case none
+    case any
     case horizontal
     case vertical
 }
@@ -236,7 +236,7 @@ public class Grid {
                         
                         n += r + ro - 1
                     
-                    case .none:
+                    case .any:
                         let r = child.grid.rows
                         let ro = child.grid.offset.rows
                         let c = child.grid.columns
