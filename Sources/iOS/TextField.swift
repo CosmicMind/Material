@@ -345,7 +345,6 @@ public class TextField: UITextField {
         clipsToBounds = false
 		borderStyle = .none
 		backgroundColor = nil
-		textColor = Color.darkText.primary
 		contentScaleFactor = Device.scale
 		prepareDivider()
 		preparePlaceholderLabel()
