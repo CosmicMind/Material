@@ -50,7 +50,7 @@ public class TextField: UITextField {
 	}
 	
     /// Reference to the divider.
-	public private(set) lazy var divider: CAShapeLayer = CAShapeLayer()
+	public private(set) var divider: CAShapeLayer!
 	
 	/// Divider height.
 	@IBInspectable public var dividerHeight: CGFloat = 1
@@ -108,7 +108,7 @@ public class TextField: UITextField {
 	}
 	
 	/// The placeholder UILabel.
-	@IBInspectable public private(set) lazy var placeholderLabel: UILabel = UILabel(frame: CGRect.zero)
+	@IBInspectable public private(set) var placeholderLabel: UILabel!
 	
 	/// Placeholder textColor.
 	@IBInspectable public var placeholderColor: UIColor = Color.darkText.others {
@@ -291,7 +291,6 @@ public class TextField: UITextField {
 	
 	public override func layoutSubviews() {
 		super.layoutSubviews()
-		
         layoutToSize()
 	}
 	
@@ -305,7 +304,8 @@ public class TextField: UITextField {
 	
 	/// Handles the text editing did begin state.
 	public func handleEditingDidBegin() {
-		dividerEditingDidBeginAnimation()
+        layoutIfNeeded()
+        dividerEditingDidBeginAnimation()
 		placeholderEditingDidBeginAnimation()
 	}
 	
@@ -342,11 +342,10 @@ public class TextField: UITextField {
 	*/
 	public func prepareView() {
 		super.placeholder = nil
-		clipsToBounds = false
+        clipsToBounds = false
 		borderStyle = .none
 		backgroundColor = nil
 		textColor = Color.darkText.primary
-		font = RobotoFont.regularWithSize(size: 16)
 		contentScaleFactor = Device.scale
 		prepareDivider()
 		preparePlaceholderLabel()
@@ -354,11 +353,11 @@ public class TextField: UITextField {
 		prepareTargetHandlers()
         prepareTextAlignment()
 	}
-	
+    
 	/// Ensures that the components are sized correctly.
 	public func layoutToSize() {
 		if !animating {
-			layoutPlaceholderLabel()
+            layoutPlaceholderLabel()
 			layoutDetailLabel()
 			layoutClearIconButton()
 			layoutVisibilityIconButton()
@@ -482,14 +481,17 @@ public class TextField: UITextField {
 	
 	/// Prepares the divider.
 	private func prepareDivider() {
+        divider = CAShapeLayer()
 		dividerColor = Color.darkText.dividers
 		layer.addSublayer(divider)
 	}
 	
 	/// Prepares the placeholderLabel.
 	private func preparePlaceholderLabel() {
+        placeholderLabel = UILabel(frame: CGRect.zero)
 		placeholderColor = Color.darkText.others
-		addSubview(placeholderLabel)
+        font = RobotoFont.regularWithSize(size: 16)
+        addSubview(placeholderLabel)
 	}
 	
 	/// Prepares the detailLabel.
