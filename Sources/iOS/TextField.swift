@@ -470,7 +470,6 @@ public class TextField : UITextField {
 		masksToBounds = false
 		borderStyle = .None
 		backgroundColor = nil
-		textColor = MaterialColor.darkText.primary
 		font = RobotoFont.regularWithSize(16)
 		contentScaleFactor = MaterialDevice.scale
 		prepareDivider()
