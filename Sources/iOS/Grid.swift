@@ -172,7 +172,7 @@ public class Grid {
     }
     
     /// An Array of UIButtons.
-    public var views: [UIView]? {
+    public var views: [UIView] {
         didSet {
             reload()
         }
@@ -189,66 +189,65 @@ public class Grid {
         self.rows = rows
         self.columns = columns
         self.interimSpace = interimSpace
+        views = [UIView]()
         offset = GridOffset(grid: self)
         axis = GridAxis(grid: self)
     }
     
     /// Reload the button layout.
     public func reload() {
-        if let v = views {
-            let gc = axis.inherited ? columns : axis.columns
-            let gr = axis.inherited ? rows : axis.rows
-            var n: Int = 0
+        let gc = axis.inherited ? columns : axis.columns
+        let gr = axis.inherited ? rows : axis.rows
+        var n: Int = 0
+        
+        for i in 0..<views.count {
+            let child = views[i]
             
-            for i in 0..<v.count {
-                let child = v[i]
+            if let parent = context {
+                if parent != child.superview {
+                    child.removeFromSuperview()
+                    parent.addSubview(child)
+                }
                 
-                if let parent = context {
-                    if parent != child.superview {
-                        child.removeFromSuperview()
-                        parent.addSubview(child)
-                    }
+                parent.layoutIfNeeded()
+                
+                switch axis.direction {
+                case .horizontal:
+                    let c = child.grid.columns
+                    let co = child.grid.offset.columns
+                    let w = (parent.bounds.width - contentInset.left - contentInset.right - layoutInset.left - layoutInset.right + interimSpace) / CGFloat(gc)
                     
-                    parent.layoutIfNeeded()
+                    child.x = CGFloat(i + n + co) * w + contentInset.left + layoutInset.left
+                    child.y = contentInset.top + layoutInset.top
+                    child.width = w * CGFloat(c) - interimSpace
+                    child.height = parent.bounds.height - contentInset.top - contentInset.bottom - layoutInset.top - layoutInset.bottom
                     
-                    switch axis.direction {
-                    case .horizontal:
-                        let c = child.grid.columns
-                        let co = child.grid.offset.columns
-                        let w = (parent.bounds.width - contentInset.left - contentInset.right - layoutInset.left - layoutInset.right + interimSpace) / CGFloat(gc)
-                        
-                        child.x = CGFloat(i + n + co) * w + contentInset.left + layoutInset.left
-                        child.y = contentInset.top + layoutInset.top
-                        child.width = w * CGFloat(c) - interimSpace
-                        child.height = parent.bounds.height - contentInset.top - contentInset.bottom - layoutInset.top - layoutInset.bottom
-                        
-                        n += c + co - 1
-                        
-                    case .vertical:
-                        let r = child.grid.rows
-                        let ro = child.grid.offset.rows
-                        let h = (parent.bounds.height - contentInset.top - contentInset.bottom - layoutInset.top - layoutInset.bottom + interimSpace) / CGFloat(gr)
-                        
-                        child.x = contentInset.left + layoutInset.left
-                        child.y = CGFloat(i + n + ro) * h + contentInset.top + layoutInset.top
-                        child.width = parent.bounds.width - contentInset.left - contentInset.right - layoutInset.left - layoutInset.right
-                        child.height = h * CGFloat(r) - interimSpace
-                        
-                        n += r + ro - 1
+                    n += c + co - 1
                     
-                    case .any:
-                        let r = child.grid.rows
-                        let ro = child.grid.offset.rows
-                        let c = child.grid.columns
-                        let co = child.grid.offset.columns
-                        let w = (parent.bounds.width - contentInset.left - contentInset.right - layoutInset.left - layoutInset.right + interimSpace) / CGFloat(gc)
-                        let h = (parent.bounds.height - contentInset.top - contentInset.bottom - layoutInset.top - layoutInset.bottom + interimSpace) / CGFloat(gr)
-                        
-                        child.x = CGFloat(co) * w + contentInset.left + layoutInset.left
-                        child.y = CGFloat(ro) * h + contentInset.top + layoutInset.top
-                        child.width = w * CGFloat(c) - interimSpace
-                        child.height = h * CGFloat(r) - interimSpace
-                    }
+                case .vertical:
+                    let r = child.grid.rows
+                    let ro = child.grid.offset.rows
+                    let h = (parent.bounds.height - contentInset.top - contentInset.bottom - layoutInset.top - layoutInset.bottom + interimSpace) / CGFloat(gr)
+                    
+                    child.x = contentInset.left + layoutInset.left
+                    child.y = CGFloat(i + n + ro) * h + contentInset.top + layoutInset.top
+                    child.width = parent.bounds.width - contentInset.left - contentInset.right - layoutInset.left - layoutInset.right
+                    child.height = h * CGFloat(r) - interimSpace
+                    
+                    n += r + ro - 1
+                
+                case .any:
+                    let r = child.grid.rows
+                    let ro = child.grid.offset.rows
+                    let c = child.grid.columns
+                    let co = child.grid.offset.columns
+                    let w = (parent.bounds.width - contentInset.left - contentInset.right - layoutInset.left - layoutInset.right + interimSpace) / CGFloat(gc)
+                    let h = (parent.bounds.height - contentInset.top - contentInset.bottom - layoutInset.top - layoutInset.bottom + interimSpace) / CGFloat(gr)
+                    
+                    child.x = CGFloat(co) * w + contentInset.left + layoutInset.left
+                    child.y = CGFloat(ro) * h + contentInset.top + layoutInset.top
+                    child.width = w * CGFloat(c) - interimSpace
+                    child.height = h * CGFloat(r) - interimSpace
                 }
             }
         }

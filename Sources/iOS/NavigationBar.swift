@@ -219,12 +219,12 @@ public class NavigationBar: UINavigationBar {
                         contentView.grid.columns -= c.grid.columns
                         
                         titleView.addSubview(c)
-                        titleView.grid.views?.append(c)
+                        titleView.grid.views.append(c)
                     }
                 }
                 
                 titleView.addSubview(contentView)
-                titleView.grid.views?.append(contentView)
+                titleView.grid.views.append(contentView)
                 
                 // rightControls
                 if let v: Array<UIControl> = item.rightControls {
@@ -239,7 +239,7 @@ public class NavigationBar: UINavigationBar {
                         contentView.grid.columns -= c.grid.columns
                         
                         titleView.addSubview(c)
-                        titleView.grid.views?.append(c)
+                        titleView.grid.views.append(c)
                     }
                 }
                 

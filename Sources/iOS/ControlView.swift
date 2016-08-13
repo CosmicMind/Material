@@ -185,12 +185,12 @@ public class ControlView: View {
 						contentView.grid.columns -= c.grid.columns
 						
 						addSubview(c)
-						grid.views?.append(c)
+						grid.views.append(c)
 					}
 				}
 				
 				addSubview(contentView)
-				grid.views?.append(contentView)
+				grid.views.append(contentView)
 				
 				// rightControls
 				if let v = rightControls {
@@ -205,7 +205,7 @@ public class ControlView: View {
 						contentView.grid.columns -= c.grid.columns
 						
 						addSubview(c)
-						grid.views?.append(c)
+						grid.views.append(c)
 					}
 				}
 				
