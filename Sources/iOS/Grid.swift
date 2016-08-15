@@ -41,11 +41,12 @@ public class GridAxis {
     /// Grid reference.
     unowned var grid: Grid
     
-    /// Inherit grid rows and columns.
-    public var isInherited: Bool = false
-    
     /// The direction the grid lays its views out.
-    public var direction: GridAxisDirection = .horizontal
+    public var direction: GridAxisDirection = .horizontal {
+        didSet {
+            grid.reload()
+        }
+    }
     
     /// The rows size.
     public var rows: Int {
@@ -132,12 +133,12 @@ public class Grid {
     /// Preset inset value for grid.
     public var layoutEdgeInsetsPreset: EdgeInsetsPreset = .none {
         didSet {
-            layoutInset = EdgeInsetsPresetToValue(preset: contentEdgeInsetsPreset)
+            layoutEdgeInsets = EdgeInsetsPresetToValue(preset: contentEdgeInsetsPreset)
         }
     }
     
     /// Insets value for grid.
-    public var layoutInset = EdgeInsets.zero {
+    public var layoutEdgeInsets = EdgeInsets.zero {
         didSet {
             reload()
         }
@@ -146,12 +147,12 @@ public class Grid {
     /// Preset inset value for grid.
     public var contentEdgeInsetsPreset: EdgeInsetsPreset = .none {
         didSet {
-            contentInset = EdgeInsetsPresetToValue(preset: contentEdgeInsetsPreset)
+            contentEdgeInsets = EdgeInsetsPresetToValue(preset: contentEdgeInsetsPreset)
         }
     }
     
     /// Insets value for grid.
-    public var contentInset: EdgeInsets = EdgeInsetsPresetToValue(preset: .none) {
+    public var contentEdgeInsets = EdgeInsets.zero {
         didSet {
             reload()
         }
@@ -196,8 +197,6 @@ public class Grid {
     
     /// Reload the button layout.
     public func reload() {
-        let gc = axis.isInherited ? columns : axis.columns
-        let gr = axis.isInherited ? rows : axis.rows
         var n: Int = 0
         
         for i in 0..<views.count {
@@ -215,23 +214,23 @@ public class Grid {
                 case .horizontal:
                     let c = child.grid.columns
                     let co = child.grid.offset.columns
-                    let w = (parent.bounds.width - contentInset.left - contentInset.right - layoutInset.left - layoutInset.right + interimSpace) / CGFloat(gc)
+                    let w = (parent.bounds.width - contentEdgeInsets.left - contentEdgeInsets.right - layoutEdgeInsets.left - layoutEdgeInsets.right + interimSpace) / CGFloat(axis.columns)
                     
-                    child.x = CGFloat(i + n + co) * w + contentInset.left + layoutInset.left
-                    child.y = contentInset.top + layoutInset.top
+                    child.x = CGFloat(i + n + co) * w + contentEdgeInsets.left + layoutEdgeInsets.left
+                    child.y = contentEdgeInsets.top + layoutEdgeInsets.top
                     child.width = w * CGFloat(c) - interimSpace
-                    child.height = parent.bounds.height - contentInset.top - contentInset.bottom - layoutInset.top - layoutInset.bottom
+                    child.height = parent.bounds.height - contentEdgeInsets.top - contentEdgeInsets.bottom - layoutEdgeInsets.top - layoutEdgeInsets.bottom
                     
                     n += c + co - 1
                     
                 case .vertical:
                     let r = child.grid.rows
                     let ro = child.grid.offset.rows
-                    let h = (parent.bounds.height - contentInset.top - contentInset.bottom - layoutInset.top - layoutInset.bottom + interimSpace) / CGFloat(gr)
+                    let h = (parent.bounds.height - contentEdgeInsets.top - contentEdgeInsets.bottom - layoutEdgeInsets.top - layoutEdgeInsets.bottom + interimSpace) / CGFloat(axis.rows)
                     
-                    child.x = contentInset.left + layoutInset.left
-                    child.y = CGFloat(i + n + ro) * h + contentInset.top + layoutInset.top
-                    child.width = parent.bounds.width - contentInset.left - contentInset.right - layoutInset.left - layoutInset.right
+                    child.x = contentEdgeInsets.left + layoutEdgeInsets.left
+                    child.y = CGFloat(i + n + ro) * h + contentEdgeInsets.top + layoutEdgeInsets.top
+                    child.width = parent.bounds.width - contentEdgeInsets.left - contentEdgeInsets.right - layoutEdgeInsets.left - layoutEdgeInsets.right
                     child.height = h * CGFloat(r) - interimSpace
                     
                     n += r + ro - 1
@@ -241,11 +240,11 @@ public class Grid {
                     let ro = child.grid.offset.rows
                     let c = child.grid.columns
                     let co = child.grid.offset.columns
-                    let w = (parent.bounds.width - contentInset.left - contentInset.right - layoutInset.left - layoutInset.right + interimSpace) / CGFloat(gc)
-                    let h = (parent.bounds.height - contentInset.top - contentInset.bottom - layoutInset.top - layoutInset.bottom + interimSpace) / CGFloat(gr)
+                    let w = (parent.bounds.width - contentEdgeInsets.left - contentEdgeInsets.right - layoutEdgeInsets.left - layoutEdgeInsets.right + interimSpace) / CGFloat(axis.columns)
+                    let h = (parent.bounds.height - contentEdgeInsets.top - contentEdgeInsets.bottom - layoutEdgeInsets.top - layoutEdgeInsets.bottom + interimSpace) / CGFloat(axis.rows)
                     
-                    child.x = CGFloat(co) * w + contentInset.left + layoutInset.left
-                    child.y = CGFloat(ro) * h + contentInset.top + layoutInset.top
+                    child.x = CGFloat(co) * w + contentEdgeInsets.left + layoutEdgeInsets.left
+                    child.y = CGFloat(ro) * h + contentEdgeInsets.top + layoutEdgeInsets.top
                     child.width = w * CGFloat(c) - interimSpace
                     child.height = h * CGFloat(r) - interimSpace
                 }

@@ -243,7 +243,7 @@ public class NavigationBar: UINavigationBar {
                     }
                 }
                 
-                titleView.grid.contentInset = contentInset
+                titleView.grid.contentEdgeInsets = contentInset
                 titleView.grid.interimSpace = interimSpace
                 titleView.grid.reload()
                 

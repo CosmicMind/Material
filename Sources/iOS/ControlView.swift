@@ -49,10 +49,10 @@ public class ControlView: View {
 	/// A wrapper around grid.contentInset.
 	@IBInspectable public var contentInset: EdgeInsets {
 		get {
-			return grid.contentInset
+			return grid.contentEdgeInsets
 		}
 		set(value) {
-			grid.contentInset = value
+			grid.contentEdgeInsets = value
 		}
 	}
 	
@@ -209,7 +209,7 @@ public class ControlView: View {
 					}
 				}
 				
-				grid.contentInset = contentInset
+				grid.contentEdgeInsets = contentInset
 				grid.interimSpace = interimSpace
 				grid.reload()
 				contentView.grid.reload()

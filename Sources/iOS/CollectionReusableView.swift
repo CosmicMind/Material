@@ -141,10 +141,10 @@ public class MaterialCollectionReusableView: UICollectionReusableView {
 	/// A wrapper around grid.contentInset.
 	@IBInspectable public var contentInset: UIEdgeInsets {
 		get {
-			return grid.contentInset
+			return grid.contentEdgeInsets
 		}
 		set(value) {
-			grid.contentInset = value
+			grid.contentEdgeInsets = value
 		}
 	}
 	

@@ -141,10 +141,10 @@ public class CollectionViewCell: UICollectionViewCell {
 	/// A wrapper around grid.contentInset.
 	@IBInspectable public var contentInset: UIEdgeInsets {
 		get {
-			return contentView.grid.contentInset
+			return contentView.grid.contentEdgeInsets
 		}
 		set(value) {
-			contentView.grid.contentInset = value
+			contentView.grid.contentEdgeInsets = value
 		}
 	}
 	

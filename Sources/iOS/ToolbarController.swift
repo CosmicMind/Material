@@ -163,13 +163,13 @@ public class ToolbarController: RootController {
 	public override func layoutSubviews() {
 		super.layoutSubviews()
 		if let v: Toolbar = toolbar {
-			v.grid.layoutInset.top = .phone == Device.userInterfaceIdiom && Device.isLandscape ? 0 : 20
+			v.grid.layoutEdgeInsets.top = .phone == Device.userInterfaceIdiom && Device.isLandscape ? 0 : 20
 			
 			let h: CGFloat = Device.height
 			let w: CGFloat = Device.width
-			let p: CGFloat = v.intrinsicContentSize.height + v.grid.layoutInset.top + v.grid.layoutInset.bottom
+			let p: CGFloat = v.intrinsicContentSize.height + v.grid.layoutEdgeInsets.top + v.grid.layoutEdgeInsets.bottom
 			
-			v.width = w + v.grid.layoutInset.left + v.grid.layoutInset.right
+			v.width = w + v.grid.layoutEdgeInsets.left + v.grid.layoutEdgeInsets.right
 			v.height = p
 			
 			rootViewController.view.frame.origin.y = p
