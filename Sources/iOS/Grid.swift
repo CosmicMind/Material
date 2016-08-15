@@ -42,7 +42,7 @@ public class GridAxis {
     unowned var grid: Grid
     
     /// Inherit grid rows and columns.
-    public var inherited: Bool = false
+    public var isInherited: Bool = false
     
     /// The direction the grid lays its views out.
     public var direction: GridAxisDirection = .horizontal
@@ -196,8 +196,8 @@ public class Grid {
     
     /// Reload the button layout.
     public func reload() {
-        let gc = axis.inherited ? columns : axis.columns
-        let gr = axis.inherited ? rows : axis.rows
+        let gc = axis.isInherited ? columns : axis.columns
+        let gr = axis.isInherited ? rows : axis.rows
         var n: Int = 0
         
         for i in 0..<views.count {
