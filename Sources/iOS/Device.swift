@@ -81,7 +81,12 @@ public struct Device {
 	
 	/// A Boolean indicating if the device is in Landscape mode.
 	public static var isLandscape: Bool {
-		return UIApplication.shared.statusBarOrientation.isLandscape
+        #if MATERIAL_APP_EXTENSIONS
+            preconditionFailure("isLandscape is not extension safe")
+            return true
+        #else
+            return UIApplication.shared.statusBarOrientation.isLandscape
+        #endif
 	}
 	
 	/// A Boolean indicating if the device is in Portrait mode.
@@ -91,18 +96,45 @@ public struct Device {
 	
 	/// The current UIInterfaceOrientation value.
 	public static var orientation: UIInterfaceOrientation {
-		return UIApplication.shared.statusBarOrientation
+        #if MATERIAL_APP_EXTENSIONS
+        return .unknown
+        #else
+        return UIApplication.shared.statusBarOrientation
+        #endif
+		
 	}
-	
-	/// Retrieves the device status bar style.
-	public static var statusBarStyle: UIStatusBarStyle {
-		get {
+    #if MATERIAL_APP_EXTENSIONS
+    /// Retrieves the device status bar style.
+    public static var statusBarStyle: UIStatusBarStyle {
+    get {
+    preconditionFailure("status bar style is not extension safe")
+    return .default
+    }
+    set(value) {
+    preconditionFailure("status bar style is not extension safe")
+    }
+    }
+    
+    /// Retrieves the device status bar hidden state.
+    public static var isStatusBarHidden: Bool {
+    get {
+    preconditionFailure("status bar hidden is not extension safe")
+    return false
+    }
+    set(value) {
+    preconditionFailure("status bar hidden is not extension safe")
+    }
+    }
+    #else
+    /// Retrieves the device status bar style.
+    public static var statusBarStyle: UIStatusBarStyle {
+        get {
             return UIApplication.shared.statusBarStyle
-		}
-		set(value) {
-			UIApplication.shared.statusBarStyle = value
-		}
-	}
+        }
+        set(value) {
+            UIApplication.shared.statusBarStyle = value
+        }
+    }
 	
 	/// Retrieves the device status bar hidden state.
 	public static var isStatusBarHidden: Bool {
@@ -113,6 +145,7 @@ public struct Device {
 			UIApplication.shared.isStatusBarHidden = value
 		}
 	}
+    #endif
 	
 	/// Retrieves the device bounds.
 	public static var bounds: CGRect {

@@ -163,7 +163,14 @@ public class ToolbarController: RootController {
 	public override func layoutSubviews() {
 		super.layoutSubviews()
 		if let v: Toolbar = toolbar {
-			v.grid.layoutEdgeInsets.top = .phone == Device.userInterfaceIdiom && Device.isLandscape ? 0 : 20
+            
+            #if MATERIAL_APP_EXTENSIONS
+                var isLandscapePhone = Device.userInterfaceIdiom == .phone && self.traitCollection.verticalSizeClass == .compact
+            #else
+                var isLandscapePhone = (Device.userInterfaceIdiom == .phone && Device.isLandscape)
+            #endif
+            
+			v.grid.layoutEdgeInsets.top = isLandscapePhone ? 0 : 20
 			
 			let h: CGFloat = Device.height
 			let w: CGFloat = Device.width

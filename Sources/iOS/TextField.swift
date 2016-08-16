@@ -508,6 +508,14 @@ public class TextField: UITextField {
     
     /// Prepares the textAlignment.
     private func prepareTextAlignment() {
-        textAlignment = .rightToLeft == UIApplication.shared.userInterfaceLayoutDirection ? .right : .left
+        #if MATERIAL_APP_EXTENSIONS
+            //can't use shared in app extension
+            //fall back to checking the bundle's preferred localization character direction
+            //Courtesy of PureLayout
+            let isRightToLeftLayout = NSLocale.characterDirection(forLanguage: Bundle.main.preferredLocalizations[0]) == .rightToLeft
+        #else
+        let isRightToLeftLayout = (UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft)
+        #endif
+        textAlignment = isRightToLeftLayout ? .right : .left
     }
 }

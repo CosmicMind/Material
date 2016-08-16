@@ -48,6 +48,7 @@ extension UINavigationBar {
 			Device.statusBarStyle = value
 		}
 	}
+
 }
 
 @IBDesignable
