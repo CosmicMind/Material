@@ -41,20 +41,20 @@ public class JSON: Equatable, CustomStringConvertible {
     /**
      :name:	object
      */
-    public private(set) var object: AnyObject
+    public private(set) var object: Any
     
     /**
      :name:	asArray
      */
-    public var asArray: [AnyObject]? {
-        return object as? [AnyObject]
+    public var asArray: [Any]? {
+        return object as? [Any]
     }
     
     /**
      :name:	asDictionary
      */
-    public var asDictionary: [String: AnyObject]? {
-        return object as? [String: AnyObject]
+    public var asDictionary: [String: Any]? {
+        return object as? [String: Any]
     }
     
     /**
@@ -95,7 +95,7 @@ public class JSON: Equatable, CustomStringConvertible {
     /**
      :name:	asNSData
      */
-    public var asNSData: NSData? {
+    public var asNSData: Data? {
         return JSON.serialize(object: object)
     }
     
@@ -122,14 +122,14 @@ public class JSON: Equatable, CustomStringConvertible {
     /**
      :name:	serialize
      */
-    public class func serialize(object: AnyObject) -> Data? {
+    public class func serialize(object: Any) -> Data? {
         return try? JSONSerialization.data(withJSONObject: object, options: [])
     }
     
     /**
      :name:	stringify
      */
-    public class func stringify(_ object: AnyObject) -> String? {
+    public class func stringify(_ object: Any) -> String? {
         if let o = object as? JSON {
             return stringify(o.object)
         } else if let data = JSON.serialize(object: object) {
@@ -143,7 +143,7 @@ public class JSON: Equatable, CustomStringConvertible {
     /**
      :name:	init
      */
-    public required init(_ object: AnyObject) {
+    public required init(_ object: Any) {
         if let o = object as? JSON {
             self.object = o.object
         } else {

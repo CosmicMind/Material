@@ -63,7 +63,7 @@ extension String {
 	:name:	replacePunctuationCharacters
 	*/
 	public func replacePunctuationCharacters(separator: String = "") -> String {
-		return components(separatedBy: CharacterSet.punctuation).joined(separator: separator).trim()
+		return components(separatedBy: CharacterSet.punctuationCharacters).joined(separator: separator).trim()
 	}
 	
 	/**

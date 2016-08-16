@@ -164,58 +164,57 @@ public class ControlView: View {
 		if willRenderView {
 			layoutIfNeeded()
 			
-			if let g: Int = Int(width / gridFactor) {
-				let columns: Int = g + 1
-				
-				grid.views = []
-				grid.axis.columns = columns
-				
-				contentView.grid.columns = columns
-				
-				// leftControls
-				if let v = leftControls {
-					for c in v {
-						let w: CGFloat = c.intrinsicContentSize.width
-						(c as? UIButton)?.contentEdgeInsets = UIEdgeInsets.zero
-						c.frame.size.height = frame.size.height - contentInset.top - contentInset.bottom
-						
-						let q: Int = Int(w / gridFactor)
-						c.grid.columns = q + 1
-						
-						contentView.grid.columns -= c.grid.columns
-						
-						addSubview(c)
-						grid.views.append(c)
-					}
-				}
-				
-				addSubview(contentView)
-				grid.views.append(contentView)
-				
-				// rightControls
-				if let v = rightControls {
-					for c in v {
-						let w: CGFloat = c.intrinsicContentSize.width
-						(c as? UIButton)?.contentEdgeInsets = UIEdgeInsets.zero
-						c.frame.size.height = frame.size.height - contentInset.top - contentInset.bottom
-						
-						let q: Int = Int(w / gridFactor)
-						c.grid.columns = q + 1
-						
-						contentView.grid.columns -= c.grid.columns
-						
-						addSubview(c)
-						grid.views.append(c)
-					}
-				}
-				
-				grid.contentEdgeInsets = contentInset
-				grid.interimSpace = interimSpace
-				grid.reload()
-				contentView.grid.reload()
-			}
-		}
-	}
+			let g = Int(width / gridFactor)
+            let columns = g + 1
+            
+            grid.views = []
+            grid.axis.columns = columns
+            
+            contentView.grid.columns = columns
+            
+            // leftControls
+            if let v = leftControls {
+                for c in v {
+                    let w: CGFloat = c.intrinsicContentSize.width
+                    (c as? UIButton)?.contentEdgeInsets = UIEdgeInsets.zero
+                    c.frame.size.height = frame.size.height - contentInset.top - contentInset.bottom
+                    
+                    let q: Int = Int(w / gridFactor)
+                    c.grid.columns = q + 1
+                    
+                    contentView.grid.columns -= c.grid.columns
+                    
+                    addSubview(c)
+                    grid.views.append(c)
+                }
+            }
+            
+            addSubview(contentView)
+            grid.views.append(contentView)
+            
+            // rightControls
+            if let v = rightControls {
+                for c in v {
+                    let w: CGFloat = c.intrinsicContentSize.width
+                    (c as? UIButton)?.contentEdgeInsets = UIEdgeInsets.zero
+                    c.frame.size.height = frame.size.height - contentInset.top - contentInset.bottom
+                    
+                    let q: Int = Int(w / gridFactor)
+                    c.grid.columns = q + 1
+                    
+                    contentView.grid.columns -= c.grid.columns
+                    
+                    addSubview(c)
+                    grid.views.append(c)
+                }
+            }
+            
+            grid.contentEdgeInsets = contentInset
+            grid.interimSpace = interimSpace
+            grid.reload()
+            contentView.grid.reload()
+        }
+    }
     
 	/**
      Prepares the view instance when intialized. When subclassing,

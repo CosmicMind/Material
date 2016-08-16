@@ -85,7 +85,7 @@ public class TextStorage: NSTextStorage {
 	If you don't need this value, pass NULL.
 	- Returns: The attributes for the character at index.
 	*/
-	public override func attributes(at location: Int, effectiveRange range: NSRangePointer?) -> [String : AnyObject] {
+	public override func attributes(at location: Int, effectiveRange range: NSRangePointer?) -> [String : Any] {
 		return store.attributes(at: location, effectiveRange: range)
 	}
 	
@@ -106,7 +106,7 @@ public class TextStorage: NSTextStorage {
 	- Parameter range: A range of characters that will have their
 	attributes updated.
 	*/
-	public override func setAttributes(_ attrs: [String : AnyObject]?, range: NSRange) {
+	public override func setAttributes(_ attrs: [String : Any]?, range: NSRange) {
 		store.setAttributes(attrs, range: range)
 		edited(NSTextStorageEditActions.editedAttributes, range: range, changeInLength: 0)
 	}

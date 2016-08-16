@@ -185,13 +185,13 @@ extension UIImage {
      - Parameter completion: A completion block that is executed once the image
      has been retrieved.
      */
-    public class func contentsOfURL(url: URL, completion: ((image: UIImage?, error: Error?) -> Void)) {
+    public class func contentsOfURL(url: URL, completion: ((UIImage?, Error?) -> Void)) {
         URLSession.shared.dataTask(with: URLRequest(url: url)) { (data: Data?, response: URLResponse?, error: Error?) in
             DispatchQueue.main.async {
                 if let v = error {
-                    completion(image: nil, error: v)
+                    completion(nil, v)
                 } else if let v = data {
-                    completion(image: UIImage(data: v), error: nil)
+                    completion(UIImage(data: v), nil)
                 }
             }
         }.resume()
@@ -246,9 +246,9 @@ extension UIImage {
         
         switch imageOrientation {
         case .left, .leftMirrored, .right, .rightMirrored:
-            context.draw(in: CGRect(x: 0, y: 0, width: size.height, height: size.width), image: cgImage!)
+            context.draw(cgImage!, in: CGRect(x: 0, y: 0, width: size.height, height: size.width))
         default:
-            context.draw(in: CGRect(origin: .zero, size: size), image: cgImage!)
+            context.draw(cgImage!, in: CGRect(origin: .zero, size: size))
         }
         
         guard let cgImage = context.makeImage() else {

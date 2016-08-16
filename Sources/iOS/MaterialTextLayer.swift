@@ -48,7 +48,7 @@ public class MaterialTextLayer : CATextLayer {
 	*/
 	@IBInspectable public var text: String? {
 		didSet {
-			string = text as? AnyObject
+			string = text as Any
 		}
 	}
 	
@@ -171,7 +171,7 @@ public class MaterialTextLayer : CATextLayer {
 	/**
 	:name: init
 	*/
-	public override init(layer: AnyObject) {
+	public override init(layer: Any) {
 		super.init()
 		prepareLayer()
 	}
@@ -196,12 +196,10 @@ public class MaterialTextLayer : CATextLayer {
 	:name:	stringSize
 	*/
 	public func stringSize(constrainedToWidth width: Double) -> CGSize {
-		if let v = fontType {
-			if 0 < text?.utf16.count {
-				return v.stringSize(string: text!, constrainedToWidth: width)
-			}
-		}
-		return CGSize.zero
+        guard let v = fontType, let t = text, 0 < t.utf16.count else {
+            return CGSize.zero
+        }
+        return v.stringSize(string: text!, constrainedToWidth: width)
 	}
 	
 	/**

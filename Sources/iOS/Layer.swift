@@ -196,9 +196,7 @@ public class Layer: CAShapeLayer {
      */
 	public var cornerRadiusPreset: CornerRadiusPreset = .none {
 		didSet {
-			if let v: CornerRadiusPreset = cornerRadiusPreset {
-				cornerRadius = CornerRadiusPresetToValue(preset: v)
-			}
+            cornerRadius = CornerRadiusPresetToValue(preset: cornerRadiusPreset)
 		}
 	}
 	
@@ -254,9 +252,9 @@ public class Layer: CAShapeLayer {
 	/**
      An initializer the same as init(). The layer parameter is ignored
      to avoid crashes on certain architectures.
-     - Parameter layer: AnyObject.
+     - Parameter layer: Any.
      */
-	public override init(layer: AnyObject) {
+	public override init(layer: Any) {
 		contentsGravityPreset = .ResizeAspectFill
 		super.init()
 		prepareVisualLayer()

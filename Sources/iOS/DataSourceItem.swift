@@ -32,7 +32,7 @@ import UIKit
 
 public struct DataSourceItem {
 	/// Stores an the data for the item.
-	public var data: AnyObject?
+	public var data: Any?
 	
 	/// Width for horizontal scroll direction.
 	public var width: CGFloat?
@@ -42,12 +42,12 @@ public struct DataSourceItem {
 	
 	/**
 	Initializer.
-	- Parameter data: A reference to an AnyObject that is associated
+	- Parameter data: A reference to an Any that is associated
 	with a width or height.
 	- Parameter width: The width for the horizontal scroll direction.
 	- Parameter height: The height for the vertical scroll direction.
 	*/
-	public init(data: AnyObject? = nil, width: CGFloat? = nil, height: CGFloat? = nil) {
+	public init(data: Any? = nil, width: CGFloat? = nil, height: CGFloat? = nil) {
 		self.data = data
 		self.width = width
 		self.height = height

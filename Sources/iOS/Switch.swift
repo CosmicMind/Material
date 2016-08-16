@@ -315,7 +315,7 @@ public class Switch: UIControl {
      Toggle the Switch state, if On will be Off, and if Off will be On.
      - Parameter completion: An Optional completion block.
      */
-	public func toggle(completion: ((control: Switch) -> Void)? = nil) {
+	public func toggle(completion: ((Switch) -> Void)? = nil) {
 		setSwitchState(state: .on == internalSwitchState ? .off : .on, animated: true, completion: completion)
 	}
 	
@@ -324,7 +324,7 @@ public class Switch: UIControl {
      - Parameter on: A bool of whether the switch should be in the on state or not.
      - Parameter animated: A Boolean indicating to set the animation or not.
      */
-	public func setOn(on: Bool, animated: Bool, completion: ((control: Switch) -> Void)? = nil) {
+	public func setOn(on: Bool, animated: Bool, completion: ((Switch) -> Void)? = nil) {
 		setSwitchState(state: on ? .on : .off, animated: animated, completion: completion)
 	}
 	
@@ -334,14 +334,14 @@ public class Switch: UIControl {
      - Parameter animated: A Boolean indicating to set the animation or not.
      - Parameter completion: An Optional completion block.
      */
-	public func setSwitchState(state: SwitchState, animated: Bool = true, completion: ((control: Switch) -> Void)? = nil) {
+	public func setSwitchState(state: SwitchState, animated: Bool = true, completion: ((Switch) -> Void)? = nil) {
 		if isEnabled && internalSwitchState != state {
 			internalSwitchState = state
 			if animated {
                 animateToState(state: state) { [weak self] _ in
 					if let s: Switch = self {
 						s.sendActions(for: .valueChanged)
-						completion?(control: s)
+						completion?(s)
 						s.delegate?.switchStateChanged(control: s)
 					}
 				}
@@ -349,7 +349,7 @@ public class Switch: UIControl {
 				button.x = .on == state ? self.onPosition : self.offPosition
 				styleForState(state: state)
 				sendActions(for: .valueChanged)
-				completion?(control: self)
+				completion?(self)
 				delegate?.switchStateChanged(control: self)
 			}
 		}
@@ -508,7 +508,7 @@ public class Switch: UIControl {
      - Parameter state: The SwitchState to set.
      - Parameter completion: An Optional completion block.
      */
-	private func animateToState(state: SwitchState, completion: ((control: Switch) -> Void)? = nil) {
+	private func animateToState(state: SwitchState, completion: ((Switch) -> Void)? = nil) {
 		isUserInteractionEnabled = false
 		UIView.animate(withDuration: 0.15,
 			delay: 0.05,
@@ -527,7 +527,7 @@ public class Switch: UIControl {
 					}) { [weak self] _ in
 						if let s: Switch = self {
 							s.isUserInteractionEnabled = true
-							completion?(control: s)
+							completion?(s)
 						}
 					}
 			}

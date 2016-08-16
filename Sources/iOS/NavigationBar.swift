@@ -196,93 +196,92 @@ public class NavigationBar: UINavigationBar {
 			let titleView = prepareTitleView(item: item)
             let contentView = prepareContentView(item: item)
             
-            if let g: Int = Int(width / gridFactor) {
-                let columns: Int = g + 1
+            let g = Int(width / gridFactor)
+            let columns = g + 1
                 
-                titleView.frame.origin = CGPoint.zero
-                titleView.frame.size = intrinsicContentSize
-                titleView.grid.views = []
-                titleView.grid.axis.columns = columns
-                
-                contentView.grid.columns = columns
-                
-                // leftControls
-                if let v: Array<UIControl> = item.leftControls {
-                    for c in v {
-                        let w: CGFloat = c.intrinsicContentSize.width
-                        (c as? UIButton)?.contentEdgeInsets = UIEdgeInsets.zero
-                        c.frame.size.height = titleView.frame.size.height - contentInset.top - contentInset.bottom
-                        
-                        let q: Int = Int(w / gridFactor)
-                        c.grid.columns = q + 1
-                        
-                        contentView.grid.columns -= c.grid.columns
-                        
-                        titleView.addSubview(c)
-                        titleView.grid.views.append(c)
-                    }
-                }
-                
-                titleView.addSubview(contentView)
-                titleView.grid.views.append(contentView)
-                
-                // rightControls
-                if let v: Array<UIControl> = item.rightControls {
-                    for c in v {
-                        let w: CGFloat = c.intrinsicContentSize.width
-                        (c as? UIButton)?.contentEdgeInsets = UIEdgeInsets.zero
-                        c.frame.size.height = titleView.frame.size.height - contentInset.top - contentInset.bottom
-                        
-                        let q: Int = Int(w / gridFactor)
-                        c.grid.columns = q + 1
-                        
-                        contentView.grid.columns -= c.grid.columns
-                        
-                        titleView.addSubview(c)
-                        titleView.grid.views.append(c)
-                    }
-                }
-                
-                titleView.grid.contentEdgeInsets = contentInset
-                titleView.grid.interimSpace = interimSpace
-                titleView.grid.reload()
-                
-                // contentView alignment.
-                if nil != item.title && "" != item.title {
-                    if nil == item.titleLabel.superview {
-                        contentView.addSubview(item.titleLabel)
-                    }
-                    item.titleLabel.frame = contentView.bounds
-                } else {
-                    item.titleLabel.removeFromSuperview()
-                }
-                
-                if nil != item.detail && "" != item.detail {
-                    if nil == item.detailLabel.superview {
-                        contentView.addSubview(item.detailLabel)
-                    }
+            titleView.frame.origin = CGPoint.zero
+            titleView.frame.size = intrinsicContentSize
+            titleView.grid.views = []
+            titleView.grid.axis.columns = columns
+            
+            contentView.grid.columns = columns
+            
+            // leftControls
+            if let v: Array<UIControl> = item.leftControls {
+                for c in v {
+                    let w: CGFloat = c.intrinsicContentSize.width
+                    (c as? UIButton)?.contentEdgeInsets = UIEdgeInsets.zero
+                    c.frame.size.height = titleView.frame.size.height - contentInset.top - contentInset.bottom
                     
-                    if nil == item.titleLabel.superview {
-                        item.detailLabel.frame = contentView.bounds
-                    } else {
-                        item.titleLabel.sizeToFit()
-                        item.detailLabel.sizeToFit()
-                        
-                        let diff: CGFloat = (contentView.frame.height - item.titleLabel.frame.height - item.detailLabel.frame.height) / 2
-                        
-                        item.titleLabel.frame.size.height += diff
-                        item.titleLabel.frame.size.width = contentView.frame.width
-                        
-                        item.detailLabel.frame.size.height += diff
-                        item.detailLabel.frame.size.width = contentView.frame.width
-                        item.detailLabel.frame.origin.y = item.titleLabel.frame.height
-                    }
-                } else {
-                    item.detailLabel.removeFromSuperview()
+                    let q: Int = Int(w / gridFactor)
+                    c.grid.columns = q + 1
+                    
+                    contentView.grid.columns -= c.grid.columns
+                    
+                    titleView.addSubview(c)
+                    titleView.grid.views.append(c)
+                }
+            }
+            
+            titleView.addSubview(contentView)
+            titleView.grid.views.append(contentView)
+            
+            // rightControls
+            if let v: Array<UIControl> = item.rightControls {
+                for c in v {
+                    let w: CGFloat = c.intrinsicContentSize.width
+                    (c as? UIButton)?.contentEdgeInsets = UIEdgeInsets.zero
+                    c.frame.size.height = titleView.frame.size.height - contentInset.top - contentInset.bottom
+                    
+                    let q: Int = Int(w / gridFactor)
+                    c.grid.columns = q + 1
+                    
+                    contentView.grid.columns -= c.grid.columns
+                    
+                    titleView.addSubview(c)
+                    titleView.grid.views.append(c)
+                }
+            }
+            
+            titleView.grid.contentEdgeInsets = contentInset
+            titleView.grid.interimSpace = interimSpace
+            titleView.grid.reload()
+            
+            // contentView alignment.
+            if nil != item.title && "" != item.title {
+                if nil == item.titleLabel.superview {
+                    contentView.addSubview(item.titleLabel)
+                }
+                item.titleLabel.frame = contentView.bounds
+            } else {
+                item.titleLabel.removeFromSuperview()
+            }
+            
+            if nil != item.detail && "" != item.detail {
+                if nil == item.detailLabel.superview {
+                    contentView.addSubview(item.detailLabel)
                 }
                 
-                contentView.grid.reload()
+                if nil == item.titleLabel.superview {
+                    item.detailLabel.frame = contentView.bounds
+                } else {
+                    item.titleLabel.sizeToFit()
+                    item.detailLabel.sizeToFit()
+                    
+                    let diff: CGFloat = (contentView.frame.height - item.titleLabel.frame.height - item.detailLabel.frame.height) / 2
+                    
+                    item.titleLabel.frame.size.height += diff
+                    item.titleLabel.frame.size.width = contentView.frame.width
+                    
+                    item.detailLabel.frame.size.height += diff
+                    item.detailLabel.frame.size.width = contentView.frame.width
+                    item.detailLabel.frame.origin.y = item.titleLabel.frame.height
+                }
+            } else {
+                item.detailLabel.removeFromSuperview()
             }
+            
+            contentView.grid.reload()
         }
 	}
 	

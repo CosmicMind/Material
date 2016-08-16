@@ -53,15 +53,15 @@ public class TabBar: View {
 	}
 	
 	/// Buttons.
-	public var buttons: Array<UIButton>? {
+	public var buttons: [UIButton]? {
 		didSet {
-			if let v: Array<UIButton> = oldValue {
+			if let v: [UIButton] = oldValue {
 				for b in v {
 					b.removeFromSuperview()
 				}
 			}
 			
-			if let v: Array<UIButton> = buttons {
+			if let v: [UIButton] = buttons {
 				for b in v {
 					addSubview(b)
 				}
@@ -73,7 +73,7 @@ public class TabBar: View {
 	public override func layoutSubviews() {
 		super.layoutSubviews()
 		if willRenderView {
-			if let v: Array<UIButton> = buttons {
+			if let v: [UIButton] = buttons {
 				if 0 < v.count {
 					let columns: Int = grid.axis.columns / v.count
 					for b in v {

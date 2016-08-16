@@ -165,7 +165,7 @@ public class Card: PulseView {
 	/**
 	:name:	leftButtons
 	*/
-	public var leftButtons: Array<UIButton>? {
+	public var leftButtons = [UIButton]() {
 		didSet {
 			reloadView()
 		}
@@ -192,7 +192,7 @@ public class Card: PulseView {
 	/**
 	:name:	rightButtons
 	*/
-	public var rightButtons: Array<UIButton>? {
+	public var rightButtons = [UIButton]() {
 		didSet {
 			reloadView()
 		}
@@ -222,7 +222,7 @@ public class Card: PulseView {
 	/**
 	:name:	init
 	*/
-	public convenience init?(image: UIImage? = nil, titleLabel: UILabel? = nil, contentView: UIView? = nil, leftButtons: Array<UIButton>? = nil, rightButtons: Array<UIButton>? = nil) {
+	public convenience init?(image: UIImage? = nil, titleLabel: UILabel? = nil, contentView: UIView? = nil, leftButtons: [UIButton]? = nil, rightButtons: [UIButton]? = nil) {
 		self.init(frame: CGRect.zero)
 		prepareProperties(image: image, titleLabel: titleLabel, contentView: contentView, leftButtons: leftButtons, rightButtons: rightButtons)
 	}
@@ -235,10 +235,10 @@ public class Card: PulseView {
 		if self.layer == layer {
 			if divider {
 				var y: CGFloat = contentInset.bottom + dividerInset.bottom
-				if 0 < leftButtons?.count {
-					y += leftButtonsInset.top + leftButtonsInset.bottom + leftButtons![0].frame.height
-				} else if 0 < rightButtons?.count {
-					y += rightButtonsInset.top + rightButtonsInset.bottom + rightButtons![0].frame.height
+				if 0 < leftButtons.count {
+					y += leftButtonsInset.top + leftButtonsInset.bottom + leftButtons[0].frame.height
+				} else if 0 < rightButtons.count {
+					y += rightButtonsInset.top + rightButtonsInset.bottom + rightButtons[0].frame.height
 				}
 				if 0 < y {
 					prepareDivider(y: bounds.height - y - 0.5, width: bounds.width)
@@ -261,8 +261,8 @@ public class Card: PulseView {
 		}
 		
 		var verticalFormat: String = "V:|"
-		var views: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
-		var metrics: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
+		var views: Dictionary<String, Any> = Dictionary<String, Any>()
+		var metrics: Dictionary<String, Any> = Dictionary<String, Any>()
 		
 		if nil != titleLabel {
 			verticalFormat += "-(insetTop)"
@@ -296,70 +296,66 @@ public class Card: PulseView {
 		}
 		
 		// leftButtons
-		if let v: Array<UIButton> = leftButtons {
-			if 0 < v.count {
-				var h: String = "H:|"
-				var d: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
-				var i: Int = 0
-				for b in v {
-					let k: String = "b\(i)"
-					
-					d[k] = b
-					
-					if 0 == i {
-						h += "-(left)-"
-					} else {
-						h += "-(left_right)-"
-					}
-					
-					h += "[\(k)]"
-					
-					_ = layout(b).bottom(contentInset.bottom + leftButtonsInset.bottom)
-					
-					i += 1
-				}
-				
-				addConstraints(Layout.constraint(format: h, options: [], metrics: ["left" : contentInset.left + leftButtonsInset.left, "left_right" : leftButtonsInset.left + leftButtonsInset.right], views: d))
-			}
-		}
+        if 0 < leftButtons.count {
+            var h = "H:|"
+            var d = Dictionary<String, Any>()
+            var i = 0
+            for b in leftButtons {
+                let k: String = "b\(i)"
+                
+                d[k] = b
+                
+                if 0 == i {
+                    h += "-(left)-"
+                } else {
+                    h += "-(left_right)-"
+                }
+                
+                h += "[\(k)]"
+                
+                _ = layout(b).bottom(contentInset.bottom + leftButtonsInset.bottom)
+                
+                i += 1
+            }
+            
+            addConstraints(Layout.constraint(format: h, options: [], metrics: ["left" : contentInset.left + leftButtonsInset.left, "left_right" : leftButtonsInset.left + leftButtonsInset.right], views: d))
+        }
 		
 		// rightButtons
-		if let v: Array<UIButton> = rightButtons {
-			if 0 < v.count {
-				var h: String = "H:"
-				var d: Dictionary<String, AnyObject> = Dictionary<String, AnyObject>()
-				var i: Int = v.count - 1
-				
-				for b in v {
-					let k: String = "b\(i)"
-					
-					d[k] = b
-					
-					h += "[\(k)]"
-					
-					if 0 == i {
-						h += "-(right)-"
-					} else {
-						h += "-(right_left)-"
-					}
-					
-					_ = layout(b).bottom(contentInset.bottom + rightButtonsInset.bottom)
-					
-					i -= 1
-				}
-				
-				addConstraints(Layout.constraint(format: h + "|", options: [], metrics: ["right" : contentInset.right + rightButtonsInset.right, "right_left" : rightButtonsInset.right + rightButtonsInset.left], views: d))
-			}
-		}
+        if 0 < rightButtons.count {
+            var h = "H:"
+            var d = Dictionary<String, Any>()
+            var i = rightButtons.count - 1
+            
+            for b in rightButtons {
+                let k: String = "b\(i)"
+                
+                d[k] = b
+                
+                h += "[\(k)]"
+                
+                if 0 == i {
+                    h += "-(right)-"
+                } else {
+                    h += "-(right_left)-"
+                }
+                
+                _ = layout(b).bottom(contentInset.bottom + rightButtonsInset.bottom)
+                
+                i -= 1
+            }
+            
+            addConstraints(Layout.constraint(format: h + "|", options: [], metrics: ["right" : contentInset.right + rightButtonsInset.right, "right_left" : rightButtonsInset.right + rightButtonsInset.left], views: d))
+        }
 		
-		if 0 < leftButtons?.count {
+		if 0 < leftButtons.count {
 			verticalFormat += "-(insetC)-[button]"
-			views["button"] = leftButtons![0]
+			views["button"] = leftButtons[0]
 			metrics["insetC"] = leftButtonsInset.top
 			metrics["insetBottom"] = contentInset.bottom + leftButtonsInset.bottom
-		} else if 0 < rightButtons?.count {
+		} else if 0 < rightButtons.count {
 			verticalFormat += "-(insetC)-[button]"
-			views["button"] = rightButtons![0]
+			views["button"] = rightButtons[0]
 			metrics["insetC"] = rightButtonsInset.top
 			metrics["insetBottom"] = contentInset.bottom + rightButtonsInset.bottom
 		}
@@ -412,11 +408,11 @@ public class Card: PulseView {
 	/**
 	:name:	prepareProperties
 	*/
-	internal func prepareProperties(image: UIImage?, titleLabel: UILabel?, contentView: UIView?, leftButtons: Array<UIButton>?, rightButtons: Array<UIButton>?) {
+	internal func prepareProperties(image: UIImage?, titleLabel: UILabel?, contentView: UIView?, leftButtons: [UIButton]?, rightButtons: [UIButton]?) {
 		self.image = image
 		self.titleLabel = titleLabel
 		self.contentView = contentView
-		self.leftButtons = leftButtons
-		self.rightButtons = rightButtons
+		self.leftButtons = leftButtons ?? []
+		self.rightButtons = rightButtons ?? []
 	}
 }

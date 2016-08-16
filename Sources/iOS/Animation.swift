@@ -56,13 +56,13 @@ public func AnimationFillModeToValue(mode: AnimationFillMode) -> AnimationFillMo
 	}
 }
 
-public typealias AnimationDelayCancelBlock = (cancel : Bool) -> Void
+public typealias AnimationDelayCancelBlock = (Bool) -> Void
 
 public struct Animation {
 	/// Delay helper method.
-	public static func delay(time: TimeInterval, completion: ()-> Void) ->  AnimationDelayCancelBlock? {
+	public static func delay(time: TimeInterval, completion: @escaping ()-> Void) ->  AnimationDelayCancelBlock? {
 		
-		func dispatch_later(completion: ()-> Void) {
+		func dispatch_later(completion: @escaping ()-> Void) {
 			DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time, execute: completion)
         }
 		
@@ -78,7 +78,7 @@ public struct Animation {
 		cancelable = delayed
 		
 		dispatch_later {
-			cancelable?(cancel: false)
+			cancelable?(false)
 		}
 		
 		return cancelable;
@@ -88,7 +88,7 @@ public struct Animation {
 	:name:	delayCancel
 	*/
 	public static func delayCancel(completion: AnimationDelayCancelBlock?) {
-		completion?(cancel: true)
+		completion?(true)
 	}
 
 	

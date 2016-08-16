@@ -181,21 +181,32 @@ public class TextView: UITextView {
 			p.isHidden = !(true == text?.isEmpty)
 		}
 		
-		if 0 < text?.utf16.count {
-			showTitleLabel()
-		} else if 0 == text?.utf16.count {
-			hideTitleLabel()
-		}
+        guard let t = text else {
+            hideTitleLabel()
+            return
+        }
+        
+        if 0 < t.utf16.count {
+            showTitleLabel()
+        } else {
+            hideTitleLabel()
+        }
 	}
 	
 	/// Notification handler for when text editing ended.
 	internal func handleTextViewTextDidEnd() {
-		if 0 < text?.utf16.count {
-			showTitleLabel()
-		} else if 0 == text?.utf16.count {
-			hideTitleLabel()
-		}
-		titleLabel?.textColor = titleLabelColor
+        guard let t = text else {
+            hideTitleLabel()
+            return
+        }
+        
+        if 0 < t.utf16.count {
+            showTitleLabel()
+        } else {
+            hideTitleLabel()
+        }
+        
+        titleLabel?.textColor = titleLabelColor
 	}
 	
 	/**
@@ -233,11 +244,13 @@ public class TextView: UITextView {
 		if let v: UILabel = titleLabel {
 			v.isHidden = true
 			addSubview(v)
-			if 0 < text?.utf16.count {
-				showTitleLabel()
-			} else {
-				v.alpha = 0
-			}
+            
+            guard let t = text, 0 == t.utf16.count else {
+                v.alpha = 0
+                return
+            }
+            
+            showTitleLabel()
 		}
 	}
 	

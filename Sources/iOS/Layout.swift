@@ -850,11 +850,11 @@ extension Layout {
      Creats an Array with a NSLayoutConstraint value.
      - Parameter format: The VFL format string.
      - Parameter options: Additional NSLayoutFormatOptions.
-     - Parameter metrics: An optional Dictionary<String, AnyObject> of metric key / value pairs.
-     - Parameter views: A Dictionary<String, AnyObject> of view key / value pairs.
+     - Parameter metrics: An optional Dictionary<String, Any> of metric key / value pairs.
+     - Parameter views: A Dictionary<String, Any> of view key / value pairs.
      - Returns: The Array<NSLayoutConstraint> instance.
      */
-	public class func constraint(format: String, options: NSLayoutFormatOptions, metrics: Dictionary<String, AnyObject>?, views: Dictionary<String, AnyObject>) -> Array<NSLayoutConstraint> {
+	public class func constraint(format: String, options: NSLayoutFormatOptions, metrics: Dictionary<String, Any>?, views: Dictionary<String, Any>) -> Array<NSLayoutConstraint> {
 		for (_, a) in views {
 			if let v = a as? UIView {
 				v.translatesAutoresizingMaskIntoConstraints = false

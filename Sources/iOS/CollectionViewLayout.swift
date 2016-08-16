@@ -137,7 +137,7 @@ public class CollectionViewLayout: UICollectionViewLayout {
 		for i in 0..<dataSourceItems.count {
 			let item: DataSourceItem = dataSourceItems[i]
 			let indexPath = IndexPath(item: i, section: 0)
-			layoutItems.append((layoutAttributesForItem(at: indexPath)!, indexPath))
+			layoutItems.append((layoutAttributesForItem(at: indexPath)!, indexPath as NSIndexPath))
 			
 			offset.x += interimSpace
 			offset.x += nil == item.width ? itemSize.width : item.width!

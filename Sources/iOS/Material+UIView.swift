@@ -48,10 +48,7 @@ public class Material {
             guard let v = view else {
                 return
             }
-            
-            if let preset: CornerRadiusPreset = cornerRadiusPreset {
-                v.cornerRadius = CornerRadiusPresetToValue(preset: preset)
-            }
+            v.cornerRadius = CornerRadiusPresetToValue(preset: cornerRadiusPreset)
         }
     }
     
@@ -61,10 +58,7 @@ public class Material {
             guard let v = view else {
                 return
             }
-            
-            if let preset: BorderWidthPreset = borderWidthPreset {
-                v.borderWidth = BorderWidthPresetToValue(preset: preset)
-            }
+            v.borderWidth = BorderWidthPresetToValue(preset: borderWidthPreset)
         }
     }
     
