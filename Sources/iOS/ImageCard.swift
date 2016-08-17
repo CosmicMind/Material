@@ -30,7 +30,7 @@
 
 import UIKit
 
-public class ImageCard: PulseView {
+open class ImageCard: PulseView {
 	/**
 	:name:	dividerLayer
 	*/
@@ -39,7 +39,8 @@ public class ImageCard: PulseView {
 	/**
 	:name:	dividerColor
 	*/
-	@IBInspectable public var dividerColor: UIColor? {
+	@IBInspectable
+    open var dividerColor: UIColor? {
 		didSet {
 			dividerLayer?.backgroundColor = dividerColor?.cgColor
 		}
@@ -48,7 +49,8 @@ public class ImageCard: PulseView {
 	/**
 	:name:	divider
 	*/
-	@IBInspectable public var divider: Bool = true {
+	@IBInspectable
+    open var divider = true {
 		didSet {
 			reloadView()
 		}
@@ -57,7 +59,7 @@ public class ImageCard: PulseView {
 	/**
 	:name:	dividerInsets
 	*/
-	public var dividerEdgeInsetsPreset: EdgeInsetsPreset = .none {
+	open var dividerEdgeInsetsPreset: EdgeInsetsPreset = .none {
 		didSet {
 			dividerInset = EdgeInsetsPresetToValue(preset: dividerEdgeInsetsPreset)
 		}
@@ -66,7 +68,8 @@ public class ImageCard: PulseView {
 	/**
 	:name:	dividerInset
 	*/
-	@IBInspectable public var dividerInset = EdgeInsets(top: 8, left: 0, bottom: 8, right: 0) {
+	@IBInspectable
+    open var dividerInset = EdgeInsets(top: 8, left: 0, bottom: 8, right: 0) {
 		didSet {
 			reloadView()
 		}
@@ -75,12 +78,13 @@ public class ImageCard: PulseView {
 	/**
 	:name:	imageLayer
 	*/
-	public private(set) var imageLayer: CAShapeLayer?
+	open private(set) var imageLayer: CAShapeLayer?
 	
 	/**
 	:name:	image
 	*/
-	@IBInspectable public override var image: UIImage? {
+	@IBInspectable
+    open override var image: UIImage? {
 		get {
 			return nil == imageLayer?.contents ? nil : UIImage(cgImage: imageLayer?.contents as! CGImage)
 		}
@@ -108,7 +112,8 @@ public class ImageCard: PulseView {
 	/**
 	:name:	maxImageHeight
 	*/
-	@IBInspectable public var maxImageHeight: CGFloat = 0 {
+	@IBInspectable
+    open var maxImageHeight: CGFloat = 0 {
 		didSet {
 			if let v: UIImage = image {
 				if 0 < maxImageHeight {
@@ -127,7 +132,8 @@ public class ImageCard: PulseView {
 	/**
 	:name:	contentsRect
 	*/
-	@IBInspectable public override var contentsRect: CGRect {
+	@IBInspectable
+    open override var contentsRect: CGRect {
 		didSet {
 			prepareImageLayer()
 			imageLayer?.contentsRect = contentsRect
@@ -137,7 +143,8 @@ public class ImageCard: PulseView {
 	/**
 	:name:	contentsCenter
 	*/
-	@IBInspectable public override var contentsCenter: CGRect {
+	@IBInspectable
+    open override var contentsCenter: CGRect {
 		didSet {
 			prepareImageLayer()
 			imageLayer?.contentsCenter = contentsCenter
@@ -147,7 +154,8 @@ public class ImageCard: PulseView {
 	/**
 	:name:	contentsScale
 	*/
-	@IBInspectable public override var contentsScale: CGFloat {
+	@IBInspectable
+    open override var contentsScale: CGFloat {
 		didSet {
 			prepareImageLayer()
 			imageLayer?.contentsScale = contentsScale
@@ -155,7 +163,8 @@ public class ImageCard: PulseView {
 	}
 	
 	/// Determines how content should be aligned within the visualLayer's bounds.
-	@IBInspectable public override var contentsGravity: String {
+	@IBInspectable
+    open override var contentsGravity: String {
 		get {
 			return nil == imageLayer ? "" : imageLayer!.contentsGravity
 		}
@@ -168,7 +177,7 @@ public class ImageCard: PulseView {
 	/**
 	:name:	contentInsets
 	*/
-	public var contentEdgeInsetsPreset: EdgeInsetsPreset = .square2 {
+	open var contentEdgeInsetsPreset: EdgeInsetsPreset = .square2 {
 		didSet {
 			contentInset = EdgeInsetsPresetToValue(preset: contentEdgeInsetsPreset)
 		}
@@ -177,7 +186,8 @@ public class ImageCard: PulseView {
 	/**
 	:name:	contentInset
 	*/
-	@IBInspectable public var contentInset = EdgeInsetsPresetToValue(preset: .square2) {
+	@IBInspectable
+    open var contentInset = EdgeInsetsPresetToValue(preset: .square2) {
 		didSet {
 			reloadView()
 		}
@@ -186,7 +196,7 @@ public class ImageCard: PulseView {
 	/**
 	:name:	titleLabelInsets
 	*/
-	public var titleLabelEdgeInsetsPreset: EdgeInsetsPreset = .square2 {
+	open var titleLabelEdgeInsetsPreset: EdgeInsetsPreset = .square2 {
 		didSet {
 			titleLabelInset = EdgeInsetsPresetToValue(preset: titleLabelEdgeInsetsPreset)
 		}
@@ -195,7 +205,8 @@ public class ImageCard: PulseView {
 	/**
 	:name:	titleLabelInset
 	*/
-	@IBInspectable public var titleLabelInset = EdgeInsetsPresetToValue(preset: .square2) {
+	@IBInspectable
+    open var titleLabelInset = EdgeInsetsPresetToValue(preset: .square2) {
 		didSet {
 			reloadView()
 		}
@@ -204,7 +215,8 @@ public class ImageCard: PulseView {
 	/**
 	:name:	titleLabel
 	*/
-	@IBInspectable public var titleLabel: UILabel? {
+	@IBInspectable
+    open var titleLabel: UILabel? {
 		didSet {
 			reloadView()
 		}
@@ -213,7 +225,7 @@ public class ImageCard: PulseView {
 	/**
 	:name:	contentViewInsets
 	*/
-	public var contentViewEdgeInsetsPreset: EdgeInsetsPreset = .square2 {
+	open var contentViewEdgeInsetsPreset: EdgeInsetsPreset = .square2 {
 		didSet {
 			contentViewInset = EdgeInsetsPresetToValue(preset: contentViewEdgeInsetsPreset)
 		}
@@ -222,7 +234,8 @@ public class ImageCard: PulseView {
 	/**
 	:name:	contentViewInset
 	*/
-	@IBInspectable public var contentViewInset = EdgeInsetsPresetToValue(preset: .square2) {
+	@IBInspectable
+    open var contentViewInset = EdgeInsetsPresetToValue(preset: .square2) {
 		didSet {
 			reloadView()
 		}
@@ -231,7 +244,8 @@ public class ImageCard: PulseView {
 	/**
 	:name:	contentView
 	*/
-	@IBInspectable public var contentView: UIView? {
+	@IBInspectable
+    open var contentView: UIView? {
 		didSet {
 			reloadView()
 		}
@@ -240,7 +254,7 @@ public class ImageCard: PulseView {
 	/**
 	:name:	leftButtonsInsets
 	*/
-	public var leftButtonsEdgeInsetsPreset: EdgeInsetsPreset = .none {
+	open var leftButtonsEdgeInsetsPreset: EdgeInsetsPreset = .none {
 		didSet {
 			leftButtonsInset = EdgeInsetsPresetToValue(preset: leftButtonsEdgeInsetsPreset)
 		}
@@ -249,7 +263,8 @@ public class ImageCard: PulseView {
 	/**
 	:name:	leftButtonsInset
 	*/
-	@IBInspectable public var leftButtonsInset = EdgeInsets.zero {
+	@IBInspectable
+    open var leftButtonsInset = EdgeInsets.zero {
 		didSet {
 			reloadView()
 		}
@@ -258,7 +273,7 @@ public class ImageCard: PulseView {
 	/**
 	:name:	leftButtons
 	*/
-	public var leftButtons = [UIButton]() {
+	open var leftButtons = [UIButton]() {
 		didSet {
 			reloadView()
 		}
@@ -267,7 +282,7 @@ public class ImageCard: PulseView {
 	/**
 	:name:	rightButtonsInsets
 	*/
-	public var rightButtonsEdgeInsetsPreset: EdgeInsetsPreset = .none {
+	open var rightButtonsEdgeInsetsPreset: EdgeInsetsPreset = .none {
 		didSet {
 			rightButtonsInset = EdgeInsetsPresetToValue(preset: rightButtonsEdgeInsetsPreset)
 		}
@@ -276,7 +291,8 @@ public class ImageCard: PulseView {
 	/**
 	:name:	rightButtonsInset
 	*/
-	@IBInspectable public var rightButtonsInset = EdgeInsets.zero {
+	@IBInspectable
+    open var rightButtonsInset = EdgeInsets.zero {
 		didSet {
 			reloadView()
 		}
@@ -285,7 +301,7 @@ public class ImageCard: PulseView {
 	/**
 	:name:	rightButtons
 	*/
-	public var rightButtons = [UIButton]() {
+	open var rightButtons = [UIButton]() {
 		didSet {
 			reloadView()
 		}
@@ -323,7 +339,7 @@ public class ImageCard: PulseView {
 	/**
 	:name:	layoutSublayersOfLayer
 	*/
-	public override func layoutSublayers(of layer: CALayer) {
+	open override func layoutSublayers(of layer: CALayer) {
 		super.layoutSublayers(of: layer)
 		if self.layer == layer {
 			// image
@@ -350,7 +366,7 @@ public class ImageCard: PulseView {
 	/**
 	:name:	reloadView
 	*/
-	public func reloadView() {
+	open func reloadView() {
 		// clear constraints so new ones do not conflict
 		removeConstraints(constraints)
 		for v in subviews {
@@ -526,7 +542,7 @@ public class ImageCard: PulseView {
 	/**
 	:name:	prepareView
 	*/
-	public override func prepareView() {
+	open override func prepareView() {
 		super.prepareView()
 		depthPreset = .depth1
 		dividerColor = Color.grey.lighten3

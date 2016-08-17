@@ -32,7 +32,7 @@ import UIKit
 
 @IBDesignable
 @objc(Button)
-public class Button: UIButton {
+open class Button: UIButton {
 	/**
      A CAShapeLayer used to manage elements that would be affected by
      the clipToBounds property of the backing layer. For example, this
@@ -47,26 +47,26 @@ public class Button: UIButton {
 	public weak var delegate: MaterialDelegate?
 	
 	/// An Array of pulse layers.
-	public private(set) lazy var pulseLayers = Array<CAShapeLayer>()
+	public private(set) lazy var pulseLayers = [CAShapeLayer]()
 	
 	/// The opacity value for the pulse animation.
-	@IBInspectable public var pulseOpacity: CGFloat = 0.25
+	@IBInspectable open var pulseOpacity: CGFloat = 0.25
 	
 	/// The color of the pulse effect.
-	@IBInspectable public var pulseColor = Color.grey.base
+	@IBInspectable open var pulseColor = Color.grey.base
 	
 	/// The type of PulseAnimation.
 	public var pulseAnimation: PulseAnimation = .pointWithBacking
 	
 	/// A property that accesses the backing layer's backgroundColor.
-	@IBInspectable public override var backgroundColor: UIColor? {
+	@IBInspectable open override var backgroundColor: UIColor? {
 		didSet {
 			layer.backgroundColor = backgroundColor?.cgColor
 		}
 	}
 	
 	/// A preset property for updated contentEdgeInsets.
-	public var contentEdgeInsetsPreset: EdgeInsetsPreset = .none {
+	open var contentEdgeInsetsPreset: EdgeInsetsPreset = .none {
 		didSet {
 			contentEdgeInsets = EdgeInsetsPresetToValue(preset: contentEdgeInsetsPreset)
 		}
@@ -97,7 +97,7 @@ public class Button: UIButton {
 		self.init(frame: CGRect.zero)
 	}
 	
-    public override func layoutSublayers(of layer: CALayer) {
+    open override func layoutSublayers(of layer: CALayer) {
         super.layoutSublayers(of: layer)
         if self.layer == layer {
             layoutShape()
@@ -105,7 +105,7 @@ public class Button: UIButton {
         }
     }
     
-    public override func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
         layoutShadowPath()
     }
@@ -115,8 +115,8 @@ public class Button: UIButton {
      - Parameter point: A Optional point to pulse from, otherwise pulses
      from the center.
      */
-    public func pulse(point: CGPoint? = nil) {
-        let p: CGPoint = nil == point ? CGPoint(x: CGFloat(width / 2), y: CGFloat(height / 2)) : point!
+    open func pulse(point: CGPoint? = nil) {
+        let p = nil == point ? CGPoint(x: CGFloat(width / 2), y: CGFloat(height / 2)) : point!
         Animation.pulseExpandAnimation(layer: layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseOpacity: pulseOpacity, point: p, width: width, height: height, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
         _ = Animation.delay(time: 0.35) { [weak self] in
             guard let s = self else {
@@ -132,7 +132,7 @@ public class Button: UIButton {
      - Parameter touches: A set of UITouch objects.
      - Parameter event: A UIEvent object.
      */
-    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         Animation.pulseExpandAnimation(layer: layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseOpacity: pulseOpacity, point: layer.convert(touches.first!.location(in: self), from: layer), width: width, height: height, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
     }
@@ -143,7 +143,7 @@ public class Button: UIButton {
      - Parameter touches: A set of UITouch objects.
      - Parameter event: A UIEvent object.
      */
-    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
         Animation.pulseContractAnimation(layer: layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
     }
@@ -154,7 +154,7 @@ public class Button: UIButton {
      - Parameter touches: A set of UITouch objects.
      - Parameter event: A UIEvent object.
      */
-    public override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesCancelled(touches, with: event)
         Animation.pulseContractAnimation(layer: layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
     }
@@ -166,7 +166,7 @@ public class Button: UIButton {
      The super.prepareView method should always be called immediately
      when subclassing.
      */
-	public func prepareView() {
+	open func prepareView() {
         contentScaleFactor = Device.scale
         contentEdgeInsetsPreset = .none
 		prepareVisualLayer()

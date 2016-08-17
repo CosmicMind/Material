@@ -31,9 +31,9 @@
 import UIKit
 
 @IBDesignable
-public class CollectionView: UICollectionView {
+open class CollectionView: UICollectionView {
 	/// A preset wrapper around contentInset.
-	public var contentEdgeInsetsPreset: EdgeInsets {
+	open var contentEdgeInsetsPreset: EdgeInsets {
 		get {
 			return (collectionViewLayout as? CollectionViewLayout)!.contentInset
 		}
@@ -42,7 +42,7 @@ public class CollectionView: UICollectionView {
 		}
 	}
 	
-	public override var contentInset: UIEdgeInsets {
+	open override var contentInset: UIEdgeInsets {
 		get {
 			return (collectionViewLayout as? CollectionViewLayout)!.contentInset
 		}
@@ -52,7 +52,7 @@ public class CollectionView: UICollectionView {
 	}
 	
 	/// Scroll direction.
-	public var scrollDirection: UICollectionViewScrollDirection {
+	open var scrollDirection: UICollectionViewScrollDirection {
 		get {
 			return (collectionViewLayout as? CollectionViewLayout)!.scrollDirection
 		}
@@ -62,14 +62,14 @@ public class CollectionView: UICollectionView {
 	}
 	
 	/// A preset wrapper around interimSpace.
-	public var interimSpacePreset: InterimSpacePreset = .none {
+	open var interimSpacePreset: InterimSpacePreset = .none {
 		didSet {
             interimSpace = InterimSpacePresetToValue(preset: interimSpacePreset)
 		}
 	}
 	
 	/// Spacing between items.
-	@IBInspectable public var interimSpace: InterimSpace {
+	@IBInspectable open var interimSpace: InterimSpace {
 		get {
 			return (collectionViewLayout as? CollectionViewLayout)!.interimSpace
 		}
@@ -118,7 +118,7 @@ public class CollectionView: UICollectionView {
 	The super.prepareView method should always be called immediately
 	when subclassing.
 	*/
-	public func prepareView() {
+	open func prepareView() {
 		contentScaleFactor = Device.scale
 		backgroundColor = Color.clear
 		contentInset = UIEdgeInsets.zero

@@ -169,7 +169,7 @@ public protocol CaptureSessionDelegate {
 }
 
 @objc(CaptureSession)
-public class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
+open class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 	/// A reference to the session DispatchQueue.
     private var sessionQueue: DispatchQueue!
 	
@@ -192,23 +192,23 @@ public class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 	internal var session: AVCaptureSession!
 	
     /// A boolean indicating if the session is running.
-	public private(set) var isRunning: Bool = false
+	open private(set) var isRunning: Bool = false
 	
     /// A boolean indicating if the session is recording.
-    public private(set) var isRecording: Bool = false
+    open private(set) var isRecording: Bool = false
 	
 	/// A reference to the recorded time duration.
-    public var recordedDuration: CMTime {
+    open var recordedDuration: CMTime {
 		return movieOutput.recordedDuration
 	}
 	
 	/// An optional reference to the active camera if one exists.
-	public var activeCamera: AVCaptureDevice? {
+	open var activeCamera: AVCaptureDevice? {
 		return activeVideoInput?.device
 	}
 	
 	/// An optional reference to the inactive camera if one exists.
-	public var inactiveCamera: AVCaptureDevice? {
+	open var inactiveCamera: AVCaptureDevice? {
 		var device: AVCaptureDevice?
 		if 1 < cameraCount {
 			if activeCamera?.position == .back {
@@ -221,42 +221,42 @@ public class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 	}
 	
 	/// Available number of cameras.
-	public var cameraCount: Int {
+	open var cameraCount: Int {
 		return AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo).count
 	}
 	
 	/// A boolean indicating whether the camera can switch to another.
-	public var canSwitchCameras: Bool {
+	open var canSwitchCameras: Bool {
 		return 1 < cameraCount
 	}
 	
 	/// A booealn indicating whether the camrea supports focus.
-	public var isFocusPointOfInterestSupported: Bool {
+	open var isFocusPointOfInterestSupported: Bool {
 		return nil == activeCamera ? false : activeCamera!.isFocusPointOfInterestSupported
 	}
 	
     /// A booealn indicating whether the camrea supports exposure.
-    public var isExposurePointOfInterestSupported: Bool {
+    open var isExposurePointOfInterestSupported: Bool {
 		return nil == activeCamera ? false : activeCamera!.isExposurePointOfInterestSupported
 	}
 	
 	/// A boolean indicating if the active camera has flash.
-	public var hasFlash: Bool {
+	open var hasFlash: Bool {
 		return nil == activeCamera ? false : activeCamera!.hasFlash
 	}
 	
     /// A boolean indicating if the active camera has a torch.
-    public var hasTorch: Bool {
+    open var hasTorch: Bool {
 		return nil == activeCamera ? false : activeCamera!.hasTorch
 	}
 	
 	/// A reference to the active camera position if the active camera exists.
-	public var position: AVCaptureDevicePosition? {
+	open var position: AVCaptureDevicePosition? {
 		return activeCamera?.position
 	}
 	
 	/// A reference to the focusMode.
-	public var focusMode: AVCaptureFocusMode {
+	open var focusMode: AVCaptureFocusMode {
 		get {
 			return activeCamera!.focusMode
 		}
@@ -285,7 +285,7 @@ public class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 	}
 	
 	/// A reference to the flashMode.
-	public var flashMode: AVCaptureFlashMode {
+	open var flashMode: AVCaptureFlashMode {
 		get {
 			return activeCamera!.flashMode
 		}
@@ -314,7 +314,7 @@ public class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 	}
 	
 	/// A reference to the torchMode.
-	public var torchMode: AVCaptureTorchMode {
+	open var torchMode: AVCaptureTorchMode {
 		get {
 			return activeCamera!.torchMode
 		}
@@ -343,14 +343,14 @@ public class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 	}
 	
 	/// The session quality preset.
-	public var preset: CaptureSessionPreset {
+	open var preset: CaptureSessionPreset {
 		didSet {
 			session.sessionPreset = CaptureSessionPresetToString(preset: preset)
 		}
 	}
 	
 	/// The capture video orientation.
-	public var videoOrientation: AVCaptureVideoOrientation {
+	open var videoOrientation: AVCaptureVideoOrientation {
 		var orientation: AVCaptureVideoOrientation
 		switch UIDevice.current.orientation {
 		case .portrait:
@@ -381,7 +381,7 @@ public class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 	}
 	
 	/// Starts the session.
-	public func startSession() {
+	open func startSession() {
 		if !isRunning {
 			sessionQueue.async() { [weak self] in
 				self?.session.startRunning()
@@ -390,7 +390,7 @@ public class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 	}
 	
 	/// Stops the session.
-	public func stopSession() {
+	open func stopSession() {
 		if isRunning {
 			sessionQueue.async() { [weak self] in
 				self?.session.stopRunning()
@@ -399,7 +399,7 @@ public class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 	}
 	
 	/// Switches the camera if possible.
-	public func switchCameras() {
+	open func switchCameras() {
 		if canSwitchCameras {
 			do {
 				if let v: AVCaptureDevicePosition = position {
@@ -428,7 +428,7 @@ public class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
      - Parameter focusMode: An AVCaptureFocusMode.
      - Returns: A boolean of the result, true if supported, false otherwise.
      */
-	public func isFocusModeSupported(focusMode: AVCaptureFocusMode) -> Bool {
+	open func isFocusModeSupported(focusMode: AVCaptureFocusMode) -> Bool {
 		return activeCamera!.isFocusModeSupported(focusMode)
 	}
 	
@@ -437,7 +437,7 @@ public class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
      - Parameter exposureMode: An AVCaptureExposureMode.
      - Returns: A boolean of the result, true if supported, false otherwise.
      */
-    public func isExposureModeSupported(exposureMode: AVCaptureExposureMode) -> Bool {
+    open func isExposureModeSupported(exposureMode: AVCaptureExposureMode) -> Bool {
 		return activeCamera!.isExposureModeSupported(exposureMode)
 	}
 	
@@ -446,7 +446,7 @@ public class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
      - Parameter flashMode: An AVCaptureFlashMode.
      - Returns: A boolean of the result, true if supported, false otherwise.
      */
-    public func isFlashModeSupported(flashMode: AVCaptureFlashMode) -> Bool {
+    open func isFlashModeSupported(flashMode: AVCaptureFlashMode) -> Bool {
 		return activeCamera!.isFlashModeSupported(flashMode)
 	}
 	
@@ -455,7 +455,7 @@ public class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
      - Parameter torchMode: An AVCaptureTorchMode.
      - Returns: A boolean of the result, true if supported, false otherwise.
      */
-    public func isTorchModeSupported(torchMode: AVCaptureTorchMode) -> Bool {
+    open func isTorchModeSupported(torchMode: AVCaptureTorchMode) -> Bool {
 		return activeCamera!.isTorchModeSupported(torchMode)
 	}
 	
@@ -463,7 +463,7 @@ public class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
      Focuses the camera at a given point.
      - Parameter at: A CGPoint to focus at.
      */
-	public func focus(at point: CGPoint) {
+	open func focus(at point: CGPoint) {
 		var error: NSError?
 		if isFocusPointOfInterestSupported && isFocusModeSupported(focusMode: .autoFocus) {
 			do {
@@ -491,7 +491,7 @@ public class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
      Exposes the camera at a given point.
      - Parameter at: A CGPoint to expose at.
      */
-    public func expose(at point: CGPoint) {
+    open func expose(at point: CGPoint) {
 		var error: NSError?
 		if isExposurePointOfInterestSupported && isExposureModeSupported(exposureMode: .continuousAutoExposure) {
 			do {
@@ -518,7 +518,7 @@ public class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 		}
 	}
 	
-	public override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
+	open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
 		if context == &CaptureSessionAdjustingExposureContext {
 			let device: AVCaptureDevice = object as! AVCaptureDevice
 			if !device.isAdjustingExposure && device.isExposureModeSupported(.locked) {
@@ -543,7 +543,7 @@ public class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
      - Parameter focus: A boolean indicating to reset the focus.
      - Parameter exposure: A boolean indicating to reset the exposure.
      */
-    public func reset(focus: Bool = true, exposure: Bool = true) {
+    open func reset(focus: Bool = true, exposure: Bool = true) {
 		let device: AVCaptureDevice = activeCamera!
 		let canResetFocus: Bool = device.isFocusPointOfInterestSupported && device.isFocusModeSupported(.continuousAutoFocus)
 		let canResetExposure: Bool = device.isExposurePointOfInterestSupported && device.isExposureModeSupported(.continuousAutoExposure)
@@ -565,7 +565,7 @@ public class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 	}
 	
 	/// Captures a still image.
-	public func captureStillImage() {
+	open func captureStillImage() {
 		sessionQueue.async() { [weak self] in
 			if let s: CaptureSession = self {
 				if let v: AVCaptureConnection = s.imageOutput.connection(withMediaType: AVMediaTypeVideo) {
@@ -605,7 +605,7 @@ public class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 	}
 	
 	/// Starts recording.
-	public func startRecording() {
+	open func startRecording() {
 		if !isRecording {
 			sessionQueue.async() { [weak self] in
 				if let s: CaptureSession = self {
@@ -635,7 +635,7 @@ public class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 	}
 	
 	/// Stops recording.
-	public func stopRecording() {
+	open func stopRecording() {
 		if isRecording {
 			movieOutput.stopRecording()
 		}

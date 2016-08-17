@@ -30,11 +30,11 @@
 
 import Photos
 
-public class PhotoLibraryController: UIViewController, PhotoLibraryDelegate {
+open class PhotoLibraryController: UIViewController, PhotoLibraryDelegate {
     /// A reference to a PhotoLibrary.
     public private(set) var photoLibrary: PhotoLibrary!
     
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         preparePhotoLibrary()
     }

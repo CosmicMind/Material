@@ -30,7 +30,7 @@
 
 import UIKit
 
-public class Card: PulseView {
+open class Card: PulseView {
 	/**
 	:name:	dividerLayer
 	*/
@@ -39,7 +39,8 @@ public class Card: PulseView {
 	/**
 	:name:	dividerColor
 	*/
-	@IBInspectable public var dividerColor: UIColor? {
+	@IBInspectable
+    open var dividerColor: UIColor? {
 		didSet {
 			dividerLayer?.backgroundColor = dividerColor?.cgColor
 		}
@@ -48,7 +49,8 @@ public class Card: PulseView {
 	/**
 	:name:	divider
 	*/
-	@IBInspectable public var divider = true {
+	@IBInspectable
+    open var divider = true {
 		didSet {
 			reloadView()
 		}
@@ -57,7 +59,7 @@ public class Card: PulseView {
 	/**
 	:name:	dividerInsets
 	*/
-	public var dividerEdgeInsetsPreset: EdgeInsetsPreset = .none {
+	open var dividerEdgeInsetsPreset: EdgeInsetsPreset = .none {
 		didSet {
 			dividerInset = EdgeInsetsPresetToValue(preset: dividerEdgeInsetsPreset)
 		}
@@ -66,7 +68,8 @@ public class Card: PulseView {
 	/**
 	:name:	dividerInset
 	*/
-	@IBInspectable public var dividerInset = EdgeInsets(top: 8, left: 0, bottom: 8, right: 0) {
+	@IBInspectable
+    open var dividerInset = EdgeInsets(top: 8, left: 0, bottom: 8, right: 0) {
 		didSet {
 			reloadView()
 		}
@@ -75,7 +78,7 @@ public class Card: PulseView {
 	/**
 	:name:	contentInsets
 	*/
-	public var contentEdgeInsetsPreset: EdgeInsetsPreset = .square2 {
+	open var contentEdgeInsetsPreset: EdgeInsetsPreset = .square2 {
 		didSet {
 			contentInset = EdgeInsetsPresetToValue(preset: contentEdgeInsetsPreset)
 		}
@@ -84,7 +87,8 @@ public class Card: PulseView {
 	/**
 	:name:	contentInset
 	*/
-	@IBInspectable public var contentInset = EdgeInsetsPresetToValue(preset: .square2) {
+	@IBInspectable
+    open var contentInset = EdgeInsetsPresetToValue(preset: .square2) {
 		didSet {
 			reloadView()
 		}
@@ -93,7 +97,7 @@ public class Card: PulseView {
 	/**
 	:name:	titleLabelInsets
 	*/
-	public var titleLabelEdgeInsetsPreset: EdgeInsetsPreset = .square2 {
+	open var titleLabelEdgeInsetsPreset: EdgeInsetsPreset = .square2 {
 		didSet {
 			titleLabelInset = EdgeInsetsPresetToValue(preset: titleLabelEdgeInsetsPreset)
 		}
@@ -102,7 +106,8 @@ public class Card: PulseView {
 	/**
 	:name:	titleLabelInset
 	*/
-	@IBInspectable public var titleLabelInset = EdgeInsetsPresetToValue(preset: .square2) {
+	@IBInspectable
+    open var titleLabelInset = EdgeInsetsPresetToValue(preset: .square2) {
 		didSet {
 			reloadView()
 		}
@@ -111,7 +116,8 @@ public class Card: PulseView {
 	/**
 	:name:	titleLabel
 	*/
-	@IBInspectable public var titleLabel: UILabel? {
+	@IBInspectable
+    open var titleLabel: UILabel? {
 		didSet {
 			reloadView()
 		}
@@ -120,7 +126,7 @@ public class Card: PulseView {
 	/**
 	:name:	contentViewInsets
 	*/
-	public var contentViewEdgeInsetsPreset: EdgeInsetsPreset = .square2 {
+	open var contentViewEdgeInsetsPreset: EdgeInsetsPreset = .square2 {
 		didSet {
 			contentViewInset = EdgeInsetsPresetToValue(preset: contentViewEdgeInsetsPreset)
 		}
@@ -129,7 +135,8 @@ public class Card: PulseView {
 	/**
 	:name:	contentViewInset
 	*/
-	@IBInspectable public var contentViewInset = EdgeInsetsPresetToValue(preset: .square2) {
+	@IBInspectable
+    open var contentViewInset = EdgeInsetsPresetToValue(preset: .square2) {
 		didSet {
 			reloadView()
 		}
@@ -138,7 +145,8 @@ public class Card: PulseView {
 	/**
 	:name:	contentView
 	*/
-	@IBInspectable public var contentView: UIView? {
+	@IBInspectable
+    open var contentView: UIView? {
 		didSet {
 			reloadView()
 		}
@@ -147,7 +155,7 @@ public class Card: PulseView {
 	/**
 	:name:	leftButtonsInsets
 	*/
-	public var leftButtonsEdgeInsetsPreset: EdgeInsetsPreset = .none {
+	open var leftButtonsEdgeInsetsPreset: EdgeInsetsPreset = .none {
 		didSet {
 			leftButtonsInset = EdgeInsetsPresetToValue(preset: leftButtonsEdgeInsetsPreset)
 		}
@@ -156,7 +164,8 @@ public class Card: PulseView {
 	/**
 	:name:	leftButtonsInset
 	*/
-	@IBInspectable public var leftButtonsInset = EdgeInsets.zero {
+	@IBInspectable
+    open var leftButtonsInset = EdgeInsets.zero {
 		didSet {
 			reloadView()
 		}
@@ -165,7 +174,7 @@ public class Card: PulseView {
 	/**
 	:name:	leftButtons
 	*/
-	public var leftButtons = [UIButton]() {
+	open var leftButtons = [UIButton]() {
 		didSet {
 			reloadView()
 		}
@@ -174,7 +183,7 @@ public class Card: PulseView {
 	/**
 	:name:	rightButtonsInsets
 	*/
-	public var rightButtonsEdgeInsetsPreset: EdgeInsetsPreset = .none {
+	open var rightButtonsEdgeInsetsPreset: EdgeInsetsPreset = .none {
 		didSet {
             rightButtonsInset = EdgeInsetsPresetToValue(preset: rightButtonsEdgeInsetsPreset)
 		}
@@ -183,7 +192,7 @@ public class Card: PulseView {
 	/**
 	:name:	rightButtonsInset
 	*/
-	@IBInspectable public var rightButtonsInset = EdgeInsets.zero {
+	@IBInspectable open var rightButtonsInset = EdgeInsets.zero {
 		didSet {
 			reloadView()
 		}
@@ -192,7 +201,7 @@ public class Card: PulseView {
 	/**
 	:name:	rightButtons
 	*/
-	public var rightButtons = [UIButton]() {
+	open var rightButtons = [UIButton]() {
 		didSet {
 			reloadView()
 		}
@@ -230,7 +239,7 @@ public class Card: PulseView {
 	/**
 	:name:	layoutSublayersOfLayer
 	*/
-	public override func layoutSublayers(of layer: CALayer) {
+	open override func layoutSublayers(of layer: CALayer) {
 		super.layoutSublayers(of: layer)
 		if self.layer == layer {
 			if divider {
@@ -253,7 +262,7 @@ public class Card: PulseView {
 	/**
 	:name:	reloadView
 	*/
-	public func reloadView() {
+	open func reloadView() {
 		// clear constraints so new ones do not conflict
 		removeConstraints(constraints)
 		for v in subviews {
@@ -385,7 +394,7 @@ public class Card: PulseView {
 	/**
 	:name:	prepareView
 	*/
-	public override func prepareView() {
+	open override func prepareView() {
 		super.prepareView()
 		depthPreset = .depth1
 		dividerColor = Color.grey.lighten3

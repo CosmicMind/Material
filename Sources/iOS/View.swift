@@ -32,14 +32,14 @@ import UIKit
 
 @IBDesignable
 @objc(View)
-public class View: UIView {
+open class View: UIView {
 	/**
      A CAShapeLayer used to manage elements that would be affected by
      the clipToBounds property of the backing layer. For example, this
      allows the dropshadow effect on the backing layer, while clipping
      the image to a desired shape within the visualLayer.
      */
-	public private(set) var visualLayer: CAShapeLayer!
+	open private(set) var visualLayer: CAShapeLayer!
 	
 	/// A base delegate reference used when subclassing View.
 	public weak var delegate: MaterialDelegate?
@@ -49,7 +49,7 @@ public class View: UIView {
      property. Images should not be set to the backing layer's contents
      property to avoid conflicts when using clipsToBounds.
      */
-	@IBInspectable public var image: UIImage? {
+	@IBInspectable open var image: UIImage? {
 		didSet {
 			visualLayer.contents = image?.cgImage
 		}
@@ -61,7 +61,7 @@ public class View: UIView {
      much greater flexibility than the contentsGravity property in
      terms of how the image is cropped and stretched.
      */
-	@IBInspectable public var contentsRect: CGRect {
+	@IBInspectable open var contentsRect: CGRect {
 		get {
 			return visualLayer.contentsRect
 		}
@@ -74,7 +74,7 @@ public class View: UIView {
      A CGRect that defines a stretchable region inside the visualLayer
      with a fixed border around the edge.
      */
-	@IBInspectable public var contentsCenter: CGRect {
+	@IBInspectable open var contentsCenter: CGRect {
 		get {
 			return visualLayer.contentsCenter
 		}
@@ -88,7 +88,7 @@ public class View: UIView {
      dimensions of the visualLayer's contents property and the size
      of the view. By default, this value is set to the Device.scale.
      */
-	@IBInspectable public var contentsScale: CGFloat {
+	@IBInspectable open var contentsScale: CGFloat {
 		get {
 			return visualLayer.contentsScale
 		}
@@ -98,14 +98,14 @@ public class View: UIView {
 	}
 	
 	/// A Preset for the contentsGravity property.
-	@IBInspectable public var contentsGravityPreset: MaterialGravity {
+	@IBInspectable open var contentsGravityPreset: MaterialGravity {
 		didSet {
 			contentsGravity = MaterialGravityToValue(gravity: contentsGravityPreset)
 		}
 	}
 	
 	/// Determines how content should be aligned within the visualLayer's bounds.
-	@IBInspectable public var contentsGravity: String {
+	@IBInspectable open var contentsGravity: String {
 		get {
 			return visualLayer.contentsGravity
 		}
@@ -115,7 +115,7 @@ public class View: UIView {
 	}
 	
 	/// A property that accesses the backing layer's backgroundColor.
-	@IBInspectable public override var backgroundColor: UIColor? {
+	@IBInspectable open override var backgroundColor: UIColor? {
 		didSet {
 			layer.backgroundColor = backgroundColor?.cgColor
 		}
@@ -148,7 +148,7 @@ public class View: UIView {
 		self.init(frame: CGRect.zero)
 	}
 	
-	public override func layoutSublayers(of layer: CALayer) {
+	open override func layoutSublayers(of layer: CALayer) {
 		super.layoutSublayers(of: layer)
 		if self.layer == layer {
 			layoutShape()
@@ -156,7 +156,7 @@ public class View: UIView {
 		}
 	}
 	
-	public override func layoutSubviews() {
+	open override func layoutSubviews() {
 		super.layoutSubviews()
 		layoutShadowPath()
 	}
@@ -168,7 +168,7 @@ public class View: UIView {
      The super.prepareView method should always be called immediately
      when subclassing.
      */
-	public func prepareView() {
+	open func prepareView() {
 		contentScaleFactor = Device.scale
 		backgroundColor = Color.white
 		prepareVisualLayer()

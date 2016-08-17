@@ -34,7 +34,7 @@ extension UIFont {
 	/**
 	:name:	stringSize
 	*/
-	public func stringSize(string: String, constrainedToWidth width: Double) -> CGSize {
+	open func stringSize(string: String, constrainedToWidth width: Double) -> CGSize {
 		return string.boundingRect(with: CGSize(width: width, height: DBL_MAX),
 			options: NSStringDrawingOptions.usesLineFragmentOrigin,
 			attributes: [NSFontAttributeName: self],

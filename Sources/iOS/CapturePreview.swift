@@ -31,8 +31,8 @@
 import UIKit
 import AVFoundation
 
-public class CapturePreview: View {
-    public override class var layerClass: AnyClass {
+open class CapturePreview: View {
+    open override class var layerClass: AnyClass {
 		return AVCaptureVideoPreviewLayer.self
 	}
 
@@ -42,7 +42,7 @@ public class CapturePreview: View {
      to the layer.
      - Returns: A CGPoint that is converted.
      */
-    public func captureDevicePointOfInterestForPoint(point: CGPoint) -> CGPoint {
+    open func captureDevicePointOfInterestForPoint(point: CGPoint) -> CGPoint {
 		return (layer as! AVCaptureVideoPreviewLayer).captureDevicePointOfInterest(for: point)
 	}
 
@@ -52,7 +52,7 @@ public class CapturePreview: View {
      layer coordinates.
      - Returns: A CGPoint that is converted.
      */
-	public func pointForCaptureDevicePointOfInterest(point: CGPoint) -> CGPoint {
+	open func pointForCaptureDevicePointOfInterest(point: CGPoint) -> CGPoint {
 		return (layer as! AVCaptureVideoPreviewLayer).pointForCaptureDevicePoint(ofInterest: point)
 	}
 
@@ -63,7 +63,7 @@ public class CapturePreview: View {
      The super.prepareView method should always be called immediately
      when subclassing.
      */
-	public override func prepareView() {
+	open override func prepareView() {
 		super.prepareView()
 		preparePreviewLayer()
 	}

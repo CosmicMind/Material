@@ -38,12 +38,12 @@ public enum ImageFormat: Int {
 
 extension UIImage {
     /// Width of the UIImage.
-    public var width: CGFloat {
+    open var width: CGFloat {
         return size.width
     }
     
     /// Height of the UIImage.
-    public var height: CGFloat {
+    open var height: CGFloat {
         return size.height
     }
 }
@@ -54,7 +54,7 @@ extension UIImage {
      - Parameter toWidth w: A width value.
      - Returns: An optional UIImage.
      */
-    public func resize(toWidth w: CGFloat) -> UIImage? {
+    open func resize(toWidth w: CGFloat) -> UIImage? {
         return internalResize(toWidth: w)
     }
     
@@ -63,7 +63,7 @@ extension UIImage {
      - Parameter toHeight h: A height value.
      - Returns: An optional UIImage.
      */
-    public func resize(toHeight h: CGFloat) -> UIImage? {
+    open func resize(toHeight h: CGFloat) -> UIImage? {
         return internalResize(toHeight: h)
     }
     
@@ -100,7 +100,7 @@ extension UIImage {
      - Parameter color: The UIColor to create the image from.
      - Returns: A UIImage that is the color passed in.
      */
-    public func tintWithColor(color: UIColor) -> UIImage? {
+    open func tintWithColor(color: UIColor) -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(size, false, Device.scale)
         guard let context = UIGraphicsGetCurrentContext() else {
             return nil
@@ -129,7 +129,7 @@ extension UIImage {
      - Parameter size: The size of the image to create.
      - Returns: A UIImage that is the color passed in.
      */
-    public class func imageWithColor(color: UIColor, size: CGSize) -> UIImage? {
+    open class func imageWithColor(color: UIColor, size: CGSize) -> UIImage? {
         let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         UIGraphicsBeginImageContextWithOptions(size, false, 0)
         color.setFill()
@@ -147,7 +147,7 @@ extension UIImage {
      - Parameter toHeight th: A specified height.
      - Returns: An optional UIImage.
      */
-    public func crop(toWidth tw: CGFloat, toHeight th: CGFloat) -> UIImage? {
+    open func crop(toWidth tw: CGFloat, toHeight th: CGFloat) -> UIImage? {
         let g: UIImage?
         let b: Bool = width > height
         let s: CGFloat = b ? th / height : tw / width
@@ -170,7 +170,7 @@ extension UIImage {
      Creates an clear image.
      - Returns: A UIImage that is clear.
      */
-    public class func clear(size: CGSize = CGSize(width: 16, height: 16)) -> UIImage? {
+    open class func clear(size: CGSize = CGSize(width: 16, height: 16)) -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(size, false, 0)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
@@ -185,7 +185,7 @@ extension UIImage {
      - Parameter completion: A completion block that is executed once the image
      has been retrieved.
      */
-    public class func contentsOfURL(url: URL, completion: ((UIImage?, Error?) -> Void)) {
+    open class func contentsOfURL(url: URL, completion: ((UIImage?, Error?) -> Void)) {
         URLSession.shared.dataTask(with: URLRequest(url: url)) { (data: Data?, response: URLResponse?, error: Error?) in
             DispatchQueue.main.async {
                 if let v = error {
@@ -205,7 +205,7 @@ extension UIImage {
      when using Portrait.
      - Returns: An optional UIImage if successful.
      */
-    public func adjustOrientation() -> UIImage? {
+    open func adjustOrientation() -> UIImage? {
         guard .up != imageOrientation else {
             return self
         }

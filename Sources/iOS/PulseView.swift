@@ -30,25 +30,25 @@
 
 import UIKit
 
-public class PulseView: View {
+open class PulseView: View {
 	/// An Array of pulse layers.
-	public private(set) lazy var pulseLayers = [CAShapeLayer]()
+	open private(set) lazy var pulseLayers = [CAShapeLayer]()
 	
 	/// The opcaity value for the pulse animation.
-	@IBInspectable public var pulseOpacity: CGFloat = 0.25
+	@IBInspectable open var pulseOpacity: CGFloat = 0.25
 	
 	/// The color of the pulse effect.
-	@IBInspectable public var pulseColor: UIColor = Color.grey.base
+	@IBInspectable open var pulseColor = Color.grey.base
 	
 	/// The type of PulseAnimation.
-	public var pulseAnimation: PulseAnimation = .pointWithBacking
+	open var pulseAnimation: PulseAnimation = .pointWithBacking
 	
 	/**
 	Triggers the pulse animation.
 	- Parameter point: A Optional point to pulse from, otherwise pulses
 	from the center.
 	*/
-	public func pulse(point: CGPoint? = nil) {
+	open func pulse(point: CGPoint? = nil) {
         let p: CGPoint = nil == point ? CGPoint(x: CGFloat(width / 2), y: CGFloat(height / 2)) : point!
 		Animation.pulseExpandAnimation(layer: layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseOpacity: pulseOpacity, point: p, width: width, height: height, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
 		_ = Animation.delay(time: 0.35) { [weak self] in
@@ -65,7 +65,7 @@ public class PulseView: View {
      - Parameter touches: A set of UITouch objects.
      - Parameter event: A UIEvent object.
      */
-	public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+	open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 		super.touchesBegan(touches, with: event)
 		Animation.pulseExpandAnimation(layer: layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseOpacity: pulseOpacity, point: layer.convert(touches.first!.location(in: self), from: layer), width: width, height: height, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
 	}
@@ -76,7 +76,7 @@ public class PulseView: View {
      - Parameter touches: A set of UITouch objects.
      - Parameter event: A UIEvent object.
      */
-	public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+	open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
 		super.touchesEnded(touches, with: event)
 		Animation.pulseContractAnimation(layer: layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
 	}
@@ -87,7 +87,7 @@ public class PulseView: View {
      - Parameter touches: A set of UITouch objects.
      - Parameter event: A UIEvent object.
      */
-	public override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+	open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
 		super.touchesCancelled(touches, with: event)
 		Animation.pulseContractAnimation(layer: layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
 	}

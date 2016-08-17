@@ -30,46 +30,46 @@
 
 import UIKit
 
-public class CollectionViewLayout: UICollectionViewLayout {
+open class CollectionViewLayout: UICollectionViewLayout {
 	/// Used to calculate the dimensions of the cells.
-	internal var offset: CGPoint = CGPoint.zero
+	internal var offset = CGPoint.zero
 	
 	/// The size of items.
-	public var itemSize: CGSize = CGSize.zero
+	open var itemSize = CGSize.zero
 	
 	/// A preset wrapper around contentInset.
-	public var contentEdgeInsetsPreset: EdgeInsetsPreset = .none {
+	open var contentEdgeInsetsPreset: EdgeInsetsPreset = .none {
 		didSet {
 			contentInset = EdgeInsetsPresetToValue(preset: contentEdgeInsetsPreset)
 		}
 	}
 	
 	/// A wrapper around grid.contentInset.
-	public var contentInset = EdgeInsets.zero
+	open var contentInset = EdgeInsets.zero
 	
 	/// Size of the content.
-	public private(set) var contentSize: CGSize = CGSize.zero
+	open private(set) var contentSize = CGSize.zero
 	
 	/// Layout attribute items.
-	public private(set) var layoutItems: Array<(UICollectionViewLayoutAttributes, NSIndexPath)> = Array<(UICollectionViewLayoutAttributes, NSIndexPath)>()
+	open private(set) var layoutItems = [(UICollectionViewLayoutAttributes, NSIndexPath)]()
 	
 	/// Cell data source items.
-	public private(set) var dataSourceItems: [DataSourceItem]?
+	open private(set) var dataSourceItems: [DataSourceItem]?
 	
 	/// Scroll direction.
-	public var scrollDirection: UICollectionViewScrollDirection = .vertical
+	open var scrollDirection: UICollectionViewScrollDirection = .vertical
 	
 	/// A preset wrapper around interimSpace.
-	public var interimSpacePreset: InterimSpacePreset = .none {
+	open var interimSpacePreset: InterimSpacePreset = .none {
 		didSet {
             interimSpace = InterimSpacePresetToValue(preset: interimSpacePreset)
 		}
 	}
 	
 	/// Spacing between items.
-	public var interimSpace: InterimSpace = 0
+	open var interimSpace: InterimSpace = 0
 	
-    public override var collectionViewContentSize: CGSize {
+    open override var collectionViewContentSize: CGSize {
         return contentSize
     }
     
@@ -78,7 +78,7 @@ public class CollectionViewLayout: UICollectionViewLayout {
 	- Parameter rect: A CGRect that acts as the bounds to find the items within.
 	- Returns: An Array of NSIndexPath objects.
 	*/
-	public func indexPathsOfItemsInRect(rect: CGRect) -> Array<NSIndexPath> {
+	open func indexPathsOfItemsInRect(rect: CGRect) -> [NSIndexPath] {
 		var paths: Array<NSIndexPath> = Array<NSIndexPath>()
 		for (attribute, indexPath) in layoutItems {
 			if rect.intersects(attribute.frame) {
@@ -88,7 +88,7 @@ public class CollectionViewLayout: UICollectionViewLayout {
 		return paths
 	}
 	
-	public override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+	open override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
 		let item: DataSourceItem = dataSourceItems![indexPath.item]
 		
@@ -103,7 +103,7 @@ public class CollectionViewLayout: UICollectionViewLayout {
 		return attributes
 	}
 	
-	public override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+	open override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
 		var layoutAttributes: Array<UICollectionViewLayoutAttributes> = Array<UICollectionViewLayoutAttributes>()
 		for (attribute, _) in layoutItems {
 			if rect.intersects(attribute.frame) {
@@ -113,17 +113,17 @@ public class CollectionViewLayout: UICollectionViewLayout {
 		return layoutAttributes
 	}
 	
-	public override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
+	open override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
 		return .vertical == scrollDirection ? newBounds.width != collectionView!.bounds.width : newBounds.height != collectionView!.bounds.height
 	}
 	
-	public override func prepare() {
+	open override func prepare() {
 		if let dataSource: CollectionViewDataSource = collectionView?.dataSource as? CollectionViewDataSource {
 			prepareLayoutForItems(dataSourceItems: dataSource.items())
 		}
 	}
 	
-	public override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint) -> CGPoint {
+	open override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint) -> CGPoint {
 		return proposedContentOffset
 	}
 	

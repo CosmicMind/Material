@@ -32,14 +32,14 @@ import UIKit
 
 @IBDesignable
 @objc(CollectionViewCell)
-public class CollectionViewCell: UICollectionViewCell {
+open class CollectionViewCell: UICollectionViewCell {
 	/**
 	A CAShapeLayer used to manage elements that would be affected by
 	the clipToBounds property of the backing layer. For example, this
 	allows the dropshadow effect on the backing layer, while clipping
 	the image to a desired shape within the visualLayer.
 	*/
-	public private(set) lazy var visualLayer: CAShapeLayer = CAShapeLayer()
+    open private(set) var visualLayer: CAShapeLayer!
 	
 	/**
 	A base delegate reference used when subclassing View.
@@ -47,23 +47,23 @@ public class CollectionViewCell: UICollectionViewCell {
 	public weak var delegate: MaterialDelegate?
 	
 	/// An Array of pulse layers.
-	public private(set) lazy var pulseLayers: Array<CAShapeLayer> = Array<CAShapeLayer>()
+	open private(set) lazy var pulseLayers = [CAShapeLayer]()
 	
 	/// The opcaity value for the pulse animation.
-	@IBInspectable public var pulseOpacity: CGFloat = 0.25
+	@IBInspectable open var pulseOpacity: CGFloat = 0.25
 	
 	/// The color of the pulse effect.
-	@IBInspectable public var pulseColor: UIColor = Color.grey.base
+	@IBInspectable open var pulseColor: UIColor = Color.grey.base
 	
 	/// The type of PulseAnimation.
-	public var pulseAnimation: PulseAnimation = .pointWithBacking
+	open var pulseAnimation: PulseAnimation = .pointWithBacking
 	
 	/**
 	A property that manages an image for the visualLayer's contents
 	property. Images should not be set to the backing layer's contents
 	property to avoid conflicts when using clipsToBounds.
 	*/
-	@IBInspectable public var image: UIImage? {
+	@IBInspectable open var image: UIImage? {
 		didSet {
 			visualLayer.contents = image?.cgImage
 		}
@@ -75,7 +75,7 @@ public class CollectionViewCell: UICollectionViewCell {
 	much greater flexibility than the contentsGravity property in
 	terms of how the image is cropped and stretched.
 	*/
-	@IBInspectable public var contentsRect: CGRect {
+	@IBInspectable open var contentsRect: CGRect {
 		get {
 			return visualLayer.contentsRect
 		}
@@ -88,7 +88,7 @@ public class CollectionViewCell: UICollectionViewCell {
 	A CGRect that defines a stretchable region inside the visualLayer
 	with a fixed border around the edge.
 	*/
-	@IBInspectable public var contentsCenter: CGRect {
+	@IBInspectable open var contentsCenter: CGRect {
 		get {
 			return visualLayer.contentsCenter
 		}
@@ -102,7 +102,7 @@ public class CollectionViewCell: UICollectionViewCell {
 	dimensions of the visualLayer's contents property and the size
 	of the view. By default, this value is set to the Device.scale.
 	*/
-	@IBInspectable public var contentsScale: CGFloat {
+	@IBInspectable open var contentsScale: CGFloat {
 		get {
 			return visualLayer.contentsScale
 		}
@@ -119,7 +119,7 @@ public class CollectionViewCell: UICollectionViewCell {
 	}
 	
 	/// Determines how content should be aligned within the visualLayer's bounds.
-	@IBInspectable public var contentsGravity: String {
+	@IBInspectable open var contentsGravity: String {
 		get {
 			return visualLayer.contentsGravity
 		}
@@ -139,7 +139,7 @@ public class CollectionViewCell: UICollectionViewCell {
 	}
 	
 	/// A wrapper around grid.contentInset.
-	@IBInspectable public var contentInset: UIEdgeInsets {
+	@IBInspectable open var contentInset: EdgeInsets {
 		get {
 			return contentView.grid.contentEdgeInsets
 		}
@@ -149,14 +149,14 @@ public class CollectionViewCell: UICollectionViewCell {
 	}
 	
 	/// A preset wrapper around interimSpace.
-	public var interimSpacePreset: InterimSpacePreset = .none {
+	open var interimSpacePreset: InterimSpacePreset = .none {
 		didSet {
             interimSpace = InterimSpacePresetToValue(preset: interimSpacePreset)
 		}
 	}
 	
 	/// A wrapper around grid.interimSpace.
-	@IBInspectable public var interimSpace: InterimSpace {
+	@IBInspectable open var interimSpace: InterimSpace {
 		get {
 			return contentView.grid.interimSpace
 		}
@@ -166,7 +166,7 @@ public class CollectionViewCell: UICollectionViewCell {
 	}
 	
 	/// A property that accesses the backing layer's backgroundColor.
-	@IBInspectable public override var backgroundColor: UIColor? {
+	@IBInspectable open override var backgroundColor: UIColor? {
 		didSet {
 			layer.backgroundColor = backgroundColor?.cgColor
 		}
@@ -199,7 +199,7 @@ public class CollectionViewCell: UICollectionViewCell {
 		self.init(frame: CGRect.zero)
 	}
 	
-	public override func layoutSublayers(of layer: CALayer) {
+	open override func layoutSublayers(of layer: CALayer) {
 		super.layoutSublayers(of: layer)
 		if self.layer == layer {
 			layoutShape()
@@ -207,7 +207,7 @@ public class CollectionViewCell: UICollectionViewCell {
 		}
 	}
 	
-	public override func layoutSubviews() {
+	open override func layoutSubviews() {
 		super.layoutSubviews()
 		layoutShadowPath()
 	}
@@ -217,7 +217,7 @@ public class CollectionViewCell: UICollectionViewCell {
      - Parameter point: A Optional point to pulse from, otherwise pulses
      from the center.
      */
-    public func pulse(point: CGPoint? = nil) {
+    open func pulse(point: CGPoint? = nil) {
         let p: CGPoint = nil == point ? CGPoint(x: CGFloat(width / 2), y: CGFloat(height / 2)) : point!
         Animation.pulseExpandAnimation(layer: layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseOpacity: pulseOpacity, point: p, width: width, height: height, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
         _ = Animation.delay(time: 0.35) { [weak self] in
@@ -234,7 +234,7 @@ public class CollectionViewCell: UICollectionViewCell {
      - Parameter touches: A set of UITouch objects.
      - Parameter event: A UIEvent object.
      */
-    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         Animation.pulseExpandAnimation(layer: layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseOpacity: pulseOpacity, point: layer.convert(touches.first!.location(in: self), from: layer), width: width, height: height, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
     }
@@ -245,7 +245,7 @@ public class CollectionViewCell: UICollectionViewCell {
      - Parameter touches: A set of UITouch objects.
      - Parameter event: A UIEvent object.
      */
-    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
         Animation.pulseContractAnimation(layer: layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
     }
@@ -256,7 +256,7 @@ public class CollectionViewCell: UICollectionViewCell {
      - Parameter touches: A set of UITouch objects.
      - Parameter event: A UIEvent object.
      */
-    public override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesCancelled(touches, with: event)
         Animation.pulseContractAnimation(layer: layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
     }
@@ -268,13 +268,14 @@ public class CollectionViewCell: UICollectionViewCell {
 	The super.prepareView method should always be called immediately
 	when subclassing.
 	*/
-	public func prepareView() {
+	open func prepareView() {
 		contentScaleFactor = Device.scale
 		prepareVisualLayer()
 	}
 	
 	/// Prepares the visualLayer property.
 	internal func prepareVisualLayer() {
+        visualLayer = CAShapeLayer()
 		visualLayer.zPosition = 0
 		visualLayer.masksToBounds = true
 		layer.addSublayer(visualLayer)

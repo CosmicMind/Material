@@ -34,7 +34,7 @@ extension String {
 	/**
 	:name:	lines
 	*/
-	public var lines: Array<String> {
+	public var lines: [String] {
 		return components(separatedBy: CharacterSet.newlines)
 	}
 	
