@@ -264,16 +264,7 @@ extension UIView {
      - Parameter animation: A CAAnimation instance.
      */
     open func animate(animation: CAAnimation) {
-        if let a = animation as? CABasicAnimation {
-            a.fromValue = (nil == layer.presentation() ? layer : layer.presentation()!).value(forKeyPath: a.keyPath!)
-        }
-        if let a = animation as? CAPropertyAnimation {
-            layer.add(a, forKey: a.keyPath!)
-        } else if let a = animation as? CAAnimationGroup {
-            layer.add(a, forKey: nil)
-        } else if let a = animation as? CATransition {
-            layer.add(a, forKey: kCATransition)
-        }
+        layer.animate(animation: animation)
     }
     
     /**
@@ -285,20 +276,7 @@ extension UIView {
      if interrupted.
      */
     open func animationDidStop(_ animation: CAAnimation, finished flag: Bool) {
-        if let a = animation as? CAPropertyAnimation {
-            if let b = a as? CABasicAnimation {
-                if let v = b.toValue {
-                    if let k = b.keyPath {
-                        layer.setValue(v, forKeyPath: k)
-                        layer.removeAnimation(forKey: k)
-                    }
-                }
-            }
-        } else if let a = animation as? CAAnimationGroup {
-            for x in a.animations! {
-                animationDidStop(x, finished: true)
-            }
-        }
+        layer.animationDidStop(animation, finished: flag)
     }
     
     /// Manages the layout for the shape of the view instance.

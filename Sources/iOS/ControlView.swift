@@ -167,7 +167,7 @@ open class ControlView: View {
 			let g = Int(width / gridFactor)
             let columns = g + 1
             
-            grid.views = []
+            grid.views.removeAll()
             grid.axis.columns = columns
             
             contentView.grid.columns = columns

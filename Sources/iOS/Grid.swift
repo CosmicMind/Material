@@ -200,6 +200,7 @@ public class Grid {
         var n: Int = 0
         
         for i in 0..<views.count {
+            print(i, views.count, views)
             let child = views[i]
             
             if let parent = context {

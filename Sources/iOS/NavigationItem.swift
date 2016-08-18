@@ -31,14 +31,14 @@
 import UIKit
 
 /// A memory reference to the NavigationItem instance.
-private var MaterialAssociatedObjectNavigationItemKey: UInt8 = 0
+private var NavigationItemKey: UInt8 = 0
 
-public class MaterialAssociatedObjectNavigationItem {
+public class NavigationItem {
 	/**
 	A boolean indicating whether keys are being observed
 	on the UINavigationItem.
 	*/
-	internal var observed: Bool = false
+	internal var observed = false
 	
 	/// Back Button.
 	public var backButton: IconButton?
@@ -53,10 +53,10 @@ public class MaterialAssociatedObjectNavigationItem {
 	public private(set) var detailLabel: UILabel!
 	
 	/// Left controls.
-	public var leftControls: Array<UIControl>?
+	public var leftControls: [UIView]?
 	
 	/// Right controls.
-	public var rightControls: Array<UIControl>?
+	public var rightControls: [UIView]?
 	
 	/// Initializer.
 	public init() {
@@ -65,7 +65,7 @@ public class MaterialAssociatedObjectNavigationItem {
 	}
     
     /// Reloads the subviews for the NavigationBar.
-    internal func reloadNavigationBar() {
+    internal func reload() {
         guard let navigationBar = contentView?.superview?.superview as? NavigationBar else {
             return
         }
@@ -89,34 +89,34 @@ public class MaterialAssociatedObjectNavigationItem {
 
 extension UINavigationItem {
 	/// NavigationItem reference.
-	public internal(set) var item: MaterialAssociatedObjectNavigationItem {
+	public internal(set) var navigationItem: NavigationItem {
 		get {
-			return AssociatedObject(base: self, key: &MaterialAssociatedObjectNavigationItemKey) {
-				return MaterialAssociatedObjectNavigationItem()
+			return AssociatedObject(base: self, key: &NavigationItemKey) {
+				return NavigationItem()
 			}
 		}
 		set(value) {
-			AssociateObject(base: self, key: &MaterialAssociatedObjectNavigationItemKey, value: value)
+			AssociateObject(base: self, key: &NavigationItemKey, value: value)
 		}
 	}
 	
 	/// Back Button.
 	public internal(set) var backButton: IconButton? {
 		get {
-			return item.backButton
+			return navigationItem.backButton
 		}
 		set(value) {
-			item.backButton = value
+			navigationItem.backButton = value
 		}
 	}
 	
 	/// Content View.
 	public internal(set) var contentView: UIView? {
 		get {
-			return item.contentView
+			return navigationItem.contentView
 		}
 		set(value) {
-			item.contentView = value
+			navigationItem.contentView = value
 		}
 	}
 	
@@ -127,13 +127,13 @@ extension UINavigationItem {
 		}
 		set(value) {
 			titleLabel.text = value
-            item.reloadNavigationBar()
+            navigationItem.reload()
 		}
 	}
 	
 	/// Title Label.
 	public var titleLabel: UILabel {
-		return item.titleLabel
+		return navigationItem.titleLabel
 	}
 	
 	/// Detail text.
@@ -143,32 +143,32 @@ extension UINavigationItem {
 		}
 		set(value) {
 			detailLabel.text = value
-            item.reloadNavigationBar()
+            navigationItem.reload()
 		}
 	}
 	
 	/// Detail Label.
 	public var detailLabel: UILabel {
-		return item.detailLabel
+		return navigationItem.detailLabel
 	}
 	
-	/// Left side UIControls.
-	public var leftControls: Array<UIControl>? {
+	/// Left side UIViews.
+	public var leftControls: [UIView]? {
 		get {
-			return item.leftControls
+			return navigationItem.leftControls
 		}
 		set(value) {
-			item.leftControls = value
+			navigationItem.leftControls = value
 		}
 	}
 	
-	/// Right side UIControls.
-	public var rightControls: Array<UIControl>? {
+	/// Right side UIViews.
+	public var rightControls: [UIView]? {
 		get {
-			return item.rightControls
+			return navigationItem.rightControls
 		}
 		set(value) {
-			item.rightControls = value
+			navigationItem.rightControls = value
 		}
 	}
 }

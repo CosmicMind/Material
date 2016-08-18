@@ -62,7 +62,7 @@ open class RootController: UIViewController {
      is recommended to use the transitionFromRootViewController
      helper method.
      */
-	public internal(set) var rootViewController: UIViewController!
+	open internal(set) var rootViewController: UIViewController!
 	
 	/**
      An initializer that initializes the object with a NSCoder object.

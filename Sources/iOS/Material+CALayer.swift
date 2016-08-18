@@ -105,7 +105,7 @@ private var MaterialLayerKey: UInt8 = 0
 /// Grid extension for UIView.
 extension CALayer {
     /// MaterialLayer Reference.
-    internal var material: MaterialLayer {
+    internal var materialLayer: MaterialLayer {
         get {
             return AssociatedObject(base: self, key: &MaterialLayerKey) {
                 return MaterialLayer(layer: self)
@@ -185,10 +185,10 @@ extension CALayer {
      */
     open var shapePreset: ShapePreset {
         get {
-            return material.shapePreset
+            return materialLayer.shapePreset
         }
         set(value) {
-            material.shapePreset = value
+            materialLayer.shapePreset = value
         }
     }
     
@@ -205,10 +205,10 @@ extension CALayer {
     /// Grid reference.
     open var depth: Depth {
         get {
-            return material.depth
+            return materialLayer.depth
         }
         set(value) {
-            material.depth = value
+            materialLayer.depth = value
         }
     }
     
@@ -216,30 +216,30 @@ extension CALayer {
     @IBInspectable
     open var isShadowPathAutoSizing: Bool {
         get {
-            return material.isShadowPathAutoSizing
+            return materialLayer.isShadowPathAutoSizing
         }
         set(value) {
-            material.isShadowPathAutoSizing = value
+            materialLayer.isShadowPathAutoSizing = value
         }
     }
     
     /// A property that sets the cornerRadius of the backing layer.
     open var cornerRadiusPreset: CornerRadiusPreset {
         get {
-            return material.cornerRadiusPreset
+            return materialLayer.cornerRadiusPreset
         }
         set(value) {
-            material.cornerRadiusPreset = value
+            materialLayer.cornerRadiusPreset = value
         }
     }
     
     /// A preset property to set the borderWidth.
     open var borderWidthPreset: BorderWidthPreset {
         get {
-            return material.borderWidthPreset
+            return materialLayer.borderWidthPreset
         }
         set(value) {
-            material.borderWidthPreset = value
+            materialLayer.borderWidthPreset = value
         }
     }
     

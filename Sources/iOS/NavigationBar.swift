@@ -207,14 +207,13 @@ public class NavigationBar: UINavigationBar {
             contentView.grid.columns = columns
             
             // leftControls
-            if let v: Array<UIControl> = item.leftControls {
+            if let v = item.leftControls {
                 for c in v {
-                    let w: CGFloat = c.intrinsicContentSize.width
+                    let w = c.intrinsicContentSize.width
                     (c as? UIButton)?.contentEdgeInsets = UIEdgeInsets.zero
                     c.frame.size.height = titleView.frame.size.height - contentInset.top - contentInset.bottom
                     
-                    let q: Int = Int(w / gridFactor)
-                    c.grid.columns = q + 1
+                    c.grid.columns = Int(w / gridFactor) + 1
                     
                     contentView.grid.columns -= c.grid.columns
                     
@@ -227,14 +226,13 @@ public class NavigationBar: UINavigationBar {
             titleView.grid.views.append(contentView)
             
             // rightControls
-            if let v: Array<UIControl> = item.rightControls {
+            if let v = item.rightControls {
                 for c in v {
-                    let w: CGFloat = c.intrinsicContentSize.width
+                    let w = c.intrinsicContentSize.width
                     (c as? UIButton)?.contentEdgeInsets = UIEdgeInsets.zero
                     c.frame.size.height = titleView.frame.size.height - contentInset.top - contentInset.bottom
                     
-                    let q: Int = Int(w / gridFactor)
-                    c.grid.columns = q + 1
+                    c.grid.columns = Int(w / gridFactor) + 1
                     
                     contentView.grid.columns -= c.grid.columns
                     
@@ -268,7 +266,7 @@ public class NavigationBar: UINavigationBar {
                     item.titleLabel.sizeToFit()
                     item.detailLabel.sizeToFit()
                     
-                    let diff: CGFloat = (contentView.frame.height - item.titleLabel.frame.height - item.detailLabel.frame.height) / 2
+                    let diff = (contentView.frame.height - item.titleLabel.frame.height - item.detailLabel.frame.height) / 2
                     
                     item.titleLabel.frame.size.height += diff
                     item.titleLabel.frame.size.width = contentView.frame.width
