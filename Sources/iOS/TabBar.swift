@@ -49,7 +49,7 @@ public class TabBar: View {
 	
 	/// Will render the view.
 	public var willRenderView: Bool {
-		return 0 < width
+		return 0 < width && 0 < height && nil != superview
 	}
 	
 	/// Buttons.

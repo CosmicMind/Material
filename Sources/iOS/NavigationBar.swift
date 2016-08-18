@@ -70,7 +70,7 @@ public class NavigationBar: UINavigationBar {
 	
 	/// Will render the view.
 	public var willRenderView: Bool {
-		return 0 < width && 0 < height
+		return 0 < width && 0 < height && nil != superview
 	}
 	
 	/// A preset wrapper around contentInset.

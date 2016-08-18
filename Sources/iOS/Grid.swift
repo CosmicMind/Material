@@ -199,8 +199,9 @@ public class Grid {
     public func reload() {
         var n: Int = 0
         
+        print("before", views.count)
         for i in 0..<views.count {
-            print(i, views.count, views)
+            print("after", i, views.count)
             let child = views[i]
             
             if let parent = context {

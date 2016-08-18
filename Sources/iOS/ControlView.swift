@@ -33,7 +33,7 @@ import UIKit
 open class ControlView: View {
 	/// Will render the view.
 	open var willRenderView: Bool {
-		return 0 < width && 0 < height
+		return 0 < width && 0 < height && nil !== superview
 	}
 	
 	/// A preset wrapper around contentInset.
@@ -89,38 +89,30 @@ open class ControlView: View {
 	open private(set) var contentView: View!
 	
 	/// Left side UIControls.
-	open var leftControls: [UIView]? {
+	open var leftControls: [UIView] {
 		didSet {
-			if let v = oldValue {
-				for b in v {
-					b.removeFromSuperview()
-				}
-			}
+            for v in oldValue {
+                v.removeFromSuperview()
+            }
 			
-			if let v = leftControls {
-				for b in v {
-					addSubview(b)
-				}
-			}
+            for v in leftControls {
+                addSubview(v)
+            }
 			layoutSubviews()
 		}
 	}
 	
 	/// Right side UIControls.
-	open var rightControls: [UIView]? {
+	open var rightControls: [UIView] {
 		didSet {
-			if let v = oldValue {
-				for b in v {
-					b.removeFromSuperview()
-				}
-			}
-			
-			if let v = rightControls {
-				for b in v {
-					addSubview(b)
-				}
-			}
-			layoutSubviews()
+            for v in oldValue {
+                v.removeFromSuperview()
+            }
+            
+            for v in rightControls {
+                addSubview(v)
+            }
+            layoutSubviews()
 		}
 	}
 	
@@ -129,7 +121,9 @@ open class ControlView: View {
      - Parameter aDecoder: A NSCoder instance.
      */
 	public required init?(coder aDecoder: NSCoder) {
-		super.init(coder: aDecoder)
+        leftControls = []
+        rightControls = []
+        super.init(coder: aDecoder)
 	}
 	
 	/**
@@ -139,13 +133,17 @@ open class ControlView: View {
      - Parameter frame: A CGRect instance.
      */
 	public override init(frame: CGRect) {
+        leftControls = []
+        rightControls = []
 		super.init(frame: frame)
 	}
 	
 	/// Basic initializer.
 	public init() {
+		leftControls = []
+        rightControls = []
 		super.init(frame: CGRect.zero)
-		frame.size = intrinsicContentSize
+        frame.size = intrinsicContentSize
 	}
 	
 	/**
@@ -154,9 +152,10 @@ open class ControlView: View {
      - Parameter rightControls: An Array of UIControls that go on the right side.
      */
 	public init(leftControls: [UIView]? = nil, rightControls: [UIView]? = nil) {
-		super.init(frame: CGRect.zero)
+        self.leftControls = leftControls ?? []
+        self.rightControls = rightControls ?? []
+        super.init(frame: CGRect.zero)
 		frame.size = intrinsicContentSize
-		prepareProperties(leftControls: leftControls, rightControls: rightControls)
 	}
 	
 	open override func layoutSubviews() {
@@ -167,51 +166,46 @@ open class ControlView: View {
 			let g = Int(width / gridFactor)
             let columns = g + 1
             
-            grid.views.removeAll()
+            grid.views = []
             grid.axis.columns = columns
             
             contentView.grid.columns = columns
             
             // leftControls
-            if let v = leftControls {
-                for c in v {
-                    let w: CGFloat = c.intrinsicContentSize.width
-                    (c as? UIButton)?.contentEdgeInsets = UIEdgeInsets.zero
-                    c.frame.size.height = frame.size.height - contentInset.top - contentInset.bottom
-                    
-                    let q: Int = Int(w / gridFactor)
-                    c.grid.columns = q + 1
-                    
-                    contentView.grid.columns -= c.grid.columns
-                    
-                    addSubview(c)
-                    grid.views.append(c)
-                }
+            for c in leftControls {
+                let w: CGFloat = c.intrinsicContentSize.width
+                (c as? UIButton)?.contentEdgeInsets = UIEdgeInsets.zero
+                c.frame.size.height = frame.size.height - contentInset.top - contentInset.bottom
+                
+                let q: Int = Int(w / gridFactor)
+                c.grid.columns = q + 1
+                
+                contentView.grid.columns -= c.grid.columns
+                
+                addSubview(c)
+                grid.views.append(c)
             }
             
             addSubview(contentView)
             grid.views.append(contentView)
             
             // rightControls
-            if let v = rightControls {
-                for c in v {
-                    let w: CGFloat = c.intrinsicContentSize.width
-                    (c as? UIButton)?.contentEdgeInsets = UIEdgeInsets.zero
-                    c.frame.size.height = frame.size.height - contentInset.top - contentInset.bottom
-                    
-                    let q: Int = Int(w / gridFactor)
-                    c.grid.columns = q + 1
-                    
-                    contentView.grid.columns -= c.grid.columns
-                    
-                    addSubview(c)
-                    grid.views.append(c)
-                }
+            for c in rightControls {
+                let w = c.intrinsicContentSize.width
+                (c as? UIButton)?.contentEdgeInsets = UIEdgeInsets.zero
+                c.frame.size.height = frame.size.height - contentInset.top - contentInset.bottom
+                
+                let q: Int = Int(w / gridFactor)
+                c.grid.columns = q + 1
+                
+                contentView.grid.columns -= c.grid.columns
+                
+                addSubview(c)
+                grid.views.append(c)
             }
             
             grid.contentEdgeInsets = contentInset
             grid.interimSpace = interimSpace
-            grid.reload()
             contentView.grid.reload()
         }
     }
@@ -230,16 +224,6 @@ open class ControlView: View {
 		autoresizingMask = .flexibleWidth
 		isShadowPathAutoSizing = false
 		prepareContentView()
-	}
-	
-	/**
-     Used to trigger property changes that initializers avoid.
-     - Parameter leftControls: An Array of UIControls that go on the left side.
-     - Parameter rightControls: An Array of UIControls that go on the right side.
-     */
-	internal func prepareProperties(leftControls: [UIView]?, rightControls: [UIView]?) {
-		self.leftControls = leftControls
-		self.rightControls = rightControls
 	}
 	
 	/// Prepares the contentView.
