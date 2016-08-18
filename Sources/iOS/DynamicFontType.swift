@@ -41,7 +41,7 @@ public protocol DynamicFontTypeDelegate {
 }
 
 @objc(DynamicFontType)
-public class DynamicFontType: NSObject {
+open class DynamicFontType: NSObject {
     /// A weak reference to a DynamicFontTypeDelegate.
     public weak var delegate: DynamicFontTypeDelegate?
     

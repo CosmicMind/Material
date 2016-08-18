@@ -79,28 +79,28 @@ open class CollectionView: UICollectionView {
 	}
 	
 	/**
-	An initializer that initializes the object with a NSCoder object.
-	- Parameter aDecoder: A NSCoder instance.
-	*/
+     An initializer that initializes the object with a NSCoder object.
+     - Parameter aDecoder: A NSCoder instance.
+     */
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 		prepareView()
 	}
 	
 	/**
-	An initializer that initializes the object.
-	- Parameter frame: A CGRect defining the view's frame.
-	- Parameter collectionViewLayout: A UICollectionViewLayout reference.
-	*/
+     An initializer that initializes the object.
+     - Parameter frame: A CGRect defining the view's frame.
+     - Parameter collectionViewLayout: A UICollectionViewLayout reference.
+     */
 	public override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
 		super.init(frame: frame, collectionViewLayout: layout)
 		prepareView()
 	}
 	
 	/**
-	An initializer that initializes the object.
-	- Parameter frame: A CGRect defining the view's frame.
-	*/
+     An initializer that initializes the object.
+     - Parameter frame: A CGRect defining the view's frame.
+     */
 	public init(frame: CGRect) {
 		super.init(frame: frame, collectionViewLayout: CollectionViewLayout())
 		prepareView()
@@ -112,12 +112,12 @@ open class CollectionView: UICollectionView {
 	}
 	
 	/**
-	Prepares the view instance when intialized. When subclassing,
-	it is recommended to override the prepareView method
-	to initialize property values and other setup operations.
-	The super.prepareView method should always be called immediately
-	when subclassing.
-	*/
+     Prepares the view instance when intialized. When subclassing,
+     it is recommended to override the prepareView method
+     to initialize property values and other setup operations.
+     The super.prepareView method should always be called immediately
+     when subclassing.
+     */
 	open func prepareView() {
 		contentScaleFactor = Device.scale
 		backgroundColor = Color.clear

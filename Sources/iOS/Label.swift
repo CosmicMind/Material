@@ -31,25 +31,26 @@
 import UIKit
 
 @IBDesignable
-public class MaterialLabel : UILabel {
+open class Label: UILabel {
 	/**
 	:name:	layerClass
 	*/
-    public override class var layerClass: AnyClass {
+    open override class var layerClass: AnyClass {
 		return MaterialTextLayer.self
 	}
 	
 	/**
 	:name:	textLayer
 	*/
-	public var textLayer: MaterialTextLayer {
+	open var textLayer: MaterialTextLayer {
 		return layer as! MaterialTextLayer
 	}
 	
 	/**
 	:name:	text
 	*/
-	@IBInspectable public override var text: String? {
+	@IBInspectable
+    open override var text: String? {
 		didSet {
 			textLayer.text = text
 		}
@@ -58,7 +59,8 @@ public class MaterialLabel : UILabel {
 	/**
 	:name:	textColor
 	*/
-	@IBInspectable public override var textColor: UIColor? {
+	@IBInspectable
+    open override var textColor: UIColor? {
 		didSet {
 			textLayer.textColor = textColor
 		}
@@ -67,7 +69,7 @@ public class MaterialLabel : UILabel {
 	/**
 	:name:	font
 	*/
-	public override var font: UIFont! {
+	open override var font: UIFont! {
 		didSet {
 			textLayer.fontType = font
 		}
@@ -76,7 +78,7 @@ public class MaterialLabel : UILabel {
 	/**
 	:name:	textAlignment
 	*/
-	public override var textAlignment: NSTextAlignment {
+	open override var textAlignment: NSTextAlignment {
 		didSet {
 			textLayer.textAlignment = textAlignment
 		}
@@ -85,7 +87,8 @@ public class MaterialLabel : UILabel {
 	/**
 	:name:	wrapped
 	*/
-	@IBInspectable public var wrapped: Bool {
+	@IBInspectable
+    open var wrapped: Bool {
 		didSet {
 			textLayer.isWrapped = wrapped
 		}
@@ -94,7 +97,8 @@ public class MaterialLabel : UILabel {
 	/**
 	:name:	contentsScale
 	*/
-	@IBInspectable public var contentsScale: CGFloat {
+	@IBInspectable
+    open var contentsScale: CGFloat {
 		didSet {
 			textLayer.contentsScale = contentsScale
 		}
@@ -103,7 +107,7 @@ public class MaterialLabel : UILabel {
 	/**
 	:name:	lineBreakMode
 	*/
-	public override var lineBreakMode: NSLineBreakMode {
+	open override var lineBreakMode: NSLineBreakMode {
 		didSet {
 			textLayer.lineBreakMode = lineBreakMode
 		}
@@ -139,14 +143,14 @@ public class MaterialLabel : UILabel {
 	/**
 	:name:	stringSize
 	*/
-	public func stringSize(constrainedToWidth width: Double) -> CGSize {
+	open func stringSize(constrainedToWidth width: Double) -> CGSize {
 		return textLayer.stringSize(constrainedToWidth: width)
 	}
 	
 	/**
 	:name:	prepareView
 	*/
-	public func prepareView() {
+	open func prepareView() {
 		contentScaleFactor = Device.scale
 		textAlignment = .left
 	}

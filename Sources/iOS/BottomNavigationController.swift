@@ -60,23 +60,23 @@ public enum BottomNavigationTransitionAnimation: Int {
 }
 
 @IBDesignable
-public class BottomNavigationController : UITabBarController, UITabBarControllerDelegate {
+open class BottomNavigationController : UITabBarController, UITabBarControllerDelegate {
 	/// The transition animation to use when selecting a new tab.
-	public var transitionAnimation: BottomNavigationTransitionAnimation = .fade
+	open var transitionAnimation: BottomNavigationTransitionAnimation = .fade
 	
 	/**
-	An initializer that initializes the object with a NSCoder object.
-	- Parameter aDecoder: A NSCoder instance.
-	*/
+     An initializer that initializes the object with a NSCoder object.
+     - Parameter aDecoder: A NSCoder instance.
+     */
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
 	
 	/**
-	An initializer that initializes the object with an Optional nib and bundle.
-	- Parameter nibNameOrNil: An Optional String for the nib.
-	- Parameter bundle: An Optional NSBundle where the nib is located.
-	*/
+     An initializer that initializes the object with an Optional nib and bundle.
+     - Parameter nibNameOrNil: An Optional String for the nib.
+     - Parameter bundle: An Optional NSBundle where the nib is located.
+     */
 	public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 	}
@@ -85,17 +85,17 @@ public class BottomNavigationController : UITabBarController, UITabBarController
 		super.init(nibName: nil, bundle: nil)
 	}
 	
-	public override func viewDidLoad() {
+	open override func viewDidLoad() {
 		super.viewDidLoad()
 		prepareView()
 	}
 	
-	public override func viewWillLayoutSubviews() {
+	open override func viewWillLayoutSubviews() {
 		super.viewWillLayoutSubviews()
 		layoutSubviews()
 	}
 	
-	public func layoutSubviews() {
+	open func layoutSubviews() {
 		if let v: Array<UITabBarItem> = tabBar.items {
 			for item in v {
 				if .phone == Device.userInterfaceIdiom {
@@ -121,13 +121,13 @@ public class BottomNavigationController : UITabBarController, UITabBarController
 	}
 	
 	/**
-	Prepares the view instance when intialized. When subclassing,
-	it is recommended to override the prepareView method
-	to initialize property values and other setup operations.
-	The super.prepareView method should always be called immediately
-	when subclassing.
-	*/
-	public func prepareView() {
+     Prepares the view instance when intialized. When subclassing,
+     it is recommended to override the prepareView method
+     to initialize property values and other setup operations.
+     The super.prepareView method should always be called immediately
+     when subclassing.
+     */
+	open func prepareView() {
 		view.clipsToBounds = true
 		view.contentScaleFactor = Device.scale
 		delegate = self
@@ -135,7 +135,7 @@ public class BottomNavigationController : UITabBarController, UITabBarController
 	}
 	
 	/// Handles transitions when tabBarItems are pressed.
-	public func tabBarController(_ tabBarController: UITabBarController, animationControllerForTransitionFrom fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+	open func tabBarController(_ tabBarController: UITabBarController, animationControllerForTransitionFrom fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
 		let fVC: UIViewController? = fromVC
 		let tVC: UIViewController? = toVC
 		if nil == fVC || nil == tVC {

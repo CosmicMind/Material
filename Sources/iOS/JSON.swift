@@ -30,79 +30,79 @@
 
 import Foundation
 
-public class JSON: Equatable, CustomStringConvertible {
+open class JSON: Equatable, CustomStringConvertible {
     /**
      :name:	description
      */
-    public var description: String {
+    open var description: String {
         return JSON.stringify(object) ?? "{}"
     }
     
     /**
      :name:	object
      */
-    public private(set) var object: Any
+    open private(set) var object: Any
     
     /**
      :name:	asArray
      */
-    public var asArray: [Any]? {
+    open var asArray: [Any]? {
         return object as? [Any]
     }
     
     /**
      :name:	asDictionary
      */
-    public var asDictionary: [String: Any]? {
+    open var asDictionary: [String: Any]? {
         return object as? [String: Any]
     }
     
     /**
      :name:	asString
      */
-    public var asString: String? {
+    open var asString: String? {
         return object as? String
     }
     
     /**
      :name:	asInt
      */
-    public var asInt: Int? {
+    open var asInt: Int? {
         return object as? Int
     }
     
     /**
      :name:	asDouble
      */
-    public var asDouble: Double? {
+    open var asDouble: Double? {
         return object as? Double
     }
     
     /**
      :name:	asFloat
      */
-    public var asFloat: Float? {
+    open var asFloat: Float? {
         return object as? Float
     }
     
     /**
      :name:	asBool
      */
-    public var asBool: Bool? {
+    open var asBool: Bool? {
         return object as? Bool
     }
     
     /**
      :name:	asNSData
      */
-    public var asNSData: Data? {
+    open var asNSData: Data? {
         return JSON.serialize(object: object)
     }
     
     /**
      :name:	parse
      */
-    public class func parse(_ data: Data, options: JSONSerialization.ReadingOptions = .allowFragments) -> JSON? {
+    open class func parse(_ data: Data, options: JSONSerialization.ReadingOptions = .allowFragments) -> JSON? {
         if let object = try? JSONSerialization.jsonObject(with: data, options: options) {
             return JSON(object)
         }
@@ -112,7 +112,7 @@ public class JSON: Equatable, CustomStringConvertible {
     /**
      :name:	parse
      */
-    public class func parse(_ json: String) -> JSON? {
+    open class func parse(_ json: String) -> JSON? {
         guard let data = json.data(using: String.Encoding.utf8) else {
             return nil
         }
@@ -122,14 +122,14 @@ public class JSON: Equatable, CustomStringConvertible {
     /**
      :name:	serialize
      */
-    public class func serialize(object: Any) -> Data? {
+    open class func serialize(object: Any) -> Data? {
         return try? JSONSerialization.data(withJSONObject: object, options: [])
     }
     
     /**
      :name:	stringify
      */
-    public class func stringify(_ object: Any) -> String? {
+    open class func stringify(_ object: Any) -> String? {
         if let o = object as? JSON {
             return stringify(o.object)
         } else if let data = JSON.serialize(object: object) {
@@ -154,7 +154,7 @@ public class JSON: Equatable, CustomStringConvertible {
     /**
      :name:	operator [0...count - 1]
      */
-    public subscript(index: Int) -> JSON? {
+    open subscript(index: Int) -> JSON? {
         if let item = asArray {
             return JSON(item[index])
         }
@@ -164,7 +164,7 @@ public class JSON: Equatable, CustomStringConvertible {
     /**
      :name:	operator [key 1...key n]
      */
-    public subscript(key: String) -> JSON? {
+    open subscript(key: String) -> JSON? {
         if let item = asDictionary {
             if nil != item[key] {
                 return JSON(item[key]!)

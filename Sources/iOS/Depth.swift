@@ -107,26 +107,3 @@ public func DepthPresetToValue(preset: DepthPreset) -> Depth {
         return Depth(offset: Offset(horizontal: 0, vertical: 5), opacity: 0.3, radius: 5)
 	}
 }
-
-/// Grid extension for UIView.
-extension UIView {
-    /// A preset value for Depth.
-    public var depthPreset: DepthPreset {
-        get {
-            return material.depthPreset
-        }
-        set(value) {
-            material.depthPreset = value
-        }
-    }
-    
-    /// Grid reference.
-    public var depth: Depth {
-        get {
-            return material.depth
-        }
-        set(value) {
-            material.depth = value
-        }
-    }
-}

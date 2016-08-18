@@ -68,7 +68,7 @@ public protocol ToolbarControllerDelegate : MaterialDelegate {
 }
 
 @objc(ToolbarController)
-public class ToolbarController: RootController {
+open class ToolbarController: RootController {
 	/// Internal reference to the floatingViewController.
 	private var internalFloatingViewController: UIViewController?
 	
@@ -79,7 +79,7 @@ public class ToolbarController: RootController {
 	public weak var delegate: ToolbarControllerDelegate?
 	
 	/// A floating UIViewController.
-	public var floatingViewController: UIViewController? {
+	open var floatingViewController: UIViewController? {
 		get {
 			return internalFloatingViewController
 		}
@@ -156,11 +156,11 @@ public class ToolbarController: RootController {
 	}
 	
 	/**
-	To execute in the order of the layout chain, override this
-	method. LayoutSubviews should be called immediately, unless you
-	have a certain need.
-	*/
-	public override func layoutSubviews() {
+     To execute in the order of the layout chain, override this
+     method. LayoutSubviews should be called immediately, unless you
+     have a certain need.
+     */
+	open override func layoutSubviews() {
 		super.layoutSubviews()
 		if let v: Toolbar = toolbar {
 			v.grid.layoutEdgeInsets.top = .phone == Device.userInterfaceIdiom && Device.isLandscape ? 0 : 20
@@ -178,13 +178,13 @@ public class ToolbarController: RootController {
 	}
 	
 	/**
-	Prepares the view instance when intialized. When subclassing,
-	it is recommended to override the prepareView method
-	to initialize property values and other setup operations.
-	The super.prepareView method should always be called immediately
-	when subclassing.
-	*/
-	public override func prepareView() {
+     Prepares the view instance when intialized. When subclassing,
+     it is recommended to override the prepareView method
+     to initialize property values and other setup operations.
+     The super.prepareView method should always be called immediately
+     when subclassing.
+     */
+	open override func prepareView() {
 		super.prepareView()
 		prepareToolbar()
 	}

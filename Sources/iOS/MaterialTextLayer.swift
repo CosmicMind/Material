@@ -30,7 +30,7 @@
 
 import UIKit
 
-public class MaterialTextLayer : CATextLayer {
+public class MaterialTextLayer: CATextLayer {
 	/**
 	:name:	fontType
 	*/
@@ -109,54 +109,6 @@ public class MaterialTextLayer : CATextLayer {
 			case .byTruncatingMiddle: // Truncate middle of line:  "ab...yz"
 				truncationMode = kCATruncationMiddle
 			}
-		}
-	}
-	
-	/**
-	:name:	x
-	*/
-	@IBInspectable public var x: CGFloat {
-		get {
-			return frame.origin.x
-		}
-		set(value) {
-			frame.origin.x = value
-		}
-	}
-	
-	/**
-	:name:	y
-	*/
-	@IBInspectable public var y: CGFloat {
-		get {
-			return frame.origin.y
-		}
-		set(value) {
-			frame.origin.y = value
-		}
-	}
-	
-	/**
-	:name:	width
-	*/
-	@IBInspectable public var width: CGFloat {
-		get {
-			return frame.size.width
-		}
-		set(value) {
-			frame.size.width = value
-		}
-	}
-	
-	/**
-	:name:	height
-	*/
-	@IBInspectable public var height: CGFloat {
-		get {
-			return frame.size.height
-		}
-		set(value) {
-			frame.size.height = value
 		}
 	}
 	

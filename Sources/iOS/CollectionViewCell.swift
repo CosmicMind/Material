@@ -63,7 +63,8 @@ open class CollectionViewCell: UICollectionViewCell {
 	property. Images should not be set to the backing layer's contents
 	property to avoid conflicts when using clipsToBounds.
 	*/
-	@IBInspectable open var image: UIImage? {
+	@IBInspectable
+    open var image: UIImage? {
 		didSet {
 			visualLayer.contents = image?.cgImage
 		}
@@ -75,7 +76,8 @@ open class CollectionViewCell: UICollectionViewCell {
 	much greater flexibility than the contentsGravity property in
 	terms of how the image is cropped and stretched.
 	*/
-	@IBInspectable open var contentsRect: CGRect {
+	@IBInspectable
+    open var contentsRect: CGRect {
 		get {
 			return visualLayer.contentsRect
 		}
@@ -88,7 +90,8 @@ open class CollectionViewCell: UICollectionViewCell {
 	A CGRect that defines a stretchable region inside the visualLayer
 	with a fixed border around the edge.
 	*/
-	@IBInspectable open var contentsCenter: CGRect {
+	@IBInspectable
+    open var contentsCenter: CGRect {
 		get {
 			return visualLayer.contentsCenter
 		}
@@ -102,7 +105,8 @@ open class CollectionViewCell: UICollectionViewCell {
 	dimensions of the visualLayer's contents property and the size
 	of the view. By default, this value is set to the Device.scale.
 	*/
-	@IBInspectable open var contentsScale: CGFloat {
+	@IBInspectable
+    open var contentsScale: CGFloat {
 		get {
 			return visualLayer.contentsScale
 		}
@@ -119,7 +123,8 @@ open class CollectionViewCell: UICollectionViewCell {
 	}
 	
 	/// Determines how content should be aligned within the visualLayer's bounds.
-	@IBInspectable open var contentsGravity: String {
+	@IBInspectable
+    open var contentsGravity: String {
 		get {
 			return visualLayer.contentsGravity
 		}
@@ -139,7 +144,8 @@ open class CollectionViewCell: UICollectionViewCell {
 	}
 	
 	/// A wrapper around grid.contentInset.
-	@IBInspectable open var contentInset: EdgeInsets {
+	@IBInspectable
+    open var contentInset: EdgeInsets {
 		get {
 			return contentView.grid.contentEdgeInsets
 		}
@@ -156,7 +162,8 @@ open class CollectionViewCell: UICollectionViewCell {
 	}
 	
 	/// A wrapper around grid.interimSpace.
-	@IBInspectable open var interimSpace: InterimSpace {
+	@IBInspectable
+    open var interimSpace: InterimSpace {
 		get {
 			return contentView.grid.interimSpace
 		}
@@ -166,7 +173,8 @@ open class CollectionViewCell: UICollectionViewCell {
 	}
 	
 	/// A property that accesses the backing layer's backgroundColor.
-	@IBInspectable open override var backgroundColor: UIColor? {
+	@IBInspectable
+    open override var backgroundColor: UIColor? {
 		didSet {
 			layer.backgroundColor = backgroundColor?.cgColor
 		}
@@ -262,12 +270,12 @@ open class CollectionViewCell: UICollectionViewCell {
     }
 	
 	/**
-	Prepares the view instance when intialized. When subclassing,
-	it is recommended to override the prepareView method
-	to initialize property values and other setup operations.
-	The super.prepareView method should always be called immediately
-	when subclassing.
-	*/
+     Prepares the view instance when intialized. When subclassing,
+     it is recommended to override the prepareView method
+     to initialize property values and other setup operations.
+     The super.prepareView method should always be called immediately
+     when subclassing.
+     */
 	open func prepareView() {
 		contentScaleFactor = Device.scale
 		prepareVisualLayer()

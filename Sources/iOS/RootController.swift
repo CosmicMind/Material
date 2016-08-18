@@ -31,9 +31,9 @@
 import UIKit
 
 @IBDesignable
-public class RootController: UIViewController {
+open class RootController: UIViewController {
 	/// Device status bar style.
-	public var statusBarStyle: UIStatusBarStyle {
+	open var statusBarStyle: UIStatusBarStyle {
 		get {
 			return Device.statusBarStyle
 		}
@@ -43,10 +43,11 @@ public class RootController: UIViewController {
 	}
 	
 	/**
-	A Boolean property used to enable and disable interactivity
-	with the rootViewController.
-	*/
-	@IBInspectable public var isUserInteractionEnabled: Bool {
+     A Boolean property used to enable and disable interactivity
+     with the rootViewController.
+     */
+	@IBInspectable
+    open var isUserInteractionEnabled: Bool {
 		get {
 			return rootViewController.view.isUserInteractionEnabled
 		}
@@ -56,64 +57,64 @@ public class RootController: UIViewController {
 	}
 	
 	/**
-	A UIViewController property that references the active
-	main UIViewController. To swap the rootViewController, it
-	is recommended to use the transitionFromRootViewController
-	helper method.
-	*/
+     A UIViewController property that references the active
+     main UIViewController. To swap the rootViewController, it
+     is recommended to use the transitionFromRootViewController
+     helper method.
+     */
 	public internal(set) var rootViewController: UIViewController!
 	
 	/**
-	An initializer that initializes the object with a NSCoder object.
-	- Parameter aDecoder: A NSCoder instance.
-	*/
+     An initializer that initializes the object with a NSCoder object.
+     - Parameter aDecoder: A NSCoder instance.
+     */
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 		prepareView()
 	}
 	
 	/**
-	An initializer that initializes the object with an Optional nib and bundle.
-	- Parameter nibNameOrNil: An Optional String for the nib.
-	- Parameter bundle: An Optional NSBundle where the nib is located.
-	*/
+     An initializer that initializes the object with an Optional nib and bundle.
+     - Parameter nibNameOrNil: An Optional String for the nib.
+     - Parameter bundle: An Optional NSBundle where the nib is located.
+     */
 	public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 		prepareView()
 	}
 	
 	/**
-	An initializer for the BarController.
-	- Parameter rootViewController: The main UIViewController.
-	*/
+     An initializer for the BarController.
+     - Parameter rootViewController: The main UIViewController.
+     */
 	public init(rootViewController: UIViewController) {
 		super.init(nibName: nil, bundle: nil)
 		self.rootViewController = rootViewController
 		prepareView()
 	}
 	
-	public override func viewWillLayoutSubviews() {
+	open override func viewWillLayoutSubviews() {
 		super.viewWillLayoutSubviews()
 		layoutSubviews()
 	}
 	
 	/**
-	A method to swap rootViewController objects.
-	- Parameter toViewController: The UIViewController to swap
-	with the active rootViewController.
-	- Parameter duration: A TimeInterval that sets the
-	animation duration of the transition.
-	- Parameter options: UIViewAnimationOptions thst are used
-	when animating the transition from the active rootViewController
-	to the toViewController.
-	- Parameter animations: An animation block that is executed during
-	the transition from the active rootViewController
-	to the toViewController.
-	- Parameter completion: A completion block that is execited after
-	the transition animation from the active rootViewController
-	to the toViewController has completed.
-	*/
-	public func transitionFromRootViewController(toViewController: UIViewController, duration: TimeInterval = 0.5, options: UIViewAnimationOptions = [], animations: (() -> Void)? = nil, completion: ((Bool) -> Void)? = nil) {
+     A method to swap rootViewController objects.
+     - Parameter toViewController: The UIViewController to swap
+     with the active rootViewController.
+     - Parameter duration: A TimeInterval that sets the
+     animation duration of the transition.
+     - Parameter options: UIViewAnimationOptions thst are used
+     when animating the transition from the active rootViewController
+     to the toViewController.
+     - Parameter animations: An animation block that is executed during
+     the transition from the active rootViewController
+     to the toViewController.
+     - Parameter completion: A completion block that is execited after
+     the transition animation from the active rootViewController
+     to the toViewController has completed.
+     */
+	open func transitionFromRootViewController(toViewController: UIViewController, duration: TimeInterval = 0.5, options: UIViewAnimationOptions = [], animations: (() -> Void)? = nil, completion: ((Bool) -> Void)? = nil) {
 		rootViewController.willMove(toParentViewController: nil)
 		addChildViewController(toViewController)
 		toViewController.view.frame = rootViewController.view.frame
@@ -136,20 +137,20 @@ public class RootController: UIViewController {
 	}
 	
 	/**
-	To execute in the order of the layout chain, override this
-	method. LayoutSubviews should be called immediately, unless you
-	have a certain need.
-	*/
-	public func layoutSubviews() {}
+     To execute in the order of the layout chain, override this
+     method. LayoutSubviews should be called immediately, unless you
+     have a certain need.
+     */
+	open func layoutSubviews() {}
 	
 	/**
-	Prepares the view instance when intialized. When subclassing,
-	it is recommended to override the prepareView method
-	to initialize property values and other setup operations.
-	The super.prepareView method should always be called immediately
-	when subclassing.
-	*/
-	public func prepareView() {
+     Prepares the view instance when intialized. When subclassing,
+     it is recommended to override the prepareView method
+     to initialize property values and other setup operations.
+     The super.prepareView method should always be called immediately
+     when subclassing.
+     */
+	open func prepareView() {
 		view.clipsToBounds = true
 		view.contentScaleFactor = Device.scale
 		prepareRootViewController()

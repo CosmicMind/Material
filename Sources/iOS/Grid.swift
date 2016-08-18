@@ -42,7 +42,7 @@ public class GridAxis {
     unowned var grid: Grid
     
     /// The direction the grid lays its views out.
-    public var direction: GridAxisDirection = .horizontal {
+    open var direction: GridAxisDirection = .horizontal {
         didSet {
             grid.reload()
         }
