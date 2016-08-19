@@ -30,7 +30,7 @@
 
 import UIKit
 
-public class BottomNavigationFadeAnimatedTransitioning : NSObject, UIViewControllerAnimatedTransitioning {
+public class BottomNavigationFadeAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning {
 	public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
 		let fromView : UIView = transitionContext.view(forKey: UITransitionContextViewKey.from)!
 		let toView : UIView = transitionContext.view(forKey: UITransitionContextViewKey.to)!

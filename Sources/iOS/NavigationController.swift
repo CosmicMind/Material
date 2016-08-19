@@ -31,7 +31,7 @@
 import UIKit
 
 @IBDesignable
-open class NavigationController : UINavigationController, UIGestureRecognizerDelegate {
+open class NavigationController: UINavigationController, UIGestureRecognizerDelegate {
 	/**
      An initializer that initializes the object with a NSCoder object.
      - Parameter aDecoder: A NSCoder instance.

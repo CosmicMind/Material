@@ -30,24 +30,6 @@
 
 import UIKit
 
-//extension UIViewController {
-//    /**
-//     A convenience property that provides access to the TabBarController.
-//     This is the recommended method of accessing the TabBarController
-//     through child UIViewControllers.
-//     */
-//    public var tabBarController: TabBarController? {
-//        var viewController: UIViewController? = self
-//        while nil != viewController {
-//            if viewController is TabBarController {
-//                return viewController as? TabBarController
-//            }
-//            viewController = viewController?.parent
-//        }
-//        return nil
-//    }
-//}
-
 @objc(TabBarControllerDelegate)
 public protocol TabBarControllerDelegate: MaterialDelegate {
 
