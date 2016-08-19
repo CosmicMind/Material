@@ -51,7 +51,50 @@ open class TabBar: View {
 	open var willRenderView: Bool {
 		return 0 < width && 0 < height && nil != superview
 	}
+    
+    /// A preset wrapper around contentInset.
+    open var contentEdgeInsetsPreset: EdgeInsetsPreset {
+        get {
+            return grid.contentEdgeInsetsPreset
+        }
+        set(value) {
+            grid.contentEdgeInsetsPreset = value
+        }
+    }
+    
+    /// A wrapper around grid.contentInset.
+    @IBInspectable
+    open var contentInset: EdgeInsets {
+        get {
+            return grid.contentEdgeInsets
+        }
+        set(value) {
+            grid.contentEdgeInsets = value
+        }
+    }
+    
+    /// A preset wrapper around interimSpace.
+    open var interimSpacePreset: InterimSpacePreset = .none {
+        didSet {
+            interimSpace = InterimSpacePresetToValue(preset: interimSpacePreset)
+        }
+    }
+    
+    /// A wrapper around grid.interimSpace.
+    @IBInspectable
+    open var interimSpace: InterimSpace {
+        get {
+            return grid.interimSpace
+        }
+        set(value) {
+            grid.interimSpace = value
+        }
+    }
 	
+    open override var intrinsicContentSize: CGSize {
+        return CGSize(width: width, height: 44)
+    }
+    
 	/// Buttons.
 	open var buttons: [UIButton]? {
 		didSet {
@@ -110,9 +153,10 @@ open class TabBar: View {
      */
 	open override func prepareView() {
 		super.prepareView()
-		autoresizingMask = .flexibleWidth
-		contentScaleFactor = Device.scale
-		prepareLine()
+        interimSpacePreset = .interimSpace1
+        contentEdgeInsetsPreset = .square1
+        autoresizingMask = .flexibleWidth
+        prepareLine()
 	}
 	
 	// Prepares the line.

@@ -49,7 +49,7 @@ extension UIViewController {
 }
 
 @objc(ToolbarControllerDelegate)
-public protocol ToolbarControllerDelegate : MaterialDelegate {
+public protocol ToolbarControllerDelegate: MaterialDelegate {
 	/// Delegation method that executes when the floatingViewController will open.
 	@objc
     optional func toolbarControllerWillOpenFloatingViewController(toolbarController: ToolbarController)
@@ -73,7 +73,7 @@ open class ToolbarController: RootController {
 	private var internalFloatingViewController: UIViewController?
 	
 	/// Reference to the Toolbar.
-	public private(set) var toolbar: Toolbar!
+	open internal(set) var toolbar: Toolbar!
 	
 	/// Delegation handler.
 	public weak var delegate: ToolbarControllerDelegate?
@@ -162,19 +162,21 @@ open class ToolbarController: RootController {
      */
 	open override func layoutSubviews() {
 		super.layoutSubviews()
-		if let v: Toolbar = toolbar {
-			v.grid.layoutEdgeInsets.top = .phone == Device.userInterfaceIdiom && Device.isLandscape ? 0 : 20
-			
-			let h: CGFloat = Device.height
-			let w: CGFloat = Device.width
-			let p: CGFloat = v.intrinsicContentSize.height + v.grid.layoutEdgeInsets.top + v.grid.layoutEdgeInsets.bottom
-			
-			v.width = w + v.grid.layoutEdgeInsets.left + v.grid.layoutEdgeInsets.right
-			v.height = p
-			
-			rootViewController.view.frame.origin.y = p
-			rootViewController.view.frame.size.height = h - p
-		}
+		guard let v = toolbar else {
+            return
+        }
+        
+        v.grid.layoutEdgeInsets.top = .phone == Device.userInterfaceIdiom && Device.isLandscape ? 0 : 20
+        
+        let h = Device.height
+        let w = Device.width
+        let p = v.intrinsicContentSize.height + v.grid.layoutEdgeInsets.top + v.grid.layoutEdgeInsets.bottom
+        
+        v.width = w + v.grid.layoutEdgeInsets.left + v.grid.layoutEdgeInsets.right
+        v.height = p
+        
+        rootViewController.view.frame.origin.y = p
+        rootViewController.view.frame.size.height = h - p
 	}
 	
 	/**
@@ -186,11 +188,11 @@ open class ToolbarController: RootController {
      */
 	open override func prepareView() {
 		super.prepareView()
-		prepareToolbar()
+		prepareTabBar()
 	}
 	
 	/// Prepares the Toolbar.
-	private func prepareToolbar() {
+	private func prepareTabBar() {
 		if nil == toolbar {
 			toolbar = Toolbar()
 			toolbar.zPosition = 1000

@@ -38,9 +38,7 @@ open class PageController: UIPageViewController {
      The super.prepareView method should always be called immediately
      when subclassing.
      */
-    open override func prepareView() {
-        autoresizingMask = .flexibleWidth
-        contentScaleFactor = Device.scale
-        prepareLine()
+    open func prepareView() {
+        
     }
 }

@@ -30,70 +30,79 @@
 
 import UIKit
 
-extension UIViewController {
-	/**
-	A convenience property that provides access to the SearchBarController.
-	This is the recommended method of accessing the SearchBarController
-	through child UIViewControllers.
-	*/
-	public var searchBarController: SearchBarController? {
-		var viewController: UIViewController? = self
-		while nil != viewController {
-			if viewController is SearchBarController {
-				return viewController as? SearchBarController
-			}
-			viewController = viewController?.parent
-		}
-		return nil
-	}
+//extension UIViewController {
+//    /**
+//     A convenience property that provides access to the TabBarController.
+//     This is the recommended method of accessing the TabBarController
+//     through child UIViewControllers.
+//     */
+//    public var tabBarController: TabBarController? {
+//        var viewController: UIViewController? = self
+//        while nil != viewController {
+//            if viewController is TabBarController {
+//                return viewController as? TabBarController
+//            }
+//            viewController = viewController?.parent
+//        }
+//        return nil
+//    }
+//}
+
+@objc(TabBarControllerDelegate)
+public protocol TabBarControllerDelegate: MaterialDelegate {
+
 }
 
-open class SearchBarController: RootController {
-	/// Reference to the SearchBar.
-	open internal(set) var searchBar: SearchBar!
-	
-	/**
+@objc(TabBarController)
+open class TabBarController: RootController {
+    /// Reference to the TabBar.
+    open internal(set) var tabBar: TabBar!
+    
+    /// Delegation handler.
+    public weak var delegate: TabBarControllerDelegate?
+    
+    /**
      To execute in the order of the layout chain, override this
      method. LayoutSubviews should be called immediately, unless you
      have a certain need.
      */
-	open override func layoutSubviews() {
-		super.layoutSubviews()
-        guard let v = searchBar else {
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        guard let v = tabBar else {
             return
         }
-        
-        v.grid.layoutEdgeInsets.top = .phone == Device.userInterfaceIdiom && Device.isLandscape ? 0 : 20
         
         let h = Device.height
         let w = Device.width
         let p = v.intrinsicContentSize.height + v.grid.layoutEdgeInsets.top + v.grid.layoutEdgeInsets.bottom
+        let y = h - p
         
+        v.y = y
         v.width = w + v.grid.layoutEdgeInsets.left + v.grid.layoutEdgeInsets.right
         v.height = p
         
-        rootViewController.view.frame.origin.y = p
-        rootViewController.view.frame.size.height = h - p
-	}
-	
-	/**
+        rootViewController.view.frame.origin.y = 0
+        rootViewController.view.frame.size.height = y
+    }
+    
+    /**
      Prepares the view instance when intialized. When subclassing,
      it is recommended to override the prepareView method
      to initialize property values and other setup operations.
      The super.prepareView method should always be called immediately
      when subclassing.
      */
-	open override func prepareView() {
-		super.prepareView()
-		prepareSearchBar()
-	}
-	
-	/// Prepares the searchBar.
-	private func prepareSearchBar() {
-		if nil == searchBar {
-			searchBar = SearchBar()
-			searchBar.zPosition = 1000
-			view.addSubview(searchBar)
-		}
-	}
+    open override func prepareView() {
+        super.prepareView()
+        prepareTabBar()
+    }
+    
+    /// Prepares the tabBar.
+    private func prepareTabBar() {
+        if nil == tabBar {
+            tabBar = TabBar()
+            tabBar.zPosition = 1000
+            view.addSubview(tabBar)
+        }
+    }
 }

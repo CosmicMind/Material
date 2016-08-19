@@ -47,7 +47,8 @@ open class ControlView: View {
 	}
 	
 	/// A wrapper around grid.contentInset.
-	@IBInspectable open var contentInset: EdgeInsets {
+	@IBInspectable
+    open var contentInset: EdgeInsets {
 		get {
 			return grid.contentEdgeInsets
 		}
@@ -64,7 +65,8 @@ open class ControlView: View {
 	}
 	
 	/// A wrapper around grid.interimSpace.
-	@IBInspectable open var interimSpace: InterimSpace {
+	@IBInspectable
+    open var interimSpace: InterimSpace {
 		get {
 			return grid.interimSpace
 		}
@@ -222,7 +224,6 @@ open class ControlView: View {
 		interimSpacePreset = .interimSpace1
 		contentEdgeInsetsPreset = .square1
 		autoresizingMask = .flexibleWidth
-		isShadowPathAutoSizing = false
 		prepareContentView()
 	}
 	
