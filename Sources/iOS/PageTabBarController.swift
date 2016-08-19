@@ -32,15 +32,15 @@ import UIKit
 
 extension UIViewController {
     /**
-     A convenience property that provides access to the PageBarController.
-     This is the recommended method of accessing the PageBarController
+     A convenience property that provides access to the PageTabBarController.
+     This is the recommended method of accessing the PageTabBarController
      through child UIViewControllers.
      */
-    public var pageBarController: PageBarController? {
+    public var pageTabBarController: PageTabBarController? {
         var viewController: UIViewController? = self
         while nil != viewController {
-            if viewController is PageBarController {
-                return viewController as? PageBarController
+            if viewController is PageTabBarController {
+                return viewController as? PageTabBarController
             }
             viewController = viewController?.parent
         }
@@ -48,18 +48,18 @@ extension UIViewController {
     }
 }
 
-@objc(PageBarControllerDelegate)
-public protocol PageBarControllerDelegate: MaterialDelegate {
+@objc(PageTabBarControllerDelegate)
+public protocol PageTabBarControllerDelegate: MaterialDelegate {
 
 }
 
-@objc(PageBarController)
-open class PageBarController: RootController {
-    /// Reference to the PageBar.
-    open internal(set) var pageBar: PageBar!
+@objc(PageTabBarController)
+open class PageTabBarController: RootController {
+    /// Reference to the TabBar.
+    open internal(set) var tabBar: TabBar!
     
     /// Delegation handler.
-    public weak var delegate: PageBarControllerDelegate?
+    public weak var delegate: PageTabBarControllerDelegate?
     
     /**
      To execute in the order of the layout chain, override this
@@ -68,7 +68,7 @@ open class PageBarController: RootController {
      */
     open override func layoutSubviews() {
         super.layoutSubviews()
-        guard let v = pageBar else {
+        guard let v = tabBar else {
             return
         }
         
@@ -94,15 +94,15 @@ open class PageBarController: RootController {
      */
     open override func prepareView() {
         super.prepareView()
-        preparePageBar()
+        prepareTabBar()
     }
     
-    /// Prepares the pageBar.
-    private func preparePageBar() {
-        if nil == pageBar {
-            pageBar = PageBar()
-            pageBar.zPosition = 1000
-            view.addSubview(pageBar)
+    /// Prepares the tabBar.
+    private func prepareTabBar() {
+        if nil == tabBar {
+            tabBar = TabBar()
+            tabBar.zPosition = 1000
+            view.addSubview(tabBar)
         }
     }
 }
