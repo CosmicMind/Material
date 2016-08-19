@@ -30,18 +30,36 @@
 
 import UIKit
 
-@objc(TabBarControllerDelegate)
-public protocol TabBarControllerDelegate: MaterialDelegate {
+extension UIViewController {
+    /**
+     A convenience property that provides access to the PageBarController.
+     This is the recommended method of accessing the PageBarController
+     through child UIViewControllers.
+     */
+    public var pageBarController: PageBarController? {
+        var viewController: UIViewController? = self
+        while nil != viewController {
+            if viewController is PageBarController {
+                return viewController as? PageBarController
+            }
+            viewController = viewController?.parent
+        }
+        return nil
+    }
+}
+
+@objc(PageBarControllerDelegate)
+public protocol PageBarControllerDelegate: MaterialDelegate {
 
 }
 
-@objc(TabBarController)
-open class TabBarController: RootController {
-    /// Reference to the TabBar.
-    open internal(set) var tabBar: TabBar!
+@objc(PageBarController)
+open class PageBarController: RootController {
+    /// Reference to the PageBar.
+    open internal(set) var pageBar: PageBar!
     
     /// Delegation handler.
-    public weak var delegate: TabBarControllerDelegate?
+    public weak var delegate: PageBarControllerDelegate?
     
     /**
      To execute in the order of the layout chain, override this
@@ -50,7 +68,7 @@ open class TabBarController: RootController {
      */
     open override func layoutSubviews() {
         super.layoutSubviews()
-        guard let v = tabBar else {
+        guard let v = pageBar else {
             return
         }
         
@@ -76,15 +94,15 @@ open class TabBarController: RootController {
      */
     open override func prepareView() {
         super.prepareView()
-        prepareTabBar()
+        preparePageBar()
     }
     
-    /// Prepares the tabBar.
-    private func prepareTabBar() {
-        if nil == tabBar {
-            tabBar = TabBar()
-            tabBar.zPosition = 1000
-            view.addSubview(tabBar)
+    /// Prepares the pageBar.
+    private func preparePageBar() {
+        if nil == pageBar {
+            pageBar = PageBar()
+            pageBar.zPosition = 1000
+            view.addSubview(pageBar)
         }
     }
 }

@@ -32,10 +32,10 @@ import UIKit
 
 extension UIViewController {
 	/**
-	A convenience property that provides access to the SearchBarController.
-	This is the recommended method of accessing the SearchBarController
-	through child UIViewControllers.
-	*/
+     A convenience property that provides access to the SearchBarController.
+     This is the recommended method of accessing the SearchBarController
+     through child UIViewControllers.
+     */
 	public var searchBarController: SearchBarController? {
 		var viewController: UIViewController? = self
 		while nil != viewController {

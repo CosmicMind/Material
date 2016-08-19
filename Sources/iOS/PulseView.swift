@@ -35,10 +35,12 @@ open class PulseView: View {
 	open private(set) lazy var pulseLayers = [CAShapeLayer]()
 	
 	/// The opcaity value for the pulse animation.
-	@IBInspectable open var pulseOpacity: CGFloat = 0.25
+	@IBInspectable
+    open var pulseOpacity: CGFloat = 0.25
 	
 	/// The color of the pulse effect.
-	@IBInspectable open var pulseColor = Color.grey.base
+	@IBInspectable
+    open var pulseColor = Color.grey.base
 	
 	/// The type of PulseAnimation.
 	open var pulseAnimation: PulseAnimation = .pointWithBacking

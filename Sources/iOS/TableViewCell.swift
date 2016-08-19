@@ -31,59 +31,60 @@
 import UIKit
 
 @IBDesignable
-public class MaterialTableViewCell: UITableViewCell {
+open class TableViewCell: UITableViewCell {
 	/**
-	A CAShapeLayer used to manage elements that would be affected by
-	the clipToBounds property of the backing layer. For example, this
-	allows the dropshadow effect on the backing layer, while clipping
-	the image to a desired shape within the visualLayer.
-	*/
-	public private(set) lazy var visualLayer: CAShapeLayer = CAShapeLayer()
+     A CAShapeLayer used to manage elements that would be affected by
+     the clipToBounds property of the backing layer. For example, this
+     allows the dropshadow effect on the backing layer, while clipping
+     the image to a desired shape within the visualLayer.
+     */
+	open internal(set) var visualLayer: CAShapeLayer!
 	
-	/**
-	A base delegate reference used when subclassing View.
-	*/
+	/// A base delegate reference used when subclassing View.
 	public weak var delegate: MaterialDelegate?
 	
-	/// An Array of pulse layers.
-	public private(set) lazy var pulseLayers: Array<CAShapeLayer> = Array<CAShapeLayer>()
-	
-	/// The opcaity value for the pulse animation.
-	@IBInspectable public var pulseOpacity: CGFloat = 0.25
-	
-	/// The color of the pulse effect.
-	@IBInspectable public var pulseColor: UIColor = Color.grey.base
-	
-	/// The type of PulseAnimation.
-	public var pulseAnimation: PulseAnimation = .pointWithBacking
-	
+    /// An Array of pulse layers.
+    open private(set) lazy var pulseLayers = [CAShapeLayer]()
+    
+    /// The opcaity value for the pulse animation.
+    @IBInspectable
+    open var pulseOpacity: CGFloat = 0.25
+    
+    /// The color of the pulse effect.
+    @IBInspectable
+    open var pulseColor = Color.grey.base
+    
+    /// The type of PulseAnimation.
+    open var pulseAnimation: PulseAnimation = .pointWithBacking
+    
 	/// A property that accesses the backing layer's backgroundColor.
-	@IBInspectable public override var backgroundColor: UIColor? {
+	@IBInspectable
+    open override var backgroundColor: UIColor? {
 		didSet {
 			layer.backgroundColor = backgroundColor?.cgColor
 		}
 	}
 	
 	/**
-	An initializer that initializes the object with a NSCoder object.
-	- Parameter aDecoder: A NSCoder instance.
-	*/
+     An initializer that initializes the object with a NSCoder object.
+     - Parameter aDecoder: A NSCoder instance.
+     */
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 		prepareView()
 	}
 	
 	/**
-	An initializer that initializes the object.
-	- Parameter style: A UITableViewCellStyle enum.
-	- Parameter reuseIdentifier: A String identifier.
-	*/
+     An initializer that initializes the object.
+     - Parameter style: A UITableViewCellStyle enum.
+     - Parameter reuseIdentifier: A String identifier.
+     */
 	public override init(style: UITableViewCellStyle, reuseIdentifier: String!) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		prepareView()
 	}
 	
-	public override func layoutSublayers(of layer: CALayer) {
+	open override func layoutSublayers(of layer: CALayer) {
 		super.layoutSublayers(of: layer)
 		if self.layer == layer {
             layoutShape()
@@ -91,7 +92,7 @@ public class MaterialTableViewCell: UITableViewCell {
 		}
 	}
 	
-	public override func layoutSubviews() {
+	open override func layoutSubviews() {
 		super.layoutSubviews()
 		layoutShadowPath()
 	}
@@ -118,7 +119,7 @@ public class MaterialTableViewCell: UITableViewCell {
      - Parameter touches: A set of UITouch objects.
      - Parameter event: A UIEvent object.
      */
-    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         Animation.pulseExpandAnimation(layer: layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseOpacity: pulseOpacity, point: layer.convert(touches.first!.location(in: self), from: layer), width: width, height: height, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
     }
@@ -129,7 +130,7 @@ public class MaterialTableViewCell: UITableViewCell {
      - Parameter touches: A set of UITouch objects.
      - Parameter event: A UIEvent object.
      */
-    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
         Animation.pulseContractAnimation(layer: layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
     }
@@ -140,19 +141,19 @@ public class MaterialTableViewCell: UITableViewCell {
      - Parameter touches: A set of UITouch objects.
      - Parameter event: A UIEvent object.
      */
-    public override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesCancelled(touches, with: event)
         Animation.pulseContractAnimation(layer: layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
     }
 	
 	/**
-	Prepares the view instance when intialized. When subclassing,
-	it is recommended to override the prepareView method
-	to initialize property values and other setup operations.
-	The super.prepareView method should always be called immediately
-	when subclassing.
-	*/
-	public func prepareView() {
+     Prepares the view instance when intialized. When subclassing,
+     it is recommended to override the prepareView method
+     to initialize property values and other setup operations.
+     The super.prepareView method should always be called immediately
+     when subclassing.
+     */
+	open func prepareView() {
 		selectionStyle = .none
 		separatorInset = UIEdgeInsets.zero
 		contentScaleFactor = Device.scale

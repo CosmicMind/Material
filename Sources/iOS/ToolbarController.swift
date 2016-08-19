@@ -32,10 +32,10 @@ import UIKit
 
 extension UIViewController {
 	/**
-	A convenience property that provides access to the ToolbarController.
-	This is the recommended method of accessing the ToolbarController
-	through child UIViewControllers.
-	*/
+     A convenience property that provides access to the ToolbarController.
+     This is the recommended method of accessing the ToolbarController
+     through child UIViewControllers.
+     */
 	public var toolbarController: ToolbarController? {
 		var viewController: UIViewController? = self
 		while nil != viewController {
@@ -188,11 +188,11 @@ open class ToolbarController: RootController {
      */
 	open override func prepareView() {
 		super.prepareView()
-		prepareTabBar()
+		prepareToolbar()
 	}
 	
-	/// Prepares the Toolbar.
-	private func prepareTabBar() {
+	/// Prepares the toolbar.
+	private func prepareToolbar() {
 		if nil == toolbar {
 			toolbar = Toolbar()
 			toolbar.zPosition = 1000

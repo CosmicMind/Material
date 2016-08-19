@@ -30,18 +30,18 @@
 
 import UIKit
 
-@objc(TabBarLineAlignment)
-public enum TabBarLineAlignment: Int {
+@objc(PageBarLineAlignment)
+public enum PageBarLineAlignment: Int {
 	case top
 	case bottom
 }
 
-open class TabBar: View {
+open class PageBar: View {
 	/// A reference to the line UIView.
 	open internal(set) var line: UIView!
 	
 	/// A value for the line alignment.
-	open var lineAlignment: TabBarLineAlignment = .bottom {
+	open var lineAlignment: PageBarLineAlignment = .bottom {
 		didSet {
 			layoutSubviews()
 		}
