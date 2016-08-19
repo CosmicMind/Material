@@ -73,7 +73,7 @@ public class TabBar: View {
 	public override func layoutSubviews() {
 		super.layoutSubviews()
 		if willRenderView {
-			if let v: [UIButton] = buttons {
+			if let v = buttons {
 				if 0 < v.count {
 					let columns: Int = grid.axis.columns / v.count
 					for b in v {
@@ -102,21 +102,21 @@ public class TabBar: View {
 	}
 	
 	/**
-	Prepares the view instance when intialized. When subclassing,
-	it is recommended to override the prepareView method
-	to initialize property values and other setup operations.
-	The super.prepareView method should always be called immediately
-	when subclassing.
-	*/
+     Prepares the view instance when intialized. When subclassing,
+     it is recommended to override the prepareView method
+     to initialize property values and other setup operations.
+     The super.prepareView method should always be called immediately
+     when subclassing.
+     */
 	public override func prepareView() {
 		super.prepareView()
 		autoresizingMask = .flexibleWidth
 		contentScaleFactor = Device.scale
-		prepareBottomLayer()
+		prepareLine()
 	}
 	
-	// Prepares the bottomLayer.
-	private func prepareBottomLayer() {
+	// Prepares the line.
+	private func prepareLine() {
 		line = UIView()
 		line.backgroundColor = Color.yellow.base
 		addSubview(line)
