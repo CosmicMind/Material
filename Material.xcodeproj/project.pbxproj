@@ -15,6 +15,7 @@
 		96334EF61C8B84660083986B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96334EF51C8B84660083986B /* Assets.xcassets */; };
 		963832421B88DFD80015F710 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963832361B88DFD80015F710 /* Material.framework */; };
 		963FBEFD1D669510008F8512 /* Snackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963FBEFC1D669510008F8512 /* Snackbar.swift */; };
+		963FBF051D669713008F8512 /* PageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963FBF041D669713008F8512 /* PageController.swift */; };
 		9658F2171CD6FA4700B902C1 /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9658F2161CD6FA4700B902C1 /* IconButton.swift */; };
 		9660161D1CB2ED6C00AAB661 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 966016131CB2ED6C00AAB661 /* Material.framework */; };
 		9660162A1CB2F04E00AAB661 /* Material.h in Headers */ = {isa = PBXBuildFile; fileRef = 96D88C091C1328D800B91418 /* Material.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -208,6 +209,7 @@
 		963832411B88DFD80015F710 /* Material.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Material.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		963832591B88E31A0015F710 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		963FBEFC1D669510008F8512 /* Snackbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Snackbar.swift; sourceTree = "<group>"; };
+		963FBF041D669713008F8512 /* PageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageController.swift; sourceTree = "<group>"; };
 		9658F2161CD6FA4700B902C1 /* IconButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
 		966016131CB2ED6C00AAB661 /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Material.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9660161C1CB2ED6C00AAB661 /* Material macOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Material macOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -385,6 +387,52 @@
 			name = Snackbar;
 			sourceTree = "<group>";
 		};
+		963FBF001D66964F008F8512 /* Toolbar */ = {
+			isa = PBXGroup;
+			children = (
+				96BCB79F1CB40DC500C806FE /* Toolbar.swift */,
+				96BCB7A01CB40DC500C806FE /* ToolbarController.swift */,
+			);
+			name = Toolbar;
+			sourceTree = "<group>";
+		};
+		963FBF011D6696AB008F8512 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				96BCB79A1CB40DC500C806FE /* TabBar.swift */,
+				963FBF041D669713008F8512 /* PageController.swift */,
+			);
+			name = TabBar;
+			sourceTree = "<group>";
+		};
+		963FBF021D6696D0008F8512 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				96BCB78D1CB40DC500C806FE /* Menu.swift */,
+				96BCB78E1CB40DC500C806FE /* MenuView.swift */,
+				96BCB78F1CB40DC500C806FE /* MenuController.swift */,
+			);
+			name = Menu;
+			sourceTree = "<group>";
+		};
+		963FBF031D6696EF008F8512 /* SearchBar */ = {
+			isa = PBXGroup;
+			children = (
+				96BCB7951CB40DC500C806FE /* SearchBar.swift */,
+				96BCB7961CB40DC500C806FE /* SearchBarController.swift */,
+			);
+			name = SearchBar;
+			sourceTree = "<group>";
+		};
+		963FBF061D669795008F8512 /* ControlView */ = {
+			isa = PBXGroup;
+			children = (
+				96BCB75E1CB40DC500C806FE /* ControlView.swift */,
+				96BCB7981CB40DC500C806FE /* BarView.swift */,
+			);
+			name = ControlView;
+			sourceTree = "<group>";
+		};
 		9661222C1D3EC414008BB4CB /* macOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -441,23 +489,28 @@
 				96BCB8021CB40F3B00C806FE /* Card */,
 				96BCB7FF1CB40EF000C806FE /* Capture */,
 				96BCB8051CB40F9C00C806FE /* Collection */,
+				963FBF061D669795008F8512 /* ControlView */,
 				96BCB8001CB40F0300C806FE /* Color */,
 				962A92581D42839100DBAF8E /* Data */,
 				96BCB80B1CB410CC00C806FE /* Device */,
 				96BCB80A1CB410A100C806FE /* Extension */,
 				96BCB8071CB4101C00C806FE /* Font */,
 				96BCB8081CB4105E00C806FE /* Icon */,
+				963FBF021D6696D0008F8512 /* Menu */,
 				962864601D5410FD00690B69 /* JSON */,
 				968C99431D36ECBB000074FF /* Label */,
 				96BCB80D1CB410FD00C806FE /* Layer */,
 				96BCB8041CB40F6C00C806FE /* Layout */,
 				96BCB8011CB40F1700C806FE /* Navigation */,
 				96EA9A411D4E68E60052C74D /* PhotoLibrary */,
+				963FBF031D6696EF008F8512 /* SearchBar */,
 				963FBEFB1D6694E8008F8512 /* Snackbar */,
 				967A48171D0F424B00B8CEB7 /* StatusBar */,
 				968C99421D36EC9E000074FF /* Switch */,
+				963FBF011D6696AB008F8512 /* TabBar */,
 				966ECF2B1CF4C21B00BB0BDF /* Table */,
 				96BCB80E1CB4110E00C806FE /* Text */,
+				963FBF001D66964F008F8512 /* Toolbar */,
 				96BCB8061CB40FD000C806FE /* Type */,
 				96BCB80C1CB410DD00C806FE /* View */,
 			);
@@ -506,16 +559,6 @@
 			isa = PBXGroup;
 			children = (
 				96BCB7991CB40DC500C806FE /* RootController.swift */,
-				96BCB75E1CB40DC500C806FE /* ControlView.swift */,
-				96BCB7981CB40DC500C806FE /* BarView.swift */,
-				96BCB7951CB40DC500C806FE /* SearchBar.swift */,
-				96BCB7961CB40DC500C806FE /* SearchBarController.swift */,
-				96BCB79F1CB40DC500C806FE /* Toolbar.swift */,
-				96BCB7A01CB40DC500C806FE /* ToolbarController.swift */,
-				96BCB78D1CB40DC500C806FE /* Menu.swift */,
-				96BCB78E1CB40DC500C806FE /* MenuView.swift */,
-				96BCB78F1CB40DC500C806FE /* MenuController.swift */,
-				96BCB79A1CB40DC500C806FE /* TabBar.swift */,
 				96BCB7581CB40DC500C806FE /* BottomNavigationController.swift */,
 				96BCB7591CB40DC500C806FE /* BottomTabBar.swift */,
 				96BCB7901CB40DC500C806FE /* NavigationBar.swift */,
@@ -1005,6 +1048,7 @@
 				96BCB7D81CB40DC500C806FE /* MenuController.swift in Sources */,
 				96BCB7D41CB40DC500C806FE /* TransitionAnimation.swift in Sources */,
 				967A48191D0F425A00B8CEB7 /* StatusBarController.swift in Sources */,
+				963FBF051D669713008F8512 /* PageController.swift in Sources */,
 				962864621D54111D00690B69 /* JSON.swift in Sources */,
 				96BCB7C21CB40DC500C806FE /* Device.swift in Sources */,
 				96BCB7A41CB40DC500C806FE /* CaptureSession.swift in Sources */,

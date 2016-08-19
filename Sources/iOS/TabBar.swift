@@ -36,24 +36,24 @@ public enum TabBarLineAlignment: Int {
 	case bottom
 }
 
-public class TabBar: View {
+open class TabBar: View {
 	/// A reference to the line UIView.
-	public private(set) var line: UIView!
+	open internal(set) var line: UIView!
 	
 	/// A value for the line alignment.
-	public var lineAlignment: TabBarLineAlignment = .bottom {
+	open var lineAlignment: TabBarLineAlignment = .bottom {
 		didSet {
 			layoutSubviews()
 		}
 	}
 	
 	/// Will render the view.
-	public var willRenderView: Bool {
+	open var willRenderView: Bool {
 		return 0 < width && 0 < height && nil != superview
 	}
 	
 	/// Buttons.
-	public var buttons: [UIButton]? {
+	open var buttons: [UIButton]? {
 		didSet {
 			if let v: [UIButton] = oldValue {
 				for b in v {
@@ -70,7 +70,7 @@ public class TabBar: View {
 		}
 	}
 	
-	public override func layoutSubviews() {
+	open override func layoutSubviews() {
 		super.layoutSubviews()
 		if willRenderView {
 			if let v = buttons {
@@ -108,7 +108,7 @@ public class TabBar: View {
      The super.prepareView method should always be called immediately
      when subclassing.
      */
-	public override func prepareView() {
+	open override func prepareView() {
 		super.prepareView()
 		autoresizingMask = .flexibleWidth
 		contentScaleFactor = Device.scale
