@@ -175,5 +175,5 @@ open class JSON: Equatable, CustomStringConvertible {
 }
 
 public func ==(lhs: JSON, rhs: JSON) -> Bool {
-    return JSON.stringify(lhs.object)! == JSON.stringify(rhs.object)!
+    return JSON.stringify(lhs.object) == JSON.stringify(rhs.object)
 }
