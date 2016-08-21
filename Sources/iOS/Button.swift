@@ -76,6 +76,7 @@ open class Button: UIButton {
 	}
     
     /// Sets the normal and highlighted image for the button.
+    @IBInspectable
     open var image: UIImage? {
         didSet {
             setImage(image, for: .normal)
