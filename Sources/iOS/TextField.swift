@@ -206,14 +206,10 @@ open class TextField: UITextField {
 		set(value) {
 			if value {
 				if nil == clearIconButton {
-					let image: UIImage? = Icon.cm.clear
-					clearIconButton = IconButton(frame: CGRect.zero)
+                    clearIconButton = IconButton(image: Icon.cm.clear, tintColor: placeholderColor)
 					clearIconButton!.contentEdgeInsets = UIEdgeInsets.zero
 					clearIconButton!.pulseAnimation = .center
-					clearIconButton!.tintColor = placeholderColor
-					clearIconButton!.setImage(image, for: .normal)
-                    clearIconButton!.setImage(image, for: .highlighted)
-					clearButtonMode = .never
+                    clearButtonMode = .never
 					rightViewMode = .whileEditing
 					rightView = clearIconButton
 					clearIconButtonAutoHandle = clearIconButtonAutoHandle ? true : false
@@ -245,14 +241,9 @@ open class TextField: UITextField {
 		set(value) {
 			if value {
 				if nil == visibilityIconButton {
-					let image: UIImage? = Icon.visibility
-					visibilityIconButton = IconButton(frame: CGRect.zero)
+                    visibilityIconButton = IconButton(image: Icon.visibility, tintColor: placeholderColor.withAlphaComponent(isSecureTextEntry ? 0.38 : 0.54))
 					visibilityIconButton!.contentEdgeInsets = UIEdgeInsets.zero
 					visibilityIconButton!.pulseAnimation = .center
-					visibilityIconButton!.tintColor = placeholderColor
-                    visibilityIconButton!.setImage(image, for: .normal)
-                    visibilityIconButton!.setImage(image, for: .highlighted)
-					visibilityIconButton!.tintColor = placeholderColor.withAlphaComponent(isSecureTextEntry ? 0.38 : 0.54)
 					isSecureTextEntry = true
 					clearButtonMode = .never
 					rightViewMode = .whileEditing

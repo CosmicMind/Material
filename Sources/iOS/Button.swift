@@ -84,6 +84,24 @@ open class Button: UIButton {
         }
     }
     
+    /// Sets the normal and highlighted title for the button.
+    @IBInspectable
+    open var title: String? {
+        didSet {
+            setTitle(title, for: .normal)
+            setTitle(title, for: .highlighted)
+        }
+    }
+    
+    /// Sets the normal and highlighted titleColor for the button.
+    @IBInspectable
+    open var titleColor: UIColor? {
+        didSet {
+            setTitleColor(titleColor, for: .normal)
+            setTitleColor(titleColor, for: .highlighted)
+        }
+    }
+    
 	/**
      An initializer that initializes the object with a NSCoder object.
      - Parameter aDecoder: A NSCoder instance.
@@ -108,6 +126,46 @@ open class Button: UIButton {
 	public convenience init() {
 		self.init(frame: CGRect.zero)
 	}
+    
+    /**
+     A convenience initializer that acceps an image.
+     - Parameter image: A UIImage.
+    */
+    public convenience init(image: UIImage?) {
+        self.init()
+        self.image = image
+    }
+    
+    /**
+     A convenience initializer that acceps an image and tintColor.
+     - Parameter image: A UIImage.
+     - Parameter tintColor: A UIColor.
+     */
+    public convenience init(image: UIImage?, tintColor: UIColor?) {
+        self.init()
+        self.image = image
+        self.tintColor = tintColor
+    }
+    
+    /**
+     A convenience initializer that acceps a title.
+     - Parameter title: A String.
+     */
+    public convenience init(title: String?) {
+        self.init()
+        self.title = title
+    }
+    
+    /**
+     A convenience initializer that acceps a title and titleColor.
+     - Parameter title: A String.
+     - Parameter titleColor: A UIColor.
+     */
+    public convenience init(title: String?, titleColor: UIColor?) {
+        self.init()
+        self.title = title
+        self.titleColor = titleColor
+    }
 	
     open override func layoutSublayers(of layer: CALayer) {
         super.layoutSublayers(of: layer)
