@@ -36,6 +36,18 @@ open class PhotoLibraryController: UIViewController, PhotoLibraryDelegate {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
+        prepareView()
+    }
+    
+    /**
+     Prepares the view instance when intialized. When subclassing,
+     it is recommended to override the prepareView method
+     to initialize property values and other setup operations.
+     The super.prepareView method should always be called immediately
+     when subclassing.
+     */
+    open func prepareView() {
+        view.contentScaleFactor = Device.scale
         preparePhotoLibrary()
     }
     

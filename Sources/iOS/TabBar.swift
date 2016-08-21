@@ -37,9 +37,9 @@ public enum TabBarLineAlignment: Int {
 }
 
 open class TabBar: View {
-	/// A reference to the line UIView.
+    /// A reference to the line UIView.
 	open internal(set) var line: UIView!
-	
+    
 	/// A value for the line alignment.
 	open var lineAlignment = TabBarLineAlignment.bottom {
 		didSet {
@@ -92,7 +92,7 @@ open class TabBar: View {
     }
 	
     open override var intrinsicContentSize: CGSize {
-        return CGSize(width: width, height: 44)
+        return CGSize(width: width, height: 49)
     }
     
 	/// Buttons.
@@ -109,7 +109,7 @@ open class TabBar: View {
 			layoutSubviews()
 		}
 	}
-	
+    
 	open override func layoutSubviews() {
 		super.layoutSubviews()
 		if willRenderView {
@@ -125,6 +125,7 @@ open class TabBar: View {
                 grid.views = buttons as [UIView]
                 line.frame = CGRect(x: 0, y: .bottom == lineAlignment ? height - 3 : 0, width: buttons.first!.width, height: 3)
             }
+            layoutDivider()
 		}
 	}
 	

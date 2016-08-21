@@ -30,20 +30,12 @@
 
 import UIKit
 
-open class MaterialLayer {
-    /// A reference to the UIView.
+internal class MaterialLayer {
+    /// A reference to the CALayer.
     internal weak var layer: CALayer?
     
-    /**
-     Initializer that takes in a UIView.
-     - Parameter view: A UIView reference.
-     */
-    internal init(layer: CALayer?) {
-        self.layer = layer
-    }
-    
     /// A property that sets the cornerRadius of the backing layer.
-    open var cornerRadiusPreset: CornerRadiusPreset = .none {
+    internal var cornerRadiusPreset: CornerRadiusPreset = .none {
         didSet {
             guard let v = layer else {
                 return
@@ -53,7 +45,7 @@ open class MaterialLayer {
     }
     
     /// A preset property to set the borderWidth.
-    open var borderWidthPreset: BorderWidthPreset = .none {
+    internal var borderWidthPreset: BorderWidthPreset = .none {
         didSet {
             guard let v = layer else {
                 return
@@ -63,10 +55,10 @@ open class MaterialLayer {
     }
     
     /// A preset property to set the shape.
-    open var shapePreset: ShapePreset = .none
+    internal var shapePreset: ShapePreset = .none
     
     /// A preset value for Depth.
-    open var depthPreset: DepthPreset {
+    internal var depthPreset: DepthPreset {
         get {
             return depth.preset
         }
@@ -76,7 +68,7 @@ open class MaterialLayer {
     }
     
     /// Grid reference.
-    open var depth = Depth.zero {
+    internal var depth = Depth.zero {
         didSet {
             guard let v = layer else {
                 return
@@ -90,12 +82,20 @@ open class MaterialLayer {
     }
     
     /// Enables automatic shadowPath sizing.
-    open var isShadowPathAutoSizing = false {
+    internal var isShadowPathAutoSizing = false {
         didSet {
             if isShadowPathAutoSizing {
                 layer?.layoutShadowPath()
             }
         }
+    }
+    
+    /**
+     Initializer that takes in a CALayer.
+     - Parameter view: A CALayer reference.
+     */
+    internal init(layer: CALayer?) {
+        self.layer = layer
     }
 }
 
@@ -240,6 +240,16 @@ extension CALayer {
         }
         set(value) {
             materialLayer.borderWidthPreset = value
+        }
+    }
+    
+    /// A UIColor reference to the `backgroundColor.cgColor`.
+    open var color: UIColor? {
+        get {
+            return nil == backgroundColor ? nil : UIColor(cgColor: backgroundColor!)
+        }
+        set(value) {
+            backgroundColor = color?.cgColor
         }
     }
     

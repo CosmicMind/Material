@@ -63,10 +63,10 @@ open class TextField: UITextField {
 	
 	/// Sets the divider.
 	@IBInspectable
-    open var dividerColor = Color.darkText.dividers {
+    open override var dividerColor: UIColor? {
 		didSet {
 			if !isEditing {
-				divider.backgroundColor = dividerColor.cgColor
+				divider.backgroundColor = dividerColor?.cgColor
 			}
 		}
 	}
@@ -384,7 +384,7 @@ open class TextField: UITextField {
 	}
 	
 	/// Layout the divider.
-	open func layoutDivider() {
+	open override func layoutDivider() {
         divider.frame = CGRect(x: 0, y: height, width: width, height: isEditing ? dividerActiveHeight : dividerHeight)
 	}
 	
@@ -451,7 +451,7 @@ open class TextField: UITextField {
 	/// The animation for the divider when editing ends.
 	open func dividerEditingDidEndAnimation() {
 		divider.frame.size.height = dividerHeight
-		divider.backgroundColor = dividerColor.cgColor
+		divider.backgroundColor = dividerColor?.cgColor
 	}
 	
 	/// The animation for the placeholder when editing begins.
