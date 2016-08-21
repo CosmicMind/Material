@@ -274,6 +274,17 @@ open class TextField: UITextField {
 	/// A reference to the visibilityIconButton.
 	open private(set) var visibilityIconButton: IconButton?
 	
+    /**
+     `layoutIfNeeded` is called within `becomeFirstResponder` to
+     fix an issue that when the TextField calls `becomeFirstResponder`
+     immediately when launching an instance, the TextField is not
+     calculated correctly.
+     */
+    open override func becomeFirstResponder() -> Bool {
+        layoutIfNeeded()
+        return super.becomeFirstResponder()
+    }
+    
 	/**
      An initializer that initializes the object with a NSCoder object.
      - Parameter aDecoder: A NSCoder instance.
@@ -314,7 +325,6 @@ open class TextField: UITextField {
 	
 	/// Handles the text editing did begin state.
 	open func handleEditingDidBegin() {
-        layoutIfNeeded()
         dividerEditingDidBeginAnimation()
 		placeholderEditingDidBeginAnimation()
 	}

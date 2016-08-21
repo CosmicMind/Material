@@ -58,7 +58,7 @@ open class ControlView: View {
 	}
 	
 	/// A preset wrapper around interimSpace.
-	open var interimSpacePreset: InterimSpacePreset = .none {
+	open var interimSpacePreset = InterimSpacePreset.none {
 		didSet {
             interimSpace = InterimSpacePresetToValue(preset: interimSpacePreset)
 		}

@@ -41,7 +41,7 @@ open class TabBar: View {
 	open internal(set) var line: UIView!
 	
 	/// A value for the line alignment.
-	open var lineAlignment: TabBarLineAlignment = .bottom {
+	open var lineAlignment = TabBarLineAlignment.bottom {
 		didSet {
 			layoutSubviews()
 		}
@@ -74,7 +74,7 @@ open class TabBar: View {
     }
     
     /// A preset wrapper around interimSpace.
-    open var interimSpacePreset: InterimSpacePreset = .none {
+    open var interimSpacePreset = InterimSpacePreset.none {
         didSet {
             interimSpace = InterimSpacePresetToValue(preset: interimSpacePreset)
         }
@@ -96,19 +96,16 @@ open class TabBar: View {
     }
     
 	/// Buttons.
-	open var buttons: [UIButton]? {
+	open var buttons = [UIButton]() {
 		didSet {
-			if let v: [UIButton] = oldValue {
-				for b in v {
-					b.removeFromSuperview()
-				}
-			}
+			for b in oldValue {
+                b.removeFromSuperview()
+            }
 			
-			if let v: [UIButton] = buttons {
-				for b in v {
-					addSubview(b)
-				}
-			}
+            for b in buttons {
+                addSubview(b)
+            }
+            
 			layoutSubviews()
 		}
 	}
@@ -116,20 +113,18 @@ open class TabBar: View {
 	open override func layoutSubviews() {
 		super.layoutSubviews()
 		if willRenderView {
-			if let v = buttons {
-				if 0 < v.count {
-					let columns: Int = grid.axis.columns / v.count
-					for b in v {
-						b.grid.columns = columns
-						b.contentEdgeInsets = .zero
-						b.layer.cornerRadius = 0
-                        b.removeTarget(self, action: #selector(handleButton(button:)), for: .touchUpInside)
-						b.addTarget(self, action: #selector(handleButton(button:)), for: .touchUpInside)
-					}
-					grid.views = v as [UIView]
-                    line.frame = CGRect(x: 0, y: .bottom == lineAlignment ? height - 3 : 0, width: v.first!.frame.width, height: 3)
-				}
-			}
+            if 0 < buttons.count {
+                let columns: Int = grid.axis.columns / buttons.count
+                for b in buttons {
+                    b.grid.columns = columns
+                    b.contentEdgeInsets = .zero
+                    b.layer.cornerRadius = 0
+                    b.removeTarget(self, action: #selector(handleButton(button:)), for: .touchUpInside)
+                    b.addTarget(self, action: #selector(handleButton(button:)), for: .touchUpInside)
+                }
+                grid.views = buttons as [UIView]
+                line.frame = CGRect(x: 0, y: .bottom == lineAlignment ? height - 3 : 0, width: buttons.first!.width, height: 3)
+            }
 		}
 	}
 	
@@ -138,8 +133,8 @@ open class TabBar: View {
 	internal func handleButton(button: UIButton) {
 		UIView.animate(withDuration: 0.25, animations: { [weak self] in
 			if let s = self {
-				s.line.frame.origin.x = button.frame.origin.x
-				s.line.frame.size.width = button.frame.size.width
+				s.line.x = button.x
+				s.line.width = button.width
 			}
 		})
 	}

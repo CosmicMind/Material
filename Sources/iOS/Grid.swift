@@ -159,7 +159,7 @@ public class Grid {
     }
     
     /// A preset wrapper for interim space.
-    public var interimSpacePreset: InterimSpacePreset = .none {
+    public var interimSpacePreset = InterimSpacePreset.none {
         didSet {
             interimSpace = InterimSpacePresetToValue(preset: interimSpacePreset)
         }

@@ -133,7 +133,7 @@ open class Button: UIButton {
     */
     public convenience init(image: UIImage?) {
         self.init()
-        prepareWith(image: image, tintColor: nil)
+        prepare(with: image, tintColor: nil)
     }
     
     /**
@@ -143,7 +143,7 @@ open class Button: UIButton {
      */
     public convenience init(image: UIImage?, tintColor: UIColor?) {
         self.init()
-        prepareWith(image: image, tintColor: tintColor)
+        prepare(with: image, tintColor: tintColor)
     }
     
     /**
@@ -152,7 +152,7 @@ open class Button: UIButton {
      */
     public convenience init(title: String?) {
         self.init()
-        prepareWith(title: title, titleColor: nil)
+        prepare(with: title, titleColor: nil)
     }
     
     /**
@@ -162,7 +162,7 @@ open class Button: UIButton {
      */
     public convenience init(title: String?, titleColor: UIColor?) {
         self.init()
-        prepareWith(title: title, titleColor: titleColor)
+        prepare(with: title, titleColor: titleColor)
     }
 	
     open override func layoutSublayers(of layer: CALayer) {
@@ -259,7 +259,7 @@ open class Button: UIButton {
      - Parameter image: A UIImage.
      - Parameter tintColor: A UIColor.
      */
-    private func prepareWith(image: UIImage?, tintColor: UIColor?) {
+    private func prepare(with image: UIImage?, tintColor: UIColor?) {
         self.image = image
         self.tintColor = tintColor
     }
@@ -269,7 +269,7 @@ open class Button: UIButton {
      - Parameter title: A String.
      - Parameter titleColor: A UIColor.
      */
-    private func prepareWith(title: String?, titleColor: UIColor?) {
+    private func prepare(with title: String?, titleColor: UIColor?) {
         self.title = title
         self.titleColor = titleColor
     }
