@@ -39,7 +39,7 @@ open class Button: UIButton {
      allows the dropshadow effect on the backing layer, while clipping
      the image to a desired shape within the visualLayer.
      */
-	public private(set) var visualLayer: CAShapeLayer!
+	open private(set) var visualLayer: CAShapeLayer!
 	
 	/**
      A base delegate reference used when subclassing View.
@@ -50,16 +50,19 @@ open class Button: UIButton {
 	public private(set) lazy var pulseLayers = [CAShapeLayer]()
 	
 	/// The opacity value for the pulse animation.
-	@IBInspectable open var pulseOpacity: CGFloat = 0.25
+	@IBInspectable
+    open var pulseOpacity: CGFloat = 0.25
 	
 	/// The color of the pulse effect.
-	@IBInspectable open var pulseColor = Color.grey.base
+	@IBInspectable
+    open var pulseColor = Color.grey.base
 	
 	/// The type of PulseAnimation.
 	public var pulseAnimation: PulseAnimation = .pointWithBacking
 	
 	/// A property that accesses the backing layer's backgroundColor.
-	@IBInspectable open override var backgroundColor: UIColor? {
+	@IBInspectable
+    open override var backgroundColor: UIColor? {
 		didSet {
 			layer.backgroundColor = backgroundColor?.cgColor
 		}
@@ -71,6 +74,14 @@ open class Button: UIButton {
 			contentEdgeInsets = EdgeInsetsPresetToValue(preset: contentEdgeInsetsPreset)
 		}
 	}
+    
+    /// Sets the normal and highlighted image for the button.
+    open var image: UIImage? {
+        didSet {
+            setImage(image, for: .normal)
+            setImage(image, for: .highlighted)
+        }
+    }
     
 	/**
      An initializer that initializes the object with a NSCoder object.

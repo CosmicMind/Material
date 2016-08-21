@@ -288,6 +288,10 @@ extension CALayer {
     
     /// Manages the layout for the shape of the view instance.
     open func layoutShape() {
+        guard 0 < width, 0 < height else {
+            return
+        }
+        
         if .none != shapePreset {
             if width < height {
                 frame.size.width = height
