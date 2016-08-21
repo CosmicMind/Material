@@ -155,7 +155,7 @@ open class TableViewCell: UITableViewCell {
      */
 	open func prepareView() {
 		selectionStyle = .none
-		separatorInset = UIEdgeInsets.zero
+		separatorInset = .zero
 		contentScaleFactor = Device.scale
 		imageView?.isUserInteractionEnabled = false
 		textLabel?.isUserInteractionEnabled = false

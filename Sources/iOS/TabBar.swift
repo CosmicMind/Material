@@ -121,7 +121,7 @@ open class TabBar: View {
 					let columns: Int = grid.axis.columns / v.count
 					for b in v {
 						b.grid.columns = columns
-						b.contentEdgeInsets = UIEdgeInsets.zero
+						b.contentEdgeInsets = .zero
 						b.layer.cornerRadius = 0
                         b.removeTarget(self, action: #selector(handleButton(button:)), for: .touchUpInside)
 						b.addTarget(self, action: #selector(handleButton(button:)), for: .touchUpInside)

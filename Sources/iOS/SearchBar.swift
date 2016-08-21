@@ -160,7 +160,7 @@ public class SearchBar: BarView {
 	/// Prepares the clearButton.
 	private func prepareClearButton() {
         clearButton = IconButton(image: Icon.cm.close, tintColor: placeholderColor)
-		clearButton.contentEdgeInsets = UIEdgeInsets.zero
+		clearButton.contentEdgeInsets = .zero
 		clearButtonAutoHandleEnabled = true
 		textField.clearButtonMode = .never
 		textField.rightViewMode = .whileEditing

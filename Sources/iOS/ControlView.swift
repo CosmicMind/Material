@@ -144,7 +144,7 @@ open class ControlView: View {
 	public init() {
 		leftControls = []
         rightControls = []
-		super.init(frame: CGRect.zero)
+		super.init(frame: .zero)
         frame.size = intrinsicContentSize
 	}
 	
@@ -156,7 +156,7 @@ open class ControlView: View {
 	public init(leftControls: [UIView]? = nil, rightControls: [UIView]? = nil) {
         self.leftControls = leftControls ?? []
         self.rightControls = rightControls ?? []
-        super.init(frame: CGRect.zero)
+        super.init(frame: .zero)
 		frame.size = intrinsicContentSize
 	}
 	
@@ -176,8 +176,8 @@ open class ControlView: View {
             // leftControls
             for c in leftControls {
                 let w: CGFloat = c.intrinsicContentSize.width
-                (c as? UIButton)?.contentEdgeInsets = UIEdgeInsets.zero
-                c.frame.size.height = frame.size.height - contentInset.top - contentInset.bottom
+                (c as? UIButton)?.contentEdgeInsets = .zero
+                c.height = frame.size.height - contentInset.top - contentInset.bottom
                 
                 let q: Int = Int(w / gridFactor)
                 c.grid.columns = q + 1
@@ -194,8 +194,8 @@ open class ControlView: View {
             // rightControls
             for c in rightControls {
                 let w = c.intrinsicContentSize.width
-                (c as? UIButton)?.contentEdgeInsets = UIEdgeInsets.zero
-                c.frame.size.height = frame.size.height - contentInset.top - contentInset.bottom
+                (c as? UIButton)?.contentEdgeInsets = .zero
+                c.height = frame.size.height - contentInset.top - contentInset.bottom
                 
                 let q: Int = Int(w / gridFactor)
                 c.grid.columns = q + 1

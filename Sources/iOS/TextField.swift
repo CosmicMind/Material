@@ -149,7 +149,7 @@ open class TextField: UITextField {
 	
 	/// The detailLabel UILabel that is displayed.
 	@IBInspectable
-    open private(set) lazy var detailLabel = UILabel(frame: CGRect.zero)
+    open private(set) lazy var detailLabel = UILabel(frame: .zero)
 	
 	
 	/// The detailLabel text value.
@@ -207,7 +207,7 @@ open class TextField: UITextField {
 			if value {
 				if nil == clearIconButton {
                     clearIconButton = IconButton(image: Icon.cm.clear, tintColor: placeholderColor)
-					clearIconButton!.contentEdgeInsets = UIEdgeInsets.zero
+					clearIconButton!.contentEdgeInsets = .zero
 					clearIconButton!.pulseAnimation = .center
                     clearButtonMode = .never
 					rightViewMode = .whileEditing
@@ -242,7 +242,7 @@ open class TextField: UITextField {
 			if value {
 				if nil == visibilityIconButton {
                     visibilityIconButton = IconButton(image: Icon.visibility, tintColor: placeholderColor.withAlphaComponent(isSecureTextEntry ? 0.38 : 0.54))
-					visibilityIconButton!.contentEdgeInsets = UIEdgeInsets.zero
+					visibilityIconButton!.contentEdgeInsets = .zero
 					visibilityIconButton!.pulseAnimation = .center
 					isSecureTextEntry = true
 					clearButtonMode = .never
@@ -296,7 +296,7 @@ open class TextField: UITextField {
 	
 	/// A convenience initializer.
 	public convenience init() {
-		self.init(frame: CGRect.zero)
+		self.init(frame: .zero)
 	}
 	
 	open override func layoutSubviews() {
@@ -497,7 +497,7 @@ open class TextField: UITextField {
 	
 	/// Prepares the placeholderLabel.
 	private func preparePlaceholderLabel() {
-        placeholderLabel = UILabel(frame: CGRect.zero)
+        placeholderLabel = UILabel(frame: .zero)
 		placeholderColor = Color.darkText.others
         font = RobotoFont.regularWithSize(size: 16)
         addSubview(placeholderLabel)

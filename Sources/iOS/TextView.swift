@@ -134,7 +134,7 @@ public class TextView: UITextView {
 	- Parameter textContainer: A NSTextContainer instance.
 	*/
 	public convenience init(textContainer: NSTextContainer?) {
-		self.init(frame: CGRect.zero, textContainer: textContainer)
+		self.init(frame: .zero, textContainer: textContainer)
 	}
 	
 	/** Denitializer. This should never be called unless you know
@@ -218,7 +218,7 @@ public class TextView: UITextView {
 	*/
 	public func prepareView() {
 		contentScaleFactor = Device.scale
-		textContainerInset = EdgeInsets.zero
+		textContainerInset = .zero
 		backgroundColor = Color.white
 		clipsToBounds = false
 		removeNotificationHandlers()

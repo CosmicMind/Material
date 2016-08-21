@@ -58,7 +58,7 @@ open class Button: UIButton {
     open var pulseColor = Color.grey.base
 	
 	/// The type of PulseAnimation.
-	public var pulseAnimation: PulseAnimation = .pointWithBacking
+	public var pulseAnimation = PulseAnimation.pointWithBacking
 	
 	/// A property that accesses the backing layer's backgroundColor.
 	@IBInspectable
@@ -69,7 +69,7 @@ open class Button: UIButton {
 	}
 	
 	/// A preset property for updated contentEdgeInsets.
-	open var contentEdgeInsetsPreset: EdgeInsetsPreset = .none {
+	open var contentEdgeInsetsPreset = EdgeInsetsPreset.none {
 		didSet {
 			contentEdgeInsets = EdgeInsetsPresetToValue(preset: contentEdgeInsetsPreset)
 		}
@@ -124,7 +124,7 @@ open class Button: UIButton {
 	
 	/// A convenience initializer.
 	public convenience init() {
-		self.init(frame: CGRect.zero)
+		self.init(frame: .zero)
 	}
     
     /**
@@ -133,7 +133,7 @@ open class Button: UIButton {
     */
     public convenience init(image: UIImage?) {
         self.init()
-        self.image = image
+        prepareWith(image: image, tintColor: nil)
     }
     
     /**
@@ -143,8 +143,7 @@ open class Button: UIButton {
      */
     public convenience init(image: UIImage?, tintColor: UIColor?) {
         self.init()
-        self.image = image
-        self.tintColor = tintColor
+        prepareWith(image: image, tintColor: tintColor)
     }
     
     /**
@@ -153,7 +152,7 @@ open class Button: UIButton {
      */
     public convenience init(title: String?) {
         self.init()
-        self.title = title
+        prepareWith(title: title, titleColor: nil)
     }
     
     /**
@@ -163,8 +162,7 @@ open class Button: UIButton {
      */
     public convenience init(title: String?, titleColor: UIColor?) {
         self.init()
-        self.title = title
-        self.titleColor = titleColor
+        prepareWith(title: title, titleColor: titleColor)
     }
 	
     open override func layoutSublayers(of layer: CALayer) {
@@ -255,4 +253,24 @@ open class Button: UIButton {
 		visualLayer.frame = bounds
 		visualLayer.cornerRadius = cornerRadius
 	}
+    
+    /**
+     Prepares the Button with an image and tintColor.
+     - Parameter image: A UIImage.
+     - Parameter tintColor: A UIColor.
+     */
+    private func prepareWith(image: UIImage?, tintColor: UIColor?) {
+        self.image = image
+        self.tintColor = tintColor
+    }
+    
+    /**
+     Prepares the Button with a title and titleColor.
+     - Parameter title: A String.
+     - Parameter titleColor: A UIColor.
+     */
+    private func prepareWith(title: String?, titleColor: UIColor?) {
+        self.title = title
+        self.titleColor = titleColor
+    }
 }

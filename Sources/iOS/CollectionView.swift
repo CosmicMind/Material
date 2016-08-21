@@ -108,7 +108,7 @@ open class CollectionView: UICollectionView {
 	
 	/// A convenience initializer that initializes the object.
 	public convenience init() {
-		self.init(frame: CGRect.zero)
+		self.init(frame: .zero)
 	}
 	
 	/**

@@ -63,7 +63,7 @@ open class BottomTabBar: UITabBar {
 	
 	/// A convenience initializer.
 	public convenience init() {
-		self.init(frame: CGRect.zero)
+		self.init(frame: .zero)
 	}
     
     public required init?(coder aDecoder: NSCoder) {

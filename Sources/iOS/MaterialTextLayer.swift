@@ -149,7 +149,7 @@ public class MaterialTextLayer: CATextLayer {
 	*/
 	public func stringSize(constrainedToWidth width: Double) -> CGSize {
         guard let v = fontType, let t = text, 0 < t.utf16.count else {
-            return CGSize.zero
+            return .zero
         }
         return v.stringSize(string: text!, constrainedToWidth: width)
 	}

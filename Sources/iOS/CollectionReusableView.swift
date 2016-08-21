@@ -194,7 +194,7 @@ open class MaterialCollectionReusableView: UICollectionReusableView {
 	
 	/// A convenience initializer.
 	public convenience init() {
-		self.init(frame: CGRect.zero)
+		self.init(frame: .zero)
 	}
 	
 	open override func layoutSublayers(of layer: CALayer) {

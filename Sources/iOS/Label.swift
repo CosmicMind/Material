@@ -137,7 +137,7 @@ open class Label: UILabel {
 	:name:	init
 	*/
 	public convenience init() {
-		self.init(frame: CGRect.zero)
+		self.init(frame: .zero)
 	}
 	
 	/**

@@ -74,7 +74,7 @@ public typealias EdgeInsets = UIEdgeInsets
 public func EdgeInsetsPresetToValue(preset: EdgeInsetsPreset) -> EdgeInsets {
     switch preset {
     case .none:
-        return EdgeInsets.zero
+        return .zero
         
     // square
     case .square1:

@@ -33,9 +33,9 @@ import UIKit
 /// NavigationBar styles.
 @objc(NavigationBarStyle)
 public enum NavigationBarStyle: Int {
-	case Tiny
-	case Default
-	case Medium
+	case small
+	case medium
+	case large
 }
 
 extension UINavigationBar {
@@ -54,17 +54,17 @@ extension UINavigationBar {
 public class NavigationBar: UINavigationBar {
     public override var intrinsicContentSize: CGSize {
         switch navigationBarStyle {
-        case .Tiny:
+        case .small:
             return CGSize(width: Device.width, height: 32)
-        case .Default:
+        case .medium:
             return CGSize(width: Device.width, height: 44)
-        case .Medium:
+        case .large:
             return CGSize(width: Device.width, height: 56)
         }
     }
     
 	/// NavigationBarStyle value.
-	public var navigationBarStyle: NavigationBarStyle = .Default
+	public var navigationBarStyle = NavigationBarStyle.medium
 	
 	internal var animating: Bool = false
 	
@@ -74,21 +74,21 @@ public class NavigationBar: UINavigationBar {
 	}
 	
 	/// A preset wrapper around contentInset.
-	public var contentEdgeInsetsPreset: EdgeInsetsPreset = .none {
+	public var contentEdgeInsetsPreset = EdgeInsetsPreset.none {
 		didSet {
             contentInset = EdgeInsetsPresetToValue(preset: contentEdgeInsetsPreset)
 		}
 	}
 	
 	/// A wrapper around grid.contentInset.
-	@IBInspectable public var contentInset: EdgeInsets = EdgeInsets.zero {
+	@IBInspectable public var contentInset = EdgeInsets.zero {
 		didSet {
 			layoutSubviews()
 		}
 	}
 	
 	/// A preset wrapper around interimSpace.
-	public var interimSpacePreset: InterimSpacePreset = .none {
+	public var interimSpacePreset = InterimSpacePreset.none {
 		didSet {
             interimSpace = InterimSpacePresetToValue(preset: interimSpacePreset)
 		}
@@ -153,7 +153,7 @@ public class NavigationBar: UINavigationBar {
 	
 	/// A convenience initializer.
 	public convenience init() {
-		self.init(frame: CGRect.zero)
+		self.init(frame: .zero)
 	}
 	
 	public override func sizeThatFits(_ size: CGSize) -> CGSize {
@@ -199,7 +199,7 @@ public class NavigationBar: UINavigationBar {
             let g = Int(width / gridFactor)
             let columns = g + 1
                 
-            titleView.frame.origin = CGPoint.zero
+            titleView.frame.origin = .zero
             titleView.frame.size = intrinsicContentSize
             titleView.grid.views = []
             titleView.grid.axis.columns = columns
@@ -210,8 +210,8 @@ public class NavigationBar: UINavigationBar {
             if let v = item.leftControls {
                 for c in v {
                     let w = c.intrinsicContentSize.width
-                    (c as? UIButton)?.contentEdgeInsets = UIEdgeInsets.zero
-                    c.frame.size.height = titleView.frame.size.height - contentInset.top - contentInset.bottom
+                    (c as? UIButton)?.contentEdgeInsets = .zero
+                    c.height = titleView.height - contentInset.top - contentInset.bottom
                     
                     c.grid.columns = Int(w / gridFactor) + 1
                     
@@ -229,8 +229,8 @@ public class NavigationBar: UINavigationBar {
             if let v = item.rightControls {
                 for c in v {
                     let w = c.intrinsicContentSize.width
-                    (c as? UIButton)?.contentEdgeInsets = UIEdgeInsets.zero
-                    c.frame.size.height = titleView.frame.size.height - contentInset.top - contentInset.bottom
+                    (c as? UIButton)?.contentEdgeInsets = .zero
+                    c.height = titleView.height - contentInset.top - contentInset.bottom
                     
                     c.grid.columns = Int(w / gridFactor) + 1
                     
@@ -320,7 +320,7 @@ public class NavigationBar: UINavigationBar {
 	*/
 	private func prepareTitleView(item: UINavigationItem) -> UIView {
 		if nil == item.titleView {
-			item.titleView = UIView(frame: CGRect.zero)
+			item.titleView = UIView(frame: .zero)
 		}
 		return item.titleView!
 	}
@@ -332,7 +332,7 @@ public class NavigationBar: UINavigationBar {
 	*/
 	private func prepareContentView(item: UINavigationItem) -> UIView {
 		if nil == item.contentView {
-			item.contentView = UIView(frame: CGRect.zero)
+			item.contentView = UIView(frame: .zero)
 		}
 		item.contentView!.grid.axis.direction = .vertical
 		return item.contentView!

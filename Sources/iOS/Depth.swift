@@ -94,7 +94,7 @@ public struct Depth {
 public func DepthPresetToValue(preset: DepthPreset) -> Depth {
 	switch preset {
 	case .none:
-		return Depth.zero
+		return .zero
 	case .depth1:
         return Depth(offset: Offset(horizontal: 0, vertical: 1), opacity: 0.3, radius: 1)
 	case .depth2:
