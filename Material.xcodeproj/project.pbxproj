@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		961F18E81CD93E3E008927C5 /* ErrorTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961F18E71CD93E3E008927C5 /* ErrorTextField.swift */; };
+		96230AB81D6A520C00AF47DC /* Divider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96230AB71D6A520C00AF47DC /* Divider.swift */; };
 		9628645A1D53FE3E00690B69 /* Material+UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962864591D53FE3E00690B69 /* Material+UIWindow.swift */; };
 		9628645F1D540AF300690B69 /* DynamicFontType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9628645E1D540AF300690B69 /* DynamicFontType.swift */; };
 		962864621D54111D00690B69 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962864611D54111D00690B69 /* JSON.swift */; };
@@ -199,6 +200,7 @@
 
 /* Begin PBXFileReference section */
 		961F18E71CD93E3E008927C5 /* ErrorTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorTextField.swift; sourceTree = "<group>"; };
+		96230AB71D6A520C00AF47DC /* Divider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Divider.swift; sourceTree = "<group>"; };
 		962864591D53FE3E00690B69 /* Material+UIWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIWindow.swift"; sourceTree = "<group>"; };
 		9628645E1D540AF300690B69 /* DynamicFontType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicFontType.swift; sourceTree = "<group>"; };
 		962864611D54111D00690B69 /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
@@ -331,6 +333,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		96230AB61D6A51FD00AF47DC /* Divider */ = {
+			isa = PBXGroup;
+			children = (
+				96230AB71D6A520C00AF47DC /* Divider.swift */,
+			);
+			name = Divider;
+			sourceTree = "<group>";
+		};
 		962864601D5410FD00690B69 /* JSON */ = {
 			isa = PBXGroup;
 			children = (
@@ -492,6 +502,7 @@
 				96BCB8001CB40F0300C806FE /* Color */,
 				962A92581D42839100DBAF8E /* Data */,
 				96BCB80B1CB410CC00C806FE /* Device */,
+				96230AB61D6A51FD00AF47DC /* Divider */,
 				96BCB80A1CB410A100C806FE /* Extension */,
 				96BCB8071CB4101C00C806FE /* Font */,
 				96BCB8081CB4105E00C806FE /* Icon */,
@@ -1032,6 +1043,7 @@
 				961F18E81CD93E3E008927C5 /* ErrorTextField.swift in Sources */,
 				96BCB7D01CB40DC500C806FE /* InterimSpace.swift in Sources */,
 				96BCB7E81CB40DC500C806FE /* Toolbar.swift in Sources */,
+				96230AB81D6A520C00AF47DC /* Divider.swift in Sources */,
 				96BCB7C41CB40DC500C806FE /* Font.swift in Sources */,
 				96BCB7AA1CB40DC500C806FE /* Grid.swift in Sources */,
 				96BCB7E71CB40DC500C806FE /* TextView.swift in Sources */,

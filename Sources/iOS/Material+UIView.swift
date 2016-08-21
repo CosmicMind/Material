@@ -30,112 +30,8 @@
 
 import UIKit
 
-@objc(DividerAlignment)
-public enum DividerAlignment: Int {
-    case top
-    case left
-    case bottom
-    case right
-}
-
-open class MaterialView {
-    /// A reference to the UIView.
-    internal weak var view: UIView?
-    
-    /// A reference to the divider UIView.
-    internal var divider: UIView?
-    
-    /// Divider color.
-    open var dividerColor: UIColor? {
-        get {
-            return divider?.backgroundColor
-        }
-        set(value) {
-            guard let v = value else {
-                divider?.removeFromSuperview()
-                divider = nil
-                return
-            }
-            if nil == divider {
-                divider = UIView()
-                divider?.zPosition = 5000
-                view?.addSubview(divider!)
-                layoutDivider()
-            }
-            divider?.backgroundColor = v
-        }
-    }
-    
-    /// A reference to the dividerAlignment.
-    internal var dividerAlignment = DividerAlignment.top {
-        didSet {
-            layoutDivider()
-        }
-    }
-    
-    /**
-     Initializer that takes in a UIView.
-     - Parameter view: A UIView reference.
-     */
-    internal init(view: UIView?) {
-        self.view = view
-    }
-    
-    /// Lays out the divider.
-    internal func layoutDivider() {
-        guard let v = view else {
-            return
-        }
-        
-        guard let d = divider else {
-            return
-        }
-        
-        switch dividerAlignment {
-        case .top:
-            d.frame = CGRect(x: 0, y: 0, width: v.width, height: 1)
-        case .bottom:
-            d.frame = CGRect(x: 0, y: v.height - 1, width: v.width, height: 1)
-        case .left:
-            d.frame = CGRect(x: 0, y: 0, width: 1, height: v.height)
-        case .right:
-            d.frame = CGRect(x: v.width - 1, y: 0, width: 1, height: v.height)
-        }
-    }
-}
-
-/// A memory reference to the MaterialView instance for UIView extensions.
-private var MaterialViewKey: UInt8 = 0
-
 /// Grid extension for UIView.
 extension UIView {
-    /// Layer Reference.
-    internal var materialView: MaterialView {
-        get {
-            return AssociatedObject(base: self, key: &MaterialViewKey) {
-                return MaterialView(view: self)
-            }
-        }
-        set(value) {
-            AssociateObject(base: self, key: &MaterialViewKey, value: value)
-        }
-    }
-    
-    /// Divider color.
-    open var dividerColor: UIColor? {
-        get {
-            return materialView.dividerColor
-        }
-        set(value) {
-            materialView.dividerColor = value
-        }
-    }
-    
-    /// Divider alignment.
-    open var dividerAlignment: DividerAlignment {
-        return materialView.dividerAlignment
-    }
-    
     /// A property that accesses the frame.origin.x property.
     @IBInspectable
     open var x: CGFloat {
@@ -391,10 +287,5 @@ extension UIView {
     /// Sets the shadow path.
     open func layoutShadowPath() {
         layer.layoutShadowPath()
-    }
-    
-    /// Lays out the divider.
-    open func layoutDivider() {
-        materialView.layoutDivider()
     }
 }

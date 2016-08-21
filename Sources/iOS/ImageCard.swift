@@ -40,7 +40,7 @@ open class ImageCard: PulseView {
 	:name:	dividerColor
 	*/
 	@IBInspectable
-    open override var dividerColor: UIColor? {
+    open var dividerColor: UIColor? {
 		didSet {
 			dividerLayer?.backgroundColor = dividerColor?.cgColor
 		}

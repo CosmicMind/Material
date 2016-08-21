@@ -102,15 +102,16 @@ open class TabBar: View {
                 b.removeFromSuperview()
             }
 			
-            for b in buttons {
-                addSubview(b)
-            }
+            grid.views = buttons as [UIView]
             
 			layoutSubviews()
 		}
 	}
     
-	open override func layoutSubviews() {
+    /// Layer Reference.
+    open internal(set) var divider: Divider!
+    
+    open override func layoutSubviews() {
 		super.layoutSubviews()
 		if willRenderView {
             if 0 < buttons.count {
@@ -122,10 +123,10 @@ open class TabBar: View {
                     b.removeTarget(self, action: #selector(handleButton(button:)), for: .touchUpInside)
                     b.addTarget(self, action: #selector(handleButton(button:)), for: .touchUpInside)
                 }
-                grid.views = buttons as [UIView]
+                grid.reload()
                 line.frame = CGRect(x: 0, y: .bottom == lineAlignment ? height - 3 : 0, width: buttons.first!.width, height: 3)
             }
-            layoutDivider()
+            divider.reload()
 		}
 	}
 	
@@ -150,15 +151,21 @@ open class TabBar: View {
 	open override func prepareView() {
 		super.prepareView()
         interimSpacePreset = .interimSpace1
-        contentEdgeInsetsPreset = .square1
+        contentEdgeInsetsPreset = .none
         autoresizingMask = .flexibleWidth
         prepareLine()
+        prepareDivider()
 	}
 	
 	// Prepares the line.
 	private func prepareLine() {
 		line = UIView()
-		line.backgroundColor = Color.yellow.base
+		line.backgroundColor = Color.blueGrey.lighten3
 		addSubview(line)
 	}
+    
+    /// Prepares the divider.
+    private func prepareDivider() {
+        divider = Divider(view: self)
+    }
 }
