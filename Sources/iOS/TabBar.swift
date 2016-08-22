@@ -38,7 +38,17 @@ public enum TabBarLineAlignment: Int {
 
 open class TabBar: View {
     /// A reference to the line UIView.
-	open internal(set) var line: UIView!
+    internal var line: UIView!
+    
+    /// The line color.
+    open var lineColor: UIColor? {
+        get {
+            return line.backgroundColor
+        }
+        set(value) {
+            line.backgroundColor = value
+        }
+    }
     
 	/// A value for the line alignment.
 	open var lineAlignment = TabBarLineAlignment.bottom {
@@ -46,6 +56,16 @@ open class TabBar: View {
 			layoutSubviews()
 		}
 	}
+    
+    /// The line height.
+    open var lineHeight: CGFloat {
+        get {
+            return line.height
+        }
+        set(value) {
+            line.height = value
+        }
+    }
 	
 	/// Will render the view.
 	open var willRenderView: Bool {
@@ -124,7 +144,7 @@ open class TabBar: View {
                     b.addTarget(self, action: #selector(handleButton(button:)), for: .touchUpInside)
                 }
                 grid.reload()
-                line.frame = CGRect(x: 0, y: .bottom == lineAlignment ? height - 3 : 0, width: buttons.first!.width, height: 3)
+                line.frame = CGRect(x: 0, y: .bottom == lineAlignment ? height - lineHeight : 0, width: buttons.first!.width, height: lineHeight)
             }
             divider.reload()
 		}
@@ -160,8 +180,10 @@ open class TabBar: View {
 	// Prepares the line.
 	private func prepareLine() {
 		line = UIView()
-		line.backgroundColor = Color.blueGrey.lighten3
-		addSubview(line)
+        line.zPosition = 5100
+		lineColor = Color.blueGrey.lighten3
+		lineHeight = 3
+        addSubview(line)
 	}
     
     /// Prepares the divider.

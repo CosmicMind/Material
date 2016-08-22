@@ -119,7 +119,7 @@ open class RootController: UIViewController {
 		addChildViewController(toViewController)
 		toViewController.view.frame = rootViewController.view.frame
         transition(from: rootViewController,
-                   to: toViewController,
+            to: toViewController,
 			duration: duration,
 			options: options,
 			animations: animations,

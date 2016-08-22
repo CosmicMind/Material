@@ -138,6 +138,7 @@ public class Toolbar: BarView {
 		super.prepareView()
 		prepareTitleLabel()
 		prepareDetailLabel()
+        prepareDivider()
 	}
 	
 	/// Prepares the titleLabel.
@@ -155,4 +156,9 @@ public class Toolbar: BarView {
 		detailLabel.font = RobotoFont.regularWithSize(size: 12)
 		detailLabel.textAlignment = .left
 	}
+    
+    /// Prepares the divider.
+    private func prepareDivider() {
+        divider.alignment = .bottom
+    }
 }

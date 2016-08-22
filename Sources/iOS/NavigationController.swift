@@ -32,7 +32,7 @@ import UIKit
 
 @IBDesignable
 open class NavigationController: UINavigationController, UIGestureRecognizerDelegate {
-	/**
+    /**
      An initializer that initializes the object with a NSCoder object.
      - Parameter aDecoder: A NSCoder instance.
      */
@@ -86,7 +86,7 @@ open class NavigationController: UINavigationController, UIGestureRecognizerDele
 			}
 		}
 	}
-	
+    
 	/**
      Detects the gesture recognizer being used. This is necessary when using
      NavigationDrawerController. It eliminates the conflict in panning.

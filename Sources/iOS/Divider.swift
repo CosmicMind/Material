@@ -42,32 +42,35 @@ open class Divider {
     /// A reference to the UIView.
     internal weak var view: UIView?
     
+    /// A reference to the height.
+    internal var height: CGFloat
+    
     /// A reference to the divider UIView.
-    internal var divider: UIView?
+    internal var line: UIView?
     
     /// Divider color.
     open var color: UIColor? {
         get {
-            return divider?.backgroundColor
+            return line?.backgroundColor
         }
         set(value) {
             guard let v = value else {
-                divider?.removeFromSuperview()
-                divider = nil
+                line?.removeFromSuperview()
+                line = nil
                 return
             }
-            if nil == divider {
-                divider = UIView()
-                divider?.zPosition = 5000
-                view?.addSubview(divider!)
+            if nil == line {
+                line = UIView()
+                line?.zPosition = 5000
+                view?.addSubview(line!)
                 reload()
             }
-            divider?.backgroundColor = v
+            line?.backgroundColor = v
         }
     }
     
     /// A reference to the dividerAlignment.
-    internal var alignment = DividerAlignment.top {
+    open var alignment = DividerAlignment.top {
         didSet {
             reload()
         }
@@ -77,8 +80,9 @@ open class Divider {
      Initializer that takes in a UIView.
      - Parameter view: A UIView reference.
      */
-    internal init(view: UIView?) {
+    internal init(view: UIView?, height: CGFloat = 1) {
         self.view = view
+        self.height = height
     }
     
     /// Lays out the divider.
@@ -87,19 +91,15 @@ open class Divider {
             return
         }
         
-        guard let d = divider else {
-            return
-        }
-        
         switch alignment {
         case .top:
-            d.frame = CGRect(x: 0, y: 0, width: v.width, height: 1)
+            line?.frame = CGRect(x: 0, y: 0, width: v.width, height: height)
         case .bottom:
-            d.frame = CGRect(x: 0, y: v.height - 1, width: v.width, height: 1)
+            line?.frame = CGRect(x: 0, y: v.height - height, width: v.width, height: height)
         case .left:
-            d.frame = CGRect(x: 0, y: 0, width: 1, height: v.height)
+            line?.frame = CGRect(x: 0, y: 0, width: height, height: v.height)
         case .right:
-            d.frame = CGRect(x: v.width - 1, y: 0, width: 1, height: v.height)
+            line?.frame = CGRect(x: v.width - height, y: 0, width: height, height: v.height)
         }
     }
 }

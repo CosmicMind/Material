@@ -72,8 +72,8 @@ open class PageTabBarController: RootController {
             return
         }
         
-        let h = Device.height
-        let w = Device.width
+        let h = view.height
+        let w = view.width
         let p = v.intrinsicContentSize.height + v.grid.layoutEdgeInsets.top + v.grid.layoutEdgeInsets.bottom
         let y = h - p
         
@@ -83,6 +83,8 @@ open class PageTabBarController: RootController {
         
         rootViewController.view.frame.origin.y = 0
         rootViewController.view.frame.size.height = y
+        
+        v.divider.reload()
     }
     
     /**
