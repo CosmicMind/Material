@@ -37,37 +37,7 @@ public enum TabBarLineAlignment: Int {
 }
 
 open class TabBar: View {
-    /// A reference to the line UIView.
-    internal var line: UIView!
-    
-    /// The line color.
-    open var lineColor: UIColor? {
-        get {
-            return line.backgroundColor
-        }
-        set(value) {
-            line.backgroundColor = value
-        }
-    }
-    
-	/// A value for the line alignment.
-	open var lineAlignment = TabBarLineAlignment.bottom {
-		didSet {
-			layoutSubviews()
-		}
-	}
-    
-    /// The line height.
-    open var lineHeight: CGFloat {
-        get {
-            return line.height
-        }
-        set(value) {
-            line.height = value
-        }
-    }
-	
-	/// Will render the view.
+    /// Will render the view.
 	open var willRenderView: Bool {
 		return 0 < width && 0 < height && nil != superview
 	}
@@ -115,6 +85,9 @@ open class TabBar: View {
         return CGSize(width: width, height: 49)
     }
     
+    /// The currently selected button.
+    open var selected: UIButton?
+    
 	/// Buttons.
 	open var buttons = [UIButton]() {
 		didSet {
@@ -127,6 +100,36 @@ open class TabBar: View {
 			layoutSubviews()
 		}
 	}
+    
+    /// A reference to the line UIView.
+    internal var line: UIView!
+    
+    /// The line color.
+    open var lineColor: UIColor? {
+        get {
+            return line.backgroundColor
+        }
+        set(value) {
+            line.backgroundColor = value
+        }
+    }
+    
+    /// A value for the line alignment.
+    open var lineAlignment = TabBarLineAlignment.bottom {
+        didSet {
+            layoutSubviews()
+        }
+    }
+    
+    /// The line height.
+    open var lineHeight: CGFloat {
+        get {
+            return line.height
+        }
+        set(value) {
+            line.height = value
+        }
+    }
     
     /// Layer Reference.
     open internal(set) var divider: Divider!
@@ -144,7 +147,12 @@ open class TabBar: View {
                     b.addTarget(self, action: #selector(handleButton(button:)), for: .touchUpInside)
                 }
                 grid.reload()
-                line.frame = CGRect(x: 0, y: .bottom == lineAlignment ? height - lineHeight : 0, width: buttons.first!.width, height: lineHeight)
+                
+                if nil == selected {
+                    selected = buttons.first
+                }
+                
+                line.frame = CGRect(x: selected!.x, y: .bottom == lineAlignment ? height - lineHeight : 0, width: selected!.width, height: lineHeight)
             }
             divider.reload()
 		}
@@ -153,7 +161,9 @@ open class TabBar: View {
 	/// Handles the button touch event.
     @objc
 	internal func handleButton(button: UIButton) {
-		UIView.animate(withDuration: 0.25, animations: { [weak self] in
+		selected = button
+        
+        UIView.animate(withDuration: 0.25, animations: { [weak self] in
 			if let s = self {
 				s.line.x = button.x
 				s.line.width = button.width
