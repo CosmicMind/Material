@@ -31,17 +31,19 @@
 import UIKit
 
 @objc(MenuViewDelegate)
-public protocol MenuViewDelegate : MaterialDelegate {
+public protocol MenuViewDelegate {
     /// Gets called when the user taps outside menu buttons.
     @objc
     optional func menuViewDidTapOutside(menuView: MenuView)
-    
 }
 
 public class MenuView : PulseView {
 	/// References the Menu instance.
 	public private(set) lazy var menu: Menu = Menu()
 	
+    /// A delegation reference.
+    public weak var delegate: MenuViewDelegate?
+    
     public override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         /**
          Since the subviews will be outside the bounds of this view,
@@ -59,7 +61,7 @@ public class MenuView : PulseView {
         }
         
         if menu.isOpened {
-            (delegate as? MenuViewDelegate)?.menuViewDidTapOutside?(menuView: self)
+            delegate?.menuViewDidTapOutside?(menuView: self)
         }
         
         return super.hitTest(point, with: event)

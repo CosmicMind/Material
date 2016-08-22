@@ -43,7 +43,7 @@ open class PulseView: View {
     open var pulseColor = Color.grey.base
 	
 	/// The type of PulseAnimation.
-	open var pulseAnimation: PulseAnimation = .pointWithBacking
+	open var pulseAnimation = PulseAnimation.pointWithBacking
 	
 	/**
 	Triggers the pulse animation.

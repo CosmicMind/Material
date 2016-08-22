@@ -36,6 +36,27 @@ public enum TabBarLineAlignment: Int {
 	case bottom
 }
 
+@objc(TabBarDelegate)
+public protocol TabBarDelegate {
+    /**
+     A delegation method that is executed when the button will trigger the
+     animation to the next tab.
+     - Parameter tabBar: A TabBar.
+     - Parameter button: A UIButton.
+     */
+    @objc
+    optional func tabBarWillSelectButton(tabBar: TabBar, button: UIButton)
+    
+    /**
+     A delegation method that is executed when the button did complete the
+     animation to the next tab.
+     - Parameter tabBar: A TabBar.
+     - Parameter button: A UIButton.
+     */
+    @objc
+    optional func tabBarDidSelectButton(tabBar: TabBar, button: UIButton)
+}
+
 open class TabBar: View {
     /// Will render the view.
 	open var willRenderView: Bool {
@@ -80,7 +101,10 @@ open class TabBar: View {
             grid.interimSpace = value
         }
     }
-	
+    
+    /// A delegation reference.
+    public weak var delegate: TabBarDelegate?
+    
     open override var intrinsicContentSize: CGSize {
         return CGSize(width: width, height: 49)
     }
@@ -161,14 +185,21 @@ open class TabBar: View {
 	/// Handles the button touch event.
     @objc
 	internal func handleButton(button: UIButton) {
-		selected = button
+		delegate?.tabBarWillSelectButton?(tabBar: self, button: button)
+        selected = button
         
-        UIView.animate(withDuration: 0.25, animations: { [weak self] in
-			if let s = self {
-				s.line.x = button.x
-				s.line.width = button.width
-			}
-		})
+        UIView.animate(withDuration: 0.25, animations: { [weak self, button = button] in
+            guard let s = self else {
+                return
+            }
+            s.line.x = button.x
+            s.line.width = button.width
+        }) { [weak self, button = button] _ in
+            guard let s = self else {
+                return
+            }
+            s.delegate?.tabBarDidSelectButton?(tabBar: s, button: button)
+        }
 	}
 	
 	/**

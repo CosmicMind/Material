@@ -38,7 +38,7 @@ public enum CaptureMode: Int {
 }
 
 @objc(CaptureDelegate)
-public protocol CaptureDelegate: MaterialDelegate {
+public protocol CaptureDelegate {
 	/**
      A delegation method that is fired when the record timer has started.
      - Parameter capture: A reference to the calling capture.
@@ -132,7 +132,10 @@ public protocol CaptureDelegate: MaterialDelegate {
 }
 
 open class Capture: View, UIGestureRecognizerDelegate {
-	/// A Timer reference for when recording is enabled.
+    /// A delegation reference.
+    public weak var delegate: CaptureDelegate?
+    
+    /// A Timer reference for when recording is enabled.
 	private var timer: Timer?
 	
 	/// A tap gesture reference for focus events.
@@ -349,7 +352,7 @@ open class Capture: View, UIGestureRecognizerDelegate {
 		timer?.invalidate()
 		timer = Timer(timeInterval: 0.5, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
 		RunLoop.main.add(timer!, forMode: .commonModes)
-		(delegate as? CaptureDelegate)?.captureDidStartRecordTimer?(capture: self)
+		delegate?.captureDidStartRecordTimer?(capture: self)
 	}
 	
 	/// Updates the timer when recording.
@@ -359,7 +362,7 @@ open class Capture: View, UIGestureRecognizerDelegate {
 		let hours: Int = Int(time / 3600)
 		let minutes: Int = Int((time / 60).truncatingRemainder(dividingBy: 60))
 		let seconds: Int = Int(time.truncatingRemainder(dividingBy: 60))
-		(delegate as? CaptureDelegate)?.captureDidUpdateRecordTimer?(capture: self, hours: hours, minutes: minutes, seconds: seconds)
+		delegate?.captureDidUpdateRecordTimer?(capture: self, hours: hours, minutes: minutes, seconds: seconds)
 	}
 	
 	/// Stops the timer when recording.
@@ -371,7 +374,7 @@ open class Capture: View, UIGestureRecognizerDelegate {
         let seconds: Int = Int(time.truncatingRemainder(dividingBy: 60))
         timer?.invalidate()
 		timer = nil
-		(delegate as? CaptureDelegate)?.captureDidStopRecordTimer?(capture: self, hours: hours, minutes: minutes, seconds: seconds)
+		delegate?.captureDidStopRecordTimer?(capture: self, hours: hours, minutes: minutes, seconds: seconds)
 	}
 	
 	/**
@@ -379,7 +382,7 @@ open class Capture: View, UIGestureRecognizerDelegate {
      - Parameter button: A UIButton that is associated with the event.
      */
 	internal func handleFlashButton(button: UIButton) {
-		(delegate as? CaptureDelegate)?.captureDidPressFlashButton?(capture: self, button: button)
+		delegate?.captureDidPressFlashButton?(capture: self, button: button)
 	}
 	
     /**
@@ -388,7 +391,7 @@ open class Capture: View, UIGestureRecognizerDelegate {
      */
     internal func handleSwitchCamerasButton(button: UIButton) {
 		captureSession.switchCameras()
-		(delegate as? CaptureDelegate)?.captureDidPressSwitchCamerasButton?(capture: self, button: button)
+		delegate?.captureDidPressSwitchCamerasButton?(capture: self, button: button)
 	}
 	
     /**
@@ -407,7 +410,7 @@ open class Capture: View, UIGestureRecognizerDelegate {
 				startTimer()
 			}
 		}
-		(delegate as? CaptureDelegate)?.captureDidPressCaptureButton?(capture: self, button: button)
+		delegate?.captureDidPressCaptureButton?(capture: self, button: button)
 	}
 	
     /**
@@ -416,7 +419,7 @@ open class Capture: View, UIGestureRecognizerDelegate {
      */
     internal func handleCameraButton(button: UIButton) {
 		captureMode = .photo
-		(delegate as? CaptureDelegate)?.captureDidPressCameraButton?(capture: self, button: button)
+		delegate?.captureDidPressCameraButton?(capture: self, button: button)
 	}
 	
     /**
@@ -425,7 +428,7 @@ open class Capture: View, UIGestureRecognizerDelegate {
      */
     internal func handleVideoButton(button: UIButton) {
 		captureMode = .video
-		(delegate as? CaptureDelegate)?.captureDidPressVideoButton?(capture: self, button: button)
+		delegate?.captureDidPressVideoButton?(capture: self, button: button)
 	}
 	
     /**
@@ -438,7 +441,7 @@ open class Capture: View, UIGestureRecognizerDelegate {
 			let point: CGPoint = recognizer.location(in: self)
 			captureSession.focus(at: previewView.captureDevicePointOfInterestForPoint(point: point))
 			animateTapLayer(layer: focusLayer!, point: point)
-			(delegate as? CaptureDelegate)?.captureDidTapToFocusAtPoint?(capture: self, point: point)
+			delegate?.captureDidTapToFocusAtPoint?(capture: self, point: point)
 		}
 	}
 	
@@ -452,7 +455,7 @@ open class Capture: View, UIGestureRecognizerDelegate {
 			let point: CGPoint = recognizer.location(in: self)
 			captureSession.expose(at: previewView.captureDevicePointOfInterestForPoint(point: point))
 			animateTapLayer(layer: exposureLayer!, point: point)
-			(delegate as? CaptureDelegate)?.captureDidTapToExposeAtPoint?(capture: self, point: point)
+			delegate?.captureDidTapToExposeAtPoint?(capture: self, point: point)
 		}
 	}
 	
@@ -466,7 +469,7 @@ open class Capture: View, UIGestureRecognizerDelegate {
 			captureSession.reset()
             let point: CGPoint = previewView.pointForCaptureDevicePointOfInterest(point: CGPoint(x: 0.5, y: 0.5))
 			animateTapLayer(layer: resetLayer!, point: point)
-			(delegate as? CaptureDelegate)?.captureDidTapToResetAtPoint?(capture: self, point: point)
+			delegate?.captureDidTapToResetAtPoint?(capture: self, point: point)
 		}
 	}
 	

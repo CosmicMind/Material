@@ -41,11 +41,6 @@ open class Button: UIButton {
      */
 	open private(set) var visualLayer: CAShapeLayer!
 	
-	/**
-     A base delegate reference used when subclassing View.
-     */
-	public weak var delegate: MaterialDelegate?
-	
 	/// An Array of pulse layers.
 	public private(set) lazy var pulseLayers = [CAShapeLayer]()
 	

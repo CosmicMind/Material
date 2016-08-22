@@ -30,9 +30,6 @@
 
 import UIKit
 
-@objc(MaterialDelegate)
-public protocol MaterialDelegate {}
-
 @objc(Layer)
 open class Layer: CAShapeLayer {
 	/**

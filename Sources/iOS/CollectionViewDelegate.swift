@@ -30,6 +30,6 @@
 
 import UIKit
 
-public protocol CollectionViewDelegate: MaterialDelegate, UICollectionViewDelegate {
+public protocol CollectionViewDelegate: UICollectionViewDelegate {
 	
 }

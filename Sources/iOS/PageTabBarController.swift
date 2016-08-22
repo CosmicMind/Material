@@ -49,7 +49,7 @@ extension UIViewController {
 }
 
 @objc(PageTabBarControllerDelegate)
-public protocol PageTabBarControllerDelegate: MaterialDelegate {
+public protocol PageTabBarControllerDelegate {
 
 }
 

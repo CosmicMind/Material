@@ -49,7 +49,7 @@ extension UIViewController {
 }
 
 @objc(ToolbarControllerDelegate)
-public protocol ToolbarControllerDelegate: MaterialDelegate {
+public protocol ToolbarControllerDelegate {
 	/// Delegation method that executes when the floatingViewController will open.
 	@objc
     optional func toolbarControllerWillOpenFloatingViewController(toolbarController: ToolbarController)
