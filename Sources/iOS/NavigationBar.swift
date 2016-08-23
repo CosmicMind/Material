@@ -38,18 +38,6 @@ public enum NavigationBarStyle: Int {
 	case large
 }
 
-extension UINavigationBar {
-	/// Device status bar style.
-	public var statusBarStyle: UIStatusBarStyle {
-		get {
-			return Device.statusBarStyle
-		}
-		set(value) {
-			Device.statusBarStyle = value
-		}
-	}
-}
-
 @IBDesignable
 open class NavigationBar: UINavigationBar {
     /// A reference to the divider.

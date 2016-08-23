@@ -30,6 +30,18 @@
 
 import UIKit
 
+extension UINavigationController {
+    /// Device status bar style.
+    open var statusBarStyle: UIStatusBarStyle {
+        get {
+            return Device.statusBarStyle
+        }
+        set(value) {
+            Device.statusBarStyle = value
+        }
+    }
+}
+
 @IBDesignable
 open class NavigationController: UINavigationController, UIGestureRecognizerDelegate {
     /**
