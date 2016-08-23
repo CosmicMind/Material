@@ -39,7 +39,7 @@ extension UITabBarItem {
 
 @IBDesignable
 open class BottomTabBar: UITabBar {
-	/// Automatically aligns the BottomNavigationBar to the superview.
+    /// Automatically aligns the BottomNavigationBar to the superview.
 	open var isAlignedToParentAutomatically = true
 	
 	/// A property that accesses the backing layer's backgroundColor.
@@ -81,6 +81,7 @@ open class BottomTabBar: UITabBar {
 	open override func layoutSubviews() {
 		super.layoutSubviews()
         layoutShadowPath()
+        
 		if let v = items {
 			for item in v {
 				if .phone == Device.userInterfaceIdiom {
@@ -101,6 +102,8 @@ open class BottomTabBar: UITabBar {
                 }
 			}
 		}
+        
+        divider.reload()
 	}
 	
 	open override func didMoveToSuperview() {
@@ -130,31 +133,19 @@ open class BottomTabBar: UITabBar {
 }
 
 /// A memory reference to the TabBarItem instance.
-private var MaterialAssociatedObjectTabBarKey: UInt8 = 0
-
-public class MaterialAssociatedObjectTabBar {
-	/**
-     A property that sets the shadowOffset, shadowOpacity, and shadowRadius
-     for the backing layer. This is the preferred method of setting depth
-     in order to maintain consitency across UI objects.
-     */
-    public var depthPreset: DepthPreset
-	
-    public init(depthPreset: DepthPreset) {
-		self.depthPreset = depthPreset
-	}
-}
+private var TabBarKey: UInt8 = 0
 
 extension UITabBar {
-	/// TabBarItem reference.
-	public internal(set) var item: MaterialAssociatedObjectTabBar {
-		get {
-			return AssociatedObject(base: self, key: &MaterialAssociatedObjectTabBarKey) {
-				return MaterialAssociatedObjectTabBar(depthPreset: .none)
-			}
-		}
-		set(value) {
-			AssociateObject(base: self, key: &MaterialAssociatedObjectTabBarKey, value: value)
-		}
-	}
+    /// TabBarItem reference.
+    public internal(set) var divider: Divider! {
+        get {
+            return AssociatedObject(base: self, key: &TabBarKey) {
+                return Divider(view: self)
+            }
+        }
+        set(value) {
+            AssociateObject(base: self, key: &TabBarKey, value: value)
+        }
+    }
 }
+

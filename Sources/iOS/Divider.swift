@@ -42,11 +42,11 @@ open class Divider {
     /// A reference to the UIView.
     internal weak var view: UIView?
     
-    /// A reference to the height.
-    internal var height: CGFloat
-    
     /// A reference to the divider UIView.
     internal var line: UIView?
+    
+    /// A reference to the height.
+    public var height: CGFloat
     
     /// Divider color.
     open var color: UIColor? {
@@ -87,19 +87,19 @@ open class Divider {
     
     /// Lays out the divider.
     internal func reload() {
-        guard let v = view else {
+        guard let l = line, let v = view else {
             return
         }
         
         switch alignment {
         case .top:
-            line?.frame = CGRect(x: 0, y: 0, width: v.width, height: height)
+            l.frame = CGRect(x: 0, y: 0, width: v.width, height: height)
         case .bottom:
-            line?.frame = CGRect(x: 0, y: v.height - height, width: v.width, height: height)
+            l.frame = CGRect(x: 0, y: v.height - height, width: v.width, height: height)
         case .left:
-            line?.frame = CGRect(x: 0, y: 0, width: height, height: v.height)
+            l.frame = CGRect(x: 0, y: 0, width: height, height: v.height)
         case .right:
-            line?.frame = CGRect(x: v.width - height, y: 0, width: height, height: v.height)
+            l.frame = CGRect(x: v.width - height, y: 0, width: height, height: v.height)
         }
     }
 }
