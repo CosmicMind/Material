@@ -42,7 +42,7 @@ public class MenuView : PulseView {
 	public private(set) lazy var menu: Menu = Menu()
 	
     /// A delegation reference.
-    public weak var delegate: MenuViewDelegate?
+    open weak var delegate: MenuViewDelegate?
     
     public override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         /**

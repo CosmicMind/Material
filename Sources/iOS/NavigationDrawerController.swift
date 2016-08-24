@@ -179,7 +179,7 @@ public class NavigationDrawerController: RootController, UIGestureRecognizerDele
 	A NavigationDrawerControllerDelegate property used to bind
 	the delegation object.
 	*/
-	public weak var delegate: NavigationDrawerControllerDelegate?
+	open weak var delegate: NavigationDrawerControllerDelegate?
 	
 	/**
 	A CGFloat property that sets the animation duration of the

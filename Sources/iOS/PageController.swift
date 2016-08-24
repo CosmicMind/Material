@@ -32,15 +32,15 @@ import UIKit
 
 extension UIViewController {
     /**
-     A convenience property that provides access to the PageTabBarController.
-     This is the recommended method of accessing the PageTabBarController
+     A convenience property that provides access to the PageController.
+     This is the recommended method of accessing the PageController
      through child UIViewControllers.
      */
-    public var pageTabBarController: PageTabBarController? {
+    public var pageController: PageController? {
         var viewController: UIViewController? = self
         while nil != viewController {
-            if viewController is PageTabBarController {
-                return viewController as? PageTabBarController
+            if viewController is PageController {
+                return viewController as? PageController
             }
             viewController = viewController?.parent
         }
@@ -48,18 +48,32 @@ extension UIViewController {
     }
 }
 
-@objc(PageTabBarControllerDelegate)
-public protocol PageTabBarControllerDelegate {
+@objc(PageControllerDelegate)
+public protocol PageControllerDelegate {
 
 }
 
-@objc(PageTabBarController)
-open class PageTabBarController: RootController {
+@objc(PageController)
+open class PageController: RootController {
     /// Reference to the TabBar.
     open internal(set) var tabBar: TabBar!
     
     /// Delegation handler.
-    public weak var delegate: PageTabBarControllerDelegate?
+    public weak var delegate: PageControllerDelegate?
+    
+    /// A reference to the instance when it is a UIPageViewController.
+    open var pageViewController: UIPageViewController? {
+        return rootViewController as? UIPageViewController
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    public override init(rootViewController: UIViewController) {
+        super.init(rootViewController: UIPageViewController())
+        pageViewController?.setViewControllers([rootViewController], direction: .forward, animated: true, completion: nil)
+    }
     
     /**
      To execute in the order of the layout chain, override this
@@ -99,6 +113,18 @@ open class PageTabBarController: RootController {
         prepareTabBar()
     }
     
+    override func prepareRootViewController() {
+        super.prepareRootViewController()
+        
+        guard let v = pageViewController else {
+            return
+        }
+        
+        v.isDoubleSided = false
+        v.delegate = self
+        v.dataSource = self
+    }
+    
     /// Prepares the tabBar.
     private func prepareTabBar() {
         if nil == tabBar {
@@ -106,5 +132,25 @@ open class PageTabBarController: RootController {
             tabBar.zPosition = 1000
             view.addSubview(tabBar)
         }
+    }
+}
+
+extension PageController {
+    open func setViewControllers(_ viewControllers: [UIViewController]?, direction: UIPageViewControllerNavigationDirection, animated: Bool, completion: (@escaping (Bool) -> Swift.Void)? = nil) {
+        pageViewController?.setViewControllers(viewControllers, direction: direction, animated: animated, completion: completion)
+    }
+}
+
+extension PageController: UIPageViewControllerDelegate {
+    
+}
+
+extension PageController: UIPageViewControllerDataSource {
+    public func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        return nil
+    }
+    
+    public func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        return nil
     }
 }

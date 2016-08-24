@@ -16,7 +16,7 @@
 		96334EF61C8B84660083986B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96334EF51C8B84660083986B /* Assets.xcassets */; };
 		963832421B88DFD80015F710 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963832361B88DFD80015F710 /* Material.framework */; };
 		963FBEFD1D669510008F8512 /* Snackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963FBEFC1D669510008F8512 /* Snackbar.swift */; };
-		963FBF081D669D14008F8512 /* PageTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963FBF071D669D14008F8512 /* PageTabBarController.swift */; };
+		963FBF081D669D14008F8512 /* PageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963FBF071D669D14008F8512 /* PageController.swift */; };
 		9658F2171CD6FA4700B902C1 /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9658F2161CD6FA4700B902C1 /* IconButton.swift */; };
 		9660161D1CB2ED6C00AAB661 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 966016131CB2ED6C00AAB661 /* Material.framework */; };
 		9660162A1CB2F04E00AAB661 /* Material.h in Headers */ = {isa = PBXBuildFile; fileRef = 96D88C091C1328D800B91418 /* Material.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -209,7 +209,7 @@
 		963832411B88DFD80015F710 /* Material.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Material.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		963832591B88E31A0015F710 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		963FBEFC1D669510008F8512 /* Snackbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Snackbar.swift; sourceTree = "<group>"; };
-		963FBF071D669D14008F8512 /* PageTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageTabBarController.swift; sourceTree = "<group>"; };
+		963FBF071D669D14008F8512 /* PageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageController.swift; sourceTree = "<group>"; };
 		9658F2161CD6FA4700B902C1 /* IconButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
 		966016131CB2ED6C00AAB661 /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Material.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9660161C1CB2ED6C00AAB661 /* Material macOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Material macOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -407,7 +407,7 @@
 			isa = PBXGroup;
 			children = (
 				96BCB79A1CB40DC500C806FE /* TabBar.swift */,
-				963FBF071D669D14008F8512 /* PageTabBarController.swift */,
+				963FBF071D669D14008F8512 /* PageController.swift */,
 				96BCB7581CB40DC500C806FE /* BottomNavigationController.swift */,
 				96BCB7591CB40DC500C806FE /* BottomTabBar.swift */,
 			);
@@ -1057,7 +1057,7 @@
 				962864621D54111D00690B69 /* JSON.swift in Sources */,
 				96BCB7C21CB40DC500C806FE /* Device.swift in Sources */,
 				96BCB7A41CB40DC500C806FE /* CaptureSession.swift in Sources */,
-				963FBF081D669D14008F8512 /* PageTabBarController.swift in Sources */,
+				963FBF081D669D14008F8512 /* PageController.swift in Sources */,
 				963FBEFD1D669510008F8512 /* Snackbar.swift in Sources */,
 				96BCB7C51CB40DC500C806FE /* MaterialGravity.swift in Sources */,
 				968C99471D377849000074FF /* Offset.swift in Sources */,

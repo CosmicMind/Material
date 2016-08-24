@@ -133,7 +133,7 @@ public protocol CaptureDelegate {
 
 open class Capture: View, UIGestureRecognizerDelegate {
     /// A delegation reference.
-    public weak var delegate: CaptureDelegate?
+    open weak var delegate: CaptureDelegate?
     
     /// A Timer reference for when recording is enabled.
 	private var timer: Timer?

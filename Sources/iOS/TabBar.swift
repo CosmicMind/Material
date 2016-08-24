@@ -103,7 +103,7 @@ open class TabBar: View {
     }
     
     /// A delegation reference.
-    public weak var delegate: TabBarDelegate?
+    open weak var delegate: TabBarDelegate?
     
     open override var intrinsicContentSize: CGSize {
         return CGSize(width: width, height: 49)

@@ -76,7 +76,7 @@ open class ToolbarController: RootController {
 	open internal(set) var toolbar: Toolbar!
 	
 	/// Delegation handler.
-	public weak var delegate: ToolbarControllerDelegate?
+	open weak var delegate: ToolbarControllerDelegate?
 	
 	/// A floating UIViewController.
 	open var floatingViewController: UIViewController? {

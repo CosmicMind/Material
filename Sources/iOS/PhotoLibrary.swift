@@ -176,7 +176,7 @@ public class PhotoLibrary: NSObject {
     public internal(set) lazy var fetchResultsDataSource = [String: PhotoLibraryFetchResultDataSource]()
     
     /// A reference to a PhotoLibraryDelegate.
-    public weak var delegate: PhotoLibraryDelegate?
+    open weak var delegate: PhotoLibraryDelegate?
     
     /// The current PHAuthorizationStatus.
     public var authorizationStatus: PHAuthorizationStatus {

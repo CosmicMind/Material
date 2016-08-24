@@ -78,7 +78,7 @@ public class Text: NSObject {
 	public private(set) var textStorage: TextStorage = TextStorage()
 	
 	/// Delegation object for pre and post text processing.
-	public weak var delegate: TextDelegate?
+	open weak var delegate: TextDelegate?
 	
 	/// Initializer.
 	public override init() {

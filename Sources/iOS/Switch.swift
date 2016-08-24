@@ -80,7 +80,7 @@ public class Switch: UIControl {
 	private var bounceOffset: CGFloat = 3
 		
 	/// An Optional delegation method.
-	public weak var delegate: SwitchDelegate?
+	open weak var delegate: SwitchDelegate?
 	
 	/// Indicates if the animation should bounce.
 	@IBInspectable public var bounceable: Bool = true {
