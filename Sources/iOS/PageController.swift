@@ -55,6 +55,9 @@ public protocol PageControllerDelegate {
 
 @objc(PageController)
 open class PageController: RootController {
+    /// The currently selected UIViewController.
+    open internal(set) var selectedIndex: Int = 0
+    
     /// Reference to the TabBar.
     open internal(set) var tabBar: TabBar!
     
@@ -66,13 +69,24 @@ open class PageController: RootController {
         return rootViewController as? UIPageViewController
     }
     
+    /// A reference to the UIViewControllers.
+    open var viewControllers = [UIViewController]()
+    
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
     public override init(rootViewController: UIViewController) {
-        super.init(rootViewController: UIPageViewController())
-        pageViewController?.setViewControllers([rootViewController], direction: .forward, animated: true, completion: nil)
+        super.init(rootViewController: UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil))
+        viewControllers.append(rootViewController)
+        pageViewController?.setViewControllers(viewControllers, direction: .forward, animated: true, completion: nil)
+    }
+    
+    public init(viewControllers: [UIViewController], selectedIndex: Int, direction: UIPageViewControllerNavigationDirection, animated: Bool) {
+        super.init(rootViewController: UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil))
+        self.selectedIndex = selectedIndex
+        self.viewControllers.append(contentsOf: viewControllers)
+        pageViewController?.setViewControllers([self.viewControllers[selectedIndex]], direction: direction, animated: animated, completion: nil)
     }
     
     /**
@@ -120,9 +134,9 @@ open class PageController: RootController {
             return
         }
         
-        v.isDoubleSided = false
         v.delegate = self
         v.dataSource = self
+        v.isDoubleSided = false
     }
     
     /// Prepares the tabBar.
@@ -137,6 +151,7 @@ open class PageController: RootController {
 
 extension PageController {
     open func setViewControllers(_ viewControllers: [UIViewController]?, direction: UIPageViewControllerNavigationDirection, animated: Bool, completion: (@escaping (Bool) -> Swift.Void)? = nil) {
+        
         pageViewController?.setViewControllers(viewControllers, direction: direction, animated: animated, completion: completion)
     }
 }
@@ -147,10 +162,31 @@ extension PageController: UIPageViewControllerDelegate {
 
 extension PageController: UIPageViewControllerDataSource {
     public func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        return nil
+        guard let current = viewControllers.index(of: viewController) else {
+            return nil
+        }
+        
+        let previous = current - 1
+        
+        guard previous >= 0, viewControllers.count > previous else {
+            return nil
+        }
+        
+        return viewControllers[previous]
     }
     
     public func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        return nil
+        guard let current = viewControllers.index(of: viewController) else {
+            return nil
+        }
+        
+        let next = current + 1
+        let count = viewControllers.count
+        
+        guard count != next, count > next else {
+            return nil
+        }
+        
+        return viewControllers[next]
     }
 }
