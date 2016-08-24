@@ -28,7 +28,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import Photos
+import UIKit
 
 open class PhotoLibraryController: UIViewController, PhotoLibraryDelegate {
     /// A reference to a PhotoLibrary.

@@ -62,7 +62,7 @@ public protocol PhotoLibraryDelegate {
     /**
      A delegation method that is executed when the PhotoLibrary status is updated.
      - Parameter photoLibrary: A reference to the PhotoLibrary.
-     - Parameter status: A reference to the AuthorizationStatus.
+     - Parameter status: A reference to the PHAuthorizationStatus.
      */
     @objc
     optional func photoLibrary(photoLibrary: PhotoLibrary, status: PHAuthorizationStatus)
@@ -214,32 +214,34 @@ extension PhotoLibrary {
      - Parameter _ completion: A completion block that passes in a PHAuthorizationStatus
      enum that describes the response for the authorization request.
      */
-    public func requestAuthorization(_ completion: ((PHAuthorizationStatus) -> Void)? = nil) {
+    public func requestAuthorization(_ completion: (@escaping (PHAuthorizationStatus) -> Void)? = nil) {
         PHPhotoLibrary.requestAuthorization { [weak self, completion = completion] (status) in
-            guard let s = self else {
-                return
-            }
-            
-            switch status {
-            case .authorized:
-                s.delegate?.photoLibrary?(photoLibrary: s, status: .authorized)
-                s.delegate?.photoLibrary?(authorized: s)
-                completion?(.authorized)
+            DispatchQueue.main.async { [weak self, completion = completion] in
+                guard let s = self else {
+                    return
+                }
                 
-            case .denied:
-                s.delegate?.photoLibrary?(photoLibrary: s, status: .denied)
-                s.delegate?.photoLibrary?(denied: s)
-                completion?(.denied)
-                
-            case .notDetermined:
-                s.delegate?.photoLibrary?(photoLibrary: s, status: .notDetermined)
-                s.delegate?.photoLibrary?(notDetermined: s)
-                completion?(.notDetermined)
-                
-            case .restricted:
-                s.delegate?.photoLibrary?(photoLibrary: s, status: .restricted)
-                s.delegate?.photoLibrary?(restricted: s)
-                completion?(.restricted)
+                switch status {
+                case .authorized:
+                    s.delegate?.photoLibrary?(photoLibrary: s, status: .authorized)
+                    s.delegate?.photoLibrary?(authorized: s)
+                    completion?(.authorized)
+                    
+                case .denied:
+                    s.delegate?.photoLibrary?(photoLibrary: s, status: .denied)
+                    s.delegate?.photoLibrary?(denied: s)
+                    completion?(.denied)
+                    
+                case .notDetermined:
+                    s.delegate?.photoLibrary?(photoLibrary: s, status: .notDetermined)
+                    s.delegate?.photoLibrary?(notDetermined: s)
+                    completion?(.notDetermined)
+                    
+                case .restricted:
+                    s.delegate?.photoLibrary?(photoLibrary: s, status: .restricted)
+                    s.delegate?.photoLibrary?(restricted: s)
+                    completion?(.restricted)
+                }
             }
         }
     }
