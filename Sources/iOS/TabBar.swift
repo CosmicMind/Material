@@ -185,7 +185,28 @@ open class TabBar: View {
 	/// Handles the button touch event.
     @objc
 	internal func handleButton(button: UIButton) {
-		delegate?.tabBarWillSelectButton?(tabBar: self, button: button)
+        animate(to: button)
+	}
+	
+    /**
+     Selects a given index from the buttons array.
+     - Parameter at index: An Int.
+     - Paramater completion: An optional completion block.
+     */
+    open func select(at index: Int, completion: (@escaping (UIButton) -> Void)? = nil) {
+        guard -1 < index, index < buttons.count else {
+            return
+        }
+        animate(to: buttons[index], completion: completion)
+    }
+    
+    /**
+     Animates to a given button.
+     - Parameter to button: A UIButton.
+     - Paramater completion: An optional completion block.
+     */
+    internal func animate(to button: UIButton, completion: (@escaping (UIButton) -> Void)? = nil) {
+        delegate?.tabBarWillSelectButton?(tabBar: self, button: button)
         selected = button
         
         UIView.animate(withDuration: 0.25, animations: { [weak self, button = button] in
@@ -194,14 +215,15 @@ open class TabBar: View {
             }
             s.line.x = button.x
             s.line.width = button.width
-        }) { [weak self, button = button] _ in
+        }) { [weak self, button = button, completion = completion] _ in
             guard let s = self else {
                 return
             }
             s.delegate?.tabBarDidSelectButton?(tabBar: s, button: button)
+            completion?(button)
         }
-	}
-	
+    }
+    
 	/**
      Prepares the view instance when intialized. When subclassing,
      it is recommended to override the prepareView method

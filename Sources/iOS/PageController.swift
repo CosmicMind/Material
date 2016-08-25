@@ -55,6 +55,9 @@ public protocol PageControllerDelegate {
 
 @objc(PageController)
 open class PageController: RootController {
+    /// A boolean that indicates when a button animation is active.
+    internal var animating = false
+    
     /// The currently selected UIViewController.
     open internal(set) var selectedIndex: Int = 0
     
@@ -137,6 +140,12 @@ open class PageController: RootController {
         v.delegate = self
         v.dataSource = self
         v.isDoubleSided = false
+        
+        for view in v.view.subviews {
+            if view.isKind(of: UIScrollView.self) {
+                (view as? UIScrollView)?.delegate = self
+            }
+        }
     }
     
     /// Prepares the tabBar.
@@ -145,6 +154,7 @@ open class PageController: RootController {
             tabBar = TabBar()
             tabBar.zPosition = 1000
             view.addSubview(tabBar)
+            tabBar.select(at: selectedIndex)
         }
     }
 }
@@ -157,7 +167,25 @@ extension PageController {
 }
 
 extension PageController: UIPageViewControllerDelegate {
-    
+    public func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        guard let vc = previousViewControllers.first else {
+            return
+        }
+        
+        guard let index = viewControllers.index(of: vc) else {
+            return
+        }
+        
+        guard completed else {
+            tabBar.select(at: index) { [weak self] _ in
+                guard let s = self else {
+                    return
+                }
+                s.animating = false
+            }
+            return
+        }
+    }
 }
 
 extension PageController: UIPageViewControllerDataSource {
@@ -188,5 +216,30 @@ extension PageController: UIPageViewControllerDataSource {
         }
         
         return viewControllers[next]
+    }
+}
+
+extension PageController: UIScrollViewDelegate {
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard !animating else {
+            return
+        }
+        
+        let x = scrollView.contentOffset.x / scrollView.contentSize.width * scrollView.width
+        
+        guard 0 < x else {
+            return
+        }
+        
+        tabBar.line.x = x
+        print("scrolling", x)
+    }
+    
+    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+//        animating = true
+    }
+    
+    public func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+        animating = true
     }
 }

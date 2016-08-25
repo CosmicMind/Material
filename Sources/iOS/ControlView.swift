@@ -91,29 +91,15 @@ open class ControlView: View {
 	open private(set) var contentView: View!
 	
 	/// Left side UIControls.
-	open var leftControls: [UIView] {
+	open var leftControls = [UIView]() {
 		didSet {
-            for v in oldValue {
-                v.removeFromSuperview()
-            }
-			
-            for v in leftControls {
-                addSubview(v)
-            }
-			layoutSubviews()
+            layoutSubviews()
 		}
 	}
 	
 	/// Right side UIControls.
-	open var rightControls: [UIView] {
+	open var rightControls = [UIView]() {
 		didSet {
-            for v in oldValue {
-                v.removeFromSuperview()
-            }
-            
-            for v in rightControls {
-                addSubview(v)
-            }
             layoutSubviews()
 		}
 	}
@@ -123,8 +109,6 @@ open class ControlView: View {
      - Parameter aDecoder: A NSCoder instance.
      */
 	public required init?(coder aDecoder: NSCoder) {
-        leftControls = []
-        rightControls = []
         super.init(coder: aDecoder)
 	}
 	
@@ -135,15 +119,11 @@ open class ControlView: View {
      - Parameter frame: A CGRect instance.
      */
 	public override init(frame: CGRect) {
-        leftControls = []
-        rightControls = []
-		super.init(frame: frame)
+        super.init(frame: frame)
 	}
 	
 	/// Basic initializer.
 	public init() {
-		leftControls = []
-        rightControls = []
 		super.init(frame: .zero)
         frame.size = intrinsicContentSize
 	}
