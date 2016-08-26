@@ -30,6 +30,31 @@
 
 import UIKit
 
+/// A memory reference to the PageTabBarItem instance for UIViewController extensions.
+private var PageTabBarItemKey: UInt8 = 0
+
+open class PageTabBarItem: FlatButton {
+    override open func prepareView() {
+        super.prepareView()
+        pulseAnimation = .none
+    }
+}
+
+/// Grid extension for UIView.
+extension UIViewController {
+    /// Grid reference.
+    public private(set) var pageTabBarItem: PageTabBarItem {
+        get {
+            return AssociatedObject(base: self, key: &PageTabBarItemKey) {
+                return PageTabBarItem()
+            }
+        }
+        set(value) {
+            AssociateObject(base: self, key: &PageTabBarItemKey, value: value)
+        }
+    }
+}
+
 extension UIViewController {
     /**
      A convenience property that provides access to the PageController.
@@ -79,14 +104,14 @@ open class PageController: RootController {
     public override init(rootViewController: UIViewController) {
         super.init(rootViewController: UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil))
         viewControllers.append(rootViewController)
-        pageViewController?.setViewControllers(viewControllers, direction: .forward, animated: true, completion: nil)
+        setViewControllers(viewControllers, direction: .forward, animated: true, completion: nil)
     }
     
     public init(viewControllers: [UIViewController], selectedIndex: Int, direction: UIPageViewControllerNavigationDirection, animated: Bool) {
         super.init(rootViewController: UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil))
         self.selectedIndex = selectedIndex
         self.viewControllers.append(contentsOf: viewControllers)
-        pageViewController?.setViewControllers([self.viewControllers[selectedIndex]], direction: direction, animated: animated, completion: nil)
+        setViewControllers([self.viewControllers[selectedIndex]], direction: direction, animated: animated, completion: nil)
     }
     
     /**
@@ -145,6 +170,14 @@ open class PageController: RootController {
         }
     }
     
+    /// Prepares the pageTabBarItems.
+    open func preparePageTabBarItems() {
+        tabBar.buttons.removeAll()
+        for x in viewControllers {
+            tabBar.buttons.append(x.pageTabBarItem as UIButton)
+        }
+    }
+    
     /// Prepares the tabBar.
     private func prepareTabBar() {
         if nil == tabBar {
@@ -159,6 +192,7 @@ open class PageController: RootController {
 extension PageController {
     open func setViewControllers(_ viewControllers: [UIViewController]?, direction: UIPageViewControllerNavigationDirection, animated: Bool, completion: (@escaping (Bool) -> Void)? = nil) {
         pageViewController?.setViewControllers(viewControllers, direction: direction, animated: animated, completion: completion)
+        preparePageTabBarItems()
     }
 }
 
@@ -185,10 +219,9 @@ extension PageController: UIPageViewControllerDelegate {
             return
         }
         
-        guard let index = viewControllers.index(of: vc) else {
+        guard let _ = viewControllers.index(of: vc) else {
             return
         }
-        
         
         tabBar.select(at: selectedIndex)
     }
