@@ -72,8 +72,8 @@ open class SearchBarController: RootController {
         v.width = w + v.grid.layoutEdgeInsets.left + v.grid.layoutEdgeInsets.right
         v.height = p
         
-        rootViewController.view.frame.origin.y = p
-        rootViewController.view.frame.size.height = h - p
+        rootViewController.view.y = p
+        rootViewController.view.height = h - p
         
         v.divider.reload()
 	}

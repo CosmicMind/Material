@@ -187,7 +187,7 @@ public class Menu {
 					animations: { [weak self] in
 						if let s: Menu = self {
 							view.alpha = 1
-							view.frame.origin.y = base!.frame.origin.y - CGFloat(i) * s.itemSize.height - CGFloat(i) * s.interimSpace
+							view.y = base!.y - CGFloat(i) * s.itemSize.height - CGFloat(i) * s.interimSpace
 							animations?(view)
 						}
 					}) { [weak self] _ in
@@ -226,7 +226,7 @@ public class Menu {
 					animations: { [weak self] in
 						if let s: Menu = self {
 							view.alpha = 0
-							view.frame.origin.y = s.origin.y
+							view.y = s.origin.y
 							animations?(view)
 						}
 					}) { [weak self] _ in
@@ -273,7 +273,7 @@ public class Menu {
 					animations: { [weak self] in
 						if let s: Menu = self {
 							view.alpha = 1
-							view.frame.origin.y = base!.frame.origin.y + h + CGFloat(i - 1) * s.itemSize.height + CGFloat(i) * s.interimSpace
+							view.y = base!.y + h + CGFloat(i - 1) * s.itemSize.height + CGFloat(i) * s.interimSpace
 							animations?(view)
 						}
 					}) { [weak self] _ in
@@ -313,7 +313,7 @@ public class Menu {
 					animations: { [weak self] in
 						if let s: Menu = self {
 							view.alpha = 0
-							view.frame.origin.y = s.origin.y + h
+							view.y = s.origin.y + h
 							animations?(view)
 						}
 					}) { [weak self] _ in
@@ -359,7 +359,7 @@ public class Menu {
 					animations: { [weak self] in
 						if let s: Menu = self {
 							view.alpha = 1
-							view.frame.origin.x = base!.frame.origin.x - CGFloat(i) * s.itemSize.width - CGFloat(i) * s.interimSpace
+							view.x = base!.x - CGFloat(i) * s.itemSize.width - CGFloat(i) * s.interimSpace
 							animations?(view)
 						}
 					}) { [weak self] _ in
@@ -397,7 +397,7 @@ public class Menu {
 					animations: { [weak self] in
 						if let s: Menu = self {
 							view.alpha = 0
-							view.frame.origin.x = s.origin.x
+							view.x = s.origin.x
 							animations?(view)
 						}
 					}) { [weak self] _ in
@@ -443,7 +443,7 @@ public class Menu {
 					animations: { [weak self] in
 						if let s: Menu = self {
 							view.alpha = 1
-							view.frame.origin.x = base!.frame.origin.x + h + CGFloat(i - 1) * s.itemSize.width + CGFloat(i) * s.interimSpace
+							view.x = base!.x + h + CGFloat(i - 1) * s.itemSize.width + CGFloat(i) * s.interimSpace
 							animations?(view)
 						}
 					}) { [weak self] _ in
@@ -483,7 +483,7 @@ public class Menu {
 					animations: { [weak self] in
 						if let s: Menu = self {
 							view.alpha = 0
-							view.frame.origin.x = s.origin.x + w
+							view.x = s.origin.x + w
 							animations?(view)
 						}
 					}) { [weak self] _ in
@@ -514,8 +514,8 @@ public class Menu {
 					view.alpha = 0
 					view.isHidden = true
 					view.frame.size = itemSize
-					view.frame.origin.x = origin.x + (size.width - itemSize.width) / 2
-					view.frame.origin.y = origin.y + (size.height - itemSize.height) / 2
+					view.x = origin.x + (size.width - itemSize.width) / 2
+					view.y = origin.y + (size.height - itemSize.height) / 2
 					view.layer.zPosition = CGFloat(10000 - v.count - i)
 				}
 			}

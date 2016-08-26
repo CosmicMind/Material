@@ -55,9 +55,6 @@ public protocol PageControllerDelegate {
 
 @objc(PageController)
 open class PageController: RootController {
-    /// A boolean that indicates when a button animation is active.
-    internal var animating = false
-    
     /// The currently selected UIViewController.
     open internal(set) var selectedIndex: Int = 0
     
@@ -112,8 +109,8 @@ open class PageController: RootController {
         v.width = w + v.grid.layoutEdgeInsets.left + v.grid.layoutEdgeInsets.right
         v.height = p
         
-        rootViewController.view.frame.origin.y = 0
-        rootViewController.view.frame.size.height = y
+        rootViewController.view.y = 0
+        rootViewController.view.height = y
         
         v.divider.reload()
     }
@@ -160,14 +157,30 @@ open class PageController: RootController {
 }
 
 extension PageController {
-    open func setViewControllers(_ viewControllers: [UIViewController]?, direction: UIPageViewControllerNavigationDirection, animated: Bool, completion: (@escaping (Bool) -> Swift.Void)? = nil) {
-        
+    open func setViewControllers(_ viewControllers: [UIViewController]?, direction: UIPageViewControllerNavigationDirection, animated: Bool, completion: (@escaping (Bool) -> Void)? = nil) {
         pageViewController?.setViewControllers(viewControllers, direction: direction, animated: animated, completion: completion)
     }
 }
 
 extension PageController: UIPageViewControllerDelegate {
+    public func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
+        guard let vc = pendingViewControllers.first else {
+            return
+        }
+        
+        guard let index = viewControllers.index(of: vc) else {
+            return
+        }
+        
+        selectedIndex = index
+    }
+    
     public func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        
+        guard completed else {
+            return
+        }
+        
         guard let vc = previousViewControllers.first else {
             return
         }
@@ -176,15 +189,8 @@ extension PageController: UIPageViewControllerDelegate {
             return
         }
         
-        guard completed else {
-            tabBar.select(at: index) { [weak self] _ in
-                guard let s = self else {
-                    return
-                }
-                s.animating = false
-            }
-            return
-        }
+        
+        tabBar.select(at: selectedIndex)
     }
 }
 
@@ -221,25 +227,16 @@ extension PageController: UIPageViewControllerDataSource {
 
 extension PageController: UIScrollViewDelegate {
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard !animating else {
+        guard 0 < view.width else {
             return
         }
         
-        let x = scrollView.contentOffset.x / scrollView.contentSize.width * scrollView.width
-        
-        guard 0 < x else {
+        guard let selected = tabBar.selected else {
             return
         }
         
-        tabBar.line.x = x
-        print("scrolling", x)
-    }
-    
-    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-//        animating = true
-    }
-    
-    public func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
-        animating = true
+        let x = (scrollView.contentOffset.x - view.width) / scrollView.contentSize.width * view.width
+        
+        tabBar.line.x = selected.x + x
     }
 }

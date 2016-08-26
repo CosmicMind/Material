@@ -93,6 +93,9 @@ open class ControlView: View {
 	/// Left side UIControls.
 	open var leftControls = [UIView]() {
 		didSet {
+            for v in oldValue {
+                v.removeFromSuperview()
+            }
             layoutSubviews()
 		}
 	}
@@ -100,6 +103,9 @@ open class ControlView: View {
 	/// Right side UIControls.
 	open var rightControls = [UIView]() {
 		didSet {
+            for v in oldValue {
+                v.removeFromSuperview()
+            }
             layoutSubviews()
 		}
 	}

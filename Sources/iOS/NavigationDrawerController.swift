@@ -411,8 +411,8 @@ public class NavigationDrawerController: RootController, UIGestureRecognizerDele
 			v.height = view.bounds.height
 			leftViewThreshold = leftViewWidth / 2
 			if let vc: UIViewController = leftViewController {
-				vc.view.frame.size.width = v.width
-				vc.view.frame.size.height = v.height
+				vc.view.width = v.width
+				vc.view.height = v.height
                 vc.view.center = CGPoint(x: v.width / 2, y: v.height / 2)
 			}
 		}
@@ -422,8 +422,8 @@ public class NavigationDrawerController: RootController, UIGestureRecognizerDele
 			v.height = view.bounds.height
 			rightViewThreshold = view.bounds.width - rightViewWidth / 2
 			if let vc: UIViewController = rightViewController {
-				vc.view.frame.size.width = v.width
-				vc.view.frame.size.height = v.height
+				vc.view.width = v.width
+				vc.view.height = v.height
                 vc.view.center = CGPoint(x: v.width / 2, y: v.height / 2)
 			}
 		}
@@ -903,7 +903,7 @@ public class NavigationDrawerController: RootController, UIGestureRecognizerDele
 		
 		leftViewWidth = .phone == Device.userInterfaceIdiom ? 280 : 320
 		leftView = View()
-        leftView!.frame = CGRect(x: 0, y: 0, width: leftViewWidth, height: view.frame.height)
+        leftView!.frame = CGRect(x: 0, y: 0, width: leftViewWidth, height: view.height)
 		leftView!.backgroundColor = Color.clear
 		view.addSubview(leftView!)
 		
@@ -923,7 +923,7 @@ public class NavigationDrawerController: RootController, UIGestureRecognizerDele
 		
 		rightViewWidth = .phone == Device.userInterfaceIdiom ? 280 : 320
 		rightView = View()
-        rightView!.frame = CGRect(x: 0, y: 0, width: rightViewWidth, height: view.frame.height)
+        rightView!.frame = CGRect(x: 0, y: 0, width: rightViewWidth, height: view.height)
 		rightView!.backgroundColor = Color.clear
 		view.addSubview(rightView!)
 		
