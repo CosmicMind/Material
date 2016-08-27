@@ -110,7 +110,7 @@ open class TabBar: View {
     }
     
     /// The currently selected button.
-    open var selected: UIButton?
+    open internal(set) var selected: UIButton?
     
 	/// Buttons.
 	open var buttons = [UIButton]() {
@@ -124,6 +124,19 @@ open class TabBar: View {
 			layoutSubviews()
 		}
 	}
+    
+    /// A boolean to animate the line when touched.
+    open var isLineAnimated = true {
+        didSet {
+            for b in buttons {
+                if isLineAnimated {
+                    prepareLineAnimationHandler(button: b)
+                } else {
+                    removeLineAnimationHandler(button: b)
+                }
+            }
+        }
+    }
     
     /// A reference to the line UIView.
     internal var line: UIView!
@@ -167,8 +180,9 @@ open class TabBar: View {
                     b.grid.columns = columns
                     b.contentEdgeInsets = .zero
                     b.layer.cornerRadius = 0
-                    b.removeTarget(self, action: #selector(handleButton(button:)), for: .touchUpInside)
-                    b.addTarget(self, action: #selector(handleButton(button:)), for: .touchUpInside)
+                    if isLineAnimated {
+                        prepareLineAnimationHandler(button: b)
+                    }
                 }
                 grid.reload()
                 
@@ -205,7 +219,7 @@ open class TabBar: View {
      - Parameter to button: A UIButton.
      - Paramater completion: An optional completion block.
      */
-    internal func animate(to button: UIButton, completion: (@escaping (UIButton) -> Void)? = nil) {
+    open func animate(to button: UIButton, completion: (@escaping (UIButton) -> Void)? = nil) {
         delegate?.tabBarWillSelectButton?(tabBar: self, button: button)
         selected = button
         
@@ -252,5 +266,22 @@ open class TabBar: View {
     /// Prepares the divider.
     private func prepareDivider() {
         divider = Divider(view: self)
+    }
+    
+    /**
+     Prepares the line animation handlers.
+     - Parameter button: A UIButton.
+     */
+    private func prepareLineAnimationHandler(button: UIButton) {
+        removeLineAnimationHandler(button: button)
+        button.addTarget(self, action: #selector(handleButton(button:)), for: .touchUpInside)
+    }
+    
+    /**
+     Removes the line animation handlers.
+     - Parameter button: A UIButton.
+     */
+    private func removeLineAnimationHandler(button: UIButton) {
+        button.removeTarget(self, action: #selector(handleButton(button:)), for: .touchUpInside)
     }
 }

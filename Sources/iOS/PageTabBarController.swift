@@ -34,9 +34,16 @@ import UIKit
 private var PageTabBarItemKey: UInt8 = 0
 
 open class PageTabBarItem: FlatButton {
-    override open func prepareView() {
+    open override func prepareView() {
         super.prepareView()
         pulseAnimation = .none
+    }
+}
+
+open class PageTabBar: TabBar {
+    open override func prepareView() {
+        super.prepareView()
+        isLineAnimated = false
     }
 }
 
@@ -57,15 +64,15 @@ extension UIViewController {
 
 extension UIViewController {
     /**
-     A convenience property that provides access to the PageController.
-     This is the recommended method of accessing the PageController
+     A convenience property that provides access to the PageTabBarController.
+     This is the recommended method of accessing the PageTabBarController
      through child UIViewControllers.
      */
-    public var pageController: PageController? {
+    public var pageTabBarController: PageTabBarController? {
         var viewController: UIViewController? = self
         while nil != viewController {
-            if viewController is PageController {
-                return viewController as? PageController
+            if viewController is PageTabBarController {
+                return viewController as? PageTabBarController
             }
             viewController = viewController?.parent
         }
@@ -73,21 +80,21 @@ extension UIViewController {
     }
 }
 
-@objc(PageControllerDelegate)
-public protocol PageControllerDelegate {
+@objc(PageTabBarControllerDelegate)
+public protocol PageTabBarControllerDelegate {
 
 }
 
-@objc(PageController)
-open class PageController: RootController {
+@objc(PageTabBarController)
+open class PageTabBarController: RootController {
     /// The currently selected UIViewController.
     open internal(set) var selectedIndex: Int = 0
     
-    /// Reference to the TabBar.
-    open internal(set) var tabBar: TabBar!
+    /// Reference to the PageTabBar.
+    open internal(set) var pageTabBar: PageTabBar!
     
     /// Delegation handler.
-    public weak var delegate: PageControllerDelegate?
+    public weak var delegate: PageTabBarControllerDelegate?
     
     /// A reference to the instance when it is a UIPageViewController.
     open var pageViewController: UIPageViewController? {
@@ -104,14 +111,14 @@ open class PageController: RootController {
     public override init(rootViewController: UIViewController) {
         super.init(rootViewController: UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil))
         viewControllers.append(rootViewController)
-        setViewControllers(viewControllers, direction: .forward, animated: true, completion: nil)
+        setViewControllers(viewControllers, direction: .forward, animated: true)
     }
     
     public init(viewControllers: [UIViewController], selectedIndex: Int, direction: UIPageViewControllerNavigationDirection, animated: Bool) {
         super.init(rootViewController: UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil))
         self.selectedIndex = selectedIndex
         self.viewControllers.append(contentsOf: viewControllers)
-        setViewControllers([self.viewControllers[selectedIndex]], direction: direction, animated: animated, completion: nil)
+        setViewControllers([self.viewControllers[selectedIndex]], direction: direction, animated: animated)
     }
     
     /**
@@ -121,7 +128,7 @@ open class PageController: RootController {
      */
     open override func layoutSubviews() {
         super.layoutSubviews()
-        guard let v = tabBar else {
+        guard let v = pageTabBar else {
             return
         }
         
@@ -149,7 +156,7 @@ open class PageController: RootController {
      */
     open override func prepareView() {
         super.prepareView()
-        prepareTabBar()
+        preparePageTabBar()
     }
     
     override func prepareRootViewController() {
@@ -172,31 +179,59 @@ open class PageController: RootController {
     
     /// Prepares the pageTabBarItems.
     open func preparePageTabBarItems() {
-        tabBar.buttons.removeAll()
+        pageTabBar.buttons.removeAll()
+        
         for x in viewControllers {
-            tabBar.buttons.append(x.pageTabBarItem as UIButton)
+            let button = x.pageTabBarItem as UIButton
+            pageTabBar.buttons.append(button)
+            button.removeTarget(self, action: #selector(pageTabBar.handleButton(button:)), for: .touchUpInside)
+            button.removeTarget(self, action: #selector(handlePageTabBarButton(button:)), for: .touchUpInside)
+            button.addTarget(self, action: #selector(handlePageTabBarButton(button:)), for: .touchUpInside)
         }
     }
     
-    /// Prepares the tabBar.
-    private func prepareTabBar() {
-        if nil == tabBar {
-            tabBar = TabBar()
-            tabBar.zPosition = 1000
-            view.addSubview(tabBar)
-            tabBar.select(at: selectedIndex)
+    /**
+     Handles the pageTabBarButton.
+     - Parameter button: A UIButton.
+     */
+    @objc
+    internal func handlePageTabBarButton(button: UIButton) {
+        guard let index = pageTabBar.buttons.index(of: button) else {
+            return
+        }
+        
+        guard index != selectedIndex else {
+            return
+        }
+        
+        setViewControllers([viewControllers[index]], direction: index < selectedIndex ? .reverse : .forward, animated: true) { [weak self, index = index] _ in
+            guard let s = self else {
+                return
+            }
+            s.selectedIndex = index
+            s.pageTabBar.select(at: index)
+        }
+    }
+    
+    /// Prepares the pageTabBar.
+    private func preparePageTabBar() {
+        if nil == pageTabBar {
+            pageTabBar = PageTabBar()
+            pageTabBar.zPosition = 1000
+            view.addSubview(pageTabBar)
+            pageTabBar.select(at: selectedIndex)
         }
     }
 }
 
-extension PageController {
+extension PageTabBarController {
     open func setViewControllers(_ viewControllers: [UIViewController]?, direction: UIPageViewControllerNavigationDirection, animated: Bool, completion: (@escaping (Bool) -> Void)? = nil) {
         pageViewController?.setViewControllers(viewControllers, direction: direction, animated: animated, completion: completion)
         preparePageTabBarItems()
     }
 }
 
-extension PageController: UIPageViewControllerDelegate {
+extension PageTabBarController: UIPageViewControllerDelegate {
     public func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
         guard let vc = pendingViewControllers.first else {
             return
@@ -215,19 +250,11 @@ extension PageController: UIPageViewControllerDelegate {
             return
         }
         
-        guard let vc = previousViewControllers.first else {
-            return
-        }
-        
-        guard let _ = viewControllers.index(of: vc) else {
-            return
-        }
-        
-        tabBar.select(at: selectedIndex)
+        pageTabBar.select(at: selectedIndex)
     }
 }
 
-extension PageController: UIPageViewControllerDataSource {
+extension PageTabBarController: UIPageViewControllerDataSource {
     public func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let current = viewControllers.index(of: viewController) else {
             return nil
@@ -258,18 +285,18 @@ extension PageController: UIPageViewControllerDataSource {
     }
 }
 
-extension PageController: UIScrollViewDelegate {
+extension PageTabBarController: UIScrollViewDelegate {
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard 0 < view.width else {
             return
         }
         
-        guard let selected = tabBar.selected else {
+        guard let selected = pageTabBar.selected else {
             return
         }
         
         let x = (scrollView.contentOffset.x - view.width) / scrollView.contentSize.width * view.width
         
-        tabBar.line.x = selected.x + x
+        pageTabBar.line.x = selected.x + x
     }
 }
