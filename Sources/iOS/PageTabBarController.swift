@@ -87,6 +87,9 @@ public protocol PageTabBarControllerDelegate {
 
 @objc(PageTabBarController)
 open class PageTabBarController: RootController {
+    /// Indicates that the tab has been pressed and animating.
+    open internal(set) var isTabSelectedAnimation = false
+    
     /// The currently selected UIViewController.
     open internal(set) var selectedIndex: Int = 0
     
@@ -171,8 +174,8 @@ open class PageTabBarController: RootController {
         v.isDoubleSided = false
         
         for view in v.view.subviews {
-            if view.isKind(of: UIScrollView.self) {
-                (view as? UIScrollView)?.delegate = self
+            if let v = view as? UIScrollView {
+                v.delegate = self
             }
         }
     }
@@ -204,12 +207,16 @@ open class PageTabBarController: RootController {
             return
         }
         
-        setViewControllers([viewControllers[index]], direction: index < selectedIndex ? .reverse : .forward, animated: true) { [weak self, index = index] _ in
+        let direction: UIPageViewControllerNavigationDirection = index < selectedIndex ? .reverse : .forward
+        
+        isTabSelectedAnimation = true
+        selectedIndex = index
+        
+        setViewControllers([viewControllers[index]], direction: direction, animated: true) { [weak self] _ in
             guard let s = self else {
                 return
             }
-            s.selectedIndex = index
-            s.pageTabBar.select(at: index)
+            s.isTabSelectedAnimation = false
         }
     }
     
@@ -232,24 +239,16 @@ extension PageTabBarController {
 }
 
 extension PageTabBarController: UIPageViewControllerDelegate {
-    public func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
-        guard let vc = pendingViewControllers.first else {
+    public func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        guard let v = pageViewController.viewControllers?.first else {
             return
         }
         
-        guard let index = viewControllers.index(of: vc) else {
+        guard let index = viewControllers.index(of: v) else {
             return
         }
         
         selectedIndex = index
-    }
-    
-    public func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        
-        guard completed else {
-            return
-        }
-        
         pageTabBar.select(at: selectedIndex)
     }
 }
@@ -262,7 +261,7 @@ extension PageTabBarController: UIPageViewControllerDataSource {
         
         let previous = current - 1
         
-        guard previous >= 0, viewControllers.count > previous else {
+        guard previous >= 0 else {
             return nil
         }
         
@@ -275,9 +274,8 @@ extension PageTabBarController: UIPageViewControllerDataSource {
         }
         
         let next = current + 1
-        let count = viewControllers.count
         
-        guard count != next, count > next else {
+        guard viewControllers.count > next else {
             return nil
         }
         
@@ -287,6 +285,11 @@ extension PageTabBarController: UIPageViewControllerDataSource {
 
 extension PageTabBarController: UIScrollViewDelegate {
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard !isTabSelectedAnimation else {
+            pageTabBar.select(at: selectedIndex)
+            return
+        }
+        
         guard 0 < view.width else {
             return
         }
