@@ -47,6 +47,12 @@ open class PageTabBar: TabBar {
     }
 }
 
+@objc(PageTabBarAlignment)
+public enum PageTabBarAlignment: Int {
+    case top
+    case bottom
+}
+
 /// Grid extension for UIView.
 extension UIViewController {
     /// Grid reference.
@@ -92,6 +98,9 @@ open class PageTabBarController: RootController {
     
     /// The currently selected UIViewController.
     open internal(set) var selectedIndex: Int = 0
+    
+    /// PageTabBar alignment setting.
+    open var pageTabBarAlignment = PageTabBarAlignment.top
     
     /// Reference to the PageTabBar.
     open internal(set) var pageTabBar: PageTabBar!
@@ -140,12 +149,19 @@ open class PageTabBarController: RootController {
         let p = v.intrinsicContentSize.height + v.grid.layoutEdgeInsets.top + v.grid.layoutEdgeInsets.bottom
         let y = h - p
         
-        v.y = y
-        v.width = w + v.grid.layoutEdgeInsets.left + v.grid.layoutEdgeInsets.right
         v.height = p
+        v.width = w + v.grid.layoutEdgeInsets.left + v.grid.layoutEdgeInsets.right
         
-        rootViewController.view.y = 0
         rootViewController.view.height = y
+        
+        switch pageTabBarAlignment {
+        case .top:
+            v.y = 0
+            rootViewController.view.y = p
+        case .bottom:
+            v.y = y
+            rootViewController.view.y = 0
+        }
         
         v.divider.reload()
     }
@@ -300,6 +316,6 @@ extension PageTabBarController: UIScrollViewDelegate {
         
         let x = (scrollView.contentOffset.x - view.width) / scrollView.contentSize.width * view.width
         
-        pageTabBar.line.x = selected.x + x
+        pageTabBar.line.x = selected.x + x // - (0 < selectedIndex ? pageTabBar.grid.interimSpace * CGFloat(selectedIndex - 1) : 0)
     }
 }

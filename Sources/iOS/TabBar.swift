@@ -247,7 +247,7 @@ open class TabBar: View {
      */
 	open override func prepareView() {
 		super.prepareView()
-        interimSpacePreset = .interimSpace1
+        interimSpacePreset = .none
         contentEdgeInsetsPreset = .none
         autoresizingMask = .flexibleWidth
         prepareLine()
