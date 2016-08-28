@@ -124,6 +124,7 @@ open class BottomTabBar: UITabBar {
      */
 	public func prepareView() {
 		depthPreset = .depth1
+        divider.alignment = .top
 		contentScaleFactor = Device.scale
 		backgroundColor = Color.white
         let image = UIImage.imageWithColor(color: Color.clear, size: CGSize(width: 1, height: 1))

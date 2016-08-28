@@ -70,7 +70,7 @@ open class Divider {
     }
     
     /// A reference to the dividerAlignment.
-    open var alignment = DividerAlignment.top {
+    open var alignment = DividerAlignment.bottom {
         didSet {
             reload()
         }

@@ -340,6 +340,5 @@ open class NavigationBar: UINavigationBar {
     /// Prepares the divider.
     private func prepareDivider() {
         divider = Divider(view: self)
-        divider.alignment = .bottom
     }
 }
