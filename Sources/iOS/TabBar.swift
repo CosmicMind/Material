@@ -58,6 +58,9 @@ public protocol TabBarDelegate {
 }
 
 open class TabBar: View {
+    /// A boolean indicating if the TabBar line is in an animation state.
+    open internal(set) var isAnimating = false
+    
     /// Will render the view.
 	open var willRenderView: Bool {
 		return 0 < width && 0 < height && nil != superview
@@ -222,17 +225,18 @@ open class TabBar: View {
     open func animate(to button: UIButton, completion: (@escaping (UIButton) -> Void)? = nil) {
         delegate?.tabBarWillSelectButton?(tabBar: self, button: button)
         selected = button
-        
+        isAnimating = true
         UIView.animate(withDuration: 0.25, animations: { [weak self, button = button] in
             guard let s = self else {
                 return
             }
-            s.line.x = button.x
+            s.line.center.x = button.center.x
             s.line.width = button.width
         }) { [weak self, button = button, completion = completion] _ in
             guard let s = self else {
                 return
             }
+            s.isAnimating = false
             s.delegate?.tabBarDidSelectButton?(tabBar: s, button: button)
             completion?(button)
         }
@@ -247,8 +251,7 @@ open class TabBar: View {
      */
 	open override func prepareView() {
 		super.prepareView()
-        interimSpacePreset = .none
-        contentEdgeInsetsPreset = .none
+        
         autoresizingMask = .flexibleWidth
         prepareLine()
         prepareDivider()
@@ -266,6 +269,7 @@ open class TabBar: View {
     /// Prepares the divider.
     private func prepareDivider() {
         divider = Divider(view: self)
+        divider.alignment = .top
     }
     
     /**

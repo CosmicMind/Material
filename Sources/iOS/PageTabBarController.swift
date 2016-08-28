@@ -44,6 +44,7 @@ open class PageTabBar: TabBar {
     open override func prepareView() {
         super.prepareView()
         isLineAnimated = false
+        lineAlignment = .top
     }
 }
 
@@ -88,7 +89,13 @@ extension UIViewController {
 
 @objc(PageTabBarControllerDelegate)
 public protocol PageTabBarControllerDelegate {
-
+    /**
+     A delegation method that is executed when a UIViewController did transition to.
+     - Parameter pageTabBarController: A PageTabBarController.
+     - Parameter willTransitionTo viewController: A UIViewController.
+     */
+    @objc
+    optional func pageTabBarController(pageTabBarController: PageTabBarController, didTransitionTo viewController: UIViewController)
 }
 
 @objc(PageTabBarController)
@@ -100,7 +107,7 @@ open class PageTabBarController: RootController {
     open internal(set) var selectedIndex: Int = 0
     
     /// PageTabBar alignment setting.
-    open var pageTabBarAlignment = PageTabBarAlignment.top
+    open var pageTabBarAlignment = PageTabBarAlignment.bottom
     
     /// Reference to the PageTabBar.
     open internal(set) var pageTabBar: PageTabBar!
@@ -228,11 +235,14 @@ open class PageTabBarController: RootController {
         isTabSelectedAnimation = true
         selectedIndex = index
         
+        pageTabBar.select(at: selectedIndex)
+        
         setViewControllers([viewControllers[index]], direction: direction, animated: true) { [weak self] _ in
             guard let s = self else {
                 return
             }
             s.isTabSelectedAnimation = false
+            s.delegate?.pageTabBarController?(pageTabBarController: s, didTransitionTo: s.viewControllers[s.selectedIndex])
         }
     }
     
@@ -266,6 +276,10 @@ extension PageTabBarController: UIPageViewControllerDelegate {
         
         selectedIndex = index
         pageTabBar.select(at: selectedIndex)
+        
+        if finished && completed {
+            delegate?.pageTabBarController?(pageTabBarController: self, didTransitionTo: v)
+        }
     }
 }
 
@@ -301,12 +315,11 @@ extension PageTabBarController: UIPageViewControllerDataSource {
 
 extension PageTabBarController: UIScrollViewDelegate {
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard !isTabSelectedAnimation else {
-            pageTabBar.select(at: selectedIndex)
+        guard !pageTabBar.isAnimating else {
             return
         }
         
-        guard 0 < view.width else {
+        guard !isTabSelectedAnimation else {
             return
         }
         
@@ -314,8 +327,12 @@ extension PageTabBarController: UIScrollViewDelegate {
             return
         }
         
+        guard 0 < view.width else {
+            return
+        }
+        
         let x = (scrollView.contentOffset.x - view.width) / scrollView.contentSize.width * view.width
         
-        pageTabBar.line.x = selected.x + x // - (0 < selectedIndex ? pageTabBar.grid.interimSpace * CGFloat(selectedIndex - 1) : 0)
+        pageTabBar.line.center.x = selected.center.x + x
     }
 }
