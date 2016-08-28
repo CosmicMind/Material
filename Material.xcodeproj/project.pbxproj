@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		961EFC581D738FF600E84652 /* SnackbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961EFC571D738FF600E84652 /* SnackbarController.swift */; };
 		961F18E81CD93E3E008927C5 /* ErrorTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961F18E71CD93E3E008927C5 /* ErrorTextField.swift */; };
 		96230AB81D6A520C00AF47DC /* Divider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96230AB71D6A520C00AF47DC /* Divider.swift */; };
 		9628645A1D53FE3E00690B69 /* Material+UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962864591D53FE3E00690B69 /* Material+UIWindow.swift */; };
@@ -199,6 +200,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		961EFC571D738FF600E84652 /* SnackbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnackbarController.swift; sourceTree = "<group>"; };
 		961F18E71CD93E3E008927C5 /* ErrorTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorTextField.swift; sourceTree = "<group>"; };
 		96230AB71D6A520C00AF47DC /* Divider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Divider.swift; sourceTree = "<group>"; };
 		962864591D53FE3E00690B69 /* Material+UIWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIWindow.swift"; sourceTree = "<group>"; };
@@ -407,6 +409,7 @@
 			isa = PBXGroup;
 			children = (
 				963FBEFC1D669510008F8512 /* Snackbar.swift */,
+				961EFC571D738FF600E84652 /* SnackbarController.swift */,
 			);
 			name = Snackbar;
 			sourceTree = "<group>";
@@ -1096,6 +1099,7 @@
 				96BCB7DB1CB40DC500C806FE /* NavigationItem.swift in Sources */,
 				96BCB7E01CB40DC500C806FE /* NavigationDrawerController.swift in Sources */,
 				9628645F1D540AF300690B69 /* DynamicFontType.swift in Sources */,
+				961EFC581D738FF600E84652 /* SnackbarController.swift in Sources */,
 				96BCB7AD1CB40DC500C806FE /* Material+String.swift in Sources */,
 				96BCB7A51CB40DC500C806FE /* Capture.swift in Sources */,
 				96BCB7B91CB40DC500C806FE /* Button.swift in Sources */,

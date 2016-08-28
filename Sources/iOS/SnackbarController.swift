@@ -31,71 +31,89 @@
 import UIKit
 
 extension UIViewController {
-	/**
-     A convenience property that provides access to the SearchBarController.
-     This is the recommended method of accessing the SearchBarController
+    /**
+     A convenience property that provides access to the SnackbarController.
+     This is the recommended method of accessing the SnackbarController
      through child UIViewControllers.
      */
-	public var searchBarController: SearchBarController? {
-		var viewController: UIViewController? = self
-		while nil != viewController {
-			if viewController is SearchBarController {
-				return viewController as? SearchBarController
-			}
-			viewController = viewController?.parent
-		}
-		return nil
-	}
+    public var snackbarController: SnackbarController? {
+        var viewController: UIViewController? = self
+        while nil != viewController {
+            if viewController is SnackbarController {
+                return viewController as? SnackbarController
+            }
+            viewController = viewController?.parent
+        }
+        return nil
+    }
 }
 
-open class SearchBarController: RootController {
-	/// Reference to the SearchBar.
-	open internal(set) var searchBar: SearchBar!
-	
-	/**
+open class SnackbarController: RootController {
+    /**
+     A boolean that indicates whether to move the view controller
+     when the Snackbar animates.
+    */
+    open var isSnackbarAttachedToController = false
+    
+    /// Reference to the Snackbar.
+    open internal(set) var snackbar: Snackbar!
+    
+    /**
      To execute in the order of the layout chain, override this
      method. LayoutSubviews should be called immediately, unless you
      have a certain need.
      */
-	open override func layoutSubviews() {
-		super.layoutSubviews()
-        guard let v = searchBar else {
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        guard let v = snackbar else {
             return
         }
-        
-        v.grid.layoutEdgeInsets.top = .phone == Device.userInterfaceIdiom && Device.isLandscape ? 0 : 20
         
         let w = view.width
         let h = view.height
         let p = v.intrinsicContentSize.height + v.grid.layoutEdgeInsets.top + v.grid.layoutEdgeInsets.bottom
         
-        v.width = w + v.grid.layoutEdgeInsets.left + v.grid.layoutEdgeInsets.right
+        v.width = w
         v.height = p
         
-        rootViewController.view.y = p
-        rootViewController.view.height = h - p
+        rootViewController.view.x = 0
+        rootViewController.view.y = 0
+        rootViewController.view.width = w
+        
+        switch v.status {
+        case .visible:
+            let y = h - p
+            v.y = y
+            v.isHidden = false
+            rootViewController.view.height = y
+        case .notVisible:
+            v.y = h
+            v.isHidden = true
+            rootViewController.view.height = h
+        case .animating:break
+        }
         
         v.divider.reload()
-	}
-	
-	/**
+    }
+    
+    /**
      Prepares the view instance when intialized. When subclassing,
      it is recommended to override the prepareView method
      to initialize property values and other setup operations.
      The super.prepareView method should always be called immediately
      when subclassing.
      */
-	open override func prepareView() {
-		super.prepareView()
-		prepareSearchBar()
-	}
-	
-	/// Prepares the searchBar.
-	private func prepareSearchBar() {
-		if nil == searchBar {
-			searchBar = SearchBar()
-			searchBar.zPosition = 1000
-			view.addSubview(searchBar)
-		}
-	}
+    open override func prepareView() {
+        super.prepareView()
+        prepareSnackbar()
+    }
+    
+    /// Prepares the snackbar.
+    private func prepareSnackbar() {
+        if nil == snackbar {
+            snackbar = Snackbar()
+            snackbar.zPosition = 10000
+            view.addSubview(snackbar)
+        }
+    }
 }

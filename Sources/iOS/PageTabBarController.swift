@@ -113,7 +113,7 @@ open class PageTabBarController: RootController {
     open internal(set) var pageTabBar: PageTabBar!
     
     /// Delegation handler.
-    public weak var delegate: PageTabBarControllerDelegate?
+    open weak var delegate: PageTabBarControllerDelegate?
     
     /// A reference to the instance when it is a UIPageViewController.
     open var pageViewController: UIPageViewController? {
@@ -151,8 +151,8 @@ open class PageTabBarController: RootController {
             return
         }
         
-        let h = view.height
         let w = view.width
+        let h = view.height
         let p = v.intrinsicContentSize.height + v.grid.layoutEdgeInsets.top + v.grid.layoutEdgeInsets.bottom
         let y = h - p
         

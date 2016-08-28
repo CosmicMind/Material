@@ -153,7 +153,8 @@ open class RootController: UIViewController {
 	open func prepareView() {
 		view.clipsToBounds = true
 		view.contentScaleFactor = Device.scale
-		prepareRootViewController()
+        edgesForExtendedLayout = []
+        prepareRootViewController()
 	}
 	
 	/// A method that prepares the rootViewController.
