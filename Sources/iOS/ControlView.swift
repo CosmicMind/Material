@@ -33,7 +33,7 @@ import UIKit
 open class ControlView: View {
 	/// Will render the view.
 	open var willRenderView: Bool {
-		return 0 < width && 0 < height && nil !== superview
+		return 0 < width && 0 < height
 	}
 	
 	/// A preset wrapper around contentInset.
