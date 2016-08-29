@@ -43,7 +43,7 @@ open class Toolbar: BarView {
 	}
 	
 	/// Title label.
-	open private(set) var titleLabel: UILabel!
+	open internal(set) var titleLabel: UILabel!
 	
 	/// A convenience property to set the detailLabel text.
 	open var detail: String? {
@@ -57,7 +57,7 @@ open class Toolbar: BarView {
 	}
 	
 	/// Detail label.
-	open private(set) var detailLabel: UILabel!
+	open internal(set) var detailLabel: UILabel!
 	
 	open override func layoutSubviews() {
 		super.layoutSubviews()

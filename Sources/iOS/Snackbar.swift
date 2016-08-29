@@ -49,7 +49,7 @@ open class Snackbar: BarView {
     }
     
     /// Text label.
-    public private(set) var textLabel: UILabel!
+    public internal(set) var textLabel: UILabel!
     
     open override var intrinsicContentSize: CGSize {
         return CGSize(width: width, height: 49)
@@ -57,22 +57,6 @@ open class Snackbar: BarView {
     
     /// The status of the snackbar.
     open internal(set) var status = SnackbarStatus.notVisible
-    
-    open override func layoutSubviews() {
-        super.layoutSubviews()
-        if willRenderView {
-            if nil != text && "" != text {
-                if nil == textLabel.superview {
-                    contentView.addSubview(textLabel)
-                }
-                textLabel.frame = contentView.bounds
-            } else {
-                textLabel.removeFromSuperview()
-            }
-            
-            contentView.grid.reload()
-        }
-    }
     
     /**
      Prepares the view instance when intialized. When subclassing,
@@ -83,9 +67,10 @@ open class Snackbar: BarView {
      */
     open override func prepareView() {
         super.prepareView()
+        interimSpace = 24
+        contentEdgeInsets.left = interimSpace
+        contentEdgeInsets.right = interimSpace
         backgroundColor = Color.grey.darken3
-        grid.contentEdgeInsets = EdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
-        grid.interimSpace = 24
         prepareTextLabel()
     }
     
@@ -96,5 +81,6 @@ open class Snackbar: BarView {
         textLabel.font = RobotoFont.medium(with: 14)
         textLabel.textAlignment = .left
         textLabel.textColor = Color.white
+        contentView.grid.views.append(textLabel)
     }
 }

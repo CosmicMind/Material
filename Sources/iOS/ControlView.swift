@@ -48,7 +48,7 @@ open class ControlView: View {
 	
 	/// A wrapper around grid.contentInset.
 	@IBInspectable
-    open var contentInset: EdgeInsets {
+    open var contentEdgeInsets: EdgeInsets {
 		get {
 			return grid.contentEdgeInsets
 		}
@@ -151,49 +151,48 @@ open class ControlView: View {
 		if willRenderView {
 			layoutIfNeeded()
 			
-			let g = Int(width / gridFactor)
-            let columns = g + 1
+            let l = (CGFloat(leftControls.count) * interimSpace)
+            let r = (CGFloat(rightControls.count) * interimSpace)
+            let p = width - l - r - contentEdgeInsets.left - contentEdgeInsets.right
+			let columns = Int(p / gridFactor)
             
-            grid.views = []
+            grid.views.removeAll()
             grid.axis.columns = columns
             
             contentView.grid.columns = columns
             
-            // leftControls
-            for c in leftControls {
-                let w: CGFloat = c.intrinsicContentSize.width
-                (c as? UIButton)?.contentEdgeInsets = .zero
-                c.height = frame.size.height - contentInset.top - contentInset.bottom
+            for v in leftControls {
+                var w: CGFloat = 0
+                if let b = v as? UIButton {
+                    b.contentEdgeInsets = .zero
+                    b.sizeToFit()
+                    w = b.width
+                }
+                v.height = frame.size.height - contentEdgeInsets.top - contentEdgeInsets.bottom
+                v.grid.columns = Int(ceil(w / gridFactor)) + 1
                 
-                let q: Int = Int(w / gridFactor)
-                c.grid.columns = q + 1
+                contentView.grid.columns -= v.grid.columns
                 
-                contentView.grid.columns -= c.grid.columns
-                
-                addSubview(c)
-                grid.views.append(c)
+                grid.views.append(v)
             }
             
-            addSubview(contentView)
             grid.views.append(contentView)
             
-            // rightControls
-            for c in rightControls {
-                let w = c.intrinsicContentSize.width
-                (c as? UIButton)?.contentEdgeInsets = .zero
-                c.height = frame.size.height - contentInset.top - contentInset.bottom
+            for v in rightControls {
+                var w: CGFloat = 0
+                if let b = v as? UIButton {
+                    b.contentEdgeInsets = .zero
+                    b.sizeToFit()
+                    w = b.width
+                }
+                v.height = frame.size.height - contentEdgeInsets.top - contentEdgeInsets.bottom
+                v.grid.columns = Int(ceil(w / gridFactor)) + 1
                 
-                let q: Int = Int(w / gridFactor)
-                c.grid.columns = q + 1
+                contentView.grid.columns -= v.grid.columns
                 
-                contentView.grid.columns -= c.grid.columns
-                
-                addSubview(c)
-                grid.views.append(c)
+                grid.views.append(v)
             }
             
-            grid.contentEdgeInsets = contentInset
-            grid.interimSpace = interimSpace
             contentView.grid.reload()
         }
     }

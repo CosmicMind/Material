@@ -43,7 +43,7 @@ extension UINavigationController {
 }
 
 @IBDesignable
-open class NavigationController: UINavigationController, UIGestureRecognizerDelegate {
+open class NavigationController: UINavigationController {
     /**
      An initializer that initializes the object with a NSCoder object.
      - Parameter aDecoder: A NSCoder instance.
@@ -72,15 +72,20 @@ open class NavigationController: UINavigationController, UIGestureRecognizerDele
 	
 	open override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		if let v = interactivePopGestureRecognizer {
-			if let x = navigationDrawerController {
-				if let l = x.leftPanGesture {
-					l.require(toFail: v)
-				}
-				if let r = x.rightPanGesture {
-					r.require(toFail: v)
-				}
-			}
+		guard let v = interactivePopGestureRecognizer else {
+            return
+        }
+        
+        guard let x = navigationDrawerController else {
+            return
+        }
+        
+        if let l = x.leftPanGesture {
+            l.require(toFail: v)
+        }
+        
+        if let r = x.rightPanGesture {
+            r.require(toFail: v)
 		}
 	}
 	
@@ -100,49 +105,6 @@ open class NavigationController: UINavigationController, UIGestureRecognizerDele
 	}
     
 	/**
-     Detects the gesture recognizer being used. This is necessary when using
-     NavigationDrawerController. It eliminates the conflict in panning.
-     - Parameter gestureRecognizer: A UIGestureRecognizer to detect.
-     - Parameter touch: The UITouch event.
-     - Returns: A Boolean of whether to continue the gesture or not, true yes, false no.
-     */
-	open func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-		return interactivePopGestureRecognizer == gestureRecognizer && nil != navigationBar.backItem
-	}
-	
-	/**
-     Delegation method that is called when a new UINavigationItem is about to be pushed.
-     This is used to prepare the transitions between UIViewControllers on the stack.
-     - Parameter navigationBar: A UINavigationBar that is used in the NavigationController.
-     - Parameter item: The UINavigationItem that will be pushed on the stack.
-     - Returns: A Boolean value that indicates whether to push the item on to the stack or not.
-     True is yes, false is no.
-     */
-	open func navigationBar(navigationBar: UINavigationBar, shouldPushItem item: UINavigationItem) -> Bool {
-		if let v = navigationBar as? NavigationBar {
-            let backButton = IconButton(image: v.backButtonImage)
-			backButton.pulseColor = Color.white
-            backButton.addTarget(self, action: #selector(handleBackButton), for: .touchUpInside)
-			
-			if var c = item.leftControls {
-				c.append(backButton)
-				item.leftControls = c
-			} else {
-				item.leftControls = [backButton]
-			}
-			
-			item.backButton = backButton
-			v.layoutNavigationItem(item: item)
-		}
-		return true
-	}
-	
-	/// Handler for the back button.
-	internal func handleBackButton() {
-		popViewController(animated: true)
-	}
-	
-	/**
      Prepares the view instance when intialized. When subclassing,
      it is recommended to override the prepareView method
      to initialize property values and other setup operations.
@@ -153,10 +115,51 @@ open class NavigationController: UINavigationController, UIGestureRecognizerDele
 		view.clipsToBounds = true
 		view.contentScaleFactor = Device.scale
 		
-		// This ensures the panning gesture is available when going back between views.
+        // This ensures the panning gesture is available when going back between views.
 		if let v = interactivePopGestureRecognizer {
 			v.isEnabled = true
 			v.delegate = self
 		}
 	}
+}
+
+extension NavigationController: UINavigationBarDelegate {
+    /**
+     Delegation method that is called when a new UINavigationItem is about to be pushed.
+     This is used to prepare the transitions between UIViewControllers on the stack.
+     - Parameter navigationBar: A UINavigationBar that is used in the NavigationController.
+     - Parameter item: The UINavigationItem that will be pushed on the stack.
+     - Returns: A Boolean value that indicates whether to push the item on to the stack or not.
+     True is yes, false is no.
+     */
+    public func navigationBar(_ navigationBar: UINavigationBar, shouldPush item: UINavigationItem) -> Bool {
+        if let v = navigationBar as? NavigationBar {
+            let backButton = IconButton(image: v.backButtonImage, tintColor: Color.blue.base)
+            backButton.pulseColor = Color.white
+            backButton.addTarget(self, action: #selector(handleBackButton), for: .touchUpInside)
+            
+            item.leftControls.append(backButton)
+            item.backButton = backButton
+            v.layoutNavigationItem(item: item)
+        }
+        return true
+    }
+    
+    /// Handler for the back button.
+    internal func handleBackButton() {
+        popViewController(animated: true)
+    }
+}
+
+extension NavigationController: UIGestureRecognizerDelegate {
+    /**
+     Detects the gesture recognizer being used. This is necessary when using
+     NavigationDrawerController. It eliminates the conflict in panning.
+     - Parameter gestureRecognizer: A UIGestureRecognizer to detect.
+     - Parameter touch: The UITouch event.
+     - Returns: A Boolean of whether to continue the gesture or not, true yes, false no.
+     */
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        return interactivePopGestureRecognizer == gestureRecognizer && nil != navigationBar.backItem
+    }
 }

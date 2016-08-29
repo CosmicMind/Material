@@ -53,10 +53,10 @@ public class NavigationItem {
 	public private(set) var detailLabel: UILabel!
 	
 	/// Left controls.
-	public var leftControls: [UIView]?
+	public var leftControls = [UIView]()
 	
 	/// Right controls.
-	public var rightControls: [UIView]?
+	public var rightControls = [UIView]()
 	
 	/// Initializer.
 	public init() {
@@ -153,7 +153,7 @@ extension UINavigationItem {
 	}
 	
 	/// Left side UIViews.
-	public var leftControls: [UIView]? {
+	public var leftControls: [UIView] {
 		get {
 			return navigationItem.leftControls
 		}
@@ -163,7 +163,7 @@ extension UINavigationItem {
 	}
 	
 	/// Right side UIViews.
-	public var rightControls: [UIView]? {
+	public var rightControls: [UIView] {
 		get {
 			return navigationItem.rightControls
 		}

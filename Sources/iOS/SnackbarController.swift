@@ -92,6 +92,7 @@ open class SnackbarController: RootController {
      */
     open func animate(snackbar status: SnackbarStatus, animations: (@escaping (Snackbar) -> Void)? = nil, completion: (@escaping (Snackbar) -> Void)? = nil) {
         isAnimating = true
+        isUserInteractionEnabled = false
         UIView.animate(withDuration: 0.25, animations: { [weak self, status = status, animations = animations] in
             guard let s = self else {
                 return
@@ -105,6 +106,7 @@ open class SnackbarController: RootController {
             }
             
             s.isAnimating = false
+            s.isUserInteractionEnabled = true
             s.snackbar.status = status
             completion?(s.snackbar)
         }

@@ -61,19 +61,19 @@ open class NavigationBar: UINavigationBar {
 	
 	/// Will render the view.
 	open var willRenderView: Bool {
-		return 0 < width && 0 < height && nil != superview
+		return 0 < width && 0 < height
 	}
 	
 	/// A preset wrapper around contentInset.
 	open var contentEdgeInsetsPreset = EdgeInsetsPreset.none {
 		didSet {
-            contentInset = EdgeInsetsPresetToValue(preset: contentEdgeInsetsPreset)
+            contentEdgeInsets = EdgeInsetsPresetToValue(preset: contentEdgeInsetsPreset)
 		}
 	}
 	
 	/// A wrapper around grid.contentInset.
 	@IBInspectable
-    open var contentInset = EdgeInsets.zero {
+    open var contentEdgeInsets = EdgeInsets.zero {
 		didSet {
 			layoutSubviews()
 		}
@@ -175,7 +175,9 @@ open class NavigationBar: UINavigationBar {
 			layoutNavigationItem(item: v)
 		}
         
-        divider?.reload()
+        if let v = divider {
+            v.reload()
+        }
 	}
 	
 	open override func pushItem(_ item: UINavigationItem, animated: Bool) {
@@ -194,52 +196,51 @@ open class NavigationBar: UINavigationBar {
 			let titleView = prepareTitleView(item: item)
             let contentView = prepareContentView(item: item)
             
-            let g = Int(width / gridFactor)
-            let columns = g + 1
-                
+            let l = (CGFloat(item.leftControls.count) * interimSpace)
+            let r = (CGFloat(item.rightControls.count) * interimSpace)
+            let p = width - l - r - contentEdgeInsets.left - contentEdgeInsets.right
+            let columns = Int(p / gridFactor)
+            
             titleView.frame.origin = .zero
             titleView.frame.size = intrinsicContentSize
-            titleView.grid.views = []
+            titleView.grid.views.removeAll()
             titleView.grid.axis.columns = columns
             
             contentView.grid.columns = columns
             
-            // leftControls
-            if let v = item.leftControls {
-                for c in v {
-                    let w = c.intrinsicContentSize.width
-                    (c as? UIButton)?.contentEdgeInsets = .zero
-                    c.height = titleView.height - contentInset.top - contentInset.bottom
-                    
-                    c.grid.columns = Int(w / gridFactor) + 1
-                    
-                    contentView.grid.columns -= c.grid.columns
-                    
-                    titleView.addSubview(c)
-                    titleView.grid.views.append(c)
+            for v in item.leftControls {
+                var w: CGFloat = 0
+                if let b = v as? UIButton {
+                    b.contentEdgeInsets = .zero
+                    b.sizeToFit()
+                    w = b.width
                 }
+                v.height = frame.size.height - contentEdgeInsets.top - contentEdgeInsets.bottom
+                v.grid.columns = Int(ceil(w / gridFactor)) + 1
+                
+                contentView.grid.columns -= v.grid.columns
+                
+                titleView.grid.views.append(v)
             }
             
-            titleView.addSubview(contentView)
             titleView.grid.views.append(contentView)
             
-            // rightControls
-            if let v = item.rightControls {
-                for c in v {
-                    let w = c.intrinsicContentSize.width
-                    (c as? UIButton)?.contentEdgeInsets = .zero
-                    c.height = titleView.height - contentInset.top - contentInset.bottom
-                    
-                    c.grid.columns = Int(w / gridFactor) + 1
-                    
-                    contentView.grid.columns -= c.grid.columns
-                    
-                    titleView.addSubview(c)
-                    titleView.grid.views.append(c)
+            for v in item.rightControls {
+                var w: CGFloat = 0
+                if let b = v as? UIButton {
+                    b.contentEdgeInsets = .zero
+                    b.sizeToFit()
+                    w = b.width
                 }
+                v.height = frame.size.height - contentEdgeInsets.top - contentEdgeInsets.bottom
+                v.grid.columns = Int(ceil(w / gridFactor)) + 1
+                
+                contentView.grid.columns -= v.grid.columns
+                
+                titleView.grid.views.append(v)
             }
             
-            titleView.grid.contentEdgeInsets = contentInset
+            titleView.grid.contentEdgeInsets = contentEdgeInsets
             titleView.grid.interimSpace = interimSpace
             titleView.grid.reload()
             
