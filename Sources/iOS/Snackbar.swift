@@ -30,55 +30,49 @@
 
 import UIKit
 
-@objc(SnackbarDelegate)
-public protocol SnackbarDelegate {
-    /**
-     A delegation method that is executed when a Snackbar will show.
-     - Parameter snackbar: A Snackbar.
-     */
-    @objc
-    optional func snackbarWillShow(snackbar: Snackbar)
-    
-    /**
-     A delegation method that is executed when a Snackbar did show.
-     - Parameter snackbar: A Snackbar.
-     */
-    @objc
-    optional func snackbarDidShow(snackbar: Snackbar)
-    
-    /**
-     A delegation method that is executed when a Snackbar will hide.
-     - Parameter snackbar: A Snackbar.
-     */
-    @objc
-    optional func snackbarWillHide(snackbar: Snackbar)
-    
-    /**
-     A delegation method that is executed when a Snackbar did hide.
-     - Parameter snackbar: A Snackbar.
-     */
-    @objc
-    optional func snackbarDidHide(snackbar: Snackbar)
-}
-
 @objc(SnackbarStatus)
 public enum SnackbarStatus: Int {
     case visible
     case notVisible
-    case animating
 }
 
-@objc(Snackbar)
 open class Snackbar: BarView {
-    /// Delegation handler.
-    open weak var delegate: SnackbarDelegate?
+    /// A convenience property to set the titleLabel text.
+    public var text: String? {
+        get {
+            return textLabel?.text
+        }
+        set(value) {
+            textLabel?.text = value
+            layoutSubviews()
+        }
+    }
+    
+    /// Text label.
+    public private(set) var textLabel: UILabel!
     
     open override var intrinsicContentSize: CGSize {
-        return CGSize(width: width, height: 48)
+        return CGSize(width: width, height: 49)
     }
     
     /// The status of the snackbar.
-    open internal(set) var status = SnackbarStatus.visible
+    open internal(set) var status = SnackbarStatus.notVisible
+    
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        if willRenderView {
+            if nil != text && "" != text {
+                if nil == textLabel.superview {
+                    contentView.addSubview(textLabel)
+                }
+                textLabel.frame = contentView.bounds
+            } else {
+                textLabel.removeFromSuperview()
+            }
+            
+            contentView.grid.reload()
+        }
+    }
     
     /**
      Prepares the view instance when intialized. When subclassing,
@@ -89,6 +83,18 @@ open class Snackbar: BarView {
      */
     open override func prepareView() {
         super.prepareView()
-        backgroundColor = Color.grey.darken4
+        backgroundColor = Color.grey.darken3
+        grid.contentEdgeInsets = EdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
+        grid.interimSpace = 24
+        prepareTextLabel()
+    }
+    
+    /// Prepares the textLabel.
+    private func prepareTextLabel() {
+        textLabel = UILabel()
+        textLabel.contentScaleFactor = Device.scale
+        textLabel.font = RobotoFont.medium(with: 14)
+        textLabel.textAlignment = .left
+        textLabel.textColor = Color.white
     }
 }

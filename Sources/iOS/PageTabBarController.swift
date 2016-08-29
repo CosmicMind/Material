@@ -110,7 +110,7 @@ open class PageTabBarController: RootController {
     open var pageTabBarAlignment = PageTabBarAlignment.bottom
     
     /// Reference to the PageTabBar.
-    open internal(set) var pageTabBar: PageTabBar!
+    open internal(set) lazy var pageTabBar: PageTabBar = PageTabBar()
     
     /// Delegation handler.
     open weak var delegate: PageTabBarControllerDelegate?
@@ -147,30 +147,39 @@ open class PageTabBarController: RootController {
      */
     open override func layoutSubviews() {
         super.layoutSubviews()
-        guard let v = pageTabBar else {
-            return
-        }
         
         let w = view.width
         let h = view.height
-        let p = v.intrinsicContentSize.height + v.grid.layoutEdgeInsets.top + v.grid.layoutEdgeInsets.bottom
+        let p = pageTabBar.intrinsicContentSize.height + pageTabBar.grid.layoutEdgeInsets.top + pageTabBar.grid.layoutEdgeInsets.bottom
         let y = h - p
         
-        v.height = p
-        v.width = w + v.grid.layoutEdgeInsets.left + v.grid.layoutEdgeInsets.right
+        pageTabBar.height = p
+        pageTabBar.width = w + pageTabBar.grid.layoutEdgeInsets.left + pageTabBar.grid.layoutEdgeInsets.right
         
         rootViewController.view.height = y
         
         switch pageTabBarAlignment {
         case .top:
-            v.y = 0
+            pageTabBar.y = 0
             rootViewController.view.y = p
         case .bottom:
-            v.y = y
+            pageTabBar.y = y
             rootViewController.view.y = 0
         }
         
-        v.divider.reload()
+        pageTabBar.divider.reload()
+    }
+    
+    /**
+     Sets the view controllers.
+     - Parameter _ viewController: An Array of UIViewControllers.
+     - Parameter direction: A UIPageViewControllerNavigationDirection enum value.
+     - Parameter animated: A boolean indicating to include animation.
+     - Parameter completion: An optional completion block.
+     */
+    open func setViewControllers(_ viewControllers: [UIViewController], direction: UIPageViewControllerNavigationDirection, animated: Bool, completion: (@escaping (Bool) -> Void)? = nil) {
+        pageViewController?.setViewControllers(viewControllers, direction: direction, animated: animated, completion: completion)
+        preparePageTabBarItems()
     }
     
     /**
@@ -248,19 +257,9 @@ open class PageTabBarController: RootController {
     
     /// Prepares the pageTabBar.
     private func preparePageTabBar() {
-        if nil == pageTabBar {
-            pageTabBar = PageTabBar()
-            pageTabBar.zPosition = 1000
-            view.addSubview(pageTabBar)
-            pageTabBar.select(at: selectedIndex)
-        }
-    }
-}
-
-extension PageTabBarController {
-    open func setViewControllers(_ viewControllers: [UIViewController]?, direction: UIPageViewControllerNavigationDirection, animated: Bool, completion: (@escaping (Bool) -> Void)? = nil) {
-        pageViewController?.setViewControllers(viewControllers, direction: direction, animated: animated, completion: completion)
-        preparePageTabBarItems()
+        pageTabBar.zPosition = 1000
+        view.addSubview(pageTabBar)
+        pageTabBar.select(at: selectedIndex)
     }
 }
 

@@ -30,9 +30,9 @@
 
 import UIKit
 
-public class Toolbar: BarView {
+open class Toolbar: BarView {
 	/// A convenience property to set the titleLabel text.
-	public var title: String? {
+	open var title: String? {
 		get {
 			return titleLabel?.text
 		}
@@ -43,10 +43,10 @@ public class Toolbar: BarView {
 	}
 	
 	/// Title label.
-	public private(set) var titleLabel: UILabel!
+	open private(set) var titleLabel: UILabel!
 	
 	/// A convenience property to set the detailLabel text.
-	public var detail: String? {
+	open var detail: String? {
 		get {
 			return detailLabel?.text
 		}
@@ -57,9 +57,9 @@ public class Toolbar: BarView {
 	}
 	
 	/// Detail label.
-	public private(set) var detailLabel: UILabel!
+	open private(set) var detailLabel: UILabel!
 	
-	public override func layoutSubviews() {
+	open override func layoutSubviews() {
 		super.layoutSubviews()
 		if willRenderView {
 
@@ -134,7 +134,7 @@ public class Toolbar: BarView {
      The super.prepareView method should always be called immediately
      when subclassing.
      */
-	public override func prepareView() {
+	open override func prepareView() {
 		super.prepareView()
 		prepareTitleLabel()
 		prepareDetailLabel()
@@ -144,7 +144,7 @@ public class Toolbar: BarView {
 	private func prepareTitleLabel() {
 		titleLabel = UILabel()
 		titleLabel.contentScaleFactor = Device.scale
-		titleLabel.font = RobotoFont.mediumWithSize(size: 17)
+		titleLabel.font = RobotoFont.medium(with: 17)
 		titleLabel.textAlignment = .left
 	}
 	
@@ -152,7 +152,7 @@ public class Toolbar: BarView {
 	private func prepareDetailLabel() {
 		detailLabel = UILabel()
 		detailLabel.contentScaleFactor = Device.scale
-		detailLabel.font = RobotoFont.regularWithSize(size: 12)
+		detailLabel.font = RobotoFont.regular(with: 12)
 		detailLabel.textAlignment = .left
 	}
 }

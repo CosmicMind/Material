@@ -50,7 +50,7 @@ extension UIViewController {
 
 open class SearchBarController: RootController {
 	/// Reference to the SearchBar.
-	open internal(set) var searchBar: SearchBar!
+    open internal(set) lazy var searchBar: SearchBar = SearchBar()
 	
 	/**
      To execute in the order of the layout chain, override this
@@ -59,23 +59,20 @@ open class SearchBarController: RootController {
      */
 	open override func layoutSubviews() {
 		super.layoutSubviews()
-        guard let v = searchBar else {
-            return
-        }
         
-        v.grid.layoutEdgeInsets.top = .phone == Device.userInterfaceIdiom && Device.isLandscape ? 0 : 20
+        searchBar.grid.layoutEdgeInsets.top = .phone == Device.userInterfaceIdiom && Device.isLandscape ? 0 : 20
         
         let w = view.width
         let h = view.height
-        let p = v.intrinsicContentSize.height + v.grid.layoutEdgeInsets.top + v.grid.layoutEdgeInsets.bottom
+        let p = searchBar.intrinsicContentSize.height + searchBar.grid.layoutEdgeInsets.top + searchBar.grid.layoutEdgeInsets.bottom
         
-        v.width = w + v.grid.layoutEdgeInsets.left + v.grid.layoutEdgeInsets.right
-        v.height = p
+        searchBar.width = w + searchBar.grid.layoutEdgeInsets.left + searchBar.grid.layoutEdgeInsets.right
+        searchBar.height = p
         
         rootViewController.view.y = p
         rootViewController.view.height = h - p
         
-        v.divider.reload()
+        searchBar.divider.reload()
 	}
 	
 	/**
@@ -92,10 +89,7 @@ open class SearchBarController: RootController {
 	
 	/// Prepares the searchBar.
 	private func prepareSearchBar() {
-		if nil == searchBar {
-			searchBar = SearchBar()
-			searchBar.zPosition = 1000
-			view.addSubview(searchBar)
-		}
+        searchBar.zPosition = 1000
+        view.addSubview(searchBar)
 	}
 }

@@ -73,7 +73,7 @@ open class ToolbarController: RootController {
 	private var internalFloatingViewController: UIViewController?
 	
 	/// Reference to the Toolbar.
-	open internal(set) var toolbar: Toolbar!
+    open internal(set) lazy var toolbar: Toolbar = Toolbar()
 	
 	/// Delegation handler.
 	open weak var delegate: ToolbarControllerDelegate?
@@ -84,7 +84,7 @@ open class ToolbarController: RootController {
 			return internalFloatingViewController
 		}
 		set(value) {
-			if let v: UIViewController = internalFloatingViewController {
+			if let v = internalFloatingViewController {
 				v.view.layer.rasterizationScale = Device.scale
 				v.view.layer.shouldRasterize = true
 				delegate?.toolbarControllerWillCloseFloatingViewController?(toolbarController: self)
@@ -113,7 +113,7 @@ open class ToolbarController: RootController {
 					}
 			}
 			
-			if let v: UIViewController = value {
+			if let v = value {
 				// Add the noteViewController! to the view.
 				addChildViewController(v)
 				v.view.frame = view.bounds
@@ -162,23 +162,20 @@ open class ToolbarController: RootController {
      */
 	open override func layoutSubviews() {
 		super.layoutSubviews()
-		guard let v = toolbar else {
-            return
-        }
-        
-        v.grid.layoutEdgeInsets.top = .phone == Device.userInterfaceIdiom && Device.isLandscape ? 0 : 20
+		
+        toolbar.grid.layoutEdgeInsets.top = .phone == Device.userInterfaceIdiom && Device.isLandscape ? 0 : 20
         
         let w = view.width
         let h = view.height
-        let p = v.intrinsicContentSize.height + v.grid.layoutEdgeInsets.top + v.grid.layoutEdgeInsets.bottom
+        let p = toolbar.intrinsicContentSize.height + toolbar.grid.layoutEdgeInsets.top + toolbar.grid.layoutEdgeInsets.bottom
         
-        v.width = w + v.grid.layoutEdgeInsets.left + v.grid.layoutEdgeInsets.right
-        v.height = p
+        toolbar.width = w + toolbar.grid.layoutEdgeInsets.left + toolbar.grid.layoutEdgeInsets.right
+        toolbar.height = p
         
         rootViewController.view.y = p
         rootViewController.view.height = h - p
         
-        v.divider.reload()
+        toolbar.divider.reload()
 	}
 	
 	/**
@@ -195,10 +192,7 @@ open class ToolbarController: RootController {
 	
 	/// Prepares the toolbar.
 	private func prepareToolbar() {
-		if nil == toolbar {
-			toolbar = Toolbar()
-			toolbar.zPosition = 1000
-			view.addSubview(toolbar)
-		}
+        toolbar.zPosition = 1000
+        view.addSubview(toolbar)
 	}
 }

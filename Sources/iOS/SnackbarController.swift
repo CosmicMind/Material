@@ -30,6 +30,37 @@
 
 import UIKit
 
+//@objc(SnackbarDelegate)
+//public protocol SnackbarDelegate {
+//    /**
+//     A delegation method that is executed when a Snackbar will show.
+//     - Parameter snackbar: A Snackbar.
+//     */
+//    @objc
+//    optional func snackbarWillShow(snackbar: Snackbar)
+//    
+//    /**
+//     A delegation method that is executed when a Snackbar did show.
+//     - Parameter snackbar: A Snackbar.
+//     */
+//    @objc
+//    optional func snackbarDidShow(snackbar: Snackbar)
+//    
+//    /**
+//     A delegation method that is executed when a Snackbar will hide.
+//     - Parameter snackbar: A Snackbar.
+//     */
+//    @objc
+//    optional func snackbarWillHide(snackbar: Snackbar)
+//    
+//    /**
+//     A delegation method that is executed when a Snackbar did hide.
+//     - Parameter snackbar: A Snackbar.
+//     */
+//    @objc
+//    optional func snackbarDidHide(snackbar: Snackbar)
+//}
+
 extension UIViewController {
     /**
      A convenience property that provides access to the SnackbarController.
@@ -49,14 +80,35 @@ extension UIViewController {
 }
 
 open class SnackbarController: RootController {
-    /**
-     A boolean that indicates whether to move the view controller
-     when the Snackbar animates.
-    */
-    open var isSnackbarAttachedToController = false
+    /// A boolean indicating if the Snacbar is animating.
+    open internal(set) var isAnimating = false
     
     /// Reference to the Snackbar.
-    open internal(set) var snackbar: Snackbar!
+    open internal(set) lazy var snackbar: Snackbar = Snackbar()
+    
+    /**
+     Animates to a SnackbarStatus.
+     - Parameter status: A SnackbarStatus enum value.
+     */
+    open func animate(snackbar status: SnackbarStatus, animations: (@escaping (Snackbar) -> Void)? = nil, completion: (@escaping (Snackbar) -> Void)? = nil) {
+        isAnimating = true
+        UIView.animate(withDuration: 0.25, animations: { [weak self, status = status, animations = animations] in
+            guard let s = self else {
+                return
+            }
+            
+            s.layoutSnackbar(status: status)
+            animations?(s.snackbar)
+        }) { [weak self, status = status, completion = completion] _ in
+            guard let s = self else {
+                return
+            }
+            
+            s.isAnimating = false
+            s.snackbar.status = status
+            completion?(s.snackbar)
+        }
+    }
     
     /**
      To execute in the order of the layout chain, override this
@@ -65,35 +117,11 @@ open class SnackbarController: RootController {
      */
     open override func layoutSubviews() {
         super.layoutSubviews()
-        guard let v = snackbar else {
+        guard !isAnimating else {
             return
         }
         
-        let w = view.width
-        let h = view.height
-        let p = v.intrinsicContentSize.height + v.grid.layoutEdgeInsets.top + v.grid.layoutEdgeInsets.bottom
-        
-        v.width = w
-        v.height = p
-        
-        rootViewController.view.x = 0
-        rootViewController.view.y = 0
-        rootViewController.view.width = w
-        
-        switch v.status {
-        case .visible:
-            let y = h - p
-            v.y = y
-            v.isHidden = false
-            rootViewController.view.height = y
-        case .notVisible:
-            v.y = h
-            v.isHidden = true
-            rootViewController.view.height = h
-        case .animating:break
-        }
-        
-        v.divider.reload()
+        layoutSnackbar(status: snackbar.status)
     }
     
     /**
@@ -110,10 +138,42 @@ open class SnackbarController: RootController {
     
     /// Prepares the snackbar.
     private func prepareSnackbar() {
-        if nil == snackbar {
-            snackbar = Snackbar()
-            snackbar.zPosition = 10000
-            view.addSubview(snackbar)
+        snackbar.zPosition = 10000
+        view.addSubview(snackbar)
+    }
+    
+    /**
+     Lays out the Snackbar.
+     - Parameter status: A SnackbarStatus enum value.
+     */
+    private func layoutSnackbar(status: SnackbarStatus) {
+        guard let vc = rootViewController else {
+            return
         }
+        
+        let w = view.width
+        let h = view.height
+        let p = snackbar.intrinsicContentSize.height + snackbar.grid.layoutEdgeInsets.top + snackbar.grid.layoutEdgeInsets.bottom
+        
+        snackbar.width = w
+        snackbar.height = p
+        
+        vc.view.x = 0
+        vc.view.y = 0
+        vc.view.width = w
+        
+        switch status {
+        case .visible:
+            let y = h - p
+            snackbar.y = y
+            snackbar.isHidden = false
+            vc.view.height = y
+        case .notVisible:
+            snackbar.y = h
+            snackbar.isHidden = true
+            vc.view.height = h
+        }
+        
+        snackbar.divider.reload()
     }
 }

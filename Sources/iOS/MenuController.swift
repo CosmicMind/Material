@@ -51,7 +51,7 @@ extension UIViewController {
 @IBDesignable
 public class MenuController: RootController {
 	/// Reference to the MenuView.
-	public private(set) lazy var menuView: MenuView = MenuView()
+    public private(set) lazy var menuView: MenuView = MenuView()
 	
 	/**
 	Opens the menu with a callback.

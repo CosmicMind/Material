@@ -30,15 +30,16 @@
 
 import UIKit
 
-public class SearchBar: BarView {
+open class SearchBar: BarView {
 	/// The UITextField for the searchBar.
-	public private(set) var textField: UITextField!
+	open private(set) var textField: UITextField!
 	
 	/// Reference to the clearButton.
-	public private(set) var clearButton: IconButton!
+	open private(set) var clearButton: IconButton!
 	
 	/// Handle the clearButton manually.
-	@IBInspectable public var clearButtonAutoHandleEnabled: Bool = true {
+	@IBInspectable
+    open var clearButtonAutoHandleEnabled: Bool = true {
 		didSet {
 			clearButton.removeTarget(self, action: #selector(handleClearButton), for: .touchUpInside)
 			if clearButtonAutoHandleEnabled {
@@ -48,7 +49,8 @@ public class SearchBar: BarView {
 	}
 	
 	/// TintColor for searchBar.
-	@IBInspectable public override var tintColor: UIColor? {
+	@IBInspectable
+    open override var tintColor: UIColor? {
 		get {
 			return textField.tintColor
 		}
@@ -58,7 +60,8 @@ public class SearchBar: BarView {
 	}
 	
 	/// TextColor for searchBar.
-	@IBInspectable public var textColor: UIColor? {
+	@IBInspectable
+    open var textColor: UIColor? {
 		get {
 			return textField.textColor
 		}
@@ -68,7 +71,8 @@ public class SearchBar: BarView {
 	}
 	
 	/// Sets the textField placeholder value.
-	@IBInspectable public var placeholder: String? {
+	@IBInspectable
+    open var placeholder: String? {
 		didSet {
 			if let v: String = placeholder {
 				textField.attributedPlaceholder = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderColor])
@@ -77,7 +81,8 @@ public class SearchBar: BarView {
 	}
 	
 	/// Placeholder textColor.
-	@IBInspectable public var placeholderColor: UIColor = Color.darkText.others {
+	@IBInspectable
+    open var placeholderColor: UIColor = Color.darkText.others {
 		didSet {
 			if let v: String = placeholder {
 				textField.attributedPlaceholder = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderColor])
@@ -85,7 +90,7 @@ public class SearchBar: BarView {
 		}
 	}
 	
-	public override func layoutSubviews() {
+	open override func layoutSubviews() {
 		super.layoutSubviews()
 		if willRenderView {
 			textField.frame = contentView.bounds
@@ -127,14 +132,14 @@ public class SearchBar: BarView {
 	The super.prepareView method should always be called immediately
 	when subclassing.
 	*/
-	public override func prepareView() {
+	open override func prepareView() {
 		super.prepareView()
 		prepareTextField()
 		prepareClearButton()
 	}
 	
 	/// Layout the clearButton.
-	public func layoutClearButton() {
+	open func layoutClearButton() {
 		let h: CGFloat = textField.frame.height
         clearButton.frame = CGRect(x: textField.frame.width - h, y: 0, width: h, height: h)
 	}
@@ -148,7 +153,7 @@ public class SearchBar: BarView {
 	private func prepareTextField() {
 		textField = UITextField()
 		textField.contentScaleFactor = Device.scale
-		textField.font = RobotoFont.regularWithSize(size: 17)
+		textField.font = RobotoFont.regular(with: 17)
 		textField.backgroundColor = Color.clear
 		textField.clearButtonMode = .whileEditing
 		tintColor = placeholderColor
