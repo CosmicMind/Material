@@ -191,6 +191,9 @@ open class PageTabBarController: RootController {
      */
     open override func prepareView() {
         super.prepareView()
+        view.clipsToBounds = true
+        view.backgroundColor = Color.white
+        view.contentScaleFactor = Device.scale
         preparePageTabBar()
     }
     
