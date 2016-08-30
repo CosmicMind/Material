@@ -58,6 +58,25 @@ open class Snackbar: BarView {
     /// The status of the snackbar.
     open internal(set) var status = SnackbarStatus.notVisible
     
+    open override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        /**
+         Since the subviews will be outside the bounds of this view,
+         we need to look at the subviews to see if we have a hit.
+         */
+        guard !isHidden else {
+            return nil
+        }
+        
+        for v in subviews {
+            let p = v.convert(point, from: self)
+            if v.bounds.contains(p) {
+                return v.hitTest(p, with: event)
+            }
+        }
+        
+        return super.hitTest(point, with: event)
+    }
+    
     /**
      Prepares the view instance when intialized. When subclassing,
      it is recommended to override the prepareView method
@@ -67,10 +86,12 @@ open class Snackbar: BarView {
      */
     open override func prepareView() {
         super.prepareView()
-        interimSpace = 24
+        depthPreset = .none
+        interimSpacePreset = .interimSpace8
         contentEdgeInsets.left = interimSpace
         contentEdgeInsets.right = interimSpace
         backgroundColor = Color.grey.darken3
+        clipsToBounds = false
         prepareTextLabel()
     }
     

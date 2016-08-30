@@ -90,25 +90,34 @@ open class SnackbarController: RootController {
      Animates to a SnackbarStatus.
      - Parameter status: A SnackbarStatus enum value.
      */
-    open func animate(snackbar status: SnackbarStatus, animations: (@escaping (Snackbar) -> Void)? = nil, completion: (@escaping (Snackbar) -> Void)? = nil) {
-        isAnimating = true
-        isUserInteractionEnabled = false
-        UIView.animate(withDuration: 0.25, animations: { [weak self, status = status, animations = animations] in
+    open func animate(snackbar status: SnackbarStatus, delay: TimeInterval = 0, animations: (@escaping (Snackbar) -> Void)? = nil, completion: (@escaping (Snackbar) -> Void)? = nil) -> AnimationDelayCancelBlock {
+        return Animation.delay(time: delay) { [weak self, status = status, animations = animations, completion = completion] in
             guard let s = self else {
                 return
             }
             
-            s.layoutSnackbar(status: status)
-            animations?(s.snackbar)
-        }) { [weak self, status = status, completion = completion] _ in
-            guard let s = self else {
-                return
-            }
+            s.isAnimating = true
+            s.isUserInteractionEnabled = false
             
-            s.isAnimating = false
-            s.isUserInteractionEnabled = true
-            s.snackbar.status = status
-            completion?(s.snackbar)
+            UIView.animate(withDuration: 0.25, animations: { [weak self, status = status, animations = animations] in
+                guard let s = self else {
+                    return
+                }
+                
+                s.layoutSnackbar(status: status)
+                
+                animations?(s.snackbar)
+            }) { [weak self, status = status, completion = completion] _ in
+                guard let s = self else {
+                    return
+                }
+                
+                s.isAnimating = false
+                s.isUserInteractionEnabled = true
+                s.snackbar.status = status
+                
+                completion?(s.snackbar)
+            }
         }
     }
     
@@ -124,6 +133,7 @@ open class SnackbarController: RootController {
         }
         
         layoutSnackbar(status: snackbar.status)
+        layoutRootViewController(status: snackbar.status)
     }
     
     /**
@@ -149,33 +159,25 @@ open class SnackbarController: RootController {
      - Parameter status: A SnackbarStatus enum value.
      */
     private func layoutSnackbar(status: SnackbarStatus) {
+        let p = snackbar.intrinsicContentSize.height + snackbar.grid.layoutEdgeInsets.top + snackbar.grid.layoutEdgeInsets.bottom
+        snackbar.width = view.width
+        snackbar.height = p
+        snackbar.y = .visible == status ? view.height - p : view.height
+        snackbar.divider.reload()
+    }
+    
+    /**
+     Lays out the rootViewController.
+     - Parameter status: A SnackbarStatus enum value.
+     */
+    private func layoutRootViewController(status: SnackbarStatus) {
         guard let vc = rootViewController else {
             return
         }
         
-        let w = view.width
-        let h = view.height
-        let p = snackbar.intrinsicContentSize.height + snackbar.grid.layoutEdgeInsets.top + snackbar.grid.layoutEdgeInsets.bottom
-        
-        snackbar.width = w
-        snackbar.height = p
-        
         vc.view.x = 0
         vc.view.y = 0
-        vc.view.width = w
-        
-        switch status {
-        case .visible:
-            let y = h - p
-            snackbar.y = y
-            snackbar.isHidden = false
-            vc.view.height = y
-        case .notVisible:
-            snackbar.y = h
-            snackbar.isHidden = true
-            vc.view.height = h
-        }
-        
-        snackbar.divider.reload()
+        vc.view.width = view.width
+        vc.view.height = .visible == status ? view.height - snackbar.height : view.height
     }
 }

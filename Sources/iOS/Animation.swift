@@ -30,8 +30,6 @@
 
 import UIKit
 
-public typealias AnimationFillModeType = String
-
 @objc(AnimationFillMode)
 public enum AnimationFillMode: Int {
 	case forwards
@@ -41,9 +39,10 @@ public enum AnimationFillMode: Int {
 }
 
 /**
-	:name:	AnimationFillModeToValue
-*/
-public func AnimationFillModeToValue(mode: AnimationFillMode) -> AnimationFillModeType {
+ Converts the AnimationFillMode enum value to a corresponding String.
+ - Parameter mode: An AnimationFillMode enum value.
+ */
+public func AnimationFillModeToValue(mode: AnimationFillMode) -> String {
 	switch mode {
 	case .forwards:
 		return kCAFillModeForwards
@@ -60,15 +59,15 @@ public typealias AnimationDelayCancelBlock = (Bool) -> Void
 
 public struct Animation {
 	/// Delay helper method.
-	public static func delay(time: TimeInterval, completion: @escaping ()-> Void) ->  AnimationDelayCancelBlock? {
+	public static func delay(time: TimeInterval, completion: @escaping () -> Void) -> AnimationDelayCancelBlock {
 		
-		func dispatch_later(completion: @escaping ()-> Void) {
+		func asyncAfter(completion: @escaping () -> Void) {
 			DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time, execute: completion)
         }
 		
 		var cancelable: AnimationDelayCancelBlock?
 		
-		let delayed: AnimationDelayCancelBlock = { (cancel: Bool) in
+		let delayed: AnimationDelayCancelBlock = { (cancel) in
 			if !cancel {
 				DispatchQueue.main.async(execute: completion)
 			}
@@ -77,18 +76,18 @@ public struct Animation {
 		
 		cancelable = delayed
 		
-		dispatch_later {
+		asyncAfter {
 			cancelable?(false)
 		}
 		
-		return cancelable;
+		return delayed;
 	}
 	
 	/**
 	:name:	delayCancel
 	*/
-	public static func delayCancel(completion: AnimationDelayCancelBlock?) {
-		completion?(true)
+	public static func delayCancel(completion: AnimationDelayCancelBlock) {
+		completion(true)
 	}
 
 	
@@ -128,8 +127,8 @@ public struct Animation {
 	:name:	animateWithDelay
 	*/
 	public static func animateWithDelay(delay d: CFTimeInterval, duration: CFTimeInterval, animations: (() -> Void), completion: (() -> Void)? = nil) {
-		_ = delay(time: d) {
-			animateWithDuration(duration: duration, animations: animations, completion: completion)
+        _ = delay(time: d) {
+            animateWithDuration(duration: duration, animations: animations, completion: completion)
 		}
 	}
 }
