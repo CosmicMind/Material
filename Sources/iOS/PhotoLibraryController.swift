@@ -50,6 +50,7 @@ open class PhotoLibraryController: UIViewController, PhotoLibraryDelegate {
         view.clipsToBounds = true
         view.backgroundColor = Color.white
         view.contentScaleFactor = Device.scale
+        edgesForExtendedLayout = []
         preparePhotoLibrary()
     }
     
