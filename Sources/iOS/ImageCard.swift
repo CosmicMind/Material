@@ -273,7 +273,7 @@ open class ImageCard: PulseView {
 	/**
 	:name:	leftButtons
 	*/
-	open var leftButtons = [UIButton]() {
+	open var leftButtons = [UIView]() {
 		didSet {
 			reloadView()
 		}
@@ -301,7 +301,7 @@ open class ImageCard: PulseView {
 	/**
 	:name:	rightButtons
 	*/
-	open var rightButtons = [UIButton]() {
+	open var rightButtons = [UIView]() {
 		didSet {
 			reloadView()
 		}
@@ -331,7 +331,7 @@ open class ImageCard: PulseView {
 	/**
 	:name:	init
 	*/
-	public convenience init?(image: UIImage? = nil, titleLabel: UILabel? = nil, contentView: UIView? = nil, leftButtons: [UIButton]? = nil, rightButtons: [UIButton]? = nil) {
+	public convenience init?(image: UIImage? = nil, titleLabel: UILabel? = nil, contentView: UIView? = nil, leftButtons: [UIView]? = nil, rightButtons: [UIView]? = nil) {
 		self.init(frame: .zero)
 		prepareProperties(image: image, titleLabel: titleLabel, contentView: contentView, leftButtons: leftButtons, rightButtons: rightButtons)
 	}
@@ -577,7 +577,7 @@ open class ImageCard: PulseView {
 	/**
 	:name:	prepareProperties
 	*/
-	internal func prepareProperties(image: UIImage?, titleLabel: UILabel?, contentView: UIView?, leftButtons: [UIButton]?, rightButtons: [UIButton]?) {
+	internal func prepareProperties(image: UIImage?, titleLabel: UILabel?, contentView: UIView?, leftButtons: [UIView]?, rightButtons: [UIView]?) {
 		self.image = image
 		self.titleLabel = titleLabel
 		self.contentView = contentView
