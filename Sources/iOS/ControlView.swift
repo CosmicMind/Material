@@ -220,7 +220,6 @@ open class ControlView: View {
             }
             
             grid.deferred = false
-            grid.reload()
         }
     }
     

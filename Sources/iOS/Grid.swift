@@ -108,7 +108,13 @@ public class GridOffset {
 
 public class Grid {
     /// Defer the calculation.
-    public var deferred = false
+    public var deferred = false {
+        didSet {
+            if !deferred {
+                reload()
+            }
+        }
+    }
     
     /// Context view.
     internal weak var context: UIView?
