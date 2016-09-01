@@ -30,36 +30,42 @@
 
 import UIKit
 
-//@objc(SnackbarDelegate)
-//public protocol SnackbarDelegate {
-//    /**
-//     A delegation method that is executed when a Snackbar will show.
-//     - Parameter snackbar: A Snackbar.
-//     */
-//    @objc
-//    optional func snackbarWillShow(snackbar: Snackbar)
-//    
-//    /**
-//     A delegation method that is executed when a Snackbar did show.
-//     - Parameter snackbar: A Snackbar.
-//     */
-//    @objc
-//    optional func snackbarDidShow(snackbar: Snackbar)
-//    
-//    /**
-//     A delegation method that is executed when a Snackbar will hide.
-//     - Parameter snackbar: A Snackbar.
-//     */
-//    @objc
-//    optional func snackbarWillHide(snackbar: Snackbar)
-//    
-//    /**
-//     A delegation method that is executed when a Snackbar did hide.
-//     - Parameter snackbar: A Snackbar.
-//     */
-//    @objc
-//    optional func snackbarDidHide(snackbar: Snackbar)
-//}
+@objc(SnackbarControllerDelegate)
+public protocol SnackbarControllerDelegate {
+    /**
+     A delegation method that is executed when a Snackbar will show.
+     - Parameter snackbarController: A SnackbarController.
+     */
+    @objc
+    optional func snackbarControllerWillShow(snackbarController: SnackbarController)
+    
+    /**
+     A delegation method that is executed when a Snackbar did show.
+     - Parameter snackbarController: A SnackbarController.
+     */
+    @objc
+    optional func snackbarControllerDidShow(snackbarController: SnackbarController)
+    
+    /**
+     A delegation method that is executed when a Snackbar will hide.
+     - Parameter snackbarController: A SnackbarController.
+     */
+    @objc
+    optional func snackbarControllerWillHide(snackbarController: SnackbarController)
+    
+    /**
+     A delegation method that is executed when a Snackbar did hide.
+     - Parameter snackbarController: A SnackbarController.
+     */
+    @objc
+    optional func snackbarControllerDidHide(snackbarController: SnackbarController)
+}
+
+@objc(SnackbarAlignment)
+public enum SnackbarAlignment: Int {
+    case top
+    case bottom
+}
 
 extension UIViewController {
     /**
@@ -86,6 +92,12 @@ open class SnackbarController: RootController {
     /// Reference to the Snackbar.
     open internal(set) lazy var snackbar: Snackbar = Snackbar()
     
+    /// Delegation handler.
+    open weak var delegate: SnackbarControllerDelegate?
+    
+    /// Snackbar alignment setting.
+    open var snackbarAlignment = SnackbarAlignment.bottom
+    
     /**
      Animates to a SnackbarStatus.
      - Parameter status: A SnackbarStatus enum value.
@@ -94,6 +106,12 @@ open class SnackbarController: RootController {
         return Animation.delay(time: delay) { [weak self, status = status, animations = animations, completion = completion] in
             guard let s = self else {
                 return
+            }
+            
+            if .visible == status {
+                s.delegate?.snackbarControllerWillShow?(snackbarController: s)
+            } else {
+                s.delegate?.snackbarControllerWillHide?(snackbarController: s)
             }
             
             s.isAnimating = true
@@ -115,6 +133,12 @@ open class SnackbarController: RootController {
                 s.isAnimating = false
                 s.isUserInteractionEnabled = true
                 s.snackbar.status = status
+                
+                if .visible == status {
+                    s.delegate?.snackbarControllerDidShow?(snackbarController: s)
+                } else {
+                    s.delegate?.snackbarControllerDidHide?(snackbarController: s)
+                }
                 
                 completion?(s.snackbar)
             }
@@ -162,7 +186,11 @@ open class SnackbarController: RootController {
         let p = snackbar.intrinsicContentSize.height + snackbar.grid.layoutEdgeInsets.top + snackbar.grid.layoutEdgeInsets.bottom
         snackbar.width = view.width
         snackbar.height = p
-        snackbar.y = .visible == status ? view.height - p : view.height
+        if .bottom == snackbarAlignment {
+            snackbar.y = .visible == status ? view.height - p : view.height
+        } else {
+            snackbar.y = .visible == status ? 0 : -snackbar.height
+        }
         snackbar.divider.reload()
     }
     
@@ -175,9 +203,6 @@ open class SnackbarController: RootController {
             return
         }
         
-        vc.view.x = 0
-        vc.view.y = 0
-        vc.view.width = view.width
-        vc.view.height = .visible == status ? view.height - snackbar.height : view.height
+        vc.view.frame = view.bounds
     }
 }
