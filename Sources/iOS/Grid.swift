@@ -107,6 +107,9 @@ public class GridOffset {
 }
 
 public class Grid {
+    /// Defer the calculation.
+    public var deferred = false
+    
     /// Context view.
     internal weak var context: UIView?
     
@@ -196,6 +199,10 @@ public class Grid {
     
     /// Reload the button layout.
     public func reload() {
+        guard !deferred else {
+            return
+        }
+        
         var n: Int = 0
         var i: Int = 0
         

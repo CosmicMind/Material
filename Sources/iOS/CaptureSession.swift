@@ -31,7 +31,7 @@
 import UIKit
 import AVFoundation
 
-private var CaptureSessionAdjustingExposureContext: UInt8 = 1
+private var CaptureSessionAdjustingExposureContext: UInt8 = 0
 
 @objc(CaptureSessionPreset)
 public enum CaptureSessionPreset: Int {

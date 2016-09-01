@@ -33,7 +33,7 @@ import UIKit
 @objc(SnackbarStatus)
 public enum SnackbarStatus: Int {
     case visible
-    case notVisible
+    case hidden
 }
 
 open class Snackbar: BarView {
@@ -56,7 +56,7 @@ open class Snackbar: BarView {
     }
     
     /// The status of the snackbar.
-    open internal(set) var status = SnackbarStatus.notVisible
+    open internal(set) var status = SnackbarStatus.hidden
     
     open override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         /**

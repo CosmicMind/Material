@@ -31,9 +31,16 @@
 import UIKit
 
 open class ControlView: View {
+    /// Should center the contentView.
+    open var isCenteredContentView = false {
+        didSet {
+            layoutSubviews()
+        }
+    }
+    
 	/// Will render the view.
 	open var willRenderView: Bool {
-		return 0 < width && 0 < height
+		return 0 < width && 0 < height && nil != superview
 	}
 	
 	/// A preset wrapper around contentInset.
@@ -154,12 +161,13 @@ open class ControlView: View {
             let l = (CGFloat(leftControls.count) * interimSpace)
             let r = (CGFloat(rightControls.count) * interimSpace)
             let p = width - l - r - contentEdgeInsets.left - contentEdgeInsets.right
-			let columns = Int(p / gridFactor)
+			var lc = 0
+            var rc = 0
+            let columns = Int(p / gridFactor)
             
+            grid.deferred = true
             grid.views.removeAll()
             grid.axis.columns = columns
-            
-            contentView.grid.columns = columns
             
             for v in leftControls {
                 var w: CGFloat = 0
@@ -171,7 +179,7 @@ open class ControlView: View {
                 v.height = frame.size.height - contentEdgeInsets.top - contentEdgeInsets.bottom
                 v.grid.columns = Int(ceil(w / gridFactor)) + 1
                 
-                contentView.grid.columns -= v.grid.columns
+                lc += v.grid.columns
                 
                 grid.views.append(v)
             }
@@ -188,12 +196,15 @@ open class ControlView: View {
                 v.height = frame.size.height - contentEdgeInsets.top - contentEdgeInsets.bottom
                 v.grid.columns = Int(ceil(w / gridFactor)) + 1
                 
-                contentView.grid.columns -= v.grid.columns
+                rc += v.grid.columns
                 
                 grid.views.append(v)
             }
             
-            contentView.grid.reload()
+            contentView.grid.columns = columns - (isCenteredContentView ? 2 * max(lc, rc) : lc + rc)
+            
+            grid.deferred = false
+            grid.reload()
         }
     }
     
