@@ -201,7 +201,17 @@ open class ControlView: View {
                 grid.views.append(v)
             }
             
-            contentView.grid.columns = columns - (isCenteredContentView ? 2 * max(lc, rc) : lc + rc)
+            if isCenteredContentView {
+                if lc < rc {
+                    contentView.grid.columns = columns - 2 * rc
+                    contentView.grid.offset.columns = rc - lc
+                } else {
+                    contentView.grid.columns = columns - 2 * lc
+                    rightControls.first?.grid.offset.columns = lc - rc
+                }
+            } else {
+                contentView.grid.columns = columns - lc - rc
+            }
             
             grid.deferred = false
             grid.reload()
