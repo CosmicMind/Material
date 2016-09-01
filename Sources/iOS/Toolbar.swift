@@ -94,7 +94,7 @@ open class Toolbar: BarView {
 	}
 	
     open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        isCenteredContentView = .center == titleLabel.textAlignment || .center == detailLabel.textAlignment
+        contentViewAlignment = .center == titleLabel.textAlignment || .center == detailLabel.textAlignment ? .center : .any
     }
     
     open override func layoutSubviews() {

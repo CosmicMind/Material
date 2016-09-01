@@ -30,9 +30,15 @@
 
 import UIKit
 
+@objc(ContentViewAlignment)
+public enum ContentViewAlignment: Int {
+    case any
+    case center
+}
+
 open class ControlView: View {
     /// Should center the contentView.
-    open var isCenteredContentView = false {
+    open var contentViewAlignment = ContentViewAlignment.any {
         didSet {
             layoutSubviews()
         }
@@ -201,7 +207,7 @@ open class ControlView: View {
                 grid.views.append(v)
             }
             
-            if isCenteredContentView {
+            if .center == contentViewAlignment {
                 if lc < rc {
                     contentView.grid.columns = columns - 2 * rc
                     contentView.grid.offset.columns = rc - lc
