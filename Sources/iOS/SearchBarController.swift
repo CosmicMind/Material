@@ -62,15 +62,13 @@ open class SearchBarController: RootController {
         
         searchBar.grid.layoutEdgeInsets.top = .phone == Device.userInterfaceIdiom && Device.isLandscape ? 0 : 20
         
-        let w = view.width
-        let h = view.height
         let p = searchBar.intrinsicContentSize.height + searchBar.grid.layoutEdgeInsets.top + searchBar.grid.layoutEdgeInsets.bottom
         
-        searchBar.width = w + searchBar.grid.layoutEdgeInsets.left + searchBar.grid.layoutEdgeInsets.right
+        searchBar.width = view.width + searchBar.grid.layoutEdgeInsets.left + searchBar.grid.layoutEdgeInsets.right
         searchBar.height = p
         
         rootViewController.view.y = p
-        rootViewController.view.height = h - p
+        rootViewController.view.height = view.height - p
         
         searchBar.divider.reload()
 	}

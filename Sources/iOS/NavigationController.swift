@@ -112,10 +112,10 @@ open class NavigationController: UINavigationController {
      when subclassing.
      */
 	open func prepareView() {
-        edgesForExtendedLayout = []
         view.clipsToBounds = true
 		view.backgroundColor = Color.white
         view.contentScaleFactor = Device.scale
+        automaticallyAdjustsScrollViewInsets = false
         
         // This ensures the panning gesture is available when going back between views.
 		if let v = interactivePopGestureRecognizer {

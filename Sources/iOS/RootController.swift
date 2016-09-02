@@ -151,10 +151,12 @@ open class RootController: UIViewController {
      when subclassing.
      */
 	open func prepareView() {
-        edgesForExtendedLayout = []
         view.clipsToBounds = true
         view.backgroundColor = Color.white
         view.contentScaleFactor = Device.scale
+        automaticallyAdjustsScrollViewInsets = false
+        edgesForExtendedLayout = []
+        
         prepareRootViewController()
 	}
 	

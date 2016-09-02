@@ -41,6 +41,5 @@ open class IconButton: Button {
 	open override func prepareView() {
 		super.prepareView()
 		pulseAnimation = .center
-        shapePreset = .circle
 	}
 }

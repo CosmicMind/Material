@@ -47,7 +47,6 @@ open class PhotoLibraryController: UIViewController, PhotoLibraryDelegate {
      when subclassing.
      */
     open func prepareView() {
-        edgesForExtendedLayout = []
         view.clipsToBounds = true
         view.backgroundColor = Color.white
         view.contentScaleFactor = Device.scale

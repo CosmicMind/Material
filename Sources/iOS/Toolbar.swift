@@ -45,7 +45,7 @@ open class Toolbar: BarView {
 	}
 	
 	/// Title label.
-    open internal(set) var titleLabel = UILabel()
+    open internal(set) lazy var titleLabel = UILabel()
     
 	/// A convenience property to set the detailLabel text.
 	open var detail: String? {
@@ -59,11 +59,10 @@ open class Toolbar: BarView {
 	}
 	
 	/// Detail label.
-    open internal(set) var detailLabel = UILabel()
+    open internal(set) lazy var detailLabel = UILabel()
 	
     deinit {
         removeObserver(self, forKeyPath: "titleLabel.textAlignment")
-        removeObserver(self, forKeyPath: "detailLabel.textAlignment")
     }
     
 	/**
@@ -94,7 +93,11 @@ open class Toolbar: BarView {
 	}
 	
     open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        contentViewAlignment = .center == titleLabel.textAlignment || .center == detailLabel.textAlignment ? .center : .any
+        guard "titleLabel.textAlignment" == keyPath else {
+            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
+            return
+        }
+        contentViewAlignment = .center == titleLabel.textAlignment ? .center : .any
     }
     
     open override func layoutSubviews() {
@@ -146,21 +149,23 @@ open class Toolbar: BarView {
      */
 	open override func prepareView() {
 		super.prepareView()
+        contentViewAlignment = .center
 		prepareTitleLabel()
 		prepareDetailLabel()
 	}
 	
 	/// Prepares the titleLabel.
 	private func prepareTitleLabel() {
-		titleLabel.contentScaleFactor = Device.scale
+        titleLabel.contentScaleFactor = Device.scale
 		titleLabel.font = RobotoFont.medium(with: 17)
+        titleLabel.textAlignment = .center
         addObserver(self, forKeyPath: "titleLabel.textAlignment", options: [], context: &ToolbarContext)
 	}
 	
 	/// Prepares the detailLabel.
 	private func prepareDetailLabel() {
-		detailLabel.contentScaleFactor = Device.scale
+        detailLabel.contentScaleFactor = Device.scale
 		detailLabel.font = RobotoFont.regular(with: 12)
-        addObserver(self, forKeyPath: "detailLabel.textAlignment", options: [], context: &ToolbarContext)
+        detailLabel.textAlignment = .center
 	}
 }

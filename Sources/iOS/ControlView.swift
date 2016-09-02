@@ -164,26 +164,21 @@ open class ControlView: View {
 		if willRenderView {
 			layoutIfNeeded()
 			
+            var lc = 0
+            var rc = 0
             let l = (CGFloat(leftControls.count) * interimSpace)
             let r = (CGFloat(rightControls.count) * interimSpace)
             let p = width - l - r - contentEdgeInsets.left - contentEdgeInsets.right
-			var lc = 0
-            var rc = 0
-            let columns = Int(p / gridFactor)
+			let columns = Int(p / gridFactor)
             
             grid.deferred = true
             grid.views.removeAll()
             grid.axis.columns = columns
             
             for v in leftControls {
-                var w: CGFloat = 0
-                if let b = v as? UIButton {
-                    b.contentEdgeInsets = .zero
-                    b.sizeToFit()
-                    w = b.width
-                }
-                v.height = frame.size.height - contentEdgeInsets.top - contentEdgeInsets.bottom
-                v.grid.columns = Int(ceil(w / gridFactor)) + 1
+                (v as? UIButton)?.contentEdgeInsets = .zero
+                v.sizeToFit()
+                v.grid.columns = Int(ceil(v.width / gridFactor)) + 1
                 
                 lc += v.grid.columns
                 
@@ -193,14 +188,9 @@ open class ControlView: View {
             grid.views.append(contentView)
             
             for v in rightControls {
-                var w: CGFloat = 0
-                if let b = v as? UIButton {
-                    b.contentEdgeInsets = .zero
-                    b.sizeToFit()
-                    w = b.width
-                }
-                v.height = frame.size.height - contentEdgeInsets.top - contentEdgeInsets.bottom
-                v.grid.columns = Int(ceil(w / gridFactor)) + 1
+                (v as? UIButton)?.contentEdgeInsets = .zero
+                v.sizeToFit()
+                v.grid.columns = Int(ceil(v.width / gridFactor)) + 1
                 
                 rc += v.grid.columns
                 
@@ -220,6 +210,7 @@ open class ControlView: View {
             }
             
             grid.deferred = false
+            grid.reload()
         }
     }
     
@@ -232,7 +223,7 @@ open class ControlView: View {
      */
 	open override func prepareView() {
 		super.prepareView()
-		interimSpacePreset = .interimSpace1
+		interimSpacePreset = .interimSpace3
 		contentEdgeInsetsPreset = .square1
 		autoresizingMask = .flexibleWidth
 		prepareContentView()
@@ -242,6 +233,5 @@ open class ControlView: View {
 	private func prepareContentView() {
 		contentView = View()
 		contentView.backgroundColor = nil
-		addSubview(contentView)
 	}
 }

@@ -148,13 +148,11 @@ open class PageTabBarController: RootController {
     open override func layoutSubviews() {
         super.layoutSubviews()
         
-        let w = view.width
-        let h = view.height
         let p = pageTabBar.intrinsicContentSize.height + pageTabBar.grid.layoutEdgeInsets.top + pageTabBar.grid.layoutEdgeInsets.bottom
-        let y = h - p
+        let y = view.height - p
         
         pageTabBar.height = p
-        pageTabBar.width = w + pageTabBar.grid.layoutEdgeInsets.left + pageTabBar.grid.layoutEdgeInsets.right
+        pageTabBar.width = view.width + pageTabBar.grid.layoutEdgeInsets.left + pageTabBar.grid.layoutEdgeInsets.right
         
         rootViewController.view.height = y
         

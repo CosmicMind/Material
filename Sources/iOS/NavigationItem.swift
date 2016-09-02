@@ -32,14 +32,16 @@ import UIKit
 
 /// A memory reference to the NavigationItem instance.
 private var NavigationItemKey: UInt8 = 0
+private var NavigationItemContext: UInt8 = 0
 
-public class NavigationItem {
-	/**
-	A boolean indicating whether keys are being observed
-	on the UINavigationItem.
-	*/
-	internal var observed = false
-	
+public class NavigationItem: NSObject {
+    /// Should center the contentView.
+    open var contentViewAlignment = ContentViewAlignment.center {
+        didSet {
+            navigationBar?.layoutSubviews()
+        }
+    }
+    
 	/// Back Button.
 	public var backButton: IconButton?
 	
@@ -47,10 +49,10 @@ public class NavigationItem {
 	public var contentView: UIView?
 	
 	/// Title label.
-	public private(set) var titleLabel: UILabel!
+	public private(set) lazy var titleLabel: UILabel = UILabel()
 	
 	/// Detail label.
-	public private(set) var detailLabel: UILabel!
+	public private(set) lazy var detailLabel: UILabel = UILabel()
 	
 	/// Left controls.
 	public var leftControls = [UIView]()
@@ -58,30 +60,43 @@ public class NavigationItem {
 	/// Right controls.
 	public var rightControls = [UIView]()
 	
+    public var navigationBar: NavigationBar? {
+        return contentView?.superview?.superview as? NavigationBar
+    }
+    
+    open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        guard "titleLabel.textAlignment" == keyPath else {
+            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
+            return
+        }
+        contentViewAlignment = .center == titleLabel.textAlignment ? .center : .any
+    }
+    
+    deinit {
+        removeObserver(self, forKeyPath: "titleLabel.textAlignment")
+    }
+    
 	/// Initializer.
-	public init() {
-		prepareTitleLabel()
+	public override init() {
+		super.init()
+        prepareTitleLabel()
 		prepareDetailLabel()
 	}
     
     /// Reloads the subviews for the NavigationBar.
     internal func reload() {
-        guard let navigationBar = contentView?.superview?.superview as? NavigationBar else {
-            return
-        }
-        navigationBar.layoutSubviews()
+        navigationBar?.layoutSubviews()
     }
 	
 	/// Prepares the titleLabel.
 	private func prepareTitleLabel() {
-		titleLabel = UILabel()
 		titleLabel.font = RobotoFont.medium(with: 17)
 		titleLabel.textAlignment = .center
+        addObserver(self, forKeyPath: "titleLabel.textAlignment", options: [], context: &NavigationItemContext)
 	}
 	
 	/// Prepares the detailLabel.
 	private func prepareDetailLabel() {
-		detailLabel = UILabel()
 		detailLabel.font = RobotoFont.regular(with: 12)
 		detailLabel.textAlignment = .center
 	}
@@ -99,9 +114,14 @@ extension UINavigationItem {
 			AssociateObject(base: self, key: &NavigationItemKey, value: value)
 		}
 	}
+    
+    /// Should center the contentView.
+    open var contentViewAlignment: ContentViewAlignment {
+        return navigationItem.contentViewAlignment
+    }
 	
 	/// Back Button.
-	public internal(set) var backButton: IconButton? {
+	open internal(set) var backButton: IconButton? {
 		get {
 			return navigationItem.backButton
 		}
@@ -111,7 +131,7 @@ extension UINavigationItem {
 	}
 	
 	/// Content View.
-	public internal(set) var contentView: UIView? {
+	open internal(set) var contentView: UIView? {
 		get {
 			return navigationItem.contentView
 		}
@@ -121,7 +141,7 @@ extension UINavigationItem {
 	}
 	
 	@nonobjc
-	public var title: String? {
+	open var title: String? {
 		get {
 			return titleLabel.text
 		}
@@ -132,12 +152,12 @@ extension UINavigationItem {
 	}
 	
 	/// Title Label.
-	public var titleLabel: UILabel {
+	open var titleLabel: UILabel {
 		return navigationItem.titleLabel
 	}
 	
 	/// Detail text.
-	public var detail: String? {
+	open var detail: String? {
 		get {
 			return detailLabel.text
 		}
@@ -148,12 +168,12 @@ extension UINavigationItem {
 	}
 	
 	/// Detail Label.
-	public var detailLabel: UILabel {
+	open var detailLabel: UILabel {
 		return navigationItem.detailLabel
 	}
 	
 	/// Left side UIViews.
-	public var leftControls: [UIView] {
+	open var leftControls: [UIView] {
 		get {
 			return navigationItem.leftControls
 		}
@@ -163,7 +183,7 @@ extension UINavigationItem {
 	}
 	
 	/// Right side UIViews.
-	public var rightControls: [UIView] {
+	open var rightControls: [UIView] {
 		get {
 			return navigationItem.rightControls
 		}

@@ -190,35 +190,32 @@ open class NavigationBar: UINavigationBar {
      - Parameter item: A UINavigationItem to layout.
      */
 	internal func layoutNavigationItem(item: UINavigationItem) {
-		if willRenderView {
-			prepareItem(item: item)
-			
-			let titleView = prepareTitleView(item: item)
+        if willRenderView {
+            prepareItem(item: item)
+            
+            let titleView = prepareTitleView(item: item)
             let contentView = prepareContentView(item: item)
             
+            titleView.frame.origin = .zero
+            titleView.frame.size = intrinsicContentSize
+
+            var lc = 0
+            var rc = 0
             let l = (CGFloat(item.leftControls.count) * interimSpace)
             let r = (CGFloat(item.rightControls.count) * interimSpace)
             let p = width - l - r - contentEdgeInsets.left - contentEdgeInsets.right
             let columns = Int(p / gridFactor)
             
-            titleView.frame.origin = .zero
-            titleView.frame.size = intrinsicContentSize
+            titleView.grid.deferred = true
             titleView.grid.views.removeAll()
             titleView.grid.axis.columns = columns
             
-            contentView.grid.columns = columns
-            
             for v in item.leftControls {
-                var w: CGFloat = 0
-                if let b = v as? UIButton {
-                    b.contentEdgeInsets = .zero
-                    b.sizeToFit()
-                    w = b.width
-                }
-                v.height = frame.size.height - contentEdgeInsets.top - contentEdgeInsets.bottom
-                v.grid.columns = Int(ceil(w / gridFactor)) + 1
+                (v as? UIButton)?.contentEdgeInsets = .zero
+                v.sizeToFit()
+                v.grid.columns = Int(ceil(v.width / gridFactor)) + 1
                 
-                contentView.grid.columns -= v.grid.columns
+                lc += v.grid.columns
                 
                 titleView.grid.views.append(v)
             }
@@ -226,22 +223,30 @@ open class NavigationBar: UINavigationBar {
             titleView.grid.views.append(contentView)
             
             for v in item.rightControls {
-                var w: CGFloat = 0
-                if let b = v as? UIButton {
-                    b.contentEdgeInsets = .zero
-                    b.sizeToFit()
-                    w = b.width
-                }
-                v.height = frame.size.height - contentEdgeInsets.top - contentEdgeInsets.bottom
-                v.grid.columns = Int(ceil(w / gridFactor)) + 1
+                (v as? UIButton)?.contentEdgeInsets = .zero
+                v.sizeToFit()
+                v.grid.columns = Int(ceil(v.width / gridFactor)) + 1
                 
-                contentView.grid.columns -= v.grid.columns
+                rc += v.grid.columns
                 
                 titleView.grid.views.append(v)
             }
             
-            titleView.grid.contentEdgeInsets = contentEdgeInsets
+            if .center == item.contentViewAlignment {
+                if lc < rc {
+                    contentView.grid.columns = columns - 2 * rc
+                    contentView.grid.offset.columns = rc - lc
+                } else {
+                    contentView.grid.columns = columns - 2 * lc
+                    item.rightControls.first?.grid.offset.columns = lc - rc
+                }
+            } else {
+                contentView.grid.columns = columns - lc - rc
+            }
+            
             titleView.grid.interimSpace = interimSpace
+            titleView.grid.contentEdgeInsets = contentEdgeInsets
+            titleView.grid.deferred = false
             titleView.grid.reload()
             
             // contentView alignment.
@@ -265,14 +270,14 @@ open class NavigationBar: UINavigationBar {
                     item.titleLabel.sizeToFit()
                     item.detailLabel.sizeToFit()
                     
-                    let diff = (contentView.frame.height - item.titleLabel.frame.height - item.detailLabel.frame.height) / 2
+                    let diff = (contentView.height - item.titleLabel.height - item.detailLabel.height) / 2
                     
-                    item.titleLabel.frame.size.height += diff
-                    item.titleLabel.frame.size.width = contentView.frame.width
+                    item.titleLabel.height += diff
+                    item.titleLabel.width = contentView.width
                     
-                    item.detailLabel.frame.size.height += diff
-                    item.detailLabel.frame.size.width = contentView.frame.width
-                    item.detailLabel.frame.origin.y = item.titleLabel.frame.height
+                    item.detailLabel.height += diff
+                    item.detailLabel.width = contentView.width
+                    item.detailLabel.y = item.titleLabel.height
                 }
             } else {
                 item.detailLabel.removeFromSuperview()
@@ -334,7 +339,6 @@ open class NavigationBar: UINavigationBar {
 		if nil == item.contentView {
 			item.contentView = UIView(frame: .zero)
 		}
-		item.contentView!.grid.axis.direction = .vertical
 		return item.contentView!
 	}
     

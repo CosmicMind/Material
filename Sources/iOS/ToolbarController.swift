@@ -165,15 +165,13 @@ open class ToolbarController: RootController {
 		
         toolbar.grid.layoutEdgeInsets.top = .phone == Device.userInterfaceIdiom && Device.isLandscape ? 0 : 20
         
-        let w = view.width
-        let h = view.height
         let p = toolbar.intrinsicContentSize.height + toolbar.grid.layoutEdgeInsets.top + toolbar.grid.layoutEdgeInsets.bottom
         
-        toolbar.width = w + toolbar.grid.layoutEdgeInsets.left + toolbar.grid.layoutEdgeInsets.right
+        toolbar.width = view.width + toolbar.grid.layoutEdgeInsets.left + toolbar.grid.layoutEdgeInsets.right
         toolbar.height = p
         
         rootViewController.view.y = p
-        rootViewController.view.height = h - p
+        rootViewController.view.height = view.height - p
         
         toolbar.divider.reload()
 	}
