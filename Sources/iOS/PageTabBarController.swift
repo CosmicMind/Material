@@ -164,8 +164,6 @@ open class PageTabBarController: RootController {
             pageTabBar.y = y
             rootViewController.view.y = 0
         }
-        
-        pageTabBar.divider.reload()
     }
     
     /**

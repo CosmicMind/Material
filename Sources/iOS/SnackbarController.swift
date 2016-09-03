@@ -156,8 +156,9 @@ open class SnackbarController: RootController {
             return
         }
         
+        snackbar.width = view.width
+        snackbar.height = snackbar.intrinsicContentSize.height + snackbar.grid.layoutEdgeInsets.top + snackbar.grid.layoutEdgeInsets.bottom
         layoutSnackbar(status: snackbar.status)
-        layoutRootViewController(status: snackbar.status)
     }
     
     /**
@@ -183,26 +184,10 @@ open class SnackbarController: RootController {
      - Parameter status: A SnackbarStatus enum value.
      */
     private func layoutSnackbar(status: SnackbarStatus) {
-        let p = snackbar.intrinsicContentSize.height + snackbar.grid.layoutEdgeInsets.top + snackbar.grid.layoutEdgeInsets.bottom
-        snackbar.width = view.width
-        snackbar.height = p
         if .bottom == snackbarAlignment {
-            snackbar.y = .visible == status ? view.height - p : view.height
+            snackbar.y = .visible == status ? view.height - snackbar.height : view.height
         } else {
             snackbar.y = .visible == status ? 0 : -snackbar.height
         }
-        snackbar.divider.reload()
-    }
-    
-    /**
-     Lays out the rootViewController.
-     - Parameter status: A SnackbarStatus enum value.
-     */
-    private func layoutRootViewController(status: SnackbarStatus) {
-        guard let vc = rootViewController else {
-            return
-        }
-        
-        vc.view.frame = view.bounds
     }
 }

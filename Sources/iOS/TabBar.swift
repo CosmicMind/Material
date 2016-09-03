@@ -57,53 +57,9 @@ public protocol TabBarDelegate {
     optional func tabBarDidSelectButton(tabBar: TabBar, button: UIButton)
 }
 
-open class TabBar: View {
+open class TabBar: BarView {
     /// A boolean indicating if the TabBar line is in an animation state.
     open internal(set) var isAnimating = false
-    
-    /// Will render the view.
-	open var willRenderView: Bool {
-		return 0 < width && 0 < height && nil != superview
-	}
-    
-    /// A preset wrapper around contentInset.
-    open var contentEdgeInsetsPreset: EdgeInsetsPreset {
-        get {
-            return grid.contentEdgeInsetsPreset
-        }
-        set(value) {
-            grid.contentEdgeInsetsPreset = value
-        }
-    }
-    
-    /// A wrapper around grid.contentInset.
-    @IBInspectable
-    open var contentInset: EdgeInsets {
-        get {
-            return grid.contentEdgeInsets
-        }
-        set(value) {
-            grid.contentEdgeInsets = value
-        }
-    }
-    
-    /// A preset wrapper around interimSpace.
-    open var interimSpacePreset = InterimSpacePreset.none {
-        didSet {
-            interimSpace = InterimSpacePresetToValue(preset: interimSpacePreset)
-        }
-    }
-    
-    /// A wrapper around grid.interimSpace.
-    @IBInspectable
-    open var interimSpace: InterimSpace {
-        get {
-            return grid.interimSpace
-        }
-        set(value) {
-            grid.interimSpace = value
-        }
-    }
     
     /// A delegation reference.
     open weak var delegate: TabBarDelegate?
@@ -171,9 +127,6 @@ open class TabBar: View {
         }
     }
     
-    /// Layer Reference.
-    open internal(set) var divider: Divider!
-    
     open override func layoutSubviews() {
 		super.layoutSubviews()
 		if willRenderView {
@@ -195,7 +148,6 @@ open class TabBar: View {
                 
                 line.frame = CGRect(x: selected!.x, y: .bottom == lineAlignment ? height - lineHeight : 0, width: selected!.width, height: lineHeight)
             }
-            divider.reload()
 		}
 	}
 	
@@ -268,7 +220,6 @@ open class TabBar: View {
     
     /// Prepares the divider.
     private func prepareDivider() {
-        divider = Divider(view: self)
         divider.alignment = .top
     }
     

@@ -69,8 +69,6 @@ open class SearchBarController: RootController {
         
         rootViewController.view.y = p
         rootViewController.view.height = view.height - p
-        
-        searchBar.divider.reload()
 	}
 	
 	/**

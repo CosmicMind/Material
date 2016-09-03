@@ -172,8 +172,6 @@ open class ToolbarController: RootController {
         
         rootViewController.view.y = p
         rootViewController.view.height = view.height - p
-        
-        toolbar.divider.reload()
 	}
 	
 	/**

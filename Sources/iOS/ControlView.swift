@@ -162,8 +162,6 @@ open class ControlView: View {
 	open override func layoutSubviews() {
 		super.layoutSubviews()
 		if willRenderView {
-			layoutIfNeeded()
-			
             var lc = 0
             var rc = 0
             let l = (CGFloat(leftControls.count) * interimSpace)

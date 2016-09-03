@@ -222,8 +222,6 @@ public class Grid {
                 return
             }
             
-            canvas.layoutIfNeeded()
-            
             if canvas != child.superview {
                 child.removeFromSuperview()
                 canvas.addSubview(child)
