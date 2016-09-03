@@ -192,12 +192,10 @@ open class NavigationBar: UINavigationBar {
 	internal func layoutNavigationItem(item: UINavigationItem) {
         if willRenderView {
             prepareItem(item: item)
+            prepareTitleView(item: item)
             
-            let titleView = prepareTitleView(item: item)
-            let contentView = prepareContentView(item: item)
-            
-            titleView.frame.origin = .zero
-            titleView.frame.size = intrinsicContentSize
+            item.titleView!.frame.origin = .zero
+            item.titleView!.frame.size = intrinsicContentSize
 
             var lc = 0
             var rc = 0
@@ -206,9 +204,9 @@ open class NavigationBar: UINavigationBar {
             let p = width - l - r - contentEdgeInsets.left - contentEdgeInsets.right
             let columns = Int(p / gridFactor)
             
-            titleView.grid.deferred = true
-            titleView.grid.views.removeAll()
-            titleView.grid.axis.columns = columns
+            item.titleView!.grid.deferred = true
+            item.titleView!.grid.views.removeAll()
+            item.titleView!.grid.axis.columns = columns
             
             for v in item.leftControls {
                 (v as? UIButton)?.contentEdgeInsets = .zero
@@ -217,10 +215,10 @@ open class NavigationBar: UINavigationBar {
                 
                 lc += v.grid.columns
                 
-                titleView.grid.views.append(v)
+                item.titleView!.grid.views.append(v)
             }
             
-            titleView.grid.views.append(contentView)
+            item.titleView!.grid.views.append(item.contentView)
             
             for v in item.rightControls {
                 (v as? UIButton)?.contentEdgeInsets = .zero
@@ -229,61 +227,61 @@ open class NavigationBar: UINavigationBar {
                 
                 rc += v.grid.columns
                 
-                titleView.grid.views.append(v)
+                item.titleView!.grid.views.append(v)
             }
             
             if .center == item.contentViewAlignment {
                 if lc < rc {
-                    contentView.grid.columns = columns - 2 * rc
-                    contentView.grid.offset.columns = rc - lc
+                    item.contentView.grid.columns = columns - 2 * rc
+                    item.contentView.grid.offset.columns = rc - lc
                 } else {
-                    contentView.grid.columns = columns - 2 * lc
+                    item.contentView.grid.columns = columns - 2 * lc
                     item.rightControls.first?.grid.offset.columns = lc - rc
                 }
             } else {
-                contentView.grid.columns = columns - lc - rc
+                item.contentView.grid.columns = columns - lc - rc
             }
             
-            titleView.grid.interimSpace = interimSpace
-            titleView.grid.contentEdgeInsets = contentEdgeInsets
-            titleView.grid.deferred = false
-            titleView.grid.reload()
+            item.titleView!.grid.interimSpace = interimSpace
+            item.titleView!.grid.contentEdgeInsets = contentEdgeInsets
+            item.titleView!.grid.deferred = false
+            item.titleView!.grid.reload()
             
             // contentView alignment.
             if nil != item.title && "" != item.title {
                 if nil == item.titleLabel.superview {
-                    contentView.addSubview(item.titleLabel)
+                    item.contentView.addSubview(item.titleLabel)
                 }
-                item.titleLabel.frame = contentView.bounds
+                item.titleLabel.frame = item.contentView.bounds
             } else {
                 item.titleLabel.removeFromSuperview()
             }
             
             if nil != item.detail && "" != item.detail {
                 if nil == item.detailLabel.superview {
-                    contentView.addSubview(item.detailLabel)
+                    item.contentView.addSubview(item.detailLabel)
                 }
                 
                 if nil == item.titleLabel.superview {
-                    item.detailLabel.frame = contentView.bounds
+                    item.detailLabel.frame = item.contentView.bounds
                 } else {
                     item.titleLabel.sizeToFit()
                     item.detailLabel.sizeToFit()
                     
-                    let diff = (contentView.height - item.titleLabel.height - item.detailLabel.height) / 2
+                    let diff = (item.contentView.height - item.titleLabel.height - item.detailLabel.height) / 2
                     
                     item.titleLabel.height += diff
-                    item.titleLabel.width = contentView.width
+                    item.titleLabel.width = item.contentView.width
                     
                     item.detailLabel.height += diff
-                    item.detailLabel.width = contentView.width
+                    item.detailLabel.width = item.contentView.width
                     item.detailLabel.y = item.titleLabel.height
                 }
             } else {
                 item.detailLabel.removeFromSuperview()
             }
             
-            contentView.grid.reload()
+            item.contentView.grid.reload()
         }
 	}
 	
@@ -321,27 +319,14 @@ open class NavigationBar: UINavigationBar {
 	/**
      Prepare the titleView.
      - Parameter item: A UINavigationItem to layout.
-     - Returns: A UIView, which is the item.titleView.
      */
-	private func prepareTitleView(item: UINavigationItem) -> UIView {
-		if nil == item.titleView {
-			item.titleView = UIView(frame: .zero)
-		}
-		return item.titleView!
+	private func prepareTitleView(item: UINavigationItem) {
+        guard nil == item.titleView else {
+            return
+        }
+        item.titleView = UIView(frame: .zero)
 	}
 	
-	/**
-     Prepare the contentView.
-     - Parameter item: A UINavigationItem to layout.
-     - Returns: A UIView, which is the item.contentView.
-     */
-	private func prepareContentView(item: UINavigationItem) -> UIView {
-		if nil == item.contentView {
-			item.contentView = UIView(frame: .zero)
-		}
-		return item.contentView!
-	}
-    
     /// Prepares the divider.
     private func prepareDivider() {
         divider = Divider(view: self)

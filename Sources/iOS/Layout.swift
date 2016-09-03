@@ -73,7 +73,7 @@ public class Layout {
      - Returns: The current Layout instance.
      */
 	internal func debugChildNotAvailableMessage(function: String = #function) -> Layout {
-		debugPrint("[Material Layout Error: Chld view context is not available for \(function).")
+		debugPrint("[Material Layout Error: Child view context is not available for \(function).")
 		return self
 	}
 
@@ -854,7 +854,7 @@ extension Layout {
      - Parameter views: A Dictionary<String, Any> of view key / value pairs.
      - Returns: The Array<NSLayoutConstraint> instance.
      */
-	public class func constraint(format: String, options: NSLayoutFormatOptions, metrics: Dictionary<String, Any>?, views: Dictionary<String, Any>) -> Array<NSLayoutConstraint> {
+	public class func constraint(format: String, options: NSLayoutFormatOptions, metrics: Dictionary<String, Any>?, views: Dictionary<String, Any>) -> [NSLayoutConstraint] {
 		for (_, a) in views {
 			if let v = a as? UIView {
 				v.translatesAutoresizingMaskIntoConstraints = false

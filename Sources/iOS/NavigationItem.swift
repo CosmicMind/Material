@@ -46,13 +46,13 @@ public class NavigationItem: NSObject {
 	public var backButton: IconButton?
 	
 	/// Content View.
-	public var contentView: UIView?
+	public private(set) lazy var contentView = UIView()
 	
 	/// Title label.
-	public private(set) lazy var titleLabel: UILabel = UILabel()
+	public private(set) lazy var titleLabel = UILabel()
 	
 	/// Detail label.
-	public private(set) lazy var detailLabel: UILabel = UILabel()
+	public private(set) lazy var detailLabel = UILabel()
 	
 	/// Left controls.
 	public var leftControls = [UIView]()
@@ -61,7 +61,7 @@ public class NavigationItem: NSObject {
 	public var rightControls = [UIView]()
 	
     public var navigationBar: NavigationBar? {
-        return contentView?.superview?.superview as? NavigationBar
+        return contentView.superview?.superview as? NavigationBar
     }
     
     open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -116,12 +116,17 @@ extension UINavigationItem {
 	}
     
     /// Should center the contentView.
-    open var contentViewAlignment: ContentViewAlignment {
+    public var contentViewAlignment: ContentViewAlignment {
         return navigationItem.contentViewAlignment
     }
 	
+    /// Content View.
+    public var contentView: UIView {
+        return navigationItem.contentView
+    }
+    
 	/// Back Button.
-	open internal(set) var backButton: IconButton? {
+	public internal(set) var backButton: IconButton? {
 		get {
 			return navigationItem.backButton
 		}
@@ -130,18 +135,8 @@ extension UINavigationItem {
 		}
 	}
 	
-	/// Content View.
-	open internal(set) var contentView: UIView? {
-		get {
-			return navigationItem.contentView
-		}
-		set(value) {
-			navigationItem.contentView = value
-		}
-	}
-	
 	@nonobjc
-	open var title: String? {
+	public var title: String? {
 		get {
 			return titleLabel.text
 		}
@@ -152,12 +147,12 @@ extension UINavigationItem {
 	}
 	
 	/// Title Label.
-	open var titleLabel: UILabel {
+	public var titleLabel: UILabel {
 		return navigationItem.titleLabel
 	}
 	
 	/// Detail text.
-	open var detail: String? {
+	public var detail: String? {
 		get {
 			return detailLabel.text
 		}
@@ -168,12 +163,12 @@ extension UINavigationItem {
 	}
 	
 	/// Detail Label.
-	open var detailLabel: UILabel {
+	public var detailLabel: UILabel {
 		return navigationItem.detailLabel
 	}
 	
 	/// Left side UIViews.
-	open var leftControls: [UIView] {
+	public var leftControls: [UIView] {
 		get {
 			return navigationItem.leftControls
 		}
@@ -183,7 +178,7 @@ extension UINavigationItem {
 	}
 	
 	/// Right side UIViews.
-	open var rightControls: [UIView] {
+	public var rightControls: [UIView] {
 		get {
 			return navigationItem.rightControls
 		}
