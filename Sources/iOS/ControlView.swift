@@ -195,8 +195,6 @@ open class ControlView: View {
                 grid.views.append(v)
             }
             
-            grid.commit()
-            
             contentView.grid.begin()
             if .center == contentViewAlignment {
                 if lc < rc {
@@ -209,6 +207,8 @@ open class ControlView: View {
             } else {
                 contentView.grid.columns = columns - lc - rc
             }
+            
+            grid.commit()
             contentView.grid.commit()
         }
     }

@@ -176,7 +176,6 @@ open class RootController: UIViewController {
 			addChildViewController(v)
 			container.addSubview(v.view)
 			v.didMove(toParentViewController: self)
-			v.view.frame = container.bounds
             v.view.clipsToBounds = true
 			v.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 			v.view.contentScaleFactor = Device.scale
