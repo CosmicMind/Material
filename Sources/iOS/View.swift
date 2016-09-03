@@ -49,7 +49,7 @@ open class View: UIView {
 	@IBInspectable
     open var image: UIImage? {
 		didSet {
-			visualLayer.contents = image?.cgImage
+            visualLayer.contents = image?.cgImage
 		}
 	}
 	
