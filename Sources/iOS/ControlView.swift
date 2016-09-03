@@ -224,7 +224,6 @@ open class ControlView: View {
 		super.prepareView()
 		interimSpacePreset = .interimSpace3
 		contentEdgeInsetsPreset = .square1
-		autoresizingMask = .flexibleWidth
 		prepareContentView()
 	}
 	

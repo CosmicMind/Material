@@ -227,27 +227,29 @@ public class Grid {
                 canvas.addSubview(child)
             }
             
+            canvas.layoutIfNeeded()
+            
             switch axis.direction {
             case .horizontal:
                 let c = child.grid.columns
                 let co = child.grid.offset.columns
-                let w = (canvas.width - contentEdgeInsets.left - contentEdgeInsets.right - layoutEdgeInsets.left - layoutEdgeInsets.right + interimSpace) / CGFloat(axis.columns)
+                let w = (canvas.bounds.width - contentEdgeInsets.left - contentEdgeInsets.right - layoutEdgeInsets.left - layoutEdgeInsets.right + interimSpace) / CGFloat(axis.columns)
                 
                 child.x = CGFloat(i + n + co) * w + contentEdgeInsets.left + layoutEdgeInsets.left
                 child.y = contentEdgeInsets.top + layoutEdgeInsets.top
                 child.width = w * CGFloat(c) - interimSpace
-                child.height = canvas.height - contentEdgeInsets.top - contentEdgeInsets.bottom - layoutEdgeInsets.top - layoutEdgeInsets.bottom
+                child.height = canvas.bounds.height - contentEdgeInsets.top - contentEdgeInsets.bottom - layoutEdgeInsets.top - layoutEdgeInsets.bottom
                 
                 n += c + co - 1
                 
             case .vertical:
                 let r = child.grid.rows
                 let ro = child.grid.offset.rows
-                let h = (canvas.height - contentEdgeInsets.top - contentEdgeInsets.bottom - layoutEdgeInsets.top - layoutEdgeInsets.bottom + interimSpace) / CGFloat(axis.rows)
+                let h = (canvas.bounds.height - contentEdgeInsets.top - contentEdgeInsets.bottom - layoutEdgeInsets.top - layoutEdgeInsets.bottom + interimSpace) / CGFloat(axis.rows)
                 
                 child.x = contentEdgeInsets.left + layoutEdgeInsets.left
                 child.y = CGFloat(i + n + ro) * h + contentEdgeInsets.top + layoutEdgeInsets.top
-                child.width = canvas.width - contentEdgeInsets.left - contentEdgeInsets.right - layoutEdgeInsets.left - layoutEdgeInsets.right
+                child.width = canvas.bounds.width - contentEdgeInsets.left - contentEdgeInsets.right - layoutEdgeInsets.left - layoutEdgeInsets.right
                 child.height = h * CGFloat(r) - interimSpace
                 
                 n += r + ro - 1
@@ -257,8 +259,8 @@ public class Grid {
                 let ro = child.grid.offset.rows
                 let c = child.grid.columns
                 let co = child.grid.offset.columns
-                let w = (canvas.width - contentEdgeInsets.left - contentEdgeInsets.right - layoutEdgeInsets.left - layoutEdgeInsets.right + interimSpace) / CGFloat(axis.columns)
-                let h = (canvas.height - contentEdgeInsets.top - contentEdgeInsets.bottom - layoutEdgeInsets.top - layoutEdgeInsets.bottom + interimSpace) / CGFloat(axis.rows)
+                let w = (canvas.bounds.width - contentEdgeInsets.left - contentEdgeInsets.right - layoutEdgeInsets.left - layoutEdgeInsets.right + interimSpace) / CGFloat(axis.columns)
+                let h = (canvas.bounds.height - contentEdgeInsets.top - contentEdgeInsets.bottom - layoutEdgeInsets.top - layoutEdgeInsets.bottom + interimSpace) / CGFloat(axis.rows)
                 
                 child.x = CGFloat(co) * w + contentEdgeInsets.left + layoutEdgeInsets.left
                 child.y = CGFloat(ro) * h + contentEdgeInsets.top + layoutEdgeInsets.top

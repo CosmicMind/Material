@@ -77,14 +77,6 @@ open class Snackbar: BarView {
         return super.hitTest(point, with: event)
     }
     
-    open override func layoutSubviews() {
-        super.layoutSubviews()
-        if willRenderView {
-            print("RENDING", contentView)
-            textLabel.frame = contentView.bounds
-        }
-    }
-    
     /**
      Prepares the view instance when intialized. When subclassing,
      it is recommended to override the prepareView method
@@ -112,6 +104,6 @@ open class Snackbar: BarView {
         textLabel.numberOfLines = 0
         
         contentView.backgroundColor = Color.green.base
-        contentView.addSubview(textLabel)
+        contentView.grid.views.append(textLabel)
     }
 }
