@@ -324,19 +324,22 @@ open class TextField: UITextField {
 	}
 	
 	/// Handles the text editing did begin state.
+    @objc
 	open func handleEditingDidBegin() {
         dividerEditingDidBeginAnimation()
 		placeholderEditingDidBeginAnimation()
 	}
 	
 	/// Handles the text editing did end state.
-	open func handleEditingDidEnd() {
+	@objc
+    open func handleEditingDidEnd() {
 		dividerEditingDidEndAnimation()
 		placeholderEditingDidEndAnimation()
 	}
 	
 	/// Handles the clearIconButton TouchUpInside event.
-	open func handleClearIconButton() {
+	@objc
+    open func handleClearIconButton() {
 		if false == delegate?.textFieldShouldClear?(self) {
 			return
 		}
@@ -344,6 +347,7 @@ open class TextField: UITextField {
 	}
 	
 	/// Handles the visibilityIconButton TouchUpInside event.
+    @objc
 	open func handleVisibilityIconButton() {
 		isSecureTextEntry = !isSecureTextEntry
 		if !isSecureTextEntry {

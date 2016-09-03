@@ -739,11 +739,11 @@ public class NavigationDrawerController: RootController, UIGestureRecognizerDele
 	}
 	
 	/**
-	A method that is fired when the pan gesture is recognized
-	for the leftView.
-	- Parameter recognizer: A UIPanGestureRecognizer that is
-	passed to the handler when recognized.
-	*/
+     A method that is fired when the pan gesture is recognized
+     for the leftView.
+     - Parameter recognizer: A UIPanGestureRecognizer that is
+     passed to the handler when recognized.
+     */
     @objc
 	internal func handleLeftViewPanGesture(recognizer: UIPanGestureRecognizer) {
 		if enabledLeftView && (openedLeftView || !openedRightView && isPointContainedWithinLeftThreshold(point: recognizer.location(in: view))) {
@@ -788,11 +788,11 @@ public class NavigationDrawerController: RootController, UIGestureRecognizerDele
 	}
 	
 	/**
-	A method that is fired when the pan gesture is recognized
-	for the rightView.
-	- Parameter recognizer: A UIPanGestureRecognizer that is
-	passed to the handler when recognized.
-	*/
+     A method that is fired when the pan gesture is recognized
+     for the rightView.
+     - Parameter recognizer: A UIPanGestureRecognizer that is
+     passed to the handler when recognized.
+     */
     @objc
 	internal func handleRightViewPanGesture(recognizer: UIPanGestureRecognizer) {
 		if enabledRightView && (openedRightView || !openedLeftView && isPointContainedWithinRighThreshold(point: recognizer.location(in: view))) {
@@ -837,11 +837,11 @@ public class NavigationDrawerController: RootController, UIGestureRecognizerDele
 	}
 	
 	/**
-	A method that is fired when the tap gesture is recognized
-	for the leftView.
-	- Parameter recognizer: A UITapGestureRecognizer that is
-	passed to the handler when recognized.
-	*/
+     A method that is fired when the tap gesture is recognized
+     for the leftView.
+     - Parameter recognizer: A UITapGestureRecognizer that is
+     passed to the handler when recognized.
+     */
     @objc
 	internal func handleLeftViewTapGesture(recognizer: UITapGestureRecognizer) {
 		if openedLeftView {
@@ -855,11 +855,11 @@ public class NavigationDrawerController: RootController, UIGestureRecognizerDele
 	}
 	
 	/**
-	A method that is fired when the tap gesture is recognized
-	for the rightView.
-	- Parameter recognizer: A UITapGestureRecognizer that is
-	passed to the handler when recognized.
-	*/
+     A method that is fired when the tap gesture is recognized
+     for the rightView.
+     - Parameter recognizer: A UITapGestureRecognizer that is
+     passed to the handler when recognized.
+     */
     @objc
 	internal func handleRightViewTapGesture(recognizer: UITapGestureRecognizer) {
 		if openedRightView {

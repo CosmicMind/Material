@@ -154,8 +154,6 @@ open class RootController: UIViewController {
         view.clipsToBounds = true
         view.backgroundColor = Color.white
         view.contentScaleFactor = Device.scale
-        automaticallyAdjustsScrollViewInsets = false
-        edgesForExtendedLayout = []
         
         prepareRootViewController()
 	}

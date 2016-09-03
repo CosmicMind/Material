@@ -168,6 +168,7 @@
 		96BCB8571CB4115200C806FE /* View.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB78C1CB40DC500C806FE /* View.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8591CB4118E00C806FE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96334EF51C8B84660083986B /* Assets.xcassets */; };
 		96C1C8811D42C62800E6608F /* Material+Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C1C8801D42C62800E6608F /* Material+Array.swift */; };
+		96C9CDBC1D7B1040006A4154 /* Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C9CDBB1D7B1040006A4154 /* Reminder.swift */; };
 		96D88C321C1328D800B91418 /* Material.h in Headers */ = {isa = PBXBuildFile; fileRef = 96D88C091C1328D800B91418 /* Material.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		96E3C3941D397AE90086A024 /* Material+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E3C3931D397AE90086A024 /* Material+UIView.swift */; };
 		96E3C3951D3A1CC20086A024 /* IconButton.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9658F2161CD6FA4700B902C1 /* IconButton.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -291,6 +292,7 @@
 		96BCB7F11CB40DE900C806FE /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		96BCB7F21CB40DE900C806FE /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		96C1C8801D42C62800E6608F /* Material+Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+Array.swift"; sourceTree = "<group>"; };
+		96C9CDBB1D7B1040006A4154 /* Reminder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reminder.swift; sourceTree = "<group>"; };
 		96D88BFC1C1328D800B91418 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96D88BFD1C1328D800B91418 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		96D88C091C1328D800B91418 /* Material.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Material.h; sourceTree = "<group>"; };
@@ -524,14 +526,15 @@
 				96BCB80A1CB410A100C806FE /* Extension */,
 				96BCB8071CB4101C00C806FE /* Font */,
 				96BCB8081CB4105E00C806FE /* Icon */,
-				963FBF021D6696D0008F8512 /* Menu */,
 				962864601D5410FD00690B69 /* JSON */,
 				968C99431D36ECBB000074FF /* Label */,
 				96BCB80D1CB410FD00C806FE /* Layer */,
 				96BCB8041CB40F6C00C806FE /* Layout */,
+				963FBF021D6696D0008F8512 /* Menu */,
 				96BCB8011CB40F1700C806FE /* Navigation */,
 				962DDD071D6FBBB7001C307C /* Page */,
 				96EA9A411D4E68E60052C74D /* PhotoLibrary */,
+				96C9CDBA1D7B101C006A4154 /* Reminder */,
 				963FBF031D6696EF008F8512 /* SearchBar */,
 				963FBEFB1D6694E8008F8512 /* Snackbar */,
 				967A48171D0F424B00B8CEB7 /* StatusBar */,
@@ -735,6 +738,14 @@
 				96BCB79E1CB40DC500C806FE /* TextView.swift */,
 			);
 			name = Text;
+			sourceTree = "<group>";
+		};
+		96C9CDBA1D7B101C006A4154 /* Reminder */ = {
+			isa = PBXGroup;
+			children = (
+				96C9CDBB1D7B1040006A4154 /* Reminder.swift */,
+			);
+			name = Reminder;
 			sourceTree = "<group>";
 		};
 		96D88BF41C1328D800B91418 /* Sources */ = {
@@ -1046,6 +1057,7 @@
 				96BCB7CA1CB40DC500C806FE /* Layout.swift in Sources */,
 				96BCB7D11CB40DC500C806FE /* Switch.swift in Sources */,
 				96BCB7BA1CB40DC500C806FE /* CollectionView.swift in Sources */,
+				96C9CDBC1D7B1040006A4154 /* Reminder.swift in Sources */,
 				96BCB7A31CB40DC500C806FE /* CapturePreview.swift in Sources */,
 				96BCB7BC1CB40DC500C806FE /* CollectionViewDataSource.swift in Sources */,
 				96EA9A4B1D4E7A430052C74D /* PhotoLibraryController.swift in Sources */,

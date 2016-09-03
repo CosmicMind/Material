@@ -171,12 +171,14 @@ public class TextView: UITextView {
 	}
 	
 	/// Notification handler for when text editing began.
+    @objc
 	internal func handleTextViewTextDidBegin() {
 		titleLabel?.textColor = titleLabelActiveColor
 	}
 	
 	/// Notification handler for when text changed.
-	internal func handleTextViewTextDidChange() {
+	@objc
+    internal func handleTextViewTextDidChange() {
 		if let p = placeholderLabel {
 			p.isHidden = !(true == text?.isEmpty)
 		}
@@ -194,6 +196,7 @@ public class TextView: UITextView {
 	}
 	
 	/// Notification handler for when text editing ended.
+    @objc
 	internal func handleTextViewTextDidEnd() {
         guard let t = text else {
             hideTitleLabel()
@@ -210,12 +213,12 @@ public class TextView: UITextView {
 	}
 	
 	/**
-	Prepares the view instance when intialized. When subclassing,
-	it is recommended to override the prepareView method
-	to initialize property values and other setup operations.
-	The super.prepareView method should always be called immediately
-	when subclassing.
-	*/
+     Prepares the view instance when intialized. When subclassing,
+     it is recommended to override the prepareView method
+     to initialize property values and other setup operations.
+     The super.prepareView method should always be called immediately
+     when subclassing.
+     */
 	public func prepareView() {
 		contentScaleFactor = Device.scale
 		textContainerInset = .zero

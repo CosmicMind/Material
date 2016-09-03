@@ -51,6 +51,7 @@ open class DynamicFontType: NSObject {
         prepare()
     }
     
+    @objc
     internal func handleContentSizeChange() {
         delegate?.dynamicFontType(dynamicFontType: self)
     }

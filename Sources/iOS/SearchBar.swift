@@ -145,7 +145,8 @@ open class SearchBar: BarView {
 	}
 	
 	/// Clears the textField text.
-	internal func handleClearButton() {
+	@objc
+    internal func handleClearButton() {
 		textField.text = nil
 	}
 	

@@ -381,6 +381,7 @@ open class Capture: View, UIGestureRecognizerDelegate {
      Handler for the flashButton.
      - Parameter button: A UIButton that is associated with the event.
      */
+    @objc
 	internal func handleFlashButton(button: UIButton) {
 		delegate?.captureDidPressFlashButton?(capture: self, button: button)
 	}
@@ -389,6 +390,7 @@ open class Capture: View, UIGestureRecognizerDelegate {
      Handler for the switchCameraButton.
      - Parameter button: A UIButton that is associated with the event.
      */
+    @objc
     internal func handleSwitchCamerasButton(button: UIButton) {
 		captureSession.switchCameras()
 		delegate?.captureDidPressSwitchCamerasButton?(capture: self, button: button)
@@ -398,6 +400,7 @@ open class Capture: View, UIGestureRecognizerDelegate {
      Handler for the captureButton.
      - Parameter button: A UIButton that is associated with the event.
      */
+    @objc
     internal func handleCaptureButton(button: UIButton) {
 		if .photo == captureMode {
 			captureSession.captureStillImage()
@@ -417,6 +420,7 @@ open class Capture: View, UIGestureRecognizerDelegate {
      Handler for the cameraButton.
      - Parameter button: A UIButton that is associated with the event.
      */
+    @objc
     internal func handleCameraButton(button: UIButton) {
 		captureMode = .photo
 		delegate?.captureDidPressCameraButton?(capture: self, button: button)
@@ -426,6 +430,7 @@ open class Capture: View, UIGestureRecognizerDelegate {
      Handler for the videoButton.
      - Parameter button: A UIButton that is associated with the event.
      */
+    @objc
     internal func handleVideoButton(button: UIButton) {
 		captureMode = .video
 		delegate?.captureDidPressVideoButton?(capture: self, button: button)

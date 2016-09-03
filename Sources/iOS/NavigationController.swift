@@ -115,7 +115,6 @@ open class NavigationController: UINavigationController {
         view.clipsToBounds = true
 		view.backgroundColor = Color.white
         view.contentScaleFactor = Device.scale
-        automaticallyAdjustsScrollViewInsets = false
         
         // This ensures the panning gesture is available when going back between views.
 		if let v = interactivePopGestureRecognizer {
@@ -147,6 +146,7 @@ extension NavigationController: UINavigationBarDelegate {
     }
     
     /// Handler for the back button.
+    @objc
     internal func handleBackButton() {
         popViewController(animated: true)
     }
