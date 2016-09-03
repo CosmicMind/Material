@@ -204,7 +204,7 @@ open class NavigationBar: UINavigationBar {
             let p = width - l - r - contentEdgeInsets.left - contentEdgeInsets.right
             let columns = Int(p / gridFactor)
             
-            item.titleView!.grid.deferred = true
+            item.titleView!.grid.begin()
             item.titleView!.grid.views.removeAll()
             item.titleView!.grid.axis.columns = columns
             
@@ -244,8 +244,7 @@ open class NavigationBar: UINavigationBar {
             
             item.titleView!.grid.interimSpace = interimSpace
             item.titleView!.grid.contentEdgeInsets = contentEdgeInsets
-            item.titleView!.grid.deferred = false
-            item.titleView!.grid.reload()
+            item.titleView!.grid.commit()
             
             // contentView alignment.
             if nil != item.title && "" != item.title {

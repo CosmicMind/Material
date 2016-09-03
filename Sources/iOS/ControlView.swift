@@ -171,7 +171,7 @@ open class ControlView: View {
             let p = width - l - r - contentEdgeInsets.left - contentEdgeInsets.right
 			let columns = Int(p / gridFactor)
             
-            grid.deferred = true
+            grid.begin()
             grid.views.removeAll()
             grid.axis.columns = columns
             
@@ -209,8 +209,7 @@ open class ControlView: View {
                 contentView.grid.columns = columns - lc - rc
             }
             
-            grid.deferred = false
-            grid.reload()
+            grid.commit()
         }
     }
     

@@ -197,6 +197,17 @@ public class Grid {
         axis = GridAxis(grid: self)
     }
     
+    /// Begins a deferred block.
+    public func begin() {
+        deferred = true
+    }
+    
+    /// Completes a deferred block.
+    public func commit() {
+        deferred = false
+        reload()
+    }
+    
     /// Reload the button layout.
     public func reload() {
         guard !deferred else {
