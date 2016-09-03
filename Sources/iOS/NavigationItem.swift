@@ -46,7 +46,7 @@ public class NavigationItem: NSObject {
 	public var backButton: IconButton?
 	
 	/// Content View.
-	public private(set) lazy var contentView = UIView()
+    public private(set) lazy var contentView = UIView()
 	
 	/// Title label.
 	public private(set) lazy var titleLabel = UILabel()
@@ -55,10 +55,18 @@ public class NavigationItem: NSObject {
 	public private(set) lazy var detailLabel = UILabel()
 	
 	/// Left controls.
-	public var leftControls = [UIView]()
+    public var leftControls = [UIView]() {
+        didSet {
+            navigationBar?.layoutSubviews()
+        }
+    }
 	
 	/// Right controls.
-	public var rightControls = [UIView]()
+    public var rightControls = [UIView]() {
+        didSet {
+            navigationBar?.layoutSubviews()
+        }
+    }
 	
     public var navigationBar: NavigationBar? {
         return contentView.superview?.superview as? NavigationBar

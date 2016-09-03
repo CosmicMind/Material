@@ -230,6 +230,11 @@ open class NavigationBar: UINavigationBar {
                 item.titleView!.grid.views.append(v)
             }
             
+            item.titleView!.grid.interimSpace = interimSpace
+            item.titleView!.grid.contentEdgeInsets = contentEdgeInsets
+            item.titleView!.grid.commit()
+            
+            item.contentView.grid.begin()
             if .center == item.contentViewAlignment {
                 if lc < rc {
                     item.contentView.grid.columns = columns - 2 * rc
@@ -241,10 +246,7 @@ open class NavigationBar: UINavigationBar {
             } else {
                 item.contentView.grid.columns = columns - lc - rc
             }
-            
-            item.titleView!.grid.interimSpace = interimSpace
-            item.titleView!.grid.contentEdgeInsets = contentEdgeInsets
-            item.titleView!.grid.commit()
+            item.contentView.grid.commit()
             
             // contentView alignment.
             if nil != item.title && "" != item.title {
@@ -279,8 +281,6 @@ open class NavigationBar: UINavigationBar {
             } else {
                 item.detailLabel.removeFromSuperview()
             }
-            
-            item.contentView.grid.reload()
         }
 	}
 	

@@ -101,7 +101,7 @@ open class ControlView: View {
 	}
 
 	/// ContentView that holds the any desired subviews.
-	open private(set) var contentView: View!
+	open private(set) lazy var contentView: UIView = UIView()
 	
 	/// Left side UIControls.
 	open var leftControls = [UIView]() {
@@ -197,6 +197,9 @@ open class ControlView: View {
                 grid.views.append(v)
             }
             
+            grid.commit()
+            
+            contentView.grid.begin()
             if .center == contentViewAlignment {
                 if lc < rc {
                     contentView.grid.columns = columns - 2 * rc
@@ -208,8 +211,7 @@ open class ControlView: View {
             } else {
                 contentView.grid.columns = columns - lc - rc
             }
-            
-            grid.commit()
+            contentView.grid.commit()
         }
     }
     
@@ -230,7 +232,6 @@ open class ControlView: View {
 	
 	/// Prepares the contentView.
 	private func prepareContentView() {
-		contentView = View()
 		contentView.backgroundColor = nil
 	}
 }

@@ -135,8 +135,6 @@ open class Toolbar: BarView {
             } else {
                 detailLabel.removeFromSuperview()
             }
-            
-            contentView.grid.reload()
         }
     }
 
