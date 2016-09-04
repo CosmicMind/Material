@@ -222,8 +222,6 @@ open class ControlView: View {
      */
 	open override func prepareView() {
 		super.prepareView()
-		interimSpacePreset = .interimSpace3
-		contentEdgeInsetsPreset = .square1
 		prepareContentView()
 	}
 	

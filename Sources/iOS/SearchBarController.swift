@@ -85,6 +85,7 @@ open class SearchBarController: RootController {
 	
 	/// Prepares the searchBar.
 	private func prepareSearchBar() {
+        searchBar.depthPreset = .depth1
         searchBar.zPosition = 1000
         view.addSubview(searchBar)
 	}

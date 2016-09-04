@@ -148,6 +148,8 @@ open class Toolbar: BarView {
 	open override func prepareView() {
 		super.prepareView()
         contentViewAlignment = .center
+        interimSpacePreset = .interimSpace3
+        contentEdgeInsetsPreset = .square1
 		prepareTitleLabel()
 		prepareDetailLabel()
 	}

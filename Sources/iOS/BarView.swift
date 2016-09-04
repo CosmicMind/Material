@@ -77,7 +77,6 @@ open class BarView: ControlView {
      */
 	open override func prepareView() {
 		super.prepareView()
-		depthPreset = .depth1
         prepareDivider()
     }
     
