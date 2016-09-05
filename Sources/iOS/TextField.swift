@@ -202,7 +202,7 @@ public class TextField : UITextField {
 	}
 	
 	/// This property adds a padding to placeholder y position animation
-	public var placeholderVerticalOffset: CGFloat = 0
+	@IBInspectable public var placeholderVerticalOffset: CGFloat = 0
 	
 	/// The detailLabel UILabel that is displayed.
 	@IBInspectable public private(set) lazy var detailLabel: UILabel = UILabel(frame: CGRect.zero)
