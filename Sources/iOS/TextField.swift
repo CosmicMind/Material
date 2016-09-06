@@ -520,6 +520,7 @@ open class TextField: UITextField {
 	/// Prepares the detailLabel.
 	private func prepareDetailLabel() {
         detailLabel.font = RobotoFont.regular(with: 12)
+        detailLabel.numberOfLines = 0
 		detailColor = Color.darkText.others
 		addSubview(detailLabel)
 	}
