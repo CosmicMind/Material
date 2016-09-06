@@ -32,7 +32,7 @@ import UIKit
 
 @IBDesignable
 open class CollectionView: UICollectionView {
-	/// A preset wrapper around contentInset.
+    /// A preset wrapper around contentInset.
 	open var contentEdgeInsetsPreset: EdgeInsets {
 		get {
 			return (collectionViewLayout as? CollectionViewLayout)!.contentInset
@@ -121,6 +121,6 @@ open class CollectionView: UICollectionView {
 	open func prepareView() {
 		contentScaleFactor = Device.scale
 		backgroundColor = Color.clear
-		contentInset = UIEdgeInsets.zero
-	}
+		contentInset = .zero
+    }
 }

@@ -33,12 +33,15 @@ import UIKit
 @IBDesignable
 @objc(CollectionViewCell)
 open class CollectionViewCell: UICollectionViewCell {
-	/**
-	A CAShapeLayer used to manage elements that would be affected by
-	the clipToBounds property of the backing layer. For example, this
-	allows the dropshadow effect on the backing layer, while clipping
-	the image to a desired shape within the visualLayer.
-	*/
+    /// A reference to the divider.
+    open internal(set) var divider: Divider!
+    
+    /**
+     A CAShapeLayer used to manage elements that would be affected by
+     the clipToBounds property of the backing layer. For example, this
+     allows the dropshadow effect on the backing layer, while clipping
+     the image to a desired shape within the visualLayer.
+     */
     open private(set) var visualLayer: CAShapeLayer!
 	
 	/// An Array of pulse layers.
@@ -54,10 +57,10 @@ open class CollectionViewCell: UICollectionViewCell {
 	open var pulseAnimation = PulseAnimation.pointWithBacking
 	
 	/**
-	A property that manages an image for the visualLayer's contents
-	property. Images should not be set to the backing layer's contents
-	property to avoid conflicts when using clipsToBounds.
-	*/
+     A property that manages an image for the visualLayer's contents
+     property. Images should not be set to the backing layer's contents
+     property to avoid conflicts when using clipsToBounds.
+     */
 	@IBInspectable
     open var image: UIImage? {
 		didSet {
@@ -66,11 +69,11 @@ open class CollectionViewCell: UICollectionViewCell {
 	}
 	
 	/**
-	Allows a relative subrectangle within the range of 0 to 1 to be
-	specified for the visualLayer's contents property. This allows
-	much greater flexibility than the contentsGravity property in
-	terms of how the image is cropped and stretched.
-	*/
+     Allows a relative subrectangle within the range of 0 to 1 to be
+     specified for the visualLayer's contents property. This allows
+     much greater flexibility than the contentsGravity property in
+     terms of how the image is cropped and stretched.
+     */
 	@IBInspectable
     open var contentsRect: CGRect {
 		get {
@@ -82,9 +85,9 @@ open class CollectionViewCell: UICollectionViewCell {
 	}
 	
 	/**
-	A CGRect that defines a stretchable region inside the visualLayer
-	with a fixed border around the edge.
-	*/
+     A CGRect that defines a stretchable region inside the visualLayer
+     with a fixed border around the edge.
+     */
 	@IBInspectable
     open var contentsCenter: CGRect {
 		get {
@@ -96,10 +99,10 @@ open class CollectionViewCell: UICollectionViewCell {
 	}
 	
 	/**
-	A floating point value that defines a ratio between the pixel
-	dimensions of the visualLayer's contents property and the size
-	of the view. By default, this value is set to the Device.scale.
-	*/
+     A floating point value that defines a ratio between the pixel
+     dimensions of the visualLayer's contents property and the size
+     of the view. By default, this value is set to the Device.scale.
+     */
 	@IBInspectable
     open var contentsScale: CGFloat {
 		get {
@@ -176,9 +179,9 @@ open class CollectionViewCell: UICollectionViewCell {
 	}
 	
 	/**
-	An initializer that initializes the object with a NSCoder object.
-	- Parameter aDecoder: A NSCoder instance.
-	*/
+     An initializer that initializes the object with a NSCoder object.
+     - Parameter aDecoder: A NSCoder instance.
+     */
 	public required init?(coder aDecoder: NSCoder) {
 		contentsGravityPreset = .ResizeAspectFill
 		super.init(coder: aDecoder)
@@ -186,11 +189,11 @@ open class CollectionViewCell: UICollectionViewCell {
 	}
 	
 	/**
-	An initializer that initializes the object with a CGRect object.
-	If AutoLayout is used, it is better to initilize the instance
-	using the init() initializer.
-	- Parameter frame: A CGRect instance.
-	*/
+     An initializer that initializes the object with a CGRect object.
+     If AutoLayout is used, it is better to initilize the instance
+     using the init() initializer.
+     - Parameter frame: A CGRect instance.
+     */
 	public override init(frame: CGRect) {
 		contentsGravityPreset = .ResizeAspectFill
 		super.init(frame: frame)
@@ -274,6 +277,7 @@ open class CollectionViewCell: UICollectionViewCell {
 	open func prepareView() {
 		contentScaleFactor = Device.scale
 		prepareVisualLayer()
+        prepareDivider()
 	}
 	
 	/// Prepares the visualLayer property.
@@ -289,4 +293,9 @@ open class CollectionViewCell: UICollectionViewCell {
 		visualLayer.frame = bounds
 		visualLayer.cornerRadius = cornerRadius
 	}
+    
+    /// Prepares the divider.
+    private func prepareDivider() {
+        divider = Divider(view: self)
+    }
 }
