@@ -71,8 +71,7 @@
 		96BCB7D31CB40DC500C806FE /* MaterialTextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB78A1CB40DC500C806FE /* MaterialTextLayer.swift */; };
 		96BCB7D41CB40DC500C806FE /* TransitionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB78B1CB40DC500C806FE /* TransitionAnimation.swift */; };
 		96BCB7D51CB40DC500C806FE /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB78C1CB40DC500C806FE /* View.swift */; };
-		96BCB7D61CB40DC500C806FE /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB78D1CB40DC500C806FE /* Menu.swift */; };
-		96BCB7D71CB40DC500C806FE /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB78E1CB40DC500C806FE /* MenuView.swift */; };
+		96BCB7D71CB40DC500C806FE /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB78E1CB40DC500C806FE /* Menu.swift */; };
 		96BCB7D81CB40DC500C806FE /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB78F1CB40DC500C806FE /* MenuController.swift */; };
 		96BCB7D91CB40DC500C806FE /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7901CB40DC500C806FE /* NavigationBar.swift */; };
 		96BCB7DA1CB40DC500C806FE /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7911CB40DC500C806FE /* NavigationController.swift */; };
@@ -140,8 +139,7 @@
 		96BCB83B1CB4115200C806FE /* NavigationDrawerController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7971CB40DC500C806FE /* NavigationDrawerController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB83C1CB4115200C806FE /* BarView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7981CB40DC500C806FE /* BarView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB83D1CB4115200C806FE /* RootController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7991CB40DC500C806FE /* RootController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		96BCB83E1CB4115200C806FE /* Menu.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB78D1CB40DC500C806FE /* Menu.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		96BCB83F1CB4115200C806FE /* MenuView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB78E1CB40DC500C806FE /* MenuView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96BCB83F1CB4115200C806FE /* Menu.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB78E1CB40DC500C806FE /* Menu.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8401CB4115200C806FE /* MenuController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB78F1CB40DC500C806FE /* MenuController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8411CB4115200C806FE /* TabBar.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB79A1CB40DC500C806FE /* TabBar.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8421CB4115200C806FE /* Toolbar.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB79F1CB40DC500C806FE /* Toolbar.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -266,8 +264,7 @@
 		96BCB78A1CB40DC500C806FE /* MaterialTextLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialTextLayer.swift; sourceTree = "<group>"; };
 		96BCB78B1CB40DC500C806FE /* TransitionAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionAnimation.swift; sourceTree = "<group>"; };
 		96BCB78C1CB40DC500C806FE /* View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
-		96BCB78D1CB40DC500C806FE /* Menu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
-		96BCB78E1CB40DC500C806FE /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; tabWidth = 4; };
+		96BCB78E1CB40DC500C806FE /* Menu.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; tabWidth = 4; };
 		96BCB78F1CB40DC500C806FE /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		96BCB7901CB40DC500C806FE /* NavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		96BCB7911CB40DC500C806FE /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
@@ -436,8 +433,7 @@
 		963FBF021D6696D0008F8512 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
-				96BCB78D1CB40DC500C806FE /* Menu.swift */,
-				96BCB78E1CB40DC500C806FE /* MenuView.swift */,
+				96BCB78E1CB40DC500C806FE /* Menu.swift */,
 				96BCB78F1CB40DC500C806FE /* MenuController.swift */,
 			);
 			name = Menu;
@@ -818,8 +814,7 @@
 				96BCB83B1CB4115200C806FE /* NavigationDrawerController.swift in Headers */,
 				96BCB83C1CB4115200C806FE /* BarView.swift in Headers */,
 				96BCB83D1CB4115200C806FE /* RootController.swift in Headers */,
-				96BCB83E1CB4115200C806FE /* Menu.swift in Headers */,
-				96BCB83F1CB4115200C806FE /* MenuView.swift in Headers */,
+				96BCB83F1CB4115200C806FE /* Menu.swift in Headers */,
 				96BCB8401CB4115200C806FE /* MenuController.swift in Headers */,
 				96BCB8411CB4115200C806FE /* TabBar.swift in Headers */,
 				96BCB8421CB4115200C806FE /* Toolbar.swift in Headers */,
@@ -1051,7 +1046,6 @@
 				96BCB7DF1CB40DC500C806FE /* SearchBarController.swift in Sources */,
 				96BCB7D31CB40DC500C806FE /* MaterialTextLayer.swift in Sources */,
 				96BCB7C11CB40DC500C806FE /* Depth.swift in Sources */,
-				96BCB7D61CB40DC500C806FE /* Menu.swift in Sources */,
 				96BCB7E61CB40DC500C806FE /* TextStorage.swift in Sources */,
 				96BCB7A91CB40DC500C806FE /* FlatButton.swift in Sources */,
 				96BCB7CA1CB40DC500C806FE /* Layout.swift in Sources */,
@@ -1101,7 +1095,7 @@
 				96BCB7E21CB40DC500C806FE /* RootController.swift in Sources */,
 				96BCB7DC1CB40DC500C806FE /* RaisedButton.swift in Sources */,
 				96BCB7DD1CB40DC500C806FE /* RobotoFont.swift in Sources */,
-				96BCB7D71CB40DC500C806FE /* MenuView.swift in Sources */,
+				96BCB7D71CB40DC500C806FE /* Menu.swift in Sources */,
 				966ECF2A1CF4C20100BB0BDF /* CollectionReusableView.swift in Sources */,
 				96BCB7E51CB40DC500C806FE /* TextField.swift in Sources */,
 				96BCB7D21CB40DC500C806FE /* TableViewCell.swift in Sources */,

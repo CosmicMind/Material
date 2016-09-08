@@ -30,7 +30,7 @@
 
 import UIKit
 
-open class PhotoLibraryController: UIViewController, PhotoLibraryDelegate {
+open class PhotoLibraryController: UIViewController {
     /// A reference to a PhotoLibrary.
     public private(set) lazy var photoLibrary: PhotoLibrary = PhotoLibrary()
     
@@ -58,3 +58,5 @@ open class PhotoLibraryController: UIViewController, PhotoLibraryDelegate {
         photoLibrary.delegate = self
     }
 }
+
+extension PhotoLibraryController: PhotoLibraryDelegate {}

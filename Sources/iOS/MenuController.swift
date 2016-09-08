@@ -49,63 +49,77 @@ extension UIViewController {
 }
 
 @IBDesignable
-public class MenuController: RootController {
+open class MenuController: RootController {
 	/// Reference to the MenuView.
-    public private(set) lazy var menuView: MenuView = MenuView()
+    open internal(set) lazy var menu: Menu = Menu()
 	
 	/**
-	Opens the menu with a callback.
-	- Parameter completion: An Optional callback that is executed when
-	all menu items have been opened.
-	*/
-	public func openMenu(completion: (() -> Void)? = nil) {
+     Opens the menu with a callback.
+     - Parameter completion: An Optional callback that is executed when
+     all menu items have been opened.
+     */
+	open func open(completion: (() -> Void)? = nil) {
 		if true == isUserInteractionEnabled {
 			isUserInteractionEnabled = false
 			rootViewController.view.alpha = 0.5
-			menuView.open(completion: completion)
+            menu.open { [weak self] (view) in
+                guard let s = self else {
+                    return
+                }
+                
+                if view == s.menu.views.last {
+                    completion?()
+                }
+            }
 		}
 	}
 	
-	/**
-	Closes the menu with a callback.
-	- Parameter completion: An Optional callback that is executed when
-	all menu items have been closed.
-	*/
-	public func closeMenu(completion: (() -> Void)? = nil) {
+    /**
+     Opens the menu with a callback.
+     - Parameter completion: An Optional callback that is executed when
+     all menu items have been closed.
+     */
+    open func close(completion: (() -> Void)? = nil) {
 		if false == isUserInteractionEnabled {
 			rootViewController.view.alpha = 1
-			menuView.close(completion: { [weak self] in
-				self?.isUserInteractionEnabled = true
-				completion?()
-			})
+            menu.open { [weak self] (view) in
+                guard let s = self else {
+                    return
+                }
+                
+                if view == s.menu.views.last {
+                    s.isUserInteractionEnabled = true
+                    completion?()
+                }
+            }
 		}
 	}
 	
 	/**
-	To execute in the order of the layout chain, override this
-	method. LayoutSubviews should be called immediately, unless you
-	have a certain need.
-	*/
-	public override func layoutSubviews() {
+     To execute in the order of the layout chain, override this
+     method. LayoutSubviews should be called immediately, unless you
+     have a certain need.
+     */
+	open override func layoutSubviews() {
 		super.layoutSubviews()
 		rootViewController.view.frame = view.bounds
 	}
 	
 	/**
-	Prepares the view instance when intialized. When subclassing,
-	it is recommended to override the prepareView method
-	to initialize property values and other setup operations.
-	The super.prepareView method should always be called immediately
-	when subclassing.
-	*/
-	public override func prepareView() {
+     Prepares the view instance when intialized. When subclassing,
+     it is recommended to override the prepareView method
+     to initialize property values and other setup operations.
+     The super.prepareView method should always be called immediately
+     when subclassing.
+     */
+	open override func prepareView() {
 		super.prepareView()
 		prepareMenuView()
 	}
 	
 	/// Prepares the MenuView.
 	private func prepareMenuView() {
-		menuView.zPosition = 1000
-		view.addSubview(menuView)
+		menu.zPosition = 1000
+		view.addSubview(menu)
 	}
 }
