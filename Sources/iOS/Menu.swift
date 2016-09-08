@@ -46,6 +46,9 @@ public protocol MenuDelegate {
 }
 
 open class Menu: View {
+    /// A delegation reference.
+    open weak var delegate: MenuDelegate?
+    
     /// A Boolean that indicates if the menu is open or not.
     open private(set) var isOpened = false
     
@@ -76,6 +79,13 @@ open class Menu: View {
     /// An Array of UIViews.
     open var views = [UIView]() {
         didSet {
+            for v in oldValue {
+                v.removeFromSuperview()
+            }
+            
+            for v in views {
+                addSubview(v)
+            }
             reload()
         }
     }
@@ -86,21 +96,9 @@ open class Menu: View {
     /// Size of views, not including the first view.
     open var itemSize = CGSize(width: 48, height: 48)
     
-    /**
-     Initializer.
-     - Parameter coder aDecoder: An NSCoder.
-     */
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
-    /**
-     Initializer.
-     - Parameter interimSpace: The interimSpace size between views.
-     */
-    public convenience init(interimSpace: InterimSpace = 16) {
-        self.init()
-        self.interimSpace = interimSpace
+    open override func prepareView() {
+        super.prepareView()
+        backgroundColor = nil
     }
     
     /// Reload the view layout.
