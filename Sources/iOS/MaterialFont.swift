@@ -75,8 +75,8 @@ private class MaterialFontLoader {
 			
 			if let v: NSURL = fontURL {
 				let data: NSData = NSData(contentsOfURL: v)!
-                let provider: CGDataProvider = CGDataProviderCreateWithCFData(data)!
-				let font: CGFont = CGFontCreateWithDataProvider(provider)!
+				let provider: CGDataProvider = CGDataProviderCreateWithCFData(data)!
+				let font: CGFont = CGFontCreateWithDataProvider(provider)
                 
                 var error: Unmanaged<CFError>?
                 if !CTFontManagerRegisterGraphicsFont(font, &error) {

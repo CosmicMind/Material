@@ -33,7 +33,7 @@ import UIKit
 public protocol TextFieldDelegate : UITextFieldDelegate {}
 
 @IBDesignable
-public class TextField : UITextField {
+public class TextField : UITextField, CAAnimationDelegate {
 	/// A Boolean that indicates if the TextField is in an animating state.
 	public private(set) var animating: Bool = false
 	
@@ -382,7 +382,7 @@ public class TextField : UITextField {
 	public func animate(animation: CAAnimation) {
 		animation.delegate = self
 		if let a: CABasicAnimation = animation as? CABasicAnimation {
-			a.fromValue = (nil == layer.presentationLayer() ? layer : layer.presentationLayer() as! CALayer).valueForKeyPath(a.keyPath!)
+			a.fromValue = (layer.presentationLayer() ?? layer).valueForKeyPath(a.keyPath!)
 		}
 		if let a: CAPropertyAnimation = animation as? CAPropertyAnimation {
 			layer.addAnimation(a, forKey: a.keyPath!)
@@ -398,7 +398,7 @@ public class TextField : UITextField {
 	running an animation.
 	- Parameter anim: The currently running CAAnimation instance.
 	*/
-	public override func animationDidStart(anim: CAAnimation) {
+	public func animationDidStart(anim: CAAnimation) {
 		(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStart?(anim)
 	}
 	
@@ -410,7 +410,7 @@ public class TextField : UITextField {
 	because it was completed or interrupted. True if completed, false
 	if interrupted.
 	*/
-	public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
+	public func animationDidStop(anim: CAAnimation, finished flag: Bool) {
 		if let a: CAPropertyAnimation = anim as? CAPropertyAnimation {
 			if let b: CABasicAnimation = a as? CABasicAnimation {
 				if let v: AnyObject = b.toValue {

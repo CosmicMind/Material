@@ -38,7 +38,7 @@ public extension UIImage {
 	*/
 	public func tintWithColor(color: UIColor) -> UIImage {
 		UIGraphicsBeginImageContextWithOptions(size, false, MaterialDevice.scale)
-		let context = UIGraphicsGetCurrentContext()
+		let context = UIGraphicsGetCurrentContext()!
 
 		CGContextScaleCTM(context, 1.0, -1.0)
 		CGContextTranslateCTM(context, 0.0, -size.height)
@@ -46,11 +46,11 @@ public extension UIImage {
 		CGContextSetBlendMode(context, .Multiply)
 		
 		let rect = CGRectMake(0, 0, size.width, size.height)
-		CGContextClipToMask(context, rect, CGImage)
+		CGContextClipToMask(context, rect, CGImage!)
 		color.setFill()
 		CGContextFillRect(context, rect)
 		
-		let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()
+		let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
 		UIGraphicsEndImageContext()
 		return image
 	}

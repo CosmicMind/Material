@@ -32,7 +32,7 @@ import UIKit
 
 @IBDesignable
 @objc(MaterialCollectionViewCell)
-public class MaterialCollectionViewCell : UICollectionViewCell {
+public class MaterialCollectionViewCell : UICollectionViewCell, CAAnimationDelegate {
 	/**
 	A CAShapeLayer used to manage elements that would be affected by
 	the clipToBounds property of the backing layer. For example, this
@@ -464,7 +464,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	public func animate(animation: CAAnimation) {
 		animation.delegate = self
 		if let a: CABasicAnimation = animation as? CABasicAnimation {
-			a.fromValue = (nil == layer.presentationLayer() ? layer : layer.presentationLayer() as! CALayer).valueForKeyPath(a.keyPath!)
+			a.fromValue = (layer.presentationLayer() ?? layer).valueForKeyPath(a.keyPath!)
 		}
 		if let a: CAPropertyAnimation = animation as? CAPropertyAnimation {
 			layer.addAnimation(a, forKey: a.keyPath!)
@@ -480,7 +480,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	running an animation.
 	- Parameter anim: The currently running CAAnimation instance.
 	*/
-	public override func animationDidStart(anim: CAAnimation) {
+	public func animationDidStart(anim: CAAnimation) {
 		(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStart?(anim)
 	}
 	
@@ -492,7 +492,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	because it was completed or interrupted. True if completed, false
 	if interrupted.
 	*/
-	public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
+	public func animationDidStop(anim: CAAnimation, finished flag: Bool) {
 		if let a: CAPropertyAnimation = anim as? CAPropertyAnimation {
 			if let b: CABasicAnimation = a as? CABasicAnimation {
 				if let v: AnyObject = b.toValue {
@@ -553,7 +553,7 @@ public class MaterialCollectionViewCell : UICollectionViewCell {
 	- Parameter touches: A set of UITouch objects.
 	- Parameter event: A UIEvent object.
 	*/
-	public override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
+	public override func touchesCancelled(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesCancelled(touches, withEvent: event)
 		MaterialAnimation.pulseContractAnimation(layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
 	}

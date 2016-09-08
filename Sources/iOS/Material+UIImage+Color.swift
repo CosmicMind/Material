@@ -42,7 +42,7 @@ public extension UIImage {
 		UIGraphicsBeginImageContextWithOptions(size, false, 0)
 		color.setFill()
 		UIRectFill(rect)
-		let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()
+		let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
 		UIGraphicsEndImageContext()
 		return image
 	}

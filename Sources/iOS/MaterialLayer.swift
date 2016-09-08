@@ -34,7 +34,7 @@ import UIKit
 public protocol MaterialDelegate {}
 
 @objc(MaterialLayer)
-public class MaterialLayer : CAShapeLayer {
+public class MaterialLayer : CAShapeLayer, CAAnimationDelegate {
 	/**
 	A CAShapeLayer used to manage elements that would be affected by
 	the clipToBounds property of the backing layer. For example, this
@@ -287,7 +287,7 @@ public class MaterialLayer : CAShapeLayer {
 	public func animate(animation: CAAnimation) {
 		animation.delegate = self
 		if let a: CABasicAnimation = animation as? CABasicAnimation {
-			a.fromValue = (nil == presentationLayer() ? self : presentationLayer() as! CALayer).valueForKeyPath(a.keyPath!)
+			a.fromValue = (presentationLayer() ?? self).valueForKeyPath(a.keyPath!)
 		}
 		if let a: CAPropertyAnimation = animation as? CAPropertyAnimation {
 			addAnimation(a, forKey: a.keyPath!)
@@ -303,7 +303,7 @@ public class MaterialLayer : CAShapeLayer {
 	running an animation.
 	- Parameter anim: The currently running CAAnimation instance.
 	*/
-	public override func animationDidStart(anim: CAAnimation) {
+	public func animationDidStart(anim: CAAnimation) {
 		(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStart?(anim)
 	}
 	
@@ -315,7 +315,7 @@ public class MaterialLayer : CAShapeLayer {
 	because it was completed or interrupted. True if completed, false
 	if interrupted.
 	*/
-	public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
+	public func animationDidStop(anim: CAAnimation, finished flag: Bool) {
 		if let a: CAPropertyAnimation = anim as? CAPropertyAnimation {
 			if let b: CABasicAnimation = a as? CABasicAnimation {
 				if let v: AnyObject = b.toValue {
