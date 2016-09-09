@@ -30,7 +30,7 @@
 
 import UIKit
 
-open class BarView: ControlView {
+open class BarView: ContentView {
     /// Divider layer.
     open internal(set) var divider: Divider!
     

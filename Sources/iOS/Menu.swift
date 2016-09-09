@@ -46,11 +46,11 @@ public protocol MenuDelegate {
 }
 
 open class Menu: View {
-    /// A delegation reference.
-    open weak var delegate: MenuDelegate?
-    
     /// A Boolean that indicates if the menu is open or not.
-    open private(set) var isOpened = false
+    open internal(set) var isOpened = false
+    
+    /// Enables the animations for the Menu.
+    open internal(set) var isEnabled = true
     
     /// A preset wrapper around interimSpace.
     open var interimSpacePreset = InterimSpacePreset.none {
@@ -66,15 +66,15 @@ open class Menu: View {
         }
     }
     
-    /// Enables the animations for the Menu.
-    open private(set) var isEnabled = true
-    
     /// The direction in which the animation opens the menu.
     open var direction = MenuDirection.up {
         didSet {
             reload()
         }
     }
+    
+    /// A delegation reference.
+    open weak var delegate: MenuDelegate?
     
     /// An Array of UIViews.
     open var views = [UIView]() {
@@ -86,6 +86,7 @@ open class Menu: View {
             for v in views {
                 addSubview(v)
             }
+            
             reload()
         }
     }

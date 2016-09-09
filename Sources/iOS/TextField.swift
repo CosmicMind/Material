@@ -40,7 +40,7 @@ open class TextField: UITextField {
     }
     
     /// A Boolean that indicates if the TextField is in an animating state.
-	open private(set) var animating = false
+	open internal(set) var isAnimating = false
 	
 	/// A property that accesses the backing layer's backgroundColor.
 	@IBInspectable
@@ -199,7 +199,7 @@ open class TextField: UITextField {
 	
 	/// Enables the clearIconButton.
 	@IBInspectable
-    open var enableClearIconButton: Bool {
+    open var isClearIconButtonEnable: Bool {
 		get {
 			return nil != clearIconButton
 		}
@@ -234,7 +234,7 @@ open class TextField: UITextField {
 	
 	/// Enables the visibilityIconButton.
 	@IBInspectable
-    open var enableVisibilityIconButton: Bool {
+    open var isVisibilityIconButtonEnable: Bool {
 		get {
 			return nil != visibilityIconButton
 		}
@@ -379,7 +379,7 @@ open class TextField: UITextField {
     
 	/// Ensures that the components are sized correctly.
 	open func layoutToSize() {
-		if !animating {
+		if !isAnimating {
             layoutPlaceholderLabel()
 			layoutDetailLabel()
 			layoutClearIconButton()
@@ -461,7 +461,7 @@ open class TextField: UITextField {
 	/// The animation for the placeholder when editing begins.
 	open func placeholderEditingDidBeginAnimation() {
 		if placeholderLabel.transform.isIdentity {
-			animating = true
+			isAnimating = true
 			UIView.animate(withDuration: 0.15, animations: { [weak self] in
 				if let s = self {
 					s.placeholderLabel.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
@@ -476,7 +476,7 @@ open class TextField: UITextField {
 					s.placeholderLabel.textColor = s.placeholderActiveColor
 				}
 			}) { [weak self] _ in
-				self?.animating = false
+				self?.isAnimating = false
 			}
 		} else if isEditing {
 			placeholderLabel.textColor = placeholderActiveColor
@@ -486,7 +486,7 @@ open class TextField: UITextField {
 	/// The animation for the placeholder when editing ends.
 	open func placeholderEditingDidEndAnimation() {
 		if !placeholderLabel.transform.isIdentity && true == text?.isEmpty {
-			animating = true
+			isAnimating = true
 			UIView.animate(withDuration: 0.15, animations: { [weak self] in
 				if let s = self {
 					s.placeholderLabel.transform = CGAffineTransform.identity
@@ -495,7 +495,7 @@ open class TextField: UITextField {
 					s.placeholderLabel.textColor = s.placeholderColor
 				}
 			}) { [weak self] _ in
-				self?.animating = false
+				self?.isAnimating = false
 			}
 		} else if !isEditing {
 			placeholderLabel.textColor = placeholderColor

@@ -42,7 +42,7 @@ open class Button: UIButton {
 	open private(set) lazy var visualLayer = CAShapeLayer()
 	
 	/// An Array of pulse layers.
-	public private(set) lazy var pulseLayers = [CAShapeLayer]()
+	open private(set) lazy var pulseLayers = [CAShapeLayer]()
 	
 	/// The opacity value for the pulse animation.
 	@IBInspectable

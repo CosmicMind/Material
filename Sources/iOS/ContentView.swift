@@ -36,7 +36,7 @@ public enum ContentViewAlignment: Int {
     case center
 }
 
-open class ControlView: View {
+open class ContentView: View {
     /// Should center the contentView.
     open var contentViewAlignment = ContentViewAlignment.any {
         didSet {
@@ -93,7 +93,8 @@ open class ControlView: View {
     }
     
 	/// Grid cell factor.
-	@IBInspectable open var gridFactor: CGFloat = 24 {
+	@IBInspectable
+    open var gridFactor: CGFloat = 24 {
 		didSet {
 			assert(0 < gridFactor, "[Material Error: gridFactor must be greater than 0.]")
 			layoutSubviews()
@@ -101,7 +102,7 @@ open class ControlView: View {
 	}
 
 	/// ContentView that holds the any desired subviews.
-	open private(set) lazy var contentView: UIView = UIView()
+	open private(set) lazy var contentView = UIView()
 	
 	/// Left side UIControls.
 	open var leftControls = [UIView]() {
@@ -196,6 +197,7 @@ open class ControlView: View {
             }
             
             contentView.grid.begin()
+            
             if .center == contentViewAlignment {
                 if lc < rc {
                     contentView.grid.columns = columns - 2 * rc

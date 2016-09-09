@@ -35,19 +35,19 @@ open class CollectionView: UICollectionView {
     /// A preset wrapper around contentInset.
 	open var contentEdgeInsetsPreset: EdgeInsets {
 		get {
-			return (collectionViewLayout as? CollectionViewLayout)!.contentInset
+			return (collectionViewLayout as? CollectionViewLayout)!.contentEdgeInsets
 		}
 		set(value) {
-			(collectionViewLayout as? CollectionViewLayout)!.contentInset = value
+			(collectionViewLayout as? CollectionViewLayout)!.contentEdgeInsets = value
 		}
 	}
 	
 	open override var contentInset: UIEdgeInsets {
 		get {
-			return (collectionViewLayout as? CollectionViewLayout)!.contentInset
+			return (collectionViewLayout as? CollectionViewLayout)!.contentEdgeInsets
 		}
 		set(value) {
-			(collectionViewLayout as? CollectionViewLayout)!.contentInset = value
+			(collectionViewLayout as? CollectionViewLayout)!.contentEdgeInsets = value
 		}
 	}
 	

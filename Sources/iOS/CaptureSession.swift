@@ -192,10 +192,10 @@ open class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 	internal var session: AVCaptureSession!
 	
     /// A boolean indicating if the session is running.
-	open private(set) var isRunning: Bool = false
+	open internal(set) var isRunning = false
 	
     /// A boolean indicating if the session is recording.
-    open private(set) var isRecording: Bool = false
+    open internal(set) var isRecording = false
 	
 	/// A reference to the recorded time duration.
     open var recordedDuration: CMTime {

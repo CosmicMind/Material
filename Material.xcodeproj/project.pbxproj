@@ -32,7 +32,7 @@
 		96BCB7A41CB40DC500C806FE /* CaptureSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB75B1CB40DC500C806FE /* CaptureSession.swift */; };
 		96BCB7A51CB40DC500C806FE /* Capture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB75C1CB40DC500C806FE /* Capture.swift */; };
 		96BCB7A61CB40DC500C806FE /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB75D1CB40DC500C806FE /* Card.swift */; };
-		96BCB7A71CB40DC500C806FE /* ControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB75E1CB40DC500C806FE /* ControlView.swift */; };
+		96BCB7A71CB40DC500C806FE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB75E1CB40DC500C806FE /* ContentView.swift */; };
 		96BCB7A81CB40DC500C806FE /* FabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB75F1CB40DC500C806FE /* FabButton.swift */; };
 		96BCB7A91CB40DC500C806FE /* FlatButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7601CB40DC500C806FE /* FlatButton.swift */; };
 		96BCB7AA1CB40DC500C806FE /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7611CB40DC500C806FE /* Grid.swift */; };
@@ -133,7 +133,7 @@
 		96BCB8351CB4115200C806FE /* MaterialTextLayer.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB78A1CB40DC500C806FE /* MaterialTextLayer.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8361CB4115200C806FE /* Grid.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7611CB40DC500C806FE /* Grid.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8371CB4115200C806FE /* Layout.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7811CB40DC500C806FE /* Layout.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		96BCB8381CB4115200C806FE /* ControlView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB75E1CB40DC500C806FE /* ControlView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96BCB8381CB4115200C806FE /* ContentView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB75E1CB40DC500C806FE /* ContentView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8391CB4115200C806FE /* SearchBar.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7951CB40DC500C806FE /* SearchBar.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB83A1CB4115200C806FE /* SearchBarController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7961CB40DC500C806FE /* SearchBarController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB83B1CB4115200C806FE /* NavigationDrawerController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7971CB40DC500C806FE /* NavigationDrawerController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -225,7 +225,7 @@
 		96BCB75B1CB40DC500C806FE /* CaptureSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureSession.swift; sourceTree = "<group>"; };
 		96BCB75C1CB40DC500C806FE /* Capture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Capture.swift; sourceTree = "<group>"; };
 		96BCB75D1CB40DC500C806FE /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
-		96BCB75E1CB40DC500C806FE /* ControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlView.swift; sourceTree = "<group>"; };
+		96BCB75E1CB40DC500C806FE /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		96BCB75F1CB40DC500C806FE /* FabButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FabButton.swift; sourceTree = "<group>"; };
 		96BCB7601CB40DC500C806FE /* FlatButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlatButton.swift; sourceTree = "<group>"; };
 		96BCB7611CB40DC500C806FE /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
@@ -342,6 +342,14 @@
 			name = Divider;
 			sourceTree = "<group>";
 		};
+		96264BE41D833C8400576F37 /* BarView */ = {
+			isa = PBXGroup;
+			children = (
+				96BCB7981CB40DC500C806FE /* BarView.swift */,
+			);
+			name = BarView;
+			sourceTree = "<group>";
+		};
 		962864601D5410FD00690B69 /* JSON */ = {
 			isa = PBXGroup;
 			children = (
@@ -448,13 +456,12 @@
 			name = SearchBar;
 			sourceTree = "<group>";
 		};
-		963FBF061D669795008F8512 /* ControlView */ = {
+		963FBF061D669795008F8512 /* ContentView */ = {
 			isa = PBXGroup;
 			children = (
-				96BCB75E1CB40DC500C806FE /* ControlView.swift */,
-				96BCB7981CB40DC500C806FE /* BarView.swift */,
+				96BCB75E1CB40DC500C806FE /* ContentView.swift */,
 			);
-			name = ControlView;
+			name = ContentView;
 			sourceTree = "<group>";
 		};
 		9661222C1D3EC414008BB4CB /* macOS */ = {
@@ -509,12 +516,13 @@
 			isa = PBXGroup;
 			children = (
 				96BCB8091CB4107700C806FE /* Animate */,
+				96264BE41D833C8400576F37 /* BarView */,
 				962DDD081D6FBBD0001C307C /* BottomTabBar */,
 				96BCB8031CB40F4B00C806FE /* Button */,
 				96BCB8021CB40F3B00C806FE /* Card */,
 				96BCB7FF1CB40EF000C806FE /* Capture */,
 				96BCB8051CB40F9C00C806FE /* Collection */,
-				963FBF061D669795008F8512 /* ControlView */,
+				963FBF061D669795008F8512 /* ContentView */,
 				96BCB8001CB40F0300C806FE /* Color */,
 				962A92581D42839100DBAF8E /* Data */,
 				96BCB80B1CB410CC00C806FE /* Device */,
@@ -808,7 +816,7 @@
 				96BCB8351CB4115200C806FE /* MaterialTextLayer.swift in Headers */,
 				96BCB8361CB4115200C806FE /* Grid.swift in Headers */,
 				96BCB8371CB4115200C806FE /* Layout.swift in Headers */,
-				96BCB8381CB4115200C806FE /* ControlView.swift in Headers */,
+				96BCB8381CB4115200C806FE /* ContentView.swift in Headers */,
 				96BCB8391CB4115200C806FE /* SearchBar.swift in Headers */,
 				96BCB83A1CB4115200C806FE /* SearchBarController.swift in Headers */,
 				96BCB83B1CB4115200C806FE /* NavigationDrawerController.swift in Headers */,
@@ -1101,7 +1109,7 @@
 				96BCB7D21CB40DC500C806FE /* TableViewCell.swift in Sources */,
 				96F1DC881D654FDF0025F925 /* Material+CALayer.swift in Sources */,
 				96BCB7B61CB40DC500C806FE /* Animation.swift in Sources */,
-				96BCB7A71CB40DC500C806FE /* ControlView.swift in Sources */,
+				96BCB7A71CB40DC500C806FE /* ContentView.swift in Sources */,
 				96BCB7DB1CB40DC500C806FE /* NavigationItem.swift in Sources */,
 				96BCB7E01CB40DC500C806FE /* NavigationDrawerController.swift in Sources */,
 				9628645F1D540AF300690B69 /* DynamicFontType.swift in Sources */,
