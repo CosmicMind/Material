@@ -32,7 +32,7 @@ import UIKit
 
 open class PhotoLibraryController: UIViewController {
     /// A reference to a PhotoLibrary.
-    public private(set) lazy var photoLibrary: PhotoLibrary = PhotoLibrary()
+    open private(set) lazy var photoLibrary: PhotoLibrary = PhotoLibrary()
     
     open override func viewDidLoad() {
         super.viewDidLoad()

@@ -62,7 +62,7 @@ public enum BottomNavigationTransitionAnimation: Int {
 @IBDesignable
 open class BottomNavigationController: UITabBarController, UITabBarControllerDelegate {
 	/// The transition animation to use when selecting a new tab.
-	open var transitionAnimation: BottomNavigationTransitionAnimation = .fade
+	open var transitionAnimation = BottomNavigationTransitionAnimation.fade
 	
 	/**
      An initializer that initializes the object with a NSCoder object.

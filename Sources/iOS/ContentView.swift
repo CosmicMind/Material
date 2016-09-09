@@ -102,7 +102,7 @@ open class ContentView: View {
 	}
 
 	/// ContentView that holds the any desired subviews.
-	open private(set) lazy var contentView = UIView()
+	open private(set) lazy var contentView = View()
 	
 	/// Left side UIControls.
 	open var leftControls = [UIView]() {

@@ -40,9 +40,15 @@ public enum MenuDirection: Int {
 
 @objc(MenuDelegate)
 public protocol MenuDelegate {
-    /// Gets called when the user taps outside menu buttons.
+    /**
+     Gets called when the user taps while the menu is opened.
+     - Parameter menu: A Menu.
+     - Parameter tappedAt point: A CGPoint.
+     - Parameter isOutside: A boolean indicating whether the tap
+     was outside the menu button area.
+     */
     @objc
-    optional func menu(menu: Menu, tappedAt point: CGPoint)
+    optional func menu(menu: Menu, tappedAt point: CGPoint, isOutside: Bool)
 }
 
 open class Menu: View {
@@ -97,9 +103,43 @@ open class Menu: View {
     /// Size of views, not including the first view.
     open var itemSize = CGSize(width: 48, height: 48)
     
+    open override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        /**
+         Since the subviews will be outside the bounds of this view,
+         we need to look at the subviews to see if we have a hit.
+         */
+        guard !isHidden else {
+            return nil
+        }
+        
+        guard isOpened else {
+            return super.hitTest(point, with: event)
+        }
+        
+        for v in subviews {
+            let p = v.convert(point, from: self)
+            if v.bounds.contains(p) {
+                delegate?.menu?(menu: self, tappedAt: point, isOutside: false)
+                return v.hitTest(p, with: event)
+            }
+        }
+        
+        delegate?.menu?(menu: self, tappedAt: point, isOutside: true)
+        
+        return super.hitTest(point, with: event)
+    }
+    
+    /**
+     Prepares the view instance when intialized. When subclassing,
+     it is recommended to override the prepareView method
+     to initialize property values and other setup operations.
+     The super.prepareView method should always be called immediately
+     when subclassing.
+     */
     open override func prepareView() {
         super.prepareView()
         backgroundColor = nil
+        interimSpacePreset = .interimSpace6
     }
     
     /// Reload the view layout.
@@ -184,7 +224,7 @@ open class Menu: View {
                 usingSpringWithDamping: usingSpringWithDamping,
                 initialSpringVelocity: initialSpringVelocity,
                 options: options,
-                animations: { [weak self, base = base] in
+                animations: { [weak self, base = base, v = v] in
                     guard let s = self else {
                         return
                     }
@@ -193,7 +233,7 @@ open class Menu: View {
                     v.y = base.y - CGFloat(i) * s.itemSize.height - CGFloat(i) * s.interimSpace
                     
                     animations?(v)
-            }) { [weak self] _ in
+            }) { [weak self, v = v] _ in
                 guard let s = self else {
                     return
                 }
@@ -220,25 +260,22 @@ open class Menu: View {
      - Parameter completion: A completion block to execute on each view's animation.
      */
     private func closeUpAnimation(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
+        guard let base = views.first else {
+            return
+        }
         
         for i in 1..<views.count {
-            let v = views[i]
-            
             UIView.animate(withDuration: Double(i) * duration,
                 delay: delay,
                 usingSpringWithDamping: usingSpringWithDamping,
                 initialSpringVelocity: initialSpringVelocity,
                 options: options,
-                animations: { [weak self] in
-                    guard let s = self else {
-                        return
-                    }
-                    
+                animations: { [weak self, base = base, v = views[i]] in
                     v.alpha = 0
-                    v.y = s.y
+                    v.y = base.y
                     
                     animations?(v)
-                }) { [weak self] _ in
+                }) { [weak self, v = views[i]] _ in
                     guard let s = self else {
                         return
                     }
@@ -270,17 +307,18 @@ open class Menu: View {
             return
         }
         
+        let h = baseSize.height
+        
         for i in 1..<views.count {
             let v = views[i]
             v.isHidden = false
                 
-            let h = baseSize.height
             UIView.animate(withDuration: Double(i) * duration,
                 delay: delay,
                 usingSpringWithDamping: usingSpringWithDamping,
                 initialSpringVelocity: initialSpringVelocity,
                 options: options,
-                animations: { [weak self, base = base] in
+                animations: { [weak self, base = base, v = v] in
                     guard let s = self else {
                         return
                     }
@@ -289,7 +327,7 @@ open class Menu: View {
                     v.y = base.y + h + CGFloat(i - 1) * s.itemSize.height + CGFloat(i) * s.interimSpace
                     
                     animations?(v)
-                }) { [weak self] _ in
+                }) { [weak self, v = v] _ in
                     guard let s = self else {
                         return
                     }
@@ -316,39 +354,42 @@ open class Menu: View {
      - Parameter completion: A completion block to execute on each view's animation.
      */
     private func closeDownAnimation(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
-            for i in 1..<views.count {
-                let v = views[i]
-                
-                let h = baseSize.height
-                UIView.animate(withDuration: Double(i) * duration,
-                    delay: delay,
-                    usingSpringWithDamping: usingSpringWithDamping,
-                    initialSpringVelocity: initialSpringVelocity,
-                    options: options,
-                    animations: { [weak self] in
-                        guard let s = self else {
-                            return
-                        }
-                        
-                        v.alpha = 0
-                        v.y = s.y + h
-                        
-                        animations?(v)
-                }) { [weak self] _ in
+        guard let base = views.first else {
+            return
+        }
+        
+        let h = baseSize.height
+        
+        for i in 1..<views.count {
+            UIView.animate(withDuration: Double(i) * duration,
+                delay: delay,
+                usingSpringWithDamping: usingSpringWithDamping,
+                initialSpringVelocity: initialSpringVelocity,
+                options: options,
+                animations: { [weak self, base = base, v = views[i]] in
                     guard let s = self else {
                         return
                     }
                     
-                    v.isHidden = true
-                    s.enable(view: v)
+                    v.alpha = 0
+                    v.y = base.y + h
                     
-                    if v == s.views.last {
-                        s.isOpened = false
-                    }
-                    
-                    completion?(v)
+                    animations?(v)
+            }) { [weak self, v = views[i]] _ in
+                guard let s = self else {
+                    return
                 }
+                
+                v.isHidden = true
+                s.enable(view: v)
+                
+                if v == s.views.last {
+                    s.isOpened = false
+                }
+                
+                completion?(v)
             }
+        }
     }
     
     /**
@@ -375,7 +416,7 @@ open class Menu: View {
                 usingSpringWithDamping: usingSpringWithDamping,
                 initialSpringVelocity: initialSpringVelocity,
                 options: options,
-                animations: { [weak self, base = base] in
+                animations: { [weak self, base = base, v = v] in
                     guard let s = self else {
                         return
                     }
@@ -384,7 +425,7 @@ open class Menu: View {
                     v.x = base.x - CGFloat(i) * s.itemSize.width - CGFloat(i) * s.interimSpace
                     
                     animations?(v)
-            }) { [weak self] _ in
+            }) { [weak self, v = v] _ in
                 guard let s = self else {
                     return
                 }
@@ -411,24 +452,22 @@ open class Menu: View {
      - Parameter completion: A completion block to execute on each view's animation.
      */
     private func closeLeftAnimation(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
+        guard let base = views.first else {
+            return
+        }
+        
         for i in 1..<views.count {
-            let v = views[i]
-            
             UIView.animate(withDuration: Double(i) * duration,
                 delay: delay,
                 usingSpringWithDamping: usingSpringWithDamping,
                 initialSpringVelocity: initialSpringVelocity,
                 options: options,
-                animations: { [weak self] in
-                    guard let s = self else {
-                        return
-                    }
-                    
+                animations: { [weak self, v = views[i]] in
                     v.alpha = 0
-                    v.x = s.x
+                    v.x = base.x
                     
                     animations?(v)
-                }) { [weak self] _ in
+                }) { [weak self, v = views[i]] _ in
                     guard let s = self else {
                         return
                     }
@@ -460,17 +499,18 @@ open class Menu: View {
             return
         }
         
+        let h = baseSize.height
+        
         for i in 1..<views.count {
             let v = views[i]
             v.isHidden = false
             
-            let h = baseSize.height
             UIView.animate(withDuration: Double(i) * duration,
                 delay: delay,
                 usingSpringWithDamping: usingSpringWithDamping,
                 initialSpringVelocity: initialSpringVelocity,
                 options: options,
-                animations: { [weak self, base = base] in
+                animations: { [weak self, base = base, v = v] in
                     guard let s = self else {
                         return
                     }
@@ -479,7 +519,7 @@ open class Menu: View {
                     v.x = base.x + h + CGFloat(i - 1) * s.itemSize.width + CGFloat(i) * s.interimSpace
                     
                     animations?(v)
-                }) { [weak self] _ in
+                }) { [weak self, v = v] _ in
                     guard let s = self else {
                         return
                     }
@@ -506,16 +546,20 @@ open class Menu: View {
      - Parameter completion: A completion block to execute on each view's animation.
      */
     private func closeRightAnimation(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
+        guard let base = views.first else {
+            return
+        }
+        
+        let w = baseSize.width
+        
         for i in 1..<views.count {
-            let v = views[i]
-            let w = baseSize.width
             
             UIView.animate(withDuration: Double(i) * duration,
                 delay: delay,
                 usingSpringWithDamping: usingSpringWithDamping,
                 initialSpringVelocity: initialSpringVelocity,
                 options: options,
-                animations: { [weak self] in
+                animations: { [weak self, base = base, v = views[i]] in
                     guard let s = self else {
                         return
                     }
@@ -524,7 +568,7 @@ open class Menu: View {
                     v.x = s.x + w
                     
                     animations?(v)
-                }) { [weak self] _ in
+                }) { [weak self, v = views[i]] _ in
                     guard let s = self else {
                         return
                     }
@@ -543,19 +587,21 @@ open class Menu: View {
     
     /// Layout the views.
     private func layoutButtons() {
-        for i in 0..<views.count {
+        guard let base = views.first else {
+            return
+        }
+        
+        base.frame.size = baseSize
+        base.zPosition = 10000
+        
+        for i in 1..<views.count {
             let v = views[i]
-            if 0 == i {
-                v.frame.size = baseSize
-                v.layer.zPosition = 10000
-            } else {
-                v.alpha = 0
-                v.isHidden = true
-                v.frame.size = itemSize
-                v.x = x + (baseSize.width - itemSize.width) / 2
-                v.y = y + (baseSize.height - itemSize.height) / 2
-                v.layer.zPosition = CGFloat(10000 - views.count - i)
-            }
+            v.alpha = 0
+            v.isHidden = true
+            v.frame.size = itemSize
+            v.x = base.x + (baseSize.width - itemSize.width) / 2
+            v.y = base.y + (baseSize.height - itemSize.height) / 2
+            v.zPosition = CGFloat(10000 - views.count - i)
         }
     }
     

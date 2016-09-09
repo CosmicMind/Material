@@ -32,7 +32,7 @@ import UIKit
 
 open class RemindersController: UIViewController {
     /// A reference to a Reminder.
-    public private(set) lazy var reminders: Reminders = Reminders()
+    open private(set) lazy var reminders: Reminders = Reminders()
     
     open override func viewDidLoad() {
         super.viewDidLoad()

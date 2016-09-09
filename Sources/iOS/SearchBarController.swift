@@ -50,7 +50,7 @@ extension UIViewController {
 
 open class SearchBarController: RootController {
 	/// Reference to the SearchBar.
-    open internal(set) lazy var searchBar: SearchBar = SearchBar()
+    open private(set) lazy var searchBar: SearchBar = SearchBar()
 	
 	/**
      To execute in the order of the layout chain, override this

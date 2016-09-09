@@ -100,6 +100,9 @@ public protocol PageTabBarControllerDelegate {
 
 @objc(PageTabBarController)
 open class PageTabBarController: RootController {
+    /// Reference to the PageTabBar.
+    open private(set) lazy var pageTabBar: PageTabBar = PageTabBar()
+    
     /// Indicates that the tab has been pressed and animating.
     open internal(set) var isTabSelectedAnimation = false
     
@@ -108,9 +111,6 @@ open class PageTabBarController: RootController {
     
     /// PageTabBar alignment setting.
     open var pageTabBarAlignment = PageTabBarAlignment.bottom
-    
-    /// Reference to the PageTabBar.
-    open internal(set) lazy var pageTabBar: PageTabBar = PageTabBar()
     
     /// Delegation handler.
     open weak var delegate: PageTabBarControllerDelegate?

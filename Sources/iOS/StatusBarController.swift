@@ -51,7 +51,7 @@ extension UIViewController {
 @IBDesignable
 open class StatusBarController: RootController {
 	/// A reference to the statusBarView.
-	open internal(set) lazy var statusBarView = View()
+	open private(set) lazy var statusBarView = View()
 	
 	/**
 	To execute in the order of the layout chain, override this

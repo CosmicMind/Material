@@ -69,11 +69,11 @@ public protocol ToolbarControllerDelegate {
 
 @objc(ToolbarController)
 open class ToolbarController: RootController {
-	/// Internal reference to the floatingViewController.
+    /// Reference to the Toolbar.
+    open private(set) lazy var toolbar: Toolbar = Toolbar()
+    
+    /// Internal reference to the floatingViewController.
 	private var internalFloatingViewController: UIViewController?
-	
-	/// Reference to the Toolbar.
-    open internal(set) lazy var toolbar: Toolbar = Toolbar()
 	
 	/// Delegation handler.
 	open weak var delegate: ToolbarControllerDelegate?

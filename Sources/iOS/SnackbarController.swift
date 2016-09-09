@@ -86,11 +86,11 @@ extension UIViewController {
 }
 
 open class SnackbarController: RootController {
+    /// Reference to the Snackbar.
+    open private(set) lazy var snackbar: Snackbar = Snackbar()
+    
     /// A boolean indicating if the Snacbar is animating.
     open internal(set) var isAnimating = false
-    
-    /// Reference to the Snackbar.
-    open internal(set) lazy var snackbar: Snackbar = Snackbar()
     
     /// Delegation handler.
     open weak var delegate: SnackbarControllerDelegate?

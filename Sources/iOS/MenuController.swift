@@ -51,7 +51,7 @@ extension UIViewController {
 @IBDesignable
 open class MenuController: RootController {
 	/// Reference to the MenuView.
-    open internal(set) lazy var menu: Menu = Menu()
+    open private(set) lazy var menu: Menu = Menu()
 	
 	/**
      Opens the menu with a callback.
@@ -82,7 +82,7 @@ open class MenuController: RootController {
     open func closeMenu(completion: (() -> Void)? = nil) {
 		if false == isUserInteractionEnabled {
 			rootViewController.view.alpha = 1
-            menu.open { [weak self] (view) in
+            menu.close { [weak self] (view) in
                 guard let s = self else {
                     return
                 }
