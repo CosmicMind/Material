@@ -10,6 +10,8 @@
 		961EFC581D738FF600E84652 /* SnackbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961EFC571D738FF600E84652 /* SnackbarController.swift */; };
 		961F18E81CD93E3E008927C5 /* ErrorTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961F18E71CD93E3E008927C5 /* ErrorTextField.swift */; };
 		96230AB81D6A520C00AF47DC /* Divider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96230AB71D6A520C00AF47DC /* Divider.swift */; };
+		96264BE71D833D2800576F37 /* Reminders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96264BE61D833D2800576F37 /* Reminders.swift */; };
+		96264BE91D833D3400576F37 /* RemindersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96264BE81D833D3400576F37 /* RemindersController.swift */; };
 		9628645A1D53FE3E00690B69 /* Material+UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962864591D53FE3E00690B69 /* Material+UIWindow.swift */; };
 		9628645F1D540AF300690B69 /* DynamicFontType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9628645E1D540AF300690B69 /* DynamicFontType.swift */; };
 		962864621D54111D00690B69 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962864611D54111D00690B69 /* JSON.swift */; };
@@ -166,7 +168,6 @@
 		96BCB8571CB4115200C806FE /* View.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB78C1CB40DC500C806FE /* View.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8591CB4118E00C806FE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96334EF51C8B84660083986B /* Assets.xcassets */; };
 		96C1C8811D42C62800E6608F /* Material+Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C1C8801D42C62800E6608F /* Material+Array.swift */; };
-		96C9CDBC1D7B1040006A4154 /* Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C9CDBB1D7B1040006A4154 /* Reminder.swift */; };
 		96D88C321C1328D800B91418 /* Material.h in Headers */ = {isa = PBXBuildFile; fileRef = 96D88C091C1328D800B91418 /* Material.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		96E3C3941D397AE90086A024 /* Material+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E3C3931D397AE90086A024 /* Material+UIView.swift */; };
 		96E3C3951D3A1CC20086A024 /* IconButton.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9658F2161CD6FA4700B902C1 /* IconButton.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -202,6 +203,8 @@
 		961EFC571D738FF600E84652 /* SnackbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnackbarController.swift; sourceTree = "<group>"; };
 		961F18E71CD93E3E008927C5 /* ErrorTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorTextField.swift; sourceTree = "<group>"; };
 		96230AB71D6A520C00AF47DC /* Divider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Divider.swift; sourceTree = "<group>"; };
+		96264BE61D833D2800576F37 /* Reminders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reminders.swift; sourceTree = "<group>"; };
+		96264BE81D833D3400576F37 /* RemindersController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemindersController.swift; sourceTree = "<group>"; };
 		962864591D53FE3E00690B69 /* Material+UIWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIWindow.swift"; sourceTree = "<group>"; };
 		9628645E1D540AF300690B69 /* DynamicFontType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicFontType.swift; sourceTree = "<group>"; };
 		962864611D54111D00690B69 /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
@@ -289,7 +292,6 @@
 		96BCB7F11CB40DE900C806FE /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		96BCB7F21CB40DE900C806FE /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		96C1C8801D42C62800E6608F /* Material+Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+Array.swift"; sourceTree = "<group>"; };
-		96C9CDBB1D7B1040006A4154 /* Reminder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reminder.swift; sourceTree = "<group>"; };
 		96D88BFC1C1328D800B91418 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96D88BFD1C1328D800B91418 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		96D88C091C1328D800B91418 /* Material.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Material.h; sourceTree = "<group>"; };
@@ -348,6 +350,15 @@
 				96BCB7981CB40DC500C806FE /* BarView.swift */,
 			);
 			name = BarView;
+			sourceTree = "<group>";
+		};
+		96264BE51D833CFF00576F37 /* Reminders */ = {
+			isa = PBXGroup;
+			children = (
+				96264BE61D833D2800576F37 /* Reminders.swift */,
+				96264BE81D833D3400576F37 /* RemindersController.swift */,
+			);
+			name = Reminders;
 			sourceTree = "<group>";
 		};
 		962864601D5410FD00690B69 /* JSON */ = {
@@ -538,7 +549,7 @@
 				96BCB8011CB40F1700C806FE /* Navigation */,
 				962DDD071D6FBBB7001C307C /* Page */,
 				96EA9A411D4E68E60052C74D /* PhotoLibrary */,
-				96C9CDBA1D7B101C006A4154 /* Reminder */,
+				96264BE51D833CFF00576F37 /* Reminders */,
 				963FBF031D6696EF008F8512 /* SearchBar */,
 				963FBEFB1D6694E8008F8512 /* Snackbar */,
 				967A48171D0F424B00B8CEB7 /* StatusBar */,
@@ -742,14 +753,6 @@
 				96BCB79E1CB40DC500C806FE /* TextView.swift */,
 			);
 			name = Text;
-			sourceTree = "<group>";
-		};
-		96C9CDBA1D7B101C006A4154 /* Reminder */ = {
-			isa = PBXGroup;
-			children = (
-				96C9CDBB1D7B1040006A4154 /* Reminder.swift */,
-			);
-			name = Reminder;
 			sourceTree = "<group>";
 		};
 		96D88BF41C1328D800B91418 /* Sources */ = {
@@ -1059,7 +1062,6 @@
 				96BCB7CA1CB40DC500C806FE /* Layout.swift in Sources */,
 				96BCB7D11CB40DC500C806FE /* Switch.swift in Sources */,
 				96BCB7BA1CB40DC500C806FE /* CollectionView.swift in Sources */,
-				96C9CDBC1D7B1040006A4154 /* Reminder.swift in Sources */,
 				96BCB7A31CB40DC500C806FE /* CapturePreview.swift in Sources */,
 				96BCB7BC1CB40DC500C806FE /* CollectionViewDataSource.swift in Sources */,
 				96EA9A4B1D4E7A430052C74D /* PhotoLibraryController.swift in Sources */,
@@ -1079,6 +1081,7 @@
 				96230AB81D6A520C00AF47DC /* Divider.swift in Sources */,
 				96BCB7C41CB40DC500C806FE /* Font.swift in Sources */,
 				96BCB7AA1CB40DC500C806FE /* Grid.swift in Sources */,
+				96264BE91D833D3400576F37 /* RemindersController.swift in Sources */,
 				96BCB7E71CB40DC500C806FE /* TextView.swift in Sources */,
 				96BCB7C31CB40DC500C806FE /* EdgeInsets.swift in Sources */,
 				96BCB7CE1CB40DC500C806FE /* CornerRadius.swift in Sources */,
@@ -1088,6 +1091,7 @@
 				96BCB7D41CB40DC500C806FE /* TransitionAnimation.swift in Sources */,
 				967A48191D0F425A00B8CEB7 /* StatusBarController.swift in Sources */,
 				962864621D54111D00690B69 /* JSON.swift in Sources */,
+				96264BE71D833D2800576F37 /* Reminders.swift in Sources */,
 				96BCB7C21CB40DC500C806FE /* Device.swift in Sources */,
 				96BCB7A41CB40DC500C806FE /* CaptureSession.swift in Sources */,
 				963FBF081D669D14008F8512 /* PageTabBarController.swift in Sources */,
