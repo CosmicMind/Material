@@ -133,7 +133,7 @@ open class BottomNavigationController: UITabBarController, UITabBarControllerDel
 		view.clipsToBounds = true
 		view.contentScaleFactor = Device.scale
 		delegate = self
-		prepareTabBar()
+        prepareTabBar()
 	}
 	
 	/// Handles transitions when tabBarItems are pressed.
