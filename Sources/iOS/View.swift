@@ -39,7 +39,7 @@ open class View: UIView {
      allows the dropshadow effect on the backing layer, while clipping
      the image to a desired shape within the visualLayer.
      */
-	open private(set) var visualLayer: CAShapeLayer!
+	open private(set) lazy var visualLayer = CAShapeLayer()
 	
 	/**
      A property that manages an image for the visualLayer's contents
@@ -180,8 +180,7 @@ open class View: UIView {
 	
 	/// Prepares the visualLayer property.
 	internal func prepareVisualLayer() {
-		visualLayer = CAShapeLayer()
-        visualLayer.zPosition = 0
+		visualLayer.zPosition = 0
 		visualLayer.masksToBounds = true
 		layer.addSublayer(visualLayer)
 	}

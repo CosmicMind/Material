@@ -39,7 +39,7 @@ open class Button: UIButton {
      allows the dropshadow effect on the backing layer, while clipping
      the image to a desired shape within the visualLayer.
      */
-	open private(set) var visualLayer: CAShapeLayer!
+	open private(set) lazy var visualLayer = CAShapeLayer()
 	
 	/// An Array of pulse layers.
 	public private(set) lazy var pulseLayers = [CAShapeLayer]()
@@ -237,7 +237,6 @@ open class Button: UIButton {
 	
 	/// Prepares the visualLayer property.
 	internal func prepareVisualLayer() {
-        visualLayer = CAShapeLayer()
         visualLayer.zPosition = 0
 		visualLayer.masksToBounds = true
 		layer.addSublayer(visualLayer)

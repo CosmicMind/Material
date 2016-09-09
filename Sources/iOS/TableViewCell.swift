@@ -38,7 +38,7 @@ open class TableViewCell: UITableViewCell {
      allows the dropshadow effect on the backing layer, while clipping
      the image to a desired shape within the visualLayer.
      */
-	open internal(set) var visualLayer: CAShapeLayer!
+	open private(set) lazy var visualLayer = CAShapeLayer()
 	
     /// An Array of pulse layers.
     open private(set) lazy var pulseLayers = [CAShapeLayer]()
