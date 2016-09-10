@@ -35,7 +35,7 @@ internal class MaterialLayer {
     internal weak var layer: CALayer?
     
     /// A property that sets the cornerRadius of the backing layer.
-    internal var cornerRadiusPreset: CornerRadiusPreset = .none {
+    internal var cornerRadiusPreset = CornerRadiusPreset.none {
         didSet {
             guard let v = layer else {
                 return
@@ -45,7 +45,7 @@ internal class MaterialLayer {
     }
     
     /// A preset property to set the borderWidth.
-    internal var borderWidthPreset: BorderWidthPreset = .none {
+    internal var borderWidthPreset = BorderWidthPreset.none {
         didSet {
             guard let v = layer else {
                 return
@@ -55,7 +55,7 @@ internal class MaterialLayer {
     }
     
     /// A preset property to set the shape.
-    internal var shapePreset: ShapePreset = .none
+    internal var shapePreset = ShapePreset.none
     
     /// A preset value for Depth.
     internal var depthPreset: DepthPreset {
@@ -317,14 +317,16 @@ extension CALayer {
     
     /// Sets the shadow path.
     open func layoutShadowPath() {
-        if isShadowPathAutoSizing {
-            if .none == depthPreset {
-                shadowPath = nil
-            } else if nil == shadowPath {
-                shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
-            } else {
-                animate(animation: Animation.shadowPath(path: UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath, duration: 0))
-            }
+        guard isShadowPathAutoSizing else {
+            return
+        }
+        
+        if .none == depthPreset {
+            shadowPath = nil
+        } else if nil == shadowPath {
+            shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
+        } else {
+            animate(animation: Animation.shadowPath(path: UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath, duration: 0))
         }
     }
 }

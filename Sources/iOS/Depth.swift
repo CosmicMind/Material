@@ -96,14 +96,14 @@ public func DepthPresetToValue(preset: DepthPreset) -> Depth {
 	case .none:
 		return .zero
 	case .depth1:
-        return Depth(offset: Offset(horizontal: 0, vertical: 1), opacity: 0.3, radius: 1)
+        return Depth(offset: Offset(horizontal: 0, vertical: 0.5), opacity: 0.3, radius: 0.5)
 	case .depth2:
-        return Depth(offset: Offset(horizontal: 0, vertical: 2), opacity: 0.3, radius: 2)
+        return Depth(offset: Offset(horizontal: 0, vertical: 1), opacity: 0.3, radius: 1)
 	case .depth3:
-        return Depth(offset: Offset(horizontal: 0, vertical: 3), opacity: 0.3, radius: 3)
+        return Depth(offset: Offset(horizontal: 0, vertical: 2), opacity: 0.3, radius: 2)
 	case .depth4:
         return Depth(offset: Offset(horizontal: 0, vertical: 4), opacity: 0.3, radius: 4)
 	case .depth5:
-        return Depth(offset: Offset(horizontal: 0, vertical: 5), opacity: 0.3, radius: 5)
+        return Depth(offset: Offset(horizontal: 0, vertical: 8), opacity: 0.3, radius: 8)
 	}
 }
