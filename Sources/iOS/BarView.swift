@@ -63,9 +63,10 @@ open class BarView: ContentView {
 	
     open override func layoutSubviews() {
         super.layoutSubviews()
-        if willRenderView {
-            divider.reload()
+        guard willLayout else {
+            return
         }
+        divider.reload()
     }
     
 	/**

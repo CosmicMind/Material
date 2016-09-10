@@ -270,7 +270,7 @@ open class Menu: View {
                 usingSpringWithDamping: usingSpringWithDamping,
                 initialSpringVelocity: initialSpringVelocity,
                 options: options,
-                animations: { [weak self, base = base, v = views[i]] in
+                animations: { [base = base, v = views[i]] in
                     v.alpha = 0
                     v.y = base.y
                     
@@ -366,11 +366,7 @@ open class Menu: View {
                 usingSpringWithDamping: usingSpringWithDamping,
                 initialSpringVelocity: initialSpringVelocity,
                 options: options,
-                animations: { [weak self, base = base, v = views[i]] in
-                    guard let s = self else {
-                        return
-                    }
-                    
+                animations: { [base = base, v = views[i]] in
                     v.alpha = 0
                     v.y = base.y + h
                     
@@ -462,7 +458,7 @@ open class Menu: View {
                 usingSpringWithDamping: usingSpringWithDamping,
                 initialSpringVelocity: initialSpringVelocity,
                 options: options,
-                animations: { [weak self, v = views[i]] in
+                animations: { [v = views[i]] in
                     v.alpha = 0
                     v.x = base.x
                     
@@ -553,19 +549,14 @@ open class Menu: View {
         let w = baseSize.width
         
         for i in 1..<views.count {
-            
             UIView.animate(withDuration: Double(i) * duration,
                 delay: delay,
                 usingSpringWithDamping: usingSpringWithDamping,
                 initialSpringVelocity: initialSpringVelocity,
                 options: options,
-                animations: { [weak self, base = base, v = views[i]] in
-                    guard let s = self else {
-                        return
-                    }
-                    
+                animations: { [base = base, v = views[i]] in
                     v.alpha = 0
-                    v.x = s.x + w
+                    v.x = base.x + w
                     
                     animations?(v)
                 }) { [weak self, v = views[i]] _ in

@@ -31,8 +31,58 @@
 import UIKit
 
 open class ContentCard: PulseView {
+    /// Will render the view.
+    open var willLayout: Bool {
+        return 0 < width && 0 < height && nil != superview
+    }
+    
+    /// A preset wrapper around contentInset.
+    open var contentEdgeInsetsPreset: EdgeInsetsPreset {
+        get {
+            return grid.contentEdgeInsetsPreset
+        }
+        set(value) {
+            grid.contentEdgeInsetsPreset = value
+        }
+    }
+    
+    /// A wrapper around grid.contentInset.
+    @IBInspectable
+    open var contentEdgeInsets: EdgeInsets {
+        get {
+            return grid.contentEdgeInsets
+        }
+        set(value) {
+            grid.contentEdgeInsets = value
+        }
+    }
+    
+    /// A preset wrapper around interimSpace.
+    open var interimSpacePreset = InterimSpacePreset.none {
+        didSet {
+            interimSpace = InterimSpacePresetToValue(preset: interimSpacePreset)
+        }
+    }
+    
+    /// A wrapper around grid.interimSpace.
+    @IBInspectable
+    open var interimSpace: InterimSpace {
+        get {
+            return grid.interimSpace
+        }
+        set(value) {
+            grid.interimSpace = value
+        }
+    }
+    
     /// An internal reference to the titleToolbar.
     internal var internalTitleToolbar: Toolbar?
+    
+    /// An internal reference to the contentView.
+    internal var internalContentView: UIView?
+    
+    /// An internal reference to the detailToolbar.
+    internal var internalDetailToolbar: Toolbar?
     
     /// A reference to the titleToolbar.
     open var titleToolbar: Toolbar {
@@ -40,17 +90,11 @@ open class ContentCard: PulseView {
         return internalTitleToolbar!
     }
     
-    /// An internal reference to the contentView.
-    internal var internalContentView: UIView?
-    
     /// A reference to the contentView.
     open var contentView: UIView {
         prepareContentView()
         return internalContentView!
     }
-    
-    /// An internal reference to the detailToolbar.
-    internal var internalDetailToolbar: Toolbar?
     
     /// A reference to the detailToolbar.
     open var detailToolbar: Toolbar {
@@ -70,15 +114,36 @@ open class ContentCard: PulseView {
         pulseAnimation = .none
     }
     
-    /// Reloads the
-    open func reload() {
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        guard willLayout else {
+            return
+        }
+        
         // clear constraints so new ones do not conflict
         removeConstraints(constraints)
         for v in subviews {
             v.removeFromSuperview()
         }
         
+        var h: CGFloat = 0
         
+        if let v = internalTitleToolbar {
+            v.layoutIfNeeded()
+            h += v.height
+        }
+        
+        if let v = internalContentView {
+            v.layoutIfNeeded()
+            h += v.height
+        }
+        
+        if let v = internalDetailToolbar {
+            v.layoutIfNeeded()
+            h += v.height
+        }
+        
+        height = h
     }
     
     /// Prepares the titleToolbar.

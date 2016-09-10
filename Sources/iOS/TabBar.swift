@@ -129,29 +129,31 @@ open class TabBar: BarView {
     
     open override func layoutSubviews() {
 		super.layoutSubviews()
-		if willRenderView {
-            guard 0 < buttons.count else {
-                return
-            }
-            
-            let columns: Int = contentView.grid.axis.columns / buttons.count
-            for b in buttons {
-                b.grid.columns = columns
-                b.contentEdgeInsets = .zero
-                b.cornerRadius = 0
-                
-                if isLineAnimated {
-                    prepareLineAnimationHandler(button: b)
-                }
-            }
-            contentView.grid.reload()
-                
-            if nil == selected {
-                selected = buttons.first
-            }
-                
-            line.frame = CGRect(x: selected!.x, y: .bottom == lineAlignment ? height - lineHeight : 0, width: selected!.width, height: lineHeight)
+        guard willLayout else {
+            return
         }
+        
+        guard 0 < buttons.count else {
+            return
+        }
+            
+        let columns: Int = contentView.grid.axis.columns / buttons.count
+        for b in buttons {
+            b.grid.columns = columns
+            b.contentEdgeInsets = .zero
+            b.cornerRadius = 0
+            
+            if isLineAnimated {
+                prepareLineAnimationHandler(button: b)
+            }
+        }
+        contentView.grid.reload()
+            
+        if nil == selected {
+            selected = buttons.first
+        }
+            
+        line.frame = CGRect(x: selected!.x, y: .bottom == lineAlignment ? height - lineHeight : 0, width: selected!.width, height: lineHeight)
 	}
 	
 	/// Handles the button touch event.

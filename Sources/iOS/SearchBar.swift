@@ -92,10 +92,12 @@ open class SearchBar: BarView {
 	
 	open override func layoutSubviews() {
 		super.layoutSubviews()
-		if willRenderView {
-			textField.frame = contentView.bounds
-			layoutClearButton()
-		}
+        guard willLayout else {
+            return
+        }
+        
+        textField.frame = contentView.bounds
+        layoutClearButton()
 	}
 	
 	/**

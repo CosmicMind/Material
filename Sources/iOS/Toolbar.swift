@@ -102,39 +102,41 @@ open class Toolbar: BarView {
     
     open override func layoutSubviews() {
         super.layoutSubviews()
-        if willRenderView {
-            if nil != title && "" != title {
-                if nil == titleLabel.superview {
-                    contentView.addSubview(titleLabel)
-                }
-                titleLabel.frame = contentView.bounds
-            } else {
-                titleLabel.removeFromSuperview()
+        guard willLayout else {
+            return
+        }
+        
+        if nil != title && "" != title {
+            if nil == titleLabel.superview {
+                contentView.addSubview(titleLabel)
+            }
+            titleLabel.frame = contentView.bounds
+        } else {
+            titleLabel.removeFromSuperview()
+        }
+        
+        if nil != detail && "" != detail {
+            if nil == detailLabel.superview {
+                contentView.addSubview(detailLabel)
             }
             
-            if nil != detail && "" != detail {
-                if nil == detailLabel.superview {
-                    contentView.addSubview(detailLabel)
-                }
-                
-                if nil == titleLabel.superview {
-                    detailLabel.frame = contentView.bounds
-                } else {
-                    titleLabel.sizeToFit()
-                    detailLabel.sizeToFit()
-                    
-                    let diff: CGFloat = (contentView.height - titleLabel.height - detailLabel.height) / 2
-                    
-                    titleLabel.height += diff
-                    titleLabel.width = contentView.width
-                    
-                    detailLabel.height += diff
-                    detailLabel.width = contentView.width
-                    detailLabel.y = titleLabel.height
-                }
+            if nil == titleLabel.superview {
+                detailLabel.frame = contentView.bounds
             } else {
-                detailLabel.removeFromSuperview()
+                titleLabel.sizeToFit()
+                detailLabel.sizeToFit()
+                
+                let diff: CGFloat = (contentView.height - titleLabel.height - detailLabel.height) / 2
+                
+                titleLabel.height += diff
+                titleLabel.width = contentView.width
+                
+                detailLabel.height += diff
+                detailLabel.width = contentView.width
+                detailLabel.y = titleLabel.height
             }
+        } else {
+            detailLabel.removeFromSuperview()
         }
     }
 

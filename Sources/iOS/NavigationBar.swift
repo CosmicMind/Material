@@ -60,7 +60,7 @@ open class NavigationBar: UINavigationBar {
 	internal var animating = false
 	
 	/// Will render the view.
-	open var willRenderView: Bool {
+	open var willLayout: Bool {
 		return 0 < width && 0 < height && nil != superview
 	}
 	
@@ -190,97 +190,99 @@ open class NavigationBar: UINavigationBar {
      - Parameter item: A UINavigationItem to layout.
      */
 	internal func layoutNavigationItem(item: UINavigationItem) {
-        if willRenderView {
-            prepareItem(item: item)
-            prepareTitleView(item: item)
-            
-            item.titleView!.frame.origin = .zero
-            item.titleView!.frame.size = intrinsicContentSize
+        guard willLayout else {
+            return
+        }
+        
+        prepareItem(item: item)
+        prepareTitleView(item: item)
+        
+        item.titleView!.frame.origin = .zero
+        item.titleView!.frame.size = intrinsicContentSize
 
-            var lc = 0
-            var rc = 0
-            let l = (CGFloat(item.leftControls.count) * interimSpace)
-            let r = (CGFloat(item.rightControls.count) * interimSpace)
-            let p = width - l - r - contentEdgeInsets.left - contentEdgeInsets.right
-            let columns = Int(p / gridFactor)
+        var lc = 0
+        var rc = 0
+        let l = (CGFloat(item.leftControls.count) * interimSpace)
+        let r = (CGFloat(item.rightControls.count) * interimSpace)
+        let p = width - l - r - contentEdgeInsets.left - contentEdgeInsets.right
+        let columns = Int(p / gridFactor)
+        
+        item.titleView!.grid.begin()
+        item.titleView!.grid.views.removeAll()
+        item.titleView!.grid.axis.columns = columns
+        
+        for v in item.leftControls {
+            (v as? UIButton)?.contentEdgeInsets = .zero
+            v.sizeToFit()
+            v.grid.columns = Int(ceil(v.width / gridFactor)) + 1
             
-            item.titleView!.grid.begin()
-            item.titleView!.grid.views.removeAll()
-            item.titleView!.grid.axis.columns = columns
+            lc += v.grid.columns
             
-            for v in item.leftControls {
-                (v as? UIButton)?.contentEdgeInsets = .zero
-                v.sizeToFit()
-                v.grid.columns = Int(ceil(v.width / gridFactor)) + 1
-                
-                lc += v.grid.columns
-                
-                item.titleView!.grid.views.append(v)
-            }
+            item.titleView!.grid.views.append(v)
+        }
+        
+        item.titleView!.grid.views.append(item.contentView)
+        
+        for v in item.rightControls {
+            (v as? UIButton)?.contentEdgeInsets = .zero
+            v.sizeToFit()
+            v.grid.columns = Int(ceil(v.width / gridFactor)) + 1
             
-            item.titleView!.grid.views.append(item.contentView)
+            rc += v.grid.columns
             
-            for v in item.rightControls {
-                (v as? UIButton)?.contentEdgeInsets = .zero
-                v.sizeToFit()
-                v.grid.columns = Int(ceil(v.width / gridFactor)) + 1
-                
-                rc += v.grid.columns
-                
-                item.titleView!.grid.views.append(v)
-            }
-            
-            item.contentView.grid.begin()
-            if .center == item.contentViewAlignment {
-                if lc < rc {
-                    item.contentView.grid.columns = columns - 2 * rc
-                    item.contentView.grid.offset.columns = rc - lc
-                } else {
-                    item.contentView.grid.columns = columns - 2 * lc
-                    item.rightControls.first?.grid.offset.columns = lc - rc
-                }
+            item.titleView!.grid.views.append(v)
+        }
+        
+        item.contentView.grid.begin()
+        if .center == item.contentViewAlignment {
+            if lc < rc {
+                item.contentView.grid.columns = columns - 2 * rc
+                item.contentView.grid.offset.columns = rc - lc
             } else {
-                item.contentView.grid.columns = columns - lc - rc
+                item.contentView.grid.columns = columns - 2 * lc
+                item.rightControls.first?.grid.offset.columns = lc - rc
+            }
+        } else {
+            item.contentView.grid.columns = columns - lc - rc
+        }
+        
+        item.titleView!.grid.interimSpace = interimSpace
+        item.titleView!.grid.contentEdgeInsets = contentEdgeInsets
+        item.titleView!.grid.commit()
+        item.contentView.grid.commit()
+        
+        // contentView alignment.
+        if nil != item.title && "" != item.title {
+            if nil == item.titleLabel.superview {
+                item.contentView.addSubview(item.titleLabel)
+            }
+            item.titleLabel.frame = item.contentView.bounds
+        } else {
+            item.titleLabel.removeFromSuperview()
+        }
+        
+        if nil != item.detail && "" != item.detail {
+            if nil == item.detailLabel.superview {
+                item.contentView.addSubview(item.detailLabel)
             }
             
-            item.titleView!.grid.interimSpace = interimSpace
-            item.titleView!.grid.contentEdgeInsets = contentEdgeInsets
-            item.titleView!.grid.commit()
-            item.contentView.grid.commit()
-            
-            // contentView alignment.
-            if nil != item.title && "" != item.title {
-                if nil == item.titleLabel.superview {
-                    item.contentView.addSubview(item.titleLabel)
-                }
-                item.titleLabel.frame = item.contentView.bounds
+            if nil == item.titleLabel.superview {
+                item.detailLabel.frame = item.contentView.bounds
             } else {
-                item.titleLabel.removeFromSuperview()
-            }
-            
-            if nil != item.detail && "" != item.detail {
-                if nil == item.detailLabel.superview {
-                    item.contentView.addSubview(item.detailLabel)
-                }
+                item.titleLabel.sizeToFit()
+                item.detailLabel.sizeToFit()
                 
-                if nil == item.titleLabel.superview {
-                    item.detailLabel.frame = item.contentView.bounds
-                } else {
-                    item.titleLabel.sizeToFit()
-                    item.detailLabel.sizeToFit()
-                    
-                    let diff = (item.contentView.height - item.titleLabel.height - item.detailLabel.height) / 2
-                    
-                    item.titleLabel.height += diff
-                    item.titleLabel.width = item.contentView.width
-                    
-                    item.detailLabel.height += diff
-                    item.detailLabel.width = item.contentView.width
-                    item.detailLabel.y = item.titleLabel.height
-                }
-            } else {
-                item.detailLabel.removeFromSuperview()
+                let diff = (item.contentView.height - item.titleLabel.height - item.detailLabel.height) / 2
+                
+                item.titleLabel.height += diff
+                item.titleLabel.width = item.contentView.width
+                
+                item.detailLabel.height += diff
+                item.detailLabel.width = item.contentView.width
+                item.detailLabel.y = item.titleLabel.height
             }
+        } else {
+            item.detailLabel.removeFromSuperview()
         }
 	}
 	

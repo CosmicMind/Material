@@ -79,9 +79,11 @@ open class Snackbar: BarView {
     
     open override func layoutSubviews() {
         super.layoutSubviews()
-        if willRenderView {
-            textLabel.frame = contentView.bounds
+        guard willLayout else {
+            return
         }
+        
+        textLabel.frame = contentView.bounds
     }
     
     /**

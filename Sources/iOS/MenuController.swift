@@ -67,11 +67,7 @@ open class MenuController: RootController {
                 }
                 s.rootViewController.view.alpha = 0.25
             })
-            menu.open { [weak self] (view) in
-                guard let s = self else {
-                    return
-                }
-                
+            menu.open { [completion = completion] (view) in
                 completion?(view)
             }
 		}
