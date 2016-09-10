@@ -58,18 +58,21 @@ open class MenuController: RootController {
      - Parameter completion: An Optional callback that is executed when
      all menu items have been opened.
      */
-	open func openMenu(completion: (() -> Void)? = nil) {
+	open func openMenu(completion: ((UIView) -> Void)? = nil) {
 		if true == isUserInteractionEnabled {
 			isUserInteractionEnabled = false
-			rootViewController.view.alpha = 0.5
+            UIView.animate(withDuration: 0.15, animations: { [weak self] in
+                guard let s = self else {
+                    return
+                }
+                s.rootViewController.view.alpha = 0.25
+            })
             menu.open { [weak self] (view) in
                 guard let s = self else {
                     return
                 }
                 
-                if view == s.menu.views.last {
-                    completion?()
-                }
+                completion?(view)
             }
 		}
 	}
@@ -79,17 +82,23 @@ open class MenuController: RootController {
      - Parameter completion: An Optional callback that is executed when
      all menu items have been closed.
      */
-    open func closeMenu(completion: (() -> Void)? = nil) {
+    open func closeMenu(completion: ((UIView) -> Void)? = nil) {
 		if false == isUserInteractionEnabled {
-			rootViewController.view.alpha = 1
+            UIView.animate(withDuration: 0.15, animations: { [weak self] in
+                guard let s = self else {
+                    return
+                }
+                s.rootViewController.view.alpha = 1
+            })
             menu.close { [weak self] (view) in
                 guard let s = self else {
                     return
                 }
                 
+                completion?(view)
+                
                 if view == s.menu.views.last {
                     s.isUserInteractionEnabled = true
-                    completion?()
                 }
             }
 		}
