@@ -34,15 +34,15 @@ import UIKit
 private var PageTabBarItemKey: UInt8 = 0
 
 open class PageTabBarItem: FlatButton {
-    open override func prepareView() {
-        super.prepareView()
+    open override func prepare() {
+        super.prepare()
         pulseAnimation = .none
     }
 }
 
 open class PageTabBar: TabBar {
-    open override func prepareView() {
-        super.prepareView()
+    open override func prepare() {
+        super.prepare()
         isLineAnimated = false
         lineAlignment = .top
     }
@@ -180,13 +180,13 @@ open class PageTabBarController: RootController {
     
     /**
      Prepares the view instance when intialized. When subclassing,
-     it is recommended to override the prepareView method
+     it is recommended to override the prepare method
      to initialize property values and other setup operations.
-     The super.prepareView method should always be called immediately
+     The super.prepare method should always be called immediately
      when subclassing.
      */
-    open override func prepareView() {
-        super.prepareView()
+    open override func prepare() {
+        super.prepare()
         preparePageTabBar()
     }
     

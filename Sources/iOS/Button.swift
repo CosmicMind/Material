@@ -103,7 +103,7 @@ open class Button: UIButton {
      */
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
-		prepareView()
+		prepare()
 	}
 	
 	/**
@@ -114,7 +114,7 @@ open class Button: UIButton {
      */
 	public override init(frame: CGRect) {
 		super.init(frame: frame)
-		prepareView()
+		prepare()
 	}
 	
 	/// A convenience initializer.
@@ -224,12 +224,12 @@ open class Button: UIButton {
 	
 	/**
      Prepares the view instance when intialized. When subclassing,
-     it is recommended to override the prepareView method
+     it is recommended to override the prepare method
      to initialize property values and other setup operations.
-     The super.prepareView method should always be called immediately
+     The super.prepare method should always be called immediately
      when subclassing.
      */
-	open func prepareView() {
+	open func prepare() {
         contentScaleFactor = Device.scale
         contentEdgeInsetsPreset = .none
 		prepareVisualLayer()

@@ -371,7 +371,7 @@ open class NavigationDrawerController: RootController, UIGestureRecognizerDelega
      */
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
-        prepareView()
+        prepare()
 	}
 	
 	/**
@@ -381,7 +381,7 @@ open class NavigationDrawerController: RootController, UIGestureRecognizerDelega
      */
 	public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        prepareView()
+        prepare()
 	}
 	
 	/**
@@ -394,18 +394,18 @@ open class NavigationDrawerController: RootController, UIGestureRecognizerDelega
 		super.init(rootViewController: rootViewController)
 		self.leftViewController = leftViewController
 		self.rightViewController = rightViewController
-		prepareView()
+		prepare()
 	}
 	
 	/**
      Prepares the view instance when intialized. When subclassing,
-     it is recommended to override the prepareView method
+     it is recommended to override the prepare method
      to initialize property values and other setup operations.
-     The super.prepareView method should always be called immediately
+     The super.prepare method should always be called immediately
      when subclassing.
      */
-	open override func prepareView() {
-		super.prepareView()
+	open override func prepare() {
+		super.prepare()
 		prepareContentViewController()
 		prepareLeftView()
 		prepareRightView()
@@ -888,21 +888,21 @@ open class NavigationDrawerController: RootController, UIGestureRecognizerDelega
 	/// Prepares the contentViewController.
 	private func prepareContentViewController() {
 		contentViewController.view.backgroundColor = Color.black
-		prepareViewControllerWithinContainer(viewController: contentViewController, container: view)
+		prepareControllerWithinContainer(viewController: contentViewController, container: view)
 		view.sendSubview(toBack: contentViewController.view)
 	}
 	
 	/// A method that prepares the leftViewController.
 	private func prepareLeftViewController() {
 		if let v: View = leftView {
-			prepareViewControllerWithinContainer(viewController: leftViewController, container: v)
+			prepareControllerWithinContainer(viewController: leftViewController, container: v)
 		}
 	}
 	
 	/// A method that prepares the rightViewController.
 	private func prepareRightViewController() {
 		if let v: View = rightView {
-			prepareViewControllerWithinContainer(viewController: rightViewController, container: v)
+			prepareControllerWithinContainer(viewController: rightViewController, container: v)
 		}
 	}
 	

@@ -13,7 +13,7 @@
 		96264BE71D833D2800576F37 /* Reminders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96264BE61D833D2800576F37 /* Reminders.swift */; };
 		96264BE91D833D3400576F37 /* RemindersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96264BE81D833D3400576F37 /* RemindersController.swift */; };
 		96264C0E1D84051900576F37 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96264C0D1D84051900576F37 /* Checkbox.swift */; };
-		96264C121D840B5F00576F37 /* TitleCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96264C111D840B5F00576F37 /* TitleCard.swift */; };
+		96264C121D840B5F00576F37 /* ContentCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96264C111D840B5F00576F37 /* ContentCard.swift */; };
 		9628645A1D53FE3E00690B69 /* Material+UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962864591D53FE3E00690B69 /* Material+UIWindow.swift */; };
 		9628645F1D540AF300690B69 /* DynamicFontType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9628645E1D540AF300690B69 /* DynamicFontType.swift */; };
 		962864621D54111D00690B69 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962864611D54111D00690B69 /* JSON.swift */; };
@@ -208,7 +208,7 @@
 		96264BE61D833D2800576F37 /* Reminders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reminders.swift; sourceTree = "<group>"; };
 		96264BE81D833D3400576F37 /* RemindersController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemindersController.swift; sourceTree = "<group>"; };
 		96264C0D1D84051900576F37 /* Checkbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
-		96264C111D840B5F00576F37 /* TitleCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleCard.swift; sourceTree = "<group>"; };
+		96264C111D840B5F00576F37 /* ContentCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentCard.swift; sourceTree = "<group>"; };
 		962864591D53FE3E00690B69 /* Material+UIWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIWindow.swift"; sourceTree = "<group>"; };
 		9628645E1D540AF300690B69 /* DynamicFontType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicFontType.swift; sourceTree = "<group>"; };
 		962864611D54111D00690B69 /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
@@ -630,7 +630,7 @@
 		96BCB8021CB40F3B00C806FE /* Card */ = {
 			isa = PBXGroup;
 			children = (
-				96264C111D840B5F00576F37 /* TitleCard.swift */,
+				96264C111D840B5F00576F37 /* ContentCard.swift */,
 				96BCB75D1CB40DC500C806FE /* Card.swift */,
 				96BCB7621CB40DC500C806FE /* ImageCard.swift */,
 			);
@@ -1141,7 +1141,7 @@
 				96BCB7CD1CB40DC500C806FE /* PulseView.swift in Sources */,
 				96BCB7DA1CB40DC500C806FE /* NavigationController.swift in Sources */,
 				96BCB7A81CB40DC500C806FE /* FabButton.swift in Sources */,
-				96264C121D840B5F00576F37 /* TitleCard.swift in Sources */,
+				96264C121D840B5F00576F37 /* ContentCard.swift in Sources */,
 				96BCB7E41CB40DC500C806FE /* Text.swift in Sources */,
 				96BCB7AB1CB40DC500C806FE /* ImageCard.swift in Sources */,
 				96BCB7CB1CB40DC500C806FE /* PulseAnimation.swift in Sources */,

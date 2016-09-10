@@ -30,14 +30,14 @@
 
 import UIKit
 
-open class TitleCard: PulseView {
-    /// An internal reference to the titleBar.
-    internal var internalTitleBar: Toolbar?
+open class ContentCard: PulseView {
+    /// An internal reference to the titleToolbar.
+    internal var internalTitleToolbar: Toolbar?
     
-    /// A reference to the titleBar.
-    open var titleBar: Toolbar {
-        prepareTitleBar()
-        return internalTitleBar!
+    /// A reference to the titleToolbar.
+    open var titleToolbar: Toolbar {
+        prepareTitleToolbar()
+        return internalTitleToolbar!
     }
     
     /// An internal reference to the contentView.
@@ -49,24 +49,24 @@ open class TitleCard: PulseView {
         return internalContentView!
     }
     
-    /// An internal reference to the detailBar.
-    internal var internalDetailBar: Toolbar?
+    /// An internal reference to the detailToolbar.
+    internal var internalDetailToolbar: Toolbar?
     
-    /// A reference to the detailBar.
-    open var detailBar: Toolbar {
-        prepareDetailBar()
-        return internalDetailBar!
+    /// A reference to the detailToolbar.
+    open var detailToolbar: Toolbar {
+        prepareDetailToolbar()
+        return internalDetailToolbar!
     }
     
     /**
      Prepares the view instance when intialized. When subclassing,
-     it is recommended to override the prepareView method
+     it is recommended to override the prepare method
      to initialize property values and other setup operations.
-     The super.prepareView method should always be called immediately
+     The super.prepare method should always be called immediately
      when subclassing.
      */
-    open override func prepareView() {
-        super.prepareView()
+    open override func prepare() {
+        super.prepare()
         pulseAnimation = .none
     }
     
@@ -81,12 +81,12 @@ open class TitleCard: PulseView {
         
     }
     
-    /// Prepares the titleBar.
-    private func prepareTitleBar() {
-        guard nil == internalTitleBar else {
+    /// Prepares the titleToolbar.
+    private func prepareTitleToolbar() {
+        guard nil == internalTitleToolbar else {
             return
         }
-        internalTitleBar = Toolbar()
+        internalTitleToolbar = Toolbar()
     }
     
     /// Prepares the contentView.
@@ -97,11 +97,11 @@ open class TitleCard: PulseView {
         internalContentView = UIView()
     }
     
-    /// Prepares the detailBar.
-    private func prepareDetailBar() {
-        guard nil == internalDetailBar else {
+    /// Prepares the detailToolbar.
+    private func prepareDetailToolbar() {
+        guard nil == internalDetailToolbar else {
             return
         }
-        internalDetailBar = Toolbar()
+        internalDetailToolbar = Toolbar()
     }
 }

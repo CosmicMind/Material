@@ -540,10 +540,10 @@ open class ImageCard: PulseView {
 	}
 	
 	/**
-	:name:	prepareView
+	:name:	prepare
 	*/
-	open override func prepareView() {
-		super.prepareView()
+	open override func prepare() {
+		super.prepare()
 		depthPreset = .depth1
 		dividerColor = Color.grey.lighten3
 		cornerRadiusPreset = .cornerRadius1

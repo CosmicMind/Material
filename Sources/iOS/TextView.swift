@@ -114,7 +114,7 @@ public class TextView: UITextView {
 	*/
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
-		prepareView()
+		prepare()
 	}
 	
 	/**
@@ -126,7 +126,7 @@ public class TextView: UITextView {
 	*/
 	public override init(frame: CGRect, textContainer: NSTextContainer?) {
 		super.init(frame: frame, textContainer: textContainer)
-		prepareView()
+		prepare()
 	}
 	
 	/**
@@ -214,12 +214,12 @@ public class TextView: UITextView {
 	
 	/**
      Prepares the view instance when intialized. When subclassing,
-     it is recommended to override the prepareView method
+     it is recommended to override the prepare method
      to initialize property values and other setup operations.
-     The super.prepareView method should always be called immediately
+     The super.prepare method should always be called immediately
      when subclassing.
      */
-	public func prepareView() {
+	public func prepare() {
 		contentScaleFactor = Device.scale
 		textContainerInset = .zero
 		backgroundColor = Color.white
