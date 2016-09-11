@@ -102,7 +102,7 @@ open class SnackbarController: RootController {
      Animates to a SnackbarStatus.
      - Parameter status: A SnackbarStatus enum value.
      */
-    open func animate(snackbar status: SnackbarStatus, delay: TimeInterval = 0, animations: (@escaping (Snackbar) -> Void)? = nil, completion: (@escaping (Snackbar) -> Void)? = nil) -> AnimationDelayCancelBlock {
+    open func animate(snackbar status: SnackbarStatus, delay: TimeInterval = 0, animations: ((Snackbar) -> Void)? = nil, completion: ((Snackbar) -> Void)? = nil) -> AnimationDelayCancelBlock {
         return Animation.delay(time: delay) { [weak self, status = status, animations = animations, completion = completion] in
             guard let s = self else {
                 return

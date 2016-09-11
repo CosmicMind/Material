@@ -214,7 +214,7 @@ extension PhotoLibrary {
      - Parameter _ completion: A completion block that passes in a PHAuthorizationStatus
      enum that describes the response for the authorization request.
      */
-    public func requestAuthorization(_ completion: (@escaping (PHAuthorizationStatus) -> Void)? = nil) {
+    public func requestAuthorization(_ completion: ((PHAuthorizationStatus) -> Void)? = nil) {
         PHPhotoLibrary.requestAuthorization { [weak self, completion = completion] (status) in
             DispatchQueue.main.async { [weak self, completion = completion] in
                 guard let s = self else {
@@ -254,7 +254,7 @@ extension PhotoLibrary {
      - Parameter fetchResult: A PHFetchResult<T>.
      - Parameter completion: A completion block.
      */
-    internal func fetch<T: PHObject, U: PHFetchResult<T>>(caller: String, result: U, completion: (@escaping ([T], U) -> Void)? = nil) -> [T] {
+    internal func fetch<T: PHObject, U: PHFetchResult<T>>(caller: String, result: U, completion: (([T], U) -> Void)? = nil) -> [T] {
         var objects = [T]()
         
         result.enumerateObjects({ (collection, _, _) in
@@ -287,7 +287,7 @@ extension PhotoLibrary {
      - Parameter options: An optional PHFetchOptions object.
      - Parameter completion: A completion callback.
      */
-    public func fetchCollectionListsContaining(_ collection: PHCollection, options: PHFetchOptions?, completion: (@escaping ([PHCollectionList], PHFetchResult<PHCollectionList>) -> Void)? = nil) -> [PHCollectionList] {
+    public func fetchCollectionListsContaining(_ collection: PHCollection, options: PHFetchOptions?, completion: (([PHCollectionList], PHFetchResult<PHCollectionList>) -> Void)? = nil) -> [PHCollectionList] {
         return fetch(caller: #function, result: PHCollectionList.fetchCollectionListsContaining(collection, options: options), completion: completion)
     }
     
@@ -298,7 +298,7 @@ extension PhotoLibrary {
      - Parameter options: An optional PHFetchOptions object.
      - Parameter completion: A completion callback.
      */
-    public func fetchCollectionList(with type: PHCollectionListType, subtype: PHCollectionListSubtype, options: PHFetchOptions?, completion: (@escaping ([PHCollectionList], PHFetchResult<PHCollectionList>) -> Void)? = nil) -> [PHCollectionList] {
+    public func fetchCollectionList(with type: PHCollectionListType, subtype: PHCollectionListSubtype, options: PHFetchOptions?, completion: (([PHCollectionList], PHFetchResult<PHCollectionList>) -> Void)? = nil) -> [PHCollectionList] {
         return fetch(caller: #function, result: PHCollectionList.fetchCollectionLists(with: type, subtype: subtype, options: options), completion: completion)
     }
     
@@ -311,7 +311,7 @@ extension PhotoLibrary {
      - Parameter options: An optional PHFetchOptions object.
      - Parameter completion: A completion callback.
      */
-    public func fetchCollectionLists(withLocalIdentifiers identifiers: [String], options: PHFetchOptions?, completion: (@escaping ([PHCollectionList], PHFetchResult<PHCollectionList>) -> Void)? = nil) -> [PHCollectionList] {
+    public func fetchCollectionLists(withLocalIdentifiers identifiers: [String], options: PHFetchOptions?, completion: (([PHCollectionList], PHFetchResult<PHCollectionList>) -> Void)? = nil) -> [PHCollectionList] {
         return fetch(caller: #function, result: PHCollectionList.fetchCollectionLists(withLocalIdentifiers: identifiers, options: options), completion: completion)
     }
     
@@ -324,7 +324,7 @@ extension PhotoLibrary {
      - Parameter options: An optional PHFetchOptions object.
      - Parameter completion: A completion callback.
      */
-    public func fetchCollectionLists(with collectionListType: PHCollectionListType, subtype: PHCollectionListSubtype, options: PHFetchOptions?, completion: (@escaping ([PHCollectionList], PHFetchResult<PHCollectionList>) -> Void)? = nil) -> [PHCollectionList] {
+    public func fetchCollectionLists(with collectionListType: PHCollectionListType, subtype: PHCollectionListSubtype, options: PHFetchOptions?, completion: (([PHCollectionList], PHFetchResult<PHCollectionList>) -> Void)? = nil) -> [PHCollectionList] {
         return fetch(caller: #function, result: PHCollectionList.fetchCollectionLists(with: collectionListType, subtype: subtype, options: options), completion: completion)
     }
     
@@ -335,7 +335,7 @@ extension PhotoLibrary {
      - Parameter options: An optional PHFetchOptions object.
      - Parameter completion: A completion callback.
      */
-    public func fetchMomentLists(with momentListSubtype: PHCollectionListSubtype, containingMoment moment: PHAssetCollection, options: PHFetchOptions?, completion: (@escaping ([PHCollectionList], PHFetchResult<PHCollectionList>) -> Void)? = nil) -> [PHCollectionList] {
+    public func fetchMomentLists(with momentListSubtype: PHCollectionListSubtype, containingMoment moment: PHAssetCollection, options: PHFetchOptions?, completion: (([PHCollectionList], PHFetchResult<PHCollectionList>) -> Void)? = nil) -> [PHCollectionList] {
         return fetch(caller: #function, result: PHCollectionList.fetchMomentLists(with: momentListSubtype, containingMoment: moment, options: options), completion: completion)
     }
     
@@ -345,7 +345,7 @@ extension PhotoLibrary {
      - Parameter options: An optional PHFetchOptions object.
      - Parameter completion: A completion callback.
      */
-    public func fetchMomentLists(with momentListSubtype: PHCollectionListSubtype, options: PHFetchOptions?, completion: (@escaping ([PHCollectionList], PHFetchResult<PHCollectionList>) -> Void)? = nil) -> [PHCollectionList] {
+    public func fetchMomentLists(with momentListSubtype: PHCollectionListSubtype, options: PHFetchOptions?, completion: (([PHCollectionList], PHFetchResult<PHCollectionList>) -> Void)? = nil) -> [PHCollectionList] {
         return fetch(caller: #function, result: PHCollectionList.fetchMomentLists(with: momentListSubtype, options: options), completion: completion)
     }
 }
@@ -358,7 +358,7 @@ extension PhotoLibrary {
      - Parameter options: An optional PHFetchOptions object.
      - Parameter completion: A completion callback.
      */
-    public func fetchCollections(in collectionList: PHCollectionList, options: PHFetchOptions?, completion: (@escaping ([PHCollection], PHFetchResult<PHCollection>) -> Void)? = nil) -> [PHCollection] {
+    public func fetchCollections(in collectionList: PHCollectionList, options: PHFetchOptions?, completion: (([PHCollection], PHFetchResult<PHCollection>) -> Void)? = nil) -> [PHCollection] {
         return fetch(caller: #function, result: PHCollection.fetchCollections(in: collectionList, options: options), completion: completion)
     }
     
@@ -369,7 +369,7 @@ extension PhotoLibrary {
      - Parameter options: An optional PHFetchOptions object.
      - Parameter completion: A completion callback.
      */
-    public func fetchTopLevelUserCollections(with options: PHFetchOptions?, completion: (@escaping ([PHCollection], PHFetchResult<PHCollection>) -> Void)? = nil) -> [PHCollection] {
+    public func fetchTopLevelUserCollections(with options: PHFetchOptions?, completion: (([PHCollection], PHFetchResult<PHCollection>) -> Void)? = nil) -> [PHCollection] {
         return fetch(caller: #function, result: PHCollection.fetchTopLevelUserCollections(with: nil), completion: completion)
     }
 }
@@ -383,7 +383,7 @@ extension PhotoLibrary {
      - Parameter options: An optional PHFetchOptions object.
      - Parameter completion: A completion block.
      */
-    public func fetchAssetCollections(withLocalIdentifiers identifiers: [String], options: PHFetchOptions?, completion: (@escaping ([PHAssetCollection], PHFetchResult<PHAssetCollection>) -> Void)? = nil) -> [PHAssetCollection] {
+    public func fetchAssetCollections(withLocalIdentifiers identifiers: [String], options: PHFetchOptions?, completion: (([PHAssetCollection], PHFetchResult<PHAssetCollection>) -> Void)? = nil) -> [PHAssetCollection] {
         return fetch(caller: #function, result: PHAssetCollection.fetchAssetCollections(withLocalIdentifiers: identifiers, options: options), completion: completion)
     }
     
@@ -395,7 +395,7 @@ extension PhotoLibrary {
      - Parameter options: An optional PHFetchOptions object.
      - Parameter completion: A completion block.
      */
-    public func fetchAssetCollections(with type: PHAssetCollectionType, subtype: PHAssetCollectionSubtype, options: PHFetchOptions?, completion: (@escaping ([PHAssetCollection], PHFetchResult<PHAssetCollection>) -> Void)? = nil) -> [PHAssetCollection] {
+    public func fetchAssetCollections(with type: PHAssetCollectionType, subtype: PHAssetCollectionSubtype, options: PHFetchOptions?, completion: (([PHAssetCollection], PHFetchResult<PHAssetCollection>) -> Void)? = nil) -> [PHAssetCollection] {
         return fetch(caller: #function, result: PHAssetCollection.fetchAssetCollections(with: type, subtype: subtype, options: options), completion: completion)
     }
     
@@ -406,7 +406,7 @@ extension PhotoLibrary {
      - Parameter options: An optional PHFetchOptions object.
      - Parameter completion: A completion block.
      */
-    public func fetchAssetCollectionsContaining(_ asset: PHAsset, with type: PHAssetCollectionType, options: PHFetchOptions?, completion: (@escaping ([PHAssetCollection], PHFetchResult<PHAssetCollection>) -> Void)? = nil) -> [PHAssetCollection] {
+    public func fetchAssetCollectionsContaining(_ asset: PHAsset, with type: PHAssetCollectionType, options: PHFetchOptions?, completion: (([PHAssetCollection], PHFetchResult<PHAssetCollection>) -> Void)? = nil) -> [PHAssetCollection] {
         return fetch(caller: #function, result: PHAssetCollection.fetchAssetCollectionsContaining(asset, with: type, options: options), completion: completion)
     }
     
@@ -418,7 +418,7 @@ extension PhotoLibrary {
      - Parameter options: An optional PHFetchOptions object.
      - Parameter completion: A completion block.
      */
-    public func fetchAssetCollections(withALAssetGroupURLs assetGroupURLs: [URL], options: PHFetchOptions?, completion: (@escaping ([PHAssetCollection], PHFetchResult<PHAssetCollection>) -> Void)? = nil) -> [PHAssetCollection] {
+    public func fetchAssetCollections(withALAssetGroupURLs assetGroupURLs: [URL], options: PHFetchOptions?, completion: (([PHAssetCollection], PHFetchResult<PHAssetCollection>) -> Void)? = nil) -> [PHAssetCollection] {
         return fetch(caller: #function, result: PHAssetCollection.fetchAssetCollections(withALAssetGroupURLs: assetGroupURLs, options: options), completion: completion)
     }
     
@@ -428,7 +428,7 @@ extension PhotoLibrary {
      - Parameter options: An optional PHFetchOptions object.
      - Parameter completion: A completion block.
      */
-    public func fetchMoments(inMomentList momentList: PHCollectionList, options: PHFetchOptions?, completion: (@escaping ([PHAssetCollection], PHFetchResult<PHAssetCollection>) -> Void)? = nil) -> [PHAssetCollection] {
+    public func fetchMoments(inMomentList momentList: PHCollectionList, options: PHFetchOptions?, completion: (([PHAssetCollection], PHFetchResult<PHAssetCollection>) -> Void)? = nil) -> [PHAssetCollection] {
         return fetch(caller: #function, result: PHAssetCollection.fetchMoments(inMomentList: momentList, options: options), completion: completion)
     }
     
@@ -437,7 +437,7 @@ extension PhotoLibrary {
      - Parameter with options: An optional PHFetchOptions object.
      - Parameter completion: A completion block.
      */
-    public func fetchMoments(with options: PHFetchOptions?, completion: (@escaping ([PHAssetCollection], PHFetchResult<PHAssetCollection>) -> Void)? = nil) -> [PHAssetCollection] {
+    public func fetchMoments(with options: PHFetchOptions?, completion: (([PHAssetCollection], PHFetchResult<PHAssetCollection>) -> Void)? = nil) -> [PHAssetCollection] {
         return fetch(caller: #function, result: PHAssetCollection.fetchMoments(with: options), completion: completion)
     }
 }
@@ -450,7 +450,7 @@ extension PhotoLibrary {
      - Parameter options: An optional PHFetchOptions object.
      - Parameter completion: A completion block.
      */
-    public func fetchAssets(in assetCollection: PHAssetCollection, options: PHFetchOptions?, completion: (@escaping ([PHAsset], PHFetchResult<PHAsset>) -> Void)? = nil) -> [PHAsset] {
+    public func fetchAssets(in assetCollection: PHAssetCollection, options: PHFetchOptions?, completion: (([PHAsset], PHFetchResult<PHAsset>) -> Void)? = nil) -> [PHAsset] {
         return fetch(caller: #function, result: PHAsset.fetchAssets(in: assetCollection, options: options), completion: completion)
     }
     
@@ -461,7 +461,7 @@ extension PhotoLibrary {
      - Parameter options: An optional PHFetchOptions object.
      - Parameter completion: A completion block.
      */
-    public func fetchAssets(withLocalIdentifiers identifiers: [String], options: PHFetchOptions?, completion: (@escaping ([PHAsset], PHFetchResult<PHAsset>) -> Void)? = nil) -> [PHAsset] {
+    public func fetchAssets(withLocalIdentifiers identifiers: [String], options: PHFetchOptions?, completion: (([PHAsset], PHFetchResult<PHAsset>) -> Void)? = nil) -> [PHAsset] {
         return fetch(caller: #function, result: PHAsset.fetchAssets(withLocalIdentifiers: identifiers, options: options), completion: completion)
     }
     
@@ -472,7 +472,7 @@ extension PhotoLibrary {
      - Parameter completion: A completion block.
      - Returns: An optional PHFetchResult<PHAsset> object.
      */
-    public func fetchKeyAssets(in assetCollection: PHAssetCollection, options: PHFetchOptions?, completion: (@escaping ([PHAsset], PHFetchResult<PHAsset>) -> Void)? = nil) -> PHFetchResult<PHAsset>? {
+    public func fetchKeyAssets(in assetCollection: PHAssetCollection, options: PHFetchOptions?, completion: (([PHAsset], PHFetchResult<PHAsset>) -> Void)? = nil) -> PHFetchResult<PHAsset>? {
         guard let fetchResult = PHAsset.fetchKeyAssets(in: assetCollection, options: options) else {
             return nil
         }
@@ -487,7 +487,7 @@ extension PhotoLibrary {
      - Parameter options: An optional PHFetchOptions object.
      - Parameter completion: A completion block.
      */
-    public func fetchAssets(withBurstIdentifier burstIdentifier: String, options: PHFetchOptions?, completion: (@escaping ([PHAsset], PHFetchResult<PHAsset>) -> Void)? = nil) -> [PHAsset] {
+    public func fetchAssets(withBurstIdentifier burstIdentifier: String, options: PHFetchOptions?, completion: (([PHAsset], PHFetchResult<PHAsset>) -> Void)? = nil) -> [PHAsset] {
         return fetch(caller: #function, result: PHAsset.fetchAssets(withBurstIdentifier: burstIdentifier, options: options), completion: completion)
     }
     
@@ -497,7 +497,7 @@ extension PhotoLibrary {
      - Parameter with options: An optional PHFetchOptions object.
      - Parameter completion: A completion block.
      */
-    public func fetchAssets(with options: PHFetchOptions?, completion: (@escaping ([PHAsset], PHFetchResult<PHAsset>) -> Void)? = nil) -> [PHAsset] {
+    public func fetchAssets(with options: PHFetchOptions?, completion: (([PHAsset], PHFetchResult<PHAsset>) -> Void)? = nil) -> [PHAsset] {
         return fetch(caller: #function, result: PHAsset.fetchAssets(with: options), completion: completion)
     }
     
@@ -507,7 +507,7 @@ extension PhotoLibrary {
      - Parameter options: An optional PHFetchOptions object.
      - Parameter completion: A completion block.
      */
-    public func fetchAssets(with mediaType: PHAssetMediaType, options: PHFetchOptions?, completion: (@escaping ([PHAsset], PHFetchResult<PHAsset>) -> Void)? = nil) -> [PHAsset] {
+    public func fetchAssets(with mediaType: PHAssetMediaType, options: PHFetchOptions?, completion: (([PHAsset], PHFetchResult<PHAsset>) -> Void)? = nil) -> [PHAsset] {
         return fetch(caller: #function, result: PHAsset.fetchAssets(with: mediaType, options: options), completion: completion)
     }
     
@@ -518,7 +518,7 @@ extension PhotoLibrary {
      - Parameter options: An optional PHFetchOptions object.
      - Parameter completion: A completion block.
      */
-    public func fetchAssets(withALAssetURLs assetURLs: [URL], options: PHFetchOptions?, completion: (@escaping ([PHAsset], PHFetchResult<PHAsset>) -> Void)? = nil) -> [PHAsset] {
+    public func fetchAssets(withALAssetURLs assetURLs: [URL], options: PHFetchOptions?, completion: (([PHAsset], PHFetchResult<PHAsset>) -> Void)? = nil) -> [PHAsset] {
         return fetch(caller: #function, result: PHAsset.fetchAssets(withALAssetURLs: assetURLs, options: options), completion: completion)
     }
 }

@@ -108,7 +108,7 @@ open class Reminders: NSObject {
     /// A reference to a RemindersDelegate.
     open weak var delegate: RemindersDelegate?
     
-    open func requestAuthorization(_ completion: (@escaping (RemindersAuthorizationStatus) -> Void)? = nil) {
+    open func requestAuthorization(_ completion: ((RemindersAuthorizationStatus) -> Void)? = nil) {
         eventStore.requestAccess(to: .reminder) { [weak self, completion = completion] (permission, _) in
             DispatchQueue.main.async { [weak self, completion = completion] in
                 guard let s = self else {
@@ -136,7 +136,7 @@ extension Reminders {
      - Parameter list title: the name of the list
      - Parameter completion: optional completion call back
      */
-    public func create(list title: String, completion: (@escaping (Bool, Error?) -> Void)? = nil) {
+    public func create(list title: String, completion: ((Bool, Error?) -> Void)? = nil) {
         DispatchQueue.global(qos: .default).async { [weak self, completion = completion] in
             guard let s = self else {
                 return
@@ -176,7 +176,7 @@ extension Reminders {
      - Parameter list identifier: the name of the list
      - Parameter completion: optional completion call back
      */
-    public func delete(list identifier: String, completion: (@escaping (Bool, Error?) -> Void)? = nil) {
+    public func delete(list identifier: String, completion: ((Bool, Error?) -> Void)? = nil) {
         DispatchQueue.global(qos: .default).async { [weak self, completion = completion] in
             guard let s = self else {
                 return
@@ -242,7 +242,7 @@ extension Reminders {
      if the list does not exist it will be added to the default reminders list.
      - Parameter completion: optional completion call back
      */
-    public func create(title: String, dateComponents: DateComponents, in list: EKCalendar? = nil, completion: (@escaping (Error?) -> Void)? = nil) {
+    public func create(title: String, dateComponents: DateComponents, in list: EKCalendar? = nil, completion: ((Error?) -> Void)? = nil) {
         var reminderCal = [EKCalendar]()
         
         if list != nil {
@@ -289,7 +289,7 @@ extension Reminders {
      if the list does not exist it will be added to the default reminders list.
      - Parameter completion: optional completion call back
      */
-    public func delete(reminder: EKReminder, completion: (@escaping (Error?) -> Void)? = nil) {
+    public func delete(reminder: EKReminder, completion: ((Error?) -> Void)? = nil) {
         var deleted: Bool = false
         var error: Error?
         do {
