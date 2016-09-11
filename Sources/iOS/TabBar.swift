@@ -165,7 +165,7 @@ open class TabBar: BarView {
      - Parameter at index: An Int.
      - Paramater completion: An optional completion block.
      */
-    open func select(at index: Int, completion: (@escaping (UIButton) -> Void)? = nil) {
+    open func select(at index: Int, completion: ((UIButton) -> Void)? = nil) {
         guard -1 < index, index < buttons.count else {
             return
         }
@@ -177,7 +177,7 @@ open class TabBar: BarView {
      - Parameter to button: A UIButton.
      - Paramater completion: An optional completion block.
      */
-    open func animate(to button: UIButton, completion: (@escaping (UIButton) -> Void)? = nil) {
+    open func animate(to button: UIButton, completion: ((UIButton) -> Void)? = nil) {
         delegate?.tabBarWillSelectButton?(tabBar: self, button: button)
         selected = button
         isAnimating = true
