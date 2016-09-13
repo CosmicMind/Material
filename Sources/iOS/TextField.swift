@@ -32,7 +32,6 @@ import UIKit
 
 public protocol TextFieldDelegate: UITextFieldDelegate {}
 
-@IBDesignable
 open class TextField: UITextField {
     /// Default size when using AutoLayout.
     open override var intrinsicContentSize: CGSize {

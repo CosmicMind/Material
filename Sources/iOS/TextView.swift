@@ -33,7 +33,6 @@ import UIKit
 @objc(TextViewDelegate)
 public protocol TextViewDelegate : UITextViewDelegate {}
 
-@IBDesignable
 @objc(TextView)
 public class TextView: UITextView {
 	/// A property that accesses the backing layer's backgroundColor.

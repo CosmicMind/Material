@@ -30,7 +30,6 @@
 
 import UIKit
 
-@IBDesignable
 open class TableViewCell: UITableViewCell {
 	/**
      A CAShapeLayer used to manage elements that would be affected by

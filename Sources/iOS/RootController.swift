@@ -30,7 +30,6 @@
 
 import UIKit
 
-@IBDesignable
 open class RootController: UIViewController {
 	/// Device status bar style.
 	open var statusBarStyle: UIStatusBarStyle {

@@ -59,7 +59,6 @@ public protocol SwitchControlDelegate {
 }
 
 @objc(SwitchControl)
-@IBDesignable
 open class SwitchControl: UIControl {
 	/// An internal reference to the switchState public property.
 	private var internalSwitchControlState: SwitchControlState = .off

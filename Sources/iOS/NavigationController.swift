@@ -42,7 +42,6 @@ extension UINavigationController {
     }
 }
 
-@IBDesignable
 open class NavigationController: UINavigationController {
     /**
      An initializer that initializes the object with a NSCoder object.

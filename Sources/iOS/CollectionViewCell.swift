@@ -30,7 +30,6 @@
 
 import UIKit
 
-@IBDesignable
 @objc(CollectionViewCell)
 open class CollectionViewCell: UICollectionViewCell {
     /// A reference to the divider.

@@ -38,7 +38,6 @@ public enum NavigationBarStyle: Int {
 	case large
 }
 
-@IBDesignable
 open class NavigationBar: UINavigationBar {
     /// A reference to the divider.
     open internal(set) var divider: Divider!

@@ -30,7 +30,6 @@
 
 import UIKit
 
-@IBDesignable
 @objc(MaterialCollectionReusableView)
 open class MaterialCollectionReusableView: UICollectionReusableView {
 	/**

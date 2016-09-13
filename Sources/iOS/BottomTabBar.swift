@@ -37,7 +37,6 @@ extension UITabBarItem {
 	}
 }
 
-@IBDesignable
 open class BottomTabBar: UITabBar {
     /// Automatically aligns the BottomNavigationBar to the superview.
 	open var isAlignedToParentAutomatically = true

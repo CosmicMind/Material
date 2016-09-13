@@ -30,7 +30,6 @@
 
 import UIKit
 
-@IBDesignable
 @objc(Button)
 open class Button: UIButton {
 	/**

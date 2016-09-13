@@ -120,7 +120,6 @@ public protocol NavigationDrawerControllerDelegate {
 	optional func navigationDrawerStatusBarHiddenState(navigationDrawerController: NavigationDrawerController, hidden: Bool)
 }
 
-@IBDesignable
 @objc(NavigationDrawerController)
 open class NavigationDrawerController: RootController, UIGestureRecognizerDelegate {
 	/**

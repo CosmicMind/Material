@@ -48,7 +48,6 @@ extension UIViewController {
 	}
 }
 
-@IBDesignable
 open class StatusBarController: RootController {
 	/// A reference to the statusBarView.
 	open private(set) lazy var statusBarView = View()

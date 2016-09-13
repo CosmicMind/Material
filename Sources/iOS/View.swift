@@ -30,7 +30,6 @@
 
 import UIKit
 
-@IBDesignable
 @objc(View)
 open class View: UIView {
 	/**

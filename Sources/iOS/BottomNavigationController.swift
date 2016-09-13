@@ -59,7 +59,6 @@ public enum BottomNavigationTransitionAnimation: Int {
 	case fade
 }
 
-@IBDesignable
 open class BottomNavigationController: UITabBarController, UITabBarControllerDelegate {
 	/// The transition animation to use when selecting a new tab.
 	open var transitionAnimation = BottomNavigationTransitionAnimation.fade

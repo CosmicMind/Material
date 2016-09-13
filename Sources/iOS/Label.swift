@@ -30,7 +30,6 @@
 
 import UIKit
 
-@IBDesignable
 open class Label: UILabel {
 	/**
 	:name:	layerClass
