@@ -33,7 +33,7 @@ import UIKit
 open class ContentCard: PulseView {
     /// Will render the view.
     open var willLayout: Bool {
-        return 0 < width && 0 < height && nil != superview
+        return 0 < width && nil != superview
     }
     
     /// A preset wrapper around contentInset.
@@ -87,19 +87,31 @@ open class ContentCard: PulseView {
     /// A reference to the titleToolbar.
     open var titleToolbar: Toolbar {
         prepareTitleToolbar()
+        layoutSubviews()
         return internalTitleToolbar!
     }
     
     /// A reference to the contentView.
     open var contentView: UIView {
         prepareContentView()
+        layoutSubviews()
         return internalContentView!
     }
     
     /// A reference to the detailToolbar.
     open var detailToolbar: Toolbar {
         prepareDetailToolbar()
+        layoutSubviews()
         return internalDetailToolbar!
+    }
+    
+    /// Grid cell factor.
+    @IBInspectable
+    open var gridFactor: CGFloat = 24 {
+        didSet {
+            assert(0 < gridFactor, "[Material Error: gridFactor must be greater than 0.]")
+            layoutSubviews()
+        }
     }
     
     /**
@@ -144,6 +156,46 @@ open class ContentCard: PulseView {
         }
         
         height = h
+        
+        let l = nil == internalTitleToolbar ? 0 : interimSpace
+        let r = nil == internalDetailToolbar || nil == internalContentView ? 0 : interimSpace
+        let p = h - l - r - contentEdgeInsets.top - contentEdgeInsets.bottom
+        let rows = Int(p / gridFactor)
+        
+        grid.begin()
+        
+        grid.views.removeAll()
+        grid.axis.rows = rows
+        grid.axis.direction = .vertical
+        
+        print("Value", height, rows)
+        
+        if let v = internalTitleToolbar {
+            grid.views.append(v)
+            v.grid.rows = Int(ceil(v.height / gridFactor)) + 1
+        }
+        
+        if let v = internalContentView {
+            grid.views.append(v)
+        }
+        
+        if let v = internalDetailToolbar {
+            grid.views.append(v)
+            v.grid.rows = Int(ceil(v.height / gridFactor)) + 1
+        }
+        
+        if let v = internalContentView {
+            v.grid.rows = rows
+            if let t = internalTitleToolbar {
+                v.grid.rows -= t.grid.rows
+            }
+            
+            if let d = internalDetailToolbar {
+                v.grid.rows -= d.grid.rows
+            }
+        }
+        
+        grid.commit()
     }
     
     /// Prepares the titleToolbar.
