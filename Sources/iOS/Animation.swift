@@ -126,7 +126,7 @@ public struct Animation {
 	/**
 	:name:	animateWithDelay
 	*/
-	public static func animateWithDelay(delay d: CFTimeInterval, duration: CFTimeInterval, animations: (() -> Void), completion: (() -> Void)? = nil) {
+	public static func animateWithDelay(delay d: CFTimeInterval, duration: CFTimeInterval, animations: @escaping (() -> Void), completion: (() -> Void)? = nil) {
         _ = delay(time: d) {
             animateWithDuration(duration: duration, animations: animations, completion: completion)
 		}

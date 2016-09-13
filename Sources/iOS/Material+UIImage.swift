@@ -185,8 +185,8 @@ extension UIImage {
      - Parameter completion: A completion block that is executed once the image
      has been retrieved.
      */
-    open class func contentsOfURL(url: URL, completion: ((UIImage?, Error?) -> Void)) {
-        URLSession.shared.dataTask(with: URLRequest(url: url)) { (data: Data?, response: URLResponse?, error: Error?) in
+    open class func contentsOfURL(url: URL, completion: @escaping ((UIImage?, Error?) -> Void)) {
+        URLSession.shared.dataTask(with: URLRequest(url: url)) { [completion = completion] (data: Data?, response: URLResponse?, error: Error?) in
             DispatchQueue.main.async {
                 if let v = error {
                     completion(nil, v)

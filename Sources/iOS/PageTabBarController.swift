@@ -173,7 +173,7 @@ open class PageTabBarController: RootController {
      - Parameter animated: A boolean indicating to include animation.
      - Parameter completion: An optional completion block.
      */
-    open func setViewControllers(_ viewControllers: [UIViewController], direction: UIPageViewControllerNavigationDirection, animated: Bool, completion: (@escaping (Bool) -> Void)? = nil) {
+    open func setViewControllers(_ viewControllers: [UIViewController], direction: UIPageViewControllerNavigationDirection, animated: Bool, completion: ((Bool) -> Void)? = nil) {
         pageViewController?.setViewControllers(viewControllers, direction: direction, animated: animated, completion: completion)
         preparePageTabBarItems()
     }
