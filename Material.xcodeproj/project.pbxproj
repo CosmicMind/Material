@@ -976,7 +976,6 @@
 					};
 					963832401B88DFD80015F710 = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = 9Z76XCNLGL;
 						DevelopmentTeamName = "CosmicMind Inc.";
 						LastSwiftMigration = 0800;
 					};
@@ -987,7 +986,6 @@
 					};
 					9660161B1CB2ED6C00AAB661 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = 9Z76XCNLGL;
 						DevelopmentTeamName = "CosmicMind Inc.";
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
@@ -1341,6 +1339,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1362,6 +1361,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1431,6 +1431,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
@@ -1447,6 +1448,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
