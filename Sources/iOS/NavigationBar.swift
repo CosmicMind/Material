@@ -204,7 +204,7 @@ open class NavigationBar: UINavigationBar {
         let l = (CGFloat(item.leftControls.count) * interimSpace)
         let r = (CGFloat(item.rightControls.count) * interimSpace)
         let p = width - l - r - contentEdgeInsets.left - contentEdgeInsets.right
-        let columns = Int(p / gridFactor)
+        let columns = Int(ceil(p / gridFactor))
         
         item.titleView!.grid.begin()
         item.titleView!.grid.views.removeAll()

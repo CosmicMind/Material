@@ -171,7 +171,7 @@ open class ContentView: View {
         let l = (CGFloat(leftControls.count) * interimSpace)
         let r = (CGFloat(rightControls.count) * interimSpace)
         let p = width - l - r - contentEdgeInsets.left - contentEdgeInsets.right
-        let columns = Int(p / gridFactor)
+        let columns = Int(ceil(p / gridFactor))
         
         grid.begin()
         grid.views.removeAll()

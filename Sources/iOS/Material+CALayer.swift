@@ -40,6 +40,7 @@ internal class MaterialLayer {
             guard let v = layer else {
                 return
             }
+            
             v.cornerRadius = CornerRadiusPresetToValue(preset: cornerRadiusPreset)
         }
     }
@@ -50,6 +51,7 @@ internal class MaterialLayer {
             guard let v = layer else {
                 return
             }
+            
             v.borderWidth = BorderWidthPresetToValue(preset: borderWidthPreset)
         }
     }
@@ -82,13 +84,7 @@ internal class MaterialLayer {
     }
     
     /// Enables automatic shadowPath sizing.
-    internal var isShadowPathAutoSizing = false {
-        didSet {
-            if isShadowPathAutoSizing {
-                layer?.layoutShadowPath()
-            }
-        }
-    }
+    internal var isShadowPathAutoSizing = false
     
     /**
      Initializer that takes in a CALayer.

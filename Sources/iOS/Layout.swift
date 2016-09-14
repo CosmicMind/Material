@@ -81,81 +81,87 @@ public class Layout {
      Sets the width of a view.
      - Parameter child: A child UIView to layout.
      - Parameter width: A CGFloat value.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public func width(_ child: UIView, width: CGFloat) -> Layout {
+	public func width(_ child: UIView, width: CGFloat, multiplier: CGFloat = 1) -> Layout {
 		guard let v = parent else {
 			return debugParentNotAvailableMessage()
         }
 		self.child = child
-		Layout.width(parent: v, child: child, width: width)
+		Layout.width(parent: v, child: child, width: width, multiplier: multiplier)
         return self
 	}
     
 	/**
      Sets the width of a view assuming a child context view.
      - Parameter width: A CGFloat value.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-    public func width(_ width: CGFloat) -> Layout {
+    public func width(_ width: CGFloat, multiplier: CGFloat = 1) -> Layout {
 		guard let v = child else {
 			return debugChildNotAvailableMessage()
 		}
-		return self.width(v, width: width)
+		return self.width(v, width: width, multiplier: multiplier)
     }
 	
 	/**
      Sets the height of a view.
      - Parameter child: A child UIView to layout.
      - Parameter height: A CGFloat value.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public func height(_ child: UIView, height: CGFloat) -> Layout {
+	public func height(_ child: UIView, height: CGFloat, multiplier: CGFloat = 1) -> Layout {
 		guard let v = parent else {
 			return debugParentNotAvailableMessage()
         }
 		self.child = child
-        Layout.height(parent: v, child: child, height: height)
+        Layout.height(parent: v, child: child, height: height, multiplier: multiplier)
 		return self
 	}
 	
 	/**
      Sets the height of a view assuming a child context view.
      - Parameter height: A CGFloat value.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-    public func height(_ height: CGFloat) -> Layout {
+    public func height(_ height: CGFloat, multiplier: CGFloat = 1) -> Layout {
         guard let v = child else {
 			return debugChildNotAvailableMessage()
         }
-		return self.height(v, height: height)
+		return self.height(v, height: height, multiplier: multiplier)
     }
     
 	/**
      Sets the width and height of a view.
      - Parameter child: A child UIView to layout.
      - Parameter size: A CGSize value.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-    public func size(_ child: UIView, size: CGSize) -> Layout {
+    public func size(_ child: UIView, size: CGSize, multiplier: CGFloat = 1) -> Layout {
 		guard let v = parent else {
 			return debugParentNotAvailableMessage()
         }
 		self.child = child
-        Layout.size(parent: v, child: child, size: size)
+        Layout.size(parent: v, child: child, size: size, multiplier: multiplier)
         return self
 	}
     
 	/**
      Sets the width and height of a view assuming a child context view.
      - Parameter size: A CGSize value.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-    public func size(_ size: CGSize = CGSize.zero) -> Layout {
+    public func size(_ size: CGSize = CGSize.zero, multiplier: CGFloat = 1) -> Layout {
         guard let v = child else {
 			return debugChildNotAvailableMessage()
         }
-        return self.size(v, size: size)
+        return self.size(v, size: size, multiplier: multiplier)
     }
 	
 	/**
@@ -165,13 +171,14 @@ public class Layout {
      - Parameter left: A CGFloat value for padding the left side.
      - Parameter right: A CGFloat value for padding the right side.
      - Parameter interimSpace: A CGFloat value for interim interimSpace.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public func horizontally(_ children: [UIView], left: CGFloat = 0, right: CGFloat = 0, interimSpace: InterimSpace = 0) -> Layout {
+	public func horizontally(_ children: [UIView], left: CGFloat = 0, right: CGFloat = 0, interimSpace: InterimSpace = 0, multiplier: CGFloat = 1) -> Layout {
 		guard let v = parent else {
 			return debugParentNotAvailableMessage()
         }
-        Layout.horizontally(parent: v, children: children, left: left, right: right, interimSpace: interimSpace)
+        Layout.horizontally(parent: v, children: children, left: left, right: right, interimSpace: interimSpace, multiplier: multiplier)
         return self
 	}
 	
@@ -182,13 +189,14 @@ public class Layout {
      - Parameter top: A CGFloat value for padding the top side.
      - Parameter bottom: A CGFloat value for padding the bottom side.
      - Parameter interimSpace: A CGFloat value for interim interimSpace.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public func vertically(_ children: [UIView], top: CGFloat = 0, bottom: CGFloat = 0, interimSpace: InterimSpace = 0) -> Layout {
+	public func vertically(_ children: [UIView], top: CGFloat = 0, bottom: CGFloat = 0, interimSpace: InterimSpace = 0, multiplier: CGFloat = 1) -> Layout {
 		guard let v = parent else {
 			return debugParentNotAvailableMessage()
         }
-        Layout.vertically(parent: v, children: children, top: top, bottom: bottom, interimSpace: interimSpace)
+        Layout.vertically(parent: v, children: children, top: top, bottom: bottom, interimSpace: interimSpace, multiplier: multiplier)
         return self
 	}
 	
@@ -197,14 +205,15 @@ public class Layout {
      - Parameter child: A child UIView to layout.
      - Parameter left: A CGFloat value for padding the left side.
      - Parameter right: A CGFloat value for padding the right side.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public func horizontally(_ child: UIView, left: CGFloat = 0, right: CGFloat = 0) -> Layout {
+	public func horizontally(_ child: UIView, left: CGFloat = 0, right: CGFloat = 0, multiplier: CGFloat = 1) -> Layout {
 		guard let v = parent else {
 			return debugParentNotAvailableMessage()
         }
 		self.child = child
-        Layout.horizontally(parent: v, child: child, left: left, right: right)
+        Layout.horizontally(parent: v, child: child, left: left, right: right, multiplier: multiplier)
         return self
 	}
     
@@ -212,13 +221,14 @@ public class Layout {
      A child view is horizontally stretched with optional left and right padding.
      - Parameter left: A CGFloat value for padding the left side.
      - Parameter right: A CGFloat value for padding the right side.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-    public func horizontally(left: CGFloat = 0, right: CGFloat = 0) -> Layout {
+    public func horizontally(left: CGFloat = 0, right: CGFloat = 0, multiplier: CGFloat = 1) -> Layout {
         guard let v = child else {
             return debugChildNotAvailableMessage()
         }
-        return horizontally(v, left: left, right: right)
+        return horizontally(v, left: left, right: right, multiplier: multiplier)
     }
 	
 	/**
@@ -226,14 +236,15 @@ public class Layout {
      - Parameter child: A child UIView to layout.
      - Parameter top: A CGFloat value for padding the top side.
      - Parameter bottom: A CGFloat value for padding the bottom side.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public func vertically(_ child: UIView, top: CGFloat = 0, bottom: CGFloat = 0) -> Layout {
+	public func vertically(_ child: UIView, top: CGFloat = 0, bottom: CGFloat = 0, multiplier: CGFloat = 1) -> Layout {
 		guard let v = parent else {
 			return debugParentNotAvailableMessage()
         }
 		self.child = child
-        Layout.vertically(parent: v, child: child, top: top, bottom: bottom)
+        Layout.vertically(parent: v, child: child, top: top, bottom: bottom, multiplier: multiplier)
         return self
 	}
     
@@ -241,13 +252,14 @@ public class Layout {
      A child view is vertically stretched with optional left and right padding.
      - Parameter top: A CGFloat value for padding the top side.
      - Parameter bottom: A CGFloat value for padding the bottom side.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public func vertically(top: CGFloat = 0, bottom: CGFloat = 0) -> Layout {
+	public func vertically(top: CGFloat = 0, bottom: CGFloat = 0, multiplier: CGFloat = 1) -> Layout {
         guard let v = child else {
             return debugChildNotAvailableMessage()
         }
-        return vertically(v, top: top, bottom: bottom)
+        return vertically(v, top: top, bottom: bottom, multiplier: multiplier)
     }
 	
 	/**
@@ -257,14 +269,15 @@ public class Layout {
      - Parameter left: A CGFloat value for padding the left side.
      - Parameter bottom: A CGFloat value for padding the bottom side.
      - Parameter right: A CGFloat value for padding the right side.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public func edges(_ child: UIView, top: CGFloat = 0, left: CGFloat = 0, bottom: CGFloat = 0, right: CGFloat = 0) -> Layout {
+	public func edges(_ child: UIView, top: CGFloat = 0, left: CGFloat = 0, bottom: CGFloat = 0, right: CGFloat = 0, multiplier: CGFloat = 1) -> Layout {
 		guard let v = parent else {
 			return debugParentNotAvailableMessage()
 		}
 		self.child = child
-		Layout.edges(parent: v, child: child, top: top, left: left, bottom: bottom, right: right)
+		Layout.edges(parent: v, child: child, top: top, left: left, bottom: bottom, right: right, multiplier: multiplier)
 		return self
 	}
 	
@@ -275,121 +288,130 @@ public class Layout {
      - Parameter left: A CGFloat value for padding the left side.
      - Parameter bottom: A CGFloat value for padding the bottom side.
      - Parameter right: A CGFloat value for padding the right side.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public func edges(top: CGFloat = 0, left: CGFloat = 0, bottom: CGFloat = 0, right: CGFloat = 0) -> Layout {
+	public func edges(top: CGFloat = 0, left: CGFloat = 0, bottom: CGFloat = 0, right: CGFloat = 0, multiplier: CGFloat = 1) -> Layout {
 		guard let v = child else {
 			return debugChildNotAvailableMessage()
 		}
-		return edges(v, top: top, left: left, bottom: bottom, right: right)
+		return edges(v, top: top, left: left, bottom: bottom, right: right, multiplier: multiplier)
 	}
 	
 	/**
      A child view is aligned from the top with optional top padding.
      - Parameter child: A child UIView to layout.
      - Parameter top: A CGFloat value for padding the top side.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public func top(_ child: UIView, top: CGFloat = 0) -> Layout {
+	public func top(_ child: UIView, top: CGFloat = 0, multiplier: CGFloat = 1) -> Layout {
 		guard let v = parent else {
 			return debugParentNotAvailableMessage()
 		}
 		self.child = child
-		Layout.top(parent: v, child: child, top: top)
+		Layout.top(parent: v, child: child, top: top, multiplier: multiplier)
 		return self
 	}
 	
 	/**
      A child view is aligned from the top with optional top padding.
      - Parameter top: A CGFloat value for padding the top side.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public func top(_ top: CGFloat = 0) -> Layout {
+	public func top(_ top: CGFloat = 0, multiplier: CGFloat = 1) -> Layout {
 		guard let v = child else {
 			return debugChildNotAvailableMessage()
 		}
-		return self.top(v, top: top)
+		return self.top(v, top: top, multiplier: multiplier)
 	}
 	
 	/**
      A child view is aligned from the left with optional left padding.
      - Parameter child: A child UIView to layout.
      - Parameter left: A CGFloat value for padding the left side.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public func left(_ child: UIView, left: CGFloat = 0) -> Layout {
+	public func left(_ child: UIView, left: CGFloat = 0, multiplier: CGFloat = 1) -> Layout {
 		guard let v = parent else {
 			return debugParentNotAvailableMessage()
 		}
 		self.child = child
-		Layout.left(parent: v, child: child, left: left)
+		Layout.left(parent: v, child: child, left: left, multiplier: multiplier)
 		return self
 	}
 	
 	/**
      A child view is aligned from the left with optional left padding.
      - Parameter left: A CGFloat value for padding the left side.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public func left(_ left: CGFloat = 0) -> Layout {
+	public func left(_ left: CGFloat = 0, multiplier: CGFloat = 1) -> Layout {
 		guard let v = child else {
 			return debugChildNotAvailableMessage()
 		}
-		return self.left(v, left: left)
+		return self.left(v, left: left, multiplier: multiplier)
 	}
 	
 	/**
      A child view is aligned from the bottom with optional bottom padding.
      - Parameter child: A child UIView to layout.
      - Parameter bottom: A CGFloat value for padding the bottom side.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public func bottom(_ child: UIView, bottom: CGFloat = 0) -> Layout {
+	public func bottom(_ child: UIView, bottom: CGFloat = 0, multiplier: CGFloat = 1) -> Layout {
 		guard let v = parent else {
 			return debugParentNotAvailableMessage()
 		}
 		self.child = child
-		Layout.bottom(parent: v, child: child, bottom: bottom)
+		Layout.bottom(parent: v, child: child, bottom: bottom, multiplier: multiplier)
 		return self
 	}
 	
 	/**
      A child view is aligned from the bottom with optional bottom padding.
      - Parameter bottom: A CGFloat value for padding the bottom side.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public func bottom(_ bottom: CGFloat = 0) -> Layout {
+	public func bottom(_ bottom: CGFloat = 0, multiplier: CGFloat = 1) -> Layout {
 		guard let v = child else {
 			return debugChildNotAvailableMessage()
 		}
-		return self.bottom(v, bottom: bottom)
+		return self.bottom(v, bottom: bottom, multiplier: multiplier)
 	}
 	
 	/**
      A child view is aligned from the right with optional right padding.
      - Parameter child: A child UIView to layout.
      - Parameter right: A CGFloat value for padding the right side.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public func right(_ child: UIView, right: CGFloat = 0) -> Layout {
+	public func right(_ child: UIView, right: CGFloat = 0, multiplier: CGFloat = 1) -> Layout {
 		guard let v = parent else {
 			return debugParentNotAvailableMessage()
 		}
 		self.child = child
-		Layout.right(parent: v, child: child, right: right)
+		Layout.right(parent: v, child: child, right: right, multiplier: multiplier)
 		return self
 	}
 	
 	/**
      A child view is aligned from the right with optional right padding.
      - Parameter right: A CGFloat value for padding the right side.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public func right(_ right: CGFloat = 0) -> Layout {
+	public func right(_ right: CGFloat = 0, multiplier: CGFloat = 1) -> Layout {
 		guard let v = child else {
 			return debugChildNotAvailableMessage()
 		}
-		return self.right(v, right: right)
+		return self.right(v, right: right, multiplier: multiplier)
 	}
 	
 	/**
@@ -397,14 +419,15 @@ public class Layout {
      - Parameter child: A child UIView to layout.
      - Parameter top: A CGFloat value for padding the top side.
      - Parameter left: A CGFloat value for padding the left side.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public func topLeft(_ child: UIView, top: CGFloat = 0, left: CGFloat = 0) -> Layout {
+	public func topLeft(_ child: UIView, top: CGFloat = 0, left: CGFloat = 0, multiplier: CGFloat = 1) -> Layout {
 		guard let v = parent else {
 			return debugParentNotAvailableMessage()
 		}
 		self.child = child
-		Layout.topLeft(parent: v, child: child, top: top, left: left)
+		Layout.topLeft(parent: v, child: child, top: top, left: left, multiplier: multiplier)
 		return self
 	}
 	
@@ -412,13 +435,14 @@ public class Layout {
      A child view is aligned from the top left with optional top and left padding.
      - Parameter top: A CGFloat value for padding the top side.
      - Parameter left: A CGFloat value for padding the left side.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public func topLeft(top: CGFloat = 0, left: CGFloat = 0) -> Layout {
+	public func topLeft(top: CGFloat = 0, left: CGFloat = 0, multiplier: CGFloat = 1) -> Layout {
 		guard let v = child else {
 			return debugChildNotAvailableMessage()
 		}
-		return topLeft(v, top: top, left: left)
+		return topLeft(v, top: top, left: left, multiplier: multiplier)
 	}
 	
 	/**
@@ -426,14 +450,15 @@ public class Layout {
      - Parameter child: A child UIView to layout.
      - Parameter top: A CGFloat value for padding the top side.
      - Parameter right: A CGFloat value for padding the right side.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public func topRight(_ child: UIView, top: CGFloat = 0, right: CGFloat = 0) -> Layout {
+	public func topRight(_ child: UIView, top: CGFloat = 0, right: CGFloat = 0, multiplier: CGFloat = 1) -> Layout {
 		guard let v = parent else {
 			return debugParentNotAvailableMessage()
 		}
 		self.child = child
-		Layout.topRight(parent: v, child: child, top: top, right: right)
+		Layout.topRight(parent: v, child: child, top: top, right: right, multiplier: multiplier)
 		return self
 	}
 	
@@ -441,13 +466,14 @@ public class Layout {
      A child view is aligned from the top right with optional top and right padding.
      - Parameter top: A CGFloat value for padding the top side.
      - Parameter right: A CGFloat value for padding the right side.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public func topRight(top: CGFloat = 0, right: CGFloat = 0) -> Layout {
+	public func topRight(top: CGFloat = 0, right: CGFloat = 0, multiplier: CGFloat = 1) -> Layout {
 		guard let v = child else {
 			return debugChildNotAvailableMessage()
 		}
-		return topRight(v, top: top, right: right)
+		return topRight(v, top: top, right: right, multiplier: multiplier)
 	}
 	
 	/**
@@ -455,14 +481,15 @@ public class Layout {
      - Parameter child: A child UIView to layout.
      - Parameter bottom: A CGFloat value for padding the bottom side.
      - Parameter left: A CGFloat value for padding the left side.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public func bottomLeft(_ child: UIView, bottom: CGFloat = 0, left: CGFloat = 0) -> Layout {
+	public func bottomLeft(_ child: UIView, bottom: CGFloat = 0, left: CGFloat = 0, multiplier: CGFloat = 1) -> Layout {
 		guard let v = parent else {
 			return debugParentNotAvailableMessage()
 		}
 		self.child = child
-		Layout.bottomLeft(parent: v, child: child, bottom: bottom, left: left)
+		Layout.bottomLeft(parent: v, child: child, bottom: bottom, left: left, multiplier: multiplier)
 		return self
 	}
 	
@@ -470,13 +497,14 @@ public class Layout {
      A child view is aligned from the bottom left with optional bottom and left padding.
      - Parameter bottom: A CGFloat value for padding the bottom side.
      - Parameter left: A CGFloat value for padding the left side.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public func bottomLeft(bottom: CGFloat = 0, left: CGFloat = 0) -> Layout {
+	public func bottomLeft(bottom: CGFloat = 0, left: CGFloat = 0, multiplier: CGFloat = 1) -> Layout {
 		guard let v = child else {
 			return debugChildNotAvailableMessage()
 		}
-        return bottomLeft(v, bottom: bottom, left: left)
+        return bottomLeft(v, bottom: bottom, left: left, multiplier: multiplier)
 	}
 	
 	/**
@@ -484,14 +512,15 @@ public class Layout {
      - Parameter child: A child UIView to layout.
      - Parameter bottom: A CGFloat value for padding the bottom side.
      - Parameter right: A CGFloat value for padding the right side.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public func bottomRight(_ child: UIView, bottom: CGFloat = 0, right: CGFloat = 0) -> Layout {
+	public func bottomRight(_ child: UIView, bottom: CGFloat = 0, right: CGFloat = 0, multiplier: CGFloat = 1) -> Layout {
 		guard let v = parent else {
 			return debugParentNotAvailableMessage()
 		}
 		self.child = child
-        Layout.bottomRight(parent: v, child: child, bottom: bottom, right: right)
+        Layout.bottomRight(parent: v, child: child, bottom: bottom, right: right, multiplier: multiplier)
 		return self
 	}
 	
@@ -499,13 +528,14 @@ public class Layout {
      A child view is aligned from the bottom right with optional bottom and right padding.
      - Parameter bottom: A CGFloat value for padding the bottom side.
      - Parameter right: A CGFloat value for padding the right side.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public func bottomRight(bottom: CGFloat = 0, right: CGFloat = 0) -> Layout {
+	public func bottomRight(bottom: CGFloat = 0, right: CGFloat = 0, multiplier: CGFloat = 1) -> Layout {
 		guard let v = child else {
 			return debugChildNotAvailableMessage()
 		}
-        return bottomRight(v, bottom: bottom, right: right)
+        return bottomRight(v, bottom: bottom, right: right, multiplier: multiplier)
 	}
 	
 	/**
@@ -513,14 +543,15 @@ public class Layout {
      - Parameter child: A child UIView to layout.
      - Parameter offsetX: A CGFloat value for the offset along the x axis.
      - Parameter offsetX: A CGFloat value for the offset along the y axis.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public func center(_ child: UIView, offsetX: CGFloat = 0, offsetY: CGFloat = 0) -> Layout {
+	public func center(_ child: UIView, offsetX: CGFloat = 0, offsetY: CGFloat = 0, multiplier: CGFloat = 1) -> Layout {
 		guard let v = parent else {
 			return debugParentNotAvailableMessage()
         }
 		self.child = child
-        Layout.center(parent: v, child: child, offsetX: offsetX, offsetY: offsetY)
+        Layout.center(parent: v, child: child, offsetX: offsetX, offsetY: offsetY, multiplier: multiplier)
         return self
 	}
 	
@@ -528,67 +559,72 @@ public class Layout {
      A child view is aligned at the center with an optional offsetX and offsetY value.
      - Parameter offsetX: A CGFloat value for the offset along the x axis.
      - Parameter offsetX: A CGFloat value for the offset along the y axis.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public func center(offsetX: CGFloat = 0, offsetY: CGFloat = 0) -> Layout {
+	public func center(offsetX: CGFloat = 0, offsetY: CGFloat = 0, multiplier: CGFloat = 1) -> Layout {
         guard let v = child else {
             return debugChildNotAvailableMessage()
         }
-        return center(v, offsetX: offsetX, offsetY: offsetY)
+        return center(v, offsetX: offsetX, offsetY: offsetY, multiplier: multiplier)
     }
 	
 	/**
      A child view is aligned at the center horizontally with an optional offset value.
      - Parameter child: A child UIView to layout.
      - Parameter offset: A CGFloat value for the offset along the x axis.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public func centerHorizontally(_ child: UIView, offset: CGFloat = 0) -> Layout {
+	public func centerHorizontally(_ child: UIView, offset: CGFloat = 0, multiplier: CGFloat = 1) -> Layout {
 		guard let v = parent else {
 			return debugParentNotAvailableMessage()
         }
 		self.child = child
-        Layout.centerHorizontally(parent: v, child: child, offset: offset)
+        Layout.centerHorizontally(parent: v, child: child, offset: offset, multiplier: multiplier)
         return self
 	}
     
 	/**
      A child view is aligned at the center horizontally with an optional offset value.
      - Parameter offset: A CGFloat value for the offset along the x axis.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public func centerHorizontally(offset: CGFloat = 0) -> Layout {
+	public func centerHorizontally(offset: CGFloat = 0, multiplier: CGFloat = 1) -> Layout {
         guard let v = child else {
             return debugChildNotAvailableMessage()
         }
-        return centerHorizontally(v, offset: offset)
+        return centerHorizontally(v, offset: offset, multiplier: multiplier)
     }
 	
 	/**
      A child view is aligned at the center vertically with an optional offset value.
      - Parameter child: A child UIView to layout.
      - Parameter offset: A CGFloat value for the offset along the y axis.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public func centerVertically(_ child: UIView, offset: CGFloat = 0) -> Layout {
+	public func centerVertically(_ child: UIView, offset: CGFloat = 0, multiplier: CGFloat = 1) -> Layout {
 		guard let v = parent else {
 			return debugParentNotAvailableMessage()
         }
 		self.child = child
-        Layout.centerVertically(parent: v, child: child, offset: offset)
+        Layout.centerVertically(parent: v, child: child, offset: offset, multiplier: multiplier)
         return self
 	}
     
 	/**
      A child view is aligned at the center vertically with an optional offset value.
      - Parameter offset: A CGFloat value for the offset along the y axis.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public func centerVertically(offset: CGFloat = 0) -> Layout {
+	public func centerVertically(offset: CGFloat = 0, multiplier: CGFloat = 1) -> Layout {
         guard let v = child else {
             return debugChildNotAvailableMessage()
         }
-        return centerVertically(v, offset: offset)
+        return centerVertically(v, offset: offset, multiplier: multiplier)
     }
 }
 
@@ -598,33 +634,36 @@ extension Layout {
      Sets the width of a view.
      - Parameter parent: A parent UIView context.
      - Parameter child: A child UIView to layout.
+     - Parameter multiplier: A CGFloat value.
      - Parameter width: A CGFloat value.
      */
-	public class func width(parent: UIView, child: UIView, width: CGFloat = 0) {
+	public class func width(parent: UIView, child: UIView, width: CGFloat = 0, multiplier: CGFloat = 1) {
 		prepareForConstraint(parent, child: child)
-		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: width))
+		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: multiplier, constant: width))
 	}
 	
 	/**
      Sets the height of a view.
      - Parameter parent: A parent UIView context.
      - Parameter child: A child UIView to layout.
+     - Parameter multiplier: A CGFloat value.
      - Parameter height: A CGFloat value.
      */
-	public class func height(parent: UIView, child: UIView, height: CGFloat = 0) {
+	public class func height(parent: UIView, child: UIView, height: CGFloat = 0, multiplier: CGFloat = 1) {
 		prepareForConstraint(parent, child: child)
-		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: height))
+		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: multiplier, constant: height))
 	}
 	
 	/**
      Sets the width and height of a view.
      - Parameter parent: A parent UIView context.
      - Parameter child: A child UIView to layout.
+     - Parameter multiplier: A CGFloat value.
      - Parameter size: A CGSize value.
      */
-	public class func size(parent: UIView, child: UIView, size: CGSize = CGSize.zero) {
-		Layout.width(parent: parent, child: child, width: size.width)
-		Layout.height(parent: parent, child: child, height: size.height)
+	public class func size(parent: UIView, child: UIView, size: CGSize = CGSize.zero, multiplier: CGFloat = 1) {
+        Layout.width(parent: parent, child: child, width: size.width, multiplier: multiplier)
+        Layout.height(parent: parent, child: child, height: size.height, multiplier: multiplier)
 	}
 	
 	/**
@@ -635,17 +674,20 @@ extension Layout {
      - Parameter left: A CGFloat value for padding the left side.
      - Parameter right: A CGFloat value for padding the right side.
      - Parameter interimSpace: A CGFloat value for interim interimSpace.
+     - Parameter multiplier: A CGFloat value.
      */
-	public class func horizontally(parent: UIView, children: [UIView], left: CGFloat = 0, right: CGFloat = 0, interimSpace: InterimSpace = 0) {
-		prepareForConstraint(parent, children: children)
-		if 0 < children.count {
-			parent.addConstraint(NSLayoutConstraint(item: children[0], attribute: .left, relatedBy: .equal, toItem: parent, attribute: .left, multiplier: 1, constant: left))
-			for i in 1..<children.count {
-				parent.addConstraint(NSLayoutConstraint(item: children[i], attribute: .left, relatedBy: .equal, toItem: children[i - 1], attribute: .right, multiplier: 1, constant: interimSpace))
-				parent.addConstraint(NSLayoutConstraint(item: children[i], attribute: .width, relatedBy: .equal, toItem: children[0], attribute: .width, multiplier: 1, constant: 0))
-			}
-			parent.addConstraint(NSLayoutConstraint(item: children[children.count - 1], attribute: .right, relatedBy: .equal, toItem: parent, attribute: .right, multiplier: 1, constant: -right))
-		}
+	public class func horizontally(parent: UIView, children: [UIView], left: CGFloat = 0, right: CGFloat = 0, interimSpace: InterimSpace = 0, multiplier: CGFloat = 1) {
+        guard 0 < children.count else {
+            return
+        }
+        
+        prepareForConstraint(parent, children: children)
+        parent.addConstraint(NSLayoutConstraint(item: children[0], attribute: .left, relatedBy: .equal, toItem: parent, attribute: .left, multiplier: multiplier, constant: left))
+        for i in 1..<children.count {
+            parent.addConstraint(NSLayoutConstraint(item: children[i], attribute: .left, relatedBy: .equal, toItem: children[i - 1], attribute: .right, multiplier: multiplier, constant: interimSpace))
+            parent.addConstraint(NSLayoutConstraint(item: children[i], attribute: .width, relatedBy: .equal, toItem: children[0], attribute: .width, multiplier: multiplier, constant: 0))
+        }
+        parent.addConstraint(NSLayoutConstraint(item: children[children.count - 1], attribute: .right, relatedBy: .equal, toItem: parent, attribute: .right, multiplier: multiplier, constant: -right))
 	}
 	
 	/**
@@ -656,17 +698,20 @@ extension Layout {
      - Parameter top: A CGFloat value for padding the top side.
      - Parameter bottom: A CGFloat value for padding the bottom side.
      - Parameter interimSpace: A CGFloat value for interim interimSpace.
+     - Parameter multiplier: A CGFloat value.
      */
-	public class func vertically(parent: UIView, children: [UIView], top: CGFloat = 0, bottom: CGFloat = 0, interimSpace: InterimSpace = 0) {
-		prepareForConstraint(parent, children: children)
-		if 0 < children.count {
-			parent.addConstraint(NSLayoutConstraint(item: children[0], attribute: .top, relatedBy: .equal, toItem: parent, attribute: .top, multiplier: 1, constant: top))
-			for i in 1..<children.count {
-				parent.addConstraint(NSLayoutConstraint(item: children[i], attribute: .top, relatedBy: .equal, toItem: children[i - 1], attribute: .bottom, multiplier: 1, constant: interimSpace))
-				parent.addConstraint(NSLayoutConstraint(item: children[i], attribute: .height, relatedBy: .equal, toItem: children[0], attribute: .height, multiplier: 1, constant: 0))
-			}
-			parent.addConstraint(NSLayoutConstraint(item: children[children.count - 1], attribute: .bottom, relatedBy: .equal, toItem: parent, attribute: .bottom, multiplier: 1, constant: -bottom))
-		}
+	public class func vertically(parent: UIView, children: [UIView], top: CGFloat = 0, bottom: CGFloat = 0, interimSpace: InterimSpace = 0, multiplier: CGFloat = 1) {
+        guard 0 < children.count else {
+            return
+        }
+        prepareForConstraint(parent, children: children)
+		
+        parent.addConstraint(NSLayoutConstraint(item: children[0], attribute: .top, relatedBy: .equal, toItem: parent, attribute: .top, multiplier: multiplier, constant: top))
+        for i in 1..<children.count {
+            parent.addConstraint(NSLayoutConstraint(item: children[i], attribute: .top, relatedBy: .equal, toItem: children[i - 1], attribute: .bottom, multiplier: multiplier, constant: interimSpace))
+            parent.addConstraint(NSLayoutConstraint(item: children[i], attribute: .height, relatedBy: .equal, toItem: children[0], attribute: .height, multiplier: multiplier, constant: 0))
+        }
+        parent.addConstraint(NSLayoutConstraint(item: children[children.count - 1], attribute: .bottom, relatedBy: .equal, toItem: parent, attribute: .bottom, multiplier: multiplier, constant: -bottom))
 	}
 	
 	/**
@@ -675,11 +720,12 @@ extension Layout {
      - Parameter child: A child UIView to layout.
      - Parameter left: A CGFloat value for padding the left side.
      - Parameter right: A CGFloat value for padding the right side.
+     - Parameter multiplier: A CGFloat value.
      */
-	public class func horizontally(parent: UIView, child: UIView, left: CGFloat = 0, right: CGFloat = 0) {
+	public class func horizontally(parent: UIView, child: UIView, left: CGFloat = 0, right: CGFloat = 0, multiplier: CGFloat = 1) {
 		prepareForConstraint(parent, child: child)
-		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .left, relatedBy: .equal, toItem: parent, attribute: .left, multiplier: 1, constant: left))
-		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .right, relatedBy: .equal, toItem: parent, attribute: .right, multiplier: 1, constant: -right))
+		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .left, relatedBy: .equal, toItem: parent, attribute: .left, multiplier: multiplier, constant: left))
+		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .right, relatedBy: .equal, toItem: parent, attribute: .right, multiplier: multiplier, constant: -right))
 	}
 	
 	/**
@@ -688,11 +734,12 @@ extension Layout {
      - Parameter child: A child UIView to layout.
      - Parameter top: A CGFloat value for padding the top side.
      - Parameter bottom: A CGFloat value for padding the bottom side.
+     - Parameter multiplier: A CGFloat value.
      */
-	public class func vertically(parent: UIView, child: UIView, top: CGFloat = 0, bottom: CGFloat = 0) {
+	public class func vertically(parent: UIView, child: UIView, top: CGFloat = 0, bottom: CGFloat = 0, multiplier: CGFloat = 1) {
 		prepareForConstraint(parent, child: child)
-		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .top, relatedBy: .equal, toItem: parent, attribute: .top, multiplier: 1, constant: top))
-		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .bottom, relatedBy: .equal, toItem: parent, attribute: .bottom, multiplier: 1, constant: -bottom))
+		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .top, relatedBy: .equal, toItem: parent, attribute: .top, multiplier: multiplier, constant: top))
+		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .bottom, relatedBy: .equal, toItem: parent, attribute: .bottom, multiplier: multiplier, constant: -bottom))
 	}
 	
 	/**
@@ -703,10 +750,11 @@ extension Layout {
      - Parameter left: A CGFloat value for padding the left side.
      - Parameter bottom: A CGFloat value for padding the bottom side.
      - Parameter right: A CGFloat value for padding the right side.
+     - Parameter multiplier: A CGFloat value.
      */
-	public class func edges(parent: UIView, child: UIView, top: CGFloat = 0, left: CGFloat = 0, bottom: CGFloat = 0, right: CGFloat = 0) {
-        horizontally(parent: parent, child: child, left: left, right: right)
-		vertically(parent: parent, child: child, top: top, bottom: bottom)
+	public class func edges(parent: UIView, child: UIView, top: CGFloat = 0, left: CGFloat = 0, bottom: CGFloat = 0, right: CGFloat = 0, multiplier: CGFloat = 1) {
+        horizontally(parent: parent, child: child, left: left, right: right, multiplier: multiplier)
+        vertically(parent: parent, child: child, top: top, bottom: bottom, multiplier: multiplier)
 	}
 	
 	/**
@@ -714,11 +762,12 @@ extension Layout {
      - Parameter parent: A parent UIView context.
      - Parameter child: A child UIView to layout.
      - Parameter top: A CGFloat value for padding the top side.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public class func top(parent: UIView, child: UIView, top: CGFloat = 0) {
+	public class func top(parent: UIView, child: UIView, top: CGFloat = 0, multiplier: CGFloat = 1) {
 		prepareForConstraint(parent, child: child)
-		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .top, relatedBy: .equal, toItem: parent, attribute: .top, multiplier: 1, constant: top))
+		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .top, relatedBy: .equal, toItem: parent, attribute: .top, multiplier: multiplier, constant: top))
 	}
 	
 	/**
@@ -726,11 +775,12 @@ extension Layout {
      - Parameter parent: A parent UIView context.
      - Parameter child: A child UIView to layout.
      - Parameter left: A CGFloat value for padding the left side.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public class func left(parent: UIView, child: UIView, left: CGFloat = 0) {
+	public class func left(parent: UIView, child: UIView, left: CGFloat = 0, multiplier: CGFloat = 1) {
 		prepareForConstraint(parent, child: child)
-		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .left, relatedBy: .equal, toItem: parent, attribute: .left, multiplier: 1, constant: left))
+		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .left, relatedBy: .equal, toItem: parent, attribute: .left, multiplier: multiplier, constant: left))
 	}
 	
 	/**
@@ -738,11 +788,12 @@ extension Layout {
      - Parameter parent: A parent UIView context.
      - Parameter child: A child UIView to layout.
      - Parameter bottom: A CGFloat value for padding the bottom side.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public class func bottom(parent: UIView, child: UIView, bottom: CGFloat = 0) {
+	public class func bottom(parent: UIView, child: UIView, bottom: CGFloat = 0, multiplier: CGFloat = 1) {
 		prepareForConstraint(parent, child: child)
-		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .bottom, relatedBy: .equal, toItem: parent, attribute: .bottom, multiplier: 1, constant: -bottom))
+		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .bottom, relatedBy: .equal, toItem: parent, attribute: .bottom, multiplier: multiplier, constant: -bottom))
 	}
 	
 	/**
@@ -750,11 +801,12 @@ extension Layout {
      - Parameter parent: A parent UIView context.
      - Parameter child: A child UIView to layout.
      - Parameter right: A CGFloat value for padding the right side.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public class func right(parent: UIView, child: UIView, right: CGFloat = 0) {
+	public class func right(parent: UIView, child: UIView, right: CGFloat = 0, multiplier: CGFloat = 1) {
 		prepareForConstraint(parent, child: child)
-		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .right, relatedBy: .equal, toItem: parent, attribute: .right, multiplier: 1, constant: -right))
+		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .right, relatedBy: .equal, toItem: parent, attribute: .right, multiplier: multiplier, constant: -right))
 	}
 	
 	/**
@@ -763,11 +815,12 @@ extension Layout {
      - Parameter child: A child UIView to layout.
      - Parameter top: A CGFloat value for padding the top side.
      - Parameter left: A CGFloat value for padding the left side.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public class func topLeft(parent: UIView, child: UIView, top t: CGFloat = 0, left l: CGFloat = 0) {
-		top(parent: parent, child: child, top: t)
-		left(parent: parent, child: child, left: l)
+	public class func topLeft(parent: UIView, child: UIView, top t: CGFloat = 0, left l: CGFloat = 0, multiplier: CGFloat = 1) {
+		top(parent: parent, child: child, top: t, multiplier: multiplier)
+		left(parent: parent, child: child, left: l, multiplier: multiplier)
 	}
 	
 	/**
@@ -776,11 +829,12 @@ extension Layout {
      - Parameter child: A child UIView to layout.
      - Parameter top: A CGFloat value for padding the top side.
      - Parameter right: A CGFloat value for padding the right side.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public class func topRight(parent: UIView, child: UIView, top t: CGFloat = 0, right r: CGFloat = 0) {
-		top(parent: parent, child: child, top: t)
-		right(parent: parent, child: child, right: r)
+	public class func topRight(parent: UIView, child: UIView, top t: CGFloat = 0, right r: CGFloat = 0, multiplier: CGFloat = 1) {
+		top(parent: parent, child: child, top: t, multiplier: multiplier)
+		right(parent: parent, child: child, right: r, multiplier: multiplier)
 	}
 	
 	/**
@@ -789,11 +843,12 @@ extension Layout {
      - Parameter child: A child UIView to layout.
      - Parameter bottom: A CGFloat value for padding the bottom side.
      - Parameter left: A CGFloat value for padding the left side.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public class func bottomLeft(parent: UIView, child: UIView, bottom b: CGFloat = 0, left l: CGFloat = 0) {
-		bottom(parent: parent, child: child, bottom: b)
-		left(parent: parent, child: child, left: l)
+	public class func bottomLeft(parent: UIView, child: UIView, bottom b: CGFloat = 0, left l: CGFloat = 0, multiplier: CGFloat = 1) {
+		bottom(parent: parent, child: child, bottom: b, multiplier: multiplier)
+		left(parent: parent, child: child, left: l, multiplier: multiplier)
 	}
 	
 	/**
@@ -802,11 +857,12 @@ extension Layout {
      - Parameter child: A child UIView to layout.
      - Parameter bottom: A CGFloat value for padding the bottom side.
      - Parameter right: A CGFloat value for padding the right side.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public class func bottomRight(parent: UIView, child: UIView, bottom b: CGFloat = 0, right r: CGFloat = 0) {
-		bottom(parent: parent, child: child, bottom: b)
-		right(parent: parent, child: child, right: r)
+	public class func bottomRight(parent: UIView, child: UIView, bottom b: CGFloat = 0, right r: CGFloat = 0, multiplier: CGFloat = 1) {
+        bottom(parent: parent, child: child, bottom: b, multiplier: multiplier)
+        right(parent: parent, child: child, right: r, multiplier: multiplier)
 	}
 	
 	/**
@@ -815,11 +871,12 @@ extension Layout {
      - Parameter child: A child UIView to layout.
      - Parameter offsetX: A CGFloat value for the offset along the x axis.
      - Parameter offsetX: A CGFloat value for the offset along the y axis.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public class func center(parent: UIView, child: UIView, offsetX: CGFloat = 0, offsetY: CGFloat = 0) {
-		centerHorizontally(parent: parent, child: child, offset: offsetX)
-		centerVertically(parent: parent, child: child, offset: offsetY)
+	public class func center(parent: UIView, child: UIView, offsetX: CGFloat = 0, offsetY: CGFloat = 0, multiplier: CGFloat = 1) {
+        centerHorizontally(parent: parent, child: child, offset: offsetX, multiplier: multiplier)
+        centerVertically(parent: parent, child: child, offset: offsetY, multiplier: multiplier)
 	}
 	
 	/**
@@ -827,11 +884,12 @@ extension Layout {
      - Parameter parent: A parent UIView context.
      - Parameter child: A child UIView to layout.
      - Parameter offset: A CGFloat value for the offset along the y axis.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public class func centerHorizontally(parent: UIView, child: UIView, offset: CGFloat = 0) {
+	public class func centerHorizontally(parent: UIView, child: UIView, offset: CGFloat = 0, multiplier: CGFloat = 1) {
 		prepareForConstraint(parent, child: child)
-		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .centerX, relatedBy: .equal, toItem: parent, attribute: .centerX, multiplier: 1, constant: offset))
+		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .centerX, relatedBy: .equal, toItem: parent, attribute: .centerX, multiplier: multiplier, constant: offset))
 	}
 	
 	/**
@@ -839,11 +897,12 @@ extension Layout {
      - Parameter parent: A parent UIView context.
      - Parameter child: A child UIView to layout.
      - Parameter offset: A CGFloat value for the offset along the y axis.
+     - Parameter multiplier: A CGFloat value.
      - Returns: The current Layout instance.
      */
-	public class func centerVertically(parent: UIView, child: UIView, offset: CGFloat = 0) {
+    public class func centerVertically(parent: UIView, child: UIView, offset: CGFloat = 0, multiplier: CGFloat = 1) {
 		prepareForConstraint(parent, child: child)
-		parent.addConstraint(NSLayoutConstraint(item: child, attribute: .centerY, relatedBy: .equal, toItem: parent, attribute: .centerY, multiplier: 1, constant: offset))
+        parent.addConstraint(NSLayoutConstraint(item: child, attribute: .centerY, relatedBy: .equal, toItem: parent, attribute: .centerY, multiplier: multiplier, constant: offset))
 	}
 	
 	/**

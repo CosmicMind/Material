@@ -75,34 +75,25 @@ open class ContentCard: PulseView {
         }
     }
     
-    /// An internal reference to the titleToolbar.
-    internal var internalTitleToolbar: Toolbar?
-    
-    /// An internal reference to the contentView.
-    internal var internalContentView: UIView?
-    
-    /// An internal reference to the detailToolbar.
-    internal var internalDetailToolbar: Toolbar?
-    
-    /// A reference to the titleToolbar.
-    open var titleToolbar: Toolbar {
-        prepareTitleToolbar()
-        layoutSubviews()
-        return internalTitleToolbar!
+    /// A reference to the titleBar.
+    open var titleBar: Toolbar? {
+        didSet {
+            layoutSubviews()
+        }
     }
     
     /// A reference to the contentView.
-    open var contentView: UIView {
-        prepareContentView()
-        layoutSubviews()
-        return internalContentView!
+    open var contentView = UIView() {
+        didSet {
+            layoutSubviews()
+        }
     }
     
-    /// A reference to the detailToolbar.
-    open var detailToolbar: Toolbar {
-        prepareDetailToolbar()
-        layoutSubviews()
-        return internalDetailToolbar!
+    /// A reference to the bottomBar.
+    open var bottomBar: BarView? {
+        didSet {
+            layoutSubviews()
+        }
     }
     
     /// Grid cell factor.
@@ -138,87 +129,26 @@ open class ContentCard: PulseView {
             v.removeFromSuperview()
         }
         
-        var h: CGFloat = 0
+        var views = [String: Any]()
+        var format = "V:|"
         
-        if let v = internalTitleToolbar {
-            v.layoutIfNeeded()
-            h += v.height
+        if let v = titleBar {
+            views["titleBar"] = v
+            format += "[titleBar]"
+            _ = layout(v).horizontally()
         }
         
-        if let v = internalContentView {
-            v.layoutIfNeeded()
-            h += v.height
+        views["contentView"] = contentView
+        format += "[contentView]"
+        _ = layout(contentView).horizontally()
+        contentView.layoutIfNeeded()
+        
+        if let v = bottomBar {
+            views["bottomBar"] = v
+            format += "[bottomBar]"
+            _ = layout(v).horizontally()
         }
         
-        if let v = internalDetailToolbar {
-            v.layoutIfNeeded()
-            h += v.height
-        }
-        
-        height = h
-        
-        let l = nil == internalTitleToolbar ? 0 : interimSpace
-        let r = nil == internalDetailToolbar || nil == internalContentView ? 0 : interimSpace
-        let p = h - l - r - contentEdgeInsets.top - contentEdgeInsets.bottom
-        let rows = Int(p / gridFactor)
-        
-        grid.begin()
-        
-        grid.views.removeAll()
-        grid.axis.rows = rows
-        grid.axis.direction = .vertical
-        
-        print("Value", height, rows)
-        
-        if let v = internalTitleToolbar {
-            grid.views.append(v)
-            v.grid.rows = Int(ceil(v.height / gridFactor)) + 1
-        }
-        
-        if let v = internalContentView {
-            grid.views.append(v)
-        }
-        
-        if let v = internalDetailToolbar {
-            grid.views.append(v)
-            v.grid.rows = Int(ceil(v.height / gridFactor)) + 1
-        }
-        
-        if let v = internalContentView {
-            v.grid.rows = rows
-            if let t = internalTitleToolbar {
-                v.grid.rows -= t.grid.rows
-            }
-            
-            if let d = internalDetailToolbar {
-                v.grid.rows -= d.grid.rows
-            }
-        }
-        
-        grid.commit()
-    }
-    
-    /// Prepares the titleToolbar.
-    private func prepareTitleToolbar() {
-        guard nil == internalTitleToolbar else {
-            return
-        }
-        internalTitleToolbar = Toolbar()
-    }
-    
-    /// Prepares the contentView.
-    private func prepareContentView() {
-        guard nil == internalContentView else {
-            return
-        }
-        internalContentView = UIView()
-    }
-    
-    /// Prepares the detailToolbar.
-    private func prepareDetailToolbar() {
-        guard nil == internalDetailToolbar else {
-            return
-        }
-        internalDetailToolbar = Toolbar()
+        addConstraints(Layout.constraint(format: "\(format)|", options: [], metrics: nil, views: views))
     }
 }
