@@ -54,15 +54,15 @@ public class NavigationItem: NSObject {
 	/// Detail label.
 	public private(set) lazy var detailLabel = UILabel()
 	
-	/// Left controls.
-    public var leftControls = [UIView]() {
+	/// Left items.
+    public var leftViews = [UIView]() {
         didSet {
             navigationBar?.layoutSubviews()
         }
     }
 	
-	/// Right controls.
-    public var rightControls = [UIView]() {
+	/// Right items.
+    public var rightViews = [UIView]() {
         didSet {
             navigationBar?.layoutSubviews()
         }
@@ -153,7 +153,7 @@ extension UINavigationItem {
             navigationItem.reload()
 		}
 	}
-	
+    
 	/// Title Label.
 	public var titleLabel: UILabel {
 		return navigationItem.titleLabel
@@ -176,22 +176,22 @@ extension UINavigationItem {
 	}
 	
 	/// Left side UIViews.
-	public var leftControls: [UIView] {
+	public var leftViews: [UIView] {
 		get {
-			return navigationItem.leftControls
+			return navigationItem.leftViews
 		}
 		set(value) {
-			navigationItem.leftControls = value
+			navigationItem.leftViews = value
 		}
 	}
 	
 	/// Right side UIViews.
-	public var rightControls: [UIView] {
+	public var rightViews: [UIView] {
 		get {
-			return navigationItem.rightControls
+			return navigationItem.rightViews
 		}
 		set(value) {
-			navigationItem.rightControls = value
+			navigationItem.rightViews = value
 		}
 	}
 }

@@ -138,7 +138,7 @@ extension NavigationController: UINavigationBarDelegate {
             backButton.addTarget(self, action: #selector(handleBackButton), for: .touchUpInside)
             
             item.backButton = backButton
-            item.leftControls.append(backButton)
+            item.leftViews.append(backButton)
             v.layoutNavigationItem(item: item)
         }
         return true
