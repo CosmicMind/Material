@@ -121,8 +121,7 @@ open class RootController: UIViewController {
             to: viewController,
 			duration: duration,
 			options: options,
-			animations: animations,
-			completion: { [weak self] (result: Bool) in
+			animations: animations) { [weak self, completion = completion] (result: Bool) in
                 guard let s = self else {
                     return
                 }
@@ -134,7 +133,7 @@ open class RootController: UIViewController {
                 s.rootViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
                 s.rootViewController.view.contentScaleFactor = Device.scale
                 completion?(result)
-			})
+			}
 	}
 	
 	/**
@@ -155,13 +154,12 @@ open class RootController: UIViewController {
         view.clipsToBounds = true
         view.backgroundColor = Color.white
         view.contentScaleFactor = Device.scale
-        
         prepareRootViewController()
 	}
 	
 	/// A method that prepares the rootViewController.
 	internal func prepareRootViewController() {
-		prepareControllerWithinContainer(viewController: rootViewController, container: view)
+		prepare(viewController: rootViewController, withContainer: view)
 	}
 	
 	/**
@@ -169,10 +167,10 @@ open class RootController: UIViewController {
      the BarController within the passed in
      container view.
      - Parameter viewController: A UIViewController to add as a child.
-     - Parameter container: A UIView that is the parent of the
+     - Parameter withContainer container: A UIView that is the parent of the
      passed in controller view within the view hierarchy.
      */
-	internal func prepareControllerWithinContainer(viewController: UIViewController?, container: UIView) {
+	internal func prepare(viewController: UIViewController?, withContainer container: UIView) {
         guard let v = viewController else {
             return
         }

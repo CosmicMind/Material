@@ -887,22 +887,26 @@ open class NavigationDrawerController: RootController, UIGestureRecognizerDelega
 	/// Prepares the contentViewController.
 	private func prepareContentViewController() {
 		contentViewController.view.backgroundColor = Color.black
-		prepareControllerWithinContainer(viewController: contentViewController, container: view)
+		prepare(viewController: contentViewController, withContainer: view)
 		view.sendSubview(toBack: contentViewController.view)
 	}
 	
 	/// A method that prepares the leftViewController.
 	private func prepareLeftViewController() {
-		if let v: View = leftView {
-			prepareControllerWithinContainer(viewController: leftViewController, container: v)
-		}
+        guard let v = leftView else {
+            return
+        }
+        
+        prepare(viewController: leftViewController, withContainer: v)
 	}
 	
 	/// A method that prepares the rightViewController.
 	private func prepareRightViewController() {
-		if let v: View = rightView {
-			prepareControllerWithinContainer(viewController: rightViewController, container: v)
-		}
+        guard let v = leftView else {
+            return
+        }
+        
+        prepare(viewController: rightViewController, withContainer: v)
 	}
 	
 	/// A method that prepares the leftView.
