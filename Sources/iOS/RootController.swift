@@ -113,25 +113,27 @@ open class RootController: UIViewController {
      the transition animation from the active rootViewController
      to the toViewController has completed.
      */
-	open func transitionFromRootViewController(toViewController: UIViewController, duration: TimeInterval = 0.5, options: UIViewAnimationOptions = [], animations: (() -> Void)? = nil, completion: ((Bool) -> Void)? = nil) {
+	open func transition(to viewController: UIViewController, duration: TimeInterval = 0.5, options: UIViewAnimationOptions = [], animations: (() -> Void)? = nil, completion: ((Bool) -> Void)? = nil) {
 		rootViewController.willMove(toParentViewController: nil)
-		addChildViewController(toViewController)
-		toViewController.view.frame = rootViewController.view.bounds
+		addChildViewController(viewController)
+		viewController.view.frame = rootViewController.view.bounds
         transition(from: rootViewController,
-            to: toViewController,
+            to: viewController,
 			duration: duration,
 			options: options,
 			animations: animations,
 			completion: { [weak self] (result: Bool) in
-				if let s: RootController = self {
-					toViewController.didMove(toParentViewController: s)
-					s.rootViewController.removeFromParentViewController()
-					s.rootViewController = toViewController
-					s.rootViewController.view.clipsToBounds = true
-					s.rootViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-					s.rootViewController.view.contentScaleFactor = Device.scale
-					completion?(result)
-				}
+                guard let s = self else {
+                    return
+                }
+                
+                viewController.didMove(toParentViewController: s)
+                s.rootViewController.removeFromParentViewController()
+                s.rootViewController = viewController
+                s.rootViewController.view.clipsToBounds = true
+                s.rootViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+                s.rootViewController.view.contentScaleFactor = Device.scale
+                completion?(result)
 			})
 	}
 	
@@ -163,21 +165,23 @@ open class RootController: UIViewController {
 	}
 	
 	/**
-	A method that adds the passed in controller as a child of
-	the BarController within the passed in
-	container view.
-	- Parameter viewController: A UIViewController to add as a child.
-	- Parameter container: A UIView that is the parent of the
-	passed in controller view within the view hierarchy.
-	*/
+     A method that adds the passed in controller as a child of
+     the BarController within the passed in
+     container view.
+     - Parameter viewController: A UIViewController to add as a child.
+     - Parameter container: A UIView that is the parent of the
+     passed in controller view within the view hierarchy.
+     */
 	internal func prepareControllerWithinContainer(viewController: UIViewController?, container: UIView) {
-		if let v: UIViewController = viewController {
-			addChildViewController(v)
-			container.addSubview(v.view)
-			v.didMove(toParentViewController: self)
-            v.view.clipsToBounds = true
-			v.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-			v.view.contentScaleFactor = Device.scale
-		}
+        guard let v = viewController else {
+            return
+        }
+        
+        addChildViewController(v)
+        container.addSubview(v.view)
+        v.didMove(toParentViewController: self)
+        v.view.clipsToBounds = true
+        v.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        v.view.contentScaleFactor = Device.scale
 	}
 }

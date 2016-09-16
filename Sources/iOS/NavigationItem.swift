@@ -143,6 +143,7 @@ extension UINavigationItem {
 		}
 	}
 	
+    /// Title text.
 	@nonobjc
 	public var title: String? {
 		get {
