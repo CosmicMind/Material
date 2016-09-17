@@ -109,7 +109,7 @@ open class BottomTabBar: UITabBar {
 		super.didMoveToSuperview()
 		if isAlignedToParentAutomatically {
 			if let v = superview {
-				_ = v.layout(self).bottom().horizontally()
+				v.layout(self).bottom().horizontally()
 			}
 		}
 	}

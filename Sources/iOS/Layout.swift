@@ -83,6 +83,7 @@ public class Layout {
      - Parameter width: A CGFloat value.
      - Returns: The current Layout instance.
      */
+    @discardableResult
     public func width(_ child: UIView, width: CGFloat) -> Layout {
         guard let v = parent else {
             return debugParentNotAvailableMessage()
@@ -97,6 +98,7 @@ public class Layout {
      - Parameter width: A CGFloat value.
      - Returns: The current Layout instance.
      */
+    @discardableResult
     public func width(_ width: CGFloat) -> Layout {
         guard let v = child else {
             return debugChildNotAvailableMessage()
@@ -110,6 +112,7 @@ public class Layout {
      - Parameter height: A CGFloat value.
      - Returns: The current Layout instance.
      */
+    @discardableResult
     public func height(_ child: UIView, height: CGFloat) -> Layout {
         guard let v = parent else {
             return debugParentNotAvailableMessage()
@@ -124,6 +127,7 @@ public class Layout {
      - Parameter height: A CGFloat value.
      - Returns: The current Layout instance.
      */
+    @discardableResult
     public func height(_ height: CGFloat) -> Layout {
         guard let v = child else {
             return debugChildNotAvailableMessage()
@@ -137,6 +141,7 @@ public class Layout {
      - Parameter size: A CGSize value.
      - Returns: The current Layout instance.
      */
+    @discardableResult
     public func size(_ child: UIView, size: CGSize) -> Layout {
         guard let v = parent else {
             return debugParentNotAvailableMessage()
@@ -151,6 +156,7 @@ public class Layout {
      - Parameter size: A CGSize value.
      - Returns: The current Layout instance.
      */
+    @discardableResult
     public func size(_ size: CGSize = CGSize.zero) -> Layout {
         guard let v = child else {
             return debugChildNotAvailableMessage()
@@ -167,6 +173,7 @@ public class Layout {
      - Parameter interimSpace: A CGFloat value for interim interimSpace.
      - Returns: The current Layout instance.
      */
+    @discardableResult
     public func horizontally(_ children: [UIView], left: CGFloat = 0, right: CGFloat = 0, interimSpace: InterimSpace = 0) -> Layout {
         guard let v = parent else {
             return debugParentNotAvailableMessage()
@@ -184,6 +191,7 @@ public class Layout {
      - Parameter interimSpace: A CGFloat value for interim interimSpace.
      - Returns: The current Layout instance.
      */
+    @discardableResult
     public func vertically(_ children: [UIView], top: CGFloat = 0, bottom: CGFloat = 0, interimSpace: InterimSpace = 0) -> Layout {
         guard let v = parent else {
             return debugParentNotAvailableMessage()
@@ -199,6 +207,7 @@ public class Layout {
      - Parameter right: A CGFloat value for padding the right side.
      - Returns: The current Layout instance.
      */
+    @discardableResult
     public func horizontally(_ child: UIView, left: CGFloat = 0, right: CGFloat = 0) -> Layout {
         guard let v = parent else {
             return debugParentNotAvailableMessage()
@@ -214,6 +223,7 @@ public class Layout {
      - Parameter right: A CGFloat value for padding the right side.
      - Returns: The current Layout instance.
      */
+    @discardableResult
     public func horizontally(left: CGFloat = 0, right: CGFloat = 0) -> Layout {
         guard let v = child else {
             return debugChildNotAvailableMessage()
@@ -228,6 +238,7 @@ public class Layout {
      - Parameter bottom: A CGFloat value for padding the bottom side.
      - Returns: The current Layout instance.
      */
+    @discardableResult
     public func vertically(_ child: UIView, top: CGFloat = 0, bottom: CGFloat = 0) -> Layout {
         guard let v = parent else {
             return debugParentNotAvailableMessage()
@@ -243,6 +254,7 @@ public class Layout {
      - Parameter bottom: A CGFloat value for padding the bottom side.
      - Returns: The current Layout instance.
      */
+    @discardableResult
     public func vertically(top: CGFloat = 0, bottom: CGFloat = 0) -> Layout {
         guard let v = child else {
             return debugChildNotAvailableMessage()
@@ -259,6 +271,7 @@ public class Layout {
      - Parameter right: A CGFloat value for padding the right side.
      - Returns: The current Layout instance.
      */
+    @discardableResult
     public func edges(_ child: UIView, top: CGFloat = 0, left: CGFloat = 0, bottom: CGFloat = 0, right: CGFloat = 0) -> Layout {
         guard let v = parent else {
             return debugParentNotAvailableMessage()
@@ -277,6 +290,7 @@ public class Layout {
      - Parameter right: A CGFloat value for padding the right side.
      - Returns: The current Layout instance.
      */
+    @discardableResult
     public func edges(top: CGFloat = 0, left: CGFloat = 0, bottom: CGFloat = 0, right: CGFloat = 0) -> Layout {
         guard let v = child else {
             return debugChildNotAvailableMessage()
@@ -290,6 +304,7 @@ public class Layout {
      - Parameter top: A CGFloat value for padding the top side.
      - Returns: The current Layout instance.
      */
+    @discardableResult
     public func top(_ child: UIView, top: CGFloat = 0) -> Layout {
         guard let v = parent else {
             return debugParentNotAvailableMessage()
@@ -304,6 +319,7 @@ public class Layout {
      - Parameter top: A CGFloat value for padding the top side.
      - Returns: The current Layout instance.
      */
+    @discardableResult
     public func top(_ top: CGFloat = 0) -> Layout {
         guard let v = child else {
             return debugChildNotAvailableMessage()
@@ -317,6 +333,7 @@ public class Layout {
      - Parameter left: A CGFloat value for padding the left side.
      - Returns: The current Layout instance.
      */
+    @discardableResult
     public func left(_ child: UIView, left: CGFloat = 0) -> Layout {
         guard let v = parent else {
             return debugParentNotAvailableMessage()
@@ -331,6 +348,7 @@ public class Layout {
      - Parameter left: A CGFloat value for padding the left side.
      - Returns: The current Layout instance.
      */
+    @discardableResult
     public func left(_ left: CGFloat = 0) -> Layout {
         guard let v = child else {
             return debugChildNotAvailableMessage()
@@ -344,6 +362,7 @@ public class Layout {
      - Parameter bottom: A CGFloat value for padding the bottom side.
      - Returns: The current Layout instance.
      */
+    @discardableResult
     public func bottom(_ child: UIView, bottom: CGFloat = 0) -> Layout {
         guard let v = parent else {
             return debugParentNotAvailableMessage()
@@ -358,6 +377,7 @@ public class Layout {
      - Parameter bottom: A CGFloat value for padding the bottom side.
      - Returns: The current Layout instance.
      */
+    @discardableResult
     public func bottom(_ bottom: CGFloat = 0) -> Layout {
         guard let v = child else {
             return debugChildNotAvailableMessage()
@@ -371,6 +391,7 @@ public class Layout {
      - Parameter right: A CGFloat value for padding the right side.
      - Returns: The current Layout instance.
      */
+    @discardableResult
     public func right(_ child: UIView, right: CGFloat = 0) -> Layout {
         guard let v = parent else {
             return debugParentNotAvailableMessage()
@@ -385,6 +406,7 @@ public class Layout {
      - Parameter right: A CGFloat value for padding the right side.
      - Returns: The current Layout instance.
      */
+    @discardableResult
     public func right(_ right: CGFloat = 0) -> Layout {
         guard let v = child else {
             return debugChildNotAvailableMessage()
@@ -399,6 +421,7 @@ public class Layout {
      - Parameter left: A CGFloat value for padding the left side.
      - Returns: The current Layout instance.
      */
+    @discardableResult
     public func topLeft(_ child: UIView, top: CGFloat = 0, left: CGFloat = 0) -> Layout {
         guard let v = parent else {
             return debugParentNotAvailableMessage()
@@ -414,6 +437,7 @@ public class Layout {
      - Parameter left: A CGFloat value for padding the left side.
      - Returns: The current Layout instance.
      */
+    @discardableResult
     public func topLeft(top: CGFloat = 0, left: CGFloat = 0) -> Layout {
         guard let v = child else {
             return debugChildNotAvailableMessage()
@@ -428,6 +452,7 @@ public class Layout {
      - Parameter right: A CGFloat value for padding the right side.
      - Returns: The current Layout instance.
      */
+    @discardableResult
     public func topRight(_ child: UIView, top: CGFloat = 0, right: CGFloat = 0) -> Layout {
         guard let v = parent else {
             return debugParentNotAvailableMessage()
@@ -443,6 +468,7 @@ public class Layout {
      - Parameter right: A CGFloat value for padding the right side.
      - Returns: The current Layout instance.
      */
+    @discardableResult
     public func topRight(top: CGFloat = 0, right: CGFloat = 0) -> Layout {
         guard let v = child else {
             return debugChildNotAvailableMessage()
@@ -457,6 +483,7 @@ public class Layout {
      - Parameter left: A CGFloat value for padding the left side.
      - Returns: The current Layout instance.
      */
+    @discardableResult
     public func bottomLeft(_ child: UIView, bottom: CGFloat = 0, left: CGFloat = 0) -> Layout {
         guard let v = parent else {
             return debugParentNotAvailableMessage()
@@ -472,6 +499,7 @@ public class Layout {
      - Parameter left: A CGFloat value for padding the left side.
      - Returns: The current Layout instance.
      */
+    @discardableResult
     public func bottomLeft(bottom: CGFloat = 0, left: CGFloat = 0) -> Layout {
         guard let v = child else {
             return debugChildNotAvailableMessage()
@@ -486,6 +514,7 @@ public class Layout {
      - Parameter right: A CGFloat value for padding the right side.
      - Returns: The current Layout instance.
      */
+    @discardableResult
     public func bottomRight(_ child: UIView, bottom: CGFloat = 0, right: CGFloat = 0) -> Layout {
         guard let v = parent else {
             return debugParentNotAvailableMessage()
@@ -501,6 +530,7 @@ public class Layout {
      - Parameter right: A CGFloat value for padding the right side.
      - Returns: The current Layout instance.
      */
+    @discardableResult
     public func bottomRight(bottom: CGFloat = 0, right: CGFloat = 0) -> Layout {
         guard let v = child else {
             return debugChildNotAvailableMessage()
@@ -515,6 +545,7 @@ public class Layout {
      - Parameter offsetX: A CGFloat value for the offset along the y axis.
      - Returns: The current Layout instance.
      */
+    @discardableResult
     public func center(_ child: UIView, offsetX: CGFloat = 0, offsetY: CGFloat = 0) -> Layout {
         guard let v = parent else {
             return debugParentNotAvailableMessage()
@@ -530,6 +561,7 @@ public class Layout {
      - Parameter offsetX: A CGFloat value for the offset along the y axis.
      - Returns: The current Layout instance.
      */
+    @discardableResult
     public func center(offsetX: CGFloat = 0, offsetY: CGFloat = 0) -> Layout {
         guard let v = child else {
             return debugChildNotAvailableMessage()
@@ -543,6 +575,7 @@ public class Layout {
      - Parameter offset: A CGFloat value for the offset along the x axis.
      - Returns: The current Layout instance.
      */
+    @discardableResult
     public func centerHorizontally(_ child: UIView, offset: CGFloat = 0) -> Layout {
         guard let v = parent else {
             return debugParentNotAvailableMessage()
@@ -557,6 +590,7 @@ public class Layout {
      - Parameter offset: A CGFloat value for the offset along the x axis.
      - Returns: The current Layout instance.
      */
+    @discardableResult
     public func centerHorizontally(offset: CGFloat = 0) -> Layout {
         guard let v = child else {
             return debugChildNotAvailableMessage()
@@ -570,6 +604,7 @@ public class Layout {
      - Parameter offset: A CGFloat value for the offset along the y axis.
      - Returns: The current Layout instance.
      */
+    @discardableResult
     public func centerVertically(_ child: UIView, offset: CGFloat = 0) -> Layout {
         guard let v = parent else {
             return debugParentNotAvailableMessage()
@@ -584,6 +619,7 @@ public class Layout {
      - Parameter offset: A CGFloat value for the offset along the y axis.
      - Returns: The current Layout instance.
      */
+    @discardableResult
     public func centerVertically(offset: CGFloat = 0) -> Layout {
         guard let v = child else {
             return debugChildNotAvailableMessage()

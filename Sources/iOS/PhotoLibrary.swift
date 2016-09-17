@@ -254,6 +254,7 @@ extension PhotoLibrary {
      - Parameter fetchResult: A PHFetchResult<T>.
      - Parameter completion: A completion block.
      */
+    @discardableResult
     internal func fetch<T: PHObject, U: PHFetchResult<T>>(caller: String, result: U, completion: (([T], U) -> Void)? = nil) -> [T] {
         var objects = [T]()
         
@@ -287,6 +288,7 @@ extension PhotoLibrary {
      - Parameter options: An optional PHFetchOptions object.
      - Parameter completion: A completion callback.
      */
+    @discardableResult
     public func fetchCollectionListsContaining(_ collection: PHCollection, options: PHFetchOptions?, completion: (([PHCollectionList], PHFetchResult<PHCollectionList>) -> Void)? = nil) -> [PHCollectionList] {
         return fetch(caller: #function, result: PHCollectionList.fetchCollectionListsContaining(collection, options: options), completion: completion)
     }
@@ -298,6 +300,7 @@ extension PhotoLibrary {
      - Parameter options: An optional PHFetchOptions object.
      - Parameter completion: A completion callback.
      */
+    @discardableResult
     public func fetchCollectionList(with type: PHCollectionListType, subtype: PHCollectionListSubtype, options: PHFetchOptions?, completion: (([PHCollectionList], PHFetchResult<PHCollectionList>) -> Void)? = nil) -> [PHCollectionList] {
         return fetch(caller: #function, result: PHCollectionList.fetchCollectionLists(with: type, subtype: subtype, options: options), completion: completion)
     }
@@ -311,6 +314,7 @@ extension PhotoLibrary {
      - Parameter options: An optional PHFetchOptions object.
      - Parameter completion: A completion callback.
      */
+    @discardableResult
     public func fetchCollectionLists(withLocalIdentifiers identifiers: [String], options: PHFetchOptions?, completion: (([PHCollectionList], PHFetchResult<PHCollectionList>) -> Void)? = nil) -> [PHCollectionList] {
         return fetch(caller: #function, result: PHCollectionList.fetchCollectionLists(withLocalIdentifiers: identifiers, options: options), completion: completion)
     }
@@ -324,6 +328,7 @@ extension PhotoLibrary {
      - Parameter options: An optional PHFetchOptions object.
      - Parameter completion: A completion callback.
      */
+    @discardableResult
     public func fetchCollectionLists(with collectionListType: PHCollectionListType, subtype: PHCollectionListSubtype, options: PHFetchOptions?, completion: (([PHCollectionList], PHFetchResult<PHCollectionList>) -> Void)? = nil) -> [PHCollectionList] {
         return fetch(caller: #function, result: PHCollectionList.fetchCollectionLists(with: collectionListType, subtype: subtype, options: options), completion: completion)
     }
@@ -335,6 +340,7 @@ extension PhotoLibrary {
      - Parameter options: An optional PHFetchOptions object.
      - Parameter completion: A completion callback.
      */
+    @discardableResult
     public func fetchMomentLists(with momentListSubtype: PHCollectionListSubtype, containingMoment moment: PHAssetCollection, options: PHFetchOptions?, completion: (([PHCollectionList], PHFetchResult<PHCollectionList>) -> Void)? = nil) -> [PHCollectionList] {
         return fetch(caller: #function, result: PHCollectionList.fetchMomentLists(with: momentListSubtype, containingMoment: moment, options: options), completion: completion)
     }
@@ -345,6 +351,7 @@ extension PhotoLibrary {
      - Parameter options: An optional PHFetchOptions object.
      - Parameter completion: A completion callback.
      */
+    @discardableResult
     public func fetchMomentLists(with momentListSubtype: PHCollectionListSubtype, options: PHFetchOptions?, completion: (([PHCollectionList], PHFetchResult<PHCollectionList>) -> Void)? = nil) -> [PHCollectionList] {
         return fetch(caller: #function, result: PHCollectionList.fetchMomentLists(with: momentListSubtype, options: options), completion: completion)
     }
@@ -358,6 +365,7 @@ extension PhotoLibrary {
      - Parameter options: An optional PHFetchOptions object.
      - Parameter completion: A completion callback.
      */
+    @discardableResult
     public func fetchCollections(in collectionList: PHCollectionList, options: PHFetchOptions?, completion: (([PHCollection], PHFetchResult<PHCollection>) -> Void)? = nil) -> [PHCollection] {
         return fetch(caller: #function, result: PHCollection.fetchCollections(in: collectionList, options: options), completion: completion)
     }
@@ -369,6 +377,7 @@ extension PhotoLibrary {
      - Parameter options: An optional PHFetchOptions object.
      - Parameter completion: A completion callback.
      */
+    @discardableResult
     public func fetchTopLevelUserCollections(with options: PHFetchOptions?, completion: (([PHCollection], PHFetchResult<PHCollection>) -> Void)? = nil) -> [PHCollection] {
         return fetch(caller: #function, result: PHCollection.fetchTopLevelUserCollections(with: nil), completion: completion)
     }
@@ -383,6 +392,7 @@ extension PhotoLibrary {
      - Parameter options: An optional PHFetchOptions object.
      - Parameter completion: A completion block.
      */
+    @discardableResult
     public func fetchAssetCollections(withLocalIdentifiers identifiers: [String], options: PHFetchOptions?, completion: (([PHAssetCollection], PHFetchResult<PHAssetCollection>) -> Void)? = nil) -> [PHAssetCollection] {
         return fetch(caller: #function, result: PHAssetCollection.fetchAssetCollections(withLocalIdentifiers: identifiers, options: options), completion: completion)
     }
@@ -395,6 +405,7 @@ extension PhotoLibrary {
      - Parameter options: An optional PHFetchOptions object.
      - Parameter completion: A completion block.
      */
+    @discardableResult
     public func fetchAssetCollections(with type: PHAssetCollectionType, subtype: PHAssetCollectionSubtype, options: PHFetchOptions?, completion: (([PHAssetCollection], PHFetchResult<PHAssetCollection>) -> Void)? = nil) -> [PHAssetCollection] {
         return fetch(caller: #function, result: PHAssetCollection.fetchAssetCollections(with: type, subtype: subtype, options: options), completion: completion)
     }
@@ -406,6 +417,7 @@ extension PhotoLibrary {
      - Parameter options: An optional PHFetchOptions object.
      - Parameter completion: A completion block.
      */
+    @discardableResult
     public func fetchAssetCollectionsContaining(_ asset: PHAsset, with type: PHAssetCollectionType, options: PHFetchOptions?, completion: (([PHAssetCollection], PHFetchResult<PHAssetCollection>) -> Void)? = nil) -> [PHAssetCollection] {
         return fetch(caller: #function, result: PHAssetCollection.fetchAssetCollectionsContaining(asset, with: type, options: options), completion: completion)
     }
@@ -418,6 +430,7 @@ extension PhotoLibrary {
      - Parameter options: An optional PHFetchOptions object.
      - Parameter completion: A completion block.
      */
+    @discardableResult
     public func fetchAssetCollections(withALAssetGroupURLs assetGroupURLs: [URL], options: PHFetchOptions?, completion: (([PHAssetCollection], PHFetchResult<PHAssetCollection>) -> Void)? = nil) -> [PHAssetCollection] {
         return fetch(caller: #function, result: PHAssetCollection.fetchAssetCollections(withALAssetGroupURLs: assetGroupURLs, options: options), completion: completion)
     }
@@ -428,6 +441,7 @@ extension PhotoLibrary {
      - Parameter options: An optional PHFetchOptions object.
      - Parameter completion: A completion block.
      */
+    @discardableResult
     public func fetchMoments(inMomentList momentList: PHCollectionList, options: PHFetchOptions?, completion: (([PHAssetCollection], PHFetchResult<PHAssetCollection>) -> Void)? = nil) -> [PHAssetCollection] {
         return fetch(caller: #function, result: PHAssetCollection.fetchMoments(inMomentList: momentList, options: options), completion: completion)
     }
@@ -437,6 +451,7 @@ extension PhotoLibrary {
      - Parameter with options: An optional PHFetchOptions object.
      - Parameter completion: A completion block.
      */
+    @discardableResult
     public func fetchMoments(with options: PHFetchOptions?, completion: (([PHAssetCollection], PHFetchResult<PHAssetCollection>) -> Void)? = nil) -> [PHAssetCollection] {
         return fetch(caller: #function, result: PHAssetCollection.fetchMoments(with: options), completion: completion)
     }
@@ -450,6 +465,7 @@ extension PhotoLibrary {
      - Parameter options: An optional PHFetchOptions object.
      - Parameter completion: A completion block.
      */
+    @discardableResult
     public func fetchAssets(in assetCollection: PHAssetCollection, options: PHFetchOptions?, completion: (([PHAsset], PHFetchResult<PHAsset>) -> Void)? = nil) -> [PHAsset] {
         return fetch(caller: #function, result: PHAsset.fetchAssets(in: assetCollection, options: options), completion: completion)
     }
@@ -461,6 +477,7 @@ extension PhotoLibrary {
      - Parameter options: An optional PHFetchOptions object.
      - Parameter completion: A completion block.
      */
+    @discardableResult
     public func fetchAssets(withLocalIdentifiers identifiers: [String], options: PHFetchOptions?, completion: (([PHAsset], PHFetchResult<PHAsset>) -> Void)? = nil) -> [PHAsset] {
         return fetch(caller: #function, result: PHAsset.fetchAssets(withLocalIdentifiers: identifiers, options: options), completion: completion)
     }
@@ -472,6 +489,7 @@ extension PhotoLibrary {
      - Parameter completion: A completion block.
      - Returns: An optional PHFetchResult<PHAsset> object.
      */
+    @discardableResult
     public func fetchKeyAssets(in assetCollection: PHAssetCollection, options: PHFetchOptions?, completion: (([PHAsset], PHFetchResult<PHAsset>) -> Void)? = nil) -> PHFetchResult<PHAsset>? {
         guard let fetchResult = PHAsset.fetchKeyAssets(in: assetCollection, options: options) else {
             return nil
@@ -487,6 +505,7 @@ extension PhotoLibrary {
      - Parameter options: An optional PHFetchOptions object.
      - Parameter completion: A completion block.
      */
+    @discardableResult
     public func fetchAssets(withBurstIdentifier burstIdentifier: String, options: PHFetchOptions?, completion: (([PHAsset], PHFetchResult<PHAsset>) -> Void)? = nil) -> [PHAsset] {
         return fetch(caller: #function, result: PHAsset.fetchAssets(withBurstIdentifier: burstIdentifier, options: options), completion: completion)
     }
@@ -497,6 +516,7 @@ extension PhotoLibrary {
      - Parameter with options: An optional PHFetchOptions object.
      - Parameter completion: A completion block.
      */
+    @discardableResult
     public func fetchAssets(with options: PHFetchOptions?, completion: (([PHAsset], PHFetchResult<PHAsset>) -> Void)? = nil) -> [PHAsset] {
         return fetch(caller: #function, result: PHAsset.fetchAssets(with: options), completion: completion)
     }
@@ -507,6 +527,7 @@ extension PhotoLibrary {
      - Parameter options: An optional PHFetchOptions object.
      - Parameter completion: A completion block.
      */
+    @discardableResult
     public func fetchAssets(with mediaType: PHAssetMediaType, options: PHFetchOptions?, completion: (([PHAsset], PHFetchResult<PHAsset>) -> Void)? = nil) -> [PHAsset] {
         return fetch(caller: #function, result: PHAsset.fetchAssets(with: mediaType, options: options), completion: completion)
     }
@@ -518,6 +539,7 @@ extension PhotoLibrary {
      - Parameter options: An optional PHFetchOptions object.
      - Parameter completion: A completion block.
      */
+    @discardableResult
     public func fetchAssets(withALAssetURLs assetURLs: [URL], options: PHFetchOptions?, completion: (([PHAsset], PHFetchResult<PHAsset>) -> Void)? = nil) -> [PHAsset] {
         return fetch(caller: #function, result: PHAsset.fetchAssets(withALAssetURLs: assetURLs, options: options), completion: completion)
     }
@@ -535,6 +557,7 @@ extension PhotoLibrary {
      - Parameter completion: A completion block.
      - Returns: A PHImageRequestID.
      */
+    @discardableResult
     public func requestImage(for asset: PHAsset, targetSize: CGSize, contentMode: PHImageContentMode, options: PHImageRequestOptions?, completion: @escaping (UIImage?, [AnyHashable: Any]?) -> Void) -> PHImageRequestID {
         return PHImageManager.default().requestImage(for: asset, targetSize: targetSize, contentMode: contentMode, options: options, resultHandler: completion)
     }
@@ -546,6 +569,7 @@ extension PhotoLibrary {
      - Parameter completion: A completion block.
      - Returns: A PHImageRequestID.
      */
+    @discardableResult
     public func requestImageData(for asset: PHAsset, options: PHImageRequestOptions?, completion: @escaping (Data?, String?, UIImageOrientation, [AnyHashable: Any]?) -> Void) -> PHImageRequestID {
         return PHImageManager.default().requestImageData(for: asset, options: options, resultHandler: completion)
     }
@@ -574,6 +598,7 @@ extension PhotoLibrary {
      - Returns: A PHImageRequestID.
      */
     @available(iOS 9.1, *)
+    @discardableResult
     public func requestLivePhoto(for asset: PHAsset, targetSize: CGSize, contentMode: PHImageContentMode, options: PHLivePhotoRequestOptions?, completion: @escaping (PHLivePhoto?, [AnyHashable : Any]?) -> Void) -> PHImageRequestID {
         return PHImageManager.default().requestLivePhoto(for: asset, targetSize: targetSize, contentMode: contentMode, options: options, resultHandler: completion)
     }
@@ -585,6 +610,7 @@ extension PhotoLibrary {
      - Parameter completion: A completion block.
      - Returns: A PHImageRequestID.
      */
+    @discardableResult
     public func requestPlayerItem(forVideo asset: PHAsset, options: PHVideoRequestOptions?, completion: @escaping (AVPlayerItem?, [AnyHashable : Any]?) -> Swift.Void) -> PHImageRequestID {
         return PHImageManager.default().requestPlayerItem(forVideo: asset, options: options, resultHandler: completion)
     }
@@ -596,6 +622,7 @@ extension PhotoLibrary {
      - Parameter completion: A completion block.
      - Returns: A PHImageRequestID.
      */
+    @discardableResult
     public func requestExportSession(forVideo asset: PHAsset, options: PHVideoRequestOptions?, exportPreset: String, completion: @escaping (AVAssetExportSession?, [AnyHashable : Any]?) -> Void) -> PHImageRequestID {
         return PHImageManager.default().requestExportSession(forVideo: asset, options: options, exportPreset: exportPreset, resultHandler: completion)
     }
@@ -607,6 +634,7 @@ extension PhotoLibrary {
      - Parameter completion: A completion block.
      - Returns: A PHImageRequestID.
      */
+    @discardableResult
     public func requestAVAsset(forVideo asset: PHAsset, options: PHVideoRequestOptions?, completion: @escaping (AVAsset?, AVAudioMix?, [AnyHashable : Any]?) -> Void) -> PHImageRequestID {
         return PHImageManager.default().requestAVAsset(forVideo: asset, options: options, resultHandler: completion)
     }

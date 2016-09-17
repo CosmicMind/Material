@@ -286,7 +286,7 @@ open class Card: PulseView {
 			verticalFormat += "-[titleLabel]"
 			views["titleLabel"] = v
 			
-			_ = layout(v).horizontally(left: contentInset.left + titleLabelInset.left, right: contentInset.right + titleLabelInset.right)
+			layout(v).horizontally(left: contentInset.left + titleLabelInset.left, right: contentInset.right + titleLabelInset.right)
 		}
 		
 		// detail
@@ -301,7 +301,7 @@ open class Card: PulseView {
 			verticalFormat += "-[contentView]"
 			views["contentView"] = v
 			
-			_ = layout(v).horizontally(left: contentInset.left + contentViewInset.left, right: contentInset.right + contentViewInset.right)
+			layout(v).horizontally(left: contentInset.left + contentViewInset.left, right: contentInset.right + contentViewInset.right)
 		}
 		
 		// leftButtons
@@ -322,7 +322,7 @@ open class Card: PulseView {
                 
                 h += "[\(k)]"
                 
-                _ = layout(b).bottom(contentInset.bottom + leftButtonsInset.bottom)
+                layout(b).bottom(contentInset.bottom + leftButtonsInset.bottom)
                 
                 i += 1
             }
@@ -349,7 +349,7 @@ open class Card: PulseView {
                     h += "-(right_left)-"
                 }
                 
-                _ = layout(b).bottom(contentInset.bottom + rightButtonsInset.bottom)
+                layout(b).bottom(contentInset.bottom + rightButtonsInset.bottom)
                 
                 i -= 1
             }

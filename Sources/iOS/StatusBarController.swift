@@ -79,6 +79,6 @@ open class StatusBarController: RootController {
 	private func prepareStatusBarView() {
 		statusBarView.zPosition = 3000
 		statusBarView.backgroundColor = Color.black.withAlphaComponent(0.12)
-		_ = view.layout(statusBarView).top(0).horizontally().height(20)
+		view.layout(statusBarView).top(0).horizontally().height(20)
 	}
 }

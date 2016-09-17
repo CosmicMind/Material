@@ -135,18 +135,18 @@ open class ContentCard: PulseView {
         if let v = titleBar {
             views["titleBar"] = v
             format += "[titleBar]"
-            _ = layout(v).horizontally()
+            layout(v).horizontally()
         }
         
         views["contentView"] = contentView
         format += "[contentView]"
-        _ = layout(contentView).horizontally()
+        layout(contentView).horizontally()
         contentView.layoutIfNeeded()
         
         if let v = bottomBar {
             views["bottomBar"] = v
             format += "[bottomBar]"
-            _ = layout(v).horizontally()
+            layout(v).horizontally()
         }
         
         addConstraints(Layout.constraint(format: "\(format)|", options: [], metrics: nil, views: views))

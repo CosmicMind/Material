@@ -180,7 +180,7 @@ open class Button: UIButton {
     open func pulse(point: CGPoint? = nil) {
         let p = nil == point ? CGPoint(x: CGFloat(width / 2), y: CGFloat(height / 2)) : point!
         Animation.pulseExpandAnimation(layer: layer, visualLayer: visualLayer, pulseColor: pulseColor, pulseOpacity: pulseOpacity, point: p, width: width, height: height, pulseLayers: &pulseLayers, pulseAnimation: pulseAnimation)
-        _ = Animation.delay(time: 0.35) { [weak self] in
+        Animation.delay(time: 0.35) { [weak self] in
             guard let s = self else {
                 return
             }

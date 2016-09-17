@@ -568,7 +568,7 @@ open class Capture: View, UIGestureRecognizerDelegate {
             }
 			v.transform = CATransform3DMakeScale(0.5, 0.5, 1)
 		}) {
-			_ = Animation.delay(time: 0.4) { [weak layer] in
+			Animation.delay(time: 0.4) { [weak layer] in
                 Animation.animationDisabled { [weak layer] in
                     guard let v = layer else {
                         return
