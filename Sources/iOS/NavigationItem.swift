@@ -43,7 +43,7 @@ public class NavigationItem: NSObject {
     }
     
 	/// Back Button.
-	public var backButton: IconButton?
+	public private(set) lazy var backButton: IconButton = IconButton()
 	
 	/// Content View.
     public private(set) lazy var contentView = UIView()
@@ -100,13 +100,15 @@ public class NavigationItem: NSObject {
 	private func prepareTitleLabel() {
 		titleLabel.font = RobotoFont.medium(with: 17)
 		titleLabel.textAlignment = .center
+        titleLabel.textColor = Color.darkText.primary
         addObserver(self, forKeyPath: "titleLabel.textAlignment", options: [], context: &NavigationItemContext)
 	}
 	
 	/// Prepares the detailLabel.
 	private func prepareDetailLabel() {
 		detailLabel.font = RobotoFont.regular(with: 12)
-		detailLabel.textAlignment = .center
+		detailLabel.textColor = Color.darkText.secondary
+        detailLabel.textAlignment = .center
 	}
 }
 
@@ -134,13 +136,8 @@ extension UINavigationItem {
     }
     
 	/// Back Button.
-	public internal(set) var backButton: IconButton? {
-		get {
-			return navigationItem.backButton
-		}
-		set(value) {
-			navigationItem.backButton = value
-		}
+	public var backButton: IconButton {
+		return navigationItem.backButton
 	}
 	
     /// Title text.

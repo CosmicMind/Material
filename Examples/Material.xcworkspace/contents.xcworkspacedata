@@ -7,9 +7,12 @@
    <Group
       location = "container:"
       name = "Programmatic">
+      <FileRef
+         location = "group:Programmatic/NavigationController/NavigationController.xcodeproj">
+      </FileRef>
    </Group>
    <Group
       location = "container:"
-      name = "Storyboards">
+      name = "Storyboard">
    </Group>
 </Workspace>

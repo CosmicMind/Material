@@ -296,7 +296,7 @@ open class NavigationBar: UINavigationBar {
         barStyle = .black
 		isTranslucent = false
 		depthPreset = .depth1
-		interimSpacePreset = .interimSpace1
+		interimSpacePreset = .interimSpace3
 		contentEdgeInsetsPreset = .square1
 		contentScaleFactor = Device.scale
 		backButtonImage = Icon.cm.arrowBack

@@ -134,11 +134,9 @@ extension NavigationController: UINavigationBarDelegate {
      */
     public func navigationBar(_ navigationBar: UINavigationBar, shouldPush item: UINavigationItem) -> Bool {
         if let v = navigationBar as? NavigationBar {
-            let backButton = IconButton(image: v.backButtonImage, tintColor: Color.blueGrey.base)
-            backButton.addTarget(self, action: #selector(handleBackButton), for: .touchUpInside)
-            
-            item.backButton = backButton
-            item.leftViews.append(backButton)
+            item.backButton.addTarget(self, action: #selector(handleBackButton), for: .touchUpInside)
+            item.backButton.image = v.backButtonImage
+            item.leftViews.append(item.backButton)
             v.layoutNavigationItem(item: item)
         }
         return true

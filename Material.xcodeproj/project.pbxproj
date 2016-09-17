@@ -538,7 +538,7 @@
 		96BCB7571CB40DC500C806FE /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				96BCB8091CB4107700C806FE /* Animate */,
+				96BCB8091CB4107700C806FE /* Animation */,
 				96264BE41D833C8400576F37 /* BarView */,
 				962DDD081D6FBBD0001C307C /* BottomTabBar */,
 				96BCB8031CB40F4B00C806FE /* Button */,
@@ -704,7 +704,7 @@
 			name = Icon;
 			sourceTree = "<group>";
 		};
-		96BCB8091CB4107700C806FE /* Animate */ = {
+		96BCB8091CB4107700C806FE /* Animation */ = {
 			isa = PBXGroup;
 			children = (
 				96BCB76D1CB40DC500C806FE /* Animation.swift */,
@@ -713,7 +713,7 @@
 				96BCB7821CB40DC500C806FE /* PulseAnimation.swift */,
 				96E3C39D1D3A1D0C0086A024 /* BasicAnimation.swift */,
 			);
-			name = Animate;
+			name = Animation;
 			sourceTree = "<group>";
 		};
 		96BCB80A1CB410A100C806FE /* Extension */ = {
