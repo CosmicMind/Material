@@ -11,8 +11,6 @@
 		9697F7851D8F2002004741EC /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9697F7841D8F2002004741EC /* RootViewController.swift */; };
 		9697F78A1D8F2002004741EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9697F7891D8F2002004741EC /* Assets.xcassets */; };
 		9697F78D1D8F2002004741EC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9697F78B1D8F2002004741EC /* LaunchScreen.storyboard */; };
-		9697F7CF1D8F26C8004741EC /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9697F7CE1D8F26C8004741EC /* Material.framework */; };
-		9697F7D01D8F26C8004741EC /* Material.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9697F7CE1D8F26C8004741EC /* Material.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9697F7D21D8F2AD7004741EC /* AppMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9697F7D11D8F2AD7004741EC /* AppMenuController.swift */; };
 /* End PBXBuildFile section */
 
@@ -23,7 +21,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				9697F7D01D8F26C8004741EC /* Material.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -37,7 +34,6 @@
 		9697F7891D8F2002004741EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9697F78C1D8F2002004741EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9697F78E1D8F2002004741EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9697F7CE1D8F26C8004741EC /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Material.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9697F7D11D8F2AD7004741EC /* AppMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppMenuController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -46,7 +42,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9697F7CF1D8F26C8004741EC /* Material.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,7 +51,6 @@
 		9697F7761D8F2002004741EC = {
 			isa = PBXGroup;
 			children = (
-				9697F7CE1D8F26C8004741EC /* Material.framework */,
 				9697F7811D8F2002004741EC /* MenuController */,
 				9697F7801D8F2002004741EC /* Products */,
 			);
