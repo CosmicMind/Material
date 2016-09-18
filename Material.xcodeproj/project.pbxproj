@@ -30,6 +30,25 @@
 		967A48191D0F425A00B8CEB7 /* StatusBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967A48181D0F425A00B8CEB7 /* StatusBarController.swift */; };
 		96815B381CA07BA20006CBE2 /* MaterialViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967887881C9777CB0037F6C9 /* MaterialViewTests.swift */; };
 		968C99471D377849000074FF /* Offset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968C99461D377849000074FF /* Offset.swift */; };
+		9697F7B71D8F22A4004741EC /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9697F7B61D8F22A4004741EC /* MenuItem.swift */; };
+		9697F7BC1D8F2572004741EC /* BasicAnimation.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96E3C39D1D3A1D0C0086A024 /* BasicAnimation.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		9697F7BD1D8F2572004741EC /* ContentCard.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96264C111D840B5F00576F37 /* ContentCard.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		9697F7BE1D8F2572004741EC /* Checkbox.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96264C0D1D84051900576F37 /* Checkbox.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		9697F7BF1D8F2572004741EC /* Divider.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96230AB71D6A520C00AF47DC /* Divider.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		9697F7C01D8F2572004741EC /* Material+CALayer.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96F1DC871D654FDF0025F925 /* Material+CALayer.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		9697F7C11D8F2572004741EC /* Material+Array.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96C1C8801D42C62800E6608F /* Material+Array.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		9697F7C21D8F2572004741EC /* Material+UIWindow.swift in Headers */ = {isa = PBXBuildFile; fileRef = 962864591D53FE3E00690B69 /* Material+UIWindow.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		9697F7C31D8F2572004741EC /* DynamicFontType.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9628645E1D540AF300690B69 /* DynamicFontType.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		9697F7C41D8F2572004741EC /* JSON.swift in Headers */ = {isa = PBXBuildFile; fileRef = 962864611D54111D00690B69 /* JSON.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		9697F7C51D8F2573004741EC /* MenuItem.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9697F7B61D8F22A4004741EC /* MenuItem.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		9697F7C61D8F2573004741EC /* PageTabBarController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 963FBF071D669D14008F8512 /* PageTabBarController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		9697F7C71D8F2573004741EC /* PhotoLibrary.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96EA9A421D4E68F80052C74D /* PhotoLibrary.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		9697F7C81D8F2573004741EC /* PhotoLibraryController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96EA9A4A1D4E7A430052C74D /* PhotoLibraryController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		9697F7C91D8F2573004741EC /* Reminders.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96264BE61D833D2800576F37 /* Reminders.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		9697F7CA1D8F2573004741EC /* RemindersController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96264BE81D833D3400576F37 /* RemindersController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		9697F7CB1D8F2573004741EC /* Snackbar.swift in Headers */ = {isa = PBXBuildFile; fileRef = 963FBEFC1D669510008F8512 /* Snackbar.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		9697F7CC1D8F2573004741EC /* SnackbarController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 961EFC571D738FF600E84652 /* SnackbarController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		9697F7CD1D8F2582004741EC /* Color.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9661222D1D3EC414008BB4CB /* Color.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB7A11CB40DC500C806FE /* BottomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7581CB40DC500C806FE /* BottomNavigationController.swift */; };
 		96BCB7A21CB40DC500C806FE /* BottomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7591CB40DC500C806FE /* BottomTabBar.swift */; };
 		96BCB7A31CB40DC500C806FE /* CapturePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB75A1CB40DC500C806FE /* CapturePreview.swift */; };
@@ -226,6 +245,7 @@
 		967887881C9777CB0037F6C9 /* MaterialViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialViewTests.swift; sourceTree = "<group>"; };
 		967A48181D0F425A00B8CEB7 /* StatusBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarController.swift; sourceTree = "<group>"; };
 		968C99461D377849000074FF /* Offset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Offset.swift; sourceTree = "<group>"; };
+		9697F7B61D8F22A4004741EC /* MenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
 		96BCB7581CB40DC500C806FE /* BottomNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomNavigationController.swift; sourceTree = "<group>"; };
 		96BCB7591CB40DC500C806FE /* BottomTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomTabBar.swift; sourceTree = "<group>"; };
 		96BCB75A1CB40DC500C806FE /* CapturePreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CapturePreview.swift; sourceTree = "<group>"; };
@@ -466,6 +486,7 @@
 			children = (
 				96BCB78E1CB40DC500C806FE /* Menu.swift */,
 				96BCB78F1CB40DC500C806FE /* MenuController.swift */,
+				9697F7B61D8F22A4004741EC /* MenuItem.swift */,
 			);
 			name = Menu;
 			sourceTree = "<group>";
@@ -870,6 +891,23 @@
 				96E3C3991D3A1CC20086A024 /* StatusBarController.swift in Headers */,
 				96E3C39A1D3A1CC20086A024 /* ErrorTextField.swift in Headers */,
 				96E3C39C1D3A1CC20086A024 /* Offset.swift in Headers */,
+				9697F7BC1D8F2572004741EC /* BasicAnimation.swift in Headers */,
+				9697F7BD1D8F2572004741EC /* ContentCard.swift in Headers */,
+				9697F7BE1D8F2572004741EC /* Checkbox.swift in Headers */,
+				9697F7BF1D8F2572004741EC /* Divider.swift in Headers */,
+				9697F7C01D8F2572004741EC /* Material+CALayer.swift in Headers */,
+				9697F7C11D8F2572004741EC /* Material+Array.swift in Headers */,
+				9697F7C21D8F2572004741EC /* Material+UIWindow.swift in Headers */,
+				9697F7C31D8F2572004741EC /* DynamicFontType.swift in Headers */,
+				9697F7C41D8F2572004741EC /* JSON.swift in Headers */,
+				9697F7C51D8F2573004741EC /* MenuItem.swift in Headers */,
+				9697F7C61D8F2573004741EC /* PageTabBarController.swift in Headers */,
+				9697F7C71D8F2573004741EC /* PhotoLibrary.swift in Headers */,
+				9697F7C81D8F2573004741EC /* PhotoLibraryController.swift in Headers */,
+				9697F7C91D8F2573004741EC /* Reminders.swift in Headers */,
+				9697F7CA1D8F2573004741EC /* RemindersController.swift in Headers */,
+				9697F7CB1D8F2573004741EC /* Snackbar.swift in Headers */,
+				9697F7CC1D8F2573004741EC /* SnackbarController.swift in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -878,6 +916,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9660162A1CB2F04E00AAB661 /* Material.h in Headers */,
+				9697F7CD1D8F2582004741EC /* Color.swift in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1144,6 +1183,7 @@
 				96BCB7AB1CB40DC500C806FE /* ImageCard.swift in Sources */,
 				96BCB7CB1CB40DC500C806FE /* PulseAnimation.swift in Sources */,
 				96BCB7AE1CB40DC500C806FE /* Material+UIFont.swift in Sources */,
+				9697F7B71D8F22A4004741EC /* MenuItem.swift in Sources */,
 				96BCB7D91CB40DC500C806FE /* NavigationBar.swift in Sources */,
 				96264C0E1D84051900576F37 /* Checkbox.swift in Sources */,
 			);

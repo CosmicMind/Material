@@ -11,7 +11,10 @@
          location = "group:Programmatic/NavigationController/NavigationController.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:Programmatic/Snackbar/Snackbar.xcodeproj">
+         location = "group:Programmatic/SnackbarController/SnackbarController.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/MenuController/MenuController.xcodeproj">
       </FileRef>
    </Group>
    <Group
