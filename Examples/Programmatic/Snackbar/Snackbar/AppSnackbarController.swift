@@ -29,60 +29,29 @@
  */
 
 import UIKit
+import Material
 
-open class BarView: ContentView {
-    /// Divider layer.
-    open internal(set) var divider: Divider!
-    
-	/**
-     An initializer that initializes the object with a NSCoder object.
-     - Parameter aDecoder: A NSCoder instance.
-     */
-	public required init?(coder aDecoder: NSCoder) {
-		super.init(coder: aDecoder)
-	}
-	
-	/**
-     An initializer that initializes the object with a CGRect object.
-     If AutoLayout is used, it is better to initilize the instance
-     using the init() initializer.
-     - Parameter frame: A CGRect instance.
-     */
-	public override init(frame: CGRect) {
-		super.init(frame: frame)
-	}
-	
-	/**
-     A convenience initializer with parameter settings.
-     - Parameter leftViews: An Array of UIViews that go on the left side.
-     - Parameter rightViews: An Array of UIViews that go on the right side.
-     */
-	public override init(leftViews: [UIView]? = nil, rightViews: [UIView]? = nil) {
-		super.init(leftViews: leftViews, rightViews: rightViews)
-	}
-	
-    open override func layoutSubviews() {
-        super.layoutSubviews()
-        guard willLayout else {
-            return
-        }
-        divider.reload()
+class AppSnackbarController: SnackbarController {
+    open override func prepare() {
+        super.prepare()
+        delegate = self
+    }
+}
+
+extension AppSnackbarController: SnackbarControllerDelegate {
+    func snackbarControllerWillShow(snackbarController: SnackbarController) {
+        print("snackbarControllerWillShow")
     }
     
-	/**
-     Prepares the view instance when intialized. When subclassing,
-     it is recommended to override the prepare method
-     to initialize property values and other setup operations.
-     The super.prepare method should always be called immediately
-     when subclassing.
-     */
-	open override func prepare() {
-		super.prepare()
-        prepareDivider()
+    func snackbarControllerWillHide(snackbarController: SnackbarController) {
+        print("snackbarControllerWillHide")
     }
     
-    /// Prepares the divider.
-    private func prepareDivider() {
-        divider = Divider(view: self)
+    func snackbarControllerDidShow(snackbarController: SnackbarController) {
+        print("snackbarControllerDidShow")
+    }
+    
+    func snackbarControllerDidHide(snackbarController: SnackbarController) {
+        print("snackbarControllerDidHide")
     }
 }

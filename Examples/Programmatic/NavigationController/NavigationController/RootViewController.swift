@@ -37,7 +37,7 @@ class RootViewController: UIViewController {
     private var starButton: IconButton!
     private var searchButton: IconButton!
     
-    /// Trigger to go to next view controller.
+    /// Trigger to go to the next view controller.
     private var nextButton: FlatButton!
     
     override func viewDidLoad() {

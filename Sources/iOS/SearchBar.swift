@@ -101,39 +101,39 @@ open class SearchBar: BarView {
 	}
 	
 	/**
-	An initializer that initializes the object with a NSCoder object.
-	- Parameter aDecoder: A NSCoder instance.
-	*/
+     An initializer that initializes the object with a NSCoder object.
+     - Parameter aDecoder: A NSCoder instance.
+     */
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
 	
 	/**
-	An initializer that initializes the object with a CGRect object.
-	If AutoLayout is used, it is better to initilize the instance
-	using the init() initializer.
-	- Parameter frame: A CGRect instance.
-	*/
+     An initializer that initializes the object with a CGRect object.
+     If AutoLayout is used, it is better to initilize the instance
+     using the init() initializer.
+     - Parameter frame: A CGRect instance.
+     */
 	public override init(frame: CGRect) {
 		super.init(frame: frame)
 	}
 	
 	/**
-	A convenience initializer with parameter settings.
-	- Parameter leftControls: An Array of UIControls that go on the left side.
-	- Parameter rightControls: An Array of UIControls that go on the right side.
-	*/
-	public override init(leftControls: [UIView]? = nil, rightControls: [UIView]? = nil) {
-		super.init(leftControls: leftControls, rightControls: rightControls)
+     A convenience initializer with parameter settings.
+     - Parameter leftViews: An Array of UIViews that go on the left side.
+     - Parameter rightViews: An Array of UIViews that go on the right side.
+     */
+	public override init(leftViews: [UIView]? = nil, rightViews: [UIView]? = nil) {
+		super.init(leftViews: leftViews, rightViews: rightViews)
 	}
 	
 	/**
-	Prepares the view instance when intialized. When subclassing,
-	it is recommended to override the prepare method
-	to initialize property values and other setup operations.
-	The super.prepare method should always be called immediately
-	when subclassing.
-	*/
+     Prepares the view instance when intialized. When subclassing,
+     it is recommended to override the prepare method
+     to initialize property values and other setup operations.
+     The super.prepare method should always be called immediately
+     when subclassing.
+     */
 	open override func prepare() {
 		super.prepare()
         interimSpacePreset = .interimSpace3

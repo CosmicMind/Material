@@ -60,7 +60,7 @@ public typealias AnimationDelayCancelBlock = (Bool) -> Void
 public struct Animation {
 	/// Delay helper method.
     @discardableResult
-	public static func delay(time: TimeInterval, completion: @escaping () -> Void) -> AnimationDelayCancelBlock? {
+    public static func delay(time: TimeInterval, completion: @escaping () -> Void) -> AnimationDelayCancelBlock? {
 		
 		func asyncAfter(completion: @escaping () -> Void) {
 			DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time, execute: completion)

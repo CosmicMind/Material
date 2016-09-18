@@ -85,11 +85,11 @@ open class Toolbar: BarView {
 	
 	/**
      A convenience initializer with parameter settings.
-     - Parameter leftControls: An Array of UIControls that go on the left side.
-     - Parameter rightControls: An Array of UIControls that go on the right side.
+     - Parameter leftViews: An Array of UIViews that go on the left side.
+     - Parameter rightViews: An Array of UIViews that go on the right side.
      */
-	public override init(leftControls: [UIView]? = nil, rightControls: [UIView]? = nil) {
-		super.init(leftControls: leftControls, rightControls: rightControls)
+	public override init(leftViews: [UIView]? = nil, rightViews: [UIView]? = nil) {
+		super.init(leftViews: leftViews, rightViews: rightViews)
 	}
 	
     open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {

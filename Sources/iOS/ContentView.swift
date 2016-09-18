@@ -104,8 +104,8 @@ open class ContentView: View {
 	/// ContentView that holds the any desired subviews.
 	open private(set) lazy var contentView = View()
 	
-	/// Left side UIControls.
-	open var leftControls = [UIView]() {
+	/// Left side UIViews.
+	open var leftViews = [UIView]() {
 		didSet {
             for v in oldValue {
                 v.removeFromSuperview()
@@ -114,8 +114,8 @@ open class ContentView: View {
 		}
 	}
 	
-	/// Right side UIControls.
-	open var rightControls = [UIView]() {
+	/// Right side UIViews.
+	open var rightViews = [UIView]() {
 		didSet {
             for v in oldValue {
                 v.removeFromSuperview()
@@ -150,12 +150,12 @@ open class ContentView: View {
 	
 	/**
      A convenience initializer with parameter settings.
-     - Parameter leftControls: An Array of UIControls that go on the left side.
-     - Parameter rightControls: An Array of UIControls that go on the right side.
+     - Parameter leftViews: An Array of UIViews that go on the left side.
+     - Parameter rightViews: An Array of UIViews that go on the right side.
      */
-	public init(leftControls: [UIView]? = nil, rightControls: [UIView]? = nil) {
-        self.leftControls = leftControls ?? []
-        self.rightControls = rightControls ?? []
+	public init(leftViews: [UIView]? = nil, rightViews: [UIView]? = nil) {
+        self.leftViews = leftViews ?? []
+        self.rightViews = rightViews ?? []
         super.init(frame: .zero)
 		frame.size = intrinsicContentSize
 	}
@@ -168,8 +168,8 @@ open class ContentView: View {
         
         var lc = 0
         var rc = 0
-        let l = (CGFloat(leftControls.count) * interimSpace)
-        let r = (CGFloat(rightControls.count) * interimSpace)
+        let l = (CGFloat(leftViews.count) * interimSpace)
+        let r = (CGFloat(rightViews.count) * interimSpace)
         let p = width - l - r - contentEdgeInsets.left - contentEdgeInsets.right
         let columns = Int(ceil(p / gridFactor))
         
@@ -177,7 +177,7 @@ open class ContentView: View {
         grid.views.removeAll()
         grid.axis.columns = columns
         
-        for v in leftControls {
+        for v in leftViews {
             (v as? UIButton)?.contentEdgeInsets = .zero
             v.sizeToFit()
             v.grid.columns = Int(ceil(v.width / gridFactor)) + 1
@@ -189,7 +189,7 @@ open class ContentView: View {
         
         grid.views.append(contentView)
         
-        for v in rightControls {
+        for v in rightViews {
             (v as? UIButton)?.contentEdgeInsets = .zero
             v.sizeToFit()
             v.grid.columns = Int(ceil(v.width / gridFactor)) + 1
@@ -207,7 +207,7 @@ open class ContentView: View {
                 contentView.grid.offset.columns = rc - lc
             } else {
                 contentView.grid.columns = columns - 2 * lc
-                rightControls.first?.grid.offset.columns = lc - rc
+                rightViews.first?.grid.offset.columns = lc - rc
             }
         } else {
             contentView.grid.columns = columns - lc - rc
