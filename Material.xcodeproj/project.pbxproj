@@ -485,8 +485,8 @@
 			isa = PBXGroup;
 			children = (
 				96BCB78E1CB40DC500C806FE /* Menu.swift */,
-				96BCB78F1CB40DC500C806FE /* MenuController.swift */,
 				9697F7B61D8F22A4004741EC /* MenuItem.swift */,
+				96BCB78F1CB40DC500C806FE /* MenuController.swift */,
 			);
 			name = Menu;
 			sourceTree = "<group>";

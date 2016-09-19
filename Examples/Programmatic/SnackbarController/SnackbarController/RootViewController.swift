@@ -37,27 +37,40 @@ class RootViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Color.lightBlue.base
+        view.backgroundColor = Color.grey.lighten1
+        
+        prepareUndoButton()
     }
     
     open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        guard let mc = menuController as? AppMenuController else {
-            return
-        }
         
-        prepareMenuController()
-        
-        mc.showMenu()
+        prepareSnackbar()
+        animateSnackbar()
     }
     
-    open override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        guard let mc = menuController as? AppMenuController else {
+    private func prepareUndoButton() {
+        undoButton = FlatButton(title: "Undo", titleColor: Color.yellow.base)
+        undoButton.pulseAnimation = .backing
+        undoButton.titleLabel?.font = RobotoFont.regular(with: 14)
+    }
+    
+    private func prepareSnackbar() {
+        guard let sc = snackbarController else {
             return
         }
         
-        mc.hideMenu()
+        sc.snackbar.text = "Reminder saved."
+        sc.snackbar.rightViews = [undoButton]
+    }
+    
+    private func animateSnackbar() {
+        guard let sc = snackbarController else {
+            return
+        }
+        
+        _ = sc.animate(snackbar: .visible, delay: 1)
+        _ = sc.animate(snackbar: .hidden, delay: 4)
     }
 }
 

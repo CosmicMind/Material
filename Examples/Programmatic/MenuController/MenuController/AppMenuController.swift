@@ -41,19 +41,11 @@ class AppMenuController: MenuController {
     /// Menu right inset.
     private let rightInset: CGFloat = 24
     
-    /// Reference if the menu is hidden.
-    private(set) var isMenuHidden = false
-    
     open override func prepare() {
         super.prepare()
         view.backgroundColor = Color.black
         
         prepareMenu()
-    }
-    
-    open override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        closeMenu()
     }
     
     open override func openMenu(completion: ((UIView) -> Void)? = nil) {
@@ -66,47 +58,13 @@ class AppMenuController: MenuController {
         menu.views.first?.animate(animation: Animation.rotate(angle: 0))
     }
     
-    /// Shows the menu.
-    func showMenu() {
-        guard isMenuHidden else {
-            return
-        }
-        
-        isMenuHidden = false
-        menu.animate(animation: Animation.animationGroup(animations: [
-            Animation.rotate(rotation: 3),
-            Animation.translateY(translation: 0)
-        ]))
-    }
-    
-    /// Hides the menu.
-    func hideMenu() {
-        guard !isMenuHidden else {
-            return
-        }
-        
-        isMenuHidden = true
-        menu.animate(animation: Animation.animationGroup(animations: [
-            Animation.rotate(rotation: 3),
-            Animation.translateY(translation: 150)
-        ]))
-    }
-    
     /// Prepares the menuView.
     private func prepareMenu() {
-        menu.isHidden = true
-        
         menu.baseSize = baseSize
         
         view.layout(menu)
             .size(baseSize)
             .bottom(bottomInset)
             .right(rightInset)
-        
-        hideMenu()
-        
-        Animation.delay(time: 0.5) { [weak self] in
-            self?.menu.isHidden = false
-        }
     }
 }

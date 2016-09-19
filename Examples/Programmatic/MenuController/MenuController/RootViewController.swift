@@ -43,7 +43,7 @@ class RootViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Color.grey.lighten5
+        view.backgroundColor = Color.grey.lighten1
         
         prepareAddButton()
         prepareAudioLibraryButton()
@@ -52,28 +52,8 @@ class RootViewController: UIViewController {
     
     open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        guard let mc = menuController as? AppMenuController else {
-            return
-        }
         
         prepareMenuController()
-        
-        Animation.delay(time: 1) { [mc = mc] in
-            mc.showMenu()
-        }
-        
-        Animation.delay(time: 5) { [mc = mc] in
-            mc.hideMenu()
-        }
-    }
-    
-    open override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        guard let mc = menuController as? AppMenuController else {
-            return
-        }
-        
-        mc.hideMenu()
     }
     
     /// Handle the menu toggle event.
@@ -97,6 +77,7 @@ class RootViewController: UIViewController {
     private func prepareAddButton() {
         addButton = FabButton(image: Icon.cm.add, tintColor: Color.white)
         addButton.backgroundColor = Color.blue.base
+        addButton.addTarget(self, action: #selector(handleToggleMenu), for: .touchUpInside)
     }
     
     /// Prepares the audioLibraryButton.
@@ -122,15 +103,7 @@ class RootViewController: UIViewController {
         }
         
         mc.menu.delegate = self
-        mc.menu.views = [addButton, reminderMenuItem, audioLibraryMenuItem]
-        
-        addToggleHandler(button: addButton)
-    }
-    
-    /// Adds the menuController toggle handlers.
-    private func addToggleHandler(button: Button) {
-        button.removeTarget(self, action: #selector(handleToggleMenu), for: .touchUpInside)
-        button.addTarget(self, action: #selector(handleToggleMenu), for: .touchUpInside)
+        mc.menu.views = [addButton, audioLibraryMenuItem, reminderMenuItem]
     }
 }
 
