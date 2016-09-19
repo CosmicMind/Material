@@ -30,8 +30,8 @@
 
 import UIKit
 
-@objc(MaterialCollectionReusableView)
-open class MaterialCollectionReusableView: UICollectionReusableView {
+@objc(CollectionReusableView)
+open class CollectionReusableView: UICollectionReusableView {
 	/**
      A CAShapeLayer used to manage elements that would be affected by
      the clipToBounds property of the backing layer. For example, this
