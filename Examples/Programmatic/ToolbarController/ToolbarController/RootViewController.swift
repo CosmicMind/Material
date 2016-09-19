@@ -31,9 +31,10 @@
 import UIKit
 import Material
 
-class RightViewController: UIViewController {
+class RootViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Color.blue.base
+        view.backgroundColor = Color.grey.lighten1
     }
 }
+

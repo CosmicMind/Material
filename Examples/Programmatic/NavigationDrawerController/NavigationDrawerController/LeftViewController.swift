@@ -34,6 +34,6 @@ import Material
 class LeftViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Color.grey.darken4
+        view.backgroundColor = Color.blue.base
     }
 }

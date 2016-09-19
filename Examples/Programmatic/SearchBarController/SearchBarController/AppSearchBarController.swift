@@ -31,9 +31,10 @@
 import UIKit
 import Material
 
-class RightViewController: UIViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = Color.blue.base
+class AppSearchBarController: SearchBarController {
+    open override func prepare() {
+        super.prepare()
+        statusBarStyle = .default
     }
 }
+

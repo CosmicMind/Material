@@ -8,16 +8,37 @@
       location = "container:"
       name = "Programmatic">
       <FileRef
-         location = "group:Programmatic/NavigationDrawerController/NavigationDrawerController.xcodeproj">
+         location = "group:Programmatic/CaptureController/CaptureController.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/MenuController/MenuController.xcodeproj">
       </FileRef>
       <FileRef
          location = "group:Programmatic/NavigationController/NavigationController.xcodeproj">
       </FileRef>
       <FileRef
+         location = "group:Programmatic/NavigationDrawerController/NavigationDrawerController.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/PageTabBarController/PageTabBarController.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/PhotoLibraryController/PhotoLibraryController.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/RemindersController/RemindersController.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/SearchBarController/SearchBarController.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:Programmatic/SnackbarController/SnackbarController.xcodeproj">
       </FileRef>
       <FileRef
-         location = "group:Programmatic/MenuController/MenuController.xcodeproj">
+         location = "group:Programmatic/StatusBarController/StatusBarController.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/ToolbarController/ToolbarController.xcodeproj">
       </FileRef>
    </Group>
    <Group
