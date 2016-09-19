@@ -8,6 +8,9 @@
       location = "container:"
       name = "Programmatic">
       <FileRef
+         location = "group:Programmatic/BottomNavigationController/BottomNavigationController.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:Programmatic/CaptureController/CaptureController.xcodeproj">
       </FileRef>
       <FileRef
@@ -40,9 +43,5 @@
       <FileRef
          location = "group:Programmatic/ToolbarController/ToolbarController.xcodeproj">
       </FileRef>
-   </Group>
-   <Group
-      location = "container:"
-      name = "Storyboard">
    </Group>
 </Workspace>
