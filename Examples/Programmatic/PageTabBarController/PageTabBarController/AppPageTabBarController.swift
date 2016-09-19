@@ -34,7 +34,19 @@ import Material
 class AppPageTabBarController: PageTabBarController {
     open override func prepare() {
         super.prepare()
-        statusBarStyle = .default
+    
+        delegate = self
+        preparePageTabBar()
+    }
+    
+    /// Prepares the pageTabBar.
+    private func preparePageTabBar() {
+        pageTabBar.lineColor = Color.purple.base
     }
 }
 
+extension AppPageTabBarController: PageTabBarControllerDelegate {
+    func pageTabBarController(pageTabBarController: PageTabBarController, didTransitionTo viewController: UIViewController) {
+        print("pageTabBarController", pageTabBarController, "didTransitionTo viewController:", viewController)
+    }
+}

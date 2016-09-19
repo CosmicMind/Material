@@ -97,18 +97,20 @@ public class NavigationItem: NSObject {
     }
 	
 	/// Prepares the titleLabel.
-	private func prepareTitleLabel() {
-		titleLabel.font = RobotoFont.medium(with: 17)
-		titleLabel.textAlignment = .center
+    private func prepareTitleLabel() {
+        titleLabel.textAlignment = .center
+		titleLabel.contentScaleFactor = Device.scale
+        titleLabel.font = RobotoFont.medium(with: 17)
         titleLabel.textColor = Color.darkText.primary
         addObserver(self, forKeyPath: "titleLabel.textAlignment", options: [], context: &NavigationItemContext)
 	}
 	
 	/// Prepares the detailLabel.
-	private func prepareDetailLabel() {
+    private func prepareDetailLabel() {
+        detailLabel.textAlignment = .center
+        titleLabel.contentScaleFactor = Device.scale
 		detailLabel.font = RobotoFont.regular(with: 12)
 		detailLabel.textColor = Color.darkText.secondary
-        detailLabel.textAlignment = .center
 	}
 }
 

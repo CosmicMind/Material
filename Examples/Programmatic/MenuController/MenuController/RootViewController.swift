@@ -41,7 +41,7 @@ class RootViewController: UIViewController {
     /// A reference to the reminderMenuItem.
     internal var reminderMenuItem: MenuItem!
     
-    override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Color.grey.lighten1
         

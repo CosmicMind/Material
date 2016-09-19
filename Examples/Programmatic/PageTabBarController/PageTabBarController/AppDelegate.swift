@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationDidFinishLaunching(_ application: UIApplication) {
         window = UIWindow(frame: Device.bounds)
-        window!.rootViewController = AppPageTabBarController(rootViewController: RootViewController())
+        window!.rootViewController = AppPageTabBarController(viewControllers: [RedViewController(), GreenViewController(), BlueViewController()], selectedIndex: 0)
         window!.makeKeyAndVisible()
     }
     

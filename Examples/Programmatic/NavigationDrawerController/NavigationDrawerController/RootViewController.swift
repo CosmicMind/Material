@@ -32,7 +32,7 @@ import UIKit
 import Material
 
 class RootViewController: UIViewController {
-    override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Color.grey.lighten1
     }

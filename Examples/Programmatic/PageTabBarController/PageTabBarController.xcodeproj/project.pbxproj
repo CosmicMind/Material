@@ -8,10 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		96784F021D9013E50061C06C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96784F011D9013E50061C06C /* AppDelegate.swift */; };
-		96784F041D9013E50061C06C /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96784F031D9013E50061C06C /* RootViewController.swift */; };
 		96784F091D9013E50061C06C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96784F081D9013E50061C06C /* Assets.xcassets */; };
 		96784F0C1D9013E50061C06C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96784F0A1D9013E50061C06C /* LaunchScreen.storyboard */; };
 		96784F261D901EC00061C06C /* AppPageTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96784F251D901EC00061C06C /* AppPageTabBarController.swift */; };
+		96784FAD1D90257E0061C06C /* RedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96784FAC1D90257E0061C06C /* RedViewController.swift */; };
+		96784FAF1D90258E0061C06C /* GreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96784FAE1D90258E0061C06C /* GreenViewController.swift */; };
+		96784FB11D9025A60061C06C /* BlueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96784FB01D9025A60061C06C /* BlueViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -30,11 +32,13 @@
 /* Begin PBXFileReference section */
 		96784EFE1D9013E50061C06C /* PageTabBarController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PageTabBarController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96784F011D9013E50061C06C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		96784F031D9013E50061C06C /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		96784F081D9013E50061C06C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		96784F0B1D9013E50061C06C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		96784F0D1D9013E50061C06C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96784F251D901EC00061C06C /* AppPageTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppPageTabBarController.swift; sourceTree = "<group>"; };
+		96784FAC1D90257E0061C06C /* RedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RedViewController.swift; sourceTree = "<group>"; };
+		96784FAE1D90258E0061C06C /* GreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreenViewController.swift; sourceTree = "<group>"; };
+		96784FB01D9025A60061C06C /* BlueViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,7 +73,9 @@
 			children = (
 				96784F011D9013E50061C06C /* AppDelegate.swift */,
 				96784F251D901EC00061C06C /* AppPageTabBarController.swift */,
-				96784F031D9013E50061C06C /* RootViewController.swift */,
+				96784FAC1D90257E0061C06C /* RedViewController.swift */,
+				96784FAE1D90258E0061C06C /* GreenViewController.swift */,
+				96784FB01D9025A60061C06C /* BlueViewController.swift */,
 				96784F081D9013E50061C06C /* Assets.xcassets */,
 				96784F0A1D9013E50061C06C /* LaunchScreen.storyboard */,
 				96784F0D1D9013E50061C06C /* Info.plist */,
@@ -149,9 +155,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96784F041D9013E50061C06C /* RootViewController.swift in Sources */,
+				96784FAD1D90257E0061C06C /* RedViewController.swift in Sources */,
 				96784F021D9013E50061C06C /* AppDelegate.swift in Sources */,
 				96784F261D901EC00061C06C /* AppPageTabBarController.swift in Sources */,
+				96784FB11D9025A60061C06C /* BlueViewController.swift in Sources */,
+				96784FAF1D90258E0061C06C /* GreenViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -32,9 +32,38 @@ import UIKit
 import Material
 
 class RootViewController: UIViewController {
-    override func viewDidLoad() {
+    /// SearchBar buttons.
+    private var menuButton: IconButton!
+    private var moreButton: IconButton!
+    
+    open override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Color.grey.lighten1
+    }
+    
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        prepareMenuButton()
+        prepareMoreButton()
+        prepareSearchBar()
+    }
+    
+    private func prepareMenuButton() {
+        menuButton = IconButton(image: Icon.cm.menu, tintColor: Color.blue.base)
+    }
+    
+    private func prepareMoreButton() {
+        moreButton = IconButton(image: Icon.cm.moreVertical, tintColor: Color.blue.base)
+    }
+    
+    private func prepareSearchBar() {
+        guard let sc = searchBarController else {
+            return
+        }
+        
+        sc.searchBar.leftViews = [menuButton]
+        sc.searchBar.rightViews = [moreButton]
     }
 }
 

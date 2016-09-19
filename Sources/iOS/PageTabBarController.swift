@@ -125,19 +125,22 @@ open class PageTabBarController: RootController {
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        prepare()
     }
     
     public override init(rootViewController: UIViewController) {
         super.init(rootViewController: UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil))
         viewControllers.append(rootViewController)
         setViewControllers(viewControllers, direction: .forward, animated: true)
+        prepare()
     }
     
-    public init(viewControllers: [UIViewController], selectedIndex: Int, direction: UIPageViewControllerNavigationDirection, animated: Bool) {
+    public init(viewControllers: [UIViewController], selectedIndex: Int) {
         super.init(rootViewController: UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil))
         self.selectedIndex = selectedIndex
         self.viewControllers.append(contentsOf: viewControllers)
-        setViewControllers([self.viewControllers[selectedIndex]], direction: direction, animated: animated)
+        setViewControllers([self.viewControllers[selectedIndex]], direction: .forward, animated: true)
+        prepare()
     }
     
     /**
@@ -175,7 +178,7 @@ open class PageTabBarController: RootController {
      */
     open func setViewControllers(_ viewControllers: [UIViewController], direction: UIPageViewControllerNavigationDirection, animated: Bool, completion: ((Bool) -> Void)? = nil) {
         pageViewController?.setViewControllers(viewControllers, direction: direction, animated: animated, completion: completion)
-        preparePageTabBarItems()
+        prepare()
     }
     
     /**
@@ -188,6 +191,7 @@ open class PageTabBarController: RootController {
     open override func prepare() {
         super.prepare()
         preparePageTabBar()
+        preparePageTabBarItems()
     }
     
     override func prepareRootViewController() {

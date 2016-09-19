@@ -35,7 +35,7 @@ class RootViewController: UIViewController {
     /// A reference to the Undo button.
     private var undoButton: FlatButton!
     
-    override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Color.grey.lighten1
         

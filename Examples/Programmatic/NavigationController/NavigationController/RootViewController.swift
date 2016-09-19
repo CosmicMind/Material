@@ -40,7 +40,7 @@ class RootViewController: UIViewController {
     /// Trigger to go to the next view controller.
     private var nextButton: FlatButton!
     
-    override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Color.grey.lighten1
         

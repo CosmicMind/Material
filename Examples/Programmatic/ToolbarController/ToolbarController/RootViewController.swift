@@ -32,9 +32,47 @@ import UIKit
 import Material
 
 class RootViewController: UIViewController {
-    override func viewDidLoad() {
+    /// Toolbar buttons.
+    private var menuButton: IconButton!
+    private var starButton: IconButton!
+    private var searchButton: IconButton!
+    
+    open override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Color.grey.lighten1
+    }
+    
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        prepareMenuButton()
+        prepareStarButton()
+        prepareSearchButton()
+        prepareToolbar()
+    }
+    
+    private func prepareMenuButton() {
+        menuButton = IconButton(image: Icon.cm.menu, tintColor: Color.blue.base)
+    }
+    
+    private func prepareStarButton() {
+        starButton = IconButton(image: Icon.cm.star, tintColor: Color.blue.base)
+    }
+    
+    private func prepareSearchButton() {
+        searchButton = IconButton(image: Icon.cm.search, tintColor: Color.blue.base)
+    }
+    
+    private func prepareToolbar() {
+        guard let tc = toolbarController else {
+            return
+        }
+        
+        tc.toolbar.title = "Marterial"
+        tc.toolbar.detail = "Build Beautiful Software"
+        
+        tc.toolbar.leftViews = [menuButton]
+        tc.toolbar.rightViews = [starButton, searchButton]
     }
 }
 
