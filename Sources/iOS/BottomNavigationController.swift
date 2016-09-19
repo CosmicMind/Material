@@ -80,9 +80,19 @@ open class BottomNavigationController: UITabBarController, UITabBarControllerDel
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 	}
 	
+    /// An initializer that accepts no parameters.
 	public init() {
 		super.init(nibName: nil, bundle: nil)
 	}
+    
+    /**
+     An initializer that initializes the object an Array of UIViewControllers.
+     - Parameter viewControllers: An Array of UIViewControllers.
+     */
+    public init(viewControllers: [UIViewController]) {
+        super.init(nibName: nil, bundle: nil)
+        self.viewControllers = viewControllers
+    }
 	
 	open override func viewDidLoad() {
 		super.viewDidLoad()

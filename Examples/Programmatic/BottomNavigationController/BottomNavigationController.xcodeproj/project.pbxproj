@@ -8,18 +8,41 @@
 
 /* Begin PBXBuildFile section */
 		96784F921D9021530061C06C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96784F911D9021530061C06C /* AppDelegate.swift */; };
-		96784F941D9021530061C06C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96784F931D9021530061C06C /* ViewController.swift */; };
+		96784F941D9021530061C06C /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96784F931D9021530061C06C /* PhotoViewController.swift */; };
 		96784F991D9021530061C06C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96784F981D9021530061C06C /* Assets.xcassets */; };
 		96784F9C1D9021530061C06C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96784F9A1D9021530061C06C /* LaunchScreen.storyboard */; };
+		96784FC41D9067240061C06C /* AppBottomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96784FC31D9067240061C06C /* AppBottomNavigationController.swift */; };
+		96784FCA1D9068DD0061C06C /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96784FC91D9068DD0061C06C /* VideoViewController.swift */; };
+		96784FCC1D9069370061C06C /* AudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96784FCB1D9069370061C06C /* AudioViewController.swift */; };
+		96784FCE1D90695C0061C06C /* RemindersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96784FCD1D90695C0061C06C /* RemindersViewController.swift */; };
+		96784FD01D9069B20061C06C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96784FCF1D9069B20061C06C /* SearchViewController.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		96784FC81D9068610061C06C /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		96784F8E1D9021530061C06C /* BottomNavigationController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BottomNavigationController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96784F911D9021530061C06C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		96784F931D9021530061C06C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		96784F931D9021530061C06C /* PhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		96784F981D9021530061C06C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		96784F9B1D9021530061C06C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		96784F9D1D9021530061C06C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		96784FC31D9067240061C06C /* AppBottomNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppBottomNavigationController.swift; sourceTree = "<group>"; };
+		96784FC91D9068DD0061C06C /* VideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
+		96784FCB1D9069370061C06C /* AudioViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioViewController.swift; sourceTree = "<group>"; };
+		96784FCD1D90695C0061C06C /* RemindersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemindersViewController.swift; sourceTree = "<group>"; };
+		96784FCF1D9069B20061C06C /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,7 +76,12 @@
 			isa = PBXGroup;
 			children = (
 				96784F911D9021530061C06C /* AppDelegate.swift */,
-				96784F931D9021530061C06C /* ViewController.swift */,
+				96784FC31D9067240061C06C /* AppBottomNavigationController.swift */,
+				96784F931D9021530061C06C /* PhotoViewController.swift */,
+				96784FC91D9068DD0061C06C /* VideoViewController.swift */,
+				96784FCB1D9069370061C06C /* AudioViewController.swift */,
+				96784FCD1D90695C0061C06C /* RemindersViewController.swift */,
+				96784FCF1D9069B20061C06C /* SearchViewController.swift */,
 				96784F981D9021530061C06C /* Assets.xcassets */,
 				96784F9A1D9021530061C06C /* LaunchScreen.storyboard */,
 				96784F9D1D9021530061C06C /* Info.plist */,
@@ -71,6 +99,7 @@
 				96784F8A1D9021530061C06C /* Sources */,
 				96784F8B1D9021530061C06C /* Frameworks */,
 				96784F8C1D9021530061C06C /* Resources */,
+				96784FC81D9068610061C06C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -132,8 +161,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96784F941D9021530061C06C /* ViewController.swift in Sources */,
+				96784F941D9021530061C06C /* PhotoViewController.swift in Sources */,
+				96784FD01D9069B20061C06C /* SearchViewController.swift in Sources */,
+				96784FCA1D9068DD0061C06C /* VideoViewController.swift in Sources */,
+				96784FCE1D90695C0061C06C /* RemindersViewController.swift in Sources */,
+				96784FC41D9067240061C06C /* AppBottomNavigationController.swift in Sources */,
 				96784F921D9021530061C06C /* AppDelegate.swift in Sources */,
+				96784FCC1D9069370061C06C /* AudioViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,6 +321,7 @@
 				96784FA21D9021530061C06C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
