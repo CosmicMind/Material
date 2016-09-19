@@ -31,10 +31,36 @@
 import UIKit
 import Material
 
-class AppNavigationController: NavigationController {
+class RemindersListCollectionViewCell: CollectionViewCell {
+    /// A reference to the titleLabel.
+    public private(set) lazy var titleLabel: UILabel = UILabel()
+    
+    /// A reference to the countLabel.
+    public private(set) lazy var countLabel: UILabel = UILabel()
+    
     open override func prepare() {
         super.prepare()
-        statusBarStyle = .default
+        
+        prepareTitleLabel()
+        prepareCountLabel()
+        prepareDivider()
+    }
+    
+    /// Prepares the titleLabel.
+    private func prepareTitleLabel() {
+        titleLabel.font = RobotoFont.regular(with: 22)
+        layout(titleLabel).edges(top: 24, left: 24, bottom: 24, right: 24)
+    }
+    
+    /// Prepares the countLabel.
+    private func prepareCountLabel() {
+        countLabel.font = RobotoFont.regular(with: 22)
+        countLabel.textAlignment = .right
+        layout(countLabel).edges(top: 24, left: 24, bottom: 24, right: 24)
+    }
+    
+    /// Prepares the divider.
+    private func prepareDivider() {
+        divider.color = Color.grey.lighten3
     }
 }
-

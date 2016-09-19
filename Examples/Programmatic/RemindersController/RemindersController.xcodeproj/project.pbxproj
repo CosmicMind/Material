@@ -8,18 +8,43 @@
 
 /* Begin PBXBuildFile section */
 		96784F381D901F610061C06C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96784F371D901F610061C06C /* AppDelegate.swift */; };
-		96784F3A1D901F610061C06C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96784F391D901F610061C06C /* ViewController.swift */; };
+		96784F3A1D901F610061C06C /* RemindersListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96784F391D901F610061C06C /* RemindersListViewController.swift */; };
 		96784F3F1D901F610061C06C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96784F3E1D901F610061C06C /* Assets.xcassets */; };
 		96784F421D901F610061C06C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96784F401D901F610061C06C /* LaunchScreen.storyboard */; };
+		96784FD21D906CF10061C06C /* RemindersListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96784FD11D906CF10061C06C /* RemindersListCollectionView.swift */; };
+		96784FD41D906D2F0061C06C /* RemindersListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96784FD31D906D2F0061C06C /* RemindersListCollectionViewCell.swift */; };
+		96784FD61D906D780061C06C /* RemindersItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96784FD51D906D780061C06C /* RemindersItemsViewController.swift */; };
+		96784FD81D906DCB0061C06C /* RemindersItemsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96784FD71D906DCB0061C06C /* RemindersItemsCollectionView.swift */; };
+		96784FDA1D906DF60061C06C /* RemindersItemsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96784FD91D906DF60061C06C /* RemindersItemsCollectionViewCell.swift */; };
+		96784FDC1D906E190061C06C /* AppNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96784FDB1D906E190061C06C /* AppNavigationController.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		96784FE01D906E940061C06C /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		96784F341D901F610061C06C /* RemindersController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RemindersController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96784F371D901F610061C06C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		96784F391D901F610061C06C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		96784F391D901F610061C06C /* RemindersListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersListViewController.swift; sourceTree = "<group>"; };
 		96784F3E1D901F610061C06C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		96784F411D901F610061C06C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		96784F431D901F610061C06C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		96784FD11D906CF10061C06C /* RemindersListCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemindersListCollectionView.swift; sourceTree = "<group>"; };
+		96784FD31D906D2F0061C06C /* RemindersListCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemindersListCollectionViewCell.swift; sourceTree = "<group>"; };
+		96784FD51D906D780061C06C /* RemindersItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemindersItemsViewController.swift; sourceTree = "<group>"; };
+		96784FD71D906DCB0061C06C /* RemindersItemsCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemindersItemsCollectionView.swift; sourceTree = "<group>"; };
+		96784FD91D906DF60061C06C /* RemindersItemsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemindersItemsCollectionViewCell.swift; sourceTree = "<group>"; };
+		96784FDB1D906E190061C06C /* AppNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppNavigationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,7 +78,13 @@
 			isa = PBXGroup;
 			children = (
 				96784F371D901F610061C06C /* AppDelegate.swift */,
-				96784F391D901F610061C06C /* ViewController.swift */,
+				96784FDB1D906E190061C06C /* AppNavigationController.swift */,
+				96784F391D901F610061C06C /* RemindersListViewController.swift */,
+				96784FD11D906CF10061C06C /* RemindersListCollectionView.swift */,
+				96784FD31D906D2F0061C06C /* RemindersListCollectionViewCell.swift */,
+				96784FD51D906D780061C06C /* RemindersItemsViewController.swift */,
+				96784FD71D906DCB0061C06C /* RemindersItemsCollectionView.swift */,
+				96784FD91D906DF60061C06C /* RemindersItemsCollectionViewCell.swift */,
 				96784F3E1D901F610061C06C /* Assets.xcassets */,
 				96784F401D901F610061C06C /* LaunchScreen.storyboard */,
 				96784F431D901F610061C06C /* Info.plist */,
@@ -71,6 +102,7 @@
 				96784F301D901F610061C06C /* Sources */,
 				96784F311D901F610061C06C /* Frameworks */,
 				96784F321D901F610061C06C /* Resources */,
+				96784FE01D906E940061C06C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -132,8 +164,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96784F3A1D901F610061C06C /* ViewController.swift in Sources */,
+				96784FD41D906D2F0061C06C /* RemindersListCollectionViewCell.swift in Sources */,
+				96784FDA1D906DF60061C06C /* RemindersItemsCollectionViewCell.swift in Sources */,
+				96784FD81D906DCB0061C06C /* RemindersItemsCollectionView.swift in Sources */,
+				96784F3A1D901F610061C06C /* RemindersListViewController.swift in Sources */,
 				96784F381D901F610061C06C /* AppDelegate.swift in Sources */,
+				96784FDC1D906E190061C06C /* AppNavigationController.swift in Sources */,
+				96784FD61D906D780061C06C /* RemindersItemsViewController.swift in Sources */,
+				96784FD21D906CF10061C06C /* RemindersListCollectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,6 +286,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = RemindersController/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.RemindersController;
@@ -260,6 +299,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = RemindersController/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.RemindersController;
@@ -287,6 +327,7 @@
 				96784F481D901F610061C06C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

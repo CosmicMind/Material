@@ -31,10 +31,20 @@
 import UIKit
 import Material
 
-class AppNavigationController: NavigationController {
-    open override func prepare() {
-        super.prepare()
-        statusBarStyle = .default
+class RemindersListCollectionView: UICollectionView {
+    override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
+        super.init(frame: frame, collectionViewLayout: layout)
+        prepare()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        prepare()
+    }
+    
+    func prepare() {
+        register(RemindersListCollectionViewCell.self, forCellWithReuseIdentifier: "RemindersListCollectionViewCell")
     }
 }
+
 

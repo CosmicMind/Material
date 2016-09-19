@@ -35,6 +35,18 @@ class AppNavigationController: NavigationController {
     open override func prepare() {
         super.prepare()
         statusBarStyle = .default
+        
+        prepareNavigationBar()
+    }
+    
+    /// Prepares the navigationBar.
+    private func prepareNavigationBar() {
+        guard let v = navigationBar as? NavigationBar else {
+            return
+        }
+        
+        v.depthPreset = .none
+        v.divider.color = Color.grey.lighten3
     }
 }
 
