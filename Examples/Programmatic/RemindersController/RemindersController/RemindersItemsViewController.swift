@@ -32,7 +32,7 @@ import UIKit
 import Material
 
 class RemindersItemsViewController: UIViewController {
-    /// A reference to a DataSourceItem.
+    /// A reference to a RemindersDataSource.
     internal var dataSource: RemindersDataSource!
     
     /// A reference to the dateFormatter.

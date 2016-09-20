@@ -33,7 +33,7 @@ import UIKit
 public protocol CollectionViewDataSource: UICollectionViewDataSource {
 	/**
 	Retrieves the items for the collectionView.
-	- Returns: An Array of Arrays of DataSourceItem objects.
+	- Returns: An Array of CollectionDataSourceItem objects.
 	*/
-	func items() -> [DataSourceItem]
+	func items() -> [CollectionDataSourceItem]
 }

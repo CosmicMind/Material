@@ -72,7 +72,7 @@
 		96BCB7BD1CB40DC500C806FE /* CollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7741CB40DC500C806FE /* CollectionViewDelegate.swift */; };
 		96BCB7BE1CB40DC500C806FE /* CollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7751CB40DC500C806FE /* CollectionViewLayout.swift */; };
 		96BCB7BF1CB40DC500C806FE /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7761CB40DC500C806FE /* Color.swift */; };
-		96BCB7C01CB40DC500C806FE /* DataSourceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7771CB40DC500C806FE /* DataSourceItem.swift */; };
+		96BCB7C01CB40DC500C806FE /* CollectionDataSourceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7771CB40DC500C806FE /* CollectionDataSourceItem.swift */; };
 		96BCB7C11CB40DC500C806FE /* Depth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7781CB40DC500C806FE /* Depth.swift */; };
 		96BCB7C21CB40DC500C806FE /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7791CB40DC500C806FE /* Device.swift */; };
 		96BCB7C31CB40DC500C806FE /* EdgeInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB77A1CB40DC500C806FE /* EdgeInsets.swift */; };
@@ -135,7 +135,7 @@
 		96BCB81B1CB4115200C806FE /* CapturePreview.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB75A1CB40DC500C806FE /* CapturePreview.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB81C1CB4115200C806FE /* CaptureSession.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB75B1CB40DC500C806FE /* CaptureSession.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB81D1CB4115200C806FE /* Capture.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB75C1CB40DC500C806FE /* Capture.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		96BCB81E1CB4115200C806FE /* DataSourceItem.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7771CB40DC500C806FE /* DataSourceItem.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96BCB81E1CB4115200C806FE /* CollectionDataSourceItem.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7771CB40DC500C806FE /* CollectionDataSourceItem.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB81F1CB4115200C806FE /* CollectionView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7711CB40DC500C806FE /* CollectionView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8201CB4115200C806FE /* CollectionViewCell.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7721CB40DC500C806FE /* CollectionViewCell.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8211CB4115200C806FE /* CollectionViewDataSource.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7731CB40DC500C806FE /* CollectionViewDataSource.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -267,7 +267,7 @@
 		96BCB7741CB40DC500C806FE /* CollectionViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewDelegate.swift; sourceTree = "<group>"; };
 		96BCB7751CB40DC500C806FE /* CollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewLayout.swift; sourceTree = "<group>"; };
 		96BCB7761CB40DC500C806FE /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
-		96BCB7771CB40DC500C806FE /* DataSourceItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSourceItem.swift; sourceTree = "<group>"; };
+		96BCB7771CB40DC500C806FE /* CollectionDataSourceItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionDataSourceItem.swift; sourceTree = "<group>"; };
 		96BCB7781CB40DC500C806FE /* Depth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Depth.swift; sourceTree = "<group>"; };
 		96BCB7791CB40DC500C806FE /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		96BCB77A1CB40DC500C806FE /* EdgeInsets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdgeInsets.swift; sourceTree = "<group>"; };
@@ -396,14 +396,6 @@
 				962864611D54111D00690B69 /* JSON.swift */,
 			);
 			name = JSON;
-			sourceTree = "<group>";
-		};
-		962A92581D42839100DBAF8E /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				96BCB7771CB40DC500C806FE /* DataSourceItem.swift */,
-			);
-			name = Data;
 			sourceTree = "<group>";
 		};
 		962DDD071D6FBBB7001C307C /* Page */ = {
@@ -557,7 +549,6 @@
 				96264C0C1D84050200576F37 /* Checkbox */,
 				96BCB8051CB40F9C00C806FE /* Collection */,
 				96BCB8001CB40F0300C806FE /* Color */,
-				962A92581D42839100DBAF8E /* Data */,
 				96BCB80B1CB410CC00C806FE /* Device */,
 				96230AB61D6A51FD00AF47DC /* Divider */,
 				96BCB80A1CB410A100C806FE /* Extension */,
@@ -676,6 +667,7 @@
 				96BCB7741CB40DC500C806FE /* CollectionViewDelegate.swift */,
 				96BCB7751CB40DC500C806FE /* CollectionViewLayout.swift */,
 				966ECF291CF4C20100BB0BDF /* CollectionReusableView.swift */,
+				96BCB7771CB40DC500C806FE /* CollectionDataSourceItem.swift */,
 			);
 			name = Collection;
 			sourceTree = "<group>";
@@ -822,7 +814,7 @@
 				96BCB81B1CB4115200C806FE /* CapturePreview.swift in Headers */,
 				96BCB81C1CB4115200C806FE /* CaptureSession.swift in Headers */,
 				96BCB81D1CB4115200C806FE /* Capture.swift in Headers */,
-				96BCB81E1CB4115200C806FE /* DataSourceItem.swift in Headers */,
+				96BCB81E1CB4115200C806FE /* CollectionDataSourceItem.swift in Headers */,
 				96BCB81F1CB4115200C806FE /* CollectionView.swift in Headers */,
 				96BCB8201CB4115200C806FE /* CollectionViewCell.swift in Headers */,
 				96BCB8211CB4115200C806FE /* CollectionViewDataSource.swift in Headers */,
@@ -1086,7 +1078,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96BCB7C01CB40DC500C806FE /* DataSourceItem.swift in Sources */,
+				96BCB7C01CB40DC500C806FE /* CollectionDataSourceItem.swift in Sources */,
 				96BCB7AC1CB40DC500C806FE /* Material+Obj-C.swift in Sources */,
 				9658F2171CD6FA4700B902C1 /* IconButton.swift in Sources */,
 				96BCB7BB1CB40DC500C806FE /* CollectionViewCell.swift in Sources */,

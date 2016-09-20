@@ -30,23 +30,23 @@
 
 import UIKit
 
-public struct DataSourceItem {
+open struct CollectionDataSourceItem {
 	/// Stores an the data for the item.
-	public var data: Any?
+	open var data: Any?
 	
 	/// Width for horizontal scroll direction.
-	public var width: CGFloat?
+	open var width: CGFloat?
 	
 	/// Height for vertical scroll direction.
-	public var height: CGFloat?
+	open var height: CGFloat?
 	
 	/**
-	Initializer.
-	- Parameter data: A reference to an Any that is associated
-	with a width or height.
-	- Parameter width: The width for the horizontal scroll direction.
-	- Parameter height: The height for the vertical scroll direction.
-	*/
+     Initializer.
+     - Parameter data: A reference to an Any that is associated
+     with a width or height.
+     - Parameter width: The width for the horizontal scroll direction.
+     - Parameter height: The height for the vertical scroll direction.
+     */
 	public init(data: Any? = nil, width: CGFloat? = nil, height: CGFloat? = nil) {
 		self.data = data
 		self.width = width

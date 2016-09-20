@@ -54,7 +54,7 @@ open class CollectionViewLayout: UICollectionViewLayout {
 	open internal(set) lazy var layoutItems = [(UICollectionViewLayoutAttributes, NSIndexPath)]()
 	
 	/// Cell data source items.
-	open internal(set) var dataSourceItems: [DataSourceItem]?
+	open internal(set) var dataSourceItems: [CollectionDataSourceItem]?
 	
 	/// Scroll direction.
 	open var scrollDirection = UICollectionViewScrollDirection.vertical
@@ -90,7 +90,7 @@ open class CollectionViewLayout: UICollectionViewLayout {
 	
 	open override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
-		let item: DataSourceItem = dataSourceItems![indexPath.item]
+		let item = dataSourceItems![indexPath.item]
 		
 		if 0 < itemSize.width && 0 < itemSize.height {
             attributes.frame = CGRect(x: offset.x, y: offset.y, width: itemSize.width - contentEdgeInsets.left - contentEdgeInsets.right, height: itemSize.height - contentEdgeInsets.top - contentEdgeInsets.bottom)
@@ -127,7 +127,7 @@ open class CollectionViewLayout: UICollectionViewLayout {
 		return proposedContentOffset
 	}
 	
-	private func prepareLayoutForItems(dataSourceItems: [DataSourceItem]) {
+	private func prepareLayoutForItems(dataSourceItems: [CollectionDataSourceItem]) {
 		self.dataSourceItems = dataSourceItems
 		layoutItems.removeAll()
 		
@@ -135,7 +135,7 @@ open class CollectionViewLayout: UICollectionViewLayout {
 		offset.y = contentEdgeInsets.top
 		
 		for i in 0..<dataSourceItems.count {
-			let item: DataSourceItem = dataSourceItems[i]
+			let item = dataSourceItems[i]
 			let indexPath = IndexPath(item: i, section: 0)
 			layoutItems.append((layoutAttributesForItem(at: indexPath)!, indexPath as NSIndexPath))
 			
