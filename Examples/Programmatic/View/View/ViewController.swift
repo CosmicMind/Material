@@ -32,8 +32,8 @@ import UIKit
 import Material
 
 class ViewController: UIViewController {
-    /// A reference to the Layer.
-    private var logo: Layer!
+    /// A reference to the View.
+    private var logo: View!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,17 +43,15 @@ class ViewController: UIViewController {
     }
     
     private func prepareLogo() {
-        let w = view.width
-        let h = view.height
         let d: CGFloat = 100
         
-        logo = Layer(frame: CGRect(x: (w - d) / 2, y: (h - d) / 2, width: d, height: d))
+        logo = View()
         logo.depthPreset = .depth3
         logo.shapePreset = .circle
-        logo.backgroundColor = Color.white.cgColor
+        logo.backgroundColor = Color.white
         logo.image = UIImage(named: "CosmicMind")
         
-        view.layer.addSublayer(logo)
+        view.layout(logo).width(d).height(d).center()
     }
 }
 

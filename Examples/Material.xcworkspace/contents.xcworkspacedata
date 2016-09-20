@@ -49,5 +49,8 @@
       <FileRef
          location = "group:Programmatic/ToolbarController/ToolbarController.xcodeproj">
       </FileRef>
+      <FileRef
+         location = "group:Programmatic/View/View.xcodeproj">
+      </FileRef>
    </Group>
 </Workspace>
