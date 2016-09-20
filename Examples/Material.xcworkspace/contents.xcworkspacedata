@@ -8,6 +8,9 @@
       location = "container:"
       name = "Programmatic">
       <FileRef
+         location = "group:Programmatic/Bar/Bar.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:Programmatic/BottomNavigationController/BottomNavigationController.xcodeproj">
       </FileRef>
       <FileRef

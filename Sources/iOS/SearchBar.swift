@@ -30,7 +30,7 @@
 
 import UIKit
 
-open class SearchBar: BarView {
+open class SearchBar: Bar {
 	/// The UITextField for the searchBar.
 	open private(set) lazy var textField = UITextField()
 	

@@ -36,7 +36,7 @@ public enum ContentViewAlignment: Int {
     case center
 }
 
-open class ContentView: View {
+open class Bar: View {
     /// Should center the contentView.
     open var contentViewAlignment = ContentViewAlignment.any {
         didSet {
@@ -44,124 +44,127 @@ open class ContentView: View {
         }
     }
     
-	/// Will render the view.
-	open var willLayout: Bool {
-		return 0 < width && 0 < height && nil != superview
-	}
-	
-	/// A preset wrapper around contentInset.
-	open var contentEdgeInsetsPreset: EdgeInsetsPreset {
-		get {
-			return grid.contentEdgeInsetsPreset
-		}
-		set(value) {
-			grid.contentEdgeInsetsPreset = value
-		}
-	}
-	
-	/// A wrapper around grid.contentInset.
-	@IBInspectable
+    /// Will render the view.
+    open var willLayout: Bool {
+        return 0 < width && 0 < height && nil != superview
+    }
+    
+    /// A preset wrapper around contentInset.
+    open var contentEdgeInsetsPreset: EdgeInsetsPreset {
+        get {
+            return grid.contentEdgeInsetsPreset
+        }
+        set(value) {
+            grid.contentEdgeInsetsPreset = value
+        }
+    }
+    
+    /// A wrapper around grid.contentInset.
+    @IBInspectable
     open var contentEdgeInsets: EdgeInsets {
-		get {
-			return grid.contentEdgeInsets
-		}
-		set(value) {
-			grid.contentEdgeInsets = value
-		}
-	}
-	
-	/// A preset wrapper around interimSpace.
-	open var interimSpacePreset = InterimSpacePreset.none {
-		didSet {
+        get {
+            return grid.contentEdgeInsets
+        }
+        set(value) {
+            grid.contentEdgeInsets = value
+        }
+    }
+    
+    /// A preset wrapper around interimSpace.
+    open var interimSpacePreset = InterimSpacePreset.none {
+        didSet {
             interimSpace = InterimSpacePresetToValue(preset: interimSpacePreset)
-		}
-	}
-	
-	/// A wrapper around grid.interimSpace.
-	@IBInspectable
+        }
+    }
+    
+    /// A wrapper around grid.interimSpace.
+    @IBInspectable
     open var interimSpace: InterimSpace {
-		get {
-			return grid.interimSpace
-		}
-		set(value) {
-			grid.interimSpace = value
-		}
-	}
-	
+        get {
+            return grid.interimSpace
+        }
+        set(value) {
+            grid.interimSpace = value
+        }
+    }
+    
     open override var intrinsicContentSize: CGSize {
         return CGSize(width: width, height: 44)
     }
     
-	/// Grid cell factor.
-	@IBInspectable
+    /// Grid cell factor.
+    @IBInspectable
     open var gridFactor: CGFloat = 24 {
-		didSet {
-			assert(0 < gridFactor, "[Material Error: gridFactor must be greater than 0.]")
-			layoutSubviews()
-		}
-	}
-
-	/// ContentView that holds the any desired subviews.
-	open private(set) lazy var contentView = View()
-	
-	/// Left side UIViews.
-	open var leftViews = [UIView]() {
-		didSet {
+        didSet {
+            assert(0 < gridFactor, "[Material Error: gridFactor must be greater than 0.]")
+            layoutSubviews()
+        }
+    }
+    
+    /// Divider layer.
+    open internal(set) var divider: Divider!
+    
+    /// ContentView that holds the any desired subviews.
+    open private(set) lazy var contentView = View()
+    
+    /// Left side UIViews.
+    open var leftViews = [UIView]() {
+        didSet {
             for v in oldValue {
                 v.removeFromSuperview()
             }
             layoutSubviews()
-		}
-	}
-	
-	/// Right side UIViews.
-	open var rightViews = [UIView]() {
-		didSet {
+        }
+    }
+    
+    /// Right side UIViews.
+    open var rightViews = [UIView]() {
+        didSet {
             for v in oldValue {
                 v.removeFromSuperview()
             }
             layoutSubviews()
-		}
-	}
-	
-	/**
+        }
+    }
+    
+    /**
      An initializer that initializes the object with a NSCoder object.
      - Parameter aDecoder: A NSCoder instance.
      */
-	public required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-	}
-	
-	/**
+    }
+    
+    /**
      An initializer that initializes the object with a CGRect object.
      If AutoLayout is used, it is better to initilize the instance
      using the init() initializer.
      - Parameter frame: A CGRect instance.
      */
-	public override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
-	}
-	
-	/// Basic initializer.
-	public init() {
-		super.init(frame: .zero)
+    }
+    
+    /// Basic initializer.
+    public init() {
+        super.init(frame: .zero)
         frame.size = intrinsicContentSize
-	}
-	
-	/**
+    }
+    
+    /**
      A convenience initializer with parameter settings.
      - Parameter leftViews: An Array of UIViews that go on the left side.
      - Parameter rightViews: An Array of UIViews that go on the right side.
      */
-	public init(leftViews: [UIView]? = nil, rightViews: [UIView]? = nil) {
+    public init(leftViews: [UIView]? = nil, rightViews: [UIView]? = nil) {
         self.leftViews = leftViews ?? []
         self.rightViews = rightViews ?? []
         super.init(frame: .zero)
-		frame.size = intrinsicContentSize
-	}
-	
-	open override func layoutSubviews() {
-		super.layoutSubviews()
+        frame.size = intrinsicContentSize
+    }
+    
+    open override func layoutSubviews() {
+        super.layoutSubviews()
         guard willLayout else {
             return
         }
@@ -216,22 +219,30 @@ open class ContentView: View {
         
         grid.commit()
         contentView.grid.commit()
+        
+        divider.reload()
     }
     
-	/**
+    /**
      Prepares the view instance when intialized. When subclassing,
      it is recommended to override the prepare method
      to initialize property values and other setup operations.
      The super.prepare method should always be called immediately
      when subclassing.
      */
-	open override func prepare() {
-		super.prepare()
-		prepareContentView()
-	}
-	
-	/// Prepares the contentView.
-	private func prepareContentView() {
-		contentView.backgroundColor = nil
-	}
+    open override func prepare() {
+        super.prepare()
+        prepareContentView()
+        prepareDivider()
+    }
+    
+    /// Prepares the contentView.
+    private func prepareContentView() {
+        contentView.backgroundColor = nil
+    }
+    
+    /// Prepares the divider.
+    private func prepareDivider() {
+        divider = Divider(view: self)
+    }
 }

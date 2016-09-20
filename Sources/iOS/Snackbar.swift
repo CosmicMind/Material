@@ -36,7 +36,7 @@ public enum SnackbarStatus: Int {
     case hidden
 }
 
-open class Snackbar: BarView {
+open class Snackbar: Bar {
     /// A convenience property to set the titleLabel text.
     open var text: String? {
         get {

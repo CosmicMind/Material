@@ -29,60 +29,61 @@
  */
 
 import UIKit
+import Material
 
-open class BarView: ContentView {
-    /// Divider layer.
-    open internal(set) var divider: Divider!
+class ViewController: UIViewController {
+    /// A reference to the Bar.
+    private var bar: Bar!
     
-	/**
-     An initializer that initializes the object with a NSCoder object.
-     - Parameter aDecoder: A NSCoder instance.
-     */
-	public required init?(coder aDecoder: NSCoder) {
-		super.init(coder: aDecoder)
-	}
-	
-	/**
-     An initializer that initializes the object with a CGRect object.
-     If AutoLayout is used, it is better to initilize the instance
-     using the init() initializer.
-     - Parameter frame: A CGRect instance.
-     */
-	public override init(frame: CGRect) {
-		super.init(frame: frame)
-	}
-	
-	/**
-     A convenience initializer with parameter settings.
-     - Parameter leftViews: An Array of UIViews that go on the left side.
-     - Parameter rightViews: An Array of UIViews that go on the right side.
-     */
-	public override init(leftViews: [UIView]? = nil, rightViews: [UIView]? = nil) {
-		super.init(leftViews: leftViews, rightViews: rightViews)
-	}
-	
-    open override func layoutSubviews() {
-        super.layoutSubviews()
-        guard willLayout else {
-            return
-        }
-        divider.reload()
+    /// Left buttons.
+    private var favoriteButton: IconButton!
+    
+    /// Right buttons.
+    private var shareButton: IconButton!
+    
+    /// Title label.
+    private var titleLabel: UILabel!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = Color.white
+        
+        prepareFavoriteButton()
+        prepareShareButton()
+        prepareTitleLabel()
+        prepareBar()
+        
+        layoutSubviews()
     }
     
-	/**
-     Prepares the view instance when intialized. When subclassing,
-     it is recommended to override the prepare method
-     to initialize property values and other setup operations.
-     The super.prepare method should always be called immediately
-     when subclassing.
-     */
-	open override func prepare() {
-		super.prepare()
-        prepareDivider()
+    private func prepareFavoriteButton() {
+        favoriteButton = IconButton(image: Icon.favorite, tintColor: Color.white)
+        favoriteButton.pulseColor = Color.white
     }
     
-    /// Prepares the divider.
-    private func prepareDivider() {
-        divider = Divider(view: self)
+    private func prepareShareButton() {
+        shareButton = IconButton(image: Icon.cm.share, tintColor: Color.white)
+        shareButton.pulseColor = Color.white
+    }
+    
+    private func prepareTitleLabel() {
+        titleLabel = UILabel()
+        titleLabel.text = "Title"
+        titleLabel.font = RobotoFont.bold(with: 17)
+        titleLabel.textColor = Color.white
+    }
+    
+    private func prepareBar() {
+        bar = Bar()
+        bar.contentEdgeInsetsPreset = .square1
+        bar.backgroundColor = Color.blue.base
+        bar.leftViews = [favoriteButton]
+        bar.rightViews = [shareButton]
+    }
+    
+    private func layoutSubviews() {
+        view.layout(bar).horizontally().center()
+        bar.contentView.layout(titleLabel).edges()
     }
 }
+

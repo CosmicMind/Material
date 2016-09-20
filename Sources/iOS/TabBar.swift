@@ -57,7 +57,7 @@ public protocol TabBarDelegate {
     optional func tabBarDidSelectButton(tabBar: TabBar, button: UIButton)
 }
 
-open class TabBar: BarView {
+open class TabBar: Bar {
     /// A boolean indicating if the TabBar line is in an animation state.
     open internal(set) var isAnimating = false
     

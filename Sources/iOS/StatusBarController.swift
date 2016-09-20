@@ -49,8 +49,8 @@ extension UIViewController {
 }
 
 open class StatusBarController: RootController {
-	/// A reference to the statusBarView.
-	open private(set) lazy var statusBarView = View()
+	/// A reference to the statusBar.
+	open private(set) lazy var statusBar = View()
 	
 	/**
 	To execute in the order of the layout chain, override this
@@ -59,7 +59,7 @@ open class StatusBarController: RootController {
 	*/
 	open override func layoutSubviews() {
 		super.layoutSubviews()
-		statusBarView.isHidden = Device.isLandscape && .phone == Device.userInterfaceIdiom
+		statusBar.isHidden = Device.isLandscape && .phone == Device.userInterfaceIdiom
 		rootViewController.view.frame = view.bounds
 	}
 	
@@ -72,13 +72,13 @@ open class StatusBarController: RootController {
 	*/
 	open override func prepare() {
         super.prepare()
-		prepareStatusBarView()
+		prepareStatusBar()
 	}
 	
-	/// Prepares the statusBarView.
-	private func prepareStatusBarView() {
-		statusBarView.zPosition = 3000
-		statusBarView.backgroundColor = Color.black.withAlphaComponent(0.12)
-		view.layout(statusBarView).top(0).horizontally().height(20)
+	/// Prepares the statusBar.
+	private func prepareStatusBar() {
+		statusBar.zPosition = 3000
+		statusBar.backgroundColor = Color.black.withAlphaComponent(0.12)
+		view.layout(statusBar).top().horizontally().height(20)
 	}
 }

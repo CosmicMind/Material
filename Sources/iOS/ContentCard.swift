@@ -90,7 +90,7 @@ open class ContentCard: PulseView {
     }
     
     /// A reference to the bottomBar.
-    open var bottomBar: BarView? {
+    open var bottomBar: Bar? {
         didSet {
             layoutSubviews()
         }
