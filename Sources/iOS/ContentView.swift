@@ -207,6 +207,7 @@ open class ContentView: View {
                 contentView.grid.offset.columns = rc - lc
             } else {
                 contentView.grid.columns = columns - 2 * lc
+                contentView.grid.offset.columns = 0
                 rightViews.first?.grid.offset.columns = lc - rc
             }
         } else {

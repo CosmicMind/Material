@@ -239,6 +239,7 @@ open class NavigationBar: UINavigationBar {
                 item.contentView.grid.offset.columns = rc - lc
             } else {
                 item.contentView.grid.columns = columns - 2 * lc
+                item.contentView.grid.offset.columns = 0
                 item.rightViews.first?.grid.offset.columns = lc - rc
             }
         } else {
