@@ -29,27 +29,31 @@
  */
 
 import UIKit
+import Material
 
-public struct CollectionDataSourceItem {
-	/// Stores an the data for the item.
-	public var data: Any?
-	
-	/// Width for horizontal scroll direction.
-	public var width: CGFloat?
-	
-	/// Height for vertical scroll direction.
-	public var height: CGFloat?
-	
-	/**
-     Initializer.
-     - Parameter data: A reference to an Any that is associated
-     with a width or height.
-     - Parameter width: The width for the horizontal scroll direction.
-     - Parameter height: The height for the vertical scroll direction.
-     */
-	public init(data: Any? = nil, width: CGFloat? = nil, height: CGFloat? = nil) {
-		self.data = data
-		self.width = width
-		self.height = height
-	}
+class ViewController: UIViewController {
+    /// A reference to the Layer.
+    private var layer: Layer!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = Color.white
+        
+        prepareLayer()
+    }
+    
+    private func prepareLayer() {
+        let w = view.width
+        let h = view.height
+        let d: CGFloat = 100
+        
+        layer = Layer(frame: CGRect(x: (w - d) / 2, y: (h - d) / 2, width: d, height: d))
+        layer.depthPreset = .depth3
+        layer.shapePreset = .circle
+        layer.backgroundColor = Color.white.cgColor
+        layer.image = UIImage(named: "CosmicMind")
+        
+        view.layer.addSublayer(layer)
+    }
 }
+
