@@ -47,6 +47,9 @@
          location = "group:Programmatic/StatusBarController/StatusBarController.xcodeproj">
       </FileRef>
       <FileRef
+         location = "group:Programmatic/TabBar/TabBar.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:Programmatic/ToolbarController/ToolbarController.xcodeproj">
       </FileRef>
       <FileRef
