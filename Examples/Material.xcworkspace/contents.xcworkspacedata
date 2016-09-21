@@ -14,6 +14,9 @@
          location = "group:Programmatic/BottomNavigationController/BottomNavigationController.xcodeproj">
       </FileRef>
       <FileRef
+         location = "group:Programmatic/Button/Button.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:Programmatic/CaptureController/CaptureController.xcodeproj">
       </FileRef>
       <FileRef
