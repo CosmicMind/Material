@@ -54,8 +54,9 @@ public protocol SwitchDelegate {
 	/**
      A Switch delegate method for state changes.
      - Parameter control: Switch control.
+     - Parameter state: SwitchState value.
      */
-	func switchStateChanged(control: Switch)
+    func switchDidChangeState(control: Switch, state: SwitchState)
 }
 
 @objc(Switch)
@@ -352,7 +353,7 @@ open class Switch: UIControl {
 					if let s: Switch = self {
 						s.sendActions(for: .valueChanged)
 						completion?(s)
-						s.delegate?.switchStateChanged(control: s)
+                        s.delegate?.switchDidChangeState(control: s, state: s.internalSwitchState)
 					}
 				}
 			} else {
@@ -360,7 +361,7 @@ open class Switch: UIControl {
 				styleForState(state: state)
 				sendActions(for: .valueChanged)
 				completion?(self)
-				delegate?.switchStateChanged(control: self)
+				delegate?.switchDidChangeState(control: self, state: internalSwitchState)
 			}
 		}
 	}
