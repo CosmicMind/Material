@@ -45,7 +45,7 @@ class ViewController: UIViewController {
     private func prepareFlatButton() {
         let button = FlatButton(title: "Flat Button", titleColor: Color.blue.base)
         
-        view.layout(button).width(120).height(40).center(offsetY: -150)
+        view.layout(button).width(120).height(36).center(offsetY: -150)
     }
     
     private func prepareRaisedButton() {
@@ -53,7 +53,7 @@ class ViewController: UIViewController {
         button.pulseColor = Color.white
         button.backgroundColor = Color.blue.base
         
-        view.layout(button).width(150).height(40).center(offsetY: -75)
+        view.layout(button).width(150).height(36).center(offsetY: -75)
     }
     
     private func prepareFabButton() {
@@ -65,7 +65,7 @@ class ViewController: UIViewController {
     private func prepareIconButton() {
         let button = IconButton(image: Icon.cm.search, tintColor: Color.blue.base)
         
-        view.layout(button).width(120).height(40).center(offsetY: 75)
+        view.layout(button).width(120).height(48).center(offsetY: 75)
     }
 }
 

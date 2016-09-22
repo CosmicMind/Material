@@ -40,6 +40,6 @@ open class FlatButton: Button {
      */
 	open override func prepare() {
 		super.prepare()
-		cornerRadiusPreset = .cornerRadius2
+		cornerRadiusPreset = .cornerRadius1
 	}
 }
