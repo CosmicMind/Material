@@ -37,11 +37,35 @@ class ViewController: UIViewController {
         view.backgroundColor = Color.white
         
         prepareFlatButton()
+        prepareRaisedButton()
+        prepareFabButton()
+        prepareIconButton()
     }
     
     private func prepareFlatButton() {
         let button = FlatButton(title: "Flat Button", titleColor: Color.blue.base)
-        view.layout(button).width(120).height(36).center()
+        
+        view.layout(button).width(120).height(40).center(offsetY: -150)
+    }
+    
+    private func prepareRaisedButton() {
+        let button = RaisedButton(title: "Raised Button", titleColor: Color.white)
+        button.pulseColor = Color.white
+        button.backgroundColor = Color.blue.base
+        
+        view.layout(button).width(150).height(40).center(offsetY: -75)
+    }
+    
+    private func prepareFabButton() {
+        let button = FabButton(image: Icon.cm.add, tintColor: Color.white)
+        
+        view.layout(button).width(48).height(48).center()
+    }
+    
+    private func prepareIconButton() {
+        let button = IconButton(image: Icon.cm.search, tintColor: Color.blue.base)
+        
+        view.layout(button).width(120).height(40).center(offsetY: 75)
     }
 }
 
