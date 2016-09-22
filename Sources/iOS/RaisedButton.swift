@@ -41,7 +41,7 @@ open class RaisedButton: Button {
 	open override func prepare() {
 		super.prepare()
 		depthPreset = .depth1
-		cornerRadiusPreset = .cornerRadius1
+		cornerRadiusPreset = .cornerRadius2
 		backgroundColor = Color.white
 	}
 }

@@ -122,6 +122,9 @@ open class Card: PulseView {
 			reloadView()
 		}
 	}
+    
+    @IBInspectable
+    open internal(set) lazy var toolbar: Toolbar = Toolbar()
 	
 	/**
 	:name:	contentViewInsets
@@ -284,7 +287,7 @@ open class Card: PulseView {
 		// title
 		if let v: UILabel = titleLabel {
 			verticalFormat += "-[titleLabel]"
-			views["titleLabel"] = v
+			views["titleLabel"] = toolbar
 			
 			layout(v).horizontally(left: contentInset.left + titleLabelInset.left, right: contentInset.right + titleLabelInset.right)
 		}

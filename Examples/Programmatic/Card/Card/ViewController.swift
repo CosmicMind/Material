@@ -29,17 +29,47 @@
  */
 
 import UIKit
+import Material
 
-open class FlatButton: Button {
-	/**
-     Prepares the view instance when intialized. When subclassing,
-     it is recommended to override the prepare method
-     to initialize property values and other setup operations.
-     The super.prepare method should always be called immediately
-     when subclassing.
-     */
-	open override func prepare() {
-		super.prepare()
-		cornerRadiusPreset = .cornerRadius2
-	}
+class ViewController: UIViewController {
+    private var favoriteButton: IconButton!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = Color.white
+        
+        prepareFavoriteButton()
+        prepareCard()
+    }
+    
+    private func prepareFavoriteButton() {
+        favoriteButton = IconButton(image: Icon.favorite, tintColor: Color.white)
+        favoriteButton.pulseColor = Color.white
+    }
+    
+    
+    private func prepareCard() {
+        view.backgroundColor = Color.white
+        
+        let card = ContentCard()
+        card.depthPreset = .depth2
+        
+        card.titleBar = Toolbar()
+        card.titleBar?.title = "Title"
+        card.titleBar?.backgroundColor = Color.red.base
+        
+        card.contentView.backgroundColor = Color.grey.base
+        card.contentView.height = 300
+        
+        card.bottomBar = Bar()
+        card.bottomBar?.backgroundColor = Color.blue.base
+        card.bottomBar?.contentEdgeInsetsPreset = .square1
+        card.bottomBar?.rightViews = [favoriteButton]
+        
+        let button = FlatButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        card.contentView.addSubview(button)
+        
+        _ = view.layout(card).left(20).right(20).top(100)
+    }
 }
+

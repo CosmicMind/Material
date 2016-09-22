@@ -20,6 +20,9 @@
          location = "group:Programmatic/CaptureController/CaptureController.xcodeproj">
       </FileRef>
       <FileRef
+         location = "group:Programmatic/Card/Card.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:Programmatic/Layer/Layer.xcodeproj">
       </FileRef>
       <FileRef
