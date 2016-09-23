@@ -44,6 +44,9 @@
          location = "group:Programmatic/PhotoLibraryController/PhotoLibraryController.xcodeproj">
       </FileRef>
       <FileRef
+         location = "group:Programmatic/PresenterCard/PresenterCard.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:Programmatic/RemindersController/RemindersController.xcodeproj">
       </FileRef>
       <FileRef
