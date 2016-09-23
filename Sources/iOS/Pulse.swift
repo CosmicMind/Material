@@ -29,57 +29,19 @@
  */
 
 import UIKit
-import Material
 
-class ViewController: UIViewController {
-    private var toolbar: Toolbar!
-    private var contentView: UILabel!
-    private var bottomBar: Bar!
-    private var favoriteButton: IconButton!
+open class Pulse {
+    /// An Array of layers.
+    internal lazy var layers = [CAShapeLayer]()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = Color.grey.lighten5
-        
-        prepareToolbar()
-        prepareContentView()
-        prepareFavoriteButton()
-        prepareBottomBar()
-        prepareCard()
-    }
+    /// A UIColor.
+    @IBInspectable
+    open var color = Color.grey.base
     
-    private func prepareToolbar() {
-        toolbar = Toolbar()
-        toolbar.title = "Title"
-        toolbar.detail = "Detail Description"
-        toolbar.backgroundColor = nil
-    }
+    /// A reference to the PulseAnimation.
+    open var animation = PulseAnimation.pointWithBacking
     
-    private func prepareContentView() {
-        contentView = UILabel()
-        contentView.numberOfLines = 0
-        contentView.text = "It’s been a while, have you read any new books lately?"
-        contentView.font = RobotoFont.regular(with: 14)
-    }
-    
-    private func prepareFavoriteButton() {
-        favoriteButton = IconButton(image: Icon.favorite, tintColor: Color.blue.base)
-        favoriteButton.pulse.color = Color.blue.base
-    }
-    
-    private func prepareBottomBar() {
-        bottomBar = Bar()
-        bottomBar.backgroundColor = nil
-        bottomBar.leftViews = [favoriteButton]
-    }
-    
-    private func prepareCard() {
-        let card = Card()
-        card.toolbar = toolbar
-        card.contentView = contentView
-        card.bottomBar = bottomBar
-        
-        view.layout(card).top(100).left(20).right(20)
-    }
+    /// The opcaity value for the pulse animation.
+    @IBInspectable
+    open var opacity: CGFloat = 0.18
 }
-

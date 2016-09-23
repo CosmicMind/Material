@@ -46,35 +46,34 @@ internal extension Animation {
 	/**
      Triggers the expanding animation.
      - Parameter layer: Container CALayer.
-     - Parameter visualLayer: A CAShapeLayer for the pulseLayer.
-     - Parameter pulseColor: The UIColor for the pulse.
+     - Parameter visualLayer: A CAShapeLayer.
      - Parameter point: A point to pulse from.
      - Parameter width: Container width.
      - Parameter height: Container height.
      - Parameter duration: Animation duration.
-     - Parameter pulseLayers: An Array of CAShapeLayers used in the animation.
+     - Parameter pulse: A Pulse instance.
      */
-	internal static func pulseExpandAnimation(layer: CALayer, visualLayer: CALayer, pulseColor: UIColor, pulseOpacity: CGFloat, point: CGPoint, width: CGFloat, height: CGFloat, pulseLayers: inout Array<CAShapeLayer>, pulseAnimation: PulseAnimation) {
-        guard .none != pulseAnimation else {
+	internal static func pulseExpandAnimation(layer: CALayer, visualLayer: CALayer, point: CGPoint, width: CGFloat, height: CGFloat, pulse: inout Pulse) {
+        guard .none != pulse.animation else {
             return
         }
         
-        let n = .center == pulseAnimation ? width < height ? width : height : width < height ? height : width
+        let n = .center == pulse.animation ? width < height ? width : height : width < height ? height : width
         
         let bLayer = CAShapeLayer()
         let pLayer = CAShapeLayer()
         
         bLayer.addSublayer(pLayer)
-        pulseLayers.insert(bLayer, at: 0)
+        pulse.layers.insert(bLayer, at: 0)
         visualLayer.addSublayer(bLayer)
         
-        visualLayer.masksToBounds = !(.centerRadialBeyondBounds == pulseAnimation || .radialBeyondBounds == pulseAnimation)
+        visualLayer.masksToBounds = !(.centerRadialBeyondBounds == pulse.animation || .radialBeyondBounds == pulse.animation)
         
-        Animation.animationDisabled(animations: {
+        Animation.animationDisabled(animations: { [visualLayer = visualLayer, pulse = pulse] in
             bLayer.frame = visualLayer.bounds
             pLayer.bounds = CGRect(x: 0, y: 0, width: n, height: n)
             
-            switch pulseAnimation {
+            switch pulse.animation {
             case .center, .centerWithBacking, .centerRadialBeyondBounds:
                 pLayer.position = CGPoint(x: width / 2, y: height / 2)
             default:
@@ -82,21 +81,21 @@ internal extension Animation {
             }
             
             pLayer.cornerRadius = n / 2
-            pLayer.backgroundColor = pulseColor.withAlphaComponent(pulseOpacity).cgColor
+            pLayer.backgroundColor = pulse.color.withAlphaComponent(pulse.opacity).cgColor
             pLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform(scaleX: 0, y: 0))
         })
         
         bLayer.setValue(false, forKey: "animated")
         
-        let duration: CFTimeInterval = .center == pulseAnimation ? 0.16125 : 0.325
+        let duration: CFTimeInterval = .center == pulse.animation ? 0.16125 : 0.325
         
-        switch pulseAnimation {
+        switch pulse.animation {
         case .centerWithBacking, .backing, .pointWithBacking:
-            bLayer.add(Animation.backgroundColor(color: pulseColor.withAlphaComponent(pulseOpacity / 2), duration: duration), forKey: nil)
+            bLayer.add(Animation.backgroundColor(color: pulse.color.withAlphaComponent(pulse.opacity / 2), duration: duration), forKey: nil)
         default:break
         }
         
-        switch pulseAnimation {
+        switch pulse.animation {
         case .center, .centerWithBacking, .centerRadialBeyondBounds, .radialBeyondBounds, .point, .pointWithBacking:
             pLayer.add(Animation.scale(scale: 1, duration: duration), forKey: nil)
         default:break
@@ -110,11 +109,11 @@ internal extension Animation {
 	/**
      Triggers the contracting animation.
      - Parameter layer: Container CALayer.
-     - Parameter pulseColor: The UIColor for the pulse.
-     - Parameter pulseLayers: An Array of CAShapeLayers used in the animation.
+     - Parameter visualLayer: A CAShapeLayer.
+     - Parameter pulse: A Pulse instance.
      */
-	internal static func pulseContractAnimation(layer: CALayer, visualLayer: CALayer, pulseColor: UIColor, pulseLayers: inout Array<CAShapeLayer>, pulseAnimation: PulseAnimation) {
-        guard let bLayer = pulseLayers.popLast() else {
+	internal static func pulseContractAnimation(layer: CALayer, visualLayer: CALayer, pulse: inout Pulse) {
+        guard let bLayer = pulse.layers.popLast() else {
             return
         }
         
@@ -122,24 +121,24 @@ internal extension Animation {
             return
         }
         
-        Animation.delay(time: animated ? 0 : 0.15) {
+        Animation.delay(time: animated ? 0 : 0.15) { [pulse = pulse] in
             guard let pLayer = bLayer.sublayers?.first as? CAShapeLayer else {
                 return
             }
             
             let duration = 0.325
             
-            switch pulseAnimation {
+            switch pulse.animation {
             case .centerWithBacking, .backing, .pointWithBacking:
-                bLayer.add(Animation.backgroundColor(color: pulseColor.withAlphaComponent(0), duration: duration), forKey: nil)
+                bLayer.add(Animation.backgroundColor(color: pulse.color.withAlphaComponent(0), duration: duration), forKey: nil)
             default:break
             }
             
-            switch pulseAnimation {
+            switch pulse.animation {
             case .center, .centerWithBacking, .centerRadialBeyondBounds, .radialBeyondBounds, .point, .pointWithBacking:
                 pLayer.add(Animation.animationGroup(animations: [
-                    Animation.scale(scale: .center == pulseAnimation ? 1 : 1.325),
-                    Animation.backgroundColor(color: pulseColor.withAlphaComponent(0))
+                    Animation.scale(scale: .center == pulse.animation ? 1 : 1.325),
+                    Animation.backgroundColor(color: pulse.color.withAlphaComponent(0))
                 ], duration: duration), forKey: nil)
             default:break
             }

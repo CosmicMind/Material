@@ -413,7 +413,7 @@ open class Switch: UIControl {
 	
 	/// Prepares the button.
 	private func prepareButton() {
-		button.pulseAnimation = .none
+		button.pulse.animation = .none
 		button.addTarget(self, action: #selector(handleTouchUpInside), for: .touchUpInside)
 		button.addTarget(self, action: #selector(handleTouchDragInside), for: .touchDragInside)
 		button.addTarget(self, action: #selector(handleTouchUpOutsideOrCanceled), for: .touchCancel)

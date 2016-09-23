@@ -80,7 +80,7 @@ class ViewController: UIViewController {
     
     private func prepareRaisedButton() {
         let button = RaisedButton(title: "Raised Button", titleColor: Color.white)
-        button.pulseColor = Color.white
+        button.pulse.color = Color.white
         button.backgroundColor = Color.blue.base
         
         view.layout(button)

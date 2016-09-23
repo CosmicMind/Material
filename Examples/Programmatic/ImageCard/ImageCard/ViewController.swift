@@ -81,7 +81,7 @@ class ViewController: UIViewController {
     
     private func prepareFavoriteButton() {
         favoriteButton = IconButton(image: Icon.favorite, tintColor: Color.grey.base)
-        favoriteButton.pulseColor = Color.grey.base
+        favoriteButton.pulse.color = Color.grey.base
     }
     
     private func prepareBottomBar() {
