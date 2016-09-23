@@ -59,28 +59,9 @@ open class Card: PulseView {
         }
     }
     
-    /// A preset wrapper around interimSpace.
-    open var interimSpacePreset = InterimSpacePreset.none {
-        didSet {
-            interimSpace = InterimSpacePresetToValue(preset: interimSpacePreset)
-        }
-    }
-    
-    /// A wrapper around grid.interimSpace.
+    /// A reference to the toolbar.
     @IBInspectable
-    open var interimSpace: InterimSpace {
-        get {
-            return grid.interimSpace
-        }
-        set(value) {
-            grid.interimSpace = value
-            layoutSubviews()
-        }
-    }
-    
-    /// A reference to the titleBar.
-    @IBInspectable
-    open var titleBar: Toolbar? {
+    open var toolbar: Toolbar? {
         didSet {
             layoutSubviews()
         }
@@ -125,13 +106,13 @@ open class Card: PulseView {
     
     /**
      A convenience initiazlier.
-     - Parameter titleBar: An optional Toolbar.
+     - Parameter toolbar: An optional Toolbar.
      - Parameter contentView: An optional UIView.
      - Parameter bottomBar: An optional Bar.
      */
-    public convenience init?(titleBar: Toolbar?, contentView: UIView?, bottomBar: Bar?) {
+    public convenience init?(toolbar: Toolbar?, contentView: UIView?, bottomBar: Bar?) {
         self.init(frame: .zero)
-        prepareProperties(titleBar: titleBar, contentView: contentView, bottomBar: bottomBar)
+        prepareProperties(toolbar: toolbar, contentView: contentView, bottomBar: bottomBar)
     }
     
     open override func layoutSubviews() {
@@ -146,25 +127,30 @@ open class Card: PulseView {
             v.removeFromSuperview()
         }
         
-        var format = "V:|-(top)"
+        layout()
+    }
+    
+    /// Lays out view.
+    open func layout() {
+        var format = "V:|"
         var views = [String: Any]()
         
-        if let v = titleBar {
-            format += "-[titleBar]"
-            views["titleBar"] = v
-            layout(v).horizontally(left: contentEdgeInsets.left, right: contentEdgeInsets.right)
+        if let v = toolbar {
+            format += "[toolbar]"
+            views["toolbar"] = v
+            layout(v).horizontally()
         }
         
         if let v = contentView {
-            format += (nil == titleBar ? "" : "-(interimSpace)") + "-[contentView]"
+            format += "-(top)-[contentView]-(bottom)-"
             views["contentView"] = v
             layout(v).horizontally(left: contentEdgeInsets.left, right: contentEdgeInsets.right)
         }
         
         if let v = bottomBar {
-            format += (nil == titleBar && nil == contentView ? "" : "-(interimSpace)") + "-[bottomBar]"
+            format += "[bottomBar]"
             views["bottomBar"] = v
-            layout(v).horizontally(left: contentEdgeInsets.left, right: contentEdgeInsets.right)
+            layout(v).horizontally()
         }
         
         guard 0 < views.count else {
@@ -174,9 +160,8 @@ open class Card: PulseView {
         var metrics = [String: Any]()
         metrics["top"] = contentEdgeInsets.top
         metrics["bottom"] = contentEdgeInsets.bottom
-        metrics["interimSpace"] = interimSpace
         
-        addConstraints(Layout.constraint(format: "\(format)-(bottom)-|", options: [], metrics: metrics, views: views))
+        addConstraints(Layout.constraint(format: "\(format)|", options: [], metrics: metrics, views: views))
     }
     
     /**
@@ -189,20 +174,17 @@ open class Card: PulseView {
     open override func prepare() {
         super.prepare()
         depthPreset = .depth1
-        pulseAnimation = .none
-        contentEdgeInsetsPreset = .square1
-        interimSpacePreset = .interimSpace3
         cornerRadiusPreset = .cornerRadius1
     }
     
     /**
      A preparation method that sets the base UI elements.
-     - Parameter titleBar: An optional Toolbar.
+     - Parameter toolbar: An optional Toolbar.
      - Parameter contentView: An optional UIView.
      - Parameter bottomBar: An optional Bar.
      */
-    internal func prepareProperties(titleBar: Toolbar?, contentView: UIView?, bottomBar: Bar?) {
-        self.titleBar = titleBar
+    internal func prepareProperties(toolbar: Toolbar?, contentView: UIView?, bottomBar: Bar?) {
+        self.toolbar = toolbar
         self.contentView = contentView
         self.bottomBar = bottomBar
     }

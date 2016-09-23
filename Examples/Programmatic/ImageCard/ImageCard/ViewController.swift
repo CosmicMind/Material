@@ -32,6 +32,7 @@ import UIKit
 import Material
 
 class ViewController: UIViewController {
+    private var imageView: UIImageView!
     private var toolbar: Toolbar!
     private var contentView: UILabel!
     private var bottomBar: Bar!
@@ -41,17 +42,30 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = Color.grey.lighten5
         
+        prepareImageView()
         prepareToolbar()
         prepareContentView()
         prepareFavoriteButton()
         prepareBottomBar()
-        prepareCard()
+        prepareImageCard()
+    }
+    
+    private func prepareImageView() {
+        imageView = UIImageView()
+        imageView.image = UIImage(named: "CosmicMind")
+        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFit
     }
     
     private func prepareToolbar() {
         toolbar = Toolbar()
+        
         toolbar.title = "Title"
+        toolbar.titleLabel.textAlignment = .left
+        
         toolbar.detail = "Detail Description"
+        toolbar.detailLabel.textAlignment = .left
+        
         toolbar.backgroundColor = nil
     }
     
@@ -73,8 +87,9 @@ class ViewController: UIViewController {
         bottomBar.leftViews = [favoriteButton]
     }
     
-    private func prepareCard() {
-        let card = Card()
+    private func prepareImageCard() {
+        let card = ImageCard()
+        card.imageView = imageView
         card.toolbar = toolbar
         card.contentView = contentView
         card.bottomBar = bottomBar
