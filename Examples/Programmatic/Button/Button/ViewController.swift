@@ -31,21 +31,51 @@
 import UIKit
 import Material
 
+struct ButtonLayout {
+    struct Flat {
+        static let width: CGFloat = 120
+        static let height: CGFloat = 36
+        static let offsetY: CGFloat = -150
+    }
+    
+    struct Raised {
+        static let width: CGFloat = 150
+        static let height: CGFloat = 36
+        static let offsetY: CGFloat = -75
+    }
+    
+    struct Fab {
+        static let diameter: CGFloat = 48
+    }
+    
+    struct Icon {
+        static let width: CGFloat = 120
+        static let height: CGFloat = 48
+        static let offsetY: CGFloat = 75
+    }
+}
+
 class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Color.white
-        
+        prepareView()
         prepareFlatButton()
         prepareRaisedButton()
         prepareFabButton()
         prepareIconButton()
     }
     
+    private func prepareView() {
+        view.backgroundColor = Color.white
+    }
+    
     private func prepareFlatButton() {
         let button = FlatButton(title: "Flat Button", titleColor: Color.blue.base)
         
-        view.layout(button).width(120).height(36).center(offsetY: -150)
+        view.layout(button)
+            .width(ButtonLayout.Flat.width)
+            .height(ButtonLayout.Flat.height)
+            .center(offsetY: ButtonLayout.Flat.offsetY)
     }
     
     private func prepareRaisedButton() {
@@ -53,19 +83,28 @@ class ViewController: UIViewController {
         button.pulseColor = Color.white
         button.backgroundColor = Color.blue.base
         
-        view.layout(button).width(150).height(36).center(offsetY: -75)
+        view.layout(button)
+            .width(ButtonLayout.Raised.width)
+            .height(ButtonLayout.Raised.height)
+            .center(offsetY: ButtonLayout.Raised.offsetY)
     }
     
     private func prepareFabButton() {
         let button = FabButton(image: Icon.cm.add, tintColor: Color.white)
         
-        view.layout(button).width(48).height(48).center()
+        view.layout(button)
+            .width(ButtonLayout.Fab.diameter)
+            .height(ButtonLayout.Fab.diameter)
+            .center()
     }
     
     private func prepareIconButton() {
         let button = IconButton(image: Icon.cm.search, tintColor: Color.blue.base)
         
-        view.layout(button).width(120).height(48).center(offsetY: 75)
+        view.layout(button)
+            .width(ButtonLayout.Icon.width)
+            .height(ButtonLayout.Icon.height)
+            .center(offsetY: ButtonLayout.Icon.offsetY)
     }
 }
 
