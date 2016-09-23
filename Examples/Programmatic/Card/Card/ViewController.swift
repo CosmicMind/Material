@@ -32,44 +32,55 @@ import UIKit
 import Material
 
 class ViewController: UIViewController {
+    private var titleBar: Toolbar!
+    private var contentView: UILabel!
+    private var bottomBar: Bar!
     private var favoriteButton: IconButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Color.white
+        view.backgroundColor = Color.grey.lighten5
         
+        prepareTitleBar()
+        prepareContentView()
         prepareFavoriteButton()
+        prepareBottomBar()
         prepareCard()
     }
     
-    private func prepareFavoriteButton() {
-        favoriteButton = IconButton(image: Icon.favorite, tintColor: Color.white)
-        favoriteButton.pulseColor = Color.white
+    private func prepareTitleBar() {
+        titleBar = Toolbar()
+        titleBar.title = "Title"
+        titleBar.backgroundColor = nil
     }
     
+    private func prepareContentView() {
+        contentView = UILabel()
+        contentView.numberOfLines = 0
+        contentView.text = "It’s been a while, have you read any new books lately?"
+        contentView.font = RobotoFont.regular(with: 14)
+    }
+    
+    private func prepareFavoriteButton() {
+        favoriteButton = IconButton(image: Icon.favorite, tintColor: Color.blue.base)
+        favoriteButton.pulseColor = Color.blue.base
+    }
+    
+    private func prepareBottomBar() {
+        bottomBar = Bar()
+        bottomBar.backgroundColor = nil
+        bottomBar.leftViews = [favoriteButton]
+    }
     
     private func prepareCard() {
-        view.backgroundColor = Color.white
+        let card = Card()
+        card.pulseAnimation = .pointWithBacking
         
-        let card = ContentCard()
-        card.depthPreset = .depth2
+        card.titleBar = titleBar
+        card.contentView = contentView
+        card.bottomBar = bottomBar
         
-        card.titleBar = Toolbar()
-        card.titleBar?.title = "Title"
-        card.titleBar?.backgroundColor = Color.red.base
-        
-        card.contentView.backgroundColor = Color.grey.base
-        card.contentView.height = 300
-        
-        card.bottomBar = Bar()
-        card.bottomBar?.backgroundColor = Color.blue.base
-        card.bottomBar?.contentEdgeInsetsPreset = .square1
-        card.bottomBar?.rightViews = [favoriteButton]
-        
-        let button = FlatButton(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-        card.contentView.addSubview(button)
-        
-        _ = view.layout(card).left(20).right(20).top(100)
+        view.layout(card).top(100).left(20).right(20)
     }
 }
 
