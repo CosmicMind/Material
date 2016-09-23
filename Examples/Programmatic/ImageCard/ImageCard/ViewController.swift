@@ -52,20 +52,23 @@ class ViewController: UIViewController {
     
     private func prepareImageView() {
         imageView = UIImageView()
-        imageView.image = UIImage(named: "CosmicMind")
+        imageView.image = UIImage(named: "frontier.jpg")?.resize(toWidth: view.width)
         imageView.clipsToBounds = true
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
     }
     
     private func prepareToolbar() {
         toolbar = Toolbar()
         
-        toolbar.title = "Title"
+        toolbar.title = "CosmicMind"
         toolbar.titleLabel.textAlignment = .left
+        toolbar.titleLabel.textColor = Color.white
         
-        toolbar.detail = "Detail Description"
+        toolbar.detail = "Build Beautiful Software"
         toolbar.detailLabel.textAlignment = .left
+        toolbar.detailLabel.textColor = Color.white
         
+        toolbar.contentEdgeInsetsPreset = .square3
         toolbar.backgroundColor = nil
     }
     
@@ -77,14 +80,15 @@ class ViewController: UIViewController {
     }
     
     private func prepareFavoriteButton() {
-        favoriteButton = IconButton(image: Icon.favorite, tintColor: Color.blue.base)
-        favoriteButton.pulseColor = Color.blue.base
+        favoriteButton = IconButton(image: Icon.favorite, tintColor: Color.grey.base)
+        favoriteButton.pulseColor = Color.grey.base
     }
     
     private func prepareBottomBar() {
         bottomBar = Bar()
         bottomBar.backgroundColor = nil
-        bottomBar.leftViews = [favoriteButton]
+        bottomBar.contentEdgeInsetsPreset = .square1
+        bottomBar.rightViews = [favoriteButton]
     }
     
     private func prepareImageCard() {
@@ -93,7 +97,9 @@ class ViewController: UIViewController {
         card.toolbar = toolbar
         card.contentView = contentView
         card.bottomBar = bottomBar
+        card.contentEdgeInsetsPreset = .square3
         
+        imageView?.layout(toolbar!).height(toolbar!.height + 32)
         view.layout(card).top(100).left(20).right(20)
     }
 }
