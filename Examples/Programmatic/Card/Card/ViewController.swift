@@ -51,6 +51,7 @@ class ViewController: UIViewController {
     private func prepareTitleBar() {
         titleBar = Toolbar()
         titleBar.title = "Title"
+        titleBar.detail = "Detail Description"
         titleBar.backgroundColor = nil
     }
     
@@ -75,7 +76,6 @@ class ViewController: UIViewController {
     private func prepareCard() {
         let card = Card()
         card.pulseAnimation = .pointWithBacking
-        
         card.titleBar = titleBar
         card.contentView = contentView
         card.bottomBar = bottomBar

@@ -43,6 +43,7 @@ open class Card: PulseView {
         }
         set(value) {
             grid.contentEdgeInsetsPreset = value
+            layoutSubviews()
         }
     }
     
@@ -54,6 +55,7 @@ open class Card: PulseView {
         }
         set(value) {
             grid.contentEdgeInsets = value
+            layoutSubviews()
         }
     }
     
@@ -72,6 +74,7 @@ open class Card: PulseView {
         }
         set(value) {
             grid.interimSpace = value
+            layoutSubviews()
         }
     }
     
@@ -143,13 +146,8 @@ open class Card: PulseView {
             v.removeFromSuperview()
         }
         
-        var format = "V:|-(insetTop)"
+        var format = "V:|-(top)"
         var views = [String: Any]()
-        var metrics = [String: Any]()
-        
-        metrics["insetTop"] = contentEdgeInsets.top
-        metrics["insetBottom"] = contentEdgeInsets.bottom
-        metrics["interimSpace"] = interimSpace
         
         if let v = titleBar {
             format += "-[titleBar]"
@@ -158,22 +156,27 @@ open class Card: PulseView {
         }
         
         if let v = contentView {
-            format += "-(interimSpace)-[contentView]"
+            format += (nil == titleBar ? "" : "-(interimSpace)") + "-[contentView]"
             views["contentView"] = v
             layout(v).horizontally(left: contentEdgeInsets.left, right: contentEdgeInsets.right)
         }
         
         if let v = bottomBar {
-            format += "-(interimSpace)-[bottomBar]"
+            format += (nil == titleBar && nil == contentView ? "" : "-(interimSpace)") + "-[bottomBar]"
             views["bottomBar"] = v
             layout(v).horizontally(left: contentEdgeInsets.left, right: contentEdgeInsets.right)
         }
         
-        format += "-(insetBottom)-|"
-        
-        if 0 < views.count {
-            addConstraints(Layout.constraint(format: format, options: [], metrics: metrics, views: views))
+        guard 0 < views.count else {
+            return
         }
+        
+        var metrics = [String: Any]()
+        metrics["top"] = contentEdgeInsets.top
+        metrics["bottom"] = contentEdgeInsets.bottom
+        metrics["interimSpace"] = interimSpace
+        
+        addConstraints(Layout.constraint(format: "\(format)-(bottom)-|", options: [], metrics: metrics, views: views))
     }
     
     /**
@@ -186,10 +189,10 @@ open class Card: PulseView {
     open override func prepare() {
         super.prepare()
         depthPreset = .depth1
-        interimSpacePreset = .interimSpace3
-        contentEdgeInsetsPreset = .wideRectangle3
-        cornerRadiusPreset = .cornerRadius1
         pulseAnimation = .none
+        contentEdgeInsetsPreset = .square1
+        interimSpacePreset = .interimSpace3
+        cornerRadiusPreset = .cornerRadius1
     }
     
     /**
