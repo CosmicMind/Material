@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:../Material.xcodeproj">
+   </FileRef>
+   <Group
+      location = "container:"
+      name = "Programmatic">
+      <FileRef
+         location = "group:Programmatic/Bar/Bar.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/BottomNavigationController/BottomNavigationController.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/Button/Button.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/CaptureController/CaptureController.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/Card/Card.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/ImageCard/ImageCard.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/Layer/Layer.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/MenuController/MenuController.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/NavigationController/NavigationController.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/NavigationDrawerController/NavigationDrawerController.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/PageTabBarController/PageTabBarController.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/PhotoLibraryController/PhotoLibraryController.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/PresenterCard/PresenterCard.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/RemindersController/RemindersController.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/SearchBarController/SearchBarController.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/SnackbarController/SnackbarController.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/StatusBarController/StatusBarController.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/Switch/Switch.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/TabBar/TabBar.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/ToolbarController/ToolbarController.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Programmatic/View/View.xcodeproj">
+      </FileRef>
+   </Group>
+</Workspace>
