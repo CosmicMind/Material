@@ -97,8 +97,6 @@ class ViewController: UIViewController {
         toolbar.detail = "Build Beautiful Software"
         toolbar.detailLabel.textAlignment = .left
         
-        let insets = EdgeInsetsPresetToValue(preset: .square2)
-        toolbar.height += insets.top + insets.bottom
         toolbar.contentEdgeInsetsPreset = .square2
         
         toolbar.leftViews.append(authorView)
