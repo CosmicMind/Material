@@ -30,12 +30,6 @@
 
 import UIKit
 
-@objc(ToolbarAlignment)
-public enum ToolbarAlignment: Int {
-    case top
-    case bottom
-}
-
 open class PresenterCard: Card {
     /// A reference to the presenterView.
     @IBInspectable
@@ -45,33 +39,20 @@ open class PresenterCard: Card {
         }
     }
     
-    /// An ImageCardToolbarAlignment value.
-    open var toolbarAlignment = ToolbarAlignment.bottom {
-        didSet {
-            layoutSubviews()
-        }
-    }
-    
     open override func layout() {
-        guard let pv = presenterView else {
-            super.layout()
-            return
-        }
-        
         var format = "V:|"
         var views = [String: Any]()
         
-        format += "[presenterView]"
-        views["presenterView"] = pv
-        layout(pv).horizontally()
-        
         if let v = toolbar {
-            pv.layout(v).horizontally().bottom()
-            if .top == toolbarAlignment {
-                pv.layout(v).top()
-            } else {
-                pv.layout(v).bottom()
-            }
+            format += "[toolbar]"
+            views["toolbar"] = v
+            layout(v).horizontally().height(v.height)
+        }
+        
+        if let v = presenterView {
+            format += "[presenterView]"
+            views["presenterView"] = v
+            layout(v).horizontally()
         }
         
         if let v = contentView {
@@ -83,7 +64,7 @@ open class PresenterCard: Card {
         if let v = bottomBar {
             format += "[bottomBar]"
             views["bottomBar"] = v
-            layout(v).horizontally()
+            layout(v).horizontally().height(v.height)
         }
         
         guard 0 < views.count else {
@@ -95,11 +76,5 @@ open class PresenterCard: Card {
         metrics["bottom"] = contentEdgeInsets.bottom
         
         addConstraints(Layout.constraint(format: "\(format)|", options: [], metrics: metrics, views: views))
-        
-        presenterView?.zPosition = 0
-        toolbar?.zPosition = 1000
-        visualLayer.zPosition = 1
-        contentView?.zPosition = 2
-        bottomBar?.zPosition = 2
     }
 }

@@ -33,20 +33,30 @@ import Material
 
 class ViewController: UIViewController {
     private var imageView: UIImageView!
-    private var toolbar: Toolbar!
     private var contentView: UILabel!
+    
+    /// Bottom Bar views.
     private var bottomBar: Bar!
-    private var favoriteButton: IconButton!
+    private var favoriteButton: FlatButton!
+    private var shareButton: FlatButton!
+    private var starButton: FlatButton!
+    
+    /// Toolbar views.
+    private var toolbar: Toolbar!
+    private var moreButton: IconButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Color.grey.lighten5
         
-        prepareFavoriteButton()
-        prepareBottomBar()
         prepareImageView()
+        prepareFavoriteButton()
+        prepareShareButton()
+        prepareStarButton()
+        prepareMoreButton()
         prepareToolbar()
         prepareContentView()
+        prepareBottomBar()
         prepareImageCard()
     }
     
@@ -54,12 +64,32 @@ class ViewController: UIViewController {
         imageView = UIImageView()
         imageView.image = UIImage(named: "frontier.jpg")?.resize(toWidth: view.width)
         imageView.clipsToBounds = true
-        imageView.contentMode = .scaleAspectFill
         imageView.cornerRadiusPreset = .cornerRadius1
+        imageView.contentMode = .scaleAspectFill
+    }
+    
+    private func prepareFavoriteButton() {
+        favoriteButton = FlatButton(image: Icon.favorite, tintColor: Color.grey.base)
+        favoriteButton.grid.columns = 4
+    }
+    
+    private func prepareShareButton() {
+        shareButton = FlatButton(image: Icon.cm.share, tintColor: Color.grey.base)
+        shareButton.grid.columns = 4
+    }
+    
+    private func prepareStarButton() {
+        starButton = FlatButton(image: Icon.cm.star, tintColor: Color.grey.base)
+        starButton.grid.columns = 4
+    }
+    
+    private func prepareMoreButton() {
+        moreButton = IconButton(image: Icon.cm.moreHorizontal, tintColor: Color.white)
     }
     
     private func prepareToolbar() {
         toolbar = Toolbar()
+        toolbar.backgroundColor = nil
         
         toolbar.title = "CosmicMind"
         toolbar.titleLabel.textAlignment = .left
@@ -69,8 +99,11 @@ class ViewController: UIViewController {
         toolbar.detailLabel.textAlignment = .left
         toolbar.detailLabel.textColor = Color.white
         
+        let insets = EdgeInsetsPresetToValue(preset: .square3)
+        toolbar.height += insets.top + insets.bottom
         toolbar.contentEdgeInsetsPreset = .square3
-        toolbar.backgroundColor = nil
+        
+        toolbar.rightViews.append(moreButton)
     }
     
     private func prepareContentView() {
@@ -80,16 +113,16 @@ class ViewController: UIViewController {
         contentView.font = RobotoFont.regular(with: 14)
     }
     
-    private func prepareFavoriteButton() {
-        favoriteButton = IconButton(image: Icon.favorite, tintColor: Color.grey.base)
-        favoriteButton.pulse.color = Color.grey.base
-    }
-    
     private func prepareBottomBar() {
         bottomBar = Bar()
-        bottomBar.backgroundColor = nil
+        bottomBar.backgroundColor = Color.grey.lighten4
         bottomBar.contentEdgeInsetsPreset = .square1
-        bottomBar.rightViews = [favoriteButton]
+        bottomBar.cornerRadiusPreset = .cornerRadius1
+        
+        bottomBar.divider.color = Color.grey.lighten3
+        bottomBar.divider.alignment = .top
+        
+        bottomBar.contentView.grid.views = [favoriteButton, shareButton, starButton]
     }
     
     private func prepareImageCard() {
@@ -98,11 +131,10 @@ class ViewController: UIViewController {
         card.toolbar = toolbar
         card.contentView = contentView
         card.bottomBar = bottomBar
-        card.contentEdgeInsetsPreset = .square3
         card.cornerRadiusPreset = .cornerRadius1
+        card.contentEdgeInsetsPreset = .square3
         
-        imageView?.layout(toolbar!).height(toolbar!.height + 32)
-        view.layout(card).top(100).left(20).right(20)
+        view.layout(card).horizontally(left: 20, right: 20).center()
     }
 }
 

@@ -33,12 +33,18 @@ import Material
 
 class ViewController: UIViewController {
     private var imageView: UIImageView!
-    private var toolbar: Toolbar!
     private var contentView: UILabel!
+    
+    /// Bottom Bar views.
     private var bottomBar: Bar!
     private var favoriteButton: FlatButton!
     private var shareButton: FlatButton!
     private var starButton: FlatButton!
+    
+    /// Toolbar views.
+    private var toolbar: Toolbar!
+    private var moreButton: IconButton!
+    private var authorView: View!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +54,8 @@ class ViewController: UIViewController {
         prepareFavoriteButton()
         prepareShareButton()
         prepareStarButton()
+        prepareMoreButton()
+        prepareAuthorView()
         prepareToolbar()
         prepareContentView()
         prepareBottomBar()
@@ -59,29 +67,51 @@ class ViewController: UIViewController {
         imageView.image = UIImage(named: "frontier.jpg")?.resize(toWidth: view.width)
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
-        imageView.cornerRadiusPreset = .cornerRadius1
+    }
+    
+    private func prepareFavoriteButton() {
+        favoriteButton = FlatButton(image: Icon.favorite, tintColor: Color.grey.base)
+        favoriteButton.grid.columns = 4
+    }
+    
+    private func prepareShareButton() {
+        shareButton = FlatButton(image: Icon.cm.share, tintColor: Color.grey.base)
+        shareButton.grid.columns = 4
+    }
+    
+    private func prepareStarButton() {
+        starButton = FlatButton(image: Icon.cm.star, tintColor: Color.grey.base)
+        starButton.grid.columns = 4
+    }
+    
+    private func prepareMoreButton() {
+        moreButton = IconButton(image: Icon.cm.moreVertical, tintColor: Color.grey.base)
+    }
+    
+    private func prepareAuthorView() {
+        authorView = View()
+        authorView.width = 24
+        authorView.image = UIImage(named: "CosmicMind")
+        authorView.backgroundColor = nil
+        authorView.contentsGravityPreset = .ResizeAspect
     }
     
     private func prepareToolbar() {
         toolbar = Toolbar()
+        toolbar.backgroundColor = nil
         
         toolbar.title = "CosmicMind"
         toolbar.titleLabel.textAlignment = .left
-        toolbar.titleLabel.textColor = Color.white
         
         toolbar.detail = "Build Beautiful Software"
         toolbar.detailLabel.textAlignment = .left
-        toolbar.detailLabel.textColor = Color.white
         
-        toolbar.contentEdgeInsetsPreset = .square3
-        toolbar.backgroundColor = nil
+        let insets = EdgeInsetsPresetToValue(preset: .square2)
+        toolbar.height += insets.top + insets.bottom
+        toolbar.contentEdgeInsetsPreset = .square2
         
-        toolbar.rightViews.append(starButton)
-    }
-    
-    @objc
-    internal func handleButton(button: UIButton) {
-        print("hello")
+        toolbar.leftViews.append(authorView)
+        toolbar.rightViews.append(moreButton)
     }
     
     private func prepareContentView() {
@@ -91,30 +121,16 @@ class ViewController: UIViewController {
         contentView.font = RobotoFont.regular(with: 14)
     }
     
-    private func prepareFavoriteButton() {
-        favoriteButton = FlatButton(image: Icon.favorite, tintColor: Color.grey.base)
-        favoriteButton.pulse.color = Color.grey.base
-        favoriteButton.grid.columns = 4
-    }
-    
-    private func prepareShareButton() {
-        shareButton = FlatButton(image: Icon.cm.share, tintColor: Color.grey.base)
-        shareButton.pulse.color = Color.grey.base
-        shareButton.grid.columns = 4
-    }
-    
-    private func prepareStarButton() {
-        starButton = FlatButton(image: Icon.cm.star, tintColor: Color.grey.base)
-        starButton.pulse.color = Color.green.base
-        starButton.addTarget(self, action: #selector(handleButton(button:)), for: .touchUpInside)
-//        starButton.grid.columns = 4
-    }
-    
     private func prepareBottomBar() {
         bottomBar = Bar()
-        bottomBar.backgroundColor = nil
+        bottomBar.backgroundColor = Color.grey.lighten4
         bottomBar.contentEdgeInsetsPreset = .square1
-        bottomBar.contentView.grid.views = [favoriteButton, shareButton]
+        bottomBar.cornerRadiusPreset = .cornerRadius1
+        
+        bottomBar.divider.color = Color.grey.lighten3
+        bottomBar.divider.alignment = .top
+        
+        bottomBar.contentView.grid.views = [favoriteButton, shareButton, starButton]
     }
     
     private func prepareImageCard() {
@@ -123,11 +139,10 @@ class ViewController: UIViewController {
         card.toolbar = toolbar
         card.contentView = contentView
         card.bottomBar = bottomBar
-        card.contentEdgeInsetsPreset = .square3
         card.cornerRadiusPreset = .cornerRadius1
+        card.contentEdgeInsetsPreset = .square3
         
-        imageView?.layout(toolbar!).height(toolbar!.height + 32)
-        view.layout(card).top(100).left(20).right(20)
+        view.layout(card).horizontally(left: 20, right: 20).center()
     }
 }
 

@@ -138,7 +138,7 @@ open class Card: PulseView {
         if let v = toolbar {
             format += "[toolbar]"
             views["toolbar"] = v
-            layout(v).horizontally()
+            layout(v).horizontally().height(v.height)
         }
         
         if let v = contentView {
@@ -150,7 +150,7 @@ open class Card: PulseView {
         if let v = bottomBar {
             format += "[bottomBar]"
             views["bottomBar"] = v
-            layout(v).horizontally()
+            layout(v).horizontally().height(v.height)
         }
         
         guard 0 < views.count else {

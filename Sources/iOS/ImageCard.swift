@@ -30,15 +30,70 @@
 
 import UIKit
 
-open class ImageCard: PresenterCard {
+@objc(ToolbarAlignment)
+public enum ToolbarAlignment: Int {
+    case top
+    case bottom
+}
+
+open class ImageCard: Card {
     /// A reference to the imageView.
     @IBInspectable
     open var imageView: UIImageView? {
-        get {
-            return presenterView as? UIImageView
+        didSet {
+            layoutSubviews()
         }
-        set(value) {
-            presenterView = value
+    }
+    
+    /// An ImageCardToolbarAlignment value.
+    open var toolbarAlignment = ToolbarAlignment.bottom {
+        didSet {
+            layoutSubviews()
         }
+    }
+    
+    open override func layout() {
+        guard let iv = imageView else {
+            super.layout()
+            return
+        }
+        
+        var format = "V:|"
+        var views = [String: Any]()
+        
+        format += "[imageView]"
+        views["imageView"] = iv
+        layout(iv).horizontally()
+        
+        if let v = toolbar {
+            iv.layout(v).horizontally().height(v.height)
+            if .top == toolbarAlignment {
+                iv.layout(v).top()
+            } else {
+                iv.layout(v).bottom()
+            }
+        }
+        
+        if let v = contentView {
+            format += "-(top)-[contentView]-(bottom)-"
+            views["contentView"] = v
+            layout(v).horizontally(left: contentEdgeInsets.left, right: contentEdgeInsets.right)
+        }
+        
+        if let v = bottomBar {
+            format += "[bottomBar]"
+            views["bottomBar"] = v
+            layout(v).horizontally().height(v.height)
+        }
+        
+        guard 0 < views.count else {
+            return
+        }
+        
+        var metrics = [String: Any]()
+        metrics["top"] = contentEdgeInsets.top
+        metrics["bottom"] = contentEdgeInsets.bottom
+        
+        addConstraints(Layout.constraint(format: "\(format)|", options: [], metrics: metrics, views: views))
     }
 }
