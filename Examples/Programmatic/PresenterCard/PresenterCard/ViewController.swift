@@ -45,11 +45,11 @@ class ViewController: UIViewController {
         view.backgroundColor = Color.grey.lighten5
         
         prepareImageView()
-        prepareToolbar()
-        prepareContentView()
         prepareFavoriteButton()
         prepareShareButton()
         prepareStarButton()
+        prepareToolbar()
+        prepareContentView()
         prepareBottomBar()
         prepareImageCard()
     }
@@ -59,6 +59,7 @@ class ViewController: UIViewController {
         imageView.image = UIImage(named: "frontier.jpg")?.resize(toWidth: view.width)
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
+        imageView.cornerRadiusPreset = .cornerRadius1
     }
     
     private func prepareToolbar() {
@@ -74,6 +75,13 @@ class ViewController: UIViewController {
         
         toolbar.contentEdgeInsetsPreset = .square3
         toolbar.backgroundColor = nil
+        
+        toolbar.rightViews.append(starButton)
+    }
+    
+    @objc
+    internal func handleButton(button: UIButton) {
+        print("hello")
     }
     
     private func prepareContentView() {
@@ -97,15 +105,16 @@ class ViewController: UIViewController {
     
     private func prepareStarButton() {
         starButton = FlatButton(image: Icon.cm.star, tintColor: Color.grey.base)
-        starButton.pulse.color = Color.grey.base
-        starButton.grid.columns = 4
+        starButton.pulse.color = Color.green.base
+        starButton.addTarget(self, action: #selector(handleButton(button:)), for: .touchUpInside)
+//        starButton.grid.columns = 4
     }
     
     private func prepareBottomBar() {
         bottomBar = Bar()
         bottomBar.backgroundColor = nil
         bottomBar.contentEdgeInsetsPreset = .square1
-        bottomBar.contentView.grid.views = [favoriteButton, shareButton, starButton]
+        bottomBar.contentView.grid.views = [favoriteButton, shareButton]
     }
     
     private func prepareImageCard() {
@@ -115,6 +124,7 @@ class ViewController: UIViewController {
         card.contentView = contentView
         card.bottomBar = bottomBar
         card.contentEdgeInsetsPreset = .square3
+        card.cornerRadiusPreset = .cornerRadius1
         
         imageView?.layout(toolbar!).height(toolbar!.height + 32)
         view.layout(card).top(100).left(20).right(20)

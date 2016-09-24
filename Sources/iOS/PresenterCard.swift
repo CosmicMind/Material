@@ -97,6 +97,7 @@ open class PresenterCard: Card {
         addConstraints(Layout.constraint(format: "\(format)|", options: [], metrics: metrics, views: views))
         
         presenterView?.zPosition = 0
+        toolbar?.zPosition = 1000
         visualLayer.zPosition = 1
         contentView?.zPosition = 2
         bottomBar?.zPosition = 2

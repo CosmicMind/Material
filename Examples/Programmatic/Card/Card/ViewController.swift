@@ -41,9 +41,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = Color.grey.lighten5
         
+        prepareFavoriteButton()
         prepareToolbar()
         prepareContentView()
-        prepareFavoriteButton()
         prepareBottomBar()
         prepareCard()
     }
@@ -78,6 +78,7 @@ class ViewController: UIViewController {
         card.toolbar = toolbar
         card.contentView = contentView
         card.bottomBar = bottomBar
+        card.cornerRadiusPreset = .cornerRadius1
         
         view.layout(card).top(100).left(20).right(20)
     }

@@ -42,11 +42,11 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = Color.grey.lighten5
         
+        prepareFavoriteButton()
+        prepareBottomBar()
         prepareImageView()
         prepareToolbar()
         prepareContentView()
-        prepareFavoriteButton()
-        prepareBottomBar()
         prepareImageCard()
     }
     
@@ -55,6 +55,7 @@ class ViewController: UIViewController {
         imageView.image = UIImage(named: "frontier.jpg")?.resize(toWidth: view.width)
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
+        imageView.cornerRadiusPreset = .cornerRadius1
     }
     
     private func prepareToolbar() {
@@ -98,6 +99,7 @@ class ViewController: UIViewController {
         card.contentView = contentView
         card.bottomBar = bottomBar
         card.contentEdgeInsetsPreset = .square3
+        card.cornerRadiusPreset = .cornerRadius1
         
         imageView?.layout(toolbar!).height(toolbar!.height + 32)
         view.layout(card).top(100).left(20).right(20)
