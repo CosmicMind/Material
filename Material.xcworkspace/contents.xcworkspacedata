@@ -29,6 +29,9 @@
             location = "group:Examples/Programmatic/ImageCard/ImageCard.xcodeproj">
          </FileRef>
          <FileRef
+            location = "group:Examples/Programmatic/PresenterCard/PresenterCard.xcodeproj">
+         </FileRef>
+         <FileRef
             location = "group:Examples/Programmatic/Layer/Layer.xcodeproj">
          </FileRef>
          <FileRef
@@ -45,9 +48,6 @@
          </FileRef>
          <FileRef
             location = "group:Examples/Programmatic/PhotoLibraryController/PhotoLibraryController.xcodeproj">
-         </FileRef>
-         <FileRef
-            location = "group:Examples/Programmatic/PresenterCard/PresenterCard.xcodeproj">
          </FileRef>
          <FileRef
             location = "group:Examples/Programmatic/RemindersController/RemindersController.xcodeproj">

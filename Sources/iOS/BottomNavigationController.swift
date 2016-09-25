@@ -141,7 +141,8 @@ open class BottomNavigationController: UITabBarController, UITabBarControllerDel
 	open func prepare() {
 		view.clipsToBounds = true
 		view.contentScaleFactor = Device.scale
-		delegate = self
+		view.backgroundColor = Color.white
+        delegate = self
         prepareTabBar()
 	}
 	

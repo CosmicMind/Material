@@ -32,6 +32,10 @@ import UIKit
 import Material
 
 class ViewController: UIViewController {
+    /// Card reference.
+    private lazy var card: Card = Card()
+    
+    /// Conent area.
     private var contentView: UILabel!
     
     /// Bottom Bar views.
@@ -58,6 +62,10 @@ class ViewController: UIViewController {
         prepareContentView()
         prepareBottomBar()
         prepareImageCard()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
     }
     
     private func prepareFavoriteButton() {
@@ -123,7 +131,6 @@ class ViewController: UIViewController {
     }
     
     private func prepareImageCard() {
-        let card = Card()
         card.toolbar = toolbar
         card.contentView = contentView
         card.bottomBar = bottomBar

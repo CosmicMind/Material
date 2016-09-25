@@ -45,6 +45,6 @@ class PhotoViewController: UIViewController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Color.grey.lighten5
+        view.backgroundColor = Color.red.base
     }
 }

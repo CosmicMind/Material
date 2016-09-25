@@ -117,6 +117,11 @@ open class Card: PulseView {
     
     open override func layoutSubviews() {
         super.layoutSubviews()
+        reload()
+    }
+    
+    /// Reloads the layout.
+    open func reload() {
         guard willLayout else {
             return
         }
@@ -139,6 +144,7 @@ open class Card: PulseView {
             format += "[toolbar]"
             views["toolbar"] = v
             layout(v).horizontally().height(v.height)
+            v.grid.reload()
         }
         
         if let v = contentView {
