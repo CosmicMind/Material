@@ -74,5 +74,12 @@
             location = "group:Examples/Programmatic/View/View.xcodeproj">
          </FileRef>
       </Group>
+      <Group
+         location = "container:"
+         name = "Storyboards">
+         <FileRef
+            location = "group:Examples/Storyboards/Button/Button.xcodeproj">
+         </FileRef>
+      </Group>
    </Group>
 </Workspace>

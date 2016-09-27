@@ -102,7 +102,39 @@ open class Bar: View {
     }
     
     /// Divider layer.
-    open internal(set) var divider: Divider!
+    internal lazy var divider: Divider = Divider(view: self)
+    
+    /// Divider color.
+    @IBInspectable
+    open var dividerColor: UIColor? {
+        get {
+            return divider.color
+        }
+        set(value) {
+            divider.color = value
+        }
+    }
+    
+    /// Divider animation.
+    open var dividerAlignment: DividerAlignment {
+        get {
+            return divider.alignment
+        }
+        set(value) {
+            divider.alignment = value
+        }
+    }
+    
+    /// Divider height.
+    @IBInspectable
+    open var dividerHeight: CGFloat {
+        get {
+            return divider.height
+        }
+        set(value) {
+            divider.height = value
+        }
+    }
     
     /// ContentView that holds the any desired subviews.
     open private(set) lazy var contentView = View()
@@ -233,16 +265,10 @@ open class Bar: View {
     open override func prepare() {
         super.prepare()
         prepareContentView()
-        prepareDivider()
     }
     
     /// Prepares the contentView.
     private func prepareContentView() {
         contentView.backgroundColor = nil
-    }
-    
-    /// Prepares the divider.
-    private func prepareDivider() {
-        divider = Divider(view: self)
     }
 }

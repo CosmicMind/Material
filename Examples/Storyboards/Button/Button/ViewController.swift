@@ -29,17 +29,27 @@
  */
 
 import UIKit
+import Material
 
-internal struct Pulse {
-    /// An Array of layers.
-    internal lazy var layers = [CAShapeLayer]()
+class ViewController: UIViewController {
+    @IBOutlet weak var fabButton: FabButton!
+    @IBOutlet weak var iconButton: IconButton!
     
-    /// A UIColor.
-    internal var color = Color.grey.base
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        prepareFabButton()
+        prepareIconButton()
+    }
     
-    /// A reference to the PulseAnimation.
-    internal var animation = PulseAnimation.pointWithBacking
+    func prepareFabButton() {
+        fabButton.image = Icon.cm.add
+        fabButton.pulseColor = Color.white
+    }
     
-    /// The opcaity value for the pulse animation.
-    internal var opacity: CGFloat = 0.18
+    func prepareIconButton() {
+        iconButton.image = Icon.search
+        iconButton.pulseColor = Color.blue.base
+    }
 }
+
+

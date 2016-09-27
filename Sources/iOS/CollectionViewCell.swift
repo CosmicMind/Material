@@ -32,8 +32,40 @@ import UIKit
 
 @objc(CollectionViewCell)
 open class CollectionViewCell: UICollectionViewCell {
-    /// A reference to the divider.
-    open internal(set) var divider: Divider!
+    /// Divider layer.
+    internal private(set) lazy var divider: Divider = Divider(view: self)
+    
+    /// Divider color.
+    @IBInspectable
+    open var dividerColor: UIColor? {
+        get {
+            return divider.color
+        }
+        set(value) {
+            divider.color = value
+        }
+    }
+    
+    /// Divider animation.
+    open var dividerAlignment: DividerAlignment {
+        get {
+            return divider.alignment
+        }
+        set(value) {
+            divider.alignment = value
+        }
+    }
+    
+    /// Divider height.
+    @IBInspectable
+    open var dividerHeight: CGFloat {
+        get {
+            return divider.height
+        }
+        set(value) {
+            divider.height = value
+        }
+    }
     
     /**
      A CAShapeLayer used to manage elements that would be affected by
@@ -44,8 +76,39 @@ open class CollectionViewCell: UICollectionViewCell {
     open private(set) lazy var visualLayer = CAShapeLayer()
 	
     /// A Pulse reference.
+    internal private(set) lazy var pulse: Pulse = Pulse()
+    
+    /// PulseAnimation value.
+    open var pulseAnimation: PulseAnimation {
+        get {
+            return pulse.animation
+        }
+        set(value) {
+            pulse.animation = value
+        }
+    }
+    
+    /// PulseAnimation color.
     @IBInspectable
-    open internal(set) lazy var pulse: Pulse = Pulse()
+    open var pulseColor: UIColor {
+        get {
+            return pulse.color
+        }
+        set(value) {
+            pulse.color = value
+        }
+    }
+    
+    /// Pulse opacity.
+    @IBInspectable
+    open var pulseOpacity: CGFloat {
+        get {
+            return pulse.opacity
+        }
+        set(value) {
+            pulse.opacity = value
+        }
+    }
 	
 	/**
      A property that manages an image for the visualLayer's contents
@@ -268,7 +331,6 @@ open class CollectionViewCell: UICollectionViewCell {
 	open func prepare() {
 		contentScaleFactor = Device.scale
 		prepareVisualLayer()
-        prepareDivider()
 	}
 	
 	/// Prepares the visualLayer property.
@@ -283,9 +345,4 @@ open class CollectionViewCell: UICollectionViewCell {
 		visualLayer.frame = bounds
 		visualLayer.cornerRadius = cornerRadius
 	}
-    
-    /// Prepares the divider.
-    private func prepareDivider() {
-        divider = Divider(view: self)
-    }
 }

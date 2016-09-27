@@ -207,7 +207,7 @@ open class TextField: UITextField {
 				if nil == clearIconButton {
                     clearIconButton = IconButton(image: Icon.cm.clear, tintColor: placeholderColor)
 					clearIconButton!.contentEdgeInsets = .zero
-					clearIconButton!.pulse.animation = .center
+					clearIconButton!.pulseAnimation = .center
                     clearButtonMode = .never
 					rightViewMode = .whileEditing
 					rightView = clearIconButton
@@ -242,7 +242,7 @@ open class TextField: UITextField {
 				if nil == visibilityIconButton {
                     visibilityIconButton = IconButton(image: Icon.visibility, tintColor: placeholderColor.withAlphaComponent(isSecureTextEntry ? 0.38 : 0.54))
 					visibilityIconButton!.contentEdgeInsets = .zero
-					visibilityIconButton!.pulse.animation = .center
+					visibilityIconButton!.pulseAnimation = .center
 					isSecureTextEntry = true
 					clearButtonMode = .never
 					rightViewMode = .whileEditing
