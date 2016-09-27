@@ -123,7 +123,7 @@ open class BottomTabBar: UITabBar {
      */
 	public func prepare() {
 		depthPreset = .depth1
-        divider.alignment = .top
+        dividerAlignment = .top
 		contentScaleFactor = Device.scale
 		backgroundColor = Color.white
         let image = UIImage.imageWithColor(color: Color.clear, size: CGSize(width: 1, height: 1))
@@ -137,7 +137,7 @@ private var TabBarKey: UInt8 = 0
 
 extension UITabBar {
     /// TabBarItem reference.
-    public internal(set) var divider: Divider! {
+    internal private(set) var divider: Divider! {
         get {
             return AssociatedObject(base: self, key: &TabBarKey) {
                 return Divider(view: self)
@@ -145,6 +145,38 @@ extension UITabBar {
         }
         set(value) {
             AssociateObject(base: self, key: &TabBarKey, value: value)
+        }
+    }
+    
+    /// Divider color.
+    @IBInspectable
+    open var dividerColor: UIColor? {
+        get {
+            return divider.color
+        }
+        set(value) {
+            divider.color = value
+        }
+    }
+    
+    /// Divider animation.
+    open var dividerAlignment: DividerAlignment {
+        get {
+            return divider.alignment
+        }
+        set(value) {
+            divider.alignment = value
+        }
+    }
+    
+    /// Divider height.
+    @IBInspectable
+    open var dividerHeight: CGFloat {
+        get {
+            return divider.height
+        }
+        set(value) {
+            divider.height = value
         }
     }
 }

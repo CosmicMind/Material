@@ -77,7 +77,7 @@ class RootViewController: UIViewController {
     
     private func prepareNextButton() {
         nextButton = FlatButton()
-        nextButton.pulse.animation = .none
+        nextButton.pulseAnimation = .none
         nextButton.addTarget(self, action: #selector(handleNextButton), for: .touchUpInside)
         view.layout(nextButton).edges()
     }

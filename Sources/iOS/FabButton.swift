@@ -42,8 +42,8 @@ open class FabButton: Button {
 		super.prepare()
 		depthPreset = .depth1
 		shapePreset = .circle
-		pulse.animation = .centerWithBacking
-		pulse.color = Color.white
+		pulseAnimation = .centerWithBacking
+		pulseColor = Color.white
 		tintColor = Color.white
 		backgroundColor = Color.red.base
 	}

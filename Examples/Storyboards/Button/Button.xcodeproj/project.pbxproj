@@ -14,6 +14,19 @@
 		9A0572981D99E64100341332 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A0572961D99E64100341332 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		9690B4151D99FF2700E7F42A /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		9A05728A1D99E64100341332 /* Button.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Button.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A05728D1D99E64100341332 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -74,6 +87,7 @@
 				9A0572861D99E64100341332 /* Sources */,
 				9A0572871D99E64100341332 /* Frameworks */,
 				9A0572881D99E64100341332 /* Resources */,
+				9690B4151D99FF2700E7F42A /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -96,7 +110,6 @@
 				TargetAttributes = {
 					9A0572891D99E64100341332 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 5YZ5P93LKC;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -259,7 +272,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 5YZ5P93LKC;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Button/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cosmicmind.Button;
@@ -272,7 +285,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 5YZ5P93LKC;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Button/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cosmicmind.Button;

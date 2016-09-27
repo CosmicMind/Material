@@ -30,18 +30,16 @@
 
 import UIKit
 
-open class Pulse {
+internal struct Pulse {
     /// An Array of layers.
     internal lazy var layers = [CAShapeLayer]()
     
     /// A UIColor.
-    @IBInspectable
-    open var color = Color.grey.base
+    internal var color = Color.grey.base
     
     /// A reference to the PulseAnimation.
-    open var animation = PulseAnimation.pointWithBacking
+    internal var animation = PulseAnimation.pointWithBacking
     
     /// The opcaity value for the pulse animation.
-    @IBInspectable
-    open var opacity: CGFloat = 0.18
+    internal var opacity: CGFloat = 0.18
 }

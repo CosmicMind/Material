@@ -58,12 +58,12 @@ class ViewController: UIViewController {
     
     private func prepareFavoriteButton() {
         favoriteButton = IconButton(image: Icon.favorite, tintColor: Color.white)
-        favoriteButton.pulse.color = Color.white
+        favoriteButton.pulseColor = Color.white
     }
     
     private func prepareShareButton() {
         shareButton = IconButton(image: Icon.cm.share, tintColor: Color.white)
-        shareButton.pulse.color = Color.white
+        shareButton.pulseColor = Color.white
     }
     
     private func prepareTitleLabel() {

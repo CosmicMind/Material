@@ -48,15 +48,15 @@ class ViewController: UIViewController {
     
     private func prepareButtons() {
         let btn1 = FlatButton(title: "Library", titleColor: Color.blueGrey.base)
-        btn1.pulse.animation = .none
+        btn1.pulseAnimation = .none
         buttons.append(btn1)
         
         let btn2 = FlatButton(title: "Photo", titleColor: Color.blueGrey.base)
-        btn2.pulse.animation = .none
+        btn2.pulseAnimation = .none
         buttons.append(btn2)
         
         let btn3 = FlatButton(title: "Video", titleColor: Color.blueGrey.base)
-        btn3.pulse.animation = .none
+        btn3.pulseAnimation = .none
         buttons.append(btn3)
     }
     

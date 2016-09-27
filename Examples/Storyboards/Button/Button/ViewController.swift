@@ -32,36 +32,24 @@ import UIKit
 import Material
 
 class ViewController: UIViewController {
-    
-    // ivars
     @IBOutlet weak var fabButton: FabButton!
     @IBOutlet weak var iconButton: IconButton!
     
-    /**
-    @name viewDidLoad()
-    */
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareFabButton()
         prepareIconButton()
     }
+    
+    func prepareFabButton() {
+        fabButton.image = Icon.cm.add
+        fabButton.pulseColor = Color.white
+    }
+    
+    func prepareIconButton() {
+        iconButton.image = Icon.search
+        iconButton.pulseColor = Color.blue.base
+    }
 }
 
-// Preparation
-extension ViewController {
-    
-    /**
-    @name prepareFabButton()
-    */
-    func prepareFabButton() {
-        fabButton.setImage(Icon.edit, for: .normal)
-    }
-    
-    /**
-    @name prepareIconButton()
-    */
-    func prepareIconButton() {
-        iconButton.setImage(Icon.search, for: .normal)
-    }
-}
 

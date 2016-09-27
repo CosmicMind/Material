@@ -40,8 +40,39 @@ open class TableViewCell: UITableViewCell {
 	open private(set) lazy var visualLayer = CAShapeLayer()
 	
     /// A Pulse reference.
+    internal private(set) lazy var pulse: Pulse = Pulse()
+    
+    /// PulseAnimation value.
+    open var pulseAnimation: PulseAnimation {
+        get {
+            return pulse.animation
+        }
+        set(value) {
+            pulse.animation = value
+        }
+    }
+    
+    /// PulseAnimation color.
     @IBInspectable
-    open internal(set) lazy var pulse: Pulse = Pulse()
+    open var pulseColor: UIColor {
+        get {
+            return pulse.color
+        }
+        set(value) {
+            pulse.color = value
+        }
+    }
+    
+    /// Pulse opacity.
+    @IBInspectable
+    open var pulseOpacity: CGFloat {
+        get {
+            return pulse.opacity
+        }
+        set(value) {
+            pulse.opacity = value
+        }
+    }
     
 	/// A property that accesses the backing layer's backgroundColor.
 	@IBInspectable
