@@ -58,15 +58,12 @@ struct ButtonLayout {
 class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        prepareView()
+        view.backgroundColor = Color.white
+        
         prepareFlatButton()
         prepareRaisedButton()
         prepareFabButton()
         prepareIconButton()
-    }
-    
-    private func prepareView() {
-        view.backgroundColor = Color.white
     }
     
     private func prepareFlatButton() {

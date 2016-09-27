@@ -4,8 +4,6 @@
 
 An animation and graphics framework for Material Design in Swift.
 
-![App](http://www.cosmicmind.io/gifs/App.gif)
-
 ## Features
 
 - [x] Fully Configurable UI Components
@@ -27,7 +25,7 @@ An animation and graphics framework for Material Design in Swift.
 ## Requirements
 
 * iOS 8.0+ / Mac OS X 10.9+
-* Xcode 7.3+
+* Xcode 8.0+
 
 ## Communication
 
@@ -73,67 +71,27 @@ Try the Material Colors app to see the wonderful colors available in Material, o
 
 Take a look at some components in Material.
 
-#### Material Icons
+#### Icons
 
 Material Icons is a library of Google and CosmicMind icons that are available for use within your iOS applications. To help with icon choices, visit [MaterialIcon.io](http://www.materialicon.io).
 
-![MaterialIcon](http://www.cosmicmind.io/MK/MaterialMaterialIcon.png)
-
-#### TextField
-
-A TextField is an excellent way to improve UX.
-
-![TextField](http://www.cosmicmind.io/gifs/TextField.gif)
+![Icon](http://www.cosmicmind.io/MK/MaterialMaterialIcon.png)
 
 #### Buttons
 
-Some example buttons - FlatButton, RaisedButton, FabButton, and IconButton.
+![card](http://www.cosmicmind.io/material/white/button.gif)
 
-![Buttons](http://www.cosmicmind.io/gifs/Buttons.gif)
+#### Card
 
-#### MenuView
+![card](http://www.cosmicmind.io/material/white/card.gif)
 
-A MenuView manages a group of UIViews that may be animated with default and custom configurations.
+#### ImageCard
 
-![MenuView](http://www.cosmicmind.io/gifs/MenuView.gif)
+![card](http://www.cosmicmind.io/material/white/image-card.gif)
 
-#### Material Switch
+#### PresenterCard
 
-Enjoy flexible switch controls to add that little extra to your application.
-
-![Switch](http://www.cosmicmind.io/gifs/Switch.gif)
-
-#### Grid
-
-Grid is an extension of UIView that enables any collection of subviews to be managed in a flexible grid system.
-
-![Grid](http://www.cosmicmind.io/gifs/Grid.gif)
-
-#### CardViews
-
-CardViews are flexible components that may be configured in any way you like.
-
-![CardView](http://www.cosmicmind.io/gifs/CardView.gif)
-
-![ImageCardView](http://www.cosmicmind.io/gifs/ImageCardView.gif)
-
-![TableCardView](http://www.cosmicmind.io/gifs/TableCardView.gif)
-
-#### Toolbar
-
-Toolbars are super flexible and add excellent control to your navigation flow.
-
-![Toolbar](http://www.cosmicmind.io/gifs/Toolbar.gif)
-
-#### SearchBar
-
-SearchBars are sleek and powerful. Customize a SearchBar in any way you like.
-
-![SearchBar](http://www.cosmicmind.io/gifs/SearchBar.gif)
-
-#### Much More...
-
-So much more inside. Enjoy!
+![card](http://www.cosmicmind.io/material/white/presenter-card.gif)
 
 ## License
 

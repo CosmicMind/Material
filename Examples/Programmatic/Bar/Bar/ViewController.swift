@@ -36,9 +36,10 @@ class ViewController: UIViewController {
     private var bar: Bar!
     
     /// Left buttons.
-    private var favoriteButton: IconButton!
+    private var menuButton: IconButton!
     
     /// Right buttons.
+    private var favoriteButton: IconButton!
     private var shareButton: IconButton!
     
     /// Title label.
@@ -48,12 +49,18 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = Color.white
         
+        prepareMenuButton()
         prepareFavoriteButton()
         prepareShareButton()
         prepareTitleLabel()
         prepareBar()
         
         layoutSubviews()
+    }
+    
+    private func prepareMenuButton() {
+        menuButton = IconButton(image: Icon.cm.menu, tintColor: Color.white)
+        menuButton.pulse.color = Color.white
     }
     
     private func prepareFavoriteButton() {
@@ -77,8 +84,8 @@ class ViewController: UIViewController {
         bar = Bar()
         bar.contentEdgeInsetsPreset = .square1
         bar.backgroundColor = Color.blue.base
-        bar.leftViews = [favoriteButton]
-        bar.rightViews = [shareButton]
+        bar.leftViews = [menuButton]
+        bar.rightViews = [favoriteButton, shareButton]
     }
     
     private func layoutSubviews() {
