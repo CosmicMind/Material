@@ -159,7 +159,7 @@ open class BottomNavigationController: UITabBarController, UITabBarControllerDel
 	/// Prepares the tabBar.
 	private func prepareTabBar() {
 		tabBar.depthPreset = .depth1
-        tabBar.divider.alignment = .top
+        tabBar.dividerAlignment = .top
         let image = UIImage.imageWithColor(color: Color.clear, size: CGSize(width: 1, height: 1))
 		tabBar.shadowImage = image
 		tabBar.backgroundImage = image

@@ -17,8 +17,6 @@
 		96784FD81D906DCB0061C06C /* RemindersItemsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96784FD71D906DCB0061C06C /* RemindersItemsCollectionView.swift */; };
 		96784FDA1D906DF60061C06C /* RemindersItemsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96784FD91D906DF60061C06C /* RemindersItemsCollectionViewCell.swift */; };
 		96784FDC1D906E190061C06C /* AppNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96784FDB1D906E190061C06C /* AppNavigationController.swift */; };
-		9690B3F81D99DFA000E7F42A /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9690B3F71D99DFA000E7F42A /* Material.framework */; };
-		9690B3F91D99DFA000E7F42A /* Material.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9690B3F71D99DFA000E7F42A /* Material.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,7 +26,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				9690B3F91D99DFA000E7F42A /* Material.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -48,7 +45,6 @@
 		96784FD71D906DCB0061C06C /* RemindersItemsCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemindersItemsCollectionView.swift; sourceTree = "<group>"; };
 		96784FD91D906DF60061C06C /* RemindersItemsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemindersItemsCollectionViewCell.swift; sourceTree = "<group>"; };
 		96784FDB1D906E190061C06C /* AppNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppNavigationController.swift; sourceTree = "<group>"; };
-		9690B3F71D99DFA000E7F42A /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Material.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +52,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9690B3F81D99DFA000E7F42A /* Material.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,7 +61,6 @@
 		96784F2B1D901F610061C06C = {
 			isa = PBXGroup;
 			children = (
-				9690B3F71D99DFA000E7F42A /* Material.framework */,
 				96784F361D901F610061C06C /* RemindersController */,
 				96784F351D901F610061C06C /* Products */,
 			);
@@ -131,7 +125,6 @@
 				TargetAttributes = {
 					96784F331D901F610061C06C = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 9Z76XCNLGL;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -293,7 +286,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 9Z76XCNLGL;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = RemindersController/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.RemindersController;
@@ -306,7 +299,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 9Z76XCNLGL;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = RemindersController/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.RemindersController;

@@ -124,8 +124,8 @@ class ViewController: UIViewController {
         bottomBar.contentEdgeInsetsPreset = .square1
         bottomBar.cornerRadiusPreset = .cornerRadius1
         
-        bottomBar.divider.color = Color.grey.lighten3
-        bottomBar.divider.alignment = .top
+        bottomBar.dividerColor = Color.grey.lighten3
+        bottomBar.dividerAlignment = .top
         
         bottomBar.contentView.grid.views = [favoriteButton, shareButton, starButton]
     }

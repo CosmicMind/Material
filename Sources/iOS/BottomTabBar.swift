@@ -137,7 +137,7 @@ private var TabBarKey: UInt8 = 0
 
 extension UITabBar {
     /// TabBarItem reference.
-    internal private(set) var divider: Divider! {
+    internal private(set) var divider: Divider {
         get {
             return AssociatedObject(base: self, key: &TabBarKey) {
                 return Divider(view: self)

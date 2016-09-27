@@ -63,8 +63,8 @@ class ViewController: UIViewController {
     private func prepareTabBar() {
         tabBar = TabBar()
         
-        tabBar.divider.color = Color.grey.lighten3
-        tabBar.divider.alignment = .top
+        tabBar.dividerColor = Color.grey.lighten3
+        tabBar.dividerAlignment = .top
         
         tabBar.lineColor = Color.blue.base
         tabBar.lineAlignment = .top

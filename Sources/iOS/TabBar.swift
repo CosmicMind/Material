@@ -225,7 +225,7 @@ open class TabBar: Bar {
     
     /// Prepares the divider.
     private func prepareDivider() {
-        divider.alignment = .top
+        dividerAlignment = .top
     }
     
     /**

@@ -55,6 +55,6 @@ class AppBottomNavigationController: BottomNavigationController {
     /// Prepares the tabBar.
     private func prepareTabBar() {
         tabBar.depthPreset = .none
-        tabBar.divider.color = Color.grey.lighten3
+        tabBar.dividerColor = Color.grey.lighten3
     }
 }

@@ -40,7 +40,7 @@ public enum NavigationBarStyle: Int {
 
 open class NavigationBar: UINavigationBar {
     /// Divider layer.
-    internal private(set) lazy var divider: Divider = Divider(view: self)
+    internal private(set) var divider: Divider!
     
     /// Divider color.
     @IBInspectable
@@ -335,6 +335,7 @@ open class NavigationBar: UINavigationBar {
 		shadowImage = image
 		setBackgroundImage(image, for: .default)
 		backgroundColor = Color.white
+        prepareDivider()
 	}
 	
 	/**
@@ -356,4 +357,9 @@ open class NavigationBar: UINavigationBar {
         }
         item.titleView = UIView(frame: .zero)
 	}
+    
+    /// Prepares the divider.
+    private func prepareDivider() {
+        divider = Divider(view: self)
+    }
 }

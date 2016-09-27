@@ -33,7 +33,7 @@ import UIKit
 @objc(CollectionViewCell)
 open class CollectionViewCell: UICollectionViewCell {
     /// Divider layer.
-    internal private(set) lazy var divider: Divider = Divider(view: self)
+    internal private(set) var divider: Divider!
     
     /// Divider color.
     @IBInspectable
@@ -331,6 +331,7 @@ open class CollectionViewCell: UICollectionViewCell {
 	open func prepare() {
 		contentScaleFactor = Device.scale
 		prepareVisualLayer()
+        prepareDivider()
 	}
 	
 	/// Prepares the visualLayer property.
@@ -345,4 +346,9 @@ open class CollectionViewCell: UICollectionViewCell {
 		visualLayer.frame = bounds
 		visualLayer.cornerRadius = cornerRadius
 	}
+    
+    /// Prepares the divider.
+    private func prepareDivider() {
+        divider = Divider(view: self)
+    }
 }

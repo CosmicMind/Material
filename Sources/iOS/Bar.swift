@@ -37,6 +37,41 @@ public enum ContentViewAlignment: Int {
 }
 
 open class Bar: View {
+    /// Divider layer.
+    internal private(set) var divider: Divider!
+    
+    /// Divider color.
+    @IBInspectable
+    open var dividerColor: UIColor? {
+        get {
+            return divider.color
+        }
+        set(value) {
+            divider.color = value
+        }
+    }
+    
+    /// Divider animation.
+    open var dividerAlignment: DividerAlignment {
+        get {
+            return divider.alignment
+        }
+        set(value) {
+            divider.alignment = value
+        }
+    }
+    
+    /// Divider height.
+    @IBInspectable
+    open var dividerHeight: CGFloat {
+        get {
+            return divider.height
+        }
+        set(value) {
+            divider.height = value
+        }
+    }
+    
     /// Should center the contentView.
     open var contentViewAlignment = ContentViewAlignment.any {
         didSet {
@@ -98,41 +133,6 @@ open class Bar: View {
         didSet {
             assert(0 < gridFactor, "[Material Error: gridFactor must be greater than 0.]")
             layoutSubviews()
-        }
-    }
-    
-    /// Divider layer.
-    internal lazy var divider: Divider = Divider(view: self)
-    
-    /// Divider color.
-    @IBInspectable
-    open var dividerColor: UIColor? {
-        get {
-            return divider.color
-        }
-        set(value) {
-            divider.color = value
-        }
-    }
-    
-    /// Divider animation.
-    open var dividerAlignment: DividerAlignment {
-        get {
-            return divider.alignment
-        }
-        set(value) {
-            divider.alignment = value
-        }
-    }
-    
-    /// Divider height.
-    @IBInspectable
-    open var dividerHeight: CGFloat {
-        get {
-            return divider.height
-        }
-        set(value) {
-            divider.height = value
         }
     }
     
@@ -265,10 +265,16 @@ open class Bar: View {
     open override func prepare() {
         super.prepare()
         prepareContentView()
+        prepareDivider()
     }
     
     /// Prepares the contentView.
     private func prepareContentView() {
         contentView.backgroundColor = nil
+    }
+    
+    /// Prepares the divider.
+    private func prepareDivider() {
+        divider = Divider(view: self)
     }
 }
