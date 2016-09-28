@@ -61,6 +61,6 @@ class RemindersListCollectionViewCell: CollectionViewCell {
     
     /// Prepares the divider.
     private func prepareDivider() {
-        divider.color = Color.grey.lighten3
+        dividerColor = Color.grey.lighten3
     }
 }

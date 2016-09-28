@@ -49,7 +49,7 @@ class RemindersListViewController: RemindersController {
     
     open override func prepare() {
         super.prepare()
-        view.backgroundColor = Color.grey.lighten5
+        view.backgroundColor = Color.white
         
         prepareNavigationItem()
         prepareCollectionView()
@@ -176,7 +176,7 @@ extension RemindersListViewController: UICollectionViewDataSource {
         let items = dataSource.items
         cell.titleLabel.text = list.title
         cell.titleLabel.textColor = UIColor(cgColor: list.cgColor)
-        cell.countLabel.text = "\(items.count)"
+        cell.countLabel.text = "1"
         cell.countLabel.textColor = UIColor(cgColor: list.cgColor)
         
         return cell

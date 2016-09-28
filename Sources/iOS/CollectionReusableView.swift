@@ -288,7 +288,7 @@ open class CollectionReusableView: UICollectionReusableView {
 	*/
 	open func prepare() {
 		contentScaleFactor = Device.scale
-		pulse.animation = .none
+		pulseAnimation = .none
 		prepareVisualLayer()
 	}
 	

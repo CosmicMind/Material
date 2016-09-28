@@ -34,7 +34,7 @@ import Material
 class PhotoLibraryCollectionViewCell: CollectionViewCell {
     open override func prepare() {
         super.prepare()
-        pulse.animation = .backing
+        pulseAnimation = .backing
         contentsGravityPreset = .ResizeAspectFill
     }
 }

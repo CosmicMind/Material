@@ -34,7 +34,8 @@ import Material
 class AppNavigationController: NavigationController {
     open override func prepare() {
         super.prepare()
-        statusBarStyle = .default
+        statusBarStyle = .lightContent
+        (navigationBar as? NavigationBar)?.backgroundColor = Color.blue.base
     }
 }
 

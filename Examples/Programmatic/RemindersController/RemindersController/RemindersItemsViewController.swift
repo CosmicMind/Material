@@ -52,7 +52,7 @@ class RemindersItemsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Color.grey.lighten5
+        view.backgroundColor = Color.white
         
         prepareDateFormatter()
         prepareNavigationItem()
@@ -106,14 +106,14 @@ extension RemindersItemsViewController: UICollectionViewDataSource {
     
     /// Returns the number of sections.
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return dataSource.items.count
+        return 1 // dataSource.items.count
     }
     
     /// Prepares the cells within the collectionView.
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RemindersItemsCollectionViewCell", for: indexPath) as! RemindersItemsCollectionViewCell
         
-        let item = dataSource.items[indexPath.section]
+        let item = dataSource.items.last!
         cell.textLabel.text = item.title
         
         return cell

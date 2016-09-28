@@ -324,6 +324,8 @@ open class NavigationBar: UINavigationBar {
      when subclassing.
      */
 	public func prepare() {
+        prepareDivider()
+        
         barStyle = .black
 		isTranslucent = false
 		depthPreset = .depth1
@@ -335,7 +337,6 @@ open class NavigationBar: UINavigationBar {
 		shadowImage = image
 		setBackgroundImage(image, for: .default)
 		backgroundColor = Color.white
-        prepareDivider()
 	}
 	
 	/**

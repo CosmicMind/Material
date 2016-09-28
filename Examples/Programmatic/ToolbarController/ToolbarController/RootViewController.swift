@@ -39,7 +39,7 @@ class RootViewController: UIViewController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Color.grey.lighten1
+        view.backgroundColor = Color.white
     }
     
     open override func viewWillAppear(_ animated: Bool) {
@@ -69,7 +69,10 @@ class RootViewController: UIViewController {
         }
         
         tc.toolbar.title = "Marterial"
+        tc.toolbar.titleLabel.textAlignment = .left
+        
         tc.toolbar.detail = "Build Beautiful Software"
+        tc.toolbar.detailLabel.textAlignment = .left
         
         tc.toolbar.leftViews = [menuButton]
         tc.toolbar.rightViews = [starButton, searchButton]

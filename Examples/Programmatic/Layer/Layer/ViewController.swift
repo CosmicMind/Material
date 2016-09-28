@@ -33,27 +33,27 @@ import Material
 
 class ViewController: UIViewController {
     /// A reference to the Layer.
-    private var logo: Layer!
+    private var layer: Layer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Color.white
         
-        prepareLogo()
+        prepareLayer()
     }
     
-    private func prepareLogo() {
+    private func prepareLayer() {
         let w = view.width
         let h = view.height
         let d: CGFloat = 100
         
-        logo = Layer(frame: CGRect(x: (w - d) / 2, y: (h - d) / 2, width: d, height: d))
-        logo.depthPreset = .depth3
-        logo.shapePreset = .circle
-        logo.backgroundColor = Color.white.cgColor
-        logo.image = UIImage(named: "CosmicMind")
+        layer = Layer(frame: CGRect(x: (w - d) / 2, y: (h - d) / 2, width: d, height: d))
+        layer.depthPreset = .depth3
+        layer.shapePreset = .circle
+        layer.backgroundColor = Color.white.cgColor
+        layer.image = UIImage(named: "CosmicMind")
         
-        view.layer.addSublayer(logo)
+        view.layer.addSublayer(layer)
     }
 }
 

@@ -84,7 +84,7 @@ public class ViewController: UIViewController {
         captureButton = FabButton()
         captureButton.width = 72
         captureButton.height = 72
-        captureButton.pulse.color = Color.white
+        captureButton.pulseColor = Color.white
         captureButton.backgroundColor = Color.red.darken1.withAlphaComponent(0.3)
         captureButton.borderColor = Color.white
         captureButton.borderWidthPreset =  .border3
@@ -97,7 +97,7 @@ public class ViewController: UIViewController {
         cameraButton = IconButton(image: Icon.cm.photoCamera, tintColor: Color.white)
         cameraButton.width = 72
         cameraButton.height = 72
-        cameraButton.pulse.animation = .centerRadialBeyondBounds
+        cameraButton.pulseAnimation = .centerRadialBeyondBounds
         cameraButton.shapePreset = .circle
         
         capture.cameraButton = cameraButton
@@ -107,7 +107,7 @@ public class ViewController: UIViewController {
         videoButton = IconButton(image: Icon.cm.videocam, tintColor: Color.white)
         videoButton.width = 72
         videoButton.height = 72
-        videoButton.pulse.animation = .centerRadialBeyondBounds
+        videoButton.pulseAnimation = .centerRadialBeyondBounds
         videoButton.shapePreset = .circle
         
         capture.videoButton = videoButton

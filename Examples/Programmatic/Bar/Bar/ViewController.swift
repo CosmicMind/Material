@@ -60,7 +60,7 @@ class ViewController: UIViewController {
     
     private func prepareMenuButton() {
         menuButton = IconButton(image: Icon.cm.menu, tintColor: Color.white)
-        menuButton.pulse.color = Color.white
+        menuButton.pulseColor = Color.white
     }
     
     private func prepareFavoriteButton() {
