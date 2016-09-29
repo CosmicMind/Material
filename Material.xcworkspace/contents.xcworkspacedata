@@ -11,6 +11,9 @@
          location = "container:"
          name = "Storyboards">
          <FileRef
+            location = "group:Examples/Storyboards/PageTabBarController/PageTabBarController.xcodeproj">
+         </FileRef>
+         <FileRef
             location = "group:Examples/Storyboards/Button/Button.xcodeproj">
          </FileRef>
          <FileRef
