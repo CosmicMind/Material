@@ -373,21 +373,24 @@ open class TextField: UITextField {
 	/// Handles the clearIconButton TouchUpInside event.
 	@objc
     open func handleClearIconButton() {
-		if false == delegate?.textFieldShouldClear?(self) {
-			return
-		}
-		text = nil
+        guard true == delegate?.textFieldShouldClear?(self) else {
+            return
+        }
+		
+        text = nil
 	}
 	
 	/// Handles the visibilityIconButton TouchUpInside event.
     @objc
 	open func handleVisibilityIconButton() {
 		isSecureTextEntry = !isSecureTextEntry
-		if !isSecureTextEntry {
+		
+        if !isSecureTextEntry {
 			super.font = nil
 			font = placeholderLabel.font
 		}
-		visibilityIconButton?.tintColor = visibilityIconButton?.tintColor.withAlphaComponent(isSecureTextEntry ? 0.38 : 0.54)
+		
+        visibilityIconButton?.tintColor = visibilityIconButton?.tintColor.withAlphaComponent(isSecureTextEntry ? 0.38 : 0.54)
 	}
 	
 	/**
@@ -412,12 +415,14 @@ open class TextField: UITextField {
     
 	/// Ensures that the components are sized correctly.
 	open func layoutToSize() {
-		if !isAnimating {
-            layoutPlaceholderLabel()
-			layoutDetailLabel()
-			layoutClearIconButton()
-			layoutVisibilityIconButton()
-		}
+		guard !isAnimating else {
+            return
+        }
+        
+        layoutPlaceholderLabel()
+        layoutDetailLabel()
+        layoutButton(button: clearIconButton)
+        layoutButton(button: visibilityIconButton)
 	}
 	
 	/// Layout the divider.
@@ -460,26 +465,18 @@ open class TextField: UITextField {
         guard let v = divider.line else {
             return
         }
+        
         let h: CGFloat = nil == detail ? 12 : detailLabel.font.stringSize(string: detail!, constrainedToWidth: Double(width)).height
         detailLabel.frame = CGRect(x: 0, y: v.y + detailVerticalOffset, width: width, height: h)
 	}
 	
-	/// Layout the clearIconButton.
-	open func layoutClearIconButton() {
-		if let v = clearIconButton {
-			if 0 < width && 0 < height {
-                v.frame = CGRect(x: width - height, y: 0, width: height, height: height)
-			}
-		}
-	}
-	
-	/// Layout the visibilityIconButton.
-	open func layoutVisibilityIconButton() {
-		if let v = visibilityIconButton {
-			if 0 < width && 0 < height {
-                v.frame = CGRect(x: width - height, y: 0, width: height, height: height)
-			}
-		}
+	/// Layout the a button.
+    open func layoutButton(button: UIButton?) {
+        guard 0 < width && 0 < height else {
+            return
+        }
+        
+        button?.frame = CGRect(x: width - height, y: 0, width: height, height: height)
 	}
 	
 	/// The animation for the divider when editing begins.
@@ -496,27 +493,34 @@ open class TextField: UITextField {
 	
 	/// The animation for the placeholder when editing begins.
 	open func placeholderEditingDidBeginAnimation() {
-		if placeholderLabel.transform.isIdentity {
-			isAnimating = true
-			UIView.animate(withDuration: 0.15, animations: { [weak self] in
-				if let s = self {
-					s.placeholderLabel.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
-					switch s.textAlignment {
-					case .left, .natural:
-						s.placeholderLabel.x = 0
-					case .right:
-						s.placeholderLabel.x = s.width - s.placeholderLabel.width
-					default:break
-					}
-					s.placeholderLabel.y = -s.placeholderLabel.height + s.placeholderVerticalOffset
-					s.placeholderLabel.textColor = s.placeholderActiveColor
-				}
-			}) { [weak self] _ in
-				self?.isAnimating = false
-			}
-		} else if isEditing {
-			placeholderLabel.textColor = placeholderActiveColor
-		}
+        guard placeholderLabel.transform.isIdentity else {
+            if isEditing {
+                placeholderLabel.textColor = placeholderActiveColor
+            }
+            return
+        }
+        
+        isAnimating = true
+        UIView.animate(withDuration: 0.15, animations: { [weak self] in
+            guard let s = self else {
+                return
+            }
+            
+            s.placeholderLabel.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+            
+            switch s.textAlignment {
+            case .left, .natural:
+                s.placeholderLabel.x = 0
+            case .right:
+                s.placeholderLabel.x = s.width - s.placeholderLabel.width
+            default:break
+            }
+            
+            s.placeholderLabel.y = -s.placeholderLabel.height + s.placeholderVerticalOffset
+            s.placeholderLabel.textColor = s.placeholderActiveColor
+        }) { [weak self] _ in
+            self?.isAnimating = false
+        }
 	}
 	
 	/// The animation for the placeholder when editing ends.
@@ -524,12 +528,14 @@ open class TextField: UITextField {
 		if !placeholderLabel.transform.isIdentity && true == text?.isEmpty {
 			isAnimating = true
 			UIView.animate(withDuration: 0.15, animations: { [weak self] in
-				if let s = self {
-					s.placeholderLabel.transform = CGAffineTransform.identity
-					s.placeholderLabel.x = 0
-					s.placeholderLabel.y = 0
-					s.placeholderLabel.textColor = s.placeholderNormalColor
-				}
+                guard let s = self else {
+                    return
+                }
+                
+                s.placeholderLabel.transform = CGAffineTransform.identity
+                s.placeholderLabel.x = 0
+                s.placeholderLabel.y = 0
+                s.placeholderLabel.textColor = s.placeholderNormalColor
 			}) { [weak self] _ in
 				self?.isAnimating = false
 			}
@@ -540,7 +546,7 @@ open class TextField: UITextField {
 	
 	/// Prepares the divider.
 	private func prepareDivider() {
-        dividerColor = Color.darkText.dividers
+        dividerColor = dividerNormalColor
 	}
 	
 	/// Prepares the placeholderLabel.
