@@ -14,6 +14,7 @@
 		96784F1A1D901DEF0061C06C /* AppStatusBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96784F191D901DEF0061C06C /* AppStatusBarController.swift */; };
 		9AC4562F1D9DDDF800A7ABF0 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AC4562E1D9DDDF800A7ABF0 /* Material.framework */; };
 		9AC456301D9DDDF800A7ABF0 /* Material.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9AC4562E1D9DDDF800A7ABF0 /* Material.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9AC456321D9DE0B300A7ABF0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AC456311D9DE0B300A7ABF0 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -39,6 +40,7 @@
 		96784EEF1D9012B10061C06C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96784F191D901DEF0061C06C /* AppStatusBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppStatusBarController.swift; sourceTree = "<group>"; };
 		9AC4562E1D9DDDF800A7ABF0 /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Material.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9AC456311D9DE0B300A7ABF0 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 				96784EEA1D9012B00061C06C /* Assets.xcassets */,
 				96784EEC1D9012B10061C06C /* LaunchScreen.storyboard */,
 				96784EEF1D9012B10061C06C /* Info.plist */,
+				9AC456311D9DE0B300A7ABF0 /* Main.storyboard */,
 			);
 			path = StatusBarController;
 			sourceTree = "<group>";
@@ -143,6 +146,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9AC456321D9DE0B300A7ABF0 /* Main.storyboard in Resources */,
 				96784EEE1D9012B10061C06C /* LaunchScreen.storyboard in Resources */,
 				96784EEB1D9012B00061C06C /* Assets.xcassets in Resources */,
 			);
