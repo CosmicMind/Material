@@ -358,6 +358,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		96090B031D9D709E00709CA6 /* TextField */ = {
+			isa = PBXGroup;
+			children = (
+				96BCB79C1CB40DC500C806FE /* TextField.swift */,
+				961F18E71CD93E3E008927C5 /* ErrorTextField.swift */,
+			);
+			name = TextField;
+			sourceTree = "<group>";
+		};
 		96230AB61D6A51FD00AF47DC /* Divider */ = {
 			isa = PBXGroup;
 			children = (
@@ -581,7 +590,8 @@
 				968C99421D36EC9E000074FF /* Switch */,
 				963FBF011D6696AB008F8512 /* TabBar */,
 				966ECF2B1CF4C21B00BB0BDF /* Table */,
-				96BCB80E1CB4110E00C806FE /* Text */,
+				96090B031D9D709E00709CA6 /* TextField */,
+				96BCB80E1CB4110E00C806FE /* TextView */,
 				963FBF001D66964F008F8512 /* Toolbar */,
 				96BCB8061CB40FD000C806FE /* Type */,
 				96BCB80C1CB410DD00C806FE /* View */,
@@ -768,16 +778,14 @@
 			name = Layer;
 			sourceTree = "<group>";
 		};
-		96BCB80E1CB4110E00C806FE /* Text */ = {
+		96BCB80E1CB4110E00C806FE /* TextView */ = {
 			isa = PBXGroup;
 			children = (
 				96BCB79B1CB40DC500C806FE /* Text.swift */,
-				96BCB79C1CB40DC500C806FE /* TextField.swift */,
-				961F18E71CD93E3E008927C5 /* ErrorTextField.swift */,
 				96BCB79D1CB40DC500C806FE /* TextStorage.swift */,
 				96BCB79E1CB40DC500C806FE /* TextView.swift */,
 			);
-			name = Text;
+			name = TextView;
 			sourceTree = "<group>";
 		};
 		96D88BF41C1328D800B91418 /* Sources */ = {

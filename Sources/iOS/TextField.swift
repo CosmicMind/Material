@@ -59,6 +59,7 @@ open class TextField: UITextField {
             guard !isEditing else {
                 return
             }
+            
             dividerColor = dividerNormalColor
         }
     }
@@ -87,9 +88,15 @@ open class TextField: UITextField {
 	@IBInspectable
     open override var text: String? {
 		didSet {
-			if true == text?.isEmpty && !isFirstResponder {
-				placeholderEditingDidEndAnimation()
-			}
+            guard true == text?.isEmpty else {
+                return
+            }
+            
+            guard !isFirstResponder else {
+                return
+            }
+            
+			placeholderEditingDidEndAnimation()
 		}
 	}
 	
@@ -101,9 +108,12 @@ open class TextField: UITextField {
 		}
 		set(value) {
 			placeholderLabel.text = value
-			if let v: String = value {
-				placeholderLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderNormalColor])
-			}
+			
+            guard let v = value else {
+                return
+            }
+            
+            placeholderLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderNormalColor])
 		}
 	}
 	
@@ -115,11 +125,15 @@ open class TextField: UITextField {
 	@IBInspectable
     open var placeholderNormalColor = Color.darkText.others {
 		didSet {
-			if !isEditing {
-				if let v: String = placeholder {
-					placeholderLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderNormalColor])
-				}
-			}
+            guard !isEditing else {
+                return
+            }
+            
+            guard let v = placeholder else {
+                return
+            }
+            
+            placeholderLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderNormalColor])
 		}
 	}
 	
@@ -127,12 +141,17 @@ open class TextField: UITextField {
 	@IBInspectable
     open var placeholderActiveColor = Color.blue.base {
 		didSet {
-			if isEditing {
-				if let v: String = placeholder {
-					placeholderLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderActiveColor])
-				}
-			}
-			tintColor = placeholderActiveColor
+            tintColor = placeholderActiveColor
+            
+            guard isEditing else {
+                return
+            }
+            
+            guard let v = placeholder else {
+                return
+            }
+                
+            placeholderLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderActiveColor])
 		}
 	}
 	
@@ -159,9 +178,7 @@ open class TextField: UITextField {
 	@IBInspectable
     open var detailColor = Color.darkText.others {
 		didSet {
-			if let v = detailLabel.text {
-				detailLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: detailColor])
-			}
+            updateDetailLabelAttributedText()
 		}
 	}
     
@@ -192,20 +209,23 @@ open class TextField: UITextField {
 			return nil != clearIconButton
 		}
 		set(value) {
-			if value {
-				if nil == clearIconButton {
-                    clearIconButton = IconButton(image: Icon.cm.clear, tintColor: placeholderNormalColor)
-					clearIconButton!.contentEdgeInsets = .zero
-					clearIconButton!.pulseAnimation = .center
-                    clearButtonMode = .never
-					rightViewMode = .whileEditing
-					rightView = clearIconButton
-					isClearIconButtonAutoHandled = isClearIconButtonAutoHandled ? true : false
-				}
-			} else {
-				clearIconButton?.removeTarget(self, action: #selector(handleClearIconButton), for: .touchUpInside)
-				clearIconButton = nil
-			}
+            guard value else {
+                clearIconButton?.removeTarget(self, action: #selector(handleClearIconButton), for: .touchUpInside)
+                clearIconButton = nil
+                return
+            }
+            
+            guard nil == clearIconButton else {
+                return
+            }
+            
+            clearIconButton = IconButton(image: Icon.cm.clear, tintColor: placeholderNormalColor)
+            clearIconButton!.contentEdgeInsets = .zero
+            clearIconButton!.pulseAnimation = .center
+            clearButtonMode = .never
+            rightViewMode = .whileEditing
+            rightView = clearIconButton
+            isClearIconButtonAutoHandled = isClearIconButtonAutoHandled ? true : false
 		}
 	}
 	
@@ -214,9 +234,12 @@ open class TextField: UITextField {
     open var isClearIconButtonAutoHandled = true {
 		didSet {
 			clearIconButton?.removeTarget(self, action: #selector(handleClearIconButton), for: .touchUpInside)
-			if isClearIconButtonAutoHandled {
-				clearIconButton?.addTarget(self, action: #selector(handleClearIconButton), for: .touchUpInside)
+			
+            guard isClearIconButtonAutoHandled else {
+                return
 			}
+            
+            clearIconButton?.addTarget(self, action: #selector(handleClearIconButton), for: .touchUpInside)
 		}
 	}
 	
@@ -227,21 +250,24 @@ open class TextField: UITextField {
 			return nil != visibilityIconButton
 		}
 		set(value) {
-			if value {
-				if nil == visibilityIconButton {
-                    visibilityIconButton = IconButton(image: Icon.visibility, tintColor: placeholderNormalColor.withAlphaComponent(isSecureTextEntry ? 0.38 : 0.54))
-					visibilityIconButton!.contentEdgeInsets = .zero
-					visibilityIconButton!.pulseAnimation = .center
-					isSecureTextEntry = true
-					clearButtonMode = .never
-					rightViewMode = .whileEditing
-					rightView = visibilityIconButton
-					isVisibilityIconButtonAutoHandled = isVisibilityIconButtonAutoHandled ? true : false
-				}
-			} else {
-				visibilityIconButton?.removeTarget(self, action: #selector(handleVisibilityIconButton), for: .touchUpInside)
-				visibilityIconButton = nil
-			}
+            guard value else {
+                visibilityIconButton?.removeTarget(self, action: #selector(handleVisibilityIconButton), for: .touchUpInside)
+                visibilityIconButton = nil
+                return
+            }
+            
+            guard nil == visibilityIconButton else {
+                return
+            }
+            
+            visibilityIconButton = IconButton(image: Icon.visibility, tintColor: placeholderNormalColor.withAlphaComponent(isSecureTextEntry ? 0.38 : 0.54))
+            visibilityIconButton!.contentEdgeInsets = .zero
+            visibilityIconButton!.pulseAnimation = .center
+            isSecureTextEntry = true
+            clearButtonMode = .never
+            rightViewMode = .whileEditing
+            rightView = visibilityIconButton
+            isVisibilityIconButtonAutoHandled = isVisibilityIconButtonAutoHandled ? true : false
 		}
 	}
 	
@@ -250,9 +276,12 @@ open class TextField: UITextField {
     open var isVisibilityIconButtonAutoHandled: Bool = true {
 		didSet {
 			visibilityIconButton?.removeTarget(self, action: #selector(handleVisibilityIconButton), for: .touchUpInside)
-			if isVisibilityIconButtonAutoHandled {
-				visibilityIconButton?.addTarget(self, action: #selector(handleVisibilityIconButton), for: .touchUpInside)
+			
+            guard isVisibilityIconButtonAutoHandled else {
+                return
 			}
+            
+            visibilityIconButton?.addTarget(self, action: #selector(handleVisibilityIconButton), for: .touchUpInside)
 		}
 	}
 	
@@ -278,12 +307,13 @@ open class TextField: UITextField {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
             return
         }
+        
         updateDetailLabelAttributedText()
         layoutDetailLabel()
     }
     
     deinit {
-        removeObserver(self, forKeyPath: "titleLabel.text")
+        removeObserver(self, forKeyPath: "detailLabel.text")
     }
     
 	/**
@@ -541,8 +571,10 @@ open class TextField: UITextField {
     
     /// Updates the detailLabel attributedText.
     private func updateDetailLabelAttributedText() {
-        if let v = detail {
-            detailLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: detailColor])
+        guard let v = detail else {
+            return
         }
+        
+        detailLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: detailColor])
     }
 }
