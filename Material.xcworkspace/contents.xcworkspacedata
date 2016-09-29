@@ -68,6 +68,9 @@
             location = "group:Examples/Programmatic/TabBar/TabBar.xcodeproj">
          </FileRef>
          <FileRef
+            location = "group:Examples/Programmatic/TextField/TextField.xcodeproj">
+         </FileRef>
+         <FileRef
             location = "group:Examples/Programmatic/ToolbarController/ToolbarController.xcodeproj">
          </FileRef>
          <FileRef

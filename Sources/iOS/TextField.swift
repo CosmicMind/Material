@@ -49,36 +49,37 @@ open class TextField: UITextField {
 		}
 	}
 	
-    /// Reference to the divider.
-	open private(set) var divider: CAShapeLayer!
-	
-	/// Divider height.
-	@IBInspectable
-    open var dividerHeight: CGFloat = 1
-	
-	/// Divider active state height.
+    /// Divider active state height.
 	@IBInspectable
     open var dividerActiveHeight: CGFloat = 2
 	
 	/// Sets the divider.
 	@IBInspectable
-    open var dividerColor: UIColor = Color.darkText.dividers {
-		didSet {
-			if !isEditing {
-				divider.backgroundColor = dividerColor.cgColor
-			}
-		}
-	}
+    open override var dividerColor: UIColor? {
+        get {
+            return super.dividerColor
+        }
+        set(value) {
+            guard !isEditing else {
+                return
+            }
+            super.dividerColor = value
+        }
+    }
 	
 	/// Sets the divider.
 	@IBInspectable
     open var dividerActiveColor: UIColor? {
 		didSet {
-			if let v: UIColor = dividerActiveColor {
-				if isEditing {
-					divider.backgroundColor = v.cgColor
-				}
-			}
+            guard isEditing else {
+                return
+            }
+            
+            guard let v = dividerActiveColor else {
+                return
+            }
+            
+            dividerColor = v
 		}
 	}
 	
@@ -198,7 +199,7 @@ open class TextField: UITextField {
 	
 	/// Enables the clearIconButton.
 	@IBInspectable
-    open var isClearIconButtonEnable: Bool {
+    open var isClearIconButtonEnabled: Bool {
 		get {
 			return nil != clearIconButton
 		}
@@ -211,7 +212,7 @@ open class TextField: UITextField {
                     clearButtonMode = .never
 					rightViewMode = .whileEditing
 					rightView = clearIconButton
-					clearIconButtonAutoHandle = clearIconButtonAutoHandle ? true : false
+					isClearIconButtonAutoHandled = isClearIconButtonAutoHandled ? true : false
 				}
 			} else {
 				clearIconButton?.removeTarget(self, action: #selector(handleClearIconButton), for: .touchUpInside)
@@ -222,10 +223,10 @@ open class TextField: UITextField {
 	
 	/// Enables the automatic handling of the clearIconButton.
 	@IBInspectable
-    open var clearIconButtonAutoHandle = true {
+    open var isClearIconButtonAutoHandled = true {
 		didSet {
 			clearIconButton?.removeTarget(self, action: #selector(handleClearIconButton), for: .touchUpInside)
-			if clearIconButtonAutoHandle {
+			if isClearIconButtonAutoHandled {
 				clearIconButton?.addTarget(self, action: #selector(handleClearIconButton), for: .touchUpInside)
 			}
 		}
@@ -233,7 +234,7 @@ open class TextField: UITextField {
 	
 	/// Enables the visibilityIconButton.
 	@IBInspectable
-    open var isVisibilityIconButtonEnable: Bool {
+    open var isVisibilityIconButtonEnabled: Bool {
 		get {
 			return nil != visibilityIconButton
 		}
@@ -247,7 +248,7 @@ open class TextField: UITextField {
 					clearButtonMode = .never
 					rightViewMode = .whileEditing
 					rightView = visibilityIconButton
-					visibilityIconButtonAutoHandle = visibilityIconButtonAutoHandle ? true : false
+					isVisibilityIconButtonAutoHandled = isVisibilityIconButtonAutoHandled ? true : false
 				}
 			} else {
 				visibilityIconButton?.removeTarget(self, action: #selector(handleVisibilityIconButton), for: .touchUpInside)
@@ -258,10 +259,10 @@ open class TextField: UITextField {
 	
 	/// Enables the automatic handling of the visibilityIconButton.
 	@IBInspectable
-    open var visibilityIconButtonAutoHandle: Bool = true {
+    open var isVisibilityIconButtonAutoHandled: Bool = true {
 		didSet {
 			visibilityIconButton?.removeTarget(self, action: #selector(handleVisibilityIconButton), for: .touchUpInside)
-			if visibilityIconButtonAutoHandle {
+			if isVisibilityIconButtonAutoHandled {
 				visibilityIconButton?.addTarget(self, action: #selector(handleVisibilityIconButton), for: .touchUpInside)
 			}
 		}
@@ -312,13 +313,13 @@ open class TextField: UITextField {
 	open override func layoutSubviews() {
 		super.layoutSubviews()
         layoutToSize()
+        layoutDivider()
 	}
 	
 	open override func layoutSublayers(of layer: CALayer) {
 		super.layoutSublayers(of: layer)
 		if self.layer == layer {
             layoutShape()
-			layoutDivider()
 		}
 	}
 	
@@ -388,7 +389,7 @@ open class TextField: UITextField {
 	
 	/// Layout the divider.
 	open func layoutDivider() {
-        divider.frame = CGRect(x: 0, y: height, width: width, height: isEditing ? dividerActiveHeight : dividerHeight)
+        divider.reload()
 	}
 	
 	/// Layout the placeholderLabel.
@@ -423,8 +424,11 @@ open class TextField: UITextField {
 	
 	/// Layout the detailLabel.
 	open func layoutDetailLabel() {
-		let h: CGFloat = nil == detail ? 12 : detailLabel.font.stringSize(string: detail!, constrainedToWidth: Double(width)).height
-        detailLabel.frame = CGRect(x: 0, y: divider.y + detailVerticalOffset, width: width, height: h)
+        guard let v = divider.line else {
+            return
+        }
+        let h: CGFloat = nil == detail ? 12 : detailLabel.font.stringSize(string: detail!, constrainedToWidth: Double(width)).height
+        detailLabel.frame = CGRect(x: 0, y: v.y + detailVerticalOffset, width: width, height: h)
 	}
 	
 	/// Layout the clearIconButton.
@@ -448,13 +452,13 @@ open class TextField: UITextField {
 	/// The animation for the divider when editing begins.
 	open func dividerEditingDidBeginAnimation() {
 		dividerHeight = dividerActiveHeight
-		divider.backgroundColor = nil == dividerActiveColor ? placeholderActiveColor.cgColor : dividerActiveColor!.cgColor
+		dividerColor = dividerActiveColor ?? placeholderActiveColor
 	}
 	
 	/// The animation for the divider when editing ends.
 	open func dividerEditingDidEndAnimation() {
-		divider.frame.size.height = dividerHeight
-		divider.backgroundColor = dividerColor.cgColor
+//		divider.frame.size.height = dividerHeight
+//		divider.color = dividerColor
 	}
 	
 	/// The animation for the placeholder when editing begins.
@@ -503,9 +507,7 @@ open class TextField: UITextField {
 	
 	/// Prepares the divider.
 	private func prepareDivider() {
-        divider = CAShapeLayer()
-		dividerColor = Color.darkText.dividers
-		layer.addSublayer(divider)
+        dividerColor = Color.darkText.dividers
 	}
 	
 	/// Prepares the placeholderLabel.

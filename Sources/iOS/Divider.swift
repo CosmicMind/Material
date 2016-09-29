@@ -103,3 +103,53 @@ open class Divider {
         }
     }
 }
+
+/// A memory reference to the Divider instance.
+private var DividerKey: UInt8 = 0
+
+extension UIView {
+    /// TabBarItem reference.
+    public private(set) var divider: Divider {
+        get {
+            return AssociatedObject(base: self, key: &DividerKey) {
+                return Divider(view: self)
+            }
+        }
+        set(value) {
+            AssociateObject(base: self, key: &DividerKey, value: value)
+        }
+    }
+    
+    /// Divider color.
+    @IBInspectable
+    open var dividerColor: UIColor? {
+        get {
+            return divider.color
+        }
+        set(value) {
+            divider.color = value
+        }
+    }
+    
+    /// Divider animation.
+    open var dividerAlignment: DividerAlignment {
+        get {
+            return divider.alignment
+        }
+        set(value) {
+            divider.alignment = value
+        }
+    }
+    
+    /// Divider height.
+    @IBInspectable
+    open var dividerHeight: CGFloat {
+        get {
+            return divider.height
+        }
+        set(value) {
+            divider.height = value
+        }
+    }
+}
+
