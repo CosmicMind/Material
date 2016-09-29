@@ -182,10 +182,12 @@ open class Button: UIButton {
 	
     open override func layoutSublayers(of layer: CALayer) {
         super.layoutSublayers(of: layer)
-        if self.layer == layer {
-            layoutShape()
-            layoutVisualLayer()
+        guard self.layer == layer else {
+            return
         }
+        
+        layoutShape()
+        layoutVisualLayer()
     }
     
     open override func layoutSubviews() {

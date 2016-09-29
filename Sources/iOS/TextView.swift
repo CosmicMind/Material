@@ -145,9 +145,11 @@ public class TextView: UITextView {
 	
     public override func layoutSublayers(of layer: CALayer) {
         super.layoutSublayers(of: layer)
-        if self.layer == layer {
-            layoutShape()
+        guard self.layer == layer else {
+            return
         }
+        
+        layoutShape()
     }
     
     public override func layoutSubviews() {
