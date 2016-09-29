@@ -54,20 +54,19 @@ class ViewController: UIViewController {
     /// Prepares the resign responder button.
     private func prepareResignResponderButton() {
         let btn = RaisedButton(title: "Resign", titleColor: Color.blue.base)
-        btn.addTarget(self, action: #selector(handleResignResponderButton), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(handleResignResponderButton(button:)), for: .touchUpInside)
         
         view.layout(btn).width(100).height(50).bottom(24).right(24)
     }
     
     /// Handle the resign responder button.
-    internal func handleResignResponderButton() {
+    @objc
+    internal func handleResignResponderButton(button: UIButton) {
         nameField?.resignFirstResponder()
         emailField?.resignFirstResponder()
         passwordField?.resignFirstResponder()
-        
     }
     
-    /// Prepares the name TextField.
     private func prepareNameField() {
         nameField = TextField()
         nameField.text = "Daniel Dahan"
@@ -81,7 +80,6 @@ class ViewController: UIViewController {
         view.layout(nameField).top(40).horizontally(left: 40, right: 40)
     }
     
-    /// Prepares the email TextField.
     private func prepareEmailField() {
         emailField = ErrorTextField(frame: CGRect(x: 40, y: 120, width: view.width - 80, height: 32))
         emailField.placeholder = "Email"
@@ -89,14 +87,13 @@ class ViewController: UIViewController {
         emailField.isClearIconButtonEnabled = true
         emailField.delegate = self
         
-        emailField.placeholderColor = Color.amber.darken4
+        emailField.placeholderNormalColor = Color.amber.darken4
         emailField.placeholderActiveColor = Color.pink.base
-        emailField.dividerColor = Color.cyan.base
+        emailField.dividerNormalColor = Color.cyan.base
         
         view.addSubview(emailField)
     }
     
-    /// Prepares the password TextField.
     private func preparePasswordField() {
         passwordField = TextField()
         passwordField.placeholder = "Password"
@@ -104,7 +101,7 @@ class ViewController: UIViewController {
         passwordField.clearButtonMode = .whileEditing
         passwordField.isVisibilityIconButtonEnabled = true
         
-        // Setting the visibilityFlatButton color.
+        // Setting the visibilityIconButton color.
         passwordField.visibilityIconButton?.tintColor = Color.green.base.withAlphaComponent(passwordField.isSecureTextEntry ? 0.38 : 0.54)
         
         // Size the TextField to the maximum width, less 40 pixels on either side

@@ -30,6 +30,8 @@
 
 import UIKit
 
+private var TextFieldContext: UInt8 = 0
+
 public protocol TextFieldDelegate: UITextFieldDelegate {}
 
 open class TextField: UITextField {
@@ -41,45 +43,35 @@ open class TextField: UITextField {
     /// A Boolean that indicates if the TextField is in an animating state.
 	open internal(set) var isAnimating = false
 	
-	/// A property that accesses the backing layer's backgroundColor.
-	@IBInspectable
-    open override var backgroundColor: UIColor? {
-		didSet {
-			layer.backgroundColor = backgroundColor?.cgColor
-		}
-	}
-	
-    /// Divider active state height.
+    /// Divider normal height.
+    @IBInspectable
+    open var dividerNormalHeight: CGFloat = 1
+    
+    
+	/// Divider active height.
 	@IBInspectable
     open var dividerActiveHeight: CGFloat = 2
 	
-	/// Sets the divider.
+	/// Divider normal color.
 	@IBInspectable
-    open override var dividerColor: UIColor? {
-        get {
-            return super.dividerColor
-        }
-        set(value) {
+    open var dividerNormalColor = Color.darkText.dividers {
+        didSet {
             guard !isEditing else {
                 return
             }
-            super.dividerColor = value
+            dividerColor = dividerNormalColor
         }
     }
 	
-	/// Sets the divider.
+	/// Divider active color.
 	@IBInspectable
-    open var dividerActiveColor: UIColor? {
+    open var dividerActiveColor = Color.blue.base {
 		didSet {
             guard isEditing else {
                 return
             }
             
-            guard let v = dividerActiveColor else {
-                return
-            }
-            
-            dividerColor = v
+            dividerColor = dividerActiveColor
 		}
 	}
 	
@@ -110,7 +102,7 @@ open class TextField: UITextField {
 		set(value) {
 			placeholderLabel.text = value
 			if let v: String = value {
-				placeholderLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderColor])
+				placeholderLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderNormalColor])
 			}
 		}
 	}
@@ -119,13 +111,13 @@ open class TextField: UITextField {
 	@IBInspectable
     open private(set) var placeholderLabel: UILabel!
 	
-	/// Placeholder textColor.
+	/// Placeholder normal textColor.
 	@IBInspectable
-    open var placeholderColor = Color.darkText.others {
+    open var placeholderNormalColor = Color.darkText.others {
 		didSet {
 			if !isEditing {
 				if let v: String = placeholder {
-					placeholderLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderColor])
+					placeholderLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderNormalColor])
 				}
 			}
 		}
@@ -145,12 +137,12 @@ open class TextField: UITextField {
 	}
 	
 	/// This property adds a padding to placeholder y position animation
-	open var placeholderVerticalOffset: CGFloat = 0
+	@IBInspectable
+    open var placeholderVerticalOffset: CGFloat = 0
 	
 	/// The detailLabel UILabel that is displayed.
 	@IBInspectable
     open private(set) lazy var detailLabel = UILabel(frame: .zero)
-	
 	
 	/// The detailLabel text value.
 	@IBInspectable
@@ -160,10 +152,6 @@ open class TextField: UITextField {
 		}
 		set(value) {
 			detailLabel.text = value
-			if let v: String = value {
-				detailLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: detailColor])
-			}
-			layoutDetailLabel()
 		}
 	}
 	
@@ -171,7 +159,7 @@ open class TextField: UITextField {
 	@IBInspectable
     open var detailColor = Color.darkText.others {
 		didSet {
-			if let v: String = detailLabel.text {
+			if let v = detailLabel.text {
 				detailLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: detailColor])
 			}
 		}
@@ -206,7 +194,7 @@ open class TextField: UITextField {
 		set(value) {
 			if value {
 				if nil == clearIconButton {
-                    clearIconButton = IconButton(image: Icon.cm.clear, tintColor: placeholderColor)
+                    clearIconButton = IconButton(image: Icon.cm.clear, tintColor: placeholderNormalColor)
 					clearIconButton!.contentEdgeInsets = .zero
 					clearIconButton!.pulseAnimation = .center
                     clearButtonMode = .never
@@ -241,7 +229,7 @@ open class TextField: UITextField {
 		set(value) {
 			if value {
 				if nil == visibilityIconButton {
-                    visibilityIconButton = IconButton(image: Icon.visibility, tintColor: placeholderColor.withAlphaComponent(isSecureTextEntry ? 0.38 : 0.54))
+                    visibilityIconButton = IconButton(image: Icon.visibility, tintColor: placeholderNormalColor.withAlphaComponent(isSecureTextEntry ? 0.38 : 0.54))
 					visibilityIconButton!.contentEdgeInsets = .zero
 					visibilityIconButton!.pulseAnimation = .center
 					isSecureTextEntry = true
@@ -283,6 +271,19 @@ open class TextField: UITextField {
     open override func becomeFirstResponder() -> Bool {
         layoutIfNeeded()
         return super.becomeFirstResponder()
+    }
+    
+    open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        guard "detailLabel.text" == keyPath else {
+            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
+            return
+        }
+        updateDetailLabelAttributedText()
+        layoutDetailLabel()
+    }
+    
+    deinit {
+        removeObserver(self, forKeyPath: "titleLabel.text")
     }
     
 	/**
@@ -407,7 +408,7 @@ open class TextField: UITextField {
 			default:break
 			}
 			placeholderLabel.y = -placeholderLabel.height + placeholderVerticalOffset
-			placeholderLabel.textColor = placeholderColor
+			placeholderLabel.textColor = placeholderNormalColor
 		} else {
 			switch textAlignment {
 			case .left, .natural:
@@ -457,8 +458,8 @@ open class TextField: UITextField {
 	
 	/// The animation for the divider when editing ends.
 	open func dividerEditingDidEndAnimation() {
-//		divider.frame.size.height = dividerHeight
-//		divider.color = dividerColor
+		dividerHeight = dividerNormalHeight
+		dividerColor = dividerNormalColor
 	}
 	
 	/// The animation for the placeholder when editing begins.
@@ -495,13 +496,13 @@ open class TextField: UITextField {
 					s.placeholderLabel.transform = CGAffineTransform.identity
 					s.placeholderLabel.x = 0
 					s.placeholderLabel.y = 0
-					s.placeholderLabel.textColor = s.placeholderColor
+					s.placeholderLabel.textColor = s.placeholderNormalColor
 				}
 			}) { [weak self] _ in
 				self?.isAnimating = false
 			}
 		} else if !isEditing {
-			placeholderLabel.textColor = placeholderColor
+			placeholderLabel.textColor = placeholderNormalColor
 		}
 	}
 	
@@ -513,7 +514,7 @@ open class TextField: UITextField {
 	/// Prepares the placeholderLabel.
 	private func preparePlaceholderLabel() {
         placeholderLabel = UILabel(frame: .zero)
-		placeholderColor = Color.darkText.others
+		placeholderNormalColor = Color.darkText.others
         font = RobotoFont.regular(with: 16)
         addSubview(placeholderLabel)
 	}
@@ -524,6 +525,7 @@ open class TextField: UITextField {
         detailLabel.numberOfLines = 0
 		detailColor = Color.darkText.others
 		addSubview(detailLabel)
+        addObserver(self, forKeyPath: "detailLabel.text", options: [], context: &TextFieldContext)
 	}
 	
 	/// Prepares the target handlers.
@@ -535,5 +537,12 @@ open class TextField: UITextField {
     /// Prepares the textAlignment.
     private func prepareTextAlignment() {
         textAlignment = .rightToLeft == UIApplication.shared.userInterfaceLayoutDirection ? .right : .left
+    }
+    
+    /// Updates the detailLabel attributedText.
+    private func updateDetailLabelAttributedText() {
+        if let v = detail {
+            detailLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: detailColor])
+        }
     }
 }
