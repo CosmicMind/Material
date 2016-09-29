@@ -9,6 +9,13 @@
       name = "Examples">
       <Group
          location = "container:"
+         name = "Storyboards">
+         <FileRef
+            location = "group:Examples/Storyboards/NavigationDrawerController/NavigationDrawerController.xcodeproj">
+         </FileRef>
+      </Group>
+      <Group
+         location = "container:"
          name = "Programmatic">
          <FileRef
             location = "group:Examples/Programmatic/Bar/Bar.xcodeproj">
