@@ -7,23 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		96784EA81D9012730061C06C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96784EA71D9012730061C06C /* AppDelegate.swift */; };
-		96784EAA1D9012730061C06C /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96784EA91D9012730061C06C /* RootViewController.swift */; };
-		96784EAF1D9012730061C06C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96784EAE1D9012730061C06C /* Assets.xcassets */; };
-		96784EB21D9012730061C06C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96784EB01D9012730061C06C /* LaunchScreen.storyboard */; };
-		96784F141D9014410061C06C /* AppToolbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96784F131D9014410061C06C /* AppToolbarController.swift */; };
-		9AC456251D9DDBE600A7ABF0 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AC456241D9DDBE600A7ABF0 /* Material.framework */; };
-		9AC456261D9DDBE600A7ABF0 /* Material.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9AC456241D9DDBE600A7ABF0 /* Material.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9697F7A11D8F2058004741EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9697F7A01D8F2058004741EC /* AppDelegate.swift */; };
+		9697F7A31D8F2058004741EC /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9697F7A21D8F2058004741EC /* RootViewController.swift */; };
+		9697F7A81D8F2058004741EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9697F7A71D8F2058004741EC /* Assets.xcassets */; };
+		9697F7AB1D8F2058004741EC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9697F7A91D8F2058004741EC /* LaunchScreen.storyboard */; };
+		9697F7B31D8F208F004741EC /* AppSnackbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9697F7B21D8F208F004741EC /* AppSnackbarController.swift */; };
+		9AC456281D9DDCD000A7ABF0 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AC456271D9DDCD000A7ABF0 /* Material.framework */; };
+		9AC456291D9DDCD000A7ABF0 /* Material.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9AC456271D9DDCD000A7ABF0 /* Material.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9AC4562D1D9DDD5C00A7ABF0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AC4562C1D9DDD5C00A7ABF0 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		96784F181D90153E0061C06C /* Embed Frameworks */ = {
+		96784E5D1D8FE75C0061C06C /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				9AC456261D9DDBE600A7ABF0 /* Material.framework in Embed Frameworks */,
+				9AC456291D9DDCD000A7ABF0 /* Material.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -31,96 +32,98 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		96784EA41D9012730061C06C /* ToolbarController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToolbarController.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		96784EA71D9012730061C06C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		96784EA91D9012730061C06C /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
-		96784EAE1D9012730061C06C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		96784EB11D9012730061C06C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		96784EB31D9012730061C06C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		96784F131D9014410061C06C /* AppToolbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppToolbarController.swift; sourceTree = "<group>"; };
-		9AC456241D9DDBE600A7ABF0 /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Material.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9697F79D1D8F2058004741EC /* SnackbarController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SnackbarController.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9697F7A01D8F2058004741EC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		9697F7A21D8F2058004741EC /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		9697F7A71D8F2058004741EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9697F7AA1D8F2058004741EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		9697F7AC1D8F2058004741EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9697F7B21D8F208F004741EC /* AppSnackbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSnackbarController.swift; sourceTree = "<group>"; };
+		9AC456271D9DDCD000A7ABF0 /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Material.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9AC4562C1D9DDD5C00A7ABF0 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		96784EA11D9012730061C06C /* Frameworks */ = {
+		9697F79A1D8F2058004741EC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9AC456251D9DDBE600A7ABF0 /* Material.framework in Frameworks */,
+				9AC456281D9DDCD000A7ABF0 /* Material.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		96784E9B1D9012730061C06C = {
+		9697F7941D8F2058004741EC = {
 			isa = PBXGroup;
 			children = (
-				9AC456241D9DDBE600A7ABF0 /* Material.framework */,
-				96784EA61D9012730061C06C /* ToolbarController */,
-				96784EA51D9012730061C06C /* Products */,
+				9AC456271D9DDCD000A7ABF0 /* Material.framework */,
+				9697F79F1D8F2058004741EC /* SnackbarController */,
+				9697F79E1D8F2058004741EC /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		96784EA51D9012730061C06C /* Products */ = {
+		9697F79E1D8F2058004741EC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				96784EA41D9012730061C06C /* ToolbarController.app */,
+				9697F79D1D8F2058004741EC /* SnackbarController.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		96784EA61D9012730061C06C /* ToolbarController */ = {
+		9697F79F1D8F2058004741EC /* SnackbarController */ = {
 			isa = PBXGroup;
 			children = (
-				96784EA71D9012730061C06C /* AppDelegate.swift */,
-				96784F131D9014410061C06C /* AppToolbarController.swift */,
-				96784EA91D9012730061C06C /* RootViewController.swift */,
-				96784EAE1D9012730061C06C /* Assets.xcassets */,
-				96784EB01D9012730061C06C /* LaunchScreen.storyboard */,
-				96784EB31D9012730061C06C /* Info.plist */,
+				9697F7A01D8F2058004741EC /* AppDelegate.swift */,
+				9697F7B21D8F208F004741EC /* AppSnackbarController.swift */,
+				9697F7A21D8F2058004741EC /* RootViewController.swift */,
+				9697F7A71D8F2058004741EC /* Assets.xcassets */,
+				9697F7A91D8F2058004741EC /* LaunchScreen.storyboard */,
+				9697F7AC1D8F2058004741EC /* Info.plist */,
+				9AC4562C1D9DDD5C00A7ABF0 /* Main.storyboard */,
 			);
-			path = ToolbarController;
+			path = SnackbarController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		96784EA31D9012730061C06C /* ToolbarController */ = {
+		9697F79C1D8F2058004741EC /* SnackbarController */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 96784EB61D9012730061C06C /* Build configuration list for PBXNativeTarget "ToolbarController" */;
+			buildConfigurationList = 9697F7AF1D8F2058004741EC /* Build configuration list for PBXNativeTarget "SnackbarController" */;
 			buildPhases = (
-				96784EA01D9012730061C06C /* Sources */,
-				96784EA11D9012730061C06C /* Frameworks */,
-				96784EA21D9012730061C06C /* Resources */,
-				96784F181D90153E0061C06C /* Embed Frameworks */,
+				9697F7991D8F2058004741EC /* Sources */,
+				9697F79A1D8F2058004741EC /* Frameworks */,
+				9697F79B1D8F2058004741EC /* Resources */,
+				96784E5D1D8FE75C0061C06C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = ToolbarController;
-			productName = ToolbarController;
-			productReference = 96784EA41D9012730061C06C /* ToolbarController.app */;
+			name = SnackbarController;
+			productName = SnackbarController;
+			productReference = 9697F79D1D8F2058004741EC /* SnackbarController.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		96784E9C1D9012730061C06C /* Project object */ = {
+		9697F7951D8F2058004741EC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = CosmicMind;
 				TargetAttributes = {
-					96784EA31D9012730061C06C = {
+					9697F79C1D8F2058004741EC = {
 						CreatedOnToolsVersion = 8.0;
 						ProvisioningStyle = Automatic;
 					};
 				};
 			};
-			buildConfigurationList = 96784E9F1D9012730061C06C /* Build configuration list for PBXProject "ToolbarController" */;
+			buildConfigurationList = 9697F7981D8F2058004741EC /* Build configuration list for PBXProject "SnackbarController" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -128,46 +131,47 @@
 				en,
 				Base,
 			);
-			mainGroup = 96784E9B1D9012730061C06C;
-			productRefGroup = 96784EA51D9012730061C06C /* Products */;
+			mainGroup = 9697F7941D8F2058004741EC;
+			productRefGroup = 9697F79E1D8F2058004741EC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				96784EA31D9012730061C06C /* ToolbarController */,
+				9697F79C1D8F2058004741EC /* SnackbarController */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		96784EA21D9012730061C06C /* Resources */ = {
+		9697F79B1D8F2058004741EC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96784EB21D9012730061C06C /* LaunchScreen.storyboard in Resources */,
-				96784EAF1D9012730061C06C /* Assets.xcassets in Resources */,
+				9AC4562D1D9DDD5C00A7ABF0 /* Main.storyboard in Resources */,
+				9697F7AB1D8F2058004741EC /* LaunchScreen.storyboard in Resources */,
+				9697F7A81D8F2058004741EC /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		96784EA01D9012730061C06C /* Sources */ = {
+		9697F7991D8F2058004741EC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96784EAA1D9012730061C06C /* RootViewController.swift in Sources */,
-				96784F141D9014410061C06C /* AppToolbarController.swift in Sources */,
-				96784EA81D9012730061C06C /* AppDelegate.swift in Sources */,
+				9697F7B31D8F208F004741EC /* AppSnackbarController.swift in Sources */,
+				9697F7A31D8F2058004741EC /* RootViewController.swift in Sources */,
+				9697F7A11D8F2058004741EC /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		96784EB01D9012730061C06C /* LaunchScreen.storyboard */ = {
+		9697F7A91D8F2058004741EC /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				96784EB11D9012730061C06C /* Base */,
+				9697F7AA1D8F2058004741EC /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -175,7 +179,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		96784EB41D9012730061C06C /* Debug */ = {
+		9697F7AD1D8F2058004741EC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -225,7 +229,7 @@
 			};
 			name = Debug;
 		};
-		96784EB51D9012730061C06C /* Release */ = {
+		9697F7AE1D8F2058004741EC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -268,25 +272,27 @@
 			};
 			name = Release;
 		};
-		96784EB71D9012730061C06C /* Debug */ = {
+		9697F7B01D8F2058004741EC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = ToolbarController/Info.plist;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = SnackbarController/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.ToolbarController;
+				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.SnackbarController;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
-		96784EB81D9012730061C06C /* Release */ = {
+		9697F7B11D8F2058004741EC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = ToolbarController/Info.plist;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = SnackbarController/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.ToolbarController;
+				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.SnackbarController;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -295,25 +301,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		96784E9F1D9012730061C06C /* Build configuration list for PBXProject "ToolbarController" */ = {
+		9697F7981D8F2058004741EC /* Build configuration list for PBXProject "SnackbarController" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				96784EB41D9012730061C06C /* Debug */,
-				96784EB51D9012730061C06C /* Release */,
+				9697F7AD1D8F2058004741EC /* Debug */,
+				9697F7AE1D8F2058004741EC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		96784EB61D9012730061C06C /* Build configuration list for PBXNativeTarget "ToolbarController" */ = {
+		9697F7AF1D8F2058004741EC /* Build configuration list for PBXNativeTarget "SnackbarController" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				96784EB71D9012730061C06C /* Debug */,
-				96784EB81D9012730061C06C /* Release */,
+				9697F7B01D8F2058004741EC /* Debug */,
+				9697F7B11D8F2058004741EC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 96784E9C1D9012730061C06C /* Project object */;
+	rootObject = 9697F7951D8F2058004741EC /* Project object */;
 }
