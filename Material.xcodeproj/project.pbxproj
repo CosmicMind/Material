@@ -12,7 +12,6 @@
 		96230AB81D6A520C00AF47DC /* Divider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96230AB71D6A520C00AF47DC /* Divider.swift */; };
 		96264BE71D833D2800576F37 /* Reminders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96264BE61D833D2800576F37 /* Reminders.swift */; };
 		96264BE91D833D3400576F37 /* RemindersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96264BE81D833D3400576F37 /* RemindersController.swift */; };
-		96264C0E1D84051900576F37 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96264C0D1D84051900576F37 /* Checkbox.swift */; };
 		9628645A1D53FE3E00690B69 /* Material+UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962864591D53FE3E00690B69 /* Material+UIWindow.swift */; };
 		9628645F1D540AF300690B69 /* DynamicFontType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9628645E1D540AF300690B69 /* DynamicFontType.swift */; };
 		962864621D54111D00690B69 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962864611D54111D00690B69 /* JSON.swift */; };
@@ -33,7 +32,6 @@
 		968C99471D377849000074FF /* Offset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968C99461D377849000074FF /* Offset.swift */; };
 		9697F7B71D8F22A4004741EC /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9697F7B61D8F22A4004741EC /* MenuItem.swift */; };
 		9697F7BC1D8F2572004741EC /* BasicAnimation.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96E3C39D1D3A1D0C0086A024 /* BasicAnimation.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		9697F7BE1D8F2572004741EC /* Checkbox.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96264C0D1D84051900576F37 /* Checkbox.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9697F7BF1D8F2572004741EC /* Divider.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96230AB71D6A520C00AF47DC /* Divider.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9697F7C01D8F2572004741EC /* Material+CALayer.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96F1DC871D654FDF0025F925 /* Material+CALayer.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9697F7C11D8F2572004741EC /* Material+Array.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96C1C8801D42C62800E6608F /* Material+Array.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -224,7 +222,6 @@
 		96230AB71D6A520C00AF47DC /* Divider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Divider.swift; sourceTree = "<group>"; };
 		96264BE61D833D2800576F37 /* Reminders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reminders.swift; sourceTree = "<group>"; };
 		96264BE81D833D3400576F37 /* RemindersController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemindersController.swift; sourceTree = "<group>"; };
-		96264C0D1D84051900576F37 /* Checkbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		962864591D53FE3E00690B69 /* Material+UIWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIWindow.swift"; sourceTree = "<group>"; };
 		9628645E1D540AF300690B69 /* DynamicFontType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicFontType.swift; sourceTree = "<group>"; };
 		962864611D54111D00690B69 /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
@@ -390,14 +387,6 @@
 				96264BE81D833D3400576F37 /* RemindersController.swift */,
 			);
 			name = Reminders;
-			sourceTree = "<group>";
-		};
-		96264C0C1D84050200576F37 /* Checkbox */ = {
-			isa = PBXGroup;
-			children = (
-				96264C0D1D84051900576F37 /* Checkbox.swift */,
-			);
-			name = Checkbox;
 			sourceTree = "<group>";
 		};
 		962864601D5410FD00690B69 /* JSON */ = {
@@ -566,7 +555,6 @@
 				96BCB8031CB40F4B00C806FE /* Button */,
 				96BCB8021CB40F3B00C806FE /* Card */,
 				96BCB7FF1CB40EF000C806FE /* Capture */,
-				96264C0C1D84050200576F37 /* Checkbox */,
 				96BCB8051CB40F9C00C806FE /* Collection */,
 				96BCB8001CB40F0300C806FE /* Color */,
 				96BCB80B1CB410CC00C806FE /* Device */,
@@ -889,7 +877,6 @@
 				96E3C39A1D3A1CC20086A024 /* ErrorTextField.swift in Headers */,
 				96E3C39C1D3A1CC20086A024 /* Offset.swift in Headers */,
 				9697F7BC1D8F2572004741EC /* BasicAnimation.swift in Headers */,
-				9697F7BE1D8F2572004741EC /* Checkbox.swift in Headers */,
 				9697F7BF1D8F2572004741EC /* Divider.swift in Headers */,
 				9697F7C01D8F2572004741EC /* Material+CALayer.swift in Headers */,
 				9697F7C11D8F2572004741EC /* Material+Array.swift in Headers */,
@@ -1181,7 +1168,6 @@
 				96BCB7AE1CB40DC500C806FE /* Material+UIFont.swift in Sources */,
 				9697F7B71D8F22A4004741EC /* MenuItem.swift in Sources */,
 				96BCB7D91CB40DC500C806FE /* NavigationBar.swift in Sources */,
-				96264C0E1D84051900576F37 /* Checkbox.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
