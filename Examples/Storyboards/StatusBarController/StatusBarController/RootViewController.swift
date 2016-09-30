@@ -34,7 +34,7 @@ import Material
 class RootViewController: UIViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Color.grey.lighten1
+        view.backgroundColor = Color.grey.lighten5
     }
 }
 

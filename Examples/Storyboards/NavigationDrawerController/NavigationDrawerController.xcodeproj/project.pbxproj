@@ -75,8 +75,8 @@
 			children = (
 				9AC455AF1D9DC7BD00A7ABF0 /* AppDelegate.swift */,
 				9AC455CB1D9DC8ED00A7ABF0 /* AppNavigationDrawerController.swift */,
-				9AC455C51D9DC8E500A7ABF0 /* LeftViewController.swift */,
 				9AC455C61D9DC8E500A7ABF0 /* RootViewController.swift */,
+				9AC455C51D9DC8E500A7ABF0 /* LeftViewController.swift */,
 				9AC455C71D9DC8E500A7ABF0 /* RightViewController.swift */,
 				9AC455B31D9DC7BE00A7ABF0 /* Main.storyboard */,
 				9AC455B61D9DC7BE00A7ABF0 /* Assets.xcassets */,

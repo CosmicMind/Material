@@ -66,9 +66,9 @@
 			children = (
 				9AC456061D9DD77C00A7ABF0 /* AppDelegate.swift */,
 				9AC456181D9DD82100A7ABF0 /* AppBottomNavigationController.swift */,
+				9AC4561B1D9DD82100A7ABF0 /* PhotoViewController.swift */,
 				9AC456191D9DD82100A7ABF0 /* VideoViewController.swift */,
 				9AC4561A1D9DD82100A7ABF0 /* AudioViewController.swift */,
-				9AC4561B1D9DD82100A7ABF0 /* PhotoViewController.swift */,
 				9AC4561C1D9DD82100A7ABF0 /* RemindersViewController.swift */,
 				9AC4561D1D9DD82100A7ABF0 /* SearchViewController.swift */,
 				9AC4560A1D9DD77C00A7ABF0 /* Main.storyboard */,

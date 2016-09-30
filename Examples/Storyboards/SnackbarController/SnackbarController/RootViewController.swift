@@ -37,7 +37,7 @@ class RootViewController: UIViewController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Color.grey.lighten1
+        view.backgroundColor = Color.grey.lighten5
         
         prepareUndoButton()
     }
@@ -51,7 +51,7 @@ class RootViewController: UIViewController {
     
     private func prepareUndoButton() {
         undoButton = FlatButton(title: "Undo", titleColor: Color.yellow.base)
-        undoButton.pulse.animation = .backing
+        undoButton.pulseAnimation = .backing
         undoButton.titleLabel?.font = RobotoFont.regular(with: 14)
     }
     

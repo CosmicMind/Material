@@ -37,22 +37,6 @@ class AppBottomNavigationController: BottomNavigationController {
         prepareTabBar()
     }
     
-    func tabBarController(_ tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
-//        if let _ = viewController as? PhotoBarController {
-//            let vc = PhotoSnackbarController()
-//            vc.modalTransitionStyle = .coverVertical
-//            present(vc, animated: true, completion: nil)
-//            return false
-//        } else if let _ = viewController as? SearchBarController {
-//            let vc = SearchSnackbarController()
-//            vc.modalTransitionStyle = .crossDissolve
-//            present(vc, animated: true, completion: nil)
-//            return false
-//        }
-        return true
-    }
-    
-    /// Prepares the tabBar.
     private func prepareTabBar() {
         tabBar.depthPreset = .none
         tabBar.dividerColor = Color.grey.lighten3
