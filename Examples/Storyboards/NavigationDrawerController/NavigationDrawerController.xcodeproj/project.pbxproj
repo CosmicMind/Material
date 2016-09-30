@@ -11,8 +11,6 @@
 		9AC455B51D9DC7BE00A7ABF0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AC455B31D9DC7BE00A7ABF0 /* Main.storyboard */; };
 		9AC455B71D9DC7BE00A7ABF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9AC455B61D9DC7BE00A7ABF0 /* Assets.xcassets */; };
 		9AC455BA1D9DC7BE00A7ABF0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AC455B81D9DC7BE00A7ABF0 /* LaunchScreen.storyboard */; };
-		9AC455C21D9DC81600A7ABF0 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AC455C11D9DC81600A7ABF0 /* Material.framework */; };
-		9AC455C31D9DC81600A7ABF0 /* Material.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9AC455C11D9DC81600A7ABF0 /* Material.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9AC455C81D9DC8E500A7ABF0 /* LeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC455C51D9DC8E500A7ABF0 /* LeftViewController.swift */; };
 		9AC455C91D9DC8E500A7ABF0 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC455C61D9DC8E500A7ABF0 /* RootViewController.swift */; };
 		9AC455CA1D9DC8E500A7ABF0 /* RightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC455C71D9DC8E500A7ABF0 /* RightViewController.swift */; };
@@ -26,7 +24,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				9AC455C31D9DC81600A7ABF0 /* Material.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -40,7 +37,6 @@
 		9AC455B61D9DC7BE00A7ABF0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9AC455B91D9DC7BE00A7ABF0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9AC455BB1D9DC7BE00A7ABF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9AC455C11D9DC81600A7ABF0 /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Material.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AC455C51D9DC8E500A7ABF0 /* LeftViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftViewController.swift; sourceTree = "<group>"; };
 		9AC455C61D9DC8E500A7ABF0 /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		9AC455C71D9DC8E500A7ABF0 /* RightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightViewController.swift; sourceTree = "<group>"; };
@@ -52,7 +48,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9AC455C21D9DC81600A7ABF0 /* Material.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,7 +57,6 @@
 		9AC455A31D9DC7BD00A7ABF0 = {
 			isa = PBXGroup;
 			children = (
-				9AC455C11D9DC81600A7ABF0 /* Material.framework */,
 				9AC455AE1D9DC7BD00A7ABF0 /* NavigationDrawerController */,
 				9AC455AD1D9DC7BD00A7ABF0 /* Products */,
 			);
