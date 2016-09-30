@@ -78,7 +78,6 @@
 		96BCB7C51CB40DC500C806FE /* MaterialGravity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB77C1CB40DC500C806FE /* MaterialGravity.swift */; };
 		96BCB7C61CB40DC500C806FE /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB77D1CB40DC500C806FE /* Icon.swift */; };
 		96BCB7C71CB40DC500C806FE /* KeyframeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB77E1CB40DC500C806FE /* KeyframeAnimation.swift */; };
-		96BCB7C81CB40DC500C806FE /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB77F1CB40DC500C806FE /* Label.swift */; };
 		96BCB7C91CB40DC500C806FE /* Layer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7801CB40DC500C806FE /* Layer.swift */; };
 		96BCB7CA1CB40DC500C806FE /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7811CB40DC500C806FE /* Layout.swift */; };
 		96BCB7CB1CB40DC500C806FE /* PulseAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7821CB40DC500C806FE /* PulseAnimation.swift */; };
@@ -88,7 +87,6 @@
 		96BCB7D01CB40DC500C806FE /* InterimSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7871CB40DC500C806FE /* InterimSpace.swift */; };
 		96BCB7D11CB40DC500C806FE /* Switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7881CB40DC500C806FE /* Switch.swift */; };
 		96BCB7D21CB40DC500C806FE /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7891CB40DC500C806FE /* TableViewCell.swift */; };
-		96BCB7D31CB40DC500C806FE /* MaterialTextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB78A1CB40DC500C806FE /* MaterialTextLayer.swift */; };
 		96BCB7D41CB40DC500C806FE /* TransitionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB78B1CB40DC500C806FE /* TransitionAnimation.swift */; };
 		96BCB7D51CB40DC500C806FE /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB78C1CB40DC500C806FE /* View.swift */; };
 		96BCB7D71CB40DC500C806FE /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB78E1CB40DC500C806FE /* Menu.swift */; };
@@ -150,7 +148,6 @@
 		96BCB8321CB4115200C806FE /* RobotoFont.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7941CB40DC500C806FE /* RobotoFont.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8331CB4115200C806FE /* Icon.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB77D1CB40DC500C806FE /* Icon.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8341CB4115200C806FE /* Layer.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7801CB40DC500C806FE /* Layer.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		96BCB8351CB4115200C806FE /* MaterialTextLayer.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB78A1CB40DC500C806FE /* MaterialTextLayer.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8361CB4115200C806FE /* Grid.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7611CB40DC500C806FE /* Grid.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8371CB4115200C806FE /* Layout.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7811CB40DC500C806FE /* Layout.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8391CB4115200C806FE /* SearchBar.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7951CB40DC500C806FE /* SearchBar.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -179,7 +176,6 @@
 		96BCB8511CB4115200C806FE /* MaterialGravity.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB77C1CB40DC500C806FE /* MaterialGravity.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8521CB4115200C806FE /* CornerRadius.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7851CB40DC500C806FE /* CornerRadius.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8531CB4115200C806FE /* Shape.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7861CB40DC500C806FE /* Shape.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		96BCB8541CB4115200C806FE /* Label.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB77F1CB40DC500C806FE /* Label.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8551CB4115200C806FE /* PulseView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7841CB40DC500C806FE /* PulseView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8561CB4115200C806FE /* Switch.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7881CB40DC500C806FE /* Switch.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8571CB4115200C806FE /* View.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB78C1CB40DC500C806FE /* View.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -273,7 +269,6 @@
 		96BCB77C1CB40DC500C806FE /* MaterialGravity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialGravity.swift; sourceTree = "<group>"; };
 		96BCB77D1CB40DC500C806FE /* Icon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
 		96BCB77E1CB40DC500C806FE /* KeyframeAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyframeAnimation.swift; sourceTree = "<group>"; };
-		96BCB77F1CB40DC500C806FE /* Label.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		96BCB7801CB40DC500C806FE /* Layer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Layer.swift; sourceTree = "<group>"; };
 		96BCB7811CB40DC500C806FE /* Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
 		96BCB7821CB40DC500C806FE /* PulseAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PulseAnimation.swift; sourceTree = "<group>"; };
@@ -283,7 +278,6 @@
 		96BCB7871CB40DC500C806FE /* InterimSpace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterimSpace.swift; sourceTree = "<group>"; };
 		96BCB7881CB40DC500C806FE /* Switch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Switch.swift; sourceTree = "<group>"; };
 		96BCB7891CB40DC500C806FE /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
-		96BCB78A1CB40DC500C806FE /* MaterialTextLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialTextLayer.swift; sourceTree = "<group>"; };
 		96BCB78B1CB40DC500C806FE /* TransitionAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionAnimation.swift; sourceTree = "<group>"; };
 		96BCB78C1CB40DC500C806FE /* View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		96BCB78E1CB40DC500C806FE /* Menu.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; tabWidth = 4; };
@@ -538,14 +532,6 @@
 			name = Switch;
 			sourceTree = "<group>";
 		};
-		968C99431D36ECBB000074FF /* Label */ = {
-			isa = PBXGroup;
-			children = (
-				96BCB77F1CB40DC500C806FE /* Label.swift */,
-			);
-			name = Label;
-			sourceTree = "<group>";
-		};
 		96BCB7571CB40DC500C806FE /* iOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -563,7 +549,6 @@
 				96BCB8071CB4101C00C806FE /* Font */,
 				96BCB8081CB4105E00C806FE /* Icon */,
 				962864601D5410FD00690B69 /* JSON */,
-				968C99431D36ECBB000074FF /* Label */,
 				96BCB80D1CB410FD00C806FE /* Layer */,
 				96BCB8041CB40F6C00C806FE /* Layout */,
 				963FBF021D6696D0008F8512 /* Menu */,
@@ -761,7 +746,6 @@
 			isa = PBXGroup;
 			children = (
 				96BCB7801CB40DC500C806FE /* Layer.swift */,
-				96BCB78A1CB40DC500C806FE /* MaterialTextLayer.swift */,
 			);
 			name = Layer;
 			sourceTree = "<group>";
@@ -837,7 +821,6 @@
 				96BCB8321CB4115200C806FE /* RobotoFont.swift in Headers */,
 				96BCB8331CB4115200C806FE /* Icon.swift in Headers */,
 				96BCB8341CB4115200C806FE /* Layer.swift in Headers */,
-				96BCB8351CB4115200C806FE /* MaterialTextLayer.swift in Headers */,
 				96BCB8361CB4115200C806FE /* Grid.swift in Headers */,
 				96BCB8371CB4115200C806FE /* Layout.swift in Headers */,
 				96BCB8391CB4115200C806FE /* SearchBar.swift in Headers */,
@@ -866,7 +849,6 @@
 				96BCB8511CB4115200C806FE /* MaterialGravity.swift in Headers */,
 				96BCB8521CB4115200C806FE /* CornerRadius.swift in Headers */,
 				96BCB8531CB4115200C806FE /* Shape.swift in Headers */,
-				96BCB8541CB4115200C806FE /* Label.swift in Headers */,
 				96BCB8551CB4115200C806FE /* PulseView.swift in Headers */,
 				96BCB8561CB4115200C806FE /* Switch.swift in Headers */,
 				96BCB8571CB4115200C806FE /* View.swift in Headers */,
@@ -1089,7 +1071,6 @@
 				96BCB7CF1CB40DC500C806FE /* Shape.swift in Sources */,
 				96E3C39E1D3A1D0C0086A024 /* BasicAnimation.swift in Sources */,
 				96BCB7DF1CB40DC500C806FE /* SearchBarController.swift in Sources */,
-				96BCB7D31CB40DC500C806FE /* MaterialTextLayer.swift in Sources */,
 				96BCB7C11CB40DC500C806FE /* Depth.swift in Sources */,
 				96BCB7E61CB40DC500C806FE /* TextStorage.swift in Sources */,
 				96BCB7A91CB40DC500C806FE /* FlatButton.swift in Sources */,
@@ -1106,7 +1087,6 @@
 				96EA9A431D4E68F80052C74D /* PhotoLibrary.swift in Sources */,
 				96BCB7C61CB40DC500C806FE /* Icon.swift in Sources */,
 				96BCB7E91CB40DC500C806FE /* ToolbarController.swift in Sources */,
-				96BCB7C81CB40DC500C806FE /* Label.swift in Sources */,
 				96BCB7A21CB40DC500C806FE /* BottomTabBar.swift in Sources */,
 				96BCB7BD1CB40DC500C806FE /* CollectionViewDelegate.swift in Sources */,
 				9631A7C71D95E5D900CFB109 /* Pulse.swift in Sources */,
