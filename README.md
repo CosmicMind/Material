@@ -6,11 +6,11 @@ Material is an animation and graphics framework.
 
 ## About Material 2
 
-The first version of Material was to bring Material Design to iOS. We considered that a great starting point, but not the entire story. Material 2 is the next chapter, which goes deeper into iOS with refined APIs that simplify Architecture, Photo Library, Reminders, Photo & Video, and much more. In addition to Material Design, we love Apple's flat UI, so we made it possible to accomplish both UI styles with ease.
+The first version of Material was to bring Material Design to iOS. We considered that a great starting point, but not the entire story. Material 2 is the next chapter, which goes deeper into iOS with refined APIs that simplify Architecture, Photo Library, Reminders, Photo & Video, and much more. In addition to Material Design, we love Apple’s flat UI. Having this in mind, we made it possible to accomplish both UI styles with ease.
 
 ## Our Mission
 
-CosmicMind is setting out to build a seamless application platform, and Material is a major part of this effort. Material is the UI to our platform and will continue to advance itself through our growing community and project maintainers. We believe Material has a bright future that we are excited to share openly with everyone.
+CosmicMind is setting out to build a seamless application platform, and Material is a major part of this effort. Material is the UI to our platform and will continue to advance itself through our growing community and project maintainers. We believe Material has a bright future and we are excited to openly share it with everyone.
 
 ## Features
 
@@ -74,9 +74,9 @@ Try the Material Colors app to see the wonderful colors available in Material, o
 
 [Get Material Colors on the AppStore](https://itunes.apple.com/app/x/id1111994400?mt=8)
 
-# Some Samples
+# Sample Components
 
-The following is a sample of what can be accomplished using Material:
+The following are some sample components available within Material:
 
 ## Icons
 
@@ -102,9 +102,9 @@ A button is used to trigger an action through a touch event. Material comes with
 
 ## Capture
 
-Capture is an API that simplifies photo and video.
+Capture is an API that simplifies iOS' AVFoundation framework. It allows for photos and video to easily be captured while taking care of all the complexities.
 
-![Material Image](http://www.cosmicmind.io/material/shared/capture-controller.gif)
+![Material Image](http://www.cosmicmind.io/material/shared/capture-controller.png)
 
 [Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/CaptureController)
 
@@ -180,11 +180,11 @@ The Lorem Ipsum is simply dummy text of the composition and layout before printi
 
 [Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/PageTabBarController)
 
-## Photo Library Controller
+## PhotoLibrary
 
-The Lorem Ipsum is simply dummy text of the composition and layout before printing. Lorem Ipsum is standard dummy text ever since the 1500s, when an unknown galley of type and scrambled to make a type specimen book fonts.
+PhotoLibrary is an API that simplifies iOS' Photos framework. It allows your application to integrate easily with your user's photo library, which gives you access to moments and albums.
 
-![Material Image](http://www.cosmicmind.io/material/shared/photolibrary-controller.gif)
+![Material Image](http://www.cosmicmind.io/material/shared/photolibrary-controller.png)
 
 [Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/PhotoLibraryController)
 
