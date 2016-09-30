@@ -29,14 +29,48 @@
  */
 
 import UIKit
+import Material
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    var window: UIWindow?
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        return true
+class RootViewController: UIViewController {
+    /// A reference to the Undo button.
+    private var undoButton: FlatButton!
+    
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = Color.grey.lighten1
+        
+        prepareUndoButton()
+    }
+    
+    open override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        prepareSnackbar()
+        animateSnackbar()
+    }
+    
+    private func prepareUndoButton() {
+        undoButton = FlatButton(title: "Undo", titleColor: Color.yellow.base)
+        undoButton.pulse.animation = .backing
+        undoButton.titleLabel?.font = RobotoFont.regular(with: 14)
+    }
+    
+    private func prepareSnackbar() {
+        guard let sc = snackbarController else {
+            return
+        }
+        
+        sc.snackbar.text = "Reminder saved."
+        sc.snackbar.rightViews = [undoButton]
+    }
+    
+    private func animateSnackbar() {
+        guard let sc = snackbarController else {
+            return
+        }
+        
+        _ = sc.animate(snackbar: .visible, delay: 1)
+        _ = sc.animate(snackbar: .hidden, delay: 4)
     }
 }
 

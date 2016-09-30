@@ -29,14 +29,24 @@
  */
 
 import UIKit
+import Material
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    var window: UIWindow?
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        return true
+class AppPageTabBarController: PageTabBarController {
+    open override func prepare() {
+        super.prepare()
+    
+        delegate = self
+        preparePageTabBar()
+    }
+    
+    /// Prepares the pageTabBar.
+    private func preparePageTabBar() {
+        pageTabBar.lineColor = Color.grey.darken1
     }
 }
 
+extension AppPageTabBarController: PageTabBarControllerDelegate {
+    func pageTabBarController(pageTabBarController: PageTabBarController, didTransitionTo viewController: UIViewController) {
+        print("pageTabBarController", pageTabBarController, "didTransitionTo viewController:", viewController)
+    }
+}

@@ -35,18 +35,18 @@ class ViewController: UIViewController {
     @IBOutlet weak var fabButton: FabButton!
     @IBOutlet weak var iconButton: IconButton!
     
-    override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         prepareFabButton()
         prepareIconButton()
     }
     
-    func prepareFabButton() {
+    private func prepareFabButton() {
         fabButton.image = Icon.cm.add
         fabButton.pulseColor = Color.white
     }
     
-    func prepareIconButton() {
+    private func prepareIconButton() {
         iconButton.image = Icon.search
         iconButton.pulseColor = Color.blue.base
     }
