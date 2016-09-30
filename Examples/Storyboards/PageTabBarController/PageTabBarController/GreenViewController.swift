@@ -29,14 +29,28 @@
  */
 
 import UIKit
+import Material
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    var window: UIWindow?
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        return true
+class GreenViewController: UIViewController {
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        preparePageTabBarItem()
+    }
+    
+    init() {
+        super.init(nibName: nil, bundle: nil)
+        preparePageTabBarItem()
+    }
+    
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = Color.green.base
+    }
+    
+    /// Prepares the pageTabBarItem.
+    internal func preparePageTabBarItem() {
+        pageTabBarItem.title = "Green"
+        pageTabBarItem.titleColor = Color.blueGrey.base
     }
 }
 

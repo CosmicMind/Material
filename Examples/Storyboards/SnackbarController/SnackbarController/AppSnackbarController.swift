@@ -29,14 +29,29 @@
  */
 
 import UIKit
+import Material
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    var window: UIWindow?
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        return true
+class AppSnackbarController: SnackbarController {
+    open override func prepare() {
+        super.prepare()
+        delegate = self
     }
 }
 
+extension AppSnackbarController: SnackbarControllerDelegate {
+    func snackbarControllerWillShow(snackbarController: SnackbarController) {
+        print("snackbarControllerWillShow")
+    }
+    
+    func snackbarControllerWillHide(snackbarController: SnackbarController) {
+        print("snackbarControllerWillHide")
+    }
+    
+    func snackbarControllerDidShow(snackbarController: SnackbarController) {
+        print("snackbarControllerDidShow")
+    }
+    
+    func snackbarControllerDidHide(snackbarController: SnackbarController) {
+        print("snackbarControllerDidHide")
+    }
+}
