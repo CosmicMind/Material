@@ -71,27 +71,155 @@ Try the Material Colors app to see the wonderful colors available in Material, o
 
 Take a look at some components in Material.
 
-#### Icons
+## Icons
 
 Material Icons is a library of Google and CosmicMind icons that are available for use within your iOS applications. To help with icon choices, visit [MaterialIcon.io](http://www.materialicon.io).
 
 ![Icon](http://www.cosmicmind.io/MK/MaterialMaterialIcon.png)
 
-#### Buttons
+## Bar
 
-![card](http://www.cosmicmind.io/material/white/button.gif)
+The Lorem Ipsum is simply dummy text of the composition and layout before printing. Lorem Ipsum is standard dummy text ever since the 1500s, when an unknown galley of type and scrambled to make a type specimen book fonts.
 
-#### Card
+![Material Image](http://www.cosmicmind.io/material/white/bar.gif)
 
-![card](http://www.cosmicmind.io/material/white/card.gif)
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/Bar)
 
-#### ImageCard
+## Buttons
 
-![card](http://www.cosmicmind.io/material/white/image-card.gif)
+The Lorem Ipsum is simply dummy text of the composition and layout before printing. Lorem Ipsum is standard dummy text ever since the 1500s, when an unknown galley of type and scrambled to make a type specimen book fonts.
 
-#### PresenterCard
+![Material Image](http://www.cosmicmind.io/material/white/button.gif)
 
-![card](http://www.cosmicmind.io/material/white/presenter-card.gif)
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/Button)
+
+## Capture Controller
+
+The Lorem Ipsum is simply dummy text of the composition and layout before printing. Lorem Ipsum is standard dummy text ever since the 1500s, when an unknown galley of type and scrambled to make a type specimen book fonts.
+
+![Material Image](http://www.cosmicmind.io/material/shared/capture-controller.gif)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/CaptureController)
+
+## Card
+
+The Lorem Ipsum is simply dummy text of the composition and layout before printing. Lorem Ipsum is standard dummy text ever since the 1500s, when an unknown galley of type and scrambled to make a type specimen book fonts.
+
+![Material Image](http://www.cosmicmind.io/material/white/card.gif)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/Card)
+
+## ImageCard
+
+The Lorem Ipsum is simply dummy text of the composition and layout before printing. Lorem Ipsum is standard dummy text ever since the 1500s, when an unknown galley of type and scrambled to make a type specimen book fonts.
+
+![Material Image](http://www.cosmicmind.io/material/white/image-card.gif)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/ImageCard)
+
+## Presenter Card
+
+The Lorem Ipsum is simply dummy text of the composition and layout before printing. Lorem Ipsum is standard dummy text ever since the 1500s, when an unknown galley of type and scrambled to make a type specimen book fonts.
+
+![Material Image](http://www.cosmicmind.io/material/white/presenter-card.gif)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/PresenterCard)
+
+## Layer
+
+The Lorem Ipsum is simply dummy text of the composition and layout before printing. Lorem Ipsum is standard dummy text ever since the 1500s, when an unknown galley of type and scrambled to make a type specimen book fonts.
+
+![Material Image](http://www.cosmicmind.io/material/white/layer.gif)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/Layer)
+
+## Layout
+
+The Lorem Ipsum is simply dummy text of the composition and layout before printing. Lorem Ipsum is standard dummy text ever since the 1500s, when an unknown galley of type and scrambled to make a type specimen book fonts.
+
+![Material Image](http://www.cosmicmind.io/material/layout/images/cosmicmind_material_tools_layout.png)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/Layout)
+
+## Menu Controller
+
+The Lorem Ipsum is simply dummy text of the composition and layout before printing. Lorem Ipsum is standard dummy text ever since the 1500s, when an unknown galley of type and scrambled to make a type specimen book fonts.
+
+![Material Image](http://www.cosmicmind.io/material/white/menu-controller.gif)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/MenuController)
+
+## Navigation Controller
+
+The Lorem Ipsum is simply dummy text of the composition and layout before printing. Lorem Ipsum is standard dummy text ever since the 1500s, when an unknown galley of type and scrambled to make a type specimen book fonts.
+
+![Material Image](http://www.cosmicmind.io/material/white/navigation-controller.gif)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/NavigationController)
+
+## Navigation Drawer Controller
+
+The Lorem Ipsum is simply dummy text of the composition and layout before printing. Lorem Ipsum is standard dummy text ever since the 1500s, when an unknown galley of type and scrambled to make a type specimen book fonts.
+
+![Material Image](http://www.cosmicmind.io/material/white/navigation-drawer-controller.gif)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/NavigationDrawerController)
+
+## Page Tab Bar Controller
+
+The Lorem Ipsum is simply dummy text of the composition and layout before printing. Lorem Ipsum is standard dummy text ever since the 1500s, when an unknown galley of type and scrambled to make a type specimen book fonts.
+
+![Material Image](http://www.cosmicmind.io/material/white/page-tab-bar-controller.gif)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/PageTabBarController)
+
+## Photo Library Controller
+
+The Lorem Ipsum is simply dummy text of the composition and layout before printing. Lorem Ipsum is standard dummy text ever since the 1500s, when an unknown galley of type and scrambled to make a type specimen book fonts.
+
+![Material Image](http://www.cosmicmind.io/material/shared/photolibrary-controller.gif)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/PhotoLibraryController)
+
+## Reminders Controller
+
+The Lorem Ipsum is simply dummy text of the composition and layout before printing. Lorem Ipsum is standard dummy text ever since the 1500s, when an unknown galley of type and scrambled to make a type specimen book fonts.
+
+![Material Image](http://www.cosmicmind.io/material/white/reminders-controller.gif)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/RemindersController)
+
+## Snackbar Controller
+
+The Lorem Ipsum is simply dummy text of the composition and layout before printing. Lorem Ipsum is standard dummy text ever since the 1500s, when an unknown galley of type and scrambled to make a type specimen book fonts.
+
+![Material Image](http://www.cosmicmind.io/material/white/snackbar-controller.gif)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/SnackbarController)
+
+## Switch
+
+The Lorem Ipsum is simply dummy text of the composition and layout before printing. Lorem Ipsum is standard dummy text ever since the 1500s, when an unknown galley of type and scrambled to make a type specimen book fonts.
+
+![Material Image](http://www.cosmicmind.io/material/white/switch.gif)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/Switch)
+
+## Toolbar Controller
+
+The Lorem Ipsum is simply dummy text of the composition and layout before printing. Lorem Ipsum is standard dummy text ever since the 1500s, when an unknown galley of type and scrambled to make a type specimen book fonts.
+
+![Material Image](http://www.cosmicmind.io/material/white/toolbar-controller.gif)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/ToolbarController)
+
+## View
+
+The Lorem Ipsum is simply dummy text of the composition and layout before printing. Lorem Ipsum is standard dummy text ever since the 1500s, when an unknown galley of type and scrambled to make a type specimen book fonts.
+
+![Material Image](http://www.cosmicmind.io/material/white/view.gif)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/View)
 
 ## License
 
