@@ -1,16 +1,12 @@
 ![Material](http://www.cosmicmind.io/MK/Material.png)
 
-## Welcome to Material 2
+## Welcome to Material
 
 Material is an animation and graphics framework.
 
 ## About Material 2
 
-The first version of Material was to bring Material Design to iOS. We considered that a great starting point, but not the entire story. Material 2 is the next chapter, which goes deeper into iOS with refined APIs that simplify Architecture, Photo Library, Reminders, Photo & Video, and much more. In addition to Material Design, we love Apple’s flat UI. Having this in mind, we made it possible to accomplish both UI styles with ease.
-
-## Our Mission
-
-CosmicMind is setting out to build a seamless application platform, and Material is a major part of this effort. Material is the UI to our platform and will continue to advance itself through our growing community and project maintainers. We believe Material has a bright future and we are excited to openly share it with everyone.
+The first version of Material was to bring Material Design to iOS. We considered that a great starting point, but not the entire story. Material 2 is the next chapter, which goes deeper into iOS with refined APIs that simplify Architecture, Photo Library, Reminders, Text Editing, Photo & Video, and much more. In addition to Material Design, we love Apple’s flat UI. Having this in mind, we made it possible to accomplish both UI styles with ease.
 
 ## Features
 
@@ -25,9 +21,22 @@ CosmicMind is setting out to build a seamless application platform, and Material
 - [x] Cards
 - [x] Menus
 - [x] Icons
-- [x] Text
+- [x] TextField
+- [X] Snackbar
+- [X] SearchBar
 - [x] Navigation Controls
 - [x] Example Projects
+- [x] And More...
+
+## Releasing October 30th 2016
+
+- [x] Reminders
+- [x] Text Editor
+- [x] Toasts
+- [x] Dialogs & Alerts
+- [x] Bottom Sheets
+- [x] Beginner To Pro Lessons
+- [x] Additional Examples
 - [x] And More...
 
 ## Requirements
@@ -59,6 +68,118 @@ Material is a growing project and will encounter changes throughout its developm
 * Visit the [Examples](https://github.com/CosmicMind/Material/tree/master/Examples) directory to see example projects using Material.
 * The [Installation](https://github.com/CosmicMind/Material/wiki/Installation) page has documentation on how to run example projects.
 
+# Sample Components
+
+The following are some sample components available within Material:
+
+## Icons
+
+Icons is a library of Google and CosmicMind icons that are available for use within your iOS applications.
+
+![Icon](http://www.cosmicmind.io/MK/MaterialMaterialIcon.png)
+
+#### TextField
+
+A TextField is an excellent way to improve UX. It allows for a placeholder and additional hint details.
+
+![TextField](http://www.cosmicmind.io/gifs/TextField.gif)
+
+## Button
+
+A button is used to trigger an action through a touch event. Material comes with a foundational button, and 4 specialized buttons that can be stylized in any way.
+
+![Material Image](http://www.cosmicmind.io/material/white/button.gif)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/Button)
+
+## Switch
+
+A switch is a control component that toggles between on and off states.
+
+![Material Image](http://www.cosmicmind.io/material/white/switch.gif)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/Switch)
+
+## Toolbar
+
+Toolbars are super flexible and add excellent control to your navigation flow. They manage a set of left and right views with auto aligning title and detail labels.
+
+![Material Image](http://www.cosmicmind.io/gifs/Toolbar.gif)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/ToolbarController)
+
+## SearchBar
+
+A SearchBar is a powerful navigation tool that allows for user's input with an instant visual response. A set of left and right views may be added to expand functionality.
+
+![Material Image](http://www.cosmicmind.io/gifs/SearchBar.gif)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/SearchBarController)
+
+## Card
+
+A Card is a flexible component that may be configured in any way you like. It has a Toolbar, Bar, and content area that may utilize any UIView type.
+
+![Material Image](http://www.cosmicmind.io/material/white/card.gif)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/Card)
+
+## ImageCard
+
+An ImageCard is an expansion of the base Card. The Toolbar overlays an image area that sits above the dynamic content area.
+
+![Material Image](http://www.cosmicmind.io/material/white/image-card.gif)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/ImageCard)
+
+## PresenterCard
+
+The PresenterCard is a completely new card style. It allows for a primary presentation area that may be any UIView type in addition to the content area, Toolbar, and Bar components. The options for this card are endless.
+
+![Material Image](http://www.cosmicmind.io/material/white/presenter-card.gif)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/PresenterCard)
+
+## Menu
+
+A Menu manages a collection of views. A new MenuItem type has been added that manages a title and button to improve UX and visual beauty.
+
+![Material Image](http://www.cosmicmind.io/material/white/menu-controller.gif)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/MenuController)
+
+## PageTabBarController
+
+A PageTabBarController is a new component that links a customizable TabBar to a UIPageViewController making a powerful and visually pleasing component to have in any application.
+
+![Material Image](http://www.cosmicmind.io/material/white/page-tab-bar-controller.gif)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/PageTabBarController)
+
+## Snackbar
+
+A Snackbar is a new component that is very simple in its behavior and very powerful in its message. It can be used application wide, or isolated to specific view controllers.
+
+![Material Image](http://www.cosmicmind.io/material/white/snackbar-controller.gif)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/SnackbarController)
+
+## PhotoLibrary
+
+PhotoLibrary is a new component that simplifies the Photos framework and allows for beautiful photos found in the Photos application to be used within your application.
+
+![Material Image](http://www.cosmicmind.io/material/shared/photolibrary-controller.png)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/PhotoLibraryController)
+
+## Capture
+
+Capture is an API that simplifies iOS' AVFoundation framework. It allows for photos and video to easily be captured while managing all the complexities.
+
+![Material Image](http://www.cosmicmind.io/material/shared/capture-controller.png)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/CaptureController)
+
 ## Sticker Sheet
 
 To help template your project, checkout Material Sticker Sheet.
@@ -74,160 +195,6 @@ Try the Material Colors app to see the wonderful colors available in Material, o
 ![MaterialColors](http://www.cosmicmind.io/gifs/MaterialColors.gif)
 
 [Get Material Colors on the AppStore](https://itunes.apple.com/app/x/id1111994400?mt=8)
-
-# Sample Components
-
-The following are some sample components available within Material:
-
-## Icons
-
-Icons is a library of Google and CosmicMind icons that are available for use within your iOS applications. To help with icon choices, visit [materialicon.io](http://www.materialicon.io).
-
-![Icon](http://www.cosmicmind.io/MK/MaterialMaterialIcon.png)
-
-## Bar
-
-A Bar is a foundation component that organizes a set of left and right views around a content area. Bars are great for building layouts that are combined with buttons and switches.
-
-![Material Image](http://www.cosmicmind.io/material/white/bar.gif)
-
-[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/Bar)
-
-## Button
-
-A button is used to trigger an action through a touch event. Material comes with a foundation button, and 4 specialized buttons that can be stylized in any shape and form.
-
-![Material Image](http://www.cosmicmind.io/material/white/button.gif)
-
-[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/Button)
-
-## Capture
-
-Capture is an API that simplifies iOS' AVFoundation framework. It allows for photos and video to easily be captured while taking care of all the complexities.
-
-![Material Image](http://www.cosmicmind.io/material/shared/capture-controller.png)
-
-[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/CaptureController)
-
-## Card
-
-The Lorem Ipsum is simply dummy text of the composition and layout before printing. Lorem Ipsum is standard dummy text ever since the 1500s, when an unknown galley of type and scrambled to make a type specimen book fonts.
-
-![Material Image](http://www.cosmicmind.io/material/white/card.gif)
-
-[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/Card)
-
-## ImageCard
-
-The Lorem Ipsum is simply dummy text of the composition and layout before printing. Lorem Ipsum is standard dummy text ever since the 1500s, when an unknown galley of type and scrambled to make a type specimen book fonts.
-
-![Material Image](http://www.cosmicmind.io/material/white/image-card.gif)
-
-[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/ImageCard)
-
-## Presenter Card
-
-The Lorem Ipsum is simply dummy text of the composition and layout before printing. Lorem Ipsum is standard dummy text ever since the 1500s, when an unknown galley of type and scrambled to make a type specimen book fonts.
-
-![Material Image](http://www.cosmicmind.io/material/white/presenter-card.gif)
-
-[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/PresenterCard)
-
-## Layer
-
-The Lorem Ipsum is simply dummy text of the composition and layout before printing. Lorem Ipsum is standard dummy text ever since the 1500s, when an unknown galley of type and scrambled to make a type specimen book fonts.
-
-![Material Image](http://www.cosmicmind.io/material/white/layer.gif)
-
-[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/Layer)
-
-## Layout
-
-The Lorem Ipsum is simply dummy text of the composition and layout before printing. Lorem Ipsum is standard dummy text ever since the 1500s, when an unknown galley of type and scrambled to make a type specimen book fonts.
-
-![Material Image](http://www.cosmicmind.io/material/layout/images/cosmicmind_material_tools_layout.png)
-
-[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/Layout)
-
-## Menu Controller
-
-The Lorem Ipsum is simply dummy text of the composition and layout before printing. Lorem Ipsum is standard dummy text ever since the 1500s, when an unknown galley of type and scrambled to make a type specimen book fonts.
-
-![Material Image](http://www.cosmicmind.io/material/white/menu-controller.gif)
-
-[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/MenuController)
-
-## Navigation Controller
-
-The Lorem Ipsum is simply dummy text of the composition and layout before printing. Lorem Ipsum is standard dummy text ever since the 1500s, when an unknown galley of type and scrambled to make a type specimen book fonts.
-
-![Material Image](http://www.cosmicmind.io/material/white/navigation-controller.gif)
-
-[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/NavigationController)
-
-## Navigation Drawer Controller
-
-The Lorem Ipsum is simply dummy text of the composition and layout before printing. Lorem Ipsum is standard dummy text ever since the 1500s, when an unknown galley of type and scrambled to make a type specimen book fonts.
-
-![Material Image](http://www.cosmicmind.io/material/white/navigation-drawer-controller.gif)
-
-[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/NavigationDrawerController)
-
-## Page Tab Bar Controller
-
-The Lorem Ipsum is simply dummy text of the composition and layout before printing. Lorem Ipsum is standard dummy text ever since the 1500s, when an unknown galley of type and scrambled to make a type specimen book fonts.
-
-![Material Image](http://www.cosmicmind.io/material/white/page-tab-bar-controller.gif)
-
-[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/PageTabBarController)
-
-## PhotoLibrary
-
-PhotoLibrary is an API that simplifies iOS' Photos framework. It allows your application to integrate easily with your user's photo library, which gives you access to moments and albums.
-
-![Material Image](http://www.cosmicmind.io/material/shared/photolibrary-controller.png)
-
-[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/PhotoLibraryController)
-
-## Reminders Controller
-
-The Lorem Ipsum is simply dummy text of the composition and layout before printing. Lorem Ipsum is standard dummy text ever since the 1500s, when an unknown galley of type and scrambled to make a type specimen book fonts.
-
-![Material Image](http://www.cosmicmind.io/material/white/reminders-controller.gif)
-
-[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/RemindersController)
-
-## Snackbar Controller
-
-The Lorem Ipsum is simply dummy text of the composition and layout before printing. Lorem Ipsum is standard dummy text ever since the 1500s, when an unknown galley of type and scrambled to make a type specimen book fonts.
-
-![Material Image](http://www.cosmicmind.io/material/white/snackbar-controller.gif)
-
-[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/SnackbarController)
-
-## Switch
-
-The Lorem Ipsum is simply dummy text of the composition and layout before printing. Lorem Ipsum is standard dummy text ever since the 1500s, when an unknown galley of type and scrambled to make a type specimen book fonts.
-
-![Material Image](http://www.cosmicmind.io/material/white/switch.gif)
-
-[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/Switch)
-
-## Toolbar Controller
-
-The Lorem Ipsum is simply dummy text of the composition and layout before printing. Lorem Ipsum is standard dummy text ever since the 1500s, when an unknown galley of type and scrambled to make a type specimen book fonts.
-
-![Material Image](http://www.cosmicmind.io/material/white/toolbar-controller.gif)
-
-[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/ToolbarController)
-
-## View
-
-The Lorem Ipsum is simply dummy text of the composition and layout before printing. Lorem Ipsum is standard dummy text ever since the 1500s, when an unknown galley of type and scrambled to make a type specimen book fonts.
-
-![Material Image](http://www.cosmicmind.io/material/white/view.gif)
-
-[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/View)
 
 ## License
 

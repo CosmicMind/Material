@@ -50,9 +50,6 @@
             location = "group:Examples/Programmatic/PhotoLibraryController/PhotoLibraryController.xcodeproj">
          </FileRef>
          <FileRef
-            location = "group:Examples/Programmatic/RemindersController/RemindersController.xcodeproj">
-         </FileRef>
-         <FileRef
             location = "group:Examples/Programmatic/SearchBarController/SearchBarController.xcodeproj">
          </FileRef>
          <FileRef
