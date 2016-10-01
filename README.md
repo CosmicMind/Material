@@ -198,6 +198,10 @@ Try the Material Colors app to see the wonderful colors available in Material, o
 
 [Get Material Colors on the AppStore](https://itunes.apple.com/app/x/id1111994400?mt=8)
 
+## Much More...
+
+So much more inside. Enjoy!
+
 ## License
 
 Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.io>. All rights reserved.
