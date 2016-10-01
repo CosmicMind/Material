@@ -10,8 +10,6 @@
 		961EFC581D738FF600E84652 /* SnackbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961EFC571D738FF600E84652 /* SnackbarController.swift */; };
 		961F18E81CD93E3E008927C5 /* ErrorTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961F18E71CD93E3E008927C5 /* ErrorTextField.swift */; };
 		96230AB81D6A520C00AF47DC /* Divider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96230AB71D6A520C00AF47DC /* Divider.swift */; };
-		96264BE71D833D2800576F37 /* Reminders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96264BE61D833D2800576F37 /* Reminders.swift */; };
-		96264BE91D833D3400576F37 /* RemindersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96264BE81D833D3400576F37 /* RemindersController.swift */; };
 		9628645A1D53FE3E00690B69 /* Material+UIWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962864591D53FE3E00690B69 /* Material+UIWindow.swift */; };
 		9628645F1D540AF300690B69 /* DynamicFontType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9628645E1D540AF300690B69 /* DynamicFontType.swift */; };
 		9631A7C11D95E3AC00CFB109 /* PresenterCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9631A7C01D95E3AC00CFB109 /* PresenterCard.swift */; };
@@ -39,8 +37,6 @@
 		9697F7C61D8F2573004741EC /* PageTabBarController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 963FBF071D669D14008F8512 /* PageTabBarController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9697F7C71D8F2573004741EC /* PhotoLibrary.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96EA9A421D4E68F80052C74D /* PhotoLibrary.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9697F7C81D8F2573004741EC /* PhotoLibraryController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96EA9A4A1D4E7A430052C74D /* PhotoLibraryController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		9697F7C91D8F2573004741EC /* Reminders.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96264BE61D833D2800576F37 /* Reminders.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		9697F7CA1D8F2573004741EC /* RemindersController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96264BE81D833D3400576F37 /* RemindersController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9697F7CB1D8F2573004741EC /* Snackbar.swift in Headers */ = {isa = PBXBuildFile; fileRef = 963FBEFC1D669510008F8512 /* Snackbar.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9697F7CC1D8F2573004741EC /* SnackbarController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 961EFC571D738FF600E84652 /* SnackbarController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9697F7CD1D8F2582004741EC /* Color.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9661222D1D3EC414008BB4CB /* Color.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -213,8 +209,6 @@
 		961EFC571D738FF600E84652 /* SnackbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnackbarController.swift; sourceTree = "<group>"; };
 		961F18E71CD93E3E008927C5 /* ErrorTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorTextField.swift; sourceTree = "<group>"; };
 		96230AB71D6A520C00AF47DC /* Divider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Divider.swift; sourceTree = "<group>"; };
-		96264BE61D833D2800576F37 /* Reminders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reminders.swift; sourceTree = "<group>"; };
-		96264BE81D833D3400576F37 /* RemindersController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemindersController.swift; sourceTree = "<group>"; };
 		962864591D53FE3E00690B69 /* Material+UIWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIWindow.swift"; sourceTree = "<group>"; };
 		9628645E1D540AF300690B69 /* DynamicFontType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicFontType.swift; sourceTree = "<group>"; };
 		9631A7C01D95E3AC00CFB109 /* PresenterCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresenterCard.swift; sourceTree = "<group>"; };
@@ -368,15 +362,6 @@
 				96BCB7981CB40DC500C806FE /* Bar.swift */,
 			);
 			name = Bar;
-			sourceTree = "<group>";
-		};
-		96264BE51D833CFF00576F37 /* Reminders */ = {
-			isa = PBXGroup;
-			children = (
-				96264BE61D833D2800576F37 /* Reminders.swift */,
-				96264BE81D833D3400576F37 /* RemindersController.swift */,
-			);
-			name = Reminders;
 			sourceTree = "<group>";
 		};
 		962DDD071D6FBBB7001C307C /* Page */ = {
@@ -543,7 +528,6 @@
 				962DDD071D6FBBB7001C307C /* Page */,
 				96EA9A411D4E68E60052C74D /* PhotoLibrary */,
 				9631A7C51D95E5C400CFB109 /* Pulse */,
-				96264BE51D833CFF00576F37 /* Reminders */,
 				963FBF031D6696EF008F8512 /* SearchBar */,
 				963FBEFB1D6694E8008F8512 /* Snackbar */,
 				967A48171D0F424B00B8CEB7 /* StatusBar */,
@@ -855,8 +839,6 @@
 				9697F7C61D8F2573004741EC /* PageTabBarController.swift in Headers */,
 				9697F7C71D8F2573004741EC /* PhotoLibrary.swift in Headers */,
 				9697F7C81D8F2573004741EC /* PhotoLibraryController.swift in Headers */,
-				9697F7C91D8F2573004741EC /* Reminders.swift in Headers */,
-				9697F7CA1D8F2573004741EC /* RemindersController.swift in Headers */,
 				9697F7CB1D8F2573004741EC /* Snackbar.swift in Headers */,
 				9697F7CC1D8F2573004741EC /* SnackbarController.swift in Headers */,
 			);
@@ -1082,7 +1064,6 @@
 				96230AB81D6A520C00AF47DC /* Divider.swift in Sources */,
 				96BCB7C41CB40DC500C806FE /* Font.swift in Sources */,
 				96BCB7AA1CB40DC500C806FE /* Grid.swift in Sources */,
-				96264BE91D833D3400576F37 /* RemindersController.swift in Sources */,
 				96BCB7E71CB40DC500C806FE /* TextView.swift in Sources */,
 				96BCB7C31CB40DC500C806FE /* EdgeInsets.swift in Sources */,
 				96BCB7CE1CB40DC500C806FE /* CornerRadius.swift in Sources */,
@@ -1091,7 +1072,6 @@
 				96BCB7D81CB40DC500C806FE /* MenuController.swift in Sources */,
 				96BCB7D41CB40DC500C806FE /* TransitionAnimation.swift in Sources */,
 				967A48191D0F425A00B8CEB7 /* StatusBarController.swift in Sources */,
-				96264BE71D833D2800576F37 /* Reminders.swift in Sources */,
 				96BCB7C21CB40DC500C806FE /* Device.swift in Sources */,
 				96BCB7A41CB40DC500C806FE /* CaptureSession.swift in Sources */,
 				963FBF081D669D14008F8512 /* PageTabBarController.swift in Sources */,

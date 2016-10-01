@@ -32,13 +32,8 @@ import UIKit
 import Material
 
 class RootViewController: UIViewController {
-    /// A reference to the addButton.
     internal var addButton: FabButton!
-    
-    /// A reference to the audioLibraryMenuItem.
     internal var audioLibraryMenuItem: MenuItem!
-    
-    /// A reference to the reminderMenuItem.
     internal var reminderMenuItem: MenuItem!
     
     open override func viewDidLoad() {
@@ -73,22 +68,19 @@ class RootViewController: UIViewController {
         }
     }
     
-    /// Prepares the addButton.
     private func prepareAddButton() {
         addButton = FabButton(image: Icon.cm.add, tintColor: Color.white)
-        addButton.backgroundColor = Color.blue.base
         addButton.addTarget(self, action: #selector(handleToggleMenu), for: .touchUpInside)
     }
     
-    /// Prepares the audioLibraryButton.
     private func prepareAudioLibraryButton() {
         audioLibraryMenuItem = MenuItem()
         audioLibraryMenuItem.button.image = Icon.cm.audioLibrary
-        audioLibraryMenuItem.button.backgroundColor = Color.blue.base
+        audioLibraryMenuItem.button.backgroundColor = Color.green.base
+        audioLibraryMenuItem.button.depthPreset = .depth1
         audioLibraryMenuItem.title = "Audio Library"
     }
     
-    /// Prepares the bellButton.
     private func prepareBellButton() {
         reminderMenuItem = MenuItem()
         reminderMenuItem.button.image = Icon.cm.bell
@@ -96,7 +88,6 @@ class RootViewController: UIViewController {
         reminderMenuItem.title = "Reminders"
     }
     
-    /// Prepares the menuController.
     private func prepareMenuController() {
         guard let mc = menuController as? AppMenuController else {
             return

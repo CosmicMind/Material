@@ -101,8 +101,6 @@ open class MenuItem: View {
         titleLabel.backgroundColor = Color.white
         titleLabel.depthPreset = button.depthPreset
         titleLabel.cornerRadiusPreset = .cornerRadius1
-        titleLabel.shapePreset = .none
-        titleLabel.clipsToBounds = true
         addSubview(titleLabel)
     }
 }

@@ -32,18 +32,13 @@ import UIKit
 import Material
 
 class AppMenuController: MenuController {
-    /// Menu diameter.
     private let baseSize = CGSize(width: 56, height: 56)
-    
-    /// Menu bottom inset.
     private let bottomInset: CGFloat = 24
-    
-    /// Menu right inset.
     private let rightInset: CGFloat = 24
     
     open override func prepare() {
         super.prepare()
-        view.backgroundColor = Color.black
+        view.backgroundColor = Color.grey.lighten5
         
         prepareMenu()
     }
@@ -58,7 +53,6 @@ class AppMenuController: MenuController {
         menu.views.first?.animate(animation: Animation.rotate(angle: 0))
     }
     
-    /// Prepares the menuView.
     private func prepareMenu() {
         menu.baseSize = baseSize
         
