@@ -154,7 +154,7 @@ A SearchBar is a powerful navigation tool that allows for user's input with an i
 
 A PageTabBarController is a new component that links a customizable TabBar to a UIPageViewController making a powerful and visually pleasing component to have in any application.
 
-![Material Image](http://www.cosmicmind.io/material/shared/page-tab-bar-controller.gif)
+![Material Image](http://www.cosmicmind.io/material/white/page-tab-bar-controller.gif)
 
 [Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/PageTabBarController)
 
