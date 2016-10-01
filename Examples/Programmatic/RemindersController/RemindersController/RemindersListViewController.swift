@@ -171,12 +171,12 @@ extension RemindersListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RemindersListCollectionViewCell", for: indexPath) as! RemindersListCollectionViewCell
         
-        let dataSource = dataSourceItems[indexPath.section]
+        let dataSource = dataSourceItems[indexPath.item]
         let list = dataSource.list
         let items = dataSource.items
         cell.titleLabel.text = list.title
         cell.titleLabel.textColor = UIColor(cgColor: list.cgColor)
-        cell.countLabel.text = "1"
+        cell.countLabel.text = "\(items.count)"
         cell.countLabel.textColor = UIColor(cgColor: list.cgColor)
         
         return cell

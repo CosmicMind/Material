@@ -101,19 +101,19 @@ extension RemindersItemsViewController: UICollectionViewDelegate {
 extension RemindersItemsViewController: UICollectionViewDataSource {
     /// Determines the number of items in the collectionView.
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return dataSource.items.count
     }
     
     /// Returns the number of sections.
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1 // dataSource.items.count
+        return 1
     }
     
     /// Prepares the cells within the collectionView.
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RemindersItemsCollectionViewCell", for: indexPath) as! RemindersItemsCollectionViewCell
         
-        let item = dataSource.items.last!
+        let item = dataSource.items[indexPath.item]
         cell.textLabel.text = item.title
         
         return cell
