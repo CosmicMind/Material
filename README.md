@@ -16,15 +16,18 @@ The first version of Material was to bring Material Design to iOS. We considered
 - [x] Layout Library
 - [x] Color Library
 - [x] Photo Library
-- [x] Reminders
 - [x] Photo & Video
 - [x] Cards
 - [x] Menus
 - [x] Icons
 - [x] TextField
 - [X] Snackbar
+- [x] TabBar
+- [x] PageTabBar
 - [X] SearchBar
-- [x] Navigation Controls
+- [x] NavigationBar
+- [x] BottomNavigationBar
+- [x] NavigationDrawer
 - [x] Example Projects
 - [x] And More...
 
@@ -150,9 +153,9 @@ A SearchBar is a powerful navigation tool that allows for user's input with an i
 
 [Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/SearchBarController)
 
-## PageTabBarController
+## PageTabBar
 
-A PageTabBarController is a new component that links a customizable TabBar to a UIPageViewController making a powerful and visually pleasing component to have in any application.
+A PageTabBar is a new component that links a customizable TabBar to a UIPageViewController making a powerful and visually pleasing component to have in any application. The TabBar can be aligned at the top or bottom of the view controller.
 
 ![Material Image](http://www.cosmicmind.io/material/white/page-tab-bar-controller.gif)
 
