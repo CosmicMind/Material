@@ -133,7 +133,7 @@ class ViewController: UIViewController {
         card.contentViewEdgeInsetsPreset = .square3
         
         card.bottomBar = bottomBar
-        card.bottomBarEdgeInsetsPreset = .square1
+        card.bottomBarEdgeInsetsPreset = .square2
         
         view.layout(card).horizontally(left: 20, right: 20).center()
     }
