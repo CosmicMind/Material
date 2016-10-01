@@ -1,33 +1,51 @@
 ![Material](http://www.cosmicmind.io/MK/Material.png)
 
-# Welcome to Material
+## Welcome to Material
 
-An animation and graphics framework for Material Design in Swift.
+Material is an animation and graphics framework.
 
-![App](http://www.cosmicmind.io/gifs/App.gif)
+## About Material 2
+
+The first version of Material was to bring Material Design to iOS. We considered that a great starting point, but not the entire story. Material 2 is the next chapter, which goes deeper into iOS with refined APIs that simplify Architecture, Photo Library, Reminders, Text Editing, Photo & Video, and much more. In addition to Material Design, we love Apple’s flat UI. Having this in mind, we made it possible to accomplish both UI styles with ease.
 
 ## Features
 
-- [x] Fully Configurable UI Components
-- [x] Grid System For Complex UIs
-- [x] Layout Library To Simplify AutoLayout
-- [x] Base Material Layers & Material Views To Create New UI Components
-- [x] Navigation Controls
-- [x] Material Buttons
-- [x] Material Switch
-- [x] Material Card Views
-- [x] Material Icons
-- [x] Menu Toolset To Create Animated Menus
-- [x] Camera / Video Extension With Extensive Functionality
-- [x] Animation Extension To Create Intricate Animations
-- [x] Complete Material Color Library
+- [x] Completely Customizable
+- [x] Animations
+- [x] Grid System
+- [x] Layout Library
+- [x] Color Library
+- [x] Photo Library
+- [x] Photo & Video
+- [x] Cards
+- [x] Menus
+- [x] Icons
+- [x] TextField
+- [X] Snackbar
+- [x] TabBar
+- [x] PageTabBar
+- [X] SearchBar
+- [x] NavigationBar
+- [x] BottomNavigationBar
+- [x] NavigationDrawer
 - [x] Example Projects
+- [x] And More...
+
+## Releasing October 30th 2016
+
+- [x] Reminders
+- [x] Text Editor
+- [x] Toasts
+- [x] Dialogs & Alerts
+- [x] Bottom Sheets
+- [x] Beginner To Pro Lessons
+- [x] Additional Examples
 - [x] And More...
 
 ## Requirements
 
 * iOS 8.0+ / Mac OS X 10.9+
-* Xcode 7.3+
+* Xcode 8.0+
 
 ## Communication
 
@@ -50,8 +68,122 @@ Material is a growing project and will encounter changes throughout its developm
 
 ## Examples
 
-* Visit the Examples directory to see example projects using Material.
-* The [Installation](https://github.com/CosmicMind/Material/wiki/Installation) page has documentation on how to run the example projects.
+* Visit the [Examples](https://github.com/CosmicMind/Material/tree/master/Examples) directory to see example projects using Material.
+* The [Installation](https://github.com/CosmicMind/Material/wiki/Installation) page has documentation on how to run example projects.
+
+# Sample Components
+
+The following are some sample components available within Material:
+
+## Icons
+
+Icons is a library of Google and CosmicMind icons that are available for use within your iOS applications.
+
+![Icon](http://www.cosmicmind.io/MK/MaterialMaterialIcon.png)
+
+## TextField
+
+A TextField is an excellent way to improve UX. It allows for a placeholder and additional hint details.
+
+![TextField](http://www.cosmicmind.io/gifs/TextField.gif)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/TextField)
+
+## Button
+
+A button is used to trigger an action through a touch event. Material comes with a foundational button, and 4 specialized buttons that can be stylized in any way.
+
+![Material Image](http://www.cosmicmind.io/material/white/button.gif)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/Button)
+
+## Switch
+
+A switch is a control component that toggles between on and off states.
+
+![Material Image](http://www.cosmicmind.io/material/white/switch.gif)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/Switch)
+
+## Card
+
+A Card is a flexible component that may be configured in any way you like. It has a Toolbar, Bar, and content area that may utilize any UIView type.
+
+![Material Image](http://www.cosmicmind.io/material/white/card.gif)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/Card)
+
+## ImageCard
+
+An ImageCard is an expansion of the base Card. The Toolbar overlays an image area that sits above the dynamic content area.
+
+![Material Image](http://www.cosmicmind.io/material/white/image-card.gif)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/ImageCard)
+
+## PresenterCard
+
+The PresenterCard is a completely new card style. It allows for a primary presentation area that may be any UIView type in addition to the content area, Toolbar, and Bar components. The options for this card are endless.
+
+![Material Image](http://www.cosmicmind.io/material/white/presenter-card.gif)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/PresenterCard)
+
+## Menu
+
+A Menu manages a collection of views. A new MenuItem type has been added that manages a title and button to improve UX and visual beauty.
+
+![Material Image](http://www.cosmicmind.io/material/white/menu-controller.gif)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/MenuController)
+
+## Toolbar
+
+Toolbars are super flexible and add excellent control to your navigation flow. They manage a set of left and right views with auto aligning title and detail labels.
+
+![Material Image](http://www.cosmicmind.io/gifs/Toolbar.gif)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/ToolbarController)
+
+## SearchBar
+
+A SearchBar is a powerful navigation tool that allows for user's input with an instant visual response. A set of left and right views may be added to expand functionality.
+
+![Material Image](http://www.cosmicmind.io/gifs/SearchBar.gif)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/SearchBarController)
+
+## PageTabBar
+
+A PageTabBar is a new component that links a customizable TabBar to a UIPageViewController making a powerful and visually pleasing component to have in any application. The TabBar can be aligned at the top or bottom of the view controller.
+
+![Material Image](http://www.cosmicmind.io/material/white/page-tab-bar-controller.gif)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/PageTabBarController)
+
+## Snackbar
+
+A Snackbar is a new component that is very simple in its behavior and very powerful in its message. It can be used application wide, or isolated to specific view controllers.
+
+![Material Image](http://www.cosmicmind.io/material/white/snackbar-controller.gif)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/SnackbarController)
+
+## PhotoLibrary
+
+PhotoLibrary is a new component that simplifies the Photos framework and allows for beautiful photos found in the Photos application to be used within your application.
+
+![Material Image](http://www.cosmicmind.io/material/shared/photolibrary-controller.png)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/PhotoLibraryController)
+
+## Capture
+
+Capture is an API that simplifies iOS' AVFoundation framework. It allows for photos and video to easily be captured while managing all the complexities.
+
+![Material Image](http://www.cosmicmind.io/material/shared/capture-controller.png)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/CaptureController)
 
 ## Sticker Sheet
 
@@ -63,75 +195,13 @@ To help template your project, checkout Material Sticker Sheet.
 
 ## Material Colors
 
-Try the Material Colors app to see the wonderful colors available in Material, or use the online version at [MaterialColors.io](http://materialcolors.io)
+Try the Material Colors app to see the wonderful colors available in Material, or use the online version at [materialColors.io](http://materialcolors.io)
 
 ![MaterialColors](http://www.cosmicmind.io/gifs/MaterialColors.gif)
 
 [Get Material Colors on the AppStore](https://itunes.apple.com/app/x/id1111994400?mt=8)
 
-## A Quick Tour
-
-Take a look at some components in Material.
-
-#### Material Icons
-
-Material Icons is a library of Google and CosmicMind icons that are available for use within your iOS applications. To help with icon choices, visit [MaterialIcon.io](http://www.materialicon.io).
-
-![MaterialIcon](http://www.cosmicmind.io/MK/MaterialMaterialIcon.png)
-
-#### TextField
-
-A TextField is an excellent way to improve UX.
-
-![TextField](http://www.cosmicmind.io/gifs/TextField.gif)
-
-#### Buttons
-
-Some example buttons - FlatButton, RaisedButton, FabButton, and IconButton.
-
-![Buttons](http://www.cosmicmind.io/gifs/Buttons.gif)
-
-#### MenuView
-
-A MenuView manages a group of UIViews that may be animated with default and custom configurations.
-
-![MenuView](http://www.cosmicmind.io/gifs/MenuView.gif)
-
-#### Material Switch
-
-Enjoy flexible switch controls to add that little extra to your application.
-
-![Switch](http://www.cosmicmind.io/gifs/Switch.gif)
-
-#### Grid
-
-Grid is an extension of UIView that enables any collection of subviews to be managed in a flexible grid system.
-
-![Grid](http://www.cosmicmind.io/gifs/Grid.gif)
-
-#### CardViews
-
-CardViews are flexible components that may be configured in any way you like.
-
-![CardView](http://www.cosmicmind.io/gifs/CardView.gif)
-
-![ImageCardView](http://www.cosmicmind.io/gifs/ImageCardView.gif)
-
-![TableCardView](http://www.cosmicmind.io/gifs/TableCardView.gif)
-
-#### Toolbar
-
-Toolbars are super flexible and add excellent control to your navigation flow.
-
-![Toolbar](http://www.cosmicmind.io/gifs/Toolbar.gif)
-
-#### SearchBar
-
-SearchBars are sleek and powerful. Customize a SearchBar in any way you like.
-
-![SearchBar](http://www.cosmicmind.io/gifs/SearchBar.gif)
-
-#### Much More...
+## Much More...
 
 So much more inside. Enjoy!
 
@@ -148,7 +218,7 @@ Redistribution and use in source and binary forms, with or without modification,
     this list of conditions and the following disclaimer in the documentation
     and/or other materials provided with the distribution.
 
-*   Neither the name of Material nor the names of its
+*   Neither the name of CosmicMind nor the names of its
     contributors may be used to endorse or promote products derived from
     this software without specific prior written permission.
 

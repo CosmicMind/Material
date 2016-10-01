@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:Material.xcodeproj">
+   </FileRef>
+   <Group
+      location = "container:"
+      name = "Examples">
+      <Group
+         location = "container:"
+         name = "Programmatic">
+         <FileRef
+            location = "group:Examples/Programmatic/Bar/Bar.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Examples/Programmatic/BottomNavigationController/BottomNavigationController.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Examples/Programmatic/Button/Button.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Examples/Programmatic/CaptureController/CaptureController.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Examples/Programmatic/Card/Card.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Examples/Programmatic/ImageCard/ImageCard.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Examples/Programmatic/PresenterCard/PresenterCard.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Examples/Programmatic/Layer/Layer.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Examples/Programmatic/MenuController/MenuController.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Examples/Programmatic/NavigationController/NavigationController.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Examples/Programmatic/NavigationDrawerController/NavigationDrawerController.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Examples/Programmatic/PageTabBarController/PageTabBarController.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Examples/Programmatic/PhotoLibraryController/PhotoLibraryController.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Examples/Programmatic/SearchBarController/SearchBarController.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Examples/Programmatic/SnackbarController/SnackbarController.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Examples/Programmatic/StatusBarController/StatusBarController.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Examples/Programmatic/Switch/Switch.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Examples/Programmatic/TabBar/TabBar.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Examples/Programmatic/TextField/TextField.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Examples/Programmatic/ToolbarController/ToolbarController.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Examples/Programmatic/View/View.xcodeproj">
+         </FileRef>
+      </Group>
+      <Group
+         location = "container:"
+         name = "Storyboards">
+         <FileRef
+            location = "group:Examples/Storyboards/BottomNavigationController/BottomNavigationController.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Examples/Storyboards/Button/Button.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Examples/Storyboards/NavigationDrawerController/NavigationDrawerController.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Examples/Storyboards/PageTabBarController/PageTabBarController.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Examples/Storyboards/SearchBarController/SearchBarController.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Examples/Storyboards/SnackbarController/SnackbarController.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Examples/Storyboards/StatusBarController/StatusBarController.xcodeproj">
+         </FileRef>
+      </Group>
+   </Group>
+</Workspace>

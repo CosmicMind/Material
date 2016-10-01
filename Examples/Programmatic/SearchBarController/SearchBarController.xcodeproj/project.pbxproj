@@ -7,15 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		96F2F1F41C97A60800A5FE27 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F2F1EB1C97A60800A5FE27 /* AppDelegate.swift */; };
-		96F2F1F51C97A60800A5FE27 /* AppSearchBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F2F1EC1C97A60800A5FE27 /* AppSearchBarController.swift */; };
-		96F2F1F61C97A60800A5FE27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96F2F1ED1C97A60800A5FE27 /* Assets.xcassets */; };
-		96F2F1F71C97A60800A5FE27 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96F2F1EE1C97A60800A5FE27 /* LaunchScreen.storyboard */; };
-		96F2F1FB1C97A60800A5FE27 /* YellowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F2F1F31C97A60800A5FE27 /* YellowViewController.swift */; };
+		96784EC61D9012980061C06C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96784EC51D9012980061C06C /* AppDelegate.swift */; };
+		96784EC81D9012980061C06C /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96784EC71D9012980061C06C /* RootViewController.swift */; };
+		96784ECD1D9012980061C06C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96784ECC1D9012980061C06C /* Assets.xcassets */; };
+		96784ED01D9012980061C06C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96784ECE1D9012980061C06C /* LaunchScreen.storyboard */; };
+		96784F241D901E7D0061C06C /* AppSearchBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96784F231D901E7D0061C06C /* AppSearchBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		960036191C77E21800EBA579 /* Embed Frameworks */ = {
+		96784F221D901E520061C06C /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
@@ -28,17 +28,17 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		960035FD1C77E0D400EBA579 /* SearchBarController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SearchBarController.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		96F2F1EB1C97A60800A5FE27 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		96F2F1EC1C97A60800A5FE27 /* AppSearchBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSearchBarController.swift; sourceTree = "<group>"; };
-		96F2F1ED1C97A60800A5FE27 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		96F2F1EF1C97A60800A5FE27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		96F2F1F21C97A60800A5FE27 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		96F2F1F31C97A60800A5FE27 /* YellowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowViewController.swift; sourceTree = "<group>"; };
+		96784EC21D9012980061C06C /* SearchBarController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SearchBarController.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		96784EC51D9012980061C06C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		96784EC71D9012980061C06C /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		96784ECC1D9012980061C06C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		96784ECF1D9012980061C06C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		96784ED11D9012980061C06C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		96784F231D901E7D0061C06C /* AppSearchBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSearchBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		960035FA1C77E0D400EBA579 /* Frameworks */ = {
+		96784EBF1D9012980061C06C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -48,31 +48,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		960035F41C77E0D400EBA579 = {
+		96784EB91D9012980061C06C = {
 			isa = PBXGroup;
 			children = (
-				96F2F1EA1C97A60800A5FE27 /* SearchBarController */,
-				960035FE1C77E0D400EBA579 /* Products */,
+				96784EC41D9012980061C06C /* SearchBarController */,
+				96784EC31D9012980061C06C /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		960035FE1C77E0D400EBA579 /* Products */ = {
+		96784EC31D9012980061C06C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				960035FD1C77E0D400EBA579 /* SearchBarController.app */,
+				96784EC21D9012980061C06C /* SearchBarController.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		96F2F1EA1C97A60800A5FE27 /* SearchBarController */ = {
+		96784EC41D9012980061C06C /* SearchBarController */ = {
 			isa = PBXGroup;
 			children = (
-				96F2F1EB1C97A60800A5FE27 /* AppDelegate.swift */,
-				96F2F1EC1C97A60800A5FE27 /* AppSearchBarController.swift */,
-				96F2F1F31C97A60800A5FE27 /* YellowViewController.swift */,
-				96F2F1ED1C97A60800A5FE27 /* Assets.xcassets */,
-				96F2F1EE1C97A60800A5FE27 /* LaunchScreen.storyboard */,
-				96F2F1F21C97A60800A5FE27 /* Info.plist */,
+				96784EC51D9012980061C06C /* AppDelegate.swift */,
+				96784F231D901E7D0061C06C /* AppSearchBarController.swift */,
+				96784EC71D9012980061C06C /* RootViewController.swift */,
+				96784ECC1D9012980061C06C /* Assets.xcassets */,
+				96784ECE1D9012980061C06C /* LaunchScreen.storyboard */,
+				96784ED11D9012980061C06C /* Info.plist */,
 			);
 			path = SearchBarController;
 			sourceTree = "<group>";
@@ -80,40 +80,41 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		960035FC1C77E0D400EBA579 /* SearchBarController */ = {
+		96784EC11D9012980061C06C /* SearchBarController */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9600360F1C77E0D400EBA579 /* Build configuration list for PBXNativeTarget "SearchBarController" */;
+			buildConfigurationList = 96784ED41D9012980061C06C /* Build configuration list for PBXNativeTarget "SearchBarController" */;
 			buildPhases = (
-				960035F91C77E0D400EBA579 /* Sources */,
-				960035FA1C77E0D400EBA579 /* Frameworks */,
-				960035FB1C77E0D400EBA579 /* Resources */,
-				960036191C77E21800EBA579 /* Embed Frameworks */,
+				96784EBE1D9012980061C06C /* Sources */,
+				96784EBF1D9012980061C06C /* Frameworks */,
+				96784EC01D9012980061C06C /* Resources */,
+				96784F221D901E520061C06C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = SearchBarController;
-			productName = SearchBarViewController;
-			productReference = 960035FD1C77E0D400EBA579 /* SearchBarController.app */;
+			productName = SearchBarController;
+			productReference = 96784EC21D9012980061C06C /* SearchBarController.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		960035F51C77E0D400EBA579 /* Project object */ = {
+		96784EBA1D9012980061C06C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0720;
-				ORGANIZATIONNAME = "CosmicMind, Inc.";
+				LastSwiftUpdateCheck = 0800;
+				LastUpgradeCheck = 0800;
+				ORGANIZATIONNAME = CosmicMind;
 				TargetAttributes = {
-					960035FC1C77E0D400EBA579 = {
-						CreatedOnToolsVersion = 7.2.1;
+					96784EC11D9012980061C06C = {
+						CreatedOnToolsVersion = 8.0;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
-			buildConfigurationList = 960035F81C77E0D400EBA579 /* Build configuration list for PBXProject "SearchBarController" */;
+			buildConfigurationList = 96784EBD1D9012980061C06C /* Build configuration list for PBXProject "SearchBarController" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -121,46 +122,46 @@
 				en,
 				Base,
 			);
-			mainGroup = 960035F41C77E0D400EBA579;
-			productRefGroup = 960035FE1C77E0D400EBA579 /* Products */;
+			mainGroup = 96784EB91D9012980061C06C;
+			productRefGroup = 96784EC31D9012980061C06C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				960035FC1C77E0D400EBA579 /* SearchBarController */,
+				96784EC11D9012980061C06C /* SearchBarController */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		960035FB1C77E0D400EBA579 /* Resources */ = {
+		96784EC01D9012980061C06C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96F2F1F61C97A60800A5FE27 /* Assets.xcassets in Resources */,
-				96F2F1F71C97A60800A5FE27 /* LaunchScreen.storyboard in Resources */,
+				96784ED01D9012980061C06C /* LaunchScreen.storyboard in Resources */,
+				96784ECD1D9012980061C06C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		960035F91C77E0D400EBA579 /* Sources */ = {
+		96784EBE1D9012980061C06C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96F2F1F51C97A60800A5FE27 /* AppSearchBarController.swift in Sources */,
-				96F2F1F41C97A60800A5FE27 /* AppDelegate.swift in Sources */,
-				96F2F1FB1C97A60800A5FE27 /* YellowViewController.swift in Sources */,
+				96784EC81D9012980061C06C /* RootViewController.swift in Sources */,
+				96784EC61D9012980061C06C /* AppDelegate.swift in Sources */,
+				96784F241D901E7D0061C06C /* AppSearchBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		96F2F1EE1C97A60800A5FE27 /* LaunchScreen.storyboard */ = {
+		96784ECE1D9012980061C06C /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				96F2F1EF1C97A60800A5FE27 /* Base */,
+				96784ECF1D9012980061C06C /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -168,10 +169,11 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		9600360D1C77E0D400EBA579 /* Debug */ = {
+		96784ED21D9012980061C06C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -179,10 +181,13 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -204,19 +209,21 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		9600360E1C77E0D400EBA579 /* Release */ = {
+		96784ED31D9012980061C06C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -224,10 +231,13 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -243,58 +253,61 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		960036101C77E0D400EBA579 /* Debug */ = {
+		96784ED51D9012980061C06C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = "$(SRCROOT)/SearchBarController/Info.plist";
+				INFOPLIST_FILE = SearchBarController/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.SearchBarController;
-				PRODUCT_NAME = SearchBarController;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
-		960036111C77E0D400EBA579 /* Release */ = {
+		96784ED61D9012980061C06C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = "$(SRCROOT)/SearchBarController/Info.plist";
+				INFOPLIST_FILE = SearchBarController/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.SearchBarController;
-				PRODUCT_NAME = SearchBarController;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		960035F81C77E0D400EBA579 /* Build configuration list for PBXProject "SearchBarController" */ = {
+		96784EBD1D9012980061C06C /* Build configuration list for PBXProject "SearchBarController" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				9600360D1C77E0D400EBA579 /* Debug */,
-				9600360E1C77E0D400EBA579 /* Release */,
+				96784ED21D9012980061C06C /* Debug */,
+				96784ED31D9012980061C06C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9600360F1C77E0D400EBA579 /* Build configuration list for PBXNativeTarget "SearchBarController" */ = {
+		96784ED41D9012980061C06C /* Build configuration list for PBXNativeTarget "SearchBarController" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				960036101C77E0D400EBA579 /* Debug */,
-				960036111C77E0D400EBA579 /* Release */,
+				96784ED51D9012980061C06C /* Debug */,
+				96784ED61D9012980061C06C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 960035F51C77E0D400EBA579 /* Project object */;
+	rootObject = 96784EBA1D9012980061C06C /* Project object */;
 }
