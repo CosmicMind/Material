@@ -25,6 +25,7 @@ CosmicMind is setting out to build a seamless application platform, and Material
 - [x] Cards
 - [x] Menus
 - [x] Icons
+- [x] Text
 - [x] Navigation Controls
 - [x] Example Projects
 - [x] And More...
@@ -86,7 +87,7 @@ Icons is a library of Google and CosmicMind icons that are available for use wit
 
 ## Bar
 
-A Bar is a foundation component that organizes a set of left and right views around a centered content view. Bars are great for building layouts that are combined with buttons and switches.
+A Bar is a foundation component that organizes a set of left and right views around a content area. Bars are great for building layouts that are combined with buttons and switches.
 
 ![Material Image](http://www.cosmicmind.io/material/white/bar.gif)
 

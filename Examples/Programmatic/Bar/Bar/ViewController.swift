@@ -52,10 +52,7 @@ class ViewController: UIViewController {
         prepareMenuButton()
         prepareFavoriteButton()
         prepareShareButton()
-        prepareTitleLabel()
         prepareBar()
-        
-        layoutSubviews()
     }
     
     private func prepareMenuButton() {
@@ -73,24 +70,17 @@ class ViewController: UIViewController {
         shareButton.pulseColor = Color.white
     }
     
-    private func prepareTitleLabel() {
-        titleLabel = UILabel()
-        titleLabel.text = "Title"
-        titleLabel.font = RobotoFont.bold(with: 17)
-        titleLabel.textColor = Color.white
-    }
-    
     private func prepareBar() {
         bar = Bar()
-        bar.contentEdgeInsetsPreset = .square1
         bar.backgroundColor = Color.blue.base
+        
+        bar.contentView.cornerRadiusPreset = .cornerRadius1
+        bar.contentView.backgroundColor = Color.blue.lighten3
+        
         bar.leftViews = [menuButton]
         bar.rightViews = [favoriteButton, shareButton]
-    }
-    
-    private func layoutSubviews() {
+        
         view.layout(bar).horizontally().center()
-        bar.contentView.layout(titleLabel).edges()
     }
 }
 

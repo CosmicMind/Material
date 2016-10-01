@@ -150,7 +150,7 @@ open class CollectionViewCell: UICollectionViewCell {
 		}
 	}
 	
-	/// A preset wrapper around contentInset.
+	/// A preset wrapper around contentEdgeInsets.
 	public var contentEdgeInsetsPreset: EdgeInsetsPreset {
 		get {
 			return contentView.grid.contentEdgeInsetsPreset
@@ -160,7 +160,7 @@ open class CollectionViewCell: UICollectionViewCell {
 		}
 	}
 	
-	/// A wrapper around grid.contentInset.
+	/// A reference to EdgeInsets.
 	@IBInspectable
     open var contentInset: EdgeInsets {
 		get {

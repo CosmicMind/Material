@@ -32,6 +32,9 @@ import UIKit
 import Material
 
 class ViewController: UIViewController {
+    private var card: ImageCard!
+    
+    /// Conent area.
     private var imageView: UIImageView!
     private var contentView: UILabel!
     
@@ -47,7 +50,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Color.white
+        view.backgroundColor = Color.grey.lighten5
         
         prepareImageView()
         prepareFavoriteButton()
@@ -69,17 +72,17 @@ class ViewController: UIViewController {
     }
     
     private func prepareFavoriteButton() {
-        favoriteButton = FlatButton(image: Icon.favorite, tintColor: Color.grey.base)
+        favoriteButton = FlatButton(image: Icon.favorite, tintColor: Color.blueGrey.base)
         favoriteButton.grid.columns = 4
     }
     
     private func prepareShareButton() {
-        shareButton = FlatButton(image: Icon.cm.share, tintColor: Color.grey.base)
+        shareButton = FlatButton(image: Icon.cm.share, tintColor: Color.blueGrey.base)
         shareButton.grid.columns = 4
     }
     
     private func prepareStarButton() {
-        starButton = FlatButton(image: Icon.cm.star, tintColor: Color.grey.base)
+        starButton = FlatButton(image: Icon.cm.star, tintColor: Color.blueGrey.base)
         starButton.grid.columns = 4
     }
     
@@ -92,47 +95,38 @@ class ViewController: UIViewController {
         toolbar.backgroundColor = nil
         
         toolbar.title = "CosmicMind"
-        toolbar.titleLabel.textAlignment = .left
         toolbar.titleLabel.textColor = Color.white
         
         toolbar.detail = "Build Beautiful Software"
-        toolbar.detailLabel.textAlignment = .left
         toolbar.detailLabel.textColor = Color.white
-        
-        let insets = EdgeInsetsPresetToValue(preset: .square3)
-        toolbar.height += insets.top + insets.bottom
-        toolbar.contentEdgeInsetsPreset = .square3
-        
-        toolbar.rightViews.append(moreButton)
     }
     
     private func prepareContentView() {
         contentView = UILabel()
         contentView.numberOfLines = 0
-        contentView.text = "It’s been a while, have you read any new books lately?"
+        contentView.text = "Material is an animation and graphics framework that is the foundation for creating beautiful applications."
         contentView.font = RobotoFont.regular(with: 14)
     }
     
     private func prepareBottomBar() {
         bottomBar = Bar()
-        bottomBar.backgroundColor = Color.grey.lighten4
-        bottomBar.contentEdgeInsetsPreset = .square1
-        bottomBar.cornerRadiusPreset = .cornerRadius1
-        
-        bottomBar.dividerColor = Color.grey.lighten3
-        bottomBar.dividerAlignment = .top
+        bottomBar.backgroundColor = nil
         
         bottomBar.contentView.grid.views = [favoriteButton, shareButton, starButton]
     }
     
     private func prepareImageCard() {
-        let card = ImageCard()
+        card = ImageCard()
         card.imageView = imageView
+        
         card.toolbar = toolbar
+        card.toolbarEdgeInsetsPreset = .square3
+        
         card.contentView = contentView
+        card.contentViewEdgeInsetsPreset = .square3
+        
         card.bottomBar = bottomBar
         card.cornerRadiusPreset = .cornerRadius1
-        card.contentEdgeInsetsPreset = .square3
         
         view.layout(card).horizontally(left: 20, right: 20).center()
     }

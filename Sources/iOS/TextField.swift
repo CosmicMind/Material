@@ -482,7 +482,7 @@ open class TextField: UITextField {
 	/// The animation for the divider when editing begins.
 	open func dividerEditingDidBeginAnimation() {
 		dividerHeight = dividerActiveHeight
-		dividerColor = dividerActiveColor ?? placeholderActiveColor
+		dividerColor = dividerActiveColor
 	}
 	
 	/// The animation for the divider when editing ends.

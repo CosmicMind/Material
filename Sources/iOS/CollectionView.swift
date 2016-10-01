@@ -31,7 +31,7 @@
 import UIKit
 
 open class CollectionView: UICollectionView {
-    /// A preset wrapper around contentInset.
+    /// A preset wrapper around contentEdgeInsets.
 	open var contentEdgeInsetsPreset: EdgeInsets {
 		get {
 			return (collectionViewLayout as? CollectionViewLayout)!.contentEdgeInsets

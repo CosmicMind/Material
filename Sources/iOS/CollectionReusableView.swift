@@ -146,7 +146,7 @@ open class CollectionReusableView: UICollectionReusableView {
 		}
 	}
 	
-	/// A preset wrapper around contentInset.
+	/// A preset wrapper around contentEdgeInsets.
 	open var contentEdgeInsetsPreset: EdgeInsetsPreset {
 		get {
 			return grid.contentEdgeInsetsPreset
@@ -156,7 +156,7 @@ open class CollectionReusableView: UICollectionReusableView {
 		}
 	}
 	
-	/// A wrapper around grid.contentInset.
+	/// A reference to EdgeInsets.
 	@IBInspectable open var contentInset: UIEdgeInsets {
 		get {
 			return grid.contentEdgeInsets

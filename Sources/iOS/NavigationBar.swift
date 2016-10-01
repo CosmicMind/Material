@@ -60,14 +60,14 @@ open class NavigationBar: UINavigationBar {
 		return 0 < width && 0 < height && nil != superview
 	}
 	
-	/// A preset wrapper around contentInset.
+	/// A preset wrapper around contentEdgeInsets.
 	open var contentEdgeInsetsPreset = EdgeInsetsPreset.none {
 		didSet {
             contentEdgeInsets = EdgeInsetsPresetToValue(preset: contentEdgeInsetsPreset)
 		}
 	}
 	
-	/// A wrapper around grid.contentInset.
+	/// A reference to EdgeInsets.
 	@IBInspectable
     open var contentEdgeInsets = EdgeInsets.zero {
 		didSet {

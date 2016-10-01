@@ -163,7 +163,7 @@ open class View: UIView {
 	
 	open override func layoutSubviews() {
 		super.layoutSubviews()
-		layoutShadowPath()
+        layoutShadowPath()
 	}
 	
 	/**

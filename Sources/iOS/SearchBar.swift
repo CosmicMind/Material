@@ -136,8 +136,6 @@ open class SearchBar: Bar {
      */
 	open override func prepare() {
 		super.prepare()
-        interimSpacePreset = .interimSpace3
-        contentEdgeInsetsPreset = .square1
         prepareTextField()
 		prepareClearButton()
 	}

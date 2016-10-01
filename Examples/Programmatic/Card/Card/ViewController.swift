@@ -32,17 +32,16 @@ import UIKit
 import Material
 
 class ViewController: UIViewController {
-    /// Card reference.
-    private lazy var card: Card = Card()
+    private var card: Card!
     
     /// Conent area.
     private var contentView: UILabel!
     
     /// Bottom Bar views.
     private var bottomBar: Bar!
-    private var favoriteButton: FlatButton!
-    private var shareButton: FlatButton!
-    private var starButton: FlatButton!
+    private var dateFormatter: DateFormatter!
+    private var dateLabel: UILabel!
+    private var favoriteButton: IconButton!
     
     /// Toolbar views.
     private var toolbar: Toolbar!
@@ -51,11 +50,11 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Color.white
+        view.backgroundColor = Color.grey.lighten5
         
+        prepareDateFormatter()
+        prepareDateLabel()
         prepareFavoriteButton()
-        prepareShareButton()
-        prepareStarButton()
         prepareMoreButton()
         prepareAuthorView()
         prepareToolbar()
@@ -64,27 +63,25 @@ class ViewController: UIViewController {
         prepareImageCard()
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
+    private func prepareDateFormatter() {
+        dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+    }
+    private func prepareDateLabel() {
+        dateLabel = UILabel()
+        dateLabel.font = RobotoFont.regular(with: 12)
+        dateLabel.textColor = Color.blueGrey.base
+        dateLabel.text = dateFormatter.string(from: Date.distantFuture)
     }
     
     private func prepareFavoriteButton() {
-        favoriteButton = FlatButton(image: Icon.favorite, tintColor: Color.grey.base)
+        favoriteButton = IconButton(image: Icon.favorite, tintColor: Color.red.base)
         favoriteButton.grid.columns = 4
     }
     
-    private func prepareShareButton() {
-        shareButton = FlatButton(image: Icon.cm.share, tintColor: Color.grey.base)
-        shareButton.grid.columns = 4
-    }
-    
-    private func prepareStarButton() {
-        starButton = FlatButton(image: Icon.cm.star, tintColor: Color.grey.base)
-        starButton.grid.columns = 4
-    }
-    
     private func prepareMoreButton() {
-        moreButton = IconButton(image: Icon.cm.moreVertical, tintColor: Color.grey.base)
+        moreButton = IconButton(image: Icon.cm.moreVertical, tintColor: Color.blueGrey.base)
     }
     
     private func prepareAuthorView() {
@@ -104,38 +101,39 @@ class ViewController: UIViewController {
         
         toolbar.detail = "Build Beautiful Software"
         toolbar.detailLabel.textAlignment = .left
+        toolbar.detailLabel.textColor = Color.blueGrey.base
         
-        toolbar.contentEdgeInsetsPreset = .square2
-        
-        toolbar.leftViews.append(authorView)
-        toolbar.rightViews.append(moreButton)
+        toolbar.leftViews = [authorView]
+        toolbar.rightViews = [moreButton]
     }
     
     private func prepareContentView() {
         contentView = UILabel()
         contentView.numberOfLines = 0
-        contentView.text = "It’s been a while, have you read any new books lately?"
+        contentView.text = "Material is an animation and graphics framework that is the foundation for creating beautiful applications."
         contentView.font = RobotoFont.regular(with: 14)
     }
     
     private func prepareBottomBar() {
         bottomBar = Bar()
-        bottomBar.backgroundColor = Color.grey.lighten4
-        bottomBar.contentEdgeInsetsPreset = .square1
         bottomBar.cornerRadiusPreset = .cornerRadius1
         
-        bottomBar.dividerColor = Color.grey.lighten3
-        bottomBar.dividerAlignment = .top
-        
-        bottomBar.contentView.grid.views = [favoriteButton, shareButton, starButton]
+        bottomBar.leftViews = [dateLabel]
+        bottomBar.rightViews = [favoriteButton]
     }
     
     private func prepareImageCard() {
-        card.toolbar = toolbar
-        card.contentView = contentView
-        card.bottomBar = bottomBar
+        card = Card()
         card.cornerRadiusPreset = .cornerRadius1
-        card.contentEdgeInsetsPreset = .square3
+        
+        card.toolbar = toolbar
+        card.toolbarEdgeInsetsPreset = .square1
+        
+        card.contentView = contentView
+        card.contentViewEdgeInsetsPreset = .square3
+        
+        card.bottomBar = bottomBar
+        card.bottomBarEdgeInsetsPreset = .square1
         
         view.layout(card).horizontally(left: 20, right: 20).center()
     }

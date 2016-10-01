@@ -32,115 +32,117 @@ import UIKit
 import Material
 
 class ViewController: UIViewController {
-    private var imageView: UIImageView!
+    private var card: PresenterCard!
+    
+    /// Conent area.
+    private var presenterView: UIImageView!
     private var contentView: UILabel!
     
     /// Bottom Bar views.
     private var bottomBar: Bar!
-    private var favoriteButton: FlatButton!
-    private var shareButton: FlatButton!
-    private var starButton: FlatButton!
+    private var dateFormatter: DateFormatter!
+    private var dateLabel: UILabel!
+    private var favoriteButton: IconButton!
+    private var shareButton: IconButton!
     
     /// Toolbar views.
     private var toolbar: Toolbar!
     private var moreButton: IconButton!
-    private var authorView: View!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Color.white
+        view.backgroundColor = Color.grey.lighten5
         
-        prepareImageView()
+        preparePresenterView()
+        prepareDateFormatter()
+        prepareDateLabel()
         prepareFavoriteButton()
         prepareShareButton()
-        prepareStarButton()
         prepareMoreButton()
-        prepareAuthorView()
         prepareToolbar()
         prepareContentView()
         prepareBottomBar()
         prepareImageCard()
     }
     
-    private func prepareImageView() {
-        imageView = UIImageView()
-        imageView.image = UIImage(named: "frontier.jpg")?.resize(toWidth: view.width)
-        imageView.clipsToBounds = true
-        imageView.contentMode = .scaleAspectFill
+    private func preparePresenterView() {
+        presenterView = UIImageView()
+        presenterView.image = UIImage(named: "dreamer.jpg")?.resize(toWidth: view.width)
+        presenterView.clipsToBounds = true
+        presenterView.contentMode = .scaleAspectFill
+    }
+    
+    private func prepareDateFormatter() {
+        dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+    }
+    private func prepareDateLabel() {
+        dateLabel = UILabel()
+        dateLabel.font = RobotoFont.regular(with: 12)
+        dateLabel.textColor = Color.blueGrey.base
+        dateLabel.textAlignment = .center
+        dateLabel.text = dateFormatter.string(from: Date.distantFuture)
     }
     
     private func prepareFavoriteButton() {
-        favoriteButton = FlatButton(image: Icon.favorite, tintColor: Color.grey.base)
+        favoriteButton = IconButton(image: Icon.favorite, tintColor: Color.red.base)
         favoriteButton.grid.columns = 4
     }
     
     private func prepareShareButton() {
-        shareButton = FlatButton(image: Icon.cm.share, tintColor: Color.grey.base)
+        shareButton = IconButton(image: Icon.cm.share, tintColor: Color.blueGrey.base)
         shareButton.grid.columns = 4
     }
     
-    private func prepareStarButton() {
-        starButton = FlatButton(image: Icon.cm.star, tintColor: Color.grey.base)
-        starButton.grid.columns = 4
-    }
-    
     private func prepareMoreButton() {
-        moreButton = IconButton(image: Icon.cm.moreVertical, tintColor: Color.grey.base)
-    }
-    
-    private func prepareAuthorView() {
-        authorView = View()
-        authorView.width = 24
-        authorView.image = UIImage(named: "CosmicMind")
-        authorView.backgroundColor = nil
-        authorView.contentsGravityPreset = .ResizeAspect
+        moreButton = IconButton(image: Icon.cm.moreHorizontal, tintColor: Color.blueGrey.base)
     }
     
     private func prepareToolbar() {
         toolbar = Toolbar()
         toolbar.backgroundColor = nil
         
-        toolbar.title = "CosmicMind"
+        toolbar.title = "Material"
         toolbar.titleLabel.textAlignment = .left
         
         toolbar.detail = "Build Beautiful Software"
         toolbar.detailLabel.textAlignment = .left
+        toolbar.detailLabel.textColor = Color.blueGrey.base
         
-        let insets = EdgeInsetsPresetToValue(preset: .square2)
-        toolbar.height += insets.top + insets.bottom
-        toolbar.contentEdgeInsetsPreset = .square2
-        
-        toolbar.leftViews.append(authorView)
-        toolbar.rightViews.append(moreButton)
+        toolbar.rightViews = [moreButton]
     }
     
     private func prepareContentView() {
         contentView = UILabel()
         contentView.numberOfLines = 0
-        contentView.text = "It’s been a while, have you read any new books lately?"
+        contentView.text = "Material is an animation and graphics framework that is the foundation for creating beautiful applications."
         contentView.font = RobotoFont.regular(with: 14)
     }
     
     private func prepareBottomBar() {
         bottomBar = Bar()
-        bottomBar.backgroundColor = Color.grey.lighten4
-        bottomBar.contentEdgeInsetsPreset = .square1
-        bottomBar.cornerRadiusPreset = .cornerRadius1
+        bottomBar.backgroundColor = nil
         
-        bottomBar.dividerColor = Color.grey.lighten3
-        bottomBar.dividerAlignment = .top
-        
-        bottomBar.contentView.grid.views = [favoriteButton, shareButton, starButton]
+        bottomBar.leftViews = [favoriteButton]
+        bottomBar.rightViews = [shareButton]
+        bottomBar.contentView.grid.views = [dateLabel]
     }
     
     private func prepareImageCard() {
-        let card = PresenterCard()
-        card.presenterView = imageView
-        card.toolbar = toolbar
-        card.contentView = contentView
-        card.bottomBar = bottomBar
+        card = PresenterCard()
         card.cornerRadiusPreset = .cornerRadius1
-        card.contentEdgeInsetsPreset = .square3
+        
+        card.toolbar = toolbar
+        card.toolbarEdgeInsetsPreset = .square2
+        
+        card.presenterView = presenterView
+        
+        card.contentView = contentView
+        card.contentViewEdgeInsetsPreset = .square3
+        
+        card.bottomBar = bottomBar
+        card.bottomBarEdgeInsetsPreset = .square1
         
         view.layout(card).horizontally(left: 20, right: 20).center()
     }

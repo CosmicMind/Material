@@ -227,8 +227,6 @@ public class Grid {
                 canvas.addSubview(child)
             }
             
-            canvas.layoutIfNeeded()
-            
             switch axis.direction {
             case .horizontal:
                 let c = child.grid.columns

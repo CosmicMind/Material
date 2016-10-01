@@ -49,7 +49,7 @@ open class Bar: View {
         return 0 < width && 0 < height && nil != superview
     }
     
-    /// A preset wrapper around contentInset.
+    /// A preset wrapper around contentEdgeInsets.
     open var contentEdgeInsetsPreset: EdgeInsetsPreset {
         get {
             return grid.contentEdgeInsetsPreset
@@ -59,7 +59,7 @@ open class Bar: View {
         }
     }
     
-    /// A wrapper around grid.contentInset.
+    /// A reference to EdgeInsets.
     @IBInspectable
     open var contentEdgeInsets: EdgeInsets {
         get {
@@ -229,6 +229,9 @@ open class Bar: View {
      */
     open override func prepare() {
         super.prepare()
+        interimSpacePreset = .interimSpace3
+        contentEdgeInsetsPreset = .square1
+        
         prepareContentView()
     }
     

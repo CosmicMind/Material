@@ -37,6 +37,21 @@ public enum ToolbarAlignment: Int {
 }
 
 open class ImageCard: Card {
+    /// A preset wrapper around imageViewEdgeInsets.
+    open var imageViewEdgeInsetsPreset = EdgeInsetsPreset.none {
+        didSet {
+            imageViewEdgeInsets = EdgeInsetsPresetToValue(preset: imageViewEdgeInsetsPreset)
+        }
+    }
+    
+    /// A reference to imageViewEdgeInsets.
+    @IBInspectable
+    open var imageViewEdgeInsets = EdgeInsets.zero {
+        didSet {
+            layoutSubviews()
+        }
+    }
+    
     /// A reference to the imageView.
     @IBInspectable
     open var imageView: UIImageView? {
@@ -60,40 +75,60 @@ open class ImageCard: Card {
         
         var format = "V:|"
         var views = [String: Any]()
+        var metrics = [String: Any]()
         
-        format += "[imageView]"
+        metrics["imageViewTop"] = imageViewEdgeInsets.top
+        metrics["imageViewBottom"] = imageViewEdgeInsets.bottom
+        
+        format += "-(imageViewTop)-[imageView]-(imageViewBottom)"
         views["imageView"] = iv
-        layout(iv).horizontally()
+        layout(iv).horizontally(left: imageViewEdgeInsets.left, right: imageViewEdgeInsets.right)
+        iv.divider.reload()
         
         if let v = toolbar {
-            iv.layout(v).horizontally().height(v.height)
+            iv.layout(v).horizontally(left: toolbarEdgeInsets.left, right: toolbarEdgeInsets.right).height(v.height)
+            
             if .top == toolbarAlignment {
-                iv.layout(v).top()
+                iv.layout(v).top(toolbarEdgeInsets.top)
             } else {
-                iv.layout(v).bottom()
+                iv.layout(v).bottom(toolbarEdgeInsets.bottom)
             }
+            v.grid.reload()
+            v.divider.reload()
         }
         
         if let v = contentView {
-            format += "-(top)-[contentView]-(bottom)-"
+            metrics["imageViewBottom"] = (metrics["imageViewBottom"] as! CGFloat) + contentViewEdgeInsets.top
+            metrics["contentViewBottom"] = contentViewEdgeInsets.bottom
+            
+            format += "-[contentView]-(contentViewBottom)"
             views["contentView"] = v
-            layout(v).horizontally(left: contentEdgeInsets.left, right: contentEdgeInsets.right)
+            layout(v).horizontally(left: contentViewEdgeInsets.left, right: contentViewEdgeInsets.right)
+            v.grid.reload()
+            v.divider.reload()
         }
         
         if let v = bottomBar {
-            format += "[bottomBar]"
+            metrics["bottomBarBottom"] = bottomBarEdgeInsets.bottom
+            
+            if nil != contentView {
+                metrics["contentViewBottom"] = (metrics["contentViewBottom"] as! CGFloat) + bottomBarEdgeInsets.top
+                format += "-[bottomBar]-(bottomBarBottom)"
+            } else {
+                metrics["imageViewBottom"] = (metrics["imageViewBottom"] as! CGFloat) + bottomBarEdgeInsets.top
+                format += "-[bottomBar]-(bottomBarBottom)"
+            }
+            
             views["bottomBar"] = v
-            layout(v).horizontally().height(v.height)
+            layout(v).horizontally(left: bottomBarEdgeInsets.left, right: bottomBarEdgeInsets.right).height(v.height)
+            v.grid.reload()
+            v.divider.reload()
         }
         
         guard 0 < views.count else {
             return
         }
         
-        var metrics = [String: Any]()
-        metrics["top"] = contentEdgeInsets.top
-        metrics["bottom"] = contentEdgeInsets.bottom
-        
-        addConstraints(Layout.constraint(format: "\(format)|", options: [], metrics: metrics, views: views))
+        addConstraints(Layout.constraint(format: "\(format)-|", options: [], metrics: metrics, views: views))
     }
 }
