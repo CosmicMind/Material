@@ -44,7 +44,7 @@ class GreenViewController: UIViewController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Color.white
+        view.backgroundColor = Color.green.base
     }
     
     /// Prepares the pageTabBarItem.

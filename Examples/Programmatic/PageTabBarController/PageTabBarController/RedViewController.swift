@@ -44,7 +44,7 @@ class RedViewController: UIViewController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Color.white
+        view.backgroundColor = Color.red.base
     }
     
     /// Prepares the pageTabBarItem.

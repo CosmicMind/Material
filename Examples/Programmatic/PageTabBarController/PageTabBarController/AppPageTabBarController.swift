@@ -41,7 +41,7 @@ class AppPageTabBarController: PageTabBarController {
     
     /// Prepares the pageTabBar.
     private func preparePageTabBar() {
-        pageTabBar.lineColor = Color.blue.base
+        pageTabBar.lineColor = Color.blueGrey.base
         pageTabBar.dividerColor = Color.blueGrey.lighten5
     }
 }
