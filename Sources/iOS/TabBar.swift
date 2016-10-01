@@ -208,7 +208,8 @@ open class TabBar: Bar {
      */
 	open override func prepare() {
 		super.prepare()
-        
+        contentEdgeInsetsPreset = .none
+        interimSpacePreset = .none
         autoresizingMask = .flexibleWidth
         prepareLine()
         prepareDivider()

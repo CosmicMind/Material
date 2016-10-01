@@ -161,7 +161,7 @@ class PhotoLibraryViewController: PhotoLibraryController {
     internal func prepareCollection() {
         dataSourceItems.removeAll()
         
-        fetchAssetCollections(with: .album, subtype: .any) { [weak self] (assetCollections) in
+        fetchAssetCollections(with: .moment, subtype: .any) { [weak self] (assetCollections) in
             guard let s = self else {
                 return
             }
