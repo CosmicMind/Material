@@ -78,11 +78,13 @@ Icons is a library of Google and CosmicMind icons that are available for use wit
 
 ![Icon](http://www.cosmicmind.io/MK/MaterialMaterialIcon.png)
 
-#### TextField
+## TextField
 
 A TextField is an excellent way to improve UX. It allows for a placeholder and additional hint details.
 
 ![TextField](http://www.cosmicmind.io/gifs/TextField.gif)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/TextField)
 
 ## Button
 
@@ -99,22 +101,6 @@ A switch is a control component that toggles between on and off states.
 ![Material Image](http://www.cosmicmind.io/material/white/switch.gif)
 
 [Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/Switch)
-
-## Toolbar
-
-Toolbars are super flexible and add excellent control to your navigation flow. They manage a set of left and right views with auto aligning title and detail labels.
-
-![Material Image](http://www.cosmicmind.io/gifs/Toolbar.gif)
-
-[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/ToolbarController)
-
-## SearchBar
-
-A SearchBar is a powerful navigation tool that allows for user's input with an instant visual response. A set of left and right views may be added to expand functionality.
-
-![Material Image](http://www.cosmicmind.io/gifs/SearchBar.gif)
-
-[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/SearchBarController)
 
 ## Card
 
@@ -147,6 +133,22 @@ A Menu manages a collection of views. A new MenuItem type has been added that ma
 ![Material Image](http://www.cosmicmind.io/material/white/menu-controller.gif)
 
 [Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/MenuController)
+
+## Toolbar
+
+Toolbars are super flexible and add excellent control to your navigation flow. They manage a set of left and right views with auto aligning title and detail labels.
+
+![Material Image](http://www.cosmicmind.io/gifs/Toolbar.gif)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/ToolbarController)
+
+## SearchBar
+
+A SearchBar is a powerful navigation tool that allows for user's input with an instant visual response. A set of left and right views may be added to expand functionality.
+
+![Material Image](http://www.cosmicmind.io/gifs/SearchBar.gif)
+
+[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/SearchBarController)
 
 ## PageTabBarController
 
