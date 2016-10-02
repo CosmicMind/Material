@@ -99,7 +99,7 @@ class ViewController: UIViewController {
     private func prepareContentView() {
         contentView = UILabel()
         contentView.numberOfLines = 0
-        contentView.text = "Material is an animation and graphics framework that is used to create beautiful applications."
+        contentView.text = "Build beautiful applications that are intelligently driven using Material, Graph, and Algorithm."
         contentView.font = RobotoFont.regular(with: 14)
     }
     

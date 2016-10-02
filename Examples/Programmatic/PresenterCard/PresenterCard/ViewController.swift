@@ -99,7 +99,7 @@ class ViewController: UIViewController {
     private func prepareToolbar() {
         toolbar = Toolbar(rightViews: [moreButton])
         
-        toolbar.title = "CosmicMind"
+        toolbar.title = "Material"
         toolbar.titleLabel.textAlignment = .left
         
         toolbar.detail = "Build Beautiful Software"

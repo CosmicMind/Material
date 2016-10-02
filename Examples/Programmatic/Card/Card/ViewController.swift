@@ -85,14 +85,14 @@ class ViewController: UIViewController {
     
     private func prepareAuthorView() {
         authorView = UIImageView()
-        authorView.image = UIImage(named: "CosmicMind")?.resize(toWidth: 24)
+        authorView.image = UIImage(named: "pattern")?.resize(toWidth: 24)
         authorView.contentMode = .scaleAspectFit
     }
     
     private func prepareToolbar() {
         toolbar = Toolbar(leftViews: [authorView], rightViews: [moreButton])
         
-        toolbar.title = "CosmicMind"
+        toolbar.title = "Material"
         toolbar.titleLabel.textAlignment = .left
         
         toolbar.detail = "Build Beautiful Software"
