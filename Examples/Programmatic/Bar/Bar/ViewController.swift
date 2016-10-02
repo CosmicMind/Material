@@ -71,14 +71,11 @@ class ViewController: UIViewController {
     }
     
     private func prepareBar() {
-        bar = Bar()
+        bar = Bar(leftViews: [menuButton], rightViews: [favoriteButton, shareButton])
         bar.backgroundColor = Color.blue.base
         
         bar.contentView.cornerRadiusPreset = .cornerRadius1
         bar.contentView.backgroundColor = Color.blue.lighten3
-        
-        bar.leftViews = [menuButton]
-        bar.rightViews = [favoriteButton, shareButton]
         
         view.layout(bar).horizontally().center()
     }

@@ -241,9 +241,9 @@ open class Bar: View {
      */
     open override func prepare() {
         super.prepare()
+        autoresizingMask = .flexibleWidth
         interimSpacePreset = .interimSpace3
         contentEdgeInsetsPreset = .square1
-        
         prepareContentView()
     }
     
