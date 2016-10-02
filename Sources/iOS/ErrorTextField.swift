@@ -48,6 +48,7 @@ open class ErrorTextField: TextField {
      */
     open override func prepare() {
         super.prepare()
+        isErrorRevealed = false
         detailColor = Color.red.base
     }
 }

@@ -339,6 +339,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9602F00C1DA1163000F3FB79 /* Grid */ = {
+			isa = PBXGroup;
+			children = (
+				96BCB7611CB40DC500C806FE /* Grid.swift */,
+			);
+			name = Grid;
+			sourceTree = "<group>";
+		};
 		96090B031D9D709E00709CA6 /* TextField */ = {
 			isa = PBXGroup;
 			children = (
@@ -520,6 +528,7 @@
 				96230AB61D6A51FD00AF47DC /* Divider */,
 				96BCB80A1CB410A100C806FE /* Extension */,
 				96BCB8071CB4101C00C806FE /* Font */,
+				9602F00C1DA1163000F3FB79 /* Grid */,
 				96BCB8081CB4105E00C806FE /* Icon */,
 				96BCB80D1CB410FD00C806FE /* Layer */,
 				96BCB8041CB40F6C00C806FE /* Layout */,
@@ -619,7 +628,6 @@
 			isa = PBXGroup;
 			children = (
 				96BCB7811CB40DC500C806FE /* Layout.swift */,
-				96BCB7611CB40DC500C806FE /* Grid.swift */,
 			);
 			name = Layout;
 			sourceTree = "<group>";

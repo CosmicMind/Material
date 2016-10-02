@@ -214,9 +214,14 @@ public class Grid {
             return
         }
         
+        let count = views.count
+        
+        guard 0 < count else {
+            return
+        }
+        
         var n: Int = 0
         var i: Int = 0
-        var count = views.count
         
         for child in views {
             guard let canvas = context else {
@@ -230,7 +235,7 @@ public class Grid {
             
             switch axis.direction {
             case .horizontal:
-                let c = 0 == child.grid.columns ? axis.columns / views.count : child.grid.columns
+                let c = 0 == child.grid.columns ? axis.columns / count : child.grid.columns
                 let co = child.grid.offset.columns
                 let w = (canvas.bounds.width - contentEdgeInsets.left - contentEdgeInsets.right - layoutEdgeInsets.left - layoutEdgeInsets.right + interimSpace) / CGFloat(axis.columns)
                 
@@ -242,7 +247,7 @@ public class Grid {
                 n += c + co - 1
                 
             case .vertical:
-                let r = 0 == child.grid.rows ? axis.rows / views.count : child.grid.rows
+                let r = 0 == child.grid.rows ? axis.rows / count : child.grid.rows
                 let ro = child.grid.offset.rows
                 let h = (canvas.bounds.height - contentEdgeInsets.top - contentEdgeInsets.bottom - layoutEdgeInsets.top - layoutEdgeInsets.bottom + interimSpace) / CGFloat(axis.rows)
                 
@@ -254,9 +259,9 @@ public class Grid {
                 n += r + ro - 1
                 
             case .any:
-                let r = 0 == child.grid.rows ? axis.rows / views.count : child.grid.rows
+                let r = 0 == child.grid.rows ? axis.rows / count : child.grid.rows
                 let ro = child.grid.offset.rows
-                let c = 0 == child.grid.columns ? axis.columns / views.count : child.grid.columns
+                let c = 0 == child.grid.columns ? axis.columns / count : child.grid.columns
                 let co = child.grid.offset.columns
                 let w = (canvas.bounds.width - contentEdgeInsets.left - contentEdgeInsets.right - layoutEdgeInsets.left - layoutEdgeInsets.right + interimSpace) / CGFloat(axis.columns)
                 let h = (canvas.bounds.height - contentEdgeInsets.top - contentEdgeInsets.bottom - layoutEdgeInsets.top - layoutEdgeInsets.bottom + interimSpace) / CGFloat(axis.rows)

@@ -40,6 +40,10 @@ open class TextField: UITextField {
         return CGSize(width: width, height: 32)
     }
     
+    /// A Boolean that indicates if the placeholder label is animated.
+    @IBInspectable
+    open var isPlaceholderAnimated = true
+    
     /// A Boolean that indicates if the TextField is in an animating state.
 	open internal(set) var isAnimating = false
 	
@@ -161,7 +165,7 @@ open class TextField: UITextField {
 	
 	/// The detailLabel UILabel that is displayed.
 	@IBInspectable
-    open private(set) lazy var detailLabel = UILabel(frame: .zero)
+    open private(set) lazy var detailLabel = UILabel()
 	
 	/// The detailLabel text value.
 	@IBInspectable
@@ -392,7 +396,7 @@ open class TextField: UITextField {
 		
         visibilityIconButton?.tintColor = visibilityIconButton?.tintColor.withAlphaComponent(isSecureTextEntry ? 0.38 : 0.54)
 	}
-	
+    
 	/**
      Prepares the view instance when intialized. When subclassing,
      it is recommended to override the prepare method
@@ -432,7 +436,7 @@ open class TextField: UITextField {
 	
 	/// Layout the placeholderLabel.
 	open func layoutPlaceholderLabel() {
-		if !isEditing && true == text?.isEmpty {
+		if !isEditing && true == text?.isEmpty && isPlaceholderAnimated {
 			placeholderLabel.frame = bounds
 		} else if placeholderLabel.transform.isIdentity {
 			placeholderLabel.frame = bounds
@@ -493,6 +497,10 @@ open class TextField: UITextField {
 	
 	/// The animation for the placeholder when editing begins.
 	open func placeholderEditingDidBeginAnimation() {
+        guard isPlaceholderAnimated else {
+            return
+        }
+        
         guard placeholderLabel.transform.isIdentity else {
             if isEditing {
                 placeholderLabel.textColor = placeholderActiveColor
@@ -525,7 +533,11 @@ open class TextField: UITextField {
 	
 	/// The animation for the placeholder when editing ends.
 	open func placeholderEditingDidEndAnimation() {
-		if !placeholderLabel.transform.isIdentity && true == text?.isEmpty {
+        guard isPlaceholderAnimated else {
+            return
+        }
+        
+        if !placeholderLabel.transform.isIdentity && true == text?.isEmpty {
 			isAnimating = true
 			UIView.animate(withDuration: 0.15, animations: { [weak self] in
                 guard let s = self else {
@@ -551,7 +563,7 @@ open class TextField: UITextField {
 	
 	/// Prepares the placeholderLabel.
 	private func preparePlaceholderLabel() {
-        placeholderLabel = UILabel(frame: .zero)
+        placeholderLabel = UILabel()
 		placeholderNormalColor = Color.darkText.others
         font = RobotoFont.regular(with: 16)
         addSubview(placeholderLabel)
