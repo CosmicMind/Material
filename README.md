@@ -2,7 +2,7 @@
 
 ## Welcome to Material
 
-Material is an animation and graphics framework.
+Material is an animation and graphics framework that is used to create beautiful applications.
 
 ## About Material 2
 
