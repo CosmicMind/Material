@@ -122,9 +122,10 @@ open class SearchBar: Bar {
      A convenience initializer with parameter settings.
      - Parameter leftViews: An Array of UIViews that go on the left side.
      - Parameter rightViews: An Array of UIViews that go on the right side.
+     - Parameter centerViews: An Array of UIViews that go in the center.
      */
-	public override init(leftViews: [UIView]? = nil, rightViews: [UIView]? = nil) {
-		super.init(leftViews: leftViews, rightViews: rightViews)
+    public override init(leftViews: [UIView]? = nil, rightViews: [UIView]? = nil, centerViews: [UIView]? = nil) {
+        super.init(leftViews: leftViews, rightViews: rightViews, centerViews: centerViews)
 	}
 	
 	/**

@@ -54,7 +54,13 @@ open class PresenterCard: Card {
         }
     }
     
-    open override func layout() {
+    open override func reload() {
+        // Clear constraints so new ones do not conflict.
+        container.removeConstraints(constraints)
+        for v in container.subviews {
+            v.removeFromSuperview()
+        }
+        
         var format = "V:|"
         var views = [String: Any]()
         var metrics = [String: Any]()
@@ -65,7 +71,7 @@ open class PresenterCard: Card {
             
             format += "-(toolbarTop)-[toolbar]-(toolbarBottom)"
             views["toolbar"] = v
-            layout(v).horizontally(left: toolbarEdgeInsets.left, right: toolbarEdgeInsets.right).height(v.height)
+            container.layout(v).horizontally(left: toolbarEdgeInsets.left, right: toolbarEdgeInsets.right).height(v.height)
             v.grid.reload()
             v.divider.reload()
         }
@@ -82,7 +88,7 @@ open class PresenterCard: Card {
             }
             
             views["presenterView"] = v
-            layout(v).horizontally(left: presenterViewEdgeInsets.left, right: presenterViewEdgeInsets.right)
+            container.layout(v).horizontally(left: presenterViewEdgeInsets.left, right: presenterViewEdgeInsets.right)
             v.grid.reload()
             v.divider.reload()
         }
@@ -102,7 +108,7 @@ open class PresenterCard: Card {
             }
             
             views["contentView"] = v
-            layout(v).horizontally(left: contentViewEdgeInsets.left, right: contentViewEdgeInsets.right)
+            container.layout(v).horizontally(left: contentViewEdgeInsets.left, right: contentViewEdgeInsets.right)
             v.grid.reload()
             v.divider.reload()
         }
@@ -125,7 +131,7 @@ open class PresenterCard: Card {
             }
             
             views["bottomBar"] = v
-            layout(v).horizontally(left: bottomBarEdgeInsets.left, right: bottomBarEdgeInsets.right).height(v.height)
+            container.layout(v).horizontally(left: bottomBarEdgeInsets.left, right: bottomBarEdgeInsets.right).height(v.height)
             v.grid.reload()
             v.divider.reload()
         }
@@ -134,8 +140,6 @@ open class PresenterCard: Card {
             return
         }
         
-        print(format)
-        
-        addConstraints(Layout.constraint(format: "\(format)-|", options: [], metrics: metrics, views: views))
+        container.addConstraints(Layout.constraint(format: "\(format)-|", options: [], metrics: metrics, views: views))
     }
 }

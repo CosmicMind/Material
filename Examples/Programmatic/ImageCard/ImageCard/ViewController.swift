@@ -66,24 +66,19 @@ class ViewController: UIViewController {
     private func prepareImageView() {
         imageView = UIImageView()
         imageView.image = UIImage(named: "frontier.jpg")?.resize(toWidth: view.width)
-        imageView.clipsToBounds = true
-        imageView.cornerRadiusPreset = .cornerRadius1
         imageView.contentMode = .scaleAspectFill
     }
     
     private func prepareFavoriteButton() {
         favoriteButton = FlatButton(image: Icon.favorite, tintColor: Color.blueGrey.base)
-        favoriteButton.grid.columns = 4
     }
     
     private func prepareShareButton() {
         shareButton = FlatButton(image: Icon.cm.share, tintColor: Color.blueGrey.base)
-        shareButton.grid.columns = 4
     }
     
     private func prepareStarButton() {
         starButton = FlatButton(image: Icon.cm.star, tintColor: Color.blueGrey.base)
-        starButton.grid.columns = 4
     }
     
     private func prepareMoreButton() {
@@ -104,19 +99,17 @@ class ViewController: UIViewController {
     private func prepareContentView() {
         contentView = UILabel()
         contentView.numberOfLines = 0
-        contentView.text = "Material is an animation and graphics framework that is the foundation for creating beautiful applications."
+        contentView.text = "Material is an animation and graphics framework that is used for creating beautiful applications."
         contentView.font = RobotoFont.regular(with: 14)
     }
     
     private func prepareBottomBar() {
-        bottomBar = Bar()
-        bottomBar.backgroundColor = nil
-        
-        bottomBar.contentView.grid.views = [favoriteButton, shareButton, starButton]
+        bottomBar = Bar(centerViews: [favoriteButton, shareButton, starButton])
     }
     
     private func prepareImageCard() {
         card = ImageCard()
+        
         card.imageView = imageView
         
         card.toolbar = toolbar
@@ -126,7 +119,6 @@ class ViewController: UIViewController {
         card.contentViewEdgeInsetsPreset = .square3
         
         card.bottomBar = bottomBar
-        card.cornerRadiusPreset = .cornerRadius1
         
         view.layout(card).horizontally(left: 20, right: 20).center()
     }

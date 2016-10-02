@@ -124,6 +124,16 @@ open class Bar: View {
         }
     }
     
+    /// Center UIViews.
+    open var centerViews: [UIView] {
+        get {
+            return contentView.grid.views
+        }
+        set(value) {
+            contentView.grid.views = value
+        }
+    }
+    
     /**
      An initializer that initializes the object with a NSCoder object.
      - Parameter aDecoder: A NSCoder instance.
@@ -152,11 +162,13 @@ open class Bar: View {
      A convenience initializer with parameter settings.
      - Parameter leftViews: An Array of UIViews that go on the left side.
      - Parameter rightViews: An Array of UIViews that go on the right side.
+     - Parameter centerViews: An Array of UIViews that go in the center.
      */
-    public init(leftViews: [UIView]? = nil, rightViews: [UIView]? = nil) {
+    public init(leftViews: [UIView]? = nil, rightViews: [UIView]? = nil, centerViews: [UIView]? = nil) {
         self.leftViews = leftViews ?? []
         self.rightViews = rightViews ?? []
         super.init(frame: .zero)
+        self.centerViews = centerViews ?? []
         frame.size = intrinsicContentSize
     }
     

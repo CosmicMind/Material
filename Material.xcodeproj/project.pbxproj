@@ -597,8 +597,8 @@
 			isa = PBXGroup;
 			children = (
 				96BCB75D1CB40DC500C806FE /* Card.swift */,
-				9631A7C01D95E3AC00CFB109 /* PresenterCard.swift */,
 				96BCB7621CB40DC500C806FE /* ImageCard.swift */,
+				9631A7C01D95E3AC00CFB109 /* PresenterCard.swift */,
 			);
 			name = Card;
 			sourceTree = "<group>";

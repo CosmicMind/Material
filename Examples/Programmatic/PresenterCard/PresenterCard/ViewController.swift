@@ -67,8 +67,7 @@ class ViewController: UIViewController {
     
     private func preparePresenterView() {
         presenterView = UIImageView()
-        presenterView.image = UIImage(named: "dreamer.jpg")?.resize(toWidth: view.width)
-        presenterView.clipsToBounds = true
+        presenterView.image = UIImage(named: "pattern")?.resize(toWidth: view.width)
         presenterView.contentMode = .scaleAspectFill
     }
     
@@ -87,12 +86,10 @@ class ViewController: UIViewController {
     
     private func prepareFavoriteButton() {
         favoriteButton = IconButton(image: Icon.favorite, tintColor: Color.red.base)
-        favoriteButton.grid.columns = 4
     }
     
     private func prepareShareButton() {
         shareButton = IconButton(image: Icon.cm.share, tintColor: Color.blueGrey.base)
-        shareButton.grid.columns = 4
     }
     
     private func prepareMoreButton() {
@@ -100,41 +97,32 @@ class ViewController: UIViewController {
     }
     
     private func prepareToolbar() {
-        toolbar = Toolbar()
-        toolbar.backgroundColor = nil
+        toolbar = Toolbar(rightViews: [moreButton])
         
-        toolbar.title = "Material"
+        toolbar.title = "CosmicMind"
         toolbar.titleLabel.textAlignment = .left
         
         toolbar.detail = "Build Beautiful Software"
         toolbar.detailLabel.textAlignment = .left
         toolbar.detailLabel.textColor = Color.blueGrey.base
-        
-        toolbar.rightViews = [moreButton]
     }
     
     private func prepareContentView() {
         contentView = UILabel()
         contentView.numberOfLines = 0
-        contentView.text = "Material is an animation and graphics framework that is the foundation for creating beautiful applications."
+        contentView.text = "Material is an animation and graphics framework that is used for creating beautiful applications."
         contentView.font = RobotoFont.regular(with: 14)
     }
     
     private func prepareBottomBar() {
-        bottomBar = Bar()
-        bottomBar.backgroundColor = nil
-        
-        bottomBar.leftViews = [favoriteButton]
-        bottomBar.rightViews = [shareButton]
-        bottomBar.contentView.grid.views = [dateLabel]
+        bottomBar = Bar(leftViews: [favoriteButton], rightViews: [shareButton], centerViews: [dateLabel])
     }
     
     private func prepareImageCard() {
         card = PresenterCard()
-        card.cornerRadiusPreset = .cornerRadius1
         
         card.toolbar = toolbar
-        card.toolbarEdgeInsetsPreset = .square2
+        card.toolbarEdgeInsetsPreset = .wideRectangle2
         
         card.presenterView = presenterView
         
@@ -142,7 +130,7 @@ class ViewController: UIViewController {
         card.contentViewEdgeInsetsPreset = .square3
         
         card.bottomBar = bottomBar
-        card.bottomBarEdgeInsetsPreset = .square1
+        card.bottomBarEdgeInsetsPreset = .wideRectangle2
         
         view.layout(card).horizontally(left: 20, right: 20).center()
     }

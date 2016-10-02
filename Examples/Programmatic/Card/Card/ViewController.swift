@@ -46,7 +46,7 @@ class ViewController: UIViewController {
     /// Toolbar views.
     private var toolbar: Toolbar!
     private var moreButton: IconButton!
-    private var authorView: View!
+    private var authorView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,7 +77,6 @@ class ViewController: UIViewController {
     
     private func prepareFavoriteButton() {
         favoriteButton = IconButton(image: Icon.favorite, tintColor: Color.red.base)
-        favoriteButton.grid.columns = 4
     }
     
     private func prepareMoreButton() {
@@ -85,16 +84,13 @@ class ViewController: UIViewController {
     }
     
     private func prepareAuthorView() {
-        authorView = View()
-        authorView.width = 24
-        authorView.image = UIImage(named: "CosmicMind")
-        authorView.backgroundColor = nil
-        authorView.contentsGravityPreset = .ResizeAspect
+        authorView = UIImageView()
+        authorView.image = UIImage(named: "CosmicMind")?.resize(toWidth: 24)
+        authorView.contentMode = .scaleAspectFit
     }
     
     private func prepareToolbar() {
-        toolbar = Toolbar()
-        toolbar.backgroundColor = nil
+        toolbar = Toolbar(leftViews: [authorView], rightViews: [moreButton])
         
         toolbar.title = "CosmicMind"
         toolbar.titleLabel.textAlignment = .left
@@ -102,21 +98,17 @@ class ViewController: UIViewController {
         toolbar.detail = "Build Beautiful Software"
         toolbar.detailLabel.textAlignment = .left
         toolbar.detailLabel.textColor = Color.blueGrey.base
-        
-        toolbar.leftViews = [authorView]
-        toolbar.rightViews = [moreButton]
     }
     
     private func prepareContentView() {
         contentView = UILabel()
         contentView.numberOfLines = 0
-        contentView.text = "Material is an animation and graphics framework that is the foundation for creating beautiful applications."
+        contentView.text = "Material is an animation and graphics framework that is used for creating beautiful applications."
         contentView.font = RobotoFont.regular(with: 14)
     }
     
     private func prepareBottomBar() {
         bottomBar = Bar()
-        bottomBar.cornerRadiusPreset = .cornerRadius1
         
         bottomBar.leftViews = [dateLabel]
         bottomBar.rightViews = [favoriteButton]
@@ -124,16 +116,15 @@ class ViewController: UIViewController {
     
     private func prepareImageCard() {
         card = Card()
-        card.cornerRadiusPreset = .cornerRadius1
         
         card.toolbar = toolbar
-        card.toolbarEdgeInsetsPreset = .square1
+        card.toolbarEdgeInsetsPreset = .wideRectangle2
         
         card.contentView = contentView
-        card.contentViewEdgeInsetsPreset = .square3
+        card.contentViewEdgeInsetsPreset = .wideRectangle3
         
         card.bottomBar = bottomBar
-        card.bottomBarEdgeInsetsPreset = .square2
+        card.bottomBarEdgeInsetsPreset = .wideRectangle2
         
         view.layout(card).horizontally(left: 20, right: 20).center()
     }
