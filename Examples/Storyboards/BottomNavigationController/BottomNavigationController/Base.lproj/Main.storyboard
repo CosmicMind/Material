@@ -9,7 +9,7 @@
         <!--Item-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="VideoViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="VideoViewController" customModule="BottomNavigationController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AudioViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="AudioViewController" customModule="BottomNavigationController" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -49,7 +49,7 @@
         <!--Item-->
         <scene sceneID="6CE-Ax-jpB">
             <objects>
-                <viewController storyboardIdentifier="AudioViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="pdq-VH-Zd8" customClass="AudioViewController" customModule="BottomNavigationController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RemindersViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="pdq-VH-Zd8" customClass="RemindersViewController" customModule="BottomNavigationController" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="UZW-K8-06h"/>
                         <viewControllerLayoutGuide type="bottom" id="GW3-ws-BMu"/>
@@ -68,7 +68,7 @@
         <!--Item-->
         <scene sceneID="Zhg-5m-84f">
             <objects>
-                <viewController storyboardIdentifier="RemindersController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="mur-LI-Nz5" customClass="RemindersController" customModule="Material" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SearchViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="mur-LI-Nz5" customClass="SearchViewController" customModule="Material" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2vH-j9-N50"/>
                         <viewControllerLayoutGuide type="bottom" id="rx4-uJ-JTr"/>
@@ -87,7 +87,7 @@
         <!--Item-->
         <scene sceneID="ZQj-ux-hv8">
             <objects>
-                <viewController storyboardIdentifier="SearchViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="OeN-A7-5FM" customClass="SearchViewController" customModule="BottomNavigationController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="VideoViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="OeN-A7-5FM" customClass="VideoViewController" customModule="BottomNavigationController" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="b4t-Cf-9KA"/>
                         <viewControllerLayoutGuide type="bottom" id="jxq-tx-rnt"/>
