@@ -9,6 +9,34 @@
       name = "Examples">
       <Group
          location = "container:"
+         name = "Storyboards">
+         <FileRef
+            location = "group:Examples/Storyboards/Button/Button.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Examples/Storyboards/BottomNavigationController/BottomNavigationController.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Examples/Storyboards/NavigationController/NavigationController.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Examples/Storyboards/NavigationDrawerController/NavigationDrawerController.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Examples/Storyboards/PageTabBarController/PageTabBarController.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Examples/Storyboards/SearchBarController/SearchBarController.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Examples/Storyboards/SnackbarController/SnackbarController.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Examples/Storyboards/StatusBarController/StatusBarController.xcodeproj">
+         </FileRef>
+      </Group>
+      <Group
+         location = "container:"
          name = "Programmatic">
          <FileRef
             location = "group:Examples/Programmatic/Bar/Bar.xcodeproj">

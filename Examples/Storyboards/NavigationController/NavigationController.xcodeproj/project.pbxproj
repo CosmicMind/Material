@@ -13,8 +13,6 @@
 		96CC49D71D8DD984002CAB55 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96CC49D51D8DD984002CAB55 /* LaunchScreen.storyboard */; };
 		96CC49E51D8DDF61002CAB55 /* NextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC49E41D8DDF61002CAB55 /* NextViewController.swift */; };
 		9A5634E11D9EF705004BFC00 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A5634E01D9EF705004BFC00 /* Main.storyboard */; };
-		9A5634E31D9EF766004BFC00 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A5634E21D9EF766004BFC00 /* Material.framework */; };
-		9A5634E41D9EF766004BFC00 /* Material.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9A5634E21D9EF766004BFC00 /* Material.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9A5634E61D9EF9A7004BFC00 /* AppNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A5634E51D9EF9A7004BFC00 /* AppNavigationController.swift */; };
 /* End PBXBuildFile section */
 
@@ -25,7 +23,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				9A5634E41D9EF766004BFC00 /* Material.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -41,7 +38,6 @@
 		96CC49D81D8DD984002CAB55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96CC49E41D8DDF61002CAB55 /* NextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextViewController.swift; sourceTree = "<group>"; };
 		9A5634E01D9EF705004BFC00 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		9A5634E21D9EF766004BFC00 /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Material.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A5634E51D9EF9A7004BFC00 /* AppNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppNavigationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -50,7 +46,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A5634E31D9EF766004BFC00 /* Material.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,7 +55,6 @@
 		96CC49C01D8DD984002CAB55 = {
 			isa = PBXGroup;
 			children = (
-				9A5634E21D9EF766004BFC00 /* Material.framework */,
 				96CC49CB1D8DD984002CAB55 /* NavigationController */,
 				96CC49CA1D8DD984002CAB55 /* Products */,
 			);
