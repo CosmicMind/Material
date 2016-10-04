@@ -15,7 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		9690B4151D99FF2700E7F42A /* Embed Frameworks */ = {
+		96D028671DA3F54100DE4544 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
@@ -87,7 +87,11 @@
 				9A0572861D99E64100341332 /* Sources */,
 				9A0572871D99E64100341332 /* Frameworks */,
 				9A0572881D99E64100341332 /* Resources */,
+<<<<<<< cc3fd2fe5e27414c35c3f3d5e5f4d5df15ae0f62
 				9690B4151D99FF2700E7F42A /* Embed Frameworks */,
+=======
+				96D028671DA3F54100DE4544 /* Embed Frameworks */,
+>>>>>>> cleanup on project files
 			);
 			buildRules = (
 			);
