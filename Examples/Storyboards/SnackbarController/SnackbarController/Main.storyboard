@@ -9,7 +9,7 @@
         <!--Root View Controller-->
         <scene sceneID="f2e-GW-ekS">
             <objects>
-                <viewController storyboardIdentifier="RootViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="48R-gP-vnF" customClass="RootViewController" customModule="Material" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RootViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="48R-gP-vnF" customClass="RootViewController" customModule="SnackbarController" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="fBa-N0-gYK"/>
                         <viewControllerLayoutGuide type="bottom" id="FTf-m2-wWl"/>

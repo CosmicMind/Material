@@ -46,7 +46,7 @@ class RootViewController: UIViewController {
         super.viewDidAppear(animated)
         
         prepareSnackbar()
-        animateSnackbar()
+        scheduleAnimation()
     }
     
     private func prepareUndoButton() {
@@ -64,7 +64,11 @@ class RootViewController: UIViewController {
         sc.snackbar.rightViews = [undoButton]
     }
     
-    private func animateSnackbar() {
+    private func scheduleAnimation() {
+        _ = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.animateSnackbar), userInfo: nil, repeats: true)
+    }
+    
+    @objc private func animateSnackbar() {
         guard let sc = snackbarController else {
             return
         }
