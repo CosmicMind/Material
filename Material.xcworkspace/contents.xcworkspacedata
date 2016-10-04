@@ -81,6 +81,9 @@
             location = "group:Examples/Storyboards/BottomNavigationController/BottomNavigationController.xcodeproj">
          </FileRef>
          <FileRef
+            location = "group:Examples/Storyboards/Button/Button.xcodeproj">
+         </FileRef>
+         <FileRef
             location = "group:Examples/Storyboards/NavigationController/NavigationController.xcodeproj">
          </FileRef>
          <FileRef
