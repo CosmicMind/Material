@@ -29,7 +29,6 @@
  */
 
 import UIKit
-import Material
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

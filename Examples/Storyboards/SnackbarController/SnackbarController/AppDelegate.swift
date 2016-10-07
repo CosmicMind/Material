@@ -37,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func applicationDidFinishLaunching(_ application: UIApplication) {
-        window = UIWindow(frame: UIScreen.main.bounds)
+        window = UIWindow(frame: Device.bounds)
         window!.rootViewController = AppSnackbarController(rootViewController: UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "RootViewController"))
         window!.makeKeyAndVisible()
     }   
