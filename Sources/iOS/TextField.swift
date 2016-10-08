@@ -437,7 +437,11 @@ open class TextField: UITextField {
 	/// Layout the placeholderLabel.
 	open func layoutPlaceholderLabel() {
 		if !isEditing && true == text?.isEmpty && isPlaceholderAnimated {
-			placeholderLabel.frame = bounds
+      if let leftViewWidth = self.leftView?.frame.size.width {
+        placeholderLabel.frame = CGRect(x: leftViewWidth, y: bounds.origin.y, width: bounds.size.width - leftViewWidth, height: bounds.size.height)
+      } else {
+        placeholderLabel.frame = bounds
+      }
 		} else if placeholderLabel.transform.isIdentity {
 			placeholderLabel.frame = bounds
 			placeholderLabel.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
@@ -543,9 +547,9 @@ open class TextField: UITextField {
                 guard let s = self else {
                     return
                 }
-                
+
                 s.placeholderLabel.transform = CGAffineTransform.identity
-                s.placeholderLabel.x = 0
+                s.placeholderLabel.x = s.leftView?.frame.size.width ?? 0
                 s.placeholderLabel.y = 0
                 s.placeholderLabel.textColor = s.placeholderNormalColor
 			}) { [weak self] _ in
