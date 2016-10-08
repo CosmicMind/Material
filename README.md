@@ -25,9 +25,9 @@ The first version of Material was to bring Material Design to iOS. We considered
 - [x] TabBar
 - [x] PageTabBar
 - [X] SearchBar
-- [x] NavigationBar
-- [x] BottomNavigationBar
+- [x] NavigationController
 - [x] NavigationDrawer
+- [x] BottomNavigationBar
 - [x] Example Projects
 - [x] And More...
 

@@ -395,10 +395,8 @@ open class Switch: UIControl {
             return
         }
         
-        guard let q: CGFloat = max(min(sender.x + v.location(in: sender).x - v.previousLocation(in: sender).x, onPosition), offPosition) else {
-            return
-        }
-			
+        let q: CGFloat = max(min(sender.x + v.location(in: sender).x - v.previousLocation(in: sender).x, onPosition), offPosition)
+        	
         guard q != sender.x else {
             return
         }
@@ -432,7 +430,7 @@ open class Switch: UIControl {
     
     /// Reloads the view.
     open func reload() {
-        var w: CGFloat = intrinsicContentSize.width
+        let w: CGFloat = intrinsicContentSize.width
         let px: CGFloat = (width - w) / 2
         
         track.frame = CGRect(x: px, y: (height - trackThickness) / 2, width: w, height: trackThickness)
