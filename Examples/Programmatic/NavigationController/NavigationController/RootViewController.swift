@@ -36,6 +36,7 @@ class RootViewController: UIViewController {
     private var menuButton: IconButton!
     private var starButton: IconButton!
     private var searchButton: IconButton!
+    private var switchControl: Switch!
     
     /// Trigger to go to the next view controller.
     private var nextButton: FlatButton!
@@ -77,7 +78,9 @@ class RootViewController: UIViewController {
         navigationItem.detail = "Build Beautiful Software"
         navigationItem.detailLabel.textColor = Color.lightBlue.lighten5
         
-        navigationItem.leftViews = [menuButton]
+        switchControl = Switch()
+        
+        navigationItem.leftViews = [switchControl, menuButton]
         navigationItem.rightViews = [starButton, searchButton]
     }
     

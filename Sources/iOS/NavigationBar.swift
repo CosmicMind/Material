@@ -209,6 +209,7 @@ open class NavigationBar: UINavigationBar {
         
         for v in item.leftViews {
             (v as? UIButton)?.contentEdgeInsets = .zero
+            v.width = v.intrinsicContentSize.width
             v.sizeToFit()
             v.grid.columns = Int(ceil(v.width / gridFactor)) + 1
             
@@ -221,6 +222,7 @@ open class NavigationBar: UINavigationBar {
         
         for v in item.rightViews {
             (v as? UIButton)?.contentEdgeInsets = .zero
+            v.width = v.intrinsicContentSize.width
             v.sizeToFit()
             v.grid.columns = Int(ceil(v.width / gridFactor)) + 1
             

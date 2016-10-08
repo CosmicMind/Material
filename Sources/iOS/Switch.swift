@@ -238,21 +238,11 @@ open class Switch: UIControl {
 				trackThickness = 24
 				buttonDiameter = 32
 			}
+            
+            frame.size = intrinsicContentSize
 		}
 	}
 	
-	open override var frame: CGRect {
-		didSet {
-			reload()
-		}
-	}
-	
-	open override var bounds: CGRect {
-		didSet {
-			reload()
-		}
-	}
-    
     open override var intrinsicContentSize: CGSize {
         switch switchSize {
         case .small:
@@ -299,12 +289,17 @@ open class Switch: UIControl {
 		track = UIView()
 		button = FabButton()
 		super.init(frame: .zero)
-		prepare()
-        prepareSwitchSize(size: size)
-        prepareSwitchStyle(style: style)
+        prepare()
         prepareSwitchState(state: state)
+        prepareSwitchStyle(style: style)
+        prepareSwitchSize(size: size)
 	}
 	
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        reload()
+    }
+    
 	open override func willMove(toSuperview newSuperview: UIView?) {
 		super.willMove(toSuperview: newSuperview)
 		styleForState(state: internalSwitchState)
@@ -339,13 +334,16 @@ open class Switch: UIControl {
         }
         
         internalSwitchState = state
+        
         if animated {
             animateToState(state: state) { [weak self] _ in
-                if let s: Switch = self {
-                    s.sendActions(for: .valueChanged)
-                    completion?(s)
-                    s.delegate?.switchDidChangeState(control: s, state: s.internalSwitchState)
+                guard let s = self else {
+                    return
                 }
+                
+                s.sendActions(for: .valueChanged)
+                completion?(s)
+                s.delegate?.switchDidChangeState(control: s, state: s.internalSwitchState)
             }
         } else {
             button.x = .on == state ? self.onPosition : self.offPosition
@@ -415,11 +413,12 @@ open class Switch: UIControl {
      when subclassing.
      */
     open func prepare() {
+        contentScaleFactor = Device.scale
         prepareTrack()
         prepareButton()
-        prepareSwitchSize(size: .medium)
-        prepareSwitchStyle(style: .light)
-        prepareSwitchState(state: .off)
+        prepareSwitchState()
+        prepareSwitchStyle()
+        prepareSwitchSize()
     }
     
     /// Laout the button and track views.
@@ -459,7 +458,7 @@ open class Switch: UIControl {
      init to set the state value and have an effect.
      - Parameter state: The SwitchState to set.
      */
-	private func prepareSwitchState(state: SwitchState) {
+	private func prepareSwitchState(state: SwitchState = .off) {
 		setSwitchState(state: state, animated: false)
 	}
 	
@@ -468,7 +467,7 @@ open class Switch: UIControl {
      init to set the state value and have an effect.
      - Parameter style: The SwitchStyle to set.
      */
-	private func prepareSwitchStyle(style: SwitchStyle) {
+	private func prepareSwitchStyle(style: SwitchStyle = .light) {
 		switchStyle = style
 	}
 	
@@ -477,7 +476,7 @@ open class Switch: UIControl {
      init to set the size value and have an effect.
      - Parameter size: The SwitchSize to set.
      */
-	private func prepareSwitchSize(size: SwitchSize) {
+	private func prepareSwitchSize(size: SwitchSize = .medium) {
 		switchSize = size
 	}
 	
@@ -532,21 +531,27 @@ open class Switch: UIControl {
 			delay: 0.05,
 			options: [.curveEaseIn, .curveEaseOut],
 			animations: { [weak self] in
-				if let s: Switch = self {
-					s.button.x = .on == state ? s.onPosition + s.bounceOffset : s.offPosition - s.bounceOffset
-					s.styleForState(state: state)
-				}
+                guard let s = self else {
+                    return
+                }
+                
+                s.button.x = .on == state ? s.onPosition + s.bounceOffset : s.offPosition - s.bounceOffset
+                s.styleForState(state: state)
 			}) { [weak self] _ in
 				UIView.animate(withDuration: 0.15,
 					animations: { [weak self] in
-						if let s: Switch = self {
-							s.button.x = .on == state ? s.onPosition : s.offPosition
-						}
+                        guard let s = self else {
+                            return
+                        }
+                        
+                        s.button.x = .on == state ? s.onPosition : s.offPosition
 					}) { [weak self] _ in
-						if let s: Switch = self {
-							s.isUserInteractionEnabled = true
-							completion?(s)
-						}
+                        guard let s = self else {
+                            return
+                        }
+                        
+                        s.isUserInteractionEnabled = true
+                        completion?(s)
 					}
 			}
 	}

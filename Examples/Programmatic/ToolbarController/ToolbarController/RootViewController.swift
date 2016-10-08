@@ -36,7 +36,6 @@ class RootViewController: UIViewController {
     private var menuButton: IconButton!
     private var starButton: IconButton!
     private var searchButton: IconButton!
-    private var switchControl: Switch!
     
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,10 +74,8 @@ class RootViewController: UIViewController {
         tc.toolbar.detail = "Build Beautiful Software"
         tc.toolbar.detailLabel.textAlignment = .left
         
-        switchControl = Switch(state: .off, style:.light, size: .small)
-        
         tc.toolbar.leftViews = [menuButton]
-        tc.toolbar.rightViews = [switchControl, starButton, searchButton]
+        tc.toolbar.rightViews = [starButton, searchButton]
     }
 }
 

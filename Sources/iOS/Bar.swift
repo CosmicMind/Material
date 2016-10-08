@@ -191,6 +191,7 @@ open class Bar: View {
         
         for v in leftViews {
             (v as? UIButton)?.contentEdgeInsets = .zero
+            v.width = v.intrinsicContentSize.width
             v.sizeToFit()
             v.grid.columns = Int(ceil(v.width / gridFactor)) + 1
             
@@ -203,6 +204,7 @@ open class Bar: View {
         
         for v in rightViews {
             (v as? UIButton)?.contentEdgeInsets = .zero
+            v.width = v.intrinsicContentSize.width
             v.sizeToFit()
             v.grid.columns = Int(ceil(v.width / gridFactor)) + 1
             
