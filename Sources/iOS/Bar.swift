@@ -94,7 +94,7 @@ open class Bar: View {
     
     /// Grid cell factor.
     @IBInspectable
-    open var gridFactor: CGFloat = 24 {
+    open var gridFactor: CGFloat = 12 {
         didSet {
             assert(0 < gridFactor, "[Material Error: gridFactor must be greater than 0.]")
             layoutSubviews()
@@ -242,8 +242,8 @@ open class Bar: View {
     open override func prepare() {
         super.prepare()
         autoresizingMask = .flexibleWidth
-        interimSpacePreset = .interimSpace3
-        contentEdgeInsetsPreset = .square1
+        interimSpacePreset = .interimSpace4
+        contentEdgeInsetsPreset = .wideRectangle2
         prepareContentView()
     }
     

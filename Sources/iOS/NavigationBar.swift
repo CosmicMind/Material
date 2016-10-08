@@ -92,7 +92,7 @@ open class NavigationBar: UINavigationBar {
 	
 	/// Grid cell factor.
 	@IBInspectable
-    open var gridFactor: CGFloat = 24 {
+    open var gridFactor: CGFloat = 12 {
 		didSet {
 			assert(0 < gridFactor, "[Material Error: gridFactor must be greater than 0.]")
 			layoutSubviews()
@@ -294,9 +294,9 @@ open class NavigationBar: UINavigationBar {
         barStyle = .black
 		isTranslucent = false
 		depthPreset = .depth1
-		interimSpacePreset = .interimSpace3
-		contentEdgeInsetsPreset = .square1
-		contentScaleFactor = Device.scale
+        interimSpacePreset = .interimSpace4
+        contentEdgeInsetsPreset = .wideRectangle2
+        contentScaleFactor = Device.scale
 		backButtonImage = Icon.cm.arrowBack
         let image = UIImage.imageWithColor(color: Color.clear, size: CGSize(width: 1, height: 1))
 		shadowImage = image

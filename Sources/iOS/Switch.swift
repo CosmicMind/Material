@@ -62,7 +62,7 @@ public protocol SwitchDelegate {
 @objc(Switch)
 open class Switch: UIControl {
 	/// An internal reference to the switchState public property.
-	private var internalSwitchState: SwitchState = .off
+	private var internalSwitchState = SwitchState.off
 	
 	/// Track thickness.
 	private var trackThickness: CGFloat = 0
@@ -155,7 +155,7 @@ open class Switch: UIControl {
 	}
 	
 	/// Track view reference.
-	public private(set) var trackLayer: CAShapeLayer {
+	public private(set) var track: UIView {
 		didSet {
 			prepareTrack()
 		}
@@ -199,7 +199,7 @@ open class Switch: UIControl {
 	}
 	
 	/// Switch style.
-	public var switchStyle: SwitchStyle = .dark {
+	public var switchStyle = SwitchStyle.dark {
 		didSet {
 			switch switchStyle {
 			case .light:
@@ -225,45 +225,42 @@ open class Switch: UIControl {
 	}
 	
 	/// Switch size.
-	public var switchSize: SwitchSize = .medium {
+	public var switchSize = SwitchSize.medium {
 		didSet {
 			switch switchSize {
 			case .small:
-				trackThickness = 13
+				trackThickness = 12
 				buttonDiameter = 18
-                frame = CGRect(x: 0, y: 0, width: 30, height: 25)
 			case .medium:
-				trackThickness = 17
+				trackThickness = 18
 				buttonDiameter = 24
-                frame = CGRect(x: 0, y: 0, width: 40, height: 30)
 			case .large:
-				trackThickness = 23
-				buttonDiameter = 31
-                frame = CGRect(x: 0, y: 0, width: 50, height: 40)
+				trackThickness = 24
+				buttonDiameter = 32
 			}
 		}
 	}
 	
 	open override var frame: CGRect {
 		didSet {
-			layoutSwitch()
+			reload()
 		}
 	}
 	
 	open override var bounds: CGRect {
 		didSet {
-			layoutSwitch()
+			reload()
 		}
 	}
     
     open override var intrinsicContentSize: CGSize {
         switch switchSize {
         case .small:
-            return CGSize(width: 30, height: 25)
+            return CGSize(width: 24, height: 24)
         case .medium:
-            return CGSize(width: 40, height: 30)
+            return CGSize(width: 30, height: 30)
         case .large:
-            return CGSize(width: 50, height: 40)
+            return CGSize(width: 36, height: 36)
         }
     }
 	
@@ -272,14 +269,10 @@ open class Switch: UIControl {
      - Parameter aDecoder: A NSCoder instance.
      */
 	public required init?(coder aDecoder: NSCoder) {
-		trackLayer = CAShapeLayer()
+		track = UIView()
 		button = FabButton()
 		super.init(coder: aDecoder)
-		prepareTrack()
-		prepareButton()
-		prepareSwitchSize(size: .medium)
-		prepareSwitchStyle(style: .light)
-		prepareSwitchState(state: .off)
+		prepare()
 	}
 	
 	/**
@@ -290,14 +283,10 @@ open class Switch: UIControl {
      - Parameter frame: A CGRect instance.
      */
 	public override init(frame: CGRect) {
-		trackLayer = CAShapeLayer()
+		track = UIView()
 		button = FabButton()
 		super.init(frame: frame)
-		prepareTrack()
-		prepareButton()
-		prepareSwitchSize(size: .medium)
-		prepareSwitchStyle(style: .light)
-		prepareSwitchState(state: .off)
+		prepare()
 	}
 	
 	/**
@@ -307,12 +296,11 @@ open class Switch: UIControl {
      - Parameter size: A SwitchSize value.
      */
 	public init(state: SwitchState = .off, style: SwitchStyle = .dark, size: SwitchSize = .medium) {
-		trackLayer = CAShapeLayer()
+		track = UIView()
 		button = FabButton()
-		super.init(frame: CGRect.null)
-		prepareTrack()
-		prepareButton()
-		prepareSwitchSize(size: size)
+		super.init(frame: .zero)
+		prepare()
+        prepareSwitchSize(size: size)
         prepareSwitchStyle(style: style)
         prepareSwitchState(state: state)
 	}
@@ -326,7 +314,7 @@ open class Switch: UIControl {
      Toggle the Switch state, if On will be Off, and if Off will be On.
      - Parameter completion: An Optional completion block.
      */
-	public func toggle(completion: ((Switch) -> Void)? = nil) {
+	open func toggle(completion: ((Switch) -> Void)? = nil) {
 		setSwitchState(state: .on == internalSwitchState ? .off : .on, animated: true, completion: completion)
 	}
 	
@@ -335,7 +323,7 @@ open class Switch: UIControl {
      - Parameter on: A bool of whether the switch should be in the on state or not.
      - Parameter animated: A Boolean indicating to set the animation or not.
      */
-	public func setOn(on: Bool, animated: Bool, completion: ((Switch) -> Void)? = nil) {
+	open func setOn(on: Bool, animated: Bool, completion: ((Switch) -> Void)? = nil) {
 		setSwitchState(state: on ? .on : .off, animated: animated, completion: completion)
 	}
 	
@@ -345,25 +333,27 @@ open class Switch: UIControl {
      - Parameter animated: A Boolean indicating to set the animation or not.
      - Parameter completion: An Optional completion block.
      */
-	public func setSwitchState(state: SwitchState, animated: Bool = true, completion: ((Switch) -> Void)? = nil) {
-		if isEnabled && internalSwitchState != state {
-			internalSwitchState = state
-			if animated {
-                animateToState(state: state) { [weak self] _ in
-					if let s: Switch = self {
-						s.sendActions(for: .valueChanged)
-						completion?(s)
-                        s.delegate?.switchDidChangeState(control: s, state: s.internalSwitchState)
-					}
-				}
-			} else {
-				button.x = .on == state ? self.onPosition : self.offPosition
-				styleForState(state: state)
-				sendActions(for: .valueChanged)
-				completion?(self)
-				delegate?.switchDidChangeState(control: self, state: internalSwitchState)
-			}
-		}
+	open func setSwitchState(state: SwitchState, animated: Bool = true, completion: ((Switch) -> Void)? = nil) {
+        guard isEnabled && internalSwitchState != state else {
+            return
+        }
+        
+        internalSwitchState = state
+        if animated {
+            animateToState(state: state) { [weak self] _ in
+                if let s: Switch = self {
+                    s.sendActions(for: .valueChanged)
+                    completion?(s)
+                    s.delegate?.switchDidChangeState(control: s, state: s.internalSwitchState)
+                }
+            }
+        } else {
+            button.x = .on == state ? self.onPosition : self.offPosition
+            styleForState(state: state)
+            sendActions(for: .valueChanged)
+            completion?(self)
+            delegate?.switchDidChangeState(control: self, state: internalSwitchState)
+        }
 	}
 	
 	/**
@@ -373,10 +363,12 @@ open class Switch: UIControl {
      */
 	@objc
 	internal func handleTouchUpOutsideOrCanceled(sender: FabButton, event: UIEvent) {
-		if let v: UITouch = event.touches(for: sender)?.first {
-			let q: CGFloat = sender.x + v.location(in: sender).x - v.previousLocation(in: sender).x
-			setSwitchState(state: q > (width - button.width) / 2 ? .on : .off, animated: true)
-		}
+		guard let v = event.touches(for: sender)?.first else {
+            return
+        }
+        
+        let q: CGFloat = sender.x + v.location(in: sender).x - v.previousLocation(in: sender).x
+        setSwitchState(state: q > (width - button.width) / 2 ? .on : .off, animated: true)
 	}
 	
 	/// Handles the TouchUpInside event.
@@ -392,29 +384,70 @@ open class Switch: UIControl {
      */
 	@objc
 	internal func handleTouchDragInside(sender: FabButton, event: UIEvent) {
-		if let v = event.touches(for: sender)?.first {
-			let q: CGFloat = max(min(sender.x + v.location(in: sender).x - v.previousLocation(in: sender).x, onPosition), offPosition)
-			if q != sender.x {
-				sender.x = q
-			}
-		}
+        guard let v = event.touches(for: sender)?.first else {
+            return
+        }
+        
+        guard let q: CGFloat = max(min(sender.x + v.location(in: sender).x - v.previousLocation(in: sender).x, onPosition), offPosition) else {
+            return
+        }
+			
+        guard q != sender.x else {
+            return
+        }
+        
+        sender.x = q
 	}
 	
 	open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-		if true == trackLayer.frame.contains(layer.convert(touches.first!.location(in: self), from: layer)) {
-			setOn(on: .on != internalSwitchState, animated: true)
-		}
+        guard track.frame.contains(layer.convert(touches.first!.location(in: self), from: layer)) else {
+            return
+        }
+        
+        setOn(on: .on != internalSwitchState, animated: true)
 	}
+    
+    /**
+     Prepares the view instance when intialized. When subclassing,
+     it is recommended to override the prepare method
+     to initialize property values and other setup operations.
+     The super.prepare method should always be called immediately
+     when subclassing.
+     */
+    open func prepare() {
+        prepareTrack()
+        prepareButton()
+        prepareSwitchSize(size: .medium)
+        prepareSwitchStyle(style: .light)
+        prepareSwitchState(state: .off)
+    }
+    
+    /// Laout the button and track views.
+    open func reload() {
+        var w: CGFloat = intrinsicContentSize.width
+        let px: CGFloat = (width - w) / 2
+        
+        track.frame = CGRect(x: px, y: (height - trackThickness) / 2, width: w, height: trackThickness)
+        track.cornerRadius = min(w, trackThickness) / 2
+        
+        button.frame = CGRect(x: px, y: (height - buttonDiameter) / 2, width: buttonDiameter, height: buttonDiameter)
+        onPosition = width - px - buttonDiameter
+        offPosition = px
+        
+        if .on == internalSwitchState {
+            button.x = onPosition
+        }
+    }
 	
 	/// Prepares the track.
 	private func prepareTrack() {
-		layer.addSublayer(trackLayer)
+		addSubview(track)
 	}
 	
 	/// Prepares the button.
 	private func prepareButton() {
-		button.pulseAnimation = .none
-		button.addTarget(self, action: #selector(handleTouchUpInside), for: .touchUpInside)
+		button.pulseColor = Color.white
+        button.addTarget(self, action: #selector(handleTouchUpInside), for: .touchUpInside)
 		button.addTarget(self, action: #selector(handleTouchDragInside), for: .touchDragInside)
 		button.addTarget(self, action: #selector(handleTouchUpOutsideOrCanceled), for: .touchCancel)
 		button.addTarget(self, action: #selector(handleTouchUpOutsideOrCanceled), for: .touchUpOutside)
@@ -467,10 +500,10 @@ open class Switch: UIControl {
 	private func updateColorForState(state: SwitchState) {
 		if .on == state {
 			button.backgroundColor = buttonOnColor
-			trackLayer.backgroundColor = trackOnColor.cgColor
+			track.backgroundColor = trackOnColor
 		} else {
 			button.backgroundColor = buttonOffColor
-			trackLayer.backgroundColor = trackOffColor.cgColor
+			track.backgroundColor = trackOffColor
 		}
 	}
 	
@@ -481,36 +514,10 @@ open class Switch: UIControl {
 	private func updateColorForDisabledState(state: SwitchState) {
 		if .on == state {
 			button.backgroundColor = buttonOnDisabledColor
-			trackLayer.backgroundColor = trackOnDisabledColor.cgColor
+			track.backgroundColor = trackOnDisabledColor
 		} else {
 			button.backgroundColor = buttonOffDisabledColor
-			trackLayer.backgroundColor = trackOffDisabledColor.cgColor
-		}
-	}
-	
-	/// Laout the button and track views.
-	private func layoutSwitch() {
-		var w: CGFloat = 0
-		switch switchSize {
-		case .small:
-			w = 30
-		case .medium:
-			w = 40
-		case .large:
-			w = 50
-		}
-		
-		let px: CGFloat = (width - w) / 2
-		
-        trackLayer.frame = CGRect(x: px, y: (height - trackThickness) / 2, width: w, height: trackThickness)
-		trackLayer.cornerRadius = min(trackLayer.frame.height, trackLayer.frame.width) / 2
-		
-        button.frame = CGRect(x: px, y: (height - buttonDiameter) / 2, width: buttonDiameter, height: buttonDiameter)
-		onPosition = width - px - buttonDiameter
-		offPosition = px
-		
-		if .on == internalSwitchState {
-			button.x = onPosition
+			track.backgroundColor = trackOffDisabledColor
 		}
 	}
 	
