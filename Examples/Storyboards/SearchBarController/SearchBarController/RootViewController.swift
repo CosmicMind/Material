@@ -32,7 +32,6 @@ import UIKit
 import Material
 
 class RootViewController: UIViewController {
-    /// SearchBar buttons.
     private var menuButton: IconButton!
     private var moreButton: IconButton!
     

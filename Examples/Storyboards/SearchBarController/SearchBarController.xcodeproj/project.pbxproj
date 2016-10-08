@@ -72,10 +72,10 @@
 				96784EC51D9012980061C06C /* AppDelegate.swift */,
 				96784F231D901E7D0061C06C /* AppSearchBarController.swift */,
 				96784EC71D9012980061C06C /* RootViewController.swift */,
+				9AC456331D9DE1F900A7ABF0 /* Main.storyboard */,
 				96784ECC1D9012980061C06C /* Assets.xcassets */,
 				96784ECE1D9012980061C06C /* LaunchScreen.storyboard */,
 				96784ED11D9012980061C06C /* Info.plist */,
-				9AC456331D9DE1F900A7ABF0 /* Main.storyboard */,
 			);
 			path = SearchBarController;
 			sourceTree = "<group>";

@@ -143,11 +143,6 @@ open class PageTabBarController: RootController {
         prepare()
     }
     
-    /**
-     To execute in the order of the layout chain, override this
-     method. LayoutSubviews should be called immediately, unless you
-     have a certain need.
-     */
     open override func layoutSubviews() {
         super.layoutSubviews()
         

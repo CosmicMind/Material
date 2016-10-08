@@ -47,8 +47,7 @@ class GreenViewController: UIViewController {
         view.backgroundColor = Color.green.base
     }
     
-    /// Prepares the pageTabBarItem.
-    internal func preparePageTabBarItem() {
+    private func preparePageTabBarItem() {
         pageTabBarItem.title = "Green"
         pageTabBarItem.titleColor = Color.blueGrey.base
     }

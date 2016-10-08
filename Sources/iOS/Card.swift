@@ -166,7 +166,6 @@ open class Card: PulseView {
         self.init(frame: .zero)
         prepareProperties(toolbar: toolbar, contentView: contentView, bottomBar: bottomBar)
     }
-    
     open override func layoutSubviews() {
         super.layoutSubviews()
         guard willLayout else {

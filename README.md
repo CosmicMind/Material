@@ -81,13 +81,23 @@ Icons is a library of Google and CosmicMind icons that are available for use wit
 
 ![Icon](http://www.cosmicmind.io/MK/MaterialMaterialIcon.png)
 
+[Learn More](http://cosmicmind.io/material/icons)
+
+## Colors
+
+Try the Material Colors app to see the wonderful colors available in Material, or use the online version at [materialColors.io](http://materialcolors.io)
+
+![MaterialColors](http://www.cosmicmind.io/gifs/MaterialColors.gif)
+
+[Get Material Colors on the AppStore](https://itunes.apple.com/app/x/id1111994400?mt=8)
+
 ## TextField
 
 A TextField is an excellent way to improve UX. It allows for a placeholder and additional hint details.
 
 ![TextField](http://www.cosmicmind.io/gifs/TextField.gif)
 
-[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/TextField)
+[Learn More](http://cosmicmind.io/material/textfield)
 
 ## Button
 
@@ -95,7 +105,7 @@ A button is used to trigger an action through a touch event. Material comes with
 
 ![Material Image](http://www.cosmicmind.io/material/white/button.gif)
 
-[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/Button)
+[Learn More](http://cosmicmind.io/material/button)
 
 ## Switch
 
@@ -103,7 +113,7 @@ A switch is a control component that toggles between on and off states.
 
 ![Material Image](http://www.cosmicmind.io/material/white/switch.gif)
 
-[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/Switch)
+[Learn More](http://cosmicmind.io/material/switch)
 
 ## Card
 
@@ -111,7 +121,7 @@ A Card is a flexible component that may be configured in any way you like. It ha
 
 ![Material Image](http://www.cosmicmind.io/material/white/card.gif)
 
-[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/Card)
+[Learn More](http://cosmicmind.io/material/card)
 
 ## ImageCard
 
@@ -119,7 +129,7 @@ An ImageCard is an expansion of the base Card. The Toolbar overlays an image are
 
 ![Material Image](http://www.cosmicmind.io/material/white/image-card.gif)
 
-[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/ImageCard)
+[Learn More](http://cosmicmind.io/material/imagecard)
 
 ## PresenterCard
 
@@ -127,7 +137,7 @@ The PresenterCard is a completely new card style. It allows for a primary presen
 
 ![Material Image](http://www.cosmicmind.io/material/white/presenter-card.gif)
 
-[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/PresenterCard)
+[Learn More](http://cosmicmind.io/material/presentercard)
 
 ## Menu
 
@@ -135,7 +145,7 @@ A Menu manages a collection of views. A new MenuItem type has been added that ma
 
 ![Material Image](http://www.cosmicmind.io/material/white/menu-controller.gif)
 
-[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/MenuController)
+[Learn More](http://cosmicmind.io/material/menu)
 
 ## Toolbar
 
@@ -143,7 +153,7 @@ Toolbars are super flexible and add excellent control to your navigation flow. T
 
 ![Material Image](http://www.cosmicmind.io/gifs/Toolbar.gif)
 
-[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/ToolbarController)
+[Learn More](http://cosmicmind.io/material/toolbar)
 
 ## SearchBar
 
@@ -151,7 +161,7 @@ A SearchBar is a powerful navigation tool that allows for user's input with an i
 
 ![Material Image](http://www.cosmicmind.io/gifs/SearchBar.gif)
 
-[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/SearchBarController)
+[Learn More](http://cosmicmind.io/material/searchbar)
 
 ## PageTabBar
 
@@ -159,7 +169,23 @@ A PageTabBar is a new component that links a customizable TabBar to a UIPageView
 
 ![Material Image](http://www.cosmicmind.io/material/white/page-tab-bar-controller.gif)
 
-[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/PageTabBarController)
+[Learn More](http://cosmicmind.io/material/pagetabbar)
+
+## NavigationController
+
+A NavigationController is a specialized view controller that manages a hierarchy of content efficiently, making it easier for users to move within an application.
+
+![Material Image](http://www.cosmicmind.io/material/white/navigation-controller.gif)
+
+[Learn More](http://cosmicmind.io/material/navigationcontroller)
+
+## NavigationDrawer
+
+A NavigationDrawer slides in from the left or right and contains the navigation destinations for your application.
+
+![Material Image](http://www.cosmicmind.io/material/shared/navigation-drawer-controller.gif)
+
+[Learn More](http://cosmicmind.io/material/navigationdrawer)
 
 ## Snackbar
 
@@ -167,7 +193,7 @@ A Snackbar is a new component that is very simple in its behavior and very power
 
 ![Material Image](http://www.cosmicmind.io/material/white/snackbar-controller.gif)
 
-[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/SnackbarController)
+[Learn More](http://cosmicmind.io/material/snackbar)
 
 ## PhotoLibrary
 
@@ -175,7 +201,7 @@ PhotoLibrary is a new component that simplifies the Photos framework and allows 
 
 ![Material Image](http://www.cosmicmind.io/material/shared/photolibrary-controller.png)
 
-[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/PhotoLibraryController)
+[Learn More](http://cosmicmind.io/material/photolibrary)
 
 ## Capture
 
@@ -183,7 +209,7 @@ Capture is an API that simplifies iOS' AVFoundation framework. It allows for pho
 
 ![Material Image](http://www.cosmicmind.io/material/shared/capture-controller.png)
 
-[Example Project](https://github.com/CosmicMind/Material/tree/development/Examples/Programmatic/CaptureController)
+[Learn More](http://cosmicmind.io/material/capture)
 
 ## Sticker Sheet
 
@@ -192,14 +218,6 @@ To help template your project, checkout Material Sticker Sheet.
 ![MaterialStickerSheet](http://www.cosmicmind.io/MK/material_iso_1.png)
 
 [Get Material Sticker Sheet](http://www.materialup.com/posts/material-design-sticker-sheets)
-
-## Material Colors
-
-Try the Material Colors app to see the wonderful colors available in Material, or use the online version at [materialColors.io](http://materialcolors.io)
-
-![MaterialColors](http://www.cosmicmind.io/gifs/MaterialColors.gif)
-
-[Get Material Colors on the AppStore](https://itunes.apple.com/app/x/id1111994400?mt=8)
 
 ## Much More...
 

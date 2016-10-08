@@ -76,14 +76,18 @@ open class Snackbar: Bar {
         
         return super.hitTest(point, with: event)
     }
-    
     open override func layoutSubviews() {
         super.layoutSubviews()
         guard willLayout else {
             return
         }
         
-        textLabel.frame = contentView.bounds
+        reload()
+    }
+    
+    /// Reloads the view.
+    open func reload() {
+        centerViews = [textLabel]
     }
     
     /**
@@ -111,6 +115,5 @@ open class Snackbar: Bar {
         textLabel.textAlignment = .left
         textLabel.textColor = Color.white
         textLabel.numberOfLines = 0
-        contentView.addSubview(textLabel)
     }
 }

@@ -122,8 +122,6 @@ open class ToolbarController: RootController {
 				view.insertSubview(v.view, aboveSubview: toolbar)
 				v.view.layer.zPosition = 1500
 				v.didMove(toParentViewController: self)
-				
-				// Animate the noteButton out and the noteViewController! in.
 				v.view.isHidden = false
 				v.view.layer.rasterizationScale = Device.scale
 				v.view.layer.shouldRasterize = true
@@ -134,32 +132,32 @@ open class ToolbarController: RootController {
 				toolbar.isUserInteractionEnabled = false
 				delegate?.toolbarControllerWillOpenFloatingViewController?(toolbarController: self)
 				UIView.animate(withDuration: 0.5,
-					animations: { [weak self] in
-						if let s = self {
-							v.view.center.y = s.view.bounds.height / 2
-							s.toolbar.alpha = 0.5
-							s.rootViewController.view.alpha = 0.5
-						}
-					}) { [weak self] _ in
-						if let s = self {
-							v.view.layer.shouldRasterize = false
-							s.view.layer.shouldRasterize = false
-							DispatchQueue.main.async { [weak self] in
-								if let s = self {
-									s.delegate?.toolbarControllerDidOpenFloatingViewController?(toolbarController: s)
-								}
-							}
-						}
+					animations: { [weak self, v = v] in
+						guard let s = self else {
+                            return
+                        }
+                        
+                        v.view.center.y = s.view.bounds.height / 2
+                        s.toolbar.alpha = 0.5
+                        s.rootViewController.view.alpha = 0.5
+					}) { [weak self, v = v] _ in
+                        guard let s = self else {
+                            return
+                        }
+                        
+                        v.view.layer.shouldRasterize = false
+                        s.view.layer.shouldRasterize = false
+                        DispatchQueue.main.async { [weak self] in
+                            if let s = self {
+                                s.delegate?.toolbarControllerDidOpenFloatingViewController?(toolbarController: s)
+                            }
+                        }
 					}
 			}
 		}
 	}
 	
-	/**
-     To execute in the order of the layout chain, override this
-     method. LayoutSubviews should be called immediately, unless you
-     have a certain need.
-     */
+	
 	open override func layoutSubviews() {
 		super.layoutSubviews()
 		

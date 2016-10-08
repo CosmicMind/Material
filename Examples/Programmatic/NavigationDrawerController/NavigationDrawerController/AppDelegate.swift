@@ -37,8 +37,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func applicationDidFinishLaunching(_ application: UIApplication) {
+        let appToolbarController = AppToolbarController(rootViewController: RootViewController())
+        let leftViewController = LeftViewController()
+        let rightViewController = RightViewController()
+        
         window = UIWindow(frame: Device.bounds)
-        window!.rootViewController = AppNavigationDrawerController(rootViewController: RootViewController(), leftViewController: LeftViewController(), rightViewController: RightViewController())
+        window!.rootViewController = AppNavigationDrawerController(rootViewController: appToolbarController, leftViewController: leftViewController, rightViewController: rightViewController)
         window!.makeKeyAndVisible()
     }
 }

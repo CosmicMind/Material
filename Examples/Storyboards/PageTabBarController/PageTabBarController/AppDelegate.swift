@@ -53,11 +53,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return UIStoryboard.viewController(identifier: "RedViewController") as! RedViewController
     }()
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func applicationDidFinishLaunching(_ application: UIApplication) {
         window = UIWindow(frame: UIScreen.main.bounds)
         window!.rootViewController = AppPageTabBarController(viewControllers: [redViewController, greenViewController, blueViewController], selectedIndex: 0)
         window!.makeKeyAndVisible()
-        return true
     }
 }
 

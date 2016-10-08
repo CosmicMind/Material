@@ -275,7 +275,7 @@
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Button/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.cosmicmind.Button;
+				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.Button;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -288,7 +288,7 @@
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Button/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.cosmicmind.Button;
+				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.Button;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};

@@ -32,8 +32,62 @@ import UIKit
 import Material
 
 class RootViewController: UIViewController {
+    /// Toolbar buttons.
+    private var menuButton: IconButton!
+    private var switchControl: Switch!
+    private var moreButton: IconButton!
+    
     open override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Color.white
     }
+    
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        prepareMenuButton()
+        prepareSwitch()
+        prepareMoreButton()
+        prepareToolbar()
+    }
+    
+    @objc
+    internal func handleMenuButton() {
+        navigationDrawerController?.toggleLeftView()
+    }
+    
+    @objc
+    internal func handleMoreButton() {
+        navigationDrawerController?.toggleRightView()
+    }
+    
+    private func prepareMenuButton() {
+        menuButton = IconButton(image: Icon.cm.menu, tintColor: Color.blue.base)
+        menuButton.addTarget(self, action: #selector(handleMenuButton), for: .touchUpInside)
+    }
+    
+    private func prepareSwitch() {
+        switchControl = Switch(state: .off, style: .light, size: .small)
+    }
+    
+    private func prepareMoreButton() {
+        moreButton = IconButton(image: Icon.cm.moreVertical, tintColor: Color.blue.base)
+        moreButton.addTarget(self, action: #selector(handleMoreButton), for: .touchUpInside)
+    }
+    
+    private func prepareToolbar() {
+        guard let tc = toolbarController else {
+            return
+        }
+        
+        tc.toolbar.title = "Marterial"
+//        tc.toolbar.titleLabel.textAlignment = .left
+        
+        tc.toolbar.detail = "Build Beautiful Software"
+//        tc.toolbar.detailLabel.textAlignment = .left
+        
+        tc.toolbar.leftViews = [menuButton]
+        tc.toolbar.rightViews = [switchControl, moreButton]
+    }
 }
+

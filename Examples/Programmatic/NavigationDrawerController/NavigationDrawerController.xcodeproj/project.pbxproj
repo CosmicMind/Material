@@ -14,6 +14,7 @@
 		96784E8C1D8FFEA20061C06C /* LeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96784E8B1D8FFEA10061C06C /* LeftViewController.swift */; };
 		96784E8E1D8FFEC80061C06C /* RightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96784E8D1D8FFEC80061C06C /* RightViewController.swift */; };
 		96784E901D8FFEEF0061C06C /* AppNavigationDrawerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96784E8F1D8FFEEF0061C06C /* AppNavigationDrawerController.swift */; };
+		968948791DA995C400DA9FD9 /* AppToolbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968948781DA995C400DA9FD9 /* AppToolbarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -39,6 +40,7 @@
 		96784E8B1D8FFEA10061C06C /* LeftViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftViewController.swift; sourceTree = "<group>"; };
 		96784E8D1D8FFEC80061C06C /* RightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightViewController.swift; sourceTree = "<group>"; };
 		96784E8F1D8FFEEF0061C06C /* AppNavigationDrawerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppNavigationDrawerController.swift; sourceTree = "<group>"; };
+		968948781DA995C400DA9FD9 /* AppToolbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppToolbarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 			children = (
 				96784E761D8FFE230061C06C /* AppDelegate.swift */,
 				96784E8F1D8FFEEF0061C06C /* AppNavigationDrawerController.swift */,
+				968948781DA995C400DA9FD9 /* AppToolbarController.swift */,
 				96784E781D8FFE230061C06C /* RootViewController.swift */,
 				96784E8B1D8FFEA10061C06C /* LeftViewController.swift */,
 				96784E8D1D8FFEC80061C06C /* RightViewController.swift */,
@@ -156,6 +159,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				96784E8C1D8FFEA20061C06C /* LeftViewController.swift in Sources */,
+				968948791DA995C400DA9FD9 /* AppToolbarController.swift in Sources */,
 				96784E8E1D8FFEC80061C06C /* RightViewController.swift in Sources */,
 				96784E901D8FFEEF0061C06C /* AppNavigationDrawerController.swift in Sources */,
 				96784E791D8FFE230061C06C /* RootViewController.swift in Sources */,

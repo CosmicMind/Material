@@ -32,27 +32,26 @@ import UIKit
 import Material
 
 class RootViewController: UIViewController {
-    /// A reference to the Undo button.
     private var undoButton: FlatButton!
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Color.white
-        
-        prepareUndoButton()
+        view.backgroundColor = Color.grey.lighten5
     }
     
     open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        prepareUndoButton()
         prepareSnackbar()
         animateSnackbar()
+        scheduleAnimation()
     }
     
     private func prepareUndoButton() {
         undoButton = FlatButton(title: "Undo", titleColor: Color.yellow.base)
         undoButton.pulseAnimation = .backing
-        undoButton.titleLabel?.font = RobotoFont.regular(with: 14)
+        undoButton.titleLabel?.font = snackbarController?.snackbar.textLabel.font
     }
     
     private func prepareSnackbar() {
@@ -64,6 +63,11 @@ class RootViewController: UIViewController {
         sc.snackbar.rightViews = [undoButton]
     }
     
+    private func scheduleAnimation() {
+        _ = Timer.scheduledTimer(timeInterval: 6, target: self, selector: #selector(animateSnackbar), userInfo: nil, repeats: true)
+    }
+    
+    @objc
     private func animateSnackbar() {
         guard let sc = snackbarController else {
             return

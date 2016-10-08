@@ -72,10 +72,10 @@
 				96784EE31D9012B00061C06C /* AppDelegate.swift */,
 				96784F191D901DEF0061C06C /* AppStatusBarController.swift */,
 				96784EE51D9012B00061C06C /* RootViewController.swift */,
+				9AC456311D9DE0B300A7ABF0 /* Main.storyboard */,
 				96784EEA1D9012B00061C06C /* Assets.xcassets */,
 				96784EEC1D9012B10061C06C /* LaunchScreen.storyboard */,
 				96784EEF1D9012B10061C06C /* Info.plist */,
-				9AC456311D9DE0B300A7ABF0 /* Main.storyboard */,
 			);
 			path = StatusBarController;
 			sourceTree = "<group>";

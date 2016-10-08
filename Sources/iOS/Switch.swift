@@ -61,7 +61,12 @@ public protocol SwitchDelegate {
 
 @objc(Switch)
 open class Switch: UIControl {
-	/// An internal reference to the switchState public property.
+    /// Will render the view.
+    open var willLayout: Bool {
+        return 0 < width && 0 < height && nil != superview
+    }
+    
+    /// An internal reference to the switchState public property.
 	private var internalSwitchState = SwitchState.off
 	
 	/// Track thickness.
@@ -297,6 +302,10 @@ open class Switch: UIControl {
 	
     open override func layoutSubviews() {
         super.layoutSubviews()
+        guard willLayout else {
+            return
+        }
+        
         reload()
     }
     
@@ -421,7 +430,7 @@ open class Switch: UIControl {
         prepareSwitchSize()
     }
     
-    /// Laout the button and track views.
+    /// Reloads the view.
     open func reload() {
         var w: CGFloat = intrinsicContentSize.width
         let px: CGFloat = (width - w) / 2

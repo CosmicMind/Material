@@ -146,17 +146,22 @@ open class SnackbarController: RootController {
         }
     }
     
-    /**
-     To execute in the order of the layout chain, override this
-     method. LayoutSubviews should be called immediately, unless you
-     have a certain need.
-     */
+    open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        reload()
+    }
+    
     open override func layoutSubviews() {
         super.layoutSubviews()
         guard !isAnimating else {
             return
         }
         
+        reload()
+    }
+    
+    /// Reloads the view.
+    open func reload() {
         snackbar.width = view.width
         snackbar.height = snackbar.intrinsicContentSize.height + snackbar.grid.layoutEdgeInsets.top + snackbar.grid.layoutEdgeInsets.bottom
         layoutSnackbar(status: snackbar.status)
