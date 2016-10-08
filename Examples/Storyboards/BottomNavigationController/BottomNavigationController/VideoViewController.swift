@@ -32,13 +32,14 @@ import UIKit
 import Material
 
 class VideoViewController: UIViewController {
-    convenience init() {
-        self.init(nibName: nil, bundle: nil)
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
         prepareTabBarItem()
     }
     
     /// Prepare tabBarItem.
     private func prepareTabBarItem() {
+        tabBarItem.title = nil
         tabBarItem.image = Icon.cm.videocam?.tintWithColor(color: Color.blueGrey.base)?.withRenderingMode(.alwaysOriginal)
         tabBarItem.selectedImage = Icon.cm.videocam?.tintWithColor(color: Color.blue.base)?.withRenderingMode(.alwaysOriginal)
     }
