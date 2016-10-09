@@ -31,10 +31,11 @@
 import UIKit
 import Material
 
-class RootViewController: UIViewController {
+class TransitionedViewController: UIViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Color.white
+        view.backgroundColor = Color.purple.base
+        
         prepareToolbar()
     }
     
@@ -43,8 +44,8 @@ class RootViewController: UIViewController {
             return
         }
         
-        tc.toolbar.title = "Marterial"
-        tc.toolbar.detail = "Build Beautiful Software"
+        tc.toolbar.title = "Transitioned"
+        tc.toolbar.detail = "View Controller"
     }
 }
 

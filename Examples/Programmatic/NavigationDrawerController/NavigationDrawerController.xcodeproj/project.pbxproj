@@ -15,6 +15,7 @@
 		96784E8E1D8FFEC80061C06C /* RightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96784E8D1D8FFEC80061C06C /* RightViewController.swift */; };
 		96784E901D8FFEEF0061C06C /* AppNavigationDrawerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96784E8F1D8FFEEF0061C06C /* AppNavigationDrawerController.swift */; };
 		968948791DA995C400DA9FD9 /* AppToolbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968948781DA995C400DA9FD9 /* AppToolbarController.swift */; };
+		9689487E1DAA92A200DA9FD9 /* TransitionedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689487D1DAA92A200DA9FD9 /* TransitionedViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -41,6 +42,7 @@
 		96784E8D1D8FFEC80061C06C /* RightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightViewController.swift; sourceTree = "<group>"; };
 		96784E8F1D8FFEEF0061C06C /* AppNavigationDrawerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppNavigationDrawerController.swift; sourceTree = "<group>"; };
 		968948781DA995C400DA9FD9 /* AppToolbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppToolbarController.swift; sourceTree = "<group>"; };
+		9689487D1DAA92A200DA9FD9 /* TransitionedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionedViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 				96784E8F1D8FFEEF0061C06C /* AppNavigationDrawerController.swift */,
 				968948781DA995C400DA9FD9 /* AppToolbarController.swift */,
 				96784E781D8FFE230061C06C /* RootViewController.swift */,
+				9689487D1DAA92A200DA9FD9 /* TransitionedViewController.swift */,
 				96784E8B1D8FFEA10061C06C /* LeftViewController.swift */,
 				96784E8D1D8FFEC80061C06C /* RightViewController.swift */,
 				96784E7D1D8FFE230061C06C /* Assets.xcassets */,
@@ -162,6 +165,7 @@
 				968948791DA995C400DA9FD9 /* AppToolbarController.swift in Sources */,
 				96784E8E1D8FFEC80061C06C /* RightViewController.swift in Sources */,
 				96784E901D8FFEEF0061C06C /* AppNavigationDrawerController.swift in Sources */,
+				9689487E1DAA92A200DA9FD9 /* TransitionedViewController.swift in Sources */,
 				96784E791D8FFE230061C06C /* RootViewController.swift in Sources */,
 				96784E771D8FFE230061C06C /* AppDelegate.swift in Sources */,
 			);

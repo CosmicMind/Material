@@ -43,7 +43,6 @@ class ViewController: UIViewController {
     
     private func prepareFabButton() {
         fabButton.image = Icon.cm.add
-        fabButton.pulseColor = Color.white
     }
     
     private func prepareIconButton() {

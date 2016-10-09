@@ -121,7 +121,7 @@ open class RootController: UIViewController {
             to: viewController,
 			duration: duration,
 			options: options,
-			animations: animations) { [weak self, completion = completion] (result: Bool) in
+			animations: animations) { [weak self, viewController = viewController, completion = completion] (result) in
                 guard let s = self else {
                     return
                 }

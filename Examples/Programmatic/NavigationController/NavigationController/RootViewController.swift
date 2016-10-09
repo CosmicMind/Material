@@ -57,17 +57,14 @@ class RootViewController: UIViewController {
     
     private func prepareMenuButton() {
         menuButton = IconButton(image: Icon.cm.menu, tintColor: Color.white)
-        menuButton.pulseColor = Color.white
     }
     
     private func prepareStarButton() {
         starButton = IconButton(image: Icon.cm.star, tintColor: Color.white)
-        starButton.pulseColor = Color.white
     }
     
     private func prepareSearchButton() {
         searchButton = IconButton(image: Icon.cm.search, tintColor: Color.white)
-        searchButton.pulseColor = Color.white
     }
     
     private func prepareNavigationItem() {

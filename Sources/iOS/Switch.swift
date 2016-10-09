@@ -452,8 +452,7 @@ open class Switch: UIControl {
 	
 	/// Prepares the button.
 	private func prepareButton() {
-		button.pulseColor = Color.white
-        button.addTarget(self, action: #selector(handleTouchUpInside), for: .touchUpInside)
+		button.addTarget(self, action: #selector(handleTouchUpInside), for: .touchUpInside)
 		button.addTarget(self, action: #selector(handleTouchDragInside), for: .touchDragInside)
 		button.addTarget(self, action: #selector(handleTouchUpOutsideOrCanceled), for: .touchCancel)
 		button.addTarget(self, action: #selector(handleTouchUpOutsideOrCanceled), for: .touchUpOutside)

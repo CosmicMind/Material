@@ -84,7 +84,6 @@ public class ViewController: UIViewController {
         captureButton = FabButton()
         captureButton.width = 72
         captureButton.height = 72
-        captureButton.pulseColor = Color.white
         captureButton.backgroundColor = Color.red.darken1.withAlphaComponent(0.3)
         captureButton.borderColor = Color.white
         captureButton.borderWidthPreset =  .border3

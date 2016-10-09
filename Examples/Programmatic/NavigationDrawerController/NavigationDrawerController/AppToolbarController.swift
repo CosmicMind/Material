@@ -32,9 +32,47 @@ import UIKit
 import Material
 
 class AppToolbarController: ToolbarController {
-    open override func prepare() {
+    private var menuButton: IconButton!
+    private var switchControl: Switch!
+    private var moreButton: IconButton!
+    
+    override func prepare() {
         super.prepare()
         statusBarStyle = .default
+    
+        prepareMenuButton()
+        prepareSwitch()
+        prepareMoreButton()
+        prepareToolbar()
+    }
+    
+    @objc
+    internal func handleMenuButton() {
+        navigationDrawerController?.toggleLeftView()
+    }
+    
+    @objc
+    internal func handleMoreButton() {
+        navigationDrawerController?.toggleRightView()
+    }
+    
+    private func prepareMenuButton() {
+        menuButton = IconButton(image: Icon.cm.menu, tintColor: Color.blue.base)
+        menuButton.addTarget(self, action: #selector(handleMenuButton), for: .touchUpInside)
+    }
+    
+    private func prepareSwitch() {
+        switchControl = Switch(state: .off, style: .light, size: .small)
+    }
+    
+    private func prepareMoreButton() {
+        moreButton = IconButton(image: Icon.cm.moreVertical, tintColor: Color.blue.base)
+        moreButton.addTarget(self, action: #selector(handleMoreButton), for: .touchUpInside)
+    }
+    
+    private func prepareToolbar() {
+        toolbar.leftViews = [menuButton]
+        toolbar.rightViews = [switchControl, moreButton]
     }
 }
 

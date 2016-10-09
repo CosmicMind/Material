@@ -57,17 +57,14 @@ class ViewController: UIViewController {
     
     private func prepareMenuButton() {
         menuButton = IconButton(image: Icon.cm.menu, tintColor: Color.white)
-        menuButton.pulseColor = Color.white
     }
     
     private func prepareFavoriteButton() {
         favoriteButton = IconButton(image: Icon.favorite, tintColor: Color.white)
-        favoriteButton.pulseColor = Color.white
     }
     
     private func prepareShareButton() {
         shareButton = IconButton(image: Icon.cm.share, tintColor: Color.white)
-        shareButton.pulseColor = Color.white
     }
     
     private func prepareBar() {
