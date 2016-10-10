@@ -67,7 +67,7 @@ class ViewController: UIViewController {
     }
     
     private func prepareFlatButton() {
-        let button = FlatButton(title: "Flat Button", titleColor: Color.blue.base)
+        let button = FlatButton(title: "Flat Button")
         
         view.layout(button)
             .width(ButtonLayout.Flat.width)
@@ -95,7 +95,7 @@ class ViewController: UIViewController {
     }
     
     private func prepareIconButton() {
-        let button = IconButton(image: Icon.cm.search, tintColor: Color.blue.base)
+        let button = IconButton(image: Icon.cm.search)
         
         view.layout(button)
             .width(ButtonLayout.Icon.width)

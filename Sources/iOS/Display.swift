@@ -29,40 +29,9 @@
  */
 
 import UIKit
-import Material
 
-class RootViewController: UIViewController {
-    private var menuButton: IconButton!
-    private var moreButton: IconButton!
-    
-    open override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = Color.grey.lighten1
-    }
-    
-    open override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        prepareMenuButton()
-        prepareMoreButton()
-        prepareSearchBar()
-    }
-    
-    private func prepareMenuButton() {
-        menuButton = IconButton(image: Icon.cm.menu)
-    }
-    
-    private func prepareMoreButton() {
-        moreButton = IconButton(image: Icon.cm.moreVertical)
-    }
-    
-    private func prepareSearchBar() {
-        guard let sc = searchBarController else {
-            return
-        }
-        
-        sc.searchBar.leftViews = [menuButton]
-        sc.searchBar.rightViews = [moreButton]
-    }
+@objc(Display)
+public enum Display: Int {
+    case partial
+    case full
 }
-

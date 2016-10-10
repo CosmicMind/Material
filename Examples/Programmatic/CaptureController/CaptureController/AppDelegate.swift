@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationDidFinishLaunching(_ application: UIApplication) {
         window = UIWindow(frame: Device.bounds)
-        window!.rootViewController = ViewController()
+        window!.rootViewController = AppCaptureController(rootViewController: ViewController())
         window!.makeKeyAndVisible()
     }
 }

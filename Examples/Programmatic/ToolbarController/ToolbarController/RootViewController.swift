@@ -51,15 +51,15 @@ class RootViewController: UIViewController {
     }
     
     private func prepareMenuButton() {
-        menuButton = IconButton(image: Icon.cm.menu, tintColor: Color.blue.base)
+        menuButton = IconButton(image: Icon.cm.menu)
     }
     
     private func prepareStarButton() {
-        starButton = IconButton(image: Icon.cm.star, tintColor: Color.blue.base)
+        starButton = IconButton(image: Icon.cm.star)
     }
     
     private func prepareSearchButton() {
-        searchButton = IconButton(image: Icon.cm.search, tintColor: Color.blue.base)
+        searchButton = IconButton(image: Icon.cm.search)
     }
     
     private func prepareToolbar() {

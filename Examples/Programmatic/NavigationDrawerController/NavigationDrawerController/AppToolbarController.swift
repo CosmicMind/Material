@@ -57,7 +57,7 @@ class AppToolbarController: ToolbarController {
     }
     
     private func prepareMenuButton() {
-        menuButton = IconButton(image: Icon.cm.menu, tintColor: Color.blue.base)
+        menuButton = IconButton(image: Icon.cm.menu)
         menuButton.addTarget(self, action: #selector(handleMenuButton), for: .touchUpInside)
     }
     
@@ -66,7 +66,7 @@ class AppToolbarController: ToolbarController {
     }
     
     private func prepareMoreButton() {
-        moreButton = IconButton(image: Icon.cm.moreVertical, tintColor: Color.blue.base)
+        moreButton = IconButton(image: Icon.cm.moreVertical)
         moreButton.addTarget(self, action: #selector(handleMoreButton), for: .touchUpInside)
     }
     

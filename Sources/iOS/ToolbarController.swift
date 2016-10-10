@@ -69,6 +69,12 @@ public protocol ToolbarControllerDelegate {
 
 @objc(ToolbarController)
 open class ToolbarController: RootController {
+    open var display = Display.partial {
+        didSet {
+            layoutSubviews()
+        }
+    }
+    
     /// Reference to the Toolbar.
     open private(set) lazy var toolbar: Toolbar = Toolbar()
     
@@ -168,8 +174,13 @@ open class ToolbarController: RootController {
         toolbar.width = view.width + toolbar.grid.layoutEdgeInsets.left + toolbar.grid.layoutEdgeInsets.right
         toolbar.height = p
         
-        rootViewController.view.y = p
-        rootViewController.view.height = view.height - p
+        switch display {
+        case .partial:
+            rootViewController.view.y = p
+            rootViewController.view.height = view.height - p
+        case .full:
+            rootViewController.view.frame = view.bounds
+        }
 	}
 	
 	/**

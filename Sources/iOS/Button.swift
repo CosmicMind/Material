@@ -143,31 +143,13 @@ open class Button: UIButton {
 	}
     
     /**
-     A convenience initializer that acceps an image.
-     - Parameter image: A UIImage.
-    */
-    public convenience init(image: UIImage?) {
-        self.init()
-        prepare(with: image, tintColor: nil)
-    }
-    
-    /**
      A convenience initializer that acceps an image and tintColor.
      - Parameter image: A UIImage.
      - Parameter tintColor: A UIColor.
      */
-    public convenience init(image: UIImage?, tintColor: UIColor?) {
+    public convenience init(image: UIImage?, tintColor: UIColor = Color.blue.base) {
         self.init()
         prepare(with: image, tintColor: tintColor)
-    }
-    
-    /**
-     A convenience initializer that acceps a title.
-     - Parameter title: A String.
-     */
-    public convenience init(title: String?) {
-        self.init()
-        prepare(with: title, titleColor: nil)
     }
     
     /**
@@ -175,7 +157,7 @@ open class Button: UIButton {
      - Parameter title: A String.
      - Parameter titleColor: A UIColor.
      */
-    public convenience init(title: String?, titleColor: UIColor?) {
+    public convenience init(title: String?, titleColor: UIColor = Color.blue.base) {
         self.init()
         prepare(with: title, titleColor: titleColor)
     }
@@ -274,9 +256,10 @@ open class Button: UIButton {
      - Parameter image: A UIImage.
      - Parameter tintColor: A UIColor.
      */
-    private func prepare(with image: UIImage?, tintColor: UIColor?) {
+    private func prepare(with image: UIImage?, tintColor: UIColor) {
         self.image = image
         self.tintColor = tintColor
+        pulseColor = tintColor
     }
     
     /**
@@ -284,8 +267,9 @@ open class Button: UIButton {
      - Parameter title: A String.
      - Parameter titleColor: A UIColor.
      */
-    private func prepare(with title: String?, titleColor: UIColor?) {
+    private func prepare(with title: String?, titleColor: UIColor) {
         self.title = title
         self.titleColor = titleColor
+        pulseColor = titleColor
     }
 }

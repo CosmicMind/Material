@@ -31,38 +31,46 @@
 import UIKit
 import Material
 
-class RootViewController: UIViewController {
-    private var menuButton: IconButton!
-    private var moreButton: IconButton!
-    
-    open override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = Color.grey.lighten1
+class AppCaptureController: CaptureController {
+    open override func prepare() {
+        super.prepare()
+        prepareCaptureButton()
+        prepareCameraButton()
+        prepareVideoButton()
+        prepareToolbar()
     }
     
-    open override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    private func prepareToolbar() {
+        toolbar.titleLabel.isHidden = true
+        toolbar.titleLabel.textColor = Color.white
         
-        prepareMenuButton()
-        prepareMoreButton()
-        prepareSearchBar()
-    }
-    
-    private func prepareMenuButton() {
-        menuButton = IconButton(image: Icon.cm.menu)
-    }
-    
-    private func prepareMoreButton() {
-        moreButton = IconButton(image: Icon.cm.moreVertical)
-    }
-    
-    private func prepareSearchBar() {
-        guard let sc = searchBarController else {
-            return
-        }
+        toolbar.detailLabel.isHidden = true
+        toolbar.detail = "Recording"
+        toolbar.detailLabel.textColor = Color.red.accent1
         
-        sc.searchBar.leftViews = [menuButton]
-        sc.searchBar.rightViews = [moreButton]
+        toolbar.leftViews = [switchCamerasButton]
+        toolbar.rightViews = [flashButton]
+    }
+    
+    private func prepareCaptureButton() {
+        captureButton.width = 72
+        captureButton.height = 72
+        captureButton.backgroundColor = Color.red.darken1.withAlphaComponent(0.3)
+        captureButton.borderColor = Color.white
+        captureButton.borderWidthPreset =  .border3
+        captureButton.depthPreset = .none
+    }
+    
+    private func prepareCameraButton() {
+        cameraButton.width = 72
+        cameraButton.height = 72
+        cameraButton.pulseAnimation = .centerRadialBeyondBounds
+    }
+    
+    private func prepareVideoButton() {
+        videoButton.width = 72
+        videoButton.height = 72
+        videoButton.pulseAnimation = .centerRadialBeyondBounds
     }
 }
 

@@ -35,7 +35,7 @@ internal struct Pulse {
     internal lazy var layers = [CAShapeLayer]()
     
     /// A UIColor.
-    internal var color = Color.white
+    internal var color = Color.blueGrey.base
     
     /// A reference to the PulseAnimation.
     internal var animation = PulseAnimation.pointWithBacking
