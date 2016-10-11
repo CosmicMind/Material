@@ -39,12 +39,12 @@ class VideoViewController: UIViewController {
     
     /// Prepare tabBarItem.
     private func prepareTabBarItem() {
-        tabBarItem.image = Icon.cm.videocam?.tint(with: blueGrey.base)?.withRenderingMode(.alwaysOriginal)
-        tabBarItem.selectedImage = Icon.cm.videocam?.tint(with: blue.base)?.withRenderingMode(.alwaysOriginal)
+        tabBarItem.image = Icon.cm.videocam?.tint(with: Color.blueGrey.base)
+        tabBarItem.selectedImage = Icon.cm.videocam?.tint(with: Color.blue.base)
     }
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = green.base
+        view.backgroundColor = Color.green.base
     }
 }

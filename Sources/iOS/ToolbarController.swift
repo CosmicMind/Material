@@ -68,7 +68,7 @@ public protocol ToolbarControllerDelegate {
 }
 
 @objc(ToolbarController)
-open class ToolbarController: RootController {
+open class ToolbarController: StatusBarController {
     open var display = Display.partial {
         didSet {
             layoutSubviews()
@@ -167,12 +167,10 @@ open class ToolbarController: RootController {
 	open override func layoutSubviews() {
 		super.layoutSubviews()
 		
-        toolbar.grid.layoutEdgeInsets.top = .phone == Device.userInterfaceIdiom && Device.isLandscape ? 0 : 20
+        toolbar.y = .phone == Device.userInterfaceIdiom && Device.isLandscape ? 0 : 20
+        toolbar.width = view.width
         
-        let p = toolbar.intrinsicContentSize.height + toolbar.grid.layoutEdgeInsets.top + toolbar.grid.layoutEdgeInsets.bottom
-        
-        toolbar.width = view.width + toolbar.grid.layoutEdgeInsets.left + toolbar.grid.layoutEdgeInsets.right
-        toolbar.height = p
+        let p = toolbar.y + toolbar.height
         
         switch display {
         case .partial:

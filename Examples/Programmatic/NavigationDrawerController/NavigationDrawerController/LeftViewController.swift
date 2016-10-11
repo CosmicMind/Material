@@ -36,7 +36,7 @@ class LeftViewController: UIViewController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = blue.base
+        view.backgroundColor = Color.blue.base
         
         prepareTransitionButton()
     }
@@ -55,7 +55,7 @@ class LeftViewController: UIViewController {
     }
 
     private func prepareTransitionButton() {
-        transitionButton = FlatButton(title: "Transition VC", titleColor: white)
+        transitionButton = FlatButton(title: "Transition VC", titleColor: .white)
         transitionButton.addTarget(self, action: #selector(handleTransitionButton), for: .touchUpInside)
         
         view.layout(transitionButton).horizontally().center()

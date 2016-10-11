@@ -37,7 +37,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = white
+        view.backgroundColor = .white
         
         prepareLogo()
     }
@@ -48,7 +48,7 @@ class ViewController: UIViewController {
         logo = View()
         logo.depthPreset = .depth3
         logo.shapePreset = .circle
-        logo.backgroundColor = white
+        logo.backgroundColor = .white
         logo.image = UIImage(named: "CosmicMind")
         
         view.layout(logo).width(d).height(d).center()

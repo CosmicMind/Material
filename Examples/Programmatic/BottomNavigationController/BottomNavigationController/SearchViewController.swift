@@ -39,12 +39,12 @@ class SearchViewController: UIViewController {
     
     /// Prepare tabBarItem.
     private func prepareTabBarItem() {
-        tabBarItem.image = Icon.cm.search?.tint(with: .blueGrey.base)?.withRenderingMode(.alwaysOriginal)
-        tabBarItem.selectedImage = Icon.cm.search?.tint(with: .blue.base)?.withRenderingMode(.alwaysOriginal)
+        tabBarItem.image = Icon.cm.search?.tint(with: Color.blueGrey.base)
+        tabBarItem.selectedImage = Icon.cm.search?.tint(with: Color.blue.base)
     }
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .blueGrey.base
+        view.backgroundColor = Color.blueGrey.base
     }
 }

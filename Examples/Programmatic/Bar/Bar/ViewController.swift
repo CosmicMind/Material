@@ -57,22 +57,25 @@ class ViewController: UIViewController {
     
     private func prepareMenuButton() {
         menuButton = IconButton(image: Icon.cm.menu, tintColor: .white)
+        menuButton.pulseColor = .white
     }
     
     private func prepareFavoriteButton() {
         favoriteButton = IconButton(image: Icon.favorite, tintColor: .white)
+        favoriteButton.pulseColor = .white
     }
     
     private func prepareShareButton() {
         shareButton = IconButton(image: Icon.cm.share, tintColor: .white)
+        shareButton.pulseColor = .white
     }
     
     private func prepareBar() {
         bar = Bar(leftViews: [menuButton], rightViews: [favoriteButton, shareButton])
-        bar.backgroundColor = .blue.base
+        bar.backgroundColor = Color.blue.base
         
         bar.contentView.cornerRadiusPreset = .cornerRadius1
-        bar.contentView.backgroundColor = .blue.lighten3
+        bar.contentView.backgroundColor = Color.blue.lighten3
         
         view.layout(bar).horizontally().center()
     }

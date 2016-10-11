@@ -36,7 +36,7 @@ class RightViewController: UIViewController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = blue.base
+        view.backgroundColor = Color.blue.base
         
         prepareRootButton()
     }
@@ -55,7 +55,7 @@ class RightViewController: UIViewController {
     }
     
     private func prepareRootButton() {
-        rootButton = FlatButton(title: "Root VC", titleColor: white)
+        rootButton = FlatButton(title: "Root VC", titleColor: .white)
         rootButton.addTarget(self, action: #selector(handleTransitionButton), for: .touchUpInside)
         
         view.layout(rootButton).horizontally().center()

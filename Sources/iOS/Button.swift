@@ -150,6 +150,7 @@ open class Button: UIButton {
     public convenience init(image: UIImage?, tintColor: UIColor = Color.blue.base) {
         self.init()
         prepare(with: image, tintColor: tintColor)
+        prepare()
     }
     
     /**
@@ -160,6 +161,7 @@ open class Button: UIButton {
     public convenience init(title: String?, titleColor: UIColor = Color.blue.base) {
         self.init()
         prepare(with: title, titleColor: titleColor)
+        prepare()
     }
 	
     open override func layoutSublayers(of layer: CALayer) {
@@ -259,7 +261,6 @@ open class Button: UIButton {
     private func prepare(with image: UIImage?, tintColor: UIColor) {
         self.image = image
         self.tintColor = tintColor
-        pulseColor = tintColor
     }
     
     /**
@@ -270,6 +271,5 @@ open class Button: UIButton {
     private func prepare(with title: String?, titleColor: UIColor) {
         self.title = title
         self.titleColor = titleColor
-        pulseColor = titleColor
     }
 }

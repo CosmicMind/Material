@@ -163,7 +163,7 @@ open class SnackbarController: RootController {
     /// Reloads the view.
     open func reload() {
         snackbar.width = view.width
-        snackbar.height = snackbar.intrinsicContentSize.height + snackbar.grid.layoutEdgeInsets.top + snackbar.grid.layoutEdgeInsets.bottom
+        snackbar.height = snackbar.intrinsicContentSize.height + snackbar.layoutEdgeInsets.top + snackbar.layoutEdgeInsets.bottom
         layoutSnackbar(status: snackbar.status)
     }
     

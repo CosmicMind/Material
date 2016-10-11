@@ -36,7 +36,7 @@ class RootViewController: UIViewController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = grey.lighten5
+        view.backgroundColor = Color.grey.lighten5
     }
     
     open override func viewDidAppear(_ animated: Bool) {
@@ -49,7 +49,7 @@ class RootViewController: UIViewController {
     }
     
     private func prepareUndoButton() {
-        undoButton = FlatButton(title: "Undo", titleColor: yellow.base)
+        undoButton = FlatButton(title: "Undo", titleColor: Color.yellow.base)
         undoButton.pulseAnimation = .backing
         undoButton.titleLabel?.font = snackbarController?.snackbar.textLabel.font
     }

@@ -208,6 +208,9 @@ extension UINavigationItem {
             return navigationItem.contentView.grid.views
         }
         set(value) {
+            for v in navigationItem.contentView.grid.views {
+                v.removeFromSuperview()
+            }
             navigationItem.contentView.grid.views = value
         }
     }

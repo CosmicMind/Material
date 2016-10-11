@@ -50,7 +50,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = grey.lighten5
+        view.backgroundColor = Color.grey.lighten5
         
         prepareDateFormatter()
         prepareDateLabel()
@@ -71,16 +71,16 @@ class ViewController: UIViewController {
     private func prepareDateLabel() {
         dateLabel = UILabel()
         dateLabel.font = RobotoFont.regular(with: 12)
-        dateLabel.textColor = blueGrey.base
+        dateLabel.textColor = Color.blueGrey.base
         dateLabel.text = dateFormatter.string(from: Date.distantFuture)
     }
     
     private func prepareFavoriteButton() {
-        favoriteButton = IconButton(image: Icon.favorite, tintColor: red.base)
+        favoriteButton = IconButton(image: Icon.favorite, tintColor: Color.red.base)
     }
     
     private func prepareMoreButton() {
-        moreButton = IconButton(image: Icon.cm.moreVertical, tintColor: blueGrey.base)
+        moreButton = IconButton(image: Icon.cm.moreVertical, tintColor: Color.blueGrey.base)
     }
     
     private func prepareAuthorView() {
@@ -97,7 +97,7 @@ class ViewController: UIViewController {
         
         toolbar.detail = "Build Beautiful Software"
         toolbar.detailLabel.textAlignment = .left
-        toolbar.detailLabel.textColor = blueGrey.base
+        toolbar.detailLabel.textColor = Color.blueGrey.base
     }
     
     private func prepareContentView() {

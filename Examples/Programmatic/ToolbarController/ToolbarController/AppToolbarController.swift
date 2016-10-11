@@ -35,6 +35,8 @@ class AppToolbarController: ToolbarController {
     open override func prepare() {
         super.prepare()
         statusBarStyle = .default
+//        toolbar.heightPreset = .large
+        toolbar.height = 100
     }
 }
 

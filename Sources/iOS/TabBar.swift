@@ -64,10 +64,6 @@ open class TabBar: Bar {
     /// A delegation reference.
     open weak var delegate: TabBarDelegate?
     
-    open override var intrinsicContentSize: CGSize {
-        return CGSize(width: width, height: 49)
-    }
-    
     /// The currently selected button.
     open internal(set) var selected: UIButton?
     
@@ -206,6 +202,7 @@ open class TabBar: Bar {
      */
 	open override func prepare() {
 		super.prepare()
+        heightPreset = .normal
         contentEdgeInsetsPreset = .none
         interimSpacePreset = .none
         prepareLine()

@@ -29,19 +29,15 @@
  */
 
 import UIKit
-import Material
 
-class AppToolbarController: ToolbarController {
-    open override func prepare() {
-        super.prepare()
-        statusBarStyle = .default
-        
-        prepareToolbar()
-    }
-    
-    private func prepareToolbar() {
-        toolbar.title = "Photo Library"
-        toolbar.depthPreset = .none
-        toolbar.dividerColor = Color.grey.lighten3
-    }
+@objc(HeightPreset)
+public enum HeightPreset: Int {
+    case tiny = 20
+    case xsmall = 28
+    case small = 36
+    case `default` = 44
+    case normal = 49
+    case medium = 52
+    case large = 60
+    case xlarge = 68
 }

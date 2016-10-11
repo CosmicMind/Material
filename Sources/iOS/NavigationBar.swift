@@ -30,35 +30,15 @@
 
 import UIKit
 
-/// NavigationBar styles.
-@objc(NavigationBarStyle)
-public enum NavigationBarStyle: Int {
-	case small
-	case medium
-	case large
-}
-
 open class NavigationBar: UINavigationBar {
-    open override var intrinsicContentSize: CGSize {
-        switch navigationBarStyle {
-        case .small:
-            return CGSize(width: Device.width, height: 32)
-        case .medium:
-            return CGSize(width: Device.width, height: 44)
-        case .large:
-            return CGSize(width: Device.width, height: 56)
-        }
+    /// Will render the view.
+    open var willLayout: Bool {
+        return 0 < width && 0 < height && nil != superview
     }
     
-	/// NavigationBarStyle value.
-	open var navigationBarStyle = NavigationBarStyle.medium
-	
-	internal var animating = false
-	
-	/// Will render the view.
-	open var willLayout: Bool {
-		return 0 < width && 0 < height && nil != superview
-	}
+    open override var intrinsicContentSize: CGSize {
+        return CGSize(width: width, height: height)
+    }
 	
 	/// A preset wrapper around contentEdgeInsets.
 	open var contentEdgeInsetsPreset = EdgeInsetsPreset.none {
@@ -301,6 +281,7 @@ open class NavigationBar: UINavigationBar {
      when subclassing.
      */
 	open func prepare() {
+        heightPreset = .default
         barStyle = .black
 		isTranslucent = false
 		depthPreset = .depth1

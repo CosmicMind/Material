@@ -42,7 +42,7 @@ class AppCaptureController: CaptureController {
     
     private func prepareToolbar() {
         toolbar.titleLabel.isHidden = true
-        toolbar.titleLabel.textColor = white
+        toolbar.titleLabel.textColor = .white
         
         toolbar.detailLabel.isHidden = true
         toolbar.detail = "Recording"
@@ -56,7 +56,7 @@ class AppCaptureController: CaptureController {
         captureButton.width = 72
         captureButton.height = 72
         captureButton.backgroundColor = red.darken1.withAlphaComponent(0.3)
-        captureButton.borderColor = white
+        captureButton.borderColor = .white
         captureButton.borderWidthPreset =  .border3
         captureButton.depthPreset = .none
     }

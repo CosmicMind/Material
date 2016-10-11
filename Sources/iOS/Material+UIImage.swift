@@ -116,9 +116,9 @@ extension UIImage {
         color.setFill()
         context.fill(rect)
         
-        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return image
+        return image?.withRenderingMode(.alwaysOriginal)
     }
 }
 
@@ -136,7 +136,7 @@ extension UIImage {
         UIRectFill(rect)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return image
+        return image?.withRenderingMode(.alwaysOriginal)
     }
 }
 

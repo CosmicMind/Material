@@ -136,7 +136,7 @@ extension ViewController: CaptureDelegate {
     }
     
     public func captureDidPressCameraButton(capture: Capture, button: UIButton) {
-//        captureButton.backgroundColor = blue.darken1.withAlphaComponent(0.3)
+//        captureButton.backgroundColor = Color.blue.darken1.withAlphaComponent(0.3)
     }
     
     public func captureDidPressVideoButton(capture: Capture, button: UIButton) {

@@ -34,7 +34,7 @@ import Material
 class NextViewController: UIViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = grey.base
+        view.backgroundColor = Color.grey.base
         
         prepareNavigationItem()
     }
@@ -43,7 +43,7 @@ class NextViewController: UIViewController {
         navigationItem.title = "Title"
         navigationItem.detail = "Detail Description"
         
-        navigationItem.backButton.tintColor = blue.base
+        navigationItem.backButton.tintColor = Color.blue.base
     }
 }
 

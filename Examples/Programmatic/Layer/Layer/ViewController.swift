@@ -37,7 +37,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = white
+        view.backgroundColor = .white
         
         prepareLayer()
     }
@@ -50,7 +50,7 @@ class ViewController: UIViewController {
         layer = Layer(frame: CGRect(x: (w - d) / 2, y: (h - d) / 2, width: d, height: d))
         layer.depthPreset = .depth3
         layer.shapePreset = .circle
-        layer.backgroundColor = white.cgColor
+        layer.backgroundColor = Color.white.cgColor
         layer.image = UIImage(named: "CosmicMind")
         
         view.layer.addSublayer(layer)

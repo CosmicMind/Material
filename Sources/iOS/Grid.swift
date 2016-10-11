@@ -293,4 +293,25 @@ extension UIView {
             AssociateObject(base: self, key: &GridKey, value: value)
         }
     }
+    
+    /// A reference to grid's layoutEdgeInsetsPreset.
+    open var layoutEdgeInsetsPreset: EdgeInsetsPreset {
+        get {
+            return grid.layoutEdgeInsetsPreset
+        }
+        set(value) {
+            grid.layoutEdgeInsetsPreset = value
+        }
+    }
+    
+    /// A reference to grid's layoutEdgeInsets.
+    @IBInspectable
+    open var layoutEdgeInsets: EdgeInsets {
+        get {
+            return grid.layoutEdgeInsets
+        }
+        set(value) {
+            grid.layoutEdgeInsets = value
+        }
+    }
 }

@@ -44,7 +44,7 @@ class RemindersViewController: UIViewController {
     
     private func prepareTabBarItem() {
         tabBarItem.title = nil
-        tabBarItem.image = Icon.cm.bell?.tint(with: .blueGrey.base)?.withRenderingMode(.alwaysOriginal)
-        tabBarItem.selectedImage = Icon.cm.bell?.tint(with: .blue.base)?.withRenderingMode(.alwaysOriginal)
+        tabBarItem.image = Icon.cm.bell?.tint(with: .blueGrey.base)
+        tabBarItem.selectedImage = Icon.cm.bell?.tint(with: .blue.base)
     }
 }

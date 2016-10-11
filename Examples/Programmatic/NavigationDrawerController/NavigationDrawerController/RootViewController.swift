@@ -34,7 +34,7 @@ import Material
 class RootViewController: UIViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = white
+        view.backgroundColor = .white
         prepareToolbar()
     }
     

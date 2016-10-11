@@ -40,22 +40,22 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = white
+        view.backgroundColor = .white
         
         prepareButtons()
         prepareTabBar()
     }
     
     private func prepareButtons() {
-        let btn1 = FlatButton(title: "Library", titleColor: blueGrey.base)
+        let btn1 = FlatButton(title: "Library", titleColor: Color.blueGrey.base)
         btn1.pulseAnimation = .none
         buttons.append(btn1)
         
-        let btn2 = FlatButton(title: "Photo", titleColor: blueGrey.base)
+        let btn2 = FlatButton(title: "Photo", titleColor: Color.blueGrey.base)
         btn2.pulseAnimation = .none
         buttons.append(btn2)
         
-        let btn3 = FlatButton(title: "Video", titleColor: blueGrey.base)
+        let btn3 = FlatButton(title: "Video", titleColor: Color.blueGrey.base)
         btn3.pulseAnimation = .none
         buttons.append(btn3)
     }
@@ -63,13 +63,13 @@ class ViewController: UIViewController {
     private func prepareTabBar() {
         tabBar = TabBar()
         
-        tabBar.dividerColor = grey.lighten3
+        tabBar.dividerColor = Color.grey.lighten3
         tabBar.dividerAlignment = .top
         
-        tabBar.lineColor = blue.base
+        tabBar.lineColor = Color.blue.base
         tabBar.lineAlignment = .top
         
-        tabBar.backgroundColor = grey.lighten5
+        tabBar.backgroundColor = Color.grey.lighten5
         tabBar.buttons = buttons
         
         view.layout(tabBar).horizontally().bottom()

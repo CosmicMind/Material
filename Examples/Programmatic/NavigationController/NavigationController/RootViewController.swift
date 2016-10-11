@@ -42,7 +42,7 @@ class RootViewController: UIViewController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = grey.lighten5
+        view.backgroundColor = Color.grey.lighten5
         
         prepareMenuButton()
         prepareStarButton()
@@ -56,23 +56,26 @@ class RootViewController: UIViewController {
     }
     
     private func prepareMenuButton() {
-        menuButton = IconButton(image: Icon.cm.menu, tintColor: white)
+        menuButton = IconButton(image: Icon.cm.menu, tintColor: .white)
+        menuButton.pulseColor = .white
     }
     
     private func prepareStarButton() {
-        starButton = IconButton(image: Icon.cm.star, tintColor: white)
+        starButton = IconButton(image: Icon.cm.star, tintColor: .white)
+        starButton.pulseColor = .white
     }
     
     private func prepareSearchButton() {
-        searchButton = IconButton(image: Icon.cm.search, tintColor: white)
+        searchButton = IconButton(image: Icon.cm.search, tintColor: .white)
+        searchButton.pulseColor = .white
     }
     
     private func prepareNavigationItem() {
         navigationItem.title = "Material"
-        navigationItem.titleLabel.textColor = white
+        navigationItem.titleLabel.textColor = .white
         
         navigationItem.detail = "Build Beautiful Software"
-        navigationItem.detailLabel.textColor = lightBlue.lighten5
+        navigationItem.detailLabel.textColor = Color.lightBlue.lighten5
         
         navigationItem.leftViews = [menuButton]
         navigationItem.rightViews = [starButton, searchButton]

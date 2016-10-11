@@ -38,6 +38,10 @@ extension UITabBarItem {
 }
 
 open class BottomTabBar: UITabBar {
+    open override var intrinsicContentSize: CGSize {
+        return CGSize(width: width, height: height)
+    }
+    
     /// Automatically aligns the BottomNavigationBar to the superview.
 	open var isAlignedToParentAutomatically = true
 	
@@ -124,7 +128,8 @@ open class BottomTabBar: UITabBar {
      when subclassing.
      */
 	public func prepare() {
-		depthPreset = .depth1
+		heightPreset = .normal
+        depthPreset = .depth1
         dividerAlignment = .top
 		contentScaleFactor = Device.scale
 		backgroundColor = .white

@@ -34,25 +34,24 @@ internal class MaterialLayer {
     /// A reference to the CALayer.
     internal weak var layer: CALayer?
     
+    /// A property that sets the height of the layer's frame.
+    internal var heightPreset = HeightPreset.default {
+        didSet {
+            layer?.height = CGFloat(heightPreset.rawValue)
+        }
+    }
+    
     /// A property that sets the cornerRadius of the backing layer.
     internal var cornerRadiusPreset = CornerRadiusPreset.none {
         didSet {
-            guard let v = layer else {
-                return
-            }
-            
-            v.cornerRadius = CornerRadiusPresetToValue(preset: cornerRadiusPreset)
+            layer?.cornerRadius = CornerRadiusPresetToValue(preset: cornerRadiusPreset)
         }
     }
     
     /// A preset property to set the borderWidth.
     internal var borderWidthPreset = BorderWidthPreset.none {
         didSet {
-            guard let v = layer else {
-                return
-            }
-            
-            v.borderWidth = BorderWidthPresetToValue(preset: borderWidthPreset)
+            layer?.borderWidth = BorderWidthPresetToValue(preset: borderWidthPreset)
         }
     }
     
@@ -171,6 +170,16 @@ extension CALayer {
             }
             
             layoutShadowPath()
+        }
+    }
+    
+    /// HeightPreset value.
+    open var heightPreset: HeightPreset {
+        get {
+            return materialLayer.heightPreset
+        }
+        set(value) {
+            materialLayer.heightPreset = value
         }
     }
     

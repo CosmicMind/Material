@@ -56,11 +56,11 @@ open class SearchBarController: RootController {
 	open override func layoutSubviews() {
 		super.layoutSubviews()
         
-        searchBar.grid.layoutEdgeInsets.top = .phone == Device.userInterfaceIdiom && Device.isLandscape ? 0 : 20
+        searchBar.layoutEdgeInsets.top = .phone == Device.userInterfaceIdiom && Device.isLandscape ? 0 : 20
         
-        let p = searchBar.intrinsicContentSize.height + searchBar.grid.layoutEdgeInsets.top + searchBar.grid.layoutEdgeInsets.bottom
+        let p = searchBar.intrinsicContentSize.height + searchBar.layoutEdgeInsets.top + searchBar.layoutEdgeInsets.bottom
         
-        searchBar.width = view.width + searchBar.grid.layoutEdgeInsets.left + searchBar.grid.layoutEdgeInsets.right
+        searchBar.width = view.width + searchBar.layoutEdgeInsets.left + searchBar.layoutEdgeInsets.right
         searchBar.height = p
         
         rootViewController.view.y = p

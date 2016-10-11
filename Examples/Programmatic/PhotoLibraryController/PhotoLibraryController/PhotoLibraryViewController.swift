@@ -73,7 +73,7 @@ class PhotoLibraryViewController: PhotoLibraryController {
     
     open override func prepare() {
         super.prepare()
-        view.backgroundColor = grey.lighten5
+        view.backgroundColor = Color.grey.lighten5
         
         prepareCollectionView()
         

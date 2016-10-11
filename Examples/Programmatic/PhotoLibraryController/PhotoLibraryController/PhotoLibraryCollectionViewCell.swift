@@ -50,7 +50,7 @@ class PhotoLibraryCollectionReusableView: CollectionReusableView {
         toolbar.contentEdgeInsets.left = 16
         toolbar.contentEdgeInsets.right = 16
         toolbar.depthPreset = .none
-        toolbar.dividerColor = grey.lighten3
+        toolbar.dividerColor = Color.grey.lighten3
         layout(toolbar).edges()
     }
 }
