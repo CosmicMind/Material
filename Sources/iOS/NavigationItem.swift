@@ -67,6 +67,13 @@ public class NavigationItem: NSObject {
             navigationBar?.layoutSubviews()
         }
     }
+    
+    /// Center items.
+    public var centerViews = [UIView]() {
+        didSet {
+            navigationBar?.layoutSubviews()
+        }
+    }
 	
     public var navigationBar: NavigationBar? {
         return contentView.superview?.superview as? NavigationBar
@@ -194,4 +201,14 @@ extension UINavigationItem {
 			navigationItem.rightViews = value
 		}
 	}
+    
+    /// Center UIViews.
+    open var centerViews: [UIView] {
+        get {
+            return navigationItem.contentView.grid.views
+        }
+        set(value) {
+            navigationItem.contentView.grid.views = value
+        }
+    }
 }
