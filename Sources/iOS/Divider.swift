@@ -48,7 +48,7 @@ open class Divider {
     /// A reference to the height.
     public var height: CGFloat
     
-    /// A UIColor.
+    /// A UI
     open var color: UIColor? {
         get {
             return line?.backgroundColor

@@ -35,7 +35,7 @@ class AppNavigationController: NavigationController {
     open override func prepare() {
         super.prepare()
         statusBarStyle = .lightContent
-        (navigationBar as? NavigationBar)?.backgroundColor = Color.blue.base
+        (navigationBar as? NavigationBar)?.backgroundColor = blue.base
     }
 }
 

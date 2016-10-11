@@ -110,7 +110,7 @@ extension UIView {
         }
     }
     
-    /// A property that accesses the backing layer's shadowColor.
+    /// A property that accesses the backing layer's shadow
     @IBInspectable
     open var shadowColor: UIColor? {
         get {

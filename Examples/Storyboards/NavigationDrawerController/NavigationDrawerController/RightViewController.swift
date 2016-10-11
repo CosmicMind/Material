@@ -34,6 +34,6 @@ import Material
 class RightViewController: UIViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Color.blue.base
+        view.backgroundColor = blue.base
     }
 }

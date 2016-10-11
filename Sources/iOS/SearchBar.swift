@@ -74,17 +74,17 @@ open class SearchBar: Bar {
 	@IBInspectable
     open var placeholder: String? {
 		didSet {
-			if let v: String = placeholder {
+			if let v = placeholder {
 				textField.attributedPlaceholder = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderColor])
 			}
 		}
 	}
 	
-	/// Placeholder textColor.
+	/// Placeholder text
 	@IBInspectable
     open var placeholderColor = Color.darkText.others {
 		didSet {
-			if let v: String = placeholder {
+			if let v = placeholder {
 				textField.attributedPlaceholder = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderColor])
 			}
 		}

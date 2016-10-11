@@ -152,7 +152,7 @@ open class RootController: UIViewController {
      */
 	open func prepare() {
         view.clipsToBounds = true
-        view.backgroundColor = Color.white
+        view.backgroundColor = .white
         view.contentScaleFactor = Device.scale
         prepareRootViewController()
 	}

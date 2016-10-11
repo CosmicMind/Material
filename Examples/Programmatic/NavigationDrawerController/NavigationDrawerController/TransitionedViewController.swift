@@ -34,7 +34,7 @@ import Material
 class TransitionedViewController: UIViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Color.purple.base
+        view.backgroundColor = purple.base
         
         prepareToolbar()
     }

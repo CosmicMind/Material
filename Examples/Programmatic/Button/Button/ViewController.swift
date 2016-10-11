@@ -58,7 +58,7 @@ struct ButtonLayout {
 class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Color.white
+        view.backgroundColor = white
         
         prepareFlatButton()
         prepareRaisedButton()
@@ -76,8 +76,8 @@ class ViewController: UIViewController {
     }
     
     private func prepareRaisedButton() {
-        let button = RaisedButton(title: "Raised Button", titleColor: Color.white)
-        button.backgroundColor = Color.blue.base
+        let button = RaisedButton(title: "Raised Button", titleColor: white)
+        button.backgroundColor = blue.base
         
         view.layout(button)
             .width(ButtonLayout.Raised.width)
@@ -86,7 +86,7 @@ class ViewController: UIViewController {
     }
     
     private func prepareFabButton() {
-        let button = FabButton(image: Icon.cm.add, tintColor: Color.white)
+        let button = FabButton(image: Icon.cm.add, tintColor: white)
         
         view.layout(button)
             .width(ButtonLayout.Fab.diameter)

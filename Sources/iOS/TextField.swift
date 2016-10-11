@@ -125,7 +125,7 @@ open class TextField: UITextField {
 	@IBInspectable
     open private(set) var placeholderLabel: UILabel!
 	
-	/// Placeholder normal textColor.
+	/// Placeholder normal text
 	@IBInspectable
     open var placeholderNormalColor = Color.darkText.others {
 		didSet {
@@ -141,7 +141,7 @@ open class TextField: UITextField {
 		}
 	}
 	
-	/// Placeholder active textColor.
+	/// Placeholder active text
 	@IBInspectable
     open var placeholderActiveColor = Color.blue.base {
 		didSet {
@@ -178,7 +178,7 @@ open class TextField: UITextField {
 		}
 	}
 	
-	/// Detail textColor.
+	/// Detail text
 	@IBInspectable
     open var detailColor = Color.darkText.others {
 		didSet {

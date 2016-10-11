@@ -44,12 +44,12 @@ class RedViewController: UIViewController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Color.red.base
+        view.backgroundColor = red.base
     }
     
     private func preparePageTabBarItem() {
         pageTabBarItem.title = "Red"
-        pageTabBarItem.titleColor = Color.blueGrey.base
+        pageTabBarItem.titleColor = blueGrey.base
     }
 }
 

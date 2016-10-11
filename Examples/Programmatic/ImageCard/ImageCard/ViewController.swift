@@ -50,7 +50,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Color.grey.lighten5
+        view.backgroundColor = grey.lighten5
         
         prepareImageView()
         prepareFavoriteButton()
@@ -70,19 +70,19 @@ class ViewController: UIViewController {
     }
     
     private func prepareFavoriteButton() {
-        favoriteButton = FlatButton(image: Icon.favorite, tintColor: Color.blueGrey.base)
+        favoriteButton = FlatButton(image: Icon.favorite, tintColor: blueGrey.base)
     }
     
     private func prepareShareButton() {
-        shareButton = FlatButton(image: Icon.cm.share, tintColor: Color.blueGrey.base)
+        shareButton = FlatButton(image: Icon.cm.share, tintColor: blueGrey.base)
     }
     
     private func prepareStarButton() {
-        starButton = FlatButton(image: Icon.cm.star, tintColor: Color.blueGrey.base)
+        starButton = FlatButton(image: Icon.cm.star, tintColor: blueGrey.base)
     }
     
     private func prepareMoreButton() {
-        moreButton = IconButton(image: Icon.cm.moreHorizontal, tintColor: Color.white)
+        moreButton = IconButton(image: Icon.cm.moreHorizontal, tintColor: white)
     }
     
     private func prepareToolbar() {
@@ -90,10 +90,10 @@ class ViewController: UIViewController {
         toolbar.backgroundColor = nil
         
         toolbar.title = "CosmicMind"
-        toolbar.titleLabel.textColor = Color.white
+        toolbar.titleLabel.textColor = white
         
         toolbar.detail = "Build Beautiful Software"
-        toolbar.detailLabel.textColor = Color.white
+        toolbar.detailLabel.textColor = white
     }
     
     private func prepareContentView() {

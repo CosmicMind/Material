@@ -29,7 +29,6 @@
  */
 
 import UIKit
-import Material
 
 extension UIViewController {
     /**
@@ -50,69 +49,59 @@ extension UIViewController {
 }
 
 open class CaptureController: ToolbarController, CaptureDelegate, CaptureSessionDelegate {
+    /// A reference to the Capture instance.
     open private(set) lazy var capture: Capture = Capture()
-    open private(set) var cameraButton: IconButton!
-    open private(set) var videoButton: IconButton!
-    open private(set) var switchCamerasButton: IconButton!
-    open private(set) var flashButton: IconButton!
-    open private(set) var captureButton: FabButton!
     
+    /// A reference to capture's cameraButton.
+    open var cameraButton: IconButton {
+        return capture.cameraButton
+    }
+    
+    /// A reference to capture's videoButton.
+    open var videoButton: IconButton {
+        return capture.videoButton
+    }
+    
+    /// A reference to capture's switchCamerasButton.
+    open var switchCamerasButton: IconButton {
+        return capture.switchCamerasButton
+    }
+    
+    /// A reference to capture's flashButton.
+    open var flashButton: IconButton {
+        return capture.flashButton
+    }
+    
+    /// A reference to capture's captureButton.
+    open var captureButton: FabButton {
+        return capture.captureButton
+    }
+    
+    /**
+     Prepares the view instance when intialized. When subclassing,
+     it is recommended to override the prepare method
+     to initialize property values and other setup operations.
+     The super.prepare method should always be called immediately
+     when subclassing.
+     */
     open override func prepare() {
         super.prepare()
-        view.backgroundColor = Color.black
+        view.backgroundColor = .black
         display = .full
         
         prepareToolbar()
-        prepareCaptureButton()
-        prepareCameraButton()
-        prepareVideoButton()
-        prepareSwitchCamerasButton()
-        prepareFlashButton()
         prepareCapture()
     }
     
     /// Prepares the Toolbar.
     private func prepareToolbar() {
-        toolbar.backgroundColor = Color.clear
+        toolbar.backgroundColor = .clear
         toolbar.depthPreset = .none
-    }
-    
-    /// Prepares the captureButton.
-    private func prepareCaptureButton() {
-        captureButton = FabButton()
-        capture.captureButton = captureButton
-    }
-    
-    /// Prepares the cameraButton.
-    private func prepareCameraButton() {
-        cameraButton = IconButton(image: Icon.cm.photoCamera, tintColor: Color.white)
-        capture.cameraButton = cameraButton
-    }
-    
-    /// Preapres the videoButton.
-    private func prepareVideoButton() {
-        videoButton = IconButton(image: Icon.cm.videocam, tintColor: Color.white)
-        capture.videoButton = videoButton
-    }
-    
-    /// Prepares the switchCameraButton.
-    private func prepareSwitchCamerasButton() {
-        switchCamerasButton = IconButton(image: UIImage(named: "ic_camera_front_white"), tintColor: Color.white)
-        capture.switchCamerasButton = switchCamerasButton
-    }
-    
-    /// Prepares the flashButton.
-    private func prepareFlashButton() {
-        flashButton = IconButton(image: UIImage(named: "ic_flash_auto_white"), tintColor: Color.white)
-        capture.flashButton = flashButton
-        capture.captureSession.flashMode = .auto
     }
     
     /// Prepares capture.
     private func prepareCapture() {
-        capture.enableTapToFocus = true
-        capture.enableTapToExpose = true
         capture.delegate = self
-        capture.captureSession.delegate = self
+        capture.session.delegate = self
     }
 }

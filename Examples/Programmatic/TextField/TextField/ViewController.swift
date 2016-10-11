@@ -38,7 +38,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Color.white
+        view.backgroundColor = white
         
         prepareNameField()
         prepareEmailField()
@@ -53,7 +53,7 @@ class ViewController: UIViewController {
     
     /// Prepares the resign responder button.
     private func prepareResignResponderButton() {
-        let btn = RaisedButton(title: "Resign", titleColor: Color.blue.base)
+        let btn = RaisedButton(title: "Resign", titleColor: blue.base)
         btn.addTarget(self, action: #selector(handleResignResponderButton(button:)), for: .touchUpInside)
         
         view.layout(btn).width(100).height(50).bottom(24).right(24)
@@ -87,9 +87,9 @@ class ViewController: UIViewController {
         emailField.isClearIconButtonEnabled = true
         emailField.delegate = self
         
-        emailField.placeholderNormalColor = Color.amber.darken4
-        emailField.placeholderActiveColor = Color.pink.base
-        emailField.dividerNormalColor = Color.cyan.base
+        emailField.placeholderNormalColor = amber.darken4
+        emailField.placeholderActiveColor = pink.base
+        emailField.dividerNormalColor = cyan.base
         
         view.addSubview(emailField)
     }
@@ -102,7 +102,7 @@ class ViewController: UIViewController {
         passwordField.isVisibilityIconButtonEnabled = true
         
         // Setting the visibilityIconButton color.
-        passwordField.visibilityIconButton?.tintColor = Color.green.base.withAlphaComponent(passwordField.isSecureTextEntry ? 0.38 : 0.54)
+        passwordField.visibilityIconButton?.tintColor = green.base.withAlphaComponent(passwordField.isSecureTextEntry ? 0.38 : 0.54)
         
         // Size the TextField to the maximum width, less 40 pixels on either side
         // with a top margin of 200 pixels.

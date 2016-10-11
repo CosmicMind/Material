@@ -42,7 +42,7 @@ class RootViewController: UIViewController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Color.grey.lighten1
+        view.backgroundColor = grey.lighten1
         
         prepareMenuButton()
         prepareStarButton()

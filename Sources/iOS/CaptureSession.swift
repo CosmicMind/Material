@@ -90,82 +90,82 @@ public func CaptureSessionPresetToString(preset: CaptureSessionPreset) -> String
 public protocol CaptureSessionDelegate {
 	/**
      A delegation method that is fired when the captureSesstion failes with an error.
-     - Parameter captureSession: A reference to the calling CaptureSession.
+     - Parameter session: A reference to the calling CaptureSession.
      - Parameter error: A Error corresponding to the error.
      */
 	@objc
-    optional func captureSessionFailedWithError(captureSession: CaptureSession, error: Error)
+    optional func sessionFailedWithError(session: CaptureSession, error: Error)
 	
     /**
      A delegation method that is fired when the camera has been switched to another.
-     - Parameter captureSession: A reference to the calling CaptureSession.
+     - Parameter session: A reference to the calling CaptureSession.
      - Parameter position: An AVCaptureDevicePosition that the camera has switched to.
      */
     @objc
-    optional func captureSessionDidSwitchCameras(captureSession: CaptureSession, position: AVCaptureDevicePosition)
+    optional func sessionDidSwitchCameras(session: CaptureSession, position: AVCaptureDevicePosition)
 	
     /**
      A delegation method that is fired before the camera has been switched to another.
-     - Parameter captureSession: A reference to the calling CaptureSession.
+     - Parameter session: A reference to the calling CaptureSession.
      - Parameter position: An AVCaptureDevicePosition that the camera will switch to.
      */
     @objc
-	optional func captureSessionWillSwitchCameras(captureSession: CaptureSession, position: AVCaptureDevicePosition)
+	optional func sessionWillSwitchCameras(session: CaptureSession, position: AVCaptureDevicePosition)
 	
     /**
      A delegation method that is fired when an image has been captured asynchronously.
-     - Parameter captureSession: A reference to the calling CaptureSession.
+     - Parameter session: A reference to the calling CaptureSession.
      - Parameter image: An image that has been captured.
      */
     @objc
-	optional func captureSessionStillImageAsynchronously(captureSession: CaptureSession, image: UIImage)
+	optional func sessionStillImageAsynchronously(session: CaptureSession, image: UIImage)
 	
     /**
      A delegation method that is fired when capturing an image asynchronously has failed.
-     - Parameter captureSession: A reference to the calling CaptureSession.
+     - Parameter session: A reference to the calling CaptureSession.
      - Parameter error: A Error corresponding to the error.
      */
     @objc
-	optional func captureSessionStillImageAsynchronouslyFailedWithError(captureSession: CaptureSession, error: Error)
+	optional func sessionStillImageAsynchronouslyFailedWithError(session: CaptureSession, error: Error)
 	
     /**
      A delegation method that is fired when creating a movie file has failed.
-     - Parameter captureSession: A reference to the calling CaptureSession.
+     - Parameter session: A reference to the calling CaptureSession.
      - Parameter error: A Error corresponding to the error.
      */
     @objc
-	optional func captureSessionCreateMovieFileFailedWithError(captureSession: CaptureSession, error: Error)
+	optional func sessionCreateMovieFileFailedWithError(session: CaptureSession, error: Error)
 	
     /**
      A delegation method that is fired when capturing a movie has failed.
-     - Parameter captureSession: A reference to the calling CaptureSession.
+     - Parameter session: A reference to the calling CaptureSession.
      - Parameter error: A Error corresponding to the error.
      */
     @objc
-	optional func captureSessionMovieFailedWithError(captureSession: CaptureSession, error: Error)
+	optional func sessionMovieFailedWithError(session: CaptureSession, error: Error)
 	
     /**
      A delegation method that is fired when a session started recording and writing
      to a file.
-     - Parameter captureSession: A reference to the calling CaptureSession.
+     - Parameter session: A reference to the calling CaptureSession.
      - Parameter captureOut: An AVCaptureFileOutput.
      - Parameter fileURL: A file URL.
      - Parameter fromConnections: An array of Anys.
      */
     @objc
-	optional func captureSessionDidStartRecordingToOutputFileAtURL(captureSession: CaptureSession, captureOutput: AVCaptureFileOutput, fileURL: NSURL, fromConnections connections: [Any])
+	optional func sessionDidStartRecordingToOutputFileAtURL(session: CaptureSession, captureOutput: AVCaptureFileOutput, fileURL: NSURL, fromConnections connections: [Any])
 	
     /**
      A delegation method that is fired when a session finished recording and writing
      to a file.
-     - Parameter captureSession: A reference to the calling CaptureSession.
+     - Parameter session: A reference to the calling CaptureSession.
      - Parameter captureOut: An AVCaptureFileOutput.
      - Parameter fileURL: A file URL.
      - Parameter fromConnections: An array of Anys.
      - Parameter error: A Error corresponding to an error.
      */
     @objc
-	optional func captureSessionDidFinishRecordingToOutputFileAtURL(captureSession: CaptureSession, captureOutput: AVCaptureFileOutput, outputFileURL: NSURL, fromConnections connections: [Any], error: Error!)
+	optional func sessionDidFinishRecordingToOutputFileAtURL(session: CaptureSession, captureOutput: AVCaptureFileOutput, outputFileURL: NSURL, fromConnections connections: [Any], error: Error!)
 }
 
 @objc(CaptureSession)
@@ -279,7 +279,7 @@ open class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 				userInfo[NSUnderlyingErrorKey] = error
 			}
 			if let e = error {
-				delegate?.captureSessionFailedWithError?(captureSession: self, error: e)
+				delegate?.sessionFailedWithError?(session: self, error: e)
 			}
 		}
 	}
@@ -308,7 +308,7 @@ open class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 				userInfo[NSUnderlyingErrorKey] = error
 			}
 			if let e = error {
-				delegate?.captureSessionFailedWithError?(captureSession: self, error: e)
+				delegate?.sessionFailedWithError?(session: self, error: e)
 			}
 		}
 	}
@@ -337,7 +337,7 @@ open class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 				userInfo[NSUnderlyingErrorKey] = error
 			}
 			if let e: NSError = error {
-				delegate?.captureSessionFailedWithError?(captureSession: self, error: e)
+				delegate?.sessionFailedWithError?(session: self, error: e)
 			}
 		}
 	}
@@ -403,7 +403,7 @@ open class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 		if canSwitchCameras {
 			do {
 				if let v: AVCaptureDevicePosition = position {
-					delegate?.captureSessionWillSwitchCameras?(captureSession: self, position: v)
+					delegate?.sessionWillSwitchCameras?(session: self, position: v)
 					let videoInput: AVCaptureDeviceInput? = try AVCaptureDeviceInput(device: inactiveCamera!)
 					session.beginConfiguration()
 					session.removeInput(activeVideoInput)
@@ -415,10 +415,10 @@ open class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 						session.addInput(activeVideoInput)
 					}
 					session.commitConfiguration()
-					delegate?.captureSessionDidSwitchCameras?(captureSession: self, position: position!)
+					delegate?.sessionDidSwitchCameras?(session: self, position: position!)
 				}
 			} catch let e as NSError {
-				delegate?.captureSessionFailedWithError?(captureSession: self, error: e)
+				delegate?.sessionFailedWithError?(session: self, error: e)
 			}
 		}
 	}
@@ -483,7 +483,7 @@ open class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 			userInfo[NSUnderlyingErrorKey] = error
 		}
 		if let e = error {
-			delegate?.captureSessionFailedWithError?(captureSession: self, error: e)
+			delegate?.sessionFailedWithError?(session: self, error: e)
 		}
 	}
 	
@@ -514,7 +514,7 @@ open class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 			userInfo[NSUnderlyingErrorKey] = error
 		}
 		if let e = error {
-			delegate?.captureSessionFailedWithError?(captureSession: self, error: e)
+			delegate?.sessionFailedWithError?(session: self, error: e)
 		}
 	}
 	
@@ -529,7 +529,7 @@ open class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 						device.exposureMode = .locked
 						device.unlockForConfiguration()
 					} catch let e as NSError {
-						self.delegate?.captureSessionFailedWithError?(captureSession: self, error: e)
+						self.delegate?.sessionFailedWithError?(session: self, error: e)
 					}
 				}
 			}
@@ -560,7 +560,7 @@ open class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 			}
 			device.unlockForConfiguration()
 		} catch let e as NSError {
-			delegate?.captureSessionFailedWithError?(captureSession: self, error: e)
+			delegate?.sessionFailedWithError?(session: self, error: e)
 		}
 	}
 	
@@ -577,7 +577,7 @@ open class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 								let data = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer)!
 								if let image1 = UIImage(data: data) {
                                     if let image2 = image1.adjustOrientation() {
-										s.delegate?.captureSessionStillImageAsynchronously?(captureSession: s, image: image2)
+										s.delegate?.sessionStillImageAsynchronously?(session: s, image: image2)
 									} else {
                                         var userInfo = [String: Any]()
 										userInfo[NSLocalizedDescriptionKey] = "[Material Error: Cannot fix image orientation.]"
@@ -595,7 +595,7 @@ open class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 							}
 							
 							if let e: Error = captureError {
-								s.delegate?.captureSessionStillImageAsynchronouslyFailedWithError?(captureSession: s, error: e)
+								s.delegate?.sessionStillImageAsynchronouslyFailedWithError?(session: s, error: e)
 							}
 						}
 					}
@@ -620,7 +620,7 @@ open class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 								v.isSmoothAutoFocusEnabled = true
 								v.unlockForConfiguration()
 							} catch let e as NSError {
-								s.delegate?.captureSessionFailedWithError?(captureSession: s, error: e)
+								s.delegate?.sessionFailedWithError?(session: s, error: e)
 							}
 						}
 						
@@ -643,12 +643,12 @@ open class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 	
 	public func capture(_ captureOutput: AVCaptureFileOutput!, didStartRecordingToOutputFileAt fileURL: URL!, fromConnections connections: [Any]!) {
         isRecording = true
-		delegate?.captureSessionDidStartRecordingToOutputFileAtURL?(captureSession: self, captureOutput: captureOutput, fileURL: fileURL as NSURL, fromConnections: connections)
+		delegate?.sessionDidStartRecordingToOutputFileAtURL?(session: self, captureOutput: captureOutput, fileURL: fileURL as NSURL, fromConnections: connections)
 	}
 	
 	public func capture(_ captureOutput: AVCaptureFileOutput!, didFinishRecordingToOutputFileAt outputFileURL: URL!, fromConnections connections: [Any]!, error: Error!) {
     	isRecording = false
-		delegate?.captureSessionDidFinishRecordingToOutputFileAtURL?(captureSession: self, captureOutput: captureOutput, outputFileURL: outputFileURL as NSURL, fromConnections: connections, error: error)
+		delegate?.sessionDidFinishRecordingToOutputFileAtURL?(session: self, captureOutput: captureOutput, outputFileURL: outputFileURL as NSURL, fromConnections: connections, error: error)
 	}
     
     /// Prepares the sessionQueue.
@@ -669,7 +669,7 @@ open class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 				session.addInput(activeVideoInput)
 			}
 		} catch let e as NSError {
-			delegate?.captureSessionFailedWithError?(captureSession: self, error: e)
+			delegate?.sessionFailedWithError?(session: self, error: e)
 		}
 	}
 	
@@ -681,7 +681,7 @@ open class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 				session.addInput(activeAudioInput)
 			}
 		} catch let e as NSError {
-			delegate?.captureSessionFailedWithError?(captureSession: self, error: e)
+			delegate?.sessionFailedWithError?(session: self, error: e)
 		}
 	}
 	
@@ -729,7 +729,7 @@ open class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 			dateFormatter.timeStyle = .full
 			return directory.appendingPathComponent(dateFormatter.string(from: NSDate() as Date) + ".mov")
 		} catch let e as NSError {
-			delegate?.captureSessionCreateMovieFileFailedWithError?(captureSession: self, error: e)
+			delegate?.sessionCreateMovieFileFailedWithError?(session: self, error: e)
 		}
 		return nil
 	}

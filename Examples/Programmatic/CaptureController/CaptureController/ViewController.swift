@@ -44,26 +44,26 @@ class ViewController: UIViewController {
         }
         
         cc.capture.delegate = self
-        cc.capture.captureSession.delegate = self
+        cc.capture.session.delegate = self
         view.layout(cc.capture).edges()
     }
 }
 
 /// CaptureSessionDelegate.
 extension ViewController: CaptureSessionDelegate {
-    public func captureSessionFailedWithError(captureSession: CaptureSession, error: Error) {
+    public func sessionFailedWithError(session: CaptureSession, error: Error) {
         print(error)
     }
     
-    public func captureSessionStillImageAsynchronously(captureSession: CaptureSession, image: UIImage) {
+    public func sessionStillImageAsynchronously(session: CaptureSession, image: UIImage) {
         print("captureStillImageAsynchronously")
     }
     
-    public func captureSessionCreateMovieFileFailedWithError(captureSession: CaptureSession, error: Error) {
+    public func sessionCreateMovieFileFailedWithError(session: CaptureSession, error: Error) {
         print("Capture Failed \(error)")
     }
     
-    public func captureSessionDidStartRecordingToOutputFileAtURL(captureSession: CaptureSession, captureOutput: AVCaptureFileOutput, fileURL: NSURL, fromConnections connections: [Any]) {
+    public func sessionDidStartRecordingToOutputFileAtURL(session: CaptureSession, captureOutput: AVCaptureFileOutput, fileURL: NSURL, fromConnections connections: [Any]) {
         print("Capture Started Recording \(fileURL)")
 //        cameraButton.isHidden = true
 //        videoButton.isHidden = true
@@ -71,7 +71,7 @@ extension ViewController: CaptureSessionDelegate {
 //        flashButton.isHidden = true
     }
     
-    public func captureSessionDidFinishRecordingToOutputFileAtURL(captureSession: CaptureSession, captureOutput: AVCaptureFileOutput, outputFileURL: NSURL, fromConnections connections: [Any], error: Error!) {
+    public func sessionDidFinishRecordingToOutputFileAtURL(session: CaptureSession, captureOutput: AVCaptureFileOutput, outputFileURL: NSURL, fromConnections connections: [Any], error: Error!) {
         print("Capture Stopped Recording \(outputFileURL)")
 //        cameraButton.isHidden = false
 //        videoButton.isHidden = false
@@ -94,17 +94,17 @@ extension ViewController: CaptureSessionDelegate {
 //        toolbar.detailLabel.isHidden = true
     }
     
-    public func captureSessionWillSwitchCameras(captureSession: CaptureSession, position: AVCaptureDevicePosition) {
+    public func sessionWillSwitchCameras(session: CaptureSession, position: AVCaptureDevicePosition) {
         // ... do something
     }
     
-    public func captureSessionDidSwitchCameras(captureSession: CaptureSession, position: AVCaptureDevicePosition) {
+    public func sessionDidSwitchCameras(session: CaptureSession, position: AVCaptureDevicePosition) {
 //        if .back == position {
-//            capture.captureSession.flashMode = .auto
+//            capture.session.flashMode = .auto
 //            flashButton.image = UIImage(named: "ic_flash_auto_white")
 //            switchCamerasButton.image = UIImage(named: "ic_camera_front_white")
 //        } else {
-//            capture.captureSession.flashMode = .off
+//            capture.session.flashMode = .off
 //            flashButton.image = UIImage(named: "ic_flash_off_white")
 //            switchCamerasButton.image = UIImage(named: "ic_camera_rear_white")
 //        }
@@ -114,7 +114,7 @@ extension ViewController: CaptureSessionDelegate {
 /// CaptureDelegate.
 extension ViewController: CaptureDelegate {
     public func captureDidPressFlashButton(capture: Capture, button: UIButton) {
-//        guard .back == capture.captureSession.position else {
+//        guard .back == capture.session.position else {
 //            return
 //        }
 //        
@@ -122,25 +122,25 @@ extension ViewController: CaptureDelegate {
 //            return
 //        }
 //        
-//        switch capture.captureSession.flashMode {
+//        switch capture.session.flashMode {
 //        case .off:
 //            b.image = UIImage(named: "ic_flash_on_white")
-//            capture.captureSession.flashMode = .on
+//            capture.session.flashMode = .on
 //        case .on:
 //            b.image = UIImage(named: "ic_flash_auto_white")
-//            capture.captureSession.flashMode = .auto
+//            capture.session.flashMode = .auto
 //        case .auto:
 //            b.image = UIImage(named: "ic_flash_off_white")
-//            capture.captureSession.flashMode = .off
+//            capture.session.flashMode = .off
 //        }
     }
     
     public func captureDidPressCameraButton(capture: Capture, button: UIButton) {
-//        captureButton.backgroundColor = Color.blue.darken1.withAlphaComponent(0.3)
+//        captureButton.backgroundColor = blue.darken1.withAlphaComponent(0.3)
     }
     
     public func captureDidPressVideoButton(capture: Capture, button: UIButton) {
-//        captureButton.backgroundColor = Color.red.darken1.withAlphaComponent(0.3)
+//        captureButton.backgroundColor = red.darken1.withAlphaComponent(0.3)
     }
     
     public func captureDidPressCaptureButton(capture: Capture, button: UIButton) {

@@ -74,7 +74,7 @@ open class TableViewCell: UITableViewCell {
         }
     }
     
-	/// A property that accesses the backing layer's backgroundColor.
+	/// A property that accesses the backing layer's background
 	@IBInspectable
     open override var backgroundColor: UIColor? {
 		didSet {

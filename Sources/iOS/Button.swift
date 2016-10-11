@@ -75,7 +75,7 @@ open class Button: UIButton {
         }
     }
     
-	/// A property that accesses the backing layer's backgroundColor.
+	/// A property that accesses the backing layer's background
 	@IBInspectable
     open override var backgroundColor: UIColor? {
 		didSet {
@@ -143,9 +143,9 @@ open class Button: UIButton {
 	}
     
     /**
-     A convenience initializer that acceps an image and tintColor.
+     A convenience initializer that acceps an image and tint
      - Parameter image: A UIImage.
-     - Parameter tintColor: A UIColor.
+     - Parameter tintColor: A UI
      */
     public convenience init(image: UIImage?, tintColor: UIColor = Color.blue.base) {
         self.init()
@@ -153,9 +153,9 @@ open class Button: UIButton {
     }
     
     /**
-     A convenience initializer that acceps a title and titleColor.
+     A convenience initializer that acceps a title and title
      - Parameter title: A String.
-     - Parameter titleColor: A UIColor.
+     - Parameter titleColor: A UI
      */
     public convenience init(title: String?, titleColor: UIColor = Color.blue.base) {
         self.init()
@@ -252,9 +252,9 @@ open class Button: UIButton {
 	}
     
     /**
-     Prepares the Button with an image and tintColor.
+     Prepares the Button with an image and tint
      - Parameter image: A UIImage.
-     - Parameter tintColor: A UIColor.
+     - Parameter tintColor: A UI
      */
     private func prepare(with image: UIImage?, tintColor: UIColor) {
         self.image = image
@@ -263,9 +263,9 @@ open class Button: UIButton {
     }
     
     /**
-     Prepares the Button with a title and titleColor.
+     Prepares the Button with a title and title
      - Parameter title: A String.
-     - Parameter titleColor: A UIColor.
+     - Parameter titleColor: A UI
      */
     private func prepare(with title: String?, titleColor: UIColor) {
         self.title = title

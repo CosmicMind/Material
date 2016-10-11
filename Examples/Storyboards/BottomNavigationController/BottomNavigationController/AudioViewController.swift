@@ -39,12 +39,12 @@ class AudioViewController: UIViewController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Color.blue.base
+        view.backgroundColor = .blue.base
     }
     
     private func prepareTabBarItem() {
         tabBarItem.title = nil
-        tabBarItem.image = Icon.cm.audioLibrary?.tintWithColor(color: Color.blueGrey.base)?.withRenderingMode(.alwaysOriginal)
-        tabBarItem.selectedImage = Icon.cm.audioLibrary?.tintWithColor(color: Color.blue.base)?.withRenderingMode(.alwaysOriginal)
+        tabBarItem.image = Icon.cm.audioLibrary?.tint(with: .blueGrey.base)?.withRenderingMode(.alwaysOriginal)
+        tabBarItem.selectedImage = Icon.cm.audioLibrary?.tint(with: .blue.base)?.withRenderingMode(.alwaysOriginal)
     }
 }

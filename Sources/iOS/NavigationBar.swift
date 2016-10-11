@@ -115,7 +115,7 @@ open class NavigationBar: UINavigationBar {
 		}
 	}
 	
-	/// A property that accesses the backing layer's backgroundColor.
+	/// A property that accesses the backing layer's background
 	@IBInspectable
     open override var backgroundColor: UIColor? {
 		didSet {
@@ -300,7 +300,7 @@ open class NavigationBar: UINavigationBar {
      The super.prepare method should always be called immediately
      when subclassing.
      */
-	public func prepare() {
+	open func prepare() {
         barStyle = .black
 		isTranslucent = false
 		depthPreset = .depth1
@@ -308,10 +308,10 @@ open class NavigationBar: UINavigationBar {
         contentEdgeInsetsPreset = .square1
         contentScaleFactor = Device.scale
 		backButtonImage = Icon.cm.arrowBack
-        let image = UIImage.imageWithColor(color: Color.clear, size: CGSize(width: 1, height: 1))
+        let image = UIImage.image(with: .clear, size: CGSize(width: 1, height: 1))
 		shadowImage = image
 		setBackgroundImage(image, for: .default)
-		backgroundColor = Color.white
+		backgroundColor = .white
 	}
 	
 	/**

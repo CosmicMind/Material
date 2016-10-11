@@ -73,7 +73,7 @@ class PhotoLibraryViewController: PhotoLibraryController {
     
     open override func prepare() {
         super.prepare()
-        view.backgroundColor = Color.grey.lighten5
+        view.backgroundColor = grey.lighten5
         
         prepareCollectionView()
         
@@ -141,7 +141,7 @@ class PhotoLibraryViewController: PhotoLibraryController {
         layout.sectionHeadersPinToVisibleBounds = true
         
         collectionView = PhotoLibraryCollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = Color.clear
+        collectionView.backgroundColor = clear
         collectionView.delegate = self
         collectionView.dataSource = self
         view.layout(collectionView).edges()

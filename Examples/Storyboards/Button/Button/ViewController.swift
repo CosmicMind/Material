@@ -47,7 +47,7 @@ class ViewController: UIViewController {
     
     private func prepareIconButton() {
         iconButton.image = Icon.search
-        iconButton.pulseColor = Color.blue.base
+        iconButton.pulseColor = blue.base
     }
 }
 

@@ -39,12 +39,12 @@ class PhotoViewController: UIViewController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Color.red.base
+        view.backgroundColor = .red.base
     }
     
     private func prepareTabBarItem() {
         tabBarItem.title = nil
-        tabBarItem.image = Icon.cm.photoCamera?.tintWithColor(color: Color.blueGrey.base)?.withRenderingMode(.alwaysOriginal)
-        tabBarItem.selectedImage = Icon.cm.photoCamera?.tintWithColor(color: Color.blue.base)?.withRenderingMode(.alwaysOriginal)
+        tabBarItem.image = Icon.cm.photoCamera?.tint(with: .blueGrey.base)?.withRenderingMode(.alwaysOriginal)
+        tabBarItem.selectedImage = Icon.cm.photoCamera?.tint(with: .blue.base)?.withRenderingMode(.alwaysOriginal)
     }
 }

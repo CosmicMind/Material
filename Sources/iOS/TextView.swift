@@ -35,7 +35,7 @@ public protocol TextViewDelegate : UITextViewDelegate {}
 
 @objc(TextView)
 public class TextView: UITextView {
-	/// A property that accesses the backing layer's backgroundColor.
+	/// A property that accesses the backing layer's background
 	@IBInspectable public override var backgroundColor: UIColor? {
 		didSet {
 			layer.backgroundColor = backgroundColor?.cgColor
@@ -223,7 +223,7 @@ public class TextView: UITextView {
 	public func prepare() {
 		contentScaleFactor = Device.scale
 		textContainerInset = .zero
-		backgroundColor = Color.white
+		backgroundColor = .white
 		clipsToBounds = false
 		removeNotificationHandlers()
 		prepareNotificationHandlers()
@@ -236,7 +236,7 @@ public class TextView: UITextView {
 			v.font = font
 			v.textAlignment = textAlignment
 			v.numberOfLines = 0
-			v.backgroundColor = Color.clear
+			v.backgroundColor = .clear
 			addSubview(v)
 			reloadView()
 			handleTextViewTextDidChange()

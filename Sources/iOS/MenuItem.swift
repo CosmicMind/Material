@@ -98,7 +98,7 @@ open class MenuItem: View {
     private func prepareTitleLabel() {
         titleLabel.font = RobotoFont.regular(with: 14)
         titleLabel.textAlignment = .center
-        titleLabel.backgroundColor = Color.white
+        titleLabel.backgroundColor = .white
         titleLabel.depthPreset = button.depthPreset
         titleLabel.cornerRadiusPreset = .cornerRadius1
         addSubview(titleLabel)

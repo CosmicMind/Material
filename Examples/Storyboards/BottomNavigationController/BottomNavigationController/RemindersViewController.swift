@@ -39,12 +39,12 @@ class RemindersViewController: UIViewController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Color.yellow.base
+        view.backgroundColor = .yellow.base
     }
     
     private func prepareTabBarItem() {
         tabBarItem.title = nil
-        tabBarItem.image = Icon.cm.bell?.tintWithColor(color: Color.blueGrey.base)?.withRenderingMode(.alwaysOriginal)
-        tabBarItem.selectedImage = Icon.cm.bell?.tintWithColor(color: Color.blue.base)?.withRenderingMode(.alwaysOriginal)
+        tabBarItem.image = Icon.cm.bell?.tint(with: .blueGrey.base)?.withRenderingMode(.alwaysOriginal)
+        tabBarItem.selectedImage = Icon.cm.bell?.tint(with: .blue.base)?.withRenderingMode(.alwaysOriginal)
     }
 }

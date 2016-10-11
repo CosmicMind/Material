@@ -47,7 +47,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Color.white
+        view.backgroundColor = .white
         
         prepareMenuButton()
         prepareFavoriteButton()
@@ -56,23 +56,23 @@ class ViewController: UIViewController {
     }
     
     private func prepareMenuButton() {
-        menuButton = IconButton(image: Icon.cm.menu, tintColor: Color.white)
+        menuButton = IconButton(image: Icon.cm.menu, tintColor: .white)
     }
     
     private func prepareFavoriteButton() {
-        favoriteButton = IconButton(image: Icon.favorite, tintColor: Color.white)
+        favoriteButton = IconButton(image: Icon.favorite, tintColor: .white)
     }
     
     private func prepareShareButton() {
-        shareButton = IconButton(image: Icon.cm.share, tintColor: Color.white)
+        shareButton = IconButton(image: Icon.cm.share, tintColor: .white)
     }
     
     private func prepareBar() {
         bar = Bar(leftViews: [menuButton], rightViews: [favoriteButton, shareButton])
-        bar.backgroundColor = Color.blue.base
+        bar.backgroundColor = .blue.base
         
         bar.contentView.cornerRadiusPreset = .cornerRadius1
-        bar.contentView.backgroundColor = Color.blue.lighten3
+        bar.contentView.backgroundColor = .blue.lighten3
         
         view.layout(bar).horizontally().center()
     }

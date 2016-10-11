@@ -975,7 +975,7 @@ open class NavigationDrawerController: RootController, UIGestureRecognizerDelega
 	
 	/// Prepares the contentViewController.
 	private func prepareContentViewController() {
-		contentViewController.view.backgroundColor = Color.black
+		contentViewController.view.backgroundColor = .black
 		prepare(viewController: contentViewController, withContainer: view)
 		view.sendSubview(toBack: contentViewController.view)
 	}

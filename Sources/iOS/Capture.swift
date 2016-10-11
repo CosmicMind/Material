@@ -151,10 +151,11 @@ open class Capture: View, UIGestureRecognizerDelegate {
     open lazy var captureMode: CaptureMode = .video
 	
 	/// A boolean indicating whether to enable tap to focus.
-	@IBInspectable open var enableTapToFocus = false {
+	@IBInspectable
+    open var isTapToFocusEnabled = false {
 		didSet {
-			if enableTapToFocus {
-				enableTapToReset = true
+			if isTapToFocusEnabled {
+				isTapToResetEnabled = true
 				prepareFocusLayer()
 				prepareTapGesture(gesture: &tapToFocusGesture, numberOfTapsRequired: 1, numberOfTouchesRequired: 1, selector: #selector(handleTapToFocusGesture))
 				if let v: UITapGestureRecognizer = tapToExposeGesture {
@@ -169,10 +170,11 @@ open class Capture: View, UIGestureRecognizerDelegate {
 	}
 	
 	/// A boolean indicating whether to enable tap to expose.
-	@IBInspectable open var enableTapToExpose = false {
+	@IBInspectable
+    open var isTapToExposeEnabled = false {
 		didSet {
-			if enableTapToExpose {
-				enableTapToReset = true
+			if isTapToExposeEnabled {
+				isTapToResetEnabled = true
 				prepareExposureLayer()
 				prepareTapGesture(gesture: &tapToExposeGesture, numberOfTapsRequired: 2, numberOfTouchesRequired: 1, selector: #selector(handleTapToExposeGesture))
 				if let v: UITapGestureRecognizer = tapToFocusGesture {
@@ -187,9 +189,10 @@ open class Capture: View, UIGestureRecognizerDelegate {
 	}
 	
 	/// A boolean indicating whether to enable tap to reset.
-	@IBInspectable open var enableTapToReset = false {
+	@IBInspectable
+    open var isTapToResetEnabled = false {
 		didSet {
-			if enableTapToReset {
+			if isTapToResetEnabled {
 				prepareResetLayer()
 				prepareTapGesture(gesture: &tapToResetGesture, numberOfTapsRequired: 2, numberOfTouchesRequired: 2, selector: #selector(handleTapToResetGesture))
 				if let v: UITapGestureRecognizer = tapToFocusGesture {
@@ -207,24 +210,25 @@ open class Capture: View, UIGestureRecognizerDelegate {
 	}
 	
 	/// Insets preset value for content.
-	open var contentEdgeInsetsPreset: EdgeInsetsPreset = .none {
+	open var contentEdgeInsetsPreset = EdgeInsetsPreset.none {
 		didSet {
-			contentInset = EdgeInsetsPresetToValue(preset: contentEdgeInsetsPreset)
+			contentEdgeInsets = EdgeInsetsPresetToValue(preset: contentEdgeInsetsPreset)
 		}
 	}
 	
 	/// Content insert value.
-	open var contentInset = EdgeInsetsPresetToValue(preset: .square4) {
+    @IBInspectable
+    open var contentEdgeInsets = EdgeInsets.zero {
 		didSet {
 			reloadView()
 		}
 	}
 	
 	/// A reference to the CapturePreview view.
-	open internal(set) var previewView: CapturePreview!
+	open internal(set) var preview: CapturePreview!
 	
 	/// A reference to the CaptureSession.
-	open internal(set) var captureSession: CaptureSession!
+	open internal(set) var session: CaptureSession!
 	
 	/// A reference to the focus layer used in focus animations.
 	open internal(set) var focusLayer: Layer?
@@ -236,9 +240,9 @@ open class Capture: View, UIGestureRecognizerDelegate {
     open internal(set) var resetLayer: Layer?
 	
 	/// A reference to the cameraButton.
-	open var cameraButton: UIButton? {
+	open var cameraButton: IconButton! {
 		didSet {
-			if let v: UIButton = cameraButton {
+			if let v = cameraButton {
 				v.addTarget(self, action: #selector(handleCameraButton), for: .touchUpInside)
 			}
 			reloadView()
@@ -246,9 +250,9 @@ open class Capture: View, UIGestureRecognizerDelegate {
 	}
 	
 	/// A reference to the captureButton.
-	open var captureButton: UIButton? {
+	open var captureButton: FabButton! {
 		didSet {
-			if let v: UIButton = captureButton {
+			if let v = captureButton {
 				v.addTarget(self, action: #selector(handleCaptureButton), for: .touchUpInside)
 			}
 			reloadView()
@@ -257,9 +261,9 @@ open class Capture: View, UIGestureRecognizerDelegate {
 
 	
 	/// A reference to the videoButton.
-	open var videoButton: UIButton? {
+	open var videoButton: IconButton! {
 		didSet {
-			if let v: UIButton = videoButton {
+			if let v = videoButton {
 				v.addTarget(self, action: #selector(handleVideoButton), for: .touchUpInside)
 			}
 			reloadView()
@@ -267,18 +271,18 @@ open class Capture: View, UIGestureRecognizerDelegate {
 	}
 	
 	/// A reference to the switchCameraButton.
-	open var switchCamerasButton: UIButton? {
+	open var switchCamerasButton: IconButton! {
 		didSet {
-			if let v: UIButton = switchCamerasButton {
+			if let v = switchCamerasButton {
 				v.addTarget(self, action: #selector(handleSwitchCamerasButton), for: .touchUpInside)
 			}
 		}
 	}
 	
 	/// A reference to the flashButton.
-	open var flashButton: UIButton? {
+	open var flashButton: IconButton! {
 		didSet {
-			if let v: UIButton = flashButton {
+			if let v = flashButton {
 				v.addTarget(self, action: #selector(handleFlashButton), for: .touchUpInside)
 			}
 		}
@@ -291,22 +295,22 @@ open class Capture: View, UIGestureRecognizerDelegate {
 	
 	open override func layoutSubviews() {
 		super.layoutSubviews()
-		previewView.frame = bounds
+		preview.frame = bounds
 		
-		if let v: UIButton = cameraButton {
-			v.frame.origin.y = bounds.height - contentInset.bottom - v.bounds.height
-			v.frame.origin.x = contentInset.left
+		if let v = cameraButton {
+			v.frame.origin.y = bounds.height - contentEdgeInsets.bottom - v.bounds.height
+			v.frame.origin.x = contentEdgeInsets.left
 		}
-		if let v: UIButton = captureButton {
-			v.frame.origin.y = bounds.height - contentInset.bottom - v.bounds.height
+		if let v = captureButton {
+			v.frame.origin.y = bounds.height - contentEdgeInsets.bottom - v.bounds.height
 			v.frame.origin.x = (bounds.width - v.bounds.width) / 2
 		}
-		if let v: UIButton = videoButton {
-			v.frame.origin.y = bounds.height - contentInset.bottom - v.bounds.height
-			v.frame.origin.x = bounds.width - v.bounds.width - contentInset.right
+		if let v = videoButton {
+			v.frame.origin.y = bounds.height - contentEdgeInsets.bottom - v.bounds.height
+			v.frame.origin.x = bounds.width - v.bounds.width - contentEdgeInsets.right
 		}
-		if let v: AVCaptureConnection = (previewView.layer as! AVCaptureVideoPreviewLayer).connection {
-			v.videoOrientation = captureSession.videoOrientation
+		if let v: AVCaptureConnection = (preview.layer as! AVCaptureVideoPreviewLayer).connection {
+			v.videoOrientation = session.videoOrientation
 		}
 	}
 	
@@ -319,9 +323,17 @@ open class Capture: View, UIGestureRecognizerDelegate {
      */
 	open override func prepare() {
 		super.prepare()
-		backgroundColor = Color.black
+		backgroundColor = .black
+        isTapToFocusEnabled = true
+        isTapToExposeEnabled = true
+        
         prepareCaptureSession()
 		preparePreviewView()
+        prepareCaptureButton()
+        prepareCameraButton()
+        prepareVideoButton()
+        prepareSwitchCamerasButton()
+        prepareFlashButton()
 	}
 	
 	/// Reloads the view.
@@ -332,17 +344,17 @@ open class Capture: View, UIGestureRecognizerDelegate {
 			v.removeFromSuperview()
 		}
 		
-		insertSubview(previewView, at: 0)
+		insertSubview(preview, at: 0)
 		
-		if let v: UIButton = captureButton {
+		if let v = captureButton {
 			insertSubview(v, at: 1)
 		}
 		
-		if let v: UIButton = cameraButton {
+		if let v = cameraButton {
 			insertSubview(v, at: 2)
 		}
 		
-		if let v: UIButton = videoButton {
+		if let v = videoButton {
 			insertSubview(v, at: 3)
 		}
 	}
@@ -357,7 +369,7 @@ open class Capture: View, UIGestureRecognizerDelegate {
 	
 	/// Updates the timer when recording.
 	internal func updateTimer() {
-		let duration: CMTime = captureSession.recordedDuration
+		let duration: CMTime = session.recordedDuration
 		let time: Double = CMTimeGetSeconds(duration)
 		let hours: Int = Int(time / 3600)
 		let minutes: Int = Int((time / 60).truncatingRemainder(dividingBy: 60))
@@ -367,7 +379,7 @@ open class Capture: View, UIGestureRecognizerDelegate {
 	
 	/// Stops the timer when recording.
 	internal func stopTimer() {
-		let duration: CMTime = captureSession.recordedDuration
+		let duration: CMTime = session.recordedDuration
 		let time: Double = CMTimeGetSeconds(duration)
         let hours: Int = Int(time / 3600)
         let minutes: Int = Int((time / 60).truncatingRemainder(dividingBy: 60))
@@ -392,7 +404,7 @@ open class Capture: View, UIGestureRecognizerDelegate {
      */
     @objc
     internal func handleSwitchCamerasButton(button: UIButton) {
-		captureSession.switchCameras()
+		session.switchCameras()
 		delegate?.captureDidPressSwitchCamerasButton?(capture: self, button: button)
 	}
 	
@@ -403,13 +415,13 @@ open class Capture: View, UIGestureRecognizerDelegate {
     @objc
     internal func handleCaptureButton(button: UIButton) {
 		if .photo == captureMode {
-			captureSession.captureStillImage()
+			session.captureStillImage()
 		} else if .video == captureMode {
-			if captureSession.isRecording {
-				captureSession.stopRecording()
+			if session.isRecording {
+				session.stopRecording()
 				stopTimer()
 			} else {
-				captureSession.startRecording()
+				session.startRecording()
 				startTimer()
 			}
 		}
@@ -442,9 +454,9 @@ open class Capture: View, UIGestureRecognizerDelegate {
      */
     @objc
 	internal func handleTapToFocusGesture(recognizer: UITapGestureRecognizer) {
-		if enableTapToFocus && captureSession.isFocusPointOfInterestSupported {
+		if isTapToFocusEnabled && session.isFocusPointOfInterestSupported {
 			let point: CGPoint = recognizer.location(in: self)
-			captureSession.focus(at: previewView.captureDevicePointOfInterestForPoint(point: point))
+			session.focus(at: preview.captureDevicePointOfInterestForPoint(point: point))
 			animateTapLayer(layer: focusLayer!, point: point)
 			delegate?.captureDidTapToFocusAtPoint?(capture: self, point: point)
 		}
@@ -456,9 +468,9 @@ open class Capture: View, UIGestureRecognizerDelegate {
      */
     @objc
 	internal func handleTapToExposeGesture(recognizer: UITapGestureRecognizer) {
-		if enableTapToExpose && captureSession.isExposurePointOfInterestSupported {
+		if isTapToExposeEnabled && session.isExposurePointOfInterestSupported {
 			let point: CGPoint = recognizer.location(in: self)
-			captureSession.expose(at: previewView.captureDevicePointOfInterestForPoint(point: point))
+			session.expose(at: preview.captureDevicePointOfInterestForPoint(point: point))
 			animateTapLayer(layer: exposureLayer!, point: point)
 			delegate?.captureDidTapToExposeAtPoint?(capture: self, point: point)
 		}
@@ -470,9 +482,9 @@ open class Capture: View, UIGestureRecognizerDelegate {
      */
     @objc
 	internal func handleTapToResetGesture(recognizer: UITapGestureRecognizer) {
-		if enableTapToReset {
-			captureSession.reset()
-            let point: CGPoint = previewView.pointForCaptureDevicePointOfInterest(point: CGPoint(x: 0.5, y: 0.5))
+		if isTapToResetEnabled {
+			session.reset()
+            let point: CGPoint = preview.pointForCaptureDevicePointOfInterest(point: CGPoint(x: 0.5, y: 0.5))
 			animateTapLayer(layer: resetLayer!, point: point)
 			delegate?.captureDidTapToResetAtPoint?(capture: self, point: point)
 		}
@@ -507,17 +519,43 @@ open class Capture: View, UIGestureRecognizerDelegate {
 		}
 	}
 	
-    /// Prepare the captureSession.
+    /// Prepare the session.
     private func prepareCaptureSession() {
-        captureSession = CaptureSession()
+        session = CaptureSession()
     }
     
-	/// Prepares the previewView.
+	/// Prepares the preview.
     private func preparePreviewView() {
-		previewView = CapturePreview()
-        (previewView.layer as! AVCaptureVideoPreviewLayer).session = captureSession.session
-		captureSession.startSession()
+		preview = CapturePreview()
+        (preview.layer as! AVCaptureVideoPreviewLayer).session = session.session
+		session.startSession()
 	}
+    
+    /// Prepares the captureButton.
+    private func prepareCaptureButton() {
+        captureButton = FabButton()
+    }
+    
+    /// Prepares the cameraButton.
+    private func prepareCameraButton() {
+        cameraButton = IconButton(image: Icon.cm.photoCamera, tintColor: .white)
+    }
+    
+    /// Preapres the videoButton.
+    private func prepareVideoButton() {
+        videoButton = IconButton(image: Icon.cm.videocam, tintColor: .white)
+    }
+    
+    /// Prepares the switchCameraButton.
+    private func prepareSwitchCamerasButton() {
+        switchCamerasButton = IconButton(image: UIImage(named: "ic_camera_front_white"), tintColor: .white)
+    }
+    
+    /// Prepares the flashButton.
+    private func prepareFlashButton() {
+        flashButton = IconButton(image: UIImage(named: "ic_flash_auto_white"), tintColor: .white)
+        session.flashMode = .auto
+    }
 	
 	/// Prepares the focusLayer.
 	private func prepareFocusLayer() {
@@ -526,7 +564,7 @@ open class Capture: View, UIGestureRecognizerDelegate {
 			focusLayer!.isHidden = true
 			focusLayer!.borderWidth = 2
 			focusLayer!.borderColor = Color.white.cgColor
-			previewView.layer.addSublayer(focusLayer!)
+			preview.layer.addSublayer(focusLayer!)
 		}
 	}
 	
@@ -537,7 +575,7 @@ open class Capture: View, UIGestureRecognizerDelegate {
 			exposureLayer!.isHidden = true
 			exposureLayer!.borderWidth = 2
 			exposureLayer!.borderColor = Color.yellow.darken1.cgColor
-			previewView.layer.addSublayer(exposureLayer!)
+			preview.layer.addSublayer(exposureLayer!)
 		}
 	}
 	
@@ -548,7 +586,7 @@ open class Capture: View, UIGestureRecognizerDelegate {
 			resetLayer!.isHidden = true
 			resetLayer!.borderWidth = 2
 			resetLayer!.borderColor = Color.red.accent1.cgColor
-			previewView.layer.addSublayer(resetLayer!)
+			preview.layer.addSublayer(resetLayer!)
 		}
 	}
 	

@@ -157,7 +157,7 @@ open class CollectionReusableView: UICollectionReusableView {
 	}
 	
 	/// A reference to EdgeInsets.
-	@IBInspectable open var contentInset: UIEdgeInsets {
+	@IBInspectable open var contentEdgeInsets: UIEdgeInsets {
 		get {
 			return grid.contentEdgeInsets
 		}
@@ -183,7 +183,7 @@ open class CollectionReusableView: UICollectionReusableView {
 		}
 	}
 	
-	/// A property that accesses the backing layer's backgroundColor.
+	/// A property that accesses the backing layer's background
 	@IBInspectable open override var backgroundColor: UIColor? {
 		didSet {
 			layer.backgroundColor = backgroundColor?.cgColor

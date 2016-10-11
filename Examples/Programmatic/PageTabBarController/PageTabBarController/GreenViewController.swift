@@ -44,12 +44,12 @@ class GreenViewController: UIViewController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Color.green.base
+        view.backgroundColor = green.base
     }
     
     private func preparePageTabBarItem() {
         pageTabBarItem.title = "Green"
-        pageTabBarItem.titleColor = Color.blueGrey.base
+        pageTabBarItem.titleColor = blueGrey.base
     }
 }
 

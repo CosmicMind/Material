@@ -38,7 +38,7 @@ class RootViewController: UIViewController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Color.grey.lighten5
+        view.backgroundColor = grey.lighten5
         
         prepareAddButton()
         prepareAudioLibraryButton()
@@ -69,14 +69,14 @@ class RootViewController: UIViewController {
     }
     
     private func prepareAddButton() {
-        addButton = FabButton(image: Icon.cm.add, tintColor: Color.white)
+        addButton = FabButton(image: Icon.cm.add, tintColor: white)
         addButton.addTarget(self, action: #selector(handleToggleMenu), for: .touchUpInside)
     }
     
     private func prepareAudioLibraryButton() {
         audioLibraryMenuItem = MenuItem()
         audioLibraryMenuItem.button.image = Icon.cm.audioLibrary
-        audioLibraryMenuItem.button.backgroundColor = Color.green.base
+        audioLibraryMenuItem.button.backgroundColor = green.base
         audioLibraryMenuItem.button.depthPreset = .depth1
         audioLibraryMenuItem.title = "Audio Library"
     }
@@ -84,7 +84,7 @@ class RootViewController: UIViewController {
     private func prepareBellButton() {
         reminderMenuItem = MenuItem()
         reminderMenuItem.button.image = Icon.cm.bell
-        reminderMenuItem.button.backgroundColor = Color.blue.base
+        reminderMenuItem.button.backgroundColor = blue.base
         reminderMenuItem.title = "Reminders"
     }
     
