@@ -87,9 +87,9 @@ class ViewController: UIViewController {
         emailField.isClearIconButtonEnabled = true
         emailField.delegate = self
         
-        emailField.placeholderNormalColor = amber.darken4
-        emailField.placeholderActiveColor = pink.base
-        emailField.dividerNormalColor = cyan.base
+        emailField.placeholderNormalColor = Color.amber.darken4
+        emailField.placeholderActiveColor = Color.pink.base
+        emailField.dividerNormalColor = Color.cyan.base
         
         view.addSubview(emailField)
     }

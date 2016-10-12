@@ -42,7 +42,7 @@ class RootViewController: UIViewController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Color.grey.lighten1
+        view.backgroundColor = Color.grey.lighten5
         
         prepareMenuButton()
         prepareStarButton()
@@ -77,6 +77,7 @@ class RootViewController: UIViewController {
     
     private func prepareNextButton() {
         nextButton = FlatButton()
+        nextButton.pulseAnimation = .none
         nextButton.addTarget(self, action: #selector(handleNextButton), for: .touchUpInside)
         view.layout(nextButton).edges()
     }

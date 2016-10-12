@@ -42,7 +42,7 @@ class RightViewController: UIViewController {
     }
     
     @objc
-    internal func handleTransitionButton() {
+    internal func handleRootButton() {
         // Transition the entire NavigationDrawer rootViewController.
 //        navigationDrawerController?.transition(to: RootViewController(), completion: closeNavigationDrawer)
         
@@ -56,7 +56,8 @@ class RightViewController: UIViewController {
     
     private func prepareRootButton() {
         rootButton = FlatButton(title: "Root VC", titleColor: .white)
-        rootButton.addTarget(self, action: #selector(handleTransitionButton), for: .touchUpInside)
+        rootButton.pulseColor = .white
+        rootButton.addTarget(self, action: #selector(handleRootButton), for: .touchUpInside)
         
         view.layout(rootButton).horizontally().center()
     }

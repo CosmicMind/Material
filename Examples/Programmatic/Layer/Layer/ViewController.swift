@@ -32,7 +32,6 @@ import UIKit
 import Material
 
 class ViewController: UIViewController {
-    /// A reference to the Layer.
     private var layer: Layer!
     
     override func viewDidLoad() {

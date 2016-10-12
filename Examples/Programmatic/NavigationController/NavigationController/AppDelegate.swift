@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidFinishLaunching(_ application: UIApplication) {
         window = UIWindow(frame: Device.bounds)
-        window!.rootViewController = AppStatusBarController(rootViewController: AppNavigationController(rootViewController: RootViewController()))
+        window!.rootViewController = AppNavigationController(rootViewController: RootViewController())
         window!.makeKeyAndVisible()
     }
 }

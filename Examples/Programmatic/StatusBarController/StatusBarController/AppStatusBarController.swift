@@ -34,7 +34,13 @@ import Material
 class AppStatusBarController: StatusBarController {
     open override func prepare() {
         super.prepare()
-        statusBarStyle = .default
+        
+        prepareStatusBar()
+    }
+    
+    private func prepareStatusBar() {
+        statusBarStyle = .lightContent
+        statusBar.backgroundColor = Color.blue.base
     }
 }
 

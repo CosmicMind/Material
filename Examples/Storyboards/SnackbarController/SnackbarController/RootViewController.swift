@@ -37,12 +37,13 @@ class RootViewController: UIViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Color.grey.lighten5
+        
+        prepareUndoButton()
     }
     
     open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        prepareUndoButton()
         prepareSnackbar()
         animateSnackbar()
         scheduleAnimation()
@@ -55,12 +56,12 @@ class RootViewController: UIViewController {
     }
     
     private func prepareSnackbar() {
-        guard let sc = snackbarController else {
+        guard let snackbar = snackbarController?.snackbar else {
             return
         }
         
-        sc.snackbar.text = "Reminder saved."
-        sc.snackbar.rightViews = [undoButton]
+        snackbar.text = "Reminder saved."
+        snackbar.rightViews = [undoButton]
     }
     
     private func scheduleAnimation() {

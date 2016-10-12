@@ -39,19 +39,19 @@ class AppSnackbarController: SnackbarController {
 }
 
 extension AppSnackbarController: SnackbarControllerDelegate {
-    func snackbarControllerWillShow(snackbarController: SnackbarController) {
-        print("snackbarControllerWillShow")
+    func snackbarController(snackbarController: SnackbarController, willShow snackbar: Snackbar) {
+        print("snackbarController will show")
     }
     
-    func snackbarControllerWillHide(snackbarController: SnackbarController) {
-        print("snackbarControllerWillHide")
+    func snackbarController(snackbarController: SnackbarController, willHide snackbar: Snackbar) {
+        print("snackbarController will hide")
     }
     
-    func snackbarControllerDidShow(snackbarController: SnackbarController) {
-        print("snackbarControllerDidShow")
+    func snackbarController(snackbarController: SnackbarController, didShow snackbar: Snackbar) {
+        print("snackbarController did show")
     }
     
-    func snackbarControllerDidHide(snackbarController: SnackbarController) {
-        print("snackbarControllerDidHide")
+    func snackbarController(snackbarController: SnackbarController, didHide snackbar: Snackbar) {
+        print("snackbarController did hide")
     }
 }

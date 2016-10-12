@@ -39,6 +39,6 @@ class AppBottomNavigationController: BottomNavigationController {
         
     private func prepareTabBar() {
         tabBar.depthPreset = .none
-        tabBar.dividerColor = .grey.lighten3
+        tabBar.dividerColor = Color.grey.lighten3
     }
 }

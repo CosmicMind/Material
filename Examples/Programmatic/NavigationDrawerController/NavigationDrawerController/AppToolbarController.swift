@@ -43,6 +43,7 @@ class AppToolbarController: ToolbarController {
         prepareMenuButton()
         prepareSwitch()
         prepareMoreButton()
+        prepareStatusBar()
         prepareToolbar()
     }
     
@@ -68,6 +69,13 @@ class AppToolbarController: ToolbarController {
     private func prepareMoreButton() {
         moreButton = IconButton(image: Icon.cm.moreVertical)
         moreButton.addTarget(self, action: #selector(handleMoreButton), for: .touchUpInside)
+    }
+    
+    private func prepareStatusBar() {
+        statusBarStyle = .lightContent
+        
+        // Access the statusBar.
+//        statusBar.backgroundColor = Color.green.base
     }
     
     private func prepareToolbar() {

@@ -37,7 +37,7 @@ open class NavigationBar: UINavigationBar {
     }
     
     open override var intrinsicContentSize: CGSize {
-        return CGSize(width: width, height: height)
+        return CGSize(width: Device.width, height: height)
     }
 	
 	/// A preset wrapper around contentEdgeInsets.

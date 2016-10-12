@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9640ED151DAE115D0085CDA1 /* AppStatusBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9640ED141DAE115D0085CDA1 /* AppStatusBarController.swift */; };
 		96CC49CD1D8DD984002CAB55 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC49CC1D8DD984002CAB55 /* AppDelegate.swift */; };
 		96CC49CF1D8DD984002CAB55 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC49CE1D8DD984002CAB55 /* RootViewController.swift */; };
 		96CC49D41D8DD984002CAB55 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96CC49D31D8DD984002CAB55 /* Assets.xcassets */; };
@@ -30,7 +29,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		9640ED141DAE115D0085CDA1 /* AppStatusBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppStatusBarController.swift; sourceTree = "<group>"; };
 		96CC49C91D8DD984002CAB55 /* NavigationController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NavigationController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96CC49CC1D8DD984002CAB55 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96CC49CE1D8DD984002CAB55 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
@@ -72,7 +70,6 @@
 			isa = PBXGroup;
 			children = (
 				96CC49CC1D8DD984002CAB55 /* AppDelegate.swift */,
-				9640ED141DAE115D0085CDA1 /* AppStatusBarController.swift */,
 				96CC49DE1D8DD9E8002CAB55 /* AppNavigationController.swift */,
 				96CC49CE1D8DD984002CAB55 /* RootViewController.swift */,
 				96CC49E41D8DDF61002CAB55 /* NextViewController.swift */,
@@ -155,7 +152,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9640ED151DAE115D0085CDA1 /* AppStatusBarController.swift in Sources */,
 				96CC49DF1D8DD9E8002CAB55 /* AppNavigationController.swift in Sources */,
 				96CC49E51D8DDF61002CAB55 /* NextViewController.swift in Sources */,
 				96CC49CF1D8DD984002CAB55 /* RootViewController.swift in Sources */,

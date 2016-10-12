@@ -56,6 +56,7 @@ class LeftViewController: UIViewController {
 
     private func prepareTransitionButton() {
         transitionButton = FlatButton(title: "Transition VC", titleColor: .white)
+        transitionButton.pulseColor = .white
         transitionButton.addTarget(self, action: #selector(handleTransitionButton), for: .touchUpInside)
         
         view.layout(transitionButton).horizontally().center()

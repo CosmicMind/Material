@@ -32,10 +32,7 @@ import UIKit
 import Material
 
 class ViewController: UIViewController {
-    /// Buttons for the TabBar.
     private lazy var buttons = [Button]()
-    
-    /// A reference to the TabBar.
     private var tabBar: TabBar!
     
     override func viewDidLoad() {
@@ -62,6 +59,7 @@ class ViewController: UIViewController {
     
     private func prepareTabBar() {
         tabBar = TabBar()
+        tabBar.delegate = self
         
         tabBar.dividerColor = Color.grey.lighten3
         tabBar.dividerAlignment = .top
@@ -73,6 +71,16 @@ class ViewController: UIViewController {
         tabBar.buttons = buttons
         
         view.layout(tabBar).horizontally().bottom()
+    }
+}
+
+extension ViewController: TabBarDelegate {
+    func tabBar(tabBar: TabBar, willSelect button: UIButton) {
+        print("will select")
+    }
+    
+    func tabBar(tabBar: TabBar, didSelect button: UIButton) {
+        print("did select")
     }
 }
 
