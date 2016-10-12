@@ -68,6 +68,8 @@ class ViewController: UIViewController {
     }
     
     private func prepareNameField() {
+        let d: CGFloat = 40
+        
         nameField = TextField()
         nameField.text = "Daniel Dahan"
         nameField.placeholder = "Name"
@@ -77,15 +79,25 @@ class ViewController: UIViewController {
         
         // Size the TextField to the maximum width, less 40 pixels on either side
         // with a top margin of 40 pixels.
-        view.layout(nameField).top(40).horizontally(left: 40, right: 40)
+        view.layout(nameField).top(d).horizontally(left: d, right: d)
     }
     
     private func prepareEmailField() {
-        emailField = ErrorTextField(frame: CGRect(x: 40, y: 120, width: view.width - 80, height: 32))
+        let d: CGFloat = 32
+        
+        let leftView = UIImageView(frame: CGRect(x: 0, y: 0, width: d, height: d))
+        leftView.image = Icon.cm.check?.tint(with: Color.cyan.base)
+        leftView.contentMode = .center
+        
+        emailField = ErrorTextField(frame: CGRect(x: 40, y: 120, width: view.width - 80, height: d))
         emailField.placeholder = "Email"
         emailField.detail = "Error, incorrect email"
         emailField.isClearIconButtonEnabled = true
         emailField.delegate = self
+        
+        emailField.leftView = leftView
+        emailField.leftViewMode = .always
+        emailField.divider.contentEdgeInsets.left = d
         
         emailField.placeholderNormalColor = Color.amber.darken4
         emailField.placeholderActiveColor = Color.pink.base
@@ -95,6 +107,8 @@ class ViewController: UIViewController {
     }
     
     private func preparePasswordField() {
+        let d: CGFloat = 40
+        
         passwordField = TextField()
         passwordField.placeholder = "Password"
         passwordField.detail = "At least 8 characters"
@@ -106,7 +120,7 @@ class ViewController: UIViewController {
         
         // Size the TextField to the maximum width, less 40 pixels on either side
         // with a top margin of 200 pixels.
-        view.layout(passwordField).top(200).horizontally(left: 40, right: 40)
+        view.layout(passwordField).top(200).horizontally(left: d, right: d)
     }
 }
 

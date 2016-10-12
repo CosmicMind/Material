@@ -46,7 +46,21 @@ open class Divider {
     internal var line: UIView?
     
     /// A reference to the height.
-    public var height: CGFloat
+    open var height: CGFloat
+    
+    /// A preset wrapper around contentEdgeInsets.
+    open var contentEdgeInsetsPreset = EdgeInsetsPreset.none {
+        didSet {
+            contentEdgeInsets = EdgeInsetsPresetToValue(preset: contentEdgeInsetsPreset)
+        }
+    }
+    
+    /// A reference to EdgeInsets.
+    open var contentEdgeInsets = EdgeInsets.zero {
+        didSet {
+            reload()
+        }
+    }
     
     /// A UIColor.
     open var color: UIColor? {
@@ -91,15 +105,17 @@ open class Divider {
             return
         }
         
+        let c = contentEdgeInsets
+        
         switch alignment {
         case .top:
-            l.frame = CGRect(x: 0, y: 0, width: v.width, height: height)
+            l.frame = CGRect(x: c.left, y: c.top, width: v.width - c.left - c.right, height: height - c.top - c.bottom)
         case .bottom:
-            l.frame = CGRect(x: 0, y: v.height - height, width: v.width, height: height)
+            l.frame = CGRect(x: c.left, y: v.height - height - c.bottom, width: v.width - c.left - c.right, height: height - c.top - c.bottom)
         case .left:
-            l.frame = CGRect(x: 0, y: 0, width: height, height: v.height)
+            l.frame = CGRect(x: c.left, y: c.top, width: height, height: v.height - c.top - c.bottom)
         case .right:
-            l.frame = CGRect(x: v.width - height, y: 0, width: height, height: v.height)
+            l.frame = CGRect(x: v.width - height - c.right, y: c.top, width: height, height: v.height - c.top - c.bottom)
         }
     }
 }
