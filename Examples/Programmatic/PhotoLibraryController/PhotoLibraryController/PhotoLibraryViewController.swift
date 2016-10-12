@@ -141,7 +141,7 @@ class PhotoLibraryViewController: PhotoLibraryController {
         layout.sectionHeadersPinToVisibleBounds = true
         
         collectionView = PhotoLibraryCollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = clear
+        collectionView.backgroundColor = .clear
         collectionView.delegate = self
         collectionView.dataSource = self
         view.layout(collectionView).edges()

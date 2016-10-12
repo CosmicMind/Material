@@ -130,9 +130,9 @@ open class CollectionReusableView: UICollectionReusableView {
 	}
 	
 	/// A Preset for the contentsGravity property.
-	open var contentsGravityPreset: MaterialGravity {
+	open var contentsGravityPreset: Gravity {
 		didSet {
-			contentsGravity = MaterialGravityToValue(gravity: contentsGravityPreset)
+			contentsGravity = GravityToValue(gravity: contentsGravityPreset)
 		}
 	}
 	
@@ -191,23 +191,23 @@ open class CollectionReusableView: UICollectionReusableView {
 	}
 	
 	/**
-	An initializer that initializes the object with a NSCoder object.
-	- Parameter aDecoder: A NSCoder instance.
-	*/
+     An initializer that initializes the object with a NSCoder object.
+     - Parameter aDecoder: A NSCoder instance.
+     */
 	public required init?(coder aDecoder: NSCoder) {
-		contentsGravityPreset = .ResizeAspectFill
+		contentsGravityPreset = .resizeAspectFill
 		super.init(coder: aDecoder)
 		prepare()
 	}
 	
 	/**
-	An initializer that initializes the object with a CGRect object.
-	If AutoLayout is used, it is better to initilize the instance
-	using the init() initializer.
-	- Parameter frame: A CGRect instance.
-	*/
+     An initializer that initializes the object with a CGRect object.
+     If AutoLayout is used, it is better to initilize the instance
+     using the init() initializer.
+     - Parameter frame: A CGRect instance.
+     */
 	public override init(frame: CGRect) {
-		contentsGravityPreset = .ResizeAspectFill
+		contentsGravityPreset = .resizeAspectFill
 		super.init(frame: frame)
 		prepare()
 	}
@@ -282,12 +282,12 @@ open class CollectionReusableView: UICollectionReusableView {
     }
 	
 	/**
-	Prepares the view instance when intialized. When subclassing,
-	it is recommended to override the prepare method
-	to initialize property values and other setup operations.
-	The super.prepare method should always be called immediately
-	when subclassing.
-	*/
+     Prepares the view instance when intialized. When subclassing,
+     it is recommended to override the prepare method
+     to initialize property values and other setup operations.
+     The super.prepare method should always be called immediately
+     when subclassing.
+     */
 	open func prepare() {
 		contentScaleFactor = Device.scale
 		pulseAnimation = .none

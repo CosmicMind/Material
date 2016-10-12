@@ -212,7 +212,7 @@ open class TabBar: Bar {
 	// Prepares the line.
 	private func prepareLine() {
 		line = UIView()
-        line.zPosition = 5100
+        line.zPosition = 6000
 		lineColor = Color.blueGrey.lighten3
 		lineHeight = 3
         addSubview(line)

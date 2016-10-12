@@ -133,9 +133,9 @@ open class CollectionViewCell: UICollectionViewCell {
 	}
 	
 	/// A Preset for the contentsGravity property.
-	public var contentsGravityPreset: MaterialGravity {
+	public var contentsGravityPreset: Gravity {
 		didSet {
-            contentsGravity = MaterialGravityToValue(gravity: contentsGravityPreset)
+            contentsGravity = GravityToValue(gravity: contentsGravityPreset)
 		}
 	}
 	
@@ -202,7 +202,7 @@ open class CollectionViewCell: UICollectionViewCell {
      - Parameter aDecoder: A NSCoder instance.
      */
 	public required init?(coder aDecoder: NSCoder) {
-		contentsGravityPreset = .ResizeAspectFill
+		contentsGravityPreset = .resizeAspectFill
 		super.init(coder: aDecoder)
 		prepare()
 	}
@@ -214,7 +214,7 @@ open class CollectionViewCell: UICollectionViewCell {
      - Parameter frame: A CGRect instance.
      */
 	public override init(frame: CGRect) {
-		contentsGravityPreset = .ResizeAspectFill
+		contentsGravityPreset = .resizeAspectFill
 		super.init(frame: frame)
 		prepare()
 	}

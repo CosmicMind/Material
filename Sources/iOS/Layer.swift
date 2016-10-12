@@ -87,9 +87,9 @@ open class Layer: CAShapeLayer {
 	}
 	
 	/// A Preset for the contentsGravity property.
-	open var contentsGravityPreset: MaterialGravity {
+	open var contentsGravityPreset: Gravity {
 		didSet {
-			contentsGravity = MaterialGravityToValue(gravity: contentsGravityPreset)
+			contentsGravity = GravityToValue(gravity: contentsGravityPreset)
 		}
 	}
 	
@@ -124,7 +124,7 @@ open class Layer: CAShapeLayer {
      - Parameter aDecoder: A NSCoder instance.
      */
 	public required init?(coder aDecoder: NSCoder) {
-		contentsGravityPreset = .ResizeAspectFill
+		contentsGravityPreset = .resizeAspectFill
 		super.init(coder: aDecoder)
 		prepareVisualLayer()
 	}
@@ -135,14 +135,14 @@ open class Layer: CAShapeLayer {
      - Parameter layer: Any.
      */
 	public override init(layer: Any) {
-		contentsGravityPreset = .ResizeAspectFill
+		contentsGravityPreset = .resizeAspectFill
 		super.init()
 		prepareVisualLayer()
 	}
 	
 	/// A convenience initializer.
 	public override init() {
-		contentsGravityPreset = .ResizeAspectFill
+		contentsGravityPreset = .resizeAspectFill
 		super.init()
 		prepareVisualLayer()
 	}

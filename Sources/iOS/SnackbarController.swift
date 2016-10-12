@@ -35,30 +35,34 @@ public protocol SnackbarControllerDelegate {
     /**
      A delegation method that is executed when a Snackbar will show.
      - Parameter snackbarController: A SnackbarController.
+     - Parameter snackbar: A Snackbar.
      */
     @objc
-    optional func snackbarControllerWillShow(snackbarController: SnackbarController)
+    optional func snackbarController(snackbarController: SnackbarController, willShow snackbar: Snackbar)
     
     /**
      A delegation method that is executed when a Snackbar did show.
      - Parameter snackbarController: A SnackbarController.
+     - Parameter snackbar: A Snackbar.
      */
     @objc
-    optional func snackbarControllerDidShow(snackbarController: SnackbarController)
+    optional func snackbarController(snackbarController: SnackbarController, didShow snackbar: Snackbar)
     
     /**
      A delegation method that is executed when a Snackbar will hide.
      - Parameter snackbarController: A SnackbarController.
+     - Parameter snackbar: A Snackbar.
      */
     @objc
-    optional func snackbarControllerWillHide(snackbarController: SnackbarController)
+    optional func snackbarController(snackbarController: SnackbarController, willHide snackbar: Snackbar)
     
     /**
      A delegation method that is executed when a Snackbar did hide.
      - Parameter snackbarController: A SnackbarController.
+     - Parameter snackbar: A Snackbar.
      */
     @objc
-    optional func snackbarControllerDidHide(snackbarController: SnackbarController)
+    optional func snackbarController(snackbarController: SnackbarController, didHide snackbar: Snackbar)
 }
 
 @objc(SnackbarAlignment)
@@ -110,9 +114,9 @@ open class SnackbarController: RootController {
             }
             
             if .visible == status {
-                s.delegate?.snackbarControllerWillShow?(snackbarController: s)
+                s.delegate?.snackbarController?(snackbarController: s, willShow: s.snackbar)
             } else {
-                s.delegate?.snackbarControllerWillHide?(snackbarController: s)
+                s.delegate?.snackbarController?(snackbarController: s, willHide: s.snackbar)
             }
             
             s.isAnimating = true
@@ -134,11 +138,12 @@ open class SnackbarController: RootController {
                 s.isAnimating = false
                 s.isUserInteractionEnabled = true
                 s.snackbar.status = status
+                s.layoutSubviews()
                 
                 if .visible == status {
-                    s.delegate?.snackbarControllerDidShow?(snackbarController: s)
+                    s.delegate?.snackbarController?(snackbarController: s, didShow: s.snackbar)
                 } else {
-                    s.delegate?.snackbarControllerDidHide?(snackbarController: s)
+                    s.delegate?.snackbarController?(snackbarController: s, didHide: s.snackbar)
                 }
                 
                 completion?(s.snackbar)
@@ -163,7 +168,6 @@ open class SnackbarController: RootController {
     /// Reloads the view.
     open func reload() {
         snackbar.width = view.width
-        snackbar.height = snackbar.intrinsicContentSize.height + snackbar.layoutEdgeInsets.top + snackbar.layoutEdgeInsets.bottom
         layoutSnackbar(status: snackbar.status)
     }
     
