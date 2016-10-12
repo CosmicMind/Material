@@ -145,7 +145,7 @@ open class NavigationBar: UINavigationBar {
 		super.layoutSubviews()
         layoutShadowPath()
 		
-		if let v = topItem {
+        if let v = topItem {
 			layoutNavigationItem(item: v)
 		}
 		
@@ -281,10 +281,9 @@ open class NavigationBar: UINavigationBar {
      when subclassing.
      */
 	open func prepare() {
-        heightPreset = .default
         barStyle = .black
-		isTranslucent = false
-		depthPreset = .depth1
+        isTranslucent = false
+        depthPreset = .depth1
         interimSpacePreset = .interimSpace3
         contentEdgeInsetsPreset = .square1
         contentScaleFactor = Device.scale

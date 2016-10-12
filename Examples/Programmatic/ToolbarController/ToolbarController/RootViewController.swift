@@ -32,49 +32,25 @@ import UIKit
 import Material
 
 class RootViewController: UIViewController {
-    private var menuButton: IconButton!
-    private var starButton: IconButton!
-    private var searchButton: IconButton!
-    
     open override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-    }
-    
-    open override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        view.backgroundColor = Color.grey.lighten5
         
-        prepareMenuButton()
-        prepareStarButton()
-        prepareSearchButton()
         prepareToolbar()
     }
     
-    private func prepareMenuButton() {
-        menuButton = IconButton(image: Icon.cm.menu)
-    }
-    
-    private func prepareStarButton() {
-        starButton = IconButton(image: Icon.cm.star)
-    }
-    
-    private func prepareSearchButton() {
-        searchButton = IconButton(image: Icon.cm.search)
-    }
-    
     private func prepareToolbar() {
-        guard let tc = toolbarController else {
+        guard let toolbar = toolbarController?.toolbar else {
             return
         }
         
-        tc.toolbar.title = "Marterial"
-        tc.toolbar.titleLabel.textAlignment = .left
+        toolbar.title = "Marterial"
+        toolbar.titleLabel.textColor = .white
+        toolbar.titleLabel.textAlignment = .left
         
-        tc.toolbar.detail = "Build Beautiful Software"
-        tc.toolbar.detailLabel.textAlignment = .left
-        
-        tc.toolbar.leftViews = [menuButton]
-        tc.toolbar.rightViews = [starButton, searchButton]
+        toolbar.detail = "Build Beautiful Software"
+        toolbar.detailLabel.textColor = .white
+        toolbar.detailLabel.textAlignment = .left
     }
 }
 

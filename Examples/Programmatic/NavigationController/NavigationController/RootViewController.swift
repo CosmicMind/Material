@@ -56,26 +56,20 @@ class RootViewController: UIViewController {
     }
     
     private func prepareMenuButton() {
-        menuButton = IconButton(image: Icon.cm.menu, tintColor: .white)
-        menuButton.pulseColor = .white
+        menuButton = IconButton(image: Icon.cm.menu)
     }
     
     private func prepareStarButton() {
-        starButton = IconButton(image: Icon.cm.star, tintColor: .white)
-        starButton.pulseColor = .white
+        starButton = IconButton(image: Icon.cm.star)
     }
     
     private func prepareSearchButton() {
-        searchButton = IconButton(image: Icon.cm.search, tintColor: .white)
-        searchButton.pulseColor = .white
+        searchButton = IconButton(image: Icon.cm.search)
     }
     
     private func prepareNavigationItem() {
         navigationItem.title = "Material"
-        navigationItem.titleLabel.textColor = .white
-        
         navigationItem.detail = "Build Beautiful Software"
-        navigationItem.detailLabel.textColor = Color.lightBlue.lighten5
         
         navigationItem.leftViews = [menuButton]
         navigationItem.rightViews = [starButton, searchButton]

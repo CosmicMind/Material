@@ -38,8 +38,8 @@ class AppNavigationController: NavigationController {
             return
         }
         
-        statusBarStyle = .lightContent
-        v.backgroundColor = Color.blue.base
+        v.depthPreset = .none
+        v.dividerColor = Color.grey.lighten3
     }
 }
 

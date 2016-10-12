@@ -69,6 +69,11 @@ public protocol ToolbarControllerDelegate {
 
 @objc(ToolbarController)
 open class ToolbarController: StatusBarController {
+    /**
+     A Display value to indicate whether or not to 
+     display the rootViewController to the full view
+     bounds, or up to the toolbar height.
+     */
     open var display = Display.partial {
         didSet {
             layoutSubviews()
@@ -166,11 +171,13 @@ open class ToolbarController: StatusBarController {
 	
 	open override func layoutSubviews() {
 		super.layoutSubviews()
-		
-        toolbar.y = .phone == Device.userInterfaceIdiom && Device.isLandscape ? 0 : 20
-        toolbar.width = view.width
+        statusBar.layoutIfNeeded()
         
-        let p = toolbar.y + toolbar.height
+        let y = statusBar.isHidden ? 0 : statusBar.height
+        let p = y + toolbar.height
+        
+        toolbar.y = y
+        toolbar.width = view.width
         
         switch display {
         case .partial:

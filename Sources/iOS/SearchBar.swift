@@ -137,6 +137,7 @@ open class SearchBar: Bar {
      */
 	open override func prepare() {
 		super.prepare()
+        heightPreset = .normal
         prepareTextField()
 		prepareClearButton()
 	}
