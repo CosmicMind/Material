@@ -89,11 +89,17 @@ open class CaptureController: ToolbarController, CaptureDelegate, CaptureSession
         view.backgroundColor = .black
         display = .full
         
+        prepareStatusBar()
         prepareToolbar()
         prepareCapture()
     }
     
-    /// Prepares the Toolbar.
+    /// Prepares the statusBar.
+    private func prepareStatusBar() {
+        statusBar.backgroundColor = .clear
+    }
+    
+    /// Prepares the toolbar.
     private func prepareToolbar() {
         toolbar.backgroundColor = .clear
         toolbar.depthPreset = .none

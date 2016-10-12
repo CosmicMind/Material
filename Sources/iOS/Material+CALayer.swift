@@ -248,13 +248,13 @@ extension CALayer {
         }
     }
     
-    /// A UIColor reference to the `backgroundcgColor`.
-    open var color: UIColor? {
+    /// A UIColor reference to the `backgroundColor`.
+    open var bgColor: UIColor? {
         get {
             return nil == backgroundColor ? nil : UIColor(cgColor: backgroundColor!)
         }
         set(value) {
-            backgroundColor = color?.cgColor
+            backgroundColor = bgColor?.cgColor
         }
     }
     

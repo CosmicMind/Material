@@ -46,7 +46,7 @@ class AppCaptureController: CaptureController {
         
         toolbar.detailLabel.isHidden = true
         toolbar.detail = "Recording"
-        toolbar.detailLabel.textColor = red.accent1
+        toolbar.detailLabel.textColor = Color.red.accent1
         
         toolbar.leftViews = [switchCamerasButton]
         toolbar.rightViews = [flashButton]
@@ -55,7 +55,7 @@ class AppCaptureController: CaptureController {
     private func prepareCaptureButton() {
         captureButton.width = 72
         captureButton.height = 72
-        captureButton.backgroundColor = red.darken1.withAlphaComponent(0.3)
+        captureButton.backgroundColor = Color.red.darken1.withAlphaComponent(0.3)
         captureButton.borderColor = .white
         captureButton.borderWidthPreset =  .border3
         captureButton.depthPreset = .none

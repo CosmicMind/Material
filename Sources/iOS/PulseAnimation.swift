@@ -81,7 +81,7 @@ internal extension Animation {
             }
             
             pLayer.cornerRadius = n / 2
-            pLayer.backgroundColor = pulse.color.withAlphaComponent(pulse.opacity).cgColor
+            pLayer.bgColor = pulse.color.withAlphaComponent(pulse.opacity)
             pLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform(scaleX: 0, y: 0))
         })
         
