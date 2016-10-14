@@ -55,6 +55,30 @@ class ViewController: UIViewController {
         let btn3 = FlatButton(title: "Video", titleColor: Color.blueGrey.base)
         btn3.pulseAnimation = .none
         buttons.append(btn3)
+        
+        let btn4 = FlatButton(title: "Video", titleColor: Color.blueGrey.base)
+        btn4.pulseAnimation = .none
+        buttons.append(btn4)
+        
+        let btn5 = FlatButton(title: "Video 1", titleColor: Color.blueGrey.base)
+        btn5.pulseAnimation = .none
+        buttons.append(btn5)
+//        
+//        let btn6 = FlatButton(title: "Video 2", titleColor: Color.blueGrey.base)
+//        btn6.pulseAnimation = .none
+//        buttons.append(btn6)
+//    
+//        let btn7 = FlatButton(title: "Video 3", titleColor: Color.blueGrey.base)
+//        btn7.pulseAnimation = .none
+//        buttons.append(btn7)
+//        
+//        let btn8 = FlatButton(title: "Video 4", titleColor: Color.blueGrey.base)
+//        btn8.pulseAnimation = .none
+//        buttons.append(btn8)
+//        
+//        let btn9 = FlatButton(title: "Video 5", titleColor: Color.blueGrey.base)
+//        btn9.pulseAnimation = .none
+//        buttons.append(btn9)
     }
     
     private func prepareTabBar() {

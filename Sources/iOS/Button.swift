@@ -79,7 +79,7 @@ open class Button: UIButton {
 	@IBInspectable
     open override var backgroundColor: UIColor? {
 		didSet {
-			layer.bgColor = backgroundColor
+			layer.backgroundColor = backgroundColor?.cgColor
 		}
 	}
 	
@@ -192,6 +192,8 @@ open class Button: UIButton {
             }
             Animation.pulseContractAnimation(layer: s.layer, visualLayer: s.visualLayer, pulse: &s.pulse)
         }
+        
+        bringImageViewToFront()
     }
     
     /**
@@ -203,6 +205,8 @@ open class Button: UIButton {
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         Animation.pulseExpandAnimation(layer: layer, visualLayer: visualLayer, point: layer.convert(touches.first!.location(in: self), from: layer), width: width, height: height, pulse: &pulse)
+        
+        bringImageViewToFront()
     }
     
     /**
@@ -227,6 +231,14 @@ open class Button: UIButton {
         Animation.pulseContractAnimation(layer: layer, visualLayer: visualLayer, pulse: &pulse)
     }
 	
+    open func bringImageViewToFront() {
+        guard let v = imageView else {
+            return
+        }
+        
+        bringSubview(toFront: v)
+    }
+    
 	/**
      Prepares the view instance when intialized. When subclassing,
      it is recommended to override the prepare method

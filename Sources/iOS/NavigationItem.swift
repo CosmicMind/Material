@@ -57,6 +57,9 @@ public class NavigationItem: NSObject {
 	/// Left items.
     public var leftViews = [UIView]() {
         didSet {
+            for v in oldValue {
+                v.removeFromSuperview()
+            }
             navigationBar?.layoutSubviews()
         }
     }
@@ -64,6 +67,9 @@ public class NavigationItem: NSObject {
 	/// Right items.
     public var rightViews = [UIView]() {
         didSet {
+            for v in oldValue {
+                v.removeFromSuperview()
+            }
             navigationBar?.layoutSubviews()
         }
     }
@@ -71,6 +77,9 @@ public class NavigationItem: NSObject {
     /// Center items.
     public var centerViews = [UIView]() {
         didSet {
+            for v in oldValue {
+                v.removeFromSuperview()
+            }
             navigationBar?.layoutSubviews()
         }
     }
@@ -205,13 +214,10 @@ extension UINavigationItem {
     /// Center UIViews.
     open var centerViews: [UIView] {
         get {
-            return navigationItem.contentView.grid.views
+            return navigationItem.centerViews
         }
         set(value) {
-            for v in navigationItem.contentView.grid.views {
-                v.removeFromSuperview()
-            }
-            navigationItem.contentView.grid.views = value
+            navigationItem.centerViews = value
         }
     }
 }

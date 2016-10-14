@@ -125,15 +125,12 @@ open class Bar: View {
     }
     
     /// Center UIViews.
-    open var centerViews: [UIView] {
-        get {
-            return contentView.grid.views
-        }
-        set(value) {
-            for v in contentView.grid.views {
+    open var centerViews = [UIView]() {
+        didSet {
+            for v in oldValue {
                 v.removeFromSuperview()
             }
-            contentView.grid.views = value
+            layoutSubviews()
         }
     }
     
@@ -168,12 +165,13 @@ open class Bar: View {
      - Parameter centerViews: An Array of UIViews that go in the center.
      */
     public init(leftViews: [UIView]? = nil, rightViews: [UIView]? = nil, centerViews: [UIView]? = nil) {
+        super.init(frame: .zero)
         self.leftViews = leftViews ?? []
         self.rightViews = rightViews ?? []
-        super.init(frame: .zero)
         self.centerViews = centerViews ?? []
         frame.size = intrinsicContentSize
     }
+    
     open override func layoutSubviews() {
         super.layoutSubviews()
         guard willLayout else {
@@ -224,6 +222,7 @@ open class Bar: View {
         }
         
         contentView.grid.begin()
+        contentView.grid.views = centerViews
         
         if .center == contentViewAlignment {
             if lc < rc {

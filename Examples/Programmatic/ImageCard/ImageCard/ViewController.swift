@@ -32,95 +32,76 @@ import UIKit
 import Material
 
 class ViewController: UIViewController {
-    private var card: ImageCard!
-    
-    /// Conent area.
-    private var imageView: UIImageView!
-    private var contentView: UILabel!
-    
-    /// Bottom Bar views.
-    private var bottomBar: Bar!
-    private var favoriteButton: FlatButton!
-    private var shareButton: FlatButton!
-    private var starButton: FlatButton!
-    
-    /// Toolbar views.
-    private var toolbar: Toolbar!
-    private var moreButton: IconButton!
+    /// View.
+    internal var imageCard: ImageCard!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Color.grey.lighten5
         
-        prepareImageView()
-        prepareFavoriteButton()
-        prepareShareButton()
-        prepareStarButton()
-        prepareMoreButton()
-        prepareToolbar()
-        prepareContentView()
-        prepareBottomBar()
+        // Prepare view.
         prepareImageCard()
     }
-    
-    private func prepareImageView() {
-        imageView = UIImageView()
-        imageView.image = UIImage(named: "frontier.jpg")?.resize(toWidth: view.width)
-        imageView.contentMode = .scaleAspectFill
-    }
-    
-    private func prepareFavoriteButton() {
-        favoriteButton = FlatButton(image: Icon.favorite, tintColor: Color.blueGrey.base)
-    }
-    
-    private func prepareShareButton() {
-        shareButton = FlatButton(image: Icon.cm.share, tintColor: Color.blueGrey.base)
-    }
-    
-    private func prepareStarButton() {
-        starButton = FlatButton(image: Icon.cm.star, tintColor: Color.blueGrey.base)
-    }
-    
-    private func prepareMoreButton() {
-        moreButton = IconButton(image: Icon.cm.moreHorizontal, tintColor: .white)
+}
+
+/// ImageCard.
+extension ViewController {
+    internal func prepareImageCard() {
+        imageCard = ImageCard()
+        view.layout(imageCard).horizontally(left: 20, right: 20).center()
+        
+        prepareToolbar()
+        prepareImageView()
+        prepareContentView()
+        prepareBottomBar()
     }
     
     private func prepareToolbar() {
-        toolbar = Toolbar()
-        toolbar.backgroundColor = nil
+        imageCard.toolbar = Toolbar()
+        imageCard.toolbar?.backgroundColor = .clear
+        imageCard.toolbarEdgeInsetsPreset = .square3
         
-        toolbar.title = "CosmicMind"
-        toolbar.titleLabel.textColor = .white
+        // Use the property subscript to access the model data.
+        imageCard.toolbar?.title = "Graph"
+        imageCard.toolbar?.titleLabel.textColor = .white
         
-        toolbar.detail = "Build Beautiful Software"
-        toolbar.detailLabel.textColor = .white
+        imageCard.toolbar?.detail = "Build Data-Driven Software"
+        imageCard.toolbar?.detailLabel.textColor = .white
+    }
+    
+    private func prepareImageView() {
+        imageCard.imageView = UIImageView()
+        imageCard.imageView?.image = UIImage(named: "frontier.jpg")?.resize(toWidth: view.width)
     }
     
     private func prepareContentView() {
-        contentView = UILabel()
-        contentView.numberOfLines = 0
-        contentView.text = "Build beautiful applications that are intelligently driven using Material, Graph, and Algorithm."
-        contentView.font = RobotoFont.regular(with: 14)
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.text = "Graph is a semantic database that is used to create data-driven applications."
+        label.font = RobotoFont.regular(with: 14)
+        
+        imageCard.contentView = label
+        imageCard.contentViewEdgeInsetsPreset = .square3
     }
     
     private func prepareBottomBar() {
-        bottomBar = Bar(centerViews: [favoriteButton, shareButton, starButton])
-    }
-    
-    private func prepareImageCard() {
-        card = ImageCard()
+        let shareButton = IconButton(image: Icon.cm.share, tintColor: Color.blueGrey.base)
+        let favoriteButton = IconButton(image: Icon.favorite, tintColor: Color.red.base)
         
-        card.imageView = imageView
+        let label = UILabel()
+        label.text = "CosmicMind"
+        label.textAlignment = .center
+        label.textColor = Color.blueGrey.base
+        label.font = RobotoFont.regular(with: 12)
         
-        card.toolbar = toolbar
-        card.toolbarEdgeInsetsPreset = .square3
+        imageCard.bottomBar = Bar()
+        imageCard.bottomBarEdgeInsetsPreset = .wideRectangle2
+        imageCard.bottomBarEdgeInsets.top = 0
+        imageCard.bottomBar?.contentViewAlignment = .center
         
-        card.contentView = contentView
-        card.contentViewEdgeInsetsPreset = .square3
-        
-        card.bottomBar = bottomBar
-        
-        view.layout(card).horizontally(left: 20, right: 20).center()
+        imageCard.bottomBar?.leftViews = [favoriteButton]
+        imageCard.bottomBar?.centerViews = [label]
+        imageCard.bottomBar?.rightViews = [shareButton]
     }
 }
 

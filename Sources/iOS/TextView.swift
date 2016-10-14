@@ -38,7 +38,7 @@ public class TextView: UITextView {
 	/// A property that accesses the backing layer's background
 	@IBInspectable public override var backgroundColor: UIColor? {
 		didSet {
-			layer.bgColor = backgroundColor
+			layer.backgroundColor = backgroundColor?.cgColor
 		}
 	}
 	

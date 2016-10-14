@@ -56,7 +56,7 @@ open class PresenterCard: Card {
     
     open override func reload() {
         // Clear constraints so new ones do not conflict.
-        container.removeConstraints(constraints)
+        container.removeConstraints(container.constraints)
         for v in container.subviews {
             v.removeFromSuperview()
         }
@@ -71,9 +71,7 @@ open class PresenterCard: Card {
             
             format += "-(toolbarTop)-[toolbar]-(toolbarBottom)"
             views["toolbar"] = v
-            container.layout(v).horizontally(left: toolbarEdgeInsets.left, right: toolbarEdgeInsets.right).height(v.height)
-            v.grid.reload()
-            v.divider.reload()
+            container.layout(v).horizontally(left: toolbarEdgeInsets.left, right: toolbarEdgeInsets.right)
         }
         
         if let v = presenterView {
@@ -89,6 +87,7 @@ open class PresenterCard: Card {
             
             views["presenterView"] = v
             container.layout(v).horizontally(left: presenterViewEdgeInsets.left, right: presenterViewEdgeInsets.right)
+            
             v.grid.reload()
             v.divider.reload()
         }
@@ -109,6 +108,7 @@ open class PresenterCard: Card {
             
             views["contentView"] = v
             container.layout(v).horizontally(left: contentViewEdgeInsets.left, right: contentViewEdgeInsets.right)
+            
             v.grid.reload()
             v.divider.reload()
         }
@@ -131,9 +131,7 @@ open class PresenterCard: Card {
             }
             
             views["bottomBar"] = v
-            container.layout(v).horizontally(left: bottomBarEdgeInsets.left, right: bottomBarEdgeInsets.right).height(v.height)
-            v.grid.reload()
-            v.divider.reload()
+            container.layout(v).horizontally(left: bottomBarEdgeInsets.left, right: bottomBarEdgeInsets.right)
         }
         
         guard 0 < views.count else {

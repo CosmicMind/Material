@@ -70,7 +70,7 @@ open class CapturePreview: View {
 
     /// Prepares the previewLayer.
 	private func preparePreviewLayer() {
-		layer.bgColor = .black
+		layer.backgroundColor = Color.black.cgColor
 		layer.masksToBounds = true
 		(layer as! AVCaptureVideoPreviewLayer).videoGravity = AVLayerVideoGravityResizeAspectFill
 	}

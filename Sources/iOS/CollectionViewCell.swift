@@ -193,7 +193,7 @@ open class CollectionViewCell: UICollectionViewCell {
 	@IBInspectable
     open override var backgroundColor: UIColor? {
 		didSet {
-			layer.bgColor = backgroundColor
+			layer.backgroundColor = backgroundColor?.cgColor
 		}
 	}
 	

@@ -186,7 +186,7 @@ open class CollectionReusableView: UICollectionReusableView {
 	/// A property that accesses the backing layer's background
 	@IBInspectable open override var backgroundColor: UIColor? {
 		didSet {
-			layer.bgColor = backgroundColor
+			layer.backgroundColor = backgroundColor?.cgColor
 		}
 	}
 	

@@ -32,31 +32,31 @@ import UIKit
 
 public protocol FontType {}
 
-public struct Font: FontType {
+public struct Font {
 	/// Size of font.
 	public static let pointSize: CGFloat = 16
 	
 	/** 
      Retrieves the system font with a specified size.
-     - Parameter fontName: A String font name.
+     - Parameter ofSize size: A CGFloat.
      */
-    public static func systemFontWithSize(size: CGFloat) -> UIFont {
+    public static func systemFont(ofSize size: CGFloat) -> UIFont {
 		return UIFont.systemFont(ofSize: size)
 	}
 	
 	/**
      Retrieves the bold system font with a specified size..
-     - Parameter fontName: A String font name.
+     - Parameter ofSize size: A CGFloat.
      */
-    public static func boldSystemFontWithSize(size: CGFloat) -> UIFont {
+    public static func boldSystemFont(ofSize size: CGFloat) -> UIFont {
 		return UIFont.boldSystemFont(ofSize: size)
 	}
 	
 	/**
      Retrieves the italic system font with a specified size.
-     - Parameter fontName: A String font name.
+     - Parameter ofSize size: A CGFloat.
      */
-    public static func italicSystemFontWithSize(size: CGFloat) -> UIFont {
+    public static func italicSystemFont(ofSize size: CGFloat) -> UIFont {
 		return UIFont.italicSystemFont(ofSize: size)
 	}
     

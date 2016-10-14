@@ -66,6 +66,8 @@ internal extension Animation {
         bLayer.addSublayer(pLayer)
         pulse.layers.insert(bLayer, at: 0)
         visualLayer.addSublayer(bLayer)
+        bLayer.zPosition = 0
+        pLayer.zPosition = 0
         
         visualLayer.masksToBounds = !(.centerRadialBeyondBounds == pulse.animation || .radialBeyondBounds == pulse.animation)
         
@@ -81,7 +83,7 @@ internal extension Animation {
             }
             
             pLayer.cornerRadius = n / 2
-            pLayer.bgColor = pulse.color.withAlphaComponent(pulse.opacity)
+            pLayer.backgroundColor = pulse.color.withAlphaComponent(pulse.opacity).cgColor
             pLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform(scaleX: 0, y: 0))
         })
         

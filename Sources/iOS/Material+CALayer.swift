@@ -248,16 +248,6 @@ extension CALayer {
         }
     }
     
-    /// A UIColor reference to the `backgroundColor`.
-    open var bgColor: UIColor? {
-        get {
-            return nil == backgroundColor ? nil : UIColor(cgColor: backgroundColor!)
-        }
-        set(value) {
-            backgroundColor = bgColor?.cgColor
-        }
-    }
-    
     /**
      A method that accepts CAAnimation objects and executes them on the
      view's backing layer.

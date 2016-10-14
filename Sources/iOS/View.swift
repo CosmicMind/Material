@@ -120,7 +120,7 @@ open class View: UIView {
 	@IBInspectable
     open override var backgroundColor: UIColor? {
 		didSet {
-			layer.bgColor = backgroundColor
+			layer.backgroundColor = backgroundColor?.cgColor
 		}
 	}
 	
