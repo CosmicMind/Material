@@ -97,8 +97,8 @@ public class Text: NSObject {
 	
 	/// An Array of matches that match the pattern expression.
 	public var matches: Array<String> {
-		return textStorage.expression!.matches(in: string, options: [], range: NSMakeRange(0, string.utf16.count)).map {
-			(self.string as NSString).substring(with: $0.range).trim()
+		return textStorage.expression!.matches(in: string, options: [], range: NSMakeRange(0, string.utf16.count)).map { [unowned self] in
+			(self.string as NSString).substring(with: $0.range).trimmed
 		}
 	}
 	

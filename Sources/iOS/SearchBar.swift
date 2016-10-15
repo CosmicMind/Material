@@ -30,6 +30,27 @@
 
 import UIKit
 
+@objc(SearchBarDelegate)
+public protocol SearchBarDelegate {
+    /**
+     A delegation method that is executed when the textField changed.
+     - Parameter searchBar: A SearchBar.
+     - Parameter didChange textField: A UITextField.
+     - Parameter with text: An optional String.
+     */
+    @objc
+    optional func searchBar(searchBar: SearchBar, didChange textField: UITextField, with text: String?)
+    
+    /**
+     A delegation method that is executed when the textField is cleared.
+     - Parameter searchBar: A SearchBar.
+     - Parameter didClear textField: A UITextField.
+     - Parameter with text: An optional String.
+     */
+    @objc
+    optional func searchBar(searchBar: SearchBar, didClear textField: UITextField, with text: String?)
+}
+
 open class SearchBar: Bar {
 	/// The UITextField for the searchBar.
 	open private(set) lazy var textField = UITextField()
@@ -37,6 +58,9 @@ open class SearchBar: Bar {
 	/// Reference to the clearButton.
 	open private(set) var clearButton: IconButton!
 	
+    /// A reference to the delegate.
+    open weak var delegate: SearchBarDelegate?
+    
 	/// Handle the clearButton manually.
 	@IBInspectable
     open var isClearButtonAutoHandleEnabled = true {
@@ -151,9 +175,16 @@ open class SearchBar: Bar {
 	/// Clears the textField text.
 	@objc
     internal func handleClearButton() {
-		textField.text = nil
-	}
+        delegate?.searchBar?(searchBar: self, didClear: textField, with: textField.text)
+        textField.text = nil
+    }
 	
+    // Live updates the search results.
+    @objc
+    internal func handleTextChange(textField: UITextField) {
+        delegate?.searchBar?(searchBar: self, didChange: textField, with: textField.text)
+    }
+    
 	/// Prepares the textField.
 	private func prepareTextField() {
 		textField.contentScaleFactor = Device.scale
@@ -164,6 +195,7 @@ open class SearchBar: Bar {
 		textColor = Color.darkText.primary
 		placeholder = "Search"
 		contentView.addSubview(textField)
+        textField.addTarget(self, action: #selector(handleTextChange(textField:)), for: .editingChanged)
 	}
 	
 	/// Prepares the clearButton.
