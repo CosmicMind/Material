@@ -489,13 +489,13 @@ open class TextField: UITextField {
 	
 	/// The animation for the divider when editing begins.
 	open func dividerEditingDidBeginAnimation() {
-		dividerHeight = dividerActiveHeight
+		dividerThickness = dividerActiveHeight
 		dividerColor = dividerActiveColor
 	}
 	
 	/// The animation for the divider when editing ends.
 	open func dividerEditingDidEndAnimation() {
-		dividerHeight = dividerNormalHeight
+		dividerThickness = dividerNormalHeight
 		dividerColor = dividerNormalColor
 	}
 	
