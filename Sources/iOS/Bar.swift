@@ -178,6 +178,11 @@ open class Bar: View {
             return
         }
         
+        reload()
+    }
+    
+    /// Reloads the view.
+    open func reload() {
         var lc = 0
         var rc = 0
         let l = (CGFloat(leftViews.count) * interimSpace)

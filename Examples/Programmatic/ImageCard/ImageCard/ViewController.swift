@@ -93,11 +93,10 @@ extension ViewController {
         label.textAlignment = .center
         label.textColor = Color.blueGrey.base
         label.font = RobotoFont.regular(with: 12)
-        
+
         imageCard.bottomBar = Bar()
         imageCard.bottomBarEdgeInsetsPreset = .wideRectangle2
         imageCard.bottomBarEdgeInsets.top = 0
-        imageCard.bottomBar?.contentViewAlignment = .center
         
         imageCard.bottomBar?.leftViews = [favoriteButton]
         imageCard.bottomBar?.centerViews = [label]

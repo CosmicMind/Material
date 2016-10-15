@@ -233,6 +233,9 @@ public class Grid {
                 canvas.addSubview(child)
             }
             
+            // Forces the views to adjust accordingly to size changes, ie: UILabel.
+            (child as? UILabel)?.sizeToFit()
+            
             switch axis.direction {
             case .horizontal:
                 let c = 0 == child.grid.columns ? axis.columns / count : child.grid.columns
