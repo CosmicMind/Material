@@ -84,7 +84,7 @@ Icons is a library of Google and CosmicMind icons that are available for use wit
 
 Try the Material Colors app to see the wonderful colors available in Material, or use the online version at [materialColors.io](http://materialcolors.io)
 
-![MaterialColors](http://www.cosmicmind.io/gifs/MaterialColors.gif)
+![MaterialColors](http://www.cosmicmind.io/gifs/shared/colors.gif)
 
 [Get Material Colors on the AppStore](https://itunes.apple.com/app/x/id1111994400?mt=8)
 
@@ -92,7 +92,7 @@ Try the Material Colors app to see the wonderful colors available in Material, o
 
 A TextField is an excellent way to improve UX. It allows for a placeholder and additional hint details.
 
-![TextField](http://www.cosmicmind.io/gifs/TextField.gif)
+![TextField](http://www.cosmicmind.io/gifs/white/text-field.gif)
 
 * Download the complete [TextField example](https://github.com/CosmicMind/Material/tree/master/Examples/Programmatic/TextField).
 * Learn more about [TextField](http://cosmicmind.io/material/textfield).
@@ -163,7 +163,7 @@ A Menu manages a collection of views. A new MenuItem type has been added that ma
 
 Toolbars are super flexible and add excellent control to your navigation flow. They manage a set of left and right views with auto aligning title and detail labels.
 
-![Material Image](http://www.cosmicmind.io/gifs/Toolbar.gif)
+![Material Image](http://www.cosmicmind.io/gifs/white/toolbar-controller.gif)
 
 * Download the complete [Toolbar example](https://github.com/CosmicMind/Material/tree/master/Examples/Programmatic/ToolbarController).
 * Learn more about [Toolbar](http://cosmicmind.io/material/toolbar).
