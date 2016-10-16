@@ -55,7 +55,7 @@ class AppSearchBarController: SearchBarController {
         statusBarStyle = .lightContent
         
         // Access the statusBar.
-//        statusBar.backgroundColor = Color.green.base
+//        statusBar.backgroundColor = Color.grey.base
     }
     
     private func prepareSearchBar() {
