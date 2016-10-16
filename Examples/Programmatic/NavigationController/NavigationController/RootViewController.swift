@@ -76,7 +76,7 @@ class RootViewController: UIViewController {
     }
     
     private func prepareNextButton() {
-        nextButton = FlatButton()
+        nextButton = FlatButton(title: "Click To Open", titleColor: Color.grey.base)
         nextButton.pulseAnimation = .none
         nextButton.addTarget(self, action: #selector(handleNextButton), for: .touchUpInside)
         view.layout(nextButton).edges()

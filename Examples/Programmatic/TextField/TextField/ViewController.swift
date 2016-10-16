@@ -40,9 +40,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        prepareNameField()
+//        prepareNameField()
         prepareEmailField()
-        preparePasswordField()
+//        preparePasswordField()
         prepareResignResponderButton()
     }
     
@@ -56,7 +56,7 @@ class ViewController: UIViewController {
         let btn = RaisedButton(title: "Resign", titleColor: Color.blue.base)
         btn.addTarget(self, action: #selector(handleResignResponderButton(button:)), for: .touchUpInside)
         
-        view.layout(btn).width(100).height(50).bottom(24).right(24)
+        view.layout(btn).width(100).height(50).bottom(300).right(24)
     }
     
     /// Handle the resign responder button.
@@ -86,7 +86,7 @@ class ViewController: UIViewController {
         let d: CGFloat = 32
         
         let leftView = UIImageView(frame: CGRect(x: 0, y: 0, width: d, height: d))
-        leftView.image = Icon.cm.check?.tint(with: Color.cyan.base)
+        leftView.image = Icon.email?.tint(with: Color.cyan.base)
         leftView.contentMode = .center
         
         emailField = ErrorTextField(frame: CGRect(x: 40, y: 120, width: view.width - 80, height: d))
@@ -99,9 +99,9 @@ class ViewController: UIViewController {
         emailField.leftViewMode = .always
         emailField.divider.contentEdgeInsets.left = d
         
-        emailField.placeholderNormalColor = Color.amber.darken4
-        emailField.placeholderActiveColor = Color.pink.base
-        emailField.dividerNormalColor = Color.cyan.base
+//        emailField.placeholderNormalColor = Color.amber.darken4
+//        emailField.placeholderActiveColor = Color.pink.base
+//        emailField.dividerNormalColor = Color.cyan.base
         
         view.addSubview(emailField)
     }
