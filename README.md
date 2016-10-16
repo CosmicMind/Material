@@ -194,7 +194,7 @@ A PageTabBar is a new component that links a customizable TabBar to a UIPageView
 
 A NavigationController is a specialized view controller that manages a hierarchy of content efficiently, making it easier for users to move within an application.
 
-![Material Image](http://www.cosmicmind.io/material/white/navigation-controller.gif)
+![Material Image](http://www.cosmicmind.io/gifs/white/navigation-controller.gif)
 
 * Download the complete [NavigationController example](https://github.com/CosmicMind/Material/tree/master/Examples/Programmatic/NavigationController).
 * Learn more about [NavigationController](http://cosmicmind.io/material/navigationcontroller).
@@ -204,7 +204,7 @@ A NavigationController is a specialized view controller that manages a hierarchy
 
 A NavigationDrawer slides in from the left or right and contains the navigation destinations for your application.
 
-![Material Image](http://www.cosmicmind.io/gifs/white/navigation-drawer-controller.gif)
+![Material Image](http://www.cosmicmind.io/material/shared/navigation-drawer-controller.gif)
 
 * Download the complete [NavigationDrawer example](https://github.com/CosmicMind/Material/tree/master/Examples/Programmatic/NavigationDrawerController).
 * Learn more about [NavigationDrawer](http://cosmicmind.io/material/navigationdrawer).
