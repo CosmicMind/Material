@@ -132,7 +132,7 @@ A Card is a flexible component that may be configured in any way you like. It ha
 
 An ImageCard is an expansion of the base Card. The Toolbar overlays an image area that sits above the dynamic content area.
 
-![Material Image](http://www.cosmicmind.io/material/white/image-card.gif)
+![Material Image](http://www.cosmicmind.io/gifs/white/image-card.gif)
 
 * Download the complete [ImageCard example](https://github.com/CosmicMind/Material/tree/master/Examples/Programmatic/ImageCard).
 * Learn more about [ImageCard](http://cosmicmind.io/material/imagecard).
@@ -204,7 +204,7 @@ A NavigationController is a specialized view controller that manages a hierarchy
 
 A NavigationDrawer slides in from the left or right and contains the navigation destinations for your application.
 
-![Material Image](http://www.cosmicmind.io/material/shared/navigation-drawer-controller.gif)
+![Material Image](http://www.cosmicmind.io/gifs/white/navigation-drawer-controller.gif)
 
 * Download the complete [NavigationDrawer example](https://github.com/CosmicMind/Material/tree/master/Examples/Programmatic/NavigationDrawerController).
 * Learn more about [NavigationDrawer](http://cosmicmind.io/material/navigationdrawer).
