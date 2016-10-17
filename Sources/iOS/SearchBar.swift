@@ -42,6 +42,15 @@ public protocol SearchBarDelegate {
     optional func searchBar(searchBar: SearchBar, didChange textField: UITextField, with text: String?)
     
     /**
+     A delegation method that is executed when the textField will clear.
+     - Parameter searchBar: A SearchBar.
+     - Parameter willClear textField: A UITextField.
+     - Parameter with text: An optional String.
+     */
+    @objc
+    optional func searchBar(searchBar: SearchBar, willClear textField: UITextField, with text: String?)
+    
+    /**
      A delegation method that is executed when the textField is cleared.
      - Parameter searchBar: A SearchBar.
      - Parameter didClear textField: A UITextField.
@@ -175,8 +184,13 @@ open class SearchBar: Bar {
 	/// Clears the textField text.
 	@objc
     internal func handleClearButton() {
-        delegate?.searchBar?(searchBar: self, didClear: textField, with: textField.text)
+        let text = textField.text
+        
+        delegate?.searchBar?(searchBar: self, willClear: textField, with: text)
+        
         textField.text = nil
+        
+        delegate?.searchBar?(searchBar: self, didClear: textField, with: text)
     }
 	
     // Live updates the search results.

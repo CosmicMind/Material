@@ -40,9 +40,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-//        prepareNameField()
+        prepareNameField()
         prepareEmailField()
-//        preparePasswordField()
+        preparePasswordField()
         prepareResignResponderButton()
     }
     
@@ -68,36 +68,39 @@ class ViewController: UIViewController {
     }
     
     private func prepareNameField() {
-        let d: CGFloat = 40
+        let d: CGFloat = 32
         
         nameField = TextField()
         nameField.text = "Daniel Dahan"
         nameField.placeholder = "Name"
-        nameField.detail = "Your given name"
+        nameField.detailLabel.text = "Your given name"
         nameField.textAlignment = .center
         nameField.clearButtonMode = .whileEditing
         
-        // Size the TextField to the maximum width, less 40 pixels on either side
-        // with a top margin of 40 pixels.
-        view.layout(nameField).top(d).horizontally(left: d, right: d)
+        let leftView = UIImageView()
+        leftView.image = Icon.email?.tint(with: Color.cyan.base)
+        
+        nameField.leftView = leftView
+        nameField.leftViewMode = .always
+        
+        view.layout(nameField).top(100).horizontally(left: d, right: d).height(d)
     }
     
     private func prepareEmailField() {
         let d: CGFloat = 32
         
-        let leftView = UIImageView(frame: CGRect(x: 0, y: 0, width: d, height: d))
-        leftView.image = Icon.email?.tint(with: Color.cyan.base)
-        leftView.contentMode = .center
-        
-        emailField = ErrorTextField(frame: CGRect(x: 40, y: 120, width: view.width - 80, height: d))
-        emailField.placeholder = "Email"
-        emailField.detail = "Error, incorrect email"
+        emailField = ErrorTextField(frame: CGRect(x: d, y: 200, width: view.width - (2 * d), height: d))
+        emailField.placeholderLabel.text = "Email"
+        emailField.detailLabel.text = "Error, incorrect email"
         emailField.isClearIconButtonEnabled = true
         emailField.delegate = self
         
+        
+        let leftView = UIImageView()
+        leftView.image = Icon.email?.tint(with: Color.cyan.base)
+        
         emailField.leftView = leftView
         emailField.leftViewMode = .always
-        emailField.divider.contentEdgeInsets.left = d
         
 //        emailField.placeholderNormalColor = Color.amber.darken4
 //        emailField.placeholderActiveColor = Color.pink.base
@@ -107,20 +110,24 @@ class ViewController: UIViewController {
     }
     
     private func preparePasswordField() {
-        let d: CGFloat = 40
+        let d: CGFloat = 32
         
         passwordField = TextField()
-        passwordField.placeholder = "Password"
-        passwordField.detail = "At least 8 characters"
+        passwordField.placeholderLabel.text = "Password"
+        passwordField.detailLabel.text = "At least 8 characters"
         passwordField.clearButtonMode = .whileEditing
         passwordField.isVisibilityIconButtonEnabled = true
+        
+        let leftView = UIImageView()
+        leftView.image = Icon.email?.tint(with: Color.cyan.base)
+        
+        passwordField.leftView = leftView
+        passwordField.leftViewMode = .always
         
         // Setting the visibilityIconButton color.
         passwordField.visibilityIconButton?.tintColor = Color.green.base.withAlphaComponent(passwordField.isSecureTextEntry ? 0.38 : 0.54)
         
-        // Size the TextField to the maximum width, less 40 pixels on either side
-        // with a top margin of 200 pixels.
-        view.layout(passwordField).top(200).horizontally(left: d, right: d)
+        view.layout(passwordField).top(300).horizontally(left: d, right: d).height(d)
     }
 }
 
