@@ -76,7 +76,7 @@ The following are some examples to see how Material may be used within your appl
 
 Icons is a library of Google and CosmicMind icons that are available for use within your iOS applications.
 
-![Icon](http://www.cosmicmind.io/MK/MaterialMaterialIcon.png)
+![Icon](http://www.cosmicmind.io/gifs/marketplace/icons.png)
 
 [Learn More](http://cosmicmind.io/material/icons)
 
@@ -122,7 +122,7 @@ A switch is a control component that toggles between on and off states.
 
 A Card is a flexible component that may be configured in any way you like. It has a Toolbar, Bar, and content area that may utilize any UIView type.
 
-![Material Image](http://www.cosmicmind.io/gifs/grey/card.gif)
+![Material Image](http://www.cosmicmind.io/gifs/white/card.gif)
 
 * Download the complete [Card example](https://github.com/CosmicMind/Material/tree/master/Examples/Programmatic/Card).
 * Learn more about [Card](http://cosmicmind.io/material/card).
