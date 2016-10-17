@@ -41,11 +41,11 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = Color.grey.lighten5
         
         prepareNameField()
         prepareEmailField()
-//        preparePasswordField()
+        preparePasswordField()
         prepareResignResponderButton()
     }
     
@@ -75,7 +75,6 @@ class ViewController: UIViewController {
         nameField.placeholder = "Name"
         nameField.detail = "Your given name"
         nameField.isClearIconButtonEnabled = true
-        nameField.clearButtonMode = .whileEditing
         
         let leftView = UIImageView()
         leftView.image = Icon.phone?.tint(with: Color.blue.base)

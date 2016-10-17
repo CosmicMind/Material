@@ -107,7 +107,6 @@
 				TargetAttributes = {
 					96090AE31D9CDD2E00709CA6 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 9Z76XCNLGL;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -263,7 +262,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 9Z76XCNLGL;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = TextField/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.TextField;
@@ -276,7 +275,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 9Z76XCNLGL;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = TextField/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.TextField;

@@ -184,6 +184,10 @@ open class SearchBar: Bar {
 	/// Clears the textField text.
 	@objc
     internal func handleClearButton() {
+        guard nil == textField.delegate?.textFieldShouldClear || true == textField.delegate?.textFieldShouldClear?(textField) else {
+            return
+        }
+        
         let t = textField.text
         
         delegate?.searchBar?(searchBar: self, willClear: textField, with: t)

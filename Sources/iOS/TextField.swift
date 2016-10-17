@@ -258,7 +258,7 @@ open class TextField: UITextField {
             }
             
             clearIconButton = IconButton(image: Icon.cm.clear, tintColor: placeholderNormalColor)
-            clearIconButton!.contentEdgeInsets = .zero
+            clearIconButton!.contentEdgeInsetsPreset = .none
             clearIconButton!.pulseAnimation = .none
             clearButtonMode = .never
             rightViewMode = .whileEditing
@@ -304,7 +304,7 @@ open class TextField: UITextField {
             }
             
             visibilityIconButton = IconButton(image: Icon.visibility, tintColor: placeholderNormalColor.withAlphaComponent(isSecureTextEntry ? 0.38 : 0.54))
-            visibilityIconButton!.contentEdgeInsets = .zero
+            visibilityIconButton!.contentEdgeInsetsPreset = .none
             visibilityIconButton!.pulseAnimation = .none
             isSecureTextEntry = true
             clearButtonMode = .never
@@ -412,7 +412,7 @@ open class TextField: UITextField {
 	/// Handles the clearIconButton TouchUpInside event.
 	@objc
     open func handleClearIconButton() {
-        guard true == delegate?.textFieldShouldClear?(self) else {
+        guard nil == delegate?.textFieldShouldClear || true == delegate?.textFieldShouldClear?(self) else {
             return
         }
         
