@@ -74,6 +74,7 @@ open class TextField: UITextField {
 	
     open override var leftView: UIView? {
         didSet {
+            prepareLeftView()
             layoutSubviews()
         }
     }
@@ -365,9 +366,6 @@ open class TextField: UITextField {
 	
 	open override func layoutSubviews() {
 		super.layoutSubviews()
-        layoutDivider()
-        layoutLeftView()
-        
         reload()
 	}
 	
@@ -458,43 +456,33 @@ open class TextField: UITextField {
         layoutDetailLabel()
         layoutButton(button: clearIconButton)
         layoutButton(button: visibilityIconButton)
+        layoutDivider()
+        layoutLeftView()
     }
-	
-	/// Layout the divider.
-	open func layoutDivider() {
-        divider.reload()
-	}
 	
 	/// Layout the placeholderLabel.
 	open func layoutPlaceholderLabel() {
         let w = leftViewWidth
         let h = 0 == height ? intrinsicContentSize.height : height
         
-        if !isEditing && true == text?.isEmpty && isPlaceholderAnimated {
+        guard isEditing || false == text?.isEmpty || !isPlaceholderAnimated else {
             placeholderLabel.frame = CGRect(x: w, y: 0, width: width - w, height: h)
-		} else if placeholderLabel.transform.isIdentity {
-			placeholderLabel.frame = CGRect(x: w, y: 0, width: width - w, height: h)
-            placeholderLabel.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
-			switch textAlignment {
-			case .left, .natural:
-				placeholderLabel.x = w
-			case .right:
-				placeholderLabel.x = width - placeholderLabel.width
-			default:break
-			}
-			placeholderLabel.y = -placeholderLabel.height + placeholderVerticalOffset
-		} else {
-			switch textAlignment {
-			case .left, .natural:
-				placeholderLabel.x = w
-			case .right:
-				placeholderLabel.x = width - placeholderLabel.width
-			case .center:
-				placeholderLabel.center.x = (width + w) / 2
-			default:break
-			}
-			placeholderLabel.width = (width - w) * 0.75
-		}
+            return
+        }
+        
+        placeholderLabel.transform = CGAffineTransform.identity
+        placeholderLabel.frame = CGRect(x: w, y: 0, width: width - w, height: h)
+        placeholderLabel.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+        
+        switch textAlignment {
+        case .left, .natural:
+            placeholderLabel.x = w
+        case .right:
+            placeholderLabel.x = width - placeholderLabel.width
+        default:break
+        }
+        
+        placeholderLabel.y = -placeholderLabel.height + placeholderVerticalOffset
 	}
 	
 	/// Layout the detailLabel.
@@ -515,6 +503,11 @@ open class TextField: UITextField {
         button?.frame = CGRect(x: width - height, y: 0, width: height, height: height)
 	}
     
+    /// Layout the divider.
+    open func layoutDivider() {
+        divider.reload()
+    }
+    
     /// Layout the leftView.
     open func layoutLeftView() {
         guard let v = leftView else {
@@ -522,11 +515,7 @@ open class TextField: UITextField {
         }
         
         let w = leftViewWidth
-        
-        v.width = w
-        v.height = height
-        v.contentMode = .center
-        
+        v.frame = CGRect(x: 0, y: 0, width: w, height: height)
         divider.contentEdgeInsets.left = w
     }
 	
@@ -622,6 +611,11 @@ open class TextField: UITextField {
 		addSubview(detailLabel)
         addObserver(self, forKeyPath: "detailLabel.text", options: [], context: &TextFieldContext)
 	}
+    
+    /// Prepares the leftView.
+    private func prepareLeftView() {
+        leftView?.contentMode = .center
+    }
 	
 	/// Prepares the target handlers.
 	private func prepareTargetHandlers() {

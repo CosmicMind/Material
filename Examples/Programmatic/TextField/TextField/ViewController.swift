@@ -46,11 +46,12 @@ class ViewController: UIViewController {
         prepareNameField()
         prepareEmailField()
         preparePasswordField()
+        prepareResignResponderButton()
     }
     
     /// Programmatic update for the textField as it rotates.
     override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
-        emailField.width = (Device.isLandscape ? view.height : view.width) - 2 * constant
+        emailField.width = view.height - 2 * constant
     }
     
     /// Prepares the resign responder button.
@@ -83,8 +84,6 @@ class ViewController: UIViewController {
         nameField.leftView = leftView
         nameField.leftViewMode = .always
         
-        nameField.placeholderLabel.backgroundColor = Color.green.base
-        
         view.layout(nameField).top(4 * constant).horizontally(left: constant, right: constant)
     }
     
@@ -102,8 +101,6 @@ class ViewController: UIViewController {
         
         emailField.leftView = leftView
         emailField.leftViewMode = .always
-        
-        emailField.placeholderLabel.backgroundColor = Color.green.base
         
         // Set the colors for the emailField, different from the defaults.
 //        emailField.placeholderNormalColor = Color.amber.darken4
@@ -123,8 +120,6 @@ class ViewController: UIViewController {
         
         // Setting the visibilityIconButton color.
         passwordField.visibilityIconButton?.tintColor = Color.green.base.withAlphaComponent(passwordField.isSecureTextEntry ? 0.38 : 0.54)
-        
-        passwordField.placeholderLabel.backgroundColor = Color.green.base
         
         view.layout(passwordField).top(10 * constant).horizontally(left: constant, right: constant)
     }
