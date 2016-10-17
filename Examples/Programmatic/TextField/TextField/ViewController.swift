@@ -36,6 +36,9 @@ class ViewController: UIViewController {
     private var emailField: ErrorTextField!
     private var passwordField: TextField!
     
+    /// A constant to layout the textFields.
+    private let constant: CGFloat = 32
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -48,7 +51,7 @@ class ViewController: UIViewController {
     
     /// Programmatic update for the textField as it rotates.
     override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
-        emailField.width = view.bounds.height - 80
+        emailField.width = view.bounds.height - 2 * constant
     }
     
     /// Prepares the resign responder button.
@@ -56,7 +59,7 @@ class ViewController: UIViewController {
         let btn = RaisedButton(title: "Resign", titleColor: Color.blue.base)
         btn.addTarget(self, action: #selector(handleResignResponderButton(button:)), for: .touchUpInside)
         
-        view.layout(btn).width(100).height(50).bottom(300).right(24)
+        view.layout(btn).width(100).height(constant).top(24).right(24)
     }
     
     /// Handle the resign responder button.
@@ -68,12 +71,10 @@ class ViewController: UIViewController {
     }
     
     private func prepareNameField() {
-        let d: CGFloat = 32
-        
         nameField = TextField()
         nameField.text = "Daniel Dahan"
         nameField.placeholder = "Name"
-        nameField.detailLabel.text = "Your given name"
+        nameField.detail = "Your given name"
         nameField.textAlignment = .center
         nameField.clearButtonMode = .whileEditing
         
@@ -83,18 +84,20 @@ class ViewController: UIViewController {
         nameField.leftView = leftView
         nameField.leftViewMode = .always
         
-        view.layout(nameField).top(100).horizontally(left: d, right: d).height(d)
+        nameField.placeholderLabel.backgroundColor = Color.green.base
+        
+        view.layout(nameField).top(4 * constant).horizontally(left: constant, right: constant)
     }
     
     private func prepareEmailField() {
-        let d: CGFloat = 32
         
-        emailField = ErrorTextField(frame: CGRect(x: d, y: 200, width: view.width - (2 * d), height: d))
-        emailField.placeholderLabel.text = "Email"
-        emailField.detailLabel.text = "Error, incorrect email"
+        emailField = ErrorTextField(frame: CGRect(x: constant, y: 7 * constant, width: view.width - (2 * constant), height: constant))
+        emailField.text = "Daniel Dahan"
+        emailField.placeholder = "Email"
+        emailField.detail = "Error, incorrect email"
         emailField.isClearIconButtonEnabled = true
+        emailField.textAlignment = .right
         emailField.delegate = self
-        
         
         let leftView = UIImageView()
         leftView.image = Icon.email?.tint(with: Color.cyan.base)
@@ -102,6 +105,9 @@ class ViewController: UIViewController {
         emailField.leftView = leftView
         emailField.leftViewMode = .always
         
+        emailField.placeholderLabel.backgroundColor = Color.green.base
+        
+        // Set the colors for the emailField, different from the defaults.
 //        emailField.placeholderNormalColor = Color.amber.darken4
 //        emailField.placeholderActiveColor = Color.pink.base
 //        emailField.dividerNormalColor = Color.cyan.base
@@ -110,24 +116,19 @@ class ViewController: UIViewController {
     }
     
     private func preparePasswordField() {
-        let d: CGFloat = 32
-        
         passwordField = TextField()
-        passwordField.placeholderLabel.text = "Password"
-        passwordField.detailLabel.text = "At least 8 characters"
+        passwordField.text = "Daniel Dahan"
+        passwordField.placeholder = "Password"
+        passwordField.detail = "At least 8 characters"
         passwordField.clearButtonMode = .whileEditing
         passwordField.isVisibilityIconButtonEnabled = true
-        
-        let leftView = UIImageView()
-        leftView.image = Icon.email?.tint(with: Color.cyan.base)
-        
-        passwordField.leftView = leftView
-        passwordField.leftViewMode = .always
         
         // Setting the visibilityIconButton color.
         passwordField.visibilityIconButton?.tintColor = Color.green.base.withAlphaComponent(passwordField.isSecureTextEntry ? 0.38 : 0.54)
         
-        view.layout(passwordField).top(300).horizontally(left: d, right: d).height(d)
+        passwordField.placeholderLabel.backgroundColor = Color.green.base
+        
+        view.layout(passwordField).top(10 * constant).horizontally(left: constant, right: constant)
     }
 }
 
@@ -161,6 +162,18 @@ extension UIViewController: TextFieldDelegate {
     public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         (textField as? ErrorTextField)?.isErrorRevealed = false
         return true
+    }
+    
+    public func textField(textField: UITextField, didChange text: String?) {
+        print("did change", text)
+    }
+    
+    public func textField(textField: UITextField, willClear text: String?) {
+        print("will clear", text)
+    }
+    
+    public func textField(textField: UITextField, didClear text: String?) {
+        print("did clear", text)
     }
 }
 

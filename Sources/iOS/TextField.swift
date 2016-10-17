@@ -72,8 +72,18 @@ open class TextField: UITextField {
     /// A Boolean that indicates if the TextField is in an animating state.
 	open internal(set) var isAnimating = false
 	
+    open override var leftView: UIView? {
+        didSet {
+            layoutSubviews()
+        }
+    }
+    
     /// The leftView width value.
     open var leftViewWidth: CGFloat {
+        guard nil != leftView else {
+            return 0
+        }
+        
         return leftViewOffset + height
     }
     
@@ -150,7 +160,7 @@ open class TextField: UITextField {
 	
 	/// The placeholder UILabel.
 	@IBInspectable
-    open private(set) lazy var placeholderLabel: UILabel = UILabel()
+    open private(set) lazy var placeholderLabel = UILabel()
 	
 	/// Placeholder normal text
 	@IBInspectable
@@ -321,20 +331,22 @@ open class TextField: UITextField {
     }
     
     open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        guard "placeholderLabel.text" == keyPath || "detailLabel.text" == keyPath else {
-            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
+        guard "placeholderLabel.text" != keyPath else {
+            updatePlaceholderLabelColor()
             return
         }
         
-        updatePlaceholderLabelColor()
-        updateDetailLabelColor()
+        guard "detailLabel.text" != keyPath else {
+            updateDetailLabelColor()
+            return
+        }
         
-        layoutToSize()
+        super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
     }
     
     deinit {
-        removeObserver(self, forKeyPath: "detailLabel.text")
         removeObserver(self, forKeyPath: "placeholderLabel.text")
+        removeObserver(self, forKeyPath: "detailLabel.text")
     }
     
 	/**
@@ -365,12 +377,9 @@ open class TextField: UITextField {
 	open override func layoutSubviews() {
 		super.layoutSubviews()
         layoutDivider()
+        layoutLeftView()
         
-        guard !isAnimating else {
-            return
-        }
-        
-        layoutToSize()
+        reload()
 	}
 	
 	open override func layoutSublayers(of layer: CALayer) {
@@ -388,6 +397,12 @@ open class TextField: UITextField {
         dividerEditingDidBeginAnimation()
 		placeholderEditingDidBeginAnimation()
 	}
+    
+    // Live updates the textField text.
+    @objc
+    internal func handleEditingChanged(textField: UITextField) {
+        (delegate as? TextFieldDelegate)?.textField?(textField: self, didChange: textField.text)
+    }
 	
 	/// Handles the text editing did end state.
 	@objc
@@ -433,8 +448,7 @@ open class TextField: UITextField {
      when subclassing.
      */
 	open func prepare() {
-		super.placeholder = nil
-        clipsToBounds = false
+		clipsToBounds = false
 		borderStyle = .none
 		backgroundColor = nil
 		contentScaleFactor = Device.scale
@@ -446,12 +460,15 @@ open class TextField: UITextField {
 	}
     
 	/// Ensures that the components are sized correctly.
-	open func layoutToSize() {
-		layoutPlaceholderLabel()
+	open func reload() {
+        guard !isAnimating else {
+            return
+        }
+        
+        layoutPlaceholderLabel()
         layoutDetailLabel()
         layoutButton(button: clearIconButton)
         layoutButton(button: visibilityIconButton)
-        layoutLeftView()
     }
 	
 	/// Layout the divider.
@@ -461,19 +478,18 @@ open class TextField: UITextField {
 	
 	/// Layout the placeholderLabel.
 	open func layoutPlaceholderLabel() {
-        let x = leftViewWidth
-        divider.contentEdgeInsets.left = x
+        let w = leftViewWidth
         
         if !isEditing && true == text?.isEmpty && isPlaceholderAnimated {
-            placeholderLabel.frame = CGRect(x: x, y: bounds.origin.y, width: bounds.width - x, height: bounds.height)
+            placeholderLabel.frame = CGRect(x: w, y: bounds.origin.y, width: width - w, height: height)
 		} else if placeholderLabel.transform.isIdentity {
-			placeholderLabel.frame = CGRect(x: x, y: bounds.origin.y, width: bounds.width - x, height: bounds.height)
+			placeholderLabel.frame = CGRect(x: w, y: bounds.origin.y, width: width - w, height: height)
             placeholderLabel.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
 			switch textAlignment {
 			case .left, .natural:
-				placeholderLabel.x = x
+				placeholderLabel.x = w
 			case .right:
-				placeholderLabel.x = width - placeholderLabel.width - x
+				placeholderLabel.x = width - placeholderLabel.width
 			default:break
 			}
 			placeholderLabel.y = -placeholderLabel.height + placeholderVerticalOffset
@@ -481,14 +497,14 @@ open class TextField: UITextField {
 		} else {
 			switch textAlignment {
 			case .left, .natural:
-				placeholderLabel.x = x
+				placeholderLabel.x = w
 			case .right:
-				placeholderLabel.x = width - placeholderLabel.width - x
+				placeholderLabel.x = width - placeholderLabel.width
 			case .center:
-				placeholderLabel.center.x = (width + x) / 2
+				placeholderLabel.center.x = (width + w) / 2
 			default:break
 			}
-			placeholderLabel.width = (width - x) * 0.75
+			placeholderLabel.width = (width - w) * 0.75
 		}
 	}
 	
@@ -516,9 +532,13 @@ open class TextField: UITextField {
             return
         }
         
-        v.width = leftViewWidth
+        let w = leftViewWidth
+        
+        v.width = w
         v.height = height
         v.contentMode = .center
+        
+        divider.contentEdgeInsets.left = w
     }
 	
 	/// The animation for the divider when editing begins.
@@ -540,9 +560,7 @@ open class TextField: UITextField {
         }
         
         guard placeholderLabel.transform.isIdentity else {
-            if isEditing {
-                placeholderLabel.textColor = placeholderActiveColor
-            }
+            updatePlaceholderLabelColor()
             return
         }
         
@@ -552,16 +570,13 @@ open class TextField: UITextField {
                 return
             }
             
-            let x = s.leftViewWidth
-            s.divider.contentEdgeInsets.left = x
-            
             s.placeholderLabel.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
             
             switch s.textAlignment {
             case .left, .natural:
-                s.placeholderLabel.x = x
+                s.placeholderLabel.x = s.leftViewWidth
             case .right:
-                s.placeholderLabel.x = s.width - s.placeholderLabel.width - x
+                s.placeholderLabel.x = s.width - s.placeholderLabel.width
             default:break
             }
             
@@ -578,26 +593,24 @@ open class TextField: UITextField {
             return
         }
         
-        if !placeholderLabel.transform.isIdentity && true == text?.isEmpty {
-			isAnimating = true
-			UIView.animate(withDuration: 0.15, animations: { [weak self] in
-                guard let s = self else {
-                    return
-                }
-                
-                let x = s.leftViewWidth
-                s.divider.contentEdgeInsets.left = x
-                
-                s.placeholderLabel.transform = CGAffineTransform.identity
-                s.placeholderLabel.x = x
-                s.placeholderLabel.y = 0
-                s.placeholderLabel.textColor = s.placeholderNormalColor
-			}) { [weak self] _ in
-				self?.isAnimating = false
-			}
-		} else if !isEditing {
-			placeholderLabel.textColor = placeholderNormalColor
-		}
+        guard !placeholderLabel.transform.isIdentity && true == text?.isEmpty else {
+            updatePlaceholderLabelColor()
+            return
+        }
+        
+        isAnimating = true
+        UIView.animate(withDuration: 0.15, animations: { [weak self] in
+            guard let s = self else {
+                return
+            }
+            
+            s.placeholderLabel.transform = CGAffineTransform.identity
+            s.placeholderLabel.x = s.leftViewWidth
+            s.placeholderLabel.y = 0
+            s.placeholderLabel.textColor = s.placeholderNormalColor
+        }) { [weak self] _ in
+            self?.isAnimating = false
+        }
 	}
 	
 	/// Prepares the divider.
@@ -607,8 +620,8 @@ open class TextField: UITextField {
 	
 	/// Prepares the placeholderLabel.
 	private func preparePlaceholderLabel() {
-        placeholderNormalColor = Color.darkText.others
         font = RobotoFont.regular(with: 16)
+        placeholderNormalColor = Color.darkText.others
         addSubview(placeholderLabel)
         addObserver(self, forKeyPath: "placeholderLabel.text", options: [], context: &TextFieldContext)
 	}
@@ -625,6 +638,7 @@ open class TextField: UITextField {
 	/// Prepares the target handlers.
 	private func prepareTargetHandlers() {
 		addTarget(self, action: #selector(handleEditingDidBegin), for: .editingDidBegin)
+        addTarget(self, action: #selector(handleEditingChanged), for: .editingChanged)
 		addTarget(self, action: #selector(handleEditingDidEnd), for: .editingDidEnd)
 	}
     

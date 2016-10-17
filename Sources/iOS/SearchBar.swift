@@ -184,18 +184,18 @@ open class SearchBar: Bar {
 	/// Clears the textField text.
 	@objc
     internal func handleClearButton() {
-        let text = textField.text
+        let t = textField.text
         
-        delegate?.searchBar?(searchBar: self, willClear: textField, with: text)
+        delegate?.searchBar?(searchBar: self, willClear: textField, with: t)
         
         textField.text = nil
         
-        delegate?.searchBar?(searchBar: self, didClear: textField, with: text)
+        delegate?.searchBar?(searchBar: self, didClear: textField, with: t)
     }
 	
     // Live updates the search results.
     @objc
-    internal func handleTextChange(textField: UITextField) {
+    internal func handleEditingChanged(textField: UITextField) {
         delegate?.searchBar?(searchBar: self, didChange: textField, with: textField.text)
     }
     
@@ -209,7 +209,7 @@ open class SearchBar: Bar {
 		textColor = Color.darkText.primary
 		placeholder = "Search"
 		contentView.addSubview(textField)
-        textField.addTarget(self, action: #selector(handleTextChange(textField:)), for: .editingChanged)
+        textField.addTarget(self, action: #selector(handleEditingChanged(textField:)), for: .editingChanged)
 	}
 	
 	/// Prepares the clearButton.
