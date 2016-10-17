@@ -46,12 +46,11 @@ class ViewController: UIViewController {
         prepareNameField()
         prepareEmailField()
         preparePasswordField()
-        prepareResignResponderButton()
     }
     
     /// Programmatic update for the textField as it rotates.
     override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
-        emailField.width = view.bounds.height - 2 * constant
+        emailField.width = (Device.isLandscape ? view.height : view.width) - 2 * constant
     }
     
     /// Prepares the resign responder button.
@@ -90,7 +89,6 @@ class ViewController: UIViewController {
     }
     
     private func prepareEmailField() {
-        
         emailField = ErrorTextField(frame: CGRect(x: constant, y: 7 * constant, width: view.width - (2 * constant), height: constant))
         emailField.text = "Daniel Dahan"
         emailField.placeholder = "Email"

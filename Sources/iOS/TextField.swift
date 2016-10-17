@@ -319,17 +319,6 @@ open class TextField: UITextField {
 	/// A reference to the visibilityIconButton.
 	open private(set) var visibilityIconButton: IconButton?
 	
-    /**
-     `layoutIfNeeded` is called within `becomeFirstResponder` to
-     fix an issue that when the TextField calls `becomeFirstResponder`
-     immediately when launching an instance, the TextField is not
-     calculated correctly.
-     */
-    open override func becomeFirstResponder() -> Bool {
-        layoutIfNeeded()
-        return super.becomeFirstResponder()
-    }
-    
     open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         guard "placeholderLabel.text" != keyPath else {
             updatePlaceholderLabelColor()
@@ -479,11 +468,12 @@ open class TextField: UITextField {
 	/// Layout the placeholderLabel.
 	open func layoutPlaceholderLabel() {
         let w = leftViewWidth
+        let h = 0 == height ? intrinsicContentSize.height : height
         
         if !isEditing && true == text?.isEmpty && isPlaceholderAnimated {
-            placeholderLabel.frame = CGRect(x: w, y: bounds.origin.y, width: width - w, height: height)
+            placeholderLabel.frame = CGRect(x: w, y: 0, width: width - w, height: h)
 		} else if placeholderLabel.transform.isIdentity {
-			placeholderLabel.frame = CGRect(x: w, y: bounds.origin.y, width: width - w, height: height)
+			placeholderLabel.frame = CGRect(x: w, y: 0, width: width - w, height: h)
             placeholderLabel.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
 			switch textAlignment {
 			case .left, .natural:
@@ -493,7 +483,6 @@ open class TextField: UITextField {
 			default:break
 			}
 			placeholderLabel.y = -placeholderLabel.height + placeholderVerticalOffset
-			placeholderLabel.textColor = placeholderNormalColor
 		} else {
 			switch textAlignment {
 			case .left, .natural:
@@ -581,7 +570,6 @@ open class TextField: UITextField {
             }
             
             s.placeholderLabel.y = -s.placeholderLabel.height + s.placeholderVerticalOffset
-            s.placeholderLabel.textColor = s.placeholderActiveColor
         }) { [weak self] _ in
             self?.isAnimating = false
         }
