@@ -31,7 +31,7 @@
 import UIKit
 
 open class NavigationBar: UINavigationBar {
-    /// Will render the view.
+    /// Will layout the view.
     open var willLayout: Bool {
         return 0 < width && 0 < height && nil != superview
     }

@@ -79,6 +79,7 @@ public struct Icon {
     public static let movie = Icon.icon("ic_movie_white")
     public static let pen = Icon.icon("ic_edit_white")
     public static let place = Icon.icon("ic_place_white")
+    public static let phone = Icon.icon("ic_phone_white")
     public static let photoCamera = Icon.icon("ic_photo_camera_white")
     public static let photoLibrary = Icon.icon("ic_photo_library_white")
     public static let search = Icon.icon("ic_search_white")

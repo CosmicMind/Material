@@ -35,6 +35,7 @@ open class ErrorTextField: TextField {
     @IBInspectable
     open var isErrorRevealed = false {
         didSet {
+            layoutDetailLabel()
             detailLabel.isHidden = !isErrorRevealed
         }
     }

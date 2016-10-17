@@ -45,7 +45,7 @@ class ViewController: UIViewController {
         
         prepareNameField()
         prepareEmailField()
-        preparePasswordField()
+//        preparePasswordField()
         prepareResignResponderButton()
     }
     
@@ -72,14 +72,13 @@ class ViewController: UIViewController {
     
     private func prepareNameField() {
         nameField = TextField()
-        nameField.text = "Daniel Dahan"
         nameField.placeholder = "Name"
         nameField.detail = "Your given name"
-        nameField.textAlignment = .center
+        nameField.isClearIconButtonEnabled = true
         nameField.clearButtonMode = .whileEditing
         
         let leftView = UIImageView()
-        leftView.image = Icon.email?.tint(with: Color.cyan.base)
+        leftView.image = Icon.phone?.tint(with: Color.blue.base)
         
         nameField.leftView = leftView
         nameField.leftViewMode = .always
@@ -89,15 +88,13 @@ class ViewController: UIViewController {
     
     private func prepareEmailField() {
         emailField = ErrorTextField(frame: CGRect(x: constant, y: 7 * constant, width: view.width - (2 * constant), height: constant))
-        emailField.text = "Daniel Dahan"
         emailField.placeholder = "Email"
         emailField.detail = "Error, incorrect email"
         emailField.isClearIconButtonEnabled = true
-        emailField.textAlignment = .right
         emailField.delegate = self
         
         let leftView = UIImageView()
-        leftView.image = Icon.email?.tint(with: Color.cyan.base)
+        leftView.image = Icon.email?.tint(with: Color.blue.base)
         
         emailField.leftView = leftView
         emailField.leftViewMode = .always
@@ -112,7 +109,6 @@ class ViewController: UIViewController {
     
     private func preparePasswordField() {
         passwordField = TextField()
-        passwordField.text = "Daniel Dahan"
         passwordField.placeholder = "Password"
         passwordField.detail = "At least 8 characters"
         passwordField.clearButtonMode = .whileEditing

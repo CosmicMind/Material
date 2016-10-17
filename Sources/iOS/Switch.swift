@@ -61,7 +61,7 @@ public protocol SwitchDelegate {
 
 @objc(Switch)
 open class Switch: UIControl {
-    /// Will render the view.
+    /// Will layout the view.
     open var willLayout: Bool {
         return 0 < width && 0 < height && nil != superview
     }

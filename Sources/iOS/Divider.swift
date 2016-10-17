@@ -46,7 +46,11 @@ open class Divider {
     internal var line: UIView?
     
     /// A reference to the height.
-    open var thickness: CGFloat
+    open var thickness: CGFloat {
+        didSet {
+            reload()
+        }
+    }
     
     /// A preset wrapper around contentEdgeInsets.
     open var contentEdgeInsetsPreset = EdgeInsetsPreset.none {

@@ -60,6 +60,11 @@ public protocol TextFieldDelegate: UITextFieldDelegate {
 }
 
 open class TextField: UITextField {
+    /// Will layout the view.
+    open var willLayout: Bool {
+        return 0 < width && 0 < height && nil != superview
+    }
+    
     /// Default size when using AutoLayout.
     open override var intrinsicContentSize: CGSize {
         return CGSize(width: width, height: 32)
@@ -77,6 +82,11 @@ open class TextField: UITextField {
             prepareLeftView()
             layoutSubviews()
         }
+    }
+    
+    /// A boolean indicating whether the text is empty.
+    open var isEmpty: Bool {
+        return true == text?.isEmpty
     }
     
     /// The leftView width value.
@@ -136,7 +146,7 @@ open class TextField: UITextField {
 	@IBInspectable
     open override var text: String? {
 		didSet {
-            guard true == text?.isEmpty else {
+            guard isEmpty else {
                 return
             }
             
@@ -227,6 +237,9 @@ open class TextField: UITextField {
 		}
 	}
 	
+    /// A reference to the clearIconButton.
+    open private(set) var clearIconButton: IconButton?
+    
 	/// Enables the clearIconButton.
 	@IBInspectable
     open var isClearIconButtonEnabled: Bool {
@@ -252,7 +265,7 @@ open class TextField: UITextField {
             rightView = clearIconButton
             isClearIconButtonAutoHandled = isClearIconButtonAutoHandled ? true : false
             
-            layoutButton(button: clearIconButton)
+            layoutSubviews()
 		}
 	}
 	
@@ -269,6 +282,9 @@ open class TextField: UITextField {
             clearIconButton?.addTarget(self, action: #selector(handleClearIconButton), for: .touchUpInside)
 		}
 	}
+    
+    /// A reference to the visibilityIconButton.
+    open private(set) var visibilityIconButton: IconButton?
 	
 	/// Enables the visibilityIconButton.
 	@IBInspectable
@@ -296,7 +312,7 @@ open class TextField: UITextField {
             rightView = visibilityIconButton
             isVisibilityIconButtonAutoHandled = isVisibilityIconButtonAutoHandled ? true : false
             
-            layoutButton(button: visibilityIconButton)
+            layoutSubviews()
 		}
 	}
 	
@@ -313,12 +329,6 @@ open class TextField: UITextField {
             visibilityIconButton?.addTarget(self, action: #selector(handleVisibilityIconButton), for: .touchUpInside)
 		}
 	}
-	
-	/// A reference to the clearIconButton.
-	open private(set) var clearIconButton: IconButton?
-	
-	/// A reference to the visibilityIconButton.
-	open private(set) var visibilityIconButton: IconButton?
 	
     open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         guard "placeholderLabel.text" != keyPath else {
@@ -381,8 +391,9 @@ open class TextField: UITextField {
 	/// Handles the text editing did begin state.
     @objc
 	open func handleEditingDidBegin() {
+        placeholderEditingDidBeginAnimation()
         dividerEditingDidBeginAnimation()
-		placeholderEditingDidBeginAnimation()
+        
 	}
     
     // Live updates the textField text.
@@ -394,8 +405,8 @@ open class TextField: UITextField {
 	/// Handles the text editing did end state.
 	@objc
     open func handleEditingDidEnd() {
-		dividerEditingDidEndAnimation()
-		placeholderEditingDidEndAnimation()
+        placeholderEditingDidEndAnimation()
+        dividerEditingDidEndAnimation()
 	}
 	
 	/// Handles the clearIconButton TouchUpInside event.
@@ -448,6 +459,10 @@ open class TextField: UITextField {
     
 	/// Ensures that the components are sized correctly.
 	open func reload() {
+        guard willLayout else {
+            return
+        }
+        
         guard !isAnimating else {
             return
         }
@@ -465,7 +480,7 @@ open class TextField: UITextField {
         let w = leftViewWidth
         let h = 0 == height ? intrinsicContentSize.height : height
         
-        guard isEditing || false == text?.isEmpty || !isPlaceholderAnimated else {
+        guard isEditing || !isEmpty || !isPlaceholderAnimated else {
             placeholderLabel.frame = CGRect(x: w, y: 0, width: width - w, height: h)
             return
         }
@@ -523,7 +538,7 @@ open class TextField: UITextField {
 	open func dividerEditingDidBeginAnimation() {
 		dividerThickness = dividerActiveHeight
 		dividerColor = dividerActiveColor
-	}
+    }
 	
 	/// The animation for the divider when editing ends.
 	open func dividerEditingDidEndAnimation() {
@@ -537,8 +552,7 @@ open class TextField: UITextField {
             return
         }
         
-        guard placeholderLabel.transform.isIdentity else {
-            updatePlaceholderLabelColor()
+        guard isEmpty && !isAnimating else {
             return
         }
         
@@ -570,8 +584,7 @@ open class TextField: UITextField {
             return
         }
         
-        guard !placeholderLabel.transform.isIdentity && true == text?.isEmpty else {
-            updatePlaceholderLabelColor()
+        guard isEmpty && !isAnimating else {
             return
         }
         
@@ -614,7 +627,7 @@ open class TextField: UITextField {
     
     /// Prepares the leftView.
     private func prepareLeftView() {
-        leftView?.contentMode = .center
+        leftView?.contentMode = .left
     }
 	
 	/// Prepares the target handlers.
