@@ -46,7 +46,6 @@ class ViewController: UIViewController {
     /// Toolbar views.
     private var toolbar: Toolbar!
     private var moreButton: IconButton!
-    private var authorView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +55,6 @@ class ViewController: UIViewController {
         prepareDateLabel()
         prepareFavoriteButton()
         prepareMoreButton()
-        prepareAuthorView()
         prepareToolbar()
         prepareContentView()
         prepareBottomBar()
@@ -84,14 +82,8 @@ class ViewController: UIViewController {
         moreButton = IconButton(image: Icon.cm.moreVertical, tintColor: Color.blueGrey.base)
     }
     
-    private func prepareAuthorView() {
-        authorView = UIImageView()
-        authorView.image = UIImage(named: "pattern")?.resize(toWidth: 24)
-        authorView.contentMode = .scaleAspectFit
-    }
-    
     private func prepareToolbar() {
-        toolbar = Toolbar(leftViews: [authorView], rightViews: [moreButton])
+        toolbar = Toolbar(rightViews: [moreButton])
         
         toolbar.title = "Material"
         toolbar.titleLabel.textAlignment = .left
@@ -119,7 +111,9 @@ class ViewController: UIViewController {
         card = Card()
         
         card.toolbar = toolbar
-        card.toolbarEdgeInsetsPreset = .wideRectangle2
+        card.toolbarEdgeInsetsPreset = .square3
+        card.toolbarEdgeInsets.bottom = 0
+        card.toolbarEdgeInsets.right = 8
         
         card.contentView = contentView
         card.contentViewEdgeInsetsPreset = .wideRectangle3

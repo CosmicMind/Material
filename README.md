@@ -1,4 +1,4 @@
-![Material](http://www.cosmicmind.io/MK/Material.png)
+![Material](http://www.cosmicmind.io/material/github/material-logo.png)
 
 ## Welcome to Material
 
@@ -122,7 +122,7 @@ A switch is a control component that toggles between on and off states.
 
 A Card is a flexible component that may be configured in any way you like. It has a Toolbar, Bar, and content area that may utilize any UIView type.
 
-![Material Image](http://www.cosmicmind.io/material/white/card.gif)
+![Material Image](http://www.cosmicmind.io/gifs/grey/card.gif)
 
 * Download the complete [Card example](https://github.com/CosmicMind/Material/tree/master/Examples/Programmatic/Card).
 * Learn more about [Card](http://cosmicmind.io/material/card).
@@ -143,7 +143,7 @@ An ImageCard is an expansion of the base Card. The Toolbar overlays an image are
 
 The PresenterCard is a completely new card style. It allows for a primary presentation area that may be any UIView type in addition to the content area, Toolbar, and Bar components. The options for this card are endless.
 
-![Material Image](http://www.cosmicmind.io/material/white/presenter-card.gif)
+![Material Image](http://www.cosmicmind.io/gifs/white/presenter-card.gif)
 
 * Download the complete [PresenterCard example](https://github.com/CosmicMind/Material/tree/master/Examples/Programmatic/PresenterCard).
 * Learn more about [PresenterCard](http://cosmicmind.io/material/presentercard).
