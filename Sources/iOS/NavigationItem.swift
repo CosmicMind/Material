@@ -75,12 +75,15 @@ public class NavigationItem: NSObject {
     }
     
     /// Center items.
-    public var centerViews = [UIView]() {
-        didSet {
-            for v in oldValue {
+    public var centerViews: [UIView] {
+        get {
+            return contentView.grid.views
+        }
+        set(value) {
+            for v in contentView.grid.views {
                 v.removeFromSuperview()
             }
-            navigationBar?.layoutSubviews()
+            contentView.grid.views = value
         }
     }
 	

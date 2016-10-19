@@ -125,12 +125,15 @@ open class Bar: View {
     }
     
     /// Center UIViews.
-    open var centerViews = [UIView]() {
-        didSet {
-            for v in oldValue {
+    open var centerViews: [UIView] {
+        get {
+            return contentView.grid.views
+        }
+        set(value) {
+            for v in contentView.grid.views {
                 v.removeFromSuperview()
             }
-            layoutSubviews()
+            contentView.grid.views = value
         }
     }
     
@@ -227,7 +230,6 @@ open class Bar: View {
         }
         
         contentView.grid.begin()
-        contentView.grid.views = centerViews
         
         if .center == contentViewAlignment {
             if lc < rc {
