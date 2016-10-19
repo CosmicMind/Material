@@ -141,6 +141,26 @@ extension UIView {
         }
     }
     
+    /// A preset wrapper around divider.contentEdgeInsets.
+    open var dividerContentEdgeInsetsPreset: EdgeInsetsPreset {
+        get {
+            return divider.contentEdgeInsetsPreset
+        }
+        set(value) {
+            divider.contentEdgeInsetsPreset = value
+        }
+    }
+    
+    /// A reference to divider.contentEdgeInsets.
+    open var dividerContentEdgeInsets: EdgeInsets {
+        get {
+            return divider.contentEdgeInsets
+        }
+        set(value) {
+            divider.contentEdgeInsets = value
+        }
+    }
+    
     /// Divider color.
     @IBInspectable
     open var dividerColor: UIColor? {

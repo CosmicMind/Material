@@ -502,7 +502,7 @@ open class TextField: UITextField {
 	
 	/// Layout the detailLabel.
 	open func layoutDetailLabel() {
-        let c = divider.contentEdgeInsets
+        let c = dividerContentEdgeInsets
         detailLabel.sizeToFit()
         detailLabel.x = c.left
         detailLabel.y = height + detailVerticalOffset
@@ -531,7 +531,7 @@ open class TextField: UITextField {
         
         let w = leftViewWidth
         v.frame = CGRect(x: 0, y: 0, width: w, height: height)
-        divider.contentEdgeInsets.left = w
+        dividerContentEdgeInsets.left = w
     }
 	
 	/// The animation for the divider when editing begins.
