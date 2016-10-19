@@ -30,7 +30,6 @@
 
 import UIKit
 
-@objc(View)
 open class View: UIView {
 	/**
      A CAShapeLayer used to manage elements that would be affected by

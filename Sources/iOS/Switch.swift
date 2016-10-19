@@ -59,7 +59,6 @@ public protocol SwitchDelegate {
     func switchDidChangeState(control: Switch, state: SwitchState)
 }
 
-@objc(Switch)
 open class Switch: UIControl {
     /// Will layout the view.
     open var willLayout: Bool {
