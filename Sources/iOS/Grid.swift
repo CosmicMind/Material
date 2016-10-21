@@ -228,6 +228,10 @@ public class Grid {
                 return
             }
             
+            guard 0 < canvas.width && 0 < canvas.height else {
+                return
+            }
+            
             if canvas != v.superview {
                 v.removeFromSuperview()
                 canvas.addSubview(v)
