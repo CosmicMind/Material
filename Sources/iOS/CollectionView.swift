@@ -32,12 +32,12 @@ import UIKit
 
 open class CollectionView: UICollectionView {
     /// A preset wrapper around contentEdgeInsets.
-	open var contentEdgeInsetsPreset: EdgeInsets {
+	open var contentEdgeInsetsPreset: EdgeInsetsPreset {
 		get {
-			return (collectionViewLayout as? CollectionViewLayout)!.contentEdgeInsets
+			return (collectionViewLayout as? CollectionViewLayout)!.contentEdgeInsetsPreset
 		}
 		set(value) {
-			(collectionViewLayout as? CollectionViewLayout)!.contentEdgeInsets = value
+			(collectionViewLayout as? CollectionViewLayout)!.contentEdgeInsetsPreset = value
 		}
 	}
 	

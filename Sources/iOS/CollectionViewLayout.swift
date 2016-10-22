@@ -38,7 +38,7 @@ open class CollectionViewLayout: UICollectionViewLayout {
 	open var itemSize = CGSize.zero
 	
 	/// A preset wrapper around contentEdgeInsets.
-	open var contentEdgeInsetsPreset: EdgeInsetsPreset = .none {
+	open var contentEdgeInsetsPreset = EdgeInsetsPreset.none {
 		didSet {
 			contentEdgeInsets = EdgeInsetsPresetToValue(preset: contentEdgeInsetsPreset)
 		}
@@ -79,7 +79,7 @@ open class CollectionViewLayout: UICollectionViewLayout {
 	- Returns: An Array of NSIndexPath objects.
 	*/
 	open func indexPathsOfItemsInRect(rect: CGRect) -> [NSIndexPath] {
-		var paths: Array<NSIndexPath> = Array<NSIndexPath>()
+		var paths = [NSIndexPath]()
 		for (attribute, indexPath) in layoutItems {
 			if rect.intersects(attribute.frame) {
 				paths.append(indexPath)
@@ -104,7 +104,7 @@ open class CollectionViewLayout: UICollectionViewLayout {
 	}
 	
 	open override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-		var layoutAttributes: Array<UICollectionViewLayoutAttributes> = Array<UICollectionViewLayoutAttributes>()
+		var layoutAttributes = [UICollectionViewLayoutAttributes]()
 		for (attribute, _) in layoutItems {
 			if rect.intersects(attribute.frame) {
 				layoutAttributes.append(attribute)
@@ -118,9 +118,10 @@ open class CollectionViewLayout: UICollectionViewLayout {
 	}
 	
 	open override func prepare() {
-		if let dataSource: CollectionViewDataSource = collectionView?.dataSource as? CollectionViewDataSource {
-			prepareLayoutForItems(dataSourceItems: dataSource.items())
+		guard let dataSource = collectionView?.dataSource as? CollectionViewDataSource else {
+			return
 		}
+        prepareLayoutForItems(dataSourceItems: dataSource.dataSourceItems)
 	}
 	
 	open override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint) -> CGPoint {

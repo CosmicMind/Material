@@ -32,10 +32,10 @@ import UIKit
 
 extension UIViewController {
 	/**
-	A convenience property that provides access to the StatusBarController.
-	This is the recommended method of accessing the StatusBarController
-	through child UIViewControllers.
-	*/
+     A convenience property that provides access to the StatusBarController.
+     This is the recommended method of accessing the StatusBarController
+     through child UIViewControllers.
+     */
 	public var statusBarController: StatusBarController? {
 		var viewController: UIViewController? = self
 		while nil != viewController {
@@ -53,23 +53,23 @@ open class StatusBarController: RootController {
 	open private(set) lazy var statusBar = View()
 	
 	/**
-	To execute in the order of the layout chain, override this
-	method. LayoutSubviews should be called immediately, unless you
-	have a certain need.
-	*/
+     To execute in the order of the layout chain, override this
+     method. LayoutSubviews should be called immediately, unless you
+     have a certain need.
+     */
 	open override func layoutSubviews() {
 		super.layoutSubviews()
-		statusBar.isHidden = Device.isLandscape && .phone == Device.userInterfaceIdiom
+        statusBar.zPosition = Device.isLandscape && .phone == Device.userInterfaceIdiom ? 0 : 3000
 		rootViewController.view.frame = view.bounds
 	}
 	
 	/**
-	Prepares the view instance when intialized. When subclassing,
-	it is recommended to override the prepare method
-	to initialize property values and other setup operations.
-	The super.prepare method should always be called immediately
-	when subclassing.
-	*/
+     Prepares the view instance when intialized. When subclassing,
+     it is recommended to override the prepare method
+     to initialize property values and other setup operations.
+     The super.prepare method should always be called immediately
+     when subclassing.
+     */
 	open override func prepare() {
         super.prepare()
 		prepareStatusBar()
@@ -77,7 +77,6 @@ open class StatusBarController: RootController {
 	
 	/// Prepares the statusBar.
 	private func prepareStatusBar() {
-		statusBar.zPosition = 3000
 		statusBar.backgroundColor = .white
 		view.layout(statusBar).top().horizontally().height(20)
 	}

@@ -70,6 +70,7 @@ open class Card: PulseView {
     @IBInspectable
     open var toolbar: Toolbar? {
         didSet {
+            oldValue?.removeFromSuperview()
             layoutSubviews()
         }
     }
@@ -93,6 +94,7 @@ open class Card: PulseView {
     @IBInspectable
     open var contentView: UIView? {
         didSet {
+            oldValue?.removeFromSuperview()
             layoutSubviews()
         }
     }
@@ -116,6 +118,7 @@ open class Card: PulseView {
     @IBInspectable
     open var bottomBar: Bar? {
         didSet {
+            oldValue?.removeFromSuperview()
             layoutSubviews()
         }
     }
@@ -193,7 +196,7 @@ open class Card: PulseView {
             
             format += "-(toolbarTop)-[toolbar]-(toolbarBottom)"
             views["toolbar"] = v
-            container.layout(v).horizontally(left: toolbarEdgeInsets.left, right: toolbarEdgeInsets.right)
+            container.layout(v).horizontally(left: toolbarEdgeInsets.left, right: toolbarEdgeInsets.right).height(v.height)
         }
         
         if let v = contentView {
@@ -215,8 +218,6 @@ open class Card: PulseView {
         }
         
         if let v = bottomBar {
-            metrics["bottomBarBottom"] = bottomBarEdgeInsets.bottom
-            
             if nil != contentView {
                 metrics["contentViewBottom"] = (metrics["contentViewBottom"] as! CGFloat) + bottomBarEdgeInsets.top
                 format += "-[bottomBar]-(bottomBarBottom)"
@@ -225,18 +226,18 @@ open class Card: PulseView {
                 format += "-[bottomBar]-(bottomBarBottom)"
             } else {
                 metrics["bottomBarTop"] = bottomBarEdgeInsets.top
-                format += "-(bottomBarTop)-[bottomBar]-(bottomBarBottom)"
+                format += "-(bottomBarTop)-[bottomBar]"
             }
             
             views["bottomBar"] = v
-            container.layout(v).horizontally(left: bottomBarEdgeInsets.left, right: bottomBarEdgeInsets.right)
+            container.layout(v).horizontally(left: bottomBarEdgeInsets.left, right: bottomBarEdgeInsets.right).height(v.height).bottom(bottomBarEdgeInsets.bottom)
         }
         
         guard 0 < views.count else {
             return
         }
         
-        container.addConstraints(Layout.constraint(format: "\(format)-|", options: [], metrics: metrics, views: views))
+        container.addConstraints(Layout.constraint(format: "\(format)|", options: [], metrics: metrics, views: views))
     }
     
     /**

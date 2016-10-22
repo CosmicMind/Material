@@ -99,6 +99,7 @@ open class ImageCard: Card {
             container.layout(v)
                 .horizontally(left: toolbarEdgeInsets.left, right: toolbarEdgeInsets.right)
                 .top(.top == toolbarAlignment ? toolbarEdgeInsets.top : iv.height - v.height - toolbarEdgeInsets.bottom)
+                .height(v.height)
         }
         
         if let v = contentView {
@@ -125,7 +126,7 @@ open class ImageCard: Card {
             }
             
             views["bottomBar"] = v
-            container.layout(v).horizontally(left: bottomBarEdgeInsets.left, right: bottomBarEdgeInsets.right)
+            container.layout(v).horizontally(left: bottomBarEdgeInsets.left, right: bottomBarEdgeInsets.right).height(v.height)
         }
         
         guard 0 < views.count else {

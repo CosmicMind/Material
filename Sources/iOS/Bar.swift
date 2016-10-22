@@ -259,7 +259,7 @@ open class Bar: View {
      */
     open override func prepare() {
         super.prepare()
-        heightPreset = .default
+        heightPreset = .normal
         autoresizingMask = .flexibleWidth
         interimSpacePreset = .interimSpace3
         contentEdgeInsetsPreset = .square1

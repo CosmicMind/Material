@@ -107,7 +107,7 @@ A button is used to trigger an action through a touch event. Material comes with
 ![Material Image](http://www.cosmicmind.io/material/white/button.gif)
 
 * Download the complete [Button sample](https://github.com/CosmicMind/Samples/tree/master/Material/Programmatic/Button).
-* Learn more about [TextField](http://cosmicmind.io/material/button).
+* Learn more about [Button](http://cosmicmind.io/material/button).
 
 
 ## Switch

@@ -30,6 +30,7 @@
 
 import UIKit
 
+@available(iOS 9.0, *)
 open class PresenterCard: Card {
     /// A preset wrapper around presenterViewEdgeInsets.
     open var presenterViewEdgeInsetsPreset = EdgeInsetsPreset.none {
@@ -50,94 +51,56 @@ open class PresenterCard: Card {
     @IBInspectable
     open var presenterView: UIView? {
         didSet {
+            oldValue?.removeFromSuperview()
             layoutSubviews()
         }
     }
     
     open override func reload() {
-        // Clear constraints so new ones do not conflict.
-        container.removeConstraints(container.constraints)
-        for v in container.subviews {
-            v.removeFromSuperview()
-        }
+        var top: CGFloat = 0
+        var bottom: CGFloat = 0
         
-        var format = "V:|"
-        var views = [String: Any]()
-        var metrics = [String: Any]()
+        container.removeConstraints(container.constraints)
         
         if let v = toolbar {
-            metrics["toolbarTop"] = toolbarEdgeInsets.top
-            metrics["toolbarBottom"] = toolbarEdgeInsets.bottom
-            
-            format += "-(toolbarTop)-[toolbar]-(toolbarBottom)"
-            views["toolbar"] = v
-            container.layout(v).horizontally(left: toolbarEdgeInsets.left, right: toolbarEdgeInsets.right)
+            top += toolbarEdgeInsets.top
+            container.layout(v).top(top).left(toolbarEdgeInsets.left).right(toolbarEdgeInsets.right).height(v.height)
+            top += v.height + toolbarEdgeInsets.bottom
         }
         
         if let v = presenterView {
-            metrics["presenterViewBottom"] = presenterViewEdgeInsets.bottom
-            
-            if nil != toolbar {
-                metrics["toolbarBottom"] = (metrics["toolbarBottom"] as! CGFloat) + presenterViewEdgeInsets.top
-                format += "-[presenterView]-(presenterViewBottom)"
-            } else {
-                metrics["presenterViewTop"] = presenterViewEdgeInsets.top
-                format += "-(presenterViewTop)-[presenterView]-(presenterViewBottom)"
-            }
-            
-            views["presenterView"] = v
-            container.layout(v).horizontally(left: presenterViewEdgeInsets.left, right: presenterViewEdgeInsets.right)
-            
-            v.grid.reload()
-            v.divider.reload()
+            top += presenterViewEdgeInsets.top
+            container.layout(v).top(top).left(presenterViewEdgeInsets.left).right(presenterViewEdgeInsets.right)
+            top += v.height + presenterViewEdgeInsets.bottom
         }
-        
-        if let v = contentView {
-            metrics["contentViewBottom"] = contentViewEdgeInsets.bottom
-            
-            if nil != presenterView {
-                metrics["presenterViewBottom"] = (metrics["presenterViewBottom"] as! CGFloat) + contentViewEdgeInsets.top
-                format += "-[contentView]-(contentViewBottom)"
-            } else if nil != toolbar {
-                metrics["toolbarBottom"] = (metrics["toolbarBottom"] as! CGFloat) + contentViewEdgeInsets.top
-                format += "-[contentView]-(contentViewBottom)"
-            } else {
-                metrics["contentViewTop"] = contentViewEdgeInsets.top
-                format += "-(contentViewTop)-[contentView]-(contentViewBottom)"
-            }
-            
-            views["contentView"] = v
-            container.layout(v).horizontally(left: contentViewEdgeInsets.left, right: contentViewEdgeInsets.right)
-            
-            v.grid.reload()
-            v.divider.reload()
-        }
-        
-        if let v = bottomBar {
-            metrics["bottomBarBottom"] = bottomBarEdgeInsets.bottom
-            
-            if nil != contentView {
-                metrics["contentViewBottom"] = (metrics["contentViewBottom"] as! CGFloat) + bottomBarEdgeInsets.top
-                format += "-[bottomBar]-(bottomBarBottom)"
-            } else if nil != presenterView {
-                metrics["presenterViewBottom"] = (metrics["presenterViewBottom"] as! CGFloat) + bottomBarEdgeInsets.top
-                format += "-[bottomBar]-(bottomBarBottom)"
-            } else if nil != toolbar {
-                metrics["toolbarBottom"] = (metrics["toolbarBottom"] as! CGFloat) + bottomBarEdgeInsets.top
-                format += "-[bottomBar]-(bottomBarBottom)"
-            } else {
-                metrics["bottomBarTop"] = bottomBarEdgeInsets.top
-                format += "-(bottomBarTop)-[bottomBar]-(bottomBarBottom)"
-            }
-            
-            views["bottomBar"] = v
-            container.layout(v).horizontally(left: bottomBarEdgeInsets.left, right: bottomBarEdgeInsets.right)
-        }
-        
-        guard 0 < views.count else {
-            return
-        }
-        
-        container.addConstraints(Layout.constraint(format: "\(format)-|", options: [], metrics: metrics, views: views))
+//
+//        if let v = contentView {
+//            top += contentViewEdgeInsets.top
+//            container.layout(v).top(top).left(contentViewEdgeInsets.left).right(contentViewEdgeInsets.right)
+//            top += v.height + contentViewEdgeInsets.bottom
+//        }
+//
+//        if let v = bottomBar {
+//            top += bottomBarEdgeInsets.top
+//            container.layout(v).top(top).left(bottomBarEdgeInsets.left).right(bottomBarEdgeInsets.right).bottom(bottomBarEdgeInsets.bottom)
+//            bottom += v.height + bottomBarEdgeInsets.top + bottomBarEdgeInsets.bottom
+//        }
+//        
+//        if let v = contentView {
+//            bottom += contentViewEdgeInsets.bottom
+//            container.layout(v).bottom(bottom)
+//            bottom += v.height + contentViewEdgeInsets.top
+//        }
+//        
+//        if let v = presenterView {
+//            bottom += presenterViewEdgeInsets.bottom
+//            container.layout(v).bottom(bottom)
+//            bottom += v.height + presenterViewEdgeInsets.top
+//        }
+//        
+//        if let v = toolbar {
+//            bottom += toolbarEdgeInsets.bottom
+//            container.layout(v).bottom(bottom)
+//        }
     }
 }

@@ -173,7 +173,7 @@ open class ToolbarController: StatusBarController {
 		super.layoutSubviews()
         statusBar.layoutIfNeeded()
         
-        let y = statusBar.isHidden ? 0 : statusBar.height
+        let y = 0 == statusBar.zPosition ? 0 : statusBar.height
         let p = y + toolbar.height
         
         toolbar.y = y
