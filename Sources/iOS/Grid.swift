@@ -237,7 +237,7 @@ public class Grid {
                 canvas.addSubview(v)
             }
             
-            // Forces the views to adjust accordingly to size changes, ie: UILabel.
+            // Forces the view to adjust accordingly to size changes, ie: UILabel.
             (v as? UILabel)?.sizeToFit()
             
             switch axis.direction {

@@ -71,6 +71,9 @@ open class Card: PulseView {
     open var toolbar: Toolbar? {
         didSet {
             oldValue?.removeFromSuperview()
+            if let v = toolbar {
+                container.addSubview(v)
+            }
             layoutSubviews()
         }
     }
@@ -95,6 +98,10 @@ open class Card: PulseView {
     open var contentView: UIView? {
         didSet {
             oldValue?.removeFromSuperview()
+            if let v = contentView {
+                v.clipsToBounds = true
+                container.addSubview(v)
+            }
             layoutSubviews()
         }
     }
@@ -119,6 +126,9 @@ open class Card: PulseView {
     open var bottomBar: Bar? {
         didSet {
             oldValue?.removeFromSuperview()
+            if let v = bottomBar {
+                container.addSubview(v)
+            }
             layoutSubviews()
         }
     }
@@ -169,11 +179,14 @@ open class Card: PulseView {
         self.init(frame: .zero)
         prepareProperties(toolbar: toolbar, contentView: contentView, bottomBar: bottomBar)
     }
+    
     open override func layoutSubviews() {
         super.layoutSubviews()
         guard willLayout else {
             return
         }
+        
+        container.width = width
         
         reload()
     }
@@ -256,6 +269,37 @@ open class Card: PulseView {
     }
     
     /**
+     Prepare the view size from a given top position.
+     - Parameter view: A UIView.
+     - Parameter edge insets: An EdgeInsets.
+     - Parameter from top: A CGFloat.
+     - Returns: A CGFloat.
+     */
+    open func prepare(view: UIView?, with insets: EdgeInsets, from top: CGFloat) -> CGFloat {
+        guard let v = view else {
+            return top
+        }
+        
+        let t = insets.top + top
+        
+        v.y = t
+        v.x = insets.left
+        
+        let w = container.width - insets.left - insets.right
+        var h = v.height
+        
+        if 0 == h {
+            (v as? UILabel)?.sizeToFit()
+            h = v.sizeThatFits(CGSize(width: w, height: CGFloat.greatestFiniteMagnitude)).height
+        }
+        
+        v.width = w
+        v.height = h
+        
+        return t + h + insets.bottom
+    }
+    
+    /**
      A preparation method that sets the base UI elements.
      - Parameter toolbar: An optional Toolbar.
      - Parameter contentView: An optional UIView.
@@ -270,6 +314,6 @@ open class Card: PulseView {
     /// Prepares the container.
     private func prepareContainer() {
         container.clipsToBounds = true
-        layout(container).edges()
+        addSubview(container)
     }
 }

@@ -172,6 +172,7 @@ open class Button: UIButton {
         layoutShape()
         layoutVisualLayer()
     }
+    
     open override func layoutSubviews() {
         super.layoutSubviews()
         layoutShadowPath()

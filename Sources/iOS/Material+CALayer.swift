@@ -83,7 +83,7 @@ internal class MaterialLayer {
     }
     
     /// Enables automatic shadowPath sizing.
-    internal var isShadowPathAutoSizing = true
+    internal var isShadowPathAutoSizing = false
     
     /**
      Initializer that takes in a CALayer.
@@ -315,7 +315,13 @@ extension CALayer {
         guard isShadowPathAutoSizing else {
             return
         }
-        
-        shadowPath = .none == depthPreset ? nil : UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
+       z
+        if .none == depthPreset {
+            shadowPath = nil
+        } else if nil == shadowPath {
+            shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
+        } else {
+            animate(animation: Animation.shadowPath(path: UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath, duration: 0))
+        }
     }
 }

@@ -52,55 +52,23 @@ open class PresenterCard: Card {
     open var presenterView: UIView? {
         didSet {
             oldValue?.removeFromSuperview()
+            if let v = presenterView {
+                v.clipsToBounds = true
+                container.addSubview(v)
+            }
             layoutSubviews()
         }
     }
     
     open override func reload() {
         var top: CGFloat = 0
-        var bottom: CGFloat = 0
         
-        container.removeConstraints(container.constraints)
+        top = prepare(view: toolbar, with: toolbarEdgeInsets, from: top)
+        top = prepare(view: presenterView, with: presenterViewEdgeInsets, from: top)
+        top = prepare(view: contentView, with: contentViewEdgeInsets, from: top)
+        top = prepare(view: bottomBar, with: bottomBarEdgeInsets, from: top)
         
-        if let v = toolbar {
-            top += toolbarEdgeInsets.top
-            container.layout(v).top(top).left(toolbarEdgeInsets.left).right(toolbarEdgeInsets.right).height(v.height)
-            top += v.height + toolbarEdgeInsets.bottom
-        }
-        
-        if let v = presenterView {
-            top += presenterViewEdgeInsets.top
-            container.layout(v).top(top).left(presenterViewEdgeInsets.left).right(presenterViewEdgeInsets.right)
-            top += v.height + presenterViewEdgeInsets.bottom
-        }
-//
-//        if let v = contentView {
-//            top += contentViewEdgeInsets.top
-//            container.layout(v).top(top).left(contentViewEdgeInsets.left).right(contentViewEdgeInsets.right)
-//            top += v.height + contentViewEdgeInsets.bottom
-//        }
-//
-//        if let v = bottomBar {
-//            top += bottomBarEdgeInsets.top
-//            container.layout(v).top(top).left(bottomBarEdgeInsets.left).right(bottomBarEdgeInsets.right).bottom(bottomBarEdgeInsets.bottom)
-//            bottom += v.height + bottomBarEdgeInsets.top + bottomBarEdgeInsets.bottom
-//        }
-//        
-//        if let v = contentView {
-//            bottom += contentViewEdgeInsets.bottom
-//            container.layout(v).bottom(bottom)
-//            bottom += v.height + contentViewEdgeInsets.top
-//        }
-//        
-//        if let v = presenterView {
-//            bottom += presenterViewEdgeInsets.bottom
-//            container.layout(v).bottom(bottom)
-//            bottom += v.height + presenterViewEdgeInsets.top
-//        }
-//        
-//        if let v = toolbar {
-//            bottom += toolbarEdgeInsets.bottom
-//            container.layout(v).bottom(bottom)
-//        }
+        container.height = top
+        height = top
     }
 }

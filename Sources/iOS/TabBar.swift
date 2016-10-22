@@ -122,6 +122,7 @@ open class TabBar: Bar {
             line.height = value
         }
     }
+    
     open override func layoutSubviews() {
 		super.layoutSubviews()
         guard willLayout else {
