@@ -16,4 +16,12 @@ Pod::Spec.new do |s|
       'io.cosmicmind.material.icons' => ['Sources/**/*.xcassets'],
 	  'io.cosmicmind.material.fonts' => ['Sources/**/*.ttf']
   }
+
+  s.subspec 'Camera' do |camera|
+    camera.source_files = 'Sources/iOS/Camera/*.swift'
+  end
+
+  s.subspec 'photos' do |photos|
+    photos.source_files = 'Sources/iOS/Photos/*.swift'
+  end
 end
