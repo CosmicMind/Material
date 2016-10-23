@@ -64,7 +64,7 @@ open class MenuController: RootController {
                 guard let s = self else {
                     return
                 }
-                s.rootViewController.view.alpha = 0.25
+                s.rootViewController.view.alpha = 0.15
             })
             menu.open { [completion = completion] (view) in
                 completion?(view)

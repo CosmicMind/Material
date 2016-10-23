@@ -195,9 +195,6 @@ open class Card: PulseView {
     open func reload() {
         // Clear constraints so new ones do not conflict.
         container.removeConstraints(container.constraints)
-        for v in container.subviews {
-            v.removeFromSuperview()
-        }
         
         var format = "V:|"
         var views = [String: Any]()
@@ -209,7 +206,7 @@ open class Card: PulseView {
             
             format += "-(toolbarTop)-[toolbar]-(toolbarBottom)"
             views["toolbar"] = v
-            container.layout(v).horizontally(left: toolbarEdgeInsets.left, right: toolbarEdgeInsets.right).height(v.height)
+            container.layout(v).horizontally(left: toolbarEdgeInsets.left, right: toolbarEdgeInsets.right)
         }
         
         if let v = contentView {
@@ -231,6 +228,8 @@ open class Card: PulseView {
         }
         
         if let v = bottomBar {
+            metrics["bottomBarBottom"] = bottomBarEdgeInsets.bottom
+            
             if nil != contentView {
                 metrics["contentViewBottom"] = (metrics["contentViewBottom"] as! CGFloat) + bottomBarEdgeInsets.top
                 format += "-[bottomBar]-(bottomBarBottom)"
@@ -239,18 +238,18 @@ open class Card: PulseView {
                 format += "-[bottomBar]-(bottomBarBottom)"
             } else {
                 metrics["bottomBarTop"] = bottomBarEdgeInsets.top
-                format += "-(bottomBarTop)-[bottomBar]"
+                format += "-(bottomBarTop)-[bottomBar]-(bottomBarBottom)"
             }
             
             views["bottomBar"] = v
-            container.layout(v).horizontally(left: bottomBarEdgeInsets.left, right: bottomBarEdgeInsets.right).height(v.height).bottom(bottomBarEdgeInsets.bottom)
+            container.layout(v).horizontally(left: bottomBarEdgeInsets.left, right: bottomBarEdgeInsets.right)
         }
         
         guard 0 < views.count else {
             return
         }
         
-        container.addConstraints(Layout.constraint(format: "\(format)|", options: [], metrics: metrics, views: views))
+        container.addConstraints(Layout.constraint(format: "\(format)-|", options: [], metrics: metrics, views: views))
     }
     
     /**

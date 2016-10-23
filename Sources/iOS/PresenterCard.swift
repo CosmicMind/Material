@@ -30,7 +30,6 @@
 
 import UIKit
 
-@available(iOS 9.0, *)
 open class PresenterCard: Card {
     /// A preset wrapper around presenterViewEdgeInsets.
     open var presenterViewEdgeInsetsPreset = EdgeInsetsPreset.none {
@@ -61,14 +60,14 @@ open class PresenterCard: Card {
     }
     
     open override func reload() {
-        var top: CGFloat = 0
+        var h: CGFloat = 0
         
-        top = prepare(view: toolbar, with: toolbarEdgeInsets, from: top)
-        top = prepare(view: presenterView, with: presenterViewEdgeInsets, from: top)
-        top = prepare(view: contentView, with: contentViewEdgeInsets, from: top)
-        top = prepare(view: bottomBar, with: bottomBarEdgeInsets, from: top)
+        h = prepare(view: toolbar, with: toolbarEdgeInsets, from: h)
+        h = prepare(view: presenterView, with: presenterViewEdgeInsets, from: h)
+        h = prepare(view: contentView, with: contentViewEdgeInsets, from: h)
+        h = prepare(view: bottomBar, with: bottomBarEdgeInsets, from: h)
         
-        container.height = top
-        height = top
+        container.height = h
+        height = h
     }
 }

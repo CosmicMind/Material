@@ -315,13 +315,15 @@ extension CALayer {
         guard isShadowPathAutoSizing else {
             return
         }
-       z
+       
         if .none == depthPreset {
             shadowPath = nil
         } else if nil == shadowPath {
             shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
         } else {
-            animate(animation: Animation.shadowPath(path: UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath, duration: 0))
+            let a = Animation.shadowPath(path: UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath)
+            a.fromValue = shadowPath
+            animate(animation: a)
         }
     }
 }

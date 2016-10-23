@@ -292,7 +292,7 @@ extension Animation {
 		animation.toValue = path
         animation.fillMode = AnimationFillModeToValue(mode: .forwards)
         animation.isRemovedOnCompletion = false
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
 		if let v = duration {
 			animation.duration = v
 		}

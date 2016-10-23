@@ -121,6 +121,7 @@ open class CollectionViewLayout: UICollectionViewLayout {
 		guard let dataSource = collectionView?.dataSource as? CollectionViewDataSource else {
 			return
 		}
+        
         prepareLayoutForItems(dataSourceItems: dataSource.dataSourceItems)
 	}
 	
