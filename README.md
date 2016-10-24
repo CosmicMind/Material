@@ -4,7 +4,7 @@
 
 Material is an animation and graphics framework that is used to create beautiful applications.
 
-![Material Sample](http://cosmicmind.io/samples/github/page-tab-bar-controller.png)
+![Material Sample](http://cosmicmind.io/samples/github/page-tab-bar-controller-2.png)
 
 * [Download the latest sample](https://github.com/CosmicMind/Samples/tree/master/Graph/CardTableView).
 
