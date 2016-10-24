@@ -78,7 +78,7 @@ open class ImageCard: Card {
         
         if let v = toolbar {
             prepare(view: v, with: toolbarEdgeInsets, from: h)
-            v.y = .top == toolbarAlignment ? 0 : h - v.height
+            v.y = .top == toolbarAlignment ? toolbarEdgeInsets.top : h - v.height - toolbarEdgeInsets.bottom
         }
         
         h = prepare(view: contentView, with: contentViewEdgeInsets, from: h)
