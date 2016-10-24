@@ -18,11 +18,11 @@ Pod::Spec.new do |s|
     s.requires_arc = true
     s.resource_bundles = {
         'io.cosmicmind.material.icons' => ['Sources/**/*.xcassets'],
-      'io.cosmicmind.material.fonts' => ['Sources/**/*.ttf']
+        'io.cosmicmind.material.fonts' => ['Sources/**/*.ttf']
     }
   end
 
-  s.subspec 'Capture' do |camera|
+  s.subspec 'Capture' do |capture|
     camera.source_files = 'Sources/iOS/Capture/*.swift'
     camera.dependency 'Material/Core'
   end
