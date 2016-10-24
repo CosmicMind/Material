@@ -4,6 +4,10 @@
 
 Material is an animation and graphics framework that is used to create beautiful applications.
 
+![Material Sample](http://cosmicmind.io/samples/github/page-tab-bar-controller.png)
+
+* [Download the latest sample](https://github.com/CosmicMind/Samples/tree/master/Graph/CardTableView).
+
 ## About Material 2
 
 The first version of Material was to bring Material Design to iOS. We considered that a great starting point, but not the entire story. Material 2 is the next chapter, which goes deeper into iOS with refined APIs that simplify Architecture, Photo Library, Reminders, Text Editing, Photo & Video, and much more. In addition to Material Design, we love Apple’s flat UI. Having this in mind, we made it possible to accomplish both UI styles with ease.

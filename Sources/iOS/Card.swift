@@ -193,63 +193,14 @@ open class Card: PulseView {
     
     /// Reloads the layout.
     open func reload() {
-        // Clear constraints so new ones do not conflict.
-        container.removeConstraints(container.constraints)
+        var h: CGFloat = 0
         
-        var format = "V:|"
-        var views = [String: Any]()
-        var metrics = [String: Any]()
+        h = prepare(view: toolbar, with: toolbarEdgeInsets, from: h)
+        h = prepare(view: contentView, with: contentViewEdgeInsets, from: h)
+        h = prepare(view: bottomBar, with: bottomBarEdgeInsets, from: h)
         
-        if let v = toolbar {
-            metrics["toolbarTop"] = toolbarEdgeInsets.top
-            metrics["toolbarBottom"] = toolbarEdgeInsets.bottom
-            
-            format += "-(toolbarTop)-[toolbar]-(toolbarBottom)"
-            views["toolbar"] = v
-            container.layout(v).horizontally(left: toolbarEdgeInsets.left, right: toolbarEdgeInsets.right)
-        }
-        
-        if let v = contentView {
-            metrics["contentViewBottom"] = contentViewEdgeInsets.bottom
-            
-            if nil != toolbar {
-                metrics["toolbarBottom"] = (metrics["toolbarBottom"] as! CGFloat) + contentViewEdgeInsets.top
-                format += "-[contentView]-(contentViewBottom)"
-            } else {
-                metrics["contentViewTop"] = contentViewEdgeInsets.top
-                format += "-(contentViewTop)-[contentView]-(contentViewBottom)"
-            }
-            
-            views["contentView"] = v
-            container.layout(v).horizontally(left: contentViewEdgeInsets.left, right: contentViewEdgeInsets.right)
-            
-            v.grid.reload()
-            v.divider.reload()
-        }
-        
-        if let v = bottomBar {
-            metrics["bottomBarBottom"] = bottomBarEdgeInsets.bottom
-            
-            if nil != contentView {
-                metrics["contentViewBottom"] = (metrics["contentViewBottom"] as! CGFloat) + bottomBarEdgeInsets.top
-                format += "-[bottomBar]-(bottomBarBottom)"
-            } else if nil != toolbar {
-                metrics["toolbarBottom"] = (metrics["toolbarBottom"] as! CGFloat) + bottomBarEdgeInsets.top
-                format += "-[bottomBar]-(bottomBarBottom)"
-            } else {
-                metrics["bottomBarTop"] = bottomBarEdgeInsets.top
-                format += "-(bottomBarTop)-[bottomBar]-(bottomBarBottom)"
-            }
-            
-            views["bottomBar"] = v
-            container.layout(v).horizontally(left: bottomBarEdgeInsets.left, right: bottomBarEdgeInsets.right)
-        }
-        
-        guard 0 < views.count else {
-            return
-        }
-        
-        container.addConstraints(Layout.constraint(format: "\(format)-|", options: [], metrics: metrics, views: views))
+        container.height = h
+        bounds.size.height = h
     }
     
     /**
@@ -274,6 +225,7 @@ open class Card: PulseView {
      - Parameter from top: A CGFloat.
      - Returns: A CGFloat.
      */
+    @discardableResult
     open func prepare(view: UIView?, with insets: EdgeInsets, from top: CGFloat) -> CGFloat {
         guard let v = view else {
             return top

@@ -203,7 +203,6 @@ open class ToolbarController: StatusBarController {
 	/// Prepares the toolbar.
 	private func prepareToolbar() {
         toolbar.depthPreset = .depth1
-        toolbar.zPosition = 1000
         view.addSubview(toolbar)
 	}
 }
