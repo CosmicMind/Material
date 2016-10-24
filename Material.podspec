@@ -23,8 +23,8 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'Capture' do |capture|
-    camera.source_files = 'Sources/iOS/Capture/*.swift'
-    camera.dependency 'Material/Core'
+    capture.source_files = 'Sources/iOS/Capture/*.swift'
+    capture.dependency 'Material/Core'
   end
 
   s.subspec 'Photos' do |photos|
