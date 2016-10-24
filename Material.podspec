@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Material'
-  s.version = '2.2.4'
+  s.version = '2.2.5'
   s.license = 'BSD-3-Clause'
   s.summary = 'Material is an animation and graphics framework that is used to create beautiful applications.'
   s.homepage = 'http://materialswift.io'
@@ -22,8 +22,8 @@ Pod::Spec.new do |s|
     }
   end
 
-  s.subspec 'Camera' do |camera|
-    camera.source_files = 'Sources/iOS/Camera/*.swift'
+  s.subspec 'Capture' do |camera|
+    camera.source_files = 'Sources/iOS/Capture/*.swift'
     camera.dependency 'Material/Core'
   end
 
