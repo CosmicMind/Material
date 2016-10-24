@@ -7,6 +7,7 @@ Pod::Spec.new do |s|
   s.social_media_url = 'https://www.facebook.com/cosmicmindio'
   s.authors = { 'CosmicMind, Inc.' => 'support@cosmicmind.io' }
   s.source = { :git => 'https://github.com/CosmicMind/Material.git', :tag => s.version }
+  s.platform = :ios, '8.0'
   
   s.default_subspec = 'Core'
 
