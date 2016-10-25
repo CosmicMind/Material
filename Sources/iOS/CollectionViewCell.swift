@@ -245,13 +245,13 @@ open class CollectionViewCell: UICollectionViewCell {
      from the center.
      */
     open func pulse(point: CGPoint? = nil) {
-        let p: CGPoint = nil == point ? CGPoint(x: CGFloat(width / 2), y: CGFloat(height / 2)) : point!
-        Animation.pulseExpandAnimation(layer: layer, visualLayer: visualLayer, point: p, width: width, height: height, pulse: &pulse)
-        Animation.delay(time: 0.35) { [weak self] in
+        let p = nil == point ? CGPoint(x: CGFloat(width / 2), y: CGFloat(height / 2)) : point!
+        Motion.pulseExpandAnimation(layer: layer, visualLayer: visualLayer, point: p, width: width, height: height, pulse: &pulse)
+        Motion.delay(time: 0.35) { [weak self] in
             guard let s = self else {
                 return
             }
-            Animation.pulseContractAnimation(layer: s.layer, visualLayer: s.visualLayer, pulse: &s.pulse)
+            Motion.pulseContractAnimation(layer: s.layer, visualLayer: s.visualLayer, pulse: &s.pulse)
         }
     }
     
@@ -263,7 +263,7 @@ open class CollectionViewCell: UICollectionViewCell {
      */
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        Animation.pulseExpandAnimation(layer: layer, visualLayer: visualLayer, point: layer.convert(touches.first!.location(in: self), from: layer), width: width, height: height, pulse: &pulse)
+        Motion.pulseExpandAnimation(layer: layer, visualLayer: visualLayer, point: layer.convert(touches.first!.location(in: self), from: layer), width: width, height: height, pulse: &pulse)
     }
     
     /**
@@ -274,7 +274,7 @@ open class CollectionViewCell: UICollectionViewCell {
      */
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
-        Animation.pulseContractAnimation(layer: layer, visualLayer: visualLayer, pulse: &pulse)
+        Motion.pulseContractAnimation(layer: layer, visualLayer: visualLayer, pulse: &pulse)
     }
     
     /**
@@ -285,7 +285,7 @@ open class CollectionViewCell: UICollectionViewCell {
      */
     open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesCancelled(touches, with: event)
-        Animation.pulseContractAnimation(layer: layer, visualLayer: visualLayer, pulse: &pulse)
+        Motion.pulseContractAnimation(layer: layer, visualLayer: visualLayer, pulse: &pulse)
     }
 	
 	/**

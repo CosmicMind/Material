@@ -108,7 +108,7 @@ open class SnackbarController: RootController {
      */
     @discardableResult
     open func animate(snackbar status: SnackbarStatus, delay: TimeInterval = 0, animations: ((Snackbar) -> Void)? = nil, completion: ((Snackbar) -> Void)? = nil) -> AnimationDelayCancelBlock? {
-        return Animation.delay(time: delay) { [weak self, status = status, animations = animations, completion = completion] in
+        return Motion.delay(time: delay) { [weak self, status = status, animations = animations, completion = completion] in
             guard let s = self else {
                 return
             }

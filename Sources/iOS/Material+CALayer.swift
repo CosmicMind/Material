@@ -321,7 +321,7 @@ extension CALayer {
         } else if nil == shadowPath {
             shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
         } else {
-            let a = Animation.shadowPath(to: UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath)
+            let a = Motion.shadowPath(to: UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath)
             a.fromValue = shadowPath
             animate(animation: a)
         }

@@ -42,7 +42,7 @@ public enum PulseAnimation: Int {
 	case pointWithBacking
 }
 
-internal extension Animation {
+internal extension Motion {
 	/**
      Triggers the expanding animation.
      - Parameter layer: Container CALayer.
@@ -71,7 +71,7 @@ internal extension Animation {
         
         visualLayer.masksToBounds = !(.centerRadialBeyondBounds == pulse.animation || .radialBeyondBounds == pulse.animation)
         
-        Animation.disable(animations: { [visualLayer = visualLayer, pulse = pulse] in
+        Motion.disable(animations: { [visualLayer = visualLayer, pulse = pulse] in
             bLayer.frame = visualLayer.bounds
             pLayer.bounds = CGRect(x: 0, y: 0, width: n, height: n)
             
@@ -93,17 +93,17 @@ internal extension Animation {
         
         switch pulse.animation {
         case .centerWithBacking, .backing, .pointWithBacking:
-            bLayer.add(Animation.backgroundColor(color: pulse.color.withAlphaComponent(pulse.opacity / 2), duration: duration), forKey: nil)
+            bLayer.add(Motion.backgroundColor(color: pulse.color.withAlphaComponent(pulse.opacity / 2), duration: duration), forKey: nil)
         default:break
         }
         
         switch pulse.animation {
         case .center, .centerWithBacking, .centerRadialBeyondBounds, .radialBeyondBounds, .point, .pointWithBacking:
-            pLayer.add(Animation.scale(by: 1, duration: duration), forKey: nil)
+            pLayer.add(Motion.scale(by: 1, duration: duration), forKey: nil)
         default:break
         }
         
-        Animation.delay(time: duration) {
+        Motion.delay(time: duration) {
             bLayer.setValue(true, forKey: "animated")
         }
 	}
@@ -123,7 +123,7 @@ internal extension Animation {
             return
         }
         
-        Animation.delay(time: animated ? 0 : 0.15) { [pulse = pulse] in
+        Motion.delay(time: animated ? 0 : 0.15) { [pulse = pulse] in
             guard let pLayer = bLayer.sublayers?.first as? CAShapeLayer else {
                 return
             }
@@ -132,20 +132,20 @@ internal extension Animation {
             
             switch pulse.animation {
             case .centerWithBacking, .backing, .pointWithBacking:
-                bLayer.add(Animation.backgroundColor(color: pulse.color.withAlphaComponent(0), duration: duration), forKey: nil)
+                bLayer.add(Motion.backgroundColor(color: pulse.color.withAlphaComponent(0), duration: duration), forKey: nil)
             default:break
             }
             
             switch pulse.animation {
             case .center, .centerWithBacking, .centerRadialBeyondBounds, .radialBeyondBounds, .point, .pointWithBacking:
-                pLayer.add(Animation.animate(group: [
-                    Animation.scale(by: .center == pulse.animation ? 1 : 1.325),
-                    Animation.backgroundColor(color: pulse.color.withAlphaComponent(0))
+                pLayer.add(Motion.animate(group: [
+                    Motion.scale(by: .center == pulse.animation ? 1 : 1.325),
+                    Motion.backgroundColor(color: pulse.color.withAlphaComponent(0))
                 ], duration: duration), forKey: nil)
             default:break
             }
             
-            Animation.delay(time: duration) {
+            Motion.delay(time: duration) {
                 pLayer.removeFromSuperlayer()
                 bLayer.removeFromSuperlayer()
             }

@@ -53,7 +53,7 @@ public func AnimationRotationModeToValue(mode: AnimationRotationMode) -> String?
 	}
 }
 
-extension Animation {
+extension Motion {
 	/**
      Creates a CAKeyframeAnimation.
      - Parameter bezierPath: A UIBezierPath.

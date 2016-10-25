@@ -60,7 +60,7 @@ extension CABasicAnimation {
     }
 }
 
-extension Animation {
+extension Motion {
 	/**
      Creates a CABasicAnimation for the backgroundColor key path.
      - Parameter color: A UIColor.

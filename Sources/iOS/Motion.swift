@@ -57,11 +57,11 @@ public func AnimationFillModeToValue(mode: AnimationFillMode) -> String {
 
 @objc(AnimationTimingFunction)
 public enum AnimationTimingFunction: Int {
+    case `default`
     case linear
     case easeIn
     case easeOut
     case easeInEaseOut
-    case `default`
 }
 
 /**
@@ -86,7 +86,7 @@ public func AnimationTimingFunctionToValue(function: AnimationTimingFunction) ->
 
 public typealias AnimationDelayCancelBlock = (Bool) -> Void
 
-public struct Animation {
+public struct Motion {
 	/**
      Executes a block of code after a time delay.
      - Parameter duration: An animation duration time.
@@ -160,7 +160,7 @@ public struct Animation {
      - Returns: A CAAnimationGroup.
      */
 	public static func animate(group animations: [CAAnimation], duration: CFTimeInterval = 0.5) -> CAAnimationGroup {
-		let group: CAAnimationGroup = CAAnimationGroup()
+		let group = CAAnimationGroup()
 		group.fillMode = AnimationFillModeToValue(mode: .forwards)
 		group.isRemovedOnCompletion = false
 		group.animations = animations
@@ -183,3 +183,4 @@ public struct Animation {
 		}
 	}
 }
+

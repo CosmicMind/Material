@@ -85,7 +85,7 @@ public func AnimationTransitionDirectionToValue(direction: AnimationTransitionDi
 	}
 }
 
-extension Animation {
+extension Motion {
 	/**
      Creates a CATransition animation.
      - Parameter type: An AnimationTransition.
