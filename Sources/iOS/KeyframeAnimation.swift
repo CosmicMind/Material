@@ -57,7 +57,7 @@ extension Animation {
 	*/
 	public static func path(bezierPath: UIBezierPath, mode: AnimationRotationMode = .auto, duration: CFTimeInterval? = nil) -> CAKeyframeAnimation {
 		let animation: CAKeyframeAnimation = CAKeyframeAnimation()
-		animation.keyPath = "position"
+		animation.keyPath = AnimationKey.position.rawValue
 		animation.path = bezierPath.cgPath
         animation.rotationMode = AnimationRotationModeToValue(mode: mode)
 		if let v = duration {

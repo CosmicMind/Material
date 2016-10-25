@@ -55,6 +55,35 @@ public func AnimationFillModeToValue(mode: AnimationFillMode) -> String {
 	}
 }
 
+@objc(AnimationTimingFunction)
+public enum AnimationTimingFunction: Int {
+    case liner
+    case easeIn
+    case easeOut
+    case easeInEaseOut
+    case systemDefault
+}
+
+/**
+ Converts the AnimationTimingFunction enum value to a corresponding CAMediaTimingFunction.
+ - Parameter function: An AnimationTimingFunction enum value.
+ */
+public func AnimationTimingFunctionToValue(function: AnimationTimingFunction) -> CAMediaTimingFunction {
+    switch function {
+    case .liner:
+        return CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+    case .easeIn:
+        return CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+    case .easeOut:
+        return CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+    case .easeInEaseOut:
+        return CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+    case .systemDefault:
+        return CAMediaTimingFunction(name: kCAMediaTimingFunctionDefault)
+    }
+}
+
+
 public typealias AnimationDelayCancelBlock = (Bool) -> Void
 
 public struct Animation {
@@ -106,7 +135,7 @@ public struct Animation {
 		CATransaction.begin()
 		CATransaction.setAnimationDuration(duration)
 		CATransaction.setCompletionBlock(completion)
-		CATransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut))
+		CATransaction.setAnimationTimingFunction(AnimationTimingFunctionToValue(function: .easeInEaseOut))
 		animations()
 		CATransaction.commit()
 	}
@@ -120,7 +149,7 @@ public struct Animation {
 		group.isRemovedOnCompletion = false
 		group.animations = animations
 		group.duration = duration
-		group.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+		group.timingFunction = AnimationTimingFunctionToValue(function: .easeInEaseOut)
 		return group
 	}
 	
