@@ -39,7 +39,7 @@ extension Animation {
 		animation.toValue = color.cgColor
 		animation.fillMode = AnimationFillModeToValue(mode: .forwards)
 		animation.isRemovedOnCompletion = false
-		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+		animation.timingFunction = AnimationTimingFunctionToValue(function: .easeInEaseOut)
 		if let v = duration {
 			animation.duration = v
 		}
@@ -54,7 +54,7 @@ extension Animation {
 		animation.toValue = radius
 		animation.fillMode = AnimationFillModeToValue(mode: .forwards)
 		animation.isRemovedOnCompletion = false
-		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+		animation.timingFunction = AnimationTimingFunctionToValue(function: .easeInEaseOut)
 		if let v = duration {
 			animation.duration = v
 		}
@@ -69,7 +69,7 @@ extension Animation {
 		animation.toValue = NSValue(caTransform3D: transform)
 		animation.fillMode = AnimationFillModeToValue(mode: .forwards)
 		animation.isRemovedOnCompletion = false
-		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+		animation.timingFunction = AnimationTimingFunctionToValue(function: .easeInEaseOut)
 		if let v = duration {
 			animation.duration = v
 		}
@@ -88,7 +88,7 @@ extension Animation {
 		}
 		animation.fillMode = AnimationFillModeToValue(mode: .forwards)
 		animation.isRemovedOnCompletion = false
-		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+		animation.timingFunction = AnimationTimingFunctionToValue(function: .easeInEaseOut)
 		if let v = duration {
 			animation.duration = v
 		}
@@ -107,7 +107,7 @@ extension Animation {
 		}
 		animation.fillMode = AnimationFillModeToValue(mode: .forwards)
 		animation.isRemovedOnCompletion = false
-		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+		animation.timingFunction = AnimationTimingFunctionToValue(function: .easeInEaseOut)
 		if let v = duration {
 			animation.duration = v
 		}
@@ -126,7 +126,7 @@ extension Animation {
 		}
 		animation.fillMode = AnimationFillModeToValue(mode: .forwards)
 		animation.isRemovedOnCompletion = false
-		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+		animation.timingFunction = AnimationTimingFunctionToValue(function: .easeInEaseOut)
 		if let v = duration {
 			animation.duration = v
 		}
@@ -145,7 +145,7 @@ extension Animation {
 		}
 		animation.fillMode = AnimationFillModeToValue(mode: .forwards)
 		animation.isRemovedOnCompletion = false
-		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+		animation.timingFunction = AnimationTimingFunctionToValue(function: .easeInEaseOut)
 		if let v = duration {
 			animation.duration = v
 		}
@@ -160,7 +160,7 @@ extension Animation {
 		animation.toValue = scale as NSNumber
 		animation.fillMode = AnimationFillModeToValue(mode: .forwards)
 		animation.isRemovedOnCompletion = false
-		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+		animation.timingFunction = AnimationTimingFunctionToValue(function: .easeInEaseOut)
 		if let v = duration {
 			animation.duration = v
 		}
@@ -175,7 +175,7 @@ extension Animation {
 		animation.toValue = scale as NSNumber
 		animation.fillMode = AnimationFillModeToValue(mode: .forwards)
 		animation.isRemovedOnCompletion = false
-		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+		animation.timingFunction = AnimationTimingFunctionToValue(function: .easeInEaseOut)
 		if let v = duration {
 			animation.duration = v
 		}
@@ -190,7 +190,7 @@ extension Animation {
 		animation.toValue = scale as NSNumber
 		animation.fillMode = AnimationFillModeToValue(mode: .forwards)
 		animation.isRemovedOnCompletion = false
-		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+		animation.timingFunction = AnimationTimingFunctionToValue(function: .easeInEaseOut)
 		if let v = duration {
 			animation.duration = v
 		}
@@ -205,7 +205,7 @@ extension Animation {
 		animation.toValue = scale as NSNumber
 		animation.fillMode = AnimationFillModeToValue(mode: .forwards)
 		animation.isRemovedOnCompletion = false
-		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+		animation.timingFunction = AnimationTimingFunctionToValue(function: .easeInEaseOut)
 		if let v = duration {
 			animation.duration = v
 		}
@@ -220,7 +220,7 @@ extension Animation {
 		animation.toValue = NSValue(cgSize: translation)
 		animation.fillMode = AnimationFillModeToValue(mode: .forwards)
 		animation.isRemovedOnCompletion = false
-		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+		animation.timingFunction = AnimationTimingFunctionToValue(function: .easeInEaseOut)
 		if let v = duration {
 			animation.duration = v
 		}
@@ -235,7 +235,7 @@ extension Animation {
 		animation.toValue = translation as NSNumber
 		animation.fillMode = AnimationFillModeToValue(mode: .forwards)
 		animation.isRemovedOnCompletion = false
-		animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+		animation.timingFunction = AnimationTimingFunctionToValue(function: .easeInEaseOut)
 		if let v = duration {
 			animation.duration = v
 		}
@@ -250,7 +250,7 @@ extension Animation {
 		animation.toValue = translation as NSNumber
         animation.fillMode = AnimationFillModeToValue(mode: .forwards)
         animation.isRemovedOnCompletion = false
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        animation.timingFunction = AnimationTimingFunctionToValue(function: .easeInEaseOut)
 		if let v = duration {
 			animation.duration = v
 		}
@@ -265,7 +265,7 @@ extension Animation {
 		animation.toValue = translation as NSNumber
         animation.fillMode = AnimationFillModeToValue(mode: .forwards)
         animation.isRemovedOnCompletion = false
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        animation.timingFunction = AnimationTimingFunctionToValue(function: .easeInEaseOut)
 		if let v = duration {
 			animation.duration = v
 		}
@@ -280,7 +280,7 @@ extension Animation {
 		animation.toValue = NSValue(cgPoint: point)
         animation.fillMode = AnimationFillModeToValue(mode: .forwards)
         animation.isRemovedOnCompletion = false
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        animation.timingFunction = AnimationTimingFunctionToValue(function: .easeInEaseOut)
 		if let v = duration {
 			animation.duration = v
 		}
@@ -292,7 +292,7 @@ extension Animation {
 		animation.toValue = path
         animation.fillMode = AnimationFillModeToValue(mode: .forwards)
         animation.isRemovedOnCompletion = false
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+        animation.timingFunction = AnimationTimingFunctionToValue(function: .liner)
 		if let v = duration {
 			animation.duration = v
 		}
