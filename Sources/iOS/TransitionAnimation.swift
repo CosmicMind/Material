@@ -30,70 +30,78 @@
 
 import UIKit
 
-public typealias AnimationTransitionType = String
-public typealias AnimationTransitionSubTypeType = String
-
 @objc(AnimationTransition)
 public enum AnimationTransition: Int {
-	case Fade
-	case MoveIn
-	case Push
-	case Reveal
+	case fade
+	case moveIn
+	case push
+	case reveal
 }
 
-@objc(AnimationTransitionSubType)
-public enum AnimationTransitionSubType: Int {
-	case Right
-	case Left
-	case Top
-	case Bottom
+@objc(AnimationTransitionDirection)
+public enum AnimationTransitionDirection: Int {
+	case `default`
+    case right
+	case left
+	case top
+	case bottom
 }
 
 /**
-	:name:	AnimationTransitionToValue
-*/
-public func AnimationTransitionToValue(transition: AnimationTransition) -> AnimationTransitionType {
-	switch transition {
-	case .Fade:
+ Converts an AnimationTransition to a corresponding CATransition key.
+ - Parameter transition: An AnimationTransition.
+ - Returns: A CATransition key String.
+ */
+public func AnimationTransitionToValue(transition type: AnimationTransition) -> String {
+	switch type {
+	case .fade:
 		return kCATransitionFade
-	case .MoveIn:
+	case .moveIn:
 		return kCATransitionMoveIn
-	case .Push:
+	case .push:
 		return kCATransitionPush
-	case .Reveal:
+	case .reveal:
 		return kCATransitionReveal
 	}
 }
 
 /**
-	:name:	AnimationTransitionSubTypeToValue
-*/
-public func AnimationTransitionSubTypeToValue(direction: AnimationTransitionSubType) -> AnimationTransitionSubTypeType {
+ Converts an AnimationTransitionDirection to a corresponding CATransition direction key.
+ - Parameter direction: An AnimationTransitionDirection.
+ - Returns: An optional CATransition direction key String.
+ */
+public func AnimationTransitionDirectionToValue(direction: AnimationTransitionDirection) -> String? {
 	switch direction {
-	case .Right:
+    case .default:
+        return nil
+    case .right:
 		return kCATransitionFromRight
-	case .Left:
+	case .left:
 		return kCATransitionFromLeft
-	case .Top:
+	case .top:
 		return kCATransitionFromBottom
-	case .Bottom:
+	case .bottom:
 		return kCATransitionFromTop
 	}
 }
 
 extension Animation {
 	/**
-	:name: transition
-	*/
-	public static func transition(type: AnimationTransition, direction: AnimationTransitionSubType? = nil, duration: CFTimeInterval? = nil) -> CATransition {
-		let animation: CATransition = CATransition()
+     Creates a CATransition animation.
+     - Parameter type: An AnimationTransition.
+     - Parameter direction: An optional AnimationTransitionDirection.
+     - Parameter duration: An optional duration time.
+     - Returns: A CATransition.
+     */
+	public static func transition(type: AnimationTransition, direction: AnimationTransitionDirection = .default, duration: CFTimeInterval? = nil) -> CATransition {
+		let animation = CATransition()
 		animation.type = AnimationTransitionToValue(transition: type)
-		if let d = direction {
-			animation.subtype = AnimationTransitionSubTypeToValue(direction: d)
-		}
-		if let v: CFTimeInterval = duration {
+        animation.subtype = AnimationTransitionDirectionToValue(direction: direction)
+		
+        if let v = duration {
 			animation.duration = v
 		}
-		return animation
+		
+        return animation
 	}
 }

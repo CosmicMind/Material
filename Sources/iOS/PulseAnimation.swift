@@ -71,7 +71,7 @@ internal extension Animation {
         
         visualLayer.masksToBounds = !(.centerRadialBeyondBounds == pulse.animation || .radialBeyondBounds == pulse.animation)
         
-        Animation.animationDisabled(animations: { [visualLayer = visualLayer, pulse = pulse] in
+        Animation.disable(animations: { [visualLayer = visualLayer, pulse = pulse] in
             bLayer.frame = visualLayer.bounds
             pLayer.bounds = CGRect(x: 0, y: 0, width: n, height: n)
             
@@ -99,7 +99,7 @@ internal extension Animation {
         
         switch pulse.animation {
         case .center, .centerWithBacking, .centerRadialBeyondBounds, .radialBeyondBounds, .point, .pointWithBacking:
-            pLayer.add(Animation.scale(scale: 1, duration: duration), forKey: nil)
+            pLayer.add(Animation.scale(by: 1, duration: duration), forKey: nil)
         default:break
         }
         
@@ -138,8 +138,8 @@ internal extension Animation {
             
             switch pulse.animation {
             case .center, .centerWithBacking, .centerRadialBeyondBounds, .radialBeyondBounds, .point, .pointWithBacking:
-                pLayer.add(Animation.animationGroup(animations: [
-                    Animation.scale(scale: .center == pulse.animation ? 1 : 1.325),
+                pLayer.add(Animation.animate(group: [
+                    Animation.scale(by: .center == pulse.animation ? 1 : 1.325),
                     Animation.backgroundColor(color: pulse.color.withAlphaComponent(0))
                 ], duration: duration), forKey: nil)
             default:break

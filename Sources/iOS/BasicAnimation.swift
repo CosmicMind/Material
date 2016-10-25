@@ -30,159 +30,213 @@
 
 import UIKit
 
-public enum AnimationKey: String {
+public enum AnimationKeyPath: String {
     case backgroundColor
     case cornerRadius
     case transform
-    case transformRotation  = "transform.rotation"
-    case transformRotationX = "transform.rotation.x"
-    case transformRotationY = "transform.rotation.y"
-    case transformRotationZ = "transform.rotation.z"
-    case transformScale  = "transform.scale"
-    case transformScaleX = "transform.scale.x"
-    case transformScaleY = "transform.scale.y"
-    case transformScaleZ = "transform.scale.z"
-    case transformTranslation  = "transform.translation"
-    case transformTranslationX = "transform.translation.x"
-    case transformTranslationY = "transform.translation.y"
-    case transformTranslationZ = "transform.translation.z"
+    case rotation  = "transform.rotation"
+    case rotationX = "transform.rotation.x"
+    case rotationY = "transform.rotation.y"
+    case rotationZ = "transform.rotation.z"
+    case scale  = "transform.scale"
+    case scaleX = "transform.scale.x"
+    case scaleY = "transform.scale.y"
+    case scaleZ = "transform.scale.z"
+    case translation  = "transform.translation"
+    case translationX = "transform.translation.x"
+    case translationY = "transform.translation.y"
+    case translationZ = "transform.translation.z"
     case position
     case shadowPath
 }
 
 extension CABasicAnimation {
-    convenience init(keyPath key: AnimationKey) {
-        self.init(keyPath: key.rawValue)
+    /**
+     A convenience initializer that takes a given AnimationKeyPath.
+     - Parameter keyPath: An AnimationKeyPath.
+     */
+    public convenience init(keyPath: AnimationKeyPath) {
+        self.init(keyPath: keyPath.rawValue)
     }
 }
 
 extension Animation {
 	/**
-	:name:	backgroundColor
-	*/
+     Creates a CABasicAnimation for the backgroundColor key path.
+     - Parameter color: A UIColor.
+     - Parameter duration: An animation time duration.
+     - Returns: A CABasicAnimation.
+     */
 	public static func backgroundColor(color: UIColor, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation = CABasicAnimation(keyPath: .backgroundColor)
 		animation.toValue = color.cgColor
 		animation.fillMode = AnimationFillModeToValue(mode: .forwards)
 		animation.isRemovedOnCompletion = false
 		animation.timingFunction = AnimationTimingFunctionToValue(function: .easeInEaseOut)
-		if let v = duration {
+		
+        if let v = duration {
 			animation.duration = v
 		}
-		return animation
+		
+        return animation
 	}
 	
-	/**
-	:name:	cornerRadius
-	*/
-	public static func cornerRadius(radius: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+    /**
+     Creates a CABasicAnimation for the cornerRadius key path.
+     - Parameter radius: A CGFloat.
+     - Parameter duration: An animation time duration.
+     - Returns: A CABasicAnimation.
+     */
+    public static func cornerRadius(radius: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation = CABasicAnimation(keyPath: .cornerRadius)
 		animation.toValue = radius
 		animation.fillMode = AnimationFillModeToValue(mode: .forwards)
 		animation.isRemovedOnCompletion = false
 		animation.timingFunction = AnimationTimingFunctionToValue(function: .easeInEaseOut)
-		if let v = duration {
+		
+        if let v = duration {
 			animation.duration = v
 		}
-		return animation
+		
+        return animation
 	}
 	
-	/**
-	:name:	translation
-	*/
-	public static func transform(transform: CATransform3D, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+    /**
+     Creates a CABasicAnimation for the transform key path.
+     - Parameter transform: A CATransform3D object.
+     - Parameter duration: An animation time duration.
+     - Returns: A CABasicAnimation.
+     */
+    public static func transform(transform: CATransform3D, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation = CABasicAnimation(keyPath: .transform)
-		animation.toValue = NSValue(caTransform3D: transform)
+		
+        animation.toValue = NSValue(caTransform3D: transform)
 		animation.fillMode = AnimationFillModeToValue(mode: .forwards)
 		animation.isRemovedOnCompletion = false
 		animation.timingFunction = AnimationTimingFunctionToValue(function: .easeInEaseOut)
-		if let v = duration {
+		
+        if let v = duration {
+			animation.duration = v
+		}
+		
+        return animation
+	}
+	
+    /**
+     Creates a CABasicAnimation for the transform.rotation key path.
+     - Parameter angle: An optional CGFloat.
+     - Parameter rotation: An optional CGFloat.
+     - Parameter duration: An animation time duration.
+     - Returns: A CABasicAnimation.
+     */
+    public static func rotate(angle: CGFloat? = nil, rotation: CGFloat? = nil, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+		let animation = CABasicAnimation(keyPath: .rotation)
+        
+        if let v = angle {
+			animation.toValue = (CGFloat(M_PI) * v / 180) as NSNumber
+		} else if let v = rotation {
+			animation.toValue = (CGFloat(M_PI * 2) * v) as NSNumber
+		}
+		
+        animation.fillMode = AnimationFillModeToValue(mode: .forwards)
+		animation.isRemovedOnCompletion = false
+		animation.timingFunction = AnimationTimingFunctionToValue(function: .easeInEaseOut)
+		
+        if let v = duration {
 			animation.duration = v
 		}
 		return animation
 	}
 	
-	/**
-	:name:	rotate
-	*/
-	public static func rotate(angle: CGFloat? = nil, rotation: CGFloat? = nil, duration: CFTimeInterval? = nil) -> CABasicAnimation {
-		let animation = CABasicAnimation(keyPath: .transformRotation)
-		if let v: CGFloat = angle {
+    /**
+     Creates a CABasicAnimation for the transform.rotation.x key path.
+     - Parameter angle: An optional CGFloat.
+     - Parameter rotation: An optional CGFloat.
+     - Parameter duration: An animation time duration.
+     - Returns: A CABasicAnimation.
+     */
+    public static func rotateX(angle: CGFloat? = nil, rotation: CGFloat? = nil, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+		let animation = CABasicAnimation(keyPath: .rotationX)
+		
+        if let v: CGFloat = angle {
 			animation.toValue = (CGFloat(M_PI) * v / 180) as NSNumber
 		} else if let v: CGFloat = rotation {
 			animation.toValue = (CGFloat(M_PI * 2) * v) as NSNumber
 		}
-		animation.fillMode = AnimationFillModeToValue(mode: .forwards)
+		
+        animation.fillMode = AnimationFillModeToValue(mode: .forwards)
 		animation.isRemovedOnCompletion = false
 		animation.timingFunction = AnimationTimingFunctionToValue(function: .easeInEaseOut)
-		if let v = duration {
+		
+        if let v = duration {
 			animation.duration = v
 		}
-		return animation
+		
+        return animation
 	}
 	
-	/**
-	:name:	rotateX
-	*/
-	public static func rotateX(angle: CGFloat? = nil, rotation: CGFloat? = nil, duration: CFTimeInterval? = nil) -> CABasicAnimation {
-		let animation = CABasicAnimation(keyPath: .transformRotationX)
-		if let v: CGFloat = angle {
+    /**
+     Creates a CABasicAnimation for the transform.rotation.y key path.
+     - Parameter angle: An optional CGFloat.
+     - Parameter rotation: An optional CGFloat.
+     - Parameter duration: An animation time duration.
+     - Returns: A CABasicAnimation.
+     */
+    public static func rotateY(angle: CGFloat? = nil, rotation: CGFloat? = nil, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+		let animation = CABasicAnimation(keyPath: .rotationY)
+		
+        if let v: CGFloat = angle {
 			animation.toValue = (CGFloat(M_PI) * v / 180) as NSNumber
 		} else if let v: CGFloat = rotation {
 			animation.toValue = (CGFloat(M_PI * 2) * v) as NSNumber
 		}
-		animation.fillMode = AnimationFillModeToValue(mode: .forwards)
+		
+        animation.fillMode = AnimationFillModeToValue(mode: .forwards)
 		animation.isRemovedOnCompletion = false
 		animation.timingFunction = AnimationTimingFunctionToValue(function: .easeInEaseOut)
-		if let v = duration {
+		
+        if let v = duration {
 			animation.duration = v
 		}
-		return animation
+		
+        return animation
 	}
 	
-	/**
-	:name:	rotateY
-	*/
-	public static func rotateY(angle: CGFloat? = nil, rotation: CGFloat? = nil, duration: CFTimeInterval? = nil) -> CABasicAnimation {
-		let animation = CABasicAnimation(keyPath: .transformRotationY)
-		if let v: CGFloat = angle {
+    /**
+     Creates a CABasicAnimation for the transform.rotation.z key path.
+     - Parameter angle: An optional CGFloat.
+     - Parameter rotation: An optional CGFloat.
+     - Parameter duration: An animation time duration.
+     - Returns: A CABasicAnimation.
+     */
+    public static func rotateZ(angle: CGFloat? = nil, rotation: CGFloat? = nil, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+		let animation = CABasicAnimation(keyPath: .rotationZ)
+		
+        if let v: CGFloat = angle {
 			animation.toValue = (CGFloat(M_PI) * v / 180) as NSNumber
 		} else if let v: CGFloat = rotation {
 			animation.toValue = (CGFloat(M_PI * 2) * v) as NSNumber
 		}
-		animation.fillMode = AnimationFillModeToValue(mode: .forwards)
+		
+        animation.fillMode = AnimationFillModeToValue(mode: .forwards)
 		animation.isRemovedOnCompletion = false
 		animation.timingFunction = AnimationTimingFunctionToValue(function: .easeInEaseOut)
-		if let v = duration {
+		
+        if let v = duration {
 			animation.duration = v
 		}
-		return animation
-	}
-	
-	/**
-	:name:	rotateZ
-	*/
-	public static func rotateZ(angle: CGFloat? = nil, rotation: CGFloat? = nil, duration: CFTimeInterval? = nil) -> CABasicAnimation {
-		let animation = CABasicAnimation(keyPath: .transformRotationZ)
-		if let v: CGFloat = angle {
-			animation.toValue = (CGFloat(M_PI) * v / 180) as NSNumber
-		} else if let v: CGFloat = rotation {
-			animation.toValue = (CGFloat(M_PI * 2) * v) as NSNumber
-		}
-		animation.fillMode = AnimationFillModeToValue(mode: .forwards)
-		animation.isRemovedOnCompletion = false
-		animation.timingFunction = AnimationTimingFunctionToValue(function: .easeInEaseOut)
-		if let v = duration {
-			animation.duration = v
-		}
-		return animation
+		
+        return animation
 	}
 
-	/**
-	:name:	scale
-	*/
-	public static func scale(scale: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
-		let animation = CABasicAnimation(keyPath: .transformScale)
+    /**
+     Creates a CABasicAnimation for the transform.scale key path.
+     - Parameter by scale: A CGFloat.
+     - Parameter duration: An animation time duration.
+     - Returns: A CABasicAnimation.
+     */
+    public static func scale(by scale: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+		let animation = CABasicAnimation(keyPath: .scale)
 		animation.toValue = scale as NSNumber
 		animation.fillMode = AnimationFillModeToValue(mode: .forwards)
 		animation.isRemovedOnCompletion = false
@@ -193,11 +247,14 @@ extension Animation {
 		return animation
 	}
 	
-	/**
-	:name:	scaleX
-	*/
-	public static func scaleX(scale: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
-		let animation = CABasicAnimation(keyPath: .transformScaleX)
+    /**
+     Creates a CABasicAnimation for the transform.scale.x key path.
+     - Parameter by scale: A CGFloat.
+     - Parameter duration: An animation time duration.
+     - Returns: A CABasicAnimation.
+     */
+    public static func scaleX(by scale: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+		let animation = CABasicAnimation(keyPath: .scaleX)
 		animation.toValue = scale as NSNumber
 		animation.fillMode = AnimationFillModeToValue(mode: .forwards)
 		animation.isRemovedOnCompletion = false
@@ -208,11 +265,14 @@ extension Animation {
 		return animation
 	}
 	
-	/**
-	:name:	scaleY
-	*/
-	public static func scaleY(scale: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
-		let animation = CABasicAnimation(keyPath: .transformScaleY)
+    /**
+     Creates a CABasicAnimation for the transform.scale.y key path.
+     - Parameter by scale: A CGFloat.
+     - Parameter duration: An animation time duration.
+     - Returns: A CABasicAnimation.
+     */
+    public static func scaleY(by scale: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+		let animation = CABasicAnimation(keyPath: .scaleY)
 		animation.toValue = scale as NSNumber
 		animation.fillMode = AnimationFillModeToValue(mode: .forwards)
 		animation.isRemovedOnCompletion = false
@@ -223,11 +283,14 @@ extension Animation {
 		return animation
 	}
 	
-	/**
-	:name:	scaleZ
-	*/
-	public static func scaleZ(scale: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
-		let animation = CABasicAnimation(keyPath: .transformScaleZ)
+    /**
+     Creates a CABasicAnimation for the transform.scale.z key path.
+     - Parameter by scale: A CGFloat.
+     - Parameter duration: An animation time duration.
+     - Returns: A CABasicAnimation.
+     */
+    public static func scaleZ(by scale: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+		let animation = CABasicAnimation(keyPath: .scaleZ)
 		animation.toValue = scale as NSNumber
 		animation.fillMode = AnimationFillModeToValue(mode: .forwards)
 		animation.isRemovedOnCompletion = false
@@ -238,90 +301,123 @@ extension Animation {
 		return animation
 	}
 	
-	/**
-	:name:	translate
-	*/
-	public static func translate(translation: CGSize, duration: CFTimeInterval? = nil) -> CABasicAnimation {
-		let animation = CABasicAnimation(keyPath: .transformTranslation)
-		animation.toValue = NSValue(cgSize: translation)
+    /**
+     Creates a CABasicAnimation for the transform.translation key path.
+     - Parameter size: A CGSize.
+     - Parameter duration: An animation time duration.
+     - Returns: A CABasicAnimation.
+     */
+    public static func translation(size: CGSize, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+		let animation = CABasicAnimation(keyPath: .translation)
+		animation.toValue = NSValue(cgSize: size)
 		animation.fillMode = AnimationFillModeToValue(mode: .forwards)
 		animation.isRemovedOnCompletion = false
 		animation.timingFunction = AnimationTimingFunctionToValue(function: .easeInEaseOut)
-		if let v = duration {
+		
+        if let v = duration {
 			animation.duration = v
 		}
-		return animation
+		
+        return animation
 	}
 	
-	/**
-	:name:	translateX
-	*/
-	public static func translateX(translation: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
-		let animation = CABasicAnimation(keyPath: .transformTranslationX)
+    /**
+     Creates a CABasicAnimation for the transform.translation.x key path.
+     - Parameter by translation: A CGFloat.
+     - Parameter duration: An animation time duration.
+     - Returns: A CABasicAnimation.
+     */
+    public static func translationX(by translation: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+		let animation = CABasicAnimation(keyPath: .translationX)
 		animation.toValue = translation as NSNumber
 		animation.fillMode = AnimationFillModeToValue(mode: .forwards)
 		animation.isRemovedOnCompletion = false
 		animation.timingFunction = AnimationTimingFunctionToValue(function: .easeInEaseOut)
-		if let v = duration {
+		
+        if let v = duration {
 			animation.duration = v
 		}
-		return animation
+		
+        return animation
 	}
 	
-	/**
-	:name:	translateY
-	*/
-	public static func translateY(translation: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
-		let animation = CABasicAnimation(keyPath: .transformTranslationY)
+    /**
+     Creates a CABasicAnimation for the transform.translation.y key path.
+     - Parameter by translation: A CGFloat.
+     - Parameter duration: An animation time duration.
+     - Returns: A CABasicAnimation.
+     */
+    public static func translationY(by translation: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+		let animation = CABasicAnimation(keyPath: .translationY)
 		animation.toValue = translation as NSNumber
         animation.fillMode = AnimationFillModeToValue(mode: .forwards)
         animation.isRemovedOnCompletion = false
         animation.timingFunction = AnimationTimingFunctionToValue(function: .easeInEaseOut)
-		if let v = duration {
+		
+        if let v = duration {
 			animation.duration = v
 		}
-		return animation
+		
+        return animation
 	}
 	
-	/**
-	:name:	translateZ
-	*/
-	public static func translateZ(translation: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
-		let animation = CABasicAnimation(keyPath: .transformTranslationZ)
+    /**
+     Creates a CABasicAnimation for the transform.translation.z key path.
+     - Parameter by translation: A CGFloat.
+     - Parameter duration: An animation time duration.
+     - Returns: A CABasicAnimation.
+     */
+    public static func translationZ(by translation: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+		let animation = CABasicAnimation(keyPath: .translationZ)
 		animation.toValue = translation as NSNumber
         animation.fillMode = AnimationFillModeToValue(mode: .forwards)
         animation.isRemovedOnCompletion = false
         animation.timingFunction = AnimationTimingFunctionToValue(function: .easeInEaseOut)
-		if let v = duration {
+		
+        if let v = duration {
 			animation.duration = v
 		}
-		return animation
+		
+        return animation
 	}
 	
-	/**
-	:name:	position
-	*/
-	public static func position(point: CGPoint, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+    /**
+     Creates a CABasicAnimation for the position key path.
+     - Parameter to point: A CGPoint.
+     - Parameter duration: An animation time duration.
+     - Returns: A CABasicAnimation.
+     */
+    public static func position(to point: CGPoint, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation = CABasicAnimation(keyPath: .position)
 		animation.toValue = NSValue(cgPoint: point)
         animation.fillMode = AnimationFillModeToValue(mode: .forwards)
         animation.isRemovedOnCompletion = false
         animation.timingFunction = AnimationTimingFunctionToValue(function: .easeInEaseOut)
-		if let v = duration {
+		
+        if let v = duration {
 			animation.duration = v
 		}
-		return animation
+		
+        return animation
 	}
 	
-	public static func shadowPath(path: CGPath, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+    /**
+     Creates a CABasicAnimation for the shadowPath key path.
+     - Parameter to path: A CGPath.
+     - Parameter duration: An animation time duration.
+     - Returns: A CABasicAnimation.
+     */
+    public static func shadowPath(to path: CGPath, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation = CABasicAnimation(keyPath: .shadowPath)
 		animation.toValue = path
         animation.fillMode = AnimationFillModeToValue(mode: .forwards)
         animation.isRemovedOnCompletion = false
-        animation.timingFunction = AnimationTimingFunctionToValue(function: .liner)
-		if let v = duration {
+        animation.timingFunction = AnimationTimingFunctionToValue(function: .linear)
+		
+        if let v = duration {
 			animation.duration = v
 		}
-		return animation
+		
+        return animation
 	}
 }

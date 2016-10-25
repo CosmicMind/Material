@@ -629,7 +629,7 @@ open class Capture: View, UIGestureRecognizerDelegate {
 	
 	/// Animates the tap and layer.
 	private func animateTap(view: UIView, point: CGPoint) {
-//		Animation.animationDisabled { [weak layer] in
+//		Animation.disable { [weak layer] in
 //            guard let v = layer else {
 //                return
 //            }
@@ -644,7 +644,7 @@ open class Capture: View, UIGestureRecognizerDelegate {
 //			v.transform = CATransform3DMakeScale(0.5, 0.5, 1)
 //		}) {
 //			Animation.delay(time: 0.4) { [weak layer] in
-//                Animation.animationDisabled { [weak layer] in
+//                Animation.disable { [weak layer] in
 //                    guard let v = layer else {
 //                        return
 //                    }

@@ -32,19 +32,21 @@ import UIKit
 
 @objc(AnimationRotationMode)
 public enum AnimationRotationMode: Int {
-	case none
+	case `default`
 	case auto
 	case autoReverse
 }
 
 /**
-	:name:	AnimationRotationModeToValue
-*/
+ Converts an AnimationRotationMode to a corresponding CAAnimationRotate key.
+ - Parameter mode: An AnimationRotationMode.
+ - Returns: An optional CAAnimationRotate key String.
+ */
 public func AnimationRotationModeToValue(mode: AnimationRotationMode) -> String? {
 	switch mode {
-	case .none:
-		return nil
-	case .auto:
+    case .default:
+        return nil
+    case .auto:
 		return kCAAnimationRotateAuto
 	case .autoReverse:
 		return kCAAnimationRotateAutoReverse
@@ -53,11 +55,15 @@ public func AnimationRotationModeToValue(mode: AnimationRotationMode) -> String?
 
 extension Animation {
 	/**
-	:name: path
-	*/
+     Creates a CAKeyframeAnimation.
+     - Parameter bezierPath: A UIBezierPath.
+     - Parameter mode: An AnimationRotationMode.
+     - Parameter duration: An animation duration time.
+     - Returns: A CAKeyframeAnimation.
+     */
 	public static func path(bezierPath: UIBezierPath, mode: AnimationRotationMode = .auto, duration: CFTimeInterval? = nil) -> CAKeyframeAnimation {
-		let animation: CAKeyframeAnimation = CAKeyframeAnimation()
-		animation.keyPath = AnimationKey.position.rawValue
+		let animation = CAKeyframeAnimation()
+		animation.keyPath = AnimationKeyPath.position.rawValue
 		animation.path = bezierPath.cgPath
         animation.rotationMode = AnimationRotationModeToValue(mode: mode)
 		if let v = duration {

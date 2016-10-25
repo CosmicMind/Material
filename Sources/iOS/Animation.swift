@@ -57,20 +57,21 @@ public func AnimationFillModeToValue(mode: AnimationFillMode) -> String {
 
 @objc(AnimationTimingFunction)
 public enum AnimationTimingFunction: Int {
-    case liner
+    case linear
     case easeIn
     case easeOut
     case easeInEaseOut
-    case systemDefault
+    case `default`
 }
 
 /**
  Converts the AnimationTimingFunction enum value to a corresponding CAMediaTimingFunction.
  - Parameter function: An AnimationTimingFunction enum value.
+ - Returns: A CAMediaTimingFunction.
  */
 public func AnimationTimingFunctionToValue(function: AnimationTimingFunction) -> CAMediaTimingFunction {
     switch function {
-    case .liner:
+    case .linear:
         return CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
     case .easeIn:
         return CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
@@ -78,18 +79,23 @@ public func AnimationTimingFunctionToValue(function: AnimationTimingFunction) ->
         return CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
     case .easeInEaseOut:
         return CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-    case .systemDefault:
+    case .default:
         return CAMediaTimingFunction(name: kCAMediaTimingFunctionDefault)
     }
 }
 
-
 public typealias AnimationDelayCancelBlock = (Bool) -> Void
 
 public struct Animation {
-	/// Delay helper method.
+	/**
+     Executes a block of code after a time delay.
+     - Parameter duration: An animation duration time.
+     - Parameter animations: An animation block.
+     - Parameter execute block: A completion block that is executed once
+     the animations have completed.
+     */
     @discardableResult
-    public static func delay(time: TimeInterval, completion: @escaping () -> Void) -> AnimationDelayCancelBlock? {
+    public static func delay(time: TimeInterval, execute block: @escaping () -> Void) -> AnimationDelayCancelBlock? {
 		
 		func asyncAfter(completion: @escaping () -> Void) {
 			DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time, execute: completion)
@@ -97,10 +103,11 @@ public struct Animation {
 		
 		var cancelable: AnimationDelayCancelBlock?
 		
-		let delayed: AnimationDelayCancelBlock = { (cancel) in
-			if !cancel {
-				DispatchQueue.main.async(execute: completion)
+		let delayed: AnimationDelayCancelBlock = {
+			if !$0 {
+				DispatchQueue.main.async(execute: block)
 			}
+            
 			cancelable = nil
 		}
 		
@@ -114,24 +121,30 @@ public struct Animation {
 	}
 	
 	/**
-	:name:	delayCancel
-	*/
-	public static func delayCancel(completion: AnimationDelayCancelBlock) {
+     Cancels the delayed AnimationDelayCancelBlock.
+     - Parameter delayed completion: An AnimationDelayCancelBlock.
+     */
+	public static func cancel(delayed completion: AnimationDelayCancelBlock) {
 		completion(true)
 	}
 
 	
 	/**
-	:name:	animationDisabled
-	*/
-	public static func animationDisabled(animations: (() -> Void)) {
-		animateWithDuration(duration: 0, animations: animations)
+     Disables the default animations set on CALayers. 
+     - Parameter animations: A callback that wraps the animations to disable.
+     */
+	public static func disable(animations: (() -> Void)) {
+		animate(duration: 0, animations: animations)
 	}
 	
 	/**
-	:name:	animateWithDuration
-	*/
-	public static func animateWithDuration(duration: CFTimeInterval, animations: (() -> Void), completion: (() -> Void)? = nil) {
+     Runs an animation with a specified duration.
+     - Parameter duration: An animation duration time.
+     - Parameter animations: An animation block.
+     - Parameter completion: A completion block that is executed once
+     the animations have completed.
+     */
+	public static func animate(duration: CFTimeInterval, animations: (() -> Void), completion: (() -> Void)? = nil) {
 		CATransaction.begin()
 		CATransaction.setAnimationDuration(duration)
 		CATransaction.setCompletionBlock(completion)
@@ -141,9 +154,12 @@ public struct Animation {
 	}
 	
 	/**
-	:name:	animationGroup
-	*/
-	public static func animationGroup(animations: [CAAnimation], duration: CFTimeInterval = 0.5) -> CAAnimationGroup {
+     Creates a CAAnimationGroup.
+     - Parameter animations: An Array of CAAnimation objects.
+     - Parameter duration: An animation duration time for the group.
+     - Returns: A CAAnimationGroup.
+     */
+	public static func animate(group animations: [CAAnimation], duration: CFTimeInterval = 0.5) -> CAAnimationGroup {
 		let group: CAAnimationGroup = CAAnimationGroup()
 		group.fillMode = AnimationFillModeToValue(mode: .forwards)
 		group.isRemovedOnCompletion = false
@@ -154,11 +170,16 @@ public struct Animation {
 	}
 	
 	/**
-	:name:	animateWithDelay
-	*/
-	public static func animateWithDelay(delay d: CFTimeInterval, duration: CFTimeInterval, animations: @escaping (() -> Void), completion: (() -> Void)? = nil) {
-        delay(time: d) {
-            animateWithDuration(duration: duration, animations: animations, completion: completion)
+     Executes an animation block with a given delay and duration.
+     - Parameter delay time: A CFTimeInterval.
+     - Parameter duration: An animation duration time.
+     - Parameter animations: An animation block.
+     - Parameter completion: A completion block that is executed once
+     the animations have completed.
+     */
+	public static func animate(delay time: CFTimeInterval, duration: CFTimeInterval, animations: @escaping (() -> Void), completion: (() -> Void)? = nil) {
+        delay(time: time) {
+            animate(duration: duration, animations: animations, completion: completion)
 		}
 	}
 }
