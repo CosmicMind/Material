@@ -519,9 +519,9 @@
 			isa = PBXGroup;
 			children = (
 				96717B0D1DBE6AF600DA84DB /* Capture.swift */,
-				96717B0E1DBE6AF600DA84DB /* CaptureController.swift */,
 				96717B0F1DBE6AF600DA84DB /* CapturePreview.swift */,
 				96717B101DBE6AF600DA84DB /* CaptureSession.swift */,
+				96717B0E1DBE6AF600DA84DB /* CaptureController.swift */,
 			);
 			path = Capture;
 			sourceTree = "<group>";

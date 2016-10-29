@@ -59,6 +59,7 @@ open class StatusBarController: RootController {
      */
 	open override func layoutSubviews() {
 		super.layoutSubviews()
+        statusBar.width = view.width
         statusBar.zPosition = Device.isLandscape && .phone == Device.userInterfaceIdiom ? 0 : 3000
 		rootViewController.view.frame = view.bounds
 	}
@@ -78,6 +79,7 @@ open class StatusBarController: RootController {
 	/// Prepares the statusBar.
 	private func prepareStatusBar() {
 		statusBar.backgroundColor = .white
-		view.layout(statusBar).top().horizontally().height(20)
+        statusBar.height = 20
+		view.addSubview(statusBar)
 	}
 }

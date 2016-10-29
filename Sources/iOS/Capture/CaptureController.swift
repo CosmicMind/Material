@@ -29,6 +29,7 @@
  */
 
 import UIKit
+import AVFoundation
 
 extension UIViewController {
     /**
@@ -48,9 +49,106 @@ extension UIViewController {
     }
 }
 
-open class CaptureController: ToolbarController, CaptureDelegate, CaptureSessionDelegate {
+@objc(CaptureControllerDelegate)
+public protocol CaptureControllerDelegate: ToolbarControllerDelegate {
+    /**
+     A delegation method that is fired when the record timer has started.
+     - Parameter capture: A reference to the calling capture.
+     */
+    @objc
+    optional func captureDidStartRecordTimer( capture: Capture)
+    
+    /**
+     A delegation method that is fired when the record timer was updated.
+     - Parameter capture: A reference to the calling capture.
+     - Parameter hours: An integer representing hours.
+     - Parameter minutes: An integer representing minutes.
+     - Parameter seconds: An integer representing seconds.
+     */
+    @objc
+    optional func captureDidUpdateRecordTimer(capture: Capture, hours: Int, minutes: Int, seconds: Int)
+    
+    /**
+     A delegation method that is fired when the record timer has stopped.
+     - Parameter capture: A reference to the calling capture.
+     - Parameter hours: An integer representing hours.
+     - Parameter minutes: An integer representing minutes.
+     - Parameter seconds: An integer representing seconds.
+     */
+    @objc
+    optional func captureDidStopRecordTimer(capture: Capture, hours: Int, minutes: Int, seconds: Int)
+    
+    /**
+     A delegation method that is fired when the user tapped to adjust the focus.
+     - Parameter capture: A reference to the calling capture.
+     - Parameter point: CGPoint that the user tapped at.
+     */
+    @objc
+    optional func captureDidTapToFocusAtPoint(capture: Capture, point: CGPoint)
+    
+    /**
+     A delegation method that is fired when the user tapped to adjust the exposure.
+     - Parameter capture: A reference to the calling capture.
+     - Parameter point: CGPoint that the user tapped at.
+     */
+    @objc
+    optional func captureDidTapToExposeAtPoint(capture: Capture, point: CGPoint)
+    
+    /**
+     A delegation method that is fired when the user tapped to reset.
+     - Parameter capture: A reference to the calling capture.
+     - Parameter point: CGPoint that the user tapped at.
+     */
+    @objc
+    optional func captureDidTapToResetAtPoint(capture: Capture, point: CGPoint)
+    
+    /**
+     A delegation method that is fired when the user pressed the flash button.
+     - Parameter capture: A reference to the calling capture.
+     - Parameter button: A reference to the UIButton that the user pressed.
+     */
+    @objc
+    optional func captureDidPressFlashButton(capture: Capture, button: UIButton)
+    
+    /**
+     A delegation method that is fired when the user pressed the switch camera button.
+     - Parameter capture: A reference to the calling capture.
+     - Parameter button: A reference to the UIButton that the user pressed.
+     */
+    @objc
+    optional func captureDidPressSwitchCamerasButton(capture: Capture, button: UIButton)
+    
+    /**
+     A delegation method that is fired when the user pressed capture button.
+     - Parameter capture: A reference to the calling capture.
+     - Parameter button: A reference to the UIButton that the user pressed.
+     */
+    @objc
+    optional func captureDidPressCaptureButton(capture: Capture, button: UIButton)
+    
+    /**
+     A delegation method that is fired when the user enabled the photo camera.
+     - Parameter capture: A reference to the calling capture.
+     - Parameter button: A reference to the UIButton that the user pressed.
+     */
+    @objc
+    optional func captureDidPressCameraButton(capture: Capture, button: UIButton)
+    
+    /**
+     A delegation method that is fired when the user enabled the video camera.
+     - Parameter capture: A reference to the calling capture.
+     - Parameter button: A reference to the UIButton that the user pressed.
+     */
+    @objc
+    optional func captureDidPressVideoButton(capture: Capture, button: UIButton)
+}
+
+open class CaptureController: ToolbarController, CaptureControllerDelegate, CaptureSessionDelegate, UIGestureRecognizerDelegate {
     /// A reference to the Capture instance.
     open private(set) lazy var capture: Capture = Capture()
+    
+    /// A Timer reference for when recording is enabled.
+    internal var timer: Timer?
     
     /// A tap gesture reference for focus events.
     private var tapToFocusGesture: UITapGestureRecognizer?
@@ -61,20 +159,32 @@ open class CaptureController: ToolbarController, CaptureDelegate, CaptureSession
     /// A tap gesture reference for reset events.
     private var tapToResetGesture: UITapGestureRecognizer?
     
+    /// A reference to the cameraButton.
+    open private(set) var cameraButton: IconButton!
+    
+    /// A reference to the captureButton.
+    open private(set) var captureButton: FabButton!
+    
+    /// A reference to the videoButton.
+    open private(set) var videoButton: IconButton!
+    
+    /// A reference to the switchCameraButton.
+    open private(set) var switchCamerasButton: IconButton!
+    
+    /// A reference to the flashButton.
+    open private(set) var flashButton: IconButton!
+    
     /// A boolean indicating whether to enable tap to focus.
     @IBInspectable
     open var isTapToFocusEnabled = false {
         didSet {
             guard isTapToFocusEnabled else {
                 removeTapGesture(gesture: &tapToFocusGesture)
-                focusView?.removeFromSuperview()
-                focusView = nil
                 return
             }
             
             isTapToResetEnabled = true
             
-            prepareFocusLayer()
             prepareTapGesture(gesture: &tapToFocusGesture, numberOfTapsRequired: 1, numberOfTouchesRequired: 1, selector: #selector(handleTapToFocusGesture))
             
             if let v = tapToExposeGesture {
@@ -89,14 +199,11 @@ open class CaptureController: ToolbarController, CaptureDelegate, CaptureSession
         didSet {
             guard isTapToExposeEnabled else {
                 removeTapGesture(gesture: &tapToExposeGesture)
-                exposureView?.removeFromSuperview()
-                exposureView = nil
                 return
             }
             
             isTapToResetEnabled = true
             
-            prepareExposureLayer()
             prepareTapGesture(gesture: &tapToExposeGesture, numberOfTapsRequired: 2, numberOfTouchesRequired: 1, selector: #selector(handleTapToExposeGesture))
             
             if let v = tapToFocusGesture {
@@ -111,12 +218,9 @@ open class CaptureController: ToolbarController, CaptureDelegate, CaptureSession
         didSet {
             guard isTapToResetEnabled else {
                 removeTapGesture(gesture: &tapToResetGesture)
-                resetView?.removeFromSuperview()
-                resetView = nil
                 return
             }
             
-            prepareResetLayer()
             prepareTapGesture(gesture: &tapToResetGesture, numberOfTapsRequired: 2, numberOfTouchesRequired: 2, selector: #selector(handleTapToResetGesture))
             
             if let v = tapToFocusGesture {
@@ -129,34 +233,10 @@ open class CaptureController: ToolbarController, CaptureDelegate, CaptureSession
         }
     }
     
-    /// A reference to capture's cameraButton.
-    open var cameraButton: IconButton {
-        return capture.cameraButton
-    }
-    
-    /// A reference to capture's videoButton.
-    open var videoButton: IconButton {
-        return capture.videoButton
-    }
-    
-    /// A reference to capture's switchCamerasButton.
-    open var switchCamerasButton: IconButton {
-        return capture.switchCamerasButton
-    }
-    
-    /// A reference to capture's flashButton.
-    open var flashButton: IconButton {
-        return capture.flashButton
-    }
-    
-    /// A reference to capture's captureButton.
-    open var captureButton: FabButton {
-        return capture.captureButton
-    }
-    
     open override func layoutSubviews() {
         super.layoutSubviews()
         
+        /**
         if let v = cameraButton {
             v.y = bounds.height - contentEdgeInsets.bottom - v.bounds.height
             v.x = contentEdgeInsets.left
@@ -175,6 +255,7 @@ open class CaptureController: ToolbarController, CaptureDelegate, CaptureSession
         if let v = (preview.layer as! AVCaptureVideoPreviewLayer).connection {
             v.videoOrientation = session.videoOrientation
         }
+         */
     }
     
     /**
@@ -186,12 +267,20 @@ open class CaptureController: ToolbarController, CaptureDelegate, CaptureSession
      */
     open override func prepare() {
         super.prepare()
-        view.backgroundColor = .black
         display = .full
+        delegate = self
+        view.backgroundColor = .black
+        isTapToFocusEnabled = true
+        isTapToExposeEnabled = true
         
         prepareStatusBar()
         prepareToolbar()
         prepareCapture()
+        prepareCaptureButton()
+        prepareCameraButton()
+        prepareVideoButton()
+        prepareSwitchCamerasButton()
+        prepareFlashButton()
     }
     
     /// Prepares the statusBar.
@@ -207,10 +296,181 @@ open class CaptureController: ToolbarController, CaptureDelegate, CaptureSession
     
     /// Prepares capture.
     private func prepareCapture() {
-        capture.delegate = self
         capture.session.delegate = self
-        capture.isTapToFocusEnabled = true
-        capture.isTapToExposeEnabled = true
+    }
+    
+    /// Prepares the captureButton.
+    private func prepareCaptureButton() {
+        captureButton = FabButton()
+        captureButton.addTarget(self, action: #selector(handleCaptureButton), for: .touchUpInside)
+    }
+    
+    /// Prepares the cameraButton.
+    private func prepareCameraButton() {
+        cameraButton = IconButton(image: Icon.cm.photoCamera, tintColor: .white)
+        cameraButton.addTarget(self, action: #selector(handleCameraButton), for: .touchUpInside)
+    }
+    
+    /// Preapres the videoButton.
+    private func prepareVideoButton() {
+        videoButton = IconButton(image: Icon.cm.videocam, tintColor: .white)
+        videoButton.addTarget(self, action: #selector(handleVideoButton), for: .touchUpInside)
+    }
+    
+    /// Prepares the switchCameraButton.
+    private func prepareSwitchCamerasButton() {
+        switchCamerasButton = IconButton(image: Icon.cameraFront, tintColor: .white)
+        switchCamerasButton.addTarget(self, action: #selector(handleSwitchCamerasButton), for: .touchUpInside)
+    }
+    
+    /// Prepares the flashButton.
+    private func prepareFlashButton() {
+        flashButton = IconButton(image: Icon.flashAuto, tintColor: .white)
+        flashButton.addTarget(self, action: #selector(handleFlashButton), for: .touchUpInside)
+        capture.session.flashMode = .auto
+    }
+    
+    /**
+     Prepares a given tap gesture.
+     - Parameter gesture: An optional UITapGestureRecognizer to prepare.
+     - Parameter numberOfTapsRequired: An integer of the number of taps required
+     to activate the gesture.
+     - Parameter numberOfTouchesRequired: An integer of the number of touches, fingers,
+     required to activate the gesture.
+     - Parameter selector: A Selector to handle the event.
+     */
+    private func prepareTapGesture(gesture: inout UITapGestureRecognizer?, numberOfTapsRequired: Int, numberOfTouchesRequired: Int, selector: Selector) {
+        guard nil == gesture else {
+            return
+        }
+        
+        gesture = UITapGestureRecognizer(target: self, action: selector)
+        gesture!.delegate = self
+        gesture!.numberOfTapsRequired = numberOfTapsRequired
+        gesture!.numberOfTouchesRequired = numberOfTouchesRequired
+        view.addGestureRecognizer(gesture!)
+    }
+    
+    /**
+     Removes a given tap gesture.
+     - Parameter gesture: An optional UITapGestureRecognizer to remove.
+     */
+    private func removeTapGesture(gesture: inout UITapGestureRecognizer?) {
+        guard let v = gesture else {
+            return
+        }
+        
+        view.removeGestureRecognizer(v)
+        gesture = nil
+    }
+}
+
+extension CaptureController {
+    /**
+     Handler for the captureButton.
+     - Parameter button: A UIButton that is associated with the event.
+     */
+    @objc
+    internal func handleCaptureButton(button: UIButton) {
+        switch capture.mode {
+        case .photo:
+            capture.session.captureStillImage()
+        case .video:
+            if capture.session.isRecording {
+                capture.session.stopRecording()
+                stopTimer()
+            } else {
+                capture.session.startRecording()
+                startTimer()
+            }
+        }
+        
+        (delegate as? CaptureControllerDelegate)?.captureDidPressCaptureButton?(capture: capture, button: button)
+    }
+    
+    /**
+     Handler for the cameraButton.
+     - Parameter button: A UIButton that is associated with the event.
+     */
+    @objc
+    internal func handleCameraButton(button: UIButton) {
+        capture.mode = .photo
+        (delegate as? CaptureControllerDelegate)?.captureDidPressCameraButton?(capture: capture, button: button)
+    }
+    
+    /**
+     Handler for the flashButton.
+     - Parameter button: A UIButton that is associated with the event.
+     */
+    @objc
+    internal func handleFlashButton(button: UIButton) {
+        (delegate as? CaptureControllerDelegate)?.captureDidPressFlashButton?(capture: capture, button: button)
+    }
+    
+    /**
+     Handler for the switchCameraButton.
+     - Parameter button: A UIButton that is associated with the event.
+     */
+    @objc
+    internal func handleSwitchCamerasButton(button: UIButton) {
+        capture.session.switchCameras()
+        (delegate as? CaptureControllerDelegate)?.captureDidPressSwitchCamerasButton?(capture: capture, button: button)
+    }
+    
+    /**
+     Handler for the videoButton.
+     - Parameter button: A UIButton that is associated with the event.
+     */
+    @objc
+    internal func handleVideoButton(button: UIButton) {
+        capture.mode = .video
+        (delegate as? CaptureControllerDelegate)?.captureDidPressVideoButton?(capture: capture, button: button)
+    }
+    
+    /**
+     Handler for the tapToFocusGesture.
+     - Parameter recognizer: A UITapGestureRecognizer that is associated with the event.
+     */
+    @objc
+    internal func handleTapToFocusGesture(recognizer: UITapGestureRecognizer) {
+        guard isTapToFocusEnabled && capture.session.isFocusPointOfInterestSupported else {
+            return
+        }
+        
+        let point = recognizer.location(in: view)
+        capture.session.focus(at: capture.preview.captureDevicePointOfInterestForPoint(point: point))
+        (delegate as? CaptureControllerDelegate)?.captureDidTapToFocusAtPoint?(capture: capture, point: point)
+    }
+    
+    /**
+     Handler for the tapToExposeGesture.
+     - Parameter recognizer: A UITapGestureRecognizer that is associated with the event.
+     */
+    @objc
+    internal func handleTapToExposeGesture(recognizer: UITapGestureRecognizer) {
+        guard isTapToExposeEnabled && capture.session.isExposurePointOfInterestSupported else {
+            return
+        }
+        
+        let point = recognizer.location(in: view)
+        capture.session.expose(at: capture.preview.captureDevicePointOfInterestForPoint(point: point))
+        (delegate as? CaptureControllerDelegate)?.captureDidTapToExposeAtPoint?(capture: capture, point: point)
+    }
+    
+    /**
+     Handler for the tapToResetGesture.
+     - Parameter recognizer: A UITapGestureRecognizer that is associated with the event.
+     */
+    @objc
+    internal func handleTapToResetGesture(recognizer: UITapGestureRecognizer) {
+        guard isTapToResetEnabled else {
+            return
+        }
+        
+        capture.session.reset()
+        
+        let point = capture.preview.pointForCaptureDevicePointOfInterest(point: CGPoint(x: 0.5, y: 0.5))
+        (delegate as? CaptureControllerDelegate)?.captureDidTapToResetAtPoint?(capture: capture, point: point)
     }
 }
 
@@ -222,23 +482,23 @@ extension CaptureController {
         
         RunLoop.main.add(timer!, forMode: .commonModes)
         
-        delegate?.captureDidStartRecordTimer?(capture: self)
+        (delegate as? CaptureControllerDelegate)?.captureDidStartRecordTimer?(capture: capture)
     }
     
     /// Updates the timer when recording.
     internal func updateTimer() {
-        let duration = session.recordedDuration
+        let duration = capture.session.recordedDuration
         let time = CMTimeGetSeconds(duration)
         let hours = Int(time / 3600)
         let minutes = Int((time / 60).truncatingRemainder(dividingBy: 60))
         let seconds = Int(time.truncatingRemainder(dividingBy: 60))
         
-        delegate?.captureDidUpdateRecordTimer?(capture: self, hours: hours, minutes: minutes, seconds: seconds)
+        (delegate as? CaptureControllerDelegate)?.captureDidUpdateRecordTimer?(capture: capture, hours: hours, minutes: minutes, seconds: seconds)
     }
     
     /// Stops the timer when recording.
     internal func stopTimer() {
-        let duration = session.recordedDuration
+        let duration = capture.session.recordedDuration
         let time = CMTimeGetSeconds(duration)
         let hours = Int(time / 3600)
         let minutes = Int((time / 60).truncatingRemainder(dividingBy: 60))
@@ -247,21 +507,6 @@ extension CaptureController {
         timer?.invalidate()
         timer = nil
         
-        delegate?.captureDidStopRecordTimer?(capture: self, hours: hours, minutes: minutes, seconds: seconds)
-    }
-    
-    func captureDidPressCaptureButton(capture: Capture, button: UIButton) {
-        switch captureMode {
-        case .photo:
-            session.captureStillImage()
-        case .video:
-            if session.isRecording {
-                session.stopRecording()
-                stopTimer()
-            } else {
-                session.startRecording()
-                startTimer()
-            }
-        }
+        (delegate as? CaptureControllerDelegate)?.captureDidStopRecordTimer?(capture: capture, hours: hours, minutes: minutes, seconds: seconds)
     }
 }
