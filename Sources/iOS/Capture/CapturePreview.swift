@@ -40,6 +40,7 @@ open class CapturePreview: View {
      Converts a point in layer coordinates to a point of interest 
      in the coordinate space of the capture device providing input 
      to the layer.
+     - Parameter point: A CGPoint.
      - Returns: A CGPoint that is converted.
      */
     open func captureDevicePointOfInterestForPoint(point: CGPoint) -> CGPoint {
@@ -50,6 +51,7 @@ open class CapturePreview: View {
      Converts a point of interest in the coordinate space of the 
      capture device providing input to the layer to a point in 
      layer coordinates.
+     - Parameter point: A CGPoint.
      - Returns: A CGPoint that is converted.
      */
 	open func pointForCaptureDevicePointOfInterest(point: CGPoint) -> CGPoint {

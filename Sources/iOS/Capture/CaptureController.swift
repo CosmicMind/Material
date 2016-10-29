@@ -52,6 +52,83 @@ open class CaptureController: ToolbarController, CaptureDelegate, CaptureSession
     /// A reference to the Capture instance.
     open private(set) lazy var capture: Capture = Capture()
     
+    /// A tap gesture reference for focus events.
+    private var tapToFocusGesture: UITapGestureRecognizer?
+    
+    /// A tap gesture reference for exposure events.
+    private var tapToExposeGesture: UITapGestureRecognizer?
+    
+    /// A tap gesture reference for reset events.
+    private var tapToResetGesture: UITapGestureRecognizer?
+    
+    /// A boolean indicating whether to enable tap to focus.
+    @IBInspectable
+    open var isTapToFocusEnabled = false {
+        didSet {
+            guard isTapToFocusEnabled else {
+                removeTapGesture(gesture: &tapToFocusGesture)
+                focusView?.removeFromSuperview()
+                focusView = nil
+                return
+            }
+            
+            isTapToResetEnabled = true
+            
+            prepareFocusLayer()
+            prepareTapGesture(gesture: &tapToFocusGesture, numberOfTapsRequired: 1, numberOfTouchesRequired: 1, selector: #selector(handleTapToFocusGesture))
+            
+            if let v = tapToExposeGesture {
+                tapToFocusGesture!.require(toFail: v)
+            }
+        }
+    }
+    
+    /// A boolean indicating whether to enable tap to expose.
+    @IBInspectable
+    open var isTapToExposeEnabled = false {
+        didSet {
+            guard isTapToExposeEnabled else {
+                removeTapGesture(gesture: &tapToExposeGesture)
+                exposureView?.removeFromSuperview()
+                exposureView = nil
+                return
+            }
+            
+            isTapToResetEnabled = true
+            
+            prepareExposureLayer()
+            prepareTapGesture(gesture: &tapToExposeGesture, numberOfTapsRequired: 2, numberOfTouchesRequired: 1, selector: #selector(handleTapToExposeGesture))
+            
+            if let v = tapToFocusGesture {
+                v.require(toFail: tapToExposeGesture!)
+            }
+        }
+    }
+    
+    /// A boolean indicating whether to enable tap to reset.
+    @IBInspectable
+    open var isTapToResetEnabled = false {
+        didSet {
+            guard isTapToResetEnabled else {
+                removeTapGesture(gesture: &tapToResetGesture)
+                resetView?.removeFromSuperview()
+                resetView = nil
+                return
+            }
+            
+            prepareResetLayer()
+            prepareTapGesture(gesture: &tapToResetGesture, numberOfTapsRequired: 2, numberOfTouchesRequired: 2, selector: #selector(handleTapToResetGesture))
+            
+            if let v = tapToFocusGesture {
+                v.require(toFail: tapToResetGesture!)
+            }
+            
+            if let v = tapToExposeGesture {
+                v.require(toFail: tapToResetGesture!)
+            }
+        }
+    }
+    
     /// A reference to capture's cameraButton.
     open var cameraButton: IconButton {
         return capture.cameraButton
@@ -75,6 +152,29 @@ open class CaptureController: ToolbarController, CaptureDelegate, CaptureSession
     /// A reference to capture's captureButton.
     open var captureButton: FabButton {
         return capture.captureButton
+    }
+    
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        if let v = cameraButton {
+            v.y = bounds.height - contentEdgeInsets.bottom - v.bounds.height
+            v.x = contentEdgeInsets.left
+        }
+        
+        if let v = captureButton {
+            v.y = bounds.height - contentEdgeInsets.bottom - v.bounds.height
+            v.x = (bounds.width - v.width) / 2
+        }
+        
+        if let v = videoButton {
+            v.y = bounds.height - contentEdgeInsets.bottom - v.bounds.height
+            v.x = bounds.width - v.width - contentEdgeInsets.right
+        }
+        
+        if let v = (preview.layer as! AVCaptureVideoPreviewLayer).connection {
+            v.videoOrientation = session.videoOrientation
+        }
     }
     
     /**
@@ -109,5 +209,59 @@ open class CaptureController: ToolbarController, CaptureDelegate, CaptureSession
     private func prepareCapture() {
         capture.delegate = self
         capture.session.delegate = self
+        capture.isTapToFocusEnabled = true
+        capture.isTapToExposeEnabled = true
+    }
+}
+
+extension CaptureController {
+    /// Starts the timer for recording.
+    internal func startTimer() {
+        timer?.invalidate()
+        timer = Timer(timeInterval: 0.5, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+        
+        RunLoop.main.add(timer!, forMode: .commonModes)
+        
+        delegate?.captureDidStartRecordTimer?(capture: self)
+    }
+    
+    /// Updates the timer when recording.
+    internal func updateTimer() {
+        let duration = session.recordedDuration
+        let time = CMTimeGetSeconds(duration)
+        let hours = Int(time / 3600)
+        let minutes = Int((time / 60).truncatingRemainder(dividingBy: 60))
+        let seconds = Int(time.truncatingRemainder(dividingBy: 60))
+        
+        delegate?.captureDidUpdateRecordTimer?(capture: self, hours: hours, minutes: minutes, seconds: seconds)
+    }
+    
+    /// Stops the timer when recording.
+    internal func stopTimer() {
+        let duration = session.recordedDuration
+        let time = CMTimeGetSeconds(duration)
+        let hours = Int(time / 3600)
+        let minutes = Int((time / 60).truncatingRemainder(dividingBy: 60))
+        let seconds = Int(time.truncatingRemainder(dividingBy: 60))
+        
+        timer?.invalidate()
+        timer = nil
+        
+        delegate?.captureDidStopRecordTimer?(capture: self, hours: hours, minutes: minutes, seconds: seconds)
+    }
+    
+    func captureDidPressCaptureButton(capture: Capture, button: UIButton) {
+        switch captureMode {
+        case .photo:
+            session.captureStillImage()
+        case .video:
+            if session.isRecording {
+                session.stopRecording()
+                stopTimer()
+            } else {
+                session.startRecording()
+                startTimer()
+            }
+        }
     }
 }
