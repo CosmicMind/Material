@@ -68,14 +68,14 @@ open class Menu: View {
     /// The space between views.
     open var interimSpace: InterimSpace = 0 {
         didSet {
-            reload()
+            layoutSubviews()
         }
     }
     
     /// The direction in which the animation opens the menu.
     open var direction = MenuDirection.up {
         didSet {
-            reload()
+            layoutSubviews()
         }
     }
     
@@ -93,7 +93,7 @@ open class Menu: View {
                 addSubview(v)
             }
             
-            reload()
+            layoutSubviews()
         }
     }
     
@@ -142,10 +142,15 @@ open class Menu: View {
         interimSpacePreset = .interimSpace6
     }
     
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        reload()
+    }
+    
     /// Reload the view layout.
     open func reload() {
         isOpened = false
-        layoutButtons()
+        layoutViews()
     }
     
     /**
@@ -577,7 +582,7 @@ open class Menu: View {
     }
     
     /// Layout the views.
-    private func layoutButtons() {
+    private func layoutViews() {
         guard let base = views.first else {
             return
         }

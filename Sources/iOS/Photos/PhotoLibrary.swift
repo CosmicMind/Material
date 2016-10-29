@@ -280,7 +280,7 @@ extension PhotoLibrary {
 /// PHCollectionList.
 extension PhotoLibrary {
     /**
-     A PHAssetCollectionTypeMoment collection type will be contained 
+     A PHAssetCollectionMoment collection type will be contained 
      by a PHCollectionListSubtypeMomentListCluster and a 
      PHCollectionListSubtypeMomentListYear. Non-moment PHAssetCollections 
      will only be contained by a single collection list.
@@ -400,7 +400,7 @@ extension PhotoLibrary {
     /**
      Fetch asset collections of a single type and subtype provided 
      (use PHAssetCollectionSubtypeAny to match all subtypes).
-     - Parameter with type: A PHAssetCollectionType.
+     - Parameter with type: A PHAssetCollection.
      - Parameter subtype: A PHAssetCollectionSubtype.
      - Parameter options: An optional PHFetchOptions object.
      - Parameter completion: A completion block.
@@ -413,7 +413,7 @@ extension PhotoLibrary {
     /**
      Smart Albums are not supported, only Albums and Moments.
      - Parameter asset: A PHAsset.
-     - Parameter with type: A PHAssetCollectionType.
+     - Parameter with type: A PHAssetCollection.
      - Parameter options: An optional PHFetchOptions object.
      - Parameter completion: A completion block.
      */

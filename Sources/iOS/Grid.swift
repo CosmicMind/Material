@@ -220,8 +220,8 @@ public class Grid {
             return
         }
         
-        var n: Int = 0
-        var i: Int = 0
+        var n = 0
+        var i = 0
         
         for v in views {
             guard let canvas = context else {
