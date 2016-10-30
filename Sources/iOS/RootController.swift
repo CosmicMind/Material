@@ -40,6 +40,16 @@ open class RootController: UIViewController {
 			Device.statusBarStyle = value
 		}
 	}
+    
+    /// Device visibility state.
+    open var isStatusBarHidden: Bool {
+        get {
+            return Device.isStatusBarHidden
+        }
+        set(value) {
+            Device.isStatusBarHidden = value
+        }
+    }
 	
 	/**
      A Boolean property used to enable and disable interactivity

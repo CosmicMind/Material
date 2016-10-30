@@ -307,9 +307,6 @@ open class NavigationDrawerController: RootController, UIGestureRecognizerDelega
 	@IBInspectable
     open var isHiddenStatusBarEnabled = true
 	
-	/// Sets the statusBar to isHidden or not.
-	open internal(set) var isStatusBarHidden = false
-	
 	/**
      A DepthPreset property that is used to set the depth of the
      leftView when opened.

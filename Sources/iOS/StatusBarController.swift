@@ -52,6 +52,12 @@ open class StatusBarController: RootController {
 	/// A reference to the statusBar.
 	open private(set) lazy var statusBar = View()
 	
+    open override var isStatusBarHidden: Bool {
+        didSet {
+            statusBar.isHidden = isStatusBarHidden
+        }
+    }
+    
 	/**
      To execute in the order of the layout chain, override this
      method. LayoutSubviews should be called immediately, unless you

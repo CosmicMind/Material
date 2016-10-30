@@ -169,7 +169,7 @@ public protocol CaptureSessionDelegate {
 }
 
 @objc(CaptureSession)
-open class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
+open class CaptureSession: NSObject {
 	/// A reference to the session DispatchQueue.
     private var sessionQueue: DispatchQueue!
 	
@@ -189,7 +189,7 @@ open class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 	private var movieOutputURL: URL?
 	
 	/// A reference to the AVCaptureSession.
-	internal var session: AVCaptureSession!
+	internal private(set) var session: AVCaptureSession!
 	
     /// A boolean indicating if the session is running.
 	open internal(set) var isRunning = false
@@ -376,12 +376,7 @@ open class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 		preset = .presetHigh
 		super.init()
         
-		prepareSession()
-        prepareSessionQueue()
-        prepareActiveVideoInput()
-        prepareActiveAudioInput()
-        prepareImageOutput()
-        prepareMovieOutput()
+		prepare()
 	}
 	
 	/// Starts the session.
@@ -673,16 +668,22 @@ open class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
         
         movieOutput.stopRecording()
 	}
-	
-	public func capture(_ captureOutput: AVCaptureFileOutput!, didStartRecordingToOutputFileAt fileURL: URL!, fromConnections connections: [Any]!) {
-        isRecording = true
-		delegate?.captureSessionDidStartRecordingToOutputFileAtURL?(session: self, captureOutput: captureOutput, fileURL: fileURL as NSURL, fromConnections: connections)
-	}
-	
-	public func capture(_ captureOutput: AVCaptureFileOutput!, didFinishRecordingToOutputFileAt outputFileURL: URL!, fromConnections connections: [Any]!, error: Error!) {
-    	isRecording = false
-		delegate?.captureSessionDidFinishRecordingToOutputFileAtURL?(session: self, captureOutput: captureOutput, outputFileURL: outputFileURL as NSURL, fromConnections: connections, error: error)
-	}
+    
+    /**
+     Prepares the view instance when intialized. When subclassing,
+     it is recommended to override the prepare method
+     to initialize property values and other setup operations.
+     The super.prepare method should always be called immediately
+     when subclassing.
+     */
+    open func prepare() {
+        prepareSession()
+        prepareSessionQueue()
+        prepareActiveVideoInput()
+        prepareActiveAudioInput()
+        prepareImageOutput()
+        prepareMovieOutput()
+    }
     
     /// Prepares the sessionQueue.
     private func prepareSessionQueue() {
@@ -780,4 +781,16 @@ open class CaptureSession: NSObject, AVCaptureFileOutputRecordingDelegate {
 		}
 		return nil
 	}
+}
+
+extension CaptureSession: AVCaptureFileOutputRecordingDelegate {
+    public func capture(_ captureOutput: AVCaptureFileOutput!, didStartRecordingToOutputFileAt fileURL: URL!, fromConnections connections: [Any]!) {
+        isRecording = true
+        delegate?.captureSessionDidStartRecordingToOutputFileAtURL?(session: self, captureOutput: captureOutput, fileURL: fileURL as NSURL, fromConnections: connections)
+    }
+    
+    public func capture(_ captureOutput: AVCaptureFileOutput!, didFinishRecordingToOutputFileAt outputFileURL: URL!, fromConnections connections: [Any]!, error: Error!) {
+        isRecording = false
+        delegate?.captureSessionDidFinishRecordingToOutputFileAtURL?(session: self, captureOutput: captureOutput, outputFileURL: outputFileURL as NSURL, fromConnections: connections, error: error)
+    }
 }
