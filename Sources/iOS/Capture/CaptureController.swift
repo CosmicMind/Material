@@ -49,7 +49,7 @@ extension UIViewController {
     }
 }
 
-open class CaptureController: ToolbarController, CaptureDelegate, CaptureSessionDelegate {
+open class CaptureController: ToolbarController, CaptureDelegate {
     /// A reference to the Capture instance.
     @IBInspectable
     open private(set) lazy var capture: Capture = Capture()
@@ -93,7 +93,7 @@ open class CaptureController: ToolbarController, CaptureDelegate, CaptureSession
     /// Prepares capture.
     private func prepareCapture() {
         capture.delegate = self
-        capture.session.delegate = self
-        capture.session.flashMode = .auto
+        capture.delegate = self
+        capture.flashMode = .auto
     }
 }

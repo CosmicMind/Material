@@ -42,6 +42,15 @@ public enum InterimSpacePreset: Int {
     case interimSpace7
     case interimSpace8
     case interimSpace9
+    case interimSpace10
+    case interimSpace11
+    case interimSpace12
+    case interimSpace13
+    case interimSpace14
+    case interimSpace15
+    case interimSpace16
+    case interimSpace17
+    case interimSpace18
 }
 
 public typealias InterimSpace = CGFloat
@@ -69,5 +78,23 @@ public func InterimSpacePresetToValue(preset: InterimSpacePreset) -> InterimSpac
         return 24
     case .interimSpace9:
         return 28
+    case .interimSpace10:
+        return 32
+    case .interimSpace11:
+        return 36
+    case .interimSpace12:
+        return 40
+    case .interimSpace13:
+        return 44
+    case .interimSpace14:
+        return 48
+    case .interimSpace15:
+        return 52
+    case .interimSpace16:
+        return 56
+    case .interimSpace17:
+        return 60
+    case .interimSpace18:
+        return 64
     }
 }
