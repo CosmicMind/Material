@@ -178,14 +178,9 @@ open class NavigationBar: UINavigationBar {
 
         var lc = 0
         var rc = 0
-        let l = (CGFloat(item.leftViews.count) * interimSpace)
-        let r = (CGFloat(item.rightViews.count) * interimSpace)
-        let p = width - l - r - contentEdgeInsets.left - contentEdgeInsets.right
-        let columns = Int(ceil(p / gridFactor))
         
         item.titleView!.grid.begin()
         item.titleView!.grid.views.removeAll()
-        item.titleView!.grid.axis.columns = columns
         
         for v in item.leftViews {
             if let b = v as? UIButton {
@@ -221,19 +216,35 @@ open class NavigationBar: UINavigationBar {
         
         item.contentView.grid.begin()
         
+        var l: CGFloat = 0
+        var r: CGFloat = 0
+        
         if .center == item.contentViewAlignment {
+            if item.leftViews.count < item.rightViews.count {
+                r = CGFloat(item.rightViews.count) * interimSpace
+                l = r
+            } else {
+                l = CGFloat(item.leftViews.count) * interimSpace
+                r = l
+            }
+        }
+        
+        let p = width - l - r - contentEdgeInsets.left - contentEdgeInsets.right
+        let columns = Int(ceil(p / gridFactor))
+        
+        if .center == contentViewAlignment {
             if lc < rc {
                 item.contentView.grid.columns = columns - 2 * rc
                 item.contentView.grid.offset.columns = rc - lc
             } else {
                 item.contentView.grid.columns = columns - 2 * lc
-                item.contentView.grid.offset.columns = 0
                 item.rightViews.first?.grid.offset.columns = lc - rc
             }
         } else {
             item.contentView.grid.columns = columns - lc - rc
         }
         
+        item.titleView!.grid.axis.columns = columns
         item.titleView!.grid.interimSpace = interimSpace
         item.titleView!.grid.contentEdgeInsets = contentEdgeInsets
         item.titleView!.grid.commit()

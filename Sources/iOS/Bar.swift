@@ -255,8 +255,6 @@ open class Bar: View {
             contentView.grid.columns = columns - lc - rc
         }
         
-        print(contentView.grid.columns)
-        
         grid.axis.columns = columns
         grid.commit()
         contentView.grid.commit()
