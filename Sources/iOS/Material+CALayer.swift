@@ -56,7 +56,11 @@ internal class MaterialLayer {
     }
     
     /// A preset property to set the shape.
-    internal var shapePreset = ShapePreset.none
+    internal var shapePreset = ShapePreset.none {
+        didSet {
+            layer?.layoutShape()
+        }
+    }
     
     /// A preset value for Depth.
     internal var depthPreset: DepthPreset {
