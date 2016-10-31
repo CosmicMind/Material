@@ -248,7 +248,6 @@ open class Button: UIButton {
      */
 	open func prepare() {
         contentScaleFactor = Device.scale
-        contentEdgeInsetsPreset = .none
         prepareVisualLayer()
 	}
 	

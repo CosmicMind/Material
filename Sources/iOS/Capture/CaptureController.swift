@@ -54,6 +54,14 @@ open class CaptureController: ToolbarController, CaptureDelegate, CaptureSession
     @IBInspectable
     open private(set) lazy var capture: Capture = Capture()
     
+    open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.portrait
+    }
+    
+    open override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        return UIInterfaceOrientation.portrait
+    }
+    
     /**
      Prepares the view instance when intialized. When subclassing,
      it is recommended to override the prepare method

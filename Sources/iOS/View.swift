@@ -174,7 +174,7 @@ open class View: UIView {
      */
 	open func prepare() {
 		contentScaleFactor = Device.scale
-		backgroundColor = Color.white
+		backgroundColor = .white
 		prepareVisualLayer()
 	}
 	
