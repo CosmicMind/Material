@@ -269,9 +269,6 @@ public protocol CaptureDelegate {
 }
 
 open class Capture: View {
-    /// A boolean indicating if an animation is in progress.
-    open var isAnimating = false
-    
     /// A reference to the capture mode.
     open var mode = CaptureMode.photo
 	
@@ -730,7 +727,7 @@ extension Capture {
     
     /// Changees the camera if possible.
     open func changeCamera() {
-        guard canChangeCamera && !isAnimating else {
+        guard canChangeCamera else {
             return
         }
         
@@ -738,8 +735,6 @@ extension Capture {
             guard let v = devicePosition else {
                 return
             }
-            
-            flashMode = .back == v ? .off : .auto
             
             delegate?.capture?(capture: self, willChangeCamera: v)
             
