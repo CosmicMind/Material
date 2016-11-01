@@ -221,6 +221,14 @@ public protocol CaptureDelegate {
     optional func capture(capture: Capture, didChangeCamera devicePosition: AVCaptureDevicePosition)
     
     /**
+     A delegation method that is executed when the device orientation changes.
+     - Parameter capture: A reference to the calling capture.
+     - Paremeter didChange videoOrientation: An AVCaptureVideoOrientation value.
+     */
+    @objc
+    optional func capture(capture: Capture, didChangeFrom previousVideoOrientation: AVCaptureVideoOrientation, to videoOrientation: AVCaptureVideoOrientation)
+    
+    /**
      A delegation method that is executed when an image has been captured asynchronously.
      - Parameter capture: A reference to the calling capture.
      - Parameter asynchronouslyStill image: An image that has been captured.
@@ -395,7 +403,7 @@ open class Capture: View {
                 var userInfo: Dictionary<String, Any> = Dictionary<String, Any>()
                 userInfo[NSLocalizedDescriptionKey] = "[Material Error: Unsupported focusMode.]"
                 userInfo[NSLocalizedFailureReasonErrorKey] = "[Material Error: Unsupported focusMode.]"
-                error = NSError(domain: "io.cosmicmind.Material.Capture", code: 0001, userInfo: userInfo)
+                error = NSError(domain: "com.cosmicmind.material.capture", code: 0001, userInfo: userInfo)
                 userInfo[NSUnderlyingErrorKey] = error
             }
             
@@ -425,7 +433,7 @@ open class Capture: View {
                 var userInfo: Dictionary<String, Any> = Dictionary<String, Any>()
                 userInfo[NSLocalizedDescriptionKey] = "[Material Error: Unsupported flashMode.]"
                 userInfo[NSLocalizedFailureReasonErrorKey] = "[Material Error: Unsupported flashMode.]"
-                error = NSError(domain: "io.cosmicmind.Material.Capture", code: 0002, userInfo: userInfo)
+                error = NSError(domain: "com.cosmicmind.material.capture", code: 0002, userInfo: userInfo)
                 userInfo[NSUnderlyingErrorKey] = error
             }
             
@@ -455,7 +463,7 @@ open class Capture: View {
                 var userInfo: Dictionary<String, Any> = Dictionary<String, Any>()
                 userInfo[NSLocalizedDescriptionKey] = "[Material Error: Unsupported torchMode.]"
                 userInfo[NSLocalizedFailureReasonErrorKey] = "[Material Error: Unsupported torchMode.]"
-                error = NSError(domain: "io.cosmicmind.Material.Capture", code: 0003, userInfo: userInfo)
+                error = NSError(domain: "com.cosmicmind.material.capture", code: 0003, userInfo: userInfo)
                 userInfo[NSUnderlyingErrorKey] = error
             }
             
@@ -471,6 +479,9 @@ open class Capture: View {
             session.sessionPreset = CapturePresetToString(preset: capturePreset)
         }
     }
+    
+    /// A reference to the previous AVCaptureVideoOrientation.
+    open internal(set) var previousVideoOrientation: AVCaptureVideoOrientation!
     
     /// The capture video orientation.
     open var videoOrientation: AVCaptureVideoOrientation {
@@ -579,6 +590,10 @@ open class Capture: View {
         }
     }
     
+    deinit {
+        removeOrientationNotifications()
+    }
+    
 	/// A convenience initializer.
 	public convenience init() {
 		self.init(frame: .zero)
@@ -602,10 +617,36 @@ open class Capture: View {
         prepareImageOutput()
         prepareMovieOutput()
         preparePreview()
+        prepareOrientationNotifications()
+        
+        previousVideoOrientation = videoOrientation
         
         isTapToFocusEnabled = true
         isTapToExposeEnabled = true
 	}
+}
+
+
+extension Capture {
+    internal func prepareOrientationNotifications() {
+        UIDevice.current.beginGeneratingDeviceOrientationNotifications()
+        NotificationCenter.default.addObserver(self, selector: #selector(handleOrientationNotifications(_:)), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+    }
+    
+    internal func removeOrientationNotifications() {
+        UIDevice.current.endGeneratingDeviceOrientationNotifications()
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    /**
+     Handler for the captureButton.
+     - Parameter button: A UIButton that is associated with the event.
+     */
+    @objc
+    internal func handleOrientationNotifications(_ notification: Notification) {
+        delegate?.capture?(capture: self, didChangeFrom: previousVideoOrientation, to: videoOrientation)
+        previousVideoOrientation = videoOrientation
+    }
 }
 
 extension Capture {
@@ -640,7 +681,7 @@ extension Capture {
     
     /// Prepares the sessionQueue.
     internal func prepareSessionQueue() {
-        sessionQueue = DispatchQueue(label: "io.cosmicmind.Material.CaptureSession", attributes: .concurrent, target: nil)
+        sessionQueue = DispatchQueue(label: "com.cosmicmind.material.capture", attributes: .concurrent, target: nil)
     }
     
     /// Prepares the session.
@@ -820,7 +861,7 @@ extension Capture {
             var userInfo = [String: Any]()
             userInfo[NSLocalizedDescriptionKey] = "[Material Error: Unsupported focus.]"
             userInfo[NSLocalizedFailureReasonErrorKey] = "[Material Error: Unsupported focus.]"
-            error = NSError(domain: "io.cosmicmind.Material.Capture", code: 0004, userInfo: userInfo)
+            error = NSError(domain: "com.cosmicmind.material.capture", code: 0004, userInfo: userInfo)
             userInfo[NSUnderlyingErrorKey] = error
         }
         
@@ -852,7 +893,7 @@ extension Capture {
             var userInfo = [String: Any]()
             userInfo[NSLocalizedDescriptionKey] = "[Material Error: Unsupported expose.]"
             userInfo[NSLocalizedFailureReasonErrorKey] = "[Material Error: Unsupported expose.]"
-            error = NSError(domain: "io.cosmicmind.Material.Capture", code: 0005, userInfo: userInfo)
+            error = NSError(domain: "com.cosmicmind.material.capture", code: 0005, userInfo: userInfo)
             userInfo[NSUnderlyingErrorKey] = error
         }
         
@@ -942,14 +983,14 @@ extension Capture {
                             var userInfo = [String: Any]()
                             userInfo[NSLocalizedDescriptionKey] = "[Material Error: Cannot fix image orientation.]"
                             userInfo[NSLocalizedFailureReasonErrorKey] = "[Material Error: Cannot fix image orientation.]"
-                            captureError = NSError(domain: "io.cosmicmind.Material.Capture", code: 0006, userInfo: userInfo)
+                            captureError = NSError(domain: "com.cosmicmind.material.capture", code: 0006, userInfo: userInfo)
                             userInfo[NSUnderlyingErrorKey] = error
                         }
                     } else {
                         var userInfo = [String: Any]()
                         userInfo[NSLocalizedDescriptionKey] = "[Material Error: Cannot capture image from data.]"
                         userInfo[NSLocalizedFailureReasonErrorKey] = "[Material Error: Cannot capture image from data.]"
-                        captureError = NSError(domain: "io.cosmicmind.Material.Capture", code: 0007, userInfo: userInfo)
+                        captureError = NSError(domain: "com.cosmicmind.material.capture", code: 0007, userInfo: userInfo)
                         userInfo[NSUnderlyingErrorKey] = error
                     }
                 }
