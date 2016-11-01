@@ -40,4 +40,5 @@ public enum HeightPreset: Int {
     case medium = 52
     case large = 60
     case xlarge = 68
+    case xxlarge = 104
 }

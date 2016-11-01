@@ -86,7 +86,6 @@ public struct Icon {
     public static let place = Icon.icon("ic_place_white")
     public static let phone = Icon.icon("ic_phone_white")
     public static let photoCamera = Icon.icon("ic_photo_camera_white")
-    public static let photoCameraLarge = Icon.icon("ic_photo_camera_white_36pt")
     public static let photoLibrary = Icon.icon("ic_photo_library_white")
     public static let search = Icon.icon("ic_search_white")
     public static let settings = Icon.icon("ic_settings_white")
@@ -95,7 +94,6 @@ public struct Icon {
     public static let starBorder = Icon.icon("ic_star_border_white")
     public static let starHalf = Icon.icon("ic_star_half_white")
     public static let videocam = Icon.icon("ic_videocam_white")
-    public static let videocamLarge = Icon.icon("ic_videocam_white_36pt")
     public static let visibility = Icon.icon("ic_visibility_white")
     
 	/// CosmicMind icons.

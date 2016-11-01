@@ -270,7 +270,7 @@ open class Capture: View {
     open var isAnimating = false
     
     /// A reference to the capture mode.
-    open var mode = CaptureMode.video
+    open var mode = CaptureMode.photo
 	
     /// Delegation handler.
     open weak var delegate: CaptureDelegate?
@@ -280,9 +280,6 @@ open class Capture: View {
 		
     /// A Timer reference for when recording is enabled.
     internal var timer: Timer?
-    
-    /// A reference to the visualEffect .
-    internal var visualEffect: UIView!
     
     /// A tap gesture reference for focus events.
     internal var tapToFocusGesture: UITapGestureRecognizer?
@@ -606,7 +603,6 @@ open class Capture: View {
 		super.prepare()
 		backgroundColor = .black
         
-        prepareVisualEffect()
         prepareSession()
         prepareSessionQueue()
         prepareActiveVideoInput()
@@ -621,19 +617,10 @@ open class Capture: View {
 }
 
 extension Capture {
-    /// Prepares the visualEffect.
-    internal func prepareVisualEffect() {
-        let blurEffect = UIVisualEffectView(effect: UIBlurEffect(style: .light))
-        visualEffect = UIView()
-        visualEffect.backgroundColor = nil
-        visualEffect.layout(blurEffect).edges()
-    }
-    
     /// Prepares the preview.
     internal func preparePreview() {
 		preview = CapturePreview()
         layout(preview).edges()
-        bringSubview(toFront: visualEffect)
         
         (preview.layer as! AVCaptureVideoPreviewLayer).session = session
 		startSession()
@@ -777,25 +764,7 @@ extension Capture {
             
             session.commitConfiguration()
             
-            isAnimating = true
-            Motion.delay(time: 0.15) { [weak self] in
-                guard let s = self else {
-                    return
-                }
-                
-                s.delegate?.captureDidSwitchCameras?(capture: s, device: s.devicePosition!)
-                
-                UIView.animate(withDuration: 0.15, animations: { [weak self] in
-                    self?.visualEffect.alpha = 0
-                }, completion: { [weak self] _ in
-                    guard let s = self else {
-                        return
-                    }
-                    
-                    s.visualEffect.removeFromSuperview()
-                    s.isAnimating = false
-                })
-            }
+            delegate?.captureDidSwitchCameras?(capture: self, device: devicePosition!)
         } catch let e as NSError {
             delegate?.captureFailedWithError?(capture: self, error: e)
         }
@@ -1107,12 +1076,13 @@ extension Capture {
     }
     
     /**
-     Handler for the flashButton.
+     Handler for the videoButton.
      - Parameter button: A UIButton that is associated with the event.
      */
     @objc
-    internal func handleFlashButton(button: UIButton) {
-        delegate?.captureDidPressFlashButton?(capture: self, button: button)
+    internal func handleVideoButton(button: UIButton) {
+        mode = .video
+        delegate?.captureDidPressVideoButton?(capture: self, button: button)
     }
     
     /**
@@ -1121,26 +1091,17 @@ extension Capture {
      */
     @objc
     internal func handleSwitchCamerasButton(button: UIButton) {
-        visualEffect.alpha = 0
-        layout(visualEffect).edges()
-        
-        UIView.animate(withDuration: 0.15, animations: { [weak self] in
-            self?.visualEffect.alpha = 1
-        }) { [weak self] _ in
-            self?.switchCameras()
-        }
-        
+        switchCameras()
         delegate?.captureDidPressSwitchCamerasButton?(capture: self, button: button)
     }
     
     /**
-     Handler for the videoButton.
+     Handler for the flashButton.
      - Parameter button: A UIButton that is associated with the event.
      */
     @objc
-    internal func handleVideoButton(button: UIButton) {
-        mode = .video
-        delegate?.captureDidPressVideoButton?(capture: self, button: button)
+    internal func handleFlashButton(button: UIButton) {
+        delegate?.captureDidPressFlashButton?(capture: self, button: button)
     }
     
     /**

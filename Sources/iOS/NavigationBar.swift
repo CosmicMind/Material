@@ -215,6 +215,7 @@ open class NavigationBar: UINavigationBar {
         }
         
         item.contentView.grid.begin()
+        item.contentView.grid.offset.columns = 0
         
         var l: CGFloat = 0
         var r: CGFloat = 0
@@ -232,7 +233,7 @@ open class NavigationBar: UINavigationBar {
         let p = width - l - r - contentEdgeInsets.left - contentEdgeInsets.right
         let columns = Int(ceil(p / gridFactor))
         
-        if .center == contentViewAlignment {
+        if .center == item.contentViewAlignment {
             if lc < rc {
                 item.contentView.grid.columns = columns - 2 * rc
                 item.contentView.grid.offset.columns = rc - lc
