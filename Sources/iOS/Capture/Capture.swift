@@ -95,174 +95,177 @@ public func CapturePresetToString(preset: CapturePreset) -> String {
 @objc(CaptureDelegate)
 public protocol CaptureDelegate {
     /**
-     A delegation method that is fired when the record timer has started.
+     A delegation method that is executed when the captureSesstion failes with an error.
      - Parameter capture: A reference to the calling capture.
+     - Parameter error: A Error corresponding to the error.
      */
     @objc
-    optional func captureDidStartRecordTimer(capture: Capture)
+    optional func capture(capture: Capture, failedWith error: Error)
     
     /**
-     A delegation method that is fired when the record timer was updated.
+     A delegation method that is executed when the record timer has started.
      - Parameter capture: A reference to the calling capture.
+     - Parameter didStartRecord timer: A Timer.
+     */
+    @objc
+    optional func capture(capture: Capture, didStartRecord timer: Timer)
+    
+    /**
+     A delegation method that is executed when the record timer was updated.
+     - Parameter capture: A reference to the calling capture.
+     - Parameter didUpdateRecord timer: A Timer.
      - Parameter hours: An integer representing hours.
      - Parameter minutes: An integer representing minutes.
      - Parameter seconds: An integer representing seconds.
      */
     @objc
-    optional func captureDidUpdateRecordTimer(capture: Capture, hours: Int, minutes: Int, seconds: Int)
+    optional func capture(capture: Capture, didUpdateRecord timer: Timer, hours: Int, minutes: Int, seconds: Int)
     
     /**
-     A delegation method that is fired when the record timer has stopped.
+     A delegation method that is executed when the record timer has stopped.
      - Parameter capture: A reference to the calling capture.
+     - Parameter didStopRecord timer: A Timer.
      - Parameter hours: An integer representing hours.
      - Parameter minutes: An integer representing minutes.
      - Parameter seconds: An integer representing seconds.
      */
     @objc
-    optional func captureDidStopRecordTimer(capture: Capture, hours: Int, minutes: Int, seconds: Int)
+    optional func capture(capture: Capture, didStopRecord time: Timer, hours: Int, minutes: Int, seconds: Int)
     
     /**
-     A delegation method that is fired when the user tapped to adjust the focus.
+     A delegation method that is executed when the user tapped to adjust the focus.
      - Parameter capture: A reference to the calling capture.
-     - Parameter point: CGPoint that the user tapped at.
+     - Parameter didTapToFocusAt point: CGPoint that the user tapped at.
      */
     @objc
-    optional func captureDidTapToFocusAtPoint(capture: Capture, point: CGPoint)
+    optional func capture(capture: Capture, didTapToFocusAt point: CGPoint)
     
     /**
-     A delegation method that is fired when the user tapped to adjust the exposure.
+     A delegation method that is executed when the user tapped to adjust the exposure.
      - Parameter capture: A reference to the calling capture.
-     - Parameter point: CGPoint that the user tapped at.
+     - Parameter didTapToExposeAt point: CGPoint that the user tapped at.
      */
     @objc
-    optional func captureDidTapToExposeAtPoint(capture: Capture, point: CGPoint)
+    optional func capture(capture: Capture, didTapToExposeAt point: CGPoint)
     
     /**
-     A delegation method that is fired when the user tapped to reset.
+     A delegation method that is executed when the user tapped to reset.
      - Parameter capture: A reference to the calling capture.
-     - Parameter point: CGPoint that the user tapped at.
+     - Parameter didTapToResetAt point: CGPoint that the user tapped at.
      */
     @objc
-    optional func captureDidTapToResetAtPoint(capture: Capture, point: CGPoint)
+    optional func capture(capture: Capture, didTapToResetAt point: CGPoint)
+    
+    /**
+     A delegation method that is executed when the user pressed the change mode button.
+     - Parameter capture: A reference to the calling capture.
+     - Parameter didPressChangeMode button: A reference to the UIButton that the user pressed.
+     */
+    @objc
+    optional func capture(capture: Capture, didPressChangeMode button: UIButton)
+    
+    /**
+     A delegation method that is executed when the user pressed the change camera button.
+     - Parameter capture: A reference to the calling capture.
+     - Parameter didPressChangeCamera button: A reference to the UIButton that the user pressed.
+     */
+    @objc
+    optional func capture(capture: Capture, didPressChangeCamera button: UIButton)
+    
+    /**
+     A delegation method that is executed when the user pressed capture button.
+     - Parameter capture: A reference to the calling capture.
+     - Parameter didPressCapture button: A reference to the UIButton that the user pressed.
+     */
+    @objc
+    optional func capture(capture: Capture, didPressCapture button: UIButton)
     
     /**
      A delegation method that is fired when the user pressed the flash button.
      - Parameter capture: A reference to the calling capture.
-     - Parameter button: A reference to the UIButton that the user pressed.
+     - Parameter didPressFlash button: A reference to the UIButton that the user pressed.
      */
     @objc
-    optional func captureDidPressFlashButton(capture: Capture, button: UIButton)
+    optional func capture(capture: Capture, didPressFlash button: UIButton)
     
     /**
-     A delegation method that is fired when the user pressed the switch camera button.
+     A delegation method that is executed before the camera has been changed to another mode.
      - Parameter capture: A reference to the calling capture.
-     - Parameter button: A reference to the UIButton that the user pressed.
+     - Parameter mode: A CaptureMode.
      */
     @objc
-    optional func captureDidPressSwitchCamerasButton(capture: Capture, button: UIButton)
+    optional func capture(capture: Capture, willChange mode: CaptureMode)
     
     /**
-     A delegation method that is fired when the user pressed capture button.
+     A delegation method that is executed after the camera has been changed to another mode.
      - Parameter capture: A reference to the calling capture.
-     - Parameter button: A reference to the UIButton that the user pressed.
+     - Parameter mode: A CaptureMode.
      */
     @objc
-    optional func captureDidPressCaptureButton(capture: Capture, button: UIButton)
+    optional func capture(capture: Capture, didChange mode: CaptureMode)
     
     /**
-     A delegation method that is fired when the user enabled the photo camera.
+     A delegation method that is executed before the camera has been changed to another.
      - Parameter capture: A reference to the calling capture.
-     - Parameter button: A reference to the UIButton that the user pressed.
+     - Parameter willChangeCamera devicePosition: An AVCaptureDevicePosition that the camera will change to.
      */
     @objc
-    optional func captureDidPressCameraButton(capture: Capture, button: UIButton)
+    optional func capture(capture: Capture, willChangeCamera devicePosition: AVCaptureDevicePosition)
     
     /**
-     A delegation method that is fired when the user enabled the video camera.
+     A delegation method that is executed when the camera has been changed to another.
      - Parameter capture: A reference to the calling capture.
-     - Parameter button: A reference to the UIButton that the user pressed.
+     - Parameter didChangeCamera devicePosition: An AVCaptureDevicePosition that the camera has changed to.
      */
     @objc
-    optional func captureDidPressVideoButton(capture: Capture, button: UIButton)
-
-    /**
-     A delegation method that is fired when the captureSesstion failes with an error.
-     - Parameter capture: A reference to the calling capture.
-     - Parameter error: A Error corresponding to the error.
-     */
-    @objc
-    optional func captureFailedWithError(capture: Capture, error: Error)
+    optional func capture(capture: Capture, didChangeCamera devicePosition: AVCaptureDevicePosition)
     
     /**
-     A delegation method that is fired when the camera has been switched to another.
+     A delegation method that is executed when an image has been captured asynchronously.
      - Parameter capture: A reference to the calling capture.
-     - Parameter device position: An AVCaptureDevicePosition that the camera has switched to.
+     - Parameter asynchronouslyStill image: An image that has been captured.
      */
     @objc
-    optional func captureDidSwitchCameras(capture: Capture, device position: AVCaptureDevicePosition)
+    optional func capture(capture: Capture, asynchronouslyStill image: UIImage)
     
     /**
-     A delegation method that is fired before the camera has been switched to another.
+     A delegation method that is executed when capturing an image asynchronously has failed.
      - Parameter capture: A reference to the calling capture.
-     - Parameter device position: An AVCaptureDevicePosition that the camera will switch to.
+     - Parameter asynchronouslyStillImageFailedWith error: A Error corresponding to the error.
      */
     @objc
-    optional func captureWillSwitchCameras(capture: Capture, device position: AVCaptureDevicePosition)
+    optional func capture(capture: Capture, asynchronouslyStillImageFailedWith error: Error)
     
     /**
-     A delegation method that is fired when an image has been captured asynchronously.
+     A delegation method that is executed when creating a movie file has failed.
      - Parameter capture: A reference to the calling capture.
-     - Parameter image: An image that has been captured.
+     - Parameter createMovieFileFailedWith error: A Error corresponding to the error.
      */
     @objc
-    optional func captureStillImageAsynchronously(capture: Capture, image: UIImage)
+    optional func capture(capture: Capture, createMovieFileFailedWith error: Error)
     
     /**
-     A delegation method that is fired when capturing an image asynchronously has failed.
-     - Parameter capture: A reference to the calling capture.
-     - Parameter error: A Error corresponding to the error.
-     */
-    @objc
-    optional func captureStillImageAsynchronouslyFailedWithError(capture: Capture, error: Error)
-    
-    /**
-     A delegation method that is fired when creating a movie file has failed.
-     - Parameter capture: A reference to the calling capture.
-     - Parameter error: A Error corresponding to the error.
-     */
-    @objc
-    optional func captureCreateMovieFileFailedWithError(capture: Capture, error: Error)
-    
-    /**
-     A delegation method that is fired when capturing a movie has failed.
-     - Parameter capture: A reference to the calling capture.
-     - Parameter error: A Error corresponding to the error.
-     */
-    @objc
-    optional func captureMovieFailedWithError(capture: Capture, error: Error)
-    
-    /**
-     A delegation method that is fired when a session started recording and writing
+     A delegation method that is executed when a session started recording and writing
      to a file.
      - Parameter capture: A reference to the calling capture.
-     - Parameter captureOut: An AVCaptureFileOutput.
-     - Parameter fileURL: A file URL.
+     - Parameter captureOutput: An AVCaptureFileOutput.
+     - Parameter didStartRecordingToOutputFileAt fileURL: A file URL.
      - Parameter fromConnections: An array of Anys.
      */
     @objc
-    optional func captureDidStartRecordingToOutputFileAtURL(capture: Capture, captureOutput: AVCaptureFileOutput, fileURL: NSURL, fromConnections connections: [Any])
+    optional func capture(capture: Capture, captureOutput: AVCaptureFileOutput, didStartRecordingToOutputFileAt fileURL: NSURL, fromConnections connections: [Any])
     
     /**
-     A delegation method that is fired when a session finished recording and writing
+     A delegation method that is executed when a session finished recording and writing
      to a file.
      - Parameter capture: A reference to the calling capture.
-     - Parameter captureOut: An AVCaptureFileOutput.
-     - Parameter fileURL: A file URL.
+     - Parameter captureOutput: An AVCaptureFileOutput.
+     - Parameter didFinishRecordingToOutputFileAt outputFileURL: A file URL.
      - Parameter fromConnections: An array of Anys.
      - Parameter error: A Error corresponding to an error.
      */
     @objc
-    optional func captureDidFinishRecordingToOutputFileAtURL(capture: Capture, captureOutput: AVCaptureFileOutput, outputFileURL: NSURL, fromConnections connections: [Any], error: Error!)
+    optional func capture(capture: Capture, captureOutput: AVCaptureFileOutput, didFinishRecordingToOutputFileAt outputFileURL: NSURL, fromConnections connections: [Any], error: Error!)
 }
 
 open class Capture: View {
@@ -279,7 +282,7 @@ open class Capture: View {
 	open internal(set) var preview: CapturePreview!
 		
     /// A Timer reference for when recording is enabled.
-    internal var timer: Timer?
+    open internal(set) var timer: Timer?
     
     /// A tap gesture reference for focus events.
     internal var tapToFocusGesture: UITapGestureRecognizer?
@@ -345,8 +348,8 @@ open class Capture: View {
         return AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo).count
     }
     
-    /// A boolean indicating whether the camera can switch to another.
-    open var canSwitchCameras: Bool {
+    /// A boolean indicating whether the camera can change to another.
+    open var canChangeCamera: Bool {
         return 1 < cameraCount
     }
     
@@ -384,7 +387,7 @@ open class Capture: View {
             var error: NSError?
             if isFocusModeSupported(focusMode: focusMode) {
                 do {
-                    let device: AVCaptureDevice = activeCamera!
+                    let device = activeCamera!
                     try device.lockForConfiguration()
                     device.focusMode = value
                     device.unlockForConfiguration()
@@ -400,7 +403,7 @@ open class Capture: View {
             }
             
             if let e = error {
-                delegate?.captureFailedWithError?(capture: self, error: e)
+                delegate?.capture?(capture: self, failedWith: e)
             }
         }
     }
@@ -414,7 +417,7 @@ open class Capture: View {
             var error: Error?
             if isFlashModeSupported(flashMode: flashMode) {
                 do {
-                    let device: AVCaptureDevice = activeCamera!
+                    let device = activeCamera!
                     try device.lockForConfiguration()
                     device.flashMode = value
                     device.unlockForConfiguration()
@@ -430,7 +433,7 @@ open class Capture: View {
             }
             
             if let e = error {
-                delegate?.captureFailedWithError?(capture: self, error: e)
+                delegate?.capture?(capture: self, failedWith: e)
             }
         }
     }
@@ -460,7 +463,7 @@ open class Capture: View {
             }
             
             if let e = error {
-                delegate?.captureFailedWithError?(capture: self, error: e)
+                delegate?.capture?(capture: self, failedWith: e)
             }
         }
     }
@@ -496,27 +499,19 @@ open class Capture: View {
         }
     }
     
-    /// A reference to the cameraButton.
+    /// A reference to the changeModeButton.
     @IBInspectable
-    open var cameraButton: UIButton? {
+    open var changeModeButton: UIButton? {
         didSet {
-            prepareCameraButton()
+            prepareChangeModeButton()
         }
     }
     
-    /// A reference to the videoButton.
+    /// A reference to the changeCameraButton.
     @IBInspectable
-    open var videoButton: UIButton? {
+    open var changeCameraButton: UIButton? {
         didSet {
-            prepareVideoButton()
-        }
-    }
-    
-    /// A reference to the switchCameraButton.
-    @IBInspectable
-    open var switchCamerasButton: UIButton? {
-        didSet {
-            prepareSwitchCamerasButton()
+            prepareChangeCameraButton()
         }
     }
     
@@ -628,27 +623,22 @@ extension Capture {
     
     /// Prepares the captureButton.
     internal func prepareCaptureButton() {
-        captureButton?.addTarget(self, action: #selector(handleCaptureButton), for: .touchUpInside)
+        captureButton?.addTarget(self, action: #selector(handleCaptureButton(button:)), for: .touchUpInside)
     }
     
     /// Prepares the cameraButton.
-    internal func prepareCameraButton() {
-        cameraButton?.addTarget(self, action: #selector(handleCameraButton), for: .touchUpInside)
+    internal func prepareChangeModeButton() {
+        changeModeButton?.addTarget(self, action: #selector(handleChangeModeButton(button:)), for: .touchUpInside)
     }
     
-    /// Preapres the videoButton.
-    internal func prepareVideoButton() {
-        videoButton?.addTarget(self, action: #selector(handleVideoButton), for: .touchUpInside)
-    }
-    
-    /// Prepares the switchCameraButton.
-    internal func prepareSwitchCamerasButton() {
-        switchCamerasButton?.addTarget(self, action: #selector(handleSwitchCamerasButton), for: .touchUpInside)
+    /// Prepares the changeCameraButton.
+    internal func prepareChangeCameraButton() {
+        changeCameraButton?.addTarget(self, action: #selector(handleChangeCameraButton(button:)), for: .touchUpInside)
     }
     
     /// Prepares the flashButton.
     internal func prepareFlashButton() {
-        flashButton?.addTarget(self, action: #selector(handleFlashButton), for: .touchUpInside)
+        flashButton?.addTarget(self, action: #selector(handleFlashButton(button:)), for: .touchUpInside)
     }
     
     /// Prepares the sessionQueue.
@@ -672,7 +662,7 @@ extension Capture {
             
             session.addInput(activeVideoInput)
         } catch let e as NSError {
-            delegate?.captureFailedWithError?(capture: self, error: e)
+            delegate?.capture?(capture: self, failedWith: e)
         }
     }
     
@@ -687,7 +677,7 @@ extension Capture {
             
             session.addInput(activeAudioInput)
         } catch let e as NSError {
-            delegate?.captureFailedWithError?(capture: self, error: e)
+            delegate?.capture?(capture: self, failedWith: e)
         }
     }
     
@@ -738,9 +728,9 @@ extension Capture {
         }
     }
     
-    /// Switches the camera if possible.
-    open func switchCameras() {
-        guard canSwitchCameras && !isAnimating else {
+    /// Changees the camera if possible.
+    open func changeCamera() {
+        guard canChangeCamera && !isAnimating else {
             return
         }
         
@@ -749,7 +739,9 @@ extension Capture {
                 return
             }
             
-            delegate?.captureWillSwitchCameras?(capture: self, device: v)
+            flashMode = .back == v ? .off : .auto
+            
+            delegate?.capture?(capture: self, willChangeCamera: v)
             
             let videoInput = try AVCaptureDeviceInput(device: inactiveCamera!)
             session.beginConfiguration()
@@ -764,10 +756,17 @@ extension Capture {
             
             session.commitConfiguration()
             
-            delegate?.captureDidSwitchCameras?(capture: self, device: devicePosition!)
+            delegate?.capture?(capture: self, didChangeCamera: v)
         } catch let e as NSError {
-            delegate?.captureFailedWithError?(capture: self, error: e)
+            delegate?.capture?(capture: self, failedWith: e)
         }
+    }
+    
+    /// Changees the mode.
+    open func changeMode() {
+        delegate?.capture?(capture: self, willChange: mode)
+        mode = .photo == mode ? .video : .photo
+        delegate?.capture?(capture: self, didChange: mode)
     }
     
     /**
@@ -831,7 +830,7 @@ extension Capture {
         }
         
         if let e = error {
-            delegate?.captureFailedWithError?(capture: self, error: e)
+            delegate?.capture?(capture: self, failedWith: e)
         }
     }
     
@@ -863,7 +862,7 @@ extension Capture {
         }
         
         if let e = error {
-            delegate?.captureFailedWithError?(capture: self, error: e)
+            delegate?.capture?(capture: self, failedWith: e)
         }
     }
     
@@ -872,13 +871,17 @@ extension Capture {
             let device = object as! AVCaptureDevice
             if !device.isAdjustingExposure && device.isExposureModeSupported(.locked) {
                 (object! as AnyObject).removeObserver(self, forKeyPath: "adjustingExposure", context: &CaptureAdjustingExposureContext)
-                DispatchQueue.main.async() {
+                DispatchQueue.main.async { [weak self] in
                     do {
                         try device.lockForConfiguration()
                         device.exposureMode = .locked
                         device.unlockForConfiguration()
                     } catch let e as NSError {
-                        self.delegate?.captureFailedWithError?(capture: self, error: e)
+                        guard let s = self else {
+                            return
+                        }
+                        
+                        s.delegate?.capture?(capture: s, failedWith: e)
                     }
                 }
             }
@@ -912,7 +915,7 @@ extension Capture {
             
             device.unlockForConfiguration()
         } catch let e as NSError {
-            delegate?.captureFailedWithError?(capture: self, error: e)
+            delegate?.capture?(capture: self, failedWith: e)
         }
     }
     
@@ -939,7 +942,7 @@ extension Capture {
                     
                     if let image1 = UIImage(data: data) {
                         if let image2 = image1.adjustOrientation() {
-                            s.delegate?.captureStillImageAsynchronously?(capture: s, image: image2)
+                            s.delegate?.capture?(capture: s, asynchronouslyStill: image2)
                         } else {
                             var userInfo = [String: Any]()
                             userInfo[NSLocalizedDescriptionKey] = "[Material Error: Cannot fix image orientation.]"
@@ -957,7 +960,7 @@ extension Capture {
                 }
                 
                 if let e = captureError {
-                    s.delegate?.captureStillImageAsynchronouslyFailedWithError?(capture: s, error: e)
+                    s.delegate?.capture?(capture: s, asynchronouslyStillImageFailedWith: e)
                 }
             }
         }
@@ -986,7 +989,7 @@ extension Capture {
                         v.isSmoothAutoFocusEnabled = true
                         v.unlockForConfiguration()
                     } catch let e as NSError {
-                        s.delegate?.captureFailedWithError?(capture: s, error: e)
+                        s.delegate?.capture?(capture: s, failedWith: e)
                     }
                 }
                 
@@ -1036,7 +1039,8 @@ extension Capture {
             
             return directory.appendingPathComponent(dateFormatter.string(from: NSDate() as Date) + ".mov")
         } catch let e as NSError {
-            delegate?.captureCreateMovieFileFailedWithError?(capture: self, error: e)
+            delegate?.capture?(capture: self, createMovieFileFailedWith: e)
+            
         }
         return nil
     }
@@ -1062,37 +1066,27 @@ extension Capture {
             }
         }
         
-        delegate?.captureDidPressCaptureButton?(capture: self, button: button)
+        delegate?.capture?(capture: self, didPressCapture: button)
     }
     
     /**
-     Handler for the cameraButton.
+     Handler for the changeModeButton.
      - Parameter button: A UIButton that is associated with the event.
      */
     @objc
-    internal func handleCameraButton(button: UIButton) {
-        mode = .photo
-        delegate?.captureDidPressCameraButton?(capture: self, button: button)
+    internal func handleChangeModeButton(button: UIButton) {
+        changeMode()
+        delegate?.capture?(capture: self, didPressChangeMode: button)
     }
     
     /**
-     Handler for the videoButton.
+     Handler for the changeCameraButton.
      - Parameter button: A UIButton that is associated with the event.
      */
     @objc
-    internal func handleVideoButton(button: UIButton) {
-        mode = .video
-        delegate?.captureDidPressVideoButton?(capture: self, button: button)
-    }
-    
-    /**
-     Handler for the switchCameraButton.
-     - Parameter button: A UIButton that is associated with the event.
-     */
-    @objc
-    internal func handleSwitchCamerasButton(button: UIButton) {
-        switchCameras()
-        delegate?.captureDidPressSwitchCamerasButton?(capture: self, button: button)
+    internal func handleChangeCameraButton(button: UIButton) {
+        changeCamera()
+        delegate?.capture?(capture: self, didPressChangeCamera: button)
     }
     
     /**
@@ -1101,7 +1095,7 @@ extension Capture {
      */
     @objc
     internal func handleFlashButton(button: UIButton) {
-        delegate?.captureDidPressFlashButton?(capture: self, button: button)
+        delegate?.capture?(capture: self, didPressFlash: button)
     }
     
     /**
@@ -1116,7 +1110,7 @@ extension Capture {
         
         let point = recognizer.location(in: self)
         focus(at: preview.captureDevicePointOfInterestForPoint(point: point))
-        delegate?.captureDidTapToFocusAtPoint?(capture: self, point: point)
+        delegate?.capture?(capture: self, didTapToFocusAt: point)
     }
     
     /**
@@ -1131,7 +1125,7 @@ extension Capture {
         
         let point = recognizer.location(in: self)
         expose(at: preview.captureDevicePointOfInterestForPoint(point: point))
-        delegate?.captureDidTapToExposeAtPoint?(capture: self, point: point)
+        delegate?.capture?(capture: self, didTapToExposeAt: point)
     }
     
     /**
@@ -1147,7 +1141,7 @@ extension Capture {
         reset()
         
         let point = preview.pointForCaptureDevicePointOfInterest(point: CGPoint(x: 0.5, y: 0.5))
-        delegate?.captureDidTapToResetAtPoint?(capture: self, point: point)
+        delegate?.capture?(capture: self, didTapToResetAt: point)
     }
 }
 
@@ -1159,7 +1153,7 @@ extension Capture {
         
         RunLoop.main.add(timer!, forMode: .commonModes)
         
-        delegate?.captureDidStartRecordTimer?(capture: self)
+        delegate?.capture?(capture: self, didStartRecord: timer!)
     }
     
     /// Updates the timer when recording.
@@ -1170,7 +1164,7 @@ extension Capture {
         let minutes = Int((time / 60).truncatingRemainder(dividingBy: 60))
         let seconds = Int(time.truncatingRemainder(dividingBy: 60))
         
-        delegate?.captureDidUpdateRecordTimer?(capture: self, hours: hours, minutes: minutes, seconds: seconds)
+        delegate?.capture?(capture: self, didUpdateRecord: timer!, hours: hours, minutes: minutes, seconds: seconds)
     }
     
     /// Stops the timer when recording.
@@ -1182,9 +1176,10 @@ extension Capture {
         let seconds = Int(time.truncatingRemainder(dividingBy: 60))
         
         timer?.invalidate()
-        timer = nil
         
-        delegate?.captureDidStopRecordTimer?(capture: self, hours: hours, minutes: minutes, seconds: seconds)
+        delegate?.capture?(capture: self, didStopRecord: timer!, hours: hours, minutes: minutes, seconds: seconds)
+        
+        timer = nil
     }
 }
 
@@ -1227,11 +1222,11 @@ extension Capture: UIGestureRecognizerDelegate {
 extension Capture: AVCaptureFileOutputRecordingDelegate {
     public func capture(_ captureOutput: AVCaptureFileOutput!, didStartRecordingToOutputFileAt fileURL: URL!, fromConnections connections: [Any]!) {
         isRecording = true
-        delegate?.captureDidStartRecordingToOutputFileAtURL?(capture: self, captureOutput: captureOutput, fileURL: fileURL as NSURL, fromConnections: connections)
+        delegate?.capture?(capture: self, captureOutput: captureOutput, didStartRecordingToOutputFileAt: fileURL as NSURL, fromConnections: connections)
     }
     
     public func capture(_ captureOutput: AVCaptureFileOutput!, didFinishRecordingToOutputFileAt outputFileURL: URL!, fromConnections connections: [Any]!, error: Error!) {
         isRecording = false
-        delegate?.captureDidFinishRecordingToOutputFileAtURL?(capture: self, captureOutput: captureOutput, outputFileURL: outputFileURL as NSURL, fromConnections: connections, error: error)
+        delegate?.capture?(capture: self, captureOutput: captureOutput, didFinishRecordingToOutputFileAt: outputFileURL as NSURL, fromConnections: connections, error: error)
     }
 }
