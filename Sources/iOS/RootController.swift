@@ -142,6 +142,7 @@ open class RootController: UIViewController {
                 s.rootViewController.view.clipsToBounds = true
                 s.rootViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
                 s.rootViewController.view.contentScaleFactor = Device.scale
+                s.view.sendSubview(toBack: s.rootViewController.view)
                 completion?(result)
 			}
 	}
