@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
   s.summary = 'Material is an animation and graphics framework that is used to create beautiful applications.'
   s.homepage = 'http://materialswift.com'
   s.social_media_url = 'https://www.facebook.com/cosmicmindio'
-  s.authors = { 'CosmicMind, Inc.' => 'support@cosmicmind.io' }
+  s.authors = { 'CosmicMind, Inc.' => 'support@cosmicmind.com' }
   s.source = { :git => 'https://github.com/CosmicMind/Material.git', :tag => s.version }
   s.platform = :ios, '8.0'
   

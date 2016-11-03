@@ -34,7 +34,7 @@ CosmicMind takes security seriously.
 If you discover a security issue, please bring it to our attention right away!
 
 Please **DO NOT** file a public issue,
-instead send your report privately to <support@cosmicmind.io>.
+instead send your report privately to <support@cosmicmind.com>.
 This will help ensure that any vulnerabilities that _are_ found
 can be [disclosed responsibly](http://en.wikipedia.org/wiki/Responsible_disclosure)
 to any affected parties.
