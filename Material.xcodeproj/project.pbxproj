@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		961DED461DCC40C500F425B6 /* Editor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961DED451DCC40C500F425B6 /* Editor.swift */; };
+		961DED4B1DCC546100F425B6 /* EditorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961DED4A1DCC546100F425B6 /* EditorController.swift */; };
 		961EFC581D738FF600E84652 /* SnackbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961EFC571D738FF600E84652 /* SnackbarController.swift */; };
 		961F18E81CD93E3E008927C5 /* ErrorTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961F18E71CD93E3E008927C5 /* ErrorTextField.swift */; };
 		96230AB81D6A520C00AF47DC /* Divider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96230AB71D6A520C00AF47DC /* Divider.swift */; };
@@ -205,6 +206,7 @@
 
 /* Begin PBXFileReference section */
 		961DED451DCC40C500F425B6 /* Editor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Editor.swift; sourceTree = "<group>"; };
+		961DED4A1DCC546100F425B6 /* EditorController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorController.swift; sourceTree = "<group>"; };
 		961EFC571D738FF600E84652 /* SnackbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnackbarController.swift; sourceTree = "<group>"; };
 		961F18E71CD93E3E008927C5 /* ErrorTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorTextField.swift; sourceTree = "<group>"; };
 		96230AB71D6A520C00AF47DC /* Divider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Divider.swift; sourceTree = "<group>"; };
@@ -361,6 +363,7 @@
 			isa = PBXGroup;
 			children = (
 				961DED451DCC40C500F425B6 /* Editor.swift */,
+				961DED4A1DCC546100F425B6 /* EditorController.swift */,
 			);
 			name = Editor;
 			sourceTree = "<group>";
@@ -1075,6 +1078,7 @@
 				96BCB7A91CB40DC500C806FE /* FlatButton.swift in Sources */,
 				96BCB7CA1CB40DC500C806FE /* Layout.swift in Sources */,
 				96BCB7D11CB40DC500C806FE /* Switch.swift in Sources */,
+				961DED4B1DCC546100F425B6 /* EditorController.swift in Sources */,
 				96BCB7BA1CB40DC500C806FE /* CollectionView.swift in Sources */,
 				96BCB7BC1CB40DC500C806FE /* CollectionViewDataSource.swift in Sources */,
 				96717B191DBE6B1800DA84DB /* PhotoLibraryController.swift in Sources */,
