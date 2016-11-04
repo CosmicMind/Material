@@ -153,16 +153,16 @@ public protocol EditorDelegate {
 
 open class Editor: View {
     /// A reference to the Text.
-    open internal(set) var text: Text!
+    open fileprivate(set) var text: Text!
     
     /// A reference to the NSTextContainer.
-    open internal(set) var textContainer: NSTextContainer!
+    open fileprivate(set) var textContainer: NSTextContainer!
     
     /// A reference to the NSLayoutManager.
-    open internal(set) var layoutManager: NSLayoutManager!
+    open fileprivate(set) var layoutManager: NSLayoutManager!
     
     /// Reference to the TextView.
-    open internal(set) var textView: TextView!
+    open fileprivate(set) var textView: TextView!
     
     /// A reference to an EditorDelegate.
     open weak var delegate: EditorDelegate?
