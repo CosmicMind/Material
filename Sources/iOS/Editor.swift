@@ -30,78 +30,111 @@
 
 import UIKit
 
-public enum CharacterAttributePreset {
-    case font
-    case paragraphStyle
-    case forgroundColor
-    case backgroundColor
-    case ligature
-    case kern
-    case strikethroughStyle
-    case underlineStyle
-    case strokeColor
-    case strokeWidth
-    case shadow
-    case textEffect
-    case attachment
-    case baselineOffset
-    case underlineColor
-    case strikethroughColor
-    case obliqueness
-    case expansion
-    case writingDirection
-    case verticalGlyphForm
+public enum CharacterAttribute: String {
+    case font = "NSFontAttributeName"
+    case paragraphStyle = "NSParagraphStyleAttributeName"
+    case forgroundColor = "NSForegroundColorAttributeName"
+    case backgroundColor = "NSBackgroundColorAttributeName"
+    case ligature = "NSLigatureAttributeName"
+    case kern = "NSKernAttributeName"
+    case strikethroughStyle = "NSStrikethroughStyleAttributeName"
+    case underlineStyle = "NSUnderlineStyleAttributeName"
+    case strokeColor = "NSStrokeColorAttributeName"
+    case strokeWidth = "NSStrokeWidthAttributeName"
+    case shadow = "NSShadowAttributeName"
+    case textEffect = "NSTextEffectAttributeName"
+    case attachment = "NSAttachmentAttributeName"
+    case link = "NSLinkAttributeName"
+    case baselineOffset = "NSBaselineOffsetAttributeName"
+    case underlineColor = "NSUnderlineColorAttributeName"
+    case strikethroughColor = "NSStrikethroughColorAttributeName"
+    case obliqueness = "NSObliquenessAttributeName"
+    case expansion = "NSExpansionAttributeName"
+    case writingDirection = "NSWritingDirectionAttributeName"
+    case verticalGlyphForm = "NSVerticalGlyphFormAttributeName"
 }
 
-public func CharacterSpacePresetToValue(preset: CharacterAttributePreset) -> String {
-    // Predefined character attributes for text. If the key is not in the dictionary, then use the default values as described below.
-    /************************ Attributes ************************/
-    @available(iOS 6.0, *)
-    public let NSFontAttributeName: String // UIFont, default Helvetica(Neue) 12
-    @available(iOS 6.0, *)
-    public let NSParagraphStyleAttributeName: String // NSParagraphStyle, default defaultParagraphStyle
-    @available(iOS 6.0, *)
-    public let NSForegroundColorAttributeName: String // UIColor, default blackColor
-    @available(iOS 6.0, *)
-    public let NSBackgroundColorAttributeName: String // UIColor, default nil: no background
-    @available(iOS 6.0, *)
-    public let NSLigatureAttributeName: String // NSNumber containing integer, default 1: default ligatures, 0: no ligatures
-    @available(iOS 6.0, *)
-    public let NSKernAttributeName: String // NSNumber containing floating point value, in points; amount to modify default kerning. 0 means kerning is disabled.
-    @available(iOS 6.0, *)
-    public let NSStrikethroughStyleAttributeName: String // NSNumber containing integer, default 0: no strikethrough
-    @available(iOS 6.0, *)
-    public let NSUnderlineStyleAttributeName: String // NSNumber containing integer, default 0: no underline
-    @available(iOS 6.0, *)
-    public let NSStrokeColorAttributeName: String // UIColor, default nil: same as foreground color
-    @available(iOS 6.0, *)
-    public let NSStrokeWidthAttributeName: String // NSNumber containing floating point value, in percent of font point size, default 0: no stroke; positive for stroke alone, negative for stroke and fill (a typical value for outlined text would be 3.0)
-    @available(iOS 6.0, *)
-    public let NSShadowAttributeName: String // NSShadow, default nil: no shadow
-    @available(iOS 7.0, *)
-    public let NSTextEffectAttributeName: String // NSString, default nil: no text effect
-    
-    @available(iOS 7.0, *)
-    public let NSAttachmentAttributeName: String // NSTextAttachment, default nil
-    @available(iOS 7.0, *)
-    public let NSLinkAttributeName: String // NSURL (preferred) or NSString
-    @available(iOS 7.0, *)
-    public let NSBaselineOffsetAttributeName: String // NSNumber containing floating point value, in points; offset from baseline, default 0
-    @available(iOS 7.0, *)
-    public let NSUnderlineColorAttributeName: String // UIColor, default nil: same as foreground color
-    @available(iOS 7.0, *)
-    public let NSStrikethroughColorAttributeName: String // UIColor, default nil: same as foreground color
-    @available(iOS 7.0, *)
-    public let NSObliquenessAttributeName: String // NSNumber containing floating point value; skew to be applied to glyphs, default 0: no skew
-    @available(iOS 7.0, *)
-    public let NSExpansionAttributeName: String // NSNumber containing floating point value; log of expansion factor to be applied to glyphs, default 0: no expansion
-    
-    @available(iOS 7.0, *)
-    public let NSWritingDirectionAttributeName: String // NSArray of NSNumbers representing the nested levels of writing direction overrides as defined by Unicode LRE, RLE, LRO, and RLO characters.  The control characters can be obtained by masking NSWritingDirection and NSWritingDirectionFormatType values.  LRE: NSWritingDirectionLeftToRight|NSWritingDirectionEmbedding, RLE: NSWritingDirectionRightToLeft|NSWritingDirectionEmbedding, LRO: NSWritingDirectionLeftToRight|NSWritingDirectionOverride, RLO: NSWritingDirectionRightToLeft|NSWritingDirectionOverride,
-    
-    @available(iOS 6.0, *)
-    public let NSVerticalGlyphFormAttributeName: String // An NSNumber containing an integer value.  0 means horizontal text.  1 indicates vertical text.  If not specified, it could follow higher-level vertical orientation settings.  Currently on iOS, it's always horizontal.  The behavior for any other value is undefined.
+public func CharacterAttributeToValue(preset: CharacterAttribute) -> String {
+    switch preset {
+    case .font:
+        return NSFontAttributeName
+    case .paragraphStyle:
+        return NSParagraphStyleAttributeName
+    case .forgroundColor:
+        return NSForegroundColorAttributeName
+    case .backgroundColor:
+        return NSBackgroundColorAttributeName
+    case .ligature:
+        return NSLigatureAttributeName
+    case .kern:
+        return NSKernAttributeName
+    case .strikethroughStyle:
+        return NSStrikethroughStyleAttributeName
+    case .underlineStyle:
+        return NSUnderlineStyleAttributeName
+    case .strokeColor:
+        return NSStrokeColorAttributeName
+    case .strokeWidth:
+        return NSStrokeWidthAttributeName
+    case .shadow:
+        return NSShadowAttributeName
+    case .textEffect:
+        return NSTextEffectAttributeName
+    case .attachment:
+        return NSAttachmentAttributeName
+    case .link:
+        return NSLinkAttributeName
+    case .baselineOffset:
+        return NSBaselineOffsetAttributeName
+    case .underlineColor:
+        return NSUnderlineColorAttributeName
+    case .strikethroughColor:
+        return NSStrikethroughColorAttributeName
+    case .obliqueness:
+        return NSObliquenessAttributeName
+    case .expansion:
+        return NSExpansionAttributeName
+    case .writingDirection:
+        return NSWritingDirectionAttributeName
+    case .verticalGlyphForm:
+        return NSVerticalGlyphFormAttributeName
+    }
+}
 
+/// A memory reference to the CharacterAttribute instance for String extensions.
+//private var CharacterAttributeKey: UInt8 = 0
+
+//public struct CharacterAttribute {
+//}
+
+//extension String {
+    /// characterAttribute reference.
+//    public private(set) var characterAttribute: CharacterAttribute {
+//        get {
+//            return AssociatedObject(base: self, key: &CharacterAttributeKey) {
+//                return CharacterAttribute()
+//            }
+//        }
+//        set(value) {
+//            AssociateObject(base: self, key: &CharacterAttributeKey, value: value)
+//        }
+//    }
+//}
+
+extension NSAttributedString {
+    open func characterAttributes(at index: Int, effectiveRange: NSRangePointer?) -> [CharacterAttribute: Any] {
+        var ca = [CharacterAttribute: Any]()
+        attributes(at: index, effectiveRange: effectiveRange).forEach { (key, value) in
+            guard let attribute = CharacterAttribute.init(rawValue: key) else {
+                return
+            }
+            
+            ca[attribute] = value
+        }
+        
+        
+        return ca
+    }
 }
 
 public enum ParagraphAttribute {
@@ -110,4 +143,15 @@ public enum ParagraphAttribute {
 
 public enum DocumentAttribute {
     
+}
+
+@objc(EditorDelegate)
+public protocol EditorDelegate {
+    
+    
+}
+
+open class Editor: View {
+    /// A reference to an EditorDelegate.
+    open weak var delegate: EditorDelegate?
 }

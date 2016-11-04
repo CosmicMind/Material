@@ -29,18 +29,19 @@
  */
 
 import UIKit
+import AVFoundation
 
 extension UIViewController {
     /**
-     A convenience property that provides access to the PhotoLibraryController.
-     This is the recommended method of accessing the PhotoLibraryController
+     A convenience property that provides access to the EditorController.
+     This is the recommended method of accessing the EditorController
      through child UIViewControllers.
      */
-    public var photoLibraryController: PhotoLibraryController? {
+    public var editorController: EditorController? {
         var viewController: UIViewController? = self
         while nil != viewController {
-            if viewController is PhotoLibraryController {
-                return viewController as? PhotoLibraryController
+            if viewController is EditorController {
+                return viewController as? EditorController
             }
             viewController = viewController?.parent
         }
@@ -48,14 +49,10 @@ extension UIViewController {
     }
 }
 
-open class PhotoLibraryController: UIViewController {
-    /// A reference to a PhotoLibrary.
-    open private(set) lazy var photoLibrary: PhotoLibrary = PhotoLibrary()
-    
-    open override func viewDidLoad() {
-        super.viewDidLoad()
-        prepare()
-    }
+open class EditorController: ToolbarController {
+    /// A reference to the Editor instance.
+    @IBInspectable
+    open private(set) lazy var editor: Editor = Editor()
     
     /**
      Prepares the view instance when intialized. When subclassing,
@@ -64,17 +61,31 @@ open class PhotoLibraryController: UIViewController {
      The super.prepare method should always be called immediately
      when subclassing.
      */
-    open func prepare() {
-        view.clipsToBounds = true
-        view.backgroundColor = .white
-        view.contentScaleFactor = Device.scale
-        preparePhotoLibrary()
+    open override func prepare() {
+        super.prepare()
+        display = .full
+        view.backgroundColor = .black
+        
+        prepareStatusBar()
+        prepareToolbar()
+        prepareEditor()
     }
     
-    /// Prepares the photoLibrary.
-    private func preparePhotoLibrary() {
-        photoLibrary.delegate = self
+    /// Prepares the statusBar.
+    private func prepareStatusBar() {
+        statusBar.backgroundColor = .clear
+    }
+    
+    /// Prepares the toolbar.
+    private func prepareToolbar() {
+        toolbar.backgroundColor = .clear
+        toolbar.depthPreset = .none
+    }
+    
+    /// Prepares editor.
+    private func prepareEditor() {
+        editor.delegate = self
     }
 }
 
-extension PhotoLibraryController: PhotoLibraryDelegate {}
+extension EditorController: EditorDelegate {}
