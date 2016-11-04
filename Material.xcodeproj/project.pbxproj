@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		961DED461DCC40C500F425B6 /* Editor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961DED451DCC40C500F425B6 /* Editor.swift */; };
 		961EFC581D738FF600E84652 /* SnackbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961EFC571D738FF600E84652 /* SnackbarController.swift */; };
 		961F18E81CD93E3E008927C5 /* ErrorTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961F18E71CD93E3E008927C5 /* ErrorTextField.swift */; };
 		96230AB81D6A520C00AF47DC /* Divider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96230AB71D6A520C00AF47DC /* Divider.swift */; };
@@ -203,6 +204,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		961DED451DCC40C500F425B6 /* Editor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Editor.swift; sourceTree = "<group>"; };
 		961EFC571D738FF600E84652 /* SnackbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnackbarController.swift; sourceTree = "<group>"; };
 		961F18E71CD93E3E008927C5 /* ErrorTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorTextField.swift; sourceTree = "<group>"; };
 		96230AB71D6A520C00AF47DC /* Divider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Divider.swift; sourceTree = "<group>"; };
@@ -353,6 +355,14 @@
 				961F18E71CD93E3E008927C5 /* ErrorTextField.swift */,
 			);
 			name = TextField;
+			sourceTree = "<group>";
+		};
+		961DED441DCC40AC00F425B6 /* Editor */ = {
+			isa = PBXGroup;
+			children = (
+				961DED451DCC40C500F425B6 /* Editor.swift */,
+			);
+			name = Editor;
 			sourceTree = "<group>";
 		};
 		96230AB61D6A51FD00AF47DC /* Divider */ = {
@@ -561,6 +571,7 @@
 				96BCB8001CB40F0300C806FE /* Color */,
 				96BCB80B1CB410CC00C806FE /* Device */,
 				96230AB61D6A51FD00AF47DC /* Divider */,
+				961DED441DCC40AC00F425B6 /* Editor */,
 				96BCB80A1CB410A100C806FE /* Extension */,
 				96BCB8071CB4101C00C806FE /* Font */,
 				9602F00C1DA1163000F3FB79 /* Grid */,
@@ -1122,6 +1133,7 @@
 				96BCB7AD1CB40DC500C806FE /* Material+String.swift in Sources */,
 				96BCB7B91CB40DC500C806FE /* Button.swift in Sources */,
 				96BCB7B51CB40DC500C806FE /* Material+UIImage.swift in Sources */,
+				961DED461DCC40C500F425B6 /* Editor.swift in Sources */,
 				96C1C8811D42C62800E6608F /* Material+Array.swift in Sources */,
 				96BCB7E31CB40DC500C806FE /* TabBar.swift in Sources */,
 				96BCB7CD1CB40DC500C806FE /* PulseView.swift in Sources */,
