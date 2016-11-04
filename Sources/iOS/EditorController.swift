@@ -63,22 +63,14 @@ open class EditorController: ToolbarController {
      */
     open override func prepare() {
         super.prepare()
-        display = .full
-        view.backgroundColor = .black
+        view.backgroundColor = .white
         
-        prepareStatusBar()
         prepareToolbar()
         prepareEditor()
     }
     
-    /// Prepares the statusBar.
-    private func prepareStatusBar() {
-        statusBar.backgroundColor = .clear
-    }
-    
     /// Prepares the toolbar.
     private func prepareToolbar() {
-        toolbar.backgroundColor = .clear
         toolbar.depthPreset = .none
     }
     
