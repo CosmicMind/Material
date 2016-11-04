@@ -54,8 +54,8 @@ public enum CharacterAttribute: String {
     case verticalGlyphForm = "NSVerticalGlyphFormAttributeName"
 }
 
-public func CharacterAttributeToValue(preset: CharacterAttribute) -> String {
-    switch preset {
+public func CharacterAttributeToValue(attribute: CharacterAttribute) -> String {
+    switch attribute {
     case .font:
         return NSFontAttributeName
     case .paragraphStyle:
@@ -152,6 +152,78 @@ public protocol EditorDelegate {
 }
 
 open class Editor: View {
+    /// A reference to the Text.
+    open internal(set) var text: Text!
+    
+    /// A reference to the NSTextContainer.
+    open internal(set) var textContainer: NSTextContainer!
+    
+    /// A reference to the NSLayoutManager.
+    open internal(set) var layoutManager: NSLayoutManager!
+    
+    /// Reference to the TextView.
+    open internal(set) var textView: TextView!
+    
     /// A reference to an EditorDelegate.
     open weak var delegate: EditorDelegate?
+    
+    /**
+     Prepares the view instance when intialized. When subclassing,
+     it is recommended to override the prepare method
+     to initialize property values and other setup operations.
+     The super.prepare method should always be called immediately
+     when subclassing.
+     */
+    open override func prepare() {
+        super.prepare()
+        prepareTextContainer()
+        prepareLayoutManager()
+        prepareText()
+        prepareTextView()
+    }
+}
+
+extension Editor {
+    /// Prepares the textContainer.
+    fileprivate func prepareTextContainer() {
+        textContainer = NSTextContainer(size: bounds.size)
+    }
+    
+    /// Prepares the layoutManager.
+    fileprivate func prepareLayoutManager() {
+        layoutManager = NSLayoutManager()
+        layoutManager.addTextContainer(textContainer)
+    }
+    
+    /// PRepares the text.
+    fileprivate func prepareText() {
+        text = Text()
+        text.delegate = self
+        text.textStorage.addLayoutManager(layoutManager)
+    }
+    
+    /// Prepares the textView.
+    fileprivate func prepareTextView() {
+        textView = TextView(textContainer: textContainer)
+        layout(textView).edges()
+    }
+}
+
+extension Editor: TextDelegate {
+    /**
+     When changes in the textView text are made, this delegation method
+     is executed with the added text string and range.
+     */
+    public func textWillProcessEdit(text: Text, textStorage: TextStorage, string: String, range: NSRange) {
+        textStorage.removeAttribute(CharacterAttribute.font.rawValue, range: range)
+        textStorage.addAttribute(CharacterAttribute.font.rawValue, value: RobotoFont.regular, range: range)
+    }
+    
+    /**
+     When a match is detected within the textView text, this delegation
+     method is executed with the added text string and range.
+     */
+    public func textDidProcessEdit(text: Text, textStorage: TextStorage, string: String, result: NSTextCheckingResult?, flags: NSRegularExpression.MatchingFlags, stop: UnsafeMutablePointer<ObjCBool>) {
+        textStorage.addAttribute(CharacterAttribute.font.rawValue, value: RobotoFont.bold, range: result!.range)
+    }
 }

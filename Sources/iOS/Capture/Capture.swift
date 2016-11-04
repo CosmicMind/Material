@@ -284,46 +284,46 @@ open class Capture: View {
     open weak var delegate: CaptureDelegate?
     
 	/// A reference to the CapturePreview view.
-	open internal(set) var preview: CapturePreview!
+	open fileprivate(set) var preview: CapturePreview!
 		
     /// A Timer reference for when recording is enabled.
-    open internal(set) var timer: Timer?
+    open fileprivate(set) var timer: Timer?
     
     /// A tap gesture reference for focus events.
-    internal var tapToFocusGesture: UITapGestureRecognizer?
+    fileprivate var tapToFocusGesture: UITapGestureRecognizer?
     
     /// A tap gesture reference for exposure events.
-    internal var tapToExposeGesture: UITapGestureRecognizer?
+    fileprivate var tapToExposeGesture: UITapGestureRecognizer?
     
     /// A tap gesture reference for reset events.
-    internal var tapToResetGesture: UITapGestureRecognizer?
+    fileprivate var tapToResetGesture: UITapGestureRecognizer?
     
     /// A reference to the session DispatchQueue.
-    internal var sessionQueue: DispatchQueue!
+    fileprivate var sessionQueue: DispatchQueue!
     
     /// A reference to the active video input.
-    internal var activeVideoInput: AVCaptureDeviceInput?
+    fileprivate var activeVideoInput: AVCaptureDeviceInput?
     
     /// A reference to the active audio input.
-    internal var activeAudioInput: AVCaptureDeviceInput?
+    fileprivate var activeAudioInput: AVCaptureDeviceInput?
     
     /// A reference to the image output.
-    internal var imageOutput: AVCaptureStillImageOutput!
+    fileprivate var imageOutput: AVCaptureStillImageOutput!
     
     /// A reference to the movie output.
-    internal var movieOutput: AVCaptureMovieFileOutput!
+    fileprivate var movieOutput: AVCaptureMovieFileOutput!
     
     /// A reference to the movie output URL.
-    internal var movieOutputURL: URL?
+    fileprivate var movieOutputURL: URL?
     
     /// A reference to the AVCaptureSession.
-    internal var session: AVCaptureSession!
+    fileprivate var session: AVCaptureSession!
     
     /// A boolean indicating if the session is running.
-    open internal(set) var isRunning = false
+    open fileprivate(set) var isRunning = false
     
     /// A boolean indicating if the session is recording.
-    open internal(set) var isRecording = false
+    open fileprivate(set) var isRecording = false
     
     /// A reference to the recorded time duration.
     open var recordedDuration: CMTime {
@@ -481,7 +481,7 @@ open class Capture: View {
     }
     
     /// A reference to the previous AVCaptureVideoOrientation.
-    open internal(set) var previousVideoOrientation: AVCaptureVideoOrientation!
+    open fileprivate(set) var previousVideoOrientation: AVCaptureVideoOrientation!
     
     /// The capture video orientation.
     open var videoOrientation: AVCaptureVideoOrientation {
@@ -626,14 +626,15 @@ open class Capture: View {
 	}
 }
 
-
 extension Capture {
-    internal func prepareOrientationNotifications() {
+    /// Prepares self to observe orientation change notifications.
+    fileprivate func prepareOrientationNotifications() {
         UIDevice.current.beginGeneratingDeviceOrientationNotifications()
         NotificationCenter.default.addObserver(self, selector: #selector(handleOrientationNotifications(_:)), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
     }
     
-    internal func removeOrientationNotifications() {
+    /// Removes self from observing orientation change notifications.
+    fileprivate func removeOrientationNotifications() {
         UIDevice.current.endGeneratingDeviceOrientationNotifications()
         NotificationCenter.default.removeObserver(self)
     }
@@ -643,7 +644,7 @@ extension Capture {
      - Parameter button: A UIButton that is associated with the event.
      */
     @objc
-    internal func handleOrientationNotifications(_ notification: Notification) {
+    fileprivate func handleOrientationNotifications(_ notification: Notification) {
         delegate?.capture?(capture: self, didChangeFrom: previousVideoOrientation, to: videoOrientation)
         previousVideoOrientation = videoOrientation
     }
@@ -651,7 +652,7 @@ extension Capture {
 
 extension Capture {
     /// Prepares the preview.
-    internal func preparePreview() {
+    fileprivate func preparePreview() {
 		preview = CapturePreview()
         layout(preview).edges()
         
@@ -660,37 +661,37 @@ extension Capture {
 	}
     
     /// Prepares the captureButton.
-    internal func prepareCaptureButton() {
+    fileprivate func prepareCaptureButton() {
         captureButton?.addTarget(self, action: #selector(handleCaptureButton(button:)), for: .touchUpInside)
     }
     
     /// Prepares the cameraButton.
-    internal func prepareChangeModeButton() {
+    fileprivate func prepareChangeModeButton() {
         changeModeButton?.addTarget(self, action: #selector(handleChangeModeButton(button:)), for: .touchUpInside)
     }
     
     /// Prepares the changeCameraButton.
-    internal func prepareChangeCameraButton() {
+    fileprivate func prepareChangeCameraButton() {
         changeCameraButton?.addTarget(self, action: #selector(handleChangeCameraButton(button:)), for: .touchUpInside)
     }
     
     /// Prepares the flashButton.
-    internal func prepareFlashButton() {
+    fileprivate func prepareFlashButton() {
         flashButton?.addTarget(self, action: #selector(handleFlashButton(button:)), for: .touchUpInside)
     }
     
     /// Prepares the sessionQueue.
-    internal func prepareSessionQueue() {
+    fileprivate func prepareSessionQueue() {
         sessionQueue = DispatchQueue(label: "com.cosmicmind.material.capture", attributes: .concurrent, target: nil)
     }
     
     /// Prepares the session.
-    internal func prepareSession() {
+    fileprivate func prepareSession() {
         session = AVCaptureSession()
     }
     
     /// Prepares the activeVideoInput.
-    internal func prepareActiveVideoInput() {
+    fileprivate func prepareActiveVideoInput() {
         do {
             activeVideoInput = try AVCaptureDeviceInput(device: AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo))
             
@@ -705,7 +706,7 @@ extension Capture {
     }
     
     /// Prepares the activeAudioInput.
-    internal func prepareActiveAudioInput() {
+    fileprivate func prepareActiveAudioInput() {
         do {
             activeAudioInput = try AVCaptureDeviceInput(device: AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeAudio))
             
@@ -720,7 +721,7 @@ extension Capture {
     }
     
     /// Prepares the imageOutput.
-    internal func prepareImageOutput() {
+    fileprivate func prepareImageOutput() {
         imageOutput = AVCaptureStillImageOutput()
         
         guard session.canAddOutput(imageOutput) else {
@@ -732,7 +733,7 @@ extension Capture {
     }
     
     /// Prepares the movieOutput.
-    internal func prepareMovieOutput() {
+    fileprivate func prepareMovieOutput() {
         movieOutput = AVCaptureMovieFileOutput()
         
         guard session.canAddOutput(movieOutput) else {
@@ -1051,7 +1052,7 @@ extension Capture {
      - Parameter at: An AVCaptureDevicePosition.
      - Returns: An AVCaptureDevice if one exists, or nil otherwise.
      */
-    internal func camera(at position: AVCaptureDevicePosition) -> AVCaptureDevice? {
+    fileprivate func camera(at position: AVCaptureDevicePosition) -> AVCaptureDevice? {
         let devices = AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo) as! [AVCaptureDevice]
         for device in devices {
             if device.position == position {
@@ -1065,7 +1066,7 @@ extension Capture {
      Creates a unique URL if possible.
      - Returns: A NSURL if it is possible to create one.
      */
-    internal func uniqueURL() -> URL? {
+    fileprivate func uniqueURL() -> URL? {
         do {
             let directory = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
             let dateFormatter = DateFormatter()
@@ -1088,7 +1089,7 @@ extension Capture {
      - Parameter button: A UIButton that is associated with the event.
      */
     @objc
-    internal func handleCaptureButton(button: UIButton) {
+    fileprivate func handleCaptureButton(button: UIButton) {
         switch mode {
         case .photo:
             captureStillImage()
@@ -1110,7 +1111,7 @@ extension Capture {
      - Parameter button: A UIButton that is associated with the event.
      */
     @objc
-    internal func handleChangeModeButton(button: UIButton) {
+    fileprivate func handleChangeModeButton(button: UIButton) {
         changeMode()
         delegate?.capture?(capture: self, didPressChangeMode: button)
     }
@@ -1120,7 +1121,7 @@ extension Capture {
      - Parameter button: A UIButton that is associated with the event.
      */
     @objc
-    internal func handleChangeCameraButton(button: UIButton) {
+    fileprivate func handleChangeCameraButton(button: UIButton) {
         changeCamera()
         delegate?.capture?(capture: self, didPressChangeCamera: button)
     }
@@ -1130,7 +1131,7 @@ extension Capture {
      - Parameter button: A UIButton that is associated with the event.
      */
     @objc
-    internal func handleFlashButton(button: UIButton) {
+    fileprivate func handleFlashButton(button: UIButton) {
         delegate?.capture?(capture: self, didPressFlash: button)
     }
     
@@ -1139,7 +1140,7 @@ extension Capture {
      - Parameter recognizer: A UITapGestureRecognizer that is associated with the event.
      */
     @objc
-    internal func handleTapToFocusGesture(recognizer: UITapGestureRecognizer) {
+    fileprivate func handleTapToFocusGesture(recognizer: UITapGestureRecognizer) {
         guard isTapToFocusEnabled && isFocusPointOfInterestSupported else {
             return
         }
@@ -1154,7 +1155,7 @@ extension Capture {
      - Parameter recognizer: A UITapGestureRecognizer that is associated with the event.
      */
     @objc
-    internal func handleTapToExposeGesture(recognizer: UITapGestureRecognizer) {
+    fileprivate func handleTapToExposeGesture(recognizer: UITapGestureRecognizer) {
         guard isTapToExposeEnabled && isExposurePointOfInterestSupported else {
             return
         }
@@ -1169,7 +1170,7 @@ extension Capture {
      - Parameter recognizer: A UITapGestureRecognizer that is associated with the event.
      */
     @objc
-    internal func handleTapToResetGesture(recognizer: UITapGestureRecognizer) {
+    fileprivate func handleTapToResetGesture(recognizer: UITapGestureRecognizer) {
         guard isTapToResetEnabled else {
             return
         }
@@ -1183,7 +1184,7 @@ extension Capture {
 
 extension Capture {
     /// Starts the timer for recording.
-    internal func startTimer() {
+    fileprivate func startTimer() {
         timer?.invalidate()
         timer = Timer(timeInterval: 0.5, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
         
@@ -1193,7 +1194,8 @@ extension Capture {
     }
     
     /// Updates the timer when recording.
-    internal func updateTimer() {
+    @objc
+    fileprivate func updateTimer() {
         let duration = recordedDuration
         let time = CMTimeGetSeconds(duration)
         let hours = Int(time / 3600)
@@ -1204,7 +1206,7 @@ extension Capture {
     }
     
     /// Stops the timer when recording.
-    internal func stopTimer() {
+    fileprivate func stopTimer() {
         let duration = recordedDuration
         let time = CMTimeGetSeconds(duration)
         let hours = Int(time / 3600)
@@ -1229,7 +1231,7 @@ extension Capture: UIGestureRecognizerDelegate {
      required to activate the gesture.
      - Parameter selector: A Selector to handle the event.
      */
-    internal func prepareTapGesture(gesture: inout UITapGestureRecognizer?, numberOfTapsRequired: Int, numberOfTouchesRequired: Int, selector: Selector) {
+    fileprivate func prepareTapGesture(gesture: inout UITapGestureRecognizer?, numberOfTapsRequired: Int, numberOfTouchesRequired: Int, selector: Selector) {
         guard nil == gesture else {
             return
         }
@@ -1245,7 +1247,7 @@ extension Capture: UIGestureRecognizerDelegate {
      Removes a given tap gesture.
      - Parameter gesture: An optional UITapGestureRecognizer to remove.
      */
-    internal func removeTapGesture(gesture: inout UITapGestureRecognizer?) {
+    fileprivate func removeTapGesture(gesture: inout UITapGestureRecognizer?) {
         guard let v = gesture else {
             return
         }
