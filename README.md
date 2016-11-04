@@ -88,7 +88,7 @@ Icons is a library of Google and CosmicMind icons that are available for use wit
 
 ## Colors
 
-Try the Material Colors app to see the wonderful colors available in Material, or use the online version at [MaterialColors.io](http://materialcolors.io)
+Try the Material Colors app to see the wonderful colors available in Material, or use the online version at [MaterialColors.io](http://materialcolors.io).
 
 ![MaterialColors](http://www.cosmicmind.com/gifs/shared/colors.gif)
 
