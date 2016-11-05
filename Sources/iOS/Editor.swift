@@ -30,130 +30,44 @@
 
 import UIKit
 
-public enum CharacterAttribute: String {
-    case font = "NSFontAttributeName"
-    case paragraphStyle = "NSParagraphStyleAttributeName"
-    case forgroundColor = "NSForegroundColorAttributeName"
-    case backgroundColor = "NSBackgroundColorAttributeName"
-    case ligature = "NSLigatureAttributeName"
-    case kern = "NSKernAttributeName"
-    case strikethroughStyle = "NSStrikethroughStyleAttributeName"
-    case underlineStyle = "NSUnderlineStyleAttributeName"
-    case strokeColor = "NSStrokeColorAttributeName"
-    case strokeWidth = "NSStrokeWidthAttributeName"
-    case shadow = "NSShadowAttributeName"
-    case textEffect = "NSTextEffectAttributeName"
-    case attachment = "NSAttachmentAttributeName"
-    case link = "NSLinkAttributeName"
-    case baselineOffset = "NSBaselineOffsetAttributeName"
-    case underlineColor = "NSUnderlineColorAttributeName"
-    case strikethroughColor = "NSStrikethroughColorAttributeName"
-    case obliqueness = "NSObliquenessAttributeName"
-    case expansion = "NSExpansionAttributeName"
-    case writingDirection = "NSWritingDirectionAttributeName"
-    case verticalGlyphForm = "NSVerticalGlyphFormAttributeName"
-}
-
-public func CharacterAttributeToValue(attribute: CharacterAttribute) -> String {
-    switch attribute {
-    case .font:
-        return NSFontAttributeName
-    case .paragraphStyle:
-        return NSParagraphStyleAttributeName
-    case .forgroundColor:
-        return NSForegroundColorAttributeName
-    case .backgroundColor:
-        return NSBackgroundColorAttributeName
-    case .ligature:
-        return NSLigatureAttributeName
-    case .kern:
-        return NSKernAttributeName
-    case .strikethroughStyle:
-        return NSStrikethroughStyleAttributeName
-    case .underlineStyle:
-        return NSUnderlineStyleAttributeName
-    case .strokeColor:
-        return NSStrokeColorAttributeName
-    case .strokeWidth:
-        return NSStrokeWidthAttributeName
-    case .shadow:
-        return NSShadowAttributeName
-    case .textEffect:
-        return NSTextEffectAttributeName
-    case .attachment:
-        return NSAttachmentAttributeName
-    case .link:
-        return NSLinkAttributeName
-    case .baselineOffset:
-        return NSBaselineOffsetAttributeName
-    case .underlineColor:
-        return NSUnderlineColorAttributeName
-    case .strikethroughColor:
-        return NSStrikethroughColorAttributeName
-    case .obliqueness:
-        return NSObliquenessAttributeName
-    case .expansion:
-        return NSExpansionAttributeName
-    case .writingDirection:
-        return NSWritingDirectionAttributeName
-    case .verticalGlyphForm:
-        return NSVerticalGlyphFormAttributeName
-    }
-}
-
-/// A memory reference to the CharacterAttribute instance for String extensions.
-//private var CharacterAttributeKey: UInt8 = 0
-
-//public struct CharacterAttribute {
-//}
-
-//extension String {
-    /// characterAttribute reference.
-//    public private(set) var characterAttribute: CharacterAttribute {
-//        get {
-//            return AssociatedObject(base: self, key: &CharacterAttributeKey) {
-//                return CharacterAttribute()
-//            }
-//        }
-//        set(value) {
-//            AssociateObject(base: self, key: &CharacterAttributeKey, value: value)
-//        }
-//    }
-//}
-
-extension NSAttributedString {
-    open func characterAttributes(at index: Int, effectiveRange: NSRangePointer?) -> [CharacterAttribute: Any] {
-        var ca = [CharacterAttribute: Any]()
-        attributes(at: index, effectiveRange: effectiveRange).forEach { (key, value) in
-            guard let attribute = CharacterAttribute.init(rawValue: key) else {
-                return
-            }
-            
-            ca[attribute] = value
-        }
-        
-        
-        return ca
-    }
-}
-
-public enum ParagraphAttribute {
-    
-}
-
-public enum DocumentAttribute {
-    
-}
-
 @objc(EditorDelegate)
 public protocol EditorDelegate {
+    /**
+     An optional delegation method that is executed when
+     text will be processed during editing.
+     - Parameter text: The Text instance assodicated with the
+     delegation object.
+     - Parameter  textStorage: The TextStorage instance
+     associated with the delegation object.
+     - Parameter string: The string value that is currently
+     being edited.
+     - Parameter range: The range of characters that are being
+     edited.
+     */
+    @objc
+    optional func editor(editor: Editor, willProcess textStorage: TextStorage, string: String, range: NSRange)
     
-    
+    /**
+     An optional delegation method that is executed after
+     the edit processing has completed.
+     - Parameter text: The Text instance assodicated with the
+     delegation object.
+     - Parameter  textStorage: The TextStorage instance
+     associated with the delegation object.
+     - Parameter string: The string value that was edited.
+     - Parameter result: A NSTextCheckingResult associated
+     with the processing result.
+     - Parameter flags: Matching flags.
+     - Parameter stop: Halts a service which is either
+     publishing or resolving.
+     */
+    @objc
+    optional func editor(editor: Editor, didProcess textStorage: TextStorage, string: String, result: NSTextCheckingResult?, flags: NSRegularExpression.MatchingFlags, stop: UnsafeMutablePointer<ObjCBool>)
 }
 
 open class Editor: View {
-    /// A reference to the Text.
-    open fileprivate(set) var text: Text!
+    /// TextStorage instance that is observed while editing.
+    open fileprivate(set) var textStorage: TextStorage!
     
     /// A reference to the NSTextContainer.
     open fileprivate(set) var textContainer: NSTextContainer!
@@ -167,6 +81,37 @@ open class Editor: View {
     /// A reference to an EditorDelegate.
     open weak var delegate: EditorDelegate?
     
+    /// The string pattern to match within the textStorage.
+    open var pattern = "(^|\\s)#[\\d\\w_\u{203C}\u{2049}\u{20E3}\u{2122}\u{2139}\u{2194}-\u{2199}\u{21A9}-\u{21AA}\u{231A}-\u{231B}\u{23E9}-\u{23EC}\u{23F0}\u{23F3}\u{24C2}\u{25AA}-\u{25AB}\u{25B6}\u{25C0}\u{25FB}-\u{25FE}\u{2600}-\u{2601}\u{260E}\u{2611}\u{2614}-\u{2615}\u{261D}\u{263A}\u{2648}-\u{2653}\u{2660}\u{2663}\u{2665}-\u{2666}\u{2668}\u{267B}\u{267F}\u{2693}\u{26A0}-\u{26A1}\u{26AA}-\u{26AB}\u{26BD}-\u{26BE}\u{26C4}-\u{26C5}\u{26CE}\u{26D4}\u{26EA}\u{26F2}-\u{26F3}\u{26F5}\u{26FA}\u{26FD}\u{2702}\u{2705}\u{2708}-\u{270C}\u{270F}\u{2712}\u{2714}\u{2716}\u{2728}\u{2733}-\u{2734}\u{2744}\u{2747}\u{274C}\u{274E}\u{2753}-\u{2755}\u{2757}\u{2764}\u{2795}-\u{2797}\u{27A1}\u{27B0}\u{2934}-\u{2935}\u{2B05}-\u{2B07}\u{2B1B}-\u{2B1C}\u{2B50}\u{2B55}\u{3030}\u{303D}\u{3297}\u{3299}\u{1F004}\u{1F0CF}\u{1F170}-\u{1F171}\u{1F17E}-\u{1F17F}\u{1F18E}\u{1F191}-\u{1F19A}\u{1F1E7}-\u{1F1EC}\u{1F1EE}-\u{1F1F0}\u{1F1F3}\u{1F1F5}\u{1F1F7}-\u{1F1FA}\u{1F201}-\u{1F202}\u{1F21A}\u{1F22F}\u{1F232}-\u{1F23A}\u{1F250}-\u{1F251}\u{1F300}-\u{1F320}\u{1F330}-\u{1F335}\u{1F337}-\u{1F37C}\u{1F380}-\u{1F393}\u{1F3A0}-\u{1F3C4}\u{1F3C6}-\u{1F3CA}\u{1F3E0}-\u{1F3F0}\u{1F400}-\u{1F43E}\u{1F440}\u{1F442}-\u{1F4F7}\u{1F4F9}-\u{1F4FC}\u{1F500}-\u{1F507}\u{1F509}-\u{1F53D}\u{1F550}-\u{1F567}\u{1F5FB}-\u{1F640}\u{1F645}-\u{1F64F}\u{1F680}-\u{1F68A}]+" {
+        didSet {
+            prepareRegularExpression()
+        }
+    }
+    
+    /**
+     A convenience property that accesses the textStorage
+     string.
+     */
+    open var string: String {
+        return textStorage.string
+    }
+    
+    /// An Array of matches that match the pattern expression.
+    open var matches: [String] {
+        return textStorage.expression!.matches(in: string, options: [], range: NSMakeRange(0, string.utf16.count)).map { [unowned self] in
+            (self.string as NSString).substring(with: $0.range).trimmed
+        }
+    }
+    
+    /**
+     An Array of unique matches that match the pattern
+     expression.
+     */
+    public var uniqueMatches: [String] {
+        var seen = [String: Bool]()
+        return matches.filter { nil == seen.updateValue(true, forKey: $0) }
+    }
+    
     /**
      Prepares the view instance when intialized. When subclassing,
      it is recommended to override the prepare method
@@ -178,7 +123,7 @@ open class Editor: View {
         super.prepare()
         prepareTextContainer()
         prepareLayoutManager()
-        prepareText()
+        prepareTextStorage()
         prepareTextView()
     }
 }
@@ -195,11 +140,11 @@ extension Editor {
         layoutManager.addTextContainer(textContainer)
     }
     
-    /// PRepares the text.
-    fileprivate func prepareText() {
-        text = Text()
-        text.delegate = self
-        text.textStorage.addLayoutManager(layoutManager)
+    /// Prepares the textStorage.
+    fileprivate func prepareTextStorage() {
+        textStorage = TextStorage()
+        textStorage.addLayoutManager(layoutManager)
+        textStorage.delegate = self
     }
     
     /// Prepares the textView.
@@ -207,23 +152,19 @@ extension Editor {
         textView = TextView(textContainer: textContainer)
         layout(textView).edges()
     }
+    
+    /// Prepares the regular expression for matching.
+    fileprivate func prepareRegularExpression() {
+        textStorage.expression = try? NSRegularExpression(pattern: pattern, options: [])
+    }
 }
 
-extension Editor: TextDelegate {
-    /**
-     When changes in the textView text are made, this delegation method
-     is executed with the added text string and range.
-     */
-    public func textWillProcessEdit(text: Text, textStorage: TextStorage, string: String, range: NSRange) {
-        textStorage.removeAttribute(CharacterAttribute.font.rawValue, range: range)
-        textStorage.addAttribute(CharacterAttribute.font.rawValue, value: RobotoFont.regular, range: range)
+extension Editor: TextStorageDelegate {
+    open func textStorage(textStorage: TextStorage, willProcessEditing text: String, range: NSRange) {
+        
     }
     
-    /**
-     When a match is detected within the textView text, this delegation
-     method is executed with the added text string and range.
-     */
-    public func textDidProcessEdit(text: Text, textStorage: TextStorage, string: String, result: NSTextCheckingResult?, flags: NSRegularExpression.MatchingFlags, stop: UnsafeMutablePointer<ObjCBool>) {
-        textStorage.addAttribute(CharacterAttribute.font.rawValue, value: RobotoFont.bold, range: result!.range)
+    open func textStorage(textStorage: TextStorage, didProcessEditing text: String, result: NSTextCheckingResult?, flags: NSRegularExpression.MatchingFlags, stop: UnsafeMutablePointer<ObjCBool>) {
+        
     }
 }

@@ -30,21 +30,37 @@
 
 import UIKit
 
-internal typealias TextWillProcessEdit = (TextStorage, String, NSRange) -> Void
-internal typealias TextDidProcessEdit = (TextStorage, NSTextCheckingResult?, NSRegularExpression.MatchingFlags, UnsafeMutablePointer<ObjCBool>) -> Void
+@objc(TextStorageDelegate)
+public protocol TextStorageDelegate: NSTextStorageDelegate {
+    /**
+     A delegation method that is executed when text will be 
+     processed during editing.
+     - Parameter textStorage: A TextStorage.
+     - Parameter willProcessEditing text: A String.
+     - Parameter range: A NSRange.
+     */
+    @objc
+    optional func textStorage(textStorage: TextStorage, willProcessEditing text: String, range: NSRange)
+    
+    /**
+     A delegation method that is executed when text has been
+     processed after editing.
+     - Parameter textStorage: A TextStorage.
+     - Parameter didProcessEditing text: A String.
+     - Parameter result: An optional NSTextCheckingResult.
+     - Parameter flags: NSRegularExpression.MatchingFlags.
+     - Parameter top: An UnsafeMutablePointer<ObjCBool>.
+     */
+    @objc
+    optional func textStorage(textStorage: TextStorage, didProcessEditing text: String, result: NSTextCheckingResult?, flags: NSRegularExpression.MatchingFlags, stop: UnsafeMutablePointer<ObjCBool>)
+}
 
-public class TextStorage: NSTextStorage {
-	/// A callback that is executed when a process edit will happen.
-	internal var textWillProcessEdit: TextWillProcessEdit?
-	
-	/// A callback that is executed when a process edit did happen.
-	internal var textDidProcessEdit: TextDidProcessEdit?
-	
+open class TextStorage: NSTextStorage {
 	/// A storage facility for attributed text.
-	public lazy var store: NSMutableAttributedString = NSMutableAttributedString()
+    open fileprivate(set) var store: NSMutableAttributedString!
 	
 	/// The regular expression to match text fragments against.
-	public var expression: NSRegularExpression?
+	open var expression: NSRegularExpression?
 	
 	/// Initializer.
 	public required init?(coder aDecoder: NSCoder) {
@@ -54,60 +70,78 @@ public class TextStorage: NSTextStorage {
 	/// Initializer.
 	public override init() {
 		super.init()
+        prepareStore()
 	}
 	
+}
+
+extension TextStorage {
+    /// Prepare the store.
+    fileprivate func prepareStore() {
+        store = NSMutableAttributedString()
+    }
+}
+
+extension TextStorage {
 	/// A String value of the attirbutedString property.
-	public override var string: String {
+	open override var string: String {
 		return store.string
 	}
 	
 	/// Processes the text when editing.
-	public override func processEditing() {
+	open override func processEditing() {
 		let range: NSRange = (string as NSString).paragraphRange(for: editedRange)
 		
-		textWillProcessEdit?(self, string, range)
-		
-		expression!.enumerateMatches(in: string, options: [], range: range) { (result: NSTextCheckingResult?, flags: NSRegularExpression.MatchingFlags, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
-			self.textDidProcessEdit?(self, result, flags, stop)
+        (delegate as? TextStorageDelegate)?.textStorage?(textStorage: self, willProcessEditing: string, range: range)
+        
+		expression!.enumerateMatches(in: string, options: [], range: range) { [weak self] (result: NSTextCheckingResult?, flags: NSRegularExpression.MatchingFlags, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
+            guard let s = self else {
+                return
+            }
+            
+            (s.delegate as? TextStorageDelegate)?.textStorage!(textStorage: s, didProcessEditing: s.string, result: result, flags: flags, stop: stop)
 		}
+        
 		super.processEditing()
 	}
 	
 	/**
-	Returns the attributes for the character at a given index.
-	- Parameter location: The index for which to return attributes. 
-	This value must lie within the bounds of the receiver.
-	- Parameter range: Upon return, the range over which the 
-	attributes and values are the same as those at index. This range 
-	isn’t necessarily the maximum range covered, and its extent is 
-	implementation-dependent. If you need the maximum range, use 
-	attributesAtIndex:longestEffectiveRange:inRange:. 
-	If you don't need this value, pass NULL.
-	- Returns: The attributes for the character at index.
-	*/
-	public override func attributes(at location: Int, effectiveRange range: NSRangePointer?) -> [String : Any] {
+     Returns the attributes for the character at a given index.
+     - Parameter location: The index for which to return attributes.
+     This value must lie within the bounds of the receiver.
+     - Parameter range: Upon return, the range over which the
+     attributes and values are the same as those at index. This range
+     isn’t necessarily the maximum range covered, and its extent is
+     implementation-dependent. If you need the maximum range, use
+     attributesAtIndex:longestEffectiveRange:inRange:.
+     If you don't need this value, pass NULL.
+     - Returns: The attributes for the character at index.
+     */
+	open override func attributes(at location: Int, effectiveRange range: NSRangePointer?) -> [String : Any] {
 		return store.attributes(at: location, effectiveRange: range)
 	}
 	
 	/**
-	Replaces a range of text with a string value.
-	- Parameter range: The character range to replace.
-	- Parameter str: The string value that the characters
-	will be replaced with.
-	*/
-	public override func replaceCharacters(in range: NSRange, with str: String) {
+     Replaces a range of text with a string value.
+     - Parameter range: The character range to replace.
+     - Parameter str: The string value that the characters
+     will be replaced with.
+     */
+	open override func replaceCharacters(in range: NSRange, with str: String) {
 		store.replaceCharacters(in: range, with: str)
-		edited(NSTextStorageEditActions.editedCharacters, range: range, changeInLength: str.utf16.count - range.length)
+		
+        edited(.editedCharacters, range: range, changeInLength: str.utf16.count - range.length)
 	}
 	
 	/**
-	Sets the attributedString attribute values.
-	- Parameter attrs: The attributes to set.
-	- Parameter range: A range of characters that will have their
-	attributes updated.
-	*/
-	public override func setAttributes(_ attrs: [String : Any]?, range: NSRange) {
+     Sets the attributedString attribute values.
+     - Parameter attrs: The attributes to set.
+     - Parameter range: A range of characters that will have their
+     attributes updated.
+     */
+	open override func setAttributes(_ attrs: [String : Any]?, range: NSRange) {
 		store.setAttributes(attrs, range: range)
-		edited(NSTextStorageEditActions.editedAttributes, range: range, changeInLength: 0)
+		
+        edited(.editedAttributes, range: range, changeInLength: 0)
 	}
 }
