@@ -129,7 +129,7 @@ extension NSMutableAttributedString {
      - Parameter range: A NSRange.
      */
     open func addAttribute(characterAttribute: CharacterAttribute, value: Any, range: NSRange) {
-        addAttribute(characterAttribute.rawValue, value: value, range: range)
+        addAttribute(CharacterAttributeToValue(attribute: characterAttribute), value: value, range: range)
     }
     
     /**
@@ -138,6 +138,6 @@ extension NSMutableAttributedString {
      - Parameter range: A NSRange.
      */
     open func removeAttribute(characterAttribute: CharacterAttribute, range: NSRange) {
-        removeAttribute(characterAttribute.rawValue, range: range)
+        removeAttribute(CharacterAttributeToValue(attribute: characterAttribute), range: range)
     }
 }

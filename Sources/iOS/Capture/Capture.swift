@@ -1122,7 +1122,10 @@ extension Capture {
      */
     @objc
     fileprivate func handleChangeCameraButton(button: UIButton) {
-        changeCamera()
+        DispatchQueue.main.async { [weak self] in
+            self?.changeCamera()
+        }
+        
         delegate?.capture?(capture: self, didPressChangeCamera: button)
     }
     
