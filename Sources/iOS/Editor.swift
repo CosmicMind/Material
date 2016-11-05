@@ -33,36 +33,26 @@ import UIKit
 @objc(EditorDelegate)
 public protocol EditorDelegate {
     /**
-     An optional delegation method that is executed when
-     text will be processed during editing.
-     - Parameter text: The Text instance assodicated with the
-     delegation object.
-     - Parameter  textStorage: The TextStorage instance
-     associated with the delegation object.
-     - Parameter string: The string value that is currently
-     being edited.
-     - Parameter range: The range of characters that are being
-     edited.
+     A delegation method that is executed when text will be
+     processed during editing.
+     - Parameter editor: An Editor.
+     - Parameter willProcessEditing textStorage: A TextStorage.
+     - Parameter text: A String.
+     - Parameter range: A NSRange.
      */
     @objc
-    optional func editor(editor: Editor, willProcess textStorage: TextStorage, string: String, range: NSRange)
+    optional func editor(editor: Editor, willProcessEditing textStorage: TextStorage, text: String, range: NSRange)
     
     /**
-     An optional delegation method that is executed after
-     the edit processing has completed.
-     - Parameter text: The Text instance assodicated with the
-     delegation object.
-     - Parameter  textStorage: The TextStorage instance
-     associated with the delegation object.
-     - Parameter string: The string value that was edited.
-     - Parameter result: A NSTextCheckingResult associated
-     with the processing result.
-     - Parameter flags: Matching flags.
-     - Parameter stop: Halts a service which is either
-     publishing or resolving.
+     A delegation method that is executed when text has been
+     processed after editing.
+     - Parameter editor: An Editor.
+     - Parameter didProcessEditing textStorage: A TextStorage.
+     - Parameter text: A String.
+     - Parameter range: A NSRange.
      */
     @objc
-    optional func editor(editor: Editor, didProcess textStorage: TextStorage, string: String, result: NSTextCheckingResult?, flags: NSRegularExpression.MatchingFlags, stop: UnsafeMutablePointer<ObjCBool>)
+    optional func editor(editor: Editor, didProcessEditing textStorage: TextStorage, text: String, range: NSRange)
 }
 
 open class Editor: View {
@@ -124,6 +114,7 @@ open class Editor: View {
         prepareTextContainer()
         prepareLayoutManager()
         prepareTextStorage()
+        prepareRegularExpression()
         prepareTextView()
     }
 }
@@ -161,10 +152,14 @@ extension Editor {
 
 extension Editor: TextStorageDelegate {
     open func textStorage(textStorage: TextStorage, willProcessEditing text: String, range: NSRange) {
-        
+        delegate?.editor?(editor: self, willProcessEditing: textStorage, text: string, range: range)
     }
     
     open func textStorage(textStorage: TextStorage, didProcessEditing text: String, result: NSTextCheckingResult?, flags: NSRegularExpression.MatchingFlags, stop: UnsafeMutablePointer<ObjCBool>) {
+        guard let range = result?.range else {
+            return
+        }
         
+        delegate?.editor?(editor: self, didProcessEditing: textStorage, text: string, range: range)
     }
 }

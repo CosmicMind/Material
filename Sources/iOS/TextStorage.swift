@@ -57,7 +57,7 @@ public protocol TextStorageDelegate: NSTextStorageDelegate {
 
 open class TextStorage: NSTextStorage {
 	/// A storage facility for attributed text.
-    open fileprivate(set) var store: NSMutableAttributedString!
+    open fileprivate(set) var storage: NSMutableAttributedString!
 	
 	/// The regular expression to match text fragments against.
 	open var expression: NSRegularExpression?
@@ -72,34 +72,29 @@ open class TextStorage: NSTextStorage {
 		super.init()
         prepareStore()
 	}
-	
 }
 
 extension TextStorage {
     /// Prepare the store.
     fileprivate func prepareStore() {
-        store = NSMutableAttributedString()
+        storage = NSMutableAttributedString()
     }
 }
 
 extension TextStorage {
 	/// A String value of the attirbutedString property.
 	open override var string: String {
-		return store.string
+		return storage.string
 	}
 	
 	/// Processes the text when editing.
 	open override func processEditing() {
-		let range: NSRange = (string as NSString).paragraphRange(for: editedRange)
+		let range = (string as NSString).paragraphRange(for: editedRange)
 		
         (delegate as? TextStorageDelegate)?.textStorage?(textStorage: self, willProcessEditing: string, range: range)
         
-		expression!.enumerateMatches(in: string, options: [], range: range) { [weak self] (result: NSTextCheckingResult?, flags: NSRegularExpression.MatchingFlags, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
-            guard let s = self else {
-                return
-            }
-            
-            (s.delegate as? TextStorageDelegate)?.textStorage!(textStorage: s, didProcessEditing: s.string, result: result, flags: flags, stop: stop)
+		expression?.enumerateMatches(in: string, options: [], range: range) { [unowned self] (result: NSTextCheckingResult?, flags: NSRegularExpression.MatchingFlags, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
+            (self.delegate as? TextStorageDelegate)?.textStorage?(textStorage: self, didProcessEditing: self.string, result: result, flags: flags, stop: stop)
 		}
         
 		super.processEditing()
@@ -107,9 +102,8 @@ extension TextStorage {
 	
 	/**
      Returns the attributes for the character at a given index.
-     - Parameter location: The index for which to return attributes.
-     This value must lie within the bounds of the receiver.
-     - Parameter range: Upon return, the range over which the
+     - Parameter location: An Int
+     - Parameter effectiveRange range: Upon return, the range over which the
      attributes and values are the same as those at index. This range
      isn’t necessarily the maximum range covered, and its extent is
      implementation-dependent. If you need the maximum range, use
@@ -117,8 +111,8 @@ extension TextStorage {
      If you don't need this value, pass NULL.
      - Returns: The attributes for the character at index.
      */
-	open override func attributes(at location: Int, effectiveRange range: NSRangePointer?) -> [String : Any] {
-		return store.attributes(at: location, effectiveRange: range)
+	open override func attributes(at location: Int, effectiveRange range: NSRangePointer?) -> [String: Any] {
+		return storage.attributes(at: location, effectiveRange: range)
 	}
 	
 	/**
@@ -128,8 +122,7 @@ extension TextStorage {
      will be replaced with.
      */
 	open override func replaceCharacters(in range: NSRange, with str: String) {
-		store.replaceCharacters(in: range, with: str)
-		
+		storage.replaceCharacters(in: range, with: str)
         edited(.editedCharacters, range: range, changeInLength: str.utf16.count - range.length)
 	}
 	
@@ -140,8 +133,7 @@ extension TextStorage {
      attributes updated.
      */
 	open override func setAttributes(_ attrs: [String : Any]?, range: NSRange) {
-		store.setAttributes(attrs, range: range)
-		
+		storage.setAttributes(attrs, range: range)
         edited(.editedAttributes, range: range, changeInLength: 0)
 	}
 }
