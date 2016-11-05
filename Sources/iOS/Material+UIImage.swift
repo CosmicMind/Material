@@ -281,7 +281,7 @@ extension UIImage {
      - Parameter saturationDeltaFactor: The delta factor for the saturation of the blur effect.
      - Returns: a UIImage.
      */
-    func blur(radius: CGFloat = 0, tintColor: UIColor? = nil, saturationDeltaFactor: CGFloat = 0) -> UIImage? {
+    open func blur(radius: CGFloat = 0, tintColor: UIColor? = nil, saturationDeltaFactor: CGFloat = 0) -> UIImage? {
         var effectImage = self
         
         let screenScale = Device.scale
