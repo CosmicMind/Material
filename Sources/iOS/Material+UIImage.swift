@@ -29,6 +29,7 @@
  */
 
 import UIKit
+import Accelerate
 
 @objc(ImageFormat)
 public enum ImageFormat: Int {
@@ -256,5 +257,137 @@ extension UIImage {
         }
         
         return UIImage(cgImage: cgImage)
+    }
+}
+
+/**
+ Creates an effect buffer for images that already have effects.
+ - Parameter context: A CGContext.
+ - Returns: vImage_Buffer.
+ */
+fileprivate func createEffectBuffer(context: CGContext) -> vImage_Buffer {
+    let data = context.data
+    let width = vImagePixelCount(context.width)
+    let height = vImagePixelCount(context.height)
+    let rowBytes = context.bytesPerRow
+    return vImage_Buffer(data: data, height: height, width: width, rowBytes: rowBytes)
+}
+
+extension UIImage {
+    /**
+     Applies a blur effect to a UIImage.
+     - Parameter radius: The radius of the blur effect.
+     - Parameter tintColor: The color used for the blur effect (optional).
+     - Parameter saturationDeltaFactor: The delta factor for the saturation of the blur effect.
+     - Returns: a UIImage.
+     */
+    open func blur(radius: CGFloat = 0, tintColor: UIColor? = nil, saturationDeltaFactor: CGFloat = 0) -> UIImage? {
+        var effectImage = self
+        
+        let screenScale = Device.scale
+        let imageRect = CGRect(origin: .zero, size: size)
+        let hasBlur = radius > CGFloat(FLT_EPSILON)
+        let hasSaturationChange = fabs(saturationDeltaFactor - 1.0) > CGFloat(FLT_EPSILON)
+        
+        if hasBlur || hasSaturationChange {
+            UIGraphicsBeginImageContextWithOptions(size, false, screenScale)
+            let inContext = UIGraphicsGetCurrentContext()!
+            inContext.scaleBy(x: 1.0, y: -1.0)
+            inContext.translateBy(x: 0, y: -size.height)
+            
+            inContext.draw(cgImage!, in: imageRect)
+            
+            var inBuffer = createEffectBuffer(context: inContext)
+            
+            UIGraphicsBeginImageContextWithOptions(size, false, screenScale)
+            
+            let outContext = UIGraphicsGetCurrentContext()!
+            var outBuffer = createEffectBuffer(context: outContext)
+            
+            if hasBlur {
+                let inputRadius = radius * screenScale
+                var radius = UInt32(floor(inputRadius * 3.0 * CGFloat(sqrt(2 * M_PI)) / 4 + 0.5))
+                
+                if 1 != radius % 2 {
+                    radius += 1 // force radius to be odd so that the three box-blur methodology works.
+                }
+                
+                let imageEdgeExtendFlags = vImage_Flags(kvImageEdgeExtend)
+                
+                vImageBoxConvolve_ARGB8888(&inBuffer, &outBuffer, nil, 0, 0, radius, radius, nil, imageEdgeExtendFlags)
+                vImageBoxConvolve_ARGB8888(&outBuffer, &inBuffer, nil, 0, 0, radius, radius, nil, imageEdgeExtendFlags)
+                vImageBoxConvolve_ARGB8888(&inBuffer, &outBuffer, nil, 0, 0, radius, radius, nil, imageEdgeExtendFlags)
+            }
+            
+            var effectImageBuffersAreSwapped = false
+            
+            if hasSaturationChange {
+                let s = saturationDeltaFactor
+                
+                let floatingPointSaturationMatrix: [CGFloat] = [
+                    0.0722 + 0.9278 * s,  0.0722 - 0.0722 * s,  0.0722 - 0.0722 * s,  0,
+                    0.7152 - 0.7152 * s,  0.7152 + 0.2848 * s,  0.7152 - 0.7152 * s,  0,
+                    0.2126 - 0.2126 * s,  0.2126 - 0.2126 * s,  0.2126 + 0.7873 * s,  0,
+                    0,                    0,                    0,                    1
+                ]
+                
+                let divisor: CGFloat = 256
+                let matrixSize = floatingPointSaturationMatrix.count
+                var saturationMatrix = [Int16](repeating: 0, count: matrixSize)
+                
+                for i in 0..<matrixSize {
+                    saturationMatrix[i] = Int16(round(floatingPointSaturationMatrix[i] * divisor))
+                }
+                
+                if hasBlur {
+                    vImageMatrixMultiply_ARGB8888(&outBuffer, &inBuffer, saturationMatrix, Int32(divisor), nil, nil, vImage_Flags(kvImageNoFlags))
+                    effectImageBuffersAreSwapped = true
+                } else {
+                    vImageMatrixMultiply_ARGB8888(&inBuffer, &outBuffer, saturationMatrix, Int32(divisor), nil, nil, vImage_Flags(kvImageNoFlags))
+                }
+            }
+            
+            if !effectImageBuffersAreSwapped {
+                effectImage = UIGraphicsGetImageFromCurrentImageContext()!
+            }
+            
+            UIGraphicsEndImageContext()
+            
+            if effectImageBuffersAreSwapped {
+                effectImage = UIGraphicsGetImageFromCurrentImageContext()!
+            }
+            
+            UIGraphicsEndImageContext()
+        }
+        
+        // Set up output context.
+        UIGraphicsBeginImageContextWithOptions(size, false, screenScale)
+        let outputContext = UIGraphicsGetCurrentContext()!
+        outputContext.scaleBy(x: 1.0, y: -1.0)
+        outputContext.translateBy(x: 0, y: -size.height)
+        
+        // Draw base image.
+        outputContext.draw(cgImage!, in: imageRect)
+        
+        // Draw effect image.
+        if hasBlur {
+            outputContext.saveGState()
+            outputContext.draw(effectImage.cgImage!, in: imageRect)
+            outputContext.restoreGState()
+        }
+        
+        // Add in color tint.
+        if let v = tintColor {
+            outputContext.saveGState()
+            outputContext.setFillColor(v.cgColor)
+            outputContext.fill(imageRect)
+            outputContext.restoreGState()
+        }
+        
+        // Output image is ready.
+        let outputImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        
+        return outputImage
     }
 }
