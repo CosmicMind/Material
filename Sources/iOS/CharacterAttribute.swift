@@ -133,11 +133,55 @@ extension NSMutableAttributedString {
     }
     
     /**
+     Adds a Dictionary of character attributes to a given range.
+     - Parameter characterAttributes: A Dictionary of CharacterAttribute type keys and Any type values.
+     - Parameter range: A NSRange.
+     */
+    open func addAttributes(characterAttributes: [CharacterAttribute : Any] = [:], range: NSRange) {
+        for (k, v) in characterAttributes {
+            addAttribute(characterAttribute: k, value: v, range: range)
+        }
+    }
+    
+    /**
+     Updates a character attribute to a given range.
+     - Parameter characterAttribute: A CharacterAttribute.
+     - Parameter value: Any type.
+     - Parameter range: A NSRange.
+     */
+    open func updateAttribute(characterAttribute: CharacterAttribute, value: Any, range: NSRange) {
+        removeAttribute(characterAttribute: characterAttribute, range: range)
+        addAttribute(characterAttribute: characterAttribute, value: value, range: range)
+    }
+    
+    /**
+     Updates a Dictionary of character attributes to a given range.
+     - Parameter characterAttributes: A Dictionary of CharacterAttribute type keys and Any type values.
+     - Parameter range: A NSRange.
+     */
+    open func updateAttributes(characterAttributes: [CharacterAttribute : Any] = [:], range: NSRange) {
+        for (k, v) in characterAttributes {
+            updateAttribute(characterAttribute: k, value: v, range: range)
+        }
+    }
+    
+    /**
      Removes a character attribute from a given range.
      - Parameter characterAttribute: A CharacterAttribute.
      - Parameter range: A NSRange.
      */
     open func removeAttribute(characterAttribute: CharacterAttribute, range: NSRange) {
         removeAttribute(CharacterAttributeToValue(attribute: characterAttribute), range: range)
+    }
+    
+    /**
+     Removes a Dictionary of character attributes from a given range.
+     - Parameter characterAttributes: An Array of CharacterAttributes.
+     - Parameter range: A NSRange.
+     */
+    open func removeAttributes(characterAttributes: [CharacterAttribute] = [], range: NSRange) {
+        for k in characterAttributes {
+            removeAttribute(characterAttribute: k, range: range)
+        }
     }
 }
