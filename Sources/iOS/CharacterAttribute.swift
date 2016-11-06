@@ -101,26 +101,6 @@ public func CharacterAttributeToValue(attribute: CharacterAttribute) -> String {
     }
 }
 
-extension NSAttributedString {
-    /**
-     Retrieves the character attributes that are currently applied.
-     - Parameter at location: An Int.
-     - Parameter effectiveRange: An optional NSRangePointer.
-     - Returns: A Dictionary of CharacterAttribute type keys and Any type values.
-     */
-    open func characterAttributes(at location: Int, effectiveRange: NSRangePointer?) -> [CharacterAttribute: Any] {
-        var ca = [CharacterAttribute: Any]()
-        attributes(at: location, effectiveRange: effectiveRange).forEach { (key, value) in
-            guard let attribute = CharacterAttribute.init(rawValue: key) else {
-                return
-            }
-            
-            ca[attribute] = value
-        }
-        return ca
-    }
-}
-
 extension NSMutableAttributedString {
     /**
      Adds a character attribute to a given range.

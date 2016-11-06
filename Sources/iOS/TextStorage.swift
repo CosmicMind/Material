@@ -56,10 +56,10 @@ public protocol TextStorageDelegate: NSTextStorageDelegate {
 }
 
 open class TextStorage: NSTextStorage {
-	/// A storage facility for attributed text.
+    /// A storage facility for attributed text.
     open fileprivate(set) var storage: NSMutableAttributedString!
-	
-	/// The regular expression to match text fragments against.
+    
+    /// The regular expression to match text fragments against.
 	open var expression: NSRegularExpression?
 	
 	/// Initializer.
@@ -70,13 +70,13 @@ open class TextStorage: NSTextStorage {
 	/// Initializer.
 	public override init() {
 		super.init()
-        prepareStore()
+        prepareStorage()
 	}
 }
 
 extension TextStorage {
-    /// Prepare the store.
-    fileprivate func prepareStore() {
+    /// Prepare the storage.
+    fileprivate func prepareStorage() {
         storage = NSMutableAttributedString()
     }
 }
@@ -96,6 +96,8 @@ extension TextStorage {
 		expression?.enumerateMatches(in: string, options: [], range: range) { [unowned self] (result: NSTextCheckingResult?, flags: NSRegularExpression.MatchingFlags, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
             (self.delegate as? TextStorageDelegate)?.textStorage?(textStorage: self, didProcessEditing: self.string, result: result, flags: flags, stop: stop)
 		}
+        
+        storage.fixAttributes(in: range)
         
 		super.processEditing()
 	}
@@ -136,4 +138,27 @@ extension TextStorage {
 		storage.setAttributes(attrs, range: range)
         edited(.editedAttributes, range: range, changeInLength: 0)
 	}
+    
+    /**
+     Adds an individual attribute.
+     - Parameter _ name: Attribute name.
+     - Parameter value: An Any type.
+     - Parameter range: A range of characters that will have their
+     attributes added.
+     */
+    open override func addAttribute(_ name: String, value: Any, range: NSRange) {
+        storage.addAttribute(name, value: value, range: range)
+        edited(.editedAttributes, range: range, changeInLength: 0)
+    }
+    
+    /**
+     Removes an individual attribute.
+     - Parameter _ name: Attribute name.
+     - Parameter range: A range of characters that will have their
+     attributes removed.
+     */
+    open override func removeAttribute(_ name: String, range: NSRange) {
+        storage.removeAttribute(name, range: range)
+        edited(.editedAttributes, range: range, changeInLength: 0)
+    }
 }
