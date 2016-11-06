@@ -56,6 +56,11 @@ public protocol EditorDelegate {
 }
 
 open class Editor: View {
+    /// Will layout the view.
+    open var willLayout: Bool {
+        return 0 < width && 0 < height && nil != superview
+    }
+    
     /// TextStorage instance that is observed while editing.
     open fileprivate(set) var textStorage: TextStorage!
     
@@ -64,6 +69,21 @@ open class Editor: View {
     
     /// A reference to the NSLayoutManager.
     open fileprivate(set) var layoutManager: NSLayoutManager!
+    
+    /// A preset wrapper around textViewEdgeInsets.
+    open var textViewEdgeInsetsPreset = EdgeInsetsPreset.none {
+        didSet {
+            textViewEdgeInsets = EdgeInsetsPresetToValue(preset: textViewEdgeInsetsPreset)
+        }
+    }
+    
+    /// A reference to textViewEdgeInsets.
+    @IBInspectable
+    open var textViewEdgeInsets = EdgeInsets.zero {
+        didSet {
+            layoutSubviews()
+        }
+    }
     
     /// Reference to the TextView.
     open fileprivate(set) var textView: TextView!
@@ -100,6 +120,15 @@ open class Editor: View {
     public var uniqueMatches: [String] {
         var seen = [String: Bool]()
         return matches.filter { nil == seen.updateValue(true, forKey: $0) }
+    }
+    
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        guard willLayout else {
+            return
+        }
+        
+        textView.frame = CGRect(x: textViewEdgeInsets.left, y: textViewEdgeInsets.top, width: width - textViewEdgeInsets.left - textViewEdgeInsets.right, height: height - textViewEdgeInsets.top - textViewEdgeInsets.bottom)
     }
     
     /**
@@ -141,7 +170,7 @@ extension Editor {
     /// Prepares the textView.
     fileprivate func prepareTextView() {
         textView = TextView(textContainer: textContainer)
-        layout(textView).edges()
+        addSubview(textView)
     }
     
     /// Prepares the regular expression for matching.
