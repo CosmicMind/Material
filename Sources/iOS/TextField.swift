@@ -103,12 +103,28 @@ open class TextField: UITextField {
     
     /// Divider normal height.
     @IBInspectable
-    open var dividerNormalHeight: CGFloat = 1
+    open var dividerNormalHeight: CGFloat = 1 {
+        didSet {
+            guard !isEditing else {
+                return
+            }
+            
+            dividerThickness = dividerNormalHeight
+        }
+    }
     
     
 	/// Divider active height.
 	@IBInspectable
-    open var dividerActiveHeight: CGFloat = 2
+    open var dividerActiveHeight: CGFloat = 2 {
+        didSet {
+            guard isEditing else {
+                return
+            }
+            
+            dividerThickness = dividerActiveHeight
+        }
+    }
 	
 	/// Divider normal color.
 	@IBInspectable
