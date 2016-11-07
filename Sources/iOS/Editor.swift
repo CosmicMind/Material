@@ -122,6 +122,64 @@ public protocol EditorDelegate {
      */
     @objc
     optional func editor(editor: Editor, didChangeSelection textView: UITextView)
+    
+    /**
+     A delegation method that is executed when the textView should interact with
+     a URL in a given character range.
+     - Parameter editor: An Editor.
+     - Parameter textView: A UITextView.
+     - Parameter shouldInteractWith URL: A URL.
+     - Parameter in characterRange: A Range.
+     - Returns: A boolean indicating if the textView should interact with a URL in
+     a given character range, true if yes, false otherwise.
+     */
+    @available(iOS 8.0, *)
+    @objc
+    optional func editor(editor: Editor, textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool
+    
+    /**
+     A delegation method that is executed when the textView should interact with
+     a text attachment in a given character range.
+     - Parameter editor: An Editor.
+     - Parameter textView: A UITextView.
+     - Parameter shouldInteractWith textAttachment: A NSTextAttachment.
+     - Parameter in characterRange: A Range.
+     - Returns: A boolean indicating if the textView should interact with a 
+     NSTextAttachment in a given character range, true if yes, false otherwise.
+     */
+    @available(iOS 8.0, *)
+    @objc
+    optional func editor(editor: Editor, textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange) -> Bool
+    
+    /**
+     A delegation method that is executed when the textView should interact with
+     a URL in a given character range.
+     - Parameter editor: An Editor.
+     - Parameter textView: A UITextView.
+     - Parameter shouldInteractWith URL: A URL.
+     - Parameter in characterRange: A Range.
+     - Parameter interaction: A UITextItemInteraction.
+     - Returns: A boolean indicating if the textView should interact with a URL in
+     a given character range, true if yes, false otherwise.
+     */
+    @available(iOS 10.0, *)
+    @objc
+    optional func editor(editor: Editor, textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool
+    
+    /**
+     A delegation method that is executed when the textView should interact with
+     a text attachment in a given character range.
+     - Parameter editor: An Editor.
+     - Parameter textView: A UITextView.
+     - Parameter shouldInteractWith textAttachment: A NSTextAttachment.
+     - Parameter in characterRange: A Range.
+     - Parameter interaction: A UITextItemInteraction.
+     - Returns: A boolean indicating if the textView should interact with a
+     NSTextAttachment in a given character range, true if yes, false otherwise.
+     */
+    @available(iOS 10.0, *)
+    @objc
+    optional func editor(editor: Editor, textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool
 }
 
 open class Editor: View {
@@ -296,21 +354,21 @@ extension Editor: TextViewDelegate {
 @available(iOS 8.0, *)
 extension Editor {
     open func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
-        return true
+        return delegate?.editor?(editor: self, textView: textView, shouldInteractWith: URL, in: characterRange) ?? true
     }
     
     open func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange) -> Bool {
-        return true
+        return delegate?.editor?(editor: self, textView: textView, shouldInteractWith: textAttachment, in: characterRange) ?? true
     }
 }
 
 @available(iOS 10.0, *)
 extension Editor {
     open func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        return true
+        return delegate?.editor?(editor: self, textView: textView, shouldInteractWith: URL, in: characterRange, interaction: interaction) ?? true
     }
     
     open func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        return true
+        return delegate?.editor?(editor: self, textView: textView, shouldInteractWith: textAttachment, in: characterRange, interaction: interaction) ?? true
     }
 }
