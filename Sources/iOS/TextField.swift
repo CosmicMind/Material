@@ -465,20 +465,12 @@ extension TextField {
     
     /// Updates the placeholderLabel attributedText.
     fileprivate func updatePlaceholderLabelColor() {
-        guard let v = placeholder else {
-            return
-        }
-        
         placeholderLabel.textColor = isEditing ? placeholderActiveColor : placeholderNormalColor
     }
     
     /// Updates the detailLabel attributedText.
     fileprivate func updateDetailLabelColor() {
-        guard let v = detail else {
-            return
-        }
-        
-        detailLabel.attributedText = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: detailColor])
+        detailLabel.textColor = detailColor
     }
 }
 
@@ -610,6 +602,8 @@ extension TextField {
     
     /// The animation for the placeholder when editing begins.
     fileprivate func placeholderEditingDidBeginAnimation() {
+        updatePlaceholderLabelColor()
+        
         guard isPlaceholderAnimated else {
             return
         }
@@ -617,8 +611,6 @@ extension TextField {
         guard isEmpty && !isAnimating else {
             return
         }
-        
-        updatePlaceholderLabelColor()
         
         isAnimating = true
         UIView.animate(withDuration: 0.15, animations: { [weak self] in
@@ -644,6 +636,8 @@ extension TextField {
     
     /// The animation for the placeholder when editing ends.
     fileprivate func placeholderEditingDidEndAnimation() {
+        updatePlaceholderLabelColor()
+        
         guard isPlaceholderAnimated else {
             return
         }
@@ -661,7 +655,6 @@ extension TextField {
             s.placeholderLabel.transform = CGAffineTransform.identity
             s.placeholderLabel.x = s.leftViewWidth
             s.placeholderLabel.y = 0
-            s.placeholderLabel.textColor = s.placeholderNormalColor
         }) { [weak self] _ in
             self?.isAnimating = false
         }
