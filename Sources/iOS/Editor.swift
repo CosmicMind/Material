@@ -53,6 +53,75 @@ public protocol EditorDelegate {
      */
     @objc
     optional func editor(editor: Editor, didProcessEditing textStorage: TextStorage, text: String, range: NSRange)
+    
+    /**
+     A delegation method that is executed when the textView should begin editing.
+     - Parameter editor: An Editor.
+     - Parameter shouldBeginEditing textView: A UITextView.
+     - Returns: A boolean indicating if the textView should begin editing, true if
+     yes, false otherwise.
+     */
+    @objc
+    optional func editor(editor: Editor, shouldBeginEditing textView: UITextView) -> Bool
+    
+    /**
+     A delegation method that is executed when the textView should end editing.
+     - Parameter editor: An Editor.
+     - Parameter shouldEndEditing textView: A UITextView.
+     - Returns: A boolean indicating if the textView should end editing, true if
+     yes, false otherwise.
+     */
+    @objc
+    optional func editor(editor: Editor, shouldEndEditing textView: UITextView) -> Bool
+    
+    /**
+     A delegation method that is executed when the textView did begin editing.
+     - Parameter editor: An Editor.
+     - Parameter didBeginEditing textView: A UITextView.
+     - Returns: A boolean indicating if the textView did begin editing, true if
+     yes, false otherwise.
+     */
+    @objc
+    optional func editor(editor: Editor, didBeginEditing textView: UITextView) -> Bool
+    
+    /**
+     A delegation method that is executed when the textView did begin editing.
+     - Parameter editor: An Editor.
+     - Parameter didBeginEditing textView: A UITextView.
+     - Returns: A boolean indicating if the textView did begin editing, true if
+     yes, false otherwise.
+     */
+    @objc
+    optional func editor(editor: Editor, didEndEditing textView: UITextView) -> Bool
+    
+    /**
+     A delegation method that is executed when the textView should change text in
+     a given range with replacement text.
+     - Parameter editor: An Editor.
+     - Parameter textView: A UITextView.
+     - Parameter shouldChangeTextIn range: A NSRange.
+     - Parameter replacementText text: A String.
+     - Returns: A boolean indicating if the textView should change text in a given
+     range with the given replacement text, true if yes, false otherwise.
+     */
+    @objc
+    optional func editor(editor: Editor, textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool
+    
+    /**
+     A delegation method that is executed when the textView did change.
+     - Parameter editor: An Editor.
+     - Parameter didChange textView: A UITextView.
+     */
+    @objc
+    optional func editor(editor: Editor, didChange textView: UITextView)
+    
+    /**
+     A delegation method that is executed when the textView did change a selection.
+     - Parameter editor: An Editor.
+     - Parameter didChangeSelection textView: A UITextView.
+     */
+    @objc
+    optional func editor(editor: Editor, didChangeSelection textView: UITextView)
 }
 
 open class Editor: View {
@@ -170,6 +239,7 @@ extension Editor {
     /// Prepares the textView.
     fileprivate func prepareTextView() {
         textView = TextView(textContainer: textContainer)
+        textView.delegate = self
         addSubview(textView)
     }
     
@@ -190,5 +260,57 @@ extension Editor: TextStorageDelegate {
         }
         
         delegate?.editor?(editor: self, didProcessEditing: textStorage, text: string, range: range)
+    }
+}
+
+extension Editor: TextViewDelegate {
+    open func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        return delegate?.editor?(editor: self, shouldBeginEditing: textView) ?? true
+    }
+    
+    open func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        return delegate?.editor?(editor: self, shouldEndEditing: textView) ?? true
+    }
+    
+    open func textViewDidBeginEditing(_ textView: UITextView) {
+        delegate?.editor?(editor: self, didBeginEditing: textView)
+    }
+    
+    open func textViewDidEndEditing(_ textView: UITextView) {
+        delegate?.editor?(editor: self, didEndEditing: textView)
+    }
+    
+    open func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        return delegate?.editor?(editor: self, textView: textView, shouldChangeTextIn: range, replacementText: text) ?? true
+    }
+    
+    open func textViewDidChange(_ textView: UITextView) {
+        delegate?.editor?(editor: self, didChange: textView)
+    }
+    
+    open func textViewDidChangeSelection(_ textView: UITextView) {
+        delegate?.editor?(editor: self, didChangeSelection: textView)
+    }
+}
+
+@available(iOS 8.0, *)
+extension Editor {
+    open func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
+        return true
+    }
+    
+    open func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange) -> Bool {
+        return true
+    }
+}
+
+@available(iOS 10.0, *)
+extension Editor {
+    open func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        return true
+    }
+    
+    open func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        return true
     }
 }
