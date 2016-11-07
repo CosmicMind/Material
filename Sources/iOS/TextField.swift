@@ -142,22 +142,6 @@ open class TextField: UITextField {
 		}
 	}
  
-	/// TextField's text property observer.
-	@IBInspectable
-    open override var text: String? {
-		didSet {
-            guard isEmpty else {
-                return
-            }
-            
-            guard !isFirstResponder else {
-                return
-            }
-            
-			placeholderEditingDidEndAnimation()
-		}
-	}
-	
 	/// The placeholderLabel text value.
 	@IBInspectable
     open override var placeholder: String? {
