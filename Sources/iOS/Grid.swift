@@ -37,70 +37,40 @@ public enum GridAxisDirection: Int {
     case vertical
 }
 
-public class GridAxis {
-    /// Grid reference.
-    unowned var grid: Grid
-    
+public struct GridAxis {
     /// The direction the grid lays its views out.
-    open var direction: GridAxisDirection = .horizontal {
-        didSet {
-            grid.reload()
-        }
-    }
+    var direction = GridAxisDirection.horizontal
     
     /// The rows size.
-    public var rows: Int {
-        didSet {
-            grid.reload()
-        }
-    }
+    public var rows: Int
     
     /// The columns size.
-    public var columns: Int {
-        didSet {
-            grid.reload()
-        }
-    }
+    public var columns: Int
     
     /**
      Initializer.
-     - Parameter grid: The Grid reference used for offset values.
      - Parameter rows: The number of rows, vertical axis the grid will use.
      - Parameter columns: The number of columns, horizontal axis the grid will use.
      */
-    public init(grid: Grid, rows: Int = 12, columns: Int = 12) {
-        self.grid = grid
+    public init(rows: Int = 12, columns: Int = 12) {
         self.rows = rows
         self.columns = columns
     }
 }
 
-public class GridOffset {
-    /// Grid reference.
-    unowned var grid: Grid
-    
+public struct GridOffset {
     /// The rows size.
-    public var rows: Int {
-        didSet {
-            grid.reload()
-        }
-    }
+    public var rows: Int
     
     /// The columns size.
-    public var columns: Int {
-        didSet {
-            grid.reload()
-        }
-    }
+    public var columns: Int
     
     /**
      Initializer.
-     - Parameter grid: The Grid reference used for offset values.
      - Parameter rows: The number of rows, vertical axis the grid will use.
      - Parameter columns: The number of columns, horizontal axis the grid will use.
      */
-    public init(grid: Grid, rows: Int = 0, columns: Int = 0) {
-        self.grid = grid
+    public init(rows: Int = 0, columns: Int = 0) {
         self.rows = rows
         self.columns = columns
     }
@@ -128,10 +98,18 @@ public class Grid {
     }
     
     /// Offsets for rows and columns.
-    public private(set) var offset: GridOffset!
+    public var offset: GridOffset {
+        didSet {
+            reload()
+        }
+    }
     
     /// The axis in which the Grid is laying out its views.
-    public private(set) var axis: GridAxis!
+    public var axis: GridAxis {
+        didSet {
+            reload()
+        }
+    }
     
     /// Preset inset value for grid.
     public var layoutEdgeInsetsPreset = EdgeInsetsPreset.none {
@@ -176,8 +154,11 @@ public class Grid {
     }
     
     /// An Array of UIButtons.
-    public var views = [UIView]() {
+    public var views: [UIView] {
         didSet {
+            for v in oldValue {
+                v.removeFromSuperview()
+            }
             reload()
         }
     }
@@ -193,8 +174,9 @@ public class Grid {
         self.rows = rows
         self.columns = columns
         self.interimSpace = interimSpace
-        offset = GridOffset(grid: self)
-        axis = GridAxis(grid: self)
+        offset = GridOffset()
+        axis = GridAxis()
+        views = []
     }
     
     /// Begins a deferred block.
@@ -214,6 +196,14 @@ public class Grid {
             return
         }
         
+        guard let canvas = context else {
+            return
+        }
+        
+        guard 0 < canvas.width && 0 < canvas.height else {
+            return
+        }
+        
         let count = views.count
         
         guard 0 < count else {
@@ -224,14 +214,6 @@ public class Grid {
         var i = 0
         
         for v in views {
-            guard let canvas = context else {
-                return
-            }
-            
-            guard 0 < canvas.width && 0 < canvas.height else {
-                return
-            }
-            
             if canvas != v.superview {
                 v.removeFromSuperview()
                 canvas.addSubview(v)
