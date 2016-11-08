@@ -55,7 +55,7 @@ public class NavigationItem: NSObject {
 	public private(set) lazy var detailLabel = UILabel()
 	
 	/// Left items.
-    public var leftViews: [UIView] {
+    public var leftViews = [UIView]() {
         didSet {
             for v in oldValue {
                 v.removeFromSuperview()
@@ -65,7 +65,7 @@ public class NavigationItem: NSObject {
     }
 	
 	/// Right items.
-    public var rightViews: [UIView] {
+    public var rightViews = [UIView]() {
         didSet {
             for v in oldValue {
                 v.removeFromSuperview()
@@ -105,9 +105,7 @@ public class NavigationItem: NSObject {
     
 	/// Initializer.
 	public override init() {
-        leftViews = []
-        rightViews = []
-        super.init()
+		super.init()
         prepareTitleLabel()
 		prepareDetailLabel()
 	}

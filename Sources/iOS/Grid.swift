@@ -98,14 +98,14 @@ public class Grid {
     }
     
     /// Offsets for rows and columns.
-    public var offset: GridOffset {
+    public var offset = GridOffset() {
         didSet {
             reload()
         }
     }
     
     /// The axis in which the Grid is laying out its views.
-    public var axis: GridAxis {
+    public var axis = GridAxis() {
         didSet {
             reload()
         }
@@ -154,7 +154,7 @@ public class Grid {
     }
     
     /// An Array of UIButtons.
-    public var views: [UIView] {
+    public var views = [UIView]() {
         didSet {
             for v in oldValue {
                 v.removeFromSuperview()
@@ -174,9 +174,6 @@ public class Grid {
         self.rows = rows
         self.columns = columns
         self.interimSpace = interimSpace
-        offset = GridOffset()
-        axis = GridAxis()
-        views = []
     }
     
     /// Begins a deferred block.
