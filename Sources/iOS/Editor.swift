@@ -78,21 +78,17 @@ public protocol EditorDelegate {
      A delegation method that is executed when the textView did begin editing.
      - Parameter editor: An Editor.
      - Parameter didBeginEditing textView: A UITextView.
-     - Returns: A boolean indicating if the textView did begin editing, true if
-     yes, false otherwise.
      */
     @objc
-    optional func editor(editor: Editor, didBeginEditing textView: UITextView) -> Bool
+    optional func editor(editor: Editor, didBeginEditing textView: UITextView)
     
     /**
      A delegation method that is executed when the textView did begin editing.
      - Parameter editor: An Editor.
      - Parameter didBeginEditing textView: A UITextView.
-     - Returns: A boolean indicating if the textView did begin editing, true if
-     yes, false otherwise.
      */
     @objc
-    optional func editor(editor: Editor, didEndEditing textView: UITextView) -> Bool
+    optional func editor(editor: Editor, didEndEditing textView: UITextView)
     
     /**
      A delegation method that is executed when the textView should change text in
@@ -133,7 +129,7 @@ public protocol EditorDelegate {
      - Returns: A boolean indicating if the textView should interact with a URL in
      a given character range, true if yes, false otherwise.
      */
-    @available(iOS 8.0, *)
+    @available(iOS, introduced: 8.0, obsoleted: 10.0)
     @objc
     optional func editor(editor: Editor, textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool
     
@@ -147,7 +143,7 @@ public protocol EditorDelegate {
      - Returns: A boolean indicating if the textView should interact with a 
      NSTextAttachment in a given character range, true if yes, false otherwise.
      */
-    @available(iOS 8.0, *)
+    @available(iOS, introduced: 8.0, obsoleted: 10.0)
     @objc
     optional func editor(editor: Editor, textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange) -> Bool
     
@@ -351,7 +347,7 @@ extension Editor: TextViewDelegate {
     }
 }
 
-@available(iOS 8.0, *)
+@available(iOS, introduced: 8.0, obsoleted: 10.0)
 extension Editor {
     open func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
         return delegate?.editor?(editor: self, textView: textView, shouldInteractWith: URL, in: characterRange) ?? true
