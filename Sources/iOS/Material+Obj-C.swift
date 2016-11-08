@@ -36,11 +36,11 @@
  - Returns: The associated reference for the initializer object.
  */
 internal func AssociatedObject<T: Any>(base: Any, key: UnsafePointer<UInt8>, initializer: () -> T) -> T {
-    if let v: T = objc_getAssociatedObject(base, key) as? T {
+    if let v = objc_getAssociatedObject(base, key) as? T {
         return v
     }
     
-    let v: T = initializer()
+    let v = initializer()
     objc_setAssociatedObject(base, key, v, .OBJC_ASSOCIATION_RETAIN)
     return v
 }
