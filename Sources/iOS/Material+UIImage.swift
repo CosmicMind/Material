@@ -305,8 +305,12 @@ extension UIImage {
             var outBuffer = createEffectBuffer(context: outContext)
             
             if hasBlur {
-                let inputRadius = radius * screenScale
-                var radius = UInt32(floor(inputRadius * 3.0 * CGFloat(sqrt(2 * M_PI)) / 4 + 0.5))
+                let a = sqrt(2 * M_PI)
+                let b = CGFloat(a) / 4
+                let c = radius * screenScale
+                let d = c * 3.0 * b
+
+                var radius = UInt32(floor(d + 0.5))
                 
                 if 1 != radius % 2 {
                     radius += 1 // force radius to be odd so that the three box-blur methodology works.
