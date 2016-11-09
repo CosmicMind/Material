@@ -47,7 +47,7 @@ open class Bar: View {
     }
     
     /// Should center the contentView.
-    open var contentViewAlignment = ContentViewAlignment.center {
+    open var contentViewAlignment = ContentViewAlignment.any {
         didSet {
             layoutSubviews()
         }
