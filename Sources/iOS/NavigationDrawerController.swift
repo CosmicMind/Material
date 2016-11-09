@@ -415,20 +415,17 @@ open class NavigationDrawerController: RootController, UIGestureRecognizerDelega
 		prepare()
 	}
 	
-	/**
-     Prepares the view instance when intialized. When subclassing,
-     it is recommended to override the prepare method
-     to initialize property values and other setup operations.
-     The super.prepare method should always be called immediately
-     when subclassing.
-     */
-	open override func prepare() {
-		super.prepare()
-		prepareContentViewController()
-		prepareLeftView()
-		prepareRightView()
-	}
-	
+    open override func transition(to viewController: UIViewController, duration: TimeInterval = 0.5, options: UIViewAnimationOptions = [], animations: (() -> Void)? = nil, completion: ((Bool) -> Void)? = nil) {
+        super.transition(to: viewController, duration: duration, options: options, animations: animations) { [weak self, completion = completion] (result) in
+            guard let s = self else {
+                return
+            }
+            
+            s.view.sendSubview(toBack: s.contentViewController.view)
+            completion?(result)
+        }
+    }
+    
 	/// Layout subviews.
 	open override func layoutSubviews() {
 		if isOpened {
@@ -469,6 +466,20 @@ open class NavigationDrawerController: RootController, UIGestureRecognizerDelega
         
         v.position.x = size.width + (isRightViewOpened ? -v.width : v.width) / 2
 	}
+    
+    /**
+     Prepares the view instance when intialized. When subclassing,
+     it is recommended to override the prepare method
+     to initialize property values and other setup operations.
+     The super.prepare method should always be called immediately
+     when subclassing.
+     */
+    open override func prepare() {
+        super.prepare()
+        prepareContentViewController()
+        prepareLeftView()
+        prepareRightView()
+    }
 	
 	/**
      A method that is used to set the width of the leftView when

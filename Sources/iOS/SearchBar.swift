@@ -122,7 +122,7 @@ open class SearchBar: Bar {
 			}
 		}
 	}
-	
+    
 	open override func layoutSubviews() {
 		super.layoutSubviews()
         guard willLayout else {
