@@ -310,17 +310,17 @@ extension UIImage {
                 let c = radius * screenScale
                 let d = c * 3.0 * b
 
-                var radius = UInt32(floor(d + 0.5))
+                var e = UInt32(floor(d + 0.5))
                 
-                if 1 != radius % 2 {
-                    radius += 1 // force radius to be odd so that the three box-blur methodology works.
+                if 1 != e % 2 {
+                    e += 1 // force radius to be odd so that the three box-blur methodology works.
                 }
                 
                 let imageEdgeExtendFlags = vImage_Flags(kvImageEdgeExtend)
                 
-                vImageBoxConvolve_ARGB8888(&inBuffer, &outBuffer, nil, 0, 0, radius, radius, nil, imageEdgeExtendFlags)
-                vImageBoxConvolve_ARGB8888(&outBuffer, &inBuffer, nil, 0, 0, radius, radius, nil, imageEdgeExtendFlags)
-                vImageBoxConvolve_ARGB8888(&inBuffer, &outBuffer, nil, 0, 0, radius, radius, nil, imageEdgeExtendFlags)
+                vImageBoxConvolve_ARGB8888(&inBuffer, &outBuffer, nil, 0, 0, e, e, nil, imageEdgeExtendFlags)
+                vImageBoxConvolve_ARGB8888(&outBuffer, &inBuffer, nil, 0, 0, e, e, nil, imageEdgeExtendFlags)
+                vImageBoxConvolve_ARGB8888(&inBuffer, &outBuffer, nil, 0, 0, e, e, nil, imageEdgeExtendFlags)
             }
             
             var effectImageBuffersAreSwapped = false
