@@ -50,7 +50,7 @@ extension UIViewController {
 
 open class StatusBarController: RootController {
 	/// A reference to the statusBar.
-	open private(set) lazy var statusBar = View()
+    open private(set) lazy var statusBar: View = View()
 	
     open override var isStatusBarHidden: Bool {
         didSet {

@@ -34,9 +34,10 @@ import UIKit
 public protocol TextViewDelegate : UITextViewDelegate {}
 
 @objc(TextView)
-public class TextView: UITextView {
+open class TextView: UITextView {
 	/// A property that accesses the backing layer's background
-	@IBInspectable public override var backgroundColor: UIColor? {
+	@IBInspectable
+    open override var backgroundColor: UIColor? {
 		didSet {
 			layer.backgroundColor = backgroundColor?.cgColor
 		}
@@ -47,44 +48,49 @@ public class TextView: UITextView {
 	titleLabel text value is updated with the placeholderLabel
 	text value before being displayed.
 	*/
-	public var titleLabel: UILabel? {
+	@IBInspectable
+    open var titleLabel: UILabel? {
 		didSet {
 			prepareTitleLabel()
 		}
 	}
 	
 	/// The color of the titleLabel text when the textView is not active.
-	@IBInspectable public var titleLabelColor: UIColor? {
+	@IBInspectable
+    open var titleLabelColor: UIColor? {
 		didSet {
 			titleLabel?.textColor = titleLabelColor
 		}
 	}
 	
 	/// The color of the titleLabel text when the textView is active.
-	@IBInspectable public var titleLabelActiveColor: UIColor?
+	@IBInspectable
+    open var titleLabelActiveColor: UIColor?
 	
 	/**
 	A property that sets the distance between the textView and
 	titleLabel.
 	*/
-	@IBInspectable public var titleLabelAnimationDistance: CGFloat = 8
+	@IBInspectable
+    open var titleLabelAnimationDistance: CGFloat = 8
 	
 	/// Placeholder UILabel view.
-	public var placeholderLabel: UILabel? {
+	open var placeholderLabel: UILabel? {
 		didSet {
 			preparePlaceholderLabel()
 		}
 	}
 	
 	/// An override to the text property.
-	@IBInspectable public override var text: String! {
+	@IBInspectable
+    open override var text: String! {
 		didSet {
 			handleTextViewTextDidChange()
 		}
 	}
 	
 	/// An override to the attributedText property.
-	public override var attributedText: NSAttributedString! {
+	open override var attributedText: NSAttributedString! {
 		didSet {
 			handleTextViewTextDidChange()
 		}
@@ -94,16 +100,16 @@ public class TextView: UITextView {
 	Text container UIEdgeInset preset property. This updates the 
 	textContainerInset property with a preset value.
 	*/
-	public var textContainerEdgeInsetsPreset: EdgeInsetsPreset = .none {
+	open var textContainerEdgeInsetsPreset: EdgeInsetsPreset = .none {
 		didSet {
 			textContainerInset = EdgeInsetsPresetToValue(preset: textContainerEdgeInsetsPreset)
 		}
 	}
 	
 	/// Text container UIEdgeInset property.
-	public override var textContainerInset: EdgeInsets {
+	open override var textContainerInset: EdgeInsets {
 		didSet {
-			reloadView()
+			reload()
 		}
 	}
 	
@@ -143,16 +149,12 @@ public class TextView: UITextView {
 		removeNotificationHandlers()
 	}
 	
-    public override func layoutSublayers(of layer: CALayer) {
+    open override func layoutSublayers(of layer: CALayer) {
         super.layoutSublayers(of: layer)
-        guard self.layer == layer else {
-            return
-        }
-        
         layoutShape()
     }
     
-    public override func layoutSubviews() {
+    open override func layoutSubviews() {
 		super.layoutSubviews()
 		layoutShadowPath()
 		placeholderLabel?.preferredMaxLayoutWidth = textContainer.size.width - textContainer.lineFragmentPadding * 2
@@ -160,7 +162,7 @@ public class TextView: UITextView {
 	}
 	
 	/// Reloads necessary components when the view has changed.
-	internal func reloadView() {
+    open func reload() {
 		if let p = placeholderLabel {
 			removeConstraints(constraints)
 			layout(p).edges(
@@ -173,13 +175,13 @@ public class TextView: UITextView {
 	
 	/// Notification handler for when text editing began.
     @objc
-	internal func handleTextViewTextDidBegin() {
+	fileprivate func handleTextViewTextDidBegin() {
 		titleLabel?.textColor = titleLabelActiveColor
 	}
 	
 	/// Notification handler for when text changed.
 	@objc
-    internal func handleTextViewTextDidChange() {
+    fileprivate func handleTextViewTextDidChange() {
 		if let p = placeholderLabel {
 			p.isHidden = !(true == text?.isEmpty)
 		}
@@ -198,7 +200,7 @@ public class TextView: UITextView {
 	
 	/// Notification handler for when text editing ended.
     @objc
-	internal func handleTextViewTextDidEnd() {
+	fileprivate func handleTextViewTextDidEnd() {
         guard let t = text else {
             hideTitleLabel()
             return
@@ -220,31 +222,31 @@ public class TextView: UITextView {
      The super.prepare method should always be called immediately
      when subclassing.
      */
-	public func prepare() {
+	open func prepare() {
 		contentScaleFactor = Device.scale
 		textContainerInset = .zero
 		backgroundColor = .white
 		clipsToBounds = false
 		removeNotificationHandlers()
 		prepareNotificationHandlers()
-		reloadView()
+		reload()
 	}
 	
 	/// prepares the placeholderLabel property.
-	private func preparePlaceholderLabel() {
+	fileprivate func preparePlaceholderLabel() {
 		if let v: UILabel = placeholderLabel {
 			v.font = font
 			v.textAlignment = textAlignment
 			v.numberOfLines = 0
 			v.backgroundColor = .clear
 			addSubview(v)
-			reloadView()
+			reload()
 			handleTextViewTextDidChange()
 		}
 	}
 	
 	/// Prepares the titleLabel property.
-	private func prepareTitleLabel() {
+	fileprivate func prepareTitleLabel() {
 		if let v: UILabel = titleLabel {
 			v.isHidden = true
 			addSubview(v)
@@ -259,7 +261,7 @@ public class TextView: UITextView {
 	}
 	
 	/// Shows and animates the titleLabel property.
-	private func showTitleLabel() {
+	fileprivate func showTitleLabel() {
 		if let v: UILabel = titleLabel {
 			if v.isHidden {
 				if let s: String = placeholderLabel?.text {
@@ -279,7 +281,7 @@ public class TextView: UITextView {
 	}
 	
 	/// Hides and animates the titleLabel property.
-	private func hideTitleLabel() {
+	fileprivate func hideTitleLabel() {
 		if let v: UILabel = titleLabel {
 			if !v.isHidden {
 				UIView.animate(withDuration: 0.25, animations: {
@@ -293,7 +295,7 @@ public class TextView: UITextView {
 	}
 	
 	/// Prepares the Notification handlers.
-	private func prepareNotificationHandlers() {
+	fileprivate func prepareNotificationHandlers() {
 		let defaultCenter = NotificationCenter.default
         defaultCenter.addObserver(self, selector: #selector(handleTextViewTextDidBegin), name: NSNotification.Name.UITextViewTextDidBeginEditing, object: self)
 		defaultCenter.addObserver(self, selector: #selector(handleTextViewTextDidChange), name: NSNotification.Name.UITextViewTextDidChange, object: self)
@@ -301,7 +303,7 @@ public class TextView: UITextView {
 	}
 	
 	/// Removes the Notification handlers.
-	private func removeNotificationHandlers() {
+	fileprivate func removeNotificationHandlers() {
         let defaultCenter = NotificationCenter.default
         defaultCenter.removeObserver(self, name: NSNotification.Name.UITextViewTextDidBeginEditing, object: self)
 		defaultCenter.removeObserver(self, name: NSNotification.Name.UITextViewTextDidChange, object: self)

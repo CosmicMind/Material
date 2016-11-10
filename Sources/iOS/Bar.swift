@@ -102,10 +102,10 @@ open class Bar: View {
     }
     
     /// ContentView that holds the any desired subviews.
-    open private(set) lazy var contentView = View()
+    open fileprivate(set) lazy var contentView = UIView()
     
     /// Left side UIViews.
-    open var leftViews = [UIView]() {
+    open var leftViews: [UIView] {
         didSet {
             for v in oldValue {
                 v.removeFromSuperview()
@@ -115,7 +115,7 @@ open class Bar: View {
     }
     
     /// Right side UIViews.
-    open var rightViews = [UIView]() {
+    open var rightViews: [UIView] {
         didSet {
             for v in oldValue {
                 v.removeFromSuperview()
@@ -130,9 +130,6 @@ open class Bar: View {
             return contentView.grid.views
         }
         set(value) {
-            for v in contentView.grid.views {
-                v.removeFromSuperview()
-            }
             contentView.grid.views = value
         }
     }
@@ -142,6 +139,8 @@ open class Bar: View {
      - Parameter aDecoder: A NSCoder instance.
      */
     public required init?(coder aDecoder: NSCoder) {
+        leftViews = []
+        rightViews = []
         super.init(coder: aDecoder)
     }
     
@@ -152,13 +151,14 @@ open class Bar: View {
      - Parameter frame: A CGRect instance.
      */
     public override init(frame: CGRect) {
+        leftViews = []
+        rightViews = []
         super.init(frame: frame)
     }
     
-    /// Basic initializer.
-    public init() {
-        super.init(frame: .zero)
-        frame.size = intrinsicContentSize
+    /// Convenience initializer.
+    public convenience init() {
+        self.init(frame: .zero)
     }
     
     /**
@@ -167,12 +167,11 @@ open class Bar: View {
      - Parameter rightViews: An Array of UIViews that go on the right side.
      - Parameter centerViews: An Array of UIViews that go in the center.
      */
-    public init(leftViews: [UIView]? = nil, rightViews: [UIView]? = nil, centerViews: [UIView]? = nil) {
-        super.init(frame: .zero)
+    public convenience init(leftViews: [UIView]? = nil, rightViews: [UIView]? = nil, centerViews: [UIView]? = nil) {
+        self.init()
         self.leftViews = leftViews ?? []
         self.rightViews = rightViews ?? []
         self.centerViews = centerViews ?? []
-        frame.size = intrinsicContentSize
     }
     
     open override func layoutSubviews() {
@@ -275,11 +274,5 @@ open class Bar: View {
         autoresizingMask = .flexibleWidth
         interimSpacePreset = .interimSpace3
         contentEdgeInsetsPreset = .square1
-        prepareContentView()
-    }
-    
-    /// Prepares the contentView.
-    private func prepareContentView() {
-        contentView.backgroundColor = nil
     }
 }

@@ -269,7 +269,7 @@ private var GridKey: UInt8 = 0
 /// Grid extension for UIView.
 extension UIView {
     /// Grid reference.
-    public private(set) var grid: Grid {
+    public fileprivate(set) var grid: Grid {
         get {
             return AssociatedObject(base: self, key: &GridKey) {
                 return Grid(context: self)

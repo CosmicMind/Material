@@ -80,9 +80,6 @@ public class NavigationItem: NSObject {
             return contentView.grid.views
         }
         set(value) {
-            for v in contentView.grid.views {
-                v.removeFromSuperview()
-            }
             contentView.grid.views = value
         }
     }
