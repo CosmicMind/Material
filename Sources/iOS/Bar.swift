@@ -102,7 +102,7 @@ open class Bar: View {
     }
     
     /// ContentView that holds the any desired subviews.
-    open fileprivate(set) var contentView: UIView
+    open fileprivate(set) lazy var contentView = UIView()
     
     /// Left side UIViews.
     open var leftViews: [UIView] {
@@ -141,7 +141,6 @@ open class Bar: View {
     public required init?(coder aDecoder: NSCoder) {
         leftViews = []
         rightViews = []
-        contentView = UIView()
         super.init(coder: aDecoder)
     }
     
@@ -154,8 +153,12 @@ open class Bar: View {
     public override init(frame: CGRect) {
         leftViews = []
         rightViews = []
-        contentView = UIView()
         super.init(frame: frame)
+    }
+    
+    /// Convenience initializer.
+    public convenience init() {
+        self.init(frame: .zero)
     }
     
     /**
@@ -185,7 +188,6 @@ open class Bar: View {
         var lc = 0
         var rc = 0
         
-        /*
         grid.begin()
         grid.views.removeAll()
         
@@ -257,7 +259,6 @@ open class Bar: View {
         contentView.grid.commit()
         
         divider.reload()
-         */
     }
     
     /**
@@ -273,14 +274,5 @@ open class Bar: View {
         autoresizingMask = .flexibleWidth
         interimSpacePreset = .interimSpace3
         contentEdgeInsetsPreset = .square1
-        prepareContentView()
-    }
-}
-
-extension Bar {
-    /// Prepares the contentView.
-    fileprivate func prepareContentView() {
-        //contentView = UIView()
-        contentView.backgroundColor = nil
     }
 }
