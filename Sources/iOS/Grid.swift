@@ -52,7 +52,7 @@ public struct GridAxis {
      - Parameter rows: The number of rows, vertical axis the grid will use.
      - Parameter columns: The number of columns, horizontal axis the grid will use.
      */
-    public init(rows: Int = 12, columns: Int = 12) {
+    internal init(rows: Int = 12, columns: Int = 12) {
         self.rows = rows
         self.columns = columns
     }
@@ -70,7 +70,7 @@ public struct GridOffset {
      - Parameter rows: The number of rows, vertical axis the grid will use.
      - Parameter columns: The number of columns, horizontal axis the grid will use.
      */
-    public init(rows: Int = 0, columns: Int = 0) {
+    internal init(rows: Int = 0, columns: Int = 0) {
         self.rows = rows
         self.columns = columns
     }
