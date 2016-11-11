@@ -51,7 +51,7 @@ public struct Depth {
     public var radius: CGFloat
     
     /// Preset.
-    public var preset: DepthPreset = .none {
+    public var preset = DepthPreset.none {
         didSet {
             let depth = DepthPresetToValue(preset: preset)
             offset = depth.offset
@@ -66,7 +66,7 @@ public struct Depth {
      - Parameter opacity: Float.
      - Parameter radius: CGFloat.
      */
-    public init(offset: Offset = Offset.zero, opacity: Float = 0, radius: CGFloat = 0) {
+    public init(offset: Offset = .zero, opacity: Float = 0, radius: CGFloat = 0) {
         self.offset = offset
         self.opacity = opacity
         self.radius = radius
