@@ -30,9 +30,9 @@
 
 import UIKit
 
-open class PulseView: View {
+open class PulseView: View, Pulsable {
     /// A Pulse reference.
-    internal private(set) lazy var pulse: Pulse = Pulse()
+    internal internal(set) lazy var pulse: Pulse = Pulse()
     
     /// PulseAnimation value.
     open var pulseAnimation: PulseAnimation {
@@ -66,52 +66,57 @@ open class PulseView: View {
         }
     }
 	
-	/**
-	Triggers the pulse animation.
-	- Parameter point: A Optional point to pulse from, otherwise pulses
-	from the center.
-	*/
-	open func pulse(point: CGPoint? = nil) {
+    /**
+     Triggers the pulse animation.
+     - Parameter point: A Optional point to pulse from, otherwise pulses
+     from the center.
+     */
+    open func pulse(point: CGPoint? = nil) {
         let p = nil == point ? CGPoint(x: CGFloat(width / 2), y: CGFloat(height / 2)) : point!
-        Motion.pulseExpandAnimation(layer: layer, visualLayer: visualLayer, point: p, width: width, height: height, pulse: &pulse)
-		Motion.delay(time: 0.35) { [weak self] in
-            guard let s = self else {
+        
+        var s = self
+        MotionPulseAnimation<PulseView>.pulseExpandAnimation(&s, point: p)
+        Motion.delay(time: 0.35) { [weak self] in
+            guard var s = self else {
                 return
             }
-            Motion.pulseContractAnimation(layer: s.layer, visualLayer: s.visualLayer, pulse: &s.pulse)
-		}
-	}
-	
-	/**
+            MotionPulseAnimation<PulseView>.pulseContractAnimation(&s)
+        }
+    }
+    
+    /**
      A delegation method that is executed when the view has began a
      touch event.
      - Parameter touches: A set of UITouch objects.
      - Parameter event: A UIEvent object.
      */
-	open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-		super.touchesBegan(touches, with: event)
-        Motion.pulseExpandAnimation(layer: layer, visualLayer: visualLayer, point: layer.convert(touches.first!.location(in: self), from: layer), width: width, height: height, pulse: &pulse)
-	}
-	
-	/**
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        var s = self
+        MotionPulseAnimation<PulseView>.pulseExpandAnimation(&s, point: layer.convert(touches.first!.location(in: s), from: layer))
+    }
+    
+    /**
      A delegation method that is executed when the view touch event has
      ended.
      - Parameter touches: A set of UITouch objects.
      - Parameter event: A UIEvent object.
      */
-	open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-		super.touchesEnded(touches, with: event)
-        Motion.pulseContractAnimation(layer: layer, visualLayer: visualLayer, pulse: &pulse)
-	}
-	
-	/**
+    open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        var s = self
+        MotionPulseAnimation<PulseView>.pulseContractAnimation(&s)
+    }
+    
+    /**
      A delegation method that is executed when the view touch event has
      been cancelled.
      - Parameter touches: A set of UITouch objects.
      - Parameter event: A UIEvent object.
      */
-	open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-		super.touchesCancelled(touches, with: event)
-        Motion.pulseContractAnimation(layer: layer, visualLayer: visualLayer, pulse: &pulse)
-	}
+    open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesCancelled(touches, with: event)
+        var s = self
+        MotionPulseAnimation<PulseView>.pulseContractAnimation(&s)
+    }
 }

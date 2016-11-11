@@ -31,17 +31,17 @@
 import UIKit
 
 @objc(CollectionViewCell)
-open class CollectionViewCell: UICollectionViewCell {
+open class CollectionViewCell: UICollectionViewCell, Pulsable {
     /**
      A CAShapeLayer used to manage elements that would be affected by
      the clipToBounds property of the backing layer. For example, this
      allows the dropshadow effect on the backing layer, while clipping
      the image to a desired shape within the visualLayer.
      */
-    open private(set) lazy var visualLayer = CAShapeLayer()
+    open internal(set) lazy var visualLayer = CAShapeLayer()
 	
     /// A Pulse reference.
-    internal private(set) lazy var pulse: Pulse = Pulse()
+    internal internal(set) lazy var pulse: Pulse = Pulse()
     
     /// PulseAnimation value.
     open var pulseAnimation: PulseAnimation {
@@ -242,12 +242,14 @@ open class CollectionViewCell: UICollectionViewCell {
      */
     open func pulse(point: CGPoint? = nil) {
         let p = nil == point ? CGPoint(x: CGFloat(width / 2), y: CGFloat(height / 2)) : point!
-        Motion.pulseExpandAnimation(layer: layer, visualLayer: visualLayer, point: p, width: width, height: height, pulse: &pulse)
+        
+        var s = self
+        MotionPulseAnimation<CollectionViewCell>.pulseExpandAnimation(&s, point: p)
         Motion.delay(time: 0.35) { [weak self] in
-            guard let s = self else {
+            guard var s = self else {
                 return
             }
-            Motion.pulseContractAnimation(layer: s.layer, visualLayer: s.visualLayer, pulse: &s.pulse)
+            MotionPulseAnimation<CollectionViewCell>.pulseContractAnimation(&s)
         }
     }
     
@@ -259,7 +261,8 @@ open class CollectionViewCell: UICollectionViewCell {
      */
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        Motion.pulseExpandAnimation(layer: layer, visualLayer: visualLayer, point: layer.convert(touches.first!.location(in: self), from: layer), width: width, height: height, pulse: &pulse)
+        var s = self
+        MotionPulseAnimation<CollectionViewCell>.pulseExpandAnimation(&s, point: layer.convert(touches.first!.location(in: s), from: layer))
     }
     
     /**
@@ -270,7 +273,8 @@ open class CollectionViewCell: UICollectionViewCell {
      */
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
-        Motion.pulseContractAnimation(layer: layer, visualLayer: visualLayer, pulse: &pulse)
+        var s = self
+        MotionPulseAnimation<CollectionViewCell>.pulseContractAnimation(&s)
     }
     
     /**
@@ -281,7 +285,8 @@ open class CollectionViewCell: UICollectionViewCell {
      */
     open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesCancelled(touches, with: event)
-        Motion.pulseContractAnimation(layer: layer, visualLayer: visualLayer, pulse: &pulse)
+        var s = self
+        MotionPulseAnimation<CollectionViewCell>.pulseContractAnimation(&s)
     }
 	
 	/**

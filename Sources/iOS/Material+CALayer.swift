@@ -30,7 +30,7 @@
 
 import UIKit
 
-internal class MaterialLayer {
+internal struct MaterialLayer {
     /// A reference to the CALayer.
     internal weak var layer: CALayer?
     

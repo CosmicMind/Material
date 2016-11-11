@@ -30,6 +30,11 @@
 
 import UIKit
 
+internal protocol Pulsable {
+    var pulse: Pulse { get set }
+    var visualLayer: CAShapeLayer { get set }
+}
+
 internal struct Pulse {
     /// An Array of layers.
     internal lazy var layers = [CAShapeLayer]()
