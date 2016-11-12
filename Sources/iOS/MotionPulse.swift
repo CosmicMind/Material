@@ -86,10 +86,11 @@ internal struct MotionPulse<T: UIView> where T: Pulseable {
         let pLayer = CAShapeLayer()
         
         bLayer.addSublayer(pLayer)
-        view.pulseLayers.insert(bLayer, at: 0)
         view.pulseLayer.addSublayer(bLayer)
         bLayer.zPosition = 0
         pLayer.zPosition = 0
+        
+        view.pulseLayers.insert(bLayer, at: 0)
         
         view.pulseLayer.masksToBounds = !(.centerRadialBeyondBounds == view.pulseAnimation || .radialBeyondBounds == view.pulseAnimation)
  
@@ -150,7 +151,6 @@ internal struct MotionPulse<T: UIView> where T: Pulseable {
         guard let bLayer = view.pulseLayers.popLast() else {
             return
         }
-        
         
         guard let animated = bLayer.value(forKey: "animated") as? Bool else {
             return
