@@ -128,7 +128,6 @@ public struct Motion {
 		completion(true)
 	}
 
-	
 	/**
      Disables the default animations set on CALayers. 
      - Parameter animations: A callback that wraps the animations to disable.
@@ -141,10 +140,11 @@ public struct Motion {
      Runs an animation with a specified duration.
      - Parameter duration: An animation duration time.
      - Parameter animations: An animation block.
+     - Parameter timingFunction: An AnimationTimingFunction value.
      - Parameter completion: A completion block that is executed once
      the animations have completed.
      */
-	public static func animate(duration: CFTimeInterval, animations: (() -> Void), completion: (() -> Void)? = nil) {
+	public static func animate(duration: CFTimeInterval, timingFunction: AnimationTimingFunction = .easeInEaseOut, animations: (() -> Void), completion: (() -> Void)? = nil) {
 		CATransaction.begin()
 		CATransaction.setAnimationDuration(duration)
 		CATransaction.setCompletionBlock(completion)
@@ -156,16 +156,17 @@ public struct Motion {
 	/**
      Creates a CAAnimationGroup.
      - Parameter animations: An Array of CAAnimation objects.
+     - Parameter timingFunction: An AnimationTimingFunction value.
      - Parameter duration: An animation duration time for the group.
      - Returns: A CAAnimationGroup.
      */
-	public static func animate(group animations: [CAAnimation], duration: CFTimeInterval = 0.5) -> CAAnimationGroup {
+    public static func animate(group animations: [CAAnimation], timingFunction: AnimationTimingFunction = .easeInEaseOut, duration: CFTimeInterval = 0.5) -> CAAnimationGroup {
 		let group = CAAnimationGroup()
 		group.fillMode = AnimationFillModeToValue(mode: .forwards)
 		group.isRemovedOnCompletion = false
 		group.animations = animations
 		group.duration = duration
-		group.timingFunction = AnimationTimingFunctionToValue(function: .easeInEaseOut)
+		group.timingFunction = AnimationTimingFunctionToValue(function: timingFunction)
 		return group
 	}
 	

@@ -32,49 +32,82 @@ import UIKit
 
 @objc(PulseAnimation)
 public enum PulseAnimation: Int {
-	case none
-	case center
-	case centerWithBacking
-	case centerRadialBeyondBounds
+    case none
+    case center
+    case centerWithBacking
+    case centerRadialBeyondBounds
     case radialBeyondBounds
-	case backing
-	case point
-	case pointWithBacking
+    case backing
+    case point
+    case pointWithBacking
 }
 
-internal struct MotionPulse<T: UIView> where T: Pulsable {
+internal protocol Pulseable {
+    /// The layer the pulse layers are added to.
+    var pulseLayer: CALayer { get }
+    
+    /// Pulse layers.
+    var pulseLayers: [CAShapeLayer] { get set }
+    
+    /// A reference to the PulseAnimation.
+    var pulseAnimation: PulseAnimation { get set }
+    
+    /// A UIColor.
+    var pulseColor: UIColor { get set }
+    
+    /// The opcaity value for the pulse animation.
+    var pulseOpacity: CGFloat { get set }
+}
+
+internal struct Pulse {
+    /// A reference to the PulseAnimation.
+    internal var animation = PulseAnimation.pointWithBacking
+    
+    /// A UIColor.
+    internal var color = Color.grey.base
+    
+    /// The opcaity value for the pulse animation.
+    internal var opacity: CGFloat = 0.18
+}
+
+internal struct MotionPulse<T: UIView> where T: Pulseable {
 	/**
      Triggers the expanding animation.
      - Parameter _ view: A Reference to the view to add the 
      animations too.
      - Parameter point: A point to pulse from.
      */
-    internal static func expandAnimation(view: inout T, visualLayer: CAShapeLayer, point: CGPoint) {
-        guard .none != view.pulse.animation else {
+    internal static func expandAnimation(view: inout T, point: CGPoint) {
+        guard .none != view.pulseAnimation else {
             return
         }
-        
-        let w = view.width
-        let h = view.height
-        
-        let n = .center == view.pulse.animation ? w < h ? w : h : w < h ? h : w
         
         let bLayer = CAShapeLayer()
         let pLayer = CAShapeLayer()
         
         bLayer.addSublayer(pLayer)
-        view.pulse.layers.append(bLayer)
-        visualLayer.addSublayer(bLayer)
+        view.pulseLayers.insert(bLayer, at: 0)
+        view.pulseLayer.addSublayer(bLayer)
         bLayer.zPosition = 0
         pLayer.zPosition = 0
         
-        visualLayer.masksToBounds = !(.centerRadialBeyondBounds == view.pulse.animation || .radialBeyondBounds == view.pulse.animation)
+        view.pulseLayer.masksToBounds = !(.centerRadialBeyondBounds == view.pulseAnimation || .radialBeyondBounds == view.pulseAnimation)
+ 
+        let w = view.width
+        let h = view.height
         
-        Motion.disable(animations: {
-            bLayer.frame = visualLayer.bounds
+        Motion.disable(animations: { [
+            n = .center == view.pulseAnimation ? w < h ? w : h : w < h ? h : w,
+            frame = view.pulseLayer.bounds,
+            pulseAnimation = view.pulseAnimation,
+            pulseColor = view.pulseColor,
+            pulseOpacity = view.pulseOpacity
+            ] in
+            
+            bLayer.frame = frame
             pLayer.bounds = CGRect(x: 0, y: 0, width: n, height: n)
             
-            switch view.pulse.animation {
+            switch pulseAnimation {
             case .center, .centerWithBacking, .centerRadialBeyondBounds:
                 pLayer.position = CGPoint(x: w / 2, y: h / 2)
             default:
@@ -82,21 +115,21 @@ internal struct MotionPulse<T: UIView> where T: Pulsable {
             }
             
             pLayer.cornerRadius = n / 2
-            pLayer.backgroundColor = view.pulse.color.withAlphaComponent(view.pulse.opacity).cgColor
+            pLayer.backgroundColor = pulseColor.withAlphaComponent(pulseOpacity).cgColor
             pLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform(scaleX: 0, y: 0))
         })
         
         bLayer.setValue(false, forKey: "animated")
         
-        let duration: CFTimeInterval = .center == view.pulse.animation ? 0.16125 : 0.325
+        let duration: CFTimeInterval = .center == view.pulseAnimation ? 0.16125 : 0.325
         
-        switch view.pulse.animation {
+        switch view.pulseAnimation {
         case .centerWithBacking, .backing, .pointWithBacking:
-            bLayer.add(Motion.backgroundColor(color: view.pulse.color.withAlphaComponent(view.pulse.opacity / 2), duration: duration), forKey: nil)
+            bLayer.add(Motion.backgroundColor(color: view.pulseColor.withAlphaComponent(view.pulseOpacity / 2), duration: duration), forKey: nil)
         default:break
         }
         
-        switch view.pulse.animation {
+        switch view.pulseAnimation {
         case .center, .centerWithBacking, .centerRadialBeyondBounds, .radialBeyondBounds, .point, .pointWithBacking:
             pLayer.add(Motion.scale(by: 1, duration: duration), forKey: nil)
         default:break
@@ -114,33 +147,33 @@ internal struct MotionPulse<T: UIView> where T: Pulsable {
      - Parameter pulse: A Pulse instance.
      */
     internal static func contractAnimation(view: inout T) {
-        var view = view
-        guard let bLayer = view.pulse.layers.last else {
+        guard let bLayer = view.pulseLayers.popLast() else {
             return
         }
+        
         
         guard let animated = bLayer.value(forKey: "animated") as? Bool else {
             return
         }
         
-        Motion.delay(time: animated ? 0 : 0.15) {
+        Motion.delay(time: animated ? 0 : 0.15) { [pulseAnimation = view.pulseAnimation, pulseColor = view.pulseColor] in
             guard let pLayer = bLayer.sublayers?.first as? CAShapeLayer else {
                 return
             }
             
             let duration = 0.325
             
-            switch view.pulse.animation {
+            switch pulseAnimation {
             case .centerWithBacking, .backing, .pointWithBacking:
-                bLayer.add(Motion.backgroundColor(color: view.pulse.color.withAlphaComponent(0), duration: duration), forKey: nil)
+                bLayer.add(Motion.backgroundColor(color: pulseColor.withAlphaComponent(0), duration: duration), forKey: nil)
             default:break
             }
             
-            switch view.pulse.animation {
+            switch pulseAnimation {
             case .center, .centerWithBacking, .centerRadialBeyondBounds, .radialBeyondBounds, .point, .pointWithBacking:
                 pLayer.add(Motion.animate(group: [
-                    Motion.scale(by: .center == view.pulse.animation ? 1 : 1.325),
-                    Motion.backgroundColor(color: view.pulse.color.withAlphaComponent(0))
+                    Motion.scale(by: .center == pulseAnimation ? 1 : 1.325),
+                    Motion.backgroundColor(color: pulseColor.withAlphaComponent(0))
                 ], duration: duration), forKey: nil)
             default:break
             }

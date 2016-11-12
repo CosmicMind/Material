@@ -31,7 +31,7 @@
 import UIKit
 
 @objc(CollectionViewCell)
-open class CollectionViewCell: UICollectionViewCell, Pulsable {
+open class CollectionViewCell: UICollectionViewCell, Pulseable {
     /**
      A CAShapeLayer used to manage elements that would be affected by
      the clipToBounds property of the backing layer. For example, this
@@ -42,6 +42,14 @@ open class CollectionViewCell: UICollectionViewCell, Pulsable {
 	
     /// A Pulse reference.
     internal var pulse = Pulse()
+    
+    /// The layer the pulse layers are added to.
+    internal var pulseLayer: CALayer {
+        return visualLayer as CALayer
+    }
+
+    /// An Array of pulse layers.
+    internal var pulseLayers = [CAShapeLayer]()
     
     /// PulseAnimation value.
     open var pulseAnimation: PulseAnimation {
@@ -244,7 +252,7 @@ open class CollectionViewCell: UICollectionViewCell, Pulsable {
         let p = nil == point ? CGPoint(x: CGFloat(width / 2), y: CGFloat(height / 2)) : point!
         
         var s = self
-        MotionPulse<CollectionViewCell>.expandAnimation(view: &s, visualLayer: visualLayer, point: p)
+        MotionPulse<CollectionViewCell>.expandAnimation(view: &s, point: p)
         Motion.delay(time: 0.35) { [weak self] in
             guard var s = self else {
                 return
@@ -262,7 +270,7 @@ open class CollectionViewCell: UICollectionViewCell, Pulsable {
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         var s = self
-        MotionPulse<CollectionViewCell>.expandAnimation(view: &s, visualLayer: visualLayer, point: layer.convert(touches.first!.location(in: self), from: layer))
+        MotionPulse<CollectionViewCell>.expandAnimation(view: &s, point: layer.convert(touches.first!.location(in: self), from: layer))
     }
     
     /**

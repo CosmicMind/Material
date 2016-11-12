@@ -30,9 +30,17 @@
 
 import UIKit
 
-open class PulseView: View, Pulsable {
+open class PulseView: View, Pulseable {
     /// A Pulse reference.
     internal var pulse = Pulse()
+    
+    /// The layer the pulse layers are added to.
+    internal var pulseLayer: CALayer {
+        return visualLayer as CALayer
+    }
+    
+    /// An Array of pulse layers.
+    internal var pulseLayers = [CAShapeLayer]()
     
     /// PulseAnimation value.
     open var pulseAnimation: PulseAnimation {
@@ -75,7 +83,7 @@ open class PulseView: View, Pulsable {
         let p = nil == point ? CGPoint(x: CGFloat(width / 2), y: CGFloat(height / 2)) : point!
         
         var s = self
-        MotionPulse<PulseView>.expandAnimation(view: &s, visualLayer: visualLayer, point: p)
+        MotionPulse<PulseView>.expandAnimation(view: &s, point: p)
         Motion.delay(time: 0.35) { [weak self] in
             guard var s = self else {
                 return
@@ -93,7 +101,7 @@ open class PulseView: View, Pulsable {
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         var s = self
-        MotionPulse<PulseView>.expandAnimation(view: &s, visualLayer: visualLayer, point: layer.convert(touches.first!.location(in: self), from: layer))
+        MotionPulse<PulseView>.expandAnimation(view: &s, point: layer.convert(touches.first!.location(in: self), from: layer))
     }
     
     /**
