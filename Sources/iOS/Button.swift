@@ -31,17 +31,17 @@
 import UIKit
 
 open class Button: UIButton, Pulsable {
-	/**
+    /**
      A CAShapeLayer used to manage elements that would be affected by
      the clipToBounds property of the backing layer. For example, this
      allows the dropshadow effect on the backing layer, while clipping
      the image to a desired shape within the visualLayer.
      */
-	open internal(set) lazy var visualLayer = CAShapeLayer()
+	open internal(set) var visualLayer = CAShapeLayer()
 	
     /// A Pulse reference.
-    internal internal(set) lazy var pulse: Pulse = Pulse()
-	
+    internal var pulse = Pulse()
+    
     /// PulseAnimation value.
     open var pulseAnimation: PulseAnimation {
         get {
@@ -183,12 +183,12 @@ open class Button: UIButton, Pulsable {
         let p = nil == point ? CGPoint(x: CGFloat(width / 2), y: CGFloat(height / 2)) : point!
         
         var s = self
-        MotionPulseAnimation<Button>.pulseExpandAnimation(&s, point: p)
+        MotionPulse<Button>.expandAnimation(view: &s, visualLayer: visualLayer, point: p)
         Motion.delay(time: 0.35) { [weak self] in
             guard var s = self else {
                 return
             }
-            MotionPulseAnimation<Button>.pulseContractAnimation(&s)
+            MotionPulse<Button>.contractAnimation(view: &s)
         }
     }
     
@@ -201,7 +201,7 @@ open class Button: UIButton, Pulsable {
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         var s = self
-        MotionPulseAnimation<Button>.pulseExpandAnimation(&s, point: layer.convert(touches.first!.location(in: s), from: layer))
+        MotionPulse<Button>.expandAnimation(view: &s, visualLayer: visualLayer, point: layer.convert(touches.first!.location(in: self), from: layer))
     }
     
     /**
@@ -213,7 +213,7 @@ open class Button: UIButton, Pulsable {
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
         var s = self
-        MotionPulseAnimation<Button>.pulseContractAnimation(&s)
+        MotionPulse<Button>.contractAnimation(view: &s)
     }
     
     /**
@@ -225,7 +225,7 @@ open class Button: UIButton, Pulsable {
     open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesCancelled(touches, with: event)
         var s = self
-        MotionPulseAnimation<Button>.pulseContractAnimation(&s)
+        MotionPulse<Button>.contractAnimation(view: &s)
     }
     
     open func bringImageViewToFront() {

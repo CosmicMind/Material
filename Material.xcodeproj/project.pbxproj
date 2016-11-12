@@ -38,7 +38,7 @@
 		965E80E21DD4C50600D61E4B /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB78C1CB40DC500C806FE /* View.swift */; };
 		965E80E31DD4C53300D61E4B /* Pulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9631A7C61D95E5D900CFB109 /* Pulse.swift */; };
 		965E80E41DD4C53300D61E4B /* PulseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7841CB40DC500C806FE /* PulseView.swift */; };
-		965E80E51DD4C53300D61E4B /* PulseAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7821CB40DC500C806FE /* PulseAnimation.swift */; };
+		965E80E51DD4C53300D61E4B /* MotionPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7821CB40DC500C806FE /* MotionPulse.swift */; };
 		965E80E61DD4C55200D61E4B /* Material+Obj-C.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7631CB40DC500C806FE /* Material+Obj-C.swift */; };
 		965E80E71DD4C55200D61E4B /* Material+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E3C3931D397AE90086A024 /* Material+UIView.swift */; };
 		965E80E81DD4C55200D61E4B /* Material+CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F1DC871D654FDF0025F925 /* Material+CALayer.swift */; };
@@ -121,7 +121,7 @@
 		96BCB8101CB4115200C806FE /* MotionTransition.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB78B1CB40DC500C806FE /* MotionTransition.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8111CB4115200C806FE /* Motion.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB76D1CB40DC500C806FE /* Motion.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8131CB4115200C806FE /* MotionKeyframe.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB77E1CB40DC500C806FE /* MotionKeyframe.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		96BCB8141CB4115200C806FE /* PulseAnimation.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7821CB40DC500C806FE /* PulseAnimation.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96BCB8141CB4115200C806FE /* MotionPulse.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7821CB40DC500C806FE /* MotionPulse.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8151CB4115200C806FE /* FabButton.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB75F1CB40DC500C806FE /* FabButton.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8161CB4115200C806FE /* FlatButton.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7601CB40DC500C806FE /* FlatButton.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8171CB4115200C806FE /* Button.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7701CB40DC500C806FE /* Button.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -258,7 +258,7 @@
 		96BCB77E1CB40DC500C806FE /* MotionKeyframe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotionKeyframe.swift; sourceTree = "<group>"; };
 		96BCB7801CB40DC500C806FE /* Layer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Layer.swift; sourceTree = "<group>"; };
 		96BCB7811CB40DC500C806FE /* Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
-		96BCB7821CB40DC500C806FE /* PulseAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PulseAnimation.swift; sourceTree = "<group>"; };
+		96BCB7821CB40DC500C806FE /* MotionPulse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotionPulse.swift; sourceTree = "<group>"; };
 		96BCB7841CB40DC500C806FE /* PulseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PulseView.swift; sourceTree = "<group>"; };
 		96BCB7851CB40DC500C806FE /* CornerRadius.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CornerRadius.swift; sourceTree = "<group>"; };
 		96BCB7861CB40DC500C806FE /* Shape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shape.swift; sourceTree = "<group>"; };
@@ -414,7 +414,6 @@
 			children = (
 				9631A7C61D95E5D900CFB109 /* Pulse.swift */,
 				96BCB7841CB40DC500C806FE /* PulseView.swift */,
-				96BCB7821CB40DC500C806FE /* PulseAnimation.swift */,
 			);
 			name = Pulse;
 			sourceTree = "<group>";
@@ -717,6 +716,7 @@
 				96BCB78B1CB40DC500C806FE /* MotionTransition.swift */,
 				96BCB77E1CB40DC500C806FE /* MotionKeyframe.swift */,
 				96E3C39D1D3A1D0C0086A024 /* MotionBasic.swift */,
+				96BCB7821CB40DC500C806FE /* MotionPulse.swift */,
 			);
 			name = Motion;
 			sourceTree = "<group>";
@@ -795,7 +795,7 @@
 				96BCB8101CB4115200C806FE /* MotionTransition.swift in Headers */,
 				96BCB8111CB4115200C806FE /* Motion.swift in Headers */,
 				96BCB8131CB4115200C806FE /* MotionKeyframe.swift in Headers */,
-				96BCB8141CB4115200C806FE /* PulseAnimation.swift in Headers */,
+				96BCB8141CB4115200C806FE /* MotionPulse.swift in Headers */,
 				96BCB8151CB4115200C806FE /* FabButton.swift in Headers */,
 				96BCB8161CB4115200C806FE /* FlatButton.swift in Headers */,
 				96BCB8171CB4115200C806FE /* Button.swift in Headers */,
@@ -1099,7 +1099,7 @@
 				965E80ED1DD4C55200D61E4B /* Material+UIWindow.swift in Sources */,
 				965E80E31DD4C53300D61E4B /* Pulse.swift in Sources */,
 				965E80E41DD4C53300D61E4B /* PulseView.swift in Sources */,
-				965E80E51DD4C53300D61E4B /* PulseAnimation.swift in Sources */,
+				965E80E51DD4C53300D61E4B /* MotionPulse.swift in Sources */,
 				965E80FE1DD4D59500D61E4B /* ToolbarController.swift in Sources */,
 				965E80C81DD4C50600D61E4B /* Motion.swift in Sources */,
 				965E80C91DD4C50600D61E4B /* MotionTransition.swift in Sources */,

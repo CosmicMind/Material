@@ -38,10 +38,10 @@ open class CollectionReusableView: UICollectionReusableView, Pulsable {
      allows the dropshadow effect on the backing layer, while clipping
      the image to a desired shape within the visualLayer.
      */
-	open internal(set) lazy var visualLayer = CAShapeLayer()
+	open internal(set) var visualLayer = CAShapeLayer()
 	
     /// A Pulse reference.
-    internal internal(set) lazy var pulse: Pulse = Pulse()
+    internal var pulse = Pulse()
     
     /// PulseAnimation value.
     open var pulseAnimation: PulseAnimation {
@@ -237,12 +237,12 @@ open class CollectionReusableView: UICollectionReusableView, Pulsable {
         let p = nil == point ? CGPoint(x: CGFloat(width / 2), y: CGFloat(height / 2)) : point!
         
         var s = self
-        MotionPulseAnimation<CollectionReusableView>.pulseExpandAnimation(&s, point: p)
+        MotionPulse<CollectionReusableView>.expandAnimation(view: &s, visualLayer: visualLayer, point: p)
         Motion.delay(time: 0.35) { [weak self] in
             guard var s = self else {
                 return
             }
-            MotionPulseAnimation<CollectionReusableView>.pulseContractAnimation(&s)
+            MotionPulse<CollectionReusableView>.contractAnimation(view: &s)
         }
     }
     
@@ -255,7 +255,7 @@ open class CollectionReusableView: UICollectionReusableView, Pulsable {
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         var s = self
-        MotionPulseAnimation<CollectionReusableView>.pulseExpandAnimation(&s, point: layer.convert(touches.first!.location(in: s), from: layer))
+        MotionPulse<CollectionReusableView>.expandAnimation(view: &s, visualLayer: visualLayer, point: layer.convert(touches.first!.location(in: self), from: layer))
     }
     
     /**
@@ -267,7 +267,7 @@ open class CollectionReusableView: UICollectionReusableView, Pulsable {
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
         var s = self
-        MotionPulseAnimation<CollectionReusableView>.pulseContractAnimation(&s)
+        MotionPulse<CollectionReusableView>.contractAnimation(view: &s)
     }
     
     /**
@@ -279,7 +279,7 @@ open class CollectionReusableView: UICollectionReusableView, Pulsable {
     open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesCancelled(touches, with: event)
         var s = self
-        MotionPulseAnimation<CollectionReusableView>.pulseContractAnimation(&s)
+        MotionPulse<CollectionReusableView>.contractAnimation(view: &s)
     }
 	
 	/**

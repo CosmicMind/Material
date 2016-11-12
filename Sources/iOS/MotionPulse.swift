@@ -42,14 +42,14 @@ public enum PulseAnimation: Int {
 	case pointWithBacking
 }
 
-internal struct MotionPulseAnimation<T: UIView> where T: Pulsable {
+internal struct MotionPulse<T: UIView> where T: Pulsable {
 	/**
      Triggers the expanding animation.
      - Parameter _ view: A Reference to the view to add the 
      animations too.
      - Parameter point: A point to pulse from.
      */
-    internal static func pulseExpandAnimation(_ view: inout T, point: CGPoint) {
+    internal static func expandAnimation(view: inout T, visualLayer: CAShapeLayer, point: CGPoint) {
         guard .none != view.pulse.animation else {
             return
         }
@@ -63,15 +63,15 @@ internal struct MotionPulseAnimation<T: UIView> where T: Pulsable {
         let pLayer = CAShapeLayer()
         
         bLayer.addSublayer(pLayer)
-        view.pulse.layers.insert(bLayer, at: 0)
-        view.visualLayer.addSublayer(bLayer)
+        view.pulse.layers.append(bLayer)
+        visualLayer.addSublayer(bLayer)
         bLayer.zPosition = 0
         pLayer.zPosition = 0
         
-        view.visualLayer.masksToBounds = !(.centerRadialBeyondBounds == view.pulse.animation || .radialBeyondBounds == view.pulse.animation)
+        visualLayer.masksToBounds = !(.centerRadialBeyondBounds == view.pulse.animation || .radialBeyondBounds == view.pulse.animation)
         
-        Motion.disable(animations: { [view = view] in
-            bLayer.frame = view.visualLayer.bounds
+        Motion.disable(animations: {
+            bLayer.frame = visualLayer.bounds
             pLayer.bounds = CGRect(x: 0, y: 0, width: n, height: n)
             
             switch view.pulse.animation {
@@ -113,8 +113,9 @@ internal struct MotionPulseAnimation<T: UIView> where T: Pulsable {
      animations too.
      - Parameter pulse: A Pulse instance.
      */
-    internal static func pulseContractAnimation(_ view: inout T) {
-        guard let bLayer = view.pulse.layers.popLast() else {
+    internal static func contractAnimation(view: inout T) {
+        var view = view
+        guard let bLayer = view.pulse.layers.last else {
             return
         }
         
@@ -122,7 +123,7 @@ internal struct MotionPulseAnimation<T: UIView> where T: Pulsable {
             return
         }
         
-        Motion.delay(time: animated ? 0 : 0.15) { [view = view] in
+        Motion.delay(time: animated ? 0 : 0.15) {
             guard let pLayer = bLayer.sublayers?.first as? CAShapeLayer else {
                 return
             }

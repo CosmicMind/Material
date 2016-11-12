@@ -84,7 +84,7 @@ public func AnimationTimingFunctionToValue(function: AnimationTimingFunction) ->
     }
 }
 
-public typealias AnimationDelayCancelBlock = (Bool) -> Void
+public typealias MotionDelayCancelBlock = (Bool) -> Void
 
 public struct Motion {
 	/**
@@ -95,15 +95,15 @@ public struct Motion {
      the animations have completed.
      */
     @discardableResult
-    public static func delay(time: TimeInterval, execute block: @escaping () -> Void) -> AnimationDelayCancelBlock? {
+    public static func delay(time: TimeInterval, execute block: @escaping () -> Void) -> MotionDelayCancelBlock? {
 		
 		func asyncAfter(completion: @escaping () -> Void) {
 			DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time, execute: completion)
         }
 		
-		var cancelable: AnimationDelayCancelBlock?
+		var cancelable: MotionDelayCancelBlock?
 		
-		let delayed: AnimationDelayCancelBlock = {
+		let delayed: MotionDelayCancelBlock = {
 			if !$0 {
 				DispatchQueue.main.async(execute: block)
 			}
@@ -121,10 +121,10 @@ public struct Motion {
 	}
 	
 	/**
-     Cancels the delayed AnimationDelayCancelBlock.
-     - Parameter delayed completion: An AnimationDelayCancelBlock.
+     Cancels the delayed MotionDelayCancelBlock.
+     - Parameter delayed completion: An MotionDelayCancelBlock.
      */
-	public static func cancel(delayed completion: AnimationDelayCancelBlock) {
+	public static func cancel(delayed completion: MotionDelayCancelBlock) {
 		completion(true)
 	}
 

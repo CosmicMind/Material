@@ -32,12 +32,14 @@ import UIKit
 
 internal protocol Pulsable {
     var pulse: Pulse { get set }
-    var visualLayer: CAShapeLayer { get set }
+    var pulseAnimation: PulseAnimation { get set }
+    var pulseColor: UIColor { get set }
+    var pulseOpacity: CGFloat { get set }
 }
 
 internal struct Pulse {
     /// An Array of layers.
-    internal lazy var layers = [CAShapeLayer]()
+    internal var layers = [CAShapeLayer]()
     
     /// A UIColor.
     internal var color = Color.grey.base

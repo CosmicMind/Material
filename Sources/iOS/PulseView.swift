@@ -32,7 +32,7 @@ import UIKit
 
 open class PulseView: View, Pulsable {
     /// A Pulse reference.
-    internal internal(set) lazy var pulse: Pulse = Pulse()
+    internal var pulse = Pulse()
     
     /// PulseAnimation value.
     open var pulseAnimation: PulseAnimation {
@@ -75,12 +75,12 @@ open class PulseView: View, Pulsable {
         let p = nil == point ? CGPoint(x: CGFloat(width / 2), y: CGFloat(height / 2)) : point!
         
         var s = self
-        MotionPulseAnimation<PulseView>.pulseExpandAnimation(&s, point: p)
+        MotionPulse<PulseView>.expandAnimation(view: &s, visualLayer: visualLayer, point: p)
         Motion.delay(time: 0.35) { [weak self] in
             guard var s = self else {
                 return
             }
-            MotionPulseAnimation<PulseView>.pulseContractAnimation(&s)
+            MotionPulse<PulseView>.contractAnimation(view: &s)
         }
     }
     
@@ -93,7 +93,7 @@ open class PulseView: View, Pulsable {
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         var s = self
-        MotionPulseAnimation<PulseView>.pulseExpandAnimation(&s, point: layer.convert(touches.first!.location(in: s), from: layer))
+        MotionPulse<PulseView>.expandAnimation(view: &s, visualLayer: visualLayer, point: layer.convert(touches.first!.location(in: self), from: layer))
     }
     
     /**
@@ -105,7 +105,7 @@ open class PulseView: View, Pulsable {
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
         var s = self
-        MotionPulseAnimation<PulseView>.pulseContractAnimation(&s)
+        MotionPulse<PulseView>.contractAnimation(view: &s)
     }
     
     /**
@@ -117,6 +117,6 @@ open class PulseView: View, Pulsable {
     open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesCancelled(touches, with: event)
         var s = self
-        MotionPulseAnimation<PulseView>.pulseContractAnimation(&s)
+        MotionPulse<PulseView>.contractAnimation(view: &s)
     }
 }
