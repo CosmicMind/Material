@@ -32,24 +32,16 @@ import UIKit
 
 @objc(CollectionReusableView)
 open class CollectionReusableView: UICollectionReusableView, Pulseable {
-	/**
+    /**
      A CAShapeLayer used to manage elements that would be affected by
      the clipToBounds property of the backing layer. For example, this
      allows the dropshadow effect on the backing layer, while clipping
      the image to a desired shape within the visualLayer.
      */
-	open internal(set) var visualLayer = CAShapeLayer()
-	
-    /// A Pulse reference.
-    internal var pulse = Pulse()
+    open fileprivate(set) var visualLayer = CAShapeLayer()
     
-    /// The layer the pulse layers are added to.
-    internal var pulseLayer: CALayer {
-        return visualLayer as CALayer
-    }
-
-    /// An Array of pulse layers.
-    internal var pulseLayers = [CAShapeLayer]()
+    /// A Pulse reference.
+    open fileprivate(set) var pulse: Pulse!
     
     /// PulseAnimation value.
     open var pulseAnimation: PulseAnimation {
@@ -82,7 +74,7 @@ open class CollectionReusableView: UICollectionReusableView, Pulseable {
             pulse.opacity = value
         }
     }
-	
+    
 	/**
      A property that manages an image for the visualLayer's contents
      property. Images should not be set to the backing layer's contents
@@ -244,13 +236,12 @@ open class CollectionReusableView: UICollectionReusableView, Pulseable {
     open func pulse(point: CGPoint? = nil) {
         let p = nil == point ? CGPoint(x: CGFloat(width / 2), y: CGFloat(height / 2)) : point!
         
-        var s = self
-        MotionPulse<CollectionReusableView>.expandAnimation(view: &s, point: p)
+        pulse.expandAnimation(point: p)
         Motion.delay(time: 0.35) { [weak self] in
-            guard var s = self else {
+            guard let s = self else {
                 return
             }
-            MotionPulse<CollectionReusableView>.contractAnimation(view: &s)
+            s.pulse.contractAnimation()
         }
     }
     
@@ -262,8 +253,7 @@ open class CollectionReusableView: UICollectionReusableView, Pulseable {
      */
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        var s = self
-        MotionPulse<CollectionReusableView>.expandAnimation(view: &s, point: layer.convert(touches.first!.location(in: self), from: layer))
+        pulse.expandAnimation(point: layer.convert(touches.first!.location(in: self), from: layer))
     }
     
     /**
@@ -274,8 +264,7 @@ open class CollectionReusableView: UICollectionReusableView, Pulseable {
      */
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
-        var s = self
-        MotionPulse<CollectionReusableView>.contractAnimation(view: &s)
+        pulse.contractAnimation()
     }
     
     /**
@@ -286,8 +275,7 @@ open class CollectionReusableView: UICollectionReusableView, Pulseable {
      */
     open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesCancelled(touches, with: event)
-        var s = self
-        MotionPulse<CollectionReusableView>.contractAnimation(view: &s)
+        pulse.contractAnimation()
     }
 	
 	/**
@@ -301,18 +289,28 @@ open class CollectionReusableView: UICollectionReusableView, Pulseable {
 		contentScaleFactor = Device.scale
 		pulseAnimation = .none
 		prepareVisualLayer()
-	}
-	
-	/// Prepares the visualLayer property.
-	internal func prepareVisualLayer() {
-		visualLayer.zPosition = 0
-		visualLayer.masksToBounds = true
-		layer.addSublayer(visualLayer)
-	}
-	
-	/// Manages the layout for the visualLayer property.
-	internal func layoutVisualLayer() {
-		visualLayer.frame = bounds
-		visualLayer.cornerRadius = cornerRadius
-	}
+        preparePulse()
+    }
+}
+
+extension CollectionReusableView {
+    /// Prepares the pulse motion.
+    fileprivate func preparePulse() {
+        pulse = Pulse(pulseView: self, pulseLayer: visualLayer)
+    }
+    
+    /// Prepares the visualLayer property.
+    fileprivate func prepareVisualLayer() {
+        visualLayer.zPosition = 0
+        visualLayer.masksToBounds = true
+        layer.addSublayer(visualLayer)
+    }
+}
+
+extension CollectionReusableView {
+    /// Manages the layout for the visualLayer property.
+    fileprivate func layoutVisualLayer() {
+        visualLayer.frame = bounds
+        visualLayer.cornerRadius = cornerRadius
+    }
 }

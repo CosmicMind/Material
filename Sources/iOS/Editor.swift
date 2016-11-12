@@ -204,7 +204,7 @@ open class Editor: View {
     }
     
     /// Reference to the TextView.
-    open fileprivate(set) var textView: TextView!
+    open fileprivate(set) var textView: UITextView!
     
     /// A reference to an EditorDelegate.
     open weak var delegate: EditorDelegate?
@@ -287,7 +287,7 @@ extension Editor {
     
     /// Prepares the textView.
     fileprivate func prepareTextView() {
-        textView = TextView(textContainer: textContainer)
+        textView = UITextView(frame: .zero, textContainer: textContainer)
         textView.delegate = self
         addSubview(textView)
     }
@@ -312,7 +312,7 @@ extension Editor: TextStorageDelegate {
     }
 }
 
-extension Editor: TextViewDelegate {
+extension Editor: UITextViewDelegate {
     open func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         return delegate?.editor?(editor: self, shouldBeginEditing: textView) ?? true
     }

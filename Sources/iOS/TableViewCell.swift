@@ -31,24 +31,16 @@
 import UIKit
 
 open class TableViewCell: UITableViewCell, Pulseable {
-	/**
+    /**
      A CAShapeLayer used to manage elements that would be affected by
      the clipToBounds property of the backing layer. For example, this
      allows the dropshadow effect on the backing layer, while clipping
      the image to a desired shape within the visualLayer.
      */
-	open internal(set) var visualLayer = CAShapeLayer()
-	
+    open fileprivate(set) var visualLayer = CAShapeLayer()
+    
     /// A Pulse reference.
-    internal var pulse = Pulse()
-    
-    /// The layer the pulse layers are added to.
-    internal var pulseLayer: CALayer {
-        return visualLayer as CALayer
-    }
-    
-    /// An Array of pulse layers.
-    internal var pulseLayers = [CAShapeLayer]()
+    open fileprivate(set) var pulse: Pulse!
     
     /// PulseAnimation value.
     open var pulseAnimation: PulseAnimation {
@@ -128,13 +120,12 @@ open class TableViewCell: UITableViewCell, Pulseable {
     open func pulse(point: CGPoint? = nil) {
         let p = nil == point ? CGPoint(x: CGFloat(width / 2), y: CGFloat(height / 2)) : point!
         
-        var s = self
-        MotionPulse<TableViewCell>.expandAnimation(view: &s, point: p)
+        pulse.expandAnimation(point: p)
         Motion.delay(time: 0.35) { [weak self] in
-            guard var s = self else {
+            guard let s = self else {
                 return
             }
-            MotionPulse<TableViewCell>.contractAnimation(view: &s)
+            s.pulse.contractAnimation()
         }
     }
     
@@ -146,8 +137,7 @@ open class TableViewCell: UITableViewCell, Pulseable {
      */
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        var s = self
-        MotionPulse<TableViewCell>.expandAnimation(view: &s, point: layer.convert(touches.first!.location(in: self), from: layer))
+        pulse.expandAnimation(point: layer.convert(touches.first!.location(in: self), from: layer))
     }
     
     /**
@@ -158,8 +148,7 @@ open class TableViewCell: UITableViewCell, Pulseable {
      */
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
-        var s = self
-        MotionPulse<TableViewCell>.contractAnimation(view: &s)
+        pulse.contractAnimation()
     }
     
     /**
@@ -170,8 +159,7 @@ open class TableViewCell: UITableViewCell, Pulseable {
      */
     open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesCancelled(touches, with: event)
-        var s = self
-        MotionPulse<TableViewCell>.contractAnimation(view: &s)
+        pulse.contractAnimation()
     }
 	
 	/**
@@ -189,18 +177,28 @@ open class TableViewCell: UITableViewCell, Pulseable {
 		textLabel?.isUserInteractionEnabled = false
 		detailTextLabel?.isUserInteractionEnabled = false
 		prepareVisualLayer()
+        preparePulse()
 	}
-	
-	/// Prepares the visualLayer property.
-	internal func prepareVisualLayer() {
-		visualLayer.zPosition = 0
-		visualLayer.masksToBounds = true
-		contentView.layer.addSublayer(visualLayer)
-	}
-	
-	/// Manages the layout for the visualLayer property.
-	internal func layoutVisualLayer() {
-		visualLayer.frame = bounds
-		visualLayer.cornerRadius = cornerRadius
-	}
+}
+
+extension TableViewCell {
+    /// Prepares the pulse motion.
+    fileprivate func preparePulse() {
+        pulse = Pulse(pulseView: self, pulseLayer: visualLayer)
+    }
+    
+    /// Prepares the visualLayer property.
+    fileprivate func prepareVisualLayer() {
+        visualLayer.zPosition = 0
+        visualLayer.masksToBounds = true
+        contentView.layer.addSublayer(visualLayer)
+    }
+}
+
+extension TableViewCell {
+    /// Manages the layout for the visualLayer property.
+    fileprivate func layoutVisualLayer() {
+        visualLayer.frame = bounds
+        visualLayer.cornerRadius = cornerRadius
+    }
 }

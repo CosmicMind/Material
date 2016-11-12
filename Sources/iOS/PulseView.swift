@@ -32,15 +32,7 @@ import UIKit
 
 open class PulseView: View, Pulseable {
     /// A Pulse reference.
-    internal var pulse = Pulse()
-    
-    /// The layer the pulse layers are added to.
-    internal var pulseLayer: CALayer {
-        return visualLayer as CALayer
-    }
-    
-    /// An Array of pulse layers.
-    internal var pulseLayers = [CAShapeLayer]()
+    open fileprivate(set) var pulse: Pulse!
     
     /// PulseAnimation value.
     open var pulseAnimation: PulseAnimation {
@@ -82,13 +74,12 @@ open class PulseView: View, Pulseable {
     open func pulse(point: CGPoint? = nil) {
         let p = nil == point ? CGPoint(x: CGFloat(width / 2), y: CGFloat(height / 2)) : point!
         
-        var s = self
-        MotionPulse<PulseView>.expandAnimation(view: &s, point: p)
+        pulse.expandAnimation(point: p)
         Motion.delay(time: 0.35) { [weak self] in
-            guard var s = self else {
+            guard let s = self else {
                 return
             }
-            MotionPulse<PulseView>.contractAnimation(view: &s)
+            s.pulse.contractAnimation()
         }
     }
     
@@ -100,8 +91,7 @@ open class PulseView: View, Pulseable {
      */
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        var s = self
-        MotionPulse<PulseView>.expandAnimation(view: &s, point: layer.convert(touches.first!.location(in: self), from: layer))
+        pulse.expandAnimation(point: layer.convert(touches.first!.location(in: self), from: layer))
     }
     
     /**
@@ -112,8 +102,7 @@ open class PulseView: View, Pulseable {
      */
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
-        var s = self
-        MotionPulse<PulseView>.contractAnimation(view: &s)
+        pulse.contractAnimation()
     }
     
     /**
@@ -124,7 +113,25 @@ open class PulseView: View, Pulseable {
      */
     open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesCancelled(touches, with: event)
-        var s = self
-        MotionPulse<PulseView>.contractAnimation(view: &s)
+        pulse.contractAnimation()
+    }
+    
+    /**
+     Prepares the view instance when intialized. When subclassing,
+     it is recommended to override the prepare method
+     to initialize property values and other setup operations.
+     The super.prepare method should always be called immediately
+     when subclassing.
+     */
+    open override func prepare() {
+        super.prepare()
+        preparePulse()
+    }
+}
+
+extension PulseView {
+    /// Prepares the pulse motion.
+    fileprivate func preparePulse() {
+        pulse = Pulse(pulseView: self, pulseLayer: visualLayer)
     }
 }

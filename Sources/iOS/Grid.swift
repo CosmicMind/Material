@@ -177,12 +177,12 @@ public struct Grid {
     }
     
     /// Begins a deferred block.
-    mutating public func begin() {
+    public mutating func begin() {
         deferred = true
     }
     
     /// Completes a deferred block.
-    mutating public func commit() {
+    public mutating func commit() {
         deferred = false
         reload()
     }
