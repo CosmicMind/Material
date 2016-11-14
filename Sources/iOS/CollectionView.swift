@@ -119,7 +119,7 @@ open class CollectionView: UICollectionView {
      when subclassing.
      */
 	open func prepare() {
-		contentScaleFactor = Device.scale
+		contentScaleFactor = Screen.scale
 		backgroundColor = .clear
 		contentEdgeInsets = .zero
     }

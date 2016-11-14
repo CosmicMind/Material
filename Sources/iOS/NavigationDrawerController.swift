@@ -345,7 +345,7 @@ open class NavigationDrawerController: RootController, UIGestureRecognizerDelega
 		guard nil != rightView else {
 			return false
 		}
-		return rightView!.x != Device.width
+		return rightView!.x != Screen.width
 	}
 	
 	/**
@@ -1197,7 +1197,7 @@ open class NavigationDrawerController: RootController, UIGestureRecognizerDelega
 	
 	/// Toggles the statusBar
 	private func toggleStatusBar() {
-		if isOpened || Device.isLandscape && .phone == Device.userInterfaceIdiom {
+		if isOpened || Application.isLandscape && .phone == Device.userInterfaceIdiom {
 			hideStatusBar()
 		} else {
 			showStatusBar()

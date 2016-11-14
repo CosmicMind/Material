@@ -147,7 +147,7 @@ open class Toolbar: Bar {
 	/// Prepares the titleLabel.
     private func prepareTitleLabel() {
         titleLabel.textAlignment = .center
-        titleLabel.contentScaleFactor = Device.scale
+        titleLabel.contentScaleFactor = Screen.scale
 		titleLabel.font = RobotoFont.medium(with: 17)
         titleLabel.textColor = Color.darkText.primary
         addObserver(self, forKeyPath: "titleLabel.textAlignment", options: [], context: &ToolbarContext)
@@ -156,7 +156,7 @@ open class Toolbar: Bar {
 	/// Prepares the detailLabel.
 	private func prepareDetailLabel() {
         detailLabel.textAlignment = .center
-        detailLabel.contentScaleFactor = Device.scale
+        detailLabel.contentScaleFactor = Screen.scale
 		detailLabel.font = RobotoFont.regular(with: 12)
         detailLabel.textColor = Color.darkText.secondary
 	}

@@ -86,7 +86,7 @@ extension UIImage {
         
         let g: UIImage?
         let t: CGRect = CGRect(x: 0, y: 0, width: w ?? tw, height: h ?? th)
-        UIGraphicsBeginImageContextWithOptions(t.size, false, Device.scale)
+        UIGraphicsBeginImageContextWithOptions(t.size, false, Screen.scale)
         draw(in: t, blendMode: .normal, alpha: 1)
         g = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
@@ -102,7 +102,7 @@ extension UIImage {
      - Returns: A UIImage that is the color passed in.
      */
     open func tint(with color: UIColor) -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(size, false, Device.scale)
+        UIGraphicsBeginImageContextWithOptions(size, false, Screen.scale)
         guard let context = UIGraphicsGetCurrentContext() else {
             return nil
         }
@@ -284,7 +284,7 @@ extension UIImage {
     open func blur(radius: CGFloat = 0, tintColor: UIColor? = nil, saturationDeltaFactor: CGFloat = 0) -> UIImage? {
         var effectImage = self
         
-        let screenScale = Device.scale
+        let screenScale = Screen.scale
         let imageRect = CGRect(origin: .zero, size: size)
         let hasBlur = radius > CGFloat(FLT_EPSILON)
         let hasSaturationChange = fabs(saturationDeltaFactor - 1.0) > CGFloat(FLT_EPSILON)

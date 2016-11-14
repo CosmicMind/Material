@@ -34,20 +34,20 @@ open class RootController: UIViewController {
 	/// Device status bar style.
 	open var statusBarStyle: UIStatusBarStyle {
 		get {
-			return Device.statusBarStyle
+			return Application.statusBarStyle
 		}
 		set(value) {
-			Device.statusBarStyle = value
+			Application.statusBarStyle = value
 		}
 	}
     
     /// Device visibility state.
     open var isStatusBarHidden: Bool {
         get {
-            return Device.isStatusBarHidden
+            return Application.isStatusBarHidden
         }
         set(value) {
-            Device.isStatusBarHidden = value
+            Application.isStatusBarHidden = value
         }
     }
 	
@@ -141,7 +141,7 @@ open class RootController: UIViewController {
                 s.rootViewController = viewController
                 s.rootViewController.view.clipsToBounds = true
                 s.rootViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-                s.rootViewController.view.contentScaleFactor = Device.scale
+                s.rootViewController.view.contentScaleFactor = Screen.scale
                 s.view.sendSubview(toBack: s.rootViewController.view)
                 completion?(result)
 			}
@@ -164,7 +164,7 @@ open class RootController: UIViewController {
 	open func prepare() {
         view.clipsToBounds = true
         view.backgroundColor = .white
-        view.contentScaleFactor = Device.scale
+        view.contentScaleFactor = Screen.scale
         prepareRootViewController()
 	}
 	
@@ -191,6 +191,6 @@ open class RootController: UIViewController {
         v.didMove(toParentViewController: self)
         v.view.clipsToBounds = true
         v.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        v.view.contentScaleFactor = Device.scale
+        v.view.contentScaleFactor = Screen.scale
 	}
 }

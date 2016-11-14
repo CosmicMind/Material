@@ -223,7 +223,7 @@ open class TextView: UITextView {
      when subclassing.
      */
 	open func prepare() {
-		contentScaleFactor = Device.scale
+		contentScaleFactor = Screen.scale
 		textContainerInset = .zero
 		backgroundColor = .white
 		clipsToBounds = false

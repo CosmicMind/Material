@@ -77,7 +77,7 @@ open class Layer: CAShapeLayer {
 	/**
      A floating point value that defines a ratio between the pixel
      dimensions of the visualLayer's contents property and the size
-     of the layer. By default, this value is set to the Device.scale.
+     of the layer. By default, this value is set to the Screen.scale.
      */
 	@IBInspectable
     open override var contentsScale: CGFloat {

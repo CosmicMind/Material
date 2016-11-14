@@ -37,7 +37,7 @@ open class NavigationBar: UINavigationBar {
     }
     
     open override var intrinsicContentSize: CGSize {
-        return CGSize(width: Device.width, height: height)
+        return CGSize(width: Screen.width, height: height)
     }
 	
 	/// A preset wrapper around contentEdgeInsets.
@@ -295,7 +295,7 @@ open class NavigationBar: UINavigationBar {
         depthPreset = .depth1
         interimSpacePreset = .interimSpace3
         contentEdgeInsetsPreset = .square1
-        contentScaleFactor = Device.scale
+        contentScaleFactor = Screen.scale
 		backButtonImage = Icon.cm.arrowBack
         let image = UIImage.image(with: .clear, size: CGSize(width: 1, height: 1))
 		shadowImage = image

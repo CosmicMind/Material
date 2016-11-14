@@ -120,7 +120,7 @@ open class CollectionViewCell: UICollectionViewCell, Pulseable {
 	/**
      A floating point value that defines a ratio between the pixel
      dimensions of the visualLayer's contents property and the size
-     of the view. By default, this value is set to the Device.scale.
+     of the view. By default, this value is set to the Screen.scale.
      */
 	@IBInspectable
     open var contentsScale: CGFloat {
@@ -293,7 +293,7 @@ open class CollectionViewCell: UICollectionViewCell, Pulseable {
      when subclassing.
      */
 	open func prepare() {
-		contentScaleFactor = Device.scale
+		contentScaleFactor = Screen.scale
 		prepareVisualLayer()
         preparePulse()
 	}

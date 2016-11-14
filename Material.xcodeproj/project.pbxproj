@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		961E6BDF1DDA2A95004E6C93 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961E6BDE1DDA2A95004E6C93 /* Application.swift */; };
+		961E6BE21DDA2AF3004E6C93 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961E6BE11DDA2AF3004E6C93 /* Screen.swift */; };
 		96334EF61C8B84660083986B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96334EF51C8B84660083986B /* Assets.xcassets */; };
 		963832421B88DFD80015F710 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963832361B88DFD80015F710 /* Material.framework */; };
 		965E80C81DD4C50600D61E4B /* Motion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB76D1CB40DC500C806FE /* Motion.swift */; };
@@ -198,6 +200,8 @@
 		961276621DCD8B1800A7D920 /* CharacterAttribute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacterAttribute.swift; sourceTree = "<group>"; };
 		961DED451DCC40C500F425B6 /* Editor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Editor.swift; sourceTree = "<group>"; };
 		961DED4A1DCC546100F425B6 /* EditorController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorController.swift; sourceTree = "<group>"; };
+		961E6BDE1DDA2A95004E6C93 /* Application.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
+		961E6BE11DDA2AF3004E6C93 /* Screen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
 		961EFC571D738FF600E84652 /* SnackbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnackbarController.swift; sourceTree = "<group>"; };
 		961F18E71CD93E3E008927C5 /* ErrorTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorTextField.swift; sourceTree = "<group>"; };
 		96230AB71D6A520C00AF47DC /* Divider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Divider.swift; sourceTree = "<group>"; };
@@ -355,6 +359,22 @@
 				961DED4A1DCC546100F425B6 /* EditorController.swift */,
 			);
 			name = Editor;
+			sourceTree = "<group>";
+		};
+		961E6BDD1DDA2A7E004E6C93 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				961E6BDE1DDA2A95004E6C93 /* Application.swift */,
+			);
+			name = Application;
+			sourceTree = "<group>";
+		};
+		961E6BE01DDA2ADD004E6C93 /* Screen */ = {
+			isa = PBXGroup;
+			children = (
+				961E6BE11DDA2AF3004E6C93 /* Screen.swift */,
+			);
+			name = Screen;
 			sourceTree = "<group>";
 		};
 		96230AB61D6A51FD00AF47DC /* Divider */ = {
@@ -543,7 +563,7 @@
 		96BCB7571CB40DC500C806FE /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				96BCB8091CB4107700C806FE /* Motion */,
+				961E6BDD1DDA2A7E004E6C93 /* Application */,
 				96264BE41D833C8400576F37 /* Bar */,
 				962DDD081D6FBBD0001C307C /* BottomTabBar */,
 				96BCB8031CB40F4B00C806FE /* Button */,
@@ -562,10 +582,12 @@
 				96BCB80D1CB410FD00C806FE /* Layer */,
 				96BCB8041CB40F6C00C806FE /* Layout */,
 				963FBF021D6696D0008F8512 /* Menu */,
+				96BCB8091CB4107700C806FE /* Motion */,
 				96BCB8011CB40F1700C806FE /* Navigation */,
 				962DDD071D6FBBB7001C307C /* Page */,
 				96717B151DBE6B1800DA84DB /* Photos */,
 				9626CA951DAB5370003E2611 /* Root */,
+				961E6BE01DDA2ADD004E6C93 /* Screen */,
 				963FBF031D6696EF008F8512 /* SearchBar */,
 				963FBEFB1D6694E8008F8512 /* Snackbar */,
 				967A48171D0F424B00B8CEB7 /* StatusBar */,
@@ -1040,6 +1062,7 @@
 				965E81231DD4D7C800D61E4B /* BottomTabBar.swift in Sources */,
 				965E81241DD4D7C800D61E4B /* Editor.swift in Sources */,
 				965E81251DD4D7C800D61E4B /* EditorController.swift in Sources */,
+				961E6BE21DDA2AF3004E6C93 /* Screen.swift in Sources */,
 				965E81261DD4D7C800D61E4B /* CharacterAttribute.swift in Sources */,
 				965E80FF1DD4D5C800D61E4B /* BottomNavigationController.swift in Sources */,
 				965E81001DD4D5C800D61E4B /* Capture.swift in Sources */,
@@ -1107,6 +1130,7 @@
 				965E80D41DD4C50600D61E4B /* Divider.swift in Sources */,
 				965E80D51DD4C50600D61E4B /* Grid.swift in Sources */,
 				965E80D61DD4C50600D61E4B /* HeightPreset.swift in Sources */,
+				961E6BDF1DDA2A95004E6C93 /* Application.swift in Sources */,
 				965E80D71DD4C50600D61E4B /* Icon.swift in Sources */,
 				965E80FC1DD4D59500D61E4B /* SearchBarController.swift in Sources */,
 				965E80D81DD4C50600D61E4B /* Layer.swift in Sources */,

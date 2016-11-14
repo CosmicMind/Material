@@ -30,16 +30,24 @@
 
 import UIKit
 
-extension UIWindow {
-    /**
-     Captures a screenshot of the contents in the apps keyWindow.
-     - Returns: An optional UIImage.
-     */
-    open func capture() -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(frame.size, isOpaque, Screen.scale)
-        layer.render(in: UIGraphicsGetCurrentContext()!)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return image
+public struct Screen {
+    /// Retrieves the device bounds.
+    public static var bounds: CGRect {
+        return UIScreen.main.bounds
+    }
+    
+    /// Retrieves the device width.
+    public static var width: CGFloat {
+        return bounds.width
+    }
+    
+    /// Retrieves the device height.
+    public static var height: CGFloat {
+        return bounds.height
+    }
+    
+    /// Retrieves the device scale.
+    public static var scale: CGFloat {
+        return UIScreen.main.scale
     }
 }

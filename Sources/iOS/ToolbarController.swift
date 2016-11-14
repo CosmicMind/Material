@@ -96,7 +96,7 @@ open class ToolbarController: StatusBarController {
 		}
 		set(value) {
 			if let v = internalFloatingViewController {
-				v.view.layer.rasterizationScale = Device.scale
+				v.view.layer.rasterizationScale = Screen.scale
 				v.view.layer.shouldRasterize = true
 				delegate?.toolbarControllerWillCloseFloatingViewController?(toolbarController: self)
 				internalFloatingViewController = nil
@@ -134,9 +134,9 @@ open class ToolbarController: StatusBarController {
 				v.view.layer.zPosition = 1500
 				v.didMove(toParentViewController: self)
 				v.view.isHidden = false
-				v.view.layer.rasterizationScale = Device.scale
+				v.view.layer.rasterizationScale = Screen.scale
 				v.view.layer.shouldRasterize = true
-				view.layer.rasterizationScale = Device.scale
+				view.layer.rasterizationScale = Screen.scale
 				view.layer.shouldRasterize = true
 				internalFloatingViewController = v
 				isUserInteractionEnabled = false

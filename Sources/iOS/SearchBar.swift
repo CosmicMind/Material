@@ -194,7 +194,7 @@ open class SearchBar: Bar {
     
 	/// Prepares the textField.
 	private func prepareTextField() {
-		textField.contentScaleFactor = Device.scale
+		textField.contentScaleFactor = Screen.scale
 		textField.font = RobotoFont.regular(with: 17)
 		textField.backgroundColor = Color.clear
 		textField.clearButtonMode = .whileEditing

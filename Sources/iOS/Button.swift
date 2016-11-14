@@ -240,7 +240,7 @@ open class Button: UIButton, Pulseable {
      when subclassing.
      */
 	open func prepare() {
-        contentScaleFactor = Device.scale
+        contentScaleFactor = Screen.scale
         prepareVisualLayer()
         preparePulse()
 	}

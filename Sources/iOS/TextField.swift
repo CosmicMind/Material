@@ -395,7 +395,7 @@ open class TextField: UITextField {
 		clipsToBounds = false
 		borderStyle = .none
 		backgroundColor = nil
-		contentScaleFactor = Device.scale
+		contentScaleFactor = Screen.scale
         
         prepareDivider()
 		preparePlaceholderLabel()

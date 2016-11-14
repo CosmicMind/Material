@@ -34,10 +34,10 @@ extension UINavigationController {
     /// Device status bar style.
     open var statusBarStyle: UIStatusBarStyle {
         get {
-            return Device.statusBarStyle
+            return Application.statusBarStyle
         }
         set(value) {
-            Device.statusBarStyle = value
+            Application.statusBarStyle = value
         }
     }
 }
@@ -118,7 +118,7 @@ open class NavigationController: UINavigationController {
         
         view.clipsToBounds = true
 		view.backgroundColor = .white
-        view.contentScaleFactor = Device.scale
+        view.contentScaleFactor = Screen.scale
         
         // This ensures the panning gesture is available when going back between views.
 		if let v = interactivePopGestureRecognizer {

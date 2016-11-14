@@ -115,7 +115,7 @@ public class NavigationItem: NSObject {
 	/// Prepares the titleLabel.
     private func prepareTitleLabel() {
         titleLabel.textAlignment = .center
-		titleLabel.contentScaleFactor = Device.scale
+		titleLabel.contentScaleFactor = Screen.scale
         titleLabel.font = RobotoFont.medium(with: 17)
         titleLabel.textColor = Color.darkText.primary
         addObserver(self, forKeyPath: "titleLabel.textAlignment", options: [], context: &NavigationItemContext)
@@ -124,7 +124,7 @@ public class NavigationItem: NSObject {
 	/// Prepares the detailLabel.
     private func prepareDetailLabel() {
         detailLabel.textAlignment = .center
-        titleLabel.contentScaleFactor = Device.scale
+        titleLabel.contentScaleFactor = Screen.scale
 		detailLabel.font = RobotoFont.regular(with: 12)
 		detailLabel.textColor = Color.darkText.secondary
 	}

@@ -30,16 +30,39 @@
 
 import UIKit
 
-extension UIWindow {
-    /**
-     Captures a screenshot of the contents in the apps keyWindow.
-     - Returns: An optional UIImage.
-     */
-    open func capture() -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(frame.size, isOpaque, Screen.scale)
-        layer.render(in: UIGraphicsGetCurrentContext()!)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return image
+public struct Application {
+    /// A Boolean indicating if the device is in Landscape mode.
+    public static var isLandscape: Bool {
+        return UIApplication.shared.statusBarOrientation.isLandscape
+    }
+    
+    /// A Boolean indicating if the device is in Portrait mode.
+    public static var isPortrait: Bool {
+        return !isLandscape
+    }
+    
+    /// The current UIInterfaceOrientation value.
+    public static var orientation: UIInterfaceOrientation {
+        return UIApplication.shared.statusBarOrientation
+    }
+    
+    /// Retrieves the device status bar style.
+    public static var statusBarStyle: UIStatusBarStyle {
+        get {
+            return UIApplication.shared.statusBarStyle
+        }
+        set(value) {
+            UIApplication.shared.statusBarStyle = value
+        }
+    }
+    
+    /// Retrieves the device status bar hidden state.
+    public static var isStatusBarHidden: Bool {
+        get {
+            return UIApplication.shared.isStatusBarHidden
+        }
+        set(value) {
+            UIApplication.shared.isStatusBarHidden = value
+        }
     }
 }

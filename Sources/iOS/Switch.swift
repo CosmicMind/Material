@@ -419,7 +419,7 @@ open class Switch: UIControl {
      when subclassing.
      */
     open func prepare() {
-        contentScaleFactor = Device.scale
+        contentScaleFactor = Screen.scale
         prepareTrack()
         prepareButton()
         prepareSwitchState()
