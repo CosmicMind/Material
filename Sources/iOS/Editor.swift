@@ -299,10 +299,12 @@ extension Editor {
 }
 
 extension Editor: TextStorageDelegate {
+    @objc
     open func textStorage(textStorage: TextStorage, willProcessEditing text: String, range: NSRange) {
         delegate?.editor?(editor: self, willProcessEditing: textStorage, text: string, range: range)
     }
     
+    @objc
     open func textStorage(textStorage: TextStorage, didProcessEditing text: String, result: NSTextCheckingResult?, flags: NSRegularExpression.MatchingFlags, stop: UnsafeMutablePointer<ObjCBool>) {
         guard let range = result?.range else {
             return
@@ -313,30 +315,37 @@ extension Editor: TextStorageDelegate {
 }
 
 extension Editor: UITextViewDelegate {
+    @objc
     open func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         return delegate?.editor?(editor: self, shouldBeginEditing: textView) ?? true
     }
     
+    @objc
     open func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
         return delegate?.editor?(editor: self, shouldEndEditing: textView) ?? true
     }
     
+    @objc
     open func textViewDidBeginEditing(_ textView: UITextView) {
         delegate?.editor?(editor: self, didBeginEditing: textView)
     }
     
+    @objc
     open func textViewDidEndEditing(_ textView: UITextView) {
         delegate?.editor?(editor: self, didEndEditing: textView)
     }
     
+    @objc
     open func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         return delegate?.editor?(editor: self, textView: textView, shouldChangeTextIn: range, replacementText: text) ?? true
     }
     
+    @objc
     open func textViewDidChange(_ textView: UITextView) {
         delegate?.editor?(editor: self, didChange: textView)
     }
     
+    @objc
     open func textViewDidChangeSelection(_ textView: UITextView) {
         delegate?.editor?(editor: self, didChangeSelection: textView)
     }
@@ -345,10 +354,12 @@ extension Editor: UITextViewDelegate {
 /*
 @available(iOS, introduced: 8.0, deprecated: : 10.0)
 extension Editor {
+    @objc
     open func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
         return delegate?.editor?(editor: self, textView: textView, shouldInteractWith: URL, in: characterRange) ?? true
     }
     
+    @objc
     open func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange) -> Bool {
         return delegate?.editor?(editor: self, textView: textView, shouldInteractWith: textAttachment, in: characterRange) ?? true
     }
@@ -356,10 +367,13 @@ extension Editor {
 
 @available(iOS 10.0, *)
 extension Editor {
+    
+    @objc
     open func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         return delegate?.editor?(editor: self, textView: textView, shouldInteractWith: URL, in: characterRange, interaction: interaction) ?? true
     }
     
+    @objc
     open func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         return delegate?.editor?(editor: self, textView: textView, shouldInteractWith: textAttachment, in: characterRange, interaction: interaction) ?? true
     }
