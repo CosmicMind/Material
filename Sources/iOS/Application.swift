@@ -78,4 +78,9 @@ public struct Application {
     public static var shouldStatusBarBeHidden: Bool {
         return isLandscape && .phone == Device.userInterfaceIdiom
     }
+    
+    /// A reference to the user interface layout direction.
+    public static var userInterfaceLayoutDirection: UIUserInterfaceLayoutDirection {
+        return UIApplication.shared.userInterfaceLayoutDirection
+    }
 }

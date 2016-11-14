@@ -30,8 +30,6 @@
 
 import UIKit
 
-private var TextFieldContext: UInt8 = 0
-
 @objc(TextFieldDelegate)
 public protocol TextFieldDelegate: UITextFieldDelegate {
     /**
@@ -77,16 +75,16 @@ open class TextField: UITextField {
     /// A Boolean that indicates if the TextField is in an animating state.
 	open internal(set) var isAnimating = false
 	
+    /// A boolean indicating whether the text is empty.
+    open var isEmpty: Bool {
+        return true == text?.isEmpty
+    }
+    
     open override var leftView: UIView? {
         didSet {
             prepareLeftView()
             layoutSubviews()
         }
-    }
-    
-    /// A boolean indicating whether the text is empty.
-    open var isEmpty: Bool {
-        return true == text?.isEmpty
     }
     
     /// The leftView width value.
@@ -100,6 +98,22 @@ open class TextField: UITextField {
     
     /// The leftView width value.
     open var leftViewOffset: CGFloat = 16
+    
+    /// Placeholder normal text
+    @IBInspectable
+    open var leftViewNormalColor = Color.darkText.others {
+        didSet {
+            updateLeftViewColor()
+        }
+    }
+    
+    /// Placeholder active text
+    @IBInspectable
+    open var leftViewActiveColor = Color.blue.base {
+        didSet {
+            updateLeftViewColor()
+        }
+    }
     
     /// Divider normal height.
     @IBInspectable
@@ -185,7 +199,6 @@ open class TextField: UITextField {
 	@IBInspectable
     open var placeholderActiveColor = Color.blue.base {
 		didSet {
-            tintColor = placeholderActiveColor
             updatePlaceholderLabelColor()
 		}
 	}
@@ -330,26 +343,7 @@ open class TextField: UITextField {
 		}
 	}
 	
-    open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        guard "placeholderLabel.text" != keyPath else {
-            updatePlaceholderLabelColor()
-            return
-        }
-        
-        guard "detailLabel.text" != keyPath else {
-            updateDetailLabelColor()
-            return
-        }
-        
-        super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
-    }
-    
-    deinit {
-        removeObserver(self, forKeyPath: "placeholderLabel.text")
-        removeObserver(self, forKeyPath: "detailLabel.text")
-    }
-    
-	/**
+    /**
      An initializer that initializes the object with a NSCoder object.
      - Parameter aDecoder: A NSCoder instance.
      */
@@ -430,7 +424,6 @@ extension TextField {
         font = RobotoFont.regular(with: 16)
         placeholderNormalColor = Color.darkText.others
         addSubview(placeholderLabel)
-        addObserver(self, forKeyPath: "placeholderLabel.text", options: [], context: &TextFieldContext)
     }
     
     /// Prepares the detailLabel.
@@ -439,12 +432,12 @@ extension TextField {
         detailLabel.numberOfLines = 0
         detailColor = Color.darkText.others
         addSubview(detailLabel)
-        addObserver(self, forKeyPath: "detailLabel.text", options: [], context: &TextFieldContext)
     }
     
     /// Prepares the leftView.
     fileprivate func prepareLeftView() {
         leftView?.contentMode = .left
+        updateLeftViewColor()
     }
     
     /// Prepares the target handlers.
@@ -456,15 +449,23 @@ extension TextField {
     
     /// Prepares the textAlignment.
     fileprivate func prepareTextAlignment() {
-        textAlignment = .rightToLeft == UIApplication.shared.userInterfaceLayoutDirection ? .right : .left
+        textAlignment = .rightToLeft == Application.userInterfaceLayoutDirection ? .right : .left
+    }
+}
+
+extension TextField {
+    /// Updates the leftView tint color.
+    fileprivate func updateLeftViewColor() {
+        leftView?.tintColor = isEditing ? leftViewActiveColor : leftViewNormalColor
     }
     
-    /// Updates the placeholderLabel attributedText.
+    /// Updates the placeholderLabel text color.
     fileprivate func updatePlaceholderLabelColor() {
+        tintColor = placeholderActiveColor
         placeholderLabel.textColor = isEditing ? placeholderActiveColor : placeholderNormalColor
     }
     
-    /// Updates the detailLabel attributedText.
+    /// Updates the detailLabel text color.
     fileprivate func updateDetailLabelColor() {
         detailLabel.textColor = detailColor
     }
@@ -535,6 +536,7 @@ extension TextField {
     /// Handles the text editing did begin state.
     @objc
     fileprivate func handleEditingDidBegin() {
+        leftViewEditingBeginAnimation()
         placeholderEditingDidBeginAnimation()
         dividerEditingDidBeginAnimation()
         
@@ -549,6 +551,7 @@ extension TextField {
     /// Handles the text editing did end state.
     @objc
     fileprivate func handleEditingDidEnd() {
+        leftViewEditingEndAnimation()
         placeholderEditingDidEndAnimation()
         dividerEditingDidEndAnimation()
     }
@@ -584,6 +587,16 @@ extension TextField {
 }
 
 extension TextField {
+    /// The animation for leftView when editing begins.
+    fileprivate func leftViewEditingBeginAnimation() {
+        updateLeftViewColor()
+    }
+    
+    /// The animation for leftView when editing ends.
+    fileprivate func leftViewEditingEndAnimation() {
+        updateLeftViewColor()
+    }
+    
     /// The animation for the divider when editing begins.
     fileprivate func dividerEditingDidBeginAnimation() {
         dividerThickness = dividerActiveHeight
