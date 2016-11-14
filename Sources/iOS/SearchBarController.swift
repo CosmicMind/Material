@@ -61,13 +61,12 @@ open class SearchBarController: StatusBarController {
     }
     
     /// Reference to the SearchBar.
-    open private(set) lazy var searchBar: SearchBar = SearchBar()
+    open private(set) var searchBar = SearchBar()
 	
 	open override func layoutSubviews() {
 		super.layoutSubviews()
-        statusBar.layoutIfNeeded()
         
-        let y = statusBar.isHidden ? 0 : statusBar.height
+        let y = Application.shouldStatusBarBeHidden || statusBar.isHidden ? 0 : statusBar.height
         let p = y + searchBar.height
         
         searchBar.y = y
@@ -91,13 +90,21 @@ open class SearchBarController: StatusBarController {
      */
 	open override func prepare() {
 		super.prepare()
+        prepareStatusBar()
 		prepareSearchBar()
 	}
-	
-	/// Prepares the searchBar.
-	private func prepareSearchBar() {
+}
+
+extension SearchBarController {
+    /// Prepares the statusBar.
+    fileprivate func prepareStatusBar() {
+        shouldHideStatusBarOnRotation = false
+    }
+    
+    /// Prepares the searchBar.
+    fileprivate func prepareSearchBar() {
         searchBar.depthPreset = .depth1
         searchBar.zPosition = 1000
         view.addSubview(searchBar)
-	}
+    }
 }

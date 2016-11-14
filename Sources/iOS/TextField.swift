@@ -171,7 +171,7 @@ open class TextField: UITextField {
 	
 	/// The placeholder UILabel.
 	@IBInspectable
-    open private(set) lazy var placeholderLabel = UILabel()
+    open private(set) var placeholderLabel = UILabel()
 	
 	/// Placeholder normal text
 	@IBInspectable
@@ -196,7 +196,7 @@ open class TextField: UITextField {
 	
 	/// The detailLabel UILabel that is displayed.
 	@IBInspectable
-    open private(set) lazy var detailLabel = UILabel()
+    open private(set) var detailLabel = UILabel()
 	
 	/// The detailLabel text value.
 	@IBInspectable

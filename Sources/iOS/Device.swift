@@ -62,19 +62,23 @@ public enum DeviceModel {
 }
 
 public struct Device {
-	/// Gets the model name for the device.
+    /// Gets the Device identifier String.
+    public static var identifier: String {
+        var systemInfo = utsname()
+        uname(&systemInfo)
+        
+        let machineMirror = Mirror(reflecting: systemInfo.machine)
+        let identifier = machineMirror.children.reduce("") { (identifier, element) in
+            guard let value = element.value as? Int8, value != 0 else {
+                return identifier
+            }
+            return identifier + String(UnicodeScalar(UInt8(value)))
+        }
+        return identifier
+    }
+    
+    /// Gets the model name for the device.
 	public static var model: DeviceModel {
-		var systemInfo = utsname()
-		uname(&systemInfo)
-		
-		let machineMirror = Mirror(reflecting: systemInfo.machine)
-		let identifier = machineMirror.children.reduce("") { (identifier, element) in
-			guard let value = element.value as? Int8, value != 0 else {
-				return identifier
-			}
-			return identifier + String(UnicodeScalar(UInt8(value)))
-		}
-		
 		switch identifier {
 		case "iPod5,1":										return .iPodTouch5
 		case "iPod7,1":										return .iPodTouch6

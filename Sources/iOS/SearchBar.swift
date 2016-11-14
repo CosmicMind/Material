@@ -62,7 +62,7 @@ public protocol SearchBarDelegate {
 
 open class SearchBar: Bar {
 	/// The UITextField for the searchBar.
-	open private(set) lazy var textField = UITextField()
+	open private(set) var textField = UITextField()
 	
 	/// Reference to the clearButton.
 	open private(set) var clearButton: IconButton!

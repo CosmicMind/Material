@@ -50,7 +50,7 @@ extension UIViewController {
 
 open class MenuController: RootController {
 	/// Reference to the MenuView.
-    open private(set) lazy var menu: Menu = Menu()
+    open private(set) var menu = Menu()
 	
 	/**
      Opens the menu with a callback.

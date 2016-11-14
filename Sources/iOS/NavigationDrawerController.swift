@@ -148,31 +148,31 @@ open class NavigationDrawerController: RootController, UIGestureRecognizerDelega
      A CGFloat property that is used internally to track
      the original (x) position of the container view when panning.
      */
-	private var originalX: CGFloat = 0
+	fileprivate var originalX: CGFloat = 0
 	
 	/**
      A UIPanGestureRecognizer property internally used for the
      leftView pan gesture.
      */
-	internal private(set) var leftPanGesture: UIPanGestureRecognizer?
+	internal fileprivate(set) var leftPanGesture: UIPanGestureRecognizer?
 	
     /**
      A UITapGestureRecognizer property internally used for the
      leftView tap gesture.
      */
-    internal private(set) var leftTapGesture: UITapGestureRecognizer?
+    internal fileprivate(set) var leftTapGesture: UITapGestureRecognizer?
     
 	/**
      A UIPanGestureRecognizer property internally used for the
      rightView pan gesture.
      */
-	internal private(set) var rightPanGesture: UIPanGestureRecognizer?
+	internal fileprivate(set) var rightPanGesture: UIPanGestureRecognizer?
 	
 	/**
      A UITapGestureRecognizer property internally used for the
      rightView tap gesture.
      */
-	internal private(set) var rightTapGesture: UITapGestureRecognizer?
+	internal fileprivate(set) var rightTapGesture: UITapGestureRecognizer?
 	
 	/**
      A CGFloat property that accesses the leftView threshold of
@@ -183,7 +183,7 @@ open class NavigationDrawerController: RootController, UIGestureRecognizerDelega
      the width of the leftView.
      */
 	@IBInspectable public var leftThreshold: CGFloat = 64
-	private var leftViewThreshold: CGFloat = 0
+	fileprivate var leftViewThreshold: CGFloat = 0
 	
 	/**
      A CGFloat property that accesses the rightView threshold of
@@ -194,7 +194,7 @@ open class NavigationDrawerController: RootController, UIGestureRecognizerDelega
      the width of the rightView.
      */
 	@IBInspectable public var rightThreshold: CGFloat = 64
-	private var rightViewThreshold: CGFloat = 0
+	fileprivate var rightViewThreshold: CGFloat = 0
 	
 	/**
      A NavigationDrawerControllerDelegate property used to bind
@@ -318,14 +318,14 @@ open class NavigationDrawerController: RootController, UIGestureRecognizerDelega
      leftViewController. It is very rare that this property will
      need to be accessed externally.
      */
-	open private(set) var leftView: View?
+	open fileprivate(set) var leftView: View?
 	
 	/**
      A View property that is used to hide and reveal the
      rightViewController. It is very rare that this property will
      need to be accessed externally.
      */
-	open private(set) var rightView: View?
+	open fileprivate(set) var rightView: View?
 	
 	/// Indicates whether the leftView or rightView is opened.
 	open var isOpened: Bool {
@@ -355,33 +355,33 @@ open class NavigationDrawerController: RootController, UIGestureRecognizerDelega
      this, and to add a isHidden transition viewController for complex
      situations, the contentViewController was added.
      */
-	open private(set) lazy var contentViewController = UIViewController()
+	open fileprivate(set) lazy var contentViewController = UIViewController()
 	
 	/**
      A UIViewController property that references the
      active left UIViewController.
      */
-	open private(set) var leftViewController: UIViewController?
+	open fileprivate(set) var leftViewController: UIViewController?
 	
 	/**
      A UIViewController property that references the
      active right UIViewController.
      */
-	open private(set) var rightViewController: UIViewController?
+	open fileprivate(set) var rightViewController: UIViewController?
 	
 	/**
      A CGFloat property to access the width that the leftView
      opens up to.
      */
 	@IBInspectable
-    open private(set) var leftViewWidth: CGFloat!
+    open fileprivate(set) var leftViewWidth: CGFloat!
 	
 	/**
      A CGFloat property to access the width that the rightView
      opens up to.
      */
 	@IBInspectable
-    open private(set) var rightViewWidth: CGFloat!
+    open fileprivate(set) var rightViewWidth: CGFloat!
 	
 	/**
      An initializer that initializes the object with a NSCoder object.
@@ -427,14 +427,10 @@ open class NavigationDrawerController: RootController, UIGestureRecognizerDelega
     }
     
 	/// Layout subviews.
-	open override func layoutSubviews() {
-		if isOpened {
-			hideStatusBar()
-		} else {
-			showStatusBar()
-		}
-		
-		if let v: View = leftView {
+	open override func layoutSubviews() {		
+		toggleStatusBar()
+        
+        if let v: View = leftView {
 			v.width = leftViewWidth
 			v.height = view.bounds.height
 			leftViewThreshold = leftViewWidth / 2
@@ -809,37 +805,310 @@ open class NavigationDrawerController: RootController, UIGestureRecognizerDelega
             }
 	}
 	
+	/// A method that removes the passed in pan and leftView tap gesture recognizers.
+	fileprivate func removeLeftViewGestures() {
+		removeLeftPanGesture()
+		removeLeftTapGesture()
+	}
+	
+	/// Removes the left pan gesture.
+	fileprivate func removeLeftPanGesture() {
+        guard let v = leftPanGesture else {
+            return
+        }
+        
+        view.removeGestureRecognizer(v)
+        leftPanGesture = nil
+	}
+	
+	/// Removes the left tap gesture.
+	fileprivate func removeLeftTapGesture() {
+        guard let v = leftTapGesture else {
+            return
+        }
+        
+        view.removeGestureRecognizer(v)
+        leftTapGesture = nil
+	}
+	
+	/// A method that removes the passed in pan and rightView tap gesture recognizers.
+	fileprivate func removeRightViewGestures() {
+		removeRightPanGesture()
+		removeRightTapGesture()
+		
+	}
+	
+	/// Removes the right pan gesture.
+	fileprivate func removeRightPanGesture() {
+        guard let v = rightPanGesture else {
+            return
+        }
+        
+        view.removeGestureRecognizer(v)
+        rightPanGesture = nil
+	}
+	
+	/// Removes the right tap gesture.
+	fileprivate func removeRightTapGesture() {
+        guard let v = rightTapGesture else {
+            return
+        }
+        
+        view.removeGestureRecognizer(v)
+        rightTapGesture = nil
+	}
+	
+	/// Shows the statusBar.
+	fileprivate func showStatusBar() {
+        DispatchQueue.main.async { [weak self] in
+            guard let s = self else {
+                return
+            }
+            
+            guard let v = Application.keyWindow else {
+                return
+            }
+            
+            v.windowLevel = UIWindowLevelNormal
+            
+            s.delegate?.navigationDrawerController?(navigationDrawerController: s, statusBar: false)
+        }
+	}
+	
+	/// Hides the statusBar.
+	fileprivate func hideStatusBar() {
+        guard isHiddenStatusBarEnabled else {
+            return
+        }
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let s = self else {
+                return
+            }
+            
+            guard let v = Application.keyWindow else {
+                return
+            }
+            
+            v.windowLevel = UIWindowLevelStatusBar + 1
+            
+            s.delegate?.navigationDrawerController?(navigationDrawerController: s, statusBar: true)
+        }
+	}
+	
+	/// Toggles the statusBar
+	fileprivate func toggleStatusBar() {
+		if isOpened {
+			hideStatusBar()
+		} else {
+			showStatusBar()
+		}
+	}
+	
 	/**
+     A method that determines whether the passed point is
+     contained within the bounds of the leftViewThreshold
+     and height of the NavigationDrawerController view frame
+     property.
+     - Parameter point: A CGPoint to test against.
+     - Returns: A Boolean of the result, true if yes, false
+     otherwise.
+     */
+	fileprivate func isPointContainedWithinLeftThreshold(point: CGPoint) -> Bool {
+		return point.x <= leftThreshold
+	}
+	
+	/**
+     A method that determines whether the passed point is
+     contained within the bounds of the rightViewThreshold
+     and height of the NavigationDrawerController view frame
+     property.
+     - Parameter point: A CGPoint to test against.
+     - Returns: A Boolean of the result, true if yes, false
+     otherwise.
+     */
+	fileprivate func isPointContainedWithinRighThreshold(point: CGPoint) -> Bool {
+		return point.x >= view.bounds.width - rightThreshold
+	}
+	
+	/**
+     A method that determines whether the passed in point is
+     contained within the bounds of the passed in container view.
+     - Parameter container: A UIView that sets the bounds to test
+     against.
+     - Parameter point: A CGPoint to test whether or not it is
+     within the bounds of the container parameter.
+     - Returns: A Boolean of the result, true if yes, false
+     otherwise.
+     */
+	fileprivate func isPointContainedWithinView(container: UIView, point: CGPoint) -> Bool {
+		return container.bounds.contains(point)
+	}
+	
+	/**
+     A method that shows a view.
+     - Parameter container: A container view.
+     */
+	fileprivate func showView(container: View) {
+		container.depthPreset = depthPreset
+		container.isHidden = false
+	}
+	
+	/**
+     A method that hides a view.
+     - Parameter container: A container view.
+     */
+	fileprivate func hideView(container: View) {
+		container.depthPreset = .none
+		container.isHidden = true
+	}
+}
+
+extension NavigationDrawerController {
+    /// Prepares the contentViewController.
+    fileprivate func prepareContentViewController() {
+        contentViewController.view.backgroundColor = .black
+        prepare(viewController: contentViewController, withContainer: view)
+        view.sendSubview(toBack: contentViewController.view)
+    }
+    
+    /// A method that prepares the leftViewController.
+    fileprivate func prepareLeftViewController() {
+        guard let v = leftView else {
+            return
+        }
+        
+        prepare(viewController: leftViewController, withContainer: v)
+    }
+    
+    /// A method that prepares the rightViewController.
+    fileprivate func prepareRightViewController() {
+        guard let v = rightView else {
+            return
+        }
+        
+        prepare(viewController: rightViewController, withContainer: v)
+    }
+    
+    /// A method that prepares the leftView.
+    fileprivate func prepareLeftView() {
+        guard nil != leftViewController else {
+            return
+        }
+        
+        isLeftViewEnabled = true
+        
+        leftViewWidth = .phone == Device.userInterfaceIdiom ? 280 : 320
+        leftView = View()
+        leftView!.frame = CGRect(x: 0, y: 0, width: leftViewWidth, height: view.height)
+        leftView!.backgroundColor = nil
+        view.addSubview(leftView!)
+        
+        leftView!.isHidden = true
+        leftView!.position.x = -leftViewWidth / 2
+        leftView!.zPosition = 2000
+        prepareLeftViewController()
+    }
+    
+    /// A method that prepares the leftView.
+    fileprivate func prepareRightView() {
+        guard nil != rightViewController else {
+            return
+        }
+        
+        isRightViewEnabled = true
+        
+        rightViewWidth = .phone == Device.userInterfaceIdiom ? 280 : 320
+        rightView = View()
+        rightView!.frame = CGRect(x: view.width, y: 0, width: rightViewWidth, height: view.height)
+        rightView!.backgroundColor = nil
+        view.addSubview(rightView!)
+        
+        rightView!.isHidden = true
+        rightView!.position.x = view.bounds.width + rightViewWidth / 2
+        rightView!.zPosition = 2000
+        prepareRightViewController()
+    }
+    
+    /// Prepare the left pan gesture.
+    fileprivate func prepareLeftPanGesture() {
+        guard nil == leftPanGesture else {
+            return
+        }
+        
+        leftPanGesture = UIPanGestureRecognizer(target: self, action: #selector(handleLeftViewPanGesture(recognizer:)))
+        leftPanGesture!.delegate = self
+        view.addGestureRecognizer(leftPanGesture!)
+    }
+    
+    /// Prepare the left tap gesture.
+    fileprivate func prepareLeftTapGesture() {
+        guard nil == leftTapGesture else {
+            return
+        }
+        
+        leftTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleLeftViewTapGesture(recognizer:)))
+        leftTapGesture!.delegate = self
+        leftTapGesture!.cancelsTouchesInView = false
+        view.addGestureRecognizer(leftTapGesture!)
+    }
+    
+    /// Prepares the right pan gesture.
+    fileprivate func prepareRightPanGesture() {
+        guard nil == rightPanGesture else {
+            return
+        }
+        
+        rightPanGesture = UIPanGestureRecognizer(target: self, action: #selector(handleRightViewPanGesture(recognizer:)))
+        rightPanGesture!.delegate = self
+        view.addGestureRecognizer(rightPanGesture!)
+    }
+    
+    /// Prepares the right tap gesture.
+    fileprivate func prepareRightTapGesture() {
+        guard nil == rightTapGesture else {
+            return
+        }
+        
+        rightTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleRightViewTapGesture(recognizer:)))
+        rightTapGesture!.delegate = self
+        rightTapGesture!.cancelsTouchesInView = false
+        view.addGestureRecognizer(rightTapGesture!)
+    }
+}
+
+extension NavigationDrawerController {
+    /**
      Detects the gesture recognizer being used.
      - Parameter gestureRecognizer: A UIGestureRecognizer to detect.
      - Parameter touch: The UITouch event.
      - Returns: A Boolean of whether to continue the gesture or not.
      */
-	open func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-		if !isRightViewOpened && gestureRecognizer == leftPanGesture && (isLeftViewOpened || isPointContainedWithinLeftThreshold(point: touch.location(in: view))) {
-			return true
-		}
-		if !isLeftViewOpened && gestureRecognizer == rightPanGesture && (isRightViewOpened || isPointContainedWithinRighThreshold(point: touch.location(in: view))) {
-			return true
-		}
-		if isLeftViewOpened && gestureRecognizer == leftTapGesture {
-			return true
-		}
-		if isRightViewOpened && gestureRecognizer == rightTapGesture {
-			return true
-		}
-		return false
-	}
-	
-	/**
+    open func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if !isRightViewOpened && gestureRecognizer == leftPanGesture && (isLeftViewOpened || isPointContainedWithinLeftThreshold(point: touch.location(in: view))) {
+            return true
+        }
+        if !isLeftViewOpened && gestureRecognizer == rightPanGesture && (isRightViewOpened || isPointContainedWithinRighThreshold(point: touch.location(in: view))) {
+            return true
+        }
+        if isLeftViewOpened && gestureRecognizer == leftTapGesture {
+            return true
+        }
+        if isRightViewOpened && gestureRecognizer == rightTapGesture {
+            return true
+        }
+        return false
+    }
+    
+    /**
      A method that is fired when the pan gesture is recognized
      for the leftView.
      - Parameter recognizer: A UIPanGestureRecognizer that is
      passed to the handler when recognized.
      */
     @objc
-	internal func handleLeftViewPanGesture(recognizer: UIPanGestureRecognizer) {
-		if isLeftViewEnabled && (isLeftViewOpened || !isRightViewOpened && isPointContainedWithinLeftThreshold(point: recognizer.location(in: view))) {
+    fileprivate func handleLeftViewPanGesture(recognizer: UIPanGestureRecognizer) {
+        if isLeftViewEnabled && (isLeftViewOpened || !isRightViewOpened && isPointContainedWithinLeftThreshold(point: recognizer.location(in: view))) {
             guard let v = leftView else {
                 return
             }
@@ -880,18 +1149,18 @@ open class NavigationDrawerController: RootController, UIGestureRecognizerDelega
                 }
             case .possible:break
             }
-		}
-	}
-	
-	/**
+        }
+    }
+    
+    /**
      A method that is fired when the pan gesture is recognized
      for the rightView.
      - Parameter recognizer: A UIPanGestureRecognizer that is
      passed to the handler when recognized.
      */
     @objc
-	internal func handleRightViewPanGesture(recognizer: UIPanGestureRecognizer) {
-		if isRightViewEnabled && (isRightViewOpened || !isLeftViewOpened && isPointContainedWithinRighThreshold(point: recognizer.location(in: view))) {
+    fileprivate func handleRightViewPanGesture(recognizer: UIPanGestureRecognizer) {
+        if isRightViewEnabled && (isRightViewOpened || !isLeftViewOpened && isPointContainedWithinRighThreshold(point: recognizer.location(in: view))) {
             guard let v = rightView else {
                 return
             }
@@ -903,7 +1172,7 @@ open class NavigationDrawerController: RootController, UIGestureRecognizerDelega
             case .began:
                 originalX = v.position.x
                 showView(container: v)
-            
+                
                 delegate?.navigationDrawerController?(navigationDrawerController: self, didBeginPanAt: point, position: .right)
             case .changed:
                 let w = v.width
@@ -933,16 +1202,16 @@ open class NavigationDrawerController: RootController, UIGestureRecognizerDelega
             case .possible:break
             }
         }
-	}
-	
-	/**
+    }
+    
+    /**
      A method that is fired when the tap gesture is recognized
      for the leftView.
      - Parameter recognizer: A UITapGestureRecognizer that is
      passed to the handler when recognized.
      */
     @objc
-	internal func handleLeftViewTapGesture(recognizer: UITapGestureRecognizer) {
+    fileprivate func handleLeftViewTapGesture(recognizer: UITapGestureRecognizer) {
         guard isLeftViewOpened else {
             return
         }
@@ -952,20 +1221,20 @@ open class NavigationDrawerController: RootController, UIGestureRecognizerDelega
         }
         
         delegate?.navigationDrawerController?(navigationDrawerController: self, didTapAt: recognizer.location(in: view), position: .left)
-                
+        
         if isLeftViewEnabled && isLeftViewOpened && !isPointContainedWithinView(container: v, point: recognizer.location(in: v)) {
             closeLeftView()
         }
-	}
-	
-	/**
+    }
+    
+    /**
      A method that is fired when the tap gesture is recognized
      for the rightView.
      - Parameter recognizer: A UITapGestureRecognizer that is
      passed to the handler when recognized.
      */
     @objc
-	internal func handleRightViewTapGesture(recognizer: UITapGestureRecognizer) {
+    fileprivate func handleRightViewTapGesture(recognizer: UITapGestureRecognizer) {
         guard isRightViewOpened else {
             return
         }
@@ -979,286 +1248,5 @@ open class NavigationDrawerController: RootController, UIGestureRecognizerDelega
         if isRightViewEnabled && isRightViewOpened && !isPointContainedWithinView(container: v, point: recognizer.location(in: v)) {
             closeRightView()
         }
-	}
-	
-	/// Prepares the contentViewController.
-	private func prepareContentViewController() {
-		contentViewController.view.backgroundColor = .black
-		prepare(viewController: contentViewController, withContainer: view)
-		view.sendSubview(toBack: contentViewController.view)
-	}
-	
-	/// A method that prepares the leftViewController.
-	private func prepareLeftViewController() {
-        guard let v = leftView else {
-            return
-        }
-        
-        prepare(viewController: leftViewController, withContainer: v)
-	}
-	
-	/// A method that prepares the rightViewController.
-	private func prepareRightViewController() {
-        guard let v = rightView else {
-            return
-        }
-        
-        prepare(viewController: rightViewController, withContainer: v)
-	}
-	
-	/// A method that prepares the leftView.
-	private func prepareLeftView() {
-		guard nil != leftViewController else {
-			return
-		}
-		
-		isLeftViewEnabled = true
-		
-		leftViewWidth = .phone == Device.userInterfaceIdiom ? 280 : 320
-		leftView = View()
-        leftView!.frame = CGRect(x: 0, y: 0, width: leftViewWidth, height: view.height)
-		leftView!.backgroundColor = nil
-		view.addSubview(leftView!)
-		
-		leftView!.isHidden = true
-		leftView!.position.x = -leftViewWidth / 2
-		leftView!.zPosition = 2000
-		prepareLeftViewController()
-	}
-	
-	/// A method that prepares the leftView.
-	private func prepareRightView() {
-		guard nil != rightViewController else {
-			return
-		}
-		
-		isRightViewEnabled = true
-		
-		rightViewWidth = .phone == Device.userInterfaceIdiom ? 280 : 320
-		rightView = View()
-        rightView!.frame = CGRect(x: view.width, y: 0, width: rightViewWidth, height: view.height)
-		rightView!.backgroundColor = nil
-		view.addSubview(rightView!)
-		
-		rightView!.isHidden = true
-		rightView!.position.x = view.bounds.width + rightViewWidth / 2
-		rightView!.zPosition = 2000
-		prepareRightViewController()
-	}
-	
-	/// Prepare the left pan gesture.
-	private func prepareLeftPanGesture() {
-		guard nil == leftPanGesture else {
-            return
-        }
-		
-        leftPanGesture = UIPanGestureRecognizer(target: self, action: #selector(handleLeftViewPanGesture(recognizer:)))
-        leftPanGesture!.delegate = self
-        view.addGestureRecognizer(leftPanGesture!)
-	}
-	
-	/// Prepare the left tap gesture.
-	private func prepareLeftTapGesture() {
-        guard nil == leftTapGesture else {
-            return
-        }
-        
-        leftTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleLeftViewTapGesture(recognizer:)))
-        leftTapGesture!.delegate = self
-        leftTapGesture!.cancelsTouchesInView = false
-        view.addGestureRecognizer(leftTapGesture!)
-	}
-	
-	/// Prepares the right pan gesture.
-	private func prepareRightPanGesture() {
-        guard nil == rightPanGesture else {
-            return
-        }
-        
-        rightPanGesture = UIPanGestureRecognizer(target: self, action: #selector(handleRightViewPanGesture(recognizer:)))
-        rightPanGesture!.delegate = self
-        view.addGestureRecognizer(rightPanGesture!)
-	}
-	
-	/// Prepares the right tap gesture.
-	private func prepareRightTapGesture() {
-        guard nil == rightTapGesture else {
-            return
-        }
-        
-        rightTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleRightViewTapGesture(recognizer:)))
-        rightTapGesture!.delegate = self
-        rightTapGesture!.cancelsTouchesInView = false
-        view.addGestureRecognizer(rightTapGesture!)
-	}
-	
-	/// A method that removes the passed in pan and leftView tap gesture recognizers.
-	private func removeLeftViewGestures() {
-		removeLeftPanGesture()
-		removeLeftTapGesture()
-	}
-	
-	/// Removes the left pan gesture.
-	private func removeLeftPanGesture() {
-        guard let v = leftPanGesture else {
-            return
-        }
-        
-        view.removeGestureRecognizer(v)
-        leftPanGesture = nil
-	}
-	
-	/// Removes the left tap gesture.
-	private func removeLeftTapGesture() {
-        guard let v = leftTapGesture else {
-            return
-        }
-        
-        view.removeGestureRecognizer(v)
-        leftTapGesture = nil
-	}
-	
-	/// A method that removes the passed in pan and rightView tap gesture recognizers.
-	private func removeRightViewGestures() {
-		removeRightPanGesture()
-		removeRightTapGesture()
-		
-	}
-	
-	/// Removes the right pan gesture.
-	private func removeRightPanGesture() {
-        guard let v = rightPanGesture else {
-            return
-        }
-        
-        view.removeGestureRecognizer(v)
-        rightPanGesture = nil
-	}
-	
-	/// Removes the right tap gesture.
-	private func removeRightTapGesture() {
-        guard let v = rightTapGesture else {
-            return
-        }
-        
-        view.removeGestureRecognizer(v)
-        rightTapGesture = nil
-	}
-	
-	/// Shows the statusBar.
-	private func showStatusBar() {
-        guard isStatusBarHidden else {
-            return
-        }
-        
-        isStatusBarHidden = false
-        
-        DispatchQueue.main.async { [weak self] in
-            guard let s = self else {
-                return
-            }
-            
-            guard let v = UIApplication.shared.keyWindow else {
-                return
-            }
-            
-            v.windowLevel = UIWindowLevelNormal
-            
-            s.delegate?.navigationDrawerController?(navigationDrawerController: s, statusBar: false)
-        }
-	}
-	
-	/// Hides the statusBar.
-	private func hideStatusBar() {
-        guard isHiddenStatusBarEnabled else {
-            return
-        }
-        
-        guard !isStatusBarHidden else {
-            return
-        }
-        
-        isStatusBarHidden = true
-        
-        DispatchQueue.main.async { [weak self] in
-            guard let s = self else {
-                return
-            }
-            
-            guard let v = UIApplication.shared.keyWindow else {
-                return
-            }
-            
-            v.windowLevel = UIWindowLevelStatusBar + 1
-            
-            s.delegate?.navigationDrawerController?(navigationDrawerController: s, statusBar: true)
-        }
-	}
-	
-	/// Toggles the statusBar
-	private func toggleStatusBar() {
-		if isOpened || Application.isLandscape && .phone == Device.userInterfaceIdiom {
-			hideStatusBar()
-		} else {
-			showStatusBar()
-		}
-	}
-	
-	/**
-     A method that determines whether the passed point is
-     contained within the bounds of the leftViewThreshold
-     and height of the NavigationDrawerController view frame
-     property.
-     - Parameter point: A CGPoint to test against.
-     - Returns: A Boolean of the result, true if yes, false
-     otherwise.
-     */
-	private func isPointContainedWithinLeftThreshold(point: CGPoint) -> Bool {
-		return point.x <= leftThreshold
-	}
-	
-	/**
-     A method that determines whether the passed point is
-     contained within the bounds of the rightViewThreshold
-     and height of the NavigationDrawerController view frame
-     property.
-     - Parameter point: A CGPoint to test against.
-     - Returns: A Boolean of the result, true if yes, false
-     otherwise.
-     */
-	private func isPointContainedWithinRighThreshold(point: CGPoint) -> Bool {
-		return point.x >= view.bounds.width - rightThreshold
-	}
-	
-	/**
-     A method that determines whether the passed in point is
-     contained within the bounds of the passed in container view.
-     - Parameter container: A UIView that sets the bounds to test
-     against.
-     - Parameter point: A CGPoint to test whether or not it is
-     within the bounds of the container parameter.
-     - Returns: A Boolean of the result, true if yes, false
-     otherwise.
-     */
-	private func isPointContainedWithinView(container: UIView, point: CGPoint) -> Bool {
-		return container.bounds.contains(point)
-	}
-	
-	/**
-     A method that shows a view.
-     - Parameter container: A container view.
-     */
-	private func showView(container: View) {
-		container.depthPreset = depthPreset
-		container.isHidden = false
-	}
-	
-	/**
-     A method that hides a view.
-     - Parameter container: A container view.
-     */
-	private func hideView(container: View) {
-		container.depthPreset = .none
-		container.isHidden = true
-	}
+    }
 }

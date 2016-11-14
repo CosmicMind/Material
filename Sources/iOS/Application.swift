@@ -31,6 +31,11 @@
 import UIKit
 
 public struct Application {
+    /// A reference to the main UIWindow.
+    public static var keyWindow: UIWindow? {
+        return UIApplication.shared.keyWindow
+    }
+    
     /// A Boolean indicating if the device is in Landscape mode.
     public static var isLandscape: Bool {
         return UIApplication.shared.statusBarOrientation.isLandscape
@@ -64,5 +69,13 @@ public struct Application {
         set(value) {
             UIApplication.shared.isStatusBarHidden = value
         }
+    }
+    
+    /**
+     A boolean that indicates based on iPhone rules if the
+     status bar should be shown.
+     */
+    public static var shouldStatusBarBeHidden: Bool {
+        return isLandscape && .phone == Device.userInterfaceIdiom
     }
 }

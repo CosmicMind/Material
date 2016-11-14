@@ -377,6 +377,14 @@
 			name = Screen;
 			sourceTree = "<group>";
 		};
+		961E6BEF1DDA4B04004E6C93 /* NavigationDrawer */ = {
+			isa = PBXGroup;
+			children = (
+				96BCB7971CB40DC500C806FE /* NavigationDrawerController.swift */,
+			);
+			name = NavigationDrawer;
+			sourceTree = "<group>";
+		};
 		96230AB61D6A51FD00AF47DC /* Divider */ = {
 			isa = PBXGroup;
 			children = (
@@ -584,6 +592,7 @@
 				963FBF021D6696D0008F8512 /* Menu */,
 				96BCB8091CB4107700C806FE /* Motion */,
 				96BCB8011CB40F1700C806FE /* Navigation */,
+				961E6BEF1DDA4B04004E6C93 /* NavigationDrawer */,
 				962DDD071D6FBBB7001C307C /* Page */,
 				96717B151DBE6B1800DA84DB /* Photos */,
 				9626CA951DAB5370003E2611 /* Root */,
@@ -637,7 +646,6 @@
 				96BCB7901CB40DC500C806FE /* NavigationBar.swift */,
 				96BCB7911CB40DC500C806FE /* NavigationController.swift */,
 				96BCB7921CB40DC500C806FE /* NavigationItem.swift */,
-				96BCB7971CB40DC500C806FE /* NavigationDrawerController.swift */,
 			);
 			name = Navigation;
 			sourceTree = "<group>";

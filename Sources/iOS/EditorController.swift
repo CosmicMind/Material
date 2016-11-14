@@ -52,7 +52,7 @@ extension UIViewController {
 open class EditorController: ToolbarController {
     /// A reference to the Editor instance.
     @IBInspectable
-    open private(set) lazy var editor: Editor = Editor()
+    open private(set) var editor = Editor()
     
     /**
      Prepares the view instance when intialized. When subclassing,
