@@ -180,6 +180,7 @@ open class TextField: UITextField {
 		}
 		set(value) {
 			placeholderLabel.text = value
+            layoutSubviews()
 		}
 	}
 	
@@ -219,6 +220,7 @@ open class TextField: UITextField {
 		}
 		set(value) {
 			detailLabel.text = value
+            layoutSubviews()
 		}
 	}
 	
