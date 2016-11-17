@@ -307,7 +307,7 @@ extension Motion {
      - Parameter duration: An animation time duration.
      - Returns: A CABasicAnimation.
      */
-    public static func translation(size: CGSize, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+    public static func translate(size: CGSize, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation = CABasicAnimation(keyPath: .translation)
 		animation.toValue = NSValue(cgSize: size)
 		animation.fillMode = AnimationFillModeToValue(mode: .forwards)
@@ -327,7 +327,7 @@ extension Motion {
      - Parameter duration: An animation time duration.
      - Returns: A CABasicAnimation.
      */
-    public static func translationX(by translation: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+    public static func translateX(by translation: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation = CABasicAnimation(keyPath: .translationX)
 		animation.toValue = translation as NSNumber
 		animation.fillMode = AnimationFillModeToValue(mode: .forwards)
@@ -347,7 +347,7 @@ extension Motion {
      - Parameter duration: An animation time duration.
      - Returns: A CABasicAnimation.
      */
-    public static func translationY(by translation: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+    public static func translateY(by translation: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation = CABasicAnimation(keyPath: .translationY)
 		animation.toValue = translation as NSNumber
         animation.fillMode = AnimationFillModeToValue(mode: .forwards)
@@ -367,7 +367,7 @@ extension Motion {
      - Parameter duration: An animation time duration.
      - Returns: A CABasicAnimation.
      */
-    public static func translationZ(by translation: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+    public static func translateZ(by translation: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation = CABasicAnimation(keyPath: .translationZ)
 		animation.toValue = translation as NSNumber
         animation.fillMode = AnimationFillModeToValue(mode: .forwards)

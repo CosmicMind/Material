@@ -268,6 +268,12 @@ extension CALayer {
         } else if let a = animation as? CATransition {
             add(a, forKey: kCATransition)
         }
+        
+        if #available(iOS 10, *) {
+            Motion.delay(time: animation.duration) { [weak self, animation = animation] in
+                self?.animationDidStop(animation, finished: true)
+            }
+        }
     }
     
     /**
@@ -279,20 +285,29 @@ extension CALayer {
      if interrupted.
      */
     open func animationDidStop(_ animation: CAAnimation, finished flag: Bool) {
-        if let a = animation as? CAPropertyAnimation {
-            if let b = a as? CABasicAnimation {
-                if let v = b.toValue {
-                    if let k = b.keyPath {
-                        setValue(v, forKeyPath: k)
-                        removeAnimation(forKey: k)
-                    }
+        guard let a = animation as? CAPropertyAnimation else {
+            if let a = (animation as? CAAnimationGroup)?.animations {
+                for x in a {
+                    animationDidStop(x, finished: true)
                 }
             }
-        } else if let a = animation as? CAAnimationGroup {
-            for x in a.animations! {
-                animationDidStop(x, finished: true)
-            }
+            return
         }
+        
+        guard let b = a as? CABasicAnimation else {
+            return
+        }
+        
+        guard let v = b.toValue else {
+            return
+        }
+        
+        guard let k = b.keyPath else {
+            return
+        }
+        
+        setValue(v, forKeyPath: k)
+        removeAnimation(forKey: k)
     }
     
     /// Manages the layout for the shape of the view instance.

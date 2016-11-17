@@ -62,10 +62,10 @@ public protocol SearchBarDelegate {
 
 open class SearchBar: Bar {
 	/// The UITextField for the searchBar.
-	open private(set) var textField = UITextField()
+	open fileprivate(set) var textField = UITextField()
 	
 	/// Reference to the clearButton.
-	open private(set) var clearButton: IconButton!
+	open fileprivate(set) var clearButton: IconButton!
 	
     /// A reference to the delegate.
     open weak var delegate: SearchBarDelegate?

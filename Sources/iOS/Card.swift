@@ -37,7 +37,7 @@ open class Card: PulseView {
     }
     
     /// A container view for subviews.
-    open private(set) var container = UIView()
+    open fileprivate(set) var container = UIView()
     
     @IBInspectable
     open override var cornerRadiusPreset: CornerRadiusPreset {

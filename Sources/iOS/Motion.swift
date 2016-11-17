@@ -71,6 +71,8 @@ public enum AnimationTimingFunction: Int {
  */
 public func AnimationTimingFunctionToValue(function: AnimationTimingFunction) -> CAMediaTimingFunction {
     switch function {
+    case .default:
+        return CAMediaTimingFunction(name: kCAMediaTimingFunctionDefault)
     case .linear:
         return CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
     case .easeIn:
@@ -79,8 +81,6 @@ public func AnimationTimingFunctionToValue(function: AnimationTimingFunction) ->
         return CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
     case .easeInEaseOut:
         return CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-    case .default:
-        return CAMediaTimingFunction(name: kCAMediaTimingFunctionDefault)
     }
 }
 

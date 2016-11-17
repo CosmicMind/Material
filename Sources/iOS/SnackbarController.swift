@@ -91,7 +91,7 @@ extension UIViewController {
 
 open class SnackbarController: RootController {
     /// Reference to the Snackbar.
-    open private(set) var snackbar = Snackbar()
+    open fileprivate(set) var snackbar = Snackbar()
     
     /// A boolean indicating if the Snacbar is animating.
     open internal(set) var isAnimating = false

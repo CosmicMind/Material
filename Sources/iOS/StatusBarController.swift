@@ -50,7 +50,7 @@ extension UIViewController {
 
 open class StatusBarController: RootController {
 	/// A reference to the statusBar.
-    open private(set) var statusBar = UIView()
+    open fileprivate(set) var statusBar = UIView()
 	
     /// A boolean that indicates to hide the statusBar on rotation.
     open var shouldHideStatusBarOnRotation = true

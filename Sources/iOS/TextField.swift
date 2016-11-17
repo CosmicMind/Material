@@ -186,7 +186,7 @@ open class TextField: UITextField {
 	
 	/// The placeholder UILabel.
 	@IBInspectable
-    open private(set) var placeholderLabel = UILabel()
+    open fileprivate(set) var placeholderLabel = UILabel()
 	
 	/// Placeholder normal text
 	@IBInspectable
@@ -210,7 +210,7 @@ open class TextField: UITextField {
 	
 	/// The detailLabel UILabel that is displayed.
 	@IBInspectable
-    open private(set) var detailLabel = UILabel()
+    open fileprivate(set) var detailLabel = UILabel()
 	
 	/// The detailLabel text value.
 	@IBInspectable
@@ -253,7 +253,7 @@ open class TextField: UITextField {
 	}
 	
     /// A reference to the clearIconButton.
-    open private(set) var clearIconButton: IconButton?
+    open fileprivate(set) var clearIconButton: IconButton?
     
 	/// Enables the clearIconButton.
 	@IBInspectable
@@ -299,7 +299,7 @@ open class TextField: UITextField {
 	}
     
     /// A reference to the visibilityIconButton.
-    open private(set) var visibilityIconButton: IconButton?
+    open fileprivate(set) var visibilityIconButton: IconButton?
 	
 	/// Enables the visibilityIconButton.
 	@IBInspectable
