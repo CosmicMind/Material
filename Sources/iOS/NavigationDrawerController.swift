@@ -143,7 +143,7 @@ public protocol NavigationDrawerControllerDelegate {
 }
 
 @objc(NavigationDrawerController)
-open class NavigationDrawerController: RootController, UIGestureRecognizerDelegate {
+open class NavigationDrawerController: RootController {
 	/**
      A CGFloat property that is used internally to track
      the original (x) position of the container view when panning.
@@ -1075,7 +1075,7 @@ extension NavigationDrawerController {
     }
 }
 
-extension NavigationDrawerController {
+extension NavigationDrawerController: UIGestureRecognizerDelegate {
     /**
      Detects the gesture recognizer being used.
      - Parameter gestureRecognizer: A UIGestureRecognizer to detect.
