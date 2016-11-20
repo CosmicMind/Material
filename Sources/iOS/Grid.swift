@@ -39,7 +39,7 @@ public enum GridAxisDirection: Int {
 
 public struct GridAxis {
     /// The direction the grid lays its views out.
-    var direction = GridAxisDirection.horizontal
+    public var direction = GridAxisDirection.horizontal
     
     /// The rows size.
     public var rows: Int
@@ -77,11 +77,11 @@ public struct GridOffset {
 }
 
 public struct Grid {
-    /// Defer the calculation.
-    public var deferred = false
-    
     /// Context view.
     internal weak var context: UIView?
+    
+    /// Defer the calculation.
+    public var deferred = false
     
     /// Number of rows.
     public var rows: Int {
@@ -197,6 +197,13 @@ public struct Grid {
             return
         }
         
+        for v in views {
+            if canvas != v.superview {
+                v.removeFromSuperview()
+                canvas.addSubview(v)
+            }
+        }
+        
         guard 0 < canvas.width && 0 < canvas.height else {
             return
         }
@@ -211,11 +218,6 @@ public struct Grid {
         var i = 0
         
         for v in views {
-            if canvas != v.superview {
-                v.removeFromSuperview()
-                canvas.addSubview(v)
-            }
-            
             // Forces the view to adjust accordingly to size changes, ie: UILabel.
             (v as? UILabel)?.sizeToFit()
             

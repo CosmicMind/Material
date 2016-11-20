@@ -141,7 +141,7 @@ extension NavigationController: UINavigationBarDelegate {
         if let v = navigationBar as? NavigationBar {
             item.backButton.addTarget(self, action: #selector(handleBackButton), for: .touchUpInside)
             item.backButton.image = v.backButtonImage
-            item.leftViews.append(item.backButton)
+            item.leftViews.insert(item.backButton, at: 0)
             v.layoutNavigationItem(item: item)
         }
         return true
