@@ -195,9 +195,20 @@ open class Card: PulseView {
     open func reload() {
         var h: CGFloat = 0
         
-        h = prepare(view: toolbar, with: toolbarEdgeInsets, from: h)
-        h = prepare(view: contentView, with: contentViewEdgeInsets, from: h)
-        h = prepare(view: bottomBar, with: bottomBarEdgeInsets, from: h)
+        if let v = toolbar {
+            h = prepare(view: v, with: toolbarEdgeInsets, from: h)
+        }
+        
+        if let v = contentView {
+            h = prepare(view: v, with: contentViewEdgeInsets, from: h)
+        }
+        
+        if let v = bottomBar {
+            h = prepare(view: v, with: bottomBarEdgeInsets, from: h)
+        }
+        
+        container.height = h
+        bounds.size.height = h
         
         container.height = h
         bounds.size.height = h
