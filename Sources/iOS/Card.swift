@@ -209,9 +209,6 @@ open class Card: PulseView {
         
         container.height = h
         bounds.size.height = h
-        
-        container.height = h
-        bounds.size.height = h
     }
     
     /**
@@ -237,26 +234,22 @@ open class Card: PulseView {
      - Returns: A CGFloat.
      */
     @discardableResult
-    open func prepare(view: UIView?, with insets: EdgeInsets, from top: CGFloat) -> CGFloat {
-        guard let v = view else {
-            return top
-        }
-        
+    open func prepare(view: UIView, with insets: EdgeInsets, from top: CGFloat) -> CGFloat {
         let t = insets.top + top
         
-        v.y = t
-        v.x = insets.left
+        view.y = t
+        view.x = insets.left
         
         let w = container.width - insets.left - insets.right
-        var h = v.height
+        var h = view.height
         
         if 0 == h {
-            (v as? UILabel)?.sizeToFit()
-            h = v.sizeThatFits(CGSize(width: w, height: CGFloat.greatestFiniteMagnitude)).height
+            (view as? UILabel)?.sizeToFit()
+            h = view.sizeThatFits(CGSize(width: w, height: CGFloat.greatestFiniteMagnitude)).height
         }
         
-        v.width = w
-        v.height = h
+        view.width = w
+        view.height = h
         
         return t + h + insets.bottom
     }

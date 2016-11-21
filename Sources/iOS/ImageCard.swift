@@ -87,12 +87,10 @@ open class ImageCard: Card {
         
         if let v = contentView {
             h = prepare(view: v, with: contentViewEdgeInsets, from: h)
-            container.sendSubview(toBack: v)
         }
         
         if let v = bottomBar {
             h = prepare(view: v, with: bottomBarEdgeInsets, from: h)
-            container.sendSubview(toBack: v)
         }
         
         container.height = h
