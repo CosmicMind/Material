@@ -258,21 +258,18 @@ extension CALayer {
      - Parameter animation: A CAAnimation instance.
      */
     open func animate(animation: CAAnimation) {
+        animation.delegate = self
+        
         if let a = animation as? CABasicAnimation {
             a.fromValue = (nil == presentation() ? self : presentation()!).value(forKeyPath: a.keyPath!)
         }
+        
         if let a = animation as? CAPropertyAnimation {
             add(a, forKey: a.keyPath!)
         } else if let a = animation as? CAAnimationGroup {
             add(a, forKey: nil)
         } else if let a = animation as? CATransition {
             add(a, forKey: kCATransition)
-        }
-        
-        if #available(iOS 10, *) {
-            Motion.delay(time: animation.duration) { [weak self, animation = animation] in
-                self?.animationDidStop(animation, finished: true)
-            }
         }
     }
     
@@ -345,4 +342,9 @@ extension CALayer {
             animate(animation: a)
         }
     }
+}
+
+@available(iOS 10, *)
+extension CALayer: CAAnimationDelegate {
+    
 }

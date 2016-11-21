@@ -71,7 +71,7 @@ open class RootController: UIViewController {
      is recommended to use the transitionFromRootViewController
      helper method.
      */
-	open internal(set) var rootViewController: UIViewController!
+	open fileprivate(set) var rootViewController: UIViewController!
 	
 	/**
      An initializer that initializes the object with a NSCoder object.
@@ -167,13 +167,15 @@ open class RootController: UIViewController {
         view.contentScaleFactor = Screen.scale
         prepareRootViewController()
 	}
-	
-	/// A method that prepares the rootViewController.
-	internal func prepareRootViewController() {
-		prepare(viewController: rootViewController, withContainer: view)
-	}
-	
-	/**
+}
+
+extension RootController {
+    /// A method that prepares the rootViewController.
+    internal func prepareRootViewController() {
+        prepare(viewController: rootViewController, withContainer: view)
+    }
+    
+    /**
      A method that adds the passed in controller as a child of
      the BarController within the passed in
      container view.
@@ -181,7 +183,7 @@ open class RootController: UIViewController {
      - Parameter withContainer container: A UIView that is the parent of the
      passed in controller view within the view hierarchy.
      */
-	internal func prepare(viewController: UIViewController?, withContainer container: UIView) {
+    internal func prepare(viewController: UIViewController?, withContainer container: UIView) {
         guard let v = viewController else {
             return
         }
@@ -192,5 +194,5 @@ open class RootController: UIViewController {
         v.view.clipsToBounds = true
         v.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         v.view.contentScaleFactor = Screen.scale
-	}
+    }
 }
