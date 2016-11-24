@@ -126,7 +126,7 @@ open class RootController: UIViewController {
 	open func transition(to viewController: UIViewController, duration: TimeInterval = 0.5, options: UIViewAnimationOptions = [], animations: (() -> Void)? = nil, completion: ((Bool) -> Void)? = nil) {
 		rootViewController.willMove(toParentViewController: nil)
 		addChildViewController(viewController)
-		viewController.view.frame = rootViewController.view.bounds
+		viewController.view.frame = rootViewController.view.frame
         transition(from: rootViewController,
             to: viewController,
 			duration: duration,
