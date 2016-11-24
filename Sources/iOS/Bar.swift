@@ -32,7 +32,7 @@ import UIKit
 
 @objc(ContentViewAlignment)
 public enum ContentViewAlignment: Int {
-    case any
+    case full
     case center
 }
 
@@ -47,7 +47,7 @@ open class Bar: View {
     }
     
     /// Should center the contentView.
-    open var contentViewAlignment = ContentViewAlignment.any {
+    open var contentViewAlignment = ContentViewAlignment.full {
         didSet {
             layoutSubviews()
         }

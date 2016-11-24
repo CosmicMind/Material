@@ -93,7 +93,7 @@ public class NavigationItem: NSObject {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
             return
         }
-        contentViewAlignment = .center == titleLabel.textAlignment ? .center : .any
+        contentViewAlignment = .center == titleLabel.textAlignment ? .center : .full
     }
     
     deinit {
@@ -145,7 +145,12 @@ extension UINavigationItem {
     
     /// Should center the contentView.
     public var contentViewAlignment: ContentViewAlignment {
-        return navigationItem.contentViewAlignment
+        get {
+            return navigationItem.contentViewAlignment
+        }
+        set(value) {
+            navigationItem.contentViewAlignment = value
+        }
     }
 	
     /// Content View.
