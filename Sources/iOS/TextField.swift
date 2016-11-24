@@ -186,7 +186,7 @@ open class TextField: UITextField {
 	
 	/// The placeholder UILabel.
 	@IBInspectable
-    open fileprivate(set) var placeholderLabel = UILabel()
+    open let placeholderLabel = UILabel()
 	
 	/// Placeholder normal text
 	@IBInspectable
@@ -210,7 +210,7 @@ open class TextField: UITextField {
 	
 	/// The detailLabel UILabel that is displayed.
 	@IBInspectable
-    open fileprivate(set) var detailLabel = UILabel()
+    open let detailLabel = UILabel()
 	
 	/// The detailLabel text value.
 	@IBInspectable

@@ -50,7 +50,7 @@ extension UIViewController {
 
 open class PhotoLibraryController: UIViewController {
     /// A reference to a PhotoLibrary.
-    open fileprivate(set) var photoLibrary = PhotoLibrary()
+    open let photoLibrary = PhotoLibrary()
     
     open override func viewDidLoad() {
         super.viewDidLoad()

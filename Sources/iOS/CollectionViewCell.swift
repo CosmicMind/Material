@@ -38,7 +38,7 @@ open class CollectionViewCell: UICollectionViewCell, Pulseable {
      allows the dropshadow effect on the backing layer, while clipping
      the image to a desired shape within the visualLayer.
      */
-    open fileprivate(set) var visualLayer = CAShapeLayer()
+    open let visualLayer = CAShapeLayer()
     
     /// A Pulse reference.
     open fileprivate(set) var pulse: Pulse!

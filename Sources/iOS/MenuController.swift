@@ -50,7 +50,7 @@ extension UIViewController {
 
 open class MenuController: RootController {
 	/// Reference to the MenuView.
-    open fileprivate(set) var menu = Menu()
+    open let menu = Menu()
 	
 	/**
      Opens the menu with a callback.

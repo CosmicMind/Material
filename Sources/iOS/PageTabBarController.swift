@@ -101,7 +101,7 @@ public protocol PageTabBarControllerDelegate {
 @objc(PageTabBarController)
 open class PageTabBarController: RootController {
     /// Reference to the PageTabBar.
-    open fileprivate(set) var pageTabBar = PageTabBar()
+    open let pageTabBar = PageTabBar()
     
     /// A boolean that indicates whether bounce is enabled.
     open var isBounceEnabled: Bool {

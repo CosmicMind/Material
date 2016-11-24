@@ -284,7 +284,7 @@ open class Capture: View {
     open weak var delegate: CaptureDelegate?
     
 	/// A reference to the CapturePreview view.
-	open fileprivate(set) var preview: CapturePreview!
+	open let preview = CapturePreview()
 		
     /// A Timer reference for when recording is enabled.
     open fileprivate(set) var timer: Timer?
@@ -653,8 +653,7 @@ extension Capture {
 extension Capture {
     /// Prepares the preview.
     fileprivate func preparePreview() {
-		preview = CapturePreview()
-        layout(preview).edges()
+		layout(preview).edges()
         
         (preview.layer as! AVCaptureVideoPreviewLayer).session = session
 		startSession()

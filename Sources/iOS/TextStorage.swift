@@ -57,7 +57,7 @@ public protocol TextStorageDelegate: NSTextStorageDelegate {
 
 open class TextStorage: NSTextStorage {
     /// A storage facility for attributed text.
-    open fileprivate(set) var storage: NSMutableAttributedString!
+    open let storage = NSMutableAttributedString()
     
     /// The regular expression to match text fragments against.
 	open var expression: NSRegularExpression?
@@ -70,15 +70,7 @@ open class TextStorage: NSTextStorage {
 	/// Initializer.
 	public override init() {
 		super.init()
-        prepareStorage()
 	}
-}
-
-extension TextStorage {
-    /// Prepare the storage.
-    fileprivate func prepareStorage() {
-        storage = NSMutableAttributedString()
-    }
 }
 
 extension TextStorage {

@@ -52,7 +52,7 @@ extension UIViewController {
 open class EditorController: ToolbarController {
     /// A reference to the Editor instance.
     @IBInspectable
-    open fileprivate(set) var editor = Editor()
+    open let editor = Editor()
     
     /**
      Prepares the view instance when intialized. When subclassing,

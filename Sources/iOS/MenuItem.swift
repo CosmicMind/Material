@@ -32,10 +32,10 @@ import UIKit
 
 open class MenuItem: View {
     /// A reference to the titleLabel.
-    open fileprivate(set) var titleLabel = UILabel()
+    open let titleLabel = UILabel()
     
     /// A reference to the button.
-    open fileprivate(set) var button = FabButton()
+    open let button = FabButton()
     
     /**
      Prepares the view instance when intialized. When subclassing,
