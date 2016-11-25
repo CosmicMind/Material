@@ -312,18 +312,18 @@ open class NavigationDrawerController: RootController {
     open var depthPreset = DepthPreset.depth1
 	
 	/**
-     A View property that is used to hide and reveal the
+     A UIView property that is used to hide and reveal the
      leftViewController. It is very rare that this property will
      need to be accessed externally.
      */
-	open fileprivate(set) var leftView: View?
+	open fileprivate(set) var leftView: UIView?
 	
 	/**
-     A View property that is used to hide and reveal the
+     A UIView property that is used to hide and reveal the
      rightViewController. It is very rare that this property will
      need to be accessed externally.
      */
-	open fileprivate(set) var rightView: View?
+	open fileprivate(set) var rightView: UIView?
 	
 	/// Indicates whether the leftView or rightView is opened.
 	open var isOpened: Bool {
@@ -428,7 +428,7 @@ open class NavigationDrawerController: RootController {
 	open override func layoutSubviews() {		
 		toggleStatusBar()
         
-        if let v: View = leftView {
+        if let v = leftView {
 			v.width = leftViewWidth
 			v.height = view.bounds.height
 			leftViewThreshold = leftViewWidth / 2
@@ -439,7 +439,7 @@ open class NavigationDrawerController: RootController {
 			}
 		}
 		
-		if let v: View = rightView {
+		if let v = rightView {
 			v.width = rightViewWidth
 			v.height = view.bounds.height
 			rightViewThreshold = view.bounds.width - rightViewWidth / 2
@@ -947,7 +947,7 @@ open class NavigationDrawerController: RootController {
      A method that shows a view.
      - Parameter container: A container view.
      */
-	fileprivate func showView(container: View) {
+	fileprivate func showView(container: UIView) {
 		container.depthPreset = depthPreset
 		container.isHidden = false
 	}
@@ -956,7 +956,7 @@ open class NavigationDrawerController: RootController {
      A method that hides a view.
      - Parameter container: A container view.
      */
-	fileprivate func hideView(container: View) {
+	fileprivate func hideView(container: UIView) {
 		container.depthPreset = .none
 		container.isHidden = true
 	}
@@ -997,7 +997,7 @@ extension NavigationDrawerController {
         isLeftViewEnabled = true
         
         leftViewWidth = .phone == Device.userInterfaceIdiom ? 280 : 320
-        leftView = View()
+        leftView = UIView()
         leftView!.frame = CGRect(x: 0, y: 0, width: leftViewWidth, height: view.height)
         leftView!.backgroundColor = nil
         view.addSubview(leftView!)
@@ -1017,7 +1017,7 @@ extension NavigationDrawerController {
         isRightViewEnabled = true
         
         rightViewWidth = .phone == Device.userInterfaceIdiom ? 280 : 320
-        rightView = View()
+        rightView = UIView()
         rightView!.frame = CGRect(x: view.width, y: 0, width: rightViewWidth, height: view.height)
         rightView!.backgroundColor = nil
         view.addSubview(rightView!)
