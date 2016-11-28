@@ -31,26 +31,6 @@
 import UIKit
 
 open class RootController: UIViewController {
-	/// Device status bar style.
-	open var statusBarStyle: UIStatusBarStyle {
-		get {
-			return Application.statusBarStyle
-		}
-		set(value) {
-			Application.statusBarStyle = value
-		}
-	}
-    
-    /// Device visibility state.
-    open var isStatusBarHidden: Bool {
-        get {
-            return Application.isStatusBarHidden
-        }
-        set(value) {
-            Application.isStatusBarHidden = value
-        }
-    }
-	
 	/**
      A Boolean property used to enable and disable interactivity
      with the rootViewController.

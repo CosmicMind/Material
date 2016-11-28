@@ -425,7 +425,8 @@ open class NavigationDrawerController: RootController {
     }
     
 	/// Layout subviews.
-	open override func layoutSubviews() {		
+	open override func layoutSubviews() {
+        super.layoutSubviews()
 		toggleStatusBar()
         
         if let v = leftView {

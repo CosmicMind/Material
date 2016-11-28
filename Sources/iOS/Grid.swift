@@ -204,6 +204,8 @@ public struct Grid {
             }
         }
         
+        canvas.layoutIfNeeded()
+        
         guard 0 < canvas.width && 0 < canvas.height else {
             return
         }
