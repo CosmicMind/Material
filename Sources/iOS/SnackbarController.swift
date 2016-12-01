@@ -168,6 +168,7 @@ open class SnackbarController: RootController {
     /// Reloads the view.
     open func reload() {
         snackbar.width = view.width
+        rootViewController.view.frame = view.bounds
         layoutSnackbar(status: snackbar.status)
     }
     
