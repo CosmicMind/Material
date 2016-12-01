@@ -39,7 +39,7 @@ We moved all sample projects to a separate repo named [Samples](https://github.c
 - [x] Sample Projects
 - [x] And More...
 
-## Releasing November 2016
+## Releasing December 2016
 
 - [x] Reminders
 - [x] Text Editor
