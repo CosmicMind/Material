@@ -102,6 +102,21 @@ open class SnackbarController: RootController {
     /// Snackbar alignment setting.
     open var snackbarAlignment = SnackbarAlignment.bottom
     
+    /// A preset wrapper around snackbarEdgeInsets.
+    open var snackbarEdgeInsetsPreset = EdgeInsetsPreset.none {
+        didSet {
+            snackbarEdgeInsets = EdgeInsetsPresetToValue(preset: snackbarEdgeInsetsPreset)
+        }
+    }
+    
+    /// A reference to snackbarEdgeInsets.
+    @IBInspectable
+    open var snackbarEdgeInsets = EdgeInsets.zero {
+        didSet {
+            layoutSubviews()
+        }
+    }
+    
     /**
      Animates to a SnackbarStatus.
      - Parameter status: A SnackbarStatus enum value.
@@ -167,7 +182,8 @@ open class SnackbarController: RootController {
     
     /// Reloads the view.
     open func reload() {
-        snackbar.width = view.width
+        snackbar.x = snackbarEdgeInsets.left
+        snackbar.width = view.width - snackbarEdgeInsets.left - snackbarEdgeInsets.right
         rootViewController.view.frame = view.bounds
         layoutSnackbar(status: snackbar.status)
     }
@@ -196,9 +212,9 @@ open class SnackbarController: RootController {
      */
     private func layoutSnackbar(status: SnackbarStatus) {
         if .bottom == snackbarAlignment {
-            snackbar.y = .visible == status ? view.height - snackbar.height : view.height
+            snackbar.y = .visible == status ? view.height - snackbar.height - snackbarEdgeInsets.bottom : view.height
         } else {
-            snackbar.y = .visible == status ? 0 : -snackbar.height
+            snackbar.y = .visible == status ? snackbarEdgeInsets.top : -snackbar.height
         }
     }
 }
