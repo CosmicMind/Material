@@ -258,12 +258,10 @@ extension CALayer {
      - Parameter animation: A CAAnimation instance.
      */
     open func animate(animation: CAAnimation) {
-        if #available(iOS 10, *) {
-            animation.delegate = self
-        }
+        animation.delegate = self
         
         if let a = animation as? CABasicAnimation {
-            a.fromValue = (nil == presentation() ? self : presentation()!).value(forKeyPath: a.keyPath!)
+            a.fromValue = (presentation() ?? self).value(forKeyPath: a.keyPath!)
         }
         
         if let a = animation as? CAPropertyAnimation {
@@ -320,7 +318,7 @@ extension CALayer {
         }
         
         if .circle == shapePreset {
-            cornerRadius = width / 2
+            cornerRadius = bounds.size.width / 2
         }
     }
     
@@ -343,6 +341,4 @@ extension CALayer {
 }
 
 @available(iOS 10, *)
-extension CALayer: CAAnimationDelegate {
-    
-}
+extension CALayer: CAAnimationDelegate {}

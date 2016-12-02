@@ -185,9 +185,9 @@ extension Motion {
     public static func rotateY(angle: CGFloat? = nil, rotation: CGFloat? = nil, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation = CABasicAnimation(keyPath: .rotationY)
 		
-        if let v: CGFloat = angle {
+        if let v = angle {
 			animation.toValue = (CGFloat(M_PI) * v / 180) as NSNumber
-		} else if let v: CGFloat = rotation {
+		} else if let v = rotation {
 			animation.toValue = (CGFloat(M_PI * 2) * v) as NSNumber
 		}
 		
@@ -212,9 +212,9 @@ extension Motion {
     public static func rotateZ(angle: CGFloat? = nil, rotation: CGFloat? = nil, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation = CABasicAnimation(keyPath: .rotationZ)
 		
-        if let v: CGFloat = angle {
+        if let v = angle {
 			animation.toValue = (CGFloat(M_PI) * v / 180) as NSNumber
-		} else if let v: CGFloat = rotation {
+		} else if let v = rotation {
 			animation.toValue = (CGFloat(M_PI * 2) * v) as NSNumber
 		}
 		
