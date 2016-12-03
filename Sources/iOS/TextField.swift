@@ -372,13 +372,15 @@ open class TextField: UITextField {
 	
 	open override func layoutSubviews() {
 		super.layoutSubviews()
+        guard willLayout && !isAnimating else {
+            return
+        }
+        
+        layoutShape()
         reload()
 	}
 	
-	open override func layoutSublayers(of layer: CALayer) {
-		super.layoutSublayers(of: layer)
-        layoutShape()
-	}
+    
     
 	/**
      Prepares the view instance when intialized. When subclassing,
@@ -402,10 +404,6 @@ open class TextField: UITextField {
     
 	/// Ensures that the components are sized correctly.
 	open func reload() {
-        guard willLayout && !isAnimating else {
-            return
-        }
-        
         layoutPlaceholderLabel()
         layoutDetailLabel()
         layoutButton(button: clearIconButton)

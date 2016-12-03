@@ -45,7 +45,7 @@ open class Toolbar: Bar {
 	}
 	
 	/// Title label.
-    open internal(set) lazy var titleLabel = UILabel()
+    open fileprivate(set) lazy var titleLabel = UILabel()
     
 	/// A convenience property to set the detailLabel text.
 	open var detail: String? {
@@ -59,7 +59,7 @@ open class Toolbar: Bar {
 	}
 	
 	/// Detail label.
-    open internal(set) lazy var detailLabel = UILabel()
+    open fileprivate(set) lazy var detailLabel = UILabel()
 	
     deinit {
         removeObserver(self, forKeyPath: "titleLabel.textAlignment")

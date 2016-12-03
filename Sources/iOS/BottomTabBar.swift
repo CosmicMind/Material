@@ -74,13 +74,9 @@ open class BottomTabBar: UITabBar {
         prepare()
     }
 	
-    open override func layoutSublayers(of layer: CALayer) {
-        super.layoutSublayers(of: layer)
-        layoutShape()
-    }
-    
-	open override func layoutSubviews() {
+    open override func layoutSubviews() {
 		super.layoutSubviews()
+        layoutShape()
         layoutShadowPath()
         
 		if let v = items {

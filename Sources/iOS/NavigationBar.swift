@@ -132,13 +132,9 @@ open class NavigationBar: UINavigationBar {
 		return intrinsicContentSize
 	}
     
-    open override func layoutSublayers(of layer: CALayer) {
-        super.layoutSublayers(of: layer)
-        layoutShape()
-    }
-	
 	open override func layoutSubviews() {
 		super.layoutSubviews()
+        layoutShape()
         layoutShadowPath()
 		
         if let v = topItem {

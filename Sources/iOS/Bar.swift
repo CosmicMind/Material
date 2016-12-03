@@ -180,6 +180,10 @@ open class Bar: View {
             return
         }
         
+        guard !grid.deferred else {
+            return
+        }
+        
         reload()
     }
     

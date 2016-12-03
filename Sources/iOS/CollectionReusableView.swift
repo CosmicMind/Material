@@ -217,15 +217,11 @@ open class CollectionReusableView: UICollectionReusableView, Pulseable {
 		self.init(frame: .zero)
 	}
 	
-	open override func layoutSublayers(of layer: CALayer) {
-		super.layoutSublayers(of: layer)
-        layoutShape()
-        layoutVisualLayer()
-	}
-	
 	open override func layoutSubviews() {
 		super.layoutSubviews()
-		layoutShadowPath()
+        layoutShape()
+        layoutVisualLayer()
+        layoutShadowPath()
 	}
 	
     /**

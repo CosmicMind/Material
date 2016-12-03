@@ -101,15 +101,11 @@ open class TableViewCell: UITableViewCell, Pulseable {
 		prepare()
 	}
 	
-	open override func layoutSublayers(of layer: CALayer) {
-		super.layoutSublayers(of: layer)
-        layoutShape()
-        layoutVisualLayer()
-	}
-	
 	open override func layoutSubviews() {
 		super.layoutSubviews()
-		layoutShadowPath()
+        layoutShape()
+        layoutVisualLayer()
+        layoutShadowPath()
 	}
 	
     /**

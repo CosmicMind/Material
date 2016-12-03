@@ -163,14 +163,10 @@ open class Button: UIButton, Pulseable {
         prepare()
     }
 	
-    open override func layoutSublayers(of layer: CALayer) {
-        super.layoutSublayers(of: layer)
-        layoutShape()
-        layoutVisualLayer()
-    }
-    
     open override func layoutSubviews() {
         super.layoutSubviews()
+        layoutShape()
+        layoutVisualLayer()
         layoutShadowPath()
     }
 	

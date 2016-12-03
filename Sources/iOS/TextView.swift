@@ -149,15 +149,12 @@ open class TextView: UITextView {
 		removeNotificationHandlers()
 	}
 	
-    open override func layoutSublayers(of layer: CALayer) {
-        super.layoutSublayers(of: layer)
-        layoutShape()
-    }
-    
     open override func layoutSubviews() {
 		super.layoutSubviews()
-		layoutShadowPath()
-		placeholderLabel?.preferredMaxLayoutWidth = textContainer.size.width - textContainer.lineFragmentPadding * 2
+		layoutShape()
+        layoutShadowPath()
+		
+        placeholderLabel?.preferredMaxLayoutWidth = textContainer.size.width - textContainer.lineFragmentPadding * 2
 		titleLabel?.frame.size.width = bounds.width
 	}
 	

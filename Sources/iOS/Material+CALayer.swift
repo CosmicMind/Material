@@ -310,10 +310,10 @@ extension CALayer {
     /// Manages the layout for the shape of the view instance.
     open func layoutShape() {
         if .none != shapePreset {
-            if width < height {
-                frame.size.width = height
-            } else if width > height {
-                frame.size.height = width
+            if frame.height > frame.width {
+                frame.size.width = frame.height
+            } else if frame.height < frame.width {
+                frame.size.height = frame.width
             }
         }
         
