@@ -257,9 +257,7 @@ extension CALayer {
      view's backing layer.
      - Parameter animation: A CAAnimation instance.
      */
-    open func animate(animation: CAAnimation) {
-        animation.delegate = self
-        
+    open func animate(animation: CAAnimation) {        
         if let a = animation as? CABasicAnimation {
             a.fromValue = (presentation() ?? self).value(forKeyPath: a.keyPath!)
         }
@@ -271,40 +269,6 @@ extension CALayer {
         } else if let a = animation as? CATransition {
             add(a, forKey: kCATransition)
         }
-    }
-    
-    /**
-     A delegation method that is executed when the backing layer stops
-     running an animation.
-     - Parameter animation: The CAAnimation instance that stopped running.
-     - Parameter flag: A boolean that indicates if the animation stopped
-     because it was completed or interrupted. True if completed, false
-     if interrupted.
-     */
-    open func animationDidStop(_ animation: CAAnimation, finished flag: Bool) {
-        guard let a = animation as? CAPropertyAnimation else {
-            if let a = (animation as? CAAnimationGroup)?.animations {
-                for x in a {
-                    animationDidStop(x, finished: true)
-                }
-            }
-            return
-        }
-        
-        guard let b = a as? CABasicAnimation else {
-            return
-        }
-        
-        guard let v = b.toValue else {
-            return
-        }
-        
-        guard let k = b.keyPath else {
-            return
-        }
-        
-        setValue(v, forKeyPath: k)
-        removeAnimation(forKey: k)
     }
     
     /// Manages the layout for the shape of the view instance.
