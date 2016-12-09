@@ -65,23 +65,29 @@ open class Switch: UIControl {
         return 0 < width && 0 < height && nil != superview
     }
     
+    /* 
+     A boolean indicating whether the user interaction triggered
+     the switch state.
+     */
+    fileprivate var isSwitchStateTriggeredByUserInteraction = false
+    
     /// An internal reference to the switchState public property.
-	private var internalSwitchState = SwitchState.off
+	fileprivate var internalSwitchState = SwitchState.off
 	
 	/// Track thickness.
-	private var trackThickness: CGFloat = 0
+	fileprivate var trackThickness: CGFloat = 0
 	
 	/// Button diameter.
-	private var buttonDiameter: CGFloat = 0
+	fileprivate var buttonDiameter: CGFloat = 0
 	
 	/// Position when in the .on state.
-	private var onPosition: CGFloat = 0
+	fileprivate var onPosition: CGFloat = 0
 	
 	/// Position when in the .off state.
-	private var offPosition: CGFloat = 0
+	fileprivate var offPosition: CGFloat = 0
 	
 	/// The bounce offset when animating.
-	private var bounceOffset: CGFloat = 3
+	fileprivate var bounceOffset: CGFloat = 3
 		
 	/// An Optional delegation method.
 	open weak var delegate: SwitchDelegate?
@@ -191,7 +197,7 @@ open class Switch: UIControl {
 	}
 
 	/// Switch state.
-	public var switchState: SwitchState {
+	open var switchState: SwitchState {
 		get {
 			return internalSwitchState
 		}
@@ -203,7 +209,7 @@ open class Switch: UIControl {
 	}
 	
 	/// Switch style.
-	public var switchStyle = SwitchStyle.dark {
+	open var switchStyle = SwitchStyle.dark {
 		didSet {
 			switch switchStyle {
 			case .light:
@@ -229,7 +235,7 @@ open class Switch: UIControl {
 	}
 	
 	/// Switch size.
-	public var switchSize = SwitchSize.medium {
+	open var switchSize = SwitchSize.medium {
 		didSet {
 			switch switchSize {
 			case .small:
@@ -308,6 +314,23 @@ open class Switch: UIControl {
         reload()
     }
     
+    /// Reloads the view.
+    open func reload() {
+        let w: CGFloat = intrinsicContentSize.width
+        let px: CGFloat = (width - w) / 2
+        
+        track.frame = CGRect(x: px, y: (height - trackThickness) / 2, width: w, height: trackThickness)
+        track.cornerRadius = min(w, trackThickness) / 2
+        
+        button.frame = CGRect(x: px, y: (height - buttonDiameter) / 2, width: buttonDiameter, height: buttonDiameter)
+        onPosition = width - px - buttonDiameter
+        offPosition = px
+        
+        if .on == internalSwitchState {
+            button.x = onPosition
+        }
+    }
+    
 	open override func willMove(toSuperview newSuperview: UIView?) {
 		super.willMove(toSuperview: newSuperview)
 		styleForState(state: internalSwitchState)
@@ -349,6 +372,12 @@ open class Switch: UIControl {
                     return
                 }
                 
+                guard s.isSwitchStateTriggeredByUserInteraction else {
+                    return
+                }
+                
+                s.isSwitchStateTriggeredByUserInteraction = false
+                
                 s.sendActions(for: .valueChanged)
                 completion?(s)
                 s.delegate?.switchDidChangeState(control: s, state: s.internalSwitchState)
@@ -356,51 +385,17 @@ open class Switch: UIControl {
         } else {
             button.x = .on == state ? self.onPosition : self.offPosition
             styleForState(state: state)
+            
+            guard isSwitchStateTriggeredByUserInteraction else {
+                return
+            }
+            
+            isSwitchStateTriggeredByUserInteraction = false
+            
             sendActions(for: .valueChanged)
             completion?(self)
             delegate?.switchDidChangeState(control: self, state: internalSwitchState)
         }
-	}
-	
-	/**
-     Handle the TouchUpOutside and TouchCancel events.
-     - Parameter sender: A UIButton.
-     - Parameter event: A UIEvent.
-     */
-	@objc
-	internal func handleTouchUpOutsideOrCanceled(sender: FabButton, event: UIEvent) {
-		guard let v = event.touches(for: sender)?.first else {
-            return
-        }
-        
-        let q: CGFloat = sender.x + v.location(in: sender).x - v.previousLocation(in: sender).x
-        setSwitchState(state: q > (width - button.width) / 2 ? .on : .off, animated: true)
-	}
-	
-	/// Handles the TouchUpInside event.
-	@objc
-    internal func handleTouchUpInside() {
-		toggle()
-	}
-	
-	/**
-     Handle the TouchDragInside event.
-     - Parameter sender: A UIButton.
-     - Parameter event: A UIEvent.
-     */
-	@objc
-	internal func handleTouchDragInside(sender: FabButton, event: UIEvent) {
-        guard let v = event.touches(for: sender)?.first else {
-            return
-        }
-        
-        let q: CGFloat = max(min(sender.x + v.location(in: sender).x - v.previousLocation(in: sender).x, onPosition), offPosition)
-        	
-        guard q != sender.x else {
-            return
-        }
-        
-        sender.x = q
 	}
 	
 	open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -408,9 +403,10 @@ open class Switch: UIControl {
             return
         }
         
+        isSwitchStateTriggeredByUserInteraction = true
         setOn(on: .on != internalSwitchState, animated: true)
 	}
-    
+	
     /**
      Prepares the view instance when intialized. When subclassing,
      it is recommended to override the prepare method
@@ -426,138 +422,174 @@ open class Switch: UIControl {
         prepareSwitchStyle()
         prepareSwitchSize()
     }
-    
-    /// Reloads the view.
-    open func reload() {
-        let w: CGFloat = intrinsicContentSize.width
-        let px: CGFloat = (width - w) / 2
-        
-        track.frame = CGRect(x: px, y: (height - trackThickness) / 2, width: w, height: trackThickness)
-        track.cornerRadius = min(w, trackThickness) / 2
-        
-        button.frame = CGRect(x: px, y: (height - buttonDiameter) / 2, width: buttonDiameter, height: buttonDiameter)
-        onPosition = width - px - buttonDiameter
-        offPosition = px
-        
-        if .on == internalSwitchState {
-            button.x = onPosition
-        }
-    }
-	
-	/// Prepares the track.
-	private func prepareTrack() {
-		addSubview(track)
-	}
-	
-	/// Prepares the button.
-	private func prepareButton() {
-		button.addTarget(self, action: #selector(handleTouchUpInside), for: .touchUpInside)
-		button.addTarget(self, action: #selector(handleTouchDragInside), for: .touchDragInside)
-		button.addTarget(self, action: #selector(handleTouchUpOutsideOrCanceled), for: .touchCancel)
-		button.addTarget(self, action: #selector(handleTouchUpOutsideOrCanceled), for: .touchUpOutside)
-		addSubview(button)
-	}
-	
-	/**
-     Prepares the switchState property. This is used mainly to allow
-     init to set the state value and have an effect.
-     - Parameter state: The SwitchState to set.
-     */
-	private func prepareSwitchState(state: SwitchState = .off) {
-		setSwitchState(state: state, animated: false)
-	}
-	
-	/**
-     Prepares the switchStyle property. This is used mainly to allow
-     init to set the state value and have an effect.
-     - Parameter style: The SwitchStyle to set.
-     */
-	private func prepareSwitchStyle(style: SwitchStyle = .light) {
-		switchStyle = style
-	}
-	
-	/**
-     Prepares the switchSize property. This is used mainly to allow
-     init to set the size value and have an effect.
-     - Parameter size: The SwitchSize to set.
-     */
-	private func prepareSwitchSize(size: SwitchSize = .medium) {
-		switchSize = size
-	}
-	
-	/**
-     Updates the style based on the state.
-     - Parameter state: The SwitchState to set the style to.
-     */
-	private func styleForState(state: SwitchState) {
-		if isEnabled {
-            updateColorForState(state: state)
-		} else {
-			updateColorForDisabledState(state: state)
-		}
-	}
-	
-	/**
+}
+
+extension Switch {
+    /**
      Updates the coloring for the enabled state.
      - Parameter state: SwitchState.
      */
-	private func updateColorForState(state: SwitchState) {
-		if .on == state {
-			button.backgroundColor = buttonOnColor
-			track.backgroundColor = trackOnColor
-		} else {
-			button.backgroundColor = buttonOffColor
-			track.backgroundColor = trackOffColor
-		}
-	}
-	
-	/**
+    fileprivate func updateColorForState(state: SwitchState) {
+        if .on == state {
+            button.backgroundColor = buttonOnColor
+            track.backgroundColor = trackOnColor
+        } else {
+            button.backgroundColor = buttonOffColor
+            track.backgroundColor = trackOffColor
+        }
+    }
+    
+    /**
      Updates the coloring for the disabled state.
      - Parameter state: SwitchState.
      */
-	private func updateColorForDisabledState(state: SwitchState) {
-		if .on == state {
-			button.backgroundColor = buttonOnDisabledColor
-			track.backgroundColor = trackOnDisabledColor
-		} else {
-			button.backgroundColor = buttonOffDisabledColor
-			track.backgroundColor = trackOffDisabledColor
-		}
-	}
-	
-	/**
+    fileprivate func updateColorForDisabledState(state: SwitchState) {
+        if .on == state {
+            button.backgroundColor = buttonOnDisabledColor
+            track.backgroundColor = trackOnDisabledColor
+        } else {
+            button.backgroundColor = buttonOffDisabledColor
+            track.backgroundColor = trackOffDisabledColor
+        }
+    }
+    
+    /**
+     Updates the style based on the state.
+     - Parameter state: The SwitchState to set the style to.
+     */
+    fileprivate func styleForState(state: SwitchState) {
+        if isEnabled {
+            updateColorForState(state: state)
+        } else {
+            updateColorForDisabledState(state: state)
+        }
+    }
+}
+
+extension Switch {
+    /**
      Set the switchState property with an animate.
      - Parameter state: The SwitchState to set.
      - Parameter completion: An Optional completion block.
      */
-	private func animateToState(state: SwitchState, completion: ((Switch) -> Void)? = nil) {
-		isUserInteractionEnabled = false
-		UIView.animate(withDuration: 0.15,
-			delay: 0.05,
-			options: [.curveEaseIn, .curveEaseOut],
-			animations: { [weak self] in
+    fileprivate func animateToState(state: SwitchState, completion: ((Switch) -> Void)? = nil) {
+        isUserInteractionEnabled = false
+        UIView.animate(withDuration: 0.15,
+            delay: 0.05,
+            options: [.curveEaseIn, .curveEaseOut],
+            animations: { [weak self] in
+            guard let s = self else {
+                return
+            }
+
+            s.button.x = .on == state ? s.onPosition + s.bounceOffset : s.offPosition - s.bounceOffset
+            s.styleForState(state: state)
+        }) { [weak self] _ in
+            UIView.animate(withDuration: 0.15,
+                animations: { [weak self] in
+                guard let s = self else {
+                    return
+                }
+
+                s.button.x = .on == state ? s.onPosition : s.offPosition
+            }) { [weak self] _ in
                 guard let s = self else {
                     return
                 }
                 
-                s.button.x = .on == state ? s.onPosition + s.bounceOffset : s.offPosition - s.bounceOffset
-                s.styleForState(state: state)
-			}) { [weak self] _ in
-				UIView.animate(withDuration: 0.15,
-					animations: { [weak self] in
-                        guard let s = self else {
-                            return
-                        }
-                        
-                        s.button.x = .on == state ? s.onPosition : s.offPosition
-					}) { [weak self] _ in
-                        guard let s = self else {
-                            return
-                        }
-                        
-                        s.isUserInteractionEnabled = true
-                        completion?(s)
-					}
-			}
-	}
+                s.isUserInteractionEnabled = true
+                completion?(s)
+            }
+        }
+    }
+}
+
+extension Switch {
+    /**
+     Handle the TouchUpOutside and TouchCancel events.
+     - Parameter sender: A UIButton.
+     - Parameter event: A UIEvent.
+     */
+    @objc
+    fileprivate func handleTouchUpOutsideOrCanceled(sender: FabButton, event: UIEvent) {
+        guard let v = event.touches(for: sender)?.first else {
+            return
+        }
+        
+        isSwitchStateTriggeredByUserInteraction = true
+        
+        let q: CGFloat = sender.x + v.location(in: sender).x - v.previousLocation(in: sender).x
+        setSwitchState(state: q > (width - button.width) / 2 ? .on : .off, animated: true)
+    }
+    
+    /// Handles the TouchUpInside event.
+    @objc
+    fileprivate func handleTouchUpInside() {
+        isSwitchStateTriggeredByUserInteraction = true
+        
+        toggle()
+    }
+    
+    /**
+     Handle the TouchDragInside event.
+     - Parameter sender: A UIButton.
+     - Parameter event: A UIEvent.
+     */
+    @objc
+    fileprivate func handleTouchDragInside(sender: FabButton, event: UIEvent) {
+        guard let v = event.touches(for: sender)?.first else {
+            return
+        }
+        
+        let q: CGFloat = max(min(sender.x + v.location(in: sender).x - v.previousLocation(in: sender).x, onPosition), offPosition)
+        
+        guard q != sender.x else {
+            return
+        }
+        
+        sender.x = q
+    }
+}
+
+extension Switch {
+    /// Prepares the track.
+    fileprivate func prepareTrack() {
+        addSubview(track)
+    }
+    
+    /// Prepares the button.
+    fileprivate func prepareButton() {
+        button.addTarget(self, action: #selector(handleTouchUpInside), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleTouchDragInside), for: .touchDragInside)
+        button.addTarget(self, action: #selector(handleTouchUpOutsideOrCanceled), for: .touchCancel)
+        button.addTarget(self, action: #selector(handleTouchUpOutsideOrCanceled), for: .touchUpOutside)
+        addSubview(button)
+    }
+    
+    /**
+     Prepares the switchState property. This is used mainly to allow
+     init to set the state value and have an effect.
+     - Parameter state: The SwitchState to set.
+     */
+    fileprivate func prepareSwitchState(state: SwitchState = .off) {
+        setSwitchState(state: state, animated: false)
+    }
+    
+    /**
+     Prepares the switchStyle property. This is used mainly to allow
+     init to set the state value and have an effect.
+     - Parameter style: The SwitchStyle to set.
+     */
+    fileprivate func prepareSwitchStyle(style: SwitchStyle = .light) {
+        switchStyle = style
+    }
+    
+    /**
+     Prepares the switchSize property. This is used mainly to allow
+     init to set the size value and have an effect.
+     - Parameter size: The SwitchSize to set.
+     */
+    fileprivate func prepareSwitchSize(size: SwitchSize = .medium) {
+        switchSize = size
+    }
 }
