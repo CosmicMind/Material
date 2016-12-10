@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.com>.
+ * Copyright (C) 2015 - 2016, Daniel Dahan and CosmicMind, Inc. <http://cosmicmind.io>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -29,19 +29,18 @@
  */
 
 import UIKit
-import AVFoundation
 
 extension UIViewController {
     /**
-     A convenience property that provides access to the CaptureController.
-     This is the recommended method of accessing the CaptureController
+     A convenience property that provides access to the RemindersController.
+     This is the recommended method of accessing the RemindersController
      through child UIViewControllers.
      */
-    public var captureController: CaptureController? {
+    public var remindersController: RemindersController? {
         var viewController: UIViewController? = self
         while nil != viewController {
-            if viewController is CaptureController {
-                return viewController as? CaptureController
+            if viewController is RemindersController {
+                return viewController as? RemindersController
             }
             viewController = viewController?.parent
         }
@@ -49,54 +48,35 @@ extension UIViewController {
     }
 }
 
-open class CaptureController: ToolbarController {
-    /// A reference to the Capture instance.
-    @IBInspectable
-    open let capture = Capture()
+open class RemindersController: UIViewController {
+    /// A reference to a Reminder.
+    open let reminders = Reminders()
     
-    open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.portrait
-    }
-    
-    open override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
-        return UIInterfaceOrientation.portrait
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        prepareView()
     }
     
     /**
      Prepares the view instance when intialized. When subclassing,
-     it is recommended to override the prepare method
+     it is recommended to override the prepareView method
      to initialize property values and other setup operations.
-     The super.prepare method should always be called immediately
+     The super.prepareView method should always be called immediately
      when subclassing.
      */
-    open override func prepare() {
-        super.prepare()
-        display = .full
-        view.backgroundColor = .black
-        
-        prepareStatusBar()
-        prepareToolbar()
-        prepareCapture()
+    open func prepare() {
+        view.clipsToBounds = true
+        view.backgroundColor = Color.white
+        view.contentScaleFactor = Device.scale
+        prepareReminders()
     }
 }
 
-extension CaptureController {
-    /// Prepares the statusBar.
-    fileprivate func prepareStatusBar() {
-        statusBar.backgroundColor = .clear
-    }
-    
-    /// Prepares the toolbar.
-    fileprivate func prepareToolbar() {
-        toolbar.backgroundColor = .clear
-        toolbar.depthPreset = .none
-    }
-    
-    /// Prepares capture.
-    fileprivate func prepareCapture() {
-        capture.delegate = self
-        capture.flashMode = .auto
+extension RemindersController {
+    /// Prepares the reminders.
+    fileprivate func prepareReminders() {
+        reminders.delegate = self
     }
 }
 
-extension CaptureController: CaptureDelegate {}
+extension RemindersController: RemindersDelegate {}

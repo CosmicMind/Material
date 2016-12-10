@@ -61,6 +61,7 @@ open class SearchBarController: StatusBarController {
     }
     
     /// Reference to the SearchBar.
+    @IBInspectable
     open let searchBar = SearchBar()
 	
 	open override func layoutSubviews() {

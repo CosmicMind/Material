@@ -70,9 +70,11 @@ open class PhotoLibraryController: UIViewController {
         view.contentScaleFactor = Screen.scale
         preparePhotoLibrary()
     }
-    
+}
+
+extension PhotoLibraryController {
     /// Prepares the photoLibrary.
-    private func preparePhotoLibrary() {
+    fileprivate func preparePhotoLibrary() {
         photoLibrary.delegate = self
     }
 }

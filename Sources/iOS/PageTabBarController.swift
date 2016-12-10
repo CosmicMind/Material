@@ -101,6 +101,7 @@ public protocol PageTabBarControllerDelegate {
 @objc(PageTabBarController)
 open class PageTabBarController: RootController {
     /// Reference to the PageTabBar.
+    @IBInspectable
     open let pageTabBar = PageTabBar()
     
     /// A boolean that indicates whether bounce is enabled.

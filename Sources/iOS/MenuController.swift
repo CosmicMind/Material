@@ -50,16 +50,44 @@ extension UIViewController {
 
 open class MenuController: RootController {
 	/// Reference to the MenuView.
+    @IBInspectable
     open let menu = Menu()
 	
+	open override func layoutSubviews() {
+		super.layoutSubviews()
+		rootViewController.view.frame = view.bounds
+	}
+	
 	/**
+     Prepares the view instance when intialized. When subclassing,
+     it is recommended to override the prepare method
+     to initialize property values and other setup operations.
+     The super.prepare method should always be called immediately
+     when subclassing.
+     */
+	open override func prepare() {
+		super.prepare()
+		prepareMenu()
+	}
+}
+
+extension MenuController {
+    /// Prepares the Menu.
+    fileprivate func prepareMenu() {
+        menu.zPosition = 1000
+        view.addSubview(menu)
+    }
+}
+
+extension MenuController {
+    /**
      Opens the menu with a callback.
      - Parameter completion: An Optional callback that is executed when
      all menu items have been opened.
      */
-	open func openMenu(completion: ((UIView) -> Void)? = nil) {
-		if true == isUserInteractionEnabled {
-			isUserInteractionEnabled = false
+    open func openMenu(completion: ((UIView) -> Void)? = nil) {
+        if true == isUserInteractionEnabled {
+            isUserInteractionEnabled = false
             UIView.animate(withDuration: 0.15, animations: { [weak self] in
                 guard let s = self else {
                     return
@@ -69,16 +97,16 @@ open class MenuController: RootController {
             menu.open { [completion = completion] (view) in
                 completion?(view)
             }
-		}
-	}
-	
+        }
+    }
+    
     /**
      Opens the menu with a callback.
      - Parameter completion: An Optional callback that is executed when
      all menu items have been closed.
      */
     open func closeMenu(completion: ((UIView) -> Void)? = nil) {
-		if false == isUserInteractionEnabled {
+        if false == isUserInteractionEnabled {
             UIView.animate(withDuration: 0.15, animations: { [weak self] in
                 guard let s = self else {
                     return
@@ -96,30 +124,6 @@ open class MenuController: RootController {
                     s.isUserInteractionEnabled = true
                 }
             }
-		}
-	}
-	
-	
-	open override func layoutSubviews() {
-		super.layoutSubviews()
-		rootViewController.view.frame = view.bounds
-	}
-	
-	/**
-     Prepares the view instance when intialized. When subclassing,
-     it is recommended to override the prepare method
-     to initialize property values and other setup operations.
-     The super.prepare method should always be called immediately
-     when subclassing.
-     */
-	open override func prepare() {
-		super.prepare()
-		prepareMenuView()
-	}
-	
-	/// Prepares the MenuView.
-	private func prepareMenuView() {
-		menu.zPosition = 1000
-		view.addSubview(menu)
-	}
+        }
+    }
 }

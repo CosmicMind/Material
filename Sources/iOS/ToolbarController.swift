@@ -81,7 +81,8 @@ open class ToolbarController: StatusBarController {
     }
     
     /// Reference to the Toolbar.
-    open fileprivate(set) var toolbar = Toolbar()
+    @IBInspectable
+    open let toolbar = Toolbar()
     
     /// Internal reference to the floatingViewController.
 	private var internalFloatingViewController: UIViewController?

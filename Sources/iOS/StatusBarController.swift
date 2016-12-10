@@ -102,11 +102,13 @@ open class StatusBarController: RootController {
         super.prepare()
 		prepareStatusBar()
 	}
-	
-	/// Prepares the statusBar.
-	private func prepareStatusBar() {
-		statusBar.backgroundColor = .white
+}
+
+extension StatusBarController {
+    /// Prepares the statusBar.
+    fileprivate func prepareStatusBar() {
+        statusBar.backgroundColor = .white
         statusBar.height = 20
-		view.addSubview(statusBar)
-	}
+        view.addSubview(statusBar)
+    }
 }
