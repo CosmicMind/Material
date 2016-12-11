@@ -54,7 +54,7 @@ open class RemindersController: UIViewController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        prepareView()
+        prepare()
     }
     
     /**
@@ -67,7 +67,7 @@ open class RemindersController: UIViewController {
     open func prepare() {
         view.clipsToBounds = true
         view.backgroundColor = Color.white
-        view.contentScaleFactor = Device.scale
+        view.contentScaleFactor = Screen.scale
         prepareReminders()
     }
 }
