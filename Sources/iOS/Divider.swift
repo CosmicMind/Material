@@ -104,6 +104,15 @@ public struct Divider {
         self.thickness = thickness
     }
     
+    /**
+     Hides the divier line.
+     */
+    internal var isHidden = false {
+        didSet {
+            line?.isHidden = isHidden
+        }
+    }
+    
     /// Lays out the divider.
     public func reload() {
         guard let l = line, let v = view else {
@@ -169,6 +178,17 @@ extension UIView {
         }
         set(value) {
             divider.color = value
+        }
+    }
+    
+    /// Divider visibility.
+    @IBInspectable
+    open var isDividerHidden: Bool {
+        get {
+            return divider.isHidden
+        }
+        set(value) {
+            divider.isHidden = value
         }
     }
     

@@ -81,6 +81,7 @@ open class TabBar: Bar {
 	}
     
     /// A boolean to animate the line when touched.
+    @IBInspectable
     open var isLineAnimated = true {
         didSet {
             for b in buttons {

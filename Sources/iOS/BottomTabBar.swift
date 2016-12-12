@@ -43,7 +43,8 @@ open class BottomTabBar: UITabBar {
     }
     
     /// Automatically aligns the BottomNavigationBar to the superview.
-	open var isAlignedToParentAutomatically = true
+	@IBInspectable
+    open var isAlignedToParentAutomatically = true
 	
 	/// A property that accesses the backing layer's background
 	@IBInspectable

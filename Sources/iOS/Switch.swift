@@ -94,9 +94,9 @@ open class Switch: UIControl {
 	
 	/// Indicates if the animation should bounce.
 	@IBInspectable
-    open var bounceable = true {
+    open var isBounceable = true {
 		didSet {
-			bounceOffset = bounceable ? 3 : 0
+			bounceOffset = isBounceable ? 3 : 0
 		}
 	}
 	
