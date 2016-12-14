@@ -134,7 +134,7 @@ open class Layer: CAShapeLayer {
      */
 	public override init(layer: Any) {
 		contentsGravityPreset = .resizeAspectFill
-		super.init()
+        super.init(layer: layer)
 		prepareVisualLayer()
 	}
 	

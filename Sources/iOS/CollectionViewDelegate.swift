@@ -30,6 +30,4 @@
 
 import UIKit
 
-public protocol CollectionViewDelegate: UICollectionViewDelegate {
-	
-}
+public protocol CollectionViewDelegate: UICollectionViewDelegate {}

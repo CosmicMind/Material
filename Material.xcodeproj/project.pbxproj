@@ -720,13 +720,13 @@
 		96BCB8051CB40F9C00C806FE /* Collection */ = {
 			isa = PBXGroup;
 			children = (
-				96BCB7711CB40DC500C806FE /* CollectionView.swift */,
 				96BCB7721CB40DC500C806FE /* CollectionViewCell.swift */,
+				966ECF291CF4C20100BB0BDF /* CollectionReusableView.swift */,
+				96BCB7711CB40DC500C806FE /* CollectionView.swift */,
+				96BCB7771CB40DC500C806FE /* CollectionDataSourceItem.swift */,
 				96BCB7731CB40DC500C806FE /* CollectionViewDataSource.swift */,
 				96BCB7741CB40DC500C806FE /* CollectionViewDelegate.swift */,
 				96BCB7751CB40DC500C806FE /* CollectionViewLayout.swift */,
-				966ECF291CF4C20100BB0BDF /* CollectionReusableView.swift */,
-				96BCB7771CB40DC500C806FE /* CollectionDataSourceItem.swift */,
 			);
 			name = Collection;
 			sourceTree = "<group>";

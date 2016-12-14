@@ -120,7 +120,7 @@ open class CollectionView: UICollectionView {
      */
 	open func prepare() {
 		contentScaleFactor = Screen.scale
-		backgroundColor = .clear
+		backgroundColor = nil
 		contentEdgeInsets = .zero
     }
 }

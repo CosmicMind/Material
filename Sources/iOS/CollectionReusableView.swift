@@ -41,7 +41,7 @@ open class CollectionReusableView: UICollectionReusableView, Pulseable {
     open let visualLayer = CAShapeLayer()
     
     /// A Pulse reference.
-    open fileprivate(set) var pulse: Pulse!
+    fileprivate var pulse: Pulse!
     
     /// PulseAnimation value.
     open var pulseAnimation: PulseAnimation {
@@ -237,14 +237,11 @@ open class CollectionReusableView: UICollectionReusableView, Pulseable {
      from the center.
      */
     open func pulse(point: CGPoint? = nil) {
-        let p = nil == point ? CGPoint(x: CGFloat(width / 2), y: CGFloat(height / 2)) : point!
+        let p = point ?? center
         
         pulse.expandAnimation(point: p)
         Motion.delay(time: 0.35) { [weak self] in
-            guard let s = self else {
-                return
-            }
-            s.pulse.contractAnimation()
+            self?.pulse.contractAnimation()
         }
     }
     
