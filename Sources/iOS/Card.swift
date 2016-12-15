@@ -31,11 +31,6 @@
 import UIKit
 
 open class Card: PulseView {
-    /// Will layout the view.
-    open var willLayout: Bool {
-        return 0 < width && nil != superview
-    }
-    
     /// A container view for subviews.
     open let container = UIView()
     
@@ -182,12 +177,7 @@ open class Card: PulseView {
     
     open override func layoutSubviews() {
         super.layoutSubviews()
-        guard willLayout else {
-            return
-        }
-        
         container.width = width
-        
         reload()
     }
     
@@ -235,9 +225,9 @@ open class Card: PulseView {
      */
     @discardableResult
     open func prepare(view: UIView, with insets: EdgeInsets, from top: CGFloat) -> CGFloat {
-        let t = insets.top + top
+        let y = insets.top + top
         
-        view.y = t
+        view.y = y
         view.x = insets.left
         
         let w = container.width - insets.left - insets.right
@@ -251,7 +241,7 @@ open class Card: PulseView {
         view.width = w
         view.height = h
         
-        return t + h + insets.bottom
+        return y + h + insets.bottom
     }
     
     /**
