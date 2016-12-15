@@ -61,10 +61,13 @@ open class CollectionView: UICollectionView {
 	}
 	
 	/// A preset wrapper around interimSpace.
-	open var interimSpacePreset = InterimSpacePreset.none {
-		didSet {
-            interimSpace = InterimSpacePresetToValue(preset: interimSpacePreset)
-		}
+    open var interimSpacePreset: InterimSpacePreset {
+        get {
+            return (collectionViewLayout as? CollectionViewLayout)!.interimSpacePreset
+        }
+        set(value) {
+            (collectionViewLayout as? CollectionViewLayout)!.interimSpacePreset = value
+        }
 	}
 	
 	/// Spacing between items.
@@ -120,7 +123,6 @@ open class CollectionView: UICollectionView {
      */
 	open func prepare() {
 		contentScaleFactor = Screen.scale
-		backgroundColor = nil
-		contentEdgeInsets = .zero
+		backgroundColor = .white
     }
 }

@@ -142,10 +142,10 @@ open class CollectionViewLayout: UICollectionViewLayout {
 			layoutItems.append((layoutAttributesForItem(at: indexPath)!, indexPath as NSIndexPath))
 			
 			offset.x += interimSpace
-			offset.x += nil == item.width ? itemSize.width : item.width!
+			offset.x += item.width ?? itemSize.width
 			
 			offset.y += interimSpace
-			offset.y += nil == item.height ? itemSize.height : item.height!
+			offset.y += item.height ?? itemSize.height
 		}
 		
 		offset.x += contentEdgeInsets.right - interimSpace
