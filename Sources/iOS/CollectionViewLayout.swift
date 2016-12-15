@@ -32,7 +32,7 @@ import UIKit
 
 open class CollectionViewLayout: UICollectionViewLayout {
 	/// Used to calculate the dimensions of the cells.
-	internal var offset = CGPoint.zero
+	open var offset = CGPoint.zero
 	
 	/// The size of items.
 	open var itemSize = CGSize.zero
@@ -48,13 +48,13 @@ open class CollectionViewLayout: UICollectionViewLayout {
 	open var contentEdgeInsets = EdgeInsets.zero
 	
 	/// Size of the content.
-	open internal(set) var contentSize = CGSize.zero
+	open fileprivate(set) var contentSize = CGSize.zero
 	
 	/// Layout attribute items.
-	open internal(set) lazy var layoutItems = [(UICollectionViewLayoutAttributes, NSIndexPath)]()
+	open fileprivate(set) lazy var layoutItems = [(UICollectionViewLayoutAttributes, NSIndexPath)]()
 	
 	/// Cell data source items.
-	open internal(set) var dataSourceItems: [CollectionDataSourceItem]?
+	open fileprivate(set) var dataSourceItems: [CollectionViewDataSourceItem]?
 	
 	/// Scroll direction.
 	open var scrollDirection = UICollectionViewScrollDirection.vertical
@@ -129,7 +129,7 @@ open class CollectionViewLayout: UICollectionViewLayout {
 		return proposedContentOffset
 	}
 	
-	private func prepareLayoutForItems(dataSourceItems: [CollectionDataSourceItem]) {
+	fileprivate func prepareLayoutForItems(dataSourceItems: [CollectionViewDataSourceItem]) {
 		self.dataSourceItems = dataSourceItems
 		layoutItems.removeAll()
 		
