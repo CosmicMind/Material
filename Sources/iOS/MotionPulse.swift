@@ -111,18 +111,18 @@ public struct Pulse {
         
         layer.masksToBounds = !(.centerRadialBeyondBounds == animation || .radialBeyondBounds == animation)
  
-        let w = view.width
-        let h = view.height
+        let w = view.bounds.width
+        let h = view.bounds.height
         
         Motion.disable(animations: { [
             n = .center == animation ? w < h ? w : h : w < h ? h : w,
-            frame = layer.bounds,
+            bounds = layer.bounds,
             animation = animation,
             color = color,
             opacity = opacity
             ] in
             
-            bLayer.frame = frame
+            bLayer.frame = bounds
             pLayer.bounds = CGRect(x: 0, y: 0, width: n, height: n)
             
             switch animation {
