@@ -65,12 +65,6 @@ open class Switch: UIControl {
         return 0 < width && 0 < height && nil != superview
     }
     
-    /* 
-     A boolean indicating whether the user interaction triggered
-     the switch state.
-     */
-    fileprivate var isSwitchStateTriggeredByUserInteraction = false
-    
     /// An internal reference to the switchState public property.
 	fileprivate var internalSwitchState = SwitchState.off
 	
@@ -187,12 +181,12 @@ open class Switch: UIControl {
 	
 	/// A boolean indicating if the switch is on or not.
 	@IBInspectable
-    public var on: Bool {
+    public var isOn: Bool {
 		get {
 			return .on == internalSwitchState
 		}
 		set(value) {
-			setOn(on: value, animated: true)
+			updateSwitchState(state: .on, animated: true, isSwitchStateTriggeredByUserInteraction: false)
 		}
 	}
 
@@ -341,72 +335,17 @@ open class Switch: UIControl {
      - Parameter completion: An Optional completion block.
      */
 	open func toggle(completion: ((Switch) -> Void)? = nil) {
-		setSwitchState(state: .on == internalSwitchState ? .off : .on, animated: true, completion: completion)
+        updateSwitchState(state: .on == internalSwitchState ? .off : .on, animated: true, isSwitchStateTriggeredByUserInteraction: false, completion: completion)
 	}
-	
-	/**
-     Sets the switch on or off.
-     - Parameter on: A bool of whether the switch should be in the on state or not.
-     - Parameter animated: A Boolean indicating to set the animation or not.
-     */
-	open func setOn(on: Bool, animated: Bool, completion: ((Switch) -> Void)? = nil) {
-		setSwitchState(state: on ? .on : .off, animated: animated, completion: completion)
-	}
-	
-	/**
-     Set the switchState property with an option to animate.
-     - Parameter state: The SwitchState to set.
-     - Parameter animated: A Boolean indicating to set the animation or not.
-     - Parameter completion: An Optional completion block.
-     */
-	open func setSwitchState(state: SwitchState, animated: Bool = true, completion: ((Switch) -> Void)? = nil) {
-        guard isEnabled && internalSwitchState != state else {
-            return
-        }
-        
-        internalSwitchState = state
-        
-        if animated {
-            animateToState(state: state) { [weak self] _ in
-                guard let s = self else {
-                    return
-                }
-                
-                guard s.isSwitchStateTriggeredByUserInteraction else {
-                    return
-                }
-                
-                s.isSwitchStateTriggeredByUserInteraction = false
-                
-                s.sendActions(for: .valueChanged)
-                completion?(s)
-                s.delegate?.switchDidChangeState(control: s, state: s.internalSwitchState)
-            }
-        } else {
-            button.x = .on == state ? self.onPosition : self.offPosition
-            styleForState(state: state)
-            
-            guard isSwitchStateTriggeredByUserInteraction else {
-                return
-            }
-            
-            isSwitchStateTriggeredByUserInteraction = false
-            
-            sendActions(for: .valueChanged)
-            completion?(self)
-            delegate?.switchDidChangeState(control: self, state: internalSwitchState)
-        }
-	}
-	
-	open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard track.frame.contains(layer.convert(touches.first!.location(in: self), from: layer)) else {
             return
         }
         
-        isSwitchStateTriggeredByUserInteraction = true
-        setOn(on: .on != internalSwitchState, animated: true)
-	}
-	
+        updateSwitchState(state: .on == internalSwitchState ? .on : .off, animated: true, isSwitchStateTriggeredByUserInteraction: true)
+    }
+    
     /**
      Prepares the view instance when intialized. When subclassing,
      it is recommended to override the prepare method
@@ -421,6 +360,61 @@ open class Switch: UIControl {
         prepareSwitchState()
         prepareSwitchStyle()
         prepareSwitchSize()
+    }
+}
+
+extension Switch {
+    /**
+     Set the switchState property with an option to animate.
+     - Parameter state: The SwitchState to set.
+     - Parameter animated: A Boolean indicating to set the animation or not.
+     - Parameter completion: An Optional completion block.
+     */
+    open func setSwitchState(state: SwitchState, animated: Bool = true, completion: ((Switch) -> Void)? = nil) {
+        updateSwitchState(state: state, animated: animated, isSwitchStateTriggeredByUserInteraction: false, completion: completion)
+    }
+    
+    /**
+     Set the switchState property with an option to animate.
+     - Parameter state: The SwitchState to set.
+     - Parameter animated: A Boolean indicating to set the animation or not.
+     - Parameter isSwitchStateTriggeredByUserInteraction: A boolean indicating whether the
+     state was changed by a user interaction, true if yes, false otherwise.
+     - Parameter completion: An Optional completion block.
+     */
+    fileprivate func updateSwitchState(state: SwitchState, animated: Bool, isSwitchStateTriggeredByUserInteraction: Bool, completion: ((Switch) -> Void)? = nil) {
+        guard isEnabled && internalSwitchState != state else {
+            return
+        }
+        
+        internalSwitchState = state
+        
+        if animated {
+            animateToState(state: state) { [weak self] _ in
+                guard isSwitchStateTriggeredByUserInteraction else {
+                    return
+                }
+                
+                guard let s = self else {
+                    return
+                }
+                
+                s.sendActions(for: .valueChanged)
+                completion?(s)
+                s.delegate?.switchDidChangeState(control: s, state: s.internalSwitchState)
+            }
+        } else {
+            button.x = .on == state ? self.onPosition : self.offPosition
+            styleForState(state: state)
+            
+            guard isSwitchStateTriggeredByUserInteraction else {
+                return
+            }
+            
+            sendActions(for: .valueChanged)
+            completion?(self)
+            delegate?.switchDidChangeState(control: self, state: internalSwitchState)
+        }
     }
 }
 
@@ -516,18 +510,14 @@ extension Switch {
             return
         }
         
-        isSwitchStateTriggeredByUserInteraction = true
-        
         let q: CGFloat = sender.x + v.location(in: sender).x - v.previousLocation(in: sender).x
-        setSwitchState(state: q > (width - button.width) / 2 ? .on : .off, animated: true)
+        updateSwitchState(state: q > (width - button.width) / 2 ? .on : .off, animated: true, isSwitchStateTriggeredByUserInteraction: true)
     }
     
     /// Handles the TouchUpInside event.
     @objc
     fileprivate func handleTouchUpInside() {
-        isSwitchStateTriggeredByUserInteraction = true
-        
-        toggle()
+        updateSwitchState(state: isOn ? .off : .on, animated: true, isSwitchStateTriggeredByUserInteraction: true)
     }
     
     /**
@@ -572,7 +562,7 @@ extension Switch {
      - Parameter state: The SwitchState to set.
      */
     fileprivate func prepareSwitchState(state: SwitchState = .off) {
-        setSwitchState(state: state, animated: false)
+        updateSwitchState(state: state, animated: false, isSwitchStateTriggeredByUserInteraction: false)
     }
     
     /**
