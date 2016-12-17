@@ -32,4 +32,10 @@ Pod::Spec.new do |s|
     photos.source_files = 'Sources/iOS/Photos/*.swift'
     photos.dependency 'Material/Core'
   end
+
+  s.subspec 'Reminders' do |reminders|
+    reminders.source_files = 'Sources/iOS/Reminders/*.swift'
+    reminders.dependency 'Material/Core'
+ end
+
 end

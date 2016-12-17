@@ -31,6 +31,8 @@
 		961E6BDF1DDA2A95004E6C93 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961E6BDE1DDA2A95004E6C93 /* Application.swift */; };
 		961E6BE21DDA2AF3004E6C93 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961E6BE11DDA2AF3004E6C93 /* Screen.swift */; };
 		96328B7A1E020A41009A4C90 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96328B791E020A41009A4C90 /* CollectionViewController.swift */; };
+		96328B911E05B6B5009A4C90 /* Reminders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96328B901E05B6B5009A4C90 /* Reminders.swift */; };
+		96328B931E05B6E5009A4C90 /* RemindersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96328B921E05B6E5009A4C90 /* RemindersController.swift */; };
 		96334EF61C8B84660083986B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96334EF51C8B84660083986B /* Assets.xcassets */; };
 		963832421B88DFD80015F710 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963832361B88DFD80015F710 /* Material.framework */; };
 		965E80C81DD4C50600D61E4B /* Motion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB76D1CB40DC500C806FE /* Motion.swift */; };
@@ -229,6 +231,8 @@
 		9628645E1D540AF300690B69 /* DynamicFontType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicFontType.swift; sourceTree = "<group>"; };
 		9631A7C01D95E3AC00CFB109 /* PresenterCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresenterCard.swift; sourceTree = "<group>"; };
 		96328B791E020A41009A4C90 /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
+		96328B901E05B6B5009A4C90 /* Reminders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Reminders.swift; path = Reminders/Reminders.swift; sourceTree = "<group>"; };
+		96328B921E05B6E5009A4C90 /* RemindersController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RemindersController.swift; path = Reminders/RemindersController.swift; sourceTree = "<group>"; };
 		96334EF51C8B84660083986B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		963832361B88DFD80015F710 /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Material.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		963832411B88DFD80015F710 /* Material.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Material.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -452,6 +456,15 @@
 			name = BottomTabBar;
 			sourceTree = "<group>";
 		};
+		96328B8F1E05B69A009A4C90 /* Reminders */ = {
+			isa = PBXGroup;
+			children = (
+				96328B901E05B6B5009A4C90 /* Reminders.swift */,
+				96328B921E05B6E5009A4C90 /* RemindersController.swift */,
+			);
+			name = Reminders;
+			sourceTree = "<group>";
+		};
 		9638322C1B88DFD80015F710 = {
 			isa = PBXGroup;
 			children = (
@@ -612,6 +625,7 @@
 				961E6BEF1DDA4B04004E6C93 /* NavigationDrawer */,
 				962DDD071D6FBBB7001C307C /* Page */,
 				96717B151DBE6B1800DA84DB /* Photos */,
+				96328B8F1E05B69A009A4C90 /* Reminders */,
 				9626CA951DAB5370003E2611 /* Root */,
 				961E6BE01DDA2ADD004E6C93 /* Screen */,
 				963FBF031D6696EF008F8512 /* SearchBar */,
@@ -1131,9 +1145,11 @@
 				965E81161DD4D5C800D61E4B /* Display.swift in Sources */,
 				965E81171DD4D5C800D61E4B /* RootController.swift in Sources */,
 				965E81181DD4D5C800D61E4B /* Snackbar.swift in Sources */,
+				96328B911E05B6B5009A4C90 /* Reminders.swift in Sources */,
 				965E81191DD4D5C800D61E4B /* SnackbarController.swift in Sources */,
 				965E811A1DD4D5C800D61E4B /* StatusBarController.swift in Sources */,
 				965E811B1DD4D5C800D61E4B /* Switch.swift in Sources */,
+				96328B931E05B6E5009A4C90 /* RemindersController.swift in Sources */,
 				965E811C1DD4D5C800D61E4B /* TabBar.swift in Sources */,
 				965E811D1DD4D5C800D61E4B /* TableViewCell.swift in Sources */,
 				965E811E1DD4D5C800D61E4B /* TextField.swift in Sources */,
