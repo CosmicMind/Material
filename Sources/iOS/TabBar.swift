@@ -153,12 +153,64 @@ open class TabBar: Bar {
         line.frame = CGRect(x: selected!.x, y: .bottom == lineAlignment ? height - lineHeight : 0, width: selected!.width, height: lineHeight)
 	}
 	
-	/// Handles the button touch event.
+    /**
+     Prepares the view instance when intialized. When subclassing,
+     it is recommended to override the prepare method
+     to initialize property values and other setup operations.
+     The super.prepare method should always be called immediately
+     when subclassing.
+     */
+    open override func prepare() {
+        super.prepare()
+        contentEdgeInsetsPreset = .none
+        interimSpacePreset = .none
+        prepareLine()
+        prepareDivider()
+    }
+}
+
+extension TabBar {
+    // Prepares the line.
+    fileprivate func prepareLine() {
+        line = UIView()
+        line.zPosition = 6000
+        lineColor = Color.blueGrey.lighten3
+        lineHeight = 3
+        addSubview(line)
+    }
+    
+    /// Prepares the divider.
+    fileprivate func prepareDivider() {
+        dividerAlignment = .top
+    }
+    
+    /**
+     Prepares the line animation handlers.
+     - Parameter button: A UIButton.
+     */
+    fileprivate func prepareLineAnimationHandler(button: UIButton) {
+        removeLineAnimationHandler(button: button)
+        button.addTarget(self, action: #selector(handleButton(button:)), for: .touchUpInside)
+    }
+    
+    /**
+     Removes the line animation handlers.
+     - Parameter button: A UIButton.
+     */
+    fileprivate func removeLineAnimationHandler(button: UIButton) {
+        button.removeTarget(self, action: #selector(handleButton(button:)), for: .touchUpInside)
+    }
+}
+
+extension TabBar {
+    /// Handles the button touch event.
     @objc
-	internal func handleButton(button: UIButton) {
+    internal func handleButton(button: UIButton) {
         animate(to: button, isTriggeredByUserInteraction: true)
-	}
-	
+    }
+}
+
+extension TabBar {
     /**
      Selects a given index from the buttons array.
      - Parameter at index: An Int.
@@ -187,7 +239,7 @@ open class TabBar: Bar {
      state was changed by a user interaction, true if yes, false otherwise.
      - Parameter completion: An optional completion block.
      */
-    open func animate(to button: UIButton, isTriggeredByUserInteraction: Bool, completion: ((UIButton) -> Void)? = nil) {
+    fileprivate func animate(to button: UIButton, isTriggeredByUserInteraction: Bool, completion: ((UIButton) -> Void)? = nil) {
         if isTriggeredByUserInteraction {
             delegate?.tabBar?(tabBar: self, willSelect: button)
         }
@@ -215,51 +267,5 @@ open class TabBar: Bar {
             
             completion?(button)
         }
-    }
-    
-	/**
-     Prepares the view instance when intialized. When subclassing,
-     it is recommended to override the prepare method
-     to initialize property values and other setup operations.
-     The super.prepare method should always be called immediately
-     when subclassing.
-     */
-	open override func prepare() {
-		super.prepare()
-        contentEdgeInsetsPreset = .none
-        interimSpacePreset = .none
-        prepareLine()
-        prepareDivider()
-	}
-	
-	// Prepares the line.
-	private func prepareLine() {
-		line = UIView()
-        line.zPosition = 6000
-		lineColor = Color.blueGrey.lighten3
-		lineHeight = 3
-        addSubview(line)
-	}
-    
-    /// Prepares the divider.
-    private func prepareDivider() {
-        dividerAlignment = .top
-    }
-    
-    /**
-     Prepares the line animation handlers.
-     - Parameter button: A UIButton.
-     */
-    private func prepareLineAnimationHandler(button: UIButton) {
-        removeLineAnimationHandler(button: button)
-        button.addTarget(self, action: #selector(handleButton(button:)), for: .touchUpInside)
-    }
-    
-    /**
-     Removes the line animation handlers.
-     - Parameter button: A UIButton.
-     */
-    private func removeLineAnimationHandler(button: UIButton) {
-        button.removeTarget(self, action: #selector(handleButton(button:)), for: .touchUpInside)
     }
 }
