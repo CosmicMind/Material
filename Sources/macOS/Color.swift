@@ -67,7 +67,7 @@ open class Color: NSColor {
     
     // light text
     open class lightText {
-        open static let primary = Color.white
+        open static let primary = .white
         open static let secondary = Color.white.withAlphaComponent(0.7)
         open static let others = Color.white.withAlphaComponent(0.5)
         open static let dividers = Color.white.withAlphaComponent(0.12)

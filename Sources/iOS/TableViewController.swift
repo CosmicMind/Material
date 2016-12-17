@@ -30,11 +30,11 @@
 
 import UIKit
 
-public protocol CollectionViewDelegate: UICollectionViewDelegate {}
+public protocol TableViewDelegate: UITableViewDelegate {}
 
-public protocol CollectionViewDataSource: UICollectionViewDataSource {
+public protocol TableViewDataSource: UITableViewDataSource {
     /**
-     Retrieves the data source items for the collectionView.
+     Retrieves the data source items for the tableView.
      - Returns: An Array of DataSourceItem objects.
      */
     var dataSourceItems: [DataSourceItem] { get }
@@ -42,15 +42,15 @@ public protocol CollectionViewDataSource: UICollectionViewDataSource {
 
 extension UIViewController {
     /**
-     A convenience property that provides access to the CollectionViewController.
-     This is the recommended method of accessing the CollectionViewController
+     A convenience property that provides access to the TableViewController.
+     This is the recommended method of accessing the TableViewController
      through child UIViewControllers.
      */
-    public var collectionViewController: CollectionViewController? {
+    public var tableViewController: TableViewController? {
         var viewController: UIViewController? = self
         while nil != viewController {
-            if viewController is CollectionViewController {
-                return viewController as? CollectionViewController
+            if viewController is TableViewController {
+                return viewController as? TableViewController
             }
             viewController = viewController?.parent
         }
@@ -58,10 +58,11 @@ extension UIViewController {
     }
 }
 
-open class CollectionViewController: UIViewController {
+open class TableViewController: UIViewController {
     /// A reference to a Reminder.
-    open let collectionView = CollectionView()
+    open let tableView = TableView()
     
+    /// An Array of DataSourceItems.
     open var dataSourceItems = [DataSourceItem]()
     
     open override func viewDidLoad() {
@@ -80,34 +81,34 @@ open class CollectionViewController: UIViewController {
         view.clipsToBounds = true
         view.backgroundColor = .white
         view.contentScaleFactor = Screen.scale
-        prepareCollectionView()
+        prepareTableView()
     }
 }
 
-extension CollectionViewController {
-    /// Prepares the collectionView.
-    fileprivate func prepareCollectionView() {
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        view.layout(collectionView).edges()
+extension TableViewController {
+    /// Prepares the tableView.
+    fileprivate func prepareTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        view.layout(tableView).edges()
     }
 }
 
-extension CollectionViewController: CollectionViewDelegate {}
+extension TableViewController: TableViewDelegate {}
 
-extension CollectionViewController: CollectionViewDataSource {
+extension TableViewController: TableViewDataSource {
     @objc
-    open func numberOfSections(in collectionView: UICollectionView) -> Int {
+    open func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     @objc
-    open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataSourceItems.count
     }
-
+    
     @objc
-    open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
+    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
     }
 }

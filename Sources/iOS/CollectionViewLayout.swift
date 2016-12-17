@@ -54,7 +54,7 @@ open class CollectionViewLayout: UICollectionViewLayout {
 	open fileprivate(set) lazy var layoutItems = [(UICollectionViewLayoutAttributes, NSIndexPath)]()
 	
 	/// Cell data source items.
-	open fileprivate(set) var dataSourceItems: [CollectionViewDataSourceItem]?
+	open fileprivate(set) var dataSourceItems: [DataSourceItem]?
 	
 	/// Scroll direction.
 	open var scrollDirection = UICollectionViewScrollDirection.vertical
@@ -129,7 +129,7 @@ open class CollectionViewLayout: UICollectionViewLayout {
 		return proposedContentOffset
 	}
 	
-	fileprivate func prepareLayoutForItems(dataSourceItems: [CollectionViewDataSourceItem]) {
+	fileprivate func prepareLayoutForItems(dataSourceItems: [DataSourceItem]) {
 		self.dataSourceItems = dataSourceItems
 		layoutItems.removeAll()
 		

@@ -66,7 +66,7 @@ open class RemindersController: UIViewController {
      */
     open func prepare() {
         view.clipsToBounds = true
-        view.backgroundColor = Color.white
+        view.backgroundColor = .white
         view.contentScaleFactor = Screen.scale
         prepareReminders()
     }

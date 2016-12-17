@@ -107,7 +107,7 @@ open class Snackbar: Bar {
         textLabel.contentScaleFactor = Screen.scale
         textLabel.font = RobotoFont.medium(with: 14)
         textLabel.textAlignment = .left
-        textLabel.textColor = Color.white
+        textLabel.textColor = .white
         textLabel.numberOfLines = 0
     }
 }
