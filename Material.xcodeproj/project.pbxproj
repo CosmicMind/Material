@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9617B0741DFCA74500410F8F /* Reminders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9617B0731DFCA74500410F8F /* Reminders.swift */; };
-		9617B07A1DFCA80A00410F8F /* RemindersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9617B0791DFCA80A00410F8F /* RemindersController.swift */; };
-		9617B07B1DFCA8CF00410F8F /* Reminders.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9617B0731DFCA74500410F8F /* Reminders.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		9617B07C1DFCA8CF00410F8F /* RemindersController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9617B0791DFCA80A00410F8F /* RemindersController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9617B07D1DFCA8CF00410F8F /* Application.swift in Headers */ = {isa = PBXBuildFile; fileRef = 961E6BDE1DDA2A95004E6C93 /* Application.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9617B07E1DFCA8CF00410F8F /* Card.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB75D1CB40DC500C806FE /* Card.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9617B07F1DFCA8CF00410F8F /* ImageCard.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7621CB40DC500C806FE /* ImageCard.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -220,8 +216,6 @@
 
 /* Begin PBXFileReference section */
 		961276621DCD8B1800A7D920 /* CharacterAttribute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacterAttribute.swift; sourceTree = "<group>"; };
-		9617B0731DFCA74500410F8F /* Reminders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Reminders.swift; path = Reminders/Reminders.swift; sourceTree = "<group>"; };
-		9617B0791DFCA80A00410F8F /* RemindersController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemindersController.swift; sourceTree = "<group>"; };
 		961DED451DCC40C500F425B6 /* Editor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Editor.swift; sourceTree = "<group>"; };
 		961DED4A1DCC546100F425B6 /* EditorController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorController.swift; sourceTree = "<group>"; };
 		961E6BDE1DDA2A95004E6C93 /* Application.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
@@ -373,15 +367,6 @@
 				961F18E71CD93E3E008927C5 /* ErrorTextField.swift */,
 			);
 			name = TextField;
-			sourceTree = "<group>";
-		};
-		9617B0721DFCA71C00410F8F /* Reminders */ = {
-			isa = PBXGroup;
-			children = (
-				9617B0731DFCA74500410F8F /* Reminders.swift */,
-				9617B0791DFCA80A00410F8F /* RemindersController.swift */,
-			);
-			name = Reminders;
 			sourceTree = "<group>";
 		};
 		961DED441DCC40AC00F425B6 /* Editor */ = {
@@ -603,7 +588,6 @@
 		96BCB7571CB40DC500C806FE /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				9617B0721DFCA71C00410F8F /* Reminders */,
 				961E6BDD1DDA2A7E004E6C93 /* Application */,
 				96264BE41D833C8400576F37 /* Bar */,
 				962DDD081D6FBBD0001C307C /* BottomTabBar */,
@@ -906,8 +890,6 @@
 				9697F7C51D8F2573004741EC /* MenuItem.swift in Headers */,
 				9697F7CB1D8F2573004741EC /* Snackbar.swift in Headers */,
 				9697F7CC1D8F2573004741EC /* SnackbarController.swift in Headers */,
-				9617B07B1DFCA8CF00410F8F /* Reminders.swift in Headers */,
-				9617B07C1DFCA8CF00410F8F /* RemindersController.swift in Headers */,
 				9617B07D1DFCA8CF00410F8F /* Application.swift in Headers */,
 				9617B07E1DFCA8CF00410F8F /* Card.swift in Headers */,
 				9617B07F1DFCA8CF00410F8F /* ImageCard.swift in Headers */,
@@ -1167,7 +1149,6 @@
 				965E80EA1DD4C55200D61E4B /* Material+UIFont.swift in Sources */,
 				965E80EB1DD4C55200D61E4B /* Material+UIImage.swift in Sources */,
 				965E80EC1DD4C55200D61E4B /* Material+Array.swift in Sources */,
-				9617B07A1DFCA80A00410F8F /* RemindersController.swift in Sources */,
 				965E80ED1DD4C55200D61E4B /* Material+UIWindow.swift in Sources */,
 				965E80E41DD4C53300D61E4B /* PulseView.swift in Sources */,
 				965E80E51DD4C53300D61E4B /* MotionPulse.swift in Sources */,
@@ -1188,7 +1169,6 @@
 				965E80D31DD4C50600D61E4B /* Device.swift in Sources */,
 				965E80FD1DD4D59500D61E4B /* Toolbar.swift in Sources */,
 				965E80D41DD4C50600D61E4B /* Divider.swift in Sources */,
-				9617B0741DFCA74500410F8F /* Reminders.swift in Sources */,
 				965E80D51DD4C50600D61E4B /* Grid.swift in Sources */,
 				965E80D61DD4C50600D61E4B /* HeightPreset.swift in Sources */,
 				961E6BDF1DDA2A95004E6C93 /* Application.swift in Sources */,
