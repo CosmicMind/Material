@@ -156,7 +156,7 @@ open class TabBar: Bar {
 	/// Handles the button touch event.
     @objc
 	internal func handleButton(button: UIButton) {
-        animate(to: button)
+        animate(to: button, isTriggeredByUserInteraction: true)
 	}
 	
     /**
@@ -168,30 +168,51 @@ open class TabBar: Bar {
         guard -1 < index, index < buttons.count else {
             return
         }
-        animate(to: buttons[index], completion: completion)
+        animate(to: buttons[index], isTriggeredByUserInteraction: false, completion: completion)
     }
     
     /**
      Animates to a given button.
      - Parameter to button: A UIButton.
-     - Paramater completion: An optional completion block.
+     - Parameter completion: An optional completion block.
      */
     open func animate(to button: UIButton, completion: ((UIButton) -> Void)? = nil) {
-        delegate?.tabBar?(tabBar: self, willSelect: button)
+        animate(to: button, isTriggeredByUserInteraction: false, completion: completion)
+    }
+    
+    /**
+     Animates to a given button.
+     - Parameter to button: A UIButton.
+     - Parameter isTriggeredByUserInteraction: A boolean indicating whether the
+     state was changed by a user interaction, true if yes, false otherwise.
+     - Parameter completion: An optional completion block.
+     */
+    open func animate(to button: UIButton, isTriggeredByUserInteraction: Bool, completion: ((UIButton) -> Void)? = nil) {
+        if isTriggeredByUserInteraction {
+            delegate?.tabBar?(tabBar: self, willSelect: button)
+        }
+        
         selected = button
         isAnimating = true
+        
         UIView.animate(withDuration: 0.25, animations: { [weak self, button = button] in
             guard let s = self else {
                 return
             }
+            
             s.line.center.x = button.center.x
             s.line.width = button.width
         }) { [weak self, button = button, completion = completion] _ in
             guard let s = self else {
                 return
             }
+            
             s.isAnimating = false
-            s.delegate?.tabBar?(tabBar: s, didSelect: button)
+            
+            if isTriggeredByUserInteraction {
+                s.delegate?.tabBar?(tabBar: s, didSelect: button)
+            }
+            
             completion?(button)
         }
     }
