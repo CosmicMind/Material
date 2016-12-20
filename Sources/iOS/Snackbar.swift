@@ -59,14 +59,6 @@ open class Snackbar: Bar {
     open internal(set) var status = SnackbarStatus.hidden
     
     open override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        /**
-         Since the subviews will be outside the bounds of this view,
-         we need to look at the subviews to see if we have a hit.
-         */
-        guard !isHidden else {
-            return nil
-        }
-        
         for v in subviews {
             let p = v.convert(point, from: self)
             if v.bounds.contains(p) {

@@ -94,7 +94,6 @@ extension CollectionViewController {
 }
 
 extension CollectionViewController: CollectionViewDelegate {}
-
 extension CollectionViewController: CollectionViewDataSource {
     @objc
     open func numberOfSections(in collectionView: UICollectionView) -> Int {

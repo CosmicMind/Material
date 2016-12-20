@@ -49,7 +49,9 @@ extension UIViewController {
 }
 
 open class MenuController: RootController {
-	/// Reference to the MenuView.
+	open fileprivate(set) var blurView: UIView?
+    
+    /// Reference to the MenuView.
     @IBInspectable
     open let menu = Menu()
 	
@@ -88,12 +90,21 @@ extension MenuController {
     open func openMenu(completion: ((UIView) -> Void)? = nil) {
         if true == isUserInteractionEnabled {
             isUserInteractionEnabled = false
-            UIView.animate(withDuration: 0.15, animations: { [weak self] in
-                guard let s = self else {
-                    return
-                }
-                s.rootViewController.view.alpha = 0.15
-            })
+            
+            if nil == blurView {
+                let blur = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+                blurView = UIView()
+                blurView?.layout(blur).edges()
+                view.layout(blurView!).edges()
+                view.bringSubview(toFront: menu)
+            }
+            
+//            UIView.animate(withDuration: 0.15, animations: { [weak self] in
+//                guard let s = self else {
+//                    return
+//                }
+//                s.rootViewController.view.alpha = 0.15
+//            })
             menu.open { [completion = completion] (view) in
                 completion?(view)
             }
@@ -107,12 +118,16 @@ extension MenuController {
      */
     open func closeMenu(completion: ((UIView) -> Void)? = nil) {
         if false == isUserInteractionEnabled {
-            UIView.animate(withDuration: 0.15, animations: { [weak self] in
-                guard let s = self else {
-                    return
-                }
-                s.rootViewController.view.alpha = 1
-            })
+            blurView?.removeFromSuperview()
+            blurView = nil
+            
+            
+//            UIView.animate(withDuration: 0.15, animations: { [weak self] in
+//                guard let s = self else {
+//                    return
+//                }
+//                s.rootViewController.view.alpha = 1
+//            })
             menu.close { [weak self] (view) in
                 guard let s = self else {
                     return

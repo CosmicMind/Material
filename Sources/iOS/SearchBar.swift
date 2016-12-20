@@ -124,16 +124,6 @@ open class SearchBar: Bar {
 		}
 	}
     
-	open override func layoutSubviews() {
-		super.layoutSubviews()
-        guard willLayout else {
-            return
-        }
-        
-        textField.frame = contentView.bounds
-        layoutClearButton()
-	}
-	
 	/**
      An initializer that initializes the object with a NSCoder object.
      - Parameter aDecoder: A NSCoder instance.
@@ -152,6 +142,17 @@ open class SearchBar: Bar {
 		super.init(frame: frame)
 	}
 	
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        guard willLayout else {
+            return
+        }
+        
+        textField.frame = contentView.bounds
+        layoutLeftView()
+        layoutClearButton()
+    }
+    
 	/**
      Prepares the view instance when intialized. When subclassing,
      it is recommended to override the prepare method
@@ -164,16 +165,32 @@ open class SearchBar: Bar {
         prepareTextField()
 		prepareClearButton()
 	}
-	
-	/// Layout the clearButton.
-	open func layoutClearButton() {
-		let h = textField.frame.height
-        clearButton.frame = CGRect(x: textField.frame.width - h, y: 0, width: h, height: h)
-	}
-	
-	/// Clears the textField text.
-	@objc
-    internal func handleClearButton() {
+}
+
+extension SearchBar {
+    /// Layout the clearButton.
+    open func layoutClearButton() {
+        let h = textField.frame.height
+        clearButton.frame = CGRect(x: textField.frame.width - h - 4, y: 4, width: h, height: h - 8)
+    }
+    
+    /// Layout the leftView.
+    open func layoutLeftView() {
+        guard let v = textField.leftView else {
+            return
+        }
+        
+        let h = textField.frame.height
+        v.frame = CGRect(x: 4, y: 4, width: h, height: h - 8)
+        
+        (v as? UIImageView)?.contentMode = .scaleAspectFit
+    }
+}
+
+extension SearchBar {
+    /// Clears the textField text.
+    @objc
+    fileprivate func handleClearButton() {
         guard nil == textField.delegate?.textFieldShouldClear || true == textField.delegate?.textFieldShouldClear?(textField) else {
             return
         }
@@ -186,33 +203,35 @@ open class SearchBar: Bar {
         
         delegate?.searchBar?(searchBar: self, didClear: textField, with: t)
     }
-	
+    
     // Live updates the search results.
     @objc
-    internal func handleEditingChanged(textField: UITextField) {
+    fileprivate func handleEditingChanged(textField: UITextField) {
         delegate?.searchBar?(searchBar: self, didChange: textField, with: textField.text)
     }
-    
-	/// Prepares the textField.
-	private func prepareTextField() {
-		textField.contentScaleFactor = Screen.scale
-		textField.font = RobotoFont.regular(with: 17)
-		textField.backgroundColor = Color.clear
-		textField.clearButtonMode = .whileEditing
-		tintColor = placeholderColor
-		textColor = Color.darkText.primary
-		placeholder = "Search"
-		contentView.addSubview(textField)
+}
+
+extension SearchBar {
+    /// Prepares the textField.
+    fileprivate func prepareTextField() {
+        textField.contentScaleFactor = Screen.scale
+        textField.font = RobotoFont.regular(with: 17)
+        textField.backgroundColor = Color.clear
+        textField.clearButtonMode = .whileEditing
+        tintColor = placeholderColor
+        textColor = Color.darkText.primary
+        placeholder = "Search"
+        contentView.addSubview(textField)
         textField.addTarget(self, action: #selector(handleEditingChanged(textField:)), for: .editingChanged)
-	}
-	
-	/// Prepares the clearButton.
-	private func prepareClearButton() {
+    }
+    
+    /// Prepares the clearButton.
+    fileprivate func prepareClearButton() {
         clearButton = IconButton(image: Icon.cm.close, tintColor: placeholderColor)
-		clearButton.contentEdgeInsets = .zero
-		isClearButtonAutoHandleEnabled = true
-		textField.clearButtonMode = .never
-		textField.rightViewMode = .whileEditing
-		textField.rightView = clearButton
-	}
+        clearButton.contentEdgeInsets = .zero
+        isClearButtonAutoHandleEnabled = true
+        textField.clearButtonMode = .never
+        textField.rightViewMode = .whileEditing
+        textField.rightView = clearButton
+    }
 }

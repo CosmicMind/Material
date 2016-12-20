@@ -95,6 +95,7 @@ public struct Icon {
     public static let starHalf = Icon.icon("ic_star_half_white")
     public static let videocam = Icon.icon("ic_videocam_white")
     public static let visibility = Icon.icon("ic_visibility_white")
+    public static let work = Icon.icon("ic_work_white")
     
 	/// CosmicMind icons.
     public struct cm {
