@@ -33,8 +33,9 @@ import UIKit
 private var ToolbarContext: UInt8 = 0
 
 open class Toolbar: Bar {
-	/// A convenience property to set the titleLabel text.
-	open var title: String? {
+	/// A convenience property to set the titleLabel.text.
+	@IBInspectable
+    open var title: String? {
 		get {
 			return titleLabel.text
 		}
@@ -45,10 +46,12 @@ open class Toolbar: Bar {
 	}
 	
 	/// Title label.
-    open fileprivate(set) lazy var titleLabel = UILabel()
+    @IBInspectable
+    open let titleLabel = UILabel()
     
-	/// A convenience property to set the detailLabel text.
-	open var detail: String? {
+	/// A convenience property to set the detailLabel.text.
+	@IBInspectable
+    open var detail: String? {
 		get {
 			return detailLabel.text
 		}
@@ -59,7 +62,8 @@ open class Toolbar: Bar {
 	}
 	
 	/// Detail label.
-    open fileprivate(set) lazy var detailLabel = UILabel()
+    @IBInspectable
+    open let detailLabel = UILabel()
 	
     deinit {
         removeObserver(self, forKeyPath: "titleLabel.textAlignment")
@@ -142,21 +146,23 @@ open class Toolbar: Bar {
 		prepareTitleLabel()
 		prepareDetailLabel()
 	}
-	
-	/// Prepares the titleLabel.
-    private func prepareTitleLabel() {
+}
+
+extension Toolbar {
+    /// Prepares the titleLabel.
+    fileprivate func prepareTitleLabel() {
         titleLabel.textAlignment = .center
         titleLabel.contentScaleFactor = Screen.scale
-		titleLabel.font = RobotoFont.medium(with: 17)
+        titleLabel.font = RobotoFont.medium(with: 17)
         titleLabel.textColor = Color.darkText.primary
         addObserver(self, forKeyPath: "titleLabel.textAlignment", options: [], context: &ToolbarContext)
-	}
-	
-	/// Prepares the detailLabel.
-	private func prepareDetailLabel() {
+    }
+    
+    /// Prepares the detailLabel.
+    fileprivate func prepareDetailLabel() {
         detailLabel.textAlignment = .center
         detailLabel.contentScaleFactor = Screen.scale
-		detailLabel.font = RobotoFont.regular(with: 12)
+        detailLabel.font = RobotoFont.regular(with: 12)
         detailLabel.textColor = Color.darkText.secondary
-	}
+    }
 }
