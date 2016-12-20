@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
   s.name = 'Material'
   s.version = '2.4.1'
   s.license = 'BSD-3-Clause'
-  s.summary = 'Material is an animation and graphics framework that is used to create beautiful applications.'
+  s.summary = 'Material is an animation and graphics framework for Google's Material Design in Swift.'
   s.homepage = 'http://materialswift.com'
   s.social_media_url = 'https://www.facebook.com/cosmicmindio'
   s.authors = { 'CosmicMind, Inc.' => 'support@cosmicmind.com' }
