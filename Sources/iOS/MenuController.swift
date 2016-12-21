@@ -31,46 +31,44 @@
 import UIKit
 
 extension UIViewController {
-	/**
-	A convenience property that provides access to the MenuController.
-	This is the recommended method of accessing the MenuController
-	through child UIViewControllers.
-	*/
-	public var menuController: MenuController? {
-		var viewController: UIViewController? = self
-		while nil != viewController {
-			if viewController is MenuController {
-				return viewController as? MenuController
-			}
-			viewController = viewController?.parent
-		}
-		return nil
-	}
+    /**
+     A convenience property that provides access to the MenuController.
+     This is the recommended method of accessing the MenuController
+     through child UIViewControllers.
+     */
+    public var menuController: MenuController? {
+        var viewController: UIViewController? = self
+        while nil != viewController {
+            if viewController is MenuController {
+                return viewController as? MenuController
+            }
+            viewController = viewController?.parent
+        }
+        return nil
+    }
 }
 
 open class MenuController: RootController {
-	open fileprivate(set) var blurView: UIView?
-    
     /// Reference to the MenuView.
     @IBInspectable
     open let menu = Menu()
-	
-	open override func layoutSubviews() {
-		super.layoutSubviews()
-		rootViewController.view.frame = view.bounds
-	}
-	
-	/**
+    
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        rootViewController.view.frame = view.bounds
+    }
+    
+    /**
      Prepares the view instance when intialized. When subclassing,
      it is recommended to override the prepare method
      to initialize property values and other setup operations.
      The super.prepare method should always be called immediately
      when subclassing.
      */
-	open override func prepare() {
-		super.prepare()
-		prepareMenu()
-	}
+    open override func prepare() {
+        super.prepare()
+        prepareMenu()
+    }
 }
 
 extension MenuController {
@@ -90,21 +88,12 @@ extension MenuController {
     open func openMenu(completion: ((UIView) -> Void)? = nil) {
         if true == isUserInteractionEnabled {
             isUserInteractionEnabled = false
-            
-            if nil == blurView {
-                let blur = UIVisualEffectView(effect: UIBlurEffect(style: .light))
-                blurView = UIView()
-                blurView?.layout(blur).edges()
-                view.layout(blurView!).edges()
-                view.bringSubview(toFront: menu)
-            }
-            
-//            UIView.animate(withDuration: 0.15, animations: { [weak self] in
-//                guard let s = self else {
-//                    return
-//                }
-//                s.rootViewController.view.alpha = 0.15
-//            })
+            UIView.animate(withDuration: 0.15, animations: { [weak self] in
+                guard let s = self else {
+                    return
+                }
+                s.rootViewController.view.alpha = 0.15
+            })
             menu.open { [completion = completion] (view) in
                 completion?(view)
             }
@@ -118,16 +107,12 @@ extension MenuController {
      */
     open func closeMenu(completion: ((UIView) -> Void)? = nil) {
         if false == isUserInteractionEnabled {
-            blurView?.removeFromSuperview()
-            blurView = nil
-            
-            
-//            UIView.animate(withDuration: 0.15, animations: { [weak self] in
-//                guard let s = self else {
-//                    return
-//                }
-//                s.rootViewController.view.alpha = 1
-//            })
+            UIView.animate(withDuration: 0.15, animations: { [weak self] in
+                guard let s = self else {
+                    return
+                }
+                s.rootViewController.view.alpha = 1
+            })
             menu.close { [weak self] (view) in
                 guard let s = self else {
                     return
