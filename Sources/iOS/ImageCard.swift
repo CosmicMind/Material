@@ -94,6 +94,6 @@ open class ImageCard: Card {
         }
         
         container.height = h
-        bounds.size.height = h
+        height = h
     }
 }

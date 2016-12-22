@@ -49,7 +49,8 @@ open class Snackbar: Bar {
     }
     
     /// Text label.
-    public internal(set) lazy var textLabel = UILabel()
+    @IBInspectable
+    open let textLabel = UILabel()
     
     open override var intrinsicContentSize: CGSize {
         return CGSize(width: width, height: 49)

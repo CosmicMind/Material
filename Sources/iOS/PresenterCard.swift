@@ -79,6 +79,6 @@ open class PresenterCard: Card {
         }
         
         container.height = h
-        bounds.size.height = h
+        height = h
     }
 }
