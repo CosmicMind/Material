@@ -186,7 +186,7 @@ open class Switch: UIControl {
 			return .on == internalSwitchState
 		}
 		set(value) {
-			updateSwitchState(state: .on, animated: true, isTriggeredByUserInteraction: false)
+            updateSwitchState(state: value ? .on : .off, animated: true, isTriggeredByUserInteraction: false)
 		}
 	}
 
@@ -196,7 +196,7 @@ open class Switch: UIControl {
 			return internalSwitchState
 		}
 		set(value) {
-			updateSwitchState(state: .on, animated: true, isTriggeredByUserInteraction: false)
+			updateSwitchState(state: value, animated: true, isTriggeredByUserInteraction: false)
 		}
 	}
 	
