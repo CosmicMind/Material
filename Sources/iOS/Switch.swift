@@ -32,26 +32,26 @@ import UIKit
 
 @objc(SwitchStyle)
 public enum SwitchStyle: Int {
-	case light
-	case dark
+    case light
+    case dark
 }
 
 @objc(SwitchState)
 public enum SwitchState: Int {
-	case on
-	case off
+    case on
+    case off
 }
 
 @objc(SwitchSize)
 public enum SwitchSize: Int {
-	case small
-	case medium
-	case large
+    case small
+    case medium
+    case large
 }
 
 @objc(SwitchDelegate)
 public protocol SwitchDelegate {
-	/**
+    /**
      A Switch delegate method for state changes.
      - Parameter control: Switch control.
      - Parameter state: SwitchState value.
@@ -66,187 +66,185 @@ open class Switch: UIControl {
     }
     
     /// An internal reference to the switchState public property.
-	fileprivate var internalSwitchState = SwitchState.off
-	
-	/// Track thickness.
-	fileprivate var trackThickness: CGFloat = 0
-	
-	/// Button diameter.
-	fileprivate var buttonDiameter: CGFloat = 0
-	
-	/// Position when in the .on state.
-	fileprivate var onPosition: CGFloat = 0
-	
-	/// Position when in the .off state.
-	fileprivate var offPosition: CGFloat = 0
-	
-	/// The bounce offset when animating.
-	fileprivate var bounceOffset: CGFloat = 3
-		
-	/// An Optional delegation method.
-	open weak var delegate: SwitchDelegate?
-	
-	/// Indicates if the animation should bounce.
-	@IBInspectable
+    fileprivate var internalSwitchState = SwitchState.off
+    
+    /// Track thickness.
+    fileprivate var trackThickness: CGFloat = 0
+    
+    /// Button diameter.
+    fileprivate var buttonDiameter: CGFloat = 0
+    
+    /// Position when in the .on state.
+    fileprivate var onPosition: CGFloat = 0
+    
+    /// Position when in the .off state.
+    fileprivate var offPosition: CGFloat = 0
+    
+    /// The bounce offset when animating.
+    fileprivate var bounceOffset: CGFloat = 3
+    
+    /// An Optional delegation method.
+    open weak var delegate: SwitchDelegate?
+    
+    /// Indicates if the animation should bounce.
+    @IBInspectable
     open var isBounceable = true {
-		didSet {
-			bounceOffset = isBounceable ? 3 : 0
-		}
-	}
-	
-	/// Button on color.
-	@IBInspectable
+        didSet {
+            bounceOffset = isBounceable ? 3 : 0
+        }
+    }
+    
+    /// Button on color.
+    @IBInspectable
     open var buttonOnColor = Color.clear {
-		didSet {
-			styleForState(state: switchState)
-		}
-	}
-	
-	/// Button off color.
-	@IBInspectable
+        didSet {
+            styleForState(state: switchState)
+        }
+    }
+    
+    /// Button off color.
+    @IBInspectable
     open var buttonOffColor = Color.clear {
-		didSet {
-			styleForState(state: switchState)
-		}
-	}
-	
-	/// Track on color.
-	@IBInspectable
+        didSet {
+            styleForState(state: switchState)
+        }
+    }
+    
+    /// Track on color.
+    @IBInspectable
     open var trackOnColor = Color.clear {
-		didSet {
-			styleForState(state: switchState)
-		}
-	}
-	
-	/// Track off color.
-	@IBInspectable
+        didSet {
+            styleForState(state: switchState)
+        }
+    }
+    
+    /// Track off color.
+    @IBInspectable
     open var trackOffColor = Color.clear {
-		didSet {
-			styleForState(state: switchState)
-		}
-	}
-	
-	/// Button on disabled color.
-	@IBInspectable
+        didSet {
+            styleForState(state: switchState)
+        }
+    }
+    
+    /// Button on disabled color.
+    @IBInspectable
     open var buttonOnDisabledColor = Color.clear {
-		didSet {
-			styleForState(state: switchState)
-		}
-	}
-	
-	/// Track on disabled color.
-	@IBInspectable
+        didSet {
+            styleForState(state: switchState)
+        }
+    }
+    
+    /// Track on disabled color.
+    @IBInspectable
     open var trackOnDisabledColor = Color.clear {
-		didSet {
-			styleForState(state: switchState)
-		}
-	}
-	
-	/// Button off disabled color.
-	@IBInspectable
+        didSet {
+            styleForState(state: switchState)
+        }
+    }
+    
+    /// Button off disabled color.
+    @IBInspectable
     open var buttonOffDisabledColor = Color.clear {
-		didSet {
-			styleForState(state: switchState)
-		}
-	}
-	
-	/// Track off disabled color.
-	@IBInspectable
+        didSet {
+            styleForState(state: switchState)
+        }
+    }
+    
+    /// Track off disabled color.
+    @IBInspectable
     open var trackOffDisabledColor = Color.clear {
-		didSet {
-			styleForState(state: switchState)
-		}
-	}
-	
-	/// Track view reference.
-	open fileprivate(set) var track: UIView {
-		didSet {
-			prepareTrack()
-		}
-	}
-	
-	/// Button view reference.
-	open fileprivate(set) var button: FabButton {
-		didSet {
-			prepareButton()
-		}
-	}
-	
-	@IBInspectable
+        didSet {
+            styleForState(state: switchState)
+        }
+    }
+    
+    /// Track view reference.
+    open fileprivate(set) var track: UIView {
+        didSet {
+            prepareTrack()
+        }
+    }
+    
+    /// Button view reference.
+    open fileprivate(set) var button: FabButton {
+        didSet {
+            prepareButton()
+        }
+    }
+    
+    @IBInspectable
     open override var isEnabled: Bool {
-		didSet {
-			styleForState(state: internalSwitchState)
-		}
-	}
-	
-	/// A boolean indicating if the switch is on or not.
-	@IBInspectable
+        didSet {
+            styleForState(state: internalSwitchState)
+        }
+    }
+    
+    /// A boolean indicating if the switch is on or not.
+    @IBInspectable
     public var isOn: Bool {
-		get {
-			return .on == internalSwitchState
-		}
-		set(value) {
-			updateSwitchState(state: .on, animated: true, isTriggeredByUserInteraction: false)
-		}
-	}
-
-	/// Switch state.
-	open var switchState: SwitchState {
-		get {
-			return internalSwitchState
-		}
-		set(value) {
-			if value != internalSwitchState {
-				internalSwitchState = value
-			}
-		}
-	}
-	
-	/// Switch style.
-	open var switchStyle = SwitchStyle.dark {
-		didSet {
-			switch switchStyle {
-			case .light:
-				buttonOnColor = Color.blue.darken2
-				trackOnColor = Color.blue.lighten3
-				buttonOffColor = Color.blueGrey.lighten4
-				trackOffColor = Color.grey.lighten3
-				buttonOnDisabledColor = Color.grey.lighten2
-				trackOnDisabledColor = Color.grey.lighten3
-				buttonOffDisabledColor = Color.grey.lighten2
-				trackOffDisabledColor = Color.grey.lighten3
-			case .dark:
-				buttonOnColor = Color.blue.lighten1
-				trackOnColor = Color.blue.lighten2.withAlphaComponent(0.5)
-				buttonOffColor = Color.grey.lighten3
-				trackOffColor = Color.blueGrey.lighten4.withAlphaComponent(0.5)
-				buttonOnDisabledColor = Color.grey.darken3
-				trackOnDisabledColor = Color.grey.lighten1.withAlphaComponent(0.2)
-				buttonOffDisabledColor = Color.grey.darken3
-				trackOffDisabledColor = Color.grey.lighten1.withAlphaComponent(0.2)
-			}
-		}
-	}
-	
-	/// Switch size.
-	open var switchSize = SwitchSize.medium {
-		didSet {
-			switch switchSize {
-			case .small:
-				trackThickness = 12
-				buttonDiameter = 18
-			case .medium:
-				trackThickness = 18
-				buttonDiameter = 24
-			case .large:
-				trackThickness = 24
-				buttonDiameter = 32
-			}
+        get {
+            return .on == internalSwitchState
+        }
+        set(value) {
+            updateSwitchState(state: value ? .on : .off, animated: true, isTriggeredByUserInteraction: false)
+        }
+    }
+    
+    /// Switch state.
+    open var switchState: SwitchState {
+        get {
+            return internalSwitchState
+        }
+        set(value) {
+            updateSwitchState(state: value, animated: true, isTriggeredByUserInteraction: false)
+        }
+    }
+    
+    /// Switch style.
+    open var switchStyle = SwitchStyle.dark {
+        didSet {
+            switch switchStyle {
+            case .light:
+                buttonOnColor = Color.blue.darken2
+                trackOnColor = Color.blue.lighten3
+                buttonOffColor = Color.blueGrey.lighten4
+                trackOffColor = Color.grey.lighten3
+                buttonOnDisabledColor = Color.grey.lighten2
+                trackOnDisabledColor = Color.grey.lighten3
+                buttonOffDisabledColor = Color.grey.lighten2
+                trackOffDisabledColor = Color.grey.lighten3
+            case .dark:
+                buttonOnColor = Color.blue.lighten1
+                trackOnColor = Color.blue.lighten2.withAlphaComponent(0.5)
+                buttonOffColor = Color.grey.lighten3
+                trackOffColor = Color.blueGrey.lighten4.withAlphaComponent(0.5)
+                buttonOnDisabledColor = Color.grey.darken3
+                trackOnDisabledColor = Color.grey.lighten1.withAlphaComponent(0.2)
+                buttonOffDisabledColor = Color.grey.darken3
+                trackOffDisabledColor = Color.grey.lighten1.withAlphaComponent(0.2)
+            }
+        }
+    }
+    
+    /// Switch size.
+    open var switchSize = SwitchSize.medium {
+        didSet {
+            switch switchSize {
+            case .small:
+                trackThickness = 12
+                buttonDiameter = 18
+            case .medium:
+                trackThickness = 18
+                buttonDiameter = 24
+            case .large:
+                trackThickness = 24
+                buttonDiameter = 32
+            }
             
             frame.size = intrinsicContentSize
-		}
-	}
-	
+        }
+    }
+    
     open override var intrinsicContentSize: CGSize {
         switch switchSize {
         case .small:
@@ -257,48 +255,48 @@ open class Switch: UIControl {
             return CGSize(width: 36, height: 36)
         }
     }
-	
-	/**
+    
+    /**
      An initializer that initializes the object with a NSCoder object.
      - Parameter aDecoder: A NSCoder instance.
      */
-	public required init?(coder aDecoder: NSCoder) {
-		track = UIView()
-		button = FabButton()
-		super.init(coder: aDecoder)
-		prepare()
-	}
-	
-	/**
+    public required init?(coder aDecoder: NSCoder) {
+        track = UIView()
+        button = FabButton()
+        super.init(coder: aDecoder)
+        prepare()
+    }
+    
+    /**
      An initializer that initializes the object with a CGRect object.
      If AutoLayout is used, it is better to initilize the instance
      using the init(state:style:size:) initializer, or set the CGRect
      to CGRectNull.
      - Parameter frame: A CGRect instance.
      */
-	public override init(frame: CGRect) {
-		track = UIView()
-		button = FabButton()
-		super.init(frame: frame)
-		prepare()
-	}
-	
-	/**
+    public override init(frame: CGRect) {
+        track = UIView()
+        button = FabButton()
+        super.init(frame: frame)
+        prepare()
+    }
+    
+    /**
      An initializer that sets the state, style, and size of the Switch instance.
      - Parameter state: A SwitchState value.
      - Parameter style: A SwitchStyle value.
      - Parameter size: A SwitchSize value.
      */
-	public init(state: SwitchState = .off, style: SwitchStyle = .dark, size: SwitchSize = .medium) {
-		track = UIView()
-		button = FabButton()
-		super.init(frame: .zero)
+    public init(state: SwitchState = .off, style: SwitchStyle = .dark, size: SwitchSize = .medium) {
+        track = UIView()
+        button = FabButton()
+        super.init(frame: .zero)
         prepare()
         prepareSwitchState(state: state)
         prepareSwitchStyle(style: style)
         prepareSwitchSize(size: size)
-	}
-	
+    }
+    
     open override func layoutSubviews() {
         super.layoutSubviews()
         guard willLayout else {
@@ -325,18 +323,18 @@ open class Switch: UIControl {
         }
     }
     
-	open override func willMove(toSuperview newSuperview: UIView?) {
-		super.willMove(toSuperview: newSuperview)
-		styleForState(state: internalSwitchState)
-	}
-	
-	/**
+    open override func willMove(toSuperview newSuperview: UIView?) {
+        super.willMove(toSuperview: newSuperview)
+        styleForState(state: internalSwitchState)
+    }
+    
+    /**
      Toggle the Switch state, if On will be Off, and if Off will be On.
      - Parameter completion: An Optional completion block.
      */
-	open func toggle(completion: ((Switch) -> Void)? = nil) {
+    open func toggle(completion: ((Switch) -> Void)? = nil) {
         updateSwitchState(state: .on == internalSwitchState ? .off : .on, animated: true, isTriggeredByUserInteraction: false, completion: completion)
-	}
+    }
     
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard track.frame.contains(layer.convert(touches.first!.location(in: self), from: layer)) else {
@@ -469,23 +467,23 @@ extension Switch {
     fileprivate func animateToState(state: SwitchState, completion: ((Switch) -> Void)? = nil) {
         isUserInteractionEnabled = false
         UIView.animate(withDuration: 0.15,
-            delay: 0.05,
-            options: [.curveEaseIn, .curveEaseOut],
-            animations: { [weak self] in
-            guard let s = self else {
-                return
-            }
-
-            s.button.x = .on == state ? s.onPosition + s.bounceOffset : s.offPosition - s.bounceOffset
-            s.styleForState(state: state)
+                       delay: 0.05,
+                       options: [.curveEaseIn, .curveEaseOut],
+                       animations: { [weak self] in
+                        guard let s = self else {
+                            return
+                        }
+                        
+                        s.button.x = .on == state ? s.onPosition + s.bounceOffset : s.offPosition - s.bounceOffset
+                        s.styleForState(state: state)
         }) { [weak self] _ in
             UIView.animate(withDuration: 0.15,
-                animations: { [weak self] in
-                guard let s = self else {
-                    return
-                }
-
-                s.button.x = .on == state ? s.onPosition : s.offPosition
+                           animations: { [weak self] in
+                            guard let s = self else {
+                                return
+                            }
+                            
+                            s.button.x = .on == state ? s.onPosition : s.offPosition
             }) { [weak self] _ in
                 guard let s = self else {
                     return
