@@ -30,19 +30,33 @@
 
 import UIKit
 
-open class FabButton: Button {
-	/**
-     Prepares the view instance when intialized. When subclassing,
-     it is recommended to override the prepare method
-     to initialize property values and other setup operations.
-     The super.prepare method should always be called immediately
-     when subclassing.
+@objc(FABMenuDelegate)
+public protocol FABMenuDelegate: MenuDelegate {
+    /**
+     Gets called when the user taps while the menu is opened.
+     - Parameter menu: A FABMenu.
+     - Parameter tappedAt point: A CGPoint.
+     - Parameter isOutside: A boolean indicating whether the tap
+     was outside the menu button area.
      */
-	open override func prepare() {
-		super.prepare()
-		depthPreset = .depth1
-		shapePreset = .circle
-		pulseAnimation = .centerWithBacking
-        backgroundColor = .white
-	}
+    @objc
+    optional func fabMenu(fabMenu: FABMenu, tappedAt point: CGPoint, isOutside: Bool)
+}
+
+
+@objc(FABMenu)
+open class FABMenu: Menu {
+    /// A reference to the MenuItems
+    open var buttons: [MenuItem] {
+        get {
+            return views as! [MenuItem]
+        }
+        set(value) {
+            views = value
+        }
+    }
+    
+    open override func prepare() {
+        super.prepare()
+    }
 }

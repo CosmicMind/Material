@@ -166,7 +166,7 @@ open class Switch: UIControl {
 	}
 	
 	/// Button view reference.
-	open fileprivate(set) var button: FabButton {
+	open fileprivate(set) var button: FABButton {
 		didSet {
 			prepareButton()
 		}
@@ -196,9 +196,7 @@ open class Switch: UIControl {
 			return internalSwitchState
 		}
 		set(value) {
-			if value != internalSwitchState {
-				internalSwitchState = value
-			}
+			updateSwitchState(state: .on, animated: true, isTriggeredByUserInteraction: false)
 		}
 	}
 	
@@ -264,7 +262,7 @@ open class Switch: UIControl {
      */
 	public required init?(coder aDecoder: NSCoder) {
 		track = UIView()
-		button = FabButton()
+		button = FABButton()
 		super.init(coder: aDecoder)
 		prepare()
 	}
@@ -278,7 +276,7 @@ open class Switch: UIControl {
      */
 	public override init(frame: CGRect) {
 		track = UIView()
-		button = FabButton()
+		button = FABButton()
 		super.init(frame: frame)
 		prepare()
 	}
@@ -291,7 +289,7 @@ open class Switch: UIControl {
      */
 	public init(state: SwitchState = .off, style: SwitchStyle = .dark, size: SwitchSize = .medium) {
 		track = UIView()
-		button = FabButton()
+		button = FABButton()
 		super.init(frame: .zero)
         prepare()
         prepareSwitchState(state: state)
@@ -505,7 +503,7 @@ extension Switch {
      - Parameter event: A UIEvent.
      */
     @objc
-    fileprivate func handleTouchUpOutsideOrCanceled(sender: FabButton, event: UIEvent) {
+    fileprivate func handleTouchUpOutsideOrCanceled(sender: FABButton, event: UIEvent) {
         guard let v = event.touches(for: sender)?.first else {
             return
         }
@@ -526,7 +524,7 @@ extension Switch {
      - Parameter event: A UIEvent.
      */
     @objc
-    fileprivate func handleTouchDragInside(sender: FabButton, event: UIEvent) {
+    fileprivate func handleTouchDragInside(sender: FABButton, event: UIEvent) {
         guard let v = event.touches(for: sender)?.first else {
             return
         }

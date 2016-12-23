@@ -32,15 +32,15 @@ import UIKit
 
 extension UIViewController {
     /**
-     A convenience property that provides access to the MenuController.
-     This is the recommended method of accessing the MenuController
+     A convenience property that provides access to the FABMenuController.
+     This is the recommended method of accessing the FABMenuController
      through child UIViewControllers.
      */
-    public var menuController: MenuController? {
+    public var fabMenuController: FABMenuController? {
         var viewController: UIViewController? = self
         while nil != viewController {
-            if viewController is MenuController {
-                return viewController as? MenuController
+            if viewController is FABMenuController {
+                return viewController as? FABMenuController
             }
             viewController = viewController?.parent
         }
@@ -48,7 +48,7 @@ extension UIViewController {
     }
 }
 
-open class MenuController: RootController {
+open class FABMenuController: RootController {
     /// Reference to the MenuView.
     @IBInspectable
     open let menu = FABMenu()
@@ -71,7 +71,7 @@ open class MenuController: RootController {
     }
 }
 
-extension MenuController {
+extension FABMenuController {
     /// Prepares the Menu.
     fileprivate func prepareMenu() {
         menu.zPosition = 1000
@@ -79,7 +79,8 @@ extension MenuController {
     }
 }
 
-extension MenuController {
+extension FABMenuController {
+    
     /**
      Opens the menu with a callback.
      - Parameter completion: An Optional callback that is executed when
@@ -94,7 +95,7 @@ extension MenuController {
                 }
                 s.rootViewController.view.alpha = 0.15
             })
-            menu.open(usingSpringWithDamping: 0) { [completion = completion] (view) in
+            menu.open { [completion = completion] (view) in
                 completion?(view)
             }
         }
@@ -113,7 +114,7 @@ extension MenuController {
                 }
                 s.rootViewController.view.alpha = 1
             })
-            menu.close(usingSpringWithDamping: 0) { [weak self] (view) in
+            menu.close { [weak self] (view) in
                 guard let s = self else {
                     return
                 }
