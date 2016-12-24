@@ -40,7 +40,7 @@ open class Button: UIButton, Pulseable {
 	open let visualLayer = CAShapeLayer()
 
     /// A Pulse reference.
-    fileprivate var pulse: Pulse!
+    fileprivate var pulse: MotionPulse!
     
     /// PulseAnimation value.
     open var pulseAnimation: PulseAnimation {
@@ -261,7 +261,7 @@ extension Button {
     
     /// Prepares the pulse motion.
     fileprivate func preparePulse() {
-        pulse = Pulse(pulseView: self, pulseLayer: visualLayer)
+        pulse = MotionPulse(pulseView: self, pulseLayer: visualLayer)
     }
     
     /**

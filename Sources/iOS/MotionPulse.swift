@@ -53,7 +53,7 @@ public protocol Pulseable {
     var pulseOpacity: CGFloat { get set }
 }
 
-public struct Pulse {
+public struct MotionPulse {
     /// A UIView that is Pulseable.
     fileprivate weak var pulseView: UIView?
     
@@ -64,7 +64,7 @@ public struct Pulse {
     fileprivate var layers = [CAShapeLayer]()
     
     /// A reference to the PulseAnimation.
-    public var animation = PulseAnimation.pointWithBacking
+    public var animation = MotionPulseAnimation.pointWithBacking
     
     /// A UIColor.
     public var color = Color.grey.base
@@ -81,7 +81,9 @@ public struct Pulse {
         self.pulseView = pulseView
         self.pulseLayer = pulseLayer
     }
-    
+}
+
+extension MotionPulse {
     /**
      Triggers the expanding animation.
      - Parameter point: A point to pulse from.
@@ -157,7 +159,9 @@ public struct Pulse {
             bLayer.setValue(true, forKey: "animated")
         }
 	}
-	
+}
+
+extension MotionPulse {
 	/// Triggers the contracting animation.
     public mutating func contractAnimation() {
         guard let bLayer = layers.popLast() else {

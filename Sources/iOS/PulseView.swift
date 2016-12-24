@@ -32,7 +32,7 @@ import UIKit
 
 open class PulseView: View, Pulseable {
     /// A Pulse reference.
-    fileprivate var pulse: Pulse!
+    fileprivate var pulse: MotionPulse!
     
     /// PulseAnimation value.
     open var pulseAnimation: PulseAnimation {
@@ -129,6 +129,6 @@ open class PulseView: View, Pulseable {
 extension PulseView {
     /// Prepares the pulse motion.
     fileprivate func preparePulse() {
-        pulse = Pulse(pulseView: self, pulseLayer: visualLayer)
+        pulse = MotionPulse(pulseView: self, pulseLayer: visualLayer)
     }
 }

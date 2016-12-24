@@ -30,8 +30,16 @@
 
 import UIKit
 
+@objc(FABMenuDirection)
+public enum FABMenuDirection: Int {
+    case up
+    case down
+    case left
+    case right
+}
+
 @objc(FABMenuDelegate)
-public protocol FABMenuDelegate: MenuDelegate {
+public protocol FABMenuDelegate {
     /**
      Gets called when the user taps while the menu is opened.
      - Parameter menu: A FABMenu.
@@ -46,6 +54,16 @@ public protocol FABMenuDelegate: MenuDelegate {
 
 @objc(FABMenu)
 open class FABMenu: Menu {
+    /// An optional delegation handler.
+    open weak var delegate: FABMenuDelegate?
+    
+    /// The direction in which the animation opens the menu.
+    open var direction = SpringDirection.up {
+        didSet {
+            layoutSubviews()
+        }
+    }
+    
     /// A reference to the MenuItems
     open var buttons: [MenuItem] {
         get {
@@ -55,8 +73,30 @@ open class FABMenu: Menu {
             views = value
         }
     }
-    
-    open override func prepare() {
-        super.prepare()
+}
+
+extension FABMenu {
+    /**
+     Handles the hit test for the Menu and views outside of the Menu bounds.
+     - Parameter _ point: A CGPoint.
+     - Parameter with event: An optional UIEvent.
+     - Returns: An optional UIView.
+     */
+    open override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        guard isOpened, isEnabled else {
+            return super.hitTest(point, with: event)
+        }
+        
+        for v in subviews {
+            let p = v.convert(point, from: self)
+            if v.bounds.contains(p) {
+                delegate?.fabMenu?(fabMenu: self, tappedAt: point, isOutside: false)
+                return v.hitTest(p, with: event)
+            }
+        }
+        
+        delegate?.fabMenu?(fabMenu: self, tappedAt: point, isOutside: true)
+        
+        return self.hitTest(point, with: event)
     }
 }
