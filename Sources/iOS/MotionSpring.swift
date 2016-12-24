@@ -30,22 +30,22 @@
 
 import UIKit
 
-@objc(SpringDirection)
-public enum SpringDirection: Int {
+@objc(MotionSpringDirection)
+public enum MotionSpringDirection: Int {
     case up
     case down
     case left
     case right
 }
 
-public protocol Springable {
-    /// A SpringDirection value.
-    var springDirection: SpringDirection { get set }
+public protocol MotionSpringable {
+    /// A MotionSpringDirection value.
+    var springDirection: MotionSpringDirection { get set }
 }
 
 open class MotionSpring {
-    /// A SpringDirection value.
-    open var direction = SpringDirection.up
+    /// A MotionSpringDirection value.
+    open var direction = MotionSpringDirection.up
     
     /// A Boolean that indicates if the menu is open or not.
     open internal(set) var isOpened = false

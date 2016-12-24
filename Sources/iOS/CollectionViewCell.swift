@@ -31,7 +31,7 @@
 import UIKit
 
 @objc(CollectionViewCell)
-open class CollectionViewCell: UICollectionViewCell, Pulseable {
+open class CollectionViewCell: UICollectionViewCell, MotionPulseable {
     /**
      A CAShapeLayer used to manage elements that would be affected by
      the clipToBounds property of the backing layer. For example, this
@@ -43,8 +43,8 @@ open class CollectionViewCell: UICollectionViewCell, Pulseable {
     /// A Pulse reference.
     fileprivate var pulse: MotionPulse!
     
-    /// PulseAnimation value.
-    open var pulseAnimation: PulseAnimation {
+    /// MotionPulseAnimation value.
+    open var pulseAnimation: MotionPulseAnimation {
         get {
             return pulse.animation
         }
@@ -53,7 +53,7 @@ open class CollectionViewCell: UICollectionViewCell, Pulseable {
         }
     }
     
-    /// PulseAnimation color.
+    /// MotionPulseAnimation color.
     @IBInspectable
     open var pulseColor: UIColor {
         get {

@@ -31,7 +31,7 @@
 import UIKit
 
 @objc(menu)
-open class Menu: View, Springable {
+open class Menu: View, MotionSpringable {
     internal let spring = Spring()
     
     open var views: [UIView] {

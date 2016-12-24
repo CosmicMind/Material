@@ -30,12 +30,12 @@
 
 import UIKit
 
-open class PulseView: View, Pulseable {
+open class PulseView: View, MotionPulseable {
     /// A Pulse reference.
     fileprivate var pulse: MotionPulse!
     
-    /// PulseAnimation value.
-    open var pulseAnimation: PulseAnimation {
+    /// MotionPulseAnimation value.
+    open var pulseAnimation: MotionPulseAnimation {
         get {
             return pulse.animation
         }
@@ -44,7 +44,7 @@ open class PulseView: View, Pulseable {
         }
     }
     
-    /// PulseAnimation color.
+    /// MotionPulseAnimation color.
     @IBInspectable
     open var pulseColor: UIColor {
         get {

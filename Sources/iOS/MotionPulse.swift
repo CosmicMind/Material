@@ -30,8 +30,8 @@
 
 import UIKit
 
-@objc(PulseAnimation)
-public enum PulseAnimation: Int {
+@objc(MotionPulseAnimation)
+public enum MotionPulseAnimation: Int {
     case none
     case center
     case centerWithBacking
@@ -42,9 +42,9 @@ public enum PulseAnimation: Int {
     case pointWithBacking
 }
 
-public protocol Pulseable {
-    /// A reference to the PulseAnimation.
-    var pulseAnimation: PulseAnimation { get set }
+public protocol MotionPulseable {
+    /// A reference to the MotionPulseAnimation.
+    var pulseAnimation: MotionPulseAnimation { get set }
     
     /// A UIColor.
     var pulseColor: UIColor { get set }
@@ -54,7 +54,7 @@ public protocol Pulseable {
 }
 
 public struct MotionPulse {
-    /// A UIView that is Pulseable.
+    /// A UIView that is MotionPulseable.
     fileprivate weak var pulseView: UIView?
     
     /// The layer the pulse layers are added to.
@@ -63,8 +63,8 @@ public struct MotionPulse {
     /// Pulse layers.
     fileprivate var layers = [CAShapeLayer]()
     
-    /// A reference to the PulseAnimation.
-    public var animation = MotionPulseAnimation.pointWithBacking
+    /// A reference to the MotionPulseAnimation.
+    public var animation = MotionMotionPulseAnimation.pointWithBacking
     
     /// A UIColor.
     public var color = Color.grey.base

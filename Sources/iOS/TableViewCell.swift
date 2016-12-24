@@ -30,7 +30,7 @@
 
 import UIKit
 
-open class TableViewCell: UITableViewCell, Pulseable {
+open class TableViewCell: UITableViewCell, MotionPulseable {
     /**
      A CAShapeLayer used to manage elements that would be affected by
      the clipToBounds property of the backing layer. For example, this
@@ -42,8 +42,8 @@ open class TableViewCell: UITableViewCell, Pulseable {
     /// A Pulse reference.
     fileprivate var pulse: MotionPulse!
     
-    /// PulseAnimation value.
-    open var pulseAnimation: PulseAnimation {
+    /// MotionPulseAnimation value.
+    open var pulseAnimation: MotionPulseAnimation {
         get {
             return pulse.animation
         }
@@ -52,7 +52,7 @@ open class TableViewCell: UITableViewCell, Pulseable {
         }
     }
     
-    /// PulseAnimation color.
+    /// MotionPulseAnimation color.
     @IBInspectable
     open var pulseColor: UIColor {
         get {
