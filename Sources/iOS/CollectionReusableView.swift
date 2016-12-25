@@ -31,7 +31,7 @@
 import UIKit
 
 @objc(CollectionReusableView)
-open class CollectionReusableView: UICollectionReusableView, MotionPulseable {
+open class CollectionReusableView: UICollectionReusableView, PulseableMotion {
     /**
      A CAShapeLayer used to manage elements that would be affected by
      the clipToBounds property of the backing layer. For example, this
@@ -41,10 +41,10 @@ open class CollectionReusableView: UICollectionReusableView, MotionPulseable {
     open let visualLayer = CAShapeLayer()
     
     /// A Pulse reference.
-    fileprivate var pulse: MotionPulse!
+    fileprivate var pulse: PulseMotion!
     
-    /// MotionPulseAnimation value.
-    open var pulseAnimation: MotionPulseAnimation {
+    /// PulseMotionAnimation value.
+    open var pulseAnimation: PulseMotionAnimation {
         get {
             return pulse.animation
         }
@@ -53,7 +53,7 @@ open class CollectionReusableView: UICollectionReusableView, MotionPulseable {
         }
     }
     
-    /// MotionPulseAnimation color.
+    /// PulseMotionAnimation color.
     @IBInspectable
     open var pulseColor: UIColor {
         get {
@@ -295,7 +295,7 @@ open class CollectionReusableView: UICollectionReusableView, MotionPulseable {
 extension CollectionReusableView {
     /// Prepares the pulse motion.
     fileprivate func preparePulse() {
-        pulse = MotionPulse(pulseView: self, pulseLayer: visualLayer)
+        pulse = PulseMotion(pulseView: self, pulseLayer: visualLayer)
         pulseAnimation = .none
     }
     

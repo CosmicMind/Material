@@ -30,22 +30,22 @@
 
 import UIKit
 
-@objc(MotionSpringDirection)
-public enum MotionSpringDirection: Int {
+@objc(SpringMotionDirection)
+public enum SpringMotionDirection: Int {
     case up
     case down
     case left
     case right
 }
 
-public protocol MotionSpringable {
-    /// A MotionSpringDirection value.
-    var springDirection: MotionSpringDirection { get set }
+public protocol SpringableMotion {
+    /// A SpringMotionDirection value.
+    var springDirection: SpringMotionDirection { get set }
 }
 
-open class MotionSpring {
-    /// A MotionSpringDirection value.
-    open var direction = MotionSpringDirection.up
+open class SpringMotion {
+    /// A SpringMotionDirection value.
+    open var direction = SpringMotionDirection.up
     
     /// A Boolean that indicates if the menu is open or not.
     open var isOpened = false
@@ -111,7 +111,7 @@ open class MotionSpring {
     }
 }
 
-extension MotionSpring {
+extension SpringMotion {
     /// Disable the Menu if views exist.
     fileprivate func disable() {
         guard 0 < views.count else {
@@ -134,7 +134,7 @@ extension MotionSpring {
     }
 }
 
-extension MotionSpring {
+extension SpringMotion {
     /**
      Expands the Spring component with animation options.
      - Parameter duration: The time for each view's animation.
@@ -194,7 +194,7 @@ extension MotionSpring {
     }
 }
 
-extension MotionSpring {
+extension SpringMotion {
     /**
      Handles the animation open completion.
      - Parameter view: A UIView.
@@ -227,7 +227,7 @@ extension MotionSpring {
     }
 }
 
-extension MotionSpring {
+extension SpringMotion {
     /**
      Open the Menu component with animation options in the Up direction.
      - Parameter duration: The time for each view's animation.

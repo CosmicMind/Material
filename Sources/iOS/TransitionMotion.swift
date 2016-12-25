@@ -30,16 +30,16 @@
 
 import UIKit
 
-@objc(AnimationTransition)
-public enum AnimationTransition: Int {
+@objc(TransitionMotion)
+public enum TransitionMotion: Int {
 	case fade
 	case moveIn
 	case push
 	case reveal
 }
 
-@objc(AnimationTransitionDirection)
-public enum AnimationTransitionDirection: Int {
+@objc(TransitionMotionDirection)
+public enum TransitionMotionDirection: Int {
 	case `default`
     case right
 	case left
@@ -48,11 +48,11 @@ public enum AnimationTransitionDirection: Int {
 }
 
 /**
- Converts an AnimationTransition to a corresponding CATransition key.
- - Parameter transition: An AnimationTransition.
+ Converts an TransitionMotion to a corresponding CATransition key.
+ - Parameter transition: An TransitionMotion.
  - Returns: A CATransition key String.
  */
-public func AnimationTransitionToValue(transition type: AnimationTransition) -> String {
+public func TransitionMotionToValue(transition type: TransitionMotion) -> String {
 	switch type {
 	case .fade:
 		return kCATransitionFade
@@ -66,11 +66,11 @@ public func AnimationTransitionToValue(transition type: AnimationTransition) -> 
 }
 
 /**
- Converts an AnimationTransitionDirection to a corresponding CATransition direction key.
- - Parameter direction: An AnimationTransitionDirection.
+ Converts an TransitionMotionDirection to a corresponding CATransition direction key.
+ - Parameter direction: An TransitionMotionDirection.
  - Returns: An optional CATransition direction key String.
  */
-public func AnimationTransitionDirectionToValue(direction: AnimationTransitionDirection) -> String? {
+public func TransitionMotionDirectionToValue(direction: TransitionMotionDirection) -> String? {
 	switch direction {
     case .default:
         return nil
@@ -88,15 +88,15 @@ public func AnimationTransitionDirectionToValue(direction: AnimationTransitionDi
 extension Motion {
 	/**
      Creates a CATransition animation.
-     - Parameter type: An AnimationTransition.
-     - Parameter direction: An optional AnimationTransitionDirection.
+     - Parameter type: An TransitionMotion.
+     - Parameter direction: An optional TransitionMotionDirection.
      - Parameter duration: An optional duration time.
      - Returns: A CATransition.
      */
-	public static func transition(type: AnimationTransition, direction: AnimationTransitionDirection = .default, duration: CFTimeInterval? = nil) -> CATransition {
+	public static func transition(type: TransitionMotion, direction: TransitionMotionDirection = .default, duration: CFTimeInterval? = nil) -> CATransition {
 		let animation = CATransition()
-		animation.type = AnimationTransitionToValue(transition: type)
-        animation.subtype = AnimationTransitionDirectionToValue(direction: direction)
+		animation.type = TransitionMotionToValue(transition: type)
+        animation.subtype = TransitionMotionDirectionToValue(direction: direction)
 		
         if let v = duration {
 			animation.duration = v

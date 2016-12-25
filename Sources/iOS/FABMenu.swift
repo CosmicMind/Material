@@ -53,12 +53,12 @@ public protocol FABMenuDelegate {
 
 
 @objc(FABMenu)
-open class FABMenu: View, MotionSpringable {
-    /// A reference to the MotionSpring object.
-    internal let spring = MotionSpring()
+open class FABMenu: View, SpringableMotion {
+    /// A reference to the SpringMotion object.
+    internal let spring = SpringMotion()
     
     /// The direction in which the animation opens the menu.
-    open var springDirection = MotionSpringDirection.up {
+    open var springDirection = SpringMotionDirection.up {
         didSet {
             layoutSubviews()
         }

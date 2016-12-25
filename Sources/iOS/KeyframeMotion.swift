@@ -66,7 +66,8 @@ extension Motion {
 		animation.keyPath = AnimationKeyPath.position.rawValue
 		animation.path = bezierPath.cgPath
         animation.rotationMode = AnimationRotationModeToValue(mode: mode)
-		if let v = duration {
+		
+        if let v = duration {
 			animation.duration = v
 		}
 		return animation

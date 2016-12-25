@@ -30,8 +30,8 @@
 
 import UIKit
 
-@objc(MotionPulseAnimation)
-public enum MotionPulseAnimation: Int {
+@objc(PulseMotionAnimation)
+public enum PulseMotionAnimation: Int {
     case none
     case center
     case centerWithBacking
@@ -42,9 +42,9 @@ public enum MotionPulseAnimation: Int {
     case pointWithBacking
 }
 
-public protocol MotionPulseable {
-    /// A reference to the MotionPulseAnimation.
-    var pulseAnimation: MotionPulseAnimation { get set }
+public protocol PulseableMotion {
+    /// A reference to the PulseMotionAnimation.
+    var pulseAnimation: PulseMotionAnimation { get set }
     
     /// A UIColor.
     var pulseColor: UIColor { get set }
@@ -53,8 +53,8 @@ public protocol MotionPulseable {
     var pulseOpacity: CGFloat { get set }
 }
 
-public struct MotionPulse {
-    /// A UIView that is MotionPulseable.
+public struct PulseMotion {
+    /// A UIView that is PulseableMotion.
     fileprivate weak var pulseView: UIView?
     
     /// The layer the pulse layers are added to.
@@ -63,8 +63,8 @@ public struct MotionPulse {
     /// Pulse layers.
     fileprivate var layers = [CAShapeLayer]()
     
-    /// A reference to the MotionPulseAnimation.
-    public var animation = MotionPulseAnimation.pointWithBacking
+    /// A reference to the PulseMotionAnimation.
+    public var animation = PulseMotionAnimation.pointWithBacking
     
     /// A UIColor.
     public var color = Color.grey.base
@@ -83,7 +83,7 @@ public struct MotionPulse {
     }
 }
 
-extension MotionPulse {
+extension PulseMotion {
     /**
      Triggers the expanding animation.
      - Parameter point: A point to pulse from.
@@ -161,7 +161,7 @@ extension MotionPulse {
 	}
 }
 
-extension MotionPulse {
+extension PulseMotion {
 	/// Triggers the contracting animation.
     public mutating func contract() {
         guard let bLayer = layers.popLast() else {

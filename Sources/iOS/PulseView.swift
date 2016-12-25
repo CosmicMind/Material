@@ -30,12 +30,12 @@
 
 import UIKit
 
-open class PulseView: View, MotionPulseable {
+open class PulseView: View, PulseableMotion {
     /// A Pulse reference.
-    fileprivate var pulse: MotionPulse!
+    fileprivate var pulse: PulseMotion!
     
-    /// MotionPulseAnimation value.
-    open var pulseAnimation: MotionPulseAnimation {
+    /// PulseMotionAnimation value.
+    open var pulseAnimation: PulseMotionAnimation {
         get {
             return pulse.animation
         }
@@ -44,7 +44,7 @@ open class PulseView: View, MotionPulseable {
         }
     }
     
-    /// MotionPulseAnimation color.
+    /// PulseMotionAnimation color.
     @IBInspectable
     open var pulseColor: UIColor {
         get {
@@ -129,6 +129,6 @@ open class PulseView: View, MotionPulseable {
 extension PulseView {
     /// Prepares the pulse motion.
     fileprivate func preparePulse() {
-        pulse = MotionPulse(pulseView: self, pulseLayer: visualLayer)
+        pulse = PulseMotion(pulseView: self, pulseLayer: visualLayer)
     }
 }

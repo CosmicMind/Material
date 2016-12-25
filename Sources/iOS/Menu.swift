@@ -53,15 +53,15 @@ public protocol MenuDelegate {
 
 
 @objc(Menu)
-open class Menu: View, MotionSpringable {
-    /// A reference to the MotionSpring object.
-    internal let spring = MotionSpring()
+open class Menu: View, SpringableMotion {
+    /// A reference to the SpringMotion object.
+    internal let spring = SpringMotion()
     
     /// An optional delegation handler.
     open weak var delegate: MenuDelegate?
     
     /// The direction in which the animation opens the menu.
-    open var springDirection = MotionSpringDirection.up {
+    open var springDirection = SpringMotionDirection.up {
         didSet {
             layoutSubviews()
         }

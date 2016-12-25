@@ -30,7 +30,7 @@
 
 import UIKit
 
-open class Button: UIButton, MotionPulseable {
+open class Button: UIButton, PulseableMotion {
     /**
      A CAShapeLayer used to manage elements that would be affected by
      the clipToBounds property of the backing layer. For example, this
@@ -40,10 +40,10 @@ open class Button: UIButton, MotionPulseable {
 	open let visualLayer = CAShapeLayer()
 
     /// A Pulse reference.
-    fileprivate var pulse: MotionPulse!
+    fileprivate var pulse: PulseMotion!
     
-    /// MotionPulseAnimation value.
-    open var pulseAnimation: MotionPulseAnimation {
+    /// PulseMotionAnimation value.
+    open var pulseAnimation: PulseMotionAnimation {
         get {
             return pulse.animation
         }
@@ -52,7 +52,7 @@ open class Button: UIButton, MotionPulseable {
         }
     }
     
-    /// MotionPulseAnimation color.
+    /// PulseMotionAnimation color.
     @IBInspectable
     open var pulseColor: UIColor {
         get {
@@ -261,7 +261,7 @@ extension Button {
     
     /// Prepares the pulse motion.
     fileprivate func preparePulse() {
-        pulse = MotionPulse(pulseView: self, pulseLayer: visualLayer)
+        pulse = PulseMotion(pulseView: self, pulseLayer: visualLayer)
     }
     
     /**
