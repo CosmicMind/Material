@@ -30,10 +30,44 @@
 
 import UIKit
 
-@objc(menu)
+@objc(MenuDirection)
+public enum MenuDirection: Int {
+    case up
+    case down
+    case left
+    case right
+}
+
+@objc(MenuDelegate)
+public protocol MenuDelegate {
+    /**
+     Gets called when the user taps while the menu is opened.
+     - Parameter menu: A Menu.
+     - Parameter tappedAt point: A CGPoint.
+     - Parameter isOutside: A boolean indicating whether the tap
+     was outside the menu button area.
+     */
+    @objc
+    optional func menu(menu: Menu, tappedAt point: CGPoint, isOutside: Bool)
+}
+
+
+@objc(Menu)
 open class Menu: View, MotionSpringable {
-    internal let spring = Spring()
+    /// A reference to the MotionSpring object.
+    internal let spring = MotionSpring()
     
+    /// An optional delegation handler.
+    open weak var delegate: MenuDelegate?
+    
+    /// The direction in which the animation opens the menu.
+    open var springDirection = MotionSpringDirection.up {
+        didSet {
+            layoutSubviews()
+        }
+    }
+    
+    /// A reference to the MenuItems
     open var views: [UIView] {
         get {
             return spring.views
@@ -42,6 +76,60 @@ open class Menu: View, MotionSpringable {
             spring.views = value
         }
     }
+}
+
+extension Menu {
+    /**
+     Handles the hit test for the Menu and views outside of the Menu bounds.
+     - Parameter _ point: A CGPoint.
+     - Parameter with event: An optional UIEvent.
+     - Returns: An optional UIView.
+     */
+    open override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        guard spring.isOpened, spring.isEnabled else {
+            return super.hitTest(point, with: event)
+        }
+        
+        for v in subviews {
+            let p = v.convert(point, from: self)
+            if v.bounds.contains(p) {
+                delegate?.menu?(menu: self, tappedAt: point, isOutside: false)
+                return v.hitTest(p, with: event)
+            }
+        }
+        
+        delegate?.menu?(menu: self, tappedAt: point, isOutside: true)
+        
+        return self.hitTest(point, with: event)
+    }
+}
+
+extension Menu {
+    /**
+     Open the Menu component with animation options.
+     - Parameter duration: The time for each view's animation.
+     - Parameter delay: A delay time for each view's animation.
+     - Parameter usingSpringWithDamping: A damping ratio for the animation.
+     - Parameter initialSpringVelocity: The initial velocity for the animation.
+     - Parameter options: Options to pass to the animation.
+     - Parameter animations: An animation block to execute on each view's animation.
+     - Parameter completion: A completion block to execute on each view's animation.
+     */
+    open func open(duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
+        spring.expand(duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations, completion: completion)
+    }
     
-    open var springDirection = SpringDirection.up
+    /**
+     Close the Menu component with animation options.
+     - Parameter duration: The time for each view's animation.
+     - Parameter delay: A delay time for each view's animation.
+     - Parameter usingSpringWithDamping: A damping ratio for the animation.
+     - Parameter initialSpringVelocity: The initial velocity for the animation.
+     - Parameter options: Options to pass to the animation.
+     - Parameter animations: An animation block to execute on each view's animation.
+     - Parameter completion: A completion block to execute on each view's animation.
+     */
+    open func close(duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
+        spring.contract(duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations, completion: completion)
+    }
 }

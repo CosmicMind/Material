@@ -48,10 +48,10 @@ open class MotionSpring {
     open var direction = MotionSpringDirection.up
     
     /// A Boolean that indicates if the menu is open or not.
-    open internal(set) var isOpened = false
+    open var isOpened = false
     
     /// Enables the animations for the Menu.
-    open internal(set) var isEnabled = true
+    open var isEnabled = true
     
     /// A preset wrapper around interimSpace.
     open var interimSpacePreset = InterimSpacePreset.none {
@@ -68,7 +68,11 @@ open class MotionSpring {
     }
     
     /// An Array of UIViews.
-    open var views = [UIView]()
+    open var views = [UIView]() {
+        didSet {
+            reload()
+        }
+    }
     
     /// An Optional base view size.
     open var baseSize = CGSize(width: 48, height: 48) {
@@ -95,7 +99,7 @@ open class MotionSpring {
         first.frame.size = baseSize
         first.zPosition = 10000
         
-        for i in 0..<views.count {
+        for i in 1..<views.count {
             let v = views[i]
             v.alpha = 0
             v.isHidden = true
@@ -132,7 +136,7 @@ extension MotionSpring {
 
 extension MotionSpring {
     /**
-     Open the Menu component with animation options.
+     Expands the Spring component with animation options.
      - Parameter duration: The time for each view's animation.
      - Parameter delay: A delay time for each view's animation.
      - Parameter usingSpringWithDamping: A damping ratio for the animation.
@@ -141,7 +145,7 @@ extension MotionSpring {
      - Parameter animations: An animation block to execute on each view's animation.
      - Parameter completion: A completion block to execute on each view's animation.
      */
-    open func open(duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
+    open func expand(duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
         guard isEnabled else {
             return
         }
@@ -150,18 +154,18 @@ extension MotionSpring {
         
         switch direction {
         case .up:
-            openUpAnimation(duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations, completion: completion)
+            expandUp(duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations, completion: completion)
         case .down:
-            openDownAnimation(duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations, completion: completion)
+            expandDown(duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations, completion: completion)
         case .left:
-            openLeftAnimation(duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations, completion: completion)
+            expandLeft(duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations, completion: completion)
         case .right:
-            openRightAnimation(duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations, completion: completion)
+            expandRight(duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations, completion: completion)
         }
     }
     
     /**
-     Close the Menu component with animation options.
+     Contracts the Spring component with animation options.
      - Parameter duration: The time for each view's animation.
      - Parameter delay: A delay time for each view's animation.
      - Parameter usingSpringWithDamping: A damping ratio for the animation.
@@ -170,7 +174,7 @@ extension MotionSpring {
      - Parameter animations: An animation block to execute on each view's animation.
      - Parameter completion: A completion block to execute on each view's animation.
      */
-    open func close(duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
+    open func contract(duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
         guard isEnabled else {
             return
         }
@@ -179,13 +183,13 @@ extension MotionSpring {
     
         switch direction {
         case .up:
-            closeUpAnimation(duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations, completion: completion)
+            contractUp(duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations, completion: completion)
         case .down:
-            closeDownAnimation(duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations, completion: completion)
+            contractDown(duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations, completion: completion)
         case .left:
-            closeLeftAnimation(duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations, completion: completion)
+            contractLeft(duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations, completion: completion)
         case .right:
-            closeRightAnimation(duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations, completion: completion)
+            contractRight(duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations, completion: completion)
         }
     }
 }
@@ -207,7 +211,7 @@ extension MotionSpring {
     }
     
     /**
-     Handles the animation close completion. 
+     Handles the animation contract completion. 
      - Parameter view: A UIView.
      - Parameter completion: A completion handler.
      */
@@ -234,12 +238,12 @@ extension MotionSpring {
      - Parameter animations: An animation block to execute on each view's animation.
      - Parameter completion: A completion block to execute on each view's animation.
      */
-    fileprivate func openUpAnimation(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
+    fileprivate func expandUp(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
         guard let first = views.first else {
             return
         }
         
-        for i in 0..<views.count {
+        for i in 1..<views.count {
             let v = views[i]
             v.isHidden = false
             
@@ -269,12 +273,12 @@ extension MotionSpring {
      - Parameter animations: An animation block to execute on each view's animation.
      - Parameter completion: A completion block to execute on each view's animation.
      */
-    fileprivate func closeUpAnimation(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
+    fileprivate func contractUp(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
         guard let first = views.first else {
             return
         }
         
-        for i in 0..<views.count {
+        for i in 1..<views.count {
             let v = views[i]
             
             UIView.animate(withDuration: Double(i) * duration,
@@ -303,14 +307,14 @@ extension MotionSpring {
      - Parameter animations: An animation block to execute on each view's animation.
      - Parameter completion: A completion block to execute on each view's animation.
      */
-    fileprivate func openDownAnimation(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
+    fileprivate func expandDown(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
         guard let first = views.first else {
             return
         }
         
         let h = baseSize.height
         
-        for i in 0..<views.count {
+        for i in 1..<views.count {
             let v = views[i]
             v.isHidden = false
             
@@ -340,14 +344,14 @@ extension MotionSpring {
      - Parameter animations: An animation block to execute on each view's animation.
      - Parameter completion: A completion block to execute on each view's animation.
      */
-    fileprivate func closeDownAnimation(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
+    fileprivate func contractDown(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
         guard let first = views.first else {
             return
         }
         
         let h = baseSize.height
         
-        for i in 0..<views.count {
+        for i in 1..<views.count {
             let v = views[i]
             
             UIView.animate(withDuration: Double(i) * duration,
@@ -376,12 +380,12 @@ extension MotionSpring {
      - Parameter animations: An animation block to execute on each view's animation.
      - Parameter completion: A completion block to execute on each view's animation.
      */
-    fileprivate func openLeftAnimation(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
+    fileprivate func expandLeft(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
         guard let first = views.first else {
             return
         }
         
-        for i in 0..<views.count {
+        for i in 1..<views.count {
             let v = views[i]
             v.isHidden = false
             
@@ -411,12 +415,12 @@ extension MotionSpring {
      - Parameter animations: An animation block to execute on each view's animation.
      - Parameter completion: A completion block to execute on each view's animation.
      */
-    fileprivate func closeLeftAnimation(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
+    fileprivate func contractLeft(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
         guard let first = views.first else {
             return
         }
         
-        for i in 0..<views.count {
+        for i in 1..<views.count {
             let v = views[i]
             
             UIView.animate(withDuration: Double(i) * duration,
@@ -445,14 +449,14 @@ extension MotionSpring {
      - Parameter animations: An animation block to execute on each view's animation.
      - Parameter completion: A completion block to execute on each view's animation.
      */
-    fileprivate func openRightAnimation(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
+    fileprivate func expandRight(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
         guard let first = views.first else {
             return
         }
         
         let h = baseSize.height
         
-        for i in 0..<views.count {
+        for i in 1..<views.count {
             let v = views[i]
             v.isHidden = false
             
@@ -482,14 +486,14 @@ extension MotionSpring {
      - Parameter animations: An animation block to execute on each view's animation.
      - Parameter completion: A completion block to execute on each view's animation.
      */
-    fileprivate func closeRightAnimation(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
+    fileprivate func contractRight(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
         guard let first = views.first else {
             return
         }
         
         let w = baseSize.width
         
-        for i in 0..<views.count {
+        for i in 1..<views.count {
             let v = views[i]
             
             UIView.animate(withDuration: Double(i) * duration,

@@ -64,7 +64,7 @@ public struct MotionPulse {
     fileprivate var layers = [CAShapeLayer]()
     
     /// A reference to the MotionPulseAnimation.
-    public var animation = MotionMotionPulseAnimation.pointWithBacking
+    public var animation = MotionPulseAnimation.pointWithBacking
     
     /// A UIColor.
     public var color = Color.grey.base
@@ -88,7 +88,7 @@ extension MotionPulse {
      Triggers the expanding animation.
      - Parameter point: A point to pulse from.
      */
-    public mutating func expandAnimation(point: CGPoint) {
+    public mutating func expand(point: CGPoint) {
         guard let view = pulseView else {
             return
         }
@@ -163,7 +163,7 @@ extension MotionPulse {
 
 extension MotionPulse {
 	/// Triggers the contracting animation.
-    public mutating func contractAnimation() {
+    public mutating func contract() {
         guard let bLayer = layers.popLast() else {
             return
         }

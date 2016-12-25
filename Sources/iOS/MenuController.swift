@@ -51,7 +51,7 @@ extension UIViewController {
 open class MenuController: RootController {
     /// Reference to the MenuView.
     @IBInspectable
-    open let menu = FABMenu()
+    open let menu = Menu()
     
     open override func layoutSubviews() {
         super.layoutSubviews()
@@ -88,12 +88,14 @@ extension MenuController {
     open func openMenu(completion: ((UIView) -> Void)? = nil) {
         if true == isUserInteractionEnabled {
             isUserInteractionEnabled = false
+            
             UIView.animate(withDuration: 0.15, animations: { [weak self] in
                 guard let s = self else {
                     return
                 }
                 s.rootViewController.view.alpha = 0.15
             })
+            
             menu.open(usingSpringWithDamping: 0) { [completion = completion] (view) in
                 completion?(view)
             }
@@ -113,6 +115,7 @@ extension MenuController {
                 }
                 s.rootViewController.view.alpha = 1
             })
+            
             menu.close(usingSpringWithDamping: 0) { [weak self] (view) in
                 guard let s = self else {
                     return

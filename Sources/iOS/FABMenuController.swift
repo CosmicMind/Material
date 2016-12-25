@@ -89,12 +89,14 @@ extension FABMenuController {
     open func openMenu(completion: ((UIView) -> Void)? = nil) {
         if true == isUserInteractionEnabled {
             isUserInteractionEnabled = false
+            
             UIView.animate(withDuration: 0.15, animations: { [weak self] in
                 guard let s = self else {
                     return
                 }
                 s.rootViewController.view.alpha = 0.15
             })
+            
             menu.open { [completion = completion] (view) in
                 completion?(view)
             }
@@ -114,6 +116,7 @@ extension FABMenuController {
                 }
                 s.rootViewController.view.alpha = 1
             })
+            
             menu.close { [weak self] (view) in
                 guard let s = self else {
                     return
@@ -121,7 +124,7 @@ extension FABMenuController {
                 
                 completion?(view)
                 
-                if view == s.menu.views.last {
+                if view == s.menu.items.last {
                     s.isUserInteractionEnabled = true
                 }
             }

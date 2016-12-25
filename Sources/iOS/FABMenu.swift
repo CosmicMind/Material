@@ -53,25 +53,98 @@ public protocol FABMenuDelegate {
 
 
 @objc(FABMenu)
-open class FABMenu: Menu {
-    /// An optional delegation handler.
-    open weak var delegate: FABMenuDelegate?
+open class FABMenu: View, MotionSpringable {
+    /// A reference to the MotionSpring object.
+    internal let spring = MotionSpring()
     
     /// The direction in which the animation opens the menu.
-    open var direction = SpringDirection.up {
+    open var springDirection = MotionSpringDirection.up {
         didSet {
             layoutSubviews()
         }
     }
     
-    /// A reference to the MenuItems
-    open var buttons: [MenuItem] {
+    open var baseSize: CGSize {
         get {
-            return views as! [MenuItem]
+            return spring.baseSize
         }
         set(value) {
-            views = value
+            spring.baseSize = value
         }
+    }
+    
+    open var itemSize: CGSize {
+        get {
+            return spring.itemSize
+        }
+        set(value) {
+            spring.itemSize = value
+        }
+    }
+    
+    open var isOpened: Bool {
+        get {
+            return spring.isOpened
+        }
+        set(value) {
+            spring.isOpened = value
+        }
+    }
+    
+    open var isEnable: Bool {
+        get {
+            return spring.isEnabled
+        }
+        set(value) {
+            spring.isEnabled = value
+        }
+    }
+    
+    /// A preset wrapper around interimSpace.
+    open var interimSpacePreset: InterimSpacePreset {
+        get {
+            return spring.interimSpacePreset
+        }
+        set(value) {
+            spring.interimSpacePreset = value
+        }
+    }
+    
+    /// The space between views.
+    open var interimSpace: InterimSpace {
+        get {
+            return spring.interimSpace
+        }
+        set(value) {
+            spring.interimSpace = value
+        }
+    }
+    
+    /// An optional delegation handler.
+    open weak var delegate: FABMenuDelegate?
+    
+    /// A reference to the FABMenuItems
+    open var items: [FABMenuItem] {
+        get {
+            return spring.views as! [FABMenuItem]
+        }
+        set(value) {
+            for v in spring.views {
+                v.removeFromSuperview()
+            }
+            
+            for v in value {
+                addSubview(v)
+            }
+            
+            spring.views = value
+        }
+    }
+    
+    open override func prepare() {
+        super.prepare()
+        backgroundColor = nil
+        interimSpacePreset = .interimSpace6
     }
 }
 
@@ -83,7 +156,7 @@ extension FABMenu {
      - Returns: An optional UIView.
      */
     open override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        guard isOpened, isEnabled else {
+        guard spring.isOpened, spring.isEnabled else {
             return super.hitTest(point, with: event)
         }
         
@@ -98,5 +171,35 @@ extension FABMenu {
         delegate?.fabMenu?(fabMenu: self, tappedAt: point, isOutside: true)
         
         return self.hitTest(point, with: event)
+    }
+}
+
+extension FABMenu {
+    /**
+     Open the Menu component with animation options.
+     - Parameter duration: The time for each view's animation.
+     - Parameter delay: A delay time for each view's animation.
+     - Parameter usingSpringWithDamping: A damping ratio for the animation.
+     - Parameter initialSpringVelocity: The initial velocity for the animation.
+     - Parameter options: Options to pass to the animation.
+     - Parameter animations: An animation block to execute on each view's animation.
+     - Parameter completion: A completion block to execute on each view's animation.
+     */
+    open func open(duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
+        spring.expand(duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations, completion: completion)
+    }
+    
+    /**
+     Close the Menu component with animation options.
+     - Parameter duration: The time for each view's animation.
+     - Parameter delay: A delay time for each view's animation.
+     - Parameter usingSpringWithDamping: A damping ratio for the animation.
+     - Parameter initialSpringVelocity: The initial velocity for the animation.
+     - Parameter options: Options to pass to the animation.
+     - Parameter animations: An animation block to execute on each view's animation.
+     - Parameter completion: A completion block to execute on each view's animation.
+     */
+    open func close(duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
+        spring.contract(duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations, completion: completion)
     }
 }

@@ -190,9 +190,9 @@ open class Button: UIButton, MotionPulseable {
     open func pulse(point: CGPoint? = nil) {
         let p = point ?? center
         
-        pulse.expandAnimation(point: p)
+        pulse.expand(point: p)
         Motion.delay(time: 0.35) { [weak self] in
-            self?.pulse.contractAnimation()
+            self?.pulse.contract()
         }
     }
     
@@ -204,7 +204,7 @@ open class Button: UIButton, MotionPulseable {
      */
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        pulse.expandAnimation(point: layer.convert(touches.first!.location(in: self), from: layer))
+        pulse.expand(point: layer.convert(touches.first!.location(in: self), from: layer))
     }
     
     /**
@@ -215,7 +215,7 @@ open class Button: UIButton, MotionPulseable {
      */
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
-        pulse.contractAnimation()
+        pulse.contract()
     }
     
     /**
@@ -226,7 +226,7 @@ open class Button: UIButton, MotionPulseable {
      */
     open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesCancelled(touches, with: event)
-        pulse.contractAnimation()
+        pulse.contract()
     }
     
     open func bringImageViewToFront() {

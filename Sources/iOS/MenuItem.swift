@@ -30,7 +30,7 @@
 
 import UIKit
 
-open class MenuItem: View {
+open class FABMenuItem: View {
     /// A reference to the titleLabel.
     open let titleLabel = UILabel()
     
