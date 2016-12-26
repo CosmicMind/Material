@@ -30,6 +30,11 @@
 
 import UIKit
 
+public enum MenuBacking {
+    case fade
+    case blur
+}
+
 extension UIViewController {
     /**
      A convenience property that provides access to the MenuController.
@@ -53,6 +58,15 @@ open class MenuController: RootController {
     @IBInspectable
     open let menu = Menu()
     
+    /// A MenuBacking value type.
+    open var menuBacking = MenuBacking.blur
+    
+    /// The menuBacking UIBlurEffectStyle.
+    open var menuBackingBlurEffectStyle = UIBlurEffectStyle.light
+    
+    /// A reference to the blurView.
+    open fileprivate(set) var blurView: UIView?
+    
     open override func layoutSubviews() {
         super.layoutSubviews()
         rootViewController.view.frame = view.bounds
@@ -72,61 +86,112 @@ open class MenuController: RootController {
 }
 
 extension MenuController {
-    /// Prepares the Menu.
+    /// Prepares the menu.
     fileprivate func prepareMenu() {
+        menu.delegate = self
         menu.zPosition = 1000
         view.addSubview(menu)
     }
 }
 
 extension MenuController {
-    /**
-     Opens the menu with a callback.
-     - Parameter completion: An Optional callback that is executed when
-     all menu items have been opened.
-     */
-    open func openMenu(completion: ((UIView) -> Void)? = nil) {
-        if true == isUserInteractionEnabled {
-            isUserInteractionEnabled = false
-            
-            UIView.animate(withDuration: 0.15, animations: { [weak self] in
-                guard let s = self else {
-                    return
-                }
-                s.rootViewController.view.alpha = 0.15
-            })
-            
-            menu.open(usingSpringWithDamping: 0) { [completion = completion] (view) in
-                completion?(view)
-            }
-        }
+    /// Shows the menuBacking.
+    fileprivate func showFabMenuBacking() {
+        showFade()
+        showBlurView()
     }
     
-    /**
-     Opens the menu with a callback.
-     - Parameter completion: An Optional callback that is executed when
-     all menu items have been closed.
-     */
-    open func closeMenu(completion: ((UIView) -> Void)? = nil) {
-        if false == isUserInteractionEnabled {
-            UIView.animate(withDuration: 0.15, animations: { [weak self] in
-                guard let s = self else {
-                    return
-                }
-                s.rootViewController.view.alpha = 1
-            })
-            
-            menu.close(usingSpringWithDamping: 0) { [weak self] (view) in
-                guard let s = self else {
-                    return
-                }
-                
-                completion?(view)
-                
-                if view == s.menu.views.last {
-                    s.isUserInteractionEnabled = true
-                }
-            }
+    /// Hides the menuBacking.
+    fileprivate func hideFabMenuBacking() {
+        hideFade()
+        hideBlurView()
+    }
+    
+    /// Shows the blurView.
+    fileprivate func showBlurView() {
+        guard .blur == menuBacking else {
+            return
+        }
+        
+        guard !menu.isOpened, menu.isEnabled else {
+            return
+        }
+        
+        guard nil == blurView else {
+            return
+        }
+        
+        let blur = UIVisualEffectView(effect: UIBlurEffect(style: menuBackingBlurEffectStyle))
+        blurView = UIView()
+        blurView?.layout(blur).edges()
+        view.layout(blurView!).edges()
+        view.bringSubview(toFront: menu)
+    }
+    
+    /// Hides the blurView.
+    fileprivate func hideBlurView() {
+        guard menu.isOpened, menu.isEnabled else {
+            return
+        }
+        
+        blurView?.removeFromSuperview()
+        blurView = nil
+    }
+    
+    /// Shows the fade.
+    fileprivate func showFade() {
+        guard .fade == menuBacking else {
+            return
+        }
+        
+        guard !menu.isOpened, menu.isEnabled else {
+            return
+        }
+        
+        UIView.animate(withDuration: 0.15, animations: { [weak self] in
+            self?.rootViewController.view.alpha = 0.15
+        })
+    }
+    
+    /// Hides the fade.
+    fileprivate func hideFade() {
+        guard menu.isOpened, menu.isEnabled else {
+            return
+        }
+        
+        UIView.animate(withDuration: 0.15, animations: { [weak self] in
+            self?.rootViewController.view.alpha = 1
+        })
+    }
+}
+
+extension MenuController: MenuDelegate {
+    @objc
+    open func menuWillOpen(menu: Menu) {
+        isUserInteractionEnabled = false
+        showFabMenuBacking()
+    }
+    
+    @objc
+    open func menuDidOpen(menu: Menu) {
+        isUserInteractionEnabled = true
+    }
+    
+    @objc
+    open func menuWillClose(menu: Menu) {
+        isUserInteractionEnabled = false
+        hideFabMenuBacking()
+    }
+    
+    @objc
+    open func menuDidClose(menu: Menu) {
+        isUserInteractionEnabled = true
+    }
+    
+    @objc
+    open func menu(menu: Menu, tappedAt point: CGPoint, isOutside: Bool) {
+        guard isOutside else {
+            return
         }
     }
 }

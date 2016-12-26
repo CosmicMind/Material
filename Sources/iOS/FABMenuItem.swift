@@ -59,10 +59,24 @@ open class FABMenuItem: View {
         }
         set(value) {
             titleLabel.text = value
-            hideTitleLabel()
+            layoutSubviews()
         }
     }
     
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        guard let t = title, 0 < t.utf16.count else {
+            titleLabel.removeFromSuperview()
+            return
+        }
+        
+        if nil == titleLabel.superview {
+            addSubview(titleLabel)
+        }
+    }
+}
+
+extension FABMenuItem {
     /// Shows the titleLabel.
     open func showTitleLabel() {
         let interimSpace = InterimSpacePresetToValue(preset: .interimSpace6)
@@ -88,19 +102,20 @@ open class FABMenuItem: View {
     open func hideTitleLabel() {
         titleLabel.isHidden = true
     }
-    
+}
+
+extension FABMenuItem {
     /// Prepares the button.
-    private func prepareButton() {
+    fileprivate func prepareButton() {
         layout(button).edges()
     }
     
     /// Prepares the titleLabel.
-    private func prepareTitleLabel() {
+    fileprivate func prepareTitleLabel() {
         titleLabel.font = RobotoFont.regular(with: 14)
         titleLabel.textAlignment = .center
         titleLabel.backgroundColor = .white
         titleLabel.depthPreset = button.depthPreset
         titleLabel.cornerRadiusPreset = .cornerRadius1
-        addSubview(titleLabel)
     }
 }

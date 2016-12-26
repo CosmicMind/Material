@@ -41,28 +41,28 @@ public enum FABMenuDirection: Int {
 @objc(FABMenuDelegate)
 public protocol FABMenuDelegate {
     /**
-     A delegation method that is execited when the menu will open.
+     A delegation method that is execited when the fabMenu will open.
      - Parameter fabMenu: A FABMenu.
      */
     @objc
     optional func fabMenuWillOpen(fabMenu: FABMenu)
     
     /**
-     A delegation method that is execited when the menu did open.
+     A delegation method that is execited when the fabMenu did open.
      - Parameter fabMenu: A FABMenu.
      */
     @objc
     optional func fabMenuDidOpen(fabMenu: FABMenu)
     
     /**
-     A delegation method that is execited when the menu will close.
+     A delegation method that is execited when the fabMenu will close.
      - Parameter fabMenu: A FABMenu.
      */
     @objc
     optional func fabMenuWillClose(fabMenu: FABMenu)
     
     /**
-     A delegation method that is execited when the menu did close.
+     A delegation method that is execited when the fabMenu did close.
      - Parameter fabMenu: A FABMenu.
      */
     @objc
@@ -203,7 +203,21 @@ extension FABMenu {
      - Parameter completion: A completion block to execute on each view's animation.
      */
     fileprivate func open(duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
-        spring.expand(duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations, completion: completion)
+        delegate?.fabMenuWillOpen?(fabMenu: self)
+        
+        spring.expand(duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations) { [weak self, completion = completion] (view) in
+            guard let s = self else {
+                return
+            }
+            
+            (view as? FABMenuItem)?.showTitleLabel()
+            
+            if view == s.items.last {
+                s.delegate?.fabMenuDidOpen?(fabMenu: s)
+            }
+            
+            completion?(view)
+        }
     }
     
     /**
@@ -217,7 +231,21 @@ extension FABMenu {
      - Parameter completion: A completion block to execute on each view's animation.
      */
     fileprivate func close(duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
-        spring.contract(duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations, completion: completion)
+        delegate?.fabMenuWillClose?(fabMenu: self)
+        
+        spring.contract(duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations) { [weak self, completion = completion] (view) in
+            guard let s = self else {
+                return
+            }
+            
+            (view as? FABMenuItem)?.hideTitleLabel()
+            
+            if view == s.items.last {
+                s.delegate?.fabMenuDidClose?(fabMenu: s)
+            }
+            
+            completion?(view)
+        }
     }
 }
 
@@ -243,7 +271,7 @@ extension FABMenu {
         
         delegate?.fabMenu?(fabMenu: self, tappedAt: point, isOutside: true)
         
-        closeMenu()
+        close()
         
         return self.hitTest(point, with: event)
     }
@@ -257,46 +285,10 @@ extension FABMenu {
     @objc
     fileprivate func handleToggleMenu(button: UIButton) {
         guard isOpened else {
-            openMenu()
+            open()
             return
         }
         
-        closeMenu()
-    }
-}
-
-extension FABMenu {
-    /// Opens the menu and reveals the FABMenuItems.
-    open func openMenu() {
-        delegate?.fabMenuWillOpen?(fabMenu: self)
-        
-        open { [weak self] (view) in
-            guard let s = self else {
-                return
-            }
-            
-            (view as? FABMenuItem)?.showTitleLabel()
-            
-            if view == s.items.last {
-                s.delegate?.fabMenuDidOpen?(fabMenu: s)
-            }
-        }
-    }
-    
-    /// Closes the menu and hides the FABMenuItems.
-    open func closeMenu() {
-        delegate?.fabMenuWillClose?(fabMenu: self)
-        
-        close { [weak self] (view) in
-            guard let s = self else {
-                return
-            }
-            
-            (view as? FABMenuItem)?.hideTitleLabel()
-            
-            if view == s.items.last {
-                s.delegate?.fabMenuDidClose?(fabMenu: s)
-            }
-        }
+        close()
     }
 }
