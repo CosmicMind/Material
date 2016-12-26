@@ -82,7 +82,7 @@ public protocol MenuDelegate {
 
 
 @objc(Menu)
-open class Menu: View {
+open class Menu: Button {
     /// The direction in which the animation opens the menu.
     open var direction = MenuDirection.up {
         didSet {
@@ -90,12 +90,127 @@ open class Menu: View {
         }
     }
     
-    /// A reference to the base UIButton.
-    open var button: UIButton? {
+    /// A reference to the contentView.
+    open let contentView = UIView()
+    
+    /// A reference to the contentView.
+    open let container = UIView()
+    
+    /// A reference to the MenuItems.
+    open var items = [MenuItem]() {
         didSet {
-            oldValue?.removeTarget(self, action: #selector(handleToggleMenu), for: .touchUpInside)
-            button?.addTarget(self, action: #selector(handleToggleMenu), for: .touchUpInside)
+            reload()
         }
+    }
+    
+    /// A boolean indicating if the menu is open or not.
+    open var isOpened = false
+    
+    /// An optional delegation handler.
+    open weak var delegate: MenuDelegate?
+    
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        contentView.frame = container.bounds
+    }
+    
+    open override func prepare() {
+        super.prepare()
+        prepareContentView()
+        prepareContainer()
+        prepareHandler()
+    }
+}
+
+extension Menu {
+    fileprivate func reload() {
+        
+    }
+}
+
+extension Menu {
+    /// Prepares the contentView.
+    fileprivate func prepareContentView() {
+        contentView.clipsToBounds = true
+        contentView.backgroundColor = .white
+        contentView.cornerRadiusPreset = .cornerRadius1
+    }
+    
+    /// Prepares the container.
+    fileprivate func prepareContainer() {
+        container.depthPreset = .depth1
+        container.addSubview(contentView)
+    }
+    
+    /// Prepares the button.
+    fileprivate func prepareHandler() {
+        addTarget(self, action: #selector(handleToggleMenu), for: .touchUpInside)
+    }
+}
+
+extension Menu {
+    /**
+     Handles the hit test for the Menu and views outside of the Menu bounds.
+     - Parameter _ point: A CGPoint.
+     - Parameter with event: An optional UIEvent.
+     - Returns: An optional UIView.
+     */
+    open override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        guard isOpened, isEnabled else {
+            return super.hitTest(point, with: event)
+        }
+        
+        for v in subviews {
+            let p = v.convert(point, from: self)
+            if v.bounds.contains(p) {
+                delegate?.menu?(menu: self, tappedAt: point, isOutside: false)
+                return v.hitTest(p, with: event)
+            }
+        }
+        
+        delegate?.menu?(menu: self, tappedAt: point, isOutside: true)
+        
+        close()
+        
+        return self.hitTest(point, with: event)
+    }
+}
+
+
+extension Menu {
+    open func open() {
+        guard !isOpened, isEnabled else {
+            return
+        }
+        
+        guard nil == container.superview else {
+            return
+        }
+        
+        delegate?.menuWillOpen?(menu: self)
+        
+        switch direction {
+        case .up, .down, .left, .right:
+            layout(container).bottom().width(100).height(200).centerHorizontally()
+        }
+        
+        isOpened = true
+        
+        delegate?.menuDidOpen?(menu: self)
+    }
+    
+    open func close() {
+        guard isOpened, isEnabled else {
+            return
+        }
+        
+        delegate?.menuWillClose?(menu: self)
+        
+        container.removeFromSuperview()
+        
+        isOpened = false
+        
+        delegate?.menuDidClose?(menu: self)
     }
 }
 
@@ -106,6 +221,11 @@ extension Menu {
      */
     @objc
     fileprivate func handleToggleMenu(button: UIButton) {
+        guard isOpened else {
+            open()
+            return
+        }
         
+        close()
     }
 }

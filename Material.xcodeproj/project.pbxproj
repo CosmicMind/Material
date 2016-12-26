@@ -103,7 +103,6 @@
 		965E810C1DD4D5C800D61E4B /* DynamicFontType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9628645E1D540AF300690B69 /* DynamicFontType.swift */; };
 		965E810D1DD4D5C800D61E4B /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB78E1CB40DC500C806FE /* Menu.swift */; };
 		965E810E1DD4D5C800D61E4B /* FABMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9697F7B61D8F22A4004741EC /* FABMenuItem.swift */; };
-		965E810F1DD4D5C800D61E4B /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB78F1CB40DC500C806FE /* MenuController.swift */; };
 		965E81101DD4D5C800D61E4B /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7901CB40DC500C806FE /* NavigationBar.swift */; };
 		965E81111DD4D5C800D61E4B /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7911CB40DC500C806FE /* NavigationController.swift */; };
 		965E81121DD4D5C800D61E4B /* NavigationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7921CB40DC500C806FE /* NavigationItem.swift */; };
@@ -182,7 +181,6 @@
 		96BCB83C1CB4115200C806FE /* Bar.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7981CB40DC500C806FE /* Bar.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB83D1CB4115200C806FE /* RootController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7991CB40DC500C806FE /* RootController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB83F1CB4115200C806FE /* Menu.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB78E1CB40DC500C806FE /* Menu.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		96BCB8401CB4115200C806FE /* MenuController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB78F1CB40DC500C806FE /* MenuController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8441CB4115200C806FE /* BottomNavigationController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7581CB40DC500C806FE /* BottomNavigationController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8451CB4115200C806FE /* BottomTabBar.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7591CB40DC500C806FE /* BottomTabBar.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8461CB4115200C806FE /* NavigationBar.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7901CB40DC500C806FE /* NavigationBar.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -310,7 +308,6 @@
 		96BCB78B1CB40DC500C806FE /* TransitionMotion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionMotion.swift; sourceTree = "<group>"; };
 		96BCB78C1CB40DC500C806FE /* View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		96BCB78E1CB40DC500C806FE /* Menu.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; tabWidth = 4; };
-		96BCB78F1CB40DC500C806FE /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		96BCB7901CB40DC500C806FE /* NavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		96BCB7911CB40DC500C806FE /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		96BCB7921CB40DC500C806FE /* NavigationItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationItem.swift; sourceTree = "<group>"; };
@@ -552,7 +549,6 @@
 			children = (
 				96BCB78E1CB40DC500C806FE /* Menu.swift */,
 				9617304B1E11931400A9A297 /* MenuItem.swift */,
-				96BCB78F1CB40DC500C806FE /* MenuController.swift */,
 				96A183621E0C6CE200083C30 /* FABMenu.swift */,
 				9697F7B61D8F22A4004741EC /* FABMenuItem.swift */,
 				96A183641E0C6DD400083C30 /* FABMenuController.swift */,
@@ -904,7 +900,6 @@
 				96BCB83C1CB4115200C806FE /* Bar.swift in Headers */,
 				96BCB83D1CB4115200C806FE /* RootController.swift in Headers */,
 				96BCB83F1CB4115200C806FE /* Menu.swift in Headers */,
-				96BCB8401CB4115200C806FE /* MenuController.swift in Headers */,
 				96BCB8441CB4115200C806FE /* BottomNavigationController.swift in Headers */,
 				96BCB8451CB4115200C806FE /* BottomTabBar.swift in Headers */,
 				96BCB8461CB4115200C806FE /* NavigationBar.swift in Headers */,
@@ -1176,7 +1171,6 @@
 				965E810C1DD4D5C800D61E4B /* DynamicFontType.swift in Sources */,
 				965E810D1DD4D5C800D61E4B /* Menu.swift in Sources */,
 				965E810E1DD4D5C800D61E4B /* FABMenuItem.swift in Sources */,
-				965E810F1DD4D5C800D61E4B /* MenuController.swift in Sources */,
 				96A183651E0C6DD400083C30 /* FABMenuController.swift in Sources */,
 				965E81101DD4D5C800D61E4B /* NavigationBar.swift in Sources */,
 				965E81111DD4D5C800D61E4B /* NavigationController.swift in Sources */,

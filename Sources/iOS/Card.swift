@@ -255,9 +255,11 @@ open class Card: PulseView {
         self.contentView = contentView
         self.bottomBar = bottomBar
     }
-    
+}
+
+extension Card {
     /// Prepares the container.
-    private func prepareContainer() {
+    fileprivate func prepareContainer() {
         container.clipsToBounds = true
         addSubview(container)
     }
