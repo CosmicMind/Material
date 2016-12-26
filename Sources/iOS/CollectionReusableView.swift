@@ -31,7 +31,7 @@
 import UIKit
 
 @objc(CollectionReusableView)
-open class CollectionReusableView: UICollectionReusableView, PulseableMotion {
+open class CollectionReusableView: UICollectionReusableView, Pulseable {
     /**
      A CAShapeLayer used to manage elements that would be affected by
      the clipToBounds property of the backing layer. For example, this

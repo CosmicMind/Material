@@ -82,12 +82,9 @@ public protocol MenuDelegate {
 
 
 @objc(Menu)
-open class Menu: View, SpringableMotion {
-    /// A reference to the SpringMotion object.
-    internal let spring = SpringMotion()
-    
+open class Menu: View {
     /// The direction in which the animation opens the menu.
-    open var springDirection = SpringDirection.up {
+    open var direction = MenuDirection.up {
         didSet {
             layoutSubviews()
         }
@@ -96,171 +93,19 @@ open class Menu: View, SpringableMotion {
     /// A reference to the base UIButton.
     open var button: UIButton? {
         didSet {
-            oldValue?.removeFromSuperview()
-            
-            guard let v = button else {
-                return
-            }
-            
-            addSubview(v)
-            v.addTarget(self, action: #selector(handleToggleMenu(button:)), for: .touchUpInside)
+            oldValue?.removeTarget(self, action: #selector(handleToggleMenu), for: .touchUpInside)
+            button?.addTarget(self, action: #selector(handleToggleMenu), for: .touchUpInside)
         }
-    }
-    
-    /// Size of MenuItems.
-    open var itemSize: CGSize {
-        get {
-            return spring.itemSize
-        }
-        set(value) {
-            spring.itemSize = value
-        }
-    }
-    
-    /// A preset wrapper around interimSpace.
-    open var interimSpacePreset: InterimSpacePreset {
-        get {
-            return spring.interimSpacePreset
-        }
-        set(value) {
-            spring.interimSpacePreset = value
-        }
-    }
-    
-    /// The space between views.
-    open var interimSpace: InterimSpace {
-        get {
-            return spring.interimSpace
-        }
-        set(value) {
-            spring.interimSpace = value
-        }
-    }
-    
-    /// A boolean indicating if the menu is open or not.
-    open var isOpened: Bool {
-        get {
-            return spring.isOpened
-        }
-        set(value) {
-            spring.isOpened = value
-        }
-    }
-    
-    /// A boolean indicating if the menu is enabled.
-    open var isEnabled: Bool {
-        get {
-            return spring.isEnabled
-        }
-        set(value) {
-            spring.isEnabled = value
-        }
-    }
-    
-    /// An optional delegation handler.
-    open weak var delegate: MenuDelegate?
-    
-    /// A reference to the MenuItems
-    open var items: [UIView] {
-        get {
-            return spring.views as! [UIView]
-        }
-        set(value) {
-            for v in spring.views {
-                v.removeFromSuperview()
-            }
-            
-            for v in value {
-                addSubview(v)
-            }
-            
-            spring.views = value
-        }
-    }
-    
-    open override func layoutSubviews() {
-        super.layoutSubviews()
-        button?.frame.size = bounds.size
-        spring.baseSize = bounds.size
-    }
-    
-    open override func prepare() {
-        super.prepare()
-        backgroundColor = nil
-        interimSpacePreset = .interimSpace6
     }
 }
 
 extension Menu {
     /**
-     Open the Menu component with animation options.
-     - Parameter duration: The time for each view's animation.
-     - Parameter delay: A delay time for each view's animation.
-     - Parameter usingSpringWithDamping: A damping ratio for the animation.
-     - Parameter initialSpringVelocity: The initial velocity for the animation.
-     - Parameter options: Options to pass to the animation.
-     - Parameter animations: An animation block to execute on each view's animation.
-     - Parameter completion: A completion block to execute on each view's animation.
-     */
-    fileprivate func open(duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
-        spring.expand(duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations, completion: completion)
-    }
-    
-    /**
-     Close the Menu component with animation options.
-     - Parameter duration: The time for each view's animation.
-     - Parameter delay: A delay time for each view's animation.
-     - Parameter usingSpringWithDamping: A damping ratio for the animation.
-     - Parameter initialSpringVelocity: The initial velocity for the animation.
-     - Parameter options: Options to pass to the animation.
-     - Parameter animations: An animation block to execute on each view's animation.
-     - Parameter completion: A completion block to execute on each view's animation.
-     */
-    fileprivate func close(duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
-        spring.contract(duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations, completion: completion)
-    }
-}
-
-extension Menu {
-    /**
-     Handles the hit test for the Menu and views outside of the Menu bounds.
-     - Parameter _ point: A CGPoint.
-     - Parameter with event: An optional UIEvent.
-     - Returns: An optional UIView.
-     */
-    open override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        guard isOpened, isEnabled else {
-            return super.hitTest(point, with: event)
-        }
-        
-        for v in subviews {
-            let p = v.convert(point, from: self)
-            if v.bounds.contains(p) {
-                delegate?.menu?(menu: self, tappedAt: point, isOutside: false)
-                return v.hitTest(p, with: event)
-            }
-        }
-        
-        delegate?.menu?(menu: self, tappedAt: point, isOutside: true)
-        
-        close()
-        
-        return self.hitTest(point, with: event)
-    }
-}
-
-extension Menu {
-    /**
-     Handler to toggle the Menu open or close.
+     Handler to toggle the Menu opened or closed.
      - Parameter button: A UIButton.
      */
     @objc
     fileprivate func handleToggleMenu(button: UIButton) {
-        guard isOpened else {
-            open()
-            return
-        }
         
-        close()
     }
 }

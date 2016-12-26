@@ -42,7 +42,7 @@ public enum PulseAnimation: Int {
     case pointWithBacking
 }
 
-public protocol PulseableMotion {
+public protocol Pulseable {
     /// A reference to the PulseAnimation.
     var pulseAnimation: PulseAnimation { get set }
     
@@ -54,7 +54,7 @@ public protocol PulseableMotion {
 }
 
 public struct PulseMotion {
-    /// A UIView that is PulseableMotion.
+    /// A UIView that is Pulseable.
     fileprivate weak var pulseView: UIView?
     
     /// The layer the pulse layers are added to.

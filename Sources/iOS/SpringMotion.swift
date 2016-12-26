@@ -38,11 +38,6 @@ public enum SpringDirection: Int {
     case right
 }
 
-public protocol SpringableMotion {
-    /// A SpringDirection value.
-    var springDirection: SpringDirection { get set }
-}
-
 open class SpringMotion {
     /// A SpringDirection value.
     open var direction = SpringDirection.up

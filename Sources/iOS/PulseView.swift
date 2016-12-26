@@ -30,7 +30,7 @@
 
 import UIKit
 
-open class PulseView: View, PulseableMotion {
+open class PulseView: View, Pulseable {
     /// A Pulse reference.
     fileprivate var pulse: PulseMotion!
     

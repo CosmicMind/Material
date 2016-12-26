@@ -82,13 +82,35 @@ public protocol FABMenuDelegate {
 
 
 @objc(FABMenu)
-open class FABMenu: View, SpringableMotion {
+open class FABMenu: View {
     /// A reference to the SpringMotion object.
     internal let spring = SpringMotion()
     
-    /// The direction in which the animation opens the menu.
-    open var springDirection = SpringDirection.up {
-        didSet {
+    open var direction: FABMenuDirection {
+        get {
+            switch spring.direction {
+            case .up:
+                return .up
+            case .down:
+                return .down
+            case .left:
+                return .left
+            case .right:
+                return .right
+            }
+        }
+        set(value) {
+            switch value {
+            case .up:
+                spring.direction = .up
+            case .down:
+                spring.direction = .down
+            case .left:
+                spring.direction = .left
+            case .right:
+                spring.direction = .right
+            }
+            
             layoutSubviews()
         }
     }
@@ -279,7 +301,7 @@ extension FABMenu {
 
 extension FABMenu {
     /**
-     Handler to toggle the FABMenu open or close. 
+     Handler to toggle the FABMenu opened or closed. 
      - Parameter button: A UIButton.
      */
     @objc
