@@ -42,6 +42,7 @@ open class FABButton: Button {
 		super.prepare()
 		depthPreset = .depth1
 		shapePreset = .circle
+		pulseAnimation = .centerWithBacking
         backgroundColor = .white
 	}
 }

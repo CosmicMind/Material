@@ -41,17 +41,6 @@ public enum FABMenuDirection: Int {
 @objc(FABMenuDelegate)
 public protocol FABMenuDelegate {
     /**
-     A delegation method that is executed when the user taps while
-     the menu is opened.
-     - Parameter fabMenu: A FABMenu.
-     - Parameter tappedAt point: A CGPoint.
-     - Parameter isOutside: A boolean indicating whether the tap
-     was outside the menu button area.
-     */
-    @objc
-    optional func fabMenu(fabMenu: FABMenu, tappedAt point: CGPoint, isOutside: Bool)
-
-    /**
      A delegation method that is execited when the menu will open.
      - Parameter fabMenu: A FABMenu.
      */
@@ -78,6 +67,17 @@ public protocol FABMenuDelegate {
      */
     @objc
     optional func fabMenuDidClose(fabMenu: FABMenu)
+    
+    /**
+     A delegation method that is executed when the user taps while
+     the menu is opened.
+     - Parameter fabMenu: A FABMenu.
+     - Parameter tappedAt point: A CGPoint.
+     - Parameter isOutside: A boolean indicating whether the tap
+     was outside the menu button area.
+     */
+    @objc
+    optional func fabMenu(fabMenu: FABMenu, tappedAt point: CGPoint, isOutside: Bool)
 }
 
 
@@ -148,7 +148,7 @@ open class FABMenu: View, SpringableMotion {
     }
     
     /// A boolean indicating if the menu is enabled.
-    open var isEnable: Bool {
+    open var isEnabled: Bool {
         get {
             return spring.isEnabled
         }
@@ -202,7 +202,7 @@ extension FABMenu {
      - Parameter animations: An animation block to execute on each view's animation.
      - Parameter completion: A completion block to execute on each view's animation.
      */
-    open func open(duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
+    fileprivate func open(duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
         spring.expand(duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations, completion: completion)
     }
     
@@ -216,7 +216,7 @@ extension FABMenu {
      - Parameter animations: An animation block to execute on each view's animation.
      - Parameter completion: A completion block to execute on each view's animation.
      */
-    open func close(duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
+    fileprivate func close(duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
         spring.contract(duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations, completion: completion)
     }
 }
@@ -229,7 +229,7 @@ extension FABMenu {
      - Returns: An optional UIView.
      */
     open override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        guard spring.isOpened, spring.isEnabled else {
+        guard isOpened, isEnabled else {
             return super.hitTest(point, with: event)
         }
         
@@ -267,8 +267,9 @@ extension FABMenu {
 
 extension FABMenu {
     /// Opens the menu and reveals the FABMenuItems.
-    fileprivate func openMenu() {
+    open func openMenu() {
         delegate?.fabMenuWillOpen?(fabMenu: self)
+        
         open { [weak self] (view) in
             guard let s = self else {
                 return
@@ -283,8 +284,9 @@ extension FABMenu {
     }
     
     /// Closes the menu and hides the FABMenuItems.
-    fileprivate func closeMenu() {
+    open func closeMenu() {
         delegate?.fabMenuWillClose?(fabMenu: self)
+        
         close { [weak self] (view) in
             guard let s = self else {
                 return
