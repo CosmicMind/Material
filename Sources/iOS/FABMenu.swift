@@ -41,14 +41,43 @@ public enum FABMenuDirection: Int {
 @objc(FABMenuDelegate)
 public protocol FABMenuDelegate {
     /**
-     Gets called when the user taps while the menu is opened.
-     - Parameter menu: A FABMenu.
+     A delegation method that is executed when the user taps while
+     the menu is opened.
+     - Parameter fabMenu: A FABMenu.
      - Parameter tappedAt point: A CGPoint.
      - Parameter isOutside: A boolean indicating whether the tap
      was outside the menu button area.
      */
     @objc
     optional func fabMenu(fabMenu: FABMenu, tappedAt point: CGPoint, isOutside: Bool)
+
+    /**
+     A delegation method that is execited when the menu will open.
+     - Parameter fabMenu: A FABMenu.
+     */
+    @objc
+    optional func fabMenuWillOpen(fabMenu: FABMenu)
+    
+    /**
+     A delegation method that is execited when the menu did open.
+     - Parameter fabMenu: A FABMenu.
+     */
+    @objc
+    optional func fabMenuDidOpen(fabMenu: FABMenu)
+    
+    /**
+     A delegation method that is execited when the menu will close.
+     - Parameter fabMenu: A FABMenu.
+     */
+    @objc
+    optional func fabMenuWillClose(fabMenu: FABMenu)
+    
+    /**
+     A delegation method that is execited when the menu did close.
+     - Parameter fabMenu: A FABMenu.
+     */
+    @objc
+    optional func fabMenuDidClose(fabMenu: FABMenu)
 }
 
 
@@ -58,45 +87,33 @@ open class FABMenu: View, SpringableMotion {
     internal let spring = SpringMotion()
     
     /// The direction in which the animation opens the menu.
-    open var springDirection = SpringMotionDirection.up {
+    open var springDirection = SpringDirection.up {
         didSet {
             layoutSubviews()
         }
     }
     
-    open var baseSize: CGSize {
-        get {
-            return spring.baseSize
-        }
-        set(value) {
-            spring.baseSize = value
+    /// A reference to the base FABButton.
+    open var fabButton: FABButton? {
+        didSet {
+            oldValue?.removeFromSuperview()
+            
+            guard let v = fabButton else {
+                return
+            }
+            
+            addSubview(v)
+            v.addTarget(self, action: #selector(handleToggleMenu(button:)), for: .touchUpInside)
         }
     }
     
+    /// Size of FABMenuItems.
     open var itemSize: CGSize {
         get {
             return spring.itemSize
         }
         set(value) {
             spring.itemSize = value
-        }
-    }
-    
-    open var isOpened: Bool {
-        get {
-            return spring.isOpened
-        }
-        set(value) {
-            spring.isOpened = value
-        }
-    }
-    
-    open var isEnable: Bool {
-        get {
-            return spring.isEnabled
-        }
-        set(value) {
-            spring.isEnabled = value
         }
     }
     
@@ -117,6 +134,26 @@ open class FABMenu: View, SpringableMotion {
         }
         set(value) {
             spring.interimSpace = value
+        }
+    }
+    
+    /// A boolean indicating if the menu is open or not.
+    open var isOpened: Bool {
+        get {
+            return spring.isOpened
+        }
+        set(value) {
+            spring.isOpened = value
+        }
+    }
+    
+    /// A boolean indicating if the menu is enabled.
+    open var isEnable: Bool {
+        get {
+            return spring.isEnabled
+        }
+        set(value) {
+            spring.isEnabled = value
         }
     }
     
@@ -141,36 +178,16 @@ open class FABMenu: View, SpringableMotion {
         }
     }
     
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        fabButton?.frame.size = bounds.size
+        spring.baseSize = bounds.size
+    }
+    
     open override func prepare() {
         super.prepare()
         backgroundColor = nil
         interimSpacePreset = .interimSpace6
-    }
-}
-
-extension FABMenu {
-    /**
-     Handles the hit test for the Menu and views outside of the Menu bounds.
-     - Parameter _ point: A CGPoint.
-     - Parameter with event: An optional UIEvent.
-     - Returns: An optional UIView.
-     */
-    open override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        guard spring.isOpened, spring.isEnabled else {
-            return super.hitTest(point, with: event)
-        }
-        
-        for v in subviews {
-            let p = v.convert(point, from: self)
-            if v.bounds.contains(p) {
-                delegate?.fabMenu?(fabMenu: self, tappedAt: point, isOutside: false)
-                return v.hitTest(p, with: event)
-            }
-        }
-        
-        delegate?.fabMenu?(fabMenu: self, tappedAt: point, isOutside: true)
-        
-        return self.hitTest(point, with: event)
     }
 }
 
@@ -201,5 +218,83 @@ extension FABMenu {
      */
     open func close(duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
         spring.contract(duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations, completion: completion)
+    }
+}
+
+extension FABMenu {
+    /**
+     Handles the hit test for the Menu and views outside of the Menu bounds.
+     - Parameter _ point: A CGPoint.
+     - Parameter with event: An optional UIEvent.
+     - Returns: An optional UIView.
+     */
+    open override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        guard spring.isOpened, spring.isEnabled else {
+            return super.hitTest(point, with: event)
+        }
+        
+        for v in subviews {
+            let p = v.convert(point, from: self)
+            if v.bounds.contains(p) {
+                delegate?.fabMenu?(fabMenu: self, tappedAt: point, isOutside: false)
+                return v.hitTest(p, with: event)
+            }
+        }
+        
+        delegate?.fabMenu?(fabMenu: self, tappedAt: point, isOutside: true)
+        
+        closeMenu()
+        
+        return self.hitTest(point, with: event)
+    }
+}
+
+extension FABMenu {
+    /**
+     Handler to toggle the FABMenu open or close. 
+     - Parameter button: A UIButton.
+     */
+    @objc
+    fileprivate func handleToggleMenu(button: UIButton) {
+        guard isOpened else {
+            openMenu()
+            return
+        }
+        
+        closeMenu()
+    }
+}
+
+extension FABMenu {
+    /// Opens the menu and reveals the FABMenuItems.
+    fileprivate func openMenu() {
+        delegate?.fabMenuWillOpen?(fabMenu: self)
+        open { [weak self] (view) in
+            guard let s = self else {
+                return
+            }
+            
+            (view as? FABMenuItem)?.showTitleLabel()
+            
+            if view == s.items.last {
+                s.delegate?.fabMenuDidOpen?(fabMenu: s)
+            }
+        }
+    }
+    
+    /// Closes the menu and hides the FABMenuItems.
+    fileprivate func closeMenu() {
+        delegate?.fabMenuWillClose?(fabMenu: self)
+        close { [weak self] (view) in
+            guard let s = self else {
+                return
+            }
+            
+            (view as? FABMenuItem)?.hideTitleLabel()
+            
+            if view == s.items.last {
+                s.delegate?.fabMenuDidClose?(fabMenu: s)
+            }
+        }
     }
 }

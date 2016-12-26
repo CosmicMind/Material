@@ -34,8 +34,8 @@ open class PulseView: View, PulseableMotion {
     /// A Pulse reference.
     fileprivate var pulse: PulseMotion!
     
-    /// PulseMotionAnimation value.
-    open var pulseAnimation: PulseMotionAnimation {
+    /// PulseAnimation value.
+    open var pulseAnimation: PulseAnimation {
         get {
             return pulse.animation
         }
@@ -44,7 +44,7 @@ open class PulseView: View, PulseableMotion {
         }
     }
     
-    /// PulseMotionAnimation color.
+    /// PulseAnimation color.
     @IBInspectable
     open var pulseColor: UIColor {
         get {

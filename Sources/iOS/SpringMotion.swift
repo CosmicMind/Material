@@ -30,8 +30,8 @@
 
 import UIKit
 
-@objc(SpringMotionDirection)
-public enum SpringMotionDirection: Int {
+@objc(SpringDirection)
+public enum SpringDirection: Int {
     case up
     case down
     case left
@@ -39,13 +39,13 @@ public enum SpringMotionDirection: Int {
 }
 
 public protocol SpringableMotion {
-    /// A SpringMotionDirection value.
-    var springDirection: SpringMotionDirection { get set }
+    /// A SpringDirection value.
+    var springDirection: SpringDirection { get set }
 }
 
 open class SpringMotion {
-    /// A SpringMotionDirection value.
-    open var direction = SpringMotionDirection.up
+    /// A SpringDirection value.
+    open var direction = SpringDirection.up
     
     /// A Boolean that indicates if the menu is open or not.
     open var isOpened = false
@@ -92,20 +92,13 @@ open class SpringMotion {
     open func reload() {
         isOpened = false
         
-        guard let first = views.first else {
-            return
-        }
-        
-        first.frame.size = baseSize
-        first.zPosition = 10000
-        
-        for i in 1..<views.count {
+        for i in 0..<views.count {
             let v = views[i]
             v.alpha = 0
             v.isHidden = true
             v.frame.size = itemSize
-            v.x = first.x + (baseSize.width - itemSize.width) / 2
-            v.y = first.y + (baseSize.height - itemSize.height) / 2
+            v.x = (baseSize.width - itemSize.width) / 2
+            v.y = (baseSize.height - itemSize.height) / 2
             v.zPosition = CGFloat(10000 - views.count - i)
         }
     }
@@ -239,11 +232,7 @@ extension SpringMotion {
      - Parameter completion: A completion block to execute on each view's animation.
      */
     fileprivate func expandUp(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
-        guard let first = views.first else {
-            return
-        }
-        
-        for i in 1..<views.count {
+        for i in 0..<views.count {
             let v = views[i]
             v.isHidden = false
             
@@ -252,10 +241,9 @@ extension SpringMotion {
                 usingSpringWithDamping: usingSpringWithDamping,
                 initialSpringVelocity: initialSpringVelocity,
                 options: options,
-                animations: { [s = self, first = first, v = v] in
+                animations: { [s = interimSpace, m = CGFloat(i + 1), v = v] in
                     v.alpha = 1
-                    v.y = first.y - CGFloat(i) * v.height - CGFloat(i) * s.interimSpace
-                    
+                    v.y = -m * (v.height + s)
                     animations?(v)
                 }) { [weak self, v = v] _ in
                     self?.handleOpenCompletion(view: v, completion: completion)
@@ -274,11 +262,7 @@ extension SpringMotion {
      - Parameter completion: A completion block to execute on each view's animation.
      */
     fileprivate func contractUp(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
-        guard let first = views.first else {
-            return
-        }
-        
-        for i in 1..<views.count {
+        for i in 0..<views.count {
             let v = views[i]
             
             UIView.animate(withDuration: Double(i) * duration,
@@ -286,10 +270,9 @@ extension SpringMotion {
                 usingSpringWithDamping: usingSpringWithDamping,
                 initialSpringVelocity: initialSpringVelocity,
                 options: options,
-                animations: { [base = first, v = v] in
+                animations: { [v = v] in
                     v.alpha = 0
-                    v.y = base.y
-                            
+                    v.y = 0
                     animations?(v)
                 }) { [weak self, v = v] _ in
                     self?.handleCloseCompletion(view: v, completion: completion)
@@ -314,7 +297,7 @@ extension SpringMotion {
         
         let h = baseSize.height
         
-        for i in 1..<views.count {
+        for i in 0..<views.count {
             let v = views[i]
             v.isHidden = false
             
@@ -351,7 +334,7 @@ extension SpringMotion {
         
         let h = baseSize.height
         
-        for i in 1..<views.count {
+        for i in 0..<views.count {
             let v = views[i]
             
             UIView.animate(withDuration: Double(i) * duration,
@@ -385,7 +368,7 @@ extension SpringMotion {
             return
         }
         
-        for i in 1..<views.count {
+        for i in 0..<views.count {
             let v = views[i]
             v.isHidden = false
             
@@ -420,7 +403,7 @@ extension SpringMotion {
             return
         }
         
-        for i in 1..<views.count {
+        for i in 0..<views.count {
             let v = views[i]
             
             UIView.animate(withDuration: Double(i) * duration,
@@ -456,7 +439,7 @@ extension SpringMotion {
         
         let h = baseSize.height
         
-        for i in 1..<views.count {
+        for i in 0..<views.count {
             let v = views[i]
             v.isHidden = false
             
@@ -493,7 +476,7 @@ extension SpringMotion {
         
         let w = baseSize.width
         
-        for i in 1..<views.count {
+        for i in 0..<views.count {
             let v = views[i]
             
             UIView.animate(withDuration: Double(i) * duration,

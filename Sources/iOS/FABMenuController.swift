@@ -51,7 +51,7 @@ extension UIViewController {
 open class FABMenuController: RootController {
     /// Reference to the MenuView.
     @IBInspectable
-    open let menu = FABMenu()
+    open let fabMenu = FABMenu()
     
     open override func layoutSubviews() {
         super.layoutSubviews()
@@ -67,67 +67,68 @@ open class FABMenuController: RootController {
      */
     open override func prepare() {
         super.prepare()
-        prepareMenu()
+        prepareFABMenu()
     }
 }
 
 extension FABMenuController {
-    /// Prepares the Menu.
-    fileprivate func prepareMenu() {
-        menu.zPosition = 1000
-        view.addSubview(menu)
+    /// Prepares the fabMenu.
+    fileprivate func prepareFABMenu() {
+        fabMenu.delegate = self
+        fabMenu.zPosition = 1000
+        view.addSubview(fabMenu)
     }
 }
 
-extension FABMenuController {
+extension FABMenuController: FABMenuDelegate {
     
-    /**
-     Opens the menu with a callback.
-     - Parameter completion: An Optional callback that is executed when
-     all menu items have been opened.
-     */
-    open func openMenu(completion: ((UIView) -> Void)? = nil) {
-        if true == isUserInteractionEnabled {
-            isUserInteractionEnabled = false
-            
-            UIView.animate(withDuration: 0.15, animations: { [weak self] in
-                guard let s = self else {
-                    return
-                }
-                s.rootViewController.view.alpha = 0.15
-            })
-            
-            menu.open { [completion = completion] (view) in
-                completion?(view)
-            }
-        }
-    }
-    
-    /**
-     Opens the menu with a callback.
-     - Parameter completion: An Optional callback that is executed when
-     all menu items have been closed.
-     */
-    open func closeMenu(completion: ((UIView) -> Void)? = nil) {
-        if false == isUserInteractionEnabled {
-            UIView.animate(withDuration: 0.15, animations: { [weak self] in
-                guard let s = self else {
-                    return
-                }
-                s.rootViewController.view.alpha = 1
-            })
-            
-            menu.close { [weak self] (view) in
-                guard let s = self else {
-                    return
-                }
-                
-                completion?(view)
-                
-                if view == s.menu.items.last {
-                    s.isUserInteractionEnabled = true
-                }
-            }
-        }
-    }
+//    /**
+//     Opens the menu with a callback.
+//     - Parameter completion: An Optional callback that is executed when
+//     all menu items have been opened.
+//     */
+//    open func openMenu(completion: ((UIView) -> Void)? = nil) {
+//        if true == isUserInteractionEnabled {
+//            isUserInteractionEnabled = false
+//            
+//            UIView.animate(withDuration: 0.15, animations: { [weak self] in
+//                guard let s = self else {
+//                    return
+//                }
+//                s.rootViewController.view.alpha = 0.15
+//            })
+//            
+//            fabMenu.open { [completion = completion] (view) in
+//                completion?(view)
+//            }
+//        }
+//    }
+//    
+//    /**
+//     Opens the menu with a callback.
+//     - Parameter completion: An Optional callback that is executed when
+//     all menu items have been closed.
+//     */
+//    open func closeMenu(completion: ((UIView) -> Void)? = nil) {
+//        if false == isUserInteractionEnabled {
+//            UIView.animate(withDuration: 0.15, animations: { [weak self] in
+//                guard let s = self else {
+//                    return
+//                }
+//                s.rootViewController.view.alpha = 1
+//            })
+//            
+//            fabMenu.close { [weak self] (view) in
+//                guard let s = self else {
+//                    return
+//                }
+//                
+//                completion?(view)
+//                
+//                if view == s.fabMenu.items.last {
+//                    s.isUserInteractionEnabled = true
+//                }
+//            }
+//        }
+//    }
 }

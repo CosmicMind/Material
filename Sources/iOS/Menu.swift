@@ -61,7 +61,7 @@ open class Menu: View, SpringableMotion {
     open weak var delegate: MenuDelegate?
     
     /// The direction in which the animation opens the menu.
-    open var springDirection = SpringMotionDirection.up {
+    open var springDirection = SpringDirection.up {
         didSet {
             layoutSubviews()
         }
