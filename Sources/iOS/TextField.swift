@@ -345,6 +345,11 @@ open class TextField: UITextField {
 		}
 	}
 	
+    open override func becomeFirstResponder() -> Bool {
+        layoutSubviews()
+        return super.becomeFirstResponder()
+    }
+    
     /**
      An initializer that initializes the object with a NSCoder object.
      - Parameter aDecoder: A NSCoder instance.
