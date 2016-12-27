@@ -38,6 +38,18 @@ public enum MenuDirection: Int {
     case right
 }
 
+open class MenuItem: Toolbar {
+    open override func prepare() {
+        super.prepare()
+        heightPreset = .normal
+        pulseAnimation = .pointWithBacking
+        titleLabel.textAlignment = .left
+        detailLabel.textAlignment = .left
+    }
+}
+
+open class MenuCard: Card {}
+
 @objc(MenuDelegate)
 public protocol MenuDelegate {
     /**
@@ -78,6 +90,9 @@ public protocol MenuDelegate {
      */
     @objc
     optional func menu(menu: Menu, tappedAt point: CGPoint, isOutside: Bool)
+    
+    @objc
+    optional func menu(menu: Menu, didSelect menuItem: MenuItem)
 }
 
 
@@ -90,16 +105,28 @@ open class Menu: Button {
         }
     }
     
-    /// A reference to the contentView.
-    open let contentView = UIView()
+    /// A reference to the card.
+    open let card = MenuCard()
     
-    /// A reference to the contentView.
-    open let container = UIView()
+    /// A preset wrapper around cardEdgeInsets.
+    open var cardEdgeInsetsPreset = EdgeInsetsPreset.none {
+        didSet {
+            cardEdgeInsets = EdgeInsetsPresetToValue(preset: cardEdgeInsetsPreset)
+        }
+    }
+    
+    /// A reference to cardEdgeInsets.
+    @IBInspectable
+    open var cardEdgeInsets = EdgeInsets.zero {
+        didSet {
+            layoutSubviews()
+        }
+    }
     
     /// A reference to the MenuItems.
     open var items = [MenuItem]() {
         didSet {
-            reload()
+            layoutSubviews()
         }
     }
     
@@ -111,38 +138,45 @@ open class Menu: Button {
     
     open override func layoutSubviews() {
         super.layoutSubviews()
-        contentView.frame = container.bounds
+        reload()
     }
     
     open override func prepare() {
         super.prepare()
-        prepareContentView()
-        prepareContainer()
+        prepareCard()
         prepareHandler()
     }
-}
 
-extension Menu {
-    fileprivate func reload() {
+    open func reload() {
+        let screen = Screen.bounds
+        card.width = screen.width - cardEdgeInsets.left - cardEdgeInsets.right
         
+        guard let contentView = card.contentView else {
+            return
+        }
+        
+        contentView.grid.begin()
+        contentView.grid.axis.rows = items.count
+        contentView.grid.axis.direction = .vertical
+        
+        var h: CGFloat = 0
+        for v in items {
+            h += v.height
+        }
+        
+        contentView.height = h
+        contentView.grid.views = items
+        contentView.grid.commit()
     }
 }
 
 extension Menu {
-    /// Prepares the contentView.
-    fileprivate func prepareContentView() {
-        contentView.clipsToBounds = true
-        contentView.backgroundColor = .white
-        contentView.cornerRadiusPreset = .cornerRadius1
+    /// Prepares the card.
+    fileprivate func prepareCard() {
+        card.contentView = UIView()
     }
     
-    /// Prepares the container.
-    fileprivate func prepareContainer() {
-        container.depthPreset = .depth1
-        container.addSubview(contentView)
-    }
-    
-    /// Prepares the button.
+    /// Prepares the handler.
     fileprivate func prepareHandler() {
         addTarget(self, action: #selector(handleToggleMenu), for: .touchUpInside)
     }
@@ -158,6 +192,19 @@ extension Menu {
     open override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         guard isOpened, isEnabled else {
             return super.hitTest(point, with: event)
+        }
+        
+        guard let contentView = card.contentView else {
+            return nil
+        }
+        
+        for v in contentView.subviews {
+            let p = v.convert(point, from: self)
+            if v.bounds.contains(p) {
+                if let item = v as? MenuItem {
+                    delegate?.menu?(menu: self, didSelect: item)
+                }
+            }
         }
         
         for v in subviews {
@@ -183,7 +230,7 @@ extension Menu {
             return
         }
         
-        guard nil == container.superview else {
+        guard nil == card.superview else {
             return
         }
         
@@ -191,7 +238,7 @@ extension Menu {
         
         switch direction {
         case .up, .down, .left, .right:
-            layout(container).bottom().width(100).height(200).centerHorizontally()
+            layout(card).bottom().centerHorizontally()
         }
         
         isOpened = true
@@ -206,7 +253,7 @@ extension Menu {
         
         delegate?.menuWillClose?(menu: self)
         
-        container.removeFromSuperview()
+        card.removeFromSuperview()
         
         isOpened = false
         

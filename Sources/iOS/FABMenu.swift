@@ -38,6 +38,96 @@ public enum FABMenuDirection: Int {
     case right
 }
 
+open class FABMenuItem: View {
+    /// A reference to the titleLabel.
+    open let titleLabel = UILabel()
+    
+    /// A reference to the button.
+    open let button = FABButton()
+    
+    /**
+     Prepares the view instance when intialized. When subclassing,
+     it is recommended to override the prepare method
+     to initialize property values and other setup operations.
+     The super.prepare method should always be called immediately
+     when subclassing.
+     */
+    open override func prepare() {
+        super.prepare()
+        backgroundColor = nil
+        
+        prepareButton()
+        prepareTitleLabel()
+    }
+    
+    /// A reference to the titleLabel text.
+    open var title: String? {
+        get {
+            return titleLabel.text
+        }
+        set(value) {
+            titleLabel.text = value
+            layoutSubviews()
+        }
+    }
+    
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        guard let t = title, 0 < t.utf16.count else {
+            titleLabel.removeFromSuperview()
+            return
+        }
+        
+        if nil == titleLabel.superview {
+            addSubview(titleLabel)
+        }
+    }
+}
+
+extension FABMenuItem {
+    /// Shows the titleLabel.
+    open func showTitleLabel() {
+        let interimSpace = InterimSpacePresetToValue(preset: .interimSpace6)
+        
+        titleLabel.sizeToFit()
+        titleLabel.width += 1.5 * interimSpace
+        titleLabel.height += interimSpace / 2
+        titleLabel.y = (height - titleLabel.height) / 2
+        titleLabel.x = -titleLabel.width - interimSpace
+        titleLabel.alpha = 0
+        titleLabel.isHidden = false
+        
+        UIView.animate(withDuration: 0.25, animations: { [weak self] in
+            guard let s = self else {
+                return
+            }
+            
+            s.titleLabel.alpha = 1
+        })
+    }
+    
+    /// Hides the titleLabel.
+    open func hideTitleLabel() {
+        titleLabel.isHidden = true
+    }
+}
+
+extension FABMenuItem {
+    /// Prepares the button.
+    fileprivate func prepareButton() {
+        layout(button).edges()
+    }
+    
+    /// Prepares the titleLabel.
+    fileprivate func prepareTitleLabel() {
+        titleLabel.font = RobotoFont.regular(with: 14)
+        titleLabel.textAlignment = .center
+        titleLabel.backgroundColor = .white
+        titleLabel.depthPreset = button.depthPreset
+        titleLabel.cornerRadiusPreset = .cornerRadius1
+    }
+}
+
 @objc(FABMenuDelegate)
 public protocol FABMenuDelegate {
     /**
