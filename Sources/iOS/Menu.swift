@@ -42,13 +42,21 @@ open class MenuItem: Toolbar {
     open override func prepare() {
         super.prepare()
         heightPreset = .normal
-        pulseAnimation = .pointWithBacking
         titleLabel.textAlignment = .left
         detailLabel.textAlignment = .left
     }
 }
 
-open class MenuCard: Card {}
+class MenuCollectionViewCell: CollectionViewCell {
+    open var menuItem: MenuItem? {
+        didSet {
+            oldValue?.removeFromSuperview()
+            if let v = menuItem {
+                contentView.addSubview(v)
+            }
+        }
+    }
+}
 
 @objc(MenuDelegate)
 public protocol MenuDelegate {
@@ -92,7 +100,7 @@ public protocol MenuDelegate {
     optional func menu(menu: Menu, tappedAt point: CGPoint, isOutside: Bool)
     
     @objc
-    optional func menu(menu: Menu, didSelect menuItem: MenuItem)
+    optional func menu(menu: Menu, didSelect menuItem: MenuItem, at indexPath: IndexPath)
 }
 
 
@@ -105,27 +113,28 @@ open class Menu: Button {
         }
     }
     
+    /// A reference to the dataSourceItems.
+    open fileprivate(set) var dataSourceItems = [DataSourceItem]()
+    
+    /// An index of IndexPath to MenuItem.
+    open fileprivate(set) var indexForDataSourceItems = [IndexPath: MenuItem]()
+    
+    /// A reference to the collectionView.
+    open let collectionView = CollectionView()
+    
     /// A reference to the card.
-    open let card = MenuCard()
-    
-    /// A preset wrapper around cardEdgeInsets.
-    open var cardEdgeInsetsPreset = EdgeInsetsPreset.none {
-        didSet {
-            cardEdgeInsets = EdgeInsetsPresetToValue(preset: cardEdgeInsetsPreset)
-        }
-    }
-    
-    /// A reference to cardEdgeInsets.
-    @IBInspectable
-    open var cardEdgeInsets = EdgeInsets.zero {
-        didSet {
-            layoutSubviews()
-        }
-    }
+    open let card = Card()
     
     /// A reference to the MenuItems.
     open var items = [MenuItem]() {
         didSet {
+            dataSourceItems.removeAll()
+            indexForDataSourceItems.removeAll()
+            
+            for item in items {
+                dataSourceItems.append(DataSourceItem(data: item, width: item.width, height: item.height))
+            }
+            
             layoutSubviews()
         }
     }
@@ -143,37 +152,40 @@ open class Menu: Button {
     
     open override func prepare() {
         super.prepare()
+        prepareCollectionView()
         prepareCard()
         prepareHandler()
     }
 
     open func reload() {
-        let screen = Screen.bounds
-        card.width = screen.width - cardEdgeInsets.left - cardEdgeInsets.right
-        
-        guard let contentView = card.contentView else {
-            return
+        if 0 == card.width {
+            card.width = Screen.bounds.width
         }
         
-        contentView.grid.begin()
-        contentView.grid.axis.rows = items.count
-        contentView.grid.axis.direction = .vertical
-        
-        var h: CGFloat = 0
-        for v in items {
-            h += v.height
+        if 0 == collectionView.height {
+            var h: CGFloat = 0
+            for dataSourceItem in dataSourceItems {
+                h += dataSourceItem.height ?? 0
+            }
+            collectionView.height = h
         }
         
-        contentView.height = h
-        contentView.grid.views = items
-        contentView.grid.commit()
+        collectionView.reloadData()
     }
 }
 
 extension Menu {
+    /// Prepares the collectionView.
+    fileprivate func prepareCollectionView() {
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.interimSpacePreset = .none
+        collectionView.register(MenuCollectionViewCell.self, forCellWithReuseIdentifier: "MenuCollectionViewCell")
+    }
+    
     /// Prepares the card.
     fileprivate func prepareCard() {
-        card.contentView = UIView()
+        card.contentView = collectionView
     }
     
     /// Prepares the handler.
@@ -192,19 +204,6 @@ extension Menu {
     open override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         guard isOpened, isEnabled else {
             return super.hitTest(point, with: event)
-        }
-        
-        guard let contentView = card.contentView else {
-            return nil
-        }
-        
-        for v in contentView.subviews {
-            let p = v.convert(point, from: self)
-            if v.bounds.contains(p) {
-                if let item = v as? MenuItem {
-                    delegate?.menu?(menu: self, didSelect: item)
-                }
-            }
         }
         
         for v in subviews {
@@ -274,5 +273,43 @@ extension Menu {
         }
         
         close()
+    }
+}
+
+extension Menu: CollectionViewDelegate {
+    open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let menuItem = indexForDataSourceItems[indexPath] else {
+            return
+        }
+        
+        delegate?.menu?(menu: self, didSelect: menuItem, at: indexPath)
+    }
+}
+
+extension Menu: CollectionViewDataSource {
+    @objc
+    open func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    @objc
+    open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return dataSourceItems.count
+    }
+    
+    @objc
+    open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MenuCollectionViewCell", for: indexPath) as! MenuCollectionViewCell
+        
+        guard let menuItem = dataSourceItems[indexPath.item].data as? MenuItem else {
+            return cell
+        }
+        
+        indexForDataSourceItems[indexPath] = menuItem
+        
+        cell.menuItem = menuItem
+        cell.menuItem?.width = cell.width
+        
+        return cell
     }
 }

@@ -36,7 +36,7 @@ public enum ContentViewAlignment: Int {
     case center
 }
 
-open class Bar: PulseView {
+open class Bar: View {
     /// Will layout the view.
     open var willLayout: Bool {
         return 0 < width && 0 < height && nil != superview
@@ -275,7 +275,6 @@ open class Bar: PulseView {
     open override func prepare() {
         super.prepare()
         heightPreset = .normal
-        pulseAnimation = .none
         autoresizingMask = .flexibleWidth
         interimSpacePreset = .interimSpace3
         contentEdgeInsetsPreset = .square1
