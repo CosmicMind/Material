@@ -113,23 +113,26 @@ open class Menu: Button {
         }
     }
     
-    /// A reference to the dataSourceItems.
-    open fileprivate(set) var dataSourceItems = [DataSourceItem]()
-    
-    /// An index of IndexPath to MenuItem.
-    open fileprivate(set) var indexForDataSourceItems = [IndexPath: MenuItem]()
-    
     /// A reference to the collectionView.
-    open let collectionView = CollectionView()
+    open let card = CollectionViewCard()
     
-    /// A reference to the card.
-    open let card = Card()
+    /**
+     Retrieves the data source items for the collectionView.
+     - Returns: An Array of DataSourceItem objects.
+     */
+    open var dataSourceItems: [DataSourceItem] {
+        get {
+            return card.dataSourceItems
+        }
+        set(value) {
+            card.dataSourceItems = value
+        }
+    }
     
     /// A reference to the MenuItems.
     open var items = [MenuItem]() {
         didSet {
             dataSourceItems.removeAll()
-            indexForDataSourceItems.removeAll()
             
             for item in items {
                 dataSourceItems.append(DataSourceItem(data: item, width: item.width, height: item.height))
@@ -152,7 +155,6 @@ open class Menu: Button {
     
     open override func prepare() {
         super.prepare()
-        prepareCollectionView()
         prepareCard()
         prepareHandler()
     }
@@ -161,31 +163,15 @@ open class Menu: Button {
         if 0 == card.width {
             card.width = Screen.bounds.width
         }
-        
-        if 0 == collectionView.height {
-            var h: CGFloat = 0
-            for dataSourceItem in dataSourceItems {
-                h += dataSourceItem.height ?? 0
-            }
-            collectionView.height = h
-        }
-        
-        collectionView.reloadData()
     }
 }
 
 extension Menu {
-    /// Prepares the collectionView.
-    fileprivate func prepareCollectionView() {
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.interimSpacePreset = .none
-        collectionView.register(MenuCollectionViewCell.self, forCellWithReuseIdentifier: "MenuCollectionViewCell")
-    }
-    
     /// Prepares the card.
     fileprivate func prepareCard() {
-        card.contentView = collectionView
+        card.collectionView.delegate = self
+        card.collectionView.dataSource = self
+        card.collectionView.register(MenuCollectionViewCell.self, forCellWithReuseIdentifier: "MenuCollectionViewCell")
     }
     
     /// Prepares the handler.
@@ -278,7 +264,7 @@ extension Menu {
 
 extension Menu: CollectionViewDelegate {
     open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let menuItem = indexForDataSourceItems[indexPath] else {
+        guard let menuItem = card.indexForDataSourceItems[indexPath] as? MenuItem else {
             return
         }
         
@@ -305,7 +291,7 @@ extension Menu: CollectionViewDataSource {
             return cell
         }
         
-        indexForDataSourceItems[indexPath] = menuItem
+        card.indexForDataSourceItems[indexPath] = menuItem
         
         cell.menuItem = menuItem
         cell.menuItem?.width = cell.width
