@@ -34,8 +34,10 @@ import UIKit
 public enum MenuDirection: Int {
     case up
     case down
-    case left
-    case right
+    case topLeft
+    case topRight
+    case bottomLeft
+    case bottomRight
 }
 
 open class MenuItem: Toolbar {
@@ -44,10 +46,12 @@ open class MenuItem: Toolbar {
         heightPreset = .normal
         titleLabel.textAlignment = .left
         detailLabel.textAlignment = .left
+        contentViewAlignment = .center
     }
 }
 
 class MenuCollectionViewCell: CollectionViewCell {
+    /// A reference to the MenuItem.
     open var menuItem: MenuItem? {
         didSet {
             oldValue?.removeFromSuperview()
@@ -113,19 +117,35 @@ open class Menu: Button {
         }
     }
     
-    /// A reference to the collectionView.
-    open let card = CollectionViewCard()
+    /// A reference to the collectionViewCard.
+    @IBInspectable
+    open let collectionViewCard = CollectionViewCard()
+    
+    /// A preset wrapper around collectionViewCardEdgeInsets.
+    open var collectionViewCardEdgeInsetsPreset = EdgeInsetsPreset.none {
+        didSet {
+            collectionViewCardEdgeInsets = EdgeInsetsPresetToValue(preset: collectionViewCardEdgeInsetsPreset)
+        }
+    }
+    
+    /// A reference to collectionViewCardEdgeInsets.
+    @IBInspectable
+    open var collectionViewCardEdgeInsets = EdgeInsets.zero {
+        didSet {
+            layoutSubviews()
+        }
+    }
     
     /**
      Retrieves the data source items for the collectionView.
      - Returns: An Array of DataSourceItem objects.
      */
-    open var dataSourceItems: [DataSourceItem] {
+    open fileprivate(set) var dataSourceItems: [DataSourceItem] {
         get {
-            return card.dataSourceItems
+            return collectionViewCard.dataSourceItems
         }
         set(value) {
-            card.dataSourceItems = value
+            collectionViewCard.dataSourceItems = value
         }
     }
     
@@ -160,8 +180,8 @@ open class Menu: Button {
     }
 
     open func reload() {
-        if 0 == card.width {
-            card.width = Screen.bounds.width
+        if 0 == collectionViewCard.width {
+            collectionViewCard.width = Screen.bounds.width - collectionViewCardEdgeInsets.left - collectionViewCardEdgeInsets.right
         }
     }
 }
@@ -169,9 +189,9 @@ open class Menu: Button {
 extension Menu {
     /// Prepares the card.
     fileprivate func prepareCard() {
-        card.collectionView.delegate = self
-        card.collectionView.dataSource = self
-        card.collectionView.register(MenuCollectionViewCell.self, forCellWithReuseIdentifier: "MenuCollectionViewCell")
+        collectionViewCard.collectionView.delegate = self
+        collectionViewCard.collectionView.dataSource = self
+        collectionViewCard.collectionView.register(MenuCollectionViewCell.self, forCellWithReuseIdentifier: "MenuCollectionViewCell")
     }
     
     /// Prepares the handler.
@@ -215,15 +235,25 @@ extension Menu {
             return
         }
         
-        guard nil == card.superview else {
+        guard nil == collectionViewCard.superview else {
             return
         }
         
         delegate?.menuWillOpen?(menu: self)
         
         switch direction {
-        case .up, .down, .left, .right:
-            layout(card).bottom().centerHorizontally()
+        case .up:
+            layout(collectionViewCard).bottom().centerHorizontally()
+        case .down:
+            layout(collectionViewCard).top().centerHorizontally()
+        case .topLeft:
+            layout(collectionViewCard).topLeft()
+        case .topRight:
+            layout(collectionViewCard).topRight()
+        case .bottomLeft:
+            layout(collectionViewCard).bottomLeft()
+        case .bottomRight:
+            layout(collectionViewCard).bottomRight()
         }
         
         isOpened = true
@@ -238,7 +268,7 @@ extension Menu {
         
         delegate?.menuWillClose?(menu: self)
         
-        card.removeFromSuperview()
+        collectionViewCard.removeFromSuperview()
         
         isOpened = false
         
@@ -264,7 +294,7 @@ extension Menu {
 
 extension Menu: CollectionViewDelegate {
     open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let menuItem = card.indexForDataSourceItems[indexPath] as? MenuItem else {
+        guard let menuItem = collectionViewCard.indexForDataSourceItems[indexPath] as? MenuItem else {
             return
         }
         
@@ -291,7 +321,7 @@ extension Menu: CollectionViewDataSource {
             return cell
         }
         
-        card.indexForDataSourceItems[indexPath] = menuItem
+        collectionViewCard.indexForDataSourceItems[indexPath] = menuItem
         
         cell.menuItem = menuItem
         cell.menuItem?.width = cell.width
