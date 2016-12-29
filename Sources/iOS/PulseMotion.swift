@@ -38,6 +38,7 @@ public enum PulseAnimation: Int {
     case centerRadialBeyondBounds
     case radialBeyondBounds
     case backing
+    case tap
     case point
     case pointWithBacking
 }
@@ -141,10 +142,10 @@ extension PulseMotion {
         
         bLayer.setValue(false, forKey: "animated")
         
-        let duration: CFTimeInterval = .center == animation ? 0.16125 : 0.325
+        let duration: TimeInterval = .tap == animation ? 0 : .center == animation ? 0.16125 : 0.325
         
         switch animation {
-        case .centerWithBacking, .backing, .pointWithBacking:
+        case .centerWithBacking, .backing, .pointWithBacking, .tap:
             bLayer.add(Motion.backgroundColor(color: color.withAlphaComponent(opacity / 2), duration: duration), forKey: nil)
         default:break
         }
@@ -177,10 +178,10 @@ extension PulseMotion {
                 return
             }
             
-            let duration = 0.325
+            let duration: TimeInterval = 0.325
             
             switch animation {
-            case .centerWithBacking, .backing, .pointWithBacking:
+            case .centerWithBacking, .backing, .pointWithBacking, .tap:
                 bLayer.add(Motion.backgroundColor(color: color.withAlphaComponent(0), duration: duration), forKey: nil)
             default:break
             }
