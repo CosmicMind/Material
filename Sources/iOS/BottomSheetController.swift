@@ -148,7 +148,7 @@ open class BottomSheetController: RootController {
      A CGFloat property that is used internally to track
      the original (x) position of the container view when panning.
      */
-    fileprivate var originalX: CGFloat = 0
+    fileprivate var originalY: CGFloat = 0
     
     /**
      A UIPanGestureRecognizer property internally used for the
@@ -261,7 +261,7 @@ open class BottomSheetController: RootController {
         guard nil != bottomView else {
             return false
         }
-        return bottomView!.x != -bottomViewWidth
+        return bottomView!.x != -bottomViewHeight
     }
     
     /**
@@ -275,7 +275,7 @@ open class BottomSheetController: RootController {
      opens up to.
      */
     @IBInspectable
-    open fileprivate(set) var bottomViewWidth: CGFloat!
+    open fileprivate(set) var bottomViewHeight: CGFloat!
     
     /**
      An initializer that initializes the object with a NSCoder object.
@@ -314,17 +314,17 @@ open class BottomSheetController: RootController {
             return
         }
         
-        v.width = bottomViewWidth
-        v.height = view.bounds.height
-        bottomViewThreshold = bottomViewWidth / 2
+        v.width = view.bounds.width
+        v.height = bottomViewHeight
+        bottomViewThreshold = bottomViewHeight / 2
         
         guard let vc = bottomViewController else {
             return
         }
         
-        vc.view.width = v.width
-        vc.view.height = v.height
-        vc.view.center = CGPoint(x: v.width / 2, y: v.height / 2)
+        vc.view.width = v.bounds.width
+        vc.view.height = v.bounds.height
+        vc.view.center = CGPoint(x: v.bounds.width / 2, y: v.bounds.height / 2)
     }
     
     /**
@@ -354,14 +354,14 @@ open class BottomSheetController: RootController {
             return
         }
         
-        bottomViewWidth = width
+        bottomViewHeight = width
         
         if animated {
             v.isShadowPathAutoSizing = false
             
             if isHidden {
                 UIView.animate(withDuration: duration,
-                    animations: { [weak self] in
+                    animations: { [weak self, v = v] in
                         guard let s = self else {
                             return
                         }
@@ -369,7 +369,7 @@ open class BottomSheetController: RootController {
                         v.bounds.size.width = width
                         v.position.x = -width / 2
                         s.rootViewController.view.alpha = 1
-                }) { [weak self] _ in
+                }) { [weak self, v = v] _ in
                     guard let s = self else {
                         return
                     }
@@ -380,7 +380,7 @@ open class BottomSheetController: RootController {
                 }
             } else {
                 UIView.animate(withDuration: duration,
-                    animations: { [weak self] in
+                    animations: { [weak self, v = v] in
                         guard let s = self else {
                             return
                         }
@@ -388,7 +388,7 @@ open class BottomSheetController: RootController {
                         v.bounds.size.width = width
                         v.position.x = width / 2
                         s.rootViewController.view.alpha = 0.5
-                }) { [weak self] _ in
+                }) { [weak self, v = v] _ in
                     guard let s = self else {
                         return
                     }
@@ -403,7 +403,7 @@ open class BottomSheetController: RootController {
             
             if isHidden {
                 hideView(container: v)
-                v.position.x = -v.width / 2
+                v.position.x = -v.bounds.width / 2
                 rootViewController.view.alpha = 1
             } else {
                 v.isShadowPathAutoSizing = false
@@ -456,7 +456,7 @@ open class BottomSheetController: RootController {
                     return
                 }
                         
-                v.position.x = v.width / 2
+                v.position.y = -v.bounds.height / 2
                 s.rootViewController.view.alpha = 0.5
         }) { [weak self] _ in
             guard let s = self else {
@@ -487,14 +487,14 @@ open class BottomSheetController: RootController {
         delegate?.bottomSheetController?(bottomSheetController: self, willClose: .left)
         
         UIView.animate(withDuration: TimeInterval(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.x / velocity)))),
-                       animations: { [weak self, v = v] in
-                        guard let s = self else {
-                            return
-                        }
+            animations: { [weak self, v = v] in
+                guard let s = self else {
+                    return
+                }
                         
-                        v.position.x = -v.width / 2
-                        s.rootViewController.view.alpha = 1
-        }) { [weak self] _ in
+                v.position.y = v.bounds.height / 2
+                s.rootViewController.view.alpha = 1
+        }) { [weak self, v = v] _ in
             guard let s = self else {
                 return
             }
@@ -595,14 +595,14 @@ extension BottomSheetController {
         
         isBottomViewEnabled = true
         
-        bottomViewWidth = .phone == Device.userInterfaceIdiom ? 280 : 320
+        bottomViewHeight = .phone == Device.userInterfaceIdiom ? 280 : 320
         bottomView = UIView()
-        bottomView!.frame = CGRect(x: 0, y: 0, width: bottomViewWidth, height: view.height)
+        bottomView!.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: bottomViewHeight)
         bottomView!.backgroundColor = nil
         view.addSubview(bottomView!)
         
         bottomView!.isHidden = true
-        bottomView!.position.x = -bottomViewWidth / 2
+        bottomView!.position.y = -bottomViewHeight / 2
         bottomView!.zPosition = 2000
         prepareBottomViewController()
     }
@@ -672,30 +672,30 @@ extension BottomSheetController: UIGestureRecognizerDelegate {
         // Animate the panel.
         switch recognizer.state {
         case .began:
-            originalX = v.position.x
+            originalY = v.position.y
             showView(container: v)
             
             delegate?.bottomSheetController?(bottomSheetController: self, didBeginPanAt: point, position: .left)
         case .changed:
-            let w = v.width
-            let translationX = recognizer.translation(in: v).x
+            let y = v.bounds.height
+            let translationY = recognizer.translation(in: v).y
             
-            v.position.x = originalX + translationX > (w / 2) ? (w / 2) : originalX + translationX
+            v.position.y = originalY - translationY > (y / 2) ? (y / 2) : originalY - translationY
             
-            let a = 1 - v.position.x / v.width
-            rootViewController.view.alpha = 0.5 < a && v.position.x <= v.width / 2 ? a : 0.5
+            let a = 1 - v.position.y / v.bounds.height
+            rootViewController.view.alpha = 0.5 < a && v.position.y <= v.bounds.height / 2 ? a : 0.5
             
             delegate?.bottomSheetController?(bottomSheetController: self, didChangePanAt: point, position: .left)
         case .ended, .cancelled, .failed:
             let p = recognizer.velocity(in: recognizer.view)
-            let x = p.x >= 1000 || p.x <= -1000 ? p.x : 0
+            let y = p.y >= 1000 || p.y <= -1000 ? p.y : 0
             
             delegate?.bottomSheetController?(bottomSheetController: self, didEndPanAt: point, position: .left)
             
-            if v.x <= -bottomViewWidth + bottomViewThreshold || x < -1000 {
-                closeBottomView(velocity: x)
+            if v.y <= -bottomViewHeight + bottomViewThreshold || y < -1000 {
+                closeBottomView(velocity: y)
             } else {
-                openBottomView(velocity: x)
+                openBottomView(velocity: y)
             }
         case .possible:break
         }
