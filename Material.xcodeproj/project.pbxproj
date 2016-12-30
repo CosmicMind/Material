@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		961730361E0E156400A9A297 /* SpringMotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961730351E0E156400A9A297 /* SpringMotion.swift */; };
 		9617305A1E145DE900A9A297 /* CollectionViewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961730591E145DE900A9A297 /* CollectionViewCard.swift */; };
+		961730701E16EFFF00A9A297 /* BottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9617306F1E16EFFF00A9A297 /* BottomSheet.swift */; };
+		961730721E16F00C00A9A297 /* BottomSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961730711E16F00C00A9A297 /* BottomSheetController.swift */; };
 		9617B07D1DFCA8CF00410F8F /* Application.swift in Headers */ = {isa = PBXBuildFile; fileRef = 961E6BDE1DDA2A95004E6C93 /* Application.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9617B07E1DFCA8CF00410F8F /* Card.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB75D1CB40DC500C806FE /* Card.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9617B07F1DFCA8CF00410F8F /* ImageCard.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7621CB40DC500C806FE /* ImageCard.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -228,6 +230,8 @@
 		961276621DCD8B1800A7D920 /* CharacterAttribute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacterAttribute.swift; sourceTree = "<group>"; };
 		961730351E0E156400A9A297 /* SpringMotion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringMotion.swift; sourceTree = "<group>"; };
 		961730591E145DE900A9A297 /* CollectionViewCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCard.swift; sourceTree = "<group>"; };
+		9617306F1E16EFFF00A9A297 /* BottomSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheet.swift; sourceTree = "<group>"; };
+		961730711E16F00C00A9A297 /* BottomSheetController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheetController.swift; sourceTree = "<group>"; };
 		961DED451DCC40C500F425B6 /* Editor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Editor.swift; sourceTree = "<group>"; };
 		961DED4A1DCC546100F425B6 /* EditorController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorController.swift; sourceTree = "<group>"; };
 		961E6BDE1DDA2A95004E6C93 /* Application.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
@@ -384,6 +388,15 @@
 				961F18E71CD93E3E008927C5 /* ErrorTextField.swift */,
 			);
 			name = TextField;
+			sourceTree = "<group>";
+		};
+		9617306E1E16EFE300A9A297 /* BottomSheet */ = {
+			isa = PBXGroup;
+			children = (
+				9617306F1E16EFFF00A9A297 /* BottomSheet.swift */,
+				961730711E16F00C00A9A297 /* BottomSheetController.swift */,
+			);
+			name = BottomSheet;
 			sourceTree = "<group>";
 		};
 		961DED441DCC40AC00F425B6 /* Editor */ = {
@@ -627,6 +640,7 @@
 			children = (
 				961E6BDD1DDA2A7E004E6C93 /* Application */,
 				96264BE41D833C8400576F37 /* Bar */,
+				9617306E1E16EFE300A9A297 /* BottomSheet */,
 				962DDD081D6FBBD0001C307C /* BottomTabBar */,
 				96BCB8031CB40F4B00C806FE /* Button */,
 				96BCB8021CB40F3B00C806FE /* Card */,
@@ -1200,6 +1214,7 @@
 				965E80E51DD4C53300D61E4B /* PulseMotion.swift in Sources */,
 				965E80FE1DD4D59500D61E4B /* ToolbarController.swift in Sources */,
 				96328B971E05C0BB009A4C90 /* TableView.swift in Sources */,
+				961730701E16EFFF00A9A297 /* BottomSheet.swift in Sources */,
 				965E80C81DD4C50600D61E4B /* Motion.swift in Sources */,
 				965E80C91DD4C50600D61E4B /* TransitionMotion.swift in Sources */,
 				965E80CA1DD4C50600D61E4B /* KeyframeMotion.swift in Sources */,
@@ -1222,6 +1237,7 @@
 				965E80D51DD4C50600D61E4B /* Grid.swift in Sources */,
 				965E80D61DD4C50600D61E4B /* HeightPreset.swift in Sources */,
 				961E6BDF1DDA2A95004E6C93 /* Application.swift in Sources */,
+				961730721E16F00C00A9A297 /* BottomSheetController.swift in Sources */,
 				965E80D71DD4C50600D61E4B /* Icon.swift in Sources */,
 				965E80FC1DD4D59500D61E4B /* SearchBarController.swift in Sources */,
 				965E80D81DD4C50600D61E4B /* Layer.swift in Sources */,

@@ -175,7 +175,7 @@ open class Menu: Button {
     
     open override func prepare() {
         super.prepare()
-        prepareCard()
+        prepareCollectionViewCard()
         prepareHandler()
     }
 
@@ -187,8 +187,8 @@ open class Menu: Button {
 }
 
 extension Menu {
-    /// Prepares the card.
-    fileprivate func prepareCard() {
+    /// Prepares the collectionViewCard.
+    fileprivate func prepareCollectionViewCard() {
         collectionViewCard.collectionView.delegate = self
         collectionViewCard.collectionView.dataSource = self
         collectionViewCard.collectionView.register(MenuCollectionViewCell.self, forCellWithReuseIdentifier: "MenuCollectionViewCell")
