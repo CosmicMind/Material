@@ -258,10 +258,10 @@ open class BottomSheetController: RootController {
     
     /// indicates if the bottomView is opened.
     open var isBottomViewOpened: Bool {
-        guard nil != bottomView else {
+        guard let v = bottomView else {
             return false
         }
-        return bottomView!.x != -bottomViewHeight
+        return v.y != Screen.height
     }
     
     /**
@@ -316,15 +316,15 @@ open class BottomSheetController: RootController {
         
         v.width = view.bounds.width
         v.height = bottomViewHeight
-        bottomViewThreshold = bottomViewHeight / 2
+        bottomViewThreshold = view.bounds.height - bottomViewHeight / 2
         
         guard let vc = bottomViewController else {
             return
         }
         
         vc.view.width = v.bounds.width
-        vc.view.height = v.bounds.height
-        vc.view.center = CGPoint(x: v.bounds.width / 2, y: v.bounds.height / 2)
+        vc.view.height = bottomViewHeight
+        vc.view.center = CGPoint(x: v.bounds.width / 2, y: bottomViewHeight / 2)
     }
     
     /**
@@ -349,12 +349,12 @@ open class BottomSheetController: RootController {
      - Parameter animated: A Boolean value that indicates to animate
      the bottomView width change.
      */
-    open func setBottomViewHeight(width: CGFloat, isHidden: Bool, animated: Bool, duration: TimeInterval = 0.5) {
+    open func setBottomViewHeight(height: CGFloat, isHidden: Bool, animated: Bool, duration: TimeInterval = 0.5) {
         guard let v = bottomView else {
             return
         }
         
-        bottomViewHeight = width
+        bottomViewHeight = height
         
         if animated {
             v.isShadowPathAutoSizing = false
@@ -366,8 +366,8 @@ open class BottomSheetController: RootController {
                             return
                         }
                         
-                        v.bounds.size.width = width
-                        v.position.x = -width / 2
+                        v.bounds.size.height = height
+                        v.position.y = -height / 2
                         s.rootViewController.view.alpha = 1
                 }) { [weak self, v = v] _ in
                     guard let s = self else {
@@ -385,8 +385,8 @@ open class BottomSheetController: RootController {
                             return
                         }
                         
-                        v.bounds.size.width = width
-                        v.position.x = width / 2
+                        v.bounds.size.height = height
+                        v.position.y = height / 2
                         s.rootViewController.view.alpha = 0.5
                 }) { [weak self, v = v] _ in
                     guard let s = self else {
@@ -399,17 +399,17 @@ open class BottomSheetController: RootController {
                 }
             }
         } else {
-            v.bounds.size.width = width
+            v.bounds.size.height = height
             
             if isHidden {
                 hideView(container: v)
-                v.position.x = -v.bounds.width / 2
+                v.position.y = -v.bounds.height / 2
                 rootViewController.view.alpha = 1
             } else {
                 v.isShadowPathAutoSizing = false
                 
                 showView(container: v)
-                v.position.x = width / 2
+                v.position.y = height / 2
                 rootViewController.view.alpha = 0.5
                 v.isShadowPathAutoSizing = true
             }
@@ -448,22 +448,22 @@ open class BottomSheetController: RootController {
         
         isUserInteractionEnabled = false
         
-        delegate?.bottomSheetController?(bottomSheetController: self, willOpen: .left)
+        delegate?.bottomSheetController?(bottomSheetController: self, willOpen: .right)
         
-        UIView.animate(withDuration: TimeInterval(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.x / velocity)))),
+        UIView.animate(withDuration: TimeInterval(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.y / velocity)))),
             animations: { [weak self, v = v] in
                 guard let s = self else {
                     return
                 }
                         
-                v.position.y = -v.bounds.height / 2
+                v.position.y = s.view.bounds.height - v.bounds.height / 2
                 s.rootViewController.view.alpha = 0.5
         }) { [weak self] _ in
             guard let s = self else {
                 return
             }
             
-            s.delegate?.bottomSheetController?(bottomSheetController: s, didOpen: .left)
+            s.delegate?.bottomSheetController?(bottomSheetController: s, didOpen: .right)
         }
     }
     
@@ -486,13 +486,13 @@ open class BottomSheetController: RootController {
         
         delegate?.bottomSheetController?(bottomSheetController: self, willClose: .left)
         
-        UIView.animate(withDuration: TimeInterval(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.x / velocity)))),
+        UIView.animate(withDuration: TimeInterval(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.y / velocity)))),
             animations: { [weak self, v = v] in
                 guard let s = self else {
                     return
                 }
                         
-                v.position.y = v.bounds.height / 2
+                v.position.y = s.view.bounds.height + v.bounds.height / 2
                 s.rootViewController.view.alpha = 1
         }) { [weak self, v = v] _ in
             guard let s = self else {
@@ -541,7 +541,7 @@ open class BottomSheetController: RootController {
      otherwise.
      */
     fileprivate func isPointContainedWithinBottomThreshold(point: CGPoint) -> Bool {
-        return point.x <= bottomThreshold
+        return point.y >= view.bounds.height - bottomThreshold
     }
     
     /**
@@ -598,11 +598,11 @@ extension BottomSheetController {
         bottomViewHeight = .phone == Device.userInterfaceIdiom ? 280 : 320
         bottomView = UIView()
         bottomView!.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: bottomViewHeight)
-        bottomView!.backgroundColor = nil
+        bottomView!.backgroundColor = Color.green.base
         view.addSubview(bottomView!)
         
         bottomView!.isHidden = true
-        bottomView!.position.y = -bottomViewHeight / 2
+        bottomView!.position.y = view.bounds.height + bottomViewHeight / 2
         bottomView!.zPosition = 2000
         prepareBottomViewController()
     }
@@ -659,7 +659,7 @@ extension BottomSheetController: UIGestureRecognizerDelegate {
      */
     @objc
     fileprivate func handleBottomViewPanGesture(recognizer: UIPanGestureRecognizer) {
-        guard isBottomViewEnabled && (isBottomViewOpened || isPointContainedWithinBottomThreshold(point: recognizer.location(in: view))) else {
+        guard isBottomViewEnabled && (isBottomViewOpened && isPointContainedWithinBottomThreshold(point: recognizer.location(in: view))) else {
             return
         }
         
@@ -675,24 +675,24 @@ extension BottomSheetController: UIGestureRecognizerDelegate {
             originalY = v.position.y
             showView(container: v)
             
-            delegate?.bottomSheetController?(bottomSheetController: self, didBeginPanAt: point, position: .left)
+            delegate?.bottomSheetController?(bottomSheetController: self, didBeginPanAt: point, position: .right)
         case .changed:
-            let y = v.bounds.height
+            let h = v.bounds.height
             let translationY = recognizer.translation(in: v).y
             
-            v.position.y = originalY - translationY > (y / 2) ? (y / 2) : originalY - translationY
+            v.position.y = originalY + translationY < view.bounds.height - (h / 2) ? view.bounds.height - (h / 2) : originalY + translationY
             
-            let a = 1 - v.position.y / v.bounds.height
-            rootViewController.view.alpha = 0.5 < a && v.position.y <= v.bounds.height / 2 ? a : 0.5
+            let a = 1 - (view.bounds.height - v.position.y) / v.bounds.height
+            rootViewController.view.alpha = 0.5 < a && v.position.y >= v.bounds.height / 2 ? a : 0.5
             
-            delegate?.bottomSheetController?(bottomSheetController: self, didChangePanAt: point, position: .left)
+            delegate?.bottomSheetController?(bottomSheetController: self, didChangePanAt: point, position: .right)
         case .ended, .cancelled, .failed:
             let p = recognizer.velocity(in: recognizer.view)
             let y = p.y >= 1000 || p.y <= -1000 ? p.y : 0
             
-            delegate?.bottomSheetController?(bottomSheetController: self, didEndPanAt: point, position: .left)
+            delegate?.bottomSheetController?(bottomSheetController: self, didEndPanAt: point, position: .right)
             
-            if v.y <= -bottomViewHeight + bottomViewThreshold || y < -1000 {
+            if v.y >= bottomViewThreshold || y > 1000 {
                 closeBottomView(velocity: y)
             } else {
                 openBottomView(velocity: y)

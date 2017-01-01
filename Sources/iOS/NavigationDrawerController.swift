@@ -334,18 +334,18 @@ open class NavigationDrawerController: RootController {
 	
 	/// indicates if the leftView is opened.
 	open var isLeftViewOpened: Bool {
-		guard nil != leftView else {
+		guard let v = leftView else {
 			return false
 		}
-		return leftView!.x != -leftViewWidth
+		return v.x != -leftViewWidth
 	}
 	
 	/// Indicates if the rightView is opened.
 	open var isRightViewOpened: Bool {
-		guard nil != rightView else {
+		guard let v = rightView else {
 			return false
 		}
-		return rightView!.x != Screen.width
+		return v.x != Screen.width
 	}
 	
 	/**
@@ -436,9 +436,9 @@ open class NavigationDrawerController: RootController {
 			v.height = view.bounds.height
 			leftViewThreshold = leftViewWidth / 2
 			if let vc = leftViewController {
-				vc.view.width = v.bounds.width
+				vc.view.width = leftViewWidth
 				vc.view.height = v.bounds.height
-                vc.view.center = CGPoint(x: v.bounds.width / 2, y: v.bounds.height / 2)
+                vc.view.center = CGPoint(x: leftViewWidth / 2, y: v.bounds.height / 2)
 			}
 		}
 		
@@ -447,9 +447,9 @@ open class NavigationDrawerController: RootController {
 			v.height = view.bounds.height
 			rightViewThreshold = view.bounds.width - rightViewWidth / 2
 			if let vc = rightViewController {
-				vc.view.width = v.bounds.width
+				vc.view.width = rightViewWidth
 				vc.view.height = v.bounds.height
-                vc.view.center = CGPoint(x: v.bounds.width / 2, y: v.bounds.height / 2)
+                vc.view.center = CGPoint(x: rightViewWidth / 2, y: v.bounds.height / 2)
 			}
 		}
 	}
