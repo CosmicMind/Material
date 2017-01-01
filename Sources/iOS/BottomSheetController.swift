@@ -60,86 +60,69 @@ public protocol BottomSheetControllerDelegate {
      An optional delegation method that is fired before the
      BottomSheetController opens.
      - Parameter bottomSheetController: A BottomSheetController.
-     - Parameter position: The BottomSheetPosition.
      */
     @objc
-    optional func bottomSheetController(bottomSheetController: BottomSheetController, willOpen position: BottomSheetPosition)
+    optional func bottomSheetControllerWillOpen(bottomSheetController: BottomSheetController)
     
     /**
      An optional delegation method that is fired after the
      BottomSheetController opened.
      - Parameter bottomSheetController: A BottomSheetController.
-     - Parameter position: The BottomSheetPosition.
      */
     @objc
-    optional func bottomSheetController(bottomSheetController: BottomSheetController, didOpen position: BottomSheetPosition)
+    optional func bottomSheetControllerDidOpen(bottomSheetController: BottomSheetController)
     
     /**
      An optional delegation method that is fired before the
      BottomSheetController closes.
      - Parameter bottomSheetController: A BottomSheetController.
-     - Parameter position: The BottomSheetPosition.
      */
     @objc
-    optional func bottomSheetController(bottomSheetController: BottomSheetController, willClose position: BottomSheetPosition)
+    optional func bottomSheetControllerWillClose(bottomSheetController: BottomSheetController)
     
     /**
      An optional delegation method that is fired after the
      BottomSheetController closed.
      - Parameter bottomSheetController: A BottomSheetController.
-     - Parameter position: The BottomSheetPosition.
      */
     @objc
-    optional func bottomSheetController(bottomSheetController: BottomSheetController, didClose position: BottomSheetPosition)
+    optional func bottomSheetControllerDidClose(bottomSheetController: BottomSheetController)
     
     /**
      An optional delegation method that is fired when the
      BottomSheetController pan gesture begins.
      - Parameter bottomSheetController: A BottomSheetController.
      - Parameter didBeginPanAt point: A CGPoint.
-     - Parameter position: The BottomSheetPosition.
      */
     @objc
-    optional func bottomSheetController(bottomSheetController: BottomSheetController, didBeginPanAt point: CGPoint, position: BottomSheetPosition)
+    optional func bottomSheetController(bottomSheetController: BottomSheetController, didBeginPanAt point: CGPoint)
     
     /**
      An optional delegation method that is fired when the
      BottomSheetController pan gesture changes position.
      - Parameter bottomSheetController: A BottomSheetController.
      - Parameter didChangePanAt point: A CGPoint.
-     - Parameter position: The BottomSheetPosition.
      */
     @objc
-    optional func bottomSheetController(bottomSheetController: BottomSheetController, didChangePanAt point: CGPoint, position: BottomSheetPosition)
+    optional func bottomSheetController(bottomSheetController: BottomSheetController, didChangePanAt point: CGPoint)
     
     /**
      An optional delegation method that is fired when the
      BottomSheetController pan gesture ends.
      - Parameter bottomSheetController: A BottomSheetController.
      - Parameter didEndPanAt point: A CGPoint.
-     - Parameter position: The BottomSheetPosition.
      */
     @objc
-    optional func bottomSheetController(bottomSheetController: BottomSheetController, didEndPanAt point: CGPoint, position: BottomSheetPosition)
+    optional func bottomSheetController(bottomSheetController: BottomSheetController, didEndPanAt point: CGPoint)
     
     /**
      An optional delegation method that is fired when the
      BottomSheetController tap gesture executes.
      - Parameter bottomSheetController: A BottomSheetController.
      - Parameter didTapAt point: A CGPoint.
-     - Parameter position: The BottomSheetPosition.
      */
     @objc
-    optional func bottomSheetController(bottomSheetController: BottomSheetController, didTapAt point: CGPoint, position: BottomSheetPosition)
-    
-    /**
-     An optional delegation method that is fired when the
-     status bar is about to change display, isHidden or not.
-     - Parameter bottomSheetController: A BottomSheetController.
-     - Parameter statusBar isHidden: A boolean.
-     */
-    @objc
-    optional func bottomSheetController(bottomSheetController: BottomSheetController, statusBar isHidden: Bool)
+    optional func bottomSheetController(bottomSheetController: BottomSheetController, didTapAt point: CGPoint)
 }
 
 @objc(BottomSheetController)
@@ -659,7 +642,7 @@ extension BottomSheetController: UIGestureRecognizerDelegate {
      */
     @objc
     fileprivate func handleBottomViewPanGesture(recognizer: UIPanGestureRecognizer) {
-        guard isBottomViewEnabled && (isBottomViewOpened && isPointContainedWithinBottomThreshold(point: recognizer.location(in: view))) else {
+        guard isBottomViewEnabled && (isBottomViewOpened || isPointContainedWithinBottomThreshold(point: recognizer.location(in: view))) else {
             return
         }
         
@@ -675,7 +658,7 @@ extension BottomSheetController: UIGestureRecognizerDelegate {
             originalY = v.position.y
             showView(container: v)
             
-            delegate?.bottomSheetController?(bottomSheetController: self, didBeginPanAt: point, position: .right)
+            delegate?.bottomSheetController?(bottomSheetController: self, didBeginPanAt: point)
         case .changed:
             let h = v.bounds.height
             let translationY = recognizer.translation(in: v).y
@@ -685,12 +668,12 @@ extension BottomSheetController: UIGestureRecognizerDelegate {
             let a = 1 - (view.bounds.height - v.position.y) / v.bounds.height
             rootViewController.view.alpha = 0.5 < a && v.position.y >= v.bounds.height / 2 ? a : 0.5
             
-            delegate?.bottomSheetController?(bottomSheetController: self, didChangePanAt: point, position: .right)
+            delegate?.bottomSheetController?(bottomSheetController: self, didChangePanAt: point)
         case .ended, .cancelled, .failed:
             let p = recognizer.velocity(in: recognizer.view)
             let y = p.y >= 1000 || p.y <= -1000 ? p.y : 0
             
-            delegate?.bottomSheetController?(bottomSheetController: self, didEndPanAt: point, position: .right)
+            delegate?.bottomSheetController?(bottomSheetController: self, didEndPanAt: point)
             
             if v.y >= bottomViewThreshold || y > 1000 {
                 closeBottomView(velocity: y)
