@@ -46,8 +46,8 @@ open class CollectionViewCard: Card {
     /// A reference to the dataSourceItems.
     open var dataSourceItems = [DataSourceItem]()
     
-    /// An index of IndexPath to MenuItem.
-    open var indexForDataSourceItems = [IndexPath: Any]()
+    /// An index of IndexPath to DataSourceItem.
+    open var dataSourceItemsIndexPaths = [IndexPath: Any]()
     
     /// A reference to the collectionView.
     @IBInspectable
@@ -96,9 +96,9 @@ extension CollectionViewCard {
 
 extension CollectionViewCard: CollectionViewDelegate {
     open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let card = indexForDataSourceItems[indexPath] as? Card else {
-            return
-        }
+//        guard let card = dataSourceItemsIndexPaths[indexPath] as? Card else {
+//            return
+//        }
     }
 }
 
@@ -121,7 +121,7 @@ extension CollectionViewCard: CollectionViewDataSource {
             return cell
         }
         
-        indexForDataSourceItems[indexPath] = card
+        dataSourceItemsIndexPaths[indexPath] = card
         
         if .vertical == self.collectionView.scrollDirection {
             card.width = cell.width

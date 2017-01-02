@@ -294,7 +294,7 @@ extension Menu {
 
 extension Menu: CollectionViewDelegate {
     open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let menuItem = collectionViewCard.indexForDataSourceItems[indexPath] as? MenuItem else {
+        guard let menuItem = collectionViewCard.dataSourceItemsIndexPaths[indexPath] as? MenuItem else {
             return
         }
         
@@ -321,7 +321,7 @@ extension Menu: CollectionViewDataSource {
             return cell
         }
         
-        collectionViewCard.indexForDataSourceItems[indexPath] = menuItem
+        collectionViewCard.dataSourceItemsIndexPaths[indexPath] = menuItem
         
         cell.menuItem = menuItem
         cell.menuItem?.width = cell.width

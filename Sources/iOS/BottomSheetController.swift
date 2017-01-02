@@ -431,7 +431,7 @@ open class BottomSheetController: RootController {
         
         isUserInteractionEnabled = false
         
-        delegate?.bottomSheetController?(bottomSheetController: self, willOpen: .right)
+        delegate?.bottomSheetControllerWillOpen?(bottomSheetController: self)
         
         UIView.animate(withDuration: TimeInterval(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.y / velocity)))),
             animations: { [weak self, v = v] in
@@ -446,7 +446,7 @@ open class BottomSheetController: RootController {
                 return
             }
             
-            s.delegate?.bottomSheetController?(bottomSheetController: s, didOpen: .right)
+            s.delegate?.bottomSheetControllerDidOpen?(bottomSheetController: s)
         }
     }
     
@@ -467,7 +467,7 @@ open class BottomSheetController: RootController {
         
         isUserInteractionEnabled = true
         
-        delegate?.bottomSheetController?(bottomSheetController: self, willClose: .left)
+        delegate?.bottomSheetControllerWillClose?(bottomSheetController: self)
         
         UIView.animate(withDuration: TimeInterval(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.y / velocity)))),
             animations: { [weak self, v = v] in
@@ -484,7 +484,7 @@ open class BottomSheetController: RootController {
             
             s.hideView(container: v)
             
-            s.delegate?.bottomSheetController?(bottomSheetController: s, didClose: .left)
+            s.delegate?.bottomSheetControllerDidClose?(bottomSheetController: s)
         }
     }
     
@@ -700,7 +700,7 @@ extension BottomSheetController: UIGestureRecognizerDelegate {
             return
         }
         
-        delegate?.bottomSheetController?(bottomSheetController: self, didTapAt: recognizer.location(in: view), position: .left)
+        delegate?.bottomSheetController?(bottomSheetController: self, didTapAt: recognizer.location(in: view))
         
         guard isBottomViewEnabled && isBottomViewOpened && !isPointContainedWithinView(container: v, point: recognizer.location(in: v)) else {
             return
