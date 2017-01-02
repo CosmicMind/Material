@@ -220,7 +220,7 @@ open class FABMenu: View {
     }
     
     /// Size of FABMenuItems.
-    open var itemSize: CGSize {
+    open var fabMenuItemSize: CGSize {
         get {
             return spring.itemSize
         }
@@ -273,7 +273,7 @@ open class FABMenu: View {
     open weak var delegate: FABMenuDelegate?
     
     /// A reference to the FABMenuItems
-    open var items: [FABMenuItem] {
+    open var fabMenuItems: [FABMenuItem] {
         get {
             return spring.views as! [FABMenuItem]
         }
@@ -324,7 +324,7 @@ extension FABMenu {
             
             (view as? FABMenuItem)?.showTitleLabel()
             
-            if view == s.items.last {
+            if view == s.fabMenuItems.last {
                 s.delegate?.fabMenuDidOpen?(fabMenu: s)
             }
             
@@ -352,7 +352,7 @@ extension FABMenu {
             
             (view as? FABMenuItem)?.hideTitleLabel()
             
-            if view == s.items.last {
+            if view == s.fabMenuItems.last {
                 s.delegate?.fabMenuDidClose?(fabMenu: s)
             }
             
