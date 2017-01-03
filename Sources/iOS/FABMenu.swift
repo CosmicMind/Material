@@ -175,9 +175,9 @@ open class FABMenu: View {
     /// A reference to the SpringMotion object.
     internal let spring = SpringMotion()
     
-    open var direction: FABMenuDirection {
+    open var fabMenuDirection: FABMenuDirection {
         get {
-            switch spring.direction {
+            switch spring.springDirection {
             case .up:
                 return .up
             case .down:
@@ -191,13 +191,13 @@ open class FABMenu: View {
         set(value) {
             switch value {
             case .up:
-                spring.direction = .up
+                spring.springDirection = .up
             case .down:
-                spring.direction = .down
+                spring.springDirection = .down
             case .left:
-                spring.direction = .left
+                spring.springDirection = .left
             case .right:
-                spring.direction = .right
+                spring.springDirection = .right
             }
             
             layoutSubviews()
@@ -313,7 +313,7 @@ extension FABMenu {
      - Parameter animations: An animation block to execute on each view's animation.
      - Parameter completion: A completion block to execute on each view's animation.
      */
-    fileprivate func open(duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
+    open func open(duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
         delegate?.fabMenuWillOpen?(fabMenu: self)
         
         spring.expand(duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations) { [weak self, completion = completion] (view) in
@@ -341,7 +341,7 @@ extension FABMenu {
      - Parameter animations: An animation block to execute on each view's animation.
      - Parameter completion: A completion block to execute on each view's animation.
      */
-    fileprivate func close(duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
+    open func close(duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
         delegate?.fabMenuWillClose?(fabMenu: self)
         
         spring.contract(duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations) { [weak self, completion = completion] (view) in

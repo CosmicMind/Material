@@ -31,6 +31,7 @@
 import UIKit
 
 public enum FABMenuBacking {
+    case none
     case fade
     case blur
 }
@@ -130,6 +131,10 @@ extension FABMenuController {
     
     /// Hides the blurView.
     fileprivate func hideBlurView() {
+        guard .blur == fabMenuBacking else {
+            return
+        }
+        
         guard fabMenu.isOpened, fabMenu.isEnabled else {
             return
         }
@@ -155,6 +160,10 @@ extension FABMenuController {
     
     /// Hides the fade.
     fileprivate func hideFade() {
+        guard .fade == fabMenuBacking else {
+            return
+        }
+        
         guard fabMenu.isOpened, fabMenu.isEnabled else {
             return
         }

@@ -40,7 +40,7 @@ public enum SpringDirection: Int {
 
 open class SpringMotion {
     /// A SpringDirection value.
-    open var direction = SpringDirection.up
+    open var springDirection = SpringDirection.up
     
     /// A Boolean that indicates if the menu is open or not.
     open var isOpened = false
@@ -140,7 +140,7 @@ extension SpringMotion {
         
         disable()
         
-        switch direction {
+        switch springDirection {
         case .up:
             expandUp(duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations, completion: completion)
         case .down:
@@ -169,7 +169,7 @@ extension SpringMotion {
         
         disable()
     
-        switch direction {
+        switch springDirection {
         case .up:
             contractUp(duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations, completion: completion)
         case .down:
