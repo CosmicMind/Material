@@ -42,8 +42,8 @@ open class FABMenuItem: View {
     /// A reference to the titleLabel.
     open let titleLabel = UILabel()
     
-    /// A reference to the button.
-    open let button = FABButton()
+    /// A reference to the fabButton.
+    open let fabButton = FABButton()
     
     /**
      Prepares the view instance when intialized. When subclassing,
@@ -56,7 +56,7 @@ open class FABMenuItem: View {
         super.prepare()
         backgroundColor = nil
         
-        prepareButton()
+        prepareFABButton()
         prepareTitleLabel()
     }
     
@@ -113,9 +113,9 @@ extension FABMenuItem {
 }
 
 extension FABMenuItem {
-    /// Prepares the button.
-    fileprivate func prepareButton() {
-        layout(button).edges()
+    /// Prepares the fabButton.
+    fileprivate func prepareFABButton() {
+        layout(fabButton).edges()
     }
     
     /// Prepares the titleLabel.
@@ -123,7 +123,7 @@ extension FABMenuItem {
         titleLabel.font = RobotoFont.regular(with: 14)
         titleLabel.textAlignment = .center
         titleLabel.backgroundColor = .white
-        titleLabel.depthPreset = button.depthPreset
+        titleLabel.depthPreset = fabButton.depthPreset
         titleLabel.cornerRadiusPreset = .cornerRadius1
     }
 }
@@ -169,7 +169,6 @@ public protocol FABMenuDelegate {
     @objc
     optional func fabMenu(fabMenu: FABMenu, tappedAt point: CGPoint, isOutside: Bool)
 }
-
 
 @objc(FABMenu)
 open class FABMenu: View {
