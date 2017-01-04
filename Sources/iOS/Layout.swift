@@ -961,7 +961,7 @@ extension Layout {
 }
 
 /// A memory reference to the LayoutKey instance for UIView extensions.
-private var LayoutKey: UInt8 = 0
+fileprivate var LayoutKey: UInt8 = 0
 
 /// Layout extension for UIView.
 extension UIView {

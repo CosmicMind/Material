@@ -31,8 +31,8 @@
 import UIKit
 
 /// A memory reference to the NavigationItem instance.
-private var NavigationItemKey: UInt8 = 0
-private var NavigationItemContext: UInt8 = 0
+fileprivate var NavigationItemKey: UInt8 = 0
+fileprivate var NavigationItemContext: UInt8 = 0
 
 public class NavigationItem: NSObject {
     /// Should center the contentView.

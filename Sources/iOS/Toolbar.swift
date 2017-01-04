@@ -30,7 +30,7 @@
 
 import UIKit
 
-private var ToolbarContext: UInt8 = 0
+fileprivate var ToolbarContext: UInt8 = 0
 
 open class Toolbar: Bar {
 	/// A convenience property to set the titleLabel.text.

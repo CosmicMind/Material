@@ -266,7 +266,7 @@ public struct Grid {
 }
 
 /// A memory reference to the Grid instance for UIView extensions.
-private var GridKey: UInt8 = 0
+fileprivate var GridKey: UInt8 = 0
 
 /// Grid extension for UIView.
 extension UIView {

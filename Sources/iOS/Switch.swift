@@ -388,7 +388,7 @@ extension Switch {
         internalSwitchState = state
         
         if animated {
-            animateToState(state: state) { [weak self] _ in
+            animateToState(state: state) { [weak self, isTriggeredByUserInteraction = isTriggeredByUserInteraction] _ in
                 guard isTriggeredByUserInteraction else {
                     return
                 }
@@ -467,23 +467,23 @@ extension Switch {
     fileprivate func animateToState(state: SwitchState, completion: ((Switch) -> Void)? = nil) {
         isUserInteractionEnabled = false
         UIView.animate(withDuration: 0.15,
-                       delay: 0.05,
-                       options: [.curveEaseIn, .curveEaseOut],
-                       animations: { [weak self] in
-                        guard let s = self else {
-                            return
-                        }
-                        
-                        s.button.x = .on == state ? s.onPosition + s.bounceOffset : s.offPosition - s.bounceOffset
-                        s.styleForState(state: state)
+            delay: 0.05,
+            options: [.curveEaseIn, .curveEaseOut],
+            animations: { [weak self] in
+                guard let s = self else {
+                    return
+                }
+                
+                s.button.x = .on == state ? s.onPosition + s.bounceOffset : s.offPosition - s.bounceOffset
+                s.styleForState(state: state)
         }) { [weak self] _ in
             UIView.animate(withDuration: 0.15,
-                           animations: { [weak self] in
-                            guard let s = self else {
-                                return
-                            }
-                            
-                            s.button.x = .on == state ? s.onPosition : s.offPosition
+                animations: { [weak self] in
+                    guard let s = self else {
+                        return
+                    }
+                    
+                    s.button.x = .on == state ? s.onPosition : s.offPosition
             }) { [weak self] _ in
                 guard let s = self else {
                     return

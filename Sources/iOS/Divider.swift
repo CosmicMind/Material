@@ -135,7 +135,7 @@ public struct Divider {
 }
 
 /// A memory reference to the Divider instance.
-private var DividerKey: UInt8 = 0
+fileprivate var DividerKey: UInt8 = 0
 
 extension UIView {
     /// TabBarItem reference.

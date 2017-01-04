@@ -86,11 +86,14 @@ open class FABMenuController: RootController {
     }
 }
 
+extension FABMenuController: FABMenuDelegate {}
+
 extension FABMenuController {
     /// Prepares the fabMenu.
     fileprivate func prepareFABMenu() {
         fabMenu.delegate = self
         fabMenu.zPosition = 1000
+        fabMenu.handleFABButtonCallback = handleFABButton
         view.addSubview(fabMenu)
     }
 }
@@ -174,33 +177,32 @@ extension FABMenuController {
     }
 }
 
-extension FABMenuController: FABMenuDelegate {
+extension FABMenuController {
+    /**
+     Handler to toggle the FABMenu opened or closed.
+     - Parameter button: A UIButton.
+     */
     @objc
-    open func fabMenuWillOpen(fabMenu: FABMenu) {
-        isUserInteractionEnabled = false
-        showFabMenuBacking()
-    }
-    
-    @objc
-    open func fabMenuDidOpen(fabMenu: FABMenu) {
-        isUserInteractionEnabled = true
-    }
-    
-    @objc
-    open func fabMenuWillClose(fabMenu: FABMenu) {
+    fileprivate func handleFABButton(button: UIButton) {
+        guard fabMenu.isOpened else {
+            isUserInteractionEnabled = false
+            showFabMenuBacking()
+            fabMenu.open(isTriggeredByUserInteraction: true, completion: handleCompletion)
+            return
+        }
+        
         isUserInteractionEnabled = false
         hideFabMenuBacking()
+        fabMenu.close(isTriggeredByUserInteraction: true, completion: handleCompletion)
     }
     
-    @objc
-    open func fabMenuDidClose(fabMenu: FABMenu) {
-        isUserInteractionEnabled = true
-    }
-    
-    @objc
-    open func fabMenu(fabMenu: FABMenu, tappedAt point: CGPoint, isOutside: Bool) {
-        guard isOutside else {
-            return
+    /**
+     Completion handler for FABMenu open and close calls.
+     - Parameter view: A UIView.
+     */
+    fileprivate func handleCompletion(view: UIView) {
+        if view == fabMenu.fabMenuItems.last {
+            isUserInteractionEnabled = true
         }
     }
 }

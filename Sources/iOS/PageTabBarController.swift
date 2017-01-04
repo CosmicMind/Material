@@ -31,7 +31,7 @@
 import UIKit
 
 /// A memory reference to the PageTabBarItem instance for UIViewController extensions.
-private var PageTabBarItemKey: UInt8 = 0
+fileprivate var PageTabBarItemKey: UInt8 = 0
 
 open class PageTabBarItem: FlatButton {
     open override func prepare() {

@@ -254,7 +254,7 @@ extension TabBar {
             
             s.line.center.x = button.center.x
             s.line.width = button.width
-        }) { [weak self, button = button, completion = completion] _ in
+        }) { [weak self, isTriggeredByUserInteraction = isTriggeredByUserInteraction, button = button, completion = completion] _ in
             guard let s = self else {
                 return
             }

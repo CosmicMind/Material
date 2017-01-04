@@ -37,7 +37,7 @@ public enum CaptureMode: Int {
 	case video
 }
 
-private var CaptureAdjustingExposureContext: UInt8 = 0
+fileprivate var CaptureAdjustingExposureContext: UInt8 = 0
 
 @objc(CapturePreset)
 public enum CapturePreset: Int {
