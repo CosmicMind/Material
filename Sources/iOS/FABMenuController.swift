@@ -93,7 +93,10 @@ extension FABMenuController {
     fileprivate func prepareFABMenu() {
         fabMenu.delegate = self
         fabMenu.zPosition = 1000
-        fabMenu.handleFABButtonCallback = handleFABButton
+        fabMenu.handleFABButtonCallback = handleFABButtonCallback
+        fabMenu.handleOpenCallback = handleOpenCallback
+        fabMenu.handleCloseCallback = handleCloseCallback
+        fabMenu.handleCompletionCallback = handleCompletionCallback
         view.addSubview(fabMenu)
     }
 }
@@ -183,24 +186,34 @@ extension FABMenuController {
      - Parameter button: A UIButton.
      */
     @objc
-    fileprivate func handleFABButton(button: UIButton) {
+    fileprivate func handleFABButtonCallback(button: UIButton) {
         guard fabMenu.isOpened else {
-            isUserInteractionEnabled = false
-            showFabMenuBacking()
-            fabMenu.open(isTriggeredByUserInteraction: true, completion: handleCompletion)
+            fabMenu.open(isTriggeredByUserInteraction: true)
             return
         }
         
+        fabMenu.close(isTriggeredByUserInteraction: true)
+    }
+    
+    /// Handler for when the FABMenu.open function is called.
+    @objc
+    fileprivate func handleOpenCallback() {
+        isUserInteractionEnabled = false
+        showFabMenuBacking()
+    }
+    
+    /// Handler for when the FABMenu.close function is called.
+    @objc
+    fileprivate func handleCloseCallback() {
         isUserInteractionEnabled = false
         hideFabMenuBacking()
-        fabMenu.close(isTriggeredByUserInteraction: true, completion: handleCompletion)
     }
     
     /**
      Completion handler for FABMenu open and close calls.
      - Parameter view: A UIView.
      */
-    fileprivate func handleCompletion(view: UIView) {
+    fileprivate func handleCompletionCallback(view: UIView) {
         if view == fabMenu.fabMenuItems.last {
             isUserInteractionEnabled = true
         }

@@ -221,6 +221,15 @@ open class FABMenu: View {
     /// An internal handler for the FABButton.
     internal var handleFABButtonCallback: ((UIButton) -> Void)?
     
+    /// An internal handler for the open function.
+    internal var handleOpenCallback: (() -> Void)?
+    
+    /// An internal handler for the close function.
+    internal var handleCloseCallback: (() -> Void)?
+    
+    /// An internal handler for the completion function.
+    internal var handleCompletionCallback: ((UIView) -> Void)?
+    
     /// Size of FABMenuItems.
     open var fabMenuItemSize: CGSize {
         get {
@@ -333,6 +342,8 @@ extension FABMenu {
      - Parameter completion: A completion block to execute on each view's animation.
      */
     internal func open(isTriggeredByUserInteraction: Bool, duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
+        handleOpenCallback?()
+        
         if isTriggeredByUserInteraction {
             delegate?.fabMenuWillOpen?(fabMenu: self)
         }
@@ -349,6 +360,7 @@ extension FABMenu {
             }
             
             completion?(view)
+            s.handleCompletionCallback?(view)
         }
     }
     
@@ -379,6 +391,8 @@ extension FABMenu {
      - Parameter completion: A completion block to execute on each view's animation.
      */
     internal func close(isTriggeredByUserInteraction: Bool, duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
+        handleCloseCallback?()
+        
         if isTriggeredByUserInteraction {
             delegate?.fabMenuWillClose?(fabMenu: self)
         }
@@ -395,6 +409,7 @@ extension FABMenu {
             }
             
             completion?(view)
+            s.handleCompletionCallback?(view)
         }
     }
 }
