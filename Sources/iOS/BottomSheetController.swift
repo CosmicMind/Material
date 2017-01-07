@@ -30,15 +30,33 @@
 
 import UIKit
 
-@objc(BottomSheetPosition)
-public enum BottomSheetPosition: Int {
+@objc(BottomSheetFABButtonPosition)
+public enum BottomSheetFABButtonPosition: Int {
     case left
     case right
+    case center
 }
 
 open class BottomSheet: View {
     /// A reference to a FABButton.
     open var fabButton: FABButton? {
+        didSet {
+            layoutSubviews()
+        }
+    }
+
+    /// A reference to the BottomSheetFABButtonPosition.
+    open var fabButtonPostion = BottomSheetFABButtonPosition.right
+    
+    /// A reference to the fabButtonEdgeInsetsPreset.
+    open var fabButtonEdgeInsetsPreset = EdgeInsetsPreset.none {
+        didSet {
+            fabButtonEdgeInsets = EdgeInsetsPresetToValue(preset: fabButtonEdgeInsetsPreset)
+        }
+    }
+        
+    /// A reference to the fabButtonEdgeInsets.
+    open var fabButtonEdgeInsets = EdgeInsets.zero {
         didSet {
             layoutSubviews()
         }
@@ -52,8 +70,25 @@ open class BottomSheet: View {
                 v.removeFromSuperview()
                 addSubview(v)
             }
-            v.center = CGPoint(x: 20, y: 0)
+            
+            var point = center
+            point.y = fabButtonEdgeInsets.top - fabButtonEdgeInsets.bottom
+            
+            switch fabButtonPostion {
+            case .left:
+                point.x = v.bounds.width / 2 + fabButtonEdgeInsets.left
+            case .right:
+                point.x = bounds.width - v.bounds.width / 2 - fabButtonEdgeInsets.right
+            case .center:break
+            }
+            
+            v.center = point
         }
+    }
+    
+    open override func prepare() {
+        super.prepare()
+        fabButtonEdgeInsetsPreset = .horizontally5
     }
 }
 
