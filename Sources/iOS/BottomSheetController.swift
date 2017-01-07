@@ -390,6 +390,8 @@ open class BottomSheetController: RootController {
         bottomSheet.height = bottomViewHeight
         bottomViewThreshold = view.bounds.height - bottomViewHeight / 2
         
+        rootViewController.view.height = view.bounds.height - bottomViewHeight
+        
         guard let vc = bottomViewController else {
             return
         }
