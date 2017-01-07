@@ -71,7 +71,7 @@ open class CaptureController: ToolbarController {
      */
     open override func prepare() {
         super.prepare()
-        display = .full
+        toolbarDisplay = .full
         view.backgroundColor = .black
         
         prepareStatusBar()

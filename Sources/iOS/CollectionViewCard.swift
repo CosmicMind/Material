@@ -67,8 +67,10 @@ open class CollectionViewCard: Card {
     open override func reload() {
         if 0 == collectionView.height {
             var h: CGFloat = 0
+            var i: Int = 0
             for dataSourceItem in dataSourceItems {
-                h += dataSourceItem.height ?? 0
+                h += dataSourceItem.height ?? (dataSourceItems[i].data as? Card)?.height ?? 0
+                i += 1
             }
             collectionView.height = h
         }
@@ -94,13 +96,7 @@ extension CollectionViewCard {
     }
 }
 
-extension CollectionViewCard: CollectionViewDelegate {
-    open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        guard let card = dataSourceItemsIndexPaths[indexPath] as? Card else {
-//            return
-//        }
-    }
-}
+extension CollectionViewCard: CollectionViewDelegate {}
 
 extension CollectionViewCard: CollectionViewDataSource {
     @objc
