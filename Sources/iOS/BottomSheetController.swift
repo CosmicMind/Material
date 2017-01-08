@@ -39,14 +39,18 @@ public enum BottomSheetFABButtonPosition: Int {
 
 @objc(BottomSheetLayoutStyle)
 public enum BottomSheetLayoutStyle: Int {
-    case persistent
     case modal
+    case persistent
 }
 
 open class BottomSheet: View {
+    /// Handler for when the fabButton is set.
+    fileprivate var fabButtonWasSet: ((FABButton?) -> Void)?
+    
     /// A reference to a FABButton.
     open var fabButton: FABButton? {
         didSet {
+            fabButtonWasSet?(fabButton)
             layoutSubviews()
         }
     }
@@ -240,15 +244,15 @@ open class BottomSheetController: RootController {
     open var bottomThreshold: CGFloat = 64
     fileprivate var bottomSheetThreshold: CGFloat = 0
     
-    /// A preset for bottomSheetClosedHeight.
-    open var bottomSheetClosedHeightPreset = HeightPreset.none {
+    /// A preset for bottomSheetClosedThreshold.
+    open var bottomSheetClosedThresholdPreset = HeightPreset.none {
         didSet {
-            bottomSheetClosedHeight = CGFloat(bottomSheetClosedHeightPreset.rawValue)
+            bottomSheetClosedThreshold = CGFloat(bottomSheetClosedThresholdPreset.rawValue)
         }
     }
     
     /// The height the BottomSheet should leave open when a FABButton exists.
-    open var bottomSheetClosedHeight: CGFloat = 0 {
+    open var bottomSheetClosedThreshold: CGFloat = 0 {
         didSet {
             layoutSubviews()
         }
@@ -351,7 +355,7 @@ open class BottomSheetController: RootController {
      opens up to.
      */
     @IBInspectable
-    open fileprivate(set) var bottomSheetHeight: CGFloat!
+    open fileprivate(set) var bottomSheetHeight: CGFloat = 0
     
     /// Determines the layout style for the bottomSheet.
     open var bottomSheetStyle = BottomSheetLayoutStyle.modal {
@@ -427,7 +431,8 @@ open class BottomSheetController: RootController {
     open override func prepare() {
         super.prepare()
         prepareBottomSheet()
-        bottomSheetClosedHeightPreset = .normal
+        bottomSheetClosedThresholdPreset = .large
+        bottomSheet.fabButtonWasSet = handleFABButtonWasSet
     }
     
     /**
@@ -539,7 +544,7 @@ open class BottomSheetController: RootController {
                     return
                 }
                 
-                v.position.y = s.view.bounds.height - v.bounds.height / 2
+                v.position.y = s.view.bounds.height - s.bottomSheetHeight / 2
                 
                 if .modal == s.bottomSheetStyle {
                     s.rootViewController.view.alpha = 0.5
@@ -574,19 +579,7 @@ open class BottomSheetController: RootController {
                     return
                 }
                 
-                let h = s.view.bounds.height
-                let p = s.bottomSheetHeight / 2
-                
-                v.position.y = h + p
-                
-//                if nil == s.bottomSheet.fabButton {
-//                    v.position.y = h + p
-//                } else {
-//                    let y = v.position.y
-//                    let q = s.bottomSheetClosedHeight / 2
-//                    print(h, p, y, q)
-//                    v.position.y = y > q ? q : h + p
-//                }
+                v.position.y = s.view.bounds.height + s.bottomSheetHeight / 2 - (nil == s.bottomSheet.fabButton ? 0 : s.bottomSheetClosedThreshold)
                 
                 if .modal == s.bottomSheetStyle {
                     s.rootViewController.view.alpha = 1
@@ -596,7 +589,9 @@ open class BottomSheetController: RootController {
                 return
             }
             
-            s.hideView(container: v)
+            if nil == s.bottomSheet.fabButton {
+                s.hideView(container: v)
+            }
             
             s.delegate?.bottomViewControllerDidClose?(bottomViewController: s)
         }
@@ -666,8 +661,8 @@ open class BottomSheetController: RootController {
      - Parameter container: A container view.
      */
     fileprivate func showView(container: UIView) {
-        container.depthPreset = depthPreset
         container.isHidden = false
+        container.depthPreset = depthPreset
     }
     
     /**
@@ -675,8 +670,8 @@ open class BottomSheetController: RootController {
      - Parameter container: A container view.
      */
     fileprivate func hideView(container: UIView) {
-        container.depthPreset = .none
         container.isHidden = true
+        container.depthPreset = .none
     }
 }
 
@@ -689,13 +684,13 @@ extension BottomSheetController {
     /// A method that prepares the bottomSheet.
     fileprivate func prepareBottomSheet() {
         bottomSheetHeight = .phone == Device.userInterfaceIdiom ? 280 : 320
-        view.addSubview(bottomSheet)
         
         bottomSheet.isHidden = true
         bottomSheet.width = view.bounds.width
         bottomSheet.height = bottomSheetHeight
         bottomSheet.position.y = view.bounds.height + bottomSheetHeight / 2
         bottomSheet.zPosition = 2000
+        view.addSubview(bottomSheet)
         
         guard nil != bottomViewController else {
             return
@@ -761,35 +756,36 @@ extension BottomSheetController: UIGestureRecognizerDelegate {
             return
         }
         
-        let point = recognizer.location(in: view)
-        
         // Animate the panel.
         switch recognizer.state {
         case .began:
             originalY = bottomSheet.position.y
             showView(container: bottomSheet)
             
-            delegate?.bottomViewController?(bottomViewController: self, didBeginPanAt: point)
+            delegate?.bottomViewController?(bottomViewController: self, didBeginPanAt: recognizer.location(in: view))
         case .changed:
-            let h = bottomSheet.bounds.height
-            let translationY = recognizer.translation(in: bottomSheet).y
+            let y = originalY + recognizer.translation(in: bottomSheet).y
+            let h = view.bounds.height
+            let b = bottomSheetHeight / 2
+            let p = h - b
+            let q = h + b - bottomSheetClosedThreshold
             
-            bottomSheet.position.y = originalY + translationY < view.bounds.height - (h / 2) ? view.bounds.height - (h / 2) : originalY + translationY
+            bottomSheet.position.y = y < p ? p : y > q && nil != bottomSheet.fabButton ? q : y
             
-            let a = 1 - (view.bounds.height - bottomSheet.position.y) / bottomSheet.bounds.height
-            rootViewController.view.alpha = 0.5 < a && bottomSheet.position.y >= bottomSheet.bounds.height / 2 ? a : 0.5
+            let a = 1 - (h - y) / bottomSheetHeight
+            rootViewController.view.alpha = 0.5 < a && y >= b ? a : 0.5
             
-            delegate?.bottomViewController?(bottomViewController: self, didChangePanAt: point)
+            delegate?.bottomViewController?(bottomViewController: self, didChangePanAt: recognizer.location(in: view))
         case .ended, .cancelled, .failed:
             let p = recognizer.velocity(in: recognizer.view)
-            let y = p.y >= 1000 || p.y <= -1000 ? p.y : 0
+            let v = p.y >= 500 || p.y <= -500 ? p.y : 0
             
-            delegate?.bottomViewController?(bottomViewController: self, didEndPanAt: point)
+            delegate?.bottomViewController?(bottomViewController: self, didEndPanAt: recognizer.location(in: view))
             
-            if bottomSheet.y >= bottomSheetThreshold || y > 1000 {
-                closeBottomSheet(velocity: y)
+            if bottomSheet.y >= bottomSheetThreshold || v > 500 {
+                closeBottomSheet(velocity: v)
             } else {
-                openBottomSheet(velocity: y)
+                openBottomSheet(velocity: v)
             }
         case .possible:break
         }
@@ -814,5 +810,26 @@ extension BottomSheetController: UIGestureRecognizerDelegate {
         }
         
         closeBottomSheet()
+    }
+}
+
+extension BottomSheetController {
+    /**
+     A handler that is executed when the bottomSheet.fabButton
+     has been set.
+     - Parameter fabButton: An optional FABButton.
+     */
+    fileprivate func handleFABButtonWasSet(fabButton: FABButton?) {
+        guard nil == fabButton else {
+            if !isOpened  {
+                showView(container: bottomSheet)
+                closeBottomSheet()
+            }
+            return
+        }
+        
+        if !isOpened {
+            closeBottomSheet()
+        }
     }
 }

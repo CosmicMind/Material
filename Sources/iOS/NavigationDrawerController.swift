@@ -374,14 +374,14 @@ open class NavigationDrawerController: RootController {
      opens up to.
      */
 	@IBInspectable
-    open fileprivate(set) var leftViewWidth: CGFloat!
+    open fileprivate(set) var leftViewWidth: CGFloat = 0
 	
 	/**
      A CGFloat property to access the width that the rightView
      opens up to.
      */
 	@IBInspectable
-    open fileprivate(set) var rightViewWidth: CGFloat!
+    open fileprivate(set) var rightViewWidth: CGFloat = 0
 	
 	/**
      An initializer that initializes the object with a NSCoder object.
@@ -1167,11 +1167,11 @@ extension NavigationDrawerController: UIGestureRecognizerDelegate {
             delegate?.navigationDrawerController?(navigationDrawerController: self, didChangePanAt: point, position: .left)
         case .ended, .cancelled, .failed:
             let p = recognizer.velocity(in: recognizer.view)
-            let x = p.x >= 1000 || p.x <= -1000 ? p.x : 0
+            let x = p.x >= 500 || p.x <= -500 ? p.x : 0
             
             delegate?.navigationDrawerController?(navigationDrawerController: self, didEndPanAt: point, position: .left)
             
-            if v.x <= -leftViewWidth + leftViewThreshold || x < -1000 {
+            if v.x <= -leftViewWidth + leftViewThreshold || x < -500 {
                 closeLeftView(velocity: x)
             } else {
                 openLeftView(velocity: x)
