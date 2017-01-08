@@ -32,6 +32,7 @@ import UIKit
 
 @objc(HeightPreset)
 public enum HeightPreset: Int {
+    case none = 0
     case tiny = 20
     case xsmall = 28
     case small = 36

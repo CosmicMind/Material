@@ -37,6 +37,12 @@ public enum BottomSheetFABButtonPosition: Int {
     case center
 }
 
+@objc(BottomSheetLayoutStyle)
+public enum BottomSheetLayoutStyle: Int {
+    case persistent
+    case modal
+}
+
 open class BottomSheet: View {
     /// A reference to a FABButton.
     open var fabButton: FABButton? {
@@ -137,76 +143,70 @@ public protocol BottomSheetControllerDelegate {
     /**
      An optional delegation method that is fired before the
      BottomSheetController opens.
-     - Parameter bottomSheetController: A BottomSheetController.
+     - Parameter bottomViewController: A BottomSheetController.
      */
     @objc
-    optional func bottomSheetControllerWillOpen(bottomSheetController: BottomSheetController)
+    optional func bottomViewControllerWillOpen(bottomViewController: BottomSheetController)
     
     /**
      An optional delegation method that is fired after the
      BottomSheetController opened.
-     - Parameter bottomSheetController: A BottomSheetController.
+     - Parameter bottomViewController: A BottomSheetController.
      */
     @objc
-    optional func bottomSheetControllerDidOpen(bottomSheetController: BottomSheetController)
+    optional func bottomViewControllerDidOpen(bottomViewController: BottomSheetController)
     
     /**
      An optional delegation method that is fired before the
      BottomSheetController closes.
-     - Parameter bottomSheetController: A BottomSheetController.
+     - Parameter bottomViewController: A BottomSheetController.
      */
     @objc
-    optional func bottomSheetControllerWillClose(bottomSheetController: BottomSheetController)
+    optional func bottomViewControllerWillClose(bottomViewController: BottomSheetController)
     
     /**
      An optional delegation method that is fired after the
      BottomSheetController closed.
-     - Parameter bottomSheetController: A BottomSheetController.
+     - Parameter bottomViewController: A BottomSheetController.
      */
     @objc
-    optional func bottomSheetControllerDidClose(bottomSheetController: BottomSheetController)
+    optional func bottomViewControllerDidClose(bottomViewController: BottomSheetController)
     
     /**
      An optional delegation method that is fired when the
      BottomSheetController pan gesture begins.
-     - Parameter bottomSheetController: A BottomSheetController.
+     - Parameter bottomViewController: A BottomSheetController.
      - Parameter didBeginPanAt point: A CGPoint.
      */
     @objc
-    optional func bottomSheetController(bottomSheetController: BottomSheetController, didBeginPanAt point: CGPoint)
+    optional func bottomViewController(bottomViewController: BottomSheetController, didBeginPanAt point: CGPoint)
     
     /**
      An optional delegation method that is fired when the
      BottomSheetController pan gesture changes position.
-     - Parameter bottomSheetController: A BottomSheetController.
+     - Parameter bottomViewController: A BottomSheetController.
      - Parameter didChangePanAt point: A CGPoint.
      */
     @objc
-    optional func bottomSheetController(bottomSheetController: BottomSheetController, didChangePanAt point: CGPoint)
+    optional func bottomViewController(bottomViewController: BottomSheetController, didChangePanAt point: CGPoint)
     
     /**
      An optional delegation method that is fired when the
      BottomSheetController pan gesture ends.
-     - Parameter bottomSheetController: A BottomSheetController.
+     - Parameter bottomViewController: A BottomSheetController.
      - Parameter didEndPanAt point: A CGPoint.
      */
     @objc
-    optional func bottomSheetController(bottomSheetController: BottomSheetController, didEndPanAt point: CGPoint)
+    optional func bottomViewController(bottomViewController: BottomSheetController, didEndPanAt point: CGPoint)
     
     /**
      An optional delegation method that is fired when the
      BottomSheetController tap gesture executes.
-     - Parameter bottomSheetController: A BottomSheetController.
+     - Parameter bottomViewController: A BottomSheetController.
      - Parameter didTapAt point: A CGPoint.
      */
     @objc
-    optional func bottomSheetController(bottomSheetController: BottomSheetController, didTapAt point: CGPoint)
-}
-
-@objc(BottomSheetLayoutStyle)
-public enum BottomSheetLayoutStyle: Int {
-    case flat
-    case hover
+    optional func bottomViewController(bottomViewController: BottomSheetController, didTapAt point: CGPoint)
 }
 
 @objc(BottomSheetController)
@@ -219,26 +219,40 @@ open class BottomSheetController: RootController {
     
     /**
      A UIPanGestureRecognizer property internally used for the
-     bottomView pan gesture.
+     bottomSheet pan gesture.
      */
     internal fileprivate(set) var bottomPanGesture: UIPanGestureRecognizer?
     
     /**
      A UITapGestureRecognizer property internally used for the
-     bottomView tap gesture.
+     bottomSheet tap gesture.
      */
     internal fileprivate(set) var bottomTapGesture: UITapGestureRecognizer?
     
     /**
-     A CGFloat property that accesses the bottomView threshold of
+     A CGFloat property that accesses the bottomSheet threshold of
      the BottomSheetController. When the panning gesture has
      ended, if the position is beyond the threshold,
-     the bottomView is opened, if it is below the threshold, the
-     bottomView is closed.
+     the bottomSheet is opened, if it is below the threshold, the
+     bottomSheet is closed.
      */
     @IBInspectable
     open var bottomThreshold: CGFloat = 64
-    fileprivate var bottomViewThreshold: CGFloat = 0
+    fileprivate var bottomSheetThreshold: CGFloat = 0
+    
+    /// A preset for bottomSheetClosedHeight.
+    open var bottomSheetClosedHeightPreset = HeightPreset.none {
+        didSet {
+            bottomSheetClosedHeight = CGFloat(bottomSheetClosedHeightPreset.rawValue)
+        }
+    }
+    
+    /// The height the BottomSheet should leave open when a FABButton exists.
+    open var bottomSheetClosedHeight: CGFloat = 0 {
+        didSet {
+            layoutSubviews()
+        }
+    }
     
     /**
      A BottomSheetControllerDelegate property used to bind
@@ -248,13 +262,13 @@ open class BottomSheetController: RootController {
     
     /**
      A CGFloat property that sets the animation duration of the
-     bottomView when closing and opening. Defaults to 0.25.
+     bottomSheet when closing and opening. Defaults to 0.25.
      */
     @IBInspectable
     open var animationDuration: TimeInterval = 0.25
     
     /**
-     A Boolean property that enables and disables the bottomView from
+     A Boolean property that enables and disables the bottomSheet from
      opening and closing. Defaults to true.
      */
     @IBInspectable
@@ -268,7 +282,7 @@ open class BottomSheetController: RootController {
     }
     
     /**
-     A Boolean property that enables and disables the bottomView from
+     A Boolean property that enables and disables the bottomSheet from
      opening and closing. Defaults to true.
      */
     @IBInspectable
@@ -305,7 +319,7 @@ open class BottomSheetController: RootController {
     
     /**
      A DepthPreset property that is used to set the depth of the
-     bottomView when opened.
+     bottomSheet when opened.
      */
     open var depthPreset = DepthPreset.depth1
     
@@ -316,12 +330,12 @@ open class BottomSheetController: RootController {
      */
     open let bottomSheet = BottomSheet()
     
-    /// Indicates whether the bottomView or rightView is opened.
+    /// Indicates whether the bottomSheet or rightView is opened.
     open var isOpened: Bool {
         return isBottomSheetOpened
     }
     
-    /// indicates if the bottomView is opened.
+    /// indicates if the bottomSheet is opened.
     open var isBottomSheetOpened: Bool {
         return bottomSheet.y != Screen.height
     }
@@ -333,21 +347,21 @@ open class BottomSheetController: RootController {
     open fileprivate(set) var bottomViewController: UIViewController?
     
     /**
-     A CGFloat property to access the width that the bottomView
+     A CGFloat property to access the width that the bottomSheet
      opens up to.
      */
     @IBInspectable
-    open fileprivate(set) var bottomViewHeight: CGFloat!
+    open fileprivate(set) var bottomSheetHeight: CGFloat!
     
     /// Determines the layout style for the bottomSheet.
-    open var bottomSheetLayoutStyle = BottomSheetLayoutStyle.hover {
+    open var bottomSheetStyle = BottomSheetLayoutStyle.modal {
         didSet {
-            switch bottomSheetLayoutStyle {
-            case .hover:
+            switch bottomSheetStyle {
+            case .modal:
                 depthPreset = .depth1
-            case .flat:
+            case .persistent:
                 depthPreset = .none
-                openBottomSheet()
+                layoutSubviews()
                 isBottomSheetEnabled = false
             }
         }
@@ -387,18 +401,20 @@ open class BottomSheetController: RootController {
     open override func layoutSubviews() {
         super.layoutSubviews()
         bottomSheet.width = view.bounds.width
-        bottomSheet.height = bottomViewHeight
-        bottomViewThreshold = view.bounds.height - bottomViewHeight / 2
+        bottomSheet.height = bottomSheetHeight
+        bottomSheetThreshold = view.bounds.height - bottomSheetHeight / 2
         
-        rootViewController.view.height = view.bounds.height - bottomViewHeight
+        if .persistent == bottomSheetStyle {
+            rootViewController.view.height = view.bounds.height - bottomSheetHeight
+        }
         
         guard let vc = bottomViewController else {
             return
         }
         
         vc.view.width = bottomSheet.bounds.width
-        vc.view.height = bottomViewHeight
-        vc.view.center = CGPoint(x: bottomSheet.bounds.width / 2, y: bottomViewHeight / 2)
+        vc.view.height = bottomSheetHeight
+        vc.view.center = CGPoint(x: bottomSheet.bounds.width / 2, y: bottomSheetHeight / 2)
     }
     
     /**
@@ -411,20 +427,21 @@ open class BottomSheetController: RootController {
     open override func prepare() {
         super.prepare()
         prepareBottomSheet()
+        bottomSheetClosedHeightPreset = .normal
     }
     
     /**
-     A method that is used to set the width of the bottomView when
-     opened. This is the recommended method of setting the bottomView
+     A method that is used to set the width of the bottomSheet when
+     opened. This is the recommended method of setting the bottomSheet
      width.
      - Parameter width: A CGFloat value to set as the new width.
-     - Parameter isHidden: A Boolean value of whether the bottomView
+     - Parameter isHidden: A Boolean value of whether the bottomSheet
      should be isHidden after the width has been updated or not.
      - Parameter animated: A Boolean value that indicates to animate
-     the bottomView width change.
+     the bottomSheet width change.
      */
     open func setBottomSheetHeight(height: CGFloat, isHidden: Bool, animated: Bool, duration: TimeInterval = 0.5) {
-        bottomViewHeight = height
+        bottomSheetHeight = height
         
         if animated {
             bottomSheet.isShadowPathAutoSizing = false
@@ -489,21 +506,21 @@ open class BottomSheetController: RootController {
     }
     
     /**
-     A method that toggles the bottomView opened if previously closed,
+     A method that toggles the bottomSheet opened if previously closed,
      or closed if previously opened.
      - Parameter velocity: A CGFloat value that sets the
      velocity of the user interaction when animating the
-     bottomView. Defaults to 0.
+     bottomSheet. Defaults to 0.
      */
     open func toggleBottomSheet(velocity: CGFloat = 0) {
         isBottomSheetOpened ? closeBottomSheet(velocity: velocity) : openBottomSheet(velocity: velocity)
     }
     
     /**
-     A method that opens the bottomView.
+     A method that opens the bottomSheet.
      - Parameter velocity: A CGFloat value that sets the
      velocity of the user interaction when animating the
-     bottomView. Defaults to 0.
+     bottomSheet. Defaults to 0.
      */
     open func openBottomSheet(velocity: CGFloat = 0) {
         guard isBottomSheetEnabled else {
@@ -514,7 +531,7 @@ open class BottomSheetController: RootController {
         
         isUserInteractionEnabled = false
         
-        delegate?.bottomSheetControllerWillOpen?(bottomSheetController: self)
+        delegate?.bottomViewControllerWillOpen?(bottomViewController: self)
         
         UIView.animate(withDuration: TimeInterval(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(bottomSheet.y / velocity)))),
             animations: { [weak self, v = bottomSheet] in
@@ -524,7 +541,7 @@ open class BottomSheetController: RootController {
                 
                 v.position.y = s.view.bounds.height - v.bounds.height / 2
                 
-                if .hover == s.bottomSheetLayoutStyle {
+                if .modal == s.bottomSheetStyle {
                     s.rootViewController.view.alpha = 0.5
                 }
         }) { [weak self] _ in
@@ -532,15 +549,15 @@ open class BottomSheetController: RootController {
                 return
             }
             
-            s.delegate?.bottomSheetControllerDidOpen?(bottomSheetController: s)
+            s.delegate?.bottomViewControllerDidOpen?(bottomViewController: s)
         }
     }
     
     /**
-     A method that closes the bottomView.
+     A method that closes the bottomSheet.
      - Parameter velocity: A CGFloat value that sets the
      velocity of the user interaction when animating the
-     bottomView. Defaults to 0.
+     bottomSheet. Defaults to 0.
      */
     open func closeBottomSheet(velocity: CGFloat = 0) {
         guard isBottomSheetEnabled else {
@@ -549,17 +566,29 @@ open class BottomSheetController: RootController {
         
         isUserInteractionEnabled = true
         
-        delegate?.bottomSheetControllerWillClose?(bottomSheetController: self)
+        delegate?.bottomViewControllerWillClose?(bottomViewController: self)
         
         UIView.animate(withDuration: TimeInterval(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(bottomSheet.y / velocity)))),
             animations: { [weak self, v = bottomSheet] in
                 guard let s = self else {
                     return
                 }
-                        
-                v.position.y = s.view.bounds.height + v.bounds.height / 2
                 
-                if .hover == s.bottomSheetLayoutStyle {
+                let h = s.view.bounds.height
+                let p = s.bottomSheetHeight / 2
+                
+                v.position.y = h + p
+                
+//                if nil == s.bottomSheet.fabButton {
+//                    v.position.y = h + p
+//                } else {
+//                    let y = v.position.y
+//                    let q = s.bottomSheetClosedHeight / 2
+//                    print(h, p, y, q)
+//                    v.position.y = y > q ? q : h + p
+//                }
+                
+                if .modal == s.bottomSheetStyle {
                     s.rootViewController.view.alpha = 1
                 }
         }) { [weak self, v = bottomSheet] _ in
@@ -569,11 +598,11 @@ open class BottomSheetController: RootController {
             
             s.hideView(container: v)
             
-            s.delegate?.bottomSheetControllerDidClose?(bottomSheetController: s)
+            s.delegate?.bottomViewControllerDidClose?(bottomViewController: s)
         }
     }
     
-    /// A method that removes the passed in pan and bottomView tap gesture recognizers.
+    /// A method that removes the passed in pan and bottomSheet tap gesture recognizers.
     fileprivate func removeBottomSheetGestures() {
         removeBottomPanGesture()
         removeBottomTapGesture()
@@ -601,7 +630,7 @@ open class BottomSheetController: RootController {
     
     /**
      A method that determines whether the passed point is
-     contained within the bounds of the bottomViewThreshold
+     contained within the bounds of the bottomSheetThreshold
      and height of the BottomSheetController view frame
      property.
      - Parameter point: A CGPoint to test against.
@@ -623,7 +652,13 @@ open class BottomSheetController: RootController {
      otherwise.
      */
     fileprivate func isPointContainedWithinView(container: UIView, point: CGPoint) -> Bool {
-        return container.bounds.contains(point)
+        let result = container.bounds.contains(point)
+        
+        guard false == result, let v = bottomSheet.fabButton else {
+            return result
+        }
+        
+        return v.bounds.contains(v.convert(point, from: container))
     }
     
     /**
@@ -651,15 +686,15 @@ extension BottomSheetController {
         prepare(viewController: bottomViewController, withContainer: bottomSheet)
     }
     
-    /// A method that prepares the bottomView.
+    /// A method that prepares the bottomSheet.
     fileprivate func prepareBottomSheet() {
-        bottomViewHeight = .phone == Device.userInterfaceIdiom ? 280 : 320
+        bottomSheetHeight = .phone == Device.userInterfaceIdiom ? 280 : 320
         view.addSubview(bottomSheet)
         
         bottomSheet.isHidden = true
         bottomSheet.width = view.bounds.width
-        bottomSheet.height = bottomViewHeight
-        bottomSheet.position.y = view.bounds.height + bottomViewHeight / 2
+        bottomSheet.height = bottomSheetHeight
+        bottomSheet.position.y = view.bounds.height + bottomSheetHeight / 2
         bottomSheet.zPosition = 2000
         
         guard nil != bottomViewController else {
@@ -716,7 +751,7 @@ extension BottomSheetController: UIGestureRecognizerDelegate {
     
     /**
      A method that is fired when the pan gesture is recognized
-     for the bottomView.
+     for the bottomSheet.
      - Parameter recognizer: A UIPanGestureRecognizer that is
      passed to the handler when recognized.
      */
@@ -734,7 +769,7 @@ extension BottomSheetController: UIGestureRecognizerDelegate {
             originalY = bottomSheet.position.y
             showView(container: bottomSheet)
             
-            delegate?.bottomSheetController?(bottomSheetController: self, didBeginPanAt: point)
+            delegate?.bottomViewController?(bottomViewController: self, didBeginPanAt: point)
         case .changed:
             let h = bottomSheet.bounds.height
             let translationY = recognizer.translation(in: bottomSheet).y
@@ -744,14 +779,14 @@ extension BottomSheetController: UIGestureRecognizerDelegate {
             let a = 1 - (view.bounds.height - bottomSheet.position.y) / bottomSheet.bounds.height
             rootViewController.view.alpha = 0.5 < a && bottomSheet.position.y >= bottomSheet.bounds.height / 2 ? a : 0.5
             
-            delegate?.bottomSheetController?(bottomSheetController: self, didChangePanAt: point)
+            delegate?.bottomViewController?(bottomViewController: self, didChangePanAt: point)
         case .ended, .cancelled, .failed:
             let p = recognizer.velocity(in: recognizer.view)
             let y = p.y >= 1000 || p.y <= -1000 ? p.y : 0
             
-            delegate?.bottomSheetController?(bottomSheetController: self, didEndPanAt: point)
+            delegate?.bottomViewController?(bottomViewController: self, didEndPanAt: point)
             
-            if bottomSheet.y >= bottomViewThreshold || y > 1000 {
+            if bottomSheet.y >= bottomSheetThreshold || y > 1000 {
                 closeBottomSheet(velocity: y)
             } else {
                 openBottomSheet(velocity: y)
@@ -762,7 +797,7 @@ extension BottomSheetController: UIGestureRecognizerDelegate {
     
     /**
      A method that is fired when the tap gesture is recognized
-     for the bottomView.
+     for the bottomSheet.
      - Parameter recognizer: A UITapGestureRecognizer that is
      passed to the handler when recognized.
      */
@@ -772,7 +807,7 @@ extension BottomSheetController: UIGestureRecognizerDelegate {
             return
         }
         
-        delegate?.bottomSheetController?(bottomSheetController: self, didTapAt: recognizer.location(in: view))
+        delegate?.bottomViewController?(bottomViewController: self, didTapAt: recognizer.location(in: view))
         
         guard isBottomSheetEnabled && isBottomSheetOpened && !isPointContainedWithinView(container: bottomSheet, point: recognizer.location(in: bottomSheet)) else {
             return
