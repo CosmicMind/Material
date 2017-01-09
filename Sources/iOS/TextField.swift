@@ -67,9 +67,6 @@ open class TextField: UITextField {
     @IBInspectable
     open var isPlaceholderAnimated = true
     
-    /// A Boolean that indicates if the TextField is in an animating state.
-	open internal(set) var isAnimating = false
-	
     /// A boolean indicating whether the text is empty.
     open var isEmpty: Bool {
         return 0 == text?.utf16.count
@@ -367,10 +364,6 @@ open class TextField: UITextField {
 	
 	open override func layoutSubviews() {
 		super.layoutSubviews()
-        guard !isAnimating else {
-            return
-        }
-        
         layoutShape()
         reload()
 	}
@@ -612,11 +605,10 @@ extension TextField {
             return
         }
         
-        guard isEmpty && !isAnimating else {
+        guard isEmpty else {
             return
         }
         
-        isAnimating = true
         UIView.animate(withDuration: 0.15, animations: { [weak self] in
             guard let s = self else {
                 return
@@ -633,9 +625,7 @@ extension TextField {
             }
             
             s.placeholderLabel.y = -s.placeholderLabel.height + s.placeholderVerticalOffset
-        }) { [weak self] _ in
-            self?.isAnimating = false
-        }
+        })
     }
     
     /// The animation for the placeholder when editing ends.
@@ -646,11 +636,10 @@ extension TextField {
             return
         }
         
-        guard isEmpty && !isAnimating else {
+        guard isEmpty else {
             return
         }
         
-        isAnimating = true
         UIView.animate(withDuration: 0.15, animations: { [weak self] in
             guard let s = self else {
                 return
@@ -659,8 +648,6 @@ extension TextField {
             s.placeholderLabel.transform = CGAffineTransform.identity
             s.placeholderLabel.x = s.leftViewWidth
             s.placeholderLabel.y = 0
-        }) { [weak self] _ in
-            self?.isAnimating = false
-        }
+        })
     }
 }
