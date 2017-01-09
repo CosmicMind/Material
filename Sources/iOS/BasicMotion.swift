@@ -194,7 +194,7 @@ extension CALayer {
             }
         }
         
-        animate(animation: Motion.animate(group: a))
+        animate(animation: Motion.animate(group: a, duration: duration))
     }
     
     open func motion(delay: TimeInterval, animations: MotionAnimation...) {
@@ -261,6 +261,14 @@ extension UIView {
     
     open func motion(delay: TimeInterval, animations: [MotionAnimation]) {
         layer.motion(delay: delay, animations: animations)
+    }
+    
+    open func motion(delay: TimeInterval, duration: TimeInterval, animations: MotionAnimation...) {
+        layer.motion(delay: delay, duration: duration, animations: animations)
+    }
+    
+    open func motion(delay: TimeInterval, duration: TimeInterval, animations: [MotionAnimation]) {
+        layer.motion(delay: delay, duration: duration, animations: animations)
     }
 }
 
