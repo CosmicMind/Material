@@ -60,6 +60,8 @@ open class CollectionViewCard: Card {
     
     open override func prepare() {
         super.prepare()
+        pulseAnimation = .none
+        
         prepareCollectionView()
         prepareContentView()
     }
@@ -112,6 +114,7 @@ extension CollectionViewCard: CollectionViewDataSource {
     @objc
     open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CardCollectionViewCell", for: indexPath) as! CardCollectionViewCell
+        cell.pulseAnimation = .none
         
         guard let card = dataSourceItems[indexPath.item].data as? Card else {
             return cell

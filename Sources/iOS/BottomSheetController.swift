@@ -37,8 +37,8 @@ public enum BottomSheetFABButtonPosition: Int {
     case center
 }
 
-@objc(BottomSheetLayoutStyle)
-public enum BottomSheetLayoutStyle: Int {
+@objc(BottomSheetStyle)
+public enum BottomSheetStyle: Int {
     case modal
     case persistent
 }
@@ -51,6 +51,7 @@ open class BottomSheet: View {
     open var fabButton: FABButton? {
         didSet {
             fabButtonWasSet?(fabButton)
+            fabButton?.zPosition = 6000
             layoutSubviews()
         }
     }
@@ -358,15 +359,17 @@ open class BottomSheetController: RootController {
     open fileprivate(set) var bottomSheetHeight: CGFloat = 0
     
     /// Determines the layout style for the bottomSheet.
-    open var bottomSheetStyle = BottomSheetLayoutStyle.modal {
+    open var bottomSheetStyle = BottomSheetStyle.modal {
         didSet {
             switch bottomSheetStyle {
             case .modal:
                 depthPreset = .depth1
+                isBottomPanGestureEnabled = true
+                isBottomTapGestureEnabled = true
             case .persistent:
                 depthPreset = .none
-                layoutSubviews()
-                isBottomSheetEnabled = false
+                isBottomPanGestureEnabled = false
+                isBottomTapGestureEnabled = false
             }
         }
     }
@@ -406,6 +409,7 @@ open class BottomSheetController: RootController {
         super.layoutSubviews()
         bottomSheet.width = view.bounds.width
         bottomSheet.height = bottomSheetHeight
+        
         bottomSheetThreshold = view.bounds.height - bottomSheetHeight / 2
         
         if .persistent == bottomSheetStyle {
@@ -459,8 +463,8 @@ open class BottomSheetController: RootController {
                         }
                         
                         v.bounds.size.height = height
-                        v.position.y = -height / 2
-                        s.rootViewController.view.alpha = 1
+                        v.position.y = s.view.bounds.height - height / 2
+//                        s.rootViewController.view.alpha = 1
                 }) { [weak self, v = bottomSheet] _ in
                     guard let s = self else {
                         return
@@ -472,30 +476,30 @@ open class BottomSheetController: RootController {
                 }
             } else {
                 UIView.animate(withDuration: duration,
-                    animations: { [weak self, v = bottomSheet] in
+                    animations: { [weak self, v = bottomSheet, h = bottomSheetHeight] in
                         guard let s = self else {
                             return
                         }
                         
-                        v.bounds.size.height = height
-                        v.position.y = height / 2
-                        s.rootViewController.view.alpha = 0.5
+                        v.bounds.size.height = h
+                        v.position.y = s.view.bounds.height - h / 2
+//                        s.rootViewController.view.alpha = 0.5
                 }) { [weak self, v = bottomSheet] _ in
                     guard let s = self else {
                         return
                     }
                     
                     v.isShadowPathAutoSizing = true
-                    s.layoutSubviews()
+//                    s.layoutSubviews()
                     s.showView(container: v)
                 }
             }
         } else {
-            bottomSheet.bounds.size.height = height
+            bottomSheet.bounds.size.height = bottomSheetHeight
             
             if isHidden {
                 hideView(container: bottomSheet)
-                bottomSheet.position.y = -bottomSheet.bounds.height / 2
+                bottomSheet.position.y = view.bounds.height - bottomSheetHeight / 2
                 rootViewController.view.alpha = 1
             } else {
                 bottomSheet.isShadowPathAutoSizing = false
