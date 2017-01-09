@@ -457,14 +457,13 @@ open class BottomSheetController: RootController {
             
             if isHidden {
                 UIView.animate(withDuration: duration,
-                    animations: { [weak self, v = bottomSheet] in
+                    animations: { [weak self, v = bottomSheet, h = bottomSheetHeight] in
                         guard let s = self else {
                             return
                         }
                         
                         v.bounds.size.height = height
-                        v.position.y = s.view.bounds.height - height / 2
-//                        s.rootViewController.view.alpha = 1
+                        v.position.y = s.view.bounds.height - h / 2
                 }) { [weak self, v = bottomSheet] _ in
                     guard let s = self else {
                         return
@@ -483,14 +482,13 @@ open class BottomSheetController: RootController {
                         
                         v.bounds.size.height = h
                         v.position.y = s.view.bounds.height - h / 2
-//                        s.rootViewController.view.alpha = 0.5
                 }) { [weak self, v = bottomSheet] _ in
                     guard let s = self else {
                         return
                     }
                     
                     v.isShadowPathAutoSizing = true
-//                    s.layoutSubviews()
+                    s.layoutSubviews()
                     s.showView(container: v)
                 }
             }
@@ -500,13 +498,11 @@ open class BottomSheetController: RootController {
             if isHidden {
                 hideView(container: bottomSheet)
                 bottomSheet.position.y = view.bounds.height - bottomSheetHeight / 2
-                rootViewController.view.alpha = 1
             } else {
                 bottomSheet.isShadowPathAutoSizing = false
                 
                 showView(container: bottomSheet)
-                bottomSheet.position.y = height / 2
-                rootViewController.view.alpha = 0.5
+                bottomSheet.position.y = view.bounds.height - bottomSheetHeight / 2
                 bottomSheet.isShadowPathAutoSizing = true
             }
             
