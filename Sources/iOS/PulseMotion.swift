@@ -146,7 +146,7 @@ extension PulseMotion {
         
         switch animation {
         case .centerWithBacking, .backing, .pointWithBacking, .tap:
-            bLayer.add(Motion.backgroundColor(color: color.withAlphaComponent(opacity / 2), duration: duration), forKey: nil)
+            bLayer.add(Motion.background(color: color.withAlphaComponent(opacity / 2), duration: duration), forKey: nil)
         default:break
         }
         
@@ -182,7 +182,7 @@ extension PulseMotion {
             
             switch animation {
             case .centerWithBacking, .backing, .pointWithBacking, .tap:
-                bLayer.add(Motion.backgroundColor(color: color.withAlphaComponent(0), duration: duration), forKey: nil)
+                bLayer.add(Motion.background(color: color.withAlphaComponent(0), duration: duration), forKey: nil)
             default:break
             }
             
@@ -190,7 +190,7 @@ extension PulseMotion {
             case .center, .centerWithBacking, .centerRadialBeyondBounds, .radialBeyondBounds, .point, .pointWithBacking:
                 pLayer.add(Motion.animate(group: [
                     Motion.scale(by: .center == animation ? 1 : 1.325),
-                    Motion.backgroundColor(color: color.withAlphaComponent(0))
+                    Motion.background(color: color.withAlphaComponent(0))
                 ], duration: duration), forKey: nil)
             default:break
             }

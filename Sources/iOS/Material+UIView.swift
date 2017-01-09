@@ -268,15 +268,6 @@ extension UIView {
         }
     }
     
-    /**
-     A method that accepts CAAnimation objects and executes them on the
-     view's backing layer.
-     - Parameter animation: A CAAnimation instance.
-     */
-    open func animate(animation: CAAnimation) {
-        layer.animate(animation: animation)
-    }
-    
     /// Manages the layout for the shape of the view instance.
     open func layoutShape() {
         layer.layoutShape()
