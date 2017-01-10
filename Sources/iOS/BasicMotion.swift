@@ -146,6 +146,22 @@ extension CALayer {
     }
     
     open func motion(duration: TimeInterval, animations: [MotionAnimation]) {
+        motion(duration: duration, timingFunction: .easeInEaseOut, animations: animations)
+    }
+    
+    open func motion(timingFunction: MotionAnimationTimingFunction, animations: MotionAnimation...) {
+        motion(timingFunction: timingFunction, animations: animations)
+    }
+    
+    open func motion(timingFunction: MotionAnimationTimingFunction, animations: [MotionAnimation]) {
+        motion(duration: 0.15, animations: animations)
+    }
+    
+    open func motion(duration: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: MotionAnimation...) {
+        motion(duration: duration, timingFunction: timingFunction, animations: animations)
+    }
+    
+    open func motion(duration: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: [MotionAnimation]) {
         var a = [CABasicAnimation]()
         
         for v in animations {
@@ -203,7 +219,7 @@ extension CALayer {
         let g = Motion.animate(group: a, duration: duration)
         g.fillMode = AnimationFillModeToValue(mode: .forwards)
         g.isRemovedOnCompletion = false
-        g.timingFunction = AnimationTimingFunctionToValue(function: .easeInEaseOut)
+        g.timingFunction = MotionAnimationTimingFunctionToValue(timingFunction: timingFunction)
         
         animate(animation: g)
     }
@@ -222,17 +238,33 @@ extension CALayer {
         }
     }
     
+    open func motion(delay: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: MotionAnimation...) {
+        motion(delay: delay, timingFunction: timingFunction, animations: animations)
+    }
+    
+    open func motion(delay: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: [MotionAnimation]) {
+        motion(delay: delay, timingFunction: timingFunction, animations: animations)
+    }
+    
     open func motion(delay: TimeInterval, duration: TimeInterval, animations: MotionAnimation...) {
-        motion(delay: delay, duration: duration, animations: animations)
+        motion(delay: delay, duration: duration, timingFunction: .easeInEaseOut, animations: animations)
     }
     
     open func motion(delay: TimeInterval, duration: TimeInterval, animations: [MotionAnimation]) {
+        motion(delay: delay, duration: duration, timingFunction: .easeInEaseOut, animations: animations)
+    }
+    
+    open func motion(delay: TimeInterval, duration: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: MotionAnimation...) {
+        motion(delay: delay, duration: duration, timingFunction: timingFunction, animations: animations)
+    }
+    
+    open func motion(delay: TimeInterval, duration: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: [MotionAnimation]) {
         Motion.delay(time: delay) { [weak self] in
             guard let s = self else {
                 return
             }
             
-            s.motion(duration: duration, animations: animations)
+            s.motion(duration: duration, timingFunction: timingFunction, animations: animations)
         }
     }
 }
