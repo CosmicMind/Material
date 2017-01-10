@@ -72,7 +72,7 @@ public struct PulseMotion {
     
     /// The opcaity value for the pulse animation.
     public var opacity: CGFloat = 0.18
-
+    
     /**
      An initializer that takes a given view and pulse layer.
      - Parameter pulseView: An optional UIView.
@@ -113,7 +113,7 @@ extension PulseMotion {
         layers.insert(bLayer, at: 0)
         
         layer.masksToBounds = !(.centerRadialBeyondBounds == animation || .radialBeyondBounds == animation)
- 
+        
         let w = view.bounds.width
         let h = view.bounds.height
         
@@ -146,24 +146,24 @@ extension PulseMotion {
         
         switch animation {
         case .centerWithBacking, .backing, .pointWithBacking, .tap:
-            bLayer.add(Motion.background(color: color.withAlphaComponent(opacity / 2), duration: duration), forKey: nil)
+            bLayer.motion(duration: duration, animations: .background(color: color.withAlphaComponent(opacity / 2)))
         default:break
         }
         
         switch animation {
         case .center, .centerWithBacking, .centerRadialBeyondBounds, .radialBeyondBounds, .point, .pointWithBacking:
-            pLayer.add(Motion.scale(by: 1, duration: duration), forKey: nil)
+            pLayer.motion(duration: duration, animations: .scale(by: 1))
         default:break
         }
         
         Motion.delay(time: duration) {
             bLayer.setValue(true, forKey: "animated")
         }
-	}
+    }
 }
 
 extension PulseMotion {
-	/// Triggers the contracting animation.
+    /// Triggers the contracting animation.
     public mutating func contract() {
         guard let bLayer = layers.popLast() else {
             return
@@ -182,16 +182,13 @@ extension PulseMotion {
             
             switch animation {
             case .centerWithBacking, .backing, .pointWithBacking, .tap:
-                bLayer.add(Motion.background(color: color.withAlphaComponent(0), duration: duration), forKey: nil)
+                bLayer.motion(duration: duration, animations: .background(color: color.withAlphaComponent(0)))
             default:break
             }
             
             switch animation {
             case .center, .centerWithBacking, .centerRadialBeyondBounds, .radialBeyondBounds, .point, .pointWithBacking:
-                pLayer.add(Motion.animate(group: [
-                    Motion.scale(by: .center == animation ? 1 : 1.325),
-                    Motion.background(color: color.withAlphaComponent(0))
-                ], duration: duration), forKey: nil)
+                pLayer.motion(duration: duration, animations: .scale(by: .center == animation ? 1 : 1.325), .background(color: color.withAlphaComponent(0)))
             default:break
             }
             
@@ -200,5 +197,5 @@ extension PulseMotion {
                 bLayer.removeFromSuperlayer()
             }
         }
-	}
+    }
 }
