@@ -63,14 +63,14 @@ public enum MotionAnimation {
     case spinX(rotations: CGFloat)
     case spinY(rotations: CGFloat)
     case spinZ(rotations: CGFloat)
-    case scale(by: CGFloat)
-    case scaleX(by: CGFloat)
-    case scaleY(by: CGFloat)
-    case scaleZ(by: CGFloat)
-    case move(by: CGPoint)
-    case moveX(by: CGFloat)
-    case moveY(by: CGFloat)
-    case moveZ(by: CGFloat)
+    case scale(to: CGFloat)
+    case scaleX(to: CGFloat)
+    case scaleY(to: CGFloat)
+    case scaleZ(to: CGFloat)
+    case move(to: CGPoint)
+    case moveX(to: CGFloat)
+    case moveY(to: CGFloat)
+    case moveZ(to: CGFloat)
     case position(to: CGPoint)
     case shadow(path: CGPath)
     case fade(opacity: CGFloat)
@@ -189,22 +189,22 @@ extension CALayer {
                 a.append(Motion.spinY(rotations: rotations))
             case let .spinZ(rotations):
                 a.append(Motion.spinZ(rotations: rotations))
-            case let .scale(by):
-                a.append(Motion.scale(by: by))
-            case let .scaleX(by):
-                a.append(Motion.scaleX(by: by))
-            case let .scaleY(by):
-                a.append(Motion.scaleY(by: by))
-            case let .scaleZ(by):
-                a.append(Motion.scaleZ(by: by))
-            case let .move(by):
-                a.append(Motion.move(by: by))
-            case let .moveX(by):
-                a.append(Motion.moveX(by: by))
-            case let .moveY(by):
-                a.append(Motion.moveY(by: by))
-            case let .moveZ(by):
-                a.append(Motion.moveZ(by: by))
+            case let .scale(to):
+                a.append(Motion.scale(to: to))
+            case let .scaleX(to):
+                a.append(Motion.scaleX(to: to))
+            case let .scaleY(to):
+                a.append(Motion.scaleY(to: to))
+            case let .scaleZ(to):
+                a.append(Motion.scaleZ(to: to))
+            case let .move(to):
+                a.append(Motion.move(to: to))
+            case let .moveX(to):
+                a.append(Motion.moveX(to: to))
+            case let .moveY(to):
+                a.append(Motion.moveY(to: to))
+            case let .moveZ(to):
+                a.append(Motion.moveZ(to: to))
             case let .position(to):
                 a.append(Motion.position(to: to))
             case let .shadow(path):
@@ -460,10 +460,10 @@ extension Motion {
 
     /**
      Creates a CABasicAnimation for the transform.scale key path.
-     - Parameter by scale: A CGFloat.
+     - Parameter to scale: A CGFloat.
      - Returns: A CABasicAnimation.
      */
-    public static func scale(by scale: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+    public static func scale(to scale: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation = CABasicAnimation(keyPath: .scale)
 		animation.toValue = scale as NSNumber
 		return animation
@@ -471,10 +471,10 @@ extension Motion {
 	
     /**
      Creates a CABasicAnimation for the transform.scale.x key path.
-     - Parameter by scale: A CGFloat.
+     - Parameter to scale: A CGFloat.
      - Returns: A CABasicAnimation.
      */
-    public static func scaleX(by scale: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+    public static func scaleX(to scale: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation = CABasicAnimation(keyPath: .scaleX)
 		animation.toValue = scale as NSNumber
 		return animation
@@ -482,10 +482,10 @@ extension Motion {
 	
     /**
      Creates a CABasicAnimation for the transform.scale.y key path.
-     - Parameter by scale: A CGFloat.
+     - Parameter to scale: A CGFloat.
      - Returns: A CABasicAnimation.
      */
-    public static func scaleY(by scale: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+    public static func scaleY(to scale: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation = CABasicAnimation(keyPath: .scaleY)
 		animation.toValue = scale as NSNumber
 		return animation
@@ -493,10 +493,10 @@ extension Motion {
 	
     /**
      Creates a CABasicAnimation for the transform.scale.z key path.
-     - Parameter by scale: A CGFloat.
+     - Parameter to scale: A CGFloat.
      - Returns: A CABasicAnimation.
      */
-    public static func scaleZ(by scale: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+    public static func scaleZ(to scale: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation = CABasicAnimation(keyPath: .scaleZ)
 		animation.toValue = scale as NSNumber
 		return animation
@@ -507,7 +507,7 @@ extension Motion {
      - Parameter point: A CGPoint.
      - Returns: A CABasicAnimation.
      */
-    public static func move(by point: CGPoint, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+    public static func move(to point: CGPoint, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation = CABasicAnimation(keyPath: .translation)
 		animation.toValue = NSValue(cgPoint: point)
 	    return animation
@@ -515,10 +515,10 @@ extension Motion {
 	
     /**
      Creates a CABasicAnimation for the transform.translation.x key path.
-     - Parameter by translation: A CGFloat.
+     - Parameter to translation: A CGFloat.
      - Returns: A CABasicAnimation.
      */
-    public static func moveX(by translation: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+    public static func moveX(to translation: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation = CABasicAnimation(keyPath: .translationX)
 		animation.toValue = translation as NSNumber
 	    return animation
@@ -526,10 +526,10 @@ extension Motion {
 	
     /**
      Creates a CABasicAnimation for the transform.translation.y key path.
-     - Parameter by translation: A CGFloat.
+     - Parameter to translation: A CGFloat.
      - Returns: A CABasicAnimation.
      */
-    public static func moveY(by translation: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+    public static func moveY(to translation: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation = CABasicAnimation(keyPath: .translationY)
 		animation.toValue = translation as NSNumber
         return animation
@@ -537,10 +537,10 @@ extension Motion {
 	
     /**
      Creates a CABasicAnimation for the transform.translation.z key path.
-     - Parameter by translation: A CGFloat.
+     - Parameter to translation: A CGFloat.
      - Returns: A CABasicAnimation.
      */
-    public static func moveZ(by translation: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+    public static func moveZ(to translation: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation = CABasicAnimation(keyPath: .translationZ)
 		animation.toValue = translation as NSNumber
         return animation
