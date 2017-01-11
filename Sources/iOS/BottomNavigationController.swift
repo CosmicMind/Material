@@ -30,38 +30,9 @@
 
 import UIKit
 
-public class BottomNavigationFadeAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning {
-	public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-		let fromView : UIView = transitionContext.view(forKey: UITransitionContextViewKey.from)!
-		let toView : UIView = transitionContext.view(forKey: UITransitionContextViewKey.to)!
-		toView.alpha = 0
-		
-		transitionContext.containerView.addSubview(fromView)
-		transitionContext.containerView.addSubview(toView)
-		
-		UIView.animate(withDuration: transitionDuration(using: transitionContext),
-			animations: { _ in
-				toView.alpha = 1
-				fromView.alpha = 0
-			}) { _ in
-				transitionContext.completeTransition(true)
-			}
-	}
-	
-	public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-		return 0.35
-	}
-}
-
-@objc(BottomNavigationTransitionAnimation)
-public enum BottomNavigationTransitionAnimation: Int {
-	case none
-	case fade
-}
-
 open class BottomNavigationController: UITabBarController, UITabBarControllerDelegate {
 	/// The transition animation to use when selecting a new tab.
-	open var transitionAnimation = BottomNavigationTransitionAnimation.fade
+	open var motionTransition = MotionTransition.fade
 	
 	/**
      An initializer that initializes the object with a NSCoder object.
@@ -148,12 +119,11 @@ open class BottomNavigationController: UITabBarController, UITabBarControllerDel
 	
 	/// Handles transitions when tabBarItems are pressed.
 	open func tabBarController(_ tabBarController: UITabBarController, animationControllerForTransitionFrom fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-		let fVC: UIViewController? = fromVC
-		let tVC: UIViewController? = toVC
-		if nil == fVC || nil == tVC {
-			return nil
-		}
-		return .fade == transitionAnimation ? BottomNavigationFadeAnimatedTransitioning() : nil
+        guard nil != fromVC, nil != toVC else {
+            return nil
+        }
+        
+        return .fade == motionTransition ? FadeMotionTransition() : nil
 	}
 	
 	/// Prepares the tabBar.

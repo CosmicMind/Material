@@ -121,7 +121,7 @@ open class NavigationController: UINavigationController {
 	open func prepare() {
         navigationBar.heightPreset = .normal
         navigationBar.width = view.width
-        
+        delegate = self
         view.clipsToBounds = true
 		view.backgroundColor = .white
         view.contentScaleFactor = Screen.scale
@@ -132,6 +132,12 @@ open class NavigationController: UINavigationController {
 			v.delegate = self
 		}
 	}
+}
+
+extension NavigationController: UINavigationControllerDelegate {
+    open func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return FadeMotionTransition()
+    }
 }
 
 extension NavigationController: UINavigationBarDelegate {
