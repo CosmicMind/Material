@@ -298,6 +298,22 @@ extension UIView {
         layer.motion(duration: duration, animations: animations)
     }
     
+    open func motion(timingFunction: MotionAnimationTimingFunction, animations: MotionAnimation...) {
+        layer.motion(timingFunction: timingFunction, animations: animations)
+    }
+    
+    open func motion(timingFunction: MotionAnimationTimingFunction, animations: [MotionAnimation]) {
+        layer.motion(timingFunction: timingFunction, animations: animations)
+    }
+    
+    open func motion(duration: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: MotionAnimation...) {
+        layer.motion(duration: duration, timingFunction: timingFunction, animations: animations)
+    }
+    
+    open func motion(duration: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: [MotionAnimation]) {
+        layer.motion(duration: duration, timingFunction: timingFunction, animations: animations)
+    }
+    
     open func motion(delay: TimeInterval, animations: MotionAnimation...) {
         layer.motion(delay: delay, animations: animations)
     }
@@ -306,12 +322,28 @@ extension UIView {
         layer.motion(delay: delay, animations: animations)
     }
     
+    open func motion(delay: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: MotionAnimation...) {
+        layer.motion(delay: delay, timingFunction: timingFunction, animations: animations)
+    }
+    
+    open func motion(delay: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: [MotionAnimation]) {
+        layer.motion(delay: delay, timingFunction: timingFunction, animations: animations)
+    }
+    
     open func motion(delay: TimeInterval, duration: TimeInterval, animations: MotionAnimation...) {
         layer.motion(delay: delay, duration: duration, animations: animations)
     }
     
     open func motion(delay: TimeInterval, duration: TimeInterval, animations: [MotionAnimation]) {
         layer.motion(delay: delay, duration: duration, animations: animations)
+    }
+    
+    open func motion(delay: TimeInterval, duration: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: MotionAnimation...) {
+        layer.motion(delay: delay, duration: duration, timingFunction: timingFunction, animations: animations)
+    }
+    
+    open func motion(delay: TimeInterval, duration: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: [MotionAnimation]) {
+        layer.motion(delay: delay, duration: duration, timingFunction: timingFunction, animations: animations)
     }
 }
 
