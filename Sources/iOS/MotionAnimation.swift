@@ -52,28 +52,29 @@ public enum MotionAnimationKeyPath: String {
 }
 
 public enum MotionAnimation {
-    case background(color: UIColor)
-    case corner(radius: CGFloat)
-    case transform(transform: CATransform3D)
-    case rotate(angle: CGFloat)
-    case rotateX(angle: CGFloat)
-    case rotateY(angle: CGFloat)
-    case rotateZ(angle: CGFloat)
-    case spin(rotations: CGFloat)
-    case spinX(rotations: CGFloat)
-    case spinY(rotations: CGFloat)
-    case spinZ(rotations: CGFloat)
-    case scale(to: CGFloat)
-    case scaleX(to: CGFloat)
-    case scaleY(to: CGFloat)
-    case scaleZ(to: CGFloat)
-    case move(to: CGPoint)
-    case moveX(to: CGFloat)
-    case moveY(to: CGFloat)
-    case moveZ(to: CGFloat)
-    case position(to: CGPoint)
+    case custom(CABasicAnimation)
+    case backgroundColor(UIColor)
+    case corners(CGFloat)
+    case transform(CATransform3D)
+    case rotate(CGFloat)
+    case rotateX(CGFloat)
+    case rotateY(CGFloat)
+    case rotateZ(CGFloat)
+    case spin(CGFloat)
+    case spinX(CGFloat)
+    case spinY(CGFloat)
+    case spinZ(CGFloat)
+    case scale(CGFloat)
+    case scaleX(CGFloat)
+    case scaleY(CGFloat)
+    case scaleZ(CGFloat)
+    case translate(x: CGFloat, y: CGFloat)
+    case translateX(CGFloat)
+    case translateY(CGFloat)
+    case translateZ(CGFloat)
+    case position(x: CGFloat, y: CGFloat)
     case shadow(path: CGPath)
-    case fade(opacity: CGFloat)
+    case fade(CGFloat)
 }
 
 extension CALayer {
@@ -167,9 +168,11 @@ extension CALayer {
         for v in animations {
             
             switch v {
-            case let .background(color):
+            case let .custom(animation):
+                a.append(animation)
+            case let .backgroundColor(color):
                 a.append(Motion.background(color: color))
-            case let .corner(radius):
+            case let .corners(radius):
                 a.append(Motion.corner(radius: radius))
             case let .transform(transform):
                 a.append(Motion.transform(transform: transform))
@@ -197,16 +200,16 @@ extension CALayer {
                 a.append(Motion.scaleY(to: to))
             case let .scaleZ(to):
                 a.append(Motion.scaleZ(to: to))
-            case let .move(to):
-                a.append(Motion.move(to: to))
-            case let .moveX(to):
-                a.append(Motion.moveX(to: to))
-            case let .moveY(to):
-                a.append(Motion.moveY(to: to))
-            case let .moveZ(to):
-                a.append(Motion.moveZ(to: to))
-            case let .position(to):
-                a.append(Motion.position(to: to))
+            case let .translate(x, y):
+                a.append(Motion.translate(to: CGPoint(x: x, y: y)))
+            case let .translateX(to):
+                a.append(Motion.translateX(to: to))
+            case let .translateY(to):
+                a.append(Motion.translateY(to: to))
+            case let .translateZ(to):
+                a.append(Motion.translateZ(to: to))
+            case let .position(x, y):
+                a.append(Motion.position(to: CGPoint(x: x, y: y)))
             case let .shadow(path):
                 a.append(Motion.shadow(path: path))
             case let .fade(opacity):
@@ -539,7 +542,7 @@ extension Motion {
      - Parameter point: A CGPoint.
      - Returns: A CABasicAnimation.
      */
-    public static func move(to point: CGPoint, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+    public static func translate(to point: CGPoint, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation = CABasicAnimation(keyPath: .translation)
 		animation.toValue = NSValue(cgPoint: point)
 	    return animation
@@ -550,7 +553,7 @@ extension Motion {
      - Parameter to translation: A CGFloat.
      - Returns: A CABasicAnimation.
      */
-    public static func moveX(to translation: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+    public static func translateX(to translation: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation = CABasicAnimation(keyPath: .translationX)
 		animation.toValue = translation as NSNumber
 	    return animation
@@ -561,7 +564,7 @@ extension Motion {
      - Parameter to translation: A CGFloat.
      - Returns: A CABasicAnimation.
      */
-    public static func moveY(to translation: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+    public static func translateY(to translation: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation = CABasicAnimation(keyPath: .translationY)
 		animation.toValue = translation as NSNumber
         return animation
@@ -572,7 +575,7 @@ extension Motion {
      - Parameter to translation: A CGFloat.
      - Returns: A CABasicAnimation.
      */
-    public static func moveZ(to translation: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
+    public static func translateZ(to translation: CGFloat, duration: CFTimeInterval? = nil) -> CABasicAnimation {
 		let animation = CABasicAnimation(keyPath: .translationZ)
 		animation.toValue = translation as NSNumber
         return animation

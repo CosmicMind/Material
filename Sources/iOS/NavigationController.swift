@@ -136,7 +136,7 @@ open class NavigationController: UINavigationController {
 
 extension NavigationController: UINavigationControllerDelegate {
     open func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return FadeMotionTransition()
+        return SlideMotionTransition()
     }
 }
 

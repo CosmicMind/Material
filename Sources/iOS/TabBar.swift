@@ -143,6 +143,7 @@ open class TabBar: Bar {
                 prepareLineAnimationHandler(button: b)
             }
         }
+        
         contentView.grid.axis.columns = buttons.count
         contentView.grid.reload()
             

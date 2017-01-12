@@ -36,9 +36,21 @@ public enum MotionTransition: Int {
     case fade
 }
 
-extension UIViewController: UIViewControllerTransitioningDelegate {
-    public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return FadeMotionTransition()
+open class MotionTransitionDelegate: NSObject, UIViewControllerTransitioningDelegate {
+    open func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return nil
+    }
+    
+    open func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return nil
+    }
+    
+    open func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return nil
+    }
+    
+    open func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return nil
     }
 }
 
@@ -62,12 +74,51 @@ open class FadeMotionTransition: NSObject, UIViewControllerAnimatedTransitioning
                 toView.alpha = 1
                 fromView.alpha = 0
         }) { _ in
-            transitionContext.completeTransition(true)
+            let success = !transitionContext.transitionWasCancelled
+            transitionContext.completeTransition(success)
         }
     }
     
     open func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.35
+    }
+    
+    open func animationEnded(_ transitionCompleted: Bool) {
+       print("FadeMotionTransition ANIMATION ENDED")
+    }
+}
+
+open class SlideMotionTransition: NSObject, UIViewControllerAnimatedTransitioning {
+    open func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        guard let fromView = transitionContext.view(forKey: UITransitionContextViewKey.from) else {
+            return
+        }
+        
+        guard let toView = transitionContext.view(forKey: UITransitionContextViewKey.to) else {
+            return
+        }
+        
+        toView.y = fromView.height
+        
+        transitionContext.containerView.addSubview(fromView)
+        transitionContext.containerView.addSubview(toView)
+        
+        UIView.animate(withDuration: transitionDuration(using: transitionContext),
+            animations: { _ in
+            toView.frame = fromView.frame
+//            fromView.alpha = 0
+        }) { _ in
+            let success = !transitionContext.transitionWasCancelled
+            transitionContext.completeTransition(success)
+        }
+    }
+    
+    open func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+        return 0.35
+    }
+    
+    open func animationEnded(_ transitionCompleted: Bool) {
+        print("SlideMotionTransition ANIMATION ENDED")
     }
 }
 

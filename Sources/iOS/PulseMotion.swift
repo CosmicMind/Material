@@ -146,13 +146,13 @@ extension PulseMotion {
         
         switch animation {
         case .centerWithBacking, .backing, .pointWithBacking, .tap:
-            bLayer.motion(duration: duration, animations: .background(color: color.withAlphaComponent(opacity / 2)))
+            bLayer.motion(duration: duration, animations: .backgroundColor(color.withAlphaComponent(opacity / 2)))
         default:break
         }
         
         switch animation {
         case .center, .centerWithBacking, .centerRadialBeyondBounds, .radialBeyondBounds, .point, .pointWithBacking:
-            pLayer.motion(duration: duration, animations: .scale(to: 1))
+            pLayer.motion(duration: duration, animations: .scale(1))
         default:break
         }
         
@@ -182,13 +182,13 @@ extension PulseMotion {
             
             switch animation {
             case .centerWithBacking, .backing, .pointWithBacking, .tap:
-                bLayer.motion(duration: duration, animations: .background(color: color.withAlphaComponent(0)))
+                bLayer.motion(duration: duration, animations: .backgroundColor(color.withAlphaComponent(0)))
             default:break
             }
             
             switch animation {
             case .center, .centerWithBacking, .centerRadialBeyondBounds, .radialBeyondBounds, .point, .pointWithBacking:
-                pLayer.motion(duration: duration, animations: .scale(to: .center == animation ? 1 : 1.325), .background(color: color.withAlphaComponent(0)))
+                pLayer.motion(duration: duration, animations: .scale(.center == animation ? 1 : 1.325), .backgroundColor(color.withAlphaComponent(0)))
             default:break
             }
             
