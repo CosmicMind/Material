@@ -143,34 +143,43 @@ open class SlideMotionTransition: NSObject, UIViewControllerAnimatedTransitionin
             return
         }
         
+        let duration = transitionDuration(using: nil)
         
-        if operation == .push {
-            transitionContext.containerView.addSubview(fromView)
-            
-            for v in fromView.subviews {
-                if 0 < v.motionIdentifier.utf16.count {
-                    v.motion(duration: 0.35, animations: v.motionAnimations)
+
+        switch operation {
+        case .push:
+            for n in fromView.subviews {
+                if 0 < n.motionIdentifier.utf16.count {
+                    for m in toView.subviews {
+                        if n.motionIdentifier == m.motionIdentifier {
+                            m.motion(duration: duration, animations: m.motionAnimations)
+                        }
+                    }
                 }
             }
             
-            Motion.delay(time: transitionDuration(using: nil)) {
-                transitionContext.containerView.addSubview(toView)
+            Motion.delay(time: duration) {
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
             }
-        }
-        
-        if operation == .pop {
+            
             transitionContext.containerView.addSubview(toView)
-            
-            for v in toView.subviews {
-                if 0 < v.motionIdentifier.utf16.count {
-                    v.motion(duration: 0.35, animations: [.scale(1), .backgroundColor(.white)])
+        case .pop:
+            for n in fromView.subviews {
+                if 0 < n.motionIdentifier.utf16.count {
+                    for m in toView.subviews {
+                        if n.motionIdentifier == m.motionIdentifier {
+                            m.motion(duration: duration, animations: m.motionAnimations)
+                        }
+                    }
                 }
             }
             
-            Motion.delay(time: transitionDuration(using: nil)) {
+            Motion.delay(time: duration) {
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
             }
+            
+            transitionContext.containerView.addSubview(toView)
+        case .none:break
         }
     }
     

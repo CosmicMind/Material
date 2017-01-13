@@ -53,6 +53,9 @@ public enum MotionAnimationKeyPath: String {
 }
 
 public enum MotionAnimation {
+    case delay(CGFloat)
+    case timingFunction(MotionAnimationTimingFunction)
+    case duration(CGFloat)
     case custom(CABasicAnimation)
     case backgroundColor(UIColor)
     case corners(CGFloat)
@@ -141,7 +144,7 @@ extension CALayer {
     }
     
     open func motion(animations: [MotionAnimation]) {
-        motion(duration: 0.15, animations: animations)
+        motion(duration: 0.25, animations: animations)
     }
     
     open func motion(duration: TimeInterval, animations: MotionAnimation...) {
@@ -157,7 +160,7 @@ extension CALayer {
     }
     
     open func motion(timingFunction: MotionAnimationTimingFunction, animations: [MotionAnimation]) {
-        motion(duration: 0.15, animations: animations)
+        motion(duration: 0.25, animations: animations)
     }
     
     open func motion(duration: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: MotionAnimation...) {
@@ -165,11 +168,51 @@ extension CALayer {
     }
     
     open func motion(duration: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: [MotionAnimation]) {
+        motion(delay: 0, duration: duration, timingFunction: timingFunction, animations: animations)
+    }
+    
+    open func motion(delay: TimeInterval, animations: MotionAnimation...) {
+        motion(delay: delay, animations: animations)
+    }
+    
+    open func motion(delay: TimeInterval, animations: [MotionAnimation]) {
+        motion(delay: delay, duration: 0.25, timingFunction: .easeInEaseOut, animations: animations)
+    }
+    
+    open func motion(delay: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: MotionAnimation...) {
+        motion(delay: delay, timingFunction: timingFunction, animations: animations)
+    }
+    
+    open func motion(delay: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: [MotionAnimation]) {
+        motion(delay: delay, timingFunction: timingFunction, animations: animations)
+    }
+    
+    open func motion(delay: TimeInterval, duration: TimeInterval, animations: MotionAnimation...) {
+        motion(delay: delay, duration: duration, timingFunction: .easeInEaseOut, animations: animations)
+    }
+    
+    open func motion(delay: TimeInterval, duration: TimeInterval, animations: [MotionAnimation]) {
+        motion(delay: delay, duration: duration, timingFunction: .easeInEaseOut, animations: animations)
+    }
+    
+    open func motion(delay: TimeInterval, duration: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: MotionAnimation...) {
+        motion(delay: delay, duration: duration, timingFunction: timingFunction, animations: animations)
+    }
+    
+    open func motion(delay: TimeInterval, duration: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: [MotionAnimation]) {
         var a = [CABasicAnimation]()
+        var tf = timingFunction
+        var d = duration
+        var t = delay
         
         for v in animations {
-            
             switch v {
+            case let .delay(time):
+                t = TimeInterval(time)
+            case let .timingFunction(tFunction):
+                tf = tFunction
+            case let .duration(dur):
+                d = TimeInterval(dur)
             case let .custom(animation):
                 a.append(animation)
             case let .backgroundColor(color):
@@ -225,55 +268,17 @@ extension CALayer {
             }
         }
         
-        let g = Motion.animate(group: a, duration: duration)
-        g.fillMode = MotionAnimationFillModeToValue(mode: .forwards)
-        g.isRemovedOnCompletion = false
-        g.timingFunction = MotionAnimationTimingFunctionToValue(timingFunction: timingFunction)
-        
-        animate(animation: g)
-    }
-    
-    open func motion(delay: TimeInterval, animations: MotionAnimation...) {
-        motion(delay: delay, animations: animations)
-    }
-    
-    open func motion(delay: TimeInterval, animations: [MotionAnimation]) {
-        Motion.delay(time: delay) { [weak self] in
+        Motion.delay(time: t) { [weak self] in
             guard let s = self else {
                 return
             }
             
-            s.motion(animations: animations)
-        }
-    }
-    
-    open func motion(delay: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: MotionAnimation...) {
-        motion(delay: delay, timingFunction: timingFunction, animations: animations)
-    }
-    
-    open func motion(delay: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: [MotionAnimation]) {
-        motion(delay: delay, timingFunction: timingFunction, animations: animations)
-    }
-    
-    open func motion(delay: TimeInterval, duration: TimeInterval, animations: MotionAnimation...) {
-        motion(delay: delay, duration: duration, timingFunction: .easeInEaseOut, animations: animations)
-    }
-    
-    open func motion(delay: TimeInterval, duration: TimeInterval, animations: [MotionAnimation]) {
-        motion(delay: delay, duration: duration, timingFunction: .easeInEaseOut, animations: animations)
-    }
-    
-    open func motion(delay: TimeInterval, duration: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: MotionAnimation...) {
-        motion(delay: delay, duration: duration, timingFunction: timingFunction, animations: animations)
-    }
-    
-    open func motion(delay: TimeInterval, duration: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: [MotionAnimation]) {
-        Motion.delay(time: delay) { [weak self] in
-            guard let s = self else {
-                return
-            }
+            let g = Motion.animate(group: a, duration: d)
+            g.fillMode = MotionAnimationFillModeToValue(mode: .forwards)
+            g.isRemovedOnCompletion = false
+            g.timingFunction = MotionAnimationTimingFunctionToValue(timingFunction: tf)
             
-            s.motion(duration: duration, timingFunction: timingFunction, animations: animations)
+            s.animate(animation: g)
         }
     }
 }
