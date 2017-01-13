@@ -30,6 +30,46 @@
 
 import UIKit
 
+/// A memory reference to the MotionIdentifier instance for UIView extensions.
+fileprivate var MotionIdentifierKey: UInt8 = 0
+
+fileprivate struct MotionTransitionItem {
+    fileprivate var identifier: String
+    fileprivate var animations: [MotionAnimation]
+}
+
+extension UIView {
+    /// MaterialLayer Reference.
+    fileprivate var motionTransitionItem: MotionTransitionItem {
+        get {
+            return AssociatedObject(base: self, key: &MotionIdentifierKey) {
+                return MotionTransitionItem(identifier: "", animations: [])
+            }
+        }
+        set(value) {
+            AssociateObject(base: self, key: &MotionIdentifierKey, value: value)
+        }
+    }
+    
+    open var motionIdentifier: String {
+        get {
+            return motionTransitionItem.identifier
+        }
+        set(value) {
+            motionTransitionItem.identifier = value
+        }
+    }
+    
+    open var motionAnimations: [MotionAnimation] {
+        get {
+            return motionTransitionItem.animations
+        }
+        set(value) {
+            motionTransitionItem.animations = value
+        }
+    }
+}
+
 @objc(MotionTransition)
 public enum MotionTransition: Int {
     case none
