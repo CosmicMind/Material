@@ -30,8 +30,48 @@
 
 import UIKit
 
-@objc(AnimationFillMode)
-public enum AnimationFillMode: Int {
+/// A memory reference to the MotionIdentifier instance for UIView extensions.
+fileprivate var MotionIdentifierKey: UInt8 = 0
+
+fileprivate struct MotionTransitionItem {
+    fileprivate var identifier: String
+    fileprivate var animations: [MotionAnimation]
+}
+
+extension UIView {
+    /// MaterialLayer Reference.
+    fileprivate var motionTransitionItem: MotionTransitionItem {
+        get {
+            return AssociatedObject(base: self, key: &MotionIdentifierKey) {
+                return MotionTransitionItem(identifier: "", animations: [])
+            }
+        }
+        set(value) {
+            AssociateObject(base: self, key: &MotionIdentifierKey, value: value)
+        }
+    }
+    
+    open var motionIdentifier: String {
+        get {
+            return motionTransitionItem.identifier
+        }
+        set(value) {
+            motionTransitionItem.identifier = value
+        }
+    }
+    
+    open var motionAnimations: [MotionAnimation] {
+        get {
+            return motionTransitionItem.animations
+        }
+        set(value) {
+            motionTransitionItem.animations = value
+        }
+    }
+}
+
+@objc(MotionAnimationFillMode)
+public enum MotionAnimationFillMode: Int {
 	case forwards
 	case backwards
 	case both
@@ -39,10 +79,10 @@ public enum AnimationFillMode: Int {
 }
 
 /**
- Converts the AnimationFillMode enum value to a corresponding String.
- - Parameter mode: An AnimationFillMode enum value.
+ Converts the MotionAnimationFillMode enum value to a corresponding String.
+ - Parameter mode: An MotionAnimationFillMode enum value.
  */
-public func AnimationFillModeToValue(mode: AnimationFillMode) -> String {
+public func MotionAnimationFillModeToValue(mode: MotionAnimationFillMode) -> String {
 	switch mode {
 	case .forwards:
 		return kCAFillModeForwards
@@ -162,7 +202,7 @@ public struct Motion {
      */
     public static func animate(group animations: [CAAnimation], timingFunction: MotionAnimationTimingFunction = .easeInEaseOut, duration: CFTimeInterval = 0.5) -> CAAnimationGroup {
 		let group = CAAnimationGroup()
-		group.fillMode = AnimationFillModeToValue(mode: .forwards)
+		group.fillMode = MotionAnimationFillModeToValue(mode: .forwards)
 		group.isRemovedOnCompletion = false
 		group.animations = animations
 		group.duration = duration

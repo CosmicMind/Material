@@ -56,11 +56,11 @@ open class MotionTransitionDelegate: NSObject, UIViewControllerTransitioningDele
 
 open class FadeMotionTransition: NSObject, UIViewControllerAnimatedTransitioning {
     open func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        guard let fromView = transitionContext.view(forKey: UITransitionContextViewKey.from) else {
+        guard let fromView = transitionContext.view(forKey: .from) else {
             return
         }
         
-        guard let toView = transitionContext.view(forKey: UITransitionContextViewKey.to) else {
+        guard let toView = transitionContext.view(forKey: .to) else {
             return
         }
         
@@ -74,8 +74,7 @@ open class FadeMotionTransition: NSObject, UIViewControllerAnimatedTransitioning
                 toView.alpha = 1
                 fromView.alpha = 0
         }) { _ in
-            let success = !transitionContext.transitionWasCancelled
-            transitionContext.completeTransition(success)
+            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         }
     }
     
@@ -89,27 +88,49 @@ open class FadeMotionTransition: NSObject, UIViewControllerAnimatedTransitioning
 }
 
 open class SlideMotionTransition: NSObject, UIViewControllerAnimatedTransitioning {
+    var operation: UINavigationControllerOperation
+    
+    init(operation: UINavigationControllerOperation) {
+        self.operation = operation
+    }
+    
     open func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        guard let fromView = transitionContext.view(forKey: UITransitionContextViewKey.from) else {
+        guard let fromView = transitionContext.view(forKey: .from) else {
             return
         }
         
-        guard let toView = transitionContext.view(forKey: UITransitionContextViewKey.to) else {
+        guard let toView = transitionContext.view(forKey: .to) else {
             return
         }
         
-        toView.y = fromView.height
         
-        transitionContext.containerView.addSubview(fromView)
-        transitionContext.containerView.addSubview(toView)
+        if operation == .push {
+            transitionContext.containerView.addSubview(fromView)
+            
+            for v in fromView.subviews {
+                if 0 < v.motionIdentifier.utf16.count {
+                    v.motion(duration: 0.35, animations: v.motionAnimations)
+                }
+            }
+            
+            Motion.delay(time: transitionDuration(using: nil)) {
+                transitionContext.containerView.addSubview(toView)
+                transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+            }
+        }
         
-        UIView.animate(withDuration: transitionDuration(using: transitionContext),
-            animations: { _ in
-            toView.frame = fromView.frame
-//            fromView.alpha = 0
-        }) { _ in
-            let success = !transitionContext.transitionWasCancelled
-            transitionContext.completeTransition(success)
+        if operation == .pop {
+            transitionContext.containerView.addSubview(toView)
+            
+            for v in toView.subviews {
+                if 0 < v.motionIdentifier.utf16.count {
+                    v.motion(duration: 0.35, animations: [.scale(1), .backgroundColor(.white)])
+                }
+            }
+            
+            Motion.delay(time: transitionDuration(using: nil)) {
+                transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+            }
         }
     }
     

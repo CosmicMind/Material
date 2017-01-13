@@ -220,7 +220,7 @@ extension CALayer {
         }
         
         let g = Motion.animate(group: a, duration: duration)
-        g.fillMode = AnimationFillModeToValue(mode: .forwards)
+        g.fillMode = MotionAnimationFillModeToValue(mode: .forwards)
         g.isRemovedOnCompletion = false
         g.timingFunction = MotionAnimationTimingFunctionToValue(timingFunction: timingFunction)
         

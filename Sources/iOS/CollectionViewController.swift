@@ -69,6 +69,11 @@ open class CollectionViewController: UIViewController {
         prepare()
     }
     
+    open override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        collectionView.frame = view.bounds
+    }
+    
     /**
      Prepares the view instance when intialized. When subclassing,
      it is recommended to override the prepareView method
@@ -89,7 +94,7 @@ extension CollectionViewController {
     fileprivate func prepareCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
-        view.layout(collectionView).edges()
+        view.addSubview(collectionView)
     }
 }
 
