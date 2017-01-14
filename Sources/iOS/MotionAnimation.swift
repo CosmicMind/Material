@@ -168,7 +168,7 @@ extension CALayer {
             }
         }
         
-        Motion.delay(time: t) { [weak self] in
+        Motion.delay(t) { [weak self] in
             guard let s = self else {
                 return
             }

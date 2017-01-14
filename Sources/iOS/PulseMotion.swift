@@ -156,7 +156,7 @@ extension PulseMotion {
         default:break
         }
         
-        Motion.delay(time: duration) {
+        Motion.delay(duration) {
             bLayer.setValue(true, forKey: "animated")
         }
     }
@@ -173,7 +173,7 @@ extension PulseMotion {
             return
         }
         
-        Motion.delay(time: animated ? 0 : 0.15) { [animation = animation, color = color] in
+        Motion.delay(animated ? 0 : 0.15) { [animation = animation, color = color] in
             guard let pLayer = bLayer.sublayers?.first as? CAShapeLayer else {
                 return
             }
@@ -192,7 +192,7 @@ extension PulseMotion {
             default:break
             }
             
-            Motion.delay(time: duration) {
+            Motion.delay(duration) {
                 pLayer.removeFromSuperlayer()
                 bLayer.removeFromSuperlayer()
             }

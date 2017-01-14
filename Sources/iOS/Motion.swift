@@ -95,7 +95,7 @@ public struct Motion {
      the animations have completed.
      */
     @discardableResult
-    public static func delay(time: TimeInterval, execute block: @escaping () -> Void) -> MotionDelayCancelBlock? {
+    public static func delay(_ time: TimeInterval, execute block: @escaping () -> Void) -> MotionDelayCancelBlock? {
 		
 		func asyncAfter(completion: @escaping () -> Void) {
 			DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time, execute: completion)
@@ -179,7 +179,7 @@ public struct Motion {
      the animations have completed.
      */
 	public static func animate(delay time: CFTimeInterval, duration: CFTimeInterval, animations: @escaping (() -> Void), completion: (() -> Void)? = nil) {
-        delay(time: time) {
+        delay(time) {
             animate(duration: duration, animations: animations, completion: completion)
 		}
 	}

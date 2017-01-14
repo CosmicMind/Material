@@ -117,7 +117,7 @@ open class TableViewCell: UITableViewCell, Pulseable {
         let p = point ?? center
         
         pulse.expand(point: p)
-        Motion.delay(time: 0.35) { [weak self] in
+        Motion.delay(0.35) { [weak self] in
             self?.pulse.contract()
         }
     }

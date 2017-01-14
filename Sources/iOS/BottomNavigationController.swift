@@ -31,9 +31,6 @@
 import UIKit
 
 open class BottomNavigationController: UITabBarController, UITabBarControllerDelegate {
-	/// The transition animation to use when selecting a new tab.
-	open var motionTransition = MotionTransition.fade
-	
 	/**
      An initializer that initializes the object with a NSCoder object.
      - Parameter aDecoder: A NSCoder instance.
@@ -119,7 +116,7 @@ open class BottomNavigationController: UITabBarController, UITabBarControllerDel
 	
 	/// Handles transitions when tabBarItems are pressed.
 	open func tabBarController(_ tabBarController: UITabBarController, animationControllerForTransitionFrom fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return .fade == motionTransition ? FadeMotionTransition() : nil
+        return FadeMotionTransition()
 	}
 	
 	/// Prepares the tabBar.
