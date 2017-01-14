@@ -53,9 +53,9 @@ public enum MotionAnimationKeyPath: String {
 }
 
 public enum MotionAnimation {
-    case delay(CGFloat)
+    case delay(TimeInterval)
     case timingFunction(MotionAnimationTimingFunction)
-    case duration(CGFloat)
+    case duration(TimeInterval)
     case custom(CABasicAnimation)
     case backgroundColor(UIColor)
     case corners(CGFloat)
@@ -89,19 +89,29 @@ extension CALayer {
      view's backing layer.
      - Parameter animation: A CAAnimation instance.
      */
-    open func animate(animation: CAAnimation) {
-        animation.delegate = self
-        
-        if let a = animation as? CABasicAnimation {
-            a.fromValue = (presentation() ?? self).value(forKeyPath: a.keyPath!)
-        }
-        
-        if let a = animation as? CAPropertyAnimation {
-            add(a, forKey: a.keyPath!)
-        } else if let a = animation as? CAAnimationGroup {
-            add(a, forKey: nil)
-        } else if let a = animation as? CATransition {
-            add(a, forKey: kCATransition)
+    open func animate(_ animations: CAAnimation...) {
+        animate(animations)
+    }
+    
+    /**
+     A method that accepts CAAnimation objects and executes them on the
+     view's backing layer.
+     - Parameter animation: A CAAnimation instance.
+     */
+    open func animate(_ animations: [CAAnimation]) {
+        for animation in animations {
+            animation.delegate = self
+            if let a = animation as? CABasicAnimation {
+                a.fromValue = (presentation() ?? self).value(forKeyPath: a.keyPath!)
+            }
+            
+            if let a = animation as? CAPropertyAnimation {
+                add(a, forKey: a.keyPath!)
+            } else if let a = animation as? CAAnimationGroup {
+                add(a, forKey: nil)
+            } else if let a = animation as? CATransition {
+                add(a, forKey: kCATransition)
+            }
         }
     }
 
@@ -139,132 +149,22 @@ extension CALayer {
         removeAnimation(forKey: k)
     }
     
-    open func motion(animations: MotionAnimation...) {
-        motion(animations: animations)
+    open func motion(_ animations: MotionAnimation...) {
+        motion(animations)
     }
     
-    open func motion(animations: [MotionAnimation]) {
-        motion(duration: 0.25, animations: animations)
+    open func motion(_ animations: [MotionAnimation]) {
+        motion(delay: 0, duration: 0.25, timingFunction: .easeInEaseOut, animations: animations)
     }
     
-    open func motion(duration: TimeInterval, animations: MotionAnimation...) {
-        motion(duration: duration, animations: animations)
-    }
-    
-    open func motion(duration: TimeInterval, animations: [MotionAnimation]) {
-        motion(duration: duration, timingFunction: .easeInEaseOut, animations: animations)
-    }
-    
-    open func motion(timingFunction: MotionAnimationTimingFunction, animations: MotionAnimation...) {
-        motion(timingFunction: timingFunction, animations: animations)
-    }
-    
-    open func motion(timingFunction: MotionAnimationTimingFunction, animations: [MotionAnimation]) {
-        motion(duration: 0.25, animations: animations)
-    }
-    
-    open func motion(duration: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: MotionAnimation...) {
-        motion(duration: duration, timingFunction: timingFunction, animations: animations)
-    }
-    
-    open func motion(duration: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: [MotionAnimation]) {
-        motion(delay: 0, duration: duration, timingFunction: timingFunction, animations: animations)
-    }
-    
-    open func motion(delay: TimeInterval, animations: MotionAnimation...) {
-        motion(delay: delay, animations: animations)
-    }
-    
-    open func motion(delay: TimeInterval, animations: [MotionAnimation]) {
-        motion(delay: delay, duration: 0.25, timingFunction: .easeInEaseOut, animations: animations)
-    }
-    
-    open func motion(delay: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: MotionAnimation...) {
-        motion(delay: delay, timingFunction: timingFunction, animations: animations)
-    }
-    
-    open func motion(delay: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: [MotionAnimation]) {
-        motion(delay: delay, timingFunction: timingFunction, animations: animations)
-    }
-    
-    open func motion(delay: TimeInterval, duration: TimeInterval, animations: MotionAnimation...) {
-        motion(delay: delay, duration: duration, timingFunction: .easeInEaseOut, animations: animations)
-    }
-    
-    open func motion(delay: TimeInterval, duration: TimeInterval, animations: [MotionAnimation]) {
-        motion(delay: delay, duration: duration, timingFunction: .easeInEaseOut, animations: animations)
-    }
-    
-    open func motion(delay: TimeInterval, duration: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: MotionAnimation...) {
-        motion(delay: delay, duration: duration, timingFunction: timingFunction, animations: animations)
-    }
-    
-    open func motion(delay: TimeInterval, duration: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: [MotionAnimation]) {
-        var a = [CABasicAnimation]()
-        var tf = timingFunction
-        var d = duration
+    fileprivate func motion(delay: TimeInterval, duration: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: [MotionAnimation]) {
         var t = delay
         
         for v in animations {
             switch v {
             case let .delay(time):
-                t = TimeInterval(time)
-            case let .timingFunction(tFunction):
-                tf = tFunction
-            case let .duration(dur):
-                d = TimeInterval(dur)
-            case let .custom(animation):
-                a.append(animation)
-            case let .backgroundColor(color):
-                a.append(Motion.background(color: color))
-            case let .corners(radius):
-                a.append(Motion.corner(radius: radius))
-            case let .transform(transform):
-                a.append(Motion.transform(transform: transform))
-            case let .rotate(angle):
-                a.append(Motion.rotate(angle: angle))
-            case let .rotateX(angle):
-                a.append(Motion.rotateX(angle: angle))
-            case let .rotateY(angle):
-                a.append(Motion.rotateY(angle: angle))
-            case let .rotateZ(angle):
-                a.append(Motion.rotateZ(angle: angle))
-            case let .spin(rotations):
-                a.append(Motion.spin(rotations: rotations))
-            case let .spinX(rotations):
-                a.append(Motion.spinX(rotations: rotations))
-            case let .spinY(rotations):
-                a.append(Motion.spinY(rotations: rotations))
-            case let .spinZ(rotations):
-                a.append(Motion.spinZ(rotations: rotations))
-            case let .scale(to):
-                a.append(Motion.scale(to: to))
-            case let .scaleX(to):
-                a.append(Motion.scaleX(to: to))
-            case let .scaleY(to):
-                a.append(Motion.scaleY(to: to))
-            case let .scaleZ(to):
-                a.append(Motion.scaleZ(to: to))
-            case let .translate(x, y):
-                a.append(Motion.translate(to: CGPoint(x: x, y: y)))
-            case let .translateX(to):
-                a.append(Motion.translateX(to: to))
-            case let .translateY(to):
-                a.append(Motion.translateY(to: to))
-            case let .translateZ(to):
-                a.append(Motion.translateZ(to: to))
-            case let .position(x, y):
-                a.append(Motion.position(to: CGPoint(x: x, y: y)))
-            case let .shadow(path):
-                a.append(Motion.shadow(path: path))
-            case let .fade(opacity):
-                let fade = Motion.fade(opacity: opacity)
-                fade.fromValue = value(forKey: MotionAnimationKeyPath.opacity.rawValue) ?? NSNumber(floatLiteral: 1)
-                a.append(fade)
-            case let .zPosition(index):
-                let zPosition = Motion.zPosition(index: index)
-                zPosition.fromValue = value(forKey: MotionAnimationKeyPath.zPosition.rawValue) ?? NSNumber(integerLiteral: 0)
-                a.append(zPosition)
+                t = time
+            default:break
             }
         }
         
@@ -273,12 +173,78 @@ extension CALayer {
                 return
             }
             
+            var a = [CABasicAnimation]()
+            var tf = timingFunction
+            var d = duration
+            
+            for v in animations {
+                switch v {
+                case let .timingFunction(tFunction):
+                    tf = tFunction
+                case let .duration(dur):
+                    d = dur
+                case let .custom(animation):
+                    a.append(animation)
+                case let .backgroundColor(color):
+                    a.append(Motion.background(color: color))
+                case let .corners(radius):
+                    a.append(Motion.corner(radius: radius))
+                case let .transform(transform):
+                    a.append(Motion.transform(transform: transform))
+                case let .rotate(angle):
+                    a.append(Motion.rotate(angle: angle))
+                case let .rotateX(angle):
+                    a.append(Motion.rotateX(angle: angle))
+                case let .rotateY(angle):
+                    a.append(Motion.rotateY(angle: angle))
+                case let .rotateZ(angle):
+                    a.append(Motion.rotateZ(angle: angle))
+                case let .spin(rotations):
+                    a.append(Motion.spin(rotations: rotations))
+                case let .spinX(rotations):
+                    a.append(Motion.spinX(rotations: rotations))
+                case let .spinY(rotations):
+                    a.append(Motion.spinY(rotations: rotations))
+                case let .spinZ(rotations):
+                    a.append(Motion.spinZ(rotations: rotations))
+                case let .scale(to):
+                    a.append(Motion.scale(to: to))
+                case let .scaleX(to):
+                    a.append(Motion.scaleX(to: to))
+                case let .scaleY(to):
+                    a.append(Motion.scaleY(to: to))
+                case let .scaleZ(to):
+                    a.append(Motion.scaleZ(to: to))
+                case let .translate(x, y):
+                    a.append(Motion.translate(to: CGPoint(x: x, y: y)))
+                case let .translateX(to):
+                    a.append(Motion.translateX(to: to))
+                case let .translateY(to):
+                    a.append(Motion.translateY(to: to))
+                case let .translateZ(to):
+                    a.append(Motion.translateZ(to: to))
+                case let .position(x, y):
+                    a.append(Motion.position(to: CGPoint(x: x, y: y)))
+                case let .shadow(path):
+                    a.append(Motion.shadow(path: path))
+                case let .fade(opacity):
+                    let fade = Motion.fade(opacity: opacity)
+                    fade.fromValue = s.value(forKey: MotionAnimationKeyPath.opacity.rawValue) ?? NSNumber(floatLiteral: 1)
+                    a.append(fade)
+                case let .zPosition(index):
+                    let zPosition = Motion.zPosition(index: index)
+                    zPosition.fromValue = s.value(forKey: MotionAnimationKeyPath.zPosition.rawValue) ?? NSNumber(integerLiteral: 0)
+                    a.append(zPosition)
+                default:break
+                }
+            }
+        
             let g = Motion.animate(group: a, duration: d)
             g.fillMode = MotionAnimationFillModeToValue(mode: .forwards)
             g.isRemovedOnCompletion = false
             g.timingFunction = MotionAnimationTimingFunctionToValue(timingFunction: tf)
             
-            s.animate(animation: g)
+            s.animate(g)
         }
     }
 }
@@ -292,72 +258,20 @@ extension UIView {
      view's backing layer.
      - Parameter animation: A CAAnimation instance.
      */
-    open func animate(animation: CAAnimation) {
-        layer.animate(animation: animation)
+    open func animate(_ animations: CAAnimation...) {
+        layer.animate(animations)
     }
     
-    open func motion(animations: MotionAnimation...) {
-        layer.motion(animations: animations)
+    open func animate(_ animations: [CAAnimation]) {
+        layer.animate(animations)
     }
     
-    open func motion(animations: [MotionAnimation]) {
-        layer.motion(animations: animations)
+    open func motion(_ animations: MotionAnimation...) {
+        layer.motion(animations)
     }
     
-    open func motion(duration: TimeInterval, animations: MotionAnimation...) {
-        layer.motion(duration: duration, animations: animations)
-    }
-    
-    open func motion(duration: TimeInterval, animations: [MotionAnimation]) {
-        layer.motion(duration: duration, animations: animations)
-    }
-    
-    open func motion(timingFunction: MotionAnimationTimingFunction, animations: MotionAnimation...) {
-        layer.motion(timingFunction: timingFunction, animations: animations)
-    }
-    
-    open func motion(timingFunction: MotionAnimationTimingFunction, animations: [MotionAnimation]) {
-        layer.motion(timingFunction: timingFunction, animations: animations)
-    }
-    
-    open func motion(duration: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: MotionAnimation...) {
-        layer.motion(duration: duration, timingFunction: timingFunction, animations: animations)
-    }
-    
-    open func motion(duration: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: [MotionAnimation]) {
-        layer.motion(duration: duration, timingFunction: timingFunction, animations: animations)
-    }
-    
-    open func motion(delay: TimeInterval, animations: MotionAnimation...) {
-        layer.motion(delay: delay, animations: animations)
-    }
-    
-    open func motion(delay: TimeInterval, animations: [MotionAnimation]) {
-        layer.motion(delay: delay, animations: animations)
-    }
-    
-    open func motion(delay: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: MotionAnimation...) {
-        layer.motion(delay: delay, timingFunction: timingFunction, animations: animations)
-    }
-    
-    open func motion(delay: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: [MotionAnimation]) {
-        layer.motion(delay: delay, timingFunction: timingFunction, animations: animations)
-    }
-    
-    open func motion(delay: TimeInterval, duration: TimeInterval, animations: MotionAnimation...) {
-        layer.motion(delay: delay, duration: duration, animations: animations)
-    }
-    
-    open func motion(delay: TimeInterval, duration: TimeInterval, animations: [MotionAnimation]) {
-        layer.motion(delay: delay, duration: duration, animations: animations)
-    }
-    
-    open func motion(delay: TimeInterval, duration: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: MotionAnimation...) {
-        layer.motion(delay: delay, duration: duration, timingFunction: timingFunction, animations: animations)
-    }
-    
-    open func motion(delay: TimeInterval, duration: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: [MotionAnimation]) {
-        layer.motion(delay: delay, duration: duration, timingFunction: timingFunction, animations: animations)
+    open func motion(_ animations: [MotionAnimation]) {
+        layer.motion(animations)
     }
 }
 

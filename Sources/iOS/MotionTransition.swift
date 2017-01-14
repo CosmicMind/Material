@@ -152,7 +152,7 @@ open class SlideMotionTransition: NSObject, UIViewControllerAnimatedTransitionin
                 if 0 < n.motionIdentifier.utf16.count {
                     for m in toView.subviews {
                         if n.motionIdentifier == m.motionIdentifier {
-                            m.motion(duration: duration, animations: m.motionAnimations)
+                            m.motion(m.motionAnimations)
                         }
                     }
                 }
@@ -168,7 +168,7 @@ open class SlideMotionTransition: NSObject, UIViewControllerAnimatedTransitionin
                 if 0 < n.motionIdentifier.utf16.count {
                     for m in toView.subviews {
                         if n.motionIdentifier == m.motionIdentifier {
-                            m.motion(duration: duration, animations: m.motionAnimations)
+                            m.motion(m.motionAnimations)
                         }
                     }
                 }
