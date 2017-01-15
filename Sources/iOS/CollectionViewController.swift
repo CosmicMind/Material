@@ -58,7 +58,7 @@ extension UIViewController {
     }
 }
 
-open class CollectionViewController: UIViewController {
+open class CollectionViewController: MotionTransitionViewController {
     /// A reference to a Reminder.
     open let collectionView = CollectionView()
     
@@ -81,7 +81,8 @@ open class CollectionViewController: UIViewController {
      The super.prepareView method should always be called immediately
      when subclassing.
      */
-    open func prepare() {
+    open override func prepare() {
+        super.prepare()
         view.clipsToBounds = true
         view.backgroundColor = .white
         view.contentScaleFactor = Screen.scale
