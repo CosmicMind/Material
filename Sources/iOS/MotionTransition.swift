@@ -128,14 +128,14 @@ open class MotionTransitionPresentationController: UIPresentationController {
         }
         
         presentedViewController.transitionCoordinator?.animate(alongsideTransition: { (context) in
-            print("Animating")
+//            print("Animating")
         })
         
-        print("presentationTransitionWillBegin")
+//        print("presentationTransitionWillBegin")
     }
 
     open override func presentationTransitionDidEnd(_ completed: Bool) {
-        print("presentationTransitionDidEnd")
+//        print("presentationTransitionDidEnd")
     }
     
     open override func dismissalTransitionWillBegin() {
@@ -144,14 +144,14 @@ open class MotionTransitionPresentationController: UIPresentationController {
         }
         
         presentedViewController.transitionCoordinator?.animate(alongsideTransition: { (context) in
-            print("Animating")
+//            print("Animating")
         })
         
-        print("dismissalTransitionWillBegin")
+//        print("dismissalTransitionWillBegin")
     }
     
     open override func dismissalTransitionDidEnd(_ completed: Bool) {
-        print("dismissalTransitionDidEnd")
+//        print("dismissalTransitionDidEnd")
     }
     
     open override var frameOfPresentedViewInContainerView: CGRect {
@@ -185,7 +185,7 @@ open class MotionTransitionDelegate: NSObject {
     }
     
     open func animationEnded(_ transitionCompleted: Bool) {
-        print("MotionTransitionAnimator", #function)
+//        print("MotionTransitionAnimator", #function)
     }
 }
 
@@ -291,7 +291,7 @@ open class MotionTransitionInteractiveDelegate: UIPercentDrivenInteractiveTransi
     }
     
     open func animationEnded(_ transitionCompleted: Bool) {
-        print("MotionTransitionAnimator", #function)
+//        print("MotionTransitionAnimator", #function)
     }
 }
 
@@ -427,21 +427,57 @@ open class MotionTransitionPresentedAnimator: MotionTransitionDelegate, UIViewCo
             if 0 < v.transitionIdentifier.utf16.count {
                 for v2 in fromViewController.view.subviews {
                     if v.transitionIdentifier == v2.transitionIdentifier {
+                        
+                        var d: TimeInterval = 0
+                        var a = [CABasicAnimation]()
+                        var tf = MotionAnimationTimingFunction.easeInEaseOut
+                        
                         for ta in v.transitionAnimations {
                             switch ta {
                             case let .delay(time):
                                 if time > delay {
                                     delay = time
                                 }
+                                d = time
                             case let .duration(time):
                                 if time > duration {
                                     duration = time
                                 }
+                            case let .timingFunction(timingFunction):
+                                tf = timingFunction
+                            case let .rotate(angle):
+                                let rotate = Motion.rotate(angle: angle)
+                                let radians = CGFloat(atan2f(Float(v2.transform.b), Float(v2.transform.a)))
+                                rotate.fromValue = v2.layer.value(forKeyPath: MotionAnimationKeyPath.rotation.rawValue)
+                                a.append(rotate)
+                            case let .backgroundColor(color):
+                                a.append(Motion.background(color: color))
+                            case let .corners(radius):
+                                a.append(Motion.corner(radius: radius))
+                            case let .x(x):
+                                a.append(Motion.position(to: CGPoint(x: x + v.bounds.width / 2, y: v.position.y)))
+                            case let .y(y):
+                                a.append(Motion.position(to: CGPoint(x: v.position.x, y: y + v.bounds.height / 2)))
+                            case let .position(x, y):
+                                a.append(Motion.position(to: CGPoint(x: x, y: y)))
+                            case let .shadow(path):
+                                a.append(Motion.shadow(path: path))
+                            case let .width(w):
+                                a.append(Motion.width(w))
+                            case let .height(h):
+                                a.append(Motion.height(h))
                             default:break
                             }
                         }
                         
-                        v.motion(v.transitionAnimations)
+                        Motion.delay(d) {
+                            let g = Motion.animate(group: a, duration: duration)
+                            g.fillMode = MotionAnimationFillModeToValue(mode: .forwards)
+                            g.isRemovedOnCompletion = false
+                            g.timingFunction = MotionAnimationTimingFunctionToValue(timingFunction: tf)
+                            
+                            v.animate(g)
+                        }
                     }
                 }
             }
@@ -511,6 +547,11 @@ open class MotionTransitionDismissedAnimator: MotionTransitionDelegate, UIViewCo
                                 }
                             case let .timingFunction(timingFunction):
                                 tf = timingFunction
+                            case let .rotate(angle):
+                                let radians = CGFloat(atan2f(Float(v2.transform.b), Float(v2.transform.a)))
+                                let rotate = Motion.rotate(angle: radians * 180 / CGFloat(M_PI))
+                                rotate.fromValue = v.layer.value(forKeyPath: MotionAnimationKeyPath.rotation.rawValue)
+                                a.append(rotate)
                             case let .backgroundColor(color):
                                 a.append(Motion.background(color: v2.backgroundColor ?? .clear))
                             case let .corners(radius):
@@ -544,7 +585,6 @@ open class MotionTransitionDismissedAnimator: MotionTransitionDelegate, UIViewCo
             }
         }
         
-        print("DELAY", delay + duration)
         Motion.delay(delay + duration) {
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         }
@@ -587,7 +627,7 @@ open class FadeMotionTransition: NSObject, UIViewControllerAnimatedTransitioning
     }
     
     open func animationEnded(_ transitionCompleted: Bool) {
-        print("FadeMotionTransition ANIMATION ENDED")
+//        print("FadeMotionTransition ANIMATION ENDED")
     }
 }
 
@@ -662,7 +702,7 @@ open class SlideMotionTransition: NSObject, UIViewControllerAnimatedTransitionin
     }
     
     open func animationEnded(_ transitionCompleted: Bool) {
-        print("SlideMotionTransition ANIMATION ENDED")
+//        print("SlideMotionTransition ANIMATION ENDED")
     }
 }
 

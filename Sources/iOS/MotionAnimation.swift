@@ -204,7 +204,10 @@ extension CALayer {
                 case let .transform(transform):
                     a.append(Motion.transform(transform: transform))
                 case let .rotate(angle):
-                    a.append(Motion.rotate(angle: angle))
+                    let rotate = Motion.rotate(angle: angle)
+                    let radians = CGFloat(atan2f(Float(s.affineTransform().b), Float(s.affineTransform().a)))
+                    rotate.fromValue = radians * 180 / CGFloat(M_PI)
+                    a.append(rotate)
                 case let .rotateX(angle):
                     a.append(Motion.rotateX(angle: angle))
                 case let .rotateY(angle):
@@ -287,11 +290,119 @@ extension UIView {
     }
     
     open func motion(_ animations: MotionAnimation...) {
-        layer.motion(animations)
+        motion(animations)
     }
     
     open func motion(_ animations: [MotionAnimation]) {
-        layer.motion(animations)
+        motion(delay: 0, duration: 0.25, timingFunction: .easeInEaseOut, animations: animations)
+    }
+    
+    fileprivate func motion(delay: TimeInterval, duration: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: [MotionAnimation]) {
+        var t = delay
+        var w: CGFloat = 0
+        var h: CGFloat = 0
+        
+        for v in animations {
+            switch v {
+            case let .delay(time):
+                t = time
+            case let .width(width):
+                w = width
+            case let .height(height):
+                h = height
+            default:break
+            }
+        }
+        
+        Motion.delay(t) { [weak self] in
+            guard let s = self else {
+                return
+            }
+            
+            var a = [CABasicAnimation]()
+            var tf = timingFunction
+            var d = duration
+            
+            for v in animations {
+                switch v {
+                case let .timingFunction(timingFunction):
+                    tf = timingFunction
+                case let .duration(duration):
+                    d = duration
+                case let .custom(animation):
+                    a.append(animation)
+                case let .backgroundColor(color):
+                    a.append(Motion.background(color: color))
+                case let .corners(radius):
+                    a.append(Motion.corner(radius: radius))
+                case let .transform(transform):
+                    a.append(Motion.transform(transform: transform))
+                case let .rotate(angle):
+                    let rotate = Motion.rotate(angle: angle)
+                    let radians = CGFloat(atan2f(Float(s.transform.b), Float(s.transform.a)))
+                    rotate.fromValue = (radians * (180 / CGFloat(M_PI))) as NSNumber
+                    a.append(rotate)
+                case let .rotateX(angle):
+                    a.append(Motion.rotateX(angle: angle))
+                case let .rotateY(angle):
+                    a.append(Motion.rotateY(angle: angle))
+                case let .rotateZ(angle):
+                    a.append(Motion.rotateZ(angle: angle))
+                case let .spin(rotations):
+                    a.append(Motion.spin(rotations: rotations))
+                case let .spinX(rotations):
+                    a.append(Motion.spinX(rotations: rotations))
+                case let .spinY(rotations):
+                    a.append(Motion.spinY(rotations: rotations))
+                case let .spinZ(rotations):
+                    a.append(Motion.spinZ(rotations: rotations))
+                case let .scale(to):
+                    a.append(Motion.scale(to: to))
+                case let .scaleX(to):
+                    a.append(Motion.scaleX(to: to))
+                case let .scaleY(to):
+                    a.append(Motion.scaleY(to: to))
+                case let .scaleZ(to):
+                    a.append(Motion.scaleZ(to: to))
+                case let .translate(x, y):
+                    a.append(Motion.translate(to: CGPoint(x: x, y: y)))
+                case let .translateX(to):
+                    a.append(Motion.translateX(to: to))
+                case let .translateY(to):
+                    a.append(Motion.translateY(to: to))
+                case let .translateZ(to):
+                    a.append(Motion.translateZ(to: to))
+                case let .x(x):
+                    a.append(Motion.position(to: CGPoint(x: x + w / 2, y: s.position.y)))
+                case let .y(y):
+                    a.append(Motion.position(to: CGPoint(x: s.position.x, y: y + h / 2)))
+                case let .position(x, y):
+                    a.append(Motion.position(to: CGPoint(x: x, y: y)))
+                case let .shadow(path):
+                    a.append(Motion.shadow(path: path))
+                case let .fade(opacity):
+                    let fade = Motion.fade(opacity: opacity)
+                    fade.fromValue = s.value(forKeyPath: MotionAnimationKeyPath.opacity.rawValue) ?? NSNumber(floatLiteral: 1)
+                    a.append(fade)
+                case let .zPosition(index):
+                    let zPosition = Motion.zPosition(index: index)
+                    zPosition.fromValue = s.value(forKeyPath: MotionAnimationKeyPath.zPosition.rawValue) ?? NSNumber(integerLiteral: 0)
+                    a.append(zPosition)
+                case let .width(w):
+                    a.append(Motion.width(w))
+                case let .height(h):
+                    a.append(Motion.height(h))
+                default:break
+                }
+            }
+            
+            let g = Motion.animate(group: a, duration: d)
+            g.fillMode = MotionAnimationFillModeToValue(mode: .forwards)
+            g.isRemovedOnCompletion = false
+            g.timingFunction = MotionAnimationTimingFunctionToValue(timingFunction: tf)
+            
+            s.animate(g)
+        }
     }
 }
 
