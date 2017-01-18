@@ -432,6 +432,11 @@ open class MotionTransitionPresentedAnimator: MotionTransitionDelegate, UIViewCo
                         var a = [CABasicAnimation]()
                         var tf = MotionAnimationTimingFunction.easeInEaseOut
                         
+                        var w: CGFloat = 0
+                        var h: CGFloat = 0
+                        var px: CGFloat = v.position.x
+                        var py: CGFloat = v.position.y
+                        
                         for ta in v.transitionAnimations {
                             switch ta {
                             case let .delay(time):
@@ -443,34 +448,54 @@ open class MotionTransitionPresentedAnimator: MotionTransitionDelegate, UIViewCo
                                 if time > duration {
                                     duration = time
                                 }
-                            case let .timingFunction(timingFunction):
-                                tf = timingFunction
-                            case let .rotate(angle):
-                                let rotate = Motion.rotate(angle: angle)
-                                let radians = CGFloat(atan2f(Float(v2.transform.b), Float(v2.transform.a)))
-                                rotate.fromValue = v2.layer.value(forKeyPath: MotionAnimationKeyPath.rotation.rawValue)
-                                a.append(rotate)
-                            case let .backgroundColor(color):
-                                a.append(Motion.background(color: color))
-                            case let .corners(radius):
-                                a.append(Motion.corner(radius: radius))
+                            case let .width(width):
+                                w = width
+                            case let .height(height):
+                                h = height
+                            default:break
+                            }
+                        }
+                        
+                        for ta in v.transitionAnimations {
+                            switch ta {
                             case let .x(x):
-                                a.append(Motion.position(to: CGPoint(x: x + v.bounds.width / 2, y: v.position.y)))
+                                px = x + w / 2
                             case let .y(y):
-                                a.append(Motion.position(to: CGPoint(x: v.position.x, y: y + v.bounds.height / 2)))
-                            case let .position(x, y):
-                                a.append(Motion.position(to: CGPoint(x: x, y: y)))
-                            case let .shadow(path):
-                                a.append(Motion.shadow(path: path))
-                            case let .width(w):
-                                a.append(Motion.width(w))
-                            case let .height(h):
-                                a.append(Motion.height(h))
+                                py = y + h / 2
                             default:break
                             }
                         }
                         
                         Motion.delay(d) {
+                            for ta in v.transitionAnimations {
+                                switch ta {
+                                case let .timingFunction(timingFunction):
+                                    tf = timingFunction
+                                case let .rotate(angle):
+                                    let rotate = Motion.rotate(angle: angle)
+                                    let radians = CGFloat(atan2f(Float(v2.transform.b), Float(v2.transform.a)))
+                                    rotate.fromValue = v2.layer.value(forKeyPath: MotionAnimationKeyPath.rotation.rawValue)
+                                    a.append(rotate)
+                                case let .backgroundColor(color):
+                                    a.append(Motion.background(color: color))
+                                case let .corners(radius):
+                                    a.append(Motion.corner(radius: radius))
+                                case let .x(x):
+                                    a.append(Motion.position(to: CGPoint(x: x + w / 2, y: py)))
+                                case let .y(y):
+                                    a.append(Motion.position(to: CGPoint(x: px, y: y + h / 2)))
+                                case let .position(x, y):
+                                    a.append(Motion.position(to: CGPoint(x: x, y: y)))
+                                case let .shadow(path):
+                                    a.append(Motion.shadow(path: path))
+                                case let .width(w):
+                                    a.append(Motion.width(w))
+                                case let .height(h):
+                                    a.append(Motion.height(h))
+                                default:break
+                                }
+                            }
+                        
                             let g = Motion.animate(group: a, duration: duration)
                             g.fillMode = MotionAnimationFillModeToValue(mode: .forwards)
                             g.isRemovedOnCompletion = false
@@ -557,9 +582,9 @@ open class MotionTransitionDismissedAnimator: MotionTransitionDelegate, UIViewCo
                             case let .corners(radius):
                                 a.append(Motion.corner(radius: v2.cornerRadius))
                             case let .x(x):
-                                a.append(Motion.position(to: CGPoint(x: v2.x + v2.bounds.width / 2, y: v2.position.y)))
+                                a.append(Motion.position(to: v2.position))
                             case let .y(y):
-                                a.append(Motion.position(to: CGPoint(x: v2.position.x, y: v2.y + v2.bounds.height / 2)))
+                                a.append(Motion.position(to: v2.position))
                             case let .position(x, y):
                                 a.append(Motion.position(to: v2.position))
                             case let .shadow(path):
