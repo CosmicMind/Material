@@ -84,6 +84,7 @@ open class MotionTransitionViewController: UIViewController {
      when subclassing.
      */
     open func prepare() {
+        modalPresentationStyle = .custom
         transitioningDelegate = transitionDelegate
     }
 }
@@ -126,8 +127,26 @@ open class MotionTransitionPresentationController: UIPresentationController {
             return
         }
         
-        print(presentedViewController)
-        print("Presented")
+//        for v in presentedViewController.view.subviews {
+//            if 0 < v.transitionIdentifier.utf16.count {
+//                print(v.transitionAnimations)
+//                v.motion(v.transitionAnimations)
+//            }
+//        }
+        
+        presentedViewController.transitionCoordinator?.animate(alongsideTransition: { (context) in
+            print("Animating")
+        })
+        
+        print("presentationTransitionWillBegin")
+    }
+
+    open override func presentationTransitionDidEnd(_ completed: Bool) {
+        print("presentationTransitionDidEnd")
+    }
+    
+    open override var frameOfPresentedViewInContainerView: CGRect {
+        return containerView?.bounds ?? .zero
     }
 }
 
@@ -148,34 +167,7 @@ open class MotionTransitionDelegate: NSObject {
     
     @objc(animateTransition:)
     open func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        guard let tView = transitionContext.view(forKey: .to) else {
-            return
-        }
         
-        guard let tVC = transitionContext.viewController(forKey: .to) else {
-            return
-        }
-
-        guard let fView = transitionContext.view(forKey: .from) else {
-            return
-        }
-
-        guard let fVC = transitionContext.viewController(forKey: .from) else {
-            return
-        }
-        self.transitionContext = transitionContext
-        
-        containerView = transitionContext.containerView
-        
-        toView = tView
-        toViewController = tVC
-        
-        fromView = fView
-        fromViewController = fVC
-        
-        toViewStartFrame = transitionContext.initialFrame(for: toViewController)
-        toViewFinalFrame = transitionContext.finalFrame(for: toViewController)
-        fromViewFinalFrame = transitionContext.finalFrame(for: fromViewController)
     }
     
     @objc(transitionDuration:)
@@ -198,11 +190,11 @@ extension MotionTransitionDelegate: UIViewControllerTransitioningDelegate {
     }
     
     open func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return MotionTransitionInteractiveAnimator()
+        return nil // MotionTransitionInteractiveAnimator()
     }
     
     open func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return MotionTransitionInteractiveAnimator()
+        return nil // MotionTransitionInteractiveAnimator()
     }
     
     public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
@@ -329,7 +321,58 @@ extension MotionTransitionInteractiveDelegate {
 open class MotionTransitionAnimator: MotionTransitionDelegate, UIViewControllerAnimatedTransitioning {
     @objc(animateTransition:)
     open override func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        super.animateTransition(using: transitionContext)
+//        guard let tView = transitionContext.view(forKey: .to) else {
+//            return
+//        }
+        
+        guard let tVC = transitionContext.viewController(forKey: .to) else {
+            return
+        }
+        
+//        guard let fView = transitionContext.view(forKey: .from) else {
+//            return
+//        }
+        
+        guard let fVC = transitionContext.viewController(forKey: .from) else {
+            return
+        }
+
+        self.transitionContext = transitionContext
+        
+        containerView = transitionContext.containerView
+        
+//        toView = tView
+        toViewController = tVC
+        
+//        fromView = fView
+        fromViewController = fVC
+        
+        toViewStartFrame = transitionContext.initialFrame(for: toViewController)
+        toViewFinalFrame = transitionContext.finalFrame(for: toViewController)
+        fromViewFinalFrame = transitionContext.finalFrame(for: fromViewController)
+        
+        var duration = transitionDuration(using: nil)
+        
+        transitionContext.containerView.addSubview(toViewController.view)
+        
+        for v in toViewController.view.subviews {
+            if 0 < v.transitionIdentifier.utf16.count {
+                for a in v.transitionAnimations {
+                    switch a {
+                    case let .duration(dur):
+                        if dur > duration {
+                            duration = dur
+                        }
+                    default:break
+                    }
+                }
+                v.motion(v.transitionAnimations)
+            }
+        }
+            
+        Motion.delay(duration) {
+            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+        }
     }
 }
 open class MotionTransitionInteractiveAnimator: MotionTransitionInteractiveDelegate {
@@ -355,9 +398,9 @@ open class FadeMotionTransition: NSObject, UIViewControllerAnimatedTransitioning
         transitionContext.containerView.addSubview(toView)
         
         UIView.animate(withDuration: transitionDuration(using: transitionContext),
-                       animations: { _ in
-                        toView.alpha = 1
-                        fromView.alpha = 0
+            animations: { _ in
+            toView.alpha = 1
+            fromView.alpha = 0
         }) { _ in
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         }

@@ -50,6 +50,8 @@ public enum MotionAnimationKeyPath: String {
     case shadowPath
     case opacity
     case zPosition
+    case width = "bounds.size.width"
+    case height = "bounds.size.height"
 }
 
 public enum MotionAnimation {
@@ -76,10 +78,14 @@ public enum MotionAnimation {
     case translateX(CGFloat)
     case translateY(CGFloat)
     case translateZ(CGFloat)
+    case x(CGFloat)
+    case y(CGFloat)
     case position(x: CGFloat, y: CGFloat)
     case shadow(path: CGPath)
     case fade(CGFloat)
     case zPosition(Int)
+    case width(CGFloat)
+    case height(CGFloat)
 }
 
 extension CALayer {
@@ -159,11 +165,17 @@ extension CALayer {
     
     fileprivate func motion(delay: TimeInterval, duration: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: [MotionAnimation]) {
         var t = delay
+        var w: CGFloat = 0
+        var h: CGFloat = 0
         
         for v in animations {
             switch v {
             case let .delay(time):
                 t = time
+            case let .width(width):
+                w = width
+            case let .height(height):
+                h = height
             default:break
             }
         }
@@ -223,6 +235,10 @@ extension CALayer {
                     a.append(Motion.translateY(to: to))
                 case let .translateZ(to):
                     a.append(Motion.translateZ(to: to))
+                case let .x(x):
+                    a.append(Motion.position(to: CGPoint(x: x + w / 2, y: s.position.y)))
+                case let .y(y):
+                    a.append(Motion.position(to: CGPoint(x: s.position.x, y: y + h / 2)))
                 case let .position(x, y):
                     a.append(Motion.position(to: CGPoint(x: x, y: y)))
                 case let .shadow(path):
@@ -235,6 +251,10 @@ extension CALayer {
                     let zPosition = Motion.zPosition(index: index)
                     zPosition.fromValue = s.value(forKey: MotionAnimationKeyPath.zPosition.rawValue) ?? NSNumber(integerLiteral: 0)
                     a.append(zPosition)
+                case let .width(w):
+                    a.append(Motion.width(w))
+                case let .height(h):
+                    a.append(Motion.height(h))
                 default:break
                 }
             }
@@ -536,6 +556,28 @@ extension Motion {
     public static func zPosition(index: Int) -> CABasicAnimation {
         let animation = CABasicAnimation(keyPath: .zPosition)
         animation.toValue = NSNumber(integerLiteral: index)
+        return animation
+    }
+    
+    /**
+     Creates a CABasicaAnimation for the width key path.
+     - Parameter width: A CGFloat.
+     - Returns: A CABasicAnimation.
+     */
+    public static func width(_ width: CGFloat) -> CABasicAnimation {
+        let animation = CABasicAnimation(keyPath: .width)
+        animation.toValue = NSNumber(floatLiteral: Double(width))
+        return animation
+    }
+    
+    /**
+     Creates a CABasicaAnimation for the height key path.
+     - Parameter height: A CGFloat.
+     - Returns: A CABasicAnimation.
+     */
+    public static func height(_ height: CGFloat) -> CABasicAnimation {
+        let animation = CABasicAnimation(keyPath: .height)
+        animation.toValue = NSNumber(floatLiteral: Double(height))
         return animation
     }
 }
