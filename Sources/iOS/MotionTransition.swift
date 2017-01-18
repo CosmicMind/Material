@@ -418,26 +418,36 @@ open class MotionTransitionPresentedAnimator: MotionTransitionDelegate, UIViewCo
         toViewFinalFrame = transitionContext.finalFrame(for: toViewController)
         fromViewFinalFrame = transitionContext.finalFrame(for: fromViewController)
         
+        var delay: TimeInterval = 0
         var duration = transitionDuration(using: nil)
         
         transitionContext.containerView.addSubview(toViewController.view)
         
         for v in toViewController.view.subviews {
             if 0 < v.transitionIdentifier.utf16.count {
-                for a in v.transitionAnimations {
-                    switch a {
-                    case let .duration(dur):
-                        if dur > duration {
-                            duration = dur
+                for v2 in fromViewController.view.subviews {
+                    if v.transitionIdentifier == v2.transitionIdentifier {
+                        for ta in v.transitionAnimations {
+                            switch ta {
+                            case let .delay(time):
+                                if time > delay {
+                                    delay = time
+                                }
+                            case let .duration(time):
+                                if time > duration {
+                                    duration = time
+                                }
+                            default:break
+                            }
                         }
-                    default:break
+                        
+                        v.motion(v.transitionAnimations)
                     }
                 }
-                v.motion(v.transitionAnimations)
             }
         }
         
-        Motion.delay(duration) {
+        Motion.delay(delay + duration) {
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         }
     }
@@ -476,28 +486,29 @@ open class MotionTransitionDismissedAnimator: MotionTransitionDelegate, UIViewCo
         toViewFinalFrame = transitionContext.finalFrame(for: toViewController)
         fromViewFinalFrame = transitionContext.finalFrame(for: fromViewController)
         
+        var delay: TimeInterval = 0
         var duration = transitionDuration(using: nil)
         
         for v in fromViewController.view.subviews {
             if 0 < v.transitionIdentifier.utf16.count {
-                for a in v.transitionAnimations {
-                    switch a {
-                    case let .duration(dur):
-                        if dur > duration {
-                            duration = dur
-                        }
-                    default:break
-                    }
-                }
-                
                 for v2 in toViewController.view.subviews {
                     if v.transitionIdentifier == v2.transitionIdentifier {
                         
+                        var d: TimeInterval = 0
                         var a = [CABasicAnimation]()
                         var tf = MotionAnimationTimingFunction.easeInEaseOut
                         
                         for ta in v.transitionAnimations {
                             switch ta {
+                            case let .delay(time):
+                                if time > delay {
+                                    delay = time
+                                }
+                                d = time
+                            case let .duration(time):
+                                if time > duration {
+                                    duration = time
+                                }
                             case let .timingFunction(timingFunction):
                                 tf = timingFunction
                             case let .backgroundColor(color):
@@ -520,18 +531,21 @@ open class MotionTransitionDismissedAnimator: MotionTransitionDelegate, UIViewCo
                             }
                         }
                         
-                        let g = Motion.animate(group: a, duration: duration)
-                        g.fillMode = MotionAnimationFillModeToValue(mode: .forwards)
-                        g.isRemovedOnCompletion = false
-                        g.timingFunction = MotionAnimationTimingFunctionToValue(timingFunction: tf)
-                        
-                        v.animate(g)
+                        Motion.delay(d) {
+                            let g = Motion.animate(group: a, duration: duration)
+                            g.fillMode = MotionAnimationFillModeToValue(mode: .forwards)
+                            g.isRemovedOnCompletion = false
+                            g.timingFunction = MotionAnimationTimingFunctionToValue(timingFunction: tf)
+                            
+                            v.animate(g)
+                        }
                     }
                 }
             }
         }
         
-        Motion.delay(duration) {
+        print("DELAY", delay + duration)
+        Motion.delay(delay + duration) {
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         }
     }
