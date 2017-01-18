@@ -127,13 +127,6 @@ open class MotionTransitionPresentationController: UIPresentationController {
             return
         }
         
-//        for v in presentedViewController.view.subviews {
-//            if 0 < v.transitionIdentifier.utf16.count {
-//                print(v.transitionAnimations)
-//                v.motion(v.transitionAnimations)
-//            }
-//        }
-        
         presentedViewController.transitionCoordinator?.animate(alongsideTransition: { (context) in
             print("Animating")
         })
@@ -143,6 +136,22 @@ open class MotionTransitionPresentationController: UIPresentationController {
 
     open override func presentationTransitionDidEnd(_ completed: Bool) {
         print("presentationTransitionDidEnd")
+    }
+    
+    open override func dismissalTransitionWillBegin() {
+        guard let containerView = containerView else {
+            return
+        }
+        
+        presentedViewController.transitionCoordinator?.animate(alongsideTransition: { (context) in
+            print("Animating")
+        })
+        
+        print("dismissalTransitionWillBegin")
+    }
+    
+    open override func dismissalTransitionDidEnd(_ completed: Bool) {
+        print("dismissalTransitionDidEnd")
     }
     
     open override var frameOfPresentedViewInContainerView: CGRect {
@@ -182,11 +191,11 @@ open class MotionTransitionDelegate: NSObject {
 
 extension MotionTransitionDelegate: UIViewControllerTransitioningDelegate {
     open func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return MotionTransitionAnimator()
+        return MotionTransitionPresentedAnimator()
     }
     
     open func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return MotionTransitionAnimator()
+        return MotionTransitionDismissedAnimator()
     }
     
     open func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
@@ -375,6 +384,159 @@ open class MotionTransitionAnimator: MotionTransitionDelegate, UIViewControllerA
         }
     }
 }
+
+open class MotionTransitionPresentedAnimator: MotionTransitionDelegate, UIViewControllerAnimatedTransitioning {
+    @objc(animateTransition:)
+    open override func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        //        guard let tView = transitionContext.view(forKey: .to) else {
+        //            return
+        //        }
+        
+        guard let tVC = transitionContext.viewController(forKey: .to) else {
+            return
+        }
+        
+        //        guard let fView = transitionContext.view(forKey: .from) else {
+        //            return
+        //        }
+        
+        guard let fVC = transitionContext.viewController(forKey: .from) else {
+            return
+        }
+        
+        self.transitionContext = transitionContext
+        
+        containerView = transitionContext.containerView
+        
+        //        toView = tView
+        toViewController = tVC
+        
+        //        fromView = fView
+        fromViewController = fVC
+        
+        toViewStartFrame = transitionContext.initialFrame(for: toViewController)
+        toViewFinalFrame = transitionContext.finalFrame(for: toViewController)
+        fromViewFinalFrame = transitionContext.finalFrame(for: fromViewController)
+        
+        var duration = transitionDuration(using: nil)
+        
+        transitionContext.containerView.addSubview(toViewController.view)
+        
+        for v in toViewController.view.subviews {
+            if 0 < v.transitionIdentifier.utf16.count {
+                for a in v.transitionAnimations {
+                    switch a {
+                    case let .duration(dur):
+                        if dur > duration {
+                            duration = dur
+                        }
+                    default:break
+                    }
+                }
+                v.motion(v.transitionAnimations)
+            }
+        }
+        
+        Motion.delay(duration) {
+            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+        }
+    }
+}
+
+open class MotionTransitionDismissedAnimator: MotionTransitionDelegate, UIViewControllerAnimatedTransitioning {
+    @objc(animateTransition:)
+    open override func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        //        guard let tView = transitionContext.view(forKey: .to) else {
+        //            return
+        //        }
+        
+        guard let tVC = transitionContext.viewController(forKey: .to) else {
+            return
+        }
+        
+        //        guard let fView = transitionContext.view(forKey: .from) else {
+        //            return
+        //        }
+        
+        guard let fVC = transitionContext.viewController(forKey: .from) else {
+            return
+        }
+        
+        self.transitionContext = transitionContext
+        
+        containerView = transitionContext.containerView
+        
+        //        toView = tView
+        toViewController = tVC
+        
+        //        fromView = fView
+        fromViewController = fVC
+        
+        toViewStartFrame = transitionContext.initialFrame(for: toViewController)
+        toViewFinalFrame = transitionContext.finalFrame(for: toViewController)
+        fromViewFinalFrame = transitionContext.finalFrame(for: fromViewController)
+        
+        var duration = transitionDuration(using: nil)
+        
+        for v in fromViewController.view.subviews {
+            if 0 < v.transitionIdentifier.utf16.count {
+                for a in v.transitionAnimations {
+                    switch a {
+                    case let .duration(dur):
+                        if dur > duration {
+                            duration = dur
+                        }
+                    default:break
+                    }
+                }
+                
+                for v2 in toViewController.view.subviews {
+                    if v.transitionIdentifier == v2.transitionIdentifier {
+                        
+                        var a = [CABasicAnimation]()
+                        var tf = MotionAnimationTimingFunction.easeInEaseOut
+                        
+                        for ta in v.transitionAnimations {
+                            switch ta {
+                            case let .timingFunction(timingFunction):
+                                tf = timingFunction
+                            case let .backgroundColor(color):
+                                a.append(Motion.background(color: v2.backgroundColor ?? .clear))
+                            case let .corners(radius):
+                                a.append(Motion.corner(radius: v2.cornerRadius))
+                            case let .x(x):
+                                a.append(Motion.position(to: CGPoint(x: v2.x + v2.bounds.width / 2, y: v2.position.y)))
+                            case let .y(y):
+                                a.append(Motion.position(to: CGPoint(x: v2.position.x, y: v2.y + v2.bounds.height / 2)))
+                            case let .position(x, y):
+                                a.append(Motion.position(to: v2.position))
+                            case let .shadow(path):
+                                a.append(Motion.shadow(path: path))
+                            case let .width(w):
+                                a.append(Motion.width(v2.bounds.width))
+                            case let .height(h):
+                                a.append(Motion.height(v2.bounds.height))
+                            default:break
+                            }
+                        }
+                        
+                        let g = Motion.animate(group: a, duration: duration)
+                        g.fillMode = MotionAnimationFillModeToValue(mode: .forwards)
+                        g.isRemovedOnCompletion = false
+                        g.timingFunction = MotionAnimationTimingFunctionToValue(timingFunction: tf)
+                        
+                        v.animate(g)
+                    }
+                }
+            }
+        }
+        
+        Motion.delay(duration) {
+            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+        }
+    }
+}
+
 open class MotionTransitionInteractiveAnimator: MotionTransitionInteractiveDelegate {
     open override func startInteractiveTransition(_ transitionContext: UIViewControllerContextTransitioning) {
         super.startInteractiveTransition(transitionContext)

@@ -191,10 +191,10 @@ extension CALayer {
             
             for v in animations {
                 switch v {
-                case let .timingFunction(tFunction):
-                    tf = tFunction
-                case let .duration(dur):
-                    d = dur
+                case let .timingFunction(timingFunction):
+                    tf = timingFunction
+                case let .duration(duration):
+                    d = duration
                 case let .custom(animation):
                     a.append(animation)
                 case let .backgroundColor(color):
