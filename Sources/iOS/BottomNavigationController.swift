@@ -116,7 +116,7 @@ open class BottomNavigationController: UITabBarController, UITabBarControllerDel
 	
 	/// Handles transitions when tabBarItems are pressed.
 	open func tabBarController(_ tabBarController: UITabBarController, animationControllerForTransitionFrom fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return FadeMotionTransition()
+        return nil
 	}
 	
 	/// Prepares the tabBar.

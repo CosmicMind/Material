@@ -102,7 +102,7 @@ extension UIView {
         }
     }
     
-    open var transitionIdentifier: String {
+    open var motionTransitionIdentifier: String {
         get {
             return motionTransition.identifier
         }
@@ -111,7 +111,7 @@ extension UIView {
         }
     }
     
-    open var transitionAnimations: [MotionAnimation] {
+    open var motionTransitionAnimations: [MotionAnimation] {
         get {
             return motionTransition.animations
         }
@@ -168,7 +168,9 @@ open class MotionTransitionDelegate: NSObject {
     open var toView: UIView!
     
     open var toViews: [UIView] {
-        return [toViewController.view] + toViewController.view.subviews
+        var views: [UIView] = 0 < toViewController.view.motionTransitionIdentifier.utf16.count ? [toViewController.view] : []
+        subviews(of: toViewController.view, views: &views)
+        return views
     }
     
     open var toViewController: UIViewController!
@@ -180,13 +182,17 @@ open class MotionTransitionDelegate: NSObject {
     open var fromView: UIView!
     
     open var fromViews: [UIView] {
-        return [fromViewController.view] + fromViewController.view.subviews
+        var views: [UIView] = 0 < fromViewController.view.motionTransitionIdentifier.utf16.count ? [fromViewController.view] : []
+        subviews(of: fromViewController.view, views: &views)
+        return views
     }
     
     open var fromViewController: UIViewController!
     
     open var fromViewFinalFrame: CGRect!
-    
+}
+
+extension MotionTransitionDelegate {
     @objc(animateTransition:)
     open func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         
@@ -198,7 +204,18 @@ open class MotionTransitionDelegate: NSObject {
     }
     
     open func animationEnded(_ transitionCompleted: Bool) {
-//        print("MotionTransitionAnimator", #function)
+        //        print("MotionTransitionAnimator", #function)
+    }
+}
+
+extension MotionTransitionDelegate {
+    fileprivate func subviews(of view: UIView, views: inout [UIView]) {
+        for v in view.subviews {
+            if 0 < v.motionTransitionIdentifier.utf16.count {
+                views.append(v)
+            }
+            subviews(of: v, views: &views)
+        }
     }
 }
 
@@ -378,8 +395,8 @@ open class MotionTransitionAnimator: MotionTransitionDelegate, UIViewControllerA
         transitionContext.containerView.addSubview(toViewController.view)
         
         for v in toViews {
-            if 0 < v.transitionIdentifier.utf16.count {
-                for a in v.transitionAnimations {
+            if 0 < v.motionTransitionIdentifier.utf16.count {
+                for a in v.motionTransitionAnimations {
                     switch a {
                     case let .duration(dur):
                         if dur > duration {
@@ -388,7 +405,7 @@ open class MotionTransitionAnimator: MotionTransitionDelegate, UIViewControllerA
                     default:break
                     }
                 }
-                v.motion(v.transitionAnimations)
+                v.motion(v.motionTransitionAnimations)
             }
         }
             
@@ -437,87 +454,87 @@ open class MotionTransitionPresentedAnimator: MotionTransitionDelegate, UIViewCo
         transitionContext.containerView.addSubview(toViewController.view)
         
         for v in toViews {
-            if 0 < v.transitionIdentifier.utf16.count {
-                for v2 in fromViews {
-                    if v.transitionIdentifier == v2.transitionIdentifier {
-                        
-                        var d: TimeInterval = 0
-                        var a = [CABasicAnimation]()
-                        var tf = MotionAnimationTimingFunction.easeInEaseOut
-                        
-                        var w: CGFloat = 0
-                        var h: CGFloat = 0
-                        
-                        for ta in v.transitionAnimations {
-                            switch ta {
-                            case let .delay(time):
-                                if time > delay {
-                                    delay = time
-                                }
-                                d = time
-                            case let .duration(time):
-                                if time > duration {
-                                    duration = time
-                                }
-                            case let .width(width):
-                                w = width
-                            case let .height(height):
-                                h = height
-                            default:break
+            for v2 in fromViews {
+                if v.motionTransitionIdentifier == v2.motionTransitionIdentifier {
+                    
+                    var t: TimeInterval = 0
+                    var d: TimeInterval = 0
+                    var a = [CABasicAnimation]()
+                    var tf = MotionAnimationTimingFunction.easeInEaseOut
+                    
+                    var w: CGFloat = 0
+                    var h: CGFloat = 0
+                    
+                    for ta in v.motionTransitionAnimations {
+                        switch ta {
+                        case let .delay(time):
+                            if time > delay {
+                                delay = time
                             }
+                            t = time
+                        case let .duration(time):
+                            if time > duration {
+                                duration = time
+                            }
+                            d = time
+                        case let .width(width):
+                            w = width
+                        case let .height(height):
+                            h = height
+                        default:break
                         }
-                        
-                        
-                        var px: CGFloat = v.position.x
-                        var py: CGFloat = v.position.y
-                        
-                        for ta in v.transitionAnimations {
+                    }
+                    
+                    
+                    var px: CGFloat = v.position.x
+                    var py: CGFloat = v.position.y
+                    
+                    for ta in v.motionTransitionAnimations {
+                        switch ta {
+                        case let .x(x):
+                            px = x + w / 2
+                        case let .y(y):
+                            py = y + h / 2
+                        default:break
+                        }
+                    }
+                    
+                    Motion.delay(t) {
+                        for ta in v.motionTransitionAnimations {
                             switch ta {
+                            case let .timingFunction(timingFunction):
+                                tf = timingFunction
+                            case let .rotate(angle):
+                                let rotate = Motion.rotate(angle: angle)
+                                let radians = CGFloat(atan2f(Float(v2.transform.b), Float(v2.transform.a)))
+                                rotate.fromValue = v2.layer.value(forKeyPath: MotionAnimationKeyPath.rotation.rawValue)
+                                a.append(rotate)
+                            case let .backgroundColor(color):
+                                a.append(Motion.background(color: color))
+                            case let .corners(radius):
+                                a.append(Motion.corner(radius: radius))
                             case let .x(x):
-                                px = x + w / 2
+                                a.append(Motion.position(to: CGPoint(x: x + w / 2, y: py)))
                             case let .y(y):
-                                py = y + h / 2
+                                a.append(Motion.position(to: CGPoint(x: px, y: y + h / 2)))
+                            case let .position(x, y):
+                                a.append(Motion.position(to: CGPoint(x: x, y: y)))
+                            case let .shadow(path):
+                                a.append(Motion.shadow(path: path))
+                            case let .width(w):
+                                a.append(Motion.width(w))
+                            case let .height(h):
+                                a.append(Motion.height(h))
                             default:break
                             }
                         }
+                    
+                        let g = Motion.animate(group: a, duration: d)
+                        g.fillMode = MotionAnimationFillModeToValue(mode: .forwards)
+                        g.isRemovedOnCompletion = false
+                        g.timingFunction = MotionAnimationTimingFunctionToValue(timingFunction: tf)
                         
-                        Motion.delay(d) {
-                            for ta in v.transitionAnimations {
-                                switch ta {
-                                case let .timingFunction(timingFunction):
-                                    tf = timingFunction
-                                case let .rotate(angle):
-                                    let rotate = Motion.rotate(angle: angle)
-                                    let radians = CGFloat(atan2f(Float(v2.transform.b), Float(v2.transform.a)))
-                                    rotate.fromValue = v2.layer.value(forKeyPath: MotionAnimationKeyPath.rotation.rawValue)
-                                    a.append(rotate)
-                                case let .backgroundColor(color):
-                                    a.append(Motion.background(color: color))
-                                case let .corners(radius):
-                                    a.append(Motion.corner(radius: radius))
-                                case let .x(x):
-                                    a.append(Motion.position(to: CGPoint(x: x + w / 2, y: py)))
-                                case let .y(y):
-                                    a.append(Motion.position(to: CGPoint(x: px, y: y + h / 2)))
-                                case let .position(x, y):
-                                    a.append(Motion.position(to: CGPoint(x: x, y: y)))
-                                case let .shadow(path):
-                                    a.append(Motion.shadow(path: path))
-                                case let .width(w):
-                                    a.append(Motion.width(w))
-                                case let .height(h):
-                                    a.append(Motion.height(h))
-                                default:break
-                                }
-                            }
-                        
-                            let g = Motion.animate(group: a, duration: duration)
-                            g.fillMode = MotionAnimationFillModeToValue(mode: .forwards)
-                            g.isRemovedOnCompletion = false
-                            g.timingFunction = MotionAnimationTimingFunctionToValue(timingFunction: tf)
-                            
-                            v.animate(g)
-                        }
+                        v.animate(g)
                     }
                 }
             }
@@ -566,63 +583,60 @@ open class MotionTransitionDismissedAnimator: MotionTransitionDelegate, UIViewCo
         var duration = transitionDuration(using: nil)
         
         for v in fromViews {
-            if 0 < v.transitionIdentifier.utf16.count {
-                for v2 in toViews {
-                    if v.transitionIdentifier == v2.transitionIdentifier {
-                        
-                        var d: TimeInterval = 0
-                        var a = [CABasicAnimation]()
-                        var tf = MotionAnimationTimingFunction.easeInEaseOut
-                        
-                        for ta in v.transitionAnimations {
-                            switch ta {
-                            case let .delay(time):
-                                if time > delay {
-                                    delay = time
-                                }
-                                d = time
-                            case let .duration(time):
-                                if time > duration {
-                                    duration = time
-                                }
-                            case let .timingFunction(timingFunction):
-                                tf = timingFunction
-                            case let .rotate(angle):
-                                let radians = CGFloat(atan2f(Float(v2.transform.b), Float(v2.transform.a)))
-                                let rotate = Motion.rotate(angle: radians * 180 / CGFloat(M_PI))
-                                rotate.fromValue = v.layer.value(forKeyPath: MotionAnimationKeyPath.rotation.rawValue)
-                                a.append(rotate)
-                            case let .backgroundColor(color):
-                                guard let bgColor = v2.backgroundColor else {
-                                    continue
-                                }
-                                a.append(Motion.background(color: bgColor))
-                            case let .corners(radius):
-                                a.append(Motion.corner(radius: v2.cornerRadius))
-                            case let .x(x):
-                                a.append(Motion.position(to: v2.position))
-                            case let .y(y):
-                                a.append(Motion.position(to: v2.position))
-                            case let .position(x, y):
-                                a.append(Motion.position(to: v2.position))
-                            case let .shadow(path):
-                                a.append(Motion.shadow(path: path))
-                            case let .width(w):
-                                a.append(Motion.width(v2.bounds.width))
-                            case let .height(h):
-                                a.append(Motion.height(v2.bounds.height))
-                            default:break
+            for v2 in toViews {
+                if v.motionTransitionIdentifier == v2.motionTransitionIdentifier {
+                    
+                    var t: TimeInterval = 0
+                    var d: TimeInterval = 0
+                    var a = [CABasicAnimation]()
+                    var tf = MotionAnimationTimingFunction.easeInEaseOut
+                    
+                    for ta in v.motionTransitionAnimations {
+                        switch ta {
+                        case let .delay(time):
+                            if time > delay {
+                                delay = time
                             }
+                            t = time
+                        case let .duration(time):
+                            if time > duration {
+                                duration = time
+                            }
+                            d = time
+                        case let .timingFunction(timingFunction):
+                            tf = timingFunction
+                        case let .rotate(angle):
+                            let radians = CGFloat(atan2f(Float(v2.transform.b), Float(v2.transform.a)))
+                            let rotate = Motion.rotate(angle: radians * 180 / CGFloat(M_PI))
+                            rotate.fromValue = v.layer.value(forKeyPath: MotionAnimationKeyPath.rotation.rawValue)
+                            a.append(rotate)
+                        case let .backgroundColor(color):
+                            a.append(Motion.background(color: .clear))
+                        case let .corners(radius):
+                            a.append(Motion.corner(radius: v2.cornerRadius))
+                        case let .x(x):
+                            a.append(Motion.position(to: v2.position))
+                        case let .y(y):
+                            a.append(Motion.position(to: v2.position))
+                        case let .position(x, y):
+                            a.append(Motion.position(to: v2.position))
+                        case let .shadow(path):
+                            a.append(Motion.shadow(path: path))
+                        case let .width(w):
+                            a.append(Motion.width(v2.bounds.width))
+                        case let .height(h):
+                            a.append(Motion.height(v2.bounds.height))
+                        default:break
                         }
+                    }
+                    
+                    Motion.delay(t) {
+                        let g = Motion.animate(group: a, duration: d)
+                        g.fillMode = MotionAnimationFillModeToValue(mode: .forwards)
+                        g.isRemovedOnCompletion = false
+                        g.timingFunction = MotionAnimationTimingFunctionToValue(timingFunction: tf)
                         
-                        Motion.delay(d) {
-                            let g = Motion.animate(group: a, duration: duration)
-                            g.fillMode = MotionAnimationFillModeToValue(mode: .forwards)
-                            g.isRemovedOnCompletion = false
-                            g.timingFunction = MotionAnimationTimingFunctionToValue(timingFunction: tf)
-                            
-                            v.animate(g)
-                        }
+                        v.animate(g)
                     }
                 }
             }
@@ -638,113 +652,5 @@ open class MotionTransitionInteractiveAnimator: MotionTransitionInteractiveDeleg
     open override func startInteractiveTransition(_ transitionContext: UIViewControllerContextTransitioning) {
         super.startInteractiveTransition(transitionContext)
         
-    }
-}
-
-open class FadeMotionTransition: NSObject, UIViewControllerAnimatedTransitioning {
-    open func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        guard let fromView = transitionContext.view(forKey: .from) else {
-            return
-        }
-        
-        guard let toView = transitionContext.view(forKey: .to) else {
-            return
-        }
-        
-        toView.alpha = 0
-        
-        transitionContext.containerView.addSubview(fromView)
-        transitionContext.containerView.addSubview(toView)
-        
-        UIView.animate(withDuration: transitionDuration(using: transitionContext),
-            animations: { _ in
-            toView.alpha = 1
-            fromView.alpha = 0
-        }) { _ in
-            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-        }
-    }
-    
-    open func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return 0.35
-    }
-    
-    open func animationEnded(_ transitionCompleted: Bool) {
-//        print("FadeMotionTransition ANIMATION ENDED")
-    }
-}
-
-open class SlideMotionTransition: NSObject, UIViewControllerAnimatedTransitioning {
-    var operation: UINavigationControllerOperation
-    
-    init(operation: UINavigationControllerOperation) {
-        self.operation = operation
-    }
-    
-    open func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        guard let fromView = transitionContext.view(forKey: .from) else {
-            return
-        }
-        
-        guard let toView = transitionContext.view(forKey: .to) else {
-            return
-        }
-        
-        var duration = transitionDuration(using: nil)
-        
-        if operation == .push {
-            transitionContext.containerView.addSubview(toView)
-            
-            for v in toView.subviews {
-                if 0 < v.transitionIdentifier.utf16.count {
-                    for a in v.transitionAnimations {
-                        switch a {
-                        case let .duration(dur):
-                            if dur > duration {
-                                duration = dur
-                            }
-                        default:break
-                        }
-                    }
-                    v.motion(v.transitionAnimations)
-                }
-            }
-            
-            Motion.delay(duration) {
-                transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-            }
-        }
-        
-        if operation == .pop {
-            transitionContext.containerView.addSubview(fromView)
-            
-            for v in fromView.subviews {
-                if 0 < v.transitionIdentifier.utf16.count {
-                    for a in v.transitionAnimations {
-                        switch a {
-                        case let .duration(dur):
-                            if dur > duration {
-                                duration = dur
-                            }
-                        default:break
-                        }
-                    }
-                    v.motion(v.transitionAnimations)
-                }
-            }
-            
-            Motion.delay(duration) {
-                transitionContext.containerView.addSubview(toView)
-                transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-            }
-        }
-    }
-    
-    open func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return 0.35
-    }
-    
-    open func animationEnded(_ transitionCompleted: Bool) {
-//        print("SlideMotionTransition ANIMATION ENDED")
     }
 }
