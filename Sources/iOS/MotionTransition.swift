@@ -495,6 +495,9 @@ open class MotionTransitionPresentedAnimator: MotionTransitionDelegate, UIViewCo
                             px = x + w / 2
                         case let .y(y):
                             py = y + h / 2
+                        case let .point(x, y):
+                            px = x + w / 2
+                            py = y + h / 2
                         default:break
                         }
                     }
@@ -513,10 +516,8 @@ open class MotionTransitionPresentedAnimator: MotionTransitionDelegate, UIViewCo
                                 a.append(Motion.background(color: color))
                             case let .corners(radius):
                                 a.append(Motion.corner(radius: radius))
-                            case let .x(x):
-                                a.append(Motion.position(to: CGPoint(x: x + w / 2, y: py)))
-                            case let .y(y):
-                                a.append(Motion.position(to: CGPoint(x: px, y: y + h / 2)))
+                            case let .x(_), .y(_), .point(_, _):
+                                a.append(Motion.position(to: CGPoint(x: px, y: py)))
                             case let .position(x, y):
                                 a.append(Motion.position(to: CGPoint(x: x, y: y)))
                             case let .shadow(path):
@@ -614,12 +615,8 @@ open class MotionTransitionDismissedAnimator: MotionTransitionDelegate, UIViewCo
                             a.append(Motion.background(color: .clear))
                         case let .corners(radius):
                             a.append(Motion.corner(radius: v2.cornerRadius))
-                        case let .x(x):
-                            a.append(Motion.position(to: v2.position))
-                        case let .y(y):
-                            a.append(Motion.position(to: v2.position))
-                        case let .position(x, y):
-                            a.append(Motion.position(to: v2.position))
+                        case let .x(_), .y(_), .point(_, _), .position(_, _):
+                            a.append(Motion.position(to: nil == v2.superview ? v2.position : v2.superview!.convert(v2.position, to: nil)))
                         case let .shadow(path):
                             a.append(Motion.shadow(path: path))
                         case let .width(w):

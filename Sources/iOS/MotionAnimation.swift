@@ -80,6 +80,7 @@ public enum MotionAnimation {
     case translateZ(CGFloat)
     case x(CGFloat)
     case y(CGFloat)
+    case point(x: CGFloat, y: CGFloat)
     case position(x: CGFloat, y: CGFloat)
     case shadow(path: CGPath)
     case fade(CGFloat)
@@ -242,6 +243,8 @@ extension CALayer {
                     a.append(Motion.position(to: CGPoint(x: x + w / 2, y: s.position.y)))
                 case let .y(y):
                     a.append(Motion.position(to: CGPoint(x: s.position.x, y: y + h / 2)))
+                case let .point(x, y):
+                    a.append(Motion.position(to: CGPoint(x: x + w / 2, y: y + h / 2)))
                 case let .position(x, y):
                     a.append(Motion.position(to: CGPoint(x: x, y: y)))
                 case let .shadow(path):
