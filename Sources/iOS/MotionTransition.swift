@@ -166,12 +166,25 @@ open class MotionTransitionDelegate: NSObject {
     open var containerView: UIView!
     
     open var toView: UIView!
+    
+    open var toViews: [UIView] {
+        return [toViewController.view] + toViewController.view.subviews
+    }
+    
     open var toViewController: UIViewController!
+    
     open var toViewStartFrame: CGRect!
+    
     open var toViewFinalFrame: CGRect!
     
     open var fromView: UIView!
+    
+    open var fromViews: [UIView] {
+        return [fromViewController.view] + fromViewController.view.subviews
+    }
+    
     open var fromViewController: UIViewController!
+    
     open var fromViewFinalFrame: CGRect!
     
     @objc(animateTransition:)
@@ -364,7 +377,7 @@ open class MotionTransitionAnimator: MotionTransitionDelegate, UIViewControllerA
         
         transitionContext.containerView.addSubview(toViewController.view)
         
-        for v in toViewController.view.subviews {
+        for v in toViews {
             if 0 < v.transitionIdentifier.utf16.count {
                 for a in v.transitionAnimations {
                     switch a {
@@ -423,9 +436,9 @@ open class MotionTransitionPresentedAnimator: MotionTransitionDelegate, UIViewCo
         
         transitionContext.containerView.addSubview(toViewController.view)
         
-        for v in toViewController.view.subviews {
+        for v in toViews {
             if 0 < v.transitionIdentifier.utf16.count {
-                for v2 in fromViewController.view.subviews {
+                for v2 in fromViews {
                     if v.transitionIdentifier == v2.transitionIdentifier {
                         
                         var d: TimeInterval = 0
@@ -434,8 +447,6 @@ open class MotionTransitionPresentedAnimator: MotionTransitionDelegate, UIViewCo
                         
                         var w: CGFloat = 0
                         var h: CGFloat = 0
-                        var px: CGFloat = v.position.x
-                        var py: CGFloat = v.position.y
                         
                         for ta in v.transitionAnimations {
                             switch ta {
@@ -455,6 +466,10 @@ open class MotionTransitionPresentedAnimator: MotionTransitionDelegate, UIViewCo
                             default:break
                             }
                         }
+                        
+                        
+                        var px: CGFloat = v.position.x
+                        var py: CGFloat = v.position.y
                         
                         for ta in v.transitionAnimations {
                             switch ta {
@@ -550,9 +565,9 @@ open class MotionTransitionDismissedAnimator: MotionTransitionDelegate, UIViewCo
         var delay: TimeInterval = 0
         var duration = transitionDuration(using: nil)
         
-        for v in fromViewController.view.subviews {
+        for v in fromViews {
             if 0 < v.transitionIdentifier.utf16.count {
-                for v2 in toViewController.view.subviews {
+                for v2 in toViews {
                     if v.transitionIdentifier == v2.transitionIdentifier {
                         
                         var d: TimeInterval = 0
@@ -578,7 +593,10 @@ open class MotionTransitionDismissedAnimator: MotionTransitionDelegate, UIViewCo
                                 rotate.fromValue = v.layer.value(forKeyPath: MotionAnimationKeyPath.rotation.rawValue)
                                 a.append(rotate)
                             case let .backgroundColor(color):
-                                a.append(Motion.background(color: v2.backgroundColor ?? .clear))
+                                guard let bgColor = v2.backgroundColor else {
+                                    continue
+                                }
+                                a.append(Motion.background(color: bgColor))
                             case let .corners(radius):
                                 a.append(Motion.corner(radius: v2.cornerRadius))
                             case let .x(x):
@@ -730,158 +748,3 @@ open class SlideMotionTransition: NSObject, UIViewControllerAnimatedTransitionin
 //        print("SlideMotionTransition ANIMATION ENDED")
     }
 }
-
-//open class MotionTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
-//    var presenting = false
-//    
-//    open func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-//        let containerView = transitionContext.containerView
-//        
-//        guard let fromVC = transitionContext.viewController(forKey: .from) else {
-//            return
-//        }
-//        
-//        guard let toVC = transitionContext.viewController(forKey: .to) else {
-//            return
-//        }
-//        
-//        guard let fromView = transitionContext.view(forKey: .from) else {
-//            return
-//        }
-//        
-//        guard let toView = transitionContext.view(forKey: .to) else {
-//            return
-//        }
-//        
-//        let containerFrame = containerView.frame
-//        var toViewStartFrame = transitionContext.initialFrame(for: toVC)
-//        let toViewFinalFrame = transitionContext.finalFrame(for: toVC)
-//        var fromViewFinalFrame = transitionContext.finalFrame(for: fromVC)
-//        
-//        // Set up the animation parameters.
-//        if (presenting) {
-//            // Modify the frame of the presented view so that it starts
-//            // offscreen at the lower-right corner of the container.
-//            toViewStartFrame.origin.x = containerFrame.size.width;
-//            toViewStartFrame.origin.y = containerFrame.size.height;
-//        }
-//        else {
-//            // Modify the frame of the dismissed view so it ends in
-//            // the lower-right corner of the container view.
-//            fromViewFinalFrame = CGRect(x: containerFrame.size.width,
-//                                        y: containerFrame.size.height,
-//                                        width: toView.frame.size.width,
-//                                        height: toView.frame.size.height);
-//        }
-//        
-//        // Always add the "to" view to the container.
-//        // And it doesn't hurt to set its start frame.
-//        containerView.addSubview(toView)
-//        toView.frame = toViewStartFrame;
-//        
-//        UIView.animate(withDuration: transitionDuration(using: nil), animations: { [weak self] in
-//            guard let s = self else {
-//                return
-//            }
-//            
-//            if s.presenting {
-//                toView.frame = toViewFinalFrame
-//            } else {
-//                fromView.frame = fromViewFinalFrame
-//            }
-//            
-//        }, completion: { [weak self] _ in
-//            guard let s = self else {
-//                return
-//            }
-//            
-//            let success = !transitionContext.transitionWasCancelled
-//            if (s.presenting && !success) || (!s.presenting && success) {
-//                toView.removeFromSuperview()
-//            }
-//            
-//            transitionContext.completeTransition(success)
-//        })
-//    }
-//
-//    open func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-//        return 0.25
-//    }
-//}
-
-
-//@objc(TransitionMotion)
-//public enum TransitionMotion: Int {
-//	case fade
-//	case moveIn
-//	case push
-//	case reveal
-//}
-//
-//@objc(TransitionMotionDirection)
-//public enum TransitionMotionDirection: Int {
-//	case `default`
-//    case right
-//	case left
-//	case top
-//	case bottom
-//}
-//
-///**
-// Converts an TransitionMotion to a corresponding CATransition key.
-// - Parameter transition: An TransitionMotion.
-// - Returns: A CATransition key String.
-// */
-//public func TransitionMotionToValue(transition type: TransitionMotion) -> String {
-//	switch type {
-//	case .fade:
-//		return kCATransitionFade
-//	case .moveIn:
-//		return kCATransitionMoveIn
-//	case .push:
-//		return kCATransitionPush
-//	case .reveal:
-//		return kCATransitionReveal
-//	}
-//}
-//
-///**
-// Converts an TransitionMotionDirection to a corresponding CATransition direction key.
-// - Parameter direction: An TransitionMotionDirection.
-// - Returns: An optional CATransition direction key String.
-// */
-//public func TransitionMotionDirectionToValue(direction: TransitionMotionDirection) -> String? {
-//	switch direction {
-//    case .default:
-//        return nil
-//    case .right:
-//		return kCATransitionFromRight
-//	case .left:
-//		return kCATransitionFromLeft
-//	case .top:
-//		return kCATransitionFromBottom
-//	case .bottom:
-//		return kCATransitionFromTop
-//	}
-//}
-//
-//extension Motion {
-//	/**
-//     Creates a CATransition animation.
-//     - Parameter type: An TransitionMotion.
-//     - Parameter direction: An optional TransitionMotionDirection.
-//     - Parameter duration: An optional duration time.
-//     - Returns: A CATransition.
-//     */
-//	public static func transition(type: TransitionMotion, direction: TransitionMotionDirection = .default, duration: CFTimeInterval? = nil) -> CATransition {
-//		let animation = CATransition()
-//		animation.type = TransitionMotionToValue(transition: type)
-//        animation.subtype = TransitionMotionDirectionToValue(direction: direction)
-//		
-//        if let v = duration {
-//			animation.duration = v
-//		}
-//		
-//        return animation
-//	}
-//}
