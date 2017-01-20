@@ -30,6 +30,12 @@
 
 import UIKit
 
+@objc(TextFieldPlaceholderAnimation)
+public enum TextFieldPlaceholderAnimation: Int {
+    case `default`
+    case hidden
+}
+
 @objc(TextFieldDelegate)
 public protocol TextFieldDelegate: UITextFieldDelegate {
     /**
@@ -66,6 +72,13 @@ open class TextField: UITextField {
     /// A Boolean that indicates if the placeholder label is animated.
     @IBInspectable
     open var isPlaceholderAnimated = true
+    
+    /// Set the placeholder animation value.
+    open var placeholderAnimation = TextFieldPlaceholderAnimation.default {
+        didSet {
+            placeholderLabel.isHidden = .hidden == placeholderAnimation && !isEmpty
+        }
+    }
     
     /// A boolean indicating whether the text is empty.
     open var isEmpty: Bool {
@@ -599,6 +612,11 @@ extension TextField {
     
     /// The animation for the placeholder when editing begins.
     fileprivate func placeholderEditingDidBeginAnimation() {
+        guard .default == placeholderAnimation else {
+            placeholderLabel.isHidden = true
+            return
+        }
+        
         updatePlaceholderLabelColor()
         
         guard isPlaceholderAnimated else {
@@ -630,6 +648,11 @@ extension TextField {
     
     /// The animation for the placeholder when editing ends.
     fileprivate func placeholderEditingDidEndAnimation() {
+        guard .default == placeholderAnimation else {
+            placeholderLabel.isHidden = !isEmpty
+            return
+        }
+        
         updatePlaceholderLabelColor()
         
         guard isPlaceholderAnimated else {
