@@ -123,7 +123,7 @@ extension UIView {
 
 open class MotionTransitionPresentationController: UIPresentationController {
     open override func presentationTransitionWillBegin() {
-        guard let containerView = containerView else {
+        guard nil != containerView else {
             return
         }
         
@@ -139,7 +139,7 @@ open class MotionTransitionPresentationController: UIPresentationController {
     }
     
     open override func dismissalTransitionWillBegin() {
-        guard let containerView = containerView else {
+        guard nil != containerView else {
             return
         }
         
@@ -161,62 +161,10 @@ open class MotionTransitionPresentationController: UIPresentationController {
 
 open class MotionTransitionDelegate: NSObject {
     open var isPresenting = false
-    open var transitionContext: UIViewControllerContextTransitioning!
-    
-    open var containerView: UIView!
-    
-    open var toView: UIView!
-    
-    open var toViews: [UIView] {
-        var views: [UIView] = 0 < toViewController.view.motionTransitionIdentifier.utf16.count ? [toViewController.view] : []
-        subviews(of: toViewController.view, views: &views)
-        return views
-    }
     
     open var toViewController: UIViewController!
     
-    open var toViewStartFrame: CGRect!
-    
-    open var toViewFinalFrame: CGRect!
-    
-    open var fromView: UIView!
-    
-    open var fromViews: [UIView] {
-        var views: [UIView] = 0 < fromViewController.view.motionTransitionIdentifier.utf16.count ? [fromViewController.view] : []
-        subviews(of: fromViewController.view, views: &views)
-        return views
-    }
-    
     open var fromViewController: UIViewController!
-    
-    open var fromViewFinalFrame: CGRect!
-}
-
-extension MotionTransitionDelegate {
-    @objc(animateTransition:)
-    open func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        
-    }
-    
-    @objc(transitionDuration:)
-    open func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return 0.25
-    }
-    
-    open func animationEnded(_ transitionCompleted: Bool) {
-        //        print("MotionTransitionAnimator", #function)
-    }
-}
-
-extension MotionTransitionDelegate {
-    fileprivate func subviews(of view: UIView, views: inout [UIView]) {
-        for v in view.subviews {
-            if 0 < v.motionTransitionIdentifier.utf16.count {
-                views.append(v)
-            }
-            subviews(of: v, views: &views)
-        }
-    }
 }
 
 extension MotionTransitionDelegate: UIViewControllerTransitioningDelegate {
@@ -263,6 +211,262 @@ extension MotionTransitionDelegate: UITabBarControllerDelegate {
     
     open func tabBarController(_ tabBarController: UITabBarController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         return MotionTransitionInteractiveAnimator()
+    }
+}
+
+open class MotionTransitionAnimator: MotionTransitionDelegate {
+    open var transitionContext: UIViewControllerContextTransitioning!
+    
+    open var delay: TimeInterval = 0
+    open var duration: TimeInterval = 0
+    
+    open var containerView: UIView!
+    open var transitionView = UIView()
+    
+    public var toViews: [UIView] {
+        var views: [UIView] = 0 < toViewController.view.motionTransitionIdentifier.utf16.count ? [toViewController.view] : []
+        subviews(of: toViewController.view, views: &views)
+        return views
+    }
+    
+    public var fromViews: [UIView] {
+        var views: [UIView] = 0 < fromViewController.view.motionTransitionIdentifier.utf16.count ? [fromViewController.view] : []
+        subviews(of: fromViewController.view, views: &views)
+        return views
+    }
+}
+
+extension MotionTransitionAnimator: UIViewControllerAnimatedTransitioning {
+    @objc(animateTransition:)
+    open func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        guard let tVC = transitionContext.viewController(forKey: .to) else {
+            return
+        }
+        
+        guard let fVC = transitionContext.viewController(forKey: .from) else {
+            return
+        }
+
+        self.transitionContext = transitionContext
+        
+        containerView = transitionContext.containerView
+        containerView.addSubview(transitionView)
+        transitionView.frame = containerView.bounds
+        
+        toViewController = tVC
+        fromViewController = fVC
+    }
+    
+    @objc(transitionDuration:)
+    open func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+        return delay + duration
+    }
+}
+
+extension MotionTransitionDelegate {
+    fileprivate func subviews(of view: UIView, views: inout [UIView]) {
+        for v in view.subviews {
+            if 0 < v.motionTransitionIdentifier.utf16.count {
+                views.append(v)
+            }
+            subviews(of: v, views: &views)
+        }
+    }
+    
+    fileprivate func snapshotView(for view: UIView) -> UIView {
+        view.isHidden = false
+        
+        // capture a snapshot without cornerRadius
+        let oldCornerRadius = view.cornerRadius
+        view.cornerRadius = 0
+        let v = view.snapshotView(afterScreenUpdates: false)!
+        view.cornerRadius = oldCornerRadius
+        
+        let contentView = v.subviews.first!
+        contentView.cornerRadius = view.cornerRadius
+        contentView.masksToBounds = true
+        
+        v.motionTransitionIdentifier = view.motionTransitionIdentifier
+        v.cornerRadius = view.cornerRadius
+        v.zPosition = view.zPosition
+        v.opacity = view.opacity
+        v.isOpaque = view.isOpaque
+        v.anchorPoint = view.anchorPoint
+        v.layer.masksToBounds = view.layer.masksToBounds
+        v.borderColor = view.borderColor
+        v.borderWidth = view.borderWidth
+        v.shadowRadius = view.shadowRadius
+        v.shadowOpacity = view.shadowOpacity
+        v.shadowColor = view.shadowColor
+        v.shadowOffset = view.shadowOffset
+        
+        v.layer.transform = view.layer.transform
+        
+        view.isHidden = true
+        
+        return v
+    }
+}
+
+open class MotionTransitionPresentedAnimator: MotionTransitionAnimator {
+    @objc(animateTransition:)
+    open override func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        super.animateTransition(using: transitionContext)
+        
+        for toView in toViews {
+            for fromView in fromViews {
+                if toView.motionTransitionIdentifier == fromView.motionTransitionIdentifier {
+                    
+                    var t: TimeInterval = 0
+                    var d: TimeInterval = 0
+                    var a = [CABasicAnimation]()
+                    var tf = MotionAnimationTimingFunction.easeInEaseOut
+                    
+                    for ta in toView.motionTransitionAnimations {
+                        switch ta {
+                        case let .delay(time):
+                            if time > delay {
+                                delay = time
+                            }
+                            t = time
+                        case let .duration(time):
+                            if time > duration {
+                                duration = time
+                            }
+                            d = time
+                        default:break
+                        }
+                    }
+                    
+//                    var w: CGFloat = toView.bounds.width
+//                    var h: CGFloat = toView.bounds.height
+//                    var px: CGFloat = toView.position.x + w / 2
+//                    var py: CGFloat = toView.position.y + h / 2
+//                    a.append(Motion.position(x: px, y: py))
+//                    a.append(Motion.width(w))
+//                    a.append(Motion.height(h))
+                    
+//                    let rotate = Motion.rotate(angle: toView.layer.value(forKeyPath: MotionAnimationKeyPath.rotation.rawValue) as? CGFloat ?? 0)
+//                    rotate.fromValue = fromView.layer.value(forKeyPath: MotionAnimationKeyPath.rotation.rawValue)
+//                    a.append(rotate)
+                    
+                    a.append(Motion.background(color: toView.backgroundColor ?? .clear))
+//                    a.append(Motion.corner(radius: toView.cornerRadius))
+                    
+                    let snapshot = snapshotView(for: fromView)
+                    snapshot.isHidden = false
+                    snapshot.bounds = fromView.bounds
+                    snapshot.position = fromView.superview?.convert(fromView.position, to: nil) ?? fromView.position
+                    transitionView.addSubview(snapshot)
+                    
+                    Motion.delay(t) {
+                        for ta in toView.motionTransitionAnimations {
+                            switch ta {
+                            case let .timingFunction(timingFunction):
+                                tf = timingFunction
+                            case let .shadow(path):
+                                a.append(Motion.shadow(path: path))
+                            default:break
+                            }
+                        }
+                    
+                        let g = Motion.animate(group: a, duration: d)
+                        g.fillMode = MotionAnimationFillModeToValue(mode: .forwards)
+                        g.isRemovedOnCompletion = false
+                        g.timingFunction = MotionAnimationTimingFunctionToValue(timingFunction: tf)
+                        
+                        snapshot.animate(g)
+                    }
+                }
+            }
+        }
+        
+        Motion.delay(transitionDuration(using: transitionContext)) { [weak self] in
+            defer {
+                transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+            }
+            
+            guard let s = self else {
+                return
+            }
+            
+//            s.transitionView.removeFromSuperview()
+            s.containerView.addSubview(s.toViewController.view)
+        }
+    }
+}
+
+open class MotionTransitionDismissedAnimator: MotionTransitionAnimator {
+    @objc(animateTransition:)
+    open override func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        super.animateTransition(using: transitionContext)
+        
+        for v in fromViews {
+            for v2 in toViews {
+                if v.motionTransitionIdentifier == v2.motionTransitionIdentifier {
+                    
+                    var t: TimeInterval = 0
+                    var d: TimeInterval = 0
+                    var a = [CABasicAnimation]()
+                    var tf = MotionAnimationTimingFunction.easeInEaseOut
+                    
+                    for ta in v.motionTransitionAnimations {
+                        switch ta {
+                        case let .delay(time):
+                            if time > delay {
+                                delay = time
+                            }
+                            t = time
+                        case let .duration(time):
+                            if time > duration {
+                                duration = time
+                            }
+                            d = time
+                        case let .timingFunction(timingFunction):
+                            tf = timingFunction
+                        case .rotate(_):
+                            let radians = CGFloat(atan2f(Float(v2.transform.b), Float(v2.transform.a)))
+                            let rotate = Motion.rotate(angle: radians * 180 / CGFloat(M_PI))
+                            rotate.fromValue = v.layer.value(forKeyPath: MotionAnimationKeyPath.rotation.rawValue)
+                            a.append(rotate)
+                        case .backgroundColor(_):
+                            a.append(Motion.background(color: .clear))
+                        case .corners(_):
+                            a.append(Motion.corner(radius: v2.cornerRadius))
+                        case .x(_), .y(_), .point(_, _), .position(_, _):
+                            a.append(Motion.position(to: nil == v2.superview ? v2.position : v2.superview!.convert(v2.position, to: nil)))
+                        case let .shadow(path):
+                            a.append(Motion.shadow(path: path))
+                        case .width(_):
+                            a.append(Motion.width(v2.bounds.width))
+                        case .height(_):
+                            a.append(Motion.height(v2.bounds.height))
+                        default:break
+                        }
+                    }
+                    
+                    Motion.delay(t) {
+                        let g = Motion.animate(group: a, duration: d)
+                        g.fillMode = MotionAnimationFillModeToValue(mode: .forwards)
+                        g.isRemovedOnCompletion = false
+                        g.timingFunction = MotionAnimationTimingFunctionToValue(timingFunction: tf)
+                        
+                        v.animate(g)
+                    }
+                }
+            }
+        }
+        
+        Motion.delay(delay + duration) {
+            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+        }
+    }
+}
+
+open class MotionTransitionInteractiveAnimator: MotionTransitionInteractiveDelegate {
+    open override func startInteractiveTransition(_ transitionContext: UIViewControllerContextTransitioning) {
+        super.startInteractiveTransition(transitionContext)
+        
     }
 }
 
@@ -321,7 +525,7 @@ open class MotionTransitionInteractiveDelegate: UIPercentDrivenInteractiveTransi
     }
     
     open func animationEnded(_ transitionCompleted: Bool) {
-//        print("MotionTransitionAnimator", #function)
+        //        print("MotionTransitionAnimator", #function)
     }
 }
 
@@ -354,300 +558,5 @@ extension MotionTransitionInteractiveDelegate {
             containerView.removeGestureRecognizer(panGesture)
         default:break
         }
-    }
-}
-
-open class MotionTransitionAnimator: MotionTransitionDelegate, UIViewControllerAnimatedTransitioning {
-    @objc(animateTransition:)
-    open override func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-//        guard let tView = transitionContext.view(forKey: .to) else {
-//            return
-//        }
-        
-        guard let tVC = transitionContext.viewController(forKey: .to) else {
-            return
-        }
-        
-//        guard let fView = transitionContext.view(forKey: .from) else {
-//            return
-//        }
-        
-        guard let fVC = transitionContext.viewController(forKey: .from) else {
-            return
-        }
-
-        self.transitionContext = transitionContext
-        
-        containerView = transitionContext.containerView
-        
-//        toView = tView
-        toViewController = tVC
-        
-//        fromView = fView
-        fromViewController = fVC
-        
-        toViewStartFrame = transitionContext.initialFrame(for: toViewController)
-        toViewFinalFrame = transitionContext.finalFrame(for: toViewController)
-        fromViewFinalFrame = transitionContext.finalFrame(for: fromViewController)
-        
-        var duration = transitionDuration(using: nil)
-        
-        transitionContext.containerView.addSubview(toViewController.view)
-        
-        for v in toViews {
-            if 0 < v.motionTransitionIdentifier.utf16.count {
-                for a in v.motionTransitionAnimations {
-                    switch a {
-                    case let .duration(dur):
-                        if dur > duration {
-                            duration = dur
-                        }
-                    default:break
-                    }
-                }
-                v.motion(v.motionTransitionAnimations)
-            }
-        }
-            
-        Motion.delay(duration) {
-            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-        }
-    }
-}
-
-open class MotionTransitionPresentedAnimator: MotionTransitionDelegate, UIViewControllerAnimatedTransitioning {
-    @objc(animateTransition:)
-    open override func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        //        guard let tView = transitionContext.view(forKey: .to) else {
-        //            return
-        //        }
-        
-        guard let tVC = transitionContext.viewController(forKey: .to) else {
-            return
-        }
-        
-        //        guard let fView = transitionContext.view(forKey: .from) else {
-        //            return
-        //        }
-        
-        guard let fVC = transitionContext.viewController(forKey: .from) else {
-            return
-        }
-        
-        self.transitionContext = transitionContext
-        
-        containerView = transitionContext.containerView
-        
-        //        toView = tView
-        toViewController = tVC
-        
-        //        fromView = fView
-        fromViewController = fVC
-        
-        toViewStartFrame = transitionContext.initialFrame(for: toViewController)
-        toViewFinalFrame = transitionContext.finalFrame(for: toViewController)
-        fromViewFinalFrame = transitionContext.finalFrame(for: fromViewController)
-        
-        var delay: TimeInterval = 0
-        var duration = transitionDuration(using: nil)
-        
-        transitionContext.containerView.addSubview(toViewController.view)
-        
-        for v in toViews {
-            for v2 in fromViews {
-                if v.motionTransitionIdentifier == v2.motionTransitionIdentifier {
-                    
-                    var t: TimeInterval = 0
-                    var d: TimeInterval = 0
-                    var a = [CABasicAnimation]()
-                    var tf = MotionAnimationTimingFunction.easeInEaseOut
-                    
-                    var w: CGFloat = 0
-                    var h: CGFloat = 0
-                    
-                    for ta in v.motionTransitionAnimations {
-                        switch ta {
-                        case let .delay(time):
-                            if time > delay {
-                                delay = time
-                            }
-                            t = time
-                        case let .duration(time):
-                            if time > duration {
-                                duration = time
-                            }
-                            d = time
-                        case let .width(width):
-                            w = width
-                        case let .height(height):
-                            h = height
-                        default:break
-                        }
-                    }
-                    
-                    
-                    var px: CGFloat = v.position.x
-                    var py: CGFloat = v.position.y
-                    
-                    for ta in v.motionTransitionAnimations {
-                        switch ta {
-                        case let .x(x):
-                            px = x + w / 2
-                        case let .y(y):
-                            py = y + h / 2
-                        case let .point(x, y):
-                            px = x + w / 2
-                            py = y + h / 2
-                        default:break
-                        }
-                    }
-                    
-                    Motion.delay(t) {
-                        for ta in v.motionTransitionAnimations {
-                            switch ta {
-                            case let .timingFunction(timingFunction):
-                                tf = timingFunction
-                            case let .rotate(angle):
-                                let rotate = Motion.rotate(angle: angle)
-                                let radians = CGFloat(atan2f(Float(v2.transform.b), Float(v2.transform.a)))
-                                rotate.fromValue = v2.layer.value(forKeyPath: MotionAnimationKeyPath.rotation.rawValue)
-                                a.append(rotate)
-                            case let .backgroundColor(color):
-                                a.append(Motion.background(color: color))
-                            case let .corners(radius):
-                                a.append(Motion.corner(radius: radius))
-                            case let .x(_), .y(_), .point(_, _):
-                                a.append(Motion.position(to: CGPoint(x: px, y: py)))
-                            case let .position(x, y):
-                                a.append(Motion.position(to: CGPoint(x: x, y: y)))
-                            case let .shadow(path):
-                                a.append(Motion.shadow(path: path))
-                            case let .width(w):
-                                a.append(Motion.width(w))
-                            case let .height(h):
-                                a.append(Motion.height(h))
-                            default:break
-                            }
-                        }
-                    
-                        let g = Motion.animate(group: a, duration: d)
-                        g.fillMode = MotionAnimationFillModeToValue(mode: .forwards)
-                        g.isRemovedOnCompletion = false
-                        g.timingFunction = MotionAnimationTimingFunctionToValue(timingFunction: tf)
-                        
-                        v.animate(g)
-                    }
-                }
-            }
-        }
-        
-        Motion.delay(delay + duration) {
-            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-        }
-    }
-}
-
-open class MotionTransitionDismissedAnimator: MotionTransitionDelegate, UIViewControllerAnimatedTransitioning {
-    @objc(animateTransition:)
-    open override func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        //        guard let tView = transitionContext.view(forKey: .to) else {
-        //            return
-        //        }
-        
-        guard let tVC = transitionContext.viewController(forKey: .to) else {
-            return
-        }
-        
-        //        guard let fView = transitionContext.view(forKey: .from) else {
-        //            return
-        //        }
-        
-        guard let fVC = transitionContext.viewController(forKey: .from) else {
-            return
-        }
-        
-        self.transitionContext = transitionContext
-        
-        containerView = transitionContext.containerView
-        
-        //        toView = tView
-        toViewController = tVC
-        
-        //        fromView = fView
-        fromViewController = fVC
-        
-        toViewStartFrame = transitionContext.initialFrame(for: toViewController)
-        toViewFinalFrame = transitionContext.finalFrame(for: toViewController)
-        fromViewFinalFrame = transitionContext.finalFrame(for: fromViewController)
-        
-        var delay: TimeInterval = 0
-        var duration = transitionDuration(using: nil)
-        
-        for v in fromViews {
-            for v2 in toViews {
-                if v.motionTransitionIdentifier == v2.motionTransitionIdentifier {
-                    
-                    var t: TimeInterval = 0
-                    var d: TimeInterval = 0
-                    var a = [CABasicAnimation]()
-                    var tf = MotionAnimationTimingFunction.easeInEaseOut
-                    
-                    for ta in v.motionTransitionAnimations {
-                        switch ta {
-                        case let .delay(time):
-                            if time > delay {
-                                delay = time
-                            }
-                            t = time
-                        case let .duration(time):
-                            if time > duration {
-                                duration = time
-                            }
-                            d = time
-                        case let .timingFunction(timingFunction):
-                            tf = timingFunction
-                        case let .rotate(angle):
-                            let radians = CGFloat(atan2f(Float(v2.transform.b), Float(v2.transform.a)))
-                            let rotate = Motion.rotate(angle: radians * 180 / CGFloat(M_PI))
-                            rotate.fromValue = v.layer.value(forKeyPath: MotionAnimationKeyPath.rotation.rawValue)
-                            a.append(rotate)
-                        case let .backgroundColor(color):
-                            a.append(Motion.background(color: .clear))
-                        case let .corners(radius):
-                            a.append(Motion.corner(radius: v2.cornerRadius))
-                        case let .x(_), .y(_), .point(_, _), .position(_, _):
-                            a.append(Motion.position(to: nil == v2.superview ? v2.position : v2.superview!.convert(v2.position, to: nil)))
-                        case let .shadow(path):
-                            a.append(Motion.shadow(path: path))
-                        case let .width(w):
-                            a.append(Motion.width(v2.bounds.width))
-                        case let .height(h):
-                            a.append(Motion.height(v2.bounds.height))
-                        default:break
-                        }
-                    }
-                    
-                    Motion.delay(t) {
-                        let g = Motion.animate(group: a, duration: d)
-                        g.fillMode = MotionAnimationFillModeToValue(mode: .forwards)
-                        g.isRemovedOnCompletion = false
-                        g.timingFunction = MotionAnimationTimingFunctionToValue(timingFunction: tf)
-                        
-                        v.animate(g)
-                    }
-                }
-            }
-        }
-        
-        Motion.delay(delay + duration) {
-            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-        }
-    }
-}
-
-open class MotionTransitionInteractiveAnimator: MotionTransitionInteractiveDelegate {
-    open override func startInteractiveTransition(_ transitionContext: UIViewControllerContextTransitioning) {
-        super.startInteractiveTransition(transitionContext)
-        
     }
 }

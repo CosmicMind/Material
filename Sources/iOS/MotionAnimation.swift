@@ -52,6 +52,7 @@ public enum MotionAnimationKeyPath: String {
     case zPosition
     case width = "bounds.size.width"
     case height = "bounds.size.height"
+    case size = "bounds.size"
 }
 
 public enum MotionAnimation {
@@ -87,6 +88,7 @@ public enum MotionAnimation {
     case zPosition(Int)
     case width(CGFloat)
     case height(CGFloat)
+    case size(CGSize)
 }
 
 extension CALayer {
@@ -190,6 +192,22 @@ extension CALayer {
             var tf = timingFunction
             var d = duration
             
+            var px: CGFloat = s.position.x
+            var py: CGFloat = s.position.y
+            
+            for v in animations {
+                switch v {
+                case let .x(x):
+                    px = x + w / 2
+                case let .y(y):
+                    py = y + h / 2
+                case let .point(x, y):
+                    px = x + w / 2
+                    py = y + h / 2
+                default:break
+                }
+            }
+            
             for v in animations {
                 switch v {
                 case let .timingFunction(timingFunction):
@@ -239,12 +257,9 @@ extension CALayer {
                     a.append(Motion.translateY(to: to))
                 case let .translateZ(to):
                     a.append(Motion.translateZ(to: to))
-                case let .x(x):
-                    a.append(Motion.position(to: CGPoint(x: x + w / 2, y: s.position.y)))
-                case let .y(y):
-                    a.append(Motion.position(to: CGPoint(x: s.position.x, y: y + h / 2)))
-                case let .point(x, y):
-                    a.append(Motion.position(to: CGPoint(x: x + w / 2, y: y + h / 2)))
+                case let .x(_), .y(_), .point(_, _):
+                    let position = Motion.position(to: CGPoint(x: px, y: py))
+                    a.append(position)
                 case let .position(x, y):
                     a.append(Motion.position(to: CGPoint(x: x, y: y)))
                 case let .shadow(path):
@@ -261,6 +276,8 @@ extension CALayer {
                     a.append(Motion.width(w))
                 case let .height(h):
                     a.append(Motion.height(h))
+                case let .size(size):
+                    a.append(Motion.size(size))
                 default:break
                 }
             }
@@ -523,14 +540,26 @@ extension Motion {
 	
     /**
      Creates a CABasicAnimation for the position key path.
+     - Parameter x: A CGFloat.
+     - Parameter y: A CGFloat.
+     - Returns: A CABasicAnimation.
+     */
+    public static func position(x: CGFloat, y: CGFloat) -> CABasicAnimation {
+		let animation = CABasicAnimation(keyPath: .position)
+        animation.toValue = NSValue(cgPoint: CGPoint(x: x, y: y))
+        return animation
+	}
+    
+    /**
+     Creates a CABasicAnimation for the position key path.
      - Parameter to point: A CGPoint.
      - Returns: A CABasicAnimation.
      */
     public static func position(to point: CGPoint) -> CABasicAnimation {
-		let animation = CABasicAnimation(keyPath: .position)
-		animation.toValue = NSValue(cgPoint: point)
+        let animation = CABasicAnimation(keyPath: .position)
+        animation.toValue = NSValue(cgPoint: point)
         return animation
-	}
+    }
 	
     /**
      Creates a CABasicAnimation for the shadowPath key path.
@@ -584,6 +613,17 @@ extension Motion {
     public static func height(_ height: CGFloat) -> CABasicAnimation {
         let animation = CABasicAnimation(keyPath: .height)
         animation.toValue = NSNumber(floatLiteral: Double(height))
+        return animation
+    }
+    
+    /**
+     Creates a CABasicaAnimation for the height key path.
+     - Parameter size: A CGSize.
+     - Returns: A CABasicAnimation.
+     */
+    public static func size(_ size: CGSize) -> CABasicAnimation {
+        let animation = CABasicAnimation(keyPath: .size)
+        animation.toValue = NSValue(cgSize: size)
         return animation
     }
 }

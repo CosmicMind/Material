@@ -32,6 +32,39 @@ import UIKit
 
 /// Grid extension for UIView.
 extension UIView {
+    /// A property that accesses the backing layer's masksToBounds.
+    @IBInspectable
+    open var masksToBounds: Bool {
+        get {
+            return layer.masksToBounds
+        }
+        set(value) {
+            layer.masksToBounds = value
+        }
+    }
+    
+    /// A property that accesses the backing layer's opacity.
+    @IBInspectable
+    open var opacity: Float {
+        get {
+            return layer.opacity
+        }
+        set(value) {
+            layer.opacity = value
+        }
+    }
+    
+    /// A property that accesses the backing layer's anchorPoint.
+    @IBInspectable
+    open var anchorPoint: CGPoint {
+        get {
+            return layer.anchorPoint
+        }
+        set(value) {
+            layer.anchorPoint = value
+        }
+    }
+    
     /// A property that accesses the frame.origin.x property.
     @IBInspectable
     open var x: CGFloat {
