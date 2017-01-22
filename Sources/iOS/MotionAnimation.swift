@@ -88,7 +88,7 @@ public enum MotionAnimation {
     case zPosition(Int)
     case width(CGFloat)
     case height(CGFloat)
-    case size(CGSize)
+    case size(width: CGFloat, height: CGFloat)
 }
 
 extension CALayer {
@@ -168,17 +168,11 @@ extension CALayer {
     
     fileprivate func motion(delay: TimeInterval, duration: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: [MotionAnimation]) {
         var t = delay
-        var w: CGFloat = 0
-        var h: CGFloat = 0
         
         for v in animations {
             switch v {
             case let .delay(time):
                 t = time
-            case let .width(width):
-                w = width
-            case let .height(height):
-                h = height
             default:break
             }
         }
@@ -191,6 +185,22 @@ extension CALayer {
             var a = [CABasicAnimation]()
             var tf = timingFunction
             var d = duration
+            
+            var w: CGFloat = s.width
+            var h: CGFloat = s.height
+            
+            for v in animations {
+                switch v {
+                case let .width(width):
+                    w = width
+                case let .height(height):
+                    h = height
+                case let .size(width, height):
+                    w = width
+                    h = height
+                default:break
+                }
+            }
             
             var px: CGFloat = s.position.x
             var py: CGFloat = s.position.y
@@ -272,12 +282,8 @@ extension CALayer {
                     let zPosition = Motion.zPosition(index: index)
                     zPosition.fromValue = s.value(forKey: MotionAnimationKeyPath.zPosition.rawValue) ?? NSNumber(integerLiteral: 0)
                     a.append(zPosition)
-                case let .width(w):
-                    a.append(Motion.width(w))
-                case let .height(h):
-                    a.append(Motion.height(h))
-                case let .size(size):
-                    a.append(Motion.size(size))
+                case let .width(_), .height(_), .size(_, _):
+                    a.append(Motion.size(CGSize(width: w, height: h)))
                 default:break
                 }
             }

@@ -119,6 +119,43 @@ extension UIView {
             motionTransition.animations = value
         }
     }
+    
+    open func snapshot(view: UIView, afterUpdates: Bool) -> UIView {
+        view.isHidden = false
+        
+        let oldCornerRadius = view.cornerRadius
+        view.cornerRadius = 0
+        let v = view.snapshotView(afterScreenUpdates: afterUpdates)!
+        view.cornerRadius = oldCornerRadius
+        
+        let contentView = v.subviews.first!
+        contentView.cornerRadius = view.cornerRadius
+        contentView.masksToBounds = true
+        
+        v.motionTransitionIdentifier = view.motionTransitionIdentifier
+        v.position = view.superview?.convert(view.position, to: nil) ?? view.position
+        v.bounds = view.bounds
+        v.cornerRadius = view.cornerRadius
+        v.zPosition = view.zPosition
+        v.opacity = view.opacity
+        v.isOpaque = view.isOpaque
+        v.anchorPoint = view.anchorPoint
+        v.layer.masksToBounds = view.layer.masksToBounds
+        v.borderColor = view.borderColor
+        v.borderWidth = view.borderWidth
+        v.shadowRadius = view.shadowRadius
+        v.shadowOpacity = view.shadowOpacity
+        v.shadowColor = view.shadowColor
+        v.shadowOffset = view.shadowOffset
+        v.contentMode = view.contentMode
+        v.layer.transform = view.layer.transform
+        
+        view.isHidden = true
+        
+        addSubview(v)
+        
+        return v
+    }
 }
 
 open class MotionTransitionPresentationController: UIPresentationController {
@@ -224,13 +261,13 @@ open class MotionTransitionAnimator: MotionTransitionDelegate {
     open var transitionView = UIView()
     
     public var toViews: [UIView] {
-        var views: [UIView] = 0 < toViewController.view.motionTransitionIdentifier.utf16.count ? [toViewController.view] : []
+        var views: [UIView] = []
         subviews(of: toViewController.view, views: &views)
         return views
     }
     
     public var fromViews: [UIView] {
-        var views: [UIView] = 0 < fromViewController.view.motionTransitionIdentifier.utf16.count ? [fromViewController.view] : []
+        var views: [UIView] = []
         subviews(of: fromViewController.view, views: &views)
         return views
     }
@@ -272,46 +309,17 @@ extension MotionTransitionDelegate {
             subviews(of: v, views: &views)
         }
     }
-    
-    fileprivate func snapshotView(for view: UIView) -> UIView {
-        view.isHidden = false
-        
-        // capture a snapshot without cornerRadius
-        let oldCornerRadius = view.cornerRadius
-        view.cornerRadius = 0
-        let v = view.snapshotView(afterScreenUpdates: false)!
-        view.cornerRadius = oldCornerRadius
-        
-        let contentView = v.subviews.first!
-        contentView.cornerRadius = view.cornerRadius
-        contentView.masksToBounds = true
-        
-        v.motionTransitionIdentifier = view.motionTransitionIdentifier
-        v.cornerRadius = view.cornerRadius
-        v.zPosition = view.zPosition
-        v.opacity = view.opacity
-        v.isOpaque = view.isOpaque
-        v.anchorPoint = view.anchorPoint
-        v.layer.masksToBounds = view.layer.masksToBounds
-        v.borderColor = view.borderColor
-        v.borderWidth = view.borderWidth
-        v.shadowRadius = view.shadowRadius
-        v.shadowOpacity = view.shadowOpacity
-        v.shadowColor = view.shadowColor
-        v.shadowOffset = view.shadowOffset
-        
-        v.layer.transform = view.layer.transform
-        
-        view.isHidden = true
-        
-        return v
-    }
 }
 
 open class MotionTransitionPresentedAnimator: MotionTransitionAnimator {
     @objc(animateTransition:)
     open override func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         super.animateTransition(using: transitionContext)
+        
+        let bgView = UIView()
+        bgView.backgroundColor = .clear
+        bgView.frame = transitionView.bounds
+        transitionView.addSubview(bgView)
         
         for toView in toViews {
             for fromView in fromViews {
@@ -338,26 +346,21 @@ open class MotionTransitionPresentedAnimator: MotionTransitionAnimator {
                         }
                     }
                     
-//                    var w: CGFloat = toView.bounds.width
-//                    var h: CGFloat = toView.bounds.height
-//                    var px: CGFloat = toView.position.x + w / 2
-//                    var py: CGFloat = toView.position.y + h / 2
-//                    a.append(Motion.position(x: px, y: py))
-//                    a.append(Motion.width(w))
-//                    a.append(Motion.height(h))
+                    var w: CGFloat = toView.bounds.width
+                    var h: CGFloat = toView.bounds.height
+                    var px: CGFloat = toView.position.x + w / 2
+                    var py: CGFloat = toView.position.y + h / 2
+                    a.append(Motion.position(x: px, y: py))
+                    a.append(Motion.size(CGSize(width: w, height: h)))
                     
-//                    let rotate = Motion.rotate(angle: toView.layer.value(forKeyPath: MotionAnimationKeyPath.rotation.rawValue) as? CGFloat ?? 0)
-//                    rotate.fromValue = fromView.layer.value(forKeyPath: MotionAnimationKeyPath.rotation.rawValue)
-//                    a.append(rotate)
+                    let rotate = Motion.rotate(angle: toView.layer.value(forKeyPath: MotionAnimationKeyPath.rotation.rawValue) as? CGFloat ?? 0)
+                    rotate.fromValue = fromView.layer.value(forKeyPath: MotionAnimationKeyPath.rotation.rawValue)
+                    a.append(rotate)
                     
                     a.append(Motion.background(color: toView.backgroundColor ?? .clear))
-//                    a.append(Motion.corner(radius: toView.cornerRadius))
+                    a.append(Motion.corner(radius: toView.cornerRadius))
                     
-                    let snapshot = snapshotView(for: fromView)
-                    snapshot.isHidden = false
-                    snapshot.bounds = fromView.bounds
-                    snapshot.position = fromView.superview?.convert(fromView.position, to: nil) ?? fromView.position
-                    transitionView.addSubview(snapshot)
+                    let snapshot = transitionView.snapshot(view: fromView, afterUpdates: true)
                     
                     Motion.delay(t) {
                         for ta in toView.motionTransitionAnimations {
@@ -376,12 +379,19 @@ open class MotionTransitionPresentedAnimator: MotionTransitionAnimator {
                         g.timingFunction = MotionAnimationTimingFunctionToValue(timingFunction: tf)
                         
                         snapshot.animate(g)
+                        snapshot.subviews.first!.animate(g)
                     }
                 }
             }
         }
         
-        Motion.delay(transitionDuration(using: transitionContext)) { [weak self] in
+        let d = transitionDuration(using: transitionContext)
+        
+        if let v = toViewController.view.backgroundColor {
+            bgView.motion(.backgroundColor(v), .duration(d))
+        }
+        
+        Motion.delay(d) { [weak self] in
             defer {
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
             }
@@ -390,8 +400,11 @@ open class MotionTransitionPresentedAnimator: MotionTransitionAnimator {
                 return
             }
             
-//            s.transitionView.removeFromSuperview()
             s.containerView.addSubview(s.toViewController.view)
+            s.transitionView.removeFromSuperview()
+            for v in s.transitionView.subviews {
+                v.removeFromSuperview()
+            }
         }
     }
 }
