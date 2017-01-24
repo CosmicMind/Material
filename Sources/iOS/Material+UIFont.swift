@@ -32,10 +32,14 @@ import UIKit
 
 extension UIFont {
 	/**
-	:name:	stringSize
-	*/
-	open func stringSize(string: String, constrainedToWidth width: Double) -> CGSize {
-		return string.boundingRect(with: CGSize(width: width, height: DBL_MAX),
+     Calculates a CGSize value based on a width and length of a string with a
+     given UIFont.
+     - Parameter string: A String.
+     - Parameter constrainedTo width: A CGFloat.
+     - Returns a CGSize.
+     */
+    open func stringSize(string: String, constrainedTo width: CGFloat) -> CGSize {
+		return string.boundingRect(with: CGSize(width: width, height: CGFloat(DBL_MAX)),
 			options: NSStringDrawingOptions.usesLineFragmentOrigin,
 			attributes: [NSFontAttributeName: self],
 			context: nil).size

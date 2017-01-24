@@ -378,13 +378,8 @@ open class MotionTransitionPresentedAnimator: MotionTransitionAnimator {
                     
                     let rotateAnimation = Motion.rotate(angle: toView.layer.value(forKeyPath: MotionAnimationKeyPath.rotation.rawValue) as? CGFloat ?? 0)
                     rotateAnimation.fromValue = fromView.layer.value(forKeyPath: MotionAnimationKeyPath.rotation.rawValue) as? CGFloat ?? 0
-                    snapshotChildAnimations.append(rotateAnimation)
+                    snapshotAnimations.append(rotateAnimation)
                     
-//                    let backgroundColorAnimation = Motion.background(color: toView.backgroundColor ?? .clear)
-//                    backgroundColorAnimation.fromValue = fromView.backgroundColor?.cgColor
-//                    snapshotAnimations.append(backgroundColorAnimation)
-//                    snapshotChildAnimations.append(backgroundColorAnimation)
-//                    
                     let cornerRadiusAnimation = Motion.corner(radius: toView.cornerRadius)
                     snapshotAnimations.append(cornerRadiusAnimation)
                     snapshotChildAnimations.append(cornerRadiusAnimation)
@@ -499,9 +494,7 @@ open class MotionTransitionDismissedAnimator: MotionTransitionAnimator {
                     
                     let rotateAnimation = Motion.rotate(angle: toView.layer.value(forKeyPath: MotionAnimationKeyPath.rotation.rawValue) as? CGFloat ?? 0)
                     rotateAnimation.fromValue = fromView.layer.value(forKeyPath: MotionAnimationKeyPath.rotation.rawValue) as? CGFloat ?? 0
-                    snapshotChildAnimations.append(rotateAnimation)
-                    
-                    snapshotChildAnimations.append(Motion.background(color: toView.backgroundColor ?? .clear))
+                    snapshotAnimations.append(rotateAnimation)
                     
                     let cornerRadiusAnimation = Motion.corner(radius: toView.cornerRadius)
                     snapshotAnimations.append(cornerRadiusAnimation)
