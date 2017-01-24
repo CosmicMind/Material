@@ -41,7 +41,7 @@ open class CollectionReusableView: UICollectionReusableView, Pulseable {
     open let visualLayer = CAShapeLayer()
     
     /// A Pulse reference.
-    fileprivate var pulse: PulseMotion!
+    internal var pulse: PulseMotion!
     
     /// PulseAnimation value.
     open var pulseAnimation: PulseAnimation {

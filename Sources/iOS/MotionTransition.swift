@@ -123,23 +123,34 @@ extension UIView {
     open func snapshot(view: UIView, afterUpdates: Bool) -> UIView {
         view.isHidden = false
         
+        (view as? Pulseable)?.pulse.pulseLayer?.isHidden = true
+        
         let oldCornerRadius = view.cornerRadius
         view.cornerRadius = 0
+        
+        let oldRotation = view.layer.value(forKeyPath: MotionAnimationKeyPath.rotation.rawValue) as? CGFloat ?? 0
+        view.layer.setValue(0, forKeyPath: MotionAnimationKeyPath.rotation.rawValue)
+        
         let v = view.snapshotView(afterScreenUpdates: afterUpdates)!
         view.cornerRadius = oldCornerRadius
+        
+        view.layer.setValue(oldRotation, forKeyPath: MotionAnimationKeyPath.rotation.rawValue)
+        v.layer.setValue(oldRotation, forKeyPath: MotionAnimationKeyPath.rotation.rawValue)
         
         let contentView = v.subviews.first!
         contentView.cornerRadius = view.cornerRadius
         contentView.masksToBounds = true
         
         v.motionTransitionIdentifier = view.motionTransitionIdentifier
-        v.frame = convert(view.bounds, from: view)
+        v.position = view.superview?.convert(view.position, to: nil) ?? view.position
+        v.bounds = view.bounds
         v.cornerRadius = view.cornerRadius
         v.zPosition = view.zPosition
         v.opacity = view.opacity
         v.isOpaque = view.isOpaque
         v.anchorPoint = view.anchorPoint
-        v.layer.masksToBounds = view.layer.masksToBounds
+        v.masksToBounds = view.masksToBounds
+        v.backgroundColor = view.backgroundColor
         v.borderColor = view.borderColor
         v.borderWidth = view.borderWidth
         v.shadowRadius = view.shadowRadius
@@ -150,6 +161,7 @@ extension UIView {
         v.layer.transform = view.layer.transform
         
         view.isHidden = true
+        (view as? Pulseable)?.pulse.pulseLayer?.isHidden = false
         
         addSubview(v)
         
@@ -315,6 +327,8 @@ open class MotionTransitionPresentedAnimator: MotionTransitionAnimator {
     open override func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         super.animateTransition(using: transitionContext)
         
+        transitionView.isHidden = true
+        
         let bgView = UIView()
         bgView.backgroundColor = fromViewController.view.backgroundColor
         bgView.frame = transitionView.bounds
@@ -350,7 +364,7 @@ open class MotionTransitionPresentedAnimator: MotionTransitionAnimator {
                         }
                     }
                     
-                    let b = toView.superview?.convert(toView.bounds, from: toView) ?? toView.bounds
+                    let b = toView.bounds
                     let w = b.width
                     let h = b.height
                     let p = toView.superview?.convert(toView.position, to: nil) ?? toView.position
@@ -363,11 +377,17 @@ open class MotionTransitionPresentedAnimator: MotionTransitionAnimator {
                     snapshotChildAnimations.append(sizeAnimation)
                     
                     let rotateAnimation = Motion.rotate(angle: toView.layer.value(forKeyPath: MotionAnimationKeyPath.rotation.rawValue) as? CGFloat ?? 0)
-                    rotateAnimation.fromValue = fromView.layer.value(forKeyPath: MotionAnimationKeyPath.rotation.rawValue)
-                    snapshotAnimations.append(rotateAnimation)
+                    rotateAnimation.fromValue = fromView.layer.value(forKeyPath: MotionAnimationKeyPath.rotation.rawValue) as? CGFloat ?? 0
+                    snapshotChildAnimations.append(rotateAnimation)
                     
-                    snapshotChildAnimations.append(Motion.background(color: toView.backgroundColor ?? .clear))
-                    snapshotChildAnimations.append(Motion.corner(radius: toView.cornerRadius))
+//                    let backgroundColorAnimation = Motion.background(color: toView.backgroundColor ?? .clear)
+//                    backgroundColorAnimation.fromValue = fromView.backgroundColor?.cgColor
+//                    snapshotAnimations.append(backgroundColorAnimation)
+//                    snapshotChildAnimations.append(backgroundColorAnimation)
+//                    
+                    let cornerRadiusAnimation = Motion.corner(radius: toView.cornerRadius)
+                    snapshotAnimations.append(cornerRadiusAnimation)
+                    snapshotChildAnimations.append(cornerRadiusAnimation)
                     
                     let snapshot = transitionView.snapshot(view: fromView, afterUpdates: true)
                     
@@ -419,6 +439,8 @@ open class MotionTransitionPresentedAnimator: MotionTransitionAnimator {
                 v.removeFromSuperview()
             }
         }
+        
+        transitionView.isHidden = false
     }
 }
 
@@ -427,10 +449,16 @@ open class MotionTransitionDismissedAnimator: MotionTransitionAnimator {
     open override func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         super.animateTransition(using: transitionContext)
         
+        transitionView.isHidden = true
+        
         let bgView = UIView()
         bgView.backgroundColor = fromViewController.view.backgroundColor
         bgView.frame = transitionView.bounds
         transitionView.addSubview(bgView)
+        
+        toViewController.view.updateConstraints()
+        toViewController.view.setNeedsLayout()
+        toViewController.view.layoutIfNeeded()
         
         for toView in toViews {
             for fromView in fromViews {
@@ -457,7 +485,7 @@ open class MotionTransitionDismissedAnimator: MotionTransitionAnimator {
                         }
                     }
                     
-                    let b = toView.superview?.convert(toView.bounds, from: toView) ?? toView.bounds
+                    let b = toView.bounds
                     let w = b.width
                     let h = b.height
                     let p = toView.superview?.convert(toView.position, to: nil) ?? toView.position
@@ -470,11 +498,14 @@ open class MotionTransitionDismissedAnimator: MotionTransitionAnimator {
                     snapshotChildAnimations.append(sizeAnimation)
                     
                     let rotateAnimation = Motion.rotate(angle: toView.layer.value(forKeyPath: MotionAnimationKeyPath.rotation.rawValue) as? CGFloat ?? 0)
-                    rotateAnimation.fromValue = fromView.layer.value(forKeyPath: MotionAnimationKeyPath.rotation.rawValue)
-                    snapshotAnimations.append(rotateAnimation)
+                    rotateAnimation.fromValue = fromView.layer.value(forKeyPath: MotionAnimationKeyPath.rotation.rawValue) as? CGFloat ?? 0
+                    snapshotChildAnimations.append(rotateAnimation)
                     
                     snapshotChildAnimations.append(Motion.background(color: toView.backgroundColor ?? .clear))
-                    snapshotChildAnimations.append(Motion.corner(radius: toView.cornerRadius))
+                    
+                    let cornerRadiusAnimation = Motion.corner(radius: toView.cornerRadius)
+                    snapshotAnimations.append(cornerRadiusAnimation)
+                    snapshotChildAnimations.append(cornerRadiusAnimation)
                     
                     let snapshot = transitionView.snapshot(view: fromView, afterUpdates: true)
                     
@@ -532,6 +563,8 @@ open class MotionTransitionDismissedAnimator: MotionTransitionAnimator {
                 v.removeFromSuperview()
             }
         }
+        
+        transitionView.isHidden = false
     }
 }
 

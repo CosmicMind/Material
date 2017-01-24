@@ -43,7 +43,7 @@ public enum PulseAnimation: Int {
     case pointWithBacking
 }
 
-public protocol Pulseable {
+internal protocol Pulseable {
     /// A reference to the PulseAnimation.
     var pulseAnimation: PulseAnimation { get set }
     
@@ -52,17 +52,20 @@ public protocol Pulseable {
     
     /// The opcaity value for the pulse animation.
     var pulseOpacity: CGFloat { get set }
+    
+    /// The PulseMotion instance.
+    var pulse: PulseMotion! { get set }
 }
 
 public struct PulseMotion {
     /// A UIView that is Pulseable.
-    fileprivate weak var pulseView: UIView?
+    internal weak var pulseView: UIView?
     
     /// The layer the pulse layers are added to.
-    fileprivate weak var pulseLayer: CALayer?
+    internal weak var pulseLayer: CALayer?
     
     /// Pulse layers.
-    fileprivate var layers = [CAShapeLayer]()
+    internal var layers = [CAShapeLayer]()
     
     /// A reference to the PulseAnimation.
     public var animation = PulseAnimation.pointWithBacking

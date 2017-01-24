@@ -32,7 +32,7 @@ import UIKit
 
 open class PulseView: View, Pulseable {
     /// A Pulse reference.
-    fileprivate var pulse: PulseMotion!
+    internal var pulse: PulseMotion!
     
     /// PulseAnimation value.
     open var pulseAnimation: PulseAnimation {

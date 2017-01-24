@@ -342,7 +342,7 @@ extension Motion {
      */
 	public static func background(color: UIColor) -> CABasicAnimation {
 		let animation = CABasicAnimation(keyPath: .backgroundColor)
-		animation.toValue = color.cgColor
+        animation.toValue = color.cgColor
 		return animation
 	}
 	
