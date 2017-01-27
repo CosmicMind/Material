@@ -42,6 +42,11 @@ fileprivate struct MotionTransitionItemController {
     fileprivate var delegate: MotionTransitionDelegate
 }
 
+fileprivate func getRotationInDegrees(view: UIView) -> Double {
+    let radians = Double(atan2f(Float(view.transform.b), Float(view.transform.a)))
+    return ceil(radians * 180 / M_PI)
+}
+
 extension UIViewController {
     /// MaterialLayer Reference.
     fileprivate var motionTransition: MotionTransitionItemController {
@@ -128,7 +133,7 @@ extension UIView {
         let oldCornerRadius = view.cornerRadius
         view.cornerRadius = 0
         
-        let oldRotation = view.layer.value(forKeyPath: MotionAnimationKeyPath.rotation.rawValue) as? CGFloat ?? 0
+        let oldRotation = view.layer.value(forKeyPath: MotionAnimationKeyPath.rotation.rawValue) ?? 0
         view.layer.setValue(0, forKeyPath: MotionAnimationKeyPath.rotation.rawValue)
         
         let v = view.snapshotView(afterScreenUpdates: afterUpdates)!
@@ -158,7 +163,7 @@ extension UIView {
         v.shadowColor = view.shadowColor
         v.shadowOffset = view.shadowOffset
         v.contentMode = view.contentMode
-        v.layer.transform = view.layer.transform
+//        v.layer.transform = view.layer.transform
         
         view.isHidden = true
         (view as? Pulseable)?.pulse.pulseLayer?.isHidden = false
@@ -376,8 +381,8 @@ open class MotionTransitionPresentedAnimator: MotionTransitionAnimator {
                     snapshotChildAnimations.append(Motion.position(x: w / 2, y:  h / 2))
                     snapshotChildAnimations.append(sizeAnimation)
                     
-                    let rotateAnimation = Motion.rotate(angle: toView.layer.value(forKeyPath: MotionAnimationKeyPath.rotation.rawValue) as? CGFloat ?? 0)
-                    rotateAnimation.fromValue = fromView.layer.value(forKeyPath: MotionAnimationKeyPath.rotation.rawValue) as? CGFloat ?? 0
+                    let rotateAnimation = Motion.rotate(angle: getRotationInDegrees(view: toView))
+                    //rotateAnimation.fromValue = getRotationInDegrees(view: fromView)
                     snapshotAnimations.append(rotateAnimation)
                     
                     let cornerRadiusAnimation = Motion.corner(radius: toView.cornerRadius)
@@ -492,8 +497,8 @@ open class MotionTransitionDismissedAnimator: MotionTransitionAnimator {
                     snapshotChildAnimations.append(Motion.position(x: w / 2, y:  h / 2))
                     snapshotChildAnimations.append(sizeAnimation)
                     
-                    let rotateAnimation = Motion.rotate(angle: toView.layer.value(forKeyPath: MotionAnimationKeyPath.rotation.rawValue) as? CGFloat ?? 0)
-                    rotateAnimation.fromValue = fromView.layer.value(forKeyPath: MotionAnimationKeyPath.rotation.rawValue) as? CGFloat ?? 0
+                    let rotateAnimation = Motion.rotate(angle: getRotationInDegrees(view: toView))
+                    //rotateAnimation.fromValue = getRotationInDegrees(view: fromView)
                     snapshotAnimations.append(rotateAnimation)
                     
                     let cornerRadiusAnimation = Motion.corner(radius: toView.cornerRadius)
