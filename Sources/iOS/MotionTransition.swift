@@ -42,11 +42,6 @@ fileprivate struct MotionTransitionItemController {
     fileprivate var delegate: MotionTransitionAnimator
 }
 
-fileprivate func getRotationInDegrees(view: UIView) -> Double {
-    let radians = Double(atan2f(Float(view.transform.b), Float(view.transform.a)))
-    return ceil(radians * 180 / M_PI)
-}
-
 extension UIViewController {
     /// MaterialLayer Reference.
     fileprivate var motionTransition: MotionTransitionItemController {
@@ -373,7 +368,7 @@ open class MotionTransitionPresentedAnimator: MotionTransitionAnimator {
                     snapshotChildAnimations.append(Motion.position(x: w / 2, y:  h / 2))
                     snapshotChildAnimations.append(sizeAnimation)
                     
-                    snapshotAnimations.append(Motion.rotate(angle: getRotationInDegrees(view: toView)))
+                    snapshotAnimations.append(Motion.rotate(angle: toView.motionRotationAngle))
                     
                     let cornerRadiusAnimation = Motion.corner(radius: toView.cornerRadius)
                     snapshotAnimations.append(cornerRadiusAnimation)
@@ -487,7 +482,7 @@ open class MotionTransitionDismissedAnimator: MotionTransitionAnimator {
                     snapshotChildAnimations.append(Motion.position(x: w / 2, y:  h / 2))
                     snapshotChildAnimations.append(sizeAnimation)
                     
-                    snapshotAnimations.append(Motion.rotate(angle: getRotationInDegrees(view: toView)))
+                    snapshotAnimations.append(Motion.rotate(angle: toView.motionRotationAngle))
                     
                     let cornerRadiusAnimation = Motion.corner(radius: toView.cornerRadius)
                     snapshotAnimations.append(cornerRadiusAnimation)

@@ -94,7 +94,7 @@ public enum MotionAnimation {
 extension CALayer {
 
     /**
-     A method that accepts CAAnimation objects and executes them on the
+     A function that accepts CAAnimation objects and executes them on the
      view's backing layer.
      - Parameter animation: A CAAnimation instance.
      */
@@ -103,7 +103,7 @@ extension CALayer {
     }
     
     /**
-     A method that accepts CAAnimation objects and executes them on the
+     A function that accepts CAAnimation objects and executes them on the
      view's backing layer.
      - Parameter animation: A CAAnimation instance.
      */
@@ -125,7 +125,7 @@ extension CALayer {
     }
 
     /**
-     A delegation method that is executed when the backing layer stops
+     A delegation function that is executed when the backing layer stops
      running an animation.
      - Parameter animation: The CAAnimation instance that stopped running.
      - Parameter flag: A boolean that indicates if the animation stopped
@@ -158,14 +158,29 @@ extension CALayer {
         removeAnimation(forKey: k)
     }
     
+    /**
+     A function that accepts a list of MotionAnimation values and executes them.
+     - Parameter animations: A list of MotionAnimation values.
+     */
     open func motion(_ animations: MotionAnimation...) {
         motion(animations)
     }
     
+    /**
+     A function that accepts an Array of MotionAnimation values and executes them.
+     - Parameter animations: An Array of MotionAnimation values.
+     */
     open func motion(_ animations: [MotionAnimation]) {
         motion(delay: 0, duration: 0.25, timingFunction: .easeInEaseOut, animations: animations)
     }
     
+    /**
+     A function that executes an Array of MotionAnimation values.
+     - Parameter delay: The animation delay TimeInterval.
+     - Parameter duration: The animation duration TimeInterval.
+     - Parameter timingFunction: The animation MotionAnimationTimingFunction.
+     - Parameter animations: An Array of MotionAnimations.
+     */
     fileprivate func motion(delay: TimeInterval, duration: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: [MotionAnimation]) {
         var t = delay
         
@@ -186,8 +201,8 @@ extension CALayer {
             var tf = timingFunction
             var d = duration
             
-            var w: CGFloat = s.width
-            var h: CGFloat = s.height
+            var w: CGFloat = s.bounds.width
+            var h: CGFloat = s.bounds.height
             
             for v in animations {
                 switch v {
@@ -300,23 +315,53 @@ extension CALayer {
 extension CALayer: CAAnimationDelegate {}
 
 extension UIView {
+    /// Computes the rotation of the view.
+    open var motionRotationAngle: Double {
+        return Double(atan2f(Float(transform.b), Float(transform.a))) * 180 / M_PI
+    }
+    
+    /// Computes the scale X axis value of the view.
+    open var motionScaleX: CGFloat {
+        return transform.a
+    }
+    
+    /// Computes the scale Y axis value of the view.
+    open var motionScaleY: CGFloat {
+        return transform.b
+    }
+    
     /**
-     A method that accepts CAAnimation objects and executes them on the
+     A function that accepts CAAnimation objects and executes them on the
      view's backing layer.
-     - Parameter animation: A CAAnimation instance.
+     - Parameter animations: A list of CAAnimations.
      */
     open func animate(_ animations: CAAnimation...) {
         layer.animate(animations)
     }
     
+    /**
+     A function that accepts an Array of CAAnimation objects and executes 
+     them on the view's backing layer.
+     - Parameter animations: An Array of CAAnimations.
+     */
     open func animate(_ animations: [CAAnimation]) {
         layer.animate(animations)
     }
     
+    /**
+     A function that accepts a list of MotionAnimation values and executes
+     them on the view's backing layer.
+     - Parameter animations: A list of MotionAnimation values.
+     */
     open func motion(_ animations: MotionAnimation...) {
         layer.motion(animations)
     }
     
+    /**
+     A function that accepts an Array of MotionAnimation values and executes
+     them on the view's backing layer.
+     - Parameter animations: An Array of MotionAnimation values.
+     */
     open func motion(_ animations: [MotionAnimation]) {
         layer.motion(animations)
     }
@@ -461,7 +506,7 @@ extension Motion {
      */
     public static func scale(to scale: Double) -> CABasicAnimation {
 		let animation = CABasicAnimation(keyPath: .scale)
-		animation.toValue = scale as NSNumber
+		animation.toValue = NSNumber(floatLiteral: scale)
 		return animation
 	}
 	
@@ -472,7 +517,7 @@ extension Motion {
      */
     public static func scaleX(to scale: Double) -> CABasicAnimation {
 		let animation = CABasicAnimation(keyPath: .scaleX)
-		animation.toValue = scale as NSNumber
+		animation.toValue = NSNumber(floatLiteral: scale)
 		return animation
 	}
 	
@@ -483,7 +528,7 @@ extension Motion {
      */
     public static func scaleY(to scale: Double) -> CABasicAnimation {
 		let animation = CABasicAnimation(keyPath: .scaleY)
-		animation.toValue = scale as NSNumber
+		animation.toValue = NSNumber(floatLiteral: scale)
 		return animation
 	}
 	
@@ -494,7 +539,7 @@ extension Motion {
      */
     public static func scaleZ(to scale: Double) -> CABasicAnimation {
 		let animation = CABasicAnimation(keyPath: .scaleZ)
-		animation.toValue = scale as NSNumber
+		animation.toValue = NSNumber(floatLiteral: scale)
 		return animation
 	}
 	
@@ -516,7 +561,7 @@ extension Motion {
      */
     public static func translateX(to translation: CGFloat) -> CABasicAnimation {
 		let animation = CABasicAnimation(keyPath: .translationX)
-		animation.toValue = translation as NSNumber
+		animation.toValue = NSNumber(floatLiteral: Double(translation))
 	    return animation
 	}
 	
@@ -527,7 +572,7 @@ extension Motion {
      */
     public static func translateY(to translation: CGFloat) -> CABasicAnimation {
 		let animation = CABasicAnimation(keyPath: .translationY)
-		animation.toValue = translation as NSNumber
+		animation.toValue = NSNumber(floatLiteral: Double(translation))
         return animation
 	}
 	
@@ -538,7 +583,7 @@ extension Motion {
      */
     public static func translateZ(to translation: CGFloat) -> CABasicAnimation {
 		let animation = CABasicAnimation(keyPath: .translationZ)
-		animation.toValue = translation as NSNumber
+		animation.toValue = NSNumber(floatLiteral: Double(translation))
         return animation
 	}
 	
