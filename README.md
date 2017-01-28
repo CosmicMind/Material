@@ -2,7 +2,7 @@
 
 ## Welcome to Material
 
-Material is an animation and graphics framework that is used to create beautiful applications.
+Material is an animation and graphics framework for Material Design in Swift.
 
 ![Material Sample](http://cosmicmind.com/samples/github/page-tab-bar-controller-2.png)
 
