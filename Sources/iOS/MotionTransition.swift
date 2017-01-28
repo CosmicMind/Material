@@ -39,7 +39,7 @@ fileprivate struct MotionTransitionItem {
 }
 
 fileprivate struct MotionTransitionItemController {
-    fileprivate var delegate: MotionTransitionDelegate
+    fileprivate var delegate: MotionTransitionAnimator
 }
 
 fileprivate func getRotationInDegrees(view: UIView) -> Double {
@@ -52,7 +52,7 @@ extension UIViewController {
     fileprivate var motionTransition: MotionTransitionItemController {
         get {
             return AssociatedObject(base: self, key: &MotionTransitionItemControllerKey) {
-                return MotionTransitionItemController(delegate: MotionTransitionDelegate())
+                return MotionTransitionItemController(delegate: MotionTransitionAnimator())
             }
         }
         set(value) {
@@ -60,7 +60,7 @@ extension UIViewController {
         }
     }
     
-    open var transitionDelegate: MotionTransitionDelegate {
+    open var transitionDelegate: MotionTransitionAnimator {
         return motionTransition.delegate
     }
 }
@@ -133,14 +133,8 @@ extension UIView {
         let oldCornerRadius = view.cornerRadius
         view.cornerRadius = 0
         
-        let oldRotation = view.layer.value(forKeyPath: MotionAnimationKeyPath.rotation.rawValue) ?? 0
-        view.layer.setValue(0, forKeyPath: MotionAnimationKeyPath.rotation.rawValue)
-        
         let v = view.snapshotView(afterScreenUpdates: afterUpdates)!
         view.cornerRadius = oldCornerRadius
-        
-        view.layer.setValue(oldRotation, forKeyPath: MotionAnimationKeyPath.rotation.rawValue)
-        v.layer.setValue(oldRotation, forKeyPath: MotionAnimationKeyPath.rotation.rawValue)
         
         let contentView = v.subviews.first!
         contentView.cornerRadius = view.cornerRadius
@@ -163,7 +157,7 @@ extension UIView {
         v.shadowColor = view.shadowColor
         v.shadowOffset = view.shadowOffset
         v.contentMode = view.contentMode
-//        v.layer.transform = view.layer.transform
+        v.layer.transform = view.layer.transform
         
         view.isHidden = true
         (view as? Pulseable)?.pulse.pulseLayer?.isHidden = false
@@ -212,15 +206,35 @@ open class MotionTransitionPresentationController: UIPresentationController {
     }
 }
 
-open class MotionTransitionDelegate: NSObject {
+open class MotionTransitionAnimator: NSObject {
     open var isPresenting = false
     
     open var toViewController: UIViewController!
     
     open var fromViewController: UIViewController!
+    
+    open var transitionContext: UIViewControllerContextTransitioning!
+    
+    open var delay: TimeInterval = 0
+    open var duration: TimeInterval = 0
+    
+    open var containerView: UIView!
+    open var transitionView = UIView()
+    
+    public var toViews: [UIView] {
+        var views: [UIView] = []
+        subviews(of: toViewController.view, views: &views)
+        return views
+    }
+    
+    public var fromViews: [UIView] {
+        var views: [UIView] = []
+        subviews(of: fromViewController.view, views: &views)
+        return views
+    }
 }
 
-extension MotionTransitionDelegate: UIViewControllerTransitioningDelegate {
+extension MotionTransitionAnimator: UIViewControllerTransitioningDelegate {
     open func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return MotionTransitionPresentedAnimator()
     }
@@ -242,10 +256,10 @@ extension MotionTransitionDelegate: UIViewControllerTransitioningDelegate {
     }
 }
 
-extension MotionTransitionDelegate: UINavigationControllerDelegate {
+extension MotionTransitionAnimator: UINavigationControllerDelegate {
     open func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         isPresenting = operation == .push
-        return MotionTransitionAnimator()
+        return self
     }
     
     open func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
@@ -253,39 +267,17 @@ extension MotionTransitionDelegate: UINavigationControllerDelegate {
     }
 }
 
-extension MotionTransitionDelegate: UITabBarControllerDelegate {
+extension MotionTransitionAnimator: UITabBarControllerDelegate {
     open func tabBarController(_ tabBarController: UITabBarController, animationControllerForTransitionFrom fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         isPresenting = true
         self.fromViewController = fromViewController ?? fromVC
         self.toViewController = toViewController ?? toVC
         //        self.inContainerController = true
-        return MotionTransitionAnimator()
+        return self
     }
     
     open func tabBarController(_ tabBarController: UITabBarController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         return MotionTransitionInteractiveAnimator()
-    }
-}
-
-open class MotionTransitionAnimator: MotionTransitionDelegate {
-    open var transitionContext: UIViewControllerContextTransitioning!
-    
-    open var delay: TimeInterval = 0
-    open var duration: TimeInterval = 0
-    
-    open var containerView: UIView!
-    open var transitionView = UIView()
-    
-    public var toViews: [UIView] {
-        var views: [UIView] = []
-        subviews(of: toViewController.view, views: &views)
-        return views
-    }
-    
-    public var fromViews: [UIView] {
-        var views: [UIView] = []
-        subviews(of: fromViewController.view, views: &views)
-        return views
     }
 }
 
@@ -316,7 +308,7 @@ extension MotionTransitionAnimator: UIViewControllerAnimatedTransitioning {
     }
 }
 
-extension MotionTransitionDelegate {
+extension MotionTransitionAnimator {
     fileprivate func subviews(of view: UIView, views: inout [UIView]) {
         for v in view.subviews {
             if 0 < v.motionTransitionIdentifier.utf16.count {
@@ -381,9 +373,7 @@ open class MotionTransitionPresentedAnimator: MotionTransitionAnimator {
                     snapshotChildAnimations.append(Motion.position(x: w / 2, y:  h / 2))
                     snapshotChildAnimations.append(sizeAnimation)
                     
-                    let rotateAnimation = Motion.rotate(angle: getRotationInDegrees(view: toView))
-                    //rotateAnimation.fromValue = getRotationInDegrees(view: fromView)
-                    snapshotAnimations.append(rotateAnimation)
+                    snapshotAnimations.append(Motion.rotate(angle: getRotationInDegrees(view: toView)))
                     
                     let cornerRadiusAnimation = Motion.corner(radius: toView.cornerRadius)
                     snapshotAnimations.append(cornerRadiusAnimation)
@@ -497,9 +487,7 @@ open class MotionTransitionDismissedAnimator: MotionTransitionAnimator {
                     snapshotChildAnimations.append(Motion.position(x: w / 2, y:  h / 2))
                     snapshotChildAnimations.append(sizeAnimation)
                     
-                    let rotateAnimation = Motion.rotate(angle: getRotationInDegrees(view: toView))
-                    //rotateAnimation.fromValue = getRotationInDegrees(view: fromView)
-                    snapshotAnimations.append(rotateAnimation)
+                    snapshotAnimations.append(Motion.rotate(angle: getRotationInDegrees(view: toView)))
                     
                     let cornerRadiusAnimation = Motion.corner(radius: toView.cornerRadius)
                     snapshotAnimations.append(cornerRadiusAnimation)
