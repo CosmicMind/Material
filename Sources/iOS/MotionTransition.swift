@@ -133,8 +133,14 @@ extension UIView {
         let oldCornerRadius = cornerRadius
         cornerRadius = 0
         
+        let oldBackgroundColor = backgroundColor
+        backgroundColor = .clear
+        
         let v = snapshotView(afterScreenUpdates: afterUpdates)!
         cornerRadius = oldCornerRadius
+        
+        backgroundColor = oldBackgroundColor
+        v.backgroundColor = oldBackgroundColor
         
         let contentView = v.subviews.first!
         contentView.cornerRadius = cornerRadius
@@ -149,7 +155,6 @@ extension UIView {
         v.isOpaque = isOpaque
         v.anchorPoint = anchorPoint
         v.masksToBounds = masksToBounds
-        v.backgroundColor = backgroundColor
         v.borderColor = borderColor
         v.borderWidth = borderWidth
         v.shadowRadius = shadowRadius
@@ -206,6 +211,8 @@ open class MotionTransitionPresentationController: UIPresentationController {
 
 open class MotionTransition: NSObject {
     open var isPresenting = false
+    
+    open let backgroundView = UIView()
     
     open var toViewController: UIViewController!
     
@@ -324,8 +331,6 @@ extension MotionTransition: UIViewControllerAnimatedTransitioning {
 }
 
 open class MotionTransitionPresentedAnimator: MotionTransition {
-    open let backgroundView = UIView()
-    
     @objc(animateTransition:)
     open override func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         super.animateTransition(using: transitionContext)
@@ -375,6 +380,8 @@ open class MotionTransitionPresentedAnimator: MotionTransition {
                     snapshotChildAnimations.append(Motion.position(x: tv.bounds.width / 2, y: tv.bounds.height / 2))
                     
                     snapshotAnimations.append(Motion.rotate(angle: tv.motionRotationAngle))
+                    
+                    snapshotAnimations.append(Motion.background(color: tv.backgroundColor ?? .clear))
                     
                     let cornerRadiusAnimation = Motion.corner(radius: tv.cornerRadius)
                     snapshotAnimations.append(cornerRadiusAnimation)
@@ -443,10 +450,9 @@ open class MotionTransitionDismissedAnimator: MotionTransition {
         
         transitionView.isHidden = true
         
-        let bgView = UIView()
-        bgView.backgroundColor = fromView.backgroundColor
-        bgView.frame = transitionView.bounds
-        transitionView.addSubview(bgView)
+        backgroundView.backgroundColor = fromView.backgroundColor
+        backgroundView.frame = transitionView.bounds
+        transitionView.addSubview(backgroundView)
         
         toView.updateConstraints()
         toView.setNeedsLayout()
@@ -487,6 +493,8 @@ open class MotionTransitionDismissedAnimator: MotionTransition {
                     
                     snapshotAnimations.append(Motion.rotate(angle: tv.motionRotationAngle))
                     
+                    snapshotAnimations.append(Motion.background(color: tv.backgroundColor ?? .clear))
+                    
                     let cornerRadiusAnimation = Motion.corner(radius: tv.cornerRadius)
                     snapshotAnimations.append(cornerRadiusAnimation)
                     snapshotChildAnimations.append(cornerRadiusAnimation)
@@ -526,8 +534,8 @@ open class MotionTransitionDismissedAnimator: MotionTransition {
         
         let d = transitionDuration(using: transitionContext)
         
-        if nil != bgView.backgroundColor {
-            bgView.motion(.backgroundColor(.clear), .duration(d))
+        if nil != backgroundView.backgroundColor {
+            backgroundView.motion(.backgroundColor(.clear), .duration(d))
         }
         
         Motion.delay(d) { [weak self] in
