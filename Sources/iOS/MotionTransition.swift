@@ -239,14 +239,7 @@ open class MotionTransition: NSObject {
         return views
     }
     
-    open func subviews(of view: UIView, views: inout [UIView]) {
-        for v in view.subviews {
-            if 0 < v.motionTransitionIdentifier.utf16.count {
-                views.append(v)
-            }
-            subviews(of: v, views: &views)
-        }
-    }
+    
 }
 
 extension MotionTransition: UIViewControllerTransitioningDelegate {
