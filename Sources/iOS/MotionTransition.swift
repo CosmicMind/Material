@@ -178,14 +178,14 @@ open class MotionTransitionPresentationController: UIPresentationController {
         }
         
         presentedViewController.transitionCoordinator?.animate(alongsideTransition: { (context) in
-//            print("Animating")
+            print("Animating")
         })
         
-//        print("presentationTransitionWillBegin")
+        print("presentationTransitionWillBegin")
     }
 
     open override func presentationTransitionDidEnd(_ completed: Bool) {
-//        print("presentationTransitionDidEnd")
+        print("presentationTransitionDidEnd")
     }
     
     open override func dismissalTransitionWillBegin() {
@@ -194,14 +194,14 @@ open class MotionTransitionPresentationController: UIPresentationController {
         }
         
         presentedViewController.transitionCoordinator?.animate(alongsideTransition: { (context) in
-//            print("Animating")
+            print("Animating")
         })
         
-//        print("dismissalTransitionWillBegin")
+        print("dismissalTransitionWillBegin")
     }
     
     open override func dismissalTransitionDidEnd(_ completed: Bool) {
-//        print("dismissalTransitionDidEnd")
+        print("dismissalTransitionDidEnd")
     }
     
     open override var frameOfPresentedViewInContainerView: CGRect {
@@ -210,7 +210,7 @@ open class MotionTransitionPresentationController: UIPresentationController {
 }
 
 open class MotionTransition: NSObject {
-    open var isPresenting = false
+    open var isPresenting: Bool
     
     open var screenSnapshot: UIView!
     
@@ -227,6 +227,11 @@ open class MotionTransition: NSObject {
     
     open var containerView: UIView!
     open var transitionView = UIView()
+    
+    public override init() {
+        isPresenting = false
+        super.init()
+    }
     
     open var toView: UIView {
         return toViewController.view
@@ -296,7 +301,6 @@ extension MotionTransition: UITabBarControllerDelegate {
         isPresenting = true
         self.fromViewController = fromViewController ?? fromVC
         self.toViewController = toViewController ?? toVC
-        //        self.inContainerController = true
         return self
     }
     
@@ -324,6 +328,8 @@ extension MotionTransition: UIViewControllerAnimatedTransitioning {
         
         toViewController = tVC
         fromViewController = fVC
+        
+        prepareAnimation()
     }
     
     @objc(transitionDuration:)
@@ -332,127 +338,8 @@ extension MotionTransition: UIViewControllerAnimatedTransitioning {
     }
 }
 
-open class MotionTransitionPresentedAnimator: MotionTransition {
-    @objc(animateTransition:)
-    open override func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        super.animateTransition(using: transitionContext)
-        
-        screenSnapshot = fromView.snapshot(afterUpdates: true)
-        screenSnapshot.frame = containerView.bounds
-        transitionView.addSubview(screenSnapshot)
-        
-        backgroundView.backgroundColor = fromView.backgroundColor
-        backgroundView.frame = transitionView.bounds
-        transitionView.insertSubview(backgroundView, belowSubview: screenSnapshot)
-        
-        containerView.insertSubview(toView, belowSubview: transitionView)
-        toView.updateConstraints()
-        toView.setNeedsLayout()
-        toView.layoutIfNeeded()
-        toView.isHidden = false
-        
-        for tv in toSubviews {
-            for fv in fromSubviews {
-                if tv.motionTransitionIdentifier == fv.motionTransitionIdentifier {
-                    var t: TimeInterval = 0
-                    var d: TimeInterval = 0
-                    var snapshotAnimations = [CABasicAnimation]()
-                    var snapshotChildAnimations = [CABasicAnimation]()
-                    var tf = MotionAnimationTimingFunction.easeInEaseOut
-                    
-                    for ta in tv.motionTransitionAnimations {
-                        switch ta {
-                        case let .delay(time):
-                            if time > delay {
-                                delay = time
-                            }
-                            t = time
-                        case let .duration(time):
-                            if time > duration {
-                                duration = time
-                            }
-                            d = time
-                        default:break
-                        }
-                    }
-                    
-                    snapshotAnimations.append(Motion.position(to: tv.motionPosition))
-                    
-                    let sizeAnimation = Motion.size(tv.bounds.size)
-                    snapshotAnimations.append(sizeAnimation)
-                    snapshotChildAnimations.append(sizeAnimation)
-                    
-                    snapshotChildAnimations.append(Motion.position(x: tv.bounds.width / 2, y: tv.bounds.height / 2))
-                    
-                    snapshotAnimations.append(Motion.rotate(angle: tv.motionRotationAngle))
-                    
-                    snapshotAnimations.append(Motion.background(color: tv.backgroundColor ?? .clear))
-                    
-                    let cornerRadiusAnimation = Motion.corner(radius: tv.cornerRadius)
-                    snapshotAnimations.append(cornerRadiusAnimation)
-                    snapshotChildAnimations.append(cornerRadiusAnimation)
-                    
-                    let snapshot = fv.snapshot(afterUpdates: true)
-                    transitionView.insertSubview(snapshot, belowSubview: screenSnapshot)
-                    
-                    Motion.delay(t) {
-                        for ta in tv.motionTransitionAnimations {
-                            switch ta {
-                            case let .timingFunction(timingFunction):
-                                tf = timingFunction
-                            case let .shadow(path):
-                                snapshotAnimations.append(Motion.shadow(path: path))
-                            default:break
-                            }
-                        }
-                    
-                        let snapshotGroup = Motion.animate(group: snapshotAnimations, duration: d)
-                        snapshotGroup.fillMode = MotionAnimationFillModeToValue(mode: .forwards)
-                        snapshotGroup.isRemovedOnCompletion = false
-                        snapshotGroup.timingFunction = MotionAnimationTimingFunctionToValue(timingFunction: tf)
-                        
-                        let snapshotChildGroup = Motion.animate(group: snapshotChildAnimations, duration: d)
-                        snapshotChildGroup.fillMode = MotionAnimationFillModeToValue(mode: .forwards)
-                        snapshotChildGroup.isRemovedOnCompletion = false
-                        snapshotChildGroup.timingFunction = MotionAnimationTimingFunctionToValue(timingFunction: tf)
-                        
-                        snapshot.animate(snapshotGroup)
-                        snapshot.subviews.first!.animate(snapshotChildGroup)
-                    }
-                }
-            }
-        }
-        
-        let d = transitionDuration(using: transitionContext)
-        
-        if let v = toView.backgroundColor {
-            backgroundView.motion(.backgroundColor(v), .duration(d))
-        }
-        
-        Motion.delay(d) { [weak self] in
-            guard let s = self else {
-                return
-            }
-            
-            defer {
-                s.transitionContext.completeTransition(!s.transitionContext.transitionWasCancelled)
-            }
-            
-            s.transitionView.removeFromSuperview()
-            for v in s.transitionView.subviews {
-                v.removeFromSuperview()
-            }
-        }
-        
-        screenSnapshot.removeFromSuperview()
-    }
-}
-
-open class MotionTransitionDismissedAnimator: MotionTransition {
-    @objc(animateTransition:)
-    open override func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        super.animateTransition(using: transitionContext)
-        
+extension MotionTransition {
+    fileprivate func prepareAnimation() {
         screenSnapshot = fromView.snapshot(afterUpdates: true)
         screenSnapshot.frame = containerView.bounds
         containerView.addSubview(screenSnapshot)
@@ -461,6 +348,10 @@ open class MotionTransitionDismissedAnimator: MotionTransition {
         backgroundView.frame = transitionView.bounds
         transitionView.addSubview(backgroundView)
         
+        if isPresenting {
+            containerView.insertSubview(toView, belowSubview: transitionView)
+        }
+        
         toView.updateConstraints()
         toView.setNeedsLayout()
         toView.layoutIfNeeded()
@@ -540,7 +431,9 @@ open class MotionTransitionDismissedAnimator: MotionTransition {
         
         let d = transitionDuration(using: transitionContext)
         
-        if nil != backgroundView.backgroundColor {
+        if isPresenting, let v = backgroundView.backgroundColor {
+            backgroundView.motion(.backgroundColor(v), .duration(d))
+        } else if nil != backgroundView.backgroundColor {
             backgroundView.motion(.backgroundColor(.clear), .duration(d))
         }
         
@@ -568,6 +461,15 @@ open class MotionTransitionDismissedAnimator: MotionTransition {
         screenSnapshot.removeFromSuperview()
     }
 }
+
+open class MotionTransitionPresentedAnimator: MotionTransition {
+    public override init() {
+        super.init()
+        isPresenting = true
+    }
+}
+
+open class MotionTransitionDismissedAnimator: MotionTransition {}
 
 open class MotionTransitionInteractiveAnimator: MotionTransitionInteractiveDelegate {
     open override func startInteractiveTransition(_ transitionContext: UIViewControllerContextTransitioning) {
