@@ -212,6 +212,8 @@ open class MotionTransitionPresentationController: UIPresentationController {
 open class MotionTransition: NSObject {
     open var isPresenting = false
     
+    open var screenSnapshot: UIView!
+    
     open let backgroundView = UIView()
     
     open var toViewController: UIViewController!
@@ -335,16 +337,19 @@ open class MotionTransitionPresentedAnimator: MotionTransition {
     open override func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         super.animateTransition(using: transitionContext)
         
-        transitionView.isHidden = true
+        screenSnapshot = fromView.snapshot(afterUpdates: true)
+        screenSnapshot.frame = containerView.bounds
+        transitionView.addSubview(screenSnapshot)
         
         backgroundView.backgroundColor = fromView.backgroundColor
         backgroundView.frame = transitionView.bounds
-        transitionView.addSubview(backgroundView)
+        transitionView.insertSubview(backgroundView, belowSubview: screenSnapshot)
         
         containerView.insertSubview(toView, belowSubview: transitionView)
         toView.updateConstraints()
         toView.setNeedsLayout()
         toView.layoutIfNeeded()
+        toView.isHidden = false
         
         for tv in toSubviews {
             for fv in fromSubviews {
@@ -388,7 +393,7 @@ open class MotionTransitionPresentedAnimator: MotionTransition {
                     snapshotChildAnimations.append(cornerRadiusAnimation)
                     
                     let snapshot = fv.snapshot(afterUpdates: true)
-                    transitionView.addSubview(snapshot)
+                    transitionView.insertSubview(snapshot, belowSubview: screenSnapshot)
                     
                     Motion.delay(t) {
                         for ta in tv.motionTransitionAnimations {
@@ -425,12 +430,12 @@ open class MotionTransitionPresentedAnimator: MotionTransition {
         }
         
         Motion.delay(d) { [weak self] in
-            defer {
-                transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-            }
-            
             guard let s = self else {
                 return
+            }
+            
+            defer {
+                s.transitionContext.completeTransition(!s.transitionContext.transitionWasCancelled)
             }
             
             s.transitionView.removeFromSuperview()
@@ -439,7 +444,7 @@ open class MotionTransitionPresentedAnimator: MotionTransition {
             }
         }
         
-        transitionView.isHidden = false
+        screenSnapshot.removeFromSuperview()
     }
 }
 
@@ -448,7 +453,9 @@ open class MotionTransitionDismissedAnimator: MotionTransition {
     open override func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         super.animateTransition(using: transitionContext)
         
-        transitionView.isHidden = true
+        screenSnapshot = fromView.snapshot(afterUpdates: true)
+        screenSnapshot.frame = containerView.bounds
+        containerView.addSubview(screenSnapshot)
         
         backgroundView.backgroundColor = fromView.backgroundColor
         backgroundView.frame = transitionView.bounds
@@ -457,6 +464,7 @@ open class MotionTransitionDismissedAnimator: MotionTransition {
         toView.updateConstraints()
         toView.setNeedsLayout()
         toView.layoutIfNeeded()
+        toView.isHidden = false
         
         for tv in toSubviews {
             for fv in fromSubviews {
@@ -500,7 +508,7 @@ open class MotionTransitionDismissedAnimator: MotionTransition {
                     snapshotChildAnimations.append(cornerRadiusAnimation)
                     
                     let snapshot = fv.snapshot(afterUpdates: true)
-                    transitionView.addSubview(snapshot)
+                    transitionView.insertSubview(snapshot, belowSubview: screenSnapshot)
                     
                     Motion.delay(t) {
                         for ta in tv.motionTransitionAnimations {
@@ -530,8 +538,6 @@ open class MotionTransitionDismissedAnimator: MotionTransition {
             }
         }
         
-        fromView.isHidden = true
-        
         let d = transitionDuration(using: transitionContext)
         
         if nil != backgroundView.backgroundColor {
@@ -539,12 +545,12 @@ open class MotionTransitionDismissedAnimator: MotionTransition {
         }
         
         Motion.delay(d) { [weak self] in
-            defer {
-                transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-            }
-            
             guard let s = self else {
                 return
+            }
+            
+            defer {
+                s.transitionContext.completeTransition(!s.transitionContext.transitionWasCancelled)
             }
             
             for v in s.toSubviews {
@@ -557,7 +563,9 @@ open class MotionTransitionDismissedAnimator: MotionTransition {
             }
         }
         
-        transitionView.isHidden = false
+        fromView.isHidden = true
+        
+        screenSnapshot.removeFromSuperview()
     }
 }
 
