@@ -280,7 +280,7 @@ extension CALayer {
                     a.append(Motion.translateY(to: to))
                 case let .translateZ(to):
                     a.append(Motion.translateZ(to: to))
-                case let .x(_), .y(_), .point(_, _):
+                case .x(_), .y(_), .point(_, _):
                     let position = Motion.position(to: CGPoint(x: px, y: py))
                     a.append(position)
                 case let .position(x, y):
@@ -295,7 +295,7 @@ extension CALayer {
                     let zPosition = Motion.zPosition(index: index)
                     zPosition.fromValue = s.value(forKey: MotionAnimationKeyPath.zPosition.rawValue) ?? NSNumber(integerLiteral: 0)
                     a.append(zPosition)
-                case let .width(_), .height(_), .size(_, _):
+                case .width(_), .height(_), .size(_, _):
                     a.append(Motion.size(CGSize(width: w, height: h)))
                 default:break
                 }

@@ -39,55 +39,62 @@ fileprivate struct MotionTransitionInstance {
 }
 
 fileprivate struct MotionTransitionInstanceController {
-    fileprivate var delegate: MotionTransition
+    fileprivate var isEnabled: Bool
 }
 
-extension UIViewController {
+extension UIViewController: UIViewControllerTransitioningDelegate {
     /// MotionTransitionInstanceController Reference.
     fileprivate var motionTransition: MotionTransitionInstanceController {
         get {
             return AssociatedObject(base: self, key: &MotionTransitionInstanceControllerKey) {
-                return MotionTransitionInstanceController(delegate: MotionTransition())
+                return MotionTransitionInstanceController(isEnabled: false)
             }
         }
         set(value) {
             AssociateObject(base: self, key: &MotionTransitionInstanceControllerKey, value: value)
         }
     }
-    
-    open var transitionDelegate: MotionTransition {
-        return motionTransition.delegate
+
+    open var isMotionTransitionEnabled: Bool {
+        get {
+            return motionTransition.isEnabled
+        }
+        set(value) {
+            if value {
+                modalPresentationStyle = .custom
+                transitioningDelegate = self
+            }
+            
+            motionTransition.isEnabled = value
+        }
     }
 }
 
-open class MotionTransitionViewController: UIViewController {
-    public init() {
-        super.init(nibName: nil, bundle: nil)
-        prepare()
+extension UIViewController {
+    open func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return isMotionTransitionEnabled ? MotionTransition(isPresenting: true) : nil
     }
     
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        prepare()
+    open func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return isMotionTransitionEnabled ? MotionTransition() : nil
     }
     
-    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        prepare()
-    }
-    
-    /**
-     Prepares the view instance when intialized. When subclassing,
-     it is recommended to override the prepare method
-     to initialize property values and other setup operations.
-     The super.prepare method should always be called immediately
-     when subclassing.
-     */
-    open func prepare() {
-        modalPresentationStyle = .custom
-        transitioningDelegate = transitionDelegate
+    open func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        return isMotionTransitionEnabled ? MotionTransitionPresentationController(presentedViewController: presented, presenting: presenting) : nil
     }
 }
+
+//extension UIViewController {
+//    open func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+//        return isMotionTransitionEnabled ? MotionTransition(isPresenting: operation == .push) : nil
+//    }
+//}
+//
+//extension UIViewController {
+//    open func tabBarController(_ tabBarController: UITabBarController, animationControllerForTransitionFrom fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+//        return isMotionTransitionEnabled ? MotionTransition() : nil
+//    }
+//}
 
 extension UIView {
     /// The global position of a view.
@@ -125,7 +132,7 @@ extension UIView {
         }
     }
     
-    open func snapshot(afterUpdates: Bool) -> UIView {
+    open func motionTransitionSnapshot(afterUpdates: Bool) -> UIView {
         isHidden = false
         
         (self as? Pulseable)?.pulse.pulseLayer?.isHidden = true
@@ -212,9 +219,9 @@ open class MotionTransitionPresentationController: UIPresentationController {
 open class MotionTransition: NSObject {
     open var isPresenting: Bool
     
-    open var screenSnapshot: UIView!
+    open var transitionSnapshot: UIView!
     
-    open let backgroundView = UIView()
+    open let transitionBackgroundView = UIView()
     
     open var toViewController: UIViewController!
     
@@ -233,14 +240,17 @@ open class MotionTransition: NSObject {
         super.init()
     }
     
+    public init(isPresenting: Bool) {
+        self.isPresenting = isPresenting
+        super.init()
+    }
+    
     open var toView: UIView {
         return toViewController.view
     }
     
     open var toSubviews: [UIView] {
-        var views: [UIView] = []
-        subviews(of: toView, views: &views)
-        return views
+        return subviews(of: toView)
     }
     
     open var fromView: UIView {
@@ -248,8 +258,12 @@ open class MotionTransition: NSObject {
     }
     
     open var fromSubviews: [UIView] {
+        return subviews(of: fromView)
+    }
+    
+    open func subviews(of view: UIView) -> [UIView] {
         var views: [UIView] = []
-        subviews(of: fromView, views: &views)
+        subviews(of: view, views: &views)
         return views
     }
     
@@ -263,73 +277,19 @@ open class MotionTransition: NSObject {
     }
 }
 
-extension MotionTransition: UIViewControllerTransitioningDelegate {
-    open func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return MotionTransitionPresentedAnimator()
-    }
-    
-    open func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return MotionTransitionDismissedAnimator()
-    }
-    
-    open func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return nil // MotionTransitionInteractiveAnimator()
-    }
-    
-    open func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return nil // MotionTransitionInteractiveAnimator()
-    }
-    
-    public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        return MotionTransitionPresentationController(presentedViewController: presented, presenting: presenting)
-    }
-}
-
-extension MotionTransition: UINavigationControllerDelegate {
-    open func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        isPresenting = operation == .push
-        return self
-    }
-    
-    open func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return MotionTransitionInteractiveAnimator()
-    }
-}
-
-extension MotionTransition: UITabBarControllerDelegate {
-    open func tabBarController(_ tabBarController: UITabBarController, animationControllerForTransitionFrom fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        isPresenting = true
-        self.fromViewController = fromViewController ?? fromVC
-        self.toViewController = toViewController ?? toVC
-        return self
-    }
-    
-    open func tabBarController(_ tabBarController: UITabBarController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return MotionTransitionInteractiveAnimator()
-    }
-}
-
 extension MotionTransition: UIViewControllerAnimatedTransitioning {
     @objc(animateTransition:)
     open func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        guard let tVC = transitionContext.viewController(forKey: .to) else {
-            return
-        }
-        
-        guard let fVC = transitionContext.viewController(forKey: .from) else {
-            return
-        }
-
         self.transitionContext = transitionContext
         
-        containerView = transitionContext.containerView
-        containerView.addSubview(transitionView)
-        transitionView.frame = containerView.bounds
-        
-        toViewController = tVC
-        fromViewController = fVC
-        
-        prepareAnimation()
+        prepareToViewController()
+        prepareFromViewController()
+        prepareContainerView()
+        prepareTransitionView()
+        prepareTransitionBackgroundView()
+        prepareTransitionSnapshot()
+        prepareToView()
+        prepareTransitionAnimation()
     }
     
     @objc(transitionDuration:)
@@ -339,15 +299,42 @@ extension MotionTransition: UIViewControllerAnimatedTransitioning {
 }
 
 extension MotionTransition {
-    fileprivate func prepareAnimation() {
-        screenSnapshot = fromView.snapshot(afterUpdates: true)
-        screenSnapshot.frame = containerView.bounds
-        containerView.addSubview(screenSnapshot)
-        
-        backgroundView.backgroundColor = fromView.backgroundColor
-        backgroundView.frame = transitionView.bounds
-        transitionView.addSubview(backgroundView)
-        
+    fileprivate func prepareToViewController() {
+        guard let v = transitionContext.viewController(forKey: .to) else {
+            return
+        }
+        toViewController = v
+    }
+    
+    fileprivate func prepareFromViewController() {
+        guard let v = transitionContext.viewController(forKey: .from) else {
+            return
+        }
+        fromViewController = v
+    }
+    
+    fileprivate func prepareContainerView() {
+        containerView = transitionContext.containerView
+    }
+    
+    fileprivate func prepareTransitionView() {
+        transitionView.frame = containerView.bounds
+        containerView.addSubview(transitionView)
+    }
+    
+    fileprivate func prepareTransitionBackgroundView() {
+        transitionBackgroundView.backgroundColor = fromView.backgroundColor
+        transitionBackgroundView.frame = transitionView.bounds
+        transitionView.addSubview(transitionBackgroundView)
+    }
+    
+    fileprivate func prepareTransitionSnapshot() {
+        transitionSnapshot = fromView.motionTransitionSnapshot(afterUpdates: true)
+        transitionSnapshot.frame = containerView.bounds
+        transitionView.addSubview(transitionSnapshot)
+    }
+    
+    fileprivate func prepareToView() {
         if isPresenting {
             containerView.insertSubview(toView, belowSubview: transitionView)
         }
@@ -356,14 +343,14 @@ extension MotionTransition {
         toView.setNeedsLayout()
         toView.layoutIfNeeded()
         toView.isHidden = false
-        
-        for tv in toSubviews {
-            for fv in fromSubviews {
+    }
+    
+    fileprivate func prepareTransitionAnimation() {
+        for fv in fromSubviews {
+            for tv in toSubviews {
                 if tv.motionTransitionIdentifier == fv.motionTransitionIdentifier {
                     var t: TimeInterval = 0
                     var d: TimeInterval = 0
-                    var snapshotAnimations = [CABasicAnimation]()
-                    var snapshotChildAnimations = [CABasicAnimation]()
                     var tf = MotionAnimationTimingFunction.easeInEaseOut
                     
                     for ta in tv.motionTransitionAnimations {
@@ -382,6 +369,9 @@ extension MotionTransition {
                         }
                     }
                     
+                    var snapshotAnimations = [CABasicAnimation]()
+                    var snapshotChildAnimations = [CABasicAnimation]()
+                    
                     snapshotAnimations.append(Motion.position(to: tv.motionPosition))
                     
                     let sizeAnimation = Motion.size(tv.bounds.size)
@@ -398,8 +388,8 @@ extension MotionTransition {
                     snapshotAnimations.append(cornerRadiusAnimation)
                     snapshotChildAnimations.append(cornerRadiusAnimation)
                     
-                    let snapshot = fv.snapshot(afterUpdates: true)
-                    transitionView.insertSubview(snapshot, belowSubview: screenSnapshot)
+                    let snapshot = fv.motionTransitionSnapshot(afterUpdates: true)
+                    transitionView.insertSubview(snapshot, belowSubview: transitionSnapshot)
                     
                     Motion.delay(t) {
                         for ta in tv.motionTransitionAnimations {
@@ -429,142 +419,59 @@ extension MotionTransition {
             }
         }
         
-        let d = transitionDuration(using: transitionContext)
+        addBackgroundMotionAnimation()
         
-        if isPresenting, let v = backgroundView.backgroundColor {
-            backgroundView.motion(.backgroundColor(v), .duration(d))
-        } else if nil != backgroundView.backgroundColor {
-            backgroundView.motion(.backgroundColor(.clear), .duration(d))
-        }
-        
-        Motion.delay(d) { [weak self] in
+        cleanupAnimation()
+        cleanupFromView()
+        cleanupTransitionSnapshot()
+    }
+}
+
+extension MotionTransition {
+    fileprivate func addBackgroundMotionAnimation() {
+        transitionBackgroundView.motion(.backgroundColor(toView.backgroundColor ?? .clear), .duration(transitionDuration(using: transitionContext)))
+    }
+}
+
+extension MotionTransition {
+    fileprivate func cleanupAnimation() {
+        Motion.delay(transitionDuration(using: transitionContext)) { [weak self] in
             guard let s = self else {
                 return
             }
             
-            defer {
-                s.transitionContext.completeTransition(!s.transitionContext.transitionWasCancelled)
-            }
-            
-            for v in s.toSubviews {
-                v.isHidden = false
-            }
-            
-            s.transitionView.removeFromSuperview()
-            for v in s.transitionView.subviews {
-                v.removeFromSuperview()
-            }
+            s.hideToSubviews()
+            s.clearTransitionView()
+            s.completeTransition()
         }
-        
-        fromView.isHidden = true
-        
-        screenSnapshot.removeFromSuperview()
-    }
-}
-
-open class MotionTransitionPresentedAnimator: MotionTransition {
-    public override init() {
-        super.init()
-        isPresenting = true
-    }
-}
-
-open class MotionTransitionDismissedAnimator: MotionTransition {}
-
-open class MotionTransitionInteractiveAnimator: MotionTransitionInteractiveDelegate {
-    open override func startInteractiveTransition(_ transitionContext: UIViewControllerContextTransitioning) {
-        super.startInteractiveTransition(transitionContext)
-        
-    }
-}
-
-open class MotionTransitionInteractiveDelegate: UIPercentDrivenInteractiveTransition {
-    open var isPresenting = false
-    open var transitionContext: UIViewControllerContextTransitioning!
-    
-    open var containerView: UIView!
-    
-    open var toView: UIView!
-    open var toViewController: UIViewController!
-    open var toViewStartFrame: CGRect!
-    open var toViewFinalFrame: CGRect!
-    
-    open var fromView: UIView!
-    open var fromViewController: UIViewController!
-    open var fromViewFinalFrame: CGRect!
-    
-    open var panGesture: UIPanGestureRecognizer!
-    
-    @objc(startInteractiveTransition:)
-    open override func startInteractiveTransition(_ transitionContext: UIViewControllerContextTransitioning) {
-        super.startInteractiveTransition(transitionContext)
-        
-        guard let tView = transitionContext.view(forKey: .to) else {
-            return
-        }
-        
-        guard let tVC = transitionContext.viewController(forKey: .to) else {
-            return
-        }
-        
-        guard let fView = transitionContext.view(forKey: .from) else {
-            return
-        }
-        
-        guard let fVC = transitionContext.viewController(forKey: .from) else {
-            return
-        }
-        
-        self.transitionContext = transitionContext
-        
-        containerView = transitionContext.containerView
-        
-        toView = tView
-        toViewController = tVC
-        
-        fromView = fView
-        fromViewController = fVC
-        
-        toViewStartFrame = transitionContext.initialFrame(for: toViewController)
-        toViewFinalFrame = transitionContext.finalFrame(for: toViewController)
-        fromViewFinalFrame = transitionContext.finalFrame(for: fromViewController)
-        
-        preparePanGesture()
     }
     
-    open func animationEnded(_ transitionCompleted: Bool) {
-        //        print("MotionTransitionAnimator", #function)
-    }
-}
-
-extension MotionTransitionInteractiveDelegate {
-    fileprivate func preparePanGesture() {
-        panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(recognizer:)))
-        panGesture.maximumNumberOfTouches = 1
-        containerView.addGestureRecognizer(panGesture)
-    }
-}
-
-extension MotionTransitionInteractiveDelegate {
-    @objc
-    fileprivate func handlePanGesture(recognizer: UIPanGestureRecognizer) {
-        switch recognizer.state {
-        case .began:
-            panGesture.setTranslation(.zero, in: containerView)
-        case .changed:
-            let translation = panGesture.translation(in: containerView)
-            
-            /**
-             Compute how far the gesture recognizer tranveled on the
-             vertical axis.
-             */
-            let percentageComplete = fabs(translation.y / containerView.bounds.height)
-            update(percentageComplete)
-            
-        case .ended:
-            finish()
-            containerView.removeGestureRecognizer(panGesture)
-        default:break
+    fileprivate func cleanupFromView() {
+        Motion.delay(delay) { [weak self] in
+            self?.fromView.isHidden = true
         }
+    }
+    
+    fileprivate func cleanupTransitionSnapshot() {
+        Motion.delay(delay) { [weak self] in
+            self?.transitionSnapshot.removeFromSuperview()
+        }
+    }
+    
+    fileprivate func hideToSubviews() {
+        toSubviews.forEach {
+            $0.isHidden = false
+        }
+    }
+    
+    fileprivate func clearTransitionView() {
+        transitionView.removeFromSuperview()
+        transitionView.subviews.forEach {
+            $0.removeFromSuperview()
+        }
+    }
+    
+    fileprivate func completeTransition() {
+        transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
     }
 }

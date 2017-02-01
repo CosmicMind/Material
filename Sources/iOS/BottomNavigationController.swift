@@ -30,7 +30,7 @@
 
 import UIKit
 
-open class BottomNavigationController: UITabBarController, UITabBarControllerDelegate {
+open class BottomNavigationController: UITabBarController {
 	/**
      An initializer that initializes the object with a NSCoder object.
      - Parameter aDecoder: A NSCoder instance.
@@ -110,13 +110,8 @@ open class BottomNavigationController: UITabBarController, UITabBarControllerDel
 		view.clipsToBounds = true
 		view.contentScaleFactor = Screen.scale
 		view.backgroundColor = .white
-        delegate = self
+//        delegate = self
         prepareTabBar()
-	}
-	
-	/// Handles transitions when tabBarItems are pressed.
-	open func tabBarController(_ tabBarController: UITabBarController, animationControllerForTransitionFrom fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return nil
 	}
 	
 	/// Prepares the tabBar.
