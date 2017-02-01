@@ -174,8 +174,6 @@ extension UIView {
         v.transform = transform
         v.backgroundColor = backgroundColor
         
-        print(motionRotationAngle)
-        
         isHidden = true
         (self as? Pulseable)?.pulse.pulseLayer?.isHidden = false
         
@@ -290,10 +288,10 @@ extension MotionTransition: UIViewControllerAnimatedTransitioning {
         prepareToViewController()
         prepareFromViewController()
         prepareContainerView()
+        prepareTransitionSnapshot()
         prepareTransitionView()
         prepareTransitionBackgroundView()
-        prepareTransitionSnapshot()
-        prepareToView()
+        prepareTransitionToView()
         prepareTransitionAnimation()
     }
     
@@ -322,9 +320,16 @@ extension MotionTransition {
         containerView = transitionContext.containerView
     }
     
+    fileprivate func prepareTransitionSnapshot() {
+        transitionSnapshot = fromView.motionTransitionSnapshot(afterUpdates: true)
+        transitionSnapshot.frame = containerView.bounds
+        containerView.addSubview(transitionSnapshot)
+    }
+
+    
     fileprivate func prepareTransitionView() {
         transitionView.frame = containerView.bounds
-        containerView.addSubview(transitionView)
+        containerView.insertSubview(transitionView, belowSubview: transitionSnapshot)
     }
     
     fileprivate func prepareTransitionBackgroundView() {
@@ -333,24 +338,29 @@ extension MotionTransition {
         transitionView.addSubview(transitionBackgroundView)
     }
     
-    fileprivate func prepareTransitionSnapshot() {
-        transitionSnapshot = fromView.motionTransitionSnapshot(afterUpdates: true)
-        transitionSnapshot.frame = containerView.bounds
-        transitionView.addSubview(transitionSnapshot)
-    }
-    
-    fileprivate func prepareToView() {
+    fileprivate func prepareTransitionToView() {
         if isPresenting {
             containerView.insertSubview(toView, belowSubview: transitionView)
         }
         
+        toView.isHidden = false
         toView.updateConstraints()
         toView.setNeedsLayout()
         toView.layoutIfNeeded()
-        toView.isHidden = false
     }
     
     fileprivate func prepareTransitionAnimation() {
+        addTransitionAnimations()
+        addBackgroundMotionAnimation()
+        
+        cleanupAnimation()
+        cleanupFromView()
+        cleanupTransitionSnapshot()
+    }
+}
+
+extension MotionTransition {
+    fileprivate func addTransitionAnimations() {
         for fv in fromSubviews {
             for tv in toSubviews {
                 if tv.motionTransitionIdentifier == fv.motionTransitionIdentifier {
@@ -391,7 +401,7 @@ extension MotionTransition {
                     snapshotChildAnimations.append(Motion.position(x: tv.bounds.width / 2, y: tv.bounds.height / 2))
                     
                     let snapshot = fv.motionTransitionSnapshot(afterUpdates: true)
-                    transitionView.insertSubview(snapshot, belowSubview: transitionSnapshot)
+                    transitionView.addSubview(snapshot)
                     
                     Motion.delay(t) {
                         for ta in tv.motionTransitionAnimations {
@@ -420,16 +430,8 @@ extension MotionTransition {
                 }
             }
         }
-        
-        addBackgroundMotionAnimation()
-        
-        cleanupAnimation()
-        cleanupFromView()
-        cleanupTransitionSnapshot()
     }
-}
-
-extension MotionTransition {
+    
     fileprivate func addBackgroundMotionAnimation() {
         transitionBackgroundView.motion(.backgroundColor(toView.backgroundColor ?? .clear), .duration(transitionDuration(using: transitionContext)))
     }
