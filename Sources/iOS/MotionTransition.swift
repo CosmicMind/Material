@@ -84,17 +84,17 @@ extension UIViewController {
     }
 }
 
-//extension UIViewController {
-//    open func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-//        return isMotionTransitionEnabled ? MotionTransition(isPresenting: operation == .push) : nil
-//    }
-//}
-//
-//extension UIViewController {
-//    open func tabBarController(_ tabBarController: UITabBarController, animationControllerForTransitionFrom fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-//        return isMotionTransitionEnabled ? MotionTransition() : nil
-//    }
-//}
+extension UIViewController {
+    open func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return isMotionTransitionEnabled ? MotionTransition(isPresenting: operation == .push) : nil
+    }
+}
+
+extension UIViewController {
+    open func tabBarController(_ tabBarController: UITabBarController, animationControllerForTransitionFrom fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return isMotionTransitionEnabled ? MotionTransition() : nil
+    }
+}
 
 extension UIView {
     /// The global position of a view.
@@ -143,11 +143,13 @@ extension UIView {
         let oldBackgroundColor = backgroundColor
         backgroundColor = .clear
         
+        let oldTransform = transform
+        transform = .identity
+        
         let v = snapshotView(afterScreenUpdates: afterUpdates)!
         cornerRadius = oldCornerRadius
-        
         backgroundColor = oldBackgroundColor
-        v.backgroundColor = oldBackgroundColor
+        transform = oldTransform
         
         let contentView = v.subviews.first!
         contentView.cornerRadius = cornerRadius
@@ -169,7 +171,10 @@ extension UIView {
         v.shadowColor = shadowColor
         v.shadowOffset = shadowOffset
         v.contentMode = contentMode
-        v.layer.transform = layer.transform
+        v.transform = transform
+        v.backgroundColor = backgroundColor
+        
+        print(motionRotationAngle)
         
         isHidden = true
         (self as? Pulseable)?.pulse.pulseLayer?.isHidden = false
@@ -372,21 +377,18 @@ extension MotionTransition {
                     var snapshotAnimations = [CABasicAnimation]()
                     var snapshotChildAnimations = [CABasicAnimation]()
                     
-                    snapshotAnimations.append(Motion.position(to: tv.motionPosition))
-                    
                     let sizeAnimation = Motion.size(tv.bounds.size)
+                    let cornerRadiusAnimation = Motion.corner(radius: tv.cornerRadius)
+                    
                     snapshotAnimations.append(sizeAnimation)
-                    snapshotChildAnimations.append(sizeAnimation)
-                    
-                    snapshotChildAnimations.append(Motion.position(x: tv.bounds.width / 2, y: tv.bounds.height / 2))
-                    
-                    snapshotAnimations.append(Motion.rotate(angle: tv.motionRotationAngle))
-                    
+                    snapshotAnimations.append(cornerRadiusAnimation)
+                    snapshotAnimations.append(Motion.position(to: tv.motionPosition))
+                    snapshotAnimations.append(Motion.rotation(angle: tv.motionRotationAngle))
                     snapshotAnimations.append(Motion.background(color: tv.backgroundColor ?? .clear))
                     
-                    let cornerRadiusAnimation = Motion.corner(radius: tv.cornerRadius)
-                    snapshotAnimations.append(cornerRadiusAnimation)
                     snapshotChildAnimations.append(cornerRadiusAnimation)
+                    snapshotChildAnimations.append(sizeAnimation)
+                    snapshotChildAnimations.append(Motion.position(x: tv.bounds.width / 2, y: tv.bounds.height / 2))
                     
                     let snapshot = fv.motionTransitionSnapshot(afterUpdates: true)
                     transitionView.insertSubview(snapshot, belowSubview: transitionSnapshot)
