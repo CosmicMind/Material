@@ -117,7 +117,7 @@ public struct Motion {
 			cancelable?(false)
 		}
 		
-		return cancelable;
+		return cancelable
 	}
 	
 	/**

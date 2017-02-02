@@ -1408,7 +1408,7 @@
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.Material;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cosmicmind.Material;
 				PRODUCT_NAME = Material;
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -1433,7 +1433,7 @@
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.Material;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cosmicmind.Material;
 				PRODUCT_NAME = Material;
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -1457,7 +1457,7 @@
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "io.cosmicmind.Material-iOS-Tests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cosmicmind.Material-iOS-Tests";
 				PRODUCT_NAME = Material;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -1475,7 +1475,7 @@
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "io.cosmicmind.Material-iOS-Tests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cosmicmind.Material-iOS-Tests";
 				PRODUCT_NAME = Material;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
@@ -1498,7 +1498,7 @@
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.Material;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cosmicmind.Material;
 				PRODUCT_NAME = Material;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -1522,7 +1522,7 @@
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.cosmicmind.Material;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cosmicmind.Material;
 				PRODUCT_NAME = Material;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -1542,7 +1542,7 @@
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				PRODUCT_BUNDLE_IDENTIFIER = "io.cosmicmind.Material-OSX-Tests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cosmicmind.Material-OSX-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 3.0;
@@ -1559,7 +1559,7 @@
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				PRODUCT_BUNDLE_IDENTIFIER = "io.cosmicmind.Material-OSX-Tests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cosmicmind.Material-OSX-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 3.0;

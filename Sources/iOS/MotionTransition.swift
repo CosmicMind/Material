@@ -235,7 +235,7 @@ open class MotionTransition: NSObject {
     open var transitionContext: UIViewControllerContextTransitioning!
     
     open var delay: TimeInterval = 0
-    open var duration: TimeInterval = 0
+    open var duration: TimeInterval = 0.35
     
     open var containerView: UIView!
     open var transitionView = UIView()
@@ -331,11 +331,11 @@ extension MotionTransition {
 
     fileprivate func prepareTransitionPairs() {
         for from in fromSubviews {
+            guard 0 < from.motionTransitionIdentifier.utf16.count else {
+                continue
+            }
+            
             for to in toSubviews {
-                guard 0 < from.motionTransitionAnimations.count else {
-                    return
-                }
-                
                 guard to.motionTransitionIdentifier == from.motionTransitionIdentifier else {
                     continue
                 }
@@ -372,17 +372,14 @@ extension MotionTransition {
         addBackgroundMotionAnimation()
         
         cleanupAnimation()
-        cleanupFromView()
-        cleanupTransitionSnapshot()
+        hideFromView()
+        removeTransitionSnapshot()
     }
 }
 
 extension MotionTransition {
     fileprivate func addTransitionAnimations() {
         for (from, to) in transitionPairs {
-            let t = motionDelay(animations: to.motionTransitionAnimations)
-            let d = motionDuration(animations: to.motionTransitionAnimations)
-            
             var snapshotAnimations = [CABasicAnimation]()
             var snapshotChildAnimations = [CABasicAnimation]()
             
@@ -399,10 +396,12 @@ extension MotionTransition {
             snapshotChildAnimations.append(sizeAnimation)
             snapshotChildAnimations.append(Motion.position(x: to.bounds.width / 2, y: to.bounds.height / 2))
             
+            let d = motionDuration(animations: to.motionTransitionAnimations)
+            
             let snapshot = from.motionTransitionSnapshot(afterUpdates: true)
             transitionView.addSubview(snapshot)
             
-            Motion.delay(t) { [weak self, weak to] in
+            Motion.delay(motionDelay(animations: to.motionTransitionAnimations)) { [weak self, weak to] in
                 guard let s = self else {
                     return
                 }
@@ -451,7 +450,7 @@ extension MotionTransition {
     }
     
     fileprivate func motionDuration(animations: [MotionAnimation]) -> TimeInterval {
-        var t: TimeInterval = 0
+        var t: TimeInterval = 0.35
         for a in animations {
             switch a {
             case let .duration(time):
@@ -492,13 +491,13 @@ extension MotionTransition {
         }
     }
     
-    fileprivate func cleanupFromView() {
+    fileprivate func hideFromView() {
         Motion.delay(delay) { [weak self] in
             self?.fromView.isHidden = true
         }
     }
     
-    fileprivate func cleanupTransitionSnapshot() {
+    fileprivate func removeTransitionSnapshot() {
         Motion.delay(delay) { [weak self] in
             self?.transitionSnapshot.removeFromSuperview()
         }
