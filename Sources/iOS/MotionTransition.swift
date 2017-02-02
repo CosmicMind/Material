@@ -222,6 +222,8 @@ open class MotionTransitionPresentationController: UIPresentationController {
 open class MotionTransition: NSObject {
     open var isPresenting: Bool
     
+    open fileprivate(set) var transitionPairs = [(UIView, UIView)]()
+    
     open var transitionSnapshot: UIView!
     
     open let transitionBackgroundView = UIView()
@@ -289,6 +291,7 @@ extension MotionTransition: UIViewControllerAnimatedTransitioning {
         prepareFromViewController()
         prepareContainerView()
         prepareTransitionSnapshot()
+        prepareTransitionPairs()
         prepareTransitionView()
         prepareTransitionBackgroundView()
         prepareTransitionToView()
@@ -326,6 +329,21 @@ extension MotionTransition {
         containerView.addSubview(transitionSnapshot)
     }
 
+    fileprivate func prepareTransitionPairs() {
+        for from in fromSubviews {
+            for to in toSubviews {
+                guard 0 < from.motionTransitionAnimations.count else {
+                    return
+                }
+                
+                guard to.motionTransitionIdentifier == from.motionTransitionIdentifier else {
+                    continue
+                }
+                
+                transitionPairs.append((from, to))
+            }
+        }
+    }
     
     fileprivate func prepareTransitionView() {
         transitionView.frame = containerView.bounds
@@ -361,79 +379,102 @@ extension MotionTransition {
 
 extension MotionTransition {
     fileprivate func addTransitionAnimations() {
-        for fv in fromSubviews {
-            for tv in toSubviews {
-                if tv.motionTransitionIdentifier == fv.motionTransitionIdentifier {
-                    var t: TimeInterval = 0
-                    var d: TimeInterval = 0
-                    var tf = MotionAnimationTimingFunction.easeInEaseOut
-                    
-                    for ta in tv.motionTransitionAnimations {
-                        switch ta {
-                        case let .delay(time):
-                            if time > delay {
-                                delay = time
-                            }
-                            t = time
-                        case let .duration(time):
-                            if time > duration {
-                                duration = time
-                            }
-                            d = time
-                        default:break
-                        }
-                    }
-                    
-                    var snapshotAnimations = [CABasicAnimation]()
-                    var snapshotChildAnimations = [CABasicAnimation]()
-                    
-                    let sizeAnimation = Motion.size(tv.bounds.size)
-                    let cornerRadiusAnimation = Motion.corner(radius: tv.cornerRadius)
-                    
-                    snapshotAnimations.append(sizeAnimation)
-                    snapshotAnimations.append(cornerRadiusAnimation)
-                    snapshotAnimations.append(Motion.position(to: tv.motionPosition))
-                    snapshotAnimations.append(Motion.rotation(angle: tv.motionRotationAngle))
-                    snapshotAnimations.append(Motion.background(color: tv.backgroundColor ?? .clear))
-                    
-                    snapshotChildAnimations.append(cornerRadiusAnimation)
-                    snapshotChildAnimations.append(sizeAnimation)
-                    snapshotChildAnimations.append(Motion.position(x: tv.bounds.width / 2, y: tv.bounds.height / 2))
-                    
-                    let snapshot = fv.motionTransitionSnapshot(afterUpdates: true)
-                    transitionView.addSubview(snapshot)
-                    
-                    Motion.delay(t) {
-                        for ta in tv.motionTransitionAnimations {
-                            switch ta {
-                            case let .timingFunction(timingFunction):
-                                tf = timingFunction
-                            case let .shadow(path):
-                                snapshotAnimations.append(Motion.shadow(path: path))
-                            default:break
-                            }
-                        }
-                        
-                        let snapshotGroup = Motion.animate(group: snapshotAnimations, duration: d)
-                        snapshotGroup.fillMode = MotionAnimationFillModeToValue(mode: .forwards)
-                        snapshotGroup.isRemovedOnCompletion = false
-                        snapshotGroup.timingFunction = MotionAnimationTimingFunctionToValue(timingFunction: tf)
-                        
-                        let snapshotChildGroup = Motion.animate(group: snapshotChildAnimations, duration: d)
-                        snapshotChildGroup.fillMode = MotionAnimationFillModeToValue(mode: .forwards)
-                        snapshotChildGroup.isRemovedOnCompletion = false
-                        snapshotChildGroup.timingFunction = MotionAnimationTimingFunctionToValue(timingFunction: tf)
-                        
-                        snapshot.animate(snapshotGroup)
-                        snapshot.subviews.first!.animate(snapshotChildGroup)
-                    }
+        for (from, to) in transitionPairs {
+            let t = motionDelay(animations: to.motionTransitionAnimations)
+            let d = motionDuration(animations: to.motionTransitionAnimations)
+            
+            var snapshotAnimations = [CABasicAnimation]()
+            var snapshotChildAnimations = [CABasicAnimation]()
+            
+            let sizeAnimation = Motion.size(to.bounds.size)
+            let cornerRadiusAnimation = Motion.corner(radius: to.cornerRadius)
+            
+            snapshotAnimations.append(sizeAnimation)
+            snapshotAnimations.append(cornerRadiusAnimation)
+            snapshotAnimations.append(Motion.position(to: to.motionPosition))
+            snapshotAnimations.append(Motion.rotation(angle: to.motionRotationAngle))
+            snapshotAnimations.append(Motion.background(color: to.backgroundColor ?? .clear))
+            
+            snapshotChildAnimations.append(cornerRadiusAnimation)
+            snapshotChildAnimations.append(sizeAnimation)
+            snapshotChildAnimations.append(Motion.position(x: to.bounds.width / 2, y: to.bounds.height / 2))
+            
+            let snapshot = from.motionTransitionSnapshot(afterUpdates: true)
+            transitionView.addSubview(snapshot)
+            
+            Motion.delay(t) { [weak self, weak to] in
+                guard let s = self else {
+                    return
                 }
+                
+                guard let v = to else {
+                    return
+                }
+                
+                let tf = s.motionTimingFunction(animations: v.motionTransitionAnimations)
+                
+                let snapshotGroup = Motion.animate(group: snapshotAnimations, duration: d)
+                snapshotGroup.fillMode = MotionAnimationFillModeToValue(mode: .forwards)
+                snapshotGroup.isRemovedOnCompletion = false
+                snapshotGroup.timingFunction = MotionAnimationTimingFunctionToValue(timingFunction: tf)
+                
+                let snapshotChildGroup = Motion.animate(group: snapshotChildAnimations, duration: d)
+                snapshotChildGroup.fillMode = MotionAnimationFillModeToValue(mode: .forwards)
+                snapshotChildGroup.isRemovedOnCompletion = false
+                snapshotChildGroup.timingFunction = MotionAnimationTimingFunctionToValue(timingFunction: tf)
+                
+                snapshot.animate(snapshotGroup)
+                snapshot.subviews.first!.animate(snapshotChildGroup)
             }
         }
     }
     
     fileprivate func addBackgroundMotionAnimation() {
         transitionBackgroundView.motion(.backgroundColor(toView.backgroundColor ?? .clear), .duration(transitionDuration(using: transitionContext)))
+    }
+}
+
+extension MotionTransition {
+    fileprivate func motionDelay(animations: [MotionAnimation]) -> TimeInterval {
+        var t: TimeInterval = 0
+        for a in animations {
+            switch a {
+            case let .delay(time):
+                if time > delay {
+                    delay = time
+                }
+                t = time
+            default:break
+            }
+        }
+        return t
+    }
+    
+    fileprivate func motionDuration(animations: [MotionAnimation]) -> TimeInterval {
+        var t: TimeInterval = 0
+        for a in animations {
+            switch a {
+            case let .duration(time):
+                if time > duration {
+                    duration = time
+                }
+                t = time
+            default:break
+            }
+        }
+        return t
+    }
+    
+    fileprivate func motionTimingFunction(animations: [MotionAnimation]) -> MotionAnimationTimingFunction {
+        var t = MotionAnimationTimingFunction.easeInEaseOut
+        for a in animations {
+            switch a {
+            case let .timingFunction(timingFunction):
+                t = timingFunction
+            default:break
+            }
+        }
+        return t
     }
 }
 
@@ -446,6 +487,7 @@ extension MotionTransition {
             
             s.hideToSubviews()
             s.clearTransitionView()
+            s.clearTransitionPairs()
             s.completeTransition()
         }
     }
@@ -466,6 +508,10 @@ extension MotionTransition {
         toSubviews.forEach {
             $0.isHidden = false
         }
+    }
+    
+    fileprivate func clearTransitionPairs() {
+        transitionPairs.removeAll()
     }
     
     fileprivate func clearTransitionView() {
