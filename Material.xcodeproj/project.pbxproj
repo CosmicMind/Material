@@ -51,8 +51,6 @@
 		96328B9F1E05C24E009A4C90 /* TableViewController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96328B981E05C0CE009A4C90 /* TableViewController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96334EF61C8B84660083986B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96334EF51C8B84660083986B /* Assets.xcassets */; };
 		965E80C81DD4C50600D61E4B /* Motion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB76D1CB40DC500C806FE /* Motion.swift */; };
-		965E80C91DD4C50600D61E4B /* MotionTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB78B1CB40DC500C806FE /* MotionTransition.swift */; };
-		965E80CA1DD4C50600D61E4B /* KeyframeMotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB77E1CB40DC500C806FE /* KeyframeMotion.swift */; };
 		965E80CB1DD4C50600D61E4B /* MotionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E3C39D1D3A1D0C0086A024 /* MotionAnimation.swift */; };
 		965E80CC1DD4C50600D61E4B /* Bar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7981CB40DC500C806FE /* Bar.swift */; };
 		965E80CD1DD4C50600D61E4B /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7701CB40DC500C806FE /* Button.swift */; };
@@ -154,9 +152,7 @@
 		96BCB7FA1CB40DE900C806FE /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96BCB7F11CB40DE900C806FE /* Roboto-Regular.ttf */; };
 		96BCB7FB1CB40DE900C806FE /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96BCB7F21CB40DE900C806FE /* Roboto-Thin.ttf */; };
 		96BCB7FC1CB40DE900C806FE /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96BCB7F21CB40DE900C806FE /* Roboto-Thin.ttf */; };
-		96BCB8101CB4115200C806FE /* MotionTransition.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB78B1CB40DC500C806FE /* MotionTransition.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8111CB4115200C806FE /* Motion.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB76D1CB40DC500C806FE /* Motion.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		96BCB8131CB4115200C806FE /* KeyframeMotion.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB77E1CB40DC500C806FE /* KeyframeMotion.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8141CB4115200C806FE /* PulseMotion.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7821CB40DC500C806FE /* PulseMotion.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8151CB4115200C806FE /* FABButton.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB75F1CB40DC500C806FE /* FABButton.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96BCB8161CB4115200C806FE /* FlatButton.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7601CB40DC500C806FE /* FlatButton.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -276,7 +272,6 @@
 		96BCB77B1CB40DC500C806FE /* Font.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		96BCB77C1CB40DC500C806FE /* Gravity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gravity.swift; sourceTree = "<group>"; };
 		96BCB77D1CB40DC500C806FE /* Icon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
-		96BCB77E1CB40DC500C806FE /* KeyframeMotion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyframeMotion.swift; sourceTree = "<group>"; };
 		96BCB7801CB40DC500C806FE /* Layer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Layer.swift; sourceTree = "<group>"; };
 		96BCB7811CB40DC500C806FE /* Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
 		96BCB7821CB40DC500C806FE /* PulseMotion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PulseMotion.swift; sourceTree = "<group>"; };
@@ -286,7 +281,6 @@
 		96BCB7871CB40DC500C806FE /* InterimSpace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterimSpace.swift; sourceTree = "<group>"; };
 		96BCB7881CB40DC500C806FE /* Switch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Switch.swift; sourceTree = "<group>"; };
 		96BCB7891CB40DC500C806FE /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
-		96BCB78B1CB40DC500C806FE /* MotionTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotionTransition.swift; sourceTree = "<group>"; };
 		96BCB78C1CB40DC500C806FE /* View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		96BCB78E1CB40DC500C806FE /* Menu.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; tabWidth = 4; };
 		96BCB7901CB40DC500C806FE /* NavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
@@ -752,8 +746,6 @@
 			children = (
 				96BCB76D1CB40DC500C806FE /* Motion.swift */,
 				96E3C39D1D3A1D0C0086A024 /* MotionAnimation.swift */,
-				96BCB78B1CB40DC500C806FE /* MotionTransition.swift */,
-				96BCB77E1CB40DC500C806FE /* KeyframeMotion.swift */,
 				96BCB7821CB40DC500C806FE /* PulseMotion.swift */,
 				961730351E0E156400A9A297 /* SpringMotion.swift */,
 			);
@@ -832,9 +824,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				96D88C321C1328D800B91418 /* Material.h in Headers */,
-				96BCB8101CB4115200C806FE /* MotionTransition.swift in Headers */,
 				96BCB8111CB4115200C806FE /* Motion.swift in Headers */,
-				96BCB8131CB4115200C806FE /* KeyframeMotion.swift in Headers */,
 				96BCB8141CB4115200C806FE /* PulseMotion.swift in Headers */,
 				96BCB8151CB4115200C806FE /* FABButton.swift in Headers */,
 				96BCB8161CB4115200C806FE /* FlatButton.swift in Headers */,
@@ -1109,8 +1099,6 @@
 				965E80FE1DD4D59500D61E4B /* ToolbarController.swift in Sources */,
 				96328B971E05C0BB009A4C90 /* TableView.swift in Sources */,
 				965E80C81DD4C50600D61E4B /* Motion.swift in Sources */,
-				965E80C91DD4C50600D61E4B /* MotionTransition.swift in Sources */,
-				965E80CA1DD4C50600D61E4B /* KeyframeMotion.swift in Sources */,
 				965E80F81DD4D59500D61E4B /* ImageCard.swift in Sources */,
 				96328B991E05C0CE009A4C90 /* TableViewController.swift in Sources */,
 				965E80F91DD4D59500D61E4B /* PresenterCard.swift in Sources */,

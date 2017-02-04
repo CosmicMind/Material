@@ -98,9 +98,12 @@ open class NavigationBar: UINavigationBar {
 	/// A property that accesses the backing layer's background
 	@IBInspectable
     open override var backgroundColor: UIColor? {
-		didSet {
-			barTintColor = backgroundColor
-		}
+        get {
+            return barTintColor
+        }
+        set(value) {
+            barTintColor = value
+        }
 	}
 	
 	/**
