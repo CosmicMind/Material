@@ -131,10 +131,20 @@ extension UIImage {
      - Returns: A UIImage that is the color passed in.
      */
     open class func image(with color: UIColor, size: CGSize) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(size, false, Screen.scale)
+        guard let context = UIGraphicsGetCurrentContext() else {
+            return nil
+        }
+        
+        context.scaleBy(x: 1.0, y: -1.0)
+        context.translateBy(x: 0.0, y: -size.height)
+        
+        context.setBlendMode(.multiply)
+        
         let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-        UIGraphicsBeginImageContextWithOptions(size, false, 0)
         color.setFill()
-        UIRectFill(rect)
+        context.fill(rect)
+        
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return image?.withRenderingMode(.alwaysOriginal)

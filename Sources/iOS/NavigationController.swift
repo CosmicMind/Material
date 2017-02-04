@@ -108,7 +108,8 @@ open class NavigationController: UINavigationController {
     
     open override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        navigationBar.width = view.width
+        navigationBar.setNeedsLayout()
+        navigationBar.layoutIfNeeded()
     }
     
 	/**
