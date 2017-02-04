@@ -114,7 +114,7 @@ public struct Pulse {
         let w = view.bounds.width
         let h = view.bounds.height
         
-        Motion.disable(animations: { [
+        Animation.disable(animations: { [
             n = .center == animation ? w < h ? w : h : w < h ? h : w,
             bounds = layer.bounds,
             animation = animation,
@@ -143,17 +143,17 @@ public struct Pulse {
         
         switch animation {
         case .centerWithBacking, .backing, .pointWithBacking:
-            bLayer.add(Motion.backgroundColor(color: color.withAlphaComponent(opacity / 2), duration: duration), forKey: nil)
+            bLayer.add(Animation.backgroundColor(color: color.withAlphaComponent(opacity / 2), duration: duration), forKey: nil)
         default:break
         }
         
         switch animation {
         case .center, .centerWithBacking, .centerRadialBeyondBounds, .radialBeyondBounds, .point, .pointWithBacking:
-            pLayer.add(Motion.scale(by: 1, duration: duration), forKey: nil)
+            pLayer.add(Animation.scale(by: 1, duration: duration), forKey: nil)
         default:break
         }
         
-        Motion.delay(time: duration) {
+        Animation.delay(time: duration) {
             bLayer.setValue(true, forKey: "animated")
         }
 	}
@@ -168,7 +168,7 @@ public struct Pulse {
             return
         }
         
-        Motion.delay(time: animated ? 0 : 0.15) { [animation = animation, color = color] in
+        Animation.delay(time: animated ? 0 : 0.15) { [animation = animation, color = color] in
             guard let pLayer = bLayer.sublayers?.first as? CAShapeLayer else {
                 return
             }
@@ -177,20 +177,20 @@ public struct Pulse {
             
             switch animation {
             case .centerWithBacking, .backing, .pointWithBacking:
-                bLayer.add(Motion.backgroundColor(color: color.withAlphaComponent(0), duration: duration), forKey: nil)
+                bLayer.add(Animation.backgroundColor(color: color.withAlphaComponent(0), duration: duration), forKey: nil)
             default:break
             }
             
             switch animation {
             case .center, .centerWithBacking, .centerRadialBeyondBounds, .radialBeyondBounds, .point, .pointWithBacking:
-                pLayer.add(Motion.animate(group: [
-                    Motion.scale(by: .center == animation ? 1 : 1.325),
-                    Motion.backgroundColor(color: color.withAlphaComponent(0))
+                pLayer.add(Animation.animate(group: [
+                    Animation.scale(by: .center == animation ? 1 : 1.325),
+                    Animation.backgroundColor(color: color.withAlphaComponent(0))
                 ], duration: duration), forKey: nil)
             default:break
             }
             
-            Motion.delay(time: duration) {
+            Animation.delay(time: duration) {
                 pLayer.removeFromSuperlayer()
                 bLayer.removeFromSuperlayer()
             }
