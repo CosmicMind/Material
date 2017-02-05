@@ -8,6 +8,16 @@ Material is an animation and graphics framework that is used to create beautiful
 
 * [Download the latest sample](https://github.com/CosmicMind/Samples/tree/master/Graph/CardTableView).
 
+## Use Motion With Material
+
+Motion is a new tool used to create transition animations between view controllers. 
+
+## Sample
+
+Take a look at a sample [Photo Collection](https://github.com/CosmicMind/Samples/tree/master/Motion/PhotoCollection) project.
+
+![Motion Photo Collection Sample](http://www.cosmicmind.com/motion/cosmicmind_motion_sample.gif)
+
 ## Features
 
 - [x] Completely Customizable
