@@ -8,14 +8,6 @@ Material is an animation and graphics framework that is used to create beautiful
 
 * [Download the latest sample](https://github.com/CosmicMind/Samples/tree/master/Graph/CardTableView).
 
-## About Material 2
-
-The first version of Material was to bring Material Design to iOS. We considered that a great starting point, but not the entire story. Material 2 is the next chapter, which goes deeper into iOS with refined APIs that simplify Architecture, Photo Library, Reminders, Text Editing, Photo & Video, and much more. In addition to Material Design, we love Apple’s flat UI. Having this in mind, we made it possible to accomplish both UI styles with ease.
-
-## Why A Separate Samples Repo?
-
-We moved all sample projects to a separate repo named [Samples](https://github.com/CosmicMind/Samples) to allow their development to be independent of the Material framework. There has been instances where we needed to update the versions of the framework to accommodate changes that only occurred in the sample projects. 
-
 ## Features
 
 - [x] Completely Customizable
@@ -37,17 +29,6 @@ We moved all sample projects to a separate repo named [Samples](https://github.c
 - [x] NavigationDrawer
 - [x] BottomNavigationBar
 - [x] Sample Projects
-- [x] And More...
-
-## Releasing January 2017 - Material 2.5.0
-
-- [x] Reminders
-- [x] Text Editor
-- [x] Toasts
-- [x] Dialogs & Alerts
-- [x] Bottom Sheets
-- [x] Transitions
-- [x] Updated Motion API
 - [x] And More...
 
 ## Requirements
