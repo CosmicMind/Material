@@ -54,7 +54,6 @@ public enum PageTabBarAlignment: Int {
     case bottom
 }
 
-/// Grid extension for UIView.
 extension UIViewController {
     /// Grid reference.
     public private(set) var pageTabBarItem: PageTabBarItem {

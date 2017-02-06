@@ -94,10 +94,8 @@ fileprivate struct MaterialLayer {
     }
 }
 
-/// A memory reference to the MaterialLayer instance for CALayer extensions.
 fileprivate var MaterialLayerKey: UInt8 = 0
 
-/// Grid extension for UIView.
 extension CALayer {
     /// MaterialLayer Reference.
     fileprivate var materialLayer: MaterialLayer {
@@ -249,7 +247,6 @@ extension CALayer {
     }
 }
 
-/// Grid extension for UIView.
 extension CALayer {
     /**
      A method that accepts CAAnimation objects and executes them on the

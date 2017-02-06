@@ -30,7 +30,6 @@
 
 import UIKit
 
-/// Grid extension for UIView.
 extension UIView {
     /// A property that accesses the backing layer's masksToBounds.
     @IBInspectable
