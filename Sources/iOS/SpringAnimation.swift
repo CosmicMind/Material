@@ -38,7 +38,7 @@ public enum SpringDirection: Int {
     case right
 }
 
-open class SpringMotion {
+open class SpringAnimation {
     /// A SpringDirection value.
     open var springDirection = SpringDirection.up
     
@@ -99,7 +99,7 @@ open class SpringMotion {
     }
 }
 
-extension SpringMotion {
+extension SpringAnimation {
     /// Disable the Menu if views exist.
     fileprivate func disable() {
         guard 0 < views.count else {
@@ -122,7 +122,7 @@ extension SpringMotion {
     }
 }
 
-extension SpringMotion {
+extension SpringAnimation {
     /**
      Expands the Spring component with animation options.
      - Parameter duration: The time for each view's animation.
@@ -182,7 +182,7 @@ extension SpringMotion {
     }
 }
 
-extension SpringMotion {
+extension SpringAnimation {
     /**
      Handles the animation open completion.
      - Parameter view: A UIView.
@@ -215,7 +215,7 @@ extension SpringMotion {
     }
 }
 
-extension SpringMotion {
+extension SpringAnimation {
     /**
      Open the Menu component with animation options in the Up direction.
      - Parameter duration: The time for each view's animation.

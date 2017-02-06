@@ -172,8 +172,8 @@ public protocol FABMenuDelegate {
 
 @objc(FABMenu)
 open class FABMenu: View {
-    /// A reference to the SpringMotion object.
-    internal let spring = SpringMotion()
+    /// A reference to the SpringAnimation object.
+    internal let spring = SpringAnimation()
     
     open var fabMenuDirection: FABMenuDirection {
         get {
