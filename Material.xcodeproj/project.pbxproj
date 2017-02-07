@@ -35,11 +35,11 @@
 		96328B931E05B6E5009A4C90 /* RemindersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96328B921E05B6E5009A4C90 /* RemindersController.swift */; };
 		96328B971E05C0BB009A4C90 /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96328B961E05C0BB009A4C90 /* TableView.swift */; };
 		96328B991E05C0CE009A4C90 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96328B981E05C0CE009A4C90 /* TableViewController.swift */; };
-		96328B9B1E05C24E009A4C90 /* CollectionViewController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96328B791E020A41009A4C90 /* CollectionViewController.swift */; };
-		96328B9C1E05C24E009A4C90 /* Reminders.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96328B901E05B6B5009A4C90 /* Reminders.swift */; };
-		96328B9D1E05C24E009A4C90 /* RemindersController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96328B921E05B6E5009A4C90 /* RemindersController.swift */; };
-		96328B9E1E05C24E009A4C90 /* TableView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96328B961E05C0BB009A4C90 /* TableView.swift */; };
-		96328B9F1E05C24E009A4C90 /* TableViewController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96328B981E05C0CE009A4C90 /* TableViewController.swift */; };
+		96328B9B1E05C24E009A4C90 /* CollectionViewController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96328B791E020A41009A4C90 /* CollectionViewController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96328B9C1E05C24E009A4C90 /* Reminders.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96328B901E05B6B5009A4C90 /* Reminders.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96328B9D1E05C24E009A4C90 /* RemindersController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96328B921E05B6E5009A4C90 /* RemindersController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96328B9E1E05C24E009A4C90 /* TableView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96328B961E05C0BB009A4C90 /* TableView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96328B9F1E05C24E009A4C90 /* TableViewController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96328B981E05C0CE009A4C90 /* TableViewController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96334EF61C8B84660083986B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96334EF51C8B84660083986B /* Assets.xcassets */; };
 		963832421B88DFD80015F710 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963832361B88DFD80015F710 /* Material.framework */; };
 		965E80C81DD4C50600D61E4B /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB76D1CB40DC500C806FE /* Animation.swift */; };
