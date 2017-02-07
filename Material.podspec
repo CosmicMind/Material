@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Material'
-  s.version = '2.4.15'
+  s.version = '2.4.16'
   s.license = 'BSD-3-Clause'
   s.summary = 'An animation and graphics framework for Material Design in Swift.'
   s.homepage = 'http://materialswift.com'

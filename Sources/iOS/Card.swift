@@ -233,9 +233,8 @@ open class Card: PulseView {
         let w = container.width - insets.left - insets.right
         var h = view.height
         
-        (view as? UILabel)?.sizeToFit()
-        
-        if 0 == h {
+        if 0 == h || nil != view as? UILabel {
+            (view as? UILabel)?.sizeToFit()
             h = view.sizeThatFits(CGSize(width: w, height: CGFloat.greatestFiniteMagnitude)).height
         }
         
