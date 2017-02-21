@@ -101,7 +101,7 @@ open class TextField: UITextField {
         return leftViewOffset + height
     }
     
-    /// The leftView width value.
+    /// The leftView offset value.
     open var leftViewOffset: CGFloat = 16
     
     /// Placeholder normal text
@@ -441,6 +441,7 @@ extension TextField {
     /// Prepares the leftView.
     fileprivate func prepareLeftView() {
         leftView?.contentMode = .left
+        leftViewMode = .always
         updateLeftViewColor()
     }
     

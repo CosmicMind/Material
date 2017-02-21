@@ -110,7 +110,6 @@ open class BottomNavigationController: UITabBarController {
 		view.clipsToBounds = true
 		view.contentScaleFactor = Screen.scale
 		view.backgroundColor = .white
-//        delegate = self
         prepareTabBar()
 	}
 	
