@@ -7,15 +7,13 @@ Pod::Spec.new do |s|
   s.social_media_url = 'https://www.facebook.com/cosmicmindcom'
   s.authors = { 'CosmicMind, Inc.' => 'support@cosmicmind.com' }
   s.source = { :git => 'https://github.com/CosmicMind/Material.git', :tag => s.version }
-  s.platform = :ios, '8.0'
-  s.platform = :osx, '10.12'
 
   s.default_subspec = 'Core'
 
   s.subspec 'Core' do |s|
     s.ios.deployment_target = '8.0'
     s.ios.source_files = 'Sources/iOS/*.swift'
-    s.osx.deployment_target = '10.12'
+    s.osx.deployment_target = '10.9'
     s.osx.source_files = 'Sources/macOS/**/*.swift'
     s.requires_arc = true
     s.resource_bundles = {
