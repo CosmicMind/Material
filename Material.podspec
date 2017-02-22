@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.subspec 'Core' do |s|
     s.ios.deployment_target = '8.0'
     s.ios.source_files = 'Sources/iOS/*.swift'
-    s.osx.deployment_target = '10.9'
+    s.osx.deployment_target = '10.12'
     s.osx.source_files = 'Sources/macOS/**/*.swift'
     s.requires_arc = true
     s.resource_bundles = {
