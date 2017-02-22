@@ -43,7 +43,7 @@ Take a look at a sample [Photo Collection](https://github.com/CosmicMind/Samples
 
 ## Requirements
 
-* iOS 8.0+ / Mac OS X 10.9+
+* iOS 8.0+ / macOS 10.12+
 * Xcode 8.0+
 
 ## Communication
@@ -56,7 +56,7 @@ Take a look at a sample [Photo Collection](https://github.com/CosmicMind/Samples
 
 ## Installation
 
-> **Embedded frameworks require a minimum deployment target of iOS 8 or OS X Mavericks (10.9).**
+> **Embedded frameworks require a minimum deployment target of iOS 8+ or macOS (10.12+).**
 > - [Download Material](https://github.com/CosmicMind/Material/archive/master.zip)
 
 Visit the [Installation](https://github.com/CosmicMind/Material/wiki/Installation) page to learn how to install Material using [CocoaPods](http://cocoapods.org) and [Carthage](https://github.com/Carthage/Carthage).

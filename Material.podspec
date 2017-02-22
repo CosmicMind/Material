@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Material'
-  s.version = '2.4.16'
+  s.version = '2.4.17'
   s.license = 'BSD-3-Clause'
   s.summary = 'An animation and graphics framework for Material Design in Swift.'
   s.homepage = 'http://materialswift.com'
@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.subspec 'Core' do |s|
     s.ios.deployment_target = '8.0'
     s.ios.source_files = 'Sources/iOS/*.swift'
-    s.osx.deployment_target = '10.9'
+    s.osx.deployment_target = '10.12'
     s.osx.source_files = 'Sources/macOS/**/*.swift'
     s.requires_arc = true
     s.resource_bundles = {
