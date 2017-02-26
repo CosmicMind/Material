@@ -91,6 +91,7 @@ public enum MotionAnimation {
     case width(CGFloat)
     case height(CGFloat)
     case size(width: CGFloat, height: CGFloat)
+    case depth(offset: CGSize, opacity: Float, radius: CGFloat)
 }
 
 @available(iOS 10, *)
@@ -311,6 +312,10 @@ extension CALayer {
                     a.append(zPosition)
                 case .width(_), .height(_), .size(_, _):
                     a.append(Motion.size(CGSize(width: w, height: h)))
+                case let .depth(offset, opacity, radius):
+                    a.append(Motion.shadow(offset: offset))
+                    a.append(Motion.shadow(opacity: opacity))
+                    a.append(Motion.shadow(radius: radius))
                 default:break
                 }
             }
@@ -722,6 +727,24 @@ extension Motion {
     public static func size(_ size: CGSize) -> CABasicAnimation {
         let animation = CABasicAnimation(keyPath: .size)
         animation.toValue = NSValue(cgSize: size)
+        return animation
+    }
+    
+    public static func shadow(offset: CGSize) -> CABasicAnimation {
+        let animation = CABasicAnimation(keyPath: "shadowOffset")
+        animation.toValue = NSValue(cgSize: offset)
+        return animation
+    }
+    
+    public static func shadow(opacity: Float) -> CABasicAnimation {
+        let animation = CABasicAnimation(keyPath: "shadowOpacity")
+        animation.toValue = NSNumber(floatLiteral: Double(opacity))
+        return animation
+    }
+    
+    public static func shadow(radius: CGFloat) -> CABasicAnimation {
+        let animation = CABasicAnimation(keyPath: "shadowRadius")
+        animation.toValue = NSNumber(floatLiteral: Double(radius))
         return animation
     }
 }
