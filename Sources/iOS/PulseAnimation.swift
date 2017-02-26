@@ -51,9 +51,11 @@ public protocol Pulseable {
     
     /// The opcaity value for the pulse animation.
     var pulseOpacity: CGFloat { get set }
-    
+}
+
+internal protocol PulseableLayer {
     /// A reference to the pulse layer.
-    var pulseLayer: CALayer? { get } 
+    var pulseLayer: CALayer? { get }
 }
 
 public struct Pulse {

@@ -179,9 +179,10 @@ extension CALayer {
     /**
      A function that accepts an Array of MotionAnimation values and executes them.
      - Parameter animations: An Array of MotionAnimation values.
+     - Parameter completion: An optional completion block.
      */
-    open func motion(_ animations: [MotionAnimation]) {
-        motion(delay: 0, duration: 0.35, timingFunction: .easeInEaseOut, animations: animations)
+    open func motion(_ animations: [MotionAnimation], completion: (() -> Void)? = nil) {
+        motion(delay: 0, duration: 0.35, timingFunction: .easeInEaseOut, animations: animations, completion: completion)
     }
     
     /**
@@ -190,8 +191,9 @@ extension CALayer {
      - Parameter duration: The animation duration TimeInterval.
      - Parameter timingFunction: The animation MotionAnimationTimingFunction.
      - Parameter animations: An Array of MotionAnimations.
+     - Parameter completion: An optional completion block.
      */
-    fileprivate func motion(delay: TimeInterval, duration: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: [MotionAnimation]) {
+    fileprivate func motion(delay: TimeInterval, duration: TimeInterval, timingFunction: MotionAnimationTimingFunction, animations: [MotionAnimation], completion: (() -> Void)? = nil) {
         var t = delay
         
         for v in animations {
@@ -319,6 +321,12 @@ extension CALayer {
             g.timingFunction = MotionAnimationTimingFunctionToValue(timingFunction: tf)
             
             s.animate(g)
+            
+            guard let execute = completion else {
+                return
+            }
+            
+            Motion.delay(d, execute: execute)
         }
     }
 }
@@ -390,9 +398,10 @@ extension UIView {
      A function that accepts an Array of MotionAnimation values and executes
      them on the view's backing layer.
      - Parameter animations: An Array of MotionAnimation values.
+     - Parameter completion: An optional completion block.
      */
-    open func motion(_ animations: [MotionAnimation]) {
-        layer.motion(animations)
+    open func motion(_ animations: [MotionAnimation], completion: (() -> Void)? = nil) {
+        layer.motion(animations, completion: completion)
     }
 }
 

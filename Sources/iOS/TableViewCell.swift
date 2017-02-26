@@ -30,7 +30,7 @@
 
 import UIKit
 
-open class TableViewCell: UITableViewCell, Pulseable {
+open class TableViewCell: UITableViewCell, Pulseable, PulseableLayer {
     /**
      A CAShapeLayer used to manage elements that would be affected by
      the clipToBounds property of the backing layer. For example, this
@@ -43,7 +43,7 @@ open class TableViewCell: UITableViewCell, Pulseable {
     internal var pulse: Pulse!
     
     /// A reference to the pulse layer.
-    public var pulseLayer: CALayer? {
+    internal var pulseLayer: CALayer? {
         return pulse.pulseLayer
     }
     

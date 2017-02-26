@@ -30,12 +30,12 @@
 
 import UIKit
 
-open class PulseView: View, Pulseable {
+open class PulseView: View, Pulseable, PulseableLayer {
     /// A Pulse reference.
     internal var pulse: Pulse!
     
     /// A reference to the pulse layer.
-    public var pulseLayer: CALayer? {
+    internal var pulseLayer: CALayer? {
         return pulse.pulseLayer
     }
     

@@ -244,7 +244,7 @@ extension UIView {
         isHidden = false
         
         // Material specific.
-        (self as? Pulseable)?.pulseLayer?.isHidden = true
+        (self as? PulseableLayer)?.pulseLayer?.isHidden = true
         
         let oldCornerRadius = layer.cornerRadius
         layer.cornerRadius = 0
@@ -292,7 +292,7 @@ extension UIView {
         v.backgroundColor = backgroundColor
         
         // Material specific.
-        (self as? Pulseable)?.pulseLayer?.isHidden = false
+        (self as? PulseableLayer)?.pulseLayer?.isHidden = false
         
         isHidden = shouldHide
         
