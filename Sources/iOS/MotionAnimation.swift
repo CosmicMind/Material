@@ -93,6 +93,9 @@ public enum MotionAnimation {
     case size(width: CGFloat, height: CGFloat)
 }
 
+@available(iOS 10, *)
+extension CALayer: CAAnimationDelegate {}
+
 extension CALayer {
     
     /**
@@ -111,7 +114,10 @@ extension CALayer {
      */
     open func animate(_ animations: [CAAnimation]) {
         for animation in animations {
-            animation.delegate = self
+            if nil == animation.delegate {
+                animation.delegate = self
+            }
+            
             if let a = animation as? CABasicAnimation {
                 a.fromValue = (presentation() ?? self).value(forKeyPath: a.keyPath!)
             }
@@ -126,6 +132,8 @@ extension CALayer {
         }
     }
     
+    open func animationDidStart(_ anim: CAAnimation) {}
+    
     /**
      A delegation function that is executed when the backing layer stops
      running an animation.
@@ -134,9 +142,9 @@ extension CALayer {
      because it was completed or interrupted. True if completed, false
      if interrupted.
      */
-    open func animationDidStop(_ animation: CAAnimation, finished flag: Bool) {
-        guard let a = animation as? CAPropertyAnimation else {
-            if let a = (animation as? CAAnimationGroup)?.animations {
+    open func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        guard let a = anim as? CAPropertyAnimation else {
+            if let a = (anim as? CAAnimationGroup)?.animations {
                 for x in a {
                     animationDidStop(x, finished: true)
                 }
@@ -173,7 +181,7 @@ extension CALayer {
      - Parameter animations: An Array of MotionAnimation values.
      */
     open func motion(_ animations: [MotionAnimation]) {
-        motion(delay: 0, duration: 0.25, timingFunction: .easeInEaseOut, animations: animations)
+        motion(delay: 0, duration: 0.35, timingFunction: .easeInEaseOut, animations: animations)
     }
     
     /**
@@ -315,9 +323,6 @@ extension CALayer {
     }
 }
 
-@available(iOS 10, *)
-extension CALayer: CAAnimationDelegate {}
-
 extension UIView {
     /// Computes the rotation of the view.
     open var motionRotationAngle: CGFloat {
@@ -331,7 +336,7 @@ extension UIView {
     
     /// The global position of a view.
     open var motionPosition: CGPoint {
-        return superview?.convert(position, to: nil) ?? position
+        return superview?.convert(layer.position, to: nil) ?? layer.position
     }
     
     /// The layer.transform of a view.

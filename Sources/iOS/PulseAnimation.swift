@@ -51,6 +51,9 @@ public protocol Pulseable {
     
     /// The opcaity value for the pulse animation.
     var pulseOpacity: CGFloat { get set }
+    
+    /// A reference to the pulse layer.
+    var pulseLayer: CALayer? { get } 
 }
 
 public struct Pulse {
@@ -58,7 +61,7 @@ public struct Pulse {
     fileprivate weak var pulseView: UIView?
     
     /// The layer the pulse layers are added to.
-    fileprivate weak var pulseLayer: CALayer?
+    internal weak var pulseLayer: CALayer?
     
     /// Pulse layers.
     fileprivate var layers = [CAShapeLayer]()
@@ -114,7 +117,7 @@ public struct Pulse {
         let w = view.bounds.width
         let h = view.bounds.height
         
-        Animation.disable(animations: { [
+        Motion.disable({ [
             n = .center == animation ? w < h ? w : h : w < h ? h : w,
             bounds = layer.bounds,
             animation = animation,
@@ -143,17 +146,17 @@ public struct Pulse {
         
         switch animation {
         case .centerWithBacking, .backing, .pointWithBacking:
-            bLayer.add(Animation.backgroundColor(color: color.withAlphaComponent(opacity / 2), duration: duration), forKey: nil)
+            bLayer.motion(.backgroundColor(color.withAlphaComponent(opacity / 2)), .duration(duration))
         default:break
         }
         
         switch animation {
         case .center, .centerWithBacking, .centerRadialBeyondBounds, .radialBeyondBounds, .point, .pointWithBacking:
-            pLayer.add(Animation.scale(by: 1, duration: duration), forKey: nil)
+            pLayer.motion(.scale(1), .duration(duration))
         default:break
         }
         
-        Animation.delay(duration) {
+        Motion.delay(duration) {
             bLayer.setValue(true, forKey: "animated")
         }
 	}
@@ -168,7 +171,7 @@ public struct Pulse {
             return
         }
         
-        Animation.delay(animated ? 0 : 0.15) { [animation = animation, color = color] in
+        Motion.delay(animated ? 0 : 0.15) { [animation = animation, color = color] in
             guard let pLayer = bLayer.sublayers?.first as? CAShapeLayer else {
                 return
             }
@@ -177,20 +180,17 @@ public struct Pulse {
             
             switch animation {
             case .centerWithBacking, .backing, .pointWithBacking:
-                bLayer.add(Animation.backgroundColor(color: color.withAlphaComponent(0), duration: duration), forKey: nil)
+                bLayer.motion(.backgroundColor(color.withAlphaComponent(0)), .duration(duration))
             default:break
             }
             
             switch animation {
             case .center, .centerWithBacking, .centerRadialBeyondBounds, .radialBeyondBounds, .point, .pointWithBacking:
-                pLayer.add(Animation.animate(group: [
-                    Animation.scale(by: .center == animation ? 1 : 1.325),
-                    Animation.backgroundColor(color: color.withAlphaComponent(0))
-                ], duration: duration), forKey: nil)
+                pLayer.motion(.scale(.center == animation ? 1 : 1.325), .backgroundColor(color.withAlphaComponent(0)))
             default:break
             }
             
-            Animation.delay(duration) {
+            Motion.delay(duration) {
                 pLayer.removeFromSuperlayer()
                 bLayer.removeFromSuperlayer()
             }

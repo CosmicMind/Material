@@ -42,6 +42,11 @@ open class TableViewCell: UITableViewCell, Pulseable {
     /// A Pulse reference.
     internal var pulse: Pulse!
     
+    /// A reference to the pulse layer.
+    public var pulseLayer: CALayer? {
+        return pulse.pulseLayer
+    }
+    
     /// PulseAnimation value.
     open var pulseAnimation: PulseAnimation {
         get {
@@ -115,7 +120,7 @@ open class TableViewCell: UITableViewCell, Pulseable {
      */
     open func pulse(point: CGPoint? = nil) {
         pulse.expand(point: point ?? center)
-        Animation.delay(0.35) { [weak self] in
+        Motion.delay(0.35) { [weak self] in
             self?.pulse.contract()
         }
     }
