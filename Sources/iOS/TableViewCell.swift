@@ -43,7 +43,7 @@ open class TableViewCell: UITableViewCell, Pulseable, PulseableLayer {
     internal var pulse: Pulse!
     
     /// A reference to the pulse layer.
-    public var pulseLayer: CALayer? {
+    internal var pulseLayer: CALayer? {
         return pulse.pulseLayer
     }
     

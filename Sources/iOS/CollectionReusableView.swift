@@ -44,7 +44,7 @@ open class CollectionReusableView: UICollectionReusableView, Pulseable, Pulseabl
     internal var pulse: Pulse!
     
     /// A reference to the pulse layer.
-    public var pulseLayer: CALayer? {
+    internal var pulseLayer: CALayer? {
         return pulse.pulseLayer
     }
     

@@ -53,7 +53,7 @@ public protocol Pulseable {
     var pulseOpacity: CGFloat { get set }
 }
 
-public protocol PulseableLayer {
+internal protocol PulseableLayer {
     /// A reference to the pulse layer.
     var pulseLayer: CALayer? { get }
 }
