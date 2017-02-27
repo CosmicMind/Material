@@ -48,12 +48,15 @@ public enum MotionAnimationKeyPath: String {
     case translationY = "transform.translation.y"
     case translationZ = "transform.translation.z"
     case position
-    case shadowPath
     case opacity
     case zPosition
     case width = "bounds.size.width"
     case height = "bounds.size.height"
     case size = "bounds.size"
+    case shadowPath
+    case shadowOffset
+    case shadowOpacity
+    case shadowRadius
 }
 
 public enum MotionAnimation {
@@ -85,13 +88,16 @@ public enum MotionAnimation {
     case y(CGFloat)
     case point(x: CGFloat, y: CGFloat)
     case position(x: CGFloat, y: CGFloat)
-    case shadow(path: CGPath)
     case fade(Double)
     case zPosition(Int)
     case width(CGFloat)
     case height(CGFloat)
     case size(width: CGFloat, height: CGFloat)
-    case depth(offset: CGSize, opacity: Float, radius: CGFloat)
+    case shadowPath(CGPath)
+    case shadowOffset(CGSize)
+    case shadowOpacity(Float)
+    case shadowRadius(CGFloat)
+    case depth(shadowOffset: CGSize, shadowOpacity: Float, shadowRadius: CGFloat)
 }
 
 @available(iOS 10, *)
@@ -300,8 +306,6 @@ extension CALayer {
                     a.append(position)
                 case let .position(x, y):
                     a.append(Motion.position(to: CGPoint(x: x, y: y)))
-                case let .shadow(path):
-                    a.append(Motion.shadow(path: path))
                 case let .fade(opacity):
                     let fade = Motion.fade(opacity: opacity)
                     fade.fromValue = s.value(forKey: MotionAnimationKeyPath.opacity.rawValue) ?? NSNumber(floatLiteral: 1)
@@ -312,10 +316,40 @@ extension CALayer {
                     a.append(zPosition)
                 case .width(_), .height(_), .size(_, _):
                     a.append(Motion.size(CGSize(width: w, height: h)))
+                case let .shadowPath(path):
+                    let shadowPath = Motion.shadow(path: path)
+                    shadowPath.fromValue = s.shadowPath
+                    a.append(shadowPath)
+                case let .shadowOffset(offset):
+                    let shadowOffset = Motion.shadow(offset: offset)
+                    shadowOffset.fromValue = s.shadowOffset
+                    a.append(shadowOffset)
+                case let .shadowOpacity(opacity):
+                    let shadowOpacity = Motion.shadow(opacity: opacity)
+                    shadowOpacity.fromValue = s.shadowOpacity
+                    a.append(shadowOpacity)
+                case let .shadowRadius(radius):
+                    let shadowRadius = Motion.shadow(radius: radius)
+                    shadowRadius.fromValue = s.shadowRadius
+                    a.append(shadowRadius)
                 case let .depth(offset, opacity, radius):
-                    a.append(Motion.shadow(offset: offset))
-                    a.append(Motion.shadow(opacity: opacity))
-                    a.append(Motion.shadow(radius: radius))
+                    if let path = s.shadowPath {
+                        let shadowPath = Motion.shadow(path: path)
+                        shadowPath.fromValue = s.shadowPath
+                        a.append(shadowPath)
+                    }
+                    
+                    let shadowOffset = Motion.shadow(offset: offset)
+                    shadowOffset.fromValue = s.shadowOffset
+                    a.append(shadowOffset)
+                    
+                    let shadowOpacity = Motion.shadow(opacity: opacity)
+                    shadowOpacity.fromValue = s.shadowOpacity
+                    a.append(shadowOpacity)
+                    
+                    let shadowRadius = Motion.shadow(radius: radius)
+                    shadowRadius.fromValue = s.shadowRadius
+                    a.append(shadowRadius)
                 default:break
                 }
             }
@@ -665,17 +699,6 @@ extension Motion {
     }
     
     /**
-     Creates a CABasicAnimation for the shadowPath key path.
-     - Parameter path: A CGPath.
-     - Returns: A CABasicAnimation.
-     */
-    public static func shadow(path: CGPath) -> CABasicAnimation {
-        let animation = CABasicAnimation(keyPath: .shadowPath)
-        animation.toValue = path
-        return animation
-    }
-    
-    /**
      Creates a CABasicAnimation for the opacity key path.
      - Parameter opacity: A Double.
      - Returns: A CABasicAnimation.
@@ -730,20 +753,46 @@ extension Motion {
         return animation
     }
     
+    /**
+     Creates a CABasicAnimation for the shadowPath key path.
+     - Parameter path: A CGPath.
+     - Returns: A CABasicAnimation.
+     */
+    public static func shadow(path: CGPath) -> CABasicAnimation {
+        let animation = CABasicAnimation(keyPath: .shadowPath)
+        animation.toValue = path
+        return animation
+    }
+    
+    /**
+     Creates a CABasicAnimation for the shadowOffset key path.
+     - Parameter offset: CGSize.
+     - Returns: A CABasicAnimation.
+     */
     public static func shadow(offset: CGSize) -> CABasicAnimation {
-        let animation = CABasicAnimation(keyPath: "shadowOffset")
+        let animation = CABasicAnimation(keyPath: .shadowOffset)
         animation.toValue = NSValue(cgSize: offset)
         return animation
     }
     
+    /**
+     Creates a CABasicAnimation for the shadowOpacity key path.
+     - Parameter opacity: Float.
+     - Returns: A CABasicAnimation.
+     */
     public static func shadow(opacity: Float) -> CABasicAnimation {
-        let animation = CABasicAnimation(keyPath: "shadowOpacity")
+        let animation = CABasicAnimation(keyPath: .shadowOpacity)
         animation.toValue = NSNumber(floatLiteral: Double(opacity))
         return animation
     }
     
+    /**
+     Creates a CABasicAnimation for the shadowRadius key path.
+     - Parameter radius: CGFloat.
+     - Returns: A CABasicAnimation.
+     */
     public static func shadow(radius: CGFloat) -> CABasicAnimation {
-        let animation = CABasicAnimation(keyPath: "shadowRadius")
+        let animation = CABasicAnimation(keyPath: .shadowRadius)
         animation.toValue = NSNumber(floatLiteral: Double(radius))
         return animation
     }

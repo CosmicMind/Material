@@ -280,7 +280,7 @@ extension CALayer {
         } else if nil == shadowPath {
             shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
         } else {
-            motion(.shadow(path: UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath))
+            motion(.shadowPath(UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath))
         }
     }
 }
