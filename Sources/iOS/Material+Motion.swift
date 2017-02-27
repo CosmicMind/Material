@@ -631,16 +631,16 @@ extension Motion {
                 snapshotAnimations.append(shadowPath)
             }
             
-            let shadowOffset = Motion.shadow(offset: to.shadowOffset)
-            shadowOffset.fromValue = fromView.shadowOffset
+            let shadowOffset = Motion.shadow(offset: to.layer.shadowOffset)
+            shadowOffset.fromValue = fromView.layer.shadowOffset
             snapshotAnimations.append(shadowOffset)
             
-            let shadowOpacity = Motion.shadow(opacity: to.shadowOpacity)
-            shadowOpacity.fromValue = fromView.shadowOpacity
+            let shadowOpacity = Motion.shadow(opacity: to.layer.shadowOpacity)
+            shadowOpacity.fromValue = fromView.layer.shadowOpacity
             snapshotAnimations.append(shadowOpacity)
             
-            let shadowRadius = Motion.shadow(radius: to.shadowRadius)
-            shadowRadius.fromValue = fromView.shadowRadius
+            let shadowRadius = Motion.shadow(radius: to.layer.shadowRadius)
+            shadowRadius.fromValue = fromView.layer.shadowRadius
             snapshotAnimations.append(shadowRadius)
             
             snapshotChildAnimations.append(cornerRadiusAnimation)

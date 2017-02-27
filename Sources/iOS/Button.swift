@@ -43,7 +43,7 @@ open class Button: UIButton, Pulseable, PulseableLayer {
     internal var pulse: Pulse!
     
     /// A reference to the pulse layer.
-    internal var pulseLayer: CALayer? {
+    public var pulseLayer: CALayer? {
         return pulse.pulseLayer
     }
     
