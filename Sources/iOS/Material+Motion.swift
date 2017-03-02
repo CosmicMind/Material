@@ -556,7 +556,7 @@ extension Motion {
     /// Prepares the transitionSnapshot.
     fileprivate func prepareTransitionSnapshot() {
         transitionSnapshot = fromView.transitionSnapshot(afterUpdates: true, shouldHide: false)
-        transitionSnapshot.frame = fromView.bounds
+        transitionSnapshot.frame = fromView.frame
         containerView.insertSubview(transitionSnapshot, aboveSubview: fromView)
     }
     

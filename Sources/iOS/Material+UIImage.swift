@@ -178,7 +178,7 @@ extension UIImage {
 
 extension UIImage {
     /**
-     Creates an clear image.
+     Creates a clear image.
      - Returns: A UIImage that is clear.
      */
     open class func clear(size: CGSize = CGSize(width: 16, height: 16)) -> UIImage? {
