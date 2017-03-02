@@ -289,7 +289,7 @@ open class NavigationBar: UINavigationBar {
      when subclassing.
      */
 	open func prepare() {
-        barStyle = .black
+        isTranslucent = false
         depthPreset = .depth1
         interimSpacePreset = .interimSpace3
         contentEdgeInsetsPreset = .square1
