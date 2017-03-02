@@ -286,11 +286,6 @@ extension SpringAnimation {
      - Parameter completion: A completion block to execute on each view's animation.
      */
     fileprivate func expandDown(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
-        guard let first = views.first else {
-            return
-        }
-        
-        let h = baseSize.height
         
         for i in 0..<views.count {
             let v = views[i]
@@ -301,9 +296,9 @@ extension SpringAnimation {
                 usingSpringWithDamping: usingSpringWithDamping,
                 initialSpringVelocity: initialSpringVelocity,
                 options: options,
-                animations: { [s = self, first = first, v = v] in
+                animations: { [s = interimSpace, m = CGFloat(i + 1), v = v] in
                     v.alpha = 1
-                    v.y = first.y + h + CGFloat(i - 1) * s.itemSize.height + CGFloat(i) * s.interimSpace
+                    v.y = m * (v.height + s)
                             
                     animations?(v)
                 }) { [weak self, v = v] _ in
@@ -327,8 +322,6 @@ extension SpringAnimation {
             return
         }
         
-        let h = baseSize.height
-        
         for i in 0..<views.count {
             let v = views[i]
             
@@ -339,7 +332,7 @@ extension SpringAnimation {
                 options: options,
                 animations: { [first = first, v = v] in
                     v.alpha = 0
-                    v.y = first.y + h
+                    v.y = first.y
                             
                     animations?(v)
                 }) { [weak self, v = v] _ in
@@ -359,9 +352,6 @@ extension SpringAnimation {
      - Parameter completion: A completion block to execute on each view's animation.
      */
     fileprivate func expandLeft(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
-        guard let first = views.first else {
-            return
-        }
         
         for i in 0..<views.count {
             let v = views[i]
@@ -372,9 +362,9 @@ extension SpringAnimation {
                usingSpringWithDamping: usingSpringWithDamping,
                initialSpringVelocity: initialSpringVelocity,
                options: options,
-               animations: { [s = self, first = first, v = v] in
+               animations: { [s = interimSpace, m = CGFloat(i + 1), v = v] in
                     v.alpha = 1
-                    v.x = first.x - CGFloat(i) * s.itemSize.width - CGFloat(i) * s.interimSpace
+                    v.x = -m * (v.width + s)
                 
                     animations?(v)
                 }) { [weak self, v = v] _ in
@@ -428,11 +418,6 @@ extension SpringAnimation {
      - Parameter completion: A completion block to execute on each view's animation.
      */
     fileprivate func expandRight(duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
-        guard let first = views.first else {
-            return
-        }
-        
-        let h = baseSize.height
         
         for i in 0..<views.count {
             let v = views[i]
@@ -443,9 +428,9 @@ extension SpringAnimation {
                 usingSpringWithDamping: usingSpringWithDamping,
                 initialSpringVelocity: initialSpringVelocity,
                 options: options,
-                animations: { [s = self, first = first, v = v] in
+                animations: { [s = interimSpace, m = CGFloat(i + 1), v = v] in
                     v.alpha = 1
-                    v.x = first.x + h + CGFloat(i - 1) * s.itemSize.width + CGFloat(i) * s.interimSpace
+                    v.x = m * (v.width + s)
                             
                     animations?(v)
                 }) { [weak self, v = v] _ in
