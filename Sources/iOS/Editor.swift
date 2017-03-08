@@ -171,6 +171,22 @@ public protocol EditorDelegate {
     @objc
     optional func editor(editor: Editor, textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool
     */
+    
+    /**
+     A delegation method that is executed when the keyboard will open.
+     - Parameter editor: An Editor.
+     - Parameter willShowKeyboard value: A NSValue.
+     */
+    @objc
+    optional func editor(editor: Editor, willShowKeyboard value: NSValue)
+    
+    /**
+     A delegation method that is executed when the keyboard will close.
+     - Parameter editor: An Editor.
+     - Parameter willHideKeyboard value: A NSValue.
+     */
+    @objc
+    optional func editor(editor: Editor, willHideKeyboard value: NSValue)
 }
 
 open class Editor: View {
@@ -178,6 +194,9 @@ open class Editor: View {
     open var willLayout: Bool {
         return 0 < width && 0 < height && nil != superview
     }
+    
+    /// Is the keyboard hidden.
+    open fileprivate(set) var isKeyboardHidden = true
     
     /// TextStorage instance that is observed while editing.
     open fileprivate(set) var textStorage: TextStorage!
@@ -249,6 +268,11 @@ open class Editor: View {
         textView.frame = CGRect(x: textViewEdgeInsets.left, y: textViewEdgeInsets.top, width: width - textViewEdgeInsets.left - textViewEdgeInsets.right, height: height - textViewEdgeInsets.top - textViewEdgeInsets.bottom)
     }
     
+    /// Deinitializer.
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     /**
      Prepares the view instance when intialized. When subclassing,
      it is recommended to override the prepare method
@@ -263,6 +287,7 @@ open class Editor: View {
         prepareTextStorage()
         prepareRegularExpression()
         prepareTextView()
+        prepareKeyboardNotificationObservers()
     }
 }
 
@@ -295,6 +320,52 @@ extension Editor {
     /// Prepares the regular expression for matching.
     fileprivate func prepareRegularExpression() {
         textStorage.expression = try? NSRegularExpression(pattern: pattern, options: [])
+    }
+    
+    /// Prepares the keyboard notification center observers.
+    fileprivate func prepareKeyboardNotificationObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+}
+
+extension Editor {
+    /**
+     Handler for when the keyboard will open.
+     - Parameter notification: A Notification.
+     */
+    @objc
+    fileprivate func handleKeyboardWillShow(notification: Notification) {
+        guard isKeyboardHidden else {
+            return
+        }
+        
+        isKeyboardHidden = false
+        
+        guard let v = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue else {
+            return
+        }
+        
+        delegate?.editor?(editor: self, willShowKeyboard: v)
+    }
+    
+    /**
+     Handler for when the keyboard will close.
+     - Parameter notification: A Notification.
+     */
+    @objc
+    fileprivate func handleKeyboardWillHide(notification: Notification) {
+        guard !isKeyboardHidden else {
+            return
+        }
+        
+        isKeyboardHidden = true
+        
+        guard let v = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue else {
+            return
+        }
+        
+        delegate?.editor?(editor: self, willHideKeyboard: v)
     }
 }
 
