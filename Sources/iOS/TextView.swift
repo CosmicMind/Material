@@ -80,6 +80,15 @@ open class TextView: UITextView {
 			preparePlaceholderLabel()
 		}
 	}
+    
+    open var placeholder: String? {
+        get {
+            return placeholderLabel?.text
+        }
+        set(value) {
+            placeholderLabel?.text = value
+        }
+    }
 	
 	/// An override to the text property.
 	@IBInspectable
