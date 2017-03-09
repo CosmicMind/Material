@@ -19,7 +19,6 @@
 		9617B0821DFCA8CF00410F8F /* CapturePreview.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96717B0F1DBE6AF600DA84DB /* CapturePreview.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9617B0831DFCA8CF00410F8F /* CaptureController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96717B0E1DBE6AF600DA84DB /* CaptureController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9617B0841DFCA8CF00410F8F /* Editor.swift in Headers */ = {isa = PBXBuildFile; fileRef = 961DED451DCC40C500F425B6 /* Editor.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		9617B0851DFCA8CF00410F8F /* EditorController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 961DED4A1DCC546100F425B6 /* EditorController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9617B0861DFCA8CF00410F8F /* HeightPreset.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9626CB9A1DAD3D1D003E2611 /* HeightPreset.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9617B0871DFCA8CF00410F8F /* PageTabBarController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 963FBF071D669D14008F8512 /* PageTabBarController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9617B0881DFCA8CF00410F8F /* PhotoLibrary.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96717B161DBE6B1800DA84DB /* PhotoLibrary.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -118,7 +117,6 @@
 		965E81221DD4D5C800D61E4B /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB79E1CB40DC500C806FE /* TextView.swift */; };
 		965E81231DD4D7C800D61E4B /* BottomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7591CB40DC500C806FE /* BottomTabBar.swift */; };
 		965E81241DD4D7C800D61E4B /* Editor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961DED451DCC40C500F425B6 /* Editor.swift */; };
-		965E81251DD4D7C800D61E4B /* EditorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961DED4A1DCC546100F425B6 /* EditorController.swift */; };
 		965E81261DD4D7C800D61E4B /* CharacterAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961276621DCD8B1800A7D920 /* CharacterAttribute.swift */; };
 		9697F7BF1D8F2572004741EC /* Divider.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96230AB71D6A520C00AF47DC /* Divider.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9697F7C01D8F2572004741EC /* Material+CALayer.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96F1DC871D654FDF0025F925 /* Material+CALayer.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -196,7 +194,6 @@
 		961276621DCD8B1800A7D920 /* CharacterAttribute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacterAttribute.swift; sourceTree = "<group>"; };
 		961730591E145DE900A9A297 /* CollectionViewCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCard.swift; sourceTree = "<group>"; };
 		961DED451DCC40C500F425B6 /* Editor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Editor.swift; sourceTree = "<group>"; };
-		961DED4A1DCC546100F425B6 /* EditorController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorController.swift; sourceTree = "<group>"; };
 		961E6BDE1DDA2A95004E6C93 /* Application.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		961E6BE11DDA2AF3004E6C93 /* Screen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
 		961EFC571D738FF600E84652 /* SnackbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnackbarController.swift; sourceTree = "<group>"; };
@@ -315,7 +312,6 @@
 			isa = PBXGroup;
 			children = (
 				961DED451DCC40C500F425B6 /* Editor.swift */,
-				961DED4A1DCC546100F425B6 /* EditorController.swift */,
 			);
 			name = Editor;
 			sourceTree = "<group>";
@@ -822,7 +818,6 @@
 				9617B0821DFCA8CF00410F8F /* CapturePreview.swift in Headers */,
 				9617B0831DFCA8CF00410F8F /* CaptureController.swift in Headers */,
 				9617B0841DFCA8CF00410F8F /* Editor.swift in Headers */,
-				9617B0851DFCA8CF00410F8F /* EditorController.swift in Headers */,
 				9617B0861DFCA8CF00410F8F /* HeightPreset.swift in Headers */,
 				9617B0871DFCA8CF00410F8F /* PageTabBarController.swift in Headers */,
 				9617B0881DFCA8CF00410F8F /* PhotoLibrary.swift in Headers */,
@@ -929,7 +924,6 @@
 			files = (
 				965E81231DD4D7C800D61E4B /* BottomTabBar.swift in Sources */,
 				965E81241DD4D7C800D61E4B /* Editor.swift in Sources */,
-				965E81251DD4D7C800D61E4B /* EditorController.swift in Sources */,
 				961E6BE21DDA2AF3004E6C93 /* Screen.swift in Sources */,
 				965E81261DD4D7C800D61E4B /* CharacterAttribute.swift in Sources */,
 				965E80FF1DD4D5C800D61E4B /* BottomNavigationController.swift in Sources */,

@@ -35,6 +35,14 @@ public protocol TextViewDelegate : UITextViewDelegate {}
 
 @objc(TextView)
 open class TextView: UITextView {
+    /// A boolean indicating whether the text is empty.
+    open var isEmpty: Bool {
+        return 0 == text?.utf16.count
+    }
+    
+    /// A boolean indicating whether the text is in edit mode.
+    open fileprivate(set) var isEditing = true
+    
 	/// A property that accesses the backing layer's background
 	@IBInspectable
     open override var backgroundColor: UIColor? {
@@ -43,56 +51,49 @@ open class TextView: UITextView {
 		}
 	}
 	
-	/**
-	The title UILabel that is displayed when there is text. The 
-	titleLabel text value is updated with the placeholderLabel
-	text value before being displayed.
-	*/
-	@IBInspectable
-    open var titleLabel: UILabel? {
-		didSet {
-			prepareTitleLabel()
-		}
-	}
-	
-	/// The color of the titleLabel text when the textView is not active.
-	@IBInspectable
-    open var titleLabelColor: UIColor? {
-		didSet {
-			titleLabel?.textColor = titleLabelColor
-		}
-	}
-	
-	/// The color of the titleLabel text when the textView is active.
-	@IBInspectable
-    open var titleLabelActiveColor: UIColor?
-	
-	/**
-	A property that sets the distance between the textView and
-	titleLabel.
-	*/
-	@IBInspectable
-    open var titleLabelAnimationDistance: CGFloat = 8
-	
-	/// Placeholder UILabel view.
-	open var placeholderLabel: UILabel? {
-		didSet {
-			preparePlaceholderLabel()
-		}
-	}
+	/// The placeholderLabel font value.
+    @IBInspectable
+    open override var font: UIFont? {
+        didSet {
+            placeholderLabel.font = font
+        }
+    }
     
+    /// The placeholderLabel text value.
+    @IBInspectable
     open var placeholder: String? {
         get {
-            return placeholderLabel?.text
+            return placeholderLabel.text
         }
         set(value) {
-            placeholderLabel?.text = value
+            placeholderLabel.text = value
+            layoutSubviews()
+        }
+    }
+    
+    /// The placeholder UILabel.
+    @IBInspectable
+    open let placeholderLabel = UILabel()
+    
+    /// Placeholder normal text
+    @IBInspectable
+    open var placeholderNormalColor = Color.darkText.others {
+        didSet {
+            updatePlaceholderLabelColor()
+        }
+    }
+    
+    /// Placeholder active text
+    @IBInspectable
+    open var placeholderActiveColor = Color.blue.base {
+        didSet {
+            updatePlaceholderLabelColor()
         }
     }
 	
 	/// An override to the text property.
 	@IBInspectable
-    open override var text: String! {
+    open override var text: String? {
 		didSet {
 			handleTextViewTextDidChange()
 		}
@@ -106,9 +107,9 @@ open class TextView: UITextView {
 	}
 	
 	/**
-	Text container UIEdgeInset preset property. This updates the 
-	textContainerInset property with a preset value.
-	*/
+	 Text container UIEdgeInset preset property. This updates the
+	 textContainerInset property with a preset value.
+	 */
 	open var textContainerEdgeInsetsPreset: EdgeInsetsPreset = .none {
 		didSet {
 			textContainerInset = EdgeInsetsPresetToValue(preset: textContainerEdgeInsetsPreset)
@@ -123,39 +124,40 @@ open class TextView: UITextView {
 	}
 	
 	/**
-	An initializer that initializes the object with a NSCoder object.
-	- Parameter aDecoder: A NSCoder instance.
-	*/
+	 An initializer that initializes the object with a NSCoder object.
+	 - Parameter aDecoder: A NSCoder instance.
+	 */
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 		prepare()
 	}
 	
 	/**
-	An initializer that initializes the object with a CGRect object.
-	If AutoLayout is used, it is better to initilize the instance
-	using the init() initializer.
-	- Parameter frame: A CGRect instance.
-	- Parameter textContainer: A NSTextContainer instance.
-	*/
+	 An initializer that initializes the object with a CGRect object.
+	 If AutoLayout is used, it is better to initilize the instance
+	 using the init() initializer.
+	 - Parameter frame: A CGRect instance.
+	 - Parameter textContainer: A NSTextContainer instance.
+	 */
 	public override init(frame: CGRect, textContainer: NSTextContainer?) {
 		super.init(frame: frame, textContainer: textContainer)
 		prepare()
 	}
 	
 	/**
-	A convenience initializer that is mostly used with AutoLayout.
-	- Parameter textContainer: A NSTextContainer instance.
-	*/
+	 A convenience initializer that is mostly used with AutoLayout.
+	 - Parameter textContainer: A NSTextContainer instance.
+	 */
 	public convenience init(textContainer: NSTextContainer?) {
 		self.init(frame: .zero, textContainer: textContainer)
 	}
 	
-	/** Denitializer. This should never be called unless you know
-	what you are doing.
-	*/
+	/** 
+     Denitializer. This should never be called unless you know
+	 what you are doing.
+	 */
 	deinit {
-		removeNotificationHandlers()
+		NotificationCenter.default.removeObserver(self)
 	}
 	
     open override func layoutSubviews() {
@@ -163,63 +165,36 @@ open class TextView: UITextView {
 		layoutShape()
         layoutShadowPath()
 		
-        placeholderLabel?.preferredMaxLayoutWidth = textContainer.size.width - textContainer.lineFragmentPadding * 2
-		titleLabel?.frame.size.width = bounds.width
+        placeholderLabel.preferredMaxLayoutWidth = textContainer.size.width - textContainer.lineFragmentPadding * 2
 	}
 	
 	/// Reloads necessary components when the view has changed.
     open func reload() {
-		if let p = placeholderLabel {
-			removeConstraints(constraints)
-			layout(p).edges(
-                top: textContainerInset.top,
-                left: textContainerInset.left + textContainer.lineFragmentPadding,
-                bottom: textContainerInset.bottom,
-                right: textContainerInset.right + textContainer.lineFragmentPadding)
-		}
+        removeConstraints(constraints)
+        layout(placeholderLabel).edges(
+            top: textContainerInset.top,
+            left: textContainerInset.left + textContainer.lineFragmentPadding,
+            bottom: textContainerInset.bottom,
+            right: textContainerInset.right + textContainer.lineFragmentPadding)
 	}
 	
 	/// Notification handler for when text editing began.
     @objc
 	fileprivate func handleTextViewTextDidBegin() {
-		titleLabel?.textColor = titleLabelActiveColor
-	}
+    
+    }
 	
 	/// Notification handler for when text changed.
 	@objc
     fileprivate func handleTextViewTextDidChange() {
-		if let p = placeholderLabel {
-			p.isHidden = !(true == text?.isEmpty)
-		}
-		
-        guard let t = text else {
-            hideTitleLabel()
-            return
-        }
-        
-        if 0 < t.utf16.count {
-            showTitleLabel()
-        } else {
-            hideTitleLabel()
-        }
+		placeholderLabel.isHidden = !isEmpty
 	}
 	
 	/// Notification handler for when text editing ended.
     @objc
 	fileprivate func handleTextViewTextDidEnd() {
-        guard let t = text else {
-            hideTitleLabel()
-            return
-        }
         
-        if 0 < t.utf16.count {
-            showTitleLabel()
-        } else {
-            hideTitleLabel()
-        }
-        
-        titleLabel?.textColor = titleLabelColor
-	}
+    }
 	
 	/**
      Prepares the view instance when intialized. When subclassing,
@@ -232,72 +207,17 @@ open class TextView: UITextView {
 		contentScaleFactor = Screen.scale
 		textContainerInset = .zero
 		backgroundColor = .white
-		clipsToBounds = false
-		removeNotificationHandlers()
+        clipsToBounds = false
+        preparePlaceholderLabel()
 		prepareNotificationHandlers()
-		reload()
 	}
 	
 	/// prepares the placeholderLabel property.
 	fileprivate func preparePlaceholderLabel() {
-		if let v: UILabel = placeholderLabel {
-			v.font = font
-			v.textAlignment = textAlignment
-			v.numberOfLines = 0
-			v.backgroundColor = .clear
-			addSubview(v)
-			reload()
-			handleTextViewTextDidChange()
-		}
-	}
-	
-	/// Prepares the titleLabel property.
-	fileprivate func prepareTitleLabel() {
-		if let v: UILabel = titleLabel {
-			v.isHidden = true
-			addSubview(v)
-            
-            guard let t = text, 0 == t.utf16.count else {
-                v.alpha = 0
-                return
-            }
-            
-            showTitleLabel()
-		}
-	}
-	
-	/// Shows and animates the titleLabel property.
-	fileprivate func showTitleLabel() {
-		if let v: UILabel = titleLabel {
-			if v.isHidden {
-				if let s: String = placeholderLabel?.text {
-                    v.text = s
-				}
-				let h: CGFloat = ceil(v.font.lineHeight)
-                v.frame = CGRect(x: 0, y: -h, width: bounds.width, height: h)
-				v.isHidden = false
-				UIView.animate(withDuration: 0.25, animations: { [weak self] in
-					if let s: TextView = self {
-						v.alpha = 1
-						v.frame.origin.y = -v.frame.height - s.titleLabelAnimationDistance
-					}
-				})
-			}
-		}
-	}
-	
-	/// Hides and animates the titleLabel property.
-	fileprivate func hideTitleLabel() {
-		if let v: UILabel = titleLabel {
-			if !v.isHidden {
-				UIView.animate(withDuration: 0.25, animations: {
-					v.alpha = 0
-					v.frame.origin.y = -v.frame.height
-				}) { _ in
-					v.isHidden = true
-				}
-			}
-		}
+        placeholderLabel.font = font
+        placeholderLabel.textAlignment = textAlignment
+        placeholderLabel.numberOfLines = 0
+        placeholderLabel.backgroundColor = .clear
 	}
 	
 	/// Prepares the Notification handlers.
@@ -307,12 +227,12 @@ open class TextView: UITextView {
 		defaultCenter.addObserver(self, selector: #selector(handleTextViewTextDidChange), name: NSNotification.Name.UITextViewTextDidChange, object: self)
 		defaultCenter.addObserver(self, selector: #selector(handleTextViewTextDidEnd), name: NSNotification.Name.UITextViewTextDidEndEditing, object: self)
 	}
-	
-	/// Removes the Notification handlers.
-	fileprivate func removeNotificationHandlers() {
-        let defaultCenter = NotificationCenter.default
-        defaultCenter.removeObserver(self, name: NSNotification.Name.UITextViewTextDidBeginEditing, object: self)
-		defaultCenter.removeObserver(self, name: NSNotification.Name.UITextViewTextDidChange, object: self)
-		defaultCenter.removeObserver(self, name: NSNotification.Name.UITextViewTextDidEndEditing, object: self)
-	}
+}
+
+extension TextView {
+    /// Updates the placeholderLabel text color.
+    fileprivate func updatePlaceholderLabelColor() {
+        tintColor = placeholderActiveColor
+        placeholderLabel.textColor = isEditing ? placeholderActiveColor : placeholderNormalColor
+    }
 }
