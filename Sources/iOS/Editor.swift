@@ -207,6 +207,17 @@ open class Editor: View {
     /// A reference to the NSLayoutManager.
     open fileprivate(set) var layoutManager: NSLayoutManager!
     
+    /// A reference to the textView inputAccessoryView.
+    @IBInspectable
+    open override var inputAccessoryView: UIView? {
+        get {
+            return textView.inputAccessoryView
+        }
+        set(value) {
+            textView.inputAccessoryView = value
+        }
+    }
+    
     /// A preset wrapper around textViewEdgeInsets.
     open var textViewEdgeInsetsPreset = EdgeInsetsPreset.none {
         didSet {
@@ -224,6 +235,85 @@ open class Editor: View {
     
     /// Reference to the TextView.
     open fileprivate(set) var textView: TextView!
+    
+    /// The placeholderLabel font value.
+    @IBInspectable
+    open var font: UIFont? {
+        get {
+            return placeholderLabel.font
+        }
+        set(value) {
+            placeholderLabel.font = value
+            textView.font = value
+        }
+    }
+    
+    /// The placeholderLabel text value.
+    @IBInspectable
+    open var placeholder: String? {
+        get {
+            return placeholderLabel.text
+        }
+        set(value) {
+            placeholderLabel.text = value
+            layoutSubviews()
+        }
+    }
+    
+    /// The placeholder UILabel.
+    @IBInspectable
+    open let placeholderLabel = UILabel()
+    
+    /// Placeholder normal text
+    @IBInspectable
+    open var placeholderNormalColor = Color.darkText.others {
+        didSet {
+            updatePlaceholderLabelColor()
+        }
+    }
+    
+    /// Placeholder active text
+    @IBInspectable
+    open var placeholderActiveColor = Color.blue.base {
+        didSet {
+            updatePlaceholderLabelColor()
+        }
+    }
+    
+    /// Placeholder UILabel EdgeInsets preset property.
+    open var placeholderLabelEdgeInsetsPreset = EdgeInsetsPreset.none {
+        didSet {
+            placeholderLabelEdgeInsets = EdgeInsetsPresetToValue(preset: placeholderLabelEdgeInsetsPreset)
+        }
+    }
+    
+    /// Placeholder UILabel EdgeInsets property.
+    open var placeholderLabelEdgeInsets = EdgeInsets.zero {
+        didSet {
+            layoutSubviews()
+        }
+    }
+    
+    /// An override to the text property.
+    @IBInspectable
+    open var text: String? {
+        get {
+            return textView.text
+        }
+        set(value) {
+            textView.text = value
+        }
+    }
+    
+    /// An override to the attributedText property.
+    open var attributedText: NSAttributedString! {
+        get {
+            return textView.attributedText
+        }
+        set(value) {
+            textView.attributedText = value
+        }
+    }
     
     /// A reference to an EditorDelegate.
     open weak var delegate: EditorDelegate?
@@ -254,7 +344,7 @@ open class Editor: View {
      An Array of unique matches that match the pattern
      expression.
      */
-    public var uniqueMatches: [String] {
+    open var uniqueMatches: [String] {
         var seen = [String: Bool]()
         return matches.filter { nil == seen.updateValue(true, forKey: $0) }
     }
@@ -266,6 +356,14 @@ open class Editor: View {
         }
         
         textView.frame = CGRect(x: textViewEdgeInsets.left, y: textViewEdgeInsets.top, width: width - textViewEdgeInsets.left - textViewEdgeInsets.right, height: height - textViewEdgeInsets.top - textViewEdgeInsets.bottom)
+        
+        placeholderLabel.preferredMaxLayoutWidth = textContainer.size.width - textContainer.lineFragmentPadding * 2
+        
+        layout(placeholderLabel).edges(
+            top: placeholderLabelEdgeInsets.top,
+            left: placeholderLabelEdgeInsets.left + textContainer.lineFragmentPadding,
+            bottom: placeholderLabelEdgeInsets.bottom,
+            right: placeholderLabelEdgeInsets.right + textContainer.lineFragmentPadding)
     }
     
     /// Deinitializer.
@@ -287,6 +385,7 @@ open class Editor: View {
         prepareTextStorage()
         prepareRegularExpression()
         prepareTextView()
+        preparePlaceholderLabel()
         prepareKeyboardNotificationObservers()
     }
 }
@@ -322,11 +421,30 @@ extension Editor {
         textStorage.expression = try? NSRegularExpression(pattern: pattern, options: [])
     }
     
+    /// prepares the placeholderLabel property.
+    fileprivate func preparePlaceholderLabel() {
+        placeholderLabel.font = font
+        placeholderLabel.textAlignment = textView.textAlignment
+        placeholderLabel.numberOfLines = 0
+        placeholderLabel.backgroundColor = .clear
+    }
+    
     /// Prepares the keyboard notification center observers.
     fileprivate func prepareKeyboardNotificationObservers() {
         let defaultCenter = NotificationCenter.default
         defaultCenter.addObserver(self, selector: #selector(handleKeyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         defaultCenter.addObserver(self, selector: #selector(handleKeyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        defaultCenter.addObserver(textView, selector: #selector(handleTextViewTextDidBegin), name: NSNotification.Name.UITextViewTextDidBeginEditing, object: self)
+        defaultCenter.addObserver(textView, selector: #selector(handleTextViewTextDidChange), name: NSNotification.Name.UITextViewTextDidChange, object: self)
+        defaultCenter.addObserver(textView, selector: #selector(handleTextViewTextDidEnd), name: NSNotification.Name.UITextViewTextDidEndEditing, object: self)
+    }
+}
+
+extension Editor {
+    /// Updates the placeholderLabel text color.
+    fileprivate func updatePlaceholderLabelColor() {
+        tintColor = placeholderActiveColor
+        placeholderLabel.textColor = textView.isEditing ? placeholderActiveColor : placeholderNormalColor
     }
 }
 
@@ -367,6 +485,24 @@ extension Editor {
         }
         
         delegate?.editor?(editor: self, willHideKeyboard: v)
+    }
+    
+    /// Notification handler for when text editing began.
+    @objc
+    fileprivate func handleTextViewTextDidBegin() {
+        
+    }
+    
+    /// Notification handler for when text changed.
+    @objc
+    fileprivate func handleTextViewTextDidChange() {
+        
+    }
+    
+    /// Notification handler for when text editing ended.
+    @objc
+    fileprivate func handleTextViewTextDidEnd() {
+        
     }
 }
 
