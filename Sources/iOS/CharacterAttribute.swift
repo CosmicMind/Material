@@ -117,7 +117,7 @@ extension NSMutableAttributedString {
      - Parameter characterAttributes: A Dictionary of CharacterAttribute type keys and Any type values.
      - Parameter range: A NSRange.
      */
-    open func addAttributes(characterAttributes: [CharacterAttribute : Any] = [:], range: NSRange) {
+    open func addAttributes(characterAttributes: [CharacterAttribute: Any], range: NSRange) {
         for (k, v) in characterAttributes {
             addAttribute(characterAttribute: k, value: v, range: range)
         }
@@ -139,7 +139,7 @@ extension NSMutableAttributedString {
      - Parameter characterAttributes: A Dictionary of CharacterAttribute type keys and Any type values.
      - Parameter range: A NSRange.
      */
-    open func updateAttributes(characterAttributes: [CharacterAttribute : Any] = [:], range: NSRange) {
+    open func updateAttributes(characterAttributes: [CharacterAttribute: Any], range: NSRange) {
         for (k, v) in characterAttributes {
             updateAttribute(characterAttribute: k, value: v, range: range)
         }
@@ -159,7 +159,7 @@ extension NSMutableAttributedString {
      - Parameter characterAttributes: An Array of CharacterAttributes.
      - Parameter range: A NSRange.
      */
-    open func removeAttributes(characterAttributes: [CharacterAttribute] = [], range: NSRange) {
+    open func removeAttributes(characterAttributes: [CharacterAttribute], range: NSRange) {
         for k in characterAttributes {
             removeAttribute(characterAttribute: k, range: range)
         }
