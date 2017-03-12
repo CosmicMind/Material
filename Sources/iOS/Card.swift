@@ -198,7 +198,7 @@ open class Card: PulseView {
         }
         
         container.height = h
-        height = h
+        bounds.size.height = h
     }
     
     /**
