@@ -82,7 +82,7 @@ open class FABMenuItem: View {
             addSubview(titleLabel)
         }
     }
-    open var titleLabelSide : labelSide = .left
+    open var titleLabelSide : labelSide = .right
     
     public enum labelSide {
         case left
@@ -231,8 +231,8 @@ open class FABMenu: View {
         }
     }
     
-    /// An internal handler for the FABButton.
-    internal var handleFABButtonCallback: ((UIButton) -> Void)?
+    /// An open handler for the FABButton.
+    open var handleFABButtonCallback: ((UIButton) -> Void)?
     
     /// An internal handler for the open function.
     internal var handleOpenCallback: (() -> Void)?
