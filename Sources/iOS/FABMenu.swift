@@ -82,6 +82,12 @@ open class FABMenuItem: View {
             addSubview(titleLabel)
         }
     }
+    open var titleLabelSide : labelSide = .right
+    
+    public enum labelSide {
+        case left
+        case right
+    }
 }
 
 extension FABMenuItem {
@@ -93,7 +99,14 @@ extension FABMenuItem {
         titleLabel.width += 1.5 * interimSpace
         titleLabel.height += interimSpace / 2
         titleLabel.y = (height - titleLabel.height) / 2
-        titleLabel.x = -titleLabel.width - interimSpace
+        
+        switch (titleLabelSide) {
+        case .left:
+            titleLabel.x = -titleLabel.width - interimSpace
+        case .right:
+            titleLabel.x = frame.width + interimSpace
+        }
+        
         titleLabel.alpha = 0
         titleLabel.isHidden = false
         
