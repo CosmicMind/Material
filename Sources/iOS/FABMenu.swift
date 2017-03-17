@@ -82,7 +82,7 @@ open class FABMenuItem: View {
             addSubview(titleLabel)
         }
     }
-    open var titleLabelSide : labelSide = .right
+    open var titleLabelSide : labelSide = .left
     
     public enum labelSide {
         case left
