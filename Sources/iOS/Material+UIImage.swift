@@ -227,13 +227,13 @@ extension UIImage {
         switch imageOrientation {
         case .down, .downMirrored:
             transform = transform.translatedBy(x: size.width, y: size.height)
-            transform = transform.rotated(by: CGFloat(M_PI))
+            transform = transform.rotated(by: CGFloat(Double.pi))
         case .left, .leftMirrored:
             transform = transform.translatedBy(x: size.width, y: 0)
-            transform = transform.rotated(by: CGFloat(M_PI_2))
+            transform = transform.rotated(by: CGFloat(Double.pi / 2))
         case .right, .rightMirrored:
             transform = transform.translatedBy(x: 0, y: size.height)
-            transform = transform.rotated(by: -CGFloat(M_PI_2))
+            transform = transform.rotated(by: -CGFloat(Double.pi / 2))
         default:break
         }
         
@@ -296,8 +296,8 @@ extension UIImage {
         
         let screenScale = Screen.scale
         let imageRect = CGRect(origin: .zero, size: size)
-        let hasBlur = radius > CGFloat(FLT_EPSILON)
-        let hasSaturationChange = fabs(saturationDeltaFactor - 1.0) > CGFloat(FLT_EPSILON)
+        let hasBlur = radius > CGFloat(Float.ulpOfOne)
+        let hasSaturationChange = fabs(saturationDeltaFactor - 1.0) > CGFloat(Float.ulpOfOne)
         
         if hasBlur || hasSaturationChange {
             UIGraphicsBeginImageContextWithOptions(size, false, screenScale)
@@ -315,7 +315,7 @@ extension UIImage {
             var outBuffer = createEffectBuffer(context: outContext)
             
             if hasBlur {
-                let a = sqrt(2 * M_PI)
+                let a = sqrt(2 * .pi)
                 let b = CGFloat(a) / 4
                 let c = radius * screenScale
                 let d = c * 3.0 * b

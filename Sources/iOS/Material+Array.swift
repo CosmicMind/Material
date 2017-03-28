@@ -44,7 +44,7 @@ extension Array where Element: Equatable {
         }
         
         guard -1 < start else {
-            fatalError("Range out of bounds for \(start) - \(end), should be 0 - \(count).")
+            fatalError("Range out of bounds for \(start) - \(end ?? 0), should be 0 - \(count).")
         }
         
         var diff = abs(e - start)

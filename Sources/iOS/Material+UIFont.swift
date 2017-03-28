@@ -39,7 +39,7 @@ extension UIFont {
      - Returns a CGSize.
      */
     open func stringSize(string: String, constrainedTo width: CGFloat) -> CGSize {
-		return string.boundingRect(with: CGSize(width: width, height: CGFloat(DBL_MAX)),
+		return string.boundingRect(with: CGSize(width: width, height: CGFloat(Double.greatestFiniteMagnitude)),
 			options: NSStringDrawingOptions.usesLineFragmentOrigin,
 			attributes: [NSFontAttributeName: self],
 			context: nil).size
