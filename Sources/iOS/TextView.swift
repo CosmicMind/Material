@@ -49,6 +49,22 @@ public protocol TextViewDelegate : UITextViewDelegate {
     optional func textView(textView: TextView, willHideKeyboard value: NSValue)
     
     /**
+     A delegation method that is executed when the keyboard did open.
+     - Parameter textView: A TextView.
+     - Parameter didShowKeyboard value: A NSValue.
+     */
+    @objc
+    optional func textView(textView: TextView, didShowKeyboard value: NSValue)
+    
+    /**
+     A delegation method that is executed when the keyboard did close.
+     - Parameter textView: A TextView.
+     - Parameter didHideKeyboard value: A NSValue.
+     */
+    @objc
+    optional func textView(textView: TextView, didHideKeyboard value: NSValue)
+    
+    /**
      A delegation method that is executed when text will be
      processed during editing.
      - Parameter textView: A TextView.
@@ -265,6 +281,8 @@ open class TextView: UITextView {
 		contentScaleFactor = Screen.scale
 		textContainerInset = .zero
 		backgroundColor = nil
+        font = RobotoFont.regular(with: 16)
+        textColor = Color.darkText.primary
         prepareNotificationHandlers()
         prepareRegularExpression()
         preparePlaceholderLabel()
@@ -277,6 +295,8 @@ extension TextView {
         let defaultCenter = NotificationCenter.default
         defaultCenter.addObserver(self, selector: #selector(handleKeyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         defaultCenter.addObserver(self, selector: #selector(handleKeyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        defaultCenter.addObserver(self, selector: #selector(handleKeyboardDidShow(notification:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        defaultCenter.addObserver(self, selector: #selector(handleKeyboardDidHide(notification:)), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
         defaultCenter.addObserver(self, selector: #selector(handleTextViewTextDidBegin), name: NSNotification.Name.UITextViewTextDidBeginEditing, object: self)
         defaultCenter.addObserver(self, selector: #selector(handleTextViewTextDidChange), name: NSNotification.Name.UITextViewTextDidChange, object: self)
         defaultCenter.addObserver(self, selector: #selector(handleTextViewTextDidEnd), name: NSNotification.Name.UITextViewTextDidEndEditing, object: self)
@@ -289,7 +309,7 @@ extension TextView {
     
     /// prepares the placeholderLabel property.
     fileprivate func preparePlaceholderLabel() {
-        placeholderLabel.font = font
+        placeholderLabel.textColor = Color.darkText.others
         placeholderLabel.textAlignment = textAlignment
         placeholderLabel.numberOfLines = 0
         placeholderLabel.backgroundColor = .clear
@@ -336,13 +356,30 @@ extension TextView {
             return
         }
         
+        guard let v = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue else {
+            return
+        }
+        
+        (delegate as? TextViewDelegate)?.textView?(textView: self, willShowKeyboard: v)
+    }
+    
+    /**
+     Handler for when the keyboard did open.
+     - Parameter notification: A Notification.
+     */
+    @objc
+    fileprivate func handleKeyboardDidShow(notification: Notification) {
+        guard isKeyboardHidden else {
+            return
+        }
+        
         isKeyboardHidden = false
         
         guard let v = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue else {
             return
         }
         
-        (delegate as? TextViewDelegate)?.textView?(textView: self, willShowKeyboard: v)
+        (delegate as? TextViewDelegate)?.textView?(textView: self, didShowKeyboard: v)
     }
     
     /**
@@ -355,13 +392,30 @@ extension TextView {
             return
         }
         
+        guard let v = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue else {
+            return
+        }
+        
+        (delegate as? TextViewDelegate)?.textView?(textView: self, willHideKeyboard: v)
+    }
+    
+    /**
+     Handler for when the keyboard did close.
+     - Parameter notification: A Notification.
+     */
+    @objc
+    fileprivate func handleKeyboardDidHide(notification: Notification) {
+        guard !isKeyboardHidden else {
+            return
+        }
+        
         isKeyboardHidden = true
         
         guard let v = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue else {
             return
         }
         
-        (delegate as? TextViewDelegate)?.textView?(textView: self, willHideKeyboard: v)
+        (delegate as? TextViewDelegate)?.textView?(textView: self, didHideKeyboard: v)
     }
     
     /// Notification handler for when text editing began.

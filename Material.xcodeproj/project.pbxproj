@@ -504,6 +504,7 @@
 		96BCB7571CB40DC500C806FE /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				96EF418E1E835E850012CA1C /* Animation */,
 				961E6BDD1DDA2A7E004E6C93 /* Application */,
 				96264BE41D833C8400576F37 /* Bar */,
 				962DDD081D6FBBD0001C307C /* BottomTabBar */,
@@ -665,8 +666,6 @@
 			children = (
 				96BFC1671E61D9FD0075DE1F /* Material+Motion.swift */,
 				96BFC1691E61DAA10075DE1F /* Material+MotionAnimation.swift */,
-				96BCB7821CB40DC500C806FE /* PulseAnimation.swift */,
-				965532281E47E388005C2792 /* SpringAnimation.swift */,
 			);
 			name = Motion;
 			sourceTree = "<group>";
@@ -732,6 +731,15 @@
 				96BCB7571CB40DC500C806FE /* iOS */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		96EF418E1E835E850012CA1C /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				96BCB7821CB40DC500C806FE /* PulseAnimation.swift */,
+				965532281E47E388005C2792 /* SpringAnimation.swift */,
+			);
+			name = Animation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

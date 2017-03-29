@@ -398,10 +398,12 @@ open class TextField: UITextField {
      when subclassing.
      */
     open func prepare() {
-        clipsToBounds = false
-        borderStyle = .none
-        backgroundColor = nil
-        contentScaleFactor = Screen.scale
+		clipsToBounds = false
+		borderStyle = .none
+		backgroundColor = nil
+		contentScaleFactor = Screen.scale
+        font = RobotoFont.regular(with: 16)
+        textColor = Color.darkText.primary
         
         prepareDivider()
         preparePlaceholderLabel()
@@ -429,8 +431,8 @@ extension TextField {
     
     /// Prepares the placeholderLabel.
     fileprivate func preparePlaceholderLabel() {
-        font = RobotoFont.regular(with: 16)
         placeholderNormalColor = Color.darkText.others
+        placeholderLabel.backgroundColor = .clear
         addSubview(placeholderLabel)
     }
     
