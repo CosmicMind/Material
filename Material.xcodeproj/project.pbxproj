@@ -362,12 +362,12 @@
 			name = Height;
 			sourceTree = "<group>";
 		};
-		962DDD071D6FBBB7001C307C /* Page */ = {
+		962DDD071D6FBBB7001C307C /* PageTabBar */ = {
 			isa = PBXGroup;
 			children = (
 				963FBF071D669D14008F8512 /* PageTabBarController.swift */,
 			);
-			name = Page;
+			name = PageTabBar;
 			sourceTree = "<group>";
 		};
 		962DDD081D6FBBD0001C307C /* BottomTabBar */ = {
@@ -527,7 +527,7 @@
 				96BCB8091CB4107700C806FE /* Motion */,
 				96BCB8011CB40F1700C806FE /* Navigation */,
 				961E6BEF1DDA4B04004E6C93 /* NavigationDrawer */,
-				962DDD071D6FBBB7001C307C /* Page */,
+				962DDD071D6FBBB7001C307C /* PageTabBar */,
 				96717B151DBE6B1800DA84DB /* Photos */,
 				96328B8F1E05B69A009A4C90 /* Reminders */,
 				9626CA951DAB5370003E2611 /* Root */,

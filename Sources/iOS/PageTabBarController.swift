@@ -113,8 +113,18 @@ open class PageTabBarController: RootController {
     /// Indicates that the tab has been pressed and animating.
     open internal(set) var isTabSelectedAnimation = false
     
+    /// An internal reference to the selectedIndex.
+    fileprivate var internalSelectedIndex = 0
+    
     /// The currently selected UIViewController.
-    open internal(set) var selectedIndex = 0
+    open var selectedIndex: Int {
+        get {
+            return internalSelectedIndex
+        }
+        set(value) {
+            setInternalSelectedIndex(index: value, animated: true)
+        }
+    }
     
     /// PageTabBar alignment setting.
     open var pageTabBarAlignment = PageTabBarAlignment.bottom
@@ -155,16 +165,15 @@ open class PageTabBarController: RootController {
         isBounceEnabled = true
         super.init(rootViewController: UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil))
         viewControllers.append(rootViewController)
-        setViewControllers(viewControllers, direction: .forward, animated: true)
+        setInternalSelectedIndex(index: 0, animated: true)
         prepare()
     }
     
-    public init(viewControllers: [UIViewController], selectedIndex: Int = 0) {
+    public init(viewControllers: [UIViewController], selectedIndex index: Int = 0) {
         isBounceEnabled = true
         super.init(rootViewController: UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil))
-        self.selectedIndex = selectedIndex
         self.viewControllers.append(contentsOf: viewControllers)
-        setViewControllers([self.viewControllers[selectedIndex]], direction: .forward, animated: true)
+        setInternalSelectedIndex(index: index, animated: true)
         prepare()
     }
     
@@ -198,7 +207,6 @@ open class PageTabBarController: RootController {
      */
     open func setViewControllers(_ viewControllers: [UIViewController], direction: UIPageViewControllerNavigationDirection, animated: Bool, completion: ((Bool) -> Void)? = nil) {
         pageViewController?.setViewControllers(viewControllers, direction: direction, animated: animated, completion: completion)
-        prepare()
     }
     
     /**
@@ -240,43 +248,64 @@ open class PageTabBarController: RootController {
             button.addTarget(self, action: #selector(handlePageTabBarButton(button:)), for: .touchUpInside)
         }
     }
-    
+}
+
+extension PageTabBarController {
+    /// Prepares the pageTabBar.
+    fileprivate func preparePageTabBar() {
+        pageTabBar.zPosition = 1000
+        pageTabBar.dividerColor = Color.grey.lighten3
+        view.addSubview(pageTabBar)
+        pageTabBar.select(at: internalSelectedIndex)
+    }
+}
+
+extension PageTabBarController {
     /**
      Handles the pageTabBarButton.
      - Parameter button: A UIButton.
      */
     @objc
-    internal func handlePageTabBarButton(button: UIButton) {
+    fileprivate func handlePageTabBarButton(button: UIButton) {
         guard let index = pageTabBar.buttons.index(of: button) else {
             return
         }
         
-        guard index != selectedIndex else {
+        guard index != internalSelectedIndex else {
             return
         }
         
-        let direction: UIPageViewControllerNavigationDirection = index < selectedIndex ? .reverse : .forward
+        setInternalSelectedIndex(index: index, animated: true)
+    }
+}
+
+extension PageTabBarController {
+    /**
+     Internally sets the internalSelectedIndex value.
+     - Parameter index: Int.
+     - Parameter animated: Bool.
+     */
+    fileprivate func setInternalSelectedIndex(index: Int, animated: Bool = false) {
+        guard animated else {
+            internalSelectedIndex = index
+            return
+        }
+        
+        let direction: UIPageViewControllerNavigationDirection = index < internalSelectedIndex ? .reverse : .forward
         
         isTabSelectedAnimation = true
-        selectedIndex = index
         
-        pageTabBar.select(at: selectedIndex)
+        internalSelectedIndex = index
         
-        setViewControllers([viewControllers[index]], direction: direction, animated: true) { [weak self] _ in
+        pageTabBar.select(at: internalSelectedIndex)
+        
+        setViewControllers([viewControllers[internalSelectedIndex]], direction: direction, animated: true) { [weak self] _ in
             guard let s = self else {
                 return
             }
             s.isTabSelectedAnimation = false
-            s.delegate?.pageTabBarController?(pageTabBarController: s, didTransitionTo: s.viewControllers[s.selectedIndex])
+            s.delegate?.pageTabBarController?(pageTabBarController: s, didTransitionTo: s.viewControllers[s.internalSelectedIndex])
         }
-    }
-    
-    /// Prepares the pageTabBar.
-    private func preparePageTabBar() {
-        pageTabBar.zPosition = 1000
-        pageTabBar.dividerColor = Color.grey.lighten3
-        view.addSubview(pageTabBar)
-        pageTabBar.select(at: selectedIndex)
     }
 }
 
@@ -290,8 +319,9 @@ extension PageTabBarController: UIPageViewControllerDelegate {
             return
         }
         
-        selectedIndex = index
-        pageTabBar.select(at: selectedIndex)
+        setInternalSelectedIndex(index: index)
+        
+        pageTabBar.select(at: index)
         
         if finished && completed {
             delegate?.pageTabBarController?(pageTabBarController: self, didTransitionTo: v)
