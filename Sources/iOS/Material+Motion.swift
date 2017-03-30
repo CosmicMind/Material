@@ -173,7 +173,7 @@ extension UIViewController {
      - Returns: An optional UIViewControllerAnimatedTransitioning.
      */
     open func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return isMotionEnabled ? Motion(isPresenting: true, isContainer: false) : nil
+        return isMotionEnabled ? PresentedMotion() : nil
     }
     
     /**
@@ -182,7 +182,7 @@ extension UIViewController {
      - Returns: An optional UIViewControllerAnimatedTransitioning.
      */
     open func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return isMotionEnabled ? Motion(isPresenting: false, isContainer: false) : nil
+        return isMotionEnabled ? DismissedMotion() : nil
     }
     
     /**
@@ -306,20 +306,26 @@ open class MotionPresentationController: UIPresentationController {
             return
         }
         
+        print("presentationTransitionWillBegin")
         presentedViewController.transitionCoordinator?.animate(alongsideTransition: { (context) in })
     }
     
-    open override func presentationTransitionDidEnd(_ completed: Bool) {}
+    open override func presentationTransitionDidEnd(_ completed: Bool) {
+        print("presentationTransitionDidEnd")
+    }
     
     open override func dismissalTransitionWillBegin() {
         guard nil != containerView else {
             return
         }
         
+        print("dismissalTransitionWillBegin")
         presentedViewController.transitionCoordinator?.animate(alongsideTransition: { (context) in })
     }
     
-    open override func dismissalTransitionDidEnd(_ completed: Bool) {}
+    open override func dismissalTransitionDidEnd(_ completed: Bool) {
+        print("dismissalTransitionDidEnd")
+    }
     
     open override var frameOfPresentedViewInContainerView: CGRect {
         return containerView?.bounds ?? .zero
@@ -555,7 +561,7 @@ extension Motion {
     fileprivate func prepareTransitionSnapshot() {
         transitionSnapshot = fromView.transitionSnapshot(afterUpdates: true, shouldHide: false)
         transitionSnapshot.frame = fromView.frame
-        containerView.insertSubview(transitionSnapshot, aboveSubview: fromView)
+        containerView.addSubview(transitionSnapshot)
     }
     
     /// Prepares the transitionPairs.
@@ -801,6 +807,728 @@ extension Motion {
     /// Calls the completionTransition method.
     fileprivate func completeTransition() {
         toViewController.motionDelegate?.motion?(motion: self, didTransition: fromView, toView: toView)
+        transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+    }
+}
+
+open class PresentedMotion: NSObject {
+    /**
+     An Array of UIView pairs with common motionIdentifiers in
+     the from and to view controllers.
+     */
+    open fileprivate(set) var transitionPairs = [(UIView, UIView)]()
+    
+    /// A reference to the transition snapshot.
+    open var transitionSnapshot: UIView!
+    
+    /// A reference to the transition background view.
+    open let transitionBackgroundView = UIView()
+    
+    /// A reference to the view controller that is being transitioned to.
+    open var toViewController: UIViewController {
+        return transitionContext.viewController(forKey: .to)!
+    }
+    
+    /// A reference to the view controller that is being transitioned from.
+    open var fromViewController: UIViewController {
+        return transitionContext.viewController(forKey: .from)!
+    }
+    
+    /// The transition context for the current transition.
+    open var transitionContext: UIViewControllerContextTransitioning!
+    
+    /// The transition delay time.
+    open var delay: TimeInterval = 0
+    
+    /// The transition duration time.
+    open var duration: TimeInterval = 0.35
+    
+    /// The transition container view.
+    open var containerView: UIView!
+    
+    /// The view that is used to animate the transitions between view controllers.
+    open var transitionView = UIView()
+    
+    /// The view that is being transitioned to.
+    open var toView: UIView {
+        return toViewController.view
+    }
+    
+    /// The subviews of the view being transitioned to.
+    open var toSubviews: [UIView] {
+        return Motion.subviews(of: toView)
+    }
+    
+    /// The view that is being transitioned from.
+    open var fromView: UIView {
+        return fromViewController.view
+    }
+    
+    /// The subviews of the view being transitioned from.
+    open var fromSubviews: [UIView] {
+        return Motion.subviews(of: fromView)
+    }
+    
+    /// A time value to delay the transition animation by.
+    fileprivate var delayTransitionByTimeInterval: TimeInterval {
+        return 0
+//        return fromViewController.motionDelegate?.motionDelayTransitionByTimeInterval?(motion: self) ?? 0
+    }
+}
+
+extension PresentedMotion: UIViewControllerAnimatedTransitioning {
+    /**
+     The animation method that is used to coordinate the transition.
+     - Parameter using transitionContext: A UIViewControllerContextTransitioning.
+     */
+    @objc(animateTransition:)
+    open func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        self.transitionContext = transitionContext
+        
+        Motion.delay(delayTransitionByTimeInterval) { [weak self] in
+            guard let s = self else {
+                return
+            }
+            
+            s.prepareContainerView()
+            s.prepareTransitionSnapshot()
+            s.prepareTransitionPairs()
+            s.prepareTransitionView()
+            s.prepareTransitionBackgroundView()
+            s.prepareToView()
+            s.prepareTransitionAnimation()
+        }
+    }
+    
+    /**
+     Returns the transition duration time interval.
+     - Parameter using transitionContext: An optional UIViewControllerContextTransitioning.
+     - Returns: A TimeInterval that is the total animation time including delays.
+     */
+    @objc(transitionDuration:)
+    open func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+        return 0.35
+    }
+}
+
+extension PresentedMotion {
+    /// Prepares the containerView.
+    fileprivate func prepareContainerView() {
+        containerView = transitionContext.containerView
+    }
+    
+    /// Prepares the transitionSnapshot.
+    fileprivate func prepareTransitionSnapshot() {
+        transitionSnapshot = fromView.transitionSnapshot(afterUpdates: true, shouldHide: false)
+        transitionSnapshot.frame = fromView.frame
+        containerView.addSubview(transitionSnapshot)
+    }
+    
+    /// Prepares the transitionPairs.
+    fileprivate func prepareTransitionPairs() {
+        for from in fromSubviews {
+            for to in toSubviews {
+                guard to.motionIdentifier == from.motionIdentifier else {
+                    continue
+                }
+                transitionPairs.append((from, to))
+            }
+        }
+    }
+    
+    /// Prepares the transitionView.
+    fileprivate func prepareTransitionView() {
+        transitionView.frame = toView.bounds
+        transitionView.isUserInteractionEnabled = false
+        containerView.insertSubview(transitionView, belowSubview: transitionSnapshot)
+    }
+    
+    /// Prepares the transitionBackgroundView.
+    fileprivate func prepareTransitionBackgroundView() {
+        transitionBackgroundView.backgroundColor = .clear
+        transitionBackgroundView.frame = transitionView.bounds
+        transitionView.addSubview(transitionBackgroundView)
+    }
+    
+    /// Prepares the toView.
+    fileprivate func prepareToView() {
+        toView.isHidden = true
+        
+        containerView.insertSubview(toView, belowSubview: transitionView)
+        
+        toView.frame = fromView.frame
+        toView.updateConstraints()
+        toView.setNeedsLayout()
+        toView.layoutIfNeeded()
+    }
+    
+    /// Prepares the transition animation.
+    fileprivate func prepareTransitionAnimation() {
+        addTransitionAnimations()
+        addBackgroundAnimation()
+        cleanUpAnimation()
+        removeTransitionSnapshot()
+    }
+}
+
+extension PresentedMotion {
+    /// Adds the available transition animations.
+    fileprivate func addTransitionAnimations() {
+        for (from, to) in transitionPairs {
+            var snapshotAnimations = [CABasicAnimation]()
+            var snapshotChildAnimations = [CABasicAnimation]()
+            
+            let sizeAnimation = Motion.size(to.bounds.size)
+            let cornerRadiusAnimation = Motion.corner(radius: to.layer.cornerRadius)
+            
+            snapshotAnimations.append(sizeAnimation)
+            snapshotAnimations.append(cornerRadiusAnimation)
+            snapshotAnimations.append(Motion.position(to: to.motionPosition))
+            snapshotAnimations.append(Motion.transform(transform: to.motionTransform))
+            snapshotAnimations.append(Motion.background(color: to.backgroundColor ?? .clear))
+            
+            if let path = to.layer.shadowPath {
+                let shadowPath = Motion.shadow(path: path)
+                shadowPath.fromValue = fromView.layer.shadowPath
+                snapshotAnimations.append(shadowPath)
+            }
+            
+            let shadowOffset = Motion.shadow(offset: to.layer.shadowOffset)
+            shadowOffset.fromValue = fromView.layer.shadowOffset
+            snapshotAnimations.append(shadowOffset)
+            
+            let shadowOpacity = Motion.shadow(opacity: to.layer.shadowOpacity)
+            shadowOpacity.fromValue = fromView.layer.shadowOpacity
+            snapshotAnimations.append(shadowOpacity)
+            
+            let shadowRadius = Motion.shadow(radius: to.layer.shadowRadius)
+            shadowRadius.fromValue = fromView.layer.shadowRadius
+            snapshotAnimations.append(shadowRadius)
+            
+            snapshotChildAnimations.append(cornerRadiusAnimation)
+            snapshotChildAnimations.append(sizeAnimation)
+            snapshotChildAnimations.append(Motion.position(x: to.bounds.width / 2, y: to.bounds.height / 2))
+            
+            let d = calculateAnimationTransitionDuration(animations: to.motionAnimations)
+            
+            let snapshot = from.transitionSnapshot(afterUpdates: true)
+            transitionView.addSubview(snapshot)
+            
+            Motion.delay(calculateAnimationDelayTimeInterval(animations: to.motionAnimations)) { [weak self, weak to] in
+                guard let s = self else {
+                    return
+                }
+                
+                guard let v = to else {
+                    return
+                }
+                
+                let tf = s.calculateAnimationTimingFunction(animations: v.motionAnimations)
+                
+                let snapshotGroup = Motion.animate(group: snapshotAnimations, duration: d)
+                snapshotGroup.fillMode = MotionAnimationFillModeToValue(mode: .forwards)
+                snapshotGroup.isRemovedOnCompletion = false
+                snapshotGroup.timingFunction = MotionAnimationTimingFunctionToValue(timingFunction: tf)
+                
+                let snapshotChildGroup = Motion.animate(group: snapshotChildAnimations, duration: d)
+                snapshotChildGroup.fillMode = MotionAnimationFillModeToValue(mode: .forwards)
+                snapshotChildGroup.isRemovedOnCompletion = false
+                snapshotChildGroup.timingFunction = MotionAnimationTimingFunctionToValue(timingFunction: tf)
+                
+                snapshot.animate(snapshotGroup)
+                snapshot.subviews.first?.animate(snapshotChildGroup)
+            }
+        }
+    }
+    
+    /// Adds the background animation.
+    fileprivate func addBackgroundAnimation() {
+        transitionBackgroundView.motion(.backgroundColor(toView.backgroundColor ?? .clear), .duration(transitionDuration(using: transitionContext)))
+    }
+}
+
+extension PresentedMotion {
+    /**
+     Creates a CAAnimationGroup.
+     - Parameter animations: An Array of CAAnimation objects.
+     - Parameter timingFunction: An MotionAnimationTimingFunction value.
+     - Parameter duration: An animation duration time for the group.
+     - Returns: A CAAnimationGroup.
+     */
+    open class func animate(group animations: [CAAnimation], timingFunction: MotionAnimationTimingFunction = .easeInEaseOut, duration: CFTimeInterval = 0.5) -> CAAnimationGroup {
+        let group = CAAnimationGroup()
+        group.fillMode = MotionAnimationFillModeToValue(mode: .forwards)
+        group.isRemovedOnCompletion = false
+        group.animations = animations
+        group.duration = duration
+        group.timingFunction = MotionAnimationTimingFunctionToValue(timingFunction: timingFunction)
+        return group
+    }
+}
+
+extension PresentedMotion {
+    /**
+     Calculates the animation delay time based on the given Array of MotionAnimations.
+     - Parameter animations: An Array of MotionAnimations.
+     - Returns: A TimeInterval.
+     */
+    fileprivate func calculateAnimationDelayTimeInterval(animations: [MotionAnimation]) -> TimeInterval {
+        var t: TimeInterval = 0
+        for a in animations {
+            switch a {
+            case let .delay(time):
+                if time > delay {
+                    delay = time
+                }
+                t = time
+            default:break
+            }
+        }
+        return t
+    }
+    
+    /**
+     Calculates the animation transition duration based on the given Array of MotionAnimations.
+     - Parameter animations: An Array of MotionAnimations.
+     - Returns: A TimeInterval.
+     */
+    fileprivate func calculateAnimationTransitionDuration(animations: [MotionAnimation]) -> TimeInterval {
+        var t: TimeInterval = 0.35
+        for a in animations {
+            switch a {
+            case let .duration(time):
+                if time > duration {
+                    duration = time
+                }
+                t = time
+            default:break
+            }
+        }
+        return t
+    }
+    
+    /**
+     Calculates the animation timing function based on the given Array of MotionAnimations.
+     - Parameter animations: An Array of MotionAnimations.
+     - Returns: A MotionAnimationTimingFunction.
+     */
+    fileprivate func calculateAnimationTimingFunction(animations: [MotionAnimation]) -> MotionAnimationTimingFunction {
+        var t = MotionAnimationTimingFunction.easeInEaseOut
+        for a in animations {
+            switch a {
+            case let .timingFunction(timingFunction):
+                t = timingFunction
+            default:break
+            }
+        }
+        return t
+    }
+}
+
+extension PresentedMotion {
+    /// Cleans up the animation transition.
+    fileprivate func cleanUpAnimation() {
+        Motion.delay(transitionDuration(using: transitionContext) + delayTransitionByTimeInterval) { [weak self] in
+            guard let s = self else {
+                return
+            }
+            
+            s.showToSubviews()
+            s.removeTransitionView()
+            s.clearTransitionPairs()
+            s.completeTransition()
+        }
+    }
+    
+    /// Removes the transitionSnapshot from its superview.
+    fileprivate func removeTransitionSnapshot() {
+        Motion.delay(delay) { [weak self] in
+            self?.transitionSnapshot.removeFromSuperview()
+        }
+    }
+    
+    /// Shows the toView and its subviews.
+    fileprivate func showToSubviews() {
+        toSubviews.forEach {
+            $0.isHidden = false
+        }
+        toView.isHidden = false
+    }
+    
+    /// Clears the transitionPairs Array.
+    fileprivate func clearTransitionPairs() {
+        transitionPairs.removeAll()
+    }
+    
+    /// Removes the transitionView.
+    fileprivate func removeTransitionView() {
+        transitionView.removeFromSuperview()
+    }
+    
+    /// Calls the completionTransition method.
+    fileprivate func completeTransition() {
+//        toViewController.motionDelegate?.motion?(motion: self, didTransition: fromView, toView: toView)
+        transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+    }
+}
+
+open class DismissedMotion: NSObject {
+    /**
+     An Array of UIView pairs with common motionIdentifiers in
+     the from and to view controllers.
+     */
+    open fileprivate(set) var transitionPairs = [(UIView, UIView)]()
+    
+    /// A reference to the transition snapshot.
+    open var transitionSnapshot: UIView!
+    
+    /// A reference to the transition background view.
+    open let transitionBackgroundView = UIView()
+    
+    /// A reference to the view controller that is being transitioned to.
+    open var toViewController: UIViewController {
+        return transitionContext.viewController(forKey: .to)!
+    }
+    
+    /// A reference to the view controller that is being transitioned from.
+    open var fromViewController: UIViewController {
+        return transitionContext.viewController(forKey: .from)!
+    }
+    
+    /// The transition context for the current transition.
+    open var transitionContext: UIViewControllerContextTransitioning!
+    
+    /// The transition delay time.
+    open var delay: TimeInterval = 0
+    
+    /// The transition duration time.
+    open var duration: TimeInterval = 0.35
+    
+    /// The transition container view.
+    open var containerView: UIView!
+    
+    /// The view that is used to animate the transitions between view controllers.
+    open var transitionView = UIView()
+    
+    /// The view that is being transitioned to.
+    open var toView: UIView {
+        return toViewController.view
+    }
+    
+    /// The subviews of the view being transitioned to.
+    open var toSubviews: [UIView] {
+        return Motion.subviews(of: toView)
+    }
+    
+    /// The view that is being transitioned from.
+    open var fromView: UIView {
+        return fromViewController.view
+    }
+    
+    /// The subviews of the view being transitioned from.
+    open var fromSubviews: [UIView] {
+        return Motion.subviews(of: fromView)
+    }
+    
+    /// A time value to delay the transition animation by.
+    fileprivate var delayTransitionByTimeInterval: TimeInterval {
+        return 0
+        //        return fromViewController.motionDelegate?.motionDelayTransitionByTimeInterval?(motion: self) ?? 0
+    }
+}
+
+extension DismissedMotion: UIViewControllerAnimatedTransitioning {
+    /**
+     The animation method that is used to coordinate the transition.
+     - Parameter using transitionContext: A UIViewControllerContextTransitioning.
+     */
+    @objc(animateTransition:)
+    open func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        self.transitionContext = transitionContext
+        
+        Motion.delay(delayTransitionByTimeInterval) { [weak self] in
+            guard let s = self else {
+                return
+            }
+            
+            s.prepareContainerView()
+            s.prepareTransitionSnapshot()
+            s.prepareTransitionPairs()
+            s.prepareTransitionView()
+            s.prepareTransitionBackgroundView()
+            s.prepareToView()
+            s.prepareTransitionAnimation()
+        }
+    }
+    
+    /**
+     Returns the transition duration time interval.
+     - Parameter using transitionContext: An optional UIViewControllerContextTransitioning.
+     - Returns: A TimeInterval that is the total animation time including delays.
+     */
+    @objc(transitionDuration:)
+    open func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+        return 0.35
+    }
+}
+
+extension DismissedMotion {
+    /// Prepares the containerView.
+    fileprivate func prepareContainerView() {
+        containerView = transitionContext.containerView
+    }
+    
+    /// Prepares the transitionSnapshot.
+    fileprivate func prepareTransitionSnapshot() {
+        transitionSnapshot = fromView.transitionSnapshot(afterUpdates: true, shouldHide: false)
+        transitionSnapshot.frame = fromView.frame
+        containerView.addSubview(transitionSnapshot)
+    }
+    
+    /// Prepares the transitionPairs.
+    fileprivate func prepareTransitionPairs() {
+        for from in fromSubviews {
+            for to in toSubviews {
+                guard to.motionIdentifier == from.motionIdentifier else {
+                    continue
+                }
+                transitionPairs.append((from, to))
+            }
+        }
+    }
+    
+    /// Prepares the transitionView.
+    fileprivate func prepareTransitionView() {
+        transitionView.frame = toView.bounds
+        transitionView.isUserInteractionEnabled = false
+        containerView.insertSubview(transitionView, belowSubview: transitionSnapshot)
+    }
+    
+    /// Prepares the transitionBackgroundView.
+    fileprivate func prepareTransitionBackgroundView() {
+        transitionBackgroundView.backgroundColor = .clear
+        transitionBackgroundView.frame = transitionView.bounds
+        transitionView.addSubview(transitionBackgroundView)
+    }
+    
+    /// Prepares the toView.
+    fileprivate func prepareToView() {
+        toView.isHidden = true
+        
+//        containerView.insertSubview(toView, belowSubview: transitionView)
+//        
+//        toView.frame = fromView.frame
+//        toView.updateConstraints()
+//        toView.setNeedsLayout()
+//        toView.layoutIfNeeded()
+    }
+    
+    /// Prepares the transition animation.
+    fileprivate func prepareTransitionAnimation() {
+        addTransitionAnimations()
+        addBackgroundAnimation()
+        cleanUpAnimation()
+        removeTransitionSnapshot()
+    }
+}
+
+extension DismissedMotion {
+    /// Adds the available transition animations.
+    fileprivate func addTransitionAnimations() {
+        for (from, to) in transitionPairs {
+            var snapshotAnimations = [CABasicAnimation]()
+            var snapshotChildAnimations = [CABasicAnimation]()
+            
+            let sizeAnimation = Motion.size(to.bounds.size)
+            let cornerRadiusAnimation = Motion.corner(radius: to.layer.cornerRadius)
+            
+            snapshotAnimations.append(sizeAnimation)
+            snapshotAnimations.append(cornerRadiusAnimation)
+            snapshotAnimations.append(Motion.position(to: to.motionPosition))
+            snapshotAnimations.append(Motion.transform(transform: to.motionTransform))
+            snapshotAnimations.append(Motion.background(color: to.backgroundColor ?? .clear))
+            
+            if let path = to.layer.shadowPath {
+                let shadowPath = Motion.shadow(path: path)
+                shadowPath.fromValue = fromView.layer.shadowPath
+                snapshotAnimations.append(shadowPath)
+            }
+            
+            let shadowOffset = Motion.shadow(offset: to.layer.shadowOffset)
+            shadowOffset.fromValue = fromView.layer.shadowOffset
+            snapshotAnimations.append(shadowOffset)
+            
+            let shadowOpacity = Motion.shadow(opacity: to.layer.shadowOpacity)
+            shadowOpacity.fromValue = fromView.layer.shadowOpacity
+            snapshotAnimations.append(shadowOpacity)
+            
+            let shadowRadius = Motion.shadow(radius: to.layer.shadowRadius)
+            shadowRadius.fromValue = fromView.layer.shadowRadius
+            snapshotAnimations.append(shadowRadius)
+            
+            snapshotChildAnimations.append(cornerRadiusAnimation)
+            snapshotChildAnimations.append(sizeAnimation)
+            snapshotChildAnimations.append(Motion.position(x: to.bounds.width / 2, y: to.bounds.height / 2))
+            
+            let d = calculateAnimationTransitionDuration(animations: to.motionAnimations)
+            
+            let snapshot = from.transitionSnapshot(afterUpdates: true)
+            transitionView.addSubview(snapshot)
+            
+            Motion.delay(calculateAnimationDelayTimeInterval(animations: to.motionAnimations)) { [weak self, weak to] in
+                guard let s = self else {
+                    return
+                }
+                
+                guard let v = to else {
+                    return
+                }
+                
+                let tf = s.calculateAnimationTimingFunction(animations: v.motionAnimations)
+                
+                let snapshotGroup = Motion.animate(group: snapshotAnimations, duration: d)
+                snapshotGroup.fillMode = MotionAnimationFillModeToValue(mode: .forwards)
+                snapshotGroup.isRemovedOnCompletion = false
+                snapshotGroup.timingFunction = MotionAnimationTimingFunctionToValue(timingFunction: tf)
+                
+                let snapshotChildGroup = Motion.animate(group: snapshotChildAnimations, duration: d)
+                snapshotChildGroup.fillMode = MotionAnimationFillModeToValue(mode: .forwards)
+                snapshotChildGroup.isRemovedOnCompletion = false
+                snapshotChildGroup.timingFunction = MotionAnimationTimingFunctionToValue(timingFunction: tf)
+                
+                snapshot.animate(snapshotGroup)
+                snapshot.subviews.first?.animate(snapshotChildGroup)
+            }
+        }
+    }
+    
+    /// Adds the background animation.
+    fileprivate func addBackgroundAnimation() {
+        transitionBackgroundView.motion(.backgroundColor(toView.backgroundColor ?? .clear), .duration(transitionDuration(using: transitionContext)))
+    }
+}
+
+extension DismissedMotion {
+    /**
+     Creates a CAAnimationGroup.
+     - Parameter animations: An Array of CAAnimation objects.
+     - Parameter timingFunction: An MotionAnimationTimingFunction value.
+     - Parameter duration: An animation duration time for the group.
+     - Returns: A CAAnimationGroup.
+     */
+    open class func animate(group animations: [CAAnimation], timingFunction: MotionAnimationTimingFunction = .easeInEaseOut, duration: CFTimeInterval = 0.5) -> CAAnimationGroup {
+        let group = CAAnimationGroup()
+        group.fillMode = MotionAnimationFillModeToValue(mode: .forwards)
+        group.isRemovedOnCompletion = false
+        group.animations = animations
+        group.duration = duration
+        group.timingFunction = MotionAnimationTimingFunctionToValue(timingFunction: timingFunction)
+        return group
+    }
+}
+
+extension DismissedMotion {
+    /**
+     Calculates the animation delay time based on the given Array of MotionAnimations.
+     - Parameter animations: An Array of MotionAnimations.
+     - Returns: A TimeInterval.
+     */
+    fileprivate func calculateAnimationDelayTimeInterval(animations: [MotionAnimation]) -> TimeInterval {
+        var t: TimeInterval = 0
+        for a in animations {
+            switch a {
+            case let .delay(time):
+                if time > delay {
+                    delay = time
+                }
+                t = time
+            default:break
+            }
+        }
+        return t
+    }
+    
+    /**
+     Calculates the animation transition duration based on the given Array of MotionAnimations.
+     - Parameter animations: An Array of MotionAnimations.
+     - Returns: A TimeInterval.
+     */
+    fileprivate func calculateAnimationTransitionDuration(animations: [MotionAnimation]) -> TimeInterval {
+        var t: TimeInterval = 0.35
+        for a in animations {
+            switch a {
+            case let .duration(time):
+                if time > duration {
+                    duration = time
+                }
+                t = time
+            default:break
+            }
+        }
+        return t
+    }
+    
+    /**
+     Calculates the animation timing function based on the given Array of MotionAnimations.
+     - Parameter animations: An Array of MotionAnimations.
+     - Returns: A MotionAnimationTimingFunction.
+     */
+    fileprivate func calculateAnimationTimingFunction(animations: [MotionAnimation]) -> MotionAnimationTimingFunction {
+        var t = MotionAnimationTimingFunction.easeInEaseOut
+        for a in animations {
+            switch a {
+            case let .timingFunction(timingFunction):
+                t = timingFunction
+            default:break
+            }
+        }
+        return t
+    }
+}
+
+extension DismissedMotion {
+    /// Cleans up the animation transition.
+    fileprivate func cleanUpAnimation() {
+        Motion.delay(transitionDuration(using: transitionContext) + delayTransitionByTimeInterval) { [weak self] in
+            guard let s = self else {
+                return
+            }
+            
+            s.showToSubviews()
+            s.removeTransitionView()
+            s.clearTransitionPairs()
+            s.completeTransition()
+        }
+    }
+    
+    /// Removes the transitionSnapshot from its superview.
+    fileprivate func removeTransitionSnapshot() {
+        Motion.delay(delay) { [weak self] in
+            self?.transitionSnapshot.removeFromSuperview()
+        }
+    }
+    
+    /// Shows the toView and its subviews.
+    fileprivate func showToSubviews() {
+        toSubviews.forEach {
+            $0.isHidden = false
+        }
+        toView.isHidden = false
+    }
+    
+    /// Clears the transitionPairs Array.
+    fileprivate func clearTransitionPairs() {
+        transitionPairs.removeAll()
+    }
+    
+    /// Removes the transitionView.
+    fileprivate func removeTransitionView() {
+        transitionView.removeFromSuperview()
+    }
+    
+    /// Calls the completionTransition method.
+    fileprivate func completeTransition() {
+        //        toViewController.motionDelegate?.motion?(motion: self, didTransition: fromView, toView: toView)
         transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
     }
 }
