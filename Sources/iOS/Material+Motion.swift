@@ -173,7 +173,7 @@ extension UIViewController {
      - Returns: An optional UIViewControllerAnimatedTransitioning.
      */
     open func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return isMotionEnabled ? PresentedMotion(isPresenting: true, isContainer: false) : nil
+        return isMotionEnabled ? PresentingMotion(isPresenting: true, isContainer: false) : nil
     }
     
     /**
@@ -182,7 +182,7 @@ extension UIViewController {
      - Returns: An optional UIViewControllerAnimatedTransitioning.
      */
     open func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return isMotionEnabled ? DismissedMotion(isPresenting: true, isContainer: false) : nil
+        return isMotionEnabled ? DismissingMotion(isPresenting: true, isContainer: false) : nil
     }
     
     /**
@@ -306,26 +306,20 @@ open class MotionPresentationController: UIPresentationController {
             return
         }
         
-        print("presentationTransitionWillBegin")
         presentedViewController.transitionCoordinator?.animate(alongsideTransition: { (context) in })
     }
     
-    open override func presentationTransitionDidEnd(_ completed: Bool) {
-        print("presentationTransitionDidEnd")
-    }
+    open override func presentationTransitionDidEnd(_ completed: Bool) {}
     
     open override func dismissalTransitionWillBegin() {
         guard nil != containerView else {
             return
         }
         
-        print("dismissalTransitionWillBegin")
         presentedViewController.transitionCoordinator?.animate(alongsideTransition: { (context) in })
     }
     
-    open override func dismissalTransitionDidEnd(_ completed: Bool) {
-        print("dismissalTransitionDidEnd")
-    }
+    open override func dismissalTransitionDidEnd(_ completed: Bool) {}
     
     open override var frameOfPresentedViewInContainerView: CGRect {
         return containerView?.bounds ?? .zero
@@ -342,6 +336,12 @@ public protocol MotionDelegate {
     
     @objc
     optional func motionDelayTransitionByTimeInterval(motion: Motion) -> TimeInterval
+    
+    @objc
+    optional func motionWillBeginPresentation(presentationController: UIPresentationController)
+    
+    @objc
+    optional func motionAnimateAlongsideTransition(presentationController: UIPresentationController)
 }
 
 open class MotionAnimator: NSObject {
@@ -822,9 +822,9 @@ extension Motion {
     }
 }
 
-open class PresentedMotion: Motion {}
+open class PresentingMotion: Motion {}
 
-open class DismissedMotion: Motion {
+open class DismissingMotion: Motion {
     /// Prepares the toView.
     fileprivate override func prepareToView() {
         toView.isHidden = true
