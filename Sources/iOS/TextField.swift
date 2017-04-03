@@ -80,6 +80,8 @@ open class TextField: UITextField {
         }
     }
     
+    open var uppercasePlaceholder: Bool = false
+    
     /// A boolean indicating whether the text is empty.
     open var isEmpty: Bool {
         return 0 == text?.utf16.count
@@ -635,7 +637,9 @@ extension TextField {
             guard let s = self else {
                 return
             }
-            
+            if self?.uppercasePlaceholder ?? false {
+                s.placeholderLabel.text = s.placeholderLabel.text?.uppercased()
+            }
             s.placeholderLabel.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
             
             switch s.textAlignment {
@@ -671,7 +675,9 @@ extension TextField {
             guard let s = self else {
                 return
             }
-            
+            if self?.uppercasePlaceholder ?? false {
+                s.placeholderLabel.text = s.placeholderLabel.text?.capitalized
+            }
             s.placeholderLabel.transform = CGAffineTransform.identity
             s.placeholderLabel.x = s.leftViewWidth
             s.placeholderLabel.y = 0
