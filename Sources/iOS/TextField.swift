@@ -387,6 +387,17 @@ open class TextField: UITextField {
         return super.becomeFirstResponder()
     }
     
+    open var textInset: CGFloat = 0
+    
+    open override func textRect(forBounds bounds: CGRect) -> CGRect {
+        
+        return bounds.insetBy(dx: textInset, dy: 0)
+    }
+    
+    open override func editingRect(forBounds bounds: CGRect) -> CGRect {
+        return textRect(forBounds: bounds)
+    }
+    
 	/**
      Prepares the view instance when intialized. When subclassing,
      it is recommended to override the prepare method
@@ -482,24 +493,24 @@ extension TextField {
 extension TextField {
     /// Layout the placeholderLabel.
     fileprivate func layoutPlaceholderLabel() {
-        let w = leftViewWidth
+        let w = leftViewWidth + textInset
         let h = 0 == height ? intrinsicContentSize.height : height
         
         placeholderLabel.transform = CGAffineTransform.identity
         
         guard isEditing || !isEmpty || !isPlaceholderAnimated else {
-            placeholderLabel.frame = CGRect(x: w, y: 0, width: width - w, height: h)
+            placeholderLabel.frame = CGRect(x: w, y: 0, width: width - leftViewWidth - 2 * textInset, height: h)
             return
         }
         
-        placeholderLabel.frame = CGRect(x: w, y: 0, width: width - w, height: h)
+        placeholderLabel.frame = CGRect(x: w, y: 0, width: width - leftViewWidth - 2 * textInset, height: h)
         placeholderLabel.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
         
         switch textAlignment {
         case .left, .natural:
             placeholderLabel.x = w
         case .right:
-            placeholderLabel.x = width - placeholderLabel.width
+            placeholderLabel.x = width - placeholderLabel.width - textInset
         default:break
         }
         
@@ -640,9 +651,9 @@ extension TextField {
             
             switch s.textAlignment {
             case .left, .natural:
-                s.placeholderLabel.x = s.leftViewWidth
+                s.placeholderLabel.x = s.leftViewWidth + s.textInset
             case .right:
-                s.placeholderLabel.x = s.width - s.placeholderLabel.width
+                s.placeholderLabel.x = s.width - s.placeholderLabel.width - s.textInset
             default:break
             }
             
@@ -673,7 +684,7 @@ extension TextField {
             }
             
             s.placeholderLabel.transform = CGAffineTransform.identity
-            s.placeholderLabel.x = s.leftViewWidth
+            s.placeholderLabel.x = s.leftViewWidth + s.textInset
             s.placeholderLabel.y = 0
         })
     }
