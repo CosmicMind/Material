@@ -55,7 +55,7 @@ public enum PageTabBarAlignment: Int {
 }
 
 extension UIViewController {
-    /// Grid reference.
+    /// PageTabBarItem reference.
     public private(set) var pageTabBarItem: PageTabBarItem {
         get {
             return AssociatedObject(base: self, key: &PageTabBarItemKey) {
@@ -158,7 +158,6 @@ open class PageTabBarController: RootController {
     public required init?(coder aDecoder: NSCoder) {
         isBounceEnabled = true
         super.init(coder: aDecoder)
-        prepare()
     }
     
     public override init(rootViewController: UIViewController) {
@@ -166,7 +165,6 @@ open class PageTabBarController: RootController {
         super.init(rootViewController: UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil))
         viewControllers.append(rootViewController)
         setInternalSelectedIndex(index: 0, animated: true)
-        prepare()
     }
     
     public init(viewControllers: [UIViewController], selectedIndex index: Int = 0) {
@@ -174,6 +172,10 @@ open class PageTabBarController: RootController {
         super.init(rootViewController: UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil))
         self.viewControllers.append(contentsOf: viewControllers)
         setInternalSelectedIndex(index: index, animated: true)
+    }
+    
+    open override func viewDidLoad() {
+        super.viewDidLoad()
         prepare()
     }
     
