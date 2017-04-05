@@ -387,10 +387,10 @@ open class TextField: UITextField {
         return super.becomeFirstResponder()
     }
     
+    /// EdgeInsets for text.
     open var textInset: CGFloat = 0
     
     open override func textRect(forBounds bounds: CGRect) -> CGRect {
-        
         return bounds.insetBy(dx: textInset, dy: 0)
     }
     

@@ -546,6 +546,8 @@ extension MotionAnimator {
             snapshotAnimations.append(Motion.position(to: to.motionPosition))
             snapshotAnimations.append(Motion.transform(transform: to.motionTransform))
             snapshotAnimations.append(Motion.background(color: to.backgroundColor ?? .clear))
+            snapshotAnimations.append(Motion.border(color: to.borderColor ?? .clear))
+            snapshotAnimations.append(Motion.border(width: to.borderWidth))
             
             if let path = to.layer.shadowPath {
                 let shadowPath = Motion.shadow(path: path)
