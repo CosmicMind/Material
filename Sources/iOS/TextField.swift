@@ -349,6 +349,13 @@ open class TextField: UITextField {
             visibilityIconButton?.addTarget(self, action: #selector(handleVisibilityIconButton), for: .touchUpInside)
 		}
 	}
+    
+    @IBInspectable
+    open var isPlaceholderUppercasedWhenEditing: Bool = false {
+        didSet {
+            placeholder = placeholder?.uppercased()
+        }
+    }
 	
     /**
      An initializer that initializes the object with a NSCoder object.
@@ -648,7 +655,9 @@ extension TextField {
             }
             
             s.placeholderLabel.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
-            
+            if self?.isPlaceholderUppercasedWhenEditing ?? false {
+                s.placeholderLabel.text = s.placeholderLabel.text?.uppercased()
+            }
             switch s.textAlignment {
             case .left, .natural:
                 s.placeholderLabel.x = s.leftViewWidth + s.textInset
@@ -669,11 +678,12 @@ extension TextField {
         }
         
         updatePlaceholderLabelColor()
-        
+        if self?.isPlaceholderUppercasedWhenEditing ?? false{
+            s.placeholderLabel.text = s.placeholderLabel.text?.capitalized
+        }
         guard isPlaceholderAnimated else {
             return
         }
-        
         guard isEmpty else {
             return
         }
