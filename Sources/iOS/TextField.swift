@@ -184,7 +184,11 @@ open class TextField: UITextField {
 			return placeholderLabel.text
 		}
 		set(value) {
-			placeholderLabel.text = value
+            if isEditing && isPlaceholderUppercasedWhenEditing {
+                placeholderLabel.text = value?.uppercased()
+            } else {
+                placeholderLabel.text = value
+            }
             layoutSubviews()
 		}
 	}
@@ -642,10 +646,16 @@ extension TextField {
         updatePlaceholderLabelColor()
         
         guard isPlaceholderAnimated else {
+            if isPlaceholderUppercasedWhenEditing {
+                placeholderLabel.text = placeholderLabel.text?.uppercased()
+            }
             return
         }
         
         guard isEmpty else {
+            if isPlaceholderUppercasedWhenEditing {
+                placeholderLabel.text = placeholderLabel.text?.uppercased()
+            }
             return
         }
         
