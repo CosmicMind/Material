@@ -60,10 +60,14 @@ open class TabMenu: UIView {
     open var viewControllers: [UIViewController]
     open var selectedIndex: Int
     
+    /**
+     An initializer that initializes the object with a NSCoder object.
+     - Parameter aDecoder: A NSCoder instance.
+     */
     public required init?(coder aDecoder: NSCoder) {
         viewControllers = []
         selectedIndex = 0
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
     }
     
     public init(viewControllers: [UIViewController], selectedIndex: Int = 0) {
