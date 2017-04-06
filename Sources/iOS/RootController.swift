@@ -59,7 +59,6 @@ open class RootController: UIViewController {
      */
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
-		prepare()
 	}
 	
 	/**
@@ -69,7 +68,6 @@ open class RootController: UIViewController {
      */
 	public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-		prepare()
 	}
 	
 	/**
@@ -79,8 +77,12 @@ open class RootController: UIViewController {
 	public init(rootViewController: UIViewController) {
 		super.init(nibName: nil, bundle: nil)
 		self.rootViewController = rootViewController
-		prepare()
 	}
+    
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        prepare()
+    }
 	
 	open override func viewWillLayoutSubviews() {
 		super.viewWillLayoutSubviews()

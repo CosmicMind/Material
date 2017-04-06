@@ -173,7 +173,7 @@ extension UIViewController {
      - Returns: An optional UIViewControllerAnimatedTransitioning.
      */
     open func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return isMotionEnabled ? Motion(isPresenting: true, isContainer: false) : nil
+        return isMotionEnabled ? PresentingMotion(isPresenting: true, isContainer: false) : nil
     }
     
     /**
@@ -182,7 +182,7 @@ extension UIViewController {
      - Returns: An optional UIViewControllerAnimatedTransitioning.
      */
     open func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return isMotionEnabled ? Motion(isPresenting: false, isContainer: false) : nil
+        return isMotionEnabled ? DismissingMotion(isPresenting: true, isContainer: false) : nil
     }
     
     /**
@@ -336,9 +336,15 @@ public protocol MotionDelegate {
     
     @objc
     optional func motionDelayTransitionByTimeInterval(motion: Motion) -> TimeInterval
+    
+    @objc
+    optional func motionWillBeginPresentation(presentationController: UIPresentationController)
+    
+    @objc
+    optional func motionAnimateAlongsideTransition(presentationController: UIPresentationController)
 }
 
-open class Motion: NSObject {
+open class MotionAnimator: NSObject {
     /// A boolean indicating whether Motion is presenting a view controller.
     open fileprivate(set) var isPresenting: Bool
     
@@ -400,11 +406,6 @@ open class Motion: NSObject {
     /// The subviews of the view being transitioned from.
     open var fromSubviews: [UIView] {
         return Motion.subviews(of: fromView)
-    }
-    
-    /// A time value to delay the transition animation by.
-    fileprivate var delayTransitionByTimeInterval: TimeInterval {
-        return fromViewController.motionDelegate?.motionDelayTransitionByTimeInterval?(motion: self) ?? 0
     }
     
     /// The default initializer.
@@ -509,7 +510,7 @@ open class Motion: NSObject {
     }
 }
 
-extension Motion: UIViewControllerAnimatedTransitioning {
+extension MotionAnimator: UIViewControllerAnimatedTransitioning {
     /**
      The animation method that is used to coordinate the transition.
      - Parameter using transitionContext: A UIViewControllerContextTransitioning.
@@ -517,21 +518,6 @@ extension Motion: UIViewControllerAnimatedTransitioning {
     @objc(animateTransition:)
     open func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         self.transitionContext = transitionContext
-        fromViewController.motionDelegate?.motion?(motion: self, willTransition: fromView, toView: toView)
-        
-        Motion.delay(delayTransitionByTimeInterval) { [weak self] in
-            guard let s = self else {
-                return
-            }
-            
-            s.prepareContainerView()
-            s.prepareTransitionSnapshot()
-            s.prepareTransitionPairs()
-            s.prepareTransitionView()
-            s.prepareTransitionBackgroundView()
-            s.prepareToView()
-            s.prepareTransitionAnimation()
-        }
     }
     
     /**
@@ -545,66 +531,7 @@ extension Motion: UIViewControllerAnimatedTransitioning {
     }
 }
 
-extension Motion {
-    /// Prepares the containerView.
-    fileprivate func prepareContainerView() {
-        containerView = transitionContext.containerView
-    }
-    
-    /// Prepares the transitionSnapshot.
-    fileprivate func prepareTransitionSnapshot() {
-        transitionSnapshot = fromView.transitionSnapshot(afterUpdates: true, shouldHide: false)
-        transitionSnapshot.frame = fromView.frame
-        containerView.insertSubview(transitionSnapshot, aboveSubview: fromView)
-    }
-    
-    /// Prepares the transitionPairs.
-    fileprivate func prepareTransitionPairs() {
-        for from in fromSubviews {
-            for to in toSubviews {
-                guard to.motionIdentifier == from.motionIdentifier else {
-                    continue
-                }
-                transitionPairs.append((from, to))
-            }
-        }
-    }
-    
-    /// Prepares the transitionView.
-    fileprivate func prepareTransitionView() {
-        transitionView.frame = toView.bounds
-        transitionView.isUserInteractionEnabled = false
-        containerView.insertSubview(transitionView, belowSubview: transitionSnapshot)
-    }
-    
-    /// Prepares the transitionBackgroundView.
-    fileprivate func prepareTransitionBackgroundView() {
-        transitionBackgroundView.backgroundColor = isPresenting ? .clear : fromView.backgroundColor ?? .clear
-        transitionBackgroundView.frame = transitionView.bounds
-        transitionView.addSubview(transitionBackgroundView)
-    }
-    
-    /// Prepares the toView.
-    fileprivate func prepareToView() {
-        toView.isHidden = isPresenting
-        containerView.insertSubview(toView, belowSubview: transitionView)
-        
-        toView.frame = fromView.frame
-        toView.updateConstraints()
-        toView.setNeedsLayout()
-        toView.layoutIfNeeded()
-    }
-    
-    /// Prepares the transition animation.
-    fileprivate func prepareTransitionAnimation() {
-        addTransitionAnimations()
-        addBackgroundAnimation()
-        cleanUpAnimation()
-        removeTransitionSnapshot()
-    }
-}
-
-extension Motion {
+extension MotionAnimator {
     /// Adds the available transition animations.
     fileprivate func addTransitionAnimations() {
         for (from, to) in transitionPairs {
@@ -619,6 +546,8 @@ extension Motion {
             snapshotAnimations.append(Motion.position(to: to.motionPosition))
             snapshotAnimations.append(Motion.transform(transform: to.motionTransform))
             snapshotAnimations.append(Motion.background(color: to.backgroundColor ?? .clear))
+            snapshotAnimations.append(Motion.border(color: to.borderColor ?? .clear))
+            snapshotAnimations.append(Motion.border(width: to.borderWidth))
             
             if let path = to.layer.shadowPath {
                 let shadowPath = Motion.shadow(path: path)
@@ -680,26 +609,7 @@ extension Motion {
     }
 }
 
-extension Motion {
-    /**
-     Creates a CAAnimationGroup.
-     - Parameter animations: An Array of CAAnimation objects.
-     - Parameter timingFunction: An MotionAnimationTimingFunction value.
-     - Parameter duration: An animation duration time for the group.
-     - Returns: A CAAnimationGroup.
-     */
-    open class func animate(group animations: [CAAnimation], timingFunction: MotionAnimationTimingFunction = .easeInEaseOut, duration: CFTimeInterval = 0.5) -> CAAnimationGroup {
-        let group = CAAnimationGroup()
-        group.fillMode = MotionAnimationFillModeToValue(mode: .forwards)
-        group.isRemovedOnCompletion = false
-        group.animations = animations
-        group.duration = duration
-        group.timingFunction = MotionAnimationTimingFunctionToValue(timingFunction: timingFunction)
-        return group
-    }
-}
-
-extension Motion {
+extension MotionAnimator {
     /**
      Calculates the animation delay time based on the given Array of MotionAnimations.
      - Parameter animations: An Array of MotionAnimations.
@@ -758,6 +668,115 @@ extension Motion {
     }
 }
 
+open class Motion: MotionAnimator {
+    /// A time value to delay the transition animation by.
+    fileprivate var delayTransitionByTimeInterval: TimeInterval {
+        return fromViewController.motionDelegate?.motionDelayTransitionByTimeInterval?(motion: self) ?? 0
+    }
+    
+    /**
+     The animation method that is used to coordinate the transition.
+     - Parameter using transitionContext: A UIViewControllerContextTransitioning.
+     */
+    @objc(animateTransition:)
+    open override func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        super.animateTransition(using: transitionContext)
+        fromViewController.motionDelegate?.motion?(motion: self, willTransition: fromView, toView: toView)
+        
+        Motion.delay(delayTransitionByTimeInterval) { [weak self] in
+            guard let s = self else {
+                return
+            }
+            
+            s.prepareContainerView()
+            s.prepareTransitionSnapshot()
+            s.prepareTransitionPairs()
+            s.prepareTransitionView()
+            s.prepareTransitionBackgroundView()
+            s.prepareToView()
+            s.prepareTransitionAnimation()
+        }
+    }
+    
+    /// Prepares the toView.
+    fileprivate func prepareToView() {
+        toView.isHidden = isPresenting
+        containerView.insertSubview(toView, belowSubview: transitionView)
+        
+        toView.frame = fromView.frame
+        toView.updateConstraints()
+        toView.setNeedsLayout()
+        toView.layoutIfNeeded()
+    }
+}
+
+extension Motion {
+    /// Prepares the containerView.
+    fileprivate func prepareContainerView() {
+        containerView = transitionContext.containerView
+    }
+    
+    /// Prepares the transitionSnapshot.
+    fileprivate func prepareTransitionSnapshot() {
+        transitionSnapshot = fromView.transitionSnapshot(afterUpdates: true, shouldHide: false)
+        transitionSnapshot.frame = fromView.frame
+        containerView.addSubview(transitionSnapshot)
+    }
+    
+    /// Prepares the transitionPairs.
+    fileprivate func prepareTransitionPairs() {
+        for from in fromSubviews {
+            for to in toSubviews {
+                guard to.motionIdentifier == from.motionIdentifier else {
+                    continue
+                }
+                transitionPairs.append((from, to))
+            }
+        }
+    }
+    
+    /// Prepares the transitionView.
+    fileprivate func prepareTransitionView() {
+        transitionView.frame = toView.bounds
+        transitionView.isUserInteractionEnabled = false
+        containerView.insertSubview(transitionView, belowSubview: transitionSnapshot)
+    }
+    
+    /// Prepares the transitionBackgroundView.
+    fileprivate func prepareTransitionBackgroundView() {
+        transitionBackgroundView.backgroundColor = isPresenting ? .clear : fromView.backgroundColor ?? .clear
+        transitionBackgroundView.frame = transitionView.bounds
+        transitionView.addSubview(transitionBackgroundView)
+    }
+    
+    /// Prepares the transition animation.
+    fileprivate func prepareTransitionAnimation() {
+        addTransitionAnimations()
+        addBackgroundAnimation()
+        cleanUpAnimation()
+        removeTransitionSnapshot()
+    }
+}
+
+extension Motion {
+    /**
+     Creates a CAAnimationGroup.
+     - Parameter animations: An Array of CAAnimation objects.
+     - Parameter timingFunction: An MotionAnimationTimingFunction value.
+     - Parameter duration: An animation duration time for the group.
+     - Returns: A CAAnimationGroup.
+     */
+    open class func animate(group animations: [CAAnimation], timingFunction: MotionAnimationTimingFunction = .easeInEaseOut, duration: CFTimeInterval = 0.5) -> CAAnimationGroup {
+        let group = CAAnimationGroup()
+        group.fillMode = MotionAnimationFillModeToValue(mode: .forwards)
+        group.isRemovedOnCompletion = false
+        group.animations = animations
+        group.duration = duration
+        group.timingFunction = MotionAnimationTimingFunctionToValue(timingFunction: timingFunction)
+        return group
+    }
+}
+
 extension Motion {
     /// Cleans up the animation transition.
     fileprivate func cleanUpAnimation() {
@@ -803,4 +822,18 @@ extension Motion {
         toViewController.motionDelegate?.motion?(motion: self, didTransition: fromView, toView: toView)
         transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
     }
+}
+
+open class PresentingMotion: Motion {}
+
+open class DismissingMotion: Motion {
+    /// Prepares the toView.
+    fileprivate override func prepareToView() {
+        toView.isHidden = true
+        toView.frame = fromView.frame
+        toView.updateConstraints()
+        toView.setNeedsLayout()
+        toView.layoutIfNeeded()
+    }
+
 }

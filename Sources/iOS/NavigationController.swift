@@ -30,7 +30,7 @@
 
 import UIKit
 
-extension UINavigationController {
+extension NavigationController {
     /// Device status bar style.
     open var statusBarStyle: UIStatusBarStyle {
         get {

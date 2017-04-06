@@ -195,7 +195,7 @@ public class PhotoLibrary: NSObject {
     }
     
     /// Prepare the instance object.
-    private func prepare() {
+    open func prepare() {
         prepareChangeObservers()
     }
     

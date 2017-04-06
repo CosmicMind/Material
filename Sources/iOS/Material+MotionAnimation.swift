@@ -33,6 +33,8 @@ import UIKit
 public enum MotionAnimationKeyPath: String {
     case backgroundColor
     case barTintColor
+    case borderColor
+    case borderWidth
     case cornerRadius
     case transform
     case rotation  = "transform.rotation"
@@ -66,6 +68,8 @@ public enum MotionAnimation {
     case custom(CABasicAnimation)
     case backgroundColor(UIColor)
     case barTintColor(UIColor)
+    case borderColor(UIColor)
+    case borderWidth(CGFloat)
     case cornerRadius(CGFloat)
     case transform(CATransform3D)
     case rotationAngle(CGFloat)
@@ -264,6 +268,10 @@ extension CALayer {
                     a.append(Motion.background(color: color))
                 case let .barTintColor(color):
                     a.append(Motion.barTint(color: color))
+                case let .borderColor(color):
+                    a.append(Motion.border(color: color))
+                case let .borderWidth(width):
+                    a.append(Motion.border(width: width))
                 case let .cornerRadius(radius):
                     a.append(Motion.corner(radius: radius))
                 case let .transform(transform):
@@ -474,6 +482,28 @@ extension Motion {
     public static func barTint(color: UIColor) -> CABasicAnimation {
         let animation = CABasicAnimation(keyPath: .barTintColor)
         animation.toValue = color.cgColor
+        return animation
+    }
+    
+    /**
+     Creates a CABasicAnimation for the borderColor key path.
+     - Parameter color: A UIColor.
+     - Returns: A CABasicAnimation.
+     */
+    public static func border(color: UIColor) -> CABasicAnimation {
+        let animation = CABasicAnimation(keyPath: .borderColor)
+        animation.toValue = color.cgColor
+        return animation
+    }
+    
+    /**
+     Creates a CABasicAnimation for the borderWidth key path.
+     - Parameter width: A CGFloat.
+     - Returns: A CABasicAnimation.
+     */
+    public static func border(width: CGFloat) -> CABasicAnimation {
+        let animation = CABasicAnimation(keyPath: .borderWidth)
+        animation.toValue = width
         return animation
     }
     
