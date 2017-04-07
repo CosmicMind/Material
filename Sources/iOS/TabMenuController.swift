@@ -46,58 +46,6 @@ public enum TabMenuAlignment: Int {
     case bottom
 }
 
-open class TabMenu: UIView {
-    @IBInspectable
-    open var tabBar = TabBar() {
-        didSet {
-            
-            
-            layoutSubviews()
-        }
-    }
-    
-    open var viewControllers: [UIViewController]
-    open var selectedIndex: Int
-    
-    /**
-     An initializer that initializes the object with a NSCoder object.
-     - Parameter aDecoder: A NSCoder instance.
-     */
-    public required init?(coder aDecoder: NSCoder) {
-        viewControllers = []
-        selectedIndex = 0
-        super.init(coder: aDecoder)
-    }
-    
-    public init(viewControllers: [UIViewController], selectedIndex: Int = 0) {
-        self.viewControllers = viewControllers
-        self.selectedIndex = selectedIndex
-        super.init(frame: .zero)
-    }
-    
-    open override func layoutSubviews() {
-        super.layoutSubviews()
-    }
-    
-    /**
-     Prepares the view instance when intialized. When subclassing,
-     it is recommended to override the prepare method
-     to initialize property values and other setup operations.
-     The super.prepare method should always be called immediately
-     when subclassing.
-     */
-    open func prepare() {
-        prepareTabBar()
-    }
-}
-
-extension TabMenu {
-    fileprivate func prepareTabBar() {
-        tabBar.isLineAnimated = false
-        tabBar.lineAlignment = .top
-    }
-}
-
 extension UIViewController {
     /// tabMenuBarItem reference.
     public private(set) var tabMenuBarItem: TabMenuBarItem {
@@ -131,16 +79,39 @@ extension UIViewController {
 }
 
 open class TabMenuController: UIViewController {
-    /// A reference to the TabMenu instance.
     @IBInspectable
-    open let tabMenu: TabMenu
+    open let tabBar = TabBar()
+    
+    open var viewControllers: [UIViewController] {
+        didSet {
+            oldValue.forEach {
+                $0.willMove(toParentViewController: nil)
+                $0.view.removeFromSuperview()
+                $0.removeFromParentViewController()
+            }
+            
+            prepareViewControllers()
+            layoutSubviews()
+        }
+    }
+    
+    @IBInspectable
+    open var selectedIndex: Int {
+        didSet {
+            scrollView.setContentOffset(CGPoint(x: scrollView.width * CGFloat(selectedIndex), y: 0), animated: true)
+        }
+    }
+    
+    @IBInspectable
+    open let scrollView = UIScrollView()
     
     /**
      An initializer that initializes the object with a NSCoder object.
      - Parameter aDecoder: A NSCoder instance.
      */
     public required init?(coder aDecoder: NSCoder) {
-        tabMenu = TabMenu(viewControllers: [])
+        viewControllers = []
+        selectedIndex = 0
         super.init(coder: aDecoder)
     }
     
@@ -149,13 +120,29 @@ open class TabMenuController: UIViewController {
      - Parameter viewControllers: An Array of UIViewControllers.
      */
     public init(viewControllers: [UIViewController], selectedIndex: Int = 0) {
-        tabMenu = TabMenu(viewControllers: viewControllers, selectedIndex: selectedIndex)
+        self.viewControllers = viewControllers
+        self.selectedIndex = selectedIndex
         super.init(nibName: nil, bundle: nil)
     }
     
     open override func viewDidLoad() {
         super.viewDidLoad()
         prepare()
+    }
+    
+    open override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        layoutSubviews()
+    }
+    
+    /**
+     To execute in the order of the layout chain, override this
+     method. `layoutSubviews` should be called immediately, unless you
+     have a certain need.
+     */
+    open func layoutSubviews() {
+        layoutScrollView()
+        layoutViewControllers()
     }
     
     /**
@@ -166,6 +153,58 @@ open class TabMenuController: UIViewController {
      when subclassing.
      */
     open func prepare() {
-        
+        prepareTabBar()
+        prepareScrollView()
+        prepareViewControllers()
+    }
+}
+
+extension TabMenuController {
+    fileprivate func prepareTabBar() {
+        tabBar.isLineAnimated = false
+        tabBar.lineAlignment = .top
+    }
+    
+    fileprivate func prepareScrollView() {
+        scrollView.delegate = self
+        scrollView.bounces = false
+        scrollView.isPagingEnabled = true
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.showsHorizontalScrollIndicator = false
+        view.addSubview(scrollView)
+    }
+    
+    fileprivate func prepareViewControllers() {
+        for v in viewControllers {
+            addChildViewController(v)
+            scrollView.addSubview(v.view)
+            v.didMove(toParentViewController: self)
+            v.view.clipsToBounds = true
+            v.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            v.view.contentScaleFactor = Screen.scale
+        }
+    }
+}
+
+extension TabMenuController {
+    fileprivate func layoutScrollView() {
+        scrollView.frame = view.bounds
+        scrollView.contentSize = CGSize(width: scrollView.width * CGFloat(viewControllers.count), height: scrollView.height)
+        print(selectedIndex)
+        scrollView.contentOffset = CGPoint(x: scrollView.width * CGFloat(selectedIndex), y: 0)
+    }
+    
+    fileprivate func layoutViewControllers() {
+        for i in 0..<viewControllers.count {
+            let v = viewControllers[i]
+            v.view.frame = CGRect(x: CGFloat(i) * scrollView.width, y: 0, width: scrollView.width, height: scrollView.height)
+        }
+    }
+}
+
+extension TabMenuController: UIScrollViewDelegate {
+    @objc
+    open func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        selectedIndex = lround(Double(scrollView.contentOffset.x / scrollView.width))
     }
 }
