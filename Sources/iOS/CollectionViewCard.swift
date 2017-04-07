@@ -53,19 +53,7 @@ open class CollectionViewCard: Card {
     @IBInspectable
     open let collectionView = CollectionView()
     
-    open override func layoutSubviews() {
-        super.layoutSubviews()
-        reload()
-    }
-    
-    open override func prepare() {
-        super.prepare()
-        pulseAnimation = .none
-        
-        prepareCollectionView()
-        prepareContentView()
-    }
-    
+    /// Reloads the view.
     open override func reload() {
         if 0 == collectionView.height {
             var h: CGFloat = 0
@@ -79,7 +67,22 @@ open class CollectionViewCard: Card {
         
         collectionView.reloadData()
         
-        super.reload()
+        super.layoutSubviews()
+    }
+    
+    /**
+     Prepares the view instance when intialized. When subclassing,
+     it is recommended to override the prepare method
+     to initialize property values and other setup operations.
+     The super.prepare method should always be called immediately
+     when subclassing.
+     */
+    open override func prepare() {
+        super.prepare()
+        pulseAnimation = .none
+        
+        prepareCollectionView()
+        prepareContentView()
     }
 }
 

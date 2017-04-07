@@ -30,7 +30,6 @@
 
 import UIKit
 
-
 /// A memory reference to the TabMenuBarItem instance for UIViewController extensions.
 fileprivate var TabMenuBarItemKey: UInt8 = 0
 

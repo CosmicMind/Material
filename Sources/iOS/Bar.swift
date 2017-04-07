@@ -39,7 +39,7 @@ public enum ContentViewAlignment: Int {
 open class Bar: View {
     /// Will layout the view.
     open var willLayout: Bool {
-        return 0 < width && 0 < height && nil != superview
+        return 0 < width && 0 < height && nil != superview && !grid.deferred
     }
     
     open override var intrinsicContentSize: CGSize {
@@ -183,15 +183,6 @@ open class Bar: View {
             return
         }
         
-        guard !grid.deferred else {
-            return
-        }
-        
-        reload()
-    }
-    
-    /// Reloads the view.
-    open func reload() {
         var lc = 0
         var rc = 0
         

@@ -378,7 +378,12 @@ open class TextField: UITextField {
 	open override func layoutSubviews() {
 		super.layoutSubviews()
         layoutShape()
-        reload()
+        layoutPlaceholderLabel()
+        layoutDetailLabel()
+        layoutButton(button: clearIconButton)
+        layoutButton(button: visibilityIconButton)
+        layoutDivider()
+        layoutLeftView()
 	}
 	
     open override func becomeFirstResponder() -> Bool {
@@ -421,16 +426,6 @@ open class TextField: UITextField {
 		prepareTargetHandlers()
         prepareTextAlignment()
 	}
-    
-	/// Ensures that the components are sized correctly.
-	open func reload() {
-        layoutPlaceholderLabel()
-        layoutDetailLabel()
-        layoutButton(button: clearIconButton)
-        layoutButton(button: visibilityIconButton)
-        layoutDivider()
-        layoutLeftView()
-    }
 }
 
 extension TextField {

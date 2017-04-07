@@ -82,6 +82,7 @@ open class ImageCard: Card {
         }
     }
     
+    /// Reloads the view.
     open override func reload() {
         var h: CGFloat = 0
         
