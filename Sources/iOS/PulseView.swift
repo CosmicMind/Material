@@ -36,7 +36,7 @@ open class PulseView: View, Pulseable, PulseableLayer {
     
     /// A reference to the pulse layer.
     internal var pulseLayer: CALayer? {
-        return pulse.layer
+        return pulse.pulseLayer
     }
     
     /// PulseAnimation value.
@@ -132,6 +132,6 @@ open class PulseView: View, Pulseable, PulseableLayer {
 extension PulseView {
     /// Prepares the pulse motion.
     fileprivate func preparePulse() {
-        pulse = Pulse(view: self, layer: visualLayer)
+        pulse = Pulse(pulseView: self, pulseLayer: visualLayer)
     }
 }

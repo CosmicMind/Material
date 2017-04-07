@@ -51,8 +51,7 @@ open class NavigationBar: UINavigationBar {
 	@IBInspectable
     open var contentEdgeInsets = EdgeInsets.zero {
 		didSet {
-            setNeedsLayout()
-            layoutIfNeeded()
+			layoutSubviews()
 		}
 	}
 	
@@ -67,8 +66,7 @@ open class NavigationBar: UINavigationBar {
 	@IBInspectable
     open var interimSpace: InterimSpace = 0 {
 		didSet {
-            setNeedsLayout()
-            layoutIfNeeded()
+			layoutSubviews()
 		}
 	}
 	
@@ -77,8 +75,7 @@ open class NavigationBar: UINavigationBar {
     open var gridFactor: CGFloat = 12 {
 		didSet {
 			assert(0 < gridFactor, "[Material Error: gridFactor must be greater than 0.]")
-            setNeedsLayout()
-            layoutIfNeeded()
+			layoutSubviews()
 		}
 	}
 	

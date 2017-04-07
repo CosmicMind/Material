@@ -67,8 +67,7 @@ open class FABMenuItem: View {
         }
         set(value) {
             titleLabel.text = value
-            setNeedsLayout()
-            layoutIfNeeded()
+            layoutSubviews()
         }
     }
     
@@ -201,8 +200,7 @@ open class FABMenu: View {
                 spring.springDirection = .right
             }
             
-            setNeedsLayout()
-            layoutIfNeeded()
+            layoutSubviews()
         }
     }
     

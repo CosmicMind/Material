@@ -44,7 +44,7 @@ open class Button: UIButton, Pulseable, PulseableLayer {
     
     /// A reference to the pulse layer.
     internal var pulseLayer: CALayer? {
-        return pulse.layer
+        return pulse.pulseLayer
     }
     
     /// PulseAnimation value.
@@ -263,7 +263,7 @@ extension Button {
     
     /// Prepares the pulse motion.
     fileprivate func preparePulse() {
-        pulse = Pulse(view: self, layer: visualLayer)
+        pulse = Pulse(pulseView: self, pulseLayer: visualLayer)
     }
     
     /**

@@ -45,7 +45,7 @@ open class CollectionReusableView: UICollectionReusableView, Pulseable, Pulseabl
     
     /// A reference to the pulse layer.
     internal var pulseLayer: CALayer? {
-        return pulse.layer
+        return pulse.pulseLayer
     }
     
     /// PulseAnimation value.
@@ -301,7 +301,7 @@ open class CollectionReusableView: UICollectionReusableView, Pulseable, Pulseabl
 extension CollectionReusableView {
     /// Prepares the pulse motion.
     fileprivate func preparePulse() {
-        pulse = Pulse(view: self, layer: visualLayer)
+        pulse = Pulse(pulseView: self, pulseLayer: visualLayer)
         pulseAnimation = .none
     }
     

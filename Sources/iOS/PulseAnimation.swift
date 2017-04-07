@@ -60,10 +60,10 @@ internal protocol PulseableLayer {
 
 public struct Pulse {
     /// A UIView that is Pulseable.
-    fileprivate weak var view: UIView?
+    fileprivate weak var pulseView: UIView?
     
     /// The layer the pulse layers are added to.
-    internal weak var layer: CALayer?
+    internal weak var pulseLayer: CALayer?
     
     /// Pulse layers.
     fileprivate var layers = [CAShapeLayer]()
@@ -79,12 +79,12 @@ public struct Pulse {
 
     /**
      An initializer that takes a given view and pulse layer.
-     - Parameter view: An optional UIView.
-     - Parameter layer: An optional CALayer.
+     - Parameter pulseView: An optional UIView.
+     - Parameter pulseLayer: An optional CALayer.
      */
-    internal init(view: UIView?, layer: CALayer?) {
-        self.view = view
-        self.layer = layer
+    internal init(pulseView: UIView?, pulseLayer: CALayer?) {
+        self.pulseView = pulseView
+        self.pulseLayer = pulseLayer
     }
     
     /**
@@ -92,11 +92,11 @@ public struct Pulse {
      - Parameter point: A point to pulse from.
      */
     public mutating func expand(point: CGPoint) {
-        guard let v = view else {
+        guard let view = pulseView else {
             return
         }
         
-        guard let layer = layer else {
+        guard let layer = pulseLayer else {
             return
         }
         
@@ -116,8 +116,8 @@ public struct Pulse {
         
         layer.masksToBounds = !(.centerRadialBeyondBounds == animation || .radialBeyondBounds == animation)
  
-        let w = v.bounds.width
-        let h = v.bounds.height
+        let w = view.bounds.width
+        let h = view.bounds.height
         
         Motion.disable({ [
             n = .center == animation ? w < h ? w : h : w < h ? h : w,

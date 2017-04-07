@@ -49,8 +49,7 @@ open class Bar: View {
     /// Should center the contentView.
     open var contentViewAlignment = ContentViewAlignment.full {
         didSet {
-            setNeedsLayout()
-            layoutIfNeeded()
+            layoutSubviews()
         }
     }
     
@@ -101,8 +100,7 @@ open class Bar: View {
     open var gridFactor: CGFloat = 12 {
         didSet {
             assert(0 < gridFactor, "[Material Error: gridFactor must be greater than 0.]")
-            setNeedsLayout()
-            layoutIfNeeded()
+            layoutSubviews()
         }
     }
     
@@ -115,8 +113,7 @@ open class Bar: View {
             for v in oldValue {
                 v.removeFromSuperview()
             }
-            setNeedsLayout()
-            layoutIfNeeded()
+            layoutSubviews()
         }
     }
     
@@ -126,8 +123,7 @@ open class Bar: View {
             for v in oldValue {
                 v.removeFromSuperview()
             }
-            setNeedsLayout()
-            layoutIfNeeded()
+            layoutSubviews()
         }
     }
     

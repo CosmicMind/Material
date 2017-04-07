@@ -38,8 +38,7 @@ public class NavigationItem: NSObject {
     /// Should center the contentView.
     open var contentViewAlignment = ContentViewAlignment.center {
         didSet {
-            navigationBar?.setNeedsLayout()
-            navigationBar?.layoutIfNeeded()
+            navigationBar?.layoutSubviews()
         }
     }
     
@@ -61,8 +60,7 @@ public class NavigationItem: NSObject {
             for v in oldValue {
                 v.removeFromSuperview()
             }
-            navigationBar?.setNeedsLayout()
-            navigationBar?.layoutIfNeeded()
+            navigationBar?.layoutSubviews()
         }
     }
 	
@@ -72,8 +70,7 @@ public class NavigationItem: NSObject {
             for v in oldValue {
                 v.removeFromSuperview()
             }
-            navigationBar?.setNeedsLayout()
-            navigationBar?.layoutIfNeeded()
+            navigationBar?.layoutSubviews()
         }
     }
     
@@ -112,8 +109,7 @@ public class NavigationItem: NSObject {
     
     /// Reloads the subviews for the NavigationBar.
     internal func reload() {
-        navigationBar?.setNeedsLayout()
-        navigationBar?.layoutIfNeeded()
+        navigationBar?.layoutSubviews()
     }
 	
 	/// Prepares the titleLabel.

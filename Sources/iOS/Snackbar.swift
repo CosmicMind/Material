@@ -44,8 +44,7 @@ open class Snackbar: Bar {
         }
         set(value) {
             textLabel.text = value
-            setNeedsLayout()
-            layoutIfNeeded()
+            layoutSubviews()
         }
     }
     

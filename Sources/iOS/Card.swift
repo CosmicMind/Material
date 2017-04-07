@@ -69,8 +69,7 @@ open class Card: PulseView {
             if let v = toolbar {
                 container.addSubview(v)
             }
-            setNeedsLayout()
-            layoutIfNeeded()
+            layoutSubviews()
         }
     }
     
@@ -85,8 +84,7 @@ open class Card: PulseView {
     @IBInspectable
     open var toolbarEdgeInsets = EdgeInsets.zero {
         didSet {
-            setNeedsLayout()
-            layoutIfNeeded()
+            layoutSubviews()
         }
     }
     
@@ -99,8 +97,7 @@ open class Card: PulseView {
                 v.clipsToBounds = true
                 container.addSubview(v)
             }
-            setNeedsLayout()
-            layoutIfNeeded()
+            layoutSubviews()
         }
     }
     
@@ -115,8 +112,7 @@ open class Card: PulseView {
     @IBInspectable
     open var contentViewEdgeInsets = EdgeInsets.zero {
         didSet {
-            setNeedsLayout()
-            layoutIfNeeded()
+            layoutSubviews()
         }
     }
     
@@ -128,8 +124,7 @@ open class Card: PulseView {
             if let v = bottomBar {
                 container.addSubview(v)
             }
-            setNeedsLayout()
-            layoutIfNeeded()
+            layoutSubviews()
         }
     }
     
@@ -144,8 +139,7 @@ open class Card: PulseView {
     @IBInspectable
     open var bottomBarEdgeInsets = EdgeInsets.zero {
         didSet {
-            setNeedsLayout()
-            layoutIfNeeded()
+            layoutSubviews()
         }
     }
     
