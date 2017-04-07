@@ -382,8 +382,7 @@ open class TextField: UITextField {
 	}
 	
     open override func becomeFirstResponder() -> Bool {
-        setNeedsLayout()
-        layoutIfNeeded()
+        layoutSubviews()
         return super.becomeFirstResponder()
     }
     
@@ -391,7 +390,10 @@ open class TextField: UITextField {
     open var textInset: CGFloat = 0
     
     open override func textRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.insetBy(dx: textInset, dy: 0)
+        var b = super.textRect(forBounds: bounds)
+        b.origin.x += textInset
+        b.size.width -= textInset
+        return b
     }
     
     open override func editingRect(forBounds bounds: CGRect) -> CGRect {
