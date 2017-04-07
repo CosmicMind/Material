@@ -41,7 +41,8 @@ open class Toolbar: Bar {
 		}
 		set(value) {
 			titleLabel.text = value
-			layoutSubviews()
+            setNeedsLayout()
+            layoutIfNeeded()
 		}
 	}
 	
@@ -57,7 +58,8 @@ open class Toolbar: Bar {
 		}
 		set(value) {
 			detailLabel.text = value
-			layoutSubviews()
+            setNeedsLayout()
+            layoutIfNeeded()
 		}
 	}
 	

@@ -42,7 +42,8 @@ open class PresenterCard: Card {
     @IBInspectable
     open var presenterViewEdgeInsets = EdgeInsets.zero {
         didSet {
-            layoutSubviews()
+            setNeedsLayout()
+            layoutIfNeeded()
         }
     }
     
@@ -55,7 +56,8 @@ open class PresenterCard: Card {
                 v.clipsToBounds = true
                 container.addSubview(v)
             }
-            layoutSubviews()
+            setNeedsLayout()
+            layoutIfNeeded()
         }
     }
     

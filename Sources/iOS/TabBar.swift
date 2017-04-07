@@ -118,7 +118,8 @@ open class TabBar: Bar {
 			
             centerViews = buttons as [UIView]
             
-			layoutSubviews()
+            setNeedsLayout()
+            layoutIfNeeded()
 		}
 	}
     
@@ -152,7 +153,8 @@ open class TabBar: Bar {
     /// A value for the line alignment.
     open var lineAlignment = TabBarLineAlignment.bottom {
         didSet {
-            layoutSubviews()
+            setNeedsLayout()
+            layoutIfNeeded()
         }
     }
     

@@ -88,7 +88,8 @@ open class TextField: UITextField {
     open override var leftView: UIView? {
         didSet {
             prepareLeftView()
-            layoutSubviews()
+            setNeedsLayout()
+            layoutIfNeeded()
         }
     }
     
@@ -185,7 +186,8 @@ open class TextField: UITextField {
 		}
 		set(value) {
 			placeholderLabel.text = value
-            layoutSubviews()
+            setNeedsLayout()
+            layoutIfNeeded()
 		}
 	}
 	
@@ -225,7 +227,8 @@ open class TextField: UITextField {
 		}
 		set(value) {
 			detailLabel.text = value
-            layoutSubviews()
+            setNeedsLayout()
+            layoutIfNeeded()
 		}
 	}
 	
@@ -285,7 +288,8 @@ open class TextField: UITextField {
             rightView = clearIconButton
             isClearIconButtonAutoHandled = isClearIconButtonAutoHandled ? true : false
             
-            layoutSubviews()
+            setNeedsLayout()
+            layoutIfNeeded()
 		}
 	}
 	
@@ -332,7 +336,8 @@ open class TextField: UITextField {
             rightView = visibilityIconButton
             isVisibilityIconButtonAutoHandled = isVisibilityIconButtonAutoHandled ? true : false
             
-            layoutSubviews()
+            setNeedsLayout()
+            layoutIfNeeded()
 		}
 	}
 	

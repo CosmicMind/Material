@@ -36,7 +36,8 @@ open class ErrorTextField: TextField {
     open var isErrorRevealed = false {
         didSet {
             detailLabel.isHidden = !isErrorRevealed
-            layoutSubviews()
+            setNeedsLayout()
+            layoutIfNeeded()
         }
     }
     

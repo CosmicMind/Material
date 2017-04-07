@@ -44,7 +44,7 @@ open class TableViewCell: UITableViewCell, Pulseable, PulseableLayer {
     
     /// A reference to the pulse layer.
     internal var pulseLayer: CALayer? {
-        return pulse.pulseLayer
+        return pulse.layer
     }
     
     /// PulseAnimation value.
@@ -180,7 +180,7 @@ open class TableViewCell: UITableViewCell, Pulseable, PulseableLayer {
 extension TableViewCell {
     /// Prepares the pulse motion.
     fileprivate func preparePulse() {
-        pulse = Pulse(pulseView: self, pulseLayer: visualLayer)
+        pulse = Pulse(view: self, layer: visualLayer)
     }
     
     /// Prepares the visualLayer property.

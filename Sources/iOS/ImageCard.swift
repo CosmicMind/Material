@@ -44,7 +44,8 @@ open class ImageCard: Card {
      */
     open var imageViewDisplay = Display.partial {
         didSet {
-            layoutSubviews()
+            setNeedsLayout()
+            layoutIfNeeded()
         }
     }
     
@@ -59,7 +60,8 @@ open class ImageCard: Card {
     @IBInspectable
     open var imageViewEdgeInsets = EdgeInsets.zero {
         didSet {
-            layoutSubviews()
+            setNeedsLayout()
+            layoutIfNeeded()
         }
     }
     
@@ -71,14 +73,16 @@ open class ImageCard: Card {
             if let v = imageView {
                 container.addSubview(v)
             }
-            layoutSubviews()
+            setNeedsLayout()
+            layoutIfNeeded()
         }
     }
     
     /// An ImageCardToolbarAlignment value.
     open var toolbarAlignment = ToolbarAlignment.bottom {
         didSet {
-            layoutSubviews()
+            setNeedsLayout()
+            layoutIfNeeded()
         }
     }
     
