@@ -121,7 +121,6 @@ extension UIViewController: MotionDelegate, UIViewControllerTransitioningDelegat
         set(value) {
             if value {
                 prepareMotionDelegation()
-                motionInstanceController.isInteractiveMotionEnabled = false
             }
             
             motionInstanceController.isMotionEnabled = value
@@ -136,7 +135,7 @@ extension UIViewController: MotionDelegate, UIViewControllerTransitioningDelegat
         set(value) {
             if value {
                 prepareMotionDelegation()
-                motionInstanceController.isMotionEnabled = false
+                motionInstanceController.isMotionEnabled = true
             }
             
             motionInstanceController.isInteractiveMotionEnabled = value
@@ -151,31 +150,6 @@ extension UIViewController: MotionDelegate, UIViewControllerTransitioningDelegat
         set(value) {
             motionInstanceController.delegate = value
         }
-    }
-}
-
-extension UIViewController {
-    /**
-     Determines whether to use a Motion instance for transitions.
-     - Parameter _ navigationController: A UINavigationController.
-     - Parameter animationControllerFor operation: A UINavigationControllerOperation.
-     - Parameter from fromVC: A UIViewController that is being transitioned from.
-     - Parameter to toVC: A UIViewController that is being transitioned to.
-     - Returns: An optional UIViewControllerAnimatedTransitioning.
-     */
-    open func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return fromVC.isMotionEnabled ? Motion(isPresenting: operation == .push) : nil
-    }
-    
-    /**
-     Determines whether to use a Motion instance for transitions.
-     - Parameter _ tabBarController: A UITabBarController.
-     - Parameter animationControllerForTransitionFrom fromVC: A UIViewController that is being transitioned from.
-     - Parameter to toVC: A UIViewController that is being transitioned to.
-     - Returns: An optional UIViewControllerAnimatedTransitioning.
-     */
-    open func tabBarController(_ tabBarController: UITabBarController, animationControllerForTransitionFrom fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return fromVC.isMotionEnabled ? Motion(isPresenting: true) : nil
     }
 }
 
@@ -199,6 +173,7 @@ extension UIViewController {
      - Returns: An optional UIViewControllerAnimatedTransitioning.
      */
     open func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        print("animationController(forPresented")
         return isMotionEnabled ? PresentingMotion(isPresenting: true) : nil
     }
     
@@ -208,6 +183,7 @@ extension UIViewController {
      - Returns: An optional UIViewControllerAnimatedTransitioning.
      */
     open func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        print("animationController(forDismissed")
         return isMotionEnabled ? DismissingMotion(isPresenting: true) : nil
     }
     
@@ -219,15 +195,45 @@ extension UIViewController {
      - Returns: An optional UIPresentationController.
      */
     open func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        print("presentationController:forPresented")
         return isMotionEnabled ? MotionPresentationController(presentedViewController: presented, presenting: presenting) : nil
     }
     
     open func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return isInteractiveMotionEnabled ? InteractivePresentingMotion() : nil
+        print("interactionControllerForPresentation")
+        return isInteractiveMotionEnabled ? InteractivePresentingMotion(animator: animator) : nil
     }
     
     open func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return isInteractiveMotionEnabled ? InteractiveDismissingMotion() : nil
+        print("interactionControllerForDismissal")
+        return isInteractiveMotionEnabled ? InteractiveDismissingMotion(animator: animator) : nil
+    }
+}
+
+extension UIViewController {
+    /**
+     Determines whether to use a Motion instance for transitions.
+     - Parameter _ navigationController: A UINavigationController.
+     - Parameter animationControllerFor operation: A UINavigationControllerOperation.
+     - Parameter from fromVC: A UIViewController that is being transitioned from.
+     - Parameter to toVC: A UIViewController that is being transitioned to.
+     - Returns: An optional UIViewControllerAnimatedTransitioning.
+     */
+    open func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        print("navigationController(_ navigationController")
+        return fromVC.isMotionEnabled ? Motion(isPresenting: operation == .push) : nil
+    }
+    
+    /**
+     Determines whether to use a Motion instance for transitions.
+     - Parameter _ tabBarController: A UITabBarController.
+     - Parameter animationControllerForTransitionFrom fromVC: A UIViewController that is being transitioned from.
+     - Parameter to toVC: A UIViewController that is being transitioned to.
+     - Returns: An optional UIViewControllerAnimatedTransitioning.
+     */
+    open func tabBarController(_ tabBarController: UITabBarController, animationControllerForTransitionFrom fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        print("tabBarController(_ tabBarController")
+        return fromVC.isMotionEnabled ? Motion(isPresenting: true) : nil
     }
 }
 
@@ -865,6 +871,16 @@ open class DismissingMotion: Motion {
 }
 
 open class InteractiveMotion: UIPercentDrivenInteractiveTransition {
+    /// A reference to the view controller that is being transitioned to.
+    open var toViewController: UIViewController {
+        return transitionContext.viewController(forKey: .to)!
+    }
+    
+    /// A reference to the view controller that is being transitioned from.
+    open var fromViewController: UIViewController {
+        return transitionContext.viewController(forKey: .from)!
+    }
+    
     /// The transition context for the current transition.
     open fileprivate(set) var transitionContext: UIViewControllerContextTransitioning!
     
@@ -873,6 +889,17 @@ open class InteractiveMotion: UIPercentDrivenInteractiveTransition {
     
     /// The transition container view.
     open fileprivate(set) var containerView: UIView!
+    
+    open fileprivate(set) var animator: UIViewControllerAnimatedTransitioning!
+    
+    /**
+     An initializer that accepts an animator object.
+     - Parameter animator: UIViewControllerAnimatedTransitioning.
+     */
+    public init(animator: UIViewControllerAnimatedTransitioning) {
+        super.init()
+        self.animator = animator
+    }
     
     open override func startInteractiveTransition(_ transitionContext: UIViewControllerContextTransitioning) {
         super.startInteractiveTransition(transitionContext)
