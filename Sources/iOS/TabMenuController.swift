@@ -114,10 +114,8 @@ open class TabMenuController: UIViewController {
     /// An Array of UIViewControllers.
     open var viewControllers: [UIViewController] {
         didSet {
-            oldValue.forEach {
-                $0.willMove(toParentViewController: nil)
-                $0.view.removeFromSuperview()
-                $0.removeFromParentViewController()
+            oldValue.forEach { [weak self] in
+                self?.removeViewController(viewController: $0)
             }
             
             prepareViewControllers()
@@ -130,6 +128,9 @@ open class TabMenuController: UIViewController {
             layoutSubviews()
         }
     }
+    
+    /// The number of views used in the scrollViewPool.
+    fileprivate let viewPoolCount = 3
     
     /**
      An initializer that initializes the object with a NSCoder object.
@@ -220,48 +221,21 @@ extension TabMenuController {
     
     /// Prepares the view controllers.
     fileprivate func prepareViewControllers() {
-        let count = 2 < viewControllers.count ? 3 : viewControllers.count
+        let count = viewPoolCount < viewControllers.count ? viewPoolCount : viewControllers.count
         scrollView.contentSize = CGSize(width: scrollView.width * CGFloat(count), height: scrollView.height)
         
         if 0 == selectedIndex {
-            for i in 0..<count {
-                let vc = viewControllers[i]
-                addChildViewController(vc)
-                vc.didMove(toParentViewController: self)
-                vc.view.clipsToBounds = true
-                vc.view.contentScaleFactor = Screen.scale
-                scrollView.addSubview(vc.view)
+            for i in 0..<count - 1 {
+                prepareViewController(at: i)
             }
         } else if viewControllers.count - 1 == selectedIndex {
-            for i in 0..<count {
-                let vc = viewControllers[count - i - 1]
-                addChildViewController(vc)
-                vc.didMove(toParentViewController: self)
-                vc.view.clipsToBounds = true
-                vc.view.contentScaleFactor = Screen.scale
-                scrollView.addSubview(vc.view)
+            for i in 0..<count - 1 {
+                prepareViewController(at: count - i - 1)
             }
         } else {
-            var vc = viewControllers[selectedIndex]
-            addChildViewController(vc)
-            vc.didMove(toParentViewController: self)
-            vc.view.clipsToBounds = true
-            vc.view.contentScaleFactor = Screen.scale
-            scrollView.addSubview(vc.view)
-            
-            vc = viewControllers[selectedIndex - 1]
-            addChildViewController(vc)
-            vc.didMove(toParentViewController: self)
-            vc.view.clipsToBounds = true
-            vc.view.contentScaleFactor = Screen.scale
-            scrollView.addSubview(vc.view)
-            
-            vc = viewControllers[selectedIndex + 1]
-            addChildViewController(vc)
-            vc.didMove(toParentViewController: self)
-            vc.view.clipsToBounds = true
-            vc.view.contentScaleFactor = Screen.scale
-            scrollView.addSubview(vc.view)
+            prepareViewController(at: selectedIndex)
+            prepareViewController(at: selectedIndex - 1)
+            prepareViewController(at: selectedIndex + 1)
         }
         
         prepareTabBar()
@@ -315,6 +289,25 @@ extension TabMenuController {
         view.addSubview(tabBar!)
         prepareTabBarButtons(buttons)
     }
+    
+    /**
+     Loads a view controller based on its index in the viewControllers Array
+     and adds it as a child view controller.
+     - Parameter at index: An Int for the viewControllers index.
+     */
+    fileprivate func prepareViewController(at index: Int) {
+        let vc = viewControllers[index]
+        
+        guard !childViewControllers.contains(vc) else {
+            return
+        }
+        
+        addChildViewController(vc)
+        vc.didMove(toParentViewController: self)
+        vc.view.clipsToBounds = true
+        vc.view.contentScaleFactor = Screen.scale
+        scrollView.addSubview(vc.view)
+    }
 }
 
 extension TabMenuController {
@@ -325,31 +318,53 @@ extension TabMenuController {
     }
     
     fileprivate func layoutViewControllers() {
-        let count = 2 < viewControllers.count ? 3 : viewControllers.count
+        let count = viewPoolCount < viewControllers.count ? viewPoolCount : viewControllers.count
         scrollView.contentSize = CGSize(width: scrollView.width * CGFloat(count), height: scrollView.height)
         
         if 0 == selectedIndex {
             for i in 0..<count {
-                let vc = viewControllers[i]
-                vc.view.frame = CGRect(x: CGFloat(i) * scrollView.width, y: 0, width: scrollView.width, height: scrollView.height)
+                layoutViewController(at: i, position: i)
             }
         } else if viewControllers.count - 1 == selectedIndex {
             for i in 0..<count {
                 let j = count - i - 1
-                let vc = viewControllers[j]
-                vc.view.frame = CGRect(x: CGFloat(j) * scrollView.width, y: 0, width: scrollView.width, height: scrollView.height)
+                layoutViewController(at: j, position: j)
             }
         } else {
-            var vc = viewControllers[selectedIndex]
-            vc.view.frame = CGRect(x: scrollView.width, y: 0, width: scrollView.width, height: scrollView.height)
-            
-            vc = viewControllers[selectedIndex - 1]
-            vc.view.frame = CGRect(x: 0, y: 0, width: scrollView.width, height: scrollView.height)
-            
-            vc = viewControllers[selectedIndex + 1]
-            vc.view.frame = CGRect(x: 2 * scrollView.width, y: 0, width: scrollView.width, height: scrollView.height)
+            layoutViewController(at: selectedIndex, position: 1)
+            layoutViewController(at: selectedIndex - 1, position: 0)
+            layoutViewController(at: selectedIndex + 1, position: 2)
         }
+    }
+    
+    /**
+     Positions a view controller within the scrollView.
+     - Parameter position: An Int for the position of the view controller.
+     */
+    fileprivate func layoutViewController(at index: Int, position: Int) {
+        let vc = viewControllers[index]
+        vc.view.frame = CGRect(x: CGFloat(position) * scrollView.width, y: 0, width: scrollView.width, height: scrollView.height)
+    }
+}
 
+extension TabMenuController {
+    /**
+     Removes the view controller as a child view controller with
+     the given index.
+     - Parameter at index: An Int for the view controller position.
+     */
+    fileprivate func removeViewController(at index: Int) {
+        removeViewController(viewController: viewControllers[index])
+    }
+    
+    /**
+     Removes a given view controller from the childViewControllers array.
+     - Parameter at index: An Int for the view controller position.
+     */
+    fileprivate func removeViewController(viewController: UIViewController) {
+        viewController.willMove(toParentViewController: nil)
+        viewController.view.removeFromSuperview()
+        viewController.removeFromParentViewController()
     }
 }
 
@@ -388,6 +403,8 @@ extension TabMenuController {
         }
         
         selectedIndex = index
+        prepareViewControllers()
+        layoutViewControllers()
     }
 }
 
@@ -413,5 +430,7 @@ extension TabMenuController: UIScrollViewDelegate {
     @objc
     open func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         selectedIndex = lround(Double(scrollView.contentOffset.x / scrollView.width))
+        prepareViewControllers()
+        layoutViewControllers()
     }
 }
