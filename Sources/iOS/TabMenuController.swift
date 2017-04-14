@@ -213,14 +213,22 @@ extension TabMenuController {
     
     /// Prepares the view controllers.
     fileprivate func prepareViewControllers() {
-        let count = viewPoolCount < viewControllers.count ? viewPoolCount : viewControllers.count
-        scrollView.contentSize = CGSize(width: scrollView.width * CGFloat(count), height: scrollView.height)
+        let n = viewControllers.count
+        
+        guard 1 < n else {
+            if 1 == n {
+                prepareViewController(at: 0)
+            }
+            return
+        }
+        
+        let count = viewPoolCount < n ? viewPoolCount : n
         
         if 0 == selectedIndex {
             for i in 0..<count {
                 prepareViewController(at: i)
             }
-        } else if viewControllers.count - 1 == selectedIndex {
+        } else if n - 1 == selectedIndex {
             for i in 0..<count {
                 prepareViewController(at: selectedIndex - i)
             }
@@ -309,14 +317,21 @@ extension TabMenuController {
     }
     
     fileprivate func layoutViewControllers() {
-        let count = viewPoolCount < viewControllers.count ? viewPoolCount : viewControllers.count
+        let n = viewControllers.count
+        let count = viewPoolCount < n ? viewPoolCount : n
+        
         scrollView.contentSize = CGSize(width: scrollView.width * CGFloat(count), height: scrollView.height)
+        
+        guard 1 < n else {
+            layoutViewController(at: 0, position: 0)
+            return
+        }
         
         if 0 == selectedIndex {
             for i in 0..<count {
                 layoutViewController(at: i, position: i)
             }
-        } else if viewControllers.count - 1 == selectedIndex {
+        } else if n - 1 == selectedIndex {
             for i in 0..<count {
                 layoutViewController(at: selectedIndex - i, position: count - i - 1)
             }
@@ -344,15 +359,20 @@ extension TabMenuController {
 extension TabMenuController {
     /// Removes the view controllers not within the scrollView.
     fileprivate func removeViewControllers() {
-        let count = viewPoolCount < viewControllers.count ? viewPoolCount : viewControllers.count
-        scrollView.contentSize = CGSize(width: scrollView.width * CGFloat(count), height: scrollView.height)
+        let n = viewControllers.count
+        
+        guard 1 < n else {
+            return
+        }
+        
+        let count = viewPoolCount < n ? viewPoolCount : n
         
         if 0 == selectedIndex {
-            for i in count..<viewControllers.count {
+            for i in 1..<n {
                 removeViewController(at: i)
             }
-        } else if viewControllers.count - 1 == selectedIndex {
-            for i in 0..<viewControllers.count - 2 {
+        } else if n - 1 == selectedIndex {
+            for i in 0..<n - 2 {
                 removeViewController(at: i)
             }
         } else {
@@ -362,8 +382,8 @@ extension TabMenuController {
             
             let x = selectedIndex + 1
             
-            if x < viewControllers.count {
-                for i in x..<viewControllers.count {
+            if x < n {
+                for i in x..<n {
                     removeViewController(at: i)
                 }
             }
@@ -445,8 +465,6 @@ extension TabMenuController: UIScrollViewDelegate {
     @objc
     open func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         let translation = scrollView.panGestureRecognizer.translation(in: scrollView.superview)
-        print(translation.x)
-        
         scrollViewDirection = 0 > translation.x ? 1 : -1
     }
     
