@@ -81,17 +81,7 @@ extension UIViewController {
 
 open class TabMenuController: UIViewController {
     @IBInspectable
-    open var selectedIndex: Int {
-        didSet {
-            scrollView.setContentOffset(CGPoint(x: scrollView.width * CGFloat(selectedIndex), y: 0), animated: true)
-            
-            guard false == tabBar?.isAnimating else {
-                return
-            }
-            
-            tabBar?.select(at: selectedIndex)
-        }
-    }
+    open var selectedIndex = 0
     
     /// Enables and disables bouncing when swiping.
     open var isBounceEnabled: Bool {
@@ -132,13 +122,15 @@ open class TabMenuController: UIViewController {
     /// The number of views used in the scrollViewPool.
     fileprivate let viewPoolCount = 3
     
+    /// The last scroll view offset position.
+    fileprivate var scrollViewDirection = 0
+    
     /**
      An initializer that initializes the object with a NSCoder object.
      - Parameter aDecoder: A NSCoder instance.
      */
     public required init?(coder aDecoder: NSCoder) {
         viewControllers = []
-        selectedIndex = 0
         super.init(coder: aDecoder)
     }
     
@@ -225,12 +217,12 @@ extension TabMenuController {
         scrollView.contentSize = CGSize(width: scrollView.width * CGFloat(count), height: scrollView.height)
         
         if 0 == selectedIndex {
-            for i in 0..<count - 1 {
+            for i in 0..<count {
                 prepareViewController(at: i)
             }
         } else if viewControllers.count - 1 == selectedIndex {
-            for i in 0..<count - 1 {
-                prepareViewController(at: count - i - 1)
+            for i in 0..<count {
+                prepareViewController(at: selectedIndex - i)
             }
         } else {
             prepareViewController(at: selectedIndex)
@@ -257,12 +249,11 @@ extension TabMenuController {
             v.removeTarget(self, action: #selector(handleTabBarButton(button:)), for: .touchUpInside)
             v.addTarget(self, action: #selector(handleTabBarButton(button:)), for: .touchUpInside)
         }
-        
-        tb.select(at: selectedIndex)
     }
     
     fileprivate func prepareTabBar() {
         guard 0 < viewControllers.count else {
+            tabBar = nil
             return
         }
         
@@ -327,13 +318,13 @@ extension TabMenuController {
             }
         } else if viewControllers.count - 1 == selectedIndex {
             for i in 0..<count {
-                let j = count - i - 1
-                layoutViewController(at: j, position: j)
+                layoutViewController(at: selectedIndex - i, position: count - i - 1)
             }
         } else {
             layoutViewController(at: selectedIndex, position: 1)
             layoutViewController(at: selectedIndex - 1, position: 0)
             layoutViewController(at: selectedIndex + 1, position: 2)
+            scrollView.setContentOffset(CGPoint(x: scrollView.width, y: 0), animated: false)
         }
     }
     
@@ -342,19 +333,56 @@ extension TabMenuController {
      - Parameter position: An Int for the position of the view controller.
      */
     fileprivate func layoutViewController(at index: Int, position: Int) {
-        let vc = viewControllers[index]
-        vc.view.frame = CGRect(x: CGFloat(position) * scrollView.width, y: 0, width: scrollView.width, height: scrollView.height)
+        guard 0 <= index && index < viewControllers.count else {
+            return
+        }
+        
+        viewControllers[index].view.frame = CGRect(x: CGFloat(position) * scrollView.width, y: 0, width: scrollView.width, height: scrollView.height)
     }
 }
 
 extension TabMenuController {
+    /// Removes the view controllers not within the scrollView.
+    fileprivate func removeViewControllers() {
+        let count = viewPoolCount < viewControllers.count ? viewPoolCount : viewControllers.count
+        scrollView.contentSize = CGSize(width: scrollView.width * CGFloat(count), height: scrollView.height)
+        
+        if 0 == selectedIndex {
+            for i in count..<viewControllers.count {
+                removeViewController(at: i)
+            }
+        } else if viewControllers.count - 1 == selectedIndex {
+            for i in 0..<viewControllers.count - 2 {
+                removeViewController(at: i)
+            }
+        } else {
+            for i in 0..<selectedIndex {
+                removeViewController(at: i)
+            }
+            
+            let x = selectedIndex + 1
+            
+            if x < viewControllers.count {
+                for i in x..<viewControllers.count {
+                    removeViewController(at: i)
+                }
+            }
+        }
+    }
+    
     /**
      Removes the view controller as a child view controller with
      the given index.
      - Parameter at index: An Int for the view controller position.
      */
     fileprivate func removeViewController(at index: Int) {
-        removeViewController(viewController: viewControllers[index])
+        let vc = viewControllers[index]
+        
+        guard childViewControllers.contains(vc) else {
+            return
+        }
+        
+        removeViewController(viewController: vc)
     }
     
     /**
@@ -387,22 +415,9 @@ extension TabMenuController {
             return
         }
         
-        if 1 < abs(index - selectedIndex) {
-            let last = viewControllers.count - 1
-            var pos = 0
-            
-            if last == selectedIndex {
-                pos = last - 1
-            } else if 0 == selectedIndex {
-                pos = 1
-            } else {
-                pos = selectedIndex + (index > selectedIndex ? 1 : -1)
-            }
-            
-            scrollView.setContentOffset(CGPoint(x: scrollView.width * CGFloat(pos), y: 0), animated: false)
-        }
-        
         selectedIndex = index
+        
+        removeViewControllers()
         prepareViewControllers()
         layoutViewControllers()
     }
@@ -423,13 +438,28 @@ extension TabMenuController: UIScrollViewDelegate {
             return
         }
         
-        let x = (scrollView.contentOffset.x - scrollView.width) / scrollView.contentSize.width * scrollView.width
-        tb.line.center.x = selected.center.x + x
+//        let x = (scrollView.contentOffset.x - scrollView.width) / scrollView.contentSize.width * scrollView.width
+//        tb.line.center.x = selected.center.x + x
+    }
+    
+    @objc
+    open func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        let translation = scrollView.panGestureRecognizer.translation(in: scrollView.superview)
+        print(translation.x)
+        
+        scrollViewDirection = 0 > translation.x ? 1 : -1
     }
     
     @objc
     open func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        selectedIndex = lround(Double(scrollView.contentOffset.x / scrollView.width))
+        let index = selectedIndex + scrollViewDirection
+        guard 0 <= index && index < viewControllers.count else {
+            return
+        }
+        
+        selectedIndex = index
+        
+        removeViewControllers()
         prepareViewControllers()
         layoutViewControllers()
     }
