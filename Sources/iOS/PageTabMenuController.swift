@@ -67,7 +67,7 @@ extension UIViewController {
      This is the recommended method of accessing the PageTabMenuController
      through child UIViewControllers.
      */
-    public var pageTabMenuBarController: PageTabMenuController? {
+    public var pageTabMenuController: PageTabMenuController? {
         var viewController: UIViewController? = self
         while nil != viewController {
             if viewController is PageTabMenuController {
