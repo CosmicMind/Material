@@ -102,9 +102,6 @@ open class PageMenuController: UIViewController {
     @IBInspectable
     open let scrollView = UIScrollView()
     
-    /// Previous scroll view content offset.
-    fileprivate var previousContentOffset: CGFloat = 0
-    
     /// An Array of UIViewControllers.
     open var viewControllers: [UIViewController] {
         didSet {
@@ -123,9 +120,6 @@ open class PageMenuController: UIViewController {
         }
     }
     
-    /// The number of views used in the scrollViewPool.
-    fileprivate let viewPoolCount = 3
-    
     /**
      An initializer that initializes the object with a NSCoder object.
      - Parameter aDecoder: A NSCoder instance.
@@ -134,6 +128,12 @@ open class PageMenuController: UIViewController {
         viewControllers = []
         super.init(coder: aDecoder)
     }
+    
+    /// Previous scroll view content offset.
+    fileprivate var previousContentOffset: CGFloat = 0
+    
+    /// The number of views used in the scrollViewPool.
+    fileprivate let viewPoolCount = 3
     
     /**
      An initializer that accepts an Array of UIViewControllers.
@@ -445,49 +445,14 @@ extension PageMenuController {
 
 extension PageMenuController: UIScrollViewDelegate {
     @objc
-    open func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard let tb = tabBar else {
-            return
-        }
-        
-        guard tb.isAnimating else {
-            return
-        }
-        
-//        guard let selected = tb.selected else {
-//            return
-//        }
-        
-//        let x = (scrollView.contentOffset.x - scrollView.width) / scrollView.contentSize.width * scrollView.width
-//        tb.line.center.x = selected.center.x + x
-    }
-    
-    @objc
-    open func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        previousContentOffset = scrollView.contentOffset.x
-    }
-    
-    @objc
     open func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let n = viewControllers.count
         let x = scrollView.contentOffset.x
-        let p = previousContentOffset == x ? 0 : previousContentOffset < x ? 1 : -1
+        let w = scrollView.width
+        let p = Int(floor((scrollView.contentOffset.x - w / 2) / w) + 1)
+        print(selectedIndex, p)
         
-        guard 0 != p else {
-            return
-        }
-        
-        let i = selectedIndex + p
-        
-        guard selectedIndex != i else {
-            return
-        }
-        
-        guard 0 <= i && i < n else {
-            return
-        }
-        
-        selectedIndex = i
+        selectedIndex = p
         
         removeViewControllers()
         prepareViewControllers()
