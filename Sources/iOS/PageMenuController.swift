@@ -446,11 +446,8 @@ extension PageMenuController {
 extension PageMenuController: UIScrollViewDelegate {
     @objc
     open func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let n = viewControllers.count
-        let x = scrollView.contentOffset.x
         let w = scrollView.width
         let p = Int(floor((scrollView.contentOffset.x - w / 2) / w) + 1)
-        print(selectedIndex, p)
         
         selectedIndex = p
         
