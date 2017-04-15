@@ -80,6 +80,7 @@ extension UIViewController {
 }
 
 open class TabMenuController: UIViewController {
+    /// A reference to the currently selected view controller index value.
     @IBInspectable
     open var selectedIndex = 0
     
@@ -101,6 +102,9 @@ open class TabMenuController: UIViewController {
     @IBInspectable
     open let scrollView = UIScrollView()
     
+    /// Previous scroll view content offset.
+    fileprivate var previousContentOffset: CGFloat = 0
+    
     /// An Array of UIViewControllers.
     open var viewControllers: [UIViewController] {
         didSet {
@@ -121,9 +125,6 @@ open class TabMenuController: UIViewController {
     
     /// The number of views used in the scrollViewPool.
     fileprivate let viewPoolCount = 3
-    
-    /// The last scroll view offset position.
-    fileprivate var scrollViewDirection = 0
     
     /**
      An initializer that initializes the object with a NSCoder object.
@@ -222,14 +223,14 @@ extension TabMenuController {
             return
         }
         
-        let count = viewPoolCount < n ? viewPoolCount : n
+        let m = viewPoolCount < n ? viewPoolCount : n
         
         if 0 == selectedIndex {
-            for i in 0..<count {
+            for i in 0..<m {
                 prepareViewController(at: i)
             }
         } else if n - 1 == selectedIndex {
-            for i in 0..<count {
+            for i in 0..<m {
                 prepareViewController(at: selectedIndex - i)
             }
         } else {
@@ -318,28 +319,29 @@ extension TabMenuController {
     
     fileprivate func layoutViewControllers() {
         let n = viewControllers.count
-        let count = viewPoolCount < n ? viewPoolCount : n
-        
-        scrollView.contentSize = CGSize(width: scrollView.width * CGFloat(count), height: scrollView.height)
+        scrollView.contentSize = CGSize(width: scrollView.width * CGFloat(n), height: scrollView.height)
         
         guard 1 < n else {
             layoutViewController(at: 0, position: 0)
             return
         }
         
+        let m = viewPoolCount < n ? viewPoolCount : n
+        
         if 0 == selectedIndex {
-            for i in 0..<count {
+            for i in 0..<m {
                 layoutViewController(at: i, position: i)
             }
         } else if n - 1 == selectedIndex {
-            for i in 0..<count {
-                layoutViewController(at: selectedIndex - i, position: count - i - 1)
+            var q = 0
+            for i in 0..<m {
+                q = selectedIndex - i
+                layoutViewController(at: q, position: q)
             }
         } else {
-            layoutViewController(at: selectedIndex, position: 1)
-            layoutViewController(at: selectedIndex - 1, position: 0)
-            layoutViewController(at: selectedIndex + 1, position: 2)
-            scrollView.setContentOffset(CGPoint(x: scrollView.width, y: 0), animated: false)
+            layoutViewController(at: selectedIndex, position: selectedIndex)
+            layoutViewController(at: selectedIndex - 1, position: selectedIndex - 1)
+            layoutViewController(at: selectedIndex + 1, position: selectedIndex + 1)
         }
     }
     
@@ -364,8 +366,6 @@ extension TabMenuController {
         guard 1 < n else {
             return
         }
-        
-        let count = viewPoolCount < n ? viewPoolCount : n
         
         if 0 == selectedIndex {
             for i in 1..<n {
@@ -427,15 +427,15 @@ extension TabMenuController {
             return
         }
         
-        guard let index = tb.buttons.index(of: button) else {
+        guard let i = tb.buttons.index(of: button) else {
             return
         }
         
-        guard index != selectedIndex else {
+        guard i != selectedIndex else {
             return
         }
         
-        selectedIndex = index
+        selectedIndex = i
         
         removeViewControllers()
         prepareViewControllers()
@@ -454,9 +454,9 @@ extension TabMenuController: UIScrollViewDelegate {
             return
         }
         
-        guard let selected = tb.selected else {
-            return
-        }
+//        guard let selected = tb.selected else {
+//            return
+//        }
         
 //        let x = (scrollView.contentOffset.x - scrollView.width) / scrollView.contentSize.width * scrollView.width
 //        tb.line.center.x = selected.center.x + x
@@ -464,18 +464,30 @@ extension TabMenuController: UIScrollViewDelegate {
     
     @objc
     open func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        let translation = scrollView.panGestureRecognizer.translation(in: scrollView.superview)
-        scrollViewDirection = 0 > translation.x ? 1 : -1
+        previousContentOffset = scrollView.contentOffset.x
     }
     
     @objc
     open func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let index = selectedIndex + scrollViewDirection
-        guard 0 <= index && index < viewControllers.count else {
+        let n = viewControllers.count
+        let x = scrollView.contentOffset.x
+        let p = previousContentOffset == x ? 0 : previousContentOffset < x ? 1 : -1
+        
+        guard 0 != p else {
             return
         }
         
-        selectedIndex = index
+        let i = selectedIndex + p
+        
+        guard selectedIndex != i else {
+            return
+        }
+        
+        guard 0 <= i && i < n else {
+            return
+        }
+        
+        selectedIndex = i
         
         removeViewControllers()
         prepareViewControllers()
