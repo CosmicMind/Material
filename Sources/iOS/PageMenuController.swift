@@ -196,6 +196,7 @@ open class PageMenuController: UIViewController {
      when subclassing.
      */
     open func prepare() {
+        view.contentScaleFactor = Screen.scale
         prepareScrollView()
         prepareViewControllers()
     }
@@ -209,6 +210,7 @@ extension PageMenuController {
         scrollView.isPagingEnabled = true
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
+        scrollView.contentScaleFactor = Screen.scale
         view.addSubview(scrollView)
     }
     
@@ -287,6 +289,7 @@ extension PageMenuController {
         tabBar?.isLineAnimated = false
         tabBar?.lineAlignment = .top
         view.addSubview(tabBar!)
+        
         prepareTabBarButtons(buttons)
     }
     
@@ -350,10 +353,6 @@ extension PageMenuController {
      - Parameter position: An Int for the position of the view controller.
      */
     fileprivate func layoutViewController(at index: Int, position: Int) {
-        guard 0 <= index && index < viewControllers.count else {
-            return
-        }
-        
         viewControllers[index].view.frame = CGRect(x: CGFloat(position) * scrollView.width, y: 0, width: scrollView.width, height: scrollView.height)
     }
 }

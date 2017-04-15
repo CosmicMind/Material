@@ -57,9 +57,32 @@ public protocol TabBarDelegate {
     optional func tabBar(tabBar: TabBar, didSelect button: UIButton)
 }
 
+@objc(TabBarStyle)
+public enum TabBarStyle: Int {
+    case normal
+    case scrollable
+}
+
 open class TabBar: Bar {
     /// A boolean indicating if the TabBar line is in an animation state.
     open internal(set) var isAnimating = false
+    
+    /// Enables and disables bouncing when swiping.
+    open var isBounceEnabled: Bool {
+        get {
+            return contentView.bounces
+        }
+        set(value) {
+            contentView.bounces = value
+        }
+    }
+    
+    /// An enum that determines the tab bar style.
+    open var tabBarStyle = TabBarStyle.scrollable {
+        didSet {
+            layoutSubviews()
+        }
+    }
     
     /// A delegation reference.
     open weak var delegate: TabBarDelegate?
@@ -116,8 +139,6 @@ open class TabBar: Bar {
                 b.removeFromSuperview()
             }
 			
-            centerViews = buttons as [UIView]
-            
 			layoutSubviews()
 		}
 	}
@@ -186,9 +207,26 @@ open class TabBar: Bar {
             }
         }
         
-        contentView.grid.axis.columns = buttons.count
-        contentView.grid.reload()
+        if .scrollable == tabBarStyle {
+            var w: CGFloat = 0
             
+            for b in buttons {
+                let width = b.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: contentView.height)).width + interimSpace
+                contentView.addSubview(b)
+                b.height = contentView.height
+                b.width = width
+                b.x = w
+                w += width
+            }
+            print(w, contentView.width)
+            if w > contentView.width {
+                contentView.contentSize.width = w
+            }
+        } else {
+            contentView.grid.axis.columns = buttons.count
+            centerViews = buttons
+        }
+        
         if nil == selected {
             selected = buttons.first
         }
@@ -205,8 +243,9 @@ open class TabBar: Bar {
      */
     open override func prepare() {
         super.prepare()
+        isBounceEnabled = true
         contentEdgeInsetsPreset = .none
-        interimSpacePreset = .none
+        interimSpacePreset = .interimSpace5
         prepareLine()
         prepareDivider()
     }

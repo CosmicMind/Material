@@ -105,7 +105,7 @@ open class Bar: View {
     }
     
     /// ContentView that holds the any desired subviews.
-    open let contentView = UIView()
+    open let contentView = UIScrollView()
     
     /// Left side UIViews.
     open var leftViews: [UIView] {
@@ -272,5 +272,17 @@ open class Bar: View {
         autoresizingMask = .flexibleWidth
         interimSpacePreset = .interimSpace3
         contentEdgeInsetsPreset = .square1
+        prepareContentView()
+    }
+}
+
+extension Bar {
+    /// Prepares the contentView.
+    fileprivate func prepareContentView() {
+        contentView.bounces = false
+        contentView.isPagingEnabled = true
+        contentView.showsVerticalScrollIndicator = false
+        contentView.showsHorizontalScrollIndicator = false
+        contentView.contentScaleFactor = Screen.scale
     }
 }
