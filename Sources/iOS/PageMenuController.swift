@@ -40,8 +40,8 @@ open class PageMenuBarItem: FlatButton {
     }
 }
 
-@objc(PageMenuAlignment)
-public enum PageMenuAlignment: Int {
+@objc(TabBarAlignment)
+public enum TabBarAlignment: Int {
     case top
     case bottom
     case hidden
@@ -114,7 +114,7 @@ open class PageMenuController: UIViewController {
         }
     }
     
-    open var pageMenuAlignment = PageMenuAlignment.bottom {
+    open var tabBarAlignment = TabBarAlignment.bottom {
         didSet {
             layoutSubviews()
         }
@@ -170,7 +170,7 @@ open class PageMenuController: UIViewController {
         tabBar?.height = p
         tabBar?.width = view.width + (tabBar?.layoutEdgeInsets.left ?? 0) + (tabBar?.layoutEdgeInsets.right ?? 0)
         
-        switch pageMenuAlignment {
+        switch tabBarAlignment {
         case .top:
             tabBar?.isHidden = false
             tabBar?.y = 0
