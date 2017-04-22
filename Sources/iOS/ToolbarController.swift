@@ -69,17 +69,6 @@ public protocol ToolbarControllerDelegate {
 
 @objc(ToolbarController)
 open class ToolbarController: StatusBarController {
-    /**
-     A Display value to indicate whether or not to
-     display the rootViewController to the full view
-     bounds, or up to the toolbar height.
-     */
-    open var toolbarDisplay = Display.partial {
-        didSet {
-            layoutSubviews()
-        }
-    }
-    
     /// Reference to the Toolbar.
     @IBInspectable
     open let toolbar = Toolbar()
@@ -186,7 +175,7 @@ open class ToolbarController: StatusBarController {
         toolbar.y = y
         toolbar.width = view.width
         
-        switch toolbarDisplay {
+        switch displayStyle {
         case .partial:
             let h = y + toolbar.height
             rootViewController.view.y = h
@@ -205,6 +194,7 @@ open class ToolbarController: StatusBarController {
      */
 	open override func prepare() {
 		super.prepare()
+        displayStyle = .partial
         prepareStatusBar()
         prepareToolbar()
 	}

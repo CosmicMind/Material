@@ -42,7 +42,7 @@ open class ImageCard: Card {
      display the imageView to the full view
      bounds.
      */
-    open var imageViewDisplay = Display.partial {
+    open var displayStyle = DisplayStyle.partial {
         didSet {
             layoutSubviews()
         }
