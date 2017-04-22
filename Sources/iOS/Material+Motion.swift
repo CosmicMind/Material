@@ -95,7 +95,8 @@ fileprivate struct MotionInstance {
 }
 
 fileprivate struct MotionInstanceController {
-    fileprivate var isEnabled: Bool
+    fileprivate var isMotionEnabled: Bool
+    fileprivate var isInteractiveMotionEnabled: Bool
     fileprivate weak var delegate: MotionDelegate?
 }
 
@@ -104,7 +105,7 @@ extension UIViewController: MotionDelegate, UIViewControllerTransitioningDelegat
     fileprivate var motionInstanceController: MotionInstanceController {
         get {
             return AssociatedObject(base: self, key: &MotionInstanceControllerKey) {
-                return MotionInstanceController(isEnabled: false, delegate: nil)
+                return MotionInstanceController(isMotionEnabled: false, isInteractiveMotionEnabled: false, delegate: nil)
             }
         }
         set(value) {
@@ -115,18 +116,29 @@ extension UIViewController: MotionDelegate, UIViewControllerTransitioningDelegat
     /// A boolean that indicates whether motion is enabled.
     open var isMotionEnabled: Bool {
         get {
-            return motionInstanceController.isEnabled
+            return motionInstanceController.isMotionEnabled
         }
         set(value) {
             if value {
-                modalPresentationStyle = .custom
-                transitioningDelegate = self
-                motionDelegate = self
-                (self as? UINavigationController)?.delegate = self
-                (self as? UITabBarController)?.delegate = self
+                prepareMotionDelegation()
             }
             
-            motionInstanceController.isEnabled = value
+            motionInstanceController.isMotionEnabled = value
+        }
+    }
+    
+    /// A boolean that indicates whether interactive motion is enabled.
+    open var isInteractiveMotionEnabled: Bool {
+        get {
+            return motionInstanceController.isInteractiveMotionEnabled
+        }
+        set(value) {
+            if value {
+                prepareMotionDelegation()
+                motionInstanceController.isMotionEnabled = true
+            }
+            
+            motionInstanceController.isInteractiveMotionEnabled = value
         }
     }
     
@@ -139,28 +151,16 @@ extension UIViewController: MotionDelegate, UIViewControllerTransitioningDelegat
             motionInstanceController.delegate = value
         }
     }
-    
-    /**
-     Determines whether to use a Motion instance for transitions.
-     - Parameter _ navigationController: A UINavigationController.
-     - Parameter animationControllerFor operation: A UINavigationControllerOperation.
-     - Parameter from fromVC: A UIViewController that is being transitioned from.
-     - Parameter to toVC: A UIViewController that is being transitioned to.
-     - Returns: An optional UIViewControllerAnimatedTransitioning.
-     */
-    open func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return fromVC.isMotionEnabled ? Motion(isPresenting: operation == .push, isContainer: true) : nil
-    }
-    
-    /**
-     Determines whether to use a Motion instance for transitions.
-     - Parameter _ tabBarController: A UITabBarController.
-     - Parameter animationControllerForTransitionFrom fromVC: A UIViewController that is being transitioned from.
-     - Parameter to toVC: A UIViewController that is being transitioned to.
-     - Returns: An optional UIViewControllerAnimatedTransitioning.
-     */
-    open func tabBarController(_ tabBarController: UITabBarController, animationControllerForTransitionFrom fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return fromVC.isMotionEnabled ? Motion(isPresenting: true, isContainer: true) : nil
+}
+
+extension UIViewController {
+    /// Prepares the motionDelegate.
+    fileprivate func prepareMotionDelegation() {
+        modalPresentationStyle = .custom
+        transitioningDelegate = self
+        motionDelegate = self
+        (self as? UINavigationController)?.delegate = self
+        (self as? UITabBarController)?.delegate = self
     }
 }
 
@@ -173,7 +173,8 @@ extension UIViewController {
      - Returns: An optional UIViewControllerAnimatedTransitioning.
      */
     open func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return isMotionEnabled ? PresentingMotion(isPresenting: true, isContainer: false) : nil
+        print("animationController(forPresented")
+        return isMotionEnabled ? PresentingMotion(isPresenting: true) : nil
     }
     
     /**
@@ -182,7 +183,8 @@ extension UIViewController {
      - Returns: An optional UIViewControllerAnimatedTransitioning.
      */
     open func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return isMotionEnabled ? DismissingMotion(isPresenting: true, isContainer: false) : nil
+        print("animationController(forDismissed")
+        return isMotionEnabled ? DismissingMotion(isPresenting: true) : nil
     }
     
     /**
@@ -193,7 +195,45 @@ extension UIViewController {
      - Returns: An optional UIPresentationController.
      */
     open func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        print("presentationController:forPresented")
         return isMotionEnabled ? MotionPresentationController(presentedViewController: presented, presenting: presenting) : nil
+    }
+    
+    open func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        print("interactionControllerForPresentation")
+        return isInteractiveMotionEnabled ? InteractivePresentingMotion(animator: animator) : nil
+    }
+    
+    open func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        print("interactionControllerForDismissal")
+        return isInteractiveMotionEnabled ? InteractiveDismissingMotion(animator: animator) : nil
+    }
+}
+
+extension UIViewController {
+    /**
+     Determines whether to use a Motion instance for transitions.
+     - Parameter _ navigationController: A UINavigationController.
+     - Parameter animationControllerFor operation: A UINavigationControllerOperation.
+     - Parameter from fromVC: A UIViewController that is being transitioned from.
+     - Parameter to toVC: A UIViewController that is being transitioned to.
+     - Returns: An optional UIViewControllerAnimatedTransitioning.
+     */
+    open func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        print("navigationController(_ navigationController")
+        return fromVC.isMotionEnabled ? Motion(isPresenting: operation == .push) : nil
+    }
+    
+    /**
+     Determines whether to use a Motion instance for transitions.
+     - Parameter _ tabBarController: A UITabBarController.
+     - Parameter animationControllerForTransitionFrom fromVC: A UIViewController that is being transitioned from.
+     - Parameter to toVC: A UIViewController that is being transitioned to.
+     - Returns: An optional UIViewControllerAnimatedTransitioning.
+     */
+    open func tabBarController(_ tabBarController: UITabBarController, animationControllerForTransitionFrom fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        print("tabBarController(_ tabBarController")
+        return fromVC.isMotionEnabled ? Motion(isPresenting: true) : nil
     }
 }
 
@@ -348,9 +388,6 @@ open class MotionAnimator: NSObject {
     /// A boolean indicating whether Motion is presenting a view controller.
     open fileprivate(set) var isPresenting: Bool
     
-    /// A boolean indicating whether the view controller is a container.
-    open fileprivate(set) var isContainer: Bool
-    
     /**
      An Array of UIView pairs with common motionIdentifiers in
      the from and to view controllers.
@@ -374,19 +411,19 @@ open class MotionAnimator: NSObject {
     }
     
     /// The transition context for the current transition.
-    open var transitionContext: UIViewControllerContextTransitioning!
+    open fileprivate(set) var transitionContext: UIViewControllerContextTransitioning!
     
     /// The transition delay time.
-    open var delay: TimeInterval = 0
+    open fileprivate(set) var delay: TimeInterval = 0
     
     /// The transition duration time.
-    open var duration: TimeInterval = 0.35
+    open fileprivate(set) var duration: TimeInterval = 0.35
     
     /// The transition container view.
-    open var containerView: UIView!
+    open fileprivate(set) var containerView: UIView!
     
     /// The view that is used to animate the transitions between view controllers.
-    open var transitionView = UIView()
+    open fileprivate(set) var transitionView = UIView()
     
     /// The view that is being transitioned to.
     open var toView: UIView {
@@ -411,7 +448,6 @@ open class MotionAnimator: NSObject {
     /// The default initializer.
     public override init() {
         isPresenting = false
-        isContainer = false
         super.init()
     }
     
@@ -419,12 +455,9 @@ open class MotionAnimator: NSObject {
      An initializer to modify the presenting and container state.
      - Parameter isPresenting: A boolean value indicating if the
      Motion instance is presenting the view controller.
-     - Parameter isContainer: A boolean value indicating if the
-     Motion instance is a container view controller.
      */
-    public init(isPresenting: Bool, isContainer: Bool) {
+    public init(isPresenting: Bool) {
         self.isPresenting = isPresenting
-        self.isContainer = isContainer
         super.init()
     }
     
@@ -835,5 +868,101 @@ open class DismissingMotion: Motion {
         toView.setNeedsLayout()
         toView.layoutIfNeeded()
     }
+}
 
+open class InteractiveMotion: UIPercentDrivenInteractiveTransition {
+    /// A reference to the view controller that is being transitioned to.
+    open var toViewController: UIViewController {
+        return transitionContext.viewController(forKey: .to)!
+    }
+    
+    /// A reference to the view controller that is being transitioned from.
+    open var fromViewController: UIViewController {
+        return transitionContext.viewController(forKey: .from)!
+    }
+    
+    /// The transition context for the current transition.
+    open fileprivate(set) var transitionContext: UIViewControllerContextTransitioning!
+    
+    /// A reference to the panGesture for transitions.
+    open fileprivate(set) var panGesture: UIPanGestureRecognizer!
+    
+    /// The transition container view.
+    open fileprivate(set) var containerView: UIView!
+    
+    open fileprivate(set) var animator: UIViewControllerAnimatedTransitioning!
+    
+    /**
+     An initializer that accepts an animator object.
+     - Parameter animator: UIViewControllerAnimatedTransitioning.
+     */
+    public init(animator: UIViewControllerAnimatedTransitioning) {
+        super.init()
+        self.animator = animator
+    }
+    
+    open override func startInteractiveTransition(_ transitionContext: UIViewControllerContextTransitioning) {
+        super.startInteractiveTransition(transitionContext)
+        self.transitionContext = transitionContext
+        
+        preparePanGesture()
+        prepareContainerView()
+    }
+    //
+    //
+    //    optional public var completionSpeed: CGFloat { get }
+    //
+    //    optional public var completionCurve: UIViewAnimationCurve { get }
+    //
+    //
+    //    /// In 10.0, if an object conforming to UIViewControllerAnimatedTransitioning is
+    //    /// known to be interruptible, it is possible to start it as if it was not
+    //    /// interactive and then interrupt the transition and interact with it. In this
+    //    /// case, implement this method and return NO. If an interactor does not
+    //    /// implement this method, YES is assumed.
+    //    @available(iOS 10.0, *)
+    //    optional public var wantsInteractiveStart: Bool { get }
+}
+
+extension InteractiveMotion {
+    fileprivate func preparePanGesture() {
+        panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanUpdate(gestureRecognizer:)))
+        panGesture.maximumNumberOfTouches = 1
+    }
+    
+    /// Prepares the containerView.
+    fileprivate func prepareContainerView() {
+        containerView = transitionContext.containerView
+        containerView.addGestureRecognizer(panGesture)
+    }
+}
+
+extension InteractiveMotion {
+    @objc
+    fileprivate func handlePanUpdate(gestureRecognizer: UIGestureRecognizer) {
+        switch gestureRecognizer.state {
+        case .began:
+            panGesture.setTranslation(.zero, in: containerView)
+            print("began")
+        case .changed:
+            let translation = panGesture.translation(in: containerView)
+            let percentage = fabs(translation.y / containerView.bounds.height)
+            update(percentage)
+            print("changed", percentage)
+        case .ended:
+            finish()
+            containerView.removeGestureRecognizer(panGesture)
+            print("ended")
+        default:break
+        }
+    }
+}
+
+
+open class InteractivePresentingMotion: InteractiveMotion {
+    
+}
+
+open class InteractiveDismissingMotion: InteractiveMotion {
+    
 }

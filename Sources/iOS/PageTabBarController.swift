@@ -97,7 +97,6 @@ public protocol PageTabBarControllerDelegate {
     optional func pageTabBarController(pageTabBarController: PageTabBarController, didTransitionTo viewController: UIViewController)
 }
 
-@objc(PageTabBarController)
 open class PageTabBarController: RootController {
     /// Reference to the PageTabBar.
     @IBInspectable

@@ -70,9 +70,11 @@ open class Snackbar: Bar {
         return super.hitTest(point, with: event)
     }
     
-    /// Reloads the view.
-    open override func reload() {
-        super.reload()
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        guard willLayout else {
+            return
+        }
         
         centerViews = [textLabel]
     }

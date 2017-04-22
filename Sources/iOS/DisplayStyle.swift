@@ -30,8 +30,8 @@
 
 import UIKit
 
-@objc(Display)
-public enum Display: Int {
+@objc(DisplayStyle)
+public enum DisplayStyle: Int {
     case partial
     case full
 }

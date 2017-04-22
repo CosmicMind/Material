@@ -87,7 +87,6 @@ public protocol TextViewDelegate : UITextViewDelegate {
     optional func textView(textView: TextView, didProcessEditing textStorage: TextStorage, text: String, range: NSRange)
 }
 
-@objc(TextView)
 open class TextView: UITextView {
     /// A boolean indicating whether the text is empty.
     open var isEmpty: Bool {
