@@ -161,31 +161,9 @@ open class PageMenuController: UIViewController {
      have a certain need.
      */
     open func layoutSubviews() {
+        layoutTabBar()
         layoutScrollView()
         layoutViewControllers()
-    
-        let p = (tabBar?.intrinsicContentSize.height ?? 0) + (tabBar?.layoutEdgeInsets.top ?? 0) + (tabBar?.layoutEdgeInsets.bottom ?? 0)
-        let y = view.height - p
-        
-        tabBar?.height = p
-        tabBar?.width = view.width + (tabBar?.layoutEdgeInsets.left ?? 0) + (tabBar?.layoutEdgeInsets.right ?? 0)
-        
-        switch tabBarAlignment {
-        case .top:
-            tabBar?.isHidden = false
-            tabBar?.y = 0
-            scrollView.y = p
-            scrollView.height = y
-        case .bottom:
-            tabBar?.isHidden = false
-            tabBar?.y = y
-            scrollView.y = 0
-            scrollView.height = y
-        case .hidden:
-            tabBar?.isHidden = true
-            scrollView.y = 0
-            scrollView.height = view.height
-        }
     }
     
     /**
@@ -249,25 +227,19 @@ extension PageMenuController {
      - Parameter _ buttons: An Array of UIButtons.
      */
     fileprivate func prepareTabBarButtons(_ buttons: [UIButton]) {
-        guard let tb = tabBar else {
+        guard let v = tabBar else {
             return
         }
         
-        tb.buttons = buttons
+        v.buttons = buttons
         
-        for v in tb.buttons {
-            v.removeTarget(self, action: #selector(tb.handleButton(button:)), for: .touchUpInside)
-            v.removeTarget(self, action: #selector(handleTabBarButton(button:)), for: .touchUpInside)
-            v.addTarget(self, action: #selector(handleTabBarButton(button:)), for: .touchUpInside)
+        for b in v.buttons {
+            b.removeTarget(self, action: #selector(handleTabBarButton(button:)), for: .touchUpInside)
+            b.addTarget(self, action: #selector(handleTabBarButton(button:)), for: .touchUpInside)
         }
     }
     
     fileprivate func prepareTabBar() {
-        guard 0 < viewControllers.count else {
-            tabBar = nil
-            return
-        }
-        
         var buttons = [UIButton]()
         
         for v in viewControllers {
@@ -276,6 +248,7 @@ extension PageMenuController {
         }
         
         guard 0 < buttons.count else {
+            tabBar?.removeFromSuperview()
             tabBar = nil
             return
         }
@@ -315,14 +288,32 @@ extension PageMenuController {
 
 extension PageMenuController {
     fileprivate func layoutScrollView() {
-        scrollView.frame = view.bounds
         scrollView.contentSize = CGSize(width: scrollView.width * CGFloat(viewControllers.count), height: scrollView.height)
         scrollView.contentOffset = CGPoint(x: scrollView.width * CGFloat(selectedIndex), y: 0)
+        
+        guard let v = tabBar else {
+            scrollView.frame = view.bounds
+            return
+        }
+        
+        let p = tabBar?.height ?? 0
+        let y = view.height - p
+        
+        switch tabBarAlignment {
+        case .top:
+            scrollView.y = p
+            scrollView.height = y
+        case .bottom:
+            scrollView.y = 0
+            scrollView.height = y
+        case .hidden:
+            scrollView.y = 0
+            scrollView.height = view.height
+        }
     }
     
     fileprivate func layoutViewControllers() {
         let n = viewControllers.count
-        scrollView.contentSize = CGSize(width: scrollView.width * CGFloat(n), height: scrollView.height)
         
         guard 1 < n else {
             layoutViewController(at: 0, position: 0)
@@ -354,6 +345,31 @@ extension PageMenuController {
      */
     fileprivate func layoutViewController(at index: Int, position: Int) {
         viewControllers[index].view.frame = CGRect(x: CGFloat(position) * scrollView.width, y: 0, width: scrollView.width, height: scrollView.height)
+    }
+    
+    /**
+     Layout the TabBar.
+     */
+    fileprivate func layoutTabBar() {
+        guard let v = tabBar else {
+            return
+        }
+        
+        let p = tabBar?.height ?? 0
+        let y = view.height - p
+        
+        tabBar?.width = view.width
+        
+        switch tabBarAlignment {
+        case .top:
+            tabBar?.isHidden = false
+            tabBar?.y = 0
+        case .bottom:
+            tabBar?.isHidden = false
+            tabBar?.y = y
+        case .hidden:
+            tabBar?.isHidden = true
+        }
     }
 }
 
@@ -422,11 +438,11 @@ extension PageMenuController {
      */
     @objc
     fileprivate func handleTabBarButton(button: UIButton) {
-        guard let tb = tabBar else {
+        guard let v = tabBar else {
             return
         }
         
-        guard let i = tb.buttons.index(of: button) else {
+        guard let i = v.buttons.index(of: button) else {
             return
         }
         
@@ -435,10 +451,11 @@ extension PageMenuController {
         }
         
         selectedIndex = i
+        v.select(at: i)
         
         removeViewControllers()
         prepareViewControllers()
-        layoutViewControllers()
+        layoutSubviews()
     }
 }
 
@@ -452,6 +469,6 @@ extension PageMenuController: UIScrollViewDelegate {
         
         removeViewControllers()
         prepareViewControllers()
-        layoutViewControllers()
+        layoutSubviews()
     }
 }

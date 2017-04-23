@@ -65,7 +65,7 @@ public enum TabBarStyle: Int {
 
 open class TabBar: Bar {
     /// A boolean indicating if the TabBar line is in an animation state.
-    open internal(set) var isAnimating = false
+    open fileprivate(set) var isAnimating = false
     
     /// Enables and disables bouncing when swiping.
     open var isBounceEnabled: Bool {
@@ -88,7 +88,7 @@ open class TabBar: Bar {
     open weak var delegate: TabBarDelegate?
     
     /// The currently selected button.
-    open internal(set) var selected: UIButton?
+    open fileprivate(set) var selected: UIButton?
     
     /// A preset wrapper around contentEdgeInsets.
     open override var contentEdgeInsetsPreset: EdgeInsetsPreset {
@@ -218,7 +218,7 @@ open class TabBar: Bar {
                 b.x = w
                 w += width
             }
-            print(w, contentView.width)
+            
             if w > contentView.width {
                 contentView.contentSize.width = w
             }
@@ -271,7 +271,7 @@ extension TabBar {
      */
     fileprivate func prepareLineAnimationHandler(button: UIButton) {
         removeLineAnimationHandler(button: button)
-        button.addTarget(self, action: #selector(handleButton(button:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleLineAnimation(button:)), for: .touchUpInside)
     }
     
     /**
@@ -279,14 +279,14 @@ extension TabBar {
      - Parameter button: A UIButton.
      */
     fileprivate func removeLineAnimationHandler(button: UIButton) {
-        button.removeTarget(self, action: #selector(handleButton(button:)), for: .touchUpInside)
+        button.removeTarget(self, action: #selector(handleLineAnimation(button:)), for: .touchUpInside)
     }
 }
 
 extension TabBar {
     /// Handles the button touch event.
     @objc
-    internal func handleButton(button: UIButton) {
+    fileprivate func handleLineAnimation(button: UIButton) {
         animate(to: button, isTriggeredByUserInteraction: true)
     }
 }

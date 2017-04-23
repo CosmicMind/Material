@@ -552,7 +552,6 @@ extension TextField {
         leftViewEditingBeginAnimation()
         placeholderEditingDidBeginAnimation()
         dividerEditingDidBeginAnimation()
-        
     }
     
     // Live updates the textField text.

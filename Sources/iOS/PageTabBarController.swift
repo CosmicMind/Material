@@ -244,7 +244,6 @@ open class PageTabBarController: RootController {
         for x in viewControllers {
             let button = x.pageTabBarItem as UIButton
             pageTabBar.buttons.append(button)
-            button.removeTarget(self, action: #selector(pageTabBar.handleButton(button:)), for: .touchUpInside)
             button.removeTarget(self, action: #selector(handlePageTabBarButton(button:)), for: .touchUpInside)
             button.addTarget(self, action: #selector(handlePageTabBarButton(button:)), for: .touchUpInside)
         }
