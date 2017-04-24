@@ -30,10 +30,10 @@
 
 import UIKit
 
-/// A memory reference to the PageMenuBarItem instance for UIViewController extensions.
-fileprivate var PageMenuBarItemKey: UInt8 = 0
+/// A memory reference to the TabsBarItem instance for UIViewController extensions.
+fileprivate var TabsBarItemKey: UInt8 = 0
 
-open class PageMenuBarItem: FlatButton {
+open class TabsBarItem: FlatButton {
     open override func prepare() {
         super.prepare()
         pulseAnimation = .none
@@ -49,29 +49,29 @@ public enum TabBarAlignment: Int {
 
 extension UIViewController {
     /// pageMenuBarItem reference.
-    public private(set) var pageMenuBarItem: PageMenuBarItem {
+    public private(set) var pageMenuBarItem: TabsBarItem {
         get {
-            return AssociatedObject(base: self, key: &PageMenuBarItemKey) {
-                return PageMenuBarItem()
+            return AssociatedObject(base: self, key: &TabsBarItemKey) {
+                return TabsBarItem()
             }
         }
         set(value) {
-            AssociateObject(base: self, key: &PageMenuBarItemKey, value: value)
+            AssociateObject(base: self, key: &TabsBarItemKey, value: value)
         }
     }
 }
 
 extension UIViewController {
     /**
-     A convenience property that provides access to the PageMenuController.
-     This is the recommended method of accessing the PageMenuController
+     A convenience property that provides access to the TabsController.
+     This is the recommended method of accessing the TabsController
      through child UIViewControllers.
      */
-    public var pageMenuController: PageMenuController? {
+    public var pageMenuController: TabsController? {
         var viewController: UIViewController? = self
         while nil != viewController {
-            if viewController is PageMenuController {
-                return viewController as? PageMenuController
+            if viewController is TabsController {
+                return viewController as? TabsController
             }
             viewController = viewController?.parent
         }
@@ -79,7 +79,7 @@ extension UIViewController {
     }
 }
 
-open class PageMenuController: UIViewController {
+open class TabsController: UIViewController {
     /// A reference to the currently selected view controller index value.
     @IBInspectable
     open var selectedIndex = 0
@@ -186,7 +186,7 @@ open class PageMenuController: UIViewController {
     }
 }
 
-extension PageMenuController {
+extension TabsController {
     /// Prepares the scrollView used to pan through view controllers.
     fileprivate func prepareScrollView() {
         scrollView.delegate = self
@@ -302,7 +302,7 @@ extension PageMenuController {
     }
 }
 
-extension PageMenuController {
+extension TabsController {
     fileprivate func layoutScrollView() {
         let w = view.bounds.width
         scrollView.contentSize = CGSize(width: w * CGFloat(viewControllers.count), height: scrollView.height)
@@ -393,7 +393,7 @@ extension PageMenuController {
     }
 }
 
-extension PageMenuController {
+extension TabsController {
     /// Removes the view controllers not within the scrollView.
     fileprivate func removeViewControllers() {
         let n = viewControllers.count
@@ -451,7 +451,7 @@ extension PageMenuController {
     }
 }
 
-extension PageMenuController {
+extension TabsController {
     /**
      Handles the pageTabBarButton.
      - Parameter button: A UIButton.
@@ -482,7 +482,7 @@ extension PageMenuController {
     }
 }
 
-extension PageMenuController: UIScrollViewDelegate {
+extension TabsController: UIScrollViewDelegate {
     @objc
     open func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let w = scrollView.width
