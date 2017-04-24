@@ -571,38 +571,38 @@ extension MotionAnimator {
             var snapshotAnimations = [CABasicAnimation]()
             var snapshotChildAnimations = [CABasicAnimation]()
             
-            let sizeAnimation = Motion.size(to.bounds.size)
-            let cornerRadiusAnimation = Motion.corner(radius: to.layer.cornerRadius)
+            let sizeAnimation = MotionBasicAnimation.size(to.bounds.size)
+            let cornerRadiusAnimation = MotionBasicAnimation.corner(radius: to.layer.cornerRadius)
             
             snapshotAnimations.append(sizeAnimation)
             snapshotAnimations.append(cornerRadiusAnimation)
-            snapshotAnimations.append(Motion.position(to: to.motionPosition))
-            snapshotAnimations.append(Motion.transform(transform: to.motionTransform))
-            snapshotAnimations.append(Motion.background(color: to.backgroundColor ?? .clear))
-            snapshotAnimations.append(Motion.border(color: to.borderColor ?? .clear))
-            snapshotAnimations.append(Motion.border(width: to.borderWidth))
+            snapshotAnimations.append(MotionBasicAnimation.position(to: to.motionPosition))
+            snapshotAnimations.append(MotionBasicAnimation.transform(transform: to.motionTransform))
+            snapshotAnimations.append(MotionBasicAnimation.background(color: to.backgroundColor ?? .clear))
+            snapshotAnimations.append(MotionBasicAnimation.border(color: to.borderColor ?? .clear))
+            snapshotAnimations.append(MotionBasicAnimation.border(width: to.borderWidth))
             
             if let path = to.layer.shadowPath {
-                let shadowPath = Motion.shadow(path: path)
+                let shadowPath = MotionBasicAnimation.shadow(path: path)
                 shadowPath.fromValue = fromView.layer.shadowPath
                 snapshotAnimations.append(shadowPath)
             }
             
-            let shadowOffset = Motion.shadow(offset: to.layer.shadowOffset)
+            let shadowOffset = MotionBasicAnimation.shadow(offset: to.layer.shadowOffset)
             shadowOffset.fromValue = fromView.layer.shadowOffset
             snapshotAnimations.append(shadowOffset)
             
-            let shadowOpacity = Motion.shadow(opacity: to.layer.shadowOpacity)
+            let shadowOpacity = MotionBasicAnimation.shadow(opacity: to.layer.shadowOpacity)
             shadowOpacity.fromValue = fromView.layer.shadowOpacity
             snapshotAnimations.append(shadowOpacity)
             
-            let shadowRadius = Motion.shadow(radius: to.layer.shadowRadius)
+            let shadowRadius = MotionBasicAnimation.shadow(radius: to.layer.shadowRadius)
             shadowRadius.fromValue = fromView.layer.shadowRadius
             snapshotAnimations.append(shadowRadius)
             
             snapshotChildAnimations.append(cornerRadiusAnimation)
             snapshotChildAnimations.append(sizeAnimation)
-            snapshotChildAnimations.append(Motion.position(x: to.bounds.width / 2, y: to.bounds.height / 2))
+            snapshotChildAnimations.append(MotionBasicAnimation.position(x: to.bounds.width / 2, y: to.bounds.height / 2))
             
             let d = calculateAnimationTransitionDuration(animations: to.motionAnimations)
             

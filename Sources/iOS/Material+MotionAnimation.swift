@@ -265,97 +265,97 @@ extension CALayer {
                 case let .custom(animation):
                     a.append(animation)
                 case let .backgroundColor(color):
-                    a.append(Motion.background(color: color))
+                    a.append(MotionBasicAnimation.background(color: color))
                 case let .barTintColor(color):
-                    a.append(Motion.barTint(color: color))
+                    a.append(MotionBasicAnimation.barTint(color: color))
                 case let .borderColor(color):
-                    a.append(Motion.border(color: color))
+                    a.append(MotionBasicAnimation.border(color: color))
                 case let .borderWidth(width):
-                    a.append(Motion.border(width: width))
+                    a.append(MotionBasicAnimation.border(width: width))
                 case let .cornerRadius(radius):
-                    a.append(Motion.corner(radius: radius))
+                    a.append(MotionBasicAnimation.corner(radius: radius))
                 case let .transform(transform):
-                    a.append(Motion.transform(transform: transform))
+                    a.append(MotionBasicAnimation.transform(transform: transform))
                 case let .rotationAngle(angle):
-                    let rotate = Motion.rotation(angle: angle)
+                    let rotate = MotionBasicAnimation.rotation(angle: angle)
                     a.append(rotate)
                 case let .rotationAngleX(angle):
-                    a.append(Motion.rotationX(angle: angle))
+                    a.append(MotionBasicAnimation.rotationX(angle: angle))
                 case let .rotationAngleY(angle):
-                    a.append(Motion.rotationY(angle: angle))
+                    a.append(MotionBasicAnimation.rotationY(angle: angle))
                 case let .rotationAngleZ(angle):
-                    a.append(Motion.rotationZ(angle: angle))
+                    a.append(MotionBasicAnimation.rotationZ(angle: angle))
                 case let .spin(rotations):
-                    a.append(Motion.spin(rotations: rotations))
+                    a.append(MotionBasicAnimation.spin(rotations: rotations))
                 case let .spinX(rotations):
-                    a.append(Motion.spinX(rotations: rotations))
+                    a.append(MotionBasicAnimation.spinX(rotations: rotations))
                 case let .spinY(rotations):
-                    a.append(Motion.spinY(rotations: rotations))
+                    a.append(MotionBasicAnimation.spinY(rotations: rotations))
                 case let .spinZ(rotations):
-                    a.append(Motion.spinZ(rotations: rotations))
+                    a.append(MotionBasicAnimation.spinZ(rotations: rotations))
                 case let .scale(to):
-                    a.append(Motion.scale(to: to))
+                    a.append(MotionBasicAnimation.scale(to: to))
                 case let .scaleX(to):
-                    a.append(Motion.scaleX(to: to))
+                    a.append(MotionBasicAnimation.scaleX(to: to))
                 case let .scaleY(to):
-                    a.append(Motion.scaleY(to: to))
+                    a.append(MotionBasicAnimation.scaleY(to: to))
                 case let .scaleZ(to):
-                    a.append(Motion.scaleZ(to: to))
+                    a.append(MotionBasicAnimation.scaleZ(to: to))
                 case let .translate(x, y):
-                    a.append(Motion.translate(to: CGPoint(x: x, y: y)))
+                    a.append(MotionBasicAnimation.translate(to: CGPoint(x: x, y: y)))
                 case let .translateX(to):
-                    a.append(Motion.translateX(to: to))
+                    a.append(MotionBasicAnimation.translateX(to: to))
                 case let .translateY(to):
-                    a.append(Motion.translateY(to: to))
+                    a.append(MotionBasicAnimation.translateY(to: to))
                 case let .translateZ(to):
-                    a.append(Motion.translateZ(to: to))
+                    a.append(MotionBasicAnimation.translateZ(to: to))
                 case .x(_), .y(_), .point(_, _):
-                    let position = Motion.position(to: CGPoint(x: px, y: py))
+                    let position = MotionBasicAnimation.position(to: CGPoint(x: px, y: py))
                     a.append(position)
                 case let .position(x, y):
-                    a.append(Motion.position(to: CGPoint(x: x, y: y)))
+                    a.append(MotionBasicAnimation.position(to: CGPoint(x: x, y: y)))
                 case let .fade(opacity):
-                    let fade = Motion.fade(opacity: opacity)
+                    let fade = MotionBasicAnimation.fade(opacity: opacity)
                     fade.fromValue = s.value(forKey: MotionAnimationKeyPath.opacity.rawValue) ?? NSNumber(floatLiteral: 1)
                     a.append(fade)
                 case let .zPosition(index):
-                    let zPosition = Motion.zPosition(index: index)
+                    let zPosition = MotionBasicAnimation.zPosition(index: index)
                     zPosition.fromValue = s.value(forKey: MotionAnimationKeyPath.zPosition.rawValue) ?? NSNumber(integerLiteral: 0)
                     a.append(zPosition)
                 case .width(_), .height(_), .size(_, _):
-                    a.append(Motion.size(CGSize(width: w, height: h)))
+                    a.append(MotionBasicAnimation.size(CGSize(width: w, height: h)))
                 case let .shadowPath(path):
-                    let shadowPath = Motion.shadow(path: path)
+                    let shadowPath = MotionBasicAnimation.shadow(path: path)
                     shadowPath.fromValue = s.shadowPath
                     a.append(shadowPath)
                 case let .shadowOffset(offset):
-                    let shadowOffset = Motion.shadow(offset: offset)
+                    let shadowOffset = MotionBasicAnimation.shadow(offset: offset)
                     shadowOffset.fromValue = s.shadowOffset
                     a.append(shadowOffset)
                 case let .shadowOpacity(opacity):
-                    let shadowOpacity = Motion.shadow(opacity: opacity)
+                    let shadowOpacity = MotionBasicAnimation.shadow(opacity: opacity)
                     shadowOpacity.fromValue = s.shadowOpacity
                     a.append(shadowOpacity)
                 case let .shadowRadius(radius):
-                    let shadowRadius = Motion.shadow(radius: radius)
+                    let shadowRadius = MotionBasicAnimation.shadow(radius: radius)
                     shadowRadius.fromValue = s.shadowRadius
                     a.append(shadowRadius)
                 case let .depth(offset, opacity, radius):
                     if let path = s.shadowPath {
-                        let shadowPath = Motion.shadow(path: path)
+                        let shadowPath = MotionBasicAnimation.shadow(path: path)
                         shadowPath.fromValue = s.shadowPath
                         a.append(shadowPath)
                     }
                     
-                    let shadowOffset = Motion.shadow(offset: offset)
+                    let shadowOffset = MotionBasicAnimation.shadow(offset: offset)
                     shadowOffset.fromValue = s.shadowOffset
                     a.append(shadowOffset)
                     
-                    let shadowOpacity = Motion.shadow(opacity: opacity)
+                    let shadowOpacity = MotionBasicAnimation.shadow(opacity: opacity)
                     shadowOpacity.fromValue = s.shadowOpacity
                     a.append(shadowOpacity)
                     
-                    let shadowRadius = Motion.shadow(radius: radius)
+                    let shadowRadius = MotionBasicAnimation.shadow(radius: radius)
                     shadowRadius.fromValue = s.shadowRadius
                     a.append(shadowRadius)
                 default:break
@@ -462,7 +462,30 @@ extension CABasicAnimation {
     }
 }
 
-extension Motion {
+extension CAKeyframeAnimation {
+    /**
+     A convenience initializer that takes a given MotionAnimationKeyPath.
+     - Parameter keyPath: An MotionAnimationKeyPath.
+     */
+    public convenience init(keyPath: MotionAnimationKeyPath) {
+        self.init(keyPath: keyPath.rawValue)
+    }
+}
+
+public struct MotionKeyframeAnimation {
+    /**
+     Creates a CABasicAnimation for the backgroundColor key path.
+     - Parameter color: A UIColor.
+     - Returns: A CABasicAnimation.
+     */
+    public static func background(color: UIColor) -> CAKeyframeAnimation {
+        let animation = CAKeyframeAnimation(keyPath: .backgroundColor)
+        animation.values = [color.cgColor]
+        return animation
+    }
+}
+
+public struct MotionBasicAnimation {
     /**
      Creates a CABasicAnimation for the backgroundColor key path.
      - Parameter color: A UIColor.

@@ -110,6 +110,7 @@ open class PageMenuController: UIViewController {
             }
             
             prepareViewControllers()
+            prepareTabBar()
             layoutSubviews()
         }
     }
@@ -133,7 +134,11 @@ open class PageMenuController: UIViewController {
     fileprivate var previousContentOffset: CGFloat = 0
     
     /// The number of views used in the scrollViewPool.
-    fileprivate let viewPoolCount = 3
+    open var viewPoolCount = 3 {
+        didSet {
+            layoutSubviews()
+        }
+    }
     
     /**
      An initializer that accepts an Array of UIViewControllers.
@@ -177,6 +182,7 @@ open class PageMenuController: UIViewController {
         view.contentScaleFactor = Screen.scale
         prepareScrollView()
         prepareViewControllers()
+        prepareTabBar()
     }
 }
 
@@ -218,8 +224,6 @@ extension PageMenuController {
             prepareViewController(at: selectedIndex - 1)
             prepareViewController(at: selectedIndex + 1)
         }
-        
-        prepareTabBar()
     }
     
     /**
@@ -284,19 +288,32 @@ extension PageMenuController {
         vc.view.contentScaleFactor = Screen.scale
         scrollView.addSubview(vc.view)
     }
+    
+    /**
+     Transitions from one view controller to another.
+     - Parameter from: The index of the view controller to transition from.
+     - Parameter to: The index of the view controller to transition to.
+     */
+    fileprivate func prepareViewControllersForTransition(from: Int, to: Int) {
+        let fromVC = viewControllers[from]
+        let toVC = viewControllers[to]
+        
+        fromVC.present(toVC, animated: true)
+    }
 }
 
 extension PageMenuController {
     fileprivate func layoutScrollView() {
-        scrollView.contentSize = CGSize(width: scrollView.width * CGFloat(viewControllers.count), height: scrollView.height)
-        scrollView.contentOffset = CGPoint(x: scrollView.width * CGFloat(selectedIndex), y: 0)
+        let w = view.bounds.width
+        scrollView.contentSize = CGSize(width: w * CGFloat(viewControllers.count), height: scrollView.height)
+        scrollView.contentOffset = CGPoint(x: w * CGFloat(selectedIndex), y: 0)
         
         guard let v = tabBar else {
             scrollView.frame = view.bounds
             return
         }
         
-        let p = tabBar?.height ?? 0
+        let p = v.height
         let y = view.height - p
         
         switch tabBarAlignment {
@@ -310,6 +327,8 @@ extension PageMenuController {
             scrollView.y = 0
             scrollView.height = view.height
         }
+        
+        scrollView.width = w
     }
     
     fileprivate func layoutViewControllers() {
@@ -344,7 +363,8 @@ extension PageMenuController {
      - Parameter position: An Int for the position of the view controller.
      */
     fileprivate func layoutViewController(at index: Int, position: Int) {
-        viewControllers[index].view.frame = CGRect(x: CGFloat(position) * scrollView.width, y: 0, width: scrollView.width, height: scrollView.height)
+        let w = scrollView.width
+        viewControllers[index].view.frame = CGRect(x: CGFloat(position) * w, y: 0, width: w, height: scrollView.height)
     }
     
     /**
@@ -355,20 +375,20 @@ extension PageMenuController {
             return
         }
         
-        let p = tabBar?.height ?? 0
+        let p = v.height
         let y = view.height - p
         
-        tabBar?.width = view.width
+        v.width = view.width
         
         switch tabBarAlignment {
         case .top:
-            tabBar?.isHidden = false
-            tabBar?.y = 0
+            v.isHidden = false
+            v.y = 0
         case .bottom:
-            tabBar?.isHidden = false
-            tabBar?.y = y
+            v.isHidden = false
+            v.y = y
         case .hidden:
-            tabBar?.isHidden = true
+            v.isHidden = true
         }
     }
 }
@@ -411,13 +431,13 @@ extension PageMenuController {
      - Parameter at index: An Int for the view controller position.
      */
     fileprivate func removeViewController(at index: Int) {
-        let vc = viewControllers[index]
+        let v = viewControllers[index]
         
-        guard childViewControllers.contains(vc) else {
+        guard childViewControllers.contains(v) else {
             return
         }
         
-        removeViewController(viewController: vc)
+        removeViewController(viewController: v)
     }
     
     /**
@@ -450,12 +470,15 @@ extension PageMenuController {
             return
         }
         
+        removeViewControllers()
+        
+        prepareViewControllersForTransition(from: selectedIndex, to: i)
+        
         selectedIndex = i
         v.select(at: i)
         
-        removeViewControllers()
-        prepareViewControllers()
-        layoutSubviews()
+        //prepareTabBar()
+        //layoutSubviews()
     }
 }
 
@@ -469,6 +492,7 @@ extension PageMenuController: UIScrollViewDelegate {
         
         removeViewControllers()
         prepareViewControllers()
+        prepareTabBar()
         layoutSubviews()
     }
 }
