@@ -174,7 +174,7 @@ extension UIViewController {
      */
     open func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         print("animationController(forPresented")
-        return isMotionEnabled ? PresentingMotion(isPresenting: true) : nil
+        return isMotionEnabled ? PresentingMotion(isPresenting: true, isInteractive: isInteractiveMotionEnabled) : nil
     }
     
     /**
@@ -184,7 +184,7 @@ extension UIViewController {
      */
     open func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         print("animationController(forDismissed")
-        return isMotionEnabled ? DismissingMotion(isPresenting: true) : nil
+        return isMotionEnabled ? DismissingMotion(isPresenting: true, isInteractive: isInteractiveMotionEnabled) : nil
     }
     
     /**
@@ -221,7 +221,7 @@ extension UIViewController {
      */
     open func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         print("navigationController(_ navigationController")
-        return fromVC.isMotionEnabled ? Motion(isPresenting: operation == .push) : nil
+        return fromVC.isMotionEnabled ? Motion(isPresenting: operation == .push, isInteractive: fromVC.isInteractiveMotionEnabled) : nil
     }
     
     /**
@@ -233,7 +233,7 @@ extension UIViewController {
      */
     open func tabBarController(_ tabBarController: UITabBarController, animationControllerForTransitionFrom fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         print("tabBarController(_ tabBarController")
-        return fromVC.isMotionEnabled ? Motion(isPresenting: true) : nil
+        return fromVC.isMotionEnabled ? Motion(isPresenting: true, isInteractive: fromVC.isInteractiveMotionEnabled) : nil
     }
 }
 
@@ -388,6 +388,9 @@ open class MotionAnimator: NSObject {
     /// A boolean indicating whether Motion is presenting a view controller.
     open fileprivate(set) var isPresenting: Bool
     
+    /// A boolean indicating whether Motion is interactive.
+    open fileprivate(set) var isInteractive: Bool
+    
     /**
      An Array of UIView pairs with common motionIdentifiers in
      the from and to view controllers.
@@ -448,6 +451,7 @@ open class MotionAnimator: NSObject {
     /// The default initializer.
     public override init() {
         isPresenting = false
+        isInteractive = false
         super.init()
     }
     
@@ -455,9 +459,12 @@ open class MotionAnimator: NSObject {
      An initializer to modify the presenting and container state.
      - Parameter isPresenting: A boolean value indicating if the
      Motion instance is presenting the view controller.
+     - Parameter isInteractive: A boolean value indicating if the 
+     Motion instance is an interactive animation.
      */
-    public init(isPresenting: Bool) {
+    public init(isPresenting: Bool, isInteractive: Bool) {
         self.isPresenting = isPresenting
+        self.isInteractive = isInteractive
         super.init()
     }
     
@@ -625,10 +632,18 @@ extension MotionAnimator {
                 snapshotGroup.isRemovedOnCompletion = false
                 snapshotGroup.timingFunction = MotionAnimationTimingFunctionToValue(timingFunction: tf)
                 
+                if s.isInteractive {
+                    snapshotGroup.speed = 0
+                }
+                
                 let snapshotChildGroup = Motion.animate(group: snapshotChildAnimations, duration: d)
                 snapshotChildGroup.fillMode = MotionAnimationFillModeToValue(mode: .forwards)
                 snapshotChildGroup.isRemovedOnCompletion = false
                 snapshotChildGroup.timingFunction = MotionAnimationTimingFunctionToValue(timingFunction: tf)
+                
+                if s.isInteractive {
+                    snapshotChildGroup.speed = 0
+                }
                 
                 snapshot.animate(snapshotGroup)
                 snapshot.subviews.first?.animate(snapshotChildGroup)
