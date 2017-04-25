@@ -144,7 +144,7 @@ extension UINavigationItem {
 	}
     
     /// Should center the contentView.
-    public var contentViewAlignment: ContentViewAlignment {
+    open var contentViewAlignment: ContentViewAlignment {
         get {
             return navigationItem.contentViewAlignment
         }
@@ -154,18 +154,18 @@ extension UINavigationItem {
     }
 	
     /// Content View.
-    public var contentView: UIView {
+    open var contentView: UIView {
         return navigationItem.contentView
     }
     
 	/// Back Button.
-	public var backButton: IconButton {
+	open var backButton: IconButton {
 		return navigationItem.backButton
 	}
 	
     /// Title text.
 	@nonobjc
-	public var title: String? {
+	open var title: String? {
 		get {
 			return titleLabel.text
 		}
@@ -176,12 +176,12 @@ extension UINavigationItem {
 	}
     
 	/// Title Label.
-	public var titleLabel: UILabel {
+	open var titleLabel: UILabel {
 		return navigationItem.titleLabel
 	}
 	
 	/// Detail text.
-	public var detail: String? {
+	open var detail: String? {
 		get {
 			return detailLabel.text
 		}
@@ -192,12 +192,12 @@ extension UINavigationItem {
 	}
 	
 	/// Detail Label.
-	public var detailLabel: UILabel {
+	open var detailLabel: UILabel {
 		return navigationItem.detailLabel
 	}
 	
 	/// Left side UIViews.
-	public var leftViews: [UIView] {
+	open var leftViews: [UIView] {
 		get {
 			return navigationItem.leftViews
 		}
@@ -207,7 +207,7 @@ extension UINavigationItem {
 	}
 	
 	/// Right side UIViews.
-	public var rightViews: [UIView] {
+	open var rightViews: [UIView] {
 		get {
 			return navigationItem.rightViews
 		}
