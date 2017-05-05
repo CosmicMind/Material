@@ -70,10 +70,10 @@ open class TabBar: Bar {
     /// Enables and disables bouncing when swiping.
     open var isBounceEnabled: Bool {
         get {
-            return contentView.bounces
+            return scrollView.bounces
         }
         set(value) {
-            contentView.bounces = value
+            scrollView.bounces = value
         }
     }
     
@@ -83,6 +83,9 @@ open class TabBar: Bar {
             layoutSubviews()
         }
     }
+    
+    /// A reference to the scroll view when the tab bar style is scrollable.
+    open fileprivate(set) var scrollView: UIScrollView!
     
     /// A delegation reference.
     open weak var delegate: TabBarDelegate?
@@ -219,8 +222,8 @@ open class TabBar: Bar {
                 w += width
             }
             
-            if w > contentView.width {
-                contentView.contentSize.width = w
+            if w > scrollView.width {
+                scrollView.contentSize.width = w
             }
         } else {
             contentView.grid.axis.columns = buttons.count
@@ -243,11 +246,11 @@ open class TabBar: Bar {
      */
     open override func prepare() {
         super.prepare()
-        isBounceEnabled = true
         contentEdgeInsetsPreset = .none
         interimSpacePreset = .interimSpace5
-        prepareLine()
+        prepareScrollView()
         prepareDivider()
+        prepareLine()
     }
 }
 
@@ -274,6 +277,18 @@ extension TabBar {
         button.addTarget(self, action: #selector(handleLineAnimation(button:)), for: .touchUpInside)
     }
     
+    /// Prepares the scroll view. 
+    fileprivate func prepareScrollView() {
+        scrollView = UIScrollView()
+        scrollView.bounces = false
+        scrollView.isPagingEnabled = true
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.showsHorizontalScrollIndicator = false
+        contentView.addSubview(scrollView)
+    }
+}
+
+extension TabBar {
     /**
      Removes the line animation handlers.
      - Parameter button: A UIButton.

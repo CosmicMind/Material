@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9606CFAC1E957AC3006B4E74 /* TabsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9606CFAB1E957AC3006B4E74 /* TabsController.swift */; };
+		960E35061EB0FC5700EB124A /* Material+MotionDynamics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960E35051EB0FC5700EB124A /* Material+MotionDynamics.swift */; };
 		961409B01E43D15C00E7BA99 /* CollectionViewCard.swift in Headers */ = {isa = PBXBuildFile; fileRef = 961730591E145DE900A9A297 /* CollectionViewCard.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		961409B11E43D15C00E7BA99 /* FABMenu.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96A183621E0C6CE200083C30 /* FABMenu.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		961409B21E43D15C00E7BA99 /* FABMenuController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96A183641E0C6DD400083C30 /* FABMenuController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -189,6 +190,7 @@
 
 /* Begin PBXFileReference section */
 		9606CFAB1E957AC3006B4E74 /* TabsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabsController.swift; sourceTree = "<group>"; };
+		960E35051EB0FC5700EB124A /* Material+MotionDynamics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+MotionDynamics.swift"; sourceTree = "<group>"; };
 		961276621DCD8B1800A7D920 /* CharacterAttribute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacterAttribute.swift; sourceTree = "<group>"; };
 		961730591E145DE900A9A297 /* CollectionViewCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCard.swift; sourceTree = "<group>"; };
 		961E6BDE1DDA2A95004E6C93 /* Application.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
@@ -657,6 +659,7 @@
 			children = (
 				96BFC1671E61D9FD0075DE1F /* Material+Motion.swift */,
 				96BFC1691E61DAA10075DE1F /* Material+MotionAnimation.swift */,
+				960E35051EB0FC5700EB124A /* Material+MotionDynamics.swift */,
 			);
 			name = Motion;
 			sourceTree = "<group>";
@@ -946,6 +949,7 @@
 				965E81221DD4D5C800D61E4B /* TextView.swift in Sources */,
 				965E80E61DD4C55200D61E4B /* Material+Obj-C.swift in Sources */,
 				965E80E71DD4C55200D61E4B /* Material+UIView.swift in Sources */,
+				960E35061EB0FC5700EB124A /* Material+MotionDynamics.swift in Sources */,
 				965E80E81DD4C55200D61E4B /* Material+CALayer.swift in Sources */,
 				965E80E91DD4C55200D61E4B /* Material+String.swift in Sources */,
 				965E80F71DD4D59500D61E4B /* Card.swift in Sources */,

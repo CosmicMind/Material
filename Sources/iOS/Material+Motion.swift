@@ -92,6 +92,9 @@ fileprivate var MotionInstanceControllerKey: UInt8 = 0
 fileprivate struct MotionInstance {
     fileprivate var identifier: String
     fileprivate var animations: [MotionAnimation]
+    
+    /// A reference to the panGesture for interactive transitions.
+    fileprivate var panGesture: UIPanGestureRecognizer?
 }
 
 fileprivate struct MotionInstanceController {
@@ -135,6 +138,7 @@ extension UIViewController: MotionDelegate, UIViewControllerTransitioningDelegat
         set(value) {
             if value {
                 prepareMotionDelegation()
+                view.prepareInteractiveTransitionPanGesture()
                 motionInstanceController.isMotionEnabled = true
             }
             
@@ -242,7 +246,7 @@ extension UIView {
     fileprivate var motionInstance: MotionInstance {
         get {
             return AssociatedObject(base: self, key: &MotionInstanceKey) {
-                return MotionInstance(identifier: "", animations: [])
+                return MotionInstance(identifier: "", animations: [], panGesture: nil)
             }
         }
         set(value) {
@@ -268,6 +272,15 @@ extension UIView {
         set(value) {
             motionInstance.animations = value
         }
+    }
+}
+
+extension UIView {
+    /// Prepares the interactive pan gesture.
+    fileprivate func prepareInteractiveTransitionPanGesture() {
+        motionInstance.panGesture = UIPanGestureRecognizer()
+        motionInstance.panGesture?.maximumNumberOfTouches = 1
+        addGestureRecognizer(motionInstance.panGesture!)
     }
 }
 
@@ -403,16 +416,6 @@ open class MotionAnimator: NSObject {
     /// A reference to the transition background view.
     open let transitionBackgroundView = UIView()
     
-    /// A reference to the view controller that is being transitioned to.
-    open var toViewController: UIViewController {
-        return transitionContext.viewController(forKey: .to)!
-    }
-    
-    /// A reference to the view controller that is being transitioned from.
-    open var fromViewController: UIViewController {
-        return transitionContext.viewController(forKey: .from)!
-    }
-    
     /// The transition context for the current transition.
     open fileprivate(set) var transitionContext: UIViewControllerContextTransitioning!
     
@@ -427,6 +430,16 @@ open class MotionAnimator: NSObject {
     
     /// The view that is used to animate the transitions between view controllers.
     open fileprivate(set) var transitionView = UIView()
+    
+    /// A reference to the view controller that is being transitioned to.
+    open var toViewController: UIViewController {
+        return transitionContext.viewController(forKey: .to)!
+    }
+    
+    /// A reference to the view controller that is being transitioned from.
+    open var fromViewController: UIViewController {
+        return transitionContext.viewController(forKey: .from)!
+    }
     
     /// The view that is being transitioned to.
     open var toView: UIView {
@@ -828,6 +841,10 @@ extension Motion {
 extension Motion {
     /// Cleans up the animation transition.
     fileprivate func cleanUpAnimation() {
+        guard !isInteractive else {
+            return
+        }
+        
         Motion.delay(transitionDuration(using: transitionContext) + delayTransitionByTimeInterval) { [weak self] in
             guard let s = self else {
                 return
@@ -842,6 +859,10 @@ extension Motion {
     
     /// Removes the transitionSnapshot from its superview.
     fileprivate func removeTransitionSnapshot() {
+        guard !isInteractive else {
+            return
+        }
+        
         Motion.delay(delay) { [weak self] in
             self?.transitionSnapshot.removeFromSuperview()
         }
@@ -921,7 +942,6 @@ open class InteractiveMotion: UIPercentDrivenInteractiveTransition {
         self.transitionContext = transitionContext
         
         preparePanGesture()
-        prepareContainerView()
     }
     //
     //
@@ -941,20 +961,13 @@ open class InteractiveMotion: UIPercentDrivenInteractiveTransition {
 
 extension InteractiveMotion {
     fileprivate func preparePanGesture() {
-        panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanUpdate(gestureRecognizer:)))
-        panGesture.maximumNumberOfTouches = 1
-    }
-    
-    /// Prepares the containerView.
-    fileprivate func prepareContainerView() {
-        containerView = transitionContext.containerView
-        containerView.addGestureRecognizer(panGesture)
+        (animator as? PresentingMotion)?.fromView.motionInstance.panGesture?.addTarget(self, action: #selector(handleInteractiveTransition(gestureRecognizer:)))
     }
 }
 
 extension InteractiveMotion {
     @objc
-    fileprivate func handlePanUpdate(gestureRecognizer: UIGestureRecognizer) {
+    fileprivate func handleInteractiveTransition(gestureRecognizer: UIGestureRecognizer) {
         switch gestureRecognizer.state {
         case .began:
             panGesture.setTranslation(.zero, in: containerView)
