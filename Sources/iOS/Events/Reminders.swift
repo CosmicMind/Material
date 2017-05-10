@@ -28,7 +28,6 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-
 import EventKit
 
 @objc(RemindersAuthorizationStatus)
@@ -110,32 +109,84 @@ open class Reminders: NSObject {
     open weak var delegate: RemindersDelegate?
     
     open func requestAuthorization(_ completion: ((RemindersAuthorizationStatus) -> Void)? = nil) {
-        eventStore.requestAccess(to: .reminder) { [weak self, completion = completion] (permission, _) in
+        eventStore.requestAccess(to: .reminder) { [weak self, completion = completion] (isAuthorized, _) in
             DispatchQueue.main.async { [weak self, completion = completion] in
                 guard let s = self else {
                     return
                 }
-                if permission {
-                    s.delegate?.reminders?(reminders: s, status: .authorized)
-                    s.delegate?.reminders?(authorized: s)
-                    completion?(.authorized)
-                } else {
+                
+                guard isAuthorized else {
+                    completion?(.denied)
                     s.delegate?.reminders?(reminders: s, status: .denied)
                     s.delegate?.reminders?(denied: s)
-                    completion?(.denied)
+                    return
                 }
+                
+                completion?(.authorized)
+                s.delegate?.reminders?(reminders: s, status: .authorized)
+                s.delegate?.reminders?(authorized: s)
             }
         }
     }
 }
 
-// List CRUD operations
 extension Reminders {
+    /**
+     Creates a predicate for the reminders Array of calendars.
+     - Parameter in calendars: An optional Array of EKCalendars.
+     */
+    open func predicateForReminders(in calendars: [EKCalendar]) -> NSPredicate {
+        return eventStore.predicateForReminders(in: calendars)
+    }
     
     /**
-     A method for creating new Reminder lists
-     - Parameter list title: the name of the list
-     - Parameter completion: optional completion call back
+     A method for retrieving reminder calendars in alphabetical order.
+     - Parameter completion: A completion call back
+     */
+    open func calendars(completion: @escaping ([EKCalendar]) -> Void) {
+        DispatchQueue.global(qos: .default).async { [weak self, completion = completion] in
+            guard let s = self else {
+                return
+            }
+            
+            let calendar = s.eventStore.calendars(for: .reminder).sorted(by: { (a, b) -> Bool in
+                return a.title < b.title
+            })
+            
+            DispatchQueue.main.async { [calendar = calendar, completion = completion] in
+                completion(calendar)
+            }
+        }
+    }
+    
+    /**
+     A method for retrieving events with a predicate in date sorted order.
+     - Parameter predicate: A NSPredicate.
+     - Parameter completion: A completion call back.
+     */
+    open func reminders(matching predicate: NSPredicate, completion: @escaping ([EKReminder]) -> Void) {
+        eventStore.fetchReminders(matching: predicate, completion: { [completion = completion] (reminders) in
+            DispatchQueue.main.async { [completion = completion] in
+                completion(reminders ?? [])
+            }
+        })
+    }
+    
+    /**
+     Fetch all the reminders in a given Array of calendar.
+     - Parameter in calendars: An Array of EKCalendars.
+     - Parameter completion: A completion call back.
+     */
+    open func reminders(in calendars: [EKCalendar], completion: @escaping ([EKReminder]) -> Void) {
+        reminders(matching: predicateForReminders(in: calendars), completion: completion)
+    }
+}
+
+extension Reminders {
+    /**
+     A method for creating new Reminder calendar.
+     - Parameter list title: the name of the list.
+     - Parameter completion: An optional completion call back.
      */
     open func create(list title: String, completion: ((Bool, Error?) -> Void)? = nil) {
         DispatchQueue.global(qos: .default).async { [weak self, completion = completion] in
@@ -173,9 +224,9 @@ extension Reminders {
     }
     
     /**
-     A method for deleting existing Reminder lists
-     - Parameter list identifier: the name of the list
-     - Parameter completion: optional completion call back
+     A method for deleting existing Reminder lists,
+     - Parameter list identifier: the name of the list.
+     - Parameter completion: An optional completion call back.
      */
     open func delete(list identifier: String, completion: ((Bool, Error?) -> Void)? = nil) {
         DispatchQueue.global(qos: .default).async { [weak self, completion = completion] in
@@ -207,99 +258,83 @@ extension Reminders {
             }
         }
     }
-    
-    /**
-     A method for retrieving reminder lists
-     - Parameter completion: completion call back
-     */
-    public func fetchLists(completion: ([EKCalendar]) -> Void) {
-        completion(eventStore.calendars(for: .reminder))
-    }
 }
 
-// Reminder list CRUD operations
-extension Reminders {
-    
-    /**
-     A method for retrieving reminders from an optionally existing list.
-     if the list does not exist the reminders will be retrieved from the default reminders list
-     - Parameter list: An optional EKCalendar.
-     - Parameter completion: completion call back
-     */
-    open func fetchReminders(list: EKCalendar, completion: @escaping ([EKReminder]) -> Void) {
-        var lists = [EKCalendar]()
-        lists.append(list)
-        
-        eventStore.fetchReminders(matching: eventStore.predicateForReminders(in: lists), completion: { [completion = completion] (reminders) in
-            DispatchQueue.main.async { [completion = completion] in
-                completion(reminders ?? [])
-            }
-        })
-    }
-    
-    // FIX ME: Should we use the calendar identifier here instead of the title for finding the right cal?
-    /**
-     A method for adding a new reminder to an optionally existing list.
-     if the list does not exist it will be added to the default reminders list.
-     - Parameter completion: optional completion call back
-     */
-    open func create(title: String, dateComponents: DateComponents, in list: EKCalendar? = nil, completion: ((Error?) -> Void)? = nil) {
-        var reminderCal = [EKCalendar]()
-        if list != nil {
-            fetchLists(completion: { (calendars) in
-                for calendar in calendars {
-                    if calendar.title == list!.title {
-                        reminderCal.append(calendar)
-                    }
-                }
-            })
-        }
-        let reminder = EKReminder(eventStore: eventStore)
-        reminder.title = title
-        reminder.dueDateComponents = dateComponents
-        reminder.calendar = reminderCal.last!
-        var created: Bool = false
-        var error: Error?
-        do {
-            try eventStore.save(reminder, commit: true)
-            created = true
-        } catch let e {
-            error = e
-        }
-        DispatchQueue.main.async { [weak self] in
-            guard let s = self else {
-                return
-            }
-            s.delegate?.reminders?(reminders: s, created: created)
-            if let c = completion {
-                c(error)
-            }
-        }
-    }
-    
-    // FIX ME: Should we use the calendar identifier here instead of the title for finding the right cal?
-    /**
-     A method for adding a new reminder to an optionally existing list.
-     if the list does not exist it will be added to the default reminders list.
-     - Parameter completion: optional completion call back
-     */
-    open func delete(reminder: EKReminder, completion: ((Error?) -> Void)? = nil) {
-        var deleted: Bool = false
-        var error: Error?
-        do {
-            try eventStore.remove(reminder, commit: true)
-            deleted = true
-        } catch let e {
-            error = e
-        }
-        DispatchQueue.main.async { [weak self] in
-            guard let s = self else {
-                return
-            }
-            s.delegate?.reminders?(reminders: s, deleted: deleted)
-            if let c = completion {
-                c(error)
-            }
-        }
-    }
+extension Reminders {    
+//    // FIX ME: Should we use the calendar identifier here instead of the title for finding the right cal?
+//    /**
+//     A method for adding a new reminder to an optionally existing list.
+//     if the list does not exist it will be added to the default reminders list.
+//     - Parameter completion: optional A completion call back
+//     */
+//    open func create(title: String, dateComponents: DateComponents, in calendar: EKCalendar? = nil, completion: ((Error?) -> Void)? = nil) {
+//        var reminderCal = [EKCalendar]()
+//        
+//        if calendar != nil {
+//            calendars(completion: { (calendars) in
+//                for v in calendars {
+//                    if v.title == calendar!.title {
+//                        reminderCal.append(calendar)
+//                    }
+//                }
+//            })
+//        }
+//        
+//        let reminder = EKReminder(eventStore: eventStore)
+//        reminder.title = title
+//        reminder.dueDateComponents = dateComponents
+//        reminder.calendar = reminderCal.last!
+//        
+//        var created: Bool = false
+//        var error: Error?
+//        
+//        do {
+//            try eventStore.save(reminder, commit: true)
+//            created = true
+//        } catch let e {
+//            error = e
+//        }
+//        
+//        DispatchQueue.main.async { [weak self] in
+//            guard let s = self else {
+//                return
+//            }
+//            
+//            s.delegate?.reminders?(reminders: s, created: created)
+//            
+//            if let c = completion {
+//                c(error)
+//            }
+//        }
+//    }
+//    
+//    // FIX ME: Should we use the calendar identifier here instead of the title for finding the right cal?
+//    /**
+//     A method for adding a new reminder to an optionally existing list.
+//     if the list does not exist it will be added to the default reminders list.
+//     - Parameter completion: An optional completion call back.
+//     */
+//    open func delete(reminder: EKReminder, completion: ((Error?) -> Void)? = nil) {
+//        var deleted: Bool = false
+//        var error: Error?
+//        
+//        do {
+//            try eventStore.remove(reminder, commit: true)
+//            deleted = true
+//        } catch let e {
+//            error = e
+//        }
+//        
+//        DispatchQueue.main.async { [weak self] in
+//            guard let s = self else {
+//                return
+//            }
+//        
+//            s.delegate?.reminders?(reminders: s, deleted: deleted)
+//            
+//            if let c = completion {
+//                c(error)
+//            }
+//        }
+//    }
 }
