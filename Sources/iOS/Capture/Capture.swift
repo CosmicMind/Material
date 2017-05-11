@@ -419,7 +419,7 @@ open class Capture: View {
             return activeCamera!.flashMode
         }
         set(value) {
-            var error: Error?
+            var error: NSError?
             if isFlashModeSupported(flashMode: flashMode) {
                 do {
                     let device = activeCamera!

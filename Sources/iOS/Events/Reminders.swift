@@ -36,63 +36,73 @@ public enum RemindersAuthorizationStatus: Int {
     case denied
 }
 
+@objc(RemindersPriority)
+public enum RemindersPriority: Int {
+    case none
+    case high = 1
+    case medium = 5
+    case low = 9
+}
+
 @objc(RemindersDelegate)
 public protocol RemindersDelegate {
     /**
-     A delegation method that is executed when the Reminder status is updated.
-     - Parameter reminders: A reference to the Reminder.
+     A delegation method that is executed when the Reminders status is updated.
+     - Parameter reminders: A reference to the Reminders.
      - Parameter status: A reference to the ReminderAuthorizationStatus.
      */
     @objc
     optional func reminders(reminders: Reminders, status: RemindersAuthorizationStatus)
     
     /**
-     A delegation method that is executed when Reminders is authorized.
+     A delegation method that is executed when reminders authorization is authorized.
      - Parameter reminders: A reference to the Reminders.
      */
     @objc
     optional func reminders(authorized reminders: Reminders)
     
     /**
-     A delegation method that is executed when Reminders is denied.
+     A delegation method that is executed when reminders authorization is denied.
      - Parameter reminders: A reference to the Reminders.
      */
     @objc
     optional func reminders(denied reminders: Reminders)
     
     /**
-     A delegation method that is executed when a new Reminders list is created
+     A delegation method that is executed when a new calendar is created
      - Parameter reminders: A reference to the Reminders.
      - Parameter calendar: An optional reference to the calendar created.
      - Parameter error: An optional error if the calendar failed to be created.
      */
     @objc
-    optional func reminders(reminders: Reminders, calendar: EKCalendar?, error: Error?)
+    optional func reminders(reminders: Reminders, createdCalendar calendar: EKCalendar?, error: Error?)
+    
+    /**
+     A delegation method that is executed when a new calendar is created.
+     - Parameter reminders: A reference to the Reminder.
+     - Parameter removed calendar: A reference to the calendar created.
+     - Parameter error: An optional error if the calendar failed to be removed.
+     */
+    @objc
+    optional func reminders(reminders: Reminders, removedCalendar calendar: EKCalendar, error: Error?)
+    
+    /**
+     A delegation method that is executed when a new reminder is created.
+     - Parameter reminders: A reference to the Reminders.
+     - Parameter calendar: An optional reference to the reminder created.
+     - Parameter error: An optional error if the reminder failed to be created.
+     */
+    @objc
+    optional func reminders(reminders: Reminders, createdReminder reminder: EKReminder?, error: Error?)
     
     /**
      A delegation method that is executed when a new Reminders list is created
      - Parameter reminders: A reference to the Reminder.
-     - Parameter calendar: A reference to the calendar created.
      - Parameter deleted: A boolean describing if the operation succeeded or not.
+     - Parameter error: An optional error if the reminder failed to be removed.
      */
     @objc
-    optional func reminders(reminders: Reminders, calendar: EKCalendar, deleted: Bool)
-    
-    /**
-     A delegation method that is executed when a new Reminders list is created
-     - Parameter reminders: A reference to the Reminder.
-     - Parameter created: A boolean describing if the operation succeeded or not.
-     */
-    @objc
-    optional func reminders(reminders: Reminders, created: Bool)
-    
-    /**
-     A delegation method that is executed when a new Reminders list is created
-     - Parameter reminders: A reference to the Reminder.
-     - Parameter deleted: A boolean describing if the operation succeeded or not.
-     */
-    @objc
-    optional func reminders(reminders: Reminders, deleted: Bool)
+    optional func reminders(reminders: Reminders, removedReminder reminder: EKReminder, error: Error?)
 }
 
 @objc(Reminders)
@@ -279,32 +289,38 @@ extension Reminders {
                 }
                 
                 completion?(success ? calendar : nil, error)
-                s.delegate?.reminders?(reminders: s, calendar: calendar, error: error)
+                s.delegate?.reminders?(reminders: s, createdCalendar: success ? calendar : nil, error: error)
             }
         }
     }
     
     /**
-     A method for deleting existing Reminder lists,
-     - Parameter calendar identifier: the name of the list.
+     A method for removing existing calendar,
+     - Parameter calendar identifier: The EKCalendar identifier String.
      - Parameter completion: An optional completion call back.
      */
-    open func delete(calendar identifier: String, completion: ((Bool, Error?) -> Void)? = nil) {
+    open func remove(calendar identifier: String, completion: ((Bool, Error?) -> Void)? = nil) {
         DispatchQueue.global(qos: .default).async { [weak self, completion = completion] in
             guard let s = self else {
                 return
             }
             
+            var success = false
+            var error: Error?
+            
             guard let calendar = s.eventStore.calendar(withIdentifier: identifier) else {
+                var userInfo = [String: Any]()
+                userInfo[NSLocalizedDescriptionKey] = "[Material Error: Cannot fix remove calendar with identifier \(identifier).]"
+                userInfo[NSLocalizedFailureReasonErrorKey] = "[Material Error: Cannot fix remove calendar with identifier \(identifier).]"
+                error = NSError(domain: "com.cosmicmind.material.reminders", code: 0001, userInfo: userInfo)
+                
+                completion?(success, error)
                 return
             }
             
-            var deleted = false
-            var error: Error?
-            
             do {
                 try s.eventStore.removeCalendar(calendar, commit: true)
-                deleted = true
+                success = true
             } catch let e {
                 error = e
             }
@@ -314,88 +330,94 @@ extension Reminders {
                     return
                 }
                 
-                s.delegate?.reminders?(reminders: s, calendar: calendar, deleted: deleted)
-                completion?(deleted, error)
+                completion?(success, error)
+                s.delegate?.reminders?(reminders: s, removedCalendar: calendar, error: error)
             }
         }
     }
 }
 
 extension Reminders {    
-//    // FIX ME: Should we use the calendar identifier here instead of the title for finding the right cal?
-//    /**
-//     A method for adding a new reminder to an optionally existing list.
-//     if the list does not exist it will be added to the default reminders list.
-//     - Parameter completion: optional A completion call back
-//     */
-//    open func create(title: String, dateComponents: DateComponents, in calendar: EKCalendar? = nil, completion: ((Error?) -> Void)? = nil) {
-//        var reminderCal = [EKCalendar]()
-//        
-//        if calendar != nil {
-//            calendars(completion: { (calendars) in
-//                for v in calendars {
-//                    if v.title == calendar!.title {
-//                        reminderCal.append(calendar)
-//                    }
-//                }
-//            })
-//        }
-//        
-//        let reminder = EKReminder(eventStore: eventStore)
-//        reminder.title = title
-//        reminder.dueDateComponents = dateComponents
-//        reminder.calendar = reminderCal.last!
-//        
-//        var created: Bool = false
-//        var error: Error?
-//        
-//        do {
-//            try eventStore.save(reminder, commit: true)
-//            created = true
-//        } catch let e {
-//            error = e
-//        }
-//        
-//        DispatchQueue.main.async { [weak self] in
-//            guard let s = self else {
-//                return
-//            }
-//            
-//            s.delegate?.reminders?(reminders: s, created: created)
-//            
-//            if let c = completion {
-//                c(error)
-//            }
-//        }
-//    }
-//    
-//    // FIX ME: Should we use the calendar identifier here instead of the title for finding the right cal?
-//    /**
-//     A method for adding a new reminder to an optionally existing list.
-//     if the list does not exist it will be added to the default reminders list.
-//     - Parameter completion: An optional completion call back.
-//     */
-//    open func delete(reminder: EKReminder, completion: ((Error?) -> Void)? = nil) {
-//        var deleted: Bool = false
-//        var error: Error?
-//        
-//        do {
-//            try eventStore.remove(reminder, commit: true)
-//            deleted = true
-//        } catch let e {
-//            error = e
-//        }
-//        
-//        DispatchQueue.main.async { [weak self] in
-//            guard let s = self else {
-//                return
-//            }
-//        
-//            s.delegate?.reminders?(reminders: s, deleted: deleted)
-//            
-//            if let c = completion {
-//                c(error)
-//            }
-//        }
-//    }
+    // FIX ME: Should we use the calendar identifier here instead of the title for finding the right cal?
+    /**
+     A method for adding a new reminder to an optionally existing list.
+     if the list does not exist it will be added to the default reminders list.
+     - Parameter completion: optional A completion call back
+     */
+    open func create(reminder title: String, calendar: EKCalendar, startDateComponents: DateComponents? = nil, dueDateComponents: DateComponents? = nil, priority: RemindersPriority? = .none, notes: String?, completion: ((EKReminder?, Error?) -> Void)? = nil) {
+        DispatchQueue.global(qos: .default).async { [weak self, calendar = calendar, completion = completion] in
+            guard let s = self else {
+                return
+            }
+            
+            let reminder = EKReminder(eventStore: s.eventStore)
+            reminder.title = title
+            reminder.calendar = calendar
+            reminder.startDateComponents = startDateComponents
+            reminder.dueDateComponents = dueDateComponents
+            reminder.priority = priority?.rawValue ?? RemindersPriority.none.rawValue
+            reminder.notes = notes
+            
+            var success = false
+            var error: Error?
+            
+            do {
+                try s.eventStore.save(reminder, commit: true)
+                success = true
+            } catch let e {
+                error = e
+            }
+            
+            DispatchQueue.main.async { [weak self] in
+                guard let s = self else {
+                    return
+                }
+                
+                completion?(success ? reminder : nil, error)
+                s.delegate?.reminders?(reminders: s, createdReminder: success ? reminder : nil, error: error)
+            }
+        }
+    }
+
+    /**
+     A method for removing existing reminder,
+     - Parameter reminder identifier: The EKReminder identifier String.
+     - Parameter completion: An optional completion call back.
+     */
+    open func remove(reminder identifier: String, completion: ((Bool, Error?) -> Void)? = nil) {
+        DispatchQueue.global(qos: .default).async { [weak self, completion = completion] in
+            guard let s = self else {
+                return
+            }
+            
+            var success = false
+            var error: Error?
+            
+            guard let reminder = s.eventStore.calendarItem(withIdentifier: identifier) as? EKReminder else {
+                var userInfo = [String: Any]()
+                userInfo[NSLocalizedDescriptionKey] = "[Material Error: Cannot fix remove calendar with identifier \(identifier).]"
+                userInfo[NSLocalizedFailureReasonErrorKey] = "[Material Error: Cannot fix remove calendar with identifier \(identifier).]"
+                error = NSError(domain: "com.cosmicmind.material.reminders", code: 0001, userInfo: userInfo)
+                
+                completion?(success, error)
+                return
+            }
+            
+            do {
+                try s.eventStore.remove(reminder, commit: true)
+                success = true
+            } catch let e {
+                error = e
+            }
+            
+            DispatchQueue.main.async { [weak self, completion = completion] in
+                guard let s = self else {
+                    return
+                }
+                
+                completion?(success, error)
+                s.delegate?.reminders?(reminders: s, removedReminder: reminder, error: error)
+            }
+        }
+    }
 }
