@@ -63,20 +63,20 @@ public protocol RemindersDelegate {
     /**
      A delegation method that is executed when a new Reminders list is created
      - Parameter reminders: A reference to the Reminders.
-     - Parameter list: A reference to the calendar created
-     - Parameter created: A boolean describing if the operation succeeded or not.
+     - Parameter calendar: An optional reference to the calendar created.
+     - Parameter error: An optional error if the calendar failed to be created.
      */
     @objc
-    optional func reminders(reminders: Reminders, list: EKCalendar, created: Bool)
+    optional func reminders(reminders: Reminders, calendar: EKCalendar?, error: Error?)
     
     /**
      A delegation method that is executed when a new Reminders list is created
      - Parameter reminders: A reference to the Reminder.
-     - Parameter list: A reference to the calendar created
+     - Parameter calendar: A reference to the calendar created.
      - Parameter deleted: A boolean describing if the operation succeeded or not.
      */
     @objc
-    optional func reminders(reminders: Reminders, list: EKCalendar, deleted: Bool)
+    optional func reminders(reminders: Reminders, calendar: EKCalendar, deleted: Bool)
     
     /**
      A delegation method that is executed when a new Reminders list is created
@@ -140,6 +140,30 @@ extension Reminders {
     }
     
     /**
+     Creates a predicate for the reminders Array of calendars that
+     are incomplete and have a given start and end date.
+     - Parameter starting: A Date.
+     - Parameter ending: A Date.
+     - Parameter calendars: An optional Array of [EKCalendar].
+     */
+    open func predicateForIncompleteReminders(starting: Date, ending: Date, calendars: [EKCalendar]? = nil) -> NSPredicate {
+        return eventStore.predicateForIncompleteReminders(withDueDateStarting: starting, ending: ending, calendars: calendars)
+    }
+    
+    /**
+     Creates a predicate for the reminders Array of calendars that
+     are completed and have a given start and end date.
+     - Parameter starting: A Date.
+     - Parameter ending: A Date.
+     - Parameter calendars: An optional Array of [EKCalendar].
+     */
+    open func predicateForCompletedReminders(starting: Date, ending: Date, calendars: [EKCalendar]? = nil) -> NSPredicate {
+        return eventStore.predicateForCompletedReminders(withCompletionDateStarting: starting, ending: ending, calendars: calendars)
+    }
+}
+
+extension Reminders {
+    /**
      A method for retrieving reminder calendars in alphabetical order.
      - Parameter completion: A completion call back
      */
@@ -163,9 +187,11 @@ extension Reminders {
      A method for retrieving events with a predicate in date sorted order.
      - Parameter predicate: A NSPredicate.
      - Parameter completion: A completion call back.
+     - Returns: A fetch reminders request identifier.
      */
-    open func reminders(matching predicate: NSPredicate, completion: @escaping ([EKReminder]) -> Void) {
-        eventStore.fetchReminders(matching: predicate, completion: { [completion = completion] (reminders) in
+    @discardableResult
+    open func reminders(matching predicate: NSPredicate, completion: @escaping ([EKReminder]) -> Void) -> Any {
+        return eventStore.fetchReminders(matching: predicate, completion: { [completion = completion] (reminders) in
             DispatchQueue.main.async { [completion = completion] in
                 completion(reminders ?? [])
             }
@@ -173,68 +199,103 @@ extension Reminders {
     }
     
     /**
-     Fetch all the reminders in a given Array of calendar.
+     Fetch all the reminders in a given Array of calendars.
      - Parameter in calendars: An Array of EKCalendars.
      - Parameter completion: A completion call back.
+     - Returns: A fetch reminders request identifier.
      */
-    open func reminders(in calendars: [EKCalendar], completion: @escaping ([EKReminder]) -> Void) {
-        reminders(matching: predicateForReminders(in: calendars), completion: completion)
+    @discardableResult
+    open func reminders(in calendars: [EKCalendar], completion: @escaping ([EKReminder]) -> Void) -> Any {
+        return reminders(matching: predicateForReminders(in: calendars), completion: completion)
+    }
+    
+    /**
+     Fetch all the reminders in a given Array of calendars that
+     are incomplete, given a start and end date.
+     - Parameter starting: A Date.
+     - Parameter ending: A Date.
+     - Parameter calendars: An Array of EKCalendars.
+     - Parameter completion: A completion call back.
+     - Returns: A fetch reminders request identifier.
+     */
+    @discardableResult
+    open func incomplete(starting: Date, ending: Date, calendars: [EKCalendar]? = nil, completion: @escaping ([EKReminder]) -> Void) -> Any {
+        return reminders(matching: predicateForIncompleteReminders(starting: starting, ending: ending, calendars: calendars), completion: completion)
+    }
+    
+    /**
+     Fetch all the reminders in a given Array of calendars that
+     are completed, given a start and end date.
+     - Parameter starting: A Date.
+     - Parameter ending: A Date.
+     - Parameter calendars: An Array of EKCalendars.
+     - Parameter completion: A completion call back.
+     - Returns: A fetch reminders request identifier.
+     */
+    @discardableResult
+    open func completed(starting: Date, ending: Date, calendars: [EKCalendar]? = nil, completion: @escaping ([EKReminder]) -> Void) -> Any {
+        return reminders(matching: predicateForCompletedReminders(starting: starting, ending: ending, calendars: calendars), completion: completion)
+    }
+    
+    /**
+     Cancels an active reminders request.
+     - Parameter _ identifier: An identifier.
+     */
+    open func cancel(_ identifier: Any) {
+        eventStore.cancelFetchRequest(identifier)
     }
 }
 
 extension Reminders {
     /**
      A method for creating new Reminder calendar.
-     - Parameter list title: the name of the list.
+     - Parameter calendar title: the name of the list.
      - Parameter completion: An optional completion call back.
      */
-    open func create(list title: String, completion: ((Bool, Error?) -> Void)? = nil) {
+    open func create(calendar title: String, completion: ((EKCalendar?, Error?) -> Void)? = nil) {
         DispatchQueue.global(qos: .default).async { [weak self, completion = completion] in
             guard let s = self else {
                 return
             }
             
-            let list = EKCalendar(for: .reminder, eventStore: s.eventStore)
-            list.title = title
+            let calendar = EKCalendar(for: .reminder, eventStore: s.eventStore)
+            calendar.title = title
             
-            for source in s.eventStore.sources {
-                if .local == source.sourceType {
-                    list.source = source
+            calendar.source = s.eventStore.defaultCalendarForNewReminders().source
                     
-                    var created = false
-                    var error: Error?
-                    
-                    do {
-                        try s.eventStore.saveCalendar(list, commit: true)
-                        created = true
-                    } catch let e {
-                        error = e
-                    }
-                    
-                    DispatchQueue.main.async { [weak self, completion = completion] in
-                        guard let s = self else {
-                            return
-                        }
-                        s.delegate?.reminders?(reminders: s, list: list, created: created)
-                        completion?(created, error)
-                    }
+            var success = false
+            var error: Error?
+            
+            do {
+                try s.eventStore.saveCalendar(calendar, commit: true)
+                success = true
+            } catch let e {
+                error = e
+            }
+            
+            DispatchQueue.main.async { [weak self, completion = completion] in
+                guard let s = self else {
+                    return
                 }
+                
+                completion?(success ? calendar : nil, error)
+                s.delegate?.reminders?(reminders: s, calendar: calendar, error: error)
             }
         }
     }
     
     /**
      A method for deleting existing Reminder lists,
-     - Parameter list identifier: the name of the list.
+     - Parameter calendar identifier: the name of the list.
      - Parameter completion: An optional completion call back.
      */
-    open func delete(list identifier: String, completion: ((Bool, Error?) -> Void)? = nil) {
+    open func delete(calendar identifier: String, completion: ((Bool, Error?) -> Void)? = nil) {
         DispatchQueue.global(qos: .default).async { [weak self, completion = completion] in
             guard let s = self else {
                 return
             }
             
-            guard let list = s.eventStore.calendar(withIdentifier: identifier) else {
+            guard let calendar = s.eventStore.calendar(withIdentifier: identifier) else {
                 return
             }
             
@@ -242,7 +303,7 @@ extension Reminders {
             var error: Error?
             
             do {
-                try s.eventStore.removeCalendar(list, commit: true)
+                try s.eventStore.removeCalendar(calendar, commit: true)
                 deleted = true
             } catch let e {
                 error = e
@@ -253,7 +314,7 @@ extension Reminders {
                     return
                 }
                 
-                s.delegate?.reminders?(reminders: s, list: list, deleted: deleted)
+                s.delegate?.reminders?(reminders: s, calendar: calendar, deleted: deleted)
                 completion?(deleted, error)
             }
         }
