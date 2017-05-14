@@ -32,15 +32,15 @@ import UIKit
 
 extension UIViewController {
     /**
-     A convenience property that provides access to the RemindersController.
-     This is the recommended method of accessing the RemindersController
+     A convenience property that provides access to the EventController.
+     This is the recommended method of accessing the EventController
      through child UIViewControllers.
      */
-    public var remindersController: RemindersController? {
+    public var eventController: EventController? {
         var viewController: UIViewController? = self
         while nil != viewController {
-            if viewController is RemindersController {
-                return viewController as? RemindersController
+            if viewController is EventController {
+                return viewController as? EventController
             }
             viewController = viewController?.parent
         }
@@ -48,9 +48,9 @@ extension UIViewController {
     }
 }
 
-open class RemindersController: UIViewController {
-    /// A reference to a Reminder.
-    open let reminders = Reminders()
+open class EventController: UIViewController {
+    /// A reference to an Event instance.
+    open let event = Event()
     
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,15 +68,15 @@ open class RemindersController: UIViewController {
         view.clipsToBounds = true
         view.backgroundColor = .white
         view.contentScaleFactor = Screen.scale
-        prepareReminders()
+        prepareEvent()
     }
 }
 
-extension RemindersController {
-    /// Prepares the reminders.
-    fileprivate func prepareReminders() {
-        reminders.delegate = self
+extension EventController {
+    /// Prepares the event instance.
+    fileprivate func prepareEvent() {
+        event.delegate = self
     }
 }
 
-extension RemindersController: RemindersDelegate {}
+extension EventController: EventDelegate {}

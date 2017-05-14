@@ -30,96 +30,96 @@
 
 import EventKit
 
-@objc(RemindersAuthorizationStatus)
-public enum RemindersAuthorizationStatus: Int {
+@objc(EventReminderAuthorizationStatus)
+public enum EventReminderAuthorizationStatus: Int {
     case authorized
     case denied
 }
 
-@objc(RemindersPriority)
-public enum RemindersPriority: Int {
+@objc(EventReminderPriority)
+public enum EventReminderPriority: Int {
     case none
     case high = 1
     case medium = 5
     case low = 9
 }
 
-@objc(RemindersDelegate)
-public protocol RemindersDelegate {
+@objc(EventDelegate)
+public protocol EventDelegate {
     /**
      A delegation method that is executed when the Reminders status is updated.
-     - Parameter reminders: A reference to the Reminders.
-     - Parameter status: A reference to the ReminderAuthorizationStatus.
+     - Parameter event: A reference to the Reminders.
+     - Parameter status: A reference to the EventReminderAuthorizationStatus.
      */
     @objc
-    optional func reminders(reminders: Reminders, status: RemindersAuthorizationStatus)
+    optional func event(event: Event, status: EventReminderAuthorizationStatus)
     
     /**
-     A delegation method that is executed when reminders authorization is authorized.
-     - Parameter reminders: A reference to the Reminders.
+     A delegation method that is executed when event authorization is authorized.
+     - Parameter event: A reference to the Reminders.
      */
     @objc
-    optional func reminders(authorized reminders: Reminders)
+    optional func event(authorized event: Event)
     
     /**
-     A delegation method that is executed when reminders authorization is denied.
-     - Parameter reminders: A reference to the Reminders.
+     A delegation method that is executed when event authorization is denied.
+     - Parameter event: A reference to the Reminders.
      */
     @objc
-    optional func reminders(denied reminders: Reminders)
+    optional func event(denied event: Event)
     
     /**
      A delegation method that is executed when a new calendar is created
-     - Parameter reminders: A reference to the Reminders.
+     - Parameter event: A reference to the Reminders.
      - Parameter calendar: An optional reference to the calendar created.
      - Parameter error: An optional error if the calendar failed to be created.
      */
     @objc
-    optional func reminders(reminders: Reminders, createdCalendar calendar: EKCalendar?, error: Error?)
+    optional func event(event: Event, createdCalendar calendar: EKCalendar?, error: Error?)
     
     /**
      A delegation method that is executed when a new calendar is created.
-     - Parameter reminders: A reference to the Reminder.
+     - Parameter event: A reference to the Reminders.
      - Parameter removed calendar: A reference to the calendar created.
      - Parameter error: An optional error if the calendar failed to be removed.
      */
     @objc
-    optional func reminders(reminders: Reminders, removedCalendar calendar: EKCalendar, error: Error?)
+    optional func event(event: Event, removedCalendar calendar: EKCalendar, error: Error?)
     
     /**
      A delegation method that is executed when a new reminder is created.
-     - Parameter reminders: A reference to the Reminders.
+     - Parameter event: A reference to the Reminders.
      - Parameter calendar: An optional reference to the reminder created.
      - Parameter error: An optional error if the reminder failed to be created.
      */
     @objc
-    optional func reminders(reminders: Reminders, createdReminder reminder: EKReminder?, error: Error?)
+    optional func event(event: Event, createdReminders reminder: EKReminder?, error: Error?)
     
     /**
      A delegation method that is executed when a new Reminders list is created
-     - Parameter reminders: A reference to the Reminder.
+     - Parameter event: A reference to the Reminders.
      - Parameter deleted: A boolean describing if the operation succeeded or not.
      - Parameter error: An optional error if the reminder failed to be removed.
      */
     @objc
-    optional func reminders(reminders: Reminders, removedReminder reminder: EKReminder, error: Error?)
+    optional func event(event: Event, removedReminders reminder: EKReminder, error: Error?)
 }
 
-@objc(Reminders)
-open class Reminders: NSObject {
+@objc(Event)
+open class Event: NSObject {
     /// A reference to the eventStore.
-    fileprivate let eventStore = EKEventStore()
+    fileprivate let store = EKEventStore()
     
-    /// The current ReminderAuthorizationStatus.
-    open var authorizationStatus: RemindersAuthorizationStatus {
+    /// The current EventReminderAuthorizationStatus.
+    open var authorizationStatus: EventReminderAuthorizationStatus {
         return .authorized == EKEventStore.authorizationStatus(for: .reminder) ? .authorized : .denied
     }
     
     /// A reference to a RemindersDelegate.
-    open weak var delegate: RemindersDelegate?
+    open weak var delegate: EventDelegate?
     
-    open func requestAuthorization(_ completion: ((RemindersAuthorizationStatus) -> Void)? = nil) {
-        eventStore.requestAccess(to: .reminder) { [weak self, completion = completion] (isAuthorized, _) in
+    open func requestRemindersAuthorization(_ completion: ((EventReminderAuthorizationStatus) -> Void)? = nil) {
+        store.requestAccess(to: .reminder) { [weak self, completion = completion] (isAuthorized, _) in
             DispatchQueue.main.async { [weak self, completion = completion] in
                 guard let s = self else {
                     return
@@ -127,63 +127,63 @@ open class Reminders: NSObject {
                 
                 guard isAuthorized else {
                     completion?(.denied)
-                    s.delegate?.reminders?(reminders: s, status: .denied)
-                    s.delegate?.reminders?(denied: s)
+                    s.delegate?.event?(event: s, status: .denied)
+                    s.delegate?.event?(denied: s)
                     return
                 }
                 
                 completion?(.authorized)
-                s.delegate?.reminders?(reminders: s, status: .authorized)
-                s.delegate?.reminders?(authorized: s)
+                s.delegate?.event?(event: s, status: .authorized)
+                s.delegate?.event?(authorized: s)
             }
         }
     }
 }
 
-extension Reminders {
+extension Event {
     /**
-     Creates a predicate for the reminders Array of calendars.
+     Creates a predicate for the event Array of calendars.
      - Parameter in calendars: An optional Array of EKCalendars.
      */
     open func predicateForReminders(in calendars: [EKCalendar]) -> NSPredicate {
-        return eventStore.predicateForReminders(in: calendars)
+        return store.predicateForReminders(in: calendars)
     }
     
     /**
-     Creates a predicate for the reminders Array of calendars that
+     Creates a predicate for the event Array of calendars that
      are incomplete and have a given start and end date.
      - Parameter starting: A Date.
      - Parameter ending: A Date.
      - Parameter calendars: An optional Array of [EKCalendar].
      */
     open func predicateForIncompleteReminders(starting: Date, ending: Date, calendars: [EKCalendar]? = nil) -> NSPredicate {
-        return eventStore.predicateForIncompleteReminders(withDueDateStarting: starting, ending: ending, calendars: calendars)
+        return store.predicateForIncompleteReminders(withDueDateStarting: starting, ending: ending, calendars: calendars)
     }
     
     /**
-     Creates a predicate for the reminders Array of calendars that
+     Creates a predicate for the event Array of calendars that
      are completed and have a given start and end date.
      - Parameter starting: A Date.
      - Parameter ending: A Date.
      - Parameter calendars: An optional Array of [EKCalendar].
      */
     open func predicateForCompletedReminders(starting: Date, ending: Date, calendars: [EKCalendar]? = nil) -> NSPredicate {
-        return eventStore.predicateForCompletedReminders(withCompletionDateStarting: starting, ending: ending, calendars: calendars)
+        return store.predicateForCompletedReminders(withCompletionDateStarting: starting, ending: ending, calendars: calendars)
     }
 }
 
-extension Reminders {
+extension Event {
     /**
      A method for retrieving reminder calendars in alphabetical order.
      - Parameter completion: A completion call back
      */
-    open func calendars(completion: @escaping ([EKCalendar]) -> Void) {
+    open func calendarsForReminders(completion: @escaping ([EKCalendar]) -> Void) {
         DispatchQueue.global(qos: .default).async { [weak self, completion = completion] in
             guard let s = self else {
                 return
             }
             
-            let calendar = s.eventStore.calendars(for: .reminder).sorted(by: { (a, b) -> Bool in
+            let calendar = s.store.calendars(for: .reminder).sorted(by: { (a, b) -> Bool in
                 return a.title < b.title
             })
             
@@ -197,22 +197,22 @@ extension Reminders {
      A method for retrieving events with a predicate in date sorted order.
      - Parameter predicate: A NSPredicate.
      - Parameter completion: A completion call back.
-     - Returns: A fetch reminders request identifier.
+     - Returns: A fetch event request identifier.
      */
     @discardableResult
     open func reminders(matching predicate: NSPredicate, completion: @escaping ([EKReminder]) -> Void) -> Any {
-        return eventStore.fetchReminders(matching: predicate, completion: { [completion = completion] (reminders) in
+        return store.fetchReminders(matching: predicate, completion: { [completion = completion] (event) in
             DispatchQueue.main.async { [completion = completion] in
-                completion(reminders ?? [])
+                completion(event ?? [])
             }
         })
     }
     
     /**
-     Fetch all the reminders in a given Array of calendars.
+     Fetch all the event in a given Array of calendars.
      - Parameter in calendars: An Array of EKCalendars.
      - Parameter completion: A completion call back.
-     - Returns: A fetch reminders request identifier.
+     - Returns: A fetch event request identifier.
      */
     @discardableResult
     open func reminders(in calendars: [EKCalendar], completion: @escaping ([EKReminder]) -> Void) -> Any {
@@ -220,64 +220,64 @@ extension Reminders {
     }
     
     /**
-     Fetch all the reminders in a given Array of calendars that
+     Fetch all the event in a given Array of calendars that
      are incomplete, given a start and end date.
      - Parameter starting: A Date.
      - Parameter ending: A Date.
      - Parameter calendars: An Array of EKCalendars.
      - Parameter completion: A completion call back.
-     - Returns: A fetch reminders request identifier.
+     - Returns: A fetch event request identifier.
      */
     @discardableResult
-    open func incomplete(starting: Date, ending: Date, calendars: [EKCalendar]? = nil, completion: @escaping ([EKReminder]) -> Void) -> Any {
+    open func incompleteReminders(starting: Date, ending: Date, calendars: [EKCalendar]? = nil, completion: @escaping ([EKReminder]) -> Void) -> Any {
         return reminders(matching: predicateForIncompleteReminders(starting: starting, ending: ending, calendars: calendars), completion: completion)
     }
     
     /**
-     Fetch all the reminders in a given Array of calendars that
+     Fetch all the event in a given Array of calendars that
      are completed, given a start and end date.
      - Parameter starting: A Date.
      - Parameter ending: A Date.
      - Parameter calendars: An Array of EKCalendars.
      - Parameter completion: A completion call back.
-     - Returns: A fetch reminders request identifier.
+     - Returns: A fetch event request identifier.
      */
     @discardableResult
-    open func completed(starting: Date, ending: Date, calendars: [EKCalendar]? = nil, completion: @escaping ([EKReminder]) -> Void) -> Any {
+    open func completedReminders(starting: Date, ending: Date, calendars: [EKCalendar]? = nil, completion: @escaping ([EKReminder]) -> Void) -> Any {
         return reminders(matching: predicateForCompletedReminders(starting: starting, ending: ending, calendars: calendars), completion: completion)
     }
     
     /**
-     Cancels an active reminders request.
+     Cancels an active event request.
      - Parameter _ identifier: An identifier.
      */
     open func cancel(_ identifier: Any) {
-        eventStore.cancelFetchRequest(identifier)
+        store.cancelFetchRequest(identifier)
     }
 }
 
-extension Reminders {
+extension Event {
     /**
-     A method for creating new Reminder calendar.
+     A method for creating new Reminders calendar.
      - Parameter calendar title: the name of the list.
      - Parameter completion: An optional completion call back.
      */
-    open func create(calendar title: String, completion: ((EKCalendar?, Error?) -> Void)? = nil) {
+    open func createCalendarForReminders(title: String, completion: ((EKCalendar?, Error?) -> Void)? = nil) {
         DispatchQueue.global(qos: .default).async { [weak self, completion = completion] in
             guard let s = self else {
                 return
             }
             
-            let calendar = EKCalendar(for: .reminder, eventStore: s.eventStore)
+            let calendar = EKCalendar(for: .reminder, eventStore: s.store)
             calendar.title = title
             
-            calendar.source = s.eventStore.defaultCalendarForNewReminders().source
+            calendar.source = s.store.defaultCalendarForNewReminders().source
                     
             var success = false
             var error: Error?
             
             do {
-                try s.eventStore.saveCalendar(calendar, commit: true)
+                try s.store.saveCalendar(calendar, commit: true)
                 success = true
             } catch let e {
                 error = e
@@ -289,7 +289,7 @@ extension Reminders {
                 }
                 
                 completion?(success ? calendar : nil, error)
-                s.delegate?.reminders?(reminders: s, createdCalendar: success ? calendar : nil, error: error)
+                s.delegate?.event?(event: s, createdCalendar: success ? calendar : nil, error: error)
             }
         }
     }
@@ -299,7 +299,7 @@ extension Reminders {
      - Parameter calendar identifier: The EKCalendar identifier String.
      - Parameter completion: An optional completion call back.
      */
-    open func remove(calendar identifier: String, completion: ((Bool, Error?) -> Void)? = nil) {
+    open func removeCalendar(identifier: String, completion: ((Bool, Error?) -> Void)? = nil) {
         DispatchQueue.global(qos: .default).async { [weak self, completion = completion] in
             guard let s = self else {
                 return
@@ -308,18 +308,18 @@ extension Reminders {
             var success = false
             var error: Error?
             
-            guard let calendar = s.eventStore.calendar(withIdentifier: identifier) else {
+            guard let calendar = s.store.calendar(withIdentifier: identifier) else {
                 var userInfo = [String: Any]()
                 userInfo[NSLocalizedDescriptionKey] = "[Material Error: Cannot fix remove calendar with identifier \(identifier).]"
                 userInfo[NSLocalizedFailureReasonErrorKey] = "[Material Error: Cannot fix remove calendar with identifier \(identifier).]"
-                error = NSError(domain: "com.cosmicmind.material.reminders", code: 0001, userInfo: userInfo)
+                error = NSError(domain: "com.cosmicmind.material.event", code: 0001, userInfo: userInfo)
                 
                 completion?(success, error)
                 return
             }
             
             do {
-                try s.eventStore.removeCalendar(calendar, commit: true)
+                try s.store.removeCalendar(calendar, commit: true)
                 success = true
             } catch let e {
                 error = e
@@ -331,38 +331,38 @@ extension Reminders {
                 }
                 
                 completion?(success, error)
-                s.delegate?.reminders?(reminders: s, removedCalendar: calendar, error: error)
+                s.delegate?.event?(event: s, removedCalendar: calendar, error: error)
             }
         }
     }
 }
 
-extension Reminders {    
+extension Event {    
     // FIX ME: Should we use the calendar identifier here instead of the title for finding the right cal?
     /**
      A method for adding a new reminder to an optionally existing list.
-     if the list does not exist it will be added to the default reminders list.
+     if the list does not exist it will be added to the default event list.
      - Parameter completion: optional A completion call back
      */
-    open func create(reminder title: String, calendar: EKCalendar, startDateComponents: DateComponents? = nil, dueDateComponents: DateComponents? = nil, priority: RemindersPriority? = .none, notes: String?, completion: ((EKReminder?, Error?) -> Void)? = nil) {
+    open func createReminder(title: String, calendar: EKCalendar, startDateComponents: DateComponents? = nil, dueDateComponents: DateComponents? = nil, priority: EventReminderPriority? = .none, notes: String?, completion: ((EKReminder?, Error?) -> Void)? = nil) {
         DispatchQueue.global(qos: .default).async { [weak self, calendar = calendar, completion = completion] in
             guard let s = self else {
                 return
             }
             
-            let reminder = EKReminder(eventStore: s.eventStore)
+            let reminder = EKReminder(eventStore: s.store)
             reminder.title = title
             reminder.calendar = calendar
             reminder.startDateComponents = startDateComponents
             reminder.dueDateComponents = dueDateComponents
-            reminder.priority = priority?.rawValue ?? RemindersPriority.none.rawValue
+            reminder.priority = priority?.rawValue ?? EventReminderPriority.none.rawValue
             reminder.notes = notes
             
             var success = false
             var error: Error?
             
             do {
-                try s.eventStore.save(reminder, commit: true)
+                try s.store.save(reminder, commit: true)
                 success = true
             } catch let e {
                 error = e
@@ -374,17 +374,17 @@ extension Reminders {
                 }
                 
                 completion?(success ? reminder : nil, error)
-                s.delegate?.reminders?(reminders: s, createdReminder: success ? reminder : nil, error: error)
+                s.delegate?.event?(event: s, createdReminders: success ? reminder : nil, error: error)
             }
         }
     }
 
     /**
      A method for removing existing reminder,
-     - Parameter reminder identifier: The EKReminder identifier String.
+     - Parameter reminder identifier: The EKReminders identifier String.
      - Parameter completion: An optional completion call back.
      */
-    open func remove(reminder identifier: String, completion: ((Bool, Error?) -> Void)? = nil) {
+    open func removeReminder(identifier: String, completion: ((Bool, Error?) -> Void)? = nil) {
         DispatchQueue.global(qos: .default).async { [weak self, completion = completion] in
             guard let s = self else {
                 return
@@ -393,18 +393,18 @@ extension Reminders {
             var success = false
             var error: Error?
             
-            guard let reminder = s.eventStore.calendarItem(withIdentifier: identifier) as? EKReminder else {
+            guard let reminder = s.store.calendarItem(withIdentifier: identifier) as? EKReminder else {
                 var userInfo = [String: Any]()
                 userInfo[NSLocalizedDescriptionKey] = "[Material Error: Cannot fix remove calendar with identifier \(identifier).]"
                 userInfo[NSLocalizedFailureReasonErrorKey] = "[Material Error: Cannot fix remove calendar with identifier \(identifier).]"
-                error = NSError(domain: "com.cosmicmind.material.reminders", code: 0001, userInfo: userInfo)
+                error = NSError(domain: "com.cosmicmind.material.event", code: 0001, userInfo: userInfo)
                 
                 completion?(success, error)
                 return
             }
             
             do {
-                try s.eventStore.remove(reminder, commit: true)
+                try s.store.remove(reminder, commit: true)
                 success = true
             } catch let e {
                 error = e
@@ -416,7 +416,7 @@ extension Reminders {
                 }
                 
                 completion?(success, error)
-                s.delegate?.reminders?(reminders: s, removedReminder: reminder, error: error)
+                s.delegate?.event?(event: s, removedReminders: reminder, error: error)
             }
         }
     }
