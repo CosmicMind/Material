@@ -32,15 +32,15 @@ import UIKit
 
 extension UIViewController {
     /**
-     A convenience property that provides access to the EventController.
-     This is the recommended method of accessing the EventController
+     A convenience property that provides access to the EventsController.
+     This is the recommended method of accessing the EventsController
      through child UIViewControllers.
      */
-    public var eventController: EventController? {
+    public var eventsController: EventsController? {
         var viewController: UIViewController? = self
         while nil != viewController {
-            if viewController is EventController {
-                return viewController as? EventController
+            if viewController is EventsController {
+                return viewController as? EventsController
             }
             viewController = viewController?.parent
         }
@@ -48,9 +48,9 @@ extension UIViewController {
     }
 }
 
-open class EventController: UIViewController {
-    /// A reference to an Event instance.
-    open let event = Event()
+open class EventsController: UIViewController {
+    /// A reference to an Events instance.
+    open let events = Events()
     
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,15 +68,15 @@ open class EventController: UIViewController {
         view.clipsToBounds = true
         view.backgroundColor = .white
         view.contentScaleFactor = Screen.scale
-        prepareEvent()
+        prepareEvents()
     }
 }
 
-extension EventController {
-    /// Prepares the event instance.
-    fileprivate func prepareEvent() {
-        event.delegate = self
+extension EventsController {
+    /// Prepares the events instance.
+    fileprivate func prepareEvents() {
+        events.delegate = self
     }
 }
 
-extension EventController: EventDelegate {}
+extension EventsController: EventsDelegate {}

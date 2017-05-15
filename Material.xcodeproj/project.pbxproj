@@ -40,8 +40,12 @@
 		96328B9E1E05C24E009A4C90 /* TableView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96328B961E05C0BB009A4C90 /* TableView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96328B9F1E05C24E009A4C90 /* TableViewController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96328B981E05C0CE009A4C90 /* TableViewController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96334EF61C8B84660083986B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96334EF51C8B84660083986B /* Assets.xcassets */; };
-		9639526C1EC3882F004BA9DE /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639526A1EC3882F004BA9DE /* Event.swift */; };
-		9639526D1EC3882F004BA9DE /* EventController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639526B1EC3882F004BA9DE /* EventController.swift */; };
+		9639526C1EC3882F004BA9DE /* Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639526A1EC3882F004BA9DE /* Events.swift */; };
+		9639526D1EC3882F004BA9DE /* EventsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639526B1EC3882F004BA9DE /* EventsController.swift */; };
+		964335B71EC9432400FA9954 /* Events.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9639526A1EC3882F004BA9DE /* Events.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		964335B81EC9432400FA9954 /* EventsController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9639526B1EC3882F004BA9DE /* EventsController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		964335B91EC9432400FA9954 /* Material+MotionDynamics.swift in Headers */ = {isa = PBXBuildFile; fileRef = 960E35051EB0FC5700EB124A /* Material+MotionDynamics.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		964335BA1EC9432400FA9954 /* TabsController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9606CFAB1E957AC3006B4E74 /* TabsController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		965E80CC1DD4C50600D61E4B /* Bar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7981CB40DC500C806FE /* Bar.swift */; };
 		965E80CD1DD4C50600D61E4B /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7701CB40DC500C806FE /* Button.swift */; };
 		965E80CE1DD4C50600D61E4B /* FABButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB75F1CB40DC500C806FE /* FABButton.swift */; };
@@ -206,8 +210,8 @@
 		96328B981E05C0CE009A4C90 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		96334EF51C8B84660083986B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		963832361B88DFD80015F710 /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Material.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9639526A1EC3882F004BA9DE /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
-		9639526B1EC3882F004BA9DE /* EventController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventController.swift; sourceTree = "<group>"; };
+		9639526A1EC3882F004BA9DE /* Events.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Events.swift; sourceTree = "<group>"; };
+		9639526B1EC3882F004BA9DE /* EventsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsController.swift; sourceTree = "<group>"; };
 		963FBEFC1D669510008F8512 /* Snackbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Snackbar.swift; sourceTree = "<group>"; };
 		965532281E47E388005C2792 /* SpringAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringAnimation.swift; sourceTree = "<group>"; };
 		9658F2161CD6FA4700B902C1 /* IconButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
@@ -394,13 +398,12 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		963952691EC3882F004BA9DE /* Event */ = {
+		963952691EC3882F004BA9DE /* Events */ = {
 			isa = PBXGroup;
 			children = (
-				9639526A1EC3882F004BA9DE /* Event.swift */,
-				9639526B1EC3882F004BA9DE /* EventController.swift */,
+				9639526A1EC3882F004BA9DE /* Events.swift */,
+				9639526B1EC3882F004BA9DE /* EventsController.swift */,
 			);
-			name = Event;
 			path = Events;
 			sourceTree = "<group>";
 		};
@@ -509,7 +512,7 @@
 				96328B9A1E05C135009A4C90 /* Data */,
 				96BCB80B1CB410CC00C806FE /* Device */,
 				96230AB61D6A51FD00AF47DC /* Divider */,
-				963952691EC3882F004BA9DE /* Event */,
+				963952691EC3882F004BA9DE /* Events */,
 				96BCB80A1CB410A100C806FE /* Extension */,
 				963FBF021D6696D0008F8512 /* FABMenu */,
 				96BCB8071CB4101C00C806FE /* Font */,
@@ -826,6 +829,10 @@
 				96BFC16D1E63C10A0075DE1F /* Material+Motion.swift in Headers */,
 				96BFC16E1E63C10A0075DE1F /* Material+MotionAnimation.swift in Headers */,
 				96BFC16F1E63C10A0075DE1F /* SpringAnimation.swift in Headers */,
+				964335B71EC9432400FA9954 /* Events.swift in Headers */,
+				964335B81EC9432400FA9954 /* EventsController.swift in Headers */,
+				964335B91EC9432400FA9954 /* Material+MotionDynamics.swift in Headers */,
+				964335BA1EC9432400FA9954 /* TabsController.swift in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -936,11 +943,11 @@
 				965E81191DD4D5C800D61E4B /* SnackbarController.swift in Sources */,
 				965E811A1DD4D5C800D61E4B /* StatusBarController.swift in Sources */,
 				965E811B1DD4D5C800D61E4B /* Switch.swift in Sources */,
-				9639526C1EC3882F004BA9DE /* Event.swift in Sources */,
+				9639526C1EC3882F004BA9DE /* Events.swift in Sources */,
 				965E811C1DD4D5C800D61E4B /* TabBar.swift in Sources */,
 				965E811D1DD4D5C800D61E4B /* TableViewCell.swift in Sources */,
 				965E811E1DD4D5C800D61E4B /* TextField.swift in Sources */,
-				9639526D1EC3882F004BA9DE /* EventController.swift in Sources */,
+				9639526D1EC3882F004BA9DE /* EventsController.swift in Sources */,
 				965E811F1DD4D5C800D61E4B /* ErrorTextField.swift in Sources */,
 				965E81211DD4D5C800D61E4B /* TextStorage.swift in Sources */,
 				965E81221DD4D5C800D61E4B /* TextView.swift in Sources */,
