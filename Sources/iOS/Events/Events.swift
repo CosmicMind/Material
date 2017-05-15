@@ -107,6 +107,9 @@ public protocol EventsDelegate {
 
 @objc(Events)
 open class Events: NSObject {
+    /// A boolean indicating whether to commit or not.
+    fileprivate var isCommitted = true
+    
     /// A reference to the eventsStore.
     fileprivate let eventStore = EKEventStore()
     
@@ -137,6 +140,35 @@ open class Events: NSObject {
                 s.delegate?.eventsAuthorizedForReminders?(events: s)
             }
         }
+    }
+}
+
+extension Events {
+    /// Begins a storage transaction.
+    open func begin() {
+        isCommitted = false
+    }
+    
+    /// Resets the storage transaction state.
+    open func reset() {
+        isCommitted = true
+    }
+    
+    /// Commits the storage transaction.
+    open func commit(_ completion: ((Bool, Error?) -> Void)) {
+        reset()
+        
+        var success = false
+        var error: Error?
+        
+        do {
+            try eventStore.commit()
+            success = true
+        } catch let e {
+            error = e
+        }
+        
+        completion(success, error)
     }
 }
 
@@ -277,7 +309,7 @@ extension Events {
             var error: Error?
             
             do {
-                try s.eventStore.saveCalendar(calendar, commit: true)
+                try s.eventStore.saveCalendar(calendar, commit: s.isCommitted)
                 success = true
             } catch let e {
                 error = e
@@ -319,7 +351,7 @@ extension Events {
             }
             
             do {
-                try s.eventStore.removeCalendar(calendar, commit: true)
+                try s.eventStore.removeCalendar(calendar, commit: s.isCommitted)
                 success = true
             } catch let e {
                 error = e
@@ -362,7 +394,7 @@ extension Events {
             var error: Error?
             
             do {
-                try s.eventStore.save(reminder, commit: true)
+                try s.eventStore.save(reminder, commit: s.isCommitted)
                 success = true
             } catch let e {
                 error = e
@@ -404,7 +436,7 @@ extension Events {
             }
             
             do {
-                try s.eventStore.remove(reminder, commit: true)
+                try s.eventStore.remove(reminder, commit: s.isCommitted)
                 success = true
             } catch let e {
                 error = e
