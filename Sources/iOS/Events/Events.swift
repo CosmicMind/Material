@@ -549,3 +549,51 @@ extension Events {
         }
     }
 }
+
+extension Events {
+    /**
+     Creates an alarm using the current time plus a given timeInterval.
+     - Parameter timeIntervalSinceNow: A TimeInterval.
+     - Returns: An EKAlarm.
+     */
+    open func createAlarm(timeIntervalSinceNow: TimeInterval) -> EKAlarm {
+        return EKAlarm(absoluteDate: Date(timeIntervalSinceNow: timeIntervalSinceNow))
+    }
+    
+    /**
+     Creates an alarm using given date components.
+     - Parameter day: An optional Int.
+     - Parameter month: An optional Int.
+     - Parameter year: An optional Int.
+     - Parameter hour: An optional Int.
+     - Parameter minute: An optional Int.
+     - Parameter second: An optional Int.
+     - Returns: An optional EKAlarm.
+     */
+    open func createAlarm(day: Int? = nil, month: Int? = nil, year: Int? = nil, hour: Int? = nil, minute: Int? = nil, second: Int? = nil) -> EKAlarm? {
+        var dateComponents = DateComponents()
+        
+        dateComponents.calendar = Calendar.current
+        dateComponents.day = day
+        dateComponents.month = month
+        dateComponents.year = year
+        dateComponents.hour = hour
+        dateComponents.minute = minute
+        dateComponents.second = second
+        
+        guard let v = dateComponents.date else {
+            return nil
+        }
+        
+        return EKAlarm(absoluteDate: v)
+    }
+    
+    /**
+     Creates an alarm using a relative offset from the start date.
+     - Parameter relativeOffset offset: A TimeInterval.
+     - Returns: An EKAlarm.
+     */
+    open func createAlarm(relativeOffset offset: TimeInterval) -> EKAlarm {
+        return EKAlarm(relativeOffset: offset)
+    }
+}
