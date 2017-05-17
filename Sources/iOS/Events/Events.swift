@@ -29,6 +29,7 @@
  */
 
 import EventKit
+import CoreData
 
 @objc(EventsReminderAuthorizationStatus)
 public enum EventsReminderAuthorizationStatus: Int {
@@ -97,6 +98,13 @@ public protocol EventsDelegate {
     optional func events(events: Events, removedCalendar calendar: EKCalendar, error: Error?)
     
     /**
+     A notification that is executed when a calendar has been changed, locally
+     or remotely.
+     */
+    @objc
+    optional func events(events: Events, changeNotificationForCalendar calendar: EKCalendar)
+    
+    /**
      A delegation method that is executed when a new reminder is created.
      - Parameter events: A reference to the Events instance.
      - Parameter createdReminder reminder: An optional reference to the reminder created.
@@ -122,10 +130,24 @@ public protocol EventsDelegate {
      */
     @objc
     optional func events(events: Events, removedReminder reminder: EKReminder, error: Error?)
+    
+    /**
+     A notification that is executed when a reminder has been changed, locally
+     or remotely.
+     */
+    @objc
+    optional func events(events: Events, changeNotificationForReminder reminder: EKReminder)
+    
 }
 
 @objc(Events)
 open class Events: NSObject {
+    /// A cache of calendars.
+    open fileprivate(set) var cacheForCalendars = [AnyHashable: EKCalendar]()
+    
+    /// A cache of reminders.
+    open fileprivate(set) var cacheForReminders = [AnyHashable: EKReminder]()
+    
     /// A boolean indicating whether to commit saves or not.
     fileprivate var isCommitted = true
     
@@ -139,6 +161,11 @@ open class Events: NSObject {
     
     /// A reference to an EventsDelegate.
     open weak var delegate: EventsDelegate?
+    
+    /// Denitializer.
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     
     /**
      Requests authorization for reminders.
@@ -158,9 +185,41 @@ open class Events: NSObject {
                     return
                 }
                 
+                s.prepareNotification()
+                
                 completion?(.authorized)
                 s.delegate?.events?(events: s, status: .authorized)
                 s.delegate?.eventsAuthorizedForReminders?(events: s)
+            }
+        }
+    }
+}
+
+extension Events {
+    /// Prepares the notification handlers.
+    fileprivate func prepareNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleReminderChange(_:)), name: NSNotification.Name.EKEventStoreChanged, object: eventStore)
+    }
+}
+
+extension Events {
+    /**
+     Handler for notification changes.
+     - Parameter _ notification: A Notification.
+     */
+    @objc
+    fileprivate func handleReminderChange(_ notification: Notification) {
+        for (_, v) in cacheForCalendars {
+            if v.refresh() {
+                v.reset()
+                delegate?.events?(events: self, changeNotificationForCalendar: v)
+            }
+        }
+            
+        for (_, v) in cacheForReminders {
+            if v.refresh() {
+                v.reset()
+                delegate?.events?(events: self, changeNotificationForReminder: v)
             }
         }
     }
@@ -243,12 +302,17 @@ extension Events {
                 return
             }
             
-            let calendar = s.eventStore.calendars(for: .reminder).sorted(by: { (a, b) -> Bool in
+            let calendars = s.eventStore.calendars(for: .reminder).sorted(by: { (a, b) -> Bool in
                 return a.title < b.title
             })
             
-            DispatchQueue.main.async { [calendar = calendar, completion = completion] in
-                completion(calendar)
+            for calendar in calendars {
+                s.cacheForCalendars[calendar.calendarIdentifier] = calendar
+            }
+            
+            DispatchQueue.main.async { [calendars = calendars, completion = completion] in
+                completion(calendars)
+                
             }
         }
     }
@@ -261,9 +325,19 @@ extension Events {
      */
     @discardableResult
     open func fetchReminders(matching predicate: NSPredicate, completion: @escaping ([EKReminder]) -> Void) -> Any {
-        return eventStore.fetchReminders(matching: predicate, completion: { [completion = completion] (events) in
+        return eventStore.fetchReminders(matching: predicate, completion: { [weak self, completion = completion] (reminders) in
+            guard let s = self else {
+                return
+            }
+            
+            let r = reminders ?? []
+            
+            for reminder in r {
+                s.cacheForReminders[reminder.calendarItemIdentifier] = reminder
+            }
+            
             DispatchQueue.main.async { [completion = completion] in
-                completion(events ?? [])
+                completion(r)
             }
         })
     }
@@ -339,6 +413,8 @@ extension Events {
             do {
                 try s.eventStore.saveCalendar(calendar, commit: s.isCommitted)
                 success = true
+                
+                s.cacheForCalendars[calendar.calendarIdentifier] = calendar
             } catch let e {
                 error = e
             }
@@ -371,6 +447,8 @@ extension Events {
             do {
                 try s.eventStore.saveCalendar(calendar, commit: s.isCommitted)
                 success = true
+                
+                s.cacheForCalendars[calendar.calendarIdentifier] = calendar
             } catch let e {
                 error = e
             }
@@ -411,8 +489,12 @@ extension Events {
             }
             
             do {
+                let calendarIdentifier = calendar.calendarIdentifier
+                
                 try s.eventStore.removeCalendar(calendar, commit: s.isCommitted)
                 success = true
+                
+                s.cacheForCalendars[calendarIdentifier] = nil
             } catch let e {
                 error = e
             }
@@ -460,6 +542,8 @@ extension Events {
             do {
                 try s.eventStore.save(reminder, commit: s.isCommitted)
                 success = true
+                
+                s.cacheForReminders[reminder.calendarItemIdentifier] = reminder
             } catch let e {
                 error = e
             }
@@ -492,6 +576,8 @@ extension Events {
             do {
                 try s.eventStore.save(reminder, commit: s.isCommitted)
                 success = true
+                
+                s.cacheForReminders[reminder.calendarItemIdentifier] = reminder
             } catch let e {
                 error = e
             }
@@ -532,8 +618,12 @@ extension Events {
             }
             
             do {
+                let calendarItemIdentifier = reminder.calendarItemIdentifier
+                
                 try s.eventStore.remove(reminder, commit: s.isCommitted)
                 success = true
+                
+                s.cacheForReminders[calendarItemIdentifier] = nil
             } catch let e {
                 error = e
             }
@@ -570,7 +660,7 @@ extension Events {
      - Parameter second: An optional Int.
      - Returns: An optional EKAlarm.
      */
-    open func createAlarm(day: Int? = nil, month: Int? = nil, year: Int? = nil, hour: Int? = nil, minute: Int? = nil, second: Int? = nil) -> EKAlarm? {
+    open func createAlarm(day: Int? = nil, month: Int? = nil, year: Int? = nil, hour: Int? = nil, minute: Int? = nil, second: Int? = nil) -> EKAlarm {
         var dateComponents = DateComponents()
         
         dateComponents.calendar = Calendar.current
@@ -581,11 +671,7 @@ extension Events {
         dateComponents.minute = minute
         dateComponents.second = second
         
-        guard let v = dateComponents.date else {
-            return nil
-        }
-        
-        return EKAlarm(absoluteDate: v)
+        return EKAlarm(absoluteDate: dateComponents.date!)
     }
     
     /**

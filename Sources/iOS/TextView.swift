@@ -254,10 +254,7 @@ open class TextView: UITextView {
         textStorage.delegate = self
     }
 	
-	/** 
-     Denitializer. This should never be called unless you know
-	 what you are doing.
-	 */
+	/// Denitializer.
 	deinit {
 		NotificationCenter.default.removeObserver(self)
 	}
