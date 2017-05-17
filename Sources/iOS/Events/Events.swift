@@ -57,6 +57,13 @@ public protocol EventsDelegate {
     optional func events(events: Events, status: EventsReminderAuthorizationStatus)
     
     /**
+     A delegation method that is fired when changes to the event store occur.
+     - Parameter events: A reference to the Events instance.
+     */
+    @objc
+    optional func eventsShouldRefresh(events: Events)
+    
+    /**
      A delegation method that is executed when events authorization is authorized.
      - Parameter events: A reference to the Events instance.
      */
@@ -98,13 +105,6 @@ public protocol EventsDelegate {
     optional func events(events: Events, removedCalendar calendar: EKCalendar, error: Error?)
     
     /**
-     A notification that is executed when a calendar has been changed, locally
-     or remotely.
-     */
-    @objc
-    optional func events(events: Events, changeNotificationForCalendar calendar: EKCalendar)
-    
-    /**
      A delegation method that is executed when a new reminder is created.
      - Parameter events: A reference to the Events instance.
      - Parameter createdReminder reminder: An optional reference to the reminder created.
@@ -130,14 +130,6 @@ public protocol EventsDelegate {
      */
     @objc
     optional func events(events: Events, removedReminder reminder: EKReminder, error: Error?)
-    
-    /**
-     A notification that is executed when a reminder has been changed, locally
-     or remotely.
-     */
-    @objc
-    optional func events(events: Events, changeNotificationForReminder reminder: EKReminder)
-    
 }
 
 @objc(Events)
@@ -198,30 +190,18 @@ open class Events: NSObject {
 extension Events {
     /// Prepares the notification handlers.
     fileprivate func prepareNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(handleReminderChange(_:)), name: NSNotification.Name.EKEventStoreChanged, object: eventStore)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleEventStoreChange(_:)), name: NSNotification.Name.EKEventStoreChanged, object: eventStore)
     }
 }
 
 extension Events {
     /**
-     Handler for notification changes.
+     Handler for event store changes.
      - Parameter _ notification: A Notification.
      */
     @objc
-    fileprivate func handleReminderChange(_ notification: Notification) {
-        for (_, v) in cacheForCalendars {
-            if v.refresh() {
-                v.reset()
-                delegate?.events?(events: self, changeNotificationForCalendar: v)
-            }
-        }
-            
-        for (_, v) in cacheForReminders {
-            if v.refresh() {
-                v.reset()
-                delegate?.events?(events: self, changeNotificationForReminder: v)
-            }
-        }
+    fileprivate func handleEventStoreChange(_ notification: Notification) {
+        delegate?.eventsShouldRefresh?(events: self)
     }
 }
 
