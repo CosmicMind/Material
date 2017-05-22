@@ -468,16 +468,17 @@ extension TabsController {
         guard i != selectedIndex else {
             return
         }
-        
-        removeViewControllers()
+//        removeViewControllers()
         
 //        prepareViewControllersForTransition(from: selectedIndex, to: i)
         
         selectedIndex = i
         v.select(at: i)
         
-        //prepareTabBar()
-        //layoutSubviews()
+        removeViewControllers()
+        prepareViewControllers()
+        prepareTabBar()
+        layoutSubviews()
     }
 }
 
