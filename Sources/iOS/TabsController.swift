@@ -375,8 +375,7 @@ extension TabsController {
             return
         }
         
-        let p = v.height
-        let y = view.height - p
+        let y = view.height - v.height
         
         v.width = view.width
         
@@ -472,7 +471,7 @@ extension TabsController {
         
         removeViewControllers()
         
-        prepareViewControllersForTransition(from: selectedIndex, to: i)
+//        prepareViewControllersForTransition(from: selectedIndex, to: i)
         
         selectedIndex = i
         v.select(at: i)
@@ -492,7 +491,7 @@ extension TabsController: UIScrollViewDelegate {
         
         removeViewControllers()
         prepareViewControllers()
-        prepareTabBar()
+//        prepareTabBar()
         layoutSubviews()
     }
 }
