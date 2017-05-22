@@ -190,52 +190,132 @@ open class TabBar: Bar {
         }
     }
     
-    open override func layoutSubviews() {
-		super.layoutSubviews()
+    open override func layoutBarSubviews() {
         guard willLayout else {
             return
         }
         
-        guard 0 < buttons.count else {
-            return
+        var lc = 0
+        var rc = 0
+        
+        grid.begin()
+        grid.views.removeAll()
+        
+        for v in leftViews {
+            if let b = v as? UIButton {
+                b.contentEdgeInsets = .zero
+                b.titleEdgeInsets = .zero
+            }
+            
+            v.width = v.intrinsicContentSize.width
+            v.sizeToFit()
+            v.grid.columns = Int(ceil(v.width / gridFactor)) + 2
+            
+            lc += v.grid.columns
+            
+            grid.views.append(v)
         }
+        
+        grid.views.append(contentView)
+        
+        for v in rightViews {
+            if let b = v as? UIButton {
+                b.contentEdgeInsets = .zero
+                b.titleEdgeInsets = .zero
+            }
             
-        for b in buttons {
-            b.grid.columns = 0
-            b.cornerRadius = 0
-            b.contentEdgeInsets = .zero
+            v.width = v.intrinsicContentSize.width
+            v.sizeToFit()
+            v.grid.columns = Int(ceil(v.width / gridFactor)) + 2
             
-            if isLineAnimated {
-                prepareLineAnimationHandler(button: b)
+            rc += v.grid.columns
+            
+            grid.views.append(v)
+        }
+        
+        contentView.grid.begin()
+        contentView.grid.offset.columns = 0
+        
+        var l: CGFloat = 0
+        var r: CGFloat = 0
+        
+        if .center == contentViewAlignment {
+            if leftViews.count < rightViews.count {
+                r = CGFloat(rightViews.count) * interimSpace
+                l = r
+            } else {
+                l = CGFloat(leftViews.count) * interimSpace
+                r = l
             }
         }
         
-        if .scrollable == tabBarStyle {
+        let p = width - l - r - contentEdgeInsets.left - contentEdgeInsets.right
+        let columns = Int(ceil(p / gridFactor))
+        
+        if .center == contentViewAlignment {
+            if lc < rc {
+                contentView.grid.columns = columns - 2 * rc
+                contentView.grid.offset.columns = rc - lc
+            } else {
+                contentView.grid.columns = columns - 2 * lc
+                rightViews.first?.grid.offset.columns = lc - rc
+            }
+        } else {
+            contentView.grid.columns = columns - lc - rc
+        }
+        
+        grid.axis.columns = columns
+        grid.commit()
+        contentView.grid.commit()
+        
+        divider.reload()
+        
+        let centralWidth = width - l - r
+        let buttonsWidth = buttons.reduce(0) { $0 + $1.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: contentView.height)).width + interimSpace }
+        let shouldScroll = (.scrollable == tabBarStyle) && (buttonsWidth > centralWidth)
+        
+        if shouldScroll {
+            scrollView.frame = CGRect(x: l, y: 0, width: centralWidth, height: height)
+            
             var w: CGFloat = 0
             
             for b in buttons {
                 let width = b.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: contentView.height)).width + interimSpace
-                contentView.addSubview(b)
+                scrollView.addSubview(b)
                 b.height = contentView.height
                 b.width = width
                 b.x = w
                 w += width
             }
             
-            if w > scrollView.width {
-                scrollView.contentSize.width = w
-            }
+            scrollView.contentSize = CGSize(width: buttonsWidth, height: height)
+            scrollView.addSubview(line)
         } else {
             contentView.grid.axis.columns = buttons.count
             centerViews = buttons
+            addSubview(line)
+        }
+                
+        updateSelectionLine()
+	}
+    
+    private func updateSelectionLine() {
+        for b in buttons {
+            b.grid.columns = 0
+            b.cornerRadius = 0
+            b.contentEdgeInsets = .zero
+
+            if isLineAnimated {
+                prepareLineAnimationHandler(button: b)
+            }
         }
         
         if nil == selected {
             selected = buttons.first
         }
-            
+        
         line.frame = CGRect(x: selected!.x, y: .bottom == lineAlignment ? height - lineHeight : 0, width: selected!.width, height: lineHeight)
-	}
+    }
 	
     /**
      Prepares the view instance when intialized. When subclassing,
@@ -260,7 +340,6 @@ extension TabBar {
         line.zPosition = 6000
         lineColor = Color.blue.base
         lineHeight = 3
-        addSubview(line)
     }
     
     /// Prepares the divider.
@@ -281,7 +360,7 @@ extension TabBar {
     fileprivate func prepareScrollView() {
         scrollView = UIScrollView()
         scrollView.bounces = false
-        scrollView.isPagingEnabled = true
+        scrollView.isPagingEnabled = false
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
         contentView.addSubview(scrollView)
@@ -350,6 +429,12 @@ extension TabBar {
             
             s.line.center.x = button.center.x
             s.line.width = button.width
+            
+            if !s.scrollView.bounds.contains(button.frame) {
+                let contentOffsetX = (button.x < s.scrollView.bounds.minX) ? button.x : button.frame.maxX - s.scrollView.bounds.width
+                let normalizedOffsetX = min(max(contentOffsetX, 0), s.scrollView.contentSize.width - s.scrollView.bounds.width)
+                s.scrollView.setContentOffset(CGPoint(x: normalizedOffsetX, y: 0), animated: false)
+            }            
         }) { [weak self, isTriggeredByUserInteraction = isTriggeredByUserInteraction, button = button, completion = completion] _ in
             guard let s = self else {
                 return

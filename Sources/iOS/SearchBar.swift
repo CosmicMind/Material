@@ -142,8 +142,8 @@ open class SearchBar: Bar {
 		super.init(frame: frame)
 	}
 	
-    open override func layoutSubviews() {
-        super.layoutSubviews()
+    open override func layoutBarSubviews() {
+        super.layoutBarSubviews()
         guard willLayout else {
             return
         }
