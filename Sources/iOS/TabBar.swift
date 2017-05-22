@@ -270,12 +270,12 @@ open class TabBar: Bar {
         
         divider.reload()
         
-        let centralWidth = width - l - r
-        let buttonsWidth = buttons.reduce(0) { $0 + $1.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: contentView.height)).width + interimSpace }
-        let shouldScroll = (.scrollable == tabBarStyle) && (buttonsWidth > centralWidth)
+        let buttonsWidth = buttons.reduce(0) {
+            $0 + $1.sizeThatFits(CGSize(width: .greatestFiniteMagnitude, height: contentView.height)).width + interimSpace
+        }
         
-        if shouldScroll {
-            scrollView.frame = CGRect(x: l, y: 0, width: centralWidth, height: height)
+        if .scrollable == tabBarStyle && buttonsWidth > p {
+            scrollView.frame = CGRect(x: l, y: 0, width: p, height: height)
             
             var w: CGFloat = 0
             
