@@ -282,7 +282,7 @@ open class TabBar: Bar {
             for b in buttons {
                 let width = b.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: contentView.height)).width + interimSpace
                 scrollView.addSubview(b)
-                b.height = contentView.height
+                b.height = scrollView.height
                 b.width = width
                 b.x = w
                 w += width
@@ -309,6 +309,8 @@ open class TabBar: Bar {
                 prepareLineAnimationHandler(button: b)
             }
         }
+        
+        scrollView.frame = contentView.bounds
         
         if nil == selected {
             selected = buttons.first
@@ -340,6 +342,7 @@ extension TabBar {
         line.zPosition = 6000
         lineColor = Color.blue.base
         lineHeight = 3
+        scrollView.addSubview(line)
     }
     
     /// Prepares the divider.
