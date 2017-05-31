@@ -551,12 +551,9 @@ open class NavigationDrawerController: RootController {
                 v.position.x = -v.bounds.width / 2
                 rootViewController.view.alpha = 1
             } else {
-                v.isShadowPathAutoSizing = false
-                
                 showView(container: v)
                 v.position.x = width / 2
                 rootViewController.view.alpha = 0.5
-                v.isShadowPathAutoSizing = true
             }
             
             layoutSubviews()
@@ -636,12 +633,9 @@ open class NavigationDrawerController: RootController {
                 v.position.x = view.bounds.width + v.bounds.width / 2
                 rootViewController.view.alpha = 1
             } else {
-                v.isShadowPathAutoSizing = false
-                
                 showView(container: v)
                 v.position.x = view.bounds.width - width / 2
                 rootViewController.view.alpha = 0.5
-                v.isShadowPathAutoSizing = true
             }
             
             layoutSubviews()
