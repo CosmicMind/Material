@@ -377,7 +377,7 @@ extension PageTabBarController: UIScrollViewDelegate {
             return
         }
         
-        let x = (scrollView.contentOffset.x - view.width) / scrollView.contentSize.width * view.width
+        let x = (scrollView.contentOffset.x - view.width) / CGFloat(viewControllers.count)
         
         pageTabBar.line.center.x = selected.center.x + x
     }
