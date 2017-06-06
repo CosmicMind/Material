@@ -71,6 +71,15 @@ open class TextStorage: NSTextStorage {
 	public override init() {
 		super.init()
 	}
+	
+	/// Initializer.
+	public required init(itemProviderData data: Data, typeIdentifier: String) throws {
+		do {
+			try super.init(itemProviderData: data, typeIdentifier: typeIdentifier)
+		} catch {
+			print(error)
+		}
+	}
 }
 
 extension TextStorage {
