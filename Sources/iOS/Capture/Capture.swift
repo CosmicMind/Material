@@ -474,7 +474,7 @@ open class Capture: View {
     }
     
     /// The session quality preset.
-    open var capturePreset = CapturePreset.presetHigh {
+    open var capturePreset = CapturePreset.presetPhoto {
         didSet {
             session.sessionPreset = CapturePresetToString(preset: capturePreset)
         }

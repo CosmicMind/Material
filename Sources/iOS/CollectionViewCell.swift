@@ -29,6 +29,7 @@
  */
 
 import UIKit
+import Motion
 
 @objc(CollectionViewCell)
 open class CollectionViewCell: UICollectionViewCell, Pulseable, PulseableLayer {
