@@ -185,16 +185,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		966A7F141EEC5B3500A2DAAC /* PBXContainerItemProxy */ = {
+		966A7F1D1EEC5D5000A2DAAC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 966A7F101EEC5B3500A2DAAC /* Motion.xcodeproj */;
+			containerPortal = 966A7F191EEC5D5000A2DAAC /* Motion.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 96C98DD11E424AB000B22906;
 			remoteInfo = "Motion iOS";
 		};
-		966A7F161EEC5B6300A2DAAC /* PBXContainerItemProxy */ = {
+		966A7F1F1EEC5D5900A2DAAC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 966A7F101EEC5B3500A2DAAC /* Motion.xcodeproj */;
+			containerPortal = 966A7F191EEC5D5000A2DAAC /* Motion.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 96C98DD01E424AB000B22906;
 			remoteInfo = "Motion iOS";
@@ -225,7 +225,7 @@
 		963FBEFC1D669510008F8512 /* Snackbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Snackbar.swift; sourceTree = "<group>"; };
 		965532281E47E388005C2792 /* SpringAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringAnimation.swift; sourceTree = "<group>"; };
 		9658F2161CD6FA4700B902C1 /* IconButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
-		966A7F101EEC5B3500A2DAAC /* Motion.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Motion.xcodeproj; path = Frameworks/External/Motion/Motion.xcodeproj; sourceTree = "<group>"; };
+		966A7F191EEC5D5000A2DAAC /* Motion.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Motion.xcodeproj; path = Frameworks/Motion/Motion.xcodeproj; sourceTree = "<group>"; };
 		966ECF291CF4C20100BB0BDF /* CollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionReusableView.swift; sourceTree = "<group>"; };
 		96717B0D1DBE6AF600DA84DB /* Capture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Capture.swift; sourceTree = "<group>"; };
 		96717B0E1DBE6AF600DA84DB /* CaptureController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureController.swift; sourceTree = "<group>"; };
@@ -465,31 +465,23 @@
 		966A7F0D1EEC5AF400A2DAAC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				966A7F0E1EEC5AFD00A2DAAC /* External */,
+				966A7F181EEC5CFD00A2DAAC /* Motion */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		966A7F0E1EEC5AFD00A2DAAC /* External */ = {
+		966A7F181EEC5CFD00A2DAAC /* Motion */ = {
 			isa = PBXGroup;
 			children = (
-				966A7F0F1EEC5B0F00A2DAAC /* Motion */,
-			);
-			name = External;
-			sourceTree = "<group>";
-		};
-		966A7F0F1EEC5B0F00A2DAAC /* Motion */ = {
-			isa = PBXGroup;
-			children = (
-				966A7F101EEC5B3500A2DAAC /* Motion.xcodeproj */,
+				966A7F191EEC5D5000A2DAAC /* Motion.xcodeproj */,
 			);
 			name = Motion;
 			sourceTree = "<group>";
 		};
-		966A7F111EEC5B3500A2DAAC /* Products */ = {
+		966A7F1A1EEC5D5000A2DAAC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				966A7F151EEC5B3500A2DAAC /* Motion.framework */,
+				966A7F1E1EEC5D5000A2DAAC /* Motion.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -874,12 +866,11 @@
 				963832311B88DFD80015F710 /* Sources */,
 				963832331B88DFD80015F710 /* Headers */,
 				963832341B88DFD80015F710 /* Resources */,
-				966A7F0C1EEC582F00A2DAAC /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				966A7F171EEC5B6300A2DAAC /* PBXTargetDependency */,
+				966A7F201EEC5D5900A2DAAC /* PBXTargetDependency */,
 			);
 			name = "Material iOS";
 			productName = FocusKit;
@@ -918,8 +909,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 966A7F111EEC5B3500A2DAAC /* Products */;
-					ProjectRef = 966A7F101EEC5B3500A2DAAC /* Motion.xcodeproj */;
+					ProductGroup = 966A7F1A1EEC5D5000A2DAAC /* Products */;
+					ProjectRef = 966A7F191EEC5D5000A2DAAC /* Motion.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -930,11 +921,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		966A7F151EEC5B3500A2DAAC /* Motion.framework */ = {
+		966A7F1E1EEC5D5000A2DAAC /* Motion.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = Motion.framework;
-			remoteRef = 966A7F141EEC5B3500A2DAAC /* PBXContainerItemProxy */;
+			remoteRef = 966A7F1D1EEC5D5000A2DAAC /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -954,22 +945,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		966A7F0C1EEC582F00A2DAAC /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "git submodule update --init --recursive";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		963832311B88DFD80015F710 /* Sources */ = {
@@ -1066,10 +1041,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		966A7F171EEC5B6300A2DAAC /* PBXTargetDependency */ = {
+		966A7F201EEC5D5900A2DAAC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Motion iOS";
-			targetProxy = 966A7F161EEC5B6300A2DAAC /* PBXContainerItemProxy */;
+			targetProxy = 966A7F1F1EEC5D5900A2DAAC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
