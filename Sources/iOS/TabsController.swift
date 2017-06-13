@@ -29,6 +29,7 @@
  */
 
 import UIKit
+import Motion
 
 /// A memory reference to the TabsBarItem instance for UIViewController extensions.
 fileprivate var TabsBarItemKey: UInt8 = 0
@@ -51,12 +52,12 @@ extension UIViewController {
     /// pageMenuBarItem reference.
     public private(set) var pageMenuBarItem: TabsBarItem {
         get {
-            return AssociatedObject(base: self, key: &TabsBarItemKey) {
+            return AssociatedObject.get(base: self, key: &TabsBarItemKey) {
                 return TabsBarItem()
             }
         }
         set(value) {
-            AssociateObject(base: self, key: &TabsBarItemKey, value: value)
+            AssociatedObject.set(base: self, key: &TabsBarItemKey, value: value)
         }
     }
 }
@@ -248,6 +249,7 @@ extension TabsController {
         
         for v in viewControllers {
             let button = v.pageMenuBarItem as UIButton
+            v.isMotionEnabled = true
             buttons.append(button)
         }
         
@@ -471,6 +473,8 @@ extension TabsController {
 //        removeViewControllers()
         
 //        prepareViewControllersForTransition(from: selectedIndex, to: i)
+        
+        
         
         selectedIndex = i
         v.select(at: i)

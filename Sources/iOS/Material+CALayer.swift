@@ -100,12 +100,12 @@ extension CALayer {
     /// MaterialLayer Reference.
     fileprivate var materialLayer: MaterialLayer {
         get {
-            return AssociatedObject(base: self, key: &MaterialLayerKey) {
+            return AssociatedObject.get(base: self, key: &MaterialLayerKey) {
                 return MaterialLayer(layer: self)
             }
         }
         set(value) {
-            AssociateObject(base: self, key: &MaterialLayerKey, value: value)
+            AssociatedObject.set(base: self, key: &MaterialLayerKey, value: value)
         }
     }
     

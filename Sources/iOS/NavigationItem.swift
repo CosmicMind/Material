@@ -134,12 +134,12 @@ extension UINavigationItem {
 	/// NavigationItem reference.
 	public internal(set) var navigationItem: NavigationItem {
 		get {
-			return AssociatedObject(base: self, key: &NavigationItemKey) {
+			return AssociatedObject.get(base: self, key: &NavigationItemKey) {
 				return NavigationItem()
 			}
 		}
 		set(value) {
-			AssociateObject(base: self, key: &NavigationItemKey, value: value)
+			AssociatedObject.set(base: self, key: &NavigationItemKey, value: value)
 		}
 	}
     
