@@ -470,9 +470,9 @@ extension TabsController {
         guard i != selectedIndex else {
             return
         }
-//        removeViewControllers()
+        //        removeViewControllers()
         
-//        prepareViewControllersForTransition(from: selectedIndex, to: i)
+        //        prepareViewControllersForTransition(from: selectedIndex, to: i)
         
         
         
@@ -496,7 +496,7 @@ extension TabsController: UIScrollViewDelegate {
         
         removeViewControllers()
         prepareViewControllers()
-//        prepareTabBar()
+        //        prepareTabBar()
         layoutSubviews()
     }
 }
