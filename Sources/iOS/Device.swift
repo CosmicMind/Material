@@ -30,7 +30,8 @@
 
 import UIKit
 
-public enum DeviceModel {
+@objc(DeviceModel)
+public enum DeviceModel: Int {
     case iPodTouch5
     case iPodTouch6
     case iPhone4
@@ -116,3 +117,13 @@ public struct Device {
 		return UIDevice.current.userInterfaceIdiom
 	}
 }
+
+
+public func ==(lhs: DeviceModel, rhs: DeviceModel) -> Bool {
+    return lhs.rawValue == rhs.rawValue
+}
+
+public func !=(lhs: DeviceModel, rhs: DeviceModel) -> Bool {
+    return lhs.rawValue != rhs.rawValue
+}
+

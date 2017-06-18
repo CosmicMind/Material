@@ -442,7 +442,6 @@
 			children = (
 				9606CFAB1E957AC3006B4E74 /* TabsController.swift */,
 				96BCB79A1CB40DC500C806FE /* TabBar.swift */,
-				96DE566B1EF1B63B006DA70E /* PanController.swift */,
 			);
 			name = Tabs;
 			sourceTree = "<group>";
@@ -560,6 +559,7 @@
 				96BCB8041CB40F6C00C806FE /* Layout */,
 				96BCB8011CB40F1700C806FE /* Navigation */,
 				961E6BEF1DDA4B04004E6C93 /* NavigationDrawer */,
+				96DE566D1EF1B6E3006DA70E /* Pan */,
 				96717B151DBE6B1800DA84DB /* Photos */,
 				9626CA951DAB5370003E2611 /* Root */,
 				961E6BE01DDA2ADD004E6C93 /* Screen */,
@@ -753,6 +753,14 @@
 				96BCB7571CB40DC500C806FE /* iOS */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		96DE566D1EF1B6E3006DA70E /* Pan */ = {
+			isa = PBXGroup;
+			children = (
+				96DE566B1EF1B63B006DA70E /* PanController.swift */,
+			);
+			name = Pan;
 			sourceTree = "<group>";
 		};
 		96EF418E1E835E850012CA1C /* Animation */ = {
