@@ -101,7 +101,7 @@ open class BottomNavigationController: UITabBarController {
 			}
 		}
         
-        tabBar.divider.reload()
+        tabBar.layoutDivider()
 	}
 	
 	/**

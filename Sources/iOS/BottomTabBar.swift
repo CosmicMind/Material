@@ -101,7 +101,7 @@ open class BottomTabBar: UITabBar {
 			}
 		}
         
-        divider.reload()
+        layoutDivider()
 	}
 	
 	open override func didMoveToSuperview() {

@@ -121,8 +121,8 @@ open class CollectionView: UICollectionView {
      The super.prepare method should always be called immediately
      when subclassing.
      */
-	open func prepare() {
+    open func prepare() {
+        backgroundColor = .white
 		contentScaleFactor = Screen.scale
-		backgroundColor = .white
     }
 }

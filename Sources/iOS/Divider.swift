@@ -212,4 +212,9 @@ extension UIView {
             divider.thickness = value
         }
     }
+    
+    /// Sets the divider frame.
+    open func layoutDivider() {
+        divider.reload()
+    }
 }

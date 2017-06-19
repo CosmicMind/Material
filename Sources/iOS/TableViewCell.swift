@@ -112,6 +112,7 @@ open class TableViewCell: UITableViewCell, Pulseable, PulseableLayer {
         layoutShape()
         layoutVisualLayer()
         layoutShadowPath()
+        layoutDivider()
 	}
 	
     /**

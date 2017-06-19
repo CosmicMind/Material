@@ -260,7 +260,7 @@ open class Bar: View {
         grid.commit()
         contentView.grid.commit()
         
-        divider.reload()
+        layoutDivider()
     }
     
     /**

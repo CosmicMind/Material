@@ -528,11 +528,6 @@ extension TextField {
         button?.frame = CGRect(x: width - height, y: 0, width: height, height: height)
     }
     
-    /// Layout the divider.
-    fileprivate func layoutDivider() {
-        divider.reload()
-    }
-    
     /// Layout the leftView.
     fileprivate func layoutLeftView() {
         guard let v = leftView else {

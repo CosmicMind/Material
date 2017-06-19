@@ -268,7 +268,7 @@ open class TabBar: Bar {
         grid.commit()
         contentView.grid.commit()
         
-        divider.reload()
+        layoutDivider()
         
         let buttonsWidth = buttons.reduce(0) {
             $0 + $1.sizeThatFits(CGSize(width: .greatestFiniteMagnitude, height: contentView.height)).width + interimSpace
