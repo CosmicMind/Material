@@ -48,6 +48,17 @@ open class Snackbar: Bar {
         }
     }
     
+    /// A convenience property to set the titleLabel attributedText.
+    open var attributedText: NSAttributedString? {
+        get {
+            return textLabel.attributedText
+        }
+        set(value) {
+            textLabel.attributedText = value
+            layoutSubviews()
+        }
+    }
+    
     /// Text label.
     @IBInspectable
     open let textLabel = UILabel()
