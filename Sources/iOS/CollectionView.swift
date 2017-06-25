@@ -99,14 +99,21 @@ open class CollectionView: UICollectionView {
 		super.init(frame: frame, collectionViewLayout: layout)
 		prepare()
 	}
+    
+    /**
+     An initializer that initializes the object.
+     - Parameter collectionViewLayout: A UICollectionViewLayout reference.
+     */
+    public convenience init(collectionViewLayout layout: UICollectionViewLayout) {
+        self.init(frame: .zero, collectionViewLayout: layout)
+    }
 	
 	/**
      An initializer that initializes the object.
      - Parameter frame: A CGRect defining the view's frame.
      */
-	public init(frame: CGRect) {
-		super.init(frame: frame, collectionViewLayout: CollectionViewLayout())
-		prepare()
+	public convenience init(frame: CGRect) {
+		self.init(frame: frame, collectionViewLayout: CollectionViewLayout())
 	}
 	
 	/// A convenience initializer that initializes the object.

@@ -108,8 +108,7 @@ open class NavigationController: UINavigationController {
     
     open override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        navigationBar.setNeedsLayout()
-        navigationBar.layoutIfNeeded()
+        layoutSubviews()
     }
     
 	/**
@@ -133,6 +132,12 @@ open class NavigationController: UINavigationController {
 			v.delegate = self
 		}
 	}
+    
+    /// Calls the layout functions for the view heirarchy.
+    open func layoutSubviews() {
+        navigationBar.setNeedsLayout()
+        navigationBar.layoutIfNeeded()
+    }
 }
 
 extension NavigationController: UINavigationBarDelegate {
