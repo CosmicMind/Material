@@ -319,13 +319,6 @@ open class TabBar: Bar {
         line.frame = CGRect(x: selected!.x, y: .bottom == lineAlignment ? height - lineHeight : 0, width: selected!.width, height: lineHeight)
     }
 	
-    /**
-     Prepares the view instance when intialized. When subclassing,
-     it is recommended to override the prepare method
-     to initialize property values and other setup operations.
-     The super.prepare method should always be called immediately
-     when subclassing.
-     */
     open override func prepare() {
         super.prepare()
         contentEdgeInsetsPreset = .none

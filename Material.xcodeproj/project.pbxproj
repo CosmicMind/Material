@@ -8,10 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		9606CFAC1E957AC3006B4E74 /* TabsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9606CFAB1E957AC3006B4E74 /* TabsController.swift */; };
-		961409B01E43D15C00E7BA99 /* CollectionViewCard.swift in Headers */ = {isa = PBXBuildFile; fileRef = 961730591E145DE900A9A297 /* CollectionViewCard.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		961409B11E43D15C00E7BA99 /* FABMenu.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96A183621E0C6CE200083C30 /* FABMenu.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		961409B21E43D15C00E7BA99 /* FABMenuController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96A183641E0C6DD400083C30 /* FABMenuController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		9617305A1E145DE900A9A297 /* CollectionViewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961730591E145DE900A9A297 /* CollectionViewCard.swift */; };
 		9617B07D1DFCA8CF00410F8F /* Application.swift in Headers */ = {isa = PBXBuildFile; fileRef = 961E6BDE1DDA2A95004E6C93 /* Application.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9617B07E1DFCA8CF00410F8F /* Card.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB75D1CB40DC500C806FE /* Card.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9617B07F1DFCA8CF00410F8F /* ImageCard.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7621CB40DC500C806FE /* ImageCard.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -44,6 +42,8 @@
 		964335B71EC9432400FA9954 /* Events.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9639526A1EC3882F004BA9DE /* Events.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		964335B81EC9432400FA9954 /* EventsController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9639526B1EC3882F004BA9DE /* EventsController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		964335BA1EC9432400FA9954 /* TabsController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9606CFAB1E957AC3006B4E74 /* TabsController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		9656895F1F002F16001C656D /* CardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9656895E1F002F16001C656D /* CardCollectionViewCell.swift */; };
+		965689611F002F4C001C656D /* CardCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965689601F002F4C001C656D /* CardCollectionViewController.swift */; };
 		965E80CC1DD4C50600D61E4B /* Bar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7981CB40DC500C806FE /* Bar.swift */; };
 		965E80CD1DD4C50600D61E4B /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7701CB40DC500C806FE /* Button.swift */; };
 		965E80CE1DD4C50600D61E4B /* FABButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB75F1CB40DC500C806FE /* FABButton.swift */; };
@@ -205,7 +205,6 @@
 /* Begin PBXFileReference section */
 		9606CFAB1E957AC3006B4E74 /* TabsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabsController.swift; sourceTree = "<group>"; };
 		961276621DCD8B1800A7D920 /* CharacterAttribute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacterAttribute.swift; sourceTree = "<group>"; };
-		961730591E145DE900A9A297 /* CollectionViewCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCard.swift; sourceTree = "<group>"; };
 		961E6BDE1DDA2A95004E6C93 /* Application.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		961E6BE11DDA2AF3004E6C93 /* Screen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
 		961EFC571D738FF600E84652 /* SnackbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnackbarController.swift; sourceTree = "<group>"; };
@@ -225,6 +224,8 @@
 		9639526B1EC3882F004BA9DE /* EventsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsController.swift; sourceTree = "<group>"; };
 		963FBEFC1D669510008F8512 /* Snackbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Snackbar.swift; sourceTree = "<group>"; };
 		965532281E47E388005C2792 /* SpringAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringAnimation.swift; sourceTree = "<group>"; };
+		9656895E1F002F16001C656D /* CardCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardCollectionViewCell.swift; sourceTree = "<group>"; };
+		965689601F002F4C001C656D /* CardCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardCollectionViewController.swift; sourceTree = "<group>"; };
 		9658F2161CD6FA4700B902C1 /* IconButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
 		966A7F191EEC5D5000A2DAAC /* Motion.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Motion.xcodeproj; path = Frameworks/Motion/Motion.xcodeproj; sourceTree = "<group>"; };
 		966ECF291CF4C20100BB0BDF /* CollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionReusableView.swift; sourceTree = "<group>"; };
@@ -464,6 +465,15 @@
 			name = SearchBar;
 			sourceTree = "<group>";
 		};
+		965689641F003476001C656D /* CardCollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				9656895E1F002F16001C656D /* CardCollectionViewCell.swift */,
+				965689601F002F4C001C656D /* CardCollectionViewController.swift */,
+			);
+			name = CardCollectionView;
+			sourceTree = "<group>";
+		};
 		966A7F0D1EEC5AF400A2DAAC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -622,7 +632,6 @@
 				96BCB75D1CB40DC500C806FE /* Card.swift */,
 				96BCB7621CB40DC500C806FE /* ImageCard.swift */,
 				9631A7C01D95E3AC00CFB109 /* PresenterCard.swift */,
-				961730591E145DE900A9A297 /* CollectionViewCard.swift */,
 			);
 			name = Card;
 			sourceTree = "<group>";
@@ -650,11 +659,12 @@
 		96BCB8051CB40F9C00C806FE /* Collection */ = {
 			isa = PBXGroup;
 			children = (
-				96BCB7721CB40DC500C806FE /* CollectionViewCell.swift */,
-				966ECF291CF4C20100BB0BDF /* CollectionReusableView.swift */,
+				965689641F003476001C656D /* CardCollectionView */,
+				96328B791E020A41009A4C90 /* CollectionViewController.swift */,
 				96BCB7711CB40DC500C806FE /* CollectionView.swift */,
 				96BCB7751CB40DC500C806FE /* CollectionViewLayout.swift */,
-				96328B791E020A41009A4C90 /* CollectionViewController.swift */,
+				966ECF291CF4C20100BB0BDF /* CollectionReusableView.swift */,
+				96BCB7721CB40DC500C806FE /* CollectionViewCell.swift */,
 			);
 			name = Collection;
 			sourceTree = "<group>";
@@ -857,7 +867,6 @@
 				96328B9B1E05C24E009A4C90 /* CollectionViewController.swift in Headers */,
 				96328B9E1E05C24E009A4C90 /* TableView.swift in Headers */,
 				96328B9F1E05C24E009A4C90 /* TableViewController.swift in Headers */,
-				961409B01E43D15C00E7BA99 /* CollectionViewCard.swift in Headers */,
 				961409B11E43D15C00E7BA99 /* FABMenu.swift in Headers */,
 				961409B21E43D15C00E7BA99 /* FABMenuController.swift in Headers */,
 				96BFC16F1E63C10A0075DE1F /* SpringAnimation.swift in Headers */,
@@ -984,6 +993,7 @@
 				965E81131DD4D5C800D61E4B /* NavigationDrawerController.swift in Sources */,
 				965E81141DD4D5C800D61E4B /* PhotoLibrary.swift in Sources */,
 				965E81151DD4D5C800D61E4B /* PhotoLibraryController.swift in Sources */,
+				9656895F1F002F16001C656D /* CardCollectionViewCell.swift in Sources */,
 				965E81161DD4D5C800D61E4B /* DisplayStyle.swift in Sources */,
 				965E81171DD4D5C800D61E4B /* RootController.swift in Sources */,
 				965E81181DD4D5C800D61E4B /* Snackbar.swift in Sources */,
@@ -1015,6 +1025,7 @@
 				965E80F81DD4D59500D61E4B /* ImageCard.swift in Sources */,
 				96328B991E05C0CE009A4C90 /* TableViewController.swift in Sources */,
 				965E80F91DD4D59500D61E4B /* PresenterCard.swift in Sources */,
+				965689611F002F4C001C656D /* CardCollectionViewController.swift in Sources */,
 				965E80CC1DD4C50600D61E4B /* Bar.swift in Sources */,
 				965E80CD1DD4C50600D61E4B /* Button.swift in Sources */,
 				965E80CE1DD4C50600D61E4B /* FABButton.swift in Sources */,
@@ -1026,7 +1037,6 @@
 				96BFC1541E5E486F0075DE1F /* SpringAnimation.swift in Sources */,
 				965E80D31DD4C50600D61E4B /* Device.swift in Sources */,
 				965E80FD1DD4D59500D61E4B /* Toolbar.swift in Sources */,
-				9617305A1E145DE900A9A297 /* CollectionViewCard.swift in Sources */,
 				965E80D41DD4C50600D61E4B /* Divider.swift in Sources */,
 				965E80D51DD4C50600D61E4B /* Grid.swift in Sources */,
 				965E80D61DD4C50600D61E4B /* HeightPreset.swift in Sources */,

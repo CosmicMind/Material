@@ -30,19 +30,22 @@
 
 import UIKit
 
-open class ErrorTextField: TextField {
-    /// Controls the visibility of detailLabel
-    @IBInspectable
-    open var isErrorRevealed = false {
+open class CardCollectionViewCell: CollectionViewCell {
+    /// An optional reference to the card being displayed in the cell.
+    open var card: Card? {
         didSet {
-            detailLabel.isHidden = !isErrorRevealed
-            layoutSubviews()
+            oldValue?.removeFromSuperview()
+            
+            guard let v = card else {
+                return
+            }
+            
+            contentView.addSubview(v)
         }
     }
     
     open override func prepare() {
         super.prepare()
-        isErrorRevealed = false
-        detailColor = Color.red.base
+        pulseAnimation = .none
     }
 }
