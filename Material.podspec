@@ -20,19 +20,4 @@ Pod::Spec.new do |s|
             'com.cosmicmind.material.fonts' => ['Sources/**/*.ttf']
         }
     end
-
-    s.subspec 'Capture' do |capture|
-        capture.source_files = 'Sources/iOS/Capture/*.swift'
-        capture.dependency 'Material/Core'
-    end
-
-    s.subspec 'Photos' do |photos|
-        photos.source_files = 'Sources/iOS/Photos/*.swift'
-        photos.dependency 'Material/Core'
-    end
-
-    s.subspec 'Events' do |events|
-        events.source_files = 'Sources/iOS/Events/*.swift'
-        events.dependency 'Material/Core'
-    end
 end
