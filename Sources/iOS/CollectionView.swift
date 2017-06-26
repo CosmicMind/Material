@@ -104,21 +104,24 @@ open class CollectionView: UICollectionView {
      An initializer that initializes the object.
      - Parameter collectionViewLayout: A UICollectionViewLayout reference.
      */
-    public convenience init(collectionViewLayout layout: UICollectionViewLayout) {
-        self.init(frame: .zero, collectionViewLayout: layout)
+    public init(collectionViewLayout layout: UICollectionViewLayout) {
+        super.init(frame: .zero, collectionViewLayout: layout)
+        prepare()
     }
 	
 	/**
      An initializer that initializes the object.
      - Parameter frame: A CGRect defining the view's frame.
      */
-	public convenience init(frame: CGRect) {
-		self.init(frame: frame, collectionViewLayout: CollectionViewLayout())
-	}
+	public init(frame: CGRect) {
+		super.init(frame: frame, collectionViewLayout: CollectionViewLayout())
+        prepare()
+    }
 	
 	/// A convenience initializer that initializes the object.
-	public convenience init() {
-		self.init(frame: .zero)
+	public init() {
+        super.init(frame: .zero, collectionViewLayout: CollectionViewLayout())
+        prepare()
 	}
 	
 	/**
@@ -131,5 +134,6 @@ open class CollectionView: UICollectionView {
     open func prepare() {
         backgroundColor = .white
 		contentScaleFactor = Screen.scale
+        register(CollectionViewCell.self, forCellWithReuseIdentifier: "CollectionViewCell")
     }
 }

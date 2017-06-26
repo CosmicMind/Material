@@ -112,6 +112,7 @@ extension CollectionViewController {
 }
 
 extension CollectionViewController: CollectionViewDelegate {}
+
 extension CollectionViewController: CollectionViewDataSource {
     @objc
     open func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -125,6 +126,6 @@ extension CollectionViewController: CollectionViewDataSource {
 
     @objc
     open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
+        return collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath)
     }
 }

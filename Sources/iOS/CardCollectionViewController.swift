@@ -127,7 +127,7 @@ extension CardCollectionViewController: CollectionViewDataSource {
         }
         
         dataSourceItemsIndexPaths[indexPath] = card
-        
+
         card.frame = cell.bounds
     
         cell.card = card
