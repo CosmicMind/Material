@@ -30,7 +30,7 @@
 
 import UIKit
 
-fileprivate struct MaterialLayer {
+fileprivate class MaterialLayer {
     /// A reference to the CALayer.
     fileprivate weak var layer: CALayer?
     
@@ -56,7 +56,11 @@ fileprivate struct MaterialLayer {
     }
     
     /// A preset property to set the shape.
-    fileprivate var shapePreset = ShapePreset.none
+    fileprivate var shapePreset = ShapePreset.none {
+        didSet {
+            layer?.layoutShape()
+        }
+    }
     
     /// A preset value for Depth.
     fileprivate var depthPreset: DepthPreset {
@@ -263,6 +267,7 @@ extension CALayer {
         }
         
         guard .circle == shapePreset else {
+            cornerRadius = 0
             return
         }
         
