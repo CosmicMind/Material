@@ -149,13 +149,13 @@ public struct Pulse {
         
         switch animation {
         case .centerWithBacking, .backing, .pointWithBacking:
-            bLayer.motion(.backgroundColor(color.withAlphaComponent(opacity / 2)), .duration(duration))
+            bLayer.animate(.backgroundColor(color.withAlphaComponent(opacity / 2)), .duration(duration))
         default:break
         }
         
         switch animation {
         case .center, .centerWithBacking, .centerRadialBeyondBounds, .radialBeyondBounds, .point, .pointWithBacking:
-            pLayer.motion(.scale(1), .duration(duration))
+            pLayer.animate(.scale(1), .duration(duration))
         default:break
         }
         
@@ -183,13 +183,13 @@ public struct Pulse {
             
             switch animation {
             case .centerWithBacking, .backing, .pointWithBacking:
-                bLayer.motion(.backgroundColor(color.withAlphaComponent(0)), .duration(duration))
+                bLayer.animate(.backgroundColor(color.withAlphaComponent(0)), .duration(duration))
             default:break
             }
             
             switch animation {
             case .center, .centerWithBacking, .centerRadialBeyondBounds, .radialBeyondBounds, .point, .pointWithBacking:
-                pLayer.motion(.scale(.center == animation ? 1 : 1.325), .backgroundColor(color.withAlphaComponent(0)))
+                pLayer.animate(.scale(.center == animation ? 1 : 1.325), .backgroundColor(color.withAlphaComponent(0)))
             default:break
             }
             
