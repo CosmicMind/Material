@@ -33,6 +33,15 @@ import Motion
 
 extension MotionAnimation {
     /**
+     Animates the view's current shadow offset to the given one.
+     - Parameter offset: A CGSize.
+     - Returns: A MotionAnimation.
+     */
+    public static func shadow(offset: Offset) -> MotionAnimation {
+        return .shadow(offset: offset.asSize)
+    }
+    
+    /**
      Animates the views shadow offset, opacity, and radius using a DepthPreset.
      - Parameter _ preset: A DepthPreset.
      */
