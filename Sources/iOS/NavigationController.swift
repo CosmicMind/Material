@@ -135,6 +135,7 @@ open class NavigationController: UINavigationController {
     
     /// Calls the layout functions for the view heirarchy.
     open func layoutSubviews() {
+        navigationBar.updateConstraints()
         navigationBar.setNeedsLayout()
         navigationBar.layoutIfNeeded()
     }

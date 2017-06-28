@@ -157,6 +157,7 @@ extension CollectionViewLayout {
                 attributes.frame = CGRect(x: contentEdgeInsets.left, y: offset.y, width: collectionView!.bounds.width - contentEdgeInsets.left - contentEdgeInsets.right, height: h)
             
             } else if let v = dataSourceItem.data as? UIView, 0 < v.bounds.height {
+                v.updateConstraints()
                 v.setNeedsLayout()
                 v.layoutIfNeeded()
                 
@@ -170,6 +171,7 @@ extension CollectionViewLayout {
                 attributes.frame = CGRect(x: offset.x, y: contentEdgeInsets.top, width: w, height: collectionView!.bounds.height - contentEdgeInsets.top - contentEdgeInsets.bottom)
             
             } else if let v = dataSourceItem.data as? UIView, 0 < v.bounds.width {
+                v.updateConstraints()
                 v.setNeedsLayout()
                 v.layoutIfNeeded()
                 
