@@ -43,16 +43,16 @@ public class NavigationItem: NSObject {
     }
     
 	/// Back Button.
-	public private(set) lazy var backButton: IconButton = IconButton()
+    public fileprivate(set) lazy var backButton: IconButton = IconButton()
 	
 	/// Content View.
-    public private(set) lazy var contentView = UIView()
+    public fileprivate(set) var contentView = UIView()
 	
 	/// Title label.
-	public private(set) lazy var titleLabel = UILabel()
+	public fileprivate(set) var titleLabel = UILabel()
 	
 	/// Detail label.
-	public private(set) lazy var detailLabel = UILabel()
+	public fileprivate(set) var detailLabel = UILabel()
 	
 	/// Left items.
     public var leftViews = [UIView]() {
@@ -108,12 +108,12 @@ public class NavigationItem: NSObject {
 	}
     
     /// Reloads the subviews for the NavigationBar.
-    internal func reload() {
+    fileprivate func reload() {
         navigationBar?.layoutSubviews()
     }
 	
 	/// Prepares the titleLabel.
-    private func prepareTitleLabel() {
+    fileprivate func prepareTitleLabel() {
         titleLabel.textAlignment = .center
 		titleLabel.contentScaleFactor = Screen.scale
         titleLabel.font = RobotoFont.medium(with: 17)
@@ -122,7 +122,7 @@ public class NavigationItem: NSObject {
 	}
 	
 	/// Prepares the detailLabel.
-    private func prepareDetailLabel() {
+    fileprivate func prepareDetailLabel() {
         detailLabel.textAlignment = .center
         titleLabel.contentScaleFactor = Screen.scale
 		detailLabel.font = RobotoFont.regular(with: 12)

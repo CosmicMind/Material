@@ -152,9 +152,16 @@ extension NavigationController: UINavigationBarDelegate {
      */
     public func navigationBar(_ navigationBar: UINavigationBar, shouldPush item: UINavigationItem) -> Bool {
         if let v = navigationBar as? NavigationBar {
+            if nil == item.backButton.image && nil == item.backButton.title {
+                item.backButton.image = v.backButtonImage
+            }
+            
             item.backButton.addTarget(self, action: #selector(handleBackButton), for: .touchUpInside)
-            item.backButton.image = v.backButtonImage
-            item.leftViews.insert(item.backButton, at: 0)
+            
+            if !item.backButton.isHidden {
+                item.leftViews.insert(item.backButton, at: 0)
+            }
+            
             v.layoutNavigationItem(item: item)
         }
         return true

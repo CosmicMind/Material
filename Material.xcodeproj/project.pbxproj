@@ -103,6 +103,10 @@
 		965E81231DD4D7C800D61E4B /* BottomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7591CB40DC500C806FE /* BottomTabBar.swift */; };
 		965E81261DD4D7C800D61E4B /* CharacterAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961276621DCD8B1800A7D920 /* CharacterAttribute.swift */; };
 		966C17731F0439F600D3E83C /* Material+MotionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C17721F0439F600D3E83C /* Material+MotionAnimation.swift */; };
+		9685D5AF1F0F04CB00AFEB79 /* CardCollectionViewCell.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9656895E1F002F16001C656D /* CardCollectionViewCell.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		9685D5B01F0F04CB00AFEB79 /* CardCollectionViewController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 965689601F002F4C001C656D /* CardCollectionViewController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		9685D5B11F0F04CB00AFEB79 /* Material+MotionAnimation.swift in Headers */ = {isa = PBXBuildFile; fileRef = 966C17721F0439F600D3E83C /* Material+MotionAnimation.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		9685D5B21F0F04CB00AFEB79 /* PanController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96DE566B1EF1B63B006DA70E /* PanController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9697F7BF1D8F2572004741EC /* Divider.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96230AB71D6A520C00AF47DC /* Divider.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9697F7C01D8F2572004741EC /* Material+CALayer.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96F1DC871D654FDF0025F925 /* Material+CALayer.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9697F7C11D8F2572004741EC /* Material+Array.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96C1C8801D42C62800E6608F /* Material+Array.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -180,7 +184,7 @@
 			remoteGlobalIDString = 96C98DD11E424AB000B22906;
 			remoteInfo = "Motion iOS";
 		};
-		966A7F1F1EEC5D5900A2DAAC /* PBXContainerItemProxy */ = {
+		9685D5BC1F0F078B00AFEB79 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 966A7F191EEC5D5000A2DAAC /* Motion.xcodeproj */;
 			proxyType = 1;
@@ -817,15 +821,19 @@
 				961409B21E43D15C00E7BA99 /* FABMenuController.swift in Headers */,
 				96BFC16F1E63C10A0075DE1F /* SpringAnimation.swift in Headers */,
 				964335BA1EC9432400FA9954 /* TabsController.swift in Headers */,
+				9685D5AF1F0F04CB00AFEB79 /* CardCollectionViewCell.swift in Headers */,
+				9685D5B01F0F04CB00AFEB79 /* CardCollectionViewController.swift in Headers */,
+				9685D5B11F0F04CB00AFEB79 /* Material+MotionAnimation.swift in Headers */,
+				9685D5B21F0F04CB00AFEB79 /* PanController.swift in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		963832351B88DFD80015F710 /* Material iOS */ = {
+		963832351B88DFD80015F710 /* Material */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9638324C1B88DFD80015F710 /* Build configuration list for PBXNativeTarget "Material iOS" */;
+			buildConfigurationList = 9638324C1B88DFD80015F710 /* Build configuration list for PBXNativeTarget "Material" */;
 			buildPhases = (
 				963832311B88DFD80015F710 /* Sources */,
 				963832331B88DFD80015F710 /* Headers */,
@@ -834,9 +842,9 @@
 			buildRules = (
 			);
 			dependencies = (
-				966A7F201EEC5D5900A2DAAC /* PBXTargetDependency */,
+				9685D5BD1F0F078B00AFEB79 /* PBXTargetDependency */,
 			);
-			name = "Material iOS";
+			name = Material;
 			productName = FocusKit;
 			productReference = 963832361B88DFD80015F710 /* Material.framework */;
 			productType = "com.apple.product-type.framework";
@@ -879,7 +887,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				963832351B88DFD80015F710 /* Material iOS */,
+				963832351B88DFD80015F710 /* Material */,
 			);
 		};
 /* End PBXProject section */
@@ -1001,10 +1009,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		966A7F201EEC5D5900A2DAAC /* PBXTargetDependency */ = {
+		9685D5BD1F0F078B00AFEB79 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Motion iOS";
-			targetProxy = 966A7F1F1EEC5D5900A2DAAC /* PBXContainerItemProxy */;
+			targetProxy = 9685D5BC1F0F078B00AFEB79 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1172,7 +1180,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9638324C1B88DFD80015F710 /* Build configuration list for PBXNativeTarget "Material iOS" */ = {
+		9638324C1B88DFD80015F710 /* Build configuration list for PBXNativeTarget "Material" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9638324D1B88DFD80015F710 /* Debug */,

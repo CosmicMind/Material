@@ -51,7 +51,7 @@ fileprivate class MaterialLayer {
     /// A preset property to set the borderWidth.
     fileprivate var borderWidthPreset = BorderWidthPreset.none {
         didSet {
-            layer?.borderWidth = BorderWidthPresetToValue(preset: borderWidthPreset)
+            layer?.borderWidth = borderWidthPreset.cgFloatValue
         }
     }
     

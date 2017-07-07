@@ -147,15 +147,15 @@ public struct Pulse {
         
         let t: TimeInterval = .center == animation ? 0.16125 : 0.325
         
-        switch animation {
-        case .centerWithBacking, .backing, .pointWithBacking:
-            bLayer.animate(.background(color: color.withAlphaComponent(opacity / 2)), .duration(t))
-        default:break
-        }
+//        switch animation {
+//        case .centerWithBacking, .backing, .pointWithBacking:
+//            bLayer.animate(.duration(t))
+//        default:break
+//        }
         
         switch animation {
         case .center, .centerWithBacking, .centerRadialBeyondBounds, .radialBeyondBounds, .point, .pointWithBacking:
-            pLayer.animate(.scale(), .duration(t))
+            pLayer.animate(.scale(), .background(color: color.withAlphaComponent(opacity / 2)), .duration(t))
         default:break
         }
         
@@ -181,11 +181,11 @@ public struct Pulse {
             
             let t: TimeInterval = 0.325
             
-            switch animation {
-            case .centerWithBacking, .backing, .pointWithBacking:
-                bLayer.animate(.background(color: color.withAlphaComponent(0)), .duration(t))
-            default:break
-            }
+//            switch animation {
+//            case .centerWithBacking, .backing, .pointWithBacking:
+//                bLayer.animate(.background(color: color.withAlphaComponent(0)), .duration(t))
+//            default:break
+//            }
             
             switch animation {
             case .center, .centerWithBacking, .centerRadialBeyondBounds, .radialBeyondBounds, .point, .pointWithBacking:
