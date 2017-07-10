@@ -33,6 +33,7 @@
 		96328B9F1E05C24E009A4C90 /* TableViewController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96328B981E05C0CE009A4C90 /* TableViewController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96334EF61C8B84660083986B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96334EF51C8B84660083986B /* Assets.xcassets */; };
 		964335BA1EC9432400FA9954 /* TabsController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9606CFAB1E957AC3006B4E74 /* TabsController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96502A101F0F440600889D42 /* Motion.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 96502A0D1F0F43FB00889D42 /* Motion.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9656895F1F002F16001C656D /* CardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9656895E1F002F16001C656D /* CardCollectionViewCell.swift */; };
 		965689611F002F4C001C656D /* CardCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965689601F002F4C001C656D /* CardCollectionViewController.swift */; };
 		965E80CC1DD4C50600D61E4B /* Bar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7981CB40DC500C806FE /* Bar.swift */; };
@@ -177,21 +178,34 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		966A7F1D1EEC5D5000A2DAAC /* PBXContainerItemProxy */ = {
+		96502A0C1F0F43FB00889D42 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 966A7F191EEC5D5000A2DAAC /* Motion.xcodeproj */;
+			containerPortal = 96502A081F0F43FB00889D42 /* Motion.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 96C98DD11E424AB000B22906;
 			remoteInfo = "Motion iOS";
 		};
-		9685D5BC1F0F078B00AFEB79 /* PBXContainerItemProxy */ = {
+		96502A0E1F0F440200889D42 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 966A7F191EEC5D5000A2DAAC /* Motion.xcodeproj */;
+			containerPortal = 96502A081F0F43FB00889D42 /* Motion.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 96C98DD01E424AB000B22906;
 			remoteInfo = "Motion iOS";
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		96502A041F0F434000889D42 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				96502A101F0F440600889D42 /* Motion.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		9606CFAB1E957AC3006B4E74 /* TabsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabsController.swift; sourceTree = "<group>"; };
@@ -212,11 +226,11 @@
 		96334EF51C8B84660083986B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		963832361B88DFD80015F710 /* Material.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Material.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		963FBEFC1D669510008F8512 /* Snackbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Snackbar.swift; sourceTree = "<group>"; };
+		96502A081F0F43FB00889D42 /* Motion.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Motion.xcodeproj; path = Frameworks/Motion/Motion.xcodeproj; sourceTree = "<group>"; };
 		965532281E47E388005C2792 /* SpringAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringAnimation.swift; sourceTree = "<group>"; };
 		9656895E1F002F16001C656D /* CardCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardCollectionViewCell.swift; sourceTree = "<group>"; };
 		965689601F002F4C001C656D /* CardCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardCollectionViewController.swift; sourceTree = "<group>"; };
 		9658F2161CD6FA4700B902C1 /* IconButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
-		966A7F191EEC5D5000A2DAAC /* Motion.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Motion.xcodeproj; path = Frameworks/Motion/Motion.xcodeproj; sourceTree = "<group>"; };
 		966C17721F0439F600D3E83C /* Material+MotionAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+MotionAnimation.swift"; sourceTree = "<group>"; };
 		966ECF291CF4C20100BB0BDF /* CollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionReusableView.swift; sourceTree = "<group>"; };
 		967A48181D0F425A00B8CEB7 /* StatusBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarController.swift; sourceTree = "<group>"; };
@@ -286,6 +300,16 @@
 		96E3C3931D397AE90086A024 /* Material+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIView.swift"; sourceTree = "<group>"; };
 		96F1DC871D654FDF0025F925 /* Material+CALayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+CALayer.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		96502A141F0F447800889D42 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		9602F00C1DA1163000F3FB79 /* Grid */ = {
@@ -441,6 +465,14 @@
 			name = SearchBar;
 			sourceTree = "<group>";
 		};
+		96502A091F0F43FB00889D42 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				96502A0D1F0F43FB00889D42 /* Motion.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		965689641F003476001C656D /* CardCollectionView */ = {
 			isa = PBXGroup;
 			children = (
@@ -461,17 +493,9 @@
 		966A7F181EEC5CFD00A2DAAC /* Motion */ = {
 			isa = PBXGroup;
 			children = (
-				966A7F191EEC5D5000A2DAAC /* Motion.xcodeproj */,
+				96502A081F0F43FB00889D42 /* Motion.xcodeproj */,
 			);
 			name = Motion;
-			sourceTree = "<group>";
-		};
-		966A7F1A1EEC5D5000A2DAAC /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				966A7F1E1EEC5D5000A2DAAC /* Motion.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		966ECF2B1CF4C21B00BB0BDF /* Table */ = {
@@ -838,11 +862,13 @@
 				963832311B88DFD80015F710 /* Sources */,
 				963832331B88DFD80015F710 /* Headers */,
 				963832341B88DFD80015F710 /* Resources */,
+				96502A041F0F434000889D42 /* CopyFiles */,
+				96502A141F0F447800889D42 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				9685D5BD1F0F078B00AFEB79 /* PBXTargetDependency */,
+				96502A0F1F0F440200889D42 /* PBXTargetDependency */,
 			);
 			name = Material;
 			productName = FocusKit;
@@ -881,8 +907,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 966A7F1A1EEC5D5000A2DAAC /* Products */;
-					ProjectRef = 966A7F191EEC5D5000A2DAAC /* Motion.xcodeproj */;
+					ProductGroup = 96502A091F0F43FB00889D42 /* Products */;
+					ProjectRef = 96502A081F0F43FB00889D42 /* Motion.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -893,11 +919,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		966A7F1E1EEC5D5000A2DAAC /* Motion.framework */ = {
+		96502A0D1F0F43FB00889D42 /* Motion.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = Motion.framework;
-			remoteRef = 966A7F1D1EEC5D5000A2DAAC /* PBXContainerItemProxy */;
+			remoteRef = 96502A0C1F0F43FB00889D42 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -1009,10 +1035,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		9685D5BD1F0F078B00AFEB79 /* PBXTargetDependency */ = {
+		96502A0F1F0F440200889D42 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Motion iOS";
-			targetProxy = 9685D5BC1F0F078B00AFEB79 /* PBXContainerItemProxy */;
+			targetProxy = 96502A0E1F0F440200889D42 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
