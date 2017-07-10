@@ -103,6 +103,7 @@
 		965E81221DD4D5C800D61E4B /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB79E1CB40DC500C806FE /* TextView.swift */; };
 		965E81231DD4D7C800D61E4B /* BottomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB7591CB40DC500C806FE /* BottomTabBar.swift */; };
 		965E81261DD4D7C800D61E4B /* CharacterAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961276621DCD8B1800A7D920 /* CharacterAttribute.swift */; };
+		966995491F1433C30064E7E4 /* PageTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966995481F1433C30064E7E4 /* PageTabBarController.swift */; };
 		966C17731F0439F600D3E83C /* Material+MotionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C17721F0439F600D3E83C /* Material+MotionAnimation.swift */; };
 		9685D5AF1F0F04CB00AFEB79 /* CardCollectionViewCell.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9656895E1F002F16001C656D /* CardCollectionViewCell.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9685D5B01F0F04CB00AFEB79 /* CardCollectionViewController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 965689601F002F4C001C656D /* CardCollectionViewController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -231,6 +232,7 @@
 		9656895E1F002F16001C656D /* CardCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardCollectionViewCell.swift; sourceTree = "<group>"; };
 		965689601F002F4C001C656D /* CardCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardCollectionViewController.swift; sourceTree = "<group>"; };
 		9658F2161CD6FA4700B902C1 /* IconButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
+		966995481F1433C30064E7E4 /* PageTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageTabBarController.swift; sourceTree = "<group>"; };
 		966C17721F0439F600D3E83C /* Material+MotionAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+MotionAnimation.swift"; sourceTree = "<group>"; };
 		966ECF291CF4C20100BB0BDF /* CollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionReusableView.swift; sourceTree = "<group>"; };
 		967A48181D0F425A00B8CEB7 /* StatusBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarController.swift; sourceTree = "<group>"; };
@@ -482,6 +484,14 @@
 			name = CardCollectionView;
 			sourceTree = "<group>";
 		};
+		966995471F1433640064E7E4 /* PageTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				966995481F1433C30064E7E4 /* PageTabBarController.swift */,
+			);
+			name = PageTabBar;
+			sourceTree = "<group>";
+		};
 		966A7F0D1EEC5AF400A2DAAC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -548,6 +558,7 @@
 				96BCB8041CB40F6C00C806FE /* Layout */,
 				96BCB8011CB40F1700C806FE /* Navigation */,
 				961E6BEF1DDA4B04004E6C93 /* NavigationDrawer */,
+				966995471F1433640064E7E4 /* PageTabBar */,
 				96DE566D1EF1B6E3006DA70E /* Pan */,
 				9626CA951DAB5370003E2611 /* Root */,
 				961E6BE01DDA2ADD004E6C93 /* Screen */,
@@ -981,6 +992,7 @@
 				965E81211DD4D5C800D61E4B /* TextStorage.swift in Sources */,
 				965E81221DD4D5C800D61E4B /* TextView.swift in Sources */,
 				965E80E61DD4C55200D61E4B /* Material+Obj-C.swift in Sources */,
+				966995491F1433C30064E7E4 /* PageTabBarController.swift in Sources */,
 				965E80E71DD4C55200D61E4B /* Material+UIView.swift in Sources */,
 				965E80E81DD4C55200D61E4B /* Material+CALayer.swift in Sources */,
 				965E80E91DD4C55200D61E4B /* Material+String.swift in Sources */,
