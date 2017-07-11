@@ -58,12 +58,12 @@ extension UIViewController {
     /// Grid reference.
     public private(set) var pageTabBarItem: PageTabBarItem {
         get {
-            return AssociatedObject(base: self, key: &PageTabBarItemKey) {
+            return AssociatedObject.get(base: self, key: &PageTabBarItemKey) {
                 return PageTabBarItem()
             }
         }
         set(value) {
-            AssociateObject(base: self, key: &PageTabBarItemKey, value: value)
+            AssociatedObject.set(base: self, key: &PageTabBarItemKey, value: value)
         }
     }
 }
@@ -243,7 +243,6 @@ open class PageTabBarController: RootController {
         for x in viewControllers {
             let button = x.pageTabBarItem as UIButton
             pageTabBar.buttons.append(button)
-            button.removeTarget(self, action: #selector(pageTabBar.handleButton(button:)), for: .touchUpInside)
             button.removeTarget(self, action: #selector(handlePageTabBarButton(button:)), for: .touchUpInside)
             button.addTarget(self, action: #selector(handlePageTabBarButton(button:)), for: .touchUpInside)
         }

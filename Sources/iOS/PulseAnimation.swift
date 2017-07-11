@@ -29,7 +29,6 @@
  */
 
 import UIKit
-import Motion
 
 @objc(PulseAnimation)
 public enum PulseAnimation: Int {
