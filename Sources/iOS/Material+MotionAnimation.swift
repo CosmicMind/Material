@@ -47,4 +47,12 @@ extension MotionAnimation {
     public static func depth(_ preset: DepthPreset) -> MotionAnimation {
         return .depth(DepthPresetToValue(preset: preset).rawValue)
     }
+    
+    /**
+     Animates the views shadow offset, opacity, and radius using a given Depth.
+     - Parameter _ preset: A Depth.
+     */
+    public static func depth(_ depth: Depth) -> MotionAnimation {
+        return .depth(depth.rawValue)
+    }
 }
