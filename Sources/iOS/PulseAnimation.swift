@@ -128,7 +128,7 @@ public struct Pulse {
             ] in
             
             bLayer.frame = bounds
-            pLayer.bounds = CGRect(x: 0, y: 0, width: n, height: n)
+            pLayer.frame = CGRect(x: 0, y: 0, width: n, height: n)
             
             switch animation {
             case .center, .centerWithBacking, .centerRadialBeyondBounds:
@@ -146,15 +146,15 @@ public struct Pulse {
         
         let t: TimeInterval = .center == animation ? 0.16125 : 0.325
         
-//        switch animation {
-//        case .centerWithBacking, .backing, .pointWithBacking:
-//            bLayer.animate(.duration(t))
-//        default:break
-//        }
+        switch animation {
+        case .centerWithBacking, .backing, .pointWithBacking:
+            bLayer.animate(.background(color: color.withAlphaComponent(opacity / 2)), .duration(t))
+        default:break
+        }
         
         switch animation {
         case .center, .centerWithBacking, .centerRadialBeyondBounds, .radialBeyondBounds, .point, .pointWithBacking:
-            pLayer.animate(.scale(), .background(color: color.withAlphaComponent(opacity / 2)), .duration(t))
+            pLayer.animate(.scale(1), .duration(t))
         default:break
         }
         
@@ -180,16 +180,15 @@ public struct Pulse {
             
             let t: TimeInterval = 0.325
             
-//            switch animation {
-//            case .centerWithBacking, .backing, .pointWithBacking:
-//                bLayer.animate(.background(color: color.withAlphaComponent(0)), .duration(t))
-//            default:break
-//            }
+            switch animation {
+            case .centerWithBacking, .backing, .pointWithBacking:
+                bLayer.animate(.background(color: color.withAlphaComponent(0)), .duration(t))
+            default:break
+            }
             
             switch animation {
             case .center, .centerWithBacking, .centerRadialBeyondBounds, .radialBeyondBounds, .point, .pointWithBacking:
-                let v: CGFloat = .center == animation ? 1 : 1.325
-                pLayer.animate(.scale(x: v, y: v, z: v), .background(color: color.withAlphaComponent(0)))
+                pLayer.animate(.background(color: color.withAlphaComponent(0)))
             default:break
             }
             
