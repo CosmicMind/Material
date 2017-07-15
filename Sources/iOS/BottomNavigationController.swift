@@ -72,7 +72,12 @@ open class BottomNavigationController: UITabBarController {
 		layoutSubviews()
 	}
 	
-	open func layoutSubviews() {
+    /**
+     To execute in the order of the layout chain, override this
+     method. `layoutSubviews` should be called immediately, unless you
+     have a certain need.
+     */
+    open func layoutSubviews() {
 		if let v = tabBar.items {
 			for item in v {
 				if .phone == Device.userInterfaceIdiom {
@@ -96,7 +101,7 @@ open class BottomNavigationController: UITabBarController {
 			}
 		}
         
-        tabBar.divider.reload()
+        tabBar.layoutDivider()
 	}
 	
 	/**

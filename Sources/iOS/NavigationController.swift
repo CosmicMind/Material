@@ -30,7 +30,7 @@
 
 import UIKit
 
-extension UINavigationController {
+extension NavigationController {
     /// Device status bar style.
     open var statusBarStyle: UIStatusBarStyle {
         get {
@@ -108,8 +108,7 @@ open class NavigationController: UINavigationController {
     
     open override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        navigationBar.setNeedsLayout()
-        navigationBar.layoutIfNeeded()
+        layoutSubviews()
     }
     
 	/**
@@ -133,6 +132,13 @@ open class NavigationController: UINavigationController {
 			v.delegate = self
 		}
 	}
+    
+    /// Calls the layout functions for the view heirarchy.
+    open func layoutSubviews() {
+        navigationBar.updateConstraints()
+        navigationBar.setNeedsLayout()
+        navigationBar.layoutIfNeeded()
+    }
 }
 
 extension NavigationController: UINavigationBarDelegate {
@@ -146,9 +152,16 @@ extension NavigationController: UINavigationBarDelegate {
      */
     public func navigationBar(_ navigationBar: UINavigationBar, shouldPush item: UINavigationItem) -> Bool {
         if let v = navigationBar as? NavigationBar {
+            if nil == item.backButton.image && nil == item.backButton.title {
+                item.backButton.image = v.backButtonImage
+            }
+            
             item.backButton.addTarget(self, action: #selector(handleBackButton), for: .touchUpInside)
-            item.backButton.image = v.backButtonImage
-            item.leftViews.insert(item.backButton, at: 0)
+            
+            if !item.backButton.isHidden {
+                item.leftViews.insert(item.backButton, at: 0)
+            }
+            
             v.layoutNavigationItem(item: item)
         }
         return true

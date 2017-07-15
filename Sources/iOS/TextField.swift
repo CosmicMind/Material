@@ -378,13 +378,31 @@ open class TextField: UITextField {
 	open override func layoutSubviews() {
 		super.layoutSubviews()
         layoutShape()
-        reload()
+        layoutPlaceholderLabel()
+        layoutDetailLabel()
+        layoutButton(button: clearIconButton)
+        layoutButton(button: visibilityIconButton)
+        layoutDivider()
+        layoutLeftView()
 	}
 	
     open override func becomeFirstResponder() -> Bool {
-        setNeedsLayout()
-        layoutIfNeeded()
+        layoutSubviews()
         return super.becomeFirstResponder()
+    }
+    
+    /// EdgeInsets for text.
+    open var textInset: CGFloat = 0
+    
+    open override func textRect(forBounds bounds: CGRect) -> CGRect {
+        var b = super.textRect(forBounds: bounds)
+        b.origin.x += textInset
+        b.size.width -= textInset
+        return b
+    }
+    
+    open override func editingRect(forBounds bounds: CGRect) -> CGRect {
+        return textRect(forBounds: bounds)
     }
     
 	/**
@@ -408,16 +426,6 @@ open class TextField: UITextField {
 		prepareTargetHandlers()
         prepareTextAlignment()
 	}
-    
-	/// Ensures that the components are sized correctly.
-	open func reload() {
-        layoutPlaceholderLabel()
-        layoutDetailLabel()
-        layoutButton(button: clearIconButton)
-        layoutButton(button: visibilityIconButton)
-        layoutDivider()
-        layoutLeftView()
-    }
 }
 
 extension TextField {
@@ -482,24 +490,24 @@ extension TextField {
 extension TextField {
     /// Layout the placeholderLabel.
     fileprivate func layoutPlaceholderLabel() {
-        let w = leftViewWidth
+        let w = leftViewWidth + textInset
         let h = 0 == height ? intrinsicContentSize.height : height
         
         placeholderLabel.transform = CGAffineTransform.identity
         
         guard isEditing || !isEmpty || !isPlaceholderAnimated else {
-            placeholderLabel.frame = CGRect(x: w, y: 0, width: width - w, height: h)
+            placeholderLabel.frame = CGRect(x: w, y: 0, width: width - leftViewWidth - 2 * textInset, height: h)
             return
         }
         
-        placeholderLabel.frame = CGRect(x: w, y: 0, width: width - w, height: h)
+        placeholderLabel.frame = CGRect(x: w, y: 0, width: width - leftViewWidth - 2 * textInset, height: h)
         placeholderLabel.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
         
         switch textAlignment {
         case .left, .natural:
             placeholderLabel.x = w
         case .right:
-            placeholderLabel.x = width - placeholderLabel.width
+            placeholderLabel.x = width - placeholderLabel.width - textInset
         default:break
         }
         
@@ -518,11 +526,6 @@ extension TextField {
     /// Layout the a button.
     fileprivate func layoutButton(button: UIButton?) {
         button?.frame = CGRect(x: width - height, y: 0, width: height, height: height)
-    }
-    
-    /// Layout the divider.
-    fileprivate func layoutDivider() {
-        divider.reload()
     }
     
     /// Layout the leftView.
@@ -544,7 +547,6 @@ extension TextField {
         leftViewEditingBeginAnimation()
         placeholderEditingDidBeginAnimation()
         dividerEditingDidBeginAnimation()
-        
     }
     
     // Live updates the textField text.
@@ -640,9 +642,9 @@ extension TextField {
             
             switch s.textAlignment {
             case .left, .natural:
-                s.placeholderLabel.x = s.leftViewWidth
+                s.placeholderLabel.x = s.leftViewWidth + s.textInset
             case .right:
-                s.placeholderLabel.x = s.width - s.placeholderLabel.width
+                s.placeholderLabel.x = s.width - s.placeholderLabel.width - s.textInset
             default:break
             }
             
@@ -673,7 +675,7 @@ extension TextField {
             }
             
             s.placeholderLabel.transform = CGAffineTransform.identity
-            s.placeholderLabel.x = s.leftViewWidth
+            s.placeholderLabel.x = s.leftViewWidth + s.textInset
             s.placeholderLabel.y = 0
         })
     }

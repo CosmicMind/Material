@@ -73,13 +73,6 @@ open class FABMenuController: RootController {
         rootViewController.view.frame = view.bounds
     }
     
-    /**
-     Prepares the view instance when intialized. When subclassing,
-     it is recommended to override the prepare method
-     to initialize property values and other setup operations.
-     The super.prepare method should always be called immediately
-     when subclassing.
-     */
     open override func prepare() {
         super.prepare()
         prepareFABMenu()

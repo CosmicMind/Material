@@ -71,7 +71,7 @@ open class CollectionViewController: UIViewController {
     
     open override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        collectionView.frame = view.bounds
+        layoutSubviews()
     }
     
     /**
@@ -87,6 +87,11 @@ open class CollectionViewController: UIViewController {
         view.contentScaleFactor = Screen.scale
         prepareCollectionView()
     }
+    
+    /// Calls the layout functions for the view heirarchy.
+    open func layoutSubviews() {
+        layoutCollectionView()
+    }
 }
 
 extension CollectionViewController {
@@ -95,10 +100,19 @@ extension CollectionViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         view.addSubview(collectionView)
+        layoutCollectionView()
+    }
+}
+
+extension CollectionViewController {
+    /// Sets the frame for the collectionView.
+    fileprivate func layoutCollectionView() {
+        collectionView.frame = view.bounds
     }
 }
 
 extension CollectionViewController: CollectionViewDelegate {}
+
 extension CollectionViewController: CollectionViewDataSource {
     @objc
     open func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -112,6 +126,6 @@ extension CollectionViewController: CollectionViewDataSource {
 
     @objc
     open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
+        return collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath)
     }
 }

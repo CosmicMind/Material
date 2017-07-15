@@ -148,7 +148,7 @@ open class NavigationBar: UINavigationBar {
 			layoutNavigationItem(item: v)
 		}
         
-        divider.reload()
+        layoutDivider()
 	}
 	
 	open override func pushItem(_ item: UINavigationItem, animated: Bool) {

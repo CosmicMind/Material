@@ -49,17 +49,6 @@ extension UIViewController {
 }
 
 open class SearchBarController: StatusBarController {
-    /**
-     A Display value to indicate whether or not to
-     display the rootViewController to the full view
-     bounds, or up to the searchBar height.
-     */
-    open var searchBarDisplay = Display.partial {
-        didSet {
-            layoutSubviews()
-        }
-    }
-    
     /// Reference to the SearchBar.
     @IBInspectable
     open let searchBar = SearchBar()
@@ -72,7 +61,7 @@ open class SearchBarController: StatusBarController {
         searchBar.y = y
         searchBar.width = view.width
         
-        switch searchBarDisplay {
+        switch displayStyle {
         case .partial:
             let h = y + searchBar.height
             rootViewController.view.y = h
@@ -91,6 +80,7 @@ open class SearchBarController: StatusBarController {
      */
 	open override func prepare() {
 		super.prepare()
+        displayStyle = .partial
         prepareStatusBar()
 		prepareSearchBar()
 	}
