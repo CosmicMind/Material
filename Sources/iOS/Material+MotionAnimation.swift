@@ -374,10 +374,10 @@ extension UIView {
     /// Computes the rotation of the view.
     open var motionRotationAngle: CGFloat {
         get {
-            return CGFloat(atan2f(Float(transform.b), Float(transform.a))) * 180 / CGFloat(M_PI)
+            return CGFloat(atan2f(Float(transform.b), Float(transform.a))) * 180 / CGFloat(Double.pi)
         }
         set(value) {
-            transform = CGAffineTransform(rotationAngle: CGFloat(M_PI) * value / 180)
+            transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi) * value / 180)
         }
     }
     
@@ -506,7 +506,7 @@ extension Motion {
      */
     public static func rotation(angle: CGFloat) -> CABasicAnimation {
         let animation = CABasicAnimation(keyPath: .rotation)
-        animation.toValue = NSNumber(value: Double(CGFloat(M_PI) * angle / 180))
+        animation.toValue = NSNumber(value: Double(CGFloat(Double.pi) * angle / 180))
         return animation
     }
     
@@ -517,7 +517,7 @@ extension Motion {
      */
     public static func rotationX(angle: CGFloat) -> CABasicAnimation {
         let animation = CABasicAnimation(keyPath: .rotationX)
-        animation.toValue = NSNumber(value: Double(CGFloat(M_PI) * angle / 180))
+        animation.toValue = NSNumber(value: Double(CGFloat(Double.pi) * angle / 180))
         return animation
     }
     
@@ -528,7 +528,7 @@ extension Motion {
      */
     public static func rotationY(angle: CGFloat) -> CABasicAnimation {
         let animation = CABasicAnimation(keyPath: .rotationY)
-        animation.toValue = NSNumber(value: Double(CGFloat(M_PI) * angle / 180))
+        animation.toValue = NSNumber(value: Double(CGFloat(Double.pi) * angle / 180))
         return animation
     }
     
@@ -539,7 +539,7 @@ extension Motion {
      */
     public static func rotationZ(angle: CGFloat) -> CABasicAnimation {
         let animation = CABasicAnimation(keyPath: .rotationZ)
-        animation.toValue = NSNumber(value: Double(CGFloat(M_PI) * angle / 180))
+        animation.toValue = NSNumber(value: Double(CGFloat(Double.pi) * angle / 180))
         return animation
     }
     
@@ -550,7 +550,7 @@ extension Motion {
      */
     public static func spin(rotations: CGFloat) -> CABasicAnimation {
         let animation = CABasicAnimation(keyPath: .rotation)
-        animation.toValue = NSNumber(value: Double(CGFloat(M_PI) * 2 * rotations))
+        animation.toValue = NSNumber(value: Double(CGFloat(Double.pi) * 2 * rotations))
         return animation
     }
     
@@ -561,7 +561,7 @@ extension Motion {
      */
     public static func spinX(rotations: CGFloat) -> CABasicAnimation {
         let animation = CABasicAnimation(keyPath: .rotationX)
-        animation.toValue = NSNumber(value: Double(CGFloat(M_PI) * 2 * rotations))
+        animation.toValue = NSNumber(value: Double(CGFloat(Double.pi) * 2 * rotations))
         return animation
     }
     
@@ -572,7 +572,7 @@ extension Motion {
      */
     public static func spinY(rotations: CGFloat) -> CABasicAnimation {
         let animation = CABasicAnimation(keyPath: .rotationY)
-        animation.toValue = NSNumber(value: Double(CGFloat(M_PI) * 2 * rotations))
+        animation.toValue = NSNumber(value: Double(CGFloat(Double.pi) * 2 * rotations))
         return animation
     }
     
@@ -583,7 +583,7 @@ extension Motion {
      */
     public static func spinZ(rotations: CGFloat) -> CABasicAnimation {
         let animation = CABasicAnimation(keyPath: .rotationZ)
-        animation.toValue = NSNumber(value: Double(CGFloat(M_PI) * 2 * rotations))
+        animation.toValue = NSNumber(value: Double(CGFloat(Double.pi) * 2 * rotations))
         return animation
     }
     

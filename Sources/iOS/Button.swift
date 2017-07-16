@@ -137,7 +137,6 @@ open class Button: UIButton, Pulseable, PulseableLayer {
      */
 	public required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
-        tintColor = Color.blue.base
 		prepare()
 	}
 	

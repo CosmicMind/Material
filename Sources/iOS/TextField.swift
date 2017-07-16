@@ -382,7 +382,8 @@ open class TextField: UITextField {
 	}
 	
     open override func becomeFirstResponder() -> Bool {
-        layoutSubviews()
+        setNeedsLayout()
+        layoutIfNeeded()
         return super.becomeFirstResponder()
     }
     
@@ -398,6 +399,8 @@ open class TextField: UITextField {
 		borderStyle = .none
 		backgroundColor = nil
 		contentScaleFactor = Screen.scale
+        font = RobotoFont.regular(with: 16)
+        textColor = Color.darkText.primary
         
         prepareDivider()
 		preparePlaceholderLabel()
@@ -425,8 +428,8 @@ extension TextField {
     
     /// Prepares the placeholderLabel.
     fileprivate func preparePlaceholderLabel() {
-        font = RobotoFont.regular(with: 16)
         placeholderNormalColor = Color.darkText.others
+        placeholderLabel.backgroundColor = .clear
         addSubview(placeholderLabel)
     }
     
@@ -506,7 +509,7 @@ extension TextField {
     /// Layout the detailLabel.
     fileprivate func layoutDetailLabel() {
         let c = dividerContentEdgeInsets
-        detailLabel.height = detailLabel.sizeThatFits(CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)).height
+        detailLabel.height = detailLabel.sizeThatFits(CGSize(width: width, height: .greatestFiniteMagnitude)).height
         detailLabel.x = c.left
         detailLabel.y = height + detailVerticalOffset
         detailLabel.width = width - c.left - c.right
