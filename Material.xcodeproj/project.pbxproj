@@ -350,13 +350,16 @@
 			name = Grid;
 			sourceTree = "<group>";
 		};
-		96090B031D9D709E00709CA6 /* TextField */ = {
+		96090B031D9D709E00709CA6 /* Text */ = {
 			isa = PBXGroup;
 			children = (
+				961276621DCD8B1800A7D920 /* CharacterAttribute.swift */,
+				96BCB79D1CB40DC500C806FE /* TextStorage.swift */,
+				96BCB79E1CB40DC500C806FE /* TextView.swift */,
 				96BCB79C1CB40DC500C806FE /* TextField.swift */,
 				961F18E71CD93E3E008927C5 /* ErrorTextField.swift */,
 			);
-			name = TextField;
+			name = Text;
 			sourceTree = "<group>";
 		};
 		961E6BDD1DDA2A7E004E6C93 /* Application */ = {
@@ -578,8 +581,7 @@
 				968C99421D36EC9E000074FF /* Switch */,
 				963FBF011D6696AB008F8512 /* Tab */,
 				966ECF2B1CF4C21B00BB0BDF /* Table */,
-				96090B031D9D709E00709CA6 /* TextField */,
-				96BCB80E1CB4110E00C806FE /* TextView */,
+				96090B031D9D709E00709CA6 /* Text */,
 				963FBF001D66964F008F8512 /* Toolbar */,
 				96BCB8061CB40FD000C806FE /* Type */,
 				96BCB80C1CB410DD00C806FE /* View */,
@@ -741,16 +743,6 @@
 			name = Layer;
 			sourceTree = "<group>";
 		};
-		96BCB80E1CB4110E00C806FE /* TextView */ = {
-			isa = PBXGroup;
-			children = (
-				961276621DCD8B1800A7D920 /* CharacterAttribute.swift */,
-				96BCB79D1CB40DC500C806FE /* TextStorage.swift */,
-				96BCB79E1CB40DC500C806FE /* TextView.swift */,
-			);
-			name = TextView;
-			sourceTree = "<group>";
-		};
 		96D88BF41C1328D800B91418 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -841,11 +833,11 @@
 		96F345161F1960A300EE27C9 /* Preprocessors */ = {
 			isa = PBXGroup;
 			children = (
+				96F3451B1F1960A300EE27C9 /* MotionPreprocessor.swift */,
 				96F345171F1960A300EE27C9 /* CascadePreprocessor.swift */,
 				96F345181F1960A300EE27C9 /* DurationPreprocessor.swift */,
 				96F345191F1960A300EE27C9 /* IgnoreSubviewModifiersPreprocessor.swift */,
 				96F3451A1F1960A300EE27C9 /* MatchPreprocessor.swift */,
-				96F3451B1F1960A300EE27C9 /* MotionPreprocessor.swift */,
 				96F3451C1F1960A300EE27C9 /* SourcePreprocessor.swift */,
 				96F345451F1961ED00EE27C9 /* TransitionPreprocessor.swift */,
 			);
