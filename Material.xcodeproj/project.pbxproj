@@ -775,8 +775,6 @@
 		96F344F41F1960A300EE27C9 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				96F344F51F1960A300EE27C9 /* Animator */,
-				96F344FC1F1960A300EE27C9 /* Extensions */,
 				96F345061F1960A300EE27C9 /* Info.plist */,
 				96F345071F1960A300EE27C9 /* LICENSE */,
 				96F345081F1960A300EE27C9 /* Motion.h */,
@@ -793,6 +791,8 @@
 				96F345131F1960A300EE27C9 /* MotionTransition.swift */,
 				96F345141F1960A300EE27C9 /* MotionTransitionObserver.swift */,
 				96F345151F1960A300EE27C9 /* MotionTransitionState.swift */,
+				96F344F51F1960A300EE27C9 /* Animator */,
+				96F344FC1F1960A300EE27C9 /* Extensions */,
 				96F345161F1960A300EE27C9 /* Preprocessors */,
 			);
 			path = Sources;
@@ -938,10 +938,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9638324C1B88DFD80015F710 /* Build configuration list for PBXNativeTarget "Material" */;
 			buildPhases = (
+				96FE06EF1F15370900E34953 /* ShellScript */,
 				963832311B88DFD80015F710 /* Sources */,
 				963832331B88DFD80015F710 /* Headers */,
 				963832341B88DFD80015F710 /* Resources */,
-				96FE06EF1F15370900E34953 /* ShellScript */,
 			);
 			buildRules = (
 			);

@@ -186,7 +186,7 @@ To help template your project, checkout Material Sticker Sheet.
 
 ![MaterialStickerSheet](http://www.cosmicmind.com/MK/material_iso_1.png)
 
-* [Get Material Sticker Sheet](http://www.materialup.com/posts/material-design-sticker-sheets)
+* [Material Sticker Sheet](http://www.materialup.com/posts/material-design-sticker-sheets)
 
 ## Much More...
 
