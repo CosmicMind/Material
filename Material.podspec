@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'Core' do |s|
         s.ios.deployment_target = '8.0'
-        s.ios.source_files = 'Sources/**/*.swift'
+        s.ios.source_files = '**/*.swift'
         s.requires_arc = true
         s.resource_bundles = {
             'com.cosmicmind.material.icons' => ['Sources/**/*.xcassets'],
