@@ -219,7 +219,6 @@
 		96F3452B1F1960A300EE27C9 /* Motion+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F345031F1960A300EE27C9 /* Motion+UIView.swift */; };
 		96F3452C1F1960A300EE27C9 /* Motion+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F345041F1960A300EE27C9 /* Motion+UIViewController.swift */; };
 		96F3452D1F1960A300EE27C9 /* MotionAnimationFillMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F345051F1960A300EE27C9 /* MotionAnimationFillMode.swift */; };
-		96F345301F1960A300EE27C9 /* Motion.h in Headers */ = {isa = PBXBuildFile; fileRef = 96F345081F1960A300EE27C9 /* Motion.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		96F345311F1960A300EE27C9 /* Motion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F345091F1960A300EE27C9 /* Motion.swift */; };
 		96F345321F1960A300EE27C9 /* MotionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3450A1F1960A300EE27C9 /* MotionAnimation.swift */; };
 		96F345331F1960A300EE27C9 /* MotionAnimationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3450B1F1960A300EE27C9 /* MotionAnimationState.swift */; };
@@ -350,7 +349,6 @@
 		96F345051F1960A300EE27C9 /* MotionAnimationFillMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotionAnimationFillMode.swift; sourceTree = "<group>"; };
 		96F345061F1960A300EE27C9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96F345071F1960A300EE27C9 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		96F345081F1960A300EE27C9 /* Motion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Motion.h; sourceTree = "<group>"; };
 		96F345091F1960A300EE27C9 /* Motion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Motion.swift; sourceTree = "<group>"; };
 		96F3450A1F1960A300EE27C9 /* MotionAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotionAnimation.swift; sourceTree = "<group>"; };
 		96F3450B1F1960A300EE27C9 /* MotionAnimationState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotionAnimationState.swift; sourceTree = "<group>"; };
@@ -812,7 +810,6 @@
 			children = (
 				96F345061F1960A300EE27C9 /* Info.plist */,
 				96F345071F1960A300EE27C9 /* LICENSE */,
-				96F345081F1960A300EE27C9 /* Motion.h */,
 				96F345091F1960A300EE27C9 /* Motion.swift */,
 				96F3450A1F1960A300EE27C9 /* MotionAnimation.swift */,
 				96F3450B1F1960A300EE27C9 /* MotionAnimationState.swift */,
@@ -961,7 +958,6 @@
 				9685D5AF1F0F04CB00AFEB79 /* CardCollectionViewCell.swift in Headers */,
 				9685D5B01F0F04CB00AFEB79 /* CardCollectionViewController.swift in Headers */,
 				9685D5B11F0F04CB00AFEB79 /* Material+MotionAnimation.swift in Headers */,
-				96F345301F1960A300EE27C9 /* Motion.h in Headers */,
 				96E09D231F2105DA0000B121 /* Motion.swift in Headers */,
 				96E09D241F2105DA0000B121 /* MotionAnimation.swift in Headers */,
 				96E09D251F2105DA0000B121 /* MotionAnimationState.swift in Headers */,
