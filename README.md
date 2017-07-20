@@ -2,7 +2,7 @@
 
 # Material
 
-Welcome to **Material,** a library used to create beautiful applications. Material's animation system has been completely reworked to take advantage of [Motion](https://github.com/CosmicMind/Motion), a library dedicated to animations and transitions. 
+Welcome to **Material,** a Material Design library used to create beautiful applications. Material's animation system has been completely reworked to take advantage of [Motion](https://github.com/CosmicMind/Motion), a library dedicated to animations and transitions. 
 
 ## Photos Sample
 
@@ -74,7 +74,7 @@ Try the Material Colors app to see the wonderful colors available in Material, o
 
 ![MaterialColors](http://www.cosmicmind.com/gifs/shared/colors.gif)
 
-[Get Material Colors on the AppStore](https://itunes.apple.com/app/x/id1111994400?mt=8)
+* [Material Colors iOS App](https://itunes.apple.com/app/x/id1111994400?mt=8)
 
 ## TextField
 
@@ -82,7 +82,7 @@ A TextField is an excellent way to improve UX. It allows for a placeholder and a
 
 ![TextField](http://www.cosmicmind.com/gifs/white/text-field.gif)
 
-* [TextField Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/TextField).
+* [TextField Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/TextField)
 
 ## Button
 
@@ -90,7 +90,7 @@ A button is used to trigger an action through a touch event. Material comes with
 
 ![Material Image](http://www.cosmicmind.com/material/white/button.gif)
 
-* [Button Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/Button).
+* [Button Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/Button)
 
 ## Switch
 
@@ -98,7 +98,7 @@ A switch is a control component that toggles between on and off states.
 
 ![Material Image](http://www.cosmicmind.com/material/white/switch.gif)
 
-* [Switch Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/Switch).
+* [Switch Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/Switch)
 
 ## Card
 
@@ -106,7 +106,7 @@ A Card is a flexible component that may be configured in any way you like. It ha
 
 ![Material Image](http://www.cosmicmind.com/gifs/white/card.gif)
 
-* [Card Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/Card).
+* [Card Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/Card)
 
 ## ImageCard
 
@@ -114,9 +114,7 @@ An ImageCard is an expansion of the base Card. The Toolbar overlays an image are
 
 ![Image Card Sample](http://www.cosmicmind.com/gifs/white/image-card.gif)
 
-* [ImageCard Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/ImageCard).
-* Learn more about [ImageCard](http://cosmicmind.com/material/imagecard).
-* Learn how to make the ImageCard data-driven with [Graph's ImageCard Sample](https://github.com/CosmicMind/Samples/tree/master/Graph/ImageCard).
+* [ImageCard Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/ImageCard)
 
 ## PresenterCard
 
@@ -124,7 +122,7 @@ The PresenterCard is a completely new card style. It allows for a primary presen
 
 ![Presenter Card Sample](http://www.cosmicmind.com/gifs/white/presenter-card.gif)
 
-* [PresenterCard Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/PresenterCard).
+* [PresenterCard Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/PresenterCard)
 
 ## FABMenu
 
@@ -132,7 +130,7 @@ A FABMenu manages a collection of views. A new MenuItem type has been added that
 
 ![Material Image](http://www.cosmicmind.com/material/white/menu-controller.gif)
 
-* [FABMenu Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/FABMenuController).
+* [FABMenu Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/FABMenuController)
 
 ## Toolbar
 
@@ -140,7 +138,7 @@ Toolbars are super flexible and add excellent control to your navigation flow. T
 
 ![Material Image](http://www.cosmicmind.com/gifs/white/toolbar-controller.gif)
 
-* [Toolbar Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/ToolbarController).
+* [Toolbar Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/ToolbarController)
 
 ## SearchBar
 
@@ -148,7 +146,7 @@ A SearchBar is a powerful navigation tool that allows for user's input with an i
 
 ![SearchBarController](http://www.cosmicmind.com/gifs/shared/search-bar-controller.gif)
 
-* [SearchBar Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/Search).
+* [SearchBar Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/Search)
 
 ## PageTabBar
 
@@ -156,8 +154,7 @@ A PageTabBar is a new component that links a customizable TabBar to a UIPageView
 
 ![PageTabBarController](http://www.cosmicmind.com/material/white/page-tab-bar-controller.gif)
 
-* [PageTabBar Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/PageTabBarController).
-* Learn more about [PageTabBar](http://cosmicmind.com/material/pagetabbar).
+* [PageTabBar Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/PageTabBarController)
 
 ## NavigationController
 
@@ -165,7 +162,7 @@ A NavigationController is a specialized view controller that manages a hierarchy
 
 ![Material Image](http://www.cosmicmind.com/gifs/white/navigation-controller.gif)
 
-* [NavigationController Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/NavigationController).
+* [NavigationController Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/NavigationController)
 
 ## NavigationDrawer
 
@@ -173,7 +170,7 @@ A NavigationDrawer slides in from the left or right and contains the navigation 
 
 ![Material Image](http://www.cosmicmind.com/material/shared/navigation-drawer-controller.gif)
 
-* [NavigationDrawer Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/NavigationDrawerController).
+* [NavigationDrawer Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/NavigationDrawerController)
 
 ## Snackbar
 
@@ -181,7 +178,7 @@ A Snackbar is a new component that is very simple in its behavior and very power
 
 ![Material Image](http://www.cosmicmind.com/material/white/snackbar-controller.gif)
 
-* [Snackbar Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/SnackbarController).
+* [Snackbar Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/SnackbarController)
 
 ## Sticker Sheet
 
