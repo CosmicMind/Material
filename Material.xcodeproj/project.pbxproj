@@ -163,6 +163,41 @@
 		96BFC1541E5E486F0075DE1F /* SpringAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965532281E47E388005C2792 /* SpringAnimation.swift */; };
 		96BFC16F1E63C10A0075DE1F /* SpringAnimation.swift in Headers */ = {isa = PBXBuildFile; fileRef = 965532281E47E388005C2792 /* SpringAnimation.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96D88C321C1328D800B91418 /* Material.h in Headers */ = {isa = PBXBuildFile; fileRef = 96D88C091C1328D800B91418 /* Material.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		96E09D231F2105DA0000B121 /* Motion.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96F345091F1960A300EE27C9 /* Motion.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96E09D241F2105DA0000B121 /* MotionAnimation.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96F3450A1F1960A300EE27C9 /* MotionAnimation.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96E09D251F2105DA0000B121 /* MotionAnimationState.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96F3450B1F1960A300EE27C9 /* MotionAnimationState.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96E09D261F2105DA0000B121 /* MotionCAAnimation.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96F3450C1F1960A300EE27C9 /* MotionCAAnimation.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96E09D271F2105DA0000B121 /* MotionContext.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96F3450D1F1960A300EE27C9 /* MotionContext.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96E09D281F2105DA0000B121 /* MotionController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96F3450E1F1960A300EE27C9 /* MotionController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96E09D291F2105DA0000B121 /* MotionCoordinateSpace.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96F3450F1F1960A300EE27C9 /* MotionCoordinateSpace.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96E09D2A1F2105DA0000B121 /* MotionIndependentController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96F345101F1960A300EE27C9 /* MotionIndependentController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96E09D2B1F2105DA0000B121 /* MotionPlugin.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96F345111F1960A300EE27C9 /* MotionPlugin.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96E09D2C1F2105DA0000B121 /* MotionSnapshotType.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96F345121F1960A300EE27C9 /* MotionSnapshotType.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96E09D2D1F2105DA0000B121 /* MotionTransition.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96F345131F1960A300EE27C9 /* MotionTransition.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96E09D2E1F2105DA0000B121 /* MotionTransitionObserver.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96F345141F1960A300EE27C9 /* MotionTransitionObserver.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96E09D2F1F2105DA0000B121 /* MotionTransitionState.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96F345151F1960A300EE27C9 /* MotionTransitionState.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96E09D301F2105DA0000B121 /* MotionAnimator.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96F344F61F1960A300EE27C9 /* MotionAnimator.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96E09D311F2105DA0000B121 /* MotionAnimatorViewContext.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96F344F71F1960A300EE27C9 /* MotionAnimatorViewContext.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96E09D321F2105DA0000B121 /* MotionCoreAnimationViewContext.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96F344F81F1960A300EE27C9 /* MotionCoreAnimationViewContext.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96E09D331F2105DA0000B121 /* MotionTransitionAnimator.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96F344F91F1960A300EE27C9 /* MotionTransitionAnimator.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96E09D341F2105DA0000B121 /* MotionHasInsertOrder.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96F344FA1F1960A300EE27C9 /* MotionHasInsertOrder.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96E09D351F2105DA0000B121 /* MotionViewPropertyViewContext.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96F344FB1F1960A300EE27C9 /* MotionViewPropertyViewContext.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96E09D361F2105DA0000B121 /* Motion+Array.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96F344FD1F1960A300EE27C9 /* Motion+Array.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96E09D371F2105DA0000B121 /* Motion+CALayer.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96F344FE1F1960A300EE27C9 /* Motion+CALayer.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96E09D381F2105DA0000B121 /* Motion+CAMediaTimingFunction.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96F344FF1F1960A300EE27C9 /* Motion+CAMediaTimingFunction.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96E09D391F2105DA0000B121 /* Motion+CG.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96F345001F1960A300EE27C9 /* Motion+CG.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96E09D3A1F2105DA0000B121 /* Motion+Obj-C.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96F345011F1960A300EE27C9 /* Motion+Obj-C.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96E09D3B1F2105DA0000B121 /* Motion+UIKit.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96F345021F1960A300EE27C9 /* Motion+UIKit.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96E09D3C1F2105DA0000B121 /* Motion+UIView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96F345031F1960A300EE27C9 /* Motion+UIView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96E09D3D1F2105DA0000B121 /* Motion+UIViewController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96F345041F1960A300EE27C9 /* Motion+UIViewController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96E09D3E1F2105DA0000B121 /* MotionAnimationFillMode.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96F345051F1960A300EE27C9 /* MotionAnimationFillMode.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96E09D3F1F2105DA0000B121 /* MotionPreprocessor.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96F3451B1F1960A300EE27C9 /* MotionPreprocessor.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96E09D401F2105DA0000B121 /* CascadePreprocessor.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96F345171F1960A300EE27C9 /* CascadePreprocessor.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96E09D411F2105DA0000B121 /* DurationPreprocessor.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96F345181F1960A300EE27C9 /* DurationPreprocessor.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96E09D421F2105DA0000B121 /* IgnoreSubviewModifiersPreprocessor.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96F345191F1960A300EE27C9 /* IgnoreSubviewModifiersPreprocessor.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96E09D431F2105DA0000B121 /* MatchPreprocessor.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96F3451A1F1960A300EE27C9 /* MatchPreprocessor.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96E09D441F2105DA0000B121 /* SourcePreprocessor.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96F3451C1F1960A300EE27C9 /* SourcePreprocessor.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96E09D451F2105DA0000B121 /* TransitionPreprocessor.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96F345451F1961ED00EE27C9 /* TransitionPreprocessor.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96E3C3951D3A1CC20086A024 /* IconButton.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9658F2161CD6FA4700B902C1 /* IconButton.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96E3C3961D3A1CC20086A024 /* CollectionReusableView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 966ECF291CF4C20100BB0BDF /* CollectionReusableView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96E3C3971D3A1CC20086A024 /* Material+UIView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96E3C3931D397AE90086A024 /* Material+UIView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -184,7 +219,7 @@
 		96F3452B1F1960A300EE27C9 /* Motion+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F345031F1960A300EE27C9 /* Motion+UIView.swift */; };
 		96F3452C1F1960A300EE27C9 /* Motion+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F345041F1960A300EE27C9 /* Motion+UIViewController.swift */; };
 		96F3452D1F1960A300EE27C9 /* MotionAnimationFillMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F345051F1960A300EE27C9 /* MotionAnimationFillMode.swift */; };
-		96F345301F1960A300EE27C9 /* Motion.h in Headers */ = {isa = PBXBuildFile; fileRef = 96F345081F1960A300EE27C9 /* Motion.h */; };
+		96F345301F1960A300EE27C9 /* Motion.h in Headers */ = {isa = PBXBuildFile; fileRef = 96F345081F1960A300EE27C9 /* Motion.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		96F345311F1960A300EE27C9 /* Motion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F345091F1960A300EE27C9 /* Motion.swift */; };
 		96F345321F1960A300EE27C9 /* MotionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3450A1F1960A300EE27C9 /* MotionAnimation.swift */; };
 		96F345331F1960A300EE27C9 /* MotionAnimationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F3450B1F1960A300EE27C9 /* MotionAnimationState.swift */; };
@@ -900,7 +935,6 @@
 				9697F7BF1D8F2572004741EC /* Divider.swift in Headers */,
 				9697F7C01D8F2572004741EC /* Material+CALayer.swift in Headers */,
 				9697F7C11D8F2572004741EC /* Material+Array.swift in Headers */,
-				96F345301F1960A300EE27C9 /* Motion.h in Headers */,
 				9697F7C21D8F2572004741EC /* Material+UIWindow.swift in Headers */,
 				9697F7C31D8F2572004741EC /* DynamicFontType.swift in Headers */,
 				9697F7CB1D8F2573004741EC /* Snackbar.swift in Headers */,
@@ -927,6 +961,42 @@
 				9685D5AF1F0F04CB00AFEB79 /* CardCollectionViewCell.swift in Headers */,
 				9685D5B01F0F04CB00AFEB79 /* CardCollectionViewController.swift in Headers */,
 				9685D5B11F0F04CB00AFEB79 /* Material+MotionAnimation.swift in Headers */,
+				96F345301F1960A300EE27C9 /* Motion.h in Headers */,
+				96E09D231F2105DA0000B121 /* Motion.swift in Headers */,
+				96E09D241F2105DA0000B121 /* MotionAnimation.swift in Headers */,
+				96E09D251F2105DA0000B121 /* MotionAnimationState.swift in Headers */,
+				96E09D261F2105DA0000B121 /* MotionCAAnimation.swift in Headers */,
+				96E09D271F2105DA0000B121 /* MotionContext.swift in Headers */,
+				96E09D281F2105DA0000B121 /* MotionController.swift in Headers */,
+				96E09D291F2105DA0000B121 /* MotionCoordinateSpace.swift in Headers */,
+				96E09D2A1F2105DA0000B121 /* MotionIndependentController.swift in Headers */,
+				96E09D2B1F2105DA0000B121 /* MotionPlugin.swift in Headers */,
+				96E09D2C1F2105DA0000B121 /* MotionSnapshotType.swift in Headers */,
+				96E09D2D1F2105DA0000B121 /* MotionTransition.swift in Headers */,
+				96E09D2E1F2105DA0000B121 /* MotionTransitionObserver.swift in Headers */,
+				96E09D2F1F2105DA0000B121 /* MotionTransitionState.swift in Headers */,
+				96E09D301F2105DA0000B121 /* MotionAnimator.swift in Headers */,
+				96E09D311F2105DA0000B121 /* MotionAnimatorViewContext.swift in Headers */,
+				96E09D321F2105DA0000B121 /* MotionCoreAnimationViewContext.swift in Headers */,
+				96E09D331F2105DA0000B121 /* MotionTransitionAnimator.swift in Headers */,
+				96E09D341F2105DA0000B121 /* MotionHasInsertOrder.swift in Headers */,
+				96E09D351F2105DA0000B121 /* MotionViewPropertyViewContext.swift in Headers */,
+				96E09D361F2105DA0000B121 /* Motion+Array.swift in Headers */,
+				96E09D371F2105DA0000B121 /* Motion+CALayer.swift in Headers */,
+				96E09D381F2105DA0000B121 /* Motion+CAMediaTimingFunction.swift in Headers */,
+				96E09D391F2105DA0000B121 /* Motion+CG.swift in Headers */,
+				96E09D3A1F2105DA0000B121 /* Motion+Obj-C.swift in Headers */,
+				96E09D3B1F2105DA0000B121 /* Motion+UIKit.swift in Headers */,
+				96E09D3C1F2105DA0000B121 /* Motion+UIView.swift in Headers */,
+				96E09D3D1F2105DA0000B121 /* Motion+UIViewController.swift in Headers */,
+				96E09D3E1F2105DA0000B121 /* MotionAnimationFillMode.swift in Headers */,
+				96E09D3F1F2105DA0000B121 /* MotionPreprocessor.swift in Headers */,
+				96E09D401F2105DA0000B121 /* CascadePreprocessor.swift in Headers */,
+				96E09D411F2105DA0000B121 /* DurationPreprocessor.swift in Headers */,
+				96E09D421F2105DA0000B121 /* IgnoreSubviewModifiersPreprocessor.swift in Headers */,
+				96E09D431F2105DA0000B121 /* MatchPreprocessor.swift in Headers */,
+				96E09D441F2105DA0000B121 /* SourcePreprocessor.swift in Headers */,
+				96E09D451F2105DA0000B121 /* TransitionPreprocessor.swift in Headers */,
 				96FE06C71F15348400E34953 /* PageTabBarController.swift in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
