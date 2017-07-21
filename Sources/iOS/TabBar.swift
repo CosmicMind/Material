@@ -60,7 +60,7 @@ public protocol TabBarDelegate {
 @objc(TabBarStyle)
 public enum TabBarStyle: Int {
     case normal
-//    case scrollable
+    case scrollable
 }
 
 open class TabBar: Bar {
@@ -270,31 +270,31 @@ open class TabBar: Bar {
         
         layoutDivider()
         
-//        let buttonsWidth = buttons.reduce(0) {
-//            $0 + $1.sizeThatFits(CGSize(width: .greatestFiniteMagnitude, height: contentView.height)).width + interimSpace
-//        }
+        let buttonsWidth = buttons.reduce(0) {
+            $0 + $1.sizeThatFits(CGSize(width: .greatestFiniteMagnitude, height: contentView.height)).width + interimSpace
+        }
         
-//        if .scrollable == tabBarStyle && buttonsWidth > p {
-//            scrollView.frame = CGRect(x: l, y: 0, width: p, height: height)
-//            
-//            var w: CGFloat = 0
-//            
-//            for b in buttons {
-//                let width = b.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: contentView.height)).width + interimSpace
-//                scrollView.addSubview(b)
-//                b.height = scrollView.height
-//                b.width = width
-//                b.x = w
-//                w += width
-//            }
-//            
-//            scrollView.contentSize = CGSize(width: buttonsWidth, height: height)
-//            scrollView.addSubview(line)
-//        } else {
+        if .scrollable == tabBarStyle && buttonsWidth > p {
+            scrollView.frame = CGRect(x: l, y: 0, width: p, height: height)
+            
+            var w: CGFloat = 0
+            
+            for b in buttons {
+                let width = b.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: contentView.height)).width + interimSpace
+                scrollView.addSubview(b)
+                b.height = scrollView.height
+                b.width = width
+                b.x = w
+                w += width
+            }
+            
+            scrollView.contentSize = CGSize(width: buttonsWidth, height: height)
+            scrollView.addSubview(line)
+        } else {
             contentView.grid.axis.columns = buttons.count
             centerViews = buttons
             addSubview(line)
-//        }
+        }
         
         updateSelectionLine()
 	}

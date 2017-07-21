@@ -233,6 +233,7 @@
 		96E09DBB1F2108000000B121 /* MotionPreprocessor.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96E09D701F2107DD0000B121 /* MotionPreprocessor.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96E09DBC1F2108000000B121 /* SourcePreprocessor.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96E09D711F2107DD0000B121 /* SourcePreprocessor.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96E09DBD1F2108000000B121 /* TransitionPreprocessor.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96E09D721F2107DD0000B121 /* TransitionPreprocessor.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96E09DC81F2287E50000B121 /* TabsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E09DC71F2287E50000B121 /* TabsController.swift */; };
 		96E3C3951D3A1CC20086A024 /* IconButton.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9658F2161CD6FA4700B902C1 /* IconButton.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96E3C3961D3A1CC20086A024 /* CollectionReusableView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 966ECF291CF4C20100BB0BDF /* CollectionReusableView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96E3C3971D3A1CC20086A024 /* Material+UIView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96E3C3931D397AE90086A024 /* Material+UIView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -367,6 +368,7 @@
 		96E09D701F2107DD0000B121 /* MotionPreprocessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotionPreprocessor.swift; sourceTree = "<group>"; };
 		96E09D711F2107DD0000B121 /* SourcePreprocessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourcePreprocessor.swift; sourceTree = "<group>"; };
 		96E09D721F2107DD0000B121 /* TransitionPreprocessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionPreprocessor.swift; sourceTree = "<group>"; };
+		96E09DC71F2287E50000B121 /* TabsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabsController.swift; sourceTree = "<group>"; };
 		96E3C3931D397AE90086A024 /* Material+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIView.swift"; sourceTree = "<group>"; };
 		96F1DC871D654FDF0025F925 /* Material+CALayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+CALayer.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -505,6 +507,7 @@
 			isa = PBXGroup;
 			children = (
 				96BCB79A1CB40DC500C806FE /* TabBar.swift */,
+				96E09DC71F2287E50000B121 /* TabsController.swift */,
 			);
 			name = Tab;
 			sourceTree = "<group>";
@@ -1144,6 +1147,7 @@
 				96328B991E05C0CE009A4C90 /* TableViewController.swift in Sources */,
 				965E80F91DD4D59500D61E4B /* PresenterCard.swift in Sources */,
 				96E09D8B1F2107DD0000B121 /* MotionContext.swift in Sources */,
+				96E09DC81F2287E50000B121 /* TabsController.swift in Sources */,
 				965689611F002F4C001C656D /* CardCollectionViewController.swift in Sources */,
 				965E80CC1DD4C50600D61E4B /* Bar.swift in Sources */,
 				96E09D871F2107DD0000B121 /* Motion.swift in Sources */,
