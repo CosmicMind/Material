@@ -170,21 +170,22 @@
 		96E3C3991D3A1CC20086A024 /* StatusBarController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 967A48181D0F425A00B8CEB7 /* StatusBarController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96E3C39A1D3A1CC20086A024 /* ErrorTextField.swift in Headers */ = {isa = PBXBuildFile; fileRef = 961F18E71CD93E3E008927C5 /* ErrorTextField.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96E3C39C1D3A1CC20086A024 /* Offset.swift in Headers */ = {isa = PBXBuildFile; fileRef = 968C99461D377849000074FF /* Offset.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		96E409BF1F24FC9D0015A2B5 /* Motion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96E409B51F24FB360015A2B5 /* Motion.framework */; };
 		96F1A5531F24F17A001D8CAF /* TabsController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96E09DC71F2287E50000B121 /* TabsController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96FE06C71F15348400E34953 /* PageTabBarController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 966995481F1433C30064E7E4 /* PageTabBarController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		96E409361F24F6040015A2B5 /* PBXContainerItemProxy */ = {
+		96E409B41F24FB360015A2B5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 96F1A54A1F24F11B001D8CAF /* Motion.xcodeproj */;
+			containerPortal = 96E409B01F24FB360015A2B5 /* Motion.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 96C98DD11E424AB000B22906;
 			remoteInfo = "Motion iOS";
 		};
-		96E409381F24F60C0015A2B5 /* PBXContainerItemProxy */ = {
+		96E409B61F24FB520015A2B5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 96F1A54A1F24F11B001D8CAF /* Motion.xcodeproj */;
+			containerPortal = 96E409B01F24FB360015A2B5 /* Motion.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 96C98DD01E424AB000B22906;
 			remoteInfo = "Motion iOS";
@@ -280,7 +281,7 @@
 		96D88C091C1328D800B91418 /* Material.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Material.h; sourceTree = "<group>"; };
 		96E09DC71F2287E50000B121 /* TabsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabsController.swift; sourceTree = "<group>"; };
 		96E3C3931D397AE90086A024 /* Material+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIView.swift"; sourceTree = "<group>"; };
-		96F1A54A1F24F11B001D8CAF /* Motion.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Motion.xcodeproj; path = Frameworks/Motion/Motion.xcodeproj; sourceTree = "<group>"; };
+		96E409B01F24FB360015A2B5 /* Motion.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Motion.xcodeproj; path = Frameworks/Motion/Motion.xcodeproj; sourceTree = "<group>"; };
 		96F1DC871D654FDF0025F925 /* Material+CALayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+CALayer.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -289,6 +290,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96E409BF1F24FC9D0015A2B5 /* Motion.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -710,10 +712,10 @@
 			path = Sources;
 			sourceTree = "<group>";
 		};
-		96E409331F24F6040015A2B5 /* Products */ = {
+		96E409B11F24FB360015A2B5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				96E409371F24F6040015A2B5 /* Motion.framework */,
+				96E409B51F24FB360015A2B5 /* Motion.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -730,7 +732,7 @@
 		96F1A5491F24F104001D8CAF /* Motion */ = {
 			isa = PBXGroup;
 			children = (
-				96F1A54A1F24F11B001D8CAF /* Motion.xcodeproj */,
+				96E409B01F24FB360015A2B5 /* Motion.xcodeproj */,
 			);
 			name = Motion;
 			sourceTree = "<group>";
@@ -832,16 +834,16 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9638324C1B88DFD80015F710 /* Build configuration list for PBXNativeTarget "Material" */;
 			buildPhases = (
+				96F1A5521F24F12E001D8CAF /* ShellScript */,
 				963832311B88DFD80015F710 /* Sources */,
 				963832331B88DFD80015F710 /* Headers */,
 				963832341B88DFD80015F710 /* Resources */,
-				96F1A5521F24F12E001D8CAF /* ShellScript */,
 				96F1A5541F24F1C7001D8CAF /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				96E409391F24F60C0015A2B5 /* PBXTargetDependency */,
+				96E409B71F24FB520015A2B5 /* PBXTargetDependency */,
 			);
 			name = Material;
 			productName = FocusKit;
@@ -880,8 +882,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 96E409331F24F6040015A2B5 /* Products */;
-					ProjectRef = 96F1A54A1F24F11B001D8CAF /* Motion.xcodeproj */;
+					ProductGroup = 96E409B11F24FB360015A2B5 /* Products */;
+					ProjectRef = 96E409B01F24FB360015A2B5 /* Motion.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -892,11 +894,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		96E409371F24F6040015A2B5 /* Motion.framework */ = {
+		96E409B51F24FB360015A2B5 /* Motion.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = Motion.framework;
-			remoteRef = 96E409361F24F6040015A2B5 /* PBXContainerItemProxy */;
+			remoteRef = 96E409B41F24FB360015A2B5 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -1023,10 +1025,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		96E409391F24F60C0015A2B5 /* PBXTargetDependency */ = {
+		96E409B71F24FB520015A2B5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Motion iOS";
-			targetProxy = 96E409381F24F60C0015A2B5 /* PBXContainerItemProxy */;
+			targetProxy = 96E409B61F24FB520015A2B5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
