@@ -29,7 +29,6 @@
  */
 
 import UIKit
-import Motion
 
 fileprivate class MaterialLayer {
     /// A reference to the CALayer.
