@@ -163,6 +163,7 @@
 		96BFC1541E5E486F0075DE1F /* SpringAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965532281E47E388005C2792 /* SpringAnimation.swift */; };
 		96BFC16F1E63C10A0075DE1F /* SpringAnimation.swift in Headers */ = {isa = PBXBuildFile; fileRef = 965532281E47E388005C2792 /* SpringAnimation.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96D88C321C1328D800B91418 /* Material.h in Headers */ = {isa = PBXBuildFile; fileRef = 96D88C091C1328D800B91418 /* Material.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		96DE3BAD1F251A220035F7AF /* Motion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96DE3BA91F251A090035F7AF /* Motion.framework */; };
 		96E09DC81F2287E50000B121 /* TabsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E09DC71F2287E50000B121 /* TabsController.swift */; };
 		96E3C3951D3A1CC20086A024 /* IconButton.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9658F2161CD6FA4700B902C1 /* IconButton.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96E3C3961D3A1CC20086A024 /* CollectionReusableView.swift in Headers */ = {isa = PBXBuildFile; fileRef = 966ECF291CF4C20100BB0BDF /* CollectionReusableView.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -171,22 +172,21 @@
 		96E3C39A1D3A1CC20086A024 /* ErrorTextField.swift in Headers */ = {isa = PBXBuildFile; fileRef = 961F18E71CD93E3E008927C5 /* ErrorTextField.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96E3C39C1D3A1CC20086A024 /* Offset.swift in Headers */ = {isa = PBXBuildFile; fileRef = 968C99461D377849000074FF /* Offset.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96E3C4F51F25150B0042FA07 /* Material+Obj-C.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E3C4F41F25150B0042FA07 /* Material+Obj-C.swift */; };
-		96E3C5051F2517510042FA07 /* Motion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96E3C5021F2517470042FA07 /* Motion.framework */; };
 		96F1A5531F24F17A001D8CAF /* TabsController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96E09DC71F2287E50000B121 /* TabsController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96FE06C71F15348400E34953 /* PageTabBarController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 966995481F1433C30064E7E4 /* PageTabBarController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		96E3C5011F2517470042FA07 /* PBXContainerItemProxy */ = {
+		96DE3BA81F251A090035F7AF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 96E3C4FD1F2517470042FA07 /* Motion.xcodeproj */;
+			containerPortal = 96DE3BA41F251A090035F7AF /* Motion.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 96C98DD11E424AB000B22906;
 			remoteInfo = "Motion iOS";
 		};
-		96E3C5031F25174D0042FA07 /* PBXContainerItemProxy */ = {
+		96DE3BAA1F251A190035F7AF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 96E3C4FD1F2517470042FA07 /* Motion.xcodeproj */;
+			containerPortal = 96DE3BA41F251A090035F7AF /* Motion.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 96C98DD01E424AB000B22906;
 			remoteInfo = "Motion iOS";
@@ -280,19 +280,19 @@
 		96D88BFC1C1328D800B91418 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96D88BFD1C1328D800B91418 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		96D88C091C1328D800B91418 /* Material.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Material.h; sourceTree = "<group>"; };
+		96DE3BA41F251A090035F7AF /* Motion.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Motion.xcodeproj; path = Motion/Motion.xcodeproj; sourceTree = "<group>"; };
 		96E09DC71F2287E50000B121 /* TabsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabsController.swift; sourceTree = "<group>"; };
 		96E3C3931D397AE90086A024 /* Material+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIView.swift"; sourceTree = "<group>"; };
 		96E3C4F41F25150B0042FA07 /* Material+Obj-C.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+Obj-C.swift"; sourceTree = "<group>"; };
-		96E3C4FD1F2517470042FA07 /* Motion.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Motion.xcodeproj; path = Frameworks/Motion/Motion.xcodeproj; sourceTree = "<group>"; };
 		96F1DC871D654FDF0025F925 /* Material+CALayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+CALayer.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		96F1A5541F24F1C7001D8CAF /* Frameworks */ = {
+		96DE3BAC1F251A1C0035F7AF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96E3C5051F2517510042FA07 /* Motion.framework in Frameworks */,
+				96DE3BAD1F251A220035F7AF /* Motion.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -396,7 +396,7 @@
 		9638322C1B88DFD80015F710 = {
 			isa = PBXGroup;
 			children = (
-				966A7F0D1EEC5AF400A2DAAC /* Frameworks */,
+				96DE3BA21F2519B90035F7AF /* Frameworks */,
 				96D88BF41C1328D800B91418 /* Sources */,
 				963832371B88DFD80015F710 /* Products */,
 			);
@@ -470,14 +470,6 @@
 				966995481F1433C30064E7E4 /* PageTabBarController.swift */,
 			);
 			name = PageTabBar;
-			sourceTree = "<group>";
-		};
-		966A7F0D1EEC5AF400A2DAAC /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				96E3C4741F2511DE0042FA07 /* Motion */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		966ECF2B1CF4C21B00BB0BDF /* Table */ = {
@@ -715,18 +707,26 @@
 			path = Sources;
 			sourceTree = "<group>";
 		};
-		96E3C4741F2511DE0042FA07 /* Motion */ = {
+		96DE3BA21F2519B90035F7AF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				96E3C4FD1F2517470042FA07 /* Motion.xcodeproj */,
+				96DE3BA31F251A010035F7AF /* Motion */,
+			);
+			path = Frameworks;
+			sourceTree = "<group>";
+		};
+		96DE3BA31F251A010035F7AF /* Motion */ = {
+			isa = PBXGroup;
+			children = (
+				96DE3BA41F251A090035F7AF /* Motion.xcodeproj */,
 			);
 			name = Motion;
 			sourceTree = "<group>";
 		};
-		96E3C4FE1F2517470042FA07 /* Products */ = {
+		96DE3BA51F251A090035F7AF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				96E3C5021F2517470042FA07 /* Motion.framework */,
+				96DE3BA91F251A090035F7AF /* Motion.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -837,16 +837,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9638324C1B88DFD80015F710 /* Build configuration list for PBXNativeTarget "Material" */;
 			buildPhases = (
-				96E3C4F91F2516A50042FA07 /* ShellScript */,
 				963832311B88DFD80015F710 /* Sources */,
 				963832331B88DFD80015F710 /* Headers */,
 				963832341B88DFD80015F710 /* Resources */,
-				96F1A5541F24F1C7001D8CAF /* Frameworks */,
+				96DE3BAC1F251A1C0035F7AF /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				96E3C5041F25174D0042FA07 /* PBXTargetDependency */,
+				96DE3BAB1F251A190035F7AF /* PBXTargetDependency */,
 			);
 			name = Material;
 			productName = FocusKit;
@@ -885,8 +884,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 96E3C4FE1F2517470042FA07 /* Products */;
-					ProjectRef = 96E3C4FD1F2517470042FA07 /* Motion.xcodeproj */;
+					ProductGroup = 96DE3BA51F251A090035F7AF /* Products */;
+					ProjectRef = 96DE3BA41F251A090035F7AF /* Motion.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -897,11 +896,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		96E3C5021F2517470042FA07 /* Motion.framework */ = {
+		96DE3BA91F251A090035F7AF /* Motion.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = Motion.framework;
-			remoteRef = 96E3C5011F2517470042FA07 /* PBXContainerItemProxy */;
+			remoteRef = 96DE3BA81F251A090035F7AF /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -921,22 +920,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		96E3C4F91F2516A50042FA07 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "git submodule init\ngit submodule update --init --recursive";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		963832311B88DFD80015F710 /* Sources */ = {
@@ -1029,10 +1012,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		96E3C5041F25174D0042FA07 /* PBXTargetDependency */ = {
+		96DE3BAB1F251A190035F7AF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Motion iOS";
-			targetProxy = 96E3C5031F25174D0042FA07 /* PBXContainerItemProxy */;
+			targetProxy = 96DE3BAA1F251A190035F7AF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
