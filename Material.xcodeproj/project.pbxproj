@@ -170,7 +170,8 @@
 		96E3C3991D3A1CC20086A024 /* StatusBarController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 967A48181D0F425A00B8CEB7 /* StatusBarController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96E3C39A1D3A1CC20086A024 /* ErrorTextField.swift in Headers */ = {isa = PBXBuildFile; fileRef = 961F18E71CD93E3E008927C5 /* ErrorTextField.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96E3C39C1D3A1CC20086A024 /* Offset.swift in Headers */ = {isa = PBXBuildFile; fileRef = 968C99461D377849000074FF /* Offset.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		96E3C47D1F2511F90042FA07 /* Motion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96E3C47A1F2511E40042FA07 /* Motion.framework */; };
+		96E3C4801F25147F0042FA07 /* Motion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96E3C47A1F2511E40042FA07 /* Motion.framework */; };
+		96E3C4F51F25150B0042FA07 /* Material+Obj-C.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E3C4F41F25150B0042FA07 /* Material+Obj-C.swift */; };
 		96F1A5531F24F17A001D8CAF /* TabsController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96E09DC71F2287E50000B121 /* TabsController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96FE06C71F15348400E34953 /* PageTabBarController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 966995481F1433C30064E7E4 /* PageTabBarController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
@@ -183,7 +184,7 @@
 			remoteGlobalIDString = 96C98DD11E424AB000B22906;
 			remoteInfo = "Motion iOS";
 		};
-		96E3C47B1F2511F40042FA07 /* PBXContainerItemProxy */ = {
+		96E3C47E1F25147B0042FA07 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 96E3C4751F2511E40042FA07 /* Motion.xcodeproj */;
 			proxyType = 1;
@@ -282,6 +283,7 @@
 		96E09DC71F2287E50000B121 /* TabsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabsController.swift; sourceTree = "<group>"; };
 		96E3C3931D397AE90086A024 /* Material+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIView.swift"; sourceTree = "<group>"; };
 		96E3C4751F2511E40042FA07 /* Motion.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Motion.xcodeproj; path = Frameworks/Motion/Motion.xcodeproj; sourceTree = "<group>"; };
+		96E3C4F41F25150B0042FA07 /* Material+Obj-C.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+Obj-C.swift"; sourceTree = "<group>"; };
 		96F1DC871D654FDF0025F925 /* Material+CALayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+CALayer.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -290,7 +292,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96E3C47D1F2511F90042FA07 /* Motion.framework in Frameworks */,
+				96E3C4801F25147F0042FA07 /* Motion.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -670,6 +672,7 @@
 				96C1C8801D42C62800E6608F /* Material+Array.swift */,
 				962864591D53FE3E00690B69 /* Material+UIWindow.swift */,
 				966C17721F0439F600D3E83C /* Material+MotionAnimation.swift */,
+				96E3C4F41F25150B0042FA07 /* Material+Obj-C.swift */,
 			);
 			name = Extension;
 			sourceTree = "<group>";
@@ -842,7 +845,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				96E3C47C1F2511F40042FA07 /* PBXTargetDependency */,
+				96E3C47F1F25147B0042FA07 /* PBXTargetDependency */,
 			);
 			name = Material;
 			productName = FocusKit;
@@ -991,6 +994,7 @@
 				965E80FC1DD4D59500D61E4B /* SearchBarController.swift in Sources */,
 				965E80D81DD4C50600D61E4B /* Layer.swift in Sources */,
 				965E80D91DD4C50600D61E4B /* Layout.swift in Sources */,
+				96E3C4F51F25150B0042FA07 /* Material+Obj-C.swift in Sources */,
 				965E80DA1DD4C50600D61E4B /* Border.swift in Sources */,
 				965E80DB1DD4C50600D61E4B /* InterimSpace.swift in Sources */,
 				965E80DC1DD4C50600D61E4B /* Depth.swift in Sources */,
@@ -1008,10 +1012,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		96E3C47C1F2511F40042FA07 /* PBXTargetDependency */ = {
+		96E3C47F1F25147B0042FA07 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Motion iOS";
-			targetProxy = 96E3C47B1F2511F40042FA07 /* PBXContainerItemProxy */;
+			targetProxy = 96E3C47E1F25147B0042FA07 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

@@ -29,6 +29,7 @@
  */
 
 import UIKit
+import Motion
 
 public extension MotionAnimation {
     /**
