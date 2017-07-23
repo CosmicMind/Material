@@ -171,19 +171,18 @@
 		96E3C39A1D3A1CC20086A024 /* ErrorTextField.swift in Headers */ = {isa = PBXBuildFile; fileRef = 961F18E71CD93E3E008927C5 /* ErrorTextField.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96E3C39C1D3A1CC20086A024 /* Offset.swift in Headers */ = {isa = PBXBuildFile; fileRef = 968C99461D377849000074FF /* Offset.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96F1A5531F24F17A001D8CAF /* TabsController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96E09DC71F2287E50000B121 /* TabsController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		96F1A5551F24F1D2001D8CAF /* Motion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96F1A54F1F24F11B001D8CAF /* Motion.framework */; };
 		96FE06C71F15348400E34953 /* PageTabBarController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 966995481F1433C30064E7E4 /* PageTabBarController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		96F1A54E1F24F11B001D8CAF /* PBXContainerItemProxy */ = {
+		96E409361F24F6040015A2B5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 96F1A54A1F24F11B001D8CAF /* Motion.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 96C98DD11E424AB000B22906;
 			remoteInfo = "Motion iOS";
 		};
-		96F1A5501F24F127001D8CAF /* PBXContainerItemProxy */ = {
+		96E409381F24F60C0015A2B5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 96F1A54A1F24F11B001D8CAF /* Motion.xcodeproj */;
 			proxyType = 1;
@@ -290,7 +289,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96F1A5551F24F1D2001D8CAF /* Motion.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -712,6 +710,14 @@
 			path = Sources;
 			sourceTree = "<group>";
 		};
+		96E409331F24F6040015A2B5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				96E409371F24F6040015A2B5 /* Motion.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		96EF418E1E835E850012CA1C /* Animation */ = {
 			isa = PBXGroup;
 			children = (
@@ -727,14 +733,6 @@
 				96F1A54A1F24F11B001D8CAF /* Motion.xcodeproj */,
 			);
 			name = Motion;
-			sourceTree = "<group>";
-		};
-		96F1A54B1F24F11B001D8CAF /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				96F1A54F1F24F11B001D8CAF /* Motion.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -843,7 +841,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				96F1A5511F24F127001D8CAF /* PBXTargetDependency */,
+				96E409391F24F60C0015A2B5 /* PBXTargetDependency */,
 			);
 			name = Material;
 			productName = FocusKit;
@@ -882,7 +880,7 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 96F1A54B1F24F11B001D8CAF /* Products */;
+					ProductGroup = 96E409331F24F6040015A2B5 /* Products */;
 					ProjectRef = 96F1A54A1F24F11B001D8CAF /* Motion.xcodeproj */;
 				},
 			);
@@ -894,11 +892,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		96F1A54F1F24F11B001D8CAF /* Motion.framework */ = {
+		96E409371F24F6040015A2B5 /* Motion.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = Motion.framework;
-			remoteRef = 96F1A54E1F24F11B001D8CAF /* PBXContainerItemProxy */;
+			remoteRef = 96E409361F24F6040015A2B5 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -1025,10 +1023,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		96F1A5511F24F127001D8CAF /* PBXTargetDependency */ = {
+		96E409391F24F60C0015A2B5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Motion iOS";
-			targetProxy = 96F1A5501F24F127001D8CAF /* PBXContainerItemProxy */;
+			targetProxy = 96E409381F24F60C0015A2B5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1145,10 +1143,11 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/**";
 				GCC_WARN_UNUSED_VALUE = YES;
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks @rpath/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cosmicmind.Material;
 				PRODUCT_NAME = Material;
 				PROVISIONING_PROFILE = "";
@@ -1169,10 +1168,11 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/**";
 				GCC_WARN_UNUSED_VALUE = YES;
 				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks @rpath/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cosmicmind.Material;
 				PRODUCT_NAME = Material;
 				PROVISIONING_PROFILE = "";

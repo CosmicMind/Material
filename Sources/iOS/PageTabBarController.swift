@@ -29,6 +29,7 @@
  */
 
 import UIKit
+import Motion
 
 /// A memory reference to the PageTabBarItem instance for UIViewController extensions.
 fileprivate var PageTabBarItemKey: UInt8 = 0

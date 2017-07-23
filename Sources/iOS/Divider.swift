@@ -29,6 +29,7 @@
  */
 
 import UIKit
+import Motion
 
 @objc(DividerAlignment)
 public enum DividerAlignment: Int {

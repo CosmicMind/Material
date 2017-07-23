@@ -29,6 +29,7 @@
  */
 
 import UIKit
+import Motion
 
 @objc(GridAxisDirection)
 public enum GridAxisDirection: Int {

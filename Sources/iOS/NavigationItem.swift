@@ -29,6 +29,7 @@
  */
 
 import UIKit
+import Motion
 
 /// A memory reference to the NavigationItem instance.
 fileprivate var NavigationItemKey: UInt8 = 0
