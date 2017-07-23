@@ -29,7 +29,6 @@
  */
 
 import UIKit
-import Motion
 
 /// A memory reference to the TabsBarItem instance for UIViewController extensions.
 fileprivate var TabsBarItemKey: UInt8 = 0

@@ -29,7 +29,6 @@
  */
 
 import UIKit
-import Motion
 
 @objc(CollectionReusableView)
 open class CollectionReusableView: UICollectionReusableView, Pulseable, PulseableLayer {

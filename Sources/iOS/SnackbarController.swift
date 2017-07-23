@@ -29,7 +29,6 @@
  */
 
 import UIKit
-import Motion
 
 @objc(SnackbarControllerDelegate)
 public protocol SnackbarControllerDelegate {

@@ -29,7 +29,6 @@
  */
 
 import UIKit
-import Motion
 
 public class Layout {
     /// Parent UIView context.
