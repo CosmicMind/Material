@@ -30,7 +30,6 @@
 
 import UIKit
 
-/// A memory reference to the TabItem instance for UIViewController extensions.
 fileprivate var TabItemKey: UInt8 = 0
 
 open class TabItem: FlatButton {
@@ -80,27 +79,12 @@ extension UIViewController {
 }
 
 open class TabsController: UIViewController {
-    /// A reference to the currently selected view controller index value.
-    @IBInspectable
-    open var selectedIndex = 0
-    
-    /// Enables and disables bouncing when swiping.
-    open var isBounceEnabled: Bool {
-        get {
-            return scrollView.bounces
-        }
-        set(value) {
-            scrollView.bounces = value
-        }
-    }
-    
     /// The TabBar used to switch between view controllers.
     @IBInspectable
     open fileprivate(set) var tabBar: TabBar?
     
-    /// The UIScrollView used to pan the application pages.
     @IBInspectable
-    open let scrollView = UIScrollView()
+    public let container = UIView()
     
     /// An Array of UIViewControllers.
     open var viewControllers: [UIViewController] {
@@ -109,17 +93,25 @@ open class TabsController: UIViewController {
                 self?.removeViewController(viewController: $0)
             }
             
-            prepareViewControllers()
             prepareTabBar()
+            prepareContainer()
             layoutSubviews()
         }
     }
     
+    /// A reference to the currently selected view controller index value.
+    @IBInspectable
+    open var selectedIndex = 0
+    
+    /// The tabBar alignment.
     open var tabBarAlignment = TabBarAlignment.bottom {
         didSet {
             layoutSubviews()
         }
     }
+    
+    /// The transition type used during a transition.
+    open var transitionType = MotionTransitionType.autoReverse(presenting: .fade)
     
     /**
      An initializer that initializes the object with a NSCoder object.
@@ -128,16 +120,6 @@ open class TabsController: UIViewController {
     public required init?(coder aDecoder: NSCoder) {
         viewControllers = []
         super.init(coder: aDecoder)
-    }
-    
-    /// Previous scroll view content offset.
-    fileprivate var previousContentOffset: CGFloat = 0
-    
-    /// The number of views used in the scrollViewPool.
-    open var viewPoolCount = 3 {
-        didSet {
-            layoutSubviews()
-        }
     }
     
     /**
@@ -167,8 +149,9 @@ open class TabsController: UIViewController {
      */
     open func layoutSubviews() {
         layoutTabBar()
-        layoutScrollView()
-        layoutViewControllers()
+        layoutContainer()
+        
+        viewControllers[selectedIndex].view.frame.size = container.bounds.size
     }
     
     /**
@@ -180,52 +163,16 @@ open class TabsController: UIViewController {
      */
     open func prepare() {
         view.contentScaleFactor = Screen.scale
-        prepareScrollView()
-        prepareViewControllers()
+        prepareContainer()
         prepareTabBar()
+        
+        for i in 0..<viewControllers.count {
+            prepareViewController(at: i)
+        }
     }
 }
 
 extension TabsController {
-    /// Prepares the scrollView used to pan through view controllers.
-    fileprivate func prepareScrollView() {
-        scrollView.delegate = self
-        scrollView.bounces = false
-        scrollView.isPagingEnabled = true
-        scrollView.showsVerticalScrollIndicator = false
-        scrollView.showsHorizontalScrollIndicator = false
-        scrollView.contentScaleFactor = Screen.scale
-        view.addSubview(scrollView)
-    }
-    
-    /// Prepares the view controllers.
-    fileprivate func prepareViewControllers() {
-        let n = viewControllers.count
-        
-        guard 1 < n else {
-            if 1 == n {
-                prepareViewController(at: 0)
-            }
-            return
-        }
-        
-        let m = viewPoolCount < n ? viewPoolCount : n
-        
-        if 0 == selectedIndex {
-            for i in 0..<m {
-                prepareViewController(at: i)
-            }
-        } else if n - 1 == selectedIndex {
-            for i in 0..<m {
-                prepareViewController(at: selectedIndex - i)
-            }
-        } else {
-            prepareViewController(at: selectedIndex)
-            prepareViewController(at: selectedIndex - 1)
-            prepareViewController(at: selectedIndex + 1)
-        }
-    }
-    
     /**
      Prepares the tabBar buttons.
      - Parameter _ buttons: An Array of UIButtons.
@@ -243,6 +190,7 @@ extension TabsController {
         }
     }
     
+    /// Prepares the TabBar.
     fileprivate func prepareTabBar() {
         var buttons = [UIButton]()
         
@@ -271,6 +219,11 @@ extension TabsController {
         prepareTabBarButtons(buttons)
     }
     
+    /// Prepares the container view.
+    fileprivate func prepareContainer() {
+        view.addSubview(container)
+    }
+    
     /**
      Loads a view controller based on its index in the viewControllers Array
      and adds it as a child view controller.
@@ -287,30 +240,15 @@ extension TabsController {
         vc.didMove(toParentViewController: self)
         vc.view.clipsToBounds = true
         vc.view.contentScaleFactor = Screen.scale
-        scrollView.addSubview(vc.view)
-    }
-    
-    /**
-     Transitions from one view controller to another.
-     - Parameter from: The index of the view controller to transition from.
-     - Parameter to: The index of the view controller to transition to.
-     */
-    fileprivate func prepareViewControllersForTransition(from: Int, to: Int) {
-        let fromVC = viewControllers[from]
-        let toVC = viewControllers[to]
-        
-        fromVC.present(toVC, animated: true)
+        container.addSubview(vc.view)
     }
 }
 
 extension TabsController {
-    fileprivate func layoutScrollView() {
-        let w = view.bounds.width
-        scrollView.contentSize = CGSize(width: w * CGFloat(viewControllers.count), height: scrollView.height)
-        scrollView.contentOffset = CGPoint(x: w * CGFloat(selectedIndex), y: 0)
-        
+    /// Layout the container view.
+    fileprivate func layoutContainer() {
         guard let v = tabBar else {
-            scrollView.frame = view.bounds
+            container.frame = view.bounds
             return
         }
         
@@ -319,58 +257,20 @@ extension TabsController {
         
         switch tabBarAlignment {
         case .top:
-            scrollView.y = p
-            scrollView.height = y
+            container.y = p
+            container.height = y
         case .bottom:
-            scrollView.y = 0
-            scrollView.height = y
+            container.y = 0
+            container.height = y
         case .hidden:
-            scrollView.y = 0
-            scrollView.height = view.height
+            container.y = 0
+            container.height = view.height
         }
         
-        scrollView.width = w
+        container.width = view.bounds.width
     }
     
-    fileprivate func layoutViewControllers() {
-        let n = viewControllers.count
-        
-        guard 1 < n else {
-            layoutViewController(at: 0, position: 0)
-            return
-        }
-        
-        let m = viewPoolCount < n ? viewPoolCount : n
-        
-        if 0 == selectedIndex {
-            for i in 0..<m {
-                layoutViewController(at: i, position: i)
-            }
-        } else if n - 1 == selectedIndex {
-            var q = 0
-            for i in 0..<m {
-                q = selectedIndex - i
-                layoutViewController(at: q, position: q)
-            }
-        } else {
-            layoutViewController(at: selectedIndex, position: selectedIndex)
-            layoutViewController(at: selectedIndex - 1, position: selectedIndex - 1)
-            layoutViewController(at: selectedIndex + 1, position: selectedIndex + 1)
-        }
-    }
-    
-    /**
-     Positions a view controller within the scrollView.
-     - Parameter position: An Int for the position of the view controller.
-     */
-    fileprivate func layoutViewController(at index: Int, position: Int) {
-        let w = scrollView.width
-        viewControllers[index].view.frame = CGRect(x: CGFloat(position) * w, y: 0, width: w, height: scrollView.height)
-    }
-    
-    /**
-     Layout the TabBar.
-     */
+    /// Layout the TabBar.
     fileprivate func layoutTabBar() {
         guard let v = tabBar else {
             return
@@ -394,37 +294,6 @@ extension TabsController {
 }
 
 extension TabsController {
-    /// Removes the view controllers not within the scrollView.
-    fileprivate func removeViewControllers() {
-        let n = viewControllers.count
-        
-        guard 1 < n else {
-            return
-        }
-        
-        if 0 == selectedIndex {
-            for i in 1..<n {
-                removeViewController(at: i)
-            }
-        } else if n - 1 == selectedIndex {
-            for i in 0..<n - 2 {
-                removeViewController(at: i)
-            }
-        } else {
-            for i in 0..<selectedIndex {
-                removeViewController(at: i)
-            }
-            
-            let x = selectedIndex + 1
-            
-            if x < n {
-                for i in x..<n {
-                    removeViewController(at: i)
-                }
-            }
-        }
-    }
-    
     /**
      Removes the view controller as a child view controller with
      the given index.
@@ -469,33 +338,15 @@ extension TabsController {
         guard i != selectedIndex else {
             return
         }
-        //        removeViewControllers()
         
-        //        prepareViewControllersForTransition(from: selectedIndex, to: i)
+        let fvc = viewControllers[selectedIndex]
+        let tvc = viewControllers[i]
         
+        tvc.view.frame.size = container.bounds.size
+        tvc.motionModalTransitionType = transitionType
         
+        Motion.shared.transition(from: fvc, to: tvc, in: container)
         
         selectedIndex = i
-        v.select(at: i)
-        
-        removeViewControllers()
-        prepareViewControllers()
-        prepareTabBar()
-        layoutSubviews()
-    }
-}
-
-extension TabsController: UIScrollViewDelegate {
-    @objc
-    open func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let w = scrollView.width
-        let p = Int(floor((scrollView.contentOffset.x - w / 2) / w) + 1)
-        
-        selectedIndex = p
-        
-        removeViewControllers()
-        prepareViewControllers()
-        //        prepareTabBar()
-        layoutSubviews()
     }
 }

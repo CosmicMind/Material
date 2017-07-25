@@ -219,7 +219,7 @@ open class PageTabBarController: RootController {
     open override func prepare() {
         super.prepare()
         preparePageTabBar()
-        preparePageTabBarItems()
+        prepareTabItems()
     }
     
     open override func prepareRootViewController() {
@@ -237,7 +237,7 @@ open class PageTabBarController: RootController {
     }
     
     /// Prepares the pageTabBarItems.
-    open func preparePageTabBarItems() {
+    open func prepareTabItems() {
         pageTabBar.buttons.removeAll()
         
         for x in viewControllers {
