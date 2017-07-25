@@ -292,12 +292,12 @@ open class TabBar: Bar {
             }
             
             scrollView.contentSize = CGSize(width: w, height: height)
+            scrollView.addSubview(line)
         } else {
             contentView.grid.axis.columns = buttons.count
             centerViews = buttons
+            addSubview(line)
         }
-        
-        addSubview(line)
         
         updateSelectionLine()
 	}
@@ -338,7 +338,6 @@ extension TabBar {
         line.zPosition = 6000
         lineColor = Color.blue.base
         lineHeight = 3
-        scrollView.addSubview(line)
     }
     
     /// Prepares the divider.
@@ -419,31 +418,27 @@ extension TabBar {
         selected = button
         isAnimating = true
         
-        UIView.animate(withDuration: 0.25, animations: { [weak self, button = button] in
-            guard let s = self else {
-                return
-            }
-            
-            s.line.width = button.width
-            s.line.center.x = button.center.x
-            
-            if !s.scrollView.bounds.contains(button.frame) {
-                let contentOffsetX = (button.x < s.scrollView.bounds.minX) ? button.x : button.frame.maxX - s.scrollView.bounds.width
-                let normalizedOffsetX = min(max(contentOffsetX, 0), s.scrollView.contentSize.width - s.scrollView.bounds.width)
-                s.scrollView.setContentOffset(CGPoint(x: normalizedOffsetX, y: 0), animated: false)
-            }            
-        }) { [weak self, isTriggeredByUserInteraction = isTriggeredByUserInteraction, button = button, completion = completion] _ in
-            guard let s = self else {
-                return
-            }
-            
-            s.isAnimating = false
-            
-            if isTriggeredByUserInteraction {
-                s.delegate?.tabBar?(tabBar: s, didSelect: button)
-            }
-            
-            completion?(button)
+        line.animate(.duration(0.25),
+                     .size(CGSize(width: button.width, height: lineHeight)),
+                     .position(CGPoint(x: button.center.x, y: .bottom == lineAlignment ? height - lineHeight : 0)),
+                     .completion { [weak self, isTriggeredByUserInteraction = isTriggeredByUserInteraction, button = button, completion = completion] _ in
+                        guard let s = self else {
+                            return
+                        }
+                        
+                        s.isAnimating = false
+                        
+                        if isTriggeredByUserInteraction {
+                            s.delegate?.tabBar?(tabBar: s, didSelect: button)
+                        }
+                        
+                        completion?(button)
+                     })
+        
+        if !scrollView.bounds.contains(button.frame) {
+            let contentOffsetX = (button.x < scrollView.bounds.minX) ? button.x : button.frame.maxX - scrollView.bounds.width
+            let normalizedOffsetX = min(max(contentOffsetX, 0), scrollView.contentSize.width - scrollView.bounds.width)
+            scrollView.setContentOffset(CGPoint(x: normalizedOffsetX, y: 0), animated: true)
         }
     }
 }
