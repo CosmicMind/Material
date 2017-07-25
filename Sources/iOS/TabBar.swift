@@ -423,8 +423,8 @@ extension TabBar {
                 return
             }
             
-            s.line.center.x = button.center.x
             s.line.width = button.width
+            s.line.center.x = button.center.x
             
             if !s.scrollView.bounds.contains(button.frame) {
                 let contentOffsetX = (button.x < s.scrollView.bounds.minX) ? button.x : button.frame.maxX - s.scrollView.bounds.width
