@@ -32,7 +32,12 @@ import UIKit
 
 fileprivate var TabItemKey: UInt8 = 0
 
-open class TabItem: FlatButton {}
+open class TabItem: FlatButton {
+    open override func prepare() {
+        super.prepare()
+        pulseAnimation = .none
+    }
+}
 
 @objc(TabBarAlignment)
 public enum TabBarAlignment: Int {
@@ -307,7 +312,7 @@ fileprivate extension TabsController {
 
 fileprivate extension TabsController {
     /**
-     Handles the pageTabBarButton.
+     Handles the tabItem.
      - Parameter button: A UIButton.
      */
     @objc

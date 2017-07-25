@@ -59,7 +59,7 @@ public protocol TabBarDelegate {
 
 @objc(TabBarStyle)
 public enum TabBarStyle: Int {
-    case normal
+    case `default`
     case scrollable
 }
 
@@ -78,7 +78,7 @@ open class TabBar: Bar {
     }
     
     /// An enum that determines the tab bar style.
-    open var tabBarStyle = TabBarStyle.scrollable {
+    open var tabBarStyle = TabBarStyle.default {
         didSet {
             layoutSubviews()
         }
@@ -325,23 +325,25 @@ open class TabBar: Bar {
     open override func prepare() {
         super.prepare()
         contentEdgeInsetsPreset = .none
-        interimSpacePreset = .interimSpace5
+        interimSpacePreset = .interimSpace6
+        prepareContentView()
         prepareScrollView()
         prepareDivider()
         prepareLine()
     }
 }
 
-extension TabBar {
+fileprivate extension TabBar {
     // Prepares the line.
-    fileprivate func prepareLine() {
-        line.zPosition = 6000
+    func prepareLine() {
+        line.zPosition = 10000
         lineColor = Color.blue.base
         lineHeight = 3
     }
     
     /// Prepares the divider.
-    fileprivate func prepareDivider() {
+    func prepareDivider() {
+        dividerColor = Color.grey.lighten3
         dividerAlignment = .top
     }
     
@@ -349,13 +351,18 @@ extension TabBar {
      Prepares the line animation handlers.
      - Parameter button: A UIButton.
      */
-    fileprivate func prepareLineAnimationHandler(button: UIButton) {
+    func prepareLineAnimationHandler(button: UIButton) {
         removeLineAnimationHandler(button: button)
         button.addTarget(self, action: #selector(handleLineAnimation(button:)), for: .touchUpInside)
     }
     
+    /// Prepares the contentView.
+    func prepareContentView() {
+        contentView.zPosition = 6000
+    }
+    
     /// Prepares the scroll view. 
-    fileprivate func prepareScrollView() {
+    func prepareScrollView() {
         scrollView.isPagingEnabled = false
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
@@ -420,7 +427,7 @@ extension TabBar {
         
         line.animate(.duration(0.25),
                      .size(CGSize(width: button.width, height: lineHeight)),
-                     .position(CGPoint(x: button.center.x, y: .bottom == lineAlignment ? height - lineHeight : 0)),
+                     .position(CGPoint(x: button.center.x, y: .bottom == lineAlignment ? height - lineHeight / 2 : lineHeight / 2)),
                      .completion { [weak self, isTriggeredByUserInteraction = isTriggeredByUserInteraction, button = button, completion = completion] _ in
                         guard let s = self else {
                             return
