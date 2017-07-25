@@ -30,10 +30,10 @@
 
 import UIKit
 
-/// A memory reference to the TabsBarItem instance for UIViewController extensions.
-fileprivate var TabsBarItemKey: UInt8 = 0
+/// A memory reference to the TabItem instance for UIViewController extensions.
+fileprivate var TabItemKey: UInt8 = 0
 
-open class TabsBarItem: FlatButton {
+open class TabItem: FlatButton {
     open override func prepare() {
         super.prepare()
         pulseAnimation = .none
@@ -48,15 +48,15 @@ public enum TabBarAlignment: Int {
 }
 
 extension UIViewController {
-    /// pageMenuBarItem reference.
-    public private(set) var pageMenuBarItem: TabsBarItem {
+    /// tabItem reference.
+    public private(set) var tabItem: TabItem {
         get {
-            return AssociatedObject.get(base: self, key: &TabsBarItemKey) {
-                return TabsBarItem()
+            return AssociatedObject.get(base: self, key: &TabItemKey) {
+                return TabItem()
             }
         }
         set(value) {
-            AssociatedObject.set(base: self, key: &TabsBarItemKey, value: value)
+            AssociatedObject.set(base: self, key: &TabItemKey, value: value)
         }
     }
 }
@@ -247,7 +247,7 @@ extension TabsController {
         var buttons = [UIButton]()
         
         for v in viewControllers {
-            let button = v.pageMenuBarItem as UIButton
+            let button = v.tabItem as UIButton
             v.isMotionEnabled = true
             buttons.append(button)
         }
