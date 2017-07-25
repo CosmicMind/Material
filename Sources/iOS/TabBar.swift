@@ -78,14 +78,21 @@ open class TabBar: Bar {
     }
     
     /// An enum that determines the tab bar style.
-    open var tabBarStyle = TabBarStyle.normal {
+    open var tabBarStyle = TabBarStyle.scrollable {
         didSet {
             layoutSubviews()
         }
     }
     
     /// A reference to the scroll view when the tab bar style is scrollable.
-    open fileprivate(set) var scrollView: UIScrollView!
+    open let scrollView = UIScrollView()
+    
+    /// Does the scroll view bounce. 
+    open var isScrollBounceEnabled = true {
+        didSet {
+            scrollView.bounces = true
+        }
+    }
     
     /// A delegation reference.
     open weak var delegate: TabBarDelegate?
@@ -270,11 +277,7 @@ open class TabBar: Bar {
         
         layoutDivider()
         
-        let buttonsWidth = buttons.reduce(0) {
-            $0 + $1.sizeThatFits(CGSize(width: .greatestFiniteMagnitude, height: contentView.height)).width + interimSpace
-        }
-        
-        if .scrollable == tabBarStyle && buttonsWidth > p {
+        if .scrollable == tabBarStyle {
             scrollView.frame = CGRect(x: l, y: 0, width: p, height: height)
             
             var w: CGFloat = 0
@@ -288,13 +291,13 @@ open class TabBar: Bar {
                 w += width
             }
             
-            scrollView.contentSize = CGSize(width: buttonsWidth, height: height)
-            scrollView.addSubview(line)
+            scrollView.contentSize = CGSize(width: w, height: height)
         } else {
             contentView.grid.axis.columns = buttons.count
             centerViews = buttons
-            addSubview(line)
         }
+        
+        addSubview(line)
         
         updateSelectionLine()
 	}
@@ -354,8 +357,6 @@ extension TabBar {
     
     /// Prepares the scroll view. 
     fileprivate func prepareScrollView() {
-        scrollView = UIScrollView()
-        scrollView.bounces = false
         scrollView.isPagingEnabled = false
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false

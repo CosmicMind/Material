@@ -32,12 +32,7 @@ import UIKit
 
 fileprivate var TabItemKey: UInt8 = 0
 
-open class TabItem: FlatButton {
-    open override func prepare() {
-        super.prepare()
-        pulseAnimation = .none
-    }
-}
+open class TabItem: FlatButton {}
 
 @objc(TabBarAlignment)
 public enum TabBarAlignment: Int {
@@ -95,6 +90,7 @@ open class TabsController: UIViewController {
             
             prepareTabBar()
             prepareContainer()
+            prepareViewControllers()
             layoutSubviews()
         }
     }
@@ -111,7 +107,7 @@ open class TabsController: UIViewController {
     }
     
     /// The transition type used during a transition.
-    open var transitionType = MotionTransitionType.autoReverse(presenting: .fade)
+    open var motionTransitionType = MotionTransitionType.fade
     
     /**
      An initializer that initializes the object with a NSCoder object.
@@ -150,8 +146,7 @@ open class TabsController: UIViewController {
     open func layoutSubviews() {
         layoutTabBar()
         layoutContainer()
-        
-        viewControllers[selectedIndex].view.frame.size = container.bounds.size
+        layoutViewController(at: selectedIndex)
     }
     
     /**
@@ -165,10 +160,7 @@ open class TabsController: UIViewController {
         view.contentScaleFactor = Screen.scale
         prepareContainer()
         prepareTabBar()
-        
-        for i in 0..<viewControllers.count {
-            prepareViewController(at: i)
-        }
+        prepareViewControllers()
     }
 }
 
@@ -224,6 +216,21 @@ extension TabsController {
         view.addSubview(container)
     }
     
+    /// Prepares all the view controllers. 
+    fileprivate func prepareViewControllers() {
+        let n = viewControllers.count
+        
+        for i in 0..<n {
+            guard i != selectedIndex else {
+                continue
+            }
+            
+            prepareViewController(at: i)
+        }
+        
+        prepareViewController(at: selectedIndex)
+    }
+    
     /**
      Loads a view controller based on its index in the viewControllers Array
      and adds it as a child view controller.
@@ -267,7 +274,7 @@ extension TabsController {
             container.height = view.height
         }
         
-        container.width = view.bounds.width
+        container.width = view.width
     }
     
     /// Layout the TabBar.
@@ -290,6 +297,11 @@ extension TabsController {
         case .hidden:
             v.isHidden = true
         }
+    }
+    
+    /// Layout the view controller at the given index.
+    fileprivate func layoutViewController(at index: Int) {
+        viewControllers[index].view.frame.size = container.bounds.size
     }
 }
 
@@ -343,10 +355,12 @@ extension TabsController {
         let tvc = viewControllers[i]
         
         tvc.view.frame.size = container.bounds.size
-        tvc.motionModalTransitionType = transitionType
+        tvc.motionModalTransitionType = motionTransitionType
         
         Motion.shared.transition(from: fvc, to: tvc, in: container)
         
         selectedIndex = i
+        
+        tabBar?.select(at: selectedIndex)
     }
 }
