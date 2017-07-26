@@ -59,7 +59,8 @@ public protocol TabBarDelegate {
 
 @objc(TabBarStyle)
 public enum TabBarStyle: Int {
-    case `default`
+    case auto
+    case nonScrollable
     case scrollable
 }
 
@@ -78,7 +79,7 @@ open class TabBar: Bar {
     }
     
     /// An enum that determines the tab bar style.
-    open var tabBarStyle = TabBarStyle.default {
+    open var tabBarStyle = TabBarStyle.auto {
         didSet {
             layoutSubviews()
         }
@@ -277,18 +278,23 @@ open class TabBar: Bar {
         
         layoutDivider()
         
-        if .scrollable == tabBarStyle {
+        var w: CGFloat = 0
+        
+        for v in buttons {
+            w += v.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: contentView.height)).width + interimSpace
+        }
+        
+        if .scrollable == tabBarStyle || (w > bounds.width && .auto == tabBarStyle) {
             scrollView.frame = CGRect(x: l, y: 0, width: p, height: height)
             
-            var w: CGFloat = 0
-            
-            for b in buttons {
-                let width = b.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: contentView.height)).width + interimSpace
-                scrollView.addSubview(b)
-                b.height = scrollView.height
-                b.width = width
-                b.x = w
-                w += width
+            w = 0
+            for v in buttons {
+                let x = v.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: contentView.height)).width + interimSpace
+                scrollView.addSubview(v)
+                v.height = scrollView.height
+                v.width = x
+                v.x = w
+                w += x
             }
             
             scrollView.contentSize = CGSize(width: w, height: height)
