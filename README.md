@@ -2,7 +2,7 @@
 
 # Material
 
-Welcome to **Material,** a Material Design library used to create beautiful applications. Material's animation system has been completely reworked to take advantage of [Motion](https://github.com/CosmicMind/Motion), a library dedicated to animations and transitions. 
+Welcome to **Material,** a Material Design library used to create beautiful applications. Material's animation system has been completely reworked to take advantage of [Motion](https://github.com/CosmicMind/Motion), a library dedicated to animations and transitions.
 
 ## Photos Sample
 
@@ -13,7 +13,7 @@ Take a look at a sample [Photos](https://github.com/CosmicMind/Samples/tree/mast
 * [Photos Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/Photos)
 
 ## Sample Projects
- 
+
 Take a look at [Sample Projects](https://github.com/CosmicMind/Samples) to get your projects started.
 
 ## Features
@@ -28,7 +28,7 @@ Take a look at [Sample Projects](https://github.com/CosmicMind/Samples) to get y
 - [x] TextField
 - [X] Snackbar
 - [x] TabBar
-- [x] PageTabBar
+- [x] Tabs
 - [X] SearchBar
 - [x] NavigationController
 - [x] NavigationDrawer
@@ -148,13 +148,13 @@ A SearchBar is a powerful navigation tool that allows for user's input with an i
 
 * [SearchBar Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/Search)
 
-## PageTabBar
+## Tabs
 
-A PageTabBar is a new component that links a customizable TabBar to a UIPageViewController making a powerful and visually pleasing component to have in any application. The TabBar can be aligned at the top or bottom of the view controller.
+Tabs is a new component that links a customizable TabBar to a stack of view controllers making a powerful and visually pleasing component to have in any application. The TabBar can be aligned at the top or bottom of the view controller.
 
-![PageTabBarController](http://www.cosmicmind.com/material/white/page-tab-bar-controller.gif)
+![Tabs](http://www.cosmicmind.com/material/white/page-tab-bar-controller.gif)
 
-* [PageTabBar Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/PageTabBarController)
+* [Tabs Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/TabsController)
 
 ## NavigationController
 
