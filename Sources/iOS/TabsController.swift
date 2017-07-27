@@ -331,8 +331,19 @@ fileprivate extension TabsController {
         tvc.view.frame.size = container.bounds.size
         tvc.motionModalTransitionType = motionTransitionType
         
-        Motion.shared.transition(from: fvc, to: tvc, in: container)
-
-        selectedIndex = i
+        view.isUserInteractionEnabled = false
+        Motion.shared.transition(from: fvc, to: tvc, in: container) { [weak self] (isFinished) in
+            guard let s = self else {
+                return
+            }
+            
+            s.view.isUserInteractionEnabled = true
+            
+            guard isFinished else {
+                return
+            }
+            
+            s.selectedIndex = i
+        }
     }
 }
