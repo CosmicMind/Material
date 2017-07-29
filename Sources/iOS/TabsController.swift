@@ -166,43 +166,35 @@ open class TabsController: UIViewController {
         view.contentScaleFactor = Screen.scale
         prepareContainer()
         prepareTabBar()
+        prepareTabBarButtons()
         prepareViewControllers()
     }
 }
 
 fileprivate extension TabsController {
-    /**
-     Prepares the tabBar buttons.
-     - Parameter _ buttons: An Array of UIButtons.
-     */
-    func prepareTabBarButtons(_ buttons: [UIButton]) {
-        tabBar.buttons = buttons
-        
-        for b in tabBar.buttons {
-            b.removeTarget(self, action: #selector(handleTabBarButton(button:)), for: .touchUpInside)
-            b.addTarget(self, action: #selector(handleTabBarButton(button:)), for: .touchUpInside)
-        }
+    /// Prepares the container view.
+    func prepareContainer() {
+        view.addSubview(container)
     }
     
     /// Prepares the TabBar.
     func prepareTabBar() {
+        tabBar.lineAlignment = .bottom == tabBarAlignment ? .top : .bottom
+        view.addSubview(tabBar)
+    }
+    
+    /// Prepares the tabBar buttons.
+    func prepareTabBarButtons() {
         var buttons = [UIButton]()
         
         for v in viewControllers {
-            let button = v.tabItem as UIButton
-            v.isMotionEnabled = true
-            buttons.append(button)
+            let b = v.tabItem
+            b.removeTarget(self, action: #selector(handleTabBarButton(button:)), for: .touchUpInside)
+            b.addTarget(self, action: #selector(handleTabBarButton(button:)), for: .touchUpInside)
+            buttons.append(b)
         }
         
-        tabBar.lineAlignment = .bottom == tabBarAlignment ? .top : .bottom
-        view.addSubview(tabBar)
-        
-        prepareTabBarButtons(buttons)
-    }
-    
-    /// Prepares the container view.
-    func prepareContainer() {
-        view.addSubview(container)
+        tabBar.buttons = buttons
     }
     
     /// Prepares all the view controllers. 
@@ -212,6 +204,7 @@ fileprivate extension TabsController {
                 continue
             }
             
+            viewControllers[i].view.isHidden = true
             prepareViewController(at: i)
         }
         
@@ -232,6 +225,7 @@ fileprivate extension TabsController {
         
         addChildViewController(vc)
         vc.didMove(toParentViewController: self)
+        vc.isMotionEnabled = true
         vc.view.clipsToBounds = true
         vc.view.contentScaleFactor = Screen.scale
         container.addSubview(vc.view)
@@ -328,6 +322,7 @@ fileprivate extension TabsController {
         let fvc = viewControllers[selectedIndex]
         let tvc = viewControllers[i]
         
+        tvc.view.isHidden = false
         tvc.view.frame.size = container.bounds.size
         tvc.motionModalTransitionType = motionTransitionType
         

@@ -95,8 +95,8 @@ open class Toolbar: Bar {
         contentViewAlignment = .center == titleLabel.textAlignment ? .center : .full
     }
     
-    open override func layoutBarSubviews() {
-        super.layoutBarSubviews()
+    open override func layoutSubviews() {
+        super.layoutSubviews()
         guard willLayout else {
             return
         }

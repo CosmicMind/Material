@@ -81,8 +81,8 @@ open class Snackbar: Bar {
         return super.hitTest(point, with: event)
     }
     
-    open override func layoutBarSubviews() {
-        super.layoutBarSubviews()
+    open override func layoutSubviews() {
+        super.layoutSubviews()
         guard willLayout else {
             return
         }
