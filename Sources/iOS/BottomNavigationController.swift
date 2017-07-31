@@ -30,6 +30,24 @@
 
 import UIKit
 
+extension UIViewController {
+    /**
+     A convenience property that provides access to the BottomNavigationController.
+     This is the recommended method of accessing the BottomNavigationController
+     through child UIViewControllers.
+     */
+    public var bottomNavigationController: BottomNavigationController? {
+        var viewController: UIViewController? = self
+        while nil != viewController {
+            if viewController is BottomNavigationController {
+                return viewController as? BottomNavigationController
+            }
+            viewController = viewController?.parent
+        }
+        return nil
+    }
+}
+
 open class BottomNavigationController: UITabBarController {
 	/**
      An initializer that initializes the object with a NSCoder object.
@@ -72,7 +90,12 @@ open class BottomNavigationController: UITabBarController {
 		layoutSubviews()
 	}
 	
-	open func layoutSubviews() {
+    /**
+     To execute in the order of the layout chain, override this
+     method. `layoutSubviews` should be called immediately, unless you
+     have a certain need.
+     */
+    open func layoutSubviews() {
 		if let v = tabBar.items {
 			for item in v {
 				if .phone == Device.userInterfaceIdiom {
@@ -96,7 +119,7 @@ open class BottomNavigationController: UITabBarController {
 			}
 		}
         
-        tabBar.divider.reload()
+        tabBar.layoutDivider()
 	}
 	
 	/**
@@ -106,21 +129,25 @@ open class BottomNavigationController: UITabBarController {
      The super.prepare method should always be called immediately
      when subclassing.
      */
-	open func prepare() {
-		view.clipsToBounds = true
+    open func prepare() {
+        view.backgroundColor = .white
+        view.clipsToBounds = true
 		view.contentScaleFactor = Screen.scale
-		view.backgroundColor = .white
         prepareTabBar()
 	}
-	
-	/// Prepares the tabBar.
-	private func prepareTabBar() {
-		tabBar.heightPreset = .normal
+}
+
+extension BottomNavigationController {
+    /// Prepares the tabBar.
+    fileprivate func prepareTabBar() {
+        tabBar.isTranslucent = false
+        tabBar.heightPreset = .normal
         tabBar.depthPreset = .depth1
         tabBar.dividerAlignment = .top
+        
         let image = UIImage()
-		tabBar.shadowImage = image
-		tabBar.backgroundImage = image
-		tabBar.backgroundColor = .white
-	}
+        tabBar.shadowImage = image
+        tabBar.backgroundImage = image
+        tabBar.backgroundColor = .white
+    }
 }

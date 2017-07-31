@@ -54,7 +54,7 @@ open class StatusBarController: RootController {
      display the rootViewController to the full view
      bounds, or up to the toolbar height.
      */
-    open var statusBarDisplay = Display.full {
+    open var displayStyle = DisplayStyle.full {
         didSet {
             layoutSubviews()
         }
@@ -100,7 +100,7 @@ open class StatusBarController: RootController {
         
         statusBar.width = view.width
         
-        switch statusBarDisplay {
+        switch displayStyle {
         case .partial:
             let h = statusBar.height
             rootViewController.view.y = h

@@ -128,7 +128,7 @@ public struct Pulse {
             ] in
             
             bLayer.frame = bounds
-            pLayer.bounds = CGRect(x: 0, y: 0, width: n, height: n)
+            pLayer.frame = CGRect(x: 0, y: 0, width: n, height: n)
             
             switch animation {
             case .center, .centerWithBacking, .centerRadialBeyondBounds:
@@ -144,21 +144,21 @@ public struct Pulse {
         
         bLayer.setValue(false, forKey: "animated")
         
-        let duration: CFTimeInterval = .center == animation ? 0.16125 : 0.325
+        let t: TimeInterval = .center == animation ? 0.16125 : 0.325
         
         switch animation {
         case .centerWithBacking, .backing, .pointWithBacking:
-            bLayer.motion(.backgroundColor(color.withAlphaComponent(opacity / 2)), .duration(duration))
+            bLayer.animate(.background(color: color.withAlphaComponent(opacity / 2)), .duration(t))
         default:break
         }
         
         switch animation {
         case .center, .centerWithBacking, .centerRadialBeyondBounds, .radialBeyondBounds, .point, .pointWithBacking:
-            pLayer.motion(.scale(1), .duration(duration))
+            pLayer.animate(.scale(1), .duration(t))
         default:break
         }
         
-        Motion.delay(duration) {
+        Motion.delay(t) {
             bLayer.setValue(true, forKey: "animated")
         }
 	}
@@ -178,21 +178,21 @@ public struct Pulse {
                 return
             }
             
-            let duration = 0.325
+            let t: TimeInterval = 0.325
             
             switch animation {
             case .centerWithBacking, .backing, .pointWithBacking:
-                bLayer.motion(.backgroundColor(color.withAlphaComponent(0)), .duration(duration))
+                bLayer.animate(.background(color: color.withAlphaComponent(0)), .duration(t))
             default:break
             }
             
             switch animation {
             case .center, .centerWithBacking, .centerRadialBeyondBounds, .radialBeyondBounds, .point, .pointWithBacking:
-                pLayer.motion(.scale(.center == animation ? 1 : 1.325), .backgroundColor(color.withAlphaComponent(0)))
+                pLayer.animate(.background(color: color.withAlphaComponent(0)))
             default:break
             }
             
-            Motion.delay(duration) {
+            Motion.delay(t) {
                 pLayer.removeFromSuperlayer()
                 bLayer.removeFromSuperlayer()
             }

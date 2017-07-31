@@ -1,44 +1,39 @@
 ![Material](http://www.cosmicmind.com/material/github/material-logo.png)
 
-## Welcome to Material
+# Material
 
-Material is an animation and graphics framework for Material Design in Swift.
+Welcome to **Material,** a Material Design library used to create beautiful applications. Material's animation system has been completely reworked to take advantage of [Motion](https://github.com/CosmicMind/Motion), a library dedicated to animations and transitions.
 
-![Material Sample](http://cosmicmind.com/samples/github/page-tab-bar-controller-2.png)
+## Photos Sample
 
-* [Download the latest sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/CardTableView).
+Take a look at a sample [Photos](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/Photos) project to get started.
 
-## Use Motion With Material
+![Photos](http://www.cosmicmind.com/motion/projects/photos.gif)
 
-Motion is a new tool used to create transition animations between view controllers. 
+* [Photos Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/Photos)
 
-## Sample
+## Sample Projects
 
-Take a look at a sample [Photo Collection](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/PhotoCollection) project.
-
-![Motion Photo Collection Sample](http://www.cosmicmind.com/motion/cosmicmind_motion_sample.gif)
+Take a look at [Sample Projects](https://github.com/CosmicMind/Samples) to get your projects started.
 
 ## Features
 
 - [x] Completely Customizable
-- [x] Animations
-- [x] Grid System
-- [x] Layout Library
+- [x] [Motion Animations & Transitions](https://github.com/CosmicMind/Motion)
+- [x] Layout Tools for AutoLayout & Grid Systems
 - [x] Color Library
-- [x] Photo Library
-- [x] Photo & Video
 - [x] Cards
 - [x] FABMenu
 - [x] Icons
 - [x] TextField
 - [X] Snackbar
 - [x] TabBar
-- [x] PageTabBar
+- [x] Tabs
 - [X] SearchBar
 - [x] NavigationController
 - [x] NavigationDrawer
 - [x] BottomNavigationBar
-- [x] Sample Projects
+- [x] [Sample Projects](https://github.com/CosmicMind/Samples)
 - [x] And More...
 
 ## Requirements
@@ -61,15 +56,9 @@ Take a look at a sample [Photo Collection](https://github.com/CosmicMind/Samples
 
 Visit the [Installation](https://github.com/CosmicMind/Material/wiki/Installation) page to learn how to install Material using [CocoaPods](http://cocoapods.org) and [Carthage](https://github.com/Carthage/Carthage).
 
-## Changelog
+## Change Log
 
-Material is a growing project and will encounter changes throughout its development. It is recommended that the [Changelog](https://github.com/CosmicMind/Material/wiki/Changelog) be reviewed prior to updating versions.
-
-# Samples
-
-The following are samples to see how Material may be used within your applications.
-
-* Visit the [Samples](https://github.com/CosmicMind/Samples) repo to see sample projects using Graph.
+Material is a growing project and will encounter changes throughout its development. It is recommended that the [Change Log](https://github.com/CosmicMind/Material/wiki/change_log) be reviewed prior to updating versions.
 
 ## Icons
 
@@ -81,11 +70,11 @@ Icons is a library of Google and CosmicMind icons that are available for use wit
 
 ## Colors
 
-Try the Material Colors app to see the wonderful colors available in Material, or use the online version at [MaterialColors.io](http://materialcolors.io).
+Try the Material Colors app to see the wonderful colors available in Material, or use the online version at [MaterialColor.com](http://materialcolor.com).
 
 ![MaterialColors](http://www.cosmicmind.com/gifs/shared/colors.gif)
 
-[Get Material Colors on the AppStore](https://itunes.apple.com/app/x/id1111994400?mt=8)
+* [Material Colors iOS App](https://itunes.apple.com/app/x/id1111994400?mt=8)
 
 ## TextField
 
@@ -93,9 +82,7 @@ A TextField is an excellent way to improve UX. It allows for a placeholder and a
 
 ![TextField](http://www.cosmicmind.com/gifs/white/text-field.gif)
 
-* Download the complete [TextField sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/TextField).
-* Learn more about [TextField](http://cosmicmind.com/material/textfield).
-
+* [TextField Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/TextField)
 
 ## Button
 
@@ -103,9 +90,7 @@ A button is used to trigger an action through a touch event. Material comes with
 
 ![Material Image](http://www.cosmicmind.com/material/white/button.gif)
 
-* Download the complete [Button sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/Button).
-* Learn more about [Button](http://cosmicmind.com/material/button).
-
+* [Button Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/Button)
 
 ## Switch
 
@@ -113,9 +98,7 @@ A switch is a control component that toggles between on and off states.
 
 ![Material Image](http://www.cosmicmind.com/material/white/switch.gif)
 
-* Download the complete [Switch sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/Switch).
-* Learn more about [Switch](http://cosmicmind.com/material/switch).
-
+* [Switch Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/Switch)
 
 ## Card
 
@@ -123,30 +106,23 @@ A Card is a flexible component that may be configured in any way you like. It ha
 
 ![Material Image](http://www.cosmicmind.com/gifs/white/card.gif)
 
-* Download the complete [Card sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/Card).
-* Learn more about [Card](http://cosmicmind.com/material/card).
-
+* [Card Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/Card)
 
 ## ImageCard
 
 An ImageCard is an expansion of the base Card. The Toolbar overlays an image area that sits above the dynamic content area.
 
-![Material Image](http://www.cosmicmind.com/gifs/white/image-card.gif)
+![Image Card Sample](http://www.cosmicmind.com/gifs/white/image-card.gif)
 
-* Download the complete [ImageCard sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/ImageCard).
-* Learn more about [ImageCard](http://cosmicmind.com/material/imagecard).
-* Learn how to make the ImageCard data-driven with [Graph's ImageCard sample](https://github.com/CosmicMind/Samples/tree/master/Graph/ImageCard).
-
+* [ImageCard Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/ImageCard)
 
 ## PresenterCard
 
 The PresenterCard is a completely new card style. It allows for a primary presentation area that may be any UIView type in addition to the content area, Toolbar, and Bar components. The options for this card are endless.
 
-![Material Image](http://www.cosmicmind.com/gifs/white/presenter-card.gif)
+![Presenter Card Sample](http://www.cosmicmind.com/gifs/white/presenter-card.gif)
 
-* Download the complete [PresenterCard sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/PresenterCard).
-* Learn more about [PresenterCard](http://cosmicmind.com/material/presentercard).
-
+* [PresenterCard Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/PresenterCard)
 
 ## FABMenu
 
@@ -154,9 +130,7 @@ A FABMenu manages a collection of views. A new MenuItem type has been added that
 
 ![Material Image](http://www.cosmicmind.com/material/white/menu-controller.gif)
 
-* Download the complete [FABMenu sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/FABMenuController).
-* Learn more about [FABMenu](http://cosmicmind.com/material/fabmenu).
-
+* [FABMenu Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/FABMenuController)
 
 ## Toolbar
 
@@ -164,30 +138,23 @@ Toolbars are super flexible and add excellent control to your navigation flow. T
 
 ![Material Image](http://www.cosmicmind.com/gifs/white/toolbar-controller.gif)
 
-* Download the complete [Toolbar sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/ToolbarController).
-* Learn more about [Toolbar](http://cosmicmind.com/material/toolbar).
-
+* [Toolbar Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/ToolbarController)
 
 ## SearchBar
 
 A SearchBar is a powerful navigation tool that allows for user's input with an instant visual response. A set of left and right views may be added to expand functionality.
 
-![Material Image](http://www.cosmicmind.com/gifs/shared/search-bar-controller.gif)
+![SearchBarController](http://www.cosmicmind.com/gifs/shared/search-bar-controller.gif)
 
-* Download the complete [SearchBar sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/SearchBarController).
-* Learn more about [SearchBar](http://cosmicmind.com/material/searchbar).
-* Learn how to make the SearchBar data-driven with [Graph's Search sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/Search).
+* [SearchBar Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/Search)
 
+## Tabs
 
-## PageTabBar
+Tabs is a new component that links a customizable TabBar to a stack of view controllers making a powerful and visually pleasing component to have in any application. The TabBar can be aligned at the top or bottom of the view controller.
 
-A PageTabBar is a new component that links a customizable TabBar to a UIPageViewController making a powerful and visually pleasing component to have in any application. The TabBar can be aligned at the top or bottom of the view controller.
+![Tabs](http://www.cosmicmind.com/material/white/page-tab-bar-controller.gif)
 
-![Material Image](http://www.cosmicmind.com/material/white/page-tab-bar-controller.gif)
-
-* Download the complete [PageTabBar sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/PageTabBarController).
-* Learn more about [PageTabBar](http://cosmicmind.com/material/pagetabbar).
-
+* [Tabs Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/TabsController)
 
 ## NavigationController
 
@@ -195,9 +162,7 @@ A NavigationController is a specialized view controller that manages a hierarchy
 
 ![Material Image](http://www.cosmicmind.com/gifs/white/navigation-controller.gif)
 
-* Download the complete [NavigationController sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/NavigationController).
-* Learn more about [NavigationController](http://cosmicmind.com/material/navigationcontroller).
-
+* [NavigationController Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/NavigationController)
 
 ## NavigationDrawer
 
@@ -205,9 +170,7 @@ A NavigationDrawer slides in from the left or right and contains the navigation 
 
 ![Material Image](http://www.cosmicmind.com/material/shared/navigation-drawer-controller.gif)
 
-* Download the complete [NavigationDrawer sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/NavigationDrawerController).
-* Learn more about [NavigationDrawer](http://cosmicmind.com/material/navigationdrawer).
-
+* [NavigationDrawer Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/NavigationDrawerController)
 
 ## Snackbar
 
@@ -215,29 +178,7 @@ A Snackbar is a new component that is very simple in its behavior and very power
 
 ![Material Image](http://www.cosmicmind.com/material/white/snackbar-controller.gif)
 
-* Download the complete [Snackbar sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/SnackbarController).
-* Learn more about [Snackbar](http://cosmicmind.com/material/snackbar).
-
-
-## PhotoLibrary
-
-PhotoLibrary is a new component that simplifies the Photos framework and allows for beautiful photos found in the Photos application to be used within your application.
-
-![Material Image](http://www.cosmicmind.com/material/shared/photolibrary-controller.png)
-
-* Download the complete [PhotoLibrary sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/PhotoLibraryController).
-* Learn more about [PhotoLibrary](http://cosmicmind.com/material/photolibrary).
-
-
-## Capture
-
-Capture is an API that simplifies iOS' AVFoundation framework. It allows for photos and video to easily be captured while managing all the complexities.
-
-![Material Image](http://www.cosmicmind.com/material/shared/capture-controller.png)
-
-* Download the complete [Capture sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/CaptureController).
-* Learn more about [Capture](http://cosmicmind.com/material/capture).
-
+* [Snackbar Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/SnackbarController)
 
 ## Sticker Sheet
 
@@ -245,8 +186,7 @@ To help template your project, checkout Material Sticker Sheet.
 
 ![MaterialStickerSheet](http://www.cosmicmind.com/MK/material_iso_1.png)
 
-[Get Material Sticker Sheet](http://www.materialup.com/posts/material-design-sticker-sheets)
-
+* [Material Sticker Sheet](http://www.materialup.com/posts/material-design-sticker-sheets)
 
 ## Much More...
 

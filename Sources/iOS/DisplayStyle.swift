@@ -30,53 +30,8 @@
 
 import UIKit
 
-extension UIViewController {
-    /**
-     A convenience property that provides access to the RemindersController.
-     This is the recommended method of accessing the RemindersController
-     through child UIViewControllers.
-     */
-    public var remindersController: RemindersController? {
-        var viewController: UIViewController? = self
-        while nil != viewController {
-            if viewController is RemindersController {
-                return viewController as? RemindersController
-            }
-            viewController = viewController?.parent
-        }
-        return nil
-    }
+@objc(DisplayStyle)
+public enum DisplayStyle: Int {
+    case partial
+    case full
 }
-
-open class RemindersController: UIViewController {
-    /// A reference to a Reminder.
-    open let reminders = Reminders()
-    
-    open override func viewDidLoad() {
-        super.viewDidLoad()
-        prepare()
-    }
-    
-    /**
-     Prepares the view instance when intialized. When subclassing,
-     it is recommended to override the prepareView method
-     to initialize property values and other setup operations.
-     The super.prepareView method should always be called immediately
-     when subclassing.
-     */
-    open func prepare() {
-        view.clipsToBounds = true
-        view.backgroundColor = .white
-        view.contentScaleFactor = Screen.scale
-        prepareReminders()
-    }
-}
-
-extension RemindersController {
-    /// Prepares the reminders.
-    fileprivate func prepareReminders() {
-        reminders.delegate = self
-    }
-}
-
-extension RemindersController: RemindersDelegate {}

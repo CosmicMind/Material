@@ -57,15 +57,60 @@ public protocol TabBarDelegate {
     optional func tabBar(tabBar: TabBar, didSelect button: UIButton)
 }
 
+@objc(TabBarStyle)
+public enum TabBarStyle: Int {
+    case auto
+    case nonScrollable
+    case scrollable
+}
+
 open class TabBar: Bar {
     /// A boolean indicating if the TabBar line is in an animation state.
-    open internal(set) var isAnimating = false
+    open fileprivate(set) var isAnimating = false
+    
+    /// The total width of the buttons.
+    fileprivate var buttonsTotalWidth: CGFloat {
+        var w: CGFloat = 0
+            
+        for v in buttons {
+            w += v.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: contentView.height)).width + interimSpace
+        }
+            
+        return w
+    }
+    
+    /// Enables and disables bouncing when swiping.
+    open var isBounceEnabled: Bool {
+        get {
+            return scrollView.bounces
+        }
+        set(value) {
+            scrollView.bounces = value
+        }
+    }
+    
+    /// An enum that determines the tab bar style.
+    open var tabBarStyle = TabBarStyle.auto {
+        didSet {
+            layoutSubviews()
+        }
+    }
+    
+    /// A reference to the scroll view when the tab bar style is scrollable.
+    open let scrollView = UIScrollView()
+    
+    /// Does the scroll view bounce. 
+    open var isScrollBounceEnabled = true {
+        didSet {
+            scrollView.bounces = true
+        }
+    }
     
     /// A delegation reference.
     open weak var delegate: TabBarDelegate?
     
     /// The currently selected button.
-    open internal(set) var selected: UIButton?
+    open fileprivate(set) var selected: UIButton?
     
     /// A preset wrapper around contentEdgeInsets.
     open override var contentEdgeInsetsPreset: EdgeInsetsPreset {
@@ -116,8 +161,7 @@ open class TabBar: Bar {
                 b.removeFromSuperview()
             }
 			
-            centerViews = buttons as [UIView]
-            
+            prepareButtons()
 			layoutSubviews()
 		}
 	}
@@ -167,87 +211,201 @@ open class TabBar: Bar {
     }
     
     open override func layoutSubviews() {
-		super.layoutSubviews()
+        super.layoutSubviews()
         guard willLayout else {
             return
         }
         
-        guard 0 < buttons.count else {
-            return
+        var lc = 0
+        var rc = 0
+        
+        grid.begin()
+        grid.views.removeAll()
+        
+        for v in leftViews {
+            if let b = v as? UIButton {
+                b.contentEdgeInsets = .zero
+                b.titleEdgeInsets = .zero
+            }
+            
+            v.width = v.intrinsicContentSize.width
+            v.sizeToFit()
+            v.grid.columns = Int(ceil(v.width / gridFactor)) + 2
+            
+            lc += v.grid.columns
+            
+            grid.views.append(v)
         }
+        
+        grid.views.append(contentView)
+        
+        for v in rightViews {
+            if let b = v as? UIButton {
+                b.contentEdgeInsets = .zero
+                b.titleEdgeInsets = .zero
+            }
             
-        for b in buttons {
-            b.grid.columns = 0
-            b.cornerRadius = 0
-            b.contentEdgeInsets = .zero
+            v.width = v.intrinsicContentSize.width
+            v.sizeToFit()
+            v.grid.columns = Int(ceil(v.width / gridFactor)) + 2
             
-            if isLineAnimated {
-                prepareLineAnimationHandler(button: b)
+            rc += v.grid.columns
+            
+            grid.views.append(v)
+        }
+        
+        contentView.grid.begin()
+        contentView.grid.offset.columns = 0
+        
+        var l: CGFloat = 0
+        var r: CGFloat = 0
+        
+        if .center == contentViewAlignment {
+            if leftViews.count < rightViews.count {
+                r = CGFloat(rightViews.count) * interimSpace
+                l = r
+            } else {
+                l = CGFloat(leftViews.count) * interimSpace
+                r = l
             }
         }
         
-        contentView.grid.axis.columns = buttons.count
-        contentView.grid.reload()
-            
-        if nil == selected {
-            selected = buttons.first
+        let p = width - l - r - contentEdgeInsets.left - contentEdgeInsets.right
+        let columns = Int(ceil(p / gridFactor))
+        
+        if .center == contentViewAlignment {
+            if lc < rc {
+                contentView.grid.columns = columns - 2 * rc
+                contentView.grid.offset.columns = rc - lc
+            } else {
+                contentView.grid.columns = columns - 2 * lc
+                rightViews.first?.grid.offset.columns = lc - rc
+            }
+        } else {
+            contentView.grid.columns = columns - lc - rc
         }
+        
+        grid.axis.columns = columns
+        
+        if .scrollable == tabBarStyle || (.auto == tabBarStyle && buttonsTotalWidth > bounds.width) {
+            var w: CGFloat = 0
+            for v in buttons {
+                let x = v.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: contentView.height)).width + interimSpace
+                scrollView.addSubview(v)
+                v.height = scrollView.height
+                v.width = x
+                v.x = w
+                w += x
+            }
             
-        line.frame = CGRect(x: selected!.x, y: .bottom == lineAlignment ? height - lineHeight : 0, width: selected!.width, height: lineHeight)
+            scrollView.contentSize = CGSize(width: w, height: height)
+        } else {
+            scrollView.grid.views = buttons
+            scrollView.grid.axis.columns = buttons.count
+            scrollView.contentSize = CGSize(width: scrollView.width, height: height)
+        }
+        
+        grid.commit()
+        contentView.grid.commit()
+        
+        layoutDivider()
+        layoutLine()
 	}
-	
-    /**
-     Prepares the view instance when intialized. When subclassing,
-     it is recommended to override the prepare method
-     to initialize property values and other setup operations.
-     The super.prepare method should always be called immediately
-     when subclassing.
-     */
+    
     open override func prepare() {
         super.prepare()
         contentEdgeInsetsPreset = .none
-        interimSpacePreset = .none
-        prepareLine()
+        interimSpacePreset = .interimSpace6
+        
+        prepareContentView()
+        prepareScrollView()
         prepareDivider()
+        prepareLine()
     }
 }
 
-extension TabBar {
+fileprivate extension TabBar {
     // Prepares the line.
-    fileprivate func prepareLine() {
-        line.zPosition = 6000
+    func prepareLine() {
+        line.zPosition = 10000
         lineColor = Color.blue.base
         lineHeight = 3
-        addSubview(line)
     }
     
     /// Prepares the divider.
-    fileprivate func prepareDivider() {
+    func prepareDivider() {
+        dividerColor = Color.grey.lighten3
         dividerAlignment = .top
+    }
+    
+    /// Prepares the buttons.
+    func prepareButtons() {
+        for v in buttons {
+            v.grid.columns = 0
+            v.cornerRadius = 0
+            v.contentEdgeInsets = .zero
+            
+            if isLineAnimated {
+                prepareLineAnimationHandler(button: v)
+            }
+        }
     }
     
     /**
      Prepares the line animation handlers.
      - Parameter button: A UIButton.
      */
-    fileprivate func prepareLineAnimationHandler(button: UIButton) {
+    func prepareLineAnimationHandler(button: UIButton) {
         removeLineAnimationHandler(button: button)
-        button.addTarget(self, action: #selector(handleButton(button:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleLineAnimation(button:)), for: .touchUpInside)
     }
     
+    /// Prepares the contentView.
+    func prepareContentView() {
+        contentView.zPosition = 6000
+    }
+    
+    /// Prepares the scroll view. 
+    func prepareScrollView() {
+        scrollView.isPagingEnabled = false
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.addSubview(line)
+        centerViews = [scrollView]
+    }
+}
+
+fileprivate extension TabBar {
+    /// Layout the line view.
+    func layoutLine() {
+        guard 0 < buttons.count else {
+            return
+        }
+        
+        if nil == selected {
+            selected = buttons.first
+        }
+        
+        line.animate(.duration(0),
+                     .size(CGSize(width: selected!.width, height: lineHeight)),
+                     .position(CGPoint(x: selected!.center.x, y: .bottom == lineAlignment ? height - lineHeight / 2 : lineHeight / 2)))
+    }
+}
+
+extension TabBar {
     /**
      Removes the line animation handlers.
      - Parameter button: A UIButton.
      */
     fileprivate func removeLineAnimationHandler(button: UIButton) {
-        button.removeTarget(self, action: #selector(handleButton(button:)), for: .touchUpInside)
+        button.removeTarget(self, action: #selector(handleLineAnimation(button:)), for: .touchUpInside)
     }
 }
 
 extension TabBar {
     /// Handles the button touch event.
     @objc
-    internal func handleButton(button: UIButton) {
+    fileprivate func handleLineAnimation(button: UIButton) {
         animate(to: button, isTriggeredByUserInteraction: true)
     }
 }
@@ -289,25 +447,27 @@ extension TabBar {
         selected = button
         isAnimating = true
         
-        UIView.animate(withDuration: 0.25, animations: { [weak self, button = button] in
-            guard let s = self else {
-                return
-            }
-            
-            s.line.center.x = button.center.x
-            s.line.width = button.width
-        }) { [weak self, isTriggeredByUserInteraction = isTriggeredByUserInteraction, button = button, completion = completion] _ in
-            guard let s = self else {
-                return
-            }
-            
-            s.isAnimating = false
-            
-            if isTriggeredByUserInteraction {
-                s.delegate?.tabBar?(tabBar: s, didSelect: button)
-            }
-            
-            completion?(button)
+        line.animate(.duration(0.25),
+                     .size(CGSize(width: button.width, height: lineHeight)),
+                     .position(CGPoint(x: button.center.x, y: .bottom == lineAlignment ? height - lineHeight / 2 : lineHeight / 2)),
+                     .completion { [weak self, isTriggeredByUserInteraction = isTriggeredByUserInteraction, button = button, completion = completion] _ in
+                        guard let s = self else {
+                            return
+                        }
+                        
+                        s.isAnimating = false
+                        
+                        if isTriggeredByUserInteraction {
+                            s.delegate?.tabBar?(tabBar: s, didSelect: button)
+                        }
+                        
+                        completion?(button)
+                     })
+        
+        if !scrollView.bounds.contains(button.frame) {
+            let contentOffsetX = (button.x < scrollView.bounds.minX) ? button.x : button.frame.maxX - scrollView.bounds.width
+            let normalizedOffsetX = min(max(contentOffsetX, 0), scrollView.contentSize.width - scrollView.bounds.width)
+            scrollView.setContentOffset(CGPoint(x: normalizedOffsetX, y: 0), animated: true)
         }
     }
 }
