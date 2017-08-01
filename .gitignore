@@ -16,3 +16,8 @@ profile
 *.moved-aside
 *.playground
 *.framework
+
+Motion/.git*
+Motion/.swift-version
+Motion/Motion.podspec
+Motion/Motion.xcodeproj
