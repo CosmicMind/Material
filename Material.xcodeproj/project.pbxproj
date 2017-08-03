@@ -99,6 +99,7 @@
 		965E81211DD4D5C800D61E4B /* TextStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB79D1CB40DC500C806FE /* TextStorage.swift */; };
 		965E81221DD4D5C800D61E4B /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BCB79E1CB40DC500C806FE /* TextView.swift */; };
 		965E81261DD4D7C800D61E4B /* CharacterAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961276621DCD8B1800A7D920 /* CharacterAttribute.swift */; };
+		9667A2491F33D5E200C45078 /* Material+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9667A2481F33D5E200C45078 /* Material+UIViewController.swift */; };
 		966C17731F0439F600D3E83C /* Material+MotionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966C17721F0439F600D3E83C /* Material+MotionAnimation.swift */; };
 		9685D5AF1F0F04CB00AFEB79 /* CardCollectionViewCell.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9656895E1F002F16001C656D /* CardCollectionViewCell.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9685D5B01F0F04CB00AFEB79 /* CardCollectionViewController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 965689601F002F4C001C656D /* CardCollectionViewController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -229,6 +230,7 @@
 		9656895E1F002F16001C656D /* CardCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardCollectionViewCell.swift; sourceTree = "<group>"; };
 		965689601F002F4C001C656D /* CardCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardCollectionViewController.swift; sourceTree = "<group>"; };
 		9658F2161CD6FA4700B902C1 /* IconButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
+		9667A2481F33D5E200C45078 /* Material+UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIViewController.swift"; sourceTree = "<group>"; };
 		966C17721F0439F600D3E83C /* Material+MotionAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+MotionAnimation.swift"; sourceTree = "<group>"; };
 		966ECF291CF4C20100BB0BDF /* CollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionReusableView.swift; sourceTree = "<group>"; };
 		967A48181D0F425A00B8CEB7 /* StatusBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarController.swift; sourceTree = "<group>"; };
@@ -784,6 +786,7 @@
 				96C1C8801D42C62800E6608F /* Material+Array.swift */,
 				962864591D53FE3E00690B69 /* Material+UIWindow.swift */,
 				966C17721F0439F600D3E83C /* Material+MotionAnimation.swift */,
+				9667A2481F33D5E200C45078 /* Material+UIViewController.swift */,
 			);
 			name = Extension;
 			sourceTree = "<group>";
@@ -1009,6 +1012,7 @@
 				965E81031DD4D5C800D61E4B /* CollectionView.swift in Sources */,
 				965E81041DD4D5C800D61E4B /* CollectionViewCell.swift in Sources */,
 				96A180941F2E2B6E006BD69D /* MotionCAAnimation.swift in Sources */,
+				9667A2491F33D5E200C45078 /* Material+UIViewController.swift in Sources */,
 				965E81071DD4D5C800D61E4B /* CollectionViewLayout.swift in Sources */,
 				96A180A41F2E2B6E006BD69D /* TransitionPreprocessor.swift in Sources */,
 				965E81081DD4D5C800D61E4B /* CollectionReusableView.swift in Sources */,

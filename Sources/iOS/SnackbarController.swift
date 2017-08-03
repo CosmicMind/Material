@@ -78,14 +78,7 @@ extension UIViewController {
      through child UIViewControllers.
      */
     public var snackbarController: SnackbarController? {
-        var viewController: UIViewController? = self
-        while nil != viewController {
-            if viewController is SnackbarController {
-                return viewController as? SnackbarController
-            }
-            viewController = viewController?.parent
-        }
-        return nil
+        return findViewControllerType()
     }
 }
 

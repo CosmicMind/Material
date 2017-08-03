@@ -37,14 +37,7 @@ extension UIViewController {
      through child UIViewControllers.
      */
 	public var statusBarController: StatusBarController? {
-		var viewController: UIViewController? = self
-		while nil != viewController {
-			if viewController is StatusBarController {
-				return viewController as? StatusBarController
-			}
-			viewController = viewController?.parent
-		}
-		return nil
+		return findViewControllerType()
 	}
 }
 

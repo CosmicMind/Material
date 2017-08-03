@@ -30,22 +30,15 @@
 
 import UIKit
 
-extension UIViewController {
-	/**
+public extension UIViewController {
+    /**
      A convenience property that provides access to the ToolbarController.
      This is the recommended method of accessing the ToolbarController
      through child UIViewControllers.
      */
-	public var toolbarController: ToolbarController? {
-		var viewController: UIViewController? = self
-		while nil != viewController {
-			if viewController is ToolbarController {
-				return viewController as? ToolbarController
-			}
-			viewController = viewController?.parent
-		}
-		return nil
-	}
+    var toolbarController: ToolbarController? {
+        return findViewControllerType()
+    }
 }
 
 @objc(ToolbarController)

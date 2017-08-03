@@ -43,14 +43,7 @@ extension UIViewController {
      through child UIViewControllers.
      */
     public var fabMenuController: FABMenuController? {
-        var viewController: UIViewController? = self
-        while nil != viewController {
-            if viewController is FABMenuController {
-                return viewController as? FABMenuController
-            }
-            viewController = viewController?.parent
-        }
-        return nil
+        return findViewControllerType()
     }
 }
 

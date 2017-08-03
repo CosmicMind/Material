@@ -30,22 +30,15 @@
 
 import UIKit
 
-extension UIViewController {
-	/**
+public extension UIViewController {
+    /**
      A convenience property that provides access to the SearchBarController.
      This is the recommended method of accessing the SearchBarController
      through child UIViewControllers.
      */
-	public var searchBarController: SearchBarController? {
-		var viewController: UIViewController? = self
-		while nil != viewController {
-			if viewController is SearchBarController {
-				return viewController as? SearchBarController
-			}
-			viewController = viewController?.parent
-		}
-		return nil
-	}
+    var searchBarController: SearchBarController? {
+        return findViewControllerType()
+    }
 }
 
 open class SearchBarController: StatusBarController {

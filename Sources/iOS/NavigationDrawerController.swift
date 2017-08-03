@@ -38,19 +38,12 @@ public enum NavigationDrawerPosition: Int {
 
 extension UIViewController {
 	/**
-	A convenience property that provides access to the NavigationDrawerController. 
-	This is the recommended method of accessing the NavigationDrawerController
-	through child UIViewControllers.
-	*/
+     A convenience property that provides access to the NavigationDrawerController.
+     This is the recommended method of accessing the NavigationDrawerController
+     through child UIViewControllers.
+     */
 	public var navigationDrawerController: NavigationDrawerController? {
-		var viewController: UIViewController? = self
-		while nil != viewController {
-			if viewController is NavigationDrawerController {
-				return viewController as? NavigationDrawerController
-			}
-			viewController = viewController?.parent
-		}
-		return nil
+		return findViewControllerType()
 	}
 }
 
