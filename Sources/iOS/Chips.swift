@@ -84,36 +84,36 @@ fileprivate extension ChipItem {
     }
 }
 
-@objc(ChipBarDelegate)
-public protocol ChipBarDelegate {
+@objc(ChipsDelegate)
+public protocol ChipsDelegate {
     /**
      A delegation method that is executed when the chipItem will trigger the
      animation to the next chip.
-     - Parameter chipBar: A ChipBar.
+     - Parameter chipBar: A Chips.
      - Parameter chipItem: A ChipItem.
      */
     @objc
-    optional func chipBar(chipBar: ChipBar, willSelect chipItem: ChipItem)
+    optional func chipBar(chipBar: Chips, willSelect chipItem: ChipItem)
     
     /**
      A delegation method that is executed when the chipItem did complete the
      animation to the next chip.
-     - Parameter chipBar: A ChipBar.
+     - Parameter chipBar: A Chips.
      - Parameter chipItem: A ChipItem.
      */
     @objc
-    optional func chipBar(chipBar: ChipBar, didSelect chipItem: ChipItem)
+    optional func chipBar(chipBar: Chips, didSelect chipItem: ChipItem)
 }
 
-@objc(ChipBarStyle)
-public enum ChipBarStyle: Int {
+@objc(ChipsStyle)
+public enum ChipsStyle: Int {
     case auto
     case nonScrollable
     case scrollable
 }
 
-open class ChipBar: Bar {
-    /// A boolean indicating if the ChipBar line is in an animation state.
+open class Chips: Bar {
+    /// A boolean indicating if the Chips line is in an animation state.
     open fileprivate(set) var isAnimating = false
     
     /// The total width of the chipItems.
@@ -128,7 +128,7 @@ open class ChipBar: Bar {
     }
     
     /// An enum that determines the chip bar style.
-    open var chipBarStyle = ChipBarStyle.auto {
+    open var chipBarStyle = ChipsStyle.auto {
         didSet {
             layoutSubviews()
         }
@@ -148,10 +148,52 @@ open class ChipBar: Bar {
     }
     
     /// A delegation reference.
-    open weak var delegate: ChipBarDelegate?
+    open weak var delegate: ChipsDelegate?
     
     /// The currently selected chipItem.
     open fileprivate(set) var selected: ChipItem?
+    
+    /// A preset wrapper around chipItems contentEdgeInsets.
+    open var chipItemsContentEdgeInsetsPreset: EdgeInsetsPreset {
+        get {
+            return scrollView.grid.contentEdgeInsetsPreset
+        }
+        set(value) {
+            scrollView.grid.contentEdgeInsetsPreset = value
+        }
+    }
+    
+    /// A reference to EdgeInsets.
+    @IBInspectable
+    open var chipItemsContentEdgeInsets: EdgeInsets {
+        get {
+            return scrollView.grid.contentEdgeInsets
+        }
+        set(value) {
+            scrollView.grid.contentEdgeInsets = value
+        }
+    }
+    
+    /// A preset wrapper around chipItems interimSpace.
+    open var chipItemsInterimSpacePreset: InterimSpacePreset {
+        get {
+            return scrollView.grid.interimSpacePreset
+        }
+        set(value) {
+            scrollView.grid.interimSpacePreset = value
+        }
+    }
+    
+    /// A wrapper around chipItems interimSpace.
+    @IBInspectable
+    open var chipItemsInterimSpace: InterimSpace {
+        get {
+            return scrollView.grid.interimSpace
+        }
+        set(value) {
+            scrollView.grid.interimSpace = value
+        }
+    }
     
     /// Buttons.
     open var chipItems = [ChipItem]() {
@@ -243,13 +285,17 @@ open class ChipBar: Bar {
         grid.axis.columns = columns
         
         if .scrollable == chipBarStyle || (.auto == chipBarStyle && chipItemsTotalWidth > bounds.width) {
-            var w: CGFloat = 0
+            var w: CGFloat = chipItemsContentEdgeInsets.left
+            let q = 2 * chipItemsInterimSpace
+            let p = q + chipItemsInterimSpace
+            
             for v in chipItems {
-                let x = v.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: contentView.height)).width + interimSpace
+                let x = v.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: scrollView.height)).width
                 v.height = scrollView.height
-                v.width = x
+                v.width = x + q
                 v.x = w
                 w += x
+                w += p
                 
                 if scrollView != v.superview {
                     v.removeFromSuperview()
@@ -257,11 +303,13 @@ open class ChipBar: Bar {
                 }
             }
             
-            scrollView.contentSize = CGSize(width: w, height: height)
+            w += chipItemsContentEdgeInsets.right - chipItemsInterimSpace
+            
+            scrollView.contentSize = CGSize(width: w, height: scrollView.height - chipItemsContentEdgeInsets.top - chipItemsContentEdgeInsets.bottom)
         } else {
             scrollView.grid.views = chipItems
             scrollView.grid.axis.columns = chipItems.count
-            scrollView.contentSize = CGSize(width: scrollView.width, height: height)
+            scrollView.contentSize = CGSize(width: scrollView.width, height: scrollView.height - chipItemsContentEdgeInsets.top - chipItemsContentEdgeInsets.bottom)
         }
         
         grid.commit()
@@ -272,8 +320,9 @@ open class ChipBar: Bar {
     
     open override func prepare() {
         super.prepare()
-        contentEdgeInsetsPreset = .none
+        contentEdgeInsetsPreset = .square2
         interimSpacePreset = .interimSpace6
+        chipItemsInterimSpacePreset = .interimSpace4
         
         prepareContentView()
         prepareScrollView()
@@ -281,7 +330,7 @@ open class ChipBar: Bar {
     }
 }
 
-fileprivate extension ChipBar {
+fileprivate extension Chips {
     /// Prepares the divider.
     func prepareDivider() {
         dividerColor = Color.grey.lighten3
@@ -293,6 +342,9 @@ fileprivate extension ChipBar {
             v.grid.columns = 0
             v.cornerRadius = 0
             v.contentEdgeInsets = .zero
+            
+            v.removeTarget(self, action: #selector(handle(chipItem:)), for: .touchUpInside)
+            v.addTarget(self, action: #selector(handle(chipItem:)), for: .touchUpInside)
         }
     }
     
@@ -310,7 +362,15 @@ fileprivate extension ChipBar {
     }
 }
 
-extension ChipBar {
+fileprivate extension Chips {
+    /// Handles the chipItem touch event.
+    @objc
+    func handle(chipItem: ChipItem) {
+        animate(to: chipItem, isTriggeredByUserInteraction: true)
+    }
+}
+
+extension Chips {
     /**
      Selects a given index from the chipItems array.
      - Parameter at index: An Int.
@@ -331,7 +391,9 @@ extension ChipBar {
     open func animate(to chipItem: ChipItem, completion: ((ChipItem) -> Void)? = nil) {
         animate(to: chipItem, isTriggeredByUserInteraction: false, completion: completion)
     }
-    
+}
+
+fileprivate extension Chips {
     /**
      Animates to a given chipItem.
      - Parameter to chipItem: A ChipItem.

@@ -111,7 +111,49 @@ open class TabBar: Bar {
     
     /// The currently selected tabItem.
     open fileprivate(set) var selected: TabItem?
-        
+    
+    /// A preset wrapper around tabItems contentEdgeInsets.
+    open var tabItemsContentEdgeInsetsPreset: EdgeInsetsPreset {
+        get {
+            return scrollView.grid.contentEdgeInsetsPreset
+        }
+        set(value) {
+            scrollView.grid.contentEdgeInsetsPreset = value
+        }
+    }
+    
+    /// A reference to EdgeInsets.
+    @IBInspectable
+    open var tabItemsContentEdgeInsets: EdgeInsets {
+        get {
+            return scrollView.grid.contentEdgeInsets
+        }
+        set(value) {
+            scrollView.grid.contentEdgeInsets = value
+        }
+    }
+    
+    /// A preset wrapper around tabItems interimSpace.
+    open var tabItemsInterimSpacePreset: InterimSpacePreset {
+        get {
+            return scrollView.grid.interimSpacePreset
+        }
+        set(value) {
+            scrollView.grid.interimSpacePreset = value
+        }
+    }
+    
+    /// A wrapper around tabItems interimSpace.
+    @IBInspectable
+    open var tabItemsInterimSpace: InterimSpace {
+        get {
+            return scrollView.grid.interimSpace
+        }
+        set(value) {
+            scrollView.grid.interimSpace = value
+        }
+    }
+    
 	/// TabItems.
 	open var tabItems = [TabItem]() {
 		didSet {
@@ -246,13 +288,17 @@ open class TabBar: Bar {
         grid.axis.columns = columns
         
         if .scrollable == tabBarStyle || (.auto == tabBarStyle && tabItemsTotalWidth > bounds.width) {
-            var w: CGFloat = 0
+            var w: CGFloat = tabItemsContentEdgeInsets.left
+            let q = scrollView.height / 2
+            let p = q + tabItemsInterimSpace
+            
             for v in tabItems {
-                let x = v.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: contentView.height)).width + interimSpace
+                let x = v.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: scrollView.height)).width
                 v.height = scrollView.height
-                v.width = x
+                v.width = x + q
                 v.x = w
                 w += x
+                w += p
                 
                 if scrollView != v.superview {
                     v.removeFromSuperview()
@@ -260,11 +306,13 @@ open class TabBar: Bar {
                 }
             }
             
-            scrollView.contentSize = CGSize(width: w, height: height)
+            w += tabItemsContentEdgeInsets.right - tabItemsInterimSpace
+            
+            scrollView.contentSize = CGSize(width: w, height: scrollView.height - tabItemsContentEdgeInsets.top - tabItemsContentEdgeInsets.bottom)
         } else {
             scrollView.grid.views = tabItems
             scrollView.grid.axis.columns = tabItems.count
-            scrollView.contentSize = CGSize(width: scrollView.width, height: height)
+            scrollView.contentSize = CGSize(width: scrollView.width, height: scrollView.height - tabItemsContentEdgeInsets.top - tabItemsContentEdgeInsets.bottom)
         }
         
         grid.commit()
@@ -278,6 +326,7 @@ open class TabBar: Bar {
         super.prepare()
         contentEdgeInsetsPreset = .none
         interimSpacePreset = .interimSpace6
+        tabItemsInterimSpacePreset = .none
         
         prepareContentView()
         prepareScrollView()
@@ -354,20 +403,20 @@ fileprivate extension TabBar {
     }
 }
 
-extension TabBar {
+fileprivate extension TabBar {
     /**
      Removes the line animation handlers.
      - Parameter tabItem: A TabItem.
      */
-    fileprivate func removeLineAnimationHandler(tabItem: TabItem) {
+    func removeLineAnimationHandler(tabItem: TabItem) {
         tabItem.removeTarget(self, action: #selector(handleLineAnimation(tabItem:)), for: .touchUpInside)
     }
 }
 
-extension TabBar {
+fileprivate extension TabBar {
     /// Handles the tabItem touch event.
     @objc
-    fileprivate func handleLineAnimation(tabItem: TabItem) {
+    func handleLineAnimation(tabItem: TabItem) {
         animate(to: tabItem, isTriggeredByUserInteraction: true)
     }
 }
@@ -393,7 +442,9 @@ extension TabBar {
     open func animate(to tabItem: TabItem, completion: ((TabItem) -> Void)? = nil) {
         animate(to: tabItem, isTriggeredByUserInteraction: false, completion: completion)
     }
-    
+}
+
+fileprivate extension TabBar {
     /**
      Animates to a given tabItem.
      - Parameter to tabItem: A TabItem.
@@ -424,7 +475,7 @@ extension TabBar {
                         }
                         
                         completion?(tabItem)
-                     })
+            })
         
         if !scrollView.bounds.contains(tabItem.frame) {
             let contentOffsetX = (tabItem.x < scrollView.bounds.minX) ? tabItem.x : tabItem.frame.maxX - scrollView.bounds.width
