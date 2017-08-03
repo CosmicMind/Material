@@ -249,11 +249,15 @@ open class TabBar: Bar {
             var w: CGFloat = 0
             for v in tabItems {
                 let x = v.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: contentView.height)).width + interimSpace
-                scrollView.addSubview(v)
                 v.height = scrollView.height
                 v.width = x
                 v.x = w
                 w += x
+                
+                if scrollView != v.superview {
+                    v.removeFromSuperview()
+                    scrollView.addSubview(v)
+                }
             }
             
             scrollView.contentSize = CGSize(width: w, height: height)

@@ -30,7 +30,59 @@
 
 import UIKit
 
-open class ChipItem: FlatButton {}
+@objc(ChipItemStyle)
+public enum ChipItemStyle: Int {
+    case pill
+}
+
+open class ChipItem: FlatButton {
+    /// Configures the visual display of the chip.
+    var chipItemStyle: ChipItemStyle {
+        get {
+            return associatedInstance.chipItemStyle
+        }
+        set(value) {
+            associatedInstance.chipItemStyle = value
+            layoutSubviews()
+        }
+    }
+    
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        layoutChipItemStyle()
+    }
+}
+
+fileprivate extension ChipItem {
+    /// Lays out the chipItem based on its style.
+    func layoutChipItemStyle() {
+        if .pill == chipItemStyle {
+            cornerRadius = height / 2
+        }
+    }
+}
+
+fileprivate struct AssociatedInstance {
+    /// A ChipItemStyle value.
+    var chipItemStyle: ChipItemStyle
+}
+
+/// A memory reference to the ChipItemStyle instance for ChipItem extensions.
+fileprivate var ChipKey: UInt8 = 0
+
+fileprivate extension ChipItem {
+    /// AssociatedInstance reference.
+    var associatedInstance: AssociatedInstance {
+        get {
+            return AssociatedObject.get(base: self, key: &ChipKey) {
+                return AssociatedInstance(chipItemStyle: .pill)
+            }
+        }
+        set(value) {
+            AssociatedObject.set(base: self, key: &ChipKey, value: value)
+        }
+    }
+}
 
 @objc(ChipBarDelegate)
 public protocol ChipBarDelegate {
@@ -194,11 +246,15 @@ open class ChipBar: Bar {
             var w: CGFloat = 0
             for v in chipItems {
                 let x = v.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: contentView.height)).width + interimSpace
-                scrollView.addSubview(v)
                 v.height = scrollView.height
                 v.width = x
                 v.x = w
                 w += x
+                
+                if scrollView != v.superview {
+                    v.removeFromSuperview()
+                    scrollView.addSubview(v)
+                }
             }
             
             scrollView.contentSize = CGSize(width: w, height: height)
