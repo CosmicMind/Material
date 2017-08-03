@@ -78,11 +78,11 @@ extension UIViewController {
      through child UIViewControllers.
      */
     public var snackbarController: SnackbarController? {
-        return findViewControllerType()
+        return traverseViewControllerHierarchyForClassType()
     }
 }
 
-open class SnackbarController: RootController {
+open class SnackbarController: TransitionController {
     /// Reference to the Snackbar.
     open let snackbar = Snackbar()
     

@@ -37,7 +37,7 @@ public extension UIViewController {
      through child UIViewControllers.
      */
     var toolbarController: ToolbarController? {
-        return findViewControllerType()
+        return traverseViewControllerHierarchyForClassType()
     }
 }
 

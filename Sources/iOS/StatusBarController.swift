@@ -37,11 +37,11 @@ extension UIViewController {
      through child UIViewControllers.
      */
 	public var statusBarController: StatusBarController? {
-		return findViewControllerType()
+		return traverseViewControllerHierarchyForClassType()
 	}
 }
 
-open class StatusBarController: RootController {
+open class StatusBarController: TransitionController {
     /**
      A Display value to indicate whether or not to
      display the rootViewController to the full view

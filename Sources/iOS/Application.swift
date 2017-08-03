@@ -31,28 +31,33 @@
 import UIKit
 
 public struct Application {
-    /// A reference to the main UIWindow.
-    public static var keyWindow: UIWindow? {
+    /// An optional reference to the main UIWindow.
+    static var keyWindow: UIWindow? {
         return UIApplication.shared.keyWindow
     }
     
-    /// A Boolean indicating if the device is in Landscape mode.
-    public static var isLandscape: Bool {
+    /// An optional reference to the top most view controller.
+    static var rootViewController: UIViewController? {
+        return keyWindow?.rootViewController
+    }
+    
+    /// A boolean indicating if the device is in Landscape mode.
+    static var isLandscape: Bool {
         return UIApplication.shared.statusBarOrientation.isLandscape
     }
     
-    /// A Boolean indicating if the device is in Portrait mode.
-    public static var isPortrait: Bool {
+    /// A boolean indicating if the device is in Portrait mode.
+    static var isPortrait: Bool {
         return !isLandscape
     }
     
     /// The current UIInterfaceOrientation value.
-    public static var orientation: UIInterfaceOrientation {
+    static var orientation: UIInterfaceOrientation {
         return UIApplication.shared.statusBarOrientation
     }
     
     /// Retrieves the device status bar style.
-    public static var statusBarStyle: UIStatusBarStyle {
+    static var statusBarStyle: UIStatusBarStyle {
         get {
             return UIApplication.shared.statusBarStyle
         }
@@ -62,7 +67,7 @@ public struct Application {
     }
     
     /// Retrieves the device status bar hidden state.
-    public static var isStatusBarHidden: Bool {
+    static var isStatusBarHidden: Bool {
         get {
             return UIApplication.shared.isStatusBarHidden
         }
@@ -75,12 +80,12 @@ public struct Application {
      A boolean that indicates based on iPhone rules if the
      status bar should be shown.
      */
-    public static var shouldStatusBarBeHidden: Bool {
+    static var shouldStatusBarBeHidden: Bool {
         return isLandscape && .phone == Device.userInterfaceIdiom
     }
     
     /// A reference to the user interface layout direction.
-    public static var userInterfaceLayoutDirection: UIUserInterfaceLayoutDirection {
+    static var userInterfaceLayoutDirection: UIUserInterfaceLayoutDirection {
         return UIApplication.shared.userInterfaceLayoutDirection
     }
 }

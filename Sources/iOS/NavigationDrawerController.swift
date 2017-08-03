@@ -43,7 +43,7 @@ extension UIViewController {
      through child UIViewControllers.
      */
 	public var navigationDrawerController: NavigationDrawerController? {
-		return findViewControllerType()
+		return traverseViewControllerHierarchyForClassType()
 	}
 }
 
@@ -136,7 +136,7 @@ public protocol NavigationDrawerControllerDelegate {
 }
 
 @objc(NavigationDrawerController)
-open class NavigationDrawerController: RootController {
+open class NavigationDrawerController: TransitionController {
 	/**
      A CGFloat property that is used internally to track
      the original (x) position of the container view when panning.

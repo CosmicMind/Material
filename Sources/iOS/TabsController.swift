@@ -60,7 +60,7 @@ extension UIViewController {
      through child UIViewControllers.
      */
     public var tabsController: TabsController? {
-        return findViewControllerType()
+        return traverseViewControllerHierarchyForClassType()
     }
 }
 

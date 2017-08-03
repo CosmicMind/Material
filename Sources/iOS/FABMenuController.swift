@@ -43,11 +43,11 @@ extension UIViewController {
      through child UIViewControllers.
      */
     public var fabMenuController: FABMenuController? {
-        return findViewControllerType()
+        return traverseViewControllerHierarchyForClassType()
     }
 }
 
-open class FABMenuController: RootController {
+open class FABMenuController: TransitionController {
     /// Reference to the MenuView.
     @IBInspectable
     open let fabMenu = FABMenu()

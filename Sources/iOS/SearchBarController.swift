@@ -37,7 +37,7 @@ public extension UIViewController {
      through child UIViewControllers.
      */
     var searchBarController: SearchBarController? {
-        return findViewControllerType()
+        return traverseViewControllerHierarchyForClassType()
     }
 }
 
