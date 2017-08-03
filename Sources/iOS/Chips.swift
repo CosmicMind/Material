@@ -401,7 +401,7 @@ fileprivate extension Chips {
      state was changed by a user interaction, true if yes, false otherwise.
      - Parameter completion: An optional completion block.
      */
-    fileprivate func animate(to chipItem: ChipItem, isTriggeredByUserInteraction: Bool, completion: ((ChipItem) -> Void)? = nil) {
+    func animate(to chipItem: ChipItem, isTriggeredByUserInteraction: Bool, completion: ((ChipItem) -> Void)? = nil) {
         if isTriggeredByUserInteraction {
             delegate?.chipBar?(chipBar: self, willSelect: chipItem)
         }
