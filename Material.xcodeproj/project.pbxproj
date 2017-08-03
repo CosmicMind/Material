@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		961154CC1F32A7B100A78D74 /* ChipBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961154CB1F32A7B100A78D74 /* ChipBar.swift */; };
 		961409B11E43D15C00E7BA99 /* FABMenu.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96A183621E0C6CE200083C30 /* FABMenu.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		961409B21E43D15C00E7BA99 /* FABMenuController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96A183641E0C6DD400083C30 /* FABMenuController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9617B07D1DFCA8CF00410F8F /* Application.swift in Headers */ = {isa = PBXBuildFile; fileRef = 961E6BDE1DDA2A95004E6C93 /* Application.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -206,6 +207,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		961154CB1F32A7B100A78D74 /* ChipBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChipBar.swift; sourceTree = "<group>"; };
 		961276621DCD8B1800A7D920 /* CharacterAttribute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacterAttribute.swift; sourceTree = "<group>"; };
 		961E6BDE1DDA2A95004E6C93 /* Application.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		961E6BE11DDA2AF3004E6C93 /* Screen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
@@ -352,6 +354,14 @@
 				961F18E71CD93E3E008927C5 /* ErrorTextField.swift */,
 			);
 			name = Text;
+			sourceTree = "<group>";
+		};
+		961154CA1F32999000A78D74 /* Chip */ = {
+			isa = PBXGroup;
+			children = (
+				961154CB1F32A7B100A78D74 /* ChipBar.swift */,
+			);
+			name = Chip;
 			sourceTree = "<group>";
 		};
 		961E6BDD1DDA2A7E004E6C93 /* Application */ = {
@@ -617,6 +627,7 @@
 				962DDD081D6FBBD0001C307C /* BottomTabBar */,
 				96BCB8031CB40F4B00C806FE /* Button */,
 				96BCB8021CB40F3B00C806FE /* Card */,
+				961154CA1F32999000A78D74 /* Chip */,
 				96BCB8051CB40F9C00C806FE /* Collection */,
 				96BCB8001CB40F0300C806FE /* Color */,
 				96328B9A1E05C135009A4C90 /* Data */,
@@ -1058,6 +1069,7 @@
 				96A1808B1F2E2B6E006BD69D /* Motion+UIView.swift in Sources */,
 				96A180971F2E2B6E006BD69D /* MotionCoordinateSpace.swift in Sources */,
 				96E09DC81F2287E50000B121 /* TabsController.swift in Sources */,
+				961154CC1F32A7B100A78D74 /* ChipBar.swift in Sources */,
 				965689611F002F4C001C656D /* CardCollectionViewController.swift in Sources */,
 				96A180951F2E2B6E006BD69D /* MotionContext.swift in Sources */,
 				965E80CC1DD4C50600D61E4B /* Bar.swift in Sources */,

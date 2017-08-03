@@ -30,70 +30,59 @@
 
 import UIKit
 
-open class TabItem: FlatButton {
-    open override func prepare() {
-        super.prepare()
-        pulseAnimation = .none
-    }
-}
+open class ChipItem: FlatButton {}
 
-@objc(TabBarLineAlignment)
-public enum TabBarLineAlignment: Int {
-	case top
-	case bottom
-}
-
-@objc(TabBarDelegate)
-public protocol TabBarDelegate {
+@objc(ChipBarDelegate)
+public protocol ChipBarDelegate {
     /**
-     A delegation method that is executed when the tabItem will trigger the
-     animation to the next tab.
-     - Parameter tabBar: A TabBar.
-     - Parameter tabItem: A TabItem.
+     A delegation method that is executed when the chipItem will trigger the
+     animation to the next chip.
+     - Parameter chipBar: A ChipBar.
+     - Parameter chipItem: A ChipItem.
      */
     @objc
-    optional func tabBar(tabBar: TabBar, willSelect tabItem: TabItem)
+    optional func chipBar(chipBar: ChipBar, willSelect chipItem: ChipItem)
     
     /**
-     A delegation method that is executed when the tabItem did complete the
-     animation to the next tab.
-     - Parameter tabBar: A TabBar.
-     - Parameter tabItem: A TabItem.
+     A delegation method that is executed when the chipItem did complete the
+     animation to the next chip.
+     - Parameter chipBar: A ChipBar.
+     - Parameter chipItem: A ChipItem.
      */
     @objc
-    optional func tabBar(tabBar: TabBar, didSelect tabItem: TabItem)
+    optional func chipBar(chipBar: ChipBar, didSelect chipItem: ChipItem)
 }
 
-@objc(TabBarStyle)
-public enum TabBarStyle: Int {
+@objc(ChipBarStyle)
+public enum ChipBarStyle: Int {
     case auto
     case nonScrollable
     case scrollable
 }
 
-open class TabBar: Bar {
-    /// A boolean indicating if the TabBar line is in an animation state.
+open class ChipBar: Bar {
+    /// A boolean indicating if the ChipBar line is in an animation state.
     open fileprivate(set) var isAnimating = false
     
-    /// The total width of the tabItems.
-    fileprivate var tabItemsTotalWidth: CGFloat {
+    /// The total width of the chipItems.
+    fileprivate var chipItemsTotalWidth: CGFloat {
         var w: CGFloat = 0
-            
-        for v in tabItems {
+        
+        for v in chipItems {
             w += v.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: contentView.height)).width + interimSpace
         }
-            
+        
         return w
     }
     
-    /// An enum that determines the tab bar style.
-    open var tabBarStyle = TabBarStyle.auto {
+    /// An enum that determines the chip bar style.
+    open var chipBarStyle = ChipBarStyle.auto {
         didSet {
             layoutSubviews()
         }
     }
     
-    /// A reference to the scroll view when the tab bar style is scrollable.
+    /// A reference to the scroll view when the chip bar style is scrollable.
     open let scrollView = UIScrollView()
     
     /// Enables and disables bouncing when swiping.
@@ -107,64 +96,20 @@ open class TabBar: Bar {
     }
     
     /// A delegation reference.
-    open weak var delegate: TabBarDelegate?
+    open weak var delegate: ChipBarDelegate?
     
-    /// The currently selected tabItem.
-    open fileprivate(set) var selected: TabItem?
-        
-	/// TabItems.
-	open var tabItems = [TabItem]() {
-		didSet {
-			for b in oldValue {
+    /// The currently selected chipItem.
+    open fileprivate(set) var selected: ChipItem?
+    
+    /// Buttons.
+    open var chipItems = [ChipItem]() {
+        didSet {
+            for b in oldValue {
                 b.removeFromSuperview()
             }
-			
-            prepareTabItems()
-			layoutSubviews()
-		}
-	}
-    
-    /// A boolean to animate the line when touched.
-    @IBInspectable
-    open var isLineAnimated = true {
-        didSet {
-            for b in tabItems {
-                if isLineAnimated {
-                    prepareLineAnimationHandler(tabItem: b)
-                } else {
-                    removeLineAnimationHandler(tabItem: b)
-                }
-            }
-        }
-    }
-    
-    /// A reference to the line UIView.
-    open let line = UIView()
-    
-    /// The line color.
-    open var lineColor: UIColor? {
-        get {
-            return line.backgroundColor
-        }
-        set(value) {
-            line.backgroundColor = value
-        }
-    }
-    
-    /// A value for the line alignment.
-    open var lineAlignment = TabBarLineAlignment.bottom {
-        didSet {
+            
+            prepareChipItems()
             layoutSubviews()
-        }
-    }
-    
-    /// The line height.
-    open var lineHeight: CGFloat {
-        get {
-            return line.height
-        }
-        set(value) {
-            line.height = value
         }
     }
     
@@ -181,7 +126,7 @@ open class TabBar: Bar {
         grid.views.removeAll()
         
         for v in leftViews {
-            if let b = v as? TabItem {
+            if let b = v as? ChipItem {
                 b.contentEdgeInsets = .zero
                 b.titleEdgeInsets = .zero
             }
@@ -198,7 +143,7 @@ open class TabBar: Bar {
         grid.views.append(contentView)
         
         for v in rightViews {
-            if let b = v as? TabItem {
+            if let b = v as? ChipItem {
                 b.contentEdgeInsets = .zero
                 b.titleEdgeInsets = .zero
             }
@@ -245,9 +190,9 @@ open class TabBar: Bar {
         
         grid.axis.columns = columns
         
-        if .scrollable == tabBarStyle || (.auto == tabBarStyle && tabItemsTotalWidth > bounds.width) {
+        if .scrollable == chipBarStyle || (.auto == chipBarStyle && chipItemsTotalWidth > bounds.width) {
             var w: CGFloat = 0
-            for v in tabItems {
+            for v in chipItems {
                 let x = v.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: contentView.height)).width + interimSpace
                 scrollView.addSubview(v)
                 v.height = scrollView.height
@@ -258,8 +203,8 @@ open class TabBar: Bar {
             
             scrollView.contentSize = CGSize(width: w, height: height)
         } else {
-            scrollView.grid.views = tabItems
-            scrollView.grid.axis.columns = tabItems.count
+            scrollView.grid.views = chipItems
+            scrollView.grid.axis.columns = chipItems.count
             scrollView.contentSize = CGSize(width: scrollView.width, height: height)
         }
         
@@ -267,8 +212,7 @@ open class TabBar: Bar {
         contentView.grid.commit()
         
         layoutDivider()
-        layoutLine()
-	}
+    }
     
     open override func prepare() {
         super.prepare()
@@ -278,44 +222,22 @@ open class TabBar: Bar {
         prepareContentView()
         prepareScrollView()
         prepareDivider()
-        prepareLine()
     }
 }
 
-fileprivate extension TabBar {
-    // Prepares the line.
-    func prepareLine() {
-        line.zPosition = 10000
-        lineColor = Color.blue.base
-        lineHeight = 3
-    }
-    
+fileprivate extension ChipBar {
     /// Prepares the divider.
     func prepareDivider() {
         dividerColor = Color.grey.lighten3
-        dividerAlignment = .top
     }
     
-    /// Prepares the tabItems.
-    func prepareTabItems() {
-        for v in tabItems {
+    /// Prepares the chipItems.
+    func prepareChipItems() {
+        for v in chipItems {
             v.grid.columns = 0
             v.cornerRadius = 0
             v.contentEdgeInsets = .zero
-            
-            if isLineAnimated {
-                prepareLineAnimationHandler(tabItem: v)
-            }
         }
-    }
-    
-    /**
-     Prepares the line animation handlers.
-     - Parameter tabItem: A TabItem.
-     */
-    func prepareLineAnimationHandler(tabItem: TabItem) {
-        removeLineAnimationHandler(tabItem: tabItem)
-        tabItem.addTarget(self, action: #selector(handleLineAnimation(tabItem:)), for: .touchUpInside)
     }
     
     /// Prepares the contentView.
@@ -323,107 +245,54 @@ fileprivate extension TabBar {
         contentView.zPosition = 6000
     }
     
-    /// Prepares the scroll view. 
+    /// Prepares the scroll view.
     func prepareScrollView() {
         scrollView.isPagingEnabled = false
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
-        scrollView.addSubview(line)
         centerViews = [scrollView]
     }
 }
 
-fileprivate extension TabBar {
-    /// Layout the line view.
-    func layoutLine() {
-        guard 0 < tabItems.count else {
-            return
-        }
-        
-        if nil == selected {
-            selected = tabItems.first
-        }
-        
-        line.animate(.duration(0),
-                     .size(CGSize(width: selected!.width, height: lineHeight)),
-                     .position(CGPoint(x: selected!.center.x, y: .bottom == lineAlignment ? height - lineHeight / 2 : lineHeight / 2)))
-    }
-}
-
-extension TabBar {
+extension ChipBar {
     /**
-     Removes the line animation handlers.
-     - Parameter tabItem: A TabItem.
-     */
-    fileprivate func removeLineAnimationHandler(tabItem: TabItem) {
-        tabItem.removeTarget(self, action: #selector(handleLineAnimation(tabItem:)), for: .touchUpInside)
-    }
-}
-
-extension TabBar {
-    /// Handles the tabItem touch event.
-    @objc
-    fileprivate func handleLineAnimation(tabItem: TabItem) {
-        animate(to: tabItem, isTriggeredByUserInteraction: true)
-    }
-}
-
-extension TabBar {
-    /**
-     Selects a given index from the tabItems array.
+     Selects a given index from the chipItems array.
      - Parameter at index: An Int.
      - Paramater completion: An optional completion block.
      */
-    open func select(at index: Int, completion: ((TabItem) -> Void)? = nil) {
-        guard -1 < index, index < tabItems.count else {
+    open func select(at index: Int, completion: ((ChipItem) -> Void)? = nil) {
+        guard -1 < index, index < chipItems.count else {
             return
         }
-        animate(to: tabItems[index], isTriggeredByUserInteraction: false, completion: completion)
+        animate(to: chipItems[index], isTriggeredByUserInteraction: false, completion: completion)
     }
     
     /**
-     Animates to a given tabItem.
-     - Parameter to tabItem: A TabItem.
+     Animates to a given chipItem.
+     - Parameter to chipItem: A ChipItem.
      - Parameter completion: An optional completion block.
      */
-    open func animate(to tabItem: TabItem, completion: ((TabItem) -> Void)? = nil) {
-        animate(to: tabItem, isTriggeredByUserInteraction: false, completion: completion)
+    open func animate(to chipItem: ChipItem, completion: ((ChipItem) -> Void)? = nil) {
+        animate(to: chipItem, isTriggeredByUserInteraction: false, completion: completion)
     }
     
     /**
-     Animates to a given tabItem.
-     - Parameter to tabItem: A TabItem.
+     Animates to a given chipItem.
+     - Parameter to chipItem: A ChipItem.
      - Parameter isTriggeredByUserInteraction: A boolean indicating whether the
      state was changed by a user interaction, true if yes, false otherwise.
      - Parameter completion: An optional completion block.
      */
-    fileprivate func animate(to tabItem: TabItem, isTriggeredByUserInteraction: Bool, completion: ((TabItem) -> Void)? = nil) {
+    fileprivate func animate(to chipItem: ChipItem, isTriggeredByUserInteraction: Bool, completion: ((ChipItem) -> Void)? = nil) {
         if isTriggeredByUserInteraction {
-            delegate?.tabBar?(tabBar: self, willSelect: tabItem)
+            delegate?.chipBar?(chipBar: self, willSelect: chipItem)
         }
         
-        selected = tabItem
+        selected = chipItem
         isAnimating = true
         
-        line.animate(.duration(0.25),
-                     .size(CGSize(width: tabItem.width, height: lineHeight)),
-                     .position(CGPoint(x: tabItem.center.x, y: .bottom == lineAlignment ? height - lineHeight / 2 : lineHeight / 2)),
-                     .completion { [weak self, isTriggeredByUserInteraction = isTriggeredByUserInteraction, tabItem = tabItem, completion = completion] _ in
-                        guard let s = self else {
-                            return
-                        }
-                        
-                        s.isAnimating = false
-                        
-                        if isTriggeredByUserInteraction {
-                            s.delegate?.tabBar?(tabBar: s, didSelect: tabItem)
-                        }
-                        
-                        completion?(tabItem)
-                     })
-        
-        if !scrollView.bounds.contains(tabItem.frame) {
-            let contentOffsetX = (tabItem.x < scrollView.bounds.minX) ? tabItem.x : tabItem.frame.maxX - scrollView.bounds.width
+        if !scrollView.bounds.contains(chipItem.frame) {
+            let contentOffsetX = (chipItem.x < scrollView.bounds.minX) ? chipItem.x : chipItem.frame.maxX - scrollView.bounds.width
             let normalizedOffsetX = min(max(contentOffsetX, 0), scrollView.contentSize.width - scrollView.bounds.width)
             scrollView.setContentOffset(CGPoint(x: normalizedOffsetX, y: 0), animated: true)
         }

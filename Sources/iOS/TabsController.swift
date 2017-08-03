@@ -32,13 +32,6 @@ import UIKit
 
 fileprivate var TabItemKey: UInt8 = 0
 
-open class TabItem: FlatButton {
-    open override func prepare() {
-        super.prepare()
-        pulseAnimation = .none
-    }
-}
-
 @objc(TabBarAlignment)
 public enum TabBarAlignment: Int {
     case top
@@ -166,7 +159,7 @@ open class TabsController: UIViewController {
         view.contentScaleFactor = Screen.scale
         prepareContainer()
         prepareTabBar()
-        prepareTabBarButtons()
+        prepareTabBarItems()
         prepareViewControllers()
     }
 }
@@ -183,18 +176,18 @@ fileprivate extension TabsController {
         view.addSubview(tabBar)
     }
     
-    /// Prepares the tabBar buttons.
-    func prepareTabBarButtons() {
-        var buttons = [UIButton]()
+    /// Prepares the `tabBar.tabItems`.
+    func prepareTabBarItems() {
+        var tabItems = [TabItem]()
         
         for v in viewControllers {
             let b = v.tabItem
-            b.removeTarget(self, action: #selector(handleTabBarButton(button:)), for: .touchUpInside)
-            b.addTarget(self, action: #selector(handleTabBarButton(button:)), for: .touchUpInside)
-            buttons.append(b)
+            b.removeTarget(self, action: #selector(handle(tabItem:)), for: .touchUpInside)
+            b.addTarget(self, action: #selector(handle(tabItem:)), for: .touchUpInside)
+            tabItems.append(b)
         }
         
-        tabBar.buttons = buttons
+        tabBar.tabItems = tabItems
     }
     
     /// Prepares all the view controllers. 
@@ -307,11 +300,11 @@ fileprivate extension TabsController {
 fileprivate extension TabsController {
     /**
      Handles the tabItem.
-     - Parameter button: A UIButton.
+     - Parameter tabItem: A TabItem.
      */
     @objc
-    func handleTabBarButton(button: UIButton) {
-        guard let i = tabBar.buttons.index(of: button) else {
+    func handle(tabItem: TabItem) {
+        guard let i = tabBar.tabItems.index(of: tabItem) else {
             return
         }
         
