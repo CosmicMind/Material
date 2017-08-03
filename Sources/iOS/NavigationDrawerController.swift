@@ -415,8 +415,8 @@ open class NavigationDrawerController: RootController {
 		prepare()
 	}
 	
-    open override func transition(to viewController: UIViewController, duration: TimeInterval = 0.5, options: UIViewAnimationOptions = [], animations: (() -> Void)? = nil, completion: ((Bool) -> Void)? = nil) {
-        super.transition(to: viewController, duration: duration, options: options, animations: animations) { [weak self, completion = completion] (result) in
+    open override func transition(to viewController: UIViewController, completion: ((Bool) -> Void)? = nil) {
+        super.transition(to: viewController) { [weak self, completion = completion] (result) in
             guard let s = self else {
                 return
             }
@@ -452,6 +452,8 @@ open class NavigationDrawerController: RootController {
                 vc.view.center = CGPoint(x: rightViewWidth / 2, y: v.bounds.height / 2)
 			}
 		}
+        
+        rootViewController.view.frame = container.bounds
 	}
 	
     open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -976,7 +978,7 @@ extension NavigationDrawerController {
     /// Prepares the contentViewController.
     fileprivate func prepareContentViewController() {
         contentViewController.view.backgroundColor = .black
-        prepare(viewController: contentViewController, withContainer: view)
+        prepare(viewController: contentViewController, in: view)
         view.sendSubview(toBack: contentViewController.view)
     }
     
@@ -986,7 +988,7 @@ extension NavigationDrawerController {
             return
         }
         
-        prepare(viewController: leftViewController, withContainer: v)
+        prepare(viewController: leftViewController, in: v)
     }
     
     /// A method that prepares the rightViewController.
@@ -995,7 +997,7 @@ extension NavigationDrawerController {
             return
         }
         
-        prepare(viewController: rightViewController, withContainer: v)
+        prepare(viewController: rightViewController, in: v)
     }
     
     /// A method that prepares the leftView.

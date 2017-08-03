@@ -65,11 +65,13 @@ open class ToolbarController: StatusBarController {
         switch displayStyle {
         case .partial:
             let h = y + toolbar.height
-            rootViewController.view.y = h
-            rootViewController.view.height = view.height - h
+            container.y = h
+            container.height = view.height - h
         case .full:
-            rootViewController.view.frame = view.bounds
+            container.frame = view.bounds
         }
+        
+        rootViewController.view.frame = container.bounds
 	}
 	
 	/**

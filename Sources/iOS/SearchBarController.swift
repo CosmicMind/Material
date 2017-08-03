@@ -64,11 +64,13 @@ open class SearchBarController: StatusBarController {
         switch displayStyle {
         case .partial:
             let h = y + searchBar.height
-            rootViewController.view.y = h
-            rootViewController.view.height = view.height - h
+            container.y = h
+            container.height = view.height - h
         case .full:
-            rootViewController.view.frame = view.bounds
+            container.frame = view.bounds
         }
+        
+        rootViewController.view.frame = container.bounds
 	}
 	
 	/**
@@ -81,6 +83,7 @@ open class SearchBarController: StatusBarController {
 	open override func prepare() {
 		super.prepare()
         displayStyle = .partial
+        
         prepareStatusBar()
 		prepareSearchBar()
 	}
