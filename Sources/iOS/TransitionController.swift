@@ -49,8 +49,8 @@ internal extension UIViewController {
     }
     
     /**
-     Retrieves a flattened hierarchy of view controllers for a given type.
-     - Returns: An Array of type T.
+     Traverses the child view controllers to find the correct view controller type T.
+     - Returns: An optional of type T.
      */
     func traverseTransitionViewControllerHierarchyForClassType<T: UIViewController>() -> T? {
         if let v = self as? T {

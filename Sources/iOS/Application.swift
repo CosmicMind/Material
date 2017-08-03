@@ -32,32 +32,32 @@ import UIKit
 
 public struct Application {
     /// An optional reference to the main UIWindow.
-    static var keyWindow: UIWindow? {
+    public static var keyWindow: UIWindow? {
         return UIApplication.shared.keyWindow
     }
     
     /// An optional reference to the top most view controller.
-    static var rootViewController: UIViewController? {
+    public static var rootViewController: UIViewController? {
         return keyWindow?.rootViewController
     }
     
     /// A boolean indicating if the device is in Landscape mode.
-    static var isLandscape: Bool {
+    public static var isLandscape: Bool {
         return UIApplication.shared.statusBarOrientation.isLandscape
     }
     
     /// A boolean indicating if the device is in Portrait mode.
-    static var isPortrait: Bool {
+    public static var isPortrait: Bool {
         return !isLandscape
     }
     
     /// The current UIInterfaceOrientation value.
-    static var orientation: UIInterfaceOrientation {
+    public static var orientation: UIInterfaceOrientation {
         return UIApplication.shared.statusBarOrientation
     }
     
     /// Retrieves the device status bar style.
-    static var statusBarStyle: UIStatusBarStyle {
+    public static var statusBarStyle: UIStatusBarStyle {
         get {
             return UIApplication.shared.statusBarStyle
         }
@@ -67,7 +67,7 @@ public struct Application {
     }
     
     /// Retrieves the device status bar hidden state.
-    static var isStatusBarHidden: Bool {
+    public static var isStatusBarHidden: Bool {
         get {
             return UIApplication.shared.isStatusBarHidden
         }
@@ -80,12 +80,12 @@ public struct Application {
      A boolean that indicates based on iPhone rules if the
      status bar should be shown.
      */
-    static var shouldStatusBarBeHidden: Bool {
+    public static var shouldStatusBarBeHidden: Bool {
         return isLandscape && .phone == Device.userInterfaceIdiom
     }
     
     /// A reference to the user interface layout direction.
-    static var userInterfaceLayoutDirection: UIUserInterfaceLayoutDirection {
+    public static var userInterfaceLayoutDirection: UIUserInterfaceLayoutDirection {
         return UIApplication.shared.userInterfaceLayoutDirection
     }
 }
