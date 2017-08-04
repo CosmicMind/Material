@@ -144,7 +144,7 @@ open class TransitionController: UIViewController {
         tvc.motionModalTransitionType = motionTransitionType
         
         view.isUserInteractionEnabled = false
-        Motion.shared.transition(from: fvc, to: tvc, in: container) { [weak self, completion = completion] (isFinished) in
+        Motion.shared.transition(from: fvc, to: tvc, in: container) { [weak self, tvc = tvc, completion = completion] (isFinished) in
             guard let s = self else {
                 return
             }
