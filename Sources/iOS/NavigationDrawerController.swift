@@ -1041,6 +1041,7 @@ extension NavigationDrawerController {
         
         leftPanGesture = UIPanGestureRecognizer(target: self, action: #selector(handleLeftViewPanGesture(recognizer:)))
         leftPanGesture!.delegate = self
+        leftPanGesture!.cancelsTouchesInView = false
         view.addGestureRecognizer(leftPanGesture!)
     }
     
@@ -1064,6 +1065,7 @@ extension NavigationDrawerController {
         
         rightPanGesture = UIPanGestureRecognizer(target: self, action: #selector(handleRightViewPanGesture(recognizer:)))
         rightPanGesture!.delegate = self
+        rightPanGesture!.cancelsTouchesInView = false
         view.addGestureRecognizer(rightPanGesture!)
     }
     
