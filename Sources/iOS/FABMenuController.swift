@@ -79,10 +79,23 @@ extension FABMenuController {
     fileprivate func prepareFABMenu() {
         fabMenu.delegate = self
         fabMenu.zPosition = 1000
-        fabMenu.handleFABButtonCallback = handleFABButtonCallback
-        fabMenu.handleOpenCallback = handleOpenCallback
-        fabMenu.handleCloseCallback = handleCloseCallback
-        fabMenu.handleCompletionCallback = handleCompletionCallback
+        
+        fabMenu.handleFABButtonCallback = { [weak self] in
+            self?.handleFABButtonCallback(button: $0)
+        }
+        
+        fabMenu.handleOpenCallback = { [weak self] in
+            self?.handleOpenCallback()
+        }
+        
+        fabMenu.handleCloseCallback = { [weak self] in
+            self?.handleCloseCallback()
+        }
+        
+        fabMenu.handleCompletionCallback = { [weak self] in
+            self?.handleCompletionCallback(view: $0)
+        }
+        
         view.addSubview(fabMenu)
     }
 }
