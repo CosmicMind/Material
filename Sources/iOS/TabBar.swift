@@ -397,9 +397,11 @@ fileprivate extension TabBar {
             selected = tabItems.first
         }
         
-        line.animate(.duration(0),
-                     .size(CGSize(width: selected!.width, height: lineHeight)),
-                     .position(CGPoint(x: selected!.center.x, y: .bottom == lineAlignment ? height - lineHeight / 2 : lineHeight / 2)))
+        guard let v = selected else {
+            return
+        }
+        
+        line.frame = CGRect(x: v.x, y: .bottom == lineAlignment ? height - lineHeight: 0, width: v.width, height: lineHeight)
     }
 }
 
