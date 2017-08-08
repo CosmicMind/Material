@@ -49,22 +49,9 @@ open class ToolbarController: StatusBarController {
     
     open override func layoutSubviews() {
 		super.layoutSubviews()
-        
-        let y = Application.shouldStatusBarBeHidden || statusBar.isHidden ? 0 : statusBar.height
-        
-        toolbar.y = y
-        toolbar.width = view.width
-        
-        switch displayStyle {
-        case .partial:
-            let h = y + toolbar.height
-            container.y = h
-            container.height = view.height - h
-        case .full:
-            container.frame = view.bounds
-        }
-        
-        rootViewController.view.frame = container.bounds
+        layoutToolbar()
+        layoutContainer()
+        layoutRootViewController()
 	}
 	
 	open override func prepare() {
@@ -76,15 +63,40 @@ open class ToolbarController: StatusBarController {
 	}
 }
 
-extension ToolbarController {
+fileprivate extension ToolbarController {
     /// Prepares the statusBar.
-    fileprivate func prepareStatusBar() {
+    func prepareStatusBar() {
         shouldHideStatusBarOnRotation = false
     }
 
     /// Prepares the toolbar.
-    fileprivate func prepareToolbar() {
+    func prepareToolbar() {
         toolbar.depthPreset = .depth1
         view.addSubview(toolbar)
+    }
+}
+
+fileprivate extension ToolbarController {
+    /// Layout the toolbar.
+    func layoutToolbar() {
+        toolbar.y = Application.shouldStatusBarBeHidden || statusBar.isHidden ? 0 : statusBar.height
+        toolbar.width = view.width
+    }
+    
+    /// Layout the container.
+    func layoutContainer() {
+        switch displayStyle {
+        case .partial:
+            let h = toolbar.y + toolbar.height
+            container.y = h
+            container.height = view.height - h
+        case .full:
+            container.frame = view.bounds
+        }
+    }
+    
+    /// Layout the rootViewController.
+    func layoutRootViewController() {
+        rootViewController.view.frame = container.bounds
     }
 }

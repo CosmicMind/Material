@@ -75,19 +75,9 @@ open class ChipBarController: TransitionController {
     
     open override func layoutSubviews() {
         super.layoutSubviews()
-        
-        chipBar.width = view.width
-        
-        switch displayStyle {
-        case .partial:
-            let h = chipBar.height
-            container.y = h
-            container.height = view.height - h
-        case .full:
-            container.frame = view.bounds
-        }
-        
-        rootViewController.view.frame = container.bounds
+        layoutChipBar()
+        layoutContainer()
+        layoutRootViewController()
     }
     
     open override func prepare() {
@@ -101,5 +91,56 @@ fileprivate extension ChipBarController {
     func prepareChipBar() {
         chipBar.depthPreset = .depth1
         view.addSubview(chipBar)
+    }
+}
+
+fileprivate extension ChipBarController {
+    /// Layout the container.
+    func layoutContainer() {
+        chipBar.width = view.width
+        
+        switch displayStyle {
+        case .partial:
+            let p = chipBar.height
+            let y = view.height - p
+            
+            switch chipBarAlignment {
+            case .top:
+                container.y = p
+                container.height = y
+            case .bottom:
+                container.y = 0
+                container.height = y
+            case .hidden:
+                container.y = 0
+                container.height = view.height
+            }
+            
+            container.width = view.width
+            
+        case .full:
+            container.frame = view.bounds
+        }
+    }
+    
+    /// Layout the chipBar.
+    func layoutChipBar() {
+        chipBar.width = view.width
+        
+        switch chipBarAlignment {
+        case .top:
+            chipBar.isHidden = false
+            chipBar.y = 0
+        case .bottom:
+            chipBar.isHidden = false
+            chipBar.y = view.height - chipBar.height
+        case .hidden:
+            chipBar.isHidden = true
+        }
+    }
+    
+    /// Layout the rootViewController.
+    func layoutRootViewController() {
+        rootViewController.view.frame = container.bounds
     }
 }

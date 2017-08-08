@@ -156,10 +156,10 @@ open class ChipBar: Bar {
     /// A preset wrapper around chipItems contentEdgeInsets.
     open var chipItemsContentEdgeInsetsPreset: EdgeInsetsPreset {
         get {
-            return scrollView.grid.contentEdgeInsetsPreset
+            return contentView.grid.contentEdgeInsetsPreset
         }
         set(value) {
-            scrollView.grid.contentEdgeInsetsPreset = value
+            contentView.grid.contentEdgeInsetsPreset = value
         }
     }
     
@@ -167,20 +167,20 @@ open class ChipBar: Bar {
     @IBInspectable
     open var chipItemsContentEdgeInsets: EdgeInsets {
         get {
-            return scrollView.grid.contentEdgeInsets
+            return contentView.grid.contentEdgeInsets
         }
         set(value) {
-            scrollView.grid.contentEdgeInsets = value
+            contentView.grid.contentEdgeInsets = value
         }
     }
     
     /// A preset wrapper around chipItems interimSpace.
     open var chipItemsInterimSpacePreset: InterimSpacePreset {
         get {
-            return scrollView.grid.interimSpacePreset
+            return contentView.grid.interimSpacePreset
         }
         set(value) {
-            scrollView.grid.interimSpacePreset = value
+            contentView.grid.interimSpacePreset = value
         }
     }
     
@@ -188,10 +188,10 @@ open class ChipBar: Bar {
     @IBInspectable
     open var chipItemsInterimSpace: InterimSpace {
         get {
-            return scrollView.grid.interimSpace
+            return contentView.grid.interimSpace
         }
         set(value) {
-            scrollView.grid.interimSpace = value
+            contentView.grid.interimSpace = value
         }
     }
     
@@ -213,116 +213,17 @@ open class ChipBar: Bar {
             return
         }
         
-        var lc = 0
-        var rc = 0
-        
-        grid.begin()
-        grid.views.removeAll()
-        
-        for v in leftViews {
-            if let b = v as? ChipItem {
-                b.contentEdgeInsets = .zero
-                b.titleEdgeInsets = .zero
-            }
-            
-            v.width = v.intrinsicContentSize.width
-            v.sizeToFit()
-            v.grid.columns = Int(ceil(v.width / gridFactor)) + 2
-            
-            lc += v.grid.columns
-            
-            grid.views.append(v)
-        }
-        
-        grid.views.append(contentView)
-        
-        for v in rightViews {
-            if let b = v as? ChipItem {
-                b.contentEdgeInsets = .zero
-                b.titleEdgeInsets = .zero
-            }
-            
-            v.width = v.intrinsicContentSize.width
-            v.sizeToFit()
-            v.grid.columns = Int(ceil(v.width / gridFactor)) + 2
-            
-            rc += v.grid.columns
-            
-            grid.views.append(v)
-        }
-        
-        contentView.grid.begin()
-        contentView.grid.offset.columns = 0
-        
-        var l: CGFloat = 0
-        var r: CGFloat = 0
-        
-        if .center == contentViewAlignment {
-            if leftViews.count < rightViews.count {
-                r = CGFloat(rightViews.count) * interimSpace
-                l = r
-            } else {
-                l = CGFloat(leftViews.count) * interimSpace
-                r = l
-            }
-        }
-        
-        let p = width - l - r - contentEdgeInsets.left - contentEdgeInsets.right
-        let columns = Int(ceil(p / gridFactor))
-        
-        if .center == contentViewAlignment {
-            if lc < rc {
-                contentView.grid.columns = columns - 2 * rc
-                contentView.grid.offset.columns = rc - lc
-            } else {
-                contentView.grid.columns = columns - 2 * lc
-                rightViews.first?.grid.offset.columns = lc - rc
-            }
-        } else {
-            contentView.grid.columns = columns - lc - rc
-        }
-        
-        grid.axis.columns = columns
-        
-        if .scrollable == chipBarStyle || (.auto == chipBarStyle && chipItemsTotalWidth > bounds.width) {
-            var w: CGFloat = chipItemsContentEdgeInsets.left
-            let q = 2 * chipItemsInterimSpace
-            let p = q + chipItemsInterimSpace
-            
-            for v in chipItems {
-                let x = v.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: scrollView.height)).width
-                v.height = scrollView.height
-                v.width = x + q
-                v.x = w
-                w += x
-                w += p
-                
-                if scrollView != v.superview {
-                    v.removeFromSuperview()
-                    scrollView.addSubview(v)
-                }
-            }
-            
-            w += chipItemsContentEdgeInsets.right - chipItemsInterimSpace
-            
-            scrollView.contentSize = CGSize(width: w, height: scrollView.height - chipItemsContentEdgeInsets.top - chipItemsContentEdgeInsets.bottom)
-        } else {
-            scrollView.grid.views = chipItems
-            scrollView.grid.axis.columns = chipItems.count
-            scrollView.contentSize = CGSize(width: scrollView.width, height: scrollView.height - chipItemsContentEdgeInsets.top - chipItemsContentEdgeInsets.bottom)
-        }
-        
-        grid.commit()
-        contentView.grid.commit()
-        
-        layoutDivider()
+        layoutScrollView()
     }
     
     open override func prepare() {
         super.prepare()
-        contentEdgeInsetsPreset = .square2
-        interimSpacePreset = .interimSpace6
+        interimSpacePreset = .interimSpace3
+        contentEdgeInsetsPreset = .square1
         chipItemsInterimSpacePreset = .interimSpace4
+        chipItemsContentEdgeInsetsPreset = .square2
+        chipItemsContentEdgeInsets.left = 0
+        chipItemsContentEdgeInsets.right = 0
         
         prepareContentView()
         prepareScrollView()
@@ -359,6 +260,39 @@ fileprivate extension ChipBar {
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
         centerViews = [scrollView]
+    }
+}
+
+fileprivate extension ChipBar {
+    /// Layout the scrollView.
+    func layoutScrollView() {
+        if .scrollable == chipBarStyle || (.auto == chipBarStyle && chipItemsTotalWidth > bounds.width) {
+            var w: CGFloat = 0
+            let q = 2 * chipItemsInterimSpace
+            let p = q + chipItemsInterimSpace
+            
+            for v in chipItems {
+                let x = v.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: scrollView.height)).width
+                v.height = scrollView.height
+                v.width = x + q
+                v.x = w
+                w += x
+                w += p
+                
+                if scrollView != v.superview {
+                    v.removeFromSuperview()
+                    scrollView.addSubview(v)
+                }
+            }
+            
+            w -= chipItemsInterimSpace
+            
+            scrollView.contentSize = CGSize(width: w, height: scrollView.height)
+        } else {
+            scrollView.grid.views = chipItems
+            scrollView.grid.axis.columns = chipItems.count
+            scrollView.contentSize = scrollView.bounds.size
+        }
     }
 }
 

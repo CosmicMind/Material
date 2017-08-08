@@ -65,6 +65,17 @@ extension UIViewController {
 }
 
 open class TabBarController: UIViewController {
+    /**
+     A Display value to indicate whether or not to
+     display the rootViewController to the full view
+     bounds, or up to the toolbar height.
+     */
+    open var displayStyle = DisplayStyle.partial {
+        didSet {
+            layoutSubviews()
+        }
+    }
+    
     /// The TabBar used to switch between view controllers.
     @IBInspectable
     open let tabBar = TabBar()
@@ -150,9 +161,9 @@ open class TabBarController: UIViewController {
     open func prepare() {
         view.backgroundColor = .white
         view.contentScaleFactor = Screen.scale
-        prepareContainer()
         prepareTabBar()
         prepareTabBarItems()
+        prepareContainer()
         prepareViewControllers()
     }
 }
@@ -219,30 +230,36 @@ fileprivate extension TabBarController {
 }
 
 fileprivate extension TabBarController {
-    /// Layout the container view.
+    /// Layout the container.
     func layoutContainer() {
-        let p = tabBar.height
-        let y = view.height - p
+        tabBar.width = view.width
         
-        switch tabBarAlignment {
-        case .top:
-            container.y = p
-            container.height = y
-        case .bottom:
-            container.y = 0
-            container.height = y
-        case .hidden:
-            container.y = 0
-            container.height = view.height
+        switch displayStyle {
+        case .partial:
+            let p = tabBar.height
+            let y = view.height - p
+            
+            switch tabBarAlignment {
+            case .top:
+                container.y = p
+                container.height = y
+            case .bottom:
+                container.y = 0
+                container.height = y
+            case .hidden:
+                container.y = 0
+                container.height = view.height
+            }
+         
+            container.width = view.width
+            
+        case .full:
+            container.frame = view.bounds
         }
-        
-        container.width = view.width
     }
     
-    /// Layout the TabBar.
+    /// Layout the tabBar.
     func layoutTabBar() {
-        let y = view.height - tabBar.height
-        
         tabBar.width = view.width
         
         switch tabBarAlignment {
@@ -251,7 +268,7 @@ fileprivate extension TabBarController {
             tabBar.y = 0
         case .bottom:
             tabBar.isHidden = false
-            tabBar.y = y
+            tabBar.y = view.height - tabBar.height
         case .hidden:
             tabBar.isHidden = true
         }

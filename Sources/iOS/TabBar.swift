@@ -115,10 +115,10 @@ open class TabBar: Bar {
     /// A preset wrapper around tabItems contentEdgeInsets.
     open var tabItemsContentEdgeInsetsPreset: EdgeInsetsPreset {
         get {
-            return scrollView.grid.contentEdgeInsetsPreset
+            return contentView.grid.contentEdgeInsetsPreset
         }
         set(value) {
-            scrollView.grid.contentEdgeInsetsPreset = value
+            contentView.grid.contentEdgeInsetsPreset = value
         }
     }
     
@@ -126,20 +126,20 @@ open class TabBar: Bar {
     @IBInspectable
     open var tabItemsContentEdgeInsets: EdgeInsets {
         get {
-            return scrollView.grid.contentEdgeInsets
+            return contentView.grid.contentEdgeInsets
         }
         set(value) {
-            scrollView.grid.contentEdgeInsets = value
+            contentView.grid.contentEdgeInsets = value
         }
     }
     
     /// A preset wrapper around tabItems interimSpace.
     open var tabItemsInterimSpacePreset: InterimSpacePreset {
         get {
-            return scrollView.grid.interimSpacePreset
+            return contentView.grid.interimSpacePreset
         }
         set(value) {
-            scrollView.grid.interimSpacePreset = value
+            contentView.grid.interimSpacePreset = value
         }
     }
     
@@ -147,10 +147,10 @@ open class TabBar: Bar {
     @IBInspectable
     open var tabItemsInterimSpace: InterimSpace {
         get {
-            return scrollView.grid.interimSpace
+            return contentView.grid.interimSpace
         }
         set(value) {
-            scrollView.grid.interimSpace = value
+            contentView.grid.interimSpace = value
         }
     }
     
@@ -216,109 +216,7 @@ open class TabBar: Bar {
             return
         }
         
-        var lc = 0
-        var rc = 0
-        
-        grid.begin()
-        grid.views.removeAll()
-        
-        for v in leftViews {
-            if let b = v as? TabItem {
-                b.contentEdgeInsets = .zero
-                b.titleEdgeInsets = .zero
-            }
-            
-            v.width = v.intrinsicContentSize.width
-            v.sizeToFit()
-            v.grid.columns = Int(ceil(v.width / gridFactor)) + 2
-            
-            lc += v.grid.columns
-            
-            grid.views.append(v)
-        }
-        
-        grid.views.append(contentView)
-        
-        for v in rightViews {
-            if let b = v as? TabItem {
-                b.contentEdgeInsets = .zero
-                b.titleEdgeInsets = .zero
-            }
-            
-            v.width = v.intrinsicContentSize.width
-            v.sizeToFit()
-            v.grid.columns = Int(ceil(v.width / gridFactor)) + 2
-            
-            rc += v.grid.columns
-            
-            grid.views.append(v)
-        }
-        
-        contentView.grid.begin()
-        contentView.grid.offset.columns = 0
-        
-        var l: CGFloat = 0
-        var r: CGFloat = 0
-        
-        if .center == contentViewAlignment {
-            if leftViews.count < rightViews.count {
-                r = CGFloat(rightViews.count) * interimSpace
-                l = r
-            } else {
-                l = CGFloat(leftViews.count) * interimSpace
-                r = l
-            }
-        }
-        
-        let p = width - l - r - contentEdgeInsets.left - contentEdgeInsets.right
-        let columns = Int(ceil(p / gridFactor))
-        
-        if .center == contentViewAlignment {
-            if lc < rc {
-                contentView.grid.columns = columns - 2 * rc
-                contentView.grid.offset.columns = rc - lc
-            } else {
-                contentView.grid.columns = columns - 2 * lc
-                rightViews.first?.grid.offset.columns = lc - rc
-            }
-        } else {
-            contentView.grid.columns = columns - lc - rc
-        }
-        
-        grid.axis.columns = columns
-        
-        if .scrollable == tabBarStyle || (.auto == tabBarStyle && tabItemsTotalWidth > bounds.width) {
-            var w: CGFloat = tabItemsContentEdgeInsets.left
-            let q = scrollView.height / 2
-            let p = q + tabItemsInterimSpace
-            
-            for v in tabItems {
-                let x = v.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: scrollView.height)).width
-                v.height = scrollView.height
-                v.width = x + q
-                v.x = w
-                w += x
-                w += p
-                
-                if scrollView != v.superview {
-                    v.removeFromSuperview()
-                    scrollView.addSubview(v)
-                }
-            }
-            
-            w += tabItemsContentEdgeInsets.right - tabItemsInterimSpace
-            
-            scrollView.contentSize = CGSize(width: w, height: scrollView.height - tabItemsContentEdgeInsets.top - tabItemsContentEdgeInsets.bottom)
-        } else {
-            scrollView.grid.views = tabItems
-            scrollView.grid.axis.columns = tabItems.count
-            scrollView.contentSize = CGSize(width: scrollView.width, height: scrollView.height - tabItemsContentEdgeInsets.top - tabItemsContentEdgeInsets.bottom)
-        }
-        
-        grid.commit()
-        contentView.grid.commit()
-        
-        layoutDivider()
+        layoutScrollView()
         layoutLine()
 	}
     
@@ -387,6 +285,37 @@ fileprivate extension TabBar {
 }
 
 fileprivate extension TabBar {
+    /// Layout the scrollView.
+    func layoutScrollView() {
+        if .scrollable == tabBarStyle || (.auto == tabBarStyle && tabItemsTotalWidth > bounds.width) {
+            var w: CGFloat = 0
+            let q = 2 * tabItemsInterimSpace
+            let p = q + tabItemsInterimSpace
+            
+            for v in tabItems {
+                let x = v.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: scrollView.height)).width
+                v.height = scrollView.height
+                v.width = x + q
+                v.x = w
+                w += x
+                w += p
+                
+                if scrollView != v.superview {
+                    v.removeFromSuperview()
+                    scrollView.addSubview(v)
+                }
+            }
+            
+            w -= tabItemsInterimSpace
+            
+            scrollView.contentSize = CGSize(width: w, height: scrollView.height)
+        } else {
+            scrollView.grid.views = tabItems
+            scrollView.grid.axis.columns = tabItems.count
+            scrollView.contentSize = scrollView.bounds.size
+        }
+    }
+    
     /// Layout the line view.
     func layoutLine() {
         guard 0 < tabItems.count else {
