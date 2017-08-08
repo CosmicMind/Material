@@ -16,4 +16,4 @@ profile
 *.moved-aside
 *.playground
 *.framework
-
+Sources/Frameworks/Motion/.git*
