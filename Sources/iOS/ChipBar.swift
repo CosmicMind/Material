@@ -84,36 +84,36 @@ fileprivate extension ChipItem {
     }
 }
 
-@objc(ChipsDelegate)
-public protocol ChipsDelegate {
+@objc(ChipBarDelegate)
+public protocol ChipBarDelegate {
     /**
      A delegation method that is executed when the chipItem will trigger the
      animation to the next chip.
-     - Parameter chipBar: A Chips.
+     - Parameter chipBar: A ChipBar.
      - Parameter chipItem: A ChipItem.
      */
     @objc
-    optional func chipBar(chipBar: Chips, willSelect chipItem: ChipItem)
+    optional func chipBar(chipBar: ChipBar, willSelect chipItem: ChipItem)
     
     /**
      A delegation method that is executed when the chipItem did complete the
      animation to the next chip.
-     - Parameter chipBar: A Chips.
+     - Parameter chipBar: A ChipBar.
      - Parameter chipItem: A ChipItem.
      */
     @objc
-    optional func chipBar(chipBar: Chips, didSelect chipItem: ChipItem)
+    optional func chipBar(chipBar: ChipBar, didSelect chipItem: ChipItem)
 }
 
-@objc(ChipsStyle)
-public enum ChipsStyle: Int {
+@objc(ChipBarStyle)
+public enum ChipBarStyle: Int {
     case auto
     case nonScrollable
     case scrollable
 }
 
-open class Chips: Bar {
-    /// A boolean indicating if the Chips line is in an animation state.
+open class ChipBar: Bar {
+    /// A boolean indicating if the ChipBar is in an animation state.
     open fileprivate(set) var isAnimating = false
     
     /// The total width of the chipItems.
@@ -128,7 +128,7 @@ open class Chips: Bar {
     }
     
     /// An enum that determines the chip bar style.
-    open var chipBarStyle = ChipsStyle.auto {
+    open var chipBarStyle = ChipBarStyle.auto {
         didSet {
             layoutSubviews()
         }
@@ -148,7 +148,7 @@ open class Chips: Bar {
     }
     
     /// A delegation reference.
-    open weak var delegate: ChipsDelegate?
+    open weak var delegate: ChipBarDelegate?
     
     /// The currently selected chipItem.
     open fileprivate(set) var selected: ChipItem?
@@ -330,7 +330,7 @@ open class Chips: Bar {
     }
 }
 
-fileprivate extension Chips {
+fileprivate extension ChipBar {
     /// Prepares the divider.
     func prepareDivider() {
         dividerColor = Color.grey.lighten3
@@ -362,7 +362,7 @@ fileprivate extension Chips {
     }
 }
 
-fileprivate extension Chips {
+fileprivate extension ChipBar {
     /// Handles the chipItem touch event.
     @objc
     func handle(chipItem: ChipItem) {
@@ -370,7 +370,7 @@ fileprivate extension Chips {
     }
 }
 
-extension Chips {
+extension ChipBar {
     /**
      Selects a given index from the chipItems array.
      - Parameter at index: An Int.
@@ -393,7 +393,7 @@ extension Chips {
     }
 }
 
-fileprivate extension Chips {
+fileprivate extension ChipBar {
     /**
      Animates to a given chipItem.
      - Parameter to chipItem: A ChipItem.

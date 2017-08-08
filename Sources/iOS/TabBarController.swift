@@ -55,16 +55,16 @@ extension UIViewController {
 
 extension UIViewController {
     /**
-     A convenience property that provides access to the TabsController.
-     This is the recommended method of accessing the TabsController
+     A convenience property that provides access to the TabBarController.
+     This is the recommended method of accessing the TabBarController
      through child UIViewControllers.
      */
-    public var tabsController: TabsController? {
+    public var tabsController: TabBarController? {
         return traverseViewControllerHierarchyForClassType()
     }
 }
 
-open class TabsController: UIViewController {
+open class TabBarController: UIViewController {
     /// The TabBar used to switch between view controllers.
     @IBInspectable
     open let tabBar = TabBar()
@@ -157,7 +157,7 @@ open class TabsController: UIViewController {
     }
 }
 
-fileprivate extension TabsController {
+fileprivate extension TabBarController {
     /// Prepares the container view.
     func prepareContainer() {
         view.addSubview(container)
@@ -218,7 +218,7 @@ fileprivate extension TabsController {
     }
 }
 
-fileprivate extension TabsController {
+fileprivate extension TabBarController {
     /// Layout the container view.
     func layoutContainer() {
         let p = tabBar.height
@@ -263,7 +263,7 @@ fileprivate extension TabsController {
     }
 }
 
-fileprivate extension TabsController {
+fileprivate extension TabBarController {
     /**
      Removes the view controller as a child view controller with
      the given index.
@@ -290,7 +290,7 @@ fileprivate extension TabsController {
     }
 }
 
-fileprivate extension TabsController {
+fileprivate extension TabBarController {
     /**
      Handles the tabItem.
      - Parameter tabItem: A TabItem.

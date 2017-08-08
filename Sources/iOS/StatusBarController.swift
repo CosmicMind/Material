@@ -80,11 +80,6 @@ open class StatusBarController: TransitionController {
     /// A reference to the statusBar.
     open let statusBar = UIView()
 	
-	/**
-     To execute in the order of the layout chain, override this
-     method. LayoutSubviews should be called immediately, unless you
-     have a certain need.
-     */
 	open override func layoutSubviews() {
 		super.layoutSubviews()
         
@@ -106,13 +101,6 @@ open class StatusBarController: TransitionController {
         rootViewController.view.frame = container.bounds
 	}
 	
-	/**
-     Prepares the view instance when intialized. When subclassing,
-     it is recommended to override the prepare method
-     to initialize property values and other setup operations.
-     The super.prepare method should always be called immediately
-     when subclassing.
-     */
 	open override func prepare() {
         super.prepare()
 		prepareStatusBar()

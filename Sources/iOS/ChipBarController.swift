@@ -30,34 +30,57 @@
 
 import UIKit
 
-public extension UIViewController {
+fileprivate var ChipItemKey: UInt8 = 0
+
+@objc(ChipBarAlignment)
+public enum ChipBarAlignment: Int {
+    case top
+    case bottom
+    case hidden
+}
+
+extension UIViewController {
     /**
-     A convenience property that provides access to the ToolbarController.
-     This is the recommended method of accessing the ToolbarController
+     A convenience property that provides access to the ChipBarController.
+     This is the recommended method of accessing the ChipBarController
      through child UIViewControllers.
      */
-    var toolbarController: ToolbarController? {
+    public var chipsController: ChipBarController? {
         return traverseViewControllerHierarchyForClassType()
     }
 }
 
-@objc(ToolbarController)
-open class ToolbarController: StatusBarController {
-    /// Reference to the Toolbar.
+open class ChipBarController: TransitionController {
+    /**
+     A Display value to indicate whether or not to
+     display the rootViewController to the full view
+     bounds, or up to the toolbar height.
+     */
+    open var displayStyle = DisplayStyle.partial {
+        didSet {
+            layoutSubviews()
+        }
+    }
+    
+    /// The ChipBar used to switch between view controllers.
     @IBInspectable
-    open let toolbar = Toolbar()
+    open let chipBar = ChipBar()
+    
+    /// The chipBar alignment.
+    open var chipBarAlignment = ChipBarAlignment.bottom {
+        didSet {
+            layoutSubviews()
+        }
+    }
     
     open override func layoutSubviews() {
-		super.layoutSubviews()
+        super.layoutSubviews()
         
-        let y = Application.shouldStatusBarBeHidden || statusBar.isHidden ? 0 : statusBar.height
-        
-        toolbar.y = y
-        toolbar.width = view.width
+        chipBar.width = view.width
         
         switch displayStyle {
         case .partial:
-            let h = y + toolbar.height
+            let h = chipBar.height
             container.y = h
             container.height = view.height - h
         case .full:
@@ -65,26 +88,18 @@ open class ToolbarController: StatusBarController {
         }
         
         rootViewController.view.frame = container.bounds
-	}
-	
-	open override func prepare() {
-		super.prepare()
-        displayStyle = .partial
-        
-        prepareStatusBar()
-        prepareToolbar()
-	}
+    }
+    
+    open override func prepare() {
+        super.prepare()
+        prepareChipBar()
+    }
 }
 
-extension ToolbarController {
-    /// Prepares the statusBar.
-    fileprivate func prepareStatusBar() {
-        shouldHideStatusBarOnRotation = false
-    }
-
-    /// Prepares the toolbar.
-    fileprivate func prepareToolbar() {
-        toolbar.depthPreset = .depth1
-        view.addSubview(toolbar)
+fileprivate extension ChipBarController {
+    /// Prepares the ChipBar.
+    func prepareChipBar() {
+        chipBar.depthPreset = .depth1
+        view.addSubview(chipBar)
     }
 }

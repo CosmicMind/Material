@@ -72,7 +72,7 @@ public enum TabBarStyle: Int {
 }
 
 open class TabBar: Bar {
-    /// A boolean indicating if the TabBar line is in an animation state.
+    /// A boolean indicating if the TabBar is in an animation state.
     open fileprivate(set) var isAnimating = false
     
     /// The total width of the tabItems.
