@@ -148,13 +148,13 @@ A SearchBar is a powerful navigation tool that allows for user's input with an i
 
 * [SearchBar Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/Search)
 
-## Tabs
+## TabBar
 
-Tabs is a new component that links a customizable TabBar to a stack of view controllers making a powerful and visually pleasing component to have in any application. The TabBar can be aligned at the top or bottom of the view controller.
+TabBar is a new component that links a customizable TabBar to a stack of view controllers making a powerful and visually pleasing component to have in any application.
 
-![Tabs](http://www.cosmicmind.com/material/white/page-tab-bar-controller.gif)
+![TabBar](http://www.cosmicmind.com/material/white/page-tab-bar-controller.gif)
 
-* [Tabs Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/TabsController)
+* [TabBar Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/TabBarController)
 
 ## NavigationController
 
