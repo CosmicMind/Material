@@ -51,6 +51,11 @@ open class ChipItem: FlatButton {
         super.layoutSubviews()
         layoutChipItemStyle()
     }
+    
+    open override func prepare() {
+        super.prepare()
+        pulseAnimation = .none
+    }
 }
 
 fileprivate extension ChipItem {
@@ -113,9 +118,6 @@ public enum ChipBarStyle: Int {
 }
 
 open class ChipBar: Bar {
-    /// A boolean indicating if the ChipBar is in an animation state.
-    open fileprivate(set) var isAnimating = false
-    
     /// The total width of the chipItems.
     fileprivate var chipItemsTotalWidth: CGFloat {
         var w: CGFloat = 0
@@ -155,6 +157,9 @@ open class ChipBar: Bar {
     
     /// A delegation reference.
     open weak var delegate: ChipBarDelegate?
+    
+    /// The currently selected chipItem.
+    open fileprivate(set) var selectedChipItem: ChipItem?
     
     /// A preset wrapper around chipItems contentEdgeInsets.
     open var chipItemsContentEdgeInsetsPreset: EdgeInsetsPreset {
@@ -217,6 +222,8 @@ open class ChipBar: Bar {
         }
         
         layoutScrollView()
+        
+        updateScrollView()
     }
     
     open override func prepare() {
@@ -351,11 +358,21 @@ fileprivate extension ChipBar {
             delegate?.chipBar?(chipBar: self, willSelect: chipItem)
         }
         
-        isAnimating = true
+        selectedChipItem = chipItem
+        updateScrollView()
+    }
+}
+
+fileprivate extension ChipBar {
+    /// Updates the scrollView.
+    func updateScrollView() {
+        guard let v = selectedChipItem else {
+            return
+        }
         
-        if !scrollView.frame.contains(chipItem.frame) {
-            let contentOffsetX = (chipItem.x < scrollView.frame.minX) ? chipItem.x : chipItem.frame.maxX - scrollView.width
-            let normalizedOffsetX = min(max(contentOffsetX, 0), scrollView.contentSize.width - scrollView.width)
+        if !scrollView.bounds.contains(v.frame) {
+            let contentOffsetX = (v.x < scrollView.bounds.minX) ? v.x : v.frame.maxX - scrollView.bounds.width
+            let normalizedOffsetX = min(max(contentOffsetX, 0), scrollView.contentSize.width - scrollView.bounds.width)
             scrollView.setContentOffset(CGPoint(x: normalizedOffsetX, y: 0), animated: true)
         }
     }

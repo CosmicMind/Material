@@ -210,6 +210,8 @@ open class TabBar: Bar {
         
         layoutScrollView()
         layoutLine()
+        
+        updateScrollView()
 	}
     
     open override func prepare() {
@@ -401,9 +403,20 @@ fileprivate extension TabBar {
                         completion?(tabItem)
                      })
         
-        if !scrollView.frame.contains(tabItem.frame) {
-            let contentOffsetX = (tabItem.x < scrollView.frame.minX) ? tabItem.x : tabItem.frame.maxX - scrollView.width
-            let normalizedOffsetX = min(max(contentOffsetX, 0), scrollView.contentSize.width - scrollView.width)
+        updateScrollView()
+    }
+}
+
+fileprivate extension TabBar {
+    /// Updates the scrollView.
+    func updateScrollView() {
+        guard let v = selectedTabItem else {
+            return
+        }
+        
+        if !scrollView.bounds.contains(v.frame) {
+            let contentOffsetX = (v.x < scrollView.bounds.minX) ? v.x : v.frame.maxX - scrollView.bounds.width
+            let normalizedOffsetX = min(max(contentOffsetX, 0), scrollView.contentSize.width - scrollView.bounds.width)
             scrollView.setContentOffset(CGPoint(x: normalizedOffsetX, y: 0), animated: true)
         }
     }
