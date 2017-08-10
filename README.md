@@ -8,12 +8,8 @@ Welcome to **Material,** a Material Design library used to create beautiful appl
 
 Hi, I'd like to personally thank everyone who has helped Material grow to an awesome and fun technology for all. To further grow and take our products to the next stage, it would be appreciated if we can all help and share the costs. A small donation would go a very long way for everyone. Thank you, Daniel Dahan
 
-<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-<input type="hidden" name="cmd" value="_s-xclick">
-<input type="hidden" name="hosted_button_id" value="9D6MURMLLUNQ2">
-<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-</form>
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9D6MURMLLUNQ2)
+![PayPal Pixel](https://www.paypalobjects.com/en_US/i/scr/pixel.gif)
 
 ## Photos Sample
 
