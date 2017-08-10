@@ -110,7 +110,7 @@ open class TabBar: Bar {
     open weak var delegate: TabBarDelegate?
     
     /// The currently selected tabItem.
-    open fileprivate(set) var selected: TabItem?
+    open fileprivate(set) var selectedTabItem: TabItem?
     
     /// A preset wrapper around tabItems contentEdgeInsets.
     open var tabItemsContentEdgeInsetsPreset: EdgeInsetsPreset {
@@ -165,20 +165,6 @@ open class TabBar: Bar {
 			layoutSubviews()
 		}
 	}
-    
-    /// A boolean to animate the line when touched.
-    @IBInspectable
-    open var isLineAnimated = true {
-        didSet {
-            for b in tabItems {
-                if isLineAnimated {
-                    prepareLineAnimationHandler(tabItem: b)
-                } else {
-                    removeLineAnimationHandler(tabItem: b)
-                }
-            }
-        }
-    }
     
     /// A reference to the line UIView.
     open let line = UIView()
@@ -254,10 +240,10 @@ fileprivate extension TabBar {
             v.cornerRadius = 0
             v.contentEdgeInsets = .zero
             
-            if isLineAnimated {
-                prepareLineAnimationHandler(tabItem: v)
-            }
+            prepareLineAnimationHandler(tabItem: v)
         }
+        
+        selectedTabItem = tabItems.first
     }
     
     /**
@@ -323,15 +309,7 @@ fileprivate extension TabBar {
     
     /// Layout the line view.
     func layoutLine() {
-        guard 0 < tabItems.count else {
-            return
-        }
-        
-        if nil == selected {
-            selected = tabItems.first
-        }
-        
-        guard let v = selected else {
+        guard let v = selectedTabItem else {
             return
         }
         
@@ -367,6 +345,7 @@ extension TabBar {
         guard -1 < index, index < tabItems.count else {
             return
         }
+        
         animate(to: tabItems[index], isTriggeredByUserInteraction: false, completion: completion)
     }
     
@@ -393,7 +372,7 @@ fileprivate extension TabBar {
             delegate?.tabBar?(tabBar: self, willSelect: tabItem)
         }
         
-        selected = tabItem
+        selectedTabItem = tabItem
         isAnimating = true
         
         line.animate(.duration(0.25),

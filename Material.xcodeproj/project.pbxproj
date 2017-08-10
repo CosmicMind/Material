@@ -10,8 +10,6 @@
 		961154CC1F32A7B100A78D74 /* ChipBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961154CB1F32A7B100A78D74 /* ChipBar.swift */; };
 		961409B11E43D15C00E7BA99 /* FABMenu.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96A183621E0C6CE200083C30 /* FABMenu.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		961409B21E43D15C00E7BA99 /* FABMenuController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96A183641E0C6DD400083C30 /* FABMenuController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		9615277E1F393C0E00E8B2AC /* LICENSE.md in Sources */ = {isa = PBXBuildFile; fileRef = 961527541F393C0E00E8B2AC /* LICENSE.md */; };
-		9615277F1F393C0E00E8B2AC /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 961527551F393C0E00E8B2AC /* README.md */; };
 		961527801F393C0E00E8B2AC /* MotionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961527581F393C0E00E8B2AC /* MotionAnimator.swift */; };
 		961527811F393C0E00E8B2AC /* MotionAnimatorViewContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961527591F393C0E00E8B2AC /* MotionAnimatorViewContext.swift */; };
 		961527821F393C0E00E8B2AC /* MotionCoreAnimationViewContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9615275A1F393C0E00E8B2AC /* MotionCoreAnimationViewContext.swift */; };
@@ -27,7 +25,6 @@
 		9615278C1F393C0E00E8B2AC /* Motion+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961527651F393C0E00E8B2AC /* Motion+UIView.swift */; };
 		9615278D1F393C0E00E8B2AC /* Motion+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961527661F393C0E00E8B2AC /* Motion+UIViewController.swift */; };
 		9615278E1F393C0E00E8B2AC /* MotionAnimationFillMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961527671F393C0E00E8B2AC /* MotionAnimationFillMode.swift */; };
-		9615278F1F393C0E00E8B2AC /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 961527681F393C0E00E8B2AC /* LICENSE */; };
 		961527901F393C0E00E8B2AC /* Motion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961527691F393C0E00E8B2AC /* Motion.swift */; };
 		961527911F393C0E00E8B2AC /* MotionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9615276A1F393C0E00E8B2AC /* MotionAnimation.swift */; };
 		961527921F393C0E00E8B2AC /* MotionAnimationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9615276B1F393C0E00E8B2AC /* MotionAnimationState.swift */; };
@@ -995,7 +992,6 @@
 				96334EF61C8B84660083986B /* Assets.xcassets in Resources */,
 				96BCB7F71CB40DE900C806FE /* Roboto-Medium.ttf in Resources */,
 				96BCB7F31CB40DE900C806FE /* Roboto-Bold.ttf in Resources */,
-				9615278F1F393C0E00E8B2AC /* LICENSE in Resources */,
 				96BCB7FB1CB40DE900C806FE /* Roboto-Thin.ttf in Resources */,
 				96BCB7F91CB40DE900C806FE /* Roboto-Regular.ttf in Resources */,
 				96BCB7F51CB40DE900C806FE /* Roboto-Light.ttf in Resources */,
@@ -1040,7 +1036,6 @@
 				965E81191DD4D5C800D61E4B /* SnackbarController.swift in Sources */,
 				961527811F393C0E00E8B2AC /* MotionAnimatorViewContext.swift in Sources */,
 				965E811A1DD4D5C800D61E4B /* StatusBarController.swift in Sources */,
-				9615277F1F393C0E00E8B2AC /* README.md in Sources */,
 				961527871F393C0E00E8B2AC /* Motion+CALayer.swift in Sources */,
 				965E811B1DD4D5C800D61E4B /* Switch.swift in Sources */,
 				965E811C1DD4D5C800D61E4B /* TabBar.swift in Sources */,
@@ -1121,7 +1116,6 @@
 				961527801F393C0E00E8B2AC /* MotionAnimator.swift in Sources */,
 				965E80E21DD4C50600D61E4B /* View.swift in Sources */,
 				961527911F393C0E00E8B2AC /* MotionAnimation.swift in Sources */,
-				9615277E1F393C0E00E8B2AC /* LICENSE.md in Sources */,
 				9615279A1F393C0E00E8B2AC /* MotionTransition.swift in Sources */,
 				9615279F1F393C0E00E8B2AC /* IgnoreSubviewModifiersPreprocessor.swift in Sources */,
 				96328B7A1E020A41009A4C90 /* CollectionViewController.swift in Sources */,

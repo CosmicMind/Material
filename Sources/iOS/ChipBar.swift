@@ -319,6 +319,7 @@ extension ChipBar {
         guard -1 < index, index < chipItems.count else {
             return
         }
+        
         animate(to: chipItems[index], isTriggeredByUserInteraction: false, completion: completion)
     }
     
