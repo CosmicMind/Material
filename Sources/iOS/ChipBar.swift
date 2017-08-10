@@ -288,9 +288,14 @@ fileprivate extension ChipBar {
             w -= chipItemsInterimSpace
             
             scrollView.contentSize = CGSize(width: w, height: scrollView.height)
+            
         } else {
+            scrollView.grid.begin()
             scrollView.grid.views = chipItems
             scrollView.grid.axis.columns = chipItems.count
+            scrollView.grid.contentEdgeInsets = chipItemsContentEdgeInsets
+            scrollView.grid.interimSpace = chipItemsInterimSpace
+            scrollView.grid.commit()
             scrollView.contentSize = scrollView.bounds.size
         }
     }

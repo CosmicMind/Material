@@ -224,7 +224,7 @@ open class TabBar: Bar {
         super.prepare()
         contentEdgeInsetsPreset = .none
         interimSpacePreset = .interimSpace6
-        tabItemsInterimSpacePreset = .none
+        tabItemsInterimSpacePreset = .interimSpace4
         
         prepareContentView()
         prepareScrollView()
@@ -309,9 +309,14 @@ fileprivate extension TabBar {
             w -= tabItemsInterimSpace
             
             scrollView.contentSize = CGSize(width: w, height: scrollView.height)
+            
         } else {
+            scrollView.grid.begin()
             scrollView.grid.views = tabItems
             scrollView.grid.axis.columns = tabItems.count
+            scrollView.grid.contentEdgeInsets = tabItemsContentEdgeInsets
+            scrollView.grid.interimSpace = tabItemsInterimSpace
+            scrollView.grid.commit()
             scrollView.contentSize = scrollView.bounds.size
         }
     }
