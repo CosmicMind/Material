@@ -78,11 +78,17 @@ open class TabBar: Bar {
     /// The total width of the tabItems.
     fileprivate var tabItemsTotalWidth: CGFloat {
         var w: CGFloat = 0
-            
+        let q = 2 * tabItemsInterimSpace
+        let p = q + tabItemsInterimSpace
+        
         for v in tabItems {
-            w += v.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: contentView.height)).width + interimSpace
+            let x = v.sizeThatFits(CGSize(width: .greatestFiniteMagnitude, height: scrollView.height)).width
+            w += x
+            w += p
         }
-            
+        
+        w -= tabItemsInterimSpace
+        
         return w
     }
     
@@ -237,7 +243,6 @@ fileprivate extension TabBar {
     func prepareTabItems() {
         for v in tabItems {
             v.grid.columns = 0
-            v.cornerRadius = 0
             v.contentEdgeInsets = .zero
             
             prepareLineAnimationHandler(tabItem: v)
@@ -273,13 +278,15 @@ fileprivate extension TabBar {
 fileprivate extension TabBar {
     /// Layout the scrollView.
     func layoutScrollView() {
-        if .scrollable == tabBarStyle || (.auto == tabBarStyle && tabItemsTotalWidth > bounds.width) {
+        contentView.grid.reload()
+        
+        if .scrollable == tabBarStyle || (.auto == tabBarStyle && tabItemsTotalWidth > scrollView.width) {
             var w: CGFloat = 0
             let q = 2 * tabItemsInterimSpace
             let p = q + tabItemsInterimSpace
             
             for v in tabItems {
-                let x = v.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: scrollView.height)).width
+                let x = v.sizeThatFits(CGSize(width: .greatestFiniteMagnitude, height: scrollView.height)).width
                 v.height = scrollView.height
                 v.width = x + q
                 v.x = w
@@ -303,7 +310,7 @@ fileprivate extension TabBar {
             scrollView.grid.contentEdgeInsets = tabItemsContentEdgeInsets
             scrollView.grid.interimSpace = tabItemsInterimSpace
             scrollView.grid.commit()
-            scrollView.contentSize = scrollView.bounds.size
+            scrollView.contentSize = scrollView.frame.size
         }
     }
     
@@ -313,7 +320,9 @@ fileprivate extension TabBar {
             return
         }
         
-        line.frame = CGRect(x: v.x, y: .bottom == lineAlignment ? height - lineHeight: 0, width: v.width, height: lineHeight)
+        line.animate(.duration(0),
+                     .size(CGSize(width: v.width, height: lineHeight)),
+                     .position(CGPoint(x: v.center.x, y: .bottom == lineAlignment ? height - lineHeight / 2 : lineHeight / 2)))
     }
 }
 
@@ -390,11 +399,11 @@ fileprivate extension TabBar {
                         }
                         
                         completion?(tabItem)
-            })
+                     })
         
-        if !scrollView.bounds.contains(tabItem.frame) {
-            let contentOffsetX = (tabItem.x < scrollView.bounds.minX) ? tabItem.x : tabItem.frame.maxX - scrollView.bounds.width
-            let normalizedOffsetX = min(max(contentOffsetX, 0), scrollView.contentSize.width - scrollView.bounds.width)
+        if !scrollView.frame.contains(tabItem.frame) {
+            let contentOffsetX = (tabItem.x < scrollView.frame.minX) ? tabItem.x : tabItem.frame.maxX - scrollView.width
+            let normalizedOffsetX = min(max(contentOffsetX, 0), scrollView.contentSize.width - scrollView.width)
             scrollView.setContentOffset(CGPoint(x: normalizedOffsetX, y: 0), animated: true)
         }
     }

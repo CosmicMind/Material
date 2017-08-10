@@ -161,6 +161,7 @@ open class TabBarController: UIViewController {
     open func prepare() {
         view.backgroundColor = .white
         view.contentScaleFactor = Screen.scale
+        
         prepareTabBar()
         prepareTabBarItems()
         prepareContainer()

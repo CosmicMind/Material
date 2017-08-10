@@ -119,10 +119,16 @@ open class ChipBar: Bar {
     /// The total width of the chipItems.
     fileprivate var chipItemsTotalWidth: CGFloat {
         var w: CGFloat = 0
+        let q = 2 * chipItemsInterimSpace
+        let p = q + chipItemsInterimSpace
         
         for v in chipItems {
-            w += v.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: contentView.height)).width + interimSpace
+            let x = v.sizeThatFits(CGSize(width: .greatestFiniteMagnitude, height: scrollView.height)).width
+            w += x
+            w += p
         }
+        
+        w -= chipItemsInterimSpace
         
         return w
     }
@@ -149,9 +155,6 @@ open class ChipBar: Bar {
     
     /// A delegation reference.
     open weak var delegate: ChipBarDelegate?
-    
-    /// The currently selected chipItem.
-    open fileprivate(set) var selected: ChipItem?
     
     /// A preset wrapper around chipItems contentEdgeInsets.
     open var chipItemsContentEdgeInsetsPreset: EdgeInsetsPreset {
@@ -266,13 +269,15 @@ fileprivate extension ChipBar {
 fileprivate extension ChipBar {
     /// Layout the scrollView.
     func layoutScrollView() {
-        if .scrollable == chipBarStyle || (.auto == chipBarStyle && chipItemsTotalWidth > bounds.width) {
+        contentView.grid.reload()
+        
+        if .scrollable == chipBarStyle || (.auto == chipBarStyle && chipItemsTotalWidth > scrollView.width) {
             var w: CGFloat = 0
             let q = 2 * chipItemsInterimSpace
             let p = q + chipItemsInterimSpace
             
             for v in chipItems {
-                let x = v.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: scrollView.height)).width
+                let x = v.sizeThatFits(CGSize(width: .greatestFiniteMagnitude, height: scrollView.height)).width
                 v.height = scrollView.height
                 v.width = x + q
                 v.x = w
@@ -296,7 +301,7 @@ fileprivate extension ChipBar {
             scrollView.grid.contentEdgeInsets = chipItemsContentEdgeInsets
             scrollView.grid.interimSpace = chipItemsInterimSpace
             scrollView.grid.commit()
-            scrollView.contentSize = scrollView.bounds.size
+            scrollView.contentSize = scrollView.frame.size
         }
     }
 }
@@ -346,12 +351,11 @@ fileprivate extension ChipBar {
             delegate?.chipBar?(chipBar: self, willSelect: chipItem)
         }
         
-        selected = chipItem
         isAnimating = true
         
-        if !scrollView.bounds.contains(chipItem.frame) {
-            let contentOffsetX = (chipItem.x < scrollView.bounds.minX) ? chipItem.x : chipItem.frame.maxX - scrollView.bounds.width
-            let normalizedOffsetX = min(max(contentOffsetX, 0), scrollView.contentSize.width - scrollView.bounds.width)
+        if !scrollView.frame.contains(chipItem.frame) {
+            let contentOffsetX = (chipItem.x < scrollView.frame.minX) ? chipItem.x : chipItem.frame.maxX - scrollView.width
+            let normalizedOffsetX = min(max(contentOffsetX, 0), scrollView.contentSize.width - scrollView.width)
             scrollView.setContentOffset(CGPoint(x: normalizedOffsetX, y: 0), animated: true)
         }
     }
