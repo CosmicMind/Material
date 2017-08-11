@@ -36,7 +36,6 @@ fileprivate var TabItemKey: UInt8 = 0
 public enum TabBarAlignment: Int {
     case top
     case bottom
-    case hidden
 }
 
 extension UIViewController {
@@ -64,7 +63,7 @@ extension UIViewController {
     }
 }
 
-open class TabBarController: UIViewController {
+open class TabBarController: TransitionController {
     /**
      A Display value to indicate whether or not to
      display the rootViewController to the full view
@@ -80,19 +79,13 @@ open class TabBarController: UIViewController {
     @IBInspectable
     open let tabBar = TabBar()
     
-    @IBInspectable
-    public let container = UIView()
-    
     /// An Array of UIViewControllers.
     open var viewControllers: [UIViewController] {
         didSet {
-            oldValue.forEach { [weak self] in
-                self?.removeViewController(viewController: $0)
-            }
+            selectedIndex = 0
             
+            prepareRootViewController()
             prepareTabBar()
-            prepareContainer()
-            prepareViewControllers()
             layoutSubviews()
         }
     }
@@ -107,9 +100,6 @@ open class TabBarController: UIViewController {
             layoutSubviews()
         }
     }
-    
-    /// The transition type used during a transition.
-    open var motionTransitionType = MotionTransitionType.fade
     
     /**
      An initializer that initializes the object with a NSCoder object.
@@ -130,6 +120,11 @@ open class TabBarController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
+    fileprivate override init(rootViewController: UIViewController) {
+        self.viewControllers = []
+        super.init(rootViewController: rootViewController)
+    }
+    
     open override func viewDidLoad() {
         super.viewDidLoad()
         prepare()
@@ -140,39 +135,60 @@ open class TabBarController: UIViewController {
         layoutSubviews()
     }
     
-    /**
-     To execute in the order of the layout chain, override this
-     method. `layoutSubviews` should be called immediately, unless you
-     have a certain need.
-     */
-    open func layoutSubviews() {
+    open override func layoutSubviews() {
+        super.layoutSubviews()
         layoutTabBar()
         layoutContainer()
         layoutViewController(at: selectedIndex)
     }
     
-    /**
-     Prepares the view instance when intialized. When subclassing,
-     it is recommended to override the prepare method
-     to initialize property values and other setup operations.
-     The super.prepare method should always be called immediately
-     when subclassing.
-     */
-    open func prepare() {
+    open override func prepare() {
+        super.prepare()
         view.backgroundColor = .white
         view.contentScaleFactor = Screen.scale
         
+        prepareViewControllers()
         prepareTabBar()
         prepareTabBarItems()
-        prepareContainer()
-        prepareViewControllers()
     }
 }
 
+internal extension TabBarController {
+    override func prepareRootViewController() {
+        rootViewController = viewControllers[selectedIndex]
+    }
+}
+
+
 fileprivate extension TabBarController {
-    /// Prepares the container view.
-    func prepareContainer() {
-        view.addSubview(container)
+    /// Prepares all the view controllers.
+    func prepareViewControllers() {
+        for i in 0..<viewControllers.count {
+            guard i != selectedIndex else {
+                continue
+            }
+            
+            viewControllers[i].view.isHidden = true
+            prepareViewController(at: i)
+        }
+        
+        prepareViewController(at: selectedIndex)
+        prepareRootViewController()
+    }
+    
+    /**
+     Loads a view controller based on its index in the viewControllers Array
+     and adds it as a child view controller.
+     - Parameter at index: An Int for the viewControllers index.
+     */
+    func prepareViewController(at index: Int) {
+        let v = viewControllers[index]
+        
+        guard !childViewControllers.contains(v) else {
+            return
+        }
+        
+        prepare(viewController: v, in: container)
     }
     
     /// Prepares the TabBar.
@@ -194,47 +210,11 @@ fileprivate extension TabBarController {
         
         tabBar.tabItems = tabItems
     }
-    
-    /// Prepares all the view controllers. 
-    func prepareViewControllers() {
-        for i in 0..<viewControllers.count {
-            guard i != selectedIndex else {
-                continue
-            }
-            
-            viewControllers[i].view.isHidden = true
-            prepareViewController(at: i)
-        }
-        
-        prepareViewController(at: selectedIndex)
-    }
-    
-    /**
-     Loads a view controller based on its index in the viewControllers Array
-     and adds it as a child view controller.
-     - Parameter at index: An Int for the viewControllers index.
-     */
-    func prepareViewController(at index: Int) {
-        let vc = viewControllers[index]
-        
-        guard !childViewControllers.contains(vc) else {
-            return
-        }
-        
-        addChildViewController(vc)
-        vc.didMove(toParentViewController: self)
-        vc.isMotionEnabled = true
-        vc.view.clipsToBounds = true
-        vc.view.contentScaleFactor = Screen.scale
-        container.addSubview(vc.view)
-    }
 }
 
 fileprivate extension TabBarController {
     /// Layout the container.
     func layoutContainer() {
-        tabBar.width = view.width
-        
         switch displayStyle {
         case .partial:
             let p = tabBar.height
@@ -247,9 +227,6 @@ fileprivate extension TabBarController {
             case .bottom:
                 container.y = 0
                 container.height = y
-            case .hidden:
-                container.y = 0
-                container.height = view.height
             }
          
             container.width = view.width
@@ -261,42 +238,18 @@ fileprivate extension TabBarController {
     
     /// Layout the tabBar.
     func layoutTabBar() {
+        tabBar.x = 0
+        tabBar.y = .top == tabBarAlignment ? 0 : view.height - tabBar.height
         tabBar.width = view.width
-        
-        switch tabBarAlignment {
-        case .top:
-            tabBar.isHidden = false
-            tabBar.y = 0
-        case .bottom:
-            tabBar.isHidden = false
-            tabBar.y = view.height - tabBar.height
-        case .hidden:
-            tabBar.isHidden = true
-        }
     }
     
     /// Layout the view controller at the given index.
     func layoutViewController(at index: Int) {
-        viewControllers[index].view.frame.size = container.bounds.size
+        rootViewController.view.frame = container.bounds
     }
 }
 
 fileprivate extension TabBarController {
-    /**
-     Removes the view controller as a child view controller with
-     the given index.
-     - Parameter at index: An Int for the view controller position.
-     */
-    func removeViewController(at index: Int) {
-        let v = viewControllers[index]
-        
-        guard childViewControllers.contains(v) else {
-            return
-        }
-        
-        removeViewController(viewController: v)
-    }
-    
     /**
      Removes a given view controller from the childViewControllers array.
      - Parameter at index: An Int for the view controller position.
@@ -323,26 +276,12 @@ fileprivate extension TabBarController {
             return
         }
         
-        let fvc = viewControllers[selectedIndex]
-        let tvc = viewControllers[i]
-        
-        tvc.view.isHidden = false
-        tvc.view.frame.size = container.bounds.size
-        tvc.motionModalTransitionType = motionTransitionType
-        
-        view.isUserInteractionEnabled = false
-        Motion.shared.transition(from: fvc, to: tvc, in: container) { [weak self] (isFinished) in
-            guard let s = self else {
-                return
-            }
-            
-            s.view.isUserInteractionEnabled = true
-            
+        transition(to: viewControllers[i]) { [weak self] (isFinished) in
             guard isFinished else {
                 return
             }
             
-            s.selectedIndex = i
+            self?.selectedIndex = i
         }
     }
 }

@@ -266,7 +266,6 @@ fileprivate extension ChipBar {
     
     /// Prepares the scroll view.
     func prepareScrollView() {
-        scrollView.isPagingEnabled = false
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
         centerViews = [scrollView]

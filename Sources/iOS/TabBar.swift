@@ -72,9 +72,6 @@ public enum TabBarStyle: Int {
 }
 
 open class TabBar: Bar {
-    /// A boolean indicating if the TabBar is in an animation state.
-    open fileprivate(set) var isAnimating = false
-    
     /// The total width of the tabItems.
     fileprivate var tabItemsTotalWidth: CGFloat {
         var w: CGFloat = 0
@@ -233,6 +230,7 @@ fileprivate extension TabBar {
         line.zPosition = 10000
         lineColor = Color.blue.base
         lineHeight = 3
+        scrollView.addSubview(line)
     }
     
     /// Prepares the divider.
@@ -269,10 +267,8 @@ fileprivate extension TabBar {
     
     /// Prepares the scroll view. 
     func prepareScrollView() {
-        scrollView.isPagingEnabled = false
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
-        scrollView.addSubview(line)
         centerViews = [scrollView]
     }
 }
@@ -324,7 +320,9 @@ fileprivate extension TabBar {
         
         line.animate(.duration(0),
                      .size(CGSize(width: v.width, height: lineHeight)),
-                     .position(CGPoint(x: v.center.x, y: .bottom == lineAlignment ? height - lineHeight / 2 : lineHeight / 2)))
+                     .position(CGPoint(x: v.x + v.width / 2, y: .bottom == lineAlignment ? height - lineHeight / 2 : lineHeight / 2)))
+        
+//        line.frame = CGRect(x: v.x, y: .bottom == lineAlignment ? scrollView.height - lineHeight : 0, width: v.width, height: lineHeight)
     }
 }
 
@@ -384,18 +382,14 @@ fileprivate extension TabBar {
         }
         
         selectedTabItem = tabItem
-        isAnimating = true
-        
         line.animate(.duration(0.25),
                      .size(CGSize(width: tabItem.width, height: lineHeight)),
-                     .position(CGPoint(x: tabItem.center.x, y: .bottom == lineAlignment ? height - lineHeight / 2 : lineHeight / 2)),
+                     .position(CGPoint(x: tabItem.x + tabItem.width / 2, y: .bottom == lineAlignment ? height - lineHeight / 2 : lineHeight / 2)),
                      .completion { [weak self, isTriggeredByUserInteraction = isTriggeredByUserInteraction, tabItem = tabItem, completion = completion] _ in
                         guard let s = self else {
                             return
                         }
-                        
-                        s.isAnimating = false
-                        
+        
                         if isTriggeredByUserInteraction {
                             s.delegate?.tabBar?(tabBar: s, didSelect: tabItem)
                         }

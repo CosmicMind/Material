@@ -79,6 +79,7 @@ open class TransitionController: UIViewController {
 	}
 	
     /// A reference to the container view.
+    @IBInspectable
     open let container = UIView()
     
 	/**
@@ -87,7 +88,7 @@ open class TransitionController: UIViewController {
      is recommended to use the transitionFromRootViewController
      helper method.
      */
-	open fileprivate(set) var rootViewController: UIViewController!
+	open internal(set) var rootViewController: UIViewController!
 	
     /// The transition type used during a transition.
     open var motionTransitionType = MotionTransitionType.fade
@@ -137,10 +138,14 @@ open class TransitionController: UIViewController {
      to the toViewController has completed.
      */
 	open func transition(to viewController: UIViewController, completion: ((Bool) -> Void)? = nil) {
-        let fvc = rootViewController!
+        guard let fvc = rootViewController else {
+            return
+        }
+        
         let tvc = viewController
         
-        tvc.view.frame.size = view.bounds.size
+        tvc.view.isHidden = false
+        tvc.view.frame = view.bounds
         tvc.motionModalTransitionType = motionTransitionType
         
         view.isUserInteractionEnabled = false
@@ -183,6 +188,7 @@ internal extension TransitionController {
     /// Prepares the container view.
     func prepareContainer() {
         container.frame = view.bounds
+        container.clipsToBounds = true
         container.contentScaleFactor = Screen.scale
         container.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(container)

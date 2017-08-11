@@ -35,7 +35,6 @@ Take a look at [Sample Projects](https://github.com/CosmicMind/Samples) to get y
 - [x] TextField
 - [X] Snackbar
 - [x] TabBar
-- [x] Tabs
 - [X] SearchBar
 - [x] NavigationController
 - [x] NavigationDrawer
