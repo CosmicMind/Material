@@ -72,6 +72,9 @@ public enum TabBarStyle: Int {
 }
 
 open class TabBar: Bar {
+    /// Only for inital load to get the line animation correct.
+    fileprivate var shouldNotAnimateLineView = false
+    
     /// The total width of the tabItems.
     fileprivate var tabItemsTotalWidth: CGFloat {
         var w: CGFloat = 0
@@ -241,6 +244,8 @@ fileprivate extension TabBar {
     
     /// Prepares the tabItems.
     func prepareTabItems() {
+        shouldNotAnimateLineView = true
+        
         for v in tabItems {
             v.grid.columns = 0
             v.contentEdgeInsets = .zero
@@ -318,11 +323,16 @@ fileprivate extension TabBar {
             return
         }
         
-        line.animate(.duration(0),
-                     .size(CGSize(width: v.width, height: lineHeight)),
-                     .position(CGPoint(x: v.x + v.width / 2, y: .bottom == lineAlignment ? height - lineHeight / 2 : lineHeight / 2)))
+        guard shouldNotAnimateLineView else {
+            line.animate(.duration(0),
+                         .size(CGSize(width: v.width, height: lineHeight)),
+                         .position(CGPoint(x: v.center.x, y: .bottom == lineAlignment ? height - lineHeight / 2 : lineHeight / 2)))
+            return
+        }
         
-//        line.frame = CGRect(x: v.x, y: .bottom == lineAlignment ? scrollView.height - lineHeight : 0, width: v.width, height: lineHeight)
+        line.frame = CGRect(x: v.x, y: .bottom == lineAlignment ? scrollView.height - lineHeight : 0, width: v.width, height: lineHeight)
+        
+        shouldNotAnimateLineView = false
     }
 }
 
@@ -382,9 +392,10 @@ fileprivate extension TabBar {
         }
         
         selectedTabItem = tabItem
+        
         line.animate(.duration(0.25),
                      .size(CGSize(width: tabItem.width, height: lineHeight)),
-                     .position(CGPoint(x: tabItem.x + tabItem.width / 2, y: .bottom == lineAlignment ? height - lineHeight / 2 : lineHeight / 2)),
+                     .position(CGPoint(x: tabItem.center.x, y: .bottom == lineAlignment ? height - lineHeight / 2 : lineHeight / 2)),
                      .completion { [weak self, isTriggeredByUserInteraction = isTriggeredByUserInteraction, tabItem = tabItem, completion = completion] _ in
                         guard let s = self else {
                             return

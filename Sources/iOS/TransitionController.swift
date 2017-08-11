@@ -128,7 +128,7 @@ open class TransitionController: UIViewController {
 		super.viewWillLayoutSubviews()
 		layoutSubviews()
 	}
-	
+    
 	/**
      A method to swap rootViewController objects.
      - Parameter toViewController: The UIViewController to swap
