@@ -4,7 +4,7 @@
 
 Welcome to **Material,** a Material Design library used to create beautiful applications. Material's animation system has been completely reworked to take advantage of [Motion](https://github.com/CosmicMind/Motion), a library dedicated to animations and transitions.
 
-## Help Material Provide More
+## Help Material Grow
 
 Hi, I'd like to personally thank everyone who has helped Material grow to an awesome and fun technology for all. To further grow and take our products to the next stage, it would be appreciated if we can all help and share the costs. A small donation would go a very long way for everyone. Thank you, Daniel Dahan
 
