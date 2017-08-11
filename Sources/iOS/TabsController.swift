@@ -54,16 +54,16 @@ extension UIViewController {
 
 extension UIViewController {
     /**
-     A convenience property that provides access to the TabBarController.
-     This is the recommended method of accessing the TabBarController
+     A convenience property that provides access to the TabsController.
+     This is the recommended method of accessing the TabsController
      through child UIViewControllers.
      */
-    public var tabsController: TabBarController? {
+    public var tabsController: TabsController? {
         return traverseViewControllerHierarchyForClassType()
     }
 }
 
-open class TabBarController: TransitionController {
+open class TabsController: TransitionController {
     /**
      A Display value to indicate whether or not to
      display the rootViewController to the full view
@@ -92,7 +92,7 @@ open class TabBarController: TransitionController {
     
     /// A reference to the currently selected view controller index value.
     @IBInspectable
-    open var selectedIndex = 0
+    open fileprivate(set) var selectedIndex = 0
     
     /// The tabBar alignment.
     open var tabBarAlignment = TabBarAlignment.bottom {
@@ -139,7 +139,7 @@ open class TabBarController: TransitionController {
         super.layoutSubviews()
         layoutTabBar()
         layoutContainer()
-        layoutViewController(at: selectedIndex)
+        layoutRootViewController()
     }
     
     open override func prepare() {
@@ -153,14 +153,14 @@ open class TabBarController: TransitionController {
     }
 }
 
-internal extension TabBarController {
+internal extension TabsController {
     override func prepareRootViewController() {
         rootViewController = viewControllers[selectedIndex]
     }
 }
 
 
-fileprivate extension TabBarController {
+fileprivate extension TabsController {
     /// Prepares all the view controllers.
     func prepareViewControllers() {
         for i in 0..<viewControllers.count {
@@ -212,7 +212,7 @@ fileprivate extension TabBarController {
     }
 }
 
-fileprivate extension TabBarController {
+fileprivate extension TabsController {
     /// Layout the container.
     func layoutContainer() {
         switch displayStyle {
@@ -243,13 +243,13 @@ fileprivate extension TabBarController {
         tabBar.width = view.width
     }
     
-    /// Layout the view controller at the given index.
-    func layoutViewController(at index: Int) {
+    /// Layout the rootViewController.
+    func layoutRootViewController() {
         rootViewController.view.frame = container.bounds
     }
 }
 
-fileprivate extension TabBarController {
+fileprivate extension TabsController {
     /**
      Removes a given view controller from the childViewControllers array.
      - Parameter at index: An Int for the view controller position.
@@ -261,7 +261,7 @@ fileprivate extension TabBarController {
     }
 }
 
-fileprivate extension TabBarController {
+fileprivate extension TabsController {
     /**
      Handles the tabItem.
      - Parameter tabItem: A TabItem.

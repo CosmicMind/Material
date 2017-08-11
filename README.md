@@ -34,7 +34,8 @@ Take a look at [Sample Projects](https://github.com/CosmicMind/Samples) to get y
 - [x] Icons
 - [x] TextField
 - [X] Snackbar
-- [x] TabBar
+- [x] Tabs
+- [x] Chips
 - [X] SearchBar
 - [x] NavigationController
 - [x] NavigationDrawer
@@ -154,13 +155,13 @@ A SearchBar is a powerful navigation tool that allows for user's input with an i
 
 * [SearchBar Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/Search)
 
-## TabBar
+## Tabs
 
-TabBar is a new component that links a customizable TabBar to a stack of view controllers making a powerful and visually pleasing component to have in any application.
+Tabs is a new component that links a customizable TabBar to a stack of view controllers making a powerful and visually pleasing component to have in any application.
 
-![TabBar](http://www.cosmicmind.com/material/white/page-tab-bar-controller.gif)
+![Tabs](http://www.cosmicmind.com/material/white/page-tab-bar-controller.gif)
 
-* [TabBar Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/TabBarController)
+* [Tabs Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/TabsController)
 
 ## NavigationController
 

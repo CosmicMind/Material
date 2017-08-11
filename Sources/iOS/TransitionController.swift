@@ -145,7 +145,7 @@ open class TransitionController: UIViewController {
         let tvc = viewController
         
         tvc.view.isHidden = false
-        tvc.view.frame = view.bounds
+        tvc.view.frame = container.bounds
         tvc.motionModalTransitionType = motionTransitionType
         
         view.isUserInteractionEnabled = false
