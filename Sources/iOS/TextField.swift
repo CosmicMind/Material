@@ -40,27 +40,27 @@ public enum TextFieldPlaceholderAnimation: Int {
 public protocol TextFieldDelegate: UITextFieldDelegate {
     /**
      A delegation method that is executed when the textField changed.
-     - Parameter textField: A UITextField.
+     - Parameter textField: A TextField.
      - Parameter didChange text: An optional String.
      */
     @objc
-    optional func textField(textField: UITextField, didChange text: String?)
+    optional func textField(textField: TextField, didChange text: String?)
 
     /**
      A delegation method that is executed when the textField will clear.
-     - Parameter textField: A UITextField.
+     - Parameter textField: A TextField.
      - Parameter willClear text: An optional String.
      */
     @objc
-    optional func textField(textField: UITextField, willClear text: String?)
+    optional func textField(textField: TextField, willClear text: String?)
     
     /**
      A delegation method that is executed when the textField is cleared.
-     - Parameter textField: A UITextField.
+     - Parameter textField: A TextField.
      - Parameter didClear text: An optional String.
      */
     @objc
-    optional func textField(textField: UITextField, didClear text: String?)
+    optional func textField(textField: TextField, didClear text: String?)
 }
 
 open class TextField: UITextField {
