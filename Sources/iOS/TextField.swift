@@ -283,7 +283,7 @@ open class TextField: UITextField {
             clearButtonMode = .never
             rightViewMode = .whileEditing
             rightView = clearIconButton
-            isClearIconButtonAutoHandled = isClearIconButtonAutoHandled ? true : false
+            isClearIconButtonAutoHandled = { isClearIconButtonAutoHandled }()
             
             layoutSubviews()
 		}
@@ -330,7 +330,7 @@ open class TextField: UITextField {
             clearButtonMode = .never
             rightViewMode = .whileEditing
             rightView = visibilityIconButton
-            isVisibilityIconButtonAutoHandled = isVisibilityIconButtonAutoHandled ? true : false
+            isVisibilityIconButtonAutoHandled = { isVisibilityIconButtonAutoHandled }()
             
             layoutSubviews()
 		}
@@ -338,7 +338,7 @@ open class TextField: UITextField {
 	
 	/// Enables the automatic handling of the visibilityIconButton.
 	@IBInspectable
-    open var isVisibilityIconButtonAutoHandled: Bool = true {
+    open var isVisibilityIconButtonAutoHandled = true {
 		didSet {
 			visibilityIconButton?.removeTarget(self, action: #selector(handleVisibilityIconButton), for: .touchUpInside)
 			
@@ -428,21 +428,21 @@ open class TextField: UITextField {
 	}
 }
 
-extension TextField {
+fileprivate extension TextField {
     /// Prepares the divider.
-    fileprivate func prepareDivider() {
+    func prepareDivider() {
         dividerColor = dividerNormalColor
     }
     
     /// Prepares the placeholderLabel.
-    fileprivate func preparePlaceholderLabel() {
+    func preparePlaceholderLabel() {
         placeholderNormalColor = Color.darkText.others
         placeholderLabel.backgroundColor = .clear
         addSubview(placeholderLabel)
     }
     
     /// Prepares the detailLabel.
-    fileprivate func prepareDetailLabel() {
+    func prepareDetailLabel() {
         detailLabel.font = RobotoFont.regular(with: 12)
         detailLabel.numberOfLines = 0
         detailColor = Color.darkText.others
@@ -450,46 +450,46 @@ extension TextField {
     }
     
     /// Prepares the leftView.
-    fileprivate func prepareLeftView() {
+    func prepareLeftView() {
         leftView?.contentMode = .left
         leftViewMode = .always
         updateLeftViewColor()
     }
     
     /// Prepares the target handlers.
-    fileprivate func prepareTargetHandlers() {
+    func prepareTargetHandlers() {
         addTarget(self, action: #selector(handleEditingDidBegin), for: .editingDidBegin)
         addTarget(self, action: #selector(handleEditingChanged), for: .editingChanged)
         addTarget(self, action: #selector(handleEditingDidEnd), for: .editingDidEnd)
     }
     
     /// Prepares the textAlignment.
-    fileprivate func prepareTextAlignment() {
+    func prepareTextAlignment() {
         textAlignment = .rightToLeft == Application.userInterfaceLayoutDirection ? .right : .left
     }
 }
 
-extension TextField {
+fileprivate extension TextField {
     /// Updates the leftView tint color.
-    fileprivate func updateLeftViewColor() {
+    func updateLeftViewColor() {
         leftView?.tintColor = isEditing ? leftViewActiveColor : leftViewNormalColor
     }
     
     /// Updates the placeholderLabel text color.
-    fileprivate func updatePlaceholderLabelColor() {
+    func updatePlaceholderLabelColor() {
         tintColor = placeholderActiveColor
         placeholderLabel.textColor = isEditing ? placeholderActiveColor : placeholderNormalColor
     }
     
     /// Updates the detailLabel text color.
-    fileprivate func updateDetailLabelColor() {
+    func updateDetailLabelColor() {
         detailLabel.textColor = detailColor
     }
 }
 
-extension TextField {
+fileprivate extension TextField {
     /// Layout the placeholderLabel.
-    fileprivate func layoutPlaceholderLabel() {
+    func layoutPlaceholderLabel() {
         let w = leftViewWidth + textInset
         let h = 0 == height ? intrinsicContentSize.height : height
         
@@ -515,7 +515,7 @@ extension TextField {
     }
     
     /// Layout the detailLabel.
-    fileprivate func layoutDetailLabel() {
+    func layoutDetailLabel() {
         let c = dividerContentEdgeInsets
         detailLabel.height = detailLabel.sizeThatFits(CGSize(width: width, height: .greatestFiniteMagnitude)).height
         detailLabel.x = c.left
@@ -524,12 +524,12 @@ extension TextField {
     }
     
     /// Layout the a button.
-    fileprivate func layoutButton(button: UIButton?) {
+    func layoutButton(button: UIButton?) {
         button?.frame = CGRect(x: width - height, y: 0, width: height, height: height)
     }
     
     /// Layout the leftView.
-    fileprivate func layoutLeftView() {
+    func layoutLeftView() {
         guard let v = leftView else {
             return
         }
@@ -540,10 +540,10 @@ extension TextField {
     }
 }
 
-extension TextField {
+fileprivate extension TextField {
     /// Handles the text editing did begin state.
     @objc
-    fileprivate func handleEditingDidBegin() {
+    func handleEditingDidBegin() {
         leftViewEditingBeginAnimation()
         placeholderEditingDidBeginAnimation()
         dividerEditingDidBeginAnimation()
@@ -551,13 +551,13 @@ extension TextField {
     
     // Live updates the textField text.
     @objc
-    fileprivate func handleEditingChanged(textField: UITextField) {
+    func handleEditingChanged(textField: UITextField) {
         (delegate as? TextFieldDelegate)?.textField?(textField: self, didChange: textField.text)
     }
     
     /// Handles the text editing did end state.
     @objc
-    fileprivate func handleEditingDidEnd() {
+    func handleEditingDidEnd() {
         leftViewEditingEndAnimation()
         placeholderEditingDidEndAnimation()
         dividerEditingDidEndAnimation()
@@ -565,7 +565,7 @@ extension TextField {
     
     /// Handles the clearIconButton TouchUpInside event.
     @objc
-    fileprivate func handleClearIconButton() {
+    func handleClearIconButton() {
         guard nil == delegate?.textFieldShouldClear || true == delegate?.textFieldShouldClear?(self) else {
             return
         }
@@ -581,7 +581,7 @@ extension TextField {
     
     /// Handles the visibilityIconButton TouchUpInside event.
     @objc
-    fileprivate func handleVisibilityIconButton() {
+    func handleVisibilityIconButton() {
         isSecureTextEntry = !isSecureTextEntry
         
         if !isSecureTextEntry {

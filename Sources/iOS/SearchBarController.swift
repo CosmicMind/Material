@@ -30,6 +30,12 @@
 
 import UIKit
 
+@objc(SearchBarAlignment)
+public enum SearchBarAlignment: Int {
+    case top
+    case bottom
+}
+
 public extension UIViewController {
     /**
      A convenience property that provides access to the SearchBarController.
@@ -46,6 +52,13 @@ open class SearchBarController: StatusBarController {
     @IBInspectable
     open let searchBar = SearchBar()
 	
+    /// The searchBar alignment.
+    open var searchBarAlignment = SearchBarAlignment.top {
+        didSet {
+            layoutSubviews()
+        }
+    }
+    
 	open override func layoutSubviews() {
 		super.layoutSubviews()
         
@@ -56,6 +69,8 @@ open class SearchBarController: StatusBarController {
         
         switch displayStyle {
         case .partial:
+            
+            
             let h = y + searchBar.height
             container.y = h
             container.height = view.height - h
@@ -75,14 +90,14 @@ open class SearchBarController: StatusBarController {
 	}
 }
 
-extension SearchBarController {
+fileprivate extension SearchBarController {
     /// Prepares the statusBar.
-    fileprivate func prepareStatusBar() {
+    func prepareStatusBar() {
         shouldHideStatusBarOnRotation = false
     }
     
     /// Prepares the searchBar.
-    fileprivate func prepareSearchBar() {
+    func prepareSearchBar() {
         searchBar.depthPreset = .depth1
         searchBar.zPosition = 1000
         view.addSubview(searchBar)
