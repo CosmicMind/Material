@@ -74,8 +74,13 @@ open class StatusBarController: TransitionController {
         }
     }
     
+    /// An adjustment based on the rules for displaying the statusBar.
+    open var statusBarOffsetAdjustment: CGFloat {
+        return Application.shouldStatusBarBeHidden || statusBar.isHidden ? 0 : statusBar.height
+    }
+    
     /// A boolean that indicates to hide the statusBar on rotation.
-    open var shouldHideStatusBarOnRotation = true
+    open var shouldHideStatusBarOnRotation = false
     
     /// A reference to the statusBar.
     open let statusBar = UIView()
@@ -99,7 +104,9 @@ open class StatusBarController: TransitionController {
         }
         
         rootViewController.view.frame = container.bounds
-	}
+        
+        container.zPosition = statusBar.zPosition + (Application.shouldStatusBarBeHidden ? 1 : -1)
+    }
 	
 	open override func prepare() {
         super.prepare()

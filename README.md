@@ -18,8 +18,6 @@ Take a look at a sample [Photos](https://github.com/CosmicMind/Samples/tree/mast
 
 ![Photos](http://www.cosmicmind.com/motion/projects/photos.gif)
 
-* [Photos Sample](https://github.com/CosmicMind/Samples/tree/master/Projects/Programmatic/Photos)
-
 ## Sample Projects
 
 Take a look at [Sample Projects](https://github.com/CosmicMind/Samples) to get your projects started.

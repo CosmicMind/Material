@@ -30,6 +30,12 @@
 
 import UIKit
 
+@objc(ToolbarAlignment)
+public enum ToolbarAlignment: Int {
+    case top
+    case bottom
+}
+
 public extension UIViewController {
     /**
      A convenience property that provides access to the ToolbarController.
@@ -47,6 +53,13 @@ open class ToolbarController: StatusBarController {
     @IBInspectable
     open let toolbar = Toolbar()
     
+    /// The toolbar alignment.
+    open var toolbarAlignment = ToolbarAlignment.top {
+        didSet {
+            layoutSubviews()
+        }
+    }
+    
     open override func layoutSubviews() {
 		super.layoutSubviews()
         layoutToolbar()
@@ -57,42 +70,50 @@ open class ToolbarController: StatusBarController {
 	open override func prepare() {
 		super.prepare()
         displayStyle = .partial
-        
-        prepareStatusBar()
+    
         prepareToolbar()
 	}
 }
 
 fileprivate extension ToolbarController {
-    /// Prepares the statusBar.
-    func prepareStatusBar() {
-        shouldHideStatusBarOnRotation = false
-    }
-
     /// Prepares the toolbar.
     func prepareToolbar() {
+        toolbar.zPosition = 1000
         toolbar.depthPreset = .depth1
         view.addSubview(toolbar)
     }
 }
 
 fileprivate extension ToolbarController {
-    /// Layout the toolbar.
-    func layoutToolbar() {
-        toolbar.y = Application.shouldStatusBarBeHidden || statusBar.isHidden ? 0 : statusBar.height
-        toolbar.width = view.width
-    }
-    
     /// Layout the container.
     func layoutContainer() {
         switch displayStyle {
         case .partial:
-            let h = toolbar.y + toolbar.height
-            container.y = h
-            container.height = view.height - h
+            let p = toolbar.height
+            let q = statusBarOffsetAdjustment
+            let h = view.height - p - q
+            
+            switch toolbarAlignment {
+            case .top:
+                container.y = q + p
+                container.height = h
+            case .bottom:
+                container.y = q
+                container.height = h
+            }
+            
+            container.width = view.width
+            
         case .full:
             container.frame = view.bounds
         }
+    }
+    
+    /// Layout the toolbar.
+    func layoutToolbar() {
+        toolbar.x = 0
+        toolbar.y = .top == toolbarAlignment ? statusBarOffsetAdjustment : view.height - toolbar.height
+        toolbar.width = view.width
     }
     
     /// Layout the rootViewController.
