@@ -53,6 +53,10 @@ open class FABMenuItem: View {
         prepareTitleLabel()
     }
     
+    public override class var themeables: [String] {
+        return [#keyPath(titleLabel.textColor)]
+    }
+    
     /// A reference to the titleLabel text.
     open var title: String? {
         get {
