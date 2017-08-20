@@ -142,6 +142,7 @@ open class View: UIView {
         contentsGravityPreset = .resizeAspectFill
 		super.init(coder: aDecoder)
 		prepare()
+        applyTheming()
 	}
 	
 	/**
@@ -154,12 +155,14 @@ open class View: UIView {
 		contentsGravityPreset = .resizeAspectFill
         super.init(frame: frame)
 		prepare()
+        applyTheming()
 	}
     
     /// Convenience initializer.
     public convenience init() {
         self.init(frame: .zero)
         prepare()
+        applyTheming()
     }
 	
 	open override func layoutSubviews() {
@@ -181,6 +184,10 @@ open class View: UIView {
 		backgroundColor = .white
 		prepareVisualLayer()
 	}
+    
+    public class var themeables: [String] {
+        return [#keyPath(backgroundColor)]
+    }
 }
 
 extension View {
@@ -199,3 +206,5 @@ extension View {
         visualLayer.cornerRadius = cornerRadius
     }
 }
+
+extension View: Themeable { }
