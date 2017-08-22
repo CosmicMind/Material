@@ -10,7 +10,7 @@
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "0F44C283-777E-4E3F-9E10-FC52C3C270CE",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "9CF35BC641478FBD765F7442D4034ED362261E0A" : "Material\/",
-    "0F3E254D46E5A5B90D1542854F510B7D145A9F31" : "Material\/Frameworks\/Motion\/"
+    "0F3E254D46E5A5B90D1542854F510B7D145A9F31" : "Material\/Sources\/Frameworks\/Motion\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "Material",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,

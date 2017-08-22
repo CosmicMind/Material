@@ -166,7 +166,7 @@ public extension MotionContext {
         if let v = viewToSnapshot[view] {
             return v
         }
-
+        
         var containerView = container
         let coordinateSpace = viewToTargetState[view]?.coordinateSpace ?? defaultCoordinateSpace
         
@@ -311,7 +311,6 @@ public extension MotionContext {
             let nextSiblings = siblingViews[siblingViews.index(of: pairedView)!+1..<siblingViews.count]
             
             containerView.addSubview(pairedSnapshot)
-            containerView.addSubview(snapshot)
             
             for subview in pairedView.subviews {
                 insertGlobalViewTree(view: subview)
@@ -320,9 +319,6 @@ public extension MotionContext {
             for sibling in nextSiblings {
                 insertGlobalViewTree(view: sibling)
             }
-            
-        } else {
-            containerView.addSubview(snapshot)
         }
         
         containerView.addSubview(snapshot)

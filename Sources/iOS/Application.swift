@@ -31,17 +31,22 @@
 import UIKit
 
 public struct Application {
-    /// A reference to the main UIWindow.
+    /// An optional reference to the main UIWindow.
     public static var keyWindow: UIWindow? {
         return UIApplication.shared.keyWindow
     }
     
-    /// A Boolean indicating if the device is in Landscape mode.
+    /// An optional reference to the top most view controller.
+    public static var rootViewController: UIViewController? {
+        return keyWindow?.rootViewController
+    }
+    
+    /// A boolean indicating if the device is in Landscape mode.
     public static var isLandscape: Bool {
         return UIApplication.shared.statusBarOrientation.isLandscape
     }
     
-    /// A Boolean indicating if the device is in Portrait mode.
+    /// A boolean indicating if the device is in Portrait mode.
     public static var isPortrait: Bool {
         return !isLandscape
     }

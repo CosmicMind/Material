@@ -31,7 +31,7 @@ internal struct AssociatedObject {
      - Parameter initializer: Object initializer.
      - Returns: The associated reference for the initializer object.
      */
-    public static func get<T: Any>(base: Any, key: UnsafePointer<UInt8>, initializer: () -> T) -> T {
+    static func get<T: Any>(base: Any, key: UnsafePointer<UInt8>, initializer: () -> T) -> T {
         if let v = objc_getAssociatedObject(base, key) as? T {
             return v
         }
@@ -48,7 +48,7 @@ internal struct AssociatedObject {
      - Parameter value: The object instance to set for the associated object.
      - Returns: The associated reference for the initializer object.
      */
-    public static func set<T: Any>(base: Any, key: UnsafePointer<UInt8>, value: T) {
+    static func set<T: Any>(base: Any, key: UnsafePointer<UInt8>, value: T) {
         objc_setAssociatedObject(base, key, value, .OBJC_ASSOCIATION_RETAIN)
     }
 }

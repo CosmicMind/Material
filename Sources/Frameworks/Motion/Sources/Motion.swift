@@ -111,13 +111,13 @@ public protocol MotionViewControllerDelegate {
 
 /**
  ### The singleton class/object for controlling interactive transitions.
-
+ 
  ```swift
  Motion.shared
  ```
-
+ 
  #### Use the following methods for controlling the interactive transition:
-
+ 
  ```swift
  func update(progress:Double)
  func end()
@@ -128,16 +128,16 @@ public protocol MotionViewControllerDelegate {
 public class Motion: MotionController {
     /// Shared singleton object for controlling the transition
     public static let shared = Motion()
-
+    
     /// Source view controller.
     public internal(set) var fromViewController: UIViewController?
-
+    
     /// Destination view controller.
     public internal(set) var toViewController: UIViewController?
     
     /// Whether or not we are presenting the destination view controller.
     public internal(set) var isPresenting = true
-
+    
     /// Progress of the current transition, 0 if a transition is not happening.
     public override var elapsedTime: TimeInterval {
         didSet {
@@ -148,22 +148,22 @@ public class Motion: MotionController {
             transitionContext?.updateInteractiveTransition(CGFloat(elapsedTime))
         }
     }
-
+    
     /// Indicates whether the transition is animating or not.
     public var isAnimating = false
-  
+    
     /**
      A UIViewControllerContextTransitioning object provided by UIKit, which
      might be nil when isTransitioning. This happens when calling motionReplaceViewController
      */
     internal weak var transitionContext: UIViewControllerContextTransitioning?
-
+    
     /// A reference to a fullscreen snapshot.
     internal var fullScreenSnapshot: UIView!
-
+    
     /// Default animation type.
     internal var defaultAnimation = MotionTransitionType.auto
-
+    
     /// The color of the transitioning container.
     internal var containerBackgroundColor: UIColor?
     
@@ -173,16 +173,16 @@ public class Motion: MotionController {
      UINavigationController.setViewControllers not able to handle interactive transitions.
      */
     internal var forceNonInteractive = false
-
+    
     /// Inserts the toViews first.
     internal var insertToViewFirst = false
     
     /// Indicates whether a UINavigationController is transitioning.
     internal var isNavigationController = false
-  
+    
     /// Indicates whether a UITabBarController is transitioning.
     internal var isTabBarController = false
-  
+    
     /// Indicates whether a UINavigationController or UITabBarController is transitioning.
     internal var isContainerController: Bool {
         return isNavigationController || isTabBarController
@@ -205,7 +205,7 @@ public class Motion: MotionController {
         
         return !isContainerController && (.overFullScreen == v.modalPresentationStyle || .overCurrentContext == v.modalPresentationStyle)
     }
-
+    
     /// A reference to the fromView, fromViewController.view.
     internal var fromView: UIView? {
         return fromViewController?.view
@@ -215,7 +215,7 @@ public class Motion: MotionController {
     internal var toView: UIView? {
         return toViewController?.view
     }
-
+    
     /// An initializer.
     internal override init() {
         super.init()
@@ -236,7 +236,7 @@ public extension Motion {
     func setAnimationForNextTransition(_ animation: MotionTransitionType) {
         defaultAnimation = animation
     }
-
+    
     /**
      Set the container background color for the next transition.
      - Parameter _ color: An optional UIColor.
@@ -305,7 +305,7 @@ internal extension Motion {
         context.clean()
         
         if isFinished && isPresenting && toOverFullScreen {
-            // finished presenting a overFullScreen VC
+            // finished presenting a overFullScreen view controller.
             context.unhide(rootView: tv)
             context.removeSnapshots(rootView: tv)
             context.storeViewAlpha(rootView: fv)
@@ -314,7 +314,7 @@ internal extension Motion {
             fv.removeFromSuperview()
             fv.addSubview(c)
         } else if !isFinished && !isPresenting && fromOverFullScreen {
-            // cancelled dismissing a overFullScreen VC
+            // Cancelled dismissing a overFullScreen view controller.
             context.unhide(rootView: fv)
             context.removeSnapshots(rootView: fv)
             context.storeViewAlpha(rootView: tv)
@@ -328,7 +328,7 @@ internal extension Motion {
             c.removeFromSuperview()
         }
         
-        // move fromView & toView back from our container back to the one supplied by UIKit
+        // Move fromView & toView back from our container back to the one supplied by UIKit.
         if (toOverFullScreen && isFinished) || (fromOverFullScreen && !isFinished) {
             tc.addSubview(isFinished ? fv : tv)
         }
@@ -336,7 +336,7 @@ internal extension Motion {
         tc.addSubview(isFinished ? tv : fv)
         
         if isPresenting != isFinished, !isContainerController {
-            // only happens when present a .overFullScreen VC
+            // Only happens when present a .overFullScreen view controller.
             // bug: http://openradar.appspot.com/radar?id=5320103646199808
             UIApplication.shared.keyWindow!.addSubview(isPresenting ? fv : tv)
         }
@@ -418,8 +418,9 @@ fileprivate extension Motion {
         }
         
         context.loadViewAlpha(rootView: tv)
-        context.loadViewAlpha(rootView: fv)
         v.addSubview(tv)
+        
+        context.loadViewAlpha(rootView: fv)
         v.addSubview(fv)
     }
     
@@ -540,11 +541,11 @@ fileprivate extension Motion {
             guard let s = self else {
                 return
             }
-                
+            
             $0.motion?(motion: s, didEndTransitionTo: tvc)
             $0.motionDidEndTransition?(motion: s)
         }
-            
+        
         processForMotionDelegate(viewController: tvc) { [weak self] in
             guard let s = self else {
                 return
@@ -620,7 +621,7 @@ internal extension Motion {
     /**
      A helper transition function.
      - Parameter from: A UIViewController.
-     - Parameter to: A UIViewController. 
+     - Parameter to: A UIViewController.
      - Parameter in view: A UIView.
      - Parameter completion: An optional completion handler.
      */
@@ -654,7 +655,7 @@ internal extension Motion {
             let delegate = v.topViewController as? MotionViewControllerDelegate {
             execute(delegate)
         }
-    
+        
         if let v = viewController as? UITabBarController,
             let delegate = v.viewControllers?[v.selectedIndex] as? MotionViewControllerDelegate {
             execute(delegate)

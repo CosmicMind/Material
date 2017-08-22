@@ -30,75 +30,90 @@
 
 import UIKit
 
-@objc(SearchBarAlignment)
-public enum SearchBarAlignment: Int {
+fileprivate var ChipItemKey: UInt8 = 0
+
+@objc(ChipBarAlignment)
+public enum ChipBarAlignment: Int {
     case top
     case bottom
+    case hidden
 }
 
-public extension UIViewController {
+extension UIViewController {
     /**
-     A convenience property that provides access to the SearchBarController.
-     This is the recommended method of accessing the SearchBarController
+     A convenience property that provides access to the ChipBarController.
+     This is the recommended method of accessing the ChipBarController
      through child UIViewControllers.
      */
-    var searchBarController: SearchBarController? {
+    public var chipsController: ChipBarController? {
         return traverseViewControllerHierarchyForClassType()
     }
 }
 
-open class SearchBarController: StatusBarController {
-    /// Reference to the SearchBar.
-    @IBInspectable
-    open let searchBar = SearchBar()
-	
-    /// The searchBar alignment.
-    open var searchBarAlignment = SearchBarAlignment.top {
+open class ChipBarController: TransitionController {
+    /**
+     A Display value to indicate whether or not to
+     display the rootViewController to the full view
+     bounds, or up to the toolbar height.
+     */
+    open var displayStyle = DisplayStyle.partial {
         didSet {
             layoutSubviews()
         }
     }
     
-	open override func layoutSubviews() {
-		super.layoutSubviews()
-        layoutSearchBar()
+    /// The ChipBar used to switch between view controllers.
+    @IBInspectable
+    open let chipBar = ChipBar()
+    
+    /// The chipBar alignment.
+    open var chipBarAlignment = ChipBarAlignment.bottom {
+        didSet {
+            layoutSubviews()
+        }
+    }
+    
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        layoutChipBar()
         layoutContainer()
         layoutRootViewController()
-	}
-	
-	open override func prepare() {
-		super.prepare()
-        displayStyle = .partial
-        
-    	prepareSearchBar()
-	}
-}
-
-fileprivate extension SearchBarController {
-    /// Prepares the searchBar.
-    func prepareSearchBar() {
-        searchBar.zPosition = 1000
-        searchBar.depthPreset = .depth1
-        view.addSubview(searchBar)
+    }
+    
+    open override func prepare() {
+        super.prepare()
+        prepareChipBar()
     }
 }
 
-fileprivate extension SearchBarController {
+fileprivate extension ChipBarController {
+    /// Prepares the ChipBar.
+    func prepareChipBar() {
+        chipBar.depthPreset = .depth1
+        view.addSubview(chipBar)
+    }
+}
+
+fileprivate extension ChipBarController {
     /// Layout the container.
     func layoutContainer() {
+        chipBar.width = view.width
+        
         switch displayStyle {
         case .partial:
-            let p = searchBar.height
-            let q = statusBarOffsetAdjustment
-            let h = view.height - p - q
+            let p = chipBar.height
+            let y = view.height - p
             
-            switch searchBarAlignment {
+            switch chipBarAlignment {
             case .top:
-                container.y = q + p
-                container.height = h
+                container.y = p
+                container.height = y
             case .bottom:
-                container.y = q
-                container.height = h
+                container.y = 0
+                container.height = y
+            case .hidden:
+                container.y = 0
+                container.height = view.height
             }
             
             container.width = view.width
@@ -108,11 +123,20 @@ fileprivate extension SearchBarController {
         }
     }
     
-    /// Layout the searchBar.
-    func layoutSearchBar() {
-        searchBar.x = 0
-        searchBar.y = .top == searchBarAlignment ? statusBarOffsetAdjustment : view.height - searchBar.height
-        searchBar.width = view.width
+    /// Layout the chipBar.
+    func layoutChipBar() {
+        chipBar.width = view.width
+        
+        switch chipBarAlignment {
+        case .top:
+            chipBar.isHidden = false
+            chipBar.y = 0
+        case .bottom:
+            chipBar.isHidden = false
+            chipBar.y = view.height - chipBar.height
+        case .hidden:
+            chipBar.isHidden = true
+        }
     }
     
     /// Layout the rootViewController.

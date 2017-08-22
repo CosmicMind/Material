@@ -38,19 +38,12 @@ public enum NavigationDrawerPosition: Int {
 
 extension UIViewController {
 	/**
-	A convenience property that provides access to the NavigationDrawerController. 
-	This is the recommended method of accessing the NavigationDrawerController
-	through child UIViewControllers.
-	*/
+     A convenience property that provides access to the NavigationDrawerController.
+     This is the recommended method of accessing the NavigationDrawerController
+     through child UIViewControllers.
+     */
 	public var navigationDrawerController: NavigationDrawerController? {
-		var viewController: UIViewController? = self
-		while nil != viewController {
-			if viewController is NavigationDrawerController {
-				return viewController as? NavigationDrawerController
-			}
-			viewController = viewController?.parent
-		}
-		return nil
+		return traverseViewControllerHierarchyForClassType()
 	}
 }
 
@@ -143,7 +136,7 @@ public protocol NavigationDrawerControllerDelegate {
 }
 
 @objc(NavigationDrawerController)
-open class NavigationDrawerController: RootController {
+open class NavigationDrawerController: TransitionController {
 	/**
      A CGFloat property that is used internally to track
      the original (x) position of the container view when panning.
@@ -415,8 +408,8 @@ open class NavigationDrawerController: RootController {
 		prepare()
 	}
 	
-    open override func transition(to viewController: UIViewController, duration: TimeInterval = 0.5, options: UIViewAnimationOptions = [], animations: (() -> Void)? = nil, completion: ((Bool) -> Void)? = nil) {
-        super.transition(to: viewController, duration: duration, options: options, animations: animations) { [weak self, completion = completion] (result) in
+    open override func transition(to viewController: UIViewController, completion: ((Bool) -> Void)? = nil) {
+        super.transition(to: viewController) { [weak self, completion = completion] (result) in
             guard let s = self else {
                 return
             }
@@ -452,6 +445,8 @@ open class NavigationDrawerController: RootController {
                 vc.view.center = CGPoint(x: rightViewWidth / 2, y: v.bounds.height / 2)
 			}
 		}
+        
+        rootViewController.view.frame = container.bounds
 	}
 	
     open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -976,7 +971,7 @@ extension NavigationDrawerController {
     /// Prepares the contentViewController.
     fileprivate func prepareContentViewController() {
         contentViewController.view.backgroundColor = .black
-        prepare(viewController: contentViewController, withContainer: view)
+        prepare(viewController: contentViewController, in: view)
         view.sendSubview(toBack: contentViewController.view)
     }
     
@@ -986,7 +981,7 @@ extension NavigationDrawerController {
             return
         }
         
-        prepare(viewController: leftViewController, withContainer: v)
+        prepare(viewController: leftViewController, in: v)
     }
     
     /// A method that prepares the rightViewController.
@@ -995,7 +990,7 @@ extension NavigationDrawerController {
             return
         }
         
-        prepare(viewController: rightViewController, withContainer: v)
+        prepare(viewController: rightViewController, in: v)
     }
     
     /// A method that prepares the leftView.
@@ -1046,6 +1041,7 @@ extension NavigationDrawerController {
         
         leftPanGesture = UIPanGestureRecognizer(target: self, action: #selector(handleLeftViewPanGesture(recognizer:)))
         leftPanGesture!.delegate = self
+        leftPanGesture!.cancelsTouchesInView = false
         view.addGestureRecognizer(leftPanGesture!)
     }
     
@@ -1069,6 +1065,7 @@ extension NavigationDrawerController {
         
         rightPanGesture = UIPanGestureRecognizer(target: self, action: #selector(handleRightViewPanGesture(recognizer:)))
         rightPanGesture!.delegate = self
+        rightPanGesture!.cancelsTouchesInView = false
         view.addGestureRecognizer(rightPanGesture!)
     }
     

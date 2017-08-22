@@ -30,7 +30,40 @@
 
 import UIKit
 
-open class RootController: UIViewController {
+internal extension UIViewController {
+    /**
+     Finds a view controller with a given type based on
+     the view controller subclass.
+     - Returns: An optional of type T.
+     */
+    func traverseViewControllerHierarchyForClassType<T: UIViewController>() -> T? {
+        var v: UIViewController? = self
+        while nil != v {
+            if v is T {
+                return v as? T
+            }
+            v = v?.parent as? TransitionController
+        }
+        
+        return Application.rootViewController?.traverseTransitionViewControllerHierarchyForClassType()
+    }
+    
+    /**
+     Traverses the child view controllers to find the correct view controller type T.
+     - Returns: An optional of type T.
+     */
+    func traverseTransitionViewControllerHierarchyForClassType<T: UIViewController>() -> T? {
+        if let v = self as? T {
+            return v
+        } else if let v = self as? TransitionController {
+            return v.rootViewController.traverseTransitionViewControllerHierarchyForClassType()
+        }
+        
+        return nil
+    }
+}
+
+open class TransitionController: UIViewController {
 	/**
      A Boolean property used to enable and disable interactivity
      with the rootViewController.
@@ -45,14 +78,21 @@ open class RootController: UIViewController {
 		}
 	}
 	
+    /// A reference to the container view.
+    @IBInspectable
+    open let container = UIView()
+    
 	/**
      A UIViewController property that references the active
      main UIViewController. To swap the rootViewController, it
      is recommended to use the transitionFromRootViewController
      helper method.
      */
-	open fileprivate(set) var rootViewController: UIViewController!
+	open internal(set) var rootViewController: UIViewController!
 	
+    /// The transition type used during a transition.
+    open var motionTransitionType = MotionTransitionType.fade
+    
 	/**
      An initializer that initializes the object with a NSCoder object.
      - Parameter aDecoder: A NSCoder instance.
@@ -88,45 +128,36 @@ open class RootController: UIViewController {
 		super.viewWillLayoutSubviews()
 		layoutSubviews()
 	}
-	
+    
 	/**
      A method to swap rootViewController objects.
      - Parameter toViewController: The UIViewController to swap
      with the active rootViewController.
-     - Parameter duration: A TimeInterval that sets the
-     animation duration of the transition.
-     - Parameter options: UIViewAnimationOptions thst are used
-     when animating the transition from the active rootViewController
-     to the toViewController.
-     - Parameter animations: An animation block that is executed during
-     the transition from the active rootViewController
-     to the toViewController.
      - Parameter completion: A completion block that is execited after
      the transition animation from the active rootViewController
      to the toViewController has completed.
      */
-	open func transition(to viewController: UIViewController, duration: TimeInterval = 0.5, options: UIViewAnimationOptions = [], animations: (() -> Void)? = nil, completion: ((Bool) -> Void)? = nil) {
-		rootViewController.willMove(toParentViewController: nil)
-		addChildViewController(viewController)
-		viewController.view.frame = rootViewController.view.frame
-        transition(from: rootViewController,
-            to: viewController,
-			duration: duration,
-			options: options,
-			animations: animations) { [weak self, viewController = viewController, completion = completion] (result) in
-                guard let s = self else {
-                    return
-                }
-                
-                viewController.didMove(toParentViewController: s)
-                s.rootViewController.removeFromParentViewController()
-                s.rootViewController = viewController
-                s.rootViewController.view.clipsToBounds = true
-                s.rootViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-                s.rootViewController.view.contentScaleFactor = Screen.scale
-                s.view.sendSubview(toBack: s.rootViewController.view)
-                completion?(result)
-			}
+	open func transition(to viewController: UIViewController, completion: ((Bool) -> Void)? = nil) {
+        guard let fvc = rootViewController else {
+            return
+        }
+        
+        let tvc = viewController
+        
+        tvc.view.isHidden = false
+        tvc.view.frame = container.bounds
+        tvc.motionModalTransitionType = motionTransitionType
+        
+        view.isUserInteractionEnabled = false
+        Motion.shared.transition(from: fvc, to: tvc, in: container) { [weak self, tvc = tvc, completion = completion] (isFinished) in
+            guard let s = self else {
+                return
+            }
+            
+            s.rootViewController = tvc
+            s.view.isUserInteractionEnabled = true
+            completion?(isFinished)
+        }
 	}
 	
 	/**
@@ -147,14 +178,25 @@ open class RootController: UIViewController {
         view.clipsToBounds = true
         view.backgroundColor = .white
         view.contentScaleFactor = Screen.scale
+        
+        prepareContainer()
         prepareRootViewController()
 	}
 }
 
-extension RootController {
+internal extension TransitionController {
+    /// Prepares the container view.
+    func prepareContainer() {
+        container.frame = view.bounds
+        container.clipsToBounds = true
+        container.contentScaleFactor = Screen.scale
+        container.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(container)
+    }
+    
     /// A method that prepares the rootViewController.
-    internal func prepareRootViewController() {
-        prepare(viewController: rootViewController, withContainer: view)
+    func prepareRootViewController() {
+        prepare(viewController: rootViewController, in: container)
     }
     
     /**
@@ -162,10 +204,10 @@ extension RootController {
      the BarController within the passed in
      container view.
      - Parameter viewController: A UIViewController to add as a child.
-     - Parameter withContainer container: A UIView that is the parent of the
+     - Parameter in container: A UIView that is the parent of the
      passed in controller view within the view hierarchy.
      */
-    internal func prepare(viewController: UIViewController?, withContainer container: UIView) {
+    func prepare(viewController: UIViewController?, in container: UIView) {
         guard let v = viewController else {
             return
         }

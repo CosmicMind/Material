@@ -265,6 +265,7 @@ open class Bar: View {
         autoresizingMask = .flexibleWidth
         interimSpacePreset = .interimSpace3
         contentEdgeInsetsPreset = .square1
+        
         prepareContentView()
     }
 }

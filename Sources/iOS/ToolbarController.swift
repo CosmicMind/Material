@@ -30,41 +30,21 @@
 
 import UIKit
 
-extension UIViewController {
-	/**
+@objc(ToolbarAlignment)
+public enum ToolbarAlignment: Int {
+    case top
+    case bottom
+}
+
+public extension UIViewController {
+    /**
      A convenience property that provides access to the ToolbarController.
      This is the recommended method of accessing the ToolbarController
      through child UIViewControllers.
      */
-	public var toolbarController: ToolbarController? {
-		var viewController: UIViewController? = self
-		while nil != viewController {
-			if viewController is ToolbarController {
-				return viewController as? ToolbarController
-			}
-			viewController = viewController?.parent
-		}
-		return nil
-	}
-}
-
-@objc(ToolbarControllerDelegate)
-public protocol ToolbarControllerDelegate {
-	/// Delegation method that executes when the floatingViewController will open.
-	@objc
-    optional func toolbarControllerWillOpenFloatingViewController(toolbarController: ToolbarController)
-	
-	/// Delegation method that executes when the floatingViewController will close.
-	@objc
-    optional func toolbarControllerWillCloseFloatingViewController(toolbarController: ToolbarController)
-	
-	/// Delegation method that executes when the floatingViewController did open.
-	@objc
-    optional func toolbarControllerDidOpenFloatingViewController(toolbarController: ToolbarController)
-	
-	/// Delegation method that executes when the floatingViewController did close.
-	@objc
-    optional func toolbarControllerDidCloseFloatingViewController(toolbarController: ToolbarController)
+    var toolbarController: ToolbarController? {
+        return traverseViewControllerHierarchyForClassType()
+    }
 }
 
 @objc(ToolbarController)
@@ -73,142 +53,71 @@ open class ToolbarController: StatusBarController {
     @IBInspectable
     open let toolbar = Toolbar()
     
-    /// Internal reference to the floatingViewController.
-	private var internalFloatingViewController: UIViewController?
-	
-	/// Delegation handler.
-	open weak var delegate: ToolbarControllerDelegate?
-	
-	/// A floating UIViewController.
-	open var floatingViewController: UIViewController? {
-		get {
-			return internalFloatingViewController
-		}
-		set(value) {
-			if let v = internalFloatingViewController {
-				v.view.layer.rasterizationScale = Screen.scale
-				v.view.layer.shouldRasterize = true
-				delegate?.toolbarControllerWillCloseFloatingViewController?(toolbarController: self)
-				internalFloatingViewController = nil
-				UIView.animate(withDuration: 0.5,
-					animations: { [weak self] in
-                        guard let s = self else {
-                            return
-                        }
-                        
-                        v.view.center.y = 2 * s.view.bounds.height
-                        s.toolbar.alpha = 1
-                        s.rootViewController.view.alpha = 1
-					}) { [weak self] _ in
-                        guard let s = self else {
-                            return
-                        }
-                        
-                        v.willMove(toParentViewController: nil)
-                        v.view.removeFromSuperview()
-                        v.removeFromParentViewController()
-                        v.view.layer.shouldRasterize = false
-                        s.isUserInteractionEnabled = true
-                        s.toolbar.isUserInteractionEnabled = true
-                        DispatchQueue.main.async { [weak self] in
-                            guard let s = self else {
-                                return
-                            }
-                            
-                            s.delegate?.toolbarControllerDidCloseFloatingViewController?(toolbarController: s)
-                        }
-					}
-			}
-			
-			if let v = value {
-				// Add the noteViewController! to the view.
-				addChildViewController(v)
-				v.view.frame = view.bounds
-				v.view.center.y = 2 * view.bounds.height
-				v.view.isHidden = true
-				view.insertSubview(v.view, aboveSubview: toolbar)
-				v.view.layer.zPosition = 1500
-				v.didMove(toParentViewController: self)
-				v.view.isHidden = false
-				v.view.layer.rasterizationScale = Screen.scale
-				v.view.layer.shouldRasterize = true
-				view.layer.rasterizationScale = Screen.scale
-				view.layer.shouldRasterize = true
-				internalFloatingViewController = v
-				isUserInteractionEnabled = false
-				toolbar.isUserInteractionEnabled = false
-				delegate?.toolbarControllerWillOpenFloatingViewController?(toolbarController: self)
-				UIView.animate(withDuration: 0.5,
-					animations: { [weak self, v = v] in
-						guard let s = self else {
-                            return
-                        }
-                        
-                        v.view.center.y = s.view.bounds.height / 2
-                        s.toolbar.alpha = 0.5
-                        s.rootViewController.view.alpha = 0.5
-					}) { [weak self, v = v] _ in
-                        guard let s = self else {
-                            return
-                        }
-                        
-                        v.view.layer.shouldRasterize = false
-                        s.view.layer.shouldRasterize = false
-                        DispatchQueue.main.async { [weak self] in
-                            guard let s = self else {
-                                return
-                            }
-                            
-                            s.delegate?.toolbarControllerDidOpenFloatingViewController?(toolbarController: s)
-                        }
-					}
-			}
-		}
-	}
-	
-	
-	open override func layoutSubviews() {
-		super.layoutSubviews()
-        
-        let y = Application.shouldStatusBarBeHidden || statusBar.isHidden ? 0 : statusBar.height
-        
-        toolbar.y = y
-        toolbar.width = view.width
-        
-        switch displayStyle {
-        case .partial:
-            let h = y + toolbar.height
-            rootViewController.view.y = h
-            rootViewController.view.height = view.height - h
-        case .full:
-            rootViewController.view.frame = view.bounds
+    /// The toolbar alignment.
+    open var toolbarAlignment = ToolbarAlignment.top {
+        didSet {
+            layoutSubviews()
         }
+    }
+    
+    open override func layoutSubviews() {
+		super.layoutSubviews()
+        layoutToolbar()
+        layoutContainer()
+        layoutRootViewController()
 	}
 	
-	/**
-     Prepares the view instance when intialized. When subclassing,
-     it is recommended to override the prepare method
-     to initialize property values and other setup operations.
-     The super.prepare method should always be called immediately
-     when subclassing.
-     */
 	open override func prepare() {
 		super.prepare()
         displayStyle = .partial
-        prepareStatusBar()
+    
         prepareToolbar()
 	}
 }
 
-extension ToolbarController {
-    /// Prepares the statusBar.
-    fileprivate func prepareStatusBar() {
-        shouldHideStatusBarOnRotation = false
-    }
-
+fileprivate extension ToolbarController {
     /// Prepares the toolbar.
-    fileprivate func prepareToolbar() {
+    func prepareToolbar() {
+        toolbar.zPosition = 1000
         toolbar.depthPreset = .depth1
         view.addSubview(toolbar)
+    }
+}
+
+fileprivate extension ToolbarController {
+    /// Layout the container.
+    func layoutContainer() {
+        switch displayStyle {
+        case .partial:
+            let p = toolbar.height
+            let q = statusBarOffsetAdjustment
+            let h = view.height - p - q
+            
+            switch toolbarAlignment {
+            case .top:
+                container.y = q + p
+                container.height = h
+            case .bottom:
+                container.y = q
+                container.height = h
+            }
+            
+            container.width = view.width
+            
+        case .full:
+            container.frame = view.bounds
+        }
+    }
+    
+    /// Layout the toolbar.
+    func layoutToolbar() {
+        toolbar.x = 0
+        toolbar.y = .top == toolbarAlignment ? statusBarOffsetAdjustment : view.height - toolbar.height
+        toolbar.width = view.width
+    }
+    
+    /// Layout the rootViewController.
+    func layoutRootViewController() {
+        rootViewController.view.frame = container.bounds
     }
 }
