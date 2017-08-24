@@ -138,7 +138,8 @@ open class Toolbar: Bar {
 	open override func prepare() {
 		super.prepare()
         contentViewAlignment = .center
-		prepareTitleLabel()
+		
+        prepareTitleLabel()
 		prepareDetailLabel()
 	}
 }

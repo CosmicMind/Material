@@ -55,6 +55,13 @@ public protocol TabBarDelegate {
     optional func tabBar(tabBar: TabBar, willSelect tabItem: TabItem)
     
     /**
+     A delegation method that is executed to determine if the tabItem should
+     transition to the next tab.
+     */
+    @objc
+    optional func tabBar(tabBar: TabBar, shouldSelect tabItem: TabItem) -> Bool
+    
+    /**
      A delegation method that is executed when the tabItem did complete the
      animation to the next tab.
      - Parameter tabBar: A TabBar.
@@ -350,6 +357,10 @@ fileprivate extension TabBar {
     /// Handles the tabItem touch event.
     @objc
     func handleLineAnimation(tabItem: TabItem) {
+        guard !(false == delegate?.tabBar?(tabBar: self, shouldSelect: tabItem)) else {
+            return
+        }
+        
         animate(to: tabItem, isTriggeredByUserInteraction: true)
     }
 }

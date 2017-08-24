@@ -149,7 +149,7 @@ open class TabsController: TransitionController {
         
         prepareViewControllers()
         prepareTabBar()
-        prepareTabBarItems()
+        prepareTabItems()
     }
 }
 
@@ -194,18 +194,16 @@ fileprivate extension TabsController {
     /// Prepares the TabBar.
     func prepareTabBar() {
         tabBar.lineAlignment = .bottom == tabBarAlignment ? .top : .bottom
+        tabBar.delegate = self
         view.addSubview(tabBar)
     }
     
     /// Prepares the `tabBar.tabItems`.
-    func prepareTabBarItems() {
+    func prepareTabItems() {
         var tabItems = [TabItem]()
         
         for v in viewControllers {
-            let b = v.tabItem
-            b.removeTarget(self, action: #selector(handle(tabItem:)), for: .touchUpInside)
-            b.addTarget(self, action: #selector(handle(tabItem:)), for: .touchUpInside)
-            tabItems.append(b)
+            tabItems.append(v.tabItem)
         }
         
         tabBar.tabItems = tabItems
@@ -261,13 +259,13 @@ fileprivate extension TabsController {
     }
 }
 
-fileprivate extension TabsController {
-    /**
-     Handles the tabItem.
-     - Parameter tabItem: A TabItem.
-     */
+extension TabsController: TabBarDelegate {
     @objc
-    func handle(tabItem: TabItem) {
+    open func tabBar(tabBar: TabBar, didSelect tabItem: TabItem) {
+        guard !(false == tabBar.delegate?.tabBar?(tabBar: tabBar, shouldSelect: tabItem)) else {
+            return
+        }
+        
         guard let i = tabBar.tabItems.index(of: tabItem) else {
             return
         }

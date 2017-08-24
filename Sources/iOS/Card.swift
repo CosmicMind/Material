@@ -203,9 +203,9 @@ open class Card: PulseView {
     
     open override func prepare() {
         super.prepare()
-        depthPreset = .depth1
         pulseAnimation = .none
         cornerRadiusPreset = .cornerRadius1
+        
         prepareContainer()
     }
     

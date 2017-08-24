@@ -59,6 +59,10 @@
 		9617B08F1DFCA8CF00410F8F /* CharacterAttribute.swift in Headers */ = {isa = PBXBuildFile; fileRef = 961276621DCD8B1800A7D920 /* CharacterAttribute.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9617B0901DFCA8CF00410F8F /* Toolbar.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB79F1CB40DC500C806FE /* Toolbar.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		9617B0911DFCA8CF00410F8F /* ToolbarController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96BCB7A01CB40DC500C806FE /* ToolbarController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		9618006D1F4D384200CD77A1 /* Material+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9618006C1F4D384200CD77A1 /* Material+UIViewController.swift */; };
+		9618006E1F4D38BC00CD77A1 /* ChipBar.swift in Headers */ = {isa = PBXBuildFile; fileRef = 961154CB1F32A7B100A78D74 /* ChipBar.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		9618006F1F4D38BC00CD77A1 /* ChipBarController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 961527B81F3A509900E8B2AC /* ChipBarController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		961800701F4D38BC00CD77A1 /* Material+UIViewController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 9618006C1F4D384200CD77A1 /* Material+UIViewController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		961E6BDF1DDA2A95004E6C93 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961E6BDE1DDA2A95004E6C93 /* Application.swift */; };
 		961E6BE21DDA2AF3004E6C93 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961E6BE11DDA2AF3004E6C93 /* Screen.swift */; };
 		96328B7A1E020A41009A4C90 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96328B791E020A41009A4C90 /* CollectionViewController.swift */; };
@@ -285,6 +289,7 @@
 		9615277C1F393C0E00E8B2AC /* SourcePreprocessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourcePreprocessor.swift; sourceTree = "<group>"; };
 		9615277D1F393C0E00E8B2AC /* TransitionPreprocessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionPreprocessor.swift; sourceTree = "<group>"; };
 		961527B81F3A509900E8B2AC /* ChipBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChipBarController.swift; sourceTree = "<group>"; };
+		9618006C1F4D384200CD77A1 /* Material+UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIViewController.swift"; sourceTree = "<group>"; };
 		961E6BDE1DDA2A95004E6C93 /* Application.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		961E6BE11DDA2AF3004E6C93 /* Screen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
 		961EFC571D738FF600E84652 /* SnackbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnackbarController.swift; sourceTree = "<group>"; };
@@ -823,6 +828,7 @@
 				96C1C8801D42C62800E6608F /* Material+Array.swift */,
 				962864591D53FE3E00690B69 /* Material+UIWindow.swift */,
 				966C17721F0439F600D3E83C /* Material+MotionAnimation.swift */,
+				9618006C1F4D384200CD77A1 /* Material+UIViewController.swift */,
 			);
 			name = Extension;
 			sourceTree = "<group>";
@@ -996,6 +1002,9 @@
 				96D994951F4521BB00AFD6E3 /* MotionPreprocessor.swift in Headers */,
 				96D994961F4521BB00AFD6E3 /* SourcePreprocessor.swift in Headers */,
 				96D994971F4521BB00AFD6E3 /* TransitionPreprocessor.swift in Headers */,
+				9618006E1F4D38BC00CD77A1 /* ChipBar.swift in Headers */,
+				9618006F1F4D38BC00CD77A1 /* ChipBarController.swift in Headers */,
+				961800701F4D38BC00CD77A1 /* Material+UIViewController.swift in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1106,6 +1115,7 @@
 				965E81171DD4D5C800D61E4B /* TransitionController.swift in Sources */,
 				965E81181DD4D5C800D61E4B /* Snackbar.swift in Sources */,
 				965E81191DD4D5C800D61E4B /* SnackbarController.swift in Sources */,
+				9618006D1F4D384200CD77A1 /* Material+UIViewController.swift in Sources */,
 				961527811F393C0E00E8B2AC /* MotionAnimatorViewContext.swift in Sources */,
 				965E811A1DD4D5C800D61E4B /* StatusBarController.swift in Sources */,
 				961527871F393C0E00E8B2AC /* Motion+CALayer.swift in Sources */,

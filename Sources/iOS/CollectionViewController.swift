@@ -100,7 +100,6 @@ extension CollectionViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         view.addSubview(collectionView)
-        layoutCollectionView()
     }
 }
 
