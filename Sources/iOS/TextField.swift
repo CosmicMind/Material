@@ -213,7 +213,7 @@ open class TextField: UITextField {
 	@IBInspectable
     open var placeholderVerticalOffset: CGFloat = 0
     
-    /// Placeholder active text size
+    /// The scale of the active placeholder in relation to the inactive
     @IBInspectable
     open var placeholderActiveScale: CGFloat = 0.75 {
         didSet {
