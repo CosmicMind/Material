@@ -212,6 +212,14 @@ open class TextField: UITextField {
 	/// This property adds a padding to placeholder y position animation
 	@IBInspectable
     open var placeholderVerticalOffset: CGFloat = 0
+    
+    /// Placeholder active text size
+    @IBInspectable
+    open var placeholderActiveScale: CGFloat = 0.75 {
+        didSet {
+            print("ℹ️ Todo set the placeholder active amount")
+        }
+    }
 	
 	/// The detailLabel UILabel that is displayed.
 	@IBInspectable
@@ -501,7 +509,7 @@ fileprivate extension TextField {
         }
         
         placeholderLabel.frame = CGRect(x: w, y: 0, width: width - leftViewWidth - 2 * textInset, height: h)
-        placeholderLabel.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+        placeholderLabel.transform = CGAffineTransform(scaleX: placeholderActiveScale, y: placeholderActiveScale)
         
         switch textAlignment {
         case .left, .natural:
@@ -638,7 +646,7 @@ extension TextField {
                 return
             }
             
-            s.placeholderLabel.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+            s.placeholderLabel.transform = CGAffineTransform(scaleX: s.placeholderActiveScale, y: s.placeholderActiveScale)
             
             switch s.textAlignment {
             case .left, .natural:
