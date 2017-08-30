@@ -90,6 +90,18 @@ open class TabsController: TransitionController {
         }
     }
     
+    fileprivate var _isAllDirectionSlideEnable: Bool = false
+    
+    /// user can slide views left, right naturally.
+    open var isAllDirectionSlideEnabled: Bool {
+        get {
+            return _isAllDirectionSlideEnable
+        }
+        set(newVal) {
+            _isAllDirectionSlideEnable = newVal
+        }
+    }
+    
     /// A reference to the currently selected view controller index value.
     @IBInspectable
     open fileprivate(set) var selectedIndex = 0
@@ -228,7 +240,7 @@ fileprivate extension TabsController {
                 container.y = 0
                 container.height = y
             }
-         
+            
             container.width = view.width
             
         case .full:
@@ -276,12 +288,22 @@ fileprivate extension TabsController {
             return
         }
         
-        transition(to: viewControllers[i]) { [weak self] (isFinished) in
-            guard isFinished else {
-                return
+        if(_isAllDirectionSlideEnable) {
+            tabsTransition(tabsController: self, to: viewControllers[i], completion: { [weak self] (isFinished) in
+                guard isFinished else {
+                    return
+                }
+                
+                self?.selectedIndex = i
+            })
+        } else {
+            transition(to: viewControllers[i]) { [weak self] (isFinished) in
+                guard isFinished else {
+                    return
+                }
+                
+                self?.selectedIndex = i
             }
-            
-            self?.selectedIndex = i
         }
     }
 }
