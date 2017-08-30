@@ -217,7 +217,7 @@ open class TextField: UITextField {
     @IBInspectable
     open var placeholderActiveScale: CGFloat = 0.75 {
         didSet {
-            print("ℹ️ Todo set the placeholder active amount")
+            layoutPlaceholderLabel()
         }
     }
 	
