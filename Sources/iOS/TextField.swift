@@ -212,6 +212,10 @@ open class TextField: UITextField {
 	/// This property adds a padding to placeholder y position animation
 	@IBInspectable
     open var placeholderVerticalOffset: CGFloat = 0
+    
+    /// This property adds a padding to placeholder y position animation
+    @IBInspectable
+    open var placeholderHorizinalOffset: CGFloat = 0
 	
 	/// The detailLabel UILabel that is displayed.
 	@IBInspectable
@@ -505,9 +509,9 @@ fileprivate extension TextField {
         
         switch textAlignment {
         case .left, .natural:
-            placeholderLabel.x = w
+            placeholderLabel.x = w + placeholderHorizinalOffset
         case .right:
-            placeholderLabel.x = width - placeholderLabel.width - textInset
+            placeholderLabel.x = width - placeholderLabel.width - textInset + placeholderHorizinalOffset
         default:break
         }
         
@@ -642,9 +646,9 @@ extension TextField {
             
             switch s.textAlignment {
             case .left, .natural:
-                s.placeholderLabel.x = s.leftViewWidth + s.textInset
+                s.placeholderLabel.x = s.leftViewWidth + s.textInset + s.placeholderHorizinalOffset
             case .right:
-                s.placeholderLabel.x = s.width - s.placeholderLabel.width - s.textInset
+                s.placeholderLabel.x = s.width - s.placeholderLabel.width - s.textInset + s.placeholderHorizinalOffset
             default:break
             }
             
