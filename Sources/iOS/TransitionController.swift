@@ -31,72 +31,72 @@
 import UIKit
 
 open class TransitionController: UIViewController {
-	/**
+    /**
      A Boolean property used to enable and disable interactivity
      with the rootViewController.
      */
-	@IBInspectable
+    @IBInspectable
     open var isUserInteractionEnabled: Bool {
-		get {
-			return rootViewController.view.isUserInteractionEnabled
-		}
-		set(value) {
-			rootViewController.view.isUserInteractionEnabled = value
-		}
-	}
-	
+        get {
+            return rootViewController.view.isUserInteractionEnabled
+        }
+        set(value) {
+            rootViewController.view.isUserInteractionEnabled = value
+        }
+    }
+    
     /// A reference to the container view.
     @IBInspectable
     open let container = UIView()
     
-	/**
+    /**
      A UIViewController property that references the active
      main UIViewController. To swap the rootViewController, it
      is recommended to use the transitionFromRootViewController
      helper method.
      */
-	open internal(set) var rootViewController: UIViewController!
-	
+    open internal(set) var rootViewController: UIViewController!
+    
     /// The transition type used during a transition.
     open var motionTransitionType = MotionTransitionType.fade
     
-	/**
+    /**
      An initializer that initializes the object with a NSCoder object.
      - Parameter aDecoder: A NSCoder instance.
      */
-	public required init?(coder aDecoder: NSCoder) {
-		super.init(coder: aDecoder)
-	}
-	
-	/**
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    /**
      An initializer that initializes the object with an Optional nib and bundle.
      - Parameter nibNameOrNil: An Optional String for the nib.
      - Parameter bundle: An Optional NSBundle where the nib is located.
      */
-	public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-	}
-	
-	/**
+    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
+    /**
      An initializer for the BarController.
      - Parameter rootViewController: The main UIViewController.
      */
-	public init(rootViewController: UIViewController) {
-		super.init(nibName: nil, bundle: nil)
-		self.rootViewController = rootViewController
-	}
+    public init(rootViewController: UIViewController) {
+        super.init(nibName: nil, bundle: nil)
+        self.rootViewController = rootViewController
+    }
     
     open override func viewDidLoad() {
         super.viewDidLoad()
         prepare()
     }
-	
-	open override func viewWillLayoutSubviews() {
-		super.viewWillLayoutSubviews()
-		layoutSubviews()
-	}
     
-	/**
+    open override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        layoutSubviews()
+    }
+    
+    /**
      A method to swap rootViewController objects.
      - Parameter toViewController: The UIViewController to swap
      with the active rootViewController.
@@ -104,7 +104,7 @@ open class TransitionController: UIViewController {
      the transition animation from the active rootViewController
      to the toViewController has completed.
      */
-	open func transition(to viewController: UIViewController, completion: ((Bool) -> Void)? = nil) {
+    open func transition(to viewController: UIViewController, completion: ((Bool) -> Void)? = nil) {
         guard let fvc = rootViewController else {
             return
         }
@@ -125,30 +125,84 @@ open class TransitionController: UIViewController {
             s.view.isUserInteractionEnabled = true
             completion?(isFinished)
         }
-	}
-	
-	/**
+    }
+    
+    /**
+     A method to swap rootViewController objects specially in tabsController.
+     - Parameter tabsController: indicate tabsController. if tabsController nil then default transition method will be executed.
+     - Parameter toViewController: The UIViewController to swap
+     with the active rootViewController.
+     - Parameter completion: A completion block that is execited after
+     the transition animation from the active rootViewController
+     to the toViewController has completed.
+     */
+    open func tabsTransition(tabsController: TabsController?, to viewController: UIViewController, completion: ((Bool) -> Void)? = nil) {
+        guard let fvc = rootViewController else {
+            return
+        }
+        
+        let tvc = viewController
+        
+        tvc.view.isHidden = false
+        tvc.view.frame = container.bounds
+        
+        if(tabsController == nil) {
+            tvc.motionModalTransitionType = motionTransitionType
+            
+            view.isUserInteractionEnabled = false
+            Motion.shared.transition(from: fvc, to: tvc, in: container) { [weak self, tvc = tvc, completion = completion] (isFinished) in
+                guard let s = self else {
+                    return
+                }
+                
+                s.rootViewController = tvc
+                s.view.isUserInteractionEnabled = true
+                completion?(isFinished)
+            }
+        }
+        let fvcIndex = tabsController?.viewControllers.index(of: fvc)
+        let tvcIndex = tabsController?.viewControllers.index(of: viewController)
+        
+        if(fvcIndex! < tvcIndex!) {
+            tvc.motionModalTransitionType = .slide(direction: .left)
+        } else {
+            tvc.motionModalTransitionType = .slide(direction: .right)
+        }
+        
+        view.isUserInteractionEnabled = false
+        Motion.shared.transition(from: fvc, to: tvc, in: container) { [weak self, tvc = tvc, completion = completion] (isFinished) in
+            guard let s = self else {
+                return
+            }
+            
+            s.rootViewController = tvc
+            s.view.isUserInteractionEnabled = true
+            completion?(isFinished)
+        }
+    }
+    
+    /**
      To execute in the order of the layout chain, override this
      method. `layoutSubviews` should be called immediately, unless you
      have a certain need.
      */
-	open func layoutSubviews() {}
-	
-	/**
+    open func layoutSubviews() {}
+    
+    /**
      Prepares the view instance when intialized. When subclassing,
      it is recommended to override the prepare method
      to initialize property values and other setup operations.
      The super.prepare method should always be called immediately
      when subclassing.
      */
-	open func prepare() {
+    open func prepare() {
         view.clipsToBounds = true
         view.backgroundColor = .white
         view.contentScaleFactor = Screen.scale
         
         prepareContainer()
         prepareRootViewController()
-	}
+    }
 }
 
 internal extension TransitionController {
