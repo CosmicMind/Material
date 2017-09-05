@@ -75,6 +75,12 @@ open class FABMenuItem: View {
             addSubview(titleLabel)
         }
     }
+    open var titleLabelSide : labelSide = .right
+    
+    public enum labelSide {
+        case left
+        case right
+    }
 }
 
 extension FABMenuItem {
@@ -86,7 +92,14 @@ extension FABMenuItem {
         titleLabel.width += 1.5 * interimSpace
         titleLabel.height += interimSpace / 2
         titleLabel.y = (height - titleLabel.height) / 2
-        titleLabel.x = -titleLabel.width - interimSpace
+        
+        switch (titleLabelSide) {
+        case .left:
+            titleLabel.x = -titleLabel.width - interimSpace
+        case .right:
+            titleLabel.x = frame.width + interimSpace
+        }
+        
         titleLabel.alpha = 0
         titleLabel.isHidden = false
         
@@ -211,8 +224,8 @@ open class FABMenu: View {
         }
     }
     
-    /// An internal handler for the FABButton.
-    internal var handleFABButtonCallback: ((UIButton) -> Void)?
+    /// An open handler for the FABButton.
+    open var handleFABButtonCallback: ((UIButton) -> Void)?
     
     /// An internal handler for the open function.
     internal var handleOpenCallback: (() -> Void)?
@@ -334,7 +347,7 @@ extension FABMenu {
      - Parameter animations: An animation block to execute on each view's animation.
      - Parameter completion: A completion block to execute on each view's animation.
      */
-    internal func open(isTriggeredByUserInteraction: Bool, duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
+    open func open(isTriggeredByUserInteraction: Bool, duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
         handleOpenCallback?()
         
         if isTriggeredByUserInteraction {
@@ -383,7 +396,7 @@ extension FABMenu {
      - Parameter animations: An animation block to execute on each view's animation.
      - Parameter completion: A completion block to execute on each view's animation.
      */
-    internal func close(isTriggeredByUserInteraction: Bool, duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
+    open func close(isTriggeredByUserInteraction: Bool, duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
         handleCloseCallback?()
         
         if isTriggeredByUserInteraction {
