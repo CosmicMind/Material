@@ -102,7 +102,7 @@ open class TableViewCell: UITableViewCell, Pulseable, PulseableLayer {
      - Parameter reuseIdentifier: A String identifier.
      */
 	public override init(style: UITableViewCellStyle, reuseIdentifier: String!) {
-		super.init(style: style, reuseIdentifier: reuseIdentifier)
+		super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
 		prepare()
 	}
 	
@@ -111,6 +111,7 @@ open class TableViewCell: UITableViewCell, Pulseable, PulseableLayer {
         layoutShape()
         layoutVisualLayer()
         layoutShadowPath()
+        layoutDivider()
 	}
 	
     /**
@@ -168,7 +169,7 @@ open class TableViewCell: UITableViewCell, Pulseable, PulseableLayer {
 	open func prepare() {
 		selectionStyle = .none
 		separatorInset = .zero
-		contentScaleFactor = Screen.scale
+        contentScaleFactor = Screen.scale
 		imageView?.isUserInteractionEnabled = false
 		textLabel?.isUserInteractionEnabled = false
 		detailTextLabel?.isUserInteractionEnabled = false

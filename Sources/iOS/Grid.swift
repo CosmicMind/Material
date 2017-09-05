@@ -272,12 +272,12 @@ extension UIView {
     /// Grid reference.
     public var grid: Grid {
         get {
-            return AssociatedObject(base: self, key: &GridKey) {
+            return AssociatedObject.get(base: self, key: &GridKey) {
                 return Grid(context: self)
             }
         }
         set(value) {
-            AssociateObject(base: self, key: &GridKey, value: value)
+            AssociatedObject.set(base: self, key: &GridKey, value: value)
         }
     }
     

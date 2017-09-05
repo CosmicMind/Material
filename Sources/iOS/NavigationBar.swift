@@ -148,7 +148,7 @@ open class NavigationBar: UINavigationBar {
 			layoutNavigationItem(item: v)
 		}
         
-        divider.reload()
+        layoutDivider()
 	}
 	
 	open override func pushItem(_ item: UINavigationItem, animated: Bool) {
@@ -296,6 +296,7 @@ open class NavigationBar: UINavigationBar {
         contentEdgeInsetsPreset = .square1
         contentScaleFactor = Screen.scale
 		backButtonImage = Icon.cm.arrowBack
+        
         let image = UIImage()
         shadowImage = image
 		setBackgroundImage(image, for: .default)

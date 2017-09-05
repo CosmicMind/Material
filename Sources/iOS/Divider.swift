@@ -141,12 +141,12 @@ extension UIView {
     /// TabBarItem reference.
     public private(set) var divider: Divider {
         get {
-            return AssociatedObject(base: self, key: &DividerKey) {
+            return AssociatedObject.get(base: self, key: &DividerKey) {
                 return Divider(view: self)
             }
         }
         set(value) {
-            AssociateObject(base: self, key: &DividerKey, value: value)
+            AssociatedObject.set(base: self, key: &DividerKey, value: value)
         }
     }
     
@@ -211,5 +211,10 @@ extension UIView {
         set(value) {
             divider.thickness = value
         }
+    }
+    
+    /// Sets the divider frame.
+    open func layoutDivider() {
+        divider.reload()
     }
 }

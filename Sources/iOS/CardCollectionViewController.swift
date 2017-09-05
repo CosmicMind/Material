@@ -30,80 +30,84 @@
 
 import UIKit
 
-class CardCollectionViewCell: CollectionViewCell {
-    open var card: Card? {
-        didSet {
-            oldValue?.removeFromSuperview()
-            if let v = card {
-                contentView.addSubview(v)
+extension UIViewController {
+    /**
+     A convenience property that provides access to the CardCollectionViewController.
+     This is the recommended method of accessing the CardCollectionViewController
+     through child UIViewControllers.
+     */
+    public var cardCollectionViewController: CardCollectionViewController? {
+        var viewController: UIViewController? = self
+        while nil != viewController {
+            if viewController is CardCollectionViewController {
+                return viewController as? CardCollectionViewController
             }
+            viewController = viewController?.parent
         }
+        return nil
     }
 }
 
-@objc(CollectionViewCard)
-open class CollectionViewCard: Card {
-    /// A reference to the dataSourceItems.
+open class CardCollectionViewController: UIViewController {
+    /// A reference to a Reminder.
+    open let collectionView = CollectionView()
+    
     open var dataSourceItems = [DataSourceItem]()
     
     /// An index of IndexPath to DataSourceItem.
     open var dataSourceItemsIndexPaths = [IndexPath: Any]()
     
-    /// A reference to the collectionView.
-    @IBInspectable
-    open let collectionView = CollectionView()
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        prepare()
+    }
     
-    /// Reloads the view.
-    open override func reload() {
-        if 0 == collectionView.height {
-            var h: CGFloat = 0
-            var i: Int = 0
-            for dataSourceItem in dataSourceItems {
-                h += dataSourceItem.height ?? (dataSourceItems[i].data as? Card)?.height ?? 0
-                i += 1
-            }
-            collectionView.height = h
-        }
-        
-        collectionView.reloadData()
-        
-        super.layoutSubviews()
+    open override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        layoutSubviews()
     }
     
     /**
      Prepares the view instance when intialized. When subclassing,
-     it is recommended to override the prepare method
+     it is recommended to override the prepareView method
      to initialize property values and other setup operations.
-     The super.prepare method should always be called immediately
+     The super.prepareView method should always be called immediately
      when subclassing.
      */
-    open override func prepare() {
-        super.prepare()
-        pulseAnimation = .none
-        
+    open func prepare() {
+        view.clipsToBounds = true
+        view.backgroundColor = .white
+        view.contentScaleFactor = Screen.scale
         prepareCollectionView()
-        prepareContentView()
+    }
+    
+    /// Calls the layout functions for the view heirarchy.
+    open func layoutSubviews() {
+        layoutCollectionView()
     }
 }
 
-extension CollectionViewCard {
+extension CardCollectionViewController {
     /// Prepares the collectionView.
     fileprivate func prepareCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.interimSpacePreset = .none
         collectionView.register(CardCollectionViewCell.self, forCellWithReuseIdentifier: "CardCollectionViewCell")
-    }
-    
-    /// Prepares the contentView.
-    fileprivate func prepareContentView() {
-        contentView = collectionView
+        view.addSubview(collectionView)
+        layoutCollectionView()
     }
 }
 
-extension CollectionViewCard: CollectionViewDelegate {}
+extension CardCollectionViewController {
+    /// Sets the frame for the collectionView.
+    fileprivate func layoutCollectionView() {
+        collectionView.frame = view.bounds
+    }
+}
 
-extension CollectionViewCard: CollectionViewDataSource {
+extension CardCollectionViewController: CollectionViewDelegate {}
+
+extension CardCollectionViewController: CollectionViewDataSource {
     @objc
     open func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -117,22 +121,18 @@ extension CollectionViewCard: CollectionViewDataSource {
     @objc
     open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CardCollectionViewCell", for: indexPath) as! CardCollectionViewCell
-        cell.pulseAnimation = .none
         
         guard let card = dataSourceItems[indexPath.item].data as? Card else {
             return cell
         }
         
         dataSourceItemsIndexPaths[indexPath] = card
-        
-        if .vertical == self.collectionView.scrollDirection {
-            card.width = cell.width
-        } else {
-            card.height = cell.height
-        }
-        
+
+        card.frame = cell.bounds
+    
         cell.card = card
         
         return cell
     }
 }
+

@@ -201,18 +201,11 @@ open class Card: PulseView {
         bounds.size.height = h
     }
     
-    /**
-     Prepares the view instance when intialized. When subclassing,
-     it is recommended to override the prepare method
-     to initialize property values and other setup operations.
-     The super.prepare method should always be called immediately
-     when subclassing.
-     */
     open override func prepare() {
         super.prepare()
-        depthPreset = .depth1
         pulseAnimation = .none
         cornerRadiusPreset = .cornerRadius1
+        
         prepareContainer()
     }
     
@@ -235,7 +228,7 @@ open class Card: PulseView {
         
         if 0 == h || nil != view as? UILabel {
             (view as? UILabel)?.sizeToFit()
-            h = view.sizeThatFits(CGSize(width: w, height: CGFloat.greatestFiniteMagnitude)).height
+            h = view.sizeThatFits(CGSize(width: w, height: .greatestFiniteMagnitude)).height
         }
         
         view.width = w

@@ -105,7 +105,7 @@ open class Bar: View {
     }
     
     /// ContentView that holds the any desired subviews.
-    open let contentView = UIScrollView()
+    open let contentView = UIView()
     
     /// Left side UIViews.
     open var leftViews: [UIView] {
@@ -256,22 +256,16 @@ open class Bar: View {
         grid.commit()
         contentView.grid.commit()
         
-        divider.reload()
+        layoutDivider()
     }
     
-    /**
-     Prepares the view instance when intialized. When subclassing,
-     it is recommended to override the prepare method
-     to initialize property values and other setup operations.
-     The super.prepare method should always be called immediately
-     when subclassing.
-     */
     open override func prepare() {
         super.prepare()
         heightPreset = .normal
         autoresizingMask = .flexibleWidth
         interimSpacePreset = .interimSpace3
         contentEdgeInsetsPreset = .square1
+        
         prepareContentView()
     }
 }
@@ -279,10 +273,6 @@ open class Bar: View {
 extension Bar {
     /// Prepares the contentView.
     fileprivate func prepareContentView() {
-        contentView.bounces = false
-        contentView.isPagingEnabled = true
-        contentView.showsVerticalScrollIndicator = false
-        contentView.showsHorizontalScrollIndicator = false
         contentView.contentScaleFactor = Screen.scale
     }
 }

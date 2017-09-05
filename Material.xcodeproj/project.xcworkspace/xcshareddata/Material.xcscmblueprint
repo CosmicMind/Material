@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "9CF35BC641478FBD765F7442D4034ED362261E0A",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "9CF35BC641478FBD765F7442D4034ED362261E0A" : 9223372036854775807,
+    "0F3E254D46E5A5B90D1542854F510B7D145A9F31" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "0F44C283-777E-4E3F-9E10-FC52C3C270CE",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "9CF35BC641478FBD765F7442D4034ED362261E0A" : "Material\/",
+    "0F3E254D46E5A5B90D1542854F510B7D145A9F31" : "Material\/Sources\/Frameworks\/Motion\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Material",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Material.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/CosmicMind\/Motion.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "0F3E254D46E5A5B90D1542854F510B7D145A9F31"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/CosmicMind\/Material.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "9CF35BC641478FBD765F7442D4034ED362261E0A"
+    }
+  ]
+}

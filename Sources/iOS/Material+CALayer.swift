@@ -30,7 +30,7 @@
 
 import UIKit
 
-fileprivate struct MaterialLayer {
+fileprivate class MaterialLayer {
     /// A reference to the CALayer.
     fileprivate weak var layer: CALayer?
     
@@ -51,12 +51,16 @@ fileprivate struct MaterialLayer {
     /// A preset property to set the borderWidth.
     fileprivate var borderWidthPreset = BorderWidthPreset.none {
         didSet {
-            layer?.borderWidth = BorderWidthPresetToValue(preset: borderWidthPreset)
+            layer?.borderWidth = borderWidthPreset.cgFloatValue
         }
     }
     
     /// A preset property to set the shape.
-    fileprivate var shapePreset = ShapePreset.none
+    fileprivate var shapePreset = ShapePreset.none {
+        didSet {
+            layer?.layoutShape()
+        }
+    }
     
     /// A preset value for Depth.
     fileprivate var depthPreset: DepthPreset {
@@ -100,12 +104,12 @@ extension CALayer {
     /// MaterialLayer Reference.
     fileprivate var materialLayer: MaterialLayer {
         get {
-            return AssociatedObject(base: self, key: &MaterialLayerKey) {
+            return AssociatedObject.get(base: self, key: &MaterialLayerKey) {
                 return MaterialLayer(layer: self)
             }
         }
         set(value) {
-            AssociateObject(base: self, key: &MaterialLayerKey, value: value)
+            AssociatedObject.set(base: self, key: &MaterialLayerKey, value: value)
         }
     }
     
@@ -263,6 +267,7 @@ extension CALayer {
         }
         
         guard .circle == shapePreset else {
+            cornerRadius = 0
             return
         }
         
@@ -280,7 +285,7 @@ extension CALayer {
         } else if nil == shadowPath {
             shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
         } else {
-            motion(.shadowPath(UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath))
+            animate(.shadow(path: UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath))
         }
     }
 }

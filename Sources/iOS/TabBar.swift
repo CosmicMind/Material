@@ -30,6 +30,13 @@
 
 import UIKit
 
+open class TabItem: FlatButton {
+    open override func prepare() {
+        super.prepare()
+        pulseAnimation = .none
+    }
+}
+
 @objc(TabBarLineAlignment)
 public enum TabBarLineAlignment: Int {
 	case top
@@ -39,59 +46,87 @@ public enum TabBarLineAlignment: Int {
 @objc(TabBarDelegate)
 public protocol TabBarDelegate {
     /**
-     A delegation method that is executed when the button will trigger the
+     A delegation method that is executed when the tabItem will trigger the
      animation to the next tab.
      - Parameter tabBar: A TabBar.
-     - Parameter button: A UIButton.
+     - Parameter tabItem: A TabItem.
      */
     @objc
-    optional func tabBar(tabBar: TabBar, willSelect button: UIButton)
+    optional func tabBar(tabBar: TabBar, willSelect tabItem: TabItem)
     
     /**
-     A delegation method that is executed when the button did complete the
-     animation to the next tab.
-     - Parameter tabBar: A TabBar.
-     - Parameter button: A UIButton.
+     A delegation method that is executed to determine if the tabItem should
+     transition to the next tab.
      */
     @objc
-    optional func tabBar(tabBar: TabBar, didSelect button: UIButton)
+    optional func tabBar(tabBar: TabBar, shouldSelect tabItem: TabItem) -> Bool
+    
+    /**
+     A delegation method that is executed when the tabItem did complete the
+     animation to the next tab.
+     - Parameter tabBar: A TabBar.
+     - Parameter tabItem: A TabItem.
+     */
+    @objc
+    optional func tabBar(tabBar: TabBar, didSelect tabItem: TabItem)
 }
 
 @objc(TabBarStyle)
 public enum TabBarStyle: Int {
-    case normal
+    case auto
+    case nonScrollable
     case scrollable
 }
 
 open class TabBar: Bar {
-    /// A boolean indicating if the TabBar line is in an animation state.
-    open internal(set) var isAnimating = false
+    /// Only for inital load to get the line animation correct.
+    fileprivate var shouldNotAnimateLineView = false
     
-    /// Enables and disables bouncing when swiping.
-    open var isBounceEnabled: Bool {
-        get {
-            return contentView.bounces
+    /// The total width of the tabItems.
+    fileprivate var tabItemsTotalWidth: CGFloat {
+        var w: CGFloat = 0
+        let q = 2 * tabItemsInterimSpace
+        let p = q + tabItemsInterimSpace
+        
+        for v in tabItems {
+            let x = v.sizeThatFits(CGSize(width: .greatestFiniteMagnitude, height: scrollView.height)).width
+            w += x
+            w += p
         }
-        set(value) {
-            contentView.bounces = value
-        }
+        
+        w -= tabItemsInterimSpace
+        
+        return w
     }
     
     /// An enum that determines the tab bar style.
-    open var tabBarStyle = TabBarStyle.scrollable {
+    open var tabBarStyle = TabBarStyle.auto {
         didSet {
             layoutSubviews()
+        }
+    }
+    
+    /// A reference to the scroll view when the tab bar style is scrollable.
+    open let scrollView = UIScrollView()
+    
+    /// Enables and disables bouncing when swiping.
+    open var isScrollBounceEnabled: Bool {
+        get {
+            return scrollView.bounces
+        }
+        set(value) {
+            scrollView.bounces = value
         }
     }
     
     /// A delegation reference.
     open weak var delegate: TabBarDelegate?
     
-    /// The currently selected button.
-    open internal(set) var selected: UIButton?
+    /// The currently selected tabItem.
+    open fileprivate(set) var selectedTabItem: TabItem?
     
-    /// A preset wrapper around contentEdgeInsets.
-    open override var contentEdgeInsetsPreset: EdgeInsetsPreset {
+    /// A preset wrapper around tabItems contentEdgeInsets.
+    open var tabItemsContentEdgeInsetsPreset: EdgeInsetsPreset {
         get {
             return contentView.grid.contentEdgeInsetsPreset
         }
@@ -102,7 +137,7 @@ open class TabBar: Bar {
     
     /// A reference to EdgeInsets.
     @IBInspectable
-    open override var contentEdgeInsets: EdgeInsets {
+    open var tabItemsContentEdgeInsets: EdgeInsets {
         get {
             return contentView.grid.contentEdgeInsets
         }
@@ -111,8 +146,8 @@ open class TabBar: Bar {
         }
     }
     
-    /// A preset wrapper around interimSpace.
-    open override var interimSpacePreset: InterimSpacePreset {
+    /// A preset wrapper around tabItems interimSpace.
+    open var tabItemsInterimSpacePreset: InterimSpacePreset {
         get {
             return contentView.grid.interimSpacePreset
         }
@@ -121,9 +156,9 @@ open class TabBar: Bar {
         }
     }
     
-    /// A wrapper around contentView.grid.interimSpace.
+    /// A wrapper around tabItems interimSpace.
     @IBInspectable
-    open override var interimSpace: InterimSpace {
+    open var tabItemsInterimSpace: InterimSpace {
         get {
             return contentView.grid.interimSpace
         }
@@ -132,30 +167,17 @@ open class TabBar: Bar {
         }
     }
     
-	/// Buttons.
-	open var buttons = [UIButton]() {
+	/// TabItems.
+	open var tabItems = [TabItem]() {
 		didSet {
 			for b in oldValue {
                 b.removeFromSuperview()
             }
 			
+            prepareTabItems()
 			layoutSubviews()
 		}
 	}
-    
-    /// A boolean to animate the line when touched.
-    @IBInspectable
-    open var isLineAnimated = true {
-        didSet {
-            for b in buttons {
-                if isLineAnimated {
-                    prepareLineAnimationHandler(button: b)
-                } else {
-                    removeLineAnimationHandler(button: b)
-                }
-            }
-        }
-    }
     
     /// A reference to the line UIView.
     open let line = UIView()
@@ -188,165 +210,230 @@ open class TabBar: Bar {
     }
     
     open override func layoutSubviews() {
-		super.layoutSubviews()
+        super.layoutSubviews()
         guard willLayout else {
             return
         }
         
-        guard 0 < buttons.count else {
-            return
-        }
-            
-        for b in buttons {
-            b.grid.columns = 0
-            b.cornerRadius = 0
-            b.contentEdgeInsets = .zero
-            
-            if isLineAnimated {
-                prepareLineAnimationHandler(button: b)
-            }
-        }
+        layoutScrollView()
+        layoutLine()
         
-        if .scrollable == tabBarStyle {
-            var w: CGFloat = 0
-            
-            for b in buttons {
-                let width = b.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: contentView.height)).width + interimSpace
-                contentView.addSubview(b)
-                b.height = contentView.height
-                b.width = width
-                b.x = w
-                w += width
-            }
-            print(w, contentView.width)
-            if w > contentView.width {
-                contentView.contentSize.width = w
-            }
-        } else {
-            contentView.grid.axis.columns = buttons.count
-            centerViews = buttons
-        }
-        
-        if nil == selected {
-            selected = buttons.first
-        }
-            
-        line.frame = CGRect(x: selected!.x, y: .bottom == lineAlignment ? height - lineHeight : 0, width: selected!.width, height: lineHeight)
+        updateScrollView()
 	}
-	
-    /**
-     Prepares the view instance when intialized. When subclassing,
-     it is recommended to override the prepare method
-     to initialize property values and other setup operations.
-     The super.prepare method should always be called immediately
-     when subclassing.
-     */
+    
     open override func prepare() {
         super.prepare()
-        isBounceEnabled = true
         contentEdgeInsetsPreset = .none
-        interimSpacePreset = .interimSpace5
-        prepareLine()
+        interimSpacePreset = .interimSpace6
+        tabItemsInterimSpacePreset = .interimSpace4
+        
+        prepareContentView()
+        prepareScrollView()
         prepareDivider()
+        prepareLine()
     }
 }
 
-extension TabBar {
+fileprivate extension TabBar {
     // Prepares the line.
-    fileprivate func prepareLine() {
-        line.zPosition = 6000
+    func prepareLine() {
+        line.zPosition = 10000
         lineColor = Color.blue.base
         lineHeight = 3
-        addSubview(line)
+        scrollView.addSubview(line)
     }
     
     /// Prepares the divider.
-    fileprivate func prepareDivider() {
+    func prepareDivider() {
+        dividerColor = Color.grey.lighten3
         dividerAlignment = .top
+    }
+    
+    /// Prepares the tabItems.
+    func prepareTabItems() {
+        shouldNotAnimateLineView = true
+        
+        for v in tabItems {
+            v.grid.columns = 0
+            v.contentEdgeInsets = .zero
+            
+            prepareLineAnimationHandler(tabItem: v)
+        }
+        
+        selectedTabItem = tabItems.first
     }
     
     /**
      Prepares the line animation handlers.
-     - Parameter button: A UIButton.
+     - Parameter tabItem: A TabItem.
      */
-    fileprivate func prepareLineAnimationHandler(button: UIButton) {
-        removeLineAnimationHandler(button: button)
-        button.addTarget(self, action: #selector(handleButton(button:)), for: .touchUpInside)
+    func prepareLineAnimationHandler(tabItem: TabItem) {
+        removeLineAnimationHandler(tabItem: tabItem)
+        tabItem.addTarget(self, action: #selector(handleLineAnimation(tabItem:)), for: .touchUpInside)
     }
     
+    /// Prepares the contentView.
+    func prepareContentView() {
+        contentView.zPosition = 6000
+    }
+    
+    /// Prepares the scroll view. 
+    func prepareScrollView() {
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.showsHorizontalScrollIndicator = false
+        centerViews = [scrollView]
+    }
+}
+
+fileprivate extension TabBar {
+    /// Layout the scrollView.
+    func layoutScrollView() {
+        contentView.grid.reload()
+        
+        if .scrollable == tabBarStyle || (.auto == tabBarStyle && tabItemsTotalWidth > scrollView.width) {
+            var w: CGFloat = 0
+            let q = 2 * tabItemsInterimSpace
+            let p = q + tabItemsInterimSpace
+            
+            for v in tabItems {
+                let x = v.sizeThatFits(CGSize(width: .greatestFiniteMagnitude, height: scrollView.height)).width
+                v.height = scrollView.height
+                v.width = x + q
+                v.x = w
+                w += x
+                w += p
+                
+                if scrollView != v.superview {
+                    v.removeFromSuperview()
+                    scrollView.addSubview(v)
+                }
+            }
+            
+            w -= tabItemsInterimSpace
+            
+            scrollView.contentSize = CGSize(width: w, height: scrollView.height)
+            
+        } else {
+            scrollView.grid.begin()
+            scrollView.grid.views = tabItems
+            scrollView.grid.axis.columns = tabItems.count
+            scrollView.grid.contentEdgeInsets = tabItemsContentEdgeInsets
+            scrollView.grid.interimSpace = tabItemsInterimSpace
+            scrollView.grid.commit()
+            scrollView.contentSize = scrollView.frame.size
+        }
+    }
+    
+    /// Layout the line view.
+    func layoutLine() {
+        guard let v = selectedTabItem else {
+            return
+        }
+        
+        guard shouldNotAnimateLineView else {
+            line.animate(.duration(0),
+                         .size(CGSize(width: v.width, height: lineHeight)),
+                         .position(CGPoint(x: v.center.x, y: .bottom == lineAlignment ? height - lineHeight / 2 : lineHeight / 2)))
+            return
+        }
+        
+        line.frame = CGRect(x: v.x, y: .bottom == lineAlignment ? scrollView.height - lineHeight : 0, width: v.width, height: lineHeight)
+        
+        shouldNotAnimateLineView = false
+    }
+}
+
+fileprivate extension TabBar {
     /**
      Removes the line animation handlers.
-     - Parameter button: A UIButton.
+     - Parameter tabItem: A TabItem.
      */
-    fileprivate func removeLineAnimationHandler(button: UIButton) {
-        button.removeTarget(self, action: #selector(handleButton(button:)), for: .touchUpInside)
+    func removeLineAnimationHandler(tabItem: TabItem) {
+        tabItem.removeTarget(self, action: #selector(handleLineAnimation(tabItem:)), for: .touchUpInside)
     }
 }
 
-extension TabBar {
-    /// Handles the button touch event.
+fileprivate extension TabBar {
+    /// Handles the tabItem touch event.
     @objc
-    internal func handleButton(button: UIButton) {
-        animate(to: button, isTriggeredByUserInteraction: true)
+    func handleLineAnimation(tabItem: TabItem) {
+        guard !(false == delegate?.tabBar?(tabBar: self, shouldSelect: tabItem)) else {
+            return
+        }
+        
+        animate(to: tabItem, isTriggeredByUserInteraction: true)
     }
 }
 
 extension TabBar {
     /**
-     Selects a given index from the buttons array.
+     Selects a given index from the tabItems array.
      - Parameter at index: An Int.
      - Paramater completion: An optional completion block.
      */
-    open func select(at index: Int, completion: ((UIButton) -> Void)? = nil) {
-        guard -1 < index, index < buttons.count else {
+    open func select(at index: Int, completion: ((TabItem) -> Void)? = nil) {
+        guard -1 < index, index < tabItems.count else {
             return
         }
-        animate(to: buttons[index], isTriggeredByUserInteraction: false, completion: completion)
+        
+        animate(to: tabItems[index], isTriggeredByUserInteraction: false, completion: completion)
     }
     
     /**
-     Animates to a given button.
-     - Parameter to button: A UIButton.
+     Animates to a given tabItem.
+     - Parameter to tabItem: A TabItem.
      - Parameter completion: An optional completion block.
      */
-    open func animate(to button: UIButton, completion: ((UIButton) -> Void)? = nil) {
-        animate(to: button, isTriggeredByUserInteraction: false, completion: completion)
+    open func animate(to tabItem: TabItem, completion: ((TabItem) -> Void)? = nil) {
+        animate(to: tabItem, isTriggeredByUserInteraction: false, completion: completion)
     }
-    
+}
+
+fileprivate extension TabBar {
     /**
-     Animates to a given button.
-     - Parameter to button: A UIButton.
+     Animates to a given tabItem.
+     - Parameter to tabItem: A TabItem.
      - Parameter isTriggeredByUserInteraction: A boolean indicating whether the
      state was changed by a user interaction, true if yes, false otherwise.
      - Parameter completion: An optional completion block.
      */
-    fileprivate func animate(to button: UIButton, isTriggeredByUserInteraction: Bool, completion: ((UIButton) -> Void)? = nil) {
+    func animate(to tabItem: TabItem, isTriggeredByUserInteraction: Bool, completion: ((TabItem) -> Void)? = nil) {
         if isTriggeredByUserInteraction {
-            delegate?.tabBar?(tabBar: self, willSelect: button)
+            delegate?.tabBar?(tabBar: self, willSelect: tabItem)
         }
         
-        selected = button
-        isAnimating = true
+        selectedTabItem = tabItem
         
-        UIView.animate(withDuration: 0.25, animations: { [weak self, button = button] in
-            guard let s = self else {
-                return
-            }
-            
-            s.line.center.x = button.center.x
-            s.line.width = button.width
-        }) { [weak self, isTriggeredByUserInteraction = isTriggeredByUserInteraction, button = button, completion = completion] _ in
-            guard let s = self else {
-                return
-            }
-            
-            s.isAnimating = false
-            
-            if isTriggeredByUserInteraction {
-                s.delegate?.tabBar?(tabBar: s, didSelect: button)
-            }
-            
-            completion?(button)
+        line.animate(.duration(0.25),
+                     .size(CGSize(width: tabItem.width, height: lineHeight)),
+                     .position(CGPoint(x: tabItem.center.x, y: .bottom == lineAlignment ? height - lineHeight / 2 : lineHeight / 2)),
+                     .completion { [weak self, isTriggeredByUserInteraction = isTriggeredByUserInteraction, tabItem = tabItem, completion = completion] _ in
+                        guard let s = self else {
+                            return
+                        }
+        
+                        if isTriggeredByUserInteraction {
+                            s.delegate?.tabBar?(tabBar: s, didSelect: tabItem)
+                        }
+                        
+                        completion?(tabItem)
+                     })
+        
+        updateScrollView()
+    }
+}
+
+fileprivate extension TabBar {
+    /// Updates the scrollView.
+    func updateScrollView() {
+        guard let v = selectedTabItem else {
+            return
+        }
+        
+        if !scrollView.bounds.contains(v.frame) {
+            let contentOffsetX = (v.x < scrollView.bounds.minX) ? v.x : v.frame.maxX - scrollView.bounds.width
+            let normalizedOffsetX = min(max(contentOffsetX, 0), scrollView.contentSize.width - scrollView.bounds.width)
+            scrollView.setContentOffset(CGPoint(x: normalizedOffsetX, y: 0), animated: true)
         }
     }
 }

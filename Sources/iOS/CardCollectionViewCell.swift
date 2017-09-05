@@ -30,53 +30,22 @@
 
 import UIKit
 
-extension UIViewController {
-    /**
-     A convenience property that provides access to the PhotoLibraryController.
-     This is the recommended method of accessing the PhotoLibraryController
-     through child UIViewControllers.
-     */
-    public var photoLibraryController: PhotoLibraryController? {
-        var viewController: UIViewController? = self
-        while nil != viewController {
-            if viewController is PhotoLibraryController {
-                return viewController as? PhotoLibraryController
+open class CardCollectionViewCell: CollectionViewCell {
+    /// An optional reference to the card being displayed in the cell.
+    open var card: Card? {
+        didSet {
+            oldValue?.removeFromSuperview()
+            
+            guard let v = card else {
+                return
             }
-            viewController = viewController?.parent
+            
+            contentView.addSubview(v)
         }
-        return nil
-    }
-}
-
-open class PhotoLibraryController: UIViewController {
-    /// A reference to a PhotoLibrary.
-    open let photoLibrary = PhotoLibrary()
-    
-    open override func viewDidLoad() {
-        super.viewDidLoad()
-        prepare()
     }
     
-    /**
-     Prepares the view instance when intialized. When subclassing,
-     it is recommended to override the prepare method
-     to initialize property values and other setup operations.
-     The super.prepare method should always be called immediately
-     when subclassing.
-     */
-    open func prepare() {
-        view.clipsToBounds = true
-        view.backgroundColor = .white
-        view.contentScaleFactor = Screen.scale
-        preparePhotoLibrary()
+    open override func prepare() {
+        super.prepare()
+        pulseAnimation = .none
     }
 }
-
-extension PhotoLibraryController {
-    /// Prepares the photoLibrary.
-    fileprivate func preparePhotoLibrary() {
-        photoLibrary.delegate = self
-    }
-}
-
-extension PhotoLibraryController: PhotoLibraryDelegate {}

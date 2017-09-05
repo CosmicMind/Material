@@ -43,16 +43,16 @@ public class NavigationItem: NSObject {
     }
     
 	/// Back Button.
-	public private(set) lazy var backButton: IconButton = IconButton()
+    public fileprivate(set) lazy var backButton: IconButton = IconButton()
 	
 	/// Content View.
-    public private(set) lazy var contentView = UIView()
+    public fileprivate(set) var contentView = UIView()
 	
 	/// Title label.
-	public private(set) lazy var titleLabel = UILabel()
+	public fileprivate(set) var titleLabel = UILabel()
 	
 	/// Detail label.
-	public private(set) lazy var detailLabel = UILabel()
+	public fileprivate(set) var detailLabel = UILabel()
 	
 	/// Left items.
     public var leftViews = [UIView]() {
@@ -84,8 +84,16 @@ public class NavigationItem: NSObject {
         }
     }
 	
+    /// An optional reference to the NavigationBar.
     public var navigationBar: NavigationBar? {
-        return contentView.superview?.superview as? NavigationBar
+        var v = contentView.superview
+        while nil != v {
+            if let navigationBar = v as? NavigationBar {
+                return navigationBar
+            }
+            v = v?.superview
+        }
+        return nil
     }
     
     open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -108,12 +116,12 @@ public class NavigationItem: NSObject {
 	}
     
     /// Reloads the subviews for the NavigationBar.
-    internal func reload() {
+    fileprivate func reload() {
         navigationBar?.layoutSubviews()
     }
 	
 	/// Prepares the titleLabel.
-    private func prepareTitleLabel() {
+    fileprivate func prepareTitleLabel() {
         titleLabel.textAlignment = .center
 		titleLabel.contentScaleFactor = Screen.scale
         titleLabel.font = RobotoFont.medium(with: 17)
@@ -122,7 +130,7 @@ public class NavigationItem: NSObject {
 	}
 	
 	/// Prepares the detailLabel.
-    private func prepareDetailLabel() {
+    fileprivate func prepareDetailLabel() {
         detailLabel.textAlignment = .center
         titleLabel.contentScaleFactor = Screen.scale
 		detailLabel.font = RobotoFont.regular(with: 12)
@@ -134,17 +142,17 @@ extension UINavigationItem {
 	/// NavigationItem reference.
 	public internal(set) var navigationItem: NavigationItem {
 		get {
-			return AssociatedObject(base: self, key: &NavigationItemKey) {
+			return AssociatedObject.get(base: self, key: &NavigationItemKey) {
 				return NavigationItem()
 			}
 		}
 		set(value) {
-			AssociateObject(base: self, key: &NavigationItemKey, value: value)
+			AssociatedObject.set(base: self, key: &NavigationItemKey, value: value)
 		}
 	}
     
     /// Should center the contentView.
-    public var contentViewAlignment: ContentViewAlignment {
+    open var contentViewAlignment: ContentViewAlignment {
         get {
             return navigationItem.contentViewAlignment
         }
@@ -154,18 +162,18 @@ extension UINavigationItem {
     }
 	
     /// Content View.
-    public var contentView: UIView {
+    open var contentView: UIView {
         return navigationItem.contentView
     }
     
 	/// Back Button.
-	public var backButton: IconButton {
+	open var backButton: IconButton {
 		return navigationItem.backButton
 	}
 	
     /// Title text.
 	@nonobjc
-	public var title: String? {
+	open var title: String? {
 		get {
 			return titleLabel.text
 		}
@@ -176,12 +184,12 @@ extension UINavigationItem {
 	}
     
 	/// Title Label.
-	public var titleLabel: UILabel {
+	open var titleLabel: UILabel {
 		return navigationItem.titleLabel
 	}
 	
 	/// Detail text.
-	public var detail: String? {
+	open var detail: String? {
 		get {
 			return detailLabel.text
 		}
@@ -192,12 +200,12 @@ extension UINavigationItem {
 	}
 	
 	/// Detail Label.
-	public var detailLabel: UILabel {
+	open var detailLabel: UILabel {
 		return navigationItem.detailLabel
 	}
 	
 	/// Left side UIViews.
-	public var leftViews: [UIView] {
+	open var leftViews: [UIView] {
 		get {
 			return navigationItem.leftViews
 		}
@@ -207,7 +215,7 @@ extension UINavigationItem {
 	}
 	
 	/// Right side UIViews.
-	public var rightViews: [UIView] {
+	open var rightViews: [UIView] {
 		get {
 			return navigationItem.rightViews
 		}

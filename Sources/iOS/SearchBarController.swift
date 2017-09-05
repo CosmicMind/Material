@@ -30,22 +30,21 @@
 
 import UIKit
 
-extension UIViewController {
-	/**
+@objc(SearchBarAlignment)
+public enum SearchBarAlignment: Int {
+    case top
+    case bottom
+}
+
+public extension UIViewController {
+    /**
      A convenience property that provides access to the SearchBarController.
      This is the recommended method of accessing the SearchBarController
      through child UIViewControllers.
      */
-	public var searchBarController: SearchBarController? {
-		var viewController: UIViewController? = self
-		while nil != viewController {
-			if viewController is SearchBarController {
-				return viewController as? SearchBarController
-			}
-			viewController = viewController?.parent
-		}
-		return nil
-	}
+    var searchBarController: SearchBarController? {
+        return traverseViewControllerHierarchyForClassType()
+    }
 }
 
 open class SearchBarController: StatusBarController {
@@ -53,49 +52,71 @@ open class SearchBarController: StatusBarController {
     @IBInspectable
     open let searchBar = SearchBar()
 	
+    /// The searchBar alignment.
+    open var searchBarAlignment = SearchBarAlignment.top {
+        didSet {
+            layoutSubviews()
+        }
+    }
+    
 	open override func layoutSubviews() {
 		super.layoutSubviews()
-        
-        let y = Application.shouldStatusBarBeHidden || statusBar.isHidden ? 0 : statusBar.height
-        
-        searchBar.y = y
-        searchBar.width = view.width
-        
-        switch displayStyle {
-        case .partial:
-            let h = y + searchBar.height
-            rootViewController.view.y = h
-            rootViewController.view.height = view.height - h
-        case .full:
-            rootViewController.view.frame = view.bounds
-        }
+        layoutSearchBar()
+        layoutContainer()
+        layoutRootViewController()
 	}
 	
-	/**
-     Prepares the view instance when intialized. When subclassing,
-     it is recommended to override the prepare method
-     to initialize property values and other setup operations.
-     The super.prepare method should always be called immediately
-     when subclassing.
-     */
 	open override func prepare() {
 		super.prepare()
         displayStyle = .partial
-        prepareStatusBar()
-		prepareSearchBar()
+        
+    	prepareSearchBar()
 	}
 }
 
-extension SearchBarController {
-    /// Prepares the statusBar.
-    fileprivate func prepareStatusBar() {
-        shouldHideStatusBarOnRotation = false
+fileprivate extension SearchBarController {
+    /// Prepares the searchBar.
+    func prepareSearchBar() {
+        searchBar.zPosition = 1000
+        searchBar.depthPreset = .depth1
+        view.addSubview(searchBar)
+    }
+}
+
+fileprivate extension SearchBarController {
+    /// Layout the container.
+    func layoutContainer() {
+        switch displayStyle {
+        case .partial:
+            let p = searchBar.height
+            let q = statusBarOffsetAdjustment
+            let h = view.height - p - q
+            
+            switch searchBarAlignment {
+            case .top:
+                container.y = q + p
+                container.height = h
+            case .bottom:
+                container.y = q
+                container.height = h
+            }
+            
+            container.width = view.width
+            
+        case .full:
+            container.frame = view.bounds
+        }
     }
     
-    /// Prepares the searchBar.
-    fileprivate func prepareSearchBar() {
-        searchBar.depthPreset = .depth1
-        searchBar.zPosition = 1000
-        view.addSubview(searchBar)
+    /// Layout the searchBar.
+    func layoutSearchBar() {
+        searchBar.x = 0
+        searchBar.y = .top == searchBarAlignment ? statusBarOffsetAdjustment : view.height - searchBar.height
+        searchBar.width = view.width
+    }
+    
+    /// Layout the rootViewController.
+    func layoutRootViewController() {
+        rootViewController.view.frame = container.bounds
     }
 }

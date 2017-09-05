@@ -30,53 +30,35 @@
 
 import UIKit
 
-extension UIViewController {
+internal extension UIViewController {
     /**
-     A convenience property that provides access to the RemindersController.
-     This is the recommended method of accessing the RemindersController
-     through child UIViewControllers.
+     Finds a view controller with a given type based on
+     the view controller subclass.
+     - Returns: An optional of type T.
      */
-    public var remindersController: RemindersController? {
-        var viewController: UIViewController? = self
-        while nil != viewController {
-            if viewController is RemindersController {
-                return viewController as? RemindersController
+    func traverseViewControllerHierarchyForClassType<T: UIViewController>() -> T? {
+        var v: UIViewController? = self
+        while nil != v {
+            if v is T {
+                return v as? T
             }
-            viewController = viewController?.parent
+            v = v?.parent as? TransitionController
         }
+        
+        return Application.rootViewController?.traverseTransitionViewControllerHierarchyForClassType()
+    }
+    
+    /**
+     Traverses the child view controllers to find the correct view controller type T.
+     - Returns: An optional of type T.
+     */
+    func traverseTransitionViewControllerHierarchyForClassType<T: UIViewController>() -> T? {
+        if let v = self as? T {
+            return v
+        } else if let v = self as? TransitionController {
+            return v.rootViewController.traverseTransitionViewControllerHierarchyForClassType()
+        }
+        
         return nil
     }
 }
-
-open class RemindersController: UIViewController {
-    /// A reference to a Reminder.
-    open let reminders = Reminders()
-    
-    open override func viewDidLoad() {
-        super.viewDidLoad()
-        prepare()
-    }
-    
-    /**
-     Prepares the view instance when intialized. When subclassing,
-     it is recommended to override the prepareView method
-     to initialize property values and other setup operations.
-     The super.prepareView method should always be called immediately
-     when subclassing.
-     */
-    open func prepare() {
-        view.clipsToBounds = true
-        view.backgroundColor = .white
-        view.contentScaleFactor = Screen.scale
-        prepareReminders()
-    }
-}
-
-extension RemindersController {
-    /// Prepares the reminders.
-    fileprivate func prepareReminders() {
-        reminders.delegate = self
-    }
-}
-
-extension RemindersController: RemindersDelegate {}

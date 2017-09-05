@@ -48,6 +48,17 @@ open class Snackbar: Bar {
         }
     }
     
+    /// A convenience property to set the titleLabel attributedText.
+    open var attributedText: NSAttributedString? {
+        get {
+            return textLabel.attributedText
+        }
+        set(value) {
+            textLabel.attributedText = value
+            layoutSubviews()
+        }
+    }
+    
     /// Text label.
     @IBInspectable
     open let textLabel = UILabel()
@@ -79,13 +90,6 @@ open class Snackbar: Bar {
         centerViews = [textLabel]
     }
     
-    /**
-     Prepares the view instance when intialized. When subclassing,
-     it is recommended to override the prepare method
-     to initialize property values and other setup operations.
-     The super.prepare method should always be called immediately
-     when subclassing.
-     */
     open override func prepare() {
         super.prepare()
         depthPreset = .none

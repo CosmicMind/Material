@@ -639,6 +639,7 @@ extension Layout {
     public class func width(parent: UIView, child: UIView, width: CGFloat = 0) {
         prepareForConstraint(parent, child: child)
         parent.addConstraint(NSLayoutConstraint(item: child, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: width))
+        child.updateConstraints()
         child.setNeedsLayout()
         child.layoutIfNeeded()
     }
@@ -652,6 +653,7 @@ extension Layout {
     public class func height(parent: UIView, child: UIView, height: CGFloat = 0) {
         prepareForConstraint(parent, child: child)
         parent.addConstraint(NSLayoutConstraint(item: child, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: height))
+        child.updateConstraints()
         child.setNeedsLayout()
         child.layoutIfNeeded()
     }
@@ -687,6 +689,7 @@ extension Layout {
             parent.addConstraint(NSLayoutConstraint(item: children[children.count - 1], attribute: .right, relatedBy: .equal, toItem: parent, attribute: .right, multiplier: 1, constant: -right))
         }
         for child in children {
+            child.updateConstraints()
             child.setNeedsLayout()
             child.layoutIfNeeded()
         }
@@ -703,6 +706,7 @@ extension Layout {
      */
     public class func vertically(parent: UIView, children: [UIView], top: CGFloat = 0, bottom: CGFloat = 0, interimSpace: InterimSpace = 0) {
         prepareForConstraint(parent, children: children)
+        
         if 0 < children.count {
             parent.addConstraint(NSLayoutConstraint(item: children[0], attribute: .top, relatedBy: .equal, toItem: parent, attribute: .top, multiplier: 1, constant: top))
             for i in 1..<children.count {
@@ -711,7 +715,9 @@ extension Layout {
             }
             parent.addConstraint(NSLayoutConstraint(item: children[children.count - 1], attribute: .bottom, relatedBy: .equal, toItem: parent, attribute: .bottom, multiplier: 1, constant: -bottom))
         }
+        
         for child in children {
+            child.updateConstraints()
             child.setNeedsLayout()
             child.layoutIfNeeded()
         }
@@ -726,8 +732,11 @@ extension Layout {
      */
     public class func horizontally(parent: UIView, child: UIView, left: CGFloat = 0, right: CGFloat = 0) {
         prepareForConstraint(parent, child: child)
+        
         parent.addConstraint(NSLayoutConstraint(item: child, attribute: .left, relatedBy: .equal, toItem: parent, attribute: .left, multiplier: 1, constant: left))
         parent.addConstraint(NSLayoutConstraint(item: child, attribute: .right, relatedBy: .equal, toItem: parent, attribute: .right, multiplier: 1, constant: -right))
+        
+        child.updateConstraints()
         child.setNeedsLayout()
         child.layoutIfNeeded()
     }
@@ -741,8 +750,11 @@ extension Layout {
      */
     public class func vertically(parent: UIView, child: UIView, top: CGFloat = 0, bottom: CGFloat = 0) {
         prepareForConstraint(parent, child: child)
+        
         parent.addConstraint(NSLayoutConstraint(item: child, attribute: .top, relatedBy: .equal, toItem: parent, attribute: .top, multiplier: 1, constant: top))
         parent.addConstraint(NSLayoutConstraint(item: child, attribute: .bottom, relatedBy: .equal, toItem: parent, attribute: .bottom, multiplier: 1, constant: -bottom))
+        
+        child.updateConstraints()
         child.setNeedsLayout()
         child.layoutIfNeeded()
     }
@@ -770,7 +782,10 @@ extension Layout {
      */
     public class func top(parent: UIView, child: UIView, top: CGFloat = 0) {
         prepareForConstraint(parent, child: child)
+        
         parent.addConstraint(NSLayoutConstraint(item: child, attribute: .top, relatedBy: .equal, toItem: parent, attribute: .top, multiplier: 1, constant: top))
+        
+        child.updateConstraints()
         child.setNeedsLayout()
         child.layoutIfNeeded()
     }
@@ -784,7 +799,10 @@ extension Layout {
      */
     public class func left(parent: UIView, child: UIView, left: CGFloat = 0) {
         prepareForConstraint(parent, child: child)
+        
         parent.addConstraint(NSLayoutConstraint(item: child, attribute: .left, relatedBy: .equal, toItem: parent, attribute: .left, multiplier: 1, constant: left))
+        
+        child.updateConstraints()
         child.setNeedsLayout()
         child.layoutIfNeeded()
     }
@@ -798,7 +816,10 @@ extension Layout {
      */
     public class func bottom(parent: UIView, child: UIView, bottom: CGFloat = 0) {
         prepareForConstraint(parent, child: child)
+        
         parent.addConstraint(NSLayoutConstraint(item: child, attribute: .bottom, relatedBy: .equal, toItem: parent, attribute: .bottom, multiplier: 1, constant: -bottom))
+        
+        child.updateConstraints()
         child.setNeedsLayout()
         child.layoutIfNeeded()
     }
@@ -812,7 +833,10 @@ extension Layout {
      */
     public class func right(parent: UIView, child: UIView, right: CGFloat = 0) {
         prepareForConstraint(parent, child: child)
+        
         parent.addConstraint(NSLayoutConstraint(item: child, attribute: .right, relatedBy: .equal, toItem: parent, attribute: .right, multiplier: 1, constant: -right))
+        
+        child.updateConstraints()
         child.setNeedsLayout()
         child.layoutIfNeeded()
     }
@@ -891,7 +915,10 @@ extension Layout {
      */
     public class func centerHorizontally(parent: UIView, child: UIView, offset: CGFloat = 0) {
         prepareForConstraint(parent, child: child)
+        
         parent.addConstraint(NSLayoutConstraint(item: child, attribute: .centerX, relatedBy: .equal, toItem: parent, attribute: .centerX, multiplier: 1, constant: offset))
+        
+        child.updateConstraints()
         child.setNeedsLayout()
         child.layoutIfNeeded()
     }
@@ -905,7 +932,10 @@ extension Layout {
      */
     public class func centerVertically(parent: UIView, child: UIView, offset: CGFloat = 0) {
         prepareForConstraint(parent, child: child)
+        
         parent.addConstraint(NSLayoutConstraint(item: child, attribute: .centerY, relatedBy: .equal, toItem: parent, attribute: .centerY, multiplier: 1, constant: offset))
+        
+        child.updateConstraints()
         child.setNeedsLayout()
         child.layoutIfNeeded()
     }
@@ -968,12 +998,12 @@ extension UIView {
     /// Layout reference.
     public private(set) var layout: Layout {
         get {
-            return AssociatedObject(base: self, key: &LayoutKey) {
+            return AssociatedObject.get(base: self, key: &LayoutKey) {
                 return Layout(parent: self)
             }
         }
         set(value) {
-            AssociateObject(base: self, key: &LayoutKey, value: value)
+            AssociatedObject.set(base: self, key: &LayoutKey, value: value)
         }
     }
     
