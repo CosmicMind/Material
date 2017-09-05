@@ -279,32 +279,33 @@ open class TextView: UITextView {
 		backgroundColor = nil
         font = RobotoFont.regular(with: 16)
         textColor = Color.darkText.primary
+        
         prepareNotificationHandlers()
         prepareRegularExpression()
         preparePlaceholderLabel()
 	}
 }
 
-extension TextView {
+fileprivate extension TextView {
     /// Prepares the Notification handlers.
-    fileprivate func prepareNotificationHandlers() {
+    func prepareNotificationHandlers() {
         let defaultCenter = NotificationCenter.default
-        defaultCenter.addObserver(self, selector: #selector(handleKeyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        defaultCenter.addObserver(self, selector: #selector(handleKeyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        defaultCenter.addObserver(self, selector: #selector(handleKeyboardDidShow(notification:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
-        defaultCenter.addObserver(self, selector: #selector(handleKeyboardDidHide(notification:)), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
-        defaultCenter.addObserver(self, selector: #selector(handleTextViewTextDidBegin), name: NSNotification.Name.UITextViewTextDidBeginEditing, object: self)
-        defaultCenter.addObserver(self, selector: #selector(handleTextViewTextDidChange), name: NSNotification.Name.UITextViewTextDidChange, object: self)
-        defaultCenter.addObserver(self, selector: #selector(handleTextViewTextDidEnd), name: NSNotification.Name.UITextViewTextDidEndEditing, object: self)
+        defaultCenter.addObserver(self, selector: #selector(handleKeyboardWillShow(notification:)), name: .UIKeyboardWillShow, object: nil)
+        defaultCenter.addObserver(self, selector: #selector(handleKeyboardWillHide(notification:)), name: .UIKeyboardWillHide, object: nil)
+        defaultCenter.addObserver(self, selector: #selector(handleKeyboardDidShow(notification:)), name: .UIKeyboardDidShow, object: nil)
+        defaultCenter.addObserver(self, selector: #selector(handleKeyboardDidHide(notification:)), name: .UIKeyboardDidHide, object: nil)
+        defaultCenter.addObserver(self, selector: #selector(handleTextViewTextDidBegin), name: .UITextViewTextDidBeginEditing, object: self)
+        defaultCenter.addObserver(self, selector: #selector(handleTextViewTextDidChange), name: .UITextViewTextDidChange, object: self)
+        defaultCenter.addObserver(self, selector: #selector(handleTextViewTextDidEnd), name: .UITextViewTextDidEndEditing, object: self)
     }
     
     /// Prepares the regular expression for matching.
-    fileprivate func prepareRegularExpression() {
+    func prepareRegularExpression() {
         (textStorage as? TextStorage)?.expression = try? NSRegularExpression(pattern: pattern, options: [])
     }
     
     /// prepares the placeholderLabel property.
-    fileprivate func preparePlaceholderLabel() {
+    func preparePlaceholderLabel() {
         placeholderLabel.textColor = Color.darkText.others
         placeholderLabel.textAlignment = textAlignment
         placeholderLabel.numberOfLines = 0
@@ -313,22 +314,22 @@ extension TextView {
     }
 }
 
-extension TextView {
+fileprivate extension TextView {
     /// Updates the placeholderLabel text color.
-    fileprivate func updatePlaceholderLabelColor() {
+    func updatePlaceholderLabelColor() {
         tintColor = placeholderActiveColor
         placeholderLabel.textColor = isEditing ? placeholderActiveColor : placeholderNormalColor
     }
     
     /// Updates the placeholderLabel visibility.
-    fileprivate func updatePlaceholderVisibility() {
+    func updatePlaceholderVisibility() {
         placeholderLabel.isHidden = !isEmpty
     }
 }
 
-extension TextView {
+fileprivate extension TextView {
     /// Laysout the placeholder UILabel.
-    fileprivate func layoutPlaceholderLabel() {
+    func layoutPlaceholderLabel() {
         placeholderLabel.preferredMaxLayoutWidth = textContainer.size.width - textContainer.lineFragmentPadding * 2
         
         let x = textContainerInset.left + textContainer.lineFragmentPadding
@@ -341,13 +342,13 @@ extension TextView {
     }
 }
 
-extension TextView {
+fileprivate extension TextView {
     /**
      Handler for when the keyboard will open.
      - Parameter notification: A Notification.
      */
     @objc
-    fileprivate func handleKeyboardWillShow(notification: Notification) {
+    func handleKeyboardWillShow(notification: Notification) {
         guard isKeyboardHidden else {
             return
         }
@@ -364,7 +365,7 @@ extension TextView {
      - Parameter notification: A Notification.
      */
     @objc
-    fileprivate func handleKeyboardDidShow(notification: Notification) {
+    func handleKeyboardDidShow(notification: Notification) {
         guard isKeyboardHidden else {
             return
         }
@@ -383,7 +384,7 @@ extension TextView {
      - Parameter notification: A Notification.
      */
     @objc
-    fileprivate func handleKeyboardWillHide(notification: Notification) {
+    func handleKeyboardWillHide(notification: Notification) {
         guard !isKeyboardHidden else {
             return
         }
@@ -400,7 +401,7 @@ extension TextView {
      - Parameter notification: A Notification.
      */
     @objc
-    fileprivate func handleKeyboardDidHide(notification: Notification) {
+    func handleKeyboardDidHide(notification: Notification) {
         guard !isKeyboardHidden else {
             return
         }
@@ -416,19 +417,19 @@ extension TextView {
     
     /// Notification handler for when text editing began.
     @objc
-    fileprivate func handleTextViewTextDidBegin() {
+    func handleTextViewTextDidBegin() {
         isEditing = true
     }
     
     /// Notification handler for when text changed.
     @objc
-    fileprivate func handleTextViewTextDidChange() {
+    func handleTextViewTextDidChange() {
         updatePlaceholderVisibility()
     }
     
     /// Notification handler for when text editing ended.
     @objc
-    fileprivate func handleTextViewTextDidEnd() {
+    func handleTextViewTextDidEnd() {
         isEditing = false
         updatePlaceholderVisibility()
     }
