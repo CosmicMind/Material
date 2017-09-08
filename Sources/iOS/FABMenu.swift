@@ -30,6 +30,12 @@
 
 import UIKit
 
+@objc(FABMenuItemTitleLabelPosition)
+public enum FABMenuItemTitleLabelPosition: Int {
+    case left
+    case right
+}
+
 @objc(FABMenuDirection)
 public enum FABMenuDirection: Int {
     case up
@@ -41,6 +47,9 @@ public enum FABMenuDirection: Int {
 open class FABMenuItem: View {
     /// A reference to the titleLabel.
     open let titleLabel = UILabel()
+    
+    /// The titleLabel side.
+    open var titleLabelPosition = FABMenuItemTitleLabelPosition.left
     
     /// A reference to the fabButton.
     open let fabButton = FABButton()
@@ -75,12 +84,6 @@ open class FABMenuItem: View {
             addSubview(titleLabel)
         }
     }
-    open var titleLabelSide : labelSide = .right
-    
-    public enum labelSide {
-        case left
-        case right
-    }
 }
 
 extension FABMenuItem {
@@ -93,7 +96,7 @@ extension FABMenuItem {
         titleLabel.height += interimSpace / 2
         titleLabel.y = (height - titleLabel.height) / 2
         
-        switch (titleLabelSide) {
+        switch titleLabelPosition {
         case .left:
             titleLabel.x = -titleLabel.width - interimSpace
         case .right:
