@@ -90,9 +90,6 @@ open class TabsController: TransitionController {
         }
     }
     
-    /// user can slide views left, right naturally.
-    open var isAllDirectionSlideEnabled = true
-    
     /// A reference to the currently selected view controller index value.
     @IBInspectable
     open fileprivate(set) var selectedIndex = 0
