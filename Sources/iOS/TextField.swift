@@ -210,28 +210,28 @@ open class TextField: UITextField {
     open var placeholderActiveColor = Color.blue.base {
         didSet {
             updatePlaceholderLabelColor()
-		    }
-	  }
+        }
+    }
 	
 	/// This property adds a padding to placeholder y position animation
 	@IBInspectable
-  open var placeholderVerticalOffset: CGFloat = 0
+    open var placeholderVerticalOffset: CGFloat = 0
   
-  /// This property adds a padding to placeholder y position animation
-  @IBInspectable
-  open var placeholderHorizinalOffset: CGFloat = 0
+    /// This property adds a padding to placeholder y position animation
+    @IBInspectable
+    open var placeholderHorizontalOffset: CGFloat = 0
 	
-  /// The scale of the active placeholder in relation to the inactive
-  @IBInspectable
-  open var placeholderActiveScale: CGFloat = 0.75 {
-     didSet {
-        layoutPlaceholderLabel()
-     }
-  }
+    /// The scale of the active placeholder in relation to the inactive
+    @IBInspectable
+    open var placeholderActiveScale: CGFloat = 0.75 {
+        didSet {
+            layoutPlaceholderLabel()
+        }
+    }
   
 	/// The detailLabel UILabel that is displayed.
 	@IBInspectable
-  open let detailLabel = UILabel()
+    open let detailLabel = UILabel()
 	
 	/// The detailLabel text value.
 	@IBInspectable
@@ -527,9 +527,9 @@ fileprivate extension TextField {
         
         switch textAlignment {
         case .left, .natural:
-            placeholderLabel.x = w + placeholderHorizinalOffset
+            placeholderLabel.x = w + placeholderHorizontalOffset
         case .right:
-            placeholderLabel.x = width - placeholderLabel.width - textInset + placeholderHorizinalOffset
+            placeholderLabel.x = width - placeholderLabel.width - textInset + placeholderHorizontalOffset
         default:break
         }
         
@@ -673,9 +673,9 @@ extension TextField {
                                                         
             switch s.textAlignment {
             case .left, .natural:
-                s.placeholderLabel.x = s.leftViewWidth + s.textInset + s.placeholderHorizinalOffset
+                s.placeholderLabel.x = s.leftViewWidth + s.textInset + s.placeholderHorizontalOffset
             case .right:
-                s.placeholderLabel.x = s.width - s.placeholderLabel.width - s.textInset + s.placeholderHorizinalOffset
+                s.placeholderLabel.x = s.width - s.placeholderLabel.width - s.textInset + s.placeholderHorizontalOffset
             default:break
             }
             
