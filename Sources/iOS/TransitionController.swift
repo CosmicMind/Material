@@ -128,60 +128,6 @@ open class TransitionController: UIViewController {
     }
     
     /**
-     A method to swap rootViewController objects specially in tabsController.
-     - Parameter tabsController: indicate tabsController. if tabsController nil then default transition method will be executed.
-     - Parameter toViewController: The UIViewController to swap
-     with the active rootViewController.
-     - Parameter completion: A completion block that is execited after
-     the transition animation from the active rootViewController
-     to the toViewController has completed.
-     */
-    open func tabsTransition(tabsController: TabsController?, to viewController: UIViewController, completion: ((Bool) -> Void)? = nil) {
-        guard let fvc = rootViewController else {
-            return
-        }
-        
-        let tvc = viewController
-        
-        tvc.view.isHidden = false
-        tvc.view.frame = container.bounds
-        
-        if(tabsController == nil) {
-            tvc.motionModalTransitionType = motionTransitionType
-            
-            view.isUserInteractionEnabled = false
-            Motion.shared.transition(from: fvc, to: tvc, in: container) { [weak self, tvc = tvc, completion = completion] (isFinished) in
-                guard let s = self else {
-                    return
-                }
-                
-                s.rootViewController = tvc
-                s.view.isUserInteractionEnabled = true
-                completion?(isFinished)
-            }
-        }
-        let fvcIndex = tabsController?.viewControllers.index(of: fvc)
-        let tvcIndex = tabsController?.viewControllers.index(of: viewController)
-        
-        if(fvcIndex! < tvcIndex!) {
-            tvc.motionModalTransitionType = .slide(direction: .left)
-        } else {
-            tvc.motionModalTransitionType = .slide(direction: .right)
-        }
-        
-        view.isUserInteractionEnabled = false
-        Motion.shared.transition(from: fvc, to: tvc, in: container) { [weak self, tvc = tvc, completion = completion] (isFinished) in
-            guard let s = self else {
-                return
-            }
-            
-            s.rootViewController = tvc
-            s.view.isUserInteractionEnabled = true
-            completion?(isFinished)
-        }
-    }
-    
-    /**
      To execute in the order of the layout chain, override this
      method. `layoutSubviews` should be called immediately, unless you
      have a certain need.

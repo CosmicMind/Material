@@ -90,17 +90,8 @@ open class TabsController: TransitionController {
         }
     }
     
-    fileprivate var _isAllDirectionSlideEnable: Bool = false
-    
     /// user can slide views left, right naturally.
-    open var isAllDirectionSlideEnabled: Bool {
-        get {
-            return _isAllDirectionSlideEnable
-        }
-        set(newVal) {
-            _isAllDirectionSlideEnable = newVal
-        }
-    }
+    open var isAllDirectionSlideEnabled = true
     
     /// A reference to the currently selected view controller index value.
     @IBInspectable
@@ -162,6 +153,43 @@ open class TabsController: TransitionController {
         prepareViewControllers()
         prepareTabBar()
         prepareTabItems()
+    }
+    
+    open override func transition(to viewController: UIViewController, completion: ((Bool) -> Void)?) {
+        guard let fvc = rootViewController else {
+            return
+        }
+        
+        let tvc = viewController
+        tvc.view.isHidden = false
+        tvc.view.frame = container.bounds
+        
+        let fvcIndex = viewControllers.index(of: fvc)
+        let tvcIndex = viewControllers.index(of: viewController)
+        
+        var isAuto = false
+        
+        switch tvc.motionModalTransitionType {
+        case .auto:
+            isAuto = true
+            tvc.motionModalTransitionType = fvcIndex! < tvcIndex! ? .slide(direction: .left) : .slide(direction: .right)
+        default:break
+        }
+        
+        view.isUserInteractionEnabled = false
+        Motion.shared.transition(from: fvc, to: tvc, in: container) { [weak self, tvc = tvc, isAuto = isAuto, completion = completion] (isFinished) in
+            guard let s = self else {
+                return
+            }
+            
+            if isAuto {
+                tvc.motionModalTransitionType = .auto
+            }
+            
+            s.rootViewController = tvc
+            s.view.isUserInteractionEnabled = true
+            completion?(isFinished)
+        }
     }
 }
 
@@ -273,7 +301,7 @@ fileprivate extension TabsController {
 
 extension TabsController: TabBarDelegate {
     @objc
-    open func tabBar(tabBar: TabBar, didSelect tabItem: TabItem) {
+    open func tabBar(tabBar: TabBar, willSelect tabItem: TabItem) {
         guard !(false == tabBar.delegate?.tabBar?(tabBar: tabBar, shouldSelect: tabItem)) else {
             return
         }
@@ -286,22 +314,12 @@ extension TabsController: TabBarDelegate {
             return
         }
         
-        if(_isAllDirectionSlideEnable) {
-            tabsTransition(tabsController: self, to: viewControllers[i], completion: { [weak self] (isFinished) in
-                guard isFinished else {
-                    return
-                }
-                
-                self?.selectedIndex = i
-            })
-        } else {
-            transition(to: viewControllers[i]) { [weak self] (isFinished) in
-                guard isFinished else {
-                    return
-                }
-                
-                self?.selectedIndex = i
+        transition(to: viewControllers[i]) { [weak self] (isFinished) in
+            guard isFinished else {
+                return
             }
+            
+            self?.selectedIndex = i
         }
     }
 }
