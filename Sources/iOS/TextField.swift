@@ -366,9 +366,9 @@ open class TextField: UITextField {
     }
     
     @IBInspectable
-    open var isPlaceholderUppercasedWhenEditing: Bool = false {
+    open var isPlaceholderUppercasedWhenEditing = false {
         didSet {
-            placeholder = placeholder?.uppercased()
+            updatePlaceholderTextToActiveState()
         }
     }
     
@@ -501,6 +501,32 @@ fileprivate extension TextField {
     func updatePlaceholderLabelColor() {
         tintColor = placeholderActiveColor
         placeholderLabel.textColor = isEditing ? placeholderActiveColor : placeholderNormalColor
+    }
+    
+    /// Update the placeholder text to the active state.
+    func updatePlaceholderTextToActiveState() {
+        guard isPlaceholderUppercasedWhenEditing else {
+            return
+        }
+        
+        guard isEditing || !isEmpty else {
+            return
+        }
+        
+        placeholderLabel.text = placeholderLabel.text?.uppercased()
+    }
+    
+    /// Update the placeholder text to the normal state.
+    func updatePlaceholderTextToNormalState() {
+        guard isPlaceholderUppercasedWhenEditing else {
+            return
+        }
+        
+        guard isEmpty else {
+            return
+        }
+        
+        placeholderLabel.text = placeholderLabel.text?.capitalized
     }
     
     /// Updates the detailLabel text color.
@@ -648,16 +674,12 @@ extension TextField {
         updatePlaceholderLabelColor()
         
         guard isPlaceholderAnimated else {
-            if isPlaceholderUppercasedWhenEditing {
-                placeholderLabel.text = placeholderLabel.text?.uppercased()
-            }
+            updatePlaceholderTextToActiveState()
             return
         }
         
         guard isEmpty else {
-            if isPlaceholderUppercasedWhenEditing {
-                placeholderLabel.text = placeholderLabel.text?.uppercased()
-            }
+            updatePlaceholderTextToActiveState()
             return
         }
         
@@ -667,9 +689,8 @@ extension TextField {
             }
             
             s.placeholderLabel.transform = CGAffineTransform(scaleX: s.placeholderActiveScale, y: s.placeholderActiveScale)
-            if self?.isPlaceholderUppercasedWhenEditing ?? false {
-                s.placeholderLabel.text = s.placeholderLabel.text?.uppercased()
-            }
+            
+            s.updatePlaceholderTextToActiveState()
                                                         
             switch s.textAlignment {
             case .left, .natural:
@@ -691,12 +712,12 @@ extension TextField {
         }
         
         updatePlaceholderLabelColor()
-        if self.isPlaceholderUppercasedWhenEditing {
-            placeholderLabel.text = placeholderLabel.text?.capitalized
-        }
+        updatePlaceholderTextToNormalState()
+        
         guard isPlaceholderAnimated else {
             return
         }
+        
         guard isEmpty else {
             return
         }
