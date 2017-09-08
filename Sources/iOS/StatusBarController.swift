@@ -114,10 +114,13 @@ open class StatusBarController: TransitionController {
 	}
 }
 
-extension StatusBarController {
+fileprivate extension StatusBarController {
     /// Prepares the statusBar.
-    fileprivate func prepareStatusBar() {
-        statusBar.backgroundColor = .white
+    func prepareStatusBar() {
+        if nil == statusBar.backgroundColor {
+            statusBar.backgroundColor = .white
+        }
+        
         statusBar.height = 20
         view.addSubview(statusBar)
     }
