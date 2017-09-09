@@ -498,7 +498,7 @@ extension Switch {
 
 extension Switch {
     /**
-     Handle the TouchUpOutside and TouchCancel events.
+     Handle the TouchUpOutside and TouchCancel moments.
      - Parameter sender: A UIButton.
      - Parameter event: A UIEvent.
      */

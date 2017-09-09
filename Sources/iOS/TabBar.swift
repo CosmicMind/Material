@@ -46,6 +46,16 @@ public enum TabBarLineAlignment: Int {
 @objc(TabBarDelegate)
 public protocol TabBarDelegate {
     /**
+     A delegation method that is executed to determine if the TabBar should
+     transition to the next tab.
+     - Parameter tabBar: A TabBar.
+     - Parameter tabItem: A TabItem.
+     - Returns: A Boolean.
+     */
+    @objc
+    optional func tabBar(tabBar: TabBar, shouldSelect tabItem: TabItem) -> Bool
+    
+    /**
      A delegation method that is executed when the tabItem will trigger the
      animation to the next tab.
      - Parameter tabBar: A TabBar.
@@ -53,13 +63,6 @@ public protocol TabBarDelegate {
      */
     @objc
     optional func tabBar(tabBar: TabBar, willSelect tabItem: TabItem)
-    
-    /**
-     A delegation method that is executed to determine if the tabItem should
-     transition to the next tab.
-     */
-    @objc
-    optional func tabBar(tabBar: TabBar, shouldSelect tabItem: TabItem) -> Bool
     
     /**
      A delegation method that is executed when the tabItem did complete the
@@ -123,7 +126,7 @@ open class TabBar: Bar {
     open weak var delegate: TabBarDelegate?
     
     /// The currently selected tabItem.
-    open fileprivate(set) var selectedTabItem: TabItem?
+    open internal(set) var selectedTabItem: TabItem?
     
     /// A preset wrapper around tabItems contentEdgeInsets.
     open var tabItemsContentEdgeInsetsPreset: EdgeInsetsPreset {

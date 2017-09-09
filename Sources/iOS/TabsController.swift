@@ -63,6 +63,35 @@ extension UIViewController {
     }
 }
 
+@objc(TabsControllerDelegate)
+public protocol TabsControllerDelegate {
+    /**
+     A delegation method that is executed to determine if the TabsController should
+     transition to the next view controller.
+     - Parameter tabBar: A TabsController.
+     - Parameter tabItem: A TabItem.
+     - Returns: A Boolean.
+     */
+    @objc
+    optional func tabsController(tabsController: TabsController, shouldSelect viewController: UIViewController) -> Bool
+    
+    /**
+     A delegation method that is executed when the view controller will transitioned to.
+     - Parameter tabsController: A TabsController.
+     - Parameter viewController: A UIViewController.
+     */
+    @objc
+    optional func tabsController(tabsController: TabsController, willSelect viewController: UIViewController)
+    
+    /**
+     A delegation method that is executed when the view controller has been transitioned to.
+     - Parameter tabsController: A TabsController.
+     - Parameter viewController: A UIViewController.
+     */
+    @objc
+    optional func tabsController(tabsController: TabsController, didSelect viewController: UIViewController)
+}
+
 open class TabsController: TransitionController {
     /**
      A Display value to indicate whether or not to
@@ -78,6 +107,9 @@ open class TabsController: TransitionController {
     /// The TabBar used to switch between view controllers.
     @IBInspectable
     open let tabBar = TabBar()
+    
+    /// A delegation reference.
+    open weak var delegate: TabsControllerDelegate?
     
     /// An Array of UIViewControllers.
     open var viewControllers: [UIViewController] {
@@ -153,6 +185,18 @@ open class TabsController: TransitionController {
     }
     
     open override func transition(to viewController: UIViewController, completion: ((Bool) -> Void)?) {
+        transition(to: viewController, isTriggeredByUserInteraction: false, completion: completion)
+    }
+}
+
+fileprivate extension TabsController {
+    /**
+     Transitions to the given view controller.
+     - Parameter to viewController: A UIViewController.
+     - Parameter isTriggeredByUserInteraction: A Boolean.
+     - Parameter completion: An optional completion block.
+     */
+    func transition(to viewController: UIViewController, isTriggeredByUserInteraction: Bool, completion: ((Bool) -> Void)?) {
         guard let fvc = rootViewController else {
             return
         }
@@ -173,6 +217,10 @@ open class TabsController: TransitionController {
         default:break
         }
         
+        if isTriggeredByUserInteraction {
+            delegate?.tabsController?(tabsController: self, willSelect: tvc)
+        }
+        
         view.isUserInteractionEnabled = false
         Motion.shared.transition(from: fvc, to: tvc, in: container) { [weak self, tvc = tvc, isAuto = isAuto, completion = completion] (isFinished) in
             guard let s = self else {
@@ -185,7 +233,12 @@ open class TabsController: TransitionController {
             
             s.rootViewController = tvc
             s.view.isUserInteractionEnabled = true
+            
             completion?(isFinished)
+            
+            if isTriggeredByUserInteraction {
+                s.delegate?.tabsController?(tabsController: s, didSelect: tvc)
+            }
         }
     }
 }
@@ -244,6 +297,7 @@ fileprivate extension TabsController {
         }
         
         tabBar.tabItems = tabItems
+        tabBar.selectedTabItem = tabItems[selectedIndex]
     }
 }
 
@@ -296,6 +350,34 @@ fileprivate extension TabsController {
     }
 }
 
+extension TabsController {
+    /**
+     Transitions to the view controller that is at the given index.
+     - Parameter at index: An Int.
+     */
+    open func select(at index: Int) {
+        guard index != selectedIndex else {
+            return
+        }
+        
+        Motion.delay(0) { [weak self] in
+            guard let s = self else {
+                return
+            }
+            
+            s.tabBar.select(at: index)
+            
+            s.transition(to: s.viewControllers[index], isTriggeredByUserInteraction: false) { [weak self] (isFinished) in
+                guard isFinished else {
+                    return
+                }
+                
+                self?.selectedIndex = index
+            }
+        }
+    }
+}
+
 extension TabsController: TabBarDelegate {
     @objc
     open func tabBar(tabBar: TabBar, willSelect tabItem: TabItem) {
@@ -311,7 +393,11 @@ extension TabsController: TabBarDelegate {
             return
         }
         
-        transition(to: viewControllers[i]) { [weak self] (isFinished) in
+        guard !(false == delegate?.tabsController?(tabsController: self, shouldSelect: viewControllers[i])) else {
+            return
+        }
+        
+        transition(to: viewControllers[i], isTriggeredByUserInteraction: true) { [weak self] (isFinished) in
             guard isFinished else {
                 return
             }
