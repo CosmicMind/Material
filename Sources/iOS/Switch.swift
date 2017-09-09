@@ -208,15 +208,15 @@ open class Switch: UIControl {
                 buttonOnColor = Color.blue.darken2
                 trackOnColor = Color.blue.lighten3
                 buttonOffColor = Color.blueGrey.lighten4
-                trackOffColor = Color.grey.lighten3
+                trackOffColor = Color.grey.lighten2
                 buttonOnDisabledColor = Color.grey.lighten2
-                trackOnDisabledColor = Color.grey.lighten3
+                trackOnDisabledColor = Color.grey.lighten2
                 buttonOffDisabledColor = Color.grey.lighten2
-                trackOffDisabledColor = Color.grey.lighten3
+                trackOffDisabledColor = Color.grey.lighten2
             case .dark:
                 buttonOnColor = Color.blue.lighten1
                 trackOnColor = Color.blue.lighten2.withAlphaComponent(0.5)
-                buttonOffColor = Color.grey.lighten3
+                buttonOffColor = Color.grey.lighten2
                 trackOffColor = Color.blueGrey.lighten4.withAlphaComponent(0.5)
                 buttonOnDisabledColor = Color.grey.darken3
                 trackOnDisabledColor = Color.grey.lighten1.withAlphaComponent(0.2)

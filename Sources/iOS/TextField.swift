@@ -147,7 +147,7 @@ open class TextField: UITextField {
     
     /// Divider normal color.
     @IBInspectable
-    open var dividerNormalColor = Color.darkText.dividers {
+    open var dividerNormalColor = Color.grey.lighten2 {
         didSet {
             guard !isEditing else {
                 return

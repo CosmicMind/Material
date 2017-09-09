@@ -244,7 +244,7 @@ open class ChipBar: Bar {
 fileprivate extension ChipBar {
     /// Prepares the divider.
     func prepareDivider() {
-        dividerColor = Color.grey.lighten3
+        dividerColor = Color.grey.lighten2
     }
     
     /// Prepares the chipItems.

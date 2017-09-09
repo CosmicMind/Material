@@ -248,7 +248,7 @@ fileprivate extension TabBar {
     
     /// Prepares the divider.
     func prepareDivider() {
-        dividerColor = Color.grey.lighten3
+        dividerColor = Color.grey.lighten2
         dividerAlignment = .top
     }
     
