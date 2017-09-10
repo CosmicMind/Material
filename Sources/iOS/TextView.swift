@@ -132,15 +132,7 @@ open class TextView: UITextView {
     
     /// Placeholder normal text
     @IBInspectable
-    open var placeholderNormalColor = Color.darkText.others {
-        didSet {
-            updatePlaceholderLabelColor()
-        }
-    }
-    
-    /// Placeholder active text
-    @IBInspectable
-    open var placeholderActiveColor = Color.blue.base {
+    open var placeholderColor = Color.darkText.others {
         didSet {
             updatePlaceholderLabelColor()
         }
@@ -317,8 +309,8 @@ fileprivate extension TextView {
 fileprivate extension TextView {
     /// Updates the placeholderLabel text color.
     func updatePlaceholderLabelColor() {
-        tintColor = placeholderActiveColor
-        placeholderLabel.textColor = isEditing ? placeholderActiveColor : placeholderNormalColor
+        tintColor = placeholderColor
+        placeholderLabel.textColor = placeholderColor
     }
     
     /// Updates the placeholderLabel visibility.
