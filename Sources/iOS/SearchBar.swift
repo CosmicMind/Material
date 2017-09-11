@@ -216,11 +216,11 @@ fileprivate extension SearchBar {
         textField.font = RobotoFont.regular(with: 17)
         textField.backgroundColor = Color.clear
         textField.clearButtonMode = .whileEditing
+        textField.addTarget(self, action: #selector(handleEditingChanged(textField:)), for: .editingChanged)
         tintColor = placeholderColor
         textColor = Color.darkText.primary
         placeholder = "Search"
         contentView.addSubview(textField)
-        textField.addTarget(self, action: #selector(handleEditingChanged(textField:)), for: .editingChanged)
     }
     
     /// Prepares the clearButton.

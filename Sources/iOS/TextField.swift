@@ -76,13 +76,24 @@ open class TextField: UITextField {
     /// Set the placeholder animation value.
     open var placeholderAnimation = TextFieldPlaceholderAnimation.default {
         didSet {
-            placeholderLabel.isHidden = .hidden == placeholderAnimation && !isEmpty
+            guard isEditing else {
+                placeholderLabel.isHidden = !isEmpty && .hidden == placeholderAnimation
+                return
+            }
+            
+            placeholderLabel.isHidden = .hidden == placeholderAnimation
         }
     }
     
     /// A boolean indicating whether the text is empty.
     open var isEmpty: Bool {
         return 0 == text?.utf16.count
+    }
+    
+    open override var text: String? {
+        didSet {
+            placeholderAnimation = { placeholderAnimation }()
+        }
     }
     
     open override var leftView: UIView? {
