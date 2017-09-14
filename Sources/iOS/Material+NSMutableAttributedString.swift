@@ -33,44 +33,44 @@ import UIKit
 extension NSMutableAttributedString {
     /**
      Adds a Dictionary of NSAttributedStringKeys for a given range.
-     - Parameter _ stringKeys: A Dictionary of NSAttributedStringKey type keys and Any type values.
+     - Parameter _ keys: A Dictionary of NSAttributedStringKey type keys and Any type values.
      - Parameter range: A NSRange.
      */
-    open func addAttributes(_ stringKeys: [NSAttributedStringKey: Any], range: NSRange) {
-        for (k, v) in stringKeys {
+    open func addAttributes(_ keys: [NSAttributedStringKey: Any], range: NSRange) {
+        for (k, v) in keys {
             addAttribute(k, value: v, range: range)
         }
     }
     
     /**
      Updates a NSAttributedStringKey for a given range.
-     - Parameter _ stringKey: A NSAttributedStringKey.
+     - Parameter _ key: A NSAttributedStringKey.
      - Parameter value: Any type.
      - Parameter range: A NSRange.
      */
-    open func updateAttribute(_ stringKey: NSAttributedStringKey, value: Any, range: NSRange) {
-        removeAttribute(stringKey, range: range)
-        addAttribute(stringKey, value: value, range: range)
+    open func updateAttribute(_ key: NSAttributedStringKey, value: Any, range: NSRange) {
+        removeAttribute(key, range: range)
+        addAttribute(key, value: value, range: range)
     }
     
     /**
      Updates a Dictionary of NSAttributedStringKeys for a given range.
-     - Parameter _ stringKeys: A Dictionary of NSAttributedStringKey type keys and Any type values.
+     - Parameter _ keys: A Dictionary of NSAttributedStringKey type keys and Any type values.
      - Parameter range: A NSRange.
      */
-    open func updateAttributes(_ stringKeys: [NSAttributedStringKey: Any], range: NSRange) {
-        for (k, v) in stringKeys {
+    open func updateAttributes(_ keys: [NSAttributedStringKey: Any], range: NSRange) {
+        for (k, v) in keys {
             updateAttribute(k, value: v, range: range)
         }
     }
     
     /**
      Removes a Dictionary of NSAttributedStringKeys for a given range.
-     - Parameter _ stringKeys: An Array of attributedStringKeys.
+     - Parameter _ keys: An Array of attributedStringKeys.
      - Parameter range: A NSRange.
      */
-    open func removeAttributes(_ stringKeys: [NSAttributedStringKey], range: NSRange) {
-        for k in stringKeys {
+    open func removeAttributes(_ keys: [NSAttributedStringKey], range: NSRange) {
+        for k in keys {
             removeAttribute(k, range: range)
         }
     }
