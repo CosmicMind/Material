@@ -109,7 +109,7 @@ open class SearchBar: Bar {
     open var placeholder: String? {
 		didSet {
 			if let v = placeholder {
-				textField.attributedPlaceholder = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderColor])
+				textField.attributedPlaceholder = NSAttributedString(string: v, attributes: [.foregroundColor: placeholderColor])
 			}
 		}
 	}
@@ -119,7 +119,7 @@ open class SearchBar: Bar {
     open var placeholderColor = Color.darkText.others {
 		didSet {
 			if let v = placeholder {
-				textField.attributedPlaceholder = NSAttributedString(string: v, attributes: [NSForegroundColorAttributeName: placeholderColor])
+				textField.attributedPlaceholder = NSAttributedString(string: v, attributes: [.foregroundColor: placeholderColor])
 			}
 		}
 	}

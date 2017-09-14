@@ -151,7 +151,7 @@ open class TransitionController: UIViewController {
     }
 }
 
-internal extension TransitionController {
+@objc internal extension TransitionController {
     /// Prepares the container view.
     func prepareContainer() {
         container.frame = view.bounds
