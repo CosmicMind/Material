@@ -9,7 +9,7 @@ Welcome to **Material,** a Material Design library used to create beautiful appl
 [![License](https://img.shields.io/cocoapods/l/Material.svg?style=flat)](https://github.com/lkzhao/Material/blob/master/LICENSE?raw=true)
 ![Xcode 8.2+](https://img.shields.io/badge/Xcode-8.2%2B-blue.svg)
 ![iOS 8.0+](https://img.shields.io/badge/iOS-8.0%2B-blue.svg)
-![Swift 3.0+](https://img.shields.io/badge/Swift-3.0%2B-orange.svg)
+![Swift 4.0+](https://img.shields.io/badge/Swift-4.0%2B-orange.svg)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-blue.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9D6MURMLLUNQ2)
 
 ## Photos Sample

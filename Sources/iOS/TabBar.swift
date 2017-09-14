@@ -410,7 +410,7 @@ fileprivate extension TabBar {
         line.animate(.duration(0.25),
                      .size(CGSize(width: tabItem.width, height: lineHeight)),
                      .position(CGPoint(x: tabItem.center.x, y: .bottom == lineAlignment ? height - lineHeight / 2 : lineHeight / 2)),
-                     .completion { [weak self, isTriggeredByUserInteraction = isTriggeredByUserInteraction, tabItem = tabItem, completion = completion] _ in
+                     .completion { [weak self, isTriggeredByUserInteraction = isTriggeredByUserInteraction, tabItem = tabItem, completion = completion] in
                         guard let s = self else {
                             return
                         }

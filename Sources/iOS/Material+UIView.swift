@@ -123,7 +123,7 @@ extension UIView {
      width or height property is set, the other will be automatically adjusted
      to maintain the shape of the object.
      */
-    open var shapePreset: ShapePreset {
+    @objc open var shapePreset: ShapePreset {
         get {
             return layer.shapePreset
         }
@@ -223,7 +223,7 @@ extension UIView {
     }
     
     /// A property that sets the cornerRadius of the backing layer.
-    open var cornerRadiusPreset: CornerRadiusPreset {
+    @objc open var cornerRadiusPreset: CornerRadiusPreset {
         get {
             return layer.cornerRadiusPreset
         }
