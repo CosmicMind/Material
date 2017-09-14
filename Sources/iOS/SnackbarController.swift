@@ -115,7 +115,7 @@ open class SnackbarController: TransitionController {
      - Parameter status: A SnackbarStatus enum value.
      */
     @discardableResult
-    open func animate(snackbar status: SnackbarStatus, delay: TimeInterval = 0, animations: ((Snackbar) -> Void)? = nil, completion: ((Snackbar) -> Void)? = nil) -> MotionDelayCancelBlock? {
+    open func animate(snackbar status: SnackbarStatus, delay: TimeInterval = 0, animations: ((Snackbar) -> Void)? = nil, completion: ((Snackbar) -> Void)? = nil) -> MotionCancelBlock? {
         return Motion.delay(delay) { [weak self, status = status, animations = animations, completion = completion] in
             guard let s = self else {
                 return

@@ -162,6 +162,7 @@ internal extension TransitionController {
     }
     
     /// A method that prepares the rootViewController.
+    @objc
     func prepareRootViewController() {
         prepare(viewController: rootViewController, in: container)
     }

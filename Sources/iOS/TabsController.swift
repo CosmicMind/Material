@@ -360,7 +360,7 @@ extension TabsController {
             return
         }
         
-        Motion.delay(0) { [weak self] in
+        Motion.async { [weak self] in
             guard let s = self else {
                 return
             }

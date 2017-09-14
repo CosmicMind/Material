@@ -227,6 +227,16 @@ public extension MotionAnimation {
         }
     }
     
+    /**
+     Animates a view's current position to the given x and y values.
+     - Parameter x: A CGloat.
+     - Parameter y: A CGloat.
+     - Returns: A MotionAnimation.
+     */
+    static func position(x: CGFloat, y: CGFloat) -> MotionAnimation {
+        return .position(CGPoint(x: x, y: y))
+    }
+    
     /// Fades the view in during an animation.
     static var fadeIn = MotionAnimation.fade(1)
     
@@ -264,6 +274,16 @@ public extension MotionAnimation {
         return MotionAnimation {
             $0.size = size
         }
+    }
+    
+    /**
+     Animates the view's current size to the given width and height.
+     - Parameter width: A CGFloat.
+     - Parameter height: A CGFloat.
+     - Returns: A MotionAnimation.
+     */
+    static func size(width: CGFloat, height: CGFloat) -> MotionAnimation {
+        return .size(CGSize(width: width, height: height))
     }
     
     /**

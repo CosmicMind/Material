@@ -57,47 +57,47 @@ public enum CharacterAttribute: String {
 public func CharacterAttributeToValue(attribute: CharacterAttribute) -> String {
     switch attribute {
     case .font:
-        return NSFontAttributeName
+        return NSAttributedStringKey.font.rawValue
     case .paragraphStyle:
-        return NSParagraphStyleAttributeName
+        return NSAttributedStringKey.paragraphStyle.rawValue
     case .forgroundColor:
-        return NSForegroundColorAttributeName
+        return NSAttributedStringKey.foregroundColor.rawValue
     case .backgroundColor:
-        return NSBackgroundColorAttributeName
+        return NSAttributedStringKey.backgroundColor.rawValue
     case .ligature:
-        return NSLigatureAttributeName
+        return NSAttributedStringKey.ligature.rawValue
     case .kern:
-        return NSKernAttributeName
+        return NSAttributedStringKey.kern.rawValue
     case .strikethroughStyle:
-        return NSStrikethroughStyleAttributeName
+        return NSAttributedStringKey.strikethroughStyle.rawValue
     case .underlineStyle:
-        return NSUnderlineStyleAttributeName
+        return NSAttributedStringKey.underlineStyle.rawValue
     case .strokeColor:
-        return NSStrokeColorAttributeName
+        return NSAttributedStringKey.strokeColor.rawValue
     case .strokeWidth:
-        return NSStrokeWidthAttributeName
+        return NSAttributedStringKey.strokeWidth.rawValue
     case .shadow:
-        return NSShadowAttributeName
+        return NSAttributedStringKey.shadow.rawValue
     case .textEffect:
-        return NSTextEffectAttributeName
+        return NSAttributedStringKey.textEffect.rawValue
     case .attachment:
-        return NSAttachmentAttributeName
+        return NSAttributedStringKey.attachment.rawValue
     case .link:
-        return NSLinkAttributeName
+        return NSAttributedStringKey.link.rawValue
     case .baselineOffset:
-        return NSBaselineOffsetAttributeName
+        return NSAttributedStringKey.baselineOffset.rawValue
     case .underlineColor:
-        return NSUnderlineColorAttributeName
+        return NSAttributedStringKey.underlineColor.rawValue
     case .strikethroughColor:
-        return NSStrikethroughColorAttributeName
+        return NSAttributedStringKey.strikethroughColor.rawValue
     case .obliqueness:
-        return NSObliquenessAttributeName
+        return NSAttributedStringKey.obliqueness.rawValue
     case .expansion:
-        return NSExpansionAttributeName
+        return NSAttributedStringKey.expansion.rawValue
     case .writingDirection:
-        return NSWritingDirectionAttributeName
+        return NSAttributedStringKey.writingDirection.rawValue
     case .verticalGlyphForm:
-        return NSVerticalGlyphFormAttributeName
+        return NSAttributedStringKey.verticalGlyphForm.rawValue
     }
 }
 
@@ -109,7 +109,7 @@ extension NSMutableAttributedString {
      - Parameter range: A NSRange.
      */
     open func add(characterAttribute: CharacterAttribute, value: Any, range: NSRange) {
-        addAttribute(CharacterAttributeToValue(attribute: characterAttribute), value: value, range: range)
+        addAttribute(NSAttributedStringKey(rawValue: CharacterAttributeToValue(attribute: characterAttribute)), value: value, range: range)
     }
     
     /**
@@ -151,7 +151,7 @@ extension NSMutableAttributedString {
      - Parameter range: A NSRange.
      */
     open func remove(characterAttribute: CharacterAttribute, range: NSRange) {
-        removeAttribute(CharacterAttributeToValue(attribute: characterAttribute), range: range)
+        removeAttribute(NSAttributedStringKey(rawValue: CharacterAttributeToValue(attribute: characterAttribute)), range: range)
     }
     
     /**
