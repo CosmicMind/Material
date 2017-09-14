@@ -256,7 +256,7 @@ open class NavigationBar: UINavigationBar {
             item.titleLabel.removeFromSuperview()
         }
         
-        if nil != item.detail && "" != item.detail {
+        if 0 < item.detailLabel.text?.utf16.count ?? 0 {
             if nil == item.detailLabel.superview {
                 item.contentView.addSubview(item.detailLabel)
             }

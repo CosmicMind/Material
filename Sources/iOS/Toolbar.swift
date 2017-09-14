@@ -33,40 +33,16 @@ import UIKit
 fileprivate var ToolbarContext: UInt8 = 0
 
 open class Toolbar: Bar {
-	/// A convenience property to set the titleLabel.text.
-	@IBInspectable
-    open var title: String? {
-		get {
-			return titleLabel.text
-		}
-		set(value) {
-			titleLabel.text = value
-			layoutSubviews()
-		}
-	}
-	
 	/// Title label.
     @IBInspectable
     open let titleLabel = UILabel()
     
-	/// A convenience property to set the detailLabel.text.
-	@IBInspectable
-    open var detail: String? {
-		get {
-			return detailLabel.text
-		}
-		set(value) {
-			detailLabel.text = value
-			layoutSubviews()
-		}
-	}
-	
 	/// Detail label.
     @IBInspectable
     open let detailLabel = UILabel()
 	
     deinit {
-        removeObserver(self, forKeyPath: "titleLabel.textAlignment")
+        removeObserver(self, forKeyPath: #keyPath(titleLabel.textAlignment))
     }
     
 	/**
@@ -101,7 +77,7 @@ open class Toolbar: Bar {
             return
         }
         
-        if nil != title && "" != title {
+        if 0 < titleLabel.text?.utf16.count ?? 0 {
             if nil == titleLabel.superview {
                 contentView.addSubview(titleLabel)
             }
@@ -110,7 +86,7 @@ open class Toolbar: Bar {
             titleLabel.removeFromSuperview()
         }
         
-        if nil != detail && "" != detail {
+        if 0 < detailLabel.text?.utf16.count ?? 0 {
             if nil == detailLabel.superview {
                 contentView.addSubview(detailLabel)
             }
@@ -144,18 +120,18 @@ open class Toolbar: Bar {
 	}
 }
 
-extension Toolbar {
+fileprivate extension Toolbar {
     /// Prepares the titleLabel.
-    fileprivate func prepareTitleLabel() {
+    func prepareTitleLabel() {
         titleLabel.textAlignment = .center
         titleLabel.contentScaleFactor = Screen.scale
         titleLabel.font = RobotoFont.medium(with: 17)
         titleLabel.textColor = Color.darkText.primary
-        addObserver(self, forKeyPath: "titleLabel.textAlignment", options: [], context: &ToolbarContext)
+        addObserver(self, forKeyPath: #keyPath(titleLabel.textAlignment), options: [], context: &ToolbarContext)
     }
     
     /// Prepares the detailLabel.
-    fileprivate func prepareDetailLabel() {
+    func prepareDetailLabel() {
         detailLabel.textAlignment = .center
         detailLabel.contentScaleFactor = Screen.scale
         detailLabel.font = RobotoFont.regular(with: 12)

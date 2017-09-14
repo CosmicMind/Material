@@ -34,28 +34,29 @@ import UIKit
 fileprivate var NavigationItemKey: UInt8 = 0
 fileprivate var NavigationItemContext: UInt8 = 0
 
-public class NavigationItem: NSObject {
+fileprivate class NavigationItem: NSObject {
     /// Should center the contentView.
-    open var contentViewAlignment = ContentViewAlignment.center {
+    var contentViewAlignment = ContentViewAlignment.center {
         didSet {
             navigationBar?.layoutSubviews()
         }
     }
     
 	/// Back Button.
-    public fileprivate(set) lazy var backButton: IconButton = IconButton()
+    lazy var backButton = IconButton()
 	
 	/// Content View.
-    public fileprivate(set) var contentView = UIView()
+    var contentView = UIView()
 	
 	/// Title label.
-	public fileprivate(set) var titleLabel = UILabel()
+    @objc
+	var titleLabel = UILabel()
 	
 	/// Detail label.
-	public fileprivate(set) var detailLabel = UILabel()
+	var detailLabel = UILabel()
 	
 	/// Left items.
-    public var leftViews = [UIView]() {
+    var leftViews = [UIView]() {
         didSet {
             for v in oldValue {
                 v.removeFromSuperview()
@@ -65,7 +66,7 @@ public class NavigationItem: NSObject {
     }
 	
 	/// Right items.
-    public var rightViews = [UIView]() {
+    var rightViews = [UIView]() {
         didSet {
             for v in oldValue {
                 v.removeFromSuperview()
@@ -75,7 +76,7 @@ public class NavigationItem: NSObject {
     }
     
     /// Center items.
-    public var centerViews: [UIView] {
+    var centerViews: [UIView] {
         get {
             return contentView.grid.views
         }
@@ -85,7 +86,7 @@ public class NavigationItem: NSObject {
     }
 	
     /// An optional reference to the NavigationBar.
-    public var navigationBar: NavigationBar? {
+    var navigationBar: NavigationBar? {
         var v = contentView.superview
         while nil != v {
             if let navigationBar = v as? NavigationBar {
@@ -101,36 +102,37 @@ public class NavigationItem: NSObject {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
             return
         }
+        
         contentViewAlignment = .center == titleLabel.textAlignment ? .center : .full
     }
     
     deinit {
-        removeObserver(self, forKeyPath: "titleLabel.textAlignment")
+        removeObserver(self, forKeyPath: #keyPath(titleLabel.textAlignment))
     }
     
 	/// Initializer.
-	public override init() {
+	override init() {
 		super.init()
         prepareTitleLabel()
 		prepareDetailLabel()
 	}
     
     /// Reloads the subviews for the NavigationBar.
-    fileprivate func reload() {
+    func reload() {
         navigationBar?.layoutSubviews()
     }
 	
 	/// Prepares the titleLabel.
-    fileprivate func prepareTitleLabel() {
+    func prepareTitleLabel() {
         titleLabel.textAlignment = .center
 		titleLabel.contentScaleFactor = Screen.scale
         titleLabel.font = RobotoFont.medium(with: 17)
         titleLabel.textColor = Color.darkText.primary
-        addObserver(self, forKeyPath: "titleLabel.textAlignment", options: [], context: &NavigationItemContext)
+        addObserver(self, forKeyPath: #keyPath(titleLabel.textAlignment), options: [], context: &NavigationItemContext)
 	}
 	
 	/// Prepares the detailLabel.
-    fileprivate func prepareDetailLabel() {
+    func prepareDetailLabel() {
         detailLabel.textAlignment = .center
         titleLabel.contentScaleFactor = Screen.scale
 		detailLabel.font = RobotoFont.regular(with: 12)
@@ -140,7 +142,7 @@ public class NavigationItem: NSObject {
 
 extension UINavigationItem {
 	/// NavigationItem reference.
-	public internal(set) var navigationItem: NavigationItem {
+	fileprivate var navigationItem: NavigationItem {
 		get {
 			return AssociatedObject.get(base: self, key: &NavigationItemKey) {
 				return NavigationItem()
@@ -170,33 +172,10 @@ extension UINavigationItem {
 	open var backButton: IconButton {
 		return navigationItem.backButton
 	}
-	
-    /// Title text.
-	@nonobjc
-	open var title: String? {
-		get {
-			return titleLabel.text
-		}
-		set(value) {
-			titleLabel.text = value
-            navigationItem.reload()
-		}
-	}
     
 	/// Title Label.
 	open var titleLabel: UILabel {
 		return navigationItem.titleLabel
-	}
-	
-	/// Detail text.
-	open var detail: String? {
-		get {
-			return detailLabel.text
-		}
-		set(value) {
-			detailLabel.text = value
-            navigationItem.reload()
-		}
 	}
 	
 	/// Detail Label.
