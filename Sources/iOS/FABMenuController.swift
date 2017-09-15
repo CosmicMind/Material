@@ -74,11 +74,11 @@ open class FABMenuController: TransitionController {
 
 extension FABMenuController: FABMenuDelegate {}
 
-extension FABMenuController {
+fileprivate extension FABMenuController {
     /// Prepares the fabMenu.
-    fileprivate func prepareFABMenu() {
+    func prepareFABMenu() {
         fabMenu.delegate = self
-        fabMenu.zPosition = 1000
+        fabMenu.layer.zPosition = 1000
         
         fabMenu.handleFABButtonCallback = { [weak self] in
             self?.handleFABButtonCallback(button: $0)

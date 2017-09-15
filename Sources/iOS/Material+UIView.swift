@@ -31,80 +31,30 @@
 import UIKit
 
 extension UIView {
-    /// A property that accesses the backing layer's masksToBounds.
-    @IBInspectable
-    open var masksToBounds: Bool {
+    /// A property that accesses the backing layer's shadow
+    open var shadowColor: UIColor? {
         get {
-            return layer.masksToBounds
+            guard let v = layer.shadowColor else {
+                return nil
+            }
+            
+            return UIColor(cgColor: v)
         }
         set(value) {
-            layer.masksToBounds = value
+            layer.shadowColor = value?.cgColor
         }
     }
     
-    /// A property that accesses the backing layer's opacity.
-    @IBInspectable
-    open var opacity: Float {
+    /// A property that accesses the layer.borderColor property.
+    open var borderColor: UIColor? {
         get {
-            return layer.opacity
+            guard let v = layer.borderColor else {
+                return nil
+            }
+            return UIColor(cgColor: v)
         }
         set(value) {
-            layer.opacity = value
-        }
-    }
-    
-    /// A property that accesses the backing layer's anchorPoint.
-    @IBInspectable
-    open var anchorPoint: CGPoint {
-        get {
-            return layer.anchorPoint
-        }
-        set(value) {
-            layer.anchorPoint = value
-        }
-    }
-    
-    /// A property that accesses the frame.origin.x property.
-    @IBInspectable
-    open var x: CGFloat {
-        get {
-            return layer.x
-        }
-        set(value) {
-            layer.x = value
-        }
-    }
-    
-    /// A property that accesses the frame.origin.y property.
-    @IBInspectable
-    open var y: CGFloat {
-        get {
-            return layer.y
-        }
-        set(value) {
-            layer.y = value
-        }
-    }
-    
-    /// A property that accesses the frame.size.width property.
-    @IBInspectable
-    open var width: CGFloat {
-        get {
-            return layer.width
-        }
-        set(value) {
-            layer.width = value
-        }
-    }
-    
-    /// A property that accesses the frame.size.height property.
-    @IBInspectable
-    open var height: CGFloat {
-        get {
-            return layer.height
-        }
-        set(value) {
-            layer.height = value
+            layer.borderColor = value?.cgColor
         }
     }
     
@@ -153,65 +103,6 @@ extension UIView {
         }
     }
     
-    /// A property that accesses the backing layer's shadow
-    @IBInspectable
-    open var shadowColor: UIColor? {
-        get {
-            guard let v = layer.shadowColor else {
-                return nil
-            }
-            
-            return UIColor(cgColor: v)
-        }
-        set(value) {
-            layer.shadowColor = value?.cgColor
-        }
-    }
-    
-    /// A property that accesses the backing layer's shadowOffset.
-    @IBInspectable
-    open var shadowOffset: CGSize {
-        get {
-            return layer.shadowOffset
-        }
-        set(value) {
-            layer.shadowOffset = value
-        }
-    }
-    
-    /// A property that accesses the backing layer's shadowOpacity.
-    @IBInspectable
-    open var shadowOpacity: Float {
-        get {
-            return layer.shadowOpacity
-        }
-        set(value) {
-            layer.shadowOpacity = value
-        }
-    }
-    
-    /// A property that accesses the backing layer's shadowRadius.
-    @IBInspectable
-    open var shadowRadius: CGFloat {
-        get {
-            return layer.shadowRadius
-        }
-        set(value) {
-            layer.shadowRadius = value
-        }
-    }
-    
-    /// A property that accesses the backing layer's shadowPath.
-    @IBInspectable
-    open var shadowPath: CGPath? {
-        get {
-            return layer.shadowPath
-        }
-        set(value) {
-            layer.shadowPath = value
-        }
-    }
-    
     /// Enables automatic shadowPath sizing.
     @IBInspectable
     open var isShadowPathAutoSizing: Bool {
@@ -234,17 +125,6 @@ extension UIView {
         }
     }
     
-    /// A property that accesses the layer.cornerRadius.
-    @IBInspectable
-    open var cornerRadius: CGFloat {
-        get {
-            return layer.cornerRadius
-        }
-        set(value) {
-            layer.cornerRadius = value
-        }
-    }
-    
     /// A preset property to set the borderWidth.
     open var borderWidthPreset: BorderWidthPreset {
         get {
@@ -254,61 +134,16 @@ extension UIView {
             layer.borderWidthPreset = value
         }
     }
-    
-    /// A property that accesses the layer.borderWith.
-    @IBInspectable
-    open var borderWidth: CGFloat {
-        get {
-            return layer.borderWidth
-        }
-        set(value) {
-            layer.borderWidth = value
-        }
-    }
-    
-    /// A property that accesses the layer.borderColor property.
-    @IBInspectable
-    open var borderColor: UIColor? {
-        get {
-            guard let v = layer.borderColor else {
-                return nil
-            }
-            return UIColor(cgColor: v)
-        }
-        set(value) {
-            layer.borderColor = value?.cgColor
-        }
-    }
-    
-    /// A property that accesses the layer.position property.
-    @IBInspectable
-    open var position: CGPoint {
-        get {
-            return layer.position
-        }
-        set(value) {
-            layer.position = value
-        }
-    }
-    
-    /// A property that accesses the layer.zPosition property.
-    @IBInspectable
-    open var zPosition: CGFloat {
-        get {
-            return layer.zPosition
-        }
-        set(value) {
-            layer.zPosition = value
-        }
-    }
-    
+}
+
+extension UIView {
     /// Manages the layout for the shape of the view instance.
-    open func layoutShape() {
+    internal func layoutShape() {
         layer.layoutShape()
     }
     
     /// Sets the shadow path.
-    open func layoutShadowPath() {
+    internal func layoutShadowPath() {
         layer.layoutShadowPath()
     }
 }

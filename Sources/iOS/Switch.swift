@@ -62,7 +62,7 @@ public protocol SwitchDelegate {
 open class Switch: UIControl {
     /// Will layout the view.
     open var willLayout: Bool {
-        return 0 < width && 0 < height && nil != superview
+        return 0 < bounds.width && 0 < bounds.height && nil != superview
     }
     
     /// An internal reference to the switchState public property.
@@ -309,17 +309,17 @@ open class Switch: UIControl {
     /// Reloads the view.
     open func reload() {
         let w: CGFloat = intrinsicContentSize.width
-        let px: CGFloat = (width - w) / 2
+        let px: CGFloat = (bounds.width - w) / 2
         
-        track.frame = CGRect(x: px, y: (height - trackThickness) / 2, width: w, height: trackThickness)
-        track.cornerRadius = min(w, trackThickness) / 2
+        track.frame = CGRect(x: px, y: (bounds.height - trackThickness) / 2, width: w, height: trackThickness)
+        track.layer.cornerRadius = min(w, trackThickness) / 2
         
-        button.frame = CGRect(x: px, y: (height - buttonDiameter) / 2, width: buttonDiameter, height: buttonDiameter)
-        onPosition = width - px - buttonDiameter
+        button.frame = CGRect(x: px, y: (bounds.height - buttonDiameter) / 2, width: buttonDiameter, height: buttonDiameter)
+        onPosition = bounds.width - px - buttonDiameter
         offPosition = px
         
         if .on == internalSwitchState {
-            button.x = onPosition
+            button.frame.origin.x = onPosition
         }
     }
     
@@ -402,7 +402,7 @@ extension Switch {
                 s.delegate?.switchDidChangeState(control: s, state: s.internalSwitchState)
             }
         } else {
-            button.x = .on == state ? self.onPosition : self.offPosition
+            button.frame.origin.x = .on == state ? self.onPosition : self.offPosition
             styleForState(state: state)
             
             guard isTriggeredByUserInteraction else {
@@ -474,7 +474,7 @@ extension Switch {
                     return
                 }
                 
-                s.button.x = .on == state ? s.onPosition + s.bounceOffset : s.offPosition - s.bounceOffset
+                s.button.frame.origin.x = .on == state ? s.onPosition + s.bounceOffset : s.offPosition - s.bounceOffset
                 s.styleForState(state: state)
         }) { [weak self] _ in
             UIView.animate(withDuration: 0.15,
@@ -483,7 +483,7 @@ extension Switch {
                         return
                     }
                     
-                    s.button.x = .on == state ? s.onPosition : s.offPosition
+                    s.button.frame.origin.x = .on == state ? s.onPosition : s.offPosition
             }) { [weak self] _ in
                 guard let s = self else {
                     return
@@ -508,8 +508,8 @@ extension Switch {
             return
         }
         
-        let q: CGFloat = sender.x + v.location(in: sender).x - v.previousLocation(in: sender).x
-        updateSwitchState(state: q > (width - button.width) / 2 ? .on : .off, animated: true, isTriggeredByUserInteraction: true)
+        let q: CGFloat = sender.frame.origin.x + v.location(in: sender).x - v.previousLocation(in: sender).x
+        updateSwitchState(state: q > (bounds.width - button.bounds.width) / 2 ? .on : .off, animated: true, isTriggeredByUserInteraction: true)
     }
     
     /// Handles the TouchUpInside event.
@@ -529,13 +529,13 @@ extension Switch {
             return
         }
         
-        let q: CGFloat = max(min(sender.x + v.location(in: sender).x - v.previousLocation(in: sender).x, onPosition), offPosition)
+        let q: CGFloat = max(min(sender.frame.origin.x + v.location(in: sender).x - v.previousLocation(in: sender).x, onPosition), offPosition)
         
-        guard q != sender.x else {
+        guard q != sender.frame.origin.x else {
             return
         }
         
-        sender.x = q
+        sender.frame.origin.x = q
     }
 }
 

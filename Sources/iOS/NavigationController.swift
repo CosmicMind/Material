@@ -120,7 +120,7 @@ open class NavigationController: UINavigationController {
      */
 	open func prepare() {
         navigationBar.heightPreset = .normal
-        navigationBar.width = view.width
+        navigationBar.frame.size.width = view.bounds.width
         
         view.clipsToBounds = true
 		view.backgroundColor = .white

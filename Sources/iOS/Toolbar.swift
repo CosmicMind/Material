@@ -97,14 +97,14 @@ open class Toolbar: Bar {
                 titleLabel.sizeToFit()
                 detailLabel.sizeToFit()
                 
-                let diff: CGFloat = (contentView.height - titleLabel.height - detailLabel.height) / 2
+                let diff: CGFloat = (contentView.bounds.height - titleLabel.bounds.height - detailLabel.bounds.height) / 2
                 
-                titleLabel.height += diff
-                titleLabel.width = contentView.width
+                titleLabel.frame.size.height += diff
+                titleLabel.frame.size.width = contentView.bounds.width
                 
-                detailLabel.height += diff
-                detailLabel.width = contentView.width
-                detailLabel.y = titleLabel.height
+                detailLabel.frame.size.height += diff
+                detailLabel.frame.size.width = contentView.bounds.width
+                detailLabel.frame.origin.y = titleLabel.bounds.height
             }
         } else {
             detailLabel.removeFromSuperview()

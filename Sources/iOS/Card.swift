@@ -42,9 +42,12 @@ open class Card: PulseView {
     }
     
     @IBInspectable
-    open override var cornerRadius: CGFloat {
-        didSet {
-            container.cornerRadius = cornerRadius
+    open var cornerRadius: CGFloat {
+        get {
+            return container.layer.cornerRadius
+        }
+        set(value) {
+            container.layer.cornerRadius = value
         }
     }
     
@@ -177,7 +180,7 @@ open class Card: PulseView {
     
     open override func layoutSubviews() {
         super.layoutSubviews()
-        container.width = width
+        container.frame.size.width = bounds.width
         reload()
     }
     
@@ -197,7 +200,7 @@ open class Card: PulseView {
             h = prepare(view: v, with: bottomBarEdgeInsets, from: h)
         }
         
-        container.height = h
+        container.frame.size.height = h
         bounds.size.height = h
     }
     
@@ -220,19 +223,19 @@ open class Card: PulseView {
     open func prepare(view: UIView, with insets: EdgeInsets, from top: CGFloat) -> CGFloat {
         let y = insets.top + top
         
-        view.y = y
-        view.x = insets.left
+        view.frame.origin.y = y
+        view.frame.origin.x = insets.left
         
-        let w = container.width - insets.left - insets.right
-        var h = view.height
+        let w = container.bounds.width - insets.left - insets.right
+        var h = view.bounds.height
         
         if 0 == h || nil != view as? UILabel {
             (view as? UILabel)?.sizeToFit()
             h = view.sizeThatFits(CGSize(width: w, height: .greatestFiniteMagnitude)).height
         }
         
-        view.width = w
-        view.height = h
+        view.frame.size.width = w
+        view.frame.size.height = h
         
         return y + h + insets.bottom
     }

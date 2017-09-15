@@ -78,7 +78,7 @@ open class PresenterCard: Card {
             h = prepare(view: v, with: bottomBarEdgeInsets, from: h)
         }
         
-        container.height = h
+        container.frame.size.height = h
         bounds.size.height = h
     }
 }

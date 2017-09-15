@@ -78,7 +78,7 @@ open class ToolbarController: StatusBarController {
 fileprivate extension ToolbarController {
     /// Prepares the toolbar.
     func prepareToolbar() {
-        toolbar.zPosition = 1000
+        toolbar.layer.zPosition = 1000
         toolbar.depthPreset = .depth1
         view.addSubview(toolbar)
     }
@@ -89,20 +89,20 @@ fileprivate extension ToolbarController {
     func layoutContainer() {
         switch displayStyle {
         case .partial:
-            let p = toolbar.height
+            let p = toolbar.bounds.height
             let q = statusBarOffsetAdjustment
-            let h = view.height - p - q
+            let h = view.bounds.height - p - q
             
             switch toolbarAlignment {
             case .top:
-                container.y = q + p
-                container.height = h
+                container.frame.origin.y = q + p
+                container.frame.size.height = h
             case .bottom:
-                container.y = q
-                container.height = h
+                container.frame.origin.y = q
+                container.frame.size.height = h
             }
             
-            container.width = view.width
+            container.frame.size.width = view.bounds.width
             
         case .full:
             container.frame = view.bounds
@@ -111,9 +111,9 @@ fileprivate extension ToolbarController {
     
     /// Layout the toolbar.
     func layoutToolbar() {
-        toolbar.x = 0
-        toolbar.y = .top == toolbarAlignment ? statusBarOffsetAdjustment : view.height - toolbar.height
-        toolbar.width = view.width
+        toolbar.frame.origin.x = 0
+        toolbar.frame.origin.y = .top == toolbarAlignment ? statusBarOffsetAdjustment : view.bounds.height - toolbar.bounds.height
+        toolbar.frame.size.width = view.bounds.width
     }
     
     /// Layout the rootViewController.

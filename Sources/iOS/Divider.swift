@@ -79,7 +79,7 @@ public struct Divider {
             }
             if nil == line {
                 line = UIView()
-                line?.zPosition = 5000
+                line?.layer.zPosition = 5000
                 view?.addSubview(line!)
                 reload()
             }
@@ -123,13 +123,13 @@ public struct Divider {
         
         switch alignment {
         case .top:
-            l.frame = CGRect(x: c.left, y: c.top, width: v.width - c.left - c.right, height: thickness)
+            l.frame = CGRect(x: c.left, y: c.top, width: v.bounds.width - c.left - c.right, height: thickness)
         case .bottom:
-            l.frame = CGRect(x: c.left, y: v.height - thickness - c.bottom, width: v.width - c.left - c.right, height: thickness)
+            l.frame = CGRect(x: c.left, y: v.bounds.height - thickness - c.bottom, width: v.bounds.width - c.left - c.right, height: thickness)
         case .left:
-            l.frame = CGRect(x: c.left, y: c.top, width: thickness, height: v.height - c.top - c.bottom)
+            l.frame = CGRect(x: c.left, y: c.top, width: thickness, height: v.bounds.height - c.top - c.bottom)
         case .right:
-            l.frame = CGRect(x: v.width - thickness - c.right, y: c.top, width: thickness, height: v.height - c.top - c.bottom)
+            l.frame = CGRect(x: v.bounds.width - thickness - c.right, y: c.top, width: thickness, height: v.bounds.height - c.top - c.bottom)
         }
     }
 }

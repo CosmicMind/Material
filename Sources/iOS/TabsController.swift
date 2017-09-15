@@ -306,19 +306,19 @@ fileprivate extension TabsController {
     func layoutContainer() {
         switch displayStyle {
         case .partial:
-            let p = tabBar.height
-            let y = view.height - p
+            let p = tabBar.bounds.height
+            let y = view.bounds.height - p
             
             switch tabBarAlignment {
             case .top:
-                container.y = p
-                container.height = y
+                container.frame.origin.y = p
+                container.frame.size.height = y
             case .bottom:
-                container.y = 0
-                container.height = y
+                container.frame.origin.y = 0
+                container.frame.size.height = y
             }
             
-            container.width = view.width
+            container.frame.size.width = view.bounds.width
             
         case .full:
             container.frame = view.bounds
@@ -327,9 +327,9 @@ fileprivate extension TabsController {
     
     /// Layout the tabBar.
     func layoutTabBar() {
-        tabBar.x = 0
-        tabBar.y = .top == tabBarAlignment ? 0 : view.height - tabBar.height
-        tabBar.width = view.width
+        tabBar.frame.origin.x = 0
+        tabBar.frame.origin.y = .top == tabBarAlignment ? 0 : view.bounds.height - tabBar.bounds.height
+        tabBar.frame.size.width = view.bounds.width
     }
     
     /// Layout the rootViewController.

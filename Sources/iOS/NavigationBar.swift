@@ -33,11 +33,11 @@ import UIKit
 open class NavigationBar: UINavigationBar {
     /// Will layout the view.
     open var willLayout: Bool {
-        return 0 < width && 0 < height && nil != superview
+        return 0 < bounds.width && 0 < bounds.height && nil != superview
     }
     
     open override var intrinsicContentSize: CGSize {
-        return CGSize(width: width, height: height)
+        return CGSize(width: bounds.width, height: bounds.height)
     }
 	
 	/// A preset wrapper around contentEdgeInsets.
@@ -183,9 +183,9 @@ open class NavigationBar: UINavigationBar {
                 b.titleEdgeInsets = .zero
             }
             
-            v.width = v.intrinsicContentSize.width
+            v.frame.size.width = v.intrinsicContentSize.width
             v.sizeToFit()
-            v.grid.columns = Int(ceil(v.width / gridFactor)) + 2
+            v.grid.columns = Int(ceil(v.bounds.width / gridFactor)) + 2
             
             lc += v.grid.columns
             
@@ -200,9 +200,9 @@ open class NavigationBar: UINavigationBar {
                 b.titleEdgeInsets = .zero
             }
             
-            v.width = v.intrinsicContentSize.width
+            v.frame.size.width = v.intrinsicContentSize.width
             v.sizeToFit()
-            v.grid.columns = Int(ceil(v.width / gridFactor)) + 2
+            v.grid.columns = Int(ceil(v.bounds.width / gridFactor)) + 2
             
             rc += v.grid.columns
             
@@ -225,7 +225,7 @@ open class NavigationBar: UINavigationBar {
             }
         }
         
-        let p = width - l - r - contentEdgeInsets.left - contentEdgeInsets.right
+        let p = bounds.width - l - r - contentEdgeInsets.left - contentEdgeInsets.right
         let columns = Int(ceil(p / gridFactor))
         
         if .center == item.contentViewAlignment {
@@ -267,14 +267,14 @@ open class NavigationBar: UINavigationBar {
                 item.titleLabel.sizeToFit()
                 item.detailLabel.sizeToFit()
                 
-                let diff = (item.contentView.height - item.titleLabel.height - item.detailLabel.height) / 2
+                let diff = (item.contentView.bounds.height - item.titleLabel.bounds.height - item.detailLabel.bounds.height) / 2
                 
-                item.titleLabel.height += diff
-                item.titleLabel.width = item.contentView.width
+                item.titleLabel.frame.size.height += diff
+                item.titleLabel.frame.size.width = item.contentView.bounds.width
                 
-                item.detailLabel.height += diff
-                item.detailLabel.width = item.contentView.width
-                item.detailLabel.y = item.titleLabel.height
+                item.detailLabel.frame.size.height += diff
+                item.detailLabel.frame.size.width = item.contentView.bounds.width
+                item.detailLabel.frame.origin.y = item.titleLabel.bounds.height
             }
         } else {
             item.detailLabel.removeFromSuperview()

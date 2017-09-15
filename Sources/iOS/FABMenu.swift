@@ -92,15 +92,15 @@ extension FABMenuItem {
         let interimSpace = InterimSpacePresetToValue(preset: .interimSpace6)
         
         titleLabel.sizeToFit()
-        titleLabel.width += 1.5 * interimSpace
-        titleLabel.height += interimSpace / 2
-        titleLabel.y = (height - titleLabel.height) / 2
+        titleLabel.frame.size.width += 1.5 * interimSpace
+        titleLabel.frame.size.height += interimSpace / 2
+        titleLabel.frame.origin.y = (bounds.height - titleLabel.bounds.height) / 2
         
         switch titleLabelPosition {
         case .left:
-            titleLabel.x = -titleLabel.width - interimSpace
+            titleLabel.frame.origin.x = -titleLabel.bounds.width - interimSpace
         case .right:
-            titleLabel.x = frame.width + interimSpace
+            titleLabel.frame.origin.x = frame.bounds.width + interimSpace
         }
         
         titleLabel.alpha = 0

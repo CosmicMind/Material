@@ -77,7 +77,7 @@ open class SearchBarController: StatusBarController {
 fileprivate extension SearchBarController {
     /// Prepares the searchBar.
     func prepareSearchBar() {
-        searchBar.zPosition = 1000
+        searchBar.layer.zPosition = 1000
         searchBar.depthPreset = .depth1
         view.addSubview(searchBar)
     }
@@ -88,20 +88,20 @@ fileprivate extension SearchBarController {
     func layoutContainer() {
         switch displayStyle {
         case .partial:
-            let p = searchBar.height
+            let p = searchBar.bounds.height
             let q = statusBarOffsetAdjustment
-            let h = view.height - p - q
+            let h = view.bounds.height - p - q
             
             switch searchBarAlignment {
             case .top:
-                container.y = q + p
-                container.height = h
+                container.frame.origin.y = q + p
+                container.frame.size.height = h
             case .bottom:
-                container.y = q
-                container.height = h
+                container.frame.origin.y = q
+                container.frame.size.height = h
             }
             
-            container.width = view.width
+            container.frame.size.width = view.bounds.width
             
         case .full:
             container.frame = view.bounds
@@ -110,9 +110,9 @@ fileprivate extension SearchBarController {
     
     /// Layout the searchBar.
     func layoutSearchBar() {
-        searchBar.x = 0
-        searchBar.y = .top == searchBarAlignment ? statusBarOffsetAdjustment : view.height - searchBar.height
-        searchBar.width = view.width
+        searchBar.frame.origin.x = 0
+        searchBar.frame.origin.y = .top == searchBarAlignment ? statusBarOffsetAdjustment : view.bounds.height - searchBar.bounds.height
+        searchBar.frame.size.width = view.bounds.width
     }
     
     /// Layout the rootViewController.

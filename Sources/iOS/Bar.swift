@@ -39,11 +39,11 @@ public enum ContentViewAlignment: Int {
 open class Bar: View {
     /// Will layout the view.
     open var willLayout: Bool {
-        return 0 < width && 0 < height && nil != superview && !grid.deferred
+        return 0 < bounds.width && 0 < bounds.height && nil != superview && !grid.deferred
     }
     
     open override var intrinsicContentSize: CGSize {
-        return CGSize(width: width, height: height)
+        return bounds.size
     }
     
     /// Should center the contentView.
@@ -195,9 +195,9 @@ open class Bar: View {
                 b.titleEdgeInsets = .zero
             }
             
-            v.width = v.intrinsicContentSize.width
+            v.frame.size.width = v.intrinsicContentSize.width
             v.sizeToFit()
-            v.grid.columns = Int(ceil(v.width / gridFactor)) + 2
+            v.grid.columns = Int(ceil(v.bounds.width / gridFactor)) + 2
             
             lc += v.grid.columns
             
@@ -212,9 +212,9 @@ open class Bar: View {
                 b.titleEdgeInsets = .zero
             }
             
-            v.width = v.intrinsicContentSize.width
+            v.frame.size.width = v.intrinsicContentSize.width
             v.sizeToFit()
-            v.grid.columns = Int(ceil(v.width / gridFactor)) + 2
+            v.grid.columns = Int(ceil(v.bounds.width / gridFactor)) + 2
             
             rc += v.grid.columns
             
@@ -237,7 +237,7 @@ open class Bar: View {
             }
         }
         
-        let p = width - l - r - contentEdgeInsets.left - contentEdgeInsets.right
+        let p = bounds.width - l - r - contentEdgeInsets.left - contentEdgeInsets.right
         let columns = Int(ceil(p / gridFactor))
         
         if .center == contentViewAlignment {

@@ -66,7 +66,7 @@ public protocol TextFieldDelegate: UITextFieldDelegate {
 open class TextField: UITextField {
     /// Default size when using AutoLayout.
     open override var intrinsicContentSize: CGSize {
-        return CGSize(width: width, height: 32)
+        return CGSize(width: bounds.width, height: 32)
     }
     
     /// A Boolean that indicates if the placeholder label is animated.
@@ -109,7 +109,7 @@ open class TextField: UITextField {
             return 0
         }
         
-        return leftViewOffset + height
+        return leftViewOffset + bounds.height
     }
     
     /// The leftView offset value.
@@ -550,41 +550,41 @@ fileprivate extension TextField {
     /// Layout the placeholderLabel.
     func layoutPlaceholderLabel() {
         let w = leftViewWidth + textInset
-        let h = 0 == height ? intrinsicContentSize.height : height
+        let h = 0 == bounds.height ? intrinsicContentSize.height : bounds.height
         
         placeholderLabel.transform = CGAffineTransform.identity
         
         guard isEditing || !isEmpty || !isPlaceholderAnimated else {
-            placeholderLabel.frame = CGRect(x: w, y: 0, width: width - leftViewWidth - 2 * textInset, height: h)
+            placeholderLabel.frame = CGRect(x: w, y: 0, width: bounds.width - leftViewWidth - 2 * textInset, height: h)
             return
         }
         
-        placeholderLabel.frame = CGRect(x: w, y: 0, width: width - leftViewWidth - 2 * textInset, height: h)
+        placeholderLabel.frame = CGRect(x: w, y: 0, width: bounds.width - leftViewWidth - 2 * textInset, height: h)
         placeholderLabel.transform = CGAffineTransform(scaleX: placeholderActiveScale, y: placeholderActiveScale)
         
         switch textAlignment {
         case .left, .natural:
-            placeholderLabel.x = w + placeholderHorizontalOffset
+            placeholderLabel.frame.origin.x = w + placeholderHorizontalOffset
         case .right:
-            placeholderLabel.x = width - placeholderLabel.width - textInset + placeholderHorizontalOffset
+            placeholderLabel.frame.origin.x = bounds.width - placeholderLabel.bounds.width - textInset + placeholderHorizontalOffset
         default:break
         }
         
-        placeholderLabel.y = -placeholderLabel.height + placeholderVerticalOffset
+        placeholderLabel.frame.origin.y = -placeholderLabel.bounds.height + placeholderVerticalOffset
     }
     
     /// Layout the detailLabel.
     func layoutDetailLabel() {
         let c = dividerContentEdgeInsets
-        detailLabel.height = detailLabel.sizeThatFits(CGSize(width: width, height: .greatestFiniteMagnitude)).height
-        detailLabel.x = c.left
-        detailLabel.y = height + detailVerticalOffset
-        detailLabel.width = width - c.left - c.right
+        detailLabel.frame.size.height = detailLabel.sizeThatFits(CGSize(width: bounds.width, height: .greatestFiniteMagnitude)).height
+        detailLabel.frame.origin.x = c.left
+        detailLabel.frame.origin.y = bounds.height + detailVerticalOffset
+        detailLabel.frame.size.width = bounds.width - c.left - c.right
     }
     
     /// Layout the a button.
     func layoutButton(button: UIButton?) {
-        button?.frame = CGRect(x: width - height, y: 0, width: height, height: height)
+        button?.frame = CGRect(x: bounds.width - bounds.height, y: 0, width: bounds.height, height: bounds.height)
     }
     
     /// Layout the leftView.
@@ -594,7 +594,7 @@ fileprivate extension TextField {
         }
         
         let w = leftViewWidth
-        v.frame = CGRect(x: 0, y: 0, width: w, height: height)
+        v.frame = CGRect(x: 0, y: 0, width: w, height: bounds.height)
         dividerContentEdgeInsets.left = w
     }
 }
@@ -705,13 +705,13 @@ extension TextField {
                                                         
             switch s.textAlignment {
             case .left, .natural:
-                s.placeholderLabel.x = s.leftViewWidth + s.textInset + s.placeholderHorizontalOffset
+                s.placeholderLabel.frame.origin.x = s.leftViewWidth + s.textInset + s.placeholderHorizontalOffset
             case .right:
-                s.placeholderLabel.x = s.width - s.placeholderLabel.width - s.textInset + s.placeholderHorizontalOffset
+                s.placeholderLabel.frame.origin.x = s.bounds.width - s.placeholderLabel.bounds.width - s.textInset + s.placeholderHorizontalOffset
             default:break
             }
             
-            s.placeholderLabel.y = -s.placeholderLabel.height + s.placeholderVerticalOffset
+            s.placeholderLabel.frame.origin.y = -s.placeholderLabel.bounds.height + s.placeholderVerticalOffset
         })
     }
     
@@ -739,8 +739,8 @@ extension TextField {
             }
             
             s.placeholderLabel.transform = CGAffineTransform.identity
-            s.placeholderLabel.x = s.leftViewWidth + s.textInset
-            s.placeholderLabel.y = 0
+            s.placeholderLabel.frame.origin.x = s.leftViewWidth + s.textInset
+            s.placeholderLabel.frame.origin.y = 0
         })
     }
 }
