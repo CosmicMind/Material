@@ -25,7 +25,6 @@
 
 import UIKit
 
-@available(iOS 10, *)
 extension CALayer: CAAnimationDelegate {}
 
 internal extension CALayer {
