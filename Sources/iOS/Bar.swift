@@ -108,7 +108,7 @@ open class Bar: View {
     open let contentView = UIView()
     
     /// Left side UIViews.
-    open var leftViews: [UIView] {
+    open var leftViews = [UIView]() {
         didSet {
             for v in oldValue {
                 v.removeFromSuperview()
@@ -118,7 +118,7 @@ open class Bar: View {
     }
     
     /// Right side UIViews.
-    open var rightViews: [UIView] {
+    open var rightViews = [UIView]() {
         didSet {
             for v in oldValue {
                 v.removeFromSuperview()
@@ -142,8 +142,6 @@ open class Bar: View {
      - Parameter aDecoder: A NSCoder instance.
      */
     public required init?(coder aDecoder: NSCoder) {
-        leftViews = []
-        rightViews = []
         super.init(coder: aDecoder)
     }
     
@@ -154,8 +152,6 @@ open class Bar: View {
      - Parameter frame: A CGRect instance.
      */
     public override init(frame: CGRect) {
-        leftViews = []
-        rightViews = []
         super.init(frame: frame)
     }
     

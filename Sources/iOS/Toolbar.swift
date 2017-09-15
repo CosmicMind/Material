@@ -68,6 +68,7 @@ open class Toolbar: Bar {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
             return
         }
+        
         contentViewAlignment = .center == titleLabel.textAlignment ? .center : .full
     }
     

@@ -39,45 +39,36 @@ open class NavigationBar: UINavigationBar {
     open override var intrinsicContentSize: CGSize {
         return CGSize(width: bounds.width, height: bounds.height)
     }
-	
-	/// A preset wrapper around contentEdgeInsets.
-	open var contentEdgeInsetsPreset = EdgeInsetsPreset.none {
-		didSet {
+    
+    /// A preset wrapper around contentEdgeInsets.
+    open var contentEdgeInsetsPreset = EdgeInsetsPreset.none {
+        didSet {
             contentEdgeInsets = EdgeInsetsPresetToValue(preset: contentEdgeInsetsPreset)
-		}
-	}
-	
-	/// A reference to EdgeInsets.
-	@IBInspectable
+        }
+    }
+    
+    /// A reference to EdgeInsets.
+    @IBInspectable
     open var contentEdgeInsets = EdgeInsets.zero {
-		didSet {
-			layoutSubviews()
-		}
-	}
-	
-	/// A preset wrapper around interimSpace.
-	open var interimSpacePreset = InterimSpacePreset.none {
-		didSet {
+        didSet {
+            layoutSubviews()
+        }
+    }
+    
+    /// A preset wrapper around interimSpace.
+    open var interimSpacePreset = InterimSpacePreset.interimSpace3 {
+        didSet {
             interimSpace = InterimSpacePresetToValue(preset: interimSpacePreset)
-		}
-	}
-	
-	/// A wrapper around grid.interimSpace.
-	@IBInspectable
+        }
+    }
+    
+    /// A wrapper around grid.interimSpace.
+    @IBInspectable
     open var interimSpace: InterimSpace = 0 {
-		didSet {
-			layoutSubviews()
-		}
-	}
-	
-	/// Grid cell factor.
-	@IBInspectable
-    open var gridFactor: CGFloat = 12 {
-		didSet {
-			assert(0 < gridFactor, "[Material Error: gridFactor must be greater than 0.]")
-			layoutSubviews()
-		}
-	}
+        didSet {
+            layoutSubviews()
+        }
+    }
 	
 	/**
      The back button image writes to the backIndicatorImage property and
@@ -151,136 +142,6 @@ open class NavigationBar: UINavigationBar {
         layoutDivider()
 	}
 	
-	open override func pushItem(_ item: UINavigationItem, animated: Bool) {
-		super.pushItem(item, animated: animated)
-		layoutNavigationItem(item: item)
-	}
-	
-	/**
-     Lays out the UINavigationItem.
-     - Parameter item: A UINavigationItem to layout.
-     */
-	internal func layoutNavigationItem(item: UINavigationItem) {
-        guard willLayout else {
-            return
-        }
-        
-        prepareItem(item: item)
-        prepareTitleView(item: item)
-        
-        item.titleView!.frame.origin = .zero
-        item.titleView!.frame.size = intrinsicContentSize
-
-        var lc = 0
-        var rc = 0
-        
-        item.titleView!.grid.begin()
-        item.titleView!.grid.views.removeAll()
-        
-        for v in item.leftViews {
-            if let b = v as? UIButton {
-                b.contentEdgeInsets = .zero
-                b.titleEdgeInsets = .zero
-            }
-            
-            v.frame.size.width = v.intrinsicContentSize.width
-            v.sizeToFit()
-            v.grid.columns = Int(ceil(v.bounds.width / gridFactor)) + 2
-            
-            lc += v.grid.columns
-            
-            item.titleView!.grid.views.append(v)
-        }
-        
-        item.titleView!.grid.views.append(item.contentView)
-        
-        for v in item.rightViews {
-            if let b = v as? UIButton {
-                b.contentEdgeInsets = .zero
-                b.titleEdgeInsets = .zero
-            }
-            
-            v.frame.size.width = v.intrinsicContentSize.width
-            v.sizeToFit()
-            v.grid.columns = Int(ceil(v.bounds.width / gridFactor)) + 2
-            
-            rc += v.grid.columns
-            
-            item.titleView!.grid.views.append(v)
-        }
-        
-        item.contentView.grid.begin()
-        item.contentView.grid.offset.columns = 0
-        
-        var l: CGFloat = 0
-        var r: CGFloat = 0
-        
-        if .center == item.contentViewAlignment {
-            if item.leftViews.count < item.rightViews.count {
-                r = CGFloat(item.rightViews.count) * interimSpace
-                l = r
-            } else {
-                l = CGFloat(item.leftViews.count) * interimSpace
-                r = l
-            }
-        }
-        
-        let p = bounds.width - l - r - contentEdgeInsets.left - contentEdgeInsets.right
-        let columns = Int(ceil(p / gridFactor))
-        
-        if .center == item.contentViewAlignment {
-            if lc < rc {
-                item.contentView.grid.columns = columns - 2 * rc
-                item.contentView.grid.offset.columns = rc - lc
-            } else {
-                item.contentView.grid.columns = columns - 2 * lc
-                item.rightViews.first?.grid.offset.columns = lc - rc
-            }
-        } else {
-            item.contentView.grid.columns = columns - lc - rc
-        }
-        
-        item.titleView!.grid.axis.columns = columns
-        item.titleView!.grid.interimSpace = interimSpace
-        item.titleView!.grid.contentEdgeInsets = contentEdgeInsets
-        item.titleView!.grid.commit()
-        item.contentView.grid.commit()
-        
-        // contentView alignment.
-        if nil != item.title && "" != item.title {
-            if nil == item.titleLabel.superview {
-                item.contentView.addSubview(item.titleLabel)
-            }
-            item.titleLabel.frame = item.contentView.bounds
-        } else {
-            item.titleLabel.removeFromSuperview()
-        }
-        
-        if 0 < item.detailLabel.text?.utf16.count ?? 0 {
-            if nil == item.detailLabel.superview {
-                item.contentView.addSubview(item.detailLabel)
-            }
-            
-            if nil == item.titleLabel.superview {
-                item.detailLabel.frame = item.contentView.bounds
-            } else {
-                item.titleLabel.sizeToFit()
-                item.detailLabel.sizeToFit()
-                
-                let diff = (item.contentView.bounds.height - item.titleLabel.bounds.height - item.detailLabel.bounds.height) / 2
-                
-                item.titleLabel.frame.size.height += diff
-                item.titleLabel.frame.size.width = item.contentView.bounds.width
-                
-                item.detailLabel.frame.size.height += diff
-                item.detailLabel.frame.size.width = item.contentView.bounds.width
-                item.detailLabel.frame.origin.y = item.titleLabel.bounds.height
-            }
-        } else {
-            item.detailLabel.removeFromSuperview()
-        }
-	}
-	
 	/**
      Prepares the view instance when intialized. When subclassing,
      it is recommended to override the prepare method
@@ -292,34 +153,37 @@ open class NavigationBar: UINavigationBar {
         barStyle = .black
         isTranslucent = false
         depthPreset = .depth1
-        interimSpacePreset = .interimSpace3
-        contentEdgeInsetsPreset = .square1
         contentScaleFactor = Screen.scale
 		backButtonImage = Icon.cm.arrowBack
+        contentEdgeInsetsPreset = .square1
+        interimSpacePreset = .interimSpace3
         
         let image = UIImage()
         shadowImage = image
 		setBackgroundImage(image, for: .default)
 		backgroundColor = .white
 	}
-	
-	/**
-     Prepare the item by setting the title property to equal an empty string.
+}
+
+internal extension NavigationBar {
+    /**
+     Lays out the UINavigationItem.
      - Parameter item: A UINavigationItem to layout.
      */
-	private func prepareItem(item: UINavigationItem) {
-		item.hidesBackButton = false
-		item.setHidesBackButton(true, animated: false)
-	}
-	
-	/**
-     Prepare the titleView.
-     - Parameter item: A UINavigationItem to layout.
-     */
-	private func prepareTitleView(item: UINavigationItem) {
-        guard nil == item.titleView else {
+    func layoutNavigationItem(item: UINavigationItem) {
+        guard willLayout else {
             return
         }
-        item.titleView = UIView(frame: .zero)
-	}
+        
+        item.titleView = item.toolbar
+        
+        guard let v = item.titleView as? Toolbar else {
+            return
+        }
+        
+        removeConstraints(constraints)
+        v.contentEdgeInsets = contentEdgeInsets
+        v.interimSpace = interimSpace
+        v.frame = bounds
+    }
 }
