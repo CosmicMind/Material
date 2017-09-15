@@ -28,6 +28,7 @@
 
 import UIKit
 
+@available(iOS 10, tvOS 10, *)
 internal class MotionViewPropertyViewContext: MotionAnimatorViewContext {
     /// A reference to the UIViewPropertyAnimator.
     fileprivate var viewPropertyAnimator: UIViewPropertyAnimator?

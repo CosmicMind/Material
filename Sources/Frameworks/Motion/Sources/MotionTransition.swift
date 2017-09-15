@@ -421,6 +421,7 @@ public extension MotionTransition {
      - Parameter damping: A CGFloat.
      - Returns: A MotionTransition.
      */
+    @available(iOS 9, *)
     static func spring(stiffness: CGFloat, damping: CGFloat) -> MotionTransition {
         return MotionTransition {
             $0.spring = (stiffness, damping)

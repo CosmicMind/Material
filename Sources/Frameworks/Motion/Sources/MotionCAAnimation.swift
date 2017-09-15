@@ -81,6 +81,7 @@ fileprivate extension MotionCAAnimation {
     }
 }
 
+@available(iOS 9.0, *)
 internal extension MotionCAAnimation {
     /**
      Converts a CABasicAnimation to a CASpringAnimation.

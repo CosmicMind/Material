@@ -370,6 +370,7 @@ public extension MotionAnimation {
      - Parameter damping: A CGFloat.
      - Returns: A MotionAnimation.
      */
+    @available(iOS 9, *)
     static func spring(stiffness: CGFloat, damping: CGFloat) -> MotionAnimation {
         return MotionAnimation {
             $0.spring = (stiffness, damping)
