@@ -234,6 +234,16 @@ public extension MotionTransition {
         }
     }
     
+    /**
+     Animates a view's current position to the given x and y values.
+     - Parameter x: A CGloat.
+     - Parameter y: A CGloat.
+     - Returns: A MotionTransition.
+     */
+    static func position(x: CGFloat, y: CGFloat) -> MotionTransition {
+        return .position(CGPoint(x: x, y: y))
+    }
+    
     /// Forces the view to not fade during a transition.
     static var forceNonFade = MotionTransition {
         $0.nonFade = true
@@ -276,6 +286,16 @@ public extension MotionTransition {
         return MotionTransition {
             $0.size = size
         }
+    }
+    
+    /**
+     Animates the view's current size to the given width and height.
+     - Parameter width: A CGFloat.
+     - Parameter height: A CGFloat.
+     - Returns: A MotionTransition.
+     */
+    static func size(width: CGFloat, height: CGFloat) -> MotionTransition {
+        return .size(CGSize(width: width, height: height))
     }
     
     /**

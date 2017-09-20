@@ -92,9 +92,9 @@ open class SpringAnimation {
             v.alpha = 0
             v.isHidden = true
             v.frame.size = itemSize
-            v.x = (baseSize.width - itemSize.width) / 2
-            v.y = (baseSize.height - itemSize.height) / 2
-            v.zPosition = CGFloat(10000 - views.count - i)
+            v.frame.origin.x = (baseSize.width - itemSize.width) / 2
+            v.frame.origin.y = (baseSize.height - itemSize.height) / 2
+            v.layer.zPosition = CGFloat(10000 - views.count - i)
         }
     }
 }
@@ -238,7 +238,7 @@ extension SpringAnimation {
                 options: options,
                 animations: { [s = interimSpace, m = CGFloat(i + 1), v = v] in
                     v.alpha = 1
-                    v.y = -m * (v.height + s)
+                    v.frame.origin.y = -m * (v.bounds.height + s)
                     animations?(v)
                 }) { [weak self, v = v] _ in
                     self?.handleOpenCompletion(view: v, completion: completion)
@@ -267,7 +267,7 @@ extension SpringAnimation {
                 options: options,
                 animations: { [v = v] in
                     v.alpha = 0
-                    v.y = 0
+                    v.frame.origin.y = 0
                     animations?(v)
                 }) { [weak self, v = v] _ in
                     self?.handleCloseCompletion(view: v, completion: completion)
@@ -298,7 +298,7 @@ extension SpringAnimation {
                 options: options,
                 animations: { [s = interimSpace, m = CGFloat(i + 1), v = v] in
                     v.alpha = 1
-                    v.y = m * (v.height + s)
+                    v.frame.origin.y = m * (v.bounds.height + s)
                             
                     animations?(v)
                 }) { [weak self, v = v] _ in
@@ -332,7 +332,7 @@ extension SpringAnimation {
                 options: options,
                 animations: { [first = first, v = v] in
                     v.alpha = 0
-                    v.y = first.y
+                    v.frame.origin.y = first.frame.origin.y
                             
                     animations?(v)
                 }) { [weak self, v = v] _ in
@@ -364,7 +364,7 @@ extension SpringAnimation {
                options: options,
                animations: { [s = interimSpace, m = CGFloat(i + 1), v = v] in
                     v.alpha = 1
-                    v.x = -m * (v.width + s)
+                    v.frame.origin.x = -m * (v.bounds.width + s)
                 
                     animations?(v)
                 }) { [weak self, v = v] _ in
@@ -398,7 +398,7 @@ extension SpringAnimation {
                 options: options,
                 animations: { [first = first, v = v] in
                     v.alpha = 0
-                    v.x = first.x
+                    v.frame.origin.x = first.frame.origin.x
                             
                     animations?(v)
                 }) { [weak self, v = v] _ in
@@ -430,7 +430,7 @@ extension SpringAnimation {
                 options: options,
                 animations: { [s = interimSpace, m = CGFloat(i + 1), v = v] in
                     v.alpha = 1
-                    v.x = m * (v.width + s)
+                    v.frame.origin.x = m * (v.bounds.width + s)
                             
                     animations?(v)
                 }) { [weak self, v = v] _ in
@@ -466,7 +466,7 @@ extension SpringAnimation {
                 options: options,
                 animations: { [first = first, v = v] in
                     v.alpha = 0
-                    v.x = first.x + w
+                    v.frame.origin.x = first.frame.origin.x + w
                             
                     animations?(v)
                 }) { [weak self, v = v] _ in

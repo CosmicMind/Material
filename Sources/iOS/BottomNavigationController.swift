@@ -130,19 +130,20 @@ open class BottomNavigationController: UITabBarController {
      when subclassing.
      */
     open func prepare() {
-        view.backgroundColor = .white
         view.clipsToBounds = true
-		view.contentScaleFactor = Screen.scale
+        view.backgroundColor = .white
+        view.contentScaleFactor = Screen.scale
+        
         prepareTabBar()
 	}
 }
 
-extension BottomNavigationController {
+fileprivate extension BottomNavigationController {
     /// Prepares the tabBar.
-    fileprivate func prepareTabBar() {
+    func prepareTabBar() {
         tabBar.isTranslucent = false
         tabBar.heightPreset = .normal
-        tabBar.depthPreset = .depth1
+        tabBar.dividerColor = Color.grey.lighten2
         tabBar.dividerAlignment = .top
         
         let image = UIImage()

@@ -64,7 +64,7 @@ open class Snackbar: Bar {
     open let textLabel = UILabel()
     
     open override var intrinsicContentSize: CGSize {
-        return CGSize(width: width, height: 49)
+        return CGSize(width: bounds.width, height: 49)
     }
     
     /// The status of the snackbar.

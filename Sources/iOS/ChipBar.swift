@@ -62,7 +62,7 @@ fileprivate extension ChipItem {
     /// Lays out the chipItem based on its style.
     func layoutChipItemStyle() {
         if .pill == chipItemStyle {
-            cornerRadius = height / 2
+            layer.cornerRadius = bounds.height / 2
         }
     }
 }
@@ -125,7 +125,7 @@ open class ChipBar: Bar {
         let p = q + chipItemsInterimSpace
         
         for v in chipItems {
-            let x = v.sizeThatFits(CGSize(width: .greatestFiniteMagnitude, height: scrollView.height)).width
+            let x = v.sizeThatFits(CGSize(width: .greatestFiniteMagnitude, height: scrollView.bounds.height)).width
             w += x
             w += p
         }
@@ -244,14 +244,14 @@ open class ChipBar: Bar {
 fileprivate extension ChipBar {
     /// Prepares the divider.
     func prepareDivider() {
-        dividerColor = Color.grey.lighten3
+        dividerColor = Color.grey.lighten2
     }
     
     /// Prepares the chipItems.
     func prepareChipItems() {
         for v in chipItems {
             v.grid.columns = 0
-            v.cornerRadius = 0
+            v.layer.cornerRadius = 0
             v.contentEdgeInsets = .zero
             
             v.removeTarget(self, action: #selector(handle(chipItem:)), for: .touchUpInside)
@@ -261,12 +261,11 @@ fileprivate extension ChipBar {
     
     /// Prepares the contentView.
     func prepareContentView() {
-        contentView.zPosition = 6000
+        contentView.layer.zPosition = 6000
     }
     
     /// Prepares the scroll view.
     func prepareScrollView() {
-        scrollView.isPagingEnabled = false
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
         centerViews = [scrollView]
@@ -278,16 +277,16 @@ fileprivate extension ChipBar {
     func layoutScrollView() {
         contentView.grid.reload()
         
-        if .scrollable == chipBarStyle || (.auto == chipBarStyle && chipItemsTotalWidth > scrollView.width) {
+        if .scrollable == chipBarStyle || (.auto == chipBarStyle && chipItemsTotalWidth > scrollView.bounds.width) {
             var w: CGFloat = 0
             let q = 2 * chipItemsInterimSpace
             let p = q + chipItemsInterimSpace
             
             for v in chipItems {
-                let x = v.sizeThatFits(CGSize(width: .greatestFiniteMagnitude, height: scrollView.height)).width
-                v.height = scrollView.height
-                v.width = x + q
-                v.x = w
+                let x = v.sizeThatFits(CGSize(width: .greatestFiniteMagnitude, height: scrollView.bounds.height)).width
+                v.frame.size.height = scrollView.bounds.height
+                v.frame.size.width = x + q
+                v.frame.origin.x = w
                 w += x
                 w += p
                 
@@ -299,7 +298,7 @@ fileprivate extension ChipBar {
             
             w -= chipItemsInterimSpace
             
-            scrollView.contentSize = CGSize(width: w, height: scrollView.height)
+            scrollView.contentSize = CGSize(width: w, height: scrollView.bounds.height)
             
         } else {
             scrollView.grid.begin()
@@ -371,7 +370,7 @@ fileprivate extension ChipBar {
         }
         
         if !scrollView.bounds.contains(v.frame) {
-            let contentOffsetX = (v.x < scrollView.bounds.minX) ? v.x : v.frame.maxX - scrollView.bounds.width
+            let contentOffsetX = (v.frame.origin.x < scrollView.bounds.minX) ? v.frame.origin.x : v.frame.maxX - scrollView.bounds.width
             let normalizedOffsetX = min(max(contentOffsetX, 0), scrollView.contentSize.width - scrollView.bounds.width)
             scrollView.setContentOffset(CGPoint(x: normalizedOffsetX, y: 0), animated: true)
         }

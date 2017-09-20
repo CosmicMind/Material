@@ -34,59 +34,17 @@ import UIKit
 fileprivate var NavigationItemKey: UInt8 = 0
 fileprivate var NavigationItemContext: UInt8 = 0
 
-public class NavigationItem: NSObject {
-    /// Should center the contentView.
-    open var contentViewAlignment = ContentViewAlignment.center {
-        didSet {
-            navigationBar?.layoutSubviews()
-        }
-    }
+fileprivate class NavigationItem: NSObject {
+    /// A reference to the toolbar.
+    @objc
+    let toolbar = Toolbar()
     
 	/// Back Button.
-    public fileprivate(set) lazy var backButton: IconButton = IconButton()
-	
-	/// Content View.
-    public fileprivate(set) var contentView = UIView()
-	
-	/// Title label.
-	public fileprivate(set) var titleLabel = UILabel()
-	
-	/// Detail label.
-	public fileprivate(set) var detailLabel = UILabel()
-	
-	/// Left items.
-    public var leftViews = [UIView]() {
-        didSet {
-            for v in oldValue {
-                v.removeFromSuperview()
-            }
-            navigationBar?.layoutSubviews()
-        }
-    }
-	
-	/// Right items.
-    public var rightViews = [UIView]() {
-        didSet {
-            for v in oldValue {
-                v.removeFromSuperview()
-            }
-            navigationBar?.layoutSubviews()
-        }
-    }
-    
-    /// Center items.
-    public var centerViews: [UIView] {
-        get {
-            return contentView.grid.views
-        }
-        set(value) {
-            contentView.grid.views = value
-        }
-    }
+    lazy var backButton = IconButton()
 	
     /// An optional reference to the NavigationBar.
-    public var navigationBar: NavigationBar? {
-        var v = contentView.superview
+    var navigationBar: NavigationBar? {
+        var v = toolbar.contentView.superview
         while nil != v {
             if let navigationBar = v as? NavigationBar {
                 return navigationBar
@@ -95,142 +53,87 @@ public class NavigationItem: NSObject {
         }
         return nil
     }
-    
-    open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        guard "titleLabel.textAlignment" == keyPath else {
-            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
-            return
+}
+
+fileprivate extension UINavigationItem {
+    /// NavigationItem reference.
+    var navigationItem: NavigationItem {
+        get {
+            return AssociatedObject.get(base: self, key: &NavigationItemKey) {
+                return NavigationItem()
+            }
         }
-        contentViewAlignment = .center == titleLabel.textAlignment ? .center : .full
+        set(value) {
+            AssociatedObject.set(base: self, key: &NavigationItemKey, value: value)
+        }
     }
-    
-    deinit {
-        removeObserver(self, forKeyPath: "titleLabel.textAlignment")
+}
+
+internal extension UINavigationItem {
+    /// A reference to the NavigationItem Toolbar.
+    var toolbar: Toolbar {
+        return navigationItem.toolbar
     }
-    
-	/// Initializer.
-	public override init() {
-		super.init()
-        prepareTitleLabel()
-		prepareDetailLabel()
-	}
-    
-    /// Reloads the subviews for the NavigationBar.
-    fileprivate func reload() {
-        navigationBar?.layoutSubviews()
-    }
-	
-	/// Prepares the titleLabel.
-    fileprivate func prepareTitleLabel() {
-        titleLabel.textAlignment = .center
-		titleLabel.contentScaleFactor = Screen.scale
-        titleLabel.font = RobotoFont.medium(with: 17)
-        titleLabel.textColor = Color.darkText.primary
-        addObserver(self, forKeyPath: "titleLabel.textAlignment", options: [], context: &NavigationItemContext)
-	}
-	
-	/// Prepares the detailLabel.
-    fileprivate func prepareDetailLabel() {
-        detailLabel.textAlignment = .center
-        titleLabel.contentScaleFactor = Screen.scale
-		detailLabel.font = RobotoFont.regular(with: 12)
-		detailLabel.textColor = Color.darkText.secondary
-	}
 }
 
 extension UINavigationItem {
-	/// NavigationItem reference.
-	public internal(set) var navigationItem: NavigationItem {
-		get {
-			return AssociatedObject.get(base: self, key: &NavigationItemKey) {
-				return NavigationItem()
-			}
-		}
-		set(value) {
-			AssociatedObject.set(base: self, key: &NavigationItemKey, value: value)
-		}
-	}
-    
-    /// Should center the contentView.
+	/// Should center the contentView.
     open var contentViewAlignment: ContentViewAlignment {
         get {
-            return navigationItem.contentViewAlignment
+            return toolbar.contentViewAlignment
         }
         set(value) {
-            navigationItem.contentViewAlignment = value
+            toolbar.contentViewAlignment = value
         }
     }
 	
     /// Content View.
     open var contentView: UIView {
-        return navigationItem.contentView
+        return toolbar.contentView
     }
     
 	/// Back Button.
 	open var backButton: IconButton {
 		return navigationItem.backButton
 	}
-	
-    /// Title text.
-	@nonobjc
-	open var title: String? {
-		get {
-			return titleLabel.text
-		}
-		set(value) {
-			titleLabel.text = value
-            navigationItem.reload()
-		}
-	}
     
 	/// Title Label.
 	open var titleLabel: UILabel {
-		return navigationItem.titleLabel
-	}
-	
-	/// Detail text.
-	open var detail: String? {
-		get {
-			return detailLabel.text
-		}
-		set(value) {
-			detailLabel.text = value
-            navigationItem.reload()
-		}
+		return toolbar.titleLabel
 	}
 	
 	/// Detail Label.
 	open var detailLabel: UILabel {
-		return navigationItem.detailLabel
+		return toolbar.detailLabel
 	}
 	
 	/// Left side UIViews.
 	open var leftViews: [UIView] {
 		get {
-			return navigationItem.leftViews
+			return toolbar.leftViews
 		}
 		set(value) {
-			navigationItem.leftViews = value
+			toolbar.leftViews = value
 		}
 	}
 	
 	/// Right side UIViews.
 	open var rightViews: [UIView] {
 		get {
-			return navigationItem.rightViews
+			return toolbar.rightViews
 		}
 		set(value) {
-			navigationItem.rightViews = value
+			toolbar.rightViews = value
 		}
 	}
     
     /// Center UIViews.
     open var centerViews: [UIView] {
         get {
-            return navigationItem.centerViews
+            return toolbar.centerViews
         }
         set(value) {
-            navigationItem.centerViews = value
+            toolbar.centerViews = value
         }
     }
 }

@@ -44,6 +44,12 @@ public enum EdgeInsetsPreset: Int {
     case square7
     case square8
     case square9
+    case square10
+    case square11
+    case square12
+    case square13
+    case square14
+    case square15
     
     // rectangle
     case wideRectangle1
@@ -98,16 +104,28 @@ public func EdgeInsetsPresetToValue(preset: EdgeInsetsPreset) -> EdgeInsets {
     case .square3:
         return EdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
     case .square4:
-        return EdgeInsets(top: 24, left: 24, bottom: 24, right: 24)
+        return EdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
     case .square5:
-        return EdgeInsets(top: 32, left: 32, bottom: 32, right: 32)
+        return EdgeInsets(top: 24, left: 24, bottom: 24, right: 24)
     case .square6:
-        return EdgeInsets(top: 40, left: 40, bottom: 40, right: 40)
+        return EdgeInsets(top: 28, left: 28, bottom: 28, right: 28)
     case .square7:
-        return EdgeInsets(top: 48, left: 48, bottom: 48, right: 48)
+        return EdgeInsets(top: 32, left: 32, bottom: 32, right: 32)
     case .square8:
-        return EdgeInsets(top: 56, left: 56, bottom: 56, right: 56)
+        return EdgeInsets(top: 36, left: 36, bottom: 36, right: 36)
     case .square9:
+        return EdgeInsets(top: 40, left: 40, bottom: 40, right: 40)
+    case .square10:
+        return EdgeInsets(top: 44, left: 44, bottom: 44, right: 44)
+    case .square11:
+        return EdgeInsets(top: 48, left: 48, bottom: 48, right: 48)
+    case .square12:
+        return EdgeInsets(top: 52, left: 52, bottom: 52, right: 52)
+    case .square13:
+        return EdgeInsets(top: 56, left: 56, bottom: 56, right: 56)
+    case .square14:
+        return EdgeInsets(top: 60, left: 60, bottom: 60, right: 60)
+    case .square15:
         return EdgeInsets(top: 64, left: 64, bottom: 64, right: 64)
         
     // rectangle

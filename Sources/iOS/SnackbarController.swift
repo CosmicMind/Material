@@ -115,7 +115,7 @@ open class SnackbarController: TransitionController {
      - Parameter status: A SnackbarStatus enum value.
      */
     @discardableResult
-    open func animate(snackbar status: SnackbarStatus, delay: TimeInterval = 0, animations: ((Snackbar) -> Void)? = nil, completion: ((Snackbar) -> Void)? = nil) -> MotionDelayCancelBlock? {
+    open func animate(snackbar status: SnackbarStatus, delay: TimeInterval = 0, animations: ((Snackbar) -> Void)? = nil, completion: ((Snackbar) -> Void)? = nil) -> MotionCancelBlock? {
         return Motion.delay(delay) { [weak self, status = status, animations = animations, completion = completion] in
             guard let s = self else {
                 return
@@ -175,8 +175,8 @@ open class SnackbarController: TransitionController {
     
     /// Reloads the view.
     open func reload() {
-        snackbar.x = snackbarEdgeInsets.left
-        snackbar.width = view.width - snackbarEdgeInsets.left - snackbarEdgeInsets.right
+        snackbar.frame.origin.x = snackbarEdgeInsets.left
+        snackbar.frame.size.width = view.bounds.width - snackbarEdgeInsets.left - snackbarEdgeInsets.right
         rootViewController.view.frame = view.bounds
         layoutSnackbar(status: snackbar.status)
     }
@@ -188,7 +188,7 @@ open class SnackbarController: TransitionController {
     
     /// Prepares the snackbar.
     private func prepareSnackbar() {
-        snackbar.zPosition = 10000
+        snackbar.layer.zPosition = 10000
         view.addSubview(snackbar)
     }
     
@@ -198,9 +198,9 @@ open class SnackbarController: TransitionController {
      */
     private func layoutSnackbar(status: SnackbarStatus) {
         if .bottom == snackbarAlignment {
-            snackbar.y = .visible == status ? view.height - snackbar.height - snackbarEdgeInsets.bottom : view.height
+            snackbar.frame.origin.y = .visible == status ? view.bounds.height - snackbar.bounds.height - snackbarEdgeInsets.bottom : view.bounds.height
         } else {
-            snackbar.y = .visible == status ? snackbarEdgeInsets.top : -snackbar.height
+            snackbar.frame.origin.y = .visible == status ? snackbarEdgeInsets.top : -snackbar.bounds.height
         }
     }
 }

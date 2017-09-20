@@ -82,7 +82,7 @@ public struct Pulse {
      - Parameter pulseView: An optional UIView.
      - Parameter pulseLayer: An optional CALayer.
      */
-    internal init(pulseView: UIView?, pulseLayer: CALayer?) {
+    public init(pulseView: UIView?, pulseLayer: CALayer?) {
         self.pulseView = pulseView
         self.pulseLayer = pulseLayer
     }

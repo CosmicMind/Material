@@ -170,7 +170,7 @@ extension MotionCoreAnimationViewContext {
         }
         
         if false != snapshot.layer.animationKeys()?.isEmpty {
-            return snapshot.layer.value(forKeyPath:key)
+            return snapshot.layer.value(forKeyPath: key)
         }
         
         return (snapshot.layer.presentation() ?? snapshot.layer).value(forKeyPath: key)

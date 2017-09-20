@@ -770,21 +770,28 @@ extension Motion: UITabBarControllerDelegate {
     }
 }
 
-public typealias MotionDelayCancelBlock = (Bool) -> Void
+public typealias MotionCancelBlock = (Bool) -> Void
 
 extension Motion {
     /**
+     Executes a block of code asynchronously on the main thread.
+     - Parameter execute: A block that is executed asynchronously on the main thread.
+     */
+    public class func async(_ execute: @escaping () -> Void) {
+        Motion.delay(0, execute: execute)
+    }
+    
+    /**
      Executes a block of code after a time delay.
-     - Parameter duration: An animation duration time.
-     - Parameter animations: An animation block.
-     - Parameter execute block: A completion block that is executed once
-     the animations have completed.
+     - Parameter _ time: A delay time.
+     - Parameter execute: A block that is executed once delay has passed.
+     - Returns: An optional MotionCancelBlock.
      */
     @discardableResult
-    public class func delay(_ time: TimeInterval, execute: @escaping () -> Void) -> MotionDelayCancelBlock? {
-        var cancelable: MotionDelayCancelBlock?
+    public class func delay(_ time: TimeInterval, execute: @escaping () -> Void) -> MotionCancelBlock? {
+        var cancelable: MotionCancelBlock?
         
-        let delayed: MotionDelayCancelBlock = {
+        let delayed: MotionCancelBlock = {
             if !$0 {
                 DispatchQueue.main.async(execute: execute)
             }
@@ -802,10 +809,10 @@ extension Motion {
     }
     
     /**
-     Cancels the delayed MotionDelayCancelBlock.
-     - Parameter delayed completion: An MotionDelayCancelBlock.
+     Cancels the delayed MotionCancelBlock.
+     - Parameter delayed completion: An MotionCancelBlock.
      */
-    public class func cancel(delayed completion: MotionDelayCancelBlock) {
+    public class func cancel(delayed completion: MotionCancelBlock) {
         completion(true)
     }
     

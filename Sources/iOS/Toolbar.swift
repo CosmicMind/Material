@@ -33,40 +33,40 @@ import UIKit
 fileprivate var ToolbarContext: UInt8 = 0
 
 open class Toolbar: Bar {
-	/// A convenience property to set the titleLabel.text.
-	@IBInspectable
+    /// A convenience property to set the titleLabel.text.
+    @IBInspectable
     open var title: String? {
-		get {
-			return titleLabel.text
-		}
-		set(value) {
-			titleLabel.text = value
-			layoutSubviews()
-		}
-	}
-	
+        get {
+            return titleLabel.text
+        }
+        set(value) {
+            titleLabel.text = value
+            layoutSubviews()
+        }
+    }
+    
 	/// Title label.
     @IBInspectable
     open let titleLabel = UILabel()
     
-	/// A convenience property to set the detailLabel.text.
-	@IBInspectable
+    /// A convenience property to set the detailLabel.text.
+    @IBInspectable
     open var detail: String? {
-		get {
-			return detailLabel.text
-		}
-		set(value) {
-			detailLabel.text = value
-			layoutSubviews()
-		}
-	}
-	
+        get {
+            return detailLabel.text
+        }
+        set(value) {
+            detailLabel.text = value
+            layoutSubviews()
+        }
+    }
+    
 	/// Detail label.
     @IBInspectable
     open let detailLabel = UILabel()
 	
     deinit {
-        removeObserver(self, forKeyPath: "titleLabel.textAlignment")
+        removeObserver(self, forKeyPath: #keyPath(titleLabel.textAlignment))
     }
     
 	/**
@@ -92,6 +92,7 @@ open class Toolbar: Bar {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
             return
         }
+        
         contentViewAlignment = .center == titleLabel.textAlignment ? .center : .full
     }
     
@@ -101,7 +102,7 @@ open class Toolbar: Bar {
             return
         }
         
-        if nil != title && "" != title {
+        if 0 < titleLabel.text?.utf16.count ?? 0 {
             if nil == titleLabel.superview {
                 contentView.addSubview(titleLabel)
             }
@@ -110,7 +111,7 @@ open class Toolbar: Bar {
             titleLabel.removeFromSuperview()
         }
         
-        if nil != detail && "" != detail {
+        if 0 < detailLabel.text?.utf16.count ?? 0 {
             if nil == detailLabel.superview {
                 contentView.addSubview(detailLabel)
             }
@@ -121,14 +122,14 @@ open class Toolbar: Bar {
                 titleLabel.sizeToFit()
                 detailLabel.sizeToFit()
                 
-                let diff: CGFloat = (contentView.height - titleLabel.height - detailLabel.height) / 2
+                let diff: CGFloat = (contentView.bounds.height - titleLabel.bounds.height - detailLabel.bounds.height) / 2
                 
-                titleLabel.height += diff
-                titleLabel.width = contentView.width
+                titleLabel.frame.size.height += diff
+                titleLabel.frame.size.width = contentView.bounds.width
                 
-                detailLabel.height += diff
-                detailLabel.width = contentView.width
-                detailLabel.y = titleLabel.height
+                detailLabel.frame.size.height += diff
+                detailLabel.frame.size.width = contentView.bounds.width
+                detailLabel.frame.origin.y = titleLabel.bounds.height
             }
         } else {
             detailLabel.removeFromSuperview()
@@ -138,23 +139,24 @@ open class Toolbar: Bar {
 	open override func prepare() {
 		super.prepare()
         contentViewAlignment = .center
-		prepareTitleLabel()
+		
+        prepareTitleLabel()
 		prepareDetailLabel()
 	}
 }
 
-extension Toolbar {
+fileprivate extension Toolbar {
     /// Prepares the titleLabel.
-    fileprivate func prepareTitleLabel() {
+    func prepareTitleLabel() {
         titleLabel.textAlignment = .center
         titleLabel.contentScaleFactor = Screen.scale
         titleLabel.font = RobotoFont.medium(with: 17)
         titleLabel.textColor = Color.darkText.primary
-        addObserver(self, forKeyPath: "titleLabel.textAlignment", options: [], context: &ToolbarContext)
+        addObserver(self, forKeyPath: #keyPath(titleLabel.textAlignment), options: [], context: &ToolbarContext)
     }
     
     /// Prepares the detailLabel.
-    fileprivate func prepareDetailLabel() {
+    func prepareDetailLabel() {
         detailLabel.textAlignment = .center
         detailLabel.contentScaleFactor = Screen.scale
         detailLabel.font = RobotoFont.regular(with: 12)

@@ -310,6 +310,7 @@ internal extension MotionController {
      Subclasses should call context.set(fromViews: toViews) after
      inserting fromViews & toViews into the container
      */
+    @objc
     func prepareTransition() {
         guard isTransitioning else {
             return
@@ -323,6 +324,7 @@ internal extension MotionController {
     }
     
     /// Prepares the transition fromView & toView pairs.
+    @objc
     func prepareTransitionPairs() {
         guard isTransitioning else {
             return
@@ -358,6 +360,7 @@ internal extension MotionController {
      Animates the views. Subclasses should call `prepareTransition` &
      `prepareTransitionPairs` before calling `animate`.
      */
+    @objc
     func animate() {
         guard isTransitioning else {
             return
@@ -424,6 +427,7 @@ internal extension MotionController {
      - Parameter isFinished: A Boolean indicating if the transition
      has completed.
     */
+    @objc
     func complete(isFinished: Bool) {
         guard isTransitioning else {
             return

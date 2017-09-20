@@ -30,18 +30,48 @@
 
 import UIKit
 
-extension UIFont {
-	/**
-     Calculates a CGSize value based on a width and length of a string with a
-     given UIFont.
-     - Parameter string: A String.
-     - Parameter constrainedTo width: A CGFloat.
-     - Returns a CGSize.
+extension NSMutableAttributedString {
+    /**
+     Adds a Dictionary of NSAttributedStringKeys for a given range.
+     - Parameter _ keys: A Dictionary of NSAttributedStringKey type keys and Any type values.
+     - Parameter range: A NSRange.
      */
-    open func stringSize(string: String, constrainedTo width: CGFloat) -> CGSize {
-		return string.boundingRect(with: CGSize(width: width, height: CGFloat(Double.greatestFiniteMagnitude)),
-			options: .usesLineFragmentOrigin,
-			attributes: [.font: self],
-			context: nil).size
-	}
+    open func addAttributes(_ keys: [NSAttributedStringKey: Any], range: NSRange) {
+        for (k, v) in keys {
+            addAttribute(k, value: v, range: range)
+        }
+    }
+    
+    /**
+     Updates a NSAttributedStringKey for a given range.
+     - Parameter _ key: A NSAttributedStringKey.
+     - Parameter value: Any type.
+     - Parameter range: A NSRange.
+     */
+    open func updateAttribute(_ key: NSAttributedStringKey, value: Any, range: NSRange) {
+        removeAttribute(key, range: range)
+        addAttribute(key, value: value, range: range)
+    }
+    
+    /**
+     Updates a Dictionary of NSAttributedStringKeys for a given range.
+     - Parameter _ keys: A Dictionary of NSAttributedStringKey type keys and Any type values.
+     - Parameter range: A NSRange.
+     */
+    open func updateAttributes(_ keys: [NSAttributedStringKey: Any], range: NSRange) {
+        for (k, v) in keys {
+            updateAttribute(k, value: v, range: range)
+        }
+    }
+    
+    /**
+     Removes a Dictionary of NSAttributedStringKeys for a given range.
+     - Parameter _ keys: An Array of attributedStringKeys.
+     - Parameter range: A NSRange.
+     */
+    open func removeAttributes(_ keys: [NSAttributedStringKey], range: NSRange) {
+        for k in keys {
+            removeAttribute(k, range: range)
+        }
+    }
 }

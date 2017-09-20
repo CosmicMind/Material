@@ -30,6 +30,12 @@
 
 import UIKit
 
+@objc(SearchBarAlignment)
+public enum SearchBarAlignment: Int {
+    case top
+    case bottom
+}
+
 public extension UIViewController {
     /**
      A convenience property that provides access to the SearchBarController.
@@ -46,45 +52,71 @@ open class SearchBarController: StatusBarController {
     @IBInspectable
     open let searchBar = SearchBar()
 	
+    /// The searchBar alignment.
+    open var searchBarAlignment = SearchBarAlignment.top {
+        didSet {
+            layoutSubviews()
+        }
+    }
+    
 	open override func layoutSubviews() {
 		super.layoutSubviews()
-        
-        let y = Application.shouldStatusBarBeHidden || statusBar.isHidden ? 0 : statusBar.height
-        
-        searchBar.y = y
-        searchBar.width = view.width
-        
-        switch displayStyle {
-        case .partial:
-            let h = y + searchBar.height
-            container.y = h
-            container.height = view.height - h
-        case .full:
-            container.frame = view.bounds
-        }
-        
-        rootViewController.view.frame = container.bounds
+        layoutSearchBar()
+        layoutContainer()
+        layoutRootViewController()
 	}
 	
 	open override func prepare() {
 		super.prepare()
         displayStyle = .partial
         
-        prepareStatusBar()
-		prepareSearchBar()
+    	prepareSearchBar()
 	}
 }
 
-extension SearchBarController {
-    /// Prepares the statusBar.
-    fileprivate func prepareStatusBar() {
-        shouldHideStatusBarOnRotation = false
+fileprivate extension SearchBarController {
+    /// Prepares the searchBar.
+    func prepareSearchBar() {
+        searchBar.layer.zPosition = 1000
+        searchBar.depthPreset = .depth1
+        view.addSubview(searchBar)
+    }
+}
+
+fileprivate extension SearchBarController {
+    /// Layout the container.
+    func layoutContainer() {
+        switch displayStyle {
+        case .partial:
+            let p = searchBar.bounds.height
+            let q = statusBarOffsetAdjustment
+            let h = view.bounds.height - p - q
+            
+            switch searchBarAlignment {
+            case .top:
+                container.frame.origin.y = q + p
+                container.frame.size.height = h
+            case .bottom:
+                container.frame.origin.y = q
+                container.frame.size.height = h
+            }
+            
+            container.frame.size.width = view.bounds.width
+            
+        case .full:
+            container.frame = view.bounds
+        }
     }
     
-    /// Prepares the searchBar.
-    fileprivate func prepareSearchBar() {
-        searchBar.depthPreset = .depth1
-        searchBar.zPosition = 1000
-        view.addSubview(searchBar)
+    /// Layout the searchBar.
+    func layoutSearchBar() {
+        searchBar.frame.origin.x = 0
+        searchBar.frame.origin.y = .top == searchBarAlignment ? statusBarOffsetAdjustment : view.bounds.height - searchBar.bounds.height
+        searchBar.frame.size.width = view.bounds.width
+    }
+    
+    /// Layout the rootViewController.
+    func layoutRootViewController() {
+        rootViewController.view.frame = container.bounds
     }
 }
