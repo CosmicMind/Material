@@ -566,7 +566,7 @@ fileprivate extension TextField {
         case .left, .natural:
             placeholderLabel.frame.origin.x = w + placeholderHorizontalOffset
         case .right:
-            placeholderLabel.frame.origin.x = bounds.width - placeholderLabel.frame.width - textInset + placeholderHorizontalOffset
+            placeholderLabel.frame.origin.x = (s.bounds.width * (1.0 - s.placeholderActiveScale)) - textInset + placeholderHorizontalOffset
         default:break
         }
         
