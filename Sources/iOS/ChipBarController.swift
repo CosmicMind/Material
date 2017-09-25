@@ -45,7 +45,7 @@ extension UIViewController {
      This is the recommended method of accessing the ChipBarController
      through child UIViewControllers.
      */
-    public var chipsController: ChipBarController? {
+    public var chipBarController: ChipBarController? {
         return traverseViewControllerHierarchyForClassType()
     }
 }

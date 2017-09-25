@@ -34,7 +34,7 @@ class Base: UIControl {
         secondAnimation()
     }
     
-    func didTap() {
+    @objc func didTap() {
         self.isSelected = !self.isSelected
         self.animate()
     }
