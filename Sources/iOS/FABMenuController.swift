@@ -81,19 +81,23 @@ fileprivate extension FABMenuController {
         fabMenu.layer.zPosition = 1000
         
         fabMenu.handleFABButtonCallback = { [weak self] in
-            self?.handleFABButtonCallback(button: $0)
+            guard let `self` = self else { return }
+            self.handleFABButtonCallback(button: $0)
         }
         
         fabMenu.handleOpenCallback = { [weak self] in
-            self?.handleOpenCallback()
+            guard let `self` = self else { return }
+            self.handleOpenCallback()
         }
         
         fabMenu.handleCloseCallback = { [weak self] in
-            self?.handleCloseCallback()
+            guard let `self` = self else { return }
+            self.handleCloseCallback()
         }
         
         fabMenu.handleCompletionCallback = { [weak self] in
-            self?.handleCompletionCallback(view: $0)
+            guard let `self` = self else { return }
+            self.handleCompletionCallback(view: $0)
         }
         
         view.addSubview(fabMenu)
@@ -159,7 +163,8 @@ fileprivate extension FABMenuController {
         }
         
         UIView.animate(withDuration: 0.15, animations: { [weak self] in
-            self?.rootViewController.view.alpha = 0.15
+            guard let `self` = self else { return }
+            self.rootViewController.view.alpha = 0.15
         })
     }
     
@@ -174,7 +179,8 @@ fileprivate extension FABMenuController {
         }
         
         UIView.animate(withDuration: 0.15, animations: { [weak self] in
-            self?.rootViewController.view.alpha = 1
+            guard let `self` = self else { return }
+            self.rootViewController.view.alpha = 1
         })
     }
 }
