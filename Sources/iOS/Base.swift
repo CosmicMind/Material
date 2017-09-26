@@ -56,25 +56,26 @@ class Base: UIControl {
     let delayFactor: TimeInterval = 0.33
     var duration: TimeInterval { return totalDuration / (1.0 + delayFactor + 1.0) }
     func animate() {
-        beforeFirstAnimation()
-        CATransaction.animate(withDuration: duration,
-                              timingFunction: .easeInOut,
-                              animations: {
-                                self.isAnimating = true
-                                self.firstAnimation()
-        }) {
-            CATransaction.performWithoutAnimation {
-                self.beforeSecondAnimation()
-            }
-            CATransaction.animate(withDuration: self.duration,
-                                  delay: self.duration * self.delayFactor,
-                                  timingFunction: .easeInOut,
-                                  animations: {
-                                    self.secondAnimation()
-            }, completion: { self.isAnimating = false })
+      beforeFirstAnimation()
+      UIView.animate(withDuration: duration,
+                     delay: 0.0,
+                     options: [UIViewAnimationOptions.curveEaseInOut],
+                     animations: {
+                      self.isAnimating = true
+                      self.firstAnimation()
+      }) { _ in
+        UIView.performWithoutAnimation {
+          self.beforeSecondAnimation()
         }
+        UIView.animate(withDuration: self.duration,
+                       delay: self.duration * self.delayFactor,
+                       options: [UIViewAnimationOptions.curveEaseInOut],
+                       animations: {
+                        self.secondAnimation()
+        }, completion: {_ in self.isAnimating = false })
+      }
     }
-    
+  
     override func layoutSubviews() {
         super.layoutSubviews()
         let size = CGSize(width: sideLength, height: sideLength)
