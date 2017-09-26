@@ -45,7 +45,7 @@ extension UIViewController {
      This is the recommended method of accessing the ChipBarController
      through child UIViewControllers.
      */
-    public var chipsController: ChipBarController? {
+    public var chipBarController: ChipBarController? {
         return traverseViewControllerHierarchyForClassType()
     }
 }
@@ -61,25 +61,25 @@ open class ChipBarController: TransitionController {
             layoutSubviews()
         }
     }
-    
+
     /// The ChipBar used to switch between view controllers.
     @IBInspectable
     open let chipBar = ChipBar()
-    
+
     /// The chipBar alignment.
     open var chipBarAlignment = ChipBarAlignment.bottom {
         didSet {
             layoutSubviews()
         }
     }
-    
+
     open override func layoutSubviews() {
         super.layoutSubviews()
         layoutChipBar()
         layoutContainer()
         layoutRootViewController()
     }
-    
+
     open override func prepare() {
         super.prepare()
         prepareChipBar()
@@ -98,12 +98,12 @@ fileprivate extension ChipBarController {
     /// Layout the container.
     func layoutContainer() {
         chipBar.frame.size.width = view.bounds.width
-        
+
         switch displayStyle {
         case .partial:
             let p = chipBar.bounds.height
             let y = view.bounds.height - p
-            
+
             switch chipBarAlignment {
             case .top:
                 container.frame.origin.y = p
@@ -115,18 +115,18 @@ fileprivate extension ChipBarController {
                 container.frame.origin.y = 0
                 container.frame.size.height = view.bounds.height
             }
-            
+
             container.frame.size.width = view.bounds.width
-            
+
         case .full:
             container.frame = view.bounds
         }
     }
-    
+
     /// Layout the chipBar.
     func layoutChipBar() {
         chipBar.frame.size.width = view.bounds.width
-        
+
         switch chipBarAlignment {
         case .top:
             chipBar.isHidden = false
@@ -138,7 +138,7 @@ fileprivate extension ChipBarController {
             chipBar.isHidden = true
         }
     }
-    
+
     /// Layout the rootViewController.
     func layoutRootViewController() {
         rootViewController.view.frame = container.bounds

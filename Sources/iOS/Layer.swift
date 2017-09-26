@@ -39,7 +39,7 @@ open class Layer: CAShapeLayer {
      the image to a desired shape within the visualLayer.
      */
 	open let visualLayer = CAShapeLayer()
-	
+
 	/**
      A property that manages an image for the visualLayer's contents
      property. Images should not be set to the backing layer's contents
@@ -51,7 +51,7 @@ open class Layer: CAShapeLayer {
 			visualLayer.contents = image?.cgImage
 		}
 	}
-	
+
 	/**
      Allows a relative subrectangle within the range of 0 to 1 to be
      specified for the visualLayer's contents property. This allows
@@ -63,7 +63,7 @@ open class Layer: CAShapeLayer {
 			visualLayer.contentsRect = contentsRect
 		}
 	}
-	
+
 	/**
      A CGRect that defines a stretchable region inside the visualLayer
      with a fixed border around the edge.
@@ -73,7 +73,7 @@ open class Layer: CAShapeLayer {
 			visualLayer.contentsCenter = contentsCenter
 		}
 	}
-	
+
 	/**
      A floating point value that defines a ratio between the pixel
      dimensions of the visualLayer's contents property and the size
@@ -85,14 +85,14 @@ open class Layer: CAShapeLayer {
 			visualLayer.contentsScale = contentsScale
 		}
 	}
-	
+
 	/// A Preset for the contentsGravity property.
 	open var contentsGravityPreset: Gravity {
 		didSet {
 			contentsGravity = GravityToValue(gravity: contentsGravityPreset)
 		}
 	}
-	
+
 	/// Determines how content should be aligned within the visualLayer's bounds.
 	@IBInspectable
     open override var contentsGravity: String {
@@ -103,7 +103,7 @@ open class Layer: CAShapeLayer {
 			visualLayer.contentsGravity = value
 		}
 	}
-	
+
 	/**
      A property that sets the cornerRadius of the backing layer. If the shape
      property has a value of .circle when the cornerRadius is set, it will
@@ -116,7 +116,7 @@ open class Layer: CAShapeLayer {
 			shapePreset = .none
 		}
 	}
-	
+
 	/**
      An initializer that initializes the object with a NSCoder object.
      - Parameter aDecoder: A NSCoder instance.
@@ -126,7 +126,7 @@ open class Layer: CAShapeLayer {
 		super.init(coder: aDecoder)
 		prepareVisualLayer()
 	}
-	
+
 	/**
      An initializer the same as init(). The layer parameter is ignored
      to avoid crashes on certain architectures.
@@ -137,14 +137,14 @@ open class Layer: CAShapeLayer {
         super.init(layer: layer)
 		prepareVisualLayer()
 	}
-	
+
 	/// A convenience initializer.
 	public override init() {
 		contentsGravityPreset = .resizeAspectFill
 		super.init()
 		prepareVisualLayer()
 	}
-	
+
 	/**
      An initializer that initializes the object with a CGRect object.
      - Parameter frame: A CGRect instance.
@@ -153,23 +153,25 @@ open class Layer: CAShapeLayer {
 		self.init()
 		self.frame = frame
 	}
-	
+
 	open override func layoutSublayers() {
 		super.layoutSublayers()
 		layoutShape()
 		layoutVisualLayer()
 		layoutShadowPath()
 	}
-	
+}
+
+fileprivate extension Layer {
 	/// Prepares the visualLayer property.
-	open func prepareVisualLayer() {
+	func prepareVisualLayer() {
         visualLayer.zPosition = 0
 		visualLayer.masksToBounds = true
 		addSublayer(visualLayer)
 	}
-	
+
 	/// Manages the layout for the visualLayer property.
-	internal func layoutVisualLayer() {
+	func layoutVisualLayer() {
 		visualLayer.frame = bounds
 		visualLayer.cornerRadius = cornerRadius
 	}
