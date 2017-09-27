@@ -175,6 +175,8 @@ internal extension NavigationBar {
             return
         }
         
+        item.toolbar.backgroundColor = .clear
+        
         item.titleView = item.toolbar
         
         guard let v = item.titleView as? Toolbar else {
