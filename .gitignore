@@ -16,12 +16,7 @@ profile
 *.moved-aside
 *.playground
 *.framework
-Sources/Frameworks/Motion/.git*
-Sources/Frameworks/Motion/.gitignore
-Sources/Frameworks/Motion/.swift-version
-Sources/Frameworks/Motion/CONTRIBUTING.md
-Sources/Frameworks/Motion/Motion.podspec
-Sources/Frameworks/Motion/Motion.xcodeproj/
-Sources/Frameworks/Motion/Sources/Info.plist
-Sources/Frameworks/Motion/Sources/Motion.h
+DerivedData
+Index
+Build
 

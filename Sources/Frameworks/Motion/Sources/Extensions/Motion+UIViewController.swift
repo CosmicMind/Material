@@ -47,13 +47,13 @@ fileprivate struct AssociatedInstance {
      A reference to the previous navigation controller delegate 
      before Motion was enabled.
      */
-    var previousNavigationDelegate: UINavigationControllerDelegate?
+    weak var previousNavigationDelegate: UINavigationControllerDelegate?
     
     /**
      A reference to the previous tab bar controller delegate 
      before Motion was enabled.
      */
-    var previousTabBarDelegate: UITabBarControllerDelegate?
+    weak var previousTabBarDelegate: UITabBarControllerDelegate?
 }
 
 extension UIViewController {
