@@ -2,7 +2,7 @@
 
 # Material
 
-Welcome to **Material,** a Material Design library used to create beautiful applications. Material's animation system has been completely reworked to take advantage of [Motion](https://github.com/CosmicMind/Motion), a library dedicated to animations and transitions.
+Welcome to **Material,** a UI/UX framework for creating beautiful applications. Material's animation system has been completely reworked to take advantage of [Motion](https://github.com/CosmicMind/Motion), a library dedicated to animations and transitions.
 
 [![Carthage compatible](https://img.shields.io/badge/Carthage-Compatible-brightgreen.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Version](https://img.shields.io/cocoapods/v/Material.svg?style=flat)](http://cocoapods.org/pods/Material)
