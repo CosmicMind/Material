@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 	s.name = 'Material'
-	s.version = '2.10.3'
+	s.version = '2.10.4'
 	s.license = 'BSD-3-Clause'
 	s.summary = 'A UI/UX framework for creating beautiful applications.'
 	s.homepage = 'http://materialswift.com'
