@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 	s.name = 'Material'
-	s.version = '2.10.4'
+	s.version = '2.10.5'
 	s.license = 'BSD-3-Clause'
 	s.summary = 'A UI/UX framework for creating beautiful applications.'
 	s.homepage = 'http://materialswift.com'
@@ -19,5 +19,7 @@ Pod::Spec.new do |s|
 			'com.cosmicmind.material.icons' => ['Sources/**/*.xcassets'],
 			'com.cosmicmind.material.fonts' => ['Sources/**/*.ttf']
 		}
+
+		s.dependency 'Motion', '~> 1.0.0'
 	end
 end
