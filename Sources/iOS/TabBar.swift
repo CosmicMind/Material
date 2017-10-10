@@ -39,8 +39,8 @@ open class TabItem: FlatButton {
 
 @objc(TabBarLineAlignment)
 public enum TabBarLineAlignment: Int {
-	case top
-	case bottom
+    case top
+    case bottom
 }
 
 @objc(TabBarDelegate)
@@ -72,6 +72,18 @@ public protocol TabBarDelegate {
      */
     @objc
     optional func tabBar(tabBar: TabBar, didSelect tabItem: TabItem)
+}
+
+@objc(_TabBarDelegate)
+internal protocol _TabBarDelegate {
+    /**
+     A delegation method that is executed when the tabItem will trigger the
+     animation to the next tab.
+     - Parameter tabBar: A TabBar.
+     - Parameter tabItem: A TabItem.
+     */
+    @objc
+    optional func _tabBar(tabBar: TabBar, willSelect tabItem: TabItem)
 }
 
 @objc(TabBarStyle)
@@ -124,6 +136,7 @@ open class TabBar: Bar {
     
     /// A delegation reference.
     open weak var delegate: TabBarDelegate?
+    internal weak var _delegate: _TabBarDelegate?
     
     /// The currently selected tabItem.
     open internal(set) var selectedTabItem: TabItem?
@@ -170,17 +183,17 @@ open class TabBar: Bar {
         }
     }
     
-	/// TabItems.
-	open var tabItems = [TabItem]() {
-		didSet {
-			for b in oldValue {
+    /// TabItems.
+    open var tabItems = [TabItem]() {
+        didSet {
+            for b in oldValue {
                 b.removeFromSuperview()
             }
-			
+            
             prepareTabItems()
-			layoutSubviews()
-		}
-	}
+            layoutSubviews()
+        }
+    }
     
     /// A reference to the line UIView.
     open let line = UIView()
@@ -222,7 +235,7 @@ open class TabBar: Bar {
         layoutLine()
         
         updateScrollView()
-	}
+    }
     
     open override func prepare() {
         super.prepare()
@@ -402,6 +415,7 @@ fileprivate extension TabBar {
      */
     func animate(to tabItem: TabItem, isTriggeredByUserInteraction: Bool, completion: ((TabItem) -> Void)? = nil) {
         if isTriggeredByUserInteraction {
+            _delegate?._tabBar?(tabBar: self, willSelect: tabItem)
             delegate?.tabBar?(tabBar: self, willSelect: tabItem)
         }
         
