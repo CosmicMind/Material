@@ -1,0 +1,3 @@
+[submodule "Sources/Frameworks/Motion"]
+	path = Sources/Frameworks/Motion
+	url = git@github.com:CosmicMind/Motion.git
