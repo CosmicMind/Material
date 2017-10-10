@@ -20,6 +20,6 @@ Pod::Spec.new do |s|
 			'com.cosmicmind.material.fonts' => ['Sources/**/*.ttf']
 		}
 
-		s.dependency 'Motion', '~> 1.0.0'
+		s.dependency 'Motion', :git => 'git@github.com:CosmicMind/Motion.git', :branch => 'development'
 	end
 end

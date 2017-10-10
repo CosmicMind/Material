@@ -29,6 +29,7 @@
  */
 
 import UIKit
+import Motion
 
 open class Button: UIButton, Pulseable, PulseableLayer {
     /**
