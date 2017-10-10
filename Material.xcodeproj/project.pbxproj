@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		290626D01F3CDD710064C209 /* ErrorTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290626CF1F3CDD710064C209 /* ErrorTextView.swift */; };
 		961154CC1F32A7B100A78D74 /* ChipBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961154CB1F32A7B100A78D74 /* ChipBar.swift */; };
 		961409B11E43D15C00E7BA99 /* FABMenu.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96A183621E0C6CE200083C30 /* FABMenu.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		961409B21E43D15C00E7BA99 /* FABMenuController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96A183641E0C6DD400083C30 /* FABMenuController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -248,6 +249,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		290626CF1F3CDD710064C209 /* ErrorTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorTextView.swift; sourceTree = "<group>"; };
 		961154CB1F32A7B100A78D74 /* ChipBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChipBar.swift; sourceTree = "<group>"; };
 		961276621DCD8B1800A7D920 /* Material+NSMutableAttributedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+NSMutableAttributedString.swift"; sourceTree = "<group>"; };
 		961527541F393C0E00E8B2AC /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
@@ -394,6 +396,7 @@
 				96BCB79E1CB40DC500C806FE /* TextView.swift */,
 				96BCB79C1CB40DC500C806FE /* TextField.swift */,
 				961F18E71CD93E3E008927C5 /* ErrorTextField.swift */,
+				290626CF1F3CDD710064C209 /* ErrorTextView.swift */,
 			);
 			name = Text;
 			sourceTree = "<group>";
@@ -1145,6 +1148,7 @@
 				965E80FE1DD4D59500D61E4B /* ToolbarController.swift in Sources */,
 				96328B971E05C0BB009A4C90 /* TableView.swift in Sources */,
 				965E80F81DD4D59500D61E4B /* ImageCard.swift in Sources */,
+				290626D01F3CDD710064C209 /* ErrorTextView.swift in Sources */,
 				9615279B1F393C0E00E8B2AC /* MotionTransitionObserver.swift in Sources */,
 				961527821F393C0E00E8B2AC /* MotionCoreAnimationViewContext.swift in Sources */,
 				96328B991E05C0CE009A4C90 /* TableViewController.swift in Sources */,
