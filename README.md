@@ -60,7 +60,7 @@ Take a look at [Sample Projects](https://github.com/CosmicMind/Samples) to get y
 > **Embedded frameworks require a minimum deployment target of iOS 8+.**
 > - [Download Material](https://github.com/CosmicMind/Material/archive/master.zip)
 
-Read [Material - It's time to download](https://www.cosmicmind.com/danieldahan/lesson/6) to learn how to install Material using [GitHub](http://github.com), [CocoaPods](http://cocoapods.org), and [Carthage](https://github.com/Carthage/Carthage).
+Read [Material - It's time to download](https://www.cosmicmind.com/danieldahan/lesson/6) to learn how to install Material & Motion using [GitHub](http://github.com), [CocoaPods](http://cocoapods.org), and [Carthage](https://github.com/Carthage/Carthage).
 
 ## Change Log
 
