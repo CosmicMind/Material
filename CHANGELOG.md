@@ -1,3 +1,7 @@
+## 2.11.2
+
+* Updated to [Motion 1.2.2](https://github.com/CosmicMind/Motion/releases/tag/1.2.2).
+
 ## 2.11.1
 
 * Fixed duplicate `prepare` call in `TabsController`.
