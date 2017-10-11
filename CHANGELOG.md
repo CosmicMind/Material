@@ -1,3 +1,7 @@
+## 2.11.3
+
+* Updated Motion submodule to use `https` over `git@`. 
+
 ## 2.11.2
 
 * Updated to [Motion 1.2.2](https://github.com/CosmicMind/Motion/releases/tag/1.2.2).
