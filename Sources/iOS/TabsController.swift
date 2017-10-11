@@ -158,11 +158,6 @@ open class TabsController: TransitionController {
         super.init(rootViewController: rootViewController)
     }
     
-    open override func viewDidLoad() {
-        super.viewDidLoad()
-        prepare()
-    }
-    
     open override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         layoutSubviews()
