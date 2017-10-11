@@ -1,7 +1,11 @@
+## 2.11.1
+
+* Fixed duplicate `prepare` call in `TabsController`.
+
 ## 2.11.0
 
-* Updated the installation guide for Material, [Material - It's time to download](https://www.cosmicmind.com/danieldahan/lesson/6). Material now uses [Motion](https://github.com/CosmicMind/Motion) as a submodule and CocoaPods dependancy.
-* [samples issue-70](https://github.com/CosmicMind/Samples/issues/70#issuecomment-335533243): Made an internal `_TabBarDelegate` to avoid needing to override the `TabBarDelegate` in `TabsController`.
+* Updated the installation guide for Material, [Material - It's time to download](https://www.cosmicmind.com/danieldahan/lesson/6). Material now uses [Motion](https://github.com/CosmicMind/Motion) as a submodule and CocoaPods dependancy. 
+* [samples issue-70](https://github.com/CosmicMind/Samples/issues/70#issuecomment-335533243): Made an internal `_TabBarDelegate` to avoid needing to override the `TabBarDelegate` in `TabsController`. 
 
 ## 2.10.4
 
