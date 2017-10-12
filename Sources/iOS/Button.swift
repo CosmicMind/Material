@@ -131,6 +131,14 @@ open class Button: UIButton, Pulseable, PulseableLayer {
             setTitleColor(titleColor, for: .highlighted)
         }
     }
+
+    /// Sets the selected titleColor for the button.
+    @IBInspectable
+    open var selectedTitleColor: UIColor? {
+        didSet {
+            setTitleColor(selectedTitleColor, for: .selected)
+        }
+    }
     
 	/**
      An initializer that initializes the object with a NSCoder object.

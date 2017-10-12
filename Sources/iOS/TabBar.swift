@@ -139,7 +139,14 @@ open class TabBar: Bar {
     internal weak var _delegate: _TabBarDelegate?
     
     /// The currently selected tabItem.
-    open internal(set) var selectedTabItem: TabItem?
+    open internal(set) var selectedTabItem: TabItem? {
+        willSet {
+            selectedTabItem?.isSelected = false
+        }
+        didSet {
+            selectedTabItem?.isSelected = true
+        }
+    }
     
     /// A preset wrapper around tabItems contentEdgeInsets.
     open var tabItemsContentEdgeInsetsPreset: EdgeInsetsPreset {
@@ -194,7 +201,13 @@ open class TabBar: Bar {
             layoutSubviews()
         }
     }
-    
+
+    /// TabBar items normal title color.
+    open var tabItemsNormalTitleColor: UIColor?
+
+    /// TabBar items selected title color.
+    open var tabItemsSelectedTitleColor: UIColor?
+
     /// A reference to the line UIView.
     open let line = UIView()
     
@@ -272,7 +285,9 @@ fileprivate extension TabBar {
         for v in tabItems {
             v.grid.columns = 0
             v.contentEdgeInsets = .zero
-            
+            if Color.blue.base == v.titleColor  { v.titleColor = tabItemsNormalTitleColor }
+            if nil == v.selectedTitleColor { v.selectedTitleColor = tabItemsSelectedTitleColor }
+
             prepareLineAnimationHandler(tabItem: v)
         }
         
