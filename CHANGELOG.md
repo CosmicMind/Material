@@ -1,3 +1,7 @@
+## 2.11.4
+
+* Added Cartfile for Carthage package manager, which includes the Motion dependency.
+
 ## 2.11.3
 
 * Updated Motion submodule to use `https` over `git@`. 
