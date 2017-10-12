@@ -202,18 +202,11 @@ open class TabBar: Bar {
         }
     }
 
-    /// Tab bars normal title color.
-    open var tabItemsNormalTitleColor: UIColor? {
-        didSet {
+    /// TabBar items normal title color.
+    open var tabItemsNormalTitleColor: UIColor?
 
-        }
-    }
-
-    open var tabItemsSelectedTitleColor: UIColor? {
-        didSet {
-
-        }
-    }
+    /// TabBar items selected title color.
+    open var tabItemsSelectedTitleColor: UIColor?
 
     /// A reference to the line UIView.
     open let line = UIView()
