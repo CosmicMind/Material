@@ -203,10 +203,24 @@ open class TabBar: Bar {
     }
 
     /// TabBar items normal title color.
-    open var tabItemsNormalTitleColor: UIColor?
+    open var tabItemsNormalTitleColor: UIColor? {
+        didSet {
+            let normalColor = tabItemsNormalTitleColor ?? Color.blue.base
+            for v in tabItems {
+                if (nil == v.titleColor || Color.blue.base == v.titleColor) { v.titleColor = normalColor }
+            }
+        }
+    }
 
     /// TabBar items selected title color.
-    open var tabItemsSelectedTitleColor: UIColor?
+    open var tabItemsSelectedTitleColor: UIColor? {
+        didSet {
+            let selectedColor = tabItemsSelectedTitleColor ?? Color.blue.base
+            for v in tabItems {
+                if (nil == v.selectedTitleColor || Color.blue.base == v.selectedTitleColor) { v.selectedTitleColor = selectedColor }
+            }
+        }
+    }
 
     /// A reference to the line UIView.
     open let line = UIView()
@@ -285,8 +299,10 @@ fileprivate extension TabBar {
         for v in tabItems {
             v.grid.columns = 0
             v.contentEdgeInsets = .zero
-            if Color.blue.base == v.titleColor  { v.titleColor = tabItemsNormalTitleColor }
-            if nil == v.selectedTitleColor { v.selectedTitleColor = tabItemsSelectedTitleColor }
+            let normalColor = tabItemsNormalTitleColor ?? Color.blue.base
+            if Color.blue.base == v.titleColor  { v.titleColor = normalColor }
+            let selectedColor = tabItemsSelectedTitleColor ?? Color.blue.base
+            if nil == v.selectedTitleColor { v.selectedTitleColor = selectedColor }
 
             prepareLineAnimationHandler(tabItem: v)
         }
