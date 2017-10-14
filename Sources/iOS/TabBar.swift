@@ -295,13 +295,12 @@ fileprivate extension TabBar {
     /// Prepares the tabItems.
     func prepareTabItems() {
         shouldNotAnimateLineView = true
-        
+        let normalColor = tabItemsNormalTitleColor ?? Color.blue.base
+        let selectedColor = tabItemsSelectedTitleColor ?? Color.blue.base
         for v in tabItems {
             v.grid.columns = 0
             v.contentEdgeInsets = .zero
-            let normalColor = tabItemsNormalTitleColor ?? Color.blue.base
             if Color.blue.base == v.titleColor  { v.titleColor = normalColor }
-            let selectedColor = tabItemsSelectedTitleColor ?? Color.blue.base
             if nil == v.selectedTitleColor { v.selectedTitleColor = selectedColor }
 
             prepareLineAnimationHandler(tabItem: v)
