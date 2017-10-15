@@ -695,23 +695,21 @@ extension TextField {
         }
         
         UIView.animate(withDuration: 0.15, animations: { [weak self] in
-            guard let s = self else {
-                return
-            }
+            guard let `self` = self else { return }
             
-            s.placeholderLabel.transform = CGAffineTransform(scaleX: s.placeholderActiveScale, y: s.placeholderActiveScale)
+            self.placeholderLabel.transform = CGAffineTransform(scaleX: self.placeholderActiveScale, y: self.placeholderActiveScale)
             
-            s.updatePlaceholderTextToActiveState()
+            self.updatePlaceholderTextToActiveState()
                                                         
-            switch s.textAlignment {
+            switch self.textAlignment {
             case .left, .natural:
-                s.placeholderLabel.frame.origin.x = s.leftViewWidth + s.textInset + s.placeholderHorizontalOffset
+                self.placeholderLabel.frame.origin.x = self.leftViewWidth + self.textInset + self.placeholderHorizontalOffset
             case .right:
-                s.placeholderLabel.frame.origin.x = (s.bounds.width * (1.0 - s.placeholderActiveScale)) - s.textInset + s.placeholderHorizontalOffset
+                self.placeholderLabel.frame.origin.x = (self.bounds.width * (1.0 - self.placeholderActiveScale)) - self.textInset + self.placeholderHorizontalOffset
             default:break
             }
             
-            s.placeholderLabel.frame.origin.y = -s.placeholderLabel.bounds.height + s.placeholderVerticalOffset
+            self.placeholderLabel.frame.origin.y = -self.placeholderLabel.bounds.height + self.placeholderVerticalOffset
         })
     }
     
@@ -734,13 +732,11 @@ extension TextField {
         }
         
         UIView.animate(withDuration: 0.15, animations: { [weak self] in
-            guard let s = self else {
-                return
-            }
+            guard let `self` = self else { return }
             
-            s.placeholderLabel.transform = CGAffineTransform.identity
-            s.placeholderLabel.frame.origin.x = s.leftViewWidth + s.textInset
-            s.placeholderLabel.frame.origin.y = 0
+            self.placeholderLabel.transform = CGAffineTransform.identity
+            self.placeholderLabel.frame.origin.x = self.leftViewWidth + self.textInset
+            self.placeholderLabel.frame.origin.y = 0
         })
     }
 }

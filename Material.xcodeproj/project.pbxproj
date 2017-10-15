@@ -245,10 +245,6 @@
 		96E3C39A1D3A1CC20086A024 /* ErrorTextField.swift in Headers */ = {isa = PBXBuildFile; fileRef = 961F18E71CD93E3E008927C5 /* ErrorTextField.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96E3C39C1D3A1CC20086A024 /* Offset.swift in Headers */ = {isa = PBXBuildFile; fileRef = 968C99461D377849000074FF /* Offset.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96F1A5531F24F17A001D8CAF /* TabsController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96E09DC71F2287E50000B121 /* TabsController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		9D47D0451F6D5E6700DBD569 /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D47D0441F6D5E6700DBD569 /* RadioButton.swift */; };
-		9D47D0491F6D5E7F00DBD569 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D47D0461F6D5E7F00DBD569 /* Helper.swift */; };
-		9D47D04A1F6D5E7F00DBD569 /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D47D0471F6D5E7F00DBD569 /* CheckBox.swift */; };
-		9D47D04B1F6D5E7F00DBD569 /* Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D47D0481F6D5E7F00DBD569 /* Base.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -380,10 +376,6 @@
 		96E09DC71F2287E50000B121 /* TabsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabsController.swift; sourceTree = "<group>"; };
 		96E3C3931D397AE90086A024 /* Material+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIView.swift"; sourceTree = "<group>"; };
 		96F1DC871D654FDF0025F925 /* Material+CALayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+CALayer.swift"; sourceTree = "<group>"; };
-		9D47D0441F6D5E6700DBD569 /* RadioButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
-		9D47D0461F6D5E7F00DBD569 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
-		9D47D0471F6D5E7F00DBD569 /* CheckBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
-		9D47D0481F6D5E7F00DBD569 /* Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Base.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -766,10 +758,6 @@
 				96BCB7601CB40DC500C806FE /* FlatButton.swift */,
 				96BCB7931CB40DC500C806FE /* RaisedButton.swift */,
 				9658F2161CD6FA4700B902C1 /* IconButton.swift */,
-				9D47D0441F6D5E6700DBD569 /* RadioButton.swift */,
-				9D47D0481F6D5E7F00DBD569 /* Base.swift */,
-				9D47D0461F6D5E7F00DBD569 /* Helper.swift */,
-				9D47D0471F6D5E7F00DBD569 /* CheckBox.swift */,
 			);
 			name = Button;
 			sourceTree = "<group>";
@@ -1117,11 +1105,9 @@
 				9615279D1F393C0E00E8B2AC /* CascadePreprocessor.swift in Sources */,
 				96A183651E0C6DD400083C30 /* FABMenuController.swift in Sources */,
 				965E81101DD4D5C800D61E4B /* NavigationBar.swift in Sources */,
-				9D47D0451F6D5E6700DBD569 /* RadioButton.swift in Sources */,
 				965E81111DD4D5C800D61E4B /* NavigationController.swift in Sources */,
 				965E81121DD4D5C800D61E4B /* NavigationItem.swift in Sources */,
 				9615278D1F393C0E00E8B2AC /* Motion+UIViewController.swift in Sources */,
-				9D47D0491F6D5E7F00DBD569 /* Helper.swift in Sources */,
 				965E81131DD4D5C800D61E4B /* NavigationDrawerController.swift in Sources */,
 				9656895F1F002F16001C656D /* CardCollectionViewCell.swift in Sources */,
 				965E81161DD4D5C800D61E4B /* DisplayStyle.swift in Sources */,
@@ -1208,14 +1194,12 @@
 				965E80FB1DD4D59500D61E4B /* SearchBar.swift in Sources */,
 				965E80E01DD4C50600D61E4B /* Shape.swift in Sources */,
 				965E80E11DD4C50600D61E4B /* Offset.swift in Sources */,
-				9D47D04B1F6D5E7F00DBD569 /* Base.swift in Sources */,
 				961527981F393C0E00E8B2AC /* MotionPlugin.swift in Sources */,
 				961527801F393C0E00E8B2AC /* MotionAnimator.swift in Sources */,
 				965E80E21DD4C50600D61E4B /* View.swift in Sources */,
 				961527911F393C0E00E8B2AC /* MotionAnimation.swift in Sources */,
 				9615279A1F393C0E00E8B2AC /* MotionTransition.swift in Sources */,
 				9615279F1F393C0E00E8B2AC /* IgnoreSubviewModifiersPreprocessor.swift in Sources */,
-				9D47D04A1F6D5E7F00DBD569 /* CheckBox.swift in Sources */,
 				96328B7A1E020A41009A4C90 /* CollectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -223,21 +223,19 @@ fileprivate extension TabsController {
         
         view.isUserInteractionEnabled = false
         Motion.shared.transition(from: fvc, to: tvc, in: container) { [weak self, tvc = tvc, isAuto = isAuto, completion = completion] (isFinished) in
-            guard let s = self else {
-                return
-            }
+            guard let `self` = self else { return }
             
             if isAuto {
                 tvc.motionModalTransitionType = .auto
             }
             
-            s.rootViewController = tvc
-            s.view.isUserInteractionEnabled = true
+            self.rootViewController = tvc
+            self.view.isUserInteractionEnabled = true
             
             completion?(isFinished)
             
             if isTriggeredByUserInteraction {
-                s.delegate?.tabsController?(tabsController: s, didSelect: tvc)
+                self.delegate?.tabsController?(tabsController: self, didSelect: tvc)
             }
         }
     }
@@ -361,18 +359,17 @@ extension TabsController {
         }
         
         Motion.async { [weak self] in
-            guard let s = self else {
-                return
-            }
+            guard let `self` = self else { return }
             
-            s.tabBar.select(at: index)
+            self.tabBar.select(at: index)
             
-            s.transition(to: s.viewControllers[index], isTriggeredByUserInteraction: false) { [weak self] (isFinished) in
+            self.transition(to: self.viewControllers[index], isTriggeredByUserInteraction: false) { [weak self] (isFinished) in
                 guard isFinished else {
                     return
                 }
+                guard let `self` = self else { return }
                 
-                self?.selectedIndex = index
+                self.selectedIndex = index
             }
         }
     }
@@ -401,8 +398,9 @@ extension TabsController: TabBarDelegate {
             guard isFinished else {
                 return
             }
+            guard let `self` = self else { return }
             
-            self?.selectedIndex = i
+            self.selectedIndex = i
         }
     }
 }

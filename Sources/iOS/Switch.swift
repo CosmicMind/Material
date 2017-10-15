@@ -393,13 +393,11 @@ extension Switch {
                     return
                 }
                 
-                guard let s = self else {
-                    return
-                }
+                guard let `self` = self else { return }
                 
-                s.sendActions(for: .valueChanged)
-                completion?(s)
-                s.delegate?.switchDidChangeState(control: s, state: s.internalSwitchState)
+                self.sendActions(for: .valueChanged)
+                completion?(self)
+                self.delegate?.switchDidChangeState(control: self, state: self.internalSwitchState)
             }
         } else {
             button.frame.origin.x = .on == state ? self.onPosition : self.offPosition
@@ -470,27 +468,21 @@ extension Switch {
             delay: 0.05,
             options: [.curveEaseIn, .curveEaseOut],
             animations: { [weak self] in
-                guard let s = self else {
-                    return
-                }
+                guard let `self` = self else { return }
                 
-                s.button.frame.origin.x = .on == state ? s.onPosition + s.bounceOffset : s.offPosition - s.bounceOffset
-                s.styleForState(state: state)
+                self.button.frame.origin.x = .on == state ? self.onPosition + self.bounceOffset : self.offPosition - self.bounceOffset
+                self.styleForState(state: state)
         }) { [weak self] _ in
             UIView.animate(withDuration: 0.15,
                 animations: { [weak self] in
-                    guard let s = self else {
-                        return
-                    }
+                    guard let `self` = self else { return }
                     
-                    s.button.frame.origin.x = .on == state ? s.onPosition : s.offPosition
+                    self.button.frame.origin.x = .on == state ? self.onPosition : self.offPosition
             }) { [weak self] _ in
-                guard let s = self else {
-                    return
-                }
+                guard let `self` = self else { return }
                 
-                s.isUserInteractionEnabled = true
-                completion?(s)
+                self.isUserInteractionEnabled = true
+                completion?(self)
             }
         }
     }
