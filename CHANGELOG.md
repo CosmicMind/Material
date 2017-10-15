@@ -1,3 +1,7 @@
+## 2.12.0
+
+* [issue-860](https://github.com/CosmicMind/Material/issues/860): Added `TabBar` color states.
+
 ## 2.11.4
 
 * Added Cartfile for Carthage package manager, which includes the Motion dependency.
