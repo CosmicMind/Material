@@ -1,3 +1,7 @@
+## 2.12.1
+
+* [issue-911](https://github.com/CosmicMind/Material/issues/911): Added @objc to TabBar.tabItems for visibility in Obj-C.
+
 ## 2.12.0
 
 * [issue-860](https://github.com/CosmicMind/Material/issues/860): Added `TabBar` color states.
