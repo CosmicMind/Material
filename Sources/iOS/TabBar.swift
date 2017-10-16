@@ -200,6 +200,7 @@ open class TabBar: Bar {
     }
     
     /// TabItems.
+    @objc
     open var tabItems = [TabItem]() {
         didSet {
             for b in oldValue {
@@ -287,6 +288,7 @@ fileprivate extension TabBar {
     /// Prepares the tabItems.
     func prepareTabItems() {
         shouldNotAnimateLineView = true
+        
         for v in tabItems {
             v.grid.columns = 0
             v.contentEdgeInsets = .zero
