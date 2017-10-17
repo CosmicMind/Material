@@ -217,6 +217,7 @@ open class TabBar: Bar {
     open let line = UIView()
     
     /// The line color.
+    @objc
     open var lineColor: UIColor? {
         get {
             return line.backgroundColor
@@ -227,6 +228,7 @@ open class TabBar: Bar {
     }
     
     /// A value for the line alignment.
+    @objc
     open var lineAlignment = TabBarLineAlignment.bottom {
         didSet {
             layoutSubviews()
@@ -234,6 +236,7 @@ open class TabBar: Bar {
     }
     
     /// The line height.
+    @objc
     open var lineHeight: CGFloat {
         get {
             return line.bounds.height
