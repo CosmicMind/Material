@@ -420,6 +420,7 @@ extension TabBar {
      - Parameter at index: An Int.
      - Paramater completion: An optional completion block.
      */
+    @objc
     open func select(at index: Int, completion: ((TabItem) -> Void)? = nil) {
         guard -1 < index, index < tabItems.count else {
             return
