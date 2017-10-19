@@ -1,3 +1,7 @@
+## 2.12.2
+
+* [issue-860](https://github.com/CosmicMind/Material/issues/860): Updated TabBar color states and added an independent line color state.
+
 ## 2.12.1
 
 * [issue-911](https://github.com/CosmicMind/Material/issues/911): Added @objc to TabBar.tabItems for visibility in Obj-C.

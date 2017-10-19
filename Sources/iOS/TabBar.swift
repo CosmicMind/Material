@@ -35,11 +35,29 @@ open class TabItem: FlatButton {
         super.prepare()
         pulseAnimation = .none
     }
+    
+    open override var isHighlighted: Bool {
+        didSet {
+            tintColor = titleColor(for: isHighlighted ? .highlighted : isSelected ? .selected : .normal)
+        }
+    }
+    
+    open override var isSelected: Bool {
+        didSet {
+            tintColor = titleColor(for: isSelected ? .selected : .normal)
+        }
+    }
 }
 
 @objc(TabItemState)
 public enum TabItemState: Int {
     case normal
+    case highlighted
+    case selected
+}
+
+@objc(TabItemLineState)
+public enum TabItemLineState: Int {
     case selected
 }
 
@@ -120,8 +138,11 @@ open class TabBar: Bar {
         return w
     }
     
-    /// A dictionary of TabItemStates to UIColors.
+    /// A dictionary of TabItemStates to UIColors for tabItems.
     fileprivate var tabItemsColorForState = [TabItemState: UIColor]()
+    
+    /// A dictionary of TabItemLineStates to UIColors for the line.
+    fileprivate var lineColorForState = [TabItemLineState: UIColor]()
     
     /// An enum that determines the tab bar style.
     open var tabBarStyle = TabBarStyle.auto {
@@ -152,6 +173,7 @@ open class TabBar: Bar {
         willSet {
             selectedTabItem?.isSelected = false
         }
+        
         didSet {
             selectedTabItem?.isSelected = true
         }
@@ -214,17 +236,7 @@ open class TabBar: Bar {
     }
 
     /// A reference to the line UIView.
-    open let line = UIView()
-    
-    /// The line color.
-    open var lineColor: UIColor? {
-        get {
-            return line.backgroundColor
-        }
-        set(value) {
-            line.backgroundColor = value
-        }
-    }
+    fileprivate let line = UIView()
     
     /// A value for the line alignment.
     open var lineAlignment = TabBarLineAlignment.bottom {
@@ -265,9 +277,11 @@ open class TabBar: Bar {
         prepareScrollView()
         prepareDivider()
         prepareLine()
-        prepareColors()
+        prepareTabItemsColor()
+        prepareLineColor()
         
-        updateColors()
+        updateTabItemColors()
+        updateLineColors()
     }
 }
 
@@ -300,9 +314,15 @@ fileprivate extension TabBar {
     }
     
     /// Prepares the tabsItems colors.
-    func prepareColors() {
-        tabItemsColorForState[.normal] = Color.blue.base
+    func prepareTabItemsColor() {
+        tabItemsColorForState[.normal] = Color.grey.base
         tabItemsColorForState[.selected] = Color.blue.base
+        tabItemsColorForState[.highlighted] = Color.blue.base
+    }
+    
+    /// Prepares the line colors.
+    func prepareLineColor() {
+        lineColorForState[.selected] = Color.blue.base
     }
     
     /**
@@ -311,6 +331,7 @@ fileprivate extension TabBar {
      */
     func prepareTabItemHandler(tabItem: TabItem) {
         removeTabItemHandler(tabItem: tabItem)
+        
         tabItem.addTarget(self, action: #selector(handleTabItemsChange(tabItem:)), for: .touchUpInside)
         tabItem.addTarget(self, action: #selector(handleLineAnimation(tabItem:)), for: .touchUpInside)
     }
@@ -400,7 +421,6 @@ fileprivate extension TabBar {
     @objc
     func handleTabItemsChange(tabItem: TabItem) {
         selectedTabItem = tabItem
-        updateColors()
     }
     
     /// Handles the tabItem touch event.
@@ -440,35 +460,43 @@ extension TabBar {
 
 extension TabBar {
     /**
-     Sets the colors of the tabItems for the state given.
+     Sets the color for the tabItems given a TabItemState.
      - Parameter _ color: A UIColor.
      - Parameter for state: A TabItemState.
      */
-    open func setColor(_ color: UIColor, for state: TabItemState) {
+    open func setTabItemsColor(_ color: UIColor, for state: TabItemState) {
         tabItemsColorForState[state] = color
-        updateColors()
+        updateTabItemColors()
+    }
+    
+    /**
+     Sets the color for the line given a TabItemLineState.
+     - Parameter _ color: A UIColor.
+     - Parameter for state: A TabItemLineState.
+     */
+    open func setLineColor(_ color: UIColor, for state: TabItemLineState) {
+        lineColorForState[state] = color
+        updateLineColors()
     }
 }
 
 fileprivate extension TabBar {
     /// Updates the tabItems colors.
-    func updateColors() {
-        var color = tabItemsColorForState[.normal]
+    func updateTabItemColors() {
+        let normalColor = tabItemsColorForState[.normal]
+        let selectedColor = tabItemsColorForState[.selected]
+        let highlightedColor = tabItemsColorForState[.highlighted]
         
         for v in tabItems {
-            v.setTitleColor(color, for: .normal)
-            v.tintColor = color
+            v.setTitleColor(normalColor, for: .normal)
+            v.setTitleColor(selectedColor, for: .selected)
+            v.setTitleColor(highlightedColor, for: .highlighted)
         }
+    }
     
-        guard let v = selectedTabItem else {
-            return
-        }
-        
-        color = tabItemsColorForState[.selected]
-        v.setTitleColor(color, for: .selected)
-        v.tintColor = color
-        
-        lineColor = color
+    /// Updates the line colors.
+    func updateLineColors() {
+        line.backgroundColor = lineColorForState[.selected]
     }
 }
 
