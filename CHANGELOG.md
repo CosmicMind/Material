@@ -1,3 +1,7 @@
+## 2.12.3
+
+* [issue-907](https://github.com/CosmicMind/Material/issues/907): Fixed Layout ordering issues.
+
 ## 2.12.2
 
 * [issue-860](https://github.com/CosmicMind/Material/issues/860): Updated TabBar color states and added an independent line color state.

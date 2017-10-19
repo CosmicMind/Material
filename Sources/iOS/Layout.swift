@@ -631,14 +631,26 @@ public class Layout {
 
 fileprivate extension Layout {
     /**
-     Updates and lays out the constraints for a given view.
+     Updates the consraints for a given view.
      - Parameter for view: A UIView.
      */
     class func updateConstraints(for view: UIView) {
-        view.updateConstraintsIfNeeded()
-        view.updateConstraints()
-        view.setNeedsLayout()
-        view.layoutIfNeeded()
+        DispatchQueue.main.async {
+            view.setNeedsLayout()
+            view.layoutIfNeeded()
+            view.updateConstraintsIfNeeded()
+            view.updateConstraints()
+        }
+    }
+    
+    /**
+     Updates the constraints for a given Array of views.
+     - Parameter for [view]: An Array of UIViews.
+     */
+    class func updateConstraints(for views: [UIView]) {
+        for v in views {
+            updateConstraints(for: v)
+        }
     }
 }
 
@@ -700,9 +712,7 @@ extension Layout {
             parent.addConstraint(NSLayoutConstraint(item: children[children.count - 1], attribute: .right, relatedBy: .equal, toItem: parent, attribute: .right, multiplier: 1, constant: -right))
         }
         
-        for child in children {
-            updateConstraints(for: child)
-        }
+        updateConstraints(for: children)
     }
     
     /**
@@ -726,9 +736,7 @@ extension Layout {
             parent.addConstraint(NSLayoutConstraint(item: children[children.count - 1], attribute: .bottom, relatedBy: .equal, toItem: parent, attribute: .bottom, multiplier: 1, constant: -bottom))
         }
         
-        for child in children {
-            updateConstraints(for: child)
-        }
+        updateConstraints(for: children)
     }
     
     /**
