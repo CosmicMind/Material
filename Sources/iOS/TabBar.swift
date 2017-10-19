@@ -239,6 +239,7 @@ open class TabBar: Bar {
     fileprivate let line = UIView()
     
     /// A value for the line alignment.
+    @objc
     open var lineAlignment = TabBarLineAlignment.bottom {
         didSet {
             layoutSubviews()
@@ -246,6 +247,7 @@ open class TabBar: Bar {
     }
     
     /// The line height.
+    @objc
     open var lineHeight: CGFloat {
         get {
             return line.bounds.height
@@ -440,6 +442,7 @@ extension TabBar {
      - Parameter at index: An Int.
      - Paramater completion: An optional completion block.
      */
+    @objc
     open func select(at index: Int, completion: ((TabItem) -> Void)? = nil) {
         guard -1 < index, index < tabItems.count else {
             return
@@ -491,7 +494,10 @@ fileprivate extension TabBar {
             v.setTitleColor(normalColor, for: .normal)
             v.setTitleColor(selectedColor, for: .selected)
             v.setTitleColor(highlightedColor, for: .highlighted)
+            v.tintColor = normalColor
         }
+        
+        selectedTabItem?.tintColor = selectedColor
     }
     
     /// Updates the line colors.
