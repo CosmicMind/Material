@@ -286,6 +286,12 @@ fileprivate extension TabsController {
         var tabItems = [TabItem]()
         
         for v in viewControllers {
+            // Expectation that viewDidLoad() triggers update of tab item title:
+            if #available(iOS 9.0, *) {
+                v.loadViewIfNeeded()
+            } else {
+                _ = v.view
+            }
             tabItems.append(v.tabItem)
         }
         
