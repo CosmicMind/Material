@@ -249,15 +249,6 @@ internal extension TabsController {
 fileprivate extension TabsController {
     /// Prepares all the view controllers.
     func prepareViewControllers() {
-        for i in 0..<viewControllers.count {
-            guard i != selectedIndex else {
-                continue
-            }
-            
-            viewControllers[i].view.isHidden = true
-            prepareViewController(at: i)
-        }
-        
         prepareViewController(at: selectedIndex)
         prepareRootViewController()
     }
