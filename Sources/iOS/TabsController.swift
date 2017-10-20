@@ -197,6 +197,8 @@ fileprivate extension TabsController {
             return
         }
         
+        fvc.beginAppearanceTransition(false, animated: true)
+        
         let fvcIndex = viewControllers.index(of: fvc)
         let tvcIndex = viewControllers.index(of: viewController)
         
@@ -234,6 +236,7 @@ fileprivate extension TabsController {
             tvc.endAppearanceTransition()
             
             s.removeViewController(viewController: fvc)
+            fvc.endAppearanceTransition()
             
             completion?(isFinished)
             
