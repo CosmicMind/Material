@@ -328,14 +328,13 @@ fileprivate extension TabBar {
     }
     
     /**
-     Prepares the line animation handlers.
+     Prepares the tabItem animation handler.
      - Parameter tabItem: A TabItem.
      */
     func prepareTabItemHandler(tabItem: TabItem) {
         removeTabItemHandler(tabItem: tabItem)
         
         tabItem.addTarget(self, action: #selector(handleTabItemsChange(tabItem:)), for: .touchUpInside)
-        tabItem.addTarget(self, action: #selector(handleLineAnimation(tabItem:)), for: .touchUpInside)
     }
     
     /// Prepares the contentView.
@@ -411,23 +410,18 @@ fileprivate extension TabBar {
 
 fileprivate extension TabBar {
     /**
-     Removes the line animation handlers.
+     Removes the tabItem animation handler.
      - Parameter tabItem: A TabItem.
      */
     func removeTabItemHandler(tabItem: TabItem) {
-        tabItem.removeTarget(self, action: #selector(handleLineAnimation(tabItem:)), for: .touchUpInside)
+        tabItem.removeTarget(self, action: #selector(handleTabItemsChange(tabItem:)), for: .touchUpInside)
     }
 }
 
 fileprivate extension TabBar {
-    @objc
-    func handleTabItemsChange(tabItem: TabItem) {
-        selectedTabItem = tabItem
-    }
-    
     /// Handles the tabItem touch event.
     @objc
-    func handleLineAnimation(tabItem: TabItem) {
+    func handleTabItemsChange(tabItem: TabItem) {
         guard !(false == delegate?.tabBar?(tabBar: self, shouldSelect: tabItem)) else {
             return
         }
@@ -463,6 +457,15 @@ extension TabBar {
 
 extension TabBar {
     /**
+     Retrieves the tabItem color for a given state.
+     - Parameter for state: A TabItemState.
+     - Returns: A UIColor.
+     */
+    open func getTabItemColor(for state: TabItemState) -> UIColor {
+        return tabItemsColorForState[state]!
+    }
+    
+    /**
      Sets the color for the tabItems given a TabItemState.
      - Parameter _ color: A UIColor.
      - Parameter for state: A TabItemState.
@@ -470,6 +473,15 @@ extension TabBar {
     open func setTabItemsColor(_ color: UIColor, for state: TabItemState) {
         tabItemsColorForState[state] = color
         updateTabItemColors()
+    }
+    
+    /**
+     Retrieves the line color for a given state.
+     - Parameter for state: A TabItemLineState.
+     - Returns: A UIColor.
+     */
+    open func getLineColor(for state: TabItemLineState) -> UIColor {
+        return lineColorForState[state]!
     }
     
     /**
@@ -519,6 +531,8 @@ fileprivate extension TabBar {
             _delegate?._tabBar?(tabBar: self, willSelect: tabItem)
             delegate?.tabBar?(tabBar: self, willSelect: tabItem)
         }
+        
+        selectedTabItem = tabItem
         
         line.animate(.duration(0.25),
                      .size(width: tabItem.bounds.width, height: lineHeight),
