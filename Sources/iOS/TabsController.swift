@@ -201,15 +201,15 @@ fileprivate extension TabsController {
             return
         }
         
-        guard let tvcIndex = viewControllers.index(of: viewController) else {
+        let tvc = viewController
+        
+        guard let tvcIndex = viewControllers.index(of: tvc) else {
             return
         }
         
-        viewController.view.isHidden = false
-        viewController.view.frame = container.bounds
-        
         var isAuto = false
-        switch viewController.motionModalTransitionType {
+        
+        switch tvc.motionModalTransitionType {
         case .auto:
             isAuto = true
             viewController.motionModalTransitionType = fvcIndex < tvcIndex ? .slide(direction: .left) : .slide(direction: .right)
@@ -222,23 +222,28 @@ fileprivate extension TabsController {
         
         view.isUserInteractionEnabled = false
         
-        Motion.shared.transition(from: fvc, to: viewController, in: container) { [weak self, viewController = viewController, isAuto = isAuto, completion = completion] (isFinished) in
+        fvc.beginAppearanceTransition(false, animated: true)
+        
+        Motion.shared.transition(from: fvc, to: viewController, in: container) { [weak self, tvc = tvc, isAuto = isAuto, completion = completion] (isFinished) in
             guard let s = self else {
                 return
             }
-            
+
             if isAuto {
-                viewController.motionModalTransitionType = .auto
+                tvc.motionModalTransitionType = .auto
             }
-            
-            s.rootViewController = viewController
+
+            s.rootViewController = tvc
             s.view.isUserInteractionEnabled = true
+            
             s.removeViewController(viewController: fvc)
             
-            completion?(isFinished)
+            fvc.endAppearanceTransition()
             
+            completion?(isFinished)
+
             if isTriggeredByUserInteraction {
-                s.delegate?.tabsController?(tabsController: s, didSelect: viewController)
+                s.delegate?.tabsController?(tabsController: s, didSelect: tvc)
             }
         }
     }

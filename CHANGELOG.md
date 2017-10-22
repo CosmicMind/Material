@@ -1,3 +1,9 @@
+## 2.12.4
+
+* Updated to [Motion 1.2.3](https://github.com/CosmicMind/Motion/releases/tag/1.2.3).
+* [issue-919](https://github.com/CosmicMind/Material/issues/919): Fixed issue where lifecycle methods were being called on tab item view controllers prematurely.
+* [pr-923](https://github.com/CosmicMind/Material/pull/923): Merge PR that fixes [issue-919](https://github.com/CosmicMind/Material/issues/919).
+
 ## 2.12.3
 
 * [issue-907](https://github.com/CosmicMind/Material/issues/907): Fixed Layout ordering issues.
