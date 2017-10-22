@@ -636,10 +636,10 @@ fileprivate extension Layout {
      */
     class func updateConstraints(for view: UIView) {
         Motion.async {
-            view.setNeedsLayout()
-            view.layoutIfNeeded()
             view.updateConstraintsIfNeeded()
             view.updateConstraints()
+            view.setNeedsLayout()
+            view.layoutIfNeeded()
         }
     }
     
