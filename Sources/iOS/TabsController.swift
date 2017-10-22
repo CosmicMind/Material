@@ -197,13 +197,15 @@ fileprivate extension TabsController {
             return
         }
         
-        let tvc = viewController
-        tvc.view.isHidden = false
-        tvc.view.frame = container.bounds
+        fvc.beginAppearanceTransition(false, animated: true)
         
         let fvcIndex = viewControllers.index(of: fvc)
         let tvcIndex = viewControllers.index(of: viewController)
         
+        let tvc = viewController
+        tvc.view.isHidden = false
+        tvc.view.frame = container.bounds
+                
         var isAuto = false
         
         switch tvc.motionModalTransitionType {
@@ -229,6 +231,9 @@ fileprivate extension TabsController {
             
             s.rootViewController = tvc
             s.view.isUserInteractionEnabled = true
+            s.removeViewController(viewController: fvc)
+            
+            fvc.endAppearanceTransition()
             
             completion?(isFinished)
             
@@ -290,6 +295,12 @@ fileprivate extension TabsController {
         var tabItems = [TabItem]()
         
         for v in viewControllers {
+            // Expectation that viewDidLoad() triggers update of tab item title:
+            if #available(iOS 9.0, *) {
+                v.loadViewIfNeeded()
+            } else {
+                _ = v.view
+            }
             tabItems.append(v.tabItem)
         }
         
