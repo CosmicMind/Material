@@ -197,48 +197,48 @@ fileprivate extension TabsController {
             return
         }
         
-        fvc.beginAppearanceTransition(false, animated: true)
+        guard let fvcIndex = viewControllers.index(of: fvc) else {
+            return
+        }
         
-        let fvcIndex = viewControllers.index(of: fvc)
-        let tvcIndex = viewControllers.index(of: viewController)
+        guard let tvcIndex = viewControllers.index(of: viewController) else {
+            return
+        }
         
-        let tvc = viewController
-        tvc.view.isHidden = false
-        tvc.view.frame = container.bounds
-                
+        viewController.view.isHidden = false
+        viewController.view.frame = container.bounds
+        
         var isAuto = false
-        
-        switch tvc.motionModalTransitionType {
+        switch viewController.motionModalTransitionType {
         case .auto:
             isAuto = true
-            tvc.motionModalTransitionType = fvcIndex! < tvcIndex! ? .slide(direction: .left) : .slide(direction: .right)
+            viewController.motionModalTransitionType = fvcIndex < tvcIndex ? .slide(direction: .left) : .slide(direction: .right)
         default:break
         }
         
         if isTriggeredByUserInteraction {
-            delegate?.tabsController?(tabsController: self, willSelect: tvc)
+            delegate?.tabsController?(tabsController: self, willSelect: viewController)
         }
         
         view.isUserInteractionEnabled = false
-        Motion.shared.transition(from: fvc, to: tvc, in: container) { [weak self, tvc = tvc, isAuto = isAuto, completion = completion] (isFinished) in
+        
+        Motion.shared.transition(from: fvc, to: viewController, in: container) { [weak self, viewController = viewController, isAuto = isAuto, completion = completion] (isFinished) in
             guard let s = self else {
                 return
             }
             
             if isAuto {
-                tvc.motionModalTransitionType = .auto
+                viewController.motionModalTransitionType = .auto
             }
             
-            s.rootViewController = tvc
+            s.rootViewController = viewController
             s.view.isUserInteractionEnabled = true
             s.removeViewController(viewController: fvc)
-            
-            fvc.endAppearanceTransition()
             
             completion?(isFinished)
             
             if isTriggeredByUserInteraction {
-                s.delegate?.tabsController?(tabsController: s, didSelect: tvc)
+                s.delegate?.tabsController?(tabsController: s, didSelect: viewController)
             }
         }
     }
@@ -254,15 +254,6 @@ internal extension TabsController {
 fileprivate extension TabsController {
     /// Prepares all the view controllers.
     func prepareViewControllers() {
-        for i in 0..<viewControllers.count {
-            guard i != selectedIndex else {
-                continue
-            }
-            
-            viewControllers[i].view.isHidden = true
-            prepareViewController(at: i)
-        }
-        
         prepareViewController(at: selectedIndex)
         prepareRootViewController()
     }

@@ -29,6 +29,7 @@
  */
 
 import UIKit
+import Motion
 
 @objc(NavigationDrawerPosition)
 public enum NavigationDrawerPosition: Int {
@@ -863,7 +864,7 @@ open class NavigationDrawerController: TransitionController {
 	
 	/// Shows the statusBar.
 	fileprivate func showStatusBar() {
-        DispatchQueue.main.async { [weak self] in
+        Motion.async { [weak self] in
             guard let s = self else {
                 return
             }
@@ -884,7 +885,7 @@ open class NavigationDrawerController: TransitionController {
             return
         }
         
-        DispatchQueue.main.async { [weak self] in
+        Motion.async { [weak self] in
             guard let s = self else {
                 return
             }

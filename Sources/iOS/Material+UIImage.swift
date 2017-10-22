@@ -30,6 +30,7 @@
 
 import UIKit
 import Accelerate
+import Motion
 
 @objc(ImageFormat)
 public enum ImageFormat: Int {
@@ -198,7 +199,7 @@ extension UIImage {
      */
     open class func contentsOfURL(url: URL, completion: @escaping ((UIImage?, Error?) -> Void)) {
         URLSession.shared.dataTask(with: URLRequest(url: url)) { [completion = completion] (data: Data?, response: URLResponse?, error: Error?) in
-            DispatchQueue.main.async {
+            Motion.async {
                 if let v = error {
                     completion(nil, v)
                 } else if let v = data {

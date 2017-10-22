@@ -635,7 +635,7 @@ fileprivate extension Layout {
      - Parameter for view: A UIView.
      */
     class func updateConstraints(for view: UIView) {
-        DispatchQueue.main.async {
+        Motion.async {
             view.setNeedsLayout()
             view.layoutIfNeeded()
             view.updateConstraintsIfNeeded()
