@@ -203,11 +203,9 @@ fileprivate extension TabsController {
         let tvcIndex = viewControllers.index(of: viewController)
         
         let tvc = viewController
-        tvc.beginAppearanceTransition(true, animated: true)
-        prepareViewController(at: tvcIndex!)
         tvc.view.isHidden = false
         tvc.view.frame = container.bounds
-        
+                
         var isAuto = false
         
         switch tvc.motionModalTransitionType {
@@ -233,9 +231,8 @@ fileprivate extension TabsController {
             
             s.rootViewController = tvc
             s.view.isUserInteractionEnabled = true
-            tvc.endAppearanceTransition()
-            
             s.removeViewController(viewController: fvc)
+            
             fvc.endAppearanceTransition()
             
             completion?(isFinished)
@@ -257,6 +254,15 @@ internal extension TabsController {
 fileprivate extension TabsController {
     /// Prepares all the view controllers.
     func prepareViewControllers() {
+        for i in 0..<viewControllers.count {
+            guard i != selectedIndex else {
+                continue
+            }
+            
+            viewControllers[i].view.isHidden = true
+            prepareViewController(at: i)
+        }
+        
         prepareViewController(at: selectedIndex)
         prepareRootViewController()
     }
