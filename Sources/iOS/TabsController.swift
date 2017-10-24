@@ -222,8 +222,6 @@ fileprivate extension TabsController {
         
         view.isUserInteractionEnabled = false
         
-        fvc.beginAppearanceTransition(false, animated: true)
-        
         Motion.shared.transition(from: fvc, to: viewController, in: container) { [weak self, tvc = tvc, isAuto = isAuto, completion = completion] (isFinished) in
             guard let s = self else {
                 return
@@ -237,8 +235,6 @@ fileprivate extension TabsController {
             s.view.isUserInteractionEnabled = true
             
             s.removeViewController(viewController: fvc)
-            
-            fvc.endAppearanceTransition()
             
             completion?(isFinished)
 

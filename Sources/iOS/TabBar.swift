@@ -257,6 +257,17 @@ open class TabBar: Bar {
         }
     }
     
+    /// The line color.
+    @objc
+    open var lineColor: UIColor {
+        get {
+            return lineColorForState[.selected]!
+        }
+        set(value) {
+            lineColorForState[.selected] = value
+        }
+    }
+    
     open override func layoutSubviews() {
         super.layoutSubviews()
         guard willLayout else {

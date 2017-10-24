@@ -1,3 +1,9 @@
+## 2.12.5
+
+* Updated to [Motion 1.2.4](https://github.com/CosmicMind/Motion/releases/tag/1.2.4).
+* [issue-937](https://github.com/CosmicMind/Material/issues/937): Added @objc to `TabBar.lineColor` for access availability.
+* [pr-934](https://github.com/CosmicMind/Material/pull/934): Added access to the `TabBar.line` view.
+
 ## 2.12.4
 
 * Updated to [Motion 1.2.3](https://github.com/CosmicMind/Motion/releases/tag/1.2.3).
