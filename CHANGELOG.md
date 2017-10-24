@@ -1,3 +1,7 @@
+## 2.12.6
+
+* Fixed issue where TabBar.lineColor was incorrectly being updated.
+
 ## 2.12.5
 
 * Updated to [Motion 1.2.4](https://github.com/CosmicMind/Motion/releases/tag/1.2.4).

@@ -264,7 +264,7 @@ open class TabBar: Bar {
             return lineColorForState[.selected]!
         }
         set(value) {
-            lineColorForState[.selected] = value
+            setLineColor(value, for: .selected)
         }
     }
     
