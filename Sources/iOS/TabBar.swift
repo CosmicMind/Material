@@ -236,7 +236,7 @@ open class TabBar: Bar {
     }
 
     /// A reference to the line UIView.
-    fileprivate let line = UIView()
+    open let line = UIView()
     
     /// A value for the line alignment.
     @objc
