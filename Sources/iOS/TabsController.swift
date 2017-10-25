@@ -170,6 +170,10 @@ open class TabsController: TransitionController {
         layoutRootViewController()
     }
     
+    open override var shouldAutomaticallyForwardAppearanceMethods: Bool {
+        return false
+    }
+    
     open override func prepare() {
         super.prepare()
         view.backgroundColor = .white
@@ -223,6 +227,9 @@ fileprivate extension TabsController {
         }
         
         view.isUserInteractionEnabled = false
+        
+        // Adds the view controller as a child:
+        prepareViewController(at: tvcIndex)
         
         Motion.shared.transition(from: fvc, to: viewController, in: container) { [weak self, tvc = tvc, isAuto = isAuto, completion = completion] (isFinished) in
             guard let s = self else {
