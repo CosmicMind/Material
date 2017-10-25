@@ -222,6 +222,12 @@ fileprivate extension TabsController {
         
         view.isUserInteractionEnabled = false
         
+        fvc.beginAppearanceTransition(false, animated: true)
+        tvc.beginAppearanceTransition(true, animated: true)
+        
+        // Adds the view controller as a child:
+        prepareViewController(at: tvcIndex)
+        
         Motion.shared.transition(from: fvc, to: viewController, in: container) { [weak self, tvc = tvc, isAuto = isAuto, completion = completion] (isFinished) in
             guard let s = self else {
                 return
@@ -236,6 +242,8 @@ fileprivate extension TabsController {
             
             s.removeViewController(viewController: fvc)
             
+            fvc.endAppearanceTransition()
+            tvc.endAppearanceTransition()
             completion?(isFinished)
 
             if isTriggeredByUserInteraction {
