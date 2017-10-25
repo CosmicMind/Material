@@ -99,6 +99,7 @@ open class StatusBarController: TransitionController {
             let h = statusBar.bounds.height
             container.frame.origin.y = h
             container.frame.size.height = view.bounds.height - h
+            
         case .full:
             container.frame = view.bounds
         }

@@ -108,9 +108,11 @@ fileprivate extension ChipBarController {
             case .top:
                 container.frame.origin.y = p
                 container.frame.size.height = y
+                
             case .bottom:
                 container.frame.origin.y = 0
                 container.frame.size.height = y
+                
             case .hidden:
                 container.frame.origin.y = 0
                 container.frame.size.height = view.bounds.height
@@ -131,9 +133,11 @@ fileprivate extension ChipBarController {
         case .top:
             chipBar.isHidden = false
             chipBar.frame.origin.y = 0
+            
         case .bottom:
             chipBar.isHidden = false
             chipBar.frame.origin.y = view.bounds.height - chipBar.bounds.height
+        
         case .hidden:
             chipBar.isHidden = true
         }

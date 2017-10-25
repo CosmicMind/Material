@@ -97,6 +97,7 @@ fileprivate extension ToolbarController {
             case .top:
                 container.frame.origin.y = q + p
                 container.frame.size.height = h
+                
             case .bottom:
                 container.frame.origin.y = q
                 container.frame.size.height = h

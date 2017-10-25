@@ -175,9 +175,9 @@ open class TabsController: TransitionController {
         view.backgroundColor = .white
         view.contentScaleFactor = Screen.scale
         
-        prepareSelectedIndexViewController()
         prepareTabBar()
         prepareTabItems()
+        prepareSelectedIndexViewController()
     }
     
     open override func transition(to viewController: UIViewController, completion: ((Bool) -> Void)?) {
@@ -193,53 +193,40 @@ fileprivate extension TabsController {
      - Parameter completion: An optional completion block.
      */
     func transition(to viewController: UIViewController, isTriggeredByUserInteraction: Bool, completion: ((Bool) -> Void)?) {
-        guard let fvc = rootViewController else {
+        guard let fvcIndex = viewControllers.index(of: rootViewController) else {
             return
         }
         
-        guard let fvcIndex = viewControllers.index(of: fvc) else {
-            return
-        }
-        
-        let tvc = viewController
-        
-        guard let tvcIndex = viewControllers.index(of: tvc) else {
+        guard let tvcIndex = viewControllers.index(of: viewController) else {
             return
         }
         
         var isAuto = false
         
-        switch tvc.motionModalTransitionType {
+        switch viewController.motionModalTransitionType {
         case .auto:
             isAuto = true
             viewController.motionModalTransitionType = fvcIndex < tvcIndex ? .slide(direction: .left) : .slide(direction: .right)
         default:break
         }
         
-        prepare(viewController: tvc, in: container)
-        
         if isTriggeredByUserInteraction {
             delegate?.tabsController?(tabsController: self, willSelect: viewController)
         }
         
-        view.isUserInteractionEnabled = false
-        
-        Motion.shared.transition(from: fvc, to: viewController, in: container) { [weak self, tvc = tvc, isAuto = isAuto, completion = completion] (isFinished) in
+        super.transition(to: viewController) { [weak self, isAuto = isAuto, viewController = viewController, completion = completion] (isFinished) in
             guard let s = self else {
                 return
             }
 
             if isAuto {
-                tvc.motionModalTransitionType = .auto
+                viewController.motionModalTransitionType = .auto
             }
 
-            s.rootViewController = tvc
-            s.view.isUserInteractionEnabled = true
-                        
             completion?(isFinished)
 
             if isTriggeredByUserInteraction {
-                s.delegate?.tabsController?(tabsController: s, didSelect: tvc)
+                s.delegate?.tabsController?(tabsController: s, didSelect: viewController)
             }
         }
     }

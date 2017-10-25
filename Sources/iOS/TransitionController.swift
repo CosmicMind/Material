@@ -58,17 +58,24 @@ open class TransitionController: UIViewController {
      */
     open internal(set) var rootViewController: UIViewController! {
         willSet {
-            if let v = rootViewController {
-                removeViewController(viewController: v)
+            guard newValue != rootViewController else {
+                return
             }
+            
+            guard let v = rootViewController else {
+                return
+            }
+            
+            removeViewController(viewController: v)
         }
         didSet {
+            guard oldValue != rootViewController else {
+                return
+            }
+            
             prepare(viewController: rootViewController, in: container)
         }
     }
-    
-    /// The transition type used during a transition.
-    open var motionTransitionType = MotionTransitionType.fade
     
     /**
      An initializer that initializes the object with a NSCoder object.
@@ -119,23 +126,15 @@ open class TransitionController: UIViewController {
      to the toViewController has completed.
      */
     open func transition(to viewController: UIViewController, completion: ((Bool) -> Void)? = nil) {
-        guard let fvc = rootViewController else {
-            return
-        }
-        
-        let tvc = viewController
-        
-        tvc.view.isHidden = false
-        tvc.view.frame = container.bounds
-        tvc.motionModalTransitionType = motionTransitionType
+        prepare(viewController: viewController, in: container)
         
         view.isUserInteractionEnabled = false
-        Motion.shared.transition(from: fvc, to: tvc, in: container) { [weak self, tvc = tvc, completion = completion] (isFinished) in
+        Motion.shared.transition(from: rootViewController, to: viewController, in: container) { [weak self, viewController = viewController, completion = completion] (isFinished) in
             guard let s = self else {
                 return
             }
             
-            s.rootViewController = tvc
+            s.rootViewController = viewController
             s.view.isUserInteractionEnabled = true
             completion?(isFinished)
         }
@@ -161,6 +160,7 @@ open class TransitionController: UIViewController {
         view.contentScaleFactor = Screen.scale
         
         prepareContainer()
+        prepare(viewController: rootViewController, in: container)
     }
 }
 

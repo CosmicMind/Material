@@ -1,3 +1,7 @@
+## 2.12.7
+
+* [pr-938](https://github.com/CosmicMind/Material/pull/938): An expansion on this PR to fix the lifecycle issues with transitions.
+
 ## 2.12.6
 
 * Fixed issue where TabBar.lineColor was incorrectly being updated.
