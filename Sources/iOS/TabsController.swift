@@ -170,6 +170,10 @@ open class TabsController: TransitionController {
         layoutRootViewController()
     }
     
+    open override var shouldAutomaticallyForwardAppearanceMethods: Bool {
+        return false
+    }
+    
     open override func prepare() {
         super.prepare()
         view.backgroundColor = .white
@@ -222,9 +226,6 @@ fileprivate extension TabsController {
         
         view.isUserInteractionEnabled = false
         
-        fvc.beginAppearanceTransition(false, animated: true)
-        tvc.beginAppearanceTransition(true, animated: true)
-        
         // Adds the view controller as a child:
         prepareViewController(at: tvcIndex)
         
@@ -242,8 +243,6 @@ fileprivate extension TabsController {
             
             s.removeViewController(viewController: fvc)
             
-            fvc.endAppearanceTransition()
-            tvc.endAppearanceTransition()
             completion?(isFinished)
 
             if isTriggeredByUserInteraction {
