@@ -56,7 +56,16 @@ open class TransitionController: UIViewController {
      is recommended to use the transitionFromRootViewController
      helper method.
      */
-    open internal(set) var rootViewController: UIViewController!
+    open internal(set) var rootViewController: UIViewController! {
+        willSet {
+            if let v = rootViewController {
+                removeViewController(viewController: v)
+            }
+        }
+        didSet {
+            prepare(viewController: rootViewController, in: container)
+        }
+    }
     
     /// The transition type used during a transition.
     open var motionTransitionType = MotionTransitionType.fade
@@ -85,6 +94,10 @@ open class TransitionController: UIViewController {
     public init(rootViewController: UIViewController) {
         super.init(nibName: nil, bundle: nil)
         self.rootViewController = rootViewController
+    }
+    
+    open override var shouldAutomaticallyForwardAppearanceMethods: Bool {
+        return false
     }
     
     open override func viewDidLoad() {
@@ -148,7 +161,6 @@ open class TransitionController: UIViewController {
         view.contentScaleFactor = Screen.scale
         
         prepareContainer()
-        prepareRootViewController()
     }
 }
 
@@ -160,12 +172,6 @@ internal extension TransitionController {
         container.contentScaleFactor = Screen.scale
         container.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(container)
-    }
-    
-    /// A method that prepares the rootViewController.
-    @objc
-    func prepareRootViewController() {
-        prepare(viewController: rootViewController, in: container)
     }
     
     /**
@@ -181,6 +187,10 @@ internal extension TransitionController {
             return
         }
         
+        guard !childViewControllers.contains(v) else {
+            return
+        }
+        
         addChildViewController(v)
         container.addSubview(v.view)
         v.didMove(toParentViewController: self)
@@ -188,5 +198,17 @@ internal extension TransitionController {
         v.view.clipsToBounds = true
         v.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         v.view.contentScaleFactor = Screen.scale
+    }
+}
+
+internal extension TransitionController {
+    /**
+     Removes a given view controller from the childViewControllers array.
+     - Parameter at index: An Int for the view controller position.
+     */
+    func removeViewController(viewController: UIViewController) {
+        viewController.willMove(toParentViewController: nil)
+        viewController.view.removeFromSuperview()
+        viewController.removeFromParentViewController()
     }
 }

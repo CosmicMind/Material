@@ -173,7 +173,6 @@ open class TabBar: Bar {
         willSet {
             selectedTabItem?.isSelected = false
         }
-        
         didSet {
             selectedTabItem?.isSelected = true
         }
