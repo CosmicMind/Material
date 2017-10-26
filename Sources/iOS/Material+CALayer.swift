@@ -272,7 +272,7 @@ extension CALayer {
             return
         }
         
-        cornerRadius = bounds.size.width / 2
+        cornerRadius = frame.size.width / 2
     }
     
     /// Sets the shadow path.

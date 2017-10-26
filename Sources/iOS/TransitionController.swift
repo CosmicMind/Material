@@ -148,6 +148,16 @@ open class TransitionController: UIViewController {
     open func transition(to viewController: UIViewController, completion: ((Bool) -> Void)? = nil) {
         prepare(viewController: viewController, in: container)
         
+        switch motionTransitionType {
+        case .auto:break
+        default:
+            switch viewController.motionTransitionType {
+            case .auto:
+                viewController.motionTransitionType = motionTransitionType
+            default:break
+            }
+        }
+        
         view.isUserInteractionEnabled = false
         Motion.shared.transition(from: rootViewController, to: viewController, in: container) { [weak self, viewController = viewController, completion = completion] (isFinished) in
             guard let s = self else {

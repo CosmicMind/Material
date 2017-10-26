@@ -176,16 +176,34 @@ internal extension NavigationBar {
         }
         
         item.toolbar.backgroundColor = .clear
-        
         item.titleView = item.toolbar
         
         guard let v = item.titleView as? Toolbar else {
             return
         }
         
-        removeConstraints(constraints)
+        if #available(iOS 11.0, *) {
+            let h = CGFloat(heightPreset.rawValue)
+            frame = CGRect(x: frame.origin.x, y: 20, width: frame.size.width, height: h)
+            
+            for subview in subviews {
+                var stringFromClass = NSStringFromClass(subview.classForCoder)
+                if stringFromClass.contains("BarBackground") {
+                    subview.frame = CGRect(x: 0, y: 0, width: frame.width, height: h)
+                }
+                
+                stringFromClass = NSStringFromClass(subview.classForCoder)
+                if stringFromClass.contains("BarContent") {
+                    subview.frame = CGRect(x: subview.frame.origin.x, y: 0, width: subview.frame.width, height: h)
+                }
+            }
+            
+            v.frame = frame
+        } else {
+            v.frame = bounds
+        }
+        
         v.contentEdgeInsets = contentEdgeInsets
         v.interimSpace = interimSpace
-        v.frame = bounds
     }
 }

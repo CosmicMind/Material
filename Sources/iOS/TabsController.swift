@@ -75,7 +75,7 @@ public protocol TabsControllerDelegate {
      */
     @objc
     optional func tabsController(tabsController: TabsController, shouldSelect viewController: UIViewController) -> Bool
-    
+
     /**
      A delegation method that is executed when the view controller will transitioned to.
      - Parameter tabsController: A TabsController.
@@ -83,7 +83,7 @@ public protocol TabsControllerDelegate {
      */
     @objc
     optional func tabsController(tabsController: TabsController, willSelect viewController: UIViewController)
-    
+
     /**
      A delegation method that is executed when the view controller has been transitioned to.
      - Parameter tabsController: A TabsController.
@@ -104,36 +104,36 @@ open class TabsController: TransitionController {
             layoutSubviews()
         }
     }
-    
+
     /// The TabBar used to switch between view controllers.
     @IBInspectable
     open let tabBar = TabBar()
-    
+
     /// A delegation reference.
     open weak var delegate: TabsControllerDelegate?
-    
+
     /// An Array of UIViewControllers.
     open var viewControllers: [UIViewController] {
         didSet {
             selectedIndex = 0
-            
+
             prepareSelectedIndexViewController()
             prepareTabBar()
             layoutSubviews()
         }
     }
-    
+
     /// A reference to the currently selected view controller index value.
     @IBInspectable
     open fileprivate(set) var selectedIndex = 0
-    
+
     /// The tabBar alignment.
     open var tabBarAlignment = TabBarAlignment.bottom {
         didSet {
             layoutSubviews()
         }
     }
-    
+
     /**
      An initializer that initializes the object with a NSCoder object.
      - Parameter aDecoder: A NSCoder instance.
@@ -142,7 +142,7 @@ open class TabsController: TransitionController {
         viewControllers = []
         super.init(coder: aDecoder)
     }
-    
+
     /**
      An initializer that accepts an Array of UIViewControllers.
      - Parameter viewControllers: An Array of UIViewControllers.
@@ -152,34 +152,34 @@ open class TabsController: TransitionController {
         self.selectedIndex = selectedIndex
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     fileprivate override init(rootViewController: UIViewController) {
         self.viewControllers = []
         super.init(rootViewController: rootViewController)
     }
-        
+
     open override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         layoutSubviews()
     }
-    
+
     open override func layoutSubviews() {
         super.layoutSubviews()
         layoutTabBar()
         layoutContainer()
         layoutRootViewController()
     }
-    
+
     open override func prepare() {
         super.prepare()
         view.backgroundColor = .white
         view.contentScaleFactor = Screen.scale
-        
+
         prepareTabBar()
         prepareTabItems()
         prepareSelectedIndexViewController()
     }
-    
+
     open override func transition(to viewController: UIViewController, completion: ((Bool) -> Void)?) {
         transition(to: viewController, isTriggeredByUserInteraction: false, completion: completion)
     }
@@ -196,33 +196,30 @@ fileprivate extension TabsController {
         guard let fvcIndex = viewControllers.index(of: rootViewController) else {
             return
         }
-        
+
         guard let tvcIndex = viewControllers.index(of: viewController) else {
             return
         }
-        
-        var isAuto = false
-        
-        switch viewController.motionModalTransitionType {
+
+        switch motionTransitionType {
         case .auto:
-            isAuto = true
-            viewController.motionModalTransitionType = fvcIndex < tvcIndex ? .slide(direction: .left) : .slide(direction: .right)
+            switch viewController.motionTransitionType {
+            case .auto:
+                Motion.shared.setAnimationForNextTransition(fvcIndex < tvcIndex ? .slide(direction: .left) : .slide(direction: .right))
+            default:break
+            }
         default:break
         }
-        
+
         if isTriggeredByUserInteraction {
             delegate?.tabsController?(tabsController: self, willSelect: viewController)
         }
-        
-        super.transition(to: viewController) { [weak self, isAuto = isAuto, viewController = viewController, completion = completion] (isFinished) in
+
+        super.transition(to: viewController) { [weak self, viewController = viewController, completion = completion] (isFinished) in
             guard let s = self else {
                 return
             }
-
-            if isAuto {
-                viewController.motionModalTransitionType = .auto
-            }
-
+            
             completion?(isFinished)
 
             if isTriggeredByUserInteraction {
@@ -237,7 +234,7 @@ fileprivate extension TabsController {
     func prepareSelectedIndexViewController() {
         rootViewController = viewControllers[selectedIndex]
     }
-    
+
     /// Prepares the TabBar.
     func prepareTabBar() {
         tabBar.lineAlignment = .bottom == tabBarAlignment ? .top : .bottom
@@ -245,11 +242,11 @@ fileprivate extension TabsController {
         tabBar.delegate = self
         view.addSubview(tabBar)
     }
-    
+
     /// Prepares the `tabBar.tabItems`.
     func prepareTabItems() {
         var tabItems = [TabItem]()
-        
+
         for v in viewControllers {
             // Expectation that viewDidLoad() triggers update of tab item title:
             if #available(iOS 9.0, *) {
@@ -259,7 +256,7 @@ fileprivate extension TabsController {
             }
             tabItems.append(v.tabItem)
         }
-        
+
         tabBar.tabItems = tabItems
         tabBar.selectedTabItem = tabItems[selectedIndex]
     }
@@ -272,30 +269,31 @@ fileprivate extension TabsController {
         case .partial:
             let p = tabBar.bounds.height
             let y = view.bounds.height - p
-            
+
             switch tabBarAlignment {
             case .top:
                 container.frame.origin.y = p
                 container.frame.size.height = y
+
             case .bottom:
                 container.frame.origin.y = 0
                 container.frame.size.height = y
             }
-            
+
             container.frame.size.width = view.bounds.width
-            
+
         case .full:
             container.frame = view.bounds
         }
     }
-    
+
     /// Layout the tabBar.
     func layoutTabBar() {
         tabBar.frame.origin.x = 0
         tabBar.frame.origin.y = .top == tabBarAlignment ? 0 : view.bounds.height - tabBar.bounds.height
         tabBar.frame.size.width = view.bounds.width
     }
-    
+
     /// Layout the rootViewController.
     func layoutRootViewController() {
         rootViewController.view.frame = container.bounds
@@ -311,19 +309,19 @@ extension TabsController {
         guard index != selectedIndex else {
             return
         }
-        
+
         Motion.async { [weak self] in
             guard let s = self else {
                 return
             }
-            
+
             s.tabBar.select(at: index)
-            
+
             s.transition(to: s.viewControllers[index], isTriggeredByUserInteraction: false) { [weak self] (isFinished) in
                 guard isFinished else {
                     return
                 }
-                
+
                 self?.selectedIndex = index
             }
         }
@@ -336,24 +334,24 @@ extension TabsController: _TabBarDelegate {
         guard !(false == tabBar.delegate?.tabBar?(tabBar: tabBar, shouldSelect: tabItem)) else {
             return
         }
-        
+
         guard let i = tabBar.tabItems.index(of: tabItem) else {
             return
         }
-        
+
         guard i != selectedIndex else {
             return
         }
-        
+
         guard !(false == delegate?.tabsController?(tabsController: self, shouldSelect: viewControllers[i])) else {
             return
         }
-        
+
         transition(to: viewControllers[i], isTriggeredByUserInteraction: true) { [weak self] (isFinished) in
             guard isFinished else {
                 return
             }
-            
+
             self?.selectedIndex = i
         }
     }
