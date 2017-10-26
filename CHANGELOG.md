@@ -1,3 +1,7 @@
+## 2.12.8
+
+* [issue-940](https://github.com/CosmicMind/Material/issues/940): Fixed an issue where the `TransitionController` was not executing the lifecycle functions for the initial `rootViewController`. 
+
 ## 2.12.7
 
 * [pr-938](https://github.com/CosmicMind/Material/pull/938): An expansion on this PR to fix the lifecycle issues with transitions.
