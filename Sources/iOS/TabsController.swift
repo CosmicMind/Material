@@ -248,12 +248,13 @@ fileprivate extension TabsController {
         var tabItems = [TabItem]()
 
         for v in viewControllers {
-            // Expectation that viewDidLoad() triggers update of tab item title:
+            // Expectation that viewDidLoad() triggers update of tabItem:
             if #available(iOS 9.0, *) {
                 v.loadViewIfNeeded()
             } else {
                 _ = v.view
             }
+            
             tabItems.append(v.tabItem)
         }
 
@@ -328,7 +329,7 @@ extension TabsController {
     }
 }
 
-extension TabsController: _TabBarDelegate {
+extension TabsController: TabBarDelegate, _TabBarDelegate {
     @objc
     func _tabBar(tabBar: TabBar, willSelect tabItem: TabItem) {
         guard !(false == tabBar.delegate?.tabBar?(tabBar: tabBar, shouldSelect: tabItem)) else {
@@ -356,5 +357,3 @@ extension TabsController: _TabBarDelegate {
         }
     }
 }
-
-extension TabsController: TabBarDelegate {}
