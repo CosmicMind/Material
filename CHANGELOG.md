@@ -1,3 +1,7 @@
+## 2.12.9
+
+* Fixed breaking change to loading the TabsController.
+
 ## 2.12.8
 
 * [issue-933](https://github.com/CosmicMind/Material/issues/933): Fixed issue where `NavigationDrawerController` was not displaying the `leftViewController` and `rightViewController`.

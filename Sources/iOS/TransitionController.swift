@@ -190,7 +190,12 @@ open class TransitionController: UIViewController {
         view.contentScaleFactor = Screen.scale
         
         prepareContainer()
-        prepare(viewController: rootViewController, in: container)
+        
+        guard let v = rootViewController else {
+            return
+        }
+        
+        prepare(viewController: v, in: container)
     }
 }
 
