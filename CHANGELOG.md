@@ -1,3 +1,7 @@
+## 2.12.11
+
+* Fixed iPhoneX tioLayoutGuide constraints not properly being set for StatusBarController types.
+
 ## 2.12.10
 
 * [samples-issue-78](https://github.com/CosmicMind/Samples/issues/78): Fixed iPhoneX bottomLayoutGuide constraints not properly being set.

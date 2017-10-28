@@ -94,6 +94,11 @@ open class StatusBarController: TransitionController {
         
         statusBar.frame.size.width = view.bounds.width
         
+        if #available(iOS 11, *) {
+            let v = topLayoutGuide.length
+            statusBar.frame.size.height = 0 < v ? v : 20
+        }
+        
         switch displayStyle {
         case .partial:
             let h = statusBar.bounds.height
@@ -122,7 +127,6 @@ fileprivate extension StatusBarController {
             statusBar.backgroundColor = .white
         }
         
-        statusBar.frame.size.height = 20
         view.addSubview(statusBar)
     }
 }
