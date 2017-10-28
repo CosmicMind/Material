@@ -290,6 +290,18 @@ fileprivate extension TabsController {
 
     /// Layout the tabBar.
     func layoutTabBar() {
+        if #available(iOS 11, *) {
+            if .bottom == tabBarAlignment {
+                let v = bottomLayoutGuide.length
+                
+                if 0 < v {
+                    tabBar.heightPreset = { tabBar.heightPreset }()
+                    tabBar.frame.size.height += v
+                    tabBar.grid.layoutEdgeInsets.bottom = v
+                }
+            }
+        }
+        
         tabBar.frame.origin.x = 0
         tabBar.frame.origin.y = .top == tabBarAlignment ? 0 : view.bounds.height - tabBar.bounds.height
         tabBar.frame.size.width = view.bounds.width
