@@ -212,22 +212,14 @@ internal extension TransitionController {
      - Parameter in container: A UIView that is the parent of the
      passed in controller view within the view hierarchy.
      */
-    func prepare(viewController: UIViewController?, in container: UIView) {
-        guard let v = viewController else {
-            return
-        }
-        
-        guard !childViewControllers.contains(v) else {
-            return
-        }
-        
-        addChildViewController(v)
-        container.addSubview(v.view)
-        v.didMove(toParentViewController: self)
-        v.view.frame = container.bounds
-        v.view.clipsToBounds = true
-        v.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        v.view.contentScaleFactor = Screen.scale
+    func prepare(viewController: UIViewController, in container: UIView) {
+        addChildViewController(viewController)
+        container.addSubview(viewController.view)
+        viewController.didMove(toParentViewController: self)
+        viewController.view.frame = container.bounds
+        viewController.view.clipsToBounds = true
+        viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        viewController.view.contentScaleFactor = Screen.scale
     }
 }
 

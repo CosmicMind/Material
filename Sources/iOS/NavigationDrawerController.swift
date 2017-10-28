@@ -450,6 +450,30 @@ open class NavigationDrawerController: TransitionController {
         rootViewController.view.frame = container.bounds
 	}
 	
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        leftViewController?.beginAppearanceTransition(true, animated: animated)
+        rightViewController?.beginAppearanceTransition(true, animated: animated)
+    }
+    
+    open override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        leftViewController?.endAppearanceTransition()
+        rightViewController?.endAppearanceTransition()
+    }
+    
+    open override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        leftViewController?.beginAppearanceTransition(false, animated: animated)
+        rightViewController?.beginAppearanceTransition(false, animated: animated)
+    }
+    
+    open override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        leftViewController?.endAppearanceTransition()
+        rightViewController?.endAppearanceTransition()
+    }
+    
     open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
 		// Ensures the view is isHidden.
@@ -976,27 +1000,9 @@ extension NavigationDrawerController {
         view.sendSubview(toBack: contentViewController.view)
     }
     
-    /// A method that prepares the leftViewController.
-    fileprivate func prepareLeftViewController() {
-        guard let v = leftView else {
-            return
-        }
-        
-        prepare(viewController: leftViewController, in: v)
-    }
-    
-    /// A method that prepares the rightViewController.
-    fileprivate func prepareRightViewController() {
-        guard let v = rightView else {
-            return
-        }
-        
-        prepare(viewController: rightViewController, in: v)
-    }
-    
     /// A method that prepares the leftView.
     fileprivate func prepareLeftView() {
-        guard nil != leftViewController else {
+        guard let v = leftViewController else {
             return
         }
         
@@ -1005,18 +1011,19 @@ extension NavigationDrawerController {
         leftViewWidth = .phone == Device.userInterfaceIdiom ? 280 : 320
         leftView = UIView()
         leftView!.frame = CGRect(x: 0, y: 0, width: leftViewWidth, height: view.bounds.height)
-        leftView!.backgroundColor = nil
+        leftView!.backgroundColor = .white
         view.addSubview(leftView!)
         
         leftView!.isHidden = true
         leftView!.layer.position.x = -leftViewWidth / 2
         leftView!.layer.zPosition = 2000
-        prepareLeftViewController()
+        
+        prepare(viewController: v, in: leftView!)
     }
     
     /// A method that prepares the leftView.
     fileprivate func prepareRightView() {
-        guard nil != rightViewController else {
+        guard let v = rightViewController else {
             return
         }
         
@@ -1025,13 +1032,14 @@ extension NavigationDrawerController {
         rightViewWidth = .phone == Device.userInterfaceIdiom ? 280 : 320
         rightView = UIView()
         rightView!.frame = CGRect(x: view.bounds.width, y: 0, width: rightViewWidth, height: view.bounds.height)
-        rightView!.backgroundColor = nil
+        rightView!.backgroundColor = .white
         view.addSubview(rightView!)
         
         rightView!.isHidden = true
         rightView!.layer.position.x = view.bounds.width + rightViewWidth / 2
         rightView!.layer.zPosition = 2000
-        prepareRightViewController()
+        
+        prepare(viewController: v, in: rightView!)
     }
     
     /// Prepare the left pan gesture.

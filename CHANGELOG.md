@@ -1,5 +1,6 @@
 ## 2.12.8
 
+* [issue-933](https://github.com/CosmicMind/Material/issues/933): Fixed issue where `NavigationDrawerController` was not displaying the `leftViewController` and `rightViewController`.
 * [issue-940](https://github.com/CosmicMind/Material/issues/940): Fixed an issue where the `TransitionController` was not executing the lifecycle functions for the initial `rootViewController`. 
 
 ## 2.12.7
