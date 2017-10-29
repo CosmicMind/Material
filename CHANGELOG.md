@@ -1,6 +1,7 @@
 ## 2.12.11
 
 * Fixed iPhoneX topLayoutGuide constraints not properly being set for StatusBarController types.
+* Fixed iOS 11 layout issues for NavigationController.
 * [pr-945](https://github.com/CosmicMind/Material/pull/945): iPhoneX update for TabBar bottom line alignment. 
 
 ## 2.12.10

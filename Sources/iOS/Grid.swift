@@ -266,19 +266,18 @@ public struct Grid {
     }
 }
 
-/// A memory reference to the Grid instance for UIView extensions.
-fileprivate var GridKey: UInt8 = 0
+fileprivate var AssociatedInstanceKey: UInt8 = 0
 
 extension UIView {
     /// Grid reference.
     public var grid: Grid {
         get {
-            return AssociatedObject.get(base: self, key: &GridKey) {
+            return AssociatedObject.get(base: self, key: &AssociatedInstanceKey) {
                 return Grid(context: self)
             }
         }
         set(value) {
-            AssociatedObject.set(base: self, key: &GridKey, value: value)
+            AssociatedObject.set(base: self, key: &AssociatedInstanceKey, value: value)
         }
     }
     

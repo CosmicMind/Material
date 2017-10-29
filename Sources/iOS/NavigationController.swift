@@ -158,11 +158,11 @@ extension NavigationController: UINavigationBarDelegate {
                 item.backButton.image = v.backButtonImage
             }
             
-            item.backButton.addTarget(self, action: #selector(handle(backButton:)), for: .touchUpInside)
-            
             if !item.backButton.isHidden {
                 item.leftViews.insert(item.backButton, at: 0)
             }
+            
+            item.backButton.addTarget(self, action: #selector(handle(backButton:)), for: .touchUpInside)
             
             item.hidesBackButton = false
             item.setHidesBackButton(true, animated: false)

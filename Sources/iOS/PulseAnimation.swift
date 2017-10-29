@@ -120,8 +120,8 @@ public struct Pulse {
         let w = view.bounds.width
         let h = view.bounds.height
         
-        Motion.disable({ [
-            n = .center == animation ? w < h ? w : h : w < h ? h : w,
+        Motion.disable { [
+            n = w < h ? w : h,
             bounds = layer.bounds,
             animation = animation,
             color = color,
@@ -141,7 +141,7 @@ public struct Pulse {
             pLayer.cornerRadius = n / 2
             pLayer.backgroundColor = color.withAlphaComponent(opacity).cgColor
             pLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform(scaleX: 0, y: 0))
-        })
+        }
         
         bLayer.setValue(false, forKey: "animated")
         
