@@ -231,6 +231,6 @@ internal extension NavigationBar {
         }
         
         item.titleView = toolbar
-        item.titleView!.frame = frame
+        item.titleView!.frame = bounds
     }
 }

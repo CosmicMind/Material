@@ -1,3 +1,7 @@
+## 2.12.12
+
+* [issue-924](https://github.com/CosmicMind/Material/issues/924):  Fixed NavigationController display in iOS 10.
+
 ## 2.12.11
 
 * Fixed iPhoneX topLayoutGuide constraints not properly being set for StatusBarController types.
