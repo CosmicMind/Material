@@ -408,7 +408,7 @@ fileprivate extension TabBar {
         guard shouldNotAnimateLineView else {
             line.animate(.duration(0),
                          .size(width: v.bounds.width, height: lineHeight),
-                         .position(x: v.center.x, y: .bottom == lineAlignment ? bounds.height - lineHeight / 2 : lineHeight / 2))
+                         .position(x: v.center.x, y: .bottom == lineAlignment ? scrollView.bounds.height - lineHeight / 2 : lineHeight / 2))
             return
         }
         
@@ -546,7 +546,7 @@ fileprivate extension TabBar {
         
         line.animate(.duration(0.25),
                      .size(width: tabItem.bounds.width, height: lineHeight),
-                     .position(x: tabItem.center.x, y: .bottom == lineAlignment ? bounds.height - lineHeight / 2 : lineHeight / 2),
+                     .position(x: tabItem.center.x, y: .bottom == lineAlignment ? scrollView.bounds.height - lineHeight / 2 : lineHeight / 2),
                      .completion({ [weak self, isTriggeredByUserInteraction = isTriggeredByUserInteraction, tabItem = tabItem, completion = completion] in
                         guard let s = self else {
                             return
