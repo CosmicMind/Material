@@ -39,9 +39,6 @@ open class NavigationBar: UINavigationBar {
     /// Detail UILabel when in landscape for iOS 11.
     fileprivate var toolbarToText: [Toolbar: String?]?
     
-    /// PulseAnimation for different views.
-    fileprivate var viewToPulseAnimation: [UIView: PulseAnimation]?
-    
     open override var intrinsicContentSize: CGSize {
         return CGSize(width: bounds.width, height: bounds.height)
     }
@@ -166,7 +163,6 @@ open class NavigationBar: UINavigationBar {
         
         if #available(iOS 11, *) {
             toolbarToText = [:]
-            viewToPulseAnimation = [:]
         }
         
         let image = UIImage()
@@ -194,19 +190,6 @@ internal extension NavigationBar {
         if #available(iOS 11, *) {
             if Application.shouldStatusBarBeHidden {
                 toolbar.contentEdgeInsetsPreset = .none
-            
-                for v in toolbar.leftViews + toolbar.rightViews {
-                    guard var b = v as? Pulseable else {
-                        continue
-                    }
-                    
-                    guard .none != b.pulseAnimation else {
-                        continue
-                    }
-                    
-                    viewToPulseAnimation?[v] = b.pulseAnimation
-                    b.pulseAnimation = .none
-                }
                 
                 if nil != toolbar.detailLabel.text {
                     toolbarToText?[toolbar] = toolbar.detailLabel.text
@@ -215,18 +198,6 @@ internal extension NavigationBar {
             } else if nil != toolbarToText?[toolbar] {
                 toolbar.detailLabel.text = toolbarToText?[toolbar] ?? nil
                 toolbarToText?[toolbar] = nil
-                
-                for v in toolbar.leftViews + toolbar.rightViews {
-                    guard var b = v as? Pulseable else {
-                        continue
-                    }
-                    
-                    guard let a = viewToPulseAnimation?[v] else {
-                        continue
-                    }
-                    
-                    b.pulseAnimation = a
-                }
             }
         }
         
