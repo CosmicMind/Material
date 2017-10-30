@@ -1,3 +1,7 @@
+## 2.12.13
+
+* Fixed issue where sizing of pulse was incorrectly animating when using the NavigationController on iOS 11.
+
 ## 2.12.12
 
 * [issue-924](https://github.com/CosmicMind/Material/issues/924):  Fixed NavigationController display in iOS 10.
