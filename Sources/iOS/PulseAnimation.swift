@@ -121,7 +121,7 @@ public struct Pulse {
         let h = view.bounds.height
         
         Motion.disable { [
-            n = w < h ? w : h,
+            n = .center == animation ? w < h ? w : h : w < h ? h : w,
             bounds = layer.bounds,
             animation = animation,
             color = color,
