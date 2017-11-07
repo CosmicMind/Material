@@ -35,18 +35,6 @@ open class TabItem: FlatButton {
         super.prepare()
         pulseAnimation = .none
     }
-    
-    open override var isHighlighted: Bool {
-        didSet {
-            tintColor = titleColor(for: isHighlighted ? .highlighted : isSelected ? .selected : .normal)
-        }
-    }
-    
-    open override var isSelected: Bool {
-        didSet {
-            tintColor = titleColor(for: isSelected ? .selected : .normal)
-        }
-    }
 }
 
 @objc(TabItemState)
@@ -508,18 +496,18 @@ extension TabBar {
 fileprivate extension TabBar {
     /// Updates the tabItems colors.
     func updateTabItemColors() {
-        let normalColor = tabItemsColorForState[.normal]
-        let selectedColor = tabItemsColorForState[.selected]
-        let highlightedColor = tabItemsColorForState[.highlighted]
+        let normalColor = tabItemsColorForState[.normal]!
+        let selectedColor = tabItemsColorForState[.selected]!
+        let highlightedColor = tabItemsColorForState[.highlighted]!
         
         for v in tabItems {
             v.setTitleColor(normalColor, for: .normal)
+            v.setImage(v.image?.tint(with: normalColor), for: .normal)
             v.setTitleColor(selectedColor, for: .selected)
+            v.setImage(v.image?.tint(with: selectedColor), for: .selected)
             v.setTitleColor(highlightedColor, for: .highlighted)
-            v.tintColor = normalColor
+            v.setImage(v.image?.tint(with: highlightedColor), for: .highlighted)
         }
-        
-        selectedTabItem?.tintColor = selectedColor
     }
     
     /// Updates the line colors.

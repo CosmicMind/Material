@@ -100,7 +100,15 @@ open class Button: UIButton, Pulseable, PulseableLayer {
     open var image: UIImage? {
         didSet {
             setImage(image, for: .normal)
+            setImage(image, for: .selected)
             setImage(image, for: .highlighted)
+            setImage(image, for: .disabled)
+            
+            if #available(iOS 9, *) {
+                setImage(image, for: .application)
+                setImage(image, for: .focused)
+                setImage(image, for: .reserved)
+            }
         }
     }
     
@@ -109,7 +117,15 @@ open class Button: UIButton, Pulseable, PulseableLayer {
     open var title: String? {
         didSet {
             setTitle(title, for: .normal)
+            setTitle(title, for: .selected)
             setTitle(title, for: .highlighted)
+            setTitle(title, for: .disabled)
+            
+            if #available(iOS 9, *) {
+                setTitle(title, for: .application)
+                setTitle(title, for: .focused)
+                setTitle(title, for: .reserved)
+            }
             
             guard nil != title else {
                 return
@@ -129,6 +145,17 @@ open class Button: UIButton, Pulseable, PulseableLayer {
         didSet {
             setTitleColor(titleColor, for: .normal)
             setTitleColor(titleColor, for: .highlighted)
+            setTitleColor(titleColor, for: .disabled)
+            
+            if nil == selectedTitleColor {
+                setTitleColor(titleColor, for: .selected)
+            }
+            
+            if #available(iOS 9, *) {
+                setTitleColor(titleColor, for: .application)
+                setTitleColor(titleColor, for: .focused)
+                setTitleColor(titleColor, for: .reserved)
+            }
         }
     }
 
