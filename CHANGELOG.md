@@ -1,3 +1,8 @@
+## 2.12.14
+
+* [samples issue-95](https://github.com/CosmicMind/Samples/issues/95): Fixed TabBar image colors that were not correctly being set for a given state.
+* Fixed layout issue, where the calculation of the layout item was not being set in the current render cycle.
+
 ## 2.12.13
 
 * Fixed issue where sizing of pulse was incorrectly animating when using the NavigationController on iOS 11.
