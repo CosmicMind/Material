@@ -1,3 +1,7 @@
+## 2.12.15
+
+* [issue-957](https://github.com/CosmicMind/Material/issues/957): Fixed StatusBar height issue in iOS 9 and iOS 10. 
+
 ## 2.12.14
 
 * [samples issue-95](https://github.com/CosmicMind/Samples/issues/95): Fixed TabBar image colors that were not correctly being set for a given state.

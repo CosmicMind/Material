@@ -97,6 +97,8 @@ open class StatusBarController: TransitionController {
         if #available(iOS 11, *) {
             let v = topLayoutGuide.length
             statusBar.frame.size.height = 0 < v ? v : 20
+        } else {
+            statusBar.frame.size.height = 20
         }
         
         switch displayStyle {
