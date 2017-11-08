@@ -41,7 +41,7 @@ public enum TabBarAlignment: Int {
 
 extension UIViewController {
     /// tabItem reference.
-    public private(set) var tabItem: TabItem {
+    @objc open private(set) var tabItem: TabItem {
         get {
             return AssociatedObject.get(base: self, key: &TabItemKey) {
                 return TabItem()
