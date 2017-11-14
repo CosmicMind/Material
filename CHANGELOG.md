@@ -1,3 +1,7 @@
+## 2.12.16
+
+* [issue-965](https://github.com/CosmicMind/Material/issues/965): Removed duplicate `prepare` call in initializer.
+
 ## 2.12.15
 
 * [issue-957](https://github.com/CosmicMind/Material/issues/957): Fixed StatusBar height issue in iOS 9 and iOS 10. 
