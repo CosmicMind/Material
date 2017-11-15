@@ -1,6 +1,8 @@
 ## 2.12.16
 
 * [issue-965](https://github.com/CosmicMind/Material/issues/965): Removed duplicate `prepare` call in initializer.
+* Rework of Layout's internal process - removed an async call to layout views.
+* Updated the layout calls for FABMenu's fabButton.
 
 ## 2.12.15
 

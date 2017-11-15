@@ -316,7 +316,9 @@ open class FABMenu: View {
     
     open override func layoutSubviews() {
         super.layoutSubviews()
-        fabButton?.frame.size = bounds.size
+        fabButton?.frame = bounds
+        fabButton?.setNeedsLayout()
+        fabButton?.layoutIfNeeded()
         spring.baseSize = bounds.size
     }
     

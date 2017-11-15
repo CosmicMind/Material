@@ -639,13 +639,6 @@ fileprivate extension Layout {
         view.updateConstraints()
         view.setNeedsLayout()
         view.layoutIfNeeded()
-        
-        Motion.async {
-            view.updateConstraintsIfNeeded()
-            view.updateConstraints()
-            view.setNeedsLayout()
-            view.layoutIfNeeded()
-        }
     }
     
     /**
