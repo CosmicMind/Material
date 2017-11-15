@@ -201,7 +201,6 @@ open class Button: UIButton, Pulseable, PulseableLayer {
     public convenience init(image: UIImage?, tintColor: UIColor = Color.blue.base) {
         self.init()
         prepare(with: image, tintColor: tintColor)
-        prepare()
     }
     
     /**
@@ -212,7 +211,6 @@ open class Button: UIButton, Pulseable, PulseableLayer {
     public convenience init(title: String?, titleColor: UIColor = Color.blue.base) {
         self.init()
         prepare(with: title, titleColor: titleColor)
-        prepare()
     }
 	
     open override func layoutSubviews() {
