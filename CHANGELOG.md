@@ -1,3 +1,7 @@
+## 2.12.17
+
+* [pr-979](https://github.com/CosmicMind/Material/pull/979): Added `visibilityOdd` icon and updated `TextField` to utilize it.
+
 ## 2.12.16
 
 * [issue-965](https://github.com/CosmicMind/Material/issues/965): Removed duplicate `prepare` call in initializer.
