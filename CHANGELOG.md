@@ -1,6 +1,6 @@
 ## 2.12.17
 
-* [pr-979](https://github.com/CosmicMind/Material/pull/979): Added `visibilityOdd` icon and updated `TextField` to utilize it.
+* [pr-979](https://github.com/CosmicMind/Material/pull/979): Added `visibilityOff` icon and updated `TextField` to utilize it.
 
 ## 2.12.16
 
