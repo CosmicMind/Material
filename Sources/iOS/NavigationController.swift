@@ -173,6 +173,14 @@ extension NavigationController: UINavigationBarDelegate {
         return true
     }
     
+    public func navigationBar(_ navigationBar: UINavigationBar, didPop item: UINavigationItem) {
+        if let index = item.leftViews.index(of: item.backButton) {
+            item.leftViews.remove(at: index)
+        }
+        
+        item.backButton.removeTarget(self, action: #selector(handle(backButton:)), for: .touchUpInside)
+    }
+    
     /// Handler for the backbutton.
     @objc
     internal func handle(backButton: UIButton) {

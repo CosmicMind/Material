@@ -3,6 +3,7 @@
 * [pr-979](https://github.com/CosmicMind/Material/pull/979): Added `visibilityOff` icon and updated `TextField` to utilize it.
 * [issue-982](https://github.com/CosmicMind/Material/issues/982): Updated Icon let declarations to var declarations to allow custom icon sets. 
 * [issue-980](https://github.com/CosmicMind/Material/issues/980): Added `@objc` to extension properties in Material+UIView.
+* [issue-650](https://github.com/CosmicMind/Material/issues/650): Fixed issue where `NavigationBar.backButton` would incorrectly be laid out when caching view controllers.
 
 ## 2.12.16
 
