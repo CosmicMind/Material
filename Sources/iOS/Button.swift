@@ -187,20 +187,21 @@ open class Button: UIButton, Pulseable, PulseableLayer {
         tintColor = Color.blue.base
 		prepare()
 	}
-	
-	/// A convenience initializer.
-	public convenience init() {
-		self.init(frame: .zero)
-	}
     
+    /// A convenience initializer.
+    public convenience init() {
+        self.init(frame: .zero)
+    }
+	
     /**
      A convenience initializer that acceps an image and tint
      - Parameter image: A UIImage.
      - Parameter tintColor: A UI
      */
-    public convenience init(image: UIImage?, tintColor: UIColor = Color.blue.base) {
-        self.init()
+    public init(image: UIImage?, tintColor: UIColor = Color.blue.base) {
+        super.init(frame: .zero)
         prepare(with: image, tintColor: tintColor)
+        prepare()
     }
     
     /**
@@ -208,9 +209,10 @@ open class Button: UIButton, Pulseable, PulseableLayer {
      - Parameter title: A String.
      - Parameter titleColor: A UI
      */
-    public convenience init(title: String?, titleColor: UIColor = Color.blue.base) {
-        self.init()
+    public init(title: String?, titleColor: UIColor = Color.blue.base) {
+        super.init(frame: .zero)
         prepare(with: title, titleColor: titleColor)
+        prepare()
     }
 	
     open override func layoutSubviews() {
