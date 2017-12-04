@@ -425,6 +425,7 @@ open class TextField: UITextField {
     }
 
     /// EdgeInsets for text.
+    @objc
     open var textInset: CGFloat = 0
 
     open override func textRect(forBounds bounds: CGRect) -> CGRect {
