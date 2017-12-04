@@ -114,16 +114,14 @@ open class CollectionView: UICollectionView {
      - Parameter frame: A CGRect defining the view's frame.
      */
 	public init(frame: CGRect) {
-        let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 100, height: 100)
-		super.init(frame: frame, collectionViewLayout: layout)
+        let layout = CollectionViewLayout()
+        super.init(frame: frame, collectionViewLayout: layout)
         prepare()
     }
 	
 	/// A convenience initializer that initializes the object.
 	public init() {
-        let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 100, height: 100)
+        let layout = CollectionViewLayout()
         super.init(frame: .zero, collectionViewLayout: layout)
         prepare()
 	}

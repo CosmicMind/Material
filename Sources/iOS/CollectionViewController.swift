@@ -99,7 +99,7 @@ extension CollectionViewController {
     fileprivate func prepareCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
-        view.addSubview(collectionView)
+        view.layout(collectionView).edges()
     }
 }
 

@@ -1,3 +1,7 @@
+## 2.12.18
+
+* Fixed layout issues in CollectionView, where the sizing was not correctlly being initialized.
+
 ## 2.12.17
 
 * [pr-979](https://github.com/CosmicMind/Material/pull/979): Added `visibilityOff` icon and updated `TextField` to utilize it.

@@ -149,7 +149,7 @@ extension CollectionViewLayout {
     open override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
         let dataSourceItem = dataSourceItems![indexPath.item]
-        
+
         if 0 < itemSize.width && 0 < itemSize.height {
             attributes.frame = CGRect(x: offset.x, y: offset.y, width: itemSize.width - contentEdgeInsets.left - contentEdgeInsets.right, height: itemSize.height - contentEdgeInsets.top - contentEdgeInsets.bottom)
         } else if .vertical == scrollDirection {
@@ -157,6 +157,7 @@ extension CollectionViewLayout {
                 attributes.frame = CGRect(x: contentEdgeInsets.left, y: offset.y, width: collectionView!.bounds.width - contentEdgeInsets.left - contentEdgeInsets.right, height: h)
             
             } else if let v = dataSourceItem.data as? UIView, 0 < v.bounds.height {
+                v.updateConstraintsIfNeeded()
                 v.updateConstraints()
                 v.setNeedsLayout()
                 v.layoutIfNeeded()
@@ -171,6 +172,7 @@ extension CollectionViewLayout {
                 attributes.frame = CGRect(x: offset.x, y: contentEdgeInsets.top, width: w, height: collectionView!.bounds.height - contentEdgeInsets.top - contentEdgeInsets.bottom)
             
             } else if let v = dataSourceItem.data as? UIView, 0 < v.bounds.width {
+                v.updateConstraintsIfNeeded()
                 v.updateConstraints()
                 v.setNeedsLayout()
                 v.layoutIfNeeded()
