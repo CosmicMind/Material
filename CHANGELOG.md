@@ -1,3 +1,7 @@
+## 2.12.19
+
+* [issue-997](https://github.com/CosmicMind/Material/issues/977): Fixed NavigationDrawerController where swiping off device caused a partial correct state.
+
 ## 2.12.18
 
 * Fixed layout issues in CollectionView, where the sizing was not correctlly being initialized.
