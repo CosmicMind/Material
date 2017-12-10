@@ -635,8 +635,8 @@ fileprivate extension Layout {
      - Parameter for view: A UIView.
      */
     class func updateConstraints(for view: UIView) {
+        view.setNeedsUpdateConstraints()
         view.updateConstraintsIfNeeded()
-        view.updateConstraints()
         view.setNeedsLayout()
         view.layoutIfNeeded()
     }

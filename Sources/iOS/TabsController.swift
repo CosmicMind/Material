@@ -216,12 +216,12 @@ fileprivate extension TabsController {
             delegate?.tabsController?(tabsController: self, willSelect: viewController)
         }
 
-        super.transition(to: viewController) { [weak self, viewController = viewController, completion = completion] (isFinished) in
+        super.transition(to: viewController) { [weak self, viewController = viewController, completion = completion] (isFinishing) in
             guard let s = self else {
                 return
             }
             
-            completion?(isFinished)
+            completion?(isFinishing)
 
             if isTriggeredByUserInteraction {
                 s.delegate?.tabsController?(tabsController: s, didSelect: viewController)
@@ -331,8 +331,8 @@ extension TabsController {
 
             s.tabBar.select(at: index)
 
-            s.transition(to: s.viewControllers[index], isTriggeredByUserInteraction: false) { [weak self] (isFinished) in
-                guard isFinished else {
+            s.transition(to: s.viewControllers[index], isTriggeredByUserInteraction: false) { [weak self] (isFinishing) in
+                guard isFinishing else {
                     return
                 }
 
@@ -361,8 +361,8 @@ extension TabsController: TabBarDelegate, _TabBarDelegate {
             return
         }
 
-        transition(to: viewControllers[i], isTriggeredByUserInteraction: true) { [weak self] (isFinished) in
-            guard isFinished else {
+        transition(to: viewControllers[i], isTriggeredByUserInteraction: true) { [weak self] (isFinishing) in
+            guard isFinishing else {
                 return
             }
 

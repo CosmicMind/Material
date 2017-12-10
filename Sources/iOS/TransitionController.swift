@@ -159,14 +159,14 @@ open class TransitionController: UIViewController {
         }
         
         view.isUserInteractionEnabled = false
-        Motion.shared.transition(from: rootViewController, to: viewController, in: container) { [weak self, viewController = viewController, completion = completion] (isFinished) in
+        Motion.shared.transition(from: rootViewController, to: viewController, in: container) { [weak self, viewController = viewController, completion = completion] (isFinishing) in
             guard let s = self else {
                 return
             }
             
             s.rootViewController = viewController
             s.view.isUserInteractionEnabled = true
-            completion?(isFinished)
+            completion?(isFinishing)
         }
     }
     

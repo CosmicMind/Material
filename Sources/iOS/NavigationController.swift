@@ -29,6 +29,7 @@
  */
 
 import UIKit
+import Motion
 
 extension NavigationController {
     /// Device status bar style.
@@ -137,7 +138,7 @@ open class NavigationController: UINavigationController {
     /// Calls the layout functions for the view heirarchy.
     open func layoutSubviews() {
         navigationBar.setNeedsUpdateConstraints()
-        navigationBar.updateConstraints()
+        navigationBar.updateConstraintsIfNeeded()
         navigationBar.setNeedsLayout()
         navigationBar.layoutIfNeeded()
     }
@@ -180,10 +181,12 @@ extension NavigationController: UINavigationBarDelegate {
         
         item.backButton.removeTarget(self, action: #selector(handle(backButton:)), for: .touchUpInside)
     }
-    
+}
+
+internal extension NavigationController {
     /// Handler for the backbutton.
     @objc
-    internal func handle(backButton: UIButton) {
+    func handle(backButton: UIButton) {
         popViewController(animated: true)
     }
 }
