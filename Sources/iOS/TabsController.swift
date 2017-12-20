@@ -206,7 +206,7 @@ fileprivate extension TabsController {
         case .auto:
             switch viewController.motionTransitionType {
             case .auto:
-                Motion.shared.setAnimationForNextTransition(fvcIndex < tvcIndex ? .slide(direction: .left) : .slide(direction: .right))
+                MotionTransition.shared.setAnimationForNextTransition(fvcIndex < tvcIndex ? .slide(direction: .left) : .slide(direction: .right))
             default:break
             }
         default:break

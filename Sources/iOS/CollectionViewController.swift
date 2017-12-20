@@ -47,14 +47,7 @@ extension UIViewController {
      through child UIViewControllers.
      */
     public var collectionViewController: CollectionViewController? {
-        var viewController: UIViewController? = self
-        while nil != viewController {
-            if viewController is CollectionViewController {
-                return viewController as? CollectionViewController
-            }
-            viewController = viewController?.parent
-        }
-        return nil
+        return traverseViewControllerHierarchyForClassType()
     }
 }
 
