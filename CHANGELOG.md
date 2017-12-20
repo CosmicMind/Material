@@ -1,3 +1,7 @@
+## 2.13.0
+
+* Updated to [Motion 1.3.0](https://github.com/CosmicMind/Motion/releases/tag/1.3.0). 
+
 ## 2.12.19
 
 * [issue-997](https://github.com/CosmicMind/Material/issues/977): Fixed NavigationDrawerController where swiping off device caused a partial correct state.
