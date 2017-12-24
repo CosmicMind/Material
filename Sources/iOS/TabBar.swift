@@ -367,7 +367,6 @@ fileprivate extension TabBar {
                 w += p
                 
                 if scrollView != v.superview {
-                    v.removeFromSuperview()
                     scrollView.addSubview(v)
                 }
             }

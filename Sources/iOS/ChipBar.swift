@@ -292,7 +292,6 @@ fileprivate extension ChipBar {
                 w += p
                 
                 if scrollView != v.superview {
-                    v.removeFromSuperview()
                     scrollView.addSubview(v)
                 }
             }

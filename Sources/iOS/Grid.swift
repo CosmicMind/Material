@@ -200,7 +200,6 @@ public struct Grid {
         
         for v in views {
             if canvas != v.superview {
-                v.removeFromSuperview()
                 canvas.addSubview(v)
             }
         }
