@@ -174,6 +174,9 @@
 		96E3C39A1D3A1CC20086A024 /* ErrorTextField.swift in Headers */ = {isa = PBXBuildFile; fileRef = 961F18E71CD93E3E008927C5 /* ErrorTextField.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96E3C39C1D3A1CC20086A024 /* Offset.swift in Headers */ = {isa = PBXBuildFile; fileRef = 968C99461D377849000074FF /* Offset.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96F1A5531F24F17A001D8CAF /* TabsController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96E09DC71F2287E50000B121 /* TabsController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		9DE84D721FF0252600586C8B /* RadioButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE84D6F1FF0252500586C8B /* RadioButtonGroup.swift */; };
+		9DE84D731FF0252600586C8B /* BaseButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE84D701FF0252500586C8B /* BaseButtonGroup.swift */; };
+		9DE84D741FF0252600586C8B /* CheckButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE84D711FF0252500586C8B /* CheckButtonGroup.swift */; };
 		9DF352421FED20C900B2A11B /* BaseIconLayerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF352411FED20C900B2A11B /* BaseIconLayerButton.swift */; };
 		9DF352441FED20ED00B2A11B /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF352431FED20ED00B2A11B /* RadioButton.swift */; };
 		9DF352461FED210000B2A11B /* CheckButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF352451FED210000B2A11B /* CheckButton.swift */; };
@@ -288,6 +291,9 @@
 		96E09DC71F2287E50000B121 /* TabsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabsController.swift; sourceTree = "<group>"; };
 		96E3C3931D397AE90086A024 /* Material+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIView.swift"; sourceTree = "<group>"; };
 		96F1DC871D654FDF0025F925 /* Material+CALayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+CALayer.swift"; sourceTree = "<group>"; };
+		9DE84D6F1FF0252500586C8B /* RadioButtonGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioButtonGroup.swift; sourceTree = "<group>"; };
+		9DE84D701FF0252500586C8B /* BaseButtonGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseButtonGroup.swift; sourceTree = "<group>"; };
+		9DE84D711FF0252500586C8B /* CheckButtonGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckButtonGroup.swift; sourceTree = "<group>"; };
 		9DF352411FED20C900B2A11B /* BaseIconLayerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseIconLayerButton.swift; sourceTree = "<group>"; };
 		9DF352431FED20ED00B2A11B /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
 		9DF352451FED210000B2A11B /* CheckButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckButton.swift; sourceTree = "<group>"; };
@@ -523,6 +529,7 @@
 				96264BE41D833C8400576F37 /* Bar */,
 				962DDD081D6FBBD0001C307C /* BottomTabBar */,
 				96BCB8031CB40F4B00C806FE /* Button */,
+				9DE84D6E1FF0250E00586C8B /* ButtonGroup */,
 				96BCB8021CB40F3B00C806FE /* Card */,
 				961154CA1F32999000A78D74 /* Chip */,
 				96BCB8051CB40F9C00C806FE /* Collection */,
@@ -738,6 +745,16 @@
 			name = Animation;
 			sourceTree = "<group>";
 		};
+		9DE84D6E1FF0250E00586C8B /* ButtonGroup */ = {
+			isa = PBXGroup;
+			children = (
+				9DE84D701FF0252500586C8B /* BaseButtonGroup.swift */,
+				9DE84D6F1FF0252500586C8B /* RadioButtonGroup.swift */,
+				9DE84D711FF0252500586C8B /* CheckButtonGroup.swift */,
+			);
+			name = ButtonGroup;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -948,6 +965,7 @@
 				965E81181DD4D5C800D61E4B /* Snackbar.swift in Sources */,
 				965E81191DD4D5C800D61E4B /* SnackbarController.swift in Sources */,
 				9618006D1F4D384200CD77A1 /* Material+UIViewController.swift in Sources */,
+				9DE84D741FF0252600586C8B /* CheckButtonGroup.swift in Sources */,
 				965E811A1DD4D5C800D61E4B /* StatusBarController.swift in Sources */,
 				965E811B1DD4D5C800D61E4B /* Switch.swift in Sources */,
 				965E811C1DD4D5C800D61E4B /* TabBar.swift in Sources */,
@@ -959,6 +977,7 @@
 				965E80E71DD4C55200D61E4B /* Material+UIView.swift in Sources */,
 				965E80E81DD4C55200D61E4B /* Material+CALayer.swift in Sources */,
 				965E80E91DD4C55200D61E4B /* Material+String.swift in Sources */,
+				9DE84D731FF0252600586C8B /* BaseButtonGroup.swift in Sources */,
 				965E80F71DD4D59500D61E4B /* Card.swift in Sources */,
 				965E80EA1DD4C55200D61E4B /* Material+UIFont.swift in Sources */,
 				965E80EB1DD4C55200D61E4B /* Material+UIImage.swift in Sources */,
@@ -969,6 +988,7 @@
 				9DF352421FED20C900B2A11B /* BaseIconLayerButton.swift in Sources */,
 				966C17731F0439F600D3E83C /* Material+MotionAnimation.swift in Sources */,
 				965E80E51DD4C53300D61E4B /* PulseAnimation.swift in Sources */,
+				9DE84D721FF0252600586C8B /* RadioButtonGroup.swift in Sources */,
 				965E80FE1DD4D59500D61E4B /* ToolbarController.swift in Sources */,
 				96328B971E05C0BB009A4C90 /* TableView.swift in Sources */,
 				965E80F81DD4D59500D61E4B /* ImageCard.swift in Sources */,
