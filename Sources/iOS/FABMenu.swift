@@ -227,6 +227,7 @@ open class FABMenu: View {
             }
             
             addSubview(v)
+            
             v.addTarget(self, action: #selector(handleFABButton(button:)), for: .touchUpInside)
         }
     }

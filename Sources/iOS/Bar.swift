@@ -110,9 +110,10 @@ open class Bar: View {
     /// Left side UIViews.
     open var leftViews = [UIView]() {
         didSet {
-            for v in oldValue {
-                v.removeFromSuperview()
+            oldValue.forEach {
+                $0.removeFromSuperview()
             }
+            
             layoutSubviews()
         }
     }
@@ -120,9 +121,10 @@ open class Bar: View {
     /// Right side UIViews.
     open var rightViews = [UIView]() {
         didSet {
-            for v in oldValue {
-                v.removeFromSuperview()
+            oldValue.forEach {
+                $0.removeFromSuperview()
             }
+            
             layoutSubviews()
         }
     }

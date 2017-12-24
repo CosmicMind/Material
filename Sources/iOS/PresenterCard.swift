@@ -51,10 +51,12 @@ open class PresenterCard: Card {
     open var presenterView: UIView? {
         didSet {
             oldValue?.removeFromSuperview()
+            
             if let v = presenterView {
                 v.clipsToBounds = true
                 container.addSubview(v)
             }
+            
             layoutSubviews()
         }
     }

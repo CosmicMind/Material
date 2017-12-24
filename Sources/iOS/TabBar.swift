@@ -212,12 +212,11 @@ open class TabBar: Bar {
     @objc
     open var tabItems = [TabItem]() {
         didSet {
-            for b in oldValue {
-                b.removeFromSuperview()
+            oldValue.forEach {
+                $0.removeFromSuperview()
             }
             
             prepareTabItems()
-            
             layoutSubviews()
         }
     }

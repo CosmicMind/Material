@@ -69,9 +69,11 @@ open class Card: PulseView {
     open var toolbar: Toolbar? {
         didSet {
             oldValue?.removeFromSuperview()
+            
             if let v = toolbar {
                 container.addSubview(v)
             }
+            
             layoutSubviews()
         }
     }
@@ -96,10 +98,12 @@ open class Card: PulseView {
     open var contentView: UIView? {
         didSet {
             oldValue?.removeFromSuperview()
+            
             if let v = contentView {
                 v.clipsToBounds = true
                 container.addSubview(v)
             }
+            
             layoutSubviews()
         }
     }
@@ -124,9 +128,11 @@ open class Card: PulseView {
     open var bottomBar: Bar? {
         didSet {
             oldValue?.removeFromSuperview()
+            
             if let v = bottomBar {
                 container.addSubview(v)
             }
+            
             layoutSubviews()
         }
     }

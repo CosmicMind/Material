@@ -62,9 +62,11 @@ open class ImageCard: Card {
     open var imageView: UIImageView? {
         didSet {
             oldValue?.removeFromSuperview()
+            
             if let v = imageView {
                 container.addSubview(v)
             }
+            
             layoutSubviews()
         }
     }
