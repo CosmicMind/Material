@@ -33,7 +33,12 @@ open class CheckButton: BaseIconLayerButton {
 }
 
 internal class CheckBoxLayer: BaseIconLayer {
-    var checkmarkColor: UIColor = .white
+    var checkmarkColor: UIColor = .white {
+        didSet {
+            checkMarkLeftLayer.strokeColor = checkmarkColor.cgColor
+            checkMarkRightLayer.strokeColor = checkmarkColor.cgColor
+        }
+    }
     let borderLayer = CALayer()
     let checkMarkLeftLayer = CAShapeLayer()
     let checkMarkRightLayer = CAShapeLayer()
