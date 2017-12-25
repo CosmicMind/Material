@@ -48,6 +48,7 @@ internal class CheckBoxLayer: BaseIconLayer {
         didSet {
             guard isSelected else { return }
             borderLayer.borderColor = selectedColor.cgColor
+            borderLayer.backgroundColor = selectedColor.cgColor
         }
     }
     
