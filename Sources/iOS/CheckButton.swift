@@ -66,6 +66,9 @@ internal class CheckBoxLayer: BaseIconLayer {
         checkMarkLayer.addSublayer(checkMarkRightLayer)
         checkMarkLeftLayer.lineCap = kCALineCapSquare
         checkMarkRightLayer.lineCap = kCALineCapSquare
+        checkMarkLeftLayer.strokeEnd = 0
+        checkMarkRightLayer.strokeEnd = 0
+        checkmarkColor = { checkmarkColor }() // calling didSet
     }
     
     override func prepareForFirstAnimation() {
@@ -103,16 +106,6 @@ internal class CheckBoxLayer: BaseIconLayer {
             
             checkMarkLayer.opacity = 0
             checkMarkLayer.animate(#keyPath(CALayer.opacity), to: 1, dur: totalDuration * 0.1)
-            
-            checkMarkLeftLayer.strokeColor = checkmarkColor.cgColor
-            checkMarkRightLayer.strokeColor = checkmarkColor.cgColor
-            checkMarkLeftLayer.path = checkMarkPathLeft.cgPath
-            checkMarkRightLayer.path = checkMarkPathRigth.cgPath
-            checkMarkLeftLayer.lineWidth = lineWidth
-            checkMarkRightLayer.lineWidth = lineWidth
-            
-            checkMarkLeftLayer.strokeEnd = 0
-            checkMarkRightLayer.strokeEnd = 0
         } else {
             borderLayer.borderWidth = borderLayerCenterDotBorderWidth
         }
@@ -133,10 +126,16 @@ internal class CheckBoxLayer: BaseIconLayer {
         super.layoutSublayers()
         guard !isAnimating else { return }
         
-        borderLayer.frame.size = CGSize(width: sideLength, height: sideLength)
-        checkMarkLayer.frame.size = borderLayer.frame.size
-        checkMarkLeftLayer.frame.size = borderLayer.frame.size
-        checkMarkRightLayer.frame.size = borderLayer.frame.size
+        let s = CGSize(width: sideLength, height: sideLength)
+        borderLayer.frame.size = s
+        checkMarkLayer.frame.size = s
+        checkMarkLeftLayer.frame.size = s
+        checkMarkRightLayer.frame.size = s
+        
+        checkMarkLeftLayer.path = checkMarkPathLeft.cgPath
+        checkMarkRightLayer.path = checkMarkPathRigth.cgPath
+        checkMarkLeftLayer.lineWidth = lineWidth
+        checkMarkRightLayer.lineWidth = lineWidth
         
         borderLayer.borderWidth = borderLayerNormalBorderWidth
         borderLayer.cornerRadius = borderLayerCornerRadius
