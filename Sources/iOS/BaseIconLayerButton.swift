@@ -20,21 +20,35 @@ open class BaseIconLayerButton: Button {
         }
     }
     
-    open var normalIconColor: UIColor {
-        get {
-            return iconLayer.normalColor
-        }
-        set {
-            iconLayer.normalColor = newValue
+    open override var isEnabled: Bool {
+        didSet {
+            iconLayer.isEnabled = isEnabled
         }
     }
     
-    open var selectedIconColor: UIColor {
-        get {
-            return iconLayer.selectedColor
+    open func setIconColor(_ color: UIColor, for state: UIControlState) {
+        switch state {
+        case .normal:
+            iconLayer.normalColor = color
+        case .selected:
+            iconLayer.selectedColor = color
+        case .disabled:
+            iconLayer.disabledColor = color
+        default:
+            fatalError("unsupported state")
         }
-        set {
-            iconLayer.selectedColor = newValue
+    }
+
+    open func iconColor(for state: UIControlState) -> UIColor {
+        switch state {
+        case .normal:
+            return iconLayer.normalColor
+        case .selected:
+            return iconLayer.selectedColor
+        case .disabled:
+            return iconLayer.disabledColor
+        default:
+            fatalError("unsupported state")
         }
     }
     
@@ -95,6 +109,7 @@ open class BaseIconLayerButton: Button {
 internal class BaseIconLayer: CALayer {
     var selectedColor = Color.blue.base
     var normalColor = Color.lightGray
+    var disabledColor = Color.gray
     
     
     func prepareForFirstAnimation() {}
@@ -103,8 +118,15 @@ internal class BaseIconLayer: CALayer {
     func prepareForSecondAnimation() {}
     func secondAnimation() {}
     
-    var isAnimating = false
-    var isSelected = false
+    private(set) var isAnimating = false
+    private(set) var isSelected = false
+    var isEnabled = true {
+        didSet {
+            selectedColor = { selectedColor }()
+            normalColor = { normalColor }()
+            disabledColor = { disabledColor }()
+        }
+    }
     
     override init() {
         super.init()
@@ -187,7 +209,7 @@ internal extension CALayer {
     func animate(_ keyPath: String, to: CGFloat, dur: TimeInterval = 0) {
         let animation = CABasicAnimation(keyPath: keyPath)
         animation.timingFunction = .easeIn
-        animation.fromValue = self.value(forKey: keyPath) // from current value
+        animation.fromValue = self.value(forKeyPath: keyPath) // from current value
         animation.duration = dur
         
         setValue(to, forKeyPath: keyPath)

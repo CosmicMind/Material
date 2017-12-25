@@ -29,7 +29,7 @@ internal class RadioBoxLayer: BaseIconLayer {
     
     override var selectedColor: UIColor {
         didSet {
-            guard isSelected else { return }
+            guard isSelected, isEnabled else { return }
             outerCircle.borderColor = selectedColor.cgColor
             centerDot.backgroundColor = selectedColor.cgColor
         }
@@ -37,12 +37,19 @@ internal class RadioBoxLayer: BaseIconLayer {
     
     override var normalColor: UIColor {
         didSet {
-            if !isSelected {
-                outerCircle.borderColor = normalColor.cgColor
-            }
+            guard !isSelected, isEnabled else { return }
+            outerCircle.borderColor = normalColor.cgColor
         }
     }
     
+    override var disabledColor: UIColor {
+        didSet {
+            guard !isEnabled else { return }
+            outerCircle.borderColor = disabledColor.cgColor
+            if isSelected { centerDot.backgroundColor = disabledColor.cgColor }
+        }
+    }
+        
     override func prepare() {
         super.prepare()
         addSublayer(centerDot)
@@ -50,9 +57,9 @@ internal class RadioBoxLayer: BaseIconLayer {
     }
     
     override func prepareForFirstAnimation() {
-        outerCircle.borderColor = (isSelected ? selectedColor : normalColor).cgColor
+        outerCircle.borderColor = (isEnabled ? (isSelected ? selectedColor : normalColor) : disabledColor).cgColor
         if !isSelected {
-            centerDot.backgroundColor = normalColor.cgColor
+            centerDot.backgroundColor = (isEnabled ? normalColor : disabledColor).cgColor
         }
         outerCircle.borderWidth = outerCircleBorderWidth
     }
@@ -68,7 +75,7 @@ internal class RadioBoxLayer: BaseIconLayer {
     
     override func prepareForSecondAnimation() {
         centerDot.transform = isSelected ? centerDotScaleForMeeting : .identity
-        centerDot.backgroundColor = (isSelected ? selectedColor : .clear).cgColor
+        centerDot.backgroundColor = (isSelected ? (isEnabled ? selectedColor : disabledColor) : .clear).cgColor
         outerCircle.borderWidth = isSelected ? outerCircleBorderWidth * percentageOfOuterCircleWidthToStart : outerCircleFullBorderWidth
     }
     

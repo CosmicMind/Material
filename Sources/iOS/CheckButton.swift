@@ -46,7 +46,7 @@ internal class CheckBoxLayer: BaseIconLayer {
     
     override var selectedColor: UIColor {
         didSet {
-            guard isSelected else { return }
+            guard isSelected, isEnabled else { return }
             borderLayer.borderColor = selectedColor.cgColor
             borderLayer.backgroundColor = selectedColor.cgColor
         }
@@ -54,11 +54,19 @@ internal class CheckBoxLayer: BaseIconLayer {
     
     override var normalColor: UIColor {
         didSet {
-            guard !isSelected else { return }
+            guard !isSelected, isEnabled else { return }
             borderLayer.borderColor = normalColor.cgColor
         }
     }
     
+    override var disabledColor: UIColor {
+        didSet {
+            guard !isEnabled else { return }
+            borderLayer.borderColor =  disabledColor.cgColor
+            if isSelected { borderLayer.backgroundColor = disabledColor.cgColor }
+        }
+    }
+        
     open override func prepare() {
         super.prepare()
         addSublayer(borderLayer)
@@ -73,11 +81,11 @@ internal class CheckBoxLayer: BaseIconLayer {
     }
     
     override func prepareForFirstAnimation() {
-        borderLayer.borderColor = (isSelected ? selectedColor : normalColor).cgColor
+        borderLayer.borderColor = (isEnabled ? (isSelected ? selectedColor : normalColor) : disabledColor).cgColor
         if isSelected {
             borderLayer.borderWidth = borderLayerNormalBorderWidth
         } else {
-            borderLayer.backgroundColor = normalColor.cgColor
+            borderLayer.backgroundColor = (isEnabled ? normalColor : disabledColor).cgColor
             checkMarkLeftLayer.strokeEnd = 1
             checkMarkRightLayer.strokeEnd = 1
         }
@@ -98,7 +106,7 @@ internal class CheckBoxLayer: BaseIconLayer {
     }
     
     override func prepareForSecondAnimation() {
-        borderLayer.backgroundColor = (isSelected ? selectedColor : .clear).cgColor
+        borderLayer.backgroundColor = (isSelected ? (isEnabled ? selectedColor : disabledColor) : .clear).cgColor
         
         if isSelected {
             borderLayer.borderWidth = borderLayerNormalBorderWidth
