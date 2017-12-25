@@ -6,7 +6,11 @@
 //  Copyright © 2017 CosmicMind, Inc. All rights reserved.
 //
 
+import UIKit
+
 open class BaseButtonGroup<T: Button>: View {
+    
+    /// Holds reference to buttons within the group.
     open var buttons: [T] = [] {
         didSet {
             oldValue.forEach {
@@ -19,6 +23,9 @@ open class BaseButtonGroup<T: Button>: View {
         }
     }
     
+    /// Initializes group with the provided buttons.
+    ///
+    /// - Parameter buttons: Array of buttons.
     public convenience init(buttons: [T]) {
         self.init(frame: .zero)
         defer { self.buttons = buttons } // defer allows didSet to be called

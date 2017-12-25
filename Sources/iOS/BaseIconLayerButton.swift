@@ -14,18 +14,28 @@ open class BaseIconLayerButton: Button {
     class var iconLayer: BaseIconLayer { fatalError("Has to be implemented by subclasses") }
     lazy var iconLayer: BaseIconLayer = { return type(of: self).iconLayer }()
     
+    /// A Boolean value indicating whether the button is in the selected state
+    ///
+    /// Use `setSelected(_:, animated:)` if the state change needs to be animated
     open override var isSelected: Bool {
         didSet {
             iconLayer.setSelected(isSelected, animated: false)
         }
     }
     
+    /// A Boolean value indicating whether the control is enabled.
     open override var isEnabled: Bool {
         didSet {
             iconLayer.isEnabled = isEnabled
         }
     }
     
+    
+    /// Sets the color of the icon to use for the specified state.
+    ///
+    /// - Parameters:
+    ///   - color: The color of the icon to use for the specified state.
+    ///   - state: The state that uses the specified color. Supports only (.normal, .selected, .disabled)
     open func setIconColor(_ color: UIColor, for state: UIControlState) {
         switch state {
         case .normal:
@@ -38,7 +48,11 @@ open class BaseIconLayerButton: Button {
             fatalError("unsupported state")
         }
     }
-
+    
+    /// Returns the icon color used for a state.
+    ///
+    /// - Parameter state: The state that uses the icon color. Supports only (.normal, .selected, .disabled)
+    /// - Returns: The color of the title for the specified state.
     open func iconColor(for state: UIControlState) -> UIColor {
         switch state {
         case .normal:
@@ -52,7 +66,15 @@ open class BaseIconLayerButton: Button {
         }
     }
     
+    /// A Boolean value indicating whether the button is being animated
     open var isAnimating: Bool { return iconLayer.isAnimating }
+    
+    
+    /// Sets the `selected` state of the button, optionally animating the transition.
+    ///
+    /// - Parameters:
+    ///   - isSelected: A Boolean value indicating new `selected` state
+    ///   - animated: true if the state change should be animated, otherwise false.
     open func setSelected(_ isSelected: Bool, animated: Bool) {
         guard !isAnimating else { return }
         iconLayer.setSelected(isSelected, animated: animated)
@@ -99,7 +121,7 @@ open class BaseIconLayerButton: Button {
         visualLayer.frame.center = iconLayer.frame.center
         visualLayer.cornerRadius = s / 2
     }
-
+    
     private let margin: CGFloat = 5
     private let iconSize: CGFloat = 16
 }

@@ -11,6 +11,7 @@ import UIKit
 open class CheckButton: BaseIconLayerButton {
     class override var iconLayer: BaseIconLayer { return CheckBoxLayer() }
     
+    /// Color of the checkmark (✓)
     open var checkmarkColor: UIColor {
         get {
             return (iconLayer as! CheckBoxLayer).checkmarkColor
