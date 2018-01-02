@@ -1,6 +1,6 @@
 ## 2.13.1
 
-* Updated to [Motino 1.3.1](https://github.com/CosmicMind/Motion/releases/tag/1.3.1). 
+* Updated to [Motion 1.3.1](https://github.com/CosmicMind/Motion/releases/tag/1.3.1). 
 
 ## 2.13.0
 
