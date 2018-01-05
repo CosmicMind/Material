@@ -1,3 +1,8 @@
+## 2.13.2
+
+* Updated to [Motion 1.3.2](https://github.com/CosmicMind/Motion/releases/tag/1.3.2).
+* Fixed unbalanced calls in Motion transitions.
+
 ## 2.13.1
 
 * Updated to [Motino 1.3.1](https://github.com/CosmicMind/Motion/releases/tag/1.3.1). 

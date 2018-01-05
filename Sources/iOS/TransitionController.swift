@@ -112,26 +112,6 @@ open class TransitionController: UIViewController {
         prepare()
     }
     
-    open override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        rootViewController.beginAppearanceTransition(true, animated: animated)
-    }
-    
-    open override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        rootViewController.endAppearanceTransition()
-    }
-    
-    open override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        rootViewController.beginAppearanceTransition(false, animated: animated)
-    }
-    
-    open override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        rootViewController.endAppearanceTransition()
-    }
-    
     open override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         layoutSubviews()
