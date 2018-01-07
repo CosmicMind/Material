@@ -120,7 +120,6 @@ open class NavigationController: UINavigationController {
      when subclassing.
      */
 	open func prepare() {
-        isMotionEnabled = true
         navigationBar.frame.size.width = view.bounds.width
         navigationBar.heightPreset = .normal
         

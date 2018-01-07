@@ -1,6 +1,8 @@
 ## 2.13.3
 
 * [issue-1015](https://github.com/CosmicMind/Material/issues/1015): Fixed regression where view lifecycle functions were not being called.
+* Motion disabled by default for NavigationController to avoid unbalanced calls to view lifecycle when presenting a NavigationController modally. 
+* Updated to [Motion 1.3.3](https://github.com/CosmicMind/Motion/releases/tag/1.3.3).
 
 ## 2.13.2
 
