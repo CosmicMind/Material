@@ -1,3 +1,7 @@
+## 2.13.3
+
+* [issue-1015](https://github.com/CosmicMind/Material/issues/1015): Fixed regression where view lifecycle functions were not being called.
+
 ## 2.13.2
 
 * Updated to [Motion 1.3.2](https://github.com/CosmicMind/Motion/releases/tag/1.3.2).

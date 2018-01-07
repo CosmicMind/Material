@@ -453,7 +453,31 @@ open class NavigationDrawerController: TransitionController {
         
         rootViewController.view.frame = container.bounds
 	}
-	
+    
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        leftViewController?.beginAppearanceTransition(true, animated: animated)
+        rightViewController?.beginAppearanceTransition(true, animated: animated)
+    }
+    
+    open override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        leftViewController?.endAppearanceTransition()
+        rightViewController?.endAppearanceTransition()
+    }
+    
+    open override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        leftViewController?.beginAppearanceTransition(false, animated: animated)
+        rightViewController?.beginAppearanceTransition(false, animated: animated)
+    }
+    
+    open override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        leftViewController?.endAppearanceTransition()
+        rightViewController?.endAppearanceTransition()
+    }
+    
     open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
 		// Ensures the view is isHidden.
