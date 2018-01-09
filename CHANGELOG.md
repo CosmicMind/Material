@@ -1,3 +1,7 @@
+## 2.13.4
+
+* [issue-1016](https://github.com/CosmicMind/Material/issues/1016): Updated hierarchy traversal for TransitionController types to no longer skip over non TransitionController types. 
+
 ## 2.13.3
 
 * [issue-1015](https://github.com/CosmicMind/Material/issues/1015): Fixed regression where view lifecycle functions were not being called.
