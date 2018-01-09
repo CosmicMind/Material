@@ -42,7 +42,8 @@ internal extension UIViewController {
             if v is T {
                 return v as? T
             }
-            v = v?.parent as? TransitionController
+            
+            v = v?.parent
         }
         
         return Application.rootViewController?.traverseTransitionViewControllerHierarchyForClassType()
@@ -55,6 +56,7 @@ internal extension UIViewController {
     func traverseTransitionViewControllerHierarchyForClassType<T: UIViewController>() -> T? {
         if let v = self as? T {
             return v
+            
         } else if let v = self as? TransitionController {
             return v.rootViewController.traverseTransitionViewControllerHierarchyForClassType()
         }
