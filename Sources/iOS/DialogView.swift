@@ -179,13 +179,12 @@ private extension DialogView {
     
     func layoutScrollView() {
         let h = titleArea.frame.height + buttonArea.frame.height
-        let allowed = min(maxSize.height - h, contentView.frame.height)
+        let allowed = min(frame.height - h, contentView.frame.height)
 
         scrollView.frame.size = CGSize(width: frame.width, height: max(allowed, 0))
         scrollView.frame.origin.y = titleArea.frame.maxY
 
         scrollView.contentSize = contentView.frame.size
-        
     }
     
     /// Lays out dividers
@@ -194,8 +193,8 @@ private extension DialogView {
     func layoutDividers() {
         let isScrollable = contentView.frame.height > scrollView.frame.height
         
-        titleArea.isDividerHidden = titleLabel.isEmpty || !isScrollable || scrollView.isAtTop
-        buttonArea.isDividerHidden =  nonHiddenButtons.isEmpty || !isScrollable || scrollView.isAtBottom
+        titleArea.isDividerHidden = titleArea.frame.height == 0 || !isScrollable || scrollView.isAtTop
+        buttonArea.isDividerHidden =  buttonArea.frame.height == 0 || !isScrollable || scrollView.isAtBottom
         
         titleArea.layoutDivider()
         buttonArea.layoutDivider()
