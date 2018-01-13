@@ -35,24 +35,23 @@ open class DialogBuilder<T: DialogView> {
         return self
     }
     
-    open func positiveButton(_ title: String?, handler: (() -> Void)?) -> DialogBuilder {
+    open func positive(_ title: String?, handler: (() -> Void)?) -> DialogBuilder {
         dialogView.positiveButton.title = title
         controller.positiveHandler = handler
         return self
     }
 
-    open func negativeButton(_ title: String?, handler: (() -> Void)?) -> DialogBuilder {
+    open func negative(_ title: String?, handler: (() -> Void)?) -> DialogBuilder {
         dialogView.negativeButton.title = title
         controller.negativeHandler = handler
         return self
     }
     
-    open func neutralButton(_ title: String?, handler: (() -> Void)?) -> DialogBuilder {
+    open func neutral(_ title: String?, handler: (() -> Void)?) -> DialogBuilder {
         dialogView.neutralButton.title = title
         controller.neutralHandler = handler
         return self
     }
-    
     
     @discardableResult
     open func show(_ vc: UIViewController) -> DialogBuilder {
