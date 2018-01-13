@@ -26,7 +26,7 @@ open class DialogBuilder<T: DialogView> {
     
     open func isCancelable(_ value: Bool, handler: (() -> Void)? = nil) -> DialogBuilder {
         controller.isCancelable = value
-        controller.canceledHandler = handler
+        controller.didCancelHandler = handler
         return self
     }
     
@@ -37,19 +37,19 @@ open class DialogBuilder<T: DialogView> {
     
     open func positive(_ title: String?, handler: (() -> Void)?) -> DialogBuilder {
         dialogView.positiveButton.title = title
-        controller.positiveHandler = handler
+        controller.didTapPositiveButtonHandler = handler
         return self
     }
 
     open func negative(_ title: String?, handler: (() -> Void)?) -> DialogBuilder {
         dialogView.negativeButton.title = title
-        controller.negativeHandler = handler
+        controller.didTapNegativeButtonHandler = handler
         return self
     }
     
     open func neutral(_ title: String?, handler: (() -> Void)?) -> DialogBuilder {
         dialogView.neutralButton.title = title
-        controller.neutralHandler = handler
+        controller.didTapNeutralButtonHandler = handler
         return self
     }
     

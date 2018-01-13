@@ -36,29 +36,29 @@ open class DialogController<T: DialogView>: UIViewController {
         dialogView.maxSize = CGSize(width: Screen.width * 0.8, height: Screen.height * 0.9)
     }
         
-    open var canceledHandler: (() -> Void)?
+    open var didCancelHandler: (() -> Void)?
     open var shouldDismissHandler: ((Button?) -> Bool)?
     
-    open var positiveHandler: (() -> Void)?
-    open var negativeHandler: (() -> Void)?
-    open var neutralHandler: (() -> Void)?
+    open var didTapPositiveButtonHandler: (() -> Void)?
+    open var didTapNegativeButtonHandler: (() -> Void)?
+    open var didTapNeutralButtonHandler: (() -> Void)?
     
     @objc
     private func didTapView() {
         guard isCancelable else { return }
         dismiss(nil)
-        canceledHandler?()
+        didCancelHandler?()
     }
     
     @objc
     private func didTapButton(_ sender: Button) {
         switch sender {
         case dialogView.positiveButton:
-            positiveHandler?()
+            didTapPositiveButtonHandler?()
         case dialogView.negativeButton:
-            negativeHandler?()
+            didTapNegativeButtonHandler?()
         case dialogView.neutralButton:
-            neutralHandler?()
+            didTapNeutralButtonHandler?()
         default:
             break
         }
