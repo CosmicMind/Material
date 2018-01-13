@@ -37,7 +37,7 @@ open class DialogController<T: DialogView>: UIViewController {
     }
         
     open var didCancelHandler: (() -> Void)?
-    open var shouldDismissHandler: ((Button?) -> Bool)?
+    open var shouldDismissHandler: ((T, Button?) -> Bool)?
     
     open var didTapPositiveButtonHandler: (() -> Void)?
     open var didTapNegativeButtonHandler: (() -> Void)?
@@ -66,7 +66,7 @@ open class DialogController<T: DialogView>: UIViewController {
     }
     
     open func dismiss(_ button: Button?) {
-        if shouldDismissHandler?(button) ?? true {
+        if shouldDismissHandler?(dialogView, button) ?? true {
             presentingViewController?.dismiss(animated: true, completion: nil)
         }
     }

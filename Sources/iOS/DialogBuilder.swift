@@ -30,7 +30,7 @@ open class DialogBuilder<T: DialogView> {
         return self
     }
     
-    open func shouldDismiss(handler: ((Button?) -> Bool)?) -> DialogBuilder {
+    open func shouldDismiss(handler: ((T, Button?) -> Bool)?) -> DialogBuilder {
         controller.shouldDismissHandler = handler
         return self
     }
