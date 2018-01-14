@@ -109,6 +109,18 @@ open class TabsController: TransitionController {
     /// The TabBar used to switch between view controllers.
     @IBInspectable
     open let tabBar = TabBar()
+    
+    
+    /// A value that decide viewcontrollers swipeable. default value is false
+    open var isSwipeEnabled: Bool = false {
+        didSet {
+            if isSwipeEnabled {
+                prepareSwipeGesture()
+            } else {
+                removeSwipeGesture()
+            }
+        }
+    }
 
     /// A delegation reference.
     open weak var delegate: TabsControllerDelegate?
@@ -337,6 +349,48 @@ extension TabsController {
                 }
 
                 self?.selectedIndex = index
+            }
+        }
+    }
+    
+    /**
+     Prepare Swipe Gesture.
+     */
+    fileprivate func prepareSwipeGesture() {
+        removeSwipeGesture()
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture(gesture:)))
+        swipeRight.direction = .right
+        self.view.addGestureRecognizer(swipeRight)
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture(gesture:)))
+        swipeLeft.direction = .left
+        self.view.addGestureRecognizer(swipeLeft)
+    }
+    
+    /**
+     Remove Swipe Gesture.
+     */
+    fileprivate func removeSwipeGesture() {
+        if self.view.gestureRecognizers != nil {
+            for gesture in self.view.gestureRecognizers! {
+                guard let swipeGesture = gesture as? UISwipeGestureRecognizer else { continue }
+                if swipeGesture.direction == .left || swipeGesture.direction == .right {
+                    self.view.removeGestureRecognizer(swipeGesture)
+                }
+            }
+        }
+    }
+    
+    @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            switch swipeGesture.direction {
+            case .right:
+                guard (selectedIndex - 1) >= 0 else { return }
+                select(at: selectedIndex - 1)
+            case .left:
+                guard (selectedIndex + 1) < viewControllers.count else { return }
+                select(at: selectedIndex + 1)
+            default:
+                break
             }
         }
     }
