@@ -306,6 +306,7 @@ private extension DialogView {
             buttonArea.addSubview($0)
             $0.titleLabel?.font = RobotoFont.medium(with: 14)
             $0.contentEdgeInsets = Constants.button.insets
+            $0.cornerRadiusPreset = .cornerRadius1
         }
     }
     
