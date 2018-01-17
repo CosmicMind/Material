@@ -83,8 +83,9 @@ open class DialogView: UIView {
         h += titleAreaSizeThatFits(width: w).height
         h += buttonAreaSizeThatFits(width: w).height
         h += contentViewSizeThatFits(width: w).height
+        h = min(h, size.height)
         
-        return CGSize(width: w, height: min(h, size.height))
+        return CGSize(width: w, height: h)
     }
     
     open override func layoutSubviews() {
@@ -103,9 +104,10 @@ open class DialogView: UIView {
     /// Override this if you are using custom view in title area
     open func titleAreaSizeThatFits(width: CGFloat) -> CGSize {
         guard !titleLabel.isEmpty else { return .zero }
-        var size = titleLabel.sizeThatFits(CGSize(width: width - 24 - 24, height: .greatestFiniteMagnitude))
-        size.width += 24 + 24
-        size.height += 24 + 20
+        let insets = Constants.titleArea.insets
+        var size = titleLabel.sizeThatFits(CGSize(width: width - insets.left - insets.right, height: .greatestFiniteMagnitude))
+        size.width += insets.left + insets.right
+        size.height += insets.top + insets.bottom
         return size
     }
     
@@ -113,18 +115,46 @@ open class DialogView: UIView {
         guard !nonHiddenButtons.isEmpty else { return .zero }
 
         let isStacked = requiredButtonAreaWidth > width
+        let buttonsHeight = Constants.button.height * CGFloat(isStacked ? nonHiddenButtons.count : 1)
+        let buttonsInterim = isStacked ? CGFloat(nonHiddenButtons.count - 1) * Constants.button.interimStacked : 0
+        let insets = isStacked ? Constants.buttonArea.insetsStacked : Constants.buttonArea.insets
+        let h = buttonsInterim + buttonsHeight + insets.bottom + insets.top
         let w = min(width, isStacked ? requiredButtonAreaWidthForStacked : requiredButtonAreaWidth)
-        let h = isStacked ? CGFloat(8 + nonHiddenButtons.count * 48) : 52
+        
         return CGSize(width: w, height: h)
     }
     
     open func contentViewSizeThatFits(width: CGFloat) -> CGSize {
         guard !detailsLabel.isEmpty else { return .zero }
-        var size = detailsLabel.sizeThatFits(CGSize(width: width - 24 - 24, height: .greatestFiniteMagnitude))
-        size.width += 24 + 24
-        let additional: CGFloat = titleLabel.isEmpty ? 20 : 0 // if no title area, will be pushed 20 points below
-        size.height += 24 + 0 + additional
+        let insets = titleLabel.isEmpty ? Constants.contentView.insetsNoTitle : Constants.contentView.insets
+        var size = detailsLabel.sizeThatFits(CGSize(width: width - insets.left - insets.right, height: .greatestFiniteMagnitude))
+        size.width += insets.left + insets.right
+        size.height += insets.top + insets.bottom
         return size
+    }
+}
+
+private struct Constants {
+    struct titleArea {
+        static let insets = UIEdgeInsets(top: 24, left: 24, bottom: 20, right: 24)
+    }
+    
+    struct contentView {
+        static let insets = UIEdgeInsets(top: 0, left: 24, bottom: 24, right: 24)
+        static let insetsNoTitle = UIEdgeInsets(top: 20, left: 24, bottom: 24, right: 24)
+    }
+    
+    struct buttonArea {
+        static let insets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+        static let insetsStacked = UIEdgeInsets(top: 6, left: 8, bottom: 14, right: 8)
+    }
+    
+    struct button {
+        static let insets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+        static let minWidth: CGFloat = 64
+        static let height: CGFloat = 36
+        static let interimStacked: CGFloat = 12
+        static let interim: CGFloat = 8
     }
 }
 
@@ -134,7 +164,8 @@ private extension DialogView {
         titleArea.frame.size = size
         
         guard !titleLabel.isEmpty else { return }
-        titleLabel.frame = CGRect(x: 24, y: 24, width: size.width - 24 - 24, height: size.height - 24 - 20)
+        let rect = CGRect(origin: .zero, size: size)
+        titleLabel.frame = UIEdgeInsetsInsetRect(rect, Constants.titleArea.insets)
     }
     
     func layoutButtonArea() {
@@ -147,25 +178,29 @@ private extension DialogView {
         
         let isStacked = requiredButtonAreaWidth > width
         if isStacked {
+            let insets = Constants.buttonArea.insetsStacked
             buttons.forEach {
-                let w = min($0.optimalWidth, width - 8 - 8)
-                $0.frame.size = CGSize(width: w, height: 36)
-                $0.frame.origin.x = width - 8 - w
+                let w = min($0.optimalWidth, width - insets.left - insets.right)
+                $0.frame.size = CGSize(width: w, height: Constants.button.height)
+                $0.frame.origin.x = width - insets.right - w
             }
             
-            positiveButton.frame.origin.y = 6
-            let belowPositive = positiveButton.isHidden ? 6 : positiveButton.frame.maxY + 6 + 6
+            positiveButton.frame.origin.y = insets.top
+            let belowPositive = positiveButton.isHidden ? insets.top : positiveButton.frame.maxY + Constants.button.interimStacked
             negativeButton.frame.origin.y = belowPositive
-            neutralButton.frame.origin.y = negativeButton.isHidden ? belowPositive : (negativeButton.frame.maxY + 6 + 6)
+            neutralButton.frame.origin.y = negativeButton.isHidden ? belowPositive : negativeButton.frame.maxY + Constants.button.interimStacked
         } else {
+            let insets = Constants.buttonArea.insets
             buttons.forEach {
-                $0.frame.size = CGSize(width: $0.optimalWidth, height: 36)
-                $0.frame.origin.y = 8
+                $0.frame.size = CGSize(width: $0.optimalWidth, height: Constants.button.height)
+                $0.frame.origin.y = insets.top
             }
 
-            neutralButton.frame.origin.x = 8
-            positiveButton.frame.origin.x = width - 8 - positiveButton.frame.width
-            negativeButton.frame.origin.x = (positiveButton.isHidden ? width : positiveButton.frame.minX) - 8 - negativeButton.frame.width
+            neutralButton.frame.origin.x = insets.left
+            positiveButton.frame.origin.x = width - insets.right - positiveButton.frame.width
+            
+            let maxX = positiveButton.isHidden ? width - insets.right : positiveButton.frame.minX - Constants.button.interim
+            negativeButton.frame.origin.x = maxX - negativeButton.frame.width
         }
     }
     
@@ -173,8 +208,9 @@ private extension DialogView {
         let size = CGSize(width: frame.width, height: contentViewSizeThatFits(width: frame.width).height)
         contentView.frame.size = size
         guard !detailsLabel.isEmpty else { return }
-        let additional: CGFloat = titleArea.frame.height == 0 ? 20 : 0 // if no title area, push 20 points below
-        detailsLabel.frame = CGRect(x: 24, y: additional, width: size.width - 24 - 24, height: size.height - 24)
+        let rect = CGRect(origin: .zero, size: size)
+        let insets = titleArea.frame.height == 0 ? Constants.contentView.insetsNoTitle : Constants.contentView.insets
+        detailsLabel.frame = UIEdgeInsetsInsetRect(rect, insets)
     }
     
     func layoutScrollView() {
@@ -204,7 +240,8 @@ private extension DialogView {
 
 private extension Button {
     var optimalWidth: CGFloat {
-        return max(64, sizeThatFits(CGSize(width: .max, height: 36)).width)
+        let size = CGSize(width: .greatestFiniteMagnitude, height: Constants.button.height)
+        return max(Constants.button.minWidth, sizeThatFits(size).width)
     }
 }
 
@@ -223,11 +260,13 @@ private extension DialogView {
     
         let buttonsWidth: CGFloat = buttons.reduce(0) { $0 + $1.optimalWidth }
         let additional: CGFloat = neutralButton.isHidden ? 0 : 8 // additional spacing for neutral button
-        return buttonsWidth + CGFloat(buttons.count * 8) + additional
+        let insets = Constants.buttonArea.insets
+        return buttonsWidth + insets.left + insets.right + CGFloat((buttons.count - 1)) * Constants.button.interim + additional
     }
     
     var requiredButtonAreaWidthForStacked: CGFloat {
-        return 8 + 8 + nonHiddenButtons.reduce(0) {
+        let insets = Constants.buttonArea.insetsStacked
+        return insets.left + insets.right + nonHiddenButtons.reduce(0) {
             max($0, $1.optimalWidth)
         }
     }
@@ -266,7 +305,7 @@ private extension DialogView {
         [positiveButton, negativeButton, neutralButton].forEach {
             buttonArea.addSubview($0)
             $0.titleLabel?.font = RobotoFont.medium(with: 14)
-            $0.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+            $0.contentEdgeInsets = Constants.button.insets
         }
     }
     
@@ -291,6 +330,7 @@ private extension UIScrollView {
     }
     
     var isAtBottom: Bool {
+        // - 1 is to get rid of precision errors which makes divider appear even when scroll is at bottom
         return contentOffset.y >= (contentSize.height - frame.height - 1)
     }
 }
