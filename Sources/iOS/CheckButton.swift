@@ -115,7 +115,7 @@ internal class CheckBoxLayer: BaseIconLayer {
             checkMarkRightLayer.strokeEnd = 0.0001
             
             checkMarkLayer.opacity = 0
-            checkMarkLayer.animate(#keyPath(CALayer.opacity), to: 1, dur: totalDuration * 0.1)
+            checkMarkLayer.animate(#keyPath(CALayer.opacity), to: 1, dur: Constants.totalDuration * 0.1)
         } else {
             borderLayer.borderWidth = borderLayerCenterDotBorderWidth
         }

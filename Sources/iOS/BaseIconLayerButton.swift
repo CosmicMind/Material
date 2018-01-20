@@ -12,7 +12,7 @@ import Motion
 /// Implements common logic for CheckButton and RadioButton
 open class BaseIconLayerButton: Button {
     class var iconLayer: BaseIconLayer { fatalError("Has to be implemented by subclasses") }
-    lazy var iconLayer: BaseIconLayer = { return type(of: self).iconLayer }()
+    lazy var iconLayer: BaseIconLayer = type(of: self).iconLayer
     
     /// A Boolean value indicating whether the button is in the selected state
     ///
@@ -185,15 +185,15 @@ internal class BaseIconLayer: CALayer {
         guard !isAnimating else { return }
         
         prepareForFirstAnimation()
-        Motion.animate(duration: partialDuration, timingFunction: .easeInOut, animations: {
+        Motion.animate(duration: Constants.partialDuration, timingFunction: .easeInOut, animations: {
             self.isAnimating = true
             self.firstAnimation()
         }, completion: {
             Motion.disable {
                 self.prepareForSecondAnimation()
             }
-            Motion.delay(self.partialDuration * self.delayFactor) {
-                Motion.animate(duration: self.partialDuration, timingFunction: .easeInOut, animations: {
+            Motion.delay(Constants.partialDuration * Constants.delayFactor) {
+                Motion.animate(duration: Constants.partialDuration, timingFunction: .easeInOut, animations: {
                     self.secondAnimation()
                 }, completion: { self.isAnimating = false })
             }
@@ -201,9 +201,12 @@ internal class BaseIconLayer: CALayer {
     }
     
     var sideLength: CGFloat { return frame.height }
-    let totalDuration = 0.5
-    private let delayFactor = 0.33
-    private var partialDuration: TimeInterval { return totalDuration / (1.0 + delayFactor + 1.0) }
+    
+    struct Constants {
+        static let totalDuration = 0.5
+        static let delayFactor = 0.33
+        static let partialDuration = totalDuration / (1.0 + delayFactor + 1.0)
+    }
 }
 
 // MARK: - Helper extension

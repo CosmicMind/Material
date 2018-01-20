@@ -12,7 +12,7 @@
 /// Checking one radio button that belongs to a radio group unchecks any previously checked
 /// radio button within the same group. Intially, all of the radio buttons are unchecked.
 ///
-/// The buttons are layout out by `Grid` system, so that changing properites of grid instance
+/// The buttons are laid out by `Grid` system, so that changing properites of grid instance
 /// (e.g interimSpace) are reflected.
 open class RadioButtonGroup: BaseButtonGroup<RadioButton> {
     

@@ -43,11 +43,12 @@ open class BaseButtonGroup<T: Button>: View {
     open override func sizeThatFits(_ size: CGSize) -> CGSize {
         let size = CGSize(width: size.width == 0 ? .greatestFiniteMagnitude : size.width, height: size.height == 0 ? .greatestFiniteMagnitude : size.height)
         let availableW = size.width - grid.contentEdgeInsets.left - grid.contentEdgeInsets.right - grid.layoutEdgeInsets.left - grid.layoutEdgeInsets.right
-        var maxW: CGFloat = 0
-        buttons.forEach { maxW = max(maxW, $0.sizeThatFits(.init(width: availableW, height: .greatestFiniteMagnitude)).width) }
+        let maxW = buttons.reduce(0) { max($0, $1.sizeThatFits(.init(width: availableW, height: .greatestFiniteMagnitude)).width) }
         
-        var h = grid.contentEdgeInsets.top + grid.contentEdgeInsets.bottom + grid.layoutEdgeInsets.top + grid.layoutEdgeInsets.bottom + CGFloat(buttons.count - 1) * grid.interimSpace
-        buttons.forEach { h += $0.sizeThatFits(.init(width: maxW, height: .greatestFiniteMagnitude)).height }
+        let h = buttons.reduce(0) { $0 + $1.sizeThatFits(.init(width: maxW, height: .greatestFiniteMagnitude)).height }
+            + grid.contentEdgeInsets.top + grid.contentEdgeInsets.bottom
+            + grid.layoutEdgeInsets.top + grid.layoutEdgeInsets.bottom
+            + CGFloat(buttons.count - 1) * grid.interimSpace
         
         return CGSize(width: maxW + grid.contentEdgeInsets.left + grid.contentEdgeInsets.right + grid.layoutEdgeInsets.left + grid.layoutEdgeInsets.right, height: min(h, size.height))
     }

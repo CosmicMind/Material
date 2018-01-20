@@ -11,7 +11,7 @@
 /// Unlike RadioButtonGroup, checking one check button that belongs to a check group *does not* unchecks any previously checked
 /// check button within the same group. Intially, all of the check buttons are unchecked.
 ///
-/// The buttons are layout out by `Grid` system, so that changing properites of grid instance
+/// The buttons are laid out by `Grid` system, so that changing properites of grid instance
 /// (e.g interimSpace) are reflected.
 open class CheckButtonGroup: BaseButtonGroup<CheckButton> {
     
