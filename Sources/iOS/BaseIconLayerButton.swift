@@ -84,13 +84,8 @@ open class BaseIconLayerButton: Button {
     open override func prepare() {
         super.prepare()
         layer.addSublayer(iconLayer)
-
-        // we push the title to the right to make room for iconLayer
-        // `contentEdgeInsets` is used to let default implementation of
-        // `intrinsicContentSize` consider our titleSpacing
-        let titleSpacing = (margin + iconSize + margin) / 2
-        titleEdgeInsets = UIEdgeInsets(top: 0, left: titleSpacing, bottom: 0, right: -titleSpacing)
-        contentEdgeInsets = UIEdgeInsets(top: margin, left: titleSpacing, bottom: margin, right: titleSpacing)
+        contentHorizontalAlignment = .left // default was .center
+        reloadImage()
     }
     
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -108,22 +103,62 @@ open class BaseIconLayerButton: Button {
         super.layoutSubviews()
         
         // positioning iconLayer
+        let insets = iconEdgeInsets
         iconLayer.frame.size = CGSize(width: iconSize, height: iconSize)
-        iconLayer.frame.origin.y = bounds.height / 2 - iconSize / 2
-        iconLayer.frame.origin.x = margin
-        
+        iconLayer.frame.origin = CGPoint(x: imageView!.frame.minX + insets.left, y: imageView!.frame.minY + insets.top)
         
         // visualLayer is the layer where pulse layer is expanding.
         // So we position it at the center of iconLayer, and make it
         // small circle, so that the expansion of pulse layer is clipped off
-        let s = margin + iconSize + margin // considering margin as well
-        visualLayer.bounds.size = CGSize(width: s, height: s)
+        let w = iconSize + insets.left + insets.right
+        let h = iconSize + insets.top + insets.bottom
+        let pulseSize = min(w, h)
+        visualLayer.bounds.size = CGSize(width: pulseSize, height: pulseSize)
         visualLayer.frame.center = iconLayer.frame.center
-        visualLayer.cornerRadius = s / 2
+        visualLayer.cornerRadius = pulseSize / 2
     }
     
-    private let margin: CGFloat = 5
-    private let iconSize: CGFloat = 16
+    /// Size of the icon
+    ///
+    /// This property affects `intrinsicContentSize` and `sizeThatFits(_:)`
+    /// Use `iconEdgeInsets` to set margins.
+    open var iconSize: CGFloat = 16 {
+        didSet {
+            reloadImage()
+        }
+    }
+    
+    /// The *outset* margins for the rectangle around the button’s icon.
+    ///
+    /// You can specify a different value for each of the four margins (top, left, bottom, right)
+    /// This property affects `intrinsicContentSize` and `sizeThatFits(_:)` and position of the icon
+    /// within the rectangle.
+    ///
+    /// You can use `iconSize` and this property, or `titleEdgeInsets` and `contentEdgeInsets` to position
+    /// the icon however you want.
+    /// For negative values, behavior is undefined. Default is `5.0` for all four margins
+    open var iconEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5) {
+        didSet {
+            reloadImage()
+        }
+    }
+    
+    
+    /// This might be considered as a hackish way, but it's just manipulation
+    /// UIButton considers size of the `currentImage` to determine `intrinsicContentSize`
+    /// and `sizeThatFits(_:)`, and to position `titleLabel`.
+    /// So, we make use of this property (by setting transparent image) to make room for our icon
+    /// without making much effort (like playing with `titleEdgeInsets` and `contentEdgeInsets`)
+    /// Size of the image equals to `iconSize` plus corresponsing `iconEdgeInsets` values
+    private func reloadImage() {
+        let insets = iconEdgeInsets
+        let w = iconSize + insets.left + insets.right
+        let h = iconSize + insets.top + insets.bottom
+        UIGraphicsBeginImageContext(CGSize(width: w, height: h))
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        self.image = image
+    }
 }
 
 // MARK: - BaseIconLayer
