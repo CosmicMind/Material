@@ -174,9 +174,6 @@
 		96E3C39A1D3A1CC20086A024 /* ErrorTextField.swift in Headers */ = {isa = PBXBuildFile; fileRef = 961F18E71CD93E3E008927C5 /* ErrorTextField.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96E3C39C1D3A1CC20086A024 /* Offset.swift in Headers */ = {isa = PBXBuildFile; fileRef = 968C99461D377849000074FF /* Offset.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96F1A5531F24F17A001D8CAF /* TabsController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96E09DC71F2287E50000B121 /* TabsController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
-		9D13671A2006A8170004DE2D /* DialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1367192006A8170004DE2D /* DialogView.swift */; };
-		9D13671C2006A8D80004DE2D /* DialogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D13671B2006A8D80004DE2D /* DialogController.swift */; };
-		9D13671E2006A9450004DE2D /* DialogBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D13671D2006A9450004DE2D /* DialogBuilder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -288,9 +285,6 @@
 		96E09DC71F2287E50000B121 /* TabsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabsController.swift; sourceTree = "<group>"; };
 		96E3C3931D397AE90086A024 /* Material+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIView.swift"; sourceTree = "<group>"; };
 		96F1DC871D654FDF0025F925 /* Material+CALayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+CALayer.swift"; sourceTree = "<group>"; };
-		9D1367192006A8170004DE2D /* DialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogView.swift; sourceTree = "<group>"; };
-		9D13671B2006A8D80004DE2D /* DialogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogController.swift; sourceTree = "<group>"; };
-		9D13671D2006A9450004DE2D /* DialogBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogBuilder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -529,7 +523,6 @@
 				96BCB8001CB40F0300C806FE /* Color */,
 				96328B9A1E05C135009A4C90 /* Data */,
 				96BCB80B1CB410CC00C806FE /* Device */,
-				9D1367172006A5730004DE2D /* Dialogs */,
 				96230AB61D6A51FD00AF47DC /* Divider */,
 				96BCB80A1CB410A100C806FE /* Extension */,
 				963FBF021D6696D0008F8512 /* FABMenu */,
@@ -734,16 +727,6 @@
 				965532281E47E388005C2792 /* SpringAnimation.swift */,
 			);
 			name = Animation;
-			sourceTree = "<group>";
-		};
-		9D1367172006A5730004DE2D /* Dialogs */ = {
-			isa = PBXGroup;
-			children = (
-				9D1367192006A8170004DE2D /* DialogView.swift */,
-				9D13671B2006A8D80004DE2D /* DialogController.swift */,
-				9D13671D2006A9450004DE2D /* DialogBuilder.swift */,
-			);
-			name = Dialogs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -953,14 +936,12 @@
 				965E81171DD4D5C800D61E4B /* TransitionController.swift in Sources */,
 				965E81181DD4D5C800D61E4B /* Snackbar.swift in Sources */,
 				965E81191DD4D5C800D61E4B /* SnackbarController.swift in Sources */,
-				9D13671C2006A8D80004DE2D /* DialogController.swift in Sources */,
 				9618006D1F4D384200CD77A1 /* Material+UIViewController.swift in Sources */,
 				965E811A1DD4D5C800D61E4B /* StatusBarController.swift in Sources */,
 				965E811B1DD4D5C800D61E4B /* Switch.swift in Sources */,
 				965E811C1DD4D5C800D61E4B /* TabBar.swift in Sources */,
 				965E811D1DD4D5C800D61E4B /* TableViewCell.swift in Sources */,
 				965E811E1DD4D5C800D61E4B /* TextField.swift in Sources */,
-				9D13671E2006A9450004DE2D /* DialogBuilder.swift in Sources */,
 				965E811F1DD4D5C800D61E4B /* ErrorTextField.swift in Sources */,
 				965E81211DD4D5C800D61E4B /* TextStorage.swift in Sources */,
 				965E81221DD4D5C800D61E4B /* TextView.swift in Sources */,
@@ -1001,7 +982,6 @@
 				961E6BDF1DDA2A95004E6C93 /* Application.swift in Sources */,
 				965E80D71DD4C50600D61E4B /* Icon.swift in Sources */,
 				965E80FC1DD4D59500D61E4B /* SearchBarController.swift in Sources */,
-				9D13671A2006A8170004DE2D /* DialogView.swift in Sources */,
 				965E80D81DD4C50600D61E4B /* Layer.swift in Sources */,
 				965E80D91DD4C50600D61E4B /* Layout.swift in Sources */,
 				965E80DA1DD4C50600D61E4B /* Border.swift in Sources */,
