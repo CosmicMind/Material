@@ -1,3 +1,7 @@
+## 2.13.5
+
+* [pr-1019](https://github.com/CosmicMind/Material/pull/1019): Added swipe gesture handling to TabsController.
+
 ## 2.13.4
 
 * [issue-1016](https://github.com/CosmicMind/Material/issues/1016): Updated hierarchy traversal for TransitionController types to no longer skip over non TransitionController types. 
