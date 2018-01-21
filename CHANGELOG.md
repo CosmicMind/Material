@@ -1,6 +1,7 @@
 ## 2.13.5
 
 * [pr-1019](https://github.com/CosmicMind/Material/pull/1019): Added swipe gesture handling to TabsController.
+* Updated to [Motion 1.3.4](https://github.com/CosmicMind/Motion/releases/tag/1.3.4).
 
 ## 2.13.4
 
