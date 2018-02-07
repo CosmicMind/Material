@@ -231,14 +231,14 @@ open class Switch: UIControl {
         didSet {
             switch switchSize {
             case .small:
-                trackThickness = 12
-                buttonDiameter = 18
+                trackThickness = 16
+                buttonDiameter = 20
             case .medium:
-                trackThickness = 18
+                trackThickness = 20
                 buttonDiameter = 24
             case .large:
                 trackThickness = 24
-                buttonDiameter = 32
+                buttonDiameter = 28
             }
             
             frame.size = intrinsicContentSize
@@ -248,11 +248,11 @@ open class Switch: UIControl {
     open override var intrinsicContentSize: CGSize {
         switch switchSize {
         case .small:
-            return CGSize(width: 24, height: 24)
+            return CGSize(width: 34, height: 34)
         case .medium:
-            return CGSize(width: 30, height: 30)
+            return CGSize(width: 38, height: 38)
         case .large:
-            return CGSize(width: 36, height: 36)
+            return CGSize(width: 42, height: 42)
         }
     }
     
