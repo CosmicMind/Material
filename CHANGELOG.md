@@ -1,6 +1,7 @@
 ## 2.13.6
 
 * [issue-841](https://github.com/CosmicMind/Material/issues/841): Adjusted default sizing for Switch to be more like the original sizing.
+* [pr-1030](https://github.com/CosmicMind/Material/pull/1032): Added workaround for known issue where trailing whitespace is apparent in UITextField.
 
 ## 2.13.5
 
