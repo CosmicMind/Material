@@ -415,11 +415,11 @@ open class NavigationDrawerController: TransitionController {
 	
     open override func transition(to viewController: UIViewController, completion: ((Bool) -> Void)? = nil) {
         super.transition(to: viewController) { [weak self, completion = completion] (result) in
-            guard let s = self else {
+            guard let `self` = self else {
                 return
             }
             
-            s.view.sendSubview(toBack: s.contentViewController.view)
+            self.view.sendSubview(toBack: self.contentViewController.view)
             completion?(result)
         }
     }
@@ -524,43 +524,43 @@ open class NavigationDrawerController: TransitionController {
             if hide {
                 UIView.animate(withDuration: duration,
                     animations: { [weak self, v = v] in
-                        guard let s = self else {
+                        guard let `self` = self else {
                             return
                         }
                         
                         v.bounds.size.width = width
                         v.layer.position.x = -width / 2
-                        s.rootViewController.view.alpha = 1
+                        self.rootViewController.view.alpha = 1
                         
                     }) { [weak self, v = v] _ in
-                        guard let s = self else {
+                        guard let `self` = self else {
                             return
                         }
                         
                         v.isShadowPathAutoSizing = true
-                        s.layoutSubviews()
-                        s.hideView(container: v)
+                        self.layoutSubviews()
+                        self.hideView(container: v)
                     }
                 
             } else {
                 UIView.animate(withDuration: duration,
                     animations: { [weak self, v = v] in
-                        guard let s = self else {
+                        guard let `self` = self else {
                             return
                         }
                         
                         v.bounds.size.width = width
                         v.layer.position.x = width / 2
-                        s.rootViewController.view.alpha = 0.5
+                        self.rootViewController.view.alpha = 0.5
                         
                     }) { [weak self, v = v] _ in
-                        guard let s = self else {
+                        guard let `self` = self else {
                             return
                         }
                         
                         v.isShadowPathAutoSizing = true
-                        s.layoutSubviews()
-                        s.showView(container: v)
+                        self.layoutSubviews()
+                        self.showView(container: v)
                     }
             }
         } else {
@@ -610,43 +610,43 @@ open class NavigationDrawerController: TransitionController {
             if hide {
                 UIView.animate(withDuration: duration,
                     animations: { [weak self, v = v] in
-                        guard let s = self else {
+                        guard let `self` = self else {
                             return
                         }
                         
                         v.bounds.size.width = width
-                        v.layer.position.x = s.view.bounds.width + width / 2
-                        s.rootViewController.view.alpha = 1
+                        v.layer.position.x = self.view.bounds.width + width / 2
+                        self.rootViewController.view.alpha = 1
                         
                     }) { [weak self, v = v] _ in
-                        guard let s = self else {
+                        guard let `self` = self else {
                             return
                         }
                         
                         v.isShadowPathAutoSizing = true
-                        s.layoutSubviews()
-                        s.hideView(container: v)
+                        self.layoutSubviews()
+                        self.hideView(container: v)
                     }
                 
             } else {
                 UIView.animate(withDuration: duration,
                     animations: { [weak self, v = v] in
-                        guard let s = self else {
+                        guard let `self` = self else {
                             return
                         }
                         
                         v.bounds.size.width = width
-                        v.layer.position.x = s.view.bounds.width - width / 2
-                        s.rootViewController.view.alpha = 0.5
-                        
+                        v.layer.position.x = self.view.bounds.width - width / 2
+                        self.rootViewController.view.alpha = 0.5
+
                     }) { [weak self, v = v] _ in
-                        guard let s = self else {
+                        guard let `self` = self else {
                             return
                         }
                         
                         v.isShadowPathAutoSizing = true
-                        s.layoutSubviews()
-                        s.showView(container: v)
+                        self.layoutSubviews()
+                        self.showView(container: v)
                     }
             }
         } else {
@@ -719,20 +719,20 @@ open class NavigationDrawerController: TransitionController {
         
         UIView.animate(withDuration: TimeInterval(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.frame.origin.x / velocity)))),
             animations: { [weak self, v = v] in
-                guard let s = self else {
+                guard let `self` = self else {
                     return
                 }
                 
                 v.layer.position.x = v.bounds.width / 2
-                s.rootViewController.view.alpha = 0.5
+                self.rootViewController.view.alpha = 0.5
                 
             }) { [weak self] _ in
-                guard let s = self else {
+                guard let `self` = self else {
                     return
                 }
                 
-                s.isAnimating = false
-                s.delegate?.navigationDrawerController?(navigationDrawerController: s, didOpen: .left)
+                self.isAnimating = false
+                self.delegate?.navigationDrawerController?(navigationDrawerController: self, didOpen: .left)
             }
 	}
 	
@@ -766,21 +766,21 @@ open class NavigationDrawerController: TransitionController {
         
         UIView.animate(withDuration: TimeInterval(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.frame.origin.x / velocity)))),
             animations: { [weak self, v = v] in
-                guard let s = self else {
+                guard let `self` = self else {
                     return
                 }
                 
-                v.layer.position.x = s.view.bounds.width - v.bounds.width / 2
-                s.rootViewController.view.alpha = 0.5
+                v.layer.position.x = self.view.bounds.width - v.bounds.width / 2
+                self.rootViewController.view.alpha = 0.5
                 
             }) { [weak self] _ in
-                guard let s = self else {
+                guard let `self` = self else {
                     return
                 }
                 
-                s.isAnimating = false
+                self.isAnimating = false
                 
-                s.delegate?.navigationDrawerController?(navigationDrawerController: s, didOpen: .right)
+                self.delegate?.navigationDrawerController?(navigationDrawerController: self, didOpen: .right)
             }
 	}
 	
@@ -809,25 +809,25 @@ open class NavigationDrawerController: TransitionController {
         
         UIView.animate(withDuration: TimeInterval(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.frame.origin.x / velocity)))),
             animations: { [weak self, v = v] in
-                guard let s = self else {
+                guard let `self` = self else {
                     return
                 }
                 
                 v.layer.position.x = -v.bounds.width / 2
-                s.rootViewController.view.alpha = 1
+                self.rootViewController.view.alpha = 1
                 
             }) { [weak self, v = v] _ in
-                guard let s = self else {
+                guard let `self` = self else {
                     return
                 }
                 
-                s.hideView(container: v)
-                s.toggleStatusBar()
+                self.hideView(container: v)
+                self.toggleStatusBar()
                 
-                s.isAnimating = false
-                s.isUserInteractionEnabled = true
+                self.isAnimating = false
+                self.isUserInteractionEnabled = true
                 
-                s.delegate?.navigationDrawerController?(navigationDrawerController: s, didClose: .left)
+                self.delegate?.navigationDrawerController?(navigationDrawerController: self, didClose: .left)
             }
 	}
 	
@@ -856,25 +856,25 @@ open class NavigationDrawerController: TransitionController {
         
         UIView.animate(withDuration: TimeInterval(0 == velocity ? animationDuration : fmax(0.1, fmin(1, Double(v.frame.origin.x / velocity)))),
             animations: { [weak self, v = v] in
-                guard let s = self else {
+                guard let `self` = self else {
                     return
                 }
                 
-                v.layer.position.x = s.view.bounds.width + v.bounds.width / 2
-                s.rootViewController.view.alpha = 1
+                v.layer.position.x = self.view.bounds.width + v.bounds.width / 2
+                self.rootViewController.view.alpha = 1
                 
             }) { [weak self, v = v] _ in
-                guard let s = self else {
+                guard let `self` = self else {
                     return
                 }
                 
-                s.hideView(container: v)
-                s.toggleStatusBar()
+                self.hideView(container: v)
+                self.toggleStatusBar()
                 
-                s.isAnimating = false
-                s.isUserInteractionEnabled = true
+                self.isAnimating = false
+                self.isUserInteractionEnabled = true
                 
-                s.delegate?.navigationDrawerController?(navigationDrawerController: s, didClose: .right)
+                self.delegate?.navigationDrawerController?(navigationDrawerController: self, didClose: .right)
             }
 	}
 	
@@ -934,17 +934,17 @@ open class NavigationDrawerController: TransitionController {
 	/// Shows the statusBar.
 	fileprivate func showStatusBar() {
         Motion.async { [weak self] in
-            guard let s = self else {
-                return
-            }
-            
             guard let v = Application.keyWindow else {
                 return
             }
             
             v.windowLevel = UIWindowLevelNormal
             
-            s.delegate?.navigationDrawerController?(navigationDrawerController: s, statusBar: false)
+            guard let `self` = self else {
+                return
+            }
+            
+            self.delegate?.navigationDrawerController?(navigationDrawerController: self, statusBar: false)
         }
 	}
 	
@@ -955,17 +955,17 @@ open class NavigationDrawerController: TransitionController {
         }
         
         Motion.async { [weak self] in
-            guard let s = self else {
-                return
-            }
-            
             guard let v = Application.keyWindow else {
                 return
             }
             
             v.windowLevel = UIWindowLevelStatusBar + 1
             
-            s.delegate?.navigationDrawerController?(navigationDrawerController: s, statusBar: true)
+            guard let `self` = self else {
+                return
+            }
+            
+            self.delegate?.navigationDrawerController?(navigationDrawerController: self, statusBar: true)
         }
 	}
 	

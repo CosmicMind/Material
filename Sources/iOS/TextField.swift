@@ -744,13 +744,13 @@ extension TextField {
         }
 
         UIView.animate(withDuration: 0.15, animations: { [weak self] in
-            guard let s = self else {
+            guard let `self` = self else {
                 return
             }
 
-            s.placeholderLabel.transform = CGAffineTransform.identity
-            s.placeholderLabel.frame.origin.x = s.leftViewWidth + s.textInset
-            s.placeholderLabel.frame.origin.y = 0
+            self.placeholderLabel.transform = CGAffineTransform.identity
+            self.placeholderLabel.frame.origin.x = s.leftViewWidth + s.textInset
+            self.placeholderLabel.frame.origin.y = 0
         })
     }
 }

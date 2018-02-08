@@ -107,11 +107,11 @@ extension FABMenuItem {
         titleLabel.isHidden = false
         
         UIView.animate(withDuration: 0.25, animations: { [weak self] in
-            guard let s = self else {
+            guard let `self` = self else {
                 return
             }
             
-            s.titleLabel.alpha = 1
+            `self`.titleLabel.alpha = 1
         })
     }
     
@@ -365,18 +365,18 @@ extension FABMenu {
         }
         
         spring.expand(duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations) { [weak self, isTriggeredByUserInteraction = isTriggeredByUserInteraction, completion = completion] (view) in
-            guard let s = self else {
+            guard let `self` = self else {
                 return
             }
             
             (view as? FABMenuItem)?.showTitleLabel()
             
-            if isTriggeredByUserInteraction && view == s.fabMenuItems.last {
-                s.delegate?.fabMenuDidOpen?(fabMenu: s)
+            if isTriggeredByUserInteraction && view == self.fabMenuItems.last {
+                self.delegate?.fabMenuDidOpen?(fabMenu: self)
             }
             
             completion?(view)
-            s.handleCompletionCallback?(view)
+            self.handleCompletionCallback?(view)
         }
     }
     
@@ -414,18 +414,18 @@ extension FABMenu {
         }
         
         spring.contract(duration: duration, delay: delay, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: initialSpringVelocity, options: options, animations: animations) { [weak self, isTriggeredByUserInteraction = isTriggeredByUserInteraction, completion = completion] (view) in
-            guard let s = self else {
+            guard let `self` = self else {
                 return
             }
             
             (view as? FABMenuItem)?.hideTitleLabel()
             
-            if isTriggeredByUserInteraction && view == s.fabMenuItems.last {
-                s.delegate?.fabMenuDidClose?(fabMenu: s)
+            if isTriggeredByUserInteraction && view == self.fabMenuItems.last {
+                self.delegate?.fabMenuDidClose?(fabMenu: self)
             }
             
             completion?(view)
-            s.handleCompletionCallback?(view)
+            self.handleCompletionCallback?(view)
         }
     }
 }
