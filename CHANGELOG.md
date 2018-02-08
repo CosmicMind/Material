@@ -1,3 +1,7 @@
+## 2.13.6
+
+* [issue-841](https://github.com/CosmicMind/Material/issues/841): Adjusted default sizing for Switch to be more like the original sizing.
+
 ## 2.13.5
 
 * [pr-1019](https://github.com/CosmicMind/Material/pull/1019): Added swipe gesture handling to TabsController.
