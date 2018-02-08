@@ -644,6 +644,13 @@ fileprivate extension TextField {
     func handleVisibilityIconButton() {
         isSecureTextEntry = !isSecureTextEntry
 
+        /// Workaround: Reassign text to reset cursor
+        /// This is a known issue with UITextField
+        /// Source: https://stackoverflow.com/questions/14220187/uitextfield-has-trailing-whitespace-after-securetextentry-toggle
+        let textHolder = text
+        text = " "
+        text = textHolder
+
         UIView.transition(
             with: (visibilityIconButton?.imageView)!,
             duration: 0.3,
