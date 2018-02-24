@@ -174,6 +174,10 @@
 		96E3C39A1D3A1CC20086A024 /* ErrorTextField.swift in Headers */ = {isa = PBXBuildFile; fileRef = 961F18E71CD93E3E008927C5 /* ErrorTextField.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96E3C39C1D3A1CC20086A024 /* Offset.swift in Headers */ = {isa = PBXBuildFile; fileRef = 968C99461D377849000074FF /* Offset.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		96F1A5531F24F17A001D8CAF /* TabsController.swift in Headers */ = {isa = PBXBuildFile; fileRef = 96E09DC71F2287E50000B121 /* TabsController.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		9D0029C2202C92800090BD34 /* HeaderPickerContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0029C0202C92800090BD34 /* HeaderPickerContainer.swift */; };
+		9D0029C3202C92800090BD34 /* TimePickerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0029C1202C92800090BD34 /* TimePickerHeaderView.swift */; };
+		9D08847020177B4D00938D6E /* TimePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D08846F20177B4D00938D6E /* TimePickerView.swift */; };
+		9D08847320177BD700938D6E /* TimePickerDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D08847220177BD700938D6E /* TimePickerDialogView.swift */; };
 		9D13671A2006A8170004DE2D /* DialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1367192006A8170004DE2D /* DialogView.swift */; };
 		9D13671C2006A8D80004DE2D /* DialogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D13671B2006A8D80004DE2D /* DialogController.swift */; };
 		9D13671E2006A9450004DE2D /* DialogBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D13671D2006A9450004DE2D /* DialogBuilder.swift */; };
@@ -288,6 +292,10 @@
 		96E09DC71F2287E50000B121 /* TabsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabsController.swift; sourceTree = "<group>"; };
 		96E3C3931D397AE90086A024 /* Material+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+UIView.swift"; sourceTree = "<group>"; };
 		96F1DC871D654FDF0025F925 /* Material+CALayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Material+CALayer.swift"; sourceTree = "<group>"; };
+		9D0029C0202C92800090BD34 /* HeaderPickerContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderPickerContainer.swift; sourceTree = "<group>"; };
+		9D0029C1202C92800090BD34 /* TimePickerHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimePickerHeaderView.swift; sourceTree = "<group>"; };
+		9D08846F20177B4D00938D6E /* TimePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerView.swift; sourceTree = "<group>"; };
+		9D08847220177BD700938D6E /* TimePickerDialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerDialogView.swift; sourceTree = "<group>"; };
 		9D1367192006A8170004DE2D /* DialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogView.swift; sourceTree = "<group>"; };
 		9D13671B2006A8D80004DE2D /* DialogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogController.swift; sourceTree = "<group>"; };
 		9D13671D2006A9450004DE2D /* DialogBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogBuilder.swift; sourceTree = "<group>"; };
@@ -546,6 +554,7 @@
 				963FBEFB1D6694E8008F8512 /* Snackbar */,
 				967A48171D0F424B00B8CEB7 /* StatusBar */,
 				968C99421D36EC9E000074FF /* Switch */,
+				9D08846E20177B1600938D6E /* Pickers */,
 				963FBF011D6696AB008F8512 /* Tab */,
 				966ECF2B1CF4C21B00BB0BDF /* Table */,
 				96090B031D9D709E00709CA6 /* Text */,
@@ -734,6 +743,25 @@
 				965532281E47E388005C2792 /* SpringAnimation.swift */,
 			);
 			name = Animation;
+			sourceTree = "<group>";
+		};
+		9D0029BF202C92660090BD34 /* TimePicker */ = {
+			isa = PBXGroup;
+			children = (
+				9D0029C0202C92800090BD34 /* HeaderPickerContainer.swift */,
+				9D0029C1202C92800090BD34 /* TimePickerHeaderView.swift */,
+				9D08846F20177B4D00938D6E /* TimePickerView.swift */,
+				9D08847220177BD700938D6E /* TimePickerDialogView.swift */,
+			);
+			name = TimePicker;
+			sourceTree = "<group>";
+		};
+		9D08846E20177B1600938D6E /* Pickers */ = {
+			isa = PBXGroup;
+			children = (
+				9D0029BF202C92660090BD34 /* TimePicker */,
+			);
+			name = Pickers;
 			sourceTree = "<group>";
 		};
 		9D1367172006A5730004DE2D /* Dialogs */ = {
@@ -963,6 +991,7 @@
 				9D13671E2006A9450004DE2D /* DialogBuilder.swift in Sources */,
 				965E811F1DD4D5C800D61E4B /* ErrorTextField.swift in Sources */,
 				965E81211DD4D5C800D61E4B /* TextStorage.swift in Sources */,
+				9D08847020177B4D00938D6E /* TimePickerView.swift in Sources */,
 				965E81221DD4D5C800D61E4B /* TextView.swift in Sources */,
 				965E80E71DD4C55200D61E4B /* Material+UIView.swift in Sources */,
 				965E80E81DD4C55200D61E4B /* Material+CALayer.swift in Sources */,
@@ -992,8 +1021,10 @@
 				96A183631E0C6CE200083C30 /* FABMenu.swift in Sources */,
 				965E80D11DD4C50600D61E4B /* IconButton.swift in Sources */,
 				965E80D21DD4C50600D61E4B /* Color.swift in Sources */,
+				9D0029C3202C92800090BD34 /* TimePickerHeaderView.swift in Sources */,
 				96BFC1541E5E486F0075DE1F /* SpringAnimation.swift in Sources */,
 				965E80D31DD4C50600D61E4B /* Device.swift in Sources */,
+				9D08847320177BD700938D6E /* TimePickerDialogView.swift in Sources */,
 				965E80FD1DD4D59500D61E4B /* Toolbar.swift in Sources */,
 				965E80D41DD4C50600D61E4B /* Divider.swift in Sources */,
 				965E80D51DD4C50600D61E4B /* Grid.swift in Sources */,
@@ -1014,6 +1045,7 @@
 				965E80E01DD4C50600D61E4B /* Shape.swift in Sources */,
 				965E80E11DD4C50600D61E4B /* Offset.swift in Sources */,
 				965E80E21DD4C50600D61E4B /* View.swift in Sources */,
+				9D0029C2202C92800090BD34 /* HeaderPickerContainer.swift in Sources */,
 				96328B7A1E020A41009A4C90 /* CollectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
