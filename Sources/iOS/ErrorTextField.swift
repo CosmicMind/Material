@@ -37,9 +37,14 @@ open class ErrorTextField: TextField {
         didSet {
             detailLabel.isHidden = !isErrorRevealed
             layoutSubviews()
+
+            if let detail = detailLabel.text, isErrorRevealed {
+              // Announce what is happening to VoiceOver users
+              UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, detail)
+            }
         }
     }
-    
+
     open override func prepare() {
         super.prepare()
         isErrorRevealed = false
