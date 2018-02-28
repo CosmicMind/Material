@@ -217,10 +217,13 @@ fileprivate extension TabsController {
             return
         }
 
+        var isAuto = false
+        
         switch motionTransitionType {
         case .auto:
             switch viewController.motionTransitionType {
             case .auto:
+                isAuto = true
                 MotionTransition.shared.setAnimationForNextTransition(fvcIndex < tvcIndex ? .slide(direction: .left) : .slide(direction: .right))
             default:break
             }
@@ -234,6 +237,10 @@ fileprivate extension TabsController {
         super.transition(to: viewController) { [weak self, viewController = viewController, completion = completion] (isFinishing) in
             guard let s = self else {
                 return
+            }
+            
+            if isAuto {
+                MotionTransition.shared.setAnimationForNextTransition(.auto)
             }
             
             completion?(isFinishing)

@@ -1,3 +1,7 @@
+## 2.13.7 (development)
+
+* Updated TabsController to no longer force the default animation to change between tabs and not return to normal behavior.  
+
 ## 2.13.6
 
 * [issue-841](https://github.com/CosmicMind/Material/issues/841): Adjusted default sizing for Switch to be more like the original sizing.
