@@ -358,6 +358,7 @@ fileprivate extension TabBar {
             let p = q + tabItemsInterimSpace
             
             for v in tabItems {
+                v.sizeToFit()
                 let x = v.sizeThatFits(CGSize(width: .greatestFiniteMagnitude, height: scrollView.bounds.height)).width
                 v.frame.size.height = scrollView.bounds.height
                 v.frame.size.width = x + q

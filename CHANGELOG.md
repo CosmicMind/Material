@@ -1,6 +1,9 @@
-## 2.13.7 (development)
+## 2.13.7
 
 * Updated TabsController to no longer force the default animation to change between tabs and not return to normal behavior.  
+* [issue-1044](https://github.com/CosmicMind/Material/issues/1044#issuecomment-371061101): Fixed issue where TabBar items were not correctly laying out. 
+
+>>>>>>> master
 
 ## 2.13.6
 
