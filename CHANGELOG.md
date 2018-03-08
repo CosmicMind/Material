@@ -1,3 +1,8 @@
+## 2.13.7
+
+* [issue-1044](https://github.com/CosmicMind/Material/issues/1044#issuecomment-371061101): Fixed issue where TabBar items were not correctly laying out. 
+
+
 ## 2.13.6
 
 * [issue-841](https://github.com/CosmicMind/Material/issues/841): Adjusted default sizing for Switch to be more like the original sizing.
