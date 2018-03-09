@@ -139,6 +139,14 @@ extension FABMenuItem {
 
 @objc(FABMenuDelegate)
 public protocol FABMenuDelegate {
+    
+    /**
+    A delegation method that is executed to determine whether fabMenu should open.
+    - Parameter fabMenu: A FABMenu.
+    */
+    @objc
+    optional func fabMenuShouldOpen(fabMenu: FABMenu) -> Bool
+    
     /**
      A delegation method that is execited when the fabMenu will open.
      - Parameter fabMenu: A FABMenu.
@@ -152,6 +160,13 @@ public protocol FABMenuDelegate {
      */
     @objc
     optional func fabMenuDidOpen(fabMenu: FABMenu)
+    
+    /**
+    A delegation method that is executed to determine whether fabMenu should close.
+    - Parameter fabMenu: A FABMenu.
+    */
+    @objc
+    optional func fabMenuShouldClose(fabMenu: FABMenu) -> Bool
     
     /**
      A delegation method that is execited when the fabMenu will close.
@@ -358,6 +373,10 @@ extension FABMenu {
      - Parameter completion: A completion block to execute on each view's animation.
      */
     open func open(isTriggeredByUserInteraction: Bool, duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
+        if delegate?.fabMenuShouldOpen?(fabMenu: self) == false {
+            return
+        }
+        
         handleOpenCallback?()
         
         if isTriggeredByUserInteraction {
@@ -407,6 +426,10 @@ extension FABMenu {
      - Parameter completion: A completion block to execute on each view's animation.
      */
     open func close(isTriggeredByUserInteraction: Bool, duration: TimeInterval = 0.15, delay: TimeInterval = 0, usingSpringWithDamping: CGFloat = 0.5, initialSpringVelocity: CGFloat = 0, options: UIViewAnimationOptions = [], animations: ((UIView) -> Void)? = nil, completion: ((UIView) -> Void)? = nil) {
+        if delegate?.fabMenuShouldClose?(fabMenu: self) == false {
+            return
+        }
+        
         handleCloseCallback?()
         
         if isTriggeredByUserInteraction {
