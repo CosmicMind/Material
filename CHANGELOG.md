@@ -1,3 +1,8 @@
+## 2.14.0
+
+* [issue-995](https://github.com/CosmicMind/Material/issues/995): Updated iOS 11 layout margins for NavigationBar.
+* [pr-1038](https://github.com/CosmicMind/Material/pull/1038): Merged PR for iOS 11 layout margins fix. 
+
 ## 2.13.7
 
 * Updated TabsController to no longer force the default animation to change between tabs and not return to normal behavior.  

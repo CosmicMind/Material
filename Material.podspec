@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 	s.name = 'Material'
-	s.version = '2.13.7'
+	s.version = '2.14.0'
 	s.license = 'BSD-3-Clause'
 	s.summary = 'A UI/UX framework for creating beautiful applications.'
 	s.homepage = 'http://cosmicmind.com'

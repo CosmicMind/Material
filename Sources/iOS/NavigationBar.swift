@@ -44,7 +44,7 @@ open class NavigationBar: UINavigationBar {
   }
   
   /// A preset wrapper around contentEdgeInsets.
-  open var contentEdgeInsetsPreset = EdgeInsetsPreset.none {
+  open var contentEdgeInsetsPreset = EdgeInsetsPreset.square1 {
     didSet {
       contentEdgeInsets = EdgeInsetsPresetToValue(preset: contentEdgeInsetsPreset)
     }
@@ -52,7 +52,7 @@ open class NavigationBar: UINavigationBar {
   
   /// A reference to EdgeInsets.
   @IBInspectable
-  open var contentEdgeInsets = EdgeInsets.zero {
+  open var contentEdgeInsets = EdgeInsetsPresetToValue(preset: .square1) {
     didSet {
       layoutSubviews()
     }
@@ -67,7 +67,7 @@ open class NavigationBar: UINavigationBar {
   
   /// A wrapper around grid.interimSpace.
   @IBInspectable
-  open var interimSpace: InterimSpace = 0 {
+  open var interimSpace = InterimSpacePresetToValue(preset: .interimSpace3) {
     didSet {
       layoutSubviews()
     }
@@ -137,8 +137,8 @@ open class NavigationBar: UINavigationBar {
     //iOS 11 added left/right layout margin in subviews of UINavigationBar
     //since we do not want to unsafely access private view directly
     //iterate subviews to set `layoutMargin` to zero
-    for view in subviews {
-      view.layoutMargins = .zero
+    for v in subviews {
+      v.layoutMargins = .zero
     }
     
     if let v = topItem {
@@ -148,6 +148,7 @@ open class NavigationBar: UINavigationBar {
     if let v = backItem {
       layoutNavigationItem(item: v)
     }
+    
     layoutDivider()
   }
   
@@ -163,8 +164,6 @@ open class NavigationBar: UINavigationBar {
     isTranslucent = false
     depthPreset = .none
     contentScaleFactor = Screen.scale
-    contentEdgeInsetsPreset = .none
-    interimSpacePreset = .none
     backButtonImage = Icon.cm.arrowBack
     
     if #available(iOS 11, *) {
